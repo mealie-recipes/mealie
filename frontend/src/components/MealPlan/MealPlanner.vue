@@ -8,24 +8,24 @@
     <NewMeal v-else @created="requestMeals" />
 
     <v-card class="my-1">
-      <v-card-title class="accent white--text"> Meal Plans </v-card-title>
+      <v-card-title class="secondary white--text"> Meal Plans </v-card-title>
 
       <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
         <v-timeline-item
-          class="px-1"
+          class="mx-4"
           v-for="(mealplan, i) in plannedMeals"
           :key="i"
           color="accent lighten-2"
           icon="mdi-silverware-variant"
           fill-dot
         >
-          <v-card color="accent lighten-2" dark>
-            <v-card-title class="title">
+          <v-card>
+            <v-card-title class="white--text secondary lighten-1">
               {{ formatDate(mealplan.startDate) }} -
               {{ formatDate(mealplan.endDate) }}
             </v-card-title>
 
-            <v-card-text class="white text--primary">
+            <v-card-text>
               <v-row dense align="center">
                 <v-col></v-col>
                 <v-col
@@ -42,22 +42,24 @@
                 </v-col>
                 <v-col></v-col>
               </v-row>
-              <v-btn
-                color="accent lighten-2"
-                class="mx-0"
-                outlined
-                @click="editPlan(mealplan.uid)"
-              >
-                Edit
-              </v-btn>
-              <v-btn
-                color="error lighten-2"
-                class="mx-2"
-                outlined
-                @click="deletePlan(mealplan.uid)"
-              >
-                Delete
-              </v-btn>
+              <v-row class="mt-2 ml-1">
+                <v-btn
+                  color="accent lighten-2"
+                  class="mx-0"
+                  text
+                  @click="editPlan(mealplan.uid)"
+                >
+                  Edit
+                </v-btn>
+                <v-btn
+                  color="error lighten-2"
+                  class="mx-2"
+                  text
+                  @click="deletePlan(mealplan.uid)"
+                >
+                  Delete
+                </v-btn>
+              </v-row>
             </v-card-text>
           </v-card>
         </v-timeline-item>

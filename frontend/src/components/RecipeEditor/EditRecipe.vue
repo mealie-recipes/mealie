@@ -22,7 +22,6 @@
         <v-col sm="5">
           <v-text-field
             label="Servings"
-            color="accent darken-1"
             v-model="value.recipeYield"
           >
           </v-text-field>
@@ -30,8 +29,8 @@
         <v-col></v-col>
         <v-rating
           class="mr-2 align-end"
-          color="accent darken-1"
-          background-color="accent lighten-3"
+          color="secondary darken-1"
+          background-color="secondary lighten-3"
           length="5"
           v-model="value.rating"
         ></v-rating>

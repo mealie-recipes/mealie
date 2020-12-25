@@ -6,8 +6,11 @@ theme:
   features:
     - navigation.instant
 markdown_extensions:
+  - def_list
   - pymdownx.highlight
   - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - admonition
 extra_css:
   - stylesheets/custom.css

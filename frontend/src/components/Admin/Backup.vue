@@ -1,6 +1,8 @@
 <template>
   <v-card :loading="backupLoading" class="mt-3">
-    <v-card-title class="card-title"> Backup and Exports </v-card-title>
+    <v-card-title class="secondary white--text">
+      Backup and Exports
+    </v-card-title>
     <v-card-text>
       <p>
         Backups are exported in standard JSON format along with all the images

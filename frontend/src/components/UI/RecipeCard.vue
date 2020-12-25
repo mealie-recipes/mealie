@@ -13,8 +13,8 @@
           <v-col>
             <v-rating
               class="mr-2"
-              color="accent"
-              background-color="accent lighten-3"
+              color="secondary"
+              background-color="secondary lighten-3"
               dense
               length="5"
               size="15"

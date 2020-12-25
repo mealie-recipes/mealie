@@ -20,11 +20,11 @@
     </v-dialog>
     <v-speed-dial v-model="fab" fixed right bottom open-on-hover>
       <template v-slot:activator>
-        <v-btn v-model="fab" color="secondary" dark fab @click="navCreate">
+        <v-btn v-model="fab" color="accent" dark fab @click="navCreate">
           <v-icon> mdi-plus </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small color="success" @click="addRecipe = true">
+      <v-btn fab dark small color="primary" @click="addRecipe = true">
         <v-icon>mdi-link</v-icon>
       </v-btn>
     </v-speed-dial>

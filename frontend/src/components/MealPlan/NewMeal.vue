@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="accent white--text">
+    <v-card-title class="secondary white--text">
       Create a New Meal Plan
     </v-card-title>
     <v-card-text>

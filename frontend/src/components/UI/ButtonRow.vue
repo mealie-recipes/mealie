@@ -9,11 +9,11 @@
         <v-btn class="mr-2" fab dark small color="success" @click="save">
           <v-icon>mdi-content-save</v-icon>
         </v-btn>
-        <v-btn class="mr-5" fab dark small color="accent" @click="json">
+        <v-btn class="mr-5" fab dark small color="secondary" @click="json">
           <v-icon>mdi-code-braces</v-icon>
         </v-btn>
       </div>
-      <v-btn color="secondary" fab dark small @click="editor">
+      <v-btn color="accent" fab dark small @click="editor">
         <v-icon>mdi-square-edit-outline</v-icon>
       </v-btn>
     </template>

@@ -1,5 +1,6 @@
 from scrape_schema_recipe import scrape_url
 from slugify import slugify
+from utils.logger import logger
 
 from services.image_services import scrape_image
 from services.recipe_services import Recipe
@@ -14,6 +15,7 @@ def create_from_url(url: str) -> dict:
 
 def process_recipe_url(url: str) -> dict:
     new_recipe: dict = scrape_url(url, python_objects=True)[0]
+    logger.info(f"Recipe Scraped From Web: {new_recipe}")
 
     if not new_recipe:
         return "fail"  # TODO: Return Better Error Here

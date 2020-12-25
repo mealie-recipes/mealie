@@ -17,7 +17,7 @@
 
                 <v-card-actions>
                   <v-btn
-                    color="accent"
+                    color="secondary"
                     text
                     @click="$router.push(`/recipe/${meal.slug}`)"
                   >

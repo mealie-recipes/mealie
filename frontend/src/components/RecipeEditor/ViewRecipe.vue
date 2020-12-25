@@ -16,7 +16,7 @@
             type="label"
             :ripple="false"
             elevation="0"
-            color="accent darken-1"
+            color="secondary darken-1"
             class="rounded-sm static"
           >
             {{ yields }}
@@ -24,8 +24,8 @@
         </v-col>
         <v-rating
           class="mr-2 align-end static"
-          color="accent darken-1"
-          background-color="accent lighten-3"
+          color="secondary darken-1"
+          background-color="secondary lighten-3"
           length="5"
           :value="rating"
         ></v-rating>
@@ -41,7 +41,7 @@
               hide-details
               class="ingredients"
               :label="ingredient"
-              color="accent"
+              color="secondary"
             >
             </v-checkbox>
           </div>
@@ -117,7 +117,7 @@
           :ripple="false"
           elevation="0"
           :href="orgURL"
-          color="accent darken-1"
+          color="secondary darken-1"
           target="_blank"
           class="rounded-sm mr-4"
         >

@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="card-title mt-1"> Theme Settings </v-card-title>
+    <v-card-title class="secondary white--text"> Theme Settings </v-card-title>
     <v-card-text>
       <p>
         Select a theme from the dropdown or create a new theme. Note that the
@@ -45,13 +45,13 @@
           <ColorPicker button-text="Primary" v-model="activeTheme.primary" />
         </v-col>
         <v-col>
-          <ColorPicker button-text="Accent" v-model="activeTheme.accent" />
-        </v-col>
-        <v-col>
           <ColorPicker
             button-text="Secondary"
             v-model="activeTheme.secondary"
           />
+        </v-col>
+        <v-col>
+          <ColorPicker button-text="Accent" v-model="activeTheme.accent" />
         </v-col>
         <v-col>
           <ColorPicker button-text="Success" v-model="activeTheme.success" />

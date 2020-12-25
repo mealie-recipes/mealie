@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="accent white--text"> Edit Meal Plan </v-card-title>
+    <v-card-title class="secondary white--text"> Edit Meal Plan </v-card-title>
     <v-card-text> </v-card-text>
 
     <v-card-text>
@@ -32,7 +32,6 @@ export default {
       return utils.getDateAsPythonDate(dateObject);
     },
     async update() {
-      this.process();
       await api.mealPlans.update(this.mealPlan.uid, this.mealPlan);
       this.$emit("updated");
     },

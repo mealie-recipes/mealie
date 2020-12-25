@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="card-title mt-1"> Meal Planner Webhooks </v-card-title>
+    <v-card-title class="secondary white--text mt-1">
+      Meal Planner Webhooks
+    </v-card-title>
     <v-card-text>
       <p>
         The URLs listed below will recieve webhooks containing the recipe data
