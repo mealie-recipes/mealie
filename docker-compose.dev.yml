@@ -1,0 +1,53 @@
+# Use root/example as user/password credentials
+version: "3.1"
+services:
+  # Vue Frontend
+  mealie:
+    build:
+      context: ./frontend
+      dockerfile: frontend.Dockerfile
+    container_name: mealie_frontend
+    restart: always
+    ports:
+      - 9920:8080
+    volumes:
+      - ./frontend:/app
+
+  # Fast API
+  mealie-api:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    container_name: mealie-api
+    restart: always
+    ports:
+      - 9921:9000
+    environment:
+      TZ: America/Anchorage # Specify Correct Timezone for Date/Time to line up correctly.
+      db_username: root
+      db_password: example
+      db_host: mongo
+      db_port: 27017
+    volumes:
+      - ./mealie:/app
+
+  # Database
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 9923:27017
+    environment:
+      TZ: America/Anchorage # Specify Correct Timezone for Date/Time to line up correctly.
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  # Database UI
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 9922:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example

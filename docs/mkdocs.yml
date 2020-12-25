@@ -1,0 +1,15 @@
+site_name: Mealie
+theme:
+  name: material
+  icon:
+    logo: material/silverware-variant
+  features:
+    - navigation.instant
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - admonition
+extra_css:
+  - stylesheets/custom.css
+repo_url: https://github.com/hay-kot/mealie
+repo_name: hay-kot/mealie
