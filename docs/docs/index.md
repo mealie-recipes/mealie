@@ -22,7 +22,7 @@ Melaie also provides a secure API for interactions from 3rd party applications. 
     In some of the demo gifs the styling may be different than the finale application. demos were done during development prior to finale styling.
 
 !!! warning
-    Note that this is a **BETA** release and that means things may break and or change down the line. I'll do my best to make sure that any API changes are thoughtful and necessary in order not to break things. Additionally, I'll do my best to provide a migration path if the database schema ever changes. That said, one of the nice things about MongoDB is that it's flexible!
+    Note that this is a **ALPHA** release and that means things may break and or change down the line. I'll do my best to make sure that any API changes are thoughtful and necessary in order not to break things. Additionally, I'll do my best to provide a migration path if the database schema ever changes. That said, one of the nice things about MongoDB is that it's flexible!
 
 
 
