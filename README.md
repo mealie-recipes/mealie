@@ -4,8 +4,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
-
+[![Docker Pulls][docker-pull]][docker-pull]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -31,8 +30,11 @@
 </p>
 
 
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
+
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
@@ -81,6 +83,7 @@ Melaie also provides a secure API for interactions from 3rd party applications. 
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
+<a href="https://www.buymeacoffee.com/haykot" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 <!-- LICENSE -->
 ## License
@@ -107,6 +110,7 @@ Project Link: [https://github.com/hay-kot/mealie](https://github.com/hay-kot/mea
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/hay-kot/mealie.svg?style=flat-square
+[docker-pull]: https://img.shields.io/docker/pulls/hkotel/mealie
 [contributors-url]: https://github.com/hay-kot/mealie/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/hay-kot/mealie.svg?style=flat-square
 [forks-url]: https://github.com/hay-kot/mealie/network/members
