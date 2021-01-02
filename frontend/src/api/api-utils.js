@@ -2,13 +2,17 @@ const baseURL = "/api/";
 import axios from "axios";
 import store from "../store/store";
 
+// look for data.snackbar in response
 function processResponse(response) {
-  if (("data" in response) & ("snackbar" in response.data)) {
+  try {
     store.commit("setSnackBar", {
       text: response.data.snackbar.text,
       type: response.data.snackbar.type,
     });
-  } else return;
+  } catch (err) {
+    return;
+  }
+  return;
 }
 
 const apiReq = {

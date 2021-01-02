@@ -24,6 +24,7 @@ async def get_all_recipes(
 async def get_recipe(recipe_slug: str):
     """ Takes in a recipe slug, returns all data for a recipe """
     recipe = Recipe.get_by_slug(recipe_slug)
+    
     return recipe
 
 

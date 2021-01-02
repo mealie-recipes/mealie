@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from routes import (
     backup_routes,
     meal_routes,
+    migration_routes,
     recipe_routes,
     setting_routes,
     static_routes,
@@ -31,6 +32,7 @@ app.include_router(meal_routes.router)
 app.include_router(setting_routes.router)
 app.include_router(backup_routes.router)
 app.include_router(user_routes.router)
+app.include_router(migration_routes.router)
 
 # API 404 Catch all CALL AFTER ROUTERS
 @app.get("/api/{full_path:path}", status_code=404, include_in_schema=False)
