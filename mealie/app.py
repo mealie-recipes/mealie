@@ -4,6 +4,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+import startup
 from routes import (
     backup_routes,
     meal_routes,
@@ -41,6 +42,9 @@ def invalid_api():
 
 
 app.include_router(static_routes.router)
+
+startup.ensure_dirs()
+startup.generate_default_theme()
 
 
 if __name__ == "__main__":

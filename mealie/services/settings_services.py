@@ -1,10 +1,13 @@
 import json
 from typing import List, Optional
 
-from db.settings_models import (SiteSettingsDocument, SiteThemeDocument,
-                                ThemeColorsDocument, WebhooksDocument)
+from db.settings_models import (
+    SiteSettingsDocument,
+    SiteThemeDocument,
+    ThemeColorsDocument,
+    WebhooksDocument,
+)
 from pydantic import BaseModel
-
 
 
 class Webhooks(BaseModel):

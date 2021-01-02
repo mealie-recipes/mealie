@@ -5,7 +5,7 @@ RUN npm install
 COPY ./frontend/ .
 RUN npm run build
 
-FROM python:3
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
 
 RUN apt-get update -y && \
     apt-get install -y python-pip python-dev
@@ -21,6 +21,4 @@ COPY ./mealie /app
 COPY --from=build-stage /app/dist /app/dist
 
 
-ENTRYPOINT [ "python" ]
-# TODO Reconfigure Command to start a Gunicorn Server that managed the Uvicorn Server. Also Learn how to do that :-/
-CMD [ "app.py" ] 
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "9000"]
