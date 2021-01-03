@@ -29,6 +29,18 @@ def pull_repo(repo):
 
 
 def read_chowdown_file(recipe_file: Path) -> Recipe:
+    """Parse through the yaml file to try and pull out the relavent information.
+    Some issues occur when ":" are used in the text. I have no put a lot of effort
+    into this so there may be better ways of going about it. Currently, I get about 80-90%
+    of recipes from repos I've tried.
+
+    Args:
+        recipe_file (Path): Path to the .yml file
+
+    Returns:
+        Recipe: Recipe class object
+    """
+
     with open(recipe_file, "r") as stream:
         recipe_description: str = str
         recipe_data: dict = {}
@@ -84,7 +96,6 @@ def chowdown_migrate(repo):
 
         except:
             failed_recipes.append(recipe.name)
-
 
     report = {"failedImages": failed_images, "failedRecipes": failed_recipes}
 
