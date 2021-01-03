@@ -32,6 +32,7 @@
       :orgURL="recipeDetails.orgURL"
     />
     <VJsoneditor
+      @error="logError()"
       class="mt-10"
       v-else-if="showJsonEditor"
       v-model="recipeDetails"

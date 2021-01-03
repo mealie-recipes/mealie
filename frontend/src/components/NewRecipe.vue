@@ -19,6 +19,7 @@
     />
 
     <div v-if="jsonEditor">
+      <!-- Probably not the best way, but it works! -->
       <br />
       <br />
       <VJsoneditor
