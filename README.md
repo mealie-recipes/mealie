@@ -37,12 +37,11 @@
 ## About The Project
 
 
-
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 **Mealie** is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and mealie will automatically import the relavent data or add a family recipe with the UI editor.  
 
-Melaie also provides a secure API for interactions from 3rd party applications. **Why does my recipe manager need an API?** An API allows integration into applications like [Home Assistant]() that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. See the section on [Meal Plan hooks](#hooks) for more information. Additionally, you can access any avaiable API from the backend server. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
+Mealie also provides a secure API for interactions from 3rd party applications. **Why does my recipe manager need an API?** An API allows integration into applications like [Home Assistant]() that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. See the section on [Meal Plan hooks](#hooks) for more information. Additionally, you can access any avaiable API from the backend server. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
 
 
 
@@ -60,8 +59,7 @@ Melaie also provides a secure API for interactions from 3rd party applications. 
   - Expose notes in the API to allow external applications to access relavent information for meal plans
 #### Database Import / Export
   - Easily Import / Export your recipes from the UI
-  - Export recipes in markdown format for universal access
-    - Use the default or a custom jinja2 template
+  - Export recipes in into custom files using Jinja2 templates
 
 ### Built With
 
@@ -69,14 +67,6 @@ Melaie also provides a secure API for interactions from 3rd party applications. 
 * [Vuetify](https://vuetifyjs.com/en/)
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [MongoDB](https://www.mongodb.com/)
-* [Docker](https://www.docker.com/)
-
-
-### Built With
-
-* [Vue.js](https://vuejs.org/)
-* [Vuetify](https://vuetifyjs.com/en/)
-* [FastAPI](https://fastapi.tiangolo.com/)
 * [Docker](https://www.docker.com/)
 
 
