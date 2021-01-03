@@ -37,16 +37,15 @@ async def get_recipe_img(recipe_slug: str):
 
 
 # Recipe Creations
-@router.post("/api/recipe/create-url/", tags=["Recipes"])
+@router.post("/api/recipe/create-url/", tags=["Recipes"], status_code=201)
 async def get_recipe_url(url: dict):
     """ Takes in a URL and Attempts to scrape data and load it into the database """
 
     url = url.get("url")
-    slug = create_from_url(url)
+
 
     try:
-        pass
-        # slug = create_from_url(url)
+        slug = create_from_url(url)
     except:
         raise HTTPException(
             status_code=400, detail=SnackResponse.error("Unable to Parse URL")
@@ -74,9 +73,12 @@ def update_image(
 
 
 @router.post("/api/recipe/{recipe_slug}/update/", tags=["Recipes"])
-async def update(recipe_slug: str, data: dict):
+async def update(recipe_slug: str, data: Recipe):
     """ Updates a recipe by existing slug and data. Data should containt """
-    Recipe.update(recipe_slug, data)
+    
+    data.update(recipe_slug)
+
+
     return {"message": "PLACEHOLDER"}
 
 
