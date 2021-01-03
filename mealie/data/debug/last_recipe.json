@@ -1,0 +1,74 @@
+{
+    "@context": "http://schema.org/",
+    "@type": "Recipe",
+    "name": "Moscow Mule Recipe",
+    "author": {
+        "@type": "Person",
+        "name": "John Kanell"
+    },
+    "description": "How to make a classic Moscow Mule using 3 simple ingredients. Don&#039;t forget to check out my step by step photos, tips and other cocktail varations above!",
+    "datePublished": "2020-12-28 03:59:30+00:00",
+    "image": "moscow-mule-recipe.jpg",
+    "recipeYield": [
+        "1",
+        "1 serving"
+    ],
+    "prepTime": "0:05:00",
+    "totalTime": "0:05:00",
+    "recipeIngredient": [
+        "2 oz vodka",
+        "1 oz fresh lime juice",
+        "4 oz ginger beer",
+        "Garnish with lime wedges"
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Juice the lime and cut extra for garnish.",
+            "name": "Juice the lime and cut extra for garnish.",
+            "url": "https://preppykitchen.com/moscow-mule/#wprm-recipe-37963-step-0-0"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Fill a Moscow mule mug or glass with ice then add the lime juice, vodka and ginger beer.",
+            "name": "Fill a Moscow mule mug or glass with ice then add the lime juice, vodka and ginger beer.",
+            "url": "https://preppykitchen.com/moscow-mule/#wprm-recipe-37963-step-0-1"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Stir and top with lime wedges.",
+            "name": "Stir and top with lime wedges.",
+            "url": "https://preppykitchen.com/moscow-mule/#wprm-recipe-37963-step-0-2"
+        }
+    ],
+    "recipeCategory": [
+        "Drinks"
+    ],
+    "recipeCuisine": [
+        "American"
+    ],
+    "keywords": "Classic Moscow Mule, Moscow mule recipe, Moscow Mule variations",
+    "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": "177 kcal",
+        "carbohydrateContent": "12 g",
+        "proteinContent": "1 g",
+        "fatContent": "1 g",
+        "sodiumContent": "9 mg",
+        "sugarContent": "10 g",
+        "servingSize": "1 serving"
+    },
+    "@id": "https://preppykitchen.com/moscow-mule/#recipe",
+    "isPartOf": {
+        "@id": "https://preppykitchen.com/moscow-mule/#article"
+    },
+    "mainEntityOfPage": "https://preppykitchen.com/moscow-mule/#webpage",
+    "url": "https://preppykitchen.com/moscow-mule/",
+    "slug": "moscow-mule-recipe",
+    "orgURL": "https://preppykitchen.com/moscow-mule/",
+    "categories": [],
+    "tags": [],
+    "dateAdded": null,
+    "notes": [],
+    "extras": []
+}

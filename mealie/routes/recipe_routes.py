@@ -42,9 +42,11 @@ async def get_recipe_url(url: dict):
     """ Takes in a URL and Attempts to scrape data and load it into the database """
 
     url = url.get("url")
+    slug = create_from_url(url)
 
     try:
-        slug = create_from_url(url)
+        pass
+        # slug = create_from_url(url)
     except:
         raise HTTPException(
             status_code=400, detail=SnackResponse.error("Unable to Parse URL")
