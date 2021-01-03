@@ -1,5 +1,6 @@
 Frontend
 - [ ] Catch 400 / bad response on create from URL
+- [ ] Recipe Editor Data Validation
 - [x] Favicon
 - [x] Rename Window
 

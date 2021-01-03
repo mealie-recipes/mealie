@@ -93,17 +93,4 @@ Project Link: [https://github.com/hay-kot/mealie](https://github.com/hay-kot/mea
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/hay-kot/mealie.svg?style=flat-square
-[contributors-url]: https://github.com/hay-kot/mealie/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/hay-kot/mealie.svg?style=flat-square
-[forks-url]: https://github.com/hay-kot/mealie/network/members
-[stars-shield]: https://img.shields.io/github/stars/hay-kot/mealie.svg?style=flat-square
-[stars-url]: https://github.com/hay-kot/mealie/stargazers
-[issues-shield]: https://img.shields.io/github/issues/hay-kot/mealie.svg?style=flat-square
-[issues-url]: https://github.com/hay-kot/mealie/issues
-[license-shield]: https://img.shields.io/github/license/hay-kot/mealie.svg?style=flat-square
-[license-url]: https://github.com/hay-kot/mealie/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/hay-kot
 [product-screenshot]: img/home_screenshot.png
