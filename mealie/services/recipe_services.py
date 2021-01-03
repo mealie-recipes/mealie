@@ -125,26 +125,25 @@ class Recipe(BaseModel):
             document.delete()
             return "Document Deleted"
 
-    @staticmethod
-    def update(recipe_slug: str, data: dict) -> dict:
-        """ Updates the recipe from the database by slug """
-        document = RecipeDocument.objects.get(slug=recipe_slug)
+    def update(self, _recipe_slug: str):
+        """ Updates the recipe from the database by slug"""
+        document = RecipeDocument.objects.get(slug=self.slug)
 
         if document:
-            document.update(set__name=data.get("name"))
-            document.update(set__description=data.get("description"))
-            document.update(set__image=data.get("image"))
-            document.update(set__recipeYield=data.get("recipeYield"))
-            document.update(set__recipeIngredient=data.get("recipeIngredient"))
-            document.update(set__recipeInstructions=data.get("recipeInstructions"))
-            document.update(set__totalTime=data.get("totalTime"))
+            document.update(set__name=self.name)
+            document.update(set__description=self.description)
+            document.update(set__image=self.image)
+            document.update(set__recipeYield=self.recipeYield)
+            document.update(set__recipeIngredient=self.recipeIngredient)
+            document.update(set__recipeInstructions=self.recipeInstructions)
+            document.update(set__totalTime=self.totalTime)
 
-            document.update(set__categories=data.get("categories"))
-            document.update(set__tags=data.get("tags"))
-            document.update(set__notes=data.get("notes"))
-            document.update(set__orgURL=data.get("orgURL"))
-            document.update(set__rating=data.get("rating"))
-            document.update(set__extras=data.get("extras"))
+            document.update(set__categories=self.categories)
+            document.update(set__tags=self.tags)
+            document.update(set__notes=self.notes)
+            document.update(set__orgURL=self.orgURL)
+            document.update(set__rating=self.rating)
+            document.update(set__extras=self.extras)
             document.save()
 
 
@@ -174,5 +173,3 @@ def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
         recipe_list.append(recipe_details)
 
     return recipe_list
-
-
