@@ -1,28 +1,33 @@
 {
     "@context": "http://schema.org",
     "@type": "Recipe",
-    "articleBody": "You'll find innumerable versions of huevos rancheros throughout Mexico (and beyond!), but at its heart, it consists of fried corn tortillas, fried eggs, and a generous amount of tomato salsa. \u201cThere should be a lot of salsa for the eggs,\u201d says recipe developer Rick Martinez\u2014and since that salsa is spicy, fresh, and, thanks to the charred cherry tomatoes, a little bit smoky, you'll be glad to have it. Rick's recipe also includes a layer of saut\u00e9ed mushrooms and poblanos topped with cheese, for a substantive yet meat-free meal; you could also add chorizo, refried beans, queso fresco, and/or guacamole. Serve for breakfast, lunch, and/or dinner.",
-    "alternativeHeadline": "For his take on this classic Mexican dish, which originated as a simple but hearty ranchers' breakfast, Rick Martinez adds a layer of cheesy saut\u00e9ed poblanos and mushrooms to the tostada-egg-salsa trio.",
-    "dateModified": "2021-01-03 12:52:07.201000",
-    "datePublished": "2021-01-03 04:00:00",
+    "articleBody": "Leftover rice is ideal for this dish (and a great way to use up any takeout that\u2019s hanging around), since fully chilled rice tends to be drier and will become crispier and browner in the skillet. To get the best texture, evenly distribute the rice in your pan and gently press down to flatten it out like a pancake. Don\u2019t touch until you hear it crackle! Finish with a sunny-side-up egg\u2014or poach it if you don't mind the stovetop fuss. This recipe is part of the 2021\u00a0Feel Good Food Plan, our eight-day dinner plan for starting the year off right.",
+    "alternativeHeadline": "To get the best texture, evenly distribute the rice in your pan and gently press down to flatten it. Don\u2019t touch until you hear it crackle!",
+    "dateModified": "2021-01-03 03:40:32.190000",
+    "datePublished": "2021-01-01 06:00:00",
     "keywords": [
         "recipes",
-        "basically",
-        "egg",
-        "serrano chiles",
-        "cherry tomatoes",
-        "onion",
-        "cilantro",
-        "kosher salt",
-        "lime juice",
-        "mushroom",
-        "poblano",
+        "healthyish",
+        "salad",
+        "ginger",
         "garlic",
-        "cheddar",
-        "olive oil",
+        "orange",
+        "oil",
+        "soy sauce",
+        "lemon juice",
+        "sesame oil",
+        "kosher salt",
+        "broccoli",
+        "brown rice",
+        "egg",
+        "celery",
+        "cilantro",
+        "mint",
+        "feel good food plan 2021",
+        "feel good food plan",
         "web"
     ],
-    "thumbnailUrl": "https://assets.bonappetit.com/photos/5fdcf8f4da09df8b9416548f/1:1/w_3242,h_3242,c_limit/Basically-Huevos-Rancheros.jpg",
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5fdbe70a84d333dd1dcc7900/1:1/w_1698,h_1698,c_limit/BA1220feelgoodalt.jpg",
     "publisher": {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -46,71 +51,75 @@
     "author": [
         {
             "@type": "Person",
-            "name": "Rick Martinez",
-            "sameAs": "https://bon-appetit.com/contributor/rick-martinez/"
+            "name": "Devonn Francis",
+            "sameAs": "https://bon-appetit.com/contributor/devonn-francis/"
         }
     ],
     "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": 4.5,
+        "ratingValue": 4,
         "ratingCount": 2
     },
-    "description": "For his take on this classic Mexican dish, which originated as a simple but hearty ranchers' breakfast, Rick Martinez adds a layer of cheesy saut\u00e9ed poblanos and mushrooms to the tostada-egg-salsa trio.",
-    "image": "huevos-rancheros-con-rajas-y-champinones.jpg",
-    "name": "Huevos Rancheros con Rajas y Champi\u00f1ones",
+    "description": "To get the best texture, evenly distribute the rice in your pan and gently press down to flatten it. Don\u2019t touch until you hear it crackle! ",
+    "image": "crispy-rice-with-ginger-citrus-celery-salad.jpg",
+    "name": "Crispy Rice With Ginger-Citrus Celery Salad",
     "recipeIngredient": [
-        "1 serrano chile",
-        "16 oz. cherry tomatoes (about 3 cups)",
-        "\u00bc onion",
-        "\u00bc cup cilantro leaves with tender stems, plus more for serving",
-        "3 tsp. Diamond Crystal or 1\u00bd tsp. Morton kosher salt, divided, plus more",
-        "1\u00bd tsp. (or more) fresh lime juice",
-        "8 oz. button mushrooms",
-        "2 medium poblano chiles or any color bell peppers",
-        "2 garlic cloves",
-        "6 oz. white cheddar",
-        "5 Tbsp. extra-virgin olive oil, divided",
+        "1 2\" piece ginger, peeled, finely grated",
+        "1 small garlic clove, finely grated",
+        "Juice of 1 orange",
+        "2 tbsp. vegetable oil",
+        "1Tbsp. coconut aminos or low-sodium soy sauce",
+        "1 Tbsp. fresh lemon juice",
+        "\u00bc tsp. toasted sesame oil",
+        "Kosher salt",
+        "1 medium head of broccoli",
+        "6 Tbsp. (or more) vegetable oil, divided",
+        "Kosher salt",
+        "2 cups chilled cooked brown rice",
         "4 large eggs",
-        "4 tostadas"
+        "3 celery stalks, thinly sliced on a steep diagonal",
+        "\u00bd cup cilantro leaves with tender stems",
+        "\u00bd cup mint leaves",
+        "Crushed red pepper flakes (for serving)"
     ],
     "recipeInstructions": [
         {
             "@type": "HowToStep",
-            "text": "Make the salsa ranchera: Remove stem from 1 serrano chile (only use \u00bd if you don\u2019t want your salsa spicy) and halve lengthwise. Heat a medium skillet, preferably cast iron, over high until you see wisps of smoke, about 2 minutes. Arrange serrano chile, skin side down, on one side of pan and add 16 oz. cherry tomatoes. Cook, leaving chile undisturbed and occasionally tossing tomatoes, until charred, 6\u20138 minutes. It is going to get a little smoky so turn on the vent and open a window. Transfer serrano chile and tomatoes to a blender or food processor. Reserve skillet."
+            "text": "Whisk ginger, garlic, orange juice, vegetable oil, coconut aminos, lemon juice, and sesame oil in a small bowl; season with salt and set aside."
         },
         {
             "@type": "HowToStep",
-            "text": "Add \u00bc onion, \u00bc cup cilantro leaves with tender stems, and 1 tsp. Diamond Crystal or \u00bd tsp. Morton kosher salt to blender and blend on low speed (or pulse if using a food processor) until vegetables are broken up, about 30 seconds. Increase speed to medium-low and pur\u00e9e until salsa is almost smooth but some chunks remain. Don\u2019t be tempted to blend on high or you will incorporate air into the salsa and it will look and taste more like a smoothie than a salsa. Transfer to a medium bowl and stir in 1\u00bd tsp. fresh lime juice. Taste and season with more salt and add more lime juice if needed. Set aside until ready to serve."
+            "text": "Trim about \u00bd\" from woody end of broccoli stem. Peel tough outer layer from stem. Cut florets from stems and thinly slice stems about \u00bd\" thick. Break florets apart with your hands into 1\"\u20131\u00bd\" pieces."
         },
         {
             "@type": "HowToStep",
-            "text": "Using a paper towel, brush off dirt from 8 oz. button mushrooms. Trim woody stems and discard. Cut mushrooms into quarters. Cut 2 medium poblano chiles or any color bell peppers in half lengthwise and remove stems, seeds, and ribs. Cut chiles into long thin strips about \u00bc\" thick. Use the side of a chef\u2019s knife to lightly smash 2 garlic cloves, then peel and thinly slice. Grate 6 oz. white cheddar on the large holes of a box grater."
+            "text": "Heat 2 Tbsp. oil in a large nonstick skillet over medium. Working in 2 batches if needed, arrange broccoli in a single layer and cook, tossing occasionally, until broccoli is bright green and lightly charred around the edges, about\u00a03 minutes. Transfer to a large plate."
         },
         {
             "@type": "HowToStep",
-            "text": "Head over to the stove with all of your prep work (gathering it on a rimmed baking sheet will make this easy!). Now, you\u2019re ready to make the mushroom topping. Wipe out reserved skillet with a paper towel and heat 3 Tbsp. extra-virgin olive oil over medium-high. Arrange mushrooms in a single layer in skillet and cook, undisturbed, until brown underneath, about 3 minutes. Give mushrooms a toss and season with 1 tsp. Diamond Crystal or \u00bd tsp. Morton kosher salt. Continue to cook, tossing occasionally, until deep golden brown all over, 5\u20137 minutes longer. Using a slotted spoon, transfer to a small bowl, leaving oil behind."
+            "text": "Pour 2 Tbsp. oil into same pan and heat over medium-high. Once you see the first wisp of smoke, add rice and season lightly with salt. Using a spatula or spoon, press rice evenly into pan like a pancake. Rice will begin to crackle, but don\u2019t fuss with it. When the crackling has died down almost completely, about\u00a03 minutes, break rice into large pieces and turn over."
         },
         {
             "@type": "HowToStep",
-            "text": "Arrange poblano chiles in an even layer in same skillet and cook, undisturbed, until browned underneath, about 2 minutes. Add garlic and season with 1 tsp. Diamond Crystal or \u00bd tsp. Morton kosher salt. Cook, tossing occasionally, until lightly browned all over, 5\u20137 minutes longer. Add 3 Tbsp. water and cook, stirring occasionally, until water has evaporated, about 2 minutes. The water will soften the chiles and pull up all those tasty brown bits from the bottom of the pan."
+            "text": "Add broccoli back to pan and give everything a toss to combine. Cook, tossing occasionally and adding another\u00a01 Tbsp. oil if pan looks dry, until broccoli is tender and rice is warmed through and very crisp, about 5 minutes. Transfer mixture to a platter or divide among plates and set aside."
         },
         {
             "@type": "HowToStep",
-            "text": "Add mushrooms with any accumulated juices back to pan and toss until evenly distributed. Sprinkle cheese over in an even layer and remove skillet from heat. Cover (a baking sheet works great if you don\u2019t have a lid that will work) and let sit 5 minutes for cheese to melt."
+            "text": "Wipe out skillet; heat remaining\u00a02 Tbsp. oil over medium-high. Crack eggs into skillet; season with salt. Oil should bubble around eggs right away. Cook, rotating skillet occasionally, until whites are golden brown and crisp at the edges and set around the yolk (which should be runny), about 2 minutes."
         },
         {
             "@type": "HowToStep",
-            "text": "You are almost there; you just need to cook the eggs. Heat remaining 2 Tbsp. extra-virgin olive oil in a large nonstick skillet over medium-high. Crack 4 large eggs into skillet, leaving space around each one, and cook until whites are set and edges are crisp, about 4 minutes. Season with salt."
+            "text": "Toss celery, cilantro, and mint with\u00a03 Tbsp. reserved dressing and a pinch of salt in a medium bowl to combine."
         },
         {
             "@type": "HowToStep",
-            "text": "To serve, spoon cheesy mushroom mixture onto 4 tostadas, dividing evenly, and top each with an egg, then reserved salsa and some cilantro."
+            "text": "Scatter celery salad over fried rice; top with fried eggs and sprinkle with red pepper flakes. Serve extra dressing alongside."
         }
     ],
-    "recipeYield": "4-6 servings",
-    "url": "https://www.bonappetit.com/recipe/huevos-rancheros-con-rajas-y-champinones",
-    "slug": "huevos-rancheros-con-rajas-y-champinones",
-    "orgURL": "https://www.bonappetit.com/recipe/huevos-rancheros-con-rajas-y-champinones",
+    "recipeYield": "4 servings",
+    "url": "https://www.bonappetit.com/recipe/crispy-rice-with-ginger-citrus-celery-salad",
+    "slug": "crispy-rice-with-ginger-citrus-celery-salad",
+    "orgURL": "https://www.bonappetit.com/recipe/crispy-rice-with-ginger-citrus-celery-salad",
     "categories": [],
     "tags": [],
     "dateAdded": null,

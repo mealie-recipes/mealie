@@ -125,9 +125,9 @@ class Recipe(BaseModel):
             document.delete()
             return "Document Deleted"
 
-    def update(self, _recipe_slug: str):
+    def update(self, recipe_slug: str):
         """ Updates the recipe from the database by slug"""
-        document = RecipeDocument.objects.get(slug=self.slug)
+        document = RecipeDocument.objects.get(slug=recipe_slug)
 
         if document:
             document.update(set__name=self.name)
