@@ -89,6 +89,8 @@ def export_db(tag=None, templates=None):
     shutil.rmtree(backup_folder)
     shutil.rmtree(TEMP_DIR)
 
+    return str(zip_path.absolute()) + ".zip"
+
 
 
 def export_images(dest_dir) -> Path:
