@@ -6,10 +6,12 @@ import dotenv
 CWD = Path(__file__).parent
 ENV = CWD.joinpath(".env")
 dotenv.load_dotenv(ENV)
-PORT = 9000
 
+# General
+PORT = int(os.getenv("mealie_port", 9000))
 
 # Mongo Database
+MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")
 DB_USERNAME = os.getenv("db_username", "root")
 DB_PASSWORD = os.getenv("db_password", "example")
 DB_HOST = os.getenv("db_host", "mongo")
