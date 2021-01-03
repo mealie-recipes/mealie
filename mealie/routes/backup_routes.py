@@ -26,14 +26,14 @@ async def export_database(data: BackupJob):
     """ Returns this weeks meal plan """
 
     try:
-        export_db(data.tag, data.template)
+        export_path = export_db(data.tag, data.template)
     except:
         HTTPException(
             status_code=400,
             detail=SnackResponse.error("Error Creating Backup. See Log File"),
         )
 
-    return SnackResponse.success("Backup Created in /data/backups")
+    return SnackResponse.success("Backup Created at " + export_path)
 
 
 @router.post(

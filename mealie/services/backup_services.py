@@ -56,7 +56,7 @@ def import_from_archive(file_name: str) -> list:
     return successful_imports
 
 
-def export_db(tag=None, template=None):
+def export_db(tag=None, template=None) -> str:
     if tag:
         export_tag = tag + "_" + datetime.now().strftime("%Y-%b-%d")
     else:
@@ -79,6 +79,8 @@ def export_db(tag=None, template=None):
 
     shutil.rmtree(backup_folder)
     shutil.rmtree(TEMP_DIR)
+
+    return str(zip_path.absolute()) + ".zip"
 
 
 
