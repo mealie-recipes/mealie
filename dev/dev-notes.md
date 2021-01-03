@@ -14,7 +14,7 @@ Backend
 - [ ] Export Markdown on Auto backups
 
 # Draft Changelog
-## v0.1.0
+## v0.0.1
 
 General
 - Updated Favicon
