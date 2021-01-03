@@ -5,7 +5,7 @@
         <v-card-title class="headline"> Choose a Recipe </v-card-title>
         <v-card-text>
           <v-autocomplete
-            :items="avaiableRecipes"
+            :items="availableRecipes"
             v-model="selected"
             clearable
             return
@@ -85,7 +85,7 @@ export default {
   },
 
   computed: {
-    avaiableRecipes() {
+    availableRecipes() {
       return this.$store.getters.getRecentRecipes;
     },
   },

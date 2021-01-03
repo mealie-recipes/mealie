@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/api/meal-plan/all/", tags=["Meal Plan"])
 async def get_all_meals():
-    """ Returns a list of all avaiable meal plans """
+    """ Returns a list of all available meal plans """
 
     return MealPlan.get_all()
 

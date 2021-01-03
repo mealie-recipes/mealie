@@ -7,8 +7,8 @@ from utils.snackbar import SnackResponse
 router = APIRouter()
 
 
-@router.get("/api/backups/avaiable/", tags=["Import / Export"])
-async def avaiable_imports():
+@router.get("/api/backups/available/", tags=["Import / Export"])
+async def available_imports():
     """ Returns this weeks meal plan """
     imports = []
     templates = []
