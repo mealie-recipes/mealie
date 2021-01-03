@@ -19,9 +19,8 @@ const apiReq = {
   post: async function(url, data) {
     let response = await axios.post(url, data).catch(function(error) {
       if (error.response) {
-        console.log("Error");
         processResponse(error.response);
-        return;
+        return error.response;
       }
     });
     processResponse(response);
@@ -32,7 +31,7 @@ const apiReq = {
     let response = await axios.get(url, data).catch(function(error) {
       if (error.response) {
         processResponse(error.response);
-        return;
+        return response;
       } else return;
     });
     // processResponse(response);
@@ -43,7 +42,7 @@ const apiReq = {
     let response = await axios.delete(url, data).catch(function(error) {
       if (error.response) {
         processResponse(error.response);
-        return;
+        return response;
       }
     });
     processResponse(response);

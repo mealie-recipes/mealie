@@ -23,10 +23,9 @@ export default {
     let response = await apiReq.post(recipeURLs.createByURL, {
       url: recipeURL,
     });
-    console.log(response);
-    let recipeSlug = response.data;
+    
     store.dispatch("requestRecentRecipes");
-    router.push(`/recipe/${recipeSlug}`);
+    return response;
   },
 
   async create(recipeData) {
