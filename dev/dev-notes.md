@@ -1,3 +1,17 @@
+# Getting A Developer Instance Started
+For the best experience developing I recommend using docker. I've used both WSL2 and Ubuntu to develop mealie and have had no issues with cross compatibility with docker. 2 Scripts are available along ith docker-compose files to make development instances easier. After cloning the repo you can set the scripts in /dev/scripts/ as executable and then use VSCode tasks to execute the scripts or execute them from the CLI. 
+
+`docker-compose.dev.sh` Will spin up a development stack with hot-reloading enabled. 
+`docker-compose.sh` Will spin up a production version of the stack.  
+
+After the stack is running navigate to the [admin page localhost:9090/settings/site](http://localhost:9090/settings/site). On the Backups and Exports section import the backup labeled dev_sample_data_{DATE}.zip. This will give you some recipe data to work with. 
+
+Once you're up and running you should be able to make changes and see them reflected on the frontend/backend. If you're not sure what to work on you can check:
+
+- The Working Todo's below.
+- The [Development Road Map](https://hay-kot.github.io/mealie/2.0%20-%20roadmap/)
+- The [Current Open Issues](https://github.com/hay-kot/mealie/issues)
+
 # Working Todos
 
 Frontend
