@@ -35,7 +35,6 @@
 ## About The Project
 
 
-
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 **Mealie** is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and mealie will automatically import the relavent data or add a family recipe with the UI editor.  
@@ -58,8 +57,7 @@ Mealie also provides a secure API for interactions from 3rd party applications. 
   - Expose notes in the API to allow external applications to access relavent information for meal plans
 #### Database Import / Export
   - Easily Import / Export your recipes from the UI
-  - Export recipes in markdown format for universal access
-    - Use the default or a custom jinja2 template
+  - Export recipes in into custom files using Jinja2 templates
 
 ### Built With
 
@@ -67,14 +65,6 @@ Mealie also provides a secure API for interactions from 3rd party applications. 
 * [Vuetify](https://vuetifyjs.com/en/)
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [MongoDB](https://www.mongodb.com/)
-* [Docker](https://www.docker.com/)
-
-
-### Built With
-
-* [Vue.js](https://vuejs.org/)
-* [Vuetify](https://vuetifyjs.com/en/)
-* [FastAPI](https://fastapi.tiangolo.com/)
 * [Docker](https://www.docker.com/)
 
 
