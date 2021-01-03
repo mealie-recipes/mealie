@@ -276,7 +276,7 @@ export default {
 
 <style>
 .disabled-card {
-  opacity: 50%;
+  opacity: 0.5;
 }
 .my-divider {
   margin: 0 -1px;

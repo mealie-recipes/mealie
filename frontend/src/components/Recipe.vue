@@ -153,6 +153,6 @@ export default {
   margin-top: -10px;
 }
 .disabled-card {
-  opacity: 50%;
+  opacity: 0.5;
 }
 </style>
