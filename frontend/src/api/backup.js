@@ -6,7 +6,7 @@ const backupBase = baseURL + "backups/";
 
 const backupURLs = {
   // Backup
-  avaiable: `${backupBase}avaiable/`,
+  available: `${backupBase}available/`,
   createBackup: `${backupBase}export/database/`,
   importBackup: (fileName) => `${backupBase}${fileName}/import/`,
   deleteBackup: (fileName) => `${backupBase}${fileName}/delete/`,
@@ -14,7 +14,7 @@ const backupURLs = {
 
 export default {
   async requestAvailable() {
-    let response = await apiReq.get(backupURLs.avaiable);
+    let response = await apiReq.get(backupURLs.available);
     return response.data;
   },
 

@@ -7,9 +7,8 @@ from utils.snackbar import SnackResponse
 router = APIRouter()
 
 
-@router.get("/api/backups/avaiable/", tags=["Import / Export"])
-async def avaiable_imports():
-    """ Returns this weeks meal plan """
+@router.get("/api/backups/available/", tags=["Import / Export"])
+async def available_imports():
     imports = []
     templates = []
     for archive in BACKUP_DIR.glob("*.zip"):
@@ -23,24 +22,22 @@ async def avaiable_imports():
 
 @router.post("/api/backups/export/database/", tags=["Import / Export"], status_code=201)
 async def export_database(data: BackupJob):
-    """ Returns this weeks meal plan """
 
     try:
-        export_db(data.tag, data.template)
+        export_path = export_db(data.tag, data.template)
     except:
         HTTPException(
             status_code=400,
             detail=SnackResponse.error("Error Creating Backup. See Log File"),
         )
 
-    return SnackResponse.success("Backup Created in /data/backups")
+    return SnackResponse.success("Backup Created at " + export_path)
 
 
 @router.post(
     "/api/backups/{file_name}/import/", tags=["Import / Export"], status_code=200
 )
 async def import_database(file_name: str):
-    """ Returns this weeks meal plan """
     imported = import_from_archive(file_name)
     return imported
 
@@ -51,7 +48,6 @@ async def import_database(file_name: str):
     status_code=200,
 )
 async def delete_backup(backup_name: str):
-    """ Returns this weeks meal plan """
 
     try:
         BACKUP_DIR.joinpath(backup_name).unlink()

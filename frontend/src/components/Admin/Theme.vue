@@ -21,7 +21,7 @@
           <v-form ref="form" lazy-validation>
             <v-select
               label="Saved Color Schemes"
-              :items="avaiableThemes"
+              :items="availableThemes"
               item-text="name"
               item-value="colors"
               return-object
@@ -95,13 +95,13 @@ export default {
       themes: null,
       activeTheme: {},
       darkMode: false,
-      avaiableThemes: [],
+      availableThemes: [],
       selectedScheme: "",
       selectedLight: "",
     };
   },
   async mounted() {
-    this.avaiableThemes = await api.themes.requestAll();
+    this.availableThemes = await api.themes.requestAll();
     this.darkMode = this.$store.getters.getDarkMode;
     this.themes = this.$store.getters.getThemes;
     this.setThemeEditor();
@@ -115,12 +115,12 @@ export default {
         } else if (this.selectedScheme !== "") {
           api.themes.delete(this.selectedScheme.name);
         }
-        this.avaiableThemes = await api.themes.requestAll();
+        this.availableThemes = await api.themes.requestAll();
       }
     },
     async appendTheme(newTheme) {
       api.themes.create(newTheme);
-      this.avaiableThemes.push(newTheme);
+      this.availableThemes.push(newTheme);
     },
     themeSelected() {
       this.activeTheme = this.selectedScheme.colors;
