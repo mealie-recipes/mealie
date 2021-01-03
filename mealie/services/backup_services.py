@@ -20,7 +20,11 @@ def auto_backup_job():
     for backup in BACKUP_DIR.glob("Auto*.zip"):
         backup.unlink()
 
-    export_db(tag="Auto", template=None)
+    templates = []
+    for template in TEMPLATE_DIR.iterdir():
+        templates.append(template)
+
+    export_db(tag="Auto", templates=templates)
     logger.info("Auto Backup Called")
 
 
@@ -56,7 +60,7 @@ def import_from_archive(file_name: str) -> list:
     return successful_imports
 
 
-def export_db(tag=None, template=None):
+def export_db(tag=None, templates=None):
     if tag:
         export_tag = tag + "_" + datetime.now().strftime("%Y-%b-%d")
     else:
@@ -72,7 +76,12 @@ def export_db(tag=None, template=None):
     recipe_folder.mkdir(parents=True, exist_ok=True)
 
     export_images(img_folder)
-    export_recipes(recipe_folder, template)
+
+    if type(templates) == list:
+        for template in templates:
+            export_recipes(recipe_folder, template)
+    elif type(templates) == str:
+        export_recipes(recipe_folder, templates)
 
     zip_path = BACKUP_DIR.joinpath(f"{export_tag}")
     shutil.make_archive(zip_path, "zip", backup_folder)
@@ -93,7 +102,7 @@ def export_recipes(dest_dir: Path, template=None) -> Path:
         json_recipe = recipe.to_json(indent=4)
 
         if template:
-            md_dest = dest_dir.parent.joinpath("markdown")
+            md_dest = dest_dir.parent.joinpath("templates")
             md_dest.mkdir(parents=True, exist_ok=True)
             template = TEMPLATE_DIR.joinpath(template)
             export_markdown(md_dest, json_recipe, template)
