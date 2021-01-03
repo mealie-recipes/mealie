@@ -13,6 +13,7 @@ def ensure_dirs():
     DATA_DIR.joinpath("img").mkdir(parents=True, exist_ok=True)
     DATA_DIR.joinpath("backups").mkdir(parents=True, exist_ok=True)
     DATA_DIR.joinpath("templates").mkdir(parents=True, exist_ok=True)
+    DATA_DIR.joinpath("debug").mkdir(parents=True, exist_ok=True)
 
 
 def generate_default_theme():
