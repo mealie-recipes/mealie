@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <v-app-bar dense app color="primary" dark class="d-print-none">
-      <div class="d-flex align-center">
-        <v-icon size="40" @click="$router.push('/')">
+      <v-btn @click="$router.push('/')" icon class="d-flex align-center">
+        <v-icon size="40" >
           mdi-silverware-variant
         </v-icon>
-      </div>
-      <div btn class="pl-2" @click="$router.push('/')">
-        <v-toolbar-title>Mealie</v-toolbar-title>
+      </v-btn>
+      <div btn class="pl-2">
+        <v-toolbar-title @click="$router.push('/')">Mealie</v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>

@@ -20,10 +20,7 @@
       <div class="my-2"></div>
       <v-row dense disabled>
         <v-col sm="5">
-          <v-text-field
-            label="Servings"
-            v-model="value.recipeYield"
-          >
+          <v-text-field label="Servings" v-model="value.recipeYield">
           </v-text-field>
         </v-col>
         <v-col></v-col>
@@ -74,7 +71,13 @@
             v-model="value.categories"
           >
             <template v-slot:selection="data">
-              <v-chip :input-value="data.selected" close color="secondary" dark>
+              <v-chip
+                :input-value="data.selected"
+                close
+                @click:close="removeCategory(data.index)"
+                color="secondary"
+                dark
+              >
                 {{ data.item }}
               </v-chip>
             </template>
@@ -83,7 +86,13 @@
           <h2 class="mt-4">Tags</h2>
           <v-combobox dense multiple chips deletable-chips v-model="value.tags">
             <template v-slot:selection="data">
-              <v-chip :input-value="data.selected" close color="secondary" dark>
+              <v-chip
+                :input-value="data.selected"
+                close
+                @click:close="removeTags(data.index)"
+                color="secondary"
+                dark
+              >
                 {{ data.item }}
               </v-chip>
             </template>
@@ -255,13 +264,19 @@ export default {
     removeNote(index) {
       this.value.notes.splice(index, 1);
     },
+    removeCategory(index) {
+      this.value.categories.splice(index, 1);
+    },
+    removeTags(index) {
+      this.value.tags.splice(index, 1);
+    },
   },
 };
 </script>
 
 <style>
 .disabled-card {
-  opacity: 50%;
+  opacity: 0.5;
 }
 .my-divider {
   margin: 0 -1px;

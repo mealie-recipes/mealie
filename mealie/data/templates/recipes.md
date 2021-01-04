@@ -3,6 +3,7 @@
 ![Recipe Image](../images/{{ recipe.image }})
 
 # {{ recipe.name }}
+{{ recipe.description }}
 
 ## Ingredients
 {% for ingredient in recipe.recipeIngredient %}

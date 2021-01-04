@@ -18,7 +18,7 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 
 COPY ./mealie /app
+COPY ./mealie/data/templates/recipes.md /app/data/templates/
 COPY --from=build-stage /app/dist /app/dist
-
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "9000"]

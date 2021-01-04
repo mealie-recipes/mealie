@@ -8,6 +8,11 @@
           <v-form>
             <v-text-field v-model="recipeURL" label="Recipe URL"></v-text-field>
           </v-form>
+
+          <v-alert v-if="error" color="red" outlined type="success">
+            Looks like there was an error parsing the URL. Check the log and
+            debug/last_recipe.json to see what went wrong.
+          </v-alert>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -37,6 +42,7 @@ import api from "../api";
 export default {
   data() {
     return {
+      error: false,
       fab: false,
       addRecipe: false,
       recipeURL: "",
@@ -47,9 +53,16 @@ export default {
   methods: {
     async createRecipe() {
       this.processing = true;
-      await api.recipes.createByURL(this.recipeURL);
+      let response = await api.recipes.createByURL(this.recipeURL);
+      if (response.status !== 201) {
+        this.error = true;
+        this.processing = false;
+        return;
+      }
+
       this.addRecipe = false;
       this.processing = false;
+      this.$router.push(`/recipe/${response.data}`);
     },
 
     navCreate() {

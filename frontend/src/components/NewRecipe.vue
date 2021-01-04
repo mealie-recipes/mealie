@@ -18,12 +18,16 @@
       @save="createRecipe"
     />
 
-    <VJsoneditor
-      v-if="jsonEditor"
-      v-model="recipeDetails"
-      height="1500px"
-      :options="jsonEditorOptions"
-    />
+    <div v-if="jsonEditor">
+      <!-- Probably not the best way, but it works! -->
+      <br />
+      <br />
+      <VJsoneditor
+        v-model="recipeDetails"
+        height="1500px"
+        :options="jsonEditorOptions"
+      />
+    </div>
 
     <EditRecipe v-else v-model="recipeDetails" @upload="getImage" />
   </v-card>
@@ -73,7 +77,6 @@ export default {
 
   methods: {
     getImage(fileObject) {
-      console.log(fileObject);
       this.fileObject = fileObject;
       this.onFileChange();
     },
@@ -83,11 +86,9 @@ export default {
     async createRecipe() {
       this.isLoading = true;
       this.recipeDetails.image = this.fileObject.name;
-      console.log(this.recipeDetails);
       let slug = await api.recipes.create(this.recipeDetails);
 
-      let response = await api.recipes.updateImage(slug, this.fileObject);
-      console.log(response);
+      await api.recipes.updateImage(slug, this.fileObject);
       this.isLoading = false;
 
       this.$router.push(`/recipe/${slug}`);

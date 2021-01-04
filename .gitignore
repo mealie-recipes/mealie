@@ -6,6 +6,15 @@ __pycache__/
 frontend/.env.development
 docs/site/
 
+mealie/data/backups/*
+mealie/data/debug/*
+mealie/data/img/*
+
+#Exception to keep folders
+!mealie/data/backups/.gitkeep
+!mealie/data/backups/dev_sample_data*
+!mealie/data/debug/.gitkeep
+!mealie/data/img/.gitkeep
 
 .DS_Store
 node_modules
@@ -24,7 +33,6 @@ pnpm-debug.log*
 
 # Editor directories and files
 .idea
-.vscode
 *.suo
 *.ntvs*
 *.njsproj
@@ -136,4 +144,4 @@ ENV/
 # Node Modules
 node_modules/
 
-/*.env.development
+/*.env.development*

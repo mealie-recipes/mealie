@@ -123,6 +123,6 @@ export default {
 
 <style>
 .disabled-card {
-  opacity: 50%;
+  opacity: 0.5;
 }
 </style>

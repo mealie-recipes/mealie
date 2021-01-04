@@ -18,6 +18,8 @@
 
 Mealie also provides an API for interactions from 3rd party applications. **Why does my recipe manager need an API?** An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access any available API from the backend server. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
 
+[Remember to join the Discord](https://discord.gg/R6QDyJgbD2)! 
+
 !!! note
     In some of the demo gifs the styling may be different than the finale application. demos were done during development prior to finale styling.
 
@@ -93,17 +95,4 @@ Project Link: [https://github.com/hay-kot/mealie](https://github.com/hay-kot/mea
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/hay-kot/mealie.svg?style=flat-square
-[contributors-url]: https://github.com/hay-kot/mealie/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/hay-kot/mealie.svg?style=flat-square
-[forks-url]: https://github.com/hay-kot/mealie/network/members
-[stars-shield]: https://img.shields.io/github/stars/hay-kot/mealie.svg?style=flat-square
-[stars-url]: https://github.com/hay-kot/mealie/stargazers
-[issues-shield]: https://img.shields.io/github/issues/hay-kot/mealie.svg?style=flat-square
-[issues-url]: https://github.com/hay-kot/mealie/issues
-[license-shield]: https://img.shields.io/github/license/hay-kot/mealie.svg?style=flat-square
-[license-url]: https://github.com/hay-kot/mealie/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/hay-kot
 [product-screenshot]: img/home_screenshot.png
