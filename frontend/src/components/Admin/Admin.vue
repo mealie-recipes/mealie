@@ -10,21 +10,19 @@
     <Backup />
     <Webhooks />
     <Migration />
-    <v-card flat dense class="my-2" height="35px">
-      <v-card-text class="text-center">
-        Version: {{ version }} | Latest: {{ latestVersion }} ·
-        <a href="https://hay-kot.github.io/mealie/" target="_blank">
-          Explore the Docs
-        </a>
-        ·
-        <a
-          href="https://hay-kot.github.io/mealie/2.1%20-%20Contributions/"
-          target="_blank"
-        >
-          Contribute
-        </a>
-      </v-card-text>
-    </v-card>
+    <p class="text-center my-2">
+      Version: {{ version }} | Latest: {{ latestVersion }} ·
+      <a href="https://hay-kot.github.io/mealie/" target="_blank">
+        Explore the Docs
+      </a>
+      ·
+      <a
+        href="https://hay-kot.github.io/mealie/2.1%20-%20Contributions/"
+        target="_blank"
+      >
+        Contribute
+      </a>
+    </p>
   </v-container>
 </template>
 

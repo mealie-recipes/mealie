@@ -1,5 +1,6 @@
-site_name: Mealie
+site_name: Mealie Docs
 theme:
+  favicon: img/favicon.png
   name: material
   icon:
     logo: material/silverware-variant
