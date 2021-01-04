@@ -41,15 +41,3 @@ Backend
 # Draft Changelog
 ## v0.0.2
 
-General
-- Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
-- Updated Favicon
-- Renamed Frontend Window
-- Added Debug folder to dump scraper data prior to processing. 
-- Improved documentation
-- Added version tag / relevant links, and new version notifier 
-
-Recipes
-- Added user feedback on bad URL. 
-- Better backend data validation for updating recipes, avoid small syntax errors corrupting database entry. [Issue #8](https://github.com/hay-kot/mealie/issues/8)
-- Fixed spacing issue while editing new recipes in JSON
