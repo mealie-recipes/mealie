@@ -8,17 +8,19 @@ After the stack is running navigate to the [admin page localhost:9090/settings/s
 
 Once you're up and running you should be able to make changes and see them reflected on the frontend/backend. If you're not sure what to work on you can check:
 
-- The Working Todo's below.
+- The Todo's below.
 - The [Development Road Map](https://hay-kot.github.io/mealie/2.0%20-%20roadmap/)
 - The [Current Open Issues](https://github.com/hay-kot/mealie/issues)
 
-# Working Todos
+Don't forget to [join the Discord](https://discord.gg/R6QDyJgbD2)! 
+
+# Todo's
 
 Frontend
 - [ ] .Vue file reorganized into something that makes sense
 - [ ] Recipe Print Page 
 - [x] Catch 400 / bad response on create from URL
-- [ ] Recipe Editor Data Validation CLient Side
+- [ ] Recipe Editor Data Validation Client Side
 - [x] Favicon
 - [x] Rename Window
 - [ ] Add version indicator and notification for new version available
@@ -29,7 +31,7 @@ Backend
 - [x] Add Debug folder for writing the last pulled recipe data to. 
 - [x] Recipe Editor Data Validation Server Side
 - [ ] Normalize Recipe data on scrape
-- [ ] Support how to Sections
+- [ ] Support how to Sections and how to steps
 - [ ] Export Markdown on Auto backups
 - [ ] Recipe request by category/tags
 - [ ] Add Additional Migrations, See mealie/services/migrations/chowdown.py for examples of how to do this.
@@ -37,15 +39,17 @@ Backend
   - [ ] NextCloud [See Issue #14](https://github.com/hay-kot/mealie/issues/14)
 
 # Draft Changelog
-## v0.0.1
+## v0.0.2
 
 General
 - Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
 - Updated Favicon
 - Renamed Frontend Window
 - Added Debug folder to dump scraper data prior to processing. 
+- Improved documentation
+- Added version tag / relevant links, and new version notifier 
 
 Recipes
-- Added user feedback on bad URL. Now when
+- Added user feedback on bad URL. 
 - Better backend data validation for updating recipes, avoid small syntax errors corrupting database entry. [Issue #8](https://github.com/hay-kot/mealie/issues/8)
 - Fixed spacing issue while editing new recipes in JSON

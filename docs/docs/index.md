@@ -18,6 +18,8 @@
 
 Mealie also provides an API for interactions from 3rd party applications. **Why does my recipe manager need an API?** An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access any available API from the backend server. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
 
+[Remember to join the Discord](https://discord.gg/R6QDyJgbD2)! 
+
 !!! note
     In some of the demo gifs the styling may be different than the finale application. demos were done during development prior to finale styling.
 
