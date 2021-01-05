@@ -1,4 +1,4 @@
-# Getting Started
+# Installation
 To deploy docker on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. Currently the only supported database is Mongo. Mealie is looking for contributors to support additional databases. 
 
 
