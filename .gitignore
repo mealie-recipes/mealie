@@ -9,6 +9,7 @@ docs/site/
 mealie/data/backups/*
 mealie/data/debug/*
 mealie/data/img/*
+!mealie/dist/*
 
 #Exception to keep folders
 !mealie/dist/.gitkeep
@@ -19,12 +20,12 @@ mealie/data/img/*
 
 .DS_Store
 node_modules
-/dist
+
 
 # local env files
 .env.local
 .env.*.local
-.env.development
+
 
 # Log files
 npm-debug.log*
@@ -49,7 +50,7 @@ pnpm-debug.log*
 env/
 build/
 develop-eggs/
-dist/
+
 downloads/
 eggs/
 .eggs/
@@ -144,5 +145,3 @@ ENV/
 
 # Node Modules
 node_modules/
-
-/*.env.development*

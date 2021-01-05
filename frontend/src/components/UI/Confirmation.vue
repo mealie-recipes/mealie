@@ -3,22 +3,12 @@
     <v-card :loading="processing">
       <v-card-title class="headline"> From URL </v-card-title>
 
-      <v-card-text>
-        <v-form>
-          <v-text-field v-model="recipeURL" label="Recipe URL"></v-text-field>
-        </v-form>
-
-        <v-alert v-if="error" color="red" outlined type="success">
-          Looks like there was an error parsing the URL. Check the log and
-          debug/last_recipe.json to see what went wrong.
-        </v-alert>
-      </v-card-text>
-
-      <v-divider></v-divider>
+      <v-card-text> </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="createRecipe"> Submit </v-btn>
+        <v-btn color="primary" text @click="createRecipe"> Exit </v-btn>
+        <v-btn color="primary" text @click="confirm"> Confirm </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -36,6 +26,9 @@ export default {
     confirm() {
       this.$emit("confirm");
     },
+    exit() {
+      // do something? 
+    }
   },
 };
 </script>
