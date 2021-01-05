@@ -83,12 +83,19 @@ export default {
     onFileChange() {
       this.image = URL.createObjectURL(this.fileObject);
     },
+
     async createRecipe() {
       this.isLoading = true;
-      this.recipeDetails.image = this.fileObject.name;
+
+      if (this.fileObject) {
+        this.recipeDetails.image = this.fileObject.name;
+      } 
       let slug = await api.recipes.create(this.recipeDetails);
 
-      await api.recipes.updateImage(slug, this.fileObject);
+      if (this.fileObject) {
+        await api.recipes.updateImage(slug, this.fileObject);
+      }
+
       this.isLoading = false;
 
       this.$router.push(`/recipe/${slug}`);
