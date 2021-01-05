@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import Confirmation from "./Confirmation";
+
 export default {
   props: {
     open: {
@@ -44,9 +46,11 @@ export default {
       default: true
     }
   },
+
   components: {
-    Confirmation: () => import("../UI/Confirmation")
+    Confirmation
   },
+
   methods: {
     editor() {
       this.$emit("editor");
