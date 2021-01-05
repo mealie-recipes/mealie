@@ -8,7 +8,7 @@
     @keydown.esc="cancel"
   >
     <v-card>
-      <v-toolbar v-if="Boolean(title)" :color="color" dense flat>
+      <v-toolbar v-if="Boolean(title)" :color="color" dense flat dark>
         <v-icon v-if="Boolean(icon)" left> {{ icon }}</v-icon>
         <v-toolbar-title v-text="title" />
       </v-toolbar>
