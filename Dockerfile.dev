@@ -10,6 +10,7 @@ COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 
 RUN pip install -r requirements.txt
+RUN pip install pytest
 
 COPY ./mealie /app
 
@@ -17,4 +18,4 @@ COPY ./mealie /app
 ENTRYPOINT [ "python" ]
 
 # TODO Reconfigure Command to start a Gunicorn Server that managed the Uvicorn Server. Also Learn how to do that :-/
-CMD [ "app.py" ] 
+CMD [ "app.py" ]
