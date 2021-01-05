@@ -1,0 +1,132 @@
+{
+    "@context": "http://schema.org",
+    "@type": "Recipe",
+    "articleBody": "Atlanta pastry chef Claudia Martinez\u2019s family has been making what Martinez describes as meaty Venezuelan tamales around the holidays for generations. In the Martinez household, every family member has a task: Claudia\u2019s dad or grandmother always prepares the guiso, the tender shredded chicken and beef stew that comprises the bulk of the filling. One person slicks scoops of vibrant orange achiote-stained masa dough onto banana leaves, then passes them around the table to get filled. Claudia\u2019s grandma adds a spoonful of guiso; Claudia adds olives and capers; her sister adds a few raisins. Finally, each hallaca gets wrapped up in the fragrant leaves and tied with twine like a tiny present, ready to boil for a late Christmas Eve dinner. The Martinez family usually makes 100 at a time; this scaled-down version of their recipe makes just under 20, enough for a big dinner plus leftovers you can freeze for another day. If you find yourself with leftover masa and stew, do as the Martinezes do: Make arepas with guiso and fried eggs for breakfast on Christmas Day. (If you\u2019re in Atlanta in the days leading up to Christmas Eve, pick up hallacas at Caf\u00e9 Claudia, the pop-up Martinez runs out of the Hotel Clermont.)\nBanana leaves give a floral and grassy flavor to the hallacas, you can buy them either fresh or frozen at Latin and Asian markets. You can use parchment paper instead, but the outcome won\u2019t be as complex.",
+    "alternativeHeadline": "The Venezuelan holiday dish that Atlanta pastry chef Claudia Martinez\u2019s family has been making for generations.",
+    "dateModified": "2021-01-02 12:09:30.443000",
+    "datePublished": "2020-12-01 07:00:00",
+    "keywords": [
+        "recipes",
+        "holiday 2020",
+        "new years eve",
+        "olive oil",
+        "beef",
+        "chicken recipes",
+        "kosher salt",
+        "tomato",
+        "garlic",
+        "tomato paste",
+        "onion",
+        "bell pepper",
+        "green onion scallion",
+        "cilantro",
+        "brown sugar",
+        "cornmeal",
+        "capers",
+        "olive",
+        "raisin",
+        "web"
+    ],
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5fb4407993a08c9bf97163f7/1:1/w_1125,h_1125,c_limit/1220-Hallacas.jpg",
+    "publisher": {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Bon App\u00e9tit",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.bonappetit.com/verso/static/bon-appetit/assets/logo-seo.328de564b950e3d5d1fbe3e42f065290ca1d3844.png",
+            "width": "479px",
+            "height": "100px"
+        },
+        "url": "https://www.bonappetit.com"
+    },
+    "isPartOf": {
+        "@type": [
+            "CreativeWork",
+            "Product"
+        ],
+        "name": "Bon App\u00e9tit"
+    },
+    "isAccessibleForFree": true,
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Claudia Martinez",
+            "sameAs": "https://bon-appetit.com/contributor/claudia-martinez/"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": 5,
+        "ratingCount": 22
+    },
+    "description": "The Venezuelan holiday dish that Atlanta pastry chef Claudia Martinez\u2019s family has been making for generations.",
+    "image": "hallacas.jpg",
+    "name": "Hallacas",
+    "recipeIngredient": [
+        "1\u00bd cups extra-virgin olive oil",
+        "3 Tbsp. plus 1\u00bd tsp. achiote (annatto) seeds",
+        "2\u00bd lb. boneless beef chuck roast",
+        "2\u00bd lb. skinless, boneless chicken breasts",
+        "1 Tbsp. Diamond Crystal or 1\u00be tsp. Morton kosher salt, plus more",
+        "3 medium tomatoes, coarsely chopped",
+        "3 garlic cloves",
+        "1 6-oz. can tomato paste",
+        "1 medium onion, chopped",
+        "1 large red bell pepper, seeds and ribs removed, coarsely chopped",
+        "1 large green bell pepper, seeds and ribs removed, coarsely chopped",
+        "1 bunch scallions, coarsely chopped",
+        "1 bunch cilantro, coarsely chopped",
+        "\u00bc cup (packed) light brown sugar",
+        "1 1-kg package P.A.N. precooked cornmeal",
+        "2 Tbsp. Diamond Crystal or 1 Tbsp. plus \u00bd tsp. kosher salt",
+        "3 1-lb. packages fresh or frozen, thawed banana or plantain leaves",
+        "\u00bc cup extra-virgin olive oil",
+        "\u00bd cup drained capers",
+        "\u00bd cup pitted green olives",
+        "\u00bd cup raisins"
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Cook oil and achiote seeds in a small saucepan over medium-low heat until oil turns deep orange, about 10 minutes. Strain into a heatproof jar and let cool. Measure out \u00bd cup achiote oil for making filling; set remaining 1 cup oil aside for making dough."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Bring beef, chicken, 1 Tbsp. Diamond Crystal or 1\u00be tsp. Morton kosher salt, and 12 cups water to a boil in a large pot over medium-high heat. Reduce heat to medium-low and let simmer until cooked through, about 30 minutes. Transfer beef and chicken to a cutting board and let sit until cool enough to handle. Pour 8 cups cooking liquid into a heatproof pitcher or large measuring glass; set aside. Discard any extra liquid."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Cut beef and chicken into \u2153\" cubes; place back into pot (cooking the meat before you chop it means that you can cut the pieces finer and more evenly). Blend tomatoes, garlic, and tomato paste in a blender until smooth; scrape pur\u00e9e into pot with meat. Blend onion, red and green bell peppers, scallions, cilantro, and \u00bd cup reserved cooking liquid in blender until smooth and add to pot. Add brown sugar and \u00bd cup reserved achiote oil. Pour in remaining 7\u00bd cups reserved cooking liquid. Bring to a boil, then reduce heat to medium-low and simmer until meat is tender and liquid is slightly reduced, about 40 minutes. Drain meat in a colander, season lightly with salt, and let cool."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Meanwhile, mix cornmeal, salt, reserved 1 cup achiote oil, and 8 cups water in a large bowl with your hands until dough is smooth, spreadable, and no large lumps remain, 5\u20137 minutes. Press a sheet of plastic wrap or parchment paper directly onto surface of dough; let rest at least 30 minutes or up to 1 hour."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Wash and pat banana leaves dry. Carefully remove any center stems with kitchen shears, avoiding breaking through the leaf, then cut into 14x10\" rectangles. Mix oil and 1 cup water in a medium bowl (it needs to be big enough to dip your hands into). This will help to keep the dough from sticking to your hands. Working one at a time, place a banana leaf on a surface so the veins in the leaves run horizontally. Dipping your hands in oil mixture as you work, place \u00be cup dough in center of leaf and spread out with your fingers into a \u215b\"-thick rectangle, leaving a 1\" border near the vertical edges and a space on both horizontal edges. Place \u00be cup guiso into center of dough. Top with 5 capers, 2 olives, and 8 raisins."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Take top and bottom edges of leaf and bring up toward each other so edges of dough meet and enclose filling. Pull both sides of banana leaf together snugly toward the upper edge of hallaca to seal and fold over toward you to make a tube. Fold remaining 2 side ends toward the center to make a small package."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Place package, fold side down, on another banana leaf and wrap up again. Wrap once more in a third leaf to hold everything together, then tie closed with kitchen twine. (Make sure package is compact, the leaves are not ripped, and hallaca is not leaking.) Repeat with remaining dough, filling, and banana leaves."
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Place as many hallacas as will fit into a clean large pot, pour in water to cover, and bring to a boil. Reduce heat and simmer, turning hallacas halfway through, until plumped and firm, about 35 minutes. Repeat with remaining hallacas.\nDo ahead: Hallacas can be made 1 week ahead. Let cool, then cover and chill, or freeze up to 3 months. To reheat, cook in a pot of simmering water (make sure hallacas are submerged), partially covered, until warmed through, 10\u201315 minutes if chilled, 25\u201330 minutes if frozen."
+        }
+    ],
+    "recipeYield": "Makes about 18",
+    "url": "https://www.bonappetit.com/recipe/hallacas",
+    "slug": "hallacas",
+    "orgURL": "https://www.bonappetit.com/recipe/hallacas",
+    "categories": [],
+    "tags": [],
+    "dateAdded": null,
+    "notes": [],
+    "extras": []
+}

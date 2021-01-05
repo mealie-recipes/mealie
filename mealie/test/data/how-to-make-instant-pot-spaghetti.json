@@ -1,0 +1,121 @@
+{
+    "@context": "http://schema.org/",
+    "@type": "Recipe",
+    "name": "How to Make Instant Pot Spaghetti",
+    "author": {
+        "@type": "Person",
+        "name": "Karlynn Johnston"
+    },
+    "description": "This Instant Pot Spaghetti recipe is literally the best one out there and it's thanks to one ( or two!) secret ingredients!",
+    "datePublished": "2020-09-15T13:00:52+00:00",
+    "image": [
+        "https://www.thekitchenmagpie.com/wp-content/uploads/images/2018/02/instantpotspaghetti.jpg",
+        "https://www.thekitchenmagpie.com/wp-content/uploads/images/2018/02/instantpotspaghetti-500x500.jpg",
+        "https://www.thekitchenmagpie.com/wp-content/uploads/images/2018/02/instantpotspaghetti-500x375.jpg",
+        "https://www.thekitchenmagpie.com/wp-content/uploads/images/2018/02/instantpotspaghetti-480x270.jpg"
+    ],
+    "recipeYield": [
+        "4"
+    ],
+    "prepTime": "PT15M",
+    "cookTime": "PT7M",
+    "totalTime": "PT22M",
+    "recipeIngredient": [
+        "1 tablespoon olive oil",
+        "1 cup white onion (diced)",
+        "1 tablespoon fresh minced garlic",
+        "1 pound lean ground beef",
+        "2 teaspoons Italian seasoning mix",
+        "one 16 ounce package uncooked white flour spaghetti noodles (cooking time for al dente needs to be 9-10 minutes! )",
+        "one 750 millilitre jar  of 4 cheese spaghetti sauce",
+        "one 15 ounce can diced tomatoes",
+        "3 cups weak beef broth (divided)",
+        "1/2 teaspoon salt (( to taste))",
+        "1/2 teaspoon black pepper",
+        "1/2  teaspoon white sugar (to cut the acidity of the tomatoes )"
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Press the \"saute\" button on your Instant Pot. Add in the olive oil and heat. Once it's heated, add in the white onion. Saute until the onion is soft and translucent. Add in the garlic and fry for 2-3 minutes.",
+            "name": "Press the \"saute\" button on your Instant Pot. Add in the olive oil and heat. Once it's heated, add in the white onion. Saute until the onion is soft and translucent. Add in the garlic and fry for 2-3 minutes.",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-0",
+            "image": "https://www.thekitchenmagpie.com/wp-content/uploads/images/2018/02/fryinggroundbeefandonionsinaninsantpot.jpg"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Add in the ground beef and fry , stirring constantly, until it's no longer pink. Press the Cancel button to turn off the Instant Pot heating element. Drain the fat (keeping some for flavour if wanted).",
+            "name": "Add in the ground beef and fry , stirring constantly, until it's no longer pink. Press the Cancel button to turn off the Instant Pot heating element. Drain the fat (keeping some for flavour if wanted).",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-1"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Add in 1 cup of the beef broth, mixing it in with the ground beef on the bottom.",
+            "name": "Add in 1 cup of the beef broth, mixing it in with the ground beef on the bottom.",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-2"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Break the spaghetti noodles in half. Place in random, different criss-cross patterns on top of the beef/ beef broth mixture. You are trying to created space between the noodles to try and prevent sticking.",
+            "name": "Break the spaghetti noodles in half. Place in random, different criss-cross patterns on top of the beef/ beef broth mixture. You are trying to created space between the noodles to try and prevent sticking.",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-3",
+            "image": "https://www.thekitchenmagpie.com/wp-content/uploads/images/2018/02/howtobreakspaghettinoodlesfortheinstantpot.jpg"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "In a large bowl or large glass spouted measuring glass, combine the remaining beef broth, tomatoes, 4 cheese sauce, Italian seasoning, salt, pepper and dash of white sugar.&nbsp;",
+            "name": "In a large bowl or large glass spouted measuring glass, combine the remaining beef broth, tomatoes, 4 cheese sauce, Italian seasoning, salt, pepper and dash of white sugar.&nbsp;",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-4"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Pout the liquid mixture on top of the pasta, around the sides, making sure you coat everything. Take a wooden spoon and gently push down on the spaghetti noodles, making sure that they are all underneath the liquid.",
+            "name": "Pout the liquid mixture on top of the pasta, around the sides, making sure you coat everything. Take a wooden spoon and gently push down on the spaghetti noodles, making sure that they are all underneath the liquid.",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-5"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Press the Manual Button ( you are going to use high pressure) and set for 7 minutes. Listen to make sure that it seals.",
+            "name": "Press the Manual Button ( you are going to use high pressure) and set for 7 minutes. Listen to make sure that it seals.",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-6"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "When it's done, release the valve manually ( see the link in my suggestions in the post above). Stir the spaghetti, breaking up any noodles that stuck together. Let it sit for a few minutes, soaking up the extra liquid.",
+            "name": "When it's done, release the valve manually ( see the link in my suggestions in the post above). Stir the spaghetti, breaking up any noodles that stuck together. Let it sit for a few minutes, soaking up the extra liquid.",
+            "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#wprm-recipe-44488-step-0-7",
+            "image": "https://www.thekitchenmagpie.com/wp-content/uploads/images/2018/02/instantpotspaghetti3.jpg"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "15"
+    },
+    "recipeCategory": [
+        "supper"
+    ],
+    "recipeCuisine": [
+        "American"
+    ],
+    "keywords": "Instant Pot Spaghetti",
+    "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": "222 kcal",
+        "carbohydrateContent": "5 g",
+        "proteinContent": "27 g",
+        "fatContent": "9 g",
+        "saturatedFatContent": "3 g",
+        "cholesterolContent": "70 mg",
+        "sodiumContent": "699 mg",
+        "fiberContent": "1 g",
+        "sugarContent": "2 g",
+        "servingSize": "1 serving"
+    },
+    "@id": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#recipe",
+    "isPartOf": {
+        "@id": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#article"
+    },
+    "mainEntityOfPage": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/#webpage",
+    "url": "https://www.thekitchenmagpie.com/how-to-make-instant-pot-spaghetti/"
+}
