@@ -1,14 +1,15 @@
+
 <template>
   <v-dialog
     v-model="dialog"
-    :max-width="options.width"
-    :style="{ zIndex: options.zIndex }"
+    :max-width="width"
+    :style="{ zIndex: zIndex }"
     @click:outside="cancel"
     @keydown.esc="cancel"
   >
     <v-card>
-      <v-toolbar v-if="Boolean(title)" :color="options.color" dense flat>
-        <v-icon v-if="Boolean(options.icon)" left> {{ options.icon }}</v-icon>
+      <v-toolbar v-if="Boolean(title)" :color="color" dense flat>
+        <v-icon v-if="Boolean(icon)" left> {{ icon }}</v-icon>
         <v-toolbar-title v-text="title" />
       </v-toolbar>
 
@@ -21,51 +22,106 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="grey" text @click="cancel"> Cancel </v-btn>
-        <v-btn :color="options.color" text @click="confirm"> Confirm </v-btn>
+        <v-btn :color="color" text @click="confirm"> Confirm </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+/**
+ * Confirmation Component used to add a second validaion step to an action.
+ * @version 1.0.1
+ * @author [zackbcom](https://github.com/zackbcom)
+ * @since Version 1.0.0
+ */
 export default {
   name: "Confirmation",
-  data: () => ({
-    dialog: false, // Wether to show or not
-    resolve: null,
-    reject: null,
-    message: null,
-    title: null,
-    options: {
-      color: "error",
-      icon: "mdi-alert-circle",
-      width: 400,
-      zIndex: 200,
-      noconfirm: false,
+  props: {
+    /**
+     * Message to be in body.
+     */
+    message: String,
+    /**
+     * Optional Title message to be used in title.
+     */
+    title: String,
+    /**
+     * Optional Icon to be used in title.
+     */
+    icon: {
+      type: String,
+      default: "mid-alert-circle"
     },
+    /**
+     * Color theme of the component. Chose one of the defined theme colors.
+     * @values primary, secondary, accent, success, info, warning, error
+     */
+    color: {
+      type: String,
+      default: "error"
+    },
+    /**
+     * Define the max width of the component.
+     */
+    width: {
+      type: Number,
+      default: 400
+    },
+    /**
+     * zIndex of the component.
+     */
+    zIndex: {
+      type: Number,
+      default: 200
+    }
+  },
+  data: () => ({
+    /**
+     * Keep state of open or closed
+     */
+    dialog: false
   }),
   methods: {
-    open(title, message, options) {
+    /**
+     * Sets the modal to be visiable.
+     */
+    open() {
       this.dialog = true;
-      this.title = title;
-      this.message = message;
-      this.options = Object.assign(this.options, options);
-      return new Promise((resolve, reject) => {
-        this.resolve = resolve;
-        this.reject = reject;
-      });
     },
 
+    /**
+     * Cancel button handler.
+     */
     cancel() {
-      this.resolve(false);
+      /**
+       * Cancel event.
+       *
+       * @event Cancel
+       * @property {string} content content of the first prop passed to the event
+       */
+      this.$emit("cancel");
+
+      //Hide Modal
       this.dialog = false;
     },
 
+    /**
+     * confirm button handler.
+     */
     confirm() {
-      this.resolve(true);
+      /**
+       * confirm event.
+       *
+       * @event confirm
+       * @property {string} content content of the first prop passed to the event
+       */
+      this.$emit("confirm");
+
+      //Hide Modal
       this.dialog = false;
-    },
-  },
+    }
+  }
 };
 </script>
 
