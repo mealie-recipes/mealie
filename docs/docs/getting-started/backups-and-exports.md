@@ -1,19 +1,5 @@
-# Site Settings Panel
-!!! danger
-    As this is still a **BETA** It is recommended that you backup your data often and store in more than one place. Ad-hear to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup)
-
-
-## Theme Settings
-Color themes can be created and set from the UI in the settings page. You can select an existing color theme or create a new one. On creation of a new color theme random colors will first be generated, then you can select and save as you'd like. By default the "default" theme will be loaded for all new users visiting the site. All created color themes are available to all users of the site. Separate color themes can be set for both Light and Dark modes.
-
-![](gifs/theme-demo.gif)
-
-!!! note
-    Theme data is stored in cookies in the browser. Calling "Save Theme" will refresh the cookie with the selected theme as well save the theme to the database. 
-
-
-## Backup and Export
-![](img/admin-backup.png)
+# Backup and Export
+![](../img/admin-backup.png)
 
 All recipe data can be imported and exported as necessary from the UI. Under the admin page you'll find the section for using Backups and Exports. 
 
@@ -21,10 +7,10 @@ To create an export simple add the tag and the markdown template and click Backu
 
 To import a backup it must be in your backups folder. If it is in the backup folder it will automatically show up as an source to restore from. Selected the desired backup and import the backup file. 
 
-### Custom Templating
+## Custom Templating
 On export you can select a template to use to render files using the jinja2 syntax. This can be done to export recipes in other formats besides regular .json.Look at this example for rendering a markdown recipe using the jinja2 syntax. 
 
-#### Input
+### Input
 ```jinja2
 ![Recipe Image](../images/{{ recipe.image }})
 
@@ -52,7 +38,7 @@ Categories: {{ recipe.categories }}
 Original URL: {{ recipe.orgURL }}
 ```
 
-#### Output
+### Output
 ```markdown
 ![Recipe Image](../images/five-spice-popcorn-chicken.jpg)
 
@@ -91,13 +77,3 @@ Original URL: https://www.bonappetit.com/recipe/five-spice-popcorn-chicken#intci
 ```
 
 If you decide you don't like mealie. This is a good way to export into a format that can be imported into another. 
-
-
-## Meal Planner Webhooks
-Meal planner webhooks are post requests sent from Mealie to an external endpoint. The body of the message is the Recipe JSON of the scheduled meal. If no meal is schedule, no request is sent. The webhook functionality can be enabled or disabled as well as scheduled. Note that you must "Save Webhooks" prior to any changes taking affect server side. 
-
-## Migration
-
-### Chowdown
-
-In the Admin page on the in the Migration section you can provide a URL for a repo hosting a Chowdown site and Mealie will pull the images and recipes from the instance and automatically import them into the database. Due to the nature of the yaml format you may have mixed results but you should get an error report of the recipes that had errors and will need to be manually added. Note that you can only import the repo as a whole. You cannot import individual recipes. 

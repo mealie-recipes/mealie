@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 import uvicorn
 from fastapi import FastAPI
@@ -24,8 +25,10 @@ WEB_PATH = CWD.joinpath("dist")
 app = FastAPI()
 
 
-# Mount Vue Frontend
-app.mount("/static", StaticFiles(directory=WEB_PATH, html=True))
+# Mount Vue Frontend only in production
+env = os.environ.get("ENV")
+if(env == "prod"):
+    app.mount("/static", StaticFiles(directory=WEB_PATH, html=True))
 
 # API Routes
 app.include_router(recipe_routes.router)

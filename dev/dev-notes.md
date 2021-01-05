@@ -41,3 +41,7 @@ Backend
 # Draft Changelog
 ## v0.0.2
 
+General
+- Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
+- Improved documentation
+- Fixed hot-reloading development environment - [grssmnn](https://github.com/grssmnn)

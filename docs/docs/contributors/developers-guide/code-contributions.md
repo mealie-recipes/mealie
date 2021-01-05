@@ -1,26 +1,22 @@
 # Contributing to Mealie
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
+!!! Warning
+    It should be known going into this that this is my first open source project, and my first public github repo I'm actively managing. If something does not make sense, or is not best practice. PLEASE feel free to reach out and let me know. I'm all about improving workflow and making it easier for contributors. 
 
-[Remember to join the Discord and stay in touch with other developers working on the project](https://discord.gg/R6QDyJgbD2)! 
+[Please Join the Discord](https://discord.gg/R6QDyJgbD2). We are building a community of developers working on the project.
 
 ## We Develop with Github
 We use github to host code, to track issues and feature requests, as well as accept pull requests.
 
 ## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
-Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests:
+Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests: 
 
-1. Fork the repo and create your branch from `master`.
+1. Fork the repo and create your branch from `dev`.
 2. Read the page in in [dev/dev-notes.md](https://github.com/hay-kot/mealie/blob/0.1.0/dev/dev-notes.md) to get an idea on where the project is at.
-3. If you've changed APIs, update the documentation.
-4. Make sure your code lints.
+3. If you're interested on working on major changes please get in touch on discord and coordinate with other developers. No sense in doubling up on work if someones already on it. 
+4. If you've changed APIs, update the documentation.
 5. Issue that pull request!
-6. If you make changes to the dev/0.1.0 branch reflect those changes in the dev/dev-notes.md to keep track of changes. 
+6. If you make changes to the dev branch reflect those changes in the dev/dev-notes.md to keep track of changes. Don't forget to add your name/handle/identifier! 
 
 ## Any contributions you make will be under the MIT Software License
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.

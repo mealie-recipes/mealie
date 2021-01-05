@@ -8,4 +8,4 @@ To edit the meal in a meal plan simply select the edit button on the card in the
 !!! warning
     In coming a future release recipes for meals will be restricted to specific categories. 
 
-![](gifs/meal-plan-demo.gif)
+![](../gifs/meal-plan-demo.gif)

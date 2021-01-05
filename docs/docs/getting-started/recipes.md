@@ -4,7 +4,7 @@
 Adding a recipe can be as easy as copying the recipe URL into mealie and letting the web scrapper try to pull down the information. Currently this scraper is implemented with [scrape-schema-recipe package](https://pypi.org/project/scrape-schema-recipe/). You may have mixed results on some websites, especially with blogs or non specific recipe websites. See the bulk import Option below for another a convenient way to add blog style recipes into Mealie.
 
 
-![](gifs/url-demo.gif)
+![](../gifs/url-demo.gif)
 
 
 ## Recipe Editor
@@ -12,12 +12,12 @@ Recipes can be edited and created via the UI. This is done with both a form base
 
 You can also add a custom recipe with the UI editor built into the web view. After logging in as a user you'll have access to the editor to make changes to all the content in the recipe. 
 
-![](gifs/editor-demo.gif)
+![](../gifs/editor-demo.gif)
 
 ## Bulk Import
 Mealie also supports bulk import of recipe instructions and ingredients. Select "Bulk Add" in the editor and paste in your plain text data to be parsed. Each line is treated as one entry and will be appended to the existing ingredients or instructions if they exist. Empty lines will be stripped from the text.
 
-![](gifs/bulk-add-demo.gif)
+![](../gifs/bulk-add-demo.gif)
 
 ## Schema 
 Recipes are stored in the json-like format in mongoDB and then sent and edited in json format on the frontend. Each recipes uses [Recipe Schema](https://schema.org/Recipe) as a general guide with some additional properties specific to Mealie.
