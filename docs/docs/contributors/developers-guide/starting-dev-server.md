@@ -3,7 +3,9 @@
 After reading through the [Code Contributions Guide](http://127.0.0.1:8000/contributors/developers-guide/code-contributions/) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
 
 ## With Docker
-There are 2 scripts to help set up your development environment in dev/scripts/. 
+`cd` into frontend directory and run `npm install` to install the node modules. 
+
+There are 2 scripts to help set up the docker containers in dev/scripts/. 
 
 `docker-compose.dev.sh` - Will spin up a docker development server
 `docker-compose.sh` - Will spin up a docker production server

@@ -4,9 +4,18 @@
   <a href="https://github.com/hay-kot/mealie">
   </a>
   <p align="center">
+    A Place for All Your Recipes
+    <br />
+    <a href="https://github.com/hay-kot/mealie"><s>View Demo</s></a>
+    ·
     <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>
     ·
-    <a href="https://github.com/hay-kot/mealie/issues">Request Feature</a>
+    <a href="https://github.com/hay-kot/mealie/issues">
+    Request Feature
+    </a>    
+    ·
+    <a href="https://hub.docker.com/repository/docker/hkotel/mealies"> Docker Hub
+    </a>
   </p>
 </p>
 
@@ -69,9 +78,9 @@ Mealie also provides an API for interactions from 3rd party applications. **Why 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests. See the [Contributors Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/) for help getting started.
 
-If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for the project. 
+If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development. 
 
 <a href="https://www.buymeacoffee.com/haykot" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
