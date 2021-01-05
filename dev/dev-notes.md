@@ -48,6 +48,8 @@ General
 - Added Debug folder to dump scraper data prior to processing. 
 - Improved documentation
 - Added version tag / relevant links, and new version notifier 
+- Fixed hot-reloading development environment - [grssmnn][https://github.com/grssmnn]
+
 
 Recipes
 - Added user feedback on bad URL. 
