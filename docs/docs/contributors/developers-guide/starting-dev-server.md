@@ -1,6 +1,6 @@
 # Development: Getting Started
 
-After reading through the [Code Contributions Guide](http://127.0.0.1:8000/contributors/developers-guide/code-contributions/) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
+After reading through the [Code Contributions Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
 
 ## With Docker
 `cd` into frontend directory and run `npm install` to install the node modules. 
