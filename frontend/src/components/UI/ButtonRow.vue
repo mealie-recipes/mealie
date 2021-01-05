@@ -5,7 +5,9 @@
       <div v-if="open">
         <v-btn class="mr-2" fab dark small color="error" @click="deleteRecipe">
           <v-icon>mdi-delete</v-icon>
+          <Confirmation ref="confirm" />
         </v-btn>
+
         <v-btn class="mr-2" fab dark small color="success" @click="save">
           <v-icon>mdi-content-save</v-icon>
         </v-btn>
@@ -27,6 +29,9 @@ export default {
       default: true,
     },
   },
+  components: {
+    Confirmation: () => import("../UI/Confirmation"),
+  },
   methods: {
     editor() {
       this.$emit("editor");
@@ -34,8 +39,16 @@ export default {
     save() {
       this.$emit("save");
     },
-    deleteRecipe() {
-      this.$emit("delete");
+    async deleteRecipe() {
+      if (
+        await this.$refs.confirm.open(
+          "Delete Recpie",
+          "Are you sure you want to delete this recipie?",
+          { color: "error", icon: "mdi-alert-circle" }
+        )
+      ) {
+        this.$emit("delete");
+      }
     },
     json() {
       this.$emit("json");
