@@ -11,7 +11,7 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-# COPY ./mealie /app
+COPY ./mealie /app
 
 
 ENTRYPOINT [ "python" ]
