@@ -5,10 +5,18 @@
       <v-card>
         <v-card-title> Add a New Theme </v-card-title>
         <v-card-text>
-          <v-text-field label="Theme Name" v-model="themeName"></v-text-field>
+          <v-text-field
+            label="Theme Name"
+            v-model="themeName"
+            :rules="[rules.required]"
+          ></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="success" text @click="Select"> Create </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="grey" text @click="dialog = false"> Cancel </v-btn>
+          <v-btn color="success" text @click="Select" :disabled="!themeName">
+            Create
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -19,19 +27,22 @@
 export default {
   props: {
     buttonText: String,
-    value: String,
+    value: String
   },
   data() {
     return {
       dialog: false,
       themeName: "",
+      rules: {
+        required: val => !!val || "Required."
+      }
     };
   },
 
   watch: {
     color() {
       this.updateColor();
-    },
+    }
   },
   methods: {
     randomColor() {
@@ -47,14 +58,14 @@ export default {
           success: this.randomColor(),
           info: this.randomColor(),
           warning: this.randomColor(),
-          error: this.randomColor(),
-        },
+          error: this.randomColor()
+        }
       };
 
       this.$emit("new-theme", newTheme);
       this.dialog = false;
-    },
-  },
+    }
+  }
 };
 </script>
 
