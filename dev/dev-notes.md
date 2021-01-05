@@ -45,3 +45,4 @@ General
 - Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
 - Improved documentation
 - Fixed hot-reloading development environment - [grssmnn](https://github.com/grssmnn)
+- Added Confirmation component to deleting recipes - [zackbcom](https://github.com/zackbcom)
