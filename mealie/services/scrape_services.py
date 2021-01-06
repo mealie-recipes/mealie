@@ -28,7 +28,7 @@ def normalize_image_url(image) -> str:
 def normalize_instructions(instructions) -> List[dict]:
     # One long string split by (possibly multiple) new lines
     if type(instructions) == str:
-        return [{"text": line.strip()} for line in filter(None, instructions.split("\n"))]
+        return [{"text": line.strip()} for line in filter(None, instructions.splitlines())]
 
     # Plain strings in a list
     elif type(instructions) == list and type(instructions[0]) == str:
