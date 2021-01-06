@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar dense app color="primary" dark class="d-print-none">
       <v-btn @click="$router.push('/')" icon class="d-flex align-center">
-        <v-icon size="40" >
+        <v-icon size="40">
           mdi-silverware-variant
         </v-icon>
       </v-btn>
@@ -44,32 +44,43 @@ export default {
     Menu,
     AddRecipe,
     SearchHeader,
-    SnackBar,
+    SnackBar
   },
 
   watch: {
     $route() {
       this.search = false;
-    },
+    }
   },
 
   mounted() {
     this.$store.dispatch("initCookies");
     this.$store.dispatch("requestRecentRecipes");
+    this.darkModeAddEventListener();
   },
 
   data: () => ({
-    search: false,
+    search: false
   }),
   methods: {
+    /**
+     * This will monitor the OS level darkmode and call to update dark mode.
+     */
+    darkModeAddEventListener() {
+      const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+      darkMediaQuery.addEventListener("change", () => {
+        this.$store.commit("setDarkMode", "system");
+      });
+    },
     toggleSearch() {
       if (this.search === true) {
         this.search = false;
       } else {
         this.search = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
