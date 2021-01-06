@@ -8,15 +8,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.21.0",
-    "core-js": "^3.8.1",
+    "axios": "^0.21.1",
+    "core-js": "^3.8.2",
     "qs": "^6.9.4",
     "v-jsoneditor": "^1.4.2",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
     "vue-html-to-paper": "^1.3.1",
     "vue-router": "^3.4.9",
-    "vuetify": "^2.3.21",
+    "vuetify": "^2.4.1",
     "vuex": "^3.6.0"
   },
   "devDependencies": {
@@ -26,9 +26,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.30.0",
+    "sass": "^1.32.0",
     "sass-loader": "^8.0.0",
-    "vue-cli-plugin-vuetify": "^2.0.8",
+    "vue-cli-plugin-vuetify": "^2.0.9",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.3.0"
   },
