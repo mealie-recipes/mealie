@@ -27,22 +27,22 @@
 export default {
   props: {
     buttonText: String,
-    value: String
+    value: String,
   },
   data() {
     return {
       dialog: false,
       themeName: "",
       rules: {
-        required: val => !!val || "Required."
-      }
+        required: (val) => !!val || "Required.",
+      },
     };
   },
 
   watch: {
     color() {
       this.updateColor();
-    }
+    },
   },
   methods: {
     randomColor() {
@@ -52,20 +52,20 @@ export default {
       const newTheme = {
         name: this.themeName,
         colors: {
-          primary: this.randomColor(),
-          accent: this.randomColor(),
-          secondary: this.randomColor(),
-          success: this.randomColor(),
-          info: this.randomColor(),
-          warning: this.randomColor(),
-          error: this.randomColor()
-        }
+          primary: "#E58325",
+          accent: "#00457A",
+          secondary: "#973542",
+          success: "#5AB1BB",
+          info: "#4990BA",
+          warning: "#FF4081",
+          error: "#EF5350",
+        },
       };
 
       this.$emit("new-theme", newTheme);
       this.dialog = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
