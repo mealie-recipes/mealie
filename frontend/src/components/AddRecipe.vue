@@ -19,7 +19,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="createRecipe"> Submit </v-btn>
+          <v-btn color="grey" text @click="reset"> Close </v-btn>
+          <v-btn color="success" text @click="createRecipe"> Submit </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -73,10 +74,11 @@ export default {
     },
 
     reset() {
-      (this.fab = false),
-        (this.addRecipe = false),
-        (this.recipeURL = ""),
-        (this.processing = false);
+      this.fab = false;
+      this.error = false;
+      this.addRecipe = false;
+      this.recipeURL = "";
+      this.processing = false;
     },
   },
 };
