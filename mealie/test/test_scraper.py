@@ -1,11 +1,11 @@
-import pytest
 import json
-import os
-from pprint import pprint
+from pathlib import Path
 
+import pytest
 from services.scrape_services import normalize_data, normalize_instructions
 
-TEST_DATA_DIR = os.getenv("TEST_DATA_DIR")
+CWD = Path(__file__).parent
+RAW_RECIPE_DIR = CWD.joinpath("data", "recipes-raw")
 
 def pytest_generate_tests(metafunc):
     # called once per each test function
@@ -14,6 +14,10 @@ def pytest_generate_tests(metafunc):
     metafunc.parametrize(
         argnames, [[funcargs[name] for name in argnames] for funcargs in funcarglist]
     )
+
+
+def raw_recipe_info(file_name: str, num_steps: int) -> dict:
+    return {"json_file": RAW_RECIPE_DIR.joinpath(file_name), "num_steps": num_steps} 
 
 
 class TestScraper:
@@ -25,20 +29,20 @@ class TestScraper:
             dict(instructions=[{"@type": "HowToStep", "text": "A"},
                                {"@type": "HowToStep", "text": "B"},
                                {"@type": "HowToStep", "text": "C"}]),
-        ],
+        ],  
         "test_normalize_data": [
-            dict(json_file=f"{TEST_DATA_DIR}/best-homemade-salsa-recipe.json", num_steps=2),
-            dict(json_file=f"{TEST_DATA_DIR}/blue-cheese-stuffed-turkey-meatballs-with-raspberry-balsamic-glaze-2.json", num_steps=3),
-            dict(json_file=f"{TEST_DATA_DIR}/bon_appetit.json", num_steps=8),
-            dict(json_file=f"{TEST_DATA_DIR}/chunky-apple-cake.json", num_steps=4),
-            dict(json_file=f"{TEST_DATA_DIR}/dairy-free-impossible-pumpkin-pie.json", num_steps=7),
-            dict(json_file=f"{TEST_DATA_DIR}/how-to-make-instant-pot-spaghetti.json", num_steps=8),
-            dict(json_file=f"{TEST_DATA_DIR}/instant-pot-chicken-and-potatoes.json", num_steps=4),
-            dict(json_file=f"{TEST_DATA_DIR}/instant-pot-kerala-vegetable-stew.json", num_steps=13),
-            dict(json_file=f"{TEST_DATA_DIR}/jalapeno-popper-dip.json", num_steps=4),
-            dict(json_file=f"{TEST_DATA_DIR}/microwave_sweet_potatoes_04783.json", num_steps=4),
-            dict(json_file=f"{TEST_DATA_DIR}/moroccan-skirt-steak-with-roasted-pepper-couscous.json", num_steps=4),
-            dict(json_file=f"{TEST_DATA_DIR}/Pizza-Knoblauch-Champignon-Paprika-vegan.html.json", num_steps=5),
+            raw_recipe_info("best-homemade-salsa-recipe.json", 2),
+            raw_recipe_info("blue-cheese-stuffed-turkey-meatballs-with-raspberry-balsamic-glaze-2.json", 3),
+            raw_recipe_info("bon_appetit.json", 8),
+            raw_recipe_info("chunky-apple-cake.json", 4),
+            raw_recipe_info("dairy-free-impossible-pumpkin-pie.json", 7),
+            raw_recipe_info("how-to-make-instant-pot-spaghetti.json", 8),
+            raw_recipe_info("instant-pot-chicken-and-potatoes.json", 4),
+            raw_recipe_info("instant-pot-kerala-vegetable-stew.json", 13),
+            raw_recipe_info("jalapeno-popper-dip.json", 4),
+            raw_recipe_info("microwave_sweet_potatoes_04783.json", 4),
+            raw_recipe_info("moroccan-skirt-steak-with-roasted-pepper-couscous.json", 4),
+            raw_recipe_info("Pizza-Knoblauch-Champignon-Paprika-vegan.html.json", 5),
         ]
     }
 
