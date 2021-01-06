@@ -33,7 +33,7 @@
                   :key="generateKey(meal.slug, index)"
                 >
                   <v-img
-                    class="rounded-lg"
+                    class="rounded-lg info"
                     :src="getImage(meal.image)"
                     height="80"
                     width="80"
@@ -105,7 +105,6 @@ export default {
     editPlan(id) {
       this.plannedMeals.forEach((element) => {
         if (element.uid === id) {
-          console.log(element);
           this.editMealPlan = element;
         }
       });

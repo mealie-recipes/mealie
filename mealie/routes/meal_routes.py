@@ -17,15 +17,16 @@ async def get_all_meals():
 @router.post("/api/meal-plan/create/", tags=["Meal Plan"])
 async def set_meal_plan(data: MealPlan):
     """ Creates Mealplan from Frontend Data"""
+    data.process_meals()
+    data.save_to_db()
+    
+    # try:
 
-    try:
-        data.process_meals()
-        data.save_to_db()
-    except:
-        raise HTTPException(
-            status_code=404,
-            detail=SnackResponse.error("Unable to Create Mealplan See Log"),
-        )
+    # except:
+    #     raise HTTPException(
+    #         status_code=404,
+    #         detail=SnackResponse.error("Unable to Create Mealplan See Log"),
+    #     )
 
     return SnackResponse.success("Mealplan Created")
 

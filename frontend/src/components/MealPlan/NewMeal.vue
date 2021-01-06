@@ -107,7 +107,7 @@ export default {
       this.meals = [];
       for (let i = 0; i < this.dateDif; i++) {
         this.meals.push({
-          slug: "",
+          slug: "empty",
           date: this.getDate(i),
           dateText: this.getDayText(i),
         });
