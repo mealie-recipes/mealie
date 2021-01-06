@@ -38,12 +38,13 @@ services:
       db_port: 27017    # The Default port for Mongo DB
       TZ: America/Anchorage
     volumes:
-      - ./data/img:/app/data/img
-      - ./data/backups:/app/data/backups
+      - ./mealie/data/:/app/data/
       
   mongo:
     image: mongo
     restart: always
+    volumes:
+    - ./mongo:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root  # Change!
       MONGO_INITDB_ROOT_PASSWORD: example   # Change!
@@ -56,6 +57,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
 ```
 
 ## Ansible Tasks Template
