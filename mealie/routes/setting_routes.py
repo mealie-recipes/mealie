@@ -13,7 +13,7 @@ scheduler = Scheduler()
 scheduler.startup_scheduler()
 
 
-@router.get("/api/site-settings/", tags=["Settings"], response_model=SiteSettings)
+@router.get("/api/site-settings/", tags=["Settings"])
 async def get_main_settings():
     """ Returns basic site settings """
 
@@ -43,7 +43,7 @@ async def update_settings(data: SiteSettings):
 
 
 @router.get(
-    "/api/site-settings/themes/", tags=["Themes"], response_model=List[SiteTheme]
+    "/api/site-settings/themes/", tags=["Themes"]
 )
 async def get_all_themes():
     """ Returns all site themes """
@@ -52,7 +52,7 @@ async def get_all_themes():
 
 
 @router.get(
-    "/api/site-settings/themes/{theme_name}/", tags=["Themes"], response_model=SiteTheme
+    "/api/site-settings/themes/{theme_name}/", tags=["Themes"]
 )
 async def get_single_theme(theme_name: str):
     """ Returns a named theme """

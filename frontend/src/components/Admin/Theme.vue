@@ -16,17 +16,11 @@
             mandatory
             @change="setStoresDarkMode"
           >
-            <v-btn value="system">
-              Default to system
-            </v-btn>
+            <v-btn value="system"> Default to system </v-btn>
 
-            <v-btn value="light">
-              Light
-            </v-btn>
+            <v-btn value="light"> Light </v-btn>
 
-            <v-btn value="dark">
-              Dark
-            </v-btn>
+            <v-btn value="dark"> Dark </v-btn>
           </v-btn-toggle>
         </v-col>
       </v-row></v-card-text
@@ -50,7 +44,7 @@
               return-object
               v-model="selectedTheme"
               @change="themeSelected"
-              :rules="[v => !!v || 'Theme is required']"
+              :rules="[(v) => !!v || 'Theme is required']"
               required
             >
             </v-select>
@@ -140,19 +134,20 @@ export default {
   components: {
     ColorPicker,
     Confirmation,
-    NewTheme
+    NewTheme,
   },
   data() {
     return {
       selectedTheme: {},
       selectedDarkMode: "system",
-      availableThemes: []
+      availableThemes: [],
     };
   },
   async mounted() {
     this.availableThemes = await api.themes.requestAll();
     this.selectedTheme = this.$store.getters.getActiveTheme;
     this.selectedDarkMode = this.$store.getters.getDarkMode;
+    console.log(this.selectedDarkMode);
   },
 
   methods: {
@@ -181,7 +176,7 @@ export default {
       //Change to default if deleting current theme.
       if (
         !this.availableThemes.some(
-          theme => theme.name === this.selectedTheme.name
+          (theme) => theme.name === this.selectedTheme.name
         )
       ) {
         await this.$store.dispatch("resetTheme");
@@ -203,6 +198,7 @@ export default {
     },
 
     setStoresDarkMode() {
+      console.log(this.selectedDarkMode);
       this.$store.commit("setDarkMode", this.selectedDarkMode);
     },
     /**
@@ -216,8 +212,8 @@ export default {
           this.selectedTheme.colors
         );
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
