@@ -68,7 +68,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 """
 
 CWD = Path(__file__).parent
-out_path = CWD.joinpath("temp", "api.html")
+out_path = CWD.joinpath("temp", "index.html")
 
 
 def generate_api_docs(app):
