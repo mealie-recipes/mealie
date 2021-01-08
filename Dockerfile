@@ -20,6 +20,7 @@ RUN pip install -r requirements.txt
 COPY ./mealie /app
 COPY ./mealie/data/templates/recipes.md /app/data/templates/
 COPY --from=build-stage /app/dist /app/dist
+RUN rm -rf /app/test
 
 ENV ENV prod
 
