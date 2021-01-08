@@ -20,11 +20,14 @@
     A Place for All Your Recipes
     <br />
     <a href="https://hay-kot.github.io/mealie/"><strong>Explore the docs »</strong></a>
-    <br />
+  <a href="https://github.com/hay-kot/mealie">
+  </a>
     <br />
     <a href="https://github.com/hay-kot/mealie"><s>View Demo</s></a>
     ·
-    <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>
+    <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>    
+    ·
+    <a href="/api/docs">API</a>
     ·
     <a href="https://github.com/hay-kot/mealie/issues">
     Request Feature
@@ -32,7 +35,6 @@
     ·
     <a href="https://hub.docker.com/repository/docker/hkotel/mealies"> Docker Hub
     </a>
-  </p>
 </p>
 
 

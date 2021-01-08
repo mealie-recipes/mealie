@@ -5,6 +5,9 @@ __pycache__/
 *$py.class
 # frontend/.env.development
 docs/site/
+mealie/temp/*
+mealie/temp/api.html
+
 
 mealie/data/backups/*
 mealie/data/debug/*
