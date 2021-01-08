@@ -7,7 +7,9 @@ import userSettings from "./modules/userSettings";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({
+    paths: ['userSettings']
+  })],
   modules: {
     userSettings
   },
