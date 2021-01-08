@@ -4,11 +4,9 @@ import vuetify from "./plugins/vuetify";
 import store from "./store/store";
 import VueRouter from "vue-router";
 import { routes } from "./routes";
-import VueCookies from "vue-cookies";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(VueCookies);
 
 const router = new VueRouter({
   routes,
@@ -23,7 +21,7 @@ new Vue({
 }).$mount("#app");
 
 // Truncate
-let filter = function(text, length, clamp) {
+let filter = function (text, length, clamp) {
   clamp = clamp || "...";
   let node = document.createElement("div");
   node.innerHTML = text;

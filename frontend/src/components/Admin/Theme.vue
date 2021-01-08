@@ -1,69 +1,117 @@
 <template>
   <v-card>
     <v-card-title class="secondary white--text"> Theme Settings </v-card-title>
+
     <v-card-text>
+      <h2 class="mt-4 mb-1">Dark Mode</h2>
+      <p>
+        Choose how Mealie looks to you. Set your theme preference to follow your
+        system settings, or choose to use the light or dark theme.
+      </p>
+      <v-row dense align="center">
+        <v-col cols="12">
+          <v-btn-toggle
+            v-model="selectedDarkMode"
+            color="primary "
+            mandatory
+            @change="setStoresDarkMode"
+          >
+            <v-btn value="system">
+              Default to system
+            </v-btn>
+
+            <v-btn value="light">
+              Light
+            </v-btn>
+
+            <v-btn value="dark">
+              Dark
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+      </v-row></v-card-text
+    >
+    <v-divider class=""></v-divider>
+    <v-card-text>
+      <h2 class="mt-1 mb-1">Theme</h2>
       <p>
         Select a theme from the dropdown or create a new theme. Note that the
         default theme will be served to all users who have not set a theme
         preference.
       </p>
-      <v-row dense align="center">
-        <v-col cols="12" md="2" sm="5">
-          <v-switch
-            v-model="darkMode"
-            inset
-            label="Dark Mode"
-            class="my-n3"
-            @change="toggleDarkMode"
-          ></v-switch>
-        </v-col>
-        <v-col cols="12" md="4" sm="3">
-          <v-form ref="form" lazy-validation>
+
+      <v-form ref="form" lazy-validation>
+        <v-row dense align="center">
+          <v-col cols="12" md="4" sm="3">
             <v-select
-              label="Saved Color Schemes"
+              label="Saved Color Theme"
               :items="availableThemes"
               item-text="name"
-              item-value="colors"
               return-object
-              v-model="selectedScheme"
+              v-model="selectedTheme"
               @change="themeSelected"
-              :rules="[(v) => !!v || 'Theme is required']"
+              :rules="[v => !!v || 'Theme is required']"
               required
             >
             </v-select>
-          </v-form>
-        </v-col>
-        <v-col cols="12" sm="1">
-          <NewTheme @new-theme="appendTheme" />
-        </v-col>
-        <v-col cols="12" sm="1">
-          <v-btn text color="error" @click="deleteSelected"> Delete </v-btn>
-        </v-col>
-      </v-row>
-      <v-row dense align-content="center" v-if="activeTheme">
+          </v-col>
+          <v-col cols="12" sm="1">
+            <NewTheme @new-theme="appendTheme" />
+          </v-col>
+          <v-col cols="12" sm="1">
+            <v-btn text color="error" @click="deleteSelectedThemeValidation">
+              Delete
+            </v-btn>
+            <Confirmation
+              title="Delete Theme"
+              message="Are you sure you want to delete this theme?"
+              color="error"
+              icon="mdi-alert-circle"
+              ref="deleteThemeConfirm"
+              v-on:confirm="deleteSelectedTheme()"
+            />
+          </v-col>
+        </v-row>
+      </v-form>
+      <v-row dense align-content="center" v-if="selectedTheme.colors">
         <v-col>
-          <ColorPicker button-text="Primary" v-model="activeTheme.primary" />
+          <ColorPicker
+            button-text="Primary"
+            v-model="selectedTheme.colors.primary"
+          />
         </v-col>
         <v-col>
           <ColorPicker
             button-text="Secondary"
-            v-model="activeTheme.secondary"
+            v-model="selectedTheme.colors.secondary"
           />
         </v-col>
         <v-col>
-          <ColorPicker button-text="Accent" v-model="activeTheme.accent" />
+          <ColorPicker
+            button-text="Accent"
+            v-model="selectedTheme.colors.accent"
+          />
         </v-col>
         <v-col>
-          <ColorPicker button-text="Success" v-model="activeTheme.success" />
+          <ColorPicker
+            button-text="Success"
+            v-model="selectedTheme.colors.success"
+          />
         </v-col>
         <v-col>
-          <ColorPicker button-text="Info" v-model="activeTheme.info" />
+          <ColorPicker button-text="Info" v-model="selectedTheme.colors.info" />
         </v-col>
         <v-col>
-          <ColorPicker button-text="Warning" v-model="activeTheme.warning" />
+          <ColorPicker
+            button-text="Warning"
+            v-model="selectedTheme.colors.warning"
+          />
         </v-col>
         <v-col>
-          <ColorPicker button-text="Error" v-model="activeTheme.error" />
+          <ColorPicker
+            button-text="Error"
+            v-model="selectedTheme.colors.error"
+          />
         </v-col>
       </v-row>
     </v-card-text>
@@ -73,7 +121,9 @@
         <v-col> </v-col>
         <v-col></v-col>
         <v-col align="end">
-          <v-btn text color="success" @click="saveThemes"> Save Theme </v-btn>
+          <v-btn text color="success" @click="saveThemes">
+            Save Colors and Apply Theme
+          </v-btn>
         </v-col>
       </v-row>
     </v-card-actions>
@@ -84,73 +134,90 @@
 import api from "../../api";
 import ColorPicker from "./ThemeUI/ColorPicker";
 import NewTheme from "./ThemeUI/NewTheme";
+import Confirmation from "../UI/Confirmation";
 
 export default {
   components: {
     ColorPicker,
-    NewTheme,
+    Confirmation,
+    NewTheme
   },
   data() {
     return {
-      themes: null,
-      activeTheme: {},
-      darkMode: false,
-      availableThemes: [],
-      selectedScheme: "",
-      selectedLight: "",
+      selectedTheme: {},
+      selectedDarkMode: "system",
+      availableThemes: []
     };
   },
   async mounted() {
     this.availableThemes = await api.themes.requestAll();
-    this.darkMode = this.$store.getters.getDarkMode;
-    this.themes = this.$store.getters.getThemes;
-    this.setThemeEditor();
+    this.selectedTheme = this.$store.getters.getActiveTheme;
+    this.selectedDarkMode = this.$store.getters.getDarkMode;
   },
 
   methods: {
-    async deleteSelected() {
+    /**
+     * Open the delete confirmation.
+     */
+    deleteSelectedThemeValidation() {
       if (this.$refs.form.validate()) {
-        if (this.selectedScheme === "default") {
+        if (this.selectedTheme.name === "default") {
           // Notify User Can't Delete Default
-        } else if (this.selectedScheme !== "") {
-          api.themes.delete(this.selectedScheme.name);
+        } else if (this.selectedTheme !== {}) {
+          this.$refs.deleteThemeConfirm.open();
         }
-        this.availableThemes = await api.themes.requestAll();
       }
     },
-    async appendTheme(newTheme) {
-      api.themes.create(newTheme);
-      this.availableThemes.push(newTheme);
-    },
-    themeSelected() {
-      this.activeTheme = this.selectedScheme.colors;
-    },
-    setThemeEditor() {
-      if (this.darkMode) {
-        this.activeTheme = this.themes.dark;
-      } else {
-        this.activeTheme = this.themes.light;
-      }
-    },
-    toggleDarkMode() {
-      this.$store.commit("setDarkMode", this.darkMode);
-      this.selectedScheme = "";
+    /**
+     * Delete the selected Theme
+     */
+    async deleteSelectedTheme() {
+      //Delete Theme from DB
+      await api.themes.delete(this.selectedTheme.name);
 
-      this.setThemeEditor();
+      //Get the new list of available from DB
+      this.availableThemes = await api.themes.requestAll();
+
+      //Change to default if deleting current theme.
+      if (
+        !this.availableThemes.some(
+          theme => theme.name === this.selectedTheme.name
+        )
+      ) {
+        await this.$store.dispatch("resetTheme");
+        this.selectedTheme = this.$store.getters.getActiveTheme;
+      }
     },
-    saveThemes() {
+    /**
+     * Create the new Theme and select it.
+     */
+    async appendTheme(newTheme) {
+      await api.themes.create(newTheme);
+      this.availableThemes.push(newTheme);
+      this.selectedTheme = newTheme;
+    },
+
+    themeSelected() {
+      //TODO Revamp Theme selection.
+      //console.log("this.activeTheme", this.selectedTheme);
+    },
+
+    setStoresDarkMode() {
+      this.$store.commit("setDarkMode", this.selectedDarkMode);
+    },
+    /**
+     * This will save the current colors and make the selected theme live.
+     */
+    async saveThemes() {
       if (this.$refs.form.validate()) {
-        if (this.darkMode) {
-          this.themes.dark = this.activeTheme;
-        } else {
-          this.themes.light = this.activeTheme;
-        }
-        this.$store.commit("setThemes", this.themes);
-        this.$store.dispatch("initCookies");
-        api.themes.update(this.selectedScheme.name, this.activeTheme);
-      } else;
-    },
-  },
+        this.$store.commit("setTheme", this.selectedTheme);
+        await api.themes.update(
+          this.selectedTheme.name,
+          this.selectedTheme.colors
+        );
+      }
+    }
+  }
 };
 </script>
 
