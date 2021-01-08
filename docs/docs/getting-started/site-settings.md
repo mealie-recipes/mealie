@@ -4,12 +4,12 @@
 
 
 ## Theme Settings
-Color themes can be created and set from the UI in the settings page. You can select an existing color theme or create a new one. On creation of a new color theme random colors will first be generated, then you can select and save as you'd like. By default the "default" theme will be loaded for all new users visiting the site. All created color themes are available to all users of the site. Separate color themes can be set for both Light and Dark modes.
+Color themes can be created and set from the UI in the settings page. You can select an existing color theme or create a new one. On creation of a new color theme, the default colors will be used, then you can select and save as you'd like. By default the "default" theme will be loaded for all new users visiting the site. All created color themes are available to all users of the site. Theme Colors will be set for both light and dark modes.
 
 ![](../gifs/theme-demo.gif)
 
 !!! note
-    Theme data is stored in cookies in the browser. Calling "Save Theme" will refresh the cookie with the selected theme as well save the theme to the database. 
+    Theme data is stored in localstorage in the browser. Calling "Save colors and apply theme will refresh the localstorage with the selected theme as well save the theme to the database. 
 
 
 
