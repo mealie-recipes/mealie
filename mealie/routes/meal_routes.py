@@ -1,28 +1,26 @@
-from pprint import pprint
+from typing import List
 
 from fastapi import APIRouter, HTTPException
+from models.recipe_models import SlugResponse
 from services.meal_services import MealPlan
 from utils.snackbar import SnackResponse
 
 router = APIRouter()
 
 
-@router.get("/api/meal-plan/all/", tags=["Meal Plan"])
+@router.get("/api/meal-plan/all/", tags=["Meal Plan"], response_model=List[MealPlan])
 async def get_all_meals():
-    """ Returns a list of all available meal plans """
+    """ Returns a list of all available Meal Plan """
 
     return MealPlan.get_all()
 
 
 @router.post("/api/meal-plan/create/", tags=["Meal Plan"])
 async def set_meal_plan(data: MealPlan):
-    """ Creates Mealplan from Frontend Data"""
+    """ Creates a meal plan database entry """
     data.process_meals()
     data.save_to_db()
-    
-    # try:
 
-    # except:
     #     raise HTTPException(
     #         status_code=404,
     #         detail=SnackResponse.error("Unable to Create Mealplan See Log"),
@@ -33,7 +31,7 @@ async def set_meal_plan(data: MealPlan):
 
 @router.post("/api/meal-plan/{plan_id}/update/", tags=["Meal Plan"])
 async def update_meal_plan(plan_id: str, meal_plan: MealPlan):
-    """ Updates a Meal Plan Based off ID """
+    """ Updates a meal plan based off ID """
 
     try:
         meal_plan.process_meals()
@@ -49,21 +47,27 @@ async def update_meal_plan(plan_id: str, meal_plan: MealPlan):
 
 @router.delete("/api/meal-plan/{plan_id}/delete/", tags=["Meal Plan"])
 async def delete_meal_plan(plan_id):
-    """ Doc Str """
+    """ Removes a meal plan from the database """
 
     MealPlan.delete(plan_id)
 
     return SnackResponse.success("Mealplan Deleted")
 
 
-@router.get("/api/meal-plan/today/", tags=["Meal Plan"])
+@router.get(
+    "/api/meal-plan/today/",
+    tags=["Meal Plan"],
+)
 async def get_today():
-    """ Returns the meal plan data for today """
+    """
+    Returns the recipe slug for the meal scheduled for today.
+    If no meal is scheduled nothing is returned
+    """
 
     return MealPlan.today()
 
 
-@router.get("/api/meal-plan/this-week/", tags=["Meal Plan"])
+@router.get("/api/meal-plan/this-week/", tags=["Meal Plan"], response_model=MealPlan)
 async def get_this_week():
     """ Returns the meal plan data for this week """
 

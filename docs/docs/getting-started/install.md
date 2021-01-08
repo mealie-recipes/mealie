@@ -16,6 +16,7 @@ To deploy docker on your local network it is highly recommended to use docker to
 | db_password    | example | The Mongodb password you specified in your mongo container                                                                                              |
 | db_host        | mongo   | The host address of MongoDB if you're in docker and using the same network you can use mongo as the host name                                           |
 | db_port        | 27017   | the port to access MongoDB 27017 is the default for mongo                                                                                               |
+| api_docs       | True    | Turns on/off access to the API documentation locally.                                                                                                   |
 | TZ             |         | You should set your time zone accordingly so the date/time features work correctly                                                                      |
 
 

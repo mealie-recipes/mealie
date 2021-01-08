@@ -24,6 +24,18 @@ class SiteSettings(BaseModel):
     name: str = "main"
     webhooks: Webhooks
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "main",
+                "webhooks": {
+                    "webhookTime": "00:00",
+                    "webhookURLs": ["https://mywebhookurl.com/webhook"],
+                    "enable": False,
+                },
+            }
+        }
+
     @staticmethod
     def _unpack_doc(document: SiteSettingsDocument):
         document = json.loads(document.to_json())
@@ -64,6 +76,22 @@ class Colors(BaseModel):
 class SiteTheme(BaseModel):
     name: str
     colors: Colors
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "default",
+                "colors": {
+                    "primary": "#E58325",
+                    "accent": "#00457A",
+                    "secondary": "#973542",
+                    "success": "#5AB1BB",
+                    "info": "#4990BA",
+                    "warning": "#FF4081",
+                    "error": "#EF5350",
+                },
+            }
+        }
 
     @staticmethod
     def get_by_name(theme_name):

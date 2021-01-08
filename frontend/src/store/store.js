@@ -7,11 +7,13 @@ import userSettings from "./modules/userSettings";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  plugins: [createPersistedState({
-    paths: ['userSettings']
-  })],
+  plugins: [
+    createPersistedState({
+      paths: ["userSettings"],
+    }),
+  ],
   modules: {
-    userSettings
+    userSettings,
   },
   state: {
     // Snackbar
@@ -40,7 +42,6 @@ const store = new Vuex.Store({
   },
 
   actions: {
-
     async requestRecentRecipes() {
       const keys = [
         "name",

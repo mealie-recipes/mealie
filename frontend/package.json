@@ -13,7 +13,6 @@
     "qs": "^6.9.4",
     "v-jsoneditor": "^1.4.2",
     "vue": "^2.6.11",
-    "vue-html-to-paper": "^1.3.1",
     "vue-router": "^3.4.9",
     "vuetify": "^2.4.1",
     "vuex": "^3.6.0",
