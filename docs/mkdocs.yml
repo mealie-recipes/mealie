@@ -7,7 +7,6 @@ theme:
     logo: material/silverware-variant
   features:
     - navigation.expand
-    - navigation.instant
 
 markdown_extensions:
   - pymdownx.emoji:
@@ -35,7 +34,8 @@ nav:
       - Backups and Exports: "getting-started/backups-and-exports.md"
       - Recipe Migration: "getting-started/migration-imports.md"
   - API Reference:
-      - Swagger/OpenAPI: "api/api-intro.md"
+      - API Documentation: "api/demo/index.html"
+      - Usage Examples: "api/api-examples.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
       - Developers Guide:

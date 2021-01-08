@@ -8,6 +8,7 @@ ENV = CWD.joinpath(".env")
 dotenv.load_dotenv(ENV)
 
 # General
+PRODUCTION = os.environ.get("ENV")
 PORT = int(os.getenv("mealie_port", 9000))
 
 # Mongo Database

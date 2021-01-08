@@ -1,5 +1,4 @@
 from pathlib import Path
-import os
 
 import uvicorn
 from fastapi import FastAPI
@@ -15,8 +14,8 @@ from routes import (
     static_routes,
     user_routes,
 )
-from routes.setting_routes import scheduler
-from settings import PORT
+from routes.setting_routes import scheduler  # ! This has to be imported for scheduling
+from settings import PORT, PRODUCTION
 from utils.logger import logger
 
 CWD = Path(__file__).parent
@@ -26,9 +25,9 @@ app = FastAPI()
 
 
 # Mount Vue Frontend only in production
-env = os.environ.get("ENV")
-if(env == "prod"):
+if PRODUCTION:
     app.mount("/static", StaticFiles(directory=WEB_PATH, html=True))
+
 
 # API Routes
 app.include_router(recipe_routes.router)
@@ -49,6 +48,9 @@ app.include_router(static_routes.router)
 startup.ensure_dirs()
 startup.generate_default_theme()
 
+# Generate API Documentation
+if not PRODUCTION:
+    startup.generate_api_docs(app)
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")
