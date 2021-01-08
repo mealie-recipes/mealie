@@ -5,6 +5,8 @@ from pydantic.main import BaseModel
 
 
 class RecipeResponse(BaseModel):
+    List
+
     class Config:
         schema_extra = {
             "example": [
@@ -46,11 +48,12 @@ class AllRecipeRequest(BaseModel):
 
 
 class RecipeURLIn(BaseModel):
+    url: str
+
     class Config:
         schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes"}}
 
+
 class SlugResponse(BaseModel):
     class Config:
-            schema_extra = {
-                "example": "adult-mac-and-cheese"
-            }
+        schema_extra = {"example": "adult-mac-and-cheese"}

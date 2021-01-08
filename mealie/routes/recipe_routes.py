@@ -2,12 +2,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, File, Form, HTTPException, Query
 from fastapi.responses import FileResponse
-from models.recipe_models import (
-    AllRecipeRequest,
-    RecipeResponse,
-    RecipeURLIn,
-    SlugResponse,
-)
+from models.recipe_models import AllRecipeRequest, RecipeURLIn, SlugResponse
 from services.image_services import read_image, write_image
 from services.recipe_services import Recipe, read_requested_values
 from services.scrape_services import create_from_url
@@ -16,7 +11,7 @@ from utils.snackbar import SnackResponse
 router = APIRouter()
 
 
-@router.get("/api/all-recipes/", tags=["Recipes"], response_model=RecipeResponse)
+@router.get("/api/all-recipes/", tags=["Recipes"], response_model=List[dict])
 async def get_all_recipes(
     keys: Optional[List[str]] = Query(...), num: Optional[int] = 100
 ):
@@ -35,7 +30,7 @@ async def get_all_recipes(
     return all_recipes
 
 
-@router.post("/api/all-recipes/", tags=["Recipes"], response_model=RecipeResponse)
+@router.post("/api/all-recipes/", tags=["Recipes"], response_model=List[dict])
 async def get_all_recipes_post(body: AllRecipeRequest):
     """
     Returns key data for all recipes based off the body data provided.
@@ -72,7 +67,7 @@ async def get_recipe_img(recipe_slug: str):
     "/api/recipe/create-url/",
     tags=["Recipes"],
     status_code=201,
-    response_model=SlugResponse,
+    response_model=str,
 )
 async def parse_recipe_url(url: RecipeURLIn):
     """ Takes in a URL and attempts to scrape data and load it into the database """

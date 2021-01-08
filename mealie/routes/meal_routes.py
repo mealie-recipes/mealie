@@ -54,7 +54,10 @@ async def delete_meal_plan(plan_id):
     return SnackResponse.success("Mealplan Deleted")
 
 
-@router.get("/api/meal-plan/today/", tags=["Meal Plan"], response_model=SlugResponse)
+@router.get(
+    "/api/meal-plan/today/",
+    tags=["Meal Plan"],
+)
 async def get_today():
     """
     Returns the recipe slug for the meal scheduled for today.
