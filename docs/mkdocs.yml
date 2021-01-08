@@ -34,7 +34,7 @@ nav:
       - Backups and Exports: "getting-started/backups-and-exports.md"
       - Recipe Migration: "getting-started/migration-imports.md"
   - API Reference:
-      - API Documentation: "api/demo/index.html"
+      - API Documentation: "api/docs/index.html"
       - Usage Examples: "api/api-examples.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
