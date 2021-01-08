@@ -56,7 +56,7 @@ export default {
     VJsoneditor,
     ViewRecipe,
     EditRecipe,
-    ButtonRow,
+    ButtonRow
   },
   data() {
     return {
@@ -66,7 +66,7 @@ export default {
       jsonEditorOptions: {
         mode: "code",
         search: false,
-        mainMenuBar: false,
+        mainMenuBar: false
       },
       // Recipe Details //
       recipeDetails: {
@@ -83,9 +83,9 @@ export default {
         categories: [],
         dateAdded: "",
         notes: [],
-        rating: 0,
+        rating: 0
       },
-      imageKey: 1,
+      imageKey: 1
     };
   },
   mounted() {
@@ -93,9 +93,9 @@ export default {
   },
 
   watch: {
-    $route: function () {
+    $route: function() {
       this.getRecipeDetails();
-    },
+    }
   },
 
   computed: {
@@ -111,7 +111,7 @@ export default {
       } else {
         return false;
       }
-    },
+    }
   },
   methods: {
     getImageFile(fileObject) {
@@ -130,7 +130,6 @@ export default {
       api.recipes.delete(this.recipeDetails.slug);
     },
     async saveRecipe() {
-      console.log(this.recipeDetails);
       await api.recipes.update(this.recipeDetails);
 
       if (this.fileObject) {
@@ -143,8 +142,8 @@ export default {
     showForm() {
       this.form = true;
       this.jsonEditor = false;
-    },
-  },
+    }
+  }
 };
 </script>
 

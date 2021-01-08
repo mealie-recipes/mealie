@@ -177,7 +177,6 @@ export default {
 
       //Get the new list of available from DB
       this.availableThemes = await api.themes.requestAll();
-      console.log("themes", this.availableThemes);
 
       //Change to default if deleting current theme.
       if (
@@ -185,7 +184,6 @@ export default {
           theme => theme.name === this.selectedTheme.name
         )
       ) {
-        console.log("hit");
         await this.$store.dispatch("resetTheme");
         this.selectedTheme = this.$store.getters.getActiveTheme;
       }
