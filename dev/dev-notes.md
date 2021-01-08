@@ -46,3 +46,5 @@ General
 - Improved documentation
 - Fixed hot-reloading development environment - [grssmnn](https://github.com/grssmnn)
 - Added Confirmation component to deleting recipes - [zackbcom](https://github.com/zackbcom)
+- Added Persistent storage to vuex - [zackbcom](https://github.com/zackbcom)
+- Updated Theme backend - [zackbcom](https://github.com/zackbcom)

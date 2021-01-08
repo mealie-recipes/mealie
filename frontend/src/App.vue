@@ -37,6 +37,7 @@ import Menu from "./components/UI/Menu";
 import SearchHeader from "./components/UI/SearchHeader";
 import AddRecipe from "./components/AddRecipe";
 import SnackBar from "./components/UI/SnackBar";
+import Vuetify from "./plugins/vuetify";
 export default {
   name: "App",
 
@@ -54,8 +55,9 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("initCookies");
+    this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
+    this.darkModeSystemCheck();
     this.darkModeAddEventListener();
   },
 
@@ -64,15 +66,24 @@ export default {
   }),
   methods: {
     /**
+     * Checks if 'system' is set for dark mode and then sets the corrisponding value for vuetify
+     */
+    darkModeSystemCheck() {
+      if (this.$store.getters.getDarkMode === "system")
+        Vuetify.framework.theme.dark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+    },
+    /**
      * This will monitor the OS level darkmode and call to update dark mode.
      */
     darkModeAddEventListener() {
       const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
       darkMediaQuery.addEventListener("change", () => {
-        this.$store.commit("setDarkMode", "system");
+        this.darkModeSystemCheck();
       });
     },
+
     toggleSearch() {
       if (this.search === true) {
         this.search = false;
