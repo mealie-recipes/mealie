@@ -15,13 +15,19 @@ from routes import (
     user_routes,
 )
 from routes.setting_routes import scheduler  # ! This has to be imported for scheduling
-from settings import PORT, PRODUCTION
+from settings import PORT, PRODUCTION, docs_url, redoc_url
 from utils.logger import logger
 
 CWD = Path(__file__).parent
 WEB_PATH = CWD.joinpath("dist")
 
-app = FastAPI()
+app = FastAPI(
+    title="Mealie",
+    description="A place for all your recipes",
+    version="0.0.1",
+    docs_url=docs_url,
+    redoc_url=redoc_url,
+)
 
 
 # Mount Vue Frontend only in production
