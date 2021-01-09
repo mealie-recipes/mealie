@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from models.backup_models import BackupJob, Imports
-from pydantic.main import BaseModel
 from services.backup_services import (
     BACKUP_DIR,
     TEMPLATE_DIR,
@@ -29,6 +28,7 @@ async def available_imports():
 @router.post("/api/backups/export/database/", tags=["Import / Export"], status_code=201)
 async def export_database(data: BackupJob):
     """Generates a backup of the recipe database in json format."""
+
     try:
         export_path = export_db(data.tag, data.template)
     except:
