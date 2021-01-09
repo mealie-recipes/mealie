@@ -41,6 +41,7 @@ def import_migration(recipe_dict: dict) -> dict:
 
 def import_from_archive(file_name: str) -> list:
     successful_imports = []
+    failed_imports = []
 
     file_path = BACKUP_DIR.joinpath(file_name)
 
@@ -58,7 +59,8 @@ def import_from_archive(file_name: str) -> list:
                 recipeDoc.save()
                 successful_imports.append(recipe.stem)
             except:
-                logger.error("Failed Import:", recipe.stem)
+                logger.info(f"Failed Import: {recipe.stem}")
+                failed_imports.append(recipe.stem)
 
     image_dir = TEMP_DIR.joinpath("images")
     for image in image_dir.iterdir():
@@ -66,7 +68,8 @@ def import_from_archive(file_name: str) -> list:
             shutil.copy(image, IMG_DIR)
 
     shutil.rmtree(TEMP_DIR)
-    return successful_imports
+
+    return {"successful": successful_imports, "failed": failed_imports}
 
 
 def export_db(tag=None, templates=None):
@@ -91,6 +94,8 @@ def export_db(tag=None, templates=None):
             export_recipes(recipe_folder, template)
     elif type(templates) == str:
         export_recipes(recipe_folder, templates)
+    else:
+        export_recipes(recipe_folder)
 
     zip_path = BACKUP_DIR.joinpath(f"{export_tag}")
     shutil.make_archive(zip_path, "zip", backup_folder)
@@ -108,6 +113,7 @@ def export_images(dest_dir) -> Path:
 
 def export_recipes(dest_dir: Path, template=None) -> Path:
     all_recipes = RecipeDocument.objects()
+    logger.info(f"Backing Up Recipes: {all_recipes}")
     for recipe in all_recipes:
         json_recipe = recipe.to_json(indent=4)
 

@@ -21,5 +21,4 @@ def root():
 
 @router.get("/{full_path:path}", include_in_schema=False)
 def root_plus(full_path):
-    print(full_path)
     return FileResponse(BASE_HTML)
