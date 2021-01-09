@@ -51,9 +51,9 @@ def import_from_archive(file_name: str) -> list:
     for recipe in recipe_dir.glob("*.json"):
         with open(recipe, "r") as f:
             recipe_dict = json.loads(f.read())
-            recipe_dict = import_migration(recipe_dict)
 
             try:
+                recipe_dict = import_migration(recipe_dict)
                 recipeDoc = RecipeDocument(**recipe_dict)
                 recipeDoc.save()
                 successful_imports.append(recipe.stem)
