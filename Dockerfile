@@ -24,4 +24,6 @@ RUN rm -rf /app/test /app/temp
 
 ENV ENV prod
 
+VOLUME [ "/app/data" ]
+
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "9000"]

@@ -24,7 +24,7 @@
             :items="availableTemplates"
             v-model="selectedTemplate"
           ></v-combobox>
-        </v-col>0
+        </v-col>
         <v-col dense cols="12" sm="12" md="2">
           <v-btn block color="accent" @click="createBackup" width="165">
             Backup Recipes
