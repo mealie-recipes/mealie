@@ -55,7 +55,6 @@ export default {
   },
   async mounted() {
     this.mealPlan = await api.mealPlans.thisWeek();
-    console.log(this.mealPlan);
   },
   methods: {
     getOrder(index) {

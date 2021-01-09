@@ -150,7 +150,6 @@ export default {
     this.availableThemes = await api.themes.requestAll();
     this.selectedTheme = this.$store.getters.getActiveTheme;
     this.selectedDarkMode = this.$store.getters.getDarkMode;
-    console.log(this.selectedDarkMode);
   },
 
   methods: {
@@ -201,7 +200,6 @@ export default {
     },
 
     setStoresDarkMode() {
-      console.log(this.selectedDarkMode);
       this.$store.commit("setDarkMode", this.selectedDarkMode);
     },
     /**

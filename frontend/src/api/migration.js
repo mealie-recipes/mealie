@@ -12,7 +12,6 @@ export default {
   async migrateChowdown(repoURL) {
     let postBody = { url: repoURL };
     let response = await apiReq.post(migrationURLs.chowdownURL, postBody);
-    console.log(response);
     store.dispatch("requestRecentRecipes");
     return response.data;
   },

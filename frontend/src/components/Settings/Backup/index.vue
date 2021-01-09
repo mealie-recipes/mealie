@@ -24,7 +24,7 @@
             :items="availableTemplates"
             v-model="selectedTemplate"
           ></v-combobox>
-        </v-col>
+        </v-col>0
         <v-col dense cols="12" sm="12" md="2">
           <v-btn block color="accent" @click="createBackup" width="165">
             Backup Recipes
@@ -56,16 +56,28 @@
           </v-btn>
         </v-col>
       </v-row>
+      <SuccessFailureAlert
+        success-header="Successfully Imported"
+        :success="successfulImports"
+        failed-header="Failed Imports"
+        :failed="failedImports"
+      />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 import api from "../../../api";
+import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
 
 export default {
+  components: {
+    SuccessFailureAlert,
+  },
   data() {
     return {
+      failedImports: [],
+      successfulImports: [],
       backupLoading: false,
       backupTag: null,
       selectedBackup: null,
@@ -83,11 +95,15 @@ export default {
       this.availableBackups = response.imports;
       this.availableTemplates = response.templates;
     },
-    importBackup() {
+    async importBackup() {
       if (this.$refs.form.validate()) {
         this.backupLoading = true;
 
-        api.backups.import(this.selectedBackup);
+        let response = await api.backups.import(this.selectedBackup);
+        console.log(response.data);
+        this.failedImports = response.data.failed;
+        this.successfulImports = response.data.successful;
+
         this.backupLoading = false;
       }
     },

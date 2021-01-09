@@ -56,7 +56,6 @@ export default {
   computed: {
     newVersion() {
       if ((this.latestVersion != null) & (this.latestVersion != this.version)) {
-        console.log("New Version Avaiable");
         return true;
       } else {
         return false;
@@ -68,7 +67,6 @@ export default {
       let response = await axios.get(
         "https://api.github.com/repos/hay-kot/mealie/releases/latest"
       );
-      console.log(response);
       this.latestVersion = response.data.tag_name;
     },
   },
