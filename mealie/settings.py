@@ -8,7 +8,16 @@ ENV = CWD.joinpath(".env")
 dotenv.load_dotenv(ENV)
 
 # General
+PRODUCTION = os.environ.get("ENV")
 PORT = int(os.getenv("mealie_port", 9000))
+API = os.getenv("api_docs", True)
+
+if API:
+    docs_url = "/docs"
+    redoc_url = "/redoc"
+else:
+    docs_url = None
+    redoc_url = None
 
 # Mongo Database
 MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")

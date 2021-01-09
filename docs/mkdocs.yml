@@ -1,19 +1,46 @@
 site_name: Mealie Docs
+
 theme:
+  features:
+    - navigation.expand
   favicon: img/favicon.png
   name: material
   icon:
     logo: material/silverware-variant
-  features:
-    - navigation.instant
+
 markdown_extensions:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - def_list
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
   - admonition
+
 extra_css:
   - stylesheets/custom.css
 repo_url: https://github.com/hay-kot/mealie
 repo_name: hay-kot/mealie
+
+nav:
+  - About The Project: "index.md"
+  - Getting Started:
+      - Installation: "getting-started/install.md"
+      - Working With Recipes: "getting-started/recipes.md"
+      - Planning Meals: "getting-started/meal-planner.md"
+      - Site Settings: "getting-started/site-settings.md"
+      - Backups and Exports: "getting-started/backups-and-exports.md"
+      - Recipe Migration: "getting-started/migration-imports.md"
+  - API Reference:
+      - API Usage: "api/api-usage.md"
+      - API Documentation: "api/docs/index.html"
+  - Contributors Guide:
+      - Non-Code: "contributors/non-coders.md"
+      - Developers Guide:
+          - Code Contributions: "contributors/developers-guide/code-contributions.md"
+          - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
+          - Guidelines: "contributors/developers-guide/general-guidelines.md"
+  - Development Road Map: "roadmap.md"
+  - Change Log: "changelog.md"

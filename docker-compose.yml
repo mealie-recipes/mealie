@@ -16,8 +16,7 @@ services:
       db_host: mongo
       db_port: 27017
     volumes:
-      - ./mealie/data/img:/app/data/img
-      - ./mealie/data/backups:/app/data/backups
+      - ./mealie/data/:/app/data
   mongo:
     image: mongo
     restart: always

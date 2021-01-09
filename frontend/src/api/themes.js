@@ -19,7 +19,6 @@ export default {
 
   async requestByName(name) {
     let response = await apiReq.get(settingsURLs.specificTheme(name));
-    console.log(response);
     return response.data;
   },
 

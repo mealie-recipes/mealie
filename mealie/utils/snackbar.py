@@ -6,7 +6,6 @@ class SnackResponse:
 
         if additional_data:
             snackbar.update(additional_data)
-            print(snackbar)
 
         return snackbar
 

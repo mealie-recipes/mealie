@@ -37,7 +37,7 @@ jstyleson==0.0.2
 lazy-object-proxy==1.4.3
 livereload==2.6.3
 lunr==0.5.8
-lxml==4.5.2
+lxml>=4.6.2
 Markdown==3.3.3
 MarkupSafe==1.1.1
 mccabe==0.6.1

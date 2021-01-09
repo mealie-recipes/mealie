@@ -1,1 +1,1 @@
-docker-compose build && docker-compose -p mealie up -d 
+docker-compose -p mealie up --build

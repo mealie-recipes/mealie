@@ -46,7 +46,6 @@ def read_chowdown_file(recipe_file: Path) -> Recipe:
         recipe_data: dict = {}
         try:
             for x, item in enumerate(yaml.load_all(stream, Loader=Loader)):
-                print(item)
                 if x == 0:
                     recipe_data = item
 
@@ -54,7 +53,6 @@ def read_chowdown_file(recipe_file: Path) -> Recipe:
                     recipe_description = str(item)
 
         except yaml.YAMLError as exc:
-            print(exc)
             return
 
         reformat_data = {
@@ -89,7 +87,6 @@ def chowdown_migrate(repo):
 
     failed_recipes = []
     for recipe in recipe_dir.glob("*.md"):
-        print(recipe.name)
         try:
             new_recipe = read_chowdown_file(recipe)
             new_recipe.save_to_db()
