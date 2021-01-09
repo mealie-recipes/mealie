@@ -9,7 +9,7 @@ class RecipeDocument(mongoengine.Document):
     # id = mongoengine.UUIDField(primary_key=True)
     name = mongoengine.StringField(required=True)
     description = mongoengine.StringField(required=True)
-    image = mongoengine.StringField(required=True)
+    image = mongoengine.StringField(required=False)
     recipeYield = mongoengine.StringField(required=True, default="")
     recipeIngredient = mongoengine.ListField(required=True, default=[])
     recipeInstructions = mongoengine.ListField(requiredd=True, default=[])
@@ -23,7 +23,7 @@ class RecipeDocument(mongoengine.Document):
     notes = mongoengine.ListField(default=[])
     rating = mongoengine.IntField(required=True, default=0)
     orgURL = mongoengine.URLField(required=False)
-    extras = mongoengine.ListField(required=False)
+    extras = mongoengine.DictField(required=False)
 
     meta = {
         "db_alias": "core",

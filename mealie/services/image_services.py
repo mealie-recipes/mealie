@@ -18,7 +18,6 @@ def read_image(recipe_slug: str) -> FileResponse:
 
 
 def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name:
-    pass
     delete_image(recipe_slug)
 
     image_path = Path(IMG_DIR.joinpath(f"{recipe_slug}.{extension}"))
