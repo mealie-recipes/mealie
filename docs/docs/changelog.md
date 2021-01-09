@@ -6,8 +6,8 @@ A quality update with major props to [zackbcom](https://github.com/zackbcom) for
   - Fixed empty backup failure without markdown template
   - Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
   - Fixed hot-reloading development environment - [grssmnn](https://github.com/grssmnn)
-  - Fixed recipe not saving without image
-  - Fixed parsing error on image property null
+  - Fixed recipe not saving without image - Issue #7 + Issue #54
+  - Fixed parsing error on image property null - Issue #43
 
 ### General Improvements
   - Added Confirmation component to deleting recipes - [zackbcom](https://github.com/zackbcom)
@@ -20,7 +20,7 @@ A quality update with major props to [zackbcom](https://github.com/zackbcom) for
       - Users can now add custom json key/value pairs to all recipes via the editor for access in 3rd part applications. For example users can add a "message" field in the extras that can be accessed on API calls to play a message over google home. 
   - Improved image rendering (nearly x2 speed)
   - Improved documentation + API Documentation
-  - Improved recipe parsing
+  - Improved recipe parsing - Issue #51
   - User feedback on backup importing
 
 ## v0.0.1 - Pre-release Patch
