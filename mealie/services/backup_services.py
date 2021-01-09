@@ -53,11 +53,12 @@ def import_from_archive(file_name: str) -> list:
             recipe_dict = json.loads(f.read())
             recipe_dict = import_migration(recipe_dict)
 
-            recipeDoc = RecipeDocument(**recipe_dict)
-            recipeDoc.save()
-            successful_imports.append(recipe.stem)
-
-            # print("Failed Import:", recipe.stem)
+            try:
+                recipeDoc = RecipeDocument(**recipe_dict)
+                recipeDoc.save()
+                successful_imports.append(recipe.stem)
+            except:
+                logger.error("Failed Import:", recipe.stem)
 
     image_dir = TEMP_DIR.joinpath("images")
     for image in image_dir.iterdir():
