@@ -20,7 +20,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        <AddRecipe />
+        <AddRecipeFab />
         <SnackBar />
         <v-expand-transition>
           <SearchHeader v-show="search" />
@@ -35,7 +35,7 @@
 <script>
 import Menu from "./components/UI/Menu";
 import SearchHeader from "./components/UI/SearchHeader";
-import AddRecipe from "./components/AddRecipe";
+import AddRecipeFab from "./components/UI/AddRecipeFab";
 import SnackBar from "./components/UI/SnackBar";
 import Vuetify from "./plugins/vuetify";
 export default {
@@ -43,7 +43,7 @@ export default {
 
   components: {
     Menu,
-    AddRecipe,
+    AddRecipeFab,
     SearchHeader,
     SnackBar
   },

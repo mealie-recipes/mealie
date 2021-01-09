@@ -20,7 +20,7 @@
           ></v-switch>
         </v-col>
         <v-col cols="12" md="3" sm="5">
-          <TimePicker @save-time="saveTime" />
+          <TimePickerDialog @save-time="saveTime" />
         </v-col>
         <v-col cols="12" md="4" sm="5">
           <v-btn text color="info" @click="testWebhooks"> Test Webhooks </v-btn>
@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import api from "../../api";
-import TimePicker from "./Webhooks/TimePicker";
+import api from "../../../api";
+import TimePickerDialog from "./TimePickerDialog";
 export default {
   components: {
-    TimePicker,
+    TimePickerDialog,
   },
   data() {
     return {

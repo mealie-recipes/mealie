@@ -175,8 +175,8 @@
 </template>
 
 <script>
-import api from "../../api";
-import utils from "../../utils";
+import api from "../../../api";
+import utils from "../../../utils";
 import BulkAdd from "./BulkAdd";
 export default {
   components: {
