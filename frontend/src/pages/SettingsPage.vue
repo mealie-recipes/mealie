@@ -7,9 +7,9 @@
       </a>
     </v-alert>
     <Theme />
-    <Backup />
-    <Webhooks />
-    <Migration />
+    <Backup class="mt-2" />
+    <Webhooks class="mt-2" />
+    <Migration class="mt-2" />
     <p class="text-center my-2">
       Version: {{ version }} | Latest: {{ latestVersion }} ·
       <a href="https://hay-kot.github.io/mealie/" target="_blank">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn text color="success" @click="dialog = true"> New </v-btn>
+    <v-btn text color="info" @click="dialog = true"> New </v-btn>
     <v-dialog v-model="dialog" width="400">
       <v-card>
         <v-card-title> Add a New Theme </v-card-title>

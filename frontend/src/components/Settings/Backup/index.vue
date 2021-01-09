@@ -1,8 +1,7 @@
 <template>
-  <v-card :loading="backupLoading" class="mt-3" min-height="410px">
-    <v-card-title class="secondary white--text">
-      Backup and Exports
-    </v-card-title>
+  <v-card :loading="backupLoading">
+    <v-card-title class="headline"> Backup and Exports </v-card-title>
+    <v-divider></v-divider>
 
     <v-card-text>
       <p>

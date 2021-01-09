@@ -1,8 +1,7 @@
 <template>
   <v-card :loading="loading">
-    <v-card-title class="secondary white--text mt-1">
-      Recipe Migration
-    </v-card-title>
+    <v-card-title class="headline"> Recipe Migration </v-card-title>
+    <v-divider></v-divider>
     <v-card-text>
       <p>
         Currently Chowdown via public Repo URL is the only supported type of

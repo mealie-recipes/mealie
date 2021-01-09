@@ -56,7 +56,7 @@
 
           <v-spacer></v-spacer>
 
-          <v-btn color="success" text @click="save"> I accept </v-btn>
+          <v-btn color="success" text @click="save"> Save </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -75,7 +75,8 @@ export default {
       formKey: 1,
       rules: {
         required: (v) => !!v || "Key Name Required",
-        whiteSpace: (v) => !v || v.split(" ").length <= 1 || "No White Space Allowed",
+        whiteSpace: (v) =>
+          !v || v.split(" ").length <= 1 || "No White Space Allowed",
       },
     };
   },

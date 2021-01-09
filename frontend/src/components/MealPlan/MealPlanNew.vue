@@ -1,8 +1,7 @@
 <template>
   <v-card>
-    <v-card-title class="secondary white--text">
-      Create a New Meal Plan
-    </v-card-title>
+    <v-card-title class="headline"> Create a New Meal Plan </v-card-title>
+    <v-divider></v-divider>
     <v-card-text>
       <v-row dense>
         <v-col cols="12" lg="6" md="6" sm="12">

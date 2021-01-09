@@ -8,7 +8,8 @@
     <NewMeal v-else @created="requestMeals" />
 
     <v-card class="my-1">
-      <v-card-title class="secondary white--text"> Meal Plans </v-card-title>
+      <v-card-title class="headline"> Meal Plans </v-card-title>
+      <v-divider></v-divider>
 
       <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
         <v-timeline-item

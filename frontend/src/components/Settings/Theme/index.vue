@@ -1,7 +1,7 @@
 <template>
   <v-card>
-    <v-card-title class="secondary white--text"> Theme Settings </v-card-title>
-
+    <v-card-title class="headline"> Theme Settings </v-card-title>
+    <v-divider></v-divider>
     <v-card-text>
       <h2 class="mt-4 mb-1">Dark Mode</h2>
       <p>
@@ -25,7 +25,7 @@
         </v-col>
       </v-row></v-card-text
     >
-    <v-divider class=""></v-divider>
+    <v-divider></v-divider>
     <v-card-text>
       <h2 class="mt-1 mb-1">Theme</h2>
       <p>
@@ -93,7 +93,10 @@
           />
         </v-col>
         <v-col>
-          <ColorPickerDialog button-text="Info" v-model="selectedTheme.colors.info" />
+          <ColorPickerDialog
+            button-text="Info"
+            v-model="selectedTheme.colors.info"
+          />
         </v-col>
         <v-col>
           <ColorPickerDialog

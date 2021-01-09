@@ -50,7 +50,7 @@
             <h2 class="mt-4">Categories</h2>
             <v-chip
               class="ma-1"
-              color="primary"
+              color="accent"
               dark
               v-for="category in categories"
               :key="category"
@@ -63,7 +63,7 @@
             <h2 class="mt-4">Tags</h2>
             <v-chip
               class="ma-1"
-              color="primary"
+              color="accent"
               dark
               v-for="tag in tags"
               :key="tag"
