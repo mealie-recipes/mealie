@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import RecentRecipes from "./RecentRecipes";
+import RecentRecipes from "../components/UI/RecentRecipes";
 
 export default {
   components: {

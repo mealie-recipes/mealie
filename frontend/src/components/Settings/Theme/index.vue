@@ -50,7 +50,7 @@
             </v-select>
           </v-col>
           <v-col cols="12" sm="1">
-            <NewTheme @new-theme="appendTheme" />
+            <NewThemeDialog @new-theme="appendTheme" />
           </v-col>
           <v-col cols="12" sm="1">
             <v-btn text color="error" @click="deleteSelectedThemeValidation">
@@ -69,40 +69,40 @@
       </v-form>
       <v-row dense align-content="center" v-if="selectedTheme.colors">
         <v-col>
-          <ColorPicker
+          <ColorPickerDialog
             button-text="Primary"
             v-model="selectedTheme.colors.primary"
           />
         </v-col>
         <v-col>
-          <ColorPicker
+          <ColorPickerDialog
             button-text="Secondary"
             v-model="selectedTheme.colors.secondary"
           />
         </v-col>
         <v-col>
-          <ColorPicker
+          <ColorPickerDialog
             button-text="Accent"
             v-model="selectedTheme.colors.accent"
           />
         </v-col>
         <v-col>
-          <ColorPicker
+          <ColorPickerDialog
             button-text="Success"
             v-model="selectedTheme.colors.success"
           />
         </v-col>
         <v-col>
-          <ColorPicker button-text="Info" v-model="selectedTheme.colors.info" />
+          <ColorPickerDialog button-text="Info" v-model="selectedTheme.colors.info" />
         </v-col>
         <v-col>
-          <ColorPicker
+          <ColorPickerDialog
             button-text="Warning"
             v-model="selectedTheme.colors.warning"
           />
         </v-col>
         <v-col>
-          <ColorPicker
+          <ColorPickerDialog
             button-text="Error"
             v-model="selectedTheme.colors.error"
           />
@@ -125,16 +125,16 @@
 </template>
 
 <script>
-import api from "../../api";
-import ColorPicker from "./ThemeUI/ColorPicker";
-import NewTheme from "./ThemeUI/NewTheme";
-import Confirmation from "../UI/Confirmation";
+import api from "../../../api";
+import ColorPickerDialog from "./ColorPickerDialog";
+import NewThemeDialog from "./NewThemeDialog";
+import Confirmation from "../../UI/Confirmation";
 
 export default {
   components: {
-    ColorPicker,
+    ColorPickerDialog,
     Confirmation,
-    NewTheme,
+    NewThemeDialog,
   },
   data() {
     return {
@@ -186,10 +186,10 @@ export default {
     /**
      * Create the new Theme and select it.
      */
-    async appendTheme(newTheme) {
-      await api.themes.create(newTheme);
-      this.availableThemes.push(newTheme);
-      this.selectedTheme = newTheme;
+    async appendTheme(NewThemeDialog) {
+      await api.themes.create(NewThemeDialog);
+      this.availableThemes.push(NewThemeDialog);
+      this.selectedTheme = NewThemeDialog;
     },
 
     themeSelected() {

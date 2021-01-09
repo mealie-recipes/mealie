@@ -29,20 +29,20 @@
       />
     </div>
 
-    <EditRecipe v-else v-model="recipeDetails" @upload="getImage" />
+    <RecipeEditor v-else v-model="recipeDetails" @upload="getImage" />
   </v-card>
 </template>
 
 <script>
 import api from "../api";
 
-import EditRecipe from "./RecipeEditor/EditRecipe";
+import RecipeEditor from "../components/Recipe/RecipeEditor";
 import VJsoneditor from "v-jsoneditor";
-import ButtonRow from "./UI/ButtonRow";
+import ButtonRow from "../components/UI/ButtonRow";
 export default {
   components: {
     VJsoneditor,
-    EditRecipe,
+    RecipeEditor,
     ButtonRow,
   },
   data() {
@@ -89,7 +89,7 @@ export default {
 
       if (this.fileObject) {
         this.recipeDetails.image = this.fileObject.name;
-      } 
+      }
       let slug = await api.recipes.create(this.recipeDetails);
 
       if (this.fileObject) {

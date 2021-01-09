@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import api from "../../api";
-import utils from "../../utils";
-import NewMeal from "./NewMeal";
-import EditPlan from "./EditPlan";
+import api from "../api";
+import utils from "../utils";
+import NewMeal from "../components/MealPlan/MealPlanNew";
+import EditPlan from "../components/MealPlan/MealPlanEditor";
 
 export default {
   components: {

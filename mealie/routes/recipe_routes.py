@@ -77,7 +77,7 @@ async def parse_recipe_url(url: RecipeURLIn):
     return slug
 
 
-@router.post("/api/recipe/create/", tags=["Recipes"], response_model=SlugResponse)
+@router.post("/api/recipe/create/", tags=["Recipes"])
 async def create_from_json(data: Recipe) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
     created_recipe = data.save_to_db()

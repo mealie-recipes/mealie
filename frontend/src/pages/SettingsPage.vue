@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import Backup from "./Backup";
-import Webhooks from "./Webhooks";
-import Theme from "./Theme";
-import Migration from "./Migration";
+import Backup from "../components/Settings/Backup";
+import Webhooks from "../components/Settings/Webhook";
+import Theme from "../components/Settings/Theme";
+import Migration from "../components/Settings/Migration";
 import axios from "axios";
 
 export default {

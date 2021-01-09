@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import RecipeCard from "./UI/RecipeCard";
+import RecipeCard from "./RecipeCard";
 
 export default {
   components: {

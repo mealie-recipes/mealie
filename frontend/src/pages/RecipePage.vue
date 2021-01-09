@@ -18,7 +18,7 @@
       @delete="deleteRecipe"
     />
 
-    <ViewRecipe
+    <RecipeViewer
       v-if="!form"
       :name="recipeDetails.name"
       :ingredients="recipeDetails.recipeIngredient"
@@ -39,7 +39,7 @@
       height="1500px"
       :options="jsonEditorOptions"
     />
-    <EditRecipe v-else v-model="recipeDetails" @upload="getImageFile" />
+    <RecipeEditor v-else v-model="recipeDetails" @upload="getImageFile" />
   </v-card>
 </template>
 
@@ -47,16 +47,16 @@
 import api from "../api";
 import utils from "../utils";
 import VJsoneditor from "v-jsoneditor";
-import ViewRecipe from "./RecipeEditor/ViewRecipe";
-import EditRecipe from "./RecipeEditor/EditRecipe";
-import ButtonRow from "./UI/ButtonRow";
+import RecipeViewer from "../components/Recipe/RecipeViewer";
+import RecipeEditor from "../components/Recipe/RecipeEditor";
+import ButtonRow from "../components/UI/ButtonRow";
 
 export default {
   components: {
     VJsoneditor,
-    ViewRecipe,
-    EditRecipe,
-    ButtonRow
+    RecipeViewer,
+    RecipeEditor,
+    ButtonRow,
   },
   data() {
     return {
@@ -66,7 +66,7 @@ export default {
       jsonEditorOptions: {
         mode: "code",
         search: false,
-        mainMenuBar: false
+        mainMenuBar: false,
       },
       // Recipe Details //
       recipeDetails: {
@@ -83,9 +83,9 @@ export default {
         categories: [],
         dateAdded: "",
         notes: [],
-        rating: 0
+        rating: 0,
       },
-      imageKey: 1
+      imageKey: 1,
     };
   },
   mounted() {
@@ -93,9 +93,9 @@ export default {
   },
 
   watch: {
-    $route: function() {
+    $route: function () {
       this.getRecipeDetails();
-    }
+    },
   },
 
   computed: {
@@ -111,7 +111,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   methods: {
     getImageFile(fileObject) {
@@ -142,8 +142,8 @@ export default {
     showForm() {
       this.form = true;
       this.jsonEditor = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
