@@ -73,6 +73,7 @@ out_path = CWD.joinpath("temp", "index.html")
 
 def generate_api_docs(app):
     with open(out_path, "w") as fd:
+        out_path.parent.mkdir(exist_ok=True)
         print(HTML_TEMPLATE % json.dumps(app.openapi()), file=fd)
 
 
