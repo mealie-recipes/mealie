@@ -41,10 +41,14 @@ Backend
 # Draft Changelog
 ## v0.0.2
 
-General
+Bug Fixes
+- Added API Key Extras to Recipe Data
 - Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
-- Improved documentation
 - Fixed hot-reloading development environment - [grssmnn](https://github.com/grssmnn)
 - Added Confirmation component to deleting recipes - [zackbcom](https://github.com/zackbcom)
 - Added Persistent storage to vuex - [zackbcom](https://github.com/zackbcom)
 - Updated Theme backend - [zackbcom](https://github.com/zackbcom)
+
+General Improvements
+- Improved image rendering (nearly x2 speed)
+- Improved documentation + API Documentation

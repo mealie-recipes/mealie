@@ -129,6 +129,7 @@
           <v-btn class="mt-1" color="secondary" fab dark small @click="addNote">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
+          <ExtrasEditor :extras="value.extras" @save="saveExtras" />
         </v-col>
 
         <v-divider class="my-divider" :vertical="true"></v-divider>
@@ -178,9 +179,11 @@
 import api from "../../../api";
 import utils from "../../../utils";
 import BulkAdd from "./BulkAdd";
+import ExtrasEditor from "./ExtrasEditor";
 export default {
   components: {
     BulkAdd,
+    ExtrasEditor,
   },
   props: {
     value: Object,
@@ -188,13 +191,6 @@ export default {
   data() {
     return {
       fileObject: null,
-      content: this.value,
-      disabledSteps: [],
-      description: String,
-      ingredients: Array,
-      instructions: Array,
-      categories: Array,
-      tags: Array,
     };
   },
   methods: {
@@ -269,6 +265,9 @@ export default {
     },
     removeTags(index) {
       this.value.tags.splice(index, 1);
+    },
+    saveExtras(extras) {
+      this.value.extras = extras;
     },
   },
 };
