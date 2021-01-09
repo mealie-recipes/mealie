@@ -3,6 +3,7 @@
 ## v0.0.2 - Pre-release Second Patch
 A quality update with major props to [zackbcom](https://github.com/zackbcom) for working hard on making the theming just that much better!
 ### Bug Fixes
+  - Fixed empty backup failure without markdown template
   - Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
   - Fixed hot-reloading development environment - [grssmnn](https://github.com/grssmnn)
   - Fixed recipe not saving without image
@@ -20,6 +21,7 @@ A quality update with major props to [zackbcom](https://github.com/zackbcom) for
   - Improved image rendering (nearly x2 speed)
   - Improved documentation + API Documentation
   - Improved recipe parsing
+  - User feedback on backup importing
 
 ## v0.0.1 - Pre-release Patch
 ### General
