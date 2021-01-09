@@ -28,6 +28,17 @@ def auto_backup_job():
     logger.info("Auto Backup Called")
 
 
+def import_migration(recipe_dict: dict) -> dict:
+    del recipe_dict["_id"]
+    del recipe_dict["dateAdded"]
+
+    # Migration from list to Object Type Data
+    if type(recipe_dict["extras"]) == list:
+        recipe_dict["extras"] = {}
+
+    return recipe_dict
+
+
 def import_from_archive(file_name: str) -> list:
     successful_imports = []
 
@@ -40,16 +51,13 @@ def import_from_archive(file_name: str) -> list:
     for recipe in recipe_dir.glob("*.json"):
         with open(recipe, "r") as f:
             recipe_dict = json.loads(f.read())
-            del recipe_dict["_id"]
-            del recipe_dict["dateAdded"]
+            recipe_dict = import_migration(recipe_dict)
 
             recipeDoc = RecipeDocument(**recipe_dict)
-            try:
-                recipeDoc.save()
-                successful_imports.append(recipe.stem)
+            recipeDoc.save()
+            successful_imports.append(recipe.stem)
 
-            except:
-                print("Failed Import:", recipe.stem)
+            # print("Failed Import:", recipe.stem)
 
     image_dir = TEMP_DIR.joinpath("images")
     for image in image_dir.iterdir():
@@ -90,7 +98,6 @@ def export_db(tag=None, templates=None):
     shutil.rmtree(TEMP_DIR)
 
     return str(zip_path.absolute()) + ".zip"
-
 
 
 def export_images(dest_dir) -> Path:

@@ -1,12 +1,12 @@
 site_name: Mealie Docs
 
 theme:
+  features:
+    - navigation.expand
   favicon: img/favicon.png
   name: material
   icon:
     logo: material/silverware-variant
-  features:
-    - navigation.expand
 
 markdown_extensions:
   - pymdownx.emoji:
@@ -34,8 +34,8 @@ nav:
       - Backups and Exports: "getting-started/backups-and-exports.md"
       - Recipe Migration: "getting-started/migration-imports.md"
   - API Reference:
+      - API Usage: "api/api-usage.md"
       - API Documentation: "api/docs/index.html"
-      - Usage Examples: "api/api-examples.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
       - Developers Guide:

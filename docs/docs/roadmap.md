@@ -28,7 +28,6 @@ Feature placement is not set in stone. This is much more of a guideline than any
     * [ ] Basic Form Validation
 - [ ] Recipe Viewer
     * [ ] Print Page View - Like King Arthur Website
-    * [ ] Notes Hidden/Not Hidden
     * [ ] Total Time Indicator
     * [ ] Bake Time
 

@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height>
-    <v-row justify="center" align="center">
+    <v-row>
       <v-col sm="12">
         <v-card
           v-for="(meal, index) in mealPlan.meals"
@@ -9,21 +9,27 @@
         >
           <v-row dense no-gutters align="center" justify="center">
             <v-col order="1" md="6" sm="12">
-              <v-card flat>
-                <v-card-title> {{ meal.name }} </v-card-title>
+              <v-card
+                flat
+                class="align-center justify-center"
+                align="center"
+                justify="center"
+              >
+                <v-card-title class="justify-center">
+                  {{ meal.name }}
+                </v-card-title>
                 <v-card-subtitle> {{ meal.dateText }}</v-card-subtitle>
 
                 <v-card-text> {{ meal.description }} </v-card-text>
 
-                <v-card-actions>
-                  <v-btn
-                    color="secondary"
-                    text
-                    @click="$router.push(`/recipe/${meal.slug}`)"
-                  >
-                    View Recipe
-                  </v-btn>
-                </v-card-actions>
+                <v-btn
+                  align="center"
+                  color="secondary"
+                  text
+                  @click="$router.push(`/recipe/${meal.slug}`)"
+                >
+                  View Recipe
+                </v-btn>
               </v-card>
             </v-col>
             <v-col order-sm="0" :order-md="getOrder(index)" md="6" sm="12">

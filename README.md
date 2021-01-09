@@ -27,7 +27,7 @@
     ·
     <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>    
     ·
-    <a href="/api/docs">API</a>
+    <a href="https://hay-kot.github.io/mealie/api/docs/">API</a>
     ·
     <a href="https://github.com/hay-kot/mealie/issues">
     Request Feature
