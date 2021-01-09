@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, File, Form, HTTPException, Query
 from fastapi.responses import FileResponse
-from models.recipe_models import AllRecipeRequest, RecipeURLIn, SlugResponse
+from models.recipe_models import AllRecipeRequest, RecipeURLIn
 from services.image_services import read_image, write_image
 from services.recipe_services import Recipe, read_requested_values
 from services.scrape_services import create_from_url
