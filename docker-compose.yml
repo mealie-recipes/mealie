@@ -9,13 +9,7 @@ services:
     container_name: mealie
     restart: always
     ports:
-      - 9090:9000
-    environment:
-      db_username: root
-      db_password: example
-      db_host: mongo
-      db_port: 27017
-    volumes:
+      - 9090:80
       - ./mealie/data/img:/app/data/img
       - ./mealie/data/backups:/app/data/backups
   mongo:
