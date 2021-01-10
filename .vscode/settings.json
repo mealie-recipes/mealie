@@ -11,6 +11,7 @@
   "python.discoverTest": true,
   "python.testing.pytestEnabled": true,
   "cSpell.enableFiletypes": [
+    "!javascript",
     "!python"
   ],
   "python.testing.pytestArgs": [
