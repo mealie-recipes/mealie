@@ -16,7 +16,6 @@ dnspython==2.0.0
 email-validator==1.1.1
 extruct==0.10.0
 fastapi==0.61.1
-fastapi-login==1.5.1
 future==0.18.2
 gitdb==4.0.5
 GitPython==3.1.11
