@@ -6,6 +6,8 @@
       v-model="file"
       accept=".zip"
       @change="upload"
+      :prepend-icon="icon"
+      class="file-icon"
     >
     </v-file-input>
   </v-form>
@@ -18,6 +20,7 @@ export default {
     return {
       file: null,
       loading: false,
+      icon: "mdi-paperclip",
     };
   },
   methods: {
@@ -32,6 +35,7 @@ export default {
         this.loading = false;
         this.$emit("uploaded");
         this.file = null;
+        this.icon = "mdi-check";
       }
     },
   },
@@ -39,4 +43,7 @@ export default {
 </script>
 
 <style>
+.file-icon {
+  transition-duration: 5s;
+}
 </style>
