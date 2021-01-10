@@ -29,7 +29,6 @@ app = FastAPI(
     redoc_url=redoc_url,
 )
 
-
 # Mount Vue Frontend only in production
 if PRODUCTION:
     app.mount("/static", StaticFiles(directory=WEB_PATH, html=True))

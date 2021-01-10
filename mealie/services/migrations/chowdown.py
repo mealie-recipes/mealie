@@ -52,7 +52,7 @@ def read_chowdown_file(recipe_file: Path) -> Recipe:
                 elif x == 1:
                     recipe_description = str(item)
 
-        except yaml.YAMLError as exc:
+        except yaml.YAMLError:
             return
 
         reformat_data = {
