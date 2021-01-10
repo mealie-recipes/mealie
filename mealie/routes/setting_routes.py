@@ -1,16 +1,10 @@
-from typing import List
-
-from db.mongo_setup import global_init
 from fastapi import APIRouter, HTTPException
-from services.scheduler_services import Scheduler, post_webhooks
+from services.scheduler_services import post_webhooks
 from services.settings_services import SiteSettings, SiteTheme
+from startup import scheduler
 from utils.snackbar import SnackResponse
 
 router = APIRouter()
-global_init()
-
-scheduler = Scheduler()
-scheduler.startup_scheduler()
 
 
 @router.get("/api/site-settings/", tags=["Settings"])
@@ -42,18 +36,14 @@ async def update_settings(data: SiteSettings):
     return SnackResponse.success("Settings Updated")
 
 
-@router.get(
-    "/api/site-settings/themes/", tags=["Themes"]
-)
+@router.get("/api/site-settings/themes/", tags=["Themes"])
 async def get_all_themes():
     """ Returns all site themes """
 
     return SiteTheme.get_all()
 
 
-@router.get(
-    "/api/site-settings/themes/{theme_name}/", tags=["Themes"]
-)
+@router.get("/api/site-settings/themes/{theme_name}/", tags=["Themes"])
 async def get_single_theme(theme_name: str):
     """ Returns a named theme """
     return SiteTheme.get_by_name(theme_name)

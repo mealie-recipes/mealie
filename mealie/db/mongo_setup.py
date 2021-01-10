@@ -1,5 +1,6 @@
 import mongoengine
 from settings import DB_HOST, DB_PASSWORD, DB_PORT, DB_USERNAME, MEALIE_DB_NAME
+from utils.logger import logger
 
 
 def global_init():
@@ -12,3 +13,5 @@ def global_init():
         password=DB_PASSWORD,
         authentication_source="admin",
     )
+
+    logger.info("Mongo Data Initialized")

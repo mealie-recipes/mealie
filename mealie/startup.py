@@ -1,12 +1,32 @@
 import json
 from pathlib import Path
 
+from db.mongo_setup import global_init as mongo_global_init
+from db.sql.db_session import global_init as sql_global_init
+from services.scheduler_services import Scheduler
 from services.settings_services import Colors, SiteTheme
+from settings import DATA_DIR, MONGO, SQLITE
 from utils.logger import logger
 
 CWD = Path(__file__).parent
-DATA_DIR = CWD.joinpath("data")
-TEMP_DIR = CWD.joinpath("data", "temp")
+
+scheduler = None
+
+
+def pre_start():
+    if SQLITE:
+        from settings import SQLITE_DB_FILE
+
+        sql_global_init(SQLITE_DB_FILE)
+    elif MONGO:
+        mongo_global_init()
+
+    global scheduler
+    scheduler = Scheduler()
+    scheduler.startup_scheduler()
+
+    ensure_dirs()
+    generate_default_theme()
 
 
 def ensure_dirs():
@@ -67,7 +87,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-CWD = Path(__file__).parent
 out_path = CWD.joinpath("temp", "index.html")
 
 
