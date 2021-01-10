@@ -7,7 +7,9 @@
         "Could not detect ingredients"
     ],
     "recipeInstructions": [
-        "Could not detect instructions"
+        {
+            "text": "Could not detect instructions"
+        }
     ],
     "slug": "carottes-rappes-with-rice-and-sunflower-seeds-feed-the-swimmers",
     "orgURL": "https://www.feedtheswimmers.com/blog/2019/6/5/carottes-rapps-with-rice-and-sunflower-seeds",

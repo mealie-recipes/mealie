@@ -150,3 +150,4 @@ ENV/
 
 # Node Modules
 node_modules/
+mealie/data/debug/last_recipe.json
