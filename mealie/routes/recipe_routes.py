@@ -91,6 +91,7 @@ def update_recipe_image(
 ):
     """ Removes an existing image and replaces it with the incoming file. """
     response = write_image(recipe_slug, image, extension)
+    Recipe.update_image(recipe_slug, extension)
 
     return response
 
