@@ -1,15 +1,13 @@
-from typing import List, Tuple
-
 import json
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
 
 import extruct
 import requests
-from w3lib.html import get_base_url
 import scrape_schema_recipe
 from slugify import slugify
 from utils.logger import logger
+from w3lib.html import get_base_url
 
 from services.image_services import scrape_image
 from services.recipe_services import Recipe
@@ -85,7 +83,7 @@ def process_recipe_data(new_recipe: dict, url=None) -> dict:
     return new_recipe
 
 
-def extract_recipe_from_html(html:str, url: str) -> dict:
+def extract_recipe_from_html(html: str, url: str) -> dict:
     scraped_recipes: List[dict] = scrape_schema_recipe.loads(html, python_objects=True)
     if scraped_recipes:
         new_recipe: dict = scraped_recipes[0]
@@ -116,13 +114,15 @@ def download_image_for_recipe(recipe: dict) -> dict:
 def og_field(properties: dict, field_name: str) -> str:
     return next((val for name, val in properties if name == field_name), None)
 
+
 def og_fields(properties: List[Tuple[str, str]], field_name: str) -> List[str]:
     return list({val for name, val in properties if name == field_name})
+
 
 def basic_recipe_from_opengraph(html: str, url: str) -> dict:
     base_url = get_base_url(html, url)
     data = extruct.extract(html, base_url=base_url)
-    properties = data["opengraph"][0]['properties']
+    properties = data["opengraph"][0]["properties"]
     return {
         "name": og_field(properties, "og:title"),
         "description": og_field(properties, "og:description"),
@@ -131,7 +131,7 @@ def basic_recipe_from_opengraph(html: str, url: str) -> dict:
         # FIXME: If recipeIngredient is an empty list, mongodb's data verification fails.
         "recipeIngredient": ["Could not detect ingredients"],
         # FIXME: recipeInstructions is allowed to be empty but message this is added for user sanity.
-        "recipeInstructions": ["Could not detect instructions"],
+        "recipeInstructions": [{"text": "Could not detect instructions"}],
         "slug": slugify(og_field(properties, "og:title")),
         "orgURL": og_field(properties, "og:url"),
         "categories": [],
