@@ -7,7 +7,7 @@
     </p>
     <v-form ref="form">
       <v-row align="center">
-        <v-col cols="12" md="5" sm="5">
+        <v-col cols="12" md="5" sm="12">
           <v-select
             :items="availableImports"
             v-model="selectedImport"
@@ -15,8 +15,26 @@
             :rules="[rules.required]"
           ></v-select>
         </v-col>
-        <v-col cols="12" md="2" sm="2">
+        <v-col cols="12" md="2" sm="12">
           <v-btn text color="info" @click="importRecipes"> Migrate </v-btn>
+        </v-col>
+        <v-col cols="12" md="1" sm="12">
+          <v-btn text color="error" @click="deleteImportValidation">
+            Delete
+          </v-btn>
+          <Confirmation
+            title="Delete Data"
+            message="Are you sure you want to delete this migration data?"
+            color="error"
+            icon="mdi-alert-circle"
+            ref="deleteThemeConfirm"
+            v-on:confirm="deleteImport()"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" md="5" sm="12">
+          <UploadMigrationButton @uploaded="getAvaiableImports" />
         </v-col>
       </v-row>
     </v-form>
@@ -32,9 +50,13 @@
 <script>
 import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import UploadMigrationButton from "./UploadMigrationButton";
+import Confirmation from "../../UI/Confirmation";
 export default {
   components: {
     SuccessFailureAlert,
+    UploadMigrationButton,
+    Confirmation,
   },
   data() {
     return {
@@ -48,9 +70,12 @@ export default {
     };
   },
   async mounted() {
-    this.availableImports = await api.migrations.getNextcloudImports();
+    this.getAvaiableImports();
   },
   methods: {
+    async getAvaiableImports() {
+      this.availableImports = await api.migrations.getNextcloudImports();
+    },
     async importRecipes() {
       if (this.$refs.form.validate()) {
         this.$emit("loading");
@@ -60,6 +85,15 @@ export default {
         this.failedImports = data.failed;
         this.$emit("finished");
       }
+    },
+    deleteImportValidation() {
+      if (this.$refs.form.validate()) {
+        this.$refs.deleteThemeConfirm.open();
+      }
+    },
+    async deleteImport() {
+      await api.migrations.delete(this.selectedImport);
+      this.getAvaiableImports();
     },
   },
 };

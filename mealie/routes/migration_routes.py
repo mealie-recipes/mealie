@@ -1,4 +1,6 @@
-from fastapi import APIRouter, HTTPException
+import shutil
+
+from fastapi import APIRouter, File, HTTPException, UploadFile
 from models.migration_models import ChowdownURL
 from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
 from services.migrations.nextcloud import migrate as nextcloud_migrate
@@ -46,3 +48,33 @@ async def import_nextcloud_directory(selection: str):
     """ Imports all the recipes in a given directory """
 
     return nextcloud_migrate(selection)
+
+
+@router.delete("/api/migration/{file_folder_name}/delete/", tags=["Migration"])
+async def delete_migration_data(file_folder_name: str):
+    """ Removes migration data from the file system """
+
+    remove_path = MIGRATION_DIR.joinpath(file_folder_name)
+
+    if remove_path.is_file():
+        remove_path.unlink()
+    elif remove_path.is_dir():
+        shutil.rmtree(remove_path)
+    else:
+        SnackResponse.error("File/Folder not found.")
+
+    return SnackResponse.info(f"Migration Data Remove: {remove_path.absolute()}")
+
+
+@router.post("/api/migration/upload/", tags=["Migration"])
+async def upload_nextcloud_zipfile(archive: UploadFile = File(...)):
+    """ Upload a .zip File to later be imported into Mealie """
+    dest = MIGRATION_DIR.joinpath(archive.filename)
+
+    with dest.open("wb") as buffer:
+        shutil.copyfileobj(archive.file, buffer)
+
+    if dest.is_file:
+        return SnackResponse.success("Migration data uploaded")
+    else:
+        return SnackResponse.error("Failure uploading file")
