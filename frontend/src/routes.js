@@ -1,23 +1,23 @@
-import Home from "./components/Home";
-import Page404 from "./components/Page404";
-import Recipe from "./components/Recipe";
-import NewRecipe from "./components/NewRecipe";
-import Admin from "./components/Admin/Admin";
-import MealPlanner from "./components/MealPlan/MealPlanner";
-import ThisWeek from "./components/MealPlan/ThisWeek";
+import HomePage from "./pages/HomePage";
+import Page404 from "./pages/404Page";
+import RecipePage from "./pages/RecipePage";
+import RecipeNewPage from "./pages/RecipeNewPage";
+import SettingsPage from "./pages/SettingsPage";
+import MeaplPlanPage from "./pages/MealPlanPage";
+import MealPlanThisWeekPage from "./pages/MealPlanThisWeekPage";
 import api from "./api";
 
 export const routes = [
-  { path: "/", component: Home },
-  { path: "/mealie", component: Home },
-  { path: "/recipe/:recipe", component: Recipe },
-  { path: "/new/", component: NewRecipe },
-  { path: "/settings/site", component: Admin },
-  { path: "/meal-plan/planner", component: MealPlanner },
-  { path: "/meal-plan/this-week", component: ThisWeek },
+  { path: "/", component: HomePage },
+  { path: "/mealie", component: HomePage },
+  { path: "/recipe/:recipe", component: RecipePage },
+  { path: "/new/", component: RecipeNewPage },
+  { path: "/settings/site", component: SettingsPage },
+  { path: "/meal-plan/planner", component: MeaplPlanPage },
+  { path: "/meal-plan/this-week", component: MealPlanThisWeekPage },
   {
     path: "/meal-plan/today",
-    beforeEnter:  async (_to, _from, next) => {
+    beforeEnter: async (_to, _from, next) => {
       await todaysMealRoute().then((redirect) => {
         next(redirect);
       });

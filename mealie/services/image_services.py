@@ -9,13 +9,15 @@ IMG_DIR = CWD.parent.joinpath("data", "img")
 
 
 def read_image(recipe_slug: str) -> FileResponse:
-    recipe_slug = recipe_slug.split(".")[0]
-    for file in IMG_DIR.glob(f"{recipe_slug}*"):
-        return file
+    if IMG_DIR.joinpath(recipe_slug).is_file():
+        return IMG_DIR.joinpath(recipe_slug)
+    else:
+        recipe_slug = recipe_slug.split(".")[0]
+        for file in IMG_DIR.glob(f"{recipe_slug}*"):
+            return file
 
 
 def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name:
-    pass
     delete_image(recipe_slug)
 
     image_path = Path(IMG_DIR.joinpath(f"{recipe_slug}.{extension}"))

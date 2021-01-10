@@ -3,7 +3,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 [![Docker Pulls][docker-pull]][docker-pull]
 
 <!-- PROJECT LOGO -->
@@ -21,14 +20,21 @@
     A Place for All Your Recipes
     <br />
     <a href="https://hay-kot.github.io/mealie/"><strong>Explore the docs »</strong></a>
-    <br />
+  <a href="https://github.com/hay-kot/mealie">
+  </a>
     <br />
     <a href="https://github.com/hay-kot/mealie"><s>View Demo</s></a>
     ·
-    <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>
+    <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>    
     ·
-    <a href="https://github.com/hay-kot/mealie/issues">Request Feature</a>
-  </p>
+    <a href="https://hay-kot.github.io/mealie/api/docs/">API</a>
+    ·
+    <a href="https://github.com/hay-kot/mealie/issues">
+    Request Feature
+    </a>    
+    ·
+    <a href="https://hub.docker.com/repository/docker/hkotel/mealies"> Docker Hub
+    </a>
 </p>
 
 
@@ -39,7 +45,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-**Mealie** is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and mealie will automatically import the relavent data or add a family recipe with the UI editor.  
+**Mealie** is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and mealie will automatically import the relevant data or add a family recipe with the UI editor.  
 
 Mealie also provides a secure API for interactions from 3rd party applications. **Why does my recipe manager need an API?** An API allows integration into applications like [Home Assistant]() that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. See the section on [Meal Plan hooks](#hooks) for more information. Additionally, you can access any available API from the backend server. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
 
@@ -56,7 +62,7 @@ Mealie also provides a secure API for interactions from 3rd party applications. 
   - Add notes to recipes
 #### Meal Planner
   - Random Meal plan generation based off categories
-  - Expose notes in the API to allow external applications to access relavent information for meal plans
+  - Expose notes in the API to allow external applications to access relevant information for meal plans
 #### Database Import / Export
   - Easily Import / Export your recipes from the UI
   - Export recipes in into custom files using Jinja2 templates
@@ -73,7 +79,9 @@ Mealie also provides a secure API for interactions from 3rd party applications. 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests. See the [Contributors Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/) for help getting started.
+
+If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development. 
 
 <a href="https://www.buymeacoffee.com/haykot" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 

@@ -1,4 +1,4 @@
-FROM node:alpine as build-stage
+FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY ./frontend/package*.json ./
 RUN npm install
@@ -18,7 +18,12 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 
 COPY ./mealie /app
-COPY ./mealie/data/templates/recipes.md /app/data/templates/
+COPY ./mealie/data/templates/recipes.md /app/data/templates/recipes.md
 COPY --from=build-stage /app/dist /app/dist
+RUN rm -rf /app/test /app/temp
+
+ENV ENV prod
+
+VOLUME [ "/app/data" ]
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]

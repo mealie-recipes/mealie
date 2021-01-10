@@ -28,8 +28,20 @@ def auto_backup_job():
     logger.info("Auto Backup Called")
 
 
+def import_migration(recipe_dict: dict) -> dict:
+    del recipe_dict["_id"]
+    del recipe_dict["dateAdded"]
+
+    # Migration from list to Object Type Data
+    if type(recipe_dict["extras"]) == list:
+        recipe_dict["extras"] = {}
+
+    return recipe_dict
+
+
 def import_from_archive(file_name: str) -> list:
     successful_imports = []
+    failed_imports = []
 
     file_path = BACKUP_DIR.joinpath(file_name)
 
@@ -40,16 +52,15 @@ def import_from_archive(file_name: str) -> list:
     for recipe in recipe_dir.glob("*.json"):
         with open(recipe, "r") as f:
             recipe_dict = json.loads(f.read())
-            del recipe_dict["_id"]
-            del recipe_dict["dateAdded"]
 
-            recipeDoc = RecipeDocument(**recipe_dict)
             try:
+                recipe_dict = import_migration(recipe_dict)
+                recipeDoc = RecipeDocument(**recipe_dict)
                 recipeDoc.save()
                 successful_imports.append(recipe.stem)
-
             except:
-                print("Failed Import:", recipe.stem)
+                logger.info(f"Failed Import: {recipe.stem}")
+                failed_imports.append(recipe.stem)
 
     image_dir = TEMP_DIR.joinpath("images")
     for image in image_dir.iterdir():
@@ -57,7 +68,8 @@ def import_from_archive(file_name: str) -> list:
             shutil.copy(image, IMG_DIR)
 
     shutil.rmtree(TEMP_DIR)
-    return successful_imports
+
+    return {"successful": successful_imports, "failed": failed_imports}
 
 
 def export_db(tag=None, templates=None):
@@ -82,6 +94,8 @@ def export_db(tag=None, templates=None):
             export_recipes(recipe_folder, template)
     elif type(templates) == str:
         export_recipes(recipe_folder, templates)
+    else:
+        export_recipes(recipe_folder)
 
     zip_path = BACKUP_DIR.joinpath(f"{export_tag}")
     shutil.make_archive(zip_path, "zip", backup_folder)
@@ -92,7 +106,6 @@ def export_db(tag=None, templates=None):
     return str(zip_path.absolute()) + ".zip"
 
 
-
 def export_images(dest_dir) -> Path:
     for file in IMG_DIR.iterdir():
         shutil.copy(file, dest_dir.joinpath(file.name))
@@ -100,6 +113,7 @@ def export_images(dest_dir) -> Path:
 
 def export_recipes(dest_dir: Path, template=None) -> Path:
     all_recipes = RecipeDocument.objects()
+    logger.info(f"Backing Up Recipes: {all_recipes}")
     for recipe in all_recipes:
         json_recipe = recipe.to_json(indent=4)
 

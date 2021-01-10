@@ -42,7 +42,7 @@ class Recipe(BaseModel):
     rating: Optional[int]
     rating: Optional[int]
     orgURL: Optional[str]
-    extras: Optional[List[str]]
+    extras: Optional[dict]
 
     class Config:
         schema_extra = {
@@ -67,6 +67,9 @@ class Recipe(BaseModel):
                 "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
                 "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
                 "rating": 3,
+                "extras": {
+                    "message": "Don't forget to defrost the chicken!"
+                }
             }
         }
 
@@ -101,8 +104,11 @@ class Recipe(BaseModel):
     def save_to_db(self) -> str:
         recipe_dict = self.dict()
 
-        extension = Path(recipe_dict["image"]).suffix
-        recipe_dict["image"] = recipe_dict.get("slug") + extension
+        try:
+            extension = Path(recipe_dict["image"]).suffix
+            recipe_dict["image"] = recipe_dict.get("slug") + extension
+        except:
+            recipe_dict["image"] = "no image"
 
         try:
             total_time = recipe_dict.get("totalTime")

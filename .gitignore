@@ -3,27 +3,34 @@
 __pycache__/
 *.py[cod]
 *$py.class
-frontend/.env.development
+# frontend/.env.development
 docs/site/
+mealie/temp/*
+mealie/temp/api.html
+
 
 mealie/data/backups/*
 mealie/data/debug/*
 mealie/data/img/*
+mealie/data/migration/*
+!mealie/dist/*
 
 #Exception to keep folders
+!mealie/dist/.gitkeep
 !mealie/data/backups/.gitkeep
 !mealie/data/backups/dev_sample_data*
 !mealie/data/debug/.gitkeep
+!mealie/data/migration/.gitkeep
 !mealie/data/img/.gitkeep
 
 .DS_Store
 node_modules
-/dist
+
 
 # local env files
 .env.local
 .env.*.local
-.env.development
+
 
 # Log files
 npm-debug.log*
@@ -48,7 +55,7 @@ pnpm-debug.log*
 env/
 build/
 develop-eggs/
-dist/
+
 downloads/
 eggs/
 .eggs/
@@ -143,5 +150,3 @@ ENV/
 
 # Node Modules
 node_modules/
-
-/*.env.development*

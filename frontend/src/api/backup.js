@@ -19,8 +19,9 @@ export default {
   },
 
   async import(fileName) {
-    apiReq.post(backupURLs.importBackup(fileName));
+    let response = await apiReq.post(backupURLs.importBackup(fileName));
     store.dispatch("requestRecentRecipes");
+    return response;
   },
 
   async delete(fileName) {
