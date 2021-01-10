@@ -34,9 +34,9 @@ Feature placement is not set in stone. This is much more of a guideline than any
 
 ### Backend
 - [ ] Recipe Data
-    * [ ] Better Scraper
+    * [x] Better Scraper
     * [ ] Image Minification
-    * [ ] Scraper Data Validation
+    * [x] Scraper Data Validation
 - [ ] Category Management
     * [ ] Lunch / Dinner / Breakfast <- Meal Generation 
     * [ ] Dessert / Side / Appetizer / Bread / Drinks / 
