@@ -12,6 +12,7 @@ mealie/temp/api.html
 mealie/data/backups/*
 mealie/data/debug/*
 mealie/data/img/*
+mealie/data/migration/*
 !mealie/dist/*
 
 #Exception to keep folders
@@ -19,6 +20,7 @@ mealie/data/img/*
 !mealie/data/backups/.gitkeep
 !mealie/data/backups/dev_sample_data*
 !mealie/data/debug/.gitkeep
+!mealie/data/migration/.gitkeep
 !mealie/data/img/.gitkeep
 
 .DS_Store
