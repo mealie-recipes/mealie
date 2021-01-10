@@ -9,7 +9,7 @@ services:
     container_name: mealie
     restart: always
     ports:
-      - 9090:9000
+      - 9090:80
     environment:
       db_username: root
       db_password: example
