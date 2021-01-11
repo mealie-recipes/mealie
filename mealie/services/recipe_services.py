@@ -67,9 +67,7 @@ class Recipe(BaseModel):
                 "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
                 "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
                 "rating": 3,
-                "extras": {
-                    "message": "Don't forget to defrost the chicken!"
-                }
+                "extras": {"message": "Don't forget to defrost the chicken!"},
             }
         }
 
@@ -151,6 +149,13 @@ class Recipe(BaseModel):
             document.update(set__rating=self.rating)
             document.update(set__extras=self.extras)
             document.save()
+
+    @staticmethod
+    def update_image(slug: str, extension: str):
+        document = RecipeDocument.objects.get(slug=slug)
+
+        if document:
+            document.update(set__image=f"{slug}.{extension}")
 
 
 def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
