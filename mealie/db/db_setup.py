@@ -1,9 +1,10 @@
 import json
+from typing import List
 
 import mongoengine
 from settings import USE_MONGO, USE_TINYDB
 
-from db.mongo.meal_models import MealPlanDocument
+from db.mongo.meal_models import MealDocument, MealPlanDocument
 from db.mongo.recipe_models import RecipeDocument
 from db.mongo.settings_models import SiteSettingsDocument, SiteThemeDocument
 from db.tinydb.baseclass import StoreBase
@@ -44,25 +45,48 @@ class BaseDocument:
     def __init__(self) -> None:
         self.primary_key: str
         self.store: StoreBase
-        self._document: mongoengine.Document
+        self.document: mongoengine.Document
 
     @staticmethod
     def _unpack_mongo(document) -> dict:
         document = json.loads(document.to_json())
         del document["_id"]
 
-        document["dateAdded"] = document["dateAdded"]["$date"]
+        # Recipe Cleanup
+        try:
+            document["dateAdded"] = document["dateAdded"]["$date"]
+        except:
+            pass
+
+        try:
+            document["uid"] = document["uid"]["$uuid"]
+        except:
+            pass
+
+        # Meal Plan
+        try:
+            document["startDate"] = document["startDate"]["$date"]
+            document["endDate"] = document["endDate"]["$date"]
+
+            meals = []
+            for meal in document["meals"]:
+                meal["date"] = meal["date"]["$date"]
+                meals.append(meal)
+            document["meals"] = meals
+        except:
+            pass
 
         return document
 
     def get_all(self, limit: int = None, order_by: str = "dateAdded") -> list[dict]:
         if USE_MONGO:
-            documents = self._document.objects.order_by(str(order_by)).limit(limit)
+            documents = self.document.objects.order_by(str(order_by)).limit(limit)
             docs = []
             for item in documents:
                 doc = BaseDocument._unpack_mongo(item)
                 docs.append(doc)
-
+            if limit == 1:
+                return docs[0]
             return docs
 
         elif USE_TINYDB:
@@ -70,7 +94,7 @@ class BaseDocument:
 
     def get(self, match_value: str, match_key: str = None, limit=1) -> dict:
         if USE_MONGO:
-            document = self._document.objects.get(**{str(match_key): match_value})
+            document = self.document.objects.get(**{str(match_key): match_value})
             return BaseDocument._unpack_mongo(document)
 
         elif USE_TINYDB:
@@ -78,17 +102,15 @@ class BaseDocument:
 
     def save_new(self, document: dict) -> str:
         if USE_MONGO:
-            new_document = self._document(**document)
+            new_document = self.document(**document)
             new_document.save()
-            return new_document.slug
+            return new_document
         elif USE_TINYDB:
             return self.store.save(document)
 
     def delete(self, primary_key) -> dict:
         if USE_MONGO:
-            document = self._document.objects.get(
-                **{str(self.primary_key): primary_key}
-            )
+            document = self.document.objects.get(**{str(self.primary_key): primary_key})
 
             if document:
                 document.delete()
@@ -109,11 +131,11 @@ class Database:
             self.primary_key = "slug"
             if USE_TINYDB:
                 self.store = tiny_db.recipes
-            self._document = RecipeDocument
+            self.document = RecipeDocument
 
         def update(self, slug: str, new_data: dict) -> None:
             if USE_MONGO:
-                document = self._document.objects.get(slug=slug)
+                document = self.document.objects.get(slug=slug)
 
                 if document:
                     document.update(set__name=new_data.get("name"))
@@ -128,6 +150,7 @@ class Database:
                     )
                     document.update(set__totalTime=new_data.get("totalTime"))
 
+                    document.update(set__slug=new_data.get("slug"))
                     document.update(set__categories=new_data.get("categories"))
                     document.update(set__tags=new_data.get("tags"))
                     document.update(set__notes=new_data.get("notes"))
@@ -135,12 +158,15 @@ class Database:
                     document.update(set__rating=new_data.get("rating"))
                     document.update(set__extras=new_data.get("extras"))
                     document.save()
+
+                    return new_data.get("slug")
             elif USE_TINYDB:
                 self.store.update_doc(slug, new_data)
+                return new_data.get("slug")
 
         def update_image(self, slug: str, extension: str) -> None:
             if USE_MONGO:
-                document = self._document.objects.get(slug=slug)
+                document = self.document.objects.get(slug=slug)
 
                 if document:
                     document.update(set__image=f"{slug}.{extension}")
@@ -154,24 +180,40 @@ class Database:
                 self.store = tiny_db.meals
             self.document = MealPlanDocument
 
-            def update(self, key: str, new_data: dict) -> dict:
-                if USE_MONGO:
-                    pass
-                elif USE_TINYDB:
-                    pass
+        def update(self, uid: str, new_meals: List[MealDocument]) -> dict:
+            if USE_MONGO:
+                document = self.document.objects.get(uid=uid)
+                if document:
+                    document.update(set__meals=new_meals)
+                    document.save()
+            elif USE_TINYDB:
+                pass
 
     class _Settings(BaseDocument):
         def __init__(self) -> None:
+
             self.primary_key = "name"
+
             if USE_TINYDB:
                 self.store = tiny_db.settings
+
             self.document = SiteSettingsDocument
 
-            def update(self, key: str, new_data: dict) -> dict:
-                if USE_MONGO:
-                    pass
-                elif USE_TINYDB:
-                    pass
+        def save_new(self, main: dict, webhooks: dict) -> str:
+
+            if USE_MONGO:
+                new_doc = self.document(**main)
+                return new_doc.save()
+
+            elif USE_TINYDB:
+                main["webhooks"] = webhooks
+                return self.store.save(main)
+
+        def update(self, key: str, new_data: dict) -> dict:
+            if USE_MONGO:
+                pass
+            elif USE_TINYDB:
+                pass
 
     class _Themes(BaseDocument):
         def __init__(self) -> None:

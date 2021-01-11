@@ -130,7 +130,7 @@ export default {
       api.recipes.delete(this.recipeDetails.slug);
     },
     async saveRecipe() {
-      await api.recipes.update(this.recipeDetails);
+      let slug = await api.recipes.update(this.recipeDetails);
 
       if (this.fileObject) {
         await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
@@ -138,6 +138,7 @@ export default {
 
       this.form = false;
       this.imageKey += 1;
+      this.$router.push(`/recipe/${slug}`);
     },
     showForm() {
       this.form = true;

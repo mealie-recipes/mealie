@@ -98,11 +98,11 @@ def update_recipe_image(
 
 @router.post("/api/recipe/{recipe_slug}/update/", tags=["Recipes"])
 async def update_recipe(recipe_slug: str, data: Recipe):
-    """ Updates a recipe by existing slug and data. Data should containt """
+    """ Updates a recipe by existing slug and data. """
 
-    data.update(recipe_slug)
+    new_slug = data.update(recipe_slug)
 
-    return {"message": "PLACEHOLDER"}
+    return new_slug
 
 
 @router.delete("/api/recipe/{recipe_slug}/delete/", tags=["Recipes"])

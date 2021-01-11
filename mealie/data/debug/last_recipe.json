@@ -1,30 +1,33 @@
 {
     "@context": "http://schema.org",
     "@type": "Recipe",
-    "articleBody": "In this brothy beans recipe, caramelizing fennel, shallots, and lemon builds a base layer that is sweet, tangy, and bright. Tinned sardines add briney flavor (and protein!)\u2014leave them whole or break them up and fold them into the soup. \u00a0And chopped celery or mushrooms work just as well as fennel if you want to swap. This recipe is part of the 2021\u00a0Feel Good Food Plan, our eight-day dinner plan for starting the year off right.",
-    "alternativeHeadline": "Tinned sardines add briney flavor (and protein!)\u2014leave them whole or break them up and fold them into the soup.",
-    "dateModified": "2021-01-10 13:22:02.933000",
+    "articleBody": "With plenty of protein, a double punch of acid from citrus and vinegar, and a garlicky chili oil, this salad is made for dinner. While your chicken is getting toasty in the oven, make your chile crisp-inspired dressing with garlic, paprika, cracked coriander, and red pepper flakes. If you have leftovers (or want to make extra for a bit of meal prep), keep all of your ingredients separate in the fridge so that they stay fresher for longer. \u00a0This recipe is part of the 2021\u00a0Feel Good Food Plan, our eight-day dinner plan for starting the year off right.",
+    "alternativeHeadline": "With plenty of protein, a double punch of acid from citrus and vinegar, and a garlicky chili oil, this salad is made for dinner.",
+    "dateModified": "2021-01-11 11:51:19.699000",
     "datePublished": "2021-01-01 06:00:00",
     "keywords": [
         "recipes",
         "healthyish",
-        "fennel",
-        "lemon",
-        "olive oil",
-        "shallot",
-        "garlic",
-        "herb",
-        "white wine",
-        "chicken broth",
-        "cannellini beans",
-        "sardine",
-        "parsley",
+        "salad",
+        "chicken recipes",
         "kosher salt",
+        "pepper",
+        "olive oil",
+        "garlic",
+        "paprika",
+        "coriander",
+        "endive",
+        "radicchio",
+        "blood orange",
+        "orange",
+        "vinegar",
+        "red wine vinegar",
+        "sesame seed",
         "feel good food plan",
         "feel good food plan 2021",
         "web"
     ],
-    "thumbnailUrl": "https://assets.bonappetit.com/photos/5fdbe3ac045c6b67ead1938c/1:1/w_2880,h_2880,c_limit/BA0221feelgood06_web.jpg",
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5fdbe110607088d75a57bc54/1:1/w_3142,h_3142,c_limit/BA0221coverfinal01_rev.jpg",
     "publisher": {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -54,52 +57,51 @@
     ],
     "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": 4.1,
+        "ratingValue": 4.89,
         "ratingCount": 12
     },
-    "description": "Tinned sardines add briney flavor (and protein!)\u2014leave them whole or break them up and fold them into the soup.",
-    "image": "braised-beans-and-sardines-with-fennel.jpg",
-    "headline": "Braised Beans and Sardines With Fennel",
-    "name": "Braised Beans and Sardines With Fennel",
+    "description": "With plenty of protein, a double punch of acid from citrus and vinegar, and a garlicky chili oil, this salad is made for dinner.",
+    "image": "chicken-salad-with-citrus-and-chile-oil.jpg",
+    "headline": "Chicken Salad With Citrus and Chile Oil",
+    "name": "Chicken Salad With Citrus and Chile Oil",
     "recipeIngredient": [
-        "1 fennel bulb with fronds, stalks and fronds removed",
-        "1 lemon, halved",
-        "\u00bc cup extra-virgin olive oil",
-        "2 medium shallots, thinly sliced",
-        "6 garlic cloves, thinly sliced",
-        "Small handful of mixed hardy herb sprigs (such as bay leaves, thyme, and/or rosemary)",
+        "3 skin-on, bone-in chicken breasts\u00a0 (about 1\u00bd lb. total)",
+        "Kosher salt, freshly ground pepper",
+        "2 Tbsp. plus \u2153 cup extra-virgin olive oil",
+        "3 garlic cloves, thinly sliced",
+        "2 tsp. paprika",
+        "1 tsp. coriander seeds, coarsely\u00a0crushed",
         "\u00bd tsp. crushed red pepper flakes",
-        "\u00bc cup dry white wine",
-        "6 cups low-sodium chicken broth",
-        "2 15-oz. cans cannellini (white kidney) or cranberry beans, rinsed1 4.4-oz. tin oil-packed sardines, drained",
-        "1 (loosely packed) cup very coarsely chopped parsley",
-        "Kosher salt",
-        "Toasted seeded bread (for serving)"
+        "2 medium endive, leaves separated",
+        "1 large head of radicchio, leaves\u00a0 separated, torn if large",
+        "4 satsumas or blood oranges or 3 medium oranges, peeled, sliced into rounds, seeds removed",
+        "2 Tbsp. white wine vinegar or red wine vinegar",
+        "2 tsp. toasted sesame seeds, lightly crushed"
     ],
     "recipeInstructions": [
         {
-            "text": "Slice fennel bulb in half lengthwise and cut each half lengthwise into 3 wedges. Thinly slice 1 lemon half into rounds and wriggle out and discard any seeds; leave remaining half intact and set aside."
+            "text": "Preheat oven to 450\u00b0. Pat chicken breasts dry with paper towels; season on all sides with salt and pepper, then rub with 2 Tbsp. oil."
         },
         {
-            "text": "Heat oil in a medium pot over medium-high. Add fennel, shallots, garlic, hardy herbs, lemon rounds, and red pepper flakes and cook, stirring occasionally, until fennel and lemon are softened slightly and golden brown in spots, 5\u20137 minutes."
+            "text": "Heat a large ovenproof skillet over medium-high. Arrange chicken, skin side down, in pan and cook, undisturbed, until skin is deep golden brown, about 3 minutes. Turn chicken over with tongs and transfer skillet to oven. Roast chicken until cooked all the way through, 15\u201317 minutes. Transfer to a cutting board and let cool 10 minutes."
         },
         {
-            "text": "Using tongs, transfer lemon rounds to a small bowl; set aside. Add wine to pot and cook until reduced by half, about\u00a0 2 minutes. Pour in broth and bring to a boil. Reduce heat to medium-low and simmer, stirring occasionally, until fennel is tender, about 5 minutes. Add beans and simmer until beans soak up some of the broth and are warmed through, 8\u201310 minutes."
+            "text": "Meanwhile, cook garlic and remaining \u2153 cup oil in a small skillet over medium heat, stirring occasionally, until garlic is fragrant and pale golden, about 4 minutes. Immediately pour garlic oil into a small bowl and stir in paprika, coriander seeds, and red pepper flakes; season with salt."
         },
         {
-            "text": "Meanwhile, working one at a time, slice open each sardine with the tip of a paring knife and remove any visible bones; discard. Separate fillets from one another and place in a small bowl. Squeeze juice from remaining reserved lemon half over fillets."
+            "text": "Cut chicken off the bone, then slice\u00a0 \u00bd\" thick; discard bones."
         },
         {
-            "text": "Fish out and discard any hardy herbs and stems you can from braise. Stir in parsley; taste and season broth with more salt if needed."
+            "text": "Toss endive, radicchio, and satsumas with vinegar and half of spiced garlic oil in a large bowl to combine; season salad with salt and pepper."
         },
         {
-            "text": "Divide braise among bowls; top with reserved lemon slices and sardines. Serve with bread alongside."
+            "text": "Divide salad among plates or shallow bowls; top with chicken and drizzle with more spiced garlic oil. Sprinkle sesame seeds over."
         }
     ],
     "recipeYield": "4 servings",
-    "url": "https://www.bonappetit.com/recipe/braised-beans-and-sardines-with-fennel",
-    "slug": "braised-beans-and-sardines-with-fennel",
-    "orgURL": "https://www.bonappetit.com/recipe/braised-beans-and-sardines-with-fennel",
+    "url": "https://www.bonappetit.com/recipe/chicken-salad-with-citrus-and-chile-oil",
+    "slug": "chicken-salad-with-citrus-and-chile-oil",
+    "orgURL": "https://www.bonappetit.com/recipe/chicken-salad-with-citrus-and-chile-oil",
     "categories": [],
     "tags": [],
     "dateAdded": null,

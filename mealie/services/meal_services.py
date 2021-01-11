@@ -3,7 +3,8 @@ from datetime import date, timedelta
 from pathlib import Path
 from typing import List, Optional
 
-from db.mongo.meal_models import MealDocument, MealPlanDocument
+from db.db_setup import db
+from db.mongo.meal_models import MealDocument
 from pydantic import BaseModel
 
 from services.recipe_services import Recipe
@@ -80,6 +81,7 @@ class MealPlan(BaseModel):
         self.meals = meals
 
     def save_to_db(self):
+
         meal_docs = []
         for meal in self.meals:
             meal = meal.dict()
@@ -87,22 +89,16 @@ class MealPlan(BaseModel):
             meal_docs.append(meal_doc)
 
         self.meals = meal_docs
-
-        meal_plan = MealPlanDocument(**self.dict())
-
-        meal_plan.save()
+        db.meals.save_new(self.dict())
 
     @staticmethod
     def get_all() -> List:
-        all_meals = []
-        for plan in MealPlanDocument.objects.order_by("startDate"):
-            all_meals.append(MealPlan._unpack_doc(plan))
 
-        print(all_meals)
+        all_meals = [MealPlan(**x) for x in db.meals.get_all(order_by="startDate")]
+
         return all_meals
 
     def update(self, uid):
-        document = MealPlanDocument.objects.get(uid=uid)
 
         meal_docs = []
         for meal in self.meals:
@@ -110,43 +106,24 @@ class MealPlan(BaseModel):
             meal_doc = MealDocument(**meal)
             meal_docs.append(meal_doc)
 
-        self.meals = meal_docs
-        if document:
-            document.update(set__meals=self.meals)
-            document.save()
+        db.meals.update(uid, meal_docs)
 
     @staticmethod
     def delete(uid):
-        document = MealPlanDocument.objects.get(uid=uid)
-
-        if document:
-            document.delete()
-
-    @staticmethod
-    def _unpack_doc(document: MealPlanDocument):
-        meal_plan = json.loads(document.to_json())
-        del meal_plan["_id"]["$oid"]
-        print(meal_plan)
-        meal_plan["uid"] = meal_plan["uid"]["$uuid"]
-
-        meal_plan["startDate"] = meal_plan["startDate"]["$date"]
-        meal_plan["endDate"] = meal_plan["endDate"]["$date"]
-
-        meals = []
-        for meal in meal_plan["meals"]:
-            meal["date"] = meal["date"]["$date"]
-            meals.append(Meal(**meal))
-
-        meal_plan["meals"] = meals
-        return MealPlan(**meal_plan)
+        db.meals.delete(uid)
 
     @staticmethod
     def today() -> str:
         """ Returns the meal slug for Today """
-        meal_plan = MealPlanDocument.objects.order_by("startDate").limit(1)
-        meal_plan = MealPlan._unpack_doc(meal_plan[0])
+        meal_plan = db.meals.get_all(limit=1, order_by="startDate")
 
-        for meal in meal_plan.meals:
+        meal_docs = []
+        for meal in meal_plan["meals"]:
+            print(meal)
+            meal_doc = Meal(**meal)
+            meal_docs.append(meal_doc)
+
+        for meal in meal_docs:
             if meal.date == date.today():
                 return meal.slug
 
@@ -154,7 +131,6 @@ class MealPlan(BaseModel):
 
     @staticmethod
     def this_week():
-        meal_plan = MealPlanDocument.objects.order_by("startDate").limit(1)
-        meal_plan = MealPlan._unpack_doc(meal_plan[0])
+        meal_plan = db.meals.get_all(limit=1, order_by="startDate")
 
         return meal_plan

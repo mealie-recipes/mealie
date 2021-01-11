@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Any, List, Optional
 
 from db.db_setup import db
-from db.mongo.recipe_models import RecipeDocument
 from pydantic import BaseModel, validator
 from slugify import slugify
 
@@ -93,12 +92,12 @@ class Recipe(BaseModel):
         return cls(**document)
 
     @classmethod
-    def get_by_slug(_cls, slug: str):
-        """ Returns a recipe dictionary from the slug """
+    def get_by_slug(cls, slug: str):
+        """ Returns a Recipe Object by Slug """
 
         document = db.recipes.get(slug, "slug")
 
-        return document
+        return cls(**document)
 
     def save_to_db(self) -> str:
         recipe_dict = self.dict()
@@ -115,9 +114,9 @@ class Recipe(BaseModel):
         except:
             pass
 
-        recipe_slug = db.recipes.save_new(recipe_dict)
+        recipe_doc = db.recipes.save_new(recipe_dict)
 
-        return recipe_slug
+        return recipe_doc.slug
 
     @staticmethod
     def delete(recipe_slug: str) -> str:
@@ -128,7 +127,8 @@ class Recipe(BaseModel):
 
     def update(self, recipe_slug: str):
         """ Updates the recipe from the database by slug"""
-        db.recipes.update(recipe_slug, self.dict())
+        updated_slug = db.recipes.update(recipe_slug, self.dict())
+        return updated_slug
 
     @staticmethod
     def update_image(slug: str, extension: str):
