@@ -3,7 +3,8 @@ import json
 from pathlib import Path
 from typing import Any, List, Optional
 
-from db.recipe_models import RecipeDocument
+from db.db_setup import db
+from db.mongo.recipe_models import RecipeDocument
 from pydantic import BaseModel, validator
 from slugify import slugify
 
@@ -114,10 +115,9 @@ class Recipe(BaseModel):
         except:
             pass
 
-        recipeDoc = RecipeDocument(**recipe_dict)
-        recipeDoc.save()
+        recipe_slug = db.recipes.save_new(recipe_dict)
 
-        return recipeDoc.slug
+        return recipe_slug
 
     @staticmethod
     def delete(recipe_slug: str) -> str:

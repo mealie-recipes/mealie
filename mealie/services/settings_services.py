@@ -1,13 +1,11 @@
 import json
 from typing import List, Optional
 
-from db.settings_models import (
-    SiteSettingsDocument,
-    SiteThemeDocument,
-    ThemeColorsDocument,
-    WebhooksDocument,
-)
+from db.mongo.settings_models import (SiteSettingsDocument, SiteThemeDocument,
+                                      ThemeColorsDocument, WebhooksDocument)
 from pydantic import BaseModel
+from startup import USE_TINYDB
+from utils.logger import logger
 
 
 class Webhooks(BaseModel):
@@ -45,12 +43,15 @@ class SiteSettings(BaseModel):
 
     @staticmethod
     def get_site_settings():
-        try:
-            document = SiteSettingsDocument.objects.get(name="main")
-        except:
-            webhooks = WebhooksDocument()
-            document = SiteSettingsDocument(name="main", webhooks=webhooks)
-            document.save()
+        if USE_TINYDB:
+            document = tinydb.settings.get("main")
+        else:
+            try:
+                document = SiteSettingsDocument.objects.get(name="main")
+            except:
+                webhooks = WebhooksDocument()
+                document = SiteSettingsDocument(name="main", webhooks=webhooks)
+                document.save()
 
         return SiteSettings._unpack_doc(document)
 
@@ -95,14 +96,23 @@ class SiteTheme(BaseModel):
 
     @staticmethod
     def get_by_name(theme_name):
-        document = SiteThemeDocument.objects.get(name=theme_name)
+        if USE_TINYDB:
+            theme = Query()
+            document = tinydb.themes.search(theme.name == theme_name)
+        else:
+            document = SiteThemeDocument.objects.get(name=theme_name)
+
         return SiteTheme._unpack_doc(document)
 
     @staticmethod
     def _unpack_doc(document):
-        document = json.loads(document.to_json())
-        del document["_id"]
-        theme_colors = SiteTheme(**document)
+        if USE_TINYDB:
+            theme_colors = SiteTheme(**document)
+        else:
+            document = json.loads(document.to_json())
+            del document["_id"]
+            theme_colors = SiteTheme(**document)
+
         return theme_colors
 
     @staticmethod
@@ -114,6 +124,15 @@ class SiteTheme(BaseModel):
         return all_themes
 
     def save_to_db(self):
+        if USE_TINYDB:
+            self._save_to_tinydb()
+        else:
+            self._save_to_mongo()
+
+    def _save_to_tinydb(self):
+        tinydb.themes.insert(self.dict())
+
+    def _save_to_mongo(self):
         theme = self.dict()
         theme["colors"] = ThemeColorsDocument(**theme["colors"])
 
@@ -140,3 +159,37 @@ class SiteTheme(BaseModel):
         if document:
             document.delete()
             return "Document Deleted"
+
+
+def default_theme_init():
+    default_colors = {
+        "primary": "#E58325",
+        "accent": "#00457A",
+        "secondary": "#973542",
+        "success": "#5AB1BB",
+        "info": "#4990BA",
+        "warning": "#FF4081",
+        "error": "#EF5350",
+    }
+
+    if USE_TINYDB:
+        theme = Query()
+        item = tinydb.themes.search(theme.name == "default")
+        print(item)
+        if item == []:
+            logger.info("Generating Default Theme")
+            colors = Colors(**default_colors)
+            default_theme = SiteTheme(name="default", colors=colors)
+            default_theme.save_to_db()
+    else:
+        try:
+            SiteTheme.get_by_name("default")
+            return "default theme exists"
+        except:
+            logger.info("Generating Default Theme")
+            colors = Colors(**default_colors)
+            default_theme = SiteTheme(name="default", colors=colors)
+            default_theme.save_to_db()
+
+
+# default_theme_init()

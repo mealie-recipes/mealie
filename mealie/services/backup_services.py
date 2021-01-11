@@ -4,7 +4,7 @@ import zipfile
 from datetime import datetime
 from pathlib import Path
 
-from db.recipe_models import RecipeDocument
+from db.mongo.recipe_models import RecipeDocument
 from jinja2 import Template
 from utils.logger import logger
 

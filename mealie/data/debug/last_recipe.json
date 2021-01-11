@@ -1,18 +1,95 @@
 {
-    "name": "Carottes Rapp\u00e9s with Rice and Sunflower Seeds \u2014 FEED THE SWIMMERS",
-    "description": "&nbsp;Carottes R\u00e2p\u00e9es with Rice and Sunflower Seeds thanks to @think_rice and @thefeedfeed. Carottes R\u00e2p\u00e9es is a classic French Salad found ready to go (think picnic) at every charcuterie and on most cafe menus. This is one of those insanely simple salads that explode with flavor! The carrots ar",
-    "image": "carottes-rappes-with-rice-and-sunflower-seeds-feed-the-swimmers.JPG?format=1500w",
-    "recipeYield": "",
+    "@context": "http://schema.org",
+    "@type": "Recipe",
+    "articleBody": "\u201cAfter a draining day juggling work, homeschooling, and urging children to stop using their masks as slingshots, the ideal food for me isn\u2019t perfectly prepared food that\u2019s been tweezered into position, but a meal that\u2019s simply comforting,\u201d writes the Smitten Kitchen\u2019s Deb Perelman. Right now, it\u2019s this deeply cozy pot of tender chicken thighs, jammy leeks, and broth-soaked rice.",
+    "alternativeHeadline": "This one-skillet dinner gets deep oniony flavor from lots of leeks cooked down to jammy tenderness.",
+    "dateModified": "2021-01-10 15:20:51.422000",
+    "datePublished": "2020-08-18 04:00:00",
+    "keywords": [
+        "recipes",
+        "chicken recipes",
+        "kosher salt",
+        "black pepper",
+        "butter",
+        "leek",
+        "lemon zest",
+        "rice",
+        "chicken broth",
+        "anchovy",
+        "garlic",
+        "capers",
+        "herb",
+        "olive oil",
+        "healthyish",
+        "web"
+    ],
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5f29796456f43685a49327fb/1:1/w_1125,h_1125,c_limit/Chicken-and-Rice-With-Leeks-Salsa-Verde-01.jpg",
+    "publisher": {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Bon App\u00e9tit",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.bonappetit.com/verso/static/bon-appetit/assets/logo-seo.328de564b950e3d5d1fbe3e42f065290ca1d3844.png",
+            "width": "479px",
+            "height": "100px"
+        },
+        "url": "https://www.bonappetit.com"
+    },
+    "isPartOf": {
+        "@type": [
+            "CreativeWork",
+            "Product"
+        ],
+        "name": "Bon App\u00e9tit"
+    },
+    "isAccessibleForFree": true,
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Deb Perelman",
+            "sameAs": "https://bon-appetit.com/contributor/deb-perelman/"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": 4.02,
+        "ratingCount": 48
+    },
+    "description": "This one-skillet dinner gets deep oniony flavor from lots of leeks cooked down to jammy tenderness.",
+    "image": "chicken-and-rice-with-leeks-and-salsa-verde.jpg",
+    "headline": "Chicken and Rice With Leeks and Salsa Verde",
+    "name": "Chicken and Rice With Leeks and Salsa Verde",
     "recipeIngredient": [
-        "Could not detect ingredients"
+        "1\u00bd lb. skinless, boneless chicken thighs (4\u20138 depending on size)",
+        "Kosher salt, freshly ground pepper",
+        "3 Tbsp. unsalted butter, divided",
+        "2 large or 3 medium leeks, white and pale green parts only, halved lengthwise, thinly sliced",
+        "Zest and juice of 1 lemon, divided",
+        "1\u00bd cups long-grain white rice, rinsed until water runs clear",
+        "2\u00be cups low-sodium chicken broth",
+        "1 oil-packed anchovy fillet",
+        "2 garlic cloves",
+        "1 Tbsp. drained capers",
+        "Crushed red pepper flakes",
+        "1 cup tender herb leaves (such as parsley, cilantro, and/or mint)",
+        "4\u20135 Tbsp. extra-virgin olive oil"
     ],
     "recipeInstructions": [
         {
-            "text": "Could not detect instructions"
+            "text": "Season chicken with salt and pepper. Melt 2 Tbsp. butter in a large high-sided skillet over medium-high heat. Add leeks and half of lemon zest, season with salt and pepper, and mix to coat leeks in butter. Reduce heat to medium-low, cover, and cook, stirring occasionally, until leeks are somewhat tender, about 5 minutes. Remove lid, increase heat to medium-high, and cook, stirring occasionally, until tender and just starting to take on color, about 3 minutes. Add rice and cook, stirring often, 3 minutes, then add broth, scraping up any browned bits. Tuck short sides of each chicken thigh underneath so they are touching and nestle seam side down into rice mixture. Bring to a simmer. Cover, reduce heat to medium-low, and cook until rice is tender and chicken is cooked through, about 20 minutes. Remove from heat. Cut remaining 1 Tbsp. butter into small pieces and scatter over mixture. Re-cover and let sit 10 minutes."
+        },
+        {
+            "text": "Meanwhile, pulse anchovy, garlic, capers, a few pinches of red pepper flakes, and remaining lemon zest in a food processor until finely chopped. Add herbs; process until a paste forms. With motor running, gradually stream in oil until loosened to a thick sauce. Add half of lemon juice; season salsa verde with salt."
+        },
+        {
+            "text": "Drizzle remaining lemon juice over chicken and rice. Serve with salsa verde."
         }
     ],
-    "slug": "carottes-rappes-with-rice-and-sunflower-seeds-feed-the-swimmers",
-    "orgURL": "https://www.feedtheswimmers.com/blog/2019/6/5/carottes-rapps-with-rice-and-sunflower-seeds",
+    "recipeYield": "4 Servings",
+    "url": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
+    "slug": "chicken-and-rice-with-leeks-and-salsa-verde",
+    "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
     "categories": [],
     "tags": [],
     "dateAdded": null,

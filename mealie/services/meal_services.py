@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from pathlib import Path
 from typing import List, Optional
 
-from db.meal_models import MealDocument, MealPlanDocument
+from db.mongo.meal_models import MealDocument, MealPlanDocument
 from pydantic import BaseModel
 
 from services.recipe_services import Recipe

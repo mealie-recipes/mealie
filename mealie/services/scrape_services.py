@@ -85,6 +85,12 @@ def process_recipe_data(new_recipe: dict, url=None) -> dict:
 
 def extract_recipe_from_html(html: str, url: str) -> dict:
     scraped_recipes: List[dict] = scrape_schema_recipe.loads(html, python_objects=True)
+
+    if not scraped_recipes:
+        scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(
+            url, python_objects=True
+        )
+
     if scraped_recipes:
         new_recipe: dict = scraped_recipes[0]
         logger.info(f"Recipe Scraped From Web: {new_recipe}")

@@ -17,7 +17,18 @@ BACKUP_DIR = DATA_DIR.joinpath("backups")
 DEBUG_DIR = DATA_DIR.joinpath("debug")
 MIGRATION_DIR = DATA_DIR.joinpath("migration")
 TEMPLATE_DIR = DATA_DIR.joinpath("templates")
+TINYDB_DIR = DATA_DIR.joinpath("db")
 TEMP_DIR = DATA_DIR.joinpath("temp")
+
+REQUIRED_DIRS = [
+    DATA_DIR,
+    IMG_DIR,
+    BACKUP_DIR,
+    DEBUG_DIR,
+    MIGRATION_DIR,
+    TEMPLATE_DIR,
+    TINYDB_DIR,
+]
 
 
 # General
@@ -34,14 +45,13 @@ else:
 
 
 # DATABASE ENV
-DATABASE_TYPE = os.getenv("db_type", "mongo")  # mongo, sqlite
-SQLITE = False
-MONGO = False
-if DATABASE_TYPE == "sqlite":
-    SQLITE = True
-    SQLITE_DB_FILE = DATA_DIR.joinpath("mealie.sqlite")
+DATABASE_TYPE = os.getenv("db_type", "mongo")  # mongo, tinydb
+USE_TINYDB = False
+USE_MONGO = False
+if DATABASE_TYPE == "tinydb":
+    USE_TINYDB = True
 elif DATABASE_TYPE == "mongo":
-    MONGO = True
+    USE_MONGO = True
 else:
     raise Exception(
         "Unable to determine database type. Acceptible options are 'mongo' or 'sqlite' "

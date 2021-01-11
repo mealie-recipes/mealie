@@ -1,5 +1,4 @@
 import datetime
-import uuid
 
 import mongoengine
 
@@ -19,7 +18,7 @@ class RecipeDocument(mongoengine.Document):
     slug = mongoengine.StringField(required=True, unique=True)
     categories = mongoengine.ListField(default=[])
     tags = mongoengine.ListField(default=[])
-    dateAdded = mongoengine.DateTimeField(binary=True, default=datetime.date.today())
+    dateAdded = mongoengine.DateTimeField(binary=True, default=datetime.date.today)
     notes = mongoengine.ListField(default=[])
     rating = mongoengine.IntField(required=True, default=0)
     orgURL = mongoengine.URLField(required=False)

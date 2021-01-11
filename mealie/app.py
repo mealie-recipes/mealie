@@ -1,10 +1,9 @@
-from pathlib import Path
-
 import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 import startup
+from global_scheduler import start_scheduler
 from routes import (
     backup_routes,
     meal_routes,
@@ -14,10 +13,12 @@ from routes import (
     static_routes,
     user_routes,
 )
+from services.settings_services import Colors, SiteTheme
 from settings import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from utils.logger import logger
 
 startup.pre_start()
+# start_scheduler()
 
 app = FastAPI(
     title="Mealie",
@@ -46,6 +47,10 @@ def invalid_api():
 
 
 app.include_router(static_routes.router)
+
+
+
+
 
 
 # Generate API Documentation
