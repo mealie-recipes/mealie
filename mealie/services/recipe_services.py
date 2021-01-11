@@ -96,9 +96,9 @@ class Recipe(BaseModel):
     def get_by_slug(_cls, slug: str):
         """ Returns a recipe dictionary from the slug """
 
-        document = RecipeDocument.objects.get(slug=slug)
+        document = db.recipes.get(slug, "slug")
 
-        return Recipe._unpack_doc(document)
+        return document
 
     def save_to_db(self) -> str:
         recipe_dict = self.dict()
@@ -123,39 +123,16 @@ class Recipe(BaseModel):
     def delete(recipe_slug: str) -> str:
         """ Removes the recipe from the database by slug """
         delete_image(recipe_slug)
-        document = RecipeDocument.objects.get(slug=recipe_slug)
-
-        if document:
-            document.delete()
-            return "Document Deleted"
+        db.recipes.delete(recipe_slug)
+        return "Document Deleted"
 
     def update(self, recipe_slug: str):
         """ Updates the recipe from the database by slug"""
-        document = RecipeDocument.objects.get(slug=recipe_slug)
-
-        if document:
-            document.update(set__name=self.name)
-            document.update(set__description=self.description)
-            document.update(set__image=self.image)
-            document.update(set__recipeYield=self.recipeYield)
-            document.update(set__recipeIngredient=self.recipeIngredient)
-            document.update(set__recipeInstructions=self.recipeInstructions)
-            document.update(set__totalTime=self.totalTime)
-
-            document.update(set__categories=self.categories)
-            document.update(set__tags=self.tags)
-            document.update(set__notes=self.notes)
-            document.update(set__orgURL=self.orgURL)
-            document.update(set__rating=self.rating)
-            document.update(set__extras=self.extras)
-            document.save()
+        db.recipes.update(recipe_slug, self.dict())
 
     @staticmethod
     def update_image(slug: str, extension: str):
-        document = RecipeDocument.objects.get(slug=slug)
-
-        if document:
-            document.update(set__image=f"{slug}.{extension}")
+        db.recipes.update_image(slug, extension)
 
 
 def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
@@ -171,7 +148,7 @@ def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
 
     """
     recipe_list = []
-    for recipe in RecipeDocument.objects.order_by("dateAdded").limit(max_results):
+    for recipe in db.recipes.get_all(limit=max_results, order_by="dateAdded"):
         recipe_details = {}
         for key in keys:
             try:

@@ -13,15 +13,17 @@ class StoreBase:
 
         if data != []:
             raise Exception(
-                f"Cannot save document. Primary Key: {self.primary_key} already exists"
+                f"Cannot Save, Primary Key: {self.primary_key} already exists"
             )
         else:
-            return self.store.upsert(
-                document, Query()[self.primary_key] == document[self.primary_key]
-            )
+            self.store.insert(document)
+            return document["slug"]
 
     def delete(self, document_primary_key: str):
         self.store.remove(where(self.primary_key) == document_primary_key)
+
+    def get_all(self) -> list:
+        return self.store.all()
 
     def get(self, value: str, key: str = None, limit: int = None) -> list or dict:
         """Retrieves an entry from the database matching the key/value provided.
@@ -49,14 +51,16 @@ class StoreBase:
             return data
 
     def update_doc(self, id, document):
-        data: dict = self.get(self.primary_key, id, limit=1)
+        data: dict = self.get(id, self.primary_key, limit=1)
 
         if data:
             if data[self.primary_key] == document[self.primary_key]:
                 data.update(document)
+                return document["slug"]
             else:
                 self.delete(id)
-                return self.save(document)
+                self.save(document)
+                return document["slug"]
 
         elif not data:
             raise Exception(
