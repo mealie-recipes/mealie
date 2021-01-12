@@ -11,8 +11,8 @@ from services.migrations.nextcloud import (
 from services.recipe_services import Recipe
 
 CWD = Path(__file__).parent
-NEXTCLOUD_DIR = CWD.joinpath("data", "nextcloud_recipes")
-TEMP_NEXTCLOUD = CWD.parent.joinpath("data", "temp", "nextcloud")
+NEXTCLOUD_DIR = CWD.parent.joinpath("data", "nextcloud_recipes")
+TEMP_NEXTCLOUD = CWD.parent.parent.joinpath("data", "temp", "nextcloud")
 
 
 @pytest.mark.parametrize(
@@ -39,5 +39,5 @@ def test_zip_extraction(file_name: str, final_path: Path):
 )
 def test_nextcloud_migration(recipe_dir: Path):
     recipe = import_recipes(recipe_dir)
-    assert type(recipe) == Recipe
+    assert isinstance(recipe, Recipe)
     IMG_DIR.joinpath(recipe.image).unlink(missing_ok=True)

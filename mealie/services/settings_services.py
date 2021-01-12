@@ -1,21 +1,22 @@
 import json
 from typing import List, Optional
 
-from db.mongo.settings_models import (SiteSettingsDocument, SiteThemeDocument,
-                                      ThemeColorsDocument, WebhooksDocument)
+from db.database import db
+from db.mongo.settings_models import (
+    SiteSettingsDocument,
+    SiteThemeDocument,
+    ThemeColorsDocument,
+    WebhooksDocument,
+)
 from pydantic import BaseModel
 from startup import USE_TINYDB
 from utils.logger import logger
 
 
 class Webhooks(BaseModel):
-    webhookTime: str
-    webhookURLs: Optional[List[str]]
-    enabled: bool
-
-    @staticmethod
-    def run():
-        pass
+    webhookTime: str = "00:00"
+    webhookURLs: Optional[List[str]] = []
+    enabled: bool = "false"
 
 
 class SiteSettings(BaseModel):
@@ -43,25 +44,18 @@ class SiteSettings(BaseModel):
 
     @staticmethod
     def get_site_settings():
-        if USE_TINYDB:
-            document = tinydb.settings.get("main")
-        else:
-            try:
-                document = SiteSettingsDocument.objects.get(name="main")
-            except:
-                webhooks = WebhooksDocument()
-                document = SiteSettingsDocument(name="main", webhooks=webhooks)
-                document.save()
+        try:
+            document = db.settings.get("main")
+        except:
+            webhooks = Webhooks()
+            default_entry = SiteSettings(name="main", webhooks=webhooks)
+            document = db.settings.save_new(default_entry.dict(), webhooks.dict())
 
-        return SiteSettings._unpack_doc(document)
+        return SiteSettings(**document)
 
     def update(self):
-        document = SiteSettingsDocument.objects.get(name="main")
-        new_webhooks = WebhooksDocument(**self.webhooks.dict())
 
-        document.update(set__webhooks=new_webhooks)
-
-        document.save()
+        db.settings.update(name="main", new_data=self.dict())
 
 
 class Colors(BaseModel):

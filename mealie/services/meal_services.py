@@ -3,8 +3,7 @@ from datetime import date, timedelta
 from pathlib import Path
 from typing import List, Optional
 
-from db.db_setup import db
-from db.mongo.meal_models import MealDocument
+from db.database import db
 from pydantic import BaseModel
 
 from services.recipe_services import Recipe
@@ -81,14 +80,6 @@ class MealPlan(BaseModel):
         self.meals = meals
 
     def save_to_db(self):
-
-        meal_docs = []
-        for meal in self.meals:
-            meal = meal.dict()
-            meal_doc = MealDocument(**meal)
-            meal_docs.append(meal_doc)
-
-        self.meals = meal_docs
         db.meals.save_new(self.dict())
 
     @staticmethod
@@ -99,14 +90,7 @@ class MealPlan(BaseModel):
         return all_meals
 
     def update(self, uid):
-
-        meal_docs = []
-        for meal in self.meals:
-            meal = meal.dict()
-            meal_doc = MealDocument(**meal)
-            meal_docs.append(meal_doc)
-
-        db.meals.update(uid, meal_docs)
+        db.meals.update(uid, self.dict())
 
     @staticmethod
     def delete(uid):
@@ -117,11 +101,7 @@ class MealPlan(BaseModel):
         """ Returns the meal slug for Today """
         meal_plan = db.meals.get_all(limit=1, order_by="startDate")
 
-        meal_docs = []
-        for meal in meal_plan["meals"]:
-            print(meal)
-            meal_doc = Meal(**meal)
-            meal_docs.append(meal_doc)
+        meal_docs = [Meal(**meal) for meal in meal_plan["meals"]]
 
         for meal in meal_docs:
             if meal.date == date.today():

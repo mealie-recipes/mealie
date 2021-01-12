@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from typing import Any, List, Optional
 
-from db.db_setup import db
+from db.database import db
 from pydantic import BaseModel, validator
 from slugify import slugify
 
