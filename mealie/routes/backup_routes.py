@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from models.backup_models import BackupJob, Imports
-from services.backups.export import backup_all
+from services.backups.exports import backup_all
+from services.backups.imports import ImportDatabase
 from settings import BACKUP_DIR, TEMPLATE_DIR
 from utils.snackbar import SnackResponse
 
@@ -39,7 +40,14 @@ async def export_database(data: BackupJob):
 )
 async def import_database(file_name: str):
     """ Import a database backup file generated from Mealie. """
-    imported = import_from_archive(file_name)
+    import_db = ImportDatabase(
+        zip_archive=file_name,
+        import_recipes=True,
+        import_settings=False,
+        import_themes=False,
+    )
+
+    imported = import_db.run()
     return imported
 
 
