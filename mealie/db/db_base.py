@@ -46,7 +46,10 @@ class BaseDocument:
 
     def get_all(self, limit: int = None, order_by: str = "dateAdded"):
         if USE_MONGO:
-            documents = self.document.objects.order_by(str(order_by)).limit(limit)
+            if order_by:
+                documents = self.document.objects.order_by(str(order_by)).limit(limit)
+            else:
+                documents = self.document.objects().limit(limit)
             docs = []
             for item in documents:
                 doc = BaseDocument._unpack_mongo(item)
