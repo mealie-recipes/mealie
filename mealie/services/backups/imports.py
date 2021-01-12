@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import List
 
 from services.recipe_services import Recipe
-from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
+from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from utils.logger import logger
 
 

@@ -1,18 +1,16 @@
 import json
 import shutil
-import zipfile
 from datetime import datetime
 from pathlib import Path
 
 from jinja2 import Template
-from services.meal_services import MealPlan
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings, SiteTheme
 from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
 from utils.logger import logger
 
 
-class DatabaseExport:
+class ExportDatabase:
     def __init__(self, tag=None, templates=None) -> None:
         if tag:
             export_tag = tag + "_" + datetime.now().strftime("%Y-%b-%d")
@@ -55,7 +53,7 @@ class DatabaseExport:
             filename = recipe.get("slug") + ".json"
             file_path = self.recipe_dir.joinpath(filename)
 
-            DatabaseExport._write_json_file(recipe, file_path)
+            ExportDatabase._write_json_file(recipe, file_path)
 
             if self.templates:
                 self._export_template(recipe)
@@ -81,7 +79,7 @@ class DatabaseExport:
     def export_settings(self):
         all_settings = SiteSettings.get_site_settings()
         out_file = self.settings_dir.joinpath("settings.json")
-        DatabaseExport._write_json_file(all_settings.dict(), out_file)
+        ExportDatabase._write_json_file(all_settings.dict(), out_file)
 
     def export_themes(self):
         all_themes = SiteTheme.get_all()
@@ -89,7 +87,7 @@ class DatabaseExport:
         if all_themes:
             all_themes = [x.dict() for x in all_themes]
             out_file = self.themes_dir.joinpath("themes.json")
-            DatabaseExport._write_json_file(all_themes, out_file)
+            ExportDatabase._write_json_file(all_themes, out_file)
 
     # def export_meals(self): #! Problem Parseing Datetime Objects... May come back to this
     #     meal_plans = MealPlan.get_all()
@@ -117,7 +115,7 @@ class DatabaseExport:
 
 
 def backup_all(tag=None, templates=None):
-    db_export = DatabaseExport(tag=tag, templates=templates)
+    db_export = ExportDatabase(tag=tag, templates=templates)
 
     db_export.export_recipes()
     db_export.export_images()
