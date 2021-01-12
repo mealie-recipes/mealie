@@ -19,6 +19,19 @@ class ImportDatabase:
         force_import: bool = False,
         rebase: bool = False,
     ) -> None:
+        """Import a database.zip file exported from mealie.
+
+        Args:
+            zip_archive (str): The filename contained in the backups directory
+            import_recipes (bool, optional): Import Recipes?. Defaults to True.
+            import_settings (bool, optional): Determines if settings are imported. Defaults to True.
+            import_themes (bool, optional): Determines if themes are imported. Defaults to True.
+            force_import (bool, optional): Force import will update all existing recipes. If False existing recipes are skipped. Defaults to False.
+            rebase (bool, optional): Rebase will first clear the database and then import Recipes. Defaults to False.
+
+        Raises:
+            Exception: If the zip file does not exists an exception raise.
+        """
 
         self.archive = BACKUP_DIR.joinpath(zip_archive)
         self.imp_recipes = import_recipes

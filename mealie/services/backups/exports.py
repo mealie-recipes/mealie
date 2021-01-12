@@ -12,6 +12,14 @@ from utils.logger import logger
 
 class ExportDatabase:
     def __init__(self, tag=None, templates=None) -> None:
+        """Export a Mealie database. Export interacts directly with class objects and can be used
+        with any supported backend database platform. By default tags are timestands, and no Jinja2 templates are rendered
+
+
+        Args:
+            tag ([str], optional): A str to be used as a file tag. Defaults to None.
+            templates (list, optional): A list of template file names. Defaults to None.
+        """
         if tag:
             export_tag = tag + "_" + datetime.now().strftime("%Y-%b-%d")
         else:
