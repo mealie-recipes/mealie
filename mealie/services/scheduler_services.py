@@ -5,7 +5,7 @@ import requests
 from apscheduler.schedulers.background import BackgroundScheduler
 from utils.logger import logger
 
-from services.backup_services import auto_backup_job
+from services.backups.export import auto_backup_job
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings

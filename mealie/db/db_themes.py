@@ -25,7 +25,7 @@ class _Themes(BaseDocument):
     def update(self, data: dict) -> dict:
         if USE_MONGO:
             colors = ThemeColorsDocument(**data["colors"])
-            theme_document = SiteThemeDocument.objects.get(name=data.get("name"))
+            theme_document = self.document.objects.get(name=data.get("name"))
 
             if theme_document:
                 theme_document.update(set__colors=colors)

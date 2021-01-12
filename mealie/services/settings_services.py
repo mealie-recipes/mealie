@@ -29,6 +29,10 @@ class SiteSettings(BaseModel):
             }
         }
 
+    @staticmethod
+    def get_all():
+        db.settings.get_all()
+
     @classmethod
     def get_site_settings(cls):
         try:
@@ -137,4 +141,4 @@ def default_theme_init():
         default_theme.save_to_db()
 
 
-# default_theme_init()
+default_theme_init()

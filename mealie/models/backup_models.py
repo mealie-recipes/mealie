@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class BackupJob(BaseModel):
     tag: Optional[str]
-    template: Optional[str]
+    template: Optional[List[str]]
 
     class Config:
         schema_extra = {

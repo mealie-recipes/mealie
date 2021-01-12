@@ -134,6 +134,10 @@ class Recipe(BaseModel):
     def update_image(slug: str, extension: str):
         db.recipes.update_image(slug, extension)
 
+    @staticmethod
+    def get_all():
+        return db.recipes.get_all()
+
 
 def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
     """

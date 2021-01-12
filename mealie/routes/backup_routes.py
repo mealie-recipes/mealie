@@ -1,11 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from models.backup_models import BackupJob, Imports
-from services.backup_services import (
-    BACKUP_DIR,
-    TEMPLATE_DIR,
-    export_db,
-    import_from_archive,
-)
+from services.backups.export import backup_all
+from settings import BACKUP_DIR, TEMPLATE_DIR
 from utils.snackbar import SnackResponse
 
 router = APIRouter()
@@ -28,16 +24,14 @@ async def available_imports():
 @router.post("/api/backups/export/database/", tags=["Import / Export"], status_code=201)
 async def export_database(data: BackupJob):
     """Generates a backup of the recipe database in json format."""
-
+    export_path = backup_all(data.tag, data.template)
     try:
-        export_path = export_db(data.tag, data.template)
+        return SnackResponse.success("Backup Created at " + export_path)
     except:
         HTTPException(
             status_code=400,
             detail=SnackResponse.error("Error Creating Backup. See Log File"),
         )
-
-    return SnackResponse.success("Backup Created at " + export_path)
 
 
 @router.post(

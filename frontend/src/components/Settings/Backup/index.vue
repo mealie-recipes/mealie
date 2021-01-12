@@ -121,10 +121,9 @@ export default {
     async createBackup() {
       this.backupLoading = true;
 
-      let response = await api.backups.create(
-        this.backupTag,
-        this.selectedTemplate
-      );
+      let response = await api.backups.create(this.backupTag, [
+        this.selectedTemplate,
+      ]);
 
       if (response.status == 201) {
         this.selectedBackup = null;

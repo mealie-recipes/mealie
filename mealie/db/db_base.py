@@ -13,7 +13,9 @@ class BaseDocument:
         self.document: mongoengine.Document
 
     @staticmethod
-    def _unpack_mongo(document) -> dict:    # TODO: Probably Put a version in each class to speed up reads? 
+    def _unpack_mongo(
+        document,
+    ) -> dict:  # TODO: Probably Put a version in each class to speed up reads?
         document = json.loads(document.to_json())
         del document["_id"]
 
@@ -41,19 +43,19 @@ class BaseDocument:
         except:
             pass
 
-
         return document
 
-    def get_all(self, limit: int = None, order_by: str = "dateAdded"):
+    def get_all(self, limit: int = None, order_by: str = None):
         if USE_MONGO:
             if order_by:
                 documents = self.document.objects.order_by(str(order_by)).limit(limit)
+            elif limit == None:
+                documents = self.document.objects()
             else:
                 documents = self.document.objects().limit(limit)
-            docs = []
-            for item in documents:
-                doc = BaseDocument._unpack_mongo(item)
-                docs.append(doc)
+
+            docs = [BaseDocument._unpack_mongo(item) for item in documents]
+
             if limit == 1:
                 return docs[0]
             return docs
@@ -74,7 +76,7 @@ class BaseDocument:
             limit (int, optional): A limit to returned responses. Defaults to 1. \n
 
         Returns:
-            dict or list[dict]: 
+            dict or list[dict]:
         """
         if match_key == None:
             match_key = self.primary_key
