@@ -8,21 +8,21 @@ router = APIRouter()
 
 
 @router.get("/api/site-settings/", tags=["Settings"])
-async def get_main_settings():
+def get_main_settings():
     """ Returns basic site settings """
 
     return SiteSettings.get_site_settings()
 
 
 @router.post("/api/site-settings/webhooks/test/", tags=["Settings"])
-async def test_webhooks():
+def test_webhooks():
     """ Run the function to test your webhooks """
 
     return post_webhooks()
 
 
 @router.post("/api/site-settings/update/", tags=["Settings"])
-async def update_settings(data: SiteSettings):
+def update_settings(data: SiteSettings):
     """ Returns Site Settings """
 
     try:
@@ -37,20 +37,20 @@ async def update_settings(data: SiteSettings):
 
 
 @router.get("/api/site-settings/themes/", tags=["Themes"])
-async def get_all_themes():
+def get_all_themes():
     """ Returns all site themes """
 
     return SiteTheme.get_all()
 
 
 @router.get("/api/site-settings/themes/{theme_name}/", tags=["Themes"])
-async def get_single_theme(theme_name: str):
+def get_single_theme(theme_name: str):
     """ Returns a named theme """
     return SiteTheme.get_by_name(theme_name)
 
 
 @router.post("/api/site-settings/themes/create/", tags=["Themes"])
-async def create_theme(data: SiteTheme):
+def create_theme(data: SiteTheme):
     """ Creates a site color theme database entry """
 
     try:
@@ -64,7 +64,7 @@ async def create_theme(data: SiteTheme):
 
 
 @router.post("/api/site-settings/themes/{theme_name}/update/", tags=["Themes"])
-async def update_theme(theme_name: str, data: SiteTheme):
+def update_theme(theme_name: str, data: SiteTheme):
     """ Update a theme database entry """
     try:
         data.update_document()
@@ -77,7 +77,7 @@ async def update_theme(theme_name: str, data: SiteTheme):
 
 
 @router.delete("/api/site-settings/themes/{theme_name}/delete/", tags=["Themes"])
-async def delete_theme(theme_name: str):
+def delete_theme(theme_name: str):
     """ Deletes theme from the database """
     try:
         SiteTheme.delete_theme(theme_name)

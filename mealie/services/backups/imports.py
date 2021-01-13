@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import List
 
 from services.recipe_services import Recipe
+from services.settings_services import SiteSettings, SiteTheme
 from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from utils.logger import logger
 
@@ -107,10 +108,26 @@ class ImportDatabase:
                 shutil.copy(image, IMG_DIR)
 
     def import_themes(self):
-        pass
+        themes_file = self.import_dir.joinpath("themes", "themes.json")
+
+        with open(themes_file, "r") as f:
+            themes: list = json.loads(f.read())
+        for theme in themes:
+            new_theme = SiteTheme(**theme)
+            try:
+                new_theme.save_to_db()
+            except:
+                logger.info(f"Unable Import Theme {new_theme.name}")
 
     def import_settings(self):
-        pass
+        settings_file = self.import_dir.joinpath("settings", "settings.json")
+
+        with open(settings_file, "r") as f:
+            settings: dict = json.loads(f.read())
+
+            settings = SiteSettings(**settings)
+
+            settings.update()
 
     def clean_up(self):
         shutil.rmtree(TEMP_DIR)

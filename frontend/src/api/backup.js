@@ -29,6 +29,10 @@ export default {
   },
 
   async create(tag, template) {
+    if (typeof template == String) {
+      template = [template];
+    }
+    console.log(tag, template);
     let response = apiReq.post(backupURLs.createBackup, {
       tag: tag,
       template: template,
