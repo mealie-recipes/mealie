@@ -1,14 +1,7 @@
 import json
 from pathlib import Path
-
-from db.tinydb.tinydb_setup import TinyDatabase
-from settings import REQUIRED_DIRS, USE_MONGO, USE_TINYDB
-
+from settings import REQUIRED_DIRS
 CWD = Path(__file__).parent
-
-
-
-
 
 def pre_start():
 
