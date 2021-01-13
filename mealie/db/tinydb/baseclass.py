@@ -13,7 +13,7 @@ class StoreBase:
 
         if data != []:
             raise Exception(
-                f"Cannot Save, Primary Key: {self.primary_key} already exists"
+                f"Cannot Save, Primary Key: {document[self.primary_key]} already exists"
             )
         else:
             self.store.insert(document)

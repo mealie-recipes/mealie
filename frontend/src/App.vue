@@ -2,9 +2,7 @@
   <v-app>
     <v-app-bar dense app color="primary" dark class="d-print-none">
       <v-btn @click="$router.push('/')" icon class="d-flex align-center">
-        <v-icon size="40">
-          mdi-silverware-variant
-        </v-icon>
+        <v-icon size="40"> mdi-silverware-variant </v-icon>
       </v-btn>
       <div btn class="pl-2">
         <v-toolbar-title @click="$router.push('/')">Mealie</v-toolbar-title>
@@ -12,7 +10,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="toggleSearch">
+      <v-btn icon @click="$router.push('/search')">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -22,10 +20,6 @@
       <v-container>
         <AddRecipeFab />
         <SnackBar />
-        <v-expand-transition>
-          <SearchHeader v-show="search" />
-        </v-expand-transition>
-
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -34,7 +28,6 @@
 
 <script>
 import Menu from "./components/UI/Menu";
-import SearchHeader from "./components/UI/SearchHeader";
 import AddRecipeFab from "./components/UI/AddRecipeFab";
 import SnackBar from "./components/UI/SnackBar";
 import Vuetify from "./plugins/vuetify";
@@ -44,14 +37,13 @@ export default {
   components: {
     Menu,
     AddRecipeFab,
-    SearchHeader,
-    SnackBar
+    SnackBar,
   },
 
   watch: {
     $route() {
       this.search = false;
-    }
+    },
   },
 
   mounted() {
@@ -62,7 +54,7 @@ export default {
   },
 
   data: () => ({
-    search: false
+    search: false,
   }),
   methods: {
     /**
@@ -90,8 +82,8 @@ export default {
       } else {
         this.search = true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -94,11 +94,11 @@ class BaseDocument:
         else:
             return db_entry
 
-    def save_new(self, document: dict) -> str:
+    def save_new(self, document: dict) -> dict:
         if USE_MONGO:
             new_document = self.document(**document)
             new_document.save()
-            return new_document
+            return BaseDocument._unpack_mongo(new_document)
         elif USE_TINYDB:
             return self.store.save(document)
 

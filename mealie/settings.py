@@ -47,7 +47,7 @@ else:
 
 
 # DATABASE ENV
-DATABASE_TYPE = os.getenv("db_type", "tinydb")  # mongo, tinydb
+DATABASE_TYPE = os.getenv("db_type", "mongo")  # mongo, tinydb
 if DATABASE_TYPE == "tinydb":
     USE_TINYDB = True
     USE_MONGO = False
@@ -58,7 +58,7 @@ elif DATABASE_TYPE == "mongo":
 
 else:
     raise Exception(
-        "Unable to determine database type. Acceptible options are 'mongo' or 'sqlite' "
+        "Unable to determine database type. Acceptible options are 'mongo' or 'tinydb' "
     )
 
 # Mongo Database

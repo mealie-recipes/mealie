@@ -2,7 +2,6 @@ import shutil
 from pathlib import Path
 
 import requests
-from unsync import unsync
 
 CWD = Path(__file__).parent
 IMG_DIR = CWD.parent.joinpath("data", "img")
