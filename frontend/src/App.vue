@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar dense app color="primary" dark class="d-print-none">
-      <v-btn @click="$router.push('/')" icon class="d-flex align-center">
+      <v-btn @click="$router.push('/')" icon>
         <v-icon size="40"> mdi-silverware-variant </v-icon>
       </v-btn>
       <div btn class="pl-2">
@@ -9,8 +9,15 @@
       </div>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon @click="$router.push('/search')">
+      <v-expand-x-transition>
+        <SearchBar
+          class="mt-7"
+          v-if="search"
+          :show-results="true"
+          @selected="navigateFromSearch"
+        />
+      </v-expand-x-transition>
+      <v-btn icon @click="toggleSearch">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -28,6 +35,7 @@
 
 <script>
 import Menu from "./components/UI/Menu";
+import SearchBar from "./components/UI/SearchBar";
 import AddRecipeFab from "./components/UI/AddRecipeFab";
 import SnackBar from "./components/UI/SnackBar";
 import Vuetify from "./plugins/vuetify";
@@ -38,6 +46,7 @@ export default {
     Menu,
     AddRecipeFab,
     SnackBar,
+    SearchBar,
   },
 
   watch: {
@@ -82,6 +91,9 @@ export default {
       } else {
         this.search = true;
       }
+    },
+    navigateFromSearch(slug) {
+      this.$router.push(`/recipe/${slug}`);
     },
   },
 };

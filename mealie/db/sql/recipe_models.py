@@ -6,7 +6,7 @@ from db.sql.model_base import SqlAlchemyBase
 
 
 class RecipeModel(SqlAlchemyBase):
-    __tablename__ = 'recipes'
+    __tablename__ = "recipes"
     # id = mongoengine.UUIDField(primary_key=True)
     name = sa.Column(sa.String)
     description = sa.Column(sa.String)
@@ -24,8 +24,11 @@ class RecipeModel(SqlAlchemyBase):
     notes = orm.relation("Note")
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)
-    # extras = 
+    extras = orm.relation("ApiExtras")
 
+class ApiExtras(SqlAlchemyBase):
+    key: sa.Column(sa.String)
+    value: sa.Column(sa.String)
 
 class Category(SqlAlchemyBase):
     name = sa.Column(sa.String, index=True)

@@ -1,40 +1,42 @@
 <template>
   <div>
-    <v-text-field
-      label="Search"
-      v-model="search"
+    <v-autocomplete
+      :items="autoResults"
+      item-value="item.slug"
+      item-text="item.name"
+      dense
+      light
+      label="Search Mealie"
+      :search-input.sync="search"
+      hide-no-data
+      cache-items
       solo
-    ></v-text-field>
-    <v-card v-if="search && showResults">
-      <v-hover
-        square
-        v-for="(item, index) in result.slice(0, 5)"
-        :key="index"
-        v-slot="{ hover }"
+    >
+      <template
+        v-if="showResults"
+        v-slot:item="{ item }"
+        style="max-width: 750px"
       >
-        <v-card
-          class="color-transition"
-          @click="$router.push(`/recipe/${item.item.slug}`)"
-          :color="hover ? highlightColor : null"
-        >
-          <v-row dense no-gutters>
-            <v-col cols="12" md="2" sm="6">
-              <v-img
-                :src="getImage(item.item.image)"
-                width="100%"
-                height="100%"
-                rounded
-              >
-              </v-img>
-            </v-col>
-            <v-col cols="12" md="10" sm="6">
-              <v-card-title> {{ item.item.name }}</v-card-title>
-              <v-card-text> {{ item.item.description }}</v-card-text></v-col
+        <v-list-item-avatar>
+          <v-img :src="getImage(item.item.image)"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content @click="selected(item.item.slug)">
+          <v-list-item-title>
+            {{ item.item.name }}
+            <v-rating
+              dense
+              v-if="item.item.rating"
+              :value="item.item.rating"
+              size="12"
             >
-          </v-row>
-        </v-card>
-      </v-hover>
-    </v-card>
+            </v-rating>
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            {{ item.item.description }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </template>
+    </v-autocomplete>
   </div>
 </template>
 
@@ -52,6 +54,7 @@ export default {
     return {
       search: "",
       result: [],
+      autoResults: [],
       isDark: false,
       options: {
         shouldSort: true,
@@ -74,20 +77,25 @@ export default {
     fuse() {
       return new Fuse(this.data, this.options);
     },
-    highlightColor() {
-      return this.isDark ? "primary lighten-5" : "primary lighten-5";
-    },
   },
   watch: {
     search() {
       if (this.search.trim() === "") this.result = this.list;
       else this.result = this.fuse.search(this.search.trim());
+      console.log("test");
+
       this.$emit("results", this.result);
+      if (this.showResults === true) {
+        this.autoResults = this.result;
+      }
     },
   },
   methods: {
     getImage(image) {
       return utils.getImageURL(image);
+    },
+    selected(slug) {
+      this.$emit("selected", slug);
     },
   },
 };

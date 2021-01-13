@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-row  justify="center">
+    <v-row justify="center">
       <v-col cols="1"> </v-col>
       <v-col>
-        <SearchBar @results="updateResults" />
+        <SearchBar @results="updateResults" :show-results="false" />
       </v-col>
       <v-col cols="2">
         <v-btn icon>
@@ -11,6 +11,7 @@
         </v-btn>
       </v-col>
     </v-row>
+
     <v-row v-if="searchResults">
       <v-col
         :sm="6"
