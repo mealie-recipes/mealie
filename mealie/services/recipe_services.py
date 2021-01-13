@@ -115,8 +115,9 @@ class Recipe(BaseModel):
             pass
 
         recipe_doc = db.recipes.save_new(recipe_dict)
+        recipe = Recipe(**recipe_doc)
 
-        return recipe_doc.slug
+        return recipe.slug
 
     @staticmethod
     def delete(recipe_slug: str) -> str:

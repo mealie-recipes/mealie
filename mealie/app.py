@@ -2,8 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-import startup
-from global_scheduler import start_scheduler
+import utils.startup as startup
 from routes import (
     backup_routes,
     meal_routes,
@@ -13,8 +12,8 @@ from routes import (
     static_routes,
     user_routes,
 )
-from services.settings_services import Colors, SiteTheme
 from settings import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
+from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
 startup.pre_start()
@@ -49,13 +48,9 @@ def invalid_api():
 app.include_router(static_routes.router)
 
 
-
-
-
-
 # Generate API Documentation
 if not PRODUCTION:
-    startup.generate_api_docs(app)
+    generate_api_docs(app)
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from global_scheduler import scheduler
 from services.scheduler_services import post_webhooks
 from services.settings_services import SiteSettings, SiteTheme
+from utils.global_scheduler import scheduler
 from utils.snackbar import SnackResponse
 
 router = APIRouter()

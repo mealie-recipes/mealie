@@ -12,10 +12,8 @@ class BaseDocument:
         self.store: StoreBase
         self.document: mongoengine.Document
 
-    @staticmethod
-    def _unpack_mongo(
-        document,
-    ) -> dict:  # TODO: Probably Put a version in each class to speed up reads?
+    @staticmethod  # TODO: Probably Put a version in each class to speed up reads?
+    def _unpack_mongo(document) -> dict:
         document = json.loads(document.to_json())
         del document["_id"]
 

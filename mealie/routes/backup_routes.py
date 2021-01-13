@@ -40,11 +40,12 @@ def export_database(data: BackupJob):
 )
 def import_database(file_name: str):
     """ Import a database backup file generated from Mealie. """
+
     import_db = ImportDatabase(
         zip_archive=file_name,
         import_recipes=True,
-        import_settings=True,
-        import_themes=True,
+        import_settings=False,
+        import_themes=False,
     )
 
     imported = import_db.run()

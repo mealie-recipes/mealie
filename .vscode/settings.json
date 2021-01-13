@@ -1,6 +1,6 @@
 {
   "python.formatting.provider": "black",
-  "python.pythonPath": "venv/bin/python",
+  "python.pythonPath": "/home/hayden/projects/mealie/.venv/bin/python3",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.autoComplete.extraPaths": ["mealie", "mealie/mealie"],
@@ -8,8 +8,9 @@
 
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
-  "python.testing.cwd": "./mealie/tests",
   "python.testing.pytestEnabled": true,
   "cSpell.enableFiletypes": ["!javascript", "!python"],
-  "python.testing.pytestArgs": ["mealie/test/"]
+  "python.testing.pytestArgs": [
+    "mealie"
+  ]
 }

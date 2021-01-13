@@ -17,7 +17,7 @@ class StoreBase:
             )
         else:
             self.store.insert(document)
-            return document["slug"]
+            return document
 
     def delete(self, document_primary_key: str):
         self.store.remove(where(self.primary_key) == document_primary_key)

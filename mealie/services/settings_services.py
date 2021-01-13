@@ -1,9 +1,7 @@
-import json
 from typing import List, Optional
 
 from db.database import db
 from pydantic import BaseModel
-from startup import USE_TINYDB
 from utils.logger import logger
 
 
@@ -85,17 +83,6 @@ class SiteTheme(BaseModel):
         colors = Colors(**db_entry.get("colors"))
 
         return cls(name=name, colors=colors)
-
-    @staticmethod
-    def _unpack_doc(document):
-        if USE_TINYDB:
-            theme_colors = SiteTheme(**document)
-        else:
-            document = json.loads(document.to_json())
-            del document["_id"]
-            theme_colors = SiteTheme(**document)
-
-        return theme_colors
 
     @staticmethod
     def get_all():

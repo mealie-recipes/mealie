@@ -1,17 +1,6 @@
 import json
-from pathlib import Path
-from settings import REQUIRED_DIRS
-CWD = Path(__file__).parent
 
-def pre_start():
-
-    ensure_dirs()
-
-
-def ensure_dirs():
-    for dir in REQUIRED_DIRS:
-        dir.mkdir(parents=True, exist_ok=True)
-
+from settings import BASE_DIR
 
 """Script to export the ReDoc documentation page into a standalone HTML file."""
 
@@ -42,14 +31,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-out_path = CWD.joinpath("temp", "index.html")
+out_path = BASE_DIR.joinpath("temp", "index.html")
 
 
 def generate_api_docs(app):
     with open(out_path, "w") as fd:
         out_path.parent.mkdir(exist_ok=True)
         print(HTML_TEMPLATE % json.dumps(app.openapi()), file=fd)
-
-
-if __name__ == "__main__":
-    pass

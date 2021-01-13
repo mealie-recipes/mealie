@@ -1,33 +1,25 @@
 {
     "@context": "http://schema.org",
     "@type": "Recipe",
-    "articleBody": "Leftover rice is ideal for this dish (and a great way to use up any takeout that\u2019s hanging around), since fully chilled rice tends to be drier and will become crispier and browner in the skillet. To get the best texture, evenly distribute the rice in your pan and gently press down to flatten it out like a pancake. Don\u2019t touch until you hear it crackle! Finish with a sunny-side-up egg\u2014or poach it if you don't mind the stovetop fuss. This recipe is part of the 2021\u00a0Feel Good Food Plan, our eight-day dinner plan for starting the year off right.",
-    "alternativeHeadline": "To get the best texture, evenly distribute the rice in your pan and gently press down to flatten it. Don\u2019t touch until you hear it crackle!",
-    "dateModified": "2021-01-11 23:25:22.997000",
-    "datePublished": "2021-01-01 06:00:00",
+    "articleBody": "At her L.A. bakery Friends and Family, Roxana Jullapat bakes these blondies in a round cake pan, which ensures that each slice has a chewy, toasted edge and a soft center. \u201cThis caramel-flavored treat demonstrates the powerful pairing of brown butter and barley,\u201d Roxana writes in her cookbook Mother Grains (out April 2021). Barley flour gives baked goods a silky, chewy texture, dense crumb, and butterscotch-y flavor. Want to experiment? Make these with 3\u20444 cup (80 g) einkorn flour in place of the barley flour for an even chewier blondie.",
+    "alternativeHeadline": "Barley flour gives these blondies a chewy texture and butterscotch-like flavor.",
+    "dateModified": "2021-01-11 14:23:12.455000",
+    "datePublished": "2021-01-12 04:00:00",
     "keywords": [
         "recipes",
-        "healthyish",
-        "salad",
-        "ginger",
-        "garlic",
-        "orange",
         "oil",
-        "soy sauce",
-        "lemon juice",
-        "sesame oil",
+        "macadamia nut",
+        "vanilla",
+        "butter",
+        "flour",
+        "barley",
         "kosher salt",
-        "broccoli",
-        "brown rice",
+        "brown sugar",
         "egg",
-        "celery",
-        "cilantro",
-        "mint",
-        "feel good food plan 2021",
-        "feel good food plan",
+        "vanilla extract",
         "web"
     ],
-    "thumbnailUrl": "https://assets.bonappetit.com/photos/5fdbe70a84d333dd1dcc7900/1:1/w_1698,h_1698,c_limit/BA1220feelgoodalt.jpg",
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5ff4b06a2f7e5df08337ef60/1:1/w_1005,h_1005,c_limit/Mother-Grains-Macadamia-and-Brown-Butter-Blondies.jpg",
     "publisher": {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -51,68 +43,49 @@
     "author": [
         {
             "@type": "Person",
-            "name": "Devonn Francis",
-            "sameAs": "https://bon-appetit.com/contributor/devonn-francis/"
+            "name": "Roxana Jullapat",
+            "sameAs": "https://bon-appetit.com/contributor/roxana-jullapat/"
         }
     ],
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": 4.33,
-        "ratingCount": 33
-    },
-    "description": "To get the best texture, evenly distribute the rice in your pan and gently press down to flatten it. Don\u2019t touch until you hear it crackle! ",
-    "image": "crispy-rice-with-ginger-citrus-celery-salad.jpg",
-    "headline": "Crispy Rice With Ginger-Citrus Celery Salad",
-    "name": "Crispy Rice With Ginger-Citrus Celery Salad",
+    "description": "Barley flour gives these blondies a chewy texture and butterscotch-like flavor.",
+    "image": "macadamia-and-brown-butter-blondies.jpg",
+    "headline": "Macadamia and Brown Butter Blondies",
+    "name": "Macadamia and Brown Butter Blondies",
     "recipeIngredient": [
-        "1 2\" piece ginger, peeled, finely grated",
-        "1 small garlic clove, finely grated",
-        "Juice of 1 orange",
-        "2 tbsp. vegetable oil",
-        "1Tbsp. coconut aminos or low-sodium soy sauce",
-        "1 Tbsp. fresh lemon juice",
-        "\u00bc tsp. toasted sesame oil",
-        "Kosher salt",
-        "1 medium head of broccoli",
-        "6 Tbsp. (or more) vegetable oil, divided",
-        "Kosher salt",
-        "2 cups chilled cooked brown rice",
-        "4 large eggs",
-        "3 celery stalks, thinly sliced on a steep diagonal",
-        "\u00bd cup cilantro leaves with tender stems",
-        "\u00bd cup mint leaves",
-        "Crushed red pepper flakes (for serving)"
+        "Nonstick vegetable oil spray",
+        "\u00bd cup (65 g) whole raw or toasted macadamia nuts",
+        "\u00bd vanilla bean, split lengthwise",
+        "18 Tbsp. unsalted butter",
+        "\u00be cup plus 2 Tbsp. (105 g) all-purpose flour",
+        "\u00be cup (85 g) barley flour",
+        "1\u00be tsp. baking powder",
+        "1\u00bd tsp. Diamond Crystal or \u00be tsp. Morton kosher salt",
+        "1 cup plus 7 Tbsp. (packed; 285 g) dark brown sugar",
+        "2 large eggs",
+        "1 tsp. vanilla extract",
+        "2 pints ice cream of choice (optional)"
     ],
     "recipeInstructions": [
         {
-            "text": "Whisk ginger, garlic, orange juice, vegetable oil, coconut aminos, lemon juice, and sesame oil in a small bowl; season with salt and set aside."
+            "text": "Preheat oven to 350\u00b0. Lightly coat a 9\"-diameter cake pan with nonstick spray and line bottom with a parchment paper round. If using raw macadamia nuts, toast on a rimmed baking sheet, tossing once, until golden, 8\u201310 minutes. Let cool, then coarsely chop."
         },
         {
-            "text": "Trim about \u00bd\" from woody end of broccoli stem. Peel tough outer layer from stem. Cut florets from stems and thinly slice stems about \u00bd\" thick. Break florets apart with your hands into 1\"\u20131\u00bd\" pieces."
+            "text": "Scrape vanilla seeds into a small saucepan; add pod and butter. Set over medium-low heat and cook, stirring occasionally, until butter foams, then browns, 6\u20138 minutes. Transfer to a medium bowl, scraping in all of the browned bits. Using tongs, remove and discard vanilla pod."
         },
         {
-            "text": "Heat 2 Tbsp. oil in a large nonstick skillet over medium. Working in 2 batches if needed, arrange broccoli in a single layer and cook, tossing occasionally, until broccoli is bright green and lightly charred around the edges, about\u00a03 minutes. Transfer to a large plate."
+            "text": "Whisk all-purpose and barley flours, baking powder, and salt in another medium bowl. Add brown sugar to brown butter and stir to combine. Add eggs one at a time, stirring well after each addition. Stir in dry ingredients, then vanilla extract and nuts. Scrape batter into prepared pan; smooth top."
         },
         {
-            "text": "Pour 2 Tbsp. oil into same pan and heat over medium-high. Once you see the first wisp of smoke, add rice and season lightly with salt. Using a spatula or spoon, press rice evenly into pan like a pancake. Rice will begin to crackle, but don\u2019t fuss with it. When the crackling has died down almost completely, about\u00a03 minutes, break rice into large pieces and turn over."
+            "text": "Bake blondies, rotating halfway through, until top is golden brown and a tester inserted into the center comes out clean, 40\u201345 minutes. Let cool."
         },
         {
-            "text": "Add broccoli back to pan and give everything a toss to combine. Cook, tossing occasionally and adding another\u00a01 Tbsp. oil if pan looks dry, until broccoli is tender and rice is warmed through and very crisp, about 5 minutes. Transfer mixture to a platter or divide among plates and set aside."
-        },
-        {
-            "text": "Wipe out skillet; heat remaining\u00a02 Tbsp. oil over medium-high. Crack eggs into skillet; season with salt. Oil should bubble around eggs right away. Cook, rotating skillet occasionally, until whites are golden brown and crisp at the edges and set around the yolk (which should be runny), about 2 minutes."
-        },
-        {
-            "text": "Toss celery, cilantro, and mint with\u00a03 Tbsp. reserved dressing and a pinch of salt in a medium bowl to combine."
-        },
-        {
-            "text": "Scatter celery salad over fried rice; top with fried eggs and sprinkle with red pepper flakes. Serve extra dressing alongside."
+            "text": "Turn out blondies, remove parchment, and cut into 12 wedges. Serve each with a scoop of ice cream if desired."
         }
     ],
-    "recipeYield": "4 servings",
-    "url": "https://www.bonappetit.com/recipe/crispy-rice-with-ginger-citrus-celery-salad",
-    "slug": "crispy-rice-with-ginger-citrus-celery-salad",
-    "orgURL": "https://www.bonappetit.com/recipe/crispy-rice-with-ginger-citrus-celery-salad",
+    "recipeYield": "Makes 12",
+    "url": "https://www.bonappetit.com/recipe/macadamia-and-brown-butter-blondies",
+    "slug": "macadamia-and-brown-butter-blondies",
+    "orgURL": "https://www.bonappetit.com/recipe/macadamia-and-brown-butter-blondies",
     "categories": [],
     "tags": [],
     "dateAdded": null,

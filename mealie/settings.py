@@ -5,11 +5,13 @@ import dotenv
 
 CWD = Path(__file__).parent
 
+
 # Register ENV
 ENV = CWD.joinpath(".env")
 dotenv.load_dotenv(ENV)
 
 # Helpful Globals
+BASE_DIR = CWD
 DATA_DIR = CWD.joinpath("data")
 WEB_PATH = CWD.joinpath("dist")
 IMG_DIR = DATA_DIR.joinpath("img")
@@ -45,13 +47,15 @@ else:
 
 
 # DATABASE ENV
-DATABASE_TYPE = os.getenv("db_type", "mongo")  # mongo, tinydb
-USE_TINYDB = False
-USE_MONGO = False
+DATABASE_TYPE = os.getenv("db_type", "tinydb")  # mongo, tinydb
 if DATABASE_TYPE == "tinydb":
     USE_TINYDB = True
+    USE_MONGO = False
+
 elif DATABASE_TYPE == "mongo":
     USE_MONGO = True
+    USE_TINYDB = False
+
 else:
     raise Exception(
         "Unable to determine database type. Acceptible options are 'mongo' or 'sqlite' "

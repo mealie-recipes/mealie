@@ -74,6 +74,11 @@ class ImportDatabase:
                 recipe_dict = json.loads(f.read())
                 recipe_dict = ImportDatabase._recipe_migration(recipe_dict)
 
+
+                recipe_obj = Recipe(**recipe_dict)
+                recipe_obj.save_to_db()
+                successful_imports.append(recipe.stem)
+                logger.info(f"Imported: {recipe.stem}")
             try:
                 recipe_obj = Recipe(**recipe_dict)
                 recipe_obj.save_to_db()

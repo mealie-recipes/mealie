@@ -10,7 +10,8 @@ class _Themes(BaseDocument):
         self.primary_key = "name"
         if USE_TINYDB:
             self.store = tiny_db.themes
-        self.document = SiteThemeDocument
+        else:
+            self.document = SiteThemeDocument
 
     def save_new(self, theme_data: dict) -> None:
         if USE_MONGO:
