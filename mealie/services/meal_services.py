@@ -23,9 +23,9 @@ WEEKDAYS = [
 
 
 class Meal(BaseModel):
-    slug: str
+    slug: Optional[str]
     name: Optional[str]
-    date: Optional[date]
+    date: date
     dateText: str
     image: Optional[str]
     description: Optional[str]
@@ -57,16 +57,23 @@ class MealPlan(BaseModel):
     def process_meals(self):
         meals = []
         for x, meal in enumerate(self.meals):
-            recipe = Recipe.get_by_slug(meal.slug)
 
-            meal_data = {
-                "slug": recipe.slug,
-                "name": recipe.name,
-                "date": self.startDate + timedelta(days=x),
-                "dateText": meal.dateText,
-                "image": recipe.image,
-                "description": recipe.description,
-            }
+            try:
+                recipe = Recipe.get_by_slug(meal.slug)
+
+                meal_data = {
+                    "slug": recipe.slug,
+                    "name": recipe.name,
+                    "date": self.startDate + timedelta(days=x),
+                    "dateText": meal.dateText,
+                    "image": recipe.image,
+                    "description": recipe.description,
+                }
+            except:
+                meal_data = {
+                    "date": self.startDate + timedelta(days=x),
+                    "dateText": meal.dateText,
+                }
 
             meals.append(Meal(**meal_data))
 

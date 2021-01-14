@@ -1,0 +1,243 @@
+{
+    "@context": "http://schema.org",
+    "@type": "Recipe",
+    "mainEntityOfPage": "http://www.eatingwell.com/recipe/249961/moroccan-skirt-steak-with-roasted-pepper-couscous/",
+    "name": "Moroccan Skirt Steak with Roasted Pepper Couscous",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F44%2F2019%2F08%2F26231251%2F3757257.jpg",
+        "width": 960,
+        "height": 960
+    },
+    "datePublished": "2016-06-03T04:27:31.000Z",
+    "description": "Thin cuts of beef, such as skirt steak or sirloin steak, cook very quickly when seared in a hot skillet--just right for a busy weeknight. We love how the spicy Moroccan flavors on the steak complement the sweet, roasted pepper-studded couscous. Serve with: Arugula salad and a glass of Pinot Noir.",
+    "prepTime": null,
+    "cookTime": null,
+    "totalTime": "P0DT0H35M",
+    "recipeIngredient": [
+        "2 medium bell peppers",
+        "1 teaspoon ground cumin",
+        "1 teaspoon ground coriander",
+        "\u00be teaspoon salt",
+        "\u00bd teaspoon ground turmeric",
+        "\u00bd teaspoon ground cinnamon",
+        "\u00bd teaspoon freshly ground pepper",
+        "1 whole lemon, plus more lemon wedges for garnish",
+        "1 tablespoon 1 teaspoon plus 1 tablespoon extra-virgin olive oil, divided",
+        "\u2154 cup whole-wheat couscous",
+        "1 pound 1 pound skirt steak (see Note) or sirloin steak, 3/4 to 1 inch thick, trimmed",
+        "2 tablespoons chopped green olives"
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Position rack in upper third of oven; preheat broiler.\n"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Place bell peppers on a baking sheet and roast under the broiler, turning every 5 minutes, until charred and softened, 10 to 15 minutes. Transfer to a clean cutting board; when cool enough to handle, chop the peppers into bite-size pieces.\n"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Meanwhile, combine cumin, coriander, salt, turmeric, cinnamon and pepper in a small bowl. Grate 1/2 teaspoon zest from the lemon. Juice the lemon into a 1-cup measure and add enough water to make 1 cup. Pour into a small saucepan and add the lemon zest, 1 teaspoon of the spice mixture and 1 teaspoon olive oil. Bring to a boil. Stir in couscous, cover, remove from heat and let stand.\n"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Heat the remaining 1 tablespoon oil in a large skillet (preferably cast-iron) over medium heat until shimmering (but not smoking). Rub the remaining spice mixture on both sides of steak. Cook the steak 2 to 3 minutes per side for medium-rare. Let rest on the cutting board for 5 minutes. Stir olives and the peppers into the couscous. Thinly slice the steak and serve with the couscous and lemon wedges, if desired.\n"
+        }
+    ],
+    "recipeCategory": [
+        "Healthy Recipes",
+        "Healthy Ingredient Recipes",
+        "Healthy Meat & Poultry Recipes",
+        "Healthy Beef Recipes",
+        "Healthy Steak Recipes",
+        "Healthy New York Strip Steak Recipes"
+    ],
+    "recipeCuisine": [],
+    "author": [
+        {
+            "@type": "Person",
+            "name": "EatingWell Test Kitchen"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": 4.538461538461538,
+        "ratingCount": 13,
+        "itemReviewed": "Moroccan Skirt Steak with Roasted Pepper Couscous",
+        "bestRating": "5",
+        "worstRating": "1"
+    },
+    "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": "453.7 calories",
+        "carbohydrateContent": "36 g",
+        "cholesterolContent": "96.4 mg",
+        "fatContent": "18.4 g",
+        "fiberContent": "6.5 g",
+        "proteinContent": "36.4 g",
+        "saturatedFatContent": "5.1 g",
+        "servingSize": null,
+        "sodiumContent": "663.3 mg",
+        "sugarContent": null,
+        "transFatContent": null,
+        "unsaturatedFatContent": null
+    },
+    "review": [
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T21:53:57Z",
+            "reviewBody": "Wow! This steak was fabulous. Full of flavor even my kids liked it. The spices for the steak rub get added to the cous cous. Along with the sweet roasted peppers it was so delicious.",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "shari_martinez@sbcglobal.net",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/18308949/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T02:40:11Z",
+            "reviewBody": "Not as well received as I had hoped The leftovers were good as a steak salad with honey-mustard seasoning although Kaja did not like the seasoned meat that way. I ate some couscous on my salad too. Leftover steak is unheard of at our house yet there it was. Offerred the kids a choice of unspiced steak (three takers) and Rice-a-Roni (four takers) Austin & I liked the steak Pros: Easy I liked it Cons: Nobody liked the couscous except me",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 3
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Ellen",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/19797391/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T03:02:54Z",
+            "reviewBody": "tasty and easy weeknight meal Initially I was a little leery of using cinnamon to season the meat but it actually turned out very good. The seasoning had a tasty and light flavor. I used sirloin because the skirt steak at the store looked very fatty. The couscous (although I didn't add the olives because I'm not a huge fan) was also very good and I enjoyed the sweetness of the bell pepper. I used the lemon garnish to squeeze over the couscous and meat and think it made it. I would definitely make this again! Pros: Tasty and easy weeknight meal",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 4
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Kat Y",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/2343563/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T17:25:23Z",
+            "reviewBody": "This was really good. It was definitely a change from what we're used to but in a good way. I had to use skillet steak because I couldn't find any skirt steak but it worked just fine. I also used the grill for the peppers and steak because my broiler is a bit questionable. Other than that I made it as stated and my husband and I really enjoyed it. A great out of the ordinary quick meal.",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "EatingWell User",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/eatingwelluser/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T03:41:53Z",
+            "reviewBody": "I love this recipe so much that I schedule it my meal planning as often as possible. The flavors with this cut of meat are just wonderful. I can't eat grains so I pair it with fennel. Perfect!",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "EatingWell User",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/eatingwelluser/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2013-02-20T17:33:48Z",
+            "reviewBody": "Great starting point! I like this one a lot but I would recommend the version of it on funnytummycafe.com. I've not been really adventurous with new flavors but this I will repeat! Pros: Wonderful flavors in the rub Cons: The couscous was TOO lemony",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 3
+            },
+            "author": {
+                "@type": "Person",
+                "name": "EatingWell User",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/eatingwelluser/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T15:06:11Z",
+            "reviewBody": "I made this with chicken instead of steak and it was great! My husband has not liked couscous in the past but he really liked this version. Will definitely make again!",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "EatingWell User",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/eatingwelluser/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T12:15:53Z",
+            "reviewBody": "WOW! Blew me away this was a great meal! Tons of flavor really quick and very filling! I served brown rice instead of couscous because that's what I had on hand. The husband never knew the difference! I can always tell when something is a real winner with him because he goes back for seconds (we're both on diets). I used one red and one green bell pepper and served a spring mix salad with tomato and feta on the side. Big bravo to the EatingWell kitchen! This will definitely be made again in my house!",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "EatingWell User",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/eatingwelluser/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2011-10-30T15:12:50Z",
+            "reviewBody": "Quick & easy to prepare with mild spiced flavor. The rub produces a great crust on the steak. I felt the lemon flavor dominated the cous cous though to be fair I did seem to have a particularly juicy lemon so that may be why. My husband and I both thought that the leftover steak would be superb sliced thinly in a sandwich with a mint/yogurt dressing.",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "EatingWell User",
+                "image": null,
+                "sameAs": "https://www.allrecipes.com/cook/eatingwelluser/"
+            }
+        }
+    ],
+    "url": "http://www.eatingwell.com/recipe/249961/moroccan-skirt-steak-with-roasted-pepper-couscous/"
+}

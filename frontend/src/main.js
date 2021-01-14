@@ -9,7 +9,6 @@ import i18n from './i18n'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(VueCookies);
 
 const router = new VueRouter({
   routes,
@@ -25,7 +24,7 @@ new Vue({
 }).$mount("#app");
 
 // Truncate
-let filter = function(text, length, clamp) {
+let filter = function (text, length, clamp) {
   clamp = clamp || "...";
   let node = document.createElement("div");
   node.innerHTML = text;

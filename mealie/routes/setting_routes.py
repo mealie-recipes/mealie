@@ -1,3 +1,5 @@
+from typing import List
+
 from db.mongo_setup import global_init
 from fastapi import APIRouter, HTTPException
 from services.scheduler_services import Scheduler, post_webhooks
@@ -13,14 +15,14 @@ scheduler.startup_scheduler()
 
 @router.get("/api/site-settings/", tags=["Settings"])
 async def get_main_settings():
-    """ Returns basic site Settings """
+    """ Returns basic site settings """
 
     return SiteSettings.get_site_settings()
 
 
 @router.post("/api/site-settings/webhooks/test/", tags=["Settings"])
 async def test_webhooks():
-    """ Test Webhooks """
+    """ Run the function to test your webhooks """
 
     return post_webhooks()
 
@@ -40,22 +42,26 @@ async def update_settings(data: SiteSettings):
     return SnackResponse.success("Settings Updated")
 
 
-@router.get("/api/site-settings/themes/", tags=["Themes"])
+@router.get(
+    "/api/site-settings/themes/", tags=["Themes"]
+)
 async def get_all_themes():
     """ Returns all site themes """
 
     return SiteTheme.get_all()
 
 
-@router.get("/api/site-settings/themes/{theme_name}/", tags=["Themes"])
+@router.get(
+    "/api/site-settings/themes/{theme_name}/", tags=["Themes"]
+)
 async def get_single_theme(theme_name: str):
-    """ Returns basic site Settings """
+    """ Returns a named theme """
     return SiteTheme.get_by_name(theme_name)
 
 
 @router.post("/api/site-settings/themes/create/", tags=["Themes"])
 async def create_theme(data: SiteTheme):
-    """ Creates a Site Color Theme """
+    """ Creates a site color theme database entry """
 
     try:
         data.save_to_db()
@@ -69,7 +75,7 @@ async def create_theme(data: SiteTheme):
 
 @router.post("/api/site-settings/themes/{theme_name}/update/", tags=["Themes"])
 async def update_theme(theme_name: str, data: SiteTheme):
-    """ Returns basic site Settings """
+    """ Update a theme database entry """
     try:
         data.update_document()
     except:
@@ -82,7 +88,7 @@ async def update_theme(theme_name: str, data: SiteTheme):
 
 @router.delete("/api/site-settings/themes/{theme_name}/delete/", tags=["Themes"])
 async def delete_theme(theme_name: str):
-    """ Returns basic site Settings """
+    """ Deletes theme from the database """
     try:
         SiteTheme.delete_theme(theme_name)
     except:

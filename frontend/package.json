@@ -9,8 +9,8 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
-    "axios": "^0.21.0",
-    "core-js": "^3.8.1",
+    "axios": "^0.21.1",
+    "core-js": "^3.8.2",
     "qs": "^6.9.4",
     "v-jsoneditor": "^1.4.2",
     "vue": "^2.6.11",
@@ -18,8 +18,9 @@
     "vue-html-to-paper": "^1.3.1",
     "vue-i18n": "^8.22.3",
     "vue-router": "^3.4.9",
-    "vuetify": "^2.3.21",
-    "vuex": "^3.6.0"
+    "vuetify": "^2.4.2",
+    "vuex": "^3.6.0",
+    "vuex-persistedstate": "^4.0.0-beta.2"
   },
   "devDependencies": {
     "@intlify/vue-i18n-loader": "^1.0.0",
@@ -29,7 +30,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.30.0",
+    "sass": "^1.32.0",
     "sass-loader": "^8.0.0",
     "vue-cli-plugin-i18n": "~1.0.1",
     "vue-cli-plugin-vuetify": "^2.0.8",
