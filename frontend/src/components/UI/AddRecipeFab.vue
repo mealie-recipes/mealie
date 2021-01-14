@@ -18,12 +18,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-<<<<<<< HEAD:frontend/src/components/AddRecipe.vue
-          <v-btn color="primary" text @click="createRecipe"> {{ $t('general.submit') }} </v-btn>
-=======
-          <v-btn color="grey" text @click="reset"> Close </v-btn>
-          <v-btn color="success" text @click="createRecipe"> Submit </v-btn>
->>>>>>> 5f25b2492e0263defdf1723cbb47ba536a1a7511:frontend/src/components/UI/AddRecipeFab.vue
+          <v-btn color="grey" text @click="reset"> {{$t('general.close')}} </v-btn>
+          <v-btn color="success" text @click="createRecipe"> {{ $t('general.submit') }} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

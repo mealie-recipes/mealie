@@ -1,13 +1,9 @@
 <template>
   <v-card>
-<<<<<<< HEAD:frontend/src/components/MealPlan/NewMeal.vue
-    <v-card-title class="secondary white--text">
+    <v-card-title class="headline">
       {{$t('meal-plan.create-a-new-meal-plan')}}
     </v-card-title>
-=======
-    <v-card-title class="headline"> Create a New Meal Plan </v-card-title>
     <v-divider></v-divider>
->>>>>>> 5f25b2492e0263defdf1723cbb47ba536a1a7511:frontend/src/components/MealPlan/MealPlanNew.vue
     <v-card-text>
       <v-row dense>
         <v-col cols="12" lg="6" md="6" sm="12">

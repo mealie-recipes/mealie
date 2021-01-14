@@ -1,14 +1,9 @@
 <template>
-<<<<<<< HEAD:frontend/src/components/Admin/Backup.vue
   <v-card :loading="backupLoading" class="mt-3" min-height="410px">
-    <v-card-title class="secondary white--text">
+    <v-card-title class="headline">
       {{$t('settings.backup-and-exports')}}
     </v-card-title>
-=======
-  <v-card :loading="backupLoading">
-    <v-card-title class="headline"> Backup and Exports </v-card-title>
     <v-divider></v-divider>
->>>>>>> 5f25b2492e0263defdf1723cbb47ba536a1a7511:frontend/src/components/Settings/Backup/index.vue
 
     <v-card-text>
       <p>

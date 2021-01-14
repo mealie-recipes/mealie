@@ -22,9 +22,9 @@
 
                 <v-card-text> {{ meal.description }} </v-card-text>
 
-<<<<<<< HEAD:frontend/src/components/MealPlan/ThisWeek.vue
                 <v-card-actions>
                   <v-btn
+                    align="center"
                     color="secondary"
                     text
                     @click="$router.push(`/recipe/${meal.slug}`)"
@@ -32,16 +32,6 @@
                     {{$t('recipe.view-recipe')}}
                   </v-btn>
                 </v-card-actions>
-=======
-                <v-btn
-                  align="center"
-                  color="secondary"
-                  text
-                  @click="$router.push(`/recipe/${meal.slug}`)"
-                >
-                  View Recipe
-                </v-btn>
->>>>>>> 5f25b2492e0263defdf1723cbb47ba536a1a7511:frontend/src/pages/MealPlanThisWeekPage.vue
               </v-card>
             </v-col>
             <v-col order-sm="0" :order-md="getOrder(index)" md="6" sm="12">

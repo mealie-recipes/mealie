@@ -1,10 +1,6 @@
 <template>
   <div>
-<<<<<<< HEAD:frontend/src/components/Admin/ThemeUI/NewTheme.vue
-    <v-btn text color="success" @click="dialog = true"> {{$t('general.new')}} </v-btn>
-=======
-    <v-btn text color="info" @click="dialog = true"> New </v-btn>
->>>>>>> 5f25b2492e0263defdf1723cbb47ba536a1a7511:frontend/src/components/Settings/Theme/NewThemeDialog.vue
+    <v-btn text color="info" @click="dialog = true"> {{$t('general.new')}} </v-btn>
     <v-dialog v-model="dialog" width="400">
       <v-card>
         <v-card-title> {{$t('settings.add-a-new-theme')}} </v-card-title>
@@ -16,15 +12,11 @@
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
-<<<<<<< HEAD:frontend/src/components/Admin/ThemeUI/NewTheme.vue
-          <v-btn color="success" text @click="Select"> {{$t('general.create')}} </v-btn>
-=======
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="dialog = false"> Cancel </v-btn>
+          <v-btn color="grey" text @click="dialog = false"> {{$t('general.cancel')}} </v-btn>
           <v-btn color="success" text @click="Select" :disabled="!themeName">
-            Create
+            {{$t('general.create')}}
           </v-btn>
->>>>>>> 5f25b2492e0263defdf1723cbb47ba536a1a7511:frontend/src/components/Settings/Theme/NewThemeDialog.vue
         </v-card-actions>
       </v-card>
     </v-dialog>

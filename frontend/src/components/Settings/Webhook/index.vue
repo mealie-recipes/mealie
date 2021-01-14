@@ -1,12 +1,7 @@
 <template>
   <v-card>
-<<<<<<< HEAD:frontend/src/components/Admin/Webhooks.vue
-    <v-card-title class="secondary white--text mt-1">
-      {{$t('settings.webhooks.meal-planner-webhooks')}}
-=======
     <v-card-title class="headline">
-      Meal Planner Webhooks
->>>>>>> 5f25b2492e0263defdf1723cbb47ba536a1a7511:frontend/src/components/Settings/Webhook/index.vue
+      {{$t('settings.webhooks.meal-planner-webhooks')}}
     </v-card-title>
     <v-card-text>
       <p v-html="$t('settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at', {time: time})"></p>
