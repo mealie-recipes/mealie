@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://mealie-api:9000 ",
+        target: process.env.VUE_APP_API_BASE_URL,
         secure: false,
       },
     },
