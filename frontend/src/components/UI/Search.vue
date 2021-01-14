@@ -9,15 +9,13 @@
     hide-details
     hide-selected
     item-text="slug"
-    label="Search for a Recipe"
+    :label="$t('search.search-for-a-recipe')"
     single-line
     @keyup.enter.native="moreInfo(selected)"
   >
     <template v-slot:no-data>
       <v-list-item>
-        <v-list-item-title>
-          Search for your Favorite
-          <strong>Recipe</strong>
+        <v-list-item-title :v-html="$t('search.search-for-your-favorite-recipe')">
         </v-list-item-title>
       </v-list-item>
     </template>

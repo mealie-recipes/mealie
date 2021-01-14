@@ -2,7 +2,7 @@
   <v-card-text>
     <v-row>
       <v-col cols="4">
-        <h2 class="mb-4">Ingredients</h2>
+        <h2 class="mb-4">{{$t('recipe.ingredients')}}</h2>
         <div v-for="ingredient in ingredients" :key="ingredient">
           <v-row align="center">
             <v-checkbox hide-details class="shrink mr-2 mt-0"></v-checkbox>
@@ -20,7 +20,7 @@
           <v-icon>mdi-plus</v-icon>
         </v-btn>
 
-        <h2 class="mt-6">Categories</h2>
+        <h2 class="mt-6">{{$t('recipe.categories')}}</h2>
         <v-combobox
           dense
           multiple
@@ -36,7 +36,7 @@
           </template>
         </v-combobox>
 
-        <h2 class="mt-4">Tags</h2>
+        <h2 class="mt-4">{{$t('recipe.tags')}}</h2>
         <v-combobox dense multiple chips deletable-chips :value="tags">
           <template v-slot:selection="data">
             <v-chip :selected="data.selected" close color="primary" dark>
@@ -49,7 +49,7 @@
       <v-divider :vertical="true"></v-divider>
 
       <v-col>
-        <h2 class="mb-4">Instructions</h2>
+        <h2 class="mb-4">{{$t('recipe.instructions')}}</h2>
         <div v-for="(step, index) in instructions" :key="step.text">
           <v-hover v-slot="{ hover }">
             <v-card
@@ -57,7 +57,7 @@
               :class="[{ 'on-hover': hover }]"
               :elevation="hover ? 12 : 2"
             >
-              <v-card-title>Step: {{ index + 1 }}</v-card-title>
+              <v-card-title>{{$t('recipe.step-index', { step: index + 1})}}</v-card-title>
               <v-card-text>
                 <v-textarea dense :value="step.text"></v-textarea>
               </v-card-text>

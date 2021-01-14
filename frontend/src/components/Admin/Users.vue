@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="card-title mt-1"> User Settings </v-card-title>
+    <v-card-title class="card-title mt-1"> {{$t('settings.user-settings')}} </v-card-title>
   </v-card>
 </template>
 

@@ -1,13 +1,13 @@
 <template>
   <v-card>
-    <v-card-title class="secondary white--text"> Edit Meal Plan </v-card-title>
+    <v-card-title class="secondary white--text"> {{$t('meal-plan.edit-meal-plan')}} </v-card-title>
     <v-card-text> </v-card-text>
 
     <v-card-text>
       <MealPlanCard v-model="mealPlan.meals" />
       <v-row align="center" justify="end">
         <v-card-actions>
-          <v-btn color="success" text @click="update"> Update </v-btn>
+          <v-btn color="success" text @click="update"> {{$t('general.update')}} </v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-row>

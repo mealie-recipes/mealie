@@ -1,14 +1,14 @@
 <template>
   <div>
-    <v-btn text color="success" @click="dialog = true"> New </v-btn>
+    <v-btn text color="success" @click="dialog = true"> {{$t('general.new')}} </v-btn>
     <v-dialog v-model="dialog" width="400">
       <v-card>
-        <v-card-title> Add a New Theme </v-card-title>
+        <v-card-title> {{$t('settings.add-a-new-theme')}} </v-card-title>
         <v-card-text>
           <v-text-field label="Theme Name" v-model="themeName"></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="success" text @click="Select"> Create </v-btn>
+          <v-btn color="success" text @click="Select"> {{$t('general.create')}} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

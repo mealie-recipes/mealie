@@ -1,21 +1,17 @@
 <template>
   <v-card>
     <v-card-title class="secondary white--text mt-1">
-      Meal Planner Webhooks
+      {{$t('settings.webhooks.meal-planner-webhooks')}}
     </v-card-title>
     <v-card-text>
-      <p>
-        The URLs listed below will recieve webhooks containing the recipe data
-        for the meal plan on it's scheduled day. Currently Webhooks will execute
-        at <strong>{{ time }}</strong>
-      </p>
+      <p v-html="$t('settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at', {time: time})"></p>
 
       <v-row dense align="center">
         <v-col cols="12" md="2" sm="5">
           <v-switch
             v-model="enabled"
             inset
-            label="Enabled"
+            :label="$t('general.enabled')"
             class="my-n3"
           ></v-switch>
         </v-col>
@@ -23,7 +19,7 @@
           <TimePicker @save-time="saveTime" />
         </v-col>
         <v-col cols="12" md="4" sm="5">
-          <v-btn text color="info" @click="testWebhooks"> Test Webhooks </v-btn>
+          <v-btn text color="info" @click="testWebhooks"> {{$t('settings.webhooks.test-webhooks')}} </v-btn>
         </v-col>
       </v-row>
 
@@ -36,7 +32,7 @@
         <v-col>
           <v-text-field
             v-model="webhooks[index]"
-            label="Webhook URL"
+            :label="$t('settings.webhooks.webhook-url')"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -51,7 +47,7 @@
         <v-col> </v-col>
         <v-col align="end">
           <v-btn text color="success" @click="saveWebhooks">
-            Save Webhooks
+            {{$t('settings.webhooks.save-webhooks')}}
           </v-btn>
         </v-col>
       </v-row>

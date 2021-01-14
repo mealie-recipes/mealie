@@ -5,9 +5,17 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: process.env.VUE_APP_API_BASE_URL,
+        target: "http://mealie-api:9000 ",
         secure: false,
       },
     },
   },
+  pluginOptions: {
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: true
+    }
+  }
 };

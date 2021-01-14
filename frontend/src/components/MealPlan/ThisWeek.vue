@@ -21,7 +21,7 @@
                     text
                     @click="$router.push(`/recipe/${meal.slug}`)"
                   >
-                    View Recipe
+                    {{$t('recipe.view-recipe')}}
                   </v-btn>
                 </v-card-actions>
               </v-card>
