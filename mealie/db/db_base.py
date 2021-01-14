@@ -3,12 +3,16 @@ import json
 import mongoengine
 from settings import USE_MONGO, USE_SQL
 
+from db.sql.db_session import create_session
+from db.sql.model_base import SqlAlchemyBase
+
 
 class BaseDocument:
     def __init__(self) -> None:
         self.primary_key: str
         self.store: str
         self.document: mongoengine.Document
+        self.sql_model: SqlAlchemyBase
 
     @staticmethod  # TODO: Probably Put a version in each class to speed up reads?
     def _unpack_mongo(document) -> dict:
@@ -57,7 +61,15 @@ class BaseDocument:
             return docs
 
         elif USE_SQL:
-            return self.get_all_sql()
+            session = create_session()
+            list = [x.dict() for x in session.query(self.sql_model).all()]
+            session.close()
+
+            if limit == 1:
+                return list[0]
+
+            session.close()
+            return list
 
     def get(
         self, match_value: str, match_key: str = None, limit=1
@@ -82,7 +94,14 @@ class BaseDocument:
             db_entry = BaseDocument._unpack_mongo(document)
 
         elif USE_SQL:
-            return self.get_by_slug(match_value, match_key)
+            session = create_session()
+            result = (
+                session.query(self.sql_model)
+                .filter_by(**{match_key: match_value})
+                .one()
+            )
+
+            db_entry = result.dict()
 
         else:
             raise Exception("No database type established")
@@ -100,11 +119,22 @@ class BaseDocument:
         elif USE_SQL:
             return self.save_new_sql(document)
 
-    def delete(self, primary_key) -> dict:
+    def delete(self, primary_key_value) -> dict:
         if USE_MONGO:
-            document = self.document.objects.get(**{str(self.primary_key): primary_key})
+            document = self.document.objects.get(**{str(self.primary_key): primary_key_value})
 
             if document:
                 document.delete()
         elif USE_SQL:
-            pass
+            session = create_session()
+
+            result = (
+                session.query(self.sql_model)
+                .filter_by(**{self.primary_key: primary_key_value})
+                .one()
+            )
+
+            print(result.dict())
+            session.delete(result)
+
+            session.commit()

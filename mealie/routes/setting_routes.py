@@ -79,6 +79,7 @@ def update_theme(theme_name: str, data: SiteTheme):
 @router.delete("/api/site-settings/themes/{theme_name}/delete/", tags=["Themes"])
 def delete_theme(theme_name: str):
     """ Deletes theme from the database """
+    SiteTheme.delete_theme(theme_name)
     try:
         SiteTheme.delete_theme(theme_name)
     except:

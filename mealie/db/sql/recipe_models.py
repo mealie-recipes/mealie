@@ -85,7 +85,7 @@ class RecipeModel(SqlAlchemyBase):
     slug = sa.Column(sa.String, primary_key=True, index=True, unique=True)
     categories: List[Category] = orm.relation("Category")
     tags: List[Tag] = orm.relation("Tag")
-    dateAdded = sa.Column(sa.Date, default=date.today())
+    dateAdded = sa.Column(sa.Date, default=date.today)
     notes: List[Note] = orm.relation("Note")
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)

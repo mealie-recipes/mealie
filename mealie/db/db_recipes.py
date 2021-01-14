@@ -1,11 +1,16 @@
 from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
-from db.db_setup import tiny_db
 from db.mongo.recipe_models import RecipeDocument
 from db.sql.db_session import create_session
-from db.sql.recipe_models import (ApiExtras, Note, RecipeIngredient,
-                                  RecipeInstruction, RecipeModel, Tag)
+from db.sql.recipe_models import (
+    ApiExtras,
+    Note,
+    RecipeIngredient,
+    RecipeInstruction,
+    RecipeModel,
+    Tag,
+)
 
 
 class _Recipes(BaseDocument):
@@ -13,24 +18,12 @@ class _Recipes(BaseDocument):
         self.primary_key = "slug"
         if USE_SQL:
             self.sql_model = RecipeModel
-        self.document = RecipeDocument
-
-    def get_by_slug(self, match_value: str, match_key: str):
-        session = create_session()
-        result = session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
-        
-
-        return result.dict()
-
-    def get_all_sql(self):
-        session = create_session()
-        list = [x.dict() for x in session.query(self.sql_model).all()]
-        session.close()
-        return list
+        else:
+            self.document = RecipeDocument
 
     def save_new_sql(self, recipe_data: dict):
         session = create_session()
-        new_recipe = self.sql_model()
+        new_recipe: RecipeModel = self.sql_model()
         new_recipe.name = recipe_data.get("name")
         new_recipe.description = recipe_data.get("description")
         new_recipe.image = recipe_data.get("image")

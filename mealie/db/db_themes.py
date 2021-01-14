@@ -1,15 +1,17 @@
 from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
-from db.db_setup import USE_MONGO, USE_SQL, tiny_db
+from db.db_setup import USE_MONGO, USE_SQL
 from db.mongo.settings_models import SiteThemeDocument, ThemeColorsDocument
+from db.sql.db_session import create_session
+from db.sql.settings_models import SiteThemeModel, ThemeColorsModel
 
 
 class _Themes(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "name"
         if USE_SQL:
-            self.sql_model = None
+            self.sql_model = SiteThemeModel
         else:
             self.document = SiteThemeDocument
 
@@ -21,7 +23,26 @@ class _Themes(BaseDocument):
 
             document.save()
         elif USE_SQL:
-            pass
+            session = create_session()
+
+            colors = ThemeColorsModel()
+            new_colors = theme_data.get("colors")
+            colors.primary = new_colors.get("primary")
+            colors.secondary = new_colors.get("secondary")
+            colors.accent = new_colors.get("accent")
+            colors.success = new_colors.get("success")
+            colors.info = new_colors.get("info")
+            colors.warning = new_colors.get("warning")
+            colors.error = new_colors.get("error")
+
+            new_theme = self.sql_model(name=theme_data.get("name"))
+
+            new_theme.colors = colors
+
+            session.add(new_theme)
+            session.commit()
+            
+            return
 
     def update(self, data: dict) -> dict:
         if USE_MONGO:

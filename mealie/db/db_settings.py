@@ -1,7 +1,8 @@
+from db.sql.settings_models import SiteSettingsModel
 from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
-from db.db_setup import USE_MONGO, USE_SQL, tiny_db
+from db.db_setup import USE_MONGO, USE_SQL
 from db.mongo.settings_models import SiteSettingsDocument, WebhooksDocument
 
 
@@ -11,7 +12,7 @@ class _Settings(BaseDocument):
         self.primary_key = "name"
 
         if USE_SQL:
-            self.sql_model = None
+            self.sql_model = SiteSettingsModel
 
         self.document = SiteSettingsDocument
 

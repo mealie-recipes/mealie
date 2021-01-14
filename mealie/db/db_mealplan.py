@@ -1,9 +1,10 @@
 from typing import List
+from db.sql.meal_models import MealPlanModel
 
 from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
-from db.db_setup import USE_MONGO, USE_SQL, tiny_db
+from db.db_setup import USE_MONGO, USE_SQL
 from db.mongo.meal_models import MealDocument, MealPlanDocument
 
 
@@ -11,7 +12,7 @@ class _Meals(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "uid"
         if USE_SQL:
-            self.sql_model = None
+            self.sql_model = MealPlanModel
         self.document = MealPlanDocument
 
     @staticmethod
