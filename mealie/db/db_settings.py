@@ -1,7 +1,7 @@
-from settings import USE_MONGO, USE_TINYDB
+from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
-from db.db_setup import USE_MONGO, USE_TINYDB, tiny_db
+from db.db_setup import USE_MONGO, USE_SQL, tiny_db
 from db.mongo.settings_models import SiteSettingsDocument, WebhooksDocument
 
 
@@ -10,8 +10,8 @@ class _Settings(BaseDocument):
 
         self.primary_key = "name"
 
-        if USE_TINYDB:
-            self.store = tiny_db.settings
+        if USE_SQL:
+            self.sql_model = None
 
         self.document = SiteSettingsDocument
 
@@ -22,9 +22,8 @@ class _Settings(BaseDocument):
             new_doc = self.document(**main)
             return new_doc.save()
 
-        elif USE_TINYDB:
-            main["webhooks"] = webhooks
-            return self.store.save(main)
+        elif USE_SQL:
+            pass
 
     def update(self, name: str, new_data: dict) -> dict:
         if USE_MONGO:
@@ -32,5 +31,5 @@ class _Settings(BaseDocument):
             if document:
                 document.update(set__webhooks=WebhooksDocument(**new_data["webhooks"]))
                 document.save()
-        elif USE_TINYDB:
+        elif USE_SQL:
             pass

@@ -1,15 +1,15 @@
-from settings import USE_MONGO, USE_TINYDB
+from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
-from db.db_setup import USE_MONGO, USE_TINYDB, tiny_db
+from db.db_setup import USE_MONGO, USE_SQL, tiny_db
 from db.mongo.settings_models import SiteThemeDocument, ThemeColorsDocument
 
 
 class _Themes(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "name"
-        if USE_TINYDB:
-            self.store = tiny_db.themes
+        if USE_SQL:
+            self.sql_model = None
         else:
             self.document = SiteThemeDocument
 
@@ -20,7 +20,7 @@ class _Themes(BaseDocument):
             document = self.document(**theme_data)
 
             document.save()
-        elif USE_TINYDB:
+        elif USE_SQL:
             pass
 
     def update(self, data: dict) -> dict:
@@ -34,5 +34,5 @@ class _Themes(BaseDocument):
             else:
                 raise Exception("No database entry was found to update")
 
-        elif USE_TINYDB:
+        elif USE_SQL:
             pass

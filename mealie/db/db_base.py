@@ -1,15 +1,13 @@
 import json
 
 import mongoengine
-from settings import USE_MONGO, USE_TINYDB
-
-from db.tinydb.baseclass import StoreBase
+from settings import USE_MONGO, USE_SQL
 
 
 class BaseDocument:
     def __init__(self) -> None:
         self.primary_key: str
-        self.store: StoreBase
+        self.store: str
         self.document: mongoengine.Document
 
     @staticmethod  # TODO: Probably Put a version in each class to speed up reads?
@@ -58,8 +56,8 @@ class BaseDocument:
                 return docs[0]
             return docs
 
-        elif USE_TINYDB:
-            return self.store.get_all()
+        elif USE_SQL:
+            return self.get_all_sql()
 
     def get(
         self, match_value: str, match_key: str = None, limit=1
@@ -83,8 +81,8 @@ class BaseDocument:
             document = self.document.objects.get(**{str(match_key): match_value})
             db_entry = BaseDocument._unpack_mongo(document)
 
-        elif USE_TINYDB:
-            db_entry = self.store.get(match_value, match_key, limit=limit)
+        elif USE_SQL:
+            return self.get_by_slug(match_value, match_key)
 
         else:
             raise Exception("No database type established")
@@ -99,8 +97,8 @@ class BaseDocument:
             new_document = self.document(**document)
             new_document.save()
             return BaseDocument._unpack_mongo(new_document)
-        elif USE_TINYDB:
-            return self.store.save(document)
+        elif USE_SQL:
+            return self.save_new_sql(document)
 
     def delete(self, primary_key) -> dict:
         if USE_MONGO:
@@ -108,5 +106,5 @@ class BaseDocument:
 
             if document:
                 document.delete()
-        elif USE_TINYDB:
-            self.store.delete(primary_key)
+        elif USE_SQL:
+            pass

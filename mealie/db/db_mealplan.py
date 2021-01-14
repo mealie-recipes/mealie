@@ -1,17 +1,17 @@
 from typing import List
 
-from settings import USE_MONGO, USE_TINYDB
+from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
-from db.db_setup import USE_MONGO, USE_TINYDB, tiny_db
+from db.db_setup import USE_MONGO, USE_SQL, tiny_db
 from db.mongo.meal_models import MealDocument, MealPlanDocument
 
 
 class _Meals(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "uid"
-        if USE_TINYDB:
-            self.store = tiny_db.meals
+        if USE_SQL:
+            self.sql_model = None
         self.document = MealPlanDocument
 
     @staticmethod
@@ -45,7 +45,7 @@ class _Meals(BaseDocument):
             document = self.document(**plan_data)
 
             document.save()
-        elif USE_TINYDB:
+        elif USE_SQL:
             pass
 
     def update(self, uid: str, plan_data: dict) -> dict:
@@ -55,5 +55,5 @@ class _Meals(BaseDocument):
                 new_meals = _Meals._process_meals(plan_data["meals"])
                 document.update(set__meals=new_meals)
                 document.save()
-        elif USE_TINYDB:
+        elif USE_SQL:
             pass
