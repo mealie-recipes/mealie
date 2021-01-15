@@ -8,7 +8,7 @@ from utils.logger import logger
 class Webhooks(BaseModel):
     webhookTime: str = "00:00"
     webhookURLs: Optional[List[str]] = []
-    enabled: bool = "false"
+    enabled: bool = False
 
 
 class SiteSettings(BaseModel):

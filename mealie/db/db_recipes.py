@@ -3,14 +3,7 @@ from settings import USE_MONGO, USE_SQL
 from db.db_base import BaseDocument
 from db.mongo.recipe_models import RecipeDocument
 from db.sql.db_session import create_session
-from db.sql.recipe_models import (
-    ApiExtras,
-    Note,
-    RecipeIngredient,
-    RecipeInstruction,
-    RecipeModel,
-    Tag,
-)
+from db.sql.recipe_models import RecipeModel
 
 
 class _Recipes(BaseDocument):
@@ -18,68 +11,13 @@ class _Recipes(BaseDocument):
         self.primary_key = "slug"
         if USE_SQL:
             self.sql_model = RecipeModel
+            self.create_session = create_session
         else:
             self.document = RecipeDocument
 
     def save_new_sql(self, recipe_data: dict):
-        session = create_session()
-        new_recipe: RecipeModel = self.sql_model()
-        new_recipe.name = recipe_data.get("name")
-        new_recipe.description = recipe_data.get("description")
-        new_recipe.image = recipe_data.get("image")
-        new_recipe.totalTime = recipe_data.get("totalTime")
-        new_recipe.slug = recipe_data.get("slug")
-        new_recipe.rating = recipe_data.get("rating")
-        new_recipe.orgURL = recipe_data.get("orgURL")
-        new_recipe.dateAdded = recipe_data.get("dateAdded")
-        new_recipe.recipeYield = recipe_data.get("recipeYield")
-
-        for ingredient in recipe_data.get("recipeIngredient"):
-            new_ingredient = RecipeIngredient()
-            new_ingredient.ingredient = ingredient
-            new_recipe.recipeIngredient.append(new_ingredient)
-
-        for step in recipe_data.get("recipeInstructions"):
-            new_step = RecipeInstruction()
-            new_step.type = "Step"
-            new_step.text = step.get("text")
-            new_recipe.recipeInstructions.append(new_step)
-
-        try:
-            for tag in recipe_data.get("tags"):
-                new_tag = Tag()
-                new_tag.name = tag
-                new_recipe.tags.append(new_tag)
-        except:
-            pass
-
-        try:
-            for category in recipe_data.get("category"):
-                new_category = Tag()
-                new_category.name = category
-                new_recipe.categories.append(new_category)
-        except:
-            pass
-
-        try:
-            new_recipe.notes = recipe_data.get("name")
-            for note in recipe_data.get("notes"):
-                new_note = Note()
-                new_note.title = note.get("title")
-                new_note.text = note.get("text")
-                new_recipe.notes.append(note)
-        except:
-            pass
-
-        try:
-            for key, value in recipe_data.get("extras").items():
-                new_extra = ApiExtras()
-                new_extra.key = key
-                new_extra.key = value
-                new_recipe.extras.append(new_extra)
-        except:
-            pass
-
+        session = self.create_session()
+        new_recipe = self.sql_model(**recipe_data)
         session.add(new_recipe)
         session.commit()
 
@@ -111,7 +49,14 @@ class _Recipes(BaseDocument):
 
                 return new_data.get("slug")
         elif USE_SQL:
-            pass
+            session, recipe = self._query_one(match_value=slug)
+            recipe.update(**new_data)
+            recipe_dict = recipe.dict()
+            session.commit()
+
+            session.close()
+
+            return recipe_dict
 
     def update_image(self, slug: str, extension: str) -> None:
         if USE_MONGO:

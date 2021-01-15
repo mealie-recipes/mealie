@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 from typing import List
 
@@ -23,7 +24,7 @@ class Category(SqlAlchemyBase):
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
     name = sa.Column(sa.String, index=True)
 
-    def dict(self):
+    def to_str(self):
         return self.name
 
 
@@ -33,7 +34,7 @@ class Tag(SqlAlchemyBase):
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
     name = sa.Column(sa.String, index=True)
 
-    def dict(self):
+    def to_str(self):
         return self.name
 
 
@@ -54,7 +55,7 @@ class RecipeIngredient(SqlAlchemyBase):
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
     ingredient = sa.Column(sa.String)
 
-    def dict(self):
+    def to_str(self):
         return self.ingredient
 
 
@@ -62,7 +63,7 @@ class RecipeInstruction(SqlAlchemyBase):
     __tablename__ = "recipe_instructions"
     id = sa.Column(sa.Integer, primary_key=True)
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
-    type = sa.Column(sa.String)
+    type = sa.Column(sa.String, default="")
     text = sa.Column(sa.String)
 
     def dict(self):
@@ -77,19 +78,101 @@ class RecipeModel(SqlAlchemyBase):
     description = sa.Column(sa.String)
     image = sa.Column(sa.String)
     recipeYield = sa.Column(sa.String)
-    recipeIngredient: List[RecipeIngredient] = orm.relation("RecipeIngredient")
-    recipeInstructions: List[RecipeInstruction] = orm.relation("RecipeInstruction")
+    recipeIngredient: List[RecipeIngredient] = orm.relationship(
+        "RecipeIngredient", cascade="all, delete"
+    )
+    recipeInstructions: List[RecipeInstruction] = orm.relationship(
+        "RecipeInstruction", cascade="all, delete"
+    )
     totalTime = sa.Column(sa.String)
 
     # Mealie Specific
     slug = sa.Column(sa.String, primary_key=True, index=True, unique=True)
-    categories: List[Category] = orm.relation("Category")
-    tags: List[Tag] = orm.relation("Tag")
+    categories: List[Category] = orm.relationship("Category", cascade="all, delete")
+    tags: List[Tag] = orm.relationship("Tag", cascade="all, delete")
     dateAdded = sa.Column(sa.Date, default=date.today)
-    notes: List[Note] = orm.relation("Note")
+    notes: List[Note] = orm.relationship("Note", cascade="all, delete")
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)
-    extras: List[ApiExtras] = orm.relation("ApiExtras")
+    extras: List[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete")
+
+    def __init__(
+        self,
+        name: str = None,
+        description: str = None,
+        image: str = None,
+        recipeYield: str = None,
+        recipeIngredient: List[str] = None,
+        recipeInstructions: List[dict] = None,
+        totalTime: str = None,
+        slug: str = None,
+        categories: List[str] = None,
+        tags: List[str] = None,
+        dateAdded: datetime.date = None,
+        notes: List[dict] = None,
+        rating: int = None,
+        orgURL: str = None,
+        extras: dict = None,
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.image = image
+        self.recipeYield = recipeYield
+        print(recipeIngredient)
+        self.recipeIngredient = [
+            RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient
+        ]
+        self.recipeInstructions = [
+            RecipeInstruction(text=instruc.get("text"), type=instruc.get("text"))
+            for instruc in recipeInstructions
+        ]
+        self.totalTime = totalTime
+
+        # Mealie Specific
+        self.slug = slug
+        self.categories = [Category(cat) for cat in categories]
+        self.tags = [Tag(name=tag) for tag in tags]
+        self.dateAdded = dateAdded
+        self.notes = [Note(note) for note in notes]
+        self.rating = rating
+        self.orgURL = orgURL
+        self.extras = [ApiExtras(extra) for extra in extras]
+
+    def update(
+        self,
+        name: str = None,
+        description: str = None,
+        image: str = None,
+        recipeYield: str = None,
+        recipeIngredient: List[str] = None,
+        recipeInstructions: List[dict] = None,
+        totalTime: str = None,
+        slug: str = None,
+        categories: List[str] = None,
+        tags: List[str] = None,
+        dateAdded: datetime.date = None,
+        notes: List[dict] = None,
+        rating: int = None,
+        orgURL: str = None,
+        extras: dict = None,
+    ):
+        self.__init__(
+            name,
+            description,
+            image,
+            recipeYield,
+            recipeIngredient,
+            recipeInstructions,
+            totalTime,
+            slug,
+            categories,
+            tags,
+            dateAdded,
+            notes,
+            rating,
+            orgURL,
+            extras,
+        )
 
     @staticmethod
     def _flatten_dict(list_of_dict: List[dict]):
@@ -105,13 +188,13 @@ class RecipeModel(SqlAlchemyBase):
             "description": self.description,
             "image": self.image,
             "recipeYield": self.recipeYield,
-            "recipeIngredient": [x.dict() for x in self.recipeIngredient],
+            "recipeIngredient": [x.to_str() for x in self.recipeIngredient],
             "recipeInstructions": [x.dict() for x in self.recipeInstructions],
             "totalTime": self.totalTime,
             # Mealie
             "slug": self.slug,
-            "categories": [x.dict() for x in self.categories],
-            "tags": [x.dict() for x in self.tags],
+            "categories": [x.to_str() for x in self.categories],
+            "tags": [x.to_str() for x in self.tags],
             "dateAdded": self.dateAdded,
             "notes": [x.dict() for x in self.notes],
             "rating": self.rating,

@@ -1,9 +1,10 @@
-from db.sql.settings_models import SiteSettingsModel
 from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
 from db.db_setup import USE_MONGO, USE_SQL
 from db.mongo.settings_models import SiteSettingsDocument, WebhooksDocument
+from db.sql.db_session import create_session
+from db.sql.settings_models import SiteSettingsModel
 
 
 class _Settings(BaseDocument):
@@ -24,7 +25,13 @@ class _Settings(BaseDocument):
             return new_doc.save()
 
         elif USE_SQL:
-            pass
+            session = create_session()
+            new_settings = self.sql_model(main.get("name"), webhooks)
+
+            session.add(new_settings)
+            session.commit()
+
+            return new_settings.dict()
 
     def update(self, name: str, new_data: dict) -> dict:
         if USE_MONGO:
@@ -33,4 +40,13 @@ class _Settings(BaseDocument):
                 document.update(set__webhooks=WebhooksDocument(**new_data["webhooks"]))
                 document.save()
         elif USE_SQL:
-            pass
+            session = create_session()
+            updated_settings = (
+                session.query(self.sql_model)
+                .filter_by(**{self.primary_key: name})
+                .one()
+            )
+            updated_settings.update(**new_data)
+
+            session.commit()
+            return

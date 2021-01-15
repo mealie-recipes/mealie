@@ -1,7 +1,9 @@
 import json
+from typing import Union
 
 import mongoengine
 from settings import USE_MONGO, USE_SQL
+from sqlalchemy.orm.session import Session
 
 from db.sql.db_session import create_session
 from db.sql.model_base import SqlAlchemyBase
@@ -13,6 +15,7 @@ class BaseDocument:
         self.store: str
         self.document: mongoengine.Document
         self.sql_model: SqlAlchemyBase
+        self.create_session = create_session
 
     @staticmethod  # TODO: Probably Put a version in each class to speed up reads?
     def _unpack_mongo(document) -> dict:
@@ -71,6 +74,20 @@ class BaseDocument:
             session.close()
             return list
 
+    def _query_one(
+        self, match_value: str, match_key: str = None
+    ) -> Union[Session, SqlAlchemyBase]:
+        session = self.create_session()
+
+        if match_key == None:
+            match_key = self.primary_key
+
+        result = (
+            session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
+        )
+
+        return session, result
+
     def get(
         self, match_value: str, match_key: str = None, limit=1
     ) -> dict or list[dict]:
@@ -94,14 +111,16 @@ class BaseDocument:
             db_entry = BaseDocument._unpack_mongo(document)
 
         elif USE_SQL:
-            session = create_session()
+            session = self.create_session()
             result = (
                 session.query(self.sql_model)
                 .filter_by(**{match_key: match_value})
                 .one()
             )
-
             db_entry = result.dict()
+            session.close()
+
+            return db_entry
 
         else:
             raise Exception("No database type established")
@@ -121,7 +140,9 @@ class BaseDocument:
 
     def delete(self, primary_key_value) -> dict:
         if USE_MONGO:
-            document = self.document.objects.get(**{str(self.primary_key): primary_key_value})
+            document = self.document.objects.get(
+                **{str(self.primary_key): primary_key_value}
+            )
 
             if document:
                 document.delete()
@@ -138,3 +159,4 @@ class BaseDocument:
             session.delete(result)
 
             session.commit()
+            session.close()

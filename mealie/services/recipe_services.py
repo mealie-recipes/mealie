@@ -9,10 +9,6 @@ from slugify import slugify
 
 from services.image_services import delete_image
 
-CWD = Path(__file__).parent
-ALL_RECIPES = CWD.parent.joinpath("data", "all_recipes.json")
-IMG_DIR = CWD.parent.joinpath("data", "img")
-
 
 class RecipeNote(BaseModel):
     title: str
@@ -129,7 +125,7 @@ class Recipe(BaseModel):
     def update(self, recipe_slug: str):
         """ Updates the recipe from the database by slug"""
         updated_slug = db.recipes.update(recipe_slug, self.dict())
-        return updated_slug
+        return updated_slug.get("slug")
 
     @staticmethod
     def update_image(slug: str, extension: str):

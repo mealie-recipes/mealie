@@ -4,7 +4,7 @@ from db.db_base import BaseDocument
 from db.db_setup import USE_MONGO, USE_SQL
 from db.mongo.settings_models import SiteThemeDocument, ThemeColorsDocument
 from db.sql.db_session import create_session
-from db.sql.settings_models import SiteThemeModel, ThemeColorsModel
+from db.sql.settings_models import SiteThemeModel
 
 
 class _Themes(BaseDocument):
@@ -12,6 +12,7 @@ class _Themes(BaseDocument):
         self.primary_key = "name"
         if USE_SQL:
             self.sql_model = SiteThemeModel
+            self.create_session = create_session
         else:
             self.document = SiteThemeDocument
 
@@ -23,26 +24,16 @@ class _Themes(BaseDocument):
 
             document.save()
         elif USE_SQL:
-            session = create_session()
-
-            colors = ThemeColorsModel()
-            new_colors = theme_data.get("colors")
-            colors.primary = new_colors.get("primary")
-            colors.secondary = new_colors.get("secondary")
-            colors.accent = new_colors.get("accent")
-            colors.success = new_colors.get("success")
-            colors.info = new_colors.get("info")
-            colors.warning = new_colors.get("warning")
-            colors.error = new_colors.get("error")
-
-            new_theme = self.sql_model(name=theme_data.get("name"))
-
-            new_theme.colors = colors
+            session = self.create_session()
+            new_theme = self.sql_model(**theme_data)
 
             session.add(new_theme)
             session.commit()
-            
-            return
+
+            return_data = new_theme.dict()
+
+            session.close()
+            return return_data
 
     def update(self, data: dict) -> dict:
         if USE_MONGO:
@@ -56,4 +47,10 @@ class _Themes(BaseDocument):
                 raise Exception("No database entry was found to update")
 
         elif USE_SQL:
-            pass
+            session, theme_model = self._query_one(
+                match_value=data["name"], match_key="name"
+            )
+
+            theme_model.update(**data)
+            session.commit()
+            session.close()

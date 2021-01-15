@@ -24,15 +24,15 @@ def test_webhooks():
 @router.post("/api/site-settings/update/", tags=["Settings"])
 def update_settings(data: SiteSettings):
     """ Returns Site Settings """
+    data.update()
+    # try:
+    #     data.update()
+    # except:
+    #     raise HTTPException(
+    #         status_code=400, detail=SnackResponse.error("Unable to Save Settings")
+    #     )
 
-    try:
-        data.update()
-    except:
-        raise HTTPException(
-            status_code=400, detail=SnackResponse.error("Unable to Save Settings")
-        )
-
-    scheduler.reschedule_webhooks()
+    # scheduler.reschedule_webhooks()
     return SnackResponse.success("Settings Updated")
 
 
@@ -52,13 +52,13 @@ def get_single_theme(theme_name: str):
 @router.post("/api/site-settings/themes/create/", tags=["Themes"])
 def create_theme(data: SiteTheme):
     """ Creates a site color theme database entry """
-
-    try:
-        data.save_to_db()
-    except:
-        raise HTTPException(
-            status_code=400, detail=SnackResponse.error("Unable to Save Theme")
-        )
+    data.save_to_db()
+    # try:
+    #     data.save_to_db()
+    # except:
+    #     raise HTTPException(
+    #         status_code=400, detail=SnackResponse.error("Unable to Save Theme")
+    #     )
 
     return SnackResponse.success("Theme Saved")
 
@@ -66,12 +66,13 @@ def create_theme(data: SiteTheme):
 @router.post("/api/site-settings/themes/{theme_name}/update/", tags=["Themes"])
 def update_theme(theme_name: str, data: SiteTheme):
     """ Update a theme database entry """
-    try:
-        data.update_document()
-    except:
-        raise HTTPException(
-            status_code=400, detail=SnackResponse.error("Unable to Update Theme")
-        )
+    data.update_document()
+
+    # try:
+    # except:
+    #     raise HTTPException(
+    #         status_code=400, detail=SnackResponse.error("Unable to Update Theme")
+    #     )
 
     return SnackResponse.success("Theme Updated")
 

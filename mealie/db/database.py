@@ -17,10 +17,18 @@ Recipe Actions
     - [ ] Query by dateAdded
 
 Progress:
-    - [x] Recipes
+    - [ ] Recipes
     - [ ] MealPlans
-    - [ ] Site Settings
-    - [ ] Themes
+    - [x] Site Settings
+        - [x] Create
+        - [x] Read
+        - [x] Update
+        - [x] Delete
+    - [x] Themes
+        - [x] Create
+        - [x] Read
+        - [x] Update
+        - [x] Delete
 
 """
 
