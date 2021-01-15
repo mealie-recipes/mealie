@@ -87,26 +87,28 @@ class RecipeModel(SqlAlchemyBase):
     image = sa.Column(sa.String)
     recipeYield = sa.Column(sa.String)
     recipeIngredient: List[RecipeIngredient] = orm.relationship(
-        "RecipeIngredient", cascade="all, delete", order_by="RecipeIngredient.position"
+        "RecipeIngredient", cascade="all, delete"
     )
     recipeInstructions: List[RecipeInstruction] = orm.relationship(
         "RecipeInstruction",
         cascade="all, delete",
-        order_by="RecipeInstruction.position",
     )
     totalTime = sa.Column(sa.String)
 
     # Mealie Specific
     slug = sa.Column(sa.String, index=True, unique=True)
     categories: List[Category] = orm.relationship(
-        "Category", cascade="all, delete", order_by="Category.position"
+        "Category",
+        cascade="all, delete",
     )
     tags: List[Tag] = orm.relationship(
-        "Tag", cascade="all, delete", order_by="Tag.position"
+        "Tag",
+        cascade="all, delete",
     )
     dateAdded = sa.Column(sa.Date, default=date.today)
     notes: List[Note] = orm.relationship(
-        "Note", cascade="all, delete", order_by="Note.position"
+        "Note",
+        cascade="all, delete",
     )
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)
@@ -170,6 +172,7 @@ class RecipeModel(SqlAlchemyBase):
 
     def update(
         self,
+        session,
         name: str = None,
         description: str = None,
         image: str = None,
@@ -191,29 +194,34 @@ class RecipeModel(SqlAlchemyBase):
         self.image = image
         self.recipeYield = recipeYield
 
-        for ingr in recipeIngredient:
-            self.recipeIngredient
-        self.recipeIngredient = RecipeModel._update_list_str(
-            recipeIngredient, self.recipeIngredient, RecipeIngredient
+        # Deleted Recipe Ingredeints
+        self.recipeIngredient = [
+            RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient
+        ]
+
+        list_of_tables = [RecipeIngredient, RecipeInstruction, Category, Tag, ApiExtras]
+
+        for table in list_of_tables:
+            session.query(table).filter_by(parent_id=self.id).delete()
+
+        self.__init__(
+            name=name,
+            description=description,
+            image=image,
+            recipeYield=recipeYield,
+            recipeIngredient=recipeIngredient,
+            recipeInstructions=recipeInstructions,
+            totalTime=totalTime,
+            slug=slug,
+            categories=categories,
+            tags=tags,
+            dateAdded=dateAdded,
+            notes=notes,
+            rating=rating,
+            orgURL=orgURL,
+            extras=extras,
         )
-        # self.recipeInstructions = recipeInstructions
 
-        # self.totalTime = totalTime
-        # self.slug = slug
-        # self.categories = categories
-
-        # for category in categories:
-        #     if category in self.categories:
-        #         pass
-        #     else:
-        #         self.categories.append(Category(name=category))
-
-        # self.tags = tags
-        # self.dateAdded = dateAdded
-        # self.notes = notes
-        # self.rating = rating
-        # self.orgURL = orgURL
-        # self.extras = extras
 
     @staticmethod
     def _flatten_dict(list_of_dict: List[dict]):

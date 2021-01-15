@@ -170,7 +170,6 @@ class BaseDocument:
                 .one()
             )
 
-            print(result.dict())
             session.delete(result)
 
             session.commit()

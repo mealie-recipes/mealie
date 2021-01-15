@@ -3,7 +3,7 @@ from settings import USE_MONGO, USE_SQL
 from db.db_base import BaseDocument
 from db.mongo.recipe_models import RecipeDocument
 from db.sql.db_session import create_session
-from db.sql.recipe_models import RecipeModel
+from db.sql.recipe_models import RecipeIngredient, RecipeModel
 
 
 class _Recipes(BaseDocument):
@@ -49,16 +49,14 @@ class _Recipes(BaseDocument):
 
                 return new_data.get("slug")
         elif USE_SQL:
-            # data = self.save_new(new_data)
-            # session, recipe = self._query_one(match_value=slug)
-            session = self.create_session()
-            session.merge((self.sql_model(**new_data)))
-            # recipe_dict = recipe.dict()
-            # session.commit()
+            session, recipe = self._query_one(match_value=slug)
+            recipe.update(session=session, **new_data)
+            recipe_dict = recipe.dict()
+            session.commit()
 
             session.close()
 
-            return "string"
+            return recipe_dict
 
     def update_image(self, slug: str, extension: str) -> None:
         if USE_MONGO:
