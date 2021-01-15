@@ -4,7 +4,7 @@
     "take-me-home": "Take me Home"
   },
   "new-recipe": {
-    "from-url": "From URL TEST",
+    "from-url": "From URL",
     "recipe-url": "Recipe URL",
     "error-message": "Looks like there was an error parsing the URL. Check the log and debug/last_recipe.json to see what went wrong.",
     "bulk-add": "Bulk Add",
