@@ -10,18 +10,22 @@ from db.sql.model_base import SqlAlchemyBase
 class ApiExtras(SqlAlchemyBase):
     __tablename__ = "api_extras"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
-    key: sa.Column(sa.String, primary_key=True)
-    value: sa.Column(sa.String)
+    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
+    key_name = sa.Column(sa.String, unique=True)
+    value = sa.Column(sa.String)
+
+    def __init__(self, key, value) -> None:
+        self.key_name = key
+        self.value = value
 
     def dict(self):
-        return {self.key: self.value}
+        return {self.key_name: self.value}
 
 
 class Category(SqlAlchemyBase):
     __tablename__ = "categories"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
+    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     name = sa.Column(sa.String, index=True)
 
     def to_str(self):
@@ -31,7 +35,7 @@ class Category(SqlAlchemyBase):
 class Tag(SqlAlchemyBase):
     __tablename__ = "tags"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
+    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     name = sa.Column(sa.String, index=True)
 
     def to_str(self):
@@ -41,7 +45,7 @@ class Tag(SqlAlchemyBase):
 class Note(SqlAlchemyBase):
     __tablename__ = "notes"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
+    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     title = sa.Column(sa.String)
     text = sa.Column(sa.String)
 
@@ -52,8 +56,11 @@ class Note(SqlAlchemyBase):
 class RecipeIngredient(SqlAlchemyBase):
     __tablename__ = "recipes_ingredients"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
+    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     ingredient = sa.Column(sa.String)
+
+    def update(self, ingredient):
+        self.ingredient = ingredient
 
     def to_str(self):
         return self.ingredient
@@ -62,7 +69,7 @@ class RecipeIngredient(SqlAlchemyBase):
 class RecipeInstruction(SqlAlchemyBase):
     __tablename__ = "recipe_instructions"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.slug"))
+    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     type = sa.Column(sa.String, default="")
     text = sa.Column(sa.String)
 
@@ -74,24 +81,33 @@ class RecipeInstruction(SqlAlchemyBase):
 
 class RecipeModel(SqlAlchemyBase):
     __tablename__ = "recipes"
+    id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String)
     description = sa.Column(sa.String)
     image = sa.Column(sa.String)
     recipeYield = sa.Column(sa.String)
     recipeIngredient: List[RecipeIngredient] = orm.relationship(
-        "RecipeIngredient", cascade="all, delete"
+        "RecipeIngredient", cascade="all, delete", order_by="RecipeIngredient.position"
     )
     recipeInstructions: List[RecipeInstruction] = orm.relationship(
-        "RecipeInstruction", cascade="all, delete"
+        "RecipeInstruction",
+        cascade="all, delete",
+        order_by="RecipeInstruction.position",
     )
     totalTime = sa.Column(sa.String)
 
     # Mealie Specific
-    slug = sa.Column(sa.String, primary_key=True, index=True, unique=True)
-    categories: List[Category] = orm.relationship("Category", cascade="all, delete")
-    tags: List[Tag] = orm.relationship("Tag", cascade="all, delete")
+    slug = sa.Column(sa.String, index=True, unique=True)
+    categories: List[Category] = orm.relationship(
+        "Category", cascade="all, delete", order_by="Category.position"
+    )
+    tags: List[Tag] = orm.relationship(
+        "Tag", cascade="all, delete", order_by="Tag.position"
+    )
     dateAdded = sa.Column(sa.Date, default=date.today)
-    notes: List[Note] = orm.relationship("Note", cascade="all, delete")
+    notes: List[Note] = orm.relationship(
+        "Note", cascade="all, delete", order_by="Note.position"
+    )
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)
     extras: List[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete")
@@ -118,7 +134,6 @@ class RecipeModel(SqlAlchemyBase):
         self.description = description
         self.image = image
         self.recipeYield = recipeYield
-        print(recipeIngredient)
         self.recipeIngredient = [
             RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient
         ]
@@ -130,13 +145,28 @@ class RecipeModel(SqlAlchemyBase):
 
         # Mealie Specific
         self.slug = slug
-        self.categories = [Category(cat) for cat in categories]
+        self.categories = [Category(name=cat) for cat in categories]
         self.tags = [Tag(name=tag) for tag in tags]
         self.dateAdded = dateAdded
         self.notes = [Note(note) for note in notes]
         self.rating = rating
         self.orgURL = orgURL
-        self.extras = [ApiExtras(extra) for extra in extras]
+        self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
+
+    @staticmethod
+    def _update_list_str(new_list, existing, cls_model):
+        current_index = 0
+
+        new_list = []
+        for item in new_list:
+            try:
+                existing.update(new_list[current_index])
+                current_index += 1
+            except:
+                existing.append(cls_model(item))
+
+        for item in new_list[current_index:]:
+            existing.append(cls_model(item))
 
     def update(
         self,
@@ -156,29 +186,41 @@ class RecipeModel(SqlAlchemyBase):
         orgURL: str = None,
         extras: dict = None,
     ):
-        self.__init__(
-            name,
-            description,
-            image,
-            recipeYield,
-            recipeIngredient,
-            recipeInstructions,
-            totalTime,
-            slug,
-            categories,
-            tags,
-            dateAdded,
-            notes,
-            rating,
-            orgURL,
-            extras,
+        self.name = name
+        self.description = description
+        self.image = image
+        self.recipeYield = recipeYield
+
+        for ingr in recipeIngredient:
+            self.recipeIngredient
+        self.recipeIngredient = RecipeModel._update_list_str(
+            recipeIngredient, self.recipeIngredient, RecipeIngredient
         )
+        # self.recipeInstructions = recipeInstructions
+
+        # self.totalTime = totalTime
+        # self.slug = slug
+        # self.categories = categories
+
+        # for category in categories:
+        #     if category in self.categories:
+        #         pass
+        #     else:
+        #         self.categories.append(Category(name=category))
+
+        # self.tags = tags
+        # self.dateAdded = dateAdded
+        # self.notes = notes
+        # self.rating = rating
+        # self.orgURL = orgURL
+        # self.extras = extras
 
     @staticmethod
     def _flatten_dict(list_of_dict: List[dict]):
         finalMap = {}
         for d in list_of_dict:
-            finalMap.update(d)
+
+            finalMap.update(d.dict())
 
         return finalMap
 

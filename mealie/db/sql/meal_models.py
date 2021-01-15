@@ -39,6 +39,14 @@ class MealPlanModel(SqlAlchemyBase):
     endDate = sa.Column(sa.Date)
     meals: List[Meal] = orm.relation(Meal)
 
+    def __init__(self, startDate, endDate, meals) -> None:
+        self.startDate = startDate
+        self.endDate = endDate
+        self.meals = [Meal(meal) for meal in meals]
+
+    def update(self, startDate, endDate, meals) -> None:
+        self.__init__(startDate, endDate, meals)
+
     def dict(self) -> dict:
         data = {
             "uid": self.uid,

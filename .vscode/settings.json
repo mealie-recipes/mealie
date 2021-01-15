@@ -1,6 +1,6 @@
 {
   "python.formatting.provider": "black",
-  "python.pythonPath": ".venv/bin/python",
+  "python.pythonPath": ".venv/bin/python3.8",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.autoComplete.extraPaths": ["mealie", "mealie/mealie"],
@@ -10,7 +10,5 @@
   "python.testing.nosetestsEnabled": false,
   "python.testing.pytestEnabled": true,
   "cSpell.enableFiletypes": ["!javascript", "!python"],
-  "python.testing.pytestArgs": [
-    "mealie"
-  ]
+  "python.testing.pytestArgs": ["mealie"]
 }

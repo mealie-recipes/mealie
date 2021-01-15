@@ -71,12 +71,21 @@ class BaseDocument:
             if limit == 1:
                 return list[0]
 
-            session.close()
             return list
 
     def _query_one(
         self, match_value: str, match_key: str = None
     ) -> Union[Session, SqlAlchemyBase]:
+        """Query the sql database for one item an return the sql alchemy model
+        object. If no match key is provided the primary_key attribute will be used.
+
+        Args:
+            match_value (str): The value to use in the query
+            match_key (str, optional): the key/property to match against. Defaults to None.
+
+        Returns:
+            Union[Session, SqlAlchemyBase]: Will return both the session and found model
+        """
         session = self.create_session()
 
         if match_key == None:
@@ -136,7 +145,13 @@ class BaseDocument:
             new_document.save()
             return BaseDocument._unpack_mongo(new_document)
         elif USE_SQL:
-            return self.save_new_sql(document)
+            session = self.create_session()
+            new_document = self.sql_model(**document)
+            session.add(new_document)
+            return_data = new_document.dict()
+            session.commit()
+
+            return return_data
 
     def delete(self, primary_key_value) -> dict:
         if USE_MONGO:

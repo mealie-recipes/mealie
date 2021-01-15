@@ -49,14 +49,16 @@ class _Recipes(BaseDocument):
 
                 return new_data.get("slug")
         elif USE_SQL:
-            session, recipe = self._query_one(match_value=slug)
-            recipe.update(**new_data)
-            recipe_dict = recipe.dict()
-            session.commit()
+            # data = self.save_new(new_data)
+            # session, recipe = self._query_one(match_value=slug)
+            session = self.create_session()
+            session.merge((self.sql_model(**new_data)))
+            # recipe_dict = recipe.dict()
+            # session.commit()
 
             session.close()
 
-            return recipe_dict
+            return "string"
 
     def update_image(self, slug: str, extension: str) -> None:
         if USE_MONGO:
