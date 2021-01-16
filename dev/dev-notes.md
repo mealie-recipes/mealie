@@ -40,8 +40,8 @@ Backend
   - [x] Recipes
   - [x] Images
   - [ ] Meal Plans
-  - [ ] Settings
-  - [ ] Themes
+  - [x] Settings
+  - [x] Themes
 - [ ] Remove Print / Debug Code
 - [ ] Support how to Sections and how to steps
 - [ ] Recipe request by category/tags

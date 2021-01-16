@@ -1,25 +1,28 @@
 {
     "@context": "http://schema.org",
     "@type": "Recipe",
-    "articleBody": "At her L.A. bakery Friends and Family, Roxana Jullapat bakes these blondies in a round cake pan, which ensures that each slice has a chewy, toasted edge and a soft center. \u201cThis caramel-flavored treat demonstrates the powerful pairing of brown butter and barley,\u201d Roxana writes in her cookbook Mother Grains (out April 2021). Barley flour gives baked goods a silky, chewy texture, dense crumb, and butterscotch-y flavor. Want to experiment? Make these with 3\u20444 cup (80 g) einkorn flour in place of the barley flour for an even chewier blondie.",
-    "alternativeHeadline": "Barley flour gives these blondies a chewy texture and butterscotch-like flavor.",
-    "dateModified": "2021-01-11 14:23:12.455000",
+    "articleBody": "\u201cMy great-grandmothers were Indigenous and mostly nomadic, which means lots of fungi foraging,\u201d says Maricela Vega, the chef at Atlanta restaurant 8ARM and founder of Chicomec\u00f3atl, an organization centering the foodways of Indigenous Mexican diaspora. \u201cWhen I serve lion\u2019s mane mushrooms to vegans they sometimes mistake them for chicken, but they\u2019re more affordable, better for the planet, and help strengthen your immune system! They grow wild during Georgia winters, but at-home cultivation kits are easy for those without forest access. I use pumpkin hot sauce, oil, and fresh herbs as a marinade, then bust out a baby grill or cast-iron skillet to get them nice and crispy.\u201d This is a multistep recipe but perfect for long winter days when you want to flood the house with toasty, irresistible aromas. When you chop the mixed herbs, save the stems and throw them into the blanching water for the vegetables to add flavor.",
+    "alternativeHeadline": "This dish is perfect for long winter days when you want to flood the house with toasty, irresistible aromas.",
+    "dateModified": "2021-01-11 18:32:43.962000",
     "datePublished": "2021-01-12 04:00:00",
     "keywords": [
         "recipes",
-        "oil",
-        "macadamia nut",
-        "vanilla",
-        "butter",
-        "flour",
-        "barley",
+        "healthyish",
+        "vegan",
+        "herb",
+        "apple cider vinegar",
         "kosher salt",
-        "brown sugar",
-        "egg",
-        "vanilla extract",
+        "carrot",
+        "potato",
+        "radicchio",
+        "mushroom",
+        "oyster mushrooms",
+        "oil",
+        "black pepper",
+        "lemon",
         "web"
     ],
-    "thumbnailUrl": "https://assets.bonappetit.com/photos/5ff4b06a2f7e5df08337ef60/1:1/w_1005,h_1005,c_limit/Mother-Grains-Macadamia-and-Brown-Butter-Blondies.jpg",
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5ffc74b39cbb0a3c54d7400f/1:1/w_1199,h_1199,c_limit/HLY-Maricela-Vega-Grilled%20Mushrooms%20and%20Root%20Vegetables.jpg",
     "publisher": {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -43,49 +46,59 @@
     "author": [
         {
             "@type": "Person",
-            "name": "Roxana Jullapat",
-            "sameAs": "https://bon-appetit.com/contributor/roxana-jullapat/"
+            "name": "Maricela Vega",
+            "sameAs": "https://bon-appetit.com/contributor/maricela-vega/"
         }
     ],
-    "description": "Barley flour gives these blondies a chewy texture and butterscotch-like flavor.",
-    "image": "macadamia-and-brown-butter-blondies.jpg",
-    "headline": "Macadamia and Brown Butter Blondies",
-    "name": "Macadamia and Brown Butter Blondies",
+    "description": "This dish is perfect for long winter days when you want to flood the house with toasty, irresistible aromas.",
+    "image": "grilled-mushrooms-and-root-vegetables.jpg",
+    "headline": "Grilled Mushrooms and Root Vegetables",
+    "name": "Grilled Mushrooms and Root Vegetables",
     "recipeIngredient": [
-        "Nonstick vegetable oil spray",
-        "\u00bd cup (65 g) whole raw or toasted macadamia nuts",
-        "\u00bd vanilla bean, split lengthwise",
-        "18 Tbsp. unsalted butter",
-        "\u00be cup plus 2 Tbsp. (105 g) all-purpose flour",
-        "\u00be cup (85 g) barley flour",
-        "1\u00be tsp. baking powder",
-        "1\u00bd tsp. Diamond Crystal or \u00be tsp. Morton kosher salt",
-        "1 cup plus 7 Tbsp. (packed; 285 g) dark brown sugar",
-        "2 large eggs",
-        "1 tsp. vanilla extract",
-        "2 pints ice cream of choice (optional)"
+        "1 cup Sesame Cr\u00e8me",
+        "2 Tbsp. Allium Confit",
+        "2 Tbsp. finely chopped mixed tender herbs (parsley, oregano, and/or mint), stems reservedfor blanching vegetables",
+        "2 Tbsp. apple cider vinegar",
+        "Kosher salt, freshly ground pepper",
+        "1 cup finely chopped mixed herbs (parsley, oregano, and/or mint), stems reserved for blanching vegetables",
+        "Kosher salt",
+        "4 medium carrots (about 1 lb.), preferably rainbow, scrubbed, halved lengthwise, cut crosswise into thirds",
+        "4 lb. baby potatoes, halved",
+        "1 head of radicchio, coarsely chopped, divided",
+        "1 lb. lion\u2019s mane, king trumpet, or oyster mushrooms, cut into 2\" pieces",
+        "\u00bd cup Pumpkin Hot Sauce",
+        "\u00bd cup grapeseed or vegetable oil",
+        "Freshly ground black pepper",
+        "1 cup Spiced Pecans",
+        "1 lemon, halved"
     ],
     "recipeInstructions": [
         {
-            "text": "Preheat oven to 350\u00b0. Lightly coat a 9\"-diameter cake pan with nonstick spray and line bottom with a parchment paper round. If using raw macadamia nuts, toast on a rimmed baking sheet, tossing once, until golden, 8\u201310 minutes. Let cool, then coarsely chop."
+            "text": "Pur\u00e9e Sesame Cr\u00e8me, Allium Confit, chopped herbs, and vinegar in a blender on high speed, adding ice water by the tablespoonful as needed to achieve a pourable consistency, until smooth and creamy. Season sauce with salt and pepper."
         },
         {
-            "text": "Scrape vanilla seeds into a small saucepan; add pod and butter. Set over medium-low heat and cook, stirring occasionally, until butter foams, then browns, 6\u20138 minutes. Transfer to a medium bowl, scraping in all of the browned bits. Using tongs, remove and discard vanilla pod."
+            "text": "Fill a large pot three quarters full with water, add reserved herb stems, and season heavily with salt. Bring water to a boil, then add carrots and cook until just tender, about 3 minutes. Using a slotted spoon, immediately transfer carrots to a large bowl of ice water and let cool."
         },
         {
-            "text": "Whisk all-purpose and barley flours, baking powder, and salt in another medium bowl. Add brown sugar to brown butter and stir to combine. Add eggs one at a time, stirring well after each addition. Stir in dry ingredients, then vanilla extract and nuts. Scrape batter into prepared pan; smooth top."
+            "text": "Place potatoes in same pot and return to a boil. Cook until tender (flesh should be easy to pierce with a fork), about 10 minutes. Using slotted spoon, transfer potatoes to bowl of ice water and let cool. Drain carrots and potatoes; place in a clean large bowl and add half of the radicchio. Place mushrooms in a medium bowl."
         },
         {
-            "text": "Bake blondies, rotating halfway through, until top is golden brown and a tester inserted into the center comes out clean, 40\u201345 minutes. Let cool."
+            "text": "Whisk Pumpkin Hot Sauce, oil, and chopped herbs in another medium bowl. Pour half of mixture over carrots and potatoes and the other half over mushrooms; toss each to coat. Season with salt and pepper."
         },
         {
-            "text": "Turn out blondies, remove parchment, and cut into 12 wedges. Serve each with a scoop of ice cream if desired."
+            "text": "Prepare a grill for medium-high heat. (Alternatively, heat a large cast-iron skillet over medium-high.) Grill mushrooms, turning occasionally, until deep golden brown and crisp around the edges (or cook in batches, stirring often, if using a skillet), 12\u201314 minutes. Transfer mushrooms to a large shallow serving bowl."
+        },
+        {
+            "text": "Grill carrots, potatoes, and radicchio, turning occasionally, until deep golden brown all over (or cook in batches, tossing often, if using a skillet), about 4 minutes. Transfer vegetables to bowl with mushrooms and toss to combine."
+        },
+        {
+            "text": "To serve, drizzle generously with sesame sauce; top with Spiced Pecans and remaining radicchio. Squeeze juice from each lemon half over."
         }
     ],
-    "recipeYield": "Makes 12",
-    "url": "https://www.bonappetit.com/recipe/macadamia-and-brown-butter-blondies",
-    "slug": "macadamia-and-brown-butter-blondies",
-    "orgURL": "https://www.bonappetit.com/recipe/macadamia-and-brown-butter-blondies",
+    "recipeYield": "4 Servings",
+    "url": "https://www.bonappetit.com/recipe/grilled-mushrooms-and-root-vegetables",
+    "slug": "grilled-mushrooms-and-root-vegetables",
+    "orgURL": "https://www.bonappetit.com/recipe/grilled-mushrooms-and-root-vegetables",
     "categories": [],
     "tags": [],
     "dateAdded": null,

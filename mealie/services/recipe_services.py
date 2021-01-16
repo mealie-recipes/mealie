@@ -28,9 +28,9 @@ class Recipe(BaseModel):
     recipeIngredient: Optional[list]
     recipeInstructions: Optional[list]
 
-    totalTime: Optional[Any]
-    prepTime: Optional[str]
-    performTime: Optional[str]
+    totalTime: Optional[str] = None
+    prepTime: Optional[str] = None
+    performTime: Optional[str] = None
 
     # Mealie Specific
     slug: Optional[str] = ""
@@ -107,11 +107,11 @@ class Recipe(BaseModel):
         except:
             recipe_dict["image"] = "no image"
 
-        try:
-            total_time = recipe_dict.get("totalTime")
-            recipe_dict["totalTime"] = str(total_time)
-        except:
-            pass
+        # try:
+        #     total_time = recipe_dict.get("totalTime")
+        #     recipe_dict["totalTime"] = str(total_time)
+        # except:
+        #     pass
 
         recipe_doc = db.recipes.save_new(recipe_dict)
         recipe = Recipe(**recipe_doc)
