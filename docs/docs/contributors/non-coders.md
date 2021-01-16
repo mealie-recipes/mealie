@@ -7,6 +7,7 @@ We love your input! We want to make contributing to this project as easy and tra
 - Submitting a fix
 - Proposing new features
 - Becoming a maintainer
+- [Help translate to a new language or improve current translations](../translating)
 
 [Remember to join the Discord and stay in touch with other developers working on the project](https://discord.gg/R6QDyJgbD2)! 
 
