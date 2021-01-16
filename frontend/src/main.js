@@ -4,7 +4,6 @@ import vuetify from "./plugins/vuetify";
 import store from "./store/store";
 import VueRouter from "vue-router";
 import { routes } from "./routes";
-import VueCookies from "vue-cookies";
 import i18n from './i18n'
 
 Vue.config.productionTip = false;

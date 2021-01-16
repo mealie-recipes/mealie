@@ -37,7 +37,7 @@
       </v-row>
     </v-form>
     <SuccessFailureAlert
-      success-header="{{$t('migration.successfully-imported-from-nextcloud')}}"
+      :success-header="$t('migration.successfully-imported-from-nextcloud')"
       :success="successfulImports"
       failed-header="$t('migration.failed-imports')"
       :failed="failedImports"
