@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="headline"> Create a New Meal Plan </v-card-title>
+    <v-card-title class="headline">
+      {{$t('meal-plan.create-a-new-meal-plan')}}
+    </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
       <v-row dense>
@@ -17,7 +19,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="startComputedDateFormatted"
-                label="Start Date"
+                :label="$t('meal-plan.start-date')"
                 persistent-hint
                 prepend-icon="mdi-calendar"
                 readonly
@@ -45,7 +47,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="endComputedDateFormatted"
-                label="End Date"
+                :label="$t('meal-plan.end-date')"
                 persistent-hint
                 prepend-icon="mdi-calendar"
                 readonly
@@ -69,9 +71,9 @@
     <v-row align="center" justify="end">
       <v-card-actions>
         <v-btn color="success" @click="random" v-if="meals[1]" text>
-          Random
+          {{$t('general.random')}}
         </v-btn>
-        <v-btn color="success" @click="save" text> Save </v-btn>
+        <v-btn color="success" @click="save" text> {{$t('general.save')}} </v-btn>
 
         <v-spacer></v-spacer>
         <v-btn icon @click="show = !show"> </v-btn>

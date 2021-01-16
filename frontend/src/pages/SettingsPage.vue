@@ -1,30 +1,23 @@
 <template>
   <v-container>
-    <v-alert v-if="newVersion" color="green" type="success" outlined>
-      A New Version of Mealie is Avaiable,
-      <a
-        href="https://github.com/hay-kot/mealie/releases/latest"
-        target="_blank"
-        class="green--text"
-      >
-        Visit the Repo
-      </a>
+    <v-alert v-if="newVersion" color="green" type="success" outlined v-html="$t('settings.new-version-available', { aContents: 'target=\'_blank\' href=\'https://github.com/hay-kot/mealie\' class=\'green--text\''})">
+      
     </v-alert>
     <Theme />
     <Backup class="mt-2" />
     <Webhooks class="mt-2" />
     <Migration class="mt-2" />
     <p class="text-center my-2">
-      Version: {{ version }} | Latest: {{ latestVersion }} ·
+      {{$t('settings.version-latest', {current: version, latest: latestVersion})}} ·
       <a href="https://hay-kot.github.io/mealie/" target="_blank">
-        Explore the Docs
+        {{$t('settings.explore-the-docs')}}
       </a>
       ·
       <a
         href="https://hay-kot.github.io/mealie/2.1%20-%20Contributions/"
         target="_blank"
       >
-        Contribute
+        {{$t('settings.contribute')}}
       </a>
     </p>
   </v-container>

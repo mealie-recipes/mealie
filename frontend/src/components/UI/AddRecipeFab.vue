@@ -2,16 +2,15 @@
   <div class="text-center">
     <v-dialog v-model="addRecipe" width="650" @click:outside="reset">
       <v-card :loading="processing">
-        <v-card-title class="headline"> From URL </v-card-title>
+        <v-card-title class="headline">{{ $t('new-recipe.from-url') }} </v-card-title>
 
         <v-card-text>
           <v-form>
-            <v-text-field v-model="recipeURL" label="Recipe URL"></v-text-field>
+            <v-text-field v-model="recipeURL" :label="$t('new-recipe.recipe-url')"></v-text-field>
           </v-form>
 
           <v-alert v-if="error" color="red" outlined type="success">
-            Looks like there was an error parsing the URL. Check the log and
-            debug/last_recipe.json to see what went wrong.
+            {{ $t('new-recipe.error-message') }}
           </v-alert>
         </v-card-text>
 
@@ -19,8 +18,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="reset"> Close </v-btn>
-          <v-btn color="success" text @click="createRecipe"> Submit </v-btn>
+          <v-btn color="grey" text @click="reset"> {{$t('general.close')}} </v-btn>
+          <v-btn color="success" text @click="createRecipe"> {{ $t('general.submit') }} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

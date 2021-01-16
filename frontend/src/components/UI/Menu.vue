@@ -32,26 +32,32 @@
 
 <script>
 export default {
-  data: () => ({
-    items: [
-      {
-        icon: "mdi-calendar-week",
-        title: "Dinner This Week",
-        nav: "/meal-plan/this-week",
-      },
-      {
-        icon: "mdi-calendar-today",
-        title: "Dinner Today",
-        nav: "/meal-plan/today",
-      },
-      {
-        icon: "mdi-calendar-multiselect",
-        title: "Planner",
-        nav: "/meal-plan/planner",
-      },
-      { icon: "mdi-cog", title: "Settings", nav: "/settings/site" },
-    ],
-  }),
+  data: function () {
+    return {
+      items: [
+        {
+          icon: "mdi-calendar-week",
+          title: this.$i18n.t("meal-plan.dinner-this-week"),
+          nav: "/meal-plan/this-week",
+        },
+        {
+          icon: "mdi-calendar-today",
+          title: this.$i18n.t("meal-plan.dinner-today"),
+          nav: "/meal-plan/today",
+        },
+        {
+          icon: "mdi-calendar-multiselect",
+          title: this.$i18n.t("meal-plan.planner"),
+          nav: "/meal-plan/planner",
+        },
+        {
+          icon: "mdi-cog",
+          title: this.$i18n.t("general.settings"),
+          nav: "/settings/site",
+        },
+      ],
+    };
+  },
   methods: {
     navRouter(route) {
       this.$router.push(route);

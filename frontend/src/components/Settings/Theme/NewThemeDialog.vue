@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-btn text color="info" @click="dialog = true"> New </v-btn>
+    <v-btn text color="info" @click="dialog = true"> {{$t('general.new')}} </v-btn>
     <v-dialog v-model="dialog" width="400">
       <v-card>
-        <v-card-title> Add a New Theme </v-card-title>
+        <v-card-title> {{$t('settings.add-a-new-theme')}} </v-card-title>
         <v-card-text>
           <v-text-field
             label="Theme Name"
@@ -13,9 +13,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="dialog = false"> Cancel </v-btn>
+          <v-btn color="grey" text @click="dialog = false"> {{$t('general.cancel')}} </v-btn>
           <v-btn color="success" text @click="Select" :disabled="!themeName">
-            Create
+            {{$t('general.create')}}
           </v-btn>
         </v-card-actions>
       </v-card>

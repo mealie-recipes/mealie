@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="800">
       <v-card>
-        <v-card-title class="headline"> Choose a Recipe </v-card-title>
+        <v-card-title class="headline"> {{$t('meal-plan.choose-a-recipe')}} </v-card-title>
         <v-card-text>
           <v-autocomplete
             :items="availableRecipes"
@@ -13,14 +13,12 @@
             hide-details
             hide-selected
             item-text="slug"
-            label="Search for a Recipe"
+            :label="$t('search.search-for-a-recipe')"
             single-line
           >
             <template v-slot:no-data>
               <v-list-item>
-                <v-list-item-title>
-                  Search for your Favorite
-                  <strong>Recipe</strong>
+                <v-list-item-title :v-html="$t('search.search-for-your-favorite-recipe')">
                 </v-list-item-title>
               </v-list-item>
             </template>
@@ -44,8 +42,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="secondary" text @click="dialog = false"> Close </v-btn>
-          <v-btn color="secondary" text @click="dialog = false"> Select </v-btn>
+          <v-btn color="secondary" text @click="dialog = false"> {{$t('general.close')}} </v-btn>
+          <v-btn color="secondary" text @click="dialog = false"> {{$t('general.select')}} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

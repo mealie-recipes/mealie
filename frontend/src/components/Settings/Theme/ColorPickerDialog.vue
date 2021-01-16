@@ -5,7 +5,7 @@
     </v-btn>
     <v-dialog v-model="dialog" width="400">
       <v-card>
-        <v-card-title> {{ buttonText }} Color </v-card-title>
+        <v-card-title> {{ buttonText }} {{$t('settings.color')}} </v-card-title>
         <v-card-text>
           <v-text-field v-model="color"> </v-text-field>
           <v-row>
@@ -26,8 +26,8 @@
           </v-row>
         </v-card-text>
         <v-card-actions>
-          <v-btn text @click="toggleSwatches"> Swatches </v-btn>
-          <v-btn text @click="dialog = false"> Select </v-btn>
+          <v-btn text @click="toggleSwatches"> {{$t('settings.swatches')}} </v-btn>
+          <v-btn text @click="dialog = false"> {{$t('general.select')}} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

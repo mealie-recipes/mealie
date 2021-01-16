@@ -12,19 +12,19 @@
               <v-checkbox
                 class="mb-n4 mt-1"
                 dense
-                label="Import Recipes"
+                :label="$t('settings.backup.import-recipes')"
                 v-model="importRecipes"
               ></v-checkbox>
               <v-checkbox
                 class="my-n4"
                 dense
-                label="Import Themes"
+                :label="$t('settings.backup.import-themes')"
                 v-model="importThemes"
               ></v-checkbox>
               <v-checkbox
                 class="my-n4"
                 dense
-                label="Import Settings"
+                :label="$t('settings.backup.import-settings')"
                 v-model="importSettings"
               ></v-checkbox>
             </v-col>
@@ -66,14 +66,14 @@
 
         <v-card-actions>
           <v-btn disabled color="success" text @click="raiseEvent('download')">
-            Download
+            {{$t('general.download')}}
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn color="error" text @click="raiseEvent('delete')">
-            Delete
+            {{$t('general.delete')}}
           </v-btn>
           <v-btn color="success" text @click="raiseEvent('import')">
-            Import
+            {{$t('general.import')}}
           </v-btn>
         </v-card-actions>
       </v-card>

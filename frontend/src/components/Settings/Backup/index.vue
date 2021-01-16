@@ -1,33 +1,30 @@
 <template>
-  <v-card :loading="backupLoading">
-    <v-card-title class="headline"> Backup and Exports </v-card-title>
+  <v-card :loading="backupLoading" class="mt-3" min-height="410px">
+    <v-card-title class="headline">
+      {{$t('settings.backup-and-exports')}}
+    </v-card-title>
     <v-divider></v-divider>
 
     <v-card-text>
       <p>
-        Backups are exported in standard JSON format along with all the images
-        stored on the file system. In your backup folder you'll find a .zip file
-        that contains all of the recipe JSON and images from the database.
-        Additionally, if you selected a markdown file, those will also be stored
-        in the .zip file. To import a backup, it must be located in your backups
-        folder. Automated backups are done each day at 3:00 AM.
+        {{$t('settings.backup-info')}}
       </p>
 
       <v-row dense align="center">
         <v-col dense cols="12" sm="12" md="4">
-          <v-text-field v-model="backupTag" label="Backup Tag"></v-text-field>
+          <v-text-field v-model="backupTag" :label="$t('settings.backup-tag')"></v-text-field>
         </v-col>
         <v-col cols="12" sm="12" md="3">
           <v-combobox
             auto-select-first
-            label="Markdown Template"
+            :label="$t('settings.markdown-template')"
             :items="availableTemplates"
             v-model="selectedTemplate"
           ></v-combobox>
         </v-col>
         <v-col dense cols="12" sm="12" md="2">
           <v-btn block text color="accent" @click="createBackup" width="165">
-            Backup Recipes
+            {{$t('settings.backup-recipes')}}
           </v-btn>
         </v-col>
       </v-row>

@@ -8,7 +8,7 @@
     <NewMeal v-else @created="requestMeals" />
 
     <v-card class="my-1">
-      <v-card-title class="headline"> Meal Plans </v-card-title>
+      <v-card-title class="headline"> {{$t('meal-plan.meal-plans')}} </v-card-title>
       <v-divider></v-divider>
 
       <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
@@ -50,7 +50,7 @@
                   text
                   @click="editPlan(mealplan.uid)"
                 >
-                  Edit
+                  {{$t('general.edit')}}
                 </v-btn>
                 <v-btn
                   color="error lighten-2"
@@ -58,7 +58,7 @@
                   text
                   @click="deletePlan(mealplan.uid)"
                 >
-                  Delete
+                  {{$t('general.delete')}}
                 </v-btn>
               </v-row>
             </v-card-text>
