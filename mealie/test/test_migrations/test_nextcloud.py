@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from app_config import TEMP_DIR
 import pytest
 from services.image_services import IMG_DIR
 from services.migrations.nextcloud import (
@@ -12,7 +12,7 @@ from services.recipe_services import Recipe
 
 CWD = Path(__file__).parent
 NEXTCLOUD_DIR = CWD.parent.joinpath("data", "nextcloud_recipes")
-TEMP_NEXTCLOUD = CWD.parent.parent.joinpath("data", "temp", "nextcloud")
+TEMP_NEXTCLOUD = TEMP_DIR.joinpath("nextcloud")
 
 
 @pytest.mark.parametrize(
