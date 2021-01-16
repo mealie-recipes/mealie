@@ -7,6 +7,7 @@ __pycache__/
 docs/site/
 mealie/temp/*
 mealie/temp/api.html
+.temp/
 
 
 mealie/data/backups/*
@@ -151,3 +152,130 @@ ENV/
 # Node Modules
 node_modules/
 mealie/data/debug/last_recipe.json
+mealie/data/temp/active_import/images/.gitkeep
+mealie/data/temp/active_import/images/banana-bread.jpg
+mealie/data/temp/active_import/images/bon-appetit-s-perfect-pizza.jpg
+mealie/data/temp/active_import/images/braised-beans-and-sardines-with-fennel.jpg
+mealie/data/temp/active_import/images/broccoli-beer-cheese-soup.jpg
+mealie/data/temp/active_import/images/buttery-kimchi-chicken.jpg
+mealie/data/temp/active_import/images/cauliflower-cacciatore.jpg
+mealie/data/temp/active_import/images/chicken-salad-with-citrus-and-chile-oil.jpg
+mealie/data/temp/active_import/images/coffee-hazelnut-biscotti.jpg
+mealie/data/temp/active_import/images/corn-and-crab-beignets-with-yaji-aioli.jpg
+mealie/data/temp/active_import/images/crispy-carrots.jpg
+mealie/data/temp/active_import/images/crispy-rice-with-ginger-citrus-celery-salad.jpg
+mealie/data/temp/active_import/images/crockpot-buffalo-chicken.jpg
+mealie/data/temp/active_import/images/detroit-style-pepperoni-pizza.jpg
+mealie/data/temp/active_import/images/downtown-marinade.jpg
+mealie/data/temp/active_import/images/falafel-hummus-plate.jpg
+mealie/data/temp/active_import/images/five-spice-popcorn-chicken.jpg
+mealie/data/temp/active_import/images/ginger-citrus-cookies.jpg
+mealie/data/temp/active_import/images/green-chile-stew.jpg
+mealie/data/temp/active_import/images/green-seasoning-baked-cod.jpg
+mealie/data/temp/active_import/images/green-spaghetti.jpg
+mealie/data/temp/active_import/images/huevos-rancheros-con-rajas-y-champinones.jpg
+mealie/data/temp/active_import/images/jalapeno-cornbread.jpg
+mealie/data/temp/active_import/images/marinated-tofu-with-brussels-sprouts-and-farro.jpg
+mealie/data/temp/active_import/images/marranitos-enfiestados.jpg
+mealie/data/temp/active_import/images/mississippi-pot-roast.jpg
+mealie/data/temp/active_import/images/mushroom-risotto.jpg
+mealie/data/temp/active_import/images/new-york-strip.jpg
+mealie/data/temp/active_import/images/nilla-wafer-french-toast.jpg
+mealie/data/temp/active_import/images/one-minute-muffin.jpg
+mealie/data/temp/active_import/images/one-pot-chicken-and-rice.jpg
+mealie/data/temp/active_import/images/pace-pork.jpg
+mealie/data/temp/active_import/images/pasta-with-mushrooms-and-cashew-cream.jpg
+mealie/data/temp/active_import/images/pizzettes.jpg
+mealie/data/temp/active_import/images/pork-steaks.jpg
+mealie/data/temp/active_import/images/roasted-brussels-sprouts.jpg
+mealie/data/temp/active_import/images/roasted-okra.jpg
+mealie/data/temp/active_import/images/salt-vinegar-potatoes.jpg
+mealie/data/temp/active_import/images/shrimp-and-cabbage-curry.jpg
+mealie/data/temp/active_import/images/smashed-carrots.jpg
+mealie/data/temp/active_import/images/tamarind-chicken-thighs-with-collard-greens-salad.jpg
+mealie/data/temp/active_import/images/tequila-beer-and-citrus-cocktail.jpg
+mealie/data/temp/active_import/recipes/banana-bread.json
+mealie/data/temp/active_import/recipes/bon-appetit-s-perfect-pizza.json
+mealie/data/temp/active_import/recipes/braised-beans-and-sardines-with-fennel.json
+mealie/data/temp/active_import/recipes/broccoli-beer-cheese-soup.json
+mealie/data/temp/active_import/recipes/buttery-kimchi-chicken.json
+mealie/data/temp/active_import/recipes/cauliflower-cacciatore.json
+mealie/data/temp/active_import/recipes/chicken-salad-with-citrus-and-chile-oil.json
+mealie/data/temp/active_import/recipes/coffee-hazelnut-biscotti.json
+mealie/data/temp/active_import/recipes/corn-and-crab-beignets-with-yaji-aioli.json
+mealie/data/temp/active_import/recipes/crispy-carrots.json
+mealie/data/temp/active_import/recipes/crispy-rice-with-ginger-citrus-celery-salad.json
+mealie/data/temp/active_import/recipes/crockpot-buffalo-chicken.json
+mealie/data/temp/active_import/recipes/detroit-style-pepperoni-pizza.json
+mealie/data/temp/active_import/recipes/downtown-marinade.json
+mealie/data/temp/active_import/recipes/falafel-hummus-plate.json
+mealie/data/temp/active_import/recipes/five-spice-popcorn-chicken.json
+mealie/data/temp/active_import/recipes/ginger-citrus-cookies.json
+mealie/data/temp/active_import/recipes/green-chile-stew.json
+mealie/data/temp/active_import/recipes/green-seasoning-baked-cod.json
+mealie/data/temp/active_import/recipes/green-spaghetti.json
+mealie/data/temp/active_import/recipes/huevos-rancheros-con-rajas-y-champinones.json
+mealie/data/temp/active_import/recipes/jalapeno-cornbread.json
+mealie/data/temp/active_import/recipes/marinated-tofu-with-brussels-sprouts-and-farro.json
+mealie/data/temp/active_import/recipes/marranitos-enfiestados.json
+mealie/data/temp/active_import/recipes/mississippi-pot-roast.json
+mealie/data/temp/active_import/recipes/mushroom-risotto.json
+mealie/data/temp/active_import/recipes/new-york-strip.json
+mealie/data/temp/active_import/recipes/nilla-wafer-french-toast.json
+mealie/data/temp/active_import/recipes/one-minute-muffin.json
+mealie/data/temp/active_import/recipes/one-pot-chicken-and-rice.json
+mealie/data/temp/active_import/recipes/pace-pork.json
+mealie/data/temp/active_import/recipes/pasta-with-mushrooms-and-cashew-cream.json
+mealie/data/temp/active_import/recipes/pizzettes.json
+mealie/data/temp/active_import/recipes/pork-steaks.json
+mealie/data/temp/active_import/recipes/roasted-brussels-sprouts.json
+mealie/data/temp/active_import/recipes/roasted-okra.json
+mealie/data/temp/active_import/recipes/salt-vinegar-potatoes.json
+mealie/data/temp/active_import/recipes/shrimp-and-cabbage-curry.json
+mealie/data/temp/active_import/recipes/smashed-carrots.json
+mealie/data/temp/active_import/recipes/tamarind-chicken-thighs-with-collard-greens-salad.json
+mealie/data/temp/active_import/recipes/tequila-beer-and-citrus-cocktail.json
+mealie/data/temp/active_import/settings/settings.json
+mealie/data/temp/active_import/templates/Banana Bread.md
+mealie/data/temp/active_import/templates/Bon Appétit's Perfect Pizza.md
+mealie/data/temp/active_import/templates/Braised Beans and Sardines With Fennel.md
+mealie/data/temp/active_import/templates/Broccoli Beer Cheese Soup.md
+mealie/data/temp/active_import/templates/Buttery Kimchi Chicken.md
+mealie/data/temp/active_import/templates/Cauliflower Cacciatore.md
+mealie/data/temp/active_import/templates/Chicken Salad With Citrus and Chile Oil.md
+mealie/data/temp/active_import/templates/Coffee-Hazelnut Biscotti.md
+mealie/data/temp/active_import/templates/Corn and Crab Beignets With Yaji Aioli.md
+mealie/data/temp/active_import/templates/Crispy Carrots.md
+mealie/data/temp/active_import/templates/Crispy Rice With Ginger-Citrus Celery Salad.md
+mealie/data/temp/active_import/templates/Crockpot Buffalo Chicken.md
+mealie/data/temp/active_import/templates/Detroit-Style Pepperoni Pizza.md
+mealie/data/temp/active_import/templates/Downtown Marinade.md
+mealie/data/temp/active_import/templates/Falafel-Hummus Plate.md
+mealie/data/temp/active_import/templates/Five Spice Popcorn Chicken.md
+mealie/data/temp/active_import/templates/Ginger-Citrus Cookies.md
+mealie/data/temp/active_import/templates/Green Chile Stew.md
+mealie/data/temp/active_import/templates/Green Seasoning Baked Cod.md
+mealie/data/temp/active_import/templates/Green Spaghetti.md
+mealie/data/temp/active_import/templates/Huevos Rancheros con Rajas y Champiñones.md
+mealie/data/temp/active_import/templates/Jalapeno Cornbread.md
+mealie/data/temp/active_import/templates/Marinated Tofu With Brussels Sprouts and Farro.md
+mealie/data/temp/active_import/templates/Marranitos Enfiestados.md
+mealie/data/temp/active_import/templates/Mississippi Pot Roast.md
+mealie/data/temp/active_import/templates/Mushroom Risotto.md
+mealie/data/temp/active_import/templates/New York Strip.md
+mealie/data/temp/active_import/templates/Nilla Wafer French Toast.md
+mealie/data/temp/active_import/templates/One Minute Muffin.md
+mealie/data/temp/active_import/templates/One-Pot Chicken and Rice.md
+mealie/data/temp/active_import/templates/Pace Pork.md
+mealie/data/temp/active_import/templates/Pasta With Mushrooms and Cashew Cream.md
+mealie/data/temp/active_import/templates/Pizzettes.md
+mealie/data/temp/active_import/templates/Pork Steaks.md
+mealie/data/temp/active_import/templates/Roasted Brussels Sprouts.md
+mealie/data/temp/active_import/templates/Roasted Okra.md
+mealie/data/temp/active_import/templates/Salt & Vinegar Potatoes.md
+mealie/data/temp/active_import/templates/Shrimp and Cabbage Curry.md
+mealie/data/temp/active_import/templates/Smashed Carrots.md
+mealie/data/temp/active_import/templates/Tamarind Chicken Thighs With Collard Greens Salad.md
+mealie/data/temp/active_import/templates/Tequila, Beer, and Citrus Cocktail.md
+mealie/data/temp/active_import/themes/themes.json
+mealie/data/mealie.sqlite

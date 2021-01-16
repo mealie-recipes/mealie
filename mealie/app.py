@@ -1,10 +1,9 @@
-from pathlib import Path
-
 import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-import startup
+import utils.startup as startup
+from app_config import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from routes import (
     backup_routes,
     meal_routes,
@@ -14,12 +13,10 @@ from routes import (
     static_routes,
     user_routes,
 )
-from routes.setting_routes import scheduler  # ! This has to be imported for scheduling
-from settings import PORT, PRODUCTION, docs_url, redoc_url
+from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
-CWD = Path(__file__).parent
-WEB_PATH = CWD.joinpath("dist")
+startup.pre_start()
 
 app = FastAPI(
     title="Mealie",
@@ -29,18 +26,25 @@ app = FastAPI(
     redoc_url=redoc_url,
 )
 
-# Mount Vue Frontend only in production
-if PRODUCTION:
+
+def mount_static_files():
     app.mount("/static", StaticFiles(directory=WEB_PATH, html=True))
 
 
-# API Routes
-app.include_router(recipe_routes.router)
-app.include_router(meal_routes.router)
-app.include_router(setting_routes.router)
-app.include_router(backup_routes.router)
-app.include_router(user_routes.router)
-app.include_router(migration_routes.router)
+def api_routers():
+    # First
+    app.include_router(recipe_routes.router)
+    app.include_router(meal_routes.router)
+    app.include_router(setting_routes.router)
+    app.include_router(backup_routes.router)
+    app.include_router(user_routes.router)
+    app.include_router(migration_routes.router)
+
+
+if PRODUCTION:
+    mount_static_files()
+
+api_routers()
 
 # API 404 Catch all CALL AFTER ROUTERS
 @app.get("/api/{full_path:path}", status_code=404, include_in_schema=False)
@@ -50,12 +54,10 @@ def invalid_api():
 
 app.include_router(static_routes.router)
 
-startup.ensure_dirs()
-startup.generate_default_theme()
 
 # Generate API Documentation
 if not PRODUCTION:
-    startup.generate_api_docs(app)
+    generate_api_docs(app)
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")

@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.8.2",
+    "fuse.js": "^6.4.6",
     "qs": "^6.9.4",
     "v-jsoneditor": "^1.4.2",
     "vue": "^2.6.11",

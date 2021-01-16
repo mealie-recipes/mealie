@@ -1,51 +1,59 @@
+import operator
+
+from app_config import BACKUP_DIR, TEMPLATE_DIR
 from fastapi import APIRouter, HTTPException
-from models.backup_models import BackupJob, Imports
-from services.backup_services import (
-    BACKUP_DIR,
-    TEMPLATE_DIR,
-    export_db,
-    import_from_archive,
-)
+from models.backup_models import BackupJob, ImportJob, Imports, LocalBackup
+from services.backups.exports import backup_all
+from services.backups.imports import ImportDatabase
 from utils.snackbar import SnackResponse
 
-router = APIRouter()
+router = APIRouter(tags=["Import / Export"])
 
 
-@router.get("/api/backups/available/", tags=["Import / Export"], response_model=Imports)
-async def available_imports():
+@router.get("/api/backups/available/", response_model=Imports)
+def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
     templates = []
     for archive in BACKUP_DIR.glob("*.zip"):
-        imports.append(archive.name)
+        backup = LocalBackup(name=archive.name, date=archive.stat().st_ctime)
+        imports.append(backup)
 
     for template in TEMPLATE_DIR.glob("*.md"):
         templates.append(template.name)
 
+    imports.sort(key=operator.attrgetter("date"), reverse=True)
+
     return Imports(imports=imports, templates=templates)
 
 
-@router.post("/api/backups/export/database/", tags=["Import / Export"], status_code=201)
-async def export_database(data: BackupJob):
+@router.post("/api/backups/export/database/", status_code=201)
+def export_database(data: BackupJob):
     """Generates a backup of the recipe database in json format."""
-
+    export_path = backup_all(data.tag, data.template)
     try:
-        export_path = export_db(data.tag, data.template)
+        return SnackResponse.success("Backup Created at " + export_path)
     except:
         HTTPException(
             status_code=400,
             detail=SnackResponse.error("Error Creating Backup. See Log File"),
         )
 
-    return SnackResponse.success("Backup Created at " + export_path)
 
-
-@router.post(
-    "/api/backups/{file_name}/import/", tags=["Import / Export"], status_code=200
-)
-async def import_database(file_name: str):
+@router.post("/api/backups/{file_name}/import/", status_code=200)
+def import_database(file_name: str, import_data: ImportJob):
     """ Import a database backup file generated from Mealie. """
-    imported = import_from_archive(file_name)
+
+    import_db = ImportDatabase(
+        zip_archive=import_data.name,
+        import_recipes=import_data.recipes,
+        force_import=import_data.force,
+        rebase=import_data.rebase,
+        import_settings=import_data.settings,
+        import_themes=import_data.themes,
+    )
+
+    imported = import_db.run()
     return imported
 
 
@@ -54,7 +62,7 @@ async def import_database(file_name: str):
     tags=["Import / Export"],
     status_code=200,
 )
-async def delete_backup(backup_name: str):
+def delete_backup(backup_name: str):
     """ Removes a database backup from the file system """
 
     try:

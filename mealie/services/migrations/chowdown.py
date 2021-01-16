@@ -3,8 +3,8 @@ from pathlib import Path
 
 import git
 import yaml
-from services.image_services import IMG_DIR
 from services.recipe_services import Recipe
+from app_config import IMG_DIR
 
 try:
     from yaml import CLoader as Loader

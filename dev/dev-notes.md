@@ -16,27 +16,39 @@ Don't forget to [join the Discord](https://discord.gg/R6QDyJgbD2)!
 
 # Todo's
 
+Documentation
+- [ ] V0.1.0 Release Notes
+- [ ] Nextcloud Migration How To
+- [ ] New Docker Setup with Sqlite
+- [ ] Update Env Variables
+- [ ] New Roadmap / Milestones
+
 Frontend
-- [x] .Vue file reorganized into something that makes sense
+- [ ] Prep / Cook / Total Time Indicator + Editor
+- [ ] No Meal Today Page instead of Null 
 - [ ] Recipe Print Page 
-- [x] Catch 400 / bad response on create from URL
 - [ ] Recipe Editor Data Validation Client Side
-- [x] Favicon
-- [x] Rename Window
-- [x] Add version indicator and notification for new version available
-- [ ] Enhanced Search Functionality
 - [ ] Organize Home Page my Category, ideally user selectable.
+- [ ] Advanced Search Page, draft started
+- [ ] Search Bar Re-design
+- [ ] Replace Backups card with something like Home Assistant
+- [ ] Replace import card with something like Home Assistant
+  - [ ] Select which imports to do
 
 Backend
-- [x] Add Debug folder for writing the last pulled recipe data to. 
-- [x] Recipe Editor Data Validation Server Side
-- [ ] Normalize Recipe data on scrape
+- [ ] Database Import
+  - [x] Recipes
+  - [x] Images
+  - [ ] Meal Plans
+  - [ ] Settings
+  - [ ] Themes
+- [ ] Remove Print / Debug Code
 - [ ] Support how to Sections and how to steps
-- [ ] Export Markdown on Auto backups
 - [ ] Recipe request by category/tags
-- [ ] Add Additional Migrations, See mealie/services/migrations/chowdown.py for examples of how to do this.
-  - [ ] Open Eats [See Issue #4](https://github.com/hay-kot/mealie/issues/4)
-  - [ ] NextCloud [See Issue #14](https://github.com/hay-kot/mealie/issues/14)
+
+
+SQL
+- [ ] Setup Database Migrations
 
 # Draft Changelog
 ## v0.0.2

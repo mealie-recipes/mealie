@@ -1,17 +1,22 @@
 <template>
   <v-app>
     <v-app-bar dense app color="primary" dark class="d-print-none">
-      <v-btn @click="$router.push('/')" icon class="d-flex align-center">
-        <v-icon size="40">
-          mdi-silverware-variant
-        </v-icon>
+      <v-btn @click="$router.push('/')" icon>
+        <v-icon size="40"> mdi-silverware-variant </v-icon>
       </v-btn>
       <div btn class="pl-2">
         <v-toolbar-title @click="$router.push('/')">Mealie</v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
-
+      <v-expand-x-transition>
+        <SearchBar
+          class="mt-7"
+          v-if="search"
+          :show-results="true"
+          @selected="navigateFromSearch"
+        />
+      </v-expand-x-transition>
       <v-btn icon @click="toggleSearch">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
@@ -22,10 +27,6 @@
       <v-container>
         <AddRecipeFab />
         <SnackBar />
-        <v-expand-transition>
-          <SearchHeader v-show="search" />
-        </v-expand-transition>
-
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -34,7 +35,7 @@
 
 <script>
 import Menu from "./components/UI/Menu";
-import SearchHeader from "./components/UI/SearchHeader";
+import SearchBar from "./components/UI/SearchBar";
 import AddRecipeFab from "./components/UI/AddRecipeFab";
 import SnackBar from "./components/UI/SnackBar";
 import Vuetify from "./plugins/vuetify";
@@ -44,14 +45,14 @@ export default {
   components: {
     Menu,
     AddRecipeFab,
-    SearchHeader,
-    SnackBar
+    SnackBar,
+    SearchBar,
   },
 
   watch: {
     $route() {
       this.search = false;
-    }
+    },
   },
 
   mounted() {
@@ -62,7 +63,7 @@ export default {
   },
 
   data: () => ({
-    search: false
+    search: false,
   }),
   methods: {
     /**
@@ -90,8 +91,11 @@ export default {
       } else {
         this.search = true;
       }
-    }
-  }
+    },
+    navigateFromSearch(slug) {
+      this.$router.push(`/recipe/${slug}`);
+    },
+  },
 };
 </script>
 
