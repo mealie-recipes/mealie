@@ -6,7 +6,7 @@ from pathlib import Path
 
 from services.recipe_services import Recipe
 from services.scrape_services import normalize_data, process_recipe_data
-from settings import IMG_DIR, TEMP_DIR
+from app_config import IMG_DIR, TEMP_DIR
 
 CWD = Path(__file__).parent
 MIGRTAION_DIR = CWD.parent.parent.joinpath("data", "migration")

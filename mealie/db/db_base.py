@@ -2,7 +2,7 @@ import json
 from typing import Union
 
 import mongoengine
-from settings import USE_MONGO, USE_SQL
+from app_config import USE_MONGO, USE_SQL
 from sqlalchemy.orm.session import Session
 
 from db.sql.db_session import create_session

@@ -1,21 +1,20 @@
 from typing import List
 
 from fastapi import APIRouter, HTTPException
-from models.recipe_models import SlugResponse
 from services.meal_services import MealPlan
 from utils.snackbar import SnackResponse
 
-router = APIRouter()
+router = APIRouter(tags=["Meal Plan"])
 
 
-@router.get("/api/meal-plan/all/", tags=["Meal Plan"], response_model=List[MealPlan])
+@router.get("/api/meal-plan/all/", response_model=List[MealPlan])
 def get_all_meals():
     """ Returns a list of all available Meal Plan """
 
     return MealPlan.get_all()
 
 
-@router.post("/api/meal-plan/create/", tags=["Meal Plan"])
+@router.post("/api/meal-plan/create/")
 def set_meal_plan(data: MealPlan):
     """ Creates a meal plan database entry """
     data.process_meals()
@@ -29,7 +28,7 @@ def set_meal_plan(data: MealPlan):
     return SnackResponse.success("Mealplan Created")
 
 
-@router.post("/api/meal-plan/{plan_id}/update/", tags=["Meal Plan"])
+@router.post("/api/meal-plan/{plan_id}/update/")
 def update_meal_plan(plan_id: str, meal_plan: MealPlan):
     """ Updates a meal plan based off ID """
     meal_plan.process_meals()
@@ -46,7 +45,7 @@ def update_meal_plan(plan_id: str, meal_plan: MealPlan):
     return SnackResponse.success("Mealplan Updated")
 
 
-@router.delete("/api/meal-plan/{plan_id}/delete/", tags=["Meal Plan"])
+@router.delete("/api/meal-plan/{plan_id}/delete/")
 def delete_meal_plan(plan_id):
     """ Removes a meal plan from the database """
 
@@ -68,7 +67,7 @@ def get_today():
     return MealPlan.today()
 
 
-@router.get("/api/meal-plan/this-week/", tags=["Meal Plan"], response_model=MealPlan)
+@router.get("/api/meal-plan/this-week/", response_model=MealPlan)
 def get_this_week():
     """ Returns the meal plan data for this week """
 

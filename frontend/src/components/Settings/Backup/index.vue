@@ -26,36 +26,16 @@
           ></v-combobox>
         </v-col>
         <v-col dense cols="12" sm="12" md="2">
-          <v-btn block color="accent" @click="createBackup" width="165">
+          <v-btn block text color="accent" @click="createBackup" width="165">
             Backup Recipes
           </v-btn>
         </v-col>
       </v-row>
-
-      <v-row dense align="center">
-        <v-col dense cols="12" sm="12" md="4">
-          <v-form ref="form">
-            <v-combobox
-              auto-select-first
-              label="Select a Backup for Import"
-              :items="availableBackups"
-              v-model="selectedBackup"
-              :rules="[(v) => !!v || 'Backup Selection is Required']"
-              required
-            ></v-combobox>
-          </v-form>
-        </v-col>
-        <v-col dense cols="12" sm="12" md="3" lg="2">
-          <v-btn block color="accent" @click="importBackup">
-            Import Backup
-          </v-btn>
-        </v-col>
-        <v-col dense cols="12" sm="12" md="2" lg="2">
-          <v-btn block color="error" @click="deleteBackup">
-            Delete Backup
-          </v-btn>
-        </v-col>
-      </v-row>
+      <BackupCard
+        @loading="backupLoading = true"
+        @finished="processFinished"
+        :backups="availableBackups"
+      />
       <SuccessFailureAlert
         success-header="Successfully Imported"
         :success="successfulImports"
@@ -69,10 +49,12 @@
 <script>
 import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import BackupCard from "./BackupCard";
 
 export default {
   components: {
     SuccessFailureAlert,
+    BackupCard,
   },
   data() {
     return {
@@ -95,18 +77,6 @@ export default {
       this.availableBackups = response.imports;
       this.availableTemplates = response.templates;
     },
-    async importBackup() {
-      if (this.$refs.form.validate()) {
-        this.backupLoading = true;
-
-        let response = await api.backups.import(this.selectedBackup);
-        console.log(response.data);
-        this.failedImports = response.data.failed;
-        this.successfulImports = response.data.successful;
-
-        this.backupLoading = false;
-      }
-    },
     deleteBackup() {
       if (this.$refs.form.validate()) {
         this.backupLoading = true;
@@ -128,6 +98,12 @@ export default {
         this.getAvailableBackups();
         this.backupLoading = false;
       }
+    },
+    processFinished(successful = null, failed = null) {
+      this.getAvailableBackups();
+      this.backupLoading = false;
+      this.successfulImports = successful;
+      this.failedImports = failed;
     },
   },
 };

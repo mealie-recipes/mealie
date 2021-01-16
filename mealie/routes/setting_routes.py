@@ -4,24 +4,24 @@ from services.settings_services import SiteSettings, SiteTheme
 from utils.global_scheduler import scheduler
 from utils.snackbar import SnackResponse
 
-router = APIRouter()
+router = APIRouter(tags=["Settings"])
 
 
-@router.get("/api/site-settings/", tags=["Settings"])
+@router.get("/api/site-settings/")
 def get_main_settings():
     """ Returns basic site settings """
 
     return SiteSettings.get_site_settings()
 
 
-@router.post("/api/site-settings/webhooks/test/", tags=["Settings"])
+@router.post("/api/site-settings/webhooks/test/")
 def test_webhooks():
     """ Run the function to test your webhooks """
 
     return post_webhooks()
 
 
-@router.post("/api/site-settings/update/", tags=["Settings"])
+@router.post("/api/site-settings/update/")
 def update_settings(data: SiteSettings):
     """ Returns Site Settings """
     data.update()

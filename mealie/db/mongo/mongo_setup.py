@@ -1,5 +1,5 @@
 import mongoengine
-from settings import DB_HOST, DB_PASSWORD, DB_PORT, DB_USERNAME, MEALIE_DB_NAME
+from app_config import DB_HOST, DB_PASSWORD, DB_PORT, DB_USERNAME, MEALIE_DB_NAME
 from utils.logger import logger
 
 

@@ -6,7 +6,7 @@ from typing import List
 
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings, SiteTheme
-from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR
+from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from utils.logger import logger
 
 
@@ -73,7 +73,6 @@ class ImportDatabase:
             with open(recipe, "r") as f:
                 recipe_dict = json.loads(f.read())
                 recipe_dict = ImportDatabase._recipe_migration(recipe_dict)
-
 
                 recipe_obj = Recipe(**recipe_dict)
                 recipe_obj.save_to_db()
