@@ -7,21 +7,22 @@
   - Fixed Images saved with no way to delete when add recipe via URL fails - Closes Issue #43
 
 ### Features
-  - Additional database! sqlite is now supported! Closes #48
+  - Additional database! SQlite is now supported! Closes #48
   - All site data is now backed up.
+  - New backup import process with support for themes and site settings
 
-
-### Code Improvements
+### Code / Developer Improvements
   - Unified Database Access Layers
-  - Poetry / pyproject.toml support
+  - Poetry / pyproject.toml support over requirements.txt
   - Local development without database is now possible!
+  - Local mkdocs server added to docker-compose.dev.yml
   - Major code refactoring to support new database layer
   - Global variable refactor
 
 ### Break Changes
 
-!!! warning
-    As I've adopted the SQL database model I find that using 2 different types of databases will inevitably hinder development. As such after release v0.1.0 support for mongoDB will not longer be available. Prior to upgrading to v0.2.0 you will need to export your site and import your settings after updating. This should be a painless process and require minimal intervention on the users part. Moving forward we will do our best to minimize changes that require user intervention like this. 
+!!! error "Breaking Changes"
+    As I've adopted the SQL database model I find that using 2 different types of databases will inevitably hinder development. As such after release v0.1.0 support for mongoDB will no longer be available. Prior to upgrading to v0.2.0 you will need to export your site and import after updating. This should be a painless process and require minimal intervention on the users part. Moving forward we will do our best to minimize changes that require user intervention like this and make updates a smooth process. 
 
 
 ## v0.0.2 - Pre-release Second Patch
