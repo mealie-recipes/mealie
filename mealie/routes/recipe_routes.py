@@ -12,9 +12,7 @@ router = APIRouter()
 
 
 @router.get("/api/all-recipes/", tags=["Recipes"], response_model=List[dict])
-async def get_all_recipes(
-    keys: Optional[List[str]] = Query(...), num: Optional[int] = 100
-):
+def get_all_recipes(keys: Optional[List[str]] = Query(...), num: Optional[int] = 100):
     """
     Returns key data for all recipes based off the query paramters provided.
     For example, if slug, image, and name are provided you will recieve a list of
@@ -31,7 +29,7 @@ async def get_all_recipes(
 
 
 @router.post("/api/all-recipes/", tags=["Recipes"], response_model=List[dict])
-async def get_all_recipes_post(body: AllRecipeRequest):
+def get_all_recipes_post(body: AllRecipeRequest):
     """
     Returns key data for all recipes based off the body data provided.
     For example, if slug, image, and name are provided you will recieve a list of
@@ -47,7 +45,7 @@ async def get_all_recipes_post(body: AllRecipeRequest):
 
 
 @router.get("/api/recipe/{recipe_slug}/", tags=["Recipes"], response_model=Recipe)
-async def get_recipe(recipe_slug: str):
+def get_recipe(recipe_slug: str):
     """ Takes in a recipe slug, returns all data for a recipe """
     recipe = Recipe.get_by_slug(recipe_slug)
 
@@ -55,7 +53,7 @@ async def get_recipe(recipe_slug: str):
 
 
 @router.get("/api/recipe/image/{recipe_slug}/", tags=["Recipes"])
-async def get_recipe_img(recipe_slug: str):
+def get_recipe_img(recipe_slug: str):
     """ Takes in a recipe slug, returns the static image """
     recipe_image = read_image(recipe_slug)
 
@@ -69,7 +67,7 @@ async def get_recipe_img(recipe_slug: str):
     status_code=201,
     response_model=str,
 )
-async def parse_recipe_url(url: RecipeURLIn):
+def parse_recipe_url(url: RecipeURLIn):
     """ Takes in a URL and attempts to scrape data and load it into the database """
 
     slug = create_from_url(url.url)
@@ -78,7 +76,7 @@ async def parse_recipe_url(url: RecipeURLIn):
 
 
 @router.post("/api/recipe/create/", tags=["Recipes"])
-async def create_from_json(data: Recipe) -> str:
+def create_from_json(data: Recipe) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
     created_recipe = data.save_to_db()
 
@@ -91,21 +89,22 @@ def update_recipe_image(
 ):
     """ Removes an existing image and replaces it with the incoming file. """
     response = write_image(recipe_slug, image, extension)
+    Recipe.update_image(recipe_slug, extension)
 
     return response
 
 
 @router.post("/api/recipe/{recipe_slug}/update/", tags=["Recipes"])
-async def update_recipe(recipe_slug: str, data: Recipe):
-    """ Updates a recipe by existing slug and data. Data should containt """
+def update_recipe(recipe_slug: str, data: Recipe):
+    """ Updates a recipe by existing slug and data. """
 
-    data.update(recipe_slug)
+    new_slug = data.update(recipe_slug)
 
-    return {"message": "PLACEHOLDER"}
+    return new_slug
 
 
 @router.delete("/api/recipe/{recipe_slug}/delete/", tags=["Recipes"])
-async def delete_recipe(recipe_slug: str):
+def delete_recipe(recipe_slug: str):
     """ Deletes a recipe by slug """
 
     try:

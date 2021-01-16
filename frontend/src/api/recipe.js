@@ -23,7 +23,7 @@ export default {
     let response = await apiReq.post(recipeURLs.createByURL, {
       url: recipeURL,
     });
-    
+
     store.dispatch("requestRecentRecipes");
     return response;
   },
@@ -51,8 +51,9 @@ export default {
   async update(data) {
     const recipeSlug = data.slug;
 
-    apiReq.post(recipeURLs.update(recipeSlug), data);
+    let response = await apiReq.post(recipeURLs.update(recipeSlug), data);
     store.dispatch("requestRecentRecipes");
+    return response.data;
   },
 
   async delete(recipeSlug) {

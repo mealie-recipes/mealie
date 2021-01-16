@@ -1,25 +1,15 @@
-from pathlib import Path
-
 import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-import startup
-from routes import (
-    backup_routes,
-    meal_routes,
-    migration_routes,
-    recipe_routes,
-    setting_routes,
-    static_routes,
-    user_routes,
-)
-from routes.setting_routes import scheduler  # ! This has to be imported for scheduling
-from settings import PORT, PRODUCTION, docs_url, redoc_url
+import utils.startup as startup
+from routes import (backup_routes, meal_routes, migration_routes,
+                    recipe_routes, setting_routes, static_routes, user_routes)
+from settings import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
+from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
-CWD = Path(__file__).parent
-WEB_PATH = CWD.joinpath("dist")
+startup.pre_start()
 
 app = FastAPI(
     title="Mealie",
@@ -32,7 +22,6 @@ app = FastAPI(
 # Mount Vue Frontend only in production
 if PRODUCTION:
     app.mount("/static", StaticFiles(directory=WEB_PATH, html=True))
-
 
 # API Routes
 app.include_router(recipe_routes.router)
@@ -50,12 +39,10 @@ def invalid_api():
 
 app.include_router(static_routes.router)
 
-startup.ensure_dirs()
-startup.generate_default_theme()
 
 # Generate API Documentation
 if not PRODUCTION:
-    startup.generate_api_docs(app)
+    generate_api_docs(app)
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")

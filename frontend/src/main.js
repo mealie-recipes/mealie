@@ -21,7 +21,7 @@ new Vue({
 }).$mount("#app");
 
 // Truncate
-let filter = function (text, length, clamp) {
+let filter = function(text, length, clamp) {
   clamp = clamp || "...";
   let node = document.createElement("div");
   node.innerHTML = text;
@@ -32,5 +32,3 @@ let filter = function (text, length, clamp) {
 Vue.filter("truncate", filter);
 
 export { router };
-
-

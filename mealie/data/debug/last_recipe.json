@@ -1,18 +1,91 @@
 {
-    "name": "Carottes Rapp\u00e9s with Rice and Sunflower Seeds \u2014 FEED THE SWIMMERS",
-    "description": "&nbsp;Carottes R\u00e2p\u00e9es with Rice and Sunflower Seeds thanks to @think_rice and @thefeedfeed. Carottes R\u00e2p\u00e9es is a classic French Salad found ready to go (think picnic) at every charcuterie and on most cafe menus. This is one of those insanely simple salads that explode with flavor! The carrots ar",
-    "image": "carottes-rappes-with-rice-and-sunflower-seeds-feed-the-swimmers.JPG?format=1500w",
-    "recipeYield": "",
+    "@context": "http://schema.org",
+    "@type": "Recipe",
+    "articleBody": "At her L.A. bakery Friends and Family, Roxana Jullapat bakes these blondies in a round cake pan, which ensures that each slice has a chewy, toasted edge and a soft center. \u201cThis caramel-flavored treat demonstrates the powerful pairing of brown butter and barley,\u201d Roxana writes in her cookbook Mother Grains (out April 2021). Barley flour gives baked goods a silky, chewy texture, dense crumb, and butterscotch-y flavor. Want to experiment? Make these with 3\u20444 cup (80 g) einkorn flour in place of the barley flour for an even chewier blondie.",
+    "alternativeHeadline": "Barley flour gives these blondies a chewy texture and butterscotch-like flavor.",
+    "dateModified": "2021-01-11 14:23:12.455000",
+    "datePublished": "2021-01-12 04:00:00",
+    "keywords": [
+        "recipes",
+        "oil",
+        "macadamia nut",
+        "vanilla",
+        "butter",
+        "flour",
+        "barley",
+        "kosher salt",
+        "brown sugar",
+        "egg",
+        "vanilla extract",
+        "web"
+    ],
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5ff4b06a2f7e5df08337ef60/1:1/w_1005,h_1005,c_limit/Mother-Grains-Macadamia-and-Brown-Butter-Blondies.jpg",
+    "publisher": {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Bon App\u00e9tit",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.bonappetit.com/verso/static/bon-appetit/assets/logo-seo.328de564b950e3d5d1fbe3e42f065290ca1d3844.png",
+            "width": "479px",
+            "height": "100px"
+        },
+        "url": "https://www.bonappetit.com"
+    },
+    "isPartOf": {
+        "@type": [
+            "CreativeWork",
+            "Product"
+        ],
+        "name": "Bon App\u00e9tit"
+    },
+    "isAccessibleForFree": true,
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Roxana Jullapat",
+            "sameAs": "https://bon-appetit.com/contributor/roxana-jullapat/"
+        }
+    ],
+    "description": "Barley flour gives these blondies a chewy texture and butterscotch-like flavor.",
+    "image": "macadamia-and-brown-butter-blondies.jpg",
+    "headline": "Macadamia and Brown Butter Blondies",
+    "name": "Macadamia and Brown Butter Blondies",
     "recipeIngredient": [
-        "Could not detect ingredients"
+        "Nonstick vegetable oil spray",
+        "\u00bd cup (65 g) whole raw or toasted macadamia nuts",
+        "\u00bd vanilla bean, split lengthwise",
+        "18 Tbsp. unsalted butter",
+        "\u00be cup plus 2 Tbsp. (105 g) all-purpose flour",
+        "\u00be cup (85 g) barley flour",
+        "1\u00be tsp. baking powder",
+        "1\u00bd tsp. Diamond Crystal or \u00be tsp. Morton kosher salt",
+        "1 cup plus 7 Tbsp. (packed; 285 g) dark brown sugar",
+        "2 large eggs",
+        "1 tsp. vanilla extract",
+        "2 pints ice cream of choice (optional)"
     ],
     "recipeInstructions": [
         {
-            "text": "Could not detect instructions"
+            "text": "Preheat oven to 350\u00b0. Lightly coat a 9\"-diameter cake pan with nonstick spray and line bottom with a parchment paper round. If using raw macadamia nuts, toast on a rimmed baking sheet, tossing once, until golden, 8\u201310 minutes. Let cool, then coarsely chop."
+        },
+        {
+            "text": "Scrape vanilla seeds into a small saucepan; add pod and butter. Set over medium-low heat and cook, stirring occasionally, until butter foams, then browns, 6\u20138 minutes. Transfer to a medium bowl, scraping in all of the browned bits. Using tongs, remove and discard vanilla pod."
+        },
+        {
+            "text": "Whisk all-purpose and barley flours, baking powder, and salt in another medium bowl. Add brown sugar to brown butter and stir to combine. Add eggs one at a time, stirring well after each addition. Stir in dry ingredients, then vanilla extract and nuts. Scrape batter into prepared pan; smooth top."
+        },
+        {
+            "text": "Bake blondies, rotating halfway through, until top is golden brown and a tester inserted into the center comes out clean, 40\u201345 minutes. Let cool."
+        },
+        {
+            "text": "Turn out blondies, remove parchment, and cut into 12 wedges. Serve each with a scoop of ice cream if desired."
         }
     ],
-    "slug": "carottes-rappes-with-rice-and-sunflower-seeds-feed-the-swimmers",
-    "orgURL": "https://www.feedtheswimmers.com/blog/2019/6/5/carottes-rapps-with-rice-and-sunflower-seeds",
+    "recipeYield": "Makes 12",
+    "url": "https://www.bonappetit.com/recipe/macadamia-and-brown-butter-blondies",
+    "slug": "macadamia-and-brown-butter-blondies",
+    "orgURL": "https://www.bonappetit.com/recipe/macadamia-and-brown-butter-blondies",
     "categories": [],
     "tags": [],
     "dateAdded": null,

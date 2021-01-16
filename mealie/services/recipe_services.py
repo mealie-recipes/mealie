@@ -3,15 +3,11 @@ import json
 from pathlib import Path
 from typing import Any, List, Optional
 
-from db.recipe_models import RecipeDocument
+from db.database import db
 from pydantic import BaseModel, validator
 from slugify import slugify
 
 from services.image_services import delete_image
-
-CWD = Path(__file__).parent
-ALL_RECIPES = CWD.parent.joinpath("data", "all_recipes.json")
-IMG_DIR = CWD.parent.joinpath("data", "img")
 
 
 class RecipeNote(BaseModel):
@@ -31,7 +27,10 @@ class Recipe(BaseModel):
     recipeYield: Optional[str]
     recipeIngredient: Optional[list]
     recipeInstructions: Optional[list]
+
     totalTime: Optional[Any]
+    prepTime: Optional[str]
+    performTime: Optional[str]
 
     # Mealie Specific
     slug: Optional[str] = ""
@@ -67,9 +66,7 @@ class Recipe(BaseModel):
                 "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
                 "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
                 "rating": 3,
-                "extras": {
-                    "message": "Don't forget to defrost the chicken!"
-                }
+                "extras": {"message": "Don't forget to defrost the chicken!"},
             }
         }
 
@@ -94,12 +91,12 @@ class Recipe(BaseModel):
         return cls(**document)
 
     @classmethod
-    def get_by_slug(_cls, slug: str):
-        """ Returns a recipe dictionary from the slug """
+    def get_by_slug(cls, slug: str):
+        """ Returns a Recipe Object by Slug """
 
-        document = RecipeDocument.objects.get(slug=slug)
+        document = db.recipes.get(slug, "slug")
 
-        return Recipe._unpack_doc(document)
+        return cls(**document)
 
     def save_to_db(self) -> str:
         recipe_dict = self.dict()
@@ -116,41 +113,30 @@ class Recipe(BaseModel):
         except:
             pass
 
-        recipeDoc = RecipeDocument(**recipe_dict)
-        recipeDoc.save()
+        recipe_doc = db.recipes.save_new(recipe_dict)
+        recipe = Recipe(**recipe_doc)
 
-        return recipeDoc.slug
+        return recipe.slug
 
     @staticmethod
     def delete(recipe_slug: str) -> str:
         """ Removes the recipe from the database by slug """
         delete_image(recipe_slug)
-        document = RecipeDocument.objects.get(slug=recipe_slug)
-
-        if document:
-            document.delete()
-            return "Document Deleted"
+        db.recipes.delete(recipe_slug)
+        return "Document Deleted"
 
     def update(self, recipe_slug: str):
         """ Updates the recipe from the database by slug"""
-        document = RecipeDocument.objects.get(slug=recipe_slug)
+        updated_slug = db.recipes.update(recipe_slug, self.dict())
+        return updated_slug.get("slug")
 
-        if document:
-            document.update(set__name=self.name)
-            document.update(set__description=self.description)
-            document.update(set__image=self.image)
-            document.update(set__recipeYield=self.recipeYield)
-            document.update(set__recipeIngredient=self.recipeIngredient)
-            document.update(set__recipeInstructions=self.recipeInstructions)
-            document.update(set__totalTime=self.totalTime)
+    @staticmethod
+    def update_image(slug: str, extension: str):
+        db.recipes.update_image(slug, extension)
 
-            document.update(set__categories=self.categories)
-            document.update(set__tags=self.tags)
-            document.update(set__notes=self.notes)
-            document.update(set__orgURL=self.orgURL)
-            document.update(set__rating=self.rating)
-            document.update(set__extras=self.extras)
-            document.save()
+    @staticmethod
+    def get_all():
+        return db.recipes.get_all()
 
 
 def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
@@ -166,7 +152,7 @@ def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
 
     """
     recipe_list = []
-    for recipe in RecipeDocument.objects.order_by("dateAdded").limit(max_results):
+    for recipe in db.recipes.get_all(limit=max_results, order_by="dateAdded"):
         recipe_details = {}
         for key in keys:
             try:
