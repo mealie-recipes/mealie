@@ -4,13 +4,15 @@
       :name="selectedName"
       :date="selectedDate"
       ref="import_dialog"
+      @import="importBackup"
+      @delete="deleteBackup"
     />
     <v-row>
       <v-col
         :sm="6"
         :md="6"
-        :lg="3"
-        :xl="3"
+        :lg="4"
+        :xl="4"
         v-for="backup in backups"
         :key="backup.name"
       >
@@ -24,7 +26,7 @@
                 <div>
                   <strong>{{ backup.name }}</strong>
                 </div>
-                <div>{{ backup.date }}</div>
+                <div>{{ readableTime(backup.date) }}</div>
               </v-col>
             </v-row>
           </v-card-text>
@@ -36,9 +38,11 @@
 
 <script>
 import ImportDialog from "./ImportDialog";
+import api from "../../../api";
+import utils from "../../../utils";
 export default {
   props: {
-    backups: Object,
+    backups: Array,
   },
   components: {
     ImportDialog,
@@ -47,19 +51,36 @@ export default {
     return {
       selectedName: "",
       selectedDate: "",
-      // backups: [
-      //   { name: "Backup 1", date: " August 23rd" },
-      //   { name: "Backup 2", date: " August 24rd" },
-      //   { name: "Backup 3", date: " August 25rd" },
-      //   { name: "Backup 4", date: " August 25rd" },
-      // ],
+      loading: false,
     };
   },
   methods: {
     openDialog(backup) {
-      this.selectedDate = backup.date;
+      this.selectedDate = this.readableTime(backup.date);
       this.selectedName = backup.name;
       this.$refs.import_dialog.open();
+    },
+    readableTime(timestamp) {
+      let date = new Date(timestamp);
+      return utils.getDateAsText(date);
+    },
+    async importBackup(data) {
+      this.$emit("loading");
+      let response = await api.backups.import(data.name, data);
+
+      let failed = response.data.failed;
+      let succesful = response.data.successful;
+
+      this.$emit("finished", succesful, failed);
+    },
+    deleteBackup(data) {
+      this.$emit("loading");
+
+      api.backups.delete(data.name);
+      this.selectedBackup = null;
+      this.backupLoading = false;
+
+      this.$emit("finished");
     },
   },
 };

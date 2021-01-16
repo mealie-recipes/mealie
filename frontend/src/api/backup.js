@@ -18,8 +18,8 @@ export default {
     return response.data;
   },
 
-  async import(fileName) {
-    let response = await apiReq.post(backupURLs.importBackup(fileName));
+  async import(fileName, data) {
+    let response = await apiReq.post(backupURLs.importBackup(fileName), data);
     store.dispatch("requestRecentRecipes");
     return response;
   },
