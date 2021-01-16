@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from settings import REQUIRED_DIRS
+from app_config import REQUIRED_DIRS
 
 CWD = Path(__file__).parent
 

@@ -1,4 +1,4 @@
-from settings import USE_MONGO, USE_SQL
+from app_config import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
 from db.mongo.recipe_models import RecipeDocument

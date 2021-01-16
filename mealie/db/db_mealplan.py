@@ -1,6 +1,6 @@
 from typing import List
 
-from settings import USE_MONGO, USE_SQL
+from app_config import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
 from db.db_setup import USE_MONGO, USE_SQL

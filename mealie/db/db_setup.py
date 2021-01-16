@@ -1,4 +1,4 @@
-from settings import DATA_DIR, USE_MONGO, USE_SQL
+from app_config import DATA_DIR, USE_MONGO, USE_SQL
 
 from db.sql.db_session import globa_init as sql_global_init
 

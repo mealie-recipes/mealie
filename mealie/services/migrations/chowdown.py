@@ -4,7 +4,7 @@ from pathlib import Path
 import git
 import yaml
 from services.recipe_services import Recipe
-from settings import IMG_DIR
+from app_config import IMG_DIR
 
 try:
     from yaml import CLoader as Loader

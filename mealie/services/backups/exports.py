@@ -7,7 +7,7 @@ from jinja2 import Template
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings, SiteTheme
-from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
+from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
 from utils.logger import logger
 
 

@@ -20,7 +20,7 @@ DEBUG_DIR = DATA_DIR.joinpath("debug")
 MIGRATION_DIR = DATA_DIR.joinpath("migration")
 TEMPLATE_DIR = DATA_DIR.joinpath("templates")
 TINYDB_DIR = DATA_DIR.joinpath("db")
-TEMP_DIR = DATA_DIR.joinpath("temp")
+TEMP_DIR = DATA_DIR.joinpath(".temp")
 
 REQUIRED_DIRS = [
     DATA_DIR,
