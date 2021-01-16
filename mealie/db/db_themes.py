@@ -4,7 +4,7 @@ from db.db_base import BaseDocument
 from db.db_setup import USE_MONGO, USE_SQL
 from db.mongo.settings_models import SiteThemeDocument, ThemeColorsDocument
 from db.sql.db_session import create_session
-from db.sql.settings_models import SiteThemeModel
+from db.sql.theme_models import SiteThemeModel
 
 
 class _Themes(BaseDocument):

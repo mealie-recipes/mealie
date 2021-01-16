@@ -4,10 +4,10 @@ from datetime import datetime
 from pathlib import Path
 
 from jinja2 import Template
+from services.meal_services import MealPlan
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings, SiteTheme
 from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
-from sqlalchemy.sql.sqltypes import String
 from utils.logger import logger
 
 
@@ -98,14 +98,16 @@ class ExportDatabase:
             out_file = self.themes_dir.joinpath("themes.json")
             ExportDatabase._write_json_file(all_themes, out_file)
 
-    # def export_meals(self): #! Problem Parseing Datetime Objects... May come back to this
-    #     meal_plans = MealPlan.get_all()
-    #     if meal_plans:
-    #         meal_plans = [x.dict() for x in meal_plans]
+    def export_meals(
+        self,
+    ):  #! Problem Parseing Datetime Objects... May come back to this
+        meal_plans = MealPlan.get_all()
+        if meal_plans:
+            meal_plans = [x.dict() for x in meal_plans]
 
-    #     print(meal_plans)
-    #     out_file = self.mealplans_dir.joinpath("mealplans.json")
-    #     DatabaseExport._write_json_file(meal_plans, out_file)
+        print(meal_plans)
+        out_file = self.mealplans_dir.joinpath("mealplans.json")
+        ExportDatabase._write_json_file(meal_plans, out_file)
 
     @staticmethod
     def _write_json_file(data, out_file: Path):
@@ -130,8 +132,8 @@ def backup_all(tag=None, templates=None):
     db_export.export_images()
     db_export.export_settings()
     db_export.export_themes()
-    # db_export.export_meals()
-
+    db_export.export_meals()
+    #
     return db_export.finish_export()
 
 

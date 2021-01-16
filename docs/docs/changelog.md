@@ -1,7 +1,32 @@
 # Release Notes
 
+## v0.1.0 - Initial Beta
+### Bug Fixes
+  - Fixed Can't delete recipe after changing name - Closes Issue #67
+  - Fixed No image when added by URL, and can;t add an image - Closes Issue #66
+  - Fixed Images saved with no way to delete when add recipe via URL fails - Closes Issue #43
+
+### Features
+  - Additional database! sqlite is now supported! Closes #48
+  - All site data is now backed up.
+
+
+### Code Improvements
+  - Unified Database Access Layers
+  - Poetry / pyproject.toml support
+  - Local development without database is now possible!
+  - Major code refactoring to support new database layer
+  - Global variable refactor
+
+### Break Changes
+
+!!! warning
+    As I've adopted the SQL database model I find that using 2 different types of databases will inevitably hinder development. As such after release v0.1.0 support for mongoDB will not longer be available. Prior to upgrading to v0.2.0 you will need to export your site and import your settings after updating. This should be a painless process and require minimal intervention on the users part. Moving forward we will do our best to minimize changes that require user intervention like this. 
+
+
 ## v0.0.2 - Pre-release Second Patch
 A quality update with major props to [zackbcom](https://github.com/zackbcom) for working hard on making the theming just that much better!
+
 ### Bug Fixes
   - Fixed empty backup failure without markdown template
   - Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
