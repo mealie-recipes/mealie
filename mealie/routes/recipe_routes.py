@@ -8,10 +8,10 @@ from services.recipe_services import Recipe, read_requested_values
 from services.scrape_services import create_from_url
 from utils.snackbar import SnackResponse
 
-router = APIRouter()
+router = APIRouter(tags=["Recipes"])
 
 
-@router.get("/api/all-recipes/", tags=["Recipes"], response_model=List[dict])
+@router.get("/api/all-recipes/", response_model=List[dict])
 def get_all_recipes(keys: Optional[List[str]] = Query(...), num: Optional[int] = 100):
     """
     Returns key data for all recipes based off the query paramters provided.
@@ -28,7 +28,7 @@ def get_all_recipes(keys: Optional[List[str]] = Query(...), num: Optional[int] =
     return all_recipes
 
 
-@router.post("/api/all-recipes/", tags=["Recipes"], response_model=List[dict])
+@router.post("/api/all-recipes/", response_model=List[dict])
 def get_all_recipes_post(body: AllRecipeRequest):
     """
     Returns key data for all recipes based off the body data provided.
@@ -44,7 +44,7 @@ def get_all_recipes_post(body: AllRecipeRequest):
     return all_recipes
 
 
-@router.get("/api/recipe/{recipe_slug}/", tags=["Recipes"], response_model=Recipe)
+@router.get("/api/recipe/{recipe_slug}/", response_model=Recipe)
 def get_recipe(recipe_slug: str):
     """ Takes in a recipe slug, returns all data for a recipe """
     recipe = Recipe.get_by_slug(recipe_slug)
@@ -52,7 +52,7 @@ def get_recipe(recipe_slug: str):
     return recipe
 
 
-@router.get("/api/recipe/image/{recipe_slug}/", tags=["Recipes"])
+@router.get("/api/recipe/image/{recipe_slug}/")
 def get_recipe_img(recipe_slug: str):
     """ Takes in a recipe slug, returns the static image """
     recipe_image = read_image(recipe_slug)
@@ -75,7 +75,7 @@ def parse_recipe_url(url: RecipeURLIn):
     return slug
 
 
-@router.post("/api/recipe/create/", tags=["Recipes"])
+@router.post("/api/recipe/create/")
 def create_from_json(data: Recipe) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
     created_recipe = data.save_to_db()
@@ -83,7 +83,7 @@ def create_from_json(data: Recipe) -> str:
     return created_recipe
 
 
-@router.post("/api/recipe/{recipe_slug}/update/image/", tags=["Recipes"])
+@router.post("/api/recipe/{recipe_slug}/update/image/")
 def update_recipe_image(
     recipe_slug: str, image: bytes = File(...), extension: str = Form(...)
 ):
@@ -94,7 +94,7 @@ def update_recipe_image(
     return response
 
 
-@router.post("/api/recipe/{recipe_slug}/update/", tags=["Recipes"])
+@router.post("/api/recipe/{recipe_slug}/update/")
 def update_recipe(recipe_slug: str, data: Recipe):
     """ Updates a recipe by existing slug and data. """
 
@@ -103,7 +103,7 @@ def update_recipe(recipe_slug: str, data: Recipe):
     return new_slug
 
 
-@router.delete("/api/recipe/{recipe_slug}/delete/", tags=["Recipes"])
+@router.delete("/api/recipe/{recipe_slug}/delete/")
 def delete_recipe(recipe_slug: str):
     """ Deletes a recipe by slug """
 

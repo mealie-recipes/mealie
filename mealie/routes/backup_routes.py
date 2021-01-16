@@ -1,28 +1,33 @@
+import operator
+
+from app_config import BACKUP_DIR, TEMPLATE_DIR
 from fastapi import APIRouter, HTTPException
-from models.backup_models import BackupJob, Imports
+from models.backup_models import BackupJob, ImportJob, Imports, LocalBackup
 from services.backups.exports import backup_all
 from services.backups.imports import ImportDatabase
-from settings import BACKUP_DIR, TEMPLATE_DIR
 from utils.snackbar import SnackResponse
 
-router = APIRouter()
+router = APIRouter(tags=["Import / Export"])
 
 
-@router.get("/api/backups/available/", tags=["Import / Export"], response_model=Imports)
+@router.get("/api/backups/available/", response_model=Imports)
 def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
     templates = []
     for archive in BACKUP_DIR.glob("*.zip"):
-        imports.append(archive.name)
+        backup = LocalBackup(name=archive.name, date=archive.stat().st_ctime)
+        imports.append(backup)
 
     for template in TEMPLATE_DIR.glob("*.md"):
         templates.append(template.name)
 
+    imports.sort(key=operator.attrgetter("date"), reverse=True)
+
     return Imports(imports=imports, templates=templates)
 
 
-@router.post("/api/backups/export/database/", tags=["Import / Export"], status_code=201)
+@router.post("/api/backups/export/database/", status_code=201)
 def export_database(data: BackupJob):
     """Generates a backup of the recipe database in json format."""
     export_path = backup_all(data.tag, data.template)
@@ -35,17 +40,17 @@ def export_database(data: BackupJob):
         )
 
 
-@router.post(
-    "/api/backups/{file_name}/import/", tags=["Import / Export"], status_code=200
-)
-def import_database(file_name: str):
+@router.post("/api/backups/{file_name}/import/", status_code=200)
+def import_database(file_name: str, import_data: ImportJob):
     """ Import a database backup file generated from Mealie. """
 
     import_db = ImportDatabase(
-        zip_archive=file_name,
-        import_recipes=True,
-        import_settings=False,
-        import_themes=False,
+        zip_archive=import_data.name,
+        import_recipes=import_data.recipes,
+        force_import=import_data.force,
+        rebase=import_data.rebase,
+        import_settings=import_data.settings,
+        import_themes=import_data.themes,
     )
 
     imported = import_db.run()
