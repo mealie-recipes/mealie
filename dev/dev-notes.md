@@ -20,6 +20,7 @@ Documentation
 - [ ] V0.1.0 Release Notes
 - [ ] Nextcloud Migration How To
 - [ ] New Docker Setup with Sqlite
+- [ ] Update Env Variables
 - [ ] New Roadmap / Milestones
 
 Frontend

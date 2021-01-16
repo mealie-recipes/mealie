@@ -26,7 +26,7 @@
           ></v-combobox>
         </v-col>
         <v-col dense cols="12" sm="12" md="2">
-          <v-btn block color="accent" @click="createBackup" width="165">
+          <v-btn block text color="accent" @click="createBackup" width="165">
             Backup Recipes
           </v-btn>
         </v-col>
@@ -56,6 +56,7 @@
           </v-btn>
         </v-col>
       </v-row>
+      <BackupCard :backups="availableBackups" />
       <SuccessFailureAlert
         success-header="Successfully Imported"
         :success="successfulImports"
@@ -69,10 +70,12 @@
 <script>
 import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import BackupCard from "./BackupCard";
 
 export default {
   components: {
     SuccessFailureAlert,
+    BackupCard,
   },
   data() {
     return {
