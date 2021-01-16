@@ -1,6 +1,6 @@
 <template>
   <v-card :loading="loading">
-    <v-card-title class="headline"> Recipe Migration </v-card-title>
+    <v-card-title class="headline"> {{$t('migration.recipe-migration')}} </v-card-title>
     <v-divider></v-divider>
 
     <v-tabs v-model="tab">

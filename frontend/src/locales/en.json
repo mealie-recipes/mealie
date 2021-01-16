@@ -26,7 +26,10 @@
     "create": "Create",
     "cancel": "Cancel",
     "ok": "OK",
-    "enabled": "Enabled"
+    "enabled": "Enabled",
+    "download": "Download",
+    "import": "Import",
+    "delete-data": "Delete Data"
   },
   "login": {
     "stay-logged-in": "Stay logged in?",
@@ -78,16 +81,10 @@
     "backup-tag": "Backup Tag",
     "markdown-template": "Markdown Template",
     "backup-recipes": "Backup Recipes",
-    "select-a-backup-for-import": "Select a Backup for Import",
-    "backup-selection-is-required": "Backup Selection is Required",
-    "import-backup": "Import Backup",
-    "delete-backup": "Delete Backup",
-    "sftp-settings": "SFTP Settings",
     "theme": {
       "theme-settings": "Theme Settings",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Select a theme from the dropdown or create a new theme. Note that the default theme will be served to all users who have not set a theme preference.",
       "dark-mode": "Dark Mode",
-      "saved-color-schemes": "Saved Color Schemes",
       "theme-is-required": "Theme is required",
       "primary": "Primary",
       "secondary": "Secondary",
@@ -96,9 +93,15 @@
       "info": "Info",
       "warning": "Warning",
       "error": "Error",
-      "save-theme": "Save Theme"
+      "light": "Light",
+      "dark": "Dark",
+      "theme": "Theme",
+      "saved-color-theme": "Saved Color Theme",
+      "delete-theme": "Delete Theme",
+      "are-you-sure-you-want-to-delete-this-theme": "Are you sure you want to delete this theme?",
+      "save-colors-and-apply-theme": "Save Colors and Apply Theme",
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Choose how Mealie looks to you. Set your theme preference to follow your system settings, or choose to use the light or dark theme."
     },
-    "user-settings": "User Settings",
     "webhooks": {
       "meal-planner-webhooks": "Meal Planner Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will recieve webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at <strong>{ time }</strong>",
@@ -106,7 +109,12 @@
       "webhook-url": "Webhook URL",
       "save-webhooks": "Save Webhooks"
     },
-    "new-version-available": "A New Version of Mealie is Avaiable, <a {aContents}> Visit the Repo </a>"
+    "new-version-available": "A New Version of Mealie is Avaiable, <a {aContents}> Visit the Repo </a>",
+    "backup": {
+      "import-recipes": "Import Recipes",
+      "import-themes": "Import Themes",
+      "import-settings": "Import Settings"
+    }
   },
   "migration": {
     "recipe-migration": "Recipe Migration",
@@ -114,6 +122,12 @@
     "chowdown-repo-url": "Chowdown Repo URL",
     "migrate": "Migrate",
     "failed-recipes": "Failed Recipes",
-    "failed-images": "Failed Images"
+    "failed-images": "Failed Images",
+    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "You can import recipes from either a zip file or a directory located in the /app/data/migraiton/ folder. Please review the documentation to ensure your directory structure matches what is expected",
+    "nextcloud-data": "Nextcloud Data",
+    "delete-confirmation": "Are you sure you want to delete this migration data?",
+    "successfully-imported-from-nextcloud": "Successfully Imported from Nextcloud",
+    "failed-imports": "Failed Imports",
+    "upload-an-archive": "Upload an Archive"
   }
 }

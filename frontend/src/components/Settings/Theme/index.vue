@@ -1,12 +1,11 @@
 <template>
   <v-card>
-    <v-card-title class="headline"> Theme Settings </v-card-title>
+    <v-card-title class="headline"> {{$t('settings.theme.theme-settings')}} </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
-      <h2 class="mt-4 mb-1">Dark Mode</h2>
+      <h2 class="mt-4 mb-1">{{$t('settings.theme.dark-mode')}}</h2>
       <p>
-        Choose how Mealie looks to you. Set your theme preference to follow your
-        system settings, or choose to use the light or dark theme.
+        {{$t('settings.theme.choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme')}}
       </p>
       <v-row dense align="center">
         <v-col cols="12">
@@ -18,33 +17,31 @@
           >
             <v-btn value="system"> Default to system </v-btn>
 
-            <v-btn value="light"> Light </v-btn>
+            <v-btn value="light"> {{$t('settings.theme.light')}} </v-btn>
 
-            <v-btn value="dark"> Dark </v-btn>
+            <v-btn value="dark"> {{$t('settings.theme.dark')}} </v-btn>
           </v-btn-toggle>
         </v-col>
       </v-row></v-card-text
     >
     <v-divider></v-divider>
     <v-card-text>
-      <h2 class="mt-1 mb-1">Theme</h2>
+      <h2 class="mt-1 mb-1">{{$t('settings.theme.theme')}}</h2>
       <p>
-        Select a theme from the dropdown or create a new theme. Note that the
-        default theme will be served to all users who have not set a theme
-        preference.
+        {{$t('settings.theme.select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference')}}
       </p>
 
       <v-form ref="form" lazy-validation>
         <v-row dense align="center">
           <v-col cols="12" md="4" sm="3">
             <v-select
-              label="Saved Color Theme"
+              :label="$t('settings.theme.saved-color-theme')"
               :items="availableThemes"
               item-text="name"
               return-object
               v-model="selectedTheme"
               @change="themeSelected"
-              :rules="[(v) => !!v || 'Theme is required']"
+              :rules="[(v) => !!v || $t('settings.theme.theme-is-required')]"
               required
             >
             </v-select>
@@ -57,8 +54,8 @@
               Delete
             </v-btn>
             <Confirmation
-              title="Delete Theme"
-              message="Are you sure you want to delete this theme?"
+              title="$t('settings.theme.delete-theme')"
+              message="$t('settings.theme.are-you-sure-you-want-to-delete-this-theme')"
               color="error"
               icon="mdi-alert-circle"
               ref="deleteThemeConfirm"
@@ -70,43 +67,43 @@
       <v-row dense align-content="center" v-if="selectedTheme.colors">
         <v-col>
           <ColorPickerDialog
-            button-text="Primary"
+            button-text="$t('settings.theme.primary')"
             v-model="selectedTheme.colors.primary"
           />
         </v-col>
         <v-col>
           <ColorPickerDialog
-            button-text="Secondary"
+            button-text="$t('settings.theme.secondary')"
             v-model="selectedTheme.colors.secondary"
           />
         </v-col>
         <v-col>
           <ColorPickerDialog
-            button-text="Accent"
+            button-text="$t('settings.theme.accent')"
             v-model="selectedTheme.colors.accent"
           />
         </v-col>
         <v-col>
           <ColorPickerDialog
-            button-text="Success"
+            button-text="$t('settings.theme.success')"
             v-model="selectedTheme.colors.success"
           />
         </v-col>
         <v-col>
           <ColorPickerDialog
-            button-text="Info"
+            button-text="$t('settings.theme.info')"
             v-model="selectedTheme.colors.info"
           />
         </v-col>
         <v-col>
           <ColorPickerDialog
-            button-text="Warning"
+            button-text="$t('settings.theme.warning')"
             v-model="selectedTheme.colors.warning"
           />
         </v-col>
         <v-col>
           <ColorPickerDialog
-            button-text="Error"
+            button-text="$t('settings.theme.error')"
             v-model="selectedTheme.colors.error"
           />
         </v-col>
@@ -119,7 +116,7 @@
         <v-col></v-col>
         <v-col align="end">
           <v-btn text color="success" @click="saveThemes">
-            Save Colors and Apply Theme
+            {{$t('settings.theme.save-colors-and-apply-theme')}}
           </v-btn>
         </v-col>
       </v-row>
