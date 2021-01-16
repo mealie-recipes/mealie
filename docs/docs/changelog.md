@@ -9,6 +9,7 @@
 ### Features
   - Additional database! SQlite is now supported! Closes #48
   - All site data is now backed up.
+  - Support for Prep Time, Total Time, and Cook Time field - Closes #63
   - New backup import process with support for themes and site settings
 
 ### Code / Developer Improvements
