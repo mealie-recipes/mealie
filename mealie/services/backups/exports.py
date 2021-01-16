@@ -92,7 +92,6 @@ class ExportDatabase:
 
     def export_themes(self):
         all_themes = SiteTheme.get_all()
-        print(all_themes)
         if all_themes:
             all_themes = [x.dict() for x in all_themes]
             out_file = self.themes_dir.joinpath("themes.json")
@@ -105,7 +104,6 @@ class ExportDatabase:
         if meal_plans:
             meal_plans = [x.dict() for x in meal_plans]
 
-        print(meal_plans)
         out_file = self.mealplans_dir.joinpath("mealplans.json")
         ExportDatabase._write_json_file(meal_plans, out_file)
 

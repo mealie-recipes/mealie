@@ -32,7 +32,7 @@ def update_settings(data: SiteSettings):
     #         status_code=400, detail=SnackResponse.error("Unable to Save Settings")
     #     )
 
-    # scheduler.reschedule_webhooks()
+    scheduler.reschedule_webhooks()
     return SnackResponse.success("Settings Updated")
 
 
@@ -81,11 +81,11 @@ def update_theme(theme_name: str, data: SiteTheme):
 def delete_theme(theme_name: str):
     """ Deletes theme from the database """
     SiteTheme.delete_theme(theme_name)
-    try:
-        SiteTheme.delete_theme(theme_name)
-    except:
-        raise HTTPException(
-            status_code=400, detail=SnackResponse.error("Unable to Delete Theme")
-        )
+    # try:
+    #     SiteTheme.delete_theme(theme_name)
+    # except:
+    #     raise HTTPException(
+    #         status_code=400, detail=SnackResponse.error("Unable to Delete Theme")
+    #     )
 
     return SnackResponse.success("Theme Deleted")

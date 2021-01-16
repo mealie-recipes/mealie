@@ -27,7 +27,10 @@ class Recipe(BaseModel):
     recipeYield: Optional[str]
     recipeIngredient: Optional[list]
     recipeInstructions: Optional[list]
+
     totalTime: Optional[Any]
+    prepTime: Optional[str]
+    performTime: Optional[str]
 
     # Mealie Specific
     slug: Optional[str] = ""

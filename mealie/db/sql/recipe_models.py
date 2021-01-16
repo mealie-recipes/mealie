@@ -5,6 +5,7 @@ from typing import List
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from db.sql.model_base import BaseMixins, SqlAlchemyBase
+from sqlalchemy.ext.orderinglist import ordering_list
 
 
 class ApiExtras(SqlAlchemyBase):
@@ -56,6 +57,7 @@ class Note(SqlAlchemyBase):
 class RecipeIngredient(SqlAlchemyBase):
     __tablename__ = "recipes_ingredients"
     id = sa.Column(sa.Integer, primary_key=True)
+    position = sa.Column(sa.Integer)
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     ingredient = sa.Column(sa.String)
 
@@ -70,6 +72,7 @@ class RecipeInstruction(SqlAlchemyBase):
     __tablename__ = "recipe_instructions"
     id = sa.Column(sa.Integer, primary_key=True)
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
+    position = sa.Column(sa.Integer)
     type = sa.Column(sa.String, default="")
     text = sa.Column(sa.String)
 
@@ -81,19 +84,31 @@ class RecipeInstruction(SqlAlchemyBase):
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
+    # Database Specific
     id = sa.Column(sa.Integer, primary_key=True)
+
+    # General Recipe Properties
     name = sa.Column(sa.String)
     description = sa.Column(sa.String)
     image = sa.Column(sa.String)
     recipeYield = sa.Column(sa.String)
     recipeIngredient: List[RecipeIngredient] = orm.relationship(
-        "RecipeIngredient", cascade="all, delete"
+        "RecipeIngredient",
+        cascade="all, delete",
+        order_by="RecipeIngredient.position",
+        collection_class=ordering_list("position"),
     )
     recipeInstructions: List[RecipeInstruction] = orm.relationship(
         "RecipeInstruction",
         cascade="all, delete",
+        order_by="RecipeInstruction.position",
+        collection_class=ordering_list("position"),
     )
+
+    # How to Properties
     totalTime = sa.Column(sa.String)
+    prepTime = sa.Column(sa.String)
+    performTime = sa.Column(sa.String)
 
     # Mealie Specific
     slug = sa.Column(sa.String, index=True, unique=True)
@@ -123,6 +138,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         recipeIngredient: List[str] = None,
         recipeInstructions: List[dict] = None,
         totalTime: str = None,
+        prepTime: str = None,
+        performTime: str = None,
         slug: str = None,
         categories: List[str] = None,
         tags: List[str] = None,
@@ -144,6 +161,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             for instruc in recipeInstructions
         ]
         self.totalTime = totalTime
+        self.prepTime = prepTime
+        self.performTime = performTime
 
         # Mealie Specific
         self.slug = slug
@@ -165,6 +184,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         recipeIngredient: List[str] = None,
         recipeInstructions: List[dict] = None,
         totalTime: str = None,
+        prepTime: str = None,
+        performTime: str = None,
         slug: str = None,
         categories: List[str] = None,
         tags: List[str] = None,
@@ -175,11 +196,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         extras: dict = None,
     ):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
-        self.name = name
-        self.description = description
-        self.image = image
-        self.recipeYield = recipeYield
-
         list_of_tables = [RecipeIngredient, RecipeInstruction, Category, Tag, ApiExtras]
         RecipeModel._sql_remove_list(session, list_of_tables, self.id)
 
@@ -191,6 +207,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             recipeIngredient=recipeIngredient,
             recipeInstructions=recipeInstructions,
             totalTime=totalTime,
+            prepTime=prepTime,
+            performTime=performTime,
             slug=slug,
             categories=categories,
             tags=tags,
@@ -210,6 +228,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "recipeIngredient": [x.to_str() for x in self.recipeIngredient],
             "recipeInstructions": [x.dict() for x in self.recipeInstructions],
             "totalTime": self.totalTime,
+            "prepTime": self.prepTime,
+            "performTime": self.performTime,
             # Mealie
             "slug": self.slug,
             "categories": [x.to_str() for x in self.categories],

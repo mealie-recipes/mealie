@@ -3,21 +3,13 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 import utils.startup as startup
-from routes import (
-    backup_routes,
-    meal_routes,
-    migration_routes,
-    recipe_routes,
-    setting_routes,
-    static_routes,
-    user_routes,
-)
+from routes import (backup_routes, meal_routes, migration_routes,
+                    recipe_routes, setting_routes, static_routes, user_routes)
 from settings import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
 startup.pre_start()
-# start_scheduler()
 
 app = FastAPI(
     title="Mealie",

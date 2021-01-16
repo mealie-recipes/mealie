@@ -146,7 +146,6 @@ class BaseDocument:
             return BaseDocument._unpack_mongo(new_document)
         elif USE_SQL:
             session = self.create_session()
-            print(document)
             new_document = self.sql_model(**document)
             session.add(new_document)
             return_data = new_document.dict()
@@ -161,7 +160,6 @@ class BaseDocument:
             session, entry = self._query_one(match_value=match_value)
             entry.update(session=session, **new_data)
             return_data = entry.dict()
-            print(entry)
             session.commit()
 
             session.close()

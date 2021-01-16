@@ -47,7 +47,7 @@ else:
 
 
 # DATABASE ENV
-DATABASE_TYPE = os.getenv("db_type", "mongo")  # mongo, tinydb
+DATABASE_TYPE = os.getenv("db_type", "sql")  # mongo, tinydb
 if DATABASE_TYPE == "sql":
     USE_SQL = True
     USE_MONGO = False

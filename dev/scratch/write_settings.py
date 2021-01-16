@@ -37,4 +37,3 @@ if __name__ == "__main__":
         data = json.dumps(theme)
         response = requests.post(POST_URL, data)
         response = requests.get(GET_URL)
-        print(response.text)
