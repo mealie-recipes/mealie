@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="backupLoading" class="mt-3" min-height="410px">
+  <v-card :loading="backupLoading" class="mt-3">
     <v-card-title class="headline">
       {{$t('settings.backup-and-exports')}}
     </v-card-title>

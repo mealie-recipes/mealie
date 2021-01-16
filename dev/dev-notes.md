@@ -32,8 +32,8 @@ Frontend
 - [ ] Advanced Search Page, draft started
 - [ ] Search Bar Re-design
 - [ ] Replace Backups card with something like Home Assistant
-- [ ] Replace import card with something like Home Assistant
-  - [ ] Select which imports to do
+- [x] Replace import card with something like Home Assistant
+  - [x] Select which imports to do
 
 Backend
 - [ ] Database Import
@@ -42,7 +42,7 @@ Backend
   - [ ] Meal Plans
   - [x] Settings
   - [x] Themes
-- [ ] Remove Print / Debug Code
+- [x] Remove Print / Debug Code
 - [ ] Support how to Sections and how to steps
 - [ ] Recipe request by category/tags
 
