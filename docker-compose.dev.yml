@@ -34,6 +34,14 @@ services:
     volumes:
       - ./mealie:/app
 
+  mealie-docs:
+    image: squidfunk/mkdocs-material
+    restart: always
+    ports:
+      - 9924:8000
+    volumes:
+      - ./docs:/docs
+
   # Database
   mongo:
     image: mongo
