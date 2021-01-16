@@ -4,7 +4,7 @@ from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.sql.model_base import SqlAlchemyBase
+from db.sql.model_base import BaseMixins, SqlAlchemyBase
 
 
 class ApiExtras(SqlAlchemyBase):
@@ -79,7 +79,7 @@ class RecipeInstruction(SqlAlchemyBase):
         return data
 
 
-class RecipeModel(SqlAlchemyBase):
+class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String)
@@ -155,21 +155,6 @@ class RecipeModel(SqlAlchemyBase):
         self.orgURL = orgURL
         self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
 
-    @staticmethod
-    def _update_list_str(new_list, existing, cls_model):
-        current_index = 0
-
-        new_list = []
-        for item in new_list:
-            try:
-                existing.update(new_list[current_index])
-                current_index += 1
-            except:
-                existing.append(cls_model(item))
-
-        for item in new_list[current_index:]:
-            existing.append(cls_model(item))
-
     def update(
         self,
         session,
@@ -189,20 +174,14 @@ class RecipeModel(SqlAlchemyBase):
         orgURL: str = None,
         extras: dict = None,
     ):
+        """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
         self.name = name
         self.description = description
         self.image = image
         self.recipeYield = recipeYield
 
-        # Deleted Recipe Ingredeints
-        self.recipeIngredient = [
-            RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient
-        ]
-
         list_of_tables = [RecipeIngredient, RecipeInstruction, Category, Tag, ApiExtras]
-
-        for table in list_of_tables:
-            session.query(table).filter_by(parent_id=self.id).delete()
+        RecipeModel._sql_remove_list(session, list_of_tables, self.id)
 
         self.__init__(
             name=name,
@@ -221,16 +200,6 @@ class RecipeModel(SqlAlchemyBase):
             orgURL=orgURL,
             extras=extras,
         )
-
-
-    @staticmethod
-    def _flatten_dict(list_of_dict: List[dict]):
-        finalMap = {}
-        for d in list_of_dict:
-
-            finalMap.update(d.dict())
-
-        return finalMap
 
     def dict(self):
         data = {

@@ -146,12 +146,29 @@ class BaseDocument:
             return BaseDocument._unpack_mongo(new_document)
         elif USE_SQL:
             session = self.create_session()
+            print(document)
             new_document = self.sql_model(**document)
             session.add(new_document)
             return_data = new_document.dict()
             session.commit()
 
             return return_data
+
+    def update(self, match_value, new_data) -> dict:
+        if USE_MONGO:
+            return_data = self.update_mongo(match_value, new_data)
+        elif USE_SQL:
+            session, entry = self._query_one(match_value=match_value)
+            entry.update(session=session, **new_data)
+            return_data = entry.dict()
+            print(entry)
+            session.commit()
+
+            session.close()
+        else:
+            raise Exception("No Database Configured")
+
+        return return_data
 
     def delete(self, primary_key_value) -> dict:
         if USE_MONGO:

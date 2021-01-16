@@ -32,15 +32,16 @@ def set_meal_plan(data: MealPlan):
 @router.post("/api/meal-plan/{plan_id}/update/", tags=["Meal Plan"])
 def update_meal_plan(plan_id: str, meal_plan: MealPlan):
     """ Updates a meal plan based off ID """
-
-    try:
-        meal_plan.process_meals()
-        meal_plan.update(plan_id)
-    except:
-        raise HTTPException(
-            status_code=404,
-            detail=SnackResponse.error("Unable to Update Mealplan"),
-        )
+    meal_plan.process_meals()
+    meal_plan.update(plan_id)
+    # try:
+    #     meal_plan.process_meals()
+    #     meal_plan.update(plan_id)
+    # except:
+    #     raise HTTPException(
+    #         status_code=404,
+    #         detail=SnackResponse.error("Unable to Update Mealplan"),
+    #     )
 
     return SnackResponse.success("Mealplan Updated")
 

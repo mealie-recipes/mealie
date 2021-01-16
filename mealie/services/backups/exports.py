@@ -7,6 +7,7 @@ from jinja2 import Template
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings, SiteTheme
 from settings import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
+from sqlalchemy.sql.sqltypes import String
 from utils.logger import logger
 
 
@@ -108,7 +109,7 @@ class ExportDatabase:
 
     @staticmethod
     def _write_json_file(data, out_file: Path):
-        json_data = json.dumps(data, indent=4)
+        json_data = json.dumps(data, indent=4, default=str)
 
         with open(out_file, "w") as f:
             f.write(json_data)

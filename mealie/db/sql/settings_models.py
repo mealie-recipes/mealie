@@ -1,22 +1,28 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.sql.model_base import SqlAlchemyBase
+from db.sql.model_base import BaseMixins, SqlAlchemyBase
 
 
-class WebhookURLModel(SqlAlchemyBase):
-    __tablename__ = "webhook_urls"
-    id = sa.Column(sa.Integer, primary_key=True)
-    url = sa.Column(sa.String)
-    parent_id = sa.Column(sa.Integer, sa.ForeignKey("webhook_settings.id"))
+class SiteSettingsModel(SqlAlchemyBase):
+    __tablename__ = "site_settings"
+    name = sa.Column(sa.String, primary_key=True)
+    webhooks = orm.relationship("WebHookModel", uselist=False, cascade="all, delete")
 
-    def update(self, url) -> str:
-        self.url = url
+    def __init__(self, name: str = None, webhooks: dict = None) -> None:
+        self.name = name
+        self.webhooks = WebHookModel(**webhooks)
 
-    def to_str(self):
-        return self.url
+    def update(self, session, name, webhooks: dict) -> dict:
+        self.name = name
+        self.webhooks.update(session=session, **webhooks)
+        return
+
+    def dict(self):
+        data = {"name": self.name, "webhooks": self.webhooks.dict()}
+        return data
 
 
-class WebHookModel(SqlAlchemyBase):
+class WebHookModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "webhook_settings"
     id = sa.Column(sa.Integer, primary_key=True)
     parent_id = sa.Column(sa.String, sa.ForeignKey("site_settings.name"))
@@ -29,25 +35,16 @@ class WebHookModel(SqlAlchemyBase):
     def __init__(
         self, webhookURLs: list, webhookTime: str, enabled: bool = False
     ) -> None:
-        self.webhookURLs = [WebhookURLModel(x) for x in webhookURLs]
+        self.webhookURLs = [WebhookURLModel(url=x) for x in webhookURLs]
         self.webhookTime = webhookTime
         self.enabled = enabled
 
-    def update(self, webhookURLs: list, webhookTime: str, enabled: bool) -> None:
-        current_webhooks = 0
+    def update(
+        self, session, webhookURLs: list, webhookTime: str, enabled: bool
+    ) -> None:
+        self._sql_remove_list(session, [WebhookURLModel], self.id)
 
-        for webhook_url in self.webhookURLs:
-            try:
-                webhook_url.update(webhookURLs[current_webhooks])
-                current_webhooks += 1
-            except:
-                self.webhookURLs.remove(webhook_url)
-
-        for webhook_url in webhookURLs[current_webhooks:]:
-            self.webhookURLs.append(WebhookURLModel(webhook_url))
-
-        self.webhookTime = webhookTime
-        self.enabled = enabled
+        self.__init__(webhookURLs, webhookTime, enabled)
 
     def dict(self):
         data = {
@@ -58,22 +55,31 @@ class WebHookModel(SqlAlchemyBase):
         return data
 
 
-class SiteSettingsModel(SqlAlchemyBase):
-    __tablename__ = "site_settings"
+class WebhookURLModel(SqlAlchemyBase):
+    __tablename__ = "webhook_urls"
+    id = sa.Column(sa.Integer, primary_key=True)
+    url = sa.Column(sa.String)
+    parent_id = sa.Column(sa.Integer, sa.ForeignKey("webhook_settings.id"))
+
+    def to_str(self):
+        return self.url
+
+
+class SiteThemeModel(SqlAlchemyBase):
+    __tablename__ = "site_theme"
     name = sa.Column(sa.String, primary_key=True)
-    webhooks = orm.relationship("WebHookModel", uselist=False, cascade="all, delete")
+    colors = orm.relationship("ThemeColorsModel", uselist=False, cascade="all, delete")
 
-    def __init__(self, name: str = None, webhooks: dict = None) -> None:
+    def __init__(self, name: str, colors: dict) -> None:
         self.name = name
-        self.webhooks = WebHookModel(**webhooks)
+        self.colors = ThemeColorsModel(**colors)
 
-    def update(self, name, webhooks: dict) -> dict:
-        self.name = name
-        self.webhooks.update(**webhooks)
-        return
+    def update(self, name, colors: dict) -> dict:
+        self.colors.update(**colors)
+        return self.dict()
 
     def dict(self):
-        data = {"name": self.name, "webhooks": self.webhooks.dict()}
+        data = {"name": self.name, "colors": self.colors.dict()}
         return data
 
 
@@ -117,22 +123,4 @@ class ThemeColorsModel(SqlAlchemyBase):
             "warning": self.warning,
             "error": self.error,
         }
-        return data
-
-
-class SiteThemeModel(SqlAlchemyBase):
-    __tablename__ = "site_theme"
-    name = sa.Column(sa.String, primary_key=True)
-    colors = orm.relationship("ThemeColorsModel", uselist=False, cascade="all, delete")
-
-    def __init__(self, name: str, colors: dict) -> None:
-        self.name = name
-        self.colors = ThemeColorsModel(**colors)
-
-    def update(self, name, colors: dict) -> dict:
-        self.colors.update(**colors)
-        return self.dict()
-
-    def dict(self):
-        data = {"name": self.name, "colors": self.colors.dict()}
         return data

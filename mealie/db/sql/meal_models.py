@@ -3,7 +3,7 @@ from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.sql.model_base import SqlAlchemyBase
+from db.sql.model_base import BaseMixins, SqlAlchemyBase
 
 
 class Meal(SqlAlchemyBase):
@@ -16,6 +16,14 @@ class Meal(SqlAlchemyBase):
     dateText = sa.Column(sa.String)
     image = sa.Column(sa.String)
     description = sa.Column(sa.String)
+
+    def __init__(self, slug, name, date, dateText, image, description) -> None:
+        self.slug = slug
+        self.name = name
+        self.date = date
+        self.dateText = dateText
+        self.image = image
+        self.description = description
 
     def dict(self) -> dict:
         data = {
@@ -30,21 +38,21 @@ class Meal(SqlAlchemyBase):
         return data
 
 
-class MealPlanModel(SqlAlchemyBase):
+class MealPlanModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "mealplan"
-    uid = sa.Column(
-        sa.String, default=uuid.uuid1, primary_key=True, unique=True
-    )  #! Probably Bad?
+    uid = sa.Column(sa.Integer, primary_key=True, unique=True)  #! Probably Bad?
     startDate = sa.Column(sa.Date)
     endDate = sa.Column(sa.Date)
     meals: List[Meal] = orm.relation(Meal)
 
-    def __init__(self, startDate, endDate, meals) -> None:
+    def __init__(self, startDate, endDate, meals, uid=None) -> None:
         self.startDate = startDate
         self.endDate = endDate
-        self.meals = [Meal(meal) for meal in meals]
+        self.meals = [Meal(**meal) for meal in meals]
 
-    def update(self, startDate, endDate, meals) -> None:
+    def update(self, session, startDate, endDate, meals, uid) -> None:
+        MealPlanModel._sql_remove_list(session, [Meal], uid)
+
         self.__init__(startDate, endDate, meals)
 
     def dict(self) -> dict:

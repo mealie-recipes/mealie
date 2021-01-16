@@ -1,11 +1,12 @@
 from typing import List
-from db.sql.meal_models import MealPlanModel
 
 from settings import USE_MONGO, USE_SQL
 
 from db.db_base import BaseDocument
 from db.db_setup import USE_MONGO, USE_SQL
 from db.mongo.meal_models import MealDocument, MealPlanDocument
+from db.sql.db_session import create_session
+from db.sql.meal_models import MealPlanModel
 
 
 class _Meals(BaseDocument):
@@ -13,6 +14,8 @@ class _Meals(BaseDocument):
         self.primary_key = "uid"
         if USE_SQL:
             self.sql_model = MealPlanModel
+            self.create_session = create_session
+
         self.document = MealPlanDocument
 
     @staticmethod
@@ -34,7 +37,7 @@ class _Meals(BaseDocument):
 
         return meal_docs
 
-    def save_new(self, plan_data: dict) -> None:
+    def save_new_mongo(self, plan_data: dict) -> None:
         """Saves a new meal plan into the database
 
         Args: \n
@@ -49,7 +52,7 @@ class _Meals(BaseDocument):
         elif USE_SQL:
             pass
 
-    def update(self, uid: str, plan_data: dict) -> dict:
+    def update_mongo(self, uid: str, plan_data: dict) -> dict:
         if USE_MONGO:
             document = self.document.objects.get(uid=uid)
             if document:

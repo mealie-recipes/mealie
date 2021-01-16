@@ -14,6 +14,7 @@ class _Settings(BaseDocument):
 
         if USE_SQL:
             self.sql_model = SiteSettingsModel
+            self.create_session = create_session
 
         self.document = SiteSettingsDocument
 
@@ -33,20 +34,11 @@ class _Settings(BaseDocument):
 
             return new_settings.dict()
 
-    def update(self, name: str, new_data: dict) -> dict:
+    def update_mongo(self, name: str, new_data: dict) -> dict:
         if USE_MONGO:
             document = self.document.objects.get(name=name)
             if document:
                 document.update(set__webhooks=WebhooksDocument(**new_data["webhooks"]))
                 document.save()
         elif USE_SQL:
-            session = create_session()
-            updated_settings = (
-                session.query(self.sql_model)
-                .filter_by(**{self.primary_key: name})
-                .one()
-            )
-            updated_settings.update(**new_data)
-
-            session.commit()
             return

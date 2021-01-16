@@ -43,7 +43,7 @@ class SiteSettings(BaseModel):
         return cls(**document)
 
     def update(self):
-        db.settings.update(name="main", new_data=self.dict())
+        db.settings.update("main", new_data=self.dict())
 
 
 class Colors(BaseModel):
