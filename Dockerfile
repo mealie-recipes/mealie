@@ -12,7 +12,7 @@ COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 
 RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev git --no-install-recommends && \
+    apt-get install -y python-pip python-dev git curl --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
     cd /usr/local/bin && \
@@ -22,7 +22,7 @@ RUN apt-get update -y && \
 COPY ./pyproject.toml ./app/poetry.lock* /app/
 
 COPY ./mealie /app
-RUN poetry install --no-root -no-dev
+RUN poetry install --no-root --no-dev
 COPY --from=build-stage /app/dist /app/dist
 RUN rm -rf /app/test /app/.temp
 

@@ -19,6 +19,21 @@ To deploy docker on your local network it is highly recommended to use docker to
 | api_docs       | True    | Turns on/off access to the API documentation locally.                                                                                                   |
 | TZ             |         | You should set your time zone accordingly so the date/time features work correctly                                                                      |
 
+## Docker CLI
+
+```shell
+docker container run \
+    -e db_type='sql' \
+    -p 9000:80 \
+    -v `pwd`:'/app/data/' \
+    hkotel/mealie:dev
+
+
+```
+
+```shell
+```
+
 
 ## Docker Compose
 
@@ -31,7 +46,7 @@ services:
     image: hkotel/mealie:latest
     restart: always
     ports:
-      - 9000:9000
+      - 9000:80
     environment:
       db_username: root     # Your Mongo DB Username - Please Change
       db_password: example  # Your Mongo DB Password - Please Change
