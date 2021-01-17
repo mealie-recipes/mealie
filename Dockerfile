@@ -18,7 +18,7 @@ RUN apt-get update -y && \
     ln -s /opt/poetry/bin/poetry && \
     poetry config virtualenvs.create false
 
-COPY ./pyproject.toml ./app/poetry.lock* /app/
+COPY ./pyproject.toml ./app/poetry.lock* ./
 
 COPY ./mealie /app
 RUN poetry install --no-root --no-dev
