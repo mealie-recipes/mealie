@@ -16,7 +16,7 @@
           </p>
         </v-col>
       </v-row>
-      <v-divider class="mb-3"></v-divider>
+      <v-divider class="my-3"></v-divider>
 
       <AvailableBackupCard
         @loading="backupLoading = true"
@@ -50,11 +50,7 @@ export default {
       failedImports: [],
       successfulImports: [],
       backupLoading: false,
-      backupTag: null,
-      selectedBackup: null,
-      selectedTemplate: null,
       availableBackups: [],
-      availableTemplates: [],
     };
   },
   mounted() {
@@ -74,17 +70,6 @@ export default {
         this.getAvailableBackups();
 
         this.selectedBackup = null;
-        this.backupLoading = false;
-      }
-    },
-    async createBackup() {
-      this.backupLoading = true;
-
-      let response = await api.backups.create(this.backupTag, this.templates);
-
-      if (response.status == 201) {
-        this.selectedBackup = null;
-        this.getAvailableBackups();
         this.backupLoading = false;
       }
     },

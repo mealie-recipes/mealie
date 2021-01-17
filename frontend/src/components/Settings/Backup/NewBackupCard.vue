@@ -1,19 +1,25 @@
 <template>
   <v-card :loading="loading">
-    <v-card-title> Create a Backup </v-card-title>
+    <v-card-title> {{ $t("settings.backup.create-heading") }} </v-card-title>
     <v-card-text class="mt-n3">
-      <v-text-field dense label="Backup Tag" v-model="tag"></v-text-field>
+      <v-text-field
+        dense
+        :label="$t('settings.backup.backup-tag')"
+        v-model="tag"
+      ></v-text-field>
     </v-card-text>
     <v-card-actions class="mt-n9">
       <v-switch v-model="fullBackup" :label="switchLabel"></v-switch>
       <v-spacer></v-spacer>
-      <v-btn color="success" text @click="createBackup()"> Create </v-btn>
+      <v-btn color="success" text @click="createBackup()">
+        {{ $t("general.create") }}
+      </v-btn>
     </v-card-actions>
 
     <v-card-text v-if="!fullBackup" class="mt-n6">
       <v-row>
         <v-col sm="4">
-          <p>Options:</p>
+          <p>{{ $t("general.options") }}:</p>
           <v-checkbox
             v-for="option in options"
             :key="option.text"
@@ -24,7 +30,7 @@
           ></v-checkbox>
         </v-col>
         <v-col>
-          <p>Templates:</p>
+          <p>{{ $t("general.templates") }}:</p>
           <v-checkbox
             v-for="template in availableTemplates"
             :key="template"
@@ -50,15 +56,15 @@ export default {
       options: {
         recipes: {
           value: true,
-          text: "Recipes",
+          text: this.$t("general.recipes"),
         },
         settings: {
           value: true,
-          text: "Settings",
+          text: this.$t("general.settings"),
         },
         themes: {
           value: true,
-          text: "Themes",
+          text: this.$t("general.themes"),
         },
       },
       availableTemplates: [],

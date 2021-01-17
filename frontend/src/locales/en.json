@@ -29,7 +29,11 @@
     "enabled": "Enabled",
     "download": "Download",
     "import": "Import",
-    "delete-data": "Delete Data"
+    "delete-data": "Delete Data",
+    "options": "Options",
+    "templates": "Templates",
+    "recipes": "Recipes",
+    "themes": "Themes"
   },
   "login": {
     "stay-logged-in": "Stay logged in?",
@@ -113,7 +117,9 @@
     "backup": {
       "import-recipes": "Import Recipes",
       "import-themes": "Import Themes",
-      "import-settings": "Import Settings"
+      "import-settings": "Import Settings",
+      "create-heading": "Create a Backup",
+      "backup-tag": "Backup Tag"
     }
   },
   "migration": {
