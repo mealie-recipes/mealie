@@ -8,7 +8,7 @@
 
         <v-card-text>
           <v-row>
-            <v-col>
+            <v-col >
               <v-checkbox
                 class="mb-n4 mt-1"
                 dense

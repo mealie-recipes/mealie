@@ -76,7 +76,7 @@
     "version-latest": "Version: { current } | Latest: { latest }",
     "explore-the-docs": "Explore the Docs",
     "contribute": "Contribute",
-    "backup-and-exports": "Backup and Exports",
+    "backup-and-exports": "Backups",
     "backup-info": "Backups are exported in standard JSON format along with all the images stored on the file system. In your backup folder you'll find a .zip file that contains all of the recipe JSON and images from the database. Additionally, if you selected a markdown file, those will also be stored in the .zip file. To import a backup, it must be located in your backups folder. Automated backups are done each day at 3:00 AM.",
     "backup-tag": "Backup Tag",
     "markdown-template": "Markdown Template",

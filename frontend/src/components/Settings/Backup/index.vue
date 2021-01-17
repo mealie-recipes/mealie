@@ -1,34 +1,22 @@
 <template>
   <v-card :loading="backupLoading" class="mt-3">
     <v-card-title class="headline">
-      {{$t('settings.backup-and-exports')}}
+      {{ $t("settings.backup-and-exports") }}
     </v-card-title>
     <v-divider></v-divider>
 
     <v-card-text>
-      <p>
-        {{$t('settings.backup-info')}}
-      </p>
-
-      <v-row dense align="center">
-        <v-col dense cols="12" sm="12" md="4">
-          <v-text-field v-model="backupTag" :label="$t('settings.backup-tag')"></v-text-field>
+      <v-row>
+        <v-col cols="12" md="6" ss="12">
+          <NewBackupCard />
         </v-col>
-        <v-col cols="12" sm="12" md="3">
-          <v-combobox
-            auto-select-first
-            :label="$t('settings.markdown-template')"
-            :items="availableTemplates"
-            v-model="selectedTemplate"
-          ></v-combobox>
-        </v-col>
-        <v-col dense cols="12" sm="12" md="2">
-          <v-btn block text color="accent" @click="createBackup" width="165">
-            {{$t('settings.backup-recipes')}}
-          </v-btn>
+        <v-col cols="12" md="6" sm="12">
+          <p>
+            {{ $t("settings.backup-info") }}
+          </p>
         </v-col>
       </v-row>
-      <BackupCard
+      <AvailableBackupCard
         @loading="backupLoading = true"
         @finished="processFinished"
         :backups="availableBackups"
@@ -46,12 +34,14 @@
 <script>
 import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
-import BackupCard from "./BackupCard";
+import AvailableBackupCard from "./AvailableBackupCard";
+import NewBackupCard from "./NewBackupCard";
 
 export default {
   components: {
     SuccessFailureAlert,
-    BackupCard,
+    AvailableBackupCard,
+    NewBackupCard,
   },
   data() {
     return {
