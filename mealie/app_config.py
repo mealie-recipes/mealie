@@ -19,7 +19,7 @@ BACKUP_DIR = DATA_DIR.joinpath("backups")
 DEBUG_DIR = DATA_DIR.joinpath("debug")
 MIGRATION_DIR = DATA_DIR.joinpath("migration")
 TEMPLATE_DIR = DATA_DIR.joinpath("templates")
-TINYDB_DIR = DATA_DIR.joinpath("db")
+SQLITE_DIR = DATA_DIR.joinpath("db")
 TEMP_DIR = DATA_DIR.joinpath(".temp")
 
 REQUIRED_DIRS = [
@@ -29,7 +29,7 @@ REQUIRED_DIRS = [
     DEBUG_DIR,
     MIGRATION_DIR,
     TEMPLATE_DIR,
-    TINYDB_DIR,
+    SQLITE_DIR,
 ]
 
 
