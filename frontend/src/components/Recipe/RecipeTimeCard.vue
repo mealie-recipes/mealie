@@ -1,5 +1,10 @@
 <template>
-  <v-card color="accent" class="transparent" tile :width="`${timeCardWidth}`">
+  <v-card
+    color="accent"
+    class="custom-transparent"
+    tile
+    :width="`${timeCardWidth}`"
+  >
     <v-card-text
       class="text-caption white--text"
       v-if="totalTime || prepTime || performTime"
@@ -95,8 +100,8 @@ export default {
 };
 </script>
 
-<style>
-.transparent {
-  opacity: 70% !important;
+<style scoped>
+.custom-transparent {
+  opacity: 0.7;
 }
 </style>

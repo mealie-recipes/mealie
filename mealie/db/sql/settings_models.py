@@ -43,7 +43,7 @@ class WebHookModel(SqlAlchemyBase, BaseMixins):
     def update(
         self, session, webhookURLs: list, webhookTime: str, enabled: bool
     ) -> None:
-    
+
         self._sql_remove_list(session, [WebhookURLModel], self.id)
 
         self.__init__(webhookURLs, webhookTime, enabled)

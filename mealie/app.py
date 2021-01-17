@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-import utils.startup as startup
+# import utils.startup as startup
 from app_config import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from routes import (
     backup_routes,
@@ -15,8 +15,7 @@ from routes import (
 )
 from utils.api_docs import generate_api_docs
 from utils.logger import logger
-
-startup.pre_start()
+from utils.startup import post_start
 
 app = FastAPI(
     title="Mealie",
@@ -54,6 +53,7 @@ def invalid_api():
 
 app.include_router(static_routes.router)
 
+# post_start()
 
 # Generate API Documentation
 if not PRODUCTION:

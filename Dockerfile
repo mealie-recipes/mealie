@@ -5,21 +5,21 @@ RUN npm install
 COPY ./frontend/ .
 RUN npm run build
 
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
+# FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
+FROM mrnr91/uvicorn-gunicorn-fastapi:python3.8
 
-COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
 RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev git curl --no-install-recommends && \
+    apt-get install -y python-pip python-dev git curl python3-dev libxml2-dev libxslt1-dev zlib1g-dev --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
     cd /usr/local/bin && \
     ln -s /opt/poetry/bin/poetry && \
     poetry config virtualenvs.create false
 
-COPY ./pyproject.toml ./app/poetry.lock* /app/
+COPY ./pyproject.toml /app/
 
 COPY ./mealie /app
 RUN poetry install --no-root --no-dev

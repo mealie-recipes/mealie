@@ -6,6 +6,11 @@ import dotenv
 CWD = Path(__file__).parent
 
 
+def ensure_dirs():
+    for dir in REQUIRED_DIRS:
+        dir.mkdir(parents=True, exist_ok=True)
+
+
 # Register ENV
 ENV = CWD.joinpath(".env")
 dotenv.load_dotenv(ENV)
@@ -19,7 +24,7 @@ BACKUP_DIR = DATA_DIR.joinpath("backups")
 DEBUG_DIR = DATA_DIR.joinpath("debug")
 MIGRATION_DIR = DATA_DIR.joinpath("migration")
 TEMPLATE_DIR = DATA_DIR.joinpath("templates")
-TINYDB_DIR = DATA_DIR.joinpath("db")
+SQLITE_DIR = DATA_DIR.joinpath("db")
 TEMP_DIR = DATA_DIR.joinpath(".temp")
 
 REQUIRED_DIRS = [
@@ -29,7 +34,7 @@ REQUIRED_DIRS = [
     DEBUG_DIR,
     MIGRATION_DIR,
     TEMPLATE_DIR,
-    TINYDB_DIR,
+    SQLITE_DIR,
 ]
 
 
@@ -47,10 +52,12 @@ else:
 
 
 # DATABASE ENV
-DATABASE_TYPE = os.getenv("db_type", "sql")  # mongo, tinydb
-if DATABASE_TYPE == "sql":
+DATABASE_TYPE = os.getenv("db_type", "sqlite")  # mongo, sqlite
+if DATABASE_TYPE == "sqlite":
     USE_SQL = True
     USE_MONGO = False
+    SQLITE_FILE = SQLITE_DIR.joinpath("mealie.sqlite")
+
 
 elif DATABASE_TYPE == "mongo":
     USE_MONGO = True
@@ -71,3 +78,6 @@ DB_PORT = os.getenv("db_port", 27017)
 # SFTP Email Stuff - For use Later down the line!
 SFTP_USERNAME = os.getenv("sftp_username", None)
 SFTP_PASSWORD = os.getenv("sftp_password", None)
+
+
+ensure_dirs()
