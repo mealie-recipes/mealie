@@ -55,13 +55,7 @@ else:
 DATABASE_TYPE = os.getenv("db_type", "sqlite")  # mongo, sqlite
 if DATABASE_TYPE == "sqlite":
     USE_SQL = True
-    USE_MONGO = False
     SQLITE_FILE = SQLITE_DIR.joinpath("mealie.sqlite")
-
-
-elif DATABASE_TYPE == "mongo":
-    USE_MONGO = True
-    USE_SQL = False
 
 else:
     raise Exception(

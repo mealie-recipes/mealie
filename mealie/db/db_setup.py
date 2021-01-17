@@ -1,4 +1,4 @@
-from app_config import SQLITE_FILE, USE_MONGO, USE_SQL
+from app_config import SQLITE_FILE, USE_SQL
 
 from db.sql.db_session import globa_init as sql_global_init
 
@@ -9,7 +9,5 @@ if USE_SQL:
 
     pass
 
-elif USE_MONGO:
-    from db.mongo.mongo_setup import global_init as mongo_global_init
-
-    mongo_global_init()
+else:
+    raise Exception("Cannot identify database type")
