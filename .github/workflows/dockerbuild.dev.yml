@@ -3,7 +3,7 @@ name: ci-dev
 on:
   push:
     branches:
-      - cd
+      - cd/cd
 
 jobs:
   main:
