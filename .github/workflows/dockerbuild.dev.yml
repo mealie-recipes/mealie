@@ -14,5 +14,5 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: hkotel/mealie
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
