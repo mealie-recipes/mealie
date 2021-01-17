@@ -12,7 +12,7 @@ FROM mrnr91/uvicorn-gunicorn-fastapi:python3.8-slim
 WORKDIR /app
 
 RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev git curl libxml2-dev libxslt-dev  --no-install-recommends && \
+    apt-get install -y python-pip python-dev git curl python3-dev libxml2-dev libxslt1-dev zlib1g-dev --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
     cd /usr/local/bin && \
