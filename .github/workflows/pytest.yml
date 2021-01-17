@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - dev
+      - ci/cd
   pull_request:
     branches:
       - master
@@ -18,10 +19,31 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: Install dependencies
+      - name: Install Poetry
+        uses: dschep/install-poetry-action@v1.2
+      - name: Install Poetry
+        uses: dschep/install-poetry-action@v1.2
+
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Set Poetry config
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
+          poetry config settings.virtualenvs.in-project false
+          poetry config settings.virtualenvs.path ~/.virtualenvs
+
+      - name: Install Dependencies
+        run: poetry install
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Code Quality
+        run: poetry run black . --check
+
       - name: Test with pytest
-        run: pytest -vv
+        run: poetry run pytest --cov . -n 2
