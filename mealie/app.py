@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-import utils.startup as startup
+# import utils.startup as startup
 from app_config import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from routes import (
     backup_routes,
@@ -16,7 +16,10 @@ from routes import (
 from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
-startup.pre_start()
+# startup.pre_start()
+
+# if USE_SQL:
+#     sql_global_init()
 
 app = FastAPI(
     title="Mealie",

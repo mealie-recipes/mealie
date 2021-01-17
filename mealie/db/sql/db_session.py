@@ -13,7 +13,6 @@ def globa_init(db_file: Path):
 
     if __factory:
         return
-
     conn_str = "sqlite:///" + str(db_file.absolute())
 
     engine = sa.create_engine(conn_str, echo=False)

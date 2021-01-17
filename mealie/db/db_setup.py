@@ -1,10 +1,10 @@
-from app_config import DATA_DIR, SQLITE_DIR, USE_MONGO, USE_SQL
+from app_config import SQLITE_FILE, USE_MONGO, USE_SQL
 
 from db.sql.db_session import globa_init as sql_global_init
 
 if USE_SQL:
-    db_file = DATA_DIR.joinpath("mealie.sqlite")
-    sql_global_init(db_file)
+    sql_global_init(SQLITE_FILE)
+    pass
 
 elif USE_MONGO:
     from db.mongo.mongo_setup import global_init as mongo_global_init
