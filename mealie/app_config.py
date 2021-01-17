@@ -50,7 +50,7 @@ else:
     docs_url = None
     redoc_url = None
 
-
+SQLITE_FILE = None
 # DATABASE ENV
 DATABASE_TYPE = os.getenv("db_type", "sqlite")  # mongo, sqlite
 if DATABASE_TYPE == "sqlite":
