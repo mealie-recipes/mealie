@@ -1,9 +1,9 @@
-name: ci-dev
+name: Docker Build Dev
 
 on:
   push:
     branches:
-      - cd/cd
+      - dev
 
 jobs:
   build:
