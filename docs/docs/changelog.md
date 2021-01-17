@@ -7,10 +7,12 @@
   - Fixed Images saved with no way to delete when add recipe via URL fails - Closes Issue #43
 
 ### Features
-  - Additional database! SQlite is now supported! Closes #48
+  - Improved deployment documentation
+  - Additional database! SQlite is now supported! - Closes #48
   - All site data is now backed up.
   - Support for Prep Time, Total Time, and Cook Time field - Closes #63
   - New backup import process with support for themes and site settings
+  - **BETA** ARM support! - Closes #69
 
 ### Code / Developer Improvements
   - Unified Database Access Layers

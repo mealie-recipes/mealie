@@ -52,8 +52,8 @@ else:
 
 
 # DATABASE ENV
-DATABASE_TYPE = os.getenv("db_type", "sql")  # mongo, tinydb
-if DATABASE_TYPE == "sql":
+DATABASE_TYPE = os.getenv("db_type", "sqlite")  # mongo, sqlite
+if DATABASE_TYPE == "sqlite":
     USE_SQL = True
     USE_MONGO = False
     SQLITE_FILE = SQLITE_DIR.joinpath("mealie.sqlite")
