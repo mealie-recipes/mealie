@@ -26,7 +26,7 @@ docker container run \
     -e db_type='sql' \
     -p 9000:80 \
     -v `pwd`:'/app/data/' \
-    hkotel/mealie:dev
+    hkotel/mealie:arm-dev
 
 
 ```

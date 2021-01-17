@@ -4,7 +4,7 @@ on:
     branches:
       - master
       - dev
-      - ci/cd
+      - cd/cd
   pull_request:
     branches:
       - master
