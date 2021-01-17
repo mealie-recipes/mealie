@@ -81,6 +81,8 @@ class BaseDocument:
         return_data = new_document.dict()
         session.commit()
 
+
+        session.close()
         return return_data
 
     def update(self, match_value, new_data) -> dict:

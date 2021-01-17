@@ -17,7 +17,7 @@ dotenv.load_dotenv(ENV)
 
 # Helpful Globals
 BASE_DIR = CWD
-DATA_DIR = CWD.joinpath("data")
+DATA_DIR = CWD.parent.joinpath("app_data")
 WEB_PATH = CWD.joinpath("dist")
 IMG_DIR = DATA_DIR.joinpath("img")
 BACKUP_DIR = DATA_DIR.joinpath("backups")

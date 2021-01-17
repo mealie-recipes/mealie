@@ -1,9 +1,11 @@
 import logging
 from pathlib import Path
 
+from app_config import DATA_DIR
+
 LOGGER_LEVEL = "INFO"
 CWD = Path(__file__).parent
-LOGGER_FILE = CWD.parent.joinpath("data", "mealie.log")
+LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 
 
 logging.basicConfig(

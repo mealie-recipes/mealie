@@ -2,9 +2,7 @@ import shutil
 from pathlib import Path
 
 import requests
-
-CWD = Path(__file__).parent
-IMG_DIR = CWD.parent.joinpath("data", "img")
+from app_config import IMG_DIR
 
 
 def read_image(recipe_slug: str) -> Path:
