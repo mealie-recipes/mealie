@@ -5,14 +5,46 @@ on:
     branches:
       - cd/cd
 
+
 jobs:
-  build-dev:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: install buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
         with:
-          name: hkotel/mealie
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          version: latest
+      - name: login to docker hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: build the image
+        run: |
+        docker buildx build --push \
+          --tag hkotel/mealie:dev \
+          --platform linux/amd64,linux/arm/v7,linux/arm64 .
+
+# jobs:
+#   build-dev:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#       - name: Publish to Registry
+#         uses: elgohr/Publish-Docker-Github-Action@master
+#         with:
+#           name: hkotel/mealie
+#           username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
+#   build-dev-arm:
+#     runs-on: ubuntu-latest
+#     env:
+#       DOCKER_TARGET_PLATFORM: linux/arm/v7  
+#     steps:
+#       - uses: actions/checkout@master
+#       - name: Publish to Registry
+#         uses: elgohr/Publish-Docker-Github-Action@master
+#         with:
+#           name: hkotel/mealie
+#           username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
