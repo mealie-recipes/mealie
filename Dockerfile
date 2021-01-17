@@ -6,7 +6,7 @@ COPY ./frontend/ .
 RUN npm run build
 
 # FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
-FROM mrnr91/uvicorn-gunicorn-fastapi:python3.8-slim
+FROM mrnr91/uvicorn-gunicorn-fastapi:python3.8
 
 
 WORKDIR /app
