@@ -128,4 +128,4 @@ def default_theme_init():
         default_theme.save_to_db()
 
 
-default_theme_init()
+
