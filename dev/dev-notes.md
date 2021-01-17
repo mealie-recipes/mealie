@@ -24,13 +24,17 @@ Documentation
 - [ ] New Roadmap / Milestones
 
 Frontend
-- [ ] Prep / Cook / Total Time Indicator + Editor
+- [x] Prep / Cook / Total Time Indicator + Editor
 - [ ] No Meal Today Page instead of Null 
 - [ ] Recipe Print Page 
 - [ ] Recipe Editor Data Validation Client Side
 - [ ] Organize Home Page my Category, ideally user selectable.
 - [ ] Advanced Search Page, draft started
-- [ ] Search Bar Re-design
+  - [ ] Filter by Category
+  - [ ] Filter by Tags
+- [ ] Search Bar redesign
+  - [x] Initial
+  - [ ] Results redesign
 - [ ] Replace Backups card with something like Home Assistant
 - [x] Replace import card with something like Home Assistant
   - [x] Select which imports to do
@@ -43,7 +47,7 @@ Backend
   - [x] Settings
   - [x] Themes
 - [x] Remove Print / Debug Code
-- [ ] Support how to Sections and how to steps
+- [ ] Support how to sections and how to steps
 - [ ] Recipe request by category/tags
 
 
@@ -51,23 +55,3 @@ SQL
 - [ ] Setup Database Migrations
 
 # Draft Changelog
-## v0.0.2
-
-Bug Fixes
-- Fixed opacity issues with marked steps - [mtoohey31](https://github.com/mtoohey31)
-- Fixed hot-reloading development environment - [grssmnn](https://github.com/grssmnn)
-- Fixed recipe not saving without image
-- Fixed parsing error on image property null
-
-General Improvements
-- Added Confirmation component to deleting recipes - [zackbcom](https://github.com/zackbcom)
-- Updated Theme backend - [zackbcom](https://github.com/zackbcom)
-- Added Persistent storage to vuex - [zackbcom](https://github.com/zackbcom)
-- General Color/Theme Improvements
-  - More consistent UI
-  - More minimalist coloring
-- Added API Key Extras to Recipe Data
-  - Users can now add custom json key/value pairs to all recipes via the editor for access in 3rd part applications. For example users can add a "message" field in the extras that can be accessed on API calls to play a message over google home. 
-- Improved image rendering (nearly x2 speed)
-- Improved documentation + API Documentation
-- Improved recipe parsing
