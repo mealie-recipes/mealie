@@ -5,7 +5,6 @@ on:
     branches:
       - cd/cd
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,6 +20,6 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: build the image
         run: |
-        docker buildx build --push \
-          --tag hkotel/mealie:dev \
-          --platform linux/amd64,linux/arm/v7,linux/arm64 .
+          docker buildx build --push \
+            --tag your-username/multiarch-example:latest \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 .
