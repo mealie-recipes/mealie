@@ -3,11 +3,11 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
+from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
 from jinja2 import Template
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings, SiteTheme
-from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
 from utils.logger import logger
 
 
@@ -123,15 +123,26 @@ class ExportDatabase:
         return str(zip_path.absolute()) + ".zip"
 
 
-def backup_all(tag=None, templates=None):
+def backup_all(
+    tag=None,
+    templates=None,
+    export_recipes=True,
+    export_settings=True,
+    export_themes=True,
+):
     db_export = ExportDatabase(tag=tag, templates=templates)
 
-    db_export.export_recipes()
-    db_export.export_images()
-    db_export.export_settings()
-    db_export.export_themes()
-    db_export.export_meals()
-    #
+    if export_recipes:
+        db_export.export_recipes()
+        db_export.export_images()
+
+    if export_settings:
+        db_export.export_settings()
+        
+    if export_themes:
+        db_export.export_themes()
+    # db_export.export_meals()
+
     return db_export.finish_export()
 
 

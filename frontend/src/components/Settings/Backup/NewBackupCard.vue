@@ -1,8 +1,10 @@
 <template>
   <v-card :loading="loading">
     <v-card-title> Create a Backup </v-card-title>
-
-    <v-card-actions class="mt-n6">
+    <v-card-text class="mt-n3">
+      <v-text-field dense label="Backup Tag" v-model="tag"></v-text-field>
+    </v-card-text>
+    <v-card-actions class="mt-n9">
       <v-switch v-model="fullBackup" :label="switchLabel"></v-switch>
       <v-spacer></v-spacer>
       <v-btn color="success" text @click="createBackup()"> Create </v-btn>
@@ -13,31 +15,23 @@
         <v-col sm="4">
           <p>Options:</p>
           <v-checkbox
+            v-for="option in options"
+            :key="option.text"
             class="mb-n4 mt-n3"
             dense
-            label="Recipes"
-            v-model="importRecipes"
-          ></v-checkbox>
-          <v-checkbox
-            class="my-n4"
-            dense
-            label="Themes"
-            v-model="importThemes"
-          ></v-checkbox>
-          <v-checkbox
-            class="my-n4"
-            dense
-            label="Settings"
-            v-model="importThemes"
+            :label="option.text"
+            v-model="option.value"
           ></v-checkbox>
         </v-col>
         <v-col>
           <p>Templates:</p>
           <v-checkbox
+            v-for="template in availableTemplates"
+            :key="template"
             class="mb-n4 mt-n3"
             dense
-            label="Template asdfasdf"
-            v-model="importRecipes"
+            :label="template"
+            @click="appendTemplate(template)"
           ></v-checkbox>
         </v-col>
       </v-row>
@@ -46,12 +40,33 @@
 </template>
 
 <script>
+import api from "../../../api";
 export default {
   data() {
     return {
+      tag: null,
       fullBackup: true,
       loading: false,
+      options: {
+        recipes: {
+          value: true,
+          text: "Recipes",
+        },
+        settings: {
+          value: true,
+          text: "Settings",
+        },
+        themes: {
+          value: true,
+          text: "Themes",
+        },
+      },
+      availableTemplates: [],
+      selectedTemplates: [],
     };
+  },
+  mounted() {
+    this.getAvailableBackups();
   },
   computed: {
     switchLabel() {
@@ -61,8 +76,39 @@ export default {
     },
   },
   methods: {
-    createBackup() {
+    async getAvailableBackups() {
+      let response = await api.backups.requestAvailable();
+      response.templates.forEach((element) => {
+        this.availableTemplates.push(element);
+      });
+    },
+    async createBackup() {
       this.loading = true;
+
+      let data = {
+        tag: this.tag,
+        options: {
+          recipes: this.options.recipes.value,
+          settings: this.options.settings.value,
+          themes: this.options.themes.value,
+        },
+        templates: this.selectedTemplates,
+      };
+
+      console.log(data);
+
+      await api.backups.create(data);
+      this.loading = false;
+
+      this.$emit("created");
+    },
+    appendTemplate(templateName) {
+      if (this.selectedTemplates.includes(templateName)) {
+        let index = this.selectedTemplates.indexOf(templateName);
+        if (index !== -1) {
+          this.selectedTemplates.splice(index, 1);
+        }
+      } else this.selectedTemplates.push(templateName);
     },
   },
 };

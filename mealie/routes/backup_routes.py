@@ -19,7 +19,7 @@ def available_imports():
         backup = LocalBackup(name=archive.name, date=archive.stat().st_ctime)
         imports.append(backup)
 
-    for template in TEMPLATE_DIR.glob("*.md"):
+    for template in TEMPLATE_DIR.glob("*.*"):
         templates.append(template.name)
 
     imports.sort(key=operator.attrgetter("date"), reverse=True)
@@ -30,7 +30,13 @@ def available_imports():
 @router.post("/api/backups/export/database/", status_code=201)
 def export_database(data: BackupJob):
     """Generates a backup of the recipe database in json format."""
-    export_path = backup_all(data.tag, data.template)
+    export_path = backup_all(
+        tag=data.tag,
+        templates=data.templates,
+        export_recipes=data.options.recipes,
+        export_settings=data.options.settings,
+        export_themes=data.options.themes,
+    )
     try:
         return SnackResponse.success("Backup Created at " + export_path)
     except:

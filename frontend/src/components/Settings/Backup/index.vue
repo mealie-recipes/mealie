@@ -8,7 +8,7 @@
     <v-card-text>
       <v-row>
         <v-col cols="12" md="6" ss="12">
-          <NewBackupCard />
+          <NewBackupCard @created="processFinished" />
         </v-col>
         <v-col cols="12" md="6" sm="12">
           <p>
@@ -16,6 +16,8 @@
           </p>
         </v-col>
       </v-row>
+      <v-divider class="mb-3"></v-divider>
+
       <AvailableBackupCard
         @loading="backupLoading = true"
         @finished="processFinished"
