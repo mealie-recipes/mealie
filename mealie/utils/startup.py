@@ -6,7 +6,7 @@ from services.settings_services import default_theme_init
 CWD = Path(__file__).parent
 
 
-def pre_start():
+def post_start():
     default_theme_init()
 
 

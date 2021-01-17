@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from db.database import db
+from db.db_setup import sql_exists
 from pydantic import BaseModel
 from utils.logger import logger
 
@@ -120,7 +121,7 @@ def default_theme_init():
 
     try:
         SiteTheme.get_by_name("default")
-        return "default theme exists"
+        logger.info("Default theme exists... skipping generation")
     except:
         logger.info("Generating Default Theme")
         colors = Colors(**default_colors)
@@ -128,4 +129,15 @@ def default_theme_init():
         default_theme.save_to_db()
 
 
+def default_settings_init():
+    try:
+        document = db.settings.get("main")
+    except:
+        webhooks = Webhooks()
+        default_entry = SiteSettings(name="main", webhooks=webhooks)
+        document = db.settings.save_new(default_entry.dict(), webhooks.dict())
 
+
+if not sql_exists:
+    default_settings_init()
+    default_theme_init
