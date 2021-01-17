@@ -11,7 +11,7 @@ on:
       - dev
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
