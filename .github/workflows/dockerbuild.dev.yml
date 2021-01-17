@@ -24,7 +24,7 @@ jobs:
         with:
           file: ./Dockerfile.dev
           push: true
-          tags: hkotel/mealie:cd-test
+          tags: hkotel/mealie:dev
           build-args: |
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
