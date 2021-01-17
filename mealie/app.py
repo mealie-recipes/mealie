@@ -15,7 +15,6 @@ from routes import (
 )
 from utils.api_docs import generate_api_docs
 from utils.logger import logger
-from utils.startup import post_start
 
 app = FastAPI(
     title="Mealie",
@@ -53,7 +52,6 @@ def invalid_api():
 
 app.include_router(static_routes.router)
 
-# post_start()
 
 # Generate API Documentation
 if not PRODUCTION:

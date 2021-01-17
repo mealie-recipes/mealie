@@ -140,4 +140,4 @@ def default_settings_init():
 
 if not sql_exists:
     default_settings_init()
-    default_theme_init
+    default_theme_init()
