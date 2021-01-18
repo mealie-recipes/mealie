@@ -17,7 +17,16 @@
         </v-col>
       </v-row>
       <v-divider class="my-3"></v-divider>
-
+      <v-card-title class="mt-n6">
+        Available Backups
+        <v-spacer></v-spacer>
+        <span>
+          <v-btn color="success" text class="ma-2 white--text">
+            Upload
+            <v-icon right dark> mdi-cloud-upload </v-icon>
+          </v-btn>
+        </span>
+      </v-card-title>
       <AvailableBackupCard
         @loading="backupLoading = true"
         @finished="processFinished"

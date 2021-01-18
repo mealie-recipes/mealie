@@ -11,7 +11,7 @@
     >
     </v-file-input>
   </v-form>
-</template>
+</template>c
 
 <script>
 import api from "../../../api";
