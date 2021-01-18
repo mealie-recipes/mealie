@@ -54,8 +54,8 @@ app.include_router(static_routes.router)
 
 
 # Generate API Documentation
-if not PRODUCTION:
-    generate_api_docs(app)
+# if not PRODUCTION:
+#     generate_api_docs(app)
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")

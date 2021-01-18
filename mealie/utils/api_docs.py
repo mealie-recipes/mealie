@@ -1,6 +1,6 @@
 import json
 
-from app_config import BASE_DIR, DATA_DIR
+from app_config import DATA_DIR
 
 """Script to export the ReDoc documentation page into a standalone HTML file."""
 
