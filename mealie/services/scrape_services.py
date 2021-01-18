@@ -57,7 +57,17 @@ def normalize_yield(yld) -> str:
         return yld
 
 
+def normalize_time(time_entry) -> str:
+    if type(time_entry) == type(None):
+        return None
+    elif type(time_entry) != str:
+        return str(time_entry)
+
+
 def normalize_data(recipe_data: dict) -> dict:
+    recipe_data["totalTime"] = normalize_time(recipe_data.get("totalTime"))
+    recipe_data["prepTime"] = normalize_time(recipe_data.get("prepTime"))
+    recipe_data["performTime"] = normalize_time(recipe_data.get("performTime"))
     recipe_data["recipeYield"] = normalize_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeInstructions"] = normalize_instructions(
         recipe_data["recipeInstructions"]

@@ -10,7 +10,6 @@ logging.basicConfig(
     level=LOGGER_LEVEL,
     format="%(asctime)s %(levelname)s: %(message)s",
     datefmt="%d-%b-%y %H:%M:%S",
-    filename=LOGGER_FILE,
 )
 
 logger = logging.getLogger(__name__)

@@ -3,7 +3,7 @@ name: Docker Build Dev
 on:
   push:
     branches:
-      - dev
+      - master
 
 jobs:
   build:
@@ -45,5 +45,5 @@ jobs:
       - name: build the image
         run: |
           docker build --push \
-            --tag hkotel/mealie:dev \
+            --tag hkotel/mealie:latest \
             --platform linux/amd64,linux/arm/v7,linux/arm64 .
