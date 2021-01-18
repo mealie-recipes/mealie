@@ -28,15 +28,8 @@ export default {
     await apiReq.delete(backupURLs.deleteBackup(fileName));
   },
 
-  async create(tag, template) {
-    if (typeof template == String) {
-      template = [template];
-    }
-    console.log(tag, template);
-    let response = apiReq.post(backupURLs.createBackup, {
-      tag: tag,
-      template: template,
-    });
+  async create(data) {
+    let response = apiReq.post(backupURLs.createBackup, data);
     return response;
   },
 };

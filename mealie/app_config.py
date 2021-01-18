@@ -17,7 +17,7 @@ dotenv.load_dotenv(ENV)
 
 # Helpful Globals
 BASE_DIR = CWD
-DATA_DIR = CWD.joinpath("data")
+DATA_DIR = CWD.parent.joinpath("app_data")
 WEB_PATH = CWD.joinpath("dist")
 IMG_DIR = DATA_DIR.joinpath("img")
 BACKUP_DIR = DATA_DIR.joinpath("backups")
@@ -55,13 +55,7 @@ SQLITE_FILE = None
 DATABASE_TYPE = os.getenv("db_type", "sqlite")  # mongo, sqlite
 if DATABASE_TYPE == "sqlite":
     USE_SQL = True
-    USE_MONGO = False
     SQLITE_FILE = SQLITE_DIR.joinpath("mealie.sqlite")
-
-
-elif DATABASE_TYPE == "mongo":
-    USE_MONGO = True
-    USE_SQL = False
 
 else:
     raise Exception(

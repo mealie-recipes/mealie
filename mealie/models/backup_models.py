@@ -4,15 +4,32 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
+class BackupOptions(BaseModel):
+    recipes: bool = True
+    settings: bool = True
+    themes: bool = True
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "recipes": True,
+                "settings": True,
+                "themes": True,
+            }
+        }
+
+
 class BackupJob(BaseModel):
     tag: Optional[str]
-    template: Optional[List[str]]
+    options: BackupOptions
+    templates: Optional[List[str]] = []
 
     class Config:
         schema_extra = {
             "example": {
                 "tag": "July 23rd 2021",
-                "template": "recipes.md",
+                "options": BackupOptions,
+                "template": ["recipes.md"],
             }
         }
 
@@ -49,13 +66,13 @@ class ImportJob(BaseModel):
     settings: bool = False
 
     class Config:
-            schema_extra = {
-                "example": {
-                    "name": "my_local_backup.zip",
-                    "recipes": True,
-                    "force": False,
-                    "rebase": False,
-                    "themes": False,
-                    "settings": False
-                }
+        schema_extra = {
+            "example": {
+                "name": "my_local_backup.zip",
+                "recipes": True,
+                "force": False,
+                "rebase": False,
+                "themes": False,
+                "settings": False,
             }
+        }

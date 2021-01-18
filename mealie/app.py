@@ -13,7 +13,7 @@ from routes import (
     static_routes,
     user_routes,
 )
-from utils.api_docs import generate_api_docs
+# from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
 app = FastAPI(
@@ -54,8 +54,8 @@ app.include_router(static_routes.router)
 
 
 # Generate API Documentation
-if not PRODUCTION:
-    generate_api_docs(app)
+# if not PRODUCTION:
+#     generate_api_docs(app)
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")

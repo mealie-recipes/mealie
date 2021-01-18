@@ -1,6 +1,6 @@
 import json
 
-from app_config import BASE_DIR
+from app_config import DATA_DIR
 
 """Script to export the ReDoc documentation page into a standalone HTML file."""
 
@@ -33,7 +33,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
 
 def generate_api_docs(app):
-    out_dir = BASE_DIR.joinpath(".temp")
+    out_dir = DATA_DIR.joinpath(".temp")
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir.joinpath("index.html")
     with open(out_path, "w") as fd:

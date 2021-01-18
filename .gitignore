@@ -10,19 +10,18 @@ mealie/temp/api.html
 .temp/
 
 
-mealie/data/backups/*
-mealie/data/debug/*
-mealie/data/img/*
-mealie/data/migration/*
-!mealie/dist/*
+app_data/backups/*
+app_data/debug/*
+app_data/img/*
+app_data/migration/*
 
 #Exception to keep folders
 !mealie/dist/.gitkeep
-!mealie/data/backups/.gitkeep
-!mealie/data/backups/dev_sample_data*
-!mealie/data/debug/.gitkeep
-!mealie/data/migration/.gitkeep
-!mealie/data/img/.gitkeep
+!app_data/backups/.gitkeep
+!app_data/backups/dev_sample_data*
+!app_data/debug/.gitkeep
+!app_data/migration/.gitkeep
+!app_data/img/.gitkeep
 
 .DS_Store
 node_modules

@@ -45,8 +45,7 @@ Feature placement is not set in stone. This is much more of a guideline than any
 - [ ] Setup SQL Migrations
 
 ## Breaking Changes
-- Internal port 9000 changed to port 80 for better Traefik support
 - MongoDB support dropped
 ## Code Chores
-- [ ] Remove MongoDB Interface Code
+- [x] Remove MongoDB Interface Code
 - [ ] Dockerfile Trim

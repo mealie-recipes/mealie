@@ -1,16 +1,17 @@
 import logging
 from pathlib import Path
 
+from app_config import DATA_DIR
+
 LOGGER_LEVEL = "INFO"
 CWD = Path(__file__).parent
-LOGGER_FILE = CWD.parent.joinpath("data", "mealie.log")
+LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 
 
 logging.basicConfig(
     level=LOGGER_LEVEL,
     format="%(asctime)s %(levelname)s: %(message)s",
     datefmt="%d-%b-%y %H:%M:%S",
-    filename=LOGGER_FILE,
 )
 
 logger = logging.getLogger(__name__)
