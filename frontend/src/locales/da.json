@@ -1,0 +1,134 @@
+{
+  "404": {
+    "page-not-found": "404 side blev ikke fundet",
+    "take-me-home": "Tag mig hjem"
+  },
+  "new-recipe": {
+    "from-url": "Fra URL",
+    "recipe-url": "URL på opskrift",
+    "error-message": "Der opstod en fejl under indlæsning af opskriften. Tjek loggen og debug/last_recipe.json for at fejlsøge problemet.",
+    "bulk-add": "Bulk Tilføj",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Indsæt dine opskriftsdata. \nHver linje behandles som et element på en liste"
+  },
+  "general": {
+    "submit": "Indsend",
+    "name": "Navn",
+    "settings": "Indstillinger",
+    "cancel": "Annuller",
+    "close": "Luk",
+    "create": "Opret",
+    "delete": "Slet",
+    "edit": "Rediger",
+    "enabled": "Aktiveret",
+    "image-file": "Billedfil",
+    "new": "Ny",
+    "ok": "Ok",
+    "random": "Tilfældig",
+    "save": "Gem",
+    "select": "Vælg",
+    "update": "Opdater",
+    "delete-data": "Slet data",
+    "download": "Hent",
+    "import": "Importere"
+  },
+  "login": {
+    "email": "E-mail",
+    "password": "Adgangskode",
+    "sign-in": "Log ind",
+    "sign-up": "Opret bruger",
+    "stay-logged-in": "Forbliv logget ind"
+  },
+  "meal-plan": {
+    "dinner-this-week": "Madplan denne uge",
+    "dinner-today": "Madplan i dag",
+    "planner": "Planlægger",
+    "choose-a-recipe": "Vælg en opskrift",
+    "create-a-new-meal-plan": "Opret en ny måltidsplan",
+    "edit-meal-plan": "Rediger måltidsplan",
+    "end-date": "Slutdato",
+    "meal-plans": "Måltidsplaner",
+    "start-date": "Start dato"
+  },
+  "recipe": {
+    "description": "Beskrivelse",
+    "categories": "Kategorier",
+    "ingredient": "Ingrediens",
+    "ingredients": "Ingredienser",
+    "instructions": "Instruktioner",
+    "note": "Bemærk",
+    "notes": "Bemærkninger",
+    "original-recipe": "Oprindelig opskrift",
+    "recipe-name": "Opskriftens navn",
+    "servings": "Portioner",
+    "step-index": "Trin: {step}",
+    "tags": "Mærker",
+    "view-recipe": "Se opskrift"
+  },
+  "search": {
+    "search-for-a-recipe": "Søg efter en opskrift",
+    "search-for-your-favorite-recipe": "Søg efter din foretrukne <strong>opskrift</strong>"
+  },
+  "migration": {
+    "chowdown-repo-url": "Chowdown Repo URL",
+    "currently-chowdown-via-public-repo-url-is-the-only-supported-type-of-migration": "I øjeblikket er Chowdown via offentlig Repo URL den eneste understøttede migreringstype",
+    "failed-images": "Mislykkede billeder",
+    "failed-recipes": "Mislykkede opskrifter",
+    "migrate": "Migrere",
+    "recipe-migration": "Migrering af opskrifter",
+    "delete-confirmation": "Er du sikker på, at du vil slette disse migrationsdata?",
+    "failed-imports": "Mislykket import",
+    "nextcloud-data": "Nextcloud data",
+    "successfully-imported-from-nextcloud": "Importeret fra Nextcloud",
+    "upload-an-archive": "Upload et arkiv",
+    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "Du kan importere opskrifter fra enten en zip-fil eller et bibliotek i /app/data/migraiton/ folderen. \nGennemse dokumentationen for at sikre, at din bibliotekstruktur svarer til det, der forventes"
+  },
+  "settings": {
+    "add-a-new-theme": "Tilføj et nyt tema",
+    "backup-and-exports": "Backup og eksport",
+    "backup-info": "Sikkerhedskopier eksporteres i standard JSON-format sammen med alle de billeder, der er gemt på filsystemet. \nI din sikkerhedskopimappe finder du en .zip-fil, der indeholder alle opskrifterne JSON og billeder fra databasen. \nDerudover, hvis du valgte en markdown-fil, gemmes disse også i .zip-filen. \nFor at importere en sikkerhedskopi skal den være placeret i din sikkerhedskopimappe. \nAutomatiske sikkerhedskopier udføres hver dag kl. 3:00.",
+    "backup-recipes": "Sikkerhedskopier opksrifter",
+    "backup-tag": "Sikkerhedskopier tags",
+    "color": "Farve",
+    "contribute": "Bidrag",
+    "explore-the-docs": "Udforsk dokumentation",
+    "markdown-template": "Markdown skabelon",
+    "new-version-available": "En ny version af Mealie er tilgængelig. <a {aContents}> Besøg repoen </a>",
+    "set-new-time": "Indstil ny tid",
+    "swatches": "Prøver",
+    "current": "Version:",
+    "latest": "Seneste:",
+    "theme": {
+      "accent": "Accent",
+      "dark-mode": "Mørk tilstand",
+      "error": "Fejl",
+      "info": "Info",
+      "primary": "Primær",
+      "secondary": "Sekundær",
+      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Vælg et tema i rullemenuen, eller opret et nyt tema. \nBemærk, at standardtemaet serveres til alle brugere, der ikke har angivet en temapræference.",
+      "success": "Succes",
+      "theme-is-required": "Tema er påkrævet",
+      "theme-settings": "Temaindstillinger",
+      "warning": "Advarsel",
+      "are-you-sure-you-want-to-delete-this-theme": "Er du sikker på, at du vil slette dette tema?",
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Vælg, hvordan Mealie ser ud for dig. \nIndstil dit tema til at følge dine systemindstillinger, eller vælg at bruge det lyse eller mørke tema.",
+      "dark": "Mørkt",
+      "delete-theme": "Slet tema",
+      "light": "Lyst",
+      "save-colors-and-apply-theme": "Gem farver og anvend tema",
+      "saved-color-theme": "Gemt farvetema",
+      "theme": "Tema"
+    },
+    "webhooks": {
+      "meal-planner-webhooks": "Måltidsplanlægning Webhooks",
+      "save-webhooks": "Gem Webhooks",
+      "test-webhooks": "Test Webhooks",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Webadresserne, der er anført nedenfor, modtager webhooks, der indeholder opskriftsdataene for måltidsplanen på den planlagte dag. \nWebhooks udføres i øjeblikket på <strong> {time} </strong>",
+      "webhook-url": "Webhook adresse"
+    },
+    "backup": {
+      "import-recipes": "Importer opskrifter",
+      "import-settings": "Importindstillinger",
+      "import-themes": "Importer temaer"
+    }
+  }
+}

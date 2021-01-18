@@ -6,6 +6,12 @@
       class="d-print-none"
       :key="imageKey"
     >
+      <RecipeTimeCard
+        class="force-bottom"
+        :prepTime="recipeDetails.prepTime"
+        :totalTime="recipeDetails.totalTime"
+        :performTime="recipeDetails.performTime"
+      />
     </v-img>
     <ButtonRow
       :open="showIcons"
@@ -49,6 +55,7 @@ import utils from "../utils";
 import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "../components/Recipe/RecipeViewer";
 import RecipeEditor from "../components/Recipe/RecipeEditor";
+import RecipeTimeCard from "../components/Recipe/RecipeTimeCard.vue";
 import ButtonRow from "../components/UI/ButtonRow";
 
 export default {
@@ -57,10 +64,11 @@ export default {
     RecipeViewer,
     RecipeEditor,
     ButtonRow,
+    RecipeTimeCard,
   },
   data() {
     return {
-      // CurrentRecipe: this.$route.params.recipe,
+      // currentRecipe: this.$route.params.recipe,
       form: false,
       jsonEditor: false,
       jsonEditorOptions: {
@@ -99,7 +107,7 @@ export default {
   },
 
   computed: {
-    CurrentRecipe() {
+    currentRecipe() {
       return this.$route.params.recipe;
     },
     showIcons() {
@@ -118,7 +126,7 @@ export default {
       this.fileObject = fileObject;
     },
     async getRecipeDetails() {
-      this.recipeDetails = await api.recipes.requestDetails(this.CurrentRecipe);
+      this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
       this.form = false;
     },
     getImage(image) {
@@ -130,7 +138,7 @@ export default {
       api.recipes.delete(this.recipeDetails.slug);
     },
     async saveRecipe() {
-      await api.recipes.update(this.recipeDetails);
+      let slug = await api.recipes.update(this.recipeDetails);
 
       if (this.fileObject) {
         await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
@@ -138,6 +146,7 @@ export default {
 
       this.form = false;
       this.imageKey += 1;
+      this.$router.push(`/recipe/${slug}`);
     },
     showForm() {
       this.form = true;
@@ -153,5 +162,11 @@ export default {
 }
 .disabled-card {
   opacity: 0.5;
+}
+
+.force-bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 </style>

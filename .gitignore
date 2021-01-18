@@ -7,6 +7,7 @@ __pycache__/
 docs/site/
 mealie/temp/*
 mealie/temp/api.html
+.temp/
 
 
 mealie/data/backups/*
@@ -150,3 +151,5 @@ ENV/
 
 # Node Modules
 node_modules/
+mealie/data/debug/last_recipe.json
+*.sqlite

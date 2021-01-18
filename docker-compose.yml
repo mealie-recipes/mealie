@@ -1,5 +1,3 @@
-# Use root/example as user/password credentials
-# Frontend/Backend Served via the same Uvicorn Server
 version: "3.1"
 services:
   mealie:
@@ -9,25 +7,26 @@ services:
     container_name: mealie
     restart: always
     ports:
-      - 9090:9000
+      - 9090:80
     environment:
+      db_type: sql
       db_username: root
       db_password: example
       db_host: mongo
       db_port: 27017
-    volumes:
-      - ./mealie/data/:/app/data
-  mongo:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-  mongo-express: # Optional Mongo GUI
-    image: mongo-express
-    restart: always
-    ports:
-      - 9091:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    # volumes:
+    #   - ./mealie/data/:/app/data
+  # mongo:
+  #   image: mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+  # mongo-express: # Optional Mongo GUI
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 9091:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example

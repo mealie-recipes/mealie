@@ -4,6 +4,7 @@ import vuetify from "./plugins/vuetify";
 import store from "./store/store";
 import VueRouter from "vue-router";
 import { routes } from "./routes";
+import i18n from './i18n'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -17,11 +18,12 @@ new Vue({
   vuetify,
   store,
   router,
-  render: (h) => h(App),
+  i18n,
+  render: (h) => h(App)
 }).$mount("#app");
 
 // Truncate
-let filter = function (text, length, clamp) {
+let filter = function(text, length, clamp) {
   clamp = clamp || "...";
   let node = document.createElement("div");
   node.innerHTML = text;
@@ -32,5 +34,3 @@ let filter = function (text, length, clamp) {
 Vue.filter("truncate", filter);
 
 export { router };
-
-

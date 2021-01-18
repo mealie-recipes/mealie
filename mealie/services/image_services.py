@@ -2,13 +2,12 @@ import shutil
 from pathlib import Path
 
 import requests
-from fastapi.responses import FileResponse
 
 CWD = Path(__file__).parent
 IMG_DIR = CWD.parent.joinpath("data", "img")
 
 
-def read_image(recipe_slug: str) -> FileResponse:
+def read_image(recipe_slug: str) -> Path:
     if IMG_DIR.joinpath(recipe_slug).is_file():
         return IMG_DIR.joinpath(recipe_slug)
     else:

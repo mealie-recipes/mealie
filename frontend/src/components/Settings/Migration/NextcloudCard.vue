@@ -1,9 +1,7 @@
 <template>
   <v-card-text>
     <p>
-      You can import recipes from either a zip file or a directory located in
-      the /app/data/migraiton/ folder. Please review the documentation to ensure
-      your directory structure matches what is expected
+      {{$t('migration.you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected')}}
     </p>
     <v-form ref="form">
       <v-row align="center">
@@ -11,20 +9,20 @@
           <v-select
             :items="availableImports"
             v-model="selectedImport"
-            label="Nextcloud Data"
+            :label="$t('migration.nextcloud-data')"
             :rules="[rules.required]"
           ></v-select>
         </v-col>
         <v-col cols="12" md="2" sm="12">
-          <v-btn text color="info" @click="importRecipes"> Migrate </v-btn>
+          <v-btn text color="info" @click="importRecipes"> {{$t('migration.migrate')}} </v-btn>
         </v-col>
         <v-col cols="12" md="1" sm="12">
           <v-btn text color="error" @click="deleteImportValidation">
-            Delete
+            {{$t('general.delete')}}
           </v-btn>
           <Confirmation
-            title="Delete Data"
-            message="Are you sure you want to delete this migration data?"
+            :title="$t('general.delete-data')"
+            :message="$t('migration.delete-confirmation')"
             color="error"
             icon="mdi-alert-circle"
             ref="deleteThemeConfirm"
@@ -39,9 +37,9 @@
       </v-row>
     </v-form>
     <SuccessFailureAlert
-      success-header="Successfully Imported from Nextcloud"
+      :success-header="$t('migration.successfully-imported-from-nextcloud')"
       :success="successfulImports"
-      failed-header="Failed Imports"
+      failed-header="$t('migration.failed-imports')"
       :failed="failedImports"
     />
   </v-card-text>

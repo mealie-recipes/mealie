@@ -26,7 +26,7 @@
             <v-tooltip top color="secondary" max-width="400" open-delay="50">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn color="secondary" v-on="on" v-bind="attrs" text
-                  >Description</v-btn
+                  >{{$t('recipe.description')}}</v-btn
                 >
               </template>
               <span>{{ description }}</span>

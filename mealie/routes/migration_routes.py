@@ -4,15 +4,15 @@ from fastapi import APIRouter, File, HTTPException, UploadFile
 from models.migration_models import ChowdownURL
 from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
 from services.migrations.nextcloud import migrate as nextcloud_migrate
-from settings import MIGRATION_DIR
+from app_config import MIGRATION_DIR
 from utils.snackbar import SnackResponse
 
-router = APIRouter()
+router = APIRouter(tags=["Migration"])
 
 
 # Chowdown
-@router.post("/api/migration/chowdown/repo/", tags=["Migration"])
-async def import_chowdown_recipes(repo: ChowdownURL):
+@router.post("/api/migration/chowdown/repo/")
+def import_chowdown_recipes(repo: ChowdownURL):
     """ Import Chowsdown Recipes from Repo URL """
     try:
         report = chowdow_migrate(repo.url)
@@ -30,8 +30,8 @@ async def import_chowdown_recipes(repo: ChowdownURL):
 
 
 # Nextcloud
-@router.get("/api/migration/nextcloud/available/", tags=["Migration"])
-async def get_avaiable_nextcloud_imports():
+@router.get("/api/migration/nextcloud/available/")
+def get_avaiable_nextcloud_imports():
     """ Returns a list of avaiable directories that can be imported into Mealie """
     available = []
     for dir in MIGRATION_DIR.iterdir():
@@ -43,15 +43,15 @@ async def get_avaiable_nextcloud_imports():
     return available
 
 
-@router.post("/api/migration/nextcloud/{selection}/import/", tags=["Migration"])
-async def import_nextcloud_directory(selection: str):
+@router.post("/api/migration/nextcloud/{selection}/import/")
+def import_nextcloud_directory(selection: str):
     """ Imports all the recipes in a given directory """
 
     return nextcloud_migrate(selection)
 
 
-@router.delete("/api/migration/{file_folder_name}/delete/", tags=["Migration"])
-async def delete_migration_data(file_folder_name: str):
+@router.delete("/api/migration/{file_folder_name}/delete/")
+def delete_migration_data(file_folder_name: str):
     """ Removes migration data from the file system """
 
     remove_path = MIGRATION_DIR.joinpath(file_folder_name)
@@ -66,8 +66,8 @@ async def delete_migration_data(file_folder_name: str):
     return SnackResponse.info(f"Migration Data Remove: {remove_path.absolute()}")
 
 
-@router.post("/api/migration/upload/", tags=["Migration"])
-async def upload_nextcloud_zipfile(archive: UploadFile = File(...)):
+@router.post("/api/migration/upload/")
+def upload_nextcloud_zipfile(archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
     dest = MIGRATION_DIR.joinpath(archive.filename)
 

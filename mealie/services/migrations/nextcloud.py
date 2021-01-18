@@ -4,11 +4,11 @@ import shutil
 import zipfile
 from pathlib import Path
 
-from services.recipe_services import IMG_DIR, Recipe
+from services.recipe_services import Recipe
 from services.scrape_services import normalize_data, process_recipe_data
+from app_config import IMG_DIR, TEMP_DIR
 
 CWD = Path(__file__).parent
-TEMP_DIR = CWD.parent.parent.joinpath("data", "temp")
 MIGRTAION_DIR = CWD.parent.parent.joinpath("data", "migration")
 
 

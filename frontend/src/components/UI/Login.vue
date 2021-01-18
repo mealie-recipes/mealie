@@ -13,20 +13,20 @@
                 v-model="user.name"
                 light="light"
                 prepend-icon="person"
-                label="Name"
+                :label="$t('general.name')"
               ></v-text-field>
               <v-text-field
                 v-model="user.email"
                 light="light"
                 prepend-icon="mdi-email"
-                label="Email"
+                :label="$t('login.email')"
                 type="email"
               ></v-text-field>
               <v-text-field
                 v-model="user.password"
                 light="light"
                 prepend-icon="mdi-lock"
-                label="Password"
+                :label="$t('login.password')"
                 type="password"
               ></v-text-field>
               <v-checkbox
@@ -34,7 +34,7 @@
                 v-if="options.isLoggingIn"
                 v-model="options.shouldStayLoggedIn"
                 light="light"
-                label="Stay logged in?"
+                :label="$t('login.stay-logged-in')"
                 hide-details="hide-details"
               ></v-checkbox>
               <v-btn
@@ -44,14 +44,14 @@
                 color="primary"
                 block="block"
                 type="submit"
-                >Sign in</v-btn
+                >{{$t('login.sign-in')}}</v-btn
               >
               <v-btn
                 v-else
                 block="block"
                 type="submit"
                 @click.prevent="options.isLoggingIn = true"
-                >Sign up</v-btn
+                >{{$t('login.sign-up')}}</v-btn
               >
             </v-form>
           </v-card-text>

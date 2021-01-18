@@ -17,6 +17,7 @@ function inDarkMode(payload) {
 const state = {
   activeTheme: {},
   darkMode: "system",
+  isDark: false,
 };
 
 const mutations = {
@@ -30,6 +31,7 @@ const mutations = {
 
     if (isDark !== null) {
       Vuetify.framework.theme.dark = isDark;
+      state.isDark = isDark;
       state.darkMode = payload;
     }
   },
@@ -60,6 +62,7 @@ const actions = {
 const getters = {
   getActiveTheme: (state) => state.activeTheme,
   getDarkMode: (state) => state.darkMode,
+  getIsDark: (state) => state.isDark,
 };
 
 export default {

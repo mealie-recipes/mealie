@@ -2,7 +2,7 @@
   <v-form ref="file">
     <v-file-input
       :loading="loading"
-      label="Upload an Archive"
+      :label="$t('migration.upload-an-archive')"
       v-model="file"
       accept=".zip"
       @change="upload"

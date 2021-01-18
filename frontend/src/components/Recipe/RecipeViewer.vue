@@ -32,7 +32,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <h2 class="mb-4">Ingredients</h2>
+          <h2 class="mb-4">{{$t('recipe.ingredients')}}</h2>
           <div
             v-for="(ingredient, index) in ingredients"
             :key="generateKey('ingredient', index)"
@@ -47,7 +47,7 @@
           </div>
 
           <div v-if="categories[0]">
-            <h2 class="mt-4">Categories</h2>
+            <h2 class="mt-4">{{$t('recipe.categories')}}</h2>
             <v-chip
               class="ma-1"
               color="accent"
@@ -60,7 +60,7 @@
           </div>
 
           <div v-if="tags[0]">
-            <h2 class="mt-4">Tags</h2>
+            <h2 class="mt-4">{{$t('recipe.tags')}}</h2>
             <v-chip
               class="ma-1"
               color="accent"
@@ -72,7 +72,7 @@
             </v-chip>
           </div>
 
-          <h2 v-if="notes[0]" class="my-4">Notes</h2>
+          <h2 v-if="notes[0]" class="my-4">{{$t('recipe.notes')}}</h2>
           <v-card
             class="mt-1"
             v-for="(note, index) in notes"
@@ -87,7 +87,7 @@
         <v-divider class="my-divider" :vertical="true"></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
-          <h2 class="mb-4">Instructions</h2>
+          <h2 class="mb-4">{{$t('recipe.instructions')}}</h2>
           <v-hover
             v-for="(step, index) in instructions"
             :key="generateKey('step', index)"
@@ -99,7 +99,7 @@
               :elevation="hover ? 12 : 2"
               @click="toggleDisabled(index)"
             >
-              <v-card-title>Step: {{ index + 1 }}</v-card-title>
+              <v-card-title>{{ $t('recipe.step-index', {step: index + 1}) }}</v-card-title>
               <v-card-text>{{ step.text }}</v-card-text>
             </v-card>
           </v-hover>
@@ -121,7 +121,7 @@
           target="_blank"
           class="rounded-sm mr-4"
         >
-          Original Recipe
+          {{$t('recipe.original-recipe')}}
         </v-btn>
       </v-row>
     </v-card-text>

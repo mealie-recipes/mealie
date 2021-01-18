@@ -1,23 +1,15 @@
-import json
 from typing import List, Optional
 
-from db.settings_models import (
-    SiteSettingsDocument,
-    SiteThemeDocument,
-    ThemeColorsDocument,
-    WebhooksDocument,
-)
+from db.database import db
+from db.db_setup import sql_exists
 from pydantic import BaseModel
+from utils.logger import logger
 
 
 class Webhooks(BaseModel):
-    webhookTime: str
-    webhookURLs: Optional[List[str]]
-    enabled: bool
-
-    @staticmethod
-    def run():
-        pass
+    webhookTime: str = "00:00"
+    webhookURLs: Optional[List[str]] = []
+    enabled: bool = False
 
 
 class SiteSettings(BaseModel):
@@ -37,30 +29,22 @@ class SiteSettings(BaseModel):
         }
 
     @staticmethod
-    def _unpack_doc(document: SiteSettingsDocument):
-        document = json.loads(document.to_json())
-        del document["_id"]
-        document["webhhooks"] = Webhooks(**document["webhooks"])
-        return SiteSettings(**document)
+    def get_all():
+        db.settings.get_all()
 
-    @staticmethod
-    def get_site_settings():
+    @classmethod
+    def get_site_settings(cls):
         try:
-            document = SiteSettingsDocument.objects.get(name="main")
+            document = db.settings.get("main")
         except:
-            webhooks = WebhooksDocument()
-            document = SiteSettingsDocument(name="main", webhooks=webhooks)
-            document.save()
+            webhooks = Webhooks()
+            default_entry = SiteSettings(name="main", webhooks=webhooks)
+            document = db.settings.save_new(default_entry.dict(), webhooks.dict())
 
-        return SiteSettings._unpack_doc(document)
+        return cls(**document)
 
     def update(self):
-        document = SiteSettingsDocument.objects.get(name="main")
-        new_webhooks = WebhooksDocument(**self.webhooks.dict())
-
-        document.update(set__webhooks=new_webhooks)
-
-        document.save()
+        db.settings.update("main", new_data=self.dict())
 
 
 class Colors(BaseModel):
@@ -93,50 +77,67 @@ class SiteTheme(BaseModel):
             }
         }
 
-    @staticmethod
-    def get_by_name(theme_name):
-        document = SiteThemeDocument.objects.get(name=theme_name)
-        return SiteTheme._unpack_doc(document)
+    @classmethod
+    def get_by_name(cls, theme_name):
+        db_entry = db.themes.get(theme_name)
+        name = db_entry.get("name")
+        colors = Colors(**db_entry.get("colors"))
 
-    @staticmethod
-    def _unpack_doc(document):
-        document = json.loads(document.to_json())
-        del document["_id"]
-        theme_colors = SiteTheme(**document)
-        return theme_colors
+        return cls(name=name, colors=colors)
 
     @staticmethod
     def get_all():
-        all_themes = []
-        for theme in SiteThemeDocument.objects():
-            all_themes.append(SiteTheme._unpack_doc(theme))
+        all_themes = db.themes.get_all()
+        for index, theme in enumerate(all_themes):
+            name = theme.get("name")
+            colors = Colors(**theme.get("colors"))
+
+            all_themes[index] = SiteTheme(name=name, colors=colors)
 
         return all_themes
 
     def save_to_db(self):
-        theme = self.dict()
-        theme["colors"] = ThemeColorsDocument(**theme["colors"])
-
-        theme_document = SiteThemeDocument(**theme)
-
-        theme_document.save()
+        db.themes.save_new(self.dict())
 
     def update_document(self):
-        theme = self.dict()
-        theme["colors"] = ThemeColorsDocument(**theme["colors"])
-
-        theme_document = SiteThemeDocument.objects.get(name=self.name)
-
-        if theme_document:
-            theme_document.update(set__colors=theme["colors"])
-
-        theme_document.save()
+        db.themes.update(self.dict())
 
     @staticmethod
     def delete_theme(theme_name: str) -> str:
         """ Removes the theme by name """
-        document = SiteThemeDocument.objects.get(name=theme_name)
+        db.themes.delete(theme_name)
 
-        if document:
-            document.delete()
-            return "Document Deleted"
+
+def default_theme_init():
+    default_colors = {
+        "primary": "#E58325",
+        "accent": "#00457A",
+        "secondary": "#973542",
+        "success": "#5AB1BB",
+        "info": "#4990BA",
+        "warning": "#FF4081",
+        "error": "#EF5350",
+    }
+
+    try:
+        SiteTheme.get_by_name("default")
+        logger.info("Default theme exists... skipping generation")
+    except:
+        logger.info("Generating Default Theme")
+        colors = Colors(**default_colors)
+        default_theme = SiteTheme(name="default", colors=colors)
+        default_theme.save_to_db()
+
+
+def default_settings_init():
+    try:
+        document = db.settings.get("main")
+    except:
+        webhooks = Webhooks()
+        default_entry = SiteSettings(name="main", webhooks=webhooks)
+        document = db.settings.save_new(default_entry.dict(), webhooks.dict())
+
+
+if not sql_exists:
+    default_settings_init()
+    default_theme_init()

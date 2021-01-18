@@ -1,91 +1,104 @@
 {
-    "@context": "http://schema.org/",
+    "@context": "http://schema.org",
     "@type": "Recipe",
-    "name": "Jalape\u00f1o Popper Dip",
-    "author": {
-        "@type": "Person",
-        "name": "Michelle"
-    },
-    "description": "Jalapeno Popper Dip is creamy, cheesy and has just the perfect amount of kick. Great appetizer for your next party or watching the big game!",
-    "datePublished": "2016-02-22 00:01:37+00:00",
-    "image": "jalapeno-popper-dip.jpg",
-    "recipeYield": [
-        "10",
-        "10 to 12 servings"
+    "articleBody": "\u201cMy great-grandmothers were Indigenous and mostly nomadic, which means lots of fungi foraging,\u201d says Maricela Vega, the chef at Atlanta restaurant 8ARM and founder of Chicomec\u00f3atl, an organization centering the foodways of Indigenous Mexican diaspora. \u201cWhen I serve lion\u2019s mane mushrooms to vegans they sometimes mistake them for chicken, but they\u2019re more affordable, better for the planet, and help strengthen your immune system! They grow wild during Georgia winters, but at-home cultivation kits are easy for those without forest access. I use pumpkin hot sauce, oil, and fresh herbs as a marinade, then bust out a baby grill or cast-iron skillet to get them nice and crispy.\u201d This is a multistep recipe but perfect for long winter days when you want to flood the house with toasty, irresistible aromas. When you chop the mixed herbs, save the stems and throw them into the blanching water for the vegetables to add flavor.",
+    "alternativeHeadline": "This dish is perfect for long winter days when you want to flood the house with toasty, irresistible aromas.",
+    "dateModified": "2021-01-11 18:32:43.962000",
+    "datePublished": "2021-01-12 04:00:00",
+    "keywords": [
+        "recipes",
+        "healthyish",
+        "vegan",
+        "herb",
+        "apple cider vinegar",
+        "kosher salt",
+        "carrot",
+        "potato",
+        "radicchio",
+        "mushroom",
+        "oyster mushrooms",
+        "oil",
+        "black pepper",
+        "lemon",
+        "web"
     ],
-    "prepTime": "0:15:00",
-    "cookTime": "0:30:00",
-    "totalTime": "0:45:00",
+    "thumbnailUrl": "https://assets.bonappetit.com/photos/5ffc74b39cbb0a3c54d7400f/1:1/w_1199,h_1199,c_limit/HLY-Maricela-Vega-Grilled%20Mushrooms%20and%20Root%20Vegetables.jpg",
+    "publisher": {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Bon App\u00e9tit",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.bonappetit.com/verso/static/bon-appetit/assets/logo-seo.328de564b950e3d5d1fbe3e42f065290ca1d3844.png",
+            "width": "479px",
+            "height": "100px"
+        },
+        "url": "https://www.bonappetit.com"
+    },
+    "isPartOf": {
+        "@type": [
+            "CreativeWork",
+            "Product"
+        ],
+        "name": "Bon App\u00e9tit"
+    },
+    "isAccessibleForFree": true,
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Maricela Vega",
+            "sameAs": "https://bon-appetit.com/contributor/maricela-vega/"
+        }
+    ],
+    "description": "This dish is perfect for long winter days when you want to flood the house with toasty, irresistible aromas.",
+    "image": "grilled-mushrooms-and-root-vegetables.jpg",
+    "headline": "Grilled Mushrooms and Root Vegetables",
+    "name": "Grilled Mushrooms and Root Vegetables",
     "recipeIngredient": [
-        "16 ounces cream cheese (at room temperature)",
-        "1 cup mayonnaise",
-        "8 pieces of bacon (cooked and chopped)",
-        "6  jalape\u00f1os (seeded and minced (if you can't get fresh, substitute a 4-ounce can diced jalape\u00f1o peppers, drained))",
-        "2 cloves garlic (minced)",
-        "\u00bd teaspoon cumin",
-        "6 ounces cheddar cheese (shredded (about 1\u00bd cups))",
-        "1 cup panko breadcrumbs",
-        "1 cup  grated Parmesan cheese",
-        "4 tablespoons  unsalted butter, melted"
+        "1 cup Sesame Cr\u00e8me",
+        "2 Tbsp. Allium Confit",
+        "2 Tbsp. finely chopped mixed tender herbs (parsley, oregano, and/or mint), stems reservedfor blanching vegetables",
+        "2 Tbsp. apple cider vinegar",
+        "Kosher salt, freshly ground pepper",
+        "1 cup finely chopped mixed herbs (parsley, oregano, and/or mint), stems reserved for blanching vegetables",
+        "Kosher salt",
+        "4 medium carrots (about 1 lb.), preferably rainbow, scrubbed, halved lengthwise, cut crosswise into thirds",
+        "4 lb. baby potatoes, halved",
+        "1 head of radicchio, coarsely chopped, divided",
+        "1 lb. lion\u2019s mane, king trumpet, or oyster mushrooms, cut into 2\" pieces",
+        "\u00bd cup Pumpkin Hot Sauce",
+        "\u00bd cup grapeseed or vegetable oil",
+        "Freshly ground black pepper",
+        "1 cup Spiced Pecans",
+        "1 lemon, halved"
     ],
     "recipeInstructions": [
         {
-            "@type": "HowToStep",
-            "text": "Preheat oven to 375 degrees F.",
-            "name": "Preheat oven to 375 degrees F.",
-            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-0"
+            "text": "Pur\u00e9e Sesame Cr\u00e8me, Allium Confit, chopped herbs, and vinegar in a blender on high speed, adding ice water by the tablespoonful as needed to achieve a pourable consistency, until smooth and creamy. Season sauce with salt and pepper."
         },
         {
-            "@type": "HowToStep",
-            "text": "Combine the cream cheese, mayonnaise, bacon, jalapenos, garlic, cumin and cheddar cheese in a mixing bowl. Transfer the mixture into 2-quart baking dish.",
-            "name": "Combine the cream cheese, mayonnaise, bacon, jalapenos, garlic, cumin and cheddar cheese in a mixing bowl. Transfer the mixture into 2-quart baking dish.",
-            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-1"
+            "text": "Fill a large pot three quarters full with water, add reserved herb stems, and season heavily with salt. Bring water to a boil, then add carrots and cook until just tender, about 3 minutes. Using a slotted spoon, immediately transfer carrots to a large bowl of ice water and let cool."
         },
         {
-            "@type": "HowToStep",
-            "text": "Combine the panko breadcrumbs, Parmesan cheese and melted butter in a small bowl, tossing with a fork until the mixture is evenly moistened. Sprinkle evenly over the cream cheese mixture.",
-            "name": "Combine the panko breadcrumbs, Parmesan cheese and melted butter in a small bowl, tossing with a fork until the mixture is evenly moistened. Sprinkle evenly over the cream cheese mixture.",
-            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-2"
+            "text": "Place potatoes in same pot and return to a boil. Cook until tender (flesh should be easy to pierce with a fork), about 10 minutes. Using slotted spoon, transfer potatoes to bowl of ice water and let cool. Drain carrots and potatoes; place in a clean large bowl and add half of the radicchio. Place mushrooms in a medium bowl."
         },
         {
-            "@type": "HowToStep",
-            "text": "Bake in the preheated oven for 25 to 30 minutes, until the top is golden brown and the dip is bubbling. Let rest for 5 minutes before serving. Serve with your favorite tortilla chips, crackers, vegetables, etc.",
-            "name": "Bake in the preheated oven for 25 to 30 minutes, until the top is golden brown and the dip is bubbling. Let rest for 5 minutes before serving. Serve with your favorite tortilla chips, crackers, vegetables, etc.",
-            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-3"
+            "text": "Whisk Pumpkin Hot Sauce, oil, and chopped herbs in another medium bowl. Pour half of mixture over carrots and potatoes and the other half over mushrooms; toss each to coat. Season with salt and pepper."
+        },
+        {
+            "text": "Prepare a grill for medium-high heat. (Alternatively, heat a large cast-iron skillet over medium-high.) Grill mushrooms, turning occasionally, until deep golden brown and crisp around the edges (or cook in batches, stirring often, if using a skillet), 12\u201314 minutes. Transfer mushrooms to a large shallow serving bowl."
+        },
+        {
+            "text": "Grill carrots, potatoes, and radicchio, turning occasionally, until deep golden brown all over (or cook in batches, tossing often, if using a skillet), about 4 minutes. Transfer vegetables to bowl with mushrooms and toss to combine."
+        },
+        {
+            "text": "To serve, drizzle generously with sesame sauce; top with Spiced Pecans and remaining radicchio. Squeeze juice from each lemon half over."
         }
     ],
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.34",
-        "ratingCount": "15"
-    },
-    "recipeCategory": [
-        "Appetizer"
-    ],
-    "recipeCuisine": [
-        "American"
-    ],
-    "keywords": "cheese dip, game day food, party food",
-    "nutrition": {
-        "@type": "NutritionInformation",
-        "calories": "560 kcal",
-        "carbohydrateContent": "7 g",
-        "proteinContent": "14 g",
-        "fatContent": "52 g",
-        "saturatedFatContent": "21 g",
-        "cholesterolContent": "109 mg",
-        "sodiumContent": "707 mg",
-        "sugarContent": "2 g",
-        "servingSize": "1 serving"
-    },
-    "@id": "https://www.browneyedbaker.com/jalapeno-popper-dip/#recipe",
-    "isPartOf": {
-        "@id": "https://www.browneyedbaker.com/jalapeno-popper-dip/#article"
-    },
-    "mainEntityOfPage": "https://www.browneyedbaker.com/jalapeno-popper-dip/#webpage",
-    "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/",
-    "slug": "jalapeno-popper-dip",
-    "orgURL": "http://www.browneyedbaker.com/2011/08/03/jalapeno-popper-dip/",
+    "recipeYield": "4 Servings",
+    "url": "https://www.bonappetit.com/recipe/grilled-mushrooms-and-root-vegetables",
+    "slug": "grilled-mushrooms-and-root-vegetables",
+    "orgURL": "https://www.bonappetit.com/recipe/grilled-mushrooms-and-root-vegetables",
     "categories": [],
     "tags": [],
     "dateAdded": null,
