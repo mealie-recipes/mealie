@@ -1,23 +1,37 @@
 <template>
   <v-container>
-    <v-alert v-if="newVersion" color="green" type="success" outlined v-html="$t('settings.new-version-available', { aContents: 'target=\'_blank\' href=\'https://github.com/hay-kot/mealie\' class=\'green--text\''})">
-      
+    <v-alert
+      v-if="newVersion"
+      color="green"
+      type="success"
+      outlined
+      v-html="
+        $t('settings.new-version-available', {
+          aContents:
+            'target=\'_blank\' href=\'https://github.com/hay-kot/mealie\' class=\'green--text\'',
+        })
+      "
+    >
     </v-alert>
     <Theme />
     <Backup class="mt-2" />
     <Webhooks class="mt-2" />
     <Migration class="mt-2" />
     <p class="text-center my-2">
-      {{$t('settings.version-latest', {current: version, latest: latestVersion})}} ·
+      {{ $t("settings.current") }}
+      {{ version }} |
+      {{ $t("settings.latest") }}
+      {{ latestVersion }}
+      ·
       <a href="https://hay-kot.github.io/mealie/" target="_blank">
-        {{$t('settings.explore-the-docs')}}
+        {{ $t("settings.explore-the-docs") }}
       </a>
       ·
       <a
-        href="https://hay-kot.github.io/mealie/2.1%20-%20Contributions/"
+        href="https://hay-kot.github.io/mealie/contributors/non-coders/"
         target="_blank"
       >
-        {{$t('settings.contribute')}}
+        {{ $t("settings.contribute") }}
       </a>
     </p>
   </v-container>
@@ -40,7 +54,7 @@ export default {
   data() {
     return {
       latestVersion: null,
-      version: "v0.0.2",
+      version: "v0.1.0",
     };
   },
   mounted() {

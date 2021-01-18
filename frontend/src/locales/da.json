@@ -95,7 +95,8 @@
     "new-version-available": "En ny version af Mealie er tilgængelig. <a {aContents}> Besøg repoen </a>",
     "set-new-time": "Indstil ny tid",
     "swatches": "Prøver",
-    "version-latest": "Version: {current} | Seneste: {latest}",
+    "current": "Version:",
+    "latest": "Seneste:",
     "theme": {
       "accent": "Accent",
       "dark-mode": "Mørk tilstand",
