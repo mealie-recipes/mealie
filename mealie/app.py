@@ -13,7 +13,7 @@ from routes import (
     static_routes,
     user_routes,
 )
-from utils.api_docs import generate_api_docs
+# from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
 app = FastAPI(
