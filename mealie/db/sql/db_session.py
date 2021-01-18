@@ -15,7 +15,9 @@ def globa_init(db_file: Path):
         return
     conn_str = "sqlite:///" + str(db_file.absolute())
 
-    engine = sa.create_engine(conn_str, echo=False)
+    engine = sa.create_engine(
+        conn_str, echo=False, connect_args={"check_same_thread": False}
+    )
 
     __factory = orm.sessionmaker(bind=engine)
 
