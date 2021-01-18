@@ -7,6 +7,7 @@
   - Fixed Images saved with no way to delete when add recipe via URL fails - Closes Issue #43
 
 ### Features
+  - Additional Language Support
   - Improved deployment documentation
   - Additional database! SQlite is now supported! - Closes #48
   - All site data is now backed up.
@@ -23,6 +24,8 @@
   - Global variable refactor
 
 ### Break Changes
+
+- Internal docker port is now 80 instead of 9000. You MUST remap the internal port to connect to the UI. 
 
 !!! error "Breaking Changes"
     As I've adopted the SQL database model I find that using 2 different types of databases will inevitably hinder development. As such after release v0.1.0 support for mongoDB will no longer be available. Prior to upgrading to v0.2.0 you will need to export your site and import after updating. This should be a painless process and require minimal intervention on the users part. Moving forward we will do our best to minimize changes that require user intervention like this and make updates a smooth process. 
