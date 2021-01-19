@@ -89,9 +89,9 @@ def parse_recipe_url(url: RecipeURLIn, db: Session = Depends(generate_session)):
 @router.post("/api/recipe/create/")
 def create_from_json(data: Recipe, db: Session = Depends(generate_session)) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
-    created_recipe = data.save_to_db(db)
+    new_recipe_slug = data.save_to_db(db)
 
-    return created_recipe
+    return new_recipe_slug
 
 
 @router.post("/api/recipe/{recipe_slug}/update/image/")

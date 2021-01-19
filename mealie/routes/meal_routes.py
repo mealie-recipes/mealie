@@ -19,7 +19,7 @@ def get_all_meals(db: Session = Depends(generate_session)):
 @router.post("/api/meal-plan/create/")
 def set_meal_plan(data: MealPlan, db: Session = Depends(generate_session)):
     """ Creates a meal plan database entry """
-    data.process_meals()
+    data.process_meals(db)
     data.save_to_db(db)
 
     #     raise HTTPException(
@@ -35,7 +35,7 @@ def update_meal_plan(
     plan_id: str, meal_plan: MealPlan, db: Session = Depends(generate_session)
 ):
     """ Updates a meal plan based off ID """
-    meal_plan.process_meals()
+    meal_plan.process_meals(db)
     meal_plan.update(db, plan_id)
     # try:
     #     meal_plan.process_meals()
