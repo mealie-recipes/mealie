@@ -109,12 +109,12 @@
     },
     "webhooks": {
       "meal-planner-webhooks": "Meal Planner Webhooks",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will recieve webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at <strong>{ time }</strong>",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at <strong>{ time }</strong>",
       "test-webhooks": "Test Webhooks",
       "webhook-url": "Webhook URL",
       "save-webhooks": "Save Webhooks"
     },
-    "new-version-available": "A New Version of Mealie is Avaiable, <a {aContents}> Visit the Repo </a>",
+    "new-version-available": "A New Version of Mealie is Available, <a {aContents}> Visit the Repo </a>",
     "backup": {
       "import-recipes": "Import Recipes",
       "import-themes": "Import Themes",
@@ -130,7 +130,7 @@
     "migrate": "Migrate",
     "failed-recipes": "Failed Recipes",
     "failed-images": "Failed Images",
-    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "You can import recipes from either a zip file or a directory located in the /app/data/migraiton/ folder. Please review the documentation to ensure your directory structure matches what is expected",
+    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "You can import recipes from either a zip file or a directory located in the /app/data/migration/ folder. Please review the documentation to ensure your directory structure matches what is expected",
     "nextcloud-data": "Nextcloud Data",
     "delete-confirmation": "Are you sure you want to delete this migration data?",
     "successfully-imported-from-nextcloud": "Successfully Imported from Nextcloud",
