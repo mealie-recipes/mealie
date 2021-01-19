@@ -54,12 +54,12 @@ class MealPlan(BaseModel):
             }
         }
 
-    def process_meals(self):
+    def process_meals(self, session: Session):
         meals = []
         for x, meal in enumerate(self.meals):
 
             try:
-                recipe = Recipe.get_by_slug(meal.slug)
+                recipe = Recipe.get_by_slug(session, meal.slug)
 
                 meal_data = {
                     "slug": recipe.slug,

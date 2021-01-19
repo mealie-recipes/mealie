@@ -19,7 +19,10 @@ def override_get_db():
         db.close()
 
 
-@fixture
+@fixture(scope="session")
 def api_client():
+
     app.dependency_overrides[generate_session] = override_get_db
-    return TestClient(app)
+    yield TestClient(app)
+
+    SQLITE_FILE.unlink()

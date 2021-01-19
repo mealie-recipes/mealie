@@ -152,3 +152,4 @@ ENV/
 node_modules/
 mealie/data/debug/last_recipe.json
 *.sqlite
+app_data/db/test.db
