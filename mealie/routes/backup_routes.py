@@ -1,10 +1,12 @@
 import operator
 
 from app_config import BACKUP_DIR, TEMPLATE_DIR
-from fastapi import APIRouter, HTTPException
+from db.db_setup import generate_session
+from fastapi import APIRouter, Depends, HTTPException
 from models.backup_models import BackupJob, ImportJob, Imports, LocalBackup
 from services.backups.exports import backup_all
 from services.backups.imports import ImportDatabase
+from sqlalchemy.orm.session import Session
 from utils.snackbar import SnackResponse
 
 router = APIRouter(tags=["Import / Export"])
@@ -28,9 +30,10 @@ def available_imports():
 
 
 @router.post("/api/backups/export/database/", status_code=201)
-def export_database(data: BackupJob):
+def export_database(data: BackupJob, db: Session = Depends(generate_session)):
     """Generates a backup of the recipe database in json format."""
     export_path = backup_all(
+        session=db,
         tag=data.tag,
         templates=data.templates,
         export_recipes=data.options.recipes,
@@ -47,10 +50,13 @@ def export_database(data: BackupJob):
 
 
 @router.post("/api/backups/{file_name}/import/", status_code=200)
-def import_database(file_name: str, import_data: ImportJob):
+def import_database(
+    file_name: str, import_data: ImportJob, db: Session = Depends(generate_session)
+):
     """ Import a database backup file generated from Mealie. """
 
     import_db = ImportDatabase(
+        session=db,
         zip_archive=import_data.name,
         import_recipes=import_data.recipes,
         force_import=import_data.force,

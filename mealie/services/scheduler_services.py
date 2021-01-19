@@ -3,6 +3,7 @@ import json
 
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
+from db.db_setup import create_session
 from utils.logger import logger
 
 from services.backups.exports import auto_backup_job
@@ -40,7 +41,7 @@ class Scheduler:
         self.scheduler.add_job(
             auto_backup_job, trigger="cron", hour="3", max_instances=1
         )
-        settings = SiteSettings.get_site_settings()
+        settings = SiteSettings.get_site_settings(create_session())
         time = cron_parser(settings.webhooks.webhookTime)
 
         self.webhook = self.scheduler.add_job(

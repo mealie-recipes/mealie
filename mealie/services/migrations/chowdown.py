@@ -3,8 +3,9 @@ from pathlib import Path
 
 import git
 import yaml
-from services.recipe_services import Recipe
 from app_config import IMG_DIR
+from services.recipe_services import Recipe
+from sqlalchemy.orm.session import Session
 
 try:
     from yaml import CLoader as Loader
@@ -75,7 +76,7 @@ def read_chowdown_file(recipe_file: Path) -> Recipe:
         return new_recipe
 
 
-def chowdown_migrate(repo):
+def chowdown_migrate(session: Session, repo):
     recipe_dir, image_dir = pull_repo(repo)
 
     failed_images = []
@@ -89,7 +90,7 @@ def chowdown_migrate(repo):
     for recipe in recipe_dir.glob("*.md"):
         try:
             new_recipe = read_chowdown_file(recipe)
-            new_recipe.save_to_db()
+            new_recipe.save_to_db(session)
 
         except:
             failed_recipes.append(recipe.name)

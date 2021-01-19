@@ -6,6 +6,7 @@ from typing import Any, List, Optional
 from db.database import db
 from pydantic import BaseModel, validator
 from slugify import slugify
+from sqlalchemy.orm.session import Session
 
 from services.image_services import delete_image
 
@@ -91,14 +92,14 @@ class Recipe(BaseModel):
         return cls(**document)
 
     @classmethod
-    def get_by_slug(cls, slug: str):
+    def get_by_slug(cls, session, slug: str):
         """ Returns a Recipe Object by Slug """
 
-        document = db.recipes.get(slug, "slug")
+        document = db.recipes.get(session, slug, "slug")
 
         return cls(**document)
 
-    def save_to_db(self) -> str:
+    def save_to_db(self, session) -> str:
         recipe_dict = self.dict()
 
         try:
@@ -113,21 +114,21 @@ class Recipe(BaseModel):
         # except:
         #     pass
 
-        recipe_doc = db.recipes.save_new(recipe_dict)
+        recipe_doc = db.recipes.save_new(session, recipe_dict)
         recipe = Recipe(**recipe_doc)
 
         return recipe.slug
 
     @staticmethod
-    def delete(recipe_slug: str) -> str:
+    def delete(session: Session, recipe_slug: str) -> str:
         """ Removes the recipe from the database by slug """
         delete_image(recipe_slug)
-        db.recipes.delete(recipe_slug)
+        db.recipes.delete(session, recipe_slug)
         return "Document Deleted"
 
-    def update(self, recipe_slug: str):
+    def update(self, session: Session, recipe_slug: str):
         """ Updates the recipe from the database by slug"""
-        updated_slug = db.recipes.update(recipe_slug, self.dict())
+        updated_slug = db.recipes.update(session, recipe_slug, self.dict())
         return updated_slug.get("slug")
 
     @staticmethod
@@ -135,11 +136,13 @@ class Recipe(BaseModel):
         db.recipes.update_image(slug, extension)
 
     @staticmethod
-    def get_all():
-        return db.recipes.get_all()
+    def get_all(session: Session):
+        return db.recipes.get_all(session)
 
 
-def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
+def read_requested_values(
+    session: Session, keys: list, max_results: int = 0
+) -> List[dict]:
     """
     Pass in a list of key values to be run against the database. If a match is found
     it is then added to a dictionary inside of a list. If a key does not exist the
@@ -152,7 +155,9 @@ def read_requested_values(keys: list, max_results: int = 0) -> List[dict]:
 
     """
     recipe_list = []
-    for recipe in db.recipes.get_all(limit=max_results, order_by="dateAdded"):
+    for recipe in db.recipes.get_all(
+        session=session, limit=max_results, order_by="dateAdded"
+    ):
         recipe_details = {}
         for key in keys:
             try:

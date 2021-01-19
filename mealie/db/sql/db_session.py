@@ -1,29 +1,25 @@
 from pathlib import Path
 
 import sqlalchemy as sa
-import sqlalchemy.orm as orm
 from db.sql.model_base import SqlAlchemyBase
-from sqlalchemy.orm.session import Session
-
-__factory = None
+from sqlalchemy.orm import sessionmaker
 
 
-def globa_init(db_file: Path):
-    global __factory
+def sql_global_init(db_file: Path, check_thread=False):
 
-    if __factory:
-        return
-    conn_str = "sqlite:///" + str(db_file.absolute())
+    SQLALCHEMY_DATABASE_URL = "sqlite:///" + str(db_file.absolute())
+    # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
-    engine = sa.create_engine(conn_str, echo=False)
+    engine = sa.create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        echo=False,
+        connect_args={"check_same_thread": check_thread},
+    )
 
-    __factory = orm.sessionmaker(bind=engine)
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
     import db.sql._all_models
 
     SqlAlchemyBase.metadata.create_all(engine)
 
-
-def create_session() -> Session:
-    global __factory
-    return __factory()
+    return SessionLocal

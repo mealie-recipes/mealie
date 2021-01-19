@@ -4,6 +4,7 @@ from datetime import datetime
 from pathlib import Path
 
 from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
+from db.db_setup import create_session
 from jinja2 import Template
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
@@ -12,7 +13,7 @@ from utils.logger import logger
 
 
 class ExportDatabase:
-    def __init__(self, tag=None, templates=None) -> None:
+    def __init__(self, session, tag=None, templates=None) -> None:
         """Export a Mealie database. Export interacts directly with class objects and can be used
         with any supported backend database platform. By default tags are timestands, and no Jinja2 templates are rendered
 
@@ -26,6 +27,7 @@ class ExportDatabase:
         else:
             export_tag = datetime.now().strftime("%Y-%b-%d")
 
+        self.session = session
         self.main_dir = TEMP_DIR.joinpath(export_tag)
         self.img_dir = self.main_dir.joinpath("images")
         self.recipe_dir = self.main_dir.joinpath("recipes")
@@ -54,7 +56,7 @@ class ExportDatabase:
             dir.mkdir(parents=True, exist_ok=True)
 
     def export_recipes(self):
-        all_recipes = Recipe.get_all()
+        all_recipes = Recipe.get_all(self.session)
 
         for recipe in all_recipes:
             logger.info(f"Backing Up Recipes: {recipe}")
@@ -86,12 +88,12 @@ class ExportDatabase:
             shutil.copy(file, self.img_dir.joinpath(file.name))
 
     def export_settings(self):
-        all_settings = SiteSettings.get_site_settings()
+        all_settings = SiteSettings.get_site_settings(self.session)
         out_file = self.settings_dir.joinpath("settings.json")
         ExportDatabase._write_json_file(all_settings.dict(), out_file)
 
     def export_themes(self):
-        all_themes = SiteTheme.get_all()
+        all_themes = SiteTheme.get_all(self.session)
         if all_themes:
             all_themes = [x.dict() for x in all_themes]
             out_file = self.themes_dir.joinpath("themes.json")
@@ -100,7 +102,7 @@ class ExportDatabase:
     def export_meals(
         self,
     ):  #! Problem Parseing Datetime Objects... May come back to this
-        meal_plans = MealPlan.get_all()
+        meal_plans = MealPlan.get_all(self.session)
         if meal_plans:
             meal_plans = [x.dict() for x in meal_plans]
 
@@ -124,13 +126,14 @@ class ExportDatabase:
 
 
 def backup_all(
+    session,
     tag=None,
     templates=None,
     export_recipes=True,
     export_settings=True,
     export_themes=True,
 ):
-    db_export = ExportDatabase(tag=tag, templates=templates)
+    db_export = ExportDatabase(session=session, tag=tag, templates=templates)
 
     if export_recipes:
         db_export.export_recipes()
@@ -138,7 +141,7 @@ def backup_all(
 
     if export_settings:
         db_export.export_settings()
-        
+
     if export_themes:
         db_export.export_themes()
     # db_export.export_meals()
@@ -154,5 +157,6 @@ def auto_backup_job():
     for template in TEMPLATE_DIR.iterdir():
         templates.append(template)
 
-    backup_all(tag="Auto", templates=templates)
+    session = create_session()
+    backup_all(session=session, tag="Auto", templates=templates)
     logger.info("Auto Backup Called")

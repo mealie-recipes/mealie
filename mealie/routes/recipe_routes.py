@@ -1,18 +1,24 @@
 from typing import List, Optional
 
-from fastapi import APIRouter, File, Form, HTTPException, Query
+from db.db_setup import generate_session
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query
 from fastapi.responses import FileResponse
 from models.recipe_models import AllRecipeRequest, RecipeURLIn
 from services.image_services import read_image, write_image
 from services.recipe_services import Recipe, read_requested_values
 from services.scrape_services import create_from_url
+from sqlalchemy.orm.session import Session
 from utils.snackbar import SnackResponse
 
 router = APIRouter(tags=["Recipes"])
 
 
 @router.get("/api/all-recipes/", response_model=List[dict])
-def get_all_recipes(keys: Optional[List[str]] = Query(...), num: Optional[int] = 100):
+def get_all_recipes(
+    keys: Optional[List[str]] = Query(...),
+    num: Optional[int] = 100,
+    db: Session = Depends(generate_session),
+):
     """
     Returns key data for all recipes based off the query paramters provided.
     For example, if slug, image, and name are provided you will recieve a list of
@@ -24,12 +30,14 @@ def get_all_recipes(keys: Optional[List[str]] = Query(...), num: Optional[int] =
     See the *Post* method for more details.
     """
 
-    all_recipes = read_requested_values(keys, num)
+    all_recipes = read_requested_values(db, keys, num)
     return all_recipes
 
 
 @router.post("/api/all-recipes/", response_model=List[dict])
-def get_all_recipes_post(body: AllRecipeRequest):
+def get_all_recipes_post(
+    body: AllRecipeRequest, db: Session = Depends(generate_session)
+):
     """
     Returns key data for all recipes based off the body data provided.
     For example, if slug, image, and name are provided you will recieve a list of
@@ -39,15 +47,18 @@ def get_all_recipes_post(body: AllRecipeRequest):
 
     """
 
-    all_recipes = read_requested_values(body.properties, body.limit)
+    all_recipes = read_requested_values(db, body.properties, body.limit)
 
     return all_recipes
 
 
-@router.get("/api/recipe/{recipe_slug}/", response_model=Recipe)
-def get_recipe(recipe_slug: str):
+@router.get(
+    "/api/recipe/{recipe_slug}/",
+    response_model=Recipe,
+)
+def get_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
     """ Takes in a recipe slug, returns all data for a recipe """
-    recipe = Recipe.get_by_slug(recipe_slug)
+    recipe = Recipe.get_by_slug(db, recipe_slug)
 
     return recipe
 
@@ -63,22 +74,22 @@ def get_recipe_img(recipe_slug: str):
 # Recipe Creations
 @router.post(
     "/api/recipe/create-url/",
-    tags=["Recipes"],
     status_code=201,
     response_model=str,
 )
-def parse_recipe_url(url: RecipeURLIn):
+def parse_recipe_url(url: RecipeURLIn, db: Session = Depends(generate_session)):
     """ Takes in a URL and attempts to scrape data and load it into the database """
 
-    slug = create_from_url(url.url)
+    recipe = create_from_url(url.url)
+    recipe.save_to_db(db)
 
-    return slug
+    return recipe.slug
 
 
 @router.post("/api/recipe/create/")
-def create_from_json(data: Recipe) -> str:
+def create_from_json(data: Recipe, db: Session = Depends(generate_session)) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
-    created_recipe = data.save_to_db()
+    created_recipe = data.save_to_db(db)
 
     return created_recipe
 
@@ -95,20 +106,22 @@ def update_recipe_image(
 
 
 @router.post("/api/recipe/{recipe_slug}/update/")
-def update_recipe(recipe_slug: str, data: Recipe):
+def update_recipe(
+    recipe_slug: str, data: Recipe, db: Session = Depends(generate_session)
+):
     """ Updates a recipe by existing slug and data. """
 
-    new_slug = data.update(recipe_slug)
+    new_slug = data.update(db, recipe_slug)
 
     return new_slug
 
 
 @router.delete("/api/recipe/{recipe_slug}/delete/")
-def delete_recipe(recipe_slug: str):
+def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
     """ Deletes a recipe by slug """
 
     try:
-        Recipe.delete(recipe_slug)
+        Recipe.delete(db, recipe_slug)
     except:
         raise HTTPException(
             status_code=404, detail=SnackResponse.error("Unable to Delete Recipe")
