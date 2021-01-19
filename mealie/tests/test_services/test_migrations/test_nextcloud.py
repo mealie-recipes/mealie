@@ -11,7 +11,7 @@ from services.migrations.nextcloud import (
 from services.recipe_services import Recipe
 
 CWD = Path(__file__).parent
-NEXTCLOUD_DIR = CWD.parent.joinpath("data", "nextcloud_recipes")
+NEXTCLOUD_DIR = CWD.joinpath("data", "nextcloud_recipes")
 TEMP_NEXTCLOUD = TEMP_DIR.joinpath("nextcloud")
 
 
