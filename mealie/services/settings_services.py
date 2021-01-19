@@ -2,7 +2,9 @@ from typing import List, Optional
 
 from db.database import db
 from db.db_setup import sql_exists
+from db.db_setup import create_session, generate_session
 from pydantic import BaseModel
+from sqlalchemy.orm.session import Session
 from utils.logger import logger
 
 
@@ -29,17 +31,19 @@ class SiteSettings(BaseModel):
         }
 
     @staticmethod
-    def get_all():
-        db.settings.get_all()
+    def get_all(session: Session):
+        db.settings.get_all(session)
 
     @classmethod
-    def get_site_settings(cls):
+    def get_site_settings(cls, session: Session):
         try:
-            document = db.settings.get("main")
+            document = db.settings.get(session=session, match_value="main")
         except:
             webhooks = Webhooks()
             default_entry = SiteSettings(name="main", webhooks=webhooks)
-            document = db.settings.save_new(default_entry.dict(), webhooks.dict())
+            document = db.settings.save_new(
+                session, default_entry.dict(), webhooks.dict()
+            )
 
         return cls(**document)
 
@@ -78,16 +82,16 @@ class SiteTheme(BaseModel):
         }
 
     @classmethod
-    def get_by_name(cls, theme_name):
-        db_entry = db.themes.get(theme_name)
+    def get_by_name(cls, session: Session, theme_name):
+        db_entry = db.themes.get(session, theme_name)
         name = db_entry.get("name")
         colors = Colors(**db_entry.get("colors"))
 
         return cls(name=name, colors=colors)
 
     @staticmethod
-    def get_all():
-        all_themes = db.themes.get_all()
+    def get_all(session: Session):
+        all_themes = db.themes.get_all(session)
         for index, theme in enumerate(all_themes):
             name = theme.get("name")
             colors = Colors(**theme.get("colors"))
@@ -96,16 +100,16 @@ class SiteTheme(BaseModel):
 
         return all_themes
 
-    def save_to_db(self):
-        db.themes.save_new(self.dict())
+    def save_to_db(self, session: Session):
+        db.themes.save_new(session, self.dict())
 
-    def update_document(self):
-        db.themes.update(self.dict())
+    def update_document(self, session: Session):
+        db.themes.update(session, self.dict())
 
     @staticmethod
-    def delete_theme(theme_name: str) -> str:
+    def delete_theme(session: Session, theme_name: str) -> str:
         """ Removes the theme by name """
-        db.themes.delete(theme_name)
+        db.themes.delete(session, theme_name)
 
 
 def default_theme_init():
@@ -118,24 +122,25 @@ def default_theme_init():
         "warning": "#FF4081",
         "error": "#EF5350",
     }
-
+    session = create_session()
     try:
-        SiteTheme.get_by_name("default")
+        SiteTheme.get_by_name(session, "default")
         logger.info("Default theme exists... skipping generation")
     except:
         logger.info("Generating Default Theme")
         colors = Colors(**default_colors)
         default_theme = SiteTheme(name="default", colors=colors)
-        default_theme.save_to_db()
+        default_theme.save_to_db(session)
 
 
 def default_settings_init():
+    session = create_session()
     try:
-        document = db.settings.get("main")
+        document = db.settings.get(session, "main")
     except:
         webhooks = Webhooks()
         default_entry = SiteSettings(name="main", webhooks=webhooks)
-        document = db.settings.save_new(default_entry.dict(), webhooks.dict())
+        document = db.settings.save_new(session, default_entry.dict(), webhooks.dict())
 
 
 if not sql_exists:

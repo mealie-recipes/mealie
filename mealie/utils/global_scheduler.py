@@ -8,4 +8,4 @@ def start_scheduler():
     return scheduler
 
 
-scheduler = start_scheduler()
+scheduler = start_scheduler

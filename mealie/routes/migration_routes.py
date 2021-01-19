@@ -1,10 +1,12 @@
 import shutil
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from app_config import MIGRATION_DIR
+from db.db_setup import create_session
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from models.migration_models import ChowdownURL
 from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
 from services.migrations.nextcloud import migrate as nextcloud_migrate
-from app_config import MIGRATION_DIR
+from sqlalchemy.orm.session import Session
 from utils.snackbar import SnackResponse
 
 router = APIRouter(tags=["Migration"])
@@ -12,10 +14,10 @@ router = APIRouter(tags=["Migration"])
 
 # Chowdown
 @router.post("/api/migration/chowdown/repo/")
-def import_chowdown_recipes(repo: ChowdownURL):
+def import_chowdown_recipes(repo: ChowdownURL, db: Session = Depends(create_session)):
     """ Import Chowsdown Recipes from Repo URL """
     try:
-        report = chowdow_migrate(repo.url)
+        report = chowdow_migrate(db, repo.url)
         return SnackResponse.success(
             "Recipes Imported from Git Repo, see report for failures.",
             additional_data=report,
@@ -44,10 +46,10 @@ def get_avaiable_nextcloud_imports():
 
 
 @router.post("/api/migration/nextcloud/{selection}/import/")
-def import_nextcloud_directory(selection: str):
+def import_nextcloud_directory(selection: str, db: Session = Depends(create_session)):
     """ Imports all the recipes in a given directory """
 
-    return nextcloud_migrate(selection)
+    return nextcloud_migrate(db, selection)
 
 
 @router.delete("/api/migration/{file_folder_name}/delete/")

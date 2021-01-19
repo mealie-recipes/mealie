@@ -1,6 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from db.db_setup import generate_session
+from fastapi import APIRouter, Depends, HTTPException
 from services.scheduler_services import post_webhooks
 from services.settings_services import SiteSettings, SiteTheme
+from sqlalchemy.orm.session import Session
 from utils.global_scheduler import scheduler
 from utils.snackbar import SnackResponse
 
@@ -8,10 +10,10 @@ router = APIRouter(tags=["Settings"])
 
 
 @router.get("/api/site-settings/")
-def get_main_settings():
+def get_main_settings(db: Session = Depends(generate_session)):
     """ Returns basic site settings """
 
-    return SiteSettings.get_site_settings()
+    return SiteSettings.get_site_settings(db)
 
 
 @router.post("/api/site-settings/webhooks/test/")
@@ -37,22 +39,22 @@ def update_settings(data: SiteSettings):
 
 
 @router.get("/api/site-settings/themes/", tags=["Themes"])
-def get_all_themes():
+def get_all_themes(db: Session = Depends(generate_session)):
     """ Returns all site themes """
 
-    return SiteTheme.get_all()
+    return SiteTheme.get_all(db)
 
 
 @router.get("/api/site-settings/themes/{theme_name}/", tags=["Themes"])
-def get_single_theme(theme_name: str):
+def get_single_theme(theme_name: str, db: Session = Depends(generate_session)):
     """ Returns a named theme """
-    return SiteTheme.get_by_name(theme_name)
+    return SiteTheme.get_by_name(db, theme_name)
 
 
 @router.post("/api/site-settings/themes/create/", tags=["Themes"])
-def create_theme(data: SiteTheme):
+def create_theme(data: SiteTheme, db: Session = Depends(generate_session)):
     """ Creates a site color theme database entry """
-    data.save_to_db()
+    data.save_to_db(db)
     # try:
     #     data.save_to_db()
     # except:
@@ -64,9 +66,11 @@ def create_theme(data: SiteTheme):
 
 
 @router.post("/api/site-settings/themes/{theme_name}/update/", tags=["Themes"])
-def update_theme(theme_name: str, data: SiteTheme):
+def update_theme(
+    theme_name: str, data: SiteTheme, db: Session = Depends(generate_session)
+):
     """ Update a theme database entry """
-    data.update_document()
+    data.update_document(db)
 
     # try:
     # except:
@@ -78,9 +82,9 @@ def update_theme(theme_name: str, data: SiteTheme):
 
 
 @router.delete("/api/site-settings/themes/{theme_name}/delete/", tags=["Themes"])
-def delete_theme(theme_name: str):
+def delete_theme(theme_name: str, db: Session = Depends(generate_session)):
     """ Deletes theme from the database """
-    SiteTheme.delete_theme(theme_name)
+    SiteTheme.delete_theme(db, theme_name)
     # try:
     #     SiteTheme.delete_theme(theme_name)
     # except:

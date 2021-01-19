@@ -5,6 +5,7 @@ from typing import List, Tuple
 import extruct
 import requests
 import scrape_schema_recipe
+from app_config import DEBUG_DIR
 from slugify import slugify
 from utils.logger import logger
 from w3lib.html import get_base_url
@@ -13,7 +14,7 @@ from services.image_services import scrape_image
 from services.recipe_services import Recipe
 
 CWD = Path(__file__).parent
-TEMP_FILE = CWD.parent.joinpath("data", "debug", "last_recipe.json")
+TEMP_FILE = DEBUG_DIR.joinpath("last_recipe.json")
 
 
 def normalize_image_url(image) -> str:
@@ -165,7 +166,7 @@ def process_recipe_url(url: str) -> dict:
     return new_recipe
 
 
-def create_from_url(url: str) -> dict:
+def create_from_url(url: str) -> Recipe:
     recipe_data = process_recipe_url(url)
 
     with open(TEMP_FILE, "w") as f:
@@ -173,4 +174,4 @@ def create_from_url(url: str) -> dict:
 
     recipe = Recipe(**recipe_data)
 
-    return recipe.save_to_db()
+    return recipe

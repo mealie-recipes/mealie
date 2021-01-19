@@ -50,6 +50,10 @@ class Note(SqlAlchemyBase):
     title = sa.Column(sa.String)
     text = sa.Column(sa.String)
 
+    def __init__(self, title, text) -> None:
+        self.title = title
+        self.text = text
+
     def dict(self):
         return {"title": self.title, "text": self.text}
 
@@ -169,7 +173,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.categories = [Category(name=cat) for cat in categories]
         self.tags = [Tag(name=tag) for tag in tags]
         self.dateAdded = dateAdded
-        self.notes = [Note(note) for note in notes]
+        self.notes = [Note(**note) for note in notes]
         self.rating = rating
         self.orgURL = orgURL
         self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
