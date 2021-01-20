@@ -1,0 +1,86 @@
+{
+    "@context": "http://schema.org/",
+    "@type": "Recipe",
+    "name": "The Best Homemade Salsa Recipe",
+    "author": {
+        "@type": "Person",
+        "name": "Sommer Collier"
+    },
+    "description": "How To Make Delicious Salsa: Secrets of making the Best Homemade Salsa Recipe! This restaurant style salsa recipe is loaded with flavor, has an amazing texture, and a secret ingredient.",
+    "datePublished": "2020-02-01T00:00:30+00:00",
+    "image": [
+        "https://www.aspicyperspective.com/wp-content/uploads/2019/02/the-best-homemade-salsa-recipe-100.jpg",
+        "https://www.aspicyperspective.com/wp-content/uploads/2019/02/the-best-homemade-salsa-recipe-100-500x500.jpg",
+        "https://www.aspicyperspective.com/wp-content/uploads/2019/02/the-best-homemade-salsa-recipe-100-500x375.jpg",
+        "https://www.aspicyperspective.com/wp-content/uploads/2019/02/the-best-homemade-salsa-recipe-100-480x270.jpg"
+    ],
+    "video": {
+        "name": "The Best Homemade Salsa Recipe",
+        "description": "We\u2019re sharing our secrets for making The Best Homemade Salsa Recipe we\u2019ve ever tried. Healthy, fresh, and easy to adjust!",
+        "thumbnailUrl": "https://content.jwplatform.com/thumbs/rPi8NdK6-720.jpg",
+        "contentUrl": "https://content.jwplatform.com/videos/rPi8NdK6.mp4",
+        "uploadDate": "2017-03-22T16:24:09.000Z",
+        "@type": "VideoObject"
+    },
+    "recipeYield": [
+        "20",
+        "20 (5 cups)"
+    ],
+    "prepTime": "PT5M",
+    "totalTime": "PT5M",
+    "recipeIngredient": [
+        "4  ripe tomatoes, (cored and quartered)",
+        "1  red onion, (peeled and quartered)",
+        "3  garlic cloves, (peeled)",
+        "3  jalapenos, (stemmed and seeded (you can\u00a0substitute 1-2 habanero or serrano peppers.))",
+        "1/3 cup fresh cilantro",
+        "3 tablespoons fresh lime juice",
+        "2-3 teaspoons ground cumin",
+        "2-3 teaspoons sugar ((optional))",
+        "1 1/2 teaspoons salt",
+        "15 ounces crushed San Marzano tomatoes ((1 can))",
+        "4.5 ounces diced green chiles, (mild, medium, or hot (1 can))"
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Place the fresh tomatoes, onion, garlic, peppers, cilantro, lime juice, 2 teaspoons cumin, 2 teaspoons sugar (if using), and salt in a food processor. Pulse until the contents are fine and well blended.",
+            "name": "Place the fresh tomatoes, onion, garlic, peppers, cilantro, lime juice, 2 teaspoons cumin, 2 teaspoons sugar (if using), and salt in a food processor. Pulse until the contents are fine and well blended.",
+            "url": "https://www.aspicyperspective.com/best-homemade-salsa-recipe/#wprm-recipe-61842-step-0-0"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Pour in the crushed tomatoes and green chiles. Puree until mostly smooth. Taste, then add more cumin and sugar if desired. Refrigerate until ready to serve.",
+            "name": "Pour in the crushed tomatoes and green chiles. Puree until mostly smooth. Taste, then add more cumin and sugar if desired. Refrigerate until ready to serve.",
+            "url": "https://www.aspicyperspective.com/best-homemade-salsa-recipe/#wprm-recipe-61842-step-0-1"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.98",
+        "ratingCount": "201"
+    },
+    "recipeCategory": [
+        "Appetizer",
+        "Snack"
+    ],
+    "recipeCuisine": [
+        "American",
+        "Mexican"
+    ],
+    "keywords": "Homemade Salsa, Salsa, The Best Salsa Recipe",
+    "nutrition": {
+        "@type": "NutritionInformation",
+        "servingSize": "0.25 cup",
+        "calories": "19 kcal",
+        "carbohydrateContent": "4 g",
+        "sodiumContent": "230 mg",
+        "sugarContent": "2 g"
+    },
+    "@id": "https://www.aspicyperspective.com/best-homemade-salsa-recipe/#recipe",
+    "isPartOf": {
+        "@id": "https://www.aspicyperspective.com/best-homemade-salsa-recipe/#article"
+    },
+    "mainEntityOfPage": "https://www.aspicyperspective.com/best-homemade-salsa-recipe/#webpage",
+    "url": "https://www.aspicyperspective.com/best-homemade-salsa-recipe/"
+}
