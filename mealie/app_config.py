@@ -65,7 +65,7 @@ elif DATABASE_TYPE == "mongo":
 
 else:
     raise Exception(
-        "Unable to determine database type. Acceptible options are 'mongo' or 'tinydb' "
+        "Unable to determine database type. Acceptable options are 'mongo' or 'sqlite' "
     )
 
 # Mongo Database
