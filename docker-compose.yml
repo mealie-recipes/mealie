@@ -9,8 +9,7 @@ services:
     ports:
       - 9090:80
     environment:
-      db_type: sql
+      db_type: sqlite
 
     # volumes:
     #   - ./mealie/data/:/app/data
-
