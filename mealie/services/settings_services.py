@@ -1,8 +1,7 @@
 from typing import List, Optional
 
 from db.database import db
-from db.db_setup import sql_exists
-from db.db_setup import create_session, generate_session
+from db.db_setup import create_session, generate_session, sql_exists
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 from utils.logger import logger
@@ -47,8 +46,8 @@ class SiteSettings(BaseModel):
 
         return cls(**document)
 
-    def update(self):
-        db.settings.update("main", new_data=self.dict())
+    def update(self, session: Session):
+        db.settings.update(session, "main", new_data=self.dict())
 
 
 class Colors(BaseModel):

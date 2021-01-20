@@ -10,8 +10,8 @@ from services.scrape_services import (
 )
 
 CWD = Path(__file__).parent
-RAW_RECIPE_DIR = CWD.parent.joinpath("data", "recipes-raw")
-RAW_HTML_DIR = CWD.parent.joinpath("data", "html-raw")
+RAW_RECIPE_DIR = CWD.joinpath("data", "recipes-raw")
+RAW_HTML_DIR = CWD.joinpath("data", "html-raw")
 
 # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
 url_validation_regex = re.compile(

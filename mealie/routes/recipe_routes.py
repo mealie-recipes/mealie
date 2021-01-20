@@ -52,10 +52,7 @@ def get_all_recipes_post(
     return all_recipes
 
 
-@router.get(
-    "/api/recipe/{recipe_slug}/",
-    response_model=Recipe,
-)
+@router.get("/api/recipe/{recipe_slug}/", response_model=Recipe)
 def get_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
     """ Takes in a recipe slug, returns all data for a recipe """
     recipe = Recipe.get_by_slug(db, recipe_slug)

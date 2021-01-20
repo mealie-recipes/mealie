@@ -3,7 +3,7 @@ from pathlib import Path
 
 import git
 import yaml
-from app_config import IMG_DIR
+from app_config import IMG_DIR, TEMP_DIR
 from services.recipe_services import Recipe
 from sqlalchemy.orm.session import Session
 
@@ -11,8 +11,6 @@ try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
-
-TEMP_DIR = Path(__file__).parent.parent.parent.joinpath("temp")
 
 
 def pull_repo(repo):
