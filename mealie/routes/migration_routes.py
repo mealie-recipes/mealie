@@ -1,7 +1,7 @@
 import shutil
 
 from app_config import MIGRATION_DIR
-from db.db_setup import create_session
+from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from models.migration_models import ChowdownURL
 from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
@@ -14,7 +14,7 @@ router = APIRouter(tags=["Migration"])
 
 # Chowdown
 @router.post("/api/migration/chowdown/repo/")
-def import_chowdown_recipes(repo: ChowdownURL, db: Session = Depends(create_session)):
+def import_chowdown_recipes(repo: ChowdownURL, db: Session = Depends(generate_session)):
     """ Import Chowsdown Recipes from Repo URL """
     try:
         report = chowdow_migrate(db, repo.url)
@@ -46,7 +46,7 @@ def get_avaiable_nextcloud_imports():
 
 
 @router.post("/api/migration/nextcloud/{selection}/import/")
-def import_nextcloud_directory(selection: str, db: Session = Depends(create_session)):
+def import_nextcloud_directory(selection: str, db: Session = Depends(generate_session)):
     """ Imports all the recipes in a given directory """
 
     return nextcloud_migrate(db, selection)

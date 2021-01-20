@@ -1,11 +1,7 @@
 import json
 
+import pytest
 from tests.test_routes.utils.routes_data import recipe_test_data
-
-
-def cleanup(api_client):
-    api_client.delete(f"/api/recipe/{recipe_test_data[0].expected_slug}/delete/")
-    api_client.delete(f"/api/recipe/{recipe_test_data[1].expected_slug}/delete/")
 
 
 def get_meal_plan_template(first=None, second=None):
@@ -27,31 +23,33 @@ def get_meal_plan_template(first=None, second=None):
     }
 
 
-slug_1 = None
-slug_2 = None
-
-
-def get_slugs(api_client):
+@pytest.fixture
+def slug_1(api_client):
     # Slug 1
-    global slug_1
-    global slug_2
-    if slug_1 == None:
-        slug_1 = api_client.post(
-            "/api/recipe/create-url/", json={"url": recipe_test_data[0].url}
-        )
-        slug_1 = json.loads(slug_1.content)
+    slug_1 = api_client.post(
+        "/api/recipe/create-url/", json={"url": recipe_test_data[0].url}
+    )
+    slug_1 = json.loads(slug_1.content)
 
-        # Slug 2
-        slug_2 = api_client.post(
-            "/api/recipe/create-url/", json={"url": recipe_test_data[1].url}
-        )
-        slug_2 = json.loads(slug_2.content)
+    yield slug_1
 
-    return slug_1, slug_2
+    api_client.delete(f"/api/recipe/{recipe_test_data[1].expected_slug}/delete/")
 
 
-def test_create_mealplan(api_client):
-    slug_1, slug_2 = get_slugs(api_client)
+@pytest.fixture
+def slug_2(api_client):
+    # Slug 2
+    slug_2 = api_client.post(
+        "/api/recipe/create-url/", json={"url": recipe_test_data[1].url}
+    )
+    slug_2 = json.loads(slug_2.content)
+
+    yield slug_2
+
+    api_client.delete(f"/api/recipe/{recipe_test_data[0].expected_slug}/delete/")
+
+
+def test_create_mealplan(api_client, slug_1, slug_2):
     meal_plan = get_meal_plan_template()
     meal_plan["meals"][0]["slug"] = slug_1
     meal_plan["meals"][1]["slug"] = slug_2
@@ -60,12 +58,11 @@ def test_create_mealplan(api_client):
     assert response.status_code == 200
 
 
-def test_read_mealplan(api_client):
+def test_read_mealplan(api_client, slug_1, slug_2):
     response = api_client.get("/api/meal-plan/all/")
 
     assert response.status_code == 200
 
-    slug_1, slug_2 = get_slugs(api_client)
     meal_plan = get_meal_plan_template(slug_1, slug_2)
 
     new_meal_plan = json.loads(response.text)
@@ -75,8 +72,7 @@ def test_read_mealplan(api_client):
     assert meals[1]["slug"] == meal_plan["meals"][1]["slug"]
 
 
-def test_update_mealplan(api_client):
-    slug_1, slug_2 = get_slugs(api_client)
+def test_update_mealplan(api_client, slug_1, slug_2):
 
     response = api_client.get("/api/meal-plan/all/")
 

@@ -24,9 +24,9 @@ def test_webhooks():
 
 
 @router.post("/api/site-settings/update/")
-def update_settings(data: SiteSettings):
+def update_settings(data: SiteSettings, db: Session = Depends(generate_session)):
     """ Returns Site Settings """
-    data.update()
+    data.update(db)
     # try:
     #     data.update()
     # except:
@@ -34,7 +34,7 @@ def update_settings(data: SiteSettings):
     #         status_code=400, detail=SnackResponse.error("Unable to Save Settings")
     #     )
 
-    scheduler.reschedule_webhooks()
+    # scheduler.reschedule_webhooks() #! Need to fix Scheduler
     return SnackResponse.success("Settings Updated")
 
 
