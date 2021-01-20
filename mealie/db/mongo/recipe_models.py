@@ -13,6 +13,8 @@ class RecipeDocument(mongoengine.Document):
     recipeIngredient = mongoengine.ListField(required=True, default=[])
     recipeInstructions = mongoengine.ListField(requiredd=True, default=[])
     totalTime = mongoengine.StringField(required=False)
+    prepTime = mongoengine.StringField(required=False)
+    performTime = mongoengine.StringField(required=False)
 
     # Mealie Specific
     slug = mongoengine.StringField(required=True, unique=True)

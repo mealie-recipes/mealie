@@ -26,6 +26,7 @@ services:
     ports:
       - 9921:9000
     environment:
+      db_type: mongo
       TZ: America/Anchorage # Specify Correct Timezone for Date/Time to line up correctly.
       db_username: root
       db_password: example
