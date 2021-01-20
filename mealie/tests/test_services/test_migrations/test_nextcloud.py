@@ -1,17 +1,15 @@
 from pathlib import Path
-from app_config import TEMP_DIR
+
 import pytest
+from app_config import TEMP_DIR
 from services.image_services import IMG_DIR
-from services.migrations.nextcloud import (
-    cleanup,
-    import_recipes,
-    prep,
-    process_selection,
-)
+from services.migrations.nextcloud import (cleanup, import_recipes, prep,
+                                           process_selection)
 from services.recipe_services import Recipe
+from tests.test_config import TEST_NEXTCLOUD_DIR
 
 CWD = Path(__file__).parent
-NEXTCLOUD_DIR = CWD.joinpath("data", "nextcloud_recipes")
+TEST_NEXTCLOUD_DIR
 TEMP_NEXTCLOUD = TEMP_DIR.joinpath("nextcloud")
 
 
@@ -21,7 +19,7 @@ TEMP_NEXTCLOUD = TEMP_DIR.joinpath("nextcloud")
 )
 def test_zip_extraction(file_name: str, final_path: Path):
     prep()
-    zip = NEXTCLOUD_DIR.joinpath(file_name)
+    zip = TEST_NEXTCLOUD_DIR.joinpath(file_name)
     dir = process_selection(zip)
 
     assert dir == final_path
@@ -32,9 +30,9 @@ def test_zip_extraction(file_name: str, final_path: Path):
 @pytest.mark.parametrize(
     "recipe_dir",
     [
-        NEXTCLOUD_DIR.joinpath("Air Fryer Shrimp"),
-        NEXTCLOUD_DIR.joinpath("Chicken Parmigiana"),
-        NEXTCLOUD_DIR.joinpath("Skillet Shepherd's Pie"),
+        TEST_NEXTCLOUD_DIR.joinpath("Air Fryer Shrimp"),
+        TEST_NEXTCLOUD_DIR.joinpath("Chicken Parmigiana"),
+        TEST_NEXTCLOUD_DIR.joinpath("Skillet Shepherd's Pie"),
     ],
 )
 def test_nextcloud_migration(recipe_dir: Path):
