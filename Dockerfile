@@ -30,3 +30,6 @@ ENV ENV prod
 ENV APP_MODULE "app:app"
 
 VOLUME [ "/app/data" ]
+
+# healthcheck
+HEALTHCHECK CMD curl -sL --fail localhost || exit 1
