@@ -25,9 +25,9 @@
           <v-col align="end">
             <v-tooltip top color="secondary" max-width="400" open-delay="50">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn color="secondary" v-on="on" v-bind="attrs" text
-                  >{{$t('recipe.description')}}</v-btn
-                >
+                <v-btn color="secondary" v-on="on" v-bind="attrs" text>{{
+                  $t("recipe.description")
+                }}</v-btn>
               </template>
               <span>{{ description }}</span>
             </v-tooltip>
@@ -47,10 +47,15 @@ export default {
     description: String,
     rating: Number,
     image: String,
+    route: {
+      default: true,
+    },
   },
   methods: {
     moreInfo(recipeSlug) {
-      this.$router.push(`/recipe/${recipeSlug}`);
+      if (this.route) {
+        this.$router.push(`/recipe/${recipeSlug}`);
+      } else this.$emit("click");
     },
     getImage(image) {
       return utils.getImageURL(image);
