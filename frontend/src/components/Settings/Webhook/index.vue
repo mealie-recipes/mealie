@@ -1,10 +1,17 @@
 <template>
   <v-card>
     <v-card-title class="headline">
-      {{$t('settings.webhooks.meal-planner-webhooks')}}
+      {{ $t("settings.webhooks.meal-planner-webhooks") }}
     </v-card-title>
     <v-card-text>
-      <p v-html="$t('settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at', {time: time})"></p>
+      <p
+        v-html="
+          $t(
+            'settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at',
+            { time: time }
+          )
+        "
+      ></p>
 
       <v-row dense align="center">
         <v-col cols="12" md="2" sm="5">
@@ -19,7 +26,9 @@
           <TimePickerDialog @save-time="saveTime" />
         </v-col>
         <v-col cols="12" md="4" sm="5">
-          <v-btn text color="info" @click="testWebhooks"> {{$t('settings.webhooks.test-webhooks')}} </v-btn>
+          <v-btn text color="info" @click="testWebhooks">
+            {{ $t("settings.webhooks.test-webhooks") }}
+          </v-btn>
         </v-col>
       </v-row>
 
@@ -46,8 +55,8 @@
         </v-col>
         <v-col> </v-col>
         <v-col align="end">
-          <v-btn text color="success" @click="saveWebhooks">
-            {{$t('settings.webhooks.save-webhooks')}}
+          <v-btn color="success" @click="saveWebhooks" class="mr-2 mb-1">
+            {{ $t("settings.webhooks.save-webhooks") }}
           </v-btn>
         </v-col>
       </v-row>

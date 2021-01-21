@@ -11,6 +11,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Paste in your recipe data. Each line will be treated as an item in a list"
   },
   "general": {
+    "upload": "Upload",
     "submit": "Submit",
     "name": "Name",
     "settings": "Settings",

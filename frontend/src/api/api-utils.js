@@ -16,8 +16,8 @@ function processResponse(response) {
 }
 
 const apiReq = {
-  post: async function(url, data) {
-    let response = await axios.post(url, data).catch(function(error) {
+  post: async function (url, data) {
+    let response = await axios.post(url, data).catch(function (error) {
       if (error.response) {
         processResponse(error.response);
         return error.response;
@@ -27,8 +27,8 @@ const apiReq = {
     return response;
   },
 
-  get: async function(url, data) {
-    let response = await axios.get(url, data).catch(function(error) {
+  get: async function (url, data) {
+    let response = await axios.get(url, data).catch(function (error) {
       if (error.response) {
         processResponse(error.response);
         return response;
@@ -38,8 +38,8 @@ const apiReq = {
     return response;
   },
 
-  delete: async function(url, data) {
-    let response = await axios.delete(url, data).catch(function(error) {
+  delete: async function (url, data) {
+    let response = await axios.delete(url, data).catch(function (error) {
       if (error.response) {
         processResponse(error.response);
         return response;

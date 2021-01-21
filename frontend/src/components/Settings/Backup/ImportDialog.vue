@@ -8,7 +8,7 @@
 
         <v-card-text>
           <v-row>
-            <v-col >
+            <v-col>
               <v-checkbox
                 class="mb-n4 mt-1"
                 dense
@@ -65,15 +65,15 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-btn disabled color="success" text @click="raiseEvent('download')">
-            {{$t('general.download')}}
+          <v-btn color="success" text :href="`/api/backups/${name}/download/`">
+            {{ $t("general.download") }}
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn color="error" text @click="raiseEvent('delete')">
-            {{$t('general.delete')}}
+            {{ $t("general.delete") }}
           </v-btn>
           <v-btn color="success" text @click="raiseEvent('import')">
-            {{$t('general.import')}}
+            {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>
       </v-card>

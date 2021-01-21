@@ -1,12 +1,14 @@
 import operator
+import shutil
 
 from app_config import BACKUP_DIR, TEMPLATE_DIR
 from db.db_setup import generate_session
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from models.backup_models import BackupJob, ImportJob, Imports, LocalBackup
 from services.backups.exports import backup_all
 from services.backups.imports import ImportDatabase
 from sqlalchemy.orm.session import Session
+from starlette.responses import FileResponse
 from utils.snackbar import SnackResponse
 
 router = APIRouter(tags=["Import / Export"])
@@ -47,6 +49,33 @@ def export_database(data: BackupJob, db: Session = Depends(generate_session)):
             status_code=400,
             detail=SnackResponse.error("Error Creating Backup. See Log File"),
         )
+
+
+@router.post("/api/backups/upload/")
+def upload_backup_zipfile(archive: UploadFile = File(...)):
+    """ Upload a .zip File to later be imported into Mealie """
+    dest = BACKUP_DIR.joinpath(archive.filename)
+
+    with dest.open("wb") as buffer:
+        shutil.copyfileobj(archive.file, buffer)
+
+    if dest.is_file:
+        return SnackResponse.success("Backup uploaded")
+    else:
+        return SnackResponse.error("Failure uploading file")
+
+
+@router.get("/api/backups/{file_name}/download/")
+def upload_nextcloud_zipfile(file_name: str):
+    """ Upload a .zip File to later be imported into Mealie """
+    file = BACKUP_DIR.joinpath(file_name)
+
+    if file.is_file:
+        return FileResponse(
+            file, media_type="application/octet-stream", filename=file_name
+        )
+    else:
+        return SnackResponse.error("No File Found")
 
 
 @router.post("/api/backups/{file_name}/import/", status_code=200)
