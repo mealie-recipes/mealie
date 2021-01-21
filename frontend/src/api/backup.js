@@ -10,6 +10,7 @@ const backupURLs = {
   createBackup: `${backupBase}export/database/`,
   importBackup: (fileName) => `${backupBase}${fileName}/import/`,
   deleteBackup: (fileName) => `${backupBase}${fileName}/delete/`,
+  downloadBackup: (fileName) => `${backupBase}${fileName}/download/`,
 };
 
 export default {
@@ -31,5 +32,9 @@ export default {
   async create(data) {
     let response = apiReq.post(backupURLs.createBackup, data);
     return response;
+  },
+  async download(fileName) {
+    let response = await apiReq.get(backupURLs.downloadBackup(fileName));
+    return response.data;
   },
 };

@@ -21,10 +21,10 @@
         Available Backups
         <v-spacer></v-spacer>
         <span>
-          <v-btn color="success" text class="ma-2 white--text">
-            Upload
-            <v-icon right dark> mdi-cloud-upload </v-icon>
-          </v-btn>
+          <UploadBtn
+            url="/api/backups/upload/"
+            @uploaded="getAvailableBackups"
+          />
         </span>
       </v-card-title>
       <AvailableBackupCard
@@ -45,12 +45,14 @@
 <script>
 import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import UploadBtn from "../../UI/UploadBtn";
 import AvailableBackupCard from "./AvailableBackupCard";
 import NewBackupCard from "./NewBackupCard";
 
 export default {
   components: {
     SuccessFailureAlert,
+    UploadBtn,
     AvailableBackupCard,
     NewBackupCard,
   },
@@ -70,6 +72,7 @@ export default {
       let response = await api.backups.requestAvailable();
       this.availableBackups = response.imports;
       this.availableTemplates = response.templates;
+      console.log(this.availableBackups);
     },
     deleteBackup() {
       if (this.$refs.form.validate()) {
