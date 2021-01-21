@@ -6,9 +6,8 @@
       @click="onButtonClick"
       color="success"
       text
-      class="ma-2 white--text"
     >
-      <v-icon left dark> mdi-cloud-upload </v-icon>
+      <v-icon left > mdi-cloud-upload </v-icon>
       Upload
     </v-btn>
   </v-form>

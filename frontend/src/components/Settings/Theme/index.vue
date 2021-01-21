@@ -43,7 +43,7 @@
 
       <v-form ref="form" lazy-validation>
         <v-row dense align="center">
-          <v-col cols="12" md="4" sm="3">
+          <v-col md="4" sm="3">
             <v-select
               :label="$t('settings.theme.saved-color-theme')"
               :items="availableThemes"
@@ -51,18 +51,18 @@
               return-object
               v-model="selectedTheme"
               @change="themeSelected"
-              :rules="[(v) => !!v || $t('settings.theme.theme-is-required')]"
+              :rules="[v => !!v || $t('settings.theme.theme-is-required')]"
               required
             >
             </v-select>
           </v-col>
-          <v-col cols="12" sm="1">
-            <NewThemeDialog @new-theme="appendTheme" />
-          </v-col>
-          <v-col cols="12" sm="1">
-            <v-btn text color="error" @click="deleteSelectedThemeValidation">
-              Delete
-            </v-btn>
+          <v-col>
+            <v-btn-toggle group>
+              <NewThemeDialog @new-theme="appendTheme" class="mt-1" />
+              <v-btn text color="error" @click="deleteSelectedThemeValidation">
+                Delete
+              </v-btn>
+            </v-btn-toggle>
             <Confirmation
               :title="$t('settings.theme.delete-theme')"
               :message="
@@ -74,6 +74,7 @@
               v-on:confirm="deleteSelectedTheme()"
             />
           </v-col>
+          <v-spacer></v-spacer>
         </v-row>
       </v-form>
       <v-row dense align-content="center" v-if="selectedTheme.colors">
@@ -123,15 +124,10 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-row>
-        <v-col> </v-col>
-        <v-col></v-col>
-        <v-col align="end">
-          <v-btn text color="success" @click="saveThemes">
-            {{ $t("settings.theme.save-colors-and-apply-theme") }}
-          </v-btn>
-        </v-col>
-      </v-row>
+      <v-spacer></v-spacer>
+      <v-btn color="success" @click="saveThemes" class="mr-2">
+        {{ $t("general.save") }}
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -187,7 +183,7 @@ export default {
       //Change to default if deleting current theme.
       if (
         !this.availableThemes.some(
-          (theme) => theme.name === this.selectedTheme.name
+          theme => theme.name === this.selectedTheme.name
         )
       ) {
         await this.$store.dispatch("resetTheme");

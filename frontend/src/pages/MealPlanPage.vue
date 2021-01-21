@@ -109,7 +109,7 @@ export default {
     },
 
     editPlan(id) {
-      this.plannedMeals.forEach((element) => {
+      this.plannedMeals.forEach(element => {
         if (element.uid === id) {
           this.editMealPlan = element;
         }

@@ -1,7 +1,11 @@
 <template>
   <v-card-text>
     <p>
-      {{$t('migration.you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected')}}
+      {{
+        $t(
+          "migration.you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected"
+        )
+      }}
     </p>
     <v-form ref="form">
       <v-row align="center">
@@ -13,27 +17,32 @@
             :rules="[rules.required]"
           ></v-select>
         </v-col>
-        <v-col cols="12" md="2" sm="12">
-          <v-btn text color="info" @click="importRecipes"> {{$t('migration.migrate')}} </v-btn>
+        <v-col md="1" sm="12">
+          <v-btn-toggle group>
+            <v-btn text color="info" @click="importRecipes">
+              {{ $t("migration.migrate") }}
+            </v-btn>
+            <v-btn text color="error" @click="deleteImportValidation">
+              {{ $t("general.delete") }}
+            </v-btn>
+            <UploadBtn
+              url="/api/migration/upload/"
+              class="mt-1"
+              @uploaded="getAvaiableImports"
+            />
+
+            <Confirmation
+              :title="$t('general.delete-data')"
+              :message="$t('migration.delete-confirmation')"
+              color="error"
+              icon="mdi-alert-circle"
+              ref="deleteThemeConfirm"
+              v-on:confirm="deleteImport()"
+            />
+          </v-btn-toggle>
         </v-col>
-        <v-col cols="12" md="1" sm="12">
-          <v-btn text color="error" @click="deleteImportValidation">
-            {{$t('general.delete')}}
-          </v-btn>
-          <Confirmation
-            :title="$t('general.delete-data')"
-            :message="$t('migration.delete-confirmation')"
-            color="error"
-            icon="mdi-alert-circle"
-            ref="deleteThemeConfirm"
-            v-on:confirm="deleteImport()"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="5" sm="12">
-          <UploadMigrationButton @uploaded="getAvaiableImports" />
-        </v-col>
+
+        <v-spacer></v-spacer>
       </v-row>
     </v-form>
     <SuccessFailureAlert
@@ -48,13 +57,13 @@
 <script>
 import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
-import UploadMigrationButton from "./UploadMigrationButton";
 import Confirmation from "../../UI/Confirmation";
+import UploadBtn from "../../UI/UploadBtn";
 export default {
   components: {
     SuccessFailureAlert,
-    UploadMigrationButton,
     Confirmation,
+    UploadBtn,
   },
   data() {
     return {
@@ -63,7 +72,7 @@ export default {
       availableImports: [],
       selectedImport: null,
       rules: {
-        required: (v) => !!v || "Selection Required",
+        required: v => !!v || "Selection Required",
       },
     };
   },
