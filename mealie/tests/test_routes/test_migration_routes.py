@@ -1,13 +1,9 @@
 import json
 import shutil
-from pathlib import Path
-
-from app_config import BASE_DIR, MIGRATION_DIR
-from tests.test_services.test_migrations.test_nextcloud import NEXTCLOUD_DIR
-
-TEST_DIR = BASE_DIR.joinpath("tests")
 
 import pytest
+from app_config import MIGRATION_DIR
+from tests.test_config import TEST_NEXTCLOUD_DIR
 
 #! Broken
 # def test_import_chowdown_recipes(api_client):
@@ -28,13 +24,9 @@ import pytest
 
 @pytest.fixture(scope="session")
 def nextcloud_zip():
-    zip = TEST_DIR.joinpath(
-        "test_services/test_migrations/data/nextcloud_recipes/nextcloud.zip"
-    )
+    zip = TEST_NEXTCLOUD_DIR.joinpath("nextcloud.zip")
 
-    zip_copy = TEST_DIR.joinpath(
-        "test_services/test_migrations/data/nextcloud_recipes/new_nextcloud.zip"
-    )
+    zip_copy = TEST_NEXTCLOUD_DIR.joinpath("new_nextcloud.zip")
 
     shutil.copy(zip, zip_copy)
 
