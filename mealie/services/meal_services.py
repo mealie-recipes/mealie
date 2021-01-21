@@ -32,6 +32,7 @@ class Meal(BaseModel):
 
 
 class MealData(BaseModel):
+    name: Optional[str]
     slug: str
     dateText: str
 

@@ -53,17 +53,17 @@ export default {
     const dow = days[dateObject.getUTCDay()];
     const month = months[dateObject.getUTCMonth()];
     const day = dateObject.getUTCDate();
-    const year = dateObject.getFullYear();
+    // const year = dateObject.getFullYear();
 
-    return `${dow}, ${month} ${day}, ${year}`;
+    return `${dow}, ${month} ${day}`;
   },
   getDateAsTextAlt(dateObject) {
     const dow = days[dateObject.getUTCDay()];
     const month = monthsShort[dateObject.getUTCMonth()];
     const day = dateObject.getUTCDate();
-    const year = dateObject.getFullYear();
+    // const year = dateObject.getFullYear();
 
-    return `${dow}, ${month} ${day}, ${year}`;
+    return `${dow}, ${month} ${day}`;
   },
   getDateAsPythonDate(dateObject) {
     const month = dateObject.getMonth() + 1;

@@ -1,10 +1,6 @@
 <template>
   <v-row>
-    <MealSelect
-      :forceDialog="dialog"
-      @close="dialog = false"
-      @select="setSlug($event)"
-    />
+    <SearchDialog ref="mealselect" @select="setSlug" />
     <v-col
       cols="12"
       sm="12"
@@ -19,10 +15,10 @@
           <v-img
             height="200"
             :src="getImage(meal.slug)"
-            @click="selectRecipe(index)"
+            @click="openSearch(index)"
           ></v-img>
           <v-card-title class="my-n3 mb-n6">{{ meal.dateText }}</v-card-title>
-          <v-card-subtitle> {{ meal.slug }}</v-card-subtitle>
+          <v-card-subtitle> {{ meal.name }}</v-card-subtitle>
         </v-card>
       </v-hover>
     </v-col>
@@ -31,10 +27,10 @@
 
 <script>
 import utils from "../../utils";
-import MealSelect from "./MealSelect";
+import SearchDialog from "../UI/SearchDialog";
 export default {
   components: {
-    MealSelect,
+    SearchDialog,
   },
   props: {
     value: Array,
@@ -44,7 +40,6 @@ export default {
       recipeData: [],
       cardData: [],
       activeIndex: 0,
-      dialog: false,
     };
   },
   methods: {
@@ -53,20 +48,14 @@ export default {
         return utils.getImageURL(slug);
       }
     },
-    setSlug(slug) {
+    setSlug(name, slug) {
       let index = this.activeIndex;
       this.value[index]["slug"] = slug;
+      this.value[index]["name"] = name;
     },
-    selectRecipe(index) {
+    openSearch(index) {
       this.activeIndex = index;
-      this.dialog = true;
-    },
-    getProperty(index, property) {
-      try {
-        return this.recipeData[index][property];
-      } catch {
-        return null;
-      }
+      this.$refs.mealselect.open();
     },
   },
 };

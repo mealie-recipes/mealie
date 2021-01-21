@@ -5,66 +5,71 @@
       :meal-plan="editMealPlan"
       @updated="planUpdated"
     />
-    <NewMeal v-else @created="requestMeals" />
+    <NewMeal v-else @created="requestMeals" class="mb-5" />
 
-    <v-card class="my-1">
-      <v-card-title class="headline"> {{$t('meal-plan.meal-plans')}} </v-card-title>
+    <v-card class="my-2">
+      <v-card-title class="headline">
+        {{ $t("meal-plan.meal-plans") }}
+      </v-card-title>
       <v-divider></v-divider>
 
-      <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
-        <v-timeline-item
-          class="mx-4"
+      <v-row no-gutters>
+        <v-col
+          :sm="6"
+          :md="6"
+          :lg="4"
+          :xl="3"
           v-for="(mealplan, i) in plannedMeals"
           :key="i"
-          color="accent lighten-2"
-          icon="mdi-silverware-variant"
-          fill-dot
         >
-          <v-card>
-            <v-card-title class="white--text secondary lighten-1">
+          <v-card class="ml-2 mt-2 mr-0">
+            <v-card-title>
               {{ formatDate(mealplan.startDate) }} -
               {{ formatDate(mealplan.endDate) }}
             </v-card-title>
-
-            <v-card-text>
-              <v-row dense align="center">
-                <v-col></v-col>
-                <v-col
+            <v-list nav>
+              <v-list-item-group color="primary">
+                <v-list-item
                   v-for="(meal, index) in mealplan.meals"
                   :key="generateKey(meal.slug, index)"
+                  @click="$router.push(`/recipe/${meal.slug}`)"
                 >
-                  <v-img
-                    class="rounded-lg info"
-                    :src="getImage(meal.image)"
-                    height="80"
-                    width="80"
+                  <v-list-item-avatar
+                    color="primary"
+                    class="headline font-weight-light white--text"
                   >
-                  </v-img>
-                </v-col>
-                <v-col></v-col>
-              </v-row>
-              <v-row class="mt-2 ml-1">
-                <v-btn
-                  color="accent lighten-2"
-                  class="mx-0"
-                  text
-                  @click="editPlan(mealplan.uid)"
-                >
-                  {{$t('general.edit')}}
-                </v-btn>
-                <v-btn
-                  color="error lighten-2"
-                  class="mx-2"
-                  text
-                  @click="deletePlan(mealplan.uid)"
-                >
-                  {{$t('general.delete')}}
-                </v-btn>
-              </v-row>
-            </v-card-text>
+                    <v-img :src="getImage(meal.image)"></v-img>
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="meal.name"></v-list-item-title>
+                    <v-list-item-subtitle v-text="meal.dateText">
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+            <v-card-actions class="mt-n5">
+              <v-spacer></v-spacer>
+              <v-btn
+                color="accent lighten-2"
+                class="mx-0"
+                text
+                @click="editPlan(mealplan.uid)"
+              >
+                {{ $t("general.edit") }}
+              </v-btn>
+              <v-btn
+                color="error lighten-2"
+                class="mx-2"
+                text
+                @click="deletePlan(mealplan.uid)"
+              >
+                {{ $t("general.delete") }}
+              </v-btn>
+            </v-card-actions>
           </v-card>
-        </v-timeline-item>
-      </v-timeline>
+        </v-col>
+      </v-row>
     </v-card>
   </div>
 </template>
