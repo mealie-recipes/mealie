@@ -6,6 +6,7 @@
   - Fixed data validation error on missing parameters
   - Fixed failed database initialization at startup
   - Fixed misaligned text on various cards
+  - Fixed bug that blocked opening links in new tabs
 
 ### Features and Improvements
   - Meal Planner
