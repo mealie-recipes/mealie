@@ -34,12 +34,12 @@ Feature placement is not set in stone. This is much more of a guideline than any
     - [ ] Category Filter
     - [ ] Tag Filter
     - [x] Fuzzy Search
-- [ ] Backup card redesign
+- [x] Backup card redesign
 - [ ] Additional Backup / Import Features
     - [ ] Import Recipes Force/Rebase options
-    - [ ] Upload .zip file
+    - [x] Upload .zip file
 - [ ] Improved Color Picker
-- [ ] Meal Plan redesign
+- [x] Meal Plan redesign
 ### Backend
 - [ ] PostgreSQL Support
 - [ ] Setup SQL Migrations
@@ -48,4 +48,4 @@ Feature placement is not set in stone. This is much more of a guideline than any
 - MongoDB support dropped
 ## Code Chores
 - [x] Remove MongoDB Interface Code
-- [ ] Dockerfile Trim
+- [x] Dockerfile Trim

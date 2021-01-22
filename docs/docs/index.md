@@ -65,7 +65,6 @@ Mealie also provides an API for interactions from 3rd party applications. **Why 
 * [Vue.js](https://vuejs.org/)
 * [Vuetify](https://vuetifyjs.com/en/)
 * [FastAPI](https://fastapi.tiangolo.com/)
-* [MongoDB](https://www.mongodb.com/)
 * [Docker](https://www.docker.com/)
 
 

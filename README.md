@@ -72,7 +72,6 @@ Mealie also provides a secure API for interactions from 3rd party applications. 
 * [Vue.js](https://vuejs.org/)
 * [Vuetify](https://vuetifyjs.com/en/)
 * [FastAPI](https://fastapi.tiangolo.com/)
-* [MongoDB](https://www.mongodb.com/)
 * [Docker](https://www.docker.com/)
 
 
