@@ -1,13 +1,8 @@
 <template>
   <v-form ref="file">
     <input ref="uploader" class="d-none" type="file" @change="onFileChanged" />
-    <v-btn
-      :loading="isSelecting"
-      @click="onButtonClick"
-      color="success"
-      text
-    >
-      <v-icon left > mdi-cloud-upload </v-icon>
+    <v-btn :loading="isSelecting" @click="onButtonClick" color="accent" text>
+      <v-icon left> mdi-cloud-upload </v-icon>
       Upload
     </v-btn>
   </v-form>

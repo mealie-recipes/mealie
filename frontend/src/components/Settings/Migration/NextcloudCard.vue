@@ -20,9 +20,11 @@
         <v-col md="1" sm="12">
           <v-btn-toggle group>
             <v-btn text color="info" @click="importRecipes">
+              <v-icon left> mdi-import </v-icon>
               {{ $t("migration.migrate") }}
             </v-btn>
             <v-btn text color="error" @click="deleteImportValidation">
+              <v-icon left> mdi-delete </v-icon>
               {{ $t("general.delete") }}
             </v-btn>
             <UploadBtn

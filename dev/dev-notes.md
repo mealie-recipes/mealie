@@ -35,7 +35,7 @@ Frontend
 - [ ] Search Bar redesign
   - [x] Initial
   - [ ] Results redesign
-- [ ] Replace Backups card with something like Home Assistant
+- [x] Replace Backups card with something like Home Assistant
 - [x] Replace import card with something like Home Assistant
   - [x] Select which imports to do
 

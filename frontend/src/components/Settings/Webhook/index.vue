@@ -15,18 +15,14 @@
 
       <v-row dense align="center">
         <v-col cols="12" md="2" sm="5">
-          <v-switch
-            v-model="enabled"
-            inset
-            :label="$t('general.enabled')"
-            class="my-n3"
-          ></v-switch>
+          <v-switch v-model="enabled" :label="$t('general.enabled')"></v-switch>
         </v-col>
         <v-col cols="12" md="3" sm="5">
           <TimePickerDialog @save-time="saveTime" />
         </v-col>
         <v-col cols="12" md="4" sm="5">
           <v-btn text color="info" @click="testWebhooks">
+            <v-icon left> mdi-webhook </v-icon>
             {{ $t("settings.webhooks.test-webhooks") }}
           </v-btn>
         </v-col>
@@ -47,19 +43,14 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-row>
-        <v-col>
-          <v-btn icon color="success" @click="addWebhook">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </v-col>
-        <v-col> </v-col>
-        <v-col align="end">
-          <v-btn color="success" @click="saveWebhooks" class="mr-2 mb-1">
-            {{ $t("settings.webhooks.save-webhooks") }}
-          </v-btn>
-        </v-col>
-      </v-row>
+      <v-btn icon color="success" @click="addWebhook">
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn color="success" @click="saveWebhooks" class="mr-2 mb-1">
+        <v-icon left> mdi-content-save </v-icon>
+        {{ $t("general.save") }}
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
