@@ -3,7 +3,8 @@
     <v-card
       :class="{ 'on-hover': hover }"
       :elevation="hover ? 12 : 2"
-      @click="moreInfo(slug)"
+      :to="route ? `/recipe/${slug}` : ''"
+      @click="$emit('click')"
     >
       <v-img height="200" :src="getImage(image)"></v-img>
       <v-card-title class="my-n3 mb-n6">{{ name | truncate(30) }}</v-card-title>
@@ -52,11 +53,6 @@ export default {
     },
   },
   methods: {
-    moreInfo(recipeSlug) {
-      if (this.route) {
-        this.$router.push(`/recipe/${recipeSlug}`);
-      } else this.$emit("click");
-    },
     getImage(image) {
       return utils.getImageURL(image);
     },
