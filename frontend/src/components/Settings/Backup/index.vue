@@ -19,14 +19,14 @@
       <v-divider class="my-3"></v-divider>
       <v-card-title class="mt-n6">
         Available Backups
-        <v-spacer></v-spacer>
         <span>
           <UploadBtn
-          class="mt-1"
+            class="mt-1"
             url="/api/backups/upload/"
             @uploaded="getAvailableBackups"
           />
         </span>
+        <v-spacer></v-spacer>
       </v-card-title>
       <AvailableBackupCard
         @loading="backupLoading = true"

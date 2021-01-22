@@ -1,9 +1,37 @@
 # Release Notes
 
+## V0.2.0 - Now with Test!
+### Bug Fixes
+  - Remove ability to save recipe with no name
+  - Fixed data validation error on missing parameters
+  - Fixed failed database initialization at startup
+  - Fixed misaligned text on various cards
+  - Fixed bug that blocked opening links in new tabs
+
+### Features and Improvements
+  - Meal Planner
+    - Improved Search (Fuzzy Search)
+    - New Scheduled card support 
+    - Upload/Download backups
+  - Dockerfile now 1/5 of the size!
+  - **Minor**
+    - Continued work on button/style unification
+    - Adding icons to buttons
+
+### Development
+  - Fixed Vetur config file. Autocomplete in VSCode works!
+  - Added Prettier config
+  - Fixed incorrect layout code
+  - FastAPI Route tests for major operations
+
+### Breaking Changes
+  - Officially Dropped MongoDB Support
+  - Mounting volume moved to different internal location due to development issues. New volume should be mounted as `mealie/data:/app_data/` 
+
 ## v0.1.0 - Initial Beta
 ### Bug Fixes
   - Fixed Can't delete recipe after changing name - Closes Issue #67
-  - Fixed No image when added by URL, and can;t add an image - Closes Issue #66
+  - Fixed No image when added by URL, and can't add an image - Closes Issue #66
   - Fixed Images saved with no way to delete when add recipe via URL fails - Closes Issue #43
 
 ### Features
@@ -23,7 +51,7 @@
   - Major code refactoring to support new database layer
   - Global variable refactor
 
-### Break Changes
+### Breaking Changes
 
 - Internal docker port is now 80 instead of 9000. You MUST remap the internal port to connect to the UI. 
 

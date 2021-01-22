@@ -151,11 +151,13 @@ export default {
   methods: {
     get_random(list) {
       const object = list[Math.floor(Math.random() * list.length)];
-      return object.slug;
+      return object;
     },
     random() {
       this.meals.forEach((element, index) => {
-        this.meals[index]["slug"] = this.get_random(this.items);
+        let recipe = this.get_random(this.items);
+        this.meals[index]["slug"] = recipe.slug;
+        this.meals[index]["name"] = recipe.name;
       });
     },
     processTime(index) {

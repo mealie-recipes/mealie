@@ -29,7 +29,12 @@
       />
     </div>
 
-    <RecipeEditor v-else v-model="recipeDetails" @upload="getImage" />
+    <RecipeEditor
+      ref="recipeEditor"
+      v-else
+      v-model="recipeDetails"
+      @upload="getImage"
+    />
   </v-card>
 </template>
 
@@ -85,20 +90,22 @@ export default {
     },
 
     async createRecipe() {
-      this.isLoading = true;
+      if (this.$refs.recipeEditor.validateRecipe()) {
+        this.isLoading = true;
 
-      if (this.fileObject) {
-        this.recipeDetails.image = this.fileObject.name;
+        if (this.fileObject) {
+          this.recipeDetails.image = this.fileObject.name;
+        }
+        let slug = await api.recipes.create(this.recipeDetails);
+
+        if (this.fileObject) {
+          await api.recipes.updateImage(slug, this.fileObject);
+        }
+
+        this.isLoading = false;
+
+        this.$router.push(`/recipe/${slug}`);
       }
-      let slug = await api.recipes.create(this.recipeDetails);
-
-      if (this.fileObject) {
-        await api.recipes.updateImage(slug, this.fileObject);
-      }
-
-      this.isLoading = false;
-
-      this.$router.push(`/recipe/${slug}`);
     },
   },
 };

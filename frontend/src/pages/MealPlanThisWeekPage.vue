@@ -23,14 +23,16 @@
                 <v-card-text> {{ meal.description }} </v-card-text>
 
                 <v-card-actions>
+                  <v-spacer></v-spacer>
                   <v-btn
                     align="center"
                     color="secondary"
                     text
                     @click="$router.push(`/recipe/${meal.slug}`)"
                   >
-                    {{$t('recipe.view-recipe')}}
+                    {{ $t("recipe.view-recipe") }}
                   </v-btn>
+                  <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
             </v-col>

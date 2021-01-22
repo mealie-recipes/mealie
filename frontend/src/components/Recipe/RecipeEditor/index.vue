@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-form ref="form">
     <v-card-text>
       <v-row dense>
         <v-col cols="3"></v-col>
@@ -33,14 +33,26 @@
           ></v-col>
         </v-row>
       </v-row>
-      <v-text-field class="my-3" :label="$t('recipe.recipe-name')" v-model="value.name">
+      <v-text-field
+        class="my-3"
+        :label="$t('recipe.recipe-name')"
+        v-model="value.name"
+        :rules="[rules.required, rules.whiteSpace]"
+      >
       </v-text-field>
-      <v-textarea height="100" :label="$t('recipe.description')" v-model="value.description">
+      <v-textarea
+        height="100"
+        :label="$t('recipe.description')"
+        v-model="value.description"
+      >
       </v-textarea>
       <div class="my-2"></div>
       <v-row dense disabled>
         <v-col sm="5">
-          <v-text-field :label="$t('recipe.servings')" v-model="value.recipeYield">
+          <v-text-field
+            :label="$t('recipe.servings')"
+            v-model="value.recipeYield"
+          >
           </v-text-field>
         </v-col>
         <v-col></v-col>
@@ -54,7 +66,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <h2 class="mb-4">{{$t('recipe.ingredients')}}</h2>
+          <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
           <div
             v-for="(ingredient, index) in value.recipeIngredient"
             :key="generateKey('ingredient', index)"
@@ -81,7 +93,7 @@
           </v-btn>
           <BulkAdd @bulk-data="appendIngredients" />
 
-          <h2 class="mt-6">{{$t('recipe.categories')}}</h2>
+          <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
           <v-combobox
             dense
             multiple
@@ -103,7 +115,7 @@
             </template>
           </v-combobox>
 
-          <h2 class="mt-4">{{$t('recipe.tags')}}</h2>
+          <h2 class="mt-4">{{ $t("recipe.tags") }}</h2>
           <v-combobox dense multiple chips deletable-chips v-model="value.tags">
             <template v-slot:selection="data">
               <v-chip
@@ -118,7 +130,7 @@
             </template>
           </v-combobox>
 
-          <h2 class="my-4">{{$t('recipe.notes')}}</h2>
+          <h2 class="my-4">{{ $t("recipe.notes") }}</h2>
           <v-card
             class="mt-1"
             v-for="(note, index) in value.notes"
@@ -142,7 +154,10 @@
                 ></v-text-field>
               </v-row>
 
-              <v-textarea :label="$t('recipe.note')" v-model="value.notes[index]['text']">
+              <v-textarea
+                :label="$t('recipe.note')"
+                v-model="value.notes[index]['text']"
+              >
               </v-textarea>
             </v-card-text>
           </v-card>
@@ -155,7 +170,7 @@
         <v-divider class="my-divider" :vertical="true"></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
-          <h2 class="mb-4">{{$t('recipe.instructions')}}</h2>
+          <h2 class="mb-4">{{ $t("recipe.instructions") }}</h2>
           <div v-for="(step, index) in value.recipeInstructions" :key="index">
             <v-hover v-slot="{ hover }">
               <v-card
@@ -173,7 +188,9 @@
                     @click="removeStep(index)"
                   >
                     <v-icon color="error">mdi-delete</v-icon> </v-btn
-                  >{{ $t('recipe.step-index', {step: index + 1}) }}</v-card-title
+                  >{{
+                    $t("recipe.step-index", { step: index + 1 })
+                  }}</v-card-title
                 >
                 <v-card-text>
                   <v-textarea
@@ -192,7 +209,7 @@
         </v-col>
       </v-row>
     </v-card-text>
-  </div>
+  </v-form>
 </template>
 
 <script>
@@ -211,6 +228,11 @@ export default {
   data() {
     return {
       fileObject: null,
+      rules: {
+        required: v => !!v || "Key Name Required",
+        whiteSpace: v =>
+          !v || v.split(" ").length <= 1 || "No White Space Allowed",
+      },
     };
   },
   methods: {
@@ -259,7 +281,7 @@ export default {
 
     appendSteps(steps) {
       let processSteps = [];
-      steps.forEach((element) => {
+      steps.forEach(element => {
         processSteps.push({ text: element });
       });
 
@@ -288,6 +310,13 @@ export default {
     },
     saveExtras(extras) {
       this.value.extras = extras;
+    },
+    validateRecipe() {
+      if (this.$refs.form.validate()) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };

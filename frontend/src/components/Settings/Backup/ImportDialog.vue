@@ -65,14 +65,14 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-btn color="success" text :href="`/api/backups/${name}/download/`">
+          <v-btn color="accent" text :href="`/api/backups/${name}/download/`">
             {{ $t("general.download") }}
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn color="error" text @click="raiseEvent('delete')">
             {{ $t("general.delete") }}
           </v-btn>
-          <v-btn color="success" text @click="raiseEvent('import')">
+          <v-btn color="success" outlined @click="raiseEvent('import')">
             {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>

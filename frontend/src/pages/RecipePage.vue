@@ -45,7 +45,12 @@
       height="1500px"
       :options="jsonEditorOptions"
     />
-    <RecipeEditor v-else v-model="recipeDetails" @upload="getImageFile" />
+    <RecipeEditor
+      v-else
+      v-model="recipeDetails"
+      ref="recipeEditor"
+      @upload="getImageFile"
+    />
   </v-card>
 </template>
 
@@ -101,7 +106,7 @@ export default {
   },
 
   watch: {
-    $route: function () {
+    $route: function() {
       this.getRecipeDetails();
     },
   },
@@ -138,6 +143,9 @@ export default {
       api.recipes.delete(this.recipeDetails.slug);
     },
     async saveRecipe() {
+      if (this.$refs.recipeEditor.validateRecipe()) {
+        console.log("Thank you")
+      }
       let slug = await api.recipes.update(this.recipeDetails);
 
       if (this.fileObject) {

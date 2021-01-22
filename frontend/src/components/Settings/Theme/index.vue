@@ -126,6 +126,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="success" @click="saveThemes" class="mr-2">
+        <v-icon left> mdi-content-save </v-icon>
         {{ $t("general.save") }}
       </v-btn>
     </v-card-actions>
