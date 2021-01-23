@@ -1,0 +1,134 @@
+{
+  "404": {
+    "page-not-found": "404 Page non trouvée",
+    "take-me-home": "Retour à l'accueil"
+  },
+  "new-recipe": {
+    "from-url": "A partir de l'URL",
+    "recipe-url": "URL de la recette",
+    "error-message": "Il semble qu'une erreur s'est produite lors de l'analyse de l'URL. \nVérifiez le journal et debug/last_recipe.json pour voir ce qui ne va pas.",
+    "bulk-add": "Ajouter en masse",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Collez vos données de recette. \nChaque ligne sera traitée comme un élément dans une liste"
+  },
+  "general": {
+    "submit": "Envoyer",
+    "name": "Nom",
+    "settings": "Paramètres",
+    "close": "Fermer",
+    "save": "Sauver",
+    "image-file": "Fichier image",
+    "update": "Mettre à jour",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "select": "Séléctionner",
+    "random": "Aléatoire",
+    "new": "Nouveau",
+    "create": "Créer",
+    "cancel": "Annuler",
+    "ok": "OK",
+    "enabled": "Activé",
+    "download": "Télécharger",
+    "import": "Importer",
+    "delete-data": "Supprimer les données"
+  },
+  "login": {
+    "stay-logged-in": "Rester connecté?",
+    "email": "Email",
+    "password": "Mot de passe",
+    "sign-in": "Connexion",
+    "sign-up": "Inscription"
+  },
+  "meal-plan": {
+    "dinner-this-week": "Repas de cette semaine",
+    "dinner-today": "Repas du jour",
+    "planner": "Planificateur",
+    "edit-meal-plan": "Modifier le plan de repas",
+    "meal-plans": "Plans de repas",
+    "choose-a-recipe": "Choisir une recette",
+    "create-a-new-meal-plan": "Créer un nouveau plan de repas",
+    "start-date": "Date de début",
+    "end-date": "Date de fin"
+  },
+  "recipe": {
+    "description": "Description",
+    "ingredients": "Ingrédients",
+    "categories": "Catégories",
+    "tags": "Etiquettes",
+    "instructions": "Instructions",
+    "step-index": "Etape: {step}",
+    "recipe-name": "Nom de recette",
+    "servings": "Portions",
+    "ingredient": "Ingrédient",
+    "notes": "Notes",
+    "note": "Note",
+    "original-recipe": "Recette originale",
+    "view-recipe": "Afficher la recette"
+  },
+  "search": {
+    "search-for-a-recipe": "Chercher une recette",
+    "search-for-your-favorite-recipe": "Chercher votre <strong>recette</strong> favorite"
+  },
+  "settings": {
+    "color": "Couleur",
+    "swatches": "Swatches",
+    "add-a-new-theme": "Ajouter un nouveau thème",
+    "set-new-time": "Définir une nouvelle heure",
+    "current": "Version:",
+    "latest": "Dernière",
+    "explore-the-docs": "Explorer la documentation",
+    "contribute": "Contribuer",
+    "backup-and-exports": "Sauvegarde et exports",
+    "backup-info": "Les sauvegardes sont exportées au format JSON standard avec toutes les images stockées sur le système de fichiers. \nDans votre dossier de sauvegarde, vous trouverez un fichier .zip contenant toutes les recettes JSON et les images de la base de données. \nDe plus, si vous avez sélectionné un fichier markdown, ceux-ci seront également stockés dans le fichier .zip. \nPour importer une sauvegarde, elle doit se trouver dans votre dossier de sauvegardes. \nDes sauvegardes automatisées sont effectuées chaque jour à 3h00.",
+    "backup-tag": "Etiquette de sauvegarde",
+    "markdown-template": "Modèles Markdown",
+    "backup-recipes": "Sauvegarde de recettes",
+    "theme": {
+      "theme-settings": "Paramètres du thème",
+      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Sélectionnez un thème dans la liste déroulante ou créez un nouveau thème. \nNotez que le thème par défaut sera proposé à tous les utilisateurs qui n'ont pas défini de préférence de thème.",
+      "dark-mode": "Mode sombre",
+      "theme-is-required": "Le thème est requis",
+      "primary": "Primaire",
+      "secondary": "Secondaire",
+      "accent": "Accent",
+      "success": "Succès",
+      "info": "Info",
+      "warning": "Avertissement",
+      "error": "Erreur",
+      "light": "Clair",
+      "dark": "Sombre",
+      "theme": "Thème",
+      "saved-color-theme": "Thème de couleur enregistré",
+      "delete-theme": "Supprimer le thème",
+      "are-you-sure-you-want-to-delete-this-theme": "Voulez-vous vraiment supprimer ce thème?",
+      "save-colors-and-apply-theme": "Enregistrer les couleurs et appliquer le thème",
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Choisissez l'apparence de Mealie. \nDéfinissez vos préférences de thème pour suivre les paramètres de votre système ou choisissez d'utiliser le thème clair ou sombre."
+    },
+    "webhooks": {
+      "meal-planner-webhooks": "Webhooks de planificateur de repas",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les URL répertoriées ci-dessous recevront des webhooks contenant les données de recette pour le plan de repas le jour prévu. \nActuellement, les Webhooks s'exécutent à <strong> {time} </strong>",
+      "test-webhooks": "Tester les webhooks",
+      "webhook-url": "URL du webhook",
+      "save-webhooks": "Enregistrer les webhooks"
+    },
+    "new-version-available": "Une nouvelle version de Mealie est disponible, <a {aContents}> Visitez le dépôt </a>",
+    "backup": {
+      "import-recipes": "Importer les recettes",
+      "import-themes": "Importer des thèmes",
+      "import-settings": "Importer les réglages"
+    }
+  },
+  "migration": {
+    "recipe-migration": "Migration de recette",
+    "currently-chowdown-via-public-repo-url-is-the-only-supported-type-of-migration": "Actuellement, Chowdown via l'URL publique du repo est le seul type de migration pris en charge",
+    "chowdown-repo-url": "URL du dépôt Chowdown",
+    "migrate": "Migrer",
+    "failed-recipes": "Recettes échouées",
+    "failed-images": "Images échouées",
+    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "Vous pouvez importer des recettes à partir d'un fichier zip ou d'un répertoire situé dans le dossier /app/data/ migration/. \nVeuillez consulter la documentation pour vous assurer que la structure de votre répertoire correspond à ce qui est attendu",
+    "nextcloud-data": "Données Nextcloud",
+    "delete-confirmation": "Voulez-vous vraiment supprimer ces données de migration?",
+    "successfully-imported-from-nextcloud": "Importé avec succès depuis Nextcloud",
+    "failed-imports": "Importations échouées",
+    "upload-an-archive": "Téléverser une archive"
+  }
+}
