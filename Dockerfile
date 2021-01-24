@@ -34,7 +34,7 @@ COPY --from=build-stage /app/dist /app/dist
 RUN rm -rf /app/test /app/.temp
 
 
-
+VOLUME [ "/app_data/" ]
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
 
 # ---------------------------------- #
