@@ -7,6 +7,7 @@
   - Fixed failed database initialization at startup
   - Fixed misaligned text on various cards
   - Fixed bug that blocked opening links in new tabs
+  - Fixed router link bugs - Issue #122
 
 ### Features and Improvements
   - Meal Planner
@@ -17,6 +18,10 @@
   - **Minor**
     - Continued work on button/style unification
     - Adding icons to buttons
+  - Migrations
+    - Card based redesign
+    - Upload from the UI
+    - Unified Chowdown/Nextcloud import process.
 
 ### Development
   - Fixed Vetur config file. Autocomplete in VSCode works!
