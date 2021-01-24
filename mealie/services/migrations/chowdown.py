@@ -1,8 +1,6 @@
 import shutil
-import zipfile
 from pathlib import Path
 
-import git
 import yaml
 from app_config import IMG_DIR, TEMP_DIR
 from services.recipe_services import Recipe
