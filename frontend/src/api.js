@@ -4,6 +4,7 @@ import mealplan from "./api/mealplan";
 import settings from "./api/settings";
 import themes from "./api/themes";
 import migration from "./api/migration";
+import category from "./api/category";
 
 // import api from "../api";
 
@@ -14,4 +15,5 @@ export default {
   settings: settings,
   themes: themes,
   migrations: migration,
+  categories: category,
 };

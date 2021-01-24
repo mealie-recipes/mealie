@@ -23,11 +23,22 @@ class ApiExtras(SqlAlchemyBase):
         return {self.key_name: self.value}
 
 
+recipes2categories = sa.Table("recipes2categories", SqlAlchemyBase.metadata,
+    sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
+    sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")))
+    
 class Category(SqlAlchemyBase):
     __tablename__ = "categories"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     name = sa.Column(sa.String, index=True)
+    recipes = orm.relationship(
+        "RecipeModel",
+        secondary=recipes2categories,
+        back_populates="categories"
+    )
+
+    def __init__(self, name) -> None:
+        self.name = name
 
     def to_str(self):
         return self.name
@@ -116,9 +127,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Mealie Specific
     slug = sa.Column(sa.String, index=True, unique=True)
-    categories: List[Category] = orm.relationship(
+    categories: List = orm.relationship(
         "Category",
-        cascade="all, delete",
+        secondary=recipes2categories,
+        back_populates="recipes",
     )
     tags: List[Tag] = orm.relationship(
         "Tag",
@@ -170,7 +182,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         # Mealie Specific
         self.slug = slug
-        self.categories = [Category(name=cat) for cat in categories]
+        self.categories = [Category(cat) for cat in categories]
         self.tags = [Tag(name=tag) for tag in tags]
         self.dateAdded = dateAdded
         self.notes = [Note(**note) for note in notes]
@@ -200,7 +212,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         extras: dict = None,
     ):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
-        list_of_tables = [RecipeIngredient, RecipeInstruction, Category, Tag, ApiExtras]
+        list_of_tables = [RecipeIngredient, RecipeInstruction, Tag, ApiExtras]
         RecipeModel._sql_remove_list(session, list_of_tables, self.id)
 
         self.__init__(

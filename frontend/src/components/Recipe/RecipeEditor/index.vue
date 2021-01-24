@@ -89,6 +89,10 @@
             item-color="secondary"
             deletable-chips
             v-model="value.categories"
+            hide-selected
+            :items="categories"
+            :search-input.sync="categoriesSearchInput"
+            @change="categoriesSearchInput=''"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -104,7 +108,17 @@
           </v-combobox>
 
           <h2 class="mt-4">{{$t('recipe.tags')}}</h2>
-          <v-combobox dense multiple chips deletable-chips v-model="value.tags">
+          <v-combobox 
+            dense
+            multiple
+            chips
+            deletable-chips
+            v-model="value.tags"
+            hide-selected
+            :items="tags"
+            :search-input.sync="tagsSearchInput"
+            @change="tagssSearchInput=''"
+          >
             <template v-slot:selection="data">
               <v-chip
                 :input-value="data.selected"
@@ -211,9 +225,20 @@ export default {
   data() {
     return {
       fileObject: null,
+      categoriesSearchInput: '',
+      tagsSearchInput: '',
+      categories: [],
+      tags: []
     };
   },
+ mounted(){
+   this.getCategories();
+  },
   methods: {
+    async getCategories(){
+      let response = await api.categories.get_all();
+      this.categories = response.data.map(cat => cat.name);
+    },
     uploadImage() {
       this.$emit("upload", this.fileObject);
     },
