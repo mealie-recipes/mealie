@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List
 
 from pydantic.main import BaseModel
 
@@ -21,4 +22,4 @@ class MigrationFile(BaseModel):
 
 class Migrations(BaseModel):
     type: str
-    files: list[MigrationFile] = []
+    files: List[MigrationFile] = []

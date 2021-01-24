@@ -1,5 +1,6 @@
 import operator
 import shutil
+from typing import List
 
 from app_config import MIGRATION_DIR
 from db.db_setup import generate_session
@@ -13,7 +14,7 @@ from utils.snackbar import SnackResponse
 router = APIRouter(tags=["Migration"])
 
 
-@router.get("/api/migrations/", response_model=list[Migrations])
+@router.get("/api/migrations/", response_model=List[Migrations])
 def get_avaiable_nextcloud_imports():
     """ Returns a list of avaiable directories that can be imported into Mealie """
     response_data = []
