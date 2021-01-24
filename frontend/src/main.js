@@ -4,7 +4,7 @@ import vuetify from "./plugins/vuetify";
 import store from "./store/store";
 import VueRouter from "vue-router";
 import { routes } from "./routes";
-import i18n from './i18n'
+import i18n from "./i18n";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -14,12 +14,13 @@ const router = new VueRouter({
   mode: process.env.NODE_ENV === "production" ? "history" : "hash",
 });
 
+
 new Vue({
   vuetify,
   store,
   router,
   i18n,
-  render: (h) => h(App)
+  render: h => h(App),
 }).$mount("#app");
 
 // Truncate

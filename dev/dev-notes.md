@@ -16,15 +16,7 @@ Don't forget to [join the Discord](https://discord.gg/R6QDyJgbD2)!
 
 # Todo's
 
-Documentation
-- [ ] V0.1.0 Release Notes
-- [ ] Nextcloud Migration How To
-- [ ] New Docker Setup with Sqlite
-- [ ] Update Env Variables
-- [ ] New Roadmap / Milestones
-
 Frontend
-- [x] Prep / Cook / Total Time Indicator + Editor
 - [ ] No Meal Today Page instead of Null 
 - [ ] Recipe Print Page 
 - [ ] Recipe Editor Data Validation Client Side
@@ -32,12 +24,7 @@ Frontend
 - [ ] Advanced Search Page, draft started
   - [ ] Filter by Category
   - [ ] Filter by Tags
-- [ ] Search Bar redesign
-  - [x] Initial
-  - [ ] Results redesign
-- [x] Replace Backups card with something like Home Assistant
-- [x] Replace import card with something like Home Assistant
-  - [x] Select which imports to do
+- [ ] Search Bar Results Redesign
 
 Backend
 - [ ] Database Import
@@ -46,10 +33,9 @@ Backend
   - [ ] Meal Plans
   - [x] Settings
   - [x] Themes
-- [x] Remove Print / Debug Code
+- [ ] Remove Print / Debug Code
 - [ ] Support how to sections and how to steps
 - [ ] Recipe request by category/tags
-
 
 SQL
 - [ ] Setup Database Migrations

@@ -13,7 +13,8 @@
       "
     >
     </v-alert>
-    <Theme />
+    <General />
+    <Theme class="mt-2" />
     <Backup class="mt-2" />
     <Webhooks class="mt-2" />
     <Migration class="mt-2" />
@@ -39,6 +40,7 @@
 
 <script>
 import Backup from "../components/Settings/Backup";
+import General from "../components/Settings/General";
 import Webhooks from "../components/Settings/Webhook";
 import Theme from "../components/Settings/Theme";
 import Migration from "../components/Settings/Migration";
@@ -50,6 +52,7 @@ export default {
     Webhooks,
     Theme,
     Migration,
+    General,
   },
   data() {
     return {

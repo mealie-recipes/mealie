@@ -36,17 +36,17 @@ def nextcloud_zip():
 def test_upload_nextcloud_zip(api_client, nextcloud_zip):
 
     response = api_client.post(
-        "/api/migration/upload/", files={"archive": nextcloud_zip.open("rb")}
+        "/api/migrations/nextcloud/upload/", files={"archive": nextcloud_zip.open("rb")}
     )
 
     assert response.status_code == 200
 
-    assert MIGRATION_DIR.joinpath(nextcloud_zip.name).is_file()
+    assert MIGRATION_DIR.joinpath("nextcloud", nextcloud_zip.name).is_file()
 
 
 def test_import_nextcloud_directory(api_client, nextcloud_zip):
     selection = nextcloud_zip.name
-    response = api_client.post(f"/api/migration/nextcloud/{selection}/import/")
+    response = api_client.post(f"/api/migrations/nextcloud/{selection}/import/")
 
     assert response.status_code == 200
 
@@ -60,7 +60,7 @@ def test_import_nextcloud_directory(api_client, nextcloud_zip):
 
 def test_delete_migration_data(api_client, nextcloud_zip):
     selection = nextcloud_zip.name
-    response = api_client.delete(f"/api/migration/{selection}/delete/")
+    response = api_client.delete(f"/api/migrations/nextcloud/{selection}/delete/")
 
     assert response.status_code == 200
     assert not MIGRATION_DIR.joinpath(nextcloud_zip.name).is_file()

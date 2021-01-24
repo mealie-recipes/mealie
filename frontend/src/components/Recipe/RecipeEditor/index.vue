@@ -12,26 +12,26 @@
           ></v-file-input>
         </v-col>
         <v-col cols="3"></v-col>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Total Time"
-              v-model="value.totalTime"
-            ></v-text-field>
-          </v-col>
-          <v-col
-            ><v-text-field
-              label="Prep Time"
-              v-model="value.prepTime"
-            ></v-text-field
-          ></v-col>
-          <v-col
-            ><v-text-field
-              label="Cook Time / Perform Time"
-              v-model="value.performTime"
-            ></v-text-field
-          ></v-col>
-        </v-row>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field
+            label="Total Time"
+            v-model="value.totalTime"
+          ></v-text-field>
+        </v-col>
+        <v-col
+          ><v-text-field
+            label="Prep Time"
+            v-model="value.prepTime"
+          ></v-text-field
+        ></v-col>
+        <v-col
+          ><v-text-field
+            label="Cook Time / Perform Time"
+            v-model="value.performTime"
+          ></v-text-field
+        ></v-col>
       </v-row>
       <v-text-field
         class="my-3"
@@ -206,6 +206,11 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           <BulkAdd @bulk-data="appendSteps" />
+          <v-text-field
+            v-model="value.orgURL"
+            class="mt-10"
+            label="Original URL"
+          ></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>

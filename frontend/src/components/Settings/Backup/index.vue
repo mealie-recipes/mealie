@@ -34,6 +34,8 @@
         :backups="availableBackups"
       />
       <SuccessFailureAlert
+        ref="report"
+        title="Back Restore Report"
         success-header="Successfully Imported"
         :success="successfulImports"
         failed-header="Failed Imports"
@@ -91,6 +93,7 @@ export default {
       this.backupLoading = false;
       this.successfulImports = successful;
       this.failedImports = failed;
+      this.$refs.report.open();
     },
   },
 };

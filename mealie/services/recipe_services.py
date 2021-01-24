@@ -35,14 +35,14 @@ class Recipe(BaseModel):
 
     # Mealie Specific
     slug: Optional[str] = ""
-    categories: Optional[List[str]]
-    tags: Optional[List[str]]
+    categories: Optional[List[str]] = []
+    tags: Optional[List[str]] = []
     dateAdded: Optional[datetime.date]
-    notes: Optional[List[RecipeNote]]
+    notes: Optional[List[RecipeNote]] = []
     rating: Optional[int]
     rating: Optional[int]
     orgURL: Optional[str]
-    extras: Optional[dict]
+    extras: Optional[dict] = {}
 
     class Config:
         schema_extra = {
