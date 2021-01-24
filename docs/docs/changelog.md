@@ -10,18 +10,19 @@
   - Fixed router link bugs - Issue #122
 
 ### Features and Improvements
+  - UI Language Selection
   - Meal Planner
     - Improved Search (Fuzzy Search)
     - New Scheduled card support 
     - Upload/Download backups
   - Dockerfile now 1/5 of the size!
-  - **Minor**
-    - Continued work on button/style unification
-    - Adding icons to buttons
   - Migrations
     - Card based redesign
     - Upload from the UI
     - Unified Chowdown/Nextcloud import process.
+  - Continued work on button/style unification
+  - Adding icons to buttons
+  - New Color Theme Picker UI
 
 ### Development
   - Fixed Vetur config file. Autocomplete in VSCode works!
