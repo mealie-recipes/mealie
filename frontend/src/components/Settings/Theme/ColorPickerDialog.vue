@@ -1,44 +1,9 @@
 <template>
   <div>
-    <!-- <v-btn block :color="value" @click="dialog = true">
-      {{ buttonText }}
-    </v-btn>
-    <v-dialog v-model="dialog" width="400">
-      <v-card>
-        <v-card-title> {{ buttonText }} {{$t('settings.color')}} </v-card-title>
-        <v-card-text>
-          <v-text-field v-model="color"> </v-text-field>
-          <v-row>
-            <v-col></v-col>
-            <v-col>
-              <v-color-picker
-                dot-size="28"
-                hide-inputs
-                hide-mode-switch
-                mode="hexa"
-                :show-swatches="swatches"
-                swatches-max-height="300"
-                v-model="color"
-                @change="updateColor"
-              ></v-color-picker>
-            </v-col>
-            <v-col></v-col>
-          </v-row>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn text @click="toggleSwatches"> {{$t('settings.swatches')}} </v-btn>
-          <v-btn text @click="dialog = false"> {{$t('general.select')}} </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> -->
-
-    <v-text-field
-      v-model="value"
-      v-mask="mask"
-      hide-details
-      class="ma-0 pa-0"
-      solo
-    >
+    <div class="text-center">
+      <h3>{{ buttonText }}</h3>
+    </div>
+    <v-text-field v-model="color" hide-details class="ma-0 pa-0" solo>
       <template v-slot:append>
         <v-menu
           v-model="menu"
@@ -52,7 +17,7 @@
           </template>
           <v-card>
             <v-card-text class="pa-0">
-              <v-color-picker v-model="value" flat show-swatches />
+              <v-color-picker v-model="color" flat show-swatches />
             </v-card-text>
           </v-card>
         </v-menu>
@@ -71,7 +36,7 @@ export default {
     return {
       dialog: false,
       swatches: false,
-      color: "#1976D2FF",
+      color: "#1976D2",
       mask: "!#XXXXXXXX",
       menu: false,
     };

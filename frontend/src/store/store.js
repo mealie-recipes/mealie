@@ -3,17 +3,19 @@ import Vuex from "vuex";
 import api from "../api";
 import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
+import language from "./modules/language";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ["userSettings"],
+      paths: ["userSettings", "language"],
     }),
   ],
   modules: {
     userSettings,
+    language,
   },
   state: {
     // Snackbar
@@ -59,11 +61,11 @@ const store = new Vuex.Store({
 
   getters: {
     //
-    getSnackText: (state) => state.snackText,
-    getSnackActive: (state) => state.snackActive,
-    getSnackType: (state) => state.snackType,
+    getSnackText: state => state.snackText,
+    getSnackActive: state => state.snackActive,
+    getSnackType: state => state.snackType,
 
-    getRecentRecipes: (state) => state.recentRecipes,
+    getRecentRecipes: state => state.recentRecipes,
   },
 });
 

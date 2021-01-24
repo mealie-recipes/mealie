@@ -38,7 +38,7 @@ Feature placement is not set in stone. This is much more of a guideline than any
 - [ ] Additional Backup / Import Features
     - [ ] Import Recipes Force/Rebase options
     - [x] Upload .zip file
-- [ ] Improved Color Picker
+- [x] Improved Color Picker
 - [x] Meal Plan redesign
 ### Backend
 - [ ] PostgreSQL Support
