@@ -16,11 +16,11 @@
         v-for="backup in backups"
         :key="backup.name"
       >
-        <v-card @click="openDialog(backup)">
+        <v-card hover outlined @click="openDialog(backup)">
           <v-card-text>
             <v-row align="center">
               <v-col cols="12" sm="2">
-                <v-icon color="primary"> mdi-backup-restore </v-icon>
+                <v-icon large color="primary"> mdi-backup-restore </v-icon>
               </v-col>
               <v-col cols="12" sm="10">
                 <div>

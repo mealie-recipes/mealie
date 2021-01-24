@@ -1,9 +1,10 @@
+import operator
 import shutil
 
 from app_config import MIGRATION_DIR
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from models.migration_models import ChowdownURL
+from models.migration_models import MigrationFile, Migrations
 from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
 from services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session
@@ -12,51 +13,46 @@ from utils.snackbar import SnackResponse
 router = APIRouter(tags=["Migration"])
 
 
-# Chowdown
-@router.post("/api/migration/chowdown/repo/")
-def import_chowdown_recipes(repo: ChowdownURL, db: Session = Depends(generate_session)):
-    """ Import Chowsdown Recipes from Repo URL """
-    try:
-        report = chowdow_migrate(db, repo.url)
-        return SnackResponse.success(
-            "Recipes Imported from Git Repo, see report for failures.",
-            additional_data=report,
-        )
-    except:
-        return HTTPException(
-            status_code=400,
-            detail=SnackResponse.error(
-                "Unable to Migrate Recipes. See Log for Details"
-            ),
-        )
-
-
-# Nextcloud
-@router.get("/api/migration/nextcloud/available/")
+@router.get("/api/migrations/", response_model=list[Migrations])
 def get_avaiable_nextcloud_imports():
     """ Returns a list of avaiable directories that can be imported into Mealie """
-    available = []
-    for dir in MIGRATION_DIR.iterdir():
-        if dir.is_dir():
-            available.append(dir.stem)
-        elif dir.suffix == ".zip":
-            available.append(dir.name)
+    response_data = []
+    migration_dirs = [
+        MIGRATION_DIR.joinpath("nextcloud"),
+        MIGRATION_DIR.joinpath("chowdown"),
+    ]
+    for directory in migration_dirs:
+        migration = Migrations(type=directory.stem)
+        for zip in directory.iterdir():
+            if zip.suffix == ".zip":
+                migration_zip = MigrationFile(name=zip.name, date=zip.stat().st_ctime)
+                migration.files.append(migration_zip)
+        response_data.append(migration)
 
-    return available
+        migration.files.sort(key=operator.attrgetter("date"), reverse=True)
+
+    return response_data
 
 
-@router.post("/api/migration/nextcloud/{selection}/import/")
-def import_nextcloud_directory(selection: str, db: Session = Depends(generate_session)):
+@router.post("/api/migrations/{type}/{file_name}/import/")
+def import_nextcloud_directory(
+    type: str, file_name: str, db: Session = Depends(generate_session)
+):
     """ Imports all the recipes in a given directory """
+    file_path = MIGRATION_DIR.joinpath(type, file_name)
+    if type == "nextcloud":
+        return nextcloud_migrate(db, file_path)
+    elif type == "chowdown":
+        return chowdow_migrate(db, file_path)
+    else:
+        return SnackResponse.error("Incorrect Migration Type Selected")
 
-    return nextcloud_migrate(db, selection)
 
-
-@router.delete("/api/migration/{file_folder_name}/delete/")
-def delete_migration_data(file_folder_name: str):
+@router.delete("/api/migrations/{folder}/{file}/delete/")
+def delete_migration_data(folder: str, file: str):
     """ Removes migration data from the file system """
 
-    remove_path = MIGRATION_DIR.joinpath(file_folder_name)
+    remove_path = MIGRATION_DIR.joinpath(folder, file)
 
     if remove_path.is_file():
         remove_path.unlink()
@@ -68,10 +64,12 @@ def delete_migration_data(file_folder_name: str):
     return SnackResponse.info(f"Migration Data Remove: {remove_path.absolute()}")
 
 
-@router.post("/api/migration/upload/")
-def upload_nextcloud_zipfile(archive: UploadFile = File(...)):
+@router.post("/api/migrations/{type}/upload/")
+def upload_nextcloud_zipfile(type: str, archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
-    dest = MIGRATION_DIR.joinpath(archive.filename)
+    dir = MIGRATION_DIR.joinpath(type)
+    dir.mkdir(parents=True, exist_ok=True)
+    dest = dir.joinpath(archive.filename)
 
     with dest.open("wb") as buffer:
         shutil.copyfileobj(archive.file, buffer)
