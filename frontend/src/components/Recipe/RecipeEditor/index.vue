@@ -206,6 +206,11 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           <BulkAdd @bulk-data="appendSteps" />
+          <v-text-field
+            v-model="value.orgURL"
+            class="mt-10"
+            label="Original URL"
+          ></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>
