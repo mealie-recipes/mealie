@@ -103,7 +103,7 @@ class SiteTheme(BaseModel):
         db.themes.save_new(session, self.dict())
 
     def update_document(self, session: Session):
-        db.themes.update(session, self.dict())
+        db.themes.update(session, self.name, self.dict())
 
     @staticmethod
     def delete_theme(session: Session, theme_name: str) -> str:

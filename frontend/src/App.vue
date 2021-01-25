@@ -17,7 +17,7 @@
           @selected="navigateFromSearch"
         />
       </v-expand-x-transition>
-      <v-btn icon @click="toggleSearch">
+      <v-btn icon @click="search = !search">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import Menu from "./components/UI/Menu"
-import SearchBar from "./components/UI/SearchBar"
-import AddRecipeFab from "./components/UI/AddRecipeFab"
-import SnackBar from "./components/UI/SnackBar"
-import Vuetify from "./plugins/vuetify"
+import Menu from "./components/UI/Menu";
+import SearchBar from "./components/UI/SearchBar";
+import AddRecipeFab from "./components/UI/AddRecipeFab";
+import SnackBar from "./components/UI/SnackBar";
+import Vuetify from "./plugins/vuetify";
 export default {
   name: "App",
 
@@ -51,16 +51,16 @@ export default {
 
   watch: {
     $route() {
-      this.search = false
+      this.search = false;
     },
   },
 
   mounted() {
-    this.$store.dispatch("initTheme")
-    this.$store.dispatch("requestRecentRecipes")
-    this.$store.dispatch("initLang")
-    this.darkModeSystemCheck()
-    this.darkModeAddEventListener()
+    this.$store.dispatch("initTheme");
+    this.$store.dispatch("requestRecentRecipes");
+    this.$store.dispatch("initLang");
+    this.darkModeSystemCheck();
+    this.darkModeAddEventListener();
   },
 
   data: () => ({
@@ -74,30 +74,22 @@ export default {
       if (this.$store.getters.getDarkMode === "system")
         Vuetify.framework.theme.dark = window.matchMedia(
           "(prefers-color-scheme: dark)"
-        ).matches
+        ).matches;
     },
     /**
      * This will monitor the OS level darkmode and call to update dark mode.
      */
     darkModeAddEventListener() {
-      const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+      const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       darkMediaQuery.addEventListener("change", () => {
-        this.darkModeSystemCheck()
-      })
-    },
-
-    toggleSearch() {
-      if (this.search === true) {
-        this.search = false
-      } else {
-        this.search = true
-      }
+        this.darkModeSystemCheck();
+      });
     },
     navigateFromSearch(slug) {
-      this.$router.push(`/recipe/${slug}`)
+      this.$router.push(`/recipe/${slug}`);
     },
   },
-}
+};
 </script>
 
 <style>

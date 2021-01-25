@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 # import utils.startup as startup
-from app_config import PORT, PRODUCTION, SQLITE_FILE, WEB_PATH, docs_url, redoc_url
+from app_config import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from routes import (
     backup_routes,
     meal_routes,
@@ -24,7 +24,6 @@ app = FastAPI(
     docs_url=docs_url,
     redoc_url=redoc_url,
 )
-
 
 
 def mount_static_files():

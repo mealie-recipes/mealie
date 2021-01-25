@@ -1,4 +1,4 @@
-from typing import Union
+from typing import List, Union
 
 from sqlalchemy.orm.session import Session
 
@@ -11,7 +11,10 @@ class BaseDocument:
         self.store: str
         self.sql_model: SqlAlchemyBase
 
-    def get_all(self, session: Session, limit: int = None, order_by: str = None):
+    # TODO: Improve Get All Query Functionality
+    def get_all(
+        self, session: Session, limit: int = None, order_by: str = None
+    ) -> List[dict]:
         list = [x.dict() for x in session.query(self.sql_model).all()]
 
         if limit == 1:
@@ -21,7 +24,7 @@ class BaseDocument:
 
     def _query_one(
         self, session: Session, match_value: str, match_key: str = None
-    ) -> Union[Session, SqlAlchemyBase]:
+    ) -> SqlAlchemyBase:
         """Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
 
@@ -43,7 +46,7 @@ class BaseDocument:
 
     def get(
         self, session: Session, match_value: str, match_key: str = None, limit=1
-    ) -> dict or list[dict]:
+    ) -> dict or List[dict]:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
 
@@ -67,6 +70,15 @@ class BaseDocument:
         return db_entry
 
     def save_new(self, session: Session, document: dict) -> dict:
+        """Creates a new database entry for the given SQL Alchemy Model.
+
+        Args:
+            session (Session): A Database Session
+            document (dict): A python dictionary representing the data structure
+
+        Returns:
+            dict: A dictionary representation of the database entry
+        """
         new_document = self.sql_model(**document)
         session.add(new_document)
         return_data = new_document.dict()
@@ -74,7 +86,18 @@ class BaseDocument:
 
         return return_data
 
-    def update(self, session: Session, match_value, new_data) -> dict:
+    def update(self, session: Session, match_value: str, new_data: str) -> dict:
+        """Update a database entry.
+
+        Args:
+            session (Session): Database Session
+            match_value (str): Match "key"
+            new_data (str): Match "value"
+
+        Returns:
+            dict: Returns a dictionary representation of the database entry
+        """
+
         entry = self._query_one(session=session, match_value=match_value)
         entry.update(session=session, **new_data)
         return_data = entry.dict()

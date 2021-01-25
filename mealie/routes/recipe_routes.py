@@ -68,7 +68,6 @@ def get_recipe_img(recipe_slug: str):
     return FileResponse(recipe_image)
 
 
-# Recipe Creations
 @router.post(
     "/api/recipe/create-url/",
     status_code=201,
