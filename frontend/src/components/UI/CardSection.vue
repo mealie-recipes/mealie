@@ -50,11 +50,12 @@ export default {
   props: {
     title: String,
     recipes: Array,
+    cardLimit: {
+      default: 6,
+    },
   },
   data() {
-    return {
-      cardLimit: 6,
-    };
+    return {};
   },
 };
 </script>

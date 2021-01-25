@@ -3,6 +3,19 @@
     <v-card-title> General Settings </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
+      <h2 class="mt-1 mb-1">Home Page</h2>
+      <v-row>
+        <v-col> Section Selector </v-col>
+        <v-col cols="2">
+          <v-text-field label="Card Limit"></v-text-field>
+        </v-col>
+        <v-spacer> </v-spacer>
+        <v-spacer> </v-spacer>
+      </v-row>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-text>
+      <h2 class="mt-1 mb-1">Language</h2>
       <v-row>
         <v-col>
           <v-select
@@ -18,6 +31,7 @@
         <v-spacer></v-spacer>
       </v-row>
     </v-card-text>
+    <v-divider></v-divider>
   </v-card>
 </template>
 

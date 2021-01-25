@@ -1,11 +1,16 @@
 <template>
   <div>
-    <CardSection v-if="showRecent" title="Recent" :recipes="recentRecipes" />
+    <CardSection
+      v-if="pageSettings.showRecent"
+      title="Recent"
+      :recipes="recentRecipes"
+    />
     <CardSection
       v-for="section in recipeByCategory"
       :key="section.title"
       :title="section.title"
       :recipes="section.recipes"
+      :limit="pageSettings.showLimit"
     />
   </div>
 </template>
@@ -18,7 +23,6 @@ export default {
   },
   data() {
     return {
-      showRecent: true,
       recipeByCategory: [
         {
           title: "Title 1",
@@ -34,6 +38,9 @@ export default {
   computed: {
     recentRecipes() {
       return this.$store.getters.getRecentRecipes;
+    },
+    pageSettings() {
+      return this.$store.getters.getHomePageSettings;
     },
   },
   methods: {

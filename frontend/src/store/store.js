@@ -18,6 +18,12 @@ const store = new Vuex.Store({
     language,
   },
   state: {
+    // Home Page Settings
+    homePage: {
+      showRecent: true,
+      showLimit: 9,
+      categories: [],
+    },
     // Snackbar
     snackActive: false,
     snackText: "",
@@ -29,6 +35,9 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    setHomePage(state, payload) {
+      state.homePage = payload;
+    },
     setSnackBar(state, payload) {
       state.snackText = payload.text;
       state.snackType = payload.type;
@@ -61,11 +70,12 @@ const store = new Vuex.Store({
 
   getters: {
     //
-    getSnackText: state => state.snackText,
-    getSnackActive: state => state.snackActive,
-    getSnackType: state => state.snackType,
+    getSnackText: (state) => state.snackText,
+    getSnackActive: (state) => state.snackActive,
+    getSnackType: (state) => state.snackType,
 
-    getRecentRecipes: state => state.recentRecipes,
+    getRecentRecipes: (state) => state.recentRecipes,
+    getHomePageSettings: (state) => state.homePage,
   },
 });
 
