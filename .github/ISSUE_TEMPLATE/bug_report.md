@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+<!-- A clear and concise description of what the bug is. -->
 
 **Steps To Reproduce**
 Please be specific!
@@ -17,16 +17,16 @@ Please be specific!
 3. etc.
 
 **Sample Code**
-If applicable, please include Sample code to reproduce the issue.
+<!-- If applicable, please include Sample code to reproduce the issue. -->
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- A clear and concise description of what you expected to happen. -->
 
 **Actual Behavior**
-A clear and concise description of what actually happens.
+<!-- A clear and concise description of what actually happens. -->
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- If applicable, add screenshots to help explain your problem. -->
 
 **Device Information (please complete the following information):**
  - OS: [e.g., WSL2 on Win10, Mac]
@@ -35,4 +35,4 @@ If applicable, add screenshots to help explain your problem.
  - Version: [e.g., 0.2.0-dev]
 
 **Additional context**
-Add any other context about the problem here. If applicable, please include why you think the bug is occurring and/or troubleshooting you have already performed.
+<!-- Add any other context about the problem here. If applicable, please include why you think the bug is occurring and/or troubleshooting you have already performed. -->
