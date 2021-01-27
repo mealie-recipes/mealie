@@ -32,6 +32,7 @@ def mount_static_files():
 
 def api_routers():
     # First
+    print()
     app.include_router(recipe_routes.router)
     app.include_router(meal_routes.router)
     app.include_router(setting_routes.router)

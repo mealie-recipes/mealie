@@ -22,13 +22,13 @@ class BackupOptions(BaseModel):
 class BackupJob(BaseModel):
     tag: Optional[str]
     options: BackupOptions
-    templates: Optional[List[str]] = []
+    templates: Optional[List[str]]
 
     class Config:
         schema_extra = {
             "example": {
                 "tag": "July 23rd 2021",
-                "options": BackupOptions,
+                "options": BackupOptions(),
                 "template": ["recipes.md"],
             }
         }
