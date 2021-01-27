@@ -1,0 +1,141 @@
+{
+  "404": {
+    "page-not-found": "404 Pagina no encontrada",
+    "take-me-home": "Llévame a casa"
+  },
+  "general": {
+    "cancel": "Cancelar",
+    "close": "Cerca",
+    "create": "Crear",
+    "delete": "Eliminar",
+    "delete-data": "Borrar datos",
+    "download": "Descargar",
+    "edit": "Editar",
+    "enabled": "Habilitado",
+    "image-file": "Archivo de imagen",
+    "import": "Importar",
+    "name": "Nombre",
+    "new": "Nuevo",
+    "ok": "Ok",
+    "random": "Aleatorio",
+    "save": "Salvar",
+    "select": "Seleccione",
+    "settings": "Configuraciones",
+    "submit": "Enviar",
+    "update": "Actualizar",
+    "options": "Opciones",
+    "recipes": "Recetas",
+    "templates": "Modelos",
+    "themes": "Temas",
+    "upload": "Subir"
+  },
+  "login": {
+    "email": "Email",
+    "password": "Contraseña",
+    "sign-in": "Registrarse",
+    "sign-up": "Regístrate",
+    "stay-logged-in": "¿Permanecer conectado?"
+  },
+  "meal-plan": {
+    "choose-a-recipe": "Elige una receta",
+    "create-a-new-meal-plan": "Crea un nuevo plan de comidas",
+    "dinner-this-week": "Cena esta semana",
+    "dinner-today": "Cena hoy",
+    "edit-meal-plan": "Editar plan de comidas",
+    "end-date": "Fecha final",
+    "meal-plans": "Planes de alimentación",
+    "planner": "Planificador",
+    "start-date": "Fecha de inicio"
+  },
+  "migration": {
+    "chowdown-repo-url": "URL del repositorio de Chowdown",
+    "currently-chowdown-via-public-repo-url-is-the-only-supported-type-of-migration": "Actualmente, Chowdown a través de la URL pública de Repo es el único tipo de migración compatible",
+    "delete-confirmation": "¿Está seguro de que desea eliminar estos datos de migración?",
+    "failed-images": "Imágenes fallidas",
+    "failed-imports": "Importaciones fallidas",
+    "failed-recipes": "Recetas fallidas",
+    "migrate": "Emigrar",
+    "nextcloud-data": "Datos de Nextcloud",
+    "recipe-migration": "Migración de recetas",
+    "successfully-imported-from-nextcloud": "Importado correctamente desde Nextcloud",
+    "upload-an-archive": "Subir un archivo",
+    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "Puede importar recetas desde un archivo zip o un directorio ubicado en la carpeta /app/data/migraiton/. Revise la documentación para asegurarse de que la estructura de su directorio coincida con lo esperado "
+  },
+  "new-recipe": {
+    "bulk-add": "Añadir masivamente",
+    "error-message": "Parece que se produjo un error al analizar la URL. Compruebe el registro y debug/last_recipe.json para ver qué salió mal.",
+    "from-url": "De URL",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Pegue los datos de su receta. Cada línea se tratará como un elemento en una lista.",
+    "recipe-url": "URL de receta"
+  },
+  "recipe": {
+    "categories": "Categorías",
+    "description": "Descripción",
+    "ingredient": "Ingrediente",
+    "ingredients": "Ingredientes",
+    "instructions": "Instrucciones",
+    "note": "Nota",
+    "notes": "Notas",
+    "original-recipe": "Receta original",
+    "recipe-name": "Nombre de la receta",
+    "servings": "Porciones",
+    "step-index": "Paso: {step}",
+    "tags": "Etiquetas",
+    "view-recipe": "Ver la receta"
+  },
+  "search": {
+    "search-for-a-recipe": "Buscar una receta",
+    "search-for-your-favorite-recipe": "Busque su <strong>receta</strong> favorita"
+  },
+  "settings": {
+    "add-a-new-theme": "Agregar un tema nuevo",
+    "backup-and-exports": "Backup y Exportaciones",
+    "backup-info": "Las copias de seguridad se exportan en formato JSON estándar junto con todas las imágenes almacenadas en el sistema de archivos. En su carpeta de respaldo encontrará un archivo .zip que contiene todas las recetas JSON e imágenes de la base de datos. Además, si seleccionó un archivo de rebajas, esos también se almacenarán en el archivo .zip. Para importar una copia de seguridad, debe estar ubicada en su carpeta de copias de seguridad. Las copias de seguridad automatizadas se realizan todos los días a las 3:00 AM.",
+    "backup-recipes": "Recetas de respaldo",
+    "backup-tag": "Etiquetas de respaldo",
+    "backup": {
+      "import-recipes": "Importar recetas",
+      "import-settings": "Importar ajustes",
+      "import-themes": "Importar temas",
+      "backup-tag": "Etiquetas de respaldo",
+      "create-heading": "Crear una copia de seguridad"
+    },
+    "color": "Color",
+    "contribute": "Contribuir",
+    "current": "Versión:",
+    "explore-the-docs": "Explore los documentos",
+    "latest": "Último:",
+    "markdown-template": "Modelo Markdown",
+    "new-version-available": "Hay una nueva versión de Mealie disponible, <a {aContents}> Visite el repositorio </a>",
+    "set-new-time": "Establecer nueva hora",
+    "swatches": "Muestras",
+    "theme": {
+      "accent": "Énfasis",
+      "are-you-sure-you-want-to-delete-this-theme": "¿Estás seguro de que deseas eliminar este tema?",
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Elige cómo te ve Mealie. Establezca su preferencia de tema para seguir la configuración de su sistema, o elija usar el tema claro u oscuro.",
+      "dark": "Oscuro",
+      "dark-mode": "Modo oscuro",
+      "delete-theme": "Eliminar tema",
+      "error": "Error",
+      "info": "Info",
+      "light": "Claro",
+      "primary": "Primario",
+      "save-colors-and-apply-theme": "Guardar colores y aplicar tema",
+      "saved-color-theme": "Tema de color guardado",
+      "secondary": "Secundario",
+      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Seleccione un tema del menú desplegable o cree un tema nuevo. Tenga en cuenta que el tema predeterminado se ofrecerá a todos los usuarios que no hayan establecido una preferencia de tema.",
+      "success": "Éxito",
+      "theme": "Tema",
+      "theme-is-required": "El tema es obligatorio",
+      "theme-settings": "Configuración de temas",
+      "warning": "Advertencia"
+    },
+    "webhooks": {
+      "meal-planner-webhooks": "Webhooks del planificador de comidas",
+      "save-webhooks": "Guardar webhooks",
+      "test-webhooks": "Probar Webhooks",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Las URL que se enumeran a continuación recibirán webhooks que contienen los datos de la receta para el plan de comidas en su día programado. Actualmente, los Webhooks se ejecutarán en  <strong>{ time }</strong>",
+      "webhook-url": "URL del webhook"
+    }
+  }
+}
