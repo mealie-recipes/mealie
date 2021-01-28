@@ -19,10 +19,11 @@ const store = new Vuex.Store({
   },
   state: {
     // Home Page Settings
-    homePage: {
+    homePageSettings: {
       showRecent: true,
       showLimit: 9,
       categories: [],
+      homeCategories: [],
     },
     // Snackbar
     snackActive: false,
@@ -35,8 +36,8 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setHomePage(state, payload) {
-      state.homePage = payload;
+    setHomePageSettings(state, payload) {
+      state.homePageSettings = payload;
     },
     setSnackBar(state, payload) {
       state.snackText = payload.text;
@@ -66,6 +67,15 @@ const store = new Vuex.Store({
 
       this.commit("setRecentRecipes", payload);
     },
+
+    async requestHomePageSettings() {
+      // TODO: Query Backend for Categories
+      // this.commit("setHomePage", {
+      //   showRecent: true,
+      //   showLimit: 9,
+      //   categories: ["breakfast", "lunch", "dinner"],
+      // });
+    },
   },
 
   getters: {
@@ -75,7 +85,7 @@ const store = new Vuex.Store({
     getSnackType: (state) => state.snackType,
 
     getRecentRecipes: (state) => state.recentRecipes,
-    getHomePageSettings: (state) => state.homePage,
+    getHomePageSettings: (state) => state.homePageSettings,
   },
 });
 

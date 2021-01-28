@@ -1,6 +1,6 @@
 <template>
   <div class="mt-n5">
-    <v-card flat class="transparent mb-2" height="50px">
+    <v-card flat class="transparent" height="60px">
       <v-card-text>
         <v-row>
           <v-col>
@@ -12,10 +12,21 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col align="end">
-            <v-btn-toggle group>
-              <v-btn text color="accent"> Sort </v-btn>
-              <v-btn text color="accent"> Limit </v-btn>
-            </v-btn-toggle>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn-toggle group>
+                  <v-btn text v-bind="attrs" v-on="on"> Sort </v-btn>
+                </v-btn-toggle>
+              </template>
+              <v-list>
+                <v-list-item @click="$emit('sort-recent')">
+                  <v-list-item-title> Recent </v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="$emit('sort')">
+                  <v-list-item-title> A-Z </v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </v-col>
         </v-row>
       </v-card-text>
