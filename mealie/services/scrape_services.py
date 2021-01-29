@@ -5,6 +5,7 @@ from typing import List, Tuple
 import extruct
 import requests
 import scrape_schema_recipe
+import html
 from app_config import DEBUG_DIR
 from slugify import slugify
 from utils.logger import logger
@@ -32,23 +33,31 @@ def normalize_instructions(instructions) -> List[dict]:
     # One long string split by (possibly multiple) new lines
     if type(instructions) == str:
         return [
-            {"text": line.strip()} for line in filter(None, instructions.splitlines())
+            {"text": normalize_instruction(line)} for line in instructions.splitlines() if line
         ]
 
     # Plain strings in a list
     elif type(instructions) == list and type(instructions[0]) == str:
-        return [{"text": step.strip()} for step in instructions]
+        return [{"text": normalize_instruction(step)} for step in instructions]
 
     # Dictionaries (let's assume it's a HowToStep) in a list
     elif type(instructions) == list and type(instructions[0]) == dict:
         return [
-            {"text": step["text"].strip()}
+            {"text": normalize_instruction(step["text"])}
             for step in instructions
             if step["@type"] == "HowToStep"
         ]
 
     else:
         raise Exception(f"Unrecognised instruction format: {instructions}")
+
+
+def normalize_instruction(line) -> str:
+    l = line.strip()
+    # Some sites erroneously escape their strings on multiple levels
+    while not l == (l := html.unescape(l)):
+        pass
+    return l
 
 
 def normalize_yield(yld) -> str:
