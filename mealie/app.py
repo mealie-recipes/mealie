@@ -14,7 +14,7 @@ from routes import (
     user_routes,
 )
 
-# from utils.api_docs import generate_api_docs
+from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
 app = FastAPI(
@@ -46,6 +46,11 @@ if PRODUCTION:
 
 api_routers()
 
+
+def start_scheduler():
+    import services.scheduler.scheduled_jobs
+
+
 # API 404 Catch all CALL AFTER ROUTERS
 @app.get("/api/{full_path:path}", status_code=404, include_in_schema=False)
 def invalid_api():
@@ -56,8 +61,10 @@ app.include_router(static_routes.router)
 
 
 # Generate API Documentation
-# if not PRODUCTION:
-#     generate_api_docs(app)
+if not PRODUCTION:
+    generate_api_docs(app)
+
+start_scheduler()
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")

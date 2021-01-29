@@ -12,7 +12,7 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col align="end">
-            <v-menu offset-y>
+            <v-menu offset-y v-if="sortable">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn-toggle group>
                   <v-btn text v-bind="attrs" v-on="on"> Sort </v-btn>
@@ -59,6 +59,9 @@ export default {
     RecipeCard,
   },
   props: {
+    sortable: {
+      default: false,
+    },
     title: String,
     recipes: Array,
     cardLimit: {

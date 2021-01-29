@@ -7,6 +7,7 @@
       :card-limit="pageSettings.showLimit"
     />
     <CardSection
+      :sortable="true"
       v-for="(section, index) in recipeByCategory"
       :key="index"
       :title="section.title"
@@ -54,13 +55,11 @@ export default {
       this.recipeByCategory[index].recipes.sort((a, b) =>
         a.name > b.name ? 1 : -1
       );
-      console.log(this.recipeByCategory[index].recipes);
     },
     sortRecent(index) {
       this.recipeByCategory[index].recipes.sort((a, b) =>
         a.dateAdded > b.dateAdded ? -1 : 1
       );
-      console.log(this.recipeByCategory[index].recipes);
     },
   },
 };

@@ -1,9 +1,8 @@
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, HTTPException
-from services.scheduler_services import post_webhooks
 from services.settings_services import SiteSettings, SiteTheme
 from sqlalchemy.orm.session import Session
-from utils.global_scheduler import scheduler
+from utils.post_webhooks import post_webhooks
 from utils.snackbar import SnackResponse
 
 router = APIRouter(tags=["Settings"])
@@ -34,7 +33,6 @@ def update_settings(data: SiteSettings, db: Session = Depends(generate_session))
     #         status_code=400, detail=SnackResponse.error("Unable to Save Settings")
     #     )
 
-    # scheduler.reschedule_webhooks() #! Need to fix Scheduler
     return SnackResponse.success("Settings Updated")
 
 
