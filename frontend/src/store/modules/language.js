@@ -15,6 +15,10 @@ const state = {
       name: "French",
       value: "fr",
     },
+    {
+      name: "Swedish",
+      value: "sv",
+    }
   ],
 };
 
