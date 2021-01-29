@@ -70,11 +70,12 @@ const store = new Vuex.Store({
 
     async requestHomePageSettings() {
       // TODO: Query Backend for Categories
-      // this.commit("setHomePage", {
-      //   showRecent: true,
-      //   showLimit: 9,
-      //   categories: ["breakfast", "lunch", "dinner"],
-      // });
+      this.commit("setHomePageSettings", {
+        showRecent: true,
+        showLimit: 9,
+        categories: ["breakfast", "lunch", "dinner"],
+        homeCategories: [],
+      });
     },
   },
 

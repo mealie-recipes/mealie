@@ -32,7 +32,13 @@
             <v-divider></v-divider>
             <v-list min-height="200px" dense>
               <v-list-item-group>
-                <draggable v-model="homeCategories" group="categories">
+                <draggable
+                  v-model="homeCategories"
+                  group="categories"
+                  :style="{
+                    minHeight: `200px`,
+                  }"
+                >
                   <v-list-item
                     v-for="(item, index) in homeCategories"
                     :key="item"
@@ -59,14 +65,22 @@
               <h3>
                 All Categories
                 <span>
-                  <v-btn absolute right x-small color="success" icon> <v-icon>mdi-plus</v-icon></v-btn>
+                  <v-btn absolute right x-small color="success" icon>
+                    <v-icon>mdi-plus</v-icon></v-btn
+                  >
                 </span>
               </h3>
             </v-card-text>
             <v-divider></v-divider>
             <v-list min-height="200px" dense>
               <v-list-item-group>
-                <draggable v-model="categories" group="categories">
+                <draggable
+                  v-model="categories"
+                  group="categories"
+                  :style="{
+                    minHeight: `200px`,
+                  }"
+                >
                   <v-list-item v-for="item in categories" :key="item">
                     <v-list-item-icon>
                       <v-icon>mdi-menu</v-icon>
