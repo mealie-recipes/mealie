@@ -12,6 +12,7 @@ from routes import (
     setting_routes,
     static_routes,
     user_routes,
+    category_routes,
 )
 
 from utils.api_docs import generate_api_docs
@@ -39,6 +40,7 @@ def api_routers():
     app.include_router(backup_routes.router)
     app.include_router(user_routes.router)
     app.include_router(migration_routes.router)
+    app.include_router(category_routes.router)
 
 
 if PRODUCTION:

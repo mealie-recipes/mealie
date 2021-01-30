@@ -5,6 +5,9 @@ import settings from "./api/settings";
 import themes from "./api/themes";
 import migration from "./api/migration";
 import myUtils from "./api/upload";
+import category from "./api/category";
+
+// import api from "../api";
 
 export default {
   recipes: recipe,
@@ -14,4 +17,5 @@ export default {
   themes: themes,
   migrations: migration,
   utils: myUtils,
+  categories: category,
 };
