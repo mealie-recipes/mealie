@@ -8,13 +8,17 @@ const state = {
       value: "en",
     },
     {
-      name: "Dutch",
+      name: "Danish",
       value: "da",
     },
     {
       name: "French",
       value: "fr",
     },
+    {
+      name: "Swedish",
+      value: "sv",
+    }
   ],
 };
 

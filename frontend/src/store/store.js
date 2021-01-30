@@ -81,9 +81,9 @@ const store = new Vuex.Store({
 
   getters: {
     //
-    getSnackText: (state) => state.snackText,
-    getSnackActive: (state) => state.snackActive,
-    getSnackType: (state) => state.snackType,
+    getSnackText: state => state.snackText,
+    getSnackActive: state => state.snackActive,
+    getSnackType: state => state.snackType,
 
     getRecentRecipes: (state) => state.recentRecipes,
     getHomePageSettings: (state) => state.homePageSettings,
