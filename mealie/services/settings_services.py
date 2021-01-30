@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from db.database import db
-from db.db_setup import create_session, generate_session, sql_exists
+from db.db_setup import create_session, sql_exists
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 from utils.logger import logger
@@ -103,7 +103,7 @@ class SiteTheme(BaseModel):
         db.themes.save_new(session, self.dict())
 
     def update_document(self, session: Session):
-        db.themes.update(session, self.dict())
+        db.themes.update(session, self.name, self.dict())
 
     @staticmethod
     def delete_theme(session: Session, theme_name: str) -> str:

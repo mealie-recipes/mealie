@@ -16,6 +16,11 @@ Don't forget to [join the Discord](https://discord.gg/R6QDyJgbD2)!
 
 # Todo's
 
+Test
+- [ ] Image Upload Test
+- [ ] Rename and Upload Image Test
+- [x] Chowdown Migration End Point Test
+
 Frontend
 - [ ] No Meal Today Page instead of Null 
 - [ ] Recipe Print Page 
