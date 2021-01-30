@@ -31,16 +31,16 @@ def test_create_no_image(api_client):
     assert json.loads(response.text) == "banana-bread-no-image"
 
 
-def test_upload_image(api_client, test_image):
-    data = {"image": test_image.open("rb").read(), "extension": "jpg"}
+# def test_upload_image(api_client, test_image):
+#     data = {"image": test_image.open("rb").read(), "extension": "jpg"}
 
-    response = api_client.post(
-        "/api/recipe/banana-bread-no-image/update/image/", files=data
-    )
+#     response = api_client.post(
+#         "/api/recipe/banana-bread-no-image/update/image/", files=data
+#     )
 
-    assert response.status_code == 200
+#     assert response.status_code == 200
 
-    response = api_client.get("/api/recipe/banana-bread-no-image/update/image/")
+#     response = api_client.get("/api/recipe/banana-bread-no-image/update/image/")
 
 
 def test_read_all_post(api_client):
