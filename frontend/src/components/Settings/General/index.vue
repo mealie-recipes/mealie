@@ -1,12 +1,12 @@
 <template>
   <v-card>
     <v-card-title>
-      General Settings
+      {{ $t("settings.general-settings") }}
       <v-spacer></v-spacer>
       <span>
         <v-btn class="pt-1" text href="/docs">
           <v-icon left>mdi-link</v-icon>
-          Local API
+          {{ $t("settings.local-api") }}
         </v-btn>
       </span>
     </v-card-title>
@@ -14,7 +14,7 @@
     <HomePageSettings />
     <v-divider></v-divider>
     <v-card-text>
-      <h2 class="mt-1 mb-1">Language</h2>
+      <h2 class="mt-1 mb-1">{{ $t("settings.language") }}</h2>
       <v-row>
         <v-col>
           <v-select
@@ -22,7 +22,7 @@
             :items="langOptions"
             item-text="name"
             item-value="value"
-            label="Language"
+            :label="$t('settings.language')"
           >
           </v-select>
         </v-col>

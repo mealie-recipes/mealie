@@ -27,7 +27,6 @@
     "save": "Spara",
     "select": "Välj",
     "update": "Uppdatera",
-    "delete-data": "Radera data",
     "download": "Ladda ner",
     "import": "Importera"
   },
@@ -42,7 +41,6 @@
     "dinner-this-week": "Veckans middagar",
     "dinner-today": "Middag idag",
     "planner": "Planeringkalender",
-    "choose-a-recipe": "Välj ett recept",
     "create-a-new-meal-plan": "Skapa en ny måltidsplan",
     "edit-meal-plan": "Redigera måltidsplan",
     "end-date": "Slutdatum",
@@ -57,7 +55,7 @@
     "instructions": "Instruktioner",
     "note": "Anteckning",
     "notes": "Anteckningar",
-    "original-recipe": "Originalrecept",
+    "original-url": "Originalrecept",
     "recipe-name": "Receptets namn",
     "servings": "Portioner",
     "step-index": "Steg: {step}",
@@ -65,12 +63,9 @@
     "view-recipe": "Visa recept"
   },
   "search": {
-    "search-for-a-recipe": "Sök efter recept",
-    "search-for-your-favorite-recipe": "Sök efter <strong>Favoritrecept</strong>"
+    "search-mealie": "Search Mealie"
   },
   "settings": {
-    "color": "Färg",
-    "swatches": "Färgrutor",
     "add-a-new-theme": "Lägg till ett nytt tema",
     "set-new-time": "Välj ny tid",
     "current": "Version:",
@@ -79,9 +74,6 @@
     "contribute": "Bidra",
     "backup-and-exports": "Backups",
     "backup-info": "Säkerhetskopior exporteras i JSON-format tillsammans med de bilder som finns i systemet. I din mapp för säkerhetskopior finner du en zip-fil som innehåller alla recept i JSON samt bilder från databasen. Om du dessutom valde att exportera till markdown så hittas också de i samma zip-fil. För att importera en säkerhetskopia så måste den ligga i din backup-mapp. Automatisk säkerhetskopiering genomförs varje dag kl. 03:00.",
-    "backup-tag": "Backup tagg",
-    "markdown-template": "Markdown mall",
-    "backup-recipes": "Säkerhetskopiera recept",
     "theme": {
       "theme-settings": "Temainställningar",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Välj ett tema från menyn eller skapa ett nytt. Standardtemat kommer att användas för alla användare som inte gjort något val.",
@@ -100,15 +92,13 @@
       "saved-color-theme": "Sparat färgschema",
       "delete-theme": "Radera tema",
       "are-you-sure-you-want-to-delete-this-theme": "Är du säker på att du vill radera temat?",
-      "save-colors-and-apply-theme": "Spara färgval och använd tema",
       "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Välj hur Mealie ska se ut för dig. Låt Mealie följa dina systeminställningar, eller välj mörkt eller ljust tema."
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooks för denna måltidsplan",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Följande URLer kommer att mottaga webhooks med receptdata för dagens planerade måltid. Datan kommer att skickas klockan <strong>{ time }</strong>",
       "test-webhooks": "Testa Webhooks",
-      "webhook-url": "Webhook URL",
-      "save-webhooks": "Spara Webhooks"
+      "webhook-url": "Webhook URL"
     },
     "new-version-available": "En ny version av Mealie finns tillgänglig, <a {aContents}> Besök repot </a>",
     "backup": {
@@ -121,16 +111,6 @@
   },
   "migration": {
     "recipe-migration": "Migrera recept",
-    "currently-chowdown-via-public-repo-url-is-the-only-supported-type-of-migration": "Chowdown kan för tillfället endast migreras via URL till ett publikt repo.",
-    "chowdown-repo-url": "Chowdown Repo URL",
-    "migrate": "Migrera",
-    "failed-recipes": "Misslyckad recept",
-    "failed-images": "Misslyckade bilder",
-    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "Du kan importera recept från antingen en zip.fil eller en mapp placerad i /app/data/migrations/. Läs dokumentationen för att försäkra dig om att din mappstruktur matchar det som förväntas.",
-    "nextcloud-data": "Nextcloud Data",
-    "delete-confirmation": "Är du säker på att du vill radera denna migrationsdata?",
-    "successfully-imported-from-nextcloud": "Import från Nextcloud lyckades",
-    "failed-imports": "Misslyckade importer",
-    "upload-an-archive": "Ladda upp arkiv"
+    "failed-imports": "Misslyckade importer"
   }
 }

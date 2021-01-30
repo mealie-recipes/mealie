@@ -77,8 +77,8 @@ export default {
   computed: {
     switchLabel() {
       if (this.fullBackup) {
-        return "Full Backup";
-      } else return "Partial Backup";
+        return this.$t("settings.backup.full-backup");
+      } else return this.$t("settings.backup.partial-backup");
     },
   },
   methods: {

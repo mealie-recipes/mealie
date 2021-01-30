@@ -18,7 +18,15 @@ const state = {
     {
       name: "Swedish",
       value: "sv",
-    }
+    },
+    {
+      name: "简体中文",
+      value: "zh-CN",
+    },
+    {
+      name: "繁體中文",
+      value: "zh-TW",
+    },
   ],
 };
 

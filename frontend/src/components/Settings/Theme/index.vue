@@ -21,7 +21,7 @@
             mandatory
             @change="setStoresDarkMode"
           >
-            <v-btn value="system"> Default to system </v-btn>
+            <v-btn value="system"> {{ $t("settings.theme.default-to-system") }} </v-btn>
 
             <v-btn value="light"> {{ $t("settings.theme.light") }} </v-btn>
 
@@ -60,7 +60,7 @@
             <v-btn-toggle group>
               <NewThemeDialog @new-theme="appendTheme" class="mt-1" />
               <v-btn text color="error" @click="deleteSelectedThemeValidation">
-                Delete
+                {{ $t("general.delete") }}
               </v-btn>
             </v-btn-toggle>
             <Confirmation

@@ -3,7 +3,7 @@
     <input ref="uploader" class="d-none" type="file" @change="onFileChanged" />
     <v-btn :loading="isSelecting" @click="onButtonClick" color="accent" text>
       <v-icon left> mdi-cloud-upload </v-icon>
-      Upload
+      {{ $t('general.upload') }}
     </v-btn>
   </v-form>
 </template>
@@ -15,7 +15,7 @@ export default {
     url: String,
   },
   data: () => ({
-    defaultButtonText: "Upload",
+    defaultButtonText: this.$t("general.upload"),
     file: null,
     isSelecting: false,
   }),

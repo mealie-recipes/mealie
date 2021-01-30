@@ -30,11 +30,11 @@
     "enabled": "Enabled",
     "download": "Download",
     "import": "Import",
-    "delete-data": "Delete Data",
     "options": "Options",
     "templates": "Templates",
     "recipes": "Recipes",
-    "themes": "Themes"
+    "themes": "Themes",
+    "confirm": "Confirm"
   },
   "login": {
     "stay-logged-in": "Stay logged in?",
@@ -49,7 +49,6 @@
     "planner": "Planner",
     "edit-meal-plan": "Edit Meal Plan",
     "meal-plans": "Meal Plans",
-    "choose-a-recipe": "Choose a Recipe",
     "create-a-new-meal-plan": "Create a New Meal Plan",
     "start-date": "Start Date",
     "end-date": "End Date"
@@ -66,16 +65,29 @@
     "ingredient": "Ingredient",
     "notes": "Notes",
     "note": "Note",
-    "original-recipe": "Original Recipe",
-    "view-recipe": "View Recipe"
+    "original-url": "Original URL",
+    "view-recipe": "View Recipe",
+    "title": "Title",
+    "total-time": "Total Time",
+    "prep-time": "Prep Time",
+    "perform-time": "Cook Time / Perform Time",
+    "api-extras": "API Extras",
+    "object-key": "Object Key",
+    "object-value": "Object Value",
+    "new-key-name": "New Key Name",
+    "add-key": "Add Key",
+    "key-name-required": "Key Name Required",
+    "no-white-space-allowed": "No White Space Allowed",
+    "delete-recipe": "Delete Recipe",
+    "delete-confirmation": "Are you sure you want to delete this recipe?"
   },
   "search": {
-    "search-for-a-recipe": "Search for a Recipe",
-    "search-for-your-favorite-recipe": "Search for your Favorite <strong>Recipe</strong>"
+    "search-mealie": "Search Mealie"
   },
   "settings": {
-    "color": "Color",
-    "swatches": "Swatches",
+    "general-settings": "General Settings",
+    "local-api": "Local API",
+    "language": "Language",
     "add-a-new-theme": "Add a New Theme",
     "set-new-time": "Set New Time",
     "current": "Version:",
@@ -84,10 +96,9 @@
     "contribute": "Contribute",
     "backup-and-exports": "Backups",
     "backup-info": "Backups are exported in standard JSON format along with all the images stored on the file system. In your backup folder you'll find a .zip file that contains all of the recipe JSON and images from the database. Additionally, if you selected a markdown file, those will also be stored in the .zip file. To import a backup, it must be located in your backups folder. Automated backups are done each day at 3:00 AM.",
-    "backup-tag": "Backup Tag",
-    "markdown-template": "Markdown Template",
-    "backup-recipes": "Backup Recipes",
+    "available-backups": "Available Backups",
     "theme": {
+      "theme-name": "Theme Name",
       "theme-settings": "Theme Settings",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Select a theme from the dropdown or create a new theme. Note that the default theme will be served to all users who have not set a theme preference.",
       "dark-mode": "Dark Mode",
@@ -99,21 +110,21 @@
       "info": "Info",
       "warning": "Warning",
       "error": "Error",
+      "default-to-system": "Default to system",
       "light": "Light",
       "dark": "Dark",
       "theme": "Theme",
       "saved-color-theme": "Saved Color Theme",
       "delete-theme": "Delete Theme",
       "are-you-sure-you-want-to-delete-this-theme": "Are you sure you want to delete this theme?",
-      "save-colors-and-apply-theme": "Save Colors and Apply Theme",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Choose how Mealie looks to you. Set your theme preference to follow your system settings, or choose to use the light or dark theme."
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Choose how Mealie looks to you. Set your theme preference to follow your system settings, or choose to use the light or dark theme.",
+      "theme-name-is-required": "Theme Name is required."
     },
     "webhooks": {
       "meal-planner-webhooks": "Meal Planner Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at <strong>{ time }</strong>",
       "test-webhooks": "Test Webhooks",
-      "webhook-url": "Webhook URL",
-      "save-webhooks": "Save Webhooks"
+      "webhook-url": "Webhook URL"
     },
     "new-version-available": "A New Version of Mealie is Available, <a {aContents}> Visit the Repo </a>",
     "backup": {
@@ -121,21 +132,27 @@
       "import-themes": "Import Themes",
       "import-settings": "Import Settings",
       "create-heading": "Create a Backup",
-      "backup-tag": "Backup Tag"
+      "backup-tag": "Backup Tag",
+      "full-backup": "Full Backup",
+      "partial-backup": "Partial Backup",
+      "backup-restore-report": "Backup Restore Report",
+      "successfully-imported": "Successfully Imported",
+      "failed-imports": "Failed Imports"
     }
   },
   "migration": {
     "recipe-migration": "Recipe Migration",
-    "currently-chowdown-via-public-repo-url-is-the-only-supported-type-of-migration": "Currently Chowdown via public Repo URL is the only supported type of migration",
-    "chowdown-repo-url": "Chowdown Repo URL",
-    "migrate": "Migrate",
-    "failed-recipes": "Failed Recipes",
-    "failed-images": "Failed Images",
-    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "You can import recipes from either a zip file or a directory located in the /app/data/migration/ folder. Please review the documentation to ensure your directory structure matches what is expected",
-    "nextcloud-data": "Nextcloud Data",
-    "delete-confirmation": "Are you sure you want to delete this migration data?",
-    "successfully-imported-from-nextcloud": "Successfully Imported from Nextcloud",
     "failed-imports": "Failed Imports",
-    "upload-an-archive": "Upload an Archive"
+    "migration-report": "Migration Report",
+    "successful-imports": "Successful Imports",
+    "no-migration-data-available": "No Migration Data Avaiable",
+    "nextcloud": {
+      "title": "Nextcloud Cookbook",
+      "description": "Migrate data from a Nextcloud Cookbook intance"
+    },
+    "chowdown": {
+      "title": "Chowdown",
+      "description": "Migrate data from Chowdown"
+    }
   }
 }

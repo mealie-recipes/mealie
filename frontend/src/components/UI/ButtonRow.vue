@@ -14,8 +14,8 @@
           <v-icon>mdi-delete</v-icon>
         </v-btn>
         <Confirmation
-          title="Delete Recpie"
-          message="Are you sure you want to delete this recipie?"
+          :title="$t('recipe.delete-recipe')"
+          :message="$t('recipe.delete-confirmation')"
           color="error"
           icon="mdi-alert-circle"
           ref="deleteRecipieConfirm"

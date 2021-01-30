@@ -21,8 +21,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey" text @click="cancel"> Cancel </v-btn>
-        <v-btn :color="color" text @click="confirm"> Confirm </v-btn>
+        <v-btn color="grey" text @click="cancel"> {{ $t("general.cancel") }} </v-btn>
+        <v-btn :color="color" text @click="confirm"> {{ $t("general.confirm") }} </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
