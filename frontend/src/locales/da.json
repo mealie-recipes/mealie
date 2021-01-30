@@ -27,7 +27,6 @@
     "save": "Gem",
     "select": "Vælg",
     "update": "Opdater",
-    "delete-data": "Slet data",
     "download": "Hent",
     "import": "Importere"
   },
@@ -42,7 +41,6 @@
     "dinner-this-week": "Madplan denne uge",
     "dinner-today": "Madplan i dag",
     "planner": "Planlægger",
-    "choose-a-recipe": "Vælg en opskrift",
     "create-a-new-meal-plan": "Opret en ny måltidsplan",
     "edit-meal-plan": "Rediger måltidsplan",
     "end-date": "Slutdato",
@@ -57,7 +55,7 @@
     "instructions": "Instruktioner",
     "note": "Bemærk",
     "notes": "Bemærkninger",
-    "original-recipe": "Oprindelig opskrift",
+    "original-url": "Oprindelig opskrift",
     "recipe-name": "Opskriftens navn",
     "servings": "Portioner",
     "step-index": "Trin: {step}",
@@ -65,36 +63,19 @@
     "view-recipe": "Se opskrift"
   },
   "search": {
-    "search-for-a-recipe": "Søg efter en opskrift",
-    "search-for-your-favorite-recipe": "Søg efter din foretrukne <strong>opskrift</strong>"
   },
   "migration": {
-    "chowdown-repo-url": "Chowdown Repo URL",
-    "currently-chowdown-via-public-repo-url-is-the-only-supported-type-of-migration": "I øjeblikket er Chowdown via offentlig Repo URL den eneste understøttede migreringstype",
-    "failed-images": "Mislykkede billeder",
-    "failed-recipes": "Mislykkede opskrifter",
-    "migrate": "Migrere",
     "recipe-migration": "Migrering af opskrifter",
-    "delete-confirmation": "Er du sikker på, at du vil slette disse migrationsdata?",
-    "failed-imports": "Mislykket import",
-    "nextcloud-data": "Nextcloud data",
-    "successfully-imported-from-nextcloud": "Importeret fra Nextcloud",
-    "upload-an-archive": "Upload et arkiv",
-    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "Du kan importere opskrifter fra enten en zip-fil eller et bibliotek i /app/data/migraiton/ folderen. \nGennemse dokumentationen for at sikre, at din bibliotekstruktur svarer til det, der forventes"
+    "failed-imports": "Mislykket import"
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",
     "backup-and-exports": "Backup og eksport",
     "backup-info": "Sikkerhedskopier eksporteres i standard JSON-format sammen med alle de billeder, der er gemt på filsystemet. \nI din sikkerhedskopimappe finder du en .zip-fil, der indeholder alle opskrifterne JSON og billeder fra databasen. \nDerudover, hvis du valgte en markdown-fil, gemmes disse også i .zip-filen. \nFor at importere en sikkerhedskopi skal den være placeret i din sikkerhedskopimappe. \nAutomatiske sikkerhedskopier udføres hver dag kl. 3:00.",
-    "backup-recipes": "Sikkerhedskopier opksrifter",
-    "backup-tag": "Sikkerhedskopier tags",
-    "color": "Farve",
     "contribute": "Bidrag",
     "explore-the-docs": "Udforsk dokumentation",
-    "markdown-template": "Markdown skabelon",
     "new-version-available": "En ny version af Mealie er tilgængelig. <a {aContents}> Besøg repoen </a>",
     "set-new-time": "Indstil ny tid",
-    "swatches": "Prøver",
     "current": "Version:",
     "latest": "Seneste:",
     "theme": {
@@ -114,13 +95,11 @@
       "dark": "Mørkt",
       "delete-theme": "Slet tema",
       "light": "Lyst",
-      "save-colors-and-apply-theme": "Gem farver og anvend tema",
       "saved-color-theme": "Gemt farvetema",
       "theme": "Tema"
     },
     "webhooks": {
       "meal-planner-webhooks": "Måltidsplanlægning Webhooks",
-      "save-webhooks": "Gem Webhooks",
       "test-webhooks": "Test Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Webadresserne, der er anført nedenfor, modtager webhooks, der indeholder opskriftsdataene for måltidsplanen på den planlagte dag. \nWebhooks udføres i øjeblikket på <strong> {time} </strong>",
       "webhook-url": "Webhook adresse"

@@ -20,7 +20,7 @@
           v-if="totalTime"
         ></v-divider>
         <v-col v-if="totalTime">
-          <div><strong> Total Time </strong></div>
+          <div><strong> {{ $t("recipe.total-time") }} </strong></div>
           <div>{{ totalTime }}</div>
         </v-col>
         <v-divider
@@ -30,7 +30,7 @@
           v-if="prepTime"
         ></v-divider>
         <v-col v-if="prepTime">
-          <div><strong> Prep Time </strong></div>
+          <div><strong> {{ $t("recipe.prep-time") }} </strong></div>
           <div>{{ prepTime }}</div>
         </v-col>
         <v-divider
@@ -40,7 +40,7 @@
           v-if="performTime"
         ></v-divider>
         <v-col v-if="performTime">
-          <div><strong> Cook Time </strong></div>
+          <div><strong> {{ $t("recipe.perform-time") }} </strong></div>
           <div>{{ performTime }}</div>
         </v-col>
       </v-row>

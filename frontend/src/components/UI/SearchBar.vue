@@ -6,7 +6,7 @@
       item-text="item.name"
       dense
       light
-      label="Search Mealie"
+      :label="$t('search.search-mealie')"
       :search-input.sync="search"
       hide-no-data
       cache-items

@@ -121,7 +121,7 @@
           target="_blank"
           class="rounded-sm mr-4"
         >
-          {{$t('recipe.original-recipe')}}
+          {{$t('recipe.original-url')}}
         </v-btn>
       </v-row>
     </v-card-text>

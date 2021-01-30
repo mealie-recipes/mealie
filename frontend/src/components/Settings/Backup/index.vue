@@ -18,7 +18,7 @@
       </v-row>
       <v-divider class="my-3"></v-divider>
       <v-card-title class="mt-n6">
-        Available Backups
+        {{ $t("settings.available-backups") }}
         <span>
           <UploadBtn
             class="mt-1"
@@ -35,10 +35,10 @@
       />
       <SuccessFailureAlert
         ref="report"
-        title="Back Restore Report"
-        success-header="Successfully Imported"
+        :title="$t('settings.backup.backup-restore-report')"
+        :success-header="$t('settings.backup.successfully-imported')"
         :success="successfulImports"
-        failed-header="Failed Imports"
+        :failed-header="$t('settings.backup.failed-imports')"
         :failed="failedImports"
       />
     </v-card-text>

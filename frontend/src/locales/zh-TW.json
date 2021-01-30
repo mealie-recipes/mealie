@@ -30,7 +30,6 @@
     "enabled": "启用",
     "download": "下载",
     "import": "導入",
-    "delete-data": "删除资料",
     "options": "選項",
     "templates": "模板",
     "recipes": "食譜",
@@ -49,7 +48,6 @@
     "planner": "策劃人",
     "edit-meal-plan": "編輯用餐計劃",
     "meal-plans": "用餐計劃",
-    "choose-a-recipe": "選擇食譜",
     "create-a-new-meal-plan": "創建一個新的用餐計劃",
     "start-date": "開始日期",
     "end-date": "結束日期"
@@ -66,16 +64,12 @@
     "ingredient": "材料",
     "notes": "貼士",
     "note": "貼士",
-    "original-recipe": "原食譜出處",
+    "original-url": "原食譜鏈接",
     "view-recipe": "查看食譜"
   },
   "search": {
-    "search-for-a-recipe": "搜索食譜",
-    "search-for-your-favorite-recipe": "搜索您的<strong>食譜</strong>收藏"
   },
   "settings": {
-    "color": "顏色",
-    "swatches": "",
     "add-a-new-theme": "新增佈景主題",
     "set-new-time": "設定新的時間",
     "current": "版本號：",
@@ -84,9 +78,6 @@
     "contribute": "參與貢獻",
     "backup-and-exports": "備份",
     "backup-info": "備份以標準JSON格式導出，並連同儲存在系統文件中的所有圖像。在備份文件夾中，您將找到一個.zip文件，其中包含數據庫中的所有食譜JSON和圖像。此外，如果您選擇了Markdown文件，這些文件也將一併儲存在.zip文件中。當需要要導入備份，它必須位於您的備份文件夾中。每天3:00 AM將進行自動備份。",
-    "backup-tag": "標籤備份",
-    "markdown-template": "Markdown模板",
-    "backup-recipes": "食譜備份",
     "theme": {
       "theme-settings": "佈景主題設置",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "從以下列表中選擇一個主題或創建一個新主題。請注意，默認主題將提供給尚未設置主題首選的所有用戶。",
@@ -105,15 +96,13 @@
       "saved-color-theme": "已保存主題色調",
       "delete-theme": "刪除主題",
       "are-you-sure-you-want-to-delete-this-theme": "您確定要刪除此主題嗎？",
-      "save-colors-and-apply-theme": "保存色調並應用主題",
       "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "選擇Mealie的外觀模式。設置佈景主題首選並依據您的主機系統設置，或者選擇使用淺色或深色主題。"
     },
     "webhooks": {
       "meal-planner-webhooks": "用餐計劃器Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "下方列出的網址將在預定日期接收到有關用餐計劃的食譜資料。Webhooks將在<strong>{ time }</strong>執行",
       "test-webhooks": "測試Webhooks",
-      "webhook-url": "Webhook網址",
-      "save-webhooks": "保存Webhooks"
+      "webhook-url": "Webhook網址"
     },
     "new-version-available": "檢測到Mealie最新版本出現，<a {aContents}>瀏覽倉庫</a>",
     "backup": {
@@ -126,16 +115,6 @@
   },
   "migration": {
     "recipe-migration": "食譜遷移",
-    "currently-chowdown-via-public-repo-url-is-the-only-supported-type-of-migration": "當前遷移類型只限於Chowdown公開倉庫網址",
-    "chowdown-repo-url": "Chowdown倉庫網址",
-    "migrate": "遷移",
-    "failed-recipes": "食譜失敗",
-    "failed-images": "圖片失敗",
-    "you-can-import-recipes-from-either-a-zip-file-or-a-directory-located-in-the-app-data-migraiton-folder-please-review-the-documentation-to-ensure-your-directory-structure-matches-what-is-expected": "您可以從zip文件或者/app/data/migration/文件夾中的目錄導入食譜。請查看文檔以確保您的目錄結構符合預期。",
-    "nextcloud-data": "Nextcloud數據",
-    "delete-confirmation": "您確定要刪除此遷移數據嗎？",
-    "successfully-imported-from-nextcloud": "從Nextcloud導入成功",
-    "failed-imports": "導入失敗",
-    "upload-an-archive": "上傳檔案"
+    "failed-imports": "導入失敗"
   }
 }
