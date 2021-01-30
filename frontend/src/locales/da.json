@@ -63,6 +63,7 @@
     "view-recipe": "Se opskrift"
   },
   "search": {
+    "search-mealie": "Search Mealie"
   },
   "migration": {
     "recipe-migration": "Migrering af opskrifter",

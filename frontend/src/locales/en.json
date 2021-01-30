@@ -148,7 +148,7 @@
     "no-migration-data-available": "No Migration Data Avaiable",
     "nextcloud": {
       "title": "Nextcloud Cookbook",
-      "description": "Migrate data from a Nextcloud cookbook intance"
+      "description": "Migrate data from a Nextcloud Cookbook intance"
     },
     "chowdown": {
       "title": "Chowdown",

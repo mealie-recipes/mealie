@@ -33,7 +33,8 @@
     "options": "选项",
     "templates": "模板",
     "recipes": "食谱",
-    "themes": "布景主题"
+    "themes": "布景主题",
+    "confirm": "确定"
   },
   "login": {
     "stay-logged-in": "保持登录状态？",
@@ -65,9 +66,23 @@
     "notes": "贴士",
     "note": "贴士",
     "original-url": "原食谱链接",
-    "view-recipe": "查看食谱"
+    "view-recipe": "查看食谱",
+    "add-key": "Add Key",
+    "api-extras": "API Extras",
+    "delete-confirmation": "您确定要删除此食谱吗？",
+    "delete-recipe": "删除食谱",
+    "key-name-required": "Key Name Required",
+    "new-key-name": "New Key Name",
+    "no-white-space-allowed": "No White Space Allowed",
+    "object-key": "Object Key",
+    "object-value": "Object Value",
+    "perform-time": "烹饪时间 / 执行时间",
+    "prep-time": "准备时间",
+    "title": "标题",
+    "total-time": "总时间"
   },
   "search": {
+    "search-mealie": "搜索Mealie"
   },
   "settings": {
     "add-a-new-theme": "新增布景主题",
@@ -96,7 +111,10 @@
       "saved-color-theme": "已保存主题色调",
       "delete-theme": "删除主题",
       "are-you-sure-you-want-to-delete-this-theme": "您确定要删除此主题吗？",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "选择Mealie的外观模式。设置布景主题首选并依据您的主机系统设置，或者选择使用浅色或深色主题。"
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "选择Mealie的外观模式。设置布景主题首选并依据您的主机系统设置，或者选择使用浅色或深色主题。",
+      "default-to-system": "默认为系统",
+      "theme-name": "主题名称",
+      "theme-name-is-required": "主题名称是必填项。"
     },
     "webhooks": {
       "meal-planner-webhooks": "用餐计划器Webhooks",
@@ -110,11 +128,31 @@
       "import-themes": "导入主题",
       "import-settings": "导入设置",
       "create-heading": "创建备份",
-      "backup-tag": "标签备份"
-    }
+      "backup-tag": "标签备份",
+      "backup-restore-report": "备份还原报告",
+      "failed-imports": "导入失败",
+      "full-backup": "完整备份",
+      "partial-backup": "部分备份",
+      "successfully-imported": "成功导入"
+    },
+    "available-backups": "可用备份",
+    "general-settings": "基本设置",
+    "language": "语言",
+    "local-api": "Local API"
   },
   "migration": {
     "recipe-migration": "食谱迁移",
-    "failed-imports": "导入失败"
+    "failed-imports": "导入失败",
+    "chowdown": {
+      "description": "从Chowdown迁移数据",
+      "title": "Chowdown"
+    },
+    "migration-report": "迁移报告",
+    "nextcloud": {
+      "description": "从Nextcloud Cookbook迁移数据",
+      "title": "Nextcloud Cookbook"
+    },
+    "no-migration-data-available": "没有迁移数据可用",
+    "successful-imports": "成功导入"
   }
 }
