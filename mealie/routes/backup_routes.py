@@ -11,10 +11,10 @@ from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 from utils.snackbar import SnackResponse
 
-router = APIRouter(tags=["Import / Export"])
+router = APIRouter(prefix="/api/backups", tags=["Import / Export"])
 
 
-@router.get("/api/backups/available/", response_model=Imports)
+@router.get("/available/", response_model=Imports)
 def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
@@ -31,7 +31,7 @@ def available_imports():
     return Imports(imports=imports, templates=templates)
 
 
-@router.post("/api/backups/export/database/", status_code=201)
+@router.post("/export/database/", status_code=201)
 def export_database(data: BackupJob, db: Session = Depends(generate_session)):
     """Generates a backup of the recipe database in json format."""
     export_path = backup_all(
@@ -51,7 +51,7 @@ def export_database(data: BackupJob, db: Session = Depends(generate_session)):
         )
 
 
-@router.post("/api/backups/upload/")
+@router.post("/upload/")
 def upload_backup_zipfile(archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
     dest = BACKUP_DIR.joinpath(archive.filename)
@@ -65,7 +65,7 @@ def upload_backup_zipfile(archive: UploadFile = File(...)):
         return SnackResponse.error("Failure uploading file")
 
 
-@router.get("/api/backups/{file_name}/download/")
+@router.get("/{file_name}/download/")
 def upload_nextcloud_zipfile(file_name: str):
     """ Upload a .zip File to later be imported into Mealie """
     file = BACKUP_DIR.joinpath(file_name)
@@ -78,7 +78,7 @@ def upload_nextcloud_zipfile(file_name: str):
         return SnackResponse.error("No File Found")
 
 
-@router.post("/api/backups/{file_name}/import/", status_code=200)
+@router.post("/{file_name}/import/", status_code=200)
 def import_database(
     file_name: str, import_data: ImportJob, db: Session = Depends(generate_session)
 ):
@@ -98,20 +98,16 @@ def import_database(
     return imported
 
 
-@router.delete(
-    "/api/backups/{backup_name}/delete/",
-    tags=["Import / Export"],
-    status_code=200,
-)
-def delete_backup(backup_name: str):
+@router.delete("/{file_name}/delete/", tags=["Import / Export"], status_code=200)
+def delete_backup(file_name: str):
     """ Removes a database backup from the file system """
 
     try:
-        BACKUP_DIR.joinpath(backup_name).unlink()
+        BACKUP_DIR.joinpath(file_name).unlink()
     except:
         HTTPException(
             status_code=400,
             detail=SnackResponse.error("Unable to Delete Backup. See Log File"),
         )
 
-    return SnackResponse.success(f"{backup_name} Deleted")
+    return SnackResponse.success(f"{file_name} Deleted")

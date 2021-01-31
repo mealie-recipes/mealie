@@ -8,7 +8,7 @@ class SiteSettingsModel(SqlAlchemyBase):
     name = sa.Column(sa.String, primary_key=True)
     webhooks = orm.relationship("WebHookModel", uselist=False, cascade="all, delete")
 
-    def __init__(self, name: str = None, webhooks: dict = None) -> None:
+    def __init__(self, name: str = None, webhooks: dict = None, session=None) -> None:
         self.name = name
         self.webhooks = WebHookModel(**webhooks)
 
@@ -33,7 +33,7 @@ class WebHookModel(SqlAlchemyBase, BaseMixins):
     enabled = sa.Column(sa.Boolean, default=False)
 
     def __init__(
-        self, webhookURLs: list, webhookTime: str, enabled: bool = False
+        self, webhookURLs: list, webhookTime: str, enabled: bool = False, session=None
     ) -> None:
 
         self.webhookURLs = [WebhookURLModel(url=x) for x in webhookURLs]

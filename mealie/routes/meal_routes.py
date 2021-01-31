@@ -6,17 +6,17 @@ from services.meal_services import MealPlan
 from sqlalchemy.orm.session import Session
 from utils.snackbar import SnackResponse
 
-router = APIRouter(tags=["Meal Plan"])
+router = APIRouter(prefix="/api/meal-plan", tags=["Meal Plan"])
 
 
-@router.get("/api/meal-plan/all/", response_model=List[MealPlan])
+@router.get("/all/", response_model=List[MealPlan])
 def get_all_meals(db: Session = Depends(generate_session)):
     """ Returns a list of all available Meal Plan """
 
     return MealPlan.get_all(db)
 
 
-@router.post("/api/meal-plan/create/")
+@router.post("/create/")
 def set_meal_plan(data: MealPlan, db: Session = Depends(generate_session)):
     """ Creates a meal plan database entry """
     data.process_meals(db)
@@ -30,7 +30,7 @@ def set_meal_plan(data: MealPlan, db: Session = Depends(generate_session)):
     return SnackResponse.success("Mealplan Created")
 
 
-@router.post("/api/meal-plan/{plan_id}/update/")
+@router.post("/{plan_id}/update/")
 def update_meal_plan(
     plan_id: str, meal_plan: MealPlan, db: Session = Depends(generate_session)
 ):
@@ -49,7 +49,7 @@ def update_meal_plan(
     return SnackResponse.success("Mealplan Updated")
 
 
-@router.delete("/api/meal-plan/{plan_id}/delete/")
+@router.delete("/{plan_id}/delete/")
 def delete_meal_plan(plan_id, db: Session = Depends(generate_session)):
     """ Removes a meal plan from the database """
 
@@ -58,10 +58,7 @@ def delete_meal_plan(plan_id, db: Session = Depends(generate_session)):
     return SnackResponse.success("Mealplan Deleted")
 
 
-@router.get(
-    "/api/meal-plan/today/",
-    tags=["Meal Plan"],
-)
+@router.get("/today/", tags=["Meal Plan"])
 def get_today(db: Session = Depends(generate_session)):
     """
     Returns the recipe slug for the meal scheduled for today.
@@ -71,7 +68,7 @@ def get_today(db: Session = Depends(generate_session)):
     return MealPlan.today(db)
 
 
-@router.get("/api/meal-plan/this-week/", response_model=MealPlan)
+@router.get("/this-week/", response_model=MealPlan)
 def get_this_week(db: Session = Depends(generate_session)):
     """ Returns the meal plan data for this week """
 

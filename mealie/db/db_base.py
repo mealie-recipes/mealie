@@ -1,5 +1,6 @@
-from typing import List, Union
+from typing import List
 
+from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
 from db.sql.model_base import SqlAlchemyBase
@@ -21,6 +22,13 @@ class BaseDocument:
             return list[0]
 
         return list
+
+    def get_all_primary_keys(self, session: Session):
+        results = session.query(self.sql_model).options(
+            load_only(str(self.primary_key))
+        )
+        results_as_dict = [x.dict() for x in results]
+        return [x.get(self.primary_key) for x in results_as_dict]
 
     def _query_one(
         self, session: Session, match_value: str, match_key: str = None
@@ -79,7 +87,7 @@ class BaseDocument:
         Returns:
             dict: A dictionary representation of the database entry
         """
-        new_document = self.sql_model(**document)
+        new_document = self.sql_model(session=session, **document)
         session.add(new_document)
         return_data = new_document.dict()
         session.commit()
