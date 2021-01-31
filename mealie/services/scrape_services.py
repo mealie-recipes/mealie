@@ -1,3 +1,4 @@
+import html
 import json
 from pathlib import Path
 from typing import List, Tuple
@@ -5,7 +6,6 @@ from typing import List, Tuple
 import extruct
 import requests
 import scrape_schema_recipe
-import html
 from app_config import DEBUG_DIR
 from slugify import slugify
 from utils.logger import logger
@@ -33,7 +33,9 @@ def normalize_instructions(instructions) -> List[dict]:
     # One long string split by (possibly multiple) new lines
     if type(instructions) == str:
         return [
-            {"text": normalize_instruction(line)} for line in instructions.splitlines() if line
+            {"text": normalize_instruction(line)}
+            for line in instructions.splitlines()
+            if line
         ]
 
     # Plain strings in a list
@@ -60,6 +62,10 @@ def normalize_instruction(line) -> str:
     return l
 
 
+def normalize_ingredient(ingredients: list) -> str:
+    return [html.unescape(ing) for ing in ingredients]
+
+
 def normalize_yield(yld) -> str:
     if type(yld) == list:
         return yld[-1]
@@ -79,6 +85,9 @@ def normalize_data(recipe_data: dict) -> dict:
     recipe_data["prepTime"] = normalize_time(recipe_data.get("prepTime"))
     recipe_data["performTime"] = normalize_time(recipe_data.get("performTime"))
     recipe_data["recipeYield"] = normalize_yield(recipe_data.get("recipeYield"))
+    recipe_data["recipeIngredient"] = normalize_ingredient(
+        recipe_data.get("recipeIngredient")
+    )
     recipe_data["recipeInstructions"] = normalize_instructions(
         recipe_data["recipeInstructions"]
     )
