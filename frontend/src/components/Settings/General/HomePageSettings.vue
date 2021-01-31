@@ -119,36 +119,34 @@ export default {
   },
   data() {
     return {
-      homeCategories: [],
+      homeCategories: null,
       showLimit: null,
-      categories: ["breakfast"],
       showRecent: true,
     };
   },
   mounted() {
     this.getOptions();
   },
-
+  computed: {
+    categories() {
+      return this.$store.getters.getCategories;
+    },
+  },
   methods: {
     getOptions() {
-      let options = this.$store.getters.getHomePageSettings;
-      this.showLimit = options.showLimit;
-      this.categories = options.categories;
-      this.showRecent = options.showRecent;
-      this.homeCategories = options.homeCategories;
+      this.showLimit = this.$store.getters.getShowLimit;
+      this.showRecent = this.$store.getters.getShowRecent;
+      this.homeCategories = this.$store.getters.getHomeCategories;
     },
     deleteActiveCategory(index) {
       this.homeCategories.splice(index, 1);
     },
     saveSettings() {
-      let payload = {
-        showRecent: this.showRecent,
-        showLimit: this.showLimit,
-        categories: this.categories,
-        homeCategories: this.homeCategories,
-      };
-
-      this.$store.commit("setHomePageSettings", payload);
+      console.log("Saving Settings");
+      console.log(this.homeCategories);
+      this.$store.commit("setShowRecent", this.showRecent);
+      this.$store.commit("setShowLimit", this.showLimit);
+      this.$store.commit("setHomeCategories", this.homeCategories);
     },
   },
 };

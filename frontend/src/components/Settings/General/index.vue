@@ -43,22 +43,14 @@ export default {
   },
   data() {
     return {
-      categories: ["cat 1", "cat 2", "cat 3"],
-      usedCategories: ["recent"],
       langOptions: [],
       selectedLang: "en",
-      homeOptions: {
-        recipesToShow: 10,
-      },
     };
   },
   mounted() {
     this.getOptions();
   },
   watch: {
-    usedCategories() {
-      console.log(this.usedCategories);
-    },
     selectedLang() {
       this.$store.commit("setLang", this.selectedLang);
     },
@@ -66,6 +58,7 @@ export default {
   methods: {
     getOptions() {
       this.langOptions = this.$store.getters.getAllLangs;
+      console.log(this.langOptions);
       this.selectedLang = this.$store.getters.getActiveLang;
     },
   },

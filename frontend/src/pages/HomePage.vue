@@ -1,18 +1,20 @@
 <template>
   <div>
+    <CategorySidebar/>
+
     <CardSection
-      v-if="pageSettings.showRecent"
+      v-if="showRecent"
       title="Recent"
       :recipes="recentRecipes"
-      :card-limit="pageSettings.showLimit"
+      :card-limit="showLimit"
     />
     <CardSection
       :sortable="true"
       v-for="(section, index) in recipeByCategory"
       :key="index"
-      :title="section.title"
+      :title="section.name"
       :recipes="section.recipes"
-      :card-limit="pageSettings.showLimit"
+      :card-limit="showLimit"
       @sort="sortAZ(index)"
       @sort-recent="sortRecent(index)"
     />
@@ -20,34 +22,43 @@
 </template>
 
 <script>
+import api from "../api";
 import CardSection from "../components/UI/CardSection";
+import CategorySidebar from "../components/UI/CategorySidebar";
 export default {
   components: {
     CardSection,
+    CategorySidebar,
   },
   data() {
     return {
-      recipeByCategory: [
-        {
-          title: "Title 1",
-          recipes: this.$store.getters.getRecentRecipes,
-        },
-        {
-          title: "Title 2",
-          recipes: this.$store.getters.getRecentRecipes,
-        },
-      ],
+      recipeByCategory: [],
     };
   },
   computed: {
-    pageSettings() {
-      return this.$store.getters.getHomePageSettings;
+    showRecent() {
+      return this.$store.getters.getShowRecent;
+    },
+    showLimit() {
+      return this.$store.getters.getShowLimit;
+    },
+    homeCategories() {
+      return this.$store.getters.getHomeCategories;
     },
     recentRecipes() {
       return this.$store.getters.getRecentRecipes;
     },
   },
+  async mounted() {
+    this.homeCategories.forEach(async (element) => {
+      let recipes = await this.getRecipeByCategory(element);
+      this.recipeByCategory.push(recipes);
+    });
+  },
   methods: {
+    async getRecipeByCategory(category) {
+      return await api.categories.get_recipes_in_category(category);
+    },
     getRecentRecipes() {
       this.$store.dispatch("requestRecentRecipes");
     },

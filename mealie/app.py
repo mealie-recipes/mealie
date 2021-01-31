@@ -23,11 +23,12 @@ from utils.logger import logger
 
 """
 TODO:
-- [ ] Fix Duplicate Category
-- [ ] Fix Duplicate Tags
-- [ ] Add Endpoint
+- [x] Fix Duplicate Category
+- [x] Fix Duplicate Tags
+- [ ] New Endpoints
+    - [x] Tag Endpoints
+    - [x] Category Endpoints
     - [ ] Endpoint Tests
-- [ ] Setup Database Migrations
 - [ ] Finish Frontend Category Management
 - [ ] Ingredient Drag-Drop / Reorder
 - [ ] Refactor Endpoints

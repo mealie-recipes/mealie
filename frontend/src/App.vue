@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar dense app color="primary" dark class="d-print-none">
+    <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
       <v-btn @click="$router.push('/')" icon>
         <v-icon size="40"> mdi-silverware-variant </v-icon>
       </v-btn>
