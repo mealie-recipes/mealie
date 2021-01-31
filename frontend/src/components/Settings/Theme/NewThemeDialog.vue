@@ -6,7 +6,7 @@
         <v-card-title> {{$t('settings.add-a-new-theme')}} </v-card-title>
         <v-card-text>
           <v-text-field
-            label="Theme Name"
+            :label="$t('settings.theme.theme-name')"
             v-model="themeName"
             :rules="[rules.required]"
           ></v-text-field>
@@ -34,7 +34,7 @@ export default {
       dialog: false,
       themeName: "",
       rules: {
-        required: (val) => !!val || "Required.",
+        required: (val) => !!val || this.$t("settings.theme.theme-name-is-required"),
       },
     };
   },
