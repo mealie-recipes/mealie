@@ -30,6 +30,8 @@ TODO:
     - [x] Category Endpoints
     - [ ] Endpoint Tests
 - [ ] Finish Frontend Category Management
+    - [ ] Delete Category / Tags
+    - [ ] Sort Sidebar A-Z
 - [ ] Ingredient Drag-Drop / Reorder
 - [ ] Refactor Endpoints
 
@@ -46,6 +48,10 @@ app = FastAPI(
 
 def mount_static_files():
     app.mount("/static", StaticFiles(directory=WEB_PATH, html=True))
+
+
+def start_scheduler():
+    import services.scheduler.scheduled_jobs
 
 
 def api_routers():
@@ -70,11 +76,6 @@ if PRODUCTION:
     mount_static_files()
 
 api_routers()
-
-
-def start_scheduler():
-    import services.scheduler.scheduled_jobs
-
 
 # API 404 Catch all CALL AFTER ROUTERS
 @app.get("/api/{full_path:path}", status_code=404, include_in_schema=False)
