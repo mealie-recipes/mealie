@@ -7,6 +7,7 @@ from services.recipe_services import Recipe
 class RecipeCategoryResponse(BaseModel):
     id: int
     name: str
+    slug: str
     recipes: List[Recipe]
 
     class Config:

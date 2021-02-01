@@ -5,6 +5,7 @@ from typing import List
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from db.sql.model_base import BaseMixins, SqlAlchemyBase
+from slugify import slugify
 from sqlalchemy.ext.orderinglist import ordering_list
 from utils.logger import logger
 
@@ -28,14 +29,14 @@ recipes2categories = sa.Table(
     "recipes2categories",
     SqlAlchemyBase.metadata,
     sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
-    sa.Column("category_name", sa.String, sa.ForeignKey("categories.name")),
+    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
 )
 
 recipes2tags = sa.Table(
     "recipes2tags",
     SqlAlchemyBase.metadata,
     sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
-    sa.Column("tag_id", sa.Integer, sa.ForeignKey("tags.id")),
+    sa.Column("tag_slug", sa.Integer, sa.ForeignKey("tags.slug")),
 )
 
 
@@ -43,36 +44,46 @@ class Category(SqlAlchemyBase):
     __tablename__ = "categories"
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True)
+    slug = sa.Column(sa.String, index=True, unique=True)
     recipes = orm.relationship(
         "RecipeModel", secondary=recipes2categories, back_populates="categories"
     )
 
     def __init__(self, name) -> None:
-        self.name = name
+        self.name = name.strip()
+        self.slug = slugify(name)
 
-    @classmethod
-    def create_if_not_exist(cls, session, name: str):
-
+    @staticmethod
+    def create_if_not_exist(session, name: str = None):
         try:
-            result = session.query(Category).filter_by(**{"name": name}).one()
-            logger.info("Category Exists, Associating Recipe")
-
-            return result
+            result = session.query(Category).filter(Category.name == name.strip()).one()
+            if result:
+                logger.info("Category exists, associating recipe")
+                return result
+            else:
+                logger.info("Category doesn't exists, creating tag")
+                return Category(name=name)
         except:
             logger.info("Category doesn't exists, creating category")
-            return cls(name=name)
+            return Category(name=name)
 
     def to_str(self):
         return self.name
 
     def dict(self):
-        return {"id": self.id, "name": self.name, "recipes": [x.dict() for x in self.recipes]}
+        return {
+            "id": self.id,
+            "slug": self.slug,
+            "name": self.name,
+            "recipes": [x.dict() for x in self.recipes],
+        }
 
 
 class Tag(SqlAlchemyBase):
     __tablename__ = "tags"
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True)
+    slug = sa.Column(sa.String, index=True, unique=True)
     recipes = orm.relationship(
         "RecipeModel", secondary=recipes2tags, back_populates="tags"
     )
@@ -81,22 +92,32 @@ class Tag(SqlAlchemyBase):
         return self.name
 
     def __init__(self, name) -> None:
-        self.name = name
+        self.name = name.strip()
+        self.slug = slugify(self.name)
 
     def dict(self):
-        return {"id": self.id, "name": self.name, "recipes": [x.dict() for x in self.recipes]}
+        return {
+            "id": self.id,
+            "slug": self.slug,
+            "name": self.name,
+            "recipes": [x.dict() for x in self.recipes],
+        }
 
-    @classmethod
-    def create_if_not_exist(cls, session, name: str):
-
+    @staticmethod
+    def create_if_not_exist(session, name: str = None):
         try:
-            result = session.query(Tag).filter_by(**{"name": name}).one()
-            logger.info("Tag Exists, Associating Recipe")
+            result = session.query(Tag).filter(Tag.name == name.strip()).first()
 
-            return result
+            if result:
+                logger.info("Tag exists, associating recipe")
+
+                return result
+            else:
+                logger.info("Tag doesn't exists, creating tag")
+                return Tag(name=name)
         except:
             logger.info("Tag doesn't exists, creating tag")
-            return cls(name=name)
+            return Tag(name=name)
 
 
 class Note(SqlAlchemyBase):
@@ -213,7 +234,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient
         ]
         self.recipeInstructions = [
-            RecipeInstruction(text=instruc.get("text"), type=instruc.get("text"))
+            RecipeInstruction(text=instruc.get("text"), type=instruc.get("@type", None))
             for instruc in recipeInstructions
         ]
         self.totalTime = totalTime
@@ -222,11 +243,12 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         # Mealie Specific
         self.slug = slug
-
         self.categories = [
-            (Category.create_if_not_exist(session, cat)) for cat in categories
+            Category.create_if_not_exist(session=session, name=cat)
+            for cat in categories
         ]
-        self.tags = [Tag.create_if_not_exist(session, name=tag) for tag in tags]
+
+        self.tags = [Tag.create_if_not_exist(session=session, name=tag) for tag in tags]
 
         self.dateAdded = dateAdded
         self.notes = [Note(**note) for note in notes]

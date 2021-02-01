@@ -80,7 +80,8 @@ class ImportDatabase:
                 recipe_obj.save_to_db(self.session)
                 successful_imports.append(recipe.stem)
                 logger.info(f"Imported: {recipe.stem}")
-            except:
+            except Exception as inst:
+                logger.error(inst)
                 logger.info(f"Failed Import: {recipe.stem}")
                 failed_imports.append(recipe.stem)
 

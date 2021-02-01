@@ -1,3 +1,4 @@
+from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
 from db.db_base import BaseDocument
@@ -28,13 +29,13 @@ class _Recipes(BaseDocument):
 
 class _Categories(BaseDocument):
     def __init__(self) -> None:
-        self.primary_key = "name"
+        self.primary_key = "slug"
         self.sql_model = Category
 
 
 class _Tags(BaseDocument):
     def __init__(self) -> None:
-        self.primary_key = "name"
+        self.primary_key = "slug"
         self.sql_model = Tag
 
 
