@@ -41,14 +41,14 @@
                 >
                   <v-list-item
                     v-for="(item, index) in homeCategories"
-                    :key="item"
+                    :key="`${item.name}-${index}`"
                   >
                     <v-list-item-icon>
                       <v-icon>mdi-menu</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
-                      <v-list-item-title v-text="item"></v-list-item-title>
+                      <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-icon @click="deleteActiveCategory(index)">
                       <v-icon>mdi-delete</v-icon>
@@ -81,13 +81,16 @@
                     minHeight: `200px`,
                   }"
                 >
-                  <v-list-item v-for="item in categories" :key="item">
+                  <v-list-item
+                    v-for="(item, index) in categories"
+                    :key="`${item.name}-${index}`"
+                  >
                     <v-list-item-icon>
                       <v-icon>mdi-menu</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
-                      <v-list-item-title v-text="item"></v-list-item-title>
+                      <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-icon @click="deleteActiveCategory(index)">
                       <v-icon>mdi-delete</v-icon>
@@ -142,8 +145,10 @@ export default {
       this.homeCategories.splice(index, 1);
     },
     saveSettings() {
-      console.log("Saving Settings");
-      console.log(this.homeCategories);
+
+      this.homeCategories.forEach((element, index) => {
+        element.position = index + 1;
+      });
       this.$store.commit("setShowRecent", this.showRecent);
       this.$store.commit("setShowLimit", this.showLimit);
       this.$store.commit("setHomeCategories", this.homeCategories);

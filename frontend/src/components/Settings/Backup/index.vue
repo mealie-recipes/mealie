@@ -75,7 +75,6 @@ export default {
       let response = await api.backups.requestAvailable();
       this.availableBackups = response.imports;
       this.availableTemplates = response.templates;
-      console.log(this.availableBackups);
     },
     deleteBackup() {
       if (this.$refs.form.validate()) {

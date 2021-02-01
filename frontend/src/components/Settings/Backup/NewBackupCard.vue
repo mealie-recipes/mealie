@@ -101,7 +101,6 @@ export default {
         templates: this.selectedTemplates,
       };
 
-      console.log(data);
 
       await api.backups.create(data);
       this.loading = false;

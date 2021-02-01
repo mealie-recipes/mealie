@@ -81,7 +81,6 @@ export default {
     async importMigration(file_name) {
       this.loading == true;
       let response = await api.migrations.import(this.folder, file_name);
-      console.log(response);
       this.$emit("imported", response.successful, response.failed);
       this.loading == false;
     },

@@ -14,17 +14,16 @@ const router = new VueRouter({
   mode: process.env.NODE_ENV === "production" ? "history" : "hash",
 });
 
-
 new Vue({
   vuetify,
   store,
   router,
   i18n,
-  render: h => h(App),
+  render: (h) => h(App),
 }).$mount("#app");
 
 // Truncate
-let filter = function(text, length, clamp) {
+let truncate = function (text, length, clamp) {
   clamp = clamp || "...";
   let node = document.createElement("div");
   node.innerHTML = text;
@@ -32,6 +31,11 @@ let filter = function(text, length, clamp) {
   return content.length > length ? content.slice(0, length) + clamp : content;
 };
 
-Vue.filter("truncate", filter);
+let titleCase = function (value) {
+  return value.replace(/(?:^|\s|-)\S/g, (x) => x.toUpperCase());
+};
+
+Vue.filter("truncate", truncate);
+Vue.filter("titleCase", titleCase);
 
 export { router };

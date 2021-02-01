@@ -58,7 +58,6 @@ export default {
   methods: {
     getOptions() {
       this.langOptions = this.$store.getters.getAllLangs;
-      console.log(this.langOptions);
       this.selectedLang = this.$store.getters.getActiveLang;
     },
   },

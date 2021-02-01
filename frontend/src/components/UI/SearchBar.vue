@@ -82,7 +82,6 @@ export default {
     search() {
       if (this.search.trim() === "") this.result = this.list;
       else this.result = this.fuse.search(this.search.trim());
-      console.log("test");
 
       this.$emit("results", this.result);
       if (this.showResults === true) {

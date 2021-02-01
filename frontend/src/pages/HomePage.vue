@@ -1,7 +1,6 @@
 <template>
   <div>
-    <CategorySidebar/>
-
+    <CategorySidebar />
     <CardSection
       v-if="showRecent"
       title="Recent"
@@ -11,7 +10,7 @@
     <CardSection
       :sortable="true"
       v-for="(section, index) in recipeByCategory"
-      :key="index"
+      :key="section.name + section.position"
       :title="section.name"
       :recipes="section.recipes"
       :card-limit="showLimit"
@@ -50,12 +49,17 @@ export default {
     },
   },
   async mounted() {
-    this.homeCategories.forEach(async (element) => {
-      let recipes = await this.getRecipeByCategory(element);
-      this.recipeByCategory.push(recipes);
-    });
+    await this.buildPage();
+    this.recipeByCategory.sort((a, b) => a.position - b.position);
   },
   methods: {
+    async buildPage() {
+      this.homeCategories.forEach(async (element) => {
+        let recipes = await this.getRecipeByCategory(element.slug);
+        recipes.position = element.position;
+        this.recipeByCategory.push(recipes);
+      });
+    },
     async getRecipeByCategory(category) {
       return await api.categories.get_recipes_in_category(category);
     },

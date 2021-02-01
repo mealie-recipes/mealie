@@ -61,7 +61,6 @@ export default {
       this.searchResults = results;
     },
     emitSelect(name, slug) {
-      console.log(name, slug);
       this.$emit("select", name, slug);
       this.dialog = false;
     },
