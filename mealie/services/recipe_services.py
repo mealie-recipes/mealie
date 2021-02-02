@@ -83,15 +83,6 @@ class Recipe(BaseModel):
             return slug
 
     @classmethod
-    def _unpack_doc(cls, document):
-        document = json.loads(document.to_json())
-        del document["_id"]
-
-        document["dateAdded"] = document["dateAdded"]["$date"]
-
-        return cls(**document)
-
-    @classmethod
     def get_by_slug(cls, session, slug: str):
         """ Returns a Recipe Object by Slug """
 
@@ -132,8 +123,15 @@ class Recipe(BaseModel):
         return updated_slug.get("slug")
 
     @staticmethod
-    def update_image(slug: str, extension: str):
-        db.recipes.update_image(slug, extension)
+    def update_image(slug: str, extension: str) -> str:
+        """A helper function to pass the new image name and extension
+        into the database.
+
+        Args:
+            slug (str): The current recipe slug
+            extension (str): the file extension of the new image
+        """
+        return db.recipes.update_image(slug, extension)
 
     @staticmethod
     def get_all(session: Session):

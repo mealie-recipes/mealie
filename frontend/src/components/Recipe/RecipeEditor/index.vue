@@ -16,19 +16,19 @@
       <v-row>
         <v-col>
           <v-text-field
-            label="Total Time"
+            :label="$t('recipe.total-time')"
             v-model="value.totalTime"
           ></v-text-field>
         </v-col>
         <v-col
           ><v-text-field
-            label="Prep Time"
+            :label="$t('recipe.prep-time')"
             v-model="value.prepTime"
           ></v-text-field
         ></v-col>
         <v-col
           ><v-text-field
-            label="Cook Time / Perform Time"
+            :label="$t('recipe.perform-time')"
             v-model="value.performTime"
           ></v-text-field
         ></v-col>
@@ -149,7 +149,7 @@
                   <v-icon color="error">mdi-delete</v-icon>
                 </v-btn>
                 <v-text-field
-                  label="Title"
+                  :label="$t('recipe.title')"
                   v-model="value.notes[index]['title']"
                 ></v-text-field>
               </v-row>
@@ -209,7 +209,7 @@
           <v-text-field
             v-model="value.orgURL"
             class="mt-10"
-            label="Original URL"
+            :label="$t('recipe.original-url')"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -234,9 +234,9 @@ export default {
     return {
       fileObject: null,
       rules: {
-        required: v => !!v || "Key Name Required",
+        required: v => !!v || this.$i18n.t("recipe.key-name-required"),
         whiteSpace: v =>
-          !v || v.split(" ").length <= 1 || "No White Space Allowed",
+          !v || v.split(" ").length <= 1 || this.$i18n.t("recipe.no-white-space-allowed"),
       },
     };
   },

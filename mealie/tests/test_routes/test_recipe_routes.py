@@ -2,9 +2,12 @@ import json
 
 import pytest
 from slugify import slugify
-from tests.test_routes.utils.routes_data import (RecipeTestData,
-                                                 raw_recipe_dict,
-                                                 recipe_test_data)
+from tests.test_routes.utils.routes_data import (
+    RecipeTestData,
+    raw_recipe,
+    raw_recipe_no_image,
+    recipe_test_data,
+)
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
@@ -15,10 +18,29 @@ def test_create_by_url(api_client, recipe_data: RecipeTestData):
 
 
 def test_create_by_json(api_client):
-    response = api_client.post("/api/recipe/create/", json=raw_recipe_dict)
+    response = api_client.post("/api/recipe/create/", json=raw_recipe)
 
     assert response.status_code == 200
     assert json.loads(response.text) == "banana-bread"
+
+
+def test_create_no_image(api_client):
+    response = api_client.post("/api/recipe/create/", json=raw_recipe_no_image)
+
+    assert response.status_code == 200
+    assert json.loads(response.text) == "banana-bread-no-image"
+
+
+# def test_upload_image(api_client, test_image):
+#     data = {"image": test_image.open("rb").read(), "extension": "jpg"}
+
+#     response = api_client.post(
+#         "/api/recipe/banana-bread-no-image/update/image/", files=data
+#     )
+
+#     assert response.status_code == 200
+
+#     response = api_client.get("/api/recipe/banana-bread-no-image/update/image/")
 
 
 def test_read_all_post(api_client):

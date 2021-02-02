@@ -1,3 +1,5 @@
+from sqlalchemy.orm.session import Session
+
 from db.db_base import BaseDocument
 from db.sql.meal_models import MealPlanModel
 from db.sql.recipe_models import RecipeModel
@@ -16,8 +18,12 @@ class _Recipes(BaseDocument):
         self.primary_key = "slug"
         self.sql_model = RecipeModel
 
-    def update_image(self, slug: str, extension: str) -> None:
-        pass
+    def update_image(self, session: Session, slug: str, extension: str) -> str:
+        entry = self._query_one(session, match_value=slug)
+        entry.image = f"{slug}.{extension}"
+        session.commit()
+
+        return f"{slug}.{extension}"
 
 
 class _Meals(BaseDocument):
@@ -31,7 +37,7 @@ class _Settings(BaseDocument):
         self.primary_key = "name"
         self.sql_model = SiteSettingsModel
 
-    def save_new(self, session, main: dict, webhooks: dict) -> str:
+    def save_new(self, session: Session, main: dict, webhooks: dict) -> str:
         new_settings = self.sql_model(main.get("name"), webhooks)
 
         session.add(new_settings)
@@ -44,14 +50,6 @@ class _Themes(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "name"
         self.sql_model = SiteThemeModel
-
-    def update(self, session, data: dict) -> dict:
-        theme_model = self._query_one(
-            session=session, match_value=data["name"], match_key="name"
-        )
-
-        theme_model.update(**data)
-        session.commit()
 
 
 class Database:

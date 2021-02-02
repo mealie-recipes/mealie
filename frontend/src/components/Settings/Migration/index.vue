@@ -1,11 +1,11 @@
 <template>
   <div>
     <SuccessFailureAlert
-      title="Migration Report"
+      :title="$t('migration.migration-report')"
       ref="report"
-      failedHeader="Failed Imports"
+      :failedHeader="$t('migration.failed-imports')"
       :failed="failed"
-      successHeader="Successful Imports"
+      :successHeader="$t('migration.successful-imports')"
       :success="success"
     />
     <v-card :loading="loading">
@@ -54,14 +54,14 @@ export default {
       failed: [],
       migrations: {
         nextcloud: {
-          title: "Nextcloud Cookbook",
-          description: "migrate data from a nextcloud cookbook intance",
+          title: this.$t("migration.nextcloud.title"),
+          description: this.$t("migration.nextcloud.description"),
           urlVariable: "nextcloud",
           availableImports: [],
         },
         chowdown: {
-          title: "Chowdown",
-          description: "Migrate From Chowdown",
+          title: this.$t("migration.chowdown.title"),
+          description: this.$t("migration.chowdown.description"),
           urlVariable: "chowdown",
           availableImports: [],
         },

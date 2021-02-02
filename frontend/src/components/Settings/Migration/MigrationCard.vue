@@ -35,10 +35,10 @@
         <v-card-actions class="mt-n6">
           <v-spacer></v-spacer>
           <v-btn color="error" text @click="deleteMigration(migration.name)">
-            Delete
+            {{ $t("general.delete") }}
           </v-btn>
           <v-btn color="accent" text @click="importMigration(migration.name)">
-            Import
+            {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -46,7 +46,7 @@
     <div v-else>
       <v-card class="text-center ma-2">
         <v-card-text>
-          No Migration Data Avaiable
+          {{ $t("migration.no-migration-data-available") }}
         </v-card-text>
       </v-card>
     </div>

@@ -1,8 +1,12 @@
+from pathlib import Path
+
 from app import app
 from app_config import SQLITE_DIR
 from db.db_setup import generate_session, sql_global_init
 from fastapi.testclient import TestClient
 from pytest import fixture
+
+from tests.test_config import TEST_DATA
 
 SQLITE_FILE = SQLITE_DIR.joinpath("test.db")
 SQLITE_FILE.unlink(missing_ok=True)
@@ -26,3 +30,8 @@ def api_client():
     yield TestClient(app)
 
     SQLITE_FILE.unlink()
+
+
+@fixture(scope="session")
+def test_image():
+    return TEST_DATA.joinpath("test_image.jpg")
