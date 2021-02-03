@@ -67,27 +67,43 @@
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
           <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
-          <div
-            v-for="(ingredient, index) in value.recipeIngredient"
-            :key="generateKey('ingredient', index)"
+          <draggable
+            v-model="value.recipeIngredient"
+            @start="drag = true"
+            @end="drag = false"
           >
-            <v-row align="center">
-              <v-btn
-                fab
-                x-small
-                color="white"
-                class="mr-2"
-                elevation="0"
-                @click="removeIngredient(index)"
+            <transition-group
+              type="transition"
+              :name="!drag ? 'flip-list' : null"
+            >
+              <div
+                v-for="(ingredient, index) in value.recipeIngredient"
+                :key="generateKey('ingredient', index)"
               >
-                <v-icon color="error">mdi-delete</v-icon>
-              </v-btn>
-              <v-text-field
-                :label="$t('recipe.ingredient')"
-                v-model="value.recipeIngredient[index]"
-              ></v-text-field>
-            </v-row>
-          </div>
+                <v-row align="center">
+                  <v-text-field
+                    class="mr-2"
+                    :label="$t('recipe.ingredient')"
+                    v-model="value.recipeIngredient[index]"
+                    append-outer-icon="mdi-menu"
+                    mdi-move-resize
+                    solo
+                    dense
+                  >
+                    <v-icon
+                    class="mr-n1"
+                      slot="prepend"
+                      color="error"
+                      @click="removeIngredient(index)"
+                    >
+                      mdi-delete
+                    </v-icon>
+                  </v-text-field>
+                </v-row>
+              </div>
+            </transition-group>
+          </draggable>
+
           <v-btn color="secondary" fab dark small @click="addIngredient">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
@@ -103,6 +119,7 @@
             v-model="value.categories"
             hide-selected
             :items="categories"
+            text="name"
             :search-input.sync="categoriesSearchInput"
             @change="categoriesSearchInput = ''"
           >
@@ -232,6 +249,7 @@
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import api from "../../../api";
 import utils from "../../../utils";
 import BulkAdd from "./BulkAdd";
@@ -240,17 +258,21 @@ export default {
   components: {
     BulkAdd,
     ExtrasEditor,
+    draggable,
   },
   props: {
     value: Object,
   },
   data() {
     return {
+      drag: false,
       fileObject: null,
       rules: {
-        required: v => !!v || this.$i18n.t("recipe.key-name-required"),
-        whiteSpace: v =>
-          !v || v.split(" ").length <= 1 || this.$i18n.t("recipe.no-white-space-allowed"),
+        required: (v) => !!v || this.$i18n.t("recipe.key-name-required"),
+        whiteSpace: (v) =>
+          !v ||
+          v.split(" ").length <= 1 ||
+          this.$i18n.t("recipe.no-white-space-allowed"),
       },
       categoriesSearchInput: "",
       tagsSearchInput: "",
@@ -264,7 +286,7 @@ export default {
   methods: {
     async getCategories() {
       let response = await api.categories.get_all();
-      this.categories = response.data.map((cat) => cat.name);
+      this.categories = response.map((cat) => cat.name);
     },
     uploadImage() {
       this.$emit("upload", this.fileObject);

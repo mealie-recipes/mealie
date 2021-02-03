@@ -22,6 +22,7 @@
       "
       @save="saveRecipe"
       @delete="deleteRecipe"
+      class="sticky"
     />
 
     <RecipeViewer
@@ -106,7 +107,7 @@ export default {
   },
 
   watch: {
-    $route: function() {
+    $route: function () {
       this.getRecipeDetails();
     },
   },
@@ -144,7 +145,7 @@ export default {
     },
     async saveRecipe() {
       if (this.$refs.recipeEditor.validateRecipe()) {
-        console.log("Thank you")
+        console.log("Thank you");
       }
       let slug = await api.recipes.update(this.recipeDetails);
 
@@ -176,5 +177,10 @@ export default {
   position: absolute;
   width: 100%;
   bottom: 0;
+}
+.sticky {
+  position: sticky !important;
+  top: 0;
+  z-index: 2;
 }
 </style>

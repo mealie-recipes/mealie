@@ -43,12 +43,12 @@ export default {
   props: {
     open: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   components: {
-    Confirmation
+    Confirmation,
   },
 
   methods: {
@@ -66,8 +66,8 @@ export default {
     },
     json() {
       this.$emit("json");
-    }
-  }
+    },
+  },
 };
 </script>
 
