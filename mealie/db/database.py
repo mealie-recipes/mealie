@@ -1,4 +1,3 @@
-from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
 from db.db_base import BaseDocument

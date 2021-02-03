@@ -10,6 +10,7 @@ from routes import (
     migration_routes,
     setting_routes,
     static_routes,
+    theme_routes,
     user_routes,
 )
 from routes.recipe import (
@@ -30,10 +31,11 @@ TODO:
     - [x] Category Endpoints
     - [ ] Endpoint Tests
 - [ ] Finish Frontend Category Management
-    - [ ] Delete Category / Tags
+    - [x] Delete Category
     - [ ] Sort Sidebar A-Z
-- [ ] Ingredient Drag-Drop / Reorder
-- [ ] Refactor Endpoints
+- [x] Ingredient Drag-Drop / Reorder
+- [x] Refactor Endpoints
+- [ ] Refactor Test Endpoints - Abstract to fixture?
 
 
 """
@@ -57,13 +59,14 @@ def start_scheduler():
 def api_routers():
     # Recipes
     app.include_router(all_recipe_routes.router)
-    app.include_router(recipe_crud_routes.router)
     app.include_router(category_routes.router)
     app.include_router(tag_routes.router)
+    app.include_router(recipe_crud_routes.router)
     # Meal Routes
     app.include_router(meal_routes.router)
     # Settings Routes
     app.include_router(setting_routes.router)
+    app.include_router(theme_routes.router)
     # Backups/Imports Routes
     app.include_router(backup_routes.router)
     # User Routes

@@ -1,6 +1,6 @@
 import html
 import json
-from pathlib import Path
+import re
 from typing import List, Tuple
 
 import extruct
@@ -14,8 +14,13 @@ from w3lib.html import get_base_url
 from services.image_services import scrape_image
 from services.recipe_services import Recipe
 
-CWD = Path(__file__).parent
 TEMP_FILE = DEBUG_DIR.joinpath("last_recipe.json")
+
+
+def cleanhtml(raw_html):
+    cleanr = re.compile("<.*?>")
+    cleantext = re.sub(cleanr, "", raw_html)
+    return cleantext
 
 
 def normalize_image_url(image) -> str:
@@ -55,7 +60,7 @@ def normalize_instructions(instructions) -> List[dict]:
 
 
 def normalize_instruction(line) -> str:
-    l = line.strip()
+    l = cleanhtml(line.strip())
     # Some sites erroneously escape their strings on multiple levels
     while not l == (l := html.unescape(l)):
         pass
@@ -63,7 +68,8 @@ def normalize_instruction(line) -> str:
 
 
 def normalize_ingredient(ingredients: list) -> str:
-    return [html.unescape(ing) for ing in ingredients]
+
+    return [cleanhtml(html.unescape(ing)) for ing in ingredients]
 
 
 def normalize_yield(yld) -> str:
@@ -82,6 +88,7 @@ def normalize_time(time_entry) -> str:
 
 def normalize_data(recipe_data: dict) -> dict:
     recipe_data["totalTime"] = normalize_time(recipe_data.get("totalTime"))
+    recipe_data["description"] = cleanhtml(recipe_data.get("description"))
     recipe_data["prepTime"] = normalize_time(recipe_data.get("prepTime"))
     recipe_data["performTime"] = normalize_time(recipe_data.get("performTime"))
     recipe_data["recipeYield"] = normalize_yield(recipe_data.get("recipeYield"))
