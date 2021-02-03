@@ -5,8 +5,8 @@ const settingsBase = baseURL + "site-settings/";
 
 const settingsURLs = {
   siteSettings: `${settingsBase}`,
-  updateSiteSettings: `${settingsBase}update/`,
-  testWebhooks: `${settingsBase}webhooks/test/`,
+  updateSiteSettings: `${settingsBase}`,
+  testWebhooks: `${settingsBase}webhooks/test`,
 };
 
 export default {
@@ -21,7 +21,7 @@ export default {
   },
 
   async update(body) {
-    let response = await apiReq.post(settingsURLs.updateSiteSettings, body);
+    let response = await apiReq.put(settingsURLs.updateSiteSettings, body);
     return response.data;
   },
 };

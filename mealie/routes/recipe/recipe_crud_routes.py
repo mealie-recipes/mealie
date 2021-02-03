@@ -9,28 +9,20 @@ from sqlalchemy.orm.session import Session
 from utils.snackbar import SnackResponse
 
 router = APIRouter(
-    prefix="/api/recipe",
-    tags=["Recipes"],
+    prefix="/api/recipes",
+    tags=["Recipe CRUD"],
 )
 
 
-@router.get("/{recipe_slug}/", response_model=Recipe)
-def get_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
-    """ Takes in a recipe slug, returns all data for a recipe """
-    recipe = Recipe.get_by_slug(db, recipe_slug)
+@router.post("/create", status_code=201, response_model=str)
+def create_from_json(data: Recipe, db: Session = Depends(generate_session)) -> str:
+    """ Takes in a JSON string and loads data into the database as a new entry"""
+    new_recipe_slug = data.save_to_db(db)
 
-    return recipe
-
-
-@router.get("/image/{recipe_slug}/")
-def get_recipe_img(recipe_slug: str):
-    """ Takes in a recipe slug, returns the static image """
-    recipe_image = read_image(recipe_slug)
-
-    return FileResponse(recipe_image)
+    return new_recipe_slug
 
 
-@router.post("/create-url/", status_code=201, response_model=str)
+@router.post("/create-url", status_code=201, response_model=str)
 def parse_recipe_url(url: RecipeURLIn, db: Session = Depends(generate_session)):
     """ Takes in a URL and attempts to scrape data and load it into the database """
 
@@ -40,26 +32,15 @@ def parse_recipe_url(url: RecipeURLIn, db: Session = Depends(generate_session)):
     return recipe.slug
 
 
-@router.post("/create/")
-def create_from_json(data: Recipe, db: Session = Depends(generate_session)) -> str:
-    """ Takes in a JSON string and loads data into the database as a new entry"""
-    new_recipe_slug = data.save_to_db(db)
+@router.get("/{recipe_slug}", response_model=Recipe)
+def get_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
+    """ Takes in a recipe slug, returns all data for a recipe """
+    recipe = Recipe.get_by_slug(db, recipe_slug)
 
-    return new_recipe_slug
-
-
-@router.post("/{recipe_slug}/update/image/")
-def update_recipe_image(
-    recipe_slug: str, image: bytes = File(...), extension: str = Form(...)
-):
-    """ Removes an existing image and replaces it with the incoming file. """
-    response = write_image(recipe_slug, image, extension)
-    Recipe.update_image(recipe_slug, extension)
-
-    return response
+    return recipe
 
 
-@router.post("/{recipe_slug}/update/")
+@router.put("/{recipe_slug}")
 def update_recipe(
     recipe_slug: str, data: Recipe, db: Session = Depends(generate_session)
 ):
@@ -70,7 +51,7 @@ def update_recipe(
     return new_slug
 
 
-@router.delete("/{recipe_slug}/delete/")
+@router.delete("/{recipe_slug}")
 def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
     """ Deletes a recipe by slug """
 
@@ -82,3 +63,22 @@ def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
         )
 
     return SnackResponse.success("Recipe Deleted")
+
+
+@router.get("/{recipe_slug}/image")
+def get_recipe_img(recipe_slug: str):
+    """ Takes in a recipe slug, returns the static image """
+    recipe_image = read_image(recipe_slug)
+
+    return FileResponse(recipe_image)
+
+
+@router.put("/{recipe_slug}/image")
+def update_recipe_image(
+    recipe_slug: str, image: bytes = File(...), extension: str = Form(...)
+):
+    """ Removes an existing image and replaces it with the incoming file. """
+    response = write_image(recipe_slug, image, extension)
+    Recipe.update_image(recipe_slug, extension)
+
+    return response

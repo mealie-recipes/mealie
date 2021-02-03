@@ -6,10 +6,10 @@ from fastapi import APIRouter, Depends, Query
 from models.recipe_models import AllRecipeRequest
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(tags=["Recipes"])
+router = APIRouter(tags=["Query All Recipes"])
 
 
-@router.get("/api/all-recipes/")
+@router.get("/api/recipes")
 def get_all_recipes(
     keys: Optional[List[str]] = Query(...),
     num: Optional[int] = 100,
@@ -42,7 +42,7 @@ def get_all_recipes(
     return db.recipes.get_all_limit_columns(session, keys, limit=num)
 
 
-@router.post("/api/all-recipes/")
+@router.post("/api/recipes")
 def get_all_recipes_post(
     body: AllRecipeRequest, session: Session = Depends(generate_session)
 ):

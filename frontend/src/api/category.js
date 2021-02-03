@@ -1,11 +1,12 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 
-const categoryBase = baseURL + "/recipes/categories";
+const prefix = baseURL + "/recipes/categories";
 
 const categoryURLs = {
-  get_all: `${categoryBase}/all/`,
-  get_category: (category) => `${categoryBase}/${category}/`,
+  get_all: `${prefix}/all`,
+  get_category: (category) => `${prefix}/${category}`,
+  delete_category: (category) => `${prefix}/${category}`,
 };
 
 export default {
@@ -15,6 +16,10 @@ export default {
   },
   async get_recipes_in_category(category) {
     let response = await apiReq.get(categoryURLs.get_category(category));
+    return response.data;
+  },
+  async delete(category) {
+    let response = await apiReq.delete(categoryURLs.delete_category(category));
     return response.data;
   },
 };
