@@ -145,10 +145,10 @@
     "failed-imports": "Failed Imports",
     "migration-report": "Migration Report",
     "successful-imports": "Successful Imports",
-    "no-migration-data-available": "No Migration Data Avaiable",
+    "no-migration-data-available": "No Migration Data Available",
     "nextcloud": {
       "title": "Nextcloud Cookbook",
-      "description": "Migrate data from a Nextcloud Cookbook intance"
+      "description": "Migrate data from a Nextcloud Cookbook instance"
     },
     "chowdown": {
       "title": "Chowdown",

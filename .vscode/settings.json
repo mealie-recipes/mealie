@@ -14,5 +14,7 @@
   "python.testing.pytestArgs": ["mealie"],
   "i18n-ally.localesPaths": "frontend/src/locales",
   "i18n-ally.enabledFrameworks": ["vue"],
-  "i18n-ally.keystyle": "nested"
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.translate.saveAsCandidates": true,
+  "powershell.codeFormatting.addWhitespaceAroundPipe": true
 }
