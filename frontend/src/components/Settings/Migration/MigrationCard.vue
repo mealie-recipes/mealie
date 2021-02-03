@@ -6,7 +6,7 @@
       <span>
         <UploadBtn
           class="mt-1"
-          :url="`/api/migrations/${folder}/upload/`"
+          :url="`/api/migrations/${folder}/upload`"
           @uploaded="$emit('refresh')"
         />
       </span>

@@ -92,7 +92,9 @@
                     <v-list-item-content>
                       <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
-                    <v-list-item-icon @click="deleteActiveCategory(index)">
+                    <v-list-item-icon
+                      @click="deleteCategoryfromDatabase(item.slug)"
+                    >
                       <v-icon>mdi-delete</v-icon>
                     </v-list-item-icon>
                   </v-list-item>
@@ -114,6 +116,7 @@
 </template>
 
 <script>
+import api from "../../../api";
 import draggable from "vuedraggable";
 
 export default {
@@ -136,6 +139,10 @@ export default {
     },
   },
   methods: {
+    deleteCategoryfromDatabase(category) {
+      api.categories.delete(category);
+      this.$store.dispatch("requestHomePageSettings");
+    },
     getOptions() {
       this.showLimit = this.$store.getters.getShowLimit;
       this.showRecent = this.$store.getters.getShowRecent;
@@ -145,7 +152,6 @@ export default {
       this.homeCategories.splice(index, 1);
     },
     saveSettings() {
-
       this.homeCategories.forEach((element, index) => {
         element.position = index + 1;
       });

@@ -21,7 +21,9 @@
             mandatory
             @change="setStoresDarkMode"
           >
-            <v-btn value="system"> {{ $t("settings.theme.default-to-system") }} </v-btn>
+            <v-btn value="system">
+              {{ $t("settings.theme.default-to-system") }}
+            </v-btn>
 
             <v-btn value="light"> {{ $t("settings.theme.light") }} </v-btn>
 
@@ -51,13 +53,13 @@
               return-object
               v-model="selectedTheme"
               @change="themeSelected"
-              :rules="[v => !!v || $t('settings.theme.theme-is-required')]"
+              :rules="[(v) => !!v || $t('settings.theme.theme-is-required')]"
               required
             >
             </v-select>
           </v-col>
           <v-col>
-            <v-btn-toggle group>
+            <v-btn-toggle group class="mt-n5">
               <NewThemeDialog @new-theme="appendTheme" class="mt-1" />
               <v-btn text color="error" @click="deleteSelectedThemeValidation">
                 {{ $t("general.delete") }}
@@ -184,7 +186,7 @@ export default {
       //Change to default if deleting current theme.
       if (
         !this.availableThemes.some(
-          theme => theme.name === this.selectedTheme.name
+          (theme) => theme.name === this.selectedTheme.name
         )
       ) {
         await this.$store.dispatch("resetTheme");

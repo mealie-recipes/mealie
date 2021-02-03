@@ -22,7 +22,7 @@
         <span>
           <UploadBtn
             class="mt-1"
-            url="/api/backups/upload/"
+            url="/api/backups/upload"
             @uploaded="getAvailableBackups"
           />
         </span>

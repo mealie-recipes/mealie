@@ -14,10 +14,11 @@
     <HomePageSettings />
     <v-divider></v-divider>
     <v-card-text>
-      <h2 class="mt-1 mb-1">{{ $t("settings.language") }}</h2>
+      <h2 class="mt-1 mb-4">{{ $t("settings.language") }}</h2>
       <v-row>
-        <v-col>
+        <v-col cols="3">
           <v-select
+            dense
             v-model="selectedLang"
             :items="langOptions"
             item-text="name"
@@ -26,8 +27,6 @@
           >
           </v-select>
         </v-col>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
       </v-row>
     </v-card-text>
     <v-divider></v-divider>
