@@ -38,7 +38,7 @@ nav:
       - API Documentation: "api/docs/index.html"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
-      - Translating: "contributors/translating"
+      - Translating: "contributors/translating.md"
       - Developers Guide:
           - Code Contributions: "contributors/developers-guide/code-contributions.md"
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
