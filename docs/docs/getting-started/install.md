@@ -39,54 +39,11 @@ services:
 
 ```
 
-
-## Docker Compose with Mongo - DEPRECIATED
-
-```yaml
-# docker-compose.yml
-version: "3.1"
-services:
-  mealie:
-    container_name: mealie
-    image: hkotel/mealie:latest
-    restart: always
-    ports:
-      - 9000:80
-    environment:
-      db_username: root     # Your Mongo DB Username - Please Change
-      db_password: example  # Your Mongo DB Password - Please Change
-      db_host: mongo
-      db_port: 27017    # The Default port for Mongo DB
-      TZ: America/Anchorage
-    volumes:
-      - ./mealie/data/:/app/data/
-      
-  mongo:
-    image: mongo
-    restart: always
-    volumes:
-      - ./mongo:/data/db  
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root  # Change!
-      MONGO_INITDB_ROOT_PASSWORD: example   # Change!
-
-  mongo-express: # Optional Mongo GUI
-    image: mongo-express
-    restart: always
-    ports:
-      - 9091:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-
-```
-
-
 ## Env Variables
 
 | Variables      | default | description                                                                                                                                             |
 | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| db_type        | sqlite  | The database type to be used. Current Options 'sqlite' and 'mongo'                                                                                      |
+| db_type        | sqlite  | The database type to be used. Current Options 'sqlite'                                                                                                  |
 | mealie_db_name | mealie  | The name of the database to be created in Mongodb                                                                                                       |
 | mealie_port    | 9000    | The port exposed by mealie. **do not change this if you're running in docker** If you'd like to use another port, map 9000 to another port of the host. |
 | db_username    | root    | The Mongodb username you specified in your mongo container                                                                                              |

@@ -1,6 +1,11 @@
 # Release Notes
 
-## V0.2.0 - Now with Test!
+## v0.2.0 - Now with Test!
+This is, what I think, is a big release! Tons of new features and some great quality of life improvements with some additional features. You may find that I made promises to include some fixes/features in v0.2.0. The short of is I greatly underestimated the work needed to refactor the database to a usable state and integrate categories in a way that is useful for users. This shouldn't be taken as a sign that I'm dropping those feature requests or ignoring them. I felt it was better to push a release in the current state rather than drag on development to try and fulfil all of the promises I made. 
+
+!!! warning "Upgrade Process"
+    Database Breaks! I have not yet implemented a database migration service. As such, upgrades cannot be done by simply pulling the image. You must first export your recipes, update your deployment, and then import your recipes. This pattern is likely to be how upgrades take place prior to v1.0. After v1.0 migrations will be done automatically.
+
 ### Bug Fixes
   - Remove ability to save recipe with no name
   - Fixed data validation error on missing parameters
@@ -10,29 +15,47 @@
   - Fixed router link bugs - Issue #122
 
 ### Features and Improvements
-  - UI Language Selection
-  - Meal Planner
+  - **Home Page**
+    - Sections: By default your homepage will display only the recently added recipes. You can configured sections to show on the home-screen based of categories on the settings page. 
+    - Sidebar: A new sidebar is now shown on the main page that lists all the categories in the database. Clicking on them navigates into a page that shows only recipes. 
+    - Sort: Basic Sort functionality has been added. More options are on the way! 
+  - **Meal Planner**
     - Improved Search (Fuzzy Search)
     - New Scheduled card support 
     - Upload/Download backups
-  - Dockerfile now 1/5 of the size!
-  - Migrations
+  - **Recipe Editor**
+    - Ingredients are now sortable via drag-and-drop
+    - Known categories now show up in the dropdown
+    - Initial code for data validation to prevent errors
+  - **Migrations**
     - Card based redesign
     - Upload from the UI
-    - Unified Chowdown/Nextcloud import process.
+    - Unified Chowdown / Nextcloud import process. (Removed Git as a dependency)
+  - **API**
+    - Category and Tag endpoints added
+    - Major Endpoint refactor
+    - Improved API documentation
+    - Link to your Local API is now on your `/settings/site`. You can use it to explore your API. 
+  - :whale: Dockerfile now 1/5 of the size!
+  - UI Language Selection + Additional Supported Language
   - Continued work on button/style unification
   - Adding icons to buttons
   - New Color Theme Picker UI
 
 ### Development
   - Fixed Vetur config file. Autocomplete in VSCode works!
+  - File/Folder restructuring 
   - Added Prettier config
   - Fixed incorrect layout code
-  - FastAPI Route tests for major operations
+  - FastAPI Route tests for major operations - WIP (shallow testing)
 
-### Breaking Changes
-  - Officially Dropped MongoDB Support
-  - Mounting volume moved to different internal location due to development issues. New volume should be mounted as `mealie/data:/app_data/` 
+### Breaking Changes 
+
+!!! error "Breaking Changes"
+    - API endpoints have been refactored to adhear to a more consistent standard. This is a WIP and more changes are likely to occur. 
+    - Officially Dropped MongoDB Support
+    - Mounting volume moved to different internal location due to development issues. New volume should be mounted as `mealie/data:/app_data/`. Volume mounts need to be changed. 
+    - Database Breaks! We have not yet implemented a database migration service. As such, upgrades cannot be done by simply pulling the image. You must first export your recipes, update your deployment, and then import your recipes. This pattern is likely to be how upgrades take place prior to v1.0. After v1.0 migrations will be done automatically. 
 
 ## v0.1.0 - Initial Beta
 ### Bug Fixes

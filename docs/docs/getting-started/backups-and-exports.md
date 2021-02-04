@@ -1,4 +1,4 @@
-# Backup and Export
+# Backup and Imports
 ![](../img/admin-backup.png)
 
 All recipe data can be imported and exported as necessary from the UI. Under the admin page you'll find the section for using Backups and Exports. 
