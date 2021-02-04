@@ -1,10 +1,10 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 
-const prefix = baseURL + "/recipes/categories";
+const prefix = baseURL + "categories";
 
 const categoryURLs = {
-  get_all: `${prefix}/all`,
+  get_all: `${prefix}`,
   get_category: (category) => `${prefix}/${category}`,
   delete_category: (category) => `${prefix}/${category}`,
 };

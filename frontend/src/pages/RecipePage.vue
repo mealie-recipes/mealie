@@ -143,19 +143,30 @@ export default {
     deleteRecipe() {
       api.recipes.delete(this.recipeDetails.slug);
     },
+    validateRecipe() {
+      if (this.jsonEditor) {
+        return true;
+      } else {
+        return this.$refs.recipeEditor.validateRecipe();
+      }
+    },
     async saveRecipe() {
-      if (this.$refs.recipeEditor.validateRecipe()) {
-        console.log("Thank you");
-      }
-      let slug = await api.recipes.update(this.recipeDetails);
+      if (this.validateRecipe()) {
+        let slug = await api.recipes.update(this.recipeDetails);
 
-      if (this.fileObject) {
-        await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
-      }
+        if (this.fileObject) {
+          await api.recipes.updateImage(
+            this.recipeDetails.slug,
+            this.fileObject
+          );
+        }
 
-      this.form = false;
-      this.imageKey += 1;
-      this.$router.push(`/recipe/${slug}`);
+        this.form = false;
+        this.imageKey += 1;
+        if (slug != this.recipeDetails.slug) {
+          this.$router.push(`/recipe/${slug}`);
+        }
+      }
     },
     showForm() {
       this.form = true;

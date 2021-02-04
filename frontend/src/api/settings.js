@@ -1,12 +1,12 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 
-const settingsBase = baseURL + "site-settings/";
+const settingsBase = baseURL + "site-settings";
 
 const settingsURLs = {
   siteSettings: `${settingsBase}`,
   updateSiteSettings: `${settingsBase}`,
-  testWebhooks: `${settingsBase}webhooks/test`,
+  testWebhooks: `${settingsBase}/webhooks/test`,
 };
 
 export default {

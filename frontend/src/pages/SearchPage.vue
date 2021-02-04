@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      searchResults: null,
+      searchResults: [],
     };
   },
   methods: {

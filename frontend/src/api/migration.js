@@ -2,13 +2,13 @@ import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store/store";
 
-const migrationBase = baseURL + "migrations/";
+const migrationBase = baseURL + "migrations";
 
 const migrationURLs = {
   // New
   all: migrationBase,
-  delete: (folder, file) => `${migrationBase}/${folder}/${file}/delete/`,
-  import: (folder, file) => `${migrationBase}/${folder}/${file}/import/`,
+  delete: (folder, file) => `${migrationBase}/${folder}/${file}/delete`,
+  import: (folder, file) => `${migrationBase}/${folder}/${file}/import`,
 };
 
 export default {

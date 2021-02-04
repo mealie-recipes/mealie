@@ -37,7 +37,7 @@
         class="my-3"
         :label="$t('recipe.recipe-name')"
         v-model="value.name"
-        :rules="[rules.required, rules.whiteSpace]"
+        :rules="[rules.required]"
       >
       </v-text-field>
       <v-textarea
@@ -91,7 +91,7 @@
                     dense
                   >
                     <v-icon
-                    class="mr-n1"
+                      class="mr-n1"
                       slot="prepend"
                       color="error"
                       @click="removeIngredient(index)"

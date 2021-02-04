@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      title: null,
+      title: "",
       recipes: [],
     };
   },

@@ -17,7 +17,7 @@
 
     <v-row dense>
       <v-col
-        :sm="6"
+        :sm="12"
         :md="6"
         :lg="4"
         :xl="3"
@@ -78,7 +78,7 @@ export default {
     },
     async getAvailableMigrations() {
       let response = await api.migrations.getMigrations();
-      response.forEach(element => {
+      response.forEach((element) => {
         if (element.type === "nextcloud") {
           this.migrations.nextcloud.availableImports = element.files;
         } else if (element.type === "chowdown") {
