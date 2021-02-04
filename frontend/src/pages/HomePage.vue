@@ -45,7 +45,8 @@ export default {
       return this.$store.getters.getHomeCategories;
     },
     recentRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      let recipes = this.$store.getters.getRecentRecipes;
+      return recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
     },
   },
   async mounted() {
