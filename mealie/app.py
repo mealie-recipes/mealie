@@ -90,8 +90,8 @@ app.include_router(static_routes.router)
 
 
 # Generate API Documentation
-if not PRODUCTION:
-    generate_api_docs(app)
+# if not PRODUCTION:
+#     generate_api_docs(app)
 
 start_scheduler()
 

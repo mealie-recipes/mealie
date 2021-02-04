@@ -25,7 +25,7 @@ class BaseDocument:
 
     def get_all_limit_columns(
         self, session: Session, fields: List[str], limit: int = None
-    ) -> list[SqlAlchemyBase]:
+    ) -> List[SqlAlchemyBase]:
         """Queries the database for the selected model. Restricts return responses to the
         keys specified under "fields"
 

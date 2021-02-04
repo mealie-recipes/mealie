@@ -88,7 +88,7 @@ def normalize_time(time_entry) -> str:
 
 def normalize_data(recipe_data: dict) -> dict:
     recipe_data["totalTime"] = normalize_time(recipe_data.get("totalTime"))
-    recipe_data["description"] = cleanhtml(recipe_data.get("description"))
+    recipe_data["description"] = cleanhtml(recipe_data.get("description", ""))
     recipe_data["prepTime"] = normalize_time(recipe_data.get("prepTime"))
     recipe_data["performTime"] = normalize_time(recipe_data.get("performTime"))
     recipe_data["recipeYield"] = normalize_yield(recipe_data.get("recipeYield"))

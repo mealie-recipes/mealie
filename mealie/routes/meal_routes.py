@@ -65,7 +65,7 @@ def delete_meal_plan(plan_id, db: Session = Depends(generate_session)):
     return SnackResponse.success("Mealplan Deleted")
 
 
-@router.get("/today/", tags=["Meal Plan"])
+@router.get("/today", tags=["Meal Plan"])
 def get_today(db: Session = Depends(generate_session)):
     """
     Returns the recipe slug for the meal scheduled for today.

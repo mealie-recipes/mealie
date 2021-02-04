@@ -11,7 +11,7 @@ from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 from utils.snackbar import SnackResponse
 
-router = APIRouter(prefix="/api/backups", tags=["Import / Export"])
+router = APIRouter(prefix="/api/backups", tags=["Backups"])
 
 
 @router.get("/available", response_model=Imports)
