@@ -25,16 +25,11 @@ from utils.logger import logger
 """
 TODO:
 - [x] Fix Duplicate Category
-- [x] Fix Duplicate Tags
-- [ ] New Endpoints
-    - [x] Tag Endpoints
-    - [x] Category Endpoints
-    - [ ] Endpoint Tests
+- [x] Fix category overflow
+- [ ] Enable Database Name Versioning
 - [ ] Finish Frontend Category Management
     - [x] Delete Category
     - [ ] Sort Sidebar A-Z
-- [x] Ingredient Drag-Drop / Reorder
-- [x] Refactor Endpoints
 - [ ] Refactor Test Endpoints - Abstract to fixture?
 
 
