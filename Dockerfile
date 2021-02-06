@@ -17,7 +17,6 @@ COPY ./pyproject.toml /app/
 RUN apk add --update --no-cache --virtual .build-deps \
     curl \
     g++ \
-    py-lxml \
     python3-dev \
     musl-dev \
     gcc \
