@@ -37,7 +37,7 @@ REQUIRED_DIRS = [
     SQLITE_DIR,
 ]
 
-
+APP_VERSION = "v0.2.0"
 # General
 PRODUCTION = os.environ.get("ENV")
 PORT = int(os.getenv("mealie_port", 9000))
@@ -55,7 +55,7 @@ SQLITE_FILE = None
 DATABASE_TYPE = os.getenv("db_type", "sqlite")  # mongo, sqlite
 if DATABASE_TYPE == "sqlite":
     USE_SQL = True
-    SQLITE_FILE = SQLITE_DIR.joinpath("mealie.sqlite")
+    SQLITE_FILE = SQLITE_DIR.joinpath(f"mealie_{APP_VERSION}.sqlite")
 
 else:
     raise Exception(

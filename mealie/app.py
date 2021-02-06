@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from app_config import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from routes import (
     backup_routes,
+    debug_routes,
     meal_routes,
     migration_routes,
     setting_routes,
@@ -68,6 +69,7 @@ def api_routers():
     app.include_router(user_routes.router)
     # Migration Routes
     app.include_router(migration_routes.router)
+    app.include_router(debug_routes.router)
 
 
 if PRODUCTION:
