@@ -33,7 +33,7 @@
     Request Feature
     </a>    
     ·
-    <a href="https://hub.docker.com/repository/docker/hkotel/mealie"> Docker Hub
+    <a href="https://hub.docker.com/r/hkotel/mealie"> Docker Hub
     </a>
 </p>
 

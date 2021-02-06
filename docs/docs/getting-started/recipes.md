@@ -10,7 +10,7 @@ Adding a recipe can be as easy as copying the recipe URL into mealie and letting
 ## Recipe Editor
 Recipes can be edited and created via the UI. This is done with both a form based approach where you have a UI to work with as well as with a in browser JSON Editor. The JSON editor allows you to easily copy and paste data from other sources. 
 
-You can also add a custom recipe with the UI editor built into the web view. After logging in as a user you'll have access to the editor to make changes to all the content in the recipe. 
+You can also add a custom recipe with the UI editor built into the web view.
 
 ![](../gifs/editor-demo.gif)
 
