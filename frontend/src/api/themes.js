@@ -1,14 +1,14 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 
-const themesBase = baseURL + "site-settings/";
+const prefix = baseURL + "themes/";
 
 const settingsURLs = {
-  allThemes: `${themesBase}themes/`,
-  specificTheme: (themeName) => `${themesBase}themes/${themeName}/`,
-  createTheme: `${themesBase}themes/create/`,
-  updateTheme: (themeName) => `${themesBase}themes/${themeName}/update/`,
-  deleteTheme: (themeName) => `${themesBase}themes/${themeName}/delete/`,
+  allThemes: `${baseURL}themes`,
+  specificTheme: (themeName) => `${prefix}themes/${themeName}`,
+  createTheme: `${prefix}themes/create`,
+  updateTheme: (themeName) => `${prefix}themes/${themeName}`,
+  deleteTheme: (themeName) => `${prefix}themes/${themeName}`,
 };
 
 export default {
@@ -32,7 +32,7 @@ export default {
       name: themeName,
       colors: colors,
     };
-    let response = await apiReq.post(settingsURLs.updateTheme(themeName), body);
+    let response = await apiReq.put(settingsURLs.updateTheme(themeName), body);
     return response.data;
   },
 

@@ -1,22 +1,21 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 
-const mealplanBase = baseURL + "meal-plan/";
+const prefix = baseURL + "meal-plans/";
 
 const mealPlanURLs = {
   // Meals
-  create: `${mealplanBase}create/`,
-  today: `${mealplanBase}today/`,
-  thisWeek: `${mealplanBase}this-week/`,
-  all: `${mealplanBase}all/`,
-  delete: (planID) => `${mealplanBase}${planID}/delete/`,
-  update: (planID) => `${mealplanBase}${planID}/update/`,
+  all: `${prefix}all`,
+  create: `${prefix}create`,
+  thisWeek: `${prefix}this-week`,
+  update: (planID) => `${prefix}${planID}`,
+  delete: (planID) => `${prefix}${planID}`,
+  today: `${prefix}today`,
 };
 
 export default {
   async create(postBody) {
     let response = await apiReq.post(mealPlanURLs.create, postBody);
-    console.log(JSON.stringify(postBody));
     return response;
   },
 
@@ -41,7 +40,7 @@ export default {
   },
 
   async update(id, body) {
-    let response = await apiReq.post(mealPlanURLs.update(id), body);
+    let response = await apiReq.put(mealPlanURLs.update(id), body);
     return response;
   },
 };

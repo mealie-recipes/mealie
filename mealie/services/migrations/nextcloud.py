@@ -7,6 +7,7 @@ from pathlib import Path
 from app_config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
 from services.recipe_services import Recipe
 from services.scrape_services import normalize_data, process_recipe_data
+from app_config import IMG_DIR, TEMP_DIR
 
 
 def process_selection(selection: Path) -> Path:

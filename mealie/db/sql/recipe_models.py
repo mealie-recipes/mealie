@@ -5,7 +5,9 @@ from typing import List
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from db.sql.model_base import BaseMixins, SqlAlchemyBase
+from slugify import slugify
 from sqlalchemy.ext.orderinglist import ordering_list
+from utils.logger import logger
 
 
 class ApiExtras(SqlAlchemyBase):
@@ -23,24 +25,99 @@ class ApiExtras(SqlAlchemyBase):
         return {self.key_name: self.value}
 
 
+recipes2categories = sa.Table(
+    "recipes2categories",
+    SqlAlchemyBase.metadata,
+    sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
+    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+)
+
+recipes2tags = sa.Table(
+    "recipes2tags",
+    SqlAlchemyBase.metadata,
+    sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
+    sa.Column("tag_slug", sa.Integer, sa.ForeignKey("tags.slug")),
+)
+
+
 class Category(SqlAlchemyBase):
     __tablename__ = "categories"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     name = sa.Column(sa.String, index=True)
+    slug = sa.Column(sa.String, index=True, unique=True)
+    recipes = orm.relationship(
+        "RecipeModel", secondary=recipes2categories, back_populates="categories"
+    )
+
+    def __init__(self, name) -> None:
+        self.name = name.strip()
+        self.slug = slugify(name)
+
+    @staticmethod
+    def create_if_not_exist(session, name: str = None):
+        try:
+            result = session.query(Category).filter(Category.name == name.strip()).one()
+            if result:
+                logger.info("Category exists, associating recipe")
+                return result
+            else:
+                logger.info("Category doesn't exists, creating tag")
+                return Category(name=name)
+        except:
+            logger.info("Category doesn't exists, creating category")
+            return Category(name=name)
 
     def to_str(self):
         return self.name
+
+    def dict(self):
+        return {
+            "id": self.id,
+            "slug": self.slug,
+            "name": self.name,
+            "recipes": [x.dict() for x in self.recipes],
+        }
 
 
 class Tag(SqlAlchemyBase):
     __tablename__ = "tags"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     name = sa.Column(sa.String, index=True)
+    slug = sa.Column(sa.String, index=True, unique=True)
+    recipes = orm.relationship(
+        "RecipeModel", secondary=recipes2tags, back_populates="tags"
+    )
 
     def to_str(self):
         return self.name
+
+    def __init__(self, name) -> None:
+        self.name = name.strip()
+        self.slug = slugify(self.name)
+
+    def dict(self):
+        return {
+            "id": self.id,
+            "slug": self.slug,
+            "name": self.name,
+            "recipes": [x.dict() for x in self.recipes],
+        }
+
+    @staticmethod
+    def create_if_not_exist(session, name: str = None):
+        try:
+            result = session.query(Tag).filter(Tag.name == name.strip()).first()
+
+            if result:
+                logger.info("Tag exists, associating recipe")
+
+                return result
+            else:
+                logger.info("Tag doesn't exists, creating tag")
+                return Tag(name=name)
+        except:
+            logger.info("Tag doesn't exists, creating tag")
+            return Tag(name=name)
 
 
 class Note(SqlAlchemyBase):
@@ -116,25 +193,21 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Mealie Specific
     slug = sa.Column(sa.String, index=True, unique=True)
-    categories: List[Category] = orm.relationship(
-        "Category",
-        cascade="all, delete",
+    categories: List = orm.relationship(
+        "Category", secondary=recipes2categories, back_populates="recipes"
     )
     tags: List[Tag] = orm.relationship(
-        "Tag",
-        cascade="all, delete",
+        "Tag", secondary=recipes2tags, back_populates="recipes"
     )
     dateAdded = sa.Column(sa.Date, default=date.today)
-    notes: List[Note] = orm.relationship(
-        "Note",
-        cascade="all, delete",
-    )
+    notes: List[Note] = orm.relationship("Note", cascade="all, delete")
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)
     extras: List[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete")
 
     def __init__(
         self,
+        session,
         name: str = None,
         description: str = None,
         image: str = None,
@@ -161,7 +234,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient
         ]
         self.recipeInstructions = [
-            RecipeInstruction(text=instruc.get("text"), type=instruc.get("text"))
+            RecipeInstruction(text=instruc.get("text"), type=instruc.get("@type", None))
             for instruc in recipeInstructions
         ]
         self.totalTime = totalTime
@@ -170,8 +243,13 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         # Mealie Specific
         self.slug = slug
-        self.categories = [Category(name=cat) for cat in categories]
-        self.tags = [Tag(name=tag) for tag in tags]
+        self.categories = [
+            Category.create_if_not_exist(session=session, name=cat)
+            for cat in categories
+        ]
+
+        self.tags = [Tag.create_if_not_exist(session=session, name=tag) for tag in tags]
+
         self.dateAdded = dateAdded
         self.notes = [Note(**note) for note in notes]
         self.rating = rating
@@ -200,10 +278,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         extras: dict = None,
     ):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
-        list_of_tables = [RecipeIngredient, RecipeInstruction, Category, Tag, ApiExtras]
+        list_of_tables = [RecipeIngredient, RecipeInstruction, ApiExtras]
         RecipeModel._sql_remove_list(session, list_of_tables, self.id)
 
         self.__init__(
+            session=session,
             name=name,
             description=description,
             image=image,

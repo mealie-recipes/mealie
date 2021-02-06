@@ -22,7 +22,7 @@
         <span>
           <UploadBtn
             class="mt-1"
-            url="/api/backups/upload/"
+            url="/api/backups/upload"
             @uploaded="getAvailableBackups"
           />
         </span>
@@ -75,7 +75,6 @@ export default {
       let response = await api.backups.requestAvailable();
       this.availableBackups = response.imports;
       this.availableTemplates = response.templates;
-      console.log(this.availableBackups);
     },
     deleteBackup() {
       if (this.$refs.form.validate()) {

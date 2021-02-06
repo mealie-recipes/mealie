@@ -2,6 +2,7 @@
   <div>
     <v-autocomplete
       :items="autoResults"
+      v-model="searchSlug"
       item-value="item.slug"
       item-text="item.name"
       dense
@@ -52,7 +53,8 @@ export default {
   },
   data() {
     return {
-      search: "",
+      searchSlug: "",
+      search: " ",
       result: [],
       autoResults: [],
       isDark: false,
@@ -82,12 +84,14 @@ export default {
     search() {
       if (this.search.trim() === "") this.result = this.list;
       else this.result = this.fuse.search(this.search.trim());
-      console.log("test");
 
       this.$emit("results", this.result);
       if (this.showResults === true) {
         this.autoResults = this.result;
       }
+    },
+    searchSlug() {
+      this.selected(this.searchSlug);
     },
   },
   methods: {

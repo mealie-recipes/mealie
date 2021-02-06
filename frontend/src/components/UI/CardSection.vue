@@ -5,7 +5,7 @@
         <v-row>
           <v-col>
             <v-btn-toggle group>
-              <v-btn text :to="`/recipes/category/${title.toLowerCase()}`">
+              <v-btn text :to="`/recipes/${title.toLowerCase()}`">
                 {{ title.toUpperCase() }}
               </v-btn>
             </v-btn-toggle>

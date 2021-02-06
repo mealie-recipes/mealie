@@ -1,5 +1,6 @@
-from typing import List, Union
+from typing import List
 
+from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
 from db.sql.model_base import SqlAlchemyBase
@@ -15,12 +16,48 @@ class BaseDocument:
     def get_all(
         self, session: Session, limit: int = None, order_by: str = None
     ) -> List[dict]:
-        list = [x.dict() for x in session.query(self.sql_model).all()]
+        list = [x.dict() for x in session.query(self.sql_model).limit(limit).all()]
 
         if limit == 1:
             return list[0]
 
         return list
+
+    def get_all_limit_columns(
+        self, session: Session, fields: List[str], limit: int = None
+    ) -> List[SqlAlchemyBase]:
+        """Queries the database for the selected model. Restricts return responses to the
+        keys specified under "fields"
+
+        Args: \n
+            session (Session): Database Session Object
+            fields (List[str]): List of column names to query
+            limit (int): A limit of values to return
+
+        Returns:
+            list[SqlAlchemyBase]: Returns a list of ORM objects
+        """
+        results = (
+            session.query(self.sql_model).options(load_only(*fields)).limit(limit).all()
+        )
+
+        return results
+
+    def get_all_primary_keys(self, session: Session) -> List[str]:
+        """Queries the database of the selected model and returns a list
+        of all primary_key values
+
+        Args: \n
+            session (Session): Database Session object
+
+        Returns:
+            list[str]:
+        """
+        results = session.query(self.sql_model).options(
+            load_only(str(self.primary_key))
+        )
+        results_as_dict = [x.dict() for x in results]
+        return [x.get(self.primary_key) for x in results_as_dict]
 
     def _query_one(
         self, session: Session, match_value: str, match_key: str = None
@@ -28,7 +65,7 @@ class BaseDocument:
         """Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
 
-        Args:
+        Args: \n
             match_value (str): The value to use in the query
             match_key (str, optional): the key/property to match against. Defaults to None.
 
@@ -72,14 +109,14 @@ class BaseDocument:
     def save_new(self, session: Session, document: dict) -> dict:
         """Creates a new database entry for the given SQL Alchemy Model.
 
-        Args:
+        Args: \n
             session (Session): A Database Session
             document (dict): A python dictionary representing the data structure
 
         Returns:
             dict: A dictionary representation of the database entry
         """
-        new_document = self.sql_model(**document)
+        new_document = self.sql_model(session=session, **document)
         session.add(new_document)
         return_data = new_document.dict()
         session.commit()
@@ -89,7 +126,7 @@ class BaseDocument:
     def update(self, session: Session, match_value: str, new_data: str) -> dict:
         """Update a database entry.
 
-        Args:
+        Args: \n
             session (Session): Database Session
             match_value (str): Match "key"
             new_data (str): Match "value"
@@ -113,5 +150,4 @@ class BaseDocument:
         )
 
         session.delete(result)
-
         session.commit()

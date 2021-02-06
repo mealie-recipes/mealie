@@ -40,7 +40,6 @@ class Recipe(BaseModel):
     dateAdded: Optional[datetime.date]
     notes: Optional[List[RecipeNote]] = []
     rating: Optional[int]
-    rating: Optional[int]
     orgURL: Optional[str]
     extras: Optional[dict] = {}
 
@@ -138,33 +137,4 @@ class Recipe(BaseModel):
         return db.recipes.get_all(session)
 
 
-def read_requested_values(
-    session: Session, keys: list, max_results: int = 0
-) -> List[dict]:
-    """
-    Pass in a list of key values to be run against the database. If a match is found
-    it is then added to a dictionary inside of a list. If a key does not exist the
-    it will simply not be added to the return data.
 
-    Parameters:
-        keys: list
-
-    Returns: returns a list of dicts containing recipe data
-
-    """
-    recipe_list = []
-    for recipe in db.recipes.get_all(
-        session=session, limit=max_results, order_by="dateAdded"
-    ):
-        recipe_details = {}
-        for key in keys:
-            try:
-                recipe_key = {key: recipe[key]}
-            except:
-                continue
-
-            recipe_details.update(recipe_key)
-
-        recipe_list.append(recipe_details)
-
-    return recipe_list

@@ -17,7 +17,9 @@ class Meal(SqlAlchemyBase):
     image = sa.Column(sa.String)
     description = sa.Column(sa.String)
 
-    def __init__(self, slug, name, date, dateText, image, description) -> None:
+    def __init__(
+        self, slug, name, date, dateText, image, description, session=None
+    ) -> None:
         self.slug = slug
         self.name = name
         self.date = date
@@ -45,7 +47,7 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
     endDate = sa.Column(sa.Date)
     meals: List[Meal] = orm.relation(Meal)
 
-    def __init__(self, startDate, endDate, meals, uid=None) -> None:
+    def __init__(self, startDate, endDate, meals, uid=None, session=None) -> None:
         self.startDate = startDate
         self.endDate = endDate
         self.meals = [Meal(**meal) for meal in meals]

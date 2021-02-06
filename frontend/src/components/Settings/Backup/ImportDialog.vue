@@ -65,7 +65,7 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-btn color="accent" text :href="`/api/backups/${name}/download/`">
+          <v-btn color="accent" text :href="`/api/backups/${name}/download`">
             {{ $t("general.download") }}
           </v-btn>
           <v-spacer></v-spacer>

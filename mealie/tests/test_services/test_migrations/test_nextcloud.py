@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from app_config import TEMP_DIR
 import pytest
 from app_config import TEMP_DIR
 from services.image_services import IMG_DIR

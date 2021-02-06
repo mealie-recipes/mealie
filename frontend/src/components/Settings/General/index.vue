@@ -5,8 +5,8 @@
       <v-spacer></v-spacer>
       <span>
         <v-btn class="pt-1" text href="/docs">
-          <v-icon left>mdi-link</v-icon>
           {{ $t("settings.local-api") }}
+          <v-icon right>mdi-open-in-new</v-icon>
         </v-btn>
       </span>
     </v-card-title>
@@ -14,10 +14,11 @@
     <HomePageSettings />
     <v-divider></v-divider>
     <v-card-text>
-      <h2 class="mt-1 mb-1">{{ $t("settings.language") }}</h2>
+      <h2 class="mt-1 mb-4">{{ $t("settings.language") }}</h2>
       <v-row>
-        <v-col>
+        <v-col cols="3">
           <v-select
+            dense
             v-model="selectedLang"
             :items="langOptions"
             item-text="name"
@@ -26,8 +27,6 @@
           >
           </v-select>
         </v-col>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
       </v-row>
     </v-card-text>
     <v-divider></v-divider>
@@ -43,22 +42,14 @@ export default {
   },
   data() {
     return {
-      categories: ["cat 1", "cat 2", "cat 3"],
-      usedCategories: ["recent"],
       langOptions: [],
       selectedLang: "en",
-      homeOptions: {
-        recipesToShow: 10,
-      },
     };
   },
   mounted() {
     this.getOptions();
   },
   watch: {
-    usedCategories() {
-      console.log(this.usedCategories);
-    },
     selectedLang() {
       this.$store.commit("setLang", this.selectedLang);
     },

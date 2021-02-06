@@ -1,18 +1,19 @@
 <template>
   <div>
+    <CategorySidebar />
     <CardSection
-      v-if="pageSettings.showRecent"
+      v-if="showRecent"
       title="Recent"
       :recipes="recentRecipes"
-      :card-limit="pageSettings.showLimit"
+      :card-limit="showLimit"
     />
     <CardSection
       :sortable="true"
       v-for="(section, index) in recipeByCategory"
-      :key="index"
-      :title="section.title"
+      :key="section.name + section.position"
+      :title="section.name"
       :recipes="section.recipes"
-      :card-limit="pageSettings.showLimit"
+      :card-limit="showLimit"
       @sort="sortAZ(index)"
       @sort-recent="sortRecent(index)"
     />
@@ -20,34 +21,49 @@
 </template>
 
 <script>
+import api from "../api";
 import CardSection from "../components/UI/CardSection";
+import CategorySidebar from "../components/UI/CategorySidebar";
 export default {
   components: {
     CardSection,
+    CategorySidebar,
   },
   data() {
     return {
-      recipeByCategory: [
-        {
-          title: "Title 1",
-          recipes: this.$store.getters.getRecentRecipes,
-        },
-        {
-          title: "Title 2",
-          recipes: this.$store.getters.getRecentRecipes,
-        },
-      ],
+      recipeByCategory: [],
     };
   },
   computed: {
-    pageSettings() {
-      return this.$store.getters.getHomePageSettings;
+    showRecent() {
+      return this.$store.getters.getShowRecent;
+    },
+    showLimit() {
+      return this.$store.getters.getShowLimit;
+    },
+    homeCategories() {
+      return this.$store.getters.getHomeCategories;
     },
     recentRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      let recipes = this.$store.getters.getRecentRecipes;
+      return recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
     },
   },
+  async mounted() {
+    await this.buildPage();
+    this.recipeByCategory.sort((a, b) => a.position - b.position);
+  },
   methods: {
+    async buildPage() {
+      this.homeCategories.forEach(async (element) => {
+        let recipes = await this.getRecipeByCategory(element.slug);
+        recipes.position = element.position;
+        this.recipeByCategory.push(recipes);
+      });
+    },
+    async getRecipeByCategory(category) {
+      return await api.categories.get_recipes_in_category(category);
+    },
     getRecentRecipes() {
       this.$store.dispatch("requestRecentRecipes");
     },

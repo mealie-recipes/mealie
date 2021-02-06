@@ -4,8 +4,8 @@ import pydantic
 from pydantic.main import BaseModel
 
 
-class RecipeResponse(BaseModel):
-    List
+class AllRecipeResponse(BaseModel):
+    
 
     class Config:
         schema_extra = {

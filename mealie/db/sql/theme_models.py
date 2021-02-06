@@ -8,7 +8,7 @@ class SiteThemeModel(SqlAlchemyBase):
     name = sa.Column(sa.String, primary_key=True)
     colors = orm.relationship("ThemeColorsModel", uselist=False, cascade="all, delete")
 
-    def __init__(self, name: str, colors: dict) -> None:
+    def __init__(self, name: str, colors: dict, session=None) -> None:
         self.name = name
         self.colors = ThemeColorsModel(**colors)
 

@@ -4,6 +4,7 @@ import shutil
 import pytest
 from app_config import MIGRATION_DIR
 from tests.test_config import TEST_CHOWDOWN_DIR, TEST_NEXTCLOUD_DIR
+from tests.utils.routes import MIGRATIONS_PREFIX, RECIPES_PREFIX
 
 
 ### Chowdown
@@ -23,7 +24,8 @@ def chowdown_zip():
 def test_upload_chowdown_zip(api_client, chowdown_zip):
 
     response = api_client.post(
-        "/api/migrations/chowdown/upload/", files={"archive": chowdown_zip.open("rb")}
+        f"{MIGRATIONS_PREFIX}/chowdown/upload",
+        files={"archive": chowdown_zip.open("rb")},
     )
 
     assert response.status_code == 200
@@ -33,7 +35,7 @@ def test_upload_chowdown_zip(api_client, chowdown_zip):
 
 def test_import_chowdown_directory(api_client, chowdown_zip):
     selection = chowdown_zip.name
-    response = api_client.post(f"/api/migrations/chowdown/{selection}/import/")
+    response = api_client.post(f"{MIGRATIONS_PREFIX}/chowdown/{selection}/import")
 
     assert response.status_code == 200
 
@@ -41,13 +43,13 @@ def test_import_chowdown_directory(api_client, chowdown_zip):
     assert report["failed"] == []
 
     expected_slug = "roasted-okra"
-    response = api_client.get(f"/api/recipe/{expected_slug}/")
+    response = api_client.get(f"{RECIPES_PREFIX}/{expected_slug}")
     assert response.status_code == 200
 
 
 def test_delete_chowdown_migration_data(api_client, chowdown_zip):
     selection = chowdown_zip.name
-    response = api_client.delete(f"/api/migrations/chowdown/{selection}/delete/")
+    response = api_client.delete(f"{MIGRATIONS_PREFIX}/chowdown/{selection}/delete")
 
     assert response.status_code == 200
     assert not MIGRATION_DIR.joinpath(chowdown_zip.name).is_file()
@@ -70,7 +72,8 @@ def nextcloud_zip():
 def test_upload_nextcloud_zip(api_client, nextcloud_zip):
 
     response = api_client.post(
-        "/api/migrations/nextcloud/upload/", files={"archive": nextcloud_zip.open("rb")}
+        f"{MIGRATIONS_PREFIX}/nextcloud/upload",
+        files={"archive": nextcloud_zip.open("rb")},
     )
 
     assert response.status_code == 200
@@ -80,7 +83,7 @@ def test_upload_nextcloud_zip(api_client, nextcloud_zip):
 
 def test_import_nextcloud_directory(api_client, nextcloud_zip):
     selection = nextcloud_zip.name
-    response = api_client.post(f"/api/migrations/nextcloud/{selection}/import/")
+    response = api_client.post(f"{MIGRATIONS_PREFIX}/nextcloud/{selection}/import")
 
     assert response.status_code == 200
 
@@ -88,13 +91,13 @@ def test_import_nextcloud_directory(api_client, nextcloud_zip):
     assert report["failed"] == []
 
     expected_slug = "air-fryer-shrimp"
-    response = api_client.get(f"/api/recipe/{expected_slug}/")
+    response = api_client.get(f"{RECIPES_PREFIX}/{expected_slug}")
     assert response.status_code == 200
 
 
 def test_delete__nextcloud_migration_data(api_client, nextcloud_zip):
     selection = nextcloud_zip.name
-    response = api_client.delete(f"/api/migrations/nextcloud/{selection}/delete/")
+    response = api_client.delete(f"{MIGRATIONS_PREFIX}/nextcloud/{selection}/delete")
 
     assert response.status_code == 200
     assert not MIGRATION_DIR.joinpath(nextcloud_zip.name).is_file()

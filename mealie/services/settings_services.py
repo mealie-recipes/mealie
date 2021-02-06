@@ -141,6 +141,8 @@ def default_settings_init():
         default_entry = SiteSettings(name="main", webhooks=webhooks)
         document = db.settings.save_new(session, default_entry.dict(), webhooks.dict())
 
+    session.close()
+
 
 if not sql_exists:
     default_settings_init()

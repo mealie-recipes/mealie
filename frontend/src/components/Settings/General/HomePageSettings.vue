@@ -30,25 +30,30 @@
               <h3>Homepage Categories</h3>
             </v-card-text>
             <v-divider></v-divider>
-            <v-list min-height="200px" dense>
+            <v-list
+              min-height="200"
+              dense
+              max-height="200"
+              style="overflow:auto"
+            >
               <v-list-item-group>
                 <draggable
                   v-model="homeCategories"
                   group="categories"
                   :style="{
-                    minHeight: `200px`,
+                    minHeight: `150px`,
                   }"
                 >
                   <v-list-item
                     v-for="(item, index) in homeCategories"
-                    :key="item"
+                    :key="`${item.name}-${index}`"
                   >
                     <v-list-item-icon>
                       <v-icon>mdi-menu</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
-                      <v-list-item-title v-text="item"></v-list-item-title>
+                      <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-icon @click="deleteActiveCategory(index)">
                       <v-icon>mdi-delete</v-icon>
@@ -72,24 +77,34 @@
               </h3>
             </v-card-text>
             <v-divider></v-divider>
-            <v-list min-height="200px" dense>
+            <v-list
+              min-height="200"
+              dense
+              max-height="200"
+              style="overflow:auto"
+            >
               <v-list-item-group>
                 <draggable
                   v-model="categories"
                   group="categories"
                   :style="{
-                    minHeight: `200px`,
+                    minHeight: `150px`,
                   }"
                 >
-                  <v-list-item v-for="item in categories" :key="item">
+                  <v-list-item
+                    v-for="(item, index) in categories"
+                    :key="`${item.name}-${index}`"
+                  >
                     <v-list-item-icon>
                       <v-icon>mdi-menu</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
-                      <v-list-item-title v-text="item"></v-list-item-title>
+                      <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
-                    <v-list-item-icon @click="deleteActiveCategory(index)">
+                    <v-list-item-icon
+                      @click="deleteCategoryfromDatabase(item.slug)"
+                    >
                       <v-icon>mdi-delete</v-icon>
                     </v-list-item-icon>
                   </v-list-item>
@@ -111,6 +126,7 @@
 </template>
 
 <script>
+import api from "../../../api";
 import draggable from "vuedraggable";
 
 export default {
@@ -119,36 +135,39 @@ export default {
   },
   data() {
     return {
-      homeCategories: [],
+      homeCategories: null,
       showLimit: null,
-      categories: ["breakfast"],
       showRecent: true,
     };
   },
   mounted() {
     this.getOptions();
   },
-
+  computed: {
+    categories() {
+      return this.$store.getters.getCategories;
+    },
+  },
   methods: {
+    deleteCategoryfromDatabase(category) {
+      api.categories.delete(category);
+      this.$store.dispatch("requestHomePageSettings");
+    },
     getOptions() {
-      let options = this.$store.getters.getHomePageSettings;
-      this.showLimit = options.showLimit;
-      this.categories = options.categories;
-      this.showRecent = options.showRecent;
-      this.homeCategories = options.homeCategories;
+      this.showLimit = this.$store.getters.getShowLimit;
+      this.showRecent = this.$store.getters.getShowRecent;
+      this.homeCategories = this.$store.getters.getHomeCategories;
     },
     deleteActiveCategory(index) {
       this.homeCategories.splice(index, 1);
     },
     saveSettings() {
-      let payload = {
-        showRecent: this.showRecent,
-        showLimit: this.showLimit,
-        categories: this.categories,
-        homeCategories: this.homeCategories,
-      };
-
-      this.$store.commit("setHomePageSettings", payload);
+      this.homeCategories.forEach((element, index) => {
+        element.position = index + 1;
+      });
+      this.$store.commit("setShowRecent", this.showRecent);
+      this.$store.commit("setShowLimit", this.showLimit);
+      this.$store.commit("setHomeCategories", this.homeCategories);
     },
   },
 };

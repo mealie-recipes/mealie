@@ -70,7 +70,7 @@
     "title": "Title",
     "total-time": "Total Time",
     "prep-time": "Prep Time",
-    "perform-time": "Cook Time / Perform Time",
+    "perform-time": "Cook Time",
     "api-extras": "API Extras",
     "object-key": "Object Key",
     "object-value": "Object Value",
@@ -122,7 +122,7 @@
     },
     "webhooks": {
       "meal-planner-webhooks": "Meal Planner Webhooks",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at <strong>{ time }</strong>",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
       "test-webhooks": "Test Webhooks",
       "webhook-url": "Webhook URL"
     },

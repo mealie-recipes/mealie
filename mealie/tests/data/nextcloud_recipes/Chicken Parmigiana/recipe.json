@@ -1,0 +1,259 @@
+{
+    "@context": "http:\/\/schema.org",
+    "@type": "Recipe",
+    "mainEntityOfPage": "https:\/\/www.allrecipes.com\/recipe\/8975\/chicken-parmigiana\/",
+    "name": "Chicken Parmigiana",
+    "image": "https:\/\/imagesvc.meredithcorp.io\/v3\/mm\/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F10037.jpg",
+    "datePublished": "1999-04-27T12:40:19.000Z",
+    "description": "This is a very nice dinner for two. Serve it with your favorite pasta and tossed greens.",
+    "prepTime": "PT0H30M",
+    "cookTime": "PT1H0M",
+    "totalTime": "PT1H30M",
+    "recipeYield": 2,
+    "recipeIngredient": [
+        "1 egg, beaten",
+        "2 ounces dry bread crumbs",
+        "2 skinless, boneless chicken breast halves",
+        "\u00be (16 ounce) jar spaghetti sauce",
+        "2 ounces shredded mozzarella cheese",
+        "\u00bc cup grated Parmesan cheese"
+    ],
+    "recipeInstructions": [
+        "Preheat oven to 350 degrees F (175 degrees C). Lightly grease a medium baking sheet.\n",
+        "Pour egg into a small shallow bowl. Place bread crumbs in a separate shallow bowl. Dip chicken into egg, then into the bread crumbs. Place coated chicken on the prepared baking sheet and bake in the preheated oven for 40 minutes, or until no longer pink and juices run clear.\n",
+        "Pour 1\/2 of the spaghetti sauce into a 7x11 inch baking dish. Place chicken over sauce, and cover with remaining sauce. Sprinkle mozzarella and Parmesan cheeses on top and return to the preheated oven for 20 minutes.\n"
+    ],
+    "recipeCategory": "World Cuisine Recipes",
+    "recipeCuisine": [],
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Candy"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": 4.580034423407917,
+        "ratingCount": 1743,
+        "itemReviewed": "Chicken Parmigiana",
+        "bestRating": "5",
+        "worstRating": "1"
+    },
+    "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": "528.3 calories",
+        "carbohydrateContent": "44.9 g",
+        "cholesterolContent": "184.1 mg",
+        "fatContent": "18.3 g",
+        "fiberContent": "5.6 g",
+        "proteinContent": "43.5 g",
+        "saturatedFatContent": "7.6 g",
+        "servingSize": null,
+        "sodiumContent": "1309.5 mg",
+        "sugarContent": "17.2 g",
+        "transFatContent": null,
+        "unsaturatedFatContent": null
+    },
+    "review": [
+        {
+            "@type": "Review",
+            "datePublished": "2004-02-10T10:18:54.927Z",
+            "reviewBody": "This is a DELICIOUS basic recipe. I have been doing a similar one for years. I also, prefer adding a few more spices TO THE BREAD CRUMBS,like basil, oregano, garlic powder, salt, fresh cracked pepper and onion powder, and a few TBSP of the parmensan cheese;not only ON IT later. For some reason these spices (added separately) are good, but we don't like with an pre-mix of \"Italian\"spice. It seems to taste a little \"soapy\". Not sure which spice does that to it.? Some suggested to \"double dip\" in bread crumbs;if you do, you should really LIKE a heavy battering. It was too thick for our tastes(esp. since you bake in the sauce; to me,the bottom gets a little mushy, and it just adds extra fat and calories). I also use a cookie cooling \"RACK\" SET ON TOP of a baking sheet, to bake the chicken on instead of just on the cookie sheet pan. It comes out much crisper; letting air get to the BOTTOM of the chicken,also. Also,I wait to spoon the SECOND 1\/2 of the sauce UNTIL SERVING, the chicken will stay crisper,(even with the cheese on top). Obviously, we like the chicken on the crisp side (but we don't want to deep fry).\r\nFor company, put the chicken (with just the cheese baked on top) ON TOP of a small mound of spaghetti and sauce,or any pasta; It makes for a delicious looking presentation. A side salad with some sort of CREAMY dressing seems to compliment the red sauce, and completes the meal wonderfully. We get cravings for this one about 2c a month!",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 4
+            },
+            "author": {
+                "@type": "Person",
+                "name": "somethingdifferentagain?!",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/342976\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2004-01-23T16:37:02.013Z",
+            "reviewBody": "This was an extremely easy, very tasty recipe. As many others suggested, I only put sauce on the bottom of the chicken and then spooned a little over the top when serving. I think the recipe could be improved, though, by (1) pounding the chicken to a uniform thickness and (2) by spicing up the bread crumbs. I used Italian bread crumbs but next time will sprinkle pepper on the chicken before dredging through the crumbs, and I also plan to add more Italian seasoning and maybe a little parmesan to the crumbs. Both these steps, in my opinion, would take this from a really good recipe to an excellent dish!",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 4
+            },
+            "author": {
+                "@type": "Person",
+                "name": "JBAGNALL",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/642772\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2005-11-19T20:22:40.53Z",
+            "reviewBody": "I BRINED my chicken in 4 cups water , 1\/2 cup kosher salt (1\/4 table salt) \u00bd cup sugar for 30 minutes. No need to brine if you are using quick frozen chicken that has been enhanced. Kosher chicken is prebrined. Brining=juicy chicken. Took brined chicken, cut off thin edges, pounded out & shook chicken w\/flour (preflouring allows bread crumbs to stick) in a Ziploc-letting floured chicken sit for 5 min. I heated 6 TBS vegetable oil till it shimmered & then added 2 TBS butter to my pan, reserving half of this mixture for my second batch. Bread crumb mixture: I use \u00bd cup seasoned bread crumbs(same as 2 ounces), \u00bd cup grated parmesan( double what recipe calls for), 1tsp. Mrs. Dash Garlic and Herb, \u00bd tsp. garlic powder, \u00bd tsp, onion powder, \u00bd tsp. Italian seasoning & a pinch of pepper. Took pre-floured chicken, coated it with egg mixture, then dipped in bread crumbs & FRIED the chicken to a medium golden brown. Shook some parmesan on them right away when done frying to absorb any oil. Side-by side I plated plain spaghetti noodles & cutlets, w\/2 TBSP sauce on cutlet & desired amount of sauce on pasta, covered in cheese & baked each individual plate till cheese melted, serving them straight out of the oven. \r\nThe reviews on this were probably the best I have ever gotten, I used to work in an Italian Restaurant owned by NY Italians & have picked up some techniques. My Fettuccine Alfredo used to be my husband favorite dish, after last night he told me he has a new favorite. \r\n",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "KC MARTEL",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/526291\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2003-10-22T15:32:26.607Z",
+            "reviewBody": "After several Chicken Parm recipes THIS is THE ONE:-) I've finally found one that we all love! It's simple and it's darned good:-) I will definately make this recipe again and again; thanks so much:-)",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "STARCHILD1166",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/736533\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2003-11-14T16:55:26.39Z",
+            "reviewBody": "This chicken was so easy to make and turned out excellent! Used Best Marinara Sauce Yet (found here as well)instead of regular spaghetti sauce. This added even more flavor.",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Alison",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/516223\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2003-01-23T04:38:19.873Z",
+            "reviewBody": "I REALLY liked this recipe. I made my own spaghetti sauce and used parmesan reggiano. I also skipped dipping the breasts in egg as I thought it was unnecessary and it was. Cooking temp. and time are accurate. Even my fussy fiance liked this. I'll definitely make this again.",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 4
+            },
+            "author": {
+                "@type": "Person",
+                "name": "CSANDST1",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/115553\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2003-08-05T20:26:00.81Z",
+            "reviewBody": "Wow! This was really tasty and simple. Something quick to make when you can't spend too much time figuring out what's for dinner. Also great on a toasted roll\/hero as a sandwich. I varied the recipe a little by adding some parmesan cheese (big cheese lover that I am!), garlic powder, onion powder and some salt into the bread crumbs and then mixing it up before breading the chicken with it. Also added a little salt to the beaten egg to make sure the chicken wouldn't end up bland, but that's just my preference. In response to the one reviewer who wanted thicker breading, what I did was double dip the chicken - coat first with the bread crumbs, then dip into the beaten egg and re-coat with breadcrumbs before actually baking (this would require some more breadcrumbs and probably another egg). Excellent recipe! =]",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 5
+            },
+            "author": {
+                "@type": "Person",
+                "name": "LIZCHAO74",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/511187\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2003-07-23T07:53:37.18Z",
+            "reviewBody": "Wonderful chicken recipe! I have made this several times. One night we were craving it and I didn't have any bottled spaghetti sauce. I poured a 14 ounce can of tomato sauce in a microwave bowl added 2t Italian Seasoning and 1t of garlic powder cooked on high for 6 minutes and ended up with a rich thick sauce for the chicken.",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 4
+            },
+            "author": {
+                "@type": "Person",
+                "name": "MAGGIE MCGUIRE",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/392086\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2008-06-10T21:54:38.893Z",
+            "reviewBody": "This is gonna be one of those it\u2019s a good recipe when you completely change it reviews. I did originally follow the recipe and the chicken tasted like it had been in breaded in cardboard. It just was not appetizing. However there is a great breaded chicken recipe on this site, garlic chicken. Made this simple and easy and oh so TASTY. I got great reviews. Here is what I did. Took \u00bc cup olive oil with 3 cloves garlic crushed and heated in microwave for 30 sec. Then coated the chicken in the oil and dipped in a mixture of \u00bd Italian seasoned bread crumbs and \u00bd parmesan cheese (double coat if u like thick breading). Cooked in oven at 325 for 20min (on a foil covered cookie sheet to make clean up easy). Set them in a casserole dish on top of about \u00bd a jar of spaghetti sauce for 3 chicken breast. Covered the breast with slices of mozzarella cheese and baked for another 20-25 minutes. Top with parmesan cheese. This turned out really really yummy and smells sooo good while it\u2019s cooking. ",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 4
+            },
+            "author": {
+                "@type": "Person",
+                "name": "ANGEL.9",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/218599\/"
+            }
+        },
+        {
+            "@type": "Review",
+            "datePublished": "2006-02-02T19:05:24.607Z",
+            "reviewBody": "Check out \"Tomato Chicken Parmesan\" on this site for a truly fabulous chicken parm recipe. Every time I make that one people say its the best chicken parm they every had. No matter what kind you make though always pound your chicken breasts it will help immensely keeping the chicken tender and moist.",
+            "reviewRating": {
+                "@type": "Rating",
+                "worstRating": "1",
+                "bestRating": "5",
+                "ratingValue": 3
+            },
+            "author": {
+                "@type": "Person",
+                "name": "MomSavedbyGrace",
+                "image": null,
+                "sameAs": "https:\/\/www.allrecipes.com\/cook\/1366670\/"
+            }
+        }
+    ],
+    "video": {
+        "@context": "http:\/\/schema.org",
+        "@type": "VideoObject",
+        "name": "Chicken Parmigiana",
+        "description": "Make this quick and easy version of chicken Parmigiana.",
+        "uploadDate": "2012-05-23T22:01:40.476Z",
+        "duration": "PT2M18.43S",
+        "thumbnailUrl": "https:\/\/imagesvc.meredithcorp.io\/v3\/mm\/image?url=https%3A%2F%2Fcf-images.us-east-1.prod.boltdns.net%2Fv1%2Fstatic%2F1033249144001%2F15c9e37d-979a-4c2c-a35d-fc3f436b0047%2F6b7f7749-9989-4707-971e-8578e60c0670%2F160x90%2Fmatch%2Fimage.jpg",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Allrecipes",
+            "url": "https:\/\/www.allrecipes.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/www.allrecipes.com\/img\/logo.png",
+                "width": 209,
+                "height": 60
+            },
+            "sameAs": [
+                "https:\/\/www.facebook.com\/allrecipes",
+                "https:\/\/twitter.com\/Allrecipes",
+                "https:\/\/www.pinterest.com\/allrecipes\/",
+                "https:\/\/www.instagram.com\/allrecipes\/"
+            ]
+        },
+        "embedUrl": "https:\/\/players.brightcove.net\/1033249144001\/default_default\/index.html?videoId=1653498713001"
+    },
+    "keywords": "",
+    "tool": [],
+    "url": "https:\/\/www.allrecipes.com\/recipe\/8975\/chicken-parmigiana\/"
+}

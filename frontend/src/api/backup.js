@@ -6,11 +6,11 @@ const backupBase = baseURL + "backups/";
 
 const backupURLs = {
   // Backup
-  available: `${backupBase}available/`,
-  createBackup: `${backupBase}export/database/`,
-  importBackup: (fileName) => `${backupBase}${fileName}/import/`,
-  deleteBackup: (fileName) => `${backupBase}${fileName}/delete/`,
-  downloadBackup: (fileName) => `${backupBase}${fileName}/download/`,
+  available: `${backupBase}available`,
+  createBackup: `${backupBase}export/database`,
+  importBackup: (fileName) => `${backupBase}${fileName}/import`,
+  deleteBackup: (fileName) => `${backupBase}${fileName}/delete`,
+  downloadBackup: (fileName) => `${backupBase}${fileName}/download`,
 };
 
 export default {

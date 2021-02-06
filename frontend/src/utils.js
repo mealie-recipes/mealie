@@ -43,7 +43,7 @@ const monthsShort = [
 
 export default {
   getImageURL(image) {
-    return `/api/recipe/image/${image}/`;
+    return `/api/recipes/${image}/image`;
   },
   generateUniqueKey(item, index) {
     const uniqueKey = `${item}-${index}`;

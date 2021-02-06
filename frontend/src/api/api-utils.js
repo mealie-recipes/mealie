@@ -27,6 +27,17 @@ const apiReq = {
     return response;
   },
 
+  put: async function (url, data) {
+    let response = await axios.put(url, data).catch(function (error) {
+      if (error.response) {
+        processResponse(error.response);
+        return response;
+      } else return;
+    });
+    // processResponse(response);
+    return response;
+  },
+
   get: async function (url, data) {
     let response = await axios.get(url, data).catch(function (error) {
       if (error.response) {

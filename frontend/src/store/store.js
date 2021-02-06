@@ -4,27 +4,23 @@ import api from "../api";
 import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
 import language from "./modules/language";
+import homePage from "./modules/homePage";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ["userSettings", "language"],
+      paths: ["userSettings", "language", "homePage"],
     }),
   ],
   modules: {
     userSettings,
     language,
+    homePage,
   },
   state: {
     // Home Page Settings
-    homePageSettings: {
-      showRecent: true,
-      showLimit: 9,
-      categories: [],
-      homeCategories: [],
-    },
     // Snackbar
     snackActive: false,
     snackText: "",
@@ -36,9 +32,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setHomePageSettings(state, payload) {
-      state.homePageSettings = payload;
-    },
     setSnackBar(state, payload) {
       state.snackText = payload.text;
       state.snackType = payload.type;
@@ -67,26 +60,15 @@ const store = new Vuex.Store({
 
       this.commit("setRecentRecipes", payload);
     },
-
-    async requestHomePageSettings() {
-      // TODO: Query Backend for Categories
-      this.commit("setHomePageSettings", {
-        showRecent: true,
-        showLimit: 9,
-        categories: ["breakfast", "lunch", "dinner"],
-        homeCategories: [],
-      });
-    },
   },
 
   getters: {
     //
-    getSnackText: state => state.snackText,
-    getSnackActive: state => state.snackActive,
-    getSnackType: state => state.snackType,
+    getSnackText: (state) => state.snackText,
+    getSnackActive: (state) => state.snackActive,
+    getSnackType: (state) => state.snackType,
 
     getRecentRecipes: (state) => state.recentRecipes,
-    getHomePageSettings: (state) => state.homePageSettings,
   },
 });
 

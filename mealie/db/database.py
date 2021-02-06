@@ -2,14 +2,14 @@ from sqlalchemy.orm.session import Session
 
 from db.db_base import BaseDocument
 from db.sql.meal_models import MealPlanModel
-from db.sql.recipe_models import RecipeModel
+from db.sql.recipe_models import Category, RecipeModel, Tag
 from db.sql.settings_models import SiteSettingsModel
 from db.sql.theme_models import SiteThemeModel
 
 """
 # TODO
     - [ ] Abstract Classes to use save_new, and update from base models
-    - [ ] Create Category and Tags Table with Many to Many relationship
+    - [x] Create Category and Tags Table with Many to Many relationship
 """
 
 
@@ -19,11 +19,23 @@ class _Recipes(BaseDocument):
         self.sql_model = RecipeModel
 
     def update_image(self, session: Session, slug: str, extension: str) -> str:
-        entry = self._query_one(session, match_value=slug)
+        entry: RecipeModel = self._query_one(session, match_value=slug)
         entry.image = f"{slug}.{extension}"
         session.commit()
 
         return f"{slug}.{extension}"
+
+
+class _Categories(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "slug"
+        self.sql_model = Category
+
+
+class _Tags(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "slug"
+        self.sql_model = Tag
 
 
 class _Meals(BaseDocument):
@@ -58,6 +70,8 @@ class Database:
         self.meals = _Meals()
         self.settings = _Settings()
         self.themes = _Themes()
+        self.categories = _Categories()
+        self.tags = _Tags()
 
 
 db = Database()

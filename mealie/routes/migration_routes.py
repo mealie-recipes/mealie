@@ -11,10 +11,10 @@ from services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session
 from utils.snackbar import SnackResponse
 
-router = APIRouter(tags=["Migration"])
+router = APIRouter(prefix="/api/migrations", tags=["Migration"])
 
 
-@router.get("/api/migrations/", response_model=List[Migrations])
+@router.get("", response_model=List[Migrations])
 def get_avaiable_nextcloud_imports():
     """ Returns a list of avaiable directories that can be imported into Mealie """
     response_data = []
@@ -35,7 +35,7 @@ def get_avaiable_nextcloud_imports():
     return response_data
 
 
-@router.post("/api/migrations/{type}/{file_name}/import/")
+@router.post("/{type}/{file_name}/import")
 def import_nextcloud_directory(
     type: str, file_name: str, db: Session = Depends(generate_session)
 ):
@@ -49,11 +49,11 @@ def import_nextcloud_directory(
         return SnackResponse.error("Incorrect Migration Type Selected")
 
 
-@router.delete("/api/migrations/{folder}/{file}/delete/")
-def delete_migration_data(folder: str, file: str):
+@router.delete("/{type}/{file_name}/delete")
+def delete_migration_data(type: str, file_name: str):
     """ Removes migration data from the file system """
 
-    remove_path = MIGRATION_DIR.joinpath(folder, file)
+    remove_path = MIGRATION_DIR.joinpath(type, file_name)
 
     if remove_path.is_file():
         remove_path.unlink()
@@ -65,7 +65,7 @@ def delete_migration_data(folder: str, file: str):
     return SnackResponse.info(f"Migration Data Remove: {remove_path.absolute()}")
 
 
-@router.post("/api/migrations/{type}/upload/")
+@router.post("/{type}/upload")
 def upload_nextcloud_zipfile(type: str, archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
     dir = MIGRATION_DIR.joinpath(type)
