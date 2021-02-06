@@ -1,0 +1,89 @@
+{
+    "@context": "http://schema.org/",
+    "@type": "Recipe",
+    "name": "Jalape\u00f1o Popper Dip",
+    "author": {
+        "@type": "Person",
+        "name": "Michelle"
+    },
+    "description": "Jalapeno Popper Dip is creamy, cheesy and has just the perfect amount of kick. Great appetizer for your next party or watching the big game!",
+    "datePublished": "2016-02-22T00:01:37+00:00",
+    "image": [
+        "https://www.browneyedbaker.com/wp-content/uploads/2011/08/jalapeno-popper-dip-6-600.jpg"
+    ],
+    "recipeYield": [
+        "10",
+        "10 to 12 servings"
+    ],
+    "prepTime": "PT15M",
+    "cookTime": "PT30M",
+    "totalTime": "PT45M",
+    "recipeIngredient": [
+        "16 ounces cream cheese (at room temperature)",
+        "1 cup mayonnaise",
+        "8 pieces of bacon (cooked and chopped)",
+        "6  jalape\u00f1os (seeded and minced (if you can't get fresh, substitute a 4-ounce can diced jalape\u00f1o peppers, drained))",
+        "2 cloves garlic (minced)",
+        "\u00bd teaspoon cumin",
+        "6 ounces cheddar cheese (shredded (about 1\u00bd cups))",
+        "1 cup panko breadcrumbs",
+        "1 cup  grated Parmesan cheese",
+        "4 tablespoons  unsalted butter, melted"
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Preheat oven to 375 degrees F.",
+            "name": "Preheat oven to 375 degrees F.",
+            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-0"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Combine the cream cheese, mayonnaise, bacon, jalapenos, garlic, cumin and cheddar cheese in a mixing bowl. Transfer the mixture into 2-quart baking dish.",
+            "name": "Combine the cream cheese, mayonnaise, bacon, jalapenos, garlic, cumin and cheddar cheese in a mixing bowl. Transfer the mixture into 2-quart baking dish.",
+            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-1"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Combine the panko breadcrumbs, Parmesan cheese and melted butter in a small bowl, tossing with a fork until the mixture is evenly moistened. Sprinkle evenly over the cream cheese mixture.",
+            "name": "Combine the panko breadcrumbs, Parmesan cheese and melted butter in a small bowl, tossing with a fork until the mixture is evenly moistened. Sprinkle evenly over the cream cheese mixture.",
+            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-2"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Bake in the preheated oven for 25 to 30 minutes, until the top is golden brown and the dip is bubbling. Let rest for 5 minutes before serving. Serve with your favorite tortilla chips, crackers, vegetables, etc.",
+            "name": "Bake in the preheated oven for 25 to 30 minutes, until the top is golden brown and the dip is bubbling. Let rest for 5 minutes before serving. Serve with your favorite tortilla chips, crackers, vegetables, etc.",
+            "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/#wprm-recipe-44993-step-0-3"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.34",
+        "ratingCount": "15"
+    },
+    "recipeCategory": [
+        "Appetizer"
+    ],
+    "recipeCuisine": [
+        "American"
+    ],
+    "keywords": "cheese dip, game day food, party food",
+    "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": "560 kcal",
+        "carbohydrateContent": "7 g",
+        "proteinContent": "14 g",
+        "fatContent": "52 g",
+        "saturatedFatContent": "21 g",
+        "cholesterolContent": "109 mg",
+        "sodiumContent": "707 mg",
+        "sugarContent": "2 g",
+        "servingSize": "1 serving"
+    },
+    "@id": "https://www.browneyedbaker.com/jalapeno-popper-dip/#recipe",
+    "isPartOf": {
+        "@id": "https://www.browneyedbaker.com/jalapeno-popper-dip/#article"
+    },
+    "mainEntityOfPage": "https://www.browneyedbaker.com/jalapeno-popper-dip/#webpage",
+    "url": "https://www.browneyedbaker.com/jalapeno-popper-dip/"
+}
