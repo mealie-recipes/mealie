@@ -94,12 +94,6 @@ export default {
       this.failedImports = failed;
       this.$refs.report.open();
     },
-    processFinished(successful = null, failed = null) {
-      this.getAvailableBackups();
-      this.backupLoading = false;
-      this.successfulImports = successful;
-      this.failedImports = failed;
-    },
   },
 };
 </script>
