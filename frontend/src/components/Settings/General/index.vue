@@ -5,8 +5,8 @@
       <v-spacer></v-spacer>
       <span>
         <v-btn class="pt-1" text href="/docs">
-          <v-icon left>mdi-link</v-icon>
           {{ $t("settings.local-api") }}
+          <v-icon right>mdi-open-in-new</v-icon>
         </v-btn>
       </span>
     </v-card-title>

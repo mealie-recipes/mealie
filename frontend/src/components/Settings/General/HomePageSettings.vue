@@ -30,13 +30,18 @@
               <h3>Homepage Categories</h3>
             </v-card-text>
             <v-divider></v-divider>
-            <v-list min-height="200px" dense>
+            <v-list
+              min-height="200"
+              dense
+              max-height="200"
+              style="overflow:auto"
+            >
               <v-list-item-group>
                 <draggable
                   v-model="homeCategories"
                   group="categories"
                   :style="{
-                    minHeight: `200px`,
+                    minHeight: `150px`,
                   }"
                 >
                   <v-list-item
@@ -72,13 +77,18 @@
               </h3>
             </v-card-text>
             <v-divider></v-divider>
-            <v-list min-height="200px" dense>
+            <v-list
+              min-height="200"
+              dense
+              max-height="200"
+              style="overflow:auto"
+            >
               <v-list-item-group>
                 <draggable
                   v-model="categories"
                   group="categories"
                   :style="{
-                    minHeight: `200px`,
+                    minHeight: `150px`,
                   }"
                 >
                   <v-list-item

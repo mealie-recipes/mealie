@@ -4,14 +4,14 @@
       {{ $t("settings.webhooks.meal-planner-webhooks") }}
     </v-card-title>
     <v-card-text>
-      <p
-        v-html="
+      <p>
+        {{
           $t(
-            'settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at',
-            { time: time }
+            "settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at"
           )
-        "
-      ></p>
+        }}
+        <strong>{{ time }}</strong>
+      </p>
 
       <v-row dense align="center">
         <v-col cols="12" md="2" sm="5">

@@ -94,16 +94,5 @@ export default {
 </script>
 
 <style>
-/* Scroll Bar PageSettings */
-body::-webkit-scrollbar {
-  width: 0.25rem;
-}
 
-body::-webkit-scrollbar-track {
-  background: grey;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: black;
-}
 </style>
