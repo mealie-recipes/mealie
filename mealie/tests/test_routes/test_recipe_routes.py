@@ -77,7 +77,7 @@ def test_read_update(api_client, recipe_data):
     recipe = json.loads(response.content)
 
     assert recipe["notes"] == test_notes
-    assert recipe["categories"] == test_categories
+    assert recipe["categories"].sort() == test_categories.sort()
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
