@@ -2,38 +2,6 @@
   <v-form ref="form">
     <v-card-text>
       <v-row dense>
-        <v-col cols="3"></v-col>
-        <v-col>
-          <v-file-input
-            v-model="fileObject"
-            :label="$t('general.image-file')"
-            truncate-length="30"
-            @change="uploadImage"
-          ></v-file-input>
-        </v-col>
-        <v-col cols="3"></v-col>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Total Time"
-              v-model="value.totalTime"
-            ></v-text-field>
-          </v-col>
-          <v-col
-            ><v-text-field
-              label="Prep Time"
-              v-model="value.prepTime"
-            ></v-text-field
-          ></v-col>
-          <v-col
-            ><v-text-field
-              label="Cook Time / Perform Time"
-              v-model="value.performTime"
-            ></v-text-field
-          ></v-col>
-        </v-row>
-      </v-row>
-      <v-row>
         <v-col>
           <v-text-field
             :label="$t('recipe.total-time')"
