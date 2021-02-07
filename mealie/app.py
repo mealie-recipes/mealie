@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 # import utils.startup as startup
-from app_config import PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
+from app_config import CWD, DATA_DIR, PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from routes import (
     backup_routes,
     debug_routes,
@@ -20,7 +20,6 @@ from routes.recipe import (
     recipe_crud_routes,
     tag_routes,
 )
-from utils.api_docs import generate_api_docs
 from utils.logger import logger
 
 """
