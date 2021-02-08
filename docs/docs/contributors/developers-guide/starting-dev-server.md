@@ -14,7 +14,16 @@ There are VSCode tasks created in the .vscode folder. You can use these to quick
 
 
 ## Without Docker
-?? TODO
+Prerequisites
+
+- Python 3.8+
+- Poetry
+- Nodejs
+- npm
+
+change directories into the mealie directory and run poetry install. cd into the frontend directory and run npm install. After installing dependencies, you can use vscode tasks to run the front and backend server. Use the command pallette to access the tasks. 
+
+Alternatively you can run `npm run serve` in the frontend directory and `python app.py` in the mealie directory to get everything up and running for development. 
 
 ## Trouble Shooting
 

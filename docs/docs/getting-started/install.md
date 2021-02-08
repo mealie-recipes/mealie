@@ -1,5 +1,5 @@
 # Installation
-To deploy docker on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. Currently MongoDB and SQLite are supported. MongoDB support will be dropped in v0.2.0 so it is recommended to go with SQLite for new deployments. Postrgres support is planned, however for most loads you may find SQLite performant enough for most use cases.  
+To deploy docker on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. Currently only SQLite is supported. Postrgres support is planned, however for most loads you may find SQLite performant enough.  
 
 
 [Get Docker](https://docs.docker.com/get-docker/)
@@ -46,7 +46,7 @@ services:
 | db_type     | sqlite  | The database type to be used. Current Options 'sqlite'                                                                                                  |
 | mealie_port | 9000    | The port exposed by mealie. **do not change this if you're running in docker** If you'd like to use another port, map 9000 to another port of the host. |
 | api_docs    | True    | Turns on/off access to the API documentation locally.                                                                                                   |
-| TZ          |         | You should set your time zone accordingly so the date/time features work correctly                                                                      |
+| TZ          | UTC     | You should set your time zone accordingly so the date/time features work correctly                                                                      |
 
 
 ## Deployed as a Python Application
