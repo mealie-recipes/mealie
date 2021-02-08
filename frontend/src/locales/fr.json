@@ -11,6 +11,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste."
   },
   "general": {
+    "upload": "Téléverser",
     "submit": "Soumettre",
     "name": "Nom",
     "settings": "Options",
@@ -28,7 +29,12 @@
     "ok": "OK",
     "enabled": "Activé",
     "download": "Télécharger",
-    "import": "Importer"
+    "import": "Importer",
+    "options": "Options",
+    "templates": "Modèles",
+    "recipes": "Recettes",
+    "themes": "Thèmes",
+    "confirm": "Confirmer"
   },
   "login": {
     "stay-logged-in": "Rester connecté(e) ?",
@@ -60,21 +66,39 @@
     "notes": "Notes",
     "note": "Note",
     "original-url": "Recette originale",
-    "view-recipe": "Voir la recette"
+    "view-recipe": "Voir la recette",
+    "title": "Titre",
+    "total-time": "Temps total",
+    "prep-time": "Temps de préparation",
+    "perform-time": "Temps de cuisson",
+    "api-extras": "Extras API",
+    "object-key": "Clé d'objet",
+    "object-value": "Valeur d'objet",
+    "new-key-name": "Nouveau nom de clé",
+    "add-key": "Ajouter une clé",
+    "key-name-required": "Un nom de clé est requis",
+    "no-white-space-allowed": "Aucun espace blanc autorisé",
+    "delete-recipe": "Supprimer la recette",
+    "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?"
   },
   "search": {
-    "search-mealie": "Search Mealie"
+    "search-mealie": "Rechercher dans Mealie"
   },
   "settings": {
+    "general-settings": "Paramètres généraux",
+    "local-api": "API local",
+    "language": "Langue",
     "add-a-new-theme": "Ajouter un nouveau thème",
-    "set-new-time": "Définir une nouvelle heure d'exécution",
+    "set-new-time": "Indiquer un nouveau temps",
     "current": "Version :",
     "latest": "Dernière",
     "explore-the-docs": "Parcourir la documentation",
     "contribute": "Contribuer",
     "backup-and-exports": "Sauver et exporter",
     "backup-info": "Les sauvegardes sont exportées en format JSON standard, ainsi que toutes les images stockées sur le système. Dans votre dossier de sauvegarde, vous trouverez un dossier .zip qui contient toutes les recettes en JSON et les images de la base de données. De plus, si vous avez sélectionné le format de fichier markdown, il sera sauvegardé dans le même dossier .zip. Pour importer une sauvegarde, celle-ci doit être enregistrée dans votre dossier de sauvegardes. Une sauvegarde automatique est effectuée quotidiennement à 03h00.",
+    "available-backups": "Sauvegardes disponibles",
     "theme": {
+      "theme-name": "Nom du thème",
       "theme-settings": "Paramètres du thème",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Sélectionnez un thème depuis la liste ou créez-en un nouveau. Le thème par défaut sera utilisé pour tous les utilisateurs qui n'ont pas choisi de thème personnalisé.",
       "dark-mode": "Mode sombre",
@@ -86,13 +110,15 @@
       "info": "Information",
       "warning": "Avertissement",
       "error": "Erreur",
+      "default-to-system": "Identique au système",
       "light": "Clair",
       "dark": "Sombre",
       "theme": "Thème",
       "saved-color-theme": "Thèmes sauvegardés",
       "delete-theme": "Supprimer le thème",
       "are-you-sure-you-want-to-delete-this-theme": "Etes-vous sûr(e) de vouloir supprimer ce thème ?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Personnalisez l'apparence de Mealie. Utilisez le thème par défaut de votre système ou choisissez manuellement entre le thème clair ou sombre."
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Personnalisez l'apparence de Mealie. Utilisez le thème par défaut de votre système ou choisissez manuellement entre le thème clair ou sombre.",
+      "theme-name-is-required": "Un nom de thème est requis."
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooks du planificateur de repas",
@@ -104,11 +130,29 @@
     "backup": {
       "import-recipes": "Importer des recettes",
       "import-themes": "Importer des thèmes",
-      "import-settings": "Importer des paramètres"
+      "import-settings": "Importer des paramètres",
+      "create-heading": "Créer une sauvegarde",
+      "backup-tag": "Tag de la sauvegarde",
+      "full-backup": "Sauvegarde complète",
+      "partial-backup": "Sauvegarde partielle",
+      "backup-restore-report": "Rapport de la restauration de la sauvegarde",
+      "successfully-imported": "Importé avec succès",
+      "failed-imports": "Importations échouées"
     }
   },
   "migration": {
     "recipe-migration": "Migrer les recettes",
-    "failed-imports": "Importations échouées"
+    "failed-imports": "Importations échouées",
+    "migration-report": "Rapport de migration",
+    "successful-imports": "Importations réussies",
+    "no-migration-data-available": "Aucune donnée d'importation n'est disponible",
+    "nextcloud": {
+      "title": "Livre de recettes Nextcloud (Cookbook)",
+      "description": "Importer des recettes depuis un livre de recettes Nextcloud existant"
+    },
+    "chowdown": {
+      "title": "Chowdown",
+      "description": "Importer des recettes depuis Chowdown"
+    }
   }
 }
