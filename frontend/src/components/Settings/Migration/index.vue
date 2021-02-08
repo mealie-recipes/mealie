@@ -1,43 +1,95 @@
 <template>
-  <v-card :loading="loading">
-    <v-card-title class="headline"> {{$t('migration.recipe-migration')}} </v-card-title>
-    <v-divider></v-divider>
+  <div>
+    <SuccessFailureAlert
+      :title="$t('migration.migration-report')"
+      ref="report"
+      :failedHeader="$t('migration.failed-imports')"
+      :failed="failed"
+      :successHeader="$t('migration.successful-imports')"
+      :success="success"
+    />
+    <v-card :loading="loading">
+      <v-card-title class="headline">
+        {{ $t("migration.recipe-migration") }}
+      </v-card-title>
+      <v-divider></v-divider>
+    </v-card>
 
-    <v-tabs v-model="tab">
-      <v-tab>Chowdown</v-tab>
-      <v-tab>Nextcloud Recipes</v-tab>
-
-      <v-tab-item>
-        <ChowdownCard @loading="loading = true" @finished="finished" />
-      </v-tab-item>
-      <v-tab-item>
-        <NextcloudCard @loading="loading = true" @finished="finished" />
-      </v-tab-item>
-    </v-tabs>
-  </v-card>
+    <v-row dense>
+      <v-col
+        :sm="12"
+        :md="6"
+        :lg="4"
+        :xl="3"
+        v-for="migration in migrations"
+        :key="migration.title"
+      >
+        <MigrationCard
+          :title="migration.title"
+          :folder="migration.urlVariable"
+          :description="migration.description"
+          :available="migration.availableImports"
+          @refresh="getAvailableMigrations"
+          @imported="showReport"
+        />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 
 <script>
-import ChowdownCard from "./ChowdownCard";
-import NextcloudCard from "./NextcloudCard";
-// import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
-// import TimePicker from "./Webhooks/TimePicker";
+import MigrationCard from "./MigrationCard";
+import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import api from "../../../api";
 export default {
   components: {
-    ChowdownCard,
-    NextcloudCard,
+    MigrationCard,
+    SuccessFailureAlert,
   },
   data() {
     return {
-      tab: null,
       loading: false,
+      success: [],
+      failed: [],
+      migrations: {
+        nextcloud: {
+          title: this.$t("migration.nextcloud.title"),
+          description: this.$t("migration.nextcloud.description"),
+          urlVariable: "nextcloud",
+          availableImports: [],
+        },
+        chowdown: {
+          title: this.$t("migration.chowdown.title"),
+          description: this.$t("migration.chowdown.description"),
+          urlVariable: "chowdown",
+          availableImports: [],
+        },
+      },
     };
+  },
+  mounted() {
+    this.getAvailableMigrations();
   },
   methods: {
     finished() {
       this.loading = false;
       this.$store.dispatch("requestRecentRecipes");
+    },
+    async getAvailableMigrations() {
+      let response = await api.migrations.getMigrations();
+      response.forEach((element) => {
+        if (element.type === "nextcloud") {
+          this.migrations.nextcloud.availableImports = element.files;
+        } else if (element.type === "chowdown") {
+          this.migrations.chowdown.availableImports = element.files;
+        }
+      });
+    },
+    showReport(successful, failed) {
+      this.success = successful;
+      this.failed = failed;
+      this.$refs.report.open();
     },
   },
 };

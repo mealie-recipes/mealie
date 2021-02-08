@@ -3,7 +3,8 @@
     <v-card
       :class="{ 'on-hover': hover }"
       :elevation="hover ? 12 : 2"
-      @click="moreInfo(slug)"
+      :to="route ? `/recipe/${slug}` : ''"
+      @click="$emit('click')"
     >
       <v-img height="200" :src="getImage(image)"></v-img>
       <v-card-title class="my-n3 mb-n6">{{ name | truncate(30) }}</v-card-title>
@@ -25,9 +26,9 @@
           <v-col align="end">
             <v-tooltip top color="secondary" max-width="400" open-delay="50">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn color="secondary" v-on="on" v-bind="attrs" text
-                  >{{$t('recipe.description')}}</v-btn
-                >
+                <v-btn color="secondary" v-on="on" v-bind="attrs" text>{{
+                  $t("recipe.description")
+                }}</v-btn>
               </template>
               <span>{{ description }}</span>
             </v-tooltip>
@@ -47,11 +48,11 @@ export default {
     description: String,
     rating: Number,
     image: String,
+    route: {
+      default: true,
+    },
   },
   methods: {
-    moreInfo(recipeSlug) {
-      this.$router.push(`/recipe/${recipeSlug}`);
-    },
     getImage(image) {
       return utils.getImageURL(image);
     },

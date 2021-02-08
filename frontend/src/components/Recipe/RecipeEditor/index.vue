@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-form ref="form">
     <v-card-text>
       <v-row dense>
         <v-col cols="3"></v-col>
@@ -12,35 +12,47 @@
           ></v-file-input>
         </v-col>
         <v-col cols="3"></v-col>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Total Time"
-              v-model="value.totalTime"
-            ></v-text-field>
-          </v-col>
-          <v-col
-            ><v-text-field
-              label="Prep Time"
-              v-model="value.prepTime"
-            ></v-text-field
-          ></v-col>
-          <v-col
-            ><v-text-field
-              label="Cook Time / Perform Time"
-              v-model="value.performTime"
-            ></v-text-field
-          ></v-col>
-        </v-row>
       </v-row>
-      <v-text-field class="my-3" :label="$t('recipe.recipe-name')" v-model="value.name">
+      <v-row dense>
+        <v-col>
+          <v-text-field
+            :label="$t('recipe.total-time')"
+            v-model="value.totalTime"
+          ></v-text-field>
+        </v-col>
+        <v-col
+          ><v-text-field
+            :label="$t('recipe.prep-time')"
+            v-model="value.prepTime"
+          ></v-text-field
+        ></v-col>
+        <v-col
+          ><v-text-field
+            :label="$t('recipe.perform-time')"
+            v-model="value.performTime"
+          ></v-text-field
+        ></v-col>
+      </v-row>
+      <v-text-field
+        class="my-3"
+        :label="$t('recipe.recipe-name')"
+        v-model="value.name"
+        :rules="[rules.required]"
+      >
       </v-text-field>
-      <v-textarea height="100" :label="$t('recipe.description')" v-model="value.description">
+      <v-textarea
+        height="100"
+        :label="$t('recipe.description')"
+        v-model="value.description"
+      >
       </v-textarea>
       <div class="my-2"></div>
       <v-row dense disabled>
         <v-col sm="5">
-          <v-text-field :label="$t('recipe.servings')" v-model="value.recipeYield">
+          <v-text-field
+            :label="$t('recipe.servings')"
+            v-model="value.recipeYield"
+          >
           </v-text-field>
         </v-col>
         <v-col></v-col>
@@ -54,34 +66,50 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <h2 class="mb-4">{{$t('recipe.ingredients')}}</h2>
-          <div
-            v-for="(ingredient, index) in value.recipeIngredient"
-            :key="generateKey('ingredient', index)"
+          <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
+          <draggable
+            v-model="value.recipeIngredient"
+            @start="drag = true"
+            @end="drag = false"
           >
-            <v-row align="center">
-              <v-btn
-                fab
-                x-small
-                color="white"
-                class="mr-2"
-                elevation="0"
-                @click="removeIngredient(index)"
+            <transition-group
+              type="transition"
+              :name="!drag ? 'flip-list' : null"
+            >
+              <div
+                v-for="(ingredient, index) in value.recipeIngredient"
+                :key="generateKey('ingredient', index)"
               >
-                <v-icon color="error">mdi-delete</v-icon>
-              </v-btn>
-              <v-text-field
-                :label="$t('recipe.ingredient')"
-                v-model="value.recipeIngredient[index]"
-              ></v-text-field>
-            </v-row>
-          </div>
+                <v-row align="center">
+                  <v-text-field
+                    class="mr-2"
+                    :label="$t('recipe.ingredient')"
+                    v-model="value.recipeIngredient[index]"
+                    append-outer-icon="mdi-menu"
+                    mdi-move-resize
+                    solo
+                    dense
+                  >
+                    <v-icon
+                      class="mr-n1"
+                      slot="prepend"
+                      color="error"
+                      @click="removeIngredient(index)"
+                    >
+                      mdi-delete
+                    </v-icon>
+                  </v-text-field>
+                </v-row>
+              </div>
+            </transition-group>
+          </draggable>
+
           <v-btn color="secondary" fab dark small @click="addIngredient">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           <BulkAdd @bulk-data="appendIngredients" />
 
-          <h2 class="mt-6">{{$t('recipe.categories')}}</h2>
+          <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
           <v-combobox
             dense
             multiple
@@ -89,6 +117,11 @@
             item-color="secondary"
             deletable-chips
             v-model="value.categories"
+            hide-selected
+            :items="categories"
+            text="name"
+            :search-input.sync="categoriesSearchInput"
+            @change="categoriesSearchInput = ''"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -103,8 +136,18 @@
             </template>
           </v-combobox>
 
-          <h2 class="mt-4">{{$t('recipe.tags')}}</h2>
-          <v-combobox dense multiple chips deletable-chips v-model="value.tags">
+          <h2 class="mt-4">{{ $t("recipe.tags") }}</h2>
+          <v-combobox
+            dense
+            multiple
+            chips
+            deletable-chips
+            v-model="value.tags"
+            hide-selected
+            :items="tags"
+            :search-input.sync="tagsSearchInput"
+            @change="tagssSearchInput = ''"
+          >
             <template v-slot:selection="data">
               <v-chip
                 :input-value="data.selected"
@@ -118,7 +161,7 @@
             </template>
           </v-combobox>
 
-          <h2 class="my-4">{{$t('recipe.notes')}}</h2>
+          <h2 class="my-4">{{ $t("recipe.notes") }}</h2>
           <v-card
             class="mt-1"
             v-for="(note, index) in value.notes"
@@ -137,12 +180,15 @@
                   <v-icon color="error">mdi-delete</v-icon>
                 </v-btn>
                 <v-text-field
-                  label="Title"
+                  :label="$t('recipe.title')"
                   v-model="value.notes[index]['title']"
                 ></v-text-field>
               </v-row>
 
-              <v-textarea :label="$t('recipe.note')" v-model="value.notes[index]['text']">
+              <v-textarea
+                :label="$t('recipe.note')"
+                v-model="value.notes[index]['text']"
+              >
               </v-textarea>
             </v-card-text>
           </v-card>
@@ -155,7 +201,7 @@
         <v-divider class="my-divider" :vertical="true"></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
-          <h2 class="mb-4">{{$t('recipe.instructions')}}</h2>
+          <h2 class="mb-4">{{ $t("recipe.instructions") }}</h2>
           <div v-for="(step, index) in value.recipeInstructions" :key="index">
             <v-hover v-slot="{ hover }">
               <v-card
@@ -173,7 +219,9 @@
                     @click="removeStep(index)"
                   >
                     <v-icon color="error">mdi-delete</v-icon> </v-btn
-                  >{{ $t('recipe.step-index', {step: index + 1}) }}</v-card-title
+                  >{{
+                    $t("recipe.step-index", { step: index + 1 })
+                  }}</v-card-title
                 >
                 <v-card-text>
                   <v-textarea
@@ -189,13 +237,19 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           <BulkAdd @bulk-data="appendSteps" />
+          <v-text-field
+            v-model="value.orgURL"
+            class="mt-10"
+            :label="$t('recipe.original-url')"
+          ></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>
-  </div>
+  </v-form>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import api from "../../../api";
 import utils from "../../../utils";
 import BulkAdd from "./BulkAdd";
@@ -204,16 +258,36 @@ export default {
   components: {
     BulkAdd,
     ExtrasEditor,
+    draggable,
   },
   props: {
     value: Object,
   },
   data() {
     return {
+      drag: false,
       fileObject: null,
+      rules: {
+        required: v => !!v || this.$i18n.t("recipe.key-name-required"),
+        whiteSpace: v =>
+          !v ||
+          v.split(" ").length <= 1 ||
+          this.$i18n.t("recipe.no-white-space-allowed"),
+      },
+      categoriesSearchInput: "",
+      tagsSearchInput: "",
+      categories: [],
+      tags: [],
     };
   },
+  mounted() {
+    this.getCategories();
+  },
   methods: {
+    async getCategories() {
+      let response = await api.categories.get_all();
+      this.categories = response.map(cat => cat.name);
+    },
     uploadImage() {
       this.$emit("upload", this.fileObject);
     },
@@ -259,7 +333,7 @@ export default {
 
     appendSteps(steps) {
       let processSteps = [];
-      steps.forEach((element) => {
+      steps.forEach(element => {
         processSteps.push({ text: element });
       });
 
@@ -288,6 +362,13 @@ export default {
     },
     saveExtras(extras) {
       this.value.extras = extras;
+    },
+    validateRecipe() {
+      if (this.$refs.form.validate()) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };

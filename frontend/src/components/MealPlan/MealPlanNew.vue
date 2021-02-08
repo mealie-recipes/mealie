@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="headline">
-      {{$t('meal-plan.create-a-new-meal-plan')}}
+      {{ $t("meal-plan.create-a-new-meal-plan") }}
     </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
@@ -71,9 +71,11 @@
     <v-row align="center" justify="end">
       <v-card-actions>
         <v-btn color="success" @click="random" v-if="meals[1]" text>
-          {{$t('general.random')}}
+          {{ $t("general.random") }}
         </v-btn>
-        <v-btn color="success" @click="save" text> {{$t('general.save')}} </v-btn>
+        <v-btn color="success" @click="save" text>
+          {{ $t("general.save") }}
+        </v-btn>
 
         <v-spacer></v-spacer>
         <v-btn icon @click="show = !show"> </v-btn>
@@ -149,11 +151,13 @@ export default {
   methods: {
     get_random(list) {
       const object = list[Math.floor(Math.random() * list.length)];
-      return object.slug;
+      return object;
     },
     random() {
       this.meals.forEach((element, index) => {
-        this.meals[index]["slug"] = this.get_random(this.items);
+        let recipe = this.get_random(this.items);
+        this.meals[index]["slug"] = recipe.slug;
+        this.meals[index]["name"] = recipe.name;
       });
     },
     processTime(index) {

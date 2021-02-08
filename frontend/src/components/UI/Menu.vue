@@ -15,11 +15,11 @@
       </template>
 
       <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i" link>
-          <v-list-item-icon @click="navRouter(item.nav)">
+        <v-list-item v-for="(item, i) in items" :key="i" link :to="item.nav">
+          <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
-          <v-list-item-content @click="navRouter(item.nav)">
+          <v-list-item-content>
             <v-list-item-title>
               {{ item.title }}
             </v-list-item-title>
@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  data: function () {
+  data: function() {
     return {
       items: [
         {

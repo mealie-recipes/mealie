@@ -1,0 +1,33 @@
+{
+    "url": "https://www.deliaonline.com/recipes/seasons/what-should-you-be-cooking-in-november/chunky-apple-cake",
+    "author": "Delia Smith",
+    "image": "https://www.deliaonline.com/sites/default/files/quick_media/cakes-chunky-apple-cake.jpg",
+    "name": "Chunky Apple Cake",
+    "description": "Apples are superb in cakes, so in the autumn when there are lots of windfalls around, why not make a few of these and freeze them.",
+    "recipeCuisine": "General",
+    "recipeCategory": [
+        "Apples",
+        "Afternoon Tea",
+        "Cake Recipes",
+        "Autumn",
+        "Life in the Freezer"
+    ],
+    "keywords": "Apples, Afternoon Tea, Cake Recipes, Autumn, Life in the Freezer, Delia, Delia Smith",
+    "recipeInstructions": "Begin by sifting the flour, baking powder and spices into a roomy mixing bowl, lifting the sieve quite high to give the flour a good airing as it goes down.\n\nNext chop the apples into small dice (with or without peel, just as you like). Then place them in a bowl and toss them with one tablespoon of the sieved flour mixture. Then add the eggs, butter and sugar to the rest of the flour, and using an electric hand whisk, combine them for about 1 minute until you have a smooth creamy consistency. After that fold in the grated orange zest, mixed peel and diced apple. If the mixture seems a little dry, add a tablespoon of milk. Now spoon the cake mix into the prepared tin and level it off with the back of a spoon.\n\nThen bake near the centre of the oven for about one hour or until the cake feels springy in the centre when lightly pressed with a fingertip and just shows signs of shrinking away from the edge of the tin. Cool in the tin for 10 minutes before turning out onto a wire rack. This looks nice dusted with sifted icing sugar just before serving. Store in an airtight tin.\n\nYou can watch more of Delia's cake recipes being made in our Cookery School Videos on the right.",
+    "recipeIngredient": [
+        "225g self-raising flour",
+        "1 rounded teaspoon baking powder",
+        "1 level teaspoon mixed spice",
+        "\u00bd level teaspoon ground cinnamon",
+        "3 Bramley apples (about 550g)",
+        "2 large eggs, beaten",
+        "75g spreadable butter",
+        "175g light brown soft sugar",
+        "grated zest of 1 large orange",
+        "1 tablespoon chopped mixed peel",
+        "1 tablespoon milk (if needed)",
+        "little icing sugar"
+    ],
+    "@context": "http://schema.org",
+    "@type": "Recipe"
+}

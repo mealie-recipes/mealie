@@ -1,42 +1,44 @@
 <template>
   <v-card :loading="backupLoading" class="mt-3">
     <v-card-title class="headline">
-      {{$t('settings.backup-and-exports')}}
+      {{ $t("settings.backup-and-exports") }}
     </v-card-title>
     <v-divider></v-divider>
 
     <v-card-text>
-      <p>
-        {{$t('settings.backup-info')}}
-      </p>
-
-      <v-row dense align="center">
-        <v-col dense cols="12" sm="12" md="4">
-          <v-text-field v-model="backupTag" :label="$t('settings.backup-tag')"></v-text-field>
+      <v-row>
+        <v-col cols="12" md="6" ss="12">
+          <NewBackupCard @created="processFinished" />
         </v-col>
-        <v-col cols="12" sm="12" md="3">
-          <v-combobox
-            auto-select-first
-            :label="$t('settings.markdown-template')"
-            :items="availableTemplates"
-            v-model="selectedTemplate"
-          ></v-combobox>
-        </v-col>
-        <v-col dense cols="12" sm="12" md="2">
-          <v-btn block text color="accent" @click="createBackup" width="165">
-            {{$t('settings.backup-recipes')}}
-          </v-btn>
+        <v-col cols="12" md="6" sm="12">
+          <p>
+            {{ $t("settings.backup-info") }}
+          </p>
         </v-col>
       </v-row>
-      <BackupCard
+      <v-divider class="my-3"></v-divider>
+      <v-card-title class="mt-n6">
+        {{ $t("settings.available-backups") }}
+        <span>
+          <UploadBtn
+            class="mt-1"
+            url="/api/backups/upload"
+            @uploaded="getAvailableBackups"
+          />
+        </span>
+        <v-spacer></v-spacer>
+      </v-card-title>
+      <AvailableBackupCard
         @loading="backupLoading = true"
         @finished="processFinished"
         :backups="availableBackups"
       />
       <SuccessFailureAlert
-        success-header="Successfully Imported"
+        ref="report"
+        :title="$t('settings.backup.backup-restore-report')"
+        :success-header="$t('settings.backup.successfully-imported')"
         :success="successfulImports"
-        failed-header="Failed Imports"
+        :failed-header="$t('settings.backup.failed-imports')"
         :failed="failedImports"
       />
     </v-card-text>
@@ -46,23 +48,23 @@
 <script>
 import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
-import BackupCard from "./BackupCard";
+import UploadBtn from "../../UI/UploadBtn";
+import AvailableBackupCard from "./AvailableBackupCard";
+import NewBackupCard from "./NewBackupCard";
 
 export default {
   components: {
     SuccessFailureAlert,
-    BackupCard,
+    UploadBtn,
+    AvailableBackupCard,
+    NewBackupCard,
   },
   data() {
     return {
       failedImports: [],
       successfulImports: [],
       backupLoading: false,
-      backupTag: null,
-      selectedBackup: null,
-      selectedTemplate: null,
       availableBackups: [],
-      availableTemplates: [],
     };
   },
   mounted() {
@@ -85,22 +87,12 @@ export default {
         this.backupLoading = false;
       }
     },
-    async createBackup() {
-      this.backupLoading = true;
-
-      let response = await api.backups.create(this.backupTag, this.templates);
-
-      if (response.status == 201) {
-        this.selectedBackup = null;
-        this.getAvailableBackups();
-        this.backupLoading = false;
-      }
-    },
     processFinished(successful = null, failed = null) {
       this.getAvailableBackups();
       this.backupLoading = false;
       this.successfulImports = successful;
       this.failedImports = failed;
+      this.$refs.report.open();
     },
   },
 };

@@ -4,12 +4,10 @@ import shutil
 import zipfile
 from pathlib import Path
 
+from app_config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
 from services.recipe_services import Recipe
 from services.scrape_services import normalize_data, process_recipe_data
 from app_config import IMG_DIR, TEMP_DIR
-
-CWD = Path(__file__).parent
-MIGRTAION_DIR = CWD.parent.parent.joinpath("data", "migration")
 
 
 def process_selection(selection: Path) -> Path:
@@ -65,10 +63,10 @@ def cleanup():
     shutil.rmtree(TEMP_DIR)
 
 
-def migrate(selection: str):
+def migrate(session, selection: str):
     prep()
-    MIGRTAION_DIR.mkdir(exist_ok=True)
-    selection = MIGRTAION_DIR.joinpath(selection)
+    MIGRATION_DIR.mkdir(exist_ok=True)
+    selection = MIGRATION_DIR.joinpath(selection)
 
     nextcloud_dir = process_selection(selection)
 
@@ -76,9 +74,10 @@ def migrate(selection: str):
     failed_imports = []
     for dir in nextcloud_dir.iterdir():
         if dir.is_dir():
+
             try:
                 recipe = import_recipes(dir)
-                recipe.save_to_db()
+                recipe.save_to_db(session)
                 successful_imports.append(recipe.name)
             except:
                 logging.error(f"Failed Nextcloud Import: {dir.name}")

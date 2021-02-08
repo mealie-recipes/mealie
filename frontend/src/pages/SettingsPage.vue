@@ -13,7 +13,8 @@
       "
     >
     </v-alert>
-    <Theme />
+    <General />
+    <Theme class="mt-2" />
     <Backup class="mt-2" />
     <Webhooks class="mt-2" />
     <Migration class="mt-2" />
@@ -39,9 +40,11 @@
 
 <script>
 import Backup from "../components/Settings/Backup";
+import General from "../components/Settings/General";
 import Webhooks from "../components/Settings/Webhook";
 import Theme from "../components/Settings/Theme";
 import Migration from "../components/Settings/Migration";
+import api from "../api";
 import axios from "axios";
 
 export default {
@@ -50,15 +53,18 @@ export default {
     Webhooks,
     Theme,
     Migration,
+    General,
   },
   data() {
     return {
       latestVersion: null,
-      version: "v0.1.0",
+      version: null,
     };
   },
-  mounted() {
+  async mounted() {
     this.getVersion();
+    let versionData = await api.meta.get_version();
+    this.version = versionData.version;
   },
   computed: {
     newVersion() {

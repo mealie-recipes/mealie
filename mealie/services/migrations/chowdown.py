@@ -1,31 +1,16 @@
 import shutil
 from pathlib import Path
 
-import git
 import yaml
+from app_config import IMG_DIR, TEMP_DIR
 from services.recipe_services import Recipe
-from app_config import IMG_DIR
+from sqlalchemy.orm.session import Session
+from utils.unzip import unpack_zip
 
 try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
-
-TEMP_DIR = Path(__file__).parent.parent.parent.joinpath("temp")
-
-
-def pull_repo(repo):
-    dest_dir = TEMP_DIR.joinpath("/migration/git_pull")
-    if dest_dir.exists():
-        shutil.rmtree(dest_dir)
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    git.Git(dest_dir).clone(repo)
-
-    repo_name = repo.split("/")[-1]
-    recipe_dir = dest_dir.joinpath(repo_name, "_recipes")
-    image_dir = dest_dir.joinpath(repo_name, "images")
-
-    return recipe_dir, image_dir
 
 
 def read_chowdown_file(recipe_file: Path) -> Recipe:
@@ -75,25 +60,31 @@ def read_chowdown_file(recipe_file: Path) -> Recipe:
         return new_recipe
 
 
-def chowdown_migrate(repo):
-    recipe_dir, image_dir = pull_repo(repo)
+def chowdown_migrate(session: Session, zip_file: Path):
+    temp_dir = unpack_zip(zip_file)
 
-    failed_images = []
-    for image in image_dir.iterdir():
-        try:
-            shutil.copy(image, IMG_DIR.joinpath(image.name))
-        except:
-            failed_images.append(image.name)
+    with temp_dir as dir:
+        image_dir = TEMP_DIR.joinpath(dir, zip_file.stem, "images")
+        recipe_dir = TEMP_DIR.joinpath(dir, zip_file.stem, "_recipes")
 
-    failed_recipes = []
-    for recipe in recipe_dir.glob("*.md"):
-        try:
-            new_recipe = read_chowdown_file(recipe)
-            new_recipe.save_to_db()
+        failed_recipes = []
+        successful_recipes = []
+        for recipe in recipe_dir.glob("*.md"):
+            try:
+                new_recipe = read_chowdown_file(recipe)
+                new_recipe.save_to_db(session)
+                successful_recipes.append(recipe.stem)
+            except:
+                failed_recipes.append(recipe.stem)
 
-        except:
-            failed_recipes.append(recipe.name)
+        failed_images = []
+        for image in image_dir.iterdir():
+            try:
+                if not image.stem in failed_recipes:
+                    shutil.copy(image, IMG_DIR.joinpath(image.name))
+            except:
+                failed_images.append(image.name)
 
-    report = {"failedImages": failed_images, "failedRecipes": failed_recipes}
+        report = {"successful": successful_recipes, "failed": failed_recipes}
 
     return report

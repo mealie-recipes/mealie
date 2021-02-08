@@ -1,0 +1,102 @@
+{
+    "@context": "http://schema.org/",
+    "@type": "Recipe",
+    "name": "Dairy-Free Impossible Pumpkin Pie",
+    "author": {
+        "@type": "Person",
+        "name": "Kare for Kitchen Treaty"
+    },
+    "description": "This crustless pumpkin pie might just be the\u00a0easiest\u00a0you'll ever make. Simply blend the ingredients together, pour into your pie pan, and bake!",
+    "datePublished": "2017-11-10T16:12:06+00:00",
+    "image": [
+        "https://www.kitchentreaty.com/wp-content/uploads/2017/11/dairy-free-impossible-pumpkin-pie-8.jpg"
+    ],
+    "recipeYield": [
+        "8"
+    ],
+    "prepTime": "PT10M",
+    "cookTime": "PT45M",
+    "totalTime": "PT55M",
+    "recipeIngredient": [
+        "1  (15-ounce) can coconut milk (I recommend full-fat for a richer pie, but lite also works)",
+        "1 cup pumpkin puree",
+        "4  large eggs",
+        "1/2 cup granulated sugar",
+        "1 tablespoon pure vanilla extract",
+        "1/2 cup all-purpose flour (or your favorite cup-for-cup gluten-free flour blend*)",
+        "1 teaspoon baking powder",
+        "1 tablespoon pumpkin pie spice",
+        "1/2 teaspoon fine-grain sea salt or table salt",
+        "Coconut whipped cream (for serving**)"
+    ],
+    "recipeInstructions": [
+        {
+            "@type": "HowToStep",
+            "text": "Preheat oven to 375 degrees Fahrenheit and position rack in the middle of the oven. Spray a 9- or 10-inch pie pan with baking spray or oil the pan with coconut oil or vegan butter.",
+            "name": "Preheat oven to 375 degrees Fahrenheit and position rack in the middle of the oven. Spray a 9- or 10-inch pie pan with baking spray or oil the pan with coconut oil or vegan butter.",
+            "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/#wprm-recipe-32856-step-0-0"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Add the coconut milk, pumpkin, eggs, sugar, and vanilla to the pitcher of a blender. Blend until combined, about 20 seconds. Add the flour, baking powder, pumpkin pie spice, and salt. Blend again until well-combined, another 20\u00a0seconds.",
+            "name": "Add the coconut milk, pumpkin, eggs, sugar, and vanilla to the pitcher of a blender. Blend until combined, about 20 seconds. Add the flour, baking powder, pumpkin pie spice, and salt. Blend again until well-combined, another 20\u00a0seconds.",
+            "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/#wprm-recipe-32856-step-0-1"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Pour filling into the pie plate. The mixture will be fairly runny. Carefully transfer to the preheated oven.",
+            "name": "Pour filling into the pie plate. The mixture will be fairly runny. Carefully transfer to the preheated oven.",
+            "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/#wprm-recipe-32856-step-0-2"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Bake\u00a0until the middle just barely jiggles, 40-50 minutes. I like to check the middle by giving the pie pan a little nudge, and if it seems like it's no longer liquid, I'll pull the pie out and insert a butter knife about halfway between the center and the edge. If the knife comes out relatively clean - no runny pie filling - it's\u00a0done!",
+            "name": "Bake\u00a0until the middle just barely jiggles, 40-50 minutes. I like to check the middle by giving the pie pan a little nudge, and if it seems like it's no longer liquid, I'll pull the pie out and insert a butter knife about halfway between the center and the edge. If the knife comes out relatively clean - no runny pie filling - it's\u00a0done!",
+            "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/#wprm-recipe-32856-step-0-3"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Place on a cooling rack and let cool, about 1 hour. Transfer to refrigerator to completely\u00a0cool, at least one more hour (or up to 3 days in advance).",
+            "name": "Place on a cooling rack and let cool, about 1 hour. Transfer to refrigerator to completely\u00a0cool, at least one more hour (or up to 3 days in advance).",
+            "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/#wprm-recipe-32856-step-0-4"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "If desired, top pie with dollops of coconut whipped cream. Or simply cut slices, transfer to a plate, and top\u00a0individual servings with the whipped cream.",
+            "name": "If desired, top pie with dollops of coconut whipped cream. Or simply cut slices, transfer to a plate, and top\u00a0individual servings with the whipped cream.",
+            "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/#wprm-recipe-32856-step-0-5"
+        },
+        {
+            "@type": "HowToStep",
+            "text": "Keeps in the refrigerator for 3-4 days. I suggest covering the completely cooled pie with plastic wrap if not serving right away.",
+            "name": "Keeps in the refrigerator for 3-4 days. I suggest covering the completely cooled pie with plastic wrap if not serving right away.",
+            "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/#wprm-recipe-32856-step-0-6"
+        }
+    ],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "4"
+    },
+    "recipeCategory": [
+        "Dessert"
+    ],
+    "recipeCuisine": [
+        "American"
+    ],
+    "keywords": "pie",
+    "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": "231 kcal",
+        "sugarContent": "14 g",
+        "sodiumContent": "239 mg",
+        "fatContent": "14 g",
+        "saturatedFatContent": "11 g",
+        "carbohydrateContent": "23 g",
+        "fiberContent": "1 g",
+        "proteinContent": "5 g",
+        "cholesterolContent": "82 mg",
+        "servingSize": "1 serving"
+    },
+    "url": "https://www.kitchentreaty.com/dairy-free-impossible-pumpkin-pie/"
+}

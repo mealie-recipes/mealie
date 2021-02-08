@@ -1,10 +1,12 @@
+import html
 import json
-from pathlib import Path
+import re
 from typing import List, Tuple
 
 import extruct
 import requests
 import scrape_schema_recipe
+from app_config import DEBUG_DIR
 from slugify import slugify
 from utils.logger import logger
 from w3lib.html import get_base_url
@@ -12,8 +14,13 @@ from w3lib.html import get_base_url
 from services.image_services import scrape_image
 from services.recipe_services import Recipe
 
-CWD = Path(__file__).parent
-TEMP_FILE = CWD.parent.joinpath("data", "debug", "last_recipe.json")
+TEMP_FILE = DEBUG_DIR.joinpath("last_recipe.json")
+
+
+def cleanhtml(raw_html):
+    cleanr = re.compile("<.*?>")
+    cleantext = re.sub(cleanr, "", raw_html)
+    return cleantext
 
 
 def normalize_image_url(image) -> str:
@@ -31,23 +38,38 @@ def normalize_instructions(instructions) -> List[dict]:
     # One long string split by (possibly multiple) new lines
     if type(instructions) == str:
         return [
-            {"text": line.strip()} for line in filter(None, instructions.splitlines())
+            {"text": normalize_instruction(line)}
+            for line in instructions.splitlines()
+            if line
         ]
 
     # Plain strings in a list
     elif type(instructions) == list and type(instructions[0]) == str:
-        return [{"text": step.strip()} for step in instructions]
+        return [{"text": normalize_instruction(step)} for step in instructions]
 
     # Dictionaries (let's assume it's a HowToStep) in a list
     elif type(instructions) == list and type(instructions[0]) == dict:
         return [
-            {"text": step["text"].strip()}
+            {"text": normalize_instruction(step["text"])}
             for step in instructions
             if step["@type"] == "HowToStep"
         ]
 
     else:
         raise Exception(f"Unrecognised instruction format: {instructions}")
+
+
+def normalize_instruction(line) -> str:
+    l = cleanhtml(line.strip())
+    # Some sites erroneously escape their strings on multiple levels
+    while not l == (l := html.unescape(l)):
+        pass
+    return l
+
+
+def normalize_ingredient(ingredients: list) -> str:
+
+    return [cleanhtml(html.unescape(ing)) for ing in ingredients]
 
 
 def normalize_yield(yld) -> str:
@@ -66,9 +88,13 @@ def normalize_time(time_entry) -> str:
 
 def normalize_data(recipe_data: dict) -> dict:
     recipe_data["totalTime"] = normalize_time(recipe_data.get("totalTime"))
+    recipe_data["description"] = cleanhtml(recipe_data.get("description", ""))
     recipe_data["prepTime"] = normalize_time(recipe_data.get("prepTime"))
     recipe_data["performTime"] = normalize_time(recipe_data.get("performTime"))
     recipe_data["recipeYield"] = normalize_yield(recipe_data.get("recipeYield"))
+    recipe_data["recipeIngredient"] = normalize_ingredient(
+        recipe_data.get("recipeIngredient")
+    )
     recipe_data["recipeInstructions"] = normalize_instructions(
         recipe_data["recipeInstructions"]
     )
@@ -165,7 +191,7 @@ def process_recipe_url(url: str) -> dict:
     return new_recipe
 
 
-def create_from_url(url: str) -> dict:
+def create_from_url(url: str) -> Recipe:
     recipe_data = process_recipe_url(url)
 
     with open(TEMP_FILE, "w") as f:
@@ -173,4 +199,4 @@ def create_from_url(url: str) -> dict:
 
     recipe = Recipe(**recipe_data)
 
-    return recipe.save_to_db()
+    return recipe

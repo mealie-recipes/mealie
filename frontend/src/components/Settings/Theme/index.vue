@@ -21,7 +21,9 @@
             mandatory
             @change="setStoresDarkMode"
           >
-            <v-btn value="system"> Default to system </v-btn>
+            <v-btn value="system">
+              {{ $t("settings.theme.default-to-system") }}
+            </v-btn>
 
             <v-btn value="light"> {{ $t("settings.theme.light") }} </v-btn>
 
@@ -43,7 +45,7 @@
 
       <v-form ref="form" lazy-validation>
         <v-row dense align="center">
-          <v-col cols="12" md="4" sm="3">
+          <v-col md="4" sm="3">
             <v-select
               :label="$t('settings.theme.saved-color-theme')"
               :items="availableThemes"
@@ -56,13 +58,13 @@
             >
             </v-select>
           </v-col>
-          <v-col cols="12" sm="1">
-            <NewThemeDialog @new-theme="appendTheme" />
-          </v-col>
-          <v-col cols="12" sm="1">
-            <v-btn text color="error" @click="deleteSelectedThemeValidation">
-              Delete
-            </v-btn>
+          <v-col>
+            <v-btn-toggle group class="mt-n5">
+              <NewThemeDialog @new-theme="appendTheme" class="mt-1" />
+              <v-btn text color="error" @click="deleteSelectedThemeValidation">
+                {{ $t("general.delete") }}
+              </v-btn>
+            </v-btn-toggle>
             <Confirmation
               :title="$t('settings.theme.delete-theme')"
               :message="
@@ -74,6 +76,7 @@
               v-on:confirm="deleteSelectedTheme()"
             />
           </v-col>
+          <v-spacer></v-spacer>
         </v-row>
       </v-form>
       <v-row dense align-content="center" v-if="selectedTheme.colors">
@@ -123,15 +126,11 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-row>
-        <v-col> </v-col>
-        <v-col></v-col>
-        <v-col align="end">
-          <v-btn text color="success" @click="saveThemes">
-            {{ $t("settings.theme.save-colors-and-apply-theme") }}
-          </v-btn>
-        </v-col>
-      </v-row>
+      <v-spacer></v-spacer>
+      <v-btn color="success" @click="saveThemes" class="mr-2">
+        <v-icon left> mdi-content-save </v-icon>
+        {{ $t("general.save") }}
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

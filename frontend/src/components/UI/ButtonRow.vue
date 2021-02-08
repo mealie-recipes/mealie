@@ -14,8 +14,8 @@
           <v-icon>mdi-delete</v-icon>
         </v-btn>
         <Confirmation
-          title="Delete Recpie"
-          message="Are you sure you want to delete this recipie?"
+          :title="$t('recipe.delete-recipe')"
+          :message="$t('recipe.delete-confirmation')"
           color="error"
           icon="mdi-alert-circle"
           ref="deleteRecipieConfirm"
@@ -43,12 +43,12 @@ export default {
   props: {
     open: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   components: {
-    Confirmation
+    Confirmation,
   },
 
   methods: {
@@ -66,8 +66,8 @@ export default {
     },
     json() {
       this.$emit("json");
-    }
-  }
+    },
+  },
 };
 </script>
 

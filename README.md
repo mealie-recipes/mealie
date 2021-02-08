@@ -33,7 +33,7 @@
     Request Feature
     </a>    
     ·
-    <a href="https://hub.docker.com/repository/docker/hkotel/mealie"> Docker Hub
+    <a href="https://hub.docker.com/r/hkotel/mealie"> Docker Hub
     </a>
 </p>
 
@@ -72,7 +72,6 @@ Mealie also provides a secure API for interactions from 3rd party applications. 
 * [Vue.js](https://vuejs.org/)
 * [Vuetify](https://vuetifyjs.com/en/)
 * [FastAPI](https://fastapi.tiangolo.com/)
-* [MongoDB](https://www.mongodb.com/)
 * [Docker](https://www.docker.com/)
 
 

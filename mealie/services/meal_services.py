@@ -4,6 +4,7 @@ from typing import List, Optional
 
 from db.database import db
 from pydantic import BaseModel
+from sqlalchemy.orm.session import Session
 
 from services.recipe_services import Recipe
 
@@ -31,6 +32,7 @@ class Meal(BaseModel):
 
 
 class MealData(BaseModel):
+    name: Optional[str]
     slug: str
     dateText: str
 
@@ -53,12 +55,12 @@ class MealPlan(BaseModel):
             }
         }
 
-    def process_meals(self):
+    def process_meals(self, session: Session):
         meals = []
         for x, meal in enumerate(self.meals):
 
             try:
-                recipe = Recipe.get_by_slug(meal.slug)
+                recipe = Recipe.get_by_slug(session, meal.slug)
 
                 meal_data = {
                     "slug": recipe.slug,
@@ -78,27 +80,29 @@ class MealPlan(BaseModel):
 
         self.meals = meals
 
-    def save_to_db(self):
-        db.meals.save_new(self.dict())
+    def save_to_db(self, session: Session):
+        db.meals.save_new(session, self.dict())
 
     @staticmethod
-    def get_all() -> List:
+    def get_all(session: Session) -> List:
 
-        all_meals = [MealPlan(**x) for x in db.meals.get_all(order_by="startDate")]
+        all_meals = [
+            MealPlan(**x) for x in db.meals.get_all(session, order_by="startDate")
+        ]
 
         return all_meals
 
-    def update(self, uid):
-        db.meals.update(uid, self.dict())
+    def update(self, session, uid):
+        db.meals.update(session, uid, self.dict())
 
     @staticmethod
-    def delete(uid):
-        db.meals.delete(uid)
+    def delete(session, uid):
+        db.meals.delete(session, uid)
 
     @staticmethod
-    def today() -> str:
+    def today(session: Session) -> str:
         """ Returns the meal slug for Today """
-        meal_plan = db.meals.get_all(limit=1, order_by="startDate")
+        meal_plan = db.meals.get_all(session, limit=1, order_by="startDate")
 
         meal_docs = [Meal(**meal) for meal in meal_plan["meals"]]
 
@@ -109,7 +113,7 @@ class MealPlan(BaseModel):
         return "No Meal Today"
 
     @staticmethod
-    def this_week():
-        meal_plan = db.meals.get_all(limit=1, order_by="startDate")
+    def this_week(session: Session):
+        meal_plan = db.meals.get_all(session, limit=1, order_by="startDate")
 
         return meal_plan

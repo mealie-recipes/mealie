@@ -3,19 +3,24 @@ import Vuex from "vuex";
 import api from "../api";
 import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
+import language from "./modules/language";
+import homePage from "./modules/homePage";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ["userSettings"],
+      paths: ["userSettings", "language", "homePage"],
     }),
   ],
   modules: {
     userSettings,
+    language,
+    homePage,
   },
   state: {
+    // Home Page Settings
     // Snackbar
     snackActive: false,
     snackText: "",

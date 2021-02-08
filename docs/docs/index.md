@@ -25,9 +25,9 @@
 
 ![Product Name Screen Shot][product-screenshot]
 
-**Mealie** is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and mealie will automatically import the relevant data or add a family recipe with the UI editor.  
+**Mealie** is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and Mealie will automatically import the relevant data or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications. 
 
-Mealie also provides an API for interactions from 3rd party applications. **Why does my recipe manager need an API?** An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access any available API from the backend server. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
+**Why does my recipe manager need an API?** An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access any available API from the backend server. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
 
 [Remember to join the Discord](https://discord.gg/R6QDyJgbD2)! 
 
@@ -35,29 +35,37 @@ Mealie also provides an API for interactions from 3rd party applications. **Why 
     In some of the demo gifs the styling may be different than the finale application. demos were done during development prior to finale styling.
 
 !!! warning
-    Note that this is a **ALPHA** release and that means things may break and or change down the line. I'll do my best to make sure that any API changes are thoughtful and necessary in order not to break things. Additionally, I'll do my best to provide a migration path if the database schema ever changes. That said, one of the nice things about MongoDB is that it's flexible!
+    Note that this is a **BETA** release and that means things may break and or change down the line. I'll do my best to make sure that any API changes are thoughtful and necessary in order not to break things. Additionally, I'll do my best to provide a migration path if the database schema ever changes. Do not use programs like watchtower to auto update your container. You **WILL** run into issues if you do this,
 
 
 
 ### Main Features
 #### Recipes
   - Automatic web scrapping for common recipe platforms
-  - Interactive API Documentation thanks to [FastAPI](https://fastapi.tiangolo.com/) and [Swagger](https://petstore.swagger.io/)
-  - UI Recipe Editor
-  - JSON Recipe Editor in browser
-  - Custom tags and categories
-  - Rate recipes
-  - Add notes to recipes
-  - Migration From Other Platforms
+  - UI recipe editor
+  - JSON recipe editor
+  - Additional recipe data
+    - custom notes
+    - ratings
+    - categories and tags
+    - total, cook, and prep time indicators
+  - View recipes by category
+  - Basic fuzzy search
+  - Migration from other platforms
     - Chowdown
-    - Open Eats - **Coming Soon**
+    - Nextcloud Cookbook
 #### Meal Planner
-  - Random Meal plan generation based off categories
-  - Expose notes in the API to allow external applications to access relevant information for meal plans
+  - Random meal plan generation
+
+#### API
+  - The entire application is built on a restful API and can be accessed by the user
+  - Scheduled Webhooks
+  - Interactive API Documentation thanks to [FastAPI](https://fastapi.tiangolo.com/) and [Swagger](https://petstore.swagger.io/)
+  - Custom "API Extras" in recipes for custom key/value pairs to extendable API uses
   
 #### Database Import / Export
-  - Easily Import / Export your recipes from the UI
-  - Export recipes in markdown format for universal access
+  - Easily import / export your recipes from the UI
+  - Export recipes in any format for universal access using Jinja2
     - Use the default or a custom jinja2 template
 
 ### Built With
@@ -65,7 +73,6 @@ Mealie also provides an API for interactions from 3rd party applications. **Why 
 * [Vue.js](https://vuejs.org/)
 * [Vuetify](https://vuetifyjs.com/en/)
 * [FastAPI](https://fastapi.tiangolo.com/)
-* [MongoDB](https://www.mongodb.com/)
 * [Docker](https://www.docker.com/)
 
 

@@ -7,12 +7,14 @@ from typing import List
 from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from services.recipe_services import Recipe
 from services.settings_services import SiteSettings, SiteTheme
+from sqlalchemy.orm.session import Session
 from utils.logger import logger
 
 
 class ImportDatabase:
     def __init__(
         self,
+        session: Session,
         zip_archive: str,
         import_recipes: bool = True,
         import_settings: bool = True,
@@ -33,7 +35,7 @@ class ImportDatabase:
         Raises:
             Exception: If the zip file does not exists an exception raise.
         """
-
+        self.session = session
         self.archive = BACKUP_DIR.joinpath(zip_archive)
         self.imp_recipes = import_recipes
         self.imp_settings = import_settings
@@ -75,10 +77,11 @@ class ImportDatabase:
                 recipe_dict = ImportDatabase._recipe_migration(recipe_dict)
             try:
                 recipe_obj = Recipe(**recipe_dict)
-                recipe_obj.save_to_db()
+                recipe_obj.save_to_db(self.session)
                 successful_imports.append(recipe.stem)
                 logger.info(f"Imported: {recipe.stem}")
-            except:
+            except Exception as inst:
+                logger.error(inst)
                 logger.info(f"Failed Import: {recipe.stem}")
                 failed_imports.append(recipe.stem)
 
@@ -114,7 +117,7 @@ class ImportDatabase:
         for theme in themes:
             new_theme = SiteTheme(**theme)
             try:
-                new_theme.save_to_db()
+                new_theme.save_to_db(self.session)
             except:
                 logger.info(f"Unable Import Theme {new_theme.name}")
 
@@ -126,7 +129,7 @@ class ImportDatabase:
 
             settings = SiteSettings(**settings)
 
-            settings.update()
+            settings.update(self.session)
 
     def clean_up(self):
         shutil.rmtree(TEMP_DIR)

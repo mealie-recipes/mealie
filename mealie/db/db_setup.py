@@ -1,16 +1,26 @@
-from app_config import SQLITE_FILE, USE_MONGO, USE_SQL
+from app_config import SQLITE_FILE, USE_SQL
+from sqlalchemy.orm.session import Session
 
-from db.sql.db_session import globa_init as sql_global_init
+from db.sql.db_session import sql_global_init
 
 sql_exists = True
 
 if USE_SQL:
     sql_exists = SQLITE_FILE.is_file()
-    sql_global_init(SQLITE_FILE)
+    SessionLocal = sql_global_init(SQLITE_FILE)
+else:
+    raise Exception("Cannot identify database type")
 
-    pass
 
-elif USE_MONGO:
-    from db.mongo.mongo_setup import global_init as mongo_global_init
+def create_session() -> Session:
+    global SessionLocal
+    return SessionLocal()
 
-    mongo_global_init()
+
+def generate_session() -> Session:
+    global SessionLocal
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

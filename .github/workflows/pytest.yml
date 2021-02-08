@@ -4,7 +4,6 @@ on:
     branches:
       - master
       - dev
-      - cd/cd
   pull_request:
     branches:
       - master
@@ -31,15 +30,15 @@ jobs:
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
-      #----------------------------------------------
-      #       load cached venv if cache exists
-      #----------------------------------------------
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      # #----------------------------------------------
+      # #       load cached venv if cache exists
+      # #----------------------------------------------
+      # - name: Load cached venv
+      #   id: cached-poetry-dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: .venv
+      #     key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------

@@ -12,7 +12,7 @@ We use github to host code, to track issues and feature requests, as well as acc
 Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests: 
 
 1. Fork the repo and create your branch from `dev`.
-2. Read the page in in [dev/dev-notes.md](https://github.com/hay-kot/mealie/blob/0.1.0/dev/dev-notes.md) to get an idea on where the project is at.
+2. Read the page in in [dev/dev-notes.md](https://github.com/hay-kot/mealie/blob/master/dev/dev-notes.md) to get an idea on where the project is at.
 3. If you're interested on working on major changes please get in touch on discord and coordinate with other developers. No sense in doubling up on work if someones already on it. 
 4. If you've changed APIs, update the documentation.
 5. Issue that pull request!

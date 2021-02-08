@@ -1,0 +1,114 @@
+{
+  "404": {
+    "page-not-found": "404 Page non trouvée",
+    "take-me-home": "Retour à l'accueil"
+  },
+  "new-recipe": {
+    "from-url": "Depuis une adresse web",
+    "recipe-url": "Adresse de la recette",
+    "error-message": "Il y a eu une erreur en récupérant la recette. Veuillez vérifier les logs ainsi que le fichier debug/last_recipe.json pour localiser le problème.",
+    "bulk-add": "Ajouter en bloc",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste."
+  },
+  "general": {
+    "submit": "Soumettre",
+    "name": "Nom",
+    "settings": "Options",
+    "close": "Supprimer",
+    "save": "Sauvegarder",
+    "image-file": "Image",
+    "update": "Mettre à jour",
+    "edit": "Editer",
+    "delete": "Supprimer",
+    "select": "Sélectionner",
+    "random": "Aléatoire",
+    "new": "Nouveau",
+    "create": "Créer",
+    "cancel": "Annuler",
+    "ok": "OK",
+    "enabled": "Activé",
+    "download": "Télécharger",
+    "import": "Importer"
+  },
+  "login": {
+    "stay-logged-in": "Rester connecté(e) ?",
+    "email": "Email",
+    "password": "Mot de passe",
+    "sign-in": "Se connecter",
+    "sign-up": "S'inscrire"
+  },
+  "meal-plan": {
+    "dinner-this-week": "Repas cette semaine",
+    "dinner-today": "Repas aujourd'hui",
+    "planner": "Planificateur",
+    "edit-meal-plan": "Éditer le plan de menu",
+    "meal-plans": "Plans de menu",
+    "create-a-new-meal-plan": "Créer un nouveau plan de menu",
+    "start-date": "Date de début",
+    "end-date": "Date de fin"
+  },
+  "recipe": {
+    "description": "Description",
+    "ingredients": "Ingrédients",
+    "categories": "Catégories",
+    "tags": "Tags",
+    "instructions": "Instructions",
+    "step-index": "Etape: {step}",
+    "recipe-name": "Nom de la recette",
+    "servings": "Portions",
+    "ingredient": "Ingrédient",
+    "notes": "Notes",
+    "note": "Note",
+    "original-url": "Recette originale",
+    "view-recipe": "Voir la recette"
+  },
+  "search": {
+    "search-mealie": "Search Mealie"
+  },
+  "settings": {
+    "add-a-new-theme": "Ajouter un nouveau thème",
+    "set-new-time": "Définir une nouvelle heure d'exécution",
+    "current": "Version :",
+    "latest": "Dernière",
+    "explore-the-docs": "Parcourir la documentation",
+    "contribute": "Contribuer",
+    "backup-and-exports": "Sauver et exporter",
+    "backup-info": "Les sauvegardes sont exportées en format JSON standard, ainsi que toutes les images stockées sur le système. Dans votre dossier de sauvegarde, vous trouverez un dossier .zip qui contient toutes les recettes en JSON et les images de la base de données. De plus, si vous avez sélectionné le format de fichier markdown, il sera sauvegardé dans le même dossier .zip. Pour importer une sauvegarde, celle-ci doit être enregistrée dans votre dossier de sauvegardes. Une sauvegarde automatique est effectuée quotidiennement à 03h00.",
+    "theme": {
+      "theme-settings": "Paramètres du thème",
+      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Sélectionnez un thème depuis la liste ou créez-en un nouveau. Le thème par défaut sera utilisé pour tous les utilisateurs qui n'ont pas choisi de thème personnalisé.",
+      "dark-mode": "Mode sombre",
+      "theme-is-required": "Un thème est requis.",
+      "primary": "Primaire",
+      "secondary": "Secondaire",
+      "accent": "Accentué",
+      "success": "Succès",
+      "info": "Information",
+      "warning": "Avertissement",
+      "error": "Erreur",
+      "light": "Clair",
+      "dark": "Sombre",
+      "theme": "Thème",
+      "saved-color-theme": "Thèmes sauvegardés",
+      "delete-theme": "Supprimer le thème",
+      "are-you-sure-you-want-to-delete-this-theme": "Etes-vous sûr(e) de vouloir supprimer ce thème ?",
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Personnalisez l'apparence de Mealie. Utilisez le thème par défaut de votre système ou choisissez manuellement entre le thème clair ou sombre."
+    },
+    "webhooks": {
+      "meal-planner-webhooks": "Webhooks du planificateur de repas",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les liens dans cette liste recevront les webhooks contenant les recettes pour le plan de menu du jour défini. Actuellement, les webhooks s'executeront à <strong>{ time }</strong>",
+      "test-webhooks": "Tester les webhooks",
+      "webhook-url": "Lien du webhook"
+    },
+    "new-version-available": "Une nouvelle version de Mealie est disponible, <a {aContents}> vérifiez la source ! </a>",
+    "backup": {
+      "import-recipes": "Importer des recettes",
+      "import-themes": "Importer des thèmes",
+      "import-settings": "Importer des paramètres"
+    }
+  },
+  "migration": {
+    "recipe-migration": "Migrer les recettes",
+    "failed-imports": "Importations échouées"
+  }
+}

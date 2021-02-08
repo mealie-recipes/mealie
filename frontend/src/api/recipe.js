@@ -4,18 +4,17 @@ import { store } from "../store/store";
 import { router } from "../main";
 import qs from "qs";
 
-const recipeBase = baseURL + "recipe/";
+const prefix = baseURL + "recipes/";
 
 const recipeURLs = {
-  // Recipes
-  allRecipes: baseURL + "all-recipes/",
-  recipe: (slug) => recipeBase + slug + "/",
-  recipeImage: (slug) => recipeBase + "image/" + slug + "/",
-  createByURL: recipeBase + "create-url/",
-  create: recipeBase + "create/",
-  updateImage: (slug) => `${recipeBase}${slug}/update/image/`,
-  update: (slug) => `${recipeBase}${slug}/update/`,
-  delete: (slug) => `${recipeBase}${slug}/delete/`,
+  allRecipes: baseURL + "recipes",
+  create: prefix + "create",
+  createByURL: prefix + "create-url",
+  recipe: (slug) => prefix + slug,
+  update: (slug) => prefix + slug,
+  delete: (slug) => prefix + slug,
+  recipeImage: (slug) => `${prefix}${slug}/image`,
+  updateImage: (slug) => `${prefix}${slug}/image`,
 };
 
 export default {
@@ -43,7 +42,7 @@ export default {
     fd.append("image", fileObject);
     fd.append("extension", fileObject.name.split(".").pop());
 
-    let response = apiReq.post(recipeURLs.updateImage(recipeSlug), fd);
+    let response = apiReq.put(recipeURLs.updateImage(recipeSlug), fd);
 
     return response;
   },
@@ -51,7 +50,7 @@ export default {
   async update(data) {
     const recipeSlug = data.slug;
 
-    let response = await apiReq.post(recipeURLs.update(recipeSlug), data);
+    let response = await apiReq.put(recipeURLs.update(recipeSlug), data);
     store.dispatch("requestRecentRecipes");
     return response.data;
   },

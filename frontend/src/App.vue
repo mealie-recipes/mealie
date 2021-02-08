@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar dense app color="primary" dark class="d-print-none">
+    <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
       <v-btn @click="$router.push('/')" icon>
         <v-icon size="40"> mdi-silverware-variant </v-icon>
       </v-btn>
@@ -17,7 +17,7 @@
           @selected="navigateFromSearch"
         />
       </v-expand-x-transition>
-      <v-btn icon @click="toggleSearch">
+      <v-btn icon @click="search = !search">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -58,6 +58,8 @@ export default {
   mounted() {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
+    this.$store.dispatch("requestHomePageSettings");
+    this.$store.dispatch("initLang");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
   },
@@ -84,14 +86,6 @@ export default {
         this.darkModeSystemCheck();
       });
     },
-
-    toggleSearch() {
-      if (this.search === true) {
-        this.search = false;
-      } else {
-        this.search = true;
-      }
-    },
     navigateFromSearch(slug) {
       this.$router.push(`/recipe/${slug}`);
     },
@@ -100,16 +94,5 @@ export default {
 </script>
 
 <style>
-/* Scroll Bar PageSettings */
-body::-webkit-scrollbar {
-  width: 0.25rem;
-}
 
-body::-webkit-scrollbar-track {
-  background: grey;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: black;
-}
 </style>
