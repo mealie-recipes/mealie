@@ -13,15 +13,42 @@
       "group": "test"
     },
     {
-        "label": "Production: Build and Start Docker Compose",
-        "command": "./dev/scripts/docker-compose.sh",
-        "type": "shell",
-        "args": [],
-        "problemMatcher": ["$tsc"],
-        "presentation": {
-          "reveal": "always"
-        },
-        "group": "test"
+      "label": "Production: Build and Start Docker Compose",
+      "command": "./dev/scripts/docker-compose.sh",
+      "type": "shell",
+      "args": [],
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Dev: Start local Backend",
+      "command": "../${config:python.pythonPath}",
+      "args": ["app.py"],
+      "options": {
+        "cwd": "${workspaceFolder}/mealie/"
+      },
+      "type": "shell",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
       }
+    },
+    {
+      "label": "Dev: Start local Frontend",
+      "command": "npm run serve",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
+      }
+    }
   ]
 }
