@@ -2,6 +2,18 @@
   <v-form ref="form">
     <v-card-text>
       <v-row dense>
+        <v-col cols="3"></v-col>
+        <v-col>
+          <v-file-input
+            v-model="fileObject"
+            :label="$t('general.image-file')"
+            truncate-length="30"
+            @change="uploadImage"
+          ></v-file-input>
+        </v-col>
+        <v-col cols="3"></v-col>
+      </v-row>
+      <v-row dense>
         <v-col>
           <v-text-field
             :label="$t('recipe.total-time')"
@@ -256,8 +268,8 @@ export default {
       drag: false,
       fileObject: null,
       rules: {
-        required: (v) => !!v || this.$i18n.t("recipe.key-name-required"),
-        whiteSpace: (v) =>
+        required: v => !!v || this.$i18n.t("recipe.key-name-required"),
+        whiteSpace: v =>
           !v ||
           v.split(" ").length <= 1 ||
           this.$i18n.t("recipe.no-white-space-allowed"),
@@ -274,7 +286,7 @@ export default {
   methods: {
     async getCategories() {
       let response = await api.categories.get_all();
-      this.categories = response.map((cat) => cat.name);
+      this.categories = response.map(cat => cat.name);
     },
     uploadImage() {
       this.$emit("upload", this.fileObject);
@@ -321,7 +333,7 @@ export default {
 
     appendSteps(steps) {
       let processSteps = [];
-      steps.forEach((element) => {
+      steps.forEach(element => {
         processSteps.push({ text: element });
       });
 
