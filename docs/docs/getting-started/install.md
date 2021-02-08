@@ -14,7 +14,7 @@ Deployment with the Docker CLI can be done with `docker run` and specify the dat
 docker run \
     -e db_type='sqlite' \
     -p 9000:80 \
-    -v `pwd`:'/app_data/' \
+    -v `pwd`:'/app/data/' \
     hkotel/mealie:latest
 
 ```
@@ -35,7 +35,7 @@ services:
       db_type: sqlite
       TZ: America/Anchorage
     volumes:
-      - ./mealie/data/:/app_data
+      - ./mealie/data/:/app/data
 
 ```
 

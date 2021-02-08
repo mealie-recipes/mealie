@@ -98,7 +98,7 @@ def import_database(
     return imported
 
 
-@router.delete("/{file_name}/delete", tags=["Import / Export"], status_code=200)
+@router.delete("/{file_name}/delete", status_code=200)
 def delete_backup(file_name: str):
     """ Removes a database backup from the file system """
 

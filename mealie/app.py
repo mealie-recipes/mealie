@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 # import utils.startup as startup
-from app_config import CWD, DATA_DIR, PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
+from app_config import APP_VERSION, PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
 from routes import (
     backup_routes,
     debug_routes,
@@ -37,7 +37,7 @@ TODO:
 app = FastAPI(
     title="Mealie",
     description="A place for all your recipes",
-    version="0.0.1",
+    version=APP_VERSION,
     docs_url=docs_url,
     redoc_url=redoc_url,
 )

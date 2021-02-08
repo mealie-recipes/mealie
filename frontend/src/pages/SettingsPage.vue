@@ -44,6 +44,7 @@ import General from "../components/Settings/General";
 import Webhooks from "../components/Settings/Webhook";
 import Theme from "../components/Settings/Theme";
 import Migration from "../components/Settings/Migration";
+import api from "../api";
 import axios from "axios";
 
 export default {
@@ -57,11 +58,13 @@ export default {
   data() {
     return {
       latestVersion: null,
-      version: "v0.1.0",
+      version: null,
     };
   },
-  mounted() {
+  async mounted() {
     this.getVersion();
+    let versionData = await api.meta.get_version();
+    this.version = versionData.version;
   },
   computed: {
     newVersion() {

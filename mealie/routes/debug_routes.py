@@ -1,12 +1,17 @@
 import json
-import os
 
-from app_config import DEBUG_DIR
+from app_config import APP_VERSION, DEBUG_DIR
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 from utils.logger import LOGGER_FILE
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])
+
+
+@router.get("/version")
+async def get_mealie_version():
+    """ Returns the current version of mealie"""
+    return {"version": APP_VERSION}
 
 
 @router.get("/last-recipe-json")

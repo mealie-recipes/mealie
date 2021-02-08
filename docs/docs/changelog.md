@@ -56,7 +56,6 @@ This is, what I think, is a big release! Tons of new features and some great qua
 !!! error "Breaking Changes"
     - API endpoints have been refactored to adhear to a more consistent standard. This is a WIP and more changes are likely to occur. 
     - Officially Dropped MongoDB Support
-    - Mounting volume moved to different internal location due to development issues. New volume should be mounted as `mealie/data:/app_data/`. Volume mounts need to be changed. 
     - Database Breaks! We have not yet implemented a database migration service. As such, upgrades cannot be done by simply pulling the image. You must first export your recipes, update your deployment, and then import your recipes. This pattern is likely to be how upgrades take place prior to v1.0. After v1.0 migrations will be done automatically. 
 
 ## v0.1.0 - Initial Beta

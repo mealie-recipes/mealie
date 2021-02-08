@@ -5,7 +5,7 @@ RUN npm install
 COPY ./frontend/ .
 RUN npm run build
 
-FROM python:3.8-alpine
+FROM python:3.9-alpine
 
 RUN apk add --no-cache  libxml2-dev libxslt-dev libxml2 
 ENV ENV prod
