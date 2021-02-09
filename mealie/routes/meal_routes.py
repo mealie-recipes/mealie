@@ -53,7 +53,7 @@ def update_meal_plan(
     #         detail=SnackResponse.error("Unable to Update Mealplan"),
     #     )
 
-    return SnackResponse.success("Mealplan Updated")
+    return SnackResponse.info("Mealplan Updated")
 
 
 @router.delete("/{plan_id}")
@@ -62,7 +62,7 @@ def delete_meal_plan(plan_id, db: Session = Depends(generate_session)):
 
     MealPlan.delete(db, plan_id)
 
-    return SnackResponse.success("Mealplan Deleted")
+    return SnackResponse.error("Mealplan Deleted")
 
 
 @router.get("/today", tags=["Meal Plan"])

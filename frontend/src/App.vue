@@ -63,11 +63,6 @@ export default {
     this.$store.dispatch("initLang");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
-
-    this.flashMessage.success({
-      title: "Success Message Title",
-      message: "Hoorah, it is my fist npm package and it works!",
-    });
   },
 
   data: () => ({
@@ -100,4 +95,34 @@ export default {
 </script>
 
 <style>
+.notify-info-color {
+  border: 1px, solid, var(--v-info-base) !important;
+  border-left: 3px, solid, var(--v-info-base) !important;
+  background-color: var(--v-info-base) !important;
+}
+
+.notify-warning-color {
+  border: 1px, solid, var(--v-warning-base) !important;
+  border-left: 3px, solid, var(--v-warning-base) !important;
+  background-color: var(--v-warning-base) !important;
+}
+
+.notify-error-color {
+  border: 1px, solid, var(--v-error-base) !important;
+  border-left: 3px, solid, var(--v-error-base) !important;
+  background-color: var(--v-error-base) !important;
+}
+
+.notify-success-color {
+  border: 1px, solid, var(--v-success-base) !important;
+  border-left: 3px, solid, var(--v-success-base) !important;
+  background-color: var(--v-success-base) !important;
+}
+
+.notify-base {
+  color: white !important;
+  margin-right: 60px;
+  margin-bottom: -5px;
+  opacity: 0.9 !important;
+}
 </style>

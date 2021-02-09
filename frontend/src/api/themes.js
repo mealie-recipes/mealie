@@ -1,14 +1,14 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 
-const prefix = baseURL + "themes/";
+const prefix = baseURL + "themes";
 
 const settingsURLs = {
   allThemes: `${baseURL}themes`,
-  specificTheme: themeName => `${prefix}${themeName}`,
-  createTheme: `${prefix}create`,
-  updateTheme: themeName => `${prefix}${themeName}`,
-  deleteTheme: themeName => `${prefix}${themeName}`,
+  specificTheme: themeName => `${prefix}/${themeName}`,
+  createTheme: `${prefix}/create`,
+  updateTheme: themeName => `${prefix}/${themeName}`,
+  deleteTheme: themeName => `${prefix}/${themeName}`,
 };
 
 export default {
@@ -33,6 +33,7 @@ export default {
       colors: colors,
     };
     let response = await apiReq.put(settingsURLs.updateTheme(themeName), body);
+    console.log(response.data);
     return response.data;
   },
 

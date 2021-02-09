@@ -110,4 +110,4 @@ def delete_backup(file_name: str):
             detail=SnackResponse.error("Unable to Delete Backup. See Log File"),
         )
 
-    return SnackResponse.success(f"{file_name} Deleted")
+    return SnackResponse.error(f"{file_name} Deleted")

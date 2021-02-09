@@ -62,7 +62,7 @@ def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
             status_code=404, detail=SnackResponse.error("Unable to Delete Recipe")
         )
 
-    return SnackResponse.success("Recipe Deleted")
+    return SnackResponse.error(f"Recipe {recipe_slug} Deleted")
 
 
 @router.get("/{recipe_slug}/image")

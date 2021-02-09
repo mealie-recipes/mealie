@@ -158,12 +158,6 @@ export default {
       disabledSteps: [],
     };
   },
-  mounted() {
-    this.flashMessage.success({
-      title: "Success Message Recipe",
-      message: "Hoorah, it is my fist npm package and it works!",
-    });
-  },
   methods: {
     toggleDisabled(stepIndex) {
       if (this.disabledSteps.includes(stepIndex)) {

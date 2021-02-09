@@ -1,19 +1,13 @@
 const baseURL = "/api/";
 import axios from "axios";
-import { vueApp } from "../main";
-
+import utils from "../utils";
 // look for data.snackbar in response
 function processResponse(response) {
   try {
-    vueApp.flashMessage.show({
-      status: response.data.snackbar.type,
-      title: 'Error Message Title',
-      message: response.data.snackbar.text
-    });
+    utils.notify.show(response.data.snackbar.text, response.data.snackbar.type);
   } catch (err) {
     return;
   }
-
 
   return;
 }
@@ -37,7 +31,7 @@ const apiReq = {
         return response;
       } else return;
     });
-    // processResponse(response);
+    processResponse(response);
     return response;
   },
 
