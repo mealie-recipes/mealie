@@ -9,6 +9,7 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
+    "@adapttive/vue-markdown": "^3.0.3",
     "axios": "^0.21.1",
     "core-js": "^3.8.2",
     "fuse.js": "^6.4.6",

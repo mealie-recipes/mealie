@@ -7,6 +7,7 @@ import sqlalchemy.orm as orm
 from db.sql.model_base import BaseMixins, SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.ext.orderinglist import ordering_list
+from sqlalchemy.orm import validates
 from utils.logger import logger
 
 
@@ -43,11 +44,16 @@ recipes2tags = sa.Table(
 class Category(SqlAlchemyBase):
     __tablename__ = "categories"
     id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.String, index=True)
-    slug = sa.Column(sa.String, index=True, unique=True)
+    name = sa.Column(sa.String, index=True, nullable=False)
+    slug = sa.Column(sa.String, index=True, unique=True, nullable=False)
     recipes = orm.relationship(
         "RecipeModel", secondary=recipes2categories, back_populates="categories"
     )
+
+    @validates("name")
+    def validate_name(self, key, name):
+        assert not name == ""
+        return name
 
     def __init__(self, name) -> None:
         self.name = name.strip()
@@ -55,8 +61,9 @@ class Category(SqlAlchemyBase):
 
     @staticmethod
     def create_if_not_exist(session, name: str = None):
+        test_slug = slugify(name)
         try:
-            result = session.query(Category).filter(Category.name == name.strip()).one()
+            result = session.query(Category).filter(Category.slug == test_slug).one()
             if result:
                 logger.info("Category exists, associating recipe")
                 return result
@@ -82,11 +89,16 @@ class Category(SqlAlchemyBase):
 class Tag(SqlAlchemyBase):
     __tablename__ = "tags"
     id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.String, index=True)
-    slug = sa.Column(sa.String, index=True, unique=True)
+    name = sa.Column(sa.String, index=True, nullable=False)
+    slug = sa.Column(sa.String, index=True, unique=True, nullable=False)
     recipes = orm.relationship(
         "RecipeModel", secondary=recipes2tags, back_populates="tags"
     )
+
+    @validates("name")
+    def validate_name(self, key, name):
+        assert not name == ""
+        return name
 
     def to_str(self):
         return self.name
@@ -105,8 +117,9 @@ class Tag(SqlAlchemyBase):
 
     @staticmethod
     def create_if_not_exist(session, name: str = None):
+        test_slug = slugify(name)
         try:
-            result = session.query(Tag).filter(Tag.name == name.strip()).first()
+            result = session.query(Tag).filter(Tag.slug == test_slug).first()
 
             if result:
                 logger.info("Tag exists, associating recipe")
@@ -169,7 +182,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     id = sa.Column(sa.Integer, primary_key=True)
 
     # General Recipe Properties
-    name = sa.Column(sa.String)
+    name = sa.Column(sa.String, nullable=False)
     description = sa.Column(sa.String)
     image = sa.Column(sa.String)
     recipeYield = sa.Column(sa.String)
@@ -204,6 +217,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)
     extras: List[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete")
+
+    @validates("name")
+    def validate_name(self, key, name):
+        assert not name == ""
+        return name
 
     def __init__(
         self,
