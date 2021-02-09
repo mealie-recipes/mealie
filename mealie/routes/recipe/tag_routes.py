@@ -3,6 +3,8 @@ from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 
+from utils.snackbar import SnackResponse
+
 router = APIRouter(tags=["Recipes"])
 
 router = APIRouter(
@@ -30,3 +32,5 @@ async def delete_recipe_tag(tag: str, session: Session = Depends(generate_sessio
     from any recipes that contain it"""
 
     db.tags.delete(session, tag)
+
+    return SnackResponse.error(f"Tag Deleted: {tag}")

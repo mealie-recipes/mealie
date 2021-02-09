@@ -62,7 +62,7 @@ def delete_migration_data(type: str, file_name: str):
     else:
         SnackResponse.error("File/Folder not found.")
 
-    return SnackResponse.info(f"Migration Data Remove: {remove_path.absolute()}")
+    return SnackResponse.error(f"Migration Data Remove: {remove_path.absolute()}")
 
 
 @router.post("/{type}/upload")

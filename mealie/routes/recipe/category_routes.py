@@ -4,6 +4,8 @@ from fastapi import APIRouter, Depends
 from models.category_models import RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 
+from utils.snackbar import SnackResponse
+
 router = APIRouter(
     prefix="/api/categories",
     tags=["Recipe Categories"],
@@ -33,3 +35,5 @@ async def delete_recipe_category(
     from any recipes that contain it """
 
     db.categories.delete(session, category)
+
+    return SnackResponse(f"Category Deleted: {category}")
