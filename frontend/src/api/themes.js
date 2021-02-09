@@ -5,10 +5,10 @@ const prefix = baseURL + "themes/";
 
 const settingsURLs = {
   allThemes: `${baseURL}themes`,
-  specificTheme: (themeName) => `${prefix}themes/${themeName}`,
-  createTheme: `${prefix}themes/create`,
-  updateTheme: (themeName) => `${prefix}themes/${themeName}`,
-  deleteTheme: (themeName) => `${prefix}themes/${themeName}`,
+  specificTheme: themeName => `${prefix}${themeName}`,
+  createTheme: `${prefix}create`,
+  updateTheme: themeName => `${prefix}${themeName}`,
+  deleteTheme: themeName => `${prefix}${themeName}`,
 };
 
 export default {

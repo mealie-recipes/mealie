@@ -29,6 +29,7 @@
         <SnackBar />
         <router-view></router-view>
       </v-container>
+      <FlashMessage :position="'right bottom'"></FlashMessage>
     </v-main>
   </v-app>
 </template>
@@ -62,6 +63,11 @@ export default {
     this.$store.dispatch("initLang");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
+
+    this.flashMessage.success({
+      title: "Success Message Title",
+      message: "Hoorah, it is my fist npm package and it works!",
+    });
   },
 
   data: () => ({
@@ -94,5 +100,4 @@ export default {
 </script>
 
 <style>
-
 </style>
