@@ -98,12 +98,6 @@ class Recipe(BaseModel):
         except:
             recipe_dict["image"] = "no image"
 
-        # try:
-        #     total_time = recipe_dict.get("totalTime")
-        #     recipe_dict["totalTime"] = str(total_time)
-        # except:
-        #     pass
-
         recipe_doc = db.recipes.save_new(session, recipe_dict)
         recipe = Recipe(**recipe_doc)
 
