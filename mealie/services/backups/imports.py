@@ -95,9 +95,24 @@ class ImportDatabase:
             del recipe_dict["_id"]
             del recipe_dict["dateAdded"]
         except:
-            logger.info("Detected new backup Schema, skipping migration...")
-            return recipe_dict
+            pass
         # Migration from list to Object Type Data
+        try:
+            if "" in recipe_dict["tags"]:
+                recipe_dict["tags"] = [
+                    tag for tag in recipe_dict["tags"] if not tag == ""
+                ]
+        except:
+            pass
+
+        try:
+            if "" in recipe_dict["categories"]:
+                recipe_dict["categories"] = [
+                    cat for cat in recipe_dict["categories"] if not cat == ""
+                ]
+        except:
+            pass
+
         if type(recipe_dict["extras"]) == list:
             recipe_dict["extras"] = {}
 
