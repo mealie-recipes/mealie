@@ -1,4 +1,4 @@
-import api from "../../api";
+import api from "@/api";
 import Vuetify from "../../plugins/vuetify";
 
 function inDarkMode(payload) {
@@ -60,9 +60,9 @@ const actions = {
 };
 
 const getters = {
-  getActiveTheme: (state) => state.activeTheme,
-  getDarkMode: (state) => state.darkMode,
-  getIsDark: (state) => state.isDark,
+  getActiveTheme: state => state.activeTheme,
+  getDarkMode: state => state.darkMode,
+  getIsDark: state => state.isDark,
 };
 
 export default {

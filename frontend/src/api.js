@@ -8,7 +8,7 @@ import myUtils from "./api/upload";
 import category from "./api/category";
 import meta from "./api/meta";
 
-// import api from "../api";
+// import api from "@/api";
 
 export default {
   recipes: recipe,

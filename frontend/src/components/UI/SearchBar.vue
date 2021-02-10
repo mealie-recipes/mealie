@@ -45,7 +45,7 @@
 
 <script>
 import Fuse from "fuse.js";
-import utils from "../../utils";
+import utils from "@/utils";
 
 export default {
   props: {

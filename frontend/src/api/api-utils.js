@@ -1,6 +1,6 @@
 const baseURL = "/api/";
 import axios from "axios";
-import utils from "../utils";
+import utils from "@/utils";
 
 function processResponse(response) {
   try {

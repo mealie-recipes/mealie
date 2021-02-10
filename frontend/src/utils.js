@@ -1,4 +1,4 @@
-// import utils from "../../utils";
+// import utils from "@/utils";
 // import Vue from "vue";
 // import Vuetify from "./plugins/vuetify";
 import { vueApp } from "./main";

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import api from "../api";
+import api from "@/api";
 
 import RecipeEditor from "../components/Recipe/RecipeEditor";
 import VJsoneditor from "v-jsoneditor";

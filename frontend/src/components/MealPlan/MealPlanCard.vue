@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import utils from "../../utils";
+import utils from "@/utils";
 import SearchDialog from "../UI/SearchDialog";
 export default {
   components: {
