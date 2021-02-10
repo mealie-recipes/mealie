@@ -221,18 +221,18 @@
                     elevation="0"
                     @click="removeStep(index)"
                   >
-                    <v-icon color="error">mdi-delete</v-icon> </v-btn
-                  >{{
-                    $t("recipe.step-index", { step: index + 1 })
-                  }}</v-card-title
-                >
+                    <v-icon color="error">mdi-delete</v-icon>
+                  </v-btn>
+                  {{ $t("recipe.step-index", { step: index + 1 }) }}
+                </v-card-title>
                 <v-card-text>
                   <v-textarea
                     auto-grow
                     dense
                     v-model="value.recipeInstructions[index]['text']"
                     :key="generateKey('instructions', index)"
-                  ></v-textarea>
+                  >
+                  </v-textarea>
                 </v-card-text>
               </v-card>
             </v-hover>
