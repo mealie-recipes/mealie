@@ -14,7 +14,7 @@ from w3lib.html import get_base_url
 from services.image_services import scrape_image
 from services.recipe_services import Recipe
 
-TEMP_FILE = DEBUG_DIR.joinpath("last_recipe.json")
+LAST_JSON = DEBUG_DIR.joinpath("last_recipe.json")
 
 
 def cleanhtml(raw_html):
@@ -121,6 +121,7 @@ def process_recipe_data(new_recipe: dict, url=None) -> dict:
 
 def extract_recipe_from_html(html: str, url: str) -> dict:
     scraped_recipes: List[dict] = scrape_schema_recipe.loads(html, python_objects=True)
+    dump_last_json(scraped_recipes)
 
     if not scraped_recipes:
         scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(
@@ -188,6 +189,13 @@ def basic_recipe_from_opengraph(html: str, url: str) -> dict:
     }
 
 
+def dump_last_json(recipe_data: dict):
+    with open(LAST_JSON, "w") as f:
+        f.write(json.dumps(recipe_data, indent=4, default=str))
+
+    return
+
+
 def process_recipe_url(url: str) -> dict:
     r = requests.get(url)
     new_recipe = extract_recipe_from_html(r.text, url)
@@ -197,9 +205,6 @@ def process_recipe_url(url: str) -> dict:
 
 def create_from_url(url: str) -> Recipe:
     recipe_data = process_recipe_url(url)
-
-    with open(TEMP_FILE, "w") as f:
-        f.write(json.dumps(recipe_data, indent=4, default=str))
 
     recipe = Recipe(**recipe_data)
 
