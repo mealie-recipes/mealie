@@ -26,14 +26,5 @@ def test_webhooks():
 def update_settings(data: SiteSettings, db: Session = Depends(generate_session)):
     """ Returns Site Settings """
     data.update(db)
-    # try:
-    #     data.update()
-    # except:
-    #     raise HTTPException(
-    #         status_code=400, detail=SnackResponse.error("Unable to Save Settings")
-    #     )
 
     return SnackResponse.success("Settings Updated")
-
-
-

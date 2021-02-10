@@ -22,11 +22,6 @@ def set_meal_plan(data: MealPlan, db: Session = Depends(generate_session)):
     data.process_meals(db)
     data.save_to_db(db)
 
-    #     raise HTTPException(
-    #         status_code=404,
-    #         detail=SnackResponse.error("Unable to Create Mealplan See Log"),
-    #     )
-
     return SnackResponse.success("Mealplan Created")
 
 
@@ -44,14 +39,6 @@ def update_meal_plan(
     """ Updates a meal plan based off ID """
     meal_plan.process_meals(db)
     meal_plan.update(db, plan_id)
-    # try:
-    #     meal_plan.process_meals()
-    #     meal_plan.update(plan_id)
-    # except:
-    #     raise HTTPException(
-    #         status_code=404,
-    #         detail=SnackResponse.error("Unable to Update Mealplan"),
-    #     )
 
     return SnackResponse.info("Mealplan Updated")
 
