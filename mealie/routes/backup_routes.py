@@ -66,7 +66,7 @@ def upload_backup_zipfile(archive: UploadFile = File(...)):
 
 
 @router.get("/{file_name}/download")
-def upload_nextcloud_zipfile(file_name: str):
+async def upload_nextcloud_zipfile(file_name: str):
     """ Upload a .zip File to later be imported into Mealie """
     file = BACKUP_DIR.joinpath(file_name)
 
