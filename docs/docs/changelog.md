@@ -3,6 +3,7 @@
 ## v0.3.0 - Draft!
 
 ### Features and Improvements
+  - Open search with `/` hotkey! 
   - Unified and improved snackbar notifications
   - Recipe Viewer
     - Categories, Tags, and Notes will not be displayed below the steps on smaller screens
