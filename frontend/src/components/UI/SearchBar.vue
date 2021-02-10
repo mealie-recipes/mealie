@@ -12,6 +12,8 @@
       hide-no-data
       cache-items
       solo
+      autofocus
+      auto-select-first
     >
       <template
         v-if="showResults"

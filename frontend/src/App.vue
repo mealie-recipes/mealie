@@ -11,6 +11,7 @@
       <v-spacer></v-spacer>
       <v-expand-x-transition>
         <SearchBar
+          ref="mainSearchBar"
           class="mt-7"
           v-if="search"
           :show-results="true"
@@ -54,6 +55,13 @@ export default {
     $route() {
       this.search = false;
     },
+  },
+  created() {
+    window.addEventListener("keyup", e => {
+      if (e.key == "/") {
+        this.search = !this.search;
+      }
+    });
   },
 
   mounted() {
