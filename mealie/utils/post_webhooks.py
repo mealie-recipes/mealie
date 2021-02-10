@@ -1,15 +1,17 @@
 import json
 
 import requests
+from db.database import db
 from db.db_setup import create_session
+from models.settings_models import SiteSettings
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
-from services.settings_services import SiteSettings
 
 
 def post_webhooks():
     session = create_session()
-    all_settings = SiteSettings.get_site_settings(session)
+    all_settings = db.get(session, "main")
+    all_settings = SiteSettings(**all_settings)
 
     if all_settings.webhooks.enabled:
         todays_meal = Recipe.get_by_slug(MealPlan.today()).dict()

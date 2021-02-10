@@ -1,6 +1,7 @@
+from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from services.settings_services import SiteSettings
+from models.settings_models import SiteSettings
 from sqlalchemy.orm.session import Session
 from utils.post_webhooks import post_webhooks
 from utils.snackbar import SnackResponse
@@ -12,7 +13,7 @@ router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 def get_main_settings(session: Session = Depends(generate_session)):
     """ Returns basic site settings """
 
-    return SiteSettings.get_site_settings(session)
+    return db.settings.get(session, "main")
 
 
 @router.post("/webhooks/test")
@@ -25,6 +26,6 @@ def test_webhooks():
 @router.put("")
 def update_settings(data: SiteSettings, session: Session = Depends(generate_session)):
     """ Returns Site Settings """
-    data.update(session)
+    db.settings.update(session, "main", data.dict())
 
     return SnackResponse.success("Settings Updated")

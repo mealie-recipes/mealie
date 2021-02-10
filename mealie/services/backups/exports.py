@@ -4,11 +4,11 @@ from datetime import datetime
 from pathlib import Path
 
 from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
+from db.database import db
 from db.db_setup import create_session
 from jinja2 import Template
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
-from services.settings_services import SiteSettings, SiteTheme
 from utils.logger import logger
 
 
@@ -88,20 +88,18 @@ class ExportDatabase:
             shutil.copy(file, self.img_dir.joinpath(file.name))
 
     def export_settings(self):
-        all_settings = SiteSettings.get_site_settings(self.session)
+        all_settings = db.settings.get(self.session, "main")
         out_file = self.settings_dir.joinpath("settings.json")
-        ExportDatabase._write_json_file(all_settings.dict(), out_file)
+        ExportDatabase._write_json_file(all_settings, out_file)
 
     def export_themes(self):
-        all_themes = SiteTheme.get_all(self.session)
+        all_themes = db.themes.get_all(self.session)
         if all_themes:
-            all_themes = [x.dict() for x in all_themes]
             out_file = self.themes_dir.joinpath("themes.json")
             ExportDatabase._write_json_file(all_themes, out_file)
 
-    def export_meals(
-        self,
-    ):  #! Problem Parseing Datetime Objects... May come back to this
+    def export_meals(self):
+        #! Problem Parseing Datetime Objects... May come back to this
         meal_plans = MealPlan.get_all(self.session)
         if meal_plans:
             meal_plans = [x.dict() for x in meal_plans]

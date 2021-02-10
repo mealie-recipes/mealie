@@ -1,5 +1,4 @@
 import datetime
-import json
 from pathlib import Path
 from typing import Any, List, Optional
 
@@ -98,7 +97,7 @@ class Recipe(BaseModel):
         except:
             recipe_dict["image"] = "no image"
 
-        recipe_doc = db.recipes.save_new(session, recipe_dict)
+        recipe_doc = db.recipes.create(session, recipe_dict)
         recipe = Recipe(**recipe_doc)
 
         return recipe.slug
