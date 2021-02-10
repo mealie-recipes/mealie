@@ -148,7 +148,7 @@ class ImportDatabase:
         with open(settings_file, "r") as f:
             settings: dict = json.loads(f.read())
 
-            db.settings.update(self.session, settings)
+            db.settings.update(self.session, settings.get("name"), settings)
 
     def clean_up(self):
         shutil.rmtree(TEMP_DIR)
