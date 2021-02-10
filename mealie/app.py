@@ -19,6 +19,7 @@ from routes.recipe import (
     recipe_crud_routes,
     tag_routes,
 )
+from services.settings_services import default_settings_init
 from utils.logger import logger
 
 app = FastAPI(
@@ -39,6 +40,7 @@ def start_scheduler():
 
 
 def init_settings():
+    default_settings_init()
     import services.theme_services
 
 

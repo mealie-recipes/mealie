@@ -164,7 +164,11 @@ def og_fields(properties: List[Tuple[str, str]], field_name: str) -> List[str]:
 def basic_recipe_from_opengraph(html: str, url: str) -> dict:
     base_url = get_base_url(html, url)
     data = extruct.extract(html, base_url=base_url)
-    properties = data["opengraph"][0]["properties"]
+    try:
+        properties = data["opengraph"][0]["properties"]
+    except:
+        return
+
     return {
         "name": og_field(properties, "og:title"),
         "description": og_field(properties, "og:description"),

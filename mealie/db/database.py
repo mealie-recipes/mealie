@@ -52,9 +52,10 @@ class _Settings(BaseDocument):
         new_settings = self.sql_model(main.get("name"), webhooks)
 
         session.add(new_settings)
+        return_data = new_settings.dict()
         session.commit()
 
-        return new_settings.dict()
+        return return_data
 
 
 class _Themes(BaseDocument):

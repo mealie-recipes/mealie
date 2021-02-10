@@ -1,19 +1,16 @@
 from db.database import db
 from db.db_setup import create_session, sql_exists
 from models.settings_models import SiteSettings, Webhooks
+from sqlalchemy.orm.session import Session
 
 
-def default_settings_init():
-    session = create_session()
+def default_settings_init(session: Session = None):
+    if session == None:
+        session = create_session()
     try:
-        document = db.settings.get(session, "main")
-    except:
         webhooks = Webhooks()
         default_entry = SiteSettings(name="main", webhooks=webhooks)
         document = db.settings.create(session, default_entry.dict(), webhooks.dict())
+    except:
+        pass
 
-    session.close()
-
-
-if not sql_exists:
-    default_settings_init()
