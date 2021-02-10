@@ -66,7 +66,7 @@ def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
 
 
 @router.get("/{recipe_slug}/image")
-def get_recipe_img(recipe_slug: str):
+async def get_recipe_img(recipe_slug: str):
     """ Takes in a recipe slug, returns the static image """
     recipe_image = read_image(recipe_slug)
 
