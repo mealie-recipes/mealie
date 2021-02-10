@@ -32,10 +32,10 @@ def available_imports():
 
 
 @router.post("/export/database", status_code=201)
-def export_database(data: BackupJob, db: Session = Depends(generate_session)):
+def export_database(data: BackupJob, session: Session = Depends(generate_session)):
     """Generates a backup of the recipe database in json format."""
     export_path = backup_all(
-        session=db,
+        session=session,
         tag=data.tag,
         templates=data.templates,
         export_recipes=data.options.recipes,
@@ -80,12 +80,12 @@ async def upload_nextcloud_zipfile(file_name: str):
 
 @router.post("/{file_name}/import", status_code=200)
 def import_database(
-    file_name: str, import_data: ImportJob, db: Session = Depends(generate_session)
+    file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)
 ):
     """ Import a database backup file generated from Mealie. """
 
     import_db = ImportDatabase(
-        session=db,
+        session=session,
         zip_archive=import_data.name,
         import_recipes=import_data.recipes,
         force_import=import_data.force,

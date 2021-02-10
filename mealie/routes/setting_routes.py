@@ -9,10 +9,10 @@ router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 
 
 @router.get("")
-def get_main_settings(db: Session = Depends(generate_session)):
+def get_main_settings(session: Session = Depends(generate_session)):
     """ Returns basic site settings """
 
-    return SiteSettings.get_site_settings(db)
+    return SiteSettings.get_site_settings(session)
 
 
 @router.post("/webhooks/test")
@@ -23,8 +23,8 @@ def test_webhooks():
 
 
 @router.put("")
-def update_settings(data: SiteSettings, db: Session = Depends(generate_session)):
+def update_settings(data: SiteSettings, session: Session = Depends(generate_session)):
     """ Returns Site Settings """
-    data.update(db)
+    data.update(session)
 
     return SnackResponse.success("Settings Updated")

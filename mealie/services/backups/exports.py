@@ -110,7 +110,7 @@ class ExportDatabase:
         ExportDatabase._write_json_file(meal_plans, out_file)
 
     @staticmethod
-    def _write_json_file(data, out_file: Path):
+    def _write_json_file(data: dict, out_file: Path):
         json_data = json.dumps(data, indent=4, default=str)
 
         with open(out_file, "w") as f:

@@ -37,14 +37,14 @@ def get_avaiable_nextcloud_imports():
 
 @router.post("/{type}/{file_name}/import")
 def import_nextcloud_directory(
-    type: str, file_name: str, db: Session = Depends(generate_session)
+    type: str, file_name: str, session: Session = Depends(generate_session)
 ):
     """ Imports all the recipes in a given directory """
     file_path = MIGRATION_DIR.joinpath(type, file_name)
     if type == "nextcloud":
-        return nextcloud_migrate(db, file_path)
+        return nextcloud_migrate(session, file_path)
     elif type == "chowdown":
-        return chowdow_migrate(db, file_path)
+        return chowdow_migrate(session, file_path)
     else:
         return SnackResponse.error("Incorrect Migration Type Selected")
 
