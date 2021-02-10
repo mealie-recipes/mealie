@@ -41,21 +41,23 @@
       >
       </v-text-field>
       <v-textarea
-        height="100"
+        auto-grow
+        min-height="100"
         :label="$t('recipe.description')"
         v-model="value.description"
       >
       </v-textarea>
       <div class="my-2"></div>
       <v-row dense disabled>
-        <v-col sm="5">
+        <v-col sm="4">
           <v-text-field
             :label="$t('recipe.servings')"
             v-model="value.recipeYield"
+            class="rounded-sm"
           >
           </v-text-field>
         </v-col>
-        <v-col></v-col>
+        <v-spacer></v-spacer>
         <v-rating
           class="mr-2 align-end"
           color="secondary darken-1"
@@ -186,6 +188,7 @@
               </v-row>
 
               <v-textarea
+                auto-grow
                 :label="$t('recipe.note')"
                 v-model="value.notes[index]['text']"
               >
@@ -225,6 +228,7 @@
                 >
                 <v-card-text>
                   <v-textarea
+                    auto-grow
                     dense
                     v-model="value.recipeInstructions[index]['text']"
                     :key="generateKey('instructions', index)"
