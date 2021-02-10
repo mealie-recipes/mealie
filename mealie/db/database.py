@@ -17,7 +17,7 @@ class _Recipes(BaseDocument):
         self.primary_key = "slug"
         self.sql_model = RecipeModel
 
-    def update_image(self, session: Session, slug: str, extension: str) -> str:
+    def update_image(self, session: Session, slug: str, extension: str = None) -> str:
         entry: RecipeModel = self._query_one(session, match_value=slug)
         entry.image = f"{slug}.{extension}"
         session.commit()

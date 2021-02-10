@@ -115,7 +115,7 @@ class Recipe(BaseModel):
         return updated_slug.get("slug")
 
     @staticmethod
-    def update_image(slug: str, extension: str) -> str:
+    def update_image(session: Session, slug: str, extension: str = None) -> str:
         """A helper function to pass the new image name and extension
         into the database.
 
@@ -123,11 +123,8 @@ class Recipe(BaseModel):
             slug (str): The current recipe slug
             extension (str): the file extension of the new image
         """
-        return db.recipes.update_image(slug, extension)
+        return db.recipes.update_image(session, slug, extension)
 
     @staticmethod
     def get_all(session: Session):
         return db.recipes.get_all(session)
-
-
-
