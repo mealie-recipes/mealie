@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import api from "@/api";
-import utils from "@/utils";
+import api from "../../api";
+import utils from "../../utils";
 import MealPlanCard from "./MealPlanCard";
 export default {
   components: {

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import api from "../../../api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
 import UploadBtn from "../../UI/UploadBtn";
 import AvailableBackupCard from "./AvailableBackupCard";

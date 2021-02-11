@@ -32,10 +32,10 @@ def available_imports():
 
 
 @router.post("/export/database", status_code=201)
-def export_database(data: BackupJob, session: Session = Depends(generate_session)):
+def export_database(data: BackupJob, db: Session = Depends(generate_session)):
     """Generates a backup of the recipe database in json format."""
     export_path = backup_all(
-        session=session,
+        session=db,
         tag=data.tag,
         templates=data.templates,
         export_recipes=data.options.recipes,
@@ -66,7 +66,7 @@ def upload_backup_zipfile(archive: UploadFile = File(...)):
 
 
 @router.get("/{file_name}/download")
-async def upload_nextcloud_zipfile(file_name: str):
+def upload_nextcloud_zipfile(file_name: str):
     """ Upload a .zip File to later be imported into Mealie """
     file = BACKUP_DIR.joinpath(file_name)
 
@@ -80,12 +80,12 @@ async def upload_nextcloud_zipfile(file_name: str):
 
 @router.post("/{file_name}/import", status_code=200)
 def import_database(
-    file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)
+    file_name: str, import_data: ImportJob, db: Session = Depends(generate_session)
 ):
     """ Import a database backup file generated from Mealie. """
 
     import_db = ImportDatabase(
-        session=session,
+        session=db,
         zip_archive=import_data.name,
         import_recipes=import_data.recipes,
         force_import=import_data.force,
@@ -110,4 +110,4 @@ def delete_backup(file_name: str):
             detail=SnackResponse.error("Unable to Delete Backup. See Log File"),
         )
 
-    return SnackResponse.error(f"{file_name} Deleted")
+    return SnackResponse.success(f"{file_name} Deleted")

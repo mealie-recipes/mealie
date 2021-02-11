@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import api from "../api";
 import CardSection from "../components/UI/CardSection";
 import CategorySidebar from "../components/UI/CategorySidebar";
 export default {
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     async buildPage() {
-      this.homeCategories.forEach(async element => {
+      this.homeCategories.forEach(async (element) => {
         let recipes = await this.getRecipeByCategory(element.slug);
         recipes.position = element.position;
         this.recipeByCategory.push(recipes);

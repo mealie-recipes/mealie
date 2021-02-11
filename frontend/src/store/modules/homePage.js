@@ -1,4 +1,4 @@
-import api from "@/api";
+import api from "../../api";
 
 const state = {
   showRecent: true,
@@ -30,10 +30,10 @@ const actions = {
 };
 
 const getters = {
-  getShowRecent: state => state.showRecent,
-  getShowLimit: state => state.showLimit,
-  getCategories: state => state.categories,
-  getHomeCategories: state => state.homeCategories,
+  getShowRecent: (state) => state.showRecent,
+  getShowLimit: (state) => state.showLimit,
+  getCategories: (state) => state.categories,
+  getHomeCategories: (state) => state.homeCategories,
 };
 
 export default {

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import api from "@/api";
+import api from "../api";
 import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
 import language from "./modules/language";
@@ -64,11 +64,11 @@ const store = new Vuex.Store({
 
   getters: {
     //
-    getSnackText: state => state.snackText,
-    getSnackActive: state => state.snackActive,
-    getSnackType: state => state.snackType,
+    getSnackText: (state) => state.snackText,
+    getSnackActive: (state) => state.snackActive,
+    getSnackType: (state) => state.snackType,
 
-    getRecentRecipes: state => state.recentRecipes,
+    getRecentRecipes: (state) => state.recentRecipes,
   },
 });
 

@@ -1,22 +1,16 @@
 <template>
   <v-app>
     <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
-      <router-link to="/">
-        <v-btn icon>
-          <v-icon size="40"> mdi-silverware-variant </v-icon>
-        </v-btn>
-      </router-link>
-
+      <v-btn @click="$router.push('/')" icon>
+        <v-icon size="40"> mdi-silverware-variant </v-icon>
+      </v-btn>
       <div btn class="pl-2">
-        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
-          >Mealie
-        </v-toolbar-title>
+        <v-toolbar-title @click="$router.push('/')">Mealie</v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
       <v-expand-x-transition>
         <SearchBar
-          ref="mainSearchBar"
           class="mt-7"
           v-if="search"
           :show-results="true"
@@ -35,7 +29,6 @@
         <SnackBar />
         <router-view></router-view>
       </v-container>
-      <FlashMessage :position="'right bottom'"></FlashMessage>
     </v-main>
   </v-app>
 </template>
@@ -60,13 +53,6 @@ export default {
     $route() {
       this.search = false;
     },
-  },
-  created() {
-    window.addEventListener("keyup", e => {
-      if (e.key == "/") {
-        this.search = !this.search;
-      }
-    });
   },
 
   mounted() {
@@ -108,34 +94,5 @@ export default {
 </script>
 
 <style>
-.notify-info-color {
-  border: 1px, solid, var(--v-info-base) !important;
-  border-left: 3px, solid, var(--v-info-base) !important;
-  background-color: var(--v-info-base) !important;
-}
 
-.notify-warning-color {
-  border: 1px, solid, var(--v-warning-base) !important;
-  border-left: 3px, solid, var(--v-warning-base) !important;
-  background-color: var(--v-warning-base) !important;
-}
-
-.notify-error-color {
-  border: 1px, solid, var(--v-error-base) !important;
-  border-left: 3px, solid, var(--v-error-base) !important;
-  background-color: var(--v-error-base) !important;
-}
-
-.notify-success-color {
-  border: 1px, solid, var(--v-success-base) !important;
-  border-left: 3px, solid, var(--v-success-base) !important;
-  background-color: var(--v-success-base) !important;
-}
-
-.notify-base {
-  color: white !important;
-  margin-right: 60px;
-  margin-bottom: -5px;
-  opacity: 0.9 !important;
-}
 </style>
