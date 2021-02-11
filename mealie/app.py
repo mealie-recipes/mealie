@@ -3,22 +3,12 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 # import utils.startup as startup
-from app_config import APP_VERSION, PORT, PRODUCTION, WEB_PATH, docs_url, redoc_url
-from routes import (
-    backup_routes,
-    debug_routes,
-    meal_routes,
-    migration_routes,
-    setting_routes,
-    static_routes,
-    theme_routes,
-)
-from routes.recipe import (
-    all_recipe_routes,
-    category_routes,
-    recipe_crud_routes,
-    tag_routes,
-)
+from app_config import (APP_VERSION, PORT, PRODUCTION, WEB_PATH, docs_url,
+                        redoc_url)
+from routes import (backup_routes, debug_routes, meal_routes, migration_routes,
+                    setting_routes, static_routes, theme_routes)
+from routes.recipe import (all_recipe_routes, category_routes,
+                           recipe_crud_routes, tag_routes)
 from services.settings_services import default_settings_init
 from utils.logger import logger
 
@@ -92,6 +82,7 @@ if __name__ == "__main__":
         port=PORT,
         reload=True,
         debug=True,
+        log_level="info",
         workers=1,
         forwarded_allow_ips="*",
     )
