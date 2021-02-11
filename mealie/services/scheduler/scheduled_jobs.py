@@ -3,9 +3,8 @@ from db.db_setup import create_session
 from services.backups.exports import auto_backup_job
 from services.scheduler.global_scheduler import scheduler
 from services.scheduler.scheduler_utils import Cron, cron_parser
+from services.settings_services import SiteSettings
 from utils.logger import logger
-from models.settings_models import SiteSettings
-from db.database import db
 from utils.post_webhooks import post_webhooks
 
 
@@ -16,8 +15,7 @@ def update_webhook_schedule():
     poll the database for changes and reschedule the webhook time
     """
     session = create_session()
-    settings = db.settings.get(session, "main")
-    settings = SiteSettings(**settings)
+    settings = SiteSettings.get_site_settings(session=session)
     time = cron_parser(settings.webhooks.webhookTime)
     job = JOB_STORE.get("webhooks")
 

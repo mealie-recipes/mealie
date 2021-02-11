@@ -1,5 +1,6 @@
 import json
 import re
+from pathlib import Path
 
 import pytest
 from services.scrape_services import (
@@ -7,7 +8,10 @@ from services.scrape_services import (
     normalize_data,
     normalize_instructions,
 )
-from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
+
+CWD = Path(__file__).parent
+RAW_RECIPE_DIR = CWD.parent.joinpath("data", "recipes-raw")
+RAW_HTML_DIR = CWD.parent.joinpath("data", "html-raw")
 
 # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
 url_validation_regex = re.compile(
@@ -42,7 +46,7 @@ url_validation_regex = re.compile(
     ],
 )
 def test_normalize_data(json_file, num_steps):
-    recipe_data = normalize_data(json.load(open(TEST_RAW_RECIPES.joinpath(json_file))))
+    recipe_data = normalize_data(json.load(open(RAW_RECIPE_DIR.joinpath(json_file))))
     assert len(recipe_data["recipeInstructions"]) == num_steps
 
 
@@ -66,7 +70,7 @@ def test_normalize_instructions(instructions):
 
 
 def test_html_no_recipe_data():
-    path = TEST_RAW_HTML.joinpath("carottes-rapps-with-rice-and-sunflower-seeds.html")
+    path = RAW_HTML_DIR.joinpath("carottes-rapps-with-rice-and-sunflower-seeds.html")
     url = "https://www.feedtheswimmers.com/blog/2019/6/5/carottes-rapps-with-rice-and-sunflower-seeds"
     recipe_data = extract_recipe_from_html(open(path).read(), url)
 
@@ -82,7 +86,7 @@ def test_html_no_recipe_data():
 
 
 def test_html_with_recipe_data():
-    path = TEST_RAW_HTML.joinpath("healthy_pasta_bake_60759.html")
+    path = RAW_HTML_DIR.joinpath("healthy_pasta_bake_60759.html")
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
     recipe_data = extract_recipe_from_html(open(path).read(), url)
 

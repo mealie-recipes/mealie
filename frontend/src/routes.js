@@ -8,7 +8,7 @@ import AllRecipesPage from "./pages/AllRecipesPage";
 import CategoryPage from "./pages/CategoryPage";
 import MeaplPlanPage from "./pages/MealPlanPage";
 import MealPlanThisWeekPage from "./pages/MealPlanThisWeekPage";
-import api from "@/api";
+import api from "./api";
 
 export const routes = [
   { path: "/", component: HomePage },
@@ -24,7 +24,7 @@ export const routes = [
   {
     path: "/meal-plan/today",
     beforeEnter: async (_to, _from, next) => {
-      await todaysMealRoute().then(redirect => {
+      await todaysMealRoute().then((redirect) => {
         next(redirect);
       });
     },

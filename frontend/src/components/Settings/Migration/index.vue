@@ -41,7 +41,7 @@
 <script>
 import MigrationCard from "./MigrationCard";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
-import api from "@/api";
+import api from "../../../api";
 export default {
   components: {
     MigrationCard,
@@ -78,7 +78,7 @@ export default {
     },
     async getAvailableMigrations() {
       let response = await api.migrations.getMigrations();
-      response.forEach(element => {
+      response.forEach((element) => {
         if (element.type === "nextcloud") {
           this.migrations.nextcloud.availableImports = element.files;
         } else if (element.type === "chowdown") {

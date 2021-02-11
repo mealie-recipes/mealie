@@ -62,11 +62,11 @@ def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
             status_code=404, detail=SnackResponse.error("Unable to Delete Recipe")
         )
 
-    return SnackResponse.error(f"Recipe {recipe_slug} Deleted")
+    return SnackResponse.success("Recipe Deleted")
 
 
 @router.get("/{recipe_slug}/image")
-async def get_recipe_img(recipe_slug: str):
+def get_recipe_img(recipe_slug: str):
     """ Takes in a recipe slug, returns the static image """
     recipe_image = read_image(recipe_slug)
 
@@ -75,13 +75,10 @@ async def get_recipe_img(recipe_slug: str):
 
 @router.put("/{recipe_slug}/image")
 def update_recipe_image(
-    recipe_slug: str,
-    image: bytes = File(...),
-    extension: str = Form(...),
-    session: Session = Depends(generate_session),
+    recipe_slug: str, image: bytes = File(...), extension: str = Form(...)
 ):
     """ Removes an existing image and replaces it with the incoming file. """
     response = write_image(recipe_slug, image, extension)
-    Recipe.update_image(session, recipe_slug, extension)
+    Recipe.update_image(recipe_slug, extension)
 
     return response

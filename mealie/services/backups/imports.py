@@ -1,15 +1,12 @@
 import json
 import shutil
 import zipfile
-from logging import error
 from pathlib import Path
 from typing import List
 
 from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR
-from db.database import db
-from models.theme_models import SiteTheme
 from services.recipe_services import Recipe
-from services.settings_services import SiteSettings
+from services.settings_services import SiteSettings, SiteTheme
 from sqlalchemy.orm.session import Session
 from utils.logger import logger
 
@@ -57,7 +54,6 @@ class ImportDatabase:
             raise Exception("Import file does not exist")
 
     def run(self):
-        report = {}
         if self.imp_recipes:
             report = self.import_recipes()
         if self.imp_settings:
@@ -132,13 +128,11 @@ class ImportDatabase:
         themes_file = self.import_dir.joinpath("themes", "themes.json")
 
         with open(themes_file, "r") as f:
-            themes: list[dict] = json.loads(f.read())
+            themes: list = json.loads(f.read())
         for theme in themes:
-            if theme.get("name") == "default":
-                continue
             new_theme = SiteTheme(**theme)
             try:
-                db.themes.create(self.session, new_theme.dict())
+                new_theme.save_to_db(self.session)
             except:
                 logger.info(f"Unable Import Theme {new_theme.name}")
 
@@ -148,7 +142,9 @@ class ImportDatabase:
         with open(settings_file, "r") as f:
             settings: dict = json.loads(f.read())
 
-            db.settings.update(self.session, settings.get("name"), settings)
+            settings = SiteSettings(**settings)
+
+            settings.update(self.session)
 
     def clean_up(self):
         shutil.rmtree(TEMP_DIR)

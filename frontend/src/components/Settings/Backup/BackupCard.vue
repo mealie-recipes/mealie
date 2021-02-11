@@ -38,8 +38,8 @@
 
 <script>
 import ImportDialog from "./ImportDialog";
-import api from "@/api";
-import utils from "@/utils";
+import api from "../../../api";
+import utils from "../../../utils";
 export default {
   props: {
     backups: Array,

@@ -41,23 +41,21 @@
       >
       </v-text-field>
       <v-textarea
-        auto-grow
-        min-height="100"
+        height="100"
         :label="$t('recipe.description')"
         v-model="value.description"
       >
       </v-textarea>
       <div class="my-2"></div>
       <v-row dense disabled>
-        <v-col sm="4">
+        <v-col sm="5">
           <v-text-field
             :label="$t('recipe.servings')"
             v-model="value.recipeYield"
-            class="rounded-sm"
           >
           </v-text-field>
         </v-col>
-        <v-spacer></v-spacer>
+        <v-col></v-col>
         <v-rating
           class="mr-2 align-end"
           color="secondary darken-1"
@@ -188,7 +186,6 @@
               </v-row>
 
               <v-textarea
-                auto-grow
                 :label="$t('recipe.note')"
                 v-model="value.notes[index]['text']"
               >
@@ -221,18 +218,17 @@
                     elevation="0"
                     @click="removeStep(index)"
                   >
-                    <v-icon color="error">mdi-delete</v-icon>
-                  </v-btn>
-                  {{ $t("recipe.step-index", { step: index + 1 }) }}
-                </v-card-title>
+                    <v-icon color="error">mdi-delete</v-icon> </v-btn
+                  >{{
+                    $t("recipe.step-index", { step: index + 1 })
+                  }}</v-card-title
+                >
                 <v-card-text>
                   <v-textarea
-                    auto-grow
                     dense
                     v-model="value.recipeInstructions[index]['text']"
                     :key="generateKey('instructions', index)"
-                  >
-                  </v-textarea>
+                  ></v-textarea>
                 </v-card-text>
               </v-card>
             </v-hover>
@@ -254,8 +250,8 @@
 
 <script>
 import draggable from "vuedraggable";
-import api from "@/api";
-import utils from "@/utils";
+import api from "../../../api";
+import utils from "../../../utils";
 import BulkAdd from "./BulkAdd";
 import ExtrasEditor from "./ExtrasEditor";
 export default {

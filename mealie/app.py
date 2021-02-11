@@ -12,6 +12,7 @@ from routes import (
     setting_routes,
     static_routes,
     theme_routes,
+    user_routes,
 )
 from routes.recipe import (
     all_recipe_routes,
@@ -19,9 +20,20 @@ from routes.recipe import (
     recipe_crud_routes,
     tag_routes,
 )
-from services.settings_services import default_settings_init
 from utils.logger import logger
 
+"""
+TODO:
+- [x] Fix Duplicate Category
+- [x] Fix category overflow
+- [ ] Enable Database Name Versioning
+- [ ] Finish Frontend Category Management
+    - [x] Delete Category
+    - [ ] Sort Sidebar A-Z
+- [ ] Refactor Test Endpoints - Abstract to fixture?
+
+
+"""
 app = FastAPI(
     title="Mealie",
     description="A place for all your recipes",
@@ -39,11 +51,6 @@ def start_scheduler():
     import services.scheduler.scheduled_jobs
 
 
-def init_settings():
-    default_settings_init()
-    import services.theme_services
-
-
 def api_routers():
     # Recipes
     app.include_router(all_recipe_routes.router)
@@ -57,6 +64,8 @@ def api_routers():
     app.include_router(theme_routes.router)
     # Backups/Imports Routes
     app.include_router(backup_routes.router)
+    # User Routes
+    app.include_router(user_routes.router)
     # Migration Routes
     app.include_router(migration_routes.router)
     app.include_router(debug_routes.router)
@@ -81,7 +90,6 @@ app.include_router(static_routes.router)
 #     generate_api_docs(app)
 
 start_scheduler()
-init_settings()
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")

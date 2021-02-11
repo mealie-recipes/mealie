@@ -32,7 +32,6 @@ def default_theme(api_client):
             "error": "#EF5350",
         },
     }
-
     api_client.post(THEMES_CREATE, json=default_theme)
 
     return default_theme
