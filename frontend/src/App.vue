@@ -1,16 +1,22 @@
 <template>
   <v-app>
     <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
-      <v-btn @click="$router.push('/')" icon>
-        <v-icon size="40"> mdi-silverware-variant </v-icon>
-      </v-btn>
+      <router-link to="/">
+        <v-btn icon>
+          <v-icon size="40"> mdi-silverware-variant </v-icon>
+        </v-btn>
+      </router-link>
+
       <div btn class="pl-2">
-        <v-toolbar-title @click="$router.push('/')">Mealie</v-toolbar-title>
+        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
+          >Mealie
+        </v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
       <v-expand-x-transition>
         <SearchBar
+          ref="mainSearchBar"
           class="mt-7"
           v-if="search"
           :show-results="true"
@@ -54,6 +60,13 @@ export default {
     $route() {
       this.search = false;
     },
+  },
+  created() {
+    window.addEventListener("keyup", e => {
+      if (e.key == "/") {
+        this.search = !this.search;
+      }
+    });
   },
 
   mounted() {

@@ -1,7 +1,7 @@
 const baseURL = "/api/";
 import axios from "axios";
-import utils from "../utils";
-// look for data.snackbar in response
+import utils from "@/utils";
+
 function processResponse(response) {
   try {
     utils.notify.show(response.data.snackbar.text, response.data.snackbar.type);

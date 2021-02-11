@@ -3,7 +3,17 @@
 ## v0.3.0 - Draft!
 
 ### Features and Improvements
+  - Open search with `/` hotkey! 
   - Unified and improved snackbar notifications
+  - Recipe Viewer
+    - Categories, Tags, and Notes will not be displayed below the steps on smaller screens
+  - Recipe Editor
+    - Text areas now auto grow to fit content
+    - Description, Steps, and Notes support Markdown! This includes inline html in Markdown. 
+
+### Development / Misc
+  - Added async file response for images, downloading files.
+  - Breakup recipe view component
 
 ## v0.2.0 - Now with Test!
 This is, what I think, is a big release! Tons of new features and some great quality of life improvements with some additional features. You may find that I made promises to include some fixes/features in v0.2.0. The short of is I greatly underestimated the work needed to refactor the database to a usable state and integrate categories in a way that is useful for users. This shouldn't be taken as a sign that I'm dropping those feature requests or ignoring them. I felt it was better to push a release in the current state rather than drag on development to try and fulfil all of the promises I made. 

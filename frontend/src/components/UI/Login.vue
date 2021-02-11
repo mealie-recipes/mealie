@@ -44,14 +44,14 @@
                 color="primary"
                 block="block"
                 type="submit"
-                >{{$t('login.sign-in')}}</v-btn
+                >{{ $t("login.sign-in") }}</v-btn
               >
               <v-btn
                 v-else
                 block="block"
                 type="submit"
                 @click.prevent="options.isLoggingIn = true"
-                >{{$t('login.sign-up')}}</v-btn
+                >{{ $t("login.sign-up") }}</v-btn
               >
             </v-form>
           </v-card-text>
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import api from "../../api";
+import api from "@/api";
 export default {
   props: {},
   data() {

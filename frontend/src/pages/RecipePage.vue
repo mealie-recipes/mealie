@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import api from "../api";
-import utils from "../utils";
+import api from "@/api";
+import utils from "@/utils";
 import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "../components/Recipe/RecipeViewer";
 import RecipeEditor from "../components/Recipe/RecipeEditor";
@@ -107,7 +107,7 @@ export default {
   },
 
   watch: {
-    $route: function () {
+    $route: function() {
       this.getRecipeDetails();
     },
   },

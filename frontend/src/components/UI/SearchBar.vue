@@ -12,6 +12,8 @@
       hide-no-data
       cache-items
       solo
+      autofocus
+      auto-select-first
     >
       <template
         v-if="showResults"
@@ -43,7 +45,7 @@
 
 <script>
 import Fuse from "fuse.js";
-import utils from "../../utils";
+import utils from "@/utils";
 
 export default {
   props: {

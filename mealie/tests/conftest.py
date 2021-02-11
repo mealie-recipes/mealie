@@ -5,6 +5,8 @@ from app_config import SQLITE_DIR
 from db.db_setup import generate_session, sql_global_init
 from fastapi.testclient import TestClient
 from pytest import fixture
+from services.settings_services import default_settings_init
+from services.theme_services import default_theme_init
 
 from tests.test_config import TEST_DATA
 
@@ -18,11 +20,11 @@ TestSessionLocal = sql_global_init(SQLITE_FILE, check_thread=False)
 def override_get_db():
     try:
         db = TestSessionLocal()
+        default_theme_init()
+        default_settings_init()
         yield db
     finally:
         db.close()
-
-
 
 
 @fixture(scope="session")

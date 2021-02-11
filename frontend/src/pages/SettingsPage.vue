@@ -44,7 +44,7 @@ import General from "../components/Settings/General";
 import Webhooks from "../components/Settings/Webhook";
 import Theme from "../components/Settings/Theme";
 import Migration from "../components/Settings/Migration";
-import api from "../api";
+import api from "@/api";
 import axios from "axios";
 
 export default {

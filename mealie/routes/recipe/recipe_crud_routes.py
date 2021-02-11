@@ -66,7 +66,7 @@ def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
 
 
 @router.get("/{recipe_slug}/image")
-def get_recipe_img(recipe_slug: str):
+async def get_recipe_img(recipe_slug: str):
     """ Takes in a recipe slug, returns the static image """
     recipe_image = read_image(recipe_slug)
 
@@ -75,10 +75,13 @@ def get_recipe_img(recipe_slug: str):
 
 @router.put("/{recipe_slug}/image")
 def update_recipe_image(
-    recipe_slug: str, image: bytes = File(...), extension: str = Form(...)
+    recipe_slug: str,
+    image: bytes = File(...),
+    extension: str = Form(...),
+    session: Session = Depends(generate_session),
 ):
     """ Removes an existing image and replaces it with the incoming file. """
     response = write_image(recipe_slug, image, extension)
-    Recipe.update_image(recipe_slug, extension)
+    Recipe.update_image(session, recipe_slug, extension)
 
     return response
