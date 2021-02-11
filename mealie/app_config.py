@@ -16,7 +16,8 @@ ENV = CWD.joinpath(".env")
 dotenv.load_dotenv(ENV)
 
 # General
-APP_VERSION = "v0.2.0"
+APP_VERSION = "v0.2.1"
+DB_VERSION = "v0.2.0"
 PRODUCTION = os.environ.get("ENV")
 PORT = int(os.getenv("mealie_port", 9000))
 API = os.getenv("api_docs", True)
@@ -64,7 +65,7 @@ SQLITE_FILE = None
 DATABASE_TYPE = os.getenv("db_type", "sqlite")
 if DATABASE_TYPE == "sqlite":
     USE_SQL = True
-    SQLITE_FILE = SQLITE_DIR.joinpath(f"mealie_{APP_VERSION}.sqlite")
+    SQLITE_FILE = SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
 
 else:
     raise Exception(

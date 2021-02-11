@@ -53,7 +53,7 @@
               return-object
               v-model="selectedTheme"
               @change="themeSelected"
-              :rules="[(v) => !!v || $t('settings.theme.theme-is-required')]"
+              :rules="[v => !!v || $t('settings.theme.theme-is-required')]"
               required
             >
             </v-select>
@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import api from "../../../api";
+import api from "@/api";
 import ColorPickerDialog from "./ColorPickerDialog";
 import NewThemeDialog from "./NewThemeDialog";
 import Confirmation from "../../UI/Confirmation";
@@ -186,7 +186,7 @@ export default {
       //Change to default if deleting current theme.
       if (
         !this.availableThemes.some(
-          (theme) => theme.name === this.selectedTheme.name
+          theme => theme.name === this.selectedTheme.name
         )
       ) {
         await this.$store.dispatch("resetTheme");

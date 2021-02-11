@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import utils from "../../utils";
+import utils from "@/utils";
 
 export default {
   props: {

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@adapttive/vue-markdown": "^3.0.3",
+    "@smartweb/vue-flash-message": "^0.6.10",
     "axios": "^0.21.1",
     "core-js": "^3.8.2",
     "fuse.js": "^6.4.6",

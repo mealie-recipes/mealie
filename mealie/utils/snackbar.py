@@ -10,18 +10,6 @@ class SnackResponse:
         return snackbar
 
     @staticmethod
-    def primary(message: str, additional_data: dict = None) -> dict:
-        return SnackResponse._create_response(message, "primary", additional_data)
-
-    @staticmethod
-    def accent(message: str, additional_data: dict = None) -> dict:
-        return SnackResponse._create_response(message, "accent", additional_data)
-
-    @staticmethod
-    def secondary(message: str, additional_data: dict = None) -> dict:
-        return SnackResponse._create_response(message, "secondary", additional_data)
-
-    @staticmethod
     def success(message: str, additional_data: dict = None) -> dict:
         return SnackResponse._create_response(message, "success", additional_data)
 
