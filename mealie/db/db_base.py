@@ -106,7 +106,7 @@ class BaseDocument:
 
         return db_entry
 
-    def save_new(self, session: Session, document: dict) -> dict:
+    def create(self, session: Session, document: dict) -> dict:
         """Creates a new database entry for the given SQL Alchemy Model.
 
         Args: \n

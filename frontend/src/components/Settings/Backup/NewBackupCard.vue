@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import api from "../../../api";
+import api from "@/api";
 export default {
   data() {
     return {
@@ -84,7 +84,7 @@ export default {
   methods: {
     async getAvailableBackups() {
       let response = await api.backups.requestAvailable();
-      response.templates.forEach((element) => {
+      response.templates.forEach(element => {
         this.availableTemplates.push(element);
       });
     },
@@ -100,7 +100,6 @@ export default {
         },
         templates: this.selectedTemplates,
       };
-
 
       await api.backups.create(data);
       this.loading = false;

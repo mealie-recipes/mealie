@@ -27,18 +27,7 @@ async def get_log(num: int):
     """ Doc Str """
     with open(LOGGER_FILE, "rb") as f:
         log_text = tail(f, num)
-    HTML_RESPONSE = f"""
-    <html>
-        <head>
-            <title>Mealie Log</title>
-        </head>
-        <body style="white-space: pre-line">
-            <p>
-               {log_text} 
-            </p>
-        </body>
-    </html>
-    """
+    HTML_RESPONSE = log_text
 
     return HTML_RESPONSE
 

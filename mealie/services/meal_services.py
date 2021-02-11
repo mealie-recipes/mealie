@@ -8,19 +8,6 @@ from sqlalchemy.orm.session import Session
 
 from services.recipe_services import Recipe
 
-CWD = Path(__file__).parent
-THIS_WEEK = CWD.parent.joinpath("data", "meal_plan", "this_week.json")
-NEXT_WEEK = CWD.parent.joinpath("data", "meal_plan", "next_week.json")
-WEEKDAYS = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-]
-
 
 class Meal(BaseModel):
     slug: Optional[str]
@@ -81,7 +68,7 @@ class MealPlan(BaseModel):
         self.meals = meals
 
     def save_to_db(self, session: Session):
-        db.meals.save_new(session, self.dict())
+        db.meals.create(session, self.dict())
 
     @staticmethod
     def get_all(session: Session) -> List:

@@ -15,10 +15,10 @@ def facivon():
 
 
 @router.get("/")
-def root():
+async def root():
     return FileResponse(BASE_HTML)
 
 
 @router.get("/{full_path:path}")
-def root_plus(full_path):
+async def root_plus(full_path):
     return FileResponse(BASE_HTML)

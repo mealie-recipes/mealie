@@ -1,5 +1,4 @@
 import datetime
-import json
 from pathlib import Path
 from typing import Any, List, Optional
 
@@ -98,13 +97,7 @@ class Recipe(BaseModel):
         except:
             recipe_dict["image"] = "no image"
 
-        # try:
-        #     total_time = recipe_dict.get("totalTime")
-        #     recipe_dict["totalTime"] = str(total_time)
-        # except:
-        #     pass
-
-        recipe_doc = db.recipes.save_new(session, recipe_dict)
+        recipe_doc = db.recipes.create(session, recipe_dict)
         recipe = Recipe(**recipe_doc)
 
         return recipe.slug
@@ -122,7 +115,7 @@ class Recipe(BaseModel):
         return updated_slug.get("slug")
 
     @staticmethod
-    def update_image(slug: str, extension: str) -> str:
+    def update_image(session: Session, slug: str, extension: str = None) -> str:
         """A helper function to pass the new image name and extension
         into the database.
 
@@ -130,11 +123,8 @@ class Recipe(BaseModel):
             slug (str): The current recipe slug
             extension (str): the file extension of the new image
         """
-        return db.recipes.update_image(slug, extension)
+        return db.recipes.update_image(session, slug, extension)
 
     @staticmethod
     def get_all(session: Session):
         return db.recipes.get_all(session)
-
-
-
