@@ -1,11 +1,16 @@
 <template>
   <v-app>
     <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
-      <v-btn @click="$router.push('/')" icon>
-        <v-icon size="40"> mdi-silverware-variant </v-icon>
-      </v-btn>
+      <router-link to="/">
+        <v-btn icon>
+          <v-icon size="40"> mdi-silverware-variant </v-icon>
+        </v-btn>
+      </router-link>
+
       <div btn class="pl-2">
-        <v-toolbar-title @click="$router.push('/')">Mealie</v-toolbar-title>
+        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
+          >Mealie
+        </v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
