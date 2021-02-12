@@ -28,7 +28,8 @@ def import_recipes(recipe_dir: Path) -> Recipe:
     for file in recipe_dir.glob("full.*"):
         image = file
 
-    recipe_file = recipe_dir.joinpath("recipe.json")
+    for file in recipe_dir.glob("*.json"):
+        recipe_file = file
 
     with open(recipe_file, "r") as f:
         recipe_dict = json.loads(f.read())
@@ -81,6 +82,7 @@ def migrate(session, selection: str):
                 successful_imports.append(recipe.name)
             except:
                 logging.error(f"Failed Nextcloud Import: {dir.name}")
+                logging.exception('')
                 failed_imports.append(dir.name)
 
     cleanup()
