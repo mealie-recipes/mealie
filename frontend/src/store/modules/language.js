@@ -16,6 +16,10 @@ const state = {
       value: "fr",
     },
     {
+      name: "Spanish",
+      value: "es-MX",
+    },
+    {
       name: "Swedish",
       value: "sv",
     },
