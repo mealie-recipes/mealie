@@ -22,7 +22,7 @@ async def get_last_recipe_json():
         return json.loads(f.read())
 
 
-@router.get("/log/{num}", response_class=HTMLResponse)
+@router.get("/log/{num}")
 async def get_log(num: int):
     """ Doc Str """
     with open(LOGGER_FILE, "rb") as f:
@@ -53,4 +53,4 @@ def tail(f, lines=20):
         block_end_byte -= BLOCK_SIZE
         block_number -= 1
     all_read_text = b"".join(reversed(blocks))
-    return b"<br/>".join(all_read_text.splitlines()[-total_lines_wanted:])
+    return b"/n".join(all_read_text.splitlines()[-total_lines_wanted:])
