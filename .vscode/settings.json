@@ -15,6 +15,7 @@
   "i18n-ally.localesPaths": "frontend/src/locales",
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.translate.saveAsCandidates": true,
-  "powershell.codeFormatting.addWhitespaceAroundPipe": true
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.translate.fallbackToKey": true,
+  "i18n-ally.translate.saveAsCandidates": true
 }
