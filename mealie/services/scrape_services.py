@@ -35,6 +35,9 @@ def normalize_image_url(image) -> str:
 
 
 def normalize_instructions(instructions) -> List[dict]:
+    if not instructions:
+        return []
+
     # One long string split by (possibly multiple) new lines
     if type(instructions) == str:
         return [
