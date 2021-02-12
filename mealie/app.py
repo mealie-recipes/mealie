@@ -53,7 +53,8 @@ def api_routers():
 
 
 if PRODUCTION:
-    mount_static_files()
+    pass
+    # mount_static_files()
 
 api_routers()
 
