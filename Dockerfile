@@ -33,8 +33,6 @@ COPY ./mealie /app
 COPY ./Caddyfile /app
 COPY --from=build-stage /app/dist /app/dist
 RUN rm -rf /app/test /app/.temp
-RUN chmod +x run.sh
 
 VOLUME [ "/app/data/" ]
-ENTRYPOINT ["/app/run.sh"]
-# CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
