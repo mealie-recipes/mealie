@@ -40,11 +40,7 @@ def normalize_instructions(instructions) -> List[dict]:
 
     # One long string split by (possibly multiple) new lines
     if type(instructions) == str:
-        return [
-            {"text": normalize_instruction(line)}
-            for line in instructions.splitlines()
-            if line
-        ]
+        return [{"text": normalize_instruction(line)} for line in instructions.splitlines() if line]
 
     # Plain strings in a list
     elif type(instructions) == list and type(instructions[0]) == str:
@@ -52,11 +48,31 @@ def normalize_instructions(instructions) -> List[dict]:
 
     # Dictionaries (let's assume it's a HowToStep) in a list
     elif type(instructions) == list and type(instructions[0]) == dict:
-        return [
-            {"text": normalize_instruction(step["text"])}
-            for step in instructions
-            if step["@type"] == "HowToStep"
-        ]
+        try:
+            # If HowToStep is under HowToSection
+            sectionSteps = []
+            for step in instructions:
+                if step["@type"] == "HowToSection":
+                    for item in step["itemListElement"]:
+                        sectionSteps.append(item)
+
+            if len(sectionSteps) > 0:
+                return [
+                    {"text": normalize_instruction(step["text"])}
+                    for step in sectionSteps
+                    if step["@type"] == "HowToStep"
+                ]
+
+            return [
+                {"text": normalize_instruction(step["text"])} for step in instructions if step["@type"] == "HowToStep"
+            ]
+        except Exception as e:
+            # Not "@type", try "type"
+            return [
+                {"text": normalize_instruction(step["properties"]["text"])}
+                for step in instructions
+                if step["type"].find("HowToStep") > -1
+            ]
 
     else:
         raise Exception(f"Unrecognised instruction format: {instructions}")
@@ -95,12 +111,8 @@ def normalize_data(recipe_data: dict) -> dict:
     recipe_data["prepTime"] = normalize_time(recipe_data.get("prepTime"))
     recipe_data["performTime"] = normalize_time(recipe_data.get("performTime"))
     recipe_data["recipeYield"] = normalize_yield(recipe_data.get("recipeYield"))
-    recipe_data["recipeIngredient"] = normalize_ingredient(
-        recipe_data.get("recipeIngredient")
-    )
-    recipe_data["recipeInstructions"] = normalize_instructions(
-        recipe_data["recipeInstructions"]
-    )
+    recipe_data["recipeIngredient"] = normalize_ingredient(recipe_data.get("recipeIngredient"))
+    recipe_data["recipeInstructions"] = normalize_instructions(recipe_data["recipeInstructions"])
     recipe_data["image"] = normalize_image_url(recipe_data["image"])
     return recipe_data
 
@@ -123,13 +135,19 @@ def process_recipe_data(new_recipe: dict, url=None) -> dict:
 
 
 def extract_recipe_from_html(html: str, url: str) -> dict:
-    scraped_recipes: List[dict] = scrape_schema_recipe.loads(html, python_objects=True)
-    dump_last_json(scraped_recipes)
+    try:
+        scraped_recipes: List[dict] = scrape_schema_recipe.loads(html, python_objects=True)
+        dump_last_json(scraped_recipes)
 
-    if not scraped_recipes:
-        scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(
-            url, python_objects=True
-        )
+        if not scraped_recipes:
+            scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(url, python_objects=True)
+    except Exception as e:
+        # trying without python_objects
+        scraped_recipes: List[dict] = scrape_schema_recipe.loads(html)
+        dump_last_json(scraped_recipes)
+
+        if not scraped_recipes:
+            scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(url)
 
     if scraped_recipes:
         new_recipe: dict = scraped_recipes[0]
