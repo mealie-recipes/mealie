@@ -27,6 +27,10 @@ const state = {
       name: "繁體中文",
       value: "zh-TW",
     },
+    {
+      name: "German",
+      value: "de",
+    },
   ],
 };
 
