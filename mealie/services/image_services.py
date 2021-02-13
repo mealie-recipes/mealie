@@ -3,6 +3,7 @@ from pathlib import Path
 
 import requests
 from app_config import IMG_DIR
+from utils.logger import logger
 
 
 def read_image(recipe_slug: str) -> Path:
@@ -48,6 +49,7 @@ def scrape_image(image_url: str, slug: str) -> Path:
     try:
         r = requests.get(image_url, stream=True)
     except:
+        logger.exception("Fatal Image Request Exception")
         return None
 
     if r.status_code == 200:

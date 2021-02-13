@@ -69,3 +69,15 @@ def get_all_recipes_post(
     """
 
     return db.recipes.get_all_limit_columns(session, body.properties, body.limit)
+
+
+@router.post("/api/category")
+async def filter_by_category(
+    categories: list, session: Session = Depends(generate_session)
+):
+    """ pass a list of categories and get a list of recipes associated with those categories """
+    #! This should be refactored into a single database call, but I couldn't figure it out 
+    in_category = [db.categories.get(session, cat) for cat in categories]
+    in_category = [cat.get("recipes") for cat in in_category]
+    in_category = [item for sublist in in_category for item in sublist]
+    return in_category

@@ -16,7 +16,7 @@
     <General />
     <Theme class="mt-2" />
     <Backup class="mt-2" />
-    <Webhooks class="mt-2" />
+    <MealPlanner class="mt-2" />
     <Migration class="mt-2" />
     <p class="text-center my-2">
       {{ $t("settings.current") }}
@@ -41,7 +41,7 @@
 <script>
 import Backup from "../components/Settings/Backup";
 import General from "../components/Settings/General";
-import Webhooks from "../components/Settings/Webhook";
+import MealPlanner from "../components/Settings/MealPlanner";
 import Theme from "../components/Settings/Theme";
 import Migration from "../components/Settings/Migration";
 import api from "@/api";
@@ -50,7 +50,7 @@ import axios from "axios";
 export default {
   components: {
     Backup,
-    Webhooks,
+    MealPlanner,
     Theme,
     Migration,
     General,

@@ -17,7 +17,7 @@ dotenv.load_dotenv(ENV)
 
 # General
 APP_VERSION = "v0.2.1"
-DB_VERSION = "v0.2.0"
+DB_VERSION = "v0.2.1"
 PRODUCTION = os.environ.get("ENV")
 PORT = int(os.getenv("mealie_port", 9000))
 API = os.getenv("api_docs", True)

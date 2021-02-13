@@ -1,5 +1,4 @@
 from datetime import date, timedelta
-from pathlib import Path
 from typing import List, Optional
 
 from db.database import db

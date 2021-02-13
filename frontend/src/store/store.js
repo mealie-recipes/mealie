@@ -29,6 +29,7 @@ const store = new Vuex.Store({
     // All Recipe Data Store
     recentRecipes: [],
     allRecipes: [],
+    mealPlanCategories: [],
   },
 
   mutations: {
@@ -43,6 +44,11 @@ const store = new Vuex.Store({
 
     setRecentRecipes(state, payload) {
       state.recentRecipes = payload;
+    },
+
+    setMealPlanCategories(state, payload) {
+      console.log(payload);
+      state.mealPlanCategories = payload;
     },
   },
 
@@ -69,6 +75,7 @@ const store = new Vuex.Store({
     getSnackType: state => state.snackType,
 
     getRecentRecipes: state => state.recentRecipes,
+    getMealPlanCategories: state => state.mealPlanCategories,
   },
 });
 
