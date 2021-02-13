@@ -36,4 +36,4 @@ async def delete_recipe_category(
 
     db.categories.delete(session, category)
 
-    return SnackResponse(f"Category Deleted: {category}")
+    return SnackResponse.error(f"Category Deleted: {category}")
