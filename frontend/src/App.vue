@@ -150,4 +150,5 @@ export default {
 *::-webkit-scrollbar-thumb {
   background: grey;
 }
+
 </style>

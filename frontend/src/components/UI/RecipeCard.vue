@@ -6,7 +6,19 @@
       :to="route ? `/recipe/${slug}` : ''"
       @click="$emit('click')"
     >
-      <v-img height="200" :src="getImage(image)"></v-img>
+      <v-img height="200" :src="getImage(image)">
+        <v-expand-transition v-if="description">
+          <div
+            v-if="hover"
+            class="d-flex transition-fast-in-fast-out secondary v-card--reveal  "
+            style="height: 100%;"
+          >
+            <v-card-text class="v-card--text-show white--text">
+              {{ description }}
+            </v-card-text>
+          </div>
+        </v-expand-transition>
+      </v-img>
       <v-card-title class="my-n3 mb-n6">{{ name | truncate(30) }}</v-card-title>
 
       <v-card-actions class="">
@@ -23,16 +35,7 @@
             ></v-rating>
           </v-col>
           <v-col></v-col>
-          <v-col align="end">
-            <v-tooltip top color="secondary" max-width="400" open-delay="50">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="secondary" v-on="on" v-bind="attrs" text>{{
-                  $t("recipe.description")
-                }}</v-btn>
-              </template>
-              <span>{{ description }}</span>
-            </v-tooltip>
-          </v-col>
+          <v-col align="end"> </v-col>
         </v-row>
       </v-card-actions>
     </v-card>
@@ -61,4 +64,15 @@ export default {
 </script>
 
 <style>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: 0.8;
+  position: absolute;
+  width: 100%;
+}
+.v-card--text-show {
+  opacity: 1 !important;
+}
 </style>

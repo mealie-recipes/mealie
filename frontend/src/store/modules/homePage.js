@@ -15,7 +15,7 @@ const mutations = {
     state.showLimit = payload;
   },
   setCategories(state, payload) {
-    state.categories = payload;
+    state.categories = payload.sort((a, b) => (a.name > b.name ? 1 : -1));
   },
   setHomeCategories(state, payload) {
     state.homeCategories = payload;

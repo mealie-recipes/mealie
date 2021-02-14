@@ -47,7 +47,6 @@ const store = new Vuex.Store({
     },
 
     setMealPlanCategories(state, payload) {
-      console.log(payload);
       state.mealPlanCategories = payload;
     },
   },

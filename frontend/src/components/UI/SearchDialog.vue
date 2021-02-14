@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" min-height="700" max-width="1000">
+    <v-dialog v-model="dialog" height="100%" max-width="1200">
       <v-card min-height="725" height="100%">
         <v-card-text>
           <v-card-title></v-card-title>
@@ -22,7 +22,7 @@
               :md="6"
               :lg="4"
               :xl="3"
-              v-for="item in searchResults.slice(0, 10)"
+              v-for="item in searchResults.slice(0, 24)"
               :key="item.item.name"
             >
               <RecipeCard
@@ -58,6 +58,7 @@ export default {
   },
   methods: {
     updateResults(results) {
+      console.log(results);
       this.searchResults = results;
     },
     emitSelect(name, slug) {
