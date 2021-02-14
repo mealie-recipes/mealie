@@ -8,13 +8,14 @@ const prefix = baseURL + "recipes/";
 
 const recipeURLs = {
   allRecipes: baseURL + "recipes",
+  allRecipesByCategory: prefix + "category",
   create: prefix + "create",
   createByURL: prefix + "create-url",
-  recipe: (slug) => prefix + slug,
-  update: (slug) => prefix + slug,
-  delete: (slug) => prefix + slug,
-  recipeImage: (slug) => `${prefix}${slug}/image`,
-  updateImage: (slug) => `${prefix}${slug}/image`,
+  recipe: slug => prefix + slug,
+  update: slug => prefix + slug,
+  delete: slug => prefix + slug,
+  recipeImage: slug => `${prefix}${slug}/image`,
+  updateImage: slug => `${prefix}${slug}/image`,
 };
 
 export default {
@@ -25,6 +26,14 @@ export default {
 
     store.dispatch("requestRecentRecipes");
     return response;
+  },
+
+  async getAllByCategory(categories) {
+    let response = await apiReq.post(
+      recipeURLs.allRecipesByCategory,
+      categories
+    );
+    return response.data;
   },
 
   async create(recipeData) {
@@ -67,7 +76,7 @@ export default {
         keys: recipeKeys,
         num: num,
       },
-      paramsSerializer: (params) => {
+      paramsSerializer: params => {
         return qs.stringify(params, { arrayFormat: "repeat" });
       },
     });

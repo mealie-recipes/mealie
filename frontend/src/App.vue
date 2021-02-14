@@ -138,4 +138,17 @@ export default {
   margin-bottom: -5px;
   opacity: 0.9 !important;
 }
+
+*::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: lightgray;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: grey;
+}
+
 </style>

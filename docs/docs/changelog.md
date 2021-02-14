@@ -3,13 +3,31 @@
 ## v0.3.0 - Draft!
 
 ### Features and Improvements
+  - Improved Nextcloud Imports
+  - Improved Recipe Parser
   - Open search with `/` hotkey! 
   - Unified and improved snackbar notifications
-  - Recipe Viewer
-    - Categories, Tags, and Notes will not be displayed below the steps on smaller screens
-  - Recipe Editor
+  - New Category/Tag endpoints to filter all recipes by Category or Tag
+  - **Meal Planner**
+    - You can now restrict recipe categories used for random meal-plan creation in the settings menu
+    - Recipe picker dialog will now display recipes when the search bar is empty
+    - Minor UI improvements
+  - **Recipe Viewer**
+    - Categories, Tags, and Notes will now be displayed below the steps on smaller screens
+  - **Recipe Editor**
     - Text areas now auto grow to fit content
     - Description, Steps, and Notes support Markdown! This includes inline html in Markdown. 
+
+## v0.2.1 - Hot Fixes!
+
+### Features and Improvements
+  - Fixes upload image error when no photo was scrapped
+  - Fixes no last_recipe.json not updating
+  - Added markdown rendering for notes
+  - New notifications
+  - Minor UI improvements
+  - Recipe editor refactor
+  - Settings/Theme models refactor
 
 ### Development / Misc
   - Added async file response for images, downloading files.

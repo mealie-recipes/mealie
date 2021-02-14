@@ -2,7 +2,6 @@ from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
-
 from utils.snackbar import SnackResponse
 
 router = APIRouter(tags=["Recipes"])
@@ -13,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.get("/all")
+@router.get("/")
 async def get_all_recipe_tags(session: Session = Depends(generate_session)):
     """ Returns a list of available tags in the database """
     return db.tags.get_all_primary_keys(session)

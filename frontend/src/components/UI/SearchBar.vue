@@ -57,6 +57,7 @@ export default {
     return {
       searchSlug: "",
       search: " ",
+      data: [],
       result: [],
       autoResults: [],
       isDark: false,
@@ -67,27 +68,31 @@ export default {
         distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 1,
-        keys: ["name", "slug"],
+        keys: ["name", "slug", "description"],
       },
     };
   },
   mounted() {
     this.isDark = this.$store.getters.getIsDark;
+    this.data = this.$store.getters.getRecentRecipes;
   },
   computed: {
-    data() {
-      return this.$store.getters.getRecentRecipes;
-    },
     fuse() {
       return new Fuse(this.data, this.options);
     },
   },
   watch: {
     search() {
-      if (this.search.trim() === "") this.result = this.list;
-      else this.result = this.fuse.search(this.search.trim());
-
+      try {
+        this.result = this.fuse.search(this.search.trim());
+      } catch {
+        this.result = this.data
+          .map(x => ({ item: x }))
+          .sort((a, b) => (a.name > b.name ? 1 : -1));
+      }
+      console.log(this.result);
       this.$emit("results", this.result);
+
       if (this.showResults === true) {
         this.autoResults = this.result;
       }

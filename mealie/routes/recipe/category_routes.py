@@ -3,7 +3,6 @@ from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from models.category_models import RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
-
 from utils.snackbar import SnackResponse
 
 router = APIRouter(
@@ -26,14 +25,15 @@ def get_all_recipes_by_category(
     return db.categories.get(session, category)
 
 
+
 @router.delete("/{category}")
 async def delete_recipe_category(
     category: str, session: Session = Depends(generate_session)
 ):
-    """ Removes a recipe category from the database. Deleting a 
+    """Removes a recipe category from the database. Deleting a
     category does not impact a recipe. The category will be removed
-    from any recipes that contain it """
+    from any recipes that contain it"""
 
     db.categories.delete(session, category)
 
-    return SnackResponse(f"Category Deleted: {category}")
+    return SnackResponse.error(f"Category Deleted: {category}")

@@ -19,7 +19,9 @@ Color themes can be created and set from the UI in the settings page. You can se
 ## Backups 
 Site backups can easily be taken and download from the UI. To import, simply select the backup you'd like to restore and check which items you'd like to import. 
 
-## Meal Planner Webhooks
+## Meal Planner 
+In the meal planner section you can select categories to be used as apart of the random recipe selector in the meal plan creator. 
+
 Meal planner webhooks are post requests sent from Mealie to an external endpoint. The body of the message is the Recipe JSON of the scheduled meal. If no meal is schedule, no request is sent. The webhook functionality can be enabled or disabled as well as scheduled. Note that you must "Save Webhooks" prior to any changes taking affect server side. 
 
 

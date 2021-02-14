@@ -31,11 +31,10 @@ RUN apk add --update --no-cache --virtual .build-deps \
 
 COPY ./mealie /app
 COPY ./Caddyfile /app
+COPY ./app_data/templates /app/data/templates
+RUN rm -rf /app/tests /app/.temp
 COPY --from=build-stage /app/dist /app/dist
-RUN rm -rf /app/test /app/.temp
 
 VOLUME [ "/app/data/" ]
 RUN chmod +x /app/run.sh
 CMD /app/run.sh
-
-# CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
