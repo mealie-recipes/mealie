@@ -3,6 +3,8 @@
 ## v0.3.0 - Draft!
 
 ### Features and Improvements
+  - Improved Nextcloud Imports
+  - Improved Recipe Parser
   - Open search with `/` hotkey! 
   - Unified and improved snackbar notifications
   - New Category/Tag endpoints to filter all recipes by Category or Tag
