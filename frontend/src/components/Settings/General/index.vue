@@ -14,7 +14,7 @@
     <v-card-text>
       <h2 class="mt-1 mb-4">{{ $t("settings.language") }}</h2>
       <v-row>
-        <v-col cols="3">
+        <v-col sm="3">
           <v-select
             dense
             v-model="selectedLang"

@@ -9,6 +9,7 @@
     />
     <v-row>
       <v-col
+        :cols="12"
         :sm="6"
         :md="6"
         :lg="4"
@@ -19,14 +20,14 @@
         <v-card hover outlined @click="openDialog(backup)">
           <v-card-text>
             <v-row align="center">
-              <v-col cols="12" sm="2">
-                <v-icon large color="primary"> mdi-backup-restore </v-icon>
+              <v-col cols="2">
+                <v-icon large color="primary">mdi-backup-restore</v-icon>
               </v-col>
-              <v-col cols="12" sm="10">
-                <div>
+              <v-col cols="10">
+                <div class="text-truncate">
                   <strong>{{ backup.name }}</strong>
                 </div>
-                <div>{{ readableTime(backup.date) }}</div>
+                <div class="text-truncate">{{ readableTime(backup.date) }}</div>
               </v-col>
             </v-row>
           </v-card-text>
