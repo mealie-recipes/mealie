@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer width="175px" clipped app permanent expand-on-hover>
+  <v-navigation-drawer width="175px" clipped app :expand-on-hover="!mobile">
     <v-list nav dense>
       <v-list-item v-for="nav in links" :key="nav.title" link :to="nav.to">
         <v-list-item-icon>
@@ -34,6 +34,16 @@ export default {
     allCategories() {
       return this.$store.getters.getCategories;
     },
+    mobile() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return true;
+        case "sm":
+          return true;
+        default:
+          return false;
+      }
+    },
   },
   watch: {
     allCategories() {
@@ -48,7 +58,7 @@ export default {
     async buildSidebar() {
       this.links = [];
       this.links.push(...this.baseLinks);
-      this.allCategories.forEach(async (element) => {
+      this.allCategories.forEach(async element => {
         this.links.push({
           title: element.name,
           to: `/recipes/${element.slug}`,
