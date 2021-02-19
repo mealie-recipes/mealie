@@ -1,5 +1,6 @@
 from typing import List
 
+from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, HTTPException
 from services.meal_services import MealPlan
@@ -14,6 +15,21 @@ def get_all_meals(session: Session = Depends(generate_session)):
     """ Returns a list of all available Meal Plan """
 
     return MealPlan.get_all(session)
+
+
+@router.get("/{id}/shopping-list")
+def get_shopping_list(id: str, session: Session = Depends(generate_session)):
+
+    #! Refactor into Single Database Call
+    mealplan = db.meals.get(session, id)
+    slugs = [x.get("slug") for x in mealplan.get("meals")]
+    recipes = [db.recipes.get(session, x) for x in slugs]
+    ingredients = [
+        {"name": x.get("name"), "recipeIngredient": x.get("recipeIngredient")}
+        for x in recipes
+    ]
+
+    return ingredients
 
 
 @router.post("/create")
