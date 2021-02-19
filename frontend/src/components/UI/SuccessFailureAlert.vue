@@ -1,7 +1,21 @@
 <template>
-  <v-dialog v-model="dialog" max-width="900px">
+  <v-dialog
+    v-model="dialog"
+    max-width="900px"
+    :fullscreen="$vuetify.breakpoint.xsOnly"
+  >
     <v-card>
-      <v-card-title> {{ title }} </v-card-title>
+      <v-toolbar dark color="primary" v-show="$vuetify.breakpoint.xsOnly">
+        <v-btn icon dark @click="dialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items></v-toolbar-items>
+      </v-toolbar>
+      <v-card-title v-show="$vuetify.breakpoint.smAndUp">
+        {{ title }}
+      </v-card-title>
       <v-card-text class="mt-3">
         <v-row>
           <v-col>

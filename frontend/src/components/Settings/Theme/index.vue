@@ -14,7 +14,7 @@
         }}
       </p>
       <v-row dense align="center">
-        <v-col cols="12">
+        <v-col cols="6">
           <v-btn-toggle
             v-model="selectedDarkMode"
             color="primary "
@@ -22,12 +22,25 @@
             @change="setStoresDarkMode"
           >
             <v-btn value="system">
-              {{ $t("settings.theme.default-to-system") }}
+              <v-icon>mdi-desktop-tower-monitor</v-icon>
+              <span class="ml-1" v-show="$vuetify.breakpoint.smAndUp">
+                {{ $t("settings.theme.default-to-system") }}
+              </span>
             </v-btn>
 
-            <v-btn value="light"> {{ $t("settings.theme.light") }} </v-btn>
+            <v-btn value="light">
+              <v-icon>mdi-white-balance-sunny</v-icon>
+              <span class="ml-1" v-show="$vuetify.breakpoint.smAndUp">
+                {{ $t("settings.theme.light") }}
+              </span>
+            </v-btn>
 
-            <v-btn value="dark"> {{ $t("settings.theme.dark") }} </v-btn>
+            <v-btn value="dark">
+              <v-icon>mdi-weather-night</v-icon>
+              <span class="ml-1" v-show="$vuetify.breakpoint.smAndUp">
+                {{ $t("settings.theme.dark") }}
+              </span>
+            </v-btn>
           </v-btn-toggle>
         </v-col>
       </v-row></v-card-text
@@ -45,7 +58,7 @@
 
       <v-form ref="form" lazy-validation>
         <v-row dense align="center">
-          <v-col md="4" sm="3">
+          <v-col cols="12" md="4" sm="3">
             <v-select
               :label="$t('settings.theme.saved-color-theme')"
               :items="availableThemes"
