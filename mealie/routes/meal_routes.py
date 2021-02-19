@@ -17,9 +17,9 @@ def get_all_meals(session: Session = Depends(generate_session)):
     return MealPlan.get_all(session)
 
 
-@router.get("/shopping-list/{id}")
+@router.get("/{id}/shopping-list")
 def get_shopping_list(id: str, session: Session = Depends(generate_session)):
-    
+
     #! Refactor into Single Database Call
     mealplan = db.meals.get(session, id)
     slugs = [x.get("slug") for x in mealplan.get("meals")]
@@ -29,7 +29,7 @@ def get_shopping_list(id: str, session: Session = Depends(generate_session)):
         for x in recipes
     ]
 
-    return {"ingredients": ingredients}
+    return ingredients
 
 
 @router.post("/create")
