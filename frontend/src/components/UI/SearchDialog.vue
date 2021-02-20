@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     updateResults(results) {
-      console.log(results);
       this.searchResults = results;
     },
     emitSelect(name, slug) {

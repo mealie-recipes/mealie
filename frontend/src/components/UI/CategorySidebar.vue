@@ -63,8 +63,6 @@ export default {
       this.buildSidebar();
     },
     showSidebar() {
-      console.log("Sidebar", this.showSidebar);
-      console.log("Mobile", this.mobile);
     },
   },
   mounted() {

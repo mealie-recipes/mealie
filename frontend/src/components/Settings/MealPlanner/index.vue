@@ -121,7 +121,6 @@ export default {
     },
     async getSiteSettings() {
       let settings = await api.settings.requestAll();
-      console.log(settings);
       this.webhooks = settings.webhooks.webhookURLs;
       this.name = settings.name;
       this.time = settings.webhooks.webhookTime;
