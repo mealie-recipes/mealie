@@ -2,11 +2,8 @@ import json
 import re
 
 import pytest
-from services.scrape_services import (
-    extract_recipe_from_html,
-    normalize_data,
-    normalize_instructions,
-)
+from services.scraper.cleaner import Cleaner
+from services.scraper.scraper import extract_recipe_from_html
 from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
 
 # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
@@ -42,7 +39,7 @@ url_validation_regex = re.compile(
     ],
 )
 def test_normalize_data(json_file, num_steps):
-    recipe_data = normalize_data(json.load(open(TEST_RAW_RECIPES.joinpath(json_file))))
+    recipe_data = Cleaner.clean(json.load(open(TEST_RAW_RECIPES.joinpath(json_file))))
     assert len(recipe_data["recipeInstructions"]) == num_steps
 
 
@@ -58,7 +55,7 @@ def test_normalize_data(json_file, num_steps):
     ],
 )
 def test_normalize_instructions(instructions):
-    assert normalize_instructions(instructions) == [
+    assert Cleaner.instructions(instructions) == [
         {"text": "A"},
         {"text": "B"},
         {"text": "C"},

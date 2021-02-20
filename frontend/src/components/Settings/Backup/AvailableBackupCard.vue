@@ -69,10 +69,9 @@ export default {
       this.$emit("loading");
       let response = await api.backups.import(data.name, data);
 
-      let failed = response.data.failed;
-      let succesful = response.data.successful;
+      let importData = response.data;
 
-      this.$emit("finished", succesful, failed);
+      this.$emit("finished", importData);
     },
     deleteBackup(data) {
       this.$emit("loading");
