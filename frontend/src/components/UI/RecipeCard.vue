@@ -14,12 +14,16 @@
             style="height: 100%;"
           >
             <v-card-text class="v-card--text-show white--text">
-              {{ description }}
+              {{ description | truncate(300) }}
             </v-card-text>
           </div>
         </v-expand-transition>
       </v-img>
-      <v-card-title class="my-n3 mb-n6">{{ name | truncate(30) }}</v-card-title>
+      <v-card-title class="my-n3 mb-n6 ">
+        <div class="headerClass">
+          {{ name }}
+        </div>
+      </v-card-title>
 
       <v-card-actions class="">
         <v-row dense align="center">
@@ -74,5 +78,11 @@ export default {
 }
 .v-card--text-show {
   opacity: 1 !important;
+}
+.headerClass {
+  white-space: nowrap;
+  word-break: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
