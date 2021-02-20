@@ -134,7 +134,6 @@ export default {
       this.requestMeals();
     },
     openShoppingList(id) {
-      console.log(this.$refs.shoppingList.openDialog);
       this.$refs.shoppingList.openDialog(id);
     },
   },

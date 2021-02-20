@@ -90,7 +90,6 @@ export default {
           .map(x => ({ item: x }))
           .sort((a, b) => (a.name > b.name ? 1 : -1));
       }
-      console.log(this.result);
       this.$emit("results", this.result);
 
       if (this.showResults === true) {

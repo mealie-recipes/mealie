@@ -72,7 +72,6 @@ export default {
     },
     async getIngredients() {
       this.ingredients = await api.mealPlans.shoppingList(this.planID);
-      console.log(this.ingredients);
       this.getRawIngredients();
     },
     getRawIngredients() {
@@ -82,7 +81,6 @@ export default {
 
       this.rawIngredients = this.rawIngredients.flat();
       this.rawIngredients = this.levenshteinFilter(this.rawIngredients);
-      console.log(this.rawIngredients);
     },
     levenshteinFilter(source, maximum = 5) {
       let _source, matches, x, y;

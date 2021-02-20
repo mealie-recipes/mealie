@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       showSidebar: false,
+      mobile: false,
       links: [],
       baseLinks: [
         {
@@ -56,24 +57,18 @@ export default {
     allCategories() {
       return this.$store.getters.getCategories;
     },
-    mobile() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return true;
-        case "sm":
-          return true;
-        default:
-          return false;
-      }
-    },
   },
   watch: {
     allCategories() {
       this.buildSidebar();
     },
+    showSidebar() {
+    },
   },
   mounted() {
     this.buildSidebar();
+    this.mobile = this.viewScale();
+    this.showSidebar = !this.viewScale();
   },
 
   methods: {
@@ -87,6 +82,16 @@ export default {
           icon: "mdi-tag",
         });
       });
+    },
+    viewScale() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return true;
+        case "sm":
+          return true;
+        default:
+          return false;
+      }
     },
   },
 };

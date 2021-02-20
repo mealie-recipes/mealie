@@ -10,18 +10,22 @@
       <v-row>
         <v-col sm="12" md="6">
           <v-select
+            outlined
+            :flat="isFlat"
+            elavation="0"
             v-model="planCategories"
             :items="categories"
             item-text="name"
             item-value="name"
-            label="Allowed Categories"
             multiple
             chips
             hint="Only recipes with these categories will be used in Meal Plans"
+            class="mt-2"
             persistent-hint
           >
             <template v-slot:selection="data">
               <v-chip
+                outlined
                 :input-value="data.selected"
                 close
                 @click:close="removeCategory(data.index)"
@@ -114,6 +118,9 @@ export default {
     categories() {
       return this.$store.getters.getCategories;
     },
+    isFlat() {
+      return this.planCategories ? true : false;
+    },
   },
   methods: {
     saveTime(value) {
@@ -121,7 +128,6 @@ export default {
     },
     async getSiteSettings() {
       let settings = await api.settings.requestAll();
-      console.log(settings);
       this.webhooks = settings.webhooks.webhookURLs;
       this.name = settings.name;
       this.time = settings.webhooks.webhookTime;
