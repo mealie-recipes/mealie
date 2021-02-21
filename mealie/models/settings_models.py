@@ -11,12 +11,14 @@ class Webhooks(BaseModel):
 
 class SiteSettings(BaseModel):
     name: str = "main"
+    planCategories: list[str] = []
     webhooks: Webhooks
 
     class Config:
         schema_extra = {
             "example": {
                 "name": "main",
+                "planCategories": ["dinner", "lunch"],
                 "webhooks": {
                     "webhookTime": "00:00",
                     "webhookURLs": ["https://mywebhookurl.com/webhook"],

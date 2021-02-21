@@ -13,6 +13,7 @@ from tests.utils.routes import (
 def default_settings():
     return {
         "name": "main",
+        "planCategories": [],
         "webhooks": {"webhookTime": "00:00", "webhookURLs": [], "enabled": False},
     }
 

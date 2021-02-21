@@ -11,12 +11,10 @@
       </span>
     </v-card-title>
     <v-divider></v-divider>
-    <HomePageSettings />
-    <v-divider></v-divider>
     <v-card-text>
       <h2 class="mt-1 mb-4">{{ $t("settings.language") }}</h2>
       <v-row>
-        <v-col cols="3">
+        <v-col sm="3">
           <v-select
             dense
             v-model="selectedLang"
@@ -29,6 +27,8 @@
         </v-col>
       </v-row>
     </v-card-text>
+    <v-divider></v-divider>
+    <HomePageSettings />
     <v-divider></v-divider>
   </v-card>
 </template>
@@ -58,6 +58,9 @@ export default {
     getOptions() {
       this.langOptions = this.$store.getters.getAllLangs;
       this.selectedLang = this.$store.getters.getActiveLang;
+    },
+    removeCategory(index) {
+      this.value.categories.splice(index, 1);
     },
   },
 };

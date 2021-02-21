@@ -7,10 +7,14 @@
         </v-card-title>
 
         <v-card-text>
-          <v-form>
+          <v-form ref="urlForm">
             <v-text-field
               v-model="recipeURL"
               :label="$t('new-recipe.recipe-url')"
+              required
+              validate-on-blur
+              autofocus
+              :rules="[isValidWebUrl]"
             ></v-text-field>
           </v-form>
 
@@ -64,18 +68,20 @@ export default {
 
   methods: {
     async createRecipe() {
-      this.processing = true;
-      let response = await api.recipes.createByURL(this.recipeURL);
-      if (response.status !== 201) {
-        this.error = true;
-        this.processing = false;
-        return;
-      }
+      if (this.$refs.urlForm.validate()) {
+        this.processing = true;
+        let response = await api.recipes.createByURL(this.recipeURL);
+        if (response.status !== 201) {
+          this.error = true;
+          this.processing = false;
+          return;
+        }
 
-      this.addRecipe = false;
-      this.processing = false;
-      this.recipeURL = "";
-      this.$router.push(`/recipe/${response.data}`);
+        this.addRecipe = false;
+        this.processing = false;
+        this.recipeURL = "";
+        this.$router.push(`/recipe/${response.data}`);
+      }
     },
 
     navCreate() {
@@ -88,6 +94,10 @@ export default {
       this.addRecipe = false;
       this.recipeURL = "";
       this.processing = false;
+    },
+    isValidWebUrl(url) {
+      let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
+      return regEx.test(url) ? true : "Must be a Valid URL";
     },
   },
 };

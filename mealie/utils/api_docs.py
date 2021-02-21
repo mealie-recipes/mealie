@@ -31,11 +31,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
+HTML_PATH = DATA_DIR.parent.joinpath("docs/docs/html/api.html")
+
 
 def generate_api_docs(app):
-    out_dir = DATA_DIR.joinpath(".temp")
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir.joinpath("index.html")
-    with open(out_path, "w") as fd:
-        out_path.parent.mkdir(exist_ok=True)
+    with open(HTML_PATH, "w") as fd:
         print(HTML_TEMPLATE % json.dumps(app.openapi()), file=fd)
+
+
+

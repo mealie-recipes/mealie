@@ -6,6 +6,7 @@
       @updated="planUpdated"
     />
     <NewMeal v-else @created="requestMeals" class="mb-5" />
+    <ShoppingListDialog ref="shoppingList" />
 
     <v-card class="my-2">
       <v-card-title class="headline">
@@ -49,6 +50,14 @@
             </v-list-item-group>
           </v-list>
           <v-card-actions class="mt-n5">
+            <v-btn
+              color="accent lighten-2"
+              class="mx-0"
+              text
+              @click="openShoppingList(mealplan.uid)"
+            >
+              {{ $t("meal-plan.shopping-list") }}
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn
               color="accent lighten-2"
@@ -78,11 +87,13 @@ import api from "@/api";
 import utils from "@/utils";
 import NewMeal from "../components/MealPlan/MealPlanNew";
 import EditPlan from "../components/MealPlan/MealPlanEditor";
+import ShoppingListDialog from "../components/MealPlan/ShoppingListDialog";
 
 export default {
   components: {
     NewMeal,
     EditPlan,
+    ShoppingListDialog,
   },
   data: () => ({
     plannedMeals: [],
@@ -121,6 +132,9 @@ export default {
     deletePlan(id) {
       api.mealPlans.delete(id);
       this.requestMeals();
+    },
+    openShoppingList(id) {
+      this.$refs.shoppingList.openDialog(id);
     },
   },
 };

@@ -85,6 +85,13 @@ class Category(SqlAlchemyBase):
             "recipes": [x.dict() for x in self.recipes],
         }
 
+    def dict_no_recipes(self):
+        return {
+            "id": self.id,
+            "slug": self.slug,
+            "name": self.name,
+        }
+
 
 class Tag(SqlAlchemyBase):
     __tablename__ = "tags"

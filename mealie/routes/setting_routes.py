@@ -19,7 +19,6 @@ def get_main_settings(session: Session = Depends(generate_session)):
     except:
         default_settings_init(session)
         data = db.settings.get(session, "main")
-
     return data
 
 

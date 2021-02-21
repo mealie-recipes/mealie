@@ -8,7 +8,7 @@
         v-model="tag"
       ></v-text-field>
     </v-card-text>
-    <v-card-actions class="mt-n9">
+    <v-card-actions class="mt-n9 flex-wrap">
       <v-switch v-model="fullBackup" :label="switchLabel"></v-switch>
       <v-spacer></v-spacer>
       <v-btn color="success" text @click="createBackup()">

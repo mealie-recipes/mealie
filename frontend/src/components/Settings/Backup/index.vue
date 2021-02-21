@@ -7,7 +7,7 @@
 
     <v-card-text>
       <v-row>
-        <v-col cols="12" md="6" ss="12">
+        <v-col cols="12" md="6" sm="12">
           <NewBackupCard @created="processFinished" />
         </v-col>
         <v-col cols="12" md="6" sm="12">
@@ -41,6 +41,7 @@
         :failed-header="$t('settings.backup.failed-imports')"
         :failed="failedImports"
       />
+      <ImportSummaryDialog ref="report" :import-data="importData" />
     </v-card-text>
   </v-card>
 </template>
@@ -48,6 +49,7 @@
 <script>
 import api from "@/api";
 import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import ImportSummaryDialog from "./ImportSummaryDialog";
 import UploadBtn from "../../UI/UploadBtn";
 import AvailableBackupCard from "./AvailableBackupCard";
 import NewBackupCard from "./NewBackupCard";
@@ -58,6 +60,7 @@ export default {
     UploadBtn,
     AvailableBackupCard,
     NewBackupCard,
+    ImportSummaryDialog,
   },
   data() {
     return {
@@ -65,6 +68,7 @@ export default {
       successfulImports: [],
       backupLoading: false,
       availableBackups: [],
+      importData: [],
     };
   },
   mounted() {
@@ -87,12 +91,10 @@ export default {
         this.backupLoading = false;
       }
     },
-    processFinished(successful = null, failed = null) {
+    processFinished(data) {
       this.getAvailableBackups();
       this.backupLoading = false;
-      this.successfulImports = successful;
-      this.failedImports = failed;
-      this.$refs.report.open();
+      this.$refs.report.open(data);
     },
   },
 };

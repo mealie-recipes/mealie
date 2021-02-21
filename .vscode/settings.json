@@ -17,5 +17,6 @@
   "i18n-ally.keystyle": "nested",
   "cSpell.words": [
     "performant"
-  ]
+  ],
+  "search.mode": "reuseEditor"
 }

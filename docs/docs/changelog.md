@@ -1,15 +1,45 @@
 # Release Notes
 
-## v0.3.0 - Draft!
+## v0.3.0
+
+### Bug Fixes
+  - Fixed open search on `/` when in input. - Closes #174
+  - Error when importing recipe: KeyError: '@type' - Closes #145
+  - Fixed Import Issue - bhg.com - Closes #138
+  - Scraper not working with recipe containing HowToSection - Closes #73
 
 ### Features and Improvements
+  - Improved Nextcloud Imports
+  - Improved Recipe Parser!
   - Open search with `/` hotkey! 
+  - Database and App version are now split
   - Unified and improved snackbar notifications
-  - Recipe Viewer
-    - Categories, Tags, and Notes will not be displayed below the steps on smaller screens
-  - Recipe Editor
+  - New Category/Tag endpoints to filter all recipes by Category or Tag
+  - Category sidebar now has show/hide behavior on mobile
+  - Settings menu on mobile is improved
+  - **Meal Planner**
+    - You can now restrict recipe categories used for random meal-plan creation in the settings menu
+    - Recipe picker dialog will now display recipes when the search bar is empty
+    - Minor UI improvements
+    - **Shopping lists!** Shopping list can now be generated from a meal plan. Currently ingredients are split by recipes or there is a beta feature that attempts to sort them by similarity.
+  - **Recipe Viewer**
+    - Categories, Tags, and Notes will now be displayed below the steps on smaller screens
+  - **Recipe Editor**
     - Text areas now auto grow to fit content
     - Description, Steps, and Notes support Markdown! This includes inline html in Markdown. 
+  - **Imports**
+    - A revamped dialog has been created to provide more information on restoring backups. Exceptions on the backend are now sent to the frontend and are easily viewable to see what went wrong when you restored a backup. This functionality will be ported over to the migrations in a future release. 
+
+## v0.2.1 - Hot Fixes!
+
+### Features and Improvements
+  - Fixes upload image error when no photo was scrapped
+  - Fixes no last_recipe.json not updating
+  - Added markdown rendering for notes
+  - New notifications
+  - Minor UI improvements
+  - Recipe editor refactor
+  - Settings/Theme models refactor
 
 ### Development / Misc
   - Added async file response for images, downloading files.

@@ -44,7 +44,9 @@
     "sign-up": "Sign up"
   },
   "meal-plan": {
+    "shopping-list": "Shopping List",
     "dinner-this-week": "Dinner This Week",
+    "meal-planner": "Meal Planner",
     "dinner-today": "Dinner Today",
     "planner": "Planner",
     "edit-meal-plan": "Edit Meal Plan",

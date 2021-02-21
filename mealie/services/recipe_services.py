@@ -38,8 +38,8 @@ class Recipe(BaseModel):
     tags: Optional[List[str]] = []
     dateAdded: Optional[datetime.date]
     notes: Optional[List[RecipeNote]] = []
-    rating: Optional[int]
-    orgURL: Optional[str]
+    rating: Optional[int] = 0
+    orgURL: Optional[str] = ""
     extras: Optional[dict] = {}
 
     class Config:
