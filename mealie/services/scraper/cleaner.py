@@ -15,7 +15,6 @@ class Cleaner:
 
     @staticmethod
     def clean(recipe_data: dict, url=None) -> dict:
-        print(recipe_data)
         """Main entrypoint to clean a recipe extracted from the web
         and format the data into an accectable format for the database
 
@@ -67,7 +66,6 @@ class Cleaner:
             return []
 
         # One long string split by (possibly multiple) new lines
-        print(instructions)
         if type(instructions) == str:
             return [
                 {"text": Cleaner._instruction(line)}
