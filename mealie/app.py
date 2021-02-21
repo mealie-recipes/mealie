@@ -61,7 +61,6 @@ api_routers()
 start_scheduler()
 init_settings()
 
-
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")
 

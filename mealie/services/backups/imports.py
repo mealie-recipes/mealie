@@ -1,7 +1,6 @@
 import json
 import shutil
 import zipfile
-from logging import error, exception
 from pathlib import Path
 from typing import List
 
@@ -10,7 +9,6 @@ from db.database import db
 from models.import_models import RecipeImport, SettingsImport, ThemeImport
 from models.theme_models import SiteTheme
 from services.recipe_services import Recipe
-from services.settings_services import SiteSettings
 from sqlalchemy.orm.session import Session
 from utils.logger import logger
 

@@ -3,7 +3,6 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-
 class Webhooks(BaseModel):
     webhookTime: str = "00:00"
     webhookURLs: Optional[List[str]] = []

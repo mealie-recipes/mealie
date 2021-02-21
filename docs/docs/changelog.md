@@ -1,6 +1,6 @@
 # Release Notes
 
-## v0.3.0 - Draft!
+## v0.3.0
 
 ### Bug Fixes
   - Fixed open search on `/` when in input. - Closes #174

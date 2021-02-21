@@ -33,6 +33,7 @@ export default {
       colors: colors,
     };
     let response = await apiReq.put(settingsURLs.updateTheme(themeName), body);
+    console.log(response.data);
     return response.data;
   },
 

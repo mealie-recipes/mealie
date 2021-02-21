@@ -151,4 +151,10 @@ export default {
   background: grey;
 }
 
+.notify-base {
+  color: white !important;
+  margin-right: 60px;
+  margin-bottom: -5px;
+  opacity: 0.9 !important;
+}
 </style>

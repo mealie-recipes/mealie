@@ -19,14 +19,12 @@ def get_main_settings(session: Session = Depends(generate_session)):
     except:
         default_settings_init(session)
         data = db.settings.get(session, "main")
-    print(data)
     return data
 
 
 @router.put("")
 def update_settings(data: SiteSettings, session: Session = Depends(generate_session)):
     """ Returns Site Settings """
-    print("Categories", data.planCategories)
     db.settings.update(session, "main", data.dict())
 
     return SnackResponse.success("Settings Updated")
