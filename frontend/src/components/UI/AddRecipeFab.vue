@@ -13,6 +13,7 @@
               :label="$t('new-recipe.recipe-url')"
               required
               validate-on-blur
+              autofocus
               :rules="[isValidWebUrl]"
             ></v-text-field>
           </v-form>
