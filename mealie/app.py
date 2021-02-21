@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 
 # import utils.startup as startup
-from app_config import APP_VERSION, PORT, WEB_PATH, docs_url, redoc_url
+from app_config import APP_VERSION, PORT, PRODUCTION, docs_url, redoc_url
 from routes import (
     backup_routes,
     debug_routes,
@@ -56,9 +56,11 @@ def api_routers():
     app.include_router(debug_routes.router)
 
 
+
 api_routers()
 start_scheduler()
 init_settings()
+
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")
