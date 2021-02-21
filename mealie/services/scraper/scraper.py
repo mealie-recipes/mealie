@@ -3,10 +3,10 @@ from typing import List
 
 import requests
 import scrape_schema_recipe
-from app_config import DEBUG_DIR
+from core.config import DEBUG_DIR
 from services.image_services import scrape_image
 from services.recipe_services import Recipe
-from services.scraper import  open_graph
+from services.scraper import open_graph
 from services.scraper.cleaner import Cleaner
 from utils.logger import logger
 

@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 
 import yaml
-from app_config import IMG_DIR, TEMP_DIR
+from core.config import IMG_DIR, TEMP_DIR
 from services.recipe_services import Recipe
 from sqlalchemy.orm.session import Session
 from utils.unzip import unpack_zip

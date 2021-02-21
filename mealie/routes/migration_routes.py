@@ -2,7 +2,7 @@ import operator
 import shutil
 from typing import List
 
-from app_config import MIGRATION_DIR
+from core.config import MIGRATION_DIR
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from models.migration_models import MigrationFile, Migrations

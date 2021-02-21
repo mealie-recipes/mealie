@@ -1,3 +1,4 @@
+from core.security import get_password_hash
 from fastapi.logger import logger
 from models.settings_models import SiteSettings, Webhooks
 from sqlalchemy.orm import Session
@@ -54,11 +55,10 @@ def default_user_init(session: Session):
     default_user = {
         "full_name": "Change Me",
         "email": "changeme@email.com",
-        "password": "MyPassword",
+        "password": get_password_hash("MyPassword"),
         "family": "public",
         "is_superuser": True,
     }
 
     logger.info("Generating Default User")
     db.users.create(session, default_user)
-

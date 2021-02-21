@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 
 # import utils.startup as startup
-from app_config import APP_VERSION, PORT, SECRET, docs_url, redoc_url
+from core.config import APP_VERSION, PORT, SECRET, docs_url, redoc_url
 from db.db_setup import sql_exists
 from db.init_db import init_db
 from routes import (

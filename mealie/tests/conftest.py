@@ -2,7 +2,7 @@ import json
 
 import requests
 from app import app
-from app_config import SQLITE_DIR
+from core.config import SQLITE_DIR
 from db.db_setup import generate_session, sql_global_init
 from db.init_db import init_db
 from fastapi.testclient import TestClient

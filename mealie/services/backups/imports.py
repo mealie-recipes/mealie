@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 from typing import List
 
-from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR
+from core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from db.database import db
 from models.import_models import RecipeImport, SettingsImport, ThemeImport
 from models.theme_models import SiteTheme
