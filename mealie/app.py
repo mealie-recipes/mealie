@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 
 # import utils.startup as startup
-from app_config import APP_VERSION, PORT, PRODUCTION, docs_url, redoc_url
+from app_config import APP_VERSION, PORT, SECRET, docs_url, redoc_url
 from routes import (
     backup_routes,
     debug_routes,
@@ -17,6 +17,7 @@ from routes.recipe import (
     recipe_crud_routes,
     tag_routes,
 )
+from routes.users import users
 from services.settings_services import default_settings_init
 from utils.logger import logger
 
@@ -36,9 +37,12 @@ def start_scheduler():
 def init_settings():
     default_settings_init()
     import services.theme_services
+    import services.users.users
 
 
 def api_routers():
+    # Authentication
+    app.include_router(users.router)
     # Recipes
     app.include_router(all_recipe_routes.router)
     app.include_router(category_routes.router)
@@ -54,7 +58,6 @@ def api_routers():
     # Migration Routes
     app.include_router(migration_routes.router)
     app.include_router(debug_routes.router)
-
 
 
 api_routers()

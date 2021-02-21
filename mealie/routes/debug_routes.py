@@ -2,7 +2,6 @@ import json
 
 from app_config import APP_VERSION, DEBUG_DIR
 from fastapi import APIRouter
-from fastapi.responses import HTMLResponse
 from utils.logger import LOGGER_FILE
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])

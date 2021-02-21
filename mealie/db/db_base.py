@@ -108,7 +108,10 @@ class BaseDocument:
         db_entries = [x.dict() for x in result]
 
         if limit == 1:
-            return db_entries[0]
+            try:
+                return db_entries[0]
+            except IndexError:
+                return None
 
         return db_entries
 
@@ -124,9 +127,8 @@ class BaseDocument:
         """
         new_document = self.sql_model(session=session, **document)
         session.add(new_document)
-        return_data = new_document.dict()
         session.commit()
-
+        return_data = new_document.dict()
         return return_data
 
     def update(self, session: Session, match_value: str, new_data: str) -> dict:
