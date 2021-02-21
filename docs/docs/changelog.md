@@ -10,7 +10,7 @@
 
 ### Features and Improvements
   - Improved Nextcloud Imports
-  - Improved Recipe Parser
+  - Improved Recipe Parser!
   - Open search with `/` hotkey! 
   - Database and App version are now split
   - Unified and improved snackbar notifications
