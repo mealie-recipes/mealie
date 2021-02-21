@@ -1,3 +1,4 @@
+from core.security import verify_password
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
@@ -17,9 +18,10 @@ def token(
     password = data.password
 
     user = query_user(email, session)
+    print(user)
     if not user:
         raise InvalidCredentialsException  # you can also use your own HTTPException
-    elif password != user["password"]:
+    elif not verify_password(password, user["password"]):
         raise InvalidCredentialsException
 
     access_token = manager.create_access_token(data=dict(sub=email))

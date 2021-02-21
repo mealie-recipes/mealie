@@ -1,3 +1,4 @@
+from core.security import get_password_hash
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
@@ -16,8 +17,9 @@ async def create_user(
 ):
     """ Returns a list of all user in the Database """
 
+    new_user.password = get_password_hash(new_user.password)
+
     data = db.users.create(session, new_user.dict())
-    print(data)
     return data
 
 
@@ -47,6 +49,7 @@ async def update_user(
     session: Session = Depends(generate_session),
 ):
     current_user_id = current_user.get("id")
+    new_data.password = get_password_hash(new_data.password)
     is_superuser = current_user.get("is_superuser")
     if current_user_id == id or is_superuser:
         return db.users.update(session, id, new_data.dict())

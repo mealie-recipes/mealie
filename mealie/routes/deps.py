@@ -1,4 +1,4 @@
-from app_config import SECRET
+from core.config import SECRET
 from db.database import db
 from db.db_setup import create_session
 from fastapi_login import LoginManager
