@@ -3,6 +3,8 @@ from fastapi import FastAPI
 
 # import utils.startup as startup
 from app_config import APP_VERSION, PORT, SECRET, docs_url, redoc_url
+from db.db_setup import sql_exists
+from db.init_db import init_db
 from routes import (
     backup_routes,
     debug_routes,
@@ -18,7 +20,6 @@ from routes.recipe import (
     tag_routes,
 )
 from routes.users import users
-from services.settings_services import default_settings_init
 from utils.logger import logger
 
 app = FastAPI(
@@ -30,14 +31,12 @@ app = FastAPI(
 )
 
 
+def data_base_first_run():
+    init_db()
+
+
 def start_scheduler():
     import services.scheduler.scheduled_jobs
-
-
-def init_settings():
-    default_settings_init()
-    import services.theme_services
-    import services.users.users
 
 
 def api_routers():
@@ -60,9 +59,11 @@ def api_routers():
     app.include_router(debug_routes.router)
 
 
+if not sql_exists:
+    data_base_first_run()
+
 api_routers()
 start_scheduler()
-init_settings()
 
 if __name__ == "__main__":
     logger.info("-----SYSTEM STARTUP-----")
