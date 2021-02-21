@@ -2,13 +2,13 @@ from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from models.user_models import CreateUser, UserResponse
-from routes.deps import manager, query_user
+from routes.deps import manager
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/users", tags=["Users"])
 
 
-@router.post("/", response_model=UserResponse)
+@router.post("", response_model=UserResponse, status_code=201)
 async def create_user(
     new_user: CreateUser,
     current_user=Depends(manager),
@@ -21,11 +21,15 @@ async def create_user(
     return data
 
 
-@router.get("/", response_model=list[UserResponse])
+@router.get("", response_model=list[UserResponse])
 async def get_all_users(
     current_user=Depends(manager), session: Session = Depends(generate_session)
 ):
-    return db.users.get_all(session)
+
+    if current_user.get("is_superuser"):
+        return db.users.get_all(session)
+    else:
+        return {"details": "user not authorized"}
 
 
 @router.get("/{id}", response_model=UserResponse)
