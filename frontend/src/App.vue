@@ -63,7 +63,7 @@ export default {
   },
   created() {
     window.addEventListener("keyup", e => {
-      if (e.key == "/" && !document.activeElement.id.startsWith('input') ) {
+      if (e.key == "/" && !document.activeElement.id.startsWith("input")) {
         this.search = !this.search;
       }
     });
