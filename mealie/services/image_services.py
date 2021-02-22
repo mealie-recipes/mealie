@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 
 import requests
-from app_config import IMG_DIR
+from core.config import IMG_DIR
 from utils.logger import logger
 
 

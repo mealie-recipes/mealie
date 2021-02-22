@@ -1,7 +1,7 @@
 import operator
 import shutil
 
-from app_config import BACKUP_DIR, TEMPLATE_DIR
+from core.config import BACKUP_DIR, TEMPLATE_DIR
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from models.backup_models import BackupJob, ImportJob, Imports, LocalBackup

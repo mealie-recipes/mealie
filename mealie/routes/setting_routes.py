@@ -2,7 +2,6 @@ from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from models.settings_models import SiteSettings
-from services.settings_services import default_settings_init
 from sqlalchemy.orm.session import Session
 from utils.post_webhooks import post_webhooks
 from utils.snackbar import SnackResponse
@@ -17,8 +16,7 @@ def get_main_settings(session: Session = Depends(generate_session)):
     try:
         data = db.settings.get(session, "main")
     except:
-        default_settings_init(session)
-        data = db.settings.get(session, "main")
+        return
     return data
 
 

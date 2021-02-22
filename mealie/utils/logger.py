@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-from app_config import DATA_DIR
+from core.config import DATA_DIR
 
 LOGGER_LEVEL = "INFO"
 CWD = Path(__file__).parent

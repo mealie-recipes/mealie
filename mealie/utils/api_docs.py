@@ -1,6 +1,6 @@
 import json
 
-from app_config import DATA_DIR
+from core.config import DATA_DIR
 
 """Script to export the ReDoc documentation page into a standalone HTML file."""
 
@@ -37,6 +37,3 @@ HTML_PATH = DATA_DIR.parent.joinpath("docs/docs/html/api.html")
 def generate_api_docs(app):
     with open(HTML_PATH, "w") as fd:
         print(HTML_TEMPLATE % json.dumps(app.openapi()), file=fd)
-
-
-

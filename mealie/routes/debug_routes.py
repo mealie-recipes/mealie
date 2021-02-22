@@ -1,6 +1,6 @@
 import json
 
-from app_config import APP_VERSION, DEBUG_DIR
+from core.config import APP_VERSION, DEBUG_DIR
 from fastapi import APIRouter
 from utils.logger import LOGGER_FILE
 
