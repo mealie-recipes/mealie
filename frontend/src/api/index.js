@@ -7,6 +7,7 @@ import migration from "./migration";
 import myUtils from "./upload";
 import category from "./category";
 import meta from "./meta";
+import users from "./users"
 
 
 export default {
@@ -19,4 +20,5 @@ export default {
   utils: myUtils,
   categories: category,
   meta: meta,
+  users: users
 };

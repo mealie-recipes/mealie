@@ -32,7 +32,9 @@
             light="light"
             prepend-icon="mdi-lock"
             :label="$t('login.password')"
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
           ></v-text-field>
           <v-checkbox
             class="mb-2 mt-0"
@@ -84,6 +86,7 @@ export default {
   data() {
     return {
       showLogin: false,
+      showPassword: false,
       user: {
         email: "",
         password: "",
@@ -98,7 +101,10 @@ export default {
   },
   methods: {
     async login() {
-      let key = await api.login(this.user.email, this.user.password);
+      let formData = new FormData();
+      formData.append("username", this.user.email);
+      formData.append("password", this.user.password);
+      let key = await api.users.login(formData);
       console.log(key);
     },
   },

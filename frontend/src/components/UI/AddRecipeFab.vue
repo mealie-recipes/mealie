@@ -2,10 +2,19 @@
   <div class="text-center">
     <v-dialog v-model="addRecipe" width="650" @click:outside="reset">
       <v-card :loading="processing">
-        <v-app-bar  dark color="primary mb-2">
-          <v-icon large left>
+        <v-app-bar dark color="primary mb-2">
+          <v-icon large left v-if="!processing">
             mdi-link
           </v-icon>
+          <v-progress-circular
+            v-else
+            indeterminate
+            color="white"
+            large
+            class="mr-2"
+          >
+          </v-progress-circular>
+
           <v-toolbar-title class="headline">
             {{ $t("new-recipe.from-url") }}
           </v-toolbar-title>
@@ -40,7 +49,12 @@
           <v-btn color="grey" text @click="reset">
             {{ $t("general.close") }}
           </v-btn>
-          <v-btn color="success" text @click="createRecipe">
+          <v-btn
+            color="success"
+            text
+            @click="createRecipe"
+            :loading="processing"
+          >
             {{ $t("general.submit") }}
           </v-btn>
         </v-card-actions>
