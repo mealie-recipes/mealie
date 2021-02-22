@@ -51,7 +51,8 @@
     "meal-plans": "Plans de menu",
     "create-a-new-meal-plan": "Créer un nouveau plan de menu",
     "start-date": "Date de début",
-    "end-date": "Date de fin"
+    "end-date": "Date de fin",
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans le planificateur de repas."
   },
   "recipe": {
     "description": "Description",
