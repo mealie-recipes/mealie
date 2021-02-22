@@ -9,7 +9,7 @@ license = "MIT"
 start = "app:app"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 aiofiles = "0.5.0"
 aniso8601 = "7.0.0"
 appdirs = "1.4.4"
