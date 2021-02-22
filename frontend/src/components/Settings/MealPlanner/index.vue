@@ -19,7 +19,7 @@
             item-value="name"
             multiple
             chips
-            hint="Only recipes with these categories will be used in Meal Plans"
+            :hint="$t('meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans')"
             class="mt-2"
             persistent-hint
           >
