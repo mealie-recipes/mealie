@@ -20,7 +20,8 @@ const store = new Vuex.Store({
     homePage,
   },
   state: {
-    // Home Page Settings
+    // Auth
+    isLoggedIn: true,
     // Snackbar
     snackActive: false,
     snackText: "",
@@ -33,6 +34,9 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    setIsLoggedIn(state, payload) {
+      state.isLoggedIn = payload;
+    },
     setSnackBar(state, payload) {
       state.snackText = payload.text;
       state.snackType = payload.type;
@@ -75,6 +79,7 @@ const store = new Vuex.Store({
 
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
+    getIsLoggedIn: state => state.isLoggedIn,
   },
 });
 

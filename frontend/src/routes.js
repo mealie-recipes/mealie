@@ -8,12 +8,14 @@ import AllRecipesPage from "./pages/AllRecipesPage";
 import CategoryPage from "./pages/CategoryPage";
 import MeaplPlanPage from "./pages/MealPlanPage";
 import Debug from "./pages/Debug";
+import Login from "./pages/Login";
 import MealPlanThisWeekPage from "./pages/MealPlanThisWeekPage";
 import api from "@/api";
 
 export const routes = [
   { path: "/", component: HomePage },
   { path: "/mealie", component: HomePage },
+  { path: "/login", component: Login },
   { path: "/debug", component: Debug },
   { path: "/search", component: SearchPage },
   { path: "/recipes/all", component: AllRecipesPage },
