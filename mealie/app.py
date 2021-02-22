@@ -20,7 +20,7 @@ from routes.recipe import (
     tag_routes,
 )
 from routes.users import users
-from utils.logger import logger
+from fastapi.logger import logger
 
 app = FastAPI(
     title="Mealie",

@@ -1,10 +1,10 @@
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from models.settings_models import SiteSettings
+from schema.settings_models import SiteSettings
 from sqlalchemy.orm.session import Session
 from utils.post_webhooks import post_webhooks
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 
 router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 

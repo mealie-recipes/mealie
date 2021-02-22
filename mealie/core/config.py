@@ -62,6 +62,8 @@ REQUIRED_DIRS = [
 
 ensure_dirs()
 
+LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
+
 
 # DATABASE ENV
 SQLITE_FILE = None

@@ -4,11 +4,11 @@ from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.sql.model_base import BaseMixins, SqlAlchemyBase
+from db.models.model_base import BaseMixins, SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import validates
-from utils.logger import logger
+from fastapi.logger import logger
 
 
 class ApiExtras(SqlAlchemyBase):

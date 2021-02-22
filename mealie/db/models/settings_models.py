@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.sql.model_base import BaseMixins, SqlAlchemyBase
-from db.sql.recipe_models import Category
+from db.models.model_base import BaseMixins, SqlAlchemyBase
+from db.models.recipe_models import Category
 
 
 class SiteSettingsModel(SqlAlchemyBase, BaseMixins):

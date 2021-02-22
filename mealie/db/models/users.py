@@ -1,4 +1,4 @@
-from db.sql.model_base import BaseMixins, SqlAlchemyBase
+from db.models.model_base import BaseMixins, SqlAlchemyBase
 from sqlalchemy import Boolean, Column, Integer, String
 
 

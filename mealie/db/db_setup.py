@@ -1,7 +1,7 @@
 from core.config import SQLITE_FILE, USE_SQL
 from sqlalchemy.orm.session import Session
 
-from db.sql.db_session import sql_global_init
+from db.models.db_session import sql_global_init
 
 sql_exists = True
 

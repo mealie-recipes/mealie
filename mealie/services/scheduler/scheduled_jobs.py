@@ -3,8 +3,8 @@ from db.db_setup import create_session
 from services.backups.exports import auto_backup_job
 from services.scheduler.global_scheduler import scheduler
 from services.scheduler.scheduler_utils import Cron, cron_parser
-from utils.logger import logger
-from models.settings_models import SiteSettings
+from fastapi.logger import logger
+from schema.settings_models import SiteSettings
 from db.database import db
 from utils.post_webhooks import post_webhooks
 

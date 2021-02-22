@@ -2,7 +2,7 @@ from core.security import get_password_hash
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from models.user_models import CreateUser, UserResponse
+from schema.user_models import CreateUser, UserResponse
 from routes.deps import manager
 from sqlalchemy.orm.session import Session
 

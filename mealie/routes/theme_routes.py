@@ -1,8 +1,8 @@
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from models.theme_models import SiteTheme
+from schema.theme_models import SiteTheme
 from sqlalchemy.orm.session import Session
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 from db.database import db
 
 router = APIRouter(prefix="/api", tags=["Themes"])

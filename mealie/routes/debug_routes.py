@@ -1,8 +1,7 @@
 import json
 
-from core.config import APP_VERSION, DEBUG_DIR
+from core.config import APP_VERSION, DEBUG_DIR, LOGGER_FILE
 from fastapi import APIRouter
-from utils.logger import LOGGER_FILE
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])
 

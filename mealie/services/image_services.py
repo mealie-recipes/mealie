@@ -3,7 +3,7 @@ from pathlib import Path
 
 import requests
 from core.config import IMG_DIR
-from utils.logger import logger
+from fastapi.logger import logger
 
 
 def read_image(recipe_slug: str) -> Path:

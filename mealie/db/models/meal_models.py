@@ -3,7 +3,7 @@ from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.sql.model_base import BaseMixins, SqlAlchemyBase
+from db.models.model_base import BaseMixins, SqlAlchemyBase
 
 
 class Meal(SqlAlchemyBase):

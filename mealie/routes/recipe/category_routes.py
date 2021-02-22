@@ -1,11 +1,11 @@
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from models.category_models import RecipeCategoryResponse
+from schema.category_models import RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 
 router = APIRouter(
     prefix="/api/categories",
@@ -25,7 +25,6 @@ def get_all_recipes_by_category(
 ):
     """ Returns a list of recipes associated with the provided category. """
     return db.categories.get(session, category)
-
 
 
 @router.delete("/{category}")

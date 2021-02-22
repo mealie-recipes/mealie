@@ -99,6 +99,7 @@ export default {
   methods: {
     async login() {
       let key = await api.login(this.user.email, this.user.password);
+      console.log(key);
     },
   },
 };
