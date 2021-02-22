@@ -85,9 +85,7 @@ export default {
       ],
     };
   },
-  mounted() {
-    console.log(this.loggedIn);
-  },
+  mounted() {},
   computed: {
     loggedIn() {
       return this.$store.getters.getIsLoggedIn;
@@ -100,11 +98,7 @@ export default {
       }
     },
   },
-  watch: {
-    loggedIn() {
-      console.log(this.loggedIn);
-    },
-  },
+
   methods: {
     openLoginDialog() {
       this.$refs.loginDialog.open();
