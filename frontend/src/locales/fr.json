@@ -138,6 +138,13 @@
       "backup-restore-report": "Rapport de la restauration de la sauvegarde",
       "successfully-imported": "Importé avec succès",
       "failed-imports": "Importations échouées"
+    },
+    "homepage": {
+      "all-categories": "Toutes les catégories",
+      "card-per-section": "Tuiles par section",
+      "home-page": "Page d'accueil",
+      "homepage-categories": "Catégories de la page d'accueil",
+      "show-recent": "Afficher les récentes"
     }
   },
   "migration": {
