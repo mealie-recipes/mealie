@@ -4,11 +4,11 @@ from typing import List
 import requests
 import scrape_schema_recipe
 from core.config import DEBUG_DIR
+from fastapi.logger import logger
 from services.image_services import scrape_image
 from services.recipe_services import Recipe
 from services.scraper import open_graph
 from services.scraper.cleaner import Cleaner
-from fastapi.logger import logger
 
 LAST_JSON = DEBUG_DIR.joinpath("last_recipe.json")
 
@@ -25,7 +25,7 @@ def create_from_url(url: str) -> Recipe:
     """
     r = requests.get(url)
     new_recipe = extract_recipe_from_html(r.text, url)
-    new_recipe = Cleaner.clean(new_recipe)
+    new_recipe = Cleaner.clean(new_recipe, url)
     new_recipe = download_image_for_recipe(new_recipe)
 
     recipe = Recipe(**new_recipe)
