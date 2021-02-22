@@ -2,9 +2,16 @@
   <div class="text-center">
     <v-dialog v-model="addRecipe" width="650" @click:outside="reset">
       <v-card :loading="processing">
-        <v-card-title class="headline"
-          >{{ $t("new-recipe.from-url") }}
-        </v-card-title>
+        <v-app-bar  dark color="primary mb-2">
+          <v-icon large left>
+            mdi-link
+          </v-icon>
+          <v-toolbar-title class="headline">
+            {{ $t("new-recipe.from-url") }}
+          </v-toolbar-title>
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
 
         <v-card-text>
           <v-form ref="urlForm">
@@ -14,7 +21,10 @@
               required
               validate-on-blur
               autofocus
+              class="mt-1"
               :rules="[isValidWebUrl]"
+              :hint="$t('new-recipe.url-form-hint')"
+              persistent-hint
             ></v-text-field>
           </v-form>
 
