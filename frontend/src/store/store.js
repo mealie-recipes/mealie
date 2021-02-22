@@ -22,10 +22,6 @@ const store = new Vuex.Store({
   state: {
     // Auth
     isLoggedIn: true,
-    // Snackbar
-    snackActive: false,
-    snackText: "",
-    snackType: "warning",
 
     // All Recipe Data Store
     recentRecipes: [],
@@ -36,14 +32,6 @@ const store = new Vuex.Store({
   mutations: {
     setIsLoggedIn(state, payload) {
       state.isLoggedIn = payload;
-    },
-    setSnackBar(state, payload) {
-      state.snackText = payload.text;
-      state.snackType = payload.type;
-      state.snackActive = true;
-    },
-    setSnackActive(state, payload) {
-      state.snackActive = payload;
     },
 
     setRecentRecipes(state, payload) {
@@ -72,11 +60,6 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    //
-    getSnackText: state => state.snackText,
-    getSnackActive: state => state.snackActive,
-    getSnackType: state => state.snackType,
-
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
     getIsLoggedIn: state => state.isLoggedIn,
