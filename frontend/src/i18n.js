@@ -20,8 +20,27 @@ function loadLocaleMessages() {
   return messages;
 }
 
+const dateTimeFormats = {
+  'en': {
+    short: {
+      month: 'short',
+      day: 'numeric',
+      weekday: 'long'
+    },
+  },
+  'fr': {
+    short: {
+      month: 'short',
+      day: 'numeric',
+      weekday: 'long'
+    }
+  }
+}
+
+
 export default new VueI18n({
   locale: "en",
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
   messages: loadLocaleMessages(),
+  dateTimeFormats
 });
