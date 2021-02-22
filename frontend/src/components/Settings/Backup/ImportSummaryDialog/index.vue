@@ -2,10 +2,18 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="70%">
       <v-card>
-        <v-card-title> Import Summary </v-card-title>
-        <v-card-text>
-          <v-row class="mb-n9">
-            <v-card flat>
+        <v-app-bar dark color="primary mb-2">
+          <v-icon large left>
+            mdi-import
+          </v-icon>
+          <v-toolbar-title class="headline">
+            Import Summary
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-card-text class="mb-n4">
+          <v-row>
+            <div>
               <v-card-text>
                 <div>
                   <h3>Recipes</h3>
@@ -17,8 +25,8 @@
                   Failed: {{ recipeNumbers.failure }}
                 </div>
               </v-card-text>
-            </v-card>
-            <v-card flat>
+            </div>
+            <div>
               <v-card-text>
                 <div>
                   <h3>Themes</h3>
@@ -30,8 +38,8 @@
                   Failed: {{ themeNumbers.failure }}
                 </div>
               </v-card-text>
-            </v-card>
-            <v-card flat>
+            </div>
+            <div>
               <v-card-text>
                 <div>
                   <h3>Settings</h3>
@@ -43,7 +51,7 @@
                   Failed: {{ settingsNumbers.failure }}
                 </div>
               </v-card-text>
-            </v-card>
+            </div>
           </v-row>
         </v-card-text>
         <v-tabs v-model="tab">
