@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Confirmation from "./Confirmation";
+import Confirmation from "../../components/UI/Confirmation";
 
 export default {
   props: {

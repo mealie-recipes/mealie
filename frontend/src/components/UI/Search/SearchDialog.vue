@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import SearchBar from "../UI/SearchBar";
-import RecipeCard from "../UI/RecipeCard";
+import SearchBar from "./SearchBar";
+import RecipeCard from "../../Recipe/RecipeCard";
 export default {
   components: {
     SearchBar,

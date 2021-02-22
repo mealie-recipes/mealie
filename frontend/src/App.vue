@@ -27,7 +27,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <Menu />
+      <SiteMenu />
     </v-app-bar>
     <v-main>
       <v-container>
@@ -40,15 +40,15 @@
 </template>
 
 <script>
-import Menu from "./components/UI/Menu";
-import SearchBar from "./components/UI/SearchBar";
+import SiteMenu from "./components/UI/SiteMenu";
+import SearchBar from "./components/UI/Search/SearchBar";
 import AddRecipeFab from "./components/UI/AddRecipeFab";
 import Vuetify from "./plugins/vuetify";
 export default {
   name: "App",
 
   components: {
-    Menu,
+    SiteMenu,
     AddRecipeFab,
     SearchBar,
   },

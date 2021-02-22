@@ -12,7 +12,7 @@
     </v-img>
     <br v-else />
 
-    <ButtonRow
+    <EditorButtonRow
       @json="jsonEditor = true"
       @editor="jsonEditor = false"
       @save="createRecipe"
@@ -43,12 +43,12 @@ import api from "@/api";
 
 import RecipeEditor from "../components/Recipe/RecipeEditor";
 import VJsoneditor from "v-jsoneditor";
-import ButtonRow from "../components/UI/ButtonRow";
+import EditorButtonRow from "../components/Recipe/EditorButtonRow";
 export default {
   components: {
     VJsoneditor,
     RecipeEditor,
-    ButtonRow,
+    EditorButtonRow,
   },
   data() {
     return {

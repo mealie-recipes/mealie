@@ -13,7 +13,7 @@
         :performTime="recipeDetails.performTime"
       />
     </v-img>
-    <ButtonRow
+    <EditorButtonRow
       :open="showIcons"
       @json="jsonEditor = true"
       @editor="
@@ -62,14 +62,14 @@ import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "../components/Recipe/RecipeViewer";
 import RecipeEditor from "../components/Recipe/RecipeEditor";
 import RecipeTimeCard from "../components/Recipe/RecipeTimeCard.vue";
-import ButtonRow from "../components/UI/ButtonRow";
+import EditorButtonRow from "../components/Recipe/EditorButtonRow";
 
 export default {
   components: {
     VJsoneditor,
     RecipeViewer,
     RecipeEditor,
-    ButtonRow,
+    EditorButtonRow,
     RecipeTimeCard,
   },
   data() {

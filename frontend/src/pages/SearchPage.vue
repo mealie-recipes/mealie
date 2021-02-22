@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import SearchBar from "../components/UI/SearchBar";
-import RecipeCard from "../components/UI/RecipeCard";
+import SearchBar from "../components/UI/Search/SearchBar";
+import RecipeCard from "../components/Recipe/RecipeCard";
 export default {
   components: {
     SearchBar,
