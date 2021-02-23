@@ -13,28 +13,30 @@
         {{ $t("migration.recipe-migration") }}
       </v-card-title>
       <v-divider></v-divider>
-    </v-card>
 
-    <v-row dense>
-      <v-col
-        :cols="12"
-        :sm="6"
-        :md="6"
-        :lg="4"
-        :xl="3"
-        v-for="migration in migrations"
-        :key="migration.title"
-      >
-        <MigrationCard
-          :title="migration.title"
-          :folder="migration.urlVariable"
-          :description="migration.description"
-          :available="migration.availableImports"
-          @refresh="getAvailableMigrations"
-          @imported="showReport"
-        />
-      </v-col>
-    </v-row>
+      <v-card-text>
+        <v-row dense>
+          <v-col
+            :cols="12"
+            :sm="6"
+            :md="6"
+            :lg="4"
+            :xl="3"
+            v-for="migration in migrations"
+            :key="migration.title"
+          >
+            <MigrationCard
+              :title="migration.title"
+              :folder="migration.urlVariable"
+              :description="migration.description"
+              :available="migration.availableImports"
+              @refresh="getAvailableMigrations"
+              @imported="showReport"
+            />
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 

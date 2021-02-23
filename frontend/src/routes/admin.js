@@ -1,5 +1,4 @@
 import Admin from "@/pages/Admin";
-import General from "@/pages/Admin/General";
 import Backup from "@/pages/Admin/Backup";
 import Theme from "@/pages/Admin/Theme";
 import MealPlanner from "@/pages/Admin/MealPlanner";
@@ -20,10 +19,7 @@ export default {
       path: "profile",
       component: Profile,
     },
-    {
-      path: "general",
-      component: General,
-    },
+
     {
       path: "backups",
       component: Backup,

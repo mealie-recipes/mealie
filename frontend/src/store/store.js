@@ -20,8 +20,6 @@ const store = new Vuex.Store({
     homePage,
   },
   state: {
-    // Auth
-    isLoggedIn: true,
 
     // All Recipe Data Store
     recentRecipes: [],
@@ -30,10 +28,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setIsLoggedIn(state, payload) {
-      state.isLoggedIn = payload;
-    },
-
     setRecentRecipes(state, payload) {
       state.recentRecipes = payload;
     },
@@ -62,7 +56,6 @@ const store = new Vuex.Store({
   getters: {
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
-    getIsLoggedIn: state => state.isLoggedIn,
   },
 });
 

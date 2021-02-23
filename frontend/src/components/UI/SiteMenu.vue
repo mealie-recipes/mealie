@@ -53,12 +53,6 @@ export default {
           login: true,
         },
         {
-          icon: "mdi-account",
-          title: "Logout",
-          restricted: true,
-          login: true,
-        },
-        {
           icon: "mdi-calendar-week",
           title: this.$i18n.t("meal-plan.dinner-this-week"),
           nav: "/meal-plan/this-week",
@@ -75,6 +69,12 @@ export default {
           title: this.$i18n.t("meal-plan.planner"),
           nav: "/meal-plan/planner",
           restricted: true,
+        },
+        {
+          icon: "mdi-account",
+          title: "Logout",
+          restricted: true,
+          nav: "/logout",
         },
         {
           icon: "mdi-cog",

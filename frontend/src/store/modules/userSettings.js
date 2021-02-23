@@ -18,6 +18,8 @@ const state = {
   activeTheme: {},
   darkMode: "system",
   isDark: false,
+  isLoggedIn: false,
+  token: "",
 };
 
 const mutations = {
@@ -34,6 +36,13 @@ const mutations = {
       state.isDark = isDark;
       state.darkMode = payload;
     }
+  },
+  setIsLoggedIn(state, payload) {
+    state.isLoggedIn = payload;
+  },
+  setToken(state, payload) {
+    state.isLoggedIn = true;
+    state.token = payload;
   },
 };
 
@@ -63,6 +72,8 @@ const getters = {
   getActiveTheme: state => state.activeTheme,
   getDarkMode: state => state.darkMode,
   getIsDark: state => state.isDark,
+  getIsLoggedIn: state => state.isLoggedIn,
+  getToken: state => state.token,
 };
 
 export default {

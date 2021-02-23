@@ -28,6 +28,7 @@
       </v-btn>
 
       <SiteMenu />
+      <LanguageMenu />
     </v-app-bar>
     <v-main>
       <v-container>
@@ -40,10 +41,12 @@
 </template>
 
 <script>
-import SiteMenu from "./components/UI/SiteMenu";
-import SearchBar from "./components/UI/Search/SearchBar";
-import AddRecipeFab from "./components/UI/AddRecipeFab";
+import SiteMenu from "@/components/UI/SiteMenu";
+import SearchBar from "@/components/UI/Search/SearchBar";
+import AddRecipeFab from "@/components/UI/AddRecipeFab";
+import LanguageMenu from "@/components/UI/LanguageMenu";
 import Vuetify from "./plugins/vuetify";
+
 export default {
   name: "App",
 
@@ -51,6 +54,7 @@ export default {
     SiteMenu,
     AddRecipeFab,
     SearchBar,
+    LanguageMenu,
   },
 
   watch: {

@@ -89,6 +89,8 @@
   },
   "settings": {
     "general-settings": "General Settings",
+    "change-password": "Change Password",
+    "admin-settings": "Admin Settings",
     "local-api": "Local API",
     "language": "Language",
     "add-a-new-theme": "Add a New Theme",

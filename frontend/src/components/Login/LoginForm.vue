@@ -134,6 +134,7 @@ export default {
         this.clear();
       }
       console.log(key);
+      this.$store.commit("setToken", key.data.access_token)
       this.loading = false;
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="my-2" :loading="loading">
+  <v-card outlined class="my-2" :loading="loading">
     <v-card-title>
       {{ title }}
       <v-spacer></v-spacer>

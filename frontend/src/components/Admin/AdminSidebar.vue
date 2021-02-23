@@ -76,36 +76,14 @@ export default {
       links: [],
       superLinks: [
         {
+          icon: "mdi-cog",
+          to: "/admin/settings",
+          title: "Site Settings",
+        },
+        {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
           title: "Manage Users",
-        },
-        {
-          icon: "mdi-cog",
-          to: "/admin/settings",
-          title: "Admin Settings",
-        },
-      ],
-      baseLinks: [
-        {
-          icon: "mdi-account",
-          to: "/admin/profile",
-          title: "Profile",
-        },
-        {
-          icon: "mdi-card-bulleted-settings-outline",
-          to: "/admin/general",
-          title: "General",
-        },
-        {
-          icon: "mdi-format-color-fill",
-          to: "/admin/themes",
-          title: "Themes",
-        },
-        {
-          icon: "mdi-food",
-          to: "/admin/meal-planner",
-          title: "Meal Planner",
         },
         {
           icon: "mdi-backup-restore",
@@ -116,6 +94,23 @@ export default {
           icon: "mdi-database-import",
           to: "/admin/migrations",
           title: "Migrations",
+        },
+      ],
+      baseLinks: [
+        {
+          icon: "mdi-account",
+          to: "/admin/profile",
+          title: "Profile",
+        },
+        {
+          icon: "mdi-format-color-fill",
+          to: "/admin/themes",
+          title: "Themes",
+        },
+        {
+          icon: "mdi-food",
+          to: "/admin/meal-planner",
+          title: "Meal Planner",
         },
       ],
     };

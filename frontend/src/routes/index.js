@@ -11,9 +11,18 @@ import LoginPage from "../pages/LoginPage";
 import MealPlanThisWeekPage from "../pages/MealPlanThisWeekPage";
 import api from "@/api";
 import Admin from "./admin";
+import { store } from "../store/store";
 
 export const routes = [
   { path: "/", name: "home", component: HomePage },
+  {
+    path: "/logout",
+    beforeEnter: (_to, _from, next) => {
+      store.commit("setToken", "");
+      store.commit("setIsLoggedIn", false);
+      next("/");
+    },
+  },
   { path: "/mealie", component: HomePage },
   { path: "/login", component: LoginPage },
   { path: "/debug", component: Debug },

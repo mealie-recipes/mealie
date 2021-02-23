@@ -25,17 +25,19 @@
     <v-card-text>
       <v-row>
         <v-col cols="12" sm="6">
-          <v-card outlined min-height="250">
-            <v-card-text class="pt-2 pb-1">
-              <h3>Homepage Categories</h3>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-list
-              min-height="200"
-              dense
-              max-height="200"
-              style="overflow:auto"
-            >
+          <v-card outlined min-height="350px">
+            <v-app-bar dark dense color="primary">
+              <v-icon left>
+                mdi-home
+              </v-icon>
+
+              <v-toolbar-title class="headline">
+                Home Page Categories
+              </v-toolbar-title>
+
+              <v-spacer></v-spacer>
+            </v-app-bar>
+            <v-list height="300" dense style="overflow:auto">
               <v-list-item-group>
                 <draggable
                   v-model="homeCategories"
@@ -65,24 +67,19 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="6">
-          <v-card outlined min-height="250px">
-            <v-card-text class="pt-2 pb-1">
-              <h3>
+          <v-card outlined height="350px">
+            <v-app-bar dark dense color="primary">
+              <v-icon left>
+                mdi-tag
+              </v-icon>
+
+              <v-toolbar-title class="headline">
                 All Categories
-                <span>
-                  <v-btn absolute right x-small color="success" icon>
-                    <v-icon>mdi-plus</v-icon></v-btn
-                  >
-                </span>
-              </h3>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-list
-              min-height="200"
-              dense
-              max-height="200"
-              style="overflow:auto"
-            >
+              </v-toolbar-title>
+
+              <v-spacer></v-spacer>
+            </v-app-bar>
+            <v-list height="300" dense style="overflow:auto">
               <v-list-item-group>
                 <draggable
                   v-model="categories"
