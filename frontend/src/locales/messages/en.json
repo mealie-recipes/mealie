@@ -61,7 +61,8 @@
     "meal-plans": "Meal Plans",
     "create-a-new-meal-plan": "Create a New Meal Plan",
     "start-date": "Start Date",
-    "end-date": "End Date"
+    "end-date": "End Date",
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans"
   },
   "recipe": {
     "description": "Description",
@@ -148,6 +149,13 @@
       "backup-restore-report": "Backup Restore Report",
       "successfully-imported": "Successfully Imported",
       "failed-imports": "Failed Imports"
+    },
+    "homepage": {
+      "card-per-section": "Card Per Section",
+      "homepage-categories": "Homepage Categories",
+      "home-page": "Home Page",
+      "all-categories": "All Categories",
+      "show-recent": "Show Recent"
     }
   },
   "migration": {
