@@ -1,19 +1,19 @@
-import HomePage from "./pages/HomePage";
-import Page404 from "./pages/404Page";
-import SearchPage from "./pages/SearchPage";
-import RecipePage from "./pages/RecipePage";
-import RecipeNewPage from "./pages/RecipeNewPage";
-import SettingsPage from "./pages/SettingsPage";
-import AllRecipesPage from "./pages/AllRecipesPage";
-import CategoryPage from "./pages/CategoryPage";
-import MeaplPlanPage from "./pages/MealPlanPage";
-import Debug from "./pages/Debug";
-import LoginPage from "./pages/LoginPage";
-import MealPlanThisWeekPage from "./pages/MealPlanThisWeekPage";
+import HomePage from "../pages/HomePage";
+import Page404 from "../pages/404Page";
+import SearchPage from "../pages/SearchPage";
+import RecipePage from "../pages/RecipePage";
+import RecipeNewPage from "../pages/RecipeNewPage";
+import AllRecipesPage from "../pages/AllRecipesPage";
+import CategoryPage from "../pages/CategoryPage";
+import MeaplPlanPage from "../pages/MealPlanPage";
+import Debug from "../pages/Debug";
+import LoginPage from "../pages/LoginPage";
+import MealPlanThisWeekPage from "../pages/MealPlanThisWeekPage";
 import api from "@/api";
+import Admin from "./admin";
 
 export const routes = [
-  { path: "/", component: HomePage },
+  { path: "/", name: "home", component: HomePage },
   { path: "/mealie", component: HomePage },
   { path: "/login", component: LoginPage },
   { path: "/debug", component: Debug },
@@ -22,9 +22,9 @@ export const routes = [
   { path: "/recipes/:category", component: CategoryPage },
   { path: "/recipe/:recipe", component: RecipePage },
   { path: "/new/", component: RecipeNewPage },
-  { path: "/settings/site", component: SettingsPage },
   { path: "/meal-plan/planner", component: MeaplPlanPage },
   { path: "/meal-plan/this-week", component: MealPlanThisWeekPage },
+  Admin,
   {
     path: "/meal-plan/today",
     beforeEnter: async (_to, _from, next) => {
