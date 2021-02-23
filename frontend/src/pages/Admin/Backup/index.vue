@@ -49,10 +49,10 @@
 <script>
 import api from "@/api";
 import SuccessFailureAlert from "@/components/UI/SuccessFailureAlert";
-import ImportSummaryDialog from "./ImportSummaryDialog";
-import UploadBtn from "../../UI/UploadBtn";
-import AvailableBackupCard from "./AvailableBackupCard";
-import NewBackupCard from "./NewBackupCard";
+import ImportSummaryDialog from "@/components/Admin/Backup/ImportSummaryDialog";
+import UploadBtn from "@/components/UI/UploadBtn";
+import AvailableBackupCard from "@/components/Admin/Backup/AvailableBackupCard";
+import NewBackupCard from "@/components/Admin/Backup/NewBackupCard";
 
 export default {
   components: {

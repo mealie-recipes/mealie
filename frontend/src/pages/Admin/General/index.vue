@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import HomePageSettings from "./HomePageSettings";
+import HomePageSettings from "@/components/Admin/General/HomePageSettings";
 
 export default {
   components: {

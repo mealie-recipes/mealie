@@ -1,12 +1,12 @@
-import Admin from "../pages/Admin";
-import General from "../components/Admin/General";
-import Backup from "../components/Admin/Backup";
-import Theme from "../components/Admin/Theme";
-import MealPlanner from "../components/Admin/MealPlanner";
-import Migration from "../components/Admin/Migration";
-import Profile from "../pages/Admin/Profile";
-import ManageUsers from "../pages/Admin/ManageUsers";
-import Settings from "../pages/Admin/Settings";
+import Admin from "@/pages/Admin";
+import General from "@/pages/Admin/General";
+import Backup from "@/pages/Admin/Backup";
+import Theme from "@/pages/Admin/Theme";
+import MealPlanner from "@/pages/Admin/MealPlanner";
+import Migration from "@/pages/Admin/Migration";
+import Profile from "@/pages/Admin/Profile";
+import ManageUsers from "@/pages/Admin/ManageUsers";
+import Settings from "@/pages/Admin/Settings";
 
 export default {
   path: "/admin",

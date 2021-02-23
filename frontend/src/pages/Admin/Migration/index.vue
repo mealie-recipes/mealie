@@ -40,8 +40,8 @@
 
 
 <script>
-import MigrationCard from "./MigrationCard";
-import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import MigrationCard from "@/components/Admin/Migration/MigrationCard";
+import SuccessFailureAlert from "@/components/UI/SuccessFailureAlert";
 import api from "@/api";
 export default {
   components: {

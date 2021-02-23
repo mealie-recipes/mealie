@@ -97,7 +97,7 @@
 
 <script>
 import api from "@/api";
-import TimePickerDialog from "./TimePickerDialog";
+import TimePickerDialog from "@/components/Admin/MealPlanner/TimePickerDialog";
 export default {
   components: {
     TimePickerDialog,

@@ -150,9 +150,9 @@
 
 <script>
 import api from "@/api";
-import ColorPickerDialog from "./ColorPickerDialog";
-import NewThemeDialog from "./NewThemeDialog";
-import Confirmation from "../../UI/Confirmation";
+import ColorPickerDialog from "@/components/Admin/Theme/ColorPickerDialog";
+import NewThemeDialog from "@/components/Admin/Theme/NewThemeDialog";
+import Confirmation from "@/components/UI/Confirmation";
 
 export default {
   components: {
