@@ -1,7 +1,7 @@
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from schema.settings_models import SiteSettings
+from schema.settings import SiteSettings
 from sqlalchemy.orm.session import Session
 from utils.post_webhooks import post_webhooks
 from schema.snackbar import SnackResponse

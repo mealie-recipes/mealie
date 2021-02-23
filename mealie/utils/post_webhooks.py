@@ -3,7 +3,7 @@ import json
 import requests
 from db.database import db
 from db.db_setup import create_session
-from schema.settings_models import SiteSettings
+from schema.settings import SiteSettings
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
 

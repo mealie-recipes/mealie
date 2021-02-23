@@ -5,7 +5,7 @@ from typing import List
 from core.config import MIGRATION_DIR
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from schema.migration_models import MigrationFile, Migrations
+from schema.migration import MigrationFile, Migrations
 from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
 from services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session

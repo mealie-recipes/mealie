@@ -1,7 +1,7 @@
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from schema.category_models import RecipeCategoryResponse
+from schema.category import RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 from schema.snackbar import SnackResponse
 

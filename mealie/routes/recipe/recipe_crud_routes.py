@@ -2,7 +2,7 @@ from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, Form, HTTPException
 from fastapi.logger import logger
 from fastapi.responses import FileResponse
-from schema.recipe_models import RecipeURLIn
+from schema.recipe import RecipeURLIn
 from services.image_services import read_image, write_image
 from services.recipe_services import Recipe
 from services.scraper.scraper import create_from_url

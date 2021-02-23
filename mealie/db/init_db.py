@@ -1,6 +1,6 @@
 from core.security import get_password_hash
 from fastapi.logger import logger
-from schema.settings_models import SiteSettings, Webhooks
+from schema.settings import SiteSettings, Webhooks
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.session import Session
 from fastapi.logger import logger

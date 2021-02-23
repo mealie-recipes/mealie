@@ -1,6 +1,6 @@
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from schema.theme_models import SiteTheme
+from schema.theme import SiteTheme
 from sqlalchemy.orm.session import Session
 from schema.snackbar import SnackResponse
 from db.database import db

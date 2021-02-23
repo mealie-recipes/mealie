@@ -6,8 +6,8 @@ from typing import List
 
 from core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from db.database import db
-from schema.import_models import RecipeImport, SettingsImport, ThemeImport
-from schema.theme_models import SiteTheme
+from schema.restore import RecipeImport, SettingsImport, ThemeImport
+from schema.theme import SiteTheme
 from services.recipe_services import Recipe
 from sqlalchemy.orm.session import Session
 from fastapi.logger import logger

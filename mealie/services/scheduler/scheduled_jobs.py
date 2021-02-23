@@ -4,7 +4,7 @@ from services.backups.exports import auto_backup_job
 from services.scheduler.global_scheduler import scheduler
 from services.scheduler.scheduler_utils import Cron, cron_parser
 from fastapi.logger import logger
-from schema.settings_models import SiteSettings
+from schema.settings import SiteSettings
 from db.database import db
 from utils.post_webhooks import post_webhooks
 
