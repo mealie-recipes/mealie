@@ -48,7 +48,7 @@
 
 <script>
 import api from "@/api";
-import SuccessFailureAlert from "../../UI/SuccessFailureAlert";
+import SuccessFailureAlert from "@/components/UI/SuccessFailureAlert";
 import ImportSummaryDialog from "./ImportSummaryDialog";
 import UploadBtn from "../../UI/UploadBtn";
 import AvailableBackupCard from "./AvailableBackupCard";

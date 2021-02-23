@@ -1,3 +1,4 @@
+const path = require("path");
 module.exports = {
   transpileDependencies: ["vuetify"],
   publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
@@ -16,6 +17,13 @@ module.exports = {
       fallbackLocale: "en",
       localeDir: "locales",
       enableInSFC: true,
+    },
+  },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": path.resolve("src"),
+      },
     },
   },
 };
