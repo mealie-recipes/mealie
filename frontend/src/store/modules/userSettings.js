@@ -1,5 +1,6 @@
 import api from "@/api";
 import Vuetify from "../../plugins/vuetify";
+import axios from "axios";
 
 function inDarkMode(payload) {
   let isDark;
@@ -42,6 +43,7 @@ const mutations = {
   },
   setToken(state, payload) {
     state.isLoggedIn = true;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${payload}`;
     state.token = payload;
   },
 };
@@ -55,6 +57,7 @@ const actions = {
       commit("setTheme", defaultTheme);
     }
   },
+
 
   async initTheme({ dispatch, getters }) {
     //If theme is empty resetTheme

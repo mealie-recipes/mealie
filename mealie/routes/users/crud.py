@@ -1,8 +1,10 @@
+from datetime import timedelta
+
 from core.security import get_password_hash
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from routes.deps import manager
+from routes.deps import manager, query_user
 from schema.user import UserBase, UserIn, UserInDB, UserOut
 from sqlalchemy.orm.session import Session
 
@@ -35,6 +37,14 @@ async def get_all_users(
         return {"details": "user not authorized"}
 
 
+@router.get("/self", response_model=UserOut)
+async def get_user_by_id(
+    current_user: UserInDB = Depends(manager),
+    session: Session = Depends(generate_session),
+):
+    return current_user.dict()
+
+
 @router.get("/{id}", response_model=UserOut)
 async def get_user_by_id(
     id: int,
@@ -44,7 +54,7 @@ async def get_user_by_id(
     return db.users.get(session, id)
 
 
-@router.put("/{id}", response_model=UserOut)
+@router.put("/{id}")
 async def update_user(
     id: int,
     new_data: UserBase,
@@ -53,7 +63,13 @@ async def update_user(
 ):
 
     if current_user.id == id or current_user.admin:
-        return db.users.update(session, id, new_data.dict())
+        updated_user = db.users.update(session, id, new_data.dict())
+        email = updated_user.get("email")
+        if current_user.id == id:
+            access_token = manager.create_access_token(
+                data=dict(sub=email), expires=timedelta(hours=2)
+            )
+            return {"access_token": access_token, "token_type": "bearer"}
     return
 
 

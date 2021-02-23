@@ -37,7 +37,7 @@
                 <v-row>
                   <v-col cols="12" sm="12" md="6">
                     <v-text-field
-                      v-model="editedItem.full_name"
+                      v-model="editedItem.fullName"
                       label="Full Name"
                     ></v-text-field>
                   </v-col>
@@ -52,12 +52,18 @@
                       v-model="editedItem.family"
                       label="Family Group"
                     ></v-text-field>
-                    <v-col cols="12" sm="12" md="3">
-                      <v-switch
-                        v-model="editedItem.admin"
-                        label="Admin"
-                      ></v-switch>
-                    </v-col>
+                  </v-col>
+                  <v-col cols="12" sm="12" md="6" v-if="showPassword">
+                    <v-text-field
+                      v-model="editedItem.password"
+                      label="User Password"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="12" md="3">
+                    <v-switch
+                      v-model="editedItem.admin"
+                      label="Admin"
+                    ></v-switch>
                   </v-col>
                 </v-row>
               </v-container>
@@ -76,10 +82,14 @@
         </v-dialog>
         <Confirmation
           ref="deleteUserDialog"
-          title="Confirm Delete User"
-          message="Are you sure you want to delete the user?"
+          title="Confirm User Deletion"
+          :message="
+            `Are you sure you want to delete the user <b>${activeName} ID: ${activeId}<b/>`
+          "
           icon="mdi-alert"
-          @confirm="deleteItemConfirm"
+          @confirm="deleteUser"
+          :width="450"
+          @close="closeDelete"
         />
       </v-toolbar>
     </template>
@@ -110,11 +120,13 @@
 
 <script>
 import Confirmation from "@/components/UI/Confirmation";
+import api from "@/api";
 export default {
   components: { Confirmation },
   data: () => ({
     dialog: false,
-    dialogDelete: false,
+    activeId: null,
+    activeName: null,
     headers: [
       {
         text: "User ID",
@@ -122,7 +134,7 @@ export default {
         sortable: false,
         value: "id",
       },
-      { text: "Full Name", value: "full_name" },
+      { text: "Full Name", value: "fullName" },
       { text: "Email", value: "email" },
       { text: "Family", value: "family" },
       { text: "Admin", value: "admin" },
@@ -132,14 +144,14 @@ export default {
     editedIndex: -1,
     editedItem: {
       id: 0,
-      full_name: "",
+      fullName: "",
       email: "",
       family: "",
       admin: false,
     },
     defaultItem: {
       id: 0,
-      full_name: "",
+      fullName: "",
       email: "",
       family: "",
       admin: false,
@@ -149,6 +161,9 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New User" : "Edit User";
+    },
+    showPassword() {
+      return this.editedIndex === -1 ? true : false;
     },
   },
 
@@ -166,16 +181,13 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.users = [
-        {
-          id: 1,
-          full_name: "Change Me",
-          email: "changeme@email.com",
-          family: "public",
-          admin: false,
-        },
-      ];
+    async initialize() {
+      this.users = await api.users.allUsers();
+    },
+
+    async deleteUser() {
+      await api.users.delete(this.editedIndex);
+      this.initialize();
     },
 
     editItem(item) {
@@ -185,6 +197,8 @@ export default {
     },
 
     deleteItem(item) {
+      this.activeId = item.id;
+      this.activeName = item.fullName;
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.$refs.deleteUserDialog.open();
@@ -211,12 +225,14 @@ export default {
       });
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.users[this.editedIndex], this.editedItem);
+        console.log("New User", this.editedItem);
+        api.users.update(this.editedItem);
       } else {
-        this.users.push(this.editedItem);
+        api.users.create(this.editedItem);
       }
+      await this.initialize();
       this.close();
     },
   },
