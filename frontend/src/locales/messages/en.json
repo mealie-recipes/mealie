@@ -1,4 +1,12 @@
 {
+
+  "dateTimeFormats": {
+    "short": {
+      "month": "short",
+      "day": "numeric",
+      "weekday": "long"
+    }
+  },
   "404": {
     "page-not-found": "404 Page Not Found",
     "take-me-home": "Take me Home"
