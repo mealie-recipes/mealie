@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" width="500">
-      <LoginForm />
+      <LoginForm @logged-in="dialog = false" />
     </v-dialog>
   </div>
 </template>

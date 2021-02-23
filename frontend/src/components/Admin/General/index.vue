@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-card-title class="headline">
       {{ $t("settings.general-settings") }}
       <v-spacer></v-spacer>
       <span>

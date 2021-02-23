@@ -3,9 +3,17 @@
     <v-card max-width="500px">
       <v-divider></v-divider>
       <v-app-bar dark color="primary mt-n1">
-        <v-icon large left>
+        <v-icon large left v-if="!loading">
           mdi-account
         </v-icon>
+        <v-progress-circular
+          v-else
+          indeterminate
+          color="white"
+          large
+          class="mr-2"
+        >
+        </v-progress-circular>
         <v-toolbar-title class="headline"> Login </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -61,6 +69,9 @@
             >{{ $t("login.sign-up") }}</v-btn
           >
         </v-form>
+        <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
+          Could Not Validate Credentials
+        </v-alert>
       </v-card-text>
       <!-- <v-card-actions v-if="options.isLoggingIn" class="card-actions">
         <div>
@@ -85,6 +96,8 @@ export default {
   props: {},
   data() {
     return {
+      loading: false,
+      error: false,
       showLogin: false,
       showPassword: false,
       user: {
@@ -97,15 +110,31 @@ export default {
     };
   },
   mounted() {
-    this.user = { email: "", password: "" };
+    this.clear();
   },
   methods: {
+    clear() {
+      this.user = { email: "", password: "" };
+    },
     async login() {
+      this.loading = true;
+      this.error = false;
       let formData = new FormData();
       formData.append("username", this.user.email);
       formData.append("password", this.user.password);
-      let key = await api.users.login(formData);
+      let key;
+      try {
+        key = await api.users.login(formData);
+      } catch {
+        this.error = true;
+      }
+      if (key.status != 200) this.error = true;
+      else {
+        this.$emit("logged-in");
+        this.clear();
+      }
       console.log(key);
+      this.loading = false;
     },
   },
 };

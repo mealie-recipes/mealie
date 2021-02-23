@@ -79,7 +79,7 @@ export default {
         {
           icon: "mdi-cog",
           title: this.$i18n.t("general.settings"),
-          nav: "/settings/site",
+          nav: "/admin",
           restricted: true,
         },
       ],
