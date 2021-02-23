@@ -10,7 +10,7 @@ class User(SqlAlchemyBase, BaseMixins):
     password = Column(String)
     is_active = Column(Boolean(), default=True)
     family = Column(String)
-    is_superuser = Column(Boolean(), default=False)
+    admin = Column(Boolean(), default=False)
 
     def __init__(
         self,
@@ -19,12 +19,12 @@ class User(SqlAlchemyBase, BaseMixins):
         email,
         password,
         family="public",
-        is_superuser=False,
+        admin=False,
     ) -> None:
         self.full_name = full_name
         self.email = email
         self.family = family
-        self.is_superuser = is_superuser
+        self.admin = admin
         self.password = password
 
     def dict(self):
@@ -32,13 +32,13 @@ class User(SqlAlchemyBase, BaseMixins):
             "id": self.id,
             "full_name": self.full_name,
             "email": self.email,
-            "is_superuser": self.is_superuser,
+            "admin": self.admin,
             "family": self.family,
             "password": self.password,
         }
 
-    def update(self, full_name, email, family, password, session=None):
+    def update(self, full_name, email, family, admin, session=None):
         self.full_name = full_name
         self.email = email
         self.family = family
-        self.password = password
+        self.admin = admin

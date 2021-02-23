@@ -57,7 +57,7 @@ def default_user_init(session: Session):
         "email": "changeme@email.com",
         "password": get_password_hash("MyPassword"),
         "family": "public",
-        "is_superuser": True,
+        "admin": True,
     }
 
     logger.info("Generating Default User")

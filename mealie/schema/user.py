@@ -1,23 +1,32 @@
-from pydantic import BaseModel
+from typing import Optional
+
+from fastapi_camelcase import CamelModel
+
+# from pydantic import EmailStr
 
 
-class CreateUser(BaseModel):
-    full_name: str
+class UserBase(CamelModel):
+    full_name: Optional[str] = None
     email: str
-    password: str
     family: str
+    admin: bool
 
     class Config:
         schema_extra = {
-            "full_name": "Change Me",
+            "fullName": "Change Me",
             "email": "changeme@email.com",
-            "password": "MyPassword",
             "family": "public",
+            "admin": "false",
         }
 
 
-class UserResponse(BaseModel):
+class UserIn(UserBase):
+    password: str
+
+
+class UserOut(UserBase):
     id: int
-    full_name: str
-    email: str
-    family: str
+
+
+class UserInDB(UserIn, UserOut):
+    pass

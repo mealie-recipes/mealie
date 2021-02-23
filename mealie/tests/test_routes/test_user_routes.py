@@ -14,9 +14,10 @@ TOKEN_URL = "/api/auth/token"
 def default_user():
     return {
         "id": 1,
-        "full_name": "Change Me",
+        "fullName": "Change Me",
         "email": "changeme@email.com",
         "family": "public",
+        "admin": True
     }
 
 
@@ -24,9 +25,10 @@ def default_user():
 def new_user():
     return {
         "id": 2,
-        "full_name": "My New User",
+        "fullName": "My New User",
         "email": "newuser@email.com",
         "family": "public",
+        "admin": False
     }
 
 
@@ -49,10 +51,11 @@ def test_init_superuser(api_client: requests, token, default_user):
 
 def test_create_user(api_client: requests, token, new_user):
     create_data = {
-        "full_name": "My New User",
+        "fullName": "My New User",
         "email": "newuser@email.com",
         "password": "MyStrongPassword",
         "family": "public",
+        "admin": False
     }
 
     response = api_client.post(f"{BASE}", json=create_data, headers=token)
@@ -72,19 +75,21 @@ def test_get_all_users(api_client: requests, token, new_user, default_user):
 
 def test_update_user(api_client: requests, token):
     update_data = {
-        "full_name": "Updated Name",
+        "id": 1,
+        "fullName": "Updated Name",
         "email": "updated@email.com",
-        "password": "MyStrongPassword",
         "family": "public",
+        "admin": True
     }
     response = api_client.put(f"{BASE}/1", headers=token, json=update_data)
 
     assert response.status_code == 200
     assert json.loads(response.text) == {
         "id": 1,
-        "full_name": "Updated Name",
+        "fullName": "Updated Name",
         "email": "updated@email.com",
         "family": "public",
+        "admin": True
     }
 
 
