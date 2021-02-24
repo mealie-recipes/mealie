@@ -1,10 +1,10 @@
 from sqlalchemy.orm.session import Session
 
 from db.db_base import BaseDocument
-from db.models.meal_models import MealPlanModel
-from db.models.recipe_models import Category, RecipeModel, Tag
-from db.models.settings_models import SiteSettingsModel
-from db.models.theme_models import SiteThemeModel
+from db.models.mealplan import MealPlanModel
+from db.models.recipe import Category, RecipeModel, Tag
+from db.models.settings import SiteSettingsModel
+from db.models.theme import SiteThemeModel
 from db.models.users import User
 
 """
