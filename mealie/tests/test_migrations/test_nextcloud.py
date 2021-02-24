@@ -1,10 +1,14 @@
 from pathlib import Path
-from app_config import TEMP_DIR
+from core.config import TEMP_DIR
 import pytest
-from app_config import TEMP_DIR
+from core.config import TEMP_DIR
 from services.image_services import IMG_DIR
-from services.migrations.nextcloud import (cleanup, import_recipes, prep,
-                                           process_selection)
+from services.migrations.nextcloud import (
+    cleanup,
+    import_recipes,
+    prep,
+    process_selection,
+)
 from services.recipe_services import Recipe
 from tests.test_config import TEST_NEXTCLOUD_DIR
 

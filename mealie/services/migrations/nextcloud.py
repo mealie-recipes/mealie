@@ -4,10 +4,10 @@ import shutil
 import zipfile
 from pathlib import Path
 
-from app_config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
+from core.config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
 from services.recipe_services import Recipe
 from services.scraper.cleaner import Cleaner
-from app_config import IMG_DIR, TEMP_DIR
+from core.config import IMG_DIR, TEMP_DIR
 
 
 def process_selection(selection: Path) -> Path:
@@ -81,7 +81,7 @@ def migrate(session, selection: str):
                 successful_imports.append(recipe.name)
             except:
                 logging.error(f"Failed Nextcloud Import: {dir.name}")
-                logging.exception('')
+                logging.exception("")
                 failed_imports.append(dir.name)
 
     cleanup()

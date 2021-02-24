@@ -4,8 +4,9 @@
     "take-me-home": "Take me Home"
   },
   "new-recipe": {
-    "from-url": "From URL",
+    "from-url": "Import a Recipe",
     "recipe-url": "Recipe URL",
+    "url-form-hint": "Copy and paste a link from your favorite recipe website",
     "error-message": "Looks like there was an error parsing the URL. Check the log and debug/last_recipe.json to see what went wrong.",
     "bulk-add": "Bulk Add",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Paste in your recipe data. Each line will be treated as an item in a list"
@@ -89,6 +90,8 @@
   },
   "settings": {
     "general-settings": "General Settings",
+    "change-password": "Change Password",
+    "admin-settings": "Admin Settings",
     "local-api": "Local API",
     "language": "Language",
     "add-a-new-theme": "Add a New Theme",

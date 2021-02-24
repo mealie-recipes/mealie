@@ -2,7 +2,7 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-from app_config import TEMP_DIR
+from core.config import TEMP_DIR
 
 
 def unpack_zip(selection: Path) -> tempfile.TemporaryDirectory:

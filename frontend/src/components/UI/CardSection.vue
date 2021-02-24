@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "../Recipe/RecipeCard";
 export default {
   components: {
     RecipeCard,

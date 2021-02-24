@@ -1,15 +1,15 @@
 import operator
 import shutil
 
-from app_config import BACKUP_DIR, TEMPLATE_DIR
+from core.config import BACKUP_DIR, TEMPLATE_DIR
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from models.backup_models import BackupJob, ImportJob, Imports, LocalBackup
+from schema.backup import BackupJob, ImportJob, Imports, LocalBackup
 from services.backups.exports import backup_all
 from services.backups.imports import ImportDatabase
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 
 router = APIRouter(prefix="/api/backups", tags=["Backups"])
 

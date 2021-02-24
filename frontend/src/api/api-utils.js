@@ -1,6 +1,11 @@
 const baseURL = "/api/";
 import axios from "axios";
 import utils from "@/utils";
+import { store } from "../store/store";
+
+axios.defaults.headers.common[
+  "Authorization"
+] = `Bearer ${store.getters.getToken}`;
 
 function processResponse(response) {
   try {

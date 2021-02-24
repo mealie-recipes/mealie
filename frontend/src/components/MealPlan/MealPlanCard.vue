@@ -27,7 +27,7 @@
 
 <script>
 import utils from "@/utils";
-import SearchDialog from "../UI/SearchDialog";
+import SearchDialog from "../UI/Search/SearchDialog";
 export default {
   components: {
     SearchDialog,

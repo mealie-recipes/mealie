@@ -20,11 +20,6 @@ const store = new Vuex.Store({
     homePage,
   },
   state: {
-    // Home Page Settings
-    // Snackbar
-    snackActive: false,
-    snackText: "",
-    snackType: "warning",
 
     // All Recipe Data Store
     recentRecipes: [],
@@ -33,15 +28,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setSnackBar(state, payload) {
-      state.snackText = payload.text;
-      state.snackType = payload.type;
-      state.snackActive = true;
-    },
-    setSnackActive(state, payload) {
-      state.snackActive = payload;
-    },
-
     setRecentRecipes(state, payload) {
       state.recentRecipes = payload;
     },
@@ -68,11 +54,6 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    //
-    getSnackText: state => state.snackText,
-    getSnackActive: state => state.snackActive,
-    getSnackType: state => state.snackType,
-
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
   },

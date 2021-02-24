@@ -1,10 +1,11 @@
 from sqlalchemy.orm.session import Session
 
 from db.db_base import BaseDocument
-from db.sql.meal_models import MealPlanModel
-from db.sql.recipe_models import Category, RecipeModel, Tag
-from db.sql.settings_models import SiteSettingsModel
-from db.sql.theme_models import SiteThemeModel
+from db.models.mealplan import MealPlanModel
+from db.models.recipe import Category, RecipeModel, Tag
+from db.models.settings import SiteSettingsModel
+from db.models.theme import SiteThemeModel
+from db.models.users import User
 
 """
 # TODO
@@ -55,6 +56,12 @@ class _Themes(BaseDocument):
         self.sql_model = SiteThemeModel
 
 
+class _Users(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "id"
+        self.sql_model = User
+
+
 class Database:
     def __init__(self) -> None:
         self.recipes = _Recipes()
@@ -63,6 +70,7 @@ class Database:
         self.themes = _Themes()
         self.categories = _Categories()
         self.tags = _Tags()
+        self.users = _Users()
 
 
 db = Database()

@@ -4,13 +4,13 @@ import zipfile
 from pathlib import Path
 from typing import List
 
-from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR
+from core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from db.database import db
-from models.import_models import RecipeImport, SettingsImport, ThemeImport
-from models.theme_models import SiteTheme
+from schema.restore import RecipeImport, SettingsImport, ThemeImport
+from schema.theme import SiteTheme
 from services.recipe_services import Recipe
 from sqlalchemy.orm.session import Session
-from utils.logger import logger
+from fastapi.logger import logger
 
 
 class ImportDatabase:
