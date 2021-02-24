@@ -61,6 +61,15 @@ class _Users(BaseDocument):
         self.primary_key = "id"
         self.sql_model = User
 
+    def update_password(self, session, id, password: str):
+        entry = self._query_one(session=session, match_value=id)
+        entry.update_password(password)
+        return_data = entry.dict()
+        session.commit()
+
+        return return_data
+
+
 
 class Database:
     def __init__(self) -> None:

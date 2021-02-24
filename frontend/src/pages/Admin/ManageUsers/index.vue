@@ -186,7 +186,7 @@ export default {
     },
 
     async deleteUser() {
-      await api.users.delete(this.editedIndex);
+      await api.users.delete(this.activeId);
       this.initialize();
     },
 
@@ -227,7 +227,6 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-        console.log("New User", this.editedItem);
         api.users.update(this.editedItem);
       } else {
         api.users.create(this.editedItem);

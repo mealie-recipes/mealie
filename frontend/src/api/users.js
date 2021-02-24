@@ -11,6 +11,7 @@ const usersURLs = {
   users: `${userPrefix}`,
   self: `${userPrefix}/self`,
   userID: id => `${userPrefix}/${id}`,
+  password: id => `${userPrefix}/${id}/password`,
 };
 
 export default {
@@ -40,6 +41,10 @@ export default {
   },
   async update(user) {
     let response = await apiReq.put(usersURLs.userID(user.id), user);
+    return response.data;
+  },
+  async changePassword(id, password) {
+    let response = await apiReq.put(usersURLs.password(id), password);
     return response.data;
   },
   async delete(id) {

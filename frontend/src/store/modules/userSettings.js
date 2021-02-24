@@ -21,6 +21,7 @@ const state = {
   isDark: false,
   isLoggedIn: false,
   token: "",
+  userData: {},
 };
 
 const mutations = {
@@ -46,6 +47,10 @@ const mutations = {
     axios.defaults.headers.common["Authorization"] = `Bearer ${payload}`;
     state.token = payload;
   },
+
+  setUserData(state, payload) {
+    state.userData = payload;
+  },
 };
 
 const actions = {
@@ -57,7 +62,6 @@ const actions = {
       commit("setTheme", defaultTheme);
     }
   },
-
 
   async initTheme({ dispatch, getters }) {
     //If theme is empty resetTheme
@@ -77,6 +81,7 @@ const getters = {
   getIsDark: state => state.isDark,
   getIsLoggedIn: state => state.isLoggedIn,
   getToken: state => state.token,
+  getUserData: state => state.userData,
 };
 
 export default {

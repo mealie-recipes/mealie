@@ -27,8 +27,10 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>Jane Smith</v-list-item-title>
-            <v-list-item-subtitle>Admin</v-list-item-subtitle>
+            <v-list-item-title> {{ user.fullName }}</v-list-item-title>
+            <v-list-item-subtitle>
+              {{ user.admin ? "Admin" : "User" }}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -50,7 +52,7 @@
       </v-list>
 
       <v-divider></v-divider>
-      <v-list nav dense>
+      <v-list nav dense v-if="user.admin">
         <v-list-item
           v-for="nav in superLinks"
           :key="nav.title"
@@ -115,9 +117,15 @@ export default {
       ],
     };
   },
-  mounted() {
+  async mounted() {
     this.mobile = this.viewScale();
     this.showSidebar = !this.viewScale();
+  },
+
+  computed: {
+    user() {
+      return this.$store.getters.getUserData;
+    },
   },
 
   methods: {

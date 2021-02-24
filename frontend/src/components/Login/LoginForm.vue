@@ -133,8 +133,11 @@ export default {
         this.$emit("logged-in");
         this.clear();
       }
-      console.log(key);
-      this.$store.commit("setToken", key.data.access_token)
+      this.$store.commit("setToken", key.data.access_token);
+
+      let user = await api.users.self();
+      this.$store.commit("setUserData", user);
+
       this.loading = false;
     },
   },

@@ -8,6 +8,7 @@ from fastapi_login.exceptions import InvalidCredentialsException
 from routes.deps import manager, query_user
 from schema.user import UserInDB
 from sqlalchemy.orm.session import Session
+from schema.snackbar import SnackResponse
 
 router = APIRouter(prefix="/api/auth", tags=["Auth"])
 
@@ -29,4 +30,4 @@ def token(
     access_token = manager.create_access_token(
         data=dict(sub=email), expires=timedelta(hours=2)
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return SnackResponse.success("User Successfully Logged In", {"access_token": access_token, "token_type": "bearer"})

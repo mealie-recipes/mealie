@@ -46,6 +46,7 @@ NEXTCLOUD_DIR = MIGRATION_DIR.joinpath("nextcloud")
 CHOWDOWN_DIR = MIGRATION_DIR.joinpath("chowdown")
 TEMPLATE_DIR = DATA_DIR.joinpath("templates")
 SQLITE_DIR = DATA_DIR.joinpath("db")
+RECIPE_DATA_DIR = DATA_DIR.joinpath("recipes")
 TEMP_DIR = DATA_DIR.joinpath(".temp")
 
 REQUIRED_DIRS = [
@@ -58,6 +59,7 @@ REQUIRED_DIRS = [
     SQLITE_DIR,
     NEXTCLOUD_DIR,
     CHOWDOWN_DIR,
+    RECIPE_DATA_DIR
 ]
 
 ensure_dirs()

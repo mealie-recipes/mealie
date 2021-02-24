@@ -5,6 +5,11 @@ from fastapi_camelcase import CamelModel
 # from pydantic import EmailStr
 
 
+class ChangePassword(CamelModel):
+    current_password: str
+    new_password: str
+
+
 class UserBase(CamelModel):
     full_name: Optional[str] = None
     email: str
