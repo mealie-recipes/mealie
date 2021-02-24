@@ -1,7 +1,7 @@
 const baseURL = "/api/";
 import axios from "axios";
 import utils from "@/utils";
-import { store } from "../store/store";
+import { store } from "../store";
 
 axios.defaults.headers.common[
   "Authorization"

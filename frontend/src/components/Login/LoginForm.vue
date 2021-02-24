@@ -32,6 +32,7 @@
             v-model="user.email"
             light="light"
             prepend-icon="mdi-email"
+            validate-on-blur
             :label="$t('login.email')"
             type="email"
           ></v-text-field>
