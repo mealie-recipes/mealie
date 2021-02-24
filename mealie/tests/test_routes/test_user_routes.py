@@ -84,13 +84,7 @@ def test_update_user(api_client: requests, token):
     response = api_client.put(f"{BASE}/1", headers=token, json=update_data)
 
     assert response.status_code == 200
-    assert json.loads(response.text) == {
-        "id": 1,
-        "fullName": "Updated Name",
-        "email": "updated@email.com",
-        "family": "public",
-        "admin": True
-    }
+    assert json.loads(response.text).get("access_token")
 
 
 def test_delete_user(api_client: requests, token):
