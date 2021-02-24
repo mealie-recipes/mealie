@@ -3,13 +3,13 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
-from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
+from core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
 from db.database import db
 from db.db_setup import create_session
 from jinja2 import Template
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
-from utils.logger import logger
+from fastapi.logger import logger
 
 
 class ExportDatabase:

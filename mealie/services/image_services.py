@@ -2,8 +2,8 @@ import shutil
 from pathlib import Path
 
 import requests
-from app_config import IMG_DIR
-from utils.logger import logger
+from core.config import IMG_DIR
+from fastapi.logger import logger
 
 
 def read_image(recipe_slug: str) -> Path:

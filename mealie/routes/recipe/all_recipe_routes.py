@@ -3,7 +3,7 @@ from typing import List, Optional
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, Query
-from models.recipe_models import AllRecipeRequest
+from schema.recipe import AllRecipeRequest
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 

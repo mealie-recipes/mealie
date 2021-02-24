@@ -21,14 +21,20 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey" text @click="cancel"> {{ $t("general.cancel") }} </v-btn>
-        <v-btn :color="color" text @click="confirm"> {{ $t("general.confirm") }} </v-btn>
+        <v-btn color="grey" text @click="cancel">
+          {{ $t("general.cancel") }}
+        </v-btn>
+        <v-btn :color="color" text @click="confirm">
+          {{ $t("general.confirm") }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+const CLOSE_EVENT = "close";
+const OPEN_EVENT = "open";
 /**
  * Confirmation Component used to add a second validaion step to an action.
  * @version 1.0.1
@@ -51,7 +57,7 @@ export default {
      */
     icon: {
       type: String,
-      default: "mid-alert-circle"
+      default: "mid-alert-circle",
     },
     /**
      * Color theme of the component. Chose one of the defined theme colors.
@@ -59,28 +65,35 @@ export default {
      */
     color: {
       type: String,
-      default: "error"
+      default: "error",
     },
     /**
      * Define the max width of the component.
      */
     width: {
       type: Number,
-      default: 400
+      default: 400,
     },
     /**
      * zIndex of the component.
      */
     zIndex: {
       type: Number,
-      default: 200
-    }
+      default: 200,
+    },
+  },
+  watch: {
+    dialog() {
+      if (this.dialog === false) {
+        this.$emit(CLOSE_EVENT);
+      } else this.$emit(OPEN_EVENT);
+    },
   },
   data: () => ({
     /**
      * Keep state of open or closed
      */
-    dialog: false
+    dialog: false,
   }),
   methods: {
     /**
@@ -120,8 +133,8 @@ export default {
 
       //Hide Modal
       this.dialog = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -2,9 +2,9 @@ from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 
 router = APIRouter(tags=["Recipes"])
 

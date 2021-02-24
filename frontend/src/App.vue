@@ -27,12 +27,12 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <Menu />
+      <SiteMenu />
+      <LanguageMenu />
     </v-app-bar>
     <v-main>
       <v-container>
         <AddRecipeFab />
-        <SnackBar />
         <router-view></router-view>
       </v-container>
       <FlashMessage :position="'right bottom'"></FlashMessage>
@@ -41,19 +41,20 @@
 </template>
 
 <script>
-import Menu from "./components/UI/Menu";
-import SearchBar from "./components/UI/SearchBar";
-import AddRecipeFab from "./components/UI/AddRecipeFab";
-import SnackBar from "./components/UI/SnackBar";
+import SiteMenu from "@/components/UI/SiteMenu";
+import SearchBar from "@/components/UI/Search/SearchBar";
+import AddRecipeFab from "@/components/UI/AddRecipeFab";
+import LanguageMenu from "@/components/UI/LanguageMenu";
 import Vuetify from "./plugins/vuetify";
+
 export default {
   name: "App",
 
   components: {
-    Menu,
+    SiteMenu,
     AddRecipeFab,
-    SnackBar,
     SearchBar,
+    LanguageMenu,
   },
 
   watch: {
@@ -63,7 +64,7 @@ export default {
   },
   created() {
     window.addEventListener("keyup", e => {
-      if (e.key == "/" && !document.activeElement.id.startsWith('input') ) {
+      if (e.key == "/" && !document.activeElement.id.startsWith("input")) {
         this.search = !this.search;
       }
     });

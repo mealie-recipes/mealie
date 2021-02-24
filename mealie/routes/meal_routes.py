@@ -5,7 +5,7 @@ from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, HTTPException
 from services.meal_services import MealPlan
 from sqlalchemy.orm.session import Session
-from utils.snackbar import SnackResponse
+from schema.snackbar import SnackResponse
 
 router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
