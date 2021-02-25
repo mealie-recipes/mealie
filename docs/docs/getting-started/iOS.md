@@ -1,5 +1,5 @@
 # Using iOS Shortcuts with Mealie
-![](/img/iphone-image.png){: align=right style="height:400px;width:400px"}
+![](../img/iphone-image.png){: align=right style="height:400px;width:400px"}
 
 
 User  [brasilikum](https://github.com/brasilikum) opened an issue on the main repo about how they had created an [iOS shortcut](https://github.com/hay-kot/mealie/issues/103) for interested users. This is a useful utility for iOS users who browse for recipes in their web browser from their devices.
@@ -13,7 +13,7 @@ Don't know what an iOS shortcut is? Neither did I! Experienced iOS users may alr
 Basically it is a visual scripting language that lets a user build an automation in a guided fashion. The automation can be [shared with anyone](https://www.icloud.com/shortcuts/6ae356d5fc644cfa8983a3c90f242fbb) but if it is a user creation, you'll have to jump through a few hoops to make an untrusted automation work on your device. In brasilikum's shortcut, you need to make changes for it to work. Recent updates to the project have changed some of the syntax and folder structure since its original creation.
 
 
-![screenshot](/img/ios-shortcut-image.jpg){: align=right style="height:500;width:400px"}
+![screenshot](../img/ios-shortcut-image.jpg){: align=right style="height:500;width:400px"}
 
 
 
