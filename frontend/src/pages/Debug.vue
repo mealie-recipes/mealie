@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-container>
     <LastRecipe />
     <LogFile class="mt-2" />
-  </div>
+  </v-container>
 </template>
 
 <script>

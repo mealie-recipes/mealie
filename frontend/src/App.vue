@@ -31,10 +31,8 @@
       <LanguageMenu />
     </v-app-bar>
     <v-main>
-      <v-container>
-        <AddRecipeFab />
+      <AddRecipeFab />
         <router-view></router-view>
-      </v-container>
       <FlashMessage :position="'right bottom'"></FlashMessage>
     </v-main>
   </v-app>

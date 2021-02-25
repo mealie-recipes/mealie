@@ -6,10 +6,16 @@ import Migration from "@/pages/Admin/Migration";
 import Profile from "@/pages/Admin/Profile";
 import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
+import { store } from "../store";
 
 export default {
   path: "/admin",
   component: Admin,
+  beforeEnter: (to, _from, next) => {
+    if (store.getters.getIsLoggedIn) {
+      next();
+    } else next({ path: "/login", query: { redirect: to.fullPath } });
+  },
   children: [
     {
       path: "",

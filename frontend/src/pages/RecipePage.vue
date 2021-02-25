@@ -1,58 +1,60 @@
 <template>
-  <v-card id="myRecipe">
-    <v-img
-      height="400"
-      :src="getImage(recipeDetails.image)"
-      class="d-print-none"
-      :key="imageKey"
-    >
-      <RecipeTimeCard
-        class="force-bottom"
-        :prepTime="recipeDetails.prepTime"
-        :totalTime="recipeDetails.totalTime"
-        :performTime="recipeDetails.performTime"
+  <v-container>
+    <v-card id="myRecipe">
+      <v-img
+        height="400"
+        :src="getImage(recipeDetails.image)"
+        class="d-print-none"
+        :key="imageKey"
+      >
+        <RecipeTimeCard
+          class="force-bottom"
+          :prepTime="recipeDetails.prepTime"
+          :totalTime="recipeDetails.totalTime"
+          :performTime="recipeDetails.performTime"
+        />
+      </v-img>
+      <EditorButtonRow
+        :open="showIcons"
+        @json="jsonEditor = true"
+        @editor="
+          jsonEditor = false;
+          form = true;
+        "
+        @save="saveRecipe"
+        @delete="deleteRecipe"
+        class="sticky"
       />
-    </v-img>
-    <EditorButtonRow
-      :open="showIcons"
-      @json="jsonEditor = true"
-      @editor="
-        jsonEditor = false;
-        form = true;
-      "
-      @save="saveRecipe"
-      @delete="deleteRecipe"
-      class="sticky"
-    />
 
-    <RecipeViewer
-      v-if="!form"
-      :name="recipeDetails.name"
-      :ingredients="recipeDetails.recipeIngredient"
-      :description="recipeDetails.description"
-      :instructions="recipeDetails.recipeInstructions"
-      :tags="recipeDetails.tags"
-      :categories="recipeDetails.categories"
-      :notes="recipeDetails.notes"
-      :rating="recipeDetails.rating"
-      :yields="recipeDetails.recipeYield"
-      :orgURL="recipeDetails.orgURL"
-    />
-    <VJsoneditor
-      @error="logError()"
-      class="mt-10"
-      v-else-if="showJsonEditor"
-      v-model="recipeDetails"
-      height="1500px"
-      :options="jsonEditorOptions"
-    />
-    <RecipeEditor
-      v-else
-      v-model="recipeDetails"
-      ref="recipeEditor"
-      @upload="getImageFile"
-    />
-  </v-card>
+      <RecipeViewer
+        v-if="!form"
+        :name="recipeDetails.name"
+        :ingredients="recipeDetails.recipeIngredient"
+        :description="recipeDetails.description"
+        :instructions="recipeDetails.recipeInstructions"
+        :tags="recipeDetails.tags"
+        :categories="recipeDetails.categories"
+        :notes="recipeDetails.notes"
+        :rating="recipeDetails.rating"
+        :yields="recipeDetails.recipeYield"
+        :orgURL="recipeDetails.orgURL"
+      />
+      <VJsoneditor
+        @error="logError()"
+        class="mt-10"
+        v-else-if="showJsonEditor"
+        v-model="recipeDetails"
+        height="1500px"
+        :options="jsonEditorOptions"
+      />
+      <RecipeEditor
+        v-else
+        v-model="recipeDetails"
+        ref="recipeEditor"
+        @upload="getImageFile"
+      />
+    </v-card>
+  </v-container>
 </template>
 
 <script>

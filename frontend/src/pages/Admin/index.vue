@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <AdminSidebar />
     <v-slide-x-transition hide-on-leave>
       <router-view></router-view>
@@ -23,7 +23,7 @@
         </a>
       </v-col>
     </v-footer> -->
-  </div>
+  </v-container>
 </template>
 
 <script>

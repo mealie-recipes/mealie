@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <CategorySidebar />
     <CardSection
       :sortable="true"
@@ -9,7 +9,7 @@
       @sort="sortAZ"
       @sort-recent="sortRecent"
     />
-  </div>
+  </v-container>
 </template>
 
 <script>

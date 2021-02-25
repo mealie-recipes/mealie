@@ -79,7 +79,7 @@ def filter_by_category(categories: list, session: Session = Depends(generate_ses
     in_category = [
         db.categories.get(session, slugify(cat), limit=1) for cat in categories
     ]
-    in_category = [cat.get("recipes") for cat in in_category]
+    in_category = [cat.get("recipes") for cat in in_category if cat]
     in_category = [item for sublist in in_category for item in sublist]
     return in_category
 
