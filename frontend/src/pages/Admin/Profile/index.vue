@@ -19,7 +19,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-row >
+          <v-row>
             <v-col cols="12" md="3" align="center" justify="center">
               <v-avatar color="accent" size="120" class="mr-2" v-if="!loading">
                 <img
@@ -30,9 +30,21 @@
             </v-col>
             <v-col cols="12" md="9">
               <v-form>
-                <v-text-field label="Full Name" v-model="user.fullName">
+                <v-text-field
+                  label="Full Name"
+                  required
+                  v-model="user.fullName"
+                  :rules="[existsRule]"
+                  validate-on-blur
+                >
                 </v-text-field>
-                <v-text-field label="Email" v-model="user.email">
+                <v-text-field
+                  label="Email"
+                  :rules="[emailRule]"
+                  validate-on-blur
+                  required
+                  v-model="user.email"
+                >
                 </v-text-field>
                 <v-text-field
                   label="Family"
@@ -66,36 +78,49 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-form>
+          <v-form ref="passChange">
             <v-text-field
               v-model="password.current"
               prepend-icon="mdi-lock"
               label="Current Password"
-              :type="showPassword.current ? 'text' : 'password'"
-              :append-icon="showPassword.current ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[existsRule]"
+              validate-on-blur
+              :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword.current = !showPassword.current"
             ></v-text-field>
             <v-text-field
               v-model="password.newOne"
               prepend-icon="mdi-lock"
               label="New Password"
-              :type="showPassword.newOne ? 'text' : 'password'"
-              :append-icon="showPassword.newOne ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[minRule]"
+              :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword.newOne = !showPassword.newOne"
             ></v-text-field>
             <v-text-field
               v-model="password.newTwo"
               prepend-icon="mdi-lock"
               label="Confirm Password"
-              :type="showPassword.newTwo ? 'text' : 'password'"
-              :append-icon="showPassword.newTwo ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[
+                password.newOne === password.newTwo || 'Password must match',
+              ]"
+              validate-on-blur
+              :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword.newTwo = !showPassword.newTwo"
             ></v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions>
+          <v-btn icon @click="showPassword = !showPassword" :loading="passwordLoading">
+            <v-icon v-if="!showPassword">mdi-eye-off</v-icon>
+            <v-icon v-else> mdi-eye </v-icon>
+          </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="accent" class="mr-2" @click="changePassword">
+          <v-btn
+            color="accent"
+            class="mr-2"
+            @click="changePassword"
+            
+          >
             <v-icon left> mdi-lock </v-icon>
             {{ $t("settings.change-password") }}
           </v-btn>
@@ -109,22 +134,21 @@
 // import AvatarPicker from '@/components/AvatarPicker'
 import UploadBtn from "@/components/UI/UploadBtn";
 import api from "@/api";
+import { validators } from "@/mixins/validators";
 export default {
   components: {
     UploadBtn,
   },
+  mixins: [validators],
   data() {
     return {
+      passwordLoading: false,
       password: {
         current: "",
         newOne: "",
         newTwo: "",
       },
-      showPassword: {
-        current: false,
-        newOne: false,
-        newTwo: false,
-      },
+      showPassword: false,
       loading: false,
       user: {
         fullName: "Change Me",
@@ -133,7 +157,6 @@ export default {
         admin: true,
         id: 1,
       },
-      showAvatarPicker: false,
     };
   },
 
@@ -159,13 +182,20 @@ export default {
       this.loading = false;
     },
     async changePassword() {
+      this.paswordLoading = true;
       let data = {
         currentPassword: this.password.current,
         newPassword: this.password.newOne,
       };
 
-      await api.users.changePassword(this.user.id, data);
+      if (this.$refs.passChange.validate()) {
+        await api.users.changePassword(this.user.id, data);
+      }
+      this.paswordLoading = false;
     },
   },
 };
 </script>
+
+<style>
+</style>

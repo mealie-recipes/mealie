@@ -86,13 +86,15 @@ async def update_password(
     match_passwords = verify_password(
         password_change.current_password, current_user.password
     )
+    print(match_passwords)
     match_id = current_user.id == id
 
     if match_passwords and match_id:
         new_password = get_password_hash(password_change.new_password)
         db.users.update_password(session, id, new_password)
-
-    return SnackResponse.success("Password Updated")
+        return SnackResponse.success("Password Updated")
+    else:
+        return SnackResponse.error("Existing password does not match")
 
 
 @router.delete("/{id}")
