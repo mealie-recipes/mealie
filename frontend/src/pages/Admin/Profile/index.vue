@@ -1,14 +1,11 @@
 <template>
   <v-row dense>
-    <v-col cols="12" md="12" sm="12">
+    <v-col cols="12" md="8" sm="12">
       <v-card>
         <v-card-title class="headline">
           <span>
-            <v-avatar color="accent" size="40" class="mr-2" v-if="!loading">
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-            </v-avatar>
             <v-progress-circular
-              v-else
+              v-if="loading"
               indeterminate
               color="primary"
               large
@@ -22,21 +19,37 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-form>
-            <v-text-field label="Full Name" v-model="user.fullName">
-            </v-text-field>
-            <v-text-field label="Email" v-model="user.email"> </v-text-field>
-            <v-text-field
-              label="Family"
-              readonly
-              v-model="user.family"
-              persistent-hint
-              hint="Family groups can only be set by administrators"
-            >
-            </v-text-field>
-          </v-form>
+          <v-row >
+            <v-col cols="12" md="3" align="center" justify="center">
+              <v-avatar color="accent" size="120" class="mr-2" v-if="!loading">
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="John"
+                />
+              </v-avatar>
+            </v-col>
+            <v-col cols="12" md="9">
+              <v-form>
+                <v-text-field label="Full Name" v-model="user.fullName">
+                </v-text-field>
+                <v-text-field label="Email" v-model="user.email">
+                </v-text-field>
+                <v-text-field
+                  label="Family"
+                  readonly
+                  v-model="user.family"
+                  persistent-hint
+                  hint="Family groups can only be set by administrators"
+                >
+                </v-text-field>
+              </v-form>
+            </v-col>
+          </v-row>
         </v-card-text>
+
         <v-card-actions>
+          <UploadBtn icon="mdi-image-area" text="Upload Photo" />
+
           <v-spacer></v-spacer>
           <v-btn color="success" class="mr-2" @click="updateUser">
             <v-icon left> mdi-content-save </v-icon>
@@ -46,7 +59,7 @@
       </v-card>
     </v-col>
     <v-col cols="12" md="4" sm="12">
-      <v-card>
+      <v-card height="100%">
         <v-card-title class="headline">
           Reset Password
           <v-spacer></v-spacer>
@@ -56,7 +69,6 @@
           <v-form>
             <v-text-field
               v-model="password.current"
-              light="light"
               prepend-icon="mdi-lock"
               label="Current Password"
               :type="showPassword.current ? 'text' : 'password'"
@@ -65,7 +77,6 @@
             ></v-text-field>
             <v-text-field
               v-model="password.newOne"
-              light="light"
               prepend-icon="mdi-lock"
               label="New Password"
               :type="showPassword.newOne ? 'text' : 'password'"
@@ -74,7 +85,6 @@
             ></v-text-field>
             <v-text-field
               v-model="password.newTwo"
-              light="light"
               prepend-icon="mdi-lock"
               label="Confirm Password"
               :type="showPassword.newTwo ? 'text' : 'password'"
@@ -97,9 +107,12 @@
 
 <script>
 // import AvatarPicker from '@/components/AvatarPicker'
+import UploadBtn from "@/components/UI/UploadBtn";
 import api from "@/api";
 export default {
-  pageTitle: "My Profile",
+  components: {
+    UploadBtn,
+  },
   data() {
     return {
       password: {
