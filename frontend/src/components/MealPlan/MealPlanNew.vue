@@ -96,6 +96,7 @@ export default {
     return {
       isLoading: false,
       meals: [],
+      items: [],
 
       // Dates
       startDate: null,
@@ -117,11 +118,12 @@ export default {
       }
     },
   },
+  async mounted() {
+    let settings = await api.settings.requestAll();
+    this.items = await api.recipes.getAllByCategory(settings.planCategories);
+  },
 
   computed: {
-    items() {
-      return this.$store.getters.getRecentRecipes;
-    },
     actualStartDate() {
       return Date.parse(this.startDate);
     },

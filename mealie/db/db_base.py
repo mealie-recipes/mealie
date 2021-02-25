@@ -100,11 +100,17 @@ class BaseDocument:
             match_key = self.primary_key
 
         result = (
-            session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
+            session.query(self.sql_model)
+            .filter_by(**{match_key: match_value})
+            .limit(limit)
+            .all()
         )
-        db_entry = result.dict()
+        db_entries = [x.dict() for x in result]
 
-        return db_entry
+        if limit == 1:
+            return db_entries[0]
+
+        return db_entries
 
     def create(self, session: Session, document: dict) -> dict:
         """Creates a new database entry for the given SQL Alchemy Model.

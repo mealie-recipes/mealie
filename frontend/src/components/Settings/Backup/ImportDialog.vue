@@ -1,7 +1,23 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+      :fullscreen="$vuetify.breakpoint.xsOnly"
+    >
       <v-card>
+        <v-toolbar dark color="primary" v-show="$vuetify.breakpoint.xsOnly">
+          <v-btn icon dark @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title></v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn dark text @click="raiseEvent('import')">
+              {{ $t("general.import") }}
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title> {{ name }} </v-card-title>
         <v-card-subtitle class="mb-n3"> {{ date }} </v-card-subtitle>
         <v-divider></v-divider>
@@ -72,7 +88,12 @@
           <v-btn color="error" text @click="raiseEvent('delete')">
             {{ $t("general.delete") }}
           </v-btn>
-          <v-btn color="success" outlined @click="raiseEvent('import')">
+          <v-btn
+            color="success"
+            outlined
+            @click="raiseEvent('import')"
+            v-show="$vuetify.breakpoint.smAndUp"
+          >
             {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>

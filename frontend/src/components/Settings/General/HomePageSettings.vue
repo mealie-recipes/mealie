@@ -3,12 +3,12 @@
     <v-card-text>
       <h2 class="mt-1 mb-1">Home Page</h2>
       <v-row align="center" justify="center" dense class="mb-n7 pb-n5">
-        <v-col sm="2">
+        <v-col cols="12" sm="3" md="2">
           <v-switch v-model="showRecent" label="Show Recent"></v-switch>
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="5" md="5">
           <v-slider
-            class="pt-4"
+            class="pt-sm-4"
             label="Card Per Section"
             v-model="showLimit"
             max="30"
@@ -24,7 +24,7 @@
     </v-card-text>
     <v-card-text>
       <v-row>
-        <v-col>
+        <v-col cols="12" sm="6">
           <v-card outlined min-height="250">
             <v-card-text class="pt-2 pb-1">
               <h3>Homepage Categories</h3>
@@ -64,7 +64,7 @@
             </v-list>
           </v-card>
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="6">
           <v-card outlined min-height="250px">
             <v-card-text class="pt-2 pb-1">
               <h3>

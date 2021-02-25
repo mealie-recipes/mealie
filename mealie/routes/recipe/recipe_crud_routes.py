@@ -1,10 +1,11 @@
 from db.db_setup import generate_session
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Query
+from fastapi import APIRouter, Depends, File, Form, HTTPException
+from fastapi.logger import logger
 from fastapi.responses import FileResponse
 from models.recipe_models import RecipeURLIn
 from services.image_services import read_image, write_image
 from services.recipe_services import Recipe
-from services.scrape_services import create_from_url
+from services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 from utils.snackbar import SnackResponse
 
@@ -27,6 +28,7 @@ def parse_recipe_url(url: RecipeURLIn, db: Session = Depends(generate_session)):
     """ Takes in a URL and attempts to scrape data and load it into the database """
 
     recipe = create_from_url(url.url)
+
     recipe.save_to_db(db)
 
     return recipe.slug
@@ -69,8 +71,10 @@ def delete_recipe(recipe_slug: str, db: Session = Depends(generate_session)):
 async def get_recipe_img(recipe_slug: str):
     """ Takes in a recipe slug, returns the static image """
     recipe_image = read_image(recipe_slug)
-
-    return FileResponse(recipe_image)
+    if recipe_image:
+        return FileResponse(recipe_image)
+    else:
+        return
 
 
 @router.put("/{recipe_slug}/image")

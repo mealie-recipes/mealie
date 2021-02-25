@@ -63,7 +63,7 @@ export default {
   },
   created() {
     window.addEventListener("keyup", e => {
-      if (e.key == "/") {
+      if (e.key == "/" && !document.activeElement.id.startsWith('input') ) {
         this.search = !this.search;
       }
     });
@@ -130,6 +130,25 @@ export default {
   border: 1px, solid, var(--v-success-base) !important;
   border-left: 3px, solid, var(--v-success-base) !important;
   background-color: var(--v-success-base) !important;
+}
+
+.notify-base {
+  color: white !important;
+  margin-right: 60px;
+  margin-bottom: -5px;
+  opacity: 0.9 !important;
+}
+
+*::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: lightgray;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: grey;
 }
 
 .notify-base {

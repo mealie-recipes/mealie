@@ -1,25 +1,52 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from db.sql.model_base import BaseMixins, SqlAlchemyBase
+from db.sql.recipe_models import Category
 
 
-class SiteSettingsModel(SqlAlchemyBase):
+class SiteSettingsModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "site_settings"
     name = sa.Column(sa.String, primary_key=True)
+    planCategories = orm.relationship(
+        "MealCategory", uselist=True, cascade="all, delete"
+    )
     webhooks = orm.relationship("WebHookModel", uselist=False, cascade="all, delete")
 
-    def __init__(self, name: str = None, webhooks: dict = None, session=None) -> None:
+    def __init__(
+        self, name: str = None, webhooks: dict = None, planCategories=[], session=None
+    ) -> None:
         self.name = name
+        self.planCategories = [MealCategory(cat) for cat in planCategories]
         self.webhooks = WebHookModel(**webhooks)
 
-    def update(self, session, name, webhooks: dict) -> dict:
+    def update(self, session, name, webhooks: dict, planCategories=[]) -> dict:
+
+        self._sql_remove_list(session, [MealCategory], self.name)
         self.name = name
+        self.planCategories = [MealCategory(x) for x in planCategories]
         self.webhooks.update(session=session, **webhooks)
         return
 
     def dict(self):
-        data = {"name": self.name, "webhooks": self.webhooks.dict()}
+        data = {
+            "name": self.name,
+            "planCategories": [cat.to_str() for cat in self.planCategories],
+            "webhooks": self.webhooks.dict(),
+        }
         return data
+
+
+class MealCategory(SqlAlchemyBase):
+    __tablename__ = "meal_plan_categories"
+    id = sa.Column(sa.Integer, primary_key=True)
+    name = sa.Column(sa.String)
+    parent_id = sa.Column(sa.Integer, sa.ForeignKey("site_settings.name"))
+
+    def __init__(self, name) -> None:
+        self.name = name
+
+    def to_str(self):
+        return self.name
 
 
 class WebHookModel(SqlAlchemyBase, BaseMixins):

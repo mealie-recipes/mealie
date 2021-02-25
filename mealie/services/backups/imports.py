@@ -1,15 +1,14 @@
 import json
 import shutil
 import zipfile
-from logging import error
 from pathlib import Path
 from typing import List
 
 from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from db.database import db
+from models.import_models import RecipeImport, SettingsImport, ThemeImport
 from models.theme_models import SiteTheme
 from services.recipe_services import Recipe
-from services.settings_services import SiteSettings
 from sqlalchemy.orm.session import Session
 from utils.logger import logger
 
@@ -57,23 +56,29 @@ class ImportDatabase:
             raise Exception("Import file does not exist")
 
     def run(self):
-        report = {}
+        recipe_report = []
+        settings_report = []
+        theme_report = []
         if self.imp_recipes:
-            report = self.import_recipes()
+            recipe_report = self.import_recipes()
         if self.imp_settings:
-            self.import_settings()
+            settings_report = self.import_settings()
         if self.imp_themes:
-            self.import_themes()
+            theme_report = self.import_themes()
 
         self.clean_up()
 
-        return report if report else None
+        return {
+            "recipeImports": recipe_report,
+            "settingsReport": settings_report,
+            "themeReport": theme_report,
+        }
 
     def import_recipes(self):
         recipe_dir: Path = self.import_dir.joinpath("recipes")
 
+        imports = []
         successful_imports = []
-        failed_imports = []
 
         for recipe in recipe_dir.glob("*.json"):
             with open(recipe, "r") as f:
@@ -82,16 +87,27 @@ class ImportDatabase:
             try:
                 recipe_obj = Recipe(**recipe_dict)
                 recipe_obj.save_to_db(self.session)
+                import_status = RecipeImport(
+                    name=recipe_obj.name, slug=recipe_obj.slug, status=True
+                )
+                imports.append(import_status)
                 successful_imports.append(recipe.stem)
                 logger.info(f"Imported: {recipe.stem}")
+
             except Exception as inst:
                 logger.error(inst)
                 logger.info(f"Failed Import: {recipe.stem}")
-                failed_imports.append(recipe.stem)
+                import_status = RecipeImport(
+                    name=recipe.stem,
+                    slug=recipe.stem,
+                    status=False,
+                    exception=str(inst),
+                )
+                imports.append(import_status)
 
         self._import_images(successful_imports)
 
-        return {"successful": successful_imports, "failed": failed_imports}
+        return imports
 
     @staticmethod
     def _recipe_migration(recipe_dict: dict) -> dict:
@@ -130,7 +146,7 @@ class ImportDatabase:
 
     def import_themes(self):
         themes_file = self.import_dir.joinpath("themes", "themes.json")
-
+        theme_imports = []
         with open(themes_file, "r") as f:
             themes: list[dict] = json.loads(f.read())
         for theme in themes:
@@ -138,17 +154,38 @@ class ImportDatabase:
                 continue
             new_theme = SiteTheme(**theme)
             try:
+
                 db.themes.create(self.session, new_theme.dict())
-            except:
+                theme_imports.append(ThemeImport(name=new_theme.name, status=True))
+            except Exception as inst:
                 logger.info(f"Unable Import Theme {new_theme.name}")
+                theme_imports.append(
+                    ThemeImport(name=new_theme.name, status=False, exception=str(inst))
+                )
+
+        return theme_imports
 
     def import_settings(self):
         settings_file = self.import_dir.joinpath("settings", "settings.json")
+        settings_imports = []
 
         with open(settings_file, "r") as f:
             settings: dict = json.loads(f.read())
 
-            db.settings.update(self.session, settings.get("name"), settings)
+            name = settings.get("name")
+
+            try:
+                db.settings.update(self.session, name, settings)
+                import_status = SettingsImport(name=name, status=True)
+
+            except Exception as inst:
+                import_status = SettingsImport(
+                    name=name, status=False, exception=str(inst)
+                )
+
+            settings_imports.append(import_status)
+
+        return settings_imports
 
     def clean_up(self):
         shutil.rmtree(TEMP_DIR)

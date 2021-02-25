@@ -6,7 +6,7 @@ from pathlib import Path
 
 from app_config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
 from services.recipe_services import Recipe
-from services.scrape_services import normalize_data, process_recipe_data
+from services.scraper.cleaner import Cleaner
 from app_config import IMG_DIR, TEMP_DIR
 
 
@@ -28,13 +28,13 @@ def import_recipes(recipe_dir: Path) -> Recipe:
     for file in recipe_dir.glob("full.*"):
         image = file
 
-    recipe_file = recipe_dir.joinpath("recipe.json")
+    for file in recipe_dir.glob("*.json"):
+        recipe_file = file
 
     with open(recipe_file, "r") as f:
         recipe_dict = json.loads(f.read())
 
-    recipe_dict = process_recipe_data(recipe_dict)
-    recipe_data = normalize_data(recipe_dict)
+    recipe_data = Cleaner.clean(recipe_dict)
 
     image_name = None
     if image:
@@ -81,6 +81,7 @@ def migrate(session, selection: str):
                 successful_imports.append(recipe.name)
             except:
                 logging.error(f"Failed Nextcloud Import: {dir.name}")
+                logging.exception('')
                 failed_imports.append(dir.name)
 
     cleanup()
