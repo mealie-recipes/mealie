@@ -1,7 +1,7 @@
 <template>
   <v-card width="500px">
     <v-divider></v-divider>
-    <v-app-bar  dark color="primary" class="mt-n1">
+    <v-app-bar dark color="primary" class="mt-n1 mb-4">
       <v-icon large left v-if="!loading">
         mdi-account
       </v-icon>
@@ -38,20 +38,13 @@
         <v-text-field
           v-model="user.password"
           light="light"
+          class="mb-2s"
           prepend-icon="mdi-lock"
           :label="$t('login.password')"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
-        <v-checkbox
-          class="mb-2 mt-0"
-          v-if="options.isLoggingIn"
-          v-model="options.shouldStayLoggedIn"
-          light="light"
-          :label="$t('login.stay-logged-in')"
-          hide-details="hide-details"
-        ></v-checkbox>
         <v-btn
           v-if="options.isLoggingIn"
           @click.prevent="login"
@@ -61,31 +54,11 @@
           type="submit"
           >{{ $t("login.sign-in") }}</v-btn
         >
-        <v-btn
-          v-else
-          block="block"
-          type="submit"
-          @click.prevent="options.isLoggingIn = true"
-          >{{ $t("login.sign-up") }}</v-btn
-        >
       </v-form>
       <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
         Could Not Validate Credentials
       </v-alert>
     </v-card-text>
-    <!-- <v-card-actions v-if="options.isLoggingIn" class="card-actions">
-        <div>
-          Don't have an account?
-        </div>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          light="light"
-          @click="options.isLoggingIn = false"
-        >
-          Sign up
-        </v-btn>
-      </v-card-actions> -->
   </v-card>
 </template>
 
