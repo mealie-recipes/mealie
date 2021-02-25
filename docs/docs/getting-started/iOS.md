@@ -11,7 +11,7 @@ A shortcut is a quick way to get one or more tasks done with your apps. The Shor
 Basically it is a visual scripting language that lets a user build an automation in a guided fashion. The automation can be [shared with anyone](https://www.icloud.com/shortcuts/6ae356d5fc644cfa8983a3c90f242fbb) but if it is a user creation, you'll have to jump through a few hoops to make an untrusted automation work on your device. In brasilikum's shortcut, you need to make changes for it to work. Recent updates to the project have changed some of the syntax and folder structure since its original creation.
 
 
-![screenshot](/mealie/docs/docs/img/original.jpg)
+![screenshot](../img/original.jpg)
 
 Aside from putting in your host machine ip or domain, you must also change 
 ```
