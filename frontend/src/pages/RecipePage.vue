@@ -15,6 +15,7 @@
         />
       </v-img>
       <EditorButtonRow
+        v-if="loggedIn"
         :open="showIcons"
         @json="jsonEditor = true"
         @editor="
@@ -65,6 +66,7 @@ import RecipeViewer from "../components/Recipe/RecipeViewer";
 import RecipeEditor from "../components/Recipe/RecipeEditor";
 import RecipeTimeCard from "../components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "../components/Recipe/EditorButtonRow";
+import { user } from "@/mixins/user";
 
 export default {
   components: {
@@ -74,6 +76,7 @@ export default {
     EditorButtonRow,
     RecipeTimeCard,
   },
+  mixins: [user],
   data() {
     return {
       // currentRecipe: this.$route.params.recipe,
