@@ -18,7 +18,7 @@
                 <v-card-title class="justify-center">
                   {{ meal.name }}
                 </v-card-title>
-                <v-card-subtitle> {{ meal.dateText }}</v-card-subtitle>
+                <v-card-subtitle> {{ $d(new Date(meal.date), 'short' ) }}</v-card-subtitle>
 
                 <v-card-text> {{ meal.description }} </v-card-text>
 

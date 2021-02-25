@@ -63,6 +63,7 @@ const actions = {
     }
   },
 
+
   async initTheme({ dispatch, getters }) {
     //If theme is empty resetTheme
     if (Object.keys(getters.getActiveTheme).length === 0) {

@@ -2,7 +2,7 @@ from datetime import date, timedelta
 from typing import List, Optional
 
 from db.database import db
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from sqlalchemy.orm.session import Session
 
 from services.recipe_services import Recipe
@@ -40,6 +40,12 @@ class MealPlan(BaseModel):
                 ],
             }
         }
+
+    @validator('endDate')
+    def endDate_after_startDate(cls, v, values, **kwargs):
+        if 'startDate' in values and v < values['startDate']:
+            raise ValueError('EndDate should be greater than StartDate')
+        return v
 
     def process_meals(self, session: Session):
         meals = []

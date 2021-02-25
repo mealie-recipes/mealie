@@ -69,16 +69,14 @@
       <MealPlanCard v-model="meals" />
     </v-card-text>
     <v-row align="center" justify="end">
-      <v-card-actions>
-        <v-btn color="success" @click="random" v-if="meals[1]" text>
+      <v-card-actions class="mr-5">
+        <v-btn color="success" @click="random" v-if="meals.length > 0" text>
           {{ $t("general.random") }}
         </v-btn>
-        <v-btn color="success" @click="save" text>
+        <v-btn color="success" @click="save" text :disabled="meals.length == 0">
           {{ $t("general.save") }}
         </v-btn>
 
-        <v-spacer></v-spacer>
-        <v-btn icon @click="show = !show"> </v-btn>
       </v-card-actions>
     </v-row>
   </v-card>
@@ -136,7 +134,7 @@ export default {
 
       let dateDif = (endDate - startDate) / (1000 * 3600 * 24) + 1;
 
-      if (dateDif <= 1) {
+      if (dateDif < 1) {
         return null;
       }
 
