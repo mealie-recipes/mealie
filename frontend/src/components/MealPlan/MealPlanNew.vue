@@ -117,7 +117,6 @@ export default {
   },
   async mounted() {
     let settings = await api.settings.requestAll();
-    console.log("Settings", settings.planCategories);
     this.items = await api.recipes.getAllByCategory(settings.planCategories);
   },
 

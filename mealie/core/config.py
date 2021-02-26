@@ -12,7 +12,7 @@ def ensure_dirs():
 
 
 # Register ENV
-ENV = CWD.joinpath(".env") #! I'm Broken Fix Me!
+ENV = CWD.joinpath(".env")  #! I'm Broken Fix Me!
 dotenv.load_dotenv(ENV)
 
 
@@ -45,6 +45,7 @@ MIGRATION_DIR = DATA_DIR.joinpath("migration")
 NEXTCLOUD_DIR = MIGRATION_DIR.joinpath("nextcloud")
 CHOWDOWN_DIR = MIGRATION_DIR.joinpath("chowdown")
 TEMPLATE_DIR = DATA_DIR.joinpath("templates")
+USER_DIR = DATA_DIR.joinpath("users")
 SQLITE_DIR = DATA_DIR.joinpath("db")
 RECIPE_DATA_DIR = DATA_DIR.joinpath("recipes")
 TEMP_DIR = DATA_DIR.joinpath(".temp")
@@ -59,7 +60,8 @@ REQUIRED_DIRS = [
     SQLITE_DIR,
     NEXTCLOUD_DIR,
     CHOWDOWN_DIR,
-    RECIPE_DATA_DIR
+    RECIPE_DATA_DIR,
+    USER_DIR,
 ]
 
 ensure_dirs()

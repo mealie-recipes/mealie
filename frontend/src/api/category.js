@@ -12,7 +12,6 @@ const categoryURLs = {
 export default {
   async get_all() {
     let response = await apiReq.get(categoryURLs.get_all);
-    console.log("All Cats", response.data);
     return response.data;
   },
   async get_recipes_in_category(category) {

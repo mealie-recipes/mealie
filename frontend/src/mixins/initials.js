@@ -1,12 +1,5 @@
-import { store } from "@/store";
-export const user = {
+export const initials = {
   computed: {
-    user() {
-      return store.getters.getUserData;
-    },
-    loggedIn() {
-      return store.getters.getIsLoggedIn;
-    },
     initials() {
       const allNames = this.user.fullName.trim().split(" ");
       const initials = allNames.reduce(

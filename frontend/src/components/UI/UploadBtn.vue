@@ -15,6 +15,7 @@ export default {
     url: String,
     text: { default: "Upload" },
     icon: { default: "mdi-cloud-upload" },
+    fileName: { defaul: "archive" },
   },
   data: () => ({
     file: null,
@@ -32,7 +33,7 @@ export default {
       if (this.file != null) {
         this.isSelecting = true;
         let formData = new FormData();
-        formData.append("archive", this.file);
+        formData.append(this.fileName, this.file);
 
         await api.utils.uploadFile(this.url, formData);
 

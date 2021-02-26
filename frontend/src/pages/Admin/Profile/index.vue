@@ -21,11 +21,20 @@
         <v-card-text>
           <v-row>
             <v-col cols="12" md="3" align="center" justify="center">
-              <v-avatar color="accent" size="120" class="mr-2" v-if="!loading">
+              <v-avatar
+                color="accent"
+                size="120"
+                v-if="!loading"
+                class="white--text headline mr-2"
+              >
                 <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  alt="John"
+                  :src="userProfileImage"
+                  v-if="!hideImage"
+                  @error="hideImage = true"
                 />
+                <div v-else>
+                  {{ initials }}
+                </div>
               </v-avatar>
             </v-col>
             <v-col cols="12" md="9">
@@ -60,7 +69,12 @@
         </v-card-text>
 
         <v-card-actions>
-          <UploadBtn icon="mdi-image-area" text="Upload Photo" />
+          <UploadBtn
+            icon="mdi-image-area"
+            text="Upload Photo"
+            :url="userProfileImage"
+            file-name="profile_image"
+          />
 
           <v-spacer></v-spacer>
           <v-btn color="success" class="mr-2" @click="updateUser">
@@ -110,17 +124,16 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn icon @click="showPassword = !showPassword" :loading="passwordLoading">
+          <v-btn
+            icon
+            @click="showPassword = !showPassword"
+            :loading="passwordLoading"
+          >
             <v-icon v-if="!showPassword">mdi-eye-off</v-icon>
             <v-icon v-else> mdi-eye </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn
-            color="accent"
-            class="mr-2"
-            @click="changePassword"
-            
-          >
+          <v-btn color="accent" class="mr-2" @click="changePassword">
             <v-icon left> mdi-lock </v-icon>
             {{ $t("settings.change-password") }}
           </v-btn>
@@ -135,13 +148,15 @@
 import UploadBtn from "@/components/UI/UploadBtn";
 import api from "@/api";
 import { validators } from "@/mixins/validators";
+import { initials } from "@/mixins/initials";
 export default {
   components: {
     UploadBtn,
   },
-  mixins: [validators],
+  mixins: [validators, initials],
   data() {
     return {
+      hideImage: false,
       passwordLoading: false,
       password: {
         current: "",
@@ -158,6 +173,12 @@ export default {
         id: 1,
       },
     };
+  },
+
+  computed: {
+    userProfileImage() {
+      return `api/users/${this.user.id}/image`;
+    },
   },
 
   async mounted() {

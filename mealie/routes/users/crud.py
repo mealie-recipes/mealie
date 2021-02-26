@@ -1,10 +1,13 @@
+import shutil
 from datetime import timedelta
 
+from core.config import USER_DIR
 from core.security import get_password_hash, verify_password
 from db.database import db
 from db.db_setup import generate_session
-from fastapi import APIRouter, Depends
-from routes.deps import manager, query_user
+from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi.responses import FileResponse
+from routes.deps import manager
 from schema.snackbar import SnackResponse
 from schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
 from sqlalchemy.orm.session import Session
@@ -72,6 +75,45 @@ async def update_user(
             access_token = {"access_token": access_token, "token_type": "bearer"}
 
     return SnackResponse.success("User Updated", access_token)
+
+
+@router.get("/{id}/image")
+async def get_user_image(id: str):
+    """ Returns a users profile picture """
+    user_dir = USER_DIR.joinpath(id)
+    for recipe_image in user_dir.glob("profile_image.*"):
+        print(recipe_image)
+        return FileResponse(recipe_image)
+    else:
+        return False
+
+
+@router.post("/{id}/image")
+async def update_user_image(
+    id: str,
+    profile_image: UploadFile = File(...),
+    current_user: UserInDB = Depends(manager),
+):
+    """ Updates a User Image """
+
+    extension = profile_image.filename.split(".")[-1]
+
+    USER_DIR.joinpath(id).mkdir(parents=True, exist_ok=True)
+
+    try:
+        [x.unlink() for x in USER_DIR.join(id).glob("profile_image.*")]
+    except:
+        pass
+
+    dest = USER_DIR.joinpath(id, f"profile_image.{extension}")
+
+    with dest.open("wb") as buffer:
+        shutil.copyfileobj(profile_image.file, buffer)
+
+    if dest.is_file:
+        return SnackResponse.success("Backup uploaded")
+    else:
+        return SnackResponse.error("Failure uploading file")
 
 
 @router.put("/{id}/password")
