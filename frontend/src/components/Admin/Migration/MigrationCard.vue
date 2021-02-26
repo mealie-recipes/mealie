@@ -46,7 +46,7 @@
       </v-card>
     </div>
     <div v-else>
-      <v-card class="text-center ma-2">
+      <v-card outlined class="text-center ma-2">
         <v-card-text>
           {{ $t("migration.no-migration-data-available") }}
         </v-card-text>
