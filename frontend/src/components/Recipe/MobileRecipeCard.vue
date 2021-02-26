@@ -5,7 +5,7 @@
         <v-img :src="getImage(image)"> </v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title >
+        <v-list-item-title>
           {{ name }}
         </v-list-item-title>
         <v-rating length="5" size="16" dense :value="rating"></v-rating>

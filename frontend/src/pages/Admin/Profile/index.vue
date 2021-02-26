@@ -24,7 +24,6 @@
               <v-avatar
                 color="accent"
                 size="120"
-                v-if="!loading"
                 class="white--text headline mr-2"
               >
                 <img

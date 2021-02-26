@@ -22,8 +22,15 @@
     >
       <template v-slot:prepend>
         <v-list-item two-line>
-          <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/women/81.jpg" />
+          <v-list-item-avatar color="accent" class="white--text">
+            <img
+              :src="userProfileImage"
+              v-if="!hideImage"
+              @error="hideImage = true"
+            />
+            <div v-else>
+              {{ initials }}
+            </div>
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -70,9 +77,14 @@
 </template>
 
 <script>
+import { validators } from "@/mixins/validators";
+import { initials } from "@/mixins/initials";
+import { user } from "@/mixins/user";
 export default {
+  mixins: [validators, initials, user],
   data() {
     return {
+      hideImage: false,
       showSidebar: false,
       mobile: false,
       links: [],
@@ -123,8 +135,8 @@ export default {
   },
 
   computed: {
-    user() {
-      return this.$store.getters.getUserData;
+    userProfileImage() {
+      return `api/users/${this.user.id}/image`;
     },
   },
 
