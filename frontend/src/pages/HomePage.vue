@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <CategorySidebar />
     <CardSection
       v-if="showRecent"
@@ -17,7 +17,7 @@
       @sort="sortAZ(index)"
       @sort-recent="sortRecent(index)"
     />
-  </div>
+  </v-container>
 </template>
 
 <script>

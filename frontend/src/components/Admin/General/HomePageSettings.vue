@@ -1,10 +1,13 @@
 <template>
   <v-card flat>
     <v-card-text>
-      <h2 class="mt-1 mb-1">{{$t('settings.homepage.home-page')}}</h2>
+      <h2 class="mt-1 mb-1">{{ $t("settings.homepage.home-page") }}</h2>
       <v-row align="center" justify="center" dense class="mb-n7 pb-n5">
         <v-col cols="12" sm="3" md="2">
-          <v-switch v-model="showRecent" :label="$t('settings.homepage.show-recent')"></v-switch>
+          <v-switch
+            v-model="showRecent"
+            :label="$t('settings.homepage.show-recent')"
+          ></v-switch>
         </v-col>
         <v-col cols="12" sm="5" md="5">
           <v-slider

@@ -1,59 +1,168 @@
 <template>
-  <v-card>
-    <v-card-title class="headline">
-      <span>
-        <v-avatar color="accent" size="40" class="mr-2" v-if="!loading">
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-        </v-avatar>
-        <v-progress-circular
-          v-else
-          indeterminate
-          color="primary"
-          large
-          class="mr-2"
-        >
-        </v-progress-circular>
-      </span>
-      Profile
-      <v-spacer></v-spacer>
-      User ID: {{ user.id }}
-    </v-card-title>
-    <v-divider></v-divider>
-    <v-card-text>
-      <v-form>
-        <v-text-field label="Full Name" v-model="user.fullName"> </v-text-field>
-        <v-text-field label="Email" v-model="user.email"> </v-text-field>
-        <v-text-field
-          label="Family"
-          readonly
-          v-model="user.family"
-          persistent-hint
-          hint="Family groups can only be set by administrators"
-        >
-        </v-text-field>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn color="accent" class="mr-2">
-        <v-icon left> mdi-lock </v-icon>
-        {{ $t("settings.change-password") }}
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn color="success" class="mr-2" @click="updateUser">
-        <v-icon left> mdi-content-save </v-icon>
-        {{ $t("general.save") }}
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+  <v-row dense>
+    <v-col cols="12" md="8" sm="12">
+      <v-card>
+        <v-card-title class="headline">
+          <span>
+            <v-progress-circular
+              v-if="loading"
+              indeterminate
+              color="primary"
+              large
+              class="mr-2"
+            >
+            </v-progress-circular>
+          </span>
+          Profile
+          <v-spacer></v-spacer>
+          User ID: {{ user.id }}
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12" md="3" align="center" justify="center">
+              <v-avatar
+                color="accent"
+                size="120"
+                class="white--text headline mr-2"
+              >
+                <img
+                  :src="userProfileImage"
+                  v-if="!hideImage"
+                  @error="hideImage = true"
+                />
+                <div v-else>
+                  {{ initials }}
+                </div>
+              </v-avatar>
+            </v-col>
+            <v-col cols="12" md="9">
+              <v-form>
+                <v-text-field
+                  label="Full Name"
+                  required
+                  v-model="user.fullName"
+                  :rules="[existsRule]"
+                  validate-on-blur
+                >
+                </v-text-field>
+                <v-text-field
+                  label="Email"
+                  :rules="[emailRule]"
+                  validate-on-blur
+                  required
+                  v-model="user.email"
+                >
+                </v-text-field>
+                <v-text-field
+                  label="Family"
+                  readonly
+                  v-model="user.family"
+                  persistent-hint
+                  hint="Family groups can only be set by administrators"
+                >
+                </v-text-field>
+              </v-form>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <UploadBtn
+            icon="mdi-image-area"
+            text="Upload Photo"
+            :url="userProfileImage"
+            file-name="profile_image"
+          />
+
+          <v-spacer></v-spacer>
+          <v-btn color="success" class="mr-2" @click="updateUser">
+            <v-icon left> mdi-content-save </v-icon>
+            {{ $t("general.save") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="4" sm="12">
+      <v-card height="100%">
+        <v-card-title class="headline">
+          Reset Password
+          <v-spacer></v-spacer>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-form ref="passChange">
+            <v-text-field
+              v-model="password.current"
+              prepend-icon="mdi-lock"
+              label="Current Password"
+              :rules="[existsRule]"
+              validate-on-blur
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword.current = !showPassword.current"
+            ></v-text-field>
+            <v-text-field
+              v-model="password.newOne"
+              prepend-icon="mdi-lock"
+              label="New Password"
+              :rules="[minRule]"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword.newOne = !showPassword.newOne"
+            ></v-text-field>
+            <v-text-field
+              v-model="password.newTwo"
+              prepend-icon="mdi-lock"
+              label="Confirm Password"
+              :rules="[
+                password.newOne === password.newTwo || 'Password must match',
+              ]"
+              validate-on-blur
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword.newTwo = !showPassword.newTwo"
+            ></v-text-field>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            icon
+            @click="showPassword = !showPassword"
+            :loading="passwordLoading"
+          >
+            <v-icon v-if="!showPassword">mdi-eye-off</v-icon>
+            <v-icon v-else> mdi-eye </v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="accent" class="mr-2" @click="changePassword">
+            <v-icon left> mdi-lock </v-icon>
+            {{ $t("settings.change-password") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 // import AvatarPicker from '@/components/AvatarPicker'
+import UploadBtn from "@/components/UI/UploadBtn";
 import api from "@/api";
+import { validators } from "@/mixins/validators";
+import { initials } from "@/mixins/initials";
 export default {
-  pageTitle: "My Profile",
+  components: {
+    UploadBtn,
+  },
+  mixins: [validators, initials],
   data() {
     return {
+      hideImage: false,
+      passwordLoading: false,
+      password: {
+        current: "",
+        newOne: "",
+        newTwo: "",
+      },
+      showPassword: false,
       loading: false,
       user: {
         fullName: "Change Me",
@@ -62,8 +171,13 @@ export default {
         admin: true,
         id: 1,
       },
-      showAvatarPicker: false,
     };
+  },
+
+  computed: {
+    userProfileImage() {
+      return `api/users/${this.user.id}/image`;
+    },
   },
 
   async mounted() {
@@ -87,6 +201,21 @@ export default {
       this.refreshProfile();
       this.loading = false;
     },
+    async changePassword() {
+      this.paswordLoading = true;
+      let data = {
+        currentPassword: this.password.current,
+        newPassword: this.password.newOne,
+      };
+
+      if (this.$refs.passChange.validate()) {
+        await api.users.changePassword(this.user.id, data);
+      }
+      this.paswordLoading = false;
+    },
   },
 };
 </script>
+
+<style>
+</style>

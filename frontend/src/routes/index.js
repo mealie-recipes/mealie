@@ -11,7 +11,7 @@ import LoginPage from "../pages/LoginPage";
 import MealPlanThisWeekPage from "../pages/MealPlanThisWeekPage";
 import api from "@/api";
 import Admin from "./admin";
-import { store } from "../store/store";
+import { store } from "../store";
 
 export const routes = [
   { path: "/", name: "home", component: HomePage },

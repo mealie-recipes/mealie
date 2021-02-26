@@ -42,3 +42,6 @@ class User(SqlAlchemyBase, BaseMixins):
         self.email = email
         self.family = family
         self.admin = admin
+
+    def update_password(self, password):
+        self.password = password

@@ -1,6 +1,6 @@
 # Site Settings Panel
 !!! danger
-    As this is still a **BETA** It is recommended that you backup your data often and store in more than one place. Ad-hear to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup)
+    As this is still a **BETA** It is recommended that you backup your data often and store in more than one place. Ad-hear to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup). Prior to upgrading you **should** perform a backup to limit any data loss.
 
 ## General Settings
 In your site settings page you can select several options to change the layout of your homepage. You can choose to display the recent recipes, how many cards to show for each section, and which category sections to display. You can additionally select which language to use by default. Note the currently homepage settings are saved in your browser. In the future a database entry will be made for site settings so the homepage is consistent across users.
@@ -12,7 +12,7 @@ Color themes can be created and set from the UI in the settings page. You can se
 
 ![](../gifs/theme-demo-v2.gif)
 
-!!! note
+!!! tip
     Theme data is stored in localstorage in the browser. Calling "Save colors and apply theme will refresh the local storage with the selected theme as well save the theme to the database. 
 
 

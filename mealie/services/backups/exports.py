@@ -6,16 +6,17 @@ from pathlib import Path
 from core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
 from db.database import db
 from db.db_setup import create_session
+from fastapi.logger import logger
 from jinja2 import Template
 from services.meal_services import MealPlan
 from services.recipe_services import Recipe
-from fastapi.logger import logger
 
 
 class ExportDatabase:
     def __init__(self, session, tag=None, templates=None) -> None:
         """Export a Mealie database. Export interacts directly with class objects and can be used
-        with any supported backend database platform. By default tags are timestands, and no Jinja2 templates are rendered
+        with any supported backend database platform. By default tags are timestands, and no 
+        Jinja2 templates are rendered
 
 
         Args:

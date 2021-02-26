@@ -1,7 +1,5 @@
-// import utils from "@/utils";
-// import Vue from "vue";
-// import Vuetify from "./plugins/vuetify";
-import { vueApp } from "./main";
+import { vueApp } from "../main";
+
 
 const notifyHelpers = {
   baseCSS: "notify-base",

@@ -33,18 +33,22 @@
             </v-app-bar>
 
             <v-card-text>
-              <v-container>
+              <v-form ref="newUser">
                 <v-row>
                   <v-col cols="12" sm="12" md="6">
                     <v-text-field
                       v-model="editedItem.fullName"
                       label="Full Name"
+                      :rules="[existsRule]"
+                      validate-on-blur
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="12" md="6">
                     <v-text-field
                       v-model="editedItem.email"
                       label="Email"
+                      :rules="[existsRule, emailRule]"
+                      validate-on-blur
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="12" md="6">
@@ -57,6 +61,7 @@
                     <v-text-field
                       v-model="editedItem.password"
                       label="User Password"
+                      :rules="[existsRule, minRule]"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="12" md="3">
@@ -66,7 +71,7 @@
                     ></v-switch>
                   </v-col>
                 </v-row>
-              </v-container>
+              </v-form>
             </v-card-text>
 
             <v-card-actions>
@@ -121,8 +126,10 @@
 <script>
 import Confirmation from "@/components/UI/Confirmation";
 import api from "@/api";
+import { validators } from "@/mixins/validators";
 export default {
   components: { Confirmation },
+  mixins: [validators],
   data: () => ({
     dialog: false,
     activeId: null,
@@ -145,6 +152,7 @@ export default {
     editedItem: {
       id: 0,
       fullName: "",
+      password: "",
       email: "",
       family: "",
       admin: false,
@@ -152,6 +160,7 @@ export default {
     defaultItem: {
       id: 0,
       fullName: "",
+      password: "",
       email: "",
       family: "",
       admin: false,
@@ -186,7 +195,7 @@ export default {
     },
 
     async deleteUser() {
-      await api.users.delete(this.editedIndex);
+      await api.users.delete(this.activeId);
       this.initialize();
     },
 
@@ -227,13 +236,13 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-        console.log("New User", this.editedItem);
         api.users.update(this.editedItem);
-      } else {
+        this.close();
+      } else if (this.$refs.newUser.validate()) {
         api.users.create(this.editedItem);
+        this.close();
       }
       await this.initialize();
-      this.close();
     },
   },
 };

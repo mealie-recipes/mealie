@@ -31,7 +31,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-row>
+    <v-row v-if="!viewScale">
       <v-col
         :sm="6"
         :md="6"
@@ -49,14 +49,36 @@
         />
       </v-col>
     </v-row>
+    <v-row v-else dense>
+      <v-col
+        cols="12"
+        sm="12"
+        md="6"
+        lg="4"
+        xl="3"
+        v-for="recipe in recipes.slice(0, cardLimit)"
+        :key="recipe.name"
+        
+      >
+        <MobileRecipeCard
+          :name="recipe.name"
+          :description="recipe.description"
+          :slug="recipe.slug"
+          :rating="recipe.rating"
+          :image="recipe.image"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import RecipeCard from "../Recipe/RecipeCard";
+import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
 export default {
   components: {
     RecipeCard,
+    MobileRecipeCard,
   },
   props: {
     sortable: {
@@ -68,8 +90,17 @@ export default {
       default: 6,
     },
   },
-  data() {
-    return {};
+  computed: {
+    viewScale() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return true;
+        case "sm":
+          return true;
+        default:
+          return false;
+      }
+    },
   },
 };
 </script>

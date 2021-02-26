@@ -21,6 +21,7 @@ const state = {
   isDark: false,
   isLoggedIn: false,
   token: "",
+  userData: {},
 };
 
 const mutations = {
@@ -45,6 +46,10 @@ const mutations = {
     state.isLoggedIn = true;
     axios.defaults.headers.common["Authorization"] = `Bearer ${payload}`;
     state.token = payload;
+  },
+
+  setUserData(state, payload) {
+    state.userData = payload;
   },
 };
 
@@ -77,6 +82,7 @@ const getters = {
   getIsDark: state => state.isDark,
   getIsLoggedIn: state => state.isLoggedIn,
   getToken: state => state.token,
+  getUserData: state => state.userData,
 };
 
 export default {

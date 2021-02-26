@@ -22,13 +22,22 @@
     >
       <template v-slot:prepend>
         <v-list-item two-line>
-          <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/women/81.jpg" />
+          <v-list-item-avatar color="accent" class="white--text">
+            <img
+              :src="userProfileImage"
+              v-if="!hideImage"
+              @error="hideImage = true"
+            />
+            <div v-else>
+              {{ initials }}
+            </div>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>Jane Smith</v-list-item-title>
-            <v-list-item-subtitle>Admin</v-list-item-subtitle>
+            <v-list-item-title> {{ user.fullName }}</v-list-item-title>
+            <v-list-item-subtitle>
+              {{ user.admin ? "Admin" : "User" }}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -50,7 +59,7 @@
       </v-list>
 
       <v-divider></v-divider>
-      <v-list nav dense>
+      <v-list nav dense v-if="user.admin">
         <v-list-item
           v-for="nav in superLinks"
           :key="nav.title"
@@ -68,9 +77,14 @@
 </template>
 
 <script>
+import { validators } from "@/mixins/validators";
+import { initials } from "@/mixins/initials";
+import { user } from "@/mixins/user";
 export default {
+  mixins: [validators, initials, user],
   data() {
     return {
+      hideImage: false,
       showSidebar: false,
       mobile: false,
       links: [],
@@ -115,9 +129,15 @@ export default {
       ],
     };
   },
-  mounted() {
+  async mounted() {
     this.mobile = this.viewScale();
     this.showSidebar = !this.viewScale();
+  },
+
+  computed: {
+    userProfileImage() {
+      return `api/users/${this.user.id}/image`;
+    },
   },
 
   methods: {

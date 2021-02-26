@@ -1,6 +1,6 @@
 {
   "python.formatting.provider": "black",
-  "python.pythonPath": ".venv/bin/python3.9",
+  "python.pythonPath": "./.venv/bin/python3.9",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.autoComplete.extraPaths": ["mealie", "mealie/mealie"],

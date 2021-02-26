@@ -31,10 +31,10 @@
       <LanguageMenu />
     </v-app-bar>
     <v-main>
-      <v-container>
-        <AddRecipeFab />
-        <router-view></router-view>
-      </v-container>
+      <v-slide-x-reverse-transition>
+        <AddRecipeFab v-if="loggedIn" />
+      </v-slide-x-reverse-transition>
+      <router-view></router-view>
       <FlashMessage :position="'right bottom'"></FlashMessage>
     </v-main>
   </v-app>
@@ -46,6 +46,7 @@ import SearchBar from "@/components/UI/Search/SearchBar";
 import AddRecipeFab from "@/components/UI/AddRecipeFab";
 import LanguageMenu from "@/components/UI/LanguageMenu";
 import Vuetify from "./plugins/vuetify";
+import { user } from "@/mixins/user";
 
 export default {
   name: "App",
@@ -56,6 +57,8 @@ export default {
     SearchBar,
     LanguageMenu,
   },
+
+  mixins: [user],
 
   watch: {
     $route() {

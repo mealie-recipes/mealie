@@ -37,7 +37,7 @@
               </v-card>
             </v-col>
             <v-col order-sm="0" :order-md="getOrder(index)" md="6" sm="12">
-              <v-card>
+              <v-card flat>
                 <v-img :src="getImage(meal.image)" max-height="300"> </v-img>
               </v-card>
             </v-col>

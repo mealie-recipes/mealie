@@ -5,8 +5,8 @@ const prefix = baseURL + "categories";
 
 const categoryURLs = {
   get_all: `${prefix}`,
-  get_category: (category) => `${prefix}/${category}`,
-  delete_category: (category) => `${prefix}/${category}`,
+  get_category: category => `${prefix}/${category}`,
+  delete_category: category => `${prefix}/${category}`,
 };
 
 export default {

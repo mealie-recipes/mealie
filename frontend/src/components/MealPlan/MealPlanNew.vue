@@ -76,7 +76,6 @@
         <v-btn color="success" @click="save" text :disabled="meals.length == 0">
           {{ $t("general.save") }}
         </v-btn>
-
       </v-card-actions>
     </v-row>
   </v-card>
