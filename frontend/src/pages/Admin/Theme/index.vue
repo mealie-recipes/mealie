@@ -138,6 +138,25 @@
       </v-row>
     </v-card-text>
 
+    <v-card-text>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="12"
+          md="6"
+          lg="4"
+          xl="3"
+          v-for="theme in availableThemes"
+          :key="theme.name"
+        >
+          <ThemeCard
+            :theme="theme"
+            :current="selectedTheme.name == theme.name ? true : false"
+          />
+        </v-col>
+      </v-row>
+    </v-card-text>
+
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="success" @click="saveThemes" class="mr-2">
@@ -153,12 +172,14 @@ import api from "@/api";
 import ColorPickerDialog from "@/components/Admin/Theme/ColorPickerDialog";
 import NewThemeDialog from "@/components/Admin/Theme/NewThemeDialog";
 import Confirmation from "@/components/UI/Confirmation";
+import ThemeCard from "@/components/Admin/Theme/ThemeCard";
 
 export default {
   components: {
     ColorPickerDialog,
     Confirmation,
     NewThemeDialog,
+    ThemeCard,
   },
   data() {
     return {
