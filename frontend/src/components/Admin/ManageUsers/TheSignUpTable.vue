@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="mt-n1">
     <Confirmation
       ref="deleteUserDialog"
       title="Confirm User Deletion"
@@ -64,13 +64,13 @@
     <v-card-text>
       <v-data-table :headers="headers" :items="links" sort-by="calories">
         <template v-slot:item.token="{ item }">
-          {{ `${baseURL}/user/sign-up/${item.token}` }}
+          {{ `${baseURL}/sign-up/${item.token}` }}
           <v-btn
             icon
             class="mr-1"
             small
             color="accent"
-            @click="updateClipboard(`${baseURL}/user/sign-up/${item.token}`)"
+            @click="updateClipboard(`${baseURL}/sign-up/${item.token}`)"
           >
             <v-icon>
               mdi-content-copy

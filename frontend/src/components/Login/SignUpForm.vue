@@ -1,7 +1,7 @@
 <template>
   <v-card width="500px">
     <v-divider></v-divider>
-    <v-app-bar dark color="primary" class="mt-n1 mb-2">
+    <v-app-bar dark color="primary" class="mt-n1">
       <v-icon large left v-if="!loading">
         mdi-account
       </v-icon>
@@ -13,17 +13,22 @@
         class="mr-2"
       >
       </v-progress-circular>
-      <v-toolbar-title class="headline"> Login </v-toolbar-title>
+      <v-toolbar-title class="headline"> Sign Up </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-card-text>
+      Welcome to Mealie! To become a user of this instance you are required to
+      have a valid invitation link. If you haven't recieved an invitation you
+      are unable to sign-up. To recieve a link, contact the sites administrator.
+      <v-divider class="mt-3"></v-divider>
       <v-form>
         <v-text-field
-          v-if="!options.isLoggingIn"
           v-model="user.name"
           light="light"
-          prepend-icon="person"
-          :label="$t('general.name')"
+          prepend-icon="mdi-account"
+          validate-on-blur
+          label="Display Name"
+          type="email"
         ></v-text-field>
         <v-text-field
           v-model="user.email"
@@ -43,20 +48,31 @@
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
+        <v-text-field
+          v-model="user.passwordConfirm"
+          light="light"
+          class="mb-2s"
+          prepend-icon="mdi-lock"
+          :label="$t('login.password')"
+          :type="showPassword ? 'text' : 'password'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="showPassword = !showPassword"
+        ></v-text-field>
       </v-form>
       <v-card-actions>
         <v-btn
           v-if="options.isLoggingIn"
-          @click.prevent="login"
+          @click.prevent="signUp"
           dark
           color="primary"
           block="block"
           type="submit"
-          >{{ $t("login.sign-in") }}</v-btn
         >
+          Sign Up
+        </v-btn>
       </v-card-actions>
-      <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
-        Could Not Validate Credentials
+      <v-alert dense v-if="error" outlined class="mt-3 mb-0" type="error">
+        Error Signing Up
       </v-alert>
     </v-card-text>
   </v-card>
@@ -65,16 +81,16 @@
 <script>
 import api from "@/api";
 export default {
-  props: {},
   data() {
     return {
       loading: false,
       error: false,
-      showLogin: false,
       showPassword: false,
       user: {
+        name: "",
         email: "",
         password: "",
+        passwordConfirm: "",
       },
       options: {
         isLoggingIn: true,
@@ -84,33 +100,34 @@ export default {
   mounted() {
     this.clear();
   },
+  computed: {
+    token() {
+      return this.$route.params.token;
+    },
+  },
   methods: {
     clear() {
-      this.user = { email: "", password: "" };
+      this.user = {
+        name: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+      };
     },
-    async login() {
+    async signUp() {
       this.loading = true;
       this.error = false;
-      let formData = new FormData();
-      formData.append("username", this.user.email);
-      formData.append("password", this.user.password);
-      let key;
-      try {
-        key = await api.users.login(formData);
-      } catch {
-        this.error = true;
-      }
-      if (key.status != 200) {
-        this.error = true;
-        this.loading = false;
-      } else {
-        this.clear();
-        this.$store.commit("setToken", key.data.access_token);
-        this.$emit("logged-in");
-      }
 
-      let user = await api.users.self();
-      this.$store.commit("setUserData", user);
+      const userData = {
+        fullName: this.user.name,
+        email: this.user.email,
+        family: "public",
+        password: this.user.password,
+        admin: false,
+      };
+
+      await api.signUps.createUser(this.token, userData);
+      this.$emit("user-created");
 
       this.loading = false;
     },

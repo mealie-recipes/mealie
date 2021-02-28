@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="mt-n1">
     <Confirmation
       ref="deleteUserDialog"
       title="Confirm User Deletion"
