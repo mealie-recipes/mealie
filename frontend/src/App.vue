@@ -86,6 +86,8 @@ export default {
     search: false,
   }),
   methods: {
+    // For Later!
+
     /**
      * Checks if 'system' is set for dark mode and then sets the corrisponding value for vuetify
      */

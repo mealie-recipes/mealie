@@ -4,6 +4,7 @@ from db.db_base import BaseDocument
 from db.models.mealplan import MealPlanModel
 from db.models.recipe import Category, RecipeModel, Tag
 from db.models.settings import SiteSettingsModel
+from db.models.sign_up import SignUp
 from db.models.theme import SiteThemeModel
 from db.models.users import User
 
@@ -70,6 +71,11 @@ class _Users(BaseDocument):
         return return_data
 
 
+class _SignUps(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "token"
+        self.sql_model = SignUp
+
 
 class Database:
     def __init__(self) -> None:
@@ -80,6 +86,7 @@ class Database:
         self.categories = _Categories()
         self.tags = _Tags()
         self.users = _Users()
+        self.sign_ups = _SignUps()
 
 
 db = Database()
