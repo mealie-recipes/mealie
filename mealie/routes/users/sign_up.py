@@ -34,7 +34,11 @@ async def create_user_sign_up_key(
     """ Generates a Random Token that a new user can sign up with """
 
     if current_user.admin:
-        sign_up = {"token": str(uuid.uuid1().hex), "name": key_data.name}
+        sign_up = {
+            "token": str(uuid.uuid1().hex),
+            "name": key_data.name,
+            "admin": key_data.admin,
+        }
         db_entry = db.sign_ups.create(session, sign_up)
 
         return db_entry
@@ -57,6 +61,7 @@ async def create_user_with_token(
         return {"details": "invalid token"}
 
     # Create User
+    new_user.admin = db_entry.get("admin")
     new_user.password = get_password_hash(new_user.password)
     data = db.users.create(session, new_user.dict())
 

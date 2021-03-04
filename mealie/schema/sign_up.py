@@ -3,6 +3,7 @@ from fastapi_camelcase import CamelModel
 
 class SignUpIn(CamelModel):
     name: str
+    admin: bool
 
 
 class SignUpToken(SignUpIn):

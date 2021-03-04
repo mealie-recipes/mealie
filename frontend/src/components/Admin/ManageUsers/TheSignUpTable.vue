@@ -39,12 +39,19 @@
 
           <v-card-text>
             <v-form ref="newUser">
-              <v-text-field
-                v-model="editedItem.name"
-                label="Link Name"
-                :rules="[existsRule]"
-                validate-on-blur
-              ></v-text-field>
+              <v-row class="justify-center mt-3">
+                <v-text-field
+                  class="mr-2"
+                  v-model="editedItem.name"
+                  label="Link Name"
+                  :rules="[existsRule]"
+                  validate-on-blur
+                ></v-text-field>
+                <v-checkbox
+                  v-model="editedItem.admin"
+                  label="Admin"
+                ></v-checkbox>
+              </v-row>
             </v-form>
           </v-card-text>
 
@@ -75,6 +82,14 @@
             <v-icon>
               mdi-content-copy
             </v-icon>
+          </v-btn>
+        </template>
+        <template v-slot:item.admin="{ item }">
+          <v-btn small :color="item.admin ? 'success' : 'error'" text>
+            <v-icon small left>
+              mdi-account-cog
+            </v-icon>
+            {{ item.admin ? "Yes" : "No" }}
           </v-btn>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -110,18 +125,21 @@ export default {
       },
       { text: "Name", value: "name" },
       { text: "Token", value: "token" },
+      { text: "Admin", value: "admin", align: "center" },
       { text: "", value: "actions", sortable: false, align: "center" },
     ],
     links: [],
     editedIndex: -1,
     editedItem: {
       name: "",
+      admin: false,
       token: "",
       id: 0,
     },
     defaultItem: {
       name: "",
       token: "",
+      admin: false,
       id: 0,
     },
   }),
@@ -205,7 +223,10 @@ export default {
         api.links.update(this.editedItem);
         this.close();
       } else if (this.$refs.newUser.validate()) {
-        api.signUps.createToken({ name: this.editedItem.name });
+        api.signUps.createToken({
+          name: this.editedItem.name,
+          admin: this.editedItem.admin,
+        });
         this.close();
       }
       await this.initialize();
