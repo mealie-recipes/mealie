@@ -71,6 +71,7 @@ class _Users(BaseDocument):
         return return_data
 
 
+
 class _SignUps(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "token"
