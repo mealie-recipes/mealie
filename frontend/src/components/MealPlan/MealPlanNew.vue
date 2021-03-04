@@ -65,7 +65,7 @@
       </v-row>
     </v-card-text>
 
-    <v-card-text>
+    <v-card-text v-if="startDate">
       <MealPlanCard v-model="meals" />
     </v-card-text>
     <v-row align="center" justify="end">
@@ -133,6 +133,7 @@ export default {
 
       let dateDif = (endDate - startDate) / (1000 * 3600 * 24) + 1;
 
+
       if (dateDif < 1) {
         return null;
       }
@@ -182,9 +183,9 @@ export default {
       };
       await api.mealPlans.create(mealBody);
       this.$emit("created");
+      this.meals = [];
       this.startDate = null;
       this.endDate = null;
-      this.meals = [];
     },
 
     getImage(image) {

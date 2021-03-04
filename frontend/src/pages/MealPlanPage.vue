@@ -131,8 +131,8 @@ export default {
       this.editMealPlan = null;
       this.requestMeals();
     },
-    deletePlan(id) {
-      api.mealPlans.delete(id);
+    async deletePlan(id) {
+      await api.mealPlans.delete(id);
       this.requestMeals();
     },
     openShoppingList(id) {
