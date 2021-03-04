@@ -7,6 +7,7 @@ const authURLs = {
   token: `${authPrefix}/token`,
 };
 
+
 const usersURLs = {
   users: `${userPrefix}`,
   self: `${userPrefix}/self`,

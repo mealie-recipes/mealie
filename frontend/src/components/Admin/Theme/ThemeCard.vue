@@ -1,0 +1,84 @@
+<template>
+  <div>
+    <Confirmation
+      :title="$t('settings.theme.delete-theme')"
+      :message="$t('settings.theme.are-you-sure-you-want-to-delete-this-theme')"
+      color="error"
+      icon="mdi-alert-circle"
+      ref="deleteThemeConfirm"
+      v-on:confirm="deleteSelectedTheme()"
+    />
+    <v-card flat outlined class="ma-2">
+      <v-card-text class="mb-n5 mt-n2">
+        <h3>{{ theme.name }} {{ current ? "(Current)" : "" }}</h3>
+      </v-card-text>
+      <v-card-text>
+        <v-row dense>
+          <v-card
+            v-for="(color, index) in theme.colors"
+            :key="index"
+            class="mx-1"
+            height="34"
+            width="36"
+            :color="color"
+          >
+          </v-card>
+        </v-row>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-btn text color="error" @click="confirmDelete"> Delete </v-btn>
+        <v-spacer></v-spacer>
+        <!-- <v-btn text color="accent" @click="editTheme">Edit</v-btn> -->
+        <v-btn text color="success" @click="saveThemes">Apply</v-btn>
+      </v-card-actions>
+    </v-card>
+  </div>
+</template>
+
+<script>
+import Confirmation from "@/components/UI/Confirmation";
+import api from "@/api";
+
+const DELETE_EVENT = "delete";
+const APPLY_EVENT = "apply";
+const EDIT_EVENT = "edit";
+export default {
+  components: {
+    Confirmation,
+  },
+  props: {
+    theme: Object,
+    current: {
+      default: false,
+    },
+  },
+  methods: {
+    confirmDelete() {
+      if (this.theme.name === "default") {
+        // Notify User Can't Delete Default
+      } else if (this.theme !== {}) {
+        this.$refs.deleteThemeConfirm.open();
+      }
+    },
+    async deleteSelectedTheme() {
+      //Delete Theme from DB
+      await api.themes.delete(this.theme.name);
+
+      //Get the new list of available from DB
+      this.availableThemes = await api.themes.requestAll();
+      this.$emit(DELETE_EVENT);
+    },
+    async saveThemes() {
+      this.$store.commit("setTheme", this.theme);
+      this.$emit(APPLY_EVENT, this.theme);
+    },
+    editTheme() {
+      this.$emit(EDIT_EVENT);
+    },
+  },
+};
+</script>
+
+<style>
+</style>

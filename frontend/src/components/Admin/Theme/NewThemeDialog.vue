@@ -1,9 +1,22 @@
 <template>
   <div>
-    <v-btn text color="info" @click="dialog = true"> {{$t('general.new')}} </v-btn>
-    <v-dialog v-model="dialog" width="400">
+    <v-btn text color="info" @click="dialog = true">
+      {{ $t("settings.add-a-new-theme") }}
+    </v-btn>
+    <v-dialog v-model="dialog" width="500">
       <v-card>
-        <v-card-title> {{$t('settings.add-a-new-theme')}} </v-card-title>
+        <v-app-bar dense dark color="primary mb-2">
+          <v-icon large left class="mt-1">
+            mdi-format-color-fill
+          </v-icon>
+
+          <v-toolbar-title class="headline">
+            {{ $t("settings.add-a-new-theme") }}
+          </v-toolbar-title>
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-card-title> </v-card-title>
         <v-card-text>
           <v-text-field
             :label="$t('settings.theme.theme-name')"
@@ -13,9 +26,11 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="dialog = false"> {{$t('general.cancel')}} </v-btn>
+          <v-btn color="grey" text @click="dialog = false">
+            {{ $t("general.cancel") }}
+          </v-btn>
           <v-btn color="success" text @click="Select" :disabled="!themeName">
-            {{$t('general.create')}}
+            {{ $t("general.create") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -34,7 +49,8 @@ export default {
       dialog: false,
       themeName: "",
       rules: {
-        required: (val) => !!val || this.$t("settings.theme.theme-name-is-required"),
+        required: val =>
+          !!val || this.$t("settings.theme.theme-name-is-required"),
       },
     };
   },

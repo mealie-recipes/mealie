@@ -56,42 +56,6 @@
         }}
       </p>
 
-      <v-form ref="form" lazy-validation>
-        <v-row dense align="center">
-          <v-col cols="12" md="4" sm="3">
-            <v-select
-              :label="$t('settings.theme.saved-color-theme')"
-              :items="availableThemes"
-              item-text="name"
-              return-object
-              v-model="selectedTheme"
-              @change="themeSelected"
-              :rules="[v => !!v || $t('settings.theme.theme-is-required')]"
-              required
-            >
-            </v-select>
-          </v-col>
-          <v-col>
-            <v-btn-toggle group class="mt-n5">
-              <NewThemeDialog @new-theme="appendTheme" class="mt-1" />
-              <v-btn text color="error" @click="deleteSelectedThemeValidation">
-                {{ $t("general.delete") }}
-              </v-btn>
-            </v-btn-toggle>
-            <Confirmation
-              :title="$t('settings.theme.delete-theme')"
-              :message="
-                $t('settings.theme.are-you-sure-you-want-to-delete-this-theme')
-              "
-              color="error"
-              icon="mdi-alert-circle"
-              ref="deleteThemeConfirm"
-              v-on:confirm="deleteSelectedTheme()"
-            />
-          </v-col>
-          <v-spacer></v-spacer>
-        </v-row>
-      </v-form>
       <v-row dense align-content="center" v-if="selectedTheme.colors">
         <v-col>
           <ColorPickerDialog
@@ -138,7 +102,28 @@
       </v-row>
     </v-card-text>
 
+    <v-card-text>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="12"
+          md="6"
+          lg="4"
+          xl="3"
+          v-for="theme in availableThemes"
+          :key="theme.name"
+        >
+          <ThemeCard
+            :theme="theme"
+            :current="selectedTheme.name == theme.name ? true : false"
+            @delete="getAllThemes"
+          />
+        </v-col>
+      </v-row>
+    </v-card-text>
+
     <v-card-actions>
+      <NewThemeDialog @new-theme="appendTheme" class="mt-1" />
       <v-spacer></v-spacer>
       <v-btn color="success" @click="saveThemes" class="mr-2">
         <v-icon left> mdi-content-save </v-icon>
@@ -152,59 +137,35 @@
 import api from "@/api";
 import ColorPickerDialog from "@/components/Admin/Theme/ColorPickerDialog";
 import NewThemeDialog from "@/components/Admin/Theme/NewThemeDialog";
-import Confirmation from "@/components/UI/Confirmation";
+import ThemeCard from "@/components/Admin/Theme/ThemeCard";
 
 export default {
   components: {
     ColorPickerDialog,
-    Confirmation,
     NewThemeDialog,
+    ThemeCard,
   },
   data() {
     return {
-      selectedTheme: {},
       selectedDarkMode: "system",
       availableThemes: [],
     };
   },
   async mounted() {
-    this.availableThemes = await api.themes.requestAll();
-    this.selectedTheme = this.$store.getters.getActiveTheme;
+    await this.getAllThemes();
+
     this.selectedDarkMode = this.$store.getters.getDarkMode;
   },
 
-  methods: {
-    /**
-     * Open the delete confirmation.
-     */
-    deleteSelectedThemeValidation() {
-      if (this.$refs.form.validate()) {
-        if (this.selectedTheme.name === "default") {
-          // Notify User Can't Delete Default
-        } else if (this.selectedTheme !== {}) {
-          this.$refs.deleteThemeConfirm.open();
-        }
-      }
+  computed: {
+    selectedTheme() {
+      return this.$store.getters.getActiveTheme;
     },
-    /**
-     * Delete the selected Theme
-     */
-    async deleteSelectedTheme() {
-      //Delete Theme from DB
-      await api.themes.delete(this.selectedTheme.name);
+  },
 
-      //Get the new list of available from DB
+  methods: {
+    async getAllThemes() {
       this.availableThemes = await api.themes.requestAll();
-
-      //Change to default if deleting current theme.
-      if (
-        !this.availableThemes.some(
-          theme => theme.name === this.selectedTheme.name
-        )
-      ) {
-        await this.$store.dispatch("resetTheme");
-        this.selectedTheme = this.$store.getters.getActiveTheme;
-      }
     },
     /**
      * Create the new Theme and select it.
@@ -212,14 +173,8 @@ export default {
     async appendTheme(NewThemeDialog) {
       await api.themes.create(NewThemeDialog);
       this.availableThemes.push(NewThemeDialog);
-      this.selectedTheme = NewThemeDialog;
+      this.$store.commit("setTheme", NewThemeDialog);
     },
-
-    themeSelected() {
-      //TODO Revamp Theme selection.
-      //console.log("this.activeTheme", this.selectedTheme);
-    },
-
     setStoresDarkMode() {
       this.$store.commit("setDarkMode", this.selectedDarkMode);
     },
@@ -227,13 +182,10 @@ export default {
      * This will save the current colors and make the selected theme live.
      */
     async saveThemes() {
-      if (this.$refs.form.validate()) {
-        this.$store.commit("setTheme", this.selectedTheme);
-        await api.themes.update(
-          this.selectedTheme.name,
-          this.selectedTheme.colors
-        );
-      }
+      await api.themes.update(
+        this.selectedTheme.name,
+        this.selectedTheme.colors
+      );
     },
   },
 };

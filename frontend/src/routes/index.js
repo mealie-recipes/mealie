@@ -8,6 +8,7 @@ import CategoryPage from "../pages/CategoryPage";
 import MeaplPlanPage from "../pages/MealPlanPage";
 import Debug from "../pages/Debug";
 import LoginPage from "../pages/LoginPage";
+import SignUpPage from "../pages/SignUpPage";
 import MealPlanThisWeekPage from "../pages/MealPlanThisWeekPage";
 import api from "@/api";
 import Admin from "./admin";
@@ -25,6 +26,8 @@ export const routes = [
   },
   { path: "/mealie", component: HomePage },
   { path: "/login", component: LoginPage },
+  { path: "/sign-up", redirect: "/" },
+  { path: "/sign-up/:token", component: SignUpPage },
   { path: "/debug", component: Debug },
   { path: "/search", component: SearchPage },
   { path: "/recipes/all", component: AllRecipesPage },

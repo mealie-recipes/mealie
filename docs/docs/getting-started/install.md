@@ -41,12 +41,12 @@ services:
 
 ## Env Variables
 
-| Variables   | default | description                                                                                                                                             |
-| ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| db_type     | sqlite  | The database type to be used. Current Options 'sqlite'                                                                                                  |
-| mealie_port | 9000    | The port exposed by mealie. **do not change this if you're running in docker** If you'd like to use another port, map 9000 to another port of the host. |
-| api_docs    | True    | Turns on/off access to the API documentation locally.                                                                                                   |
-| TZ          | UTC     | You should set your time zone accordingly so the date/time features work correctly                                                                      |
+| Variables   | default | description                                                                         |
+| ----------- | ------- | ----------------------------------------------------------------------------------- |
+| db_type     | sqlite  | The database type to be used. Current Options 'sqlite'                              |
+| mealie_port | 9000    | The port exposed by backend API. **do not change this if you're running in docker** |
+| api_docs    | True    | Turns on/off access to the API documentation locally.                               |
+| TZ          | UTC     | You should set your time zone accordingly so the date/time features work correctly  |
 
 
 ## Deployed as a Python Application

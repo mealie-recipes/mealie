@@ -1,17 +1,17 @@
 <template>
-  <v-card :to="`/recipe/${slug}`" max-height="125">
+  <v-card hover :to="`/recipe/${slug}`" max-height="125">
     <v-list-item>
       <v-list-item-avatar rounded size="125" class="mt-0 ml-n4">
         <v-img :src="getImage(image)"> </v-img>
       </v-list-item-avatar>
-      <v-list-item-content>
+      <v-list-item-content class="align-self-start">
         <v-list-item-title>
           {{ name }}
         </v-list-item-title>
         <v-rating length="5" size="16" dense :value="rating"></v-rating>
         <div class="text">
           <v-list-item-action-text>
-            {{ description | truncate(50) }}
+            {{ description | truncate(115) }}
           </v-list-item-action-text>
         </div>
       </v-list-item-content>
@@ -58,5 +58,9 @@ export default {
   word-break: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.text-top {
+  align-self: start !important;
 }
 </style>

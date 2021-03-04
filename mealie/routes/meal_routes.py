@@ -3,9 +3,9 @@ from typing import List
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends, HTTPException
+from schema.snackbar import SnackResponse
 from services.meal_services import MealPlan
 from sqlalchemy.orm.session import Session
-from schema.snackbar import SnackResponse
 
 router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
@@ -27,6 +27,7 @@ def get_shopping_list(id: str, session: Session = Depends(generate_session)):
     ingredients = [
         {"name": x.get("name"), "recipeIngredient": x.get("recipeIngredient")}
         for x in recipes
+        if x
     ]
 
     return ingredients

@@ -37,8 +37,8 @@ class Cleaner:
         recipe_data["recipeInstructions"] = Cleaner.instructions(
             recipe_data["recipeInstructions"]
         )
-        recipe_data["image"] = Cleaner.image(recipe_data["image"])
-        recipe_data["slug"] = slugify(recipe_data["name"])
+        recipe_data["image"] = Cleaner.image(recipe_data.get("image"))
+        recipe_data["slug"] = slugify(recipe_data.get("name"))
         recipe_data["orgURL"] = url
 
         return recipe_data
@@ -50,7 +50,9 @@ class Cleaner:
         return cleantext
 
     @staticmethod
-    def image(image) -> str:
+    def image(image=None) -> str:
+        if not image:
+            return "no image"
         if type(image) == list:
             return image[0]
         elif type(image) == dict:

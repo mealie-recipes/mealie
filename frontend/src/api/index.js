@@ -7,8 +7,8 @@ import migration from "./migration";
 import myUtils from "./upload";
 import category from "./category";
 import meta from "./meta";
-import users from "./users"
-
+import users from "./users";
+import signUps from "./signUps";
 
 export default {
   recipes: recipe,
@@ -20,5 +20,6 @@ export default {
   utils: myUtils,
   categories: category,
   meta: meta,
-  users: users
+  users: users,
+  signUps: signUps,
 };
