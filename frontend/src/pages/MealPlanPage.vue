@@ -33,7 +33,7 @@
               <v-list-item
                 v-for="(meal, index) in mealplan.meals"
                 :key="generateKey(meal.slug, index)"
-                @click="$router.push(`/recipe/${meal.slug}`)"
+                :to="meal.slug ? `/recipe/${meal.slug}` : null"
               >
                 <v-list-item-avatar
                   color="primary"
