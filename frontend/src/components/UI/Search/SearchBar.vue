@@ -1,31 +1,37 @@
 <template>
-  <div>
-    <v-autocomplete
-      :items="autoResults"
-      v-model="searchSlug"
-      item-value="item.slug"
-      item-text="item.name"
-      dense
-      light
-      :label="$t('search.search-mealie')"
-      :search-input.sync="search"
-      hide-no-data
-      cache-items
-      solo
-      autofocus
-      auto-select-first
-    >
-      <template
-        v-if="showResults"
-        v-slot:item="{ item }"
-        style="max-width: 750px"
+  <v-menu v-model="menuModel" offset-y readonly max-width="450">
+    <template #activator="{ attrs }">
+      <v-text-field
+        class="mt-6"
+        v-model="search"
+        v-bind="attrs"
+        dense
+        light
+        :label="$t('search.search-mealie')"
+        solo
+        autofocus
+        style="max-width: 450px;"
+        @focus="onFocus"
       >
-        <v-list-item-avatar>
-          <v-img :src="getImage(item.item.image)"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-content @click="selected(item.item.slug)">
-          <v-list-item-title>
-            {{ item.item.name }}
+      </v-text-field>
+    </template>
+    <v-card  v-if="showResults" max-height="500" min-width="98%" class="">
+      <v-card-text  class="py-1">Results</v-card-text>
+      <v-divider></v-divider>
+      <v-list scrollable>
+        <v-list-item
+          v-for="(item, index) in autoResults"
+          :key="index"
+          :to="showResults ? `/recipe/${item.item.slug}` : null"
+        >
+          <v-list-item-avatar>
+            <v-img :src="getImage(item.item.image)"></v-img>
+          </v-list-item-avatar>
+          <v-list-item-content
+            @click="showResults ? null : selected(item.item.slug)"
+          >
+            <v-list-item-title v-html="highlight(item.item.name)">
+            </v-list-item-title>
             <v-rating
               dense
               v-if="item.item.rating"
@@ -33,14 +39,13 @@
               size="12"
             >
             </v-rating>
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ item.item.description }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </template>
-    </v-autocomplete>
-  </div>
+            <v-list-item-subtitle v-html="highlight(item.item.description)">
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-card>
+  </v-menu>
 </template>
 
 <script>
@@ -56,7 +61,8 @@ export default {
   data() {
     return {
       searchSlug: "",
-      search: " ",
+      search: "",
+      menuModel: false,
       data: [],
       result: [],
       autoResults: [],
@@ -66,9 +72,10 @@ export default {
         threshold: 0.6,
         location: 0,
         distance: 100,
+        findAllMatches: true,
         maxPatternLength: 32,
-        minMatchCharLength: 1,
-        keys: ["name", "slug", "description"],
+        minMatchCharLength: 2,
+        keys: ["name", "description"],
       },
     };
   },
@@ -80,8 +87,15 @@ export default {
     fuse() {
       return new Fuse(this.data, this.options);
     },
+    isSearching() {
+      return this.search && this.search.length > 0;
+    },
   },
   watch: {
+    isSearching(val) {
+      val ? (this.menuModel = true) : null;
+    },
+
     search() {
       try {
         this.result = this.fuse.search(this.search.trim());
@@ -101,18 +115,34 @@ export default {
     },
   },
   methods: {
+    highlight(string) {
+      if (!this.search) {
+        return string;
+      }
+      return string.replace(
+        new RegExp(this.search, "gi"),
+        match => `<mark>${match}</mark>`
+      );
+    },
     getImage(image) {
       return utils.getImageURL(image);
     },
     selected(slug) {
       this.$emit("selected", slug);
     },
+    async onFocus() {
+      clearTimeout(this.timeout);
+      this.isFocused = true;
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .color-transition {
   transition: background-color 0.3s ease;
 }
+</style>
+
+<style lang="sass" scoped>
 </style>
