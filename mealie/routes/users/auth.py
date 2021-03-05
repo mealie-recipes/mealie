@@ -60,10 +60,8 @@ def get_long_token(
     )
 
 
-@router.post("/refresh")
-async def refresh_token(
-    current_user: UserInDB = Depends(manager),
-):
+@router.get("/refresh")
+async def refresh_token(current_user: UserInDB = Depends(manager)):
     """ Use a valid token to get another token"""
     access_token = manager.create_access_token(
         data=dict(sub=current_user.email), expires=timedelta(hours=1)

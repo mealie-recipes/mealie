@@ -1,12 +1,13 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
+import axios from "axios";
 const authPrefix = baseURL + "auth";
 const userPrefix = baseURL + "users";
 
 const authURLs = {
   token: `${authPrefix}/token`,
+  refresh: `${authPrefix}/refresh`,
 };
-
 
 const usersURLs = {
   users: `${userPrefix}`,
@@ -23,6 +24,12 @@ export default {
       },
     });
     return response;
+  },
+  async refresh() {
+    let response = await axios.get(authURLs.refresh).catch(function(event) {
+      console.log("Fetch failed", event);
+    });
+    return response.data ? response.data : false;
   },
   async allUsers() {
     let response = await apiReq.get(usersURLs.users);
