@@ -13,11 +13,11 @@
         <h3>{{ theme.name }} {{ current ? "(Current)" : "" }}</h3>
       </v-card-text>
       <v-card-text>
-        <v-row dense>
+        <v-row flex align-center>
           <v-card
             v-for="(color, index) in theme.colors"
             :key="index"
-            class="mx-1"
+            class="ma-1 mx-auto"
             height="34"
             width="36"
             :color="color"
