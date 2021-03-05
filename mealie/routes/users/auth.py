@@ -10,7 +10,7 @@ from schema.snackbar import SnackResponse
 from schema.user import UserInDB
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/auth", tags=["Auth"])
+router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 
 
 @router.post("/token")
