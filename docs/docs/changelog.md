@@ -1,5 +1,22 @@
 # Release Notes
 
+## v0.4.0 Whoa, What a Release! [DRAFT]
+  - Authentication! Tons of stuff went into creating a flexible authentication platform for a lot of different use cases. Review the documentation for more information on how to use the authentication, and how everything works together.
+    - Sign Up Links
+    - Admin and User Roles
+    - Group Management
+  - Recipe Database Refactoring. Tons of new information is now stored for recipes in the database. Not all is accessible via the UI, but it's coming.
+    - Nutrition Information
+      - calories
+      - fatContent
+      - fiberContent
+      - proteinContent
+      - sodiumContent
+      - sugarContent
+    - recipeCuisine
+    - "categories" has been migrated to "recipeCategory" to adhear closer to the standard schema
+    - "tool" - a list of tools used for the recipe
+
 ## v0.3.0
 
 ### Bug Fixes
