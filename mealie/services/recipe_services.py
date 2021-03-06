@@ -19,14 +19,26 @@ class RecipeStep(BaseModel):
     text: str
 
 
+class Nutrition(BaseModel):
+    calories: Optional[int]
+    fatContent: Optional[int]
+    fiberContent: Optional[int]
+    proteinContent: Optional[int]
+    sodiumContent: Optional[int]
+    sugarContent: Optional[int]
+
+
 class Recipe(BaseModel):
     # Standard Schema
     name: str
     description: Optional[str]
     image: Optional[Any]
+    nutrition: Optional[Nutrition]
     recipeYield: Optional[str]
+    recipeCategory: Optional[List[str]] = []
     recipeIngredient: Optional[list]
     recipeInstructions: Optional[list]
+    tool: Optional[list[str]]
 
     totalTime: Optional[str] = None
     prepTime: Optional[str] = None
@@ -34,7 +46,6 @@ class Recipe(BaseModel):
 
     # Mealie Specific
     slug: Optional[str] = ""
-    categories: Optional[List[str]] = []
     tags: Optional[List[str]] = []
     dateAdded: Optional[datetime.date]
     notes: Optional[List[RecipeNote]] = []
@@ -61,7 +72,7 @@ class Recipe(BaseModel):
                 ],
                 "slug": "chicken-and-rice-with-leeks-and-salsa-verde",
                 "tags": ["favorite", "yummy!"],
-                "categories": ["Dinner", "Pasta"],
+                "recipeCategory": ["Dinner", "Pasta"],
                 "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
                 "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
                 "rating": 3,

@@ -34,7 +34,7 @@ def api_client():
 
     yield TestClient(app)
 
-    # SQLITE_FILE.unlink()
+    SQLITE_FILE.unlink()
 
 
 @fixture(scope="session")

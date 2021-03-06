@@ -2,7 +2,7 @@ from sqlalchemy.orm.session import Session
 
 from db.db_base import BaseDocument
 from db.models.mealplan import MealPlanModel
-from db.models.recipe import Category, RecipeModel, Tag
+from db.models.recipe.recipe import Category, RecipeModel, Tag
 from db.models.settings import SiteSettingsModel
 from db.models.sign_up import SignUp
 from db.models.theme import SiteThemeModel
