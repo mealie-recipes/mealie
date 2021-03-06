@@ -3,7 +3,7 @@
     <CategorySidebar />
     <CardSection
       v-if="showRecent"
-      title="Recent"
+      :title="$t('page.recent')"
       :recipes="recentRecipes"
       :card-limit="showLimit"
     />
