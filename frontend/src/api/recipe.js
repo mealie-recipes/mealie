@@ -1,4 +1,5 @@
 import { baseURL } from "./api-utils";
+import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store/store";
 import { router } from "../main";
@@ -70,7 +71,7 @@ export default {
     router.push(`/`);
   },
 
-  async allByKeys(recipeKeys, num = 100) {
+  async allByKeys(recipeKeys, num = 9999) {
     const response = await apiReq.get(recipeURLs.allRecipes, {
       params: {
         keys: recipeKeys,
