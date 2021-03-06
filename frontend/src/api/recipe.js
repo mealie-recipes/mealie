@@ -1,5 +1,4 @@
 import { baseURL } from "./api-utils";
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store/store";
 import { router } from "../main";
