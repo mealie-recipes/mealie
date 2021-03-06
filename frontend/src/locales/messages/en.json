@@ -45,6 +45,11 @@
     "themes": "Themes",
     "confirm": "Confirm"
   },
+  "page": {
+    "home-page": "Home Page",
+    "all-recipes": "All Recipes",
+    "recent": "Recent"
+  },
   "login": {
     "stay-logged-in": "Stay logged in?",
     "email": "Email",
