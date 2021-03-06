@@ -71,13 +71,13 @@ export default {
         this.search = !this.search;
       }
     });
+    this.$store.dispatch("initLang");
   },
 
   mounted() {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
     this.$store.dispatch("requestHomePageSettings");
-    this.$store.dispatch("initLang");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
   },
