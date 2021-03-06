@@ -3,7 +3,7 @@
     <CategorySidebar />
     <CardSection
       :sortable="true"
-      title="All Recipes"
+      :title="$t('page.all-recipes')"
       :recipes="allRecipes"
       :card-limit="9999"
       @sort="sortAZ"

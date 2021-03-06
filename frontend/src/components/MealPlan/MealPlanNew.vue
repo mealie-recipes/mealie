@@ -146,6 +146,7 @@ export default {
 
       let dateDif = (endDate - startDate) / (1000 * 3600 * 24) + 1;
 
+
       if (dateDif < 1) {
         return null;
       }

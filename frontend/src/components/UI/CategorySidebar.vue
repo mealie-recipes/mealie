@@ -43,12 +43,12 @@ export default {
         {
           icon: "mdi-home",
           to: "/",
-          title: "Home",
+          title: this.$t("page.home-page"),
         },
         {
           icon: "mdi-view-module",
           to: "/recipes/all",
-          title: "All Recipes",
+          title: this.$t("page.all-recipes"),
         },
       ],
     };

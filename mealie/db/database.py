@@ -77,6 +77,12 @@ class _SignUps(BaseDocument):
         self.sql_model = SignUp
 
 
+class _SignUps(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "token"
+        self.sql_model = SignUp
+
+
 class Database:
     def __init__(self) -> None:
         self.recipes = _Recipes()

@@ -9,6 +9,7 @@ const authURLs = {
   refresh: `${authPrefix}/refresh`,
 };
 
+
 const usersURLs = {
   users: `${userPrefix}`,
   self: `${userPrefix}/self`,
