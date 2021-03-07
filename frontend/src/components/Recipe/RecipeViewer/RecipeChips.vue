@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items[0]">
+  <div v-if="items && items.length > 0">
     <h2 class="mt-4">{{ title }}</h2>
     <v-chip
       class="ma-1"

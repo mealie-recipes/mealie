@@ -8,8 +8,7 @@ from db.database import db
 from db.db_setup import create_session
 from fastapi.logger import logger
 from jinja2 import Template
-from services.meal_services import MealPlan
-from services.recipe_services import Recipe
+from schema.recipe import Recipe
 
 
 class ExportDatabase:
@@ -57,15 +56,16 @@ class ExportDatabase:
             dir.mkdir(parents=True, exist_ok=True)
 
     def export_recipes(self):
-        all_recipes = Recipe.get_all(self.session)
+        all_recipes = db.recipes.get_all(self.session)
 
         for recipe in all_recipes:
+            recipe: Recipe
             logger.info(f"Backing Up Recipes: {recipe}")
 
-            filename = recipe.get("slug") + ".json"
+            filename = recipe.slug + ".json"
             file_path = self.recipe_dir.joinpath(filename)
 
-            ExportDatabase._write_json_file(recipe, file_path)
+            ExportDatabase._write_json_file(recipe.dict(), file_path)
 
             if self.templates:
                 self._export_template(recipe)
@@ -101,7 +101,7 @@ class ExportDatabase:
 
     def export_meals(self):
         #! Problem Parseing Datetime Objects... May come back to this
-        meal_plans = MealPlan.get_all(self.session)
+        meal_plans = db.meals.get_all(self.session)
         if meal_plans:
             meal_plans = [x.dict() for x in meal_plans]
 

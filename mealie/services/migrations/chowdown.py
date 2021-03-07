@@ -3,7 +3,8 @@ from pathlib import Path
 
 import yaml
 from core.config import IMG_DIR, TEMP_DIR
-from services.recipe_services import Recipe
+from db.database import db
+from schema.recipe import Recipe
 from sqlalchemy.orm.session import Session
 from utils.unzip import unpack_zip
 
@@ -49,32 +50,42 @@ def read_chowdown_file(recipe_file: Path) -> Recipe:
             "tags": recipe_data.get("tags").split(","),
         }
 
-        new_recipe = Recipe(**reformat_data)
+        print(reformat_data)
 
         reformated_list = []
-        for instruction in new_recipe.recipeInstructions:
+        for instruction in reformat_data["recipeInstructions"]:
             reformated_list.append({"text": instruction})
+        reformat_data["recipeInstructions"] = reformated_list
 
-        new_recipe.recipeInstructions = reformated_list
-
-        return new_recipe
+        return Recipe(**reformat_data)
 
 
 def chowdown_migrate(session: Session, zip_file: Path):
-    temp_dir = unpack_zip(zip_file)
 
+    temp_dir = unpack_zip(zip_file)
+    print(temp_dir.name)
+
+    path = Path(temp_dir.name)
+    for p in path.iterdir():
+        print("ItterDir", p)
+        for p in p.iterdir():
+            print("Sub Itter", p)
     with temp_dir as dir:
-        image_dir = TEMP_DIR.joinpath(dir, zip_file.stem, "images")
-        recipe_dir = TEMP_DIR.joinpath(dir, zip_file.stem, "_recipes")
+        chow_dir = next(Path(dir).iterdir())
+        image_dir = TEMP_DIR.joinpath(chow_dir, "images")
+        recipe_dir = TEMP_DIR.joinpath(chow_dir, "_recipes")
+
+        print(image_dir.exists())
+        print(recipe_dir.exists())
 
         failed_recipes = []
         successful_recipes = []
         for recipe in recipe_dir.glob("*.md"):
             try:
                 new_recipe = read_chowdown_file(recipe)
-                new_recipe.save_to_db(session)
-                successful_recipes.append(recipe.stem)
-            except:
+                db.recipes.create(session, new_recipe.dict())
+                successful_recipes.append(new_recipe.name)
+            except Exception as inst:
                 failed_recipes.append(recipe.stem)
 
         failed_images = []
@@ -82,7 +93,8 @@ def chowdown_migrate(session: Session, zip_file: Path):
             try:
                 if not image.stem in failed_recipes:
                     shutil.copy(image, IMG_DIR.joinpath(image.name))
-            except:
+            except Exception as inst:
+                print(inst)
                 failed_images.append(image.name)
 
         report = {"successful": successful_recipes, "failed": failed_recipes}

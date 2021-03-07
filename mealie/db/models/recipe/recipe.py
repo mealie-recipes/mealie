@@ -183,29 +183,29 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             extras=extras,
         )
 
-    def dict(self):
-        data = {
-            "name": self.name,
-            "description": self.description,
-            "image": self.image,
-            "recipeYield": self.recipeYield,
-            "recipeCuisine": self.recipeCuisine,
-            "recipeCategory": [x.to_str() for x in self.recipeCategory],
-            "recipeIngredient": [x.to_str() for x in self.recipeIngredient],
-            "recipeInstructions": [x.dict() for x in self.recipeInstructions],
-            "nutrition": self.nutrition.dict(),
-            "totalTime": self.totalTime,
-            "prepTime": self.prepTime,
-            "performTime": self.performTime,
-            "tool": [x.str() for x in self.tool],
-            # Mealie Specific
-            "slug": self.slug,
-            "tags": [x.to_str() for x in self.tags],
-            "dateAdded": self.dateAdded,
-            "notes": [x.dict() for x in self.notes],
-            "rating": self.rating,
-            "orgURL": self.orgURL,
-            "extras": RecipeModel._flatten_dict(self.extras),
-        }
+    # def dict(self):
+    #     data = {
+    #         "name": self.name,
+    #         "description": self.description,
+    #         "image": self.image,
+    #         "recipeYield": self.recipeYield,
+    #         "recipeCuisine": self.recipeCuisine,
+    #         "recipeCategory": [x.to_str() for x in self.recipeCategory],
+    #         "recipeIngredient": [x.to_str() for x in self.recipeIngredient],
+    #         "recipeInstructions": [x.dict() for x in self.recipeInstructions],
+    #         "nutrition": self.nutrition.dict(),
+    #         "totalTime": self.totalTime,
+    #         "prepTime": self.prepTime,
+    #         "performTime": self.performTime,
+    #         "tool": [x.str() for x in self.tool],
+    #         # Mealie Specific
+    #         "slug": self.slug,
+    #         "tags": [x.to_str() for x in self.tags],
+    #         "dateAdded": self.dateAdded,
+    #         "notes": [x.dict() for x in self.notes],
+    #         "rating": self.rating,
+    #         "orgURL": self.orgURL,
+    #         "extras": RecipeModel._flatten_dict(self.extras),
+    #     }
 
-        return data
+    #     return data

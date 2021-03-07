@@ -13,31 +13,15 @@ class Meal(SqlAlchemyBase):
     slug = sa.Column(sa.String)
     name = sa.Column(sa.String)
     date = sa.Column(sa.Date)
-    dateText = sa.Column(sa.String)
     image = sa.Column(sa.String)
     description = sa.Column(sa.String)
 
-    def __init__(
-        self, slug, name, date, dateText, image, description, session=None
-    ) -> None:
+    def __init__(self, slug, name, date, image, description, session=None) -> None:
         self.slug = slug
         self.name = name
         self.date = date
-        self.dateText = dateText
         self.image = image
         self.description = description
-
-    def dict(self) -> dict:
-        data = {
-            "slug": self.slug,
-            "name": self.name,
-            "date": self.date,
-            "dateText": self.dateText,
-            "image": self.image,
-            "description": self.description,
-        }
-
-        return data
 
 
 class MealPlanModel(SqlAlchemyBase, BaseMixins):
@@ -58,13 +42,3 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
         MealPlanModel._sql_remove_list(session, [Meal], uid)
 
         self.__init__(startDate, endDate, meals)
-
-    def dict(self) -> dict:
-        data = {
-            "uid": self.uid,
-            "startDate": self.startDate,
-            "endDate": self.endDate,
-            "meals": [meal.dict() for meal in self.meals],
-        }
-
-        return data

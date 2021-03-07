@@ -5,9 +5,10 @@ import zipfile
 from pathlib import Path
 
 from core.config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
-from services.recipe_services import Recipe
+from schema.recipe import Recipe
 from services.scraper.cleaner import Cleaner
 from core.config import IMG_DIR, TEMP_DIR
+from db.database import db
 
 
 def process_selection(selection: Path) -> Path:
@@ -77,7 +78,8 @@ def migrate(session, selection: str):
 
             try:
                 recipe = import_recipes(dir)
-                recipe.save_to_db(session)
+                db.recipes.create(session, recipe.dict())
+                
                 successful_imports.append(recipe.name)
             except:
                 logging.error(f"Failed Nextcloud Import: {dir.name}")

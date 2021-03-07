@@ -1,3 +1,6 @@
+from schema.meal import MealPlanInDB
+from schema.recipe import Recipe
+from schema.sign_up import SignUpOut
 from schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
@@ -15,7 +18,8 @@ class _Recipes(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "slug"
         self.sql_model: RecipeModel = RecipeModel
-        self.orm_mode = False
+        self.orm_mode = True
+        self.schema: Recipe = Recipe
 
     def update_image(self, session: Session, slug: str, extension: str = None) -> str:
         entry: RecipeModel = self._query_one(session, match_value=slug)
@@ -43,7 +47,8 @@ class _Meals(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "uid"
         self.sql_model = MealPlanModel
-        self.orm_mode = False
+        self.orm_mode = True
+        self.schema = MealPlanInDB
 
 
 class _Settings(BaseDocument):
@@ -70,10 +75,9 @@ class _Users(BaseDocument):
     def update_password(self, session, id, password: str):
         entry = self._query_one(session=session, match_value=id)
         entry.update_password(password)
-        return_data = entry.dict()
         session.commit()
 
-        return return_data
+        return self.schema.from_orm(entry)
 
 
 class _Groups(BaseDocument):
@@ -88,7 +92,8 @@ class _SignUps(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "token"
         self.sql_model = SignUp
-        self.orm_mode = False
+        self.orm_mode = True
+        self.schema = SignUpOut
 
 
 class Database:

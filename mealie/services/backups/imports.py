@@ -6,10 +6,11 @@ from typing import List
 
 from core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from db.database import db
+from db.db_setup import create_session
 from fastapi.logger import logger
+from schema.recipe import Recipe
 from schema.restore import RecipeImport, SettingsImport, ThemeImport
 from schema.theme import SiteTheme
-from services.recipe_services import Recipe
 from sqlalchemy.orm.session import Session
 
 
@@ -75,6 +76,7 @@ class ImportDatabase:
         }
 
     def import_recipes(self):
+        session = create_session()
         recipe_dir: Path = self.import_dir.joinpath("recipes")
 
         imports = []
@@ -88,10 +90,9 @@ class ImportDatabase:
                 if recipe_dict.get("categories", False):
                     recipe_dict["recipeCategory"] = recipe_dict.get("categories")
                     del recipe_dict["categories"]
-                    print(recipe_dict)
 
                 recipe_obj = Recipe(**recipe_dict)
-                recipe_obj.save_to_db(self.session)
+                db.recipes.create(session, recipe_obj.dict())
                 import_status = RecipeImport(
                     name=recipe_obj.name, slug=recipe_obj.slug, status=True
                 )

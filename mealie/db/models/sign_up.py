@@ -1,5 +1,5 @@
 from db.models.model_base import BaseMixins, SqlAlchemyBase
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Boolean, Column, Integer, String
 
 
 class SignUp(SqlAlchemyBase, BaseMixins):
@@ -19,11 +19,3 @@ class SignUp(SqlAlchemyBase, BaseMixins):
         self.token = token
         self.name = name
         self.admin = admin
-
-    def dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "token": self.token,
-            "admin": self.admin
-        }

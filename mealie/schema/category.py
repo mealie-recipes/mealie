@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from pydantic.main import BaseModel
-from services.recipe_services import Recipe
+from schema.recipe import Recipe
 
 
 class RecipeCategoryResponse(BaseModel):

@@ -48,6 +48,8 @@ class Cleaner:
         recipe_data["slug"] = slugify(recipe_data.get("name"))
         recipe_data["orgURL"] = url
 
+        print(recipe_data["recipeIngredient"])
+
         return recipe_data
 
     @staticmethod

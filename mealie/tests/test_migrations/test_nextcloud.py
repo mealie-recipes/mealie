@@ -1,7 +1,8 @@
 from pathlib import Path
-from core.config import TEMP_DIR
+
 import pytest
 from core.config import TEMP_DIR
+from schema.recipe import Recipe
 from services.image_services import IMG_DIR
 from services.migrations.nextcloud import (
     cleanup,
@@ -9,7 +10,6 @@ from services.migrations.nextcloud import (
     prep,
     process_selection,
 )
-from services.recipe_services import Recipe
 from tests.test_config import TEST_NEXTCLOUD_DIR
 
 CWD = Path(__file__).parent

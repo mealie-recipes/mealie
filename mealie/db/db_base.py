@@ -122,7 +122,7 @@ class BaseDocument:
                     return self.schema.from_orm(result[0])
                 except IndexError:
                     return None
-            return [self.schema(x) for x in result]
+            return [self.schema.from_orm(x) for x in result]
 
         db_entries = [x.dict() for x in result]
 

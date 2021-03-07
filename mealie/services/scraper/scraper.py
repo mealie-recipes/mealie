@@ -6,7 +6,7 @@ import scrape_schema_recipe
 from core.config import DEBUG_DIR
 from fastapi.logger import logger
 from services.image_services import scrape_image
-from services.recipe_services import Recipe
+from schema.recipe import Recipe
 from services.scraper import open_graph
 from services.scraper.cleaner import Cleaner
 
