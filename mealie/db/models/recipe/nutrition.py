@@ -6,12 +6,12 @@ class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
     id = sa.Column(sa.Integer, primary_key=True)
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
-    calories = sa.Column(sa.Integer)
-    fatContent = sa.Column(sa.Integer)
-    fiberContent = sa.Column(sa.Integer)
-    proteinContent = sa.Column(sa.Integer)
-    sodiumContent = sa.Column(sa.Integer)
-    sugarContent = sa.Column(sa.Integer)
+    calories = sa.Column(sa.String)
+    fatContent = sa.Column(sa.String)
+    fiberContent = sa.Column(sa.String)
+    proteinContent = sa.Column(sa.String)
+    sodiumContent = sa.Column(sa.String)
+    sugarContent = sa.Column(sa.String)
 
     def __init__(
         self,

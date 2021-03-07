@@ -63,7 +63,7 @@ def test_read_update(api_client, recipe_data):
     recipe["notes"] = test_notes
 
     test_categories = ["one", "two", "three"]
-    recipe["categories"] = test_categories
+    recipe["recipeCategory"] = test_categories
 
     response = api_client.put(
         f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe
@@ -77,7 +77,7 @@ def test_read_update(api_client, recipe_data):
     recipe = json.loads(response.content)
 
     assert recipe["notes"] == test_notes
-    assert recipe["categories"].sort() == test_categories.sort()
+    assert recipe["recipeCategory"].sort() == test_categories.sort()
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)

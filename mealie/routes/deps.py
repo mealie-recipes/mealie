@@ -20,5 +20,5 @@ def query_user(user_email: str, session: Session = None) -> UserInDB:
     session = session if session else create_session()
     user = db.users.get(session, user_email, "email")
     session.close()
-    return UserInDB(**user)
+    return user
 

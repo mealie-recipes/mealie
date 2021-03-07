@@ -63,8 +63,8 @@
                 </v-col>
                 <v-col cols="12" sm="12" md="6">
                   <v-text-field
-                    v-model="editedItem.family"
-                    label="Family Group"
+                    v-model="editedItem.group"
+                    label="Group Group"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="showPassword">
@@ -143,7 +143,7 @@ export default {
       },
       { text: "Full Name", value: "fullName" },
       { text: "Email", value: "email" },
-      { text: "Family", value: "family" },
+      { text: "Group", value: "group" },
       { text: "Admin", value: "admin" },
       { text: "", value: "actions", sortable: false, align: "center" },
     ],
@@ -154,7 +154,7 @@ export default {
       fullName: "",
       password: "",
       email: "",
-      family: "",
+      group: "",
       admin: false,
     },
     defaultItem: {
@@ -162,7 +162,7 @@ export default {
       fullName: "",
       password: "",
       email: "",
-      family: "",
+      group: "",
       admin: false,
     },
   }),

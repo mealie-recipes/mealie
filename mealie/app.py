@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.logger import logger
 
 # import utils.startup as startup
 from core.config import APP_VERSION, PORT, SECRET, docs_url, redoc_url
@@ -13,6 +14,7 @@ from routes import (
     setting_routes,
     theme_routes,
 )
+from routes.groups import groups
 from routes.recipe import (
     all_recipe_routes,
     category_routes,
@@ -20,7 +22,6 @@ from routes.recipe import (
     tag_routes,
 )
 from routes.users import users
-from fastapi.logger import logger
 
 app = FastAPI(
     title="Mealie",
@@ -42,11 +43,13 @@ def start_scheduler():
 def api_routers():
     # Authentication
     app.include_router(users.router)
+    app.include_router(groups.router)
     # Recipes
     app.include_router(all_recipe_routes.router)
     app.include_router(category_routes.router)
     app.include_router(tag_routes.router)
     app.include_router(recipe_crud_routes.router)
+
     # Meal Routes
     app.include_router(meal_routes.router)
     # Settings Routes

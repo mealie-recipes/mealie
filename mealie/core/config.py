@@ -83,6 +83,7 @@ else:
 
 # Mongo Database
 MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")
+DEFAULT_GROUP = os.getenv("default_group", "home")
 DB_USERNAME = os.getenv("db_username", "root")
 DB_PASSWORD = os.getenv("db_password", "example")
 DB_HOST = os.getenv("db_host", "mongo")

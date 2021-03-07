@@ -46,6 +46,8 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
     startDate = sa.Column(sa.Date)
     endDate = sa.Column(sa.Date)
     meals: List[Meal] = orm.relation(Meal)
+    group_id = sa.Column(sa.String, sa.ForeignKey("groups.id"))
+    group = orm.relationship("Group", back_populates="mealplans")
 
     def __init__(self, startDate, endDate, meals, uid=None, session=None) -> None:
         self.startDate = startDate

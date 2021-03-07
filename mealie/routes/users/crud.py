@@ -66,8 +66,8 @@ async def update_user(
 ):
 
     if current_user.id == id or current_user.admin:
-        updated_user = db.users.update(session, id, new_data.dict())
-        email = updated_user.get("email")
+        updated_user: UserInDB = db.users.update(session, id, new_data.dict())
+        email = updated_user.email
         if current_user.id == id:
             access_token = manager.create_access_token(
                 data=dict(sub=email), expires=timedelta(hours=2)

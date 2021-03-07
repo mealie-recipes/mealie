@@ -31,6 +31,9 @@ class Cleaner:
         recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime", None))
         recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime", None))
         recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime", None))
+        recipe_data["recipeCategory"] = Cleaner.category(
+            recipe_data.get("recipeCategory", [])
+        )
 
         recipe_data["recipeYield"] = Cleaner.yield_amount(
             recipe_data.get("recipeYield")
@@ -46,6 +49,13 @@ class Cleaner:
         recipe_data["orgURL"] = url
 
         return recipe_data
+
+    @staticmethod
+    def category(category: str):
+        if type(category) == type(str):
+            return [category]
+        else:
+            return []
 
     @staticmethod
     def html(raw_html):

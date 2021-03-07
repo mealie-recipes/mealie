@@ -1,3 +1,4 @@
+from core.config import DEFAULT_GROUP
 from core.security import get_password_hash
 from fastapi.logger import logger
 from schema.settings import SiteSettings, Webhooks
@@ -12,6 +13,7 @@ def init_db(db: Session = None) -> None:
     if not db:
         db = create_session()
 
+    default_group_init(db)
     default_settings_init(db)
     default_theme_init(db)
     default_user_init(db)
@@ -50,12 +52,19 @@ def default_settings_init(session: Session):
         pass
 
 
+def default_group_init(session: Session):
+    default_group = {"name": DEFAULT_GROUP}
+    logger.info("Generating Default Group")
+    db.groups.create(session, default_group)
+    pass
+
+
 def default_user_init(session: Session):
     default_user = {
         "full_name": "Change Me",
         "email": "changeme@email.com",
         "password": get_password_hash("MyPassword"),
-        "family": "public",
+        "group": DEFAULT_GROUP,
         "admin": True,
     }
 

@@ -1,5 +1,7 @@
+from core.config import DEFAULT_GROUP
+from db.models.group import Group
 from db.models.model_base import BaseMixins, SqlAlchemyBase
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 
 class User(SqlAlchemyBase, BaseMixins):
@@ -8,9 +10,9 @@ class User(SqlAlchemyBase, BaseMixins):
     full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
-    is_active = Column(Boolean(), default=True)
-    family = Column(String)
-    admin = Column(Boolean(), default=False)
+    group_id = Column(String, ForeignKey("groups.id"))
+    group = orm.relationship("Group", back_populates="users")
+    admin = Column(Boolean, default=False)
 
     def __init__(
         self,
@@ -18,29 +20,21 @@ class User(SqlAlchemyBase, BaseMixins):
         full_name,
         email,
         password,
-        family="public",
+        group: str = DEFAULT_GROUP,
         admin=False,
     ) -> None:
+
+        group = group if group else DEFAULT_GROUP
         self.full_name = full_name
         self.email = email
-        self.family = family
+        self.group = Group.create_if_not_exist(session, group)
         self.admin = admin
         self.password = password
 
-    def dict(self):
-        return {
-            "id": self.id,
-            "full_name": self.full_name,
-            "email": self.email,
-            "admin": self.admin,
-            "family": self.family,
-            "password": self.password,
-        }
-
-    def update(self, full_name, email, family, admin, session=None):
+    def update(self, full_name, email, group, admin, session=None):
         self.full_name = full_name
         self.email = email
-        self.family = family
+        self.group = Group.create_if_not_exist(session, group)
         self.admin = admin
 
     def update_password(self, password):

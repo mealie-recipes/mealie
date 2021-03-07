@@ -20,12 +20,12 @@ class RecipeStep(BaseModel):
 
 
 class Nutrition(BaseModel):
-    calories: Optional[int]
-    fatContent: Optional[int]
-    fiberContent: Optional[int]
-    proteinContent: Optional[int]
-    sodiumContent: Optional[int]
-    sugarContent: Optional[int]
+    calories: Optional[str]
+    fatContent: Optional[str]
+    fiberContent: Optional[str]
+    proteinContent: Optional[str]
+    sodiumContent: Optional[str]
+    sugarContent: Optional[str]
 
 
 class Recipe(BaseModel):

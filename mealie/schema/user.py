@@ -1,8 +1,7 @@
 from typing import Optional
 
+from core.config import DEFAULT_GROUP
 from fastapi_camelcase import CamelModel
-
-# from pydantic import EmailStr
 
 
 class ChangePassword(CamelModel):
@@ -10,17 +9,27 @@ class ChangePassword(CamelModel):
     new_password: str
 
 
+class GroupBase(CamelModel):
+    name: str
+
+    class Config:
+        orm_mode = True
+
+
 class UserBase(CamelModel):
     full_name: Optional[str] = None
     email: str
-    family: str
     admin: bool
+    group: Optional[str]
+
+    class Config:
+        orm_mode = True
 
     class Config:
         schema_extra = {
             "fullName": "Change Me",
             "email": "changeme@email.com",
-            "family": "public",
+            "group": DEFAULT_GROUP,
             "admin": "false",
         }
 
@@ -31,7 +40,24 @@ class UserIn(UserBase):
 
 class UserOut(UserBase):
     id: int
+    group: GroupBase
+
+    class Config:
+        orm_mode = True
 
 
-class UserInDB(UserIn, UserOut):
+class UserInDB(UserOut):
+    password: str
     pass
+
+    class Config:
+        orm_mode = True
+
+
+class GroupInDB(GroupBase):
+    id: int
+    name: str
+    users: Optional[list[UserOut]]
+
+    class Config:
+        orm_mode = True

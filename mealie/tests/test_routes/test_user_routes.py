@@ -16,7 +16,9 @@ def default_user():
         "id": 1,
         "fullName": "Change Me",
         "email": "changeme@email.com",
-        "family": "public",
+        "group": {
+            "name": "home"
+        },
         "admin": True
     }
 
@@ -27,7 +29,9 @@ def new_user():
         "id": 2,
         "fullName": "My New User",
         "email": "newuser@email.com",
-        "family": "public",
+        "group": {
+            "name": "home"
+        },
         "admin": False
     }
 
@@ -54,7 +58,7 @@ def test_create_user(api_client: requests, token, new_user):
         "fullName": "My New User",
         "email": "newuser@email.com",
         "password": "MyStrongPassword",
-        "family": "public",
+        "group": "home",
         "admin": False
     }
 
@@ -78,7 +82,7 @@ def test_update_user(api_client: requests, token):
         "id": 1,
         "fullName": "Updated Name",
         "email": "updated@email.com",
-        "family": "public",
+        "group": "home",
         "admin": True
     }
     response = api_client.put(f"{BASE}/1", headers=token, json=update_data)

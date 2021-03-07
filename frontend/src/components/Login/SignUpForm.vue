@@ -121,7 +121,7 @@ export default {
       const userData = {
         fullName: this.user.name,
         email: this.user.email,
-        family: "public",
+        group: "default",
         password: this.user.password,
         admin: false,
       };
