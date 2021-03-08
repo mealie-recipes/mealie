@@ -1,7 +1,9 @@
 from typing import Optional
 
 from core.config import DEFAULT_GROUP
+from db.models.users import User
 from fastapi_camelcase import CamelModel
+from pydantic.utils import GetterDict
 
 
 class ChangePassword(CamelModel):
@@ -40,10 +42,17 @@ class UserIn(UserBase):
 
 class UserOut(UserBase):
     id: int
-    group: GroupBase
+    group: str
 
     class Config:
         orm_mode = True
+
+        @classmethod
+        def getter_dict(cls, ormModel: User):
+            return {
+                **GetterDict(ormModel),
+                "group": ormModel.group.name,
+            }
 
 
 class UserInDB(UserOut):

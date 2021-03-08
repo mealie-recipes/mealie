@@ -3,6 +3,12 @@ from db.models.group import Group
 from db.models.model_base import BaseMixins, SqlAlchemyBase
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
+# I'm not sure this is necessasry, browser based settings may be sufficient
+# class UserSettings(SqlAlchemyBase, BaseMixins):
+#     __tablename__ = "user_settings"
+#     id = Column(Integer, primary_key=True, index=True)
+#     parent_id = Column(String, ForeignKey("users.id"))
+
 
 class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"

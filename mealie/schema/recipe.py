@@ -1,9 +1,8 @@
 import datetime
 from typing import Any, List, Optional
 
-from db.models.recipe.ingredient import RecipeIngredient
 from db.models.recipe.recipe import RecipeModel
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
 
@@ -36,7 +35,6 @@ class Nutrition(BaseModel):
 
 
 class Recipe(BaseModel):
-    # Standard Schema
     name: str
     description: Optional[str]
     image: Optional[Any]
@@ -63,13 +61,13 @@ class Recipe(BaseModel):
         orm_mode = True
 
         @classmethod
-        def getter_dict(cls, name_orm: RecipeModel):
-            print(name_orm.recipeIngredient)
+        def getter_dict(_cls, name_orm: RecipeModel):
             return {
                 **GetterDict(name_orm),
                 "recipeIngredient": [x.ingredient for x in name_orm.recipeIngredient],
                 "recipeCategory": [x.name for x in name_orm.recipeCategory],
-                "tags": [x.name for x in name_orm.tags]
+                "tags": [x.name for x in name_orm.tags],
+                "extras": {x.key_name: x.value for x in name_orm.extras},
             }
 
         schema_extra = {

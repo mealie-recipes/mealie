@@ -5,6 +5,7 @@ from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from schema.meal import MealPlanBase, MealPlanInDB
+from schema.recipe import Recipe
 from schema.snackbar import SnackResponse
 from services.meal_services import get_todays_meal, process_meals
 from sqlalchemy.orm.session import Session
@@ -26,9 +27,9 @@ def get_shopping_list(id: str, session: Session = Depends(generate_session)):
     mealplan = db.meals.get(session, id)
     mealplan: MealPlanInDB
     slugs = [x.slug for x in mealplan.meals]
-    recipes = [db.recipes.get(session, x) for x in slugs]
+    recipes: list[Recipe] = [db.recipes.get(session, x) for x in slugs]
     ingredients = [
-        {"name": x.get("name"), "recipeIngredient": x.get("recipeIngredient")}
+        {"name": x.name, "recipeIngredient": x.recipeIngredient}
         for x in recipes
         if x
     ]

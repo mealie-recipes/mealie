@@ -82,7 +82,6 @@ async def get_user_image(id: str):
     """ Returns a users profile picture """
     user_dir = USER_DIR.joinpath(id)
     for recipe_image in user_dir.glob("profile_image.*"):
-        print(recipe_image)
         return FileResponse(recipe_image)
     else:
         return False
@@ -128,7 +127,6 @@ async def update_password(
     match_passwords = verify_password(
         password_change.current_password, current_user.password
     )
-    print(match_passwords)
     match_id = current_user.id == id
 
     if match_passwords and match_id:

@@ -5,6 +5,20 @@ from fastapi.logger import logger
 from slugify import slugify
 from sqlalchemy.orm import validates
 
+sidebar2categories = sa.Table(
+    "sidebar2categories",
+    SqlAlchemyBase.metadata,
+    sa.Column("sidebar_id", sa.Integer, sa.ForeignKey("site_sidebar.id")),
+    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+)
+
+group2categories = sa.Table(
+    "group2categories",
+    SqlAlchemyBase.metadata,
+    sa.Column("group_id", sa.Integer, sa.ForeignKey("groups.id")),
+    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+)
+
 recipes2categories = sa.Table(
     "recipes2categories",
     SqlAlchemyBase.metadata,
@@ -45,21 +59,3 @@ class Category(SqlAlchemyBase):
         except:
             logger.info("Category doesn't exists, creating category")
             return Category(name=name)
-
-    def to_str(self):
-        return self.name
-
-    def dict(self):
-        return {
-            "id": self.id,
-            "slug": self.slug,
-            "name": self.name,
-            "recipes": [x.dict() for x in self.recipes],
-        }
-
-    def dict_no_recipes(self):
-        return {
-            "id": self.id,
-            "slug": self.slug,
-            "name": self.name,
-        }

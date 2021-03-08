@@ -1,7 +1,7 @@
 from core.config import DEFAULT_GROUP
 from core.security import get_password_hash
 from fastapi.logger import logger
-from schema.settings import SiteSettings, Webhooks
+from schema.settings import SiteSettings
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.session import Session
 
@@ -43,13 +43,9 @@ def default_theme_init(session: Session):
 
 
 def default_settings_init(session: Session):
-    try:
-        webhooks = Webhooks()
-        default_entry = SiteSettings(name="main", webhooks=webhooks)
-        document = db.settings.create(session, default_entry.dict())
-        logger.info(f"Created Site Settings: \n {document}")
-    except:
-        pass
+    data = {"language": "en", "sidebar": {"categories": []}}
+    document = db.settings.create(session, data)
+    logger.info(f"Created Site Settings: \n {document}")
 
 
 def default_group_init(session: Session):

@@ -1,5 +1,6 @@
 from schema.meal import MealPlanInDB
 from schema.recipe import Recipe
+from schema.settings import SiteSettings as SiteSettingsSchema
 from schema.sign_up import SignUpOut
 from schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
@@ -8,7 +9,7 @@ from db.db_base import BaseDocument
 from db.models.group import Group
 from db.models.mealplan import MealPlanModel
 from db.models.recipe.recipe import Category, RecipeModel, Tag
-from db.models.settings import SiteSettingsModel
+from db.models.settings import SiteSettings
 from db.models.sign_up import SignUp
 from db.models.theme import SiteThemeModel
 from db.models.users import User
@@ -53,9 +54,10 @@ class _Meals(BaseDocument):
 
 class _Settings(BaseDocument):
     def __init__(self) -> None:
-        self.primary_key = "name"
-        self.sql_model = SiteSettingsModel
-        self.orm_mode = False
+        self.primary_key = "id"
+        self.sql_model = SiteSettings
+        self.orm_mode = True
+        self.schema = SiteSettingsSchema
 
 
 class _Themes(BaseDocument):

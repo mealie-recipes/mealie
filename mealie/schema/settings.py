@@ -1,28 +1,24 @@
-from typing import List, Optional
+from typing import Optional
 
-from pydantic import BaseModel
+from fastapi_camelcase import CamelModel
 
-
-class Webhooks(BaseModel):
-    webhookTime: str = "00:00"
-    webhookURLs: Optional[List[str]] = []
-    enabled: bool = False
+from schema.category import CategoryBase
 
 
-class SiteSettings(BaseModel):
-    name: str = "main"
-    planCategories: list[str] = []
-    webhooks: Webhooks
+class Sidebar(CamelModel):
+    categories: Optional[list[CategoryBase]]
 
     class Config:
+        orm_mode = True
+
+
+class SiteSettings(CamelModel):
+    language: str
+    sidebar: Sidebar
+
+    class Config:
+        orm_mode = True
+
         schema_extra = {
-            "example": {
-                "name": "main",
-                "planCategories": ["dinner", "lunch"],
-                "webhooks": {
-                    "webhookTime": "00:00",
-                    "webhookURLs": ["https://mywebhookurl.com/webhook"],
-                    "enable": False,
-                },
-            }
+            "example": {"id": "1", "language": "en", "sidebar": ["// TODO"]}
         }
