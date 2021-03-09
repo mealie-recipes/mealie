@@ -13,5 +13,3 @@ class Note(SqlAlchemyBase):
         self.title = title
         self.text = text
 
-    def dict(self):
-        return {"title": self.title, "text": self.text}

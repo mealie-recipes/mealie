@@ -16,10 +16,6 @@ class SiteThemeModel(SqlAlchemyBase):
         self.colors.update(**colors)
         return self.dict()
 
-    def dict(self):
-        data = {"name": self.name, "colors": self.colors.dict()}
-        return data
-
 
 class ThemeColorsModel(SqlAlchemyBase):
     __tablename__ = "theme_colors"
@@ -50,15 +46,3 @@ class ThemeColorsModel(SqlAlchemyBase):
         self.info = info
         self.warning = warning
         self.error = error
-
-    def dict(self):
-        data = {
-            "primary": self.primary,
-            "accent": self.accent,
-            "secondary": self.secondary,
-            "success": self.success,
-            "info": self.info,
-            "warning": self.warning,
-            "error": self.error,
-        }
-        return data

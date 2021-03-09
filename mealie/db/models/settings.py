@@ -15,13 +15,19 @@ class SiteSettings(SqlAlchemyBase, BaseMixins):
         single_parent=True,
     )
     show_recent = sa.Column(sa.Boolean, default=True)
+    cards_per_section = sa.Column(sa.Integer)
 
     def __init__(
-        self, session: Session = None, language="en", categories: list = [], show_recent=True
+        self,
+        session: Session = None,
+        language="en",
+        categories: list = [],
+        show_recent=True,
+        cards_per_section: int = 9,
     ) -> None:
         session.commit()
         self.language = language
-
+        self.cards_per_section = cards_per_section
         self.show_recent = show_recent
         self.categories = [
             Category.create_if_not_exist(session=session, name=cat.get("name"))

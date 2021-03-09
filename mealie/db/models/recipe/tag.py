@@ -27,20 +27,10 @@ class Tag(SqlAlchemyBase):
         assert not name == ""
         return name
 
-    def to_str(self):
-        return self.name
-
     def __init__(self, name) -> None:
         self.name = name.strip()
         self.slug = slugify(self.name)
 
-    def dict(self):
-        return {
-            "id": self.id,
-            "slug": self.slug,
-            "name": self.name,
-            "recipes": [x.dict() for x in self.recipes],
-        }
 
     @staticmethod
     def create_if_not_exist(session, name: str = None):

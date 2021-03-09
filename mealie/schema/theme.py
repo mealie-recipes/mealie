@@ -5,7 +5,7 @@ class Colors(BaseModel):
     primary: str = "#E58325"
     accent: str = "#00457A"
     secondary: str = "#973542"
-    success: str = "#5AB1BB"
+    success: str = "#4CAF50"
     info: str = "#4990BA"
     warning: str = "#FF4081"
     error: str = "#EF5350"

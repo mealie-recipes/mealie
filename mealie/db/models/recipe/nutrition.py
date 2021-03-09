@@ -29,12 +29,3 @@ class Nutrition(SqlAlchemyBase):
         self.sodiumContent = sodiumContent
         self.sugarContent = sugarContent
 
-    def dict(self) -> dict:
-        return {
-            "calories": self.calories,
-            "fatContent": self.fatContent,
-            "fiberContent": self.fiberContent,
-            "proteinContent": self.proteinContent,
-            "sodiumContent": self.sodiumContent,
-            "sugarContent": self.sugarContent,
-        }

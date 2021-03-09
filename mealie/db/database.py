@@ -1,4 +1,4 @@
-from schema.category import RecipeCategoryResponse
+from schema.category import RecipeCategoryResponse, RecipeTagResponse
 from schema.meal import MealPlanInDB
 from schema.recipe import Recipe
 from schema.settings import SiteSettings as SiteSettingsSchema
@@ -44,7 +44,8 @@ class _Tags(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "slug"
         self.sql_model = Tag
-        self.orm_mode = False
+        self.orm_mode = True
+        self.schema = RecipeTagResponse
 
 
 class _Meals(BaseDocument):

@@ -8,6 +8,7 @@ from schema.category import CategoryBase
 class SiteSettings(CamelModel):
     language: str = "en"
     show_recent: bool = True
+    cards_per_section: int = 9
     categories: Optional[list[CategoryBase]] = []
 
     class Config:

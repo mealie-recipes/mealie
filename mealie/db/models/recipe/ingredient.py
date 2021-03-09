@@ -11,6 +11,3 @@ class RecipeIngredient(SqlAlchemyBase):
 
     def update(self, ingredient):
         self.ingredient = ingredient
-
-    def to_str(self):
-        return self.ingredient

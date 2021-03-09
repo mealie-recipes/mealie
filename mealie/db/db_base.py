@@ -116,23 +116,12 @@ class BaseDocument:
             .all()
         )
 
-        if self.orm_mode:
-            if limit == 1:
-                try:
-                    return self.schema.from_orm(result[0])
-                except IndexError:
-                    return None
-            return [self.schema.from_orm(x) for x in result]
-
-        db_entries = [x.dict() for x in result]
-
         if limit == 1:
             try:
-                return db_entries[0]
+                return self.schema.from_orm(result[0])
             except IndexError:
                 return None
-
-        return db_entries
+        return [self.schema.from_orm(x) for x in result]
 
     def create(self, session: Session, document: dict) -> dict:
         """Creates a new database entry for the given SQL Alchemy Model.

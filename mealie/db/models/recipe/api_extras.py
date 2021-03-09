@@ -14,6 +14,3 @@ class ApiExtras(SqlAlchemyBase):
     def __init__(self, key, value) -> None:
         self.key_name = key
         self.value = value
-
-    def dict(self):
-        return {self.key_name: self.value}
