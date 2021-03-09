@@ -9,7 +9,7 @@ from services.meal_services import get_todays_meal
 
 def post_webhooks():
     session = create_session()
-    all_settings = db.get(session, "main")
+    all_settings = db.get(session, 1)
     all_settings = SiteSettings(**all_settings)
 
     if all_settings.webhooks.enabled:
