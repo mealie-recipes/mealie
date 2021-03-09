@@ -2,6 +2,7 @@ from core.config import DEFAULT_GROUP
 from core.security import get_password_hash
 from fastapi.logger import logger
 from schema.settings import SiteSettings
+from schema.theme import SiteTheme
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.session import Session
 
@@ -22,29 +23,17 @@ def init_db(db: Session = None) -> None:
 
 
 def default_theme_init(session: Session):
-    default_theme = {
-        "name": "default",
-        "colors": {
-            "primary": "#E58325",
-            "accent": "#00457A",
-            "secondary": "#973542",
-            "success": "#5AB1BB",
-            "info": "#4990BA",
-            "warning": "#FF4081",
-            "error": "#EF5350",
-        },
-    }
+    db.themes.create(session, SiteTheme().dict())
 
     try:
-        db.themes.create(session, default_theme)
         logger.info("Generating default theme...")
     except:
         logger.info("Default Theme Exists.. skipping generation")
 
 
 def default_settings_init(session: Session):
-    data = {"language": "en", "sidebar": {"categories": []}}
-    document = db.settings.create(session, data)
+    data = {"language": "en", "home_page_settings": {"categories": []}}
+    document = db.settings.create(session, SiteSettings().dict())
     logger.info(f"Created Site Settings: \n {document}")
 
 

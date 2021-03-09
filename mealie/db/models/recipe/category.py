@@ -5,10 +5,10 @@ from fastapi.logger import logger
 from slugify import slugify
 from sqlalchemy.orm import validates
 
-sidebar2categories = sa.Table(
-    "sidebar2categories",
+site_settings2categories = sa.Table(
+    "site_settings2categoories",
     SqlAlchemyBase.metadata,
-    sa.Column("sidebar_id", sa.Integer, sa.ForeignKey("site_sidebar.id")),
+    sa.Column("sidebar_id", sa.Integer, sa.ForeignKey("site_settings.id")),
     sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
 )
 

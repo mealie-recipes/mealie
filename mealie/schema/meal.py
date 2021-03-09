@@ -29,15 +29,16 @@ class MealPlanBase(BaseModel):
             raise ValueError("EndDate should be greater than StartDate")
         return v
 
+
 class MealPlanProcessed(MealPlanBase):
     meals: list[MealOut]
+
 
 class MealPlanInDB(MealPlanProcessed):
     uid: str
 
     class Config:
         orm_mode = True
-
 
 
 class MealPlan(BaseModel):

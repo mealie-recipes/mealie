@@ -5,20 +5,22 @@ from fastapi_camelcase import CamelModel
 from schema.category import CategoryBase
 
 
-class Sidebar(CamelModel):
-    categories: Optional[list[CategoryBase]]
-
-    class Config:
-        orm_mode = True
-
-
 class SiteSettings(CamelModel):
-    language: str
-    sidebar: Sidebar
+    language: str = "en"
+    show_recent: bool = True
+    categories: Optional[list[CategoryBase]] = []
 
     class Config:
         orm_mode = True
 
         schema_extra = {
-            "example": {"id": "1", "language": "en", "sidebar": ["// TODO"]}
+            "example": {
+                "language": "en",
+                "showRecent": True,
+                "categories": [
+                    {"id": 1, "name": "thanksgiving", "slug": "thanksgiving"},
+                    {"id": 2, "name": "homechef", "slug": "homechef"},
+                    {"id": 3, "name": "potatoes", "slug": "potatoes"},
+                ],
+            }
         }

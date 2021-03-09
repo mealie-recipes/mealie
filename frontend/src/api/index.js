@@ -9,6 +9,7 @@ import category from "./category";
 import meta from "./meta";
 import users from "./users";
 import signUps from "./signUps";
+import groups from "./groups";
 
 export default {
   recipes: recipe,
@@ -22,4 +23,5 @@ export default {
   meta: meta,
   users: users,
   signUps: signUps,
+  groups: groups,
 };

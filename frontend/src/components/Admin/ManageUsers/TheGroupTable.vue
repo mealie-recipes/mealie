@@ -19,6 +19,10 @@
         User Groups
       </v-toolbar-title>
 
+      <div>
+        <v-select class="mt-7 ml-5" dense flat solo> </v-select>
+      </div>
+
       <v-spacer> </v-spacer>
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
@@ -136,7 +140,7 @@ export default {
     activeName: null,
     headers: [
       {
-        text: "User ID",
+        text: "User IDs",
         align: "start",
         sortable: false,
         value: "id",

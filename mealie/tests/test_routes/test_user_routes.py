@@ -16,9 +16,7 @@ def default_user():
         "id": 1,
         "fullName": "Change Me",
         "email": "changeme@email.com",
-        "group": {
-            "name": "home"
-        },
+        "group": "home",
         "admin": True
     }
 
@@ -29,9 +27,7 @@ def new_user():
         "id": 2,
         "fullName": "My New User",
         "email": "newuser@email.com",
-        "group": {
-            "name": "home"
-        },
+        "group": "home",
         "admin": False
     }
 

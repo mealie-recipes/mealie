@@ -1,7 +1,9 @@
+from schema.category import RecipeCategoryResponse
 from schema.meal import MealPlanInDB
 from schema.recipe import Recipe
 from schema.settings import SiteSettings as SiteSettingsSchema
 from schema.sign_up import SignUpOut
+from schema.theme import SiteTheme
 from schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
@@ -34,7 +36,8 @@ class _Categories(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "slug"
         self.sql_model = Category
-        self.orm_mode = False
+        self.orm_mode = True
+        self.schema = RecipeCategoryResponse
 
 
 class _Tags(BaseDocument):
@@ -64,7 +67,8 @@ class _Themes(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "name"
         self.sql_model = SiteThemeModel
-        self.orm_mode = False
+        self.orm_mode = True
+        self.schema = SiteTheme
 
 
 class _Users(BaseDocument):
