@@ -48,7 +48,6 @@ class Cleaner:
         recipe_data["slug"] = slugify(recipe_data.get("name"))
         recipe_data["orgURL"] = url
 
-        print(recipe_data["recipeIngredient"])
 
         return recipe_data
 
@@ -84,7 +83,7 @@ class Cleaner:
             return []
 
         # One long string split by (possibly multiple) new lines
-        if type(instructions) == str:
+        if isinstance(instructions, str):
             return [
                 {"text": Cleaner._instruction(line)}
                 for line in instructions.splitlines()
@@ -111,7 +110,7 @@ class Cleaner:
                 sectionSteps = []
                 for step in instructions:
                     if step["@type"] == "HowToSection":
-                        [sectionSteps.append(item) for item in step["itemListELement"]]
+                        [sectionSteps.append(item) for item in step["itemListElement"]]
 
                 if len(sectionSteps) > 0:
                     return [
