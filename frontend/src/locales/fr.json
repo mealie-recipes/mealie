@@ -44,7 +44,9 @@
     "sign-up": "S'inscrire"
   },
   "meal-plan": {
+    "shopping-list": "Liste d'achat",
     "dinner-this-week": "Repas cette semaine",
+    "meal-planner": "Planificateur de repas",
     "dinner-today": "Repas aujourd'hui",
     "planner": "Planificateur",
     "edit-meal-plan": "Éditer le plan de menu",
