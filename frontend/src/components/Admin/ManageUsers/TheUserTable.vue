@@ -20,6 +20,27 @@
       </v-toolbar-title>
 
       <v-spacer> </v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-filter"
+        label="Filter"
+        single-line
+        hide-details
+      ></v-text-field>
+      <v-dialog>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="mx-2"
+            small
+            color="success"
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
+            Create Group
+          </v-btn>
+        </template>
+      </v-dialog>
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
@@ -63,12 +84,14 @@
                 </v-col>
                 <v-col cols="12" sm="12" md="6">
                   <v-text-field
+                    dense
                     v-model="editedItem.group"
                     label="Group Group"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="showPassword">
                   <v-text-field
+                    dense
                     v-model="editedItem.password"
                     label="User Password"
                     :rules="[existsRule, minRule]"
@@ -95,7 +118,12 @@
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text>
-      <v-data-table :headers="headers" :items="users" sort-by="calories">
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        sort-by="calories"
+        :search="search"
+      >
         <template v-slot:item.actions="{ item }">
           <v-btn class="mr-1" small color="error" @click="deleteItem(item)">
             <v-icon small left>
@@ -131,6 +159,7 @@ export default {
   components: { Confirmation },
   mixins: [validators],
   data: () => ({
+    search: "",
     dialog: false,
     activeId: null,
     activeName: null,

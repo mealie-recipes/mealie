@@ -41,7 +41,7 @@ async def update_group_data(
 ):
     """ Updates a User Group """
 
-    return db.groups.update(session, id, group_data)
+    return db.groups.update(session, id, group_data.dict())
 
 
 @router.delete("/{id}")

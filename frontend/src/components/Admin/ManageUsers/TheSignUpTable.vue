@@ -68,6 +68,7 @@
       </v-dialog>
     </v-toolbar>
     <v-divider></v-divider>
+    
     <v-card-text>
       <v-data-table :headers="headers" :items="links" sort-by="calories">
         <template v-slot:item.token="{ item }">

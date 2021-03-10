@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
 from core.config import DEFAULT_GROUP
-from db.models.group import WebHookModel
+from db.models.group import Group
 from db.models.users import User
 from fastapi_camelcase import CamelModel
 from pydantic.utils import GetterDict
@@ -73,29 +73,23 @@ class UserInDB(UserOut):
         orm_mode = True
 
 
-class Webhooks(CamelModel):
-    webhookURLs: list[str] = []
-    webhookTime: str = "00:00"
-    enabled: bool = False
-
-    class Config:
-        orm_mode = True
-
-        @classmethod
-        def getter_dict(_cls, orm_model: WebHookModel):
-            return {
-                **GetterDict(orm_model),
-                "webookURLs": [x.url for x in orm_model.webhookURLs],
-            }
-
-
 class GroupInDB(GroupBase):
     id: int
     name: str
     users: Optional[list[UserOut]]
     mealplans: Optional[list[MealPlanInDB]]
-    categories: Optional[list[CategoryBase]]
-    webhooks: Optional[Webhooks]
+    categories: Optional[list[CategoryBase]] = []
+
+    webhook_urls: list[str] = []
+    webhook_time: str = "00:00"
+    webhook_enable: bool = False
 
     class Config:
         orm_mode = True
+
+        @classmethod
+        def getter_dict(_cls, orm_model: Group):
+            return {
+                **GetterDict(orm_model),
+                "webhook_urls": [x.url for x in orm_model.webhook_urls if x],
+            }
