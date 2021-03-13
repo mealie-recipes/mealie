@@ -1,5 +1,6 @@
 import shutil
 from datetime import timedelta
+from os import access
 
 from core.config import USER_DIR
 from core.security import get_password_hash, verify_password
@@ -65,6 +66,7 @@ async def update_user(
     session: Session = Depends(generate_session),
 ):
 
+    access_token = None
     if current_user.id == id or current_user.admin:
         updated_user: UserInDB = db.users.update(session, id, new_data.dict())
         email = updated_user.email

@@ -73,16 +73,19 @@ class UserInDB(UserOut):
         orm_mode = True
 
 
-class GroupInDB(GroupBase):
+class UpdateGroup(GroupBase):
     id: int
     name: str
-    users: Optional[list[UserOut]]
-    mealplans: Optional[list[MealPlanInDB]]
     categories: Optional[list[CategoryBase]] = []
 
     webhook_urls: list[str] = []
     webhook_time: str = "00:00"
-    webhook_enable: bool = False
+    webhook_enable: bool
+
+
+class GroupInDB(UpdateGroup):
+    users: Optional[list[UserOut]]
+    mealplans: Optional[list[MealPlanInDB]]
 
     class Config:
         orm_mode = True

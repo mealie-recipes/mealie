@@ -46,6 +46,10 @@ class Category(SqlAlchemyBase):
         self.slug = slugify(name)
 
     @staticmethod
+    def get_ref(session, slug: str):
+        return session.query(Category).filter(Category.slug == slug).one()
+
+    @staticmethod
     def create_if_not_exist(session, name: str = None):
         test_slug = slugify(name)
         try:

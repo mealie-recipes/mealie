@@ -30,7 +30,7 @@ class SiteSettings(SqlAlchemyBase, BaseMixins):
         self.cards_per_section = cards_per_section
         self.show_recent = show_recent
         self.categories = [
-            Category.create_if_not_exist(session=session, name=cat.get("name"))
+            Category.get_ref(session=session, name=cat.get("slug"))
             for cat in categories
         ]
 

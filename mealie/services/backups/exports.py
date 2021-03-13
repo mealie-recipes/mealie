@@ -70,13 +70,13 @@ class ExportDatabase:
             if self.templates:
                 self._export_template(recipe)
 
-    def _export_template(self, recipe_data: dict):
+    def _export_template(self, recipe_data: Recipe):
         for template_path in self.templates:
 
             with open(template_path, "r") as f:
                 template = Template(f.read())
 
-            filename = recipe_data.get("name") + template_path.suffix
+            filename = recipe_data.name + template_path.suffix
             out_file = self.templates_dir.joinpath(filename)
 
             content = template.render(recipe=recipe_data)

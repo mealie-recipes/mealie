@@ -22,7 +22,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     mealplans = orm.relationship(
         "MealPlanModel", back_populates="group", single_parent=True
     )
-    mealplan_categories = orm.relationship(
+    categories = orm.relationship(
         "Category", secondary=group2categories, single_parent=True
     )
 
@@ -47,7 +47,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     ) -> None:
         self.name = name
         self.categories = [
-            Category.create_if_not_exist(session=session, name=cat.get("name"))
+            Category.get_ref(session=session, slug=cat.get("slug"))
             for cat in categories
         ]
 
@@ -58,7 +58,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     def update(self, session: Session, *args, **kwargs):
         self._sql_remove_list(session, [WebhookURLModel], self.id)
 
-        self.__init__(*args, **kwargs)
+        self.__init__(session=session, *args, **kwargs)
 
     @staticmethod
     def create_if_not_exist(session, name: str = DEFAULT_GROUP):

@@ -14,7 +14,7 @@ class SiteThemeModel(SqlAlchemyBase):
 
     def update(self, session=None, name: str = None, colors: dict = None) -> dict:
         self.colors.update(**colors)
-        return self.dict()
+        return self
 
 
 class ThemeColorsModel(SqlAlchemyBase):

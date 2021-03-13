@@ -3,7 +3,7 @@ from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from routes.deps import manager
 from schema.snackbar import SnackResponse
-from schema.user import GroupBase, GroupInDB
+from schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/groups", tags=["Groups"])
@@ -19,6 +19,17 @@ async def get_all_groups(
     return db.groups.get_all(session)
 
 
+@router.get("/self", response_model=GroupInDB)
+async def get_current_user_group(
+    current_user=Depends(manager),
+    session: Session = Depends(generate_session),
+):
+    """ Returns the Group Data for the Current User """
+    current_user: UserInDB
+
+    return db.groups.get(session, current_user.group, "name")
+
+
 @router.post("")
 async def create_group(
     group_data: GroupBase,
@@ -27,21 +38,24 @@ async def create_group(
 ):
     """ Creates a Group in the Database """
 
-    db.groups.create(session, group_data.dict())
-
-    return
+    try:
+        db.groups.create(session, group_data.dict())
+        return SnackResponse.success("User Group Created", {"created": True})
+    except:
+        return SnackResponse.error("User Group Creation Failed")
 
 
 @router.put("/{id}")
 async def update_group_data(
     id: int,
-    group_data: GroupInDB,
+    group_data: UpdateGroup,
     current_user=Depends(manager),
     session: Session = Depends(generate_session),
 ):
     """ Updates a User Group """
+    db.groups.update(session, id, group_data.dict())
 
-    return db.groups.update(session, id, group_data.dict())
+    return SnackResponse.success("Group Settings Updated")
 
 
 @router.delete("/{id}")
