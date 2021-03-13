@@ -55,11 +55,11 @@
                 >
                 </v-text-field>
                 <v-text-field
-                  label="Family"
+                  label="Group"
                   readonly
-                  v-model="user.family"
+                  v-model="user.group"
                   persistent-hint
-                  hint="Family groups can only be set by administrators"
+                  hint="Group groups can only be set by administrators"
                 >
                 </v-text-field>
               </v-form>
@@ -167,7 +167,7 @@ export default {
       user: {
         fullName: "Change Me",
         email: "changeme@email.com",
-        family: "public",
+        group: "public",
         admin: true,
         id: 1,
       },

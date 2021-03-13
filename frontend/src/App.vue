@@ -17,7 +17,6 @@
       <v-expand-x-transition>
         <SearchBar
           ref="mainSearchBar"
-          class="mt-7"
           v-if="search"
           :show-results="true"
           @selected="navigateFromSearch"
@@ -78,6 +77,8 @@ export default {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
     this.$store.dispatch("requestHomePageSettings");
+    this.$store.dispatch("requestSiteSettings");
+    this.$store.dispatch("refreshToken");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
   },

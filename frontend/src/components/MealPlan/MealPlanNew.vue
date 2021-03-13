@@ -118,6 +118,19 @@ export default {
   async mounted() {
     let settings = await api.settings.requestAll();
     this.items = await api.recipes.getAllByCategory(settings.planCategories);
+    console.log(this.items);
+
+    if (this.items.length === 0) {
+      const keys = [
+        "name",
+        "slug",
+        "image",
+        "description",
+        "dateAdded",
+        "rating",
+      ];
+      this.items = await api.recipes.allByKeys(keys);
+    }
   },
 
   computed: {

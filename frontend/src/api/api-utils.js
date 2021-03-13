@@ -47,7 +47,7 @@ const apiReq = {
         return response;
       } else return;
     });
-    // processResponse(response);
+    processResponse(response);
     return response;
   },
 

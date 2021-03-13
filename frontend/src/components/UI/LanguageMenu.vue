@@ -1,6 +1,5 @@
 <template>
   <div class="text-center">
-    <LoginDialog ref="loginDialog" />
     <v-menu
       transition="slide-x-transition"
       bottom
@@ -35,10 +34,12 @@
 </template>
 
 <script>
-import LoginDialog from "../Login/LoginDialog";
+const SELECT_EVENT = "select-lang";
 export default {
-  components: {
-    LoginDialog,
+  props: {
+    siteSettings: {
+      default: false,
+    },
   },
   data: function() {
     return {
@@ -68,7 +69,11 @@ export default {
 
   methods: {
     setLanguage(selectedLanguage) {
-      this.$store.commit("setLang", selectedLanguage);
+      if (this.siteSettings) {
+        this.$emit(SELECT_EVENT, selectedLanguage);
+      } else {
+        this.$store.commit("setLang", selectedLanguage);
+      }
     },
   },
 };

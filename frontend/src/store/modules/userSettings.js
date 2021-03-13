@@ -63,6 +63,20 @@ const actions = {
     }
   },
 
+  async refreshToken({ commit, getters }) {
+    if (!getters.getIsLoggedIn) {
+      commit("setIsLoggedIn", false); // This is to be here... for some reasons?  ¯\_(ツ)_/¯
+      console.log("Not Logged In");
+      return;
+    }
+    try {
+      let authResponse = await api.users.refresh();
+      commit("setToken", authResponse.access_token);
+    } catch {
+      console.log("Failed Token Refresh, Logging Out...");
+      commit("setIsLoggedIn", false);
+    }
+  },
 
   async initTheme({ dispatch, getters }) {
     //If theme is empty resetTheme

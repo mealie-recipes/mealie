@@ -1,7 +1,9 @@
 import datetime
 from typing import Any, List, Optional
 
+from db.models.recipe.recipe import RecipeModel
 from pydantic import BaseModel, validator
+from pydantic.utils import GetterDict
 from slugify import slugify
 
 
@@ -9,19 +11,38 @@ class RecipeNote(BaseModel):
     title: str
     text: str
 
+    class Config:
+        orm_mode = True
+
 
 class RecipeStep(BaseModel):
     text: str
 
+    class Config:
+        orm_mode = True
+
+
+class Nutrition(BaseModel):
+    calories: Optional[str]
+    fatContent: Optional[str]
+    fiberContent: Optional[str]
+    proteinContent: Optional[str]
+    sodiumContent: Optional[str]
+    sugarContent: Optional[str]
+
+    class Config:
+        orm_mode = True
+
 
 class Recipe(BaseModel):
-    # Standard Schema
     name: str
     description: Optional[str]
     image: Optional[Any]
     recipeYield: Optional[str]
-    recipeIngredient: Optional[list]
-    recipeInstructions: Optional[list]
+    recipeCategory: Optional[List[str]] = []
+    recipeIngredient: Optional[list[str]]
+    recipeInstructions: Optional[list[RecipeStep]]
+    nutrition: Optional[Nutrition]
 
     totalTime: Optional[str] = None
     prepTime: Optional[str] = None
@@ -29,7 +50,6 @@ class Recipe(BaseModel):
 
     # Mealie Specific
     slug: Optional[str] = ""
-    categories: Optional[List[str]] = []
     tags: Optional[List[str]] = []
     dateAdded: Optional[datetime.date]
     notes: Optional[List[RecipeNote]] = []
@@ -38,6 +58,18 @@ class Recipe(BaseModel):
     extras: Optional[dict] = {}
 
     class Config:
+        orm_mode = True
+
+        @classmethod
+        def getter_dict(_cls, name_orm: RecipeModel):
+            return {
+                **GetterDict(name_orm),
+                "recipeIngredient": [x.ingredient for x in name_orm.recipeIngredient],
+                "recipeCategory": [x.name for x in name_orm.recipeCategory],
+                "tags": [x.name for x in name_orm.tags],
+                "extras": {x.key_name: x.value for x in name_orm.extras},
+            }
+
         schema_extra = {
             "example": {
                 "name": "Chicken and Rice With Leeks and Salsa Verde",
@@ -56,7 +88,7 @@ class Recipe(BaseModel):
                 ],
                 "slug": "chicken-and-rice-with-leeks-and-salsa-verde",
                 "tags": ["favorite", "yummy!"],
-                "categories": ["Dinner", "Pasta"],
+                "recipeCategory": ["Dinner", "Pasta"],
                 "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
                 "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
                 "rating": 3,

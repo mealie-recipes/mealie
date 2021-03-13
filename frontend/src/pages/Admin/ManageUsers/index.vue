@@ -26,7 +26,7 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab" >
+      <v-tabs-items v-model="tab">
         <v-tab-item>
           <TheUserTable />
         </v-tab-item>
@@ -34,7 +34,7 @@
           <TheSignUpTable />
         </v-tab-item>
         <v-tab-item>
-          <TheGroupTable />
+          <GroupDashboard />
         </v-tab-item>
       </v-tabs-items>
     </v-card>
@@ -43,14 +43,17 @@
 
 <script>
 import TheUserTable from "@/components/Admin/ManageUsers/TheUserTable";
-import TheGroupTable from "@/components/Admin/ManageUsers/TheGroupTable";
+import GroupDashboard from "@/components/Admin/ManageUsers/GroupDashboard";
 import TheSignUpTable from "@/components/Admin/ManageUsers/TheSignUpTable";
 export default {
-  components: { TheUserTable, TheGroupTable, TheSignUpTable },
+  components: { TheUserTable, GroupDashboard, TheSignUpTable },
   data() {
     return {
       tab: 0,
     };
+  },
+  mounted() {
+    this.$store.dispatch("requestAllGroups");
   },
 };
 </script>

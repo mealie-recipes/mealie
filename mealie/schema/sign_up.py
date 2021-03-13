@@ -12,3 +12,6 @@ class SignUpToken(SignUpIn):
 
 class SignUpOut(SignUpToken):
     id: int
+
+    class Config:
+        orm_mode = True

@@ -7,6 +7,7 @@
         <UploadBtn
           class="mt-1"
           :url="`/api/migrations/${folder}/upload`"
+          fileName="archive"
           @uploaded="$emit('refresh')"
         />
       </span>

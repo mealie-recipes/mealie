@@ -34,7 +34,7 @@
         :description="recipeDetails.description"
         :instructions="recipeDetails.recipeInstructions"
         :tags="recipeDetails.tags"
-        :categories="recipeDetails.categories"
+        :categories="recipeDetails.recipeCategory"
         :notes="recipeDetails.notes"
         :rating="recipeDetails.rating"
         :yields="recipeDetails.recipeYield"

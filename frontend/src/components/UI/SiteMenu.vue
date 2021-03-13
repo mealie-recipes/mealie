@@ -87,15 +87,15 @@ export default {
   },
   mounted() {},
   computed: {
-    loggedIn() {
-      return this.$store.getters.getIsLoggedIn;
-    },
     filteredItems() {
       if (this.loggedIn) {
         return this.items.filter(x => x.restricted == true);
       } else {
         return this.items.filter(x => x.restricted == false);
       }
+    },
+    loggedIn() {
+      return this.$store.getters.getIsLoggedIn;
     },
   },
 

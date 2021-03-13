@@ -3,9 +3,12 @@
     <v-card-text>
       <h2 class="mt-1 mb-1">{{ $t("settings.homepage.home-page") }}</h2>
       <v-row align="center" justify="center" dense class="mb-n7 pb-n5">
+        <v-col cols="1">
+          <LanguageMenu @select-lang="writeLang" :site-settings="true" />
+        </v-col>
         <v-col cols="12" sm="3" md="2">
           <v-switch
-            v-model="showRecent"
+            v-model="settings.showRecent"
             :label="$t('settings.homepage.show-recent')"
           ></v-switch>
         </v-col>
@@ -13,7 +16,7 @@
           <v-slider
             class="pt-sm-4"
             :label="$t('settings.homepage.card-per-section')"
-            v-model="showLimit"
+            v-model="settings.cardsPerSection"
             max="30"
             dense
             color="primary"
@@ -35,7 +38,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                Home Page Categories
+                Home Page Sections
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
@@ -43,14 +46,14 @@
             <v-list height="300" dense style="overflow:auto">
               <v-list-item-group>
                 <draggable
-                  v-model="homeCategories"
+                  v-model="settings.categories"
                   group="categories"
                   :style="{
                     minHeight: `150px`,
                   }"
                 >
                   <v-list-item
-                    v-for="(item, index) in homeCategories"
+                    v-for="(item, index) in settings.categories"
                     :key="`${item.name}-${index}`"
                   >
                     <v-list-item-icon>
@@ -85,14 +88,14 @@
             <v-list height="300" dense style="overflow:auto">
               <v-list-item-group>
                 <draggable
-                  v-model="categories"
+                  v-model="allCategories"
                   group="categories"
                   :style="{
                     minHeight: `150px`,
                   }"
                 >
                   <v-list-item
-                    v-for="(item, index) in categories"
+                    v-for="(item, index) in allCategories"
                     :key="`${item.name}-${index}`"
                   >
                     <v-list-item-icon>
@@ -127,47 +130,50 @@
 
 <script>
 import api from "@/api";
+import LanguageMenu from "@/components/UI/LanguageMenu";
 import draggable from "vuedraggable";
 
 export default {
   components: {
     draggable,
+    LanguageMenu,
   },
   data() {
     return {
-      homeCategories: null,
-      showLimit: null,
-      showRecent: true,
+      settings: {
+        language: "en",
+        showRecent: null,
+        cardsPerSection: null,
+        categories: [],
+      },
     };
   },
   mounted() {
     this.getOptions();
   },
   computed: {
-    categories() {
+    allCategories() {
       return this.$store.getters.getCategories;
     },
   },
+
   methods: {
+    writeLang(val) {
+      console.log(val);
+      this.settings.language = val;
+    },
     deleteCategoryfromDatabase(category) {
       api.categories.delete(category);
-      this.$store.dispatch("requestHomePageSettings");
     },
-    getOptions() {
-      this.showLimit = this.$store.getters.getShowLimit;
-      this.showRecent = this.$store.getters.getShowRecent;
-      this.homeCategories = this.$store.getters.getHomeCategories;
+    async getOptions() {
+      this.settings = await api.siteSettings.get();
     },
     deleteActiveCategory(index) {
-      this.homeCategories.splice(index, 1);
+      this.settings.categories.splice(index, 1);
     },
-    saveSettings() {
-      this.homeCategories.forEach((element, index) => {
-        element.position = index + 1;
-      });
-      this.$store.commit("setShowRecent", this.showRecent);
-      this.$store.commit("setShowLimit", this.showLimit);
-      this.$store.commit("setHomeCategories", this.homeCategories);
+    async saveSettings() {
+      await api.siteSettings.update(this.settings);
+      this.getOptions();
     },
   },
 };

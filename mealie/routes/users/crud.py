@@ -1,5 +1,6 @@
 import shutil
 from datetime import timedelta
+from os import access
 
 from core.config import USER_DIR
 from core.security import get_password_hash, verify_password
@@ -65,9 +66,10 @@ async def update_user(
     session: Session = Depends(generate_session),
 ):
 
+    access_token = None
     if current_user.id == id or current_user.admin:
-        updated_user = db.users.update(session, id, new_data.dict())
-        email = updated_user.get("email")
+        updated_user: UserInDB = db.users.update(session, id, new_data.dict())
+        email = updated_user.email
         if current_user.id == id:
             access_token = manager.create_access_token(
                 data=dict(sub=email), expires=timedelta(hours=2)
@@ -82,7 +84,6 @@ async def get_user_image(id: str):
     """ Returns a users profile picture """
     user_dir = USER_DIR.joinpath(id)
     for recipe_image in user_dir.glob("profile_image.*"):
-        print(recipe_image)
         return FileResponse(recipe_image)
     else:
         return False
@@ -128,7 +129,6 @@ async def update_password(
     match_passwords = verify_password(
         password_change.current_password, current_user.password
     )
-    print(match_passwords)
     match_id = current_user.id == id
 
     if match_passwords and match_id:

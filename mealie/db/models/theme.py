@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.models.model_base import BaseMixins, SqlAlchemyBase
+from db.models.model_base import SqlAlchemyBase
 
 
 class SiteThemeModel(SqlAlchemyBase):
@@ -14,11 +14,7 @@ class SiteThemeModel(SqlAlchemyBase):
 
     def update(self, session=None, name: str = None, colors: dict = None) -> dict:
         self.colors.update(**colors)
-        return self.dict()
-
-    def dict(self):
-        data = {"name": self.name, "colors": self.colors.dict()}
-        return data
+        return self
 
 
 class ThemeColorsModel(SqlAlchemyBase):
@@ -50,15 +46,3 @@ class ThemeColorsModel(SqlAlchemyBase):
         self.info = info
         self.warning = warning
         self.error = error
-
-    def dict(self):
-        data = {
-            "primary": self.primary,
-            "accent": self.accent,
-            "secondary": self.secondary,
-            "success": self.success,
-            "info": self.info,
-            "warning": self.warning,
-            "error": self.error,
-        }
-        return data

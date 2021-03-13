@@ -1,14 +1,29 @@
 from typing import List, Optional
 
-from pydantic.main import BaseModel
-from services.recipe_services import Recipe
+from fastapi_camelcase import CamelModel
+
+from schema.recipe import Recipe
 
 
-class RecipeCategoryResponse(BaseModel):
+class CategoryBase(CamelModel):
     id: int
     name: str
     slug: str
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeCategoryResponse(CategoryBase):
     recipes: Optional[List[Recipe]]
 
     class Config:
         schema_extra = {"example": {"id": 1, "name": "dinner", "recipes": [{}]}}
+
+
+class TagBase(CategoryBase):
+    pass
+
+
+class RecipeTagResponse(TagBase):
+    pass

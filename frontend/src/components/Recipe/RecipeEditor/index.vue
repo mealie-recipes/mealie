@@ -118,7 +118,7 @@
             chips
             item-color="secondary"
             deletable-chips
-            v-model="value.categories"
+            v-model="value.recipeCategory"
             hide-selected
             :items="categories"
             text="name"
@@ -359,7 +359,7 @@ export default {
       this.value.notes.splice(index, 1);
     },
     removeCategory(index) {
-      this.value.categories.splice(index, 1);
+      this.value.recipeCategory.splice(index, 1);
     },
     removeTags(index) {
       this.value.tags.splice(index, 1);

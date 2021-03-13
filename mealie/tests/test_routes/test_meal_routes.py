@@ -19,12 +19,10 @@ def get_meal_plan_template(first=None, second=None):
             {
                 "slug": first,
                 "date": "2021-1-17",
-                "dateText": "Monday, January 18, 2021",
             },
             {
                 "slug": second,
                 "date": "2021-1-18",
-                "dateText": "Tueday, January 19, 2021",
             },
         ],
     }

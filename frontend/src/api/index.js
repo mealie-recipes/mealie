@@ -9,9 +9,12 @@ import category from "./category";
 import meta from "./meta";
 import users from "./users";
 import signUps from "./signUps";
+import groups from "./groups";
+import siteSettings from "./siteSettings";
 
 export default {
   recipes: recipe,
+  siteSettings: siteSettings,
   backups: backup,
   mealPlans: mealplan,
   settings: settings,
@@ -22,4 +25,5 @@ export default {
   meta: meta,
   users: users,
   signUps: signUps,
+  groups: groups,
 };

@@ -12,14 +12,18 @@
       @close="closeDelete"
     />
     <v-toolbar flat>
-      <v-icon large color="accent" class="mr-1">
-        mdi-account
-      </v-icon>
-      <v-toolbar-title class="headine">
-        Users
-      </v-toolbar-title>
-
       <v-spacer> </v-spacer>
+      <div width="100px">
+        <v-text-field
+          v-model="search"
+          class="mr-2"
+          append-icon="mdi-filter"
+          label="Filter"
+          single-line
+          hide-details
+        ></v-text-field>
+      </div>
+
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
@@ -62,13 +66,16 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="6">
-                  <v-text-field
-                    v-model="editedItem.family"
-                    label="Family Group"
-                  ></v-text-field>
+                  <v-select
+                    dense
+                    v-model="editedItem.group"
+                    :items="existingGroups"
+                    label="User Group"
+                  ></v-select>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="showPassword">
                   <v-text-field
+                    dense
                     v-model="editedItem.password"
                     label="User Password"
                     :rules="[existsRule, minRule]"
@@ -95,7 +102,12 @@
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text>
-      <v-data-table :headers="headers" :items="users" sort-by="calories">
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        sort-by="calories"
+        :search="search"
+      >
         <template v-slot:item.actions="{ item }">
           <v-btn class="mr-1" small color="error" @click="deleteItem(item)">
             <v-icon small left>
@@ -131,6 +143,7 @@ export default {
   components: { Confirmation },
   mixins: [validators],
   data: () => ({
+    search: "",
     dialog: false,
     activeId: null,
     activeName: null,
@@ -143,7 +156,7 @@ export default {
       },
       { text: "Full Name", value: "fullName" },
       { text: "Email", value: "email" },
-      { text: "Family", value: "family" },
+      { text: "Group", value: "group" },
       { text: "Admin", value: "admin" },
       { text: "", value: "actions", sortable: false, align: "center" },
     ],
@@ -154,7 +167,7 @@ export default {
       fullName: "",
       password: "",
       email: "",
-      family: "",
+      group: "",
       admin: false,
     },
     defaultItem: {
@@ -162,7 +175,7 @@ export default {
       fullName: "",
       password: "",
       email: "",
-      family: "",
+      group: "",
       admin: false,
     },
   }),
@@ -173,6 +186,9 @@ export default {
     },
     showPassword() {
       return this.editedIndex === -1 ? true : false;
+    },
+    existingGroups() {
+      return this.$store.getters.getGroupNames;
     },
   },
 

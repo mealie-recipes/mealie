@@ -1,5 +1,6 @@
 import html
 import re
+from datetime import datetime
 from typing import List
 
 from slugify import slugify
@@ -24,10 +25,16 @@ class Cleaner:
         Returns:
             dict: cleaned recipe dictionary
         """
-        recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime"))
         recipe_data["description"] = Cleaner.html(recipe_data.get("description", ""))
-        recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime"))
-        recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime"))
+
+        # Times
+        recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime", None))
+        recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime", None))
+        recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime", None))
+        recipe_data["recipeCategory"] = Cleaner.category(
+            recipe_data.get("recipeCategory", [])
+        )
+
         recipe_data["recipeYield"] = Cleaner.yield_amount(
             recipe_data.get("recipeYield")
         )
@@ -41,7 +48,15 @@ class Cleaner:
         recipe_data["slug"] = slugify(recipe_data.get("name"))
         recipe_data["orgURL"] = url
 
+
         return recipe_data
+
+    @staticmethod
+    def category(category: str):
+        if type(category) == type(str):
+            return [category]
+        else:
+            return []
 
     @staticmethod
     def html(raw_html):
@@ -68,7 +83,7 @@ class Cleaner:
             return []
 
         # One long string split by (possibly multiple) new lines
-        if type(instructions) == str:
+        if isinstance(instructions, str):
             return [
                 {"text": Cleaner._instruction(line)}
                 for line in instructions.splitlines()
@@ -95,7 +110,7 @@ class Cleaner:
                 sectionSteps = []
                 for step in instructions:
                     if step["@type"] == "HowToSection":
-                        [sectionSteps.append(item) for item in step["itemListELement"]]
+                        [sectionSteps.append(item) for item in step["itemListElement"]]
 
                 if len(sectionSteps) > 0:
                     return [
@@ -144,8 +159,13 @@ class Cleaner:
             return yld
 
     @staticmethod
-    def time(time_entry) -> str:
-        if type(time_entry) == type(None):
+    def time(time_entry):
+        print(time_entry, type(time_entry))
+        if time_entry == None:
             return None
+        elif type(time_entry) == datetime:
+            print(time_entry)
         elif type(time_entry) != str:
             return str(time_entry)
+        elif time_entry != None:
+            return time_entry

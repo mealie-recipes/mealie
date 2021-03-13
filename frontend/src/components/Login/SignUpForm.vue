@@ -21,12 +21,13 @@
       have a valid invitation link. If you haven't recieved an invitation you
       are unable to sign-up. To recieve a link, contact the sites administrator.
       <v-divider class="mt-3"></v-divider>
-      <v-form>
+      <v-form ref="signUpForm">
         <v-text-field
           v-model="user.name"
           light="light"
           prepend-icon="mdi-account"
           validate-on-blur
+          :rules="[existsRule]"
           label="Display Name"
           type="email"
         ></v-text-field>
@@ -35,6 +36,7 @@
           light="light"
           prepend-icon="mdi-email"
           validate-on-blur
+          :rules="[existsRule, emailRule]"
           :label="$t('login.email')"
           type="email"
         ></v-text-field>
@@ -43,10 +45,10 @@
           light="light"
           class="mb-2s"
           prepend-icon="mdi-lock"
+          validate-on-blur
           :label="$t('login.password')"
           :type="showPassword ? 'text' : 'password'"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="showPassword = !showPassword"
+          :rules="[minRule]"
         ></v-text-field>
         <v-text-field
           v-model="user.passwordConfirm"
@@ -56,6 +58,9 @@
           :label="$t('login.password')"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="[
+            user.password === user.passwordConfirm || 'Password must match',
+          ]"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
       </v-form>
@@ -80,7 +85,9 @@
 
 <script>
 import api from "@/api";
+import { validators } from "@/mixins/validators";
 export default {
+  mixins: [validators],
   data() {
     return {
       loading: false,
@@ -121,15 +128,23 @@ export default {
       const userData = {
         fullName: this.user.name,
         email: this.user.email,
-        family: "public",
+        group: "default",
         password: this.user.password,
         admin: false,
       };
 
-      await api.signUps.createUser(this.token, userData);
+      let successUser = false;
+      if (this.$refs.signUpForm.validate()) {
+        let response = await api.signUps.createUser(this.token, userData);
+        successUser = response.snackbar.text.includes("Created");
+      }
+
       this.$emit("user-created");
 
       this.loading = false;
+      if (successUser) {
+        this.$router.push("/");
+      }
     },
   },
 };

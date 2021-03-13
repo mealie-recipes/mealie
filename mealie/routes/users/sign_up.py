@@ -56,12 +56,12 @@ async def create_user_with_token(
     """ Creates a user with a valid sign up token """
 
     # Validate Token
-    db_entry = db.sign_ups.get(session, token, limit=1)
+    db_entry: SignUpOut = db.sign_ups.get(session, token, limit=1)
     if not db_entry:
-        return {"details": "invalid token"}
+        return SnackResponse.error("Invalid Token")
 
     # Create User
-    new_user.admin = db_entry.get("admin")
+    new_user.admin = db_entry.admin
     new_user.password = get_password_hash(new_user.password)
     data = db.users.create(session, new_user.dict())
 

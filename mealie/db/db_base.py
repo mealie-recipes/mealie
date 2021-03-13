@@ -1,5 +1,6 @@
 from typing import List
 
+from pydantic import BaseModel
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
@@ -11,11 +12,20 @@ class BaseDocument:
         self.primary_key: str
         self.store: str
         self.sql_model: SqlAlchemyBase
+        self.orm_mode = False
+        self.schema: BaseModel
 
     # TODO: Improve Get All Query Functionality
     def get_all(
         self, session: Session, limit: int = None, order_by: str = None
     ) -> List[dict]:
+
+        if self.orm_mode:
+            return [
+                self.schema.from_orm(x)
+                for x in session.query(self.sql_model).limit(limit).all()
+            ]
+
         list = [x.dict() for x in session.query(self.sql_model).limit(limit).all()]
 
         if limit == 1:
@@ -105,15 +115,13 @@ class BaseDocument:
             .limit(limit)
             .all()
         )
-        db_entries = [x.dict() for x in result]
 
         if limit == 1:
             try:
-                return db_entries[0]
+                return self.schema.from_orm(result[0])
             except IndexError:
                 return None
-
-        return db_entries
+        return [self.schema.from_orm(x) for x in result]
 
     def create(self, session: Session, document: dict) -> dict:
         """Creates a new database entry for the given SQL Alchemy Model.
@@ -128,6 +136,10 @@ class BaseDocument:
         new_document = self.sql_model(session=session, **document)
         session.add(new_document)
         session.commit()
+
+        if self.orm_mode:
+            return self.schema.from_orm(new_document)
+
         return_data = new_document.dict()
         return return_data
 
@@ -145,9 +157,13 @@ class BaseDocument:
 
         entry = self._query_one(session=session, match_value=match_value)
         entry.update(session=session, **new_data)
+
+        if self.orm_mode:
+            session.commit()
+            return self.schema.from_orm(entry)
+
         return_data = entry.dict()
         session.commit()
-
         return return_data
 
     def delete(self, session: Session, primary_key_value) -> dict:

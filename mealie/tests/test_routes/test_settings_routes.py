@@ -1,4 +1,6 @@
 import json
+from schema.settings import SiteSettings
+from schema.theme import SiteTheme
 
 import pytest
 from tests.utils.routes import (
@@ -11,30 +13,12 @@ from tests.utils.routes import (
 
 @pytest.fixture(scope="function")
 def default_settings():
-    return {
-        "name": "main",
-        "planCategories": [],
-        "webhooks": {"webhookTime": "00:00", "webhookURLs": [], "enabled": False},
-    }
+    return SiteSettings().dict(by_alias=True)
 
 
 @pytest.fixture(scope="session")
-def default_theme(api_client):
-
-    default_theme = {
-        "name": "default",
-        "colors": {
-            "primary": "#E58325",
-            "accent": "#00457A",
-            "secondary": "#973542",
-            "success": "#5AB1BB",
-            "info": "#4990BA",
-            "warning": "#FF4081",
-            "error": "#EF5350",
-        },
-    }
-
-    return default_theme
+def default_theme():
+    return SiteTheme().dict()
 
 
 @pytest.fixture(scope="session")
@@ -62,11 +46,8 @@ def test_default_settings(api_client, default_settings):
 
 
 def test_update_settings(api_client, default_settings):
-    default_settings["webhooks"]["webhookURLs"] = [
-        "https://test1.url.com",
-        "https://test2.url.com",
-        "https://test3.url.com",
-    ]
+    default_settings["language"] = "fr"
+    default_settings["showRecent"] = False
 
     response = api_client.put(SETTINGS_UPDATE, json=default_settings)
 

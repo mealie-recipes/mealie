@@ -1,6 +1,8 @@
+from core.config import DEFAULT_GROUP
 from core.security import get_password_hash
 from fastapi.logger import logger
-from schema.settings import SiteSettings, Webhooks
+from schema.settings import SiteSettings
+from schema.theme import SiteTheme
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.session import Session
 
@@ -12,6 +14,7 @@ def init_db(db: Session = None) -> None:
     if not db:
         db = create_session()
 
+    default_group_init(db)
     default_settings_init(db)
     default_theme_init(db)
     default_user_init(db)
@@ -20,34 +23,25 @@ def init_db(db: Session = None) -> None:
 
 
 def default_theme_init(session: Session):
-    default_theme = {
-        "name": "default",
-        "colors": {
-            "primary": "#E58325",
-            "accent": "#00457A",
-            "secondary": "#973542",
-            "success": "#5AB1BB",
-            "info": "#4990BA",
-            "warning": "#FF4081",
-            "error": "#EF5350",
-        },
-    }
+    db.themes.create(session, SiteTheme().dict())
 
     try:
-        db.themes.create(session, default_theme)
         logger.info("Generating default theme...")
     except:
         logger.info("Default Theme Exists.. skipping generation")
 
 
 def default_settings_init(session: Session):
-    try:
-        webhooks = Webhooks()
-        default_entry = SiteSettings(name="main", webhooks=webhooks)
-        document = db.settings.create(session, default_entry.dict())
-        logger.info(f"Created Site Settings: \n {document}")
-    except:
-        pass
+    data = {"language": "en", "home_page_settings": {"categories": []}}
+    document = db.settings.create(session, SiteSettings().dict())
+    logger.info(f"Created Site Settings: \n {document}")
+
+
+def default_group_init(session: Session):
+    default_group = {"name": DEFAULT_GROUP}
+    logger.info("Generating Default Group")
+    db.groups.create(session, default_group)
+    pass
 
 
 def default_user_init(session: Session):
@@ -55,7 +49,7 @@ def default_user_init(session: Session):
         "full_name": "Change Me",
         "email": "changeme@email.com",
         "password": get_password_hash("MyPassword"),
-        "family": "public",
+        "group": DEFAULT_GROUP,
         "admin": True,
     }
 

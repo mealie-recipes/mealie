@@ -8,7 +8,7 @@ from schema.settings import SiteSettings
 from db.database import db
 from utils.post_webhooks import post_webhooks
 
-
+# TODO Fix Scheduler
 @scheduler.scheduled_job(trigger="interval", minutes=15)
 def update_webhook_schedule():
     """

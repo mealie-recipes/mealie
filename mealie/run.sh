@@ -3,6 +3,8 @@
 ## Migrations
 # TODO
 
+# Database Init
+
 ## Web Server
 caddy start --config ./Caddyfile
 

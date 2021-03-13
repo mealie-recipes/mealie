@@ -70,7 +70,7 @@ export default {
     router.push(`/`);
   },
 
-  async allByKeys(recipeKeys, num = 999) {
+  async allByKeys(recipeKeys, num = 9999) {
     const response = await apiReq.get(recipeURLs.allRecipes, {
       params: {
         keys: recipeKeys,

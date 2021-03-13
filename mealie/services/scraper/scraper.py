@@ -6,7 +6,7 @@ import scrape_schema_recipe
 from core.config import DEBUG_DIR
 from fastapi.logger import logger
 from services.image_services import scrape_image
-from services.recipe_services import Recipe
+from schema.recipe import Recipe
 from services.scraper import open_graph
 from services.scraper.cleaner import Cleaner
 
@@ -25,6 +25,7 @@ def create_from_url(url: str) -> Recipe:
     """
     r = requests.get(url)
     new_recipe = extract_recipe_from_html(r.text, url)
+    print(new_recipe)
     new_recipe = Cleaner.clean(new_recipe, url)
     new_recipe = download_image_for_recipe(new_recipe)
 
