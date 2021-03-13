@@ -7,7 +7,7 @@ RUN npm run build
 
 FROM python:3.9-alpine
 
-RUN apk add --no-cache libxml2-dev libxslt-dev libxml2 caddy
+RUN apk add --no-cache libxml2-dev libxslt-dev libxml2 caddy libffi-dev
 ENV ENV prod
 EXPOSE 80
 WORKDIR /app
