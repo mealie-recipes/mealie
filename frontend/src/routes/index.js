@@ -1,15 +1,15 @@
-import HomePage from "../pages/HomePage";
-import Page404 from "../pages/404Page";
-import SearchPage from "../pages/SearchPage";
-import RecipePage from "../pages/RecipePage";
-import RecipeNewPage from "../pages/RecipeNewPage";
-import AllRecipesPage from "../pages/AllRecipesPage";
-import CategoryPage from "../pages/CategoryPage";
-import MeaplPlanPage from "../pages/MealPlanPage";
-import Debug from "../pages/Debug";
-import LoginPage from "../pages/LoginPage";
-import SignUpPage from "../pages/SignUpPage";
-import MealPlanThisWeekPage from "../pages/MealPlanThisWeekPage";
+import HomePage from "@/pages/HomePage";
+import Page404 from "@/pages/404Page";
+import SearchPage from "@/pages/SearchPage";
+import ViewRecipe from "@/pages/Recipe/ViewRecipe";
+import NewRecipe from "@/pages/Recipe/NewRecipe";
+import AllRecipes from "@/pages/Recipes/AllRecipes";
+import CategoryPage from "@/pages/Recipes/CategoryPage";
+import Planner from "@/pages/MealPlan/Planner";
+import Debug from "@/pages/Debug";
+import LoginPage from "@/pages/LoginPage";
+import SignUpPage from "@/pages/SignUpPage";
+import ThisWeek from "@/pages/MealPlan/ThisWeek";
 import api from "@/api";
 import Admin from "./admin";
 import { store } from "../store";
@@ -30,12 +30,12 @@ export const routes = [
   { path: "/sign-up/:token", component: SignUpPage },
   { path: "/debug", component: Debug },
   { path: "/search", component: SearchPage },
-  { path: "/recipes/all", component: AllRecipesPage },
+  { path: "/recipes/all", component: AllRecipes },
   { path: "/recipes/:category", component: CategoryPage },
-  { path: "/recipe/:recipe", component: RecipePage },
-  { path: "/new/", component: RecipeNewPage },
-  { path: "/meal-plan/planner", component: MeaplPlanPage },
-  { path: "/meal-plan/this-week", component: MealPlanThisWeekPage },
+  { path: "/recipe/:recipe", component: ViewRecipe },
+  { path: "/new/", component: NewRecipe },
+  { path: "/meal-plan/planner", component: Planner },
+  { path: "/meal-plan/this-week", component: ThisWeek },
   Admin,
   {
     path: "/meal-plan/today",

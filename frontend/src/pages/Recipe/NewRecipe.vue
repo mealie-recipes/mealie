@@ -43,9 +43,9 @@
 <script>
 import api from "@/api";
 
-import RecipeEditor from "../components/Recipe/RecipeEditor";
+import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import VJsoneditor from "v-jsoneditor";
-import EditorButtonRow from "../components/Recipe/EditorButtonRow";
+import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
 export default {
   components: {
     VJsoneditor,
