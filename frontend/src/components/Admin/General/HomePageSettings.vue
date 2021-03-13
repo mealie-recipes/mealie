@@ -38,7 +38,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                Home Page Categories
+                Home Page Sections
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
