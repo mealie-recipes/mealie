@@ -6,6 +6,7 @@ import userSettings from "./modules/userSettings";
 import language from "./modules/language";
 import homePage from "./modules/homePage";
 import siteSettings from "./modules/siteSettings";
+import groups from "./modules/groups";
 
 Vue.use(Vuex);
 
@@ -20,6 +21,7 @@ const store = new Vuex.Store({
     language,
     homePage,
     siteSettings,
+    groups,
   },
   state: {
     // All Recipe Data Store
