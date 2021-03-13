@@ -12,35 +12,18 @@
       @close="closeDelete"
     />
     <v-toolbar flat>
-      <v-icon large color="accent" class="mr-1">
-        mdi-account
-      </v-icon>
-      <v-toolbar-title class="headine">
-        Users
-      </v-toolbar-title>
-
       <v-spacer> </v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-filter"
-        label="Filter"
-        single-line
-        hide-details
-      ></v-text-field>
-      <v-dialog>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="mx-2"
-            small
-            color="success"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            Create Group
-          </v-btn>
-        </template>
-      </v-dialog>
+      <div width="100px">
+        <v-text-field
+          v-model="search"
+          class="mr-2"
+          append-icon="mdi-filter"
+          label="Filter"
+          single-line
+          hide-details
+        ></v-text-field>
+      </div>
+
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
@@ -83,11 +66,12 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="6">
-                  <v-text-field
+                  <v-select
                     dense
                     v-model="editedItem.group"
-                    label="Group Group"
-                  ></v-text-field>
+                    :items="existingGroups"
+                    label="User Group"
+                  ></v-select>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="showPassword">
                   <v-text-field
@@ -202,6 +186,9 @@ export default {
     },
     showPassword() {
       return this.editedIndex === -1 ? true : false;
+    },
+    existingGroups() {
+      return this.$store.getters.getGroupNames;
     },
   },
 

@@ -1,11 +1,13 @@
 <template>
-  <v-container>
-    <AdminSidebar />
-    <v-slide-x-transition hide-on-leave>
-      <router-view></router-view>
-    </v-slide-x-transition>
-    <!-- <v-footer fixed>
-      <v-col class="text-center" cols="12">
+  <div>
+    <v-container height="100%">
+      <AdminSidebar />
+      <v-slide-x-transition hide-on-leave>
+        <router-view></router-view>
+      </v-slide-x-transition>
+    </v-container>
+    <!-- <v-footer absolute>
+      <div class="flex text-center" cols="12">
         {{ $t("settings.current") }}
         {{ version }} |
         {{ $t("settings.latest") }}
@@ -21,9 +23,9 @@
         >
           {{ $t("settings.contribute") }}
         </a>
-      </v-col>
+      </div>
     </v-footer> -->
-  </v-container>
+  </div>
 </template>
 
 <script>

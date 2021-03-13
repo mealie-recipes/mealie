@@ -13,13 +13,17 @@
             outlined
             :flat="isFlat"
             elavation="0"
-            v-model="planCategories"
+            v-model="groupSettings.categories"
             :items="categories"
             item-text="name"
-            item-value="name"
+            return-object
             multiple
             chips
-            :hint="$t('meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans')"
+            :hint="
+              $t(
+                'meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans'
+              )
+            "
             class="mt-2"
             persistent-hint
           >
@@ -50,12 +54,15 @@
             "settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at"
           )
         }}
-        <strong>{{ time }}</strong>
+        <strong>{{ groupSettings.webhookTime }}</strong>
       </p>
 
       <v-row dense align="center">
         <v-col cols="12" md="2" sm="5">
-          <v-switch v-model="enabled" :label="$t('general.enabled')"></v-switch>
+          <v-switch
+            v-model="groupSettings.webhookEnable"
+            :label="$t('general.enabled')"
+          ></v-switch>
         </v-col>
         <v-col cols="12" md="3" sm="5">
           <TimePickerDialog @save-time="saveTime" />
@@ -68,7 +75,12 @@
         </v-col>
       </v-row>
 
-      <v-row v-for="(url, index) in webhooks" :key="index" align="center" dense>
+      <v-row
+        v-for="(url, index) in groupSettings.webhookUrls"
+        :key="index"
+        align="center"
+        dense
+      >
         <v-col cols="1">
           <v-btn icon color="error" @click="removeWebhook(index)">
             <v-icon>mdi-minus</v-icon>
@@ -76,7 +88,7 @@
         </v-col>
         <v-col>
           <v-text-field
-            v-model="webhooks[index]"
+            v-model="groupSettings.webhookUrls[index]"
             :label="$t('settings.webhooks.webhook-url')"
           ></v-text-field>
         </v-col>
@@ -87,7 +99,7 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn color="success" @click="saveWebhooks" class="mr-2 mb-1">
+      <v-btn color="success" @click="saveGroupSettings" class="mr-2 mb-1">
         <v-icon left> mdi-content-save </v-icon>
         {{ $t("general.save") }}
       </v-btn>
@@ -104,14 +116,19 @@ export default {
   },
   data() {
     return {
-      name: "main",
-      webhooks: [],
-      enabled: false,
-      time: "",
-      planCategories: [],
+      groupSettings: {
+        name: "home",
+        id: 1,
+        mealplans: [],
+        categories: [],
+        webhookUrls: [],
+        webhookTime: "00:00",
+        webhookEnable: false,
+      },
     };
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch("requestCurrentGroup");
     this.getSiteSettings();
   },
   computed: {
@@ -119,44 +136,39 @@ export default {
       return this.$store.getters.getCategories;
     },
     isFlat() {
-      return this.planCategories ? true : false;
+      return this.groupSettings.categories >= 1 ? true : false;
     },
   },
   methods: {
     saveTime(value) {
-      this.time = value;
+      this.groupSettings.webhookTime = value;
     },
-    async getSiteSettings() {
-      let settings = await api.settings.requestAll();
-      this.webhooks = settings.webhooks.webhookURLs;
-      this.name = settings.name;
-      this.time = settings.webhooks.webhookTime;
-      this.enabled = settings.webhooks.enabled;
-      this.planCategories = settings.planCategories;
+    getSiteSettings() {
+      let settings = this.$store.getters.getCurrentGroup;
+
+      this.groupSettings.name = settings.name;
+      this.groupSettings.id = settings.id;
+      this.groupSettings.categories = settings.categories;
+      this.groupSettings.webhookUrls = settings.webhookUrls;
+      this.groupSettings.webhookTime = settings.webhookTime;
+      this.groupSettings.webhookEnable = settings.webhookEnable;
     },
     addWebhook() {
-      this.webhooks.push(" ");
+      this.groupSettings.webhookUrls.push(" ");
     },
     removeWebhook(index) {
-      this.webhooks.splice(index, 1);
+      this.groupSettings.webhookUrls.splice(index, 1);
     },
-    saveWebhooks() {
-      const body = {
-        name: this.name,
-        planCategories: this.planCategories,
-        webhooks: {
-          webhookURLs: this.webhooks,
-          webhookTime: this.time,
-          enabled: this.enabled,
-        },
-      };
-      api.settings.update(body);
+    async saveGroupSettings() {
+      await api.groups.update(this.groupSettings);
+      await this.$store.dispatch("requestCurrentGroup");
+      this.getSiteSettings();
     },
     testWebhooks() {
       api.settings.testWebhooks();
     },
     removeCategory(index) {
-      this.planCategories.splice(index, 1);
+      this.groupSettings.categories.splice(index, 1);
     },
   },
 };
