@@ -1,11 +1,20 @@
 {
+
+  "dateTimeFormats": {
+    "short": {
+      "month": "short",
+      "day": "numeric",
+      "weekday": "long"
+    }
+  },
   "404": {
-    "page-not-found": "404 Page non trouvée",
+    "page-not-found": "404 Page introuvable",
     "take-me-home": "Retour à l'accueil"
   },
   "new-recipe": {
     "from-url": "Depuis une adresse web",
     "recipe-url": "Adresse de la recette",
+    "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
     "error-message": "Il y a eu une erreur en récupérant la recette. Veuillez vérifier les logs ainsi que le fichier debug/last_recipe.json pour localiser le problème.",
     "bulk-add": "Ajouter en bloc",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste."
@@ -36,6 +45,11 @@
     "themes": "Thèmes",
     "confirm": "Confirmer"
   },
+  "page": {
+    "home-page": "Accueil",
+    "all-recipes": "Toutes mes recettes",
+    "recent": "Récent"
+  },
   "login": {
     "stay-logged-in": "Rester connecté(e) ?",
     "email": "Email",
@@ -44,10 +58,12 @@
     "sign-up": "S'inscrire"
   },
   "meal-plan": {
+    "shopping-list": "Liste d'achats",
     "dinner-this-week": "Repas cette semaine",
+    "meal-planner": "Planificateur de repas",
     "dinner-today": "Repas aujourd'hui",
     "planner": "Planificateur",
-    "edit-meal-plan": "Éditer le plan de menu",
+    "edit-meal-plan": "Modifier le plan de menu",
     "meal-plans": "Plans de menu",
     "create-a-new-meal-plan": "Créer un nouveau plan de menu",
     "start-date": "Date de début",
@@ -87,6 +103,8 @@
   },
   "settings": {
     "general-settings": "Paramètres généraux",
+    "change-password": "Modifier le mot de passe",
+    "admin-settings": "Paramètres d'administration",
     "local-api": "API local",
     "language": "Langue",
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -155,7 +173,7 @@
     "successful-imports": "Importations réussies",
     "no-migration-data-available": "Aucune donnée d'importation n'est disponible",
     "nextcloud": {
-      "title": "Livre de recettes Nextcloud (Cookbook)",
+      "title": "Nextcloud Cookbook",
       "description": "Importer des recettes depuis un livre de recettes Nextcloud existant"
     },
     "chowdown": {
