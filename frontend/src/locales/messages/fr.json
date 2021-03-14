@@ -1,5 +1,4 @@
 {
-
   "404": {
     "page-not-found": "404 Page introuvable",
     "take-me-home": "Retour à l'accueil"
@@ -36,7 +35,10 @@
     "templates": "Modèles",
     "recipes": "Recettes",
     "themes": "Thèmes",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "recent": "Récent",
+    "sort": "Trier",
+    "sort-alphabetically": "A-Z"
   },
   "page": {
     "home-page": "Accueil",

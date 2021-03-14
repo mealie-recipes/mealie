@@ -1,5 +1,4 @@
 {
-
   "404": {
     "page-not-found": "404 Page Not Found",
     "take-me-home": "Take me Home"
@@ -36,7 +35,10 @@
     "templates": "Templates",
     "recipes": "Recipes",
     "themes": "Themes",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "sort": "Sort",
+    "recent": "Recent",
+    "sort-alphabetically": "A-Z"
   },
   "page": {
     "home-page": "Home Page",
