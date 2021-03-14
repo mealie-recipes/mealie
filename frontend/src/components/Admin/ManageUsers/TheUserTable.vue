@@ -52,7 +52,7 @@
                 <v-col cols="12" sm="12" md="6">
                   <v-text-field
                     v-model="editedItem.fullName"
-                    label="Full Name"
+                    :label="$t('user.full-name')"
                     :rules="[existsRule]"
                     validate-on-blur
                   ></v-text-field>
@@ -60,7 +60,7 @@
                 <v-col cols="12" sm="12" md="6">
                   <v-text-field
                     v-model="editedItem.email"
-                    label="Email"
+                    :label="$t('user.email')"
                     :rules="[existsRule, emailRule]"
                     validate-on-blur
                   ></v-text-field>
@@ -70,19 +70,19 @@
                     dense
                     v-model="editedItem.group"
                     :items="existingGroups"
-                    label="User Group"
+                    :label="$t('user.user-group')"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="showPassword">
                   <v-text-field
                     dense
                     v-model="editedItem.password"
-                    label="User Password"
+                    :label="$t('user.user-password')"
                     :rules="[existsRule, minRule]"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="3">
-                  <v-switch v-model="editedItem.admin" label="Admin"></v-switch>
+                  <v-switch v-model="editedItem.admin" :label="$t('user.admin')"></v-switch>
                 </v-col>
               </v-row>
             </v-form>
@@ -91,10 +91,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="grey" text @click="close">
-              Cancel
+              {{$t('general.cancel')}}
             </v-btn>
             <v-btn color="primary" @click="save">
-              Save
+              {{$t('general.save')}}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -113,13 +113,13 @@
             <v-icon small left>
               mdi-delete
             </v-icon>
-            Delete
+            {{$t('general.delete')}}
           </v-btn>
           <v-btn small color="success" @click="editItem(item)">
             <v-icon small left class="mr-2">
               mdi-pencil
             </v-icon>
-            Edit
+            {{$t('general.edit')}}
           </v-btn>
         </template>
         <template v-slot:item.admin="{ item }">
@@ -127,7 +127,7 @@
         </template>
         <template v-slot:no-data>
           <v-btn color="primary" @click="initialize">
-            Reset
+            {{$t('general.reset')}}
           </v-btn>
         </template>
       </v-data-table>
@@ -149,15 +149,15 @@ export default {
     activeName: null,
     headers: [
       {
-        text: "User ID",
+        text: this.$t('user.user-id'),
         align: "start",
         sortable: false,
         value: "id",
       },
-      { text: "Full Name", value: "fullName" },
-      { text: "Email", value: "email" },
-      { text: "Group", value: "group" },
-      { text: "Admin", value: "admin" },
+      { text: this.$t('user.full-name'), value: "fullName" },
+      { text: this.$t('user.email'), value: "email" },
+      { text: this.$t('user.group'), value: "group" },
+      { text: this.$t('user.admin'), value: "admin" },
       { text: "", value: "actions", sortable: false, align: "center" },
     ],
     users: [],
@@ -182,7 +182,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New User" : "Edit User";
+      return this.editedIndex === -1 ? this.$t('user.new-user') : this.$t('user.edit-user');
     },
     showPassword() {
       return this.editedIndex === -1 ? true : false;

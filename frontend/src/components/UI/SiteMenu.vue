@@ -71,8 +71,8 @@ export default {
           restricted: true,
         },
         {
-          icon: "mdi-account",
-          title: this.$t('auth.logout'),
+          icon: "mdi-logout",
+          title: this.$t('user.logout'),
           restricted: true,
           nav: "/logout",
         },

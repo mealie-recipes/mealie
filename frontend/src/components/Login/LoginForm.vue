@@ -30,7 +30,7 @@
           light="light"
           prepend-icon="mdi-email"
           validate-on-blur
-          :label="$t('login.email')"
+          :label="$t('user.email')"
           type="email"
         ></v-text-field>
         <v-text-field
@@ -38,7 +38,7 @@
           light="light"
           class="mb-2s"
           prepend-icon="mdi-lock"
-          :label="$t('login.password')"
+          :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
@@ -52,7 +52,7 @@
           color="primary"
           block="block"
           type="submit"
-          >{{ $t("login.sign-in") }}</v-btn
+          >{{ $t("user.sign-in") }}</v-btn
         >
       </v-card-actions>
       <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">

@@ -36,7 +36,7 @@
     "themes": "佈景主題",
     "confirm": "確定"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "保持登錄狀態？",
     "email": "電子郵件",
     "password": "密碼",

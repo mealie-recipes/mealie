@@ -38,19 +38,29 @@
     "confirm": "Confirm",
     "sort": "Sort",
     "recent": "Recent",
-    "sort-alphabetically": "A-Z"
+    "sort-alphabetically": "A-Z",
+    "reset": "Reset"
   },
   "page": {
     "home-page": "Home Page",
     "all-recipes": "All Recipes",
     "recent": "Recent"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "Stay logged in?",
     "email": "Email",
     "password": "Password",
     "sign-in": "Sign in",
-    "sign-up": "Sign up"
+    "sign-up": "Sign up",
+    "logout": "Logout",
+    "full-name": "Full Name",
+    "user-group": "User Group",
+    "user-password": "User Password",
+    "admin": "Admin",
+    "user-id": "User ID",
+    "group": "Group",
+    "new-user": "New User",
+    "edit-user": "Edit User"
   },
   "meal-plan": {
     "shopping-list": "Shopping List",
@@ -175,8 +185,5 @@
       "title": "Chowdown",
       "description": "Migrate data from Chowdown"
     }
-  },
-  "auth": {
-    "logout": "Logout"
   }
 }

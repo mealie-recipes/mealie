@@ -30,7 +30,7 @@
     "download": "Ladda ner",
     "import": "Importera"
   },
-  "login": {
+  "user": {
     "email": "E-mail",
     "password": "Lösenord",
     "sign-in": "Logga in",

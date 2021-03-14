@@ -38,19 +38,29 @@
     "confirm": "Confirmer",
     "recent": "Récent",
     "sort": "Trier",
-    "sort-alphabetically": "A-Z"
+    "sort-alphabetically": "A-Z",
+    "reset": "Réinitialiser"
   },
   "page": {
     "home-page": "Accueil",
     "all-recipes": "Toutes mes recettes",
     "recent": "Récent"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "Rester connecté(e) ?",
     "email": "Email",
     "password": "Mot de passe",
     "sign-in": "Se connecter",
-    "sign-up": "S'inscrire"
+    "sign-up": "S'inscrire",
+    "logout": "Déconnexion",
+    "admin": "Admin",
+    "edit-user": "Modifier l'utilisateur",
+    "full-name": "Nom",
+    "group": "Groupe",
+    "new-user": "Nouvel utilisateur",
+    "user-group": "Groupe utilisateur",
+    "user-id": "ID utilisateur",
+    "user-password": "Mot de passe de l'utilisateur"
   },
   "meal-plan": {
     "shopping-list": "Liste d'achats",
@@ -176,7 +186,5 @@
       "description": "Importer des recettes depuis Chowdown"
     }
   },
-  "auth": {
-    "logout": "Déconnexion"
-  }
+  "auth": {}
 }
