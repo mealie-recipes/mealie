@@ -1,12 +1,12 @@
 from datetime import date, timedelta
 
 from db.database import db
-from schema.meal import MealIn, MealOut, MealPlanBase, MealPlanProcessed
+from schema.meal import MealIn, MealOut, MealPlanIn, MealPlanProcessed
 from schema.recipe import Recipe
 from sqlalchemy.orm.session import Session
 
 
-def process_meals(session: Session, meal_plan_base: MealPlanBase) -> MealPlanProcessed:
+def process_meals(session: Session, meal_plan_base: MealPlanIn) -> MealPlanProcessed:
     meals = []
     for x, meal in enumerate(meal_plan_base.meals):
         meal: MealIn
@@ -30,7 +30,10 @@ def process_meals(session: Session, meal_plan_base: MealPlanBase) -> MealPlanPro
         meals.append(meal_data)
 
     return MealPlanProcessed(
-        meals=meals, startDate=meal_plan_base.startDate, endDate=meal_plan_base.endDate
+        group=meal_plan_base.group,
+        meals=meals,
+        startDate=meal_plan_base.startDate,
+        endDate=meal_plan_base.endDate,
     )
 
 

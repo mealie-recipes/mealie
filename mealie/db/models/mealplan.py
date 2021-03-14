@@ -1,8 +1,8 @@
-import uuid
 from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from db.models.group import Group
 from db.models.model_base import BaseMixins, SqlAlchemyBase
 
 
@@ -29,16 +29,25 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
     uid = sa.Column(sa.Integer, primary_key=True, unique=True)  #! Probably Bad?
     startDate = sa.Column(sa.Date)
     endDate = sa.Column(sa.Date)
-    meals: List[Meal] = orm.relation(Meal)
+    meals: List[Meal] = orm.relationship(Meal, cascade="all, delete")
     group_id = sa.Column(sa.String, sa.ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="mealplans")
 
-    def __init__(self, startDate, endDate, meals, uid=None, session=None) -> None:
+    def __init__(
+        self, startDate, endDate, meals, group: str, uid=None, session=None
+    ) -> None:
         self.startDate = startDate
         self.endDate = endDate
+        self.group = Group.get_ref(session, group)
         self.meals = [Meal(**meal) for meal in meals]
 
-    def update(self, session, startDate, endDate, meals, uid) -> None:
+    def update(self, session, startDate, endDate, meals, uid, group) -> None:
         MealPlanModel._sql_remove_list(session, [Meal], uid)
 
-        self.__init__(startDate, endDate, meals)
+        self.__init__(
+            startDate=startDate,
+            endDate=endDate,
+            meals=meals,
+            group=group,
+            session=session,
+        )

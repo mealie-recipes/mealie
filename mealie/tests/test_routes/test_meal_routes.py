@@ -13,6 +13,7 @@ from tests.utils.routes import (
 
 def get_meal_plan_template(first=None, second=None):
     return {
+        "group": "Home",
         "startDate": "2021-01-18",
         "endDate": "2021-01-19",
         "meals": [
@@ -54,17 +55,17 @@ def slug_2(api_client):
     api_client.delete(RECIPES_PREFIX + "/" + slug_2)
 
 
-def test_create_mealplan(api_client, slug_1, slug_2):
+def test_create_mealplan(api_client, slug_1, slug_2, token):
     meal_plan = get_meal_plan_template()
     meal_plan["meals"][0]["slug"] = slug_1
     meal_plan["meals"][1]["slug"] = slug_2
 
-    response = api_client.post(MEALPLAN_CREATE, json=meal_plan)
+    response = api_client.post(MEALPLAN_CREATE, json=meal_plan, headers=token)
     assert response.status_code == 200
 
 
-def test_read_mealplan(api_client, slug_1, slug_2):
-    response = api_client.get(MEALPLAN_ALL)
+def test_read_mealplan(api_client, slug_1, slug_2, token):
+    response = api_client.get(MEALPLAN_ALL, headers=token)
 
     assert response.status_code == 200
 
@@ -77,9 +78,9 @@ def test_read_mealplan(api_client, slug_1, slug_2):
     assert meals[1]["slug"] == meal_plan["meals"][1]["slug"]
 
 
-def test_update_mealplan(api_client, slug_1, slug_2):
+def test_update_mealplan(api_client, slug_1, slug_2, token):
 
-    response = api_client.get(MEALPLAN_ALL)
+    response = api_client.get(MEALPLAN_ALL, headers=token)
 
     existing_mealplan = json.loads(response.text)
     existing_mealplan = existing_mealplan[0]
@@ -89,11 +90,13 @@ def test_update_mealplan(api_client, slug_1, slug_2):
     existing_mealplan["meals"][0]["slug"] = slug_2
     existing_mealplan["meals"][1]["slug"] = slug_1
 
-    response = api_client.put(f"{MEALPLAN_PREFIX}/{plan_uid}", json=existing_mealplan)
+    response = api_client.put(
+        f"{MEALPLAN_PREFIX}/{plan_uid}", json=existing_mealplan, headers=token
+    )
 
     assert response.status_code == 200
 
-    response = api_client.get(MEALPLAN_ALL)
+    response = api_client.get(MEALPLAN_ALL, headers=token)
     existing_mealplan = json.loads(response.text)
     existing_mealplan = existing_mealplan[0]
 
@@ -101,8 +104,8 @@ def test_update_mealplan(api_client, slug_1, slug_2):
     assert existing_mealplan["meals"][1]["slug"] == slug_1
 
 
-def test_delete_mealplan(api_client):
-    response = api_client.get(MEALPLAN_ALL)
+def test_delete_mealplan(api_client, token):
+    response = api_client.get(MEALPLAN_ALL, headers=token)
 
     assert response.status_code == 200
     existing_mealplan = json.loads(response.text)

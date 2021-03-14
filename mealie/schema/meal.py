@@ -1,7 +1,9 @@
 from datetime import date
 from typing import List, Optional
 
+from db.models.mealplan import MealPlanModel
 from pydantic import BaseModel, validator
+from pydantic.utils import GetterDict
 
 
 class MealIn(BaseModel):
@@ -18,7 +20,8 @@ class MealOut(MealIn):
         orm_mode = True
 
 
-class MealPlanBase(BaseModel):
+class MealPlanIn(BaseModel):
+    group: str
     startDate: date
     endDate: date
     meals: List[MealIn]
@@ -30,7 +33,7 @@ class MealPlanBase(BaseModel):
         return v
 
 
-class MealPlanProcessed(MealPlanBase):
+class MealPlanProcessed(MealPlanIn):
     meals: list[MealOut]
 
 
@@ -40,18 +43,9 @@ class MealPlanInDB(MealPlanProcessed):
     class Config:
         orm_mode = True
 
-
-class MealPlan(BaseModel):
-    uid: Optional[str]
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "startDate": date.today(),
-                "endDate": date.today(),
-                "meals": [
-                    {"slug": "Packed Mac and Cheese", "date": date.today()},
-                    {"slug": "Eggs and Toast", "date": date.today()},
-                ],
+        @classmethod
+        def getter_dict(_cls, name_orm: MealPlanModel):
+            return {
+                **GetterDict(name_orm),
+                "group": name_orm.group.name,
             }
-        }

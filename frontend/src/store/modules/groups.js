@@ -28,7 +28,7 @@ const actions = {
 const getters = {
   getGroups: state => state.groups,
   getGroupNames: state => Array.from(state.groups, x => x.name),
-  getCurrentGroup: state => state.currentGroup
+  getCurrentGroup: state => state.currentGroup,
 };
 
 export default {
