@@ -9,12 +9,12 @@ from db.init_db import init_db
 from routes import (
     backup_routes,
     debug_routes,
-    meal_routes,
     migration_routes,
     setting_routes,
     theme_routes,
 )
 from routes.groups import groups
+from routes.mealplans import mealplans
 from routes.recipe import (
     all_recipe_routes,
     category_routes,
@@ -51,7 +51,7 @@ def api_routers():
     app.include_router(recipe_crud_routes.router)
 
     # Meal Routes
-    app.include_router(meal_routes.router)
+    app.include_router(mealplans.router)
     # Settings Routes
     app.include_router(setting_routes.router)
     app.include_router(theme_routes.router)

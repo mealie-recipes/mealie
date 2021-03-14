@@ -3,6 +3,9 @@ from pathlib import Path
 
 import dotenv
 
+APP_VERSION = "v0.3.0"
+DB_VERSION = "v0.3.0"
+
 CWD = Path(__file__).parent
 
 
@@ -19,8 +22,6 @@ dotenv.load_dotenv(ENV)
 SECRET = "super-secret-key"
 
 # General
-APP_VERSION = "v0.3.0"
-DB_VERSION = "v0.3.0"
 PRODUCTION = os.environ.get("ENV")
 PORT = int(os.getenv("mealie_port", 9000))
 API = os.getenv("api_docs", True)
@@ -83,7 +84,7 @@ else:
 
 # Mongo Database
 MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")
-DEFAULT_GROUP = os.getenv("default_group", "home")
+DEFAULT_GROUP = os.getenv("default_group", "Home")
 DB_USERNAME = os.getenv("db_username", "root")
 DB_PASSWORD = os.getenv("db_password", "example")
 DB_HOST = os.getenv("db_host", "mongo")

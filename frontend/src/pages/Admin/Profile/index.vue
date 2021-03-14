@@ -165,11 +165,11 @@ export default {
       showPassword: false,
       loading: false,
       user: {
-        fullName: "Change Me",
-        email: "changeme@email.com",
-        group: "public",
-        admin: true,
-        id: 1,
+        fullName: "",
+        email: "",
+        group: "",
+        admin: false,
+        id: 0,
       },
     };
   },

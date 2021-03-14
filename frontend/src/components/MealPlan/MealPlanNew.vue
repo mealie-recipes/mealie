@@ -82,6 +82,7 @@
 </template>
 
 <script>
+const CREATE_EVENT = "created";
 import api from "@/api";
 import utils from "@/utils";
 import MealPlanCard from "./MealPlanCard";
@@ -116,9 +117,8 @@ export default {
     },
   },
   async mounted() {
-    let settings = await api.settings.requestAll();
-    this.items = await api.recipes.getAllByCategory(settings.planCategories);
-    console.log(this.items);
+    let categories = Array.from(this.groupSettings, x => x.name);
+    this.items = await api.recipes.getAllByCategory(categories);
 
     if (this.items.length === 0) {
       const keys = [
@@ -134,6 +134,9 @@ export default {
   },
 
   computed: {
+    groupSettings() {
+      return this.$store.getters.getCurrentGroup;
+    },
     actualStartDate() {
       return Date.parse(this.startDate);
     },
@@ -145,7 +148,6 @@ export default {
       let endDate = new Date(this.endDate);
 
       let dateDif = (endDate - startDate) / (1000 * 3600 * 24) + 1;
-
 
       if (dateDif < 1) {
         return null;
@@ -190,12 +192,13 @@ export default {
 
     async save() {
       const mealBody = {
+        group: this.groupSettings.name,
         startDate: this.startDate,
         endDate: this.endDate,
         meals: this.meals,
       };
       await api.mealPlans.create(mealBody);
-      this.$emit("created");
+      this.$emit(CREATE_EVENT);
       this.meals = [];
       this.startDate = null;
       this.endDate = null;

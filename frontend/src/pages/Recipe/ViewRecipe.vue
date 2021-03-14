@@ -62,10 +62,10 @@
 import api from "@/api";
 import utils from "@/utils";
 import VJsoneditor from "v-jsoneditor";
-import RecipeViewer from "../components/Recipe/RecipeViewer";
-import RecipeEditor from "../components/Recipe/RecipeEditor";
-import RecipeTimeCard from "../components/Recipe/RecipeTimeCard.vue";
-import EditorButtonRow from "../components/Recipe/EditorButtonRow";
+import RecipeViewer from "@/components/Recipe/RecipeViewer";
+import RecipeEditor from "@/components/Recipe/RecipeEditor";
+import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
+import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
 import { user } from "@/mixins/user";
 
 export default {
