@@ -6,3 +6,32 @@
   --md-accent-fg-color--light: #e58325;
   --md-accent-fg-color--dark: #e58325;
 }
+
+/* frontpage elements */
+.tx-hero h1 {
+  font-size: 2.41rem !important;
+}
+a.md-button.md-button--primary {
+  background-color: var(--md-accent-fg-color);
+  border-color: var(--md-accent-fg-color);
+  color: #ffffff;
+}
+a.md-button.md-button--primary:hover {
+  color: #000000;
+}
+a.md-button.md-button:hover {
+  color: #ffffff;
+}
+
+/* Site width etc.*/
+.md-grid {
+  max-width: 64rem !important;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: #e58325;
+}
+
+th {
+  font-weight: bold;
+}

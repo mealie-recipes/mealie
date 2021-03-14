@@ -1,6 +1,6 @@
 {
   "python.formatting.provider": "black",
-  "python.pythonPath": "./.venv/bin/python3.9",
+  "python.pythonPath": ".venv/bin/python3.9",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.autoComplete.extraPaths": ["mealie", "mealie/mealie"],
@@ -15,8 +15,6 @@
   "i18n-ally.localesPaths": "frontend/src/locales",
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.keystyle": "nested",
-  "cSpell.words": [
-    "performant"
-  ],
+  "cSpell.words": ["performant"],
   "search.mode": "reuseEditor"
 }

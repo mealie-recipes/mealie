@@ -31,12 +31,12 @@
         "cwd": "${workspaceFolder}/mealie/"
       },
       "type": "shell",
-      "problemMatcher": [],
       "presentation": {
         "reveal": "always",
         "group": "groupA"
       }
     },
+
     {
       "label": "Dev: Start local Frontend",
       "command": "npm run serve",
@@ -44,7 +44,6 @@
       "options": {
         "cwd": "${workspaceFolder}/frontend/"
       },
-      "problemMatcher": [],
       "presentation": {
         "reveal": "always",
         "group": "groupA"
