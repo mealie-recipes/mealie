@@ -16,19 +16,19 @@
 
     .tx-container {
         padding-top: .0rem;
-        background: linear-gradient(to bottom, var(--md-primary-fg-color), rgb(194, 151, 86) 99%,#fff 99%)
+        background: var(--md-primary-bg-color)
     }
 
     .tx-hero {
         margin: 12px 2.8rem;
-        color: var(--md-primary-bg-color);
         justify-content: center;
     }
 
     .tx-hero h1 {
         margin-bottom: 1rem;
-        color: currentColor;
-        font-weight: 700
+        font-family: "Roboto";
+        color: #30353a;
+        font-weight: 500
     }
 
     .tx-hero__content {
@@ -45,7 +45,7 @@
     .tx-hero .md-button {
         margin-top: .5rem;
         margin-right: .5rem;
-        color: var(--md-primary-bg-color)
+        color: var(--md-primary-fg-color)
     }
 
     .tx-hero .md-button--primary {
@@ -67,8 +67,13 @@
         transform: translateY(10%);
     }
 
+    .feature-container {
+        background-color: #F7FAFC;
+    }
+
     .top-hr {
         margin-top: 42px;
+        margin-bottom: 42px;
     }
 
     .feature-item {
@@ -158,10 +163,10 @@
             min-width: 0;
         }
 
-        .feature-item:hover {
+        /* .feature-item:hover {
             background-color: #fea55247;
             border-radius: 3px;
-        }
+        } */
     }
 
     .hr {
@@ -223,9 +228,11 @@
           <img src="img/home_screenshot.png" draggable="false">
         </div>
         <div class="tx-hero__content">
-          <h1> Mealie </h1>
+          <h1> 
+            Mealie 
+        </h1>
           <p>
-            Mealie is a self hosted recipe manager and meal planner with a RestAPI backend and a 
+            A self-hosted recipe manager and meal planner with a RestAPI backend and a 
             reactive frontend application built in Vue for a pleasant user experience for the 
             whole family.
           </p>
@@ -242,6 +249,8 @@
 
 <!-- Main site box descriptions -->
 <!-- Row 1 -->
+<section class="feature-container">
+
 <div class="top-hr">
     <div class="feature-item">
         <h2>
@@ -285,6 +294,7 @@
     </div>
 </div>
 <!-- Row 2 -->
+
 <div class="top-hr">
     <div class="feature-item">
         <h2>
@@ -327,11 +337,7 @@
         <p> API Driven application gives you full control of the backend server with interactive documentation</p>
     </div>
 </div>
-
-<div class="top-hr">
-    <div class="hr">
-    </div>
-</div>
+</section>
 
 
 <!-- Custom narrow footer -->
