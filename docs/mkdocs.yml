@@ -8,7 +8,7 @@ theme:
     - navigation.sections
     - navigation.tabs
     - navigation.tabs.sticky
-  favicon: img/favicon.png
+  favicon: assets/img/favicon.png
   name: material
   icon:
     logo: material/silverware-variant
@@ -28,7 +28,7 @@ markdown_extensions:
   - pymdownx.superfences
 
 extra_css:
-  - stylesheets/custom.css
+  - assets/stylesheets/custom.css
 repo_url: https://github.com/hay-kot/mealie
 repo_name: hay-kot/mealie
 

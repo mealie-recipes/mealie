@@ -122,4 +122,4 @@ Project Link: [https://github.com/hay-kot/mealie](https://github.com/hay-kot/mea
 [license-url]: https://github.com/hay-kot/mealie/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/hay-kot
-[product-screenshot]: docs/docs/img/home_screenshot.png
+[product-screenshot]: docs/docs/assets/img/home_screenshot.png
