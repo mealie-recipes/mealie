@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
 from db.database import db
-from schema.meal import MealIn, MealOut, MealPlanIn, MealPlanProcessed
+from schema.meal import MealIn, MealOut, MealPlanIn, MealPlanInDB, MealPlanProcessed
 from schema.recipe import Recipe
 from sqlalchemy.orm.session import Session
 
@@ -38,9 +38,9 @@ def process_meals(session: Session, meal_plan_base: MealPlanIn) -> MealPlanProce
 
 
 def get_todays_meal(session):
-    meal_plan = db.meals.get_all(session, limit=1, order_by="startDate")
+    meal_plan: MealPlanInDB = db.groups.get(session, limit=1, order_by="startDate")
 
-    for meal in meal_plan:
+    for meal in meal_plan.meals:
         meal: MealOut
         if meal.date == date.today():
             return meal.slug

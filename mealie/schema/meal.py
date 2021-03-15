@@ -27,7 +27,7 @@ class MealPlanIn(BaseModel):
     meals: List[MealIn]
 
     @validator("endDate")
-    def endDate_after_startDate(cls, v, values, **kwargs):
+    def endDate_after_startDate(v, values, config, field):
         if "startDate" in values and v < values["startDate"]:
             raise ValueError("EndDate should be greater than StartDate")
         return v
