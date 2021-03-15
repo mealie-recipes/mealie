@@ -3,8 +3,11 @@ from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from schema.settings import SiteSettings
 from schema.snackbar import SnackResponse
+from schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
 from utils.post_webhooks import post_webhooks
+
+from routes.deps import manager
 
 router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 
@@ -27,7 +30,11 @@ def update_settings(data: SiteSettings, session: Session = Depends(generate_sess
 
 
 @router.post("/webhooks/test")
-def test_webhooks():
+def test_webhooks(
+    current_user: UserInDB = Depends(manager),
+    session: Session = Depends(generate_session),
+):
     """ Run the function to test your webhooks """
+    group_entry: GroupInDB = db.groups.get(session, current_user.group, "name")
 
-    return post_webhooks()
+    return post_webhooks(group_entry.id, session)

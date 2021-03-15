@@ -1,7 +1,8 @@
 # Migration
 
 ## Chowdown
-To migrate recipes from a Chowdown 
+To migrate recipes from a Chowdown
+ 
   1. Download the code repository as a .zip file
   2. Upload the .zip file in the Chowdown section in Mealie
   3. Select import on the newly available migration. 

@@ -38,3 +38,4 @@ COPY --from=build-stage /app/dist /app/dist
 VOLUME [ "/app/data/" ]
 RUN chmod +x /app/run.sh
 CMD /app/run.sh
+

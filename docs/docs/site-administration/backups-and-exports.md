@@ -2,13 +2,55 @@
 
 All recipe data can be imported and exported as necessary from the UI. Under the admin page you'll find the section for using Backups and Exports. 
 
-To create an export simple add the tag and the markdown template and click Backup Recipes and your backup will be created on the server. The backup is a standard zipfile containing all the images, json files, and rendered markdown files for each recipe. Markdown files are rendered from jinja2 templates. Adding your own markdown file into the templates folder will automatically show up as an option to select when creating a backup. To view the available variables, open a recipe in the json editor.
+!!! danger
+    As this is still a **BETA** It is recommended that you backup your data often and store in more than one place. Ad-hear to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup). Prior to upgrading you **should** perform a backup to limit any data loss.
 
-To import a backup it must be in your backups folder. If it is in the backup folder it will automatically show up as an source to restore from. Selected the desired backup and import the backup file. 
+!!! tip "Mealie data that is saved on backups"
+    - [x] Recipe Data
+    - [ ] Meal Plan
+    - [x] Site Settings
+    - [x] User Data
+    - [x] Group Data
+
+To create an export simply add the tag and the markdown template and click "Create" and your backup will be created on the server. The backup is a standard zipfile containing all the images, json files, and rendered jinaj2 templates for each recipe. To view the available variables, open a recipe in the json editor.
+
+To import a backup it must be in your backups folder. If it is in the backup folder it will automatically show up as a source to restore from. Selected the desired backup and import the backup file. Backups can be uploaded from the UI as well as added on the file system
+
+## Demo
 
 ![](../gifs/backup-demo-v1.gif)
 
-## Custom Templating
+## API Examples
+You can use the API to create and retrieve backups remotely from any server that can access the Mealie instance. This is useful for easily managing off-site backups via cron-job or other scheduled tasks. You can find interactive documentation for your API at https://your-mealie-instance.com/docs
+
+### curl Example
+Create a backup with curl
+```bash
+curl -X 'POST' \
+  'http://localhost:9000/api/backups/export/database' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "tag": "July 23rd 2021",
+  "options": {
+    "recipes": true,
+    "settings": true,
+    "themes": true
+  },
+  "template": [
+    "recipes.md"
+  ]
+}'
+```
+
+### wget Example
+Download a backup with `wget`
+```bash
+wget http://localhost:9000/api/backups/{file_name}/download
+```
+
+
+## Jinja2 Templating
 On export you can select a template to use to render files using the jinja2 syntax. This can be done to export recipes in other formats besides regular .json.Look at this example for rendering a markdown recipe using the jinja2 syntax. 
 
 ### Input

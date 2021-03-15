@@ -6,7 +6,9 @@
       "command": "./dev/scripts/docker-compose.dev.sh",
       "type": "shell",
       "args": [],
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "presentation": {
         "reveal": "always"
       },
@@ -17,7 +19,9 @@
       "command": "./dev/scripts/docker-compose.sh",
       "type": "shell",
       "args": [],
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "presentation": {
         "reveal": "always"
       },
@@ -26,16 +30,18 @@
     {
       "label": "Dev: Start local Backend",
       "command": "../${config:python.pythonPath}",
-      "args": ["app.py"],
+      "args": [
+        "app.py"
+      ],
       "options": {
         "cwd": "${workspaceFolder}/mealie/"
       },
       "type": "shell",
-      "problemMatcher": [],
       "presentation": {
         "reveal": "always",
         "group": "groupA"
-      }
+      },
+      "problemMatcher": []
     },
     {
       "label": "Dev: Start local Frontend",
@@ -44,11 +50,11 @@
       "options": {
         "cwd": "${workspaceFolder}/frontend/"
       },
-      "problemMatcher": [],
       "presentation": {
         "reveal": "always",
         "group": "groupA"
-      }
+      },
+      "problemMatcher": []
     }
   ]
 }
