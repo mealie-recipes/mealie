@@ -7,6 +7,10 @@
   --md-accent-fg-color--dark: #e58325;
 }
 
+body {
+  background: var(--md-primary-bg-color);
+}
+
 /* frontpage elements */
 .tx-hero h1 {
   font-size: 2.41rem !important;
