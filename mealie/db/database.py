@@ -5,6 +5,7 @@ from schema.settings import SiteSettings as SiteSettingsSchema
 from schema.sign_up import SignUpOut
 from schema.theme import SiteTheme
 from schema.user import GroupInDB, UserInDB
+from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
 from db.db_base import BaseDocument
@@ -93,6 +94,27 @@ class _Groups(BaseDocument):
         self.sql_model = Group
         self.orm_mode = True
         self.schema = GroupInDB
+
+    def get_meals(
+        self, session: Session, match_value: str, match_key: str = "name"
+    ) -> list[MealPlanInDB]:
+        """A Helper function to get the group from the database and return a sorted list of
+
+        Args:
+            session (Session): SqlAlchemy Session
+            match_value (str): Match Value
+            match_key (str, optional): Match Key. Defaults to "name".
+
+        Returns:
+            list[MealPlanInDB]: [description]
+        """
+        group: GroupInDB = (
+            session.query(self.sql_model)
+            .filter_by(**{match_key: match_value})
+            .one_or_none()
+        )
+
+        return sorted(group.mealplans, key=lambda mealplan: mealplan.startDate)
 
 
 class _SignUps(BaseDocument):

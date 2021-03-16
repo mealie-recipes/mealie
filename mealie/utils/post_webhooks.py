@@ -1,11 +1,8 @@
-import json
-from datetime import date
-
 import requests
 from db.database import db
 from db.db_setup import create_session
-from schema.meal import MealOut, MealPlanInDB
 from schema.user import GroupInDB
+from services.meal_services import get_todays_meal
 from sqlalchemy.orm.session import Session
 
 
@@ -13,23 +10,15 @@ def post_webhooks(group: int, session: Session = None):
     session = session if session else create_session()
     group_settings: GroupInDB = db.groups.get(session, group)
 
-    if group_settings.webhook_enable:
-        today_slug = None
+    if not group_settings.webhook_enable:
+        return 
 
-        for mealplan in group_settings.mealplans:
-            mealplan: MealPlanInDB
-            for meal in mealplan.meals:
-                meal: MealOut
-                if meal.date == date.today():
-                    today_slug = meal.slug
-                    break
+    todays_recipe = get_todays_meal(session, group)
 
-        if not today_slug:
-            return
+    if not todays_recipe:
+        return
 
-        todays_meal = db.recipes.get(session, today_slug)
-
-        for url in group_settings.webhook_urls:
-            requests.post(url, json=todays_meal.json())
+    for url in group_settings.webhook_urls:
+        requests.post(url, json=todays_recipe.json())
 
     session.close()

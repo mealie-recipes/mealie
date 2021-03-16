@@ -73,8 +73,8 @@ export default {
     return `${dow}, ${month} ${day}`;
   },
   getDateAsPythonDate(dateObject) {
-    const month = dateObject.getMonth() + 1;
-    const day = dateObject.getDate();
+    const month = dateObject.getUTCMonth() + 1;
+    const day = dateObject.getUTCDate();
     const year = dateObject.getFullYear();
 
     return `${year}-${month}-${day}`;

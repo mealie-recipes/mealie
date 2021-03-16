@@ -55,18 +55,6 @@ class ScheduledFunction:
             args=args,
         )
 
-        logger.info("New Function Scheduled")
-        logger.info(scheduler.print_jobs())
-
-
-logger.info("----INIT SCHEDULE OBJECT-----")
-
-JOB_STORE = {
-    "backup_job": ScheduledFunction(
-        scheduler, auto_backup_job, Cron(hours=00, minutes=00), "backups"
-    ),
-}
-
 
 def init_webhook_schedule(scheduler, job_store: dict):
     session = create_session()
@@ -88,12 +76,19 @@ def init_webhook_schedule(scheduler, job_store: dict):
         )
 
     session.close()
-    logger.info("Init Webhook Schedule \n", scheduler.print_jobs())
 
     return job_store
 
 
+logger.info("----INIT SCHEDULE OBJECT-----")
+
+JOB_STORE = {
+    "backup_job": ScheduledFunction(
+        scheduler, auto_backup_job, Cron(hours=00, minutes=00), "backups"
+    ),
+}
+
 JOB_STORE = init_webhook_schedule(scheduler=scheduler, job_store=JOB_STORE)
 
-
+logger.info(scheduler.print_jobs())
 scheduler.start()

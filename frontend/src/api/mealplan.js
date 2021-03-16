@@ -16,6 +16,7 @@ const mealPlanURLs = {
 
 export default {
   async create(postBody) {
+    console.log(postBody);
     let response = await apiReq.post(mealPlanURLs.create, postBody);
     return response;
   },

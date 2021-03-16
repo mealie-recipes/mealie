@@ -10,6 +10,7 @@ Your sites settings panel can only be accessed by administrators. This where you
 | Card Per Section   | The amount of cards displayed in each section on the home page |
 | Home Page Sections | Category sections to include on the home page                  |
 
+![Site Settings Image](../assets/img/site-settings.png)
 
 
 

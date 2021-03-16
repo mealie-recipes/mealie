@@ -6,7 +6,7 @@ Recipes extras are a key feature of the Mealie API. They allow you to create cus
 
 For example you could add `{"message": "Remember to thaw the chicken"}` to a recipe and use the webhooks built into mealie to send that message payload to a destination to be processed.
 
-![api-extras-gif](../gifs/api-extras.gif)
+![api-extras-gif](../assets/gifs/api-extras.gif)
 
 
 ## Examples

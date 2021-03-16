@@ -1,8 +1,5 @@
 # Contributing to Mealie
 
-!!! Warning
-    It should be known going into this that this is my first open source project, and my first public github repo I'm actively managing. If something does not make sense, or is not best practice. PLEASE feel free to reach out and let me know. I'm all about improving workflow and making it easier for contributors. 
-
 [Please Join the Discord](https://discord.gg/R6QDyJgbD2). We are building a community of developers working on the project.
 
 ## We Develop with Github
