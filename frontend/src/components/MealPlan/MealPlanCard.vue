@@ -17,7 +17,9 @@
             :src="getImage(meal.slug)"
             @click="openSearch(index)"
           ></v-img>
-          <v-card-title class="my-n3 mb-n6">{{ $d( new Date(meal.date), 'short' ) }}</v-card-title>
+          <v-card-title class="my-n3 mb-n6">
+            {{ $d(new Date(meal.date.split("-")), "short") }}
+          </v-card-title>
           <v-card-subtitle> {{ meal.name }}</v-card-subtitle>
         </v-card>
       </v-hover>

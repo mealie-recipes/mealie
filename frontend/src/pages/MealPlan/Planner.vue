@@ -25,8 +25,8 @@
       >
         <v-card class="mt-1">
           <v-card-title>
-            {{ $d(new Date(mealplan.startDate), "short") }} -
-            {{ $d(new Date(mealplan.endDate), "short") }}
+            {{ $d(new Date(mealplan.startDate.split("-")), "short") }} -
+            {{ $d(new Date(mealplan.endDate.split("-")), "short") }}
           </v-card-title>
           <v-list nav>
             <v-list-item-group color="primary">
@@ -44,7 +44,7 @@
                 <v-list-item-content>
                   <v-list-item-title v-text="meal.name"></v-list-item-title>
                   <v-list-item-subtitle
-                    v-text="$d(new Date(meal.date), 'short')"
+                    v-text="$d(new Date(meal.date.split('-')), 'short')"
                   >
                   </v-list-item-subtitle>
                 </v-list-item-content>

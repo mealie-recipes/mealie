@@ -29,7 +29,7 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
     uid = sa.Column(sa.Integer, primary_key=True, unique=True)  #! Probably Bad?
     startDate = sa.Column(sa.Date)
     endDate = sa.Column(sa.Date)
-    meals: List[Meal] = orm.relationship(Meal, cascade="all, delete")
+    meals: List[Meal] = orm.relationship(Meal, cascade="all, delete, delete-orphan")
     group_id = sa.Column(sa.String, sa.ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="mealplans")
 
@@ -42,7 +42,7 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
         self.meals = [Meal(**meal) for meal in meals]
 
     def update(self, session, startDate, endDate, meals, uid, group) -> None:
-        MealPlanModel._sql_remove_list(session, [Meal], uid)
+        # MealPlanModel._sql_remove_list(session, [Meal], uid)
 
         self.__init__(
             startDate=startDate,

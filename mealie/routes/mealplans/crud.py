@@ -1,3 +1,5 @@
+import datetime
+
 from db.database import db
 from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
@@ -64,10 +66,17 @@ def get_this_week(session: Session = Depends(generate_session)):
 
 
 @router.get("/today", tags=["Meal Plan"])
-def get_today(session: Session = Depends(generate_session)):
+def get_today(
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(manager),
+):
     """
     Returns the recipe slug for the meal scheduled for today.
     If no meal is scheduled nothing is returned
     """
 
-    return get_todays_meal(session)
+    group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
+    recipe = get_todays_meal(session, group_in_db)
+    print(datetime.date.today())
+
+    return recipe.slug
