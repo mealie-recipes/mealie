@@ -59,10 +59,19 @@ def delete_meal_plan(plan_id, session: Session = Depends(generate_session)):
 
 
 @router.get("/this-week", response_model=MealPlanInDB)
-def get_this_week(session: Session = Depends(generate_session)):
+def get_this_week(
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(manager),
+):
     """ Returns the meal plan data for this week """
 
-    return db.meals.get_all(session, limit=1, order_by="startDate")
+    group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
+
+    meals_sorted = sorted(
+        group_in_db.mealplans, key=lambda mealplan: mealplan.startDate
+    )
+
+    return meals_sorted[0]
 
 
 @router.get("/today", tags=["Meal Plan"])
