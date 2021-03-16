@@ -30,7 +30,6 @@
             <v-date-picker
               v-model="startDate"
               no-title
-              :locale="$i18n.locale"
               @input="menu2 = false"
             ></v-date-picker>
           </v-menu>
@@ -59,7 +58,6 @@
             <v-date-picker
               v-model="endDate"
               no-title
-              :locale="$i18n.locale"
               @input="menu2 = false"
             ></v-date-picker>
           </v-menu>
