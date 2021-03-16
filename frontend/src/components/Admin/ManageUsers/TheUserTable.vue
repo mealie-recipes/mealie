@@ -2,10 +2,8 @@
   <v-card outlined class="mt-n1">
     <Confirmation
       ref="deleteUserDialog"
-      title="Confirm User Deletion"
-      :message="
-        `Are you sure you want to delete the user <b>${activeName} ID: ${activeId}<b/>`
-      "
+      :title="$t('user.confirm-user-deletion')"
+      :message="$t('user.are-you-sure-you-want-to-delete-the-user', { activeName, activeId })"
       icon="mdi-alert"
       @confirm="deleteUser"
       :width="450"
@@ -18,7 +16,7 @@
           v-model="search"
           class="mr-2"
           append-icon="mdi-filter"
-          label="Filter"
+          :label="$t('general.filter')"
           single-line
           hide-details
         ></v-text-field>
@@ -27,7 +25,7 @@
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
-            Create User
+            {{$t('user.create-user')}}
           </v-btn>
         </template>
         <v-card>
@@ -42,7 +40,7 @@
 
             <v-spacer></v-spacer>
             <v-toolbar-title class="headline">
-              User ID: {{ editedItem.id }}
+              {{$t('user.user-id')}} {{ editedItem.id }}
             </v-toolbar-title>
           </v-app-bar>
 
@@ -142,43 +140,45 @@ import { validators } from "@/mixins/validators";
 export default {
   components: { Confirmation },
   mixins: [validators],
-  data: () => ({
-    search: "",
-    dialog: false,
-    activeId: null,
-    activeName: null,
-    headers: [
-      {
-        text: this.$t('user.user-id'),
-        align: "start",
-        sortable: false,
-        value: "id",
+  data() { 
+    return {
+      search: "",
+      dialog: false,
+      activeId: null,
+      activeName: null,
+      headers: [
+        {
+          text: this.$t("user.user-id"),
+          align: "start",
+          sortable: false,
+          value: "id",
+        },
+        { text: this.$t('user.full-name'), value: "fullName" },
+        { text: this.$t('user.email'), value: "email" },
+        { text: this.$t('user.group'), value: "group" },
+        { text: this.$t('user.admin'), value: "admin" },
+        { text: "", value: "actions", sortable: false, align: "center" },
+      ],
+      users: [],
+      editedIndex: -1,
+      editedItem: {
+        id: 0,
+        fullName: "",
+        password: "",
+        email: "",
+        group: "",
+        admin: false,
       },
-      { text: this.$t('user.full-name'), value: "fullName" },
-      { text: this.$t('user.email'), value: "email" },
-      { text: this.$t('user.group'), value: "group" },
-      { text: this.$t('user.admin'), value: "admin" },
-      { text: "", value: "actions", sortable: false, align: "center" },
-    ],
-    users: [],
-    editedIndex: -1,
-    editedItem: {
-      id: 0,
-      fullName: "",
-      password: "",
-      email: "",
-      group: "",
-      admin: false,
-    },
-    defaultItem: {
-      id: 0,
-      fullName: "",
-      password: "",
-      email: "",
-      group: "",
-      admin: false,
-    },
-  }),
+      defaultItem: {
+        id: 0,
+        fullName: "",
+        password: "",
+        email: "",
+        group: "",
+        admin: false,
+      },
+    } 
+  },
 
   computed: {
     formTitle() {

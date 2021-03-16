@@ -20,7 +20,7 @@
     "save": "Sauvegarder",
     "image-file": "Image",
     "update": "Mettre à jour",
-    "edit": "Editer",
+    "edit": "Modifier",
     "delete": "Supprimer",
     "select": "Sélectionner",
     "random": "Aléatoire",
@@ -39,7 +39,8 @@
     "recent": "Récent",
     "sort": "Trier",
     "sort-alphabetically": "A-Z",
-    "reset": "Réinitialiser"
+    "reset": "Réinitialiser",
+    "filter": "Filtrer"
   },
   "page": {
     "home-page": "Accueil",
@@ -48,7 +49,7 @@
   },
   "user": {
     "stay-logged-in": "Rester connecté(e) ?",
-    "email": "Email",
+    "email": "E-mail",
     "password": "Mot de passe",
     "sign-in": "Se connecter",
     "sign-up": "S'inscrire",
@@ -60,7 +61,10 @@
     "new-user": "Nouvel utilisateur",
     "user-group": "Groupe utilisateur",
     "user-id": "ID utilisateur",
-    "user-password": "Mot de passe de l'utilisateur"
+    "user-password": "Mot de passe de l'utilisateur",
+    "create-user": "Créer utilisateur",
+    "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/>",
+    "confirm-user-deletion": "Confirmer la suppression"
   },
   "meal-plan": {
     "shopping-list": "Liste d'achats",

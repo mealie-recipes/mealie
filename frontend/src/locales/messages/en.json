@@ -39,7 +39,8 @@
     "sort": "Sort",
     "recent": "Recent",
     "sort-alphabetically": "A-Z",
-    "reset": "Reset"
+    "reset": "Reset",
+    "filter": "Filter"
   },
   "page": {
     "home-page": "Home Page",
@@ -60,7 +61,10 @@
     "user-id": "User ID",
     "group": "Group",
     "new-user": "New User",
-    "edit-user": "Edit User"
+    "edit-user": "Edit User",
+    "create-user": "Create User",
+    "confirm-user-deletion": "Confirm User Deletion",
+    "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>"
   },
   "meal-plan": {
     "shopping-list": "Shopping List",
