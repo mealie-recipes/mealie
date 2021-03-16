@@ -63,18 +63,17 @@ def get_todays_meal(session: Session, group: Union[int, GroupInDB]) -> Recipe:
     if isinstance(group, int):
         group: GroupInDB = db.groups.get(session, group)
 
-    if group.webhook_enable:
-        today_slug = None
+    today_slug = None
 
-        for mealplan in group.mealplans:
-            mealplan: MealPlanInDB
-            for meal in mealplan.meals:
-                meal: MealOut
-                if meal.date == date.today():
-                    today_slug = meal.slug
-                    break
+    for mealplan in group.mealplans:
+        mealplan: MealPlanInDB
+        for meal in mealplan.meals:
+            meal: MealOut
+            if meal.date == date.today():
+                today_slug = meal.slug
+                break
 
-        if today_slug:
-            return db.recipes.get(session, today_slug)
-        else:
-            return None
+    if today_slug:
+        return db.recipes.get(session, today_slug)
+    else:
+        return None
