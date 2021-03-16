@@ -42,7 +42,6 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
         self.meals = [Meal(**meal) for meal in meals]
 
     def update(self, session, startDate, endDate, meals, uid, group) -> None:
-        # MealPlanModel._sql_remove_list(session, [Meal], uid)
 
         self.__init__(
             startDate=startDate,

@@ -19,9 +19,8 @@ def get_all_meals(
     session: Session = Depends(generate_session),
 ):
     """ Returns a list of all available Meal Plan """
-    print(current_user.group)
-    group_entry: GroupInDB = db.groups.get(session, current_user.group, "name")
-    return group_entry.mealplans
+
+    return db.groups.get_meals(session, current_user.group)
 
 
 @router.post("/create")
@@ -65,13 +64,7 @@ def get_this_week(
 ):
     """ Returns the meal plan data for this week """
 
-    group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
-
-    meals_sorted = sorted(
-        group_in_db.mealplans, key=lambda mealplan: mealplan.startDate
-    )
-
-    return meals_sorted[0]
+    return db.groups.get_meals(session, current_user.group)[0]
 
 
 @router.get("/today", tags=["Meal Plan"])
