@@ -85,7 +85,9 @@
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
     "link-id": "Link ID",
     "users": "Users",
-    "groups": "Groups"
+    "groups": "Groups",
+    "could-not-validate-credentials": "Could Not Validate Credentials",
+    "login": "Login"
   },
   "meal-plan": {
     "shopping-list": "Shopping List",

@@ -13,7 +13,7 @@
         class="mr-2"
       >
       </v-progress-circular>
-      <v-toolbar-title class="headline"> Login </v-toolbar-title>
+      <v-toolbar-title class="headline">{{$t('user.login')}}</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-card-text>
@@ -56,7 +56,7 @@
         >
       </v-card-actions>
       <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
-        Could Not Validate Credentials
+        {{$t('user.could-not-validate-credentials')}}
       </v-alert>
     </v-card-text>
   </v-card>
