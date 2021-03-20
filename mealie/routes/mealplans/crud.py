@@ -1,8 +1,8 @@
 import datetime
 
+from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from fastapi import APIRouter, Depends
 from mealie.routes.deps import manager
 from mealie.schema.meal import MealPlanIn, MealPlanInDB
 from mealie.schema.snackbar import SnackResponse
