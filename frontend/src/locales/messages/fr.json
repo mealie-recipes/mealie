@@ -44,7 +44,9 @@
     "no": "Non",
     "yes": "Oui",
     "token": "Jeton",
-    "field-required": "Champ obligatoire"
+    "field-required": "Champ obligatoire",
+    "apply": "Appliquer",
+    "current-parenthesis": "(Actuel)"
   },
   "page": {
     "home-page": "Accueil",
@@ -150,7 +152,7 @@
     "local-api": "API local",
     "language": "Langue",
     "add-a-new-theme": "Ajouter un nouveau thème",
-    "set-new-time": "Indiquer un nouveau temps",
+    "set-new-time": "Indiquer une nouvelle heure",
     "current": "Version :",
     "latest": "Dernière",
     "explore-the-docs": "Parcourir la documentation",
@@ -205,7 +207,8 @@
       "card-per-section": "Tuiles par section",
       "home-page": "Page d'accueil",
       "homepage-categories": "Catégories de la page d'accueil",
-      "show-recent": "Afficher les récentes"
+      "show-recent": "Afficher les récentes",
+      "home-page-sections": "Sections de la page d'accueil"
     },
     "manage-users": "Utilisateurs",
     "migrations": "Migrations",

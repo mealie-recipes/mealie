@@ -10,7 +10,7 @@
     />
     <v-card flat outlined class="ma-2">
       <v-card-text class="mb-n5 mt-n2">
-        <h3>{{ theme.name }} {{ current ? "(Current)" : "" }}</h3>
+        <h3>{{ theme.name }} {{ current ? $t('general.current-parenthesis') : "" }}</h3>
       </v-card-text>
       <v-card-text>
         <v-row flex align-center>
@@ -27,10 +27,10 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn text color="error" @click="confirmDelete"> Delete </v-btn>
+        <v-btn text color="error" @click="confirmDelete"> {{$t('general.delete')}} </v-btn>
         <v-spacer></v-spacer>
         <!-- <v-btn text color="accent" @click="editTheme">Edit</v-btn> -->
-        <v-btn text color="success" @click="saveThemes">Apply</v-btn>
+        <v-btn text color="success" @click="saveThemes">{{$t('general.apply')}}</v-btn>
       </v-card-actions>
     </v-card>
   </div>

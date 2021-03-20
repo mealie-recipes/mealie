@@ -44,7 +44,9 @@
     "yes": "Yes",
     "no": "No",
     "token": "Token",
-    "field-required": "Field Required"
+    "field-required": "Field Required",
+    "apply": "Apply",
+    "current-parenthesis": "(Current)"
   },
   "page": {
     "home-page": "Home Page",
@@ -205,7 +207,8 @@
       "homepage-categories": "Homepage Categories",
       "home-page": "Home Page",
       "all-categories": "All Categories",
-      "show-recent": "Show Recent"
+      "show-recent": "Show Recent",
+      "home-page-sections": "Home Page Sections"
     },
     "site-settings": "Site Settings",
     "manage-users": "Manage Users",
