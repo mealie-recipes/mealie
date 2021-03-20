@@ -67,7 +67,7 @@
           <v-col
             :sm="6"
             :md="6"
-            :lg="3"
+            :lg="4"
             :xl="3"
             v-for="group in groups"
             :key="group.id"
