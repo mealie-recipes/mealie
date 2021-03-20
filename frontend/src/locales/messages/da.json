@@ -30,7 +30,7 @@
     "download": "Hent",
     "import": "Importere"
   },
-  "login": {
+  "user": {
     "email": "E-mail",
     "password": "Adgangskode",
     "sign-in": "Log ind",

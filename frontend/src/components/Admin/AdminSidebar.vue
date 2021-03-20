@@ -92,39 +92,39 @@ export default {
         {
           icon: "mdi-cog",
           to: "/admin/settings",
-          title: "Site Settings",
+          title: this.$t('settings.site-settings'),
         },
         {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
-          title: "Manage Users",
+          title: this.$t('settings.manage-users'),
         },
         {
           icon: "mdi-backup-restore",
           to: "/admin/backups",
-          title: "Backups",
+          title: this.$t('settings.backup-and-exports'),
         },
         {
           icon: "mdi-database-import",
           to: "/admin/migrations",
-          title: "Migrations",
+          title: this.$t('settings.migrations'),
         },
       ],
       baseLinks: [
         {
           icon: "mdi-account",
           to: "/admin/profile",
-          title: "Profile",
+          title: this.$t('settings.profile'),
         },
         {
           icon: "mdi-format-color-fill",
           to: "/admin/themes",
-          title: "Themes",
+          title: this.$t('general.themes'),
         },
         {
           icon: "mdi-food",
           to: "/admin/meal-planner",
-          title: "Meal Planner",
+          title: this.$t('meal-plan.meal-planner'),
         },
       ],
     };

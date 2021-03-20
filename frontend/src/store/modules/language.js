@@ -46,8 +46,9 @@ const mutations = {
 };
 
 const actions = {
-  initLang({ getters }) {
+  initLang({ getters }, { currentVueComponent }) {
     VueI18n.locale = getters.getActiveLang;
+    currentVueComponent.$vuetify.lang.current = getters.getActiveLang; 
   },
 };
 

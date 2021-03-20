@@ -3,6 +3,12 @@ import Vuetify from "vuetify/lib";
 
 Vue.use(Vuetify);
 
+
+import fr from 'vuetify/es5/locale/fr';
+import pl from 'vuetify/es5/locale/pl';
+import sv from 'vuetify/es5/locale/sv';
+import de from 'vuetify/es5/locale/de';
+
 const vuetify = new Vuetify({
   theme: {
     dark: false,
@@ -28,6 +34,12 @@ const vuetify = new Vuetify({
         error: "#FF5252",
       },
     },
+  },
+  lang: {
+    locales: {
+      fr, pl, sv, de
+    },
+    current: 'en',
   },
 });
 

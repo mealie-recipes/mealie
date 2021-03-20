@@ -37,7 +37,7 @@
           prepend-icon="mdi-email"
           validate-on-blur
           :rules="[existsRule, emailRule]"
-          :label="$t('login.email')"
+          :label="$t('user.email')"
           type="email"
         ></v-text-field>
         <v-text-field
@@ -46,7 +46,7 @@
           class="mb-2s"
           prepend-icon="mdi-lock"
           validate-on-blur
-          :label="$t('login.password')"
+          :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
           :rules="[minRule]"
         ></v-text-field>
@@ -55,7 +55,7 @@
           light="light"
           class="mb-2s"
           prepend-icon="mdi-lock"
-          :label="$t('login.password')"
+          :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[

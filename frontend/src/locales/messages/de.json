@@ -41,7 +41,7 @@
     "all-recipes": "Alle Rezepte",
     "recent": "Neueste"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "Eingeloggt bleiben?",
     "email": "E-Mail",
     "password": "Passwort",

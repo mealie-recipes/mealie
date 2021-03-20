@@ -38,7 +38,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                Home Page Sections
+                {{$t('settings.homepage.home-page-sections')}}
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
@@ -80,7 +80,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                All Categories
+                {{$t('settings.homepage.all-categories')}}
               </v-toolbar-title>
 
               <v-spacer></v-spacer>

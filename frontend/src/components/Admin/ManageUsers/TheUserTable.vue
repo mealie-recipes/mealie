@@ -2,10 +2,8 @@
   <v-card outlined class="mt-n1">
     <Confirmation
       ref="deleteUserDialog"
-      title="Confirm User Deletion"
-      :message="
-        `Are you sure you want to delete the user <b>${activeName} ID: ${activeId}<b/>`
-      "
+      :title="$t('user.confirm-user-deletion')"
+      :message="$t('user.are-you-sure-you-want-to-delete-the-user', { activeName, activeId })"
       icon="mdi-alert"
       @confirm="deleteUser"
       :width="450"
@@ -18,7 +16,7 @@
           v-model="search"
           class="mr-2"
           append-icon="mdi-filter"
-          label="Filter"
+          :label="$t('general.filter')"
           single-line
           hide-details
         ></v-text-field>
@@ -27,7 +25,7 @@
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
-            Create User
+            {{$t('user.create-user')}}
           </v-btn>
         </template>
         <v-card>
@@ -42,7 +40,7 @@
 
             <v-spacer></v-spacer>
             <v-toolbar-title class="headline">
-              User ID: {{ editedItem.id }}
+              {{$t('user.user-id-with-value', {id: editedItem.id }) }}
             </v-toolbar-title>
           </v-app-bar>
 
@@ -52,7 +50,7 @@
                 <v-col cols="12" sm="12" md="6">
                   <v-text-field
                     v-model="editedItem.fullName"
-                    label="Full Name"
+                    :label="$t('user.full-name')"
                     :rules="[existsRule]"
                     validate-on-blur
                   ></v-text-field>
@@ -60,7 +58,7 @@
                 <v-col cols="12" sm="12" md="6">
                   <v-text-field
                     v-model="editedItem.email"
-                    label="Email"
+                    :label="$t('user.email')"
                     :rules="[existsRule, emailRule]"
                     validate-on-blur
                   ></v-text-field>
@@ -70,19 +68,19 @@
                     dense
                     v-model="editedItem.group"
                     :items="existingGroups"
-                    label="User Group"
+                    :label="$t('user.user-group')"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="showPassword">
                   <v-text-field
                     dense
                     v-model="editedItem.password"
-                    label="User Password"
+                    :label="$t('user.user-password')"
                     :rules="[existsRule, minRule]"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="3">
-                  <v-switch v-model="editedItem.admin" label="Admin"></v-switch>
+                  <v-switch v-model="editedItem.admin" :label="$t('user.admin')"></v-switch>
                 </v-col>
               </v-row>
             </v-form>
@@ -91,10 +89,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="grey" text @click="close">
-              Cancel
+              {{$t('general.cancel')}}
             </v-btn>
             <v-btn color="primary" @click="save">
-              Save
+              {{$t('general.save')}}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -113,13 +111,13 @@
             <v-icon small left>
               mdi-delete
             </v-icon>
-            Delete
+            {{$t('general.delete')}}
           </v-btn>
           <v-btn small color="success" @click="editItem(item)">
             <v-icon small left class="mr-2">
               mdi-pencil
             </v-icon>
-            Edit
+            {{$t('general.edit')}}
           </v-btn>
         </template>
         <template v-slot:item.admin="{ item }">
@@ -127,7 +125,7 @@
         </template>
         <template v-slot:no-data>
           <v-btn color="primary" @click="initialize">
-            Reset
+            {{$t('general.reset')}}
           </v-btn>
         </template>
       </v-data-table>
@@ -142,47 +140,49 @@ import { validators } from "@/mixins/validators";
 export default {
   components: { Confirmation },
   mixins: [validators],
-  data: () => ({
-    search: "",
-    dialog: false,
-    activeId: null,
-    activeName: null,
-    headers: [
-      {
-        text: "User ID",
-        align: "start",
-        sortable: false,
-        value: "id",
+  data() { 
+    return {
+      search: "",
+      dialog: false,
+      activeId: null,
+      activeName: null,
+      headers: [
+        {
+          text: this.$t("user.user-id"),
+          align: "start",
+          sortable: false,
+          value: "id",
+        },
+        { text: this.$t('user.full-name'), value: "fullName" },
+        { text: this.$t('user.email'), value: "email" },
+        { text: this.$t('user.group'), value: "group" },
+        { text: this.$t('user.admin'), value: "admin" },
+        { text: "", value: "actions", sortable: false, align: "center" },
+      ],
+      users: [],
+      editedIndex: -1,
+      editedItem: {
+        id: 0,
+        fullName: "",
+        password: "",
+        email: "",
+        group: "",
+        admin: false,
       },
-      { text: "Full Name", value: "fullName" },
-      { text: "Email", value: "email" },
-      { text: "Group", value: "group" },
-      { text: "Admin", value: "admin" },
-      { text: "", value: "actions", sortable: false, align: "center" },
-    ],
-    users: [],
-    editedIndex: -1,
-    editedItem: {
-      id: 0,
-      fullName: "",
-      password: "",
-      email: "",
-      group: "",
-      admin: false,
-    },
-    defaultItem: {
-      id: 0,
-      fullName: "",
-      password: "",
-      email: "",
-      group: "",
-      admin: false,
-    },
-  }),
+      defaultItem: {
+        id: 0,
+        fullName: "",
+        password: "",
+        email: "",
+        group: "",
+        admin: false,
+      },
+    } 
+  },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New User" : "Edit User";
+      return this.editedIndex === -1 ? this.$t('user.new-user') : this.$t('user.edit-user');
     },
     showPassword() {
       return this.editedIndex === -1 ? true : false;

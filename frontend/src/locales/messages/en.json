@@ -1,12 +1,4 @@
 {
-
-  "dateTimeFormats": {
-    "short": {
-      "month": "short",
-      "day": "numeric",
-      "weekday": "long"
-    }
-  },
   "404": {
     "page-not-found": "404 Page Not Found",
     "take-me-home": "Take me Home"
@@ -43,19 +35,71 @@
     "templates": "Templates",
     "recipes": "Recipes",
     "themes": "Themes",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "sort": "Sort",
+    "recent": "Recent",
+    "sort-alphabetically": "A-Z",
+    "reset": "Reset",
+    "filter": "Filter",
+    "yes": "Yes",
+    "no": "No",
+    "token": "Token",
+    "field-required": "Field Required",
+    "apply": "Apply",
+    "current-parenthesis": "(Current)"
   },
   "page": {
     "home-page": "Home Page",
     "all-recipes": "All Recipes",
     "recent": "Recent"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "Stay logged in?",
     "email": "Email",
     "password": "Password",
     "sign-in": "Sign in",
-    "sign-up": "Sign up"
+    "sign-up": "Sign up",
+    "logout": "Logout",
+    "full-name": "Full Name",
+    "user-group": "User Group",
+    "user-password": "User Password",
+    "admin": "Admin",
+    "user-id": "User ID",
+    "user-id-with-value": "User ID: {id}",
+    "group": "Group",
+    "new-user": "New User",
+    "edit-user": "Edit User",
+    "create-user": "Create User",
+    "confirm-user-deletion": "Confirm User Deletion",
+    "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>?",
+    "confirm-group-deletion": "Confirm Group Deletion",
+    "total-users": "Total Users",
+    "total-mealplans": "Total MealPlans",
+    "webhooks-enabled": "Webhooks Enabled",
+    "webhook-time": "Webhook Time",
+    "create-group": "Create Group",
+    "sign-up-links": "Sign Up Links",
+    "create-link": "Create Link",
+    "link-name": "Link Name",
+    "group-id-with-value": "Group ID: {groupID}",
+    "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
+    "group-name": "Group Name",
+    "confirm-link-deletion": "Confirm Link Deletion",
+    "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
+    "link-id": "Link ID",
+    "users": "Users",
+    "groups": "Groups",
+    "could-not-validate-credentials": "Could Not Validate Credentials",
+    "login": "Login",
+    "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
+    "upload-photo": "Upload Photo",
+    "reset-password": "Reset Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-password": "Confirm Password",
+    "password-must-match": "Password must match",
+    "e-mail-must-be-valid": "E-mail must be valid",
+    "use-8-characters-or-more-for-your-password": "Use 8 characters or more for your password"
   },
   "meal-plan": {
     "shopping-list": "Shopping List",
@@ -163,8 +207,13 @@
       "homepage-categories": "Homepage Categories",
       "home-page": "Home Page",
       "all-categories": "All Categories",
-      "show-recent": "Show Recent"
-    }
+      "show-recent": "Show Recent",
+      "home-page-sections": "Home Page Sections"
+    },
+    "site-settings": "Site Settings",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile"
   },
   "migration": {
     "recipe-migration": "Recipe Migration",

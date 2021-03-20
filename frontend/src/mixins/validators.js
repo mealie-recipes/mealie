@@ -4,12 +4,12 @@ export const validators = {
       emailRule: v =>
         !v ||
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-        "E-mail must be valid",
+       this.$t('user.e-mail-must-be-valid'),
 
-      existsRule: value => !!value || "Field Required",
+      existsRule: value => !!value || this.$t('general.field-required'),
 
       minRule: v =>
-        v.length >= 8 || "Use 8 characters or more for your password",
+        v.length >= 8 || this.$t('user.use-8-characters-or-more-for-your-password'),
     };
   },
 };

@@ -36,7 +36,7 @@
     "themes": "布景主题",
     "confirm": "确定"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "保持登录状态？",
     "email": "电子邮件",
     "password": "密码",
