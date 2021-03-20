@@ -40,7 +40,10 @@
     "recent": "Recent",
     "sort-alphabetically": "A-Z",
     "reset": "Reset",
-    "filter": "Filter"
+    "filter": "Filter",
+    "yes": "Yes",
+    "no": "No",
+    "token": "Token"
   },
   "page": {
     "home-page": "Home Page",
@@ -59,12 +62,28 @@
     "user-password": "User Password",
     "admin": "Admin",
     "user-id": "User ID",
+    "user-id-with-value": "User ID: {id}",
     "group": "Group",
     "new-user": "New User",
     "edit-user": "Edit User",
     "create-user": "Create User",
     "confirm-user-deletion": "Confirm User Deletion",
-    "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>"
+    "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>?",
+    "confirm-group-deletion": "Confirm Group Deletion",
+    "total-users": "Total Users",
+    "total-mealplans": "Total MealPlans",
+    "webhooks-enabled": "Webhooks Enabled",
+    "webhook-time": "Webhook Time",
+    "create-group": "Create Group",
+    "sign-up-links": "Sign Up Links",
+    "create-link": "Create Link",
+    "link-name": "Link Name",
+    "group-id-with-value": "Group ID: {groupID}",
+    "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
+    "group-name": "Group Name",
+    "confirm-link-deletion": "Confirm Link Deletion",
+    "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
+    "link-id": "Link ID"
   },
   "meal-plan": {
     "shopping-list": "Shopping List",

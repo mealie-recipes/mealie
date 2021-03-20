@@ -40,7 +40,10 @@
     "sort": "Trier",
     "sort-alphabetically": "A-Z",
     "reset": "Réinitialiser",
-    "filter": "Filtrer"
+    "filter": "Filtrer",
+    "no": "Non",
+    "yes": "Oui",
+    "token": "Jeton"
   },
   "page": {
     "home-page": "Accueil",
@@ -63,8 +66,24 @@
     "user-id": "ID utilisateur",
     "user-password": "Mot de passe de l'utilisateur",
     "create-user": "Créer utilisateur",
-    "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/>",
-    "confirm-user-deletion": "Confirmer la suppression"
+    "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
+    "confirm-user-deletion": "Confirmer la suppression",
+    "confirm-group-deletion": "Confirmer la suppression du groupe",
+    "create-group": "Créer un groupe",
+    "create-link": "Créer un lien",
+    "group-id-with-value": "ID groupe : {groupID}",
+    "are-you-sure-you-want-to-delete-the-group": "Êtes-vous sûr de vouloir supprimer <b>{groupName}<b/> ?",
+    "link-name": "Nom du lien",
+    "sign-up-links": "Liens d'inscription",
+    "total-mealplans": "Nombre de repas planifiés",
+    "total-users": "Nombre d'utilisateurs",
+    "user-id-with-value": "ID utilisateur : {id}",
+    "webhook-time": "Heure du Webhook",
+    "webhooks-enabled": "Webhooks activés",
+    "are-you-sure-you-want-to-delete-the-link": "Êtes-vous sûr de vouloir supprimer le lien <b>{link}<b/> ?",
+    "confirm-link-deletion": "Confirmer la suppresion du lien",
+    "group-name": "Nom du groupe",
+    "link-id": "ID du lien"
   },
   "meal-plan": {
     "shopping-list": "Liste d'achats",

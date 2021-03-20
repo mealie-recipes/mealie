@@ -9,7 +9,7 @@
             clearable
             class="mr-2 pt-0"
             append-icon="mdi-filter"
-            label="Filter"
+            :label="$t('general.filter')"
             single-line
             hide-details
           ></v-text-field>
@@ -24,7 +24,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              Create Group
+              {{ $t('user.create-group') }}
             </v-btn>
           </template>
           <v-card>
@@ -34,7 +34,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                Create Group
+                {{ $t('user.create-group') }}
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
@@ -44,7 +44,7 @@
               <v-form ref="newGroup">
                 <v-text-field
                   v-model="newGroupName"
-                  label="Group Name"
+                  :label="$t('user.group-name')"
                   :rules="[existsRule]"
                 ></v-text-field>
               </v-form>
@@ -53,10 +53,10 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="grey" text @click="groupDialog = false">
-                Cancel
+                {{ $t('general.cancel') }}
               </v-btn>
               <v-btn color="primary" @click="createGroup">
-                Create
+                {{ $t('general.create') }}
               </v-btn>
             </v-card-actions>
           </v-card>

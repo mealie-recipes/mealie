@@ -40,7 +40,7 @@
 
             <v-spacer></v-spacer>
             <v-toolbar-title class="headline">
-              {{$t('user.user-id')}} {{ editedItem.id }}
+              {{$t('user.user-id-with-value', {id: editedItem.id }) }}
             </v-toolbar-title>
           </v-app-bar>
 
