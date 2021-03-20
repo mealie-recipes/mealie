@@ -112,7 +112,7 @@ async def update_user_image(
         shutil.copyfileobj(profile_image.file, buffer)
 
     if dest.is_file:
-        return SnackResponse.success("Backup uploaded")
+        return SnackResponse.success("File uploaded")
     else:
         return SnackResponse.error("Failure uploading file")
 
