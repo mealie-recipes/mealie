@@ -83,7 +83,9 @@
     "group-name": "Group Name",
     "confirm-link-deletion": "Confirm Link Deletion",
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
-    "link-id": "Link ID"
+    "link-id": "Link ID",
+    "users": "Users",
+    "groups": "Groups"
   },
   "meal-plan": {
     "shopping-list": "Shopping List",
@@ -192,7 +194,11 @@
       "home-page": "Home Page",
       "all-categories": "All Categories",
       "show-recent": "Show Recent"
-    }
+    },
+    "site-settings": "Site Settings",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile"
   },
   "migration": {
     "recipe-migration": "Recipe Migration",

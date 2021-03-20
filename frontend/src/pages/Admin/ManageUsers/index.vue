@@ -11,17 +11,17 @@
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab>
-          Users
+          {{$t('user.users')}}
           <v-icon>mdi-account</v-icon>
         </v-tab>
 
         <v-tab>
-          Sign-Up Links
+          {{$t('user.sign-up-links')}}
           <v-icon>mdi-account-plus-outline</v-icon>
         </v-tab>
 
         <v-tab>
-          Groups
+          {{$t('user.groups')}}
           <v-icon>mdi-account-group</v-icon>
         </v-tab>
       </v-tabs>

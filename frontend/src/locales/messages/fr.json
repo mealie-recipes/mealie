@@ -83,7 +83,9 @@
     "are-you-sure-you-want-to-delete-the-link": "Êtes-vous sûr de vouloir supprimer le lien <b>{link}<b/> ?",
     "confirm-link-deletion": "Confirmer la suppresion du lien",
     "group-name": "Nom du groupe",
-    "link-id": "ID du lien"
+    "link-id": "ID du lien",
+    "groups": "Groupes",
+    "users": "Utilisateurs"
   },
   "meal-plan": {
     "shopping-list": "Liste d'achats",
@@ -141,7 +143,7 @@
     "latest": "Dernière",
     "explore-the-docs": "Parcourir la documentation",
     "contribute": "Contribuer",
-    "backup-and-exports": "Sauver et exporter",
+    "backup-and-exports": "Sauvegardes",
     "backup-info": "Les sauvegardes sont exportées en format JSON standard, ainsi que toutes les images stockées sur le système. Dans votre dossier de sauvegarde, vous trouverez un dossier .zip qui contient toutes les recettes en JSON et les images de la base de données. De plus, si vous avez sélectionné le format de fichier markdown, il sera sauvegardé dans le même dossier .zip. Pour importer une sauvegarde, celle-ci doit être enregistrée dans votre dossier de sauvegardes. Une sauvegarde automatique est effectuée quotidiennement à 03h00.",
     "available-backups": "Sauvegardes disponibles",
     "theme": {
@@ -192,7 +194,11 @@
       "home-page": "Page d'accueil",
       "homepage-categories": "Catégories de la page d'accueil",
       "show-recent": "Afficher les récentes"
-    }
+    },
+    "manage-users": "Utilisateurs",
+    "migrations": "Migrations",
+    "profile": "Profil",
+    "site-settings": "Paramètres site"
   },
   "migration": {
     "recipe-migration": "Migrer les recettes",
