@@ -2,8 +2,8 @@
   <v-card outlined class="mt-n1">
     <Confirmation
       ref="deleteUserDialog"
-      title="Confirm User Deletion"
-      :message="`Are you sure you want to delete the link <b>${activeName}<b/>`"
+      :title="$t('user.confirm-link-deletion')"
+      :message="$t('user.are-you-sure-you-want-to-delete-the-link', {link: activeName })"
       icon="mdi-alert"
       @confirm="deleteUser"
       :width="450"
@@ -14,14 +14,14 @@
         mdi-link-variant
       </v-icon>
       <v-toolbar-title class="headine">
-        Sign Up Links
+        {{ $t('user.sign-up-links') }}
       </v-toolbar-title>
 
       <v-spacer> </v-spacer>
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
-            Create Link
+            {{ $t('user.create-link') }}
           </v-btn>
         </template>
         <v-card>
@@ -31,7 +31,7 @@
             </v-icon>
 
             <v-toolbar-title class="headline">
-              Create Link
+              {{ $t('user.create-link') }}
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
@@ -43,13 +43,13 @@
                 <v-text-field
                   class="mr-2"
                   v-model="editedItem.name"
-                  label="Link Name"
+                  :label="$t('user.link-name')"
                   :rules="[existsRule]"
                   validate-on-blur
                 ></v-text-field>
                 <v-checkbox
                   v-model="editedItem.admin"
-                  label="Admin"
+                  :label="$t('user.admin')"
                 ></v-checkbox>
               </v-row>
             </v-form>
@@ -58,10 +58,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="grey" text @click="close">
-              Cancel
+              {{ $t('general.cancel') }}
             </v-btn>
             <v-btn color="primary" @click="save">
-              Save
+              {{ $t('general.save') }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -90,7 +90,7 @@
             <v-icon small left>
               mdi-account-cog
             </v-icon>
-            {{ item.admin ? "Yes" : "No" }}
+            {{ item.admin ? $t('general.yes') : $t('general.no') }}
           </v-btn>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -98,7 +98,7 @@
             <v-icon small left>
               mdi-delete
             </v-icon>
-            Delete
+            {{ $t('general.delete') }}
           </v-btn>
         </template>
       </v-data-table>
@@ -113,37 +113,39 @@ import { validators } from "@/mixins/validators";
 export default {
   components: { Confirmation },
   mixins: [validators],
-  data: () => ({
-    dialog: false,
-    activeId: null,
-    activeName: null,
-    headers: [
-      {
-        text: "Link ID",
-        align: "start",
-        sortable: false,
-        value: "id",
+  data() { 
+    return {
+      dialog: false,
+      activeId: null,
+      activeName: null,
+      headers: [
+        {
+          text: this.$t('user.link-id'),
+          align: "start",
+          sortable: false,
+          value: "id",
+        },
+        { text: this.$t('general.name'), value: "name" },
+        { text: this.$t('general.token'), value: "token" },
+        { text: this.$t('user.admin'), value: "admin", align: "center" },
+        { text: "", value: "actions", sortable: false, align: "center" },
+      ],
+      links: [],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        admin: false,
+        token: "",
+        id: 0,
       },
-      { text: "Name", value: "name" },
-      { text: "Token", value: "token" },
-      { text: "Admin", value: "admin", align: "center" },
-      { text: "", value: "actions", sortable: false, align: "center" },
-    ],
-    links: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      admin: false,
-      token: "",
-      id: 0,
-    },
-    defaultItem: {
-      name: "",
-      token: "",
-      admin: false,
-      id: 0,
-    },
-  }),
+      defaultItem: {
+        name: "",
+        token: "",
+        admin: false,
+        id: 0,
+      },
+    } 
+  },
 
   computed: {
     baseURL() {

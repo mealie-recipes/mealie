@@ -15,15 +15,15 @@
             <v-menu offset-y v-if="sortable">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn-toggle group>
-                  <v-btn text v-bind="attrs" v-on="on"> Sort </v-btn>
+                  <v-btn text v-bind="attrs" v-on="on">{{$t('general.sort')}}</v-btn>
                 </v-btn-toggle>
               </template>
               <v-list>
                 <v-list-item @click="$emit('sort-recent')">
-                  <v-list-item-title> Recent </v-list-item-title>
+                  <v-list-item-title>{{$t('general.recent')}}</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="$emit('sort')">
-                  <v-list-item-title> A-Z </v-list-item-title>
+                  <v-list-item-title>{{$t('general.sort-alphabetically')}}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>

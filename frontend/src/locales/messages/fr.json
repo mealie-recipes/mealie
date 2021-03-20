@@ -1,12 +1,4 @@
 {
-
-  "dateTimeFormats": {
-    "short": {
-      "month": "short",
-      "day": "numeric",
-      "weekday": "long"
-    }
-  },
   "404": {
     "page-not-found": "404 Page introuvable",
     "take-me-home": "Retour à l'accueil"
@@ -28,7 +20,7 @@
     "save": "Sauvegarder",
     "image-file": "Image",
     "update": "Mettre à jour",
-    "edit": "Editer",
+    "edit": "Modifier",
     "delete": "Supprimer",
     "select": "Sélectionner",
     "random": "Aléatoire",
@@ -43,19 +35,71 @@
     "templates": "Modèles",
     "recipes": "Recettes",
     "themes": "Thèmes",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "recent": "Récent",
+    "sort": "Trier",
+    "sort-alphabetically": "A-Z",
+    "reset": "Réinitialiser",
+    "filter": "Filtrer",
+    "no": "Non",
+    "yes": "Oui",
+    "token": "Jeton",
+    "field-required": "Champ obligatoire",
+    "apply": "Appliquer",
+    "current-parenthesis": "(Actuel)"
   },
   "page": {
     "home-page": "Accueil",
     "all-recipes": "Toutes mes recettes",
     "recent": "Récent"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "Rester connecté(e) ?",
-    "email": "Email",
+    "email": "E-mail",
     "password": "Mot de passe",
     "sign-in": "Se connecter",
-    "sign-up": "S'inscrire"
+    "sign-up": "S'inscrire",
+    "logout": "Déconnexion",
+    "admin": "Admin",
+    "edit-user": "Modifier l'utilisateur",
+    "full-name": "Nom",
+    "group": "Groupe",
+    "new-user": "Nouvel utilisateur",
+    "user-group": "Groupe utilisateur",
+    "user-id": "ID utilisateur",
+    "user-password": "Mot de passe de l'utilisateur",
+    "create-user": "Créer utilisateur",
+    "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
+    "confirm-user-deletion": "Confirmer la suppression",
+    "confirm-group-deletion": "Confirmer la suppression du groupe",
+    "create-group": "Créer un groupe",
+    "create-link": "Créer un lien",
+    "group-id-with-value": "ID groupe : {groupID}",
+    "are-you-sure-you-want-to-delete-the-group": "Êtes-vous sûr de vouloir supprimer <b>{groupName}<b/> ?",
+    "link-name": "Nom du lien",
+    "sign-up-links": "Liens d'inscription",
+    "total-mealplans": "Nombre de repas planifiés",
+    "total-users": "Nombre d'utilisateurs",
+    "user-id-with-value": "ID utilisateur : {id}",
+    "webhook-time": "Heure du Webhook",
+    "webhooks-enabled": "Webhooks activés",
+    "are-you-sure-you-want-to-delete-the-link": "Êtes-vous sûr de vouloir supprimer le lien <b>{link}<b/> ?",
+    "confirm-link-deletion": "Confirmer la suppresion du lien",
+    "group-name": "Nom du groupe",
+    "link-id": "ID du lien",
+    "groups": "Groupes",
+    "users": "Utilisateurs",
+    "could-not-validate-credentials": "La vérification de vos identifiants a échoué",
+    "login": "Connexion",
+    "groups-can-only-be-set-by-administrators": "Les groupes sont assignés par les administrateurs",
+    "confirm-password": "Confirmer mot de passe",
+    "current-password": "Mot de passe actuel",
+    "e-mail-must-be-valid": "L'e-mail doit être valide",
+    "new-password": "Nouveau mot de passe",
+    "password-must-match": "Les mots de passe doivent correspondre",
+    "reset-password": "Réinitialiser le mot de passe",
+    "upload-photo": "Importer une photo",
+    "use-8-characters-or-more-for-your-password": "Utiliser au moins 8 caractères pour votre mot de passe"
   },
   "meal-plan": {
     "shopping-list": "Liste d'achats",
@@ -108,12 +152,12 @@
     "local-api": "API local",
     "language": "Langue",
     "add-a-new-theme": "Ajouter un nouveau thème",
-    "set-new-time": "Indiquer un nouveau temps",
+    "set-new-time": "Indiquer une nouvelle heure",
     "current": "Version :",
     "latest": "Dernière",
     "explore-the-docs": "Parcourir la documentation",
     "contribute": "Contribuer",
-    "backup-and-exports": "Sauver et exporter",
+    "backup-and-exports": "Sauvegardes",
     "backup-info": "Les sauvegardes sont exportées en format JSON standard, ainsi que toutes les images stockées sur le système. Dans votre dossier de sauvegarde, vous trouverez un dossier .zip qui contient toutes les recettes en JSON et les images de la base de données. De plus, si vous avez sélectionné le format de fichier markdown, il sera sauvegardé dans le même dossier .zip. Pour importer une sauvegarde, celle-ci doit être enregistrée dans votre dossier de sauvegardes. Une sauvegarde automatique est effectuée quotidiennement à 03h00.",
     "available-backups": "Sauvegardes disponibles",
     "theme": {
@@ -163,8 +207,13 @@
       "card-per-section": "Tuiles par section",
       "home-page": "Page d'accueil",
       "homepage-categories": "Catégories de la page d'accueil",
-      "show-recent": "Afficher les récentes"
-    }
+      "show-recent": "Afficher les récentes",
+      "home-page-sections": "Sections de la page d'accueil"
+    },
+    "manage-users": "Utilisateurs",
+    "migrations": "Migrations",
+    "profile": "Profil",
+    "site-settings": "Paramètres site"
   },
   "migration": {
     "recipe-migration": "Migrer les recettes",
@@ -180,5 +229,6 @@
       "title": "Chowdown",
       "description": "Importer des recettes depuis Chowdown"
     }
-  }
+  },
+  "auth": {}
 }

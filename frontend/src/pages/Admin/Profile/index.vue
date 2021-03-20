@@ -13,9 +13,9 @@
             >
             </v-progress-circular>
           </span>
-          Profile
+          {{$t('settings.profile')}}
           <v-spacer></v-spacer>
-          User ID: {{ user.id }}
+          {{$t('user.user-id-with-value', {id: user.id }) }}
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
@@ -39,7 +39,7 @@
             <v-col cols="12" md="9">
               <v-form>
                 <v-text-field
-                  label="Full Name"
+                  :label="$t('user.full-name')"
                   required
                   v-model="user.fullName"
                   :rules="[existsRule]"
@@ -47,7 +47,7 @@
                 >
                 </v-text-field>
                 <v-text-field
-                  label="Email"
+                  :label="$t('user.email')"
                   :rules="[emailRule]"
                   validate-on-blur
                   required
@@ -55,11 +55,11 @@
                 >
                 </v-text-field>
                 <v-text-field
-                  label="Group"
+                  :label="$t('user.group')"
                   readonly
                   v-model="user.group"
                   persistent-hint
-                  hint="Group groups can only be set by administrators"
+                  :hint="$t('user.groups-can-only-be-set-by-administrators')"
                 >
                 </v-text-field>
               </v-form>
@@ -70,7 +70,7 @@
         <v-card-actions>
           <UploadBtn
             icon="mdi-image-area"
-            text="Upload Photo"
+            :text="$t('user.upload-photo')"
             :url="userProfileImage"
             file-name="profile_image"
           />
@@ -86,7 +86,7 @@
     <v-col cols="12" md="4" sm="12">
       <v-card height="100%">
         <v-card-title class="headline">
-          Reset Password
+          {{$t('user.reset-password')}}
           <v-spacer></v-spacer>
         </v-card-title>
         <v-divider></v-divider>
@@ -95,7 +95,7 @@
             <v-text-field
               v-model="password.current"
               prepend-icon="mdi-lock"
-              label="Current Password"
+              :label="$t('user.current-password')"
               :rules="[existsRule]"
               validate-on-blur
               :type="showPassword ? 'text' : 'password'"
@@ -104,7 +104,7 @@
             <v-text-field
               v-model="password.newOne"
               prepend-icon="mdi-lock"
-              label="New Password"
+              :label="$t('user.new-password')"
               :rules="[minRule]"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword.newOne = !showPassword.newOne"
@@ -112,9 +112,9 @@
             <v-text-field
               v-model="password.newTwo"
               prepend-icon="mdi-lock"
-              label="Confirm Password"
+              :label="$t('user.confirm-password')"
               :rules="[
-                password.newOne === password.newTwo || 'Password must match',
+                password.newOne === password.newTwo || $t('user.password-must-match'),
               ]"
               validate-on-blur
               :type="showPassword ? 'text' : 'password'"

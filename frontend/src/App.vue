@@ -70,7 +70,7 @@ export default {
         this.search = !this.search;
       }
     });
-    this.$store.dispatch("initLang");
+    this.$store.dispatch("initLang", { currentVueComponent: this });
   },
 
   mounted() {

@@ -2,8 +2,8 @@
   <div>
     <Confirmation
       ref="deleteGroupConfirm"
-      title="Confirm Group Deletion"
-      :message="`Are you sure you want to delete <b>${group.name}<b/>`"
+      :title="$t('user.confirm-group-deletion')"
+      :message="$t('user.are-you-sure-you-want-to-delete-the-group', { groupName:group.name })"
       icon="mdi-alert"
       @confirm="deleteGroup"
       :width="450"
@@ -13,7 +13,7 @@
       <v-list dense>
         <v-card-title class="py-1">{{ group.name }}</v-card-title>
         <v-divider></v-divider>
-        <v-subheader>Group ID: {{ group.id }}</v-subheader>
+        <v-subheader>{{ $t('user.group-id-with-value', { groupID: group.id }) }}</v-subheader>
         <v-list-item-group color="primary">
           <v-list-item v-for="property in groupProps" :key="property.text">
             <v-list-item-icon>
@@ -36,11 +36,11 @@
           @click="confirmDelete"
           :disabled="ableToDelete"
         >
-          Delete
+          {{ $t('general.delete') }}
         </v-btn>
         <!-- Coming Soon! -->
         <v-btn small color="success" disabled>
-          Edit
+          {{ $t('general.edit') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -94,22 +94,22 @@ export default {
     buildData() {
       this.groupProps = [
         {
-          text: "Total Users",
+          text: this.$t('user.total-users'),
           icon: "mdi-account",
           value: this.group.users.length,
         },
         {
-          text: "Total MealPlans",
+          text: this.$t('user.total-mealplans'),
           icon: "mdi-food",
           value: this.group.mealplans.length,
         },
         {
-          text: "Webhooks Enabled",
+          text: this.$t('user.webhooks-enabled'),
           icon: "mdi-webhook",
-          value: this.group.webhookEnable ? "True" : "False",
+          value: this.group.webhookEnable ? this.$t('general.yes') : this.$t('general.no'),
         },
         {
-          text: "Webhook Time",
+          text: this.$t('user.webhook-time'),
           icon: "mdi-clock-outline",
           value: this.group.webhookTime,
         },

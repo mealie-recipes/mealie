@@ -36,7 +36,7 @@
     "themes": "Motywy",
     "confirm": "Potwierdź"
   },
-  "login": {
+  "user": {
     "stay-logged-in": "Pozostań zalogowany",
     "email": "Email",
     "password": "Hasło",
