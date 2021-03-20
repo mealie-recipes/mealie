@@ -2,19 +2,19 @@
 version: "3.1"
 services:
   # Vue Frontend
-  # mealie-frontend:
-  #   image: mealie-frontend:dev
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: frontend.Dockerfile
-  #   restart: always
-  #   ports:
-  #     - 9920:8080
-  #   environment:
-  #     VUE_APP_API_BASE_URL: "http://mealie-api:9000"
-  #   volumes:
-  #     - ./frontend/:/app
-  #     - /app/node_modules
+  mealie-frontend:
+    image: mealie-frontend:dev
+    build:
+      context: ./frontend
+      dockerfile: frontend.Dockerfile
+    restart: always
+    ports:
+      - 9920:8080
+    environment:
+      VUE_APP_API_BASE_URL: "http://mealie-api:9000"
+    volumes:
+      - ./frontend/:/app
+      - /app/node_modules
 
   # Fast API
   mealie-api:
@@ -32,11 +32,11 @@ services:
       - ./app_data:/app_data
       - ./mealie:/app
 
-  # mealie-docs:
-  #   image: squidfunk/mkdocs-material
-  #   restart: always
-  #   ports:
-  #     - 9922:8000
-  #   volumes:
-  #     - ./docs:/docs
-
+  # Mkdocs
+  mealie-docs:
+    image: squidfunk/mkdocs-material
+    restart: always
+    ports:
+      - 9922:8000
+    volumes:
+      - ./docs:/docs
