@@ -2,8 +2,8 @@ import json
 import re
 
 import pytest
-from services.scraper.cleaner import Cleaner
-from services.scraper.scraper import extract_recipe_from_html
+from mealie.services.scraper.cleaner import Cleaner
+from mealie.services.scraper.scraper import extract_recipe_from_html
 from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
 
 # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45

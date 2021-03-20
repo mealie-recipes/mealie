@@ -1,10 +1,10 @@
-from db.database import db
-from db.db_setup import generate_session
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
-from schema.snackbar import SnackResponse
+from mealie.schema.snackbar import SnackResponse
 
-from schema.snackbar import SnackResponse
+from mealie.schema.snackbar import SnackResponse
 
 router = APIRouter(tags=["Recipes"])
 

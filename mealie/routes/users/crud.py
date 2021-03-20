@@ -2,15 +2,15 @@ import shutil
 from datetime import timedelta
 from os import access
 
-from core.config import USER_DIR
-from core.security import get_password_hash, verify_password
-from db.database import db
-from db.db_setup import generate_session
+from mealie.core.config import USER_DIR
+from mealie.core.security import get_password_hash, verify_password
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.responses import FileResponse
-from routes.deps import manager
-from schema.snackbar import SnackResponse
-from schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
+from mealie.routes.deps import manager
+from mealie.schema.snackbar import SnackResponse
+from mealie.schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/users", tags=["Users"])
@@ -71,9 +71,7 @@ async def update_user(
         updated_user: UserInDB = db.users.update(session, id, new_data.dict())
         email = updated_user.email
         if current_user.id == id:
-            access_token = manager.create_access_token(
-                data=dict(sub=email), expires=timedelta(hours=2)
-            )
+            access_token = manager.create_access_token(data=dict(sub=email), expires=timedelta(hours=2))
             access_token = {"access_token": access_token, "token_type": "bearer"}
 
     return SnackResponse.success("User Updated", access_token)
@@ -126,9 +124,7 @@ async def update_password(
 ):
     """ Resets the User Password"""
 
-    match_passwords = verify_password(
-        password_change.current_password, current_user.password
-    )
+    match_passwords = verify_password(password_change.current_password, current_user.password)
     match_id = current_user.id == id
 
     if match_passwords and match_id:

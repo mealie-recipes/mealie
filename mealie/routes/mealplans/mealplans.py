@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from routes.mealplans import crud, helpers
+from mealie.routes.mealplans import crud, helpers
 
 router = APIRouter()
 

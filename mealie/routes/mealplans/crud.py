@@ -1,13 +1,13 @@
 import datetime
 
-from db.database import db
-from db.db_setup import generate_session
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from routes.deps import manager
-from schema.meal import MealPlanIn, MealPlanInDB
-from schema.snackbar import SnackResponse
-from schema.user import GroupInDB, UserInDB
-from services.meal_services import get_todays_meal, process_meals
+from mealie.routes.deps import manager
+from mealie.schema.meal import MealPlanIn, MealPlanInDB
+from mealie.schema.snackbar import SnackResponse
+from mealie.schema.user import GroupInDB, UserInDB
+from mealie.services.meal_services import get_todays_meal, process_meals
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
@@ -37,9 +37,7 @@ def create_meal_plan(
 
 
 @router.put("/{plan_id}")
-def update_meal_plan(
-    plan_id: str, meal_plan: MealPlanIn, session: Session = Depends(generate_session)
-):
+def update_meal_plan(plan_id: str, meal_plan: MealPlanIn, session: Session = Depends(generate_session)):
     """ Updates a meal plan based off ID """
     processed_plan = process_meals(session, meal_plan)
     processed_plan = MealPlanInDB(uid=plan_id, **processed_plan.dict())

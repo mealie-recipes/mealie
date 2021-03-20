@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
-from db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import SqlAlchemyBase
 
 
 class BaseDocument:
@@ -16,15 +16,10 @@ class BaseDocument:
         self.schema: BaseModel
 
     # TODO: Improve Get All Query Functionality
-    def get_all(
-        self, session: Session, limit: int = None, order_by: str = None
-    ) -> List[dict]:
+    def get_all(self, session: Session, limit: int = None, order_by: str = None) -> List[dict]:
 
         if self.orm_mode:
-            return [
-                self.schema.from_orm(x)
-                for x in session.query(self.sql_model).limit(limit).all()
-            ]
+            return [self.schema.from_orm(x) for x in session.query(self.sql_model).limit(limit).all()]
 
         list = [x.dict() for x in session.query(self.sql_model).limit(limit).all()]
 
@@ -33,9 +28,7 @@ class BaseDocument:
 
         return list
 
-    def get_all_limit_columns(
-        self, session: Session, fields: List[str], limit: int = None
-    ) -> List[SqlAlchemyBase]:
+    def get_all_limit_columns(self, session: Session, fields: List[str], limit: int = None) -> List[SqlAlchemyBase]:
         """Queries the database for the selected model. Restricts return responses to the
         keys specified under "fields"
 
@@ -47,9 +40,7 @@ class BaseDocument:
         Returns:
             list[SqlAlchemyBase]: Returns a list of ORM objects
         """
-        results = (
-            session.query(self.sql_model).options(load_only(*fields)).limit(limit).all()
-        )
+        results = session.query(self.sql_model).options(load_only(*fields)).limit(limit).all()
 
         return results
 
@@ -63,15 +54,11 @@ class BaseDocument:
         Returns:
             list[str]:
         """
-        results = session.query(self.sql_model).options(
-            load_only(str(self.primary_key))
-        )
+        results = session.query(self.sql_model).options(load_only(str(self.primary_key)))
         results_as_dict = [x.dict() for x in results]
         return [x.get(self.primary_key) for x in results_as_dict]
 
-    def _query_one(
-        self, session: Session, match_value: str, match_key: str = None
-    ) -> SqlAlchemyBase:
+    def _query_one(self, session: Session, match_value: str, match_key: str = None) -> SqlAlchemyBase:
         """Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
 
@@ -85,15 +72,11 @@ class BaseDocument:
         if match_key == None:
             match_key = self.primary_key
 
-        result = (
-            session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
-        )
+        result = session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
 
         return result
 
-    def get(
-        self, session: Session, match_value: str, match_key: str = None, limit=1
-    ) -> dict or List[dict]:
+    def get(self, session: Session, match_value: str, match_key: str = None, limit=1) -> dict or List[dict]:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
 
@@ -109,12 +92,7 @@ class BaseDocument:
         if match_key == None:
             match_key = self.primary_key
 
-        result = (
-            session.query(self.sql_model)
-            .filter_by(**{match_key: match_value})
-            .limit(limit)
-            .all()
-        )
+        result = session.query(self.sql_model).filter_by(**{match_key: match_value}).limit(limit).all()
 
         if limit == 1:
             try:
@@ -167,11 +145,7 @@ class BaseDocument:
         return return_data
 
     def delete(self, session: Session, primary_key_value) -> dict:
-        result = (
-            session.query(self.sql_model)
-            .filter_by(**{self.primary_key: primary_key_value})
-            .one()
-        )
+        result = session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()
 
         session.delete(result)
         session.commit()

@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi_camelcase import CamelModel
 
-from schema.recipe import Recipe
+from mealie.schema.recipe import Recipe
 
 
 class CategoryBase(CamelModel):

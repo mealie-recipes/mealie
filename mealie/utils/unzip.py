@@ -2,7 +2,7 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-from core.config import TEMP_DIR
+from mealie.core.config import TEMP_DIR
 
 
 def unpack_zip(selection: Path) -> tempfile.TemporaryDirectory:

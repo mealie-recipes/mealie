@@ -1,21 +1,21 @@
-from schema.category import RecipeCategoryResponse, RecipeTagResponse
-from schema.meal import MealPlanInDB
-from schema.recipe import Recipe
-from schema.settings import SiteSettings as SiteSettingsSchema
-from schema.sign_up import SignUpOut
-from schema.theme import SiteTheme
-from schema.user import GroupInDB, UserInDB
+from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
+from mealie.schema.meal import MealPlanInDB
+from mealie.schema.recipe import Recipe
+from mealie.schema.settings import SiteSettings as SiteSettingsSchema
+from mealie.schema.sign_up import SignUpOut
+from mealie.schema.theme import SiteTheme
+from mealie.schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
-from db.db_base import BaseDocument
-from db.models.group import Group
-from db.models.mealplan import MealPlanModel
-from db.models.recipe.recipe import Category, RecipeModel, Tag
-from db.models.settings import SiteSettings
-from db.models.sign_up import SignUp
-from db.models.theme import SiteThemeModel
-from db.models.users import User
+from mealie.db.db_base import BaseDocument
+from mealie.db.models.group import Group
+from mealie.db.models.mealplan import MealPlanModel
+from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
+from mealie.db.models.settings import SiteSettings
+from mealie.db.models.sign_up import SignUp
+from mealie.db.models.theme import SiteThemeModel
+from mealie.db.models.users import User
 
 
 class _Recipes(BaseDocument):
@@ -95,9 +95,7 @@ class _Groups(BaseDocument):
         self.orm_mode = True
         self.schema = GroupInDB
 
-    def get_meals(
-        self, session: Session, match_value: str, match_key: str = "name"
-    ) -> list[MealPlanInDB]:
+    def get_meals(self, session: Session, match_value: str, match_key: str = "name") -> list[MealPlanInDB]:
         """A Helper function to get the group from the database and return a sorted list of
 
         Args:
@@ -108,13 +106,11 @@ class _Groups(BaseDocument):
         Returns:
             list[MealPlanInDB]: [description]
         """
-        group: GroupInDB = (
-            session.query(self.sql_model)
-            .filter_by(**{match_key: match_value})
-            .one_or_none()
-        )
+        group: GroupInDB = session.query(self.sql_model).filter_by(**{match_key: match_value}).one_or_none()
 
-        return sorted(group.mealplans, key=lambda mealplan: mealplan.startDate)
+        # Potentially not needed? column is sorted by SqlAlchemy based on startDate
+        # return sorted(group.mealplans, key=lambda mealplan: mealplan.startDate)
+        return group.mealplans
 
 
 class _SignUps(BaseDocument):

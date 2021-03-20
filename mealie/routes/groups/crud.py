@@ -1,9 +1,9 @@
-from db.database import db
-from db.db_setup import generate_session
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from routes.deps import manager
-from schema.snackbar import SnackResponse
-from schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
+from mealie.routes.deps import manager
+from mealie.schema.snackbar import SnackResponse
+from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/groups", tags=["Groups"])
@@ -59,9 +59,7 @@ async def update_group_data(
 
 
 @router.delete("/{id}")
-async def delete_user_group(
-    id: int, current_user=Depends(manager), session: Session = Depends(generate_session)
-):
+async def delete_user_group(id: int, current_user=Depends(manager), session: Session = Depends(generate_session)):
     """ Removes a user group from the database """
 
     if id == 1:

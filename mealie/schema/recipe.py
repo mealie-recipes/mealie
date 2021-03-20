@@ -1,7 +1,7 @@
 import datetime
 from typing import Any, List, Optional
 
-from db.models.recipe.recipe import RecipeModel
+from mealie.db.models.recipe.recipe import RecipeModel
 from pydantic import BaseModel, validator
 from pydantic.utils import GetterDict
 from slugify import slugify

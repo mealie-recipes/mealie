@@ -1,7 +1,7 @@
 from datetime import date
 
 import sqlalchemy as sa
-from db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import SqlAlchemyBase
 
 
 class ApiExtras(SqlAlchemyBase):

@@ -4,13 +4,13 @@ import zipfile
 from pathlib import Path
 from typing import List
 
-from core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
-from db.database import db
-from db.db_setup import create_session
+from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
 from fastapi.logger import logger
-from schema.recipe import Recipe
-from schema.restore import RecipeImport, SettingsImport, ThemeImport
-from schema.theme import SiteTheme
+from mealie.schema.recipe import Recipe
+from mealie.schema.restore import RecipeImport, SettingsImport, ThemeImport
+from mealie.schema.theme import SiteTheme
 from sqlalchemy.orm.session import Session
 
 
@@ -93,9 +93,7 @@ class ImportDatabase:
 
                 recipe_obj = Recipe(**recipe_dict)
                 db.recipes.create(session, recipe_obj.dict())
-                import_status = RecipeImport(
-                    name=recipe_obj.name, slug=recipe_obj.slug, status=True
-                )
+                import_status = RecipeImport(name=recipe_obj.name, slug=recipe_obj.slug, status=True)
                 imports.append(import_status)
                 successful_imports.append(recipe.stem)
                 logger.info(f"Imported: {recipe.stem}")
@@ -125,17 +123,13 @@ class ImportDatabase:
         # Migration from list to Object Type Data
         try:
             if "" in recipe_dict["tags"]:
-                recipe_dict["tags"] = [
-                    tag for tag in recipe_dict["tags"] if not tag == ""
-                ]
+                recipe_dict["tags"] = [tag for tag in recipe_dict["tags"] if not tag == ""]
         except:
             pass
 
         try:
             if "" in recipe_dict["categories"]:
-                recipe_dict["categories"] = [
-                    cat for cat in recipe_dict["categories"] if not cat == ""
-                ]
+                recipe_dict["categories"] = [cat for cat in recipe_dict["categories"] if not cat == ""]
         except:
             pass
 
@@ -165,9 +159,7 @@ class ImportDatabase:
                 theme_imports.append(ThemeImport(name=new_theme.name, status=True))
             except Exception as inst:
                 logger.info(f"Unable Import Theme {new_theme.name}")
-                theme_imports.append(
-                    ThemeImport(name=new_theme.name, status=False, exception=str(inst))
-                )
+                theme_imports.append(ThemeImport(name=new_theme.name, status=False, exception=str(inst)))
 
         return theme_imports
 
@@ -185,9 +177,7 @@ class ImportDatabase:
                 import_status = SettingsImport(name=name, status=True)
 
             except Exception as inst:
-                import_status = SettingsImport(
-                    name=name, status=False, exception=str(inst)
-                )
+                import_status = SettingsImport(name=name, status=False, exception=str(inst))
 
             settings_imports.append(import_status)
 

@@ -4,15 +4,15 @@ from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.models.model_base import BaseMixins, SqlAlchemyBase
-from db.models.recipe.api_extras import ApiExtras
-from db.models.recipe.category import Category, recipes2categories
-from db.models.recipe.ingredient import RecipeIngredient
-from db.models.recipe.instruction import RecipeInstruction
-from db.models.recipe.note import Note
-from db.models.recipe.nutrition import Nutrition
-from db.models.recipe.tag import Tag, recipes2tags
-from db.models.recipe.tool import Tool
+from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models.recipe.api_extras import ApiExtras
+from mealie.db.models.recipe.category import Category, recipes2categories
+from mealie.db.models.recipe.ingredient import RecipeIngredient
+from mealie.db.models.recipe.instruction import RecipeInstruction
+from mealie.db.models.recipe.note import Note
+from mealie.db.models.recipe.nutrition import Nutrition
+from mealie.db.models.recipe.tag import Tag, recipes2tags
+from mealie.db.models.recipe.tool import Tool
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import validates
 
@@ -33,12 +33,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     recipeYield = sa.Column(sa.String)
     recipeCuisine = sa.Column(sa.String)
     tool: List[Tool] = orm.relationship("Tool", cascade="all, delete")
-    nutrition: Nutrition = orm.relationship(
-        "Nutrition", uselist=False, cascade="all, delete"
-    )
-    recipeCategory: List = orm.relationship(
-        "Category", secondary=recipes2categories, back_populates="recipes"
-    )
+    nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete")
+    recipeCategory: List = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
 
     recipeIngredient: List[RecipeIngredient] = orm.relationship(
         "RecipeIngredient",
@@ -55,9 +51,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Mealie Specific
     slug = sa.Column(sa.String, index=True, unique=True)
-    tags: List[Tag] = orm.relationship(
-        "Tag", secondary=recipes2tags, back_populates="recipes"
-    )
+    tags: List[Tag] = orm.relationship("Tag", secondary=recipes2tags, back_populates="recipes")
     dateAdded = sa.Column(sa.Date, default=date.today)
     notes: List[Note] = orm.relationship("Note", cascade="all, delete")
     rating = sa.Column(sa.Integer)
@@ -106,9 +100,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.tool = [Tool(tool=x) for x in tool] if tool else []
 
         self.recipeYield = recipeYield
-        self.recipeIngredient = [
-            RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient
-        ]
+        self.recipeIngredient = [RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient]
         self.recipeInstructions = [
             RecipeInstruction(text=instruc.get("text"), type=instruc.get("@type", None))
             for instruc in recipeInstructions
@@ -117,10 +109,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.prepTime = prepTime
         self.performTime = performTime
 
-        self.recipeCategory = [
-            Category.create_if_not_exist(session=session, name=cat)
-            for cat in recipeCategory
-        ]
+        self.recipeCategory = [Category.create_if_not_exist(session=session, name=cat) for cat in recipeCategory]
 
         # Mealie Specific
         self.tags = [Tag.create_if_not_exist(session=session, name=tag) for tag in tags]

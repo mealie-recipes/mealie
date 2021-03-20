@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 
 import requests
-from core.config import IMG_DIR
+from mealie.core.config import IMG_DIR
 from fastapi.logger import logger
 
 

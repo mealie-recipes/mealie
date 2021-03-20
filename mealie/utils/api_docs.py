@@ -1,6 +1,6 @@
 import json
 
-from core.config import DATA_DIR
+from mealie.core.config import DATA_DIR
 
 """Script to export the ReDoc documentation page into a standalone HTML file."""
 

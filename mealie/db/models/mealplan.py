@@ -2,8 +2,8 @@ from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.models.group import Group
-from db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models.group import Group
+from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 
 
 class Meal(SqlAlchemyBase):
@@ -33,9 +33,7 @@ class MealPlanModel(SqlAlchemyBase, BaseMixins):
     group_id = sa.Column(sa.String, sa.ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="mealplans")
 
-    def __init__(
-        self, startDate, endDate, meals, group: str, uid=None, session=None
-    ) -> None:
+    def __init__(self, startDate, endDate, meals, group: str, uid=None, session=None) -> None:
         self.startDate = startDate
         self.endDate = endDate
         self.group = Group.get_ref(session, group)

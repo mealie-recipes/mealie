@@ -2,12 +2,18 @@ from datetime import date, timedelta, timezone
 from typing import Union
 
 import pytz
-from db.database import db
-from db.db_setup import create_session
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
 from pydantic.tools import T
-from schema.meal import MealIn, MealOut, MealPlanIn, MealPlanInDB, MealPlanProcessed
-from schema.recipe import Recipe
-from schema.user import GroupInDB
+from mealie.schema.meal import (
+    MealIn,
+    MealOut,
+    MealPlanIn,
+    MealPlanInDB,
+    MealPlanProcessed,
+)
+from mealie.schema.recipe import Recipe
+from mealie.schema.user import GroupInDB
 from sqlalchemy.orm.session import Session
 
 

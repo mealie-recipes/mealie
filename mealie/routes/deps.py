@@ -1,10 +1,10 @@
-from core.config import SECRET
-from db.database import db
-from db.db_setup import create_session
+from mealie.core.config import SECRET
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
 from fastapi_login import LoginManager
 from sqlalchemy.orm.session import Session
 
-from schema.user import UserInDB
+from mealie.schema.user import UserInDB
 
 manager = LoginManager(SECRET, "/api/auth/token")
 
@@ -21,4 +21,3 @@ def query_user(user_email: str, session: Session = None) -> UserInDB:
     user = db.users.get(session, user_email, "email")
     session.close()
     return user
-

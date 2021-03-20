@@ -1,6 +1,6 @@
 import json
-from schema.settings import SiteSettings
-from schema.theme import SiteTheme
+from mealie.schema.settings import SiteSettings
+from mealie.schema.theme import SiteTheme
 
 import pytest
 from tests.utils.routes import (

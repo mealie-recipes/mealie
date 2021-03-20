@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import sqlalchemy as sa
-from db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import SqlAlchemyBase
 from sqlalchemy.orm import sessionmaker
 
 
@@ -18,7 +18,7 @@ def sql_global_init(db_file: Path, check_thread=False):
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-    import db.models._all_models
+    import mealie.db.models._all_models
 
     SqlAlchemyBase.metadata.create_all(engine)
 

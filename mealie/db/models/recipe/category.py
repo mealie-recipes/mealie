@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import SqlAlchemyBase
 from fastapi.logger import logger
 from slugify import slugify
 from sqlalchemy.orm import validates
@@ -32,9 +32,7 @@ class Category(SqlAlchemyBase):
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, unique=True, nullable=False)
-    recipes = orm.relationship(
-        "RecipeModel", secondary=recipes2categories, back_populates="recipeCategory"
-    )
+    recipes = orm.relationship("RecipeModel", secondary=recipes2categories, back_populates="recipeCategory")
 
     @validates("name")
     def validate_name(self, key, name):

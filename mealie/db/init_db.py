@@ -1,13 +1,13 @@
-from core.config import DEFAULT_GROUP
-from core.security import get_password_hash
+from mealie.core.config import DEFAULT_GROUP
+from mealie.core.security import get_password_hash
 from fastapi.logger import logger
-from schema.settings import SiteSettings
-from schema.theme import SiteTheme
+from mealie.schema.settings import SiteSettings
+from mealie.schema.theme import SiteTheme
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.session import Session
 
-from db.database import db
-from db.db_setup import create_session
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
 
 
 def init_db(db: Session = None) -> None:

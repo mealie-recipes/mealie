@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "mealie"
-version = "0.1.0"
+version = "0.3.0"
 description = "A Recipe Manager"
 authors = ["Hayden <hay-kot@pm.me>"]
 license = "MIT"
 
 [tool.poetry.scripts]
-start = "app:app"
+start = "mealie.app:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -39,4 +39,16 @@ mkdocs-material = "^7.0.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
  
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=quick_zip"
+python_files = 'test_*'
+python_classes = '*Tests'
+python_functions = 'test_*'
+testpaths = [
+    "tests",
+]

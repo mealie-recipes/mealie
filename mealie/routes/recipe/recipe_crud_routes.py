@@ -1,12 +1,12 @@
-from db.database import db
-from db.db_setup import generate_session
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, Form, HTTPException
 from fastapi.logger import logger
 from fastapi.responses import FileResponse
-from schema.recipe import Recipe, RecipeURLIn
-from schema.snackbar import SnackResponse
-from services.image_services import read_image, write_image
-from services.scraper.scraper import create_from_url
+from mealie.schema.recipe import Recipe, RecipeURLIn
+from mealie.schema.snackbar import SnackResponse
+from mealie.services.image_services import read_image, write_image
+from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(
@@ -41,9 +41,7 @@ def get_recipe(recipe_slug: str, session: Session = Depends(generate_session)):
 
 
 @router.put("/{recipe_slug}")
-def update_recipe(
-    recipe_slug: str, data: Recipe, session: Session = Depends(generate_session)
-):
+def update_recipe(recipe_slug: str, data: Recipe, session: Session = Depends(generate_session)):
     """ Updates a recipe by existing slug and data. """
 
     recipe: Recipe = db.recipes.update(session, recipe_slug, data.dict())
@@ -58,9 +56,7 @@ def delete_recipe(recipe_slug: str, session: Session = Depends(generate_session)
     try:
         db.recipes.delete(session, recipe_slug)
     except:
-        raise HTTPException(
-            status_code=404, detail=SnackResponse.error("Unable to Delete Recipe")
-        )
+        raise HTTPException(status_code=404, detail=SnackResponse.error("Unable to Delete Recipe"))
 
     return SnackResponse.error(f"Recipe {recipe_slug} Deleted")
 

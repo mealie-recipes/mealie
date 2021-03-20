@@ -1,10 +1,10 @@
 import json
 
 import requests
-from app import app
-from core.config import SQLITE_DIR
-from db.db_setup import generate_session, sql_global_init
-from db.init_db import init_db
+from mealie.app import app
+from mealie.core.config import SQLITE_DIR
+from mealie.db.db_setup import generate_session, sql_global_init
+from mealie.db.init_db import init_db
 from fastapi.testclient import TestClient
 from pytest import fixture
 

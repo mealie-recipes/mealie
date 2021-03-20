@@ -2,11 +2,11 @@ import shutil
 from pathlib import Path
 
 import yaml
-from core.config import IMG_DIR, TEMP_DIR
-from db.database import db
-from schema.recipe import Recipe
+from mealie.core.config import IMG_DIR, TEMP_DIR
+from mealie.db.database import db
+from mealie.schema.recipe import Recipe
 from sqlalchemy.orm.session import Session
-from utils.unzip import unpack_zip
+from mealie.utils.unzip import unpack_zip
 
 try:
     from yaml import CLoader as Loader

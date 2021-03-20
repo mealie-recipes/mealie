@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from routes.users import auth, crud, sign_up
+from mealie.routes.users import auth, crud, sign_up
 
 router = APIRouter()
 

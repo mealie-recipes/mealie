@@ -1,10 +1,10 @@
 from pathlib import Path
 
 import pytest
-from core.config import TEMP_DIR
-from schema.recipe import Recipe
-from services.image_services import IMG_DIR
-from services.migrations.nextcloud import (
+from mealie.core.config import TEMP_DIR
+from mealie.schema.recipe import Recipe
+from mealie.services.image_services import IMG_DIR
+from mealie.services.migrations.nextcloud import (
     cleanup,
     import_recipes,
     prep,

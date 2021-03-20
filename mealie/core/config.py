@@ -78,9 +78,7 @@ if DATABASE_TYPE == "sqlite":
     SQLITE_FILE = SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
 
 else:
-    raise Exception(
-        "Unable to determine database type. Acceptible options are 'sqlite' "
-    )
+    raise Exception("Unable to determine database type. Acceptible options are 'sqlite' ")
 
 # Mongo Database
 MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")
