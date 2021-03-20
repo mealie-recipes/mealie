@@ -2,7 +2,7 @@ from typing import Optional
 
 from fastapi_camelcase import CamelModel
 
-from schema.category import CategoryBase
+from mealie.schema.category import CategoryBase
 
 
 class SiteSettings(CamelModel):

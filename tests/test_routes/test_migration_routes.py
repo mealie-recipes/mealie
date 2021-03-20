@@ -2,7 +2,7 @@ import json
 import shutil
 
 import pytest
-from core.config import MIGRATION_DIR
+from mealie.core.config import MIGRATION_DIR
 from tests.test_config import TEST_CHOWDOWN_DIR, TEST_NEXTCLOUD_DIR
 from tests.utils.routes import MIGRATIONS_PREFIX, RECIPES_PREFIX
 

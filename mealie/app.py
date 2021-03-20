@@ -3,25 +3,25 @@ from fastapi import FastAPI
 from fastapi.logger import logger
 
 # import utils.startup as startup
-from core.config import APP_VERSION, PORT, docs_url, redoc_url
-from db.db_setup import sql_exists
-from db.init_db import init_db
-from routes import (
+from mealie.core.config import APP_VERSION, PORT, docs_url, redoc_url
+from mealie.db.db_setup import sql_exists
+from mealie.db.init_db import init_db
+from mealie.routes import (
     backup_routes,
     debug_routes,
     migration_routes,
     setting_routes,
     theme_routes,
 )
-from routes.groups import groups
-from routes.mealplans import mealplans
-from routes.recipe import (
+from mealie.routes.groups import groups
+from mealie.routes.mealplans import mealplans
+from mealie.routes.recipe import (
     all_recipe_routes,
     category_routes,
     recipe_crud_routes,
     tag_routes,
 )
-from routes.users import users
+from mealie.routes.users import users
 
 app = FastAPI(
     title="Mealie",
@@ -37,7 +37,7 @@ def data_base_first_run():
 
 
 def start_scheduler():
-    import services.scheduler.scheduled_jobs
+    import mealie.services.scheduler.scheduled_jobs
 
 
 def api_routers():
@@ -68,8 +68,8 @@ if not sql_exists:
 api_routers()
 start_scheduler()
 
-if __name__ == "__main__":
-    logger.info("-----SYSTEM STARTUP-----")
+
+def main():
 
     uvicorn.run(
         "app:app",
@@ -81,3 +81,8 @@ if __name__ == "__main__":
         workers=1,
         forwarded_allow_ips="*",
     )
+
+
+if __name__ == "__main__":
+    logger.info("-----SYSTEM STARTUP-----")
+    main()

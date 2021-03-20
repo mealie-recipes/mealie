@@ -1,5 +1,5 @@
 import sqlalchemy as sa
-from db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import SqlAlchemyBase
 
 
 class Tool(SqlAlchemyBase):

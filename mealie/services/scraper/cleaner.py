@@ -31,23 +31,14 @@ class Cleaner:
         recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime", None))
         recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime", None))
         recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime", None))
-        recipe_data["recipeCategory"] = Cleaner.category(
-            recipe_data.get("recipeCategory", [])
-        )
+        recipe_data["recipeCategory"] = Cleaner.category(recipe_data.get("recipeCategory", []))
 
-        recipe_data["recipeYield"] = Cleaner.yield_amount(
-            recipe_data.get("recipeYield")
-        )
-        recipe_data["recipeIngredient"] = Cleaner.ingredient(
-            recipe_data.get("recipeIngredient")
-        )
-        recipe_data["recipeInstructions"] = Cleaner.instructions(
-            recipe_data["recipeInstructions"]
-        )
+        recipe_data["recipeYield"] = Cleaner.yield_amount(recipe_data.get("recipeYield"))
+        recipe_data["recipeIngredient"] = Cleaner.ingredient(recipe_data.get("recipeIngredient"))
+        recipe_data["recipeInstructions"] = Cleaner.instructions(recipe_data["recipeInstructions"])
         recipe_data["image"] = Cleaner.image(recipe_data.get("image"))
         recipe_data["slug"] = slugify(recipe_data.get("name"))
         recipe_data["orgURL"] = url
-
 
         return recipe_data
 
@@ -84,11 +75,7 @@ class Cleaner:
 
         # One long string split by (possibly multiple) new lines
         if isinstance(instructions, str):
-            return [
-                {"text": Cleaner._instruction(line)}
-                for line in instructions.splitlines()
-                if line
-            ]
+            return [{"text": Cleaner._instruction(line)} for line in instructions.splitlines() if line]
 
         # Plain strings in a list
         elif type(instructions) == list and type(instructions[0]) == str:
@@ -97,13 +84,8 @@ class Cleaner:
         # Dictionaries (let's assume it's a HowToStep) in a list
         elif type(instructions) == list and type(instructions[0]) == dict:
             # Try List of Dictionary without "@type" or "type"
-            if not instructions[0].get("@type", False) and not instructions[0].get(
-                "type", False
-            ):
-                return [
-                    {"text": Cleaner._instruction(step["text"])}
-                    for step in instructions
-                ]
+            if not instructions[0].get("@type", False) and not instructions[0].get("type", False):
+                return [{"text": Cleaner._instruction(step["text"])} for step in instructions]
 
             try:
                 # If HowToStep is under HowToSection

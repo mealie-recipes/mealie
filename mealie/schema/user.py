@@ -1,13 +1,13 @@
 from typing import Any, Optional
 
-from core.config import DEFAULT_GROUP
-from db.models.group import Group
-from db.models.users import User
+from mealie.core.config import DEFAULT_GROUP
+from mealie.db.models.group import Group
+from mealie.db.models.users import User
 from fastapi_camelcase import CamelModel
 from pydantic.utils import GetterDict
 
-from schema.category import CategoryBase
-from schema.meal import MealPlanInDB
+from mealie.schema.category import CategoryBase
+from mealie.schema.meal import MealPlanInDB
 
 
 class ChangePassword(CamelModel):

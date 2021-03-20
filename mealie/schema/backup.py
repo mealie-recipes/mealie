@@ -8,6 +8,8 @@ class BackupOptions(BaseModel):
     recipes: bool = True
     settings: bool = True
     themes: bool = True
+    groups: bool = True
+    users: bool = True
 
     class Config:
         schema_extra = {
@@ -15,6 +17,8 @@ class BackupOptions(BaseModel):
                 "recipes": True,
                 "settings": True,
                 "themes": True,
+                "groups": True,
+                "users": True,
             }
         }
 

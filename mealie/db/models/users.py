@@ -1,6 +1,6 @@
-from core.config import DEFAULT_GROUP
-from db.models.group import Group
-from db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.core.config import DEFAULT_GROUP
+from mealie.db.models.group import Group
+from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 # I'm not sure this is necessasry, browser based settings may be sufficient

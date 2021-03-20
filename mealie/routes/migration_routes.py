@@ -2,14 +2,14 @@ import operator
 import shutil
 from typing import List
 
-from core.config import MIGRATION_DIR
-from db.db_setup import generate_session
+from mealie.core.config import MIGRATION_DIR
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from schema.migration import MigrationFile, Migrations
-from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
-from services.migrations.nextcloud import migrate as nextcloud_migrate
+from mealie.schema.migration import MigrationFile, Migrations
+from mealie.services.migrations.chowdown import chowdown_migrate as chowdow_migrate
+from mealie.services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session
-from schema.snackbar import SnackResponse
+from mealie.schema.snackbar import SnackResponse
 
 router = APIRouter(prefix="/api/migrations", tags=["Migration"])
 
@@ -36,9 +36,7 @@ def get_avaiable_nextcloud_imports():
 
 
 @router.post("/{type}/{file_name}/import")
-def import_nextcloud_directory(
-    type: str, file_name: str, session: Session = Depends(generate_session)
-):
+def import_nextcloud_directory(type: str, file_name: str, session: Session = Depends(generate_session)):
     """ Imports all the recipes in a given directory """
     file_path = MIGRATION_DIR.joinpath(type, file_name)
     if type == "nextcloud":

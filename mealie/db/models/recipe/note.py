@@ -1,5 +1,5 @@
 import sqlalchemy as sa
-from db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import SqlAlchemyBase
 
 
 class Note(SqlAlchemyBase):
@@ -12,4 +12,3 @@ class Note(SqlAlchemyBase):
     def __init__(self, title, text) -> None:
         self.title = title
         self.text = text
-

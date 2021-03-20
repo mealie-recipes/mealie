@@ -12,15 +12,15 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
 
 
 ## Key Features
-- 🔍 Powerful fuzzy search
+- 🔍 Fuzzy search
 - 🏷️ Tag recipes with categories or tags to flexible sorting
-- ⬇️ Import recipes from around the web by URL
+- 🕸 Import recipes from around the web by URL
 - 📱 Beautiful Mobile Views
 - 📆 Create Meal Plans
-- 🛒 Generate shopping lists from Meal Plans
+- 🛒 Generate shopping lists
 - 🐳 Easy setup with Docker
 - 🎨 Customize your interface with color themes layouts
-- ✉️ Export all your data in any format with Jinja2 Templates, with easy data restoration from the UI.
+- 💾 Export all your data in any format with Jinja2 Templates, with easy data restoration from the user interface.
 - 🌍 localized in many languages
 - ➕ Plus tons more!
     - Flexible API

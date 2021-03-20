@@ -1,13 +1,13 @@
 import uuid
 
-from core.security import get_password_hash
-from db.database import db
-from db.db_setup import generate_session
+from mealie.core.security import get_password_hash
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from routes.deps import manager
-from schema.sign_up import SignUpIn, SignUpOut, SignUpToken
-from schema.snackbar import SnackResponse
-from schema.user import UserIn, UserInDB
+from mealie.routes.deps import manager
+from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
+from mealie.schema.snackbar import SnackResponse
+from mealie.schema.user import UserIn, UserInDB
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])

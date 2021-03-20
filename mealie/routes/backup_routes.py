@@ -1,13 +1,13 @@
 import operator
 import shutil
 
-from core.config import BACKUP_DIR, TEMPLATE_DIR
-from db.db_setup import generate_session
+from mealie.core.config import BACKUP_DIR, TEMPLATE_DIR
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from schema.backup import BackupJob, ImportJob, Imports, LocalBackup
-from schema.snackbar import SnackResponse
-from services.backups.exports import backup_all
-from services.backups.imports import ImportDatabase
+from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
+from mealie.schema.snackbar import SnackResponse
+from mealie.services.backups.exports import backup_all
+from mealie.services.backups.imports import ImportDatabase
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
@@ -71,17 +71,13 @@ async def upload_nextcloud_zipfile(file_name: str):
     file = BACKUP_DIR.joinpath(file_name)
 
     if file.is_file:
-        return FileResponse(
-            file, media_type="application/octet-stream", filename=file_name
-        )
+        return FileResponse(file, media_type="application/octet-stream", filename=file_name)
     else:
         return SnackResponse.error("No File Found")
 
 
 @router.post("/{file_name}/import", status_code=200)
-def import_database(
-    file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)
-):
+def import_database(file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)):
     """ Import a database backup file generated from Mealie. """
 
     import_db = ImportDatabase(

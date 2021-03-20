@@ -3,12 +3,10 @@
   "tasks": [
     {
       "label": "DEV: Build and Start Docker Compose",
-      "command": "./dev/scripts/docker-compose.dev.sh",
+      "command": "make docker-dev",
       "type": "shell",
       "args": [],
-      "problemMatcher": [
-        "$tsc"
-      ],
+      "problemMatcher": ["$tsc"],
       "presentation": {
         "reveal": "always"
       },
@@ -16,26 +14,18 @@
     },
     {
       "label": "Production: Build and Start Docker Compose",
-      "command": "./dev/scripts/docker-compose.sh",
+      "command": "make docker-prod",
       "type": "shell",
       "args": [],
-      "problemMatcher": [
-        "$tsc"
-      ],
+      "problemMatcher": ["$tsc"],
       "presentation": {
         "reveal": "always"
       },
       "group": "test"
     },
     {
-      "label": "Dev: Start local Backend",
-      "command": "../${config:python.pythonPath}",
-      "args": [
-        "app.py"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}/mealie/"
-      },
+      "label": "Dev: Start Backend",
+      "command": "make backend",
       "type": "shell",
       "presentation": {
         "reveal": "always",
@@ -44,12 +34,19 @@
       "problemMatcher": []
     },
     {
-      "label": "Dev: Start local Frontend",
-      "command": "npm run serve",
+      "label": "Dev: Start Frontend",
+      "command": "make vue",
       "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/frontend/"
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
       },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Start Docs Server",
+      "command": "make mdocs",
+      "type": "shell",
       "presentation": {
         "reveal": "always",
         "group": "groupA"

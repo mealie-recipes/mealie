@@ -3,27 +3,36 @@
 After reading through the [Code Contributions Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
 
 ## With Docker
-`cd` into frontend directory and run `npm install` to install the node modules. 
+Prerequisites
 
-There are 2 scripts to help set up the docker containers in dev/scripts/. 
+- Docker
+- docker-compose
 
-`docker-compose.dev.sh` - Will spin up a docker development server
-`docker-compose.sh` - Will spin up a docker production server
-
-There are VSCode tasks created in the .vscode folder. You can use these to quickly execute the scripts above using the command palette.
-
+You can easily start the development stack by running `make docker-dev` in the root of the project directory. This will run and build the docker-compose.dev.yml file. 
 
 ## Without Docker
 Prerequisites
 
-- Python 3.8+
+- Python 3.9+
 - Poetry
 - Nodejs
 - npm
 
-change directories into the mealie directory and run poetry install. cd into the frontend directory and run npm install. After installing dependencies, you can use vscode tasks to run the front and backend server. Use the command pallette to access the tasks. 
+Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies. Once that is complete you can run `make backend` and `make vue` to start the backend and frontend servers. 
 
-Alternatively you can run `npm run serve` in the frontend directory and `python app.py` in the mealie directory to get everything up and running for development. 
+## Make File Reference 
+`make setup` installs python and node dependencies
+
+`make backend` Starts the backend server on port `9000`
+
+`make vue` Starts the frontend server on port `8080`
+
+`make mdocs` Starts the documentation server on port `8000`
+
+`make docker-dev` Builds docker-compose.dev.yml 
+
+`make docker-prod` Builds docker-compose.yml to test for production
+
 
 ## Trouble Shooting
 

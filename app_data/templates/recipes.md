@@ -1,19 +1,17 @@
 
 
-![Recipe Image](../images/{{ recipe.image }})
+![Recipe Image](../../images/{{ recipe.image }})
 
 # {{ recipe.name }}
 {{ recipe.description }}
 
 ## Ingredients
-{% for ingredient in recipe.recipeIngredient %}
-- [ ] {{ ingredient }}
-{% endfor %}
+{% for ingredient in recipe.recipeIngredient %} 
+- [ ] {{ ingredient }} {% endfor %}
 
 ## Instructions
-{% for step in recipe.recipeInstructions %}
-- [ ] {{ step.text }}
-{% endfor %}
+{% for step in recipe.recipeInstructions %} 
+- [ ] {{ step.text }} {% endfor %}
 
 {% for note in recipe.notes %}
 **{{ note.title }}:** {{ note.text }}

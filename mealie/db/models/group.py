@@ -1,8 +1,8 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from core.config import DEFAULT_GROUP
-from db.models.model_base import BaseMixins, SqlAlchemyBase
-from db.models.recipe.category import Category, group2categories
+from mealie.core.config import DEFAULT_GROUP
+from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models.recipe.category import Category, group2categories
 from fastapi.logger import logger
 from sqlalchemy.orm.session import Session
 
@@ -20,18 +20,17 @@ class Group(SqlAlchemyBase, BaseMixins):
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
     mealplans = orm.relationship(
-        "MealPlanModel", back_populates="group", single_parent=True
+        "MealPlanModel",
+        back_populates="group",
+        single_parent=True,
+        order_by="MealPlanModel.startDate",
     )
-    categories = orm.relationship(
-        "Category", secondary=group2categories, single_parent=True
-    )
+    categories = orm.relationship("Category", secondary=group2categories, single_parent=True)
 
     # Webhook Settings
     webhook_enable = sa.Column(sa.Boolean, default=False)
     webhook_time = sa.Column(sa.String, default="00:00")
-    webhook_urls = orm.relationship(
-        "WebhookURLModel", uselist=True, cascade="all, delete"
-    )
+    webhook_urls = orm.relationship("WebhookURLModel", uselist=True, cascade="all, delete")
 
     def __init__(
         self,
@@ -46,10 +45,7 @@ class Group(SqlAlchemyBase, BaseMixins):
         webhook_urls=[],
     ) -> None:
         self.name = name
-        self.categories = [
-            Category.get_ref(session=session, slug=cat.get("slug"))
-            for cat in categories
-        ]
+        self.categories = [Category.get_ref(session=session, slug=cat.get("slug")) for cat in categories]
 
         self.webhook_enable = webhook_enable
         self.webhook_time = webhook_time

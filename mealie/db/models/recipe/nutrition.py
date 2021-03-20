@@ -1,5 +1,5 @@
 import sqlalchemy as sa
-from db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import SqlAlchemyBase
 
 
 class Nutrition(SqlAlchemyBase):
@@ -28,4 +28,3 @@ class Nutrition(SqlAlchemyBase):
         self.proteinContent = proteinContent
         self.sodiumContent = sodiumContent
         self.sugarContent = sugarContent
-

@@ -1,9 +1,9 @@
-from db.db_setup import generate_session
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from schema.theme import SiteTheme
+from mealie.schema.theme import SiteTheme
 from sqlalchemy.orm.session import Session
-from schema.snackbar import SnackResponse
-from db.database import db
+from mealie.schema.snackbar import SnackResponse
+from mealie.db.database import db
 
 router = APIRouter(prefix="/api", tags=["Themes"])
 
@@ -30,9 +30,7 @@ def get_single_theme(theme_name: str, session: Session = Depends(generate_sessio
 
 
 @router.put("/themes/{theme_name}")
-def update_theme(
-    theme_name: str, data: SiteTheme, session: Session = Depends(generate_session)
-):
+def update_theme(theme_name: str, data: SiteTheme, session: Session = Depends(generate_session)):
     """ Update a theme database entry """
     db.themes.update(session, theme_name, data.dict())
 

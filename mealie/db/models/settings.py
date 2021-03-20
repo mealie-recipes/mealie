@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from db.models.model_base import BaseMixins, SqlAlchemyBase
-from db.models.recipe.category import Category, site_settings2categories
+from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models.recipe.category import Category, site_settings2categories
 from sqlalchemy.orm import Session
 
 
@@ -29,10 +29,7 @@ class SiteSettings(SqlAlchemyBase, BaseMixins):
         self.language = language
         self.cards_per_section = cards_per_section
         self.show_recent = show_recent
-        self.categories = [
-            Category.get_ref(session=session, name=cat.get("slug"))
-            for cat in categories
-        ]
+        self.categories = [Category.get_ref(session=session, name=cat.get("slug")) for cat in categories]
 
     def update(self, *args, **kwarg):
         self.__init__(*args, **kwarg)

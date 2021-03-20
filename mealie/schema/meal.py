@@ -1,7 +1,7 @@
 from datetime import date
 from typing import List, Optional
 
-from db.models.mealplan import MealPlanModel
+from mealie.db.models.mealplan import MealPlanModel
 from pydantic import BaseModel, validator
 from pydantic.utils import GetterDict
 

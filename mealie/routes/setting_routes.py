@@ -1,13 +1,13 @@
-from db.database import db
-from db.db_setup import generate_session
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from schema.settings import SiteSettings
-from schema.snackbar import SnackResponse
-from schema.user import GroupInDB, UserInDB
+from mealie.schema.settings import SiteSettings
+from mealie.schema.snackbar import SnackResponse
+from mealie.schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
-from utils.post_webhooks import post_webhooks
+from mealie.utils.post_webhooks import post_webhooks
 
-from routes.deps import manager
+from mealie.routes.deps import manager
 
 router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 

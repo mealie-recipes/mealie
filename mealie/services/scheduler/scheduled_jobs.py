@@ -1,12 +1,12 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from db.database import db
-from db.db_setup import create_session
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
 from fastapi.logger import logger
-from schema.user import GroupInDB
-from services.backups.exports import auto_backup_job
-from services.scheduler.global_scheduler import scheduler
-from services.scheduler.scheduler_utils import Cron, cron_parser
-from utils.post_webhooks import post_webhooks
+from mealie.schema.user import GroupInDB
+from mealie.services.backups.exports import auto_backup_job
+from mealie.services.scheduler.global_scheduler import scheduler
+from mealie.services.scheduler.scheduler_utils import Cron, cron_parser
+from mealie.utils.post_webhooks import post_webhooks
 
 
 # TODO Fix Scheduler
@@ -83,9 +83,7 @@ def init_webhook_schedule(scheduler, job_store: dict):
 logger.info("----INIT SCHEDULE OBJECT-----")
 
 JOB_STORE = {
-    "backup_job": ScheduledFunction(
-        scheduler, auto_backup_job, Cron(hours=00, minutes=00), "backups"
-    ),
+    "backup_job": ScheduledFunction(scheduler, auto_backup_job, Cron(hours=00, minutes=00), "backups"),
 }
 
 JOB_STORE = init_webhook_schedule(scheduler=scheduler, job_store=JOB_STORE)

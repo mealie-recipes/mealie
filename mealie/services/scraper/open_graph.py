@@ -1,7 +1,7 @@
 from typing import Tuple
 
 import extruct
-from core.config import DEBUG_DIR
+from mealie.core.config import DEBUG_DIR
 from slugify import slugify
 from w3lib.html import get_base_url
 

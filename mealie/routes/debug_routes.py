@@ -1,6 +1,6 @@
 import json
 
-from core.config import APP_VERSION, DEBUG_DIR, LOGGER_FILE
+from mealie.core.config import APP_VERSION, DEBUG_DIR, LOGGER_FILE
 from fastapi import APIRouter
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])
