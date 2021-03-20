@@ -43,7 +43,8 @@
     "filter": "Filtrer",
     "no": "Non",
     "yes": "Oui",
-    "token": "Jeton"
+    "token": "Jeton",
+    "field-required": "Champ obligatoire"
   },
   "page": {
     "home-page": "Accueil",
@@ -85,7 +86,18 @@
     "group-name": "Nom du groupe",
     "link-id": "ID du lien",
     "groups": "Groupes",
-    "users": "Utilisateurs"
+    "users": "Utilisateurs",
+    "could-not-validate-credentials": "La vérification de vos identifiants a échoué",
+    "login": "Connexion",
+    "groups-can-only-be-set-by-administrators": "Les groupes sont assignés par les administrateurs",
+    "confirm-password": "Confirmer mot de passe",
+    "current-password": "Mot de passe actuel",
+    "e-mail-must-be-valid": "L'e-mail doit être valide",
+    "new-password": "Nouveau mot de passe",
+    "password-must-match": "Les mots de passe doivent correspondre",
+    "reset-password": "Réinitialiser le mot de passe",
+    "upload-photo": "Importer une photo",
+    "use-8-characters-or-more-for-your-password": "Utiliser au moins 8 caractères pour votre mot de passe"
   },
   "meal-plan": {
     "shopping-list": "Liste d'achats",

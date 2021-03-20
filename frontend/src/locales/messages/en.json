@@ -43,7 +43,8 @@
     "filter": "Filter",
     "yes": "Yes",
     "no": "No",
-    "token": "Token"
+    "token": "Token",
+    "field-required": "Field Required"
   },
   "page": {
     "home-page": "Home Page",
@@ -87,7 +88,16 @@
     "users": "Users",
     "groups": "Groups",
     "could-not-validate-credentials": "Could Not Validate Credentials",
-    "login": "Login"
+    "login": "Login",
+    "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
+    "upload-photo": "Upload Photo",
+    "reset-password": "Reset Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-password": "Confirm Password",
+    "password-must-match": "Password must match",
+    "e-mail-must-be-valid": "E-mail must be valid",
+    "use-8-characters-or-more-for-your-password": "Use 8 characters or more for your password"
   },
   "meal-plan": {
     "shopping-list": "Shopping List",
