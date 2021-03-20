@@ -34,7 +34,7 @@ else:
     redoc_url = None
 
 # Helpful Globals
-DATA_DIR = CWD.parent.parent.joinpath("app_data")
+DATA_DIR = CWD.parent.parent.joinpath("dev", "data")
 if PRODUCTION:
     DATA_DIR = Path("/app/data")
 
