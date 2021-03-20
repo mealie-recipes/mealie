@@ -18,4 +18,4 @@ RUN poetry install
 
 COPY ./mealie /app/mealie
 
-CMD ["uvicorn", "mealie.app:app", "--host", "0.0.0.0", "--port", "9000"]
+CMD ["uvicorn", "mealie.app:app", "--host", "0.0.0.0", "--port", "9000", "--reload"]
