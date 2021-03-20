@@ -24,7 +24,7 @@
       "group": "test"
     },
     {
-      "label": "Dev: Start local Backend",
+      "label": "Dev: Start Backend",
       "command": "make backend",
       "type": "shell",
       "presentation": {
@@ -34,8 +34,18 @@
       "problemMatcher": []
     },
     {
-      "label": "Dev: Start local Frontend",
+      "label": "Dev: Start Frontend",
       "command": "make vue",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Start Docs Server",
+      "command": "make mdocs",
       "type": "shell",
       "presentation": {
         "reveal": "always",
