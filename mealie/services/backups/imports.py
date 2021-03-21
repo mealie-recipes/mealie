@@ -9,7 +9,8 @@ from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.recipe import Recipe
-from mealie.schema.restore import GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
+from mealie.schema.restore import (GroupImport, RecipeImport, SettingsImport,
+                                   ThemeImport, UserImport)
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import UpdateGroup, UserInDB
 from sqlalchemy.orm.session import Session
@@ -120,17 +121,22 @@ class ImportDatabase:
         theme_imports = []
         with open(themes_file, "r") as f:
             themes: list[dict] = json.loads(f.read())
-        for theme in themes:
-            if theme.get("name") == "default":
-                continue
-            new_theme = SiteTheme(**theme)
-            try:
 
-                db.themes.create(self.session, new_theme.dict())
-                theme_imports.append(ThemeImport(name=new_theme.name, status=True))
+        themes: list[SiteTheme] = [SiteTheme(**theme) for theme in themes]
+        for theme in themes:
+            if theme.name == "default":
+                continue
+            item = db.themes.get(self.session, theme.name)
+            if item:
+                import_status = UserImport(name=theme.name, status=False, exception="Theme Exists")
+                theme_imports.append(import_status)
+                continue
+            try:
+                db.themes.create(self.session, theme.dict())
+                theme_imports.append(ThemeImport(name=theme.name, status=True))
             except Exception as inst:
-                logger.info(f"Unable Import Theme {new_theme.name}")
-                theme_imports.append(ThemeImport(name=new_theme.name, status=False, exception=str(inst)))
+                logger.info(f"Unable Import Theme {theme.name}")
+                theme_imports.append(ThemeImport(name=theme.name, status=False, exception=str(inst)))
 
         return theme_imports
 
@@ -175,7 +181,6 @@ class ImportDatabase:
 
             group_imports.append(import_status)
 
-        print(group_imports)
         return group_imports
 
     def import_users(self):
@@ -240,7 +245,6 @@ def import_database(
 
     group_report = []
     if import_groups:
-        print("Import Groups")
         group_report = import_session.import_groups()
 
     user_report = []
@@ -257,6 +261,5 @@ def import_database(
         "userImports": user_report,
     }
 
-    print(data)
 
     return data
