@@ -9,6 +9,8 @@ mealie/temp/*
 mealie/temp/api.html
 .temp/
 
+# ignore frontend build artefacts
+frontend/dist
 
 app_data/backups/*
 app_data/debug/*

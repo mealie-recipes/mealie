@@ -17,15 +17,48 @@ Prerequisites
 - Poetry
 - Nodejs
 - npm
+- Caddy
 
-Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies. Once that is complete you can run `make backend` and `make vue` to start the backend and frontend servers. 
+Once the prerequisites are installed you can cd into the project base directory and run `make build` to install the python and node dependencies and build the frontend webroot.You will need to configure Caddy to serve the webroot and proxy the api & mdocs. Something along these lines would be a good starting point for `/etc/caddy/Caddyfile`:
+```
+{
+  auto_https off
+  admin off
+}
 
-## Make File Reference 
+:80 {
+  @proxied path /api/* /docs /openapi.json
+
+  root * /path/to/mealie.git/frontend/dist
+  encode gzip
+  uri strip_suffix /
+  
+  handle @proxied {
+    reverse_proxy http://127.0.0.1:9000 
+  }
+
+  handle {
+    try_files {path}.html {path} /
+    file_server 
+  }
+
+}
+```
+
+## Makefile Reference 
+
+### Prod environment
+`make build` installs dependencies and builds the frontend ready for prod use
+
+`make backend` Starts the backend server on port `9000` via uvicorn
+
+
+### Dev environment
 `make setup` installs python and node dependencies
 
-`make backend` Starts the backend server on port `9000`
+`make frontend` Starts the frontend server on port `8080` via npm serve
 
-`make vue` Starts the frontend server on port `8080`
+`make mealie.app` Starts the backend server on port `9000` directly from `mealie/app.py`
 
 `make mdocs` Starts the documentation server on port `8000`
 
