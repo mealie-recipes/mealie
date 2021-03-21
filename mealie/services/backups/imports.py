@@ -9,8 +9,7 @@ from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.recipe import Recipe
-from mealie.schema.restore import (GroupImport, RecipeImport, SettingsImport,
-                                   ThemeImport, UserImport)
+from mealie.schema.restore import GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import UpdateGroup, UserInDB
 from sqlalchemy.orm.session import Session
@@ -260,6 +259,5 @@ def import_database(
         "groupImports": group_report,
         "userImports": user_report,
     }
-
 
     return data
