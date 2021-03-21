@@ -25,11 +25,11 @@
           </v-row>
         </v-card-text>
         <v-tabs v-model="tab">
-          <v-tab>Recipes</v-tab>
-          <v-tab>Themes</v-tab>
-          <v-tab>Settings</v-tab>
-          <v-tab>Users</v-tab>
-          <v-tab>Groups</v-tab>
+          <v-tab>{{ $t("general.recipes") }}</v-tab>
+          <v-tab>{{ $t("general.themes") }}</v-tab>
+          <v-tab>{{ $t("general.settings") }}</v-tab>
+          <v-tab>{{ $t("general.users") }}</v-tab>
+          <v-tab>{{ $t("general.groups") }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item>
@@ -101,19 +101,22 @@ export default {
 
   computed: {
     recipeNumbers() {
-      return this.calculateNumbers("Recipes", this.recipeData);
+      return this.calculateNumbers(this.$t("general.recipes"), this.recipeData);
     },
     settingsNumbers() {
-      return this.calculateNumbers("Settings", this.settingsData);
+      return this.calculateNumbers(
+        this.$t("general.settings"),
+        this.settingsData
+      );
     },
     themeNumbers() {
-      return this.calculateNumbers("Theme", this.themeData);
+      return this.calculateNumbers(this.$t("general.themes"), this.themeData);
     },
     userNumbers() {
-      return this.calculateNumbers("Users", this.userData);
+      return this.calculateNumbers(this.$t("general.users"), this.userData);
     },
     groupNumbers() {
-      return this.calculateNumbers("Groups", this.groupData);
+      return this.calculateNumbers(this.$t("general.groups"), this.groupData);
     },
     allNumbers() {
       return [
