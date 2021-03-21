@@ -7,7 +7,6 @@ from typing import List
 from fastapi.logger import logger
 from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from mealie.db.database import db
-from mealie.db.db_setup import create_session
 from mealie.schema.recipe import Recipe
 from mealie.schema.restore import GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
 from mealie.schema.theme import SiteTheme
@@ -47,38 +46,41 @@ class ImportDatabase:
             raise Exception("Import file does not exist")
 
     def import_recipes(self):
-        session = create_session()
         recipe_dir: Path = self.import_dir.joinpath("recipes")
-
         imports = []
         successful_imports = []
 
-        for recipe in recipe_dir.glob("*.json"):
-            with open(recipe, "r") as f:
-                recipe_dict = json.loads(f.read())
-                recipe_dict = ImportDatabase._recipe_migration(recipe_dict)
-            try:
-                if recipe_dict.get("categories", False):
-                    recipe_dict["recipeCategory"] = recipe_dict.get("categories")
-                    del recipe_dict["categories"]
+        def read_recipe_file(file_path: Path):
+            with open(file_path, "r") as f:
+                try:
+                    recipe_dict = json.loads(f.read())
+                    recipe_dict = ImportDatabase._recipe_migration(recipe_dict)
+                    return Recipe(**recipe_dict)
+                except:
+                    import_status = RecipeImport(name=file_path.stem, slug=file_path.stem, status=False)
+                    imports.append(import_status)
 
-                recipe_obj = Recipe(**recipe_dict)
-                db.recipes.create(session, recipe_obj.dict())
-                import_status = RecipeImport(name=recipe_obj.name, slug=recipe_obj.slug, status=True)
-                imports.append(import_status)
-                successful_imports.append(recipe.stem)
-                logger.info(f"Imported: {recipe.stem}")
+        recipes = [read_recipe_file(r) for r in recipe_dir.glob("*.json")]
+
+        for recipe in recipes:
+            try:
+                db.recipes.create(self.session, recipe.dict())
+                import_status = RecipeImport(name=recipe.name, slug=recipe.slug, status=True)
+                successful_imports.append(recipe.slug)
+                logger.info(f"Imported: {recipe.slug}")
 
             except Exception as inst:
+                self.session.rollback()
                 logger.error(inst)
-                logger.info(f"Failed Import: {recipe.stem}")
+                logger.info(f"Failed Import: {recipe.slug}")
                 import_status = RecipeImport(
-                    name=recipe.stem,
-                    slug=recipe.stem,
+                    name=recipe.name,
+                    slug=recipe.slug,
                     status=False,
                     exception=str(inst),
                 )
-                imports.append(import_status)
+
+            imports.append(import_status)
 
         self._import_images(successful_imports)
 
@@ -86,6 +88,9 @@ class ImportDatabase:
 
     @staticmethod
     def _recipe_migration(recipe_dict: dict) -> dict:
+        if recipe_dict.get("categories", False):
+            recipe_dict["recipeCategory"] = recipe_dict.get("categories")
+            del recipe_dict["categories"]
         try:
             del recipe_dict["_id"]
             del recipe_dict["dateAdded"]
@@ -117,6 +122,9 @@ class ImportDatabase:
 
     def import_themes(self):
         themes_file = self.import_dir.joinpath("themes", "themes.json")
+        if not themes_file.exists():
+            return []
+
         theme_imports = []
         with open(themes_file, "r") as f:
             themes: list[dict] = json.loads(f.read())
@@ -141,6 +149,9 @@ class ImportDatabase:
 
     def import_settings(self):
         settings_file = self.import_dir.joinpath("settings", "settings.json")
+        if not settings_file.exists():
+            return []
+
         settings_imports = []
 
         with open(settings_file, "r") as f:
@@ -153,6 +164,7 @@ class ImportDatabase:
                 import_status = SettingsImport(name=name, status=True)
 
             except Exception as inst:
+                self.session.rollback()
                 import_status = SettingsImport(name=name, status=False, exception=str(inst))
 
             settings_imports.append(import_status)
@@ -160,6 +172,9 @@ class ImportDatabase:
 
     def import_groups(self):
         groups_file = self.import_dir.joinpath("groups", "groups.json")
+        if not groups_file.exists():
+            return []
+
         group_imports = []
 
         with open(groups_file, "r") as f:
@@ -176,6 +191,7 @@ class ImportDatabase:
                 import_status = GroupImport(name=group.name, status=True)
 
             except Exception as inst:
+                self.session.rollback()
                 import_status = GroupImport(name=group.name, status=False, exception=str(inst))
 
             group_imports.append(import_status)
@@ -184,6 +200,9 @@ class ImportDatabase:
 
     def import_users(self):
         users_file = self.import_dir.joinpath("users", "users.json")
+        if not users_file.exists():
+            return []
+            
         user_imports = []
 
         with open(users_file, "r") as f:
@@ -207,6 +226,7 @@ class ImportDatabase:
                 import_status = UserImport(name=user.full_name, status=True)
 
             except Exception as inst:
+                self.session.rollback()
                 import_status = UserImport(name=user.full_name, status=False, exception=str(inst))
 
             user_imports.append(import_status)

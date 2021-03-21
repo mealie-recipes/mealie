@@ -4,10 +4,9 @@ setup:
 	npm install && \
 	cd ..
 
-backend:
-	source ./.venv/bin/activate && \
-	python mealie/db/init_db.py && \
-	python mealie/app.py
+backend: 
+	poetry run python mealie/db/init_db.py && \
+	poetry run python mealie/app.py
 
 .PHONY: frontend
 frontend:
@@ -15,9 +14,7 @@ frontend:
 
 .PHONY: docs
 docs:
-	source ./.venv/bin/activate && \
-	cd docs && \
-	mkdocs serve
+	cd docs && poetry run python -m mkdocs serve
 
 docker-dev:
 	docker-compose -f docker-compose.dev.yml -p dev-mealie up --build

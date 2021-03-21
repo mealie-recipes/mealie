@@ -13,43 +13,13 @@
         </v-app-bar>
         <v-card-text class="mb-n4">
           <v-row>
-            <div>
+            <div v-for="values in allNumbers" :key="values.title">
               <v-card-text>
                 <div>
-                  <h3>Recipes</h3>
+                  <h3>{{ values.title }}</h3>
                 </div>
-                <div class="success--text">
-                  Success: {{ recipeNumbers.success }}
-                </div>
-                <div class="error--text">
-                  Failed: {{ recipeNumbers.failure }}
-                </div>
-              </v-card-text>
-            </div>
-            <div>
-              <v-card-text>
-                <div>
-                  <h3>Themes</h3>
-                </div>
-                <div class="success--text">
-                  Success: {{ themeNumbers.success }}
-                </div>
-                <div class="error--text">
-                  Failed: {{ themeNumbers.failure }}
-                </div>
-              </v-card-text>
-            </div>
-            <div>
-              <v-card-text>
-                <div>
-                  <h3>Settings</h3>
-                </div>
-                <div class="success--text">
-                  Success: {{ settingsNumbers.success }}
-                </div>
-                <div class="error--text">
-                  Failed: {{ settingsNumbers.failure }}
-                </div>
+                <div class="success--text">Success: {{ values.success }}</div>
+                <div class="error--text">Failed: {{ values.failure }}</div>
               </v-card-text>
             </div>
           </v-row>
@@ -131,26 +101,35 @@ export default {
 
   computed: {
     recipeNumbers() {
-      return this.calculateNumbers(this.recipeData);
+      return this.calculateNumbers("Recipes", this.recipeData);
     },
     settingsNumbers() {
-      return this.calculateNumbers(this.settingsData);
+      return this.calculateNumbers("Settings", this.settingsData);
     },
     themeNumbers() {
-      return this.calculateNumbers(this.themeData);
+      return this.calculateNumbers("Theme", this.themeData);
     },
     userNumbers() {
-      return this.calculateNumbers(this.userData);
+      return this.calculateNumbers("Users", this.userData);
     },
     groupNumbers() {
-      return this.calculateNumbers(this.groupData);
+      return this.calculateNumbers("Groups", this.groupData);
+    },
+    allNumbers() {
+      return [
+        this.recipeNumbers,
+        this.settingsNumbers,
+        this.themeNumbers,
+        this.userNumbers,
+        this.groupNumbers,
+      ];
     },
   },
 
   methods: {
-    calculateNumbers(list_array) {
+    calculateNumbers(title, list_array) {
       if (!list_array) return;
-      let numbers = { success: 0, failure: 0 };
+      let numbers = { title: title, success: 0, failure: 0 };
       list_array.forEach(element => {
         if (element.status) {
           numbers.success++;
