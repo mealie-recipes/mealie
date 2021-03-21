@@ -2,11 +2,8 @@ import json
 
 import pytest
 from slugify import slugify
-from tests.test_routes.utils.routes_data import (RecipeTestData, raw_recipe,
-                                                 raw_recipe_no_image,
-                                                 recipe_test_data)
-from tests.utils.routes import (RECIPES_ALL, RECIPES_CREATE,
-                                RECIPES_CREATE_URL, RECIPES_PREFIX)
+from tests.test_routes.utils.routes_data import RecipeTestData, raw_recipe, raw_recipe_no_image, recipe_test_data
+from tests.utils.routes import RECIPES_ALL, RECIPES_CREATE, RECIPES_CREATE_URL, RECIPES_PREFIX
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
@@ -43,9 +40,7 @@ def test_create_no_image(api_client):
 
 
 def test_read_all_post(api_client):
-    response = api_client.post(
-        RECIPES_ALL, json={"properties": ["slug", "description", "rating"]}
-    )
+    response = api_client.post(RECIPES_ALL, json={"properties": ["slug", "description", "rating"]})
     assert response.status_code == 200
 
 
@@ -65,9 +60,7 @@ def test_read_update(api_client, recipe_data):
     test_categories = ["one", "two", "three"]
     recipe["recipeCategory"] = test_categories
 
-    response = api_client.put(
-        f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe
-    )
+    response = api_client.put(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe)
 
     assert response.status_code == 200
     assert json.loads(response.text) == recipe_data.expected_slug
@@ -90,9 +83,7 @@ def test_rename(api_client, recipe_data):
     new_slug = slugify(new_name)
     recipe["name"] = new_name
 
-    response = api_client.put(
-        f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe
-    )
+    response = api_client.put(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe)
 
     assert response.status_code == 200
     assert json.loads(response.text) == new_slug

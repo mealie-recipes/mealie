@@ -4,23 +4,10 @@ from fastapi.logger import logger
 
 # import utils.startup as startup
 from mealie.core.config import APP_VERSION, PORT, docs_url, redoc_url
-from mealie.db.db_setup import sql_exists
-from mealie.db.init_db import init_db
-from mealie.routes import (
-    backup_routes,
-    debug_routes,
-    migration_routes,
-    setting_routes,
-    theme_routes,
-)
+from mealie.routes import backup_routes, debug_routes, migration_routes, setting_routes, theme_routes
 from mealie.routes.groups import groups
 from mealie.routes.mealplans import mealplans
-from mealie.routes.recipe import (
-    all_recipe_routes,
-    category_routes,
-    recipe_crud_routes,
-    tag_routes,
-)
+from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_crud_routes, tag_routes
 from mealie.routes.users import users
 
 app = FastAPI(
@@ -30,10 +17,6 @@ app = FastAPI(
     docs_url=docs_url,
     redoc_url=redoc_url,
 )
-
-
-def data_base_first_run():
-    init_db()
 
 
 def start_scheduler():
@@ -61,9 +44,6 @@ def api_routers():
     app.include_router(migration_routes.router)
     app.include_router(debug_routes.router)
 
-
-if not sql_exists:
-    data_base_first_run()
 
 api_routers()
 start_scheduler()

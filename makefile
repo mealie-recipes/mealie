@@ -5,12 +5,16 @@ setup:
 	cd ..
 
 backend:
-	source ./.venv/bin/activate && python mealie/app.py
+	source ./.venv/bin/activate && \
+	python mealie/db/init_db.py && \
+	python mealie/app.py
 
-vue:
+.PHONY: frontend
+frontend:
 	cd frontend && npm run serve
 
-mdocs:
+.PHONY: docs
+docs:
 	source ./.venv/bin/activate && \
 	cd docs && \
 	mkdocs serve

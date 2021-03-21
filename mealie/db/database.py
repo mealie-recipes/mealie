@@ -1,13 +1,3 @@
-from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
-from mealie.schema.meal import MealPlanInDB
-from mealie.schema.recipe import Recipe
-from mealie.schema.settings import SiteSettings as SiteSettingsSchema
-from mealie.schema.sign_up import SignUpOut
-from mealie.schema.theme import SiteTheme
-from mealie.schema.user import GroupInDB, UserInDB
-from sqlalchemy.orm import load_only
-from sqlalchemy.orm.session import Session
-
 from mealie.db.db_base import BaseDocument
 from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlanModel
@@ -16,6 +6,14 @@ from mealie.db.models.settings import SiteSettings
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.theme import SiteThemeModel
 from mealie.db.models.users import User
+from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
+from mealie.schema.meal import MealPlanInDB
+from mealie.schema.recipe import Recipe
+from mealie.schema.settings import SiteSettings as SiteSettingsSchema
+from mealie.schema.sign_up import SignUpOut
+from mealie.schema.theme import SiteTheme
+from mealie.schema.user import GroupInDB, UserInDB
+from sqlalchemy.orm.session import Session
 
 
 class _Recipes(BaseDocument):

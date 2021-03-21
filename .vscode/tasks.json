@@ -35,7 +35,7 @@
     },
     {
       "label": "Dev: Start Frontend",
-      "command": "make vue",
+      "command": "make frontend",
       "type": "shell",
       "presentation": {
         "reveal": "always",
@@ -45,7 +45,7 @@
     },
     {
       "label": "Dev: Start Docs Server",
-      "command": "make mdocs",
+      "command": "make docs",
       "type": "shell",
       "presentation": {
         "reveal": "always",
