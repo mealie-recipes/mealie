@@ -9,13 +9,14 @@
 </template>
 
 <script>
+const UPLOAD_EVENT = "uploaded";
 import api from "@/api";
 export default {
   props: {
     url: String,
     text: { default: "Upload" },
     icon: { default: "mdi-cloud-upload" },
-    fileName: { defaul: "archive" },
+    fileName: { default: "archive" },
   },
   data: () => ({
     file: null,
@@ -38,7 +39,7 @@ export default {
         await api.utils.uploadFile(this.url, formData);
 
         this.isSelecting = false;
-        this.$emit("uploaded");
+        this.$emit(UPLOAD_EVENT);
       }
     },
     onButtonClick() {
