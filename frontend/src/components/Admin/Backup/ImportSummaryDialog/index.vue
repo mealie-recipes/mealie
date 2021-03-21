@@ -58,26 +58,38 @@
           <v-tab>Recipes</v-tab>
           <v-tab>Themes</v-tab>
           <v-tab>Settings</v-tab>
+          <v-tab>Users</v-tab>
+          <v-tab>Groups</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item>
             <v-card flat>
-              <DataTable :data-headers="recipeHeaders" :data-set="recipeData" />
+              <DataTable :data-headers="importHeaders" :data-set="recipeData" />
             </v-card>
           </v-tab-item>
           <v-tab-item>
             <v-card>
               <DataTable
-                :data-headers="recipeHeaders"
+                :data-headers="importHeaders"
                 :data-set="themeData"
               /> </v-card
           ></v-tab-item>
           <v-tab-item>
             <v-card
               ><DataTable
-                :data-headers="recipeHeaders"
+                :data-headers="importHeaders"
                 :data-set="settingsData"
               />
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card
+              ><DataTable :data-headers="importHeaders" :data-set="userData" />
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card
+              ><DataTable :data-headers="importHeaders" :data-set="groupData" />
             </v-card>
           </v-tab-item>
         </v-tabs-items>
@@ -98,7 +110,9 @@ export default {
     recipeData: [],
     themeData: [],
     settingsData: [],
-    recipeHeaders: [
+    userData: [],
+    groupData: [],
+    importHeaders: [
       {
         text: "Status",
         value: "status",
@@ -117,39 +131,40 @@ export default {
 
   computed: {
     recipeNumbers() {
-      let numbers = { success: 0, failure: 0 };
-      this.recipeData.forEach(element => {
-        if (element.status) {
-          numbers.success++;
-        } else numbers.failure++;
-      });
-      return numbers;
+      return this.calculateNumbers(this.recipeData);
     },
     settingsNumbers() {
-      let numbers = { success: 0, failure: 0 };
-      this.settingsData.forEach(element => {
-        if (element.status) {
-          numbers.success++;
-        } else numbers.failure++;
-      });
-      return numbers;
+      return this.calculateNumbers(this.settingsData);
     },
     themeNumbers() {
-      let numbers = { success: 0, failure: 0 };
-      this.themeData.forEach(element => {
-        if (element.status) {
-          numbers.success++;
-        } else numbers.failure++;
-      });
-      return numbers;
+      return this.calculateNumbers(this.themeData);
+    },
+    userNumbers() {
+      return this.calculateNumbers(this.userData);
+    },
+    groupNumbers() {
+      return this.calculateNumbers(this.groupData);
     },
   },
 
   methods: {
+    calculateNumbers(list_array) {
+      if (!list_array) return;
+      let numbers = { success: 0, failure: 0 };
+      list_array.forEach(element => {
+        if (element.status) {
+          numbers.success++;
+        } else numbers.failure++;
+      });
+      return numbers;
+    },
     open(importData) {
+      console.log(importData);
       this.recipeData = importData.recipeImports;
-      this.themeData = importData.themeReport;
-      this.settingsData = importData.settingsReport;
+      this.themeData = importData.themeImports;
+      this.settingsData = importData.settingsImports;
+      this.userData = importData.userImports;
+      this.groupData = importData.groupImports;
       this.dialog = true;
     },
   },

@@ -46,7 +46,9 @@
     "token": "Token",
     "field-required": "Field Required",
     "apply": "Apply",
-    "current-parenthesis": "(Current)"
+    "current-parenthesis": "(Current)",
+    "users": "Users",
+    "groups": "Groups"
   },
   "page": {
     "home-page": "Home Page",

@@ -4,13 +4,14 @@ import zipfile
 from pathlib import Path
 from typing import List
 
+from fastapi.logger import logger
 from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
-from fastapi.logger import logger
 from mealie.schema.recipe import Recipe
-from mealie.schema.restore import RecipeImport, SettingsImport, ThemeImport
+from mealie.schema.restore import GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
 from mealie.schema.theme import SiteTheme
+from mealie.schema.user import UpdateGroup, UserInDB
 from sqlalchemy.orm.session import Session
 
 
@@ -19,32 +20,21 @@ class ImportDatabase:
         self,
         session: Session,
         zip_archive: str,
-        import_recipes: bool = True,
-        import_settings: bool = True,
-        import_themes: bool = True,
         force_import: bool = False,
-        rebase: bool = False,
     ) -> None:
         """Import a database.zip file exported from mealie.
 
         Args:
+            session (Session): SqlAlchemy Session
             zip_archive (str): The filename contained in the backups directory
-            import_recipes (bool, optional): Import Recipes?. Defaults to True.
-            import_settings (bool, optional): Determines if settings are imported. Defaults to True.
-            import_themes (bool, optional): Determines if themes are imported. Defaults to True.
             force_import (bool, optional): Force import will update all existing recipes. If False existing recipes are skipped. Defaults to False.
-            rebase (bool, optional): Rebase will first clear the database and then import Recipes. Defaults to False.
 
         Raises:
             Exception: If the zip file does not exists an exception raise.
         """
         self.session = session
         self.archive = BACKUP_DIR.joinpath(zip_archive)
-        self.imp_recipes = import_recipes
-        self.imp_settings = import_settings
-        self.imp_themes = import_themes
         self.force_imports = force_import
-        self.force_rebase = rebase
 
         if self.archive.is_file():
             self.import_dir = TEMP_DIR.joinpath("active_import")
@@ -55,25 +45,6 @@ class ImportDatabase:
             pass
         else:
             raise Exception("Import file does not exist")
-
-    def run(self):
-        recipe_report = []
-        settings_report = []
-        theme_report = []
-        if self.imp_recipes:
-            recipe_report = self.import_recipes()
-        if self.imp_settings:
-            settings_report = self.import_settings()
-        if self.imp_themes:
-            theme_report = self.import_themes()
-
-        self.clean_up()
-
-        return {
-            "recipeImports": recipe_report,
-            "settingsReport": settings_report,
-            "themeReport": theme_report,
-        }
 
     def import_recipes(self):
         session = create_session()
@@ -180,8 +151,112 @@ class ImportDatabase:
                 import_status = SettingsImport(name=name, status=False, exception=str(inst))
 
             settings_imports.append(import_status)
-
         return settings_imports
+
+    def import_groups(self):
+        groups_file = self.import_dir.joinpath("groups", "groups.json")
+        group_imports = []
+
+        with open(groups_file, "r") as f:
+            groups = [UpdateGroup(**g) for g in json.loads(f.read())]
+
+        for group in groups:
+            item = db.groups.get(self.session, group.name, "name")
+            if item:
+                import_status = GroupImport(name=group.name, status=False, exception="Group Exists")
+                group_imports.append(import_status)
+                continue
+            try:
+                db.groups.create(self.session, group.dict())
+                import_status = GroupImport(name=group.name, status=True)
+
+            except Exception as inst:
+                import_status = GroupImport(name=group.name, status=False, exception=str(inst))
+
+            group_imports.append(import_status)
+
+        print(group_imports)
+        return group_imports
+
+    def import_users(self):
+        users_file = self.import_dir.joinpath("users", "users.json")
+        user_imports = []
+
+        with open(users_file, "r") as f:
+            users = [UserInDB(**g) for g in json.loads(f.read())]
+
+        for user in users:
+            if user.id == 1:
+                db.users.update(self.session, 1, user.dict())
+                import_status = UserImport(name=user.full_name, status=True)
+                user_imports.append(import_status)
+                continue
+
+            item = db.users.get(self.session, user.email, "email")
+            if item:
+                import_status = UserImport(name=user.full_name, status=False, exception="User Email Exists")
+                user_imports.append(import_status)
+                continue
+
+            try:
+                db.users.create(self.session, user.dict())
+                import_status = UserImport(name=user.full_name, status=True)
+
+            except Exception as inst:
+                import_status = UserImport(name=user.full_name, status=False, exception=str(inst))
+
+            user_imports.append(import_status)
+
+        return user_imports
 
     def clean_up(self):
         shutil.rmtree(TEMP_DIR)
+
+
+def import_database(
+    session: Session,
+    archive,
+    import_recipes=True,
+    import_settings=True,
+    import_themes=True,
+    import_users=True,
+    import_groups=True,
+    force_import: bool = False,
+    rebase: bool = False,
+):
+    import_session = ImportDatabase(session, archive)
+
+    recipe_report = []
+    if import_recipes:
+        recipe_report = import_session.import_recipes()
+
+    settings_report = []
+    if import_settings:
+        settings_report = import_session.import_settings()
+
+    theme_report = []
+    if import_themes:
+        theme_report = import_session.import_themes()
+
+    group_report = []
+    if import_groups:
+        print("Import Groups")
+        group_report = import_session.import_groups()
+
+    user_report = []
+    if import_users:
+        user_report = import_session.import_users()
+
+    import_session.clean_up()
+
+    data = {
+        "recipeImports": recipe_report,
+        "settingsImports": settings_report,
+        "themeImports": theme_report,
+        "groupImports": group_report,
+        "userImports": user_report,
+    }
+
+    print(data)
+
+    return data

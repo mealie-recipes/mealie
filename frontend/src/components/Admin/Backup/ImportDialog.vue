@@ -25,24 +25,7 @@
         <v-card-text>
           <v-row>
             <v-col>
-              <v-checkbox
-                class="mb-n4 mt-1"
-                dense
-                :label="$t('settings.backup.import-recipes')"
-                v-model="importRecipes"
-              ></v-checkbox>
-              <v-checkbox
-                class="my-n4"
-                dense
-                :label="$t('settings.backup.import-themes')"
-                v-model="importThemes"
-              ></v-checkbox>
-              <v-checkbox
-                class="my-n4"
-                dense
-                :label="$t('settings.backup.import-settings')"
-                v-model="importSettings"
-              ></v-checkbox>
+              <ImportOptions @update-options="updateOptions" class="mt-5" />
             </v-col>
             <!-- <v-col>
               <v-tooltip top>
@@ -104,7 +87,9 @@
 
 
 <script>
+import ImportOptions from "@/components/Admin/Backup/ImportOptions";
 export default {
+  components: { ImportOptions },
   props: {
     name: {
       default: "Backup Name",
@@ -115,15 +100,22 @@ export default {
   },
   data() {
     return {
+      options: {
+        recipes: true,
+        settings: true,
+        themes: true,
+        users: true,
+        groups: true,
+      },
       dialog: false,
-      importRecipes: true,
       forceImport: false,
       rebaseImport: false,
-      importThemes: false,
-      importSettings: false,
     };
   },
   methods: {
+    updateOptions(options) {
+      this.options = options;
+    },
     open() {
       this.dialog = true;
     },
@@ -133,11 +125,13 @@ export default {
     raiseEvent(event) {
       let eventData = {
         name: this.name,
-        recipes: this.importRecipes,
         force: this.forceImport,
         rebase: this.rebaseImport,
-        themes: this.importThemes,
-        settings: this.importSettings,
+        recipes: this.options.recipes,
+        settings: this.options.settings,
+        themes: this.options.themes,
+        users: this.options.users,
+        groups: this.options.groups,
       };
       this.close();
       this.$emit(event, eventData);

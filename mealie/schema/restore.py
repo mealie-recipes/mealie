@@ -3,20 +3,27 @@ from typing import Optional
 from pydantic.main import BaseModel
 
 
-class RecipeImport(BaseModel):
-    name: Optional[str]
+class ImportBase(BaseModel):
+    name: str
+    status: bool
+    exception: Optional[str]
+
+
+class RecipeImport(ImportBase):
     slug: str
-    status: bool
-    exception: Optional[str]
 
 
-class ThemeImport(BaseModel):
-    name: str
-    status: bool
-    exception: Optional[str]
+class ThemeImport(ImportBase):
+    pass
 
 
-class SettingsImport(BaseModel):
-    name: str
-    status: bool
-    exception: Optional[str]
+class SettingsImport(ImportBase):
+    pass
+
+
+class GroupImport(ImportBase):
+    pass
+
+
+class UserImport(ImportBase):
+    pass

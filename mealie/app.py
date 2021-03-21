@@ -18,7 +18,6 @@ app = FastAPI(
     redoc_url=redoc_url,
 )
 
-
 def start_scheduler():
     import mealie.services.scheduler.scheduled_jobs
 
@@ -56,6 +55,7 @@ def main():
         host="0.0.0.0",
         port=PORT,
         reload=True,
+        reload_dirs=["mealie"],
         debug=True,
         log_level="info",
         workers=1,
