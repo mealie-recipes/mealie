@@ -29,6 +29,7 @@ fastapi-camelcase = "^1.0.2"
 bcrypt = "^3.2.0"
 python-jose = "^3.2.0"
 passlib = "^1.7.4"
+lxml = "4.6.2"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
