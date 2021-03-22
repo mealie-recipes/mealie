@@ -23,9 +23,6 @@ def get_meal_plan_template(first=None, second=None):
     }
 
 
-## Meal Routes
-
-
 @pytest.fixture
 def slug_1(api_client):
     # Slug 1
@@ -50,9 +47,7 @@ def slug_2(api_client):
 
 
 def test_create_mealplan(api_client, slug_1, slug_2, token):
-    meal_plan = get_meal_plan_template()
-    meal_plan["meals"][0]["slug"] = slug_1
-    meal_plan["meals"][1]["slug"] = slug_2
+    meal_plan = get_meal_plan_template(slug_1, slug_2)
 
     response = api_client.post(MEALPLAN_CREATE, json=meal_plan, headers=token)
     assert response.status_code == 200

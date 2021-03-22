@@ -19,7 +19,7 @@ ENV = CWD.joinpath(".env")  #! I'm Broken Fix Me!
 dotenv.load_dotenv(ENV)
 
 
-SECRET = "super-secret-key"
+SECRET = "test-secret-shhh"
 
 # General
 PRODUCTION = os.environ.get("ENV")

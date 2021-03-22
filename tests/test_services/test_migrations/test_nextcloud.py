@@ -4,12 +4,7 @@ import pytest
 from mealie.core.config import TEMP_DIR
 from mealie.schema.recipe import Recipe
 from mealie.services.image_services import IMG_DIR
-from mealie.services.migrations.nextcloud import (
-    cleanup,
-    import_recipes,
-    prep,
-    process_selection,
-)
+from mealie.services.migrations.nextcloud import cleanup, import_recipes, prep, process_selection
 from tests.test_config import TEST_NEXTCLOUD_DIR
 
 CWD = Path(__file__).parent

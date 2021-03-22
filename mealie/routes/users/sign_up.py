@@ -4,7 +4,7 @@ from mealie.core.security import get_password_hash
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from mealie.routes.deps import manager
+from mealie.routes.deps import get_current_user
 from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
 from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import UserIn, UserInDB
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
 
 @router.get("", response_model=list[SignUpOut])
 async def get_all_open_sign_ups(
-    current_user=Depends(manager),
+    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns a list of open sign up links """
@@ -28,7 +28,7 @@ async def get_all_open_sign_ups(
 @router.post("", response_model=SignUpToken)
 async def create_user_sign_up_key(
     key_data: SignUpIn,
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Generates a Random Token that a new user can sign up with """
@@ -75,7 +75,7 @@ async def create_user_with_token(
 @router.delete("/{token}")
 async def delete_token(
     token: str,
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Removed a token from the database """
