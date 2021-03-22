@@ -1,19 +1,17 @@
 import json
 import shutil
 import zipfile
-from logging import exception
 from pathlib import Path
 from typing import Callable, List
 
-from fastapi.logger import logger
 from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from mealie.db.database import db
 from mealie.schema.recipe import Recipe
 from mealie.schema.restore import GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
+from mealie.schema.settings import SiteSettings
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import UpdateGroup, UserInDB
 from pydantic.main import BaseModel
-from schema.settings import SiteSettings
 from sqlalchemy.orm.session import Session
 
 
