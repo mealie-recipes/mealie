@@ -18,6 +18,7 @@ app = FastAPI(
     redoc_url=redoc_url,
 )
 
+
 def start_scheduler():
     import mealie.services.scheduler.scheduled_jobs
 

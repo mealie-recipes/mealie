@@ -10,7 +10,7 @@ class ImportBase(BaseModel):
 
 
 class RecipeImport(ImportBase):
-    slug: str
+    slug: Optional[str]
 
 
 class ThemeImport(ImportBase):

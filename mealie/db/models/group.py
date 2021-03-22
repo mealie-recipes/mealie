@@ -57,7 +57,12 @@ class Group(SqlAlchemyBase, BaseMixins):
 
     @staticmethod
     def get_ref(session: Session, name: str):
-        return session.query(Group).filter(Group.name == name).one()
+        item = session.query(Group).filter(Group.name == name).one()
+        if item:
+            return item
+        
+        else:
+            return session.query(Group).filter(Group.id == 1).one()
 
     @staticmethod
     def create_if_not_exist(session, name: str = DEFAULT_GROUP):

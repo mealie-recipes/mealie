@@ -23,42 +23,15 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          <v-row>
-            <v-col>
-              <ImportOptions @update-options="updateOptions" class="mt-5" />
-            </v-col>
-            <!-- <v-col>
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-on="on" v-bind="attrs">
-                    <v-checkbox
-                      class="mb-n4 mt-1"
-                      dense
-                      label="Force"
-                      v-model="forceImport"
-                    ></v-checkbox>
-                  </span>
-                </template>
-                <span>Force update existing recipes</span>
-              </v-tooltip>
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-on="on" v-bind="attrs">
-                    <v-checkbox
-                      class="mb-n4 mt-1"
-                      dense
-                      label="Rebase"
-                      v-model="rebaseImport"
-                    ></v-checkbox>
-                  </span>
-                </template>
-                <span
-                  >Removes all recipes, and then imports recipes from the
-                  backup</span
-                >
-              </v-tooltip>
-            </v-col> -->
-          </v-row>
+          <ImportOptions @update-options="updateOptions" class="mt-5 mb-2" />
+
+          <v-divider></v-divider>
+
+          <v-checkbox
+            dense
+            label="Remove existing entries matching imported entries"
+            v-model="forceImport"
+          ></v-checkbox>
         </v-card-text>
 
         <v-divider></v-divider>
