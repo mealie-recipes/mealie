@@ -42,7 +42,7 @@ def test_image():
     return TEST_DATA.joinpath("test_image.jpg")
 
 
-@fixture(scope="session")
+@fixture(scope="function")
 def token(api_client: requests):
     form_data = {"username": "changeme@email.com", "password": "MyPassword"}
     response = api_client.post(TOKEN_URL, form_data)
