@@ -17,14 +17,17 @@ def new_user():
     return {"id": 2, "fullName": "My New User", "email": "newuser@email.com", "group": "Home", "admin": False}
 
 
-def test_superuser_login(api_client: requests):
+def test_superuser_login(api_client: requests, token):
     form_data = {"username": "changeme@email.com", "password": "MyPassword"}
     response = api_client.post(TOKEN_URL, form_data)
 
     assert response.status_code == 200
-    token = json.loads(response.text).get("access_token")
+    new_token = json.loads(response.text).get("access_token")
 
-    return {"Authorization": f"Bearer {token}"}
+    response = api_client.get("/api/users/self", headers=token)
+    assert response.status_code == 200
+
+    return {"Authorization": f"Bearer {new_token}"}
 
 
 def test_init_superuser(api_client: requests, token, default_user):
@@ -59,10 +62,11 @@ def test_get_all_users(api_client: requests, token, new_user, default_user):
 
 
 def test_update_user(api_client: requests, token):
-    update_data = {"id": 1, "fullName": "Updated Name", "email": "updated@email.com", "group": "Home", "admin": True}
+    update_data = {"id": 1, "fullName": "Updated Name", "email": "changeme@email.com", "group": "Home", "admin": True}
     response = api_client.put(f"{BASE}/1", headers=token, json=update_data)
 
     assert response.status_code == 200
+    print(response.text)
     assert json.loads(response.text).get("access_token")
 
 

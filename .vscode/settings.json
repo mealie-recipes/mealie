@@ -3,8 +3,6 @@
   "python.pythonPath": ".venv/bin/python3.9",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
-  "python.autoComplete.extraPaths": ["mealie", "mealie/mealie"],
-  "python.analysis.extraPaths": ["mealie", "mealie/mealie"],
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
   "python.testing.pytestEnabled": true,

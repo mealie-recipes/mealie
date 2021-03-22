@@ -1,14 +1,14 @@
 import shutil
 from datetime import timedelta
-from os import access
 
+from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi.responses import FileResponse
+from mealie.core import security
 from mealie.core.config import USER_DIR
 from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from fastapi import APIRouter, Depends, File, UploadFile
-from fastapi.responses import FileResponse
-from mealie.routes.deps import manager
+from mealie.routes.deps import get_current_user
 from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
 from sqlalchemy.orm.session import Session
@@ -19,7 +19,7 @@ router = APIRouter(prefix="/api/users", tags=["Users"])
 @router.post("", response_model=UserOut, status_code=201)
 async def create_user(
     new_user: UserIn,
-    current_user=Depends(manager),
+    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 
@@ -31,7 +31,7 @@ async def create_user(
 
 @router.get("", response_model=list[UserOut])
 async def get_all_users(
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 
@@ -43,7 +43,7 @@ async def get_all_users(
 
 @router.get("/self", response_model=UserOut)
 async def get_logged_in_user(
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     return current_user.dict()
@@ -52,7 +52,7 @@ async def get_logged_in_user(
 @router.get("/{id}", response_model=UserOut)
 async def get_user_by_id(
     id: int,
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     return db.users.get(session, id)
@@ -62,19 +62,21 @@ async def get_user_by_id(
 async def update_user(
     id: int,
     new_data: UserBase,
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 
-    access_token = None
+    token = None
     if current_user.id == id or current_user.admin:
-        updated_user: UserInDB = db.users.update(session, id, new_data.dict())
-        email = updated_user.email
+        print("Current User")
+        db.users.update(session, id, new_data.dict())
         if current_user.id == id:
-            access_token = manager.create_access_token(data=dict(sub=email), expires=timedelta(hours=2))
-            access_token = {"access_token": access_token, "token_type": "bearer"}
+            print(new_data.email)
+            access_token = security.create_access_token(data=dict(sub=new_data.email), expires_delta=timedelta(hours=2))
+            token = {"access_token": access_token, "token_type": "bearer"}
 
-    return SnackResponse.success("User Updated", access_token)
+    print(SnackResponse.success("User Updated", token))
+    return SnackResponse.success("User Updated", token)
 
 
 @router.get("/{id}/image")
@@ -91,7 +93,7 @@ async def get_user_image(id: str):
 async def update_user_image(
     id: str,
     profile_image: UploadFile = File(...),
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
 ):
     """ Updates a User Image """
 
@@ -119,7 +121,7 @@ async def update_user_image(
 async def update_password(
     id: int,
     password_change: ChangePassword,
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Resets the User Password"""
@@ -138,7 +140,7 @@ async def update_password(
 @router.delete("/{id}")
 async def delete_user(
     id: int,
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Removes a user from the database. Must be the current user or a super user"""

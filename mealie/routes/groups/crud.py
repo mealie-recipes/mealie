@@ -1,9 +1,9 @@
+from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from fastapi import APIRouter, Depends
-from mealie.routes.deps import manager
+from mealie.routes.deps import get_current_user
 from mealie.schema.snackbar import SnackResponse
-from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
+from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserIn, UserInDB
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/groups", tags=["Groups"])
@@ -11,7 +11,7 @@ router = APIRouter(prefix="/api/groups", tags=["Groups"])
 
 @router.get("", response_model=list[GroupInDB])
 async def get_all_groups(
-    current_user=Depends(manager),
+    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns a list of all groups in the database """
@@ -21,7 +21,7 @@ async def get_all_groups(
 
 @router.get("/self", response_model=GroupInDB)
 async def get_current_user_group(
-    current_user=Depends(manager),
+    current_user: UserInDB =Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns the Group Data for the Current User """
@@ -33,7 +33,7 @@ async def get_current_user_group(
 @router.post("")
 async def create_group(
     group_data: GroupBase,
-    current_user=Depends(manager),
+    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Creates a Group in the Database """
@@ -49,7 +49,7 @@ async def create_group(
 async def update_group_data(
     id: int,
     group_data: UpdateGroup,
-    current_user=Depends(manager),
+    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Updates a User Group """
@@ -59,7 +59,9 @@ async def update_group_data(
 
 
 @router.delete("/{id}")
-async def delete_user_group(id: int, current_user=Depends(manager), session: Session = Depends(generate_session)):
+async def delete_user_group(
+    id: int, current_user=Depends(get_current_user), session: Session = Depends(generate_session)
+):
     """ Removes a user group from the database """
 
     if id == 1:

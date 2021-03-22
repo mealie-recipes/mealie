@@ -3,7 +3,7 @@ import datetime
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import manager
+from mealie.routes.deps import get_current_user
 from mealie.schema.meal import MealPlanIn, MealPlanInDB
 from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import GroupInDB, UserInDB
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
 @router.get("/all", response_model=list[MealPlanInDB])
 def get_all_meals(
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns a list of all available Meal Plan """
@@ -27,7 +27,7 @@ def get_all_meals(
 def create_meal_plan(
     data: MealPlanIn,
     session: Session = Depends(generate_session),
-    current_user=Depends(manager),
+    current_user=Depends(get_current_user),
 ):
     """ Creates a meal plan database entry """
     processed_plan = process_meals(session, data)
@@ -58,7 +58,7 @@ def delete_meal_plan(plan_id, session: Session = Depends(generate_session)):
 @router.get("/this-week", response_model=MealPlanInDB)
 def get_this_week(
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
 ):
     """ Returns the meal plan data for this week """
 
@@ -68,7 +68,7 @@ def get_this_week(
 @router.get("/today", tags=["Meal Plan"])
 def get_today(
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
 ):
     """
     Returns the recipe slug for the meal scheduled for today.

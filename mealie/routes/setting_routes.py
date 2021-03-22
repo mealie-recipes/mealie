@@ -7,7 +7,7 @@ from mealie.schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
 from mealie.utils.post_webhooks import post_webhooks
 
-from mealie.routes.deps import manager
+from mealie.routes.deps import get_current_user
 
 router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 
@@ -31,7 +31,7 @@ def update_settings(data: SiteSettings, session: Session = Depends(generate_sess
 
 @router.post("/webhooks/test")
 def test_webhooks(
-    current_user: UserInDB = Depends(manager),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Run the function to test your webhooks """
