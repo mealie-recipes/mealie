@@ -28,20 +28,24 @@ class User(SqlAlchemyBase, BaseMixins):
         password,
         group: str = DEFAULT_GROUP,
         admin=False,
+        id=None,
     ) -> None:
 
         group = group if group else DEFAULT_GROUP
         self.full_name = full_name
         self.email = email
-        self.group = Group.create_if_not_exist(session, group)
+        self.group = Group.get_ref(session, group)
         self.admin = admin
         self.password = password
 
-    def update(self, full_name, email, group, admin, session=None):
+    def update(self, full_name, email, group, admin, session=None, id=None, password=None):
         self.full_name = full_name
         self.email = email
-        self.group = Group.create_if_not_exist(session, group)
+        self.group = Group.get_ref(session, group)
         self.admin = admin
+
+        if password:
+            self.password = password
 
     def update_password(self, password):
         self.password = password

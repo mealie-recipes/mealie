@@ -15,57 +15,48 @@
         {{ $t("general.create") }}
       </v-btn>
     </v-card-actions>
-
-    <v-card-text v-if="!fullBackup" class="mt-n6">
-      <v-row>
-        <v-col sm="4">
-          <p>{{ $t("general.options") }}:</p>
-          <v-checkbox
-            v-for="option in options"
-            :key="option.text"
-            class="mb-n4 mt-n3"
-            dense
-            :label="option.text"
-            v-model="option.value"
-          ></v-checkbox>
-        </v-col>
-        <v-col>
-          <p>{{ $t("general.templates") }}:</p>
-          <v-checkbox
-            v-for="template in availableTemplates"
-            :key="template"
-            class="mb-n4 mt-n3"
-            dense
-            :label="template"
-            @click="appendTemplate(template)"
-          ></v-checkbox>
-        </v-col>
-      </v-row>
-    </v-card-text>
+    <v-expand-transition>
+      <div v-if="!fullBackup">
+        <v-card-text class="mt-n4">
+          <v-row>
+            <v-col sm="4">
+              <p>{{ $t("general.options") }}:</p>
+              <ImportOptions @update-options="updateOptions" class="mt-5" />
+            </v-col>
+            <v-col>
+              <p>{{ $t("general.templates") }}:</p>
+              <v-checkbox
+                v-for="template in availableTemplates"
+                :key="template"
+                class="mb-n4 mt-n3"
+                dense
+                :label="template"
+                @click="appendTemplate(template)"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </div>
+    </v-expand-transition>
   </v-card>
 </template>
 
 <script>
+import ImportOptions from "@/components/Admin/Backup/ImportOptions";
 import api from "@/api";
 export default {
+  components: { ImportOptions },
   data() {
     return {
       tag: null,
       fullBackup: true,
       loading: false,
       options: {
-        recipes: {
-          value: true,
-          text: this.$t("general.recipes"),
-        },
-        settings: {
-          value: true,
-          text: this.$t("general.settings"),
-        },
-        themes: {
-          value: true,
-          text: this.$t("general.themes"),
-        },
+        recipes: true,
+        settings: true,
+        themes: true,
+        users: true,
+        groups: true,
       },
       availableTemplates: [],
       selectedTemplates: [],
@@ -82,6 +73,9 @@ export default {
     },
   },
   methods: {
+    updateOptions(options) {
+      this.options = options;
+    },
     async getAvailableBackups() {
       let response = await api.backups.requestAvailable();
       response.templates.forEach(element => {
@@ -94,9 +88,11 @@ export default {
       let data = {
         tag: this.tag,
         options: {
-          recipes: this.options.recipes.value,
-          settings: this.options.settings.value,
-          themes: this.options.themes.value,
+          recipes: this.options.recipes,
+          settings: this.options.settings,
+          themes: this.options.themes,
+          users: this.options.users,
+          groups: this.options.groups,
         },
         templates: this.selectedTemplates,
       };

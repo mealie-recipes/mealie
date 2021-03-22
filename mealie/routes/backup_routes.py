@@ -1,13 +1,13 @@
 import operator
 import shutil
 
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from mealie.core.config import BACKUP_DIR, TEMPLATE_DIR
 from mealie.db.db_setup import generate_session
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
 from mealie.schema.snackbar import SnackResponse
+from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
-from mealie.services.backups.imports import ImportDatabase
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
@@ -41,6 +41,8 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
         export_recipes=data.options.recipes,
         export_settings=data.options.settings,
         export_themes=data.options.themes,
+        export_users=data.options.users,
+        export_groups=data.options.groups,
     )
     try:
         return SnackResponse.success("Backup Created at " + export_path)
@@ -80,17 +82,18 @@ async def upload_nextcloud_zipfile(file_name: str):
 def import_database(file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)):
     """ Import a database backup file generated from Mealie. """
 
-    import_db = ImportDatabase(
+    imported = imports.import_database(
         session=session,
-        zip_archive=import_data.name,
+        archive=import_data.name,
         import_recipes=import_data.recipes,
-        force_import=import_data.force,
-        rebase=import_data.rebase,
         import_settings=import_data.settings,
         import_themes=import_data.themes,
+        import_users=import_data.users,
+        import_groups=import_data.groups,
+        force_import=import_data.force,
+        rebase=import_data.rebase,
     )
 
-    imported = import_db.run()
     return imported
 
 

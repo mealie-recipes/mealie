@@ -23,59 +23,15 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          <v-row>
-            <v-col>
-              <v-checkbox
-                class="mb-n4 mt-1"
-                dense
-                :label="$t('settings.backup.import-recipes')"
-                v-model="importRecipes"
-              ></v-checkbox>
-              <v-checkbox
-                class="my-n4"
-                dense
-                :label="$t('settings.backup.import-themes')"
-                v-model="importThemes"
-              ></v-checkbox>
-              <v-checkbox
-                class="my-n4"
-                dense
-                :label="$t('settings.backup.import-settings')"
-                v-model="importSettings"
-              ></v-checkbox>
-            </v-col>
-            <!-- <v-col>
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-on="on" v-bind="attrs">
-                    <v-checkbox
-                      class="mb-n4 mt-1"
-                      dense
-                      label="Force"
-                      v-model="forceImport"
-                    ></v-checkbox>
-                  </span>
-                </template>
-                <span>Force update existing recipes</span>
-              </v-tooltip>
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-on="on" v-bind="attrs">
-                    <v-checkbox
-                      class="mb-n4 mt-1"
-                      dense
-                      label="Rebase"
-                      v-model="rebaseImport"
-                    ></v-checkbox>
-                  </span>
-                </template>
-                <span
-                  >Removes all recipes, and then imports recipes from the
-                  backup</span
-                >
-              </v-tooltip>
-            </v-col> -->
-          </v-row>
+          <ImportOptions @update-options="updateOptions" class="mt-5 mb-2" />
+
+          <v-divider></v-divider>
+
+          <v-checkbox
+            dense
+            label="Remove existing entries matching imported entries"
+            v-model="forceImport"
+          ></v-checkbox>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -104,7 +60,9 @@
 
 
 <script>
+import ImportOptions from "@/components/Admin/Backup/ImportOptions";
 export default {
+  components: { ImportOptions },
   props: {
     name: {
       default: "Backup Name",
@@ -115,15 +73,22 @@ export default {
   },
   data() {
     return {
+      options: {
+        recipes: true,
+        settings: true,
+        themes: true,
+        users: true,
+        groups: true,
+      },
       dialog: false,
-      importRecipes: true,
       forceImport: false,
       rebaseImport: false,
-      importThemes: false,
-      importSettings: false,
     };
   },
   methods: {
+    updateOptions(options) {
+      this.options = options;
+    },
     open() {
       this.dialog = true;
     },
@@ -133,11 +98,13 @@ export default {
     raiseEvent(event) {
       let eventData = {
         name: this.name,
-        recipes: this.importRecipes,
         force: this.forceImport,
         rebase: this.rebaseImport,
-        themes: this.importThemes,
-        settings: this.importSettings,
+        recipes: this.options.recipes,
+        settings: this.options.settings,
+        themes: this.options.themes,
+        users: this.options.users,
+        groups: this.options.groups,
       };
       this.close();
       this.$emit(event, eventData);

@@ -13,71 +13,53 @@
         </v-app-bar>
         <v-card-text class="mb-n4">
           <v-row>
-            <div>
+            <div v-for="values in allNumbers" :key="values.title">
               <v-card-text>
                 <div>
-                  <h3>Recipes</h3>
+                  <h3>{{ values.title }}</h3>
                 </div>
-                <div class="success--text">
-                  Success: {{ recipeNumbers.success }}
-                </div>
-                <div class="error--text">
-                  Failed: {{ recipeNumbers.failure }}
-                </div>
-              </v-card-text>
-            </div>
-            <div>
-              <v-card-text>
-                <div>
-                  <h3>Themes</h3>
-                </div>
-                <div class="success--text">
-                  Success: {{ themeNumbers.success }}
-                </div>
-                <div class="error--text">
-                  Failed: {{ themeNumbers.failure }}
-                </div>
-              </v-card-text>
-            </div>
-            <div>
-              <v-card-text>
-                <div>
-                  <h3>Settings</h3>
-                </div>
-                <div class="success--text">
-                  Success: {{ settingsNumbers.success }}
-                </div>
-                <div class="error--text">
-                  Failed: {{ settingsNumbers.failure }}
-                </div>
+                <div class="success--text">Success: {{ values.success }}</div>
+                <div class="error--text">Failed: {{ values.failure }}</div>
               </v-card-text>
             </div>
           </v-row>
         </v-card-text>
         <v-tabs v-model="tab">
-          <v-tab>Recipes</v-tab>
-          <v-tab>Themes</v-tab>
-          <v-tab>Settings</v-tab>
+          <v-tab>{{ $t("general.recipes") }}</v-tab>
+          <v-tab>{{ $t("general.themes") }}</v-tab>
+          <v-tab>{{ $t("general.settings") }}</v-tab>
+          <v-tab>{{ $t("general.users") }}</v-tab>
+          <v-tab>{{ $t("general.groups") }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item>
             <v-card flat>
-              <DataTable :data-headers="recipeHeaders" :data-set="recipeData" />
+              <DataTable :data-headers="importHeaders" :data-set="recipeData" />
             </v-card>
           </v-tab-item>
           <v-tab-item>
             <v-card>
               <DataTable
-                :data-headers="recipeHeaders"
+                :data-headers="importHeaders"
                 :data-set="themeData"
               /> </v-card
           ></v-tab-item>
           <v-tab-item>
             <v-card
               ><DataTable
-                :data-headers="recipeHeaders"
+                :data-headers="importHeaders"
                 :data-set="settingsData"
               />
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card
+              ><DataTable :data-headers="importHeaders" :data-set="userData" />
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card
+              ><DataTable :data-headers="importHeaders" :data-set="groupData" />
             </v-card>
           </v-tab-item>
         </v-tabs-items>
@@ -98,7 +80,9 @@ export default {
     recipeData: [],
     themeData: [],
     settingsData: [],
-    recipeHeaders: [
+    userData: [],
+    groupData: [],
+    importHeaders: [
       {
         text: "Status",
         value: "status",
@@ -117,39 +101,52 @@ export default {
 
   computed: {
     recipeNumbers() {
-      let numbers = { success: 0, failure: 0 };
-      this.recipeData.forEach(element => {
-        if (element.status) {
-          numbers.success++;
-        } else numbers.failure++;
-      });
-      return numbers;
+      return this.calculateNumbers(this.$t("general.recipes"), this.recipeData);
     },
     settingsNumbers() {
-      let numbers = { success: 0, failure: 0 };
-      this.settingsData.forEach(element => {
-        if (element.status) {
-          numbers.success++;
-        } else numbers.failure++;
-      });
-      return numbers;
+      return this.calculateNumbers(
+        this.$t("general.settings"),
+        this.settingsData
+      );
     },
     themeNumbers() {
-      let numbers = { success: 0, failure: 0 };
-      this.themeData.forEach(element => {
-        if (element.status) {
-          numbers.success++;
-        } else numbers.failure++;
-      });
-      return numbers;
+      return this.calculateNumbers(this.$t("general.themes"), this.themeData);
+    },
+    userNumbers() {
+      return this.calculateNumbers(this.$t("general.users"), this.userData);
+    },
+    groupNumbers() {
+      return this.calculateNumbers(this.$t("general.groups"), this.groupData);
+    },
+    allNumbers() {
+      return [
+        this.recipeNumbers,
+        this.settingsNumbers,
+        this.themeNumbers,
+        this.userNumbers,
+        this.groupNumbers,
+      ];
     },
   },
 
   methods: {
+    calculateNumbers(title, list_array) {
+      if (!list_array) return;
+      let numbers = { title: title, success: 0, failure: 0 };
+      list_array.forEach(element => {
+        if (element.status) {
+          numbers.success++;
+        } else numbers.failure++;
+      });
+      return numbers;
+    },
     open(importData) {
+      console.log(importData);
       this.recipeData = importData.recipeImports;
-      this.themeData = importData.themeReport;
-      this.settingsData = importData.settingsReport;
+      this.themeData = importData.themeImports;
+      this.settingsData = importData.settingsImports;
+      this.userData = importData.userImports;
+      this.groupData = importData.groupImports;
       this.dialog = true;
     },
   },

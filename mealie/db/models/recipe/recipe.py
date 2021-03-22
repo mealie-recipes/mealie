@@ -32,19 +32,19 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     cookTime = sa.Column(sa.String)
     recipeYield = sa.Column(sa.String)
     recipeCuisine = sa.Column(sa.String)
-    tool: List[Tool] = orm.relationship("Tool", cascade="all, delete")
-    nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete")
+    tool: List[Tool] = orm.relationship("Tool", cascade="all, delete-orphan")
+    nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
     recipeCategory: List = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
 
     recipeIngredient: List[RecipeIngredient] = orm.relationship(
         "RecipeIngredient",
-        cascade="all, delete",
+        cascade="all, delete-orphan",
         order_by="RecipeIngredient.position",
         collection_class=ordering_list("position"),
     )
     recipeInstructions: List[RecipeInstruction] = orm.relationship(
         "RecipeInstruction",
-        cascade="all, delete",
+        cascade="all, delete-orphan",
         order_by="RecipeInstruction.position",
         collection_class=ordering_list("position"),
     )
@@ -53,10 +53,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     slug = sa.Column(sa.String, index=True, unique=True)
     tags: List[Tag] = orm.relationship("Tag", secondary=recipes2tags, back_populates="recipes")
     dateAdded = sa.Column(sa.Date, default=date.today)
-    notes: List[Note] = orm.relationship("Note", cascade="all, delete")
+    notes: List[Note] = orm.relationship("Note", cascade="all, delete-orphan")
     rating = sa.Column(sa.Integer)
     orgURL = sa.Column(sa.String)
-    extras: List[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete")
+    extras: List[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
 
     @validates("name")
     def validate_name(self, key, name):
@@ -145,8 +145,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         extras: dict = None,
     ):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
-        list_of_tables = [RecipeIngredient, RecipeInstruction, ApiExtras, Tool]
-        RecipeModel._sql_remove_list(session, list_of_tables, self.id)
 
         self.__init__(
             session=session,

@@ -10,19 +10,19 @@ mealie/temp/api.html
 .temp/
 
 
-app_data/backups/*
-app_data/debug/*
-app_data/img/*
-app_data/migration/*
-app_data/users/*
+dev/data/backups/*
+dev/data/debug/*
+dev/data/img/*
+dev/data/migration/*
+dev/data/users/*
 
 #Exception to keep folders
 !mealie/dist/.gitkeep
-!app_data/backups/.gitkeep
-!app_data/backups/dev_sample_data*
-!app_data/debug/.gitkeep
-!app_data/migration/.gitkeep
-!app_data/img/.gitkeep
+!dev/data/backups/.gitkeep
+!dev/data/backups/dev_sample_data*
+!dev/data/debug/.gitkeep
+!dev/data/migration/.gitkeep
+!dev/data/img/.gitkeep
 
 .DS_Store
 node_modules
@@ -153,5 +153,5 @@ ENV/
 node_modules/
 mealie/data/debug/last_recipe.json
 *.sqlite
-app_data/db/test.db
+dev/data/db/test.db
 scratch.py

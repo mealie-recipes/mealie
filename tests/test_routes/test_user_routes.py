@@ -7,29 +7,14 @@ BASE = "/api/users"
 TOKEN_URL = "/api/auth/token"
 
 
-
-
-
 @fixture(scope="session")
 def default_user():
-    return {
-        "id": 1,
-        "fullName": "Change Me",
-        "email": "changeme@email.com",
-        "group": "Home",
-        "admin": True
-    }
+    return {"id": 1, "fullName": "Change Me", "email": "changeme@email.com", "group": "Home", "admin": True}
 
 
 @fixture(scope="session")
 def new_user():
-    return {
-        "id": 2,
-        "fullName": "My New User",
-        "email": "newuser@email.com",
-        "group": "Home",
-        "admin": False
-    }
+    return {"id": 2, "fullName": "My New User", "email": "newuser@email.com", "group": "Home", "admin": False}
 
 
 def test_superuser_login(api_client: requests):
@@ -55,7 +40,7 @@ def test_create_user(api_client: requests, token, new_user):
         "email": "newuser@email.com",
         "password": "MyStrongPassword",
         "group": "Home",
-        "admin": False
+        "admin": False,
     }
 
     response = api_client.post(f"{BASE}", json=create_data, headers=token)
@@ -74,13 +59,7 @@ def test_get_all_users(api_client: requests, token, new_user, default_user):
 
 
 def test_update_user(api_client: requests, token):
-    update_data = {
-        "id": 1,
-        "fullName": "Updated Name",
-        "email": "updated@email.com",
-        "group": "Home",
-        "admin": True
-    }
+    update_data = {"id": 1, "fullName": "Updated Name", "email": "updated@email.com", "group": "Home", "admin": True}
     response = api_client.put(f"{BASE}/1", headers=token, json=update_data)
 
     assert response.status_code == 200

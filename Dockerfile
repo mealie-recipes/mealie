@@ -31,8 +31,9 @@ RUN apk add --update --no-cache --virtual .build-deps \
 
 
 COPY ./mealie /app/mealie
+RUN poetry install --no-dev 
 COPY ./Caddyfile /app
-COPY ./app_data/templates /app/data/templates
+COPY ./dev/data/templates /app/data/templates
 COPY --from=build-stage /app/dist /app/dist
 
 VOLUME [ "/app/data/" ]

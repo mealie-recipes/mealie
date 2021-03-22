@@ -23,6 +23,24 @@ class BackupOptions(BaseModel):
         }
 
 
+class ImportJob(BackupOptions):
+    name: str
+    force: bool = False
+    rebase: bool = False
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "my_local_backup.zip",
+                "recipes": True,
+                "force": False,
+                "rebase": False,
+                "themes": False,
+                "settings": False,
+            }
+        }
+
+
 class BackupJob(BaseModel):
     tag: Optional[str]
     options: BackupOptions
@@ -57,26 +75,5 @@ class Imports(BaseModel):
                     }
                 ],
                 "templates": ["recipes.md", "custom_template.md"],
-            }
-        }
-
-
-class ImportJob(BaseModel):
-    name: str
-    recipes: bool
-    force: bool = False
-    rebase: bool = False
-    themes: bool = False
-    settings: bool = False
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "name": "my_local_backup.zip",
-                "recipes": True,
-                "force": False,
-                "rebase": False,
-                "themes": False,
-                "settings": False,
             }
         }

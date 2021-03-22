@@ -2,13 +2,7 @@ import json
 
 import pytest
 from tests.test_routes.utils.routes_data import recipe_test_data
-from tests.utils.routes import (
-    MEALPLAN_ALL,
-    MEALPLAN_CREATE,
-    MEALPLAN_PREFIX,
-    RECIPES_CREATE_URL,
-    RECIPES_PREFIX,
-)
+from tests.utils.routes import MEALPLAN_ALL, MEALPLAN_CREATE, MEALPLAN_PREFIX, RECIPES_CREATE_URL, RECIPES_PREFIX
 
 
 def get_meal_plan_template(first=None, second=None):
@@ -90,9 +84,7 @@ def test_update_mealplan(api_client, slug_1, slug_2, token):
     existing_mealplan["meals"][0]["slug"] = slug_2
     existing_mealplan["meals"][1]["slug"] = slug_1
 
-    response = api_client.put(
-        f"{MEALPLAN_PREFIX}/{plan_uid}", json=existing_mealplan, headers=token
-    )
+    response = api_client.put(f"{MEALPLAN_PREFIX}/{plan_uid}", json=existing_mealplan, headers=token)
 
     assert response.status_code == 200
 

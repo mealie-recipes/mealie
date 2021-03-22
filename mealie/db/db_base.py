@@ -76,7 +76,7 @@ class BaseDocument:
 
         return result
 
-    def get(self, session: Session, match_value: str, match_key: str = None, limit=1) -> dict or List[dict]:
+    def get(self, session: Session, match_value: str, match_key: str = None, limit=1) -> BaseModel or List[BaseModel]:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
 
@@ -101,7 +101,7 @@ class BaseDocument:
                 return None
         return [self.schema.from_orm(x) for x in result]
 
-    def create(self, session: Session, document: dict) -> dict:
+    def create(self, session: Session, document: dict) -> BaseModel:
         """Creates a new database entry for the given SQL Alchemy Model.
 
         Args: \n
@@ -121,7 +121,7 @@ class BaseDocument:
         return_data = new_document.dict()
         return return_data
 
-    def update(self, session: Session, match_value: str, new_data: str) -> dict:
+    def update(self, session: Session, match_value: str, new_data: str) -> BaseModel:
         """Update a database entry.
 
         Args: \n

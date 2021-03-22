@@ -1,13 +1,12 @@
+from fastapi.logger import logger
 from mealie.core.config import DEFAULT_GROUP
 from mealie.core.security import get_password_hash
-from fastapi.logger import logger
+from mealie.db.database import db
+from mealie.db.db_setup import create_session, sql_exists
 from mealie.schema.settings import SiteSettings
 from mealie.schema.theme import SiteTheme
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.session import Session
-
-from mealie.db.database import db
-from mealie.db.db_setup import create_session
 
 
 def init_db(db: Session = None) -> None:
@@ -55,3 +54,12 @@ def default_user_init(session: Session):
 
     logger.info("Generating Default User")
     db.users.create(session, default_user)
+
+
+if __name__ == "__main__":
+    if sql_exists:
+        print("Database Exists")
+        exit()
+    else:
+        print("Database Doesn't Exists, Initializing...")
+        init_db()

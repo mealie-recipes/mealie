@@ -1,9 +1,9 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from fastapi.logger import logger
 from mealie.core.config import DEFAULT_GROUP
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.category import Category, group2categories
-from fastapi.logger import logger
 from sqlalchemy.orm.session import Session
 
 
@@ -30,7 +30,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     # Webhook Settings
     webhook_enable = sa.Column(sa.Boolean, default=False)
     webhook_time = sa.Column(sa.String, default="00:00")
-    webhook_urls = orm.relationship("WebhookURLModel", uselist=True, cascade="all, delete")
+    webhook_urls = orm.relationship("WebhookURLModel", uselist=True, cascade="all, delete-orphan")
 
     def __init__(
         self,
@@ -52,13 +52,17 @@ class Group(SqlAlchemyBase, BaseMixins):
         self.webhook_urls = [WebhookURLModel(url=x) for x in webhook_urls]
 
     def update(self, session: Session, *args, **kwargs):
-        self._sql_remove_list(session, [WebhookURLModel], self.id)
 
         self.__init__(session=session, *args, **kwargs)
 
     @staticmethod
     def get_ref(session: Session, name: str):
-        return session.query(Group).filter(Group.name == name).one()
+        item = session.query(Group).filter(Group.name == name).one()
+        if item:
+            return item
+        
+        else:
+            return session.query(Group).filter(Group.id == 1).one()
 
     @staticmethod
     def create_if_not_exist(session, name: str = DEFAULT_GROUP):
