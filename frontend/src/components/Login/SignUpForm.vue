@@ -21,7 +21,7 @@
       have a valid invitation link. If you haven't recieved an invitation you
       are unable to sign-up. To recieve a link, contact the sites administrator.
       <v-divider class="mt-3"></v-divider>
-      <v-form ref="signUpForm">
+      <v-form ref="signUpForm" @submit="signUp">
         <v-text-field
           v-model="user.name"
           light="light"
@@ -63,22 +63,22 @@
           ]"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
+        <v-card-actions>
+          <v-btn
+            v-if="options.isLoggingIn"
+            @click.prevent="signUp"
+            dark
+            color="primary"
+            block="block"
+            type="submit"
+          >
+            Sign Up
+          </v-btn>
+        </v-card-actions>
+        <v-alert dense v-if="error" outlined class="mt-3 mb-0" type="error">
+          Error Signing Up
+        </v-alert>
       </v-form>
-      <v-card-actions>
-        <v-btn
-          v-if="options.isLoggingIn"
-          @click.prevent="signUp"
-          dark
-          color="primary"
-          block="block"
-          type="submit"
-        >
-          Sign Up
-        </v-btn>
-      </v-card-actions>
-      <v-alert dense v-if="error" outlined class="mt-3 mb-0" type="error">
-        Error Signing Up
-      </v-alert>
     </v-card-text>
   </v-card>
 </template>
