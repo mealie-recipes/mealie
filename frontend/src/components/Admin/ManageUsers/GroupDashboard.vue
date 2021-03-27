@@ -24,7 +24,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              {{ $t('user.create-group') }}
+              {{ $t("user.create-group") }}
             </v-btn>
           </template>
           <v-card>
@@ -34,31 +34,30 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                {{ $t('user.create-group') }}
+                {{ $t("user.create-group") }}
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
             </v-app-bar>
-
-            <v-card-text>
-              <v-form ref="newGroup">
+            <v-form ref="newGroup" @submit="createGroup">
+              <v-card-text>
                 <v-text-field
                   v-model="newGroupName"
                   :label="$t('user.group-name')"
                   :rules="[existsRule]"
                 ></v-text-field>
-              </v-form>
-            </v-card-text>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="grey" text @click="groupDialog = false">
-                {{ $t('general.cancel') }}
-              </v-btn>
-              <v-btn color="primary" @click="createGroup">
-                {{ $t('general.create') }}
-              </v-btn>
-            </v-card-actions>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="grey" text @click="groupDialog = false">
+                  {{ $t("general.cancel") }}
+                </v-btn>
+                <v-btn color="primary" type="submit" @click.prevent="createGroup">
+                  {{ $t("general.create") }}
+                </v-btn>
+              </v-card-actions>
+            </v-form>
           </v-card>
         </v-dialog>
       </v-card-actions>

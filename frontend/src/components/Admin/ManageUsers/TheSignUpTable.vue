@@ -3,7 +3,11 @@
     <Confirmation
       ref="deleteUserDialog"
       :title="$t('user.confirm-link-deletion')"
-      :message="$t('user.are-you-sure-you-want-to-delete-the-link', {link: activeName })"
+      :message="
+        $t('user.are-you-sure-you-want-to-delete-the-link', {
+          link: activeName,
+        })
+      "
       icon="mdi-alert"
       @confirm="deleteUser"
       :width="450"
@@ -14,14 +18,14 @@
         mdi-link-variant
       </v-icon>
       <v-toolbar-title class="headine">
-        {{ $t('user.sign-up-links') }}
+        {{ $t("user.sign-up-links") }}
       </v-toolbar-title>
 
       <v-spacer> </v-spacer>
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
-            {{ $t('user.create-link') }}
+            {{ $t("user.create-link") }}
           </v-btn>
         </template>
         <v-card>
@@ -31,14 +35,13 @@
             </v-icon>
 
             <v-toolbar-title class="headline">
-              {{ $t('user.create-link') }}
+              {{ $t("user.create-link") }}
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
           </v-app-bar>
-
-          <v-card-text>
-            <v-form ref="newUser">
+          <v-form ref="newUser" @submit="save">
+            <v-card-text>
               <v-row class="justify-center mt-3">
                 <v-text-field
                   class="mr-2"
@@ -52,18 +55,18 @@
                   :label="$t('user.admin')"
                 ></v-checkbox>
               </v-row>
-            </v-form>
-          </v-card-text>
+            </v-card-text>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="grey" text @click="close">
-              {{ $t('general.cancel') }}
-            </v-btn>
-            <v-btn color="primary" @click="save">
-              {{ $t('general.save') }}
-            </v-btn>
-          </v-card-actions>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="grey" text @click="close">
+                {{ $t("general.cancel") }}
+              </v-btn>
+              <v-btn color="primary" type="submit" @click.prevent="save">
+                {{ $t("general.save") }}
+              </v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-dialog>
     </v-toolbar>
@@ -90,7 +93,7 @@
             <v-icon small left>
               mdi-account-cog
             </v-icon>
-            {{ item.admin ? $t('general.yes') : $t('general.no') }}
+            {{ item.admin ? $t("general.yes") : $t("general.no") }}
           </v-btn>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -98,7 +101,7 @@
             <v-icon small left>
               mdi-delete
             </v-icon>
-            {{ $t('general.delete') }}
+            {{ $t("general.delete") }}
           </v-btn>
         </template>
       </v-data-table>
@@ -113,21 +116,21 @@ import { validators } from "@/mixins/validators";
 export default {
   components: { Confirmation },
   mixins: [validators],
-  data() { 
+  data() {
     return {
       dialog: false,
       activeId: null,
       activeName: null,
       headers: [
         {
-          text: this.$t('user.link-id'),
+          text: this.$t("user.link-id"),
           align: "start",
           sortable: false,
           value: "id",
         },
-        { text: this.$t('general.name'), value: "name" },
-        { text: this.$t('general.token'), value: "token" },
-        { text: this.$t('user.admin'), value: "admin", align: "center" },
+        { text: this.$t("general.name"), value: "name" },
+        { text: this.$t("general.token"), value: "token" },
+        { text: this.$t("user.admin"), value: "admin", align: "center" },
         { text: "", value: "actions", sortable: false, align: "center" },
       ],
       links: [],
@@ -144,7 +147,7 @@ export default {
         admin: false,
         id: 0,
       },
-    } 
+    };
   },
 
   computed: {
