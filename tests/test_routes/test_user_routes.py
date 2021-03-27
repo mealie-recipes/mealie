@@ -66,7 +66,6 @@ def test_update_user(api_client: requests, token):
     response = api_client.put(f"{BASE}/1", headers=token, json=update_data)
 
     assert response.status_code == 200
-    print(response.text)
     assert json.loads(response.text).get("access_token")
 
 

@@ -3,7 +3,12 @@
     <Confirmation
       ref="deleteUserDialog"
       :title="$t('user.confirm-user-deletion')"
-      :message="$t('user.are-you-sure-you-want-to-delete-the-user', { activeName, activeId })"
+      :message="
+        $t('user.are-you-sure-you-want-to-delete-the-user', {
+          activeName,
+          activeId,
+        })
+      "
       icon="mdi-alert"
       @confirm="deleteUser"
       :width="450"
@@ -25,7 +30,7 @@
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
-            {{$t('user.create-user')}}
+            {{ $t("user.create-user") }}
           </v-btn>
         </template>
         <v-card>
@@ -40,12 +45,11 @@
 
             <v-spacer></v-spacer>
             <v-toolbar-title class="headline">
-              {{$t('user.user-id-with-value', {id: editedItem.id }) }}
+              {{ $t("user.user-id-with-value", { id: editedItem.id }) }}
             </v-toolbar-title>
           </v-app-bar>
-
-          <v-card-text>
-            <v-form ref="newUser">
+          <v-form ref="newUser" @submit="save">
+            <v-card-text>
               <v-row>
                 <v-col cols="12" sm="12" md="6">
                   <v-text-field
@@ -80,21 +84,24 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="3">
-                  <v-switch v-model="editedItem.admin" :label="$t('user.admin')"></v-switch>
+                  <v-switch
+                    v-model="editedItem.admin"
+                    :label="$t('user.admin')"
+                  ></v-switch>
                 </v-col>
               </v-row>
-            </v-form>
-          </v-card-text>
+            </v-card-text>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="grey" text @click="close">
-              {{$t('general.cancel')}}
-            </v-btn>
-            <v-btn color="primary" @click="save">
-              {{$t('general.save')}}
-            </v-btn>
-          </v-card-actions>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="grey" text @click="close">
+                {{ $t("general.cancel") }}
+              </v-btn>
+              <v-btn color="primary" type="submit" @click.prevent="save">
+                {{ $t("general.save") }}
+              </v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-dialog>
     </v-toolbar>
@@ -111,13 +118,13 @@
             <v-icon small left>
               mdi-delete
             </v-icon>
-            {{$t('general.delete')}}
+            {{ $t("general.delete") }}
           </v-btn>
           <v-btn small color="success" @click="editItem(item)">
             <v-icon small left class="mr-2">
               mdi-pencil
             </v-icon>
-            {{$t('general.edit')}}
+            {{ $t("general.edit") }}
           </v-btn>
         </template>
         <template v-slot:item.admin="{ item }">
@@ -125,7 +132,7 @@
         </template>
         <template v-slot:no-data>
           <v-btn color="primary" @click="initialize">
-            {{$t('general.reset')}}
+            {{ $t("general.reset") }}
           </v-btn>
         </template>
       </v-data-table>
@@ -140,7 +147,7 @@ import { validators } from "@/mixins/validators";
 export default {
   components: { Confirmation },
   mixins: [validators],
-  data() { 
+  data() {
     return {
       search: "",
       dialog: false,
@@ -153,10 +160,10 @@ export default {
           sortable: false,
           value: "id",
         },
-        { text: this.$t('user.full-name'), value: "fullName" },
-        { text: this.$t('user.email'), value: "email" },
-        { text: this.$t('user.group'), value: "group" },
-        { text: this.$t('user.admin'), value: "admin" },
+        { text: this.$t("user.full-name"), value: "fullName" },
+        { text: this.$t("user.email"), value: "email" },
+        { text: this.$t("user.group"), value: "group" },
+        { text: this.$t("user.admin"), value: "admin" },
         { text: "", value: "actions", sortable: false, align: "center" },
       ],
       users: [],
@@ -177,12 +184,14 @@ export default {
         group: "",
         admin: false,
       },
-    } 
+    };
   },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? this.$t('user.new-user') : this.$t('user.edit-user');
+      return this.editedIndex === -1
+        ? this.$t("user.new-user")
+        : this.$t("user.edit-user");
     },
     showPassword() {
       return this.editedIndex === -1 ? true : false;

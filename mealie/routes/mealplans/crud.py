@@ -77,6 +77,5 @@ def get_today(
 
     group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
     recipe = get_todays_meal(session, group_in_db)
-    print(datetime.date.today())
 
     return recipe.slug

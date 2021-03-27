@@ -52,8 +52,7 @@ class Cleaner:
     @staticmethod
     def html(raw_html):
         cleanr = re.compile("<.*?>")
-        cleantext = re.sub(cleanr, "", raw_html)
-        return cleantext
+        return re.sub(cleanr, "", raw_html)
 
     @staticmethod
     def image(image=None) -> str:
@@ -142,12 +141,11 @@ class Cleaner:
 
     @staticmethod
     def time(time_entry):
-        print(time_entry, type(time_entry))
-        if time_entry == None:
+        if time_entry is None:
             return None
         elif type(time_entry) == datetime:
             print(time_entry)
         elif type(time_entry) != str:
             return str(time_entry)
-        elif time_entry != None:
+        else:
             return time_entry

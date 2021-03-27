@@ -14,6 +14,7 @@ def test_create_by_url(api_client, recipe_data: RecipeTestData):
 
 
 def test_create_by_json(api_client):
+    api_client.delete(f"{RECIPES_PREFIX}/banana-bread")
     response = api_client.post(RECIPES_CREATE, json=raw_recipe)
 
     assert response.status_code == 201

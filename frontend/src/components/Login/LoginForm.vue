@@ -13,11 +13,12 @@
         class="mr-2"
       >
       </v-progress-circular>
-      <v-toolbar-title class="headline">{{$t('user.login')}}</v-toolbar-title>
+      <v-toolbar-title class="headline">{{ $t("user.login") }}</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
-    <v-card-text>
-      <v-form>
+
+    <v-form @submit="login">
+      <v-card-text>
         <v-text-field
           v-if="!options.isLoggingIn"
           v-model="user.name"
@@ -43,22 +44,24 @@
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
-      </v-form>
-      <v-card-actions>
-        <v-btn
-          v-if="options.isLoggingIn"
-          @click.prevent="login"
-          dark
-          color="primary"
-          block="block"
-          type="submit"
-          >{{ $t("user.sign-in") }}</v-btn
-        >
-      </v-card-actions>
-      <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
-        {{$t('user.could-not-validate-credentials')}}
-      </v-alert>
-    </v-card-text>
+        <v-card-actions>
+          <v-btn
+            v-if="options.isLoggingIn"
+            @click.prevent="login"
+            dark
+            color="primary"
+            block="block"
+            type="submit"
+            >{{ $t("user.sign-in") }}
+            </v-btn
+          >
+        </v-card-actions>
+
+        <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
+          {{ $t("user.could-not-validate-credentials") }}
+        </v-alert>
+      </v-card-text>
+    </v-form>
   </v-card>
 </template>
 

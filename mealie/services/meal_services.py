@@ -4,26 +4,16 @@ from typing import Union
 import pytz
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
-from pydantic.tools import T
-from mealie.schema.meal import (
-    MealIn,
-    MealOut,
-    MealPlanIn,
-    MealPlanInDB,
-    MealPlanProcessed,
-)
+from mealie.schema.meal import MealIn, MealOut, MealPlanIn, MealPlanInDB, MealPlanProcessed
 from mealie.schema.recipe import Recipe
 from mealie.schema.user import GroupInDB
+from pydantic.tools import T
 from sqlalchemy.orm.session import Session
 
 
 def process_meals(session: Session, meal_plan_base: MealPlanIn) -> MealPlanProcessed:
     meals = []
     for x, meal in enumerate(meal_plan_base.meals):
-        # europe = pytz.timezone("America/Anchorage")
-        # d = europe.localize(meal_plan_base.startDate)
-        # print(d)
-
         meal: MealIn
         try:
             recipe: Recipe = db.recipes.get(session, meal.slug)

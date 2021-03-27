@@ -17,22 +17,24 @@
           <v-spacer></v-spacer>
         </v-app-bar>
         <v-card-title> </v-card-title>
-        <v-card-text>
-          <v-text-field
-            :label="$t('settings.theme.theme-name')"
-            v-model="themeName"
-            :rules="[rules.required]"
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="dialog = false">
-            {{ $t("general.cancel") }}
-          </v-btn>
-          <v-btn color="success" text @click="Select" :disabled="!themeName">
-            {{ $t("general.create") }}
-          </v-btn>
-        </v-card-actions>
+        <v-form @submit="select">
+          <v-card-text>
+            <v-text-field
+              :label="$t('settings.theme.theme-name')"
+              v-model="themeName"
+              :rules="[rules.required]"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="grey" text @click="dialog = false">
+              {{ $t("general.cancel") }}
+            </v-btn>
+            <v-btn color="success" text type="submit" @click.prevent="select" :disabled="!themeName">
+              {{ $t("general.create") }}
+            </v-btn>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
   </div>
@@ -64,7 +66,7 @@ export default {
     randomColor() {
       return "#" + Math.floor(Math.random() * 16777215).toString(16);
     },
-    Select() {
+    select() {
       const newTheme = {
         name: this.themeName,
         colors: {
