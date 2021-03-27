@@ -33,10 +33,10 @@ class ImportJob(BackupOptions):
             "example": {
                 "name": "my_local_backup.zip",
                 "recipes": True,
-                "force": False,
-                "rebase": False,
-                "themes": False,
-                "settings": False,
+                "settings": True,
+                "themes": True,
+                "groups": True,
+                "users": True,
             }
         }
 
