@@ -89,13 +89,16 @@ class ImportDatabase:
         # Migration from list to Object Type Data
         try:
             if "" in recipe_dict["tags"]:
-                recipe_dict["tags"] = [tag for tag in recipe_dict["tags"] if not tag == ""]
+                recipe_dict["tags"] = [tag for tag in recipe_dict["tags"] if tag != ""]
         except:
             pass
 
         try:
             if "" in recipe_dict["categories"]:
-                recipe_dict["categories"] = [cat for cat in recipe_dict["categories"] if not cat == ""]
+                recipe_dict["categories"] = [
+                    cat for cat in recipe_dict["categories"] if cat != ""
+                ]
+
         except:
             pass
 
@@ -239,16 +242,15 @@ class ImportDatabase:
 
         item = db_table.get(self.session, search_value, search_key)
         if item:
-            if self.force_imports:
-                primary_key = getattr(item, db_table.primary_key)
-                db_table.delete(self.session, primary_key)
-            else:
+            if not self.force_imports:
                 return return_model(
                     name=model_name,
                     status=False,
                     exception=f"Table entry with matching '{search_key}': '{search_value}' exists",
                 )
 
+            primary_key = getattr(item, db_table.primary_key)
+            db_table.delete(self.session, primary_key)
         try:
             db_table.create(self.session, model.dict())
             import_status = return_model(name=model_name, status=True)
@@ -301,12 +303,10 @@ def import_database(
 
     import_session.clean_up()
 
-    data = {
+    return {
         "recipeImports": recipe_report,
         "settingsImports": settings_report,
         "themeImports": theme_report,
         "groupImports": group_report,
         "userImports": user_report,
     }
-
-    return data

@@ -42,7 +42,6 @@ def update_generics(func):
 
             elif attribute:
                 setattr(class_object, key, value)
-        print("Complex", complex_attributed)
         func(class_object, complex_attributed)
 
     return wrapper

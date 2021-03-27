@@ -34,6 +34,7 @@ def test_upload_chowdown_zip(api_client, chowdown_zip):
 
 
 def test_import_chowdown_directory(api_client, chowdown_zip):
+    api_client.delete(f"{RECIPES_PREFIX}/roasted-okra") # TODO: Manage Test Data better
     selection = chowdown_zip.name
     response = api_client.post(f"{MIGRATIONS_PREFIX}/chowdown/{selection}/import")
 
