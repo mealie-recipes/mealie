@@ -21,7 +21,7 @@
 
           <v-spacer></v-spacer>
         </v-app-bar>
-        <v-form ref="urlForm" @submit="createRecipe">
+        <v-form ref="urlForm" @submit.prevent="createRecipe">
           <v-card-text>
             <v-text-field
               v-model="recipeURL"
@@ -47,12 +47,7 @@
             <v-btn color="grey" text @click="reset">
               {{ $t("general.close") }}
             </v-btn>
-            <v-btn
-              color="success"
-              text
-              @click.prevent="createRecipe"
-              :loading="processing"
-            >
+            <v-btn color="success" text type="submit" :loading="processing">
               {{ $t("general.submit") }}
             </v-btn>
           </v-card-actions>
