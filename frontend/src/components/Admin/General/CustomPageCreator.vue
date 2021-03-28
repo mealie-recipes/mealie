@@ -1,11 +1,12 @@
 <template>
   <v-card flat>
+    <CreatePageDialog ref="createDialog" @refresh-page="getPages" />
     <v-card-text>
       <h2 class="mt-1 mb-1 ">
         Custom Pages
         <span>
-          <v-btn color="success" small class="ml-3">
-            New
+          <v-btn color="success" @click="newPage" small class="ml-3">
+            Create
           </v-btn>
         </span>
       </h2>
@@ -19,11 +20,11 @@
           :key="item + item.id"
         >
           <v-card>
-            <v-card-title class="headline">{{ item.name }}</v-card-title>
-            <v-divider></v-divider>
-
-            <v-card-text>
-              Card Position: {{ index }}
+            <v-card-text class="mb-0 pb-0">
+              <h3>{{ item.name }}</h3>
+              <v-divider></v-divider>
+            </v-card-text>
+            <v-card-text class="mt-0">
               <div>
                 <v-chip
                   v-for="cat in item.categories"
@@ -43,7 +44,7 @@
                 Delete
               </v-btn>
               <v-spacer> </v-spacer>
-              <v-btn small text color="success">
+              <v-btn small text color="success" @click="editPage(index)">
                 Edit
               </v-btn>
             </v-card-actions>
@@ -62,14 +63,33 @@
 
 <script>
 import draggable from "vuedraggable";
+import CreatePageDialog from "@/components/Admin/General/CreatePageDialog";
 import api from "@/api";
 export default {
   components: {
     draggable,
+    CreatePageDialog,
   },
   data() {
     return {
+      pageDialog: false,
       customPages: [],
+      newPageData: {
+        create: true,
+        title: "New Page",
+        buttonText: "Create",
+        data: {
+          name: "",
+          categories: [],
+          position: 0,
+        },
+      },
+      editPageData: {
+        create: false,
+        title: "Edit Page",
+        buttonText: "Update",
+        data: {},
+      },
     };
   },
   async mounted() {
@@ -78,6 +98,7 @@ export default {
   methods: {
     async getPages() {
       this.customPages = await api.siteSettings.getPages();
+      this.customPages.sort((a, b) => a.position - b.position);
     },
     async deletePage(id) {
       await api.siteSettings.deletePage(id);
@@ -90,7 +111,15 @@ export default {
 
       await api.siteSettings.updateAllPages(this.customPages);
 
-      this.getPages;
+      this.getPages();
+    },
+    editPage(index) {
+      this.editPageData.data = this.customPages[index];
+      this.$refs.createDialog.open(this.editPageData);
+    },
+    newPage() {
+      this.newPageData.position = this.customPages.length;
+      this.$refs.createDialog.open(this.newPageData);
     },
   },
 };

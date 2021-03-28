@@ -32,7 +32,7 @@ export const routes = [
   { path: "/debug", component: Debug },
   { path: "/search", component: SearchPage },
   { path: "/recipes/all", component: AllRecipes },
-  { path: "/recipes/test-page", component: CustomPage },
+  { path: "/pages/:customPage", component: CustomPage },
   { path: "/recipes/:category", component: CategoryPage },
   { path: "/recipe/:recipe", component: ViewRecipe },
   { path: "/new/", component: NewRecipe },

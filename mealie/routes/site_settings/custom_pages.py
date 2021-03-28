@@ -1,3 +1,5 @@
+from typing import Union
+
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
@@ -43,13 +45,22 @@ async def update_multiple_pages(
 
 
 @router.get("/{id}")
-async def delete_custom_page(
-    id: int,
+async def get_single_page(
+    id: Union[int, str],
     session: Session = Depends(generate_session),
 ):
     """ Removes a custom page from the database """
+    if isinstance(id, int):
+        return db.custom_pages.get(session, id)
+    elif isinstance(id, str):
+        return db.custom_pages.get(session, id, "slug")
 
-    return db.custom_pages.get(session, id)
+
+@router.put("/{id}")
+async def update_single_age(data: CustomPageOut, id: int, session: Session = Depends(generate_session)):
+    """ Removes a custom page from the database """
+
+    return db.custom_pages.update(session, id, data.dict())
 
 
 @router.delete("/{id}")

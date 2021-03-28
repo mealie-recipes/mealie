@@ -3,7 +3,7 @@
     <CategorySidebar />
     <v-card flat height="100%">
       <v-card-title class="text-center justify-center py-6 headline">
-        Category Section
+        {{ title }}
       </v-card-title>
       <div v-if="render">
         <v-tabs v-model="tab" background-color="transparent" grow>
@@ -37,41 +37,35 @@ export default {
   },
   data() {
     return {
+      title: "",
       tab: null,
       render: false,
       recipeStore: [],
-      categories: [
-        {
-          id: 2,
-          slug: "brownie",
-          name: "brownie",
-        },
-        {
-          id: 3,
-          slug: "dessert",
-          name: "dessert",
-        },
-        {
-          id: 4,
-          slug: "drink",
-          name: "Drink",
-        },
-      ],
+      categories: [],
     };
+  },
+  computed: {
+    pageSlug() {
+      return this.$route.params.customPage;
+    },
   },
 
   watch: {
-    tab(val) {
-      console.log(val);
+    pageSlug() {
+      this.buildPage();
     },
   },
+
   async mounted() {
     await this.buildPage();
     this.render = true;
   },
   methods: {
     async buildPage() {
-      this.categories.forEach(async element => {
+      const page = await api.siteSettings.getPage(this.pageSlug);
+      this.title = page.name;
+      this.categories = page.categories;
+      page.categories.forEach(async element => {
         let categoryRecipes = await this.getRecipeByCategory(element.slug);
         this.recipeStore.push(categoryRecipes);
       });
