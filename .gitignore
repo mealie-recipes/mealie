@@ -8,6 +8,7 @@ docs/site/
 mealie/temp/*
 mealie/temp/api.html
 .temp/
+.secret
 
 
 dev/data/backups/*

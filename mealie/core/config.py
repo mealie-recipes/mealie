@@ -1,4 +1,5 @@
 import os
+import secrets
 from pathlib import Path
 
 import dotenv
@@ -17,12 +18,10 @@ def ensure_dirs():
 # Register ENV
 ENV = CWD.joinpath(".env")  #! I'm Broken Fix Me!
 dotenv.load_dotenv(ENV)
+PRODUCTION = os.environ.get("ENV")
 
-
-SECRET = "test-secret-shhh"
 
 # General
-PRODUCTION = os.environ.get("ENV")
 PORT = int(os.getenv("mealie_port", 9000))
 API = os.getenv("api_docs", True)
 
@@ -72,7 +71,7 @@ LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 
 # DATABASE ENV
 SQLITE_FILE = None
-DATABASE_TYPE = os.getenv("db_type", "sqlite")
+DATABASE_TYPE = os.getenv("DB_TYPE", "sqlite")
 if DATABASE_TYPE == "sqlite":
     USE_SQL = True
     SQLITE_FILE = SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
@@ -80,9 +79,25 @@ if DATABASE_TYPE == "sqlite":
 else:
     raise Exception("Unable to determine database type. Acceptible options are 'sqlite' ")
 
+
+def determine_secrets() -> str:
+    secrets_file = DATA_DIR.joinpath(".secret")
+    if secrets_file.is_file():
+        with open(secrets_file, "r") as f:
+            return f.read()
+    else:
+        with open(secrets_file, "w") as f:
+            f.write(secrets.token_hex(32))
+
+
+SECRET = determine_secrets()
+
 # Mongo Database
+DEFAULT_GROUP = os.getenv("DEFAULT_GROUP", "Home")
+DEFAULT_PASSWORD = os.getenv("DEFAULT_PASSWORD", "ChangeMe")
+
+# Database
 MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")
-DEFAULT_GROUP = os.getenv("default_group", "Home")
 DB_USERNAME = os.getenv("db_username", "root")
 DB_PASSWORD = os.getenv("db_password", "example")
 DB_HOST = os.getenv("db_host", "mongo")
