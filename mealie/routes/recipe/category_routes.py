@@ -1,3 +1,4 @@
+from mealie.routes.deps import get_current_user
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
@@ -26,7 +27,7 @@ def get_all_recipes_by_category(category: str, session: Session = Depends(genera
 
 
 @router.delete("/{category}")
-async def delete_recipe_category(category: str, session: Session = Depends(generate_session)):
+async def delete_recipe_category(category: str, session: Session = Depends(generate_session), current_user=Depends(get_current_user)):
     """Removes a recipe category from the database. Deleting a
     category does not impact a recipe. The category will be removed
     from any recipes that contain it"""

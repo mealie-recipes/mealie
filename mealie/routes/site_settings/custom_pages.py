@@ -57,7 +57,12 @@ async def get_single_page(
 
 
 @router.put("/{id}")
-async def update_single_age(data: CustomPageOut, id: int, session: Session = Depends(generate_session)):
+async def update_single_age(
+    data: CustomPageOut,
+    id: int,
+    session: Session = Depends(generate_session),
+    current_user=Depends(get_current_user),
+):
     """ Removes a custom page from the database """
 
     return db.custom_pages.update(session, id, data.dict())

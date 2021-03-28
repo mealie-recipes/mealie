@@ -1,9 +1,10 @@
 import json
 
+from fastapi import APIRouter, Depends
 from mealie.core.config import APP_VERSION, DEBUG_DIR, LOGGER_FILE
-from fastapi import APIRouter
+from mealie.routes.deps import get_current_user
 
-router = APIRouter(prefix="/api/debug", tags=["Debug"])
+router = APIRouter(prefix="/api/debug", tags=["Debug"], dependencies=[Depends(get_current_user)])
 
 
 @router.get("/version")
@@ -25,9 +26,7 @@ async def get_log(num: int):
     """ Doc Str """
     with open(LOGGER_FILE, "rb") as f:
         log_text = tail(f, num)
-    HTML_RESPONSE = log_text
-
-    return HTML_RESPONSE
+    return log_text
 
 
 def tail(f, lines=20):

@@ -2,16 +2,17 @@ import operator
 import shutil
 from typing import List
 
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from mealie.core.config import MIGRATION_DIR
 from mealie.db.db_setup import generate_session
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from mealie.routes.deps import get_current_user
 from mealie.schema.migration import MigrationFile, Migrations
+from mealie.schema.snackbar import SnackResponse
 from mealie.services.migrations.chowdown import chowdown_migrate as chowdow_migrate
 from mealie.services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session
-from mealie.schema.snackbar import SnackResponse
 
-router = APIRouter(prefix="/api/migrations", tags=["Migration"])
+router = APIRouter(prefix="/api/migrations", tags=["Migration"], dependencies=[Depends(get_current_user)])
 
 
 @router.get("", response_model=List[Migrations])

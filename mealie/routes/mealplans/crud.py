@@ -25,9 +25,7 @@ def get_all_meals(
 
 @router.post("/create")
 def create_meal_plan(
-    data: MealPlanIn,
-    session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
+    data: MealPlanIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
 ):
     """ Creates a meal plan database entry """
     processed_plan = process_meals(session, data)
@@ -37,7 +35,12 @@ def create_meal_plan(
 
 
 @router.put("/{plan_id}")
-def update_meal_plan(plan_id: str, meal_plan: MealPlanIn, session: Session = Depends(generate_session)):
+def update_meal_plan(
+    plan_id: str,
+    meal_plan: MealPlanIn,
+    session: Session = Depends(generate_session),
+    current_user=Depends(get_current_user),
+):
     """ Updates a meal plan based off ID """
     processed_plan = process_meals(session, meal_plan)
     processed_plan = MealPlanInDB(uid=plan_id, **processed_plan.dict())
@@ -47,7 +50,7 @@ def update_meal_plan(plan_id: str, meal_plan: MealPlanIn, session: Session = Dep
 
 
 @router.delete("/{plan_id}")
-def delete_meal_plan(plan_id, session: Session = Depends(generate_session)):
+def delete_meal_plan(plan_id, session: Session = Depends(generate_session), current_user=Depends(get_current_user)):
     """ Removes a meal plan from the database """
 
     db.meals.delete(session, plan_id)
@@ -56,20 +59,14 @@ def delete_meal_plan(plan_id, session: Session = Depends(generate_session)):
 
 
 @router.get("/this-week", response_model=MealPlanInDB)
-def get_this_week(
-    session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
-):
+def get_this_week(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
     """ Returns the meal plan data for this week """
 
     return db.groups.get_meals(session, current_user.group)[0]
 
 
 @router.get("/today", tags=["Meal Plan"])
-def get_today(
-    session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
-):
+def get_today(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
     """
     Returns the recipe slug for the meal scheduled for today.
     If no meal is scheduled nothing is returned
