@@ -11,7 +11,7 @@ const state = {
 
 const mutations = {
   setSettings(state, payload) {
-    state.settings = payload;
+    state.siteSettings = payload;
   },
 };
 

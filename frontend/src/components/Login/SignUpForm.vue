@@ -21,7 +21,7 @@
       have a valid invitation link. If you haven't recieved an invitation you
       are unable to sign-up. To recieve a link, contact the sites administrator.
       <v-divider class="mt-3"></v-divider>
-      <v-form ref="signUpForm" @submit="signUp">
+      <v-form ref="signUpForm" @submit.prevent="signUp">
         <v-text-field
           v-model="user.name"
           light="light"
@@ -66,7 +66,6 @@
         <v-card-actions>
           <v-btn
             v-if="options.isLoggingIn"
-            @click.prevent="signUp"
             dark
             color="primary"
             block="block"

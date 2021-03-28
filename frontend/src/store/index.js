@@ -4,7 +4,6 @@ import api from "@/api";
 import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
 import language from "./modules/language";
-import homePage from "./modules/homePage";
 import siteSettings from "./modules/siteSettings";
 import groups from "./modules/groups";
 
@@ -13,13 +12,12 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ["userSettings", "language", "homePage", "SideSettings"],
+      paths: ["userSettings", "language", "SideSettings"],
     }),
   ],
   modules: {
     userSettings,
     language,
-    homePage,
     siteSettings,
     groups,
   },
@@ -28,6 +26,7 @@ const store = new Vuex.Store({
     recentRecipes: [],
     allRecipes: [],
     mealPlanCategories: [],
+    allCategories: [],
   },
 
   mutations: {
@@ -37,6 +36,9 @@ const store = new Vuex.Store({
 
     setMealPlanCategories(state, payload) {
       state.mealPlanCategories = payload;
+    },
+    setAllCategories(state, payload) {
+      state.allCategories = payload;
     },
   },
 
@@ -54,11 +56,16 @@ const store = new Vuex.Store({
 
       this.commit("setRecentRecipes", payload);
     },
+    async requestCategories({ commit }) {
+      const categories = await api.categories.getAll();
+      commit("setAllCategories", categories);
+    },
   },
 
   getters: {
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
+    getAllCategories: state => state.allCategories,
   },
 });
 

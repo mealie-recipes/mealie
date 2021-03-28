@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 .env
-__pycache__/
+*__pycache__/
 *.py[cod]
 *$py.class
 # frontend/.env.development
@@ -8,6 +8,7 @@ docs/site/
 mealie/temp/*
 mealie/temp/api.html
 .temp/
+.secret
 
 
 dev/data/backups/*

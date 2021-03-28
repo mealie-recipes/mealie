@@ -18,14 +18,11 @@ router = APIRouter(prefix="/api/backups", tags=["Backups"])
 def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
-    templates = []
     for archive in BACKUP_DIR.glob("*.zip"):
         backup = LocalBackup(name=archive.name, date=archive.stat().st_ctime)
         imports.append(backup)
 
-    for template in TEMPLATE_DIR.glob("*.*"):
-        templates.append(template.name)
-
+    templates = [template.name for template in TEMPLATE_DIR.glob("*.*")]
     imports.sort(key=operator.attrgetter("date"), reverse=True)
 
     return Imports(imports=imports, templates=templates)
@@ -40,6 +37,7 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
         templates=data.templates,
         export_recipes=data.options.recipes,
         export_settings=data.options.settings,
+        export_pages=data.options.pages,
         export_themes=data.options.themes,
         export_users=data.options.users,
         export_groups=data.options.groups,
@@ -82,19 +80,18 @@ async def upload_nextcloud_zipfile(file_name: str):
 def import_database(file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)):
     """ Import a database backup file generated from Mealie. """
 
-    imported = imports.import_database(
+    return imports.import_database(
         session=session,
         archive=import_data.name,
         import_recipes=import_data.recipes,
         import_settings=import_data.settings,
+        import_pages=import_data.pages,
         import_themes=import_data.themes,
         import_users=import_data.users,
         import_groups=import_data.groups,
         force_import=import_data.force,
         rebase=import_data.rebase,
     )
-
-    return imported
 
 
 @router.delete("/{file_name}/delete", status_code=200)

@@ -1,5 +1,5 @@
 from fastapi.logger import logger
-from mealie.core.config import DEFAULT_GROUP
+from mealie.core.config import DEFAULT_GROUP, DEFAULT_PASSWORD
 from mealie.core.security import get_password_hash
 from mealie.db.database import db
 from mealie.db.db_setup import create_session, sql_exists
@@ -40,14 +40,13 @@ def default_group_init(session: Session):
     default_group = {"name": DEFAULT_GROUP}
     logger.info("Generating Default Group")
     db.groups.create(session, default_group)
-    pass
 
 
 def default_user_init(session: Session):
     default_user = {
         "full_name": "Change Me",
         "email": "changeme@email.com",
-        "password": get_password_hash("MyPassword"),
+        "password": get_password_hash(DEFAULT_PASSWORD),
         "group": DEFAULT_GROUP,
         "admin": True,
     }

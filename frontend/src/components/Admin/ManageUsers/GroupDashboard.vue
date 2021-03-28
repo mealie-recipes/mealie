@@ -39,7 +39,7 @@
 
               <v-spacer></v-spacer>
             </v-app-bar>
-            <v-form ref="newGroup" @submit="createGroup">
+            <v-form ref="newGroup" @submit.prevent="createGroup">
               <v-card-text>
                 <v-text-field
                   v-model="newGroupName"
@@ -53,7 +53,7 @@
                 <v-btn color="grey" text @click="groupDialog = false">
                   {{ $t("general.cancel") }}
                 </v-btn>
-                <v-btn color="primary" type="submit" @click.prevent="createGroup">
+                <v-btn color="primary" type="submit">
                   {{ $t("general.create") }}
                 </v-btn>
               </v-card-actions>

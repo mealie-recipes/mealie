@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class BackupOptions(BaseModel):
     recipes: bool = True
     settings: bool = True
+    pages: bool = True
     themes: bool = True
     groups: bool = True
     users: bool = True

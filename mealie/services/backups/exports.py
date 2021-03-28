@@ -4,11 +4,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Union
 
+from fastapi.logger import logger
+from jinja2 import Template
 from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
-from fastapi.logger import logger
-from jinja2 import Template
 from pydantic.main import BaseModel
 
 
@@ -101,6 +101,7 @@ def backup_all(
     templates=None,
     export_recipes=True,
     export_settings=True,
+    export_pages=True,
     export_themes=True,
     export_users=True,
     export_groups=True,
@@ -125,6 +126,10 @@ def backup_all(
         all_settings = db.settings.get_all(session)
         db_export.export_items(all_settings, "settings")
 
+    if export_pages:
+        all_pages = db.custom_pages.get_all(session)
+        db_export.export_items(all_pages, "pages")
+
     if export_themes:
         all_themes = db.themes.get_all(session)
         db_export.export_items(all_themes, "themes")
@@ -136,10 +141,7 @@ def auto_backup_job():
     for backup in BACKUP_DIR.glob("Auto*.zip"):
         backup.unlink()
 
-    templates = []
-    for template in TEMPLATE_DIR.iterdir():
-        templates.append(template)
-
+    templates = [template for template in TEMPLATE_DIR.iterdir()]
     session = create_session()
     backup_all(session=session, tag="Auto", templates=templates)
     logger.info("Auto Backup Called")

@@ -7,8 +7,8 @@ from typing import Callable, List
 from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
 from mealie.db.database import db
 from mealie.schema.recipe import Recipe
-from mealie.schema.restore import GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
-from mealie.schema.settings import SiteSettings
+from mealie.schema.restore import CustomPageImport, GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
+from mealie.schema.settings import CustomPageOut, SiteSettings
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import UpdateGroup, UserInDB
 from pydantic.main import BaseModel
@@ -42,7 +42,6 @@ class ImportDatabase:
 
             with zipfile.ZipFile(self.archive, "r") as zip_ref:
                 zip_ref.extractall(self.import_dir)
-            pass
         else:
             raise Exception("Import file does not exist")
 
@@ -95,9 +94,7 @@ class ImportDatabase:
 
         try:
             if "" in recipe_dict["categories"]:
-                recipe_dict["categories"] = [
-                    cat for cat in recipe_dict["categories"] if cat != ""
-                ]
+                recipe_dict["categories"] = [cat for cat in recipe_dict["categories"] if cat != ""]
 
         except:
             pass
@@ -148,6 +145,19 @@ class ImportDatabase:
             import_status = SettingsImport(name="Site Settings", status=False, exception=str(inst))
 
         return [import_status]
+
+    def import_pages(self):
+        pages_file = self.import_dir.joinpath("pages", "pages.json")
+        pages = ImportDatabase.read_models_file(pages_file, CustomPageOut)
+
+        page_imports = []
+        for page in pages:
+            import_stats = self.import_model(
+                db_table=db.custom_pages, model=page, return_model=CustomPageImport, name_attr="name", search_key="slug"
+            )
+            page_imports.append(import_stats)
+
+        return page_imports
 
     def import_groups(self):
         groups_file = self.import_dir.joinpath("groups", "groups.json")
@@ -273,6 +283,7 @@ def import_database(
     archive,
     import_recipes=True,
     import_settings=True,
+    import_pages=True,
     import_themes=True,
     import_users=True,
     import_groups=True,
@@ -293,6 +304,10 @@ def import_database(
     if import_themes:
         theme_report = import_session.import_themes()
 
+    if import_pages:
+        print("IMport Pages")
+        page_report = import_session.import_pages()
+
     group_report = []
     if import_groups:
         group_report = import_session.import_groups()
@@ -307,6 +322,7 @@ def import_database(
         "recipeImports": recipe_report,
         "settingsImports": settings_report,
         "themeImports": theme_report,
+        "pageImports": page_report,
         "groupImports": group_report,
         "userImports": user_report,
     }

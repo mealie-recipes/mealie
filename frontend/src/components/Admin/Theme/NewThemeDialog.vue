@@ -17,7 +17,7 @@
           <v-spacer></v-spacer>
         </v-app-bar>
         <v-card-title> </v-card-title>
-        <v-form @submit="select">
+        <v-form @submit.prevent="select">
           <v-card-text>
             <v-text-field
               :label="$t('settings.theme.theme-name')"
@@ -30,7 +30,7 @@
             <v-btn color="grey" text @click="dialog = false">
               {{ $t("general.cancel") }}
             </v-btn>
-            <v-btn color="success" text type="submit" @click.prevent="select" :disabled="!themeName">
+            <v-btn color="success" text type="submit" :disabled="!themeName">
               {{ $t("general.create") }}
             </v-btn>
           </v-card-actions>

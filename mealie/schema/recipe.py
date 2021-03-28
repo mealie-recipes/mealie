@@ -101,11 +101,10 @@ class Recipe(BaseModel):
         name: str = values["name"]
         calc_slug: str = slugify(name)
 
-        if slug == calc_slug:
-            return slug
-        else:
+        if slug != calc_slug:
             slug = calc_slug
-            return slug
+
+        return slug
 
 
 class AllRecipeRequest(BaseModel):

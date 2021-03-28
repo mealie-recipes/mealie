@@ -48,7 +48,7 @@
               {{ $t("user.user-id-with-value", { id: editedItem.id }) }}
             </v-toolbar-title>
           </v-app-bar>
-          <v-form ref="newUser" @submit="save">
+          <v-form ref="newUser" @submit.prevent="save">
             <v-card-text>
               <v-row>
                 <v-col cols="12" sm="12" md="6">
@@ -97,7 +97,7 @@
               <v-btn color="grey" text @click="close">
                 {{ $t("general.cancel") }}
               </v-btn>
-              <v-btn color="primary" type="submit" @click.prevent="save">
+              <v-btn color="primary" type="submit">
                 {{ $t("general.save") }}
               </v-btn>
             </v-card-actions>

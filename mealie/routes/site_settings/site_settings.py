@@ -16,9 +16,7 @@ router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 def get_main_settings(session: Session = Depends(generate_session)):
     """ Returns basic site settings """
 
-    data = db.settings.get(session, 1)
-
-    return data
+    return db.settings.get(session, 1)
 
 
 @router.put("")

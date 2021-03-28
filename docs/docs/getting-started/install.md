@@ -45,13 +45,14 @@ services:
 
 ## Env Variables
 
-| Variables        | Default  | Description                                                                         |
-| ---------------- | -------- | ----------------------------------------------------------------------------------- |
-| DB_TYPE          | sqlite   | The database type to be used. Current Options 'sqlite'                              |
-| API_PORT         | 9000     | The port exposed by backend API. **do not change this if you're running in docker** |
-| API_DOCS         | True     | Turns on/off access to the API documentation locally.                               |
-| DEFAULT_PASSWORD | ChangeMe | The default password for all users created in Mealie                                |
-| TZ               | UTC      | Must be set to get correct date/time on the server                                  |
+| Variables        | Default    | Description                                                                         |
+| ---------------- | ---------- | ----------------------------------------------------------------------------------- |
+| DB_TYPE          | sqlite     | The database type to be used. Current Options 'sqlite'                              |
+| DEFAULT_GROUP    | Home       | The default group for users                                                         |
+| DEFAULT_PASSWORD | MyPassword | The default password for all users created in Mealie                                |
+| API_PORT         | 9000       | The port exposed by backend API. **do not change this if you're running in docker** |
+| API_DOCS         | True       | Turns on/off access to the API documentation locally.                               |
+| TZ               | UTC        | Must be set to get correct date/time on the server                                  |
 
 
 ## Deployed as a Python Application

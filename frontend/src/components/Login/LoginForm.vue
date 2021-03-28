@@ -17,7 +17,7 @@
       <v-spacer></v-spacer>
     </v-app-bar>
 
-    <v-form @submit="login">
+    <v-form @submit.prevent="login">
       <v-card-text>
         <v-text-field
           v-if="!options.isLoggingIn"
@@ -47,14 +47,12 @@
         <v-card-actions>
           <v-btn
             v-if="options.isLoggingIn"
-            @click.prevent="login"
             dark
             color="primary"
             block="block"
             type="submit"
             >{{ $t("user.sign-in") }}
-            </v-btn
-          >
+          </v-btn>
         </v-card-actions>
 
         <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">

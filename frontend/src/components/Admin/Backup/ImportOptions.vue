@@ -26,6 +26,10 @@ export default {
           value: true,
           text: this.$t("general.settings"),
         },
+        pages: {
+          value: true,
+          text: "Pages",
+        },
         themes: {
           value: true,
           text: this.$t("general.themes"),
@@ -50,6 +54,7 @@ export default {
         recipes: this.options.recipes.value,
         settings: this.options.settings.value,
         themes: this.options.themes.value,
+        pages: this.options.pages.value,
         users: this.options.users.value,
         groups: this.options.groups.value,
       });
