@@ -76,8 +76,6 @@ export default {
   mounted() {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
-    this.$store.dispatch("requestHomePageSettings");
-    this.$store.dispatch("requestSiteSettings");
     this.$store.dispatch("refreshToken");
     this.$store.dispatch("requestCurrentGroup");
     this.darkModeSystemCheck();

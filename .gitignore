@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 .env
-__pycache__/
+*__pycache__/
 *.py[cod]
 *$py.class
 # frontend/.env.development

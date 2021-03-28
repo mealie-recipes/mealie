@@ -4,7 +4,6 @@ import api from "@/api";
 import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
 import language from "./modules/language";
-import homePage from "./modules/homePage";
 import siteSettings from "./modules/siteSettings";
 import groups from "./modules/groups";
 
@@ -13,13 +12,12 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ["userSettings", "language", "homePage", "SideSettings"],
+      paths: ["userSettings", "language", "SideSettings"],
     }),
   ],
   modules: {
     userSettings,
     language,
-    homePage,
     siteSettings,
     groups,
   },

@@ -4,7 +4,8 @@ from fastapi.logger import logger
 
 # import utils.startup as startup
 from mealie.core.config import APP_VERSION, PORT, docs_url, redoc_url
-from mealie.routes import backup_routes, debug_routes, migration_routes, setting_routes, theme_routes
+from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes
+from mealie.routes.site_settings import all_settings
 from mealie.routes.groups import groups
 from mealie.routes.mealplans import mealplans
 from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_crud_routes, tag_routes
@@ -36,7 +37,7 @@ def api_routers():
     # Meal Routes
     app.include_router(mealplans.router)
     # Settings Routes
-    app.include_router(setting_routes.router)
+    app.include_router(all_settings.router)
     app.include_router(theme_routes.router)
     # Backups/Imports Routes
     app.include_router(backup_routes.router)

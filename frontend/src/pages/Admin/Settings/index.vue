@@ -14,15 +14,19 @@
     <v-divider></v-divider>
     <HomePageSettings />
     <v-divider></v-divider>
+    <CustomPageCreator />
+    <v-divider></v-divider>
   </v-card>
 </template>
 
 <script>
 import HomePageSettings from "@/components/Admin/General/HomePageSettings";
+import CustomPageCreator from "@/components/Admin/General/CustomPageCreator";
 
 export default {
   components: {
     HomePageSettings,
+    CustomPageCreator,
   },
   data() {
     return {

@@ -2,10 +2,10 @@
   <v-container>
     <CategorySidebar />
     <CardSection
-      v-if="showRecent"
+      v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
       :recipes="recentRecipes"
-      :card-limit="showLimit"
+      :card-limit="siteSettings.cardsPerSection"
     />
     <CardSection
       :sortable="true"
@@ -13,7 +13,7 @@
       :key="section.name + section.position"
       :title="section.name"
       :recipes="section.recipes"
-      :card-limit="showLimit"
+      :card-limit="siteSettings.cardsPerSection"
       @sort="sortAZ(index)"
       @sort-recent="sortRecent(index)"
     />
@@ -35,14 +35,9 @@ export default {
     };
   },
   computed: {
-    showRecent() {
-      return this.$store.getters.getShowRecent;
-    },
-    showLimit() {
-      return this.$store.getters.getShowLimit;
-    },
-    homeCategories() {
-      return this.$store.getters.getHomeCategories;
+    siteSettings() {
+      console.log(this.$store.getters.getSiteSettings);
+      return this.$store.getters.getSiteSettings;
     },
     recentRecipes() {
       let recipes = this.$store.getters.getRecentRecipes;
@@ -55,9 +50,11 @@ export default {
   },
   methods: {
     async buildPage() {
-      this.homeCategories.forEach(async element => {
+      await this.$store.dispatch("requestSiteSettings");
+      this.siteSettings.categories.forEach(async element => {
         let recipes = await this.getRecipeByCategory(element.slug);
-        recipes.position = element.position;
+        if (recipes.recipes.length < 0 ) recipes.recipes = []
+        console.log(recipes)
         this.recipeByCategory.push(recipes);
       });
     },

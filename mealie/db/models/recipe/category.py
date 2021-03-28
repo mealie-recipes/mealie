@@ -26,6 +26,13 @@ recipes2categories = sa.Table(
     sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
 )
 
+custom_pages2categories = sa.Table(
+    "custom_pages2categories",
+    SqlAlchemyBase.metadata,
+    sa.Column("custom_page_id", sa.Integer, sa.ForeignKey("custom_pages.id")),
+    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+)
+
 
 class Category(SqlAlchemyBase):
     __tablename__ = "categories"
@@ -36,7 +43,7 @@ class Category(SqlAlchemyBase):
 
     @validates("name")
     def validate_name(self, key, name):
-        assert not name == ""
+        assert name != ""
         return name
 
     def __init__(self, name) -> None:
