@@ -21,11 +21,10 @@ def chowdown_zip():
     zip_copy.unlink()
 
 
-def test_upload_chowdown_zip(api_client, chowdown_zip):
+def test_upload_chowdown_zip(api_client, chowdown_zip, token):
 
     response = api_client.post(
-        f"{MIGRATIONS_PREFIX}/chowdown/upload",
-        files={"archive": chowdown_zip.open("rb")},
+        f"{MIGRATIONS_PREFIX}/chowdown/upload", files={"archive": chowdown_zip.open("rb")}, headers=token
     )
 
     assert response.status_code == 200
@@ -33,10 +32,10 @@ def test_upload_chowdown_zip(api_client, chowdown_zip):
     assert MIGRATION_DIR.joinpath("chowdown", chowdown_zip.name).is_file()
 
 
-def test_import_chowdown_directory(api_client, chowdown_zip):
-    api_client.delete(f"{RECIPES_PREFIX}/roasted-okra") # TODO: Manage Test Data better
+def test_import_chowdown_directory(api_client, chowdown_zip, token):
+    api_client.delete(f"{RECIPES_PREFIX}/roasted-okra", headers=token)  # TODO: Manage Test Data better
     selection = chowdown_zip.name
-    response = api_client.post(f"{MIGRATIONS_PREFIX}/chowdown/{selection}/import")
+    response = api_client.post(f"{MIGRATIONS_PREFIX}/chowdown/{selection}/import", headers=token)
 
     assert response.status_code == 200
 
@@ -48,9 +47,9 @@ def test_import_chowdown_directory(api_client, chowdown_zip):
     assert response.status_code == 200
 
 
-def test_delete_chowdown_migration_data(api_client, chowdown_zip):
+def test_delete_chowdown_migration_data(api_client, chowdown_zip, token):
     selection = chowdown_zip.name
-    response = api_client.delete(f"{MIGRATIONS_PREFIX}/chowdown/{selection}/delete")
+    response = api_client.delete(f"{MIGRATIONS_PREFIX}/chowdown/{selection}/delete", headers=token)
 
     assert response.status_code == 200
     assert not MIGRATION_DIR.joinpath(chowdown_zip.name).is_file()
@@ -70,11 +69,9 @@ def nextcloud_zip():
     zip_copy.unlink()
 
 
-def test_upload_nextcloud_zip(api_client, nextcloud_zip):
-
+def test_upload_nextcloud_zip(api_client, nextcloud_zip, token):
     response = api_client.post(
-        f"{MIGRATIONS_PREFIX}/nextcloud/upload",
-        files={"archive": nextcloud_zip.open("rb")},
+        f"{MIGRATIONS_PREFIX}/nextcloud/upload", files={"archive": nextcloud_zip.open("rb")}, headers=token
     )
 
     assert response.status_code == 200
@@ -82,9 +79,9 @@ def test_upload_nextcloud_zip(api_client, nextcloud_zip):
     assert MIGRATION_DIR.joinpath("nextcloud", nextcloud_zip.name).is_file()
 
 
-def test_import_nextcloud_directory(api_client, nextcloud_zip):
+def test_import_nextcloud_directory(api_client, nextcloud_zip, token):
     selection = nextcloud_zip.name
-    response = api_client.post(f"{MIGRATIONS_PREFIX}/nextcloud/{selection}/import")
+    response = api_client.post(f"{MIGRATIONS_PREFIX}/nextcloud/{selection}/import", headers=token)
 
     assert response.status_code == 200
 
@@ -96,9 +93,9 @@ def test_import_nextcloud_directory(api_client, nextcloud_zip):
     assert response.status_code == 200
 
 
-def test_delete__nextcloud_migration_data(api_client, nextcloud_zip):
+def test_delete__nextcloud_migration_data(api_client, nextcloud_zip, token):
     selection = nextcloud_zip.name
-    response = api_client.delete(f"{MIGRATIONS_PREFIX}/nextcloud/{selection}/delete")
+    response = api_client.delete(f"{MIGRATIONS_PREFIX}/nextcloud/{selection}/delete", headers=token)
 
     assert response.status_code == 200
     assert not MIGRATION_DIR.joinpath(nextcloud_zip.name).is_file()

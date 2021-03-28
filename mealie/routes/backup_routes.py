@@ -4,6 +4,7 @@ import shutil
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from mealie.core.config import BACKUP_DIR, TEMPLATE_DIR
 from mealie.db.db_setup import generate_session
+from mealie.routes.deps import get_current_user
 from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
 from mealie.schema.snackbar import SnackResponse
 from mealie.services.backups import imports
@@ -11,7 +12,7 @@ from mealie.services.backups.exports import backup_all
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
-router = APIRouter(prefix="/api/backups", tags=["Backups"])
+router = APIRouter(prefix="/api/backups", tags=["Backups"], dependencies=[Depends(get_current_user)])
 
 
 @router.get("/available", response_model=Imports)
@@ -52,7 +53,7 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
 
 
 @router.post("/upload")
-def upload_backup_zipfile(archive: UploadFile = File(...)):
+def upload_backup_file(archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
     dest = BACKUP_DIR.joinpath(archive.filename)
 
@@ -66,7 +67,7 @@ def upload_backup_zipfile(archive: UploadFile = File(...)):
 
 
 @router.get("/{file_name}/download")
-async def upload_nextcloud_zipfile(file_name: str):
+async def download_backup_file(file_name: str):
     """ Upload a .zip File to later be imported into Mealie """
     file = BACKUP_DIR.joinpath(file_name)
 
