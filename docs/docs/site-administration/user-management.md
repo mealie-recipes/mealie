@@ -39,6 +39,8 @@ As of version v0.4.0 users have limited functionality, but they will offer more 
         - Mealplan Settings
         - Webhooks 
 
+!!! warning
+    As of v0.4.0 any authenticated user is able to perform any action on the backend server through the API. To limit a standard users scope, the pages on the frontend are limited. Proper support for permission structures on the backend API will come in a later version. 
 
 
 ## Startup
@@ -81,4 +83,4 @@ You can easily create and manage groups via the frontend in the admin panel unde
     User Groups can only be deleted if no users are apart of the group. If you want to delete a group, you must assign the users to another group before removing. 
 
 ## Password Reset
-// TODO
+If a user forgets their password an administrator is able to reset their password through the user management page. In the user table, select edit. In the popup windows click the "Reset Password" to reset a users password to the default. This is either 'MyPassword' or set through an environment variable. See the [Installation Page](/getting-started/install/) for more details on environmental variables 
