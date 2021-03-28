@@ -81,6 +81,9 @@ else:
 
 
 def determine_secrets() -> str:
+    if not PRODUCTION:
+        return "shh-secret-test-key"
+
     secrets_file = DATA_DIR.joinpath(".secret")
     if secrets_file.is_file():
         with open(secrets_file, "r") as f:
@@ -90,11 +93,11 @@ def determine_secrets() -> str:
             f.write(secrets.token_hex(32))
 
 
-SECRET = determine_secrets()
+SECRET = "determine_secrets()"
 
 # Mongo Database
 DEFAULT_GROUP = os.getenv("DEFAULT_GROUP", "Home")
-DEFAULT_PASSWORD = os.getenv("DEFAULT_PASSWORD", "ChangeMe")
+DEFAULT_PASSWORD = os.getenv("DEFAULT_PASSWORD", "MyPassword")
 
 # Database
 MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")
