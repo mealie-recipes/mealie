@@ -23,11 +23,10 @@ def get_meal_plan_template(first=None, second=None):
     }
 
 
-@pytest.fixture
-def slug_1(api_client):
+@pytest.fixture(scope="session")
+def slug_1(api_client, token):
     # Slug 1
-
-    slug_1 = api_client.post(RECIPES_CREATE_URL, json={"url": recipe_test_data[0].url})
+    slug_1 = api_client.post(RECIPES_CREATE_URL, json={"url": recipe_test_data[0].url}, headers=token)
     slug_1 = json.loads(slug_1.content)
 
     yield slug_1
@@ -35,10 +34,10 @@ def slug_1(api_client):
     api_client.delete(RECIPES_PREFIX + "/" + slug_1)
 
 
-@pytest.fixture
-def slug_2(api_client):
+@pytest.fixture(scope="session")
+def slug_2(api_client, token):
     # Slug 2
-    slug_2 = api_client.post(RECIPES_CREATE_URL, json={"url": recipe_test_data[1].url})
+    slug_2 = api_client.post(RECIPES_CREATE_URL, json={"url": recipe_test_data[1].url}, headers=token)
     slug_2 = json.loads(slug_2.content)
 
     yield slug_2
@@ -99,6 +98,6 @@ def test_delete_mealplan(api_client, token):
     existing_mealplan = existing_mealplan[0]
 
     plan_uid = existing_mealplan.get("uid")
-    response = api_client.delete(f"{MEALPLAN_PREFIX}/{plan_uid}")
+    response = api_client.delete(f"{MEALPLAN_PREFIX}/{plan_uid}", headers=token)
 
     assert response.status_code == 200

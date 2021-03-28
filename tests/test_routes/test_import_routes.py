@@ -16,8 +16,8 @@ def backup_data():
     }
 
 
-def test_import(api_client, backup_data):
-    response = api_client.post("/api/backups/dev_sample_data_2021-Feb-13.zip/import", json=backup_data)
+def test_import(api_client, backup_data, token):
+    response = api_client.post("/api/backups/dev_sample_data_2021-Feb-13.zip/import", json=backup_data, headers=token)
 
     assert response.status_code == 200
     for key, value in json.loads(response.content).items():

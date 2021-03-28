@@ -7,22 +7,22 @@ from tests.utils.routes import RECIPES_ALL, RECIPES_CREATE, RECIPES_CREATE_URL, 
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_create_by_url(api_client, recipe_data: RecipeTestData):
-    response = api_client.post(RECIPES_CREATE_URL, json={"url": recipe_data.url})
+def test_create_by_url(api_client, recipe_data: RecipeTestData, token):
+    response = api_client.post(RECIPES_CREATE_URL, json={"url": recipe_data.url}, headers=token)
     assert response.status_code == 201
     assert json.loads(response.text) == recipe_data.expected_slug
 
 
-def test_create_by_json(api_client):
-    api_client.delete(f"{RECIPES_PREFIX}/banana-bread")
-    response = api_client.post(RECIPES_CREATE, json=raw_recipe)
+def test_create_by_json(api_client, token):
+    api_client.delete(f"{RECIPES_PREFIX}/banana-bread", headers=token)
+    response = api_client.post(RECIPES_CREATE, json=raw_recipe, headers=token)
 
     assert response.status_code == 201
     assert json.loads(response.text) == "banana-bread"
 
 
-def test_create_no_image(api_client):
-    response = api_client.post(RECIPES_CREATE, json=raw_recipe_no_image)
+def test_create_no_image(api_client, token):
+    response = api_client.post(RECIPES_CREATE, json=raw_recipe_no_image, headers=token)
 
     assert response.status_code == 201
     assert json.loads(response.text) == "banana-bread-no-image"
@@ -46,8 +46,8 @@ def test_read_all_post(api_client):
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_read_update(api_client, recipe_data):
-    response = api_client.get(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}")
+def test_read_update(api_client, recipe_data, token):
+    response = api_client.get(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", headers=token)
     assert response.status_code == 200
 
     recipe = json.loads(response.content)
@@ -61,7 +61,7 @@ def test_read_update(api_client, recipe_data):
     test_categories = ["one", "two", "three"]
     recipe["recipeCategory"] = test_categories
 
-    response = api_client.put(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe)
+    response = api_client.put(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe, headers=token)
 
     assert response.status_code == 200
     assert json.loads(response.text) == recipe_data.expected_slug
@@ -75,16 +75,16 @@ def test_read_update(api_client, recipe_data):
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_rename(api_client, recipe_data):
-    response = api_client.get(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}")
+def test_rename(api_client, recipe_data, token):
+    response = api_client.get(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", headers=token)
     assert response.status_code == 200
 
-    recipe = json.loads(response.content)
+    recipe = json.loads(response.text)
     new_name = recipe.get("name") + "-rename"
     new_slug = slugify(new_name)
     recipe["name"] = new_name
 
-    response = api_client.put(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe)
+    response = api_client.put(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", json=recipe, headers=token)
 
     assert response.status_code == 200
     assert json.loads(response.text) == new_slug
@@ -93,6 +93,6 @@ def test_rename(api_client, recipe_data):
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_delete(api_client, recipe_data):
-    response = api_client.delete(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}")
+def test_delete(api_client, recipe_data, token):
+    response = api_client.delete(f"{RECIPES_PREFIX}/{recipe_data.expected_slug}", headers=token)
     assert response.status_code == 200

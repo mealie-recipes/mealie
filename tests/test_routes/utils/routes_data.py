@@ -6,12 +6,12 @@ class RecipeTestData:
 
 recipe_test_data = [
     RecipeTestData(
-        url="https://www.bonappetit.com/recipe/rustic-shrimp-toasts",
-        expected_slug="rustic-shrimp-toasts",
+        url="https://www.bonappetit.com/recipe/spinach-thepla-and-vaghareli-dahi",
+        expected_slug="thepla-recipe-with-vaghareli-dahi",
     ),
     RecipeTestData(
-        url="https://www.allrecipes.com/recipe/282905/honey-garlic-shrimp/",
-        expected_slug="honey-garlic-shrimp",
+        url="https://www.bonappetit.com/recipe/classic-coleslaw",
+        expected_slug="traditional-coleslaw-recipe",
     ),
 ]
 
