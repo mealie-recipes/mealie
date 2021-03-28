@@ -28,38 +28,14 @@
           <v-tab>{{ $t("general.recipes") }}</v-tab>
           <v-tab>{{ $t("general.themes") }}</v-tab>
           <v-tab>{{ $t("general.settings") }}</v-tab>
+          <v-tab> Pages </v-tab>
           <v-tab>{{ $t("general.users") }}</v-tab>
           <v-tab>{{ $t("general.groups") }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
-          <v-tab-item>
+          <v-tab-item v-for="(table, index) in allTables" :key="index">
             <v-card flat>
-              <DataTable :data-headers="importHeaders" :data-set="recipeData" />
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card>
-              <DataTable
-                :data-headers="importHeaders"
-                :data-set="themeData"
-              /> </v-card
-          ></v-tab-item>
-          <v-tab-item>
-            <v-card
-              ><DataTable
-                :data-headers="importHeaders"
-                :data-set="settingsData"
-              />
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card
-              ><DataTable :data-headers="importHeaders" :data-set="userData" />
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card
-              ><DataTable :data-headers="importHeaders" :data-set="groupData" />
+              <DataTable :data-headers="importHeaders" :data-set="table" />
             </v-card>
           </v-tab-item>
         </v-tabs-items>
@@ -82,6 +58,7 @@ export default {
     settingsData: [],
     userData: [],
     groupData: [],
+    pageData: [],
     importHeaders: [
       {
         text: "Status",
@@ -118,13 +95,27 @@ export default {
     groupNumbers() {
       return this.calculateNumbers(this.$t("general.groups"), this.groupData);
     },
+    pageNumbers() {
+      return this.calculateNumbers("Pages", this.pageData);
+    },
     allNumbers() {
       return [
         this.recipeNumbers,
-        this.settingsNumbers,
         this.themeNumbers,
+        this.settingsNumbers,
+        this.pageNumbers,
         this.userNumbers,
         this.groupNumbers,
+      ];
+    },
+    allTables() {
+      return [
+        this.recipeData,
+        this.themeData,
+        this.settingsData,
+        this.pageData,
+        this.userData,
+        this.groupData,
       ];
     },
   },
@@ -146,6 +137,7 @@ export default {
       this.settingsData = importData.settingsImports;
       this.userData = importData.userImports;
       this.groupData = importData.groupImports;
+      this.pageData = importData.pageImports;
       this.dialog = true;
     },
   },

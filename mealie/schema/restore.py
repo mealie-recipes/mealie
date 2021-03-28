@@ -27,3 +27,7 @@ class GroupImport(ImportBase):
 
 class UserImport(ImportBase):
     pass
+
+
+class CustomPageImport(ImportBase):
+    pass
