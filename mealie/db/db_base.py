@@ -40,9 +40,12 @@ class BaseDocument:
         Returns:
             list[SqlAlchemyBase]: Returns a list of ORM objects
         """
-        results = session.query(self.sql_model).options(load_only(*fields)).limit(limit).all()
-
-        return results
+        return (
+            session.query(self.sql_model)
+            .options(load_only(*fields))
+            .limit(limit)
+            .all()
+        )
 
     def get_all_primary_keys(self, session: Session) -> List[str]:
         """Queries the database of the selected model and returns a list
@@ -69,12 +72,14 @@ class BaseDocument:
         Returns:
             Union[Session, SqlAlchemyBase]: Will return both the session and found model
         """
-        if match_key == None:
+        if match_key is None:
             match_key = self.primary_key
 
-        result = session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
-
-        return result
+        return (
+            session.query(self.sql_model)
+            .filter_by(**{match_key: match_value})
+            .one()
+        )
 
     def get(self, session: Session, match_value: str, match_key: str = None, limit=1) -> BaseModel or List[BaseModel]:
         """Retrieves an entry from the database by matching a key/value pair. If no
@@ -89,7 +94,7 @@ class BaseDocument:
         Returns:
             dict or list[dict]:
         """
-        if match_key == None:
+        if match_key is None:
             match_key = self.primary_key
 
         result = session.query(self.sql_model).filter_by(**{match_key: match_value}).limit(limit).all()
@@ -118,8 +123,7 @@ class BaseDocument:
         if self.orm_mode:
             return self.schema.from_orm(new_document)
 
-        return_data = new_document.dict()
-        return return_data
+        return new_document.dict()
 
     def update(self, session: Session, match_value: str, new_data: str) -> BaseModel:
         """Update a database entry.
