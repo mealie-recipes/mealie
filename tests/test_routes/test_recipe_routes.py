@@ -8,6 +8,7 @@ from tests.utils.routes import RECIPES_ALL, RECIPES_CREATE, RECIPES_CREATE_URL, 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_create_by_url(api_client, recipe_data: RecipeTestData, token):
+    api_client.delete(RECIPES_PREFIX + "/" + recipe_data.expected_slug, headers=token)
     response = api_client.post(RECIPES_CREATE_URL, json={"url": recipe_data.url}, headers=token)
     assert response.status_code == 201
     assert json.loads(response.text) == recipe_data.expected_slug
