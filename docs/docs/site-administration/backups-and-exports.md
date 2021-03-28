@@ -9,6 +9,7 @@ All recipe data can be imported and exported as necessary from the UI. Under the
     - [x] Recipe Data
     - [ ] Meal Plan
     - [x] Site Settings
+    - [x] Custom Pages
     - [x] User Data
     - [x] Group Data
 

@@ -2,7 +2,7 @@
   <v-container>
     <CategorySidebar />
     <v-card flat height="100%">
-      <v-app-bar>
+      <v-app-bar flat>
         <v-spacer></v-spacer>
         <v-card-title class="text-center justify-center py-3 ">
           {{ title.toUpperCase() }}
