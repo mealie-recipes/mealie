@@ -38,7 +38,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                {{$t('settings.homepage.home-page-sections')}}
+                {{ $t("settings.homepage.home-page-sections") }}
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
@@ -80,7 +80,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                {{$t('settings.homepage.all-categories')}}
+                {{ $t("settings.homepage.all-categories") }}
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
@@ -153,13 +153,12 @@ export default {
   },
   computed: {
     allCategories() {
-      return this.$store.getters.getCategories;
+      return this.$store.getters.getAllCategories;
     },
   },
 
   methods: {
     writeLang(val) {
-      console.log(val);
       this.settings.language = val;
     },
     deleteCategoryfromDatabase(category) {

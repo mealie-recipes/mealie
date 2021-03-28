@@ -141,7 +141,6 @@ export default {
       return numbers;
     },
     open(importData) {
-      console.log(importData);
       this.recipeData = importData.recipeImports;
       this.themeData = importData.themeImports;
       this.settingsData = importData.settingsImports;

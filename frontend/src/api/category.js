@@ -10,7 +10,7 @@ const categoryURLs = {
 };
 
 export default {
-  async get_all() {
+  async getAll() {
     let response = await apiReq.get(categoryURLs.get_all);
     return response.data;
   },

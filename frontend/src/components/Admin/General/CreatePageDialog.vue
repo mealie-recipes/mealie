@@ -12,14 +12,18 @@
 
         <v-spacer></v-spacer>
       </v-app-bar>
-      <v-form ref="newGroup" @submit="submitForm">
+      <v-form ref="newGroup" @submit.prevent="submitForm">
         <v-card-text>
           <v-text-field
             autofocus
             v-model="page.name"
             label="Page Name"
           ></v-text-field>
-          <CategorySelector v-model="page.categories" />
+          <CategorySelector
+            v-model="page.categories"
+            ref="categoryFormSelector"
+            @mounted="catMounted = true"
+          />
         </v-card-text>
 
         <v-card-actions>
@@ -46,6 +50,7 @@ export default {
   },
   data() {
     return {
+      catMounted: false,
       title: "",
       buttonText: "",
       create: false,
@@ -57,16 +62,9 @@ export default {
       },
     };
   },
-  mounted() {
-    this.page = {
-      name: "",
-      position: 0,
-      categories: [],
-    };
-  },
   watch: {
-    page() {
-      console.log(this.page);
+    catMounted(val) {
+      if (val) this.pushSelected();
     },
   },
   methods: {
@@ -76,6 +74,11 @@ export default {
       this.buttonText = parameters.buttonText;
       this.title = parameters.title;
       this.pageDialog = true;
+
+      if (this.catMounted) this.pushSelected();
+    },
+    pushSelected() {
+      this.$refs.categoryFormSelector.setInit(this.page.categories);
     },
     async submitForm() {
       if (this.create) {

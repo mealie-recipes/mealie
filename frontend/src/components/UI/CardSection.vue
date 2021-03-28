@@ -2,8 +2,8 @@
   <div class="mt-n5" v-if="recipes">
     <v-card flat class="transparent" height="60px">
       <v-card-text>
-        <v-row v-if="title != null"> 
-          <v-col >
+        <v-row v-if="title != null">
+          <v-col>
             <v-btn-toggle group>
               <v-btn text :to="`/recipes/${title.toLowerCase()}`">
                 {{ title.toUpperCase() }}
@@ -92,17 +92,12 @@ export default {
       default: false,
     },
     title: {
-      default: null
+      default: null,
     },
     recipes: Array,
     cardLimit: {
       default: 999,
     },
-  },
-  watch: {
-    recipes(val) {
-      console.log(val)
-    }
   },
   computed: {
     viewScale() {

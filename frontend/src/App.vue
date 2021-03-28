@@ -78,6 +78,7 @@ export default {
     this.$store.dispatch("requestRecentRecipes");
     this.$store.dispatch("refreshToken");
     this.$store.dispatch("requestCurrentGroup");
+    this.$store.dispatch("requestCategories");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
   },

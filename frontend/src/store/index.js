@@ -26,6 +26,7 @@ const store = new Vuex.Store({
     recentRecipes: [],
     allRecipes: [],
     mealPlanCategories: [],
+    allCategories: [],
   },
 
   mutations: {
@@ -35,6 +36,9 @@ const store = new Vuex.Store({
 
     setMealPlanCategories(state, payload) {
       state.mealPlanCategories = payload;
+    },
+    setAllCategories(state, payload) {
+      state.allCategories = payload;
     },
   },
 
@@ -52,11 +56,16 @@ const store = new Vuex.Store({
 
       this.commit("setRecentRecipes", payload);
     },
+    async requestCategories({ commit }) {
+      const categories = await api.categories.getAll();
+      commit("setAllCategories", categories);
+    },
   },
 
   getters: {
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
+    getAllCategories: state => state.allCategories,
   },
 });
 

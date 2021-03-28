@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import api from "@/api";
+const MOUNTED_EVENT = "mounted";
 export default {
   props: {
     value: Array,
@@ -24,20 +24,23 @@ export default {
   data() {
     return {
       selected: [],
-      allCategories: [],
     };
   },
-  watch: {
-    value() {
-      this.selected = this.value;
-    },
+  mounted() {
+    this.$emit(MOUNTED_EVENT);
   },
-  async created() {
-    this.allCategories = await api.categories.get_all();
+
+  computed: {
+    allCategories() {
+      return this.$store.getters.getAllCategories;
+    },
   },
   methods: {
     emitChange() {
       this.$emit("input", this.selected);
+    },
+    setInit(val) {
+      this.selected = val;
     },
   },
 };
