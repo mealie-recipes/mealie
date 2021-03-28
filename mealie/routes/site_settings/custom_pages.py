@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.settings import CustomPageBase
+from mealie.schema.settings import CustomPageBase, CustomPageOut
 from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import UserInDB
 from sqlalchemy.orm.session import Session
@@ -28,6 +28,18 @@ async def create_new_page(
     db.custom_pages.create(session, new_page.dict())
 
     return SnackResponse.success("New Page Created")
+
+
+@router.put("")
+async def update_multiple_pages(
+    pages: list[CustomPageOut],
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
+):
+    """ Update multiple custom pages """
+    for page in pages:
+        db.custom_pages.update(session, page.id, page.dict())
+    return SnackResponse.success("Pages Updated")
 
 
 @router.get("/{id}")

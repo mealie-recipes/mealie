@@ -50,6 +50,7 @@ export default {
     removeCategory(index) {
       this.value.categories.splice(index, 1);
     },
+
   },
 };
 </script>

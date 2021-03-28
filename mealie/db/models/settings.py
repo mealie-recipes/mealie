@@ -47,7 +47,7 @@ class CustomPage(SqlAlchemyBase, BaseMixins):
         single_parent=True,
     )
 
-    def __init__(self, session=None, name=None, slug=None, position=0, categories=[]) -> None:
+    def __init__(self, session=None, name=None, slug=None, position=0, categories=[], *args, **kwargs) -> None:
         self.name = name
         self.slug = slug
         self.position = position

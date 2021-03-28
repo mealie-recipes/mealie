@@ -9,13 +9,13 @@
           </v-btn>
         </span>
       </h2>
-      <v-row class="mt-1">
+      <draggable class="row mt-1" v-model="customPages">
         <v-col
           :sm="6"
           :md="6"
           :lg="4"
           :xl="3"
-          v-for="item in customPages"
+          v-for="(item, index) in customPages"
           :key="item + item.id"
         >
           <v-card>
@@ -23,7 +23,7 @@
             <v-divider></v-divider>
 
             <v-card-text>
-              Card Position: {{ item.position }}
+              Card Position: {{ index }}
               <div>
                 <v-chip
                   v-for="cat in item.categories"
@@ -39,7 +39,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn text small color="error">
+              <v-btn text small color="error" @click="deletePage(item.id)">
                 Delete
               </v-btn>
               <v-spacer> </v-spacer>
@@ -49,87 +49,49 @@
             </v-card-actions>
           </v-card>
         </v-col>
-      </v-row>
+      </draggable>
     </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="success" @click="savePages">
+        Save
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import draggable from "vuedraggable";
+import api from "@/api";
 export default {
+  components: {
+    draggable,
+  },
   data() {
     return {
-      customPages: [
-        {
-          id: 0,
-          name: "My Page Name",
-          slug: "my-page-name",
-          position: 0,
-          categories: [
-            {
-              id: 2,
-              slug: "brownie",
-              name: "brownie",
-            },
-            {
-              id: 3,
-              slug: "dessert",
-              name: "dessert",
-            },
-            {
-              id: 4,
-              slug: "drink",
-              name: "Drink",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "My Page Name 1",
-          slug: "my-page-name",
-          position: 1,
-          categories: [
-            {
-              id: 2,
-              slug: "brownie",
-              name: "brownie",
-            },
-            {
-              id: 3,
-              slug: "dessert",
-              name: "dessert",
-            },
-            {
-              id: 4,
-              slug: "drink",
-              name: "Drink",
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: "My Page Name 2",
-          slug: "my-page-name",
-          position: 2,
-          categories: [
-            {
-              id: 2,
-              slug: "brownie",
-              name: "brownie",
-            },
-            {
-              id: 3,
-              slug: "dessert",
-              name: "dessert",
-            },
-            {
-              id: 4,
-              slug: "drink",
-              name: "Drink",
-            },
-          ],
-        },
-      ],
+      customPages: [],
     };
+  },
+  async mounted() {
+    this.getPages();
+  },
+  methods: {
+    async getPages() {
+      this.customPages = await api.siteSettings.getPages();
+    },
+    async deletePage(id) {
+      await api.siteSettings.deletePage(id);
+      this.getPages();
+    },
+    async savePages() {
+      this.customPages.forEach((element, index) => {
+        element.position = index;
+      });
+
+      await api.siteSettings.updateAllPages(this.customPages);
+
+      this.getPages;
+    },
   },
 };
 </script>
