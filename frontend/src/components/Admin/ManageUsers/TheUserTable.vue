@@ -93,6 +93,9 @@
             </v-card-text>
 
             <v-card-actions>
+              <v-btn color="info" text @click="resetPassword">
+                Reset Password
+              </v-btn>
               <v-spacer></v-spacer>
               <v-btn color="grey" text @click="close">
                 {{ $t("general.cancel") }}
@@ -268,6 +271,10 @@ export default {
         this.close();
       }
       await this.initialize();
+    },
+    resetPassword() {
+      console.log(this.activeId);
+      api.users.resetPassword(this.editedItem.id );
     },
   },
 };
