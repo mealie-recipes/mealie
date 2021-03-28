@@ -2,9 +2,14 @@
   <v-container>
     <CategorySidebar />
     <v-card flat height="100%">
-      <v-card-title class="text-center justify-center py-6 headline">
-        {{ title }}
-      </v-card-title>
+      <v-app-bar>
+        <v-spacer></v-spacer>
+        <v-card-title class="text-center justify-center py-3 ">
+          {{ title.toUpperCase() }}
+        </v-card-title>
+        <v-spacer></v-spacer>
+      </v-app-bar>
+
       <div v-if="render">
         <v-tabs v-model="tab" background-color="transparent" grow>
           <v-tab v-for="item in categories" :key="item.slug">
@@ -84,4 +89,7 @@ export default {
 </script>
 
 <style>
+.header-background {
+  background-color: #121619;
+}
 </style>
