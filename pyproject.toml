@@ -37,6 +37,7 @@ black = "^20.8b1"
 pytest = "^6.2.1"
 pytest-cov = "^2.11.0"
 mkdocs-material = "^7.0.2"
+flake8 = "^3.9.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -54,3 +55,6 @@ python_functions = 'test_*'
 testpaths = [
     "tests",
 ]
+
+[tool.coverage.report]
+skip_empty = true
