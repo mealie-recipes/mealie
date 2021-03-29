@@ -23,7 +23,7 @@ def test_zip_extraction(file_name: str, final_path: Path):
 
     assert dir == final_path
     cleanup()
-    assert dir.exists() == False
+    assert dir.exists() is False
 
 
 @pytest.mark.parametrize(

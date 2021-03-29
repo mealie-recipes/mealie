@@ -1,9 +1,10 @@
 import json
 
 import pytest
+from fastapi.testclient import TestClient
+from tests.app_routes import AppRoutes
 from mealie.schema.settings import SiteSettings
 from mealie.schema.theme import SiteTheme
-from tests.utils.routes import SETTINGS_PREFIX, SETTINGS_UPDATE, THEMES_CREATE, THEMES_PREFIX
 
 
 @pytest.fixture(scope="function")
@@ -32,57 +33,57 @@ def new_theme():
     }
 
 
-def test_default_settings(api_client, default_settings):
-    response = api_client.get(SETTINGS_PREFIX)
+def test_default_settings(api_client: TestClient, api_routes: AppRoutes, default_settings):
+    response = api_client.get(api_routes.site_settings)
 
     assert response.status_code == 200
 
     assert json.loads(response.content) == default_settings
 
 
-def test_update_settings(api_client, default_settings, token):
+def test_update_settings(api_client: TestClient, api_routes: AppRoutes, default_settings, token):
     default_settings["language"] = "fr"
     default_settings["showRecent"] = False
 
-    response = api_client.put(SETTINGS_UPDATE, json=default_settings, headers=token)
+    response = api_client.put(api_routes.site_settings, json=default_settings, headers=token)
 
     assert response.status_code == 200
 
-    response = api_client.get(SETTINGS_PREFIX)
+    response = api_client.get(api_routes.site_settings)
     assert json.loads(response.content) == default_settings
 
 
-def test_default_theme(api_client, default_theme):
-    response = api_client.get(f"{THEMES_PREFIX}/default")
+def test_default_theme(api_client: TestClient, api_routes: AppRoutes, default_theme):
+    response = api_client.get(api_routes.themes_theme_name("default"))
     assert response.status_code == 200
     assert json.loads(response.content) == default_theme
 
 
-def test_create_theme(api_client, new_theme, token):
+def test_create_theme(api_client: TestClient, api_routes: AppRoutes, new_theme, token):
 
-    response = api_client.post(THEMES_CREATE, json=new_theme, headers=token)
+    response = api_client.post(api_routes.themes_create, json=new_theme, headers=token)
     assert response.status_code == 200
 
-    response = api_client.get(f"{THEMES_PREFIX}/{new_theme.get('name')}", headers=token)
+    response = api_client.get(api_routes.themes_theme_name(new_theme.get("name")), headers=token)
     assert response.status_code == 200
     assert json.loads(response.content) == new_theme
 
 
-def test_read_all_themes(api_client, default_theme, new_theme):
-    response = api_client.get(THEMES_PREFIX)
+def test_read_all_themes(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme):
+    response = api_client.get(api_routes.themes)
     assert response.status_code == 200
     assert json.loads(response.content) == [default_theme, new_theme]
 
 
-def test_read_theme(api_client, default_theme, new_theme):
+def test_read_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme):
     for theme in [default_theme, new_theme]:
-        response = api_client.get(f"{THEMES_PREFIX}/{theme.get('name')}")
+        response = api_client.get(api_routes.themes_theme_name(theme.get("name")))
         assert response.status_code == 200
         assert json.loads(response.content) == theme
 
 
-def test_delete_theme(api_client, default_theme, new_theme, token):
+def test_delete_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme, token):
     for theme in [default_theme, new_theme]:
-        response = api_client.delete(f"{THEMES_PREFIX}/{theme.get('name')}", headers=token)
+        response = api_client.delete(api_routes.themes_theme_name(theme.get("name")), headers=token)
 
         assert response.status_code == 200

@@ -62,22 +62,6 @@ def test_normalize_instructions(instructions):
     ]
 
 
-# def test_html_no_recipe_data(): #! Unsure why it's failing, code didn't change?
-#     path = TEST_RAW_HTML.joinpath("carottes-rapps-with-rice-and-sunflower-seeds.html")
-#     url = "https://www.feedtheswimmers.com/blog/2019/6/5/carottes-rapps-with-rice-and-sunflower-seeds"
-#     recipe_data = extract_recipe_from_html(open(path).read(), url)
-
-#     assert len(recipe_data["name"]) > 10
-#     assert len(recipe_data["slug"]) > 10
-#     assert recipe_data["orgURL"] == url
-#     assert len(recipe_data["description"]) > 100
-#     assert url_validation_regex.match(recipe_data["image"])
-#     assert recipe_data["recipeIngredient"] == ["Could not detect ingredients"]
-#     assert recipe_data["recipeInstructions"] == [
-#         {"text": "Could not detect instructions"}
-#     ]
-
-
 def test_html_with_recipe_data():
     path = TEST_RAW_HTML.joinpath("healthy_pasta_bake_60759.html")
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
