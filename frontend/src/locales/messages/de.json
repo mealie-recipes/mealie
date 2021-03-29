@@ -6,7 +6,7 @@
   "new-recipe": {
     "from-url": "Von URL",
     "recipe-url": "Rezept URL",
-    "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und fügen Sie ihn ein",
+    "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
     "error-message": "Anscheinend ist ein Fehler ist beim Parsen der URL aufgetreten. Überprüfe das Log sowie debug/last_recipe.json, um zu sehen, was fehlgeschlagen ist.",
     "bulk-add": "Massenimport",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt"
