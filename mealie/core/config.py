@@ -16,7 +16,7 @@ def ensure_dirs():
 
 
 # Register ENV
-ENV = CWD.joinpath(".env")  #! I'm Broken Fix Me!
+ENV = CWD.joinpath(".env")  # ! I'm Broken Fix Me!
 dotenv.load_dotenv(ENV)
 PRODUCTION = os.environ.get("ENV")
 

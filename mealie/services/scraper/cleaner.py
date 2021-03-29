@@ -77,7 +77,7 @@ class Cleaner:
             return [{"text": Cleaner._instruction(line)} for line in instructions.splitlines() if line]
 
         # Plain strings in a list
-        elif isinstance(instructions, list) and isinstance(instructions[0], list):
+        elif isinstance(instructions, list) and isinstance(instructions[0], str):
             return [{"text": Cleaner._instruction(step)} for step in instructions]
 
         # Dictionaries (let's assume it's a HowToStep) in a list
@@ -106,6 +106,7 @@ class Cleaner:
                     if step["@type"] == "HowToStep"
                 ]
             except Exception as e:
+                print(e)
                 # Not "@type", try "type"
                 try:
                     return [
@@ -121,11 +122,11 @@ class Cleaner:
 
     @staticmethod
     def _instruction(line) -> str:
-        l = Cleaner.html(line.strip())
+        clean_line = Cleaner.html(line.strip())
         # Some sites erroneously escape their strings on multiple levels
-        while not l == (l := html.unescape(l)):
+        while not clean_line == (clean_line := html.unescape(clean_line)):
             pass
-        return l
+        return clean_line
 
     @staticmethod
     def ingredient(ingredients: list) -> str:

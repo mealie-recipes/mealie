@@ -64,14 +64,10 @@ class Group(SqlAlchemyBase, BaseMixins):
 
     @staticmethod
     def create_if_not_exist(session, name: str = DEFAULT_GROUP):
-        try:
-            result = session.query(Group).filter(Group.name == name).one()
-            if result:
-                logger.info("Category exists, associating recipe")
-                return result
-            else:
-                logger.info("Category doesn't exists, creating tag")
-                return Group(name=name)
-        except:
-            logger.info("Category doesn't exists, creating category")
+        result = session.query(Group).filter(Group.name == name).one_or_none()
+        if result:
+            logger.info("Group exists, associating recipe")
+            return result
+        else:
+            logger.info("Group doesn't exists, creating tag")
             return Group(name=name)

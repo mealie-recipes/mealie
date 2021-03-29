@@ -39,7 +39,7 @@ def extract_recipe_from_html(html: str, url: str) -> dict:
         if not scraped_recipes:
             scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(url, python_objects=True)
     except Exception as e:
-        # trying without python_objects
+        print(e)
         scraped_recipes: List[dict] = scrape_schema_recipe.loads(html)
         dump_last_json(scraped_recipes)
 

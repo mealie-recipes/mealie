@@ -3,7 +3,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.snackbar import SnackResponse
-from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserIn, UserInDB
+from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/groups", tags=["Groups"])
@@ -21,7 +21,7 @@ async def get_all_groups(
 
 @router.get("/self", response_model=GroupInDB)
 async def get_current_user_group(
-    current_user: UserInDB =Depends(get_current_user),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns the Group Data for the Current User """

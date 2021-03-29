@@ -26,7 +26,7 @@ class Meal(SqlAlchemyBase):
 
 class MealPlanModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "mealplan"
-    uid = sa.Column(sa.Integer, primary_key=True, unique=True)  #! Probably Bad?
+    uid = sa.Column(sa.Integer, primary_key=True, unique=True)  # ! Probably Bad?
     startDate = sa.Column(sa.Date)
     endDate = sa.Column(sa.Date)
     meals: List[Meal] = orm.relationship(Meal, cascade="all, delete, delete-orphan")

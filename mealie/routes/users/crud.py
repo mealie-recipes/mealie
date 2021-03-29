@@ -160,4 +160,4 @@ async def delete_user(
 
     if current_user.id == id or current_user.admin:
         db.users.delete(session, id)
-        return SnackResponse.error(f"User Deleted")
+        return SnackResponse.error("User Deleted")

@@ -40,12 +40,7 @@ class BaseDocument:
         Returns:
             list[SqlAlchemyBase]: Returns a list of ORM objects
         """
-        return (
-            session.query(self.sql_model)
-            .options(load_only(*fields))
-            .limit(limit)
-            .all()
-        )
+        return session.query(self.sql_model).options(load_only(*fields)).limit(limit).all()
 
     def get_all_primary_keys(self, session: Session) -> List[str]:
         """Queries the database of the selected model and returns a list
@@ -75,11 +70,7 @@ class BaseDocument:
         if match_key is None:
             match_key = self.primary_key
 
-        return (
-            session.query(self.sql_model)
-            .filter_by(**{match_key: match_value})
-            .one()
-        )
+        return session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
 
     def get(self, session: Session, match_value: str, match_key: str = None, limit=1) -> BaseModel or List[BaseModel]:
         """Retrieves an entry from the database by matching a key/value pair. If no

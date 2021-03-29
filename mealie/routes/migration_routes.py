@@ -2,7 +2,7 @@ import operator
 import shutil
 from typing import List
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile
 from mealie.core.config import MIGRATION_DIR
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user

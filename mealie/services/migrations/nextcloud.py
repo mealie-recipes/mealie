@@ -7,7 +7,6 @@ from pathlib import Path
 from mealie.core.config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
 from mealie.schema.recipe import Recipe
 from mealie.services.scraper.cleaner import Cleaner
-from mealie.core.config import IMG_DIR, TEMP_DIR
 from mealie.db.database import db
 
 

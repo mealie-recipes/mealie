@@ -3,8 +3,8 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from mealie.core.config import SECRET
 from mealie.db.database import db
-from mealie.db.db_setup import create_session, generate_session
-from mealie.schema.auth import Token, TokenData
+from mealie.db.db_setup import generate_session
+from mealie.schema.auth import TokenData
 from mealie.schema.user import UserInDB
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
@@ -29,6 +29,3 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
     if user is None:
         raise credentials_exception
     return user
-
-
-

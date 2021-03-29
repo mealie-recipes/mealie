@@ -21,7 +21,7 @@ app = FastAPI(
 
 
 def start_scheduler():
-    import mealie.services.scheduler.scheduled_jobs
+    import mealie.services.scheduler.scheduled_jobs  # noqa: F401
 
 
 def api_routers():

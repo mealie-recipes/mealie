@@ -22,7 +22,7 @@ class Tag(SqlAlchemyBase):
 
     @validates("name")
     def validate_name(self, key, name):
-        assert not name == ""
+        assert name != ""
         return name
 
     def __init__(self, name) -> None:
@@ -32,16 +32,11 @@ class Tag(SqlAlchemyBase):
     @staticmethod
     def create_if_not_exist(session, name: str = None):
         test_slug = slugify(name)
-        try:
-            result = session.query(Tag).filter(Tag.slug == test_slug).first()
+        result = session.query(Tag).filter(Tag.slug == test_slug).one_or_none()
 
-            if result:
-                logger.info("Tag exists, associating recipe")
-
-                return result
-            else:
-                logger.info("Tag doesn't exists, creating tag")
-                return Tag(name=name)
-        except:
+        if result:
+            logger.info("Tag exists, associating recipe")
+            return result
+        else:
             logger.info("Tag doesn't exists, creating tag")
             return Tag(name=name)
