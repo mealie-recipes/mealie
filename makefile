@@ -14,6 +14,7 @@ frontend:
 
 .PHONY: docs
 docs:
+	poetry run python mealie/utils/api_docs.py && \
 	cd docs && poetry run python -m mkdocs serve
 
 docker-dev:
