@@ -62,7 +62,7 @@ frontend: ## Start Mealie Frontend Development Server
 
 .PHONY: docs
 docs: ## Start Mkdocs Development Server
-	poetry run python dev/scripts/app_docs_gen.py && \
+	poetry run python dev/scripts/api_docs_gen.py && \
 	cd docs && poetry run python -m mkdocs serve
 
 docker-dev: ## Build and Start Docker Development Stack
