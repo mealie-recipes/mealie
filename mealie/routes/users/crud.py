@@ -4,7 +4,7 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.responses import FileResponse
 from mealie.core import security
-from mealie.core.config import USER_DIR
+from mealie.core.config import DEFAULT_PASSWORD, USER_DIR
 from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
@@ -56,6 +56,19 @@ async def get_user_by_id(
     session: Session = Depends(generate_session),
 ):
     return db.users.get(session, id)
+
+
+@router.put("/{id}/reset-password")
+async def reset_user_password(
+    id: int,
+    current_user: UserInDB = Depends(get_current_user),
+    session: Session = Depends(generate_session),
+):
+
+    new_password = get_password_hash(DEFAULT_PASSWORD)
+    db.users.update_password(session, id, new_password)
+
+    return SnackResponse.success("Users Password Reset")
 
 
 @router.put("/{id}")

@@ -9,12 +9,12 @@ const authURLs = {
   refresh: `${authPrefix}/refresh`,
 };
 
-
 const usersURLs = {
   users: `${userPrefix}`,
   self: `${userPrefix}/self`,
   userID: id => `${userPrefix}/${id}`,
   password: id => `${userPrefix}/${id}/password`,
+  resetPassword: id => `${userPrefix}/${id}/reset-password`,
 };
 
 export default {
@@ -58,6 +58,10 @@ export default {
   },
   async delete(id) {
     let response = await apiReq.delete(usersURLs.userID(id));
+    return response.data;
+  },
+  async resetPassword(id) {
+    let response = await apiReq.put(usersURLs.resetPassword(id));
     return response.data;
   },
 };
