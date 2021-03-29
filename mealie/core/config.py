@@ -4,8 +4,8 @@ from pathlib import Path
 
 import dotenv
 
-APP_VERSION = "v0.3.0"
-DB_VERSION = "v0.3.0"
+APP_VERSION = "v0.4.0"
+DB_VERSION = "v0.4.0"
 
 CWD = Path(__file__).parent
 
