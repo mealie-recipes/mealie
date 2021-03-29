@@ -1,7 +1,6 @@
-
 class AppRoutes:
     def __init__(self) -> None:
-        self.prefix = '/api'
+        self.prefix = "/api"
 
         self.users_sign_ups = "/api/users/sign-ups"
         self.auth_token = "/api/auth/token"
