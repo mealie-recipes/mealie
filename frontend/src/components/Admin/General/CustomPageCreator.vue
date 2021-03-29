@@ -64,7 +64,7 @@
 <script>
 import draggable from "vuedraggable";
 import CreatePageDialog from "@/components/Admin/General/CreatePageDialog";
-import api from "@/api";
+import { api } from "@/api";
 export default {
   components: {
     draggable,

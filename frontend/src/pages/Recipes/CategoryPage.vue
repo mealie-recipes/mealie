@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import { api } from "@/api";
 import CardSection from "@/components/UI/CardSection";
 import CategorySidebar from "@/components/UI/CategorySidebar";
 export default {

@@ -33,7 +33,7 @@
 <script>
 import CardSection from "@/components/UI/CardSection";
 import CategorySidebar from "@/components/UI/CategorySidebar";
-import api from "@/api";
+import { api } from "@/api";
 
 export default {
   components: {

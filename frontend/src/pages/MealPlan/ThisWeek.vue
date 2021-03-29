@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import { api } from "@/api";
 import utils from "@/utils";
 export default {
   data() {

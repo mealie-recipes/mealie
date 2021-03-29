@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import { api } from "@/api";
 import CardSection from "../components/UI/CardSection";
 import CategorySidebar from "../components/UI/CategorySidebar";
 export default {
@@ -53,8 +53,8 @@ export default {
       await this.$store.dispatch("requestSiteSettings");
       this.siteSettings.categories.forEach(async element => {
         let recipes = await this.getRecipeByCategory(element.slug);
-        if (recipes.recipes.length < 0 ) recipes.recipes = []
-        console.log(recipes)
+        if (recipes.recipes.length < 0) recipes.recipes = [];
+        console.log(recipes);
         this.recipeByCategory.push(recipes);
       });
     },

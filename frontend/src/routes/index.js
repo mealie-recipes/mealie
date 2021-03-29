@@ -11,7 +11,7 @@ import Debug from "@/pages/Debug";
 import LoginPage from "@/pages/LoginPage";
 import SignUpPage from "@/pages/SignUpPage";
 import ThisWeek from "@/pages/MealPlan/ThisWeek";
-import api from "@/api";
+import { api } from "@/api";
 import Admin from "./admin";
 import { store } from "../store";
 

@@ -12,7 +12,7 @@ import signUps from "./signUps";
 import groups from "./groups";
 import siteSettings from "./siteSettings";
 
-export default {
+export const api = {
   recipes: recipe,
   siteSettings: siteSettings,
   backups: backup,

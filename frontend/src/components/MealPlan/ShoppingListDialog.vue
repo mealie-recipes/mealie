@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import { api } from "@/api";
 const levenshtein = require("fast-levenshtein");
 export default {
   data() {

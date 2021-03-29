@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import api from "@/api";
+import { api } from "@/api";
 import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
 import language from "./modules/language";

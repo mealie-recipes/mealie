@@ -43,7 +43,7 @@
 
 <script>
 import ImportOptions from "@/components/Admin/Backup/ImportOptions";
-import api from "@/api";
+import { api } from "@/api";
 export default {
   components: { ImportOptions },
   data() {

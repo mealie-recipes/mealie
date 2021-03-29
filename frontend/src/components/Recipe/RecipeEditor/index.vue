@@ -254,7 +254,7 @@
 
 <script>
 import draggable from "vuedraggable";
-import api from "@/api";
+import { api } from "@/api";
 import utils from "@/utils";
 import BulkAdd from "./BulkAdd";
 import ExtrasEditor from "./ExtrasEditor";

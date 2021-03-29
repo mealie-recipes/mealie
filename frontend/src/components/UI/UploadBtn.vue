@@ -10,7 +10,7 @@
 
 <script>
 const UPLOAD_EVENT = "uploaded";
-import api from "@/api";
+import { api } from "@/api";
 export default {
   props: {
     url: String,
