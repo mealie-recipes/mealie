@@ -72,6 +72,32 @@
           <v-list-item-title>{{ nav.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
+
+      <v-list nav dense class="fixedBottom">
+        <v-list-item href="">
+          <v-list-item-icon class="mr-3 pt-1">
+            <v-icon :color="newVersionAvailable ? 'red--text' : ''">
+              mdi-information
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ $t("settings.current") }}
+              {{ version }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              <a
+                href="https://github.com/hay-kot/mealie/releases/latest"
+                target="_blank"
+                :class="newVersionAvailable ? 'red--text' : 'green--text'"
+              >
+                {{ $t("settings.latest") }}
+                {{ latestVersion }}
+              </a>
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
   </div>
 </template>
@@ -80,10 +106,14 @@
 import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 import { user } from "@/mixins/user";
+import api from "@/api";
+import axios from "axios";
 export default {
   mixins: [validators, initials, user],
   data() {
     return {
+      latestVersion: null,
+      version: null,
       hideImage: false,
       showSidebar: false,
       mobile: false,
@@ -92,39 +122,39 @@ export default {
         {
           icon: "mdi-cog",
           to: "/admin/settings",
-          title: this.$t('settings.site-settings'),
+          title: this.$t("settings.site-settings"),
         },
         {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
-          title: this.$t('settings.manage-users'),
+          title: this.$t("settings.manage-users"),
         },
         {
           icon: "mdi-backup-restore",
           to: "/admin/backups",
-          title: this.$t('settings.backup-and-exports'),
+          title: this.$t("settings.backup-and-exports"),
         },
         {
           icon: "mdi-database-import",
           to: "/admin/migrations",
-          title: this.$t('settings.migrations'),
+          title: this.$t("settings.migrations"),
         },
       ],
       baseLinks: [
         {
           icon: "mdi-account",
           to: "/admin/profile",
-          title: this.$t('settings.profile'),
+          title: this.$t("settings.profile"),
         },
         {
           icon: "mdi-format-color-fill",
           to: "/admin/themes",
-          title: this.$t('general.themes'),
+          title: this.$t("general.themes"),
         },
         {
           icon: "mdi-food",
           to: "/admin/meal-planner",
-          title: this.$t('meal-plan.meal-planner'),
+          title: this.$t("meal-plan.meal-planner"),
         },
       ],
     };
@@ -132,11 +162,17 @@ export default {
   async mounted() {
     this.mobile = this.viewScale();
     this.showSidebar = !this.viewScale();
+    this.getVersion();
+    let versionData = await api.meta.get_version();
+    this.version = versionData.version;
   },
 
   computed: {
     userProfileImage() {
       return `api/users/${this.user.id}/image`;
+    },
+    newVersionAvailable() {
+      return this.latestVersion == this.version ? false : true;
     },
   },
 
@@ -151,9 +187,26 @@ export default {
           return false;
       }
     },
+    async getVersion() {
+      let response = await axios.get(
+        "https://api.github.com/repos/hay-kot/mealie/releases/latest",
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: null,
+          },
+        }
+      );
+      this.latestVersion = response.data.tag_name;
+    },
   },
 };
 </script>
 
 <style>
+.fixedBottom {
+  position: fixed !important;
+  bottom: 0 !important;
+  width: 100%;
+}
 </style>

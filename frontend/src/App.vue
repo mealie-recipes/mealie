@@ -34,8 +34,8 @@
         <AddRecipeFab v-if="loggedIn" />
       </v-slide-x-reverse-transition>
       <router-view></router-view>
-      <FlashMessage :position="'right bottom'"></FlashMessage>
     </v-main>
+    <FlashMessage :position="'right bottom'"></FlashMessage>
   </v-app>
 </template>
 
