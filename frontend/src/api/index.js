@@ -12,6 +12,9 @@ import signUps from "./signUps";
 import groups from "./groups";
 import siteSettings from "./siteSettings";
 
+/**
+ * The main object namespace for interacting with the backend database
+ */
 export const api = {
   recipes: recipe,
   siteSettings: siteSettings,
