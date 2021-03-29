@@ -44,7 +44,7 @@ class Cleaner:
 
     @staticmethod
     def category(category: str):
-        if type(category) == type(str):
+        if isinstance(category, str):
             return [category]
         else:
             return []
@@ -58,11 +58,11 @@ class Cleaner:
     def image(image=None) -> str:
         if not image:
             return "no image"
-        if type(image) == list:
+        if isinstance(image, list):
             return image[0]
-        elif type(image) == dict:
+        elif isinstance(image, dict):
             return image["url"]
-        elif type(image) == str:
+        elif isinstance(image, str):
             return image
         else:
             raise Exception(f"Unrecognised image URL format: {image}")
@@ -77,11 +77,11 @@ class Cleaner:
             return [{"text": Cleaner._instruction(line)} for line in instructions.splitlines() if line]
 
         # Plain strings in a list
-        elif type(instructions) == list and type(instructions[0]) == str:
+        elif isinstance(instructions, list) and isinstance(instructions[0], list):
             return [{"text": Cleaner._instruction(step)} for step in instructions]
 
         # Dictionaries (let's assume it's a HowToStep) in a list
-        elif type(instructions) == list and type(instructions[0]) == dict:
+        elif isinstance(instructions, list) and isinstance(instructions[0], dict):
             # Try List of Dictionary without "@type" or "type"
             if not instructions[0].get("@type", False) and not instructions[0].get("type", False):
                 return [{"text": Cleaner._instruction(step["text"])} for step in instructions]
@@ -134,7 +134,7 @@ class Cleaner:
 
     @staticmethod
     def yield_amount(yld) -> str:
-        if type(yld) == list:
+        if isinstance(yld, list):
             return yld[-1]
         else:
             return yld
@@ -143,9 +143,9 @@ class Cleaner:
     def time(time_entry):
         if time_entry is None:
             return None
-        elif type(time_entry) == datetime:
+        elif isinstance(time_entry, datetime):
             print(time_entry)
-        elif type(time_entry) != str:
+        elif isinstance(time_entry, str):
             return str(time_entry)
         else:
             return time_entry
