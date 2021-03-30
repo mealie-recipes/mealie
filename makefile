@@ -60,6 +60,9 @@ backend: ## Start Mealie Backend Development Server
 frontend: ## Start Mealie Frontend Development Server
 	cd frontend && npm run serve
 
+frontend-build: ## Build Frontend in frontend/dist
+	cd frontned && npm run build
+
 .PHONY: docs
 docs: ## Start Mkdocs Development Server
 	poetry run python dev/scripts/api_docs_gen.py && \
