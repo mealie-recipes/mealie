@@ -52,6 +52,7 @@ def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data,
         {"title": "My Test Title2", "text": "My Test Text2"},
     ]
     recipe["notes"] = test_notes
+    recipe["tools"] = ["one tool", "two tool"]
 
     test_categories = ["one", "two", "three"]
     recipe["recipeCategory"] = test_categories

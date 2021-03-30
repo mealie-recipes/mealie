@@ -57,6 +57,7 @@ def get_raw_recipe():
         ],
         "totalTime": "None",
         "prepTime": None,
+        "tools": ["test_tool"],
         "performTime": None,
         "slug": "",
         "categories": [],
