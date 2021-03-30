@@ -54,6 +54,11 @@ const mutations = {
 };
 
 const actions = {
+  async requestUserData({ commit }) {
+    const userData = await api.users.self();
+    commit("setUserData", userData);
+  },
+
   async resetTheme({ commit }) {
     const defaultTheme = await api.themes.requestByName("default");
     if (defaultTheme.colors) {
