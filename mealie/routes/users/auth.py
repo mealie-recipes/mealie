@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from mealie.core import security
-from mealie.core.security import authenticate_user, verify_password
+from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.snackbar import SnackResponse

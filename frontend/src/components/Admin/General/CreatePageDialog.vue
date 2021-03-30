@@ -42,7 +42,7 @@
 
 <script>
 const NEW_PAGE_EVENT = "refresh-page";
-import api from "@/api";
+import { api } from "@/api";
 import CategorySelector from "@/components/FormHelpers/CategorySelector";
 export default {
   components: {

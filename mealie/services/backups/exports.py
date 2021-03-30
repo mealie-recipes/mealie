@@ -6,7 +6,7 @@ from typing import Union
 
 from fastapi.logger import logger
 from jinja2 import Template
-from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR, TEMPLATE_DIR
+from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from pydantic.main import BaseModel
@@ -28,12 +28,12 @@ class ExportDatabase:
         else:
             export_tag = datetime.now().strftime("%Y-%b-%d")
 
-        self.main_dir = TEMP_DIR.joinpath(export_tag)
+        self.main_dir = app_dirs.TEMP_DIR.joinpath(export_tag)
         self.img_dir = self.main_dir.joinpath("images")
         self.templates_dir = self.main_dir.joinpath("templates")
 
         try:
-            self.templates = [TEMPLATE_DIR.joinpath(x) for x in templates]
+            self.templates = [app_dirs.TEMPLATE_DIR.joinpath(x) for x in templates]
         except:
             self.templates = False
             logger.info("No Jinja2 Templates Registered for Export")
@@ -65,7 +65,7 @@ class ExportDatabase:
                     f.write(content)
 
     def export_images(self):
-        for file in IMG_DIR.iterdir():
+        for file in app_dirs.IMG_DIR.iterdir():
             shutil.copy(file, self.img_dir.joinpath(file.name))
 
     def export_items(self, items: list[BaseModel], folder_name: str, export_list=True):
@@ -87,10 +87,10 @@ class ExportDatabase:
             f.write(json_data)
 
     def finish_export(self):
-        zip_path = BACKUP_DIR.joinpath(f"{self.main_dir.name}")
+        zip_path = app_dirs.BACKUP_DIR.joinpath(f"{self.main_dir.name}")
         shutil.make_archive(zip_path, "zip", self.main_dir)
 
-        shutil.rmtree(TEMP_DIR)
+        shutil.rmtree(app_dirs.TEMP_DIR)
 
         return str(zip_path.absolute()) + ".zip"
 
@@ -138,10 +138,10 @@ def backup_all(
 
 
 def auto_backup_job():
-    for backup in BACKUP_DIR.glob("Auto*.zip"):
+    for backup in app_dirs.BACKUP_DIR.glob("Auto*.zip"):
         backup.unlink()
 
-    templates = [template for template in TEMPLATE_DIR.iterdir()]
+    templates = [template for template in app_dirs.TEMPLATE_DIR.iterdir()]
     session = create_session()
     backup_all(session=session, tag="Auto", templates=templates)
     logger.info("Auto Backup Called")

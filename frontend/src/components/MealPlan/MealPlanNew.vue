@@ -83,7 +83,7 @@
 
 <script>
 const CREATE_EVENT = "created";
-import api from "@/api";
+import { api } from "@/api";
 import utils from "@/utils";
 import MealPlanCard from "./MealPlanCard";
 export default {

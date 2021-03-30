@@ -106,7 +106,7 @@
 import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 import { user } from "@/mixins/user";
-import api from "@/api";
+import { api } from "@/api";
 import axios from "axios";
 export default {
   mixins: [validators, initials, user],

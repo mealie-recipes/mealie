@@ -16,7 +16,7 @@ def get_shopping_list(
     current_user=Depends(get_current_user),
 ):
 
-    #! Refactor into Single Database Call
+    # ! Refactor into Single Database Call
     mealplan = db.meals.get(session, id)
     mealplan: MealPlanInDB
     slugs = [x.slug for x in mealplan.meals]

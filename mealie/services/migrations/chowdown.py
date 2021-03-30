@@ -3,7 +3,7 @@ from pathlib import Path
 
 import yaml
 from fastapi.logger import logger
-from mealie.core.config import IMG_DIR, TEMP_DIR
+from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.schema.recipe import Recipe
 from mealie.utils.unzip import unpack_zip
@@ -64,8 +64,8 @@ def chowdown_migrate(session: Session, zip_file: Path):
 
     with temp_dir as dir:
         chow_dir = next(Path(dir).iterdir())
-        image_dir = TEMP_DIR.joinpath(chow_dir, "images")
-        recipe_dir = TEMP_DIR.joinpath(chow_dir, "_recipes")
+        image_dir = app_dirs.TEMP_DIR.joinpath(chow_dir, "images")
+        recipe_dir = app_dirs.TEMP_DIR.joinpath(chow_dir, "_recipes")
 
         failed_recipes = []
         successful_recipes = []
@@ -83,7 +83,7 @@ def chowdown_migrate(session: Session, zip_file: Path):
         for image in image_dir.iterdir():
             try:
                 if image.stem not in failed_recipes:
-                    shutil.copy(image, IMG_DIR.joinpath(image.name))
+                    shutil.copy(image, app_dirs.IMG_DIR.joinpath(image.name))
             except Exception as inst:
                 logger.error(inst)
                 failed_images.append(image.name)

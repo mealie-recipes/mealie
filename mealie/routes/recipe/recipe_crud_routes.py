@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, File, Form, HTTPException
-from fastapi.logger import logger
 from fastapi.responses import FileResponse
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session

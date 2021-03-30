@@ -1,7 +1,5 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from fastapi.logger import logger
-from mealie.core.config import DEFAULT_GROUP
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.category import Category, group2categories
 from sqlalchemy.orm.session import Session
@@ -61,17 +59,3 @@ class Group(SqlAlchemyBase, BaseMixins):
         if item is None:
             item = session.query(Group).filter(Group.id == 1).one()
         return item
-
-    @staticmethod
-    def create_if_not_exist(session, name: str = DEFAULT_GROUP):
-        try:
-            result = session.query(Group).filter(Group.name == name).one()
-            if result:
-                logger.info("Category exists, associating recipe")
-                return result
-            else:
-                logger.info("Category doesn't exists, creating tag")
-                return Group(name=name)
-        except:
-            logger.info("Category doesn't exists, creating category")
-            return Group(name=name)

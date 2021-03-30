@@ -21,7 +21,6 @@
           ref="deleteRecipieConfirm"
           v-on:confirm="deleteRecipe()"
         />
-
         <v-btn class="mr-2" fab dark small color="success" @click="save">
           <v-icon>mdi-content-save</v-icon>
         </v-btn>
@@ -37,7 +36,7 @@
 </template>
 
 <script>
-import Confirmation from "../../components/UI/Confirmation";
+import Confirmation from "../../components/UI/Confirmation.vue";
 
 export default {
   props: {
@@ -58,6 +57,7 @@ export default {
     save() {
       this.$emit("save");
     },
+
     deleteRecipeConfrim() {
       this.$refs.deleteRecipieConfirm.open();
     },

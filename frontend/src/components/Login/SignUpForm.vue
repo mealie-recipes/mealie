@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 export default {
   mixins: [validators],

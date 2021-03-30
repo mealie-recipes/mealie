@@ -1,5 +1,3 @@
-from datetime import date
-
 import sqlalchemy as sa
 from mealie.db.models.model_base import SqlAlchemyBase
 

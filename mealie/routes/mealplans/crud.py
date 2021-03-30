@@ -1,5 +1,3 @@
-import datetime
-
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session

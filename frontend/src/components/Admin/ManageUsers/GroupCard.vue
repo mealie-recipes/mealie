@@ -3,7 +3,11 @@
     <Confirmation
       ref="deleteGroupConfirm"
       :title="$t('user.confirm-group-deletion')"
-      :message="$t('user.are-you-sure-you-want-to-delete-the-group', { groupName:group.name })"
+      :message="
+        $t('user.are-you-sure-you-want-to-delete-the-group', {
+          groupName: group.name,
+        })
+      "
       icon="mdi-alert"
       @confirm="deleteGroup"
       :width="450"
@@ -13,7 +17,9 @@
       <v-list dense>
         <v-card-title class="py-1">{{ group.name }}</v-card-title>
         <v-divider></v-divider>
-        <v-subheader>{{ $t('user.group-id-with-value', { groupID: group.id }) }}</v-subheader>
+        <v-subheader>{{
+          $t("user.group-id-with-value", { groupID: group.id })
+        }}</v-subheader>
         <v-list-item-group color="primary">
           <v-list-item v-for="property in groupProps" :key="property.text">
             <v-list-item-icon>
@@ -36,11 +42,11 @@
           @click="confirmDelete"
           :disabled="ableToDelete"
         >
-          {{ $t('general.delete') }}
+          {{ $t("general.delete") }}
         </v-btn>
         <!-- Coming Soon! -->
         <v-btn small color="success" disabled>
-          {{ $t('general.edit') }}
+          {{ $t("general.edit") }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -50,7 +56,7 @@
 <script>
 const RENDER_EVENT = "update";
 import Confirmation from "@/components/UI/Confirmation";
-import api from "@/api";
+import { api } from "@/api";
 export default {
   components: { Confirmation },
   props: {
@@ -94,22 +100,24 @@ export default {
     buildData() {
       this.groupProps = [
         {
-          text: this.$t('user.total-users'),
+          text: this.$t("user.total-users"),
           icon: "mdi-account",
           value: this.group.users.length,
         },
         {
-          text: this.$t('user.total-mealplans'),
+          text: this.$t("user.total-mealplans"),
           icon: "mdi-food",
           value: this.group.mealplans.length,
         },
         {
-          text: this.$t('user.webhooks-enabled'),
+          text: this.$t("user.webhooks-enabled"),
           icon: "mdi-webhook",
-          value: this.group.webhookEnable ? this.$t('general.yes') : this.$t('general.no'),
+          value: this.group.webhookEnable
+            ? this.$t("general.yes")
+            : this.$t("general.no"),
         },
         {
-          text: this.$t('user.webhook-time'),
+          text: this.$t("user.webhook-time"),
           icon: "mdi-clock-outline",
           value: this.group.webhookTime,
         },

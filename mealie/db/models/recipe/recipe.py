@@ -32,7 +32,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     cookTime = sa.Column(sa.String)
     recipeYield = sa.Column(sa.String)
     recipeCuisine = sa.Column(sa.String)
-    tool: List[Tool] = orm.relationship("Tool", cascade="all, delete-orphan")
+    tools: List[Tool] = orm.relationship("Tool", cascade="all, delete-orphan")
     nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
     recipeCategory: List = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
 
@@ -76,7 +76,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         totalTime: str = None,
         prepTime: str = None,
         nutrition: dict = None,
-        tool: list[str] = [],
+        tools: list[str] = [],
         performTime: str = None,
         slug: str = None,
         recipeCategory: List[str] = None,
@@ -97,7 +97,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         else:
             self.nutrition = Nutrition()
 
-        self.tool = [Tool(tool=x) for x in tool] if tool else []
+        self.tools = [Tool(tool=x) for x in tools] if tools else []
 
         self.recipeYield = recipeYield
         self.recipeIngredient = [RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient]
@@ -131,7 +131,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         recipeInstructions: List[dict] = None,
         recipeCuisine: str = None,
         totalTime: str = None,
-        tool: list[str] = [],
+        tools: list[str] = [],
         prepTime: str = None,
         performTime: str = None,
         nutrition: dict = None,
@@ -159,7 +159,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             prepTime=prepTime,
             performTime=performTime,
             nutrition=nutrition,
-            tool=tool,
+            tools=tools,
             slug=slug,
             recipeCategory=recipeCategory,
             tags=tags,

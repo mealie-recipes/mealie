@@ -18,7 +18,7 @@ def sql_global_init(db_file: Path, check_thread=False):
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-    import mealie.db.models._all_models
+    import mealie.db.models._all_models  # noqa: F401
 
     SqlAlchemyBase.metadata.create_all(engine)
 

@@ -14,7 +14,7 @@
 
 <script>
 import VJsoneditor from "v-jsoneditor";
-import api from "@/api";
+import { api } from "@/api";
 export default {
   components: { VJsoneditor },
   data() {

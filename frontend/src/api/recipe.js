@@ -19,6 +19,11 @@ const recipeURLs = {
 };
 
 export default {
+  /**
+   * Create a Recipe by URL
+   * @param {string} recipeURL
+   * @returns {string} Recipe Slug
+   */
   async createByURL(recipeURL) {
     let response = await apiReq.post(recipeURLs.createByURL, {
       url: recipeURL,

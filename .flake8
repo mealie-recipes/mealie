@@ -1,0 +1,6 @@
+[flake8]
+ignore = [
+    E501 # Line Length - See Black Config in pyproject.toml
+    E722 # Bare Exception | Temporary
+]
+exclude = _all_models.py

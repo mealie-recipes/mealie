@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from mealie.schema.user import UserInDB
 
 from jose import jwt
-from mealie.core.config import SECRET
+from mealie.core.config import settings
 from mealie.db.database import db
 from passlib.context import CryptContext
 
@@ -17,7 +17,7 @@ def create_access_token(data: dict(), expires_delta: timedelta = None) -> str:
     else:
         expire = datetime.utcnow() + timedelta(minutes=120)
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET, algorithm=ALGORITHM)
+    return jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM)
 
 
 def authenticate_user(session, email: str, password: str) -> UserInDB:

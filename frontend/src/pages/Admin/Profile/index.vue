@@ -13,9 +13,9 @@
             >
             </v-progress-circular>
           </span>
-          {{$t('settings.profile')}}
+          {{ $t("settings.profile") }}
           <v-spacer></v-spacer>
-          {{$t('user.user-id-with-value', {id: user.id }) }}
+          {{ $t("user.user-id-with-value", { id: user.id }) }}
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
@@ -86,7 +86,7 @@
     <v-col cols="12" md="4" sm="12">
       <v-card height="100%">
         <v-card-title class="headline">
-          {{$t('user.reset-password')}}
+          {{ $t("user.reset-password") }}
           <v-spacer></v-spacer>
         </v-card-title>
         <v-divider></v-divider>
@@ -114,7 +114,8 @@
               prepend-icon="mdi-lock"
               :label="$t('user.confirm-password')"
               :rules="[
-                password.newOne === password.newTwo || $t('user.password-must-match'),
+                password.newOne === password.newTwo ||
+                  $t('user.password-must-match'),
               ]"
               validate-on-blur
               :type="showPassword ? 'text' : 'password'"
@@ -145,7 +146,7 @@
 <script>
 // import AvatarPicker from '@/components/AvatarPicker'
 import UploadBtn from "@/components/UI/UploadBtn";
-import api from "@/api";
+import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 export default {

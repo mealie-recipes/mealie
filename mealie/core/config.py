@@ -8,104 +8,101 @@ APP_VERSION = "v0.4.0"
 DB_VERSION = "v0.4.0"
 
 CWD = Path(__file__).parent
+BASE_DIR = CWD.parent.parent
 
-
-def ensure_dirs():
-    for dir in REQUIRED_DIRS:
-        dir.mkdir(parents=True, exist_ok=True)
-
-
-# Register ENV
-ENV = CWD.joinpath(".env")  #! I'm Broken Fix Me!
+ENV = BASE_DIR.joinpath(".env")
 dotenv.load_dotenv(ENV)
 PRODUCTION = os.environ.get("ENV")
 
 
-# General
-PORT = int(os.getenv("mealie_port", 9000))
-API = os.getenv("api_docs", True)
+def determine_data_dir(production: bool) -> Path:
+    global CWD
+    if production:
+        return Path("/app/data")
 
-if API:
-    docs_url = "/docs"
-    redoc_url = "/redoc"
-else:
-    docs_url = None
-    redoc_url = None
-
-# Helpful Globals
-DATA_DIR = CWD.parent.parent.joinpath("dev", "data")
-if PRODUCTION:
-    DATA_DIR = Path("/app/data")
-
-WEB_PATH = CWD.joinpath("dist")
-IMG_DIR = DATA_DIR.joinpath("img")
-BACKUP_DIR = DATA_DIR.joinpath("backups")
-DEBUG_DIR = DATA_DIR.joinpath("debug")
-MIGRATION_DIR = DATA_DIR.joinpath("migration")
-NEXTCLOUD_DIR = MIGRATION_DIR.joinpath("nextcloud")
-CHOWDOWN_DIR = MIGRATION_DIR.joinpath("chowdown")
-TEMPLATE_DIR = DATA_DIR.joinpath("templates")
-USER_DIR = DATA_DIR.joinpath("users")
-SQLITE_DIR = DATA_DIR.joinpath("db")
-RECIPE_DATA_DIR = DATA_DIR.joinpath("recipes")
-TEMP_DIR = DATA_DIR.joinpath(".temp")
-
-REQUIRED_DIRS = [
-    DATA_DIR,
-    IMG_DIR,
-    BACKUP_DIR,
-    DEBUG_DIR,
-    MIGRATION_DIR,
-    TEMPLATE_DIR,
-    SQLITE_DIR,
-    NEXTCLOUD_DIR,
-    CHOWDOWN_DIR,
-    RECIPE_DATA_DIR,
-    USER_DIR,
-]
-
-ensure_dirs()
-
-LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
+    return CWD.parent.parent.joinpath("dev", "data")
 
 
-# DATABASE ENV
-SQLITE_FILE = None
-DATABASE_TYPE = os.getenv("DB_TYPE", "sqlite")
-if DATABASE_TYPE == "sqlite":
-    USE_SQL = True
-    SQLITE_FILE = SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
-
-else:
-    raise Exception("Unable to determine database type. Acceptible options are 'sqlite' ")
-
-
-def determine_secrets() -> str:
-    if not PRODUCTION:
+def determine_secrets(data_dir: Path, production: bool) -> str:
+    if not production:
         return "shh-secret-test-key"
 
-    secrets_file = DATA_DIR.joinpath(".secret")
+    secrets_file = data_dir.joinpath(".secret")
     if secrets_file.is_file():
         with open(secrets_file, "r") as f:
             return f.read()
     else:
         with open(secrets_file, "w") as f:
-            f.write(secrets.token_hex(32))
+            new_secret = secrets.token_hex(32)
+            f.write(new_secret)
+        return new_secret
 
 
-SECRET = "determine_secrets()"
+class AppDirectories:
+    def __init__(self, cwd, data_dir) -> None:
+        self.DATA_DIR = data_dir
+        self.WEB_PATH = cwd.joinpath("dist")
+        self.IMG_DIR = data_dir.joinpath("img")
+        self.BACKUP_DIR = data_dir.joinpath("backups")
+        self.DEBUG_DIR = data_dir.joinpath("debug")
+        self.MIGRATION_DIR = data_dir.joinpath("migration")
+        self.NEXTCLOUD_DIR = self.MIGRATION_DIR.joinpath("nextcloud")
+        self.CHOWDOWN_DIR = self.MIGRATION_DIR.joinpath("chowdown")
+        self.TEMPLATE_DIR = data_dir.joinpath("templates")
+        self.USER_DIR = data_dir.joinpath("users")
+        self.SQLITE_DIR = data_dir.joinpath("db")
+        self.RECIPE_DATA_DIR = data_dir.joinpath("recipes")
+        self.TEMP_DIR = data_dir.joinpath(".temp")
 
-# Mongo Database
-DEFAULT_GROUP = os.getenv("DEFAULT_GROUP", "Home")
-DEFAULT_PASSWORD = os.getenv("DEFAULT_PASSWORD", "MyPassword")
+        self.ensure_directories()
 
-# Database
-MEALIE_DB_NAME = os.getenv("mealie_db_name", "mealie")
-DB_USERNAME = os.getenv("db_username", "root")
-DB_PASSWORD = os.getenv("db_password", "example")
-DB_HOST = os.getenv("db_host", "mongo")
-DB_PORT = os.getenv("db_port", 27017)
+    def ensure_directories(self):
+        required_dirs = [
+            self.IMG_DIR,
+            self.BACKUP_DIR,
+            self.DEBUG_DIR,
+            self.MIGRATION_DIR,
+            self.TEMPLATE_DIR,
+            self.SQLITE_DIR,
+            self.NEXTCLOUD_DIR,
+            self.CHOWDOWN_DIR,
+            self.RECIPE_DATA_DIR,
+            self.USER_DIR,
+        ]
 
-# SFTP Email Stuff - For use Later down the line!
-SFTP_USERNAME = os.getenv("sftp_username", None)
-SFTP_PASSWORD = os.getenv("sftp_password", None)
+        for dir in required_dirs:
+            dir.mkdir(parents=True, exist_ok=True)
+
+
+class AppSettings:
+    def __init__(self, app_dirs: AppDirectories) -> None:
+        global DB_VERSION
+        self.PRODUCTION = bool(os.environ.get("ENV"))
+        self.API_PORT = int(os.getenv("API_PORT", 9000))
+        self.API = os.getenv("API_DOCS", "False") == "True"
+        self.DOCS_URL = "/docs" if self.API else None
+        self.REDOC_URL = "/redoc" if self.API else None
+        self.SECRET = determine_secrets(app_dirs.DATA_DIR, self.PRODUCTION)
+        self.DATABASE_TYPE = os.getenv("DB_TYPE", "sqlite")
+
+        # Used to Set SQLite File Version
+        self.SQLITE_FILE = None
+        if self.DATABASE_TYPE == "sqlite":
+            self.SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
+        else:
+            raise Exception("Unable to determine database type. Acceptible options are 'sqlite'")
+
+        self.DEFAULT_GROUP = os.getenv("DEFAULT_GROUP", "Home")
+        self.DEFAULT_PASSWORD = os.getenv("DEFAULT_PASSWORD", "MyPassword")
+
+        # Not Used!
+        self.SFTP_USERNAME = os.getenv("SFTP_USERNAME", None)
+        self.SFTP_PASSWORD = os.getenv("SFTP_PASSWORD", None)
+
+
+# General
+DATA_DIR = determine_data_dir(PRODUCTION)
+LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
+
+app_dirs = AppDirectories(CWD, DATA_DIR)
+settings = AppSettings(app_dirs)

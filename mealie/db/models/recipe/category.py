@@ -57,14 +57,10 @@ class Category(SqlAlchemyBase):
     @staticmethod
     def create_if_not_exist(session, name: str = None):
         test_slug = slugify(name)
-        try:
-            result = session.query(Category).filter(Category.slug == test_slug).one()
-            if result:
-                logger.info("Category exists, associating recipe")
-                return result
-            else:
-                logger.info("Category doesn't exists, creating tag")
-                return Category(name=name)
-        except:
-            logger.info("Category doesn't exists, creating category")
+        result = session.query(Category).filter(Category.slug == test_slug).one_or_none()
+        if result:
+            logger.info("Category exists, associating recipe")
+            return result
+        else:
+            logger.info("Category doesn't exists, creating tag")
             return Category(name=name)

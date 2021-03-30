@@ -60,7 +60,7 @@
 <script>
 import UploadBtn from "../../UI/UploadBtn";
 import utils from "@/utils";
-import api from "@/api";
+import { api } from "@/api";
 export default {
   props: {
     folder: String,

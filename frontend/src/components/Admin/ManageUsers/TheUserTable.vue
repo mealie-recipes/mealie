@@ -145,7 +145,7 @@
 
 <script>
 import Confirmation from "@/components/UI/Confirmation";
-import api from "@/api";
+import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 export default {
   components: { Confirmation },
@@ -274,7 +274,7 @@ export default {
     },
     resetPassword() {
       console.log(this.activeId);
-      api.users.resetPassword(this.editedItem.id );
+      api.users.resetPassword(this.editedItem.id);
     },
   },
 };

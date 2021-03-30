@@ -3,25 +3,25 @@ from fastapi import FastAPI
 from fastapi.logger import logger
 
 # import utils.startup as startup
-from mealie.core.config import APP_VERSION, PORT, docs_url, redoc_url
+from mealie.core.config import APP_VERSION, settings
 from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes
-from mealie.routes.site_settings import all_settings
 from mealie.routes.groups import groups
 from mealie.routes.mealplans import mealplans
 from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_crud_routes, tag_routes
+from mealie.routes.site_settings import all_settings
 from mealie.routes.users import users
 
 app = FastAPI(
     title="Mealie",
     description="A place for all your recipes",
     version=APP_VERSION,
-    docs_url=docs_url,
-    redoc_url=redoc_url,
+    docs_url=settings.DOCS_URL,
+    redoc_url=settings.REDOC_URL,
 )
 
 
 def start_scheduler():
-    import mealie.services.scheduler.scheduled_jobs
+    import mealie.services.scheduler.scheduled_jobs  # noqa: F401
 
 
 def api_routers():
@@ -55,7 +55,7 @@ def main():
     uvicorn.run(
         "app:app",
         host="0.0.0.0",
-        port=PORT,
+        port=settings.API_PORT,
         reload=True,
         reload_dirs=["mealie"],
         debug=True,

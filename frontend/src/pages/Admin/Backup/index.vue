@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import { api } from "@/api";
 import SuccessFailureAlert from "@/components/UI/SuccessFailureAlert";
 import ImportSummaryDialog from "@/components/Admin/Backup/ImportSummaryDialog";
 import UploadBtn from "@/components/UI/UploadBtn";
