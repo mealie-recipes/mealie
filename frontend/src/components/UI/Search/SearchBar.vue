@@ -1,34 +1,38 @@
 <template>
-  <v-menu v-model="menuModel" offset-y readonly max-width="450">
+  <v-menu v-model="menuModel" offset-y readonly :max-width="maxWidth">
     <template #activator="{ attrs }">
       <v-text-field
         class="mt-6"
         v-model="search"
         v-bind="attrs"
-        dense
+        :dense="dense"
         light
         :label="$t('search.search-mealie')"
-        solo
         autofocus
-        style="max-width: 450px;"
+        :solo="solo"
+        :style="`max-width: ${maxWidth};`"
         @focus="onFocus"
+        autocomplete="off"
       >
       </v-text-field>
     </template>
-    <v-card  v-if="showResults" max-height="500" min-width="98%" class="">
-      <v-card-text  class="py-1">Results</v-card-text>
+    <v-card v-if="showResults" max-height="500" :max-width="maxWidth">
+      <v-card-text class="py-1">Results</v-card-text>
       <v-divider></v-divider>
       <v-list scrollable>
         <v-list-item
           v-for="(item, index) in autoResults"
           :key="index"
-          :to="showResults ? `/recipe/${item.item.slug}` : null"
+          :to="navOnClick ? `/recipe/${item.item.slug}` : null"
+          @click="navOnClick ? null : selected(item.item.slug, item.item.name)"
         >
           <v-list-item-avatar>
             <v-img :src="getImage(item.item.image)"></v-img>
           </v-list-item-avatar>
           <v-list-item-content
-            @click="showResults ? null : selected(item.item.slug)"
+            @click="
+              showResults ? null : selected(item.item.slug, item.item.name)
+            "
           >
             <v-list-item-title v-html="highlight(item.item.name)">
             </v-list-item-title>
@@ -57,6 +61,21 @@ export default {
     showResults: {
       default: false,
     },
+    maxWidth: {
+      default: "450px",
+    },
+    dense: {
+      default: true,
+    },
+    navOnClick: {
+      default: true,
+    },
+    resetSearch: {
+      default: false,
+    },
+    solo: {
+      default: true,
+    },
   },
   data() {
     return {
@@ -65,7 +84,7 @@ export default {
       menuModel: false,
       data: [],
       result: [],
-      autoResults: [],
+      fuseResults: [],
       isDark: false,
       options: {
         shouldSort: true,
@@ -84,6 +103,9 @@ export default {
     this.data = this.$store.getters.getRecentRecipes;
   },
   computed: {
+    autoResults() {
+      return this.fuseResults.length > 1 ? this.fuseResults : this.results;
+    },
     fuse() {
       return new Fuse(this.data, this.options);
     },
@@ -94,6 +116,10 @@ export default {
   watch: {
     isSearching(val) {
       val ? (this.menuModel = true) : null;
+    },
+
+    resetSearch(val) {
+      val ? (this.search = "") : null;
     },
 
     search() {
@@ -107,7 +133,7 @@ export default {
       this.$emit("results", this.result);
 
       if (this.showResults === true) {
-        this.autoResults = this.result;
+        this.fuseResults = this.result;
       }
     },
     searchSlug() {
@@ -127,8 +153,9 @@ export default {
     getImage(image) {
       return utils.getImageURL(image);
     },
-    selected(slug) {
-      this.$emit("selected", slug);
+    selected(slug, name) {
+      console.log("Selected", slug, name);
+      this.$emit("selected", slug, name);
     },
     async onFocus() {
       clearTimeout(this.timeout);
