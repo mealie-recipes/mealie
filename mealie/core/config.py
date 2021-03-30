@@ -10,7 +10,7 @@ DB_VERSION = "v0.4.0"
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
 
-ENV = BASE_DIR.joinpath(".env") 
+ENV = BASE_DIR.joinpath(".env")
 dotenv.load_dotenv(ENV)
 PRODUCTION = os.environ.get("ENV")
 
@@ -23,11 +23,11 @@ def determine_data_dir(production: bool) -> Path:
     return CWD.parent.parent.joinpath("dev", "data")
 
 
-def determine_secrets(production: bool) -> str:
+def determine_secrets(data_dir: Path, production: bool) -> str:
     if not production:
         return "shh-secret-test-key"
 
-    secrets_file = DATA_DIR.joinpath(".secret")
+    secrets_file = data_dir.joinpath(".secret")
     if secrets_file.is_file():
         with open(secrets_file, "r") as f:
             return f.read()
@@ -40,6 +40,7 @@ def determine_secrets(production: bool) -> str:
 
 class AppDirectories:
     def __init__(self, cwd, data_dir) -> None:
+        self.DATA_DIR = data_dir
         self.WEB_PATH = cwd.joinpath("dist")
         self.IMG_DIR = data_dir.joinpath("img")
         self.BACKUP_DIR = data_dir.joinpath("backups")
@@ -78,10 +79,10 @@ class AppSettings:
         global DB_VERSION
         self.PRODUCTION = bool(os.environ.get("ENV"))
         self.API_PORT = int(os.getenv("API_PORT", 9000))
-        self.API = bool(os.getenv("API_DOCS", True))
+        self.API = os.getenv("API_DOCS", "False") == "True"
         self.DOCS_URL = "/docs" if self.API else None
         self.REDOC_URL = "/redoc" if self.API else None
-        self.SECRET = determine_secrets(self.PRODUCTION)
+        self.SECRET = determine_secrets(app_dirs.DATA_DIR, self.PRODUCTION)
         self.DATABASE_TYPE = os.getenv("DB_TYPE", "sqlite")
 
         # Used to Set SQLite File Version
@@ -89,7 +90,7 @@ class AppSettings:
         if self.DATABASE_TYPE == "sqlite":
             self.SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
         else:
-            raise Exception("Unable to determine database type. Acceptible options are 'sqlite' ")
+            raise Exception("Unable to determine database type. Acceptible options are 'sqlite'")
 
         self.DEFAULT_GROUP = os.getenv("DEFAULT_GROUP", "Home")
         self.DEFAULT_PASSWORD = os.getenv("DEFAULT_PASSWORD", "MyPassword")
