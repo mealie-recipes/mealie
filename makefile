@@ -56,6 +56,7 @@ backend: ## Start Mealie Backend Development Server
 	poetry run python mealie/db/init_db.py && \
 	poetry run python mealie/app.py
 
+
 .PHONY: frontend
 frontend: ## Start Mealie Frontend Development Server
 	cd frontend && npm run serve
@@ -73,7 +74,6 @@ docker-dev: ## Build and Start Docker Development Stack
 
 docker-prod: ## Build and Start Docker Production Stack
 	docker-compose -p mealie up --build -d
-
 
 code-gen: ## Run Code-Gen Scripts
 	poetry run python dev/scripts/app_routes_gen.py
