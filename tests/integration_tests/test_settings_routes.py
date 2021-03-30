@@ -2,9 +2,9 @@ import json
 
 import pytest
 from fastapi.testclient import TestClient
-from tests.app_routes import AppRoutes
 from mealie.schema.settings import SiteSettings
 from mealie.schema.theme import SiteTheme
+from tests.app_routes import AppRoutes
 
 
 @pytest.fixture(scope="function")
@@ -80,6 +80,24 @@ def test_read_theme(api_client: TestClient, api_routes: AppRoutes, default_theme
         response = api_client.get(api_routes.themes_theme_name(theme.get("name")))
         assert response.status_code == 200
         assert json.loads(response.content) == theme
+
+
+def test_update_theme(api_client: TestClient, api_routes: AppRoutes, token, default_theme, new_theme):
+    theme_colors = {
+        "primary": "#E12345",
+        "accent": "#012345",
+        "secondary": "#973542",
+        "success": "#5AB1BB",
+        "info": "#4990BA",
+        "warning": "#FF4081",
+        "error": "#EF4432",
+    }
+
+    new_theme["colors"] = theme_colors
+    response = api_client.put(api_routes.themes_theme_name(new_theme.get("name")), json=new_theme, headers=token)
+    assert response.status_code == 200
+    response = api_client.get(api_routes.themes_theme_name(new_theme.get("name")))
+    assert json.loads(response.content) == new_theme
 
 
 def test_delete_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme, token):
