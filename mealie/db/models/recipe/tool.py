@@ -10,6 +10,3 @@ class Tool(SqlAlchemyBase):
 
     def __init__(self, tool) -> None:
         self.tool = tool
-
-    def str(self):
-        return self.tool
