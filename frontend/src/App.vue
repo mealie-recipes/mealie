@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
-      <router-link to="/">
+      <router-link v-if="!(isMobile && search)" to="/">
         <v-btn icon>
           <v-icon size="40"> mdi-silverware-variant </v-icon>
         </v-btn>
       </router-link>
 
-      <div btn class="pl-2">
+      <div v-if="!isMobile" btn class="pl-2">
         <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
           >Mealie
         </v-toolbar-title>
@@ -20,6 +20,7 @@
           v-if="search"
           :show-results="true"
           @selected="navigateFromSearch"
+          :max-width="isMobile ? '100%' : '450px'"
         />
       </v-expand-x-transition>
       <v-btn icon @click="search = !search">
@@ -64,6 +65,12 @@ export default {
       this.search = false;
     },
   },
+  computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
+  },
+
   created() {
     window.addEventListener("keyup", e => {
       if (e.key == "/" && !document.activeElement.id.startsWith("input")) {

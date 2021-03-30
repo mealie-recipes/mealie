@@ -1,5 +1,5 @@
 <template>
-  <v-menu v-model="menuModel" offset-y readonly :max-width="maxWidth">
+  <v-menu v-model="menuModel" offset-y readonly :width="maxWidth">
     <template #activator="{ attrs }">
       <v-text-field
         class="mt-6"
@@ -16,7 +16,7 @@
       >
       </v-text-field>
     </template>
-    <v-card v-if="showResults" max-height="500" :max-width="maxWidth">
+    <v-card v-if="showResults" max-height="500" :max-width="maxWidth"> 
       <v-card-text class="py-1">Results</v-card-text>
       <v-divider></v-divider>
       <v-list scrollable>
