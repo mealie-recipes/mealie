@@ -94,7 +94,6 @@ class BaseDocument:
                 return self.schema.from_orm(result[0])
             except IndexError:
                 return None
-                
         return [self.schema.from_orm(x) for x in result]
 
     def create(self, session: Session, document: dict) -> BaseModel:
@@ -113,10 +112,8 @@ class BaseDocument:
 
         return self.schema.from_orm(new_document)
 
-
     def update(self, session: Session, match_value: str, new_data: str) -> BaseModel:
         """Update a database entry.
-
         Args: \n
             session (Session): Database Session
             match_value (str): Match "key"
@@ -131,8 +128,6 @@ class BaseDocument:
 
         session.commit()
         return self.schema.from_orm(entry)
-
-
 
     def delete(self, session: Session, primary_key_value) -> dict:
         result = session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()

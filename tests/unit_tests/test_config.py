@@ -16,7 +16,7 @@ def test_non_default_settings(monkeypatch):
     assert app_settings.DEFAULT_GROUP == "Test Group"
     assert app_settings.DEFAULT_PASSWORD == "Test Password"
     assert app_settings.API_PORT == 8000
-    assert app_settings.API == False
+    assert app_settings.API is False
 
     assert app_settings.REDOC_URL is None
     assert app_settings.DOCS_URL is None
@@ -34,7 +34,6 @@ def test_secret_generation(tmp_path):
     app_dirs = AppDirectories(CWD, DATA_DIR)
     assert determine_secrets(app_dirs.DATA_DIR, False) == "shh-secret-test-key"
     assert determine_secrets(app_dirs.DATA_DIR, True) != "shh-secret-test-key"
-
 
     assert determine_secrets(tmp_path, True) != "shh-secret-test-key"
 

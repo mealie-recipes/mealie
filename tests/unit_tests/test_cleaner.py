@@ -77,8 +77,6 @@ def test_cleaner_instructions(instructions):
     ]
 
 
-
-
 def test_html_with_recipe_data():
     path = TEST_RAW_HTML.joinpath("healthy_pasta_bake_60759.html")
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
