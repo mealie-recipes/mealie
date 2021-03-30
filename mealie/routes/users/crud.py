@@ -4,7 +4,7 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.responses import FileResponse
 from mealie.core import security
-from mealie.core.config import DEFAULT_PASSWORD, USER_DIR
+from mealie.core.config import settings, app_dirs
 from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
@@ -65,7 +65,7 @@ async def reset_user_password(
     session: Session = Depends(generate_session),
 ):
 
-    new_password = get_password_hash(DEFAULT_PASSWORD)
+    new_password = get_password_hash(settings.DEFAULT_PASSWORD)
     db.users.update_password(session, id, new_password)
 
     return SnackResponse.success("Users Password Reset")
@@ -92,7 +92,7 @@ async def update_user(
 @router.get("/{id}/image")
 async def get_user_image(id: str):
     """ Returns a users profile picture """
-    user_dir = USER_DIR.joinpath(id)
+    user_dir = app_dirs.USER_DIR.joinpath(id)
     for recipe_image in user_dir.glob("profile_image.*"):
         return FileResponse(recipe_image)
     else:
@@ -109,14 +109,14 @@ async def update_user_image(
 
     extension = profile_image.filename.split(".")[-1]
 
-    USER_DIR.joinpath(id).mkdir(parents=True, exist_ok=True)
+    app_dirs.USER_DIR.joinpath(id).mkdir(parents=True, exist_ok=True)
 
     try:
-        [x.unlink() for x in USER_DIR.join(id).glob("profile_image.*")]
+        [x.unlink() for x in app_dirs.USER_DIR.join(id).glob("profile_image.*")]
     except:
         pass
 
-    dest = USER_DIR.joinpath(id, f"profile_image.{extension}")
+    dest = app_dirs.USER_DIR.joinpath(id, f"profile_image.{extension}")
 
     with dest.open("wb") as buffer:
         shutil.copyfileobj(profile_image.file, buffer)

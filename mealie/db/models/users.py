@@ -1,4 +1,4 @@
-from mealie.core.config import DEFAULT_GROUP
+from mealie.core.config import settings
 from mealie.db.models.group import Group
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
@@ -26,12 +26,12 @@ class User(SqlAlchemyBase, BaseMixins):
         full_name,
         email,
         password,
-        group: str = DEFAULT_GROUP,
+        group: str = settings.DEFAULT_GROUP,
         admin=False,
         id=None,
     ) -> None:
 
-        group = group if group else DEFAULT_GROUP
+        group = group or settings.DEFAULT_GROUP
         self.full_name = full_name
         self.email = email
         self.group = Group.get_ref(session, group)

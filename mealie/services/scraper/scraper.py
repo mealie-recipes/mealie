@@ -3,14 +3,14 @@ from typing import List
 
 import requests
 import scrape_schema_recipe
-from mealie.core.config import DEBUG_DIR
+from mealie.core.config import app_dirs
 from fastapi.logger import logger
 from mealie.services.image_services import scrape_image
 from mealie.schema.recipe import Recipe
 from mealie.services.scraper import open_graph
 from mealie.services.scraper.cleaner import Cleaner
 
-LAST_JSON = DEBUG_DIR.joinpath("last_recipe.json")
+LAST_JSON = app_dirs.DEBUG_DIR.joinpath("last_recipe.json")
 
 
 def create_from_url(url: str) -> Recipe:

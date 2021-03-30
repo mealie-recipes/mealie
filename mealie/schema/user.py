@@ -1,7 +1,7 @@
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.core.config import DEFAULT_GROUP
+from mealie.core.config import settings
 from mealie.db.models.group import Group
 from mealie.db.models.users import User
 from mealie.schema.category import CategoryBase
@@ -40,7 +40,7 @@ class UserBase(CamelModel):
         schema_extra = {
             "fullName": "Change Me",
             "email": "changeme@email.com",
-            "group": DEFAULT_GROUP,
+            "group": settings.DEFAULT_GROUP,
             "admin": "false",
         }
 

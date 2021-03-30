@@ -2,12 +2,12 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-from mealie.core.config import TEMP_DIR
+from mealie.core.config import app_dirs
 
 
 def unpack_zip(selection: Path) -> tempfile.TemporaryDirectory:
-    TEMP_DIR.mkdir(parents=True, exist_ok=True)
-    temp_dir = tempfile.TemporaryDirectory(dir=TEMP_DIR)
+    app_dirs.TEMP_DIR.mkdir(parents=True, exist_ok=True)
+    temp_dir = tempfile.TemporaryDirectory(dir=app_dirs.TEMP_DIR)
     temp_dir_path = Path(temp_dir.name)
     if selection.suffix == ".zip":
         with zipfile.ZipFile(selection, "r") as zip_ref:

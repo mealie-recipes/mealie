@@ -2,7 +2,7 @@ import operator
 import shutil
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from mealie.core.config import BACKUP_DIR, TEMPLATE_DIR
+from mealie.core.config import app_dirs
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
@@ -19,11 +19,11 @@ router = APIRouter(prefix="/api/backups", tags=["Backups"], dependencies=[Depend
 def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
-    for archive in BACKUP_DIR.glob("*.zip"):
+    for archive in app_dirs.app_dirs.BACKUP_DIR.glob("*.zip"):
         backup = LocalBackup(name=archive.name, date=archive.stat().st_ctime)
         imports.append(backup)
 
-    templates = [template.name for template in TEMPLATE_DIR.glob("*.*")]
+    templates = [template.name for template in app_dirs.TEMPLATE_DIR.glob("*.*")]
     imports.sort(key=operator.attrgetter("date"), reverse=True)
 
     return Imports(imports=imports, templates=templates)
@@ -55,7 +55,7 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
 @router.post("/upload")
 def upload_backup_file(archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
-    dest = BACKUP_DIR.joinpath(archive.filename)
+    dest = app_dirs.BACKUP_DIR.joinpath(archive.filename)
 
     with dest.open("wb") as buffer:
         shutil.copyfileobj(archive.file, buffer)
@@ -69,7 +69,7 @@ def upload_backup_file(archive: UploadFile = File(...)):
 @router.get("/{file_name}/download")
 async def download_backup_file(file_name: str):
     """ Upload a .zip File to later be imported into Mealie """
-    file = BACKUP_DIR.joinpath(file_name)
+    file = app_dirs.BACKUP_DIR.joinpath(file_name)
 
     if file.is_file:
         return FileResponse(file, media_type="application/octet-stream", filename=file_name)
@@ -100,7 +100,7 @@ def delete_backup(file_name: str):
     """ Removes a database backup from the file system """
 
     try:
-        BACKUP_DIR.joinpath(file_name).unlink()
+        app_dirs.BACKUP_DIR.joinpath(file_name).unlink()
     except:
         HTTPException(
             status_code=400,

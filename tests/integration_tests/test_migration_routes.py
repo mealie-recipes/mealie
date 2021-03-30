@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
-from mealie.core.config import MIGRATION_DIR
+from mealie.core.config import app_dirs
 from tests.app_routes import AppRoutes
 from tests.test_config import TEST_CHOWDOWN_DIR, TEST_NEXTCLOUD_DIR
 
@@ -29,7 +29,7 @@ def test_upload_chowdown_zip(api_client: TestClient, api_routes: AppRoutes, chow
 
     assert response.status_code == 200
 
-    assert MIGRATION_DIR.joinpath("chowdown", chowdown_zip.name).is_file()
+    assert app_dirs.MIGRATION_DIR.joinpath("chowdown", chowdown_zip.name).is_file()
 
 
 def test_import_chowdown_directory(api_client: TestClient, api_routes: AppRoutes, chowdown_zip: Path, token):
@@ -58,7 +58,7 @@ def test_delete_chowdown_migration_data(api_client: TestClient, api_routes: AppR
     response = api_client.delete(delete_url, headers=token)
 
     assert response.status_code == 200
-    assert not MIGRATION_DIR.joinpath(chowdown_zip.name).is_file()
+    assert not app_dirs.MIGRATION_DIR.joinpath(chowdown_zip.name).is_file()
 
 
 # Nextcloud
@@ -81,7 +81,7 @@ def test_upload_nextcloud_zip(api_client: TestClient, api_routes: AppRoutes, nex
 
     assert response.status_code == 200
 
-    assert MIGRATION_DIR.joinpath("nextcloud", nextcloud_zip.name).is_file()
+    assert app_dirs.MIGRATION_DIR.joinpath("nextcloud", nextcloud_zip.name).is_file()
 
 
 def test_import_nextcloud_directory(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip, token):
@@ -106,4 +106,4 @@ def test_delete__nextcloud_migration_data(api_client: TestClient, api_routes: Ap
     response = api_client.delete(delete_url, headers=token)
 
     assert response.status_code == 200
-    assert not MIGRATION_DIR.joinpath(nextcloud_zip.name).is_file()
+    assert not app_dirs.MIGRATION_DIR.joinpath(nextcloud_zip.name).is_file()

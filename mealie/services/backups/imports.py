@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 from typing import Callable, List
 
-from mealie.core.config import BACKUP_DIR, IMG_DIR, TEMP_DIR
+from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.schema.recipe import Recipe
 from mealie.schema.restore import CustomPageImport, GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
@@ -33,11 +33,11 @@ class ImportDatabase:
             Exception: If the zip file does not exists an exception raise.
         """
         self.session = session
-        self.archive = BACKUP_DIR.joinpath(zip_archive)
+        self.archive = app_dirs.BACKUP_DIR.joinpath(zip_archive)
         self.force_imports = force_import
 
         if self.archive.is_file():
-            self.import_dir = TEMP_DIR.joinpath("active_import")
+            self.import_dir = app_dirs.TEMP_DIR.joinpath("active_import")
             self.import_dir.mkdir(parents=True, exist_ok=True)
 
             with zipfile.ZipFile(self.archive, "r") as zip_ref:
@@ -108,7 +108,7 @@ class ImportDatabase:
         image_dir = self.import_dir.joinpath("images")
         for image in image_dir.iterdir():
             if image.stem in successful_imports:
-                shutil.copy(image, IMG_DIR)
+                shutil.copy(image, app_dirs.IMG_DIR)
 
     def import_themes(self):
         themes_file = self.import_dir.joinpath("themes", "themes.json")
@@ -275,7 +275,7 @@ class ImportDatabase:
         return import_status
 
     def clean_up(self):
-        shutil.rmtree(TEMP_DIR)
+        shutil.rmtree(app_dirs.TEMP_DIR)
 
 
 def import_database(

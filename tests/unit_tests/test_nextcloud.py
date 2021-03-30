@@ -1,15 +1,14 @@
 from pathlib import Path
 
 import pytest
-from mealie.core.config import TEMP_DIR
+from mealie.core.config import app_dirs
 from mealie.schema.recipe import Recipe
-from mealie.services.image_services import IMG_DIR
 from mealie.services.migrations.nextcloud import cleanup, import_recipes, prep, process_selection
 from tests.test_config import TEST_NEXTCLOUD_DIR
 
 CWD = Path(__file__).parent
 TEST_NEXTCLOUD_DIR
-TEMP_NEXTCLOUD = TEMP_DIR.joinpath("nextcloud")
+TEMP_NEXTCLOUD = app_dirs.TEMP_DIR.joinpath("nextcloud")
 
 
 @pytest.mark.parametrize(
@@ -37,4 +36,4 @@ def test_zip_extraction(file_name: str, final_path: Path):
 def test_nextcloud_migration(recipe_dir: Path):
     recipe = import_recipes(recipe_dir)
     assert isinstance(recipe, Recipe)
-    IMG_DIR.joinpath(recipe.image).unlink(missing_ok=True)
+    app_dirs.IMG_DIR.joinpath(recipe.image).unlink(missing_ok=True)

@@ -1,10 +1,9 @@
 from typing import List
 
+from mealie.db.models.model_base import SqlAlchemyBase
 from pydantic import BaseModel
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
-
-from mealie.db.models.model_base import SqlAlchemyBase
 
 
 class BaseDocument:
@@ -21,12 +20,12 @@ class BaseDocument:
         if self.orm_mode:
             return [self.schema.from_orm(x) for x in session.query(self.sql_model).limit(limit).all()]
 
-        list = [x.dict() for x in session.query(self.sql_model).limit(limit).all()]
+        # list = [x.dict() for x in session.query(self.sql_model).limit(limit).all()]
 
-        if limit == 1:
-            return list[0]
+        # if limit == 1:
+        #     return list[0]
 
-        return list
+        # return list
 
     def get_all_limit_columns(self, session: Session, fields: List[str], limit: int = None) -> List[SqlAlchemyBase]:
         """Queries the database for the selected model. Restricts return responses to the
@@ -95,6 +94,7 @@ class BaseDocument:
                 return self.schema.from_orm(result[0])
             except IndexError:
                 return None
+                
         return [self.schema.from_orm(x) for x in result]
 
     def create(self, session: Session, document: dict) -> BaseModel:
@@ -111,10 +111,8 @@ class BaseDocument:
         session.add(new_document)
         session.commit()
 
-        if self.orm_mode:
-            return self.schema.from_orm(new_document)
+        return self.schema.from_orm(new_document)
 
-        return new_document.dict()
 
     def update(self, session: Session, match_value: str, new_data: str) -> BaseModel:
         """Update a database entry.
@@ -131,13 +129,10 @@ class BaseDocument:
         entry = self._query_one(session=session, match_value=match_value)
         entry.update(session=session, **new_data)
 
-        if self.orm_mode:
-            session.commit()
-            return self.schema.from_orm(entry)
-
-        return_data = entry.dict()
         session.commit()
-        return return_data
+        return self.schema.from_orm(entry)
+
+
 
     def delete(self, session: Session, primary_key_value) -> dict:
         result = session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()

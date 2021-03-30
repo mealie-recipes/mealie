@@ -3,7 +3,7 @@ import json
 import requests
 from fastapi.testclient import TestClient
 from mealie.app import app
-from mealie.core.config import DEFAULT_PASSWORD, SQLITE_DIR
+from mealie.core.config import app_dirs, settings
 from mealie.db.db_setup import generate_session, sql_global_init
 from mealie.db.init_db import init_db
 from pytest import fixture
@@ -12,7 +12,7 @@ from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
 from tests.utils.recipe_data import build_recipe_store, get_raw_no_image, get_raw_recipe
 
-SQLITE_FILE = SQLITE_DIR.joinpath("test.db")
+SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath("test.db")
 SQLITE_FILE.unlink(missing_ok=True)
 
 
@@ -50,7 +50,7 @@ def test_image():
 
 @fixture(scope="session")
 def token(api_client: requests, api_routes: AppRoutes):
-    form_data = {"username": "changeme@email.com", "password": DEFAULT_PASSWORD}
+    form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
     response = api_client.post(api_routes.auth_token, form_data)
 
     token = json.loads(response.text).get("access_token")

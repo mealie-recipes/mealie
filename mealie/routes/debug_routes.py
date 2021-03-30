@@ -1,7 +1,7 @@
 import json
 
 from fastapi import APIRouter, Depends
-from mealie.core.config import APP_VERSION, DEBUG_DIR, LOGGER_FILE
+from mealie.core.config import APP_VERSION, LOGGER_FILE, app_dirs
 from mealie.routes.deps import get_current_user
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"], dependencies=[Depends(get_current_user)])
@@ -17,7 +17,7 @@ async def get_mealie_version():
 async def get_last_recipe_json():
     """ Doc Str """
 
-    with open(DEBUG_DIR.joinpath("last_recipe.json"), "r") as f:
+    with open(app_dirs.DEBUG_DIR.joinpath("last_recipe.json"), "r") as f:
         return json.loads(f.read())
 
 

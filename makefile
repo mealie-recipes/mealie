@@ -74,3 +74,9 @@ docker-prod: ## Build and Start Docker Production Stack
 
 code-gen: ## Run Code-Gen Scripts
 	poetry run python dev/scripts/app_routes_gen.py
+
+coverage: ## check code coverage quickly with the default Python
+	poetry run pytest
+	coverage report -m
+	coverage html
+	$(BROWSER) htmlcov/index.html
