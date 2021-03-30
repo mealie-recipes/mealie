@@ -7,7 +7,7 @@ from sqlalchemy.orm.session import Session
 
 
 def post_webhooks(group: int, session: Session = None):
-    session = session if session else create_session()
+    session = session or create_session()
     group_settings: GroupInDB = db.groups.get(session, group)
 
     if not group_settings.webhook_enable:

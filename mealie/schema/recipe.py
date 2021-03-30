@@ -43,6 +43,7 @@ class Recipe(BaseModel):
     recipeIngredient: Optional[list[str]]
     recipeInstructions: Optional[list[RecipeStep]]
     nutrition: Optional[Nutrition]
+    tools: Optional[list[str]] = []
 
     totalTime: Optional[str] = None
     prepTime: Optional[str] = None
@@ -67,6 +68,7 @@ class Recipe(BaseModel):
                 "recipeIngredient": [x.ingredient for x in name_orm.recipeIngredient],
                 "recipeCategory": [x.name for x in name_orm.recipeCategory],
                 "tags": [x.name for x in name_orm.tags],
+                "tools": [x.tool for x in name_orm.tools],
                 "extras": {x.key_name: x.value for x in name_orm.extras},
             }
 
