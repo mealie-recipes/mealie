@@ -115,26 +115,17 @@ export default {
         });
       }
     },
+    groupSettings() {
+      this.buildMealStore();
+    },
   },
   async mounted() {
-    let categories = Array.from(this.groupSettings, x => x.name);
-    this.items = await api.recipes.getAllByCategory(categories);
-
-    if (this.items.length === 0) {
-      const keys = [
-        "name",
-        "slug",
-        "image",
-        "description",
-        "dateAdded",
-        "rating",
-      ];
-      this.items = await api.recipes.allByKeys(keys);
-    }
+    this.$store.dispatch("requestCurrentGroup");
   },
 
   computed: {
     groupSettings() {
+      console.log(this.$store.getters.getCurrentGroup);
       return this.$store.getters.getCurrentGroup;
     },
     actualStartDate() {
@@ -164,6 +155,22 @@ export default {
   },
 
   methods: {
+    async buildMealStore() {
+      let categories = Array.from(this.groupSettings.categories, x => x.name);
+      this.items = await api.recipes.getAllByCategory(categories);
+
+      if (this.items.length === 0) {
+        const keys = [
+          "name",
+          "slug",
+          "image",
+          "description",
+          "dateAdded",
+          "rating",
+        ];
+        this.items = await api.recipes.allByKeys(keys);
+      }
+    },
     get_random(list) {
       const object = list[Math.floor(Math.random() * list.length)];
       return object;
