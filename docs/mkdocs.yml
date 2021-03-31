@@ -1,8 +1,22 @@
 site_name: Mealie
 demo_url: https://mealie-demo.hay-kot.dev/
 theme:
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: mealie
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
   custom_dir: docs/overrides
   features:
+    - navigation.top
     - navigation.instant
     - navigation.expand
     - navigation.sections
