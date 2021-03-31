@@ -78,6 +78,7 @@ class AppSettings:
     def __init__(self, app_dirs: AppDirectories) -> None:
         global DB_VERSION
         self.PRODUCTION = bool(os.environ.get("ENV"))
+        self.IS_DEMO = os.getenv("DEMO", "False") == "True"
         self.API_PORT = int(os.getenv("API_PORT", 9000))
         self.API = os.getenv("API_DOCS", "False") == "True"
         self.DOCS_URL = "/docs" if self.API else None

@@ -146,7 +146,5 @@ class Cleaner:
             return None
         elif isinstance(time_entry, datetime):
             print(time_entry)
-        elif isinstance(time_entry, str):
-            return str(time_entry)
         else:
-            return time_entry
+            return str(time_entry)

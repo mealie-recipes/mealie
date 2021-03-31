@@ -1,5 +1,5 @@
 site_name: Mealie
-
+demo_url: https://mealie-demo.hay-kot.dev/
 theme:
   custom_dir: docs/overrides
   features:

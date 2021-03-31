@@ -31,6 +31,12 @@
       <LanguageMenu />
     </v-app-bar>
     <v-main>
+      <v-banner v-if="demo" sticky
+        ><div class="text-center">
+          <b> This is a Demo</b> | Username: changeme@email.com | Password: demo
+        </div></v-banner
+      >
+
       <v-slide-x-reverse-transition>
         <AddRecipeFab v-if="loggedIn" />
       </v-slide-x-reverse-transition>
@@ -47,6 +53,7 @@ import AddRecipeFab from "@/components/UI/AddRecipeFab";
 import LanguageMenu from "@/components/UI/LanguageMenu";
 import Vuetify from "./plugins/vuetify";
 import { user } from "@/mixins/user";
+import { api } from "./api";
 
 export default {
   name: "App",
@@ -80,7 +87,7 @@ export default {
     this.$store.dispatch("initLang", { currentVueComponent: this });
   },
 
-  mounted() {
+  async mounted() {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
     this.$store.dispatch("refreshToken");
@@ -89,10 +96,14 @@ export default {
     this.$store.dispatch("requestTags");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
+
+    const api_status = await api.meta.getIsDemo();
+    this.demo = api_status.demoStatus;
   },
 
   data: () => ({
     search: false,
+    demo: false,
   }),
   methods: {
     // For Later!
