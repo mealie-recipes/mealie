@@ -39,6 +39,7 @@ nav:
       - Installation: "getting-started/install.md"
       - Updating: "getting-started/updating.md"
       - Working With Recipes: "getting-started/recipes.md"
+      - Organizing Recipes: "getting-started/organizing-recipes.md"
       - Planning Meals: "getting-started/meal-planner.md"
       - iOS Shortcuts: "getting-started/ios.md"
       - API Usage: "getting-started/api-usage.md"
