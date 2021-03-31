@@ -84,6 +84,7 @@
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
+              <NewCategoryDialog />
             </v-app-bar>
             <v-list height="300" dense style="overflow:auto">
               <v-list-item-group>
@@ -132,11 +133,13 @@
 import { api } from "@/api";
 import LanguageMenu from "@/components/UI/LanguageMenu";
 import draggable from "vuedraggable";
+import NewCategoryDialog from "./NewCategoryDialog.vue";
 
 export default {
   components: {
     draggable,
     LanguageMenu,
+    NewCategoryDialog,
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-import { store } from "../store";
+import { store } from "@/store";
 
 const backupBase = baseURL + "backups/";
 
@@ -13,7 +13,7 @@ const backupURLs = {
   downloadBackup: fileName => `${backupBase}${fileName}/download`,
 };
 
-export default {
+export const backupAPI = {
   /**
    * Request all backups available on the server
    * @returns {Array} List of Available Backups

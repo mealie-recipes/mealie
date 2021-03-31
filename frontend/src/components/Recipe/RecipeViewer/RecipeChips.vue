@@ -2,6 +2,8 @@
   <div v-if="items && items.length > 0">
     <h2 class="mt-4">{{ title }}</h2>
     <v-chip
+      :to="`/recipes/${getSlug(category)}`"
+      label
       class="ma-1"
       color="accent"
       dark
@@ -18,6 +20,21 @@ export default {
   props: {
     items: Array,
     title: String,
+    category: {
+      default: true,
+    },
+  },
+  computed: {
+    allCategories() {
+      return this.$store.getters.getAllCategories;
+    },
+  },
+  methods: {
+    getSlug(name) {
+      if (this.category) {
+        return this.allCategories.filter(x => x.name == name)[0].slug;
+      }
+    },
   },
 };
 </script>

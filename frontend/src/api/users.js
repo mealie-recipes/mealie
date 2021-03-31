@@ -17,7 +17,7 @@ const usersURLs = {
   resetPassword: id => `${userPrefix}/${id}/reset-password`,
 };
 
-export default {
+export const userAPI = {
   async login(formData) {
     let response = await apiReq.post(authURLs.token, formData, {
       headers: {

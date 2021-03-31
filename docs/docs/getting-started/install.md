@@ -55,8 +55,7 @@ services:
 | TZ               | UTC        | Must be set to get correct date/time on the server                                  |
 
 
-## Deployed as a Python Application
-Alternatively, this project is built on Python and SQLite. If you are dead set on deploying on a linux machine you can run this in an python virtual env. Provided that you know thats how you want to host the application, I'll assume you know how to do that. I may or may not get around to writing this guide. I'm open to pull requests if anyone has a good guide on it. 
+
 
 ## Advanced 
 !!! warning "Not Required"
@@ -89,3 +88,28 @@ The Docker image provided by Mealie contains both the API and the html bundle in
 
 }
 ```
+
+## Deployed without Docker
+!!! error "Unsupported Deployment"
+    If you are experiencing a problem with manual deployment, please do not submit a github issue unless it is related to an aspect of the application. For deployment help, the [discord server](https://discord.gg/R6QDyJgbD2) is a better place to find support. 
+
+Alternatively, this project is built on Python and SQLite so you may run it as a python application on your server. This is not a supported options for deployment and is only here as a reference for those who would like to do this on their own. To get started you can clone this repository into a directory of your choice and use the instructions below as a reference for how to get started. 
+
+There are three parts to the Mealie application
+
+- Frontend/Static Files
+- Backend API
+- Proxy Server
+
+### Frontend/ Static Files
+The frontend static files are generated with `npm run build`. This is done during the build process with docker. If you choose to deploy this as a system application you must do this process yourself. In the project directory run `cd frontend` to change directories into the frontend directory and run `npm install` and then `npm run build`. This will generate the static files in a `dist` folder in the frontend directory.
+
+### Backend API
+The backend API is build with Python, FastAPI, and SQLite and requires Python 3.9, and Poetry. Once the requirements are installed, in the project directory you can run the command `poetry install` to create a python virtual environment and install the python dependencies.
+
+Once the dependencies are installed you should be ready to run the server. To initialize that database you need to first run	`python mealie/db/init_db.py`. Then to start The web server, you run the command `uvicorn mealie.app:app --host 0.0.0.0 --port 9000`
+
+
+### Proxy Server
+You must use a proxy server to server up the static files created with `npm run build` and proxy requests to the API. In the docker build this is done with Caddy. You can use the CaddyFile in the section above as a reference. One important thing to keep in mind is that you should drop any trailing `/` in the url. Not doing this may result in failed API requests. 
+

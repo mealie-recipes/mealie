@@ -201,6 +201,7 @@ export default {
       this.$store.commit("setToken", newKey.access_token);
       this.refreshProfile();
       this.loading = false;
+      this.$store.dispatch("requestUserData")
     },
     async changePassword() {
       this.paswordLoading = true;

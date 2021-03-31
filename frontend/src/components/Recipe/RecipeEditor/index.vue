@@ -120,17 +120,19 @@
             deletable-chips
             v-model="value.recipeCategory"
             hide-selected
-            :items="categories"
+            :items="allCategories"
             text="name"
             :search-input.sync="categoriesSearchInput"
             @change="categoriesSearchInput = ''"
           >
             <template v-slot:selection="data">
               <v-chip
+                class="ma-1"
                 :input-value="data.selected"
                 close
                 @click:close="removeCategory(data.index)"
-                color="secondary"
+                label
+                color="accent"
                 dark
               >
                 {{ data.item }}
@@ -146,16 +148,18 @@
             deletable-chips
             v-model="value.tags"
             hide-selected
-            :items="tags"
+            :items="allTags"
             :search-input.sync="tagsSearchInput"
             @change="tagssSearchInput = ''"
           >
             <template v-slot:selection="data">
               <v-chip
+                class="ma-1"
                 :input-value="data.selected"
                 close
+                label
                 @click:close="removeTags(data.index)"
-                color="secondary"
+                color="accent"
                 dark
               >
                 {{ data.item }}
@@ -221,7 +225,7 @@
                     elevation="0"
                     @click="removeStep(index)"
                   >
-                    <v-icon color="error">mdi-delete</v-icon>
+                    <v-icon size="24" color="error">mdi-delete</v-icon>
                   </v-btn>
                   {{ $t("recipe.step-index", { step: index + 1 }) }}
                 </v-card-title>
@@ -280,18 +284,19 @@ export default {
       },
       categoriesSearchInput: "",
       tagsSearchInput: "",
-      categories: [],
-      tags: [],
     };
   },
-  mounted() {
-    this.getCategories();
+  computed: {
+    allCategories() {
+      const categories = this.$store.getters.getAllCategories;
+      return categories.map(cat => cat.name);
+    },
+    allTags() {
+      const tags = this.$store.getters.getAllTags;
+      return tags.map(cat => cat.name);
+    },
   },
   methods: {
-    async getCategories() {
-      let response = await api.categories.get_all();
-      this.categories = response.map(cat => cat.name);
-    },
     uploadImage() {
       this.$emit("upload", this.fileObject);
     },

@@ -133,7 +133,7 @@ export default {
   },
   computed: {
     categories() {
-      return this.$store.getters.getCategories;
+      return this.$store.getters.getAllCategories;
     },
     isFlat() {
       return this.groupSettings.categories >= 1 ? true : false;

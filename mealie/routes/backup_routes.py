@@ -19,7 +19,7 @@ router = APIRouter(prefix="/api/backups", tags=["Backups"], dependencies=[Depend
 def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
-    for archive in app_dirs.app_dirs.BACKUP_DIR.glob("*.zip"):
+    for archive in app_dirs.BACKUP_DIR.glob("*.zip"):
         backup = LocalBackup(name=archive.name, date=archive.stat().st_ctime)
         imports.append(backup)
 

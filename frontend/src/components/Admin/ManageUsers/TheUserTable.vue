@@ -264,10 +264,10 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-        api.users.update(this.editedItem);
+        await api.users.update(this.editedItem);
         this.close();
       } else if (this.$refs.newUser.validate()) {
-        api.users.create(this.editedItem);
+        await api.users.create(this.editedItem);
         this.close();
       }
       await this.initialize();

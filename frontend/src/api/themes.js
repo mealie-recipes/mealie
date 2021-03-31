@@ -11,7 +11,7 @@ const settingsURLs = {
   deleteTheme: themeName => `${prefix}/${themeName}`,
 };
 
-export default {
+export const themeAPI = {
   async requestAll() {
     let response = await apiReq.get(settingsURLs.allThemes);
     return response.data;

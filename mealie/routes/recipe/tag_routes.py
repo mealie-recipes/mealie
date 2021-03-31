@@ -8,15 +8,15 @@ from sqlalchemy.orm.session import Session
 router = APIRouter(tags=["Recipes"])
 
 router = APIRouter(
-    prefix="/api/recipes/tags",
+    prefix="/api/tags",
     tags=["Recipe Tags"],
 )
 
 
-@router.get("/")
+@router.get("")
 async def get_all_recipe_tags(session: Session = Depends(generate_session)):
     """ Returns a list of available tags in the database """
-    return db.tags.get_all_primary_keys(session)
+    return db.tags.get_all_limit_columns(session, ["slug", "name"])
 
 
 @router.get("/{tag}")

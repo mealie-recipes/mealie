@@ -11,7 +11,7 @@ const settingsURLs = {
   customPage: id => `${settingsBase}/custom-pages/${id}`,
 };
 
-export default {
+export const siteSettingsAPI =  {
   async get() {
     let response = await apiReq.get(settingsURLs.siteSettings);
     return response.data;

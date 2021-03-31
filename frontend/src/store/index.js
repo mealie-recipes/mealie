@@ -27,18 +27,21 @@ const store = new Vuex.Store({
     allRecipes: [],
     mealPlanCategories: [],
     allCategories: [],
+    allTags: [],
   },
 
   mutations: {
     setRecentRecipes(state, payload) {
       state.recentRecipes = payload;
     },
-
     setMealPlanCategories(state, payload) {
       state.mealPlanCategories = payload;
     },
     setAllCategories(state, payload) {
       state.allCategories = payload;
+    },
+    setAllTags(state, payload) {
+      state.allTags = payload;
     },
   },
 
@@ -60,12 +63,19 @@ const store = new Vuex.Store({
       const categories = await api.categories.getAll();
       commit("setAllCategories", categories);
     },
+    async requestTags({ commit }) {
+      const tags = await api.tags.getAll();
+      commit("setAllTags", tags);
+    },
   },
 
   getters: {
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
-    getAllCategories: state => state.allCategories,
+    getAllCategories: state =>
+      state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
+    getAllTags: state =>
+      state.allTags.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
   },
 });
 

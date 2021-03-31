@@ -22,7 +22,7 @@
       </v-toolbar-title>
 
       <v-spacer> </v-spacer>
-      <v-dialog v-model="dialog" max-width="600px">
+      <v-dialog v-model="dialog" max-width="500">
         <template v-slot:activator="{ on, attrs }">
           <v-btn small color="success" dark v-bind="attrs" v-on="on">
             {{ $t("user.create-link") }}
@@ -42,19 +42,16 @@
           </v-app-bar>
           <v-form ref="newUser" @submit.prevent="save">
             <v-card-text>
-              <v-row class="justify-center mt-3">
-                <v-text-field
-                  class="mr-2"
-                  v-model="editedItem.name"
-                  :label="$t('user.link-name')"
-                  :rules="[existsRule]"
-                  validate-on-blur
-                ></v-text-field>
-                <v-checkbox
-                  v-model="editedItem.admin"
-                  :label="$t('user.admin')"
-                ></v-checkbox>
-              </v-row>
+              <v-text-field
+                v-model="editedItem.name"
+                :label="$t('user.link-name')"
+                :rules="[existsRule]"
+                validate-on-blur
+              ></v-text-field>
+              <v-checkbox
+                v-model="editedItem.admin"
+                :label="$t('user.admin')"
+              ></v-checkbox>
             </v-card-text>
 
             <v-card-actions>
