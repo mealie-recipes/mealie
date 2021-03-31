@@ -65,7 +65,8 @@ const store = new Vuex.Store({
   getters: {
     getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
-    getAllCategories: state => state.allCategories,
+    getAllCategories: state =>
+      state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
   },
 });
 
