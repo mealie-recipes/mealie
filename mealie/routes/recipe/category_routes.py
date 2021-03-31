@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.category import RecipeCategoryResponse
+from mealie.schema.category import CategoryIn, RecipeCategoryResponse
 from mealie.schema.snackbar import SnackResponse
 from sqlalchemy.orm.session import Session
 
@@ -16,6 +16,15 @@ router = APIRouter(
 async def get_all_recipe_categories(session: Session = Depends(generate_session)):
     """ Returns a list of available categories in the database """
     return db.categories.get_all_limit_columns(session, ["slug", "name"])
+
+
+@router.post("")
+async def create_recipe_category(
+    category: CategoryIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
+):
+    """ Creates a Category in the database """
+
+    return db.categories.create(session, category.dict())
 
 
 @router.get("/{category}", response_model=RecipeCategoryResponse)

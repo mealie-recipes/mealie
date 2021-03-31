@@ -15,6 +15,11 @@ export const categoryAPI = {
     let response = await apiReq.get(categoryURLs.get_all);
     return response.data;
   },
+  async create(name) {
+    let response = await apiReq.post(categoryURLs.get_all, { name: name });
+    store.dispatch("requestCategories");
+    return response.data;
+  },
   async getRecipesInCategory(category) {
     let response = await apiReq.get(categoryURLs.get_category(category));
     return response.data;

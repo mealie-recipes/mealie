@@ -1,13 +1,15 @@
 from typing import List, Optional
 
 from fastapi_camelcase import CamelModel
-
 from mealie.schema.recipe import Recipe
 
 
-class CategoryBase(CamelModel):
-    id: int
+class CategoryIn(CamelModel):
     name: str
+
+
+class CategoryBase(CategoryIn):
+    id: int
     slug: str
 
     class Config:
