@@ -148,7 +148,7 @@
             deletable-chips
             v-model="value.tags"
             hide-selected
-            :items="tags"
+            :items="allTags"
             :search-input.sync="tagsSearchInput"
             @change="tagssSearchInput = ''"
           >
@@ -284,14 +284,16 @@ export default {
       },
       categoriesSearchInput: "",
       tagsSearchInput: "",
-      categories: [],
-      tags: [],
     };
   },
   computed: {
     allCategories() {
       const categories = this.$store.getters.getAllCategories;
       return categories.map(cat => cat.name);
+    },
+    allTags() {
+      const tags = this.$store.getters.getAllTags;
+      return tags.map(cat => cat.name);
     },
   },
   methods: {

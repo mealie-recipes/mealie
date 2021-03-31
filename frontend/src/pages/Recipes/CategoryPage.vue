@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     async getRecipes() {
-      let data = await api.categories.get_recipes_in_category(
+      let data = await api.categories.getRecipesInCategory(
         this.currentCategory
       );
       this.title = data.name;

@@ -5,7 +5,7 @@ import settings from "./settings";
 import themes from "./themes";
 import migration from "./migration";
 import myUtils from "./upload";
-import category from "./category";
+import { categoryAPI, tagAPI } from "./category";
 import meta from "./meta";
 import users from "./users";
 import signUps from "./signUps";
@@ -24,7 +24,8 @@ export const api = {
   themes: themes,
   migrations: migration,
   utils: myUtils,
-  categories: category,
+  categories: categoryAPI,
+  tags: tagAPI,
   meta: meta,
   users: users,
   signUps: signUps,

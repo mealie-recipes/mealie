@@ -76,7 +76,7 @@ export default {
       });
     },
     async getRecipeByCategory(category) {
-      return await api.categories.get_recipes_in_category(category);
+      return await api.categories.getRecipesInCategory(category);
     },
     filterRecipe(slug) {
       const storeCategory = this.recipeStore.find(

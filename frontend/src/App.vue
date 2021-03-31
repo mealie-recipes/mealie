@@ -86,6 +86,7 @@ export default {
     this.$store.dispatch("refreshToken");
     this.$store.dispatch("requestCurrentGroup");
     this.$store.dispatch("requestCategories");
+    this.$store.dispatch("requestTags");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
   },
