@@ -32,11 +32,11 @@ services:
       - ./app_data:/app_data
       - ./mealie:/app
 
+  # Mkdocs
   mealie-docs:
     image: squidfunk/mkdocs-material
     restart: always
     ports:
-      - 9923:8000
+      - 9922:8000
     volumes:
       - ./docs:/docs
-

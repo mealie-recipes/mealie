@@ -1,9 +1,10 @@
-from db.db_setup import generate_session
 from fastapi import APIRouter, Depends
-from models.theme_models import SiteTheme
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
+from mealie.routes.deps import get_current_user
+from mealie.schema.snackbar import SnackResponse
+from mealie.schema.theme import SiteTheme
 from sqlalchemy.orm.session import Session
-from utils.snackbar import SnackResponse
-from db.database import db
 
 router = APIRouter(prefix="/api", tags=["Themes"])
 
@@ -16,7 +17,7 @@ def get_all_themes(session: Session = Depends(generate_session)):
 
 
 @router.post("/themes/create")
-def create_theme(data: SiteTheme, session: Session = Depends(generate_session)):
+def create_theme(data: SiteTheme, session: Session = Depends(generate_session), current_user=Depends(get_current_user)):
     """ Creates a site color theme database entry """
     db.themes.create(session, data.dict())
 
@@ -31,7 +32,10 @@ def get_single_theme(theme_name: str, session: Session = Depends(generate_sessio
 
 @router.put("/themes/{theme_name}")
 def update_theme(
-    theme_name: str, data: SiteTheme, session: Session = Depends(generate_session)
+    theme_name: str,
+    data: SiteTheme,
+    session: Session = Depends(generate_session),
+    current_user=Depends(get_current_user),
 ):
     """ Update a theme database entry """
     db.themes.update(session, theme_name, data.dict())
@@ -40,7 +44,7 @@ def update_theme(
 
 
 @router.delete("/themes/{theme_name}")
-def delete_theme(theme_name: str, session: Session = Depends(generate_session)):
+def delete_theme(theme_name: str, session: Session = Depends(generate_session), current_user=Depends(get_current_user)):
     """ Deletes theme from the database """
     db.themes.delete(session, theme_name)
 

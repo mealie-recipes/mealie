@@ -4,6 +4,7 @@
     class="custom-transparent d-flex justify-start align-center text-center "
     tile
     :width="`${timeCardWidth}`"
+    height="55"
     v-if="totalTime || prepTime || performTime"
   >
     <v-card flat color="rgb(255, 0, 0, 0.0)">

@@ -1,5 +1,6 @@
 import html
 import re
+from datetime import datetime
 from typing import List
 
 from slugify import slugify
@@ -24,38 +25,44 @@ class Cleaner:
         Returns:
             dict: cleaned recipe dictionary
         """
-        recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime"))
         recipe_data["description"] = Cleaner.html(recipe_data.get("description", ""))
-        recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime"))
-        recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime"))
-        recipe_data["recipeYield"] = Cleaner.yield_amount(
-            recipe_data.get("recipeYield")
-        )
-        recipe_data["recipeIngredient"] = Cleaner.ingredient(
-            recipe_data.get("recipeIngredient")
-        )
-        recipe_data["recipeInstructions"] = Cleaner.instructions(
-            recipe_data["recipeInstructions"]
-        )
-        recipe_data["image"] = Cleaner.image(recipe_data["image"])
-        recipe_data["slug"] = slugify(recipe_data["name"])
+
+        # Times
+        recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime", None))
+        recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime", None))
+        recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime", None))
+        recipe_data["recipeCategory"] = Cleaner.category(recipe_data.get("recipeCategory", []))
+
+        recipe_data["recipeYield"] = Cleaner.yield_amount(recipe_data.get("recipeYield"))
+        recipe_data["recipeIngredient"] = Cleaner.ingredient(recipe_data.get("recipeIngredient"))
+        recipe_data["recipeInstructions"] = Cleaner.instructions(recipe_data["recipeInstructions"])
+        recipe_data["image"] = Cleaner.image(recipe_data.get("image"))
+        recipe_data["slug"] = slugify(recipe_data.get("name"))
         recipe_data["orgURL"] = url
 
         return recipe_data
 
     @staticmethod
-    def html(raw_html):
-        cleanr = re.compile("<.*?>")
-        cleantext = re.sub(cleanr, "", raw_html)
-        return cleantext
+    def category(category: str):
+        if isinstance(category, str):
+            return [category]
+        else:
+            return []
 
     @staticmethod
-    def image(image) -> str:
-        if type(image) == list:
+    def html(raw_html):
+        cleanr = re.compile("<.*?>")
+        return re.sub(cleanr, "", raw_html)
+
+    @staticmethod
+    def image(image=None) -> str:
+        if not image:
+            return "no image"
+        if isinstance(image, list):
             return image[0]
-        elif type(image) == dict:
+        elif isinstance(image, dict):
             return image["url"]
-        elif type(image) == str:
+        elif isinstance(image, str):
             return image
         else:
             raise Exception(f"Unrecognised image URL format: {image}")
@@ -66,34 +73,25 @@ class Cleaner:
             return []
 
         # One long string split by (possibly multiple) new lines
-        if type(instructions) == str:
-            return [
-                {"text": Cleaner._instruction(line)}
-                for line in instructions.splitlines()
-                if line
-            ]
+        if isinstance(instructions, str):
+            return [{"text": Cleaner._instruction(line)} for line in instructions.splitlines() if line]
 
         # Plain strings in a list
-        elif type(instructions) == list and type(instructions[0]) == str:
+        elif isinstance(instructions, list) and isinstance(instructions[0], str):
             return [{"text": Cleaner._instruction(step)} for step in instructions]
 
         # Dictionaries (let's assume it's a HowToStep) in a list
-        elif type(instructions) == list and type(instructions[0]) == dict:
+        elif isinstance(instructions, list) and isinstance(instructions[0], dict):
             # Try List of Dictionary without "@type" or "type"
-            if not instructions[0].get("@type", False) and not instructions[0].get(
-                "type", False
-            ):
-                return [
-                    {"text": Cleaner._instruction(step["text"])}
-                    for step in instructions
-                ]
+            if not instructions[0].get("@type", False) and not instructions[0].get("type", False):
+                return [{"text": Cleaner._instruction(step["text"])} for step in instructions]
 
             try:
                 # If HowToStep is under HowToSection
                 sectionSteps = []
                 for step in instructions:
                     if step["@type"] == "HowToSection":
-                        [sectionSteps.append(item) for item in step["itemListELement"]]
+                        [sectionSteps.append(item) for item in step["itemListElement"]]
 
                 if len(sectionSteps) > 0:
                     return [
@@ -108,6 +106,7 @@ class Cleaner:
                     if step["@type"] == "HowToStep"
                 ]
             except Exception as e:
+                print(e)
                 # Not "@type", try "type"
                 try:
                     return [
@@ -123,11 +122,11 @@ class Cleaner:
 
     @staticmethod
     def _instruction(line) -> str:
-        l = Cleaner.html(line.strip())
+        clean_line = Cleaner.html(line.strip())
         # Some sites erroneously escape their strings on multiple levels
-        while not l == (l := html.unescape(l)):
+        while not clean_line == (clean_line := html.unescape(clean_line)):
             pass
-        return l
+        return clean_line
 
     @staticmethod
     def ingredient(ingredients: list) -> str:
@@ -136,14 +135,16 @@ class Cleaner:
 
     @staticmethod
     def yield_amount(yld) -> str:
-        if type(yld) == list:
+        if isinstance(yld, list):
             return yld[-1]
         else:
             return yld
 
     @staticmethod
-    def time(time_entry) -> str:
-        if type(time_entry) == type(None):
+    def time(time_entry):
+        if time_entry is None:
             return None
-        elif type(time_entry) != str:
+        elif isinstance(time_entry, datetime):
+            print(time_entry)
+        else:
             return str(time_entry)

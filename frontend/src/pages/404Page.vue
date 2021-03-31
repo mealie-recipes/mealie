@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <v-container class="text-center">
     <v-row>
       <v-col cols="2"></v-col>
       <v-col>
@@ -12,7 +12,7 @@
       </v-col>
       <v-col cols="2"></v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>

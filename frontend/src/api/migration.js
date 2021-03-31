@@ -1,6 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-import { store } from "../store/store";
+import { store } from "../store";
 
 const migrationBase = baseURL + "migrations";
 
@@ -11,7 +11,7 @@ const migrationURLs = {
   import: (folder, file) => `${migrationBase}/${folder}/${file}/import`,
 };
 
-export default {
+export const migrationAPI = {
   async getMigrations() {
     let response = await apiReq.get(migrationURLs.all);
     return response.data;

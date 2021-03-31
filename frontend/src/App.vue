@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
-      <router-link to="/">
+      <router-link v-if="!(isMobile && search)" to="/">
         <v-btn icon>
           <v-icon size="40"> mdi-silverware-variant </v-icon>
         </v-btn>
       </router-link>
 
-      <div btn class="pl-2">
+      <div v-if="!isMobile" btn class="pl-2">
         <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
           >Mealie
         </v-toolbar-title>
@@ -17,71 +17,97 @@
       <v-expand-x-transition>
         <SearchBar
           ref="mainSearchBar"
-          class="mt-7"
           v-if="search"
           :show-results="true"
           @selected="navigateFromSearch"
+          :max-width="isMobile ? '100%' : '450px'"
         />
       </v-expand-x-transition>
       <v-btn icon @click="search = !search">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <Menu />
+      <SiteMenu />
+      <LanguageMenu />
     </v-app-bar>
     <v-main>
-      <v-container>
-        <AddRecipeFab />
-        <SnackBar />
-        <router-view></router-view>
-      </v-container>
-      <FlashMessage :position="'right bottom'"></FlashMessage>
+      <v-banner v-if="demo" sticky
+        ><div class="text-center">
+          <b> This is a Demo</b> | Username: changeme@email.com | Password: demo
+        </div></v-banner
+      >
+
+      <v-slide-x-reverse-transition>
+        <AddRecipeFab v-if="loggedIn" />
+      </v-slide-x-reverse-transition>
+      <router-view></router-view>
     </v-main>
+    <FlashMessage :position="'right bottom'"></FlashMessage>
   </v-app>
 </template>
 
 <script>
-import Menu from "./components/UI/Menu";
-import SearchBar from "./components/UI/SearchBar";
-import AddRecipeFab from "./components/UI/AddRecipeFab";
-import SnackBar from "./components/UI/SnackBar";
+import SiteMenu from "@/components/UI/SiteMenu";
+import SearchBar from "@/components/UI/Search/SearchBar";
+import AddRecipeFab from "@/components/UI/AddRecipeFab";
+import LanguageMenu from "@/components/UI/LanguageMenu";
 import Vuetify from "./plugins/vuetify";
+import { user } from "@/mixins/user";
+import { api } from "./api";
+
 export default {
   name: "App",
 
   components: {
-    Menu,
+    SiteMenu,
     AddRecipeFab,
-    SnackBar,
     SearchBar,
+    LanguageMenu,
   },
+
+  mixins: [user],
 
   watch: {
     $route() {
       this.search = false;
     },
   },
+  computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
+  },
+
   created() {
     window.addEventListener("keyup", e => {
-      if (e.key == "/" && !document.activeElement.id.startsWith('input') ) {
+      if (e.key == "/" && !document.activeElement.id.startsWith("input")) {
         this.search = !this.search;
       }
     });
+    this.$store.dispatch("initLang", { currentVueComponent: this });
   },
 
-  mounted() {
+  async mounted() {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
-    this.$store.dispatch("requestHomePageSettings");
-    this.$store.dispatch("initLang");
+    this.$store.dispatch("refreshToken");
+    this.$store.dispatch("requestCurrentGroup");
+    this.$store.dispatch("requestCategories");
+    this.$store.dispatch("requestTags");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
+
+    const api_status = await api.meta.getIsDemo();
+    this.demo = api_status.demoStatus;
   },
 
   data: () => ({
     search: false,
+    demo: false,
   }),
   methods: {
+    // For Later!
+
     /**
      * Checks if 'system' is set for dark mode and then sets the corrisponding value for vuetify
      */

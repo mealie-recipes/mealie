@@ -65,27 +65,25 @@
       </v-row>
     </v-card-text>
 
-    <v-card-text>
+    <v-card-text v-if="startDate">
       <MealPlanCard v-model="meals" />
     </v-card-text>
     <v-row align="center" justify="end">
-      <v-card-actions>
-        <v-btn color="success" @click="random" v-if="meals[1]" text>
+      <v-card-actions class="mr-5">
+        <v-btn color="success" @click="random" v-if="meals.length > 0" text>
           {{ $t("general.random") }}
         </v-btn>
-        <v-btn color="success" @click="save" text>
+        <v-btn color="success" @click="save" text :disabled="meals.length == 0">
           {{ $t("general.save") }}
         </v-btn>
-
-        <v-spacer></v-spacer>
-        <v-btn icon @click="show = !show"> </v-btn>
       </v-card-actions>
     </v-row>
   </v-card>
 </template>
 
 <script>
-import api from "@/api";
+const CREATE_EVENT = "created";
+import { api } from "@/api";
 import utils from "@/utils";
 import MealPlanCard from "./MealPlanCard";
 export default {
@@ -117,13 +115,19 @@ export default {
         });
       }
     },
+    groupSettings() {
+      this.buildMealStore();
+    },
   },
   async mounted() {
-    let settings = await api.settings.requestAll();
-    this.items = await api.recipes.getAllByCategory(settings.planCategories);
+    this.$store.dispatch("requestCurrentGroup");
   },
 
   computed: {
+    groupSettings() {
+      console.log(this.$store.getters.getCurrentGroup);
+      return this.$store.getters.getCurrentGroup;
+    },
     actualStartDate() {
       return Date.parse(this.startDate);
     },
@@ -136,7 +140,7 @@ export default {
 
       let dateDif = (endDate - startDate) / (1000 * 3600 * 24) + 1;
 
-      if (dateDif <= 1) {
+      if (dateDif < 1) {
         return null;
       }
 
@@ -151,6 +155,22 @@ export default {
   },
 
   methods: {
+    async buildMealStore() {
+      let categories = Array.from(this.groupSettings.categories, x => x.name);
+      this.items = await api.recipes.getAllByCategory(categories);
+
+      if (this.items.length === 0) {
+        const keys = [
+          "name",
+          "slug",
+          "image",
+          "description",
+          "dateAdded",
+          "rating",
+        ];
+        this.items = await api.recipes.allByKeys(keys);
+      }
+    },
     get_random(list) {
       const object = list[Math.floor(Math.random() * list.length)];
       return object;
@@ -179,15 +199,16 @@ export default {
 
     async save() {
       const mealBody = {
+        group: this.groupSettings.name,
         startDate: this.startDate,
         endDate: this.endDate,
         meals: this.meals,
       };
       await api.mealPlans.create(mealBody);
-      this.$emit("created");
+      this.$emit(CREATE_EVENT);
+      this.meals = [];
       this.startDate = null;
       this.endDate = null;
-      this.meals = [];
     },
 
     getImage(image) {

@@ -1,35 +1,38 @@
 import json
 
-from app_config import APP_VERSION, DEBUG_DIR
-from fastapi import APIRouter
-from fastapi.responses import HTMLResponse
-from utils.logger import LOGGER_FILE
+from fastapi import APIRouter, Depends
+from mealie.core.config import APP_VERSION, LOGGER_FILE, app_dirs, settings
+from mealie.routes.deps import get_current_user
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])
 
 
 @router.get("/version")
-async def get_mealie_version():
+async def get_mealie_version(current_user=Depends(get_current_user)):
     """ Returns the current version of mealie"""
     return {"version": APP_VERSION}
 
 
+@router.get("/is-demo")
+async def get_demo_status():
+    print(settings.IS_DEMO)
+    return {"demoStatus": settings.IS_DEMO}
+
+
 @router.get("/last-recipe-json")
-async def get_last_recipe_json():
+async def get_last_recipe_json(current_user=Depends(get_current_user)):
     """ Doc Str """
 
-    with open(DEBUG_DIR.joinpath("last_recipe.json"), "r") as f:
+    with open(app_dirs.DEBUG_DIR.joinpath("last_recipe.json"), "r") as f:
         return json.loads(f.read())
 
 
 @router.get("/log/{num}")
-async def get_log(num: int):
+async def get_log(num: int, current_user=Depends(get_current_user)):
     """ Doc Str """
     with open(LOGGER_FILE, "rb") as f:
         log_text = tail(f, num)
-    HTML_RESPONSE = log_text
-
-    return HTML_RESPONSE
+    return log_text
 
 
 def tail(f, lines=20):

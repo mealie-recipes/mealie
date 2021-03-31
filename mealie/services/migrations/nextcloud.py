@@ -4,10 +4,10 @@ import shutil
 import zipfile
 from pathlib import Path
 
-from app_config import IMG_DIR, MIGRATION_DIR, TEMP_DIR
-from services.recipe_services import Recipe
-from services.scraper.cleaner import Cleaner
-from app_config import IMG_DIR, TEMP_DIR
+from mealie.core.config import app_dirs
+from mealie.db.database import db
+from mealie.schema.recipe import Recipe
+from mealie.services.scraper.cleaner import Cleaner
 
 
 def process_selection(selection: Path) -> Path:
@@ -15,7 +15,7 @@ def process_selection(selection: Path) -> Path:
         return selection
     elif selection.suffix == ".zip":
         with zipfile.ZipFile(selection, "r") as zip_ref:
-            nextcloud_dir = TEMP_DIR.joinpath("nextcloud")
+            nextcloud_dir = app_dirs.TEMP_DIR.joinpath("nextcloud")
             nextcloud_dir.mkdir(exist_ok=False, parents=True)
             zip_ref.extractall(nextcloud_dir)
         return nextcloud_dir
@@ -46,27 +46,27 @@ def import_recipes(recipe_dir: Path) -> Recipe:
     recipe = Recipe(**recipe_data)
 
     if image:
-        shutil.copy(image, IMG_DIR.joinpath(image_name))
+        shutil.copy(image, app_dirs.IMG_DIR.joinpath(image_name))
 
     return recipe
 
 
 def prep():
     try:
-        shutil.rmtree(TEMP_DIR)
+        shutil.rmtree(app_dirs.TEMP_DIR)
     except:
         pass
-    TEMP_DIR.mkdir(exist_ok=True, parents=True)
+    app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
 
 
 def cleanup():
-    shutil.rmtree(TEMP_DIR)
+    shutil.rmtree(app_dirs.TEMP_DIR)
 
 
 def migrate(session, selection: str):
     prep()
-    MIGRATION_DIR.mkdir(exist_ok=True)
-    selection = MIGRATION_DIR.joinpath(selection)
+    app_dirs.MIGRATION_DIR.mkdir(exist_ok=True)
+    selection = app_dirs.MIGRATION_DIR.joinpath(selection)
 
     nextcloud_dir = process_selection(selection)
 
@@ -77,11 +77,12 @@ def migrate(session, selection: str):
 
             try:
                 recipe = import_recipes(dir)
-                recipe.save_to_db(session)
+                db.recipes.create(session, recipe.dict())
+
                 successful_imports.append(recipe.name)
             except:
                 logging.error(f"Failed Nextcloud Import: {dir.name}")
-                logging.exception('')
+                logging.exception("")
                 failed_imports.append(dir.name)
 
     cleanup()

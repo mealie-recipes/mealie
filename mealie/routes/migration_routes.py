@@ -2,16 +2,17 @@ import operator
 import shutil
 from typing import List
 
-from app_config import MIGRATION_DIR
-from db.db_setup import generate_session
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from models.migration_models import MigrationFile, Migrations
-from services.migrations.chowdown import chowdown_migrate as chowdow_migrate
-from services.migrations.nextcloud import migrate as nextcloud_migrate
+from fastapi import APIRouter, Depends, File, UploadFile
+from mealie.core.config import app_dirs
+from mealie.db.db_setup import generate_session
+from mealie.routes.deps import get_current_user
+from mealie.schema.migration import MigrationFile, Migrations
+from mealie.schema.snackbar import SnackResponse
+from mealie.services.migrations.chowdown import chowdown_migrate as chowdow_migrate
+from mealie.services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session
-from utils.snackbar import SnackResponse
 
-router = APIRouter(prefix="/api/migrations", tags=["Migration"])
+router = APIRouter(prefix="/api/migrations", tags=["Migration"], dependencies=[Depends(get_current_user)])
 
 
 @router.get("", response_model=List[Migrations])
@@ -19,8 +20,8 @@ def get_avaiable_nextcloud_imports():
     """ Returns a list of avaiable directories that can be imported into Mealie """
     response_data = []
     migration_dirs = [
-        MIGRATION_DIR.joinpath("nextcloud"),
-        MIGRATION_DIR.joinpath("chowdown"),
+        app_dirs.MIGRATION_DIR.joinpath("nextcloud"),
+        app_dirs.MIGRATION_DIR.joinpath("chowdown"),
     ]
     for directory in migration_dirs:
         migration = Migrations(type=directory.stem)
@@ -36,11 +37,9 @@ def get_avaiable_nextcloud_imports():
 
 
 @router.post("/{type}/{file_name}/import")
-def import_nextcloud_directory(
-    type: str, file_name: str, session: Session = Depends(generate_session)
-):
+def import_nextcloud_directory(type: str, file_name: str, session: Session = Depends(generate_session)):
     """ Imports all the recipes in a given directory """
-    file_path = MIGRATION_DIR.joinpath(type, file_name)
+    file_path = app_dirs.MIGRATION_DIR.joinpath(type, file_name)
     if type == "nextcloud":
         return nextcloud_migrate(session, file_path)
     elif type == "chowdown":
@@ -53,7 +52,7 @@ def import_nextcloud_directory(
 def delete_migration_data(type: str, file_name: str):
     """ Removes migration data from the file system """
 
-    remove_path = MIGRATION_DIR.joinpath(type, file_name)
+    remove_path = app_dirs.MIGRATION_DIR.joinpath(type, file_name)
 
     if remove_path.is_file():
         remove_path.unlink()
@@ -68,7 +67,7 @@ def delete_migration_data(type: str, file_name: str):
 @router.post("/{type}/upload")
 def upload_nextcloud_zipfile(type: str, archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
-    dir = MIGRATION_DIR.joinpath(type)
+    dir = app_dirs.MIGRATION_DIR.joinpath(type)
     dir.mkdir(parents=True, exist_ok=True)
     dest = dir.joinpath(archive.filename)
 

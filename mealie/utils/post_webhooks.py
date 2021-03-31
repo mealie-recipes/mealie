@@ -1,23 +1,24 @@
-import json
-
 import requests
-from db.database import db
-from db.db_setup import create_session
-from models.settings_models import SiteSettings
-from services.meal_services import MealPlan
-from services.recipe_services import Recipe
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
+from mealie.schema.user import GroupInDB
+from mealie.services.meal_services import get_todays_meal
+from sqlalchemy.orm.session import Session
 
 
-def post_webhooks():
-    session = create_session()
-    all_settings = db.get(session, "main")
-    all_settings = SiteSettings(**all_settings)
+def post_webhooks(group: int, session: Session = None):
+    session = session or create_session()
+    group_settings: GroupInDB = db.groups.get(session, group)
 
-    if all_settings.webhooks.enabled:
-        todays_meal = Recipe.get_by_slug(MealPlan.today()).dict()
-        urls = all_settings.webhooks.webhookURLs
+    if not group_settings.webhook_enable:
+        return
 
-        for url in urls:
-            requests.post(url, json.dumps(todays_meal, default=str))
+    todays_recipe = get_todays_meal(session, group)
+
+    if not todays_recipe:
+        return
+
+    for url in group_settings.webhook_urls:
+        requests.post(url, json=todays_recipe.json())
 
     session.close()

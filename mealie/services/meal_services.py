@@ -1,105 +1,73 @@
 from datetime import date, timedelta
-from typing import List, Optional
+from typing import Union
 
-from db.database import db
-from pydantic import BaseModel
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
+from mealie.schema.meal import MealIn, MealOut, MealPlanIn, MealPlanInDB, MealPlanProcessed
+from mealie.schema.recipe import Recipe
+from mealie.schema.user import GroupInDB
 from sqlalchemy.orm.session import Session
 
-from services.recipe_services import Recipe
+
+def process_meals(session: Session, meal_plan_base: MealPlanIn) -> MealPlanProcessed:
+    meals = []
+    for x, meal in enumerate(meal_plan_base.meals):
+        meal: MealIn
+        try:
+            recipe: Recipe = db.recipes.get(session, meal.slug)
+
+            meal_data = MealOut(
+                slug=recipe.slug,
+                name=recipe.name,
+                date=meal_plan_base.startDate + timedelta(days=x),
+                image=recipe.image,
+                description=recipe.description,
+            )
+
+        except:
+
+            meal_data = MealOut(
+                date=meal_plan_base.startDate + timedelta(days=x),
+            )
+
+        meals.append(meal_data)
+
+    return MealPlanProcessed(
+        group=meal_plan_base.group,
+        meals=meals,
+        startDate=meal_plan_base.startDate,
+        endDate=meal_plan_base.endDate,
+    )
 
 
-class Meal(BaseModel):
-    slug: Optional[str]
-    name: Optional[str]
-    date: date
-    dateText: str
-    image: Optional[str]
-    description: Optional[str]
+def get_todays_meal(session: Session, group: Union[int, GroupInDB]) -> Recipe:
+    """Returns the given mealplan for today based off the group. If the group
+    Type is of type int, then a query will be made to the database to get the
+    grop object."
 
+    Args:
+        session (Session): SqlAlchemy Session
+        group (Union[int, GroupInDB]): Either the id of the group or the GroupInDB Object
 
-class MealData(BaseModel):
-    name: Optional[str]
-    slug: str
-    dateText: str
+    Returns:
+        Recipe: Pydantic Recipe Object
+    """
+    session = session if session else create_session()
 
+    if isinstance(group, int):
+        group: GroupInDB = db.groups.get(session, group)
 
-class MealPlan(BaseModel):
-    uid: Optional[str]
-    startDate: date
-    endDate: date
-    meals: List[Meal]
+    today_slug = None
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "startDate": date.today(),
-                "endDate": date.today(),
-                "meals": [
-                    {"slug": "Packed Mac and Cheese", "date": date.today()},
-                    {"slug": "Eggs and Toast", "date": date.today()},
-                ],
-            }
-        }
-
-    def process_meals(self, session: Session):
-        meals = []
-        for x, meal in enumerate(self.meals):
-
-            try:
-                recipe = Recipe.get_by_slug(session, meal.slug)
-
-                meal_data = {
-                    "slug": recipe.slug,
-                    "name": recipe.name,
-                    "date": self.startDate + timedelta(days=x),
-                    "dateText": meal.dateText,
-                    "image": recipe.image,
-                    "description": recipe.description,
-                }
-            except:
-                meal_data = {
-                    "date": self.startDate + timedelta(days=x),
-                    "dateText": meal.dateText,
-                }
-
-            meals.append(Meal(**meal_data))
-
-        self.meals = meals
-
-    def save_to_db(self, session: Session):
-        db.meals.create(session, self.dict())
-
-    @staticmethod
-    def get_all(session: Session) -> List:
-
-        all_meals = [
-            MealPlan(**x) for x in db.meals.get_all(session, order_by="startDate")
-        ]
-
-        return all_meals
-
-    def update(self, session, uid):
-        db.meals.update(session, uid, self.dict())
-
-    @staticmethod
-    def delete(session, uid):
-        db.meals.delete(session, uid)
-
-    @staticmethod
-    def today(session: Session) -> str:
-        """ Returns the meal slug for Today """
-        meal_plan = db.meals.get_all(session, limit=1, order_by="startDate")
-
-        meal_docs = [Meal(**meal) for meal in meal_plan["meals"]]
-
-        for meal in meal_docs:
+    for mealplan in group.mealplans:
+        mealplan: MealPlanInDB
+        for meal in mealplan.meals:
+            meal: MealOut
             if meal.date == date.today():
-                return meal.slug
+                today_slug = meal.slug
+                break
 
-        return "No Meal Today"
-
-    @staticmethod
-    def this_week(session: Session):
-        meal_plan = db.meals.get_all(session, limit=1, order_by="startDate")
-
-        return meal_plan
+    if today_slug:
+        return db.recipes.get(session, today_slug)
+    else:
+        return None

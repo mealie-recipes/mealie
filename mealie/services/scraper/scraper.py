@@ -3,14 +3,14 @@ from typing import List
 
 import requests
 import scrape_schema_recipe
-from app_config import DEBUG_DIR
-from services.image_services import scrape_image
-from services.recipe_services import Recipe
-from services.scraper import  open_graph
-from services.scraper.cleaner import Cleaner
-from utils.logger import logger
+from mealie.core.config import app_dirs
+from fastapi.logger import logger
+from mealie.services.image_services import scrape_image
+from mealie.schema.recipe import Recipe
+from mealie.services.scraper import open_graph
+from mealie.services.scraper.cleaner import Cleaner
 
-LAST_JSON = DEBUG_DIR.joinpath("last_recipe.json")
+LAST_JSON = app_dirs.DEBUG_DIR.joinpath("last_recipe.json")
 
 
 def create_from_url(url: str) -> Recipe:
@@ -28,24 +28,18 @@ def create_from_url(url: str) -> Recipe:
     new_recipe = Cleaner.clean(new_recipe, url)
     new_recipe = download_image_for_recipe(new_recipe)
 
-    recipe = Recipe(**new_recipe)
-
-    return recipe
+    return Recipe(**new_recipe)
 
 
 def extract_recipe_from_html(html: str, url: str) -> dict:
     try:
-        scraped_recipes: List[dict] = scrape_schema_recipe.loads(
-            html, python_objects=True
-        )
+        scraped_recipes: List[dict] = scrape_schema_recipe.loads(html, python_objects=True)
         dump_last_json(scraped_recipes)
 
         if not scraped_recipes:
-            scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(
-                url, python_objects=True
-            )
+            scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(url, python_objects=True)
     except Exception as e:
-        # trying without python_objects
+        print(e)
         scraped_recipes: List[dict] = scrape_schema_recipe.loads(html)
         dump_last_json(scraped_recipes)
 

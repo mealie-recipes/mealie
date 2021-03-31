@@ -3,20 +3,16 @@
   "python.pythonPath": ".venv/bin/python3.9",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
-  "python.autoComplete.extraPaths": ["mealie", "mealie/mealie"],
-  "python.analysis.extraPaths": ["mealie", "mealie/mealie"],
-
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
   "python.testing.pytestEnabled": true,
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
+  "python.testing.pytestArgs": ["tests"],
   "cSpell.enableFiletypes": ["!javascript", "!python"],
-  "python.testing.pytestArgs": ["mealie"],
-  "i18n-ally.localesPaths": "frontend/src/locales",
+  "i18n-ally.localesPaths": "frontend/src/locales/messages",
+  "i18n-ally.sourceLanguage": "en",
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.keystyle": "nested",
-  "cSpell.words": [
-    "performant"
-  ],
+  "cSpell.words": ["performant"],
   "search.mode": "reuseEditor"
 }

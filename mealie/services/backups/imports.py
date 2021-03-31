@@ -2,15 +2,17 @@ import json
 import shutil
 import zipfile
 from pathlib import Path
-from typing import List
+from typing import Callable, List
 
-from app_config import BACKUP_DIR, IMG_DIR, TEMP_DIR
-from db.database import db
-from models.import_models import RecipeImport, SettingsImport, ThemeImport
-from models.theme_models import SiteTheme
-from services.recipe_services import Recipe
+from mealie.core.config import app_dirs
+from mealie.db.database import db
+from mealie.schema.recipe import Recipe
+from mealie.schema.restore import CustomPageImport, GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
+from mealie.schema.settings import CustomPageOut, SiteSettings
+from mealie.schema.theme import SiteTheme
+from mealie.schema.user import UpdateGroup, UserInDB
+from pydantic.main import BaseModel
 from sqlalchemy.orm.session import Session
-from utils.logger import logger
 
 
 class ImportDatabase:
@@ -18,92 +20,56 @@ class ImportDatabase:
         self,
         session: Session,
         zip_archive: str,
-        import_recipes: bool = True,
-        import_settings: bool = True,
-        import_themes: bool = True,
         force_import: bool = False,
-        rebase: bool = False,
     ) -> None:
         """Import a database.zip file exported from mealie.
 
         Args:
+            session (Session): SqlAlchemy Session
             zip_archive (str): The filename contained in the backups directory
-            import_recipes (bool, optional): Import Recipes?. Defaults to True.
-            import_settings (bool, optional): Determines if settings are imported. Defaults to True.
-            import_themes (bool, optional): Determines if themes are imported. Defaults to True.
             force_import (bool, optional): Force import will update all existing recipes. If False existing recipes are skipped. Defaults to False.
-            rebase (bool, optional): Rebase will first clear the database and then import Recipes. Defaults to False.
 
         Raises:
             Exception: If the zip file does not exists an exception raise.
         """
         self.session = session
-        self.archive = BACKUP_DIR.joinpath(zip_archive)
-        self.imp_recipes = import_recipes
-        self.imp_settings = import_settings
-        self.imp_themes = import_themes
+        self.archive = app_dirs.BACKUP_DIR.joinpath(zip_archive)
         self.force_imports = force_import
-        self.force_rebase = rebase
 
         if self.archive.is_file():
-            self.import_dir = TEMP_DIR.joinpath("active_import")
+            self.import_dir = app_dirs.TEMP_DIR.joinpath("active_import")
             self.import_dir.mkdir(parents=True, exist_ok=True)
 
             with zipfile.ZipFile(self.archive, "r") as zip_ref:
                 zip_ref.extractall(self.import_dir)
-            pass
         else:
             raise Exception("Import file does not exist")
 
-    def run(self):
-        recipe_report = []
-        settings_report = []
-        theme_report = []
-        if self.imp_recipes:
-            recipe_report = self.import_recipes()
-        if self.imp_settings:
-            settings_report = self.import_settings()
-        if self.imp_themes:
-            theme_report = self.import_themes()
-
-        self.clean_up()
-
-        return {
-            "recipeImports": recipe_report,
-            "settingsReport": settings_report,
-            "themeReport": theme_report,
-        }
-
     def import_recipes(self):
         recipe_dir: Path = self.import_dir.joinpath("recipes")
-
         imports = []
         successful_imports = []
 
-        for recipe in recipe_dir.glob("*.json"):
-            with open(recipe, "r") as f:
-                recipe_dict = json.loads(f.read())
-                recipe_dict = ImportDatabase._recipe_migration(recipe_dict)
-            try:
-                recipe_obj = Recipe(**recipe_dict)
-                recipe_obj.save_to_db(self.session)
-                import_status = RecipeImport(
-                    name=recipe_obj.name, slug=recipe_obj.slug, status=True
-                )
-                imports.append(import_status)
-                successful_imports.append(recipe.stem)
-                logger.info(f"Imported: {recipe.stem}")
+        recipes = ImportDatabase.read_models_file(
+            file_path=recipe_dir, model=Recipe, single_file=False, migrate=ImportDatabase._recipe_migration
+        )
 
-            except Exception as inst:
-                logger.error(inst)
-                logger.info(f"Failed Import: {recipe.stem}")
-                import_status = RecipeImport(
-                    name=recipe.stem,
-                    slug=recipe.stem,
-                    status=False,
-                    exception=str(inst),
-                )
-                imports.append(import_status)
+        for recipe in recipes:
+            recipe: Recipe
+
+            import_status = self.import_model(
+                db_table=db.recipes,
+                model=recipe,
+                return_model=RecipeImport,
+                name_attr="name",
+                search_key="slug",
+                slug=recipe.slug,
+            )
+
+            if import_status.status:
+                successful_imports.append(recipe.slug)
+
+            imports.append(import_status)
 
         self._import_images(successful_imports)
 
@@ -111,6 +77,9 @@ class ImportDatabase:
 
     @staticmethod
     def _recipe_migration(recipe_dict: dict) -> dict:
+        if recipe_dict.get("categories", False):
+            recipe_dict["recipeCategory"] = recipe_dict.get("categories")
+            del recipe_dict["categories"]
         try:
             del recipe_dict["_id"]
             del recipe_dict["dateAdded"]
@@ -119,17 +88,14 @@ class ImportDatabase:
         # Migration from list to Object Type Data
         try:
             if "" in recipe_dict["tags"]:
-                recipe_dict["tags"] = [
-                    tag for tag in recipe_dict["tags"] if not tag == ""
-                ]
+                recipe_dict["tags"] = [tag for tag in recipe_dict["tags"] if tag != ""]
         except:
             pass
 
         try:
             if "" in recipe_dict["categories"]:
-                recipe_dict["categories"] = [
-                    cat for cat in recipe_dict["categories"] if not cat == ""
-                ]
+                recipe_dict["categories"] = [cat for cat in recipe_dict["categories"] if cat != ""]
+
         except:
             pass
 
@@ -142,50 +108,221 @@ class ImportDatabase:
         image_dir = self.import_dir.joinpath("images")
         for image in image_dir.iterdir():
             if image.stem in successful_imports:
-                shutil.copy(image, IMG_DIR)
+                shutil.copy(image, app_dirs.IMG_DIR)
 
     def import_themes(self):
         themes_file = self.import_dir.joinpath("themes", "themes.json")
+        themes = ImportDatabase.read_models_file(themes_file, SiteTheme)
         theme_imports = []
-        with open(themes_file, "r") as f:
-            themes: list[dict] = json.loads(f.read())
-        for theme in themes:
-            if theme.get("name") == "default":
-                continue
-            new_theme = SiteTheme(**theme)
-            try:
 
-                db.themes.create(self.session, new_theme.dict())
-                theme_imports.append(ThemeImport(name=new_theme.name, status=True))
-            except Exception as inst:
-                logger.info(f"Unable Import Theme {new_theme.name}")
-                theme_imports.append(
-                    ThemeImport(name=new_theme.name, status=False, exception=str(inst))
-                )
+        for theme in themes:
+            if theme.name == "default":
+                continue
+
+            import_status = self.import_model(
+                db_table=db.themes,
+                model=theme,
+                return_model=ThemeImport,
+                name_attr="name",
+                search_key="name",
+            )
+
+            theme_imports.append(import_status)
 
         return theme_imports
 
-    def import_settings(self):
+    def import_settings(self):  # ! Broken
         settings_file = self.import_dir.joinpath("settings", "settings.json")
-        settings_imports = []
+        settings = ImportDatabase.read_models_file(settings_file, SiteSettings)
+        settings = settings[0]
 
-        with open(settings_file, "r") as f:
-            settings: dict = json.loads(f.read())
+        try:
+            db.settings.update(self.session, 1, settings.dict())
+            import_status = SettingsImport(name="Site Settings", status=True)
 
-            name = settings.get("name")
+        except Exception as inst:
+            self.session.rollback()
+            import_status = SettingsImport(name="Site Settings", status=False, exception=str(inst))
 
-            try:
-                db.settings.update(self.session, name, settings)
-                import_status = SettingsImport(name=name, status=True)
+        return [import_status]
 
-            except Exception as inst:
-                import_status = SettingsImport(
-                    name=name, status=False, exception=str(inst)
+    def import_pages(self):
+        pages_file = self.import_dir.joinpath("pages", "pages.json")
+        pages = ImportDatabase.read_models_file(pages_file, CustomPageOut)
+
+        page_imports = []
+        for page in pages:
+            import_stats = self.import_model(
+                db_table=db.custom_pages, model=page, return_model=CustomPageImport, name_attr="name", search_key="slug"
+            )
+            page_imports.append(import_stats)
+
+        return page_imports
+
+    def import_groups(self):
+        groups_file = self.import_dir.joinpath("groups", "groups.json")
+        groups = ImportDatabase.read_models_file(groups_file, UpdateGroup)
+        group_imports = []
+
+        for group in groups:
+            import_status = self.import_model(db.groups, group, GroupImport, search_key="name")
+            group_imports.append(import_status)
+
+        return group_imports
+
+    def import_users(self):
+        users_file = self.import_dir.joinpath("users", "users.json")
+        users = ImportDatabase.read_models_file(users_file, UserInDB)
+        user_imports = []
+        for user in users:
+            if user.id == 1:  # Update Default User
+                db.users.update(self.session, 1, user.dict())
+                import_status = UserImport(name=user.full_name, status=True)
+                user_imports.append(import_status)
+                continue
+
+            import_status = self.import_model(
+                db_table=db.users,
+                model=user,
+                return_model=UserImport,
+                name_attr="full_name",
+                search_key="email",
+            )
+
+            user_imports.append(import_status)
+
+        return user_imports
+
+    @staticmethod
+    def read_models_file(file_path: Path, model: BaseModel, single_file=True, migrate: Callable = None):
+        """A general purpose function that is used to process a backup `.json` file created by mealie
+        note that if the file doesn't not exists the function will return any empty list
+
+        Args:
+            file_path (Path): The path to the .json file or directory
+            model (BaseModel): The pydantic model that will be created from the .json file entries
+            single_file (bool, optional): If true, the json data will be treated as list, if false it will use glob style matches and treat each file as its own entry. Defaults to True.
+            migrate (Callable, optional): A migrate function that will be called on the data prior to creating a model. Defaults to None.
+
+        Returns:
+            [type]: [description]
+        """
+        if not file_path.exists():
+            return []
+
+        if single_file:
+            with open(file_path, "r") as f:
+                file_data = json.loads(f.read())
+
+            if migrate:
+                file_data = [migrate(x) for x in file_data]
+
+            return [model(**g) for g in file_data]
+
+        all_models = []
+        for file in file_path.glob("*.json"):
+            with open(file, "r") as f:
+                file_data = json.loads(f.read())
+
+            if migrate:
+                file_data = migrate(file_data)
+
+            all_models.append(model(**file_data))
+
+        return all_models
+
+    def import_model(self, db_table, model, return_model, name_attr="name", search_key="id", **kwargs):
+        """A general purpose function used to insert a list of pydantic modelsi into the database.
+        The assumption at this point is that the models that are inserted. If self.force_imports is true
+        any existing entries will be removed prior to creation
+
+        Args:
+            db_table ([type]): A database table like `db.users`
+            model ([type]): The Pydantic model that matches the database
+            return_model ([type]): The return model that will be used for the 'report'
+            name_attr (str, optional): The name property on the return model. Defaults to "name".
+            search_key (str, optional): The key used to identify if an the entry already exists. Defaults to "id"
+            **kwargs (): Any kwargs passed will be used to set attributes on the `return_model`
+
+        Returns:
+            [type]: Returns the `return_model` specified.
+        """
+        model_name = getattr(model, name_attr)
+        search_value = getattr(model, search_key)
+
+        item = db_table.get(self.session, search_value, search_key)
+        if item:
+            if not self.force_imports:
+                return return_model(
+                    name=model_name,
+                    status=False,
+                    exception=f"Table entry with matching '{search_key}': '{search_value}' exists",
                 )
 
-            settings_imports.append(import_status)
+            primary_key = getattr(item, db_table.primary_key)
+            db_table.delete(self.session, primary_key)
+        try:
+            db_table.create(self.session, model.dict())
+            import_status = return_model(name=model_name, status=True)
 
-        return settings_imports
+        except Exception as inst:
+            self.session.rollback()
+            import_status = return_model(name=model_name, status=False, exception=str(inst))
+
+        for key, value in kwargs.items():
+            setattr(return_model, key, value)
+
+        return import_status
 
     def clean_up(self):
-        shutil.rmtree(TEMP_DIR)
+        shutil.rmtree(app_dirs.TEMP_DIR)
+
+
+def import_database(
+    session: Session,
+    archive,
+    import_recipes=True,
+    import_settings=True,
+    import_pages=True,
+    import_themes=True,
+    import_users=True,
+    import_groups=True,
+    force_import: bool = False,
+    rebase: bool = False,
+):
+    import_session = ImportDatabase(session, archive, force_import)
+
+    recipe_report = []
+    if import_recipes:
+        recipe_report = import_session.import_recipes()
+
+    settings_report = []
+    if import_settings:
+        settings_report = import_session.import_settings()
+
+    theme_report = []
+    if import_themes:
+        theme_report = import_session.import_themes()
+
+    if import_pages:
+        print("IMport Pages")
+        page_report = import_session.import_pages()
+
+    group_report = []
+    if import_groups:
+        group_report = import_session.import_groups()
+
+    user_report = []
+    if import_users:
+        user_report = import_session.import_users()
+
+    import_session.clean_up()
+
+    return {
+        "recipeImports": recipe_report,
+        "settingsImports": settings_report,
+        "themeImports": theme_report,
+        "pageImports": page_report,
+        "groupImports": group_report,
+        "userImports": user_report,
+    }

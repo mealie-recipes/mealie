@@ -1,11 +1,11 @@
 from typing import Tuple
 
 import extruct
-from app_config import DEBUG_DIR
+from mealie.core.config import app_dirs
 from slugify import slugify
 from w3lib.html import get_base_url
 
-LAST_JSON = DEBUG_DIR.joinpath("last_recipe.json")
+LAST_JSON = app_dirs.DEBUG_DIR.joinpath("last_recipe.json")
 
 
 def og_field(properties: dict, field_name: str) -> str:

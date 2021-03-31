@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { api } from "@/api";
 export default {
   data() {
     return {
@@ -43,12 +44,12 @@ export default {
         {
           icon: "mdi-home",
           to: "/",
-          title: "Home",
+          title: this.$t("page.home-page"),
         },
         {
           icon: "mdi-view-module",
           to: "/recipes/all",
-          title: "All Recipes",
+          title: this.$t("page.all-recipes"),
         },
       ],
     };
@@ -62,8 +63,7 @@ export default {
     allCategories() {
       this.buildSidebar();
     },
-    showSidebar() {
-    },
+    showSidebar() {},
   },
   mounted() {
     this.buildSidebar();
@@ -75,10 +75,12 @@ export default {
     async buildSidebar() {
       this.links = [];
       this.links.push(...this.baseLinks);
-      this.allCategories.forEach(async element => {
+      const pages = await api.siteSettings.getPages();
+      pages.sort((a, b) => a.position - b.position);
+      pages.forEach(async element => {
         this.links.push({
           title: element.name,
-          to: `/recipes/${element.slug}`,
+          to: `/pages/${element.slug}`,
           icon: "mdi-tag",
         });
       });

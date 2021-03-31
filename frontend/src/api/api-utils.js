@@ -1,6 +1,11 @@
 const baseURL = "/api/";
 import axios from "axios";
 import utils from "@/utils";
+import { store } from "../store";
+
+axios.defaults.headers.common[
+  "Authorization"
+] = `Bearer ${store.getters.getToken}`;
 
 function processResponse(response) {
   try {
@@ -42,7 +47,7 @@ const apiReq = {
         return response;
       } else return;
     });
-    // processResponse(response);
+    processResponse(response);
     return response;
   },
 
@@ -57,6 +62,8 @@ const apiReq = {
     return response;
   },
 };
+
+
 
 export { apiReq };
 export { baseURL };

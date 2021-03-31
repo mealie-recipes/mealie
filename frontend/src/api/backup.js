@@ -1,6 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-import { store } from "../store/store";
+import { store } from "@/store";
 
 const backupBase = baseURL + "backups/";
 
@@ -13,26 +13,47 @@ const backupURLs = {
   downloadBackup: fileName => `${backupBase}${fileName}/download`,
 };
 
-export default {
+export const backupAPI = {
+  /**
+   * Request all backups available on the server
+   * @returns {Array} List of Available Backups
+   */
   async requestAvailable() {
     let response = await apiReq.get(backupURLs.available);
     return response.data;
   },
-
+  /**
+   * Calls for importing a file on the server
+   * @param {string} fileName
+   * @param {object} data
+   * @returns A report containing status of imported items
+   */
   async import(fileName, data) {
     let response = await apiReq.post(backupURLs.importBackup(fileName), data);
     store.dispatch("requestRecentRecipes");
     return response;
   },
-
+  /**
+   * Removes a file from the server
+   * @param {string} fileName
+   */
   async delete(fileName) {
     await apiReq.delete(backupURLs.deleteBackup(fileName));
   },
-
-  async create(data) {
-    let response = apiReq.post(backupURLs.createBackup, data);
+  /**
+   * Creates a backup on the serve given a set of options
+   * @param {object} data
+   * @returns 
+   */
+  async create(options) {
+    let response = apiReq.post(backupURLs.createBackup, options);
     return response;
   },
+  /**
+   * Downloads a file from the server. I don't actually think this is used? 
+   * @param {string} fileName 
+   * @returns Download URL
+   */
   async download(fileName) {
     let response = await apiReq.get(backupURLs.downloadBackup(fileName));
     return response.data;
