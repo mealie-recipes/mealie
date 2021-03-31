@@ -12,7 +12,7 @@ const notifyHelpers = {
 const days = [
   "Sunday",
   "Monday",
-  "Tueday",
+  "Tuesday",
   "Wednesday",
   "Thursday",
   "Friday",
