@@ -43,6 +43,7 @@ export const recipeAPI = {
 
   async create(recipeData) {
     let response = await apiReq.post(recipeURLs.create, recipeData);
+    store.dispatch("requestRecentRecipes");
     return response.data;
   },
 
@@ -62,15 +63,13 @@ export const recipeAPI = {
   },
 
   async update(data) {
-    const recipeSlug = data.slug;
-
-    let response = await apiReq.put(recipeURLs.update(recipeSlug), data);
+    let response = await apiReq.put(recipeURLs.update(data.slug), data);
     store.dispatch("requestRecentRecipes");
     return response.data;
   },
 
   async delete(recipeSlug) {
-    apiReq.delete(recipeURLs.delete(recipeSlug));
+    await apiReq.delete(recipeURLs.delete(recipeSlug));
     store.dispatch("requestRecentRecipes");
     router.push(`/`);
   },

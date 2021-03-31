@@ -1,6 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-import { store } from "../store";
+import { store } from "@/store";
 
 const backupBase = baseURL + "backups/";
 

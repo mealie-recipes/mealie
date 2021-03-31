@@ -1,5 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
+import { store } from "@/store";
 
 const prefix = baseURL + "categories";
 
@@ -20,6 +21,7 @@ export const categoryAPI = {
   },
   async delete(category) {
     let response = await apiReq.delete(categoryURLs.delete_category(category));
+    store.dispatch("requestCategories");
     return response.data;
   },
 };
@@ -43,6 +45,7 @@ export const tagAPI = {
   },
   async delete(tag) {
     let response = await apiReq.delete(tagURLs.deleteTag(tag));
+    store.dispatch("requestTags");
     return response.data;
   },
 };
