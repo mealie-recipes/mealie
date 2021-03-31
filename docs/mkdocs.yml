@@ -1,5 +1,5 @@
 site_name: Mealie
-
+demo_url: https://mealie-demo.hay-kot.dev/
 theme:
   custom_dir: docs/overrides
   features:
@@ -64,4 +64,3 @@ nav:
       - v0.3.0 Improvements: "changelog/v0.3.0.md"
       - v0.2.0 Now With Tests!: "changelog/v0.2.0.md"
       - v0.1.0 Beta: "changelog/v0.1.0.md"
-
