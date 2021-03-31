@@ -13,7 +13,7 @@ const backupURLs = {
   downloadBackup: fileName => `${backupBase}${fileName}/download`,
 };
 
-export default {
+export const backupAPI = {
   /**
    * Request all backups available on the server
    * @returns {Array} List of Available Backups

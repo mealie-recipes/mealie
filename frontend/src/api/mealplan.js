@@ -14,7 +14,7 @@ const mealPlanURLs = {
   shopping: planID => `${prefix}${planID}/shopping-list`,
 };
 
-export default {
+export const mealplanAPI = {
   async create(postBody) {
     let response = await apiReq.post(mealPlanURLs.create, postBody);
     return response;

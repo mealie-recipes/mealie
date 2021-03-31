@@ -8,7 +8,7 @@ const debugURLs = {
   lastRecipe: `${prefix}/last-recipe-json`,
 };
 
-export default {
+export const metaAPI =  {
   async get_version() {
     let response = await apiReq.get(debugURLs.version);
     return response.data;

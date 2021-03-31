@@ -9,7 +9,7 @@ const settingsURLs = {
   testWebhooks: `${settingsBase}/webhooks/test`,
 };
 
-export default {
+export const settingsAPI = {
   async requestAll() {
     let response = await apiReq.get(settingsURLs.siteSettings);
     return response.data;

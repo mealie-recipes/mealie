@@ -10,7 +10,7 @@ const signUpURLs = {
   createUser: token => `${signUpPrefix}/${token}`,
 };
 
-export default {
+export const signupAPI = {
   async getAll() {
     let response = await apiReq.get(signUpURLs.all);
     return response.data;

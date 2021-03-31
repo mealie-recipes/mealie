@@ -18,7 +18,7 @@ const recipeURLs = {
   updateImage: slug => `${prefix}${slug}/image`,
 };
 
-export default {
+export const recipeAPI = {
   /**
    * Create a Recipe by URL
    * @param {string} recipeURL

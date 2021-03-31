@@ -10,7 +10,7 @@ const groupsURLs = {
   update: id => `${groupPrefix}/${id}`,
 };
 
-export default {
+export const groupAPI = {
   async allGroups() {
     let response = await apiReq.get(groupsURLs.groups);
     return response.data;

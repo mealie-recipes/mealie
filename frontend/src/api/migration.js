@@ -11,7 +11,7 @@ const migrationURLs = {
   import: (folder, file) => `${migrationBase}/${folder}/${file}/import`,
 };
 
-export default {
+export const migrationAPI = {
   async getMigrations() {
     let response = await apiReq.get(migrationURLs.all);
     return response.data;

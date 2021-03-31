@@ -1,33 +1,33 @@
-import backup from "./backup";
-import recipe from "./recipe";
-import mealplan from "./mealplan";
-import settings from "./settings";
-import themes from "./themes";
-import migration from "./migration";
-import myUtils from "./upload";
+import { backupAPI } from "./backup";
+import { recipeAPI } from "./recipe";
+import { mealplanAPI } from "./mealplan";
+import { settingsAPI } from "./settings";
+import { themeAPI } from "./themes";
+import { migrationAPI } from "./migration";
+import { utilsAPI } from "./upload";
 import { categoryAPI, tagAPI } from "./category";
-import meta from "./meta";
-import users from "./users";
-import signUps from "./signUps";
-import groups from "./groups";
-import siteSettings from "./siteSettings";
+import { metaAPI } from "./meta";
+import { userAPI } from "./users";
+import { signupAPI } from "./signUps";
+import { groupAPI } from "./groups";
+import { siteSettingsAPI } from "./siteSettings";
 
 /**
  * The main object namespace for interacting with the backend database
  */
 export const api = {
-  recipes: recipe,
-  siteSettings: siteSettings,
-  backups: backup,
-  mealPlans: mealplan,
-  settings: settings,
-  themes: themes,
-  migrations: migration,
-  utils: myUtils,
+  recipes: recipeAPI,
+  siteSettings: siteSettingsAPI,
+  backups: backupAPI,
+  mealPlans: mealplanAPI,
+  settings: settingsAPI,
+  themes: themeAPI,
+  migrations: migrationAPI,
+  utils: utilsAPI,
   categories: categoryAPI,
   tags: tagAPI,
-  meta: meta,
-  users: users,
-  signUps: signUps,
-  groups: groups,
+  meta: metaAPI,
+  users: userAPI,
+  signUps: signupAPI,
+  groups: groupAPI,
 };
