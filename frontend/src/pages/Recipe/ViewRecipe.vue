@@ -1,6 +1,17 @@
 <template>
   <v-container>
-    <v-card id="myRecipe">
+    <v-card
+      v-if="skeleton"
+      :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+      class="pa-3"
+    >
+      <v-skeleton-loader
+        class="mx-auto"
+        height="700px"
+        type="card"
+      ></v-skeleton-loader>
+    </v-card>
+    <v-card v-else id="myRecipe">
       <v-img
         height="400"
         :src="getImage(recipeDetails.image)"
@@ -77,8 +88,14 @@ export default {
     RecipeTimeCard,
   },
   mixins: [user],
+  inject: {
+    theme: {
+      default: { isDark: false },
+    },
+  },
   data() {
     return {
+      skeleton: true,
       // currentRecipe: this.$route.params.recipe,
       form: false,
       jsonEditor: false,
@@ -138,6 +155,7 @@ export default {
     },
     async getRecipeDetails() {
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
+      this.skeleton = false;
       this.form = false;
     },
     getImage(image) {
