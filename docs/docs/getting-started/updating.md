@@ -11,7 +11,7 @@
 
 ## Backing Up Your Data
 
-[See Backups and Restore Section](/site-administration/backups-and-exports/) for details on backing up your data
+[See Backups and Restore Section](/mealie/site-administration/backups-and-exports/) for details on backing up your data
 
 ## Docker
 For all setups using Docker the updating process look something like this
