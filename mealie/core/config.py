@@ -80,7 +80,7 @@ class AppSettings:
         self.PRODUCTION = bool(os.environ.get("ENV"))
         self.IS_DEMO = os.getenv("DEMO", "False") == "True"
         self.API_PORT = int(os.getenv("API_PORT", 9000))
-        self.API = os.getenv("API_DOCS", "False") == "True"
+        self.API = os.getenv("API_DOCS", "True") == "True"
         self.DOCS_URL = "/docs" if self.API else None
         self.REDOC_URL = "/redoc" if self.API else None
         self.SECRET = determine_secrets(app_dirs.DATA_DIR, self.PRODUCTION)
