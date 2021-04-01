@@ -1,8 +1,12 @@
 <template>
   <v-card>
-    <v-card-title class="headline">
+    <v-card-title class=" headline">
       {{ $t("meal-plan.create-a-new-meal-plan") }}
+      <v-btn color="info" class="ml-auto" @click="setQuickWeek()">
+        <v-icon left>mdi-calendar-minus</v-icon> Quick Week
+      </v-btn>
     </v-card-title>
+
     <v-divider></v-divider>
     <v-card-text>
       <v-row dense>
@@ -116,12 +120,10 @@ export default {
         });
       }
     },
-    groupSettings() {
-      this.buildMealStore();
-    },
   },
   async mounted() {
-    this.$store.dispatch("requestCurrentGroup");
+    await this.$store.dispatch("requestCurrentGroup");
+    await this.buildMealStore();
   },
 
   computed: {
@@ -160,7 +162,7 @@ export default {
 
   methods: {
     async buildMealStore() {
-      let categories = Array.from(this.groupSettings.categories, x => x.name);
+      const categories = Array.from(this.groupSettings.categories, x => x.name);
       this.items = await api.recipes.getAllByCategory(categories);
 
       if (this.items.length === 0) {
@@ -189,7 +191,6 @@ export default {
         this.meals[index]["slug"] = recipe.slug;
         this.meals[index]["name"] = recipe.name;
         this.usedRecipes.push(recipe);
-        console.log(this.usedRecipes, recipe);
       });
     },
     processTime(index) {
@@ -236,6 +237,33 @@ export default {
 
       const [month, day, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+    getNextDayOfTheWeek(dayName, excludeToday = true, refDate = new Date()) {
+      const dayOfWeek = [
+        "sun",
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+      ].indexOf(dayName.slice(0, 3).toLowerCase());
+      if (dayOfWeek < 0) return;
+      refDate.setHours(0, 0, 0, 0);
+      refDate.setDate(
+        refDate.getDate() +
+          +!!excludeToday +
+          ((dayOfWeek + 7 - refDate.getDay() - +!!excludeToday) % 7)
+      );
+      return refDate;
+    },
+    setQuickWeek() {
+      const nextMonday = this.getNextDayOfTheWeek("Monday", false);
+      const nextEndDate = new Date(nextMonday);
+      nextEndDate.setDate(nextEndDate.getDate() + 4);
+
+      this.startDate = nextMonday.toISOString().substr(0, 10);
+      this.endDate = nextEndDate.toISOString().substr(0, 10);
     },
   },
 };
