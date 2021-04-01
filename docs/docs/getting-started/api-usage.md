@@ -93,7 +93,7 @@ def import_from_file(input_file, token, mealie_url):
 input_file="list"
 mail="changeme@email.com"
 password="MyPassword"
-mealie_url="http://192.168.0.44:5002"
+mealie_url="http://localhost:9000"
 
 
 token = authentification(mail, password, mealie_url)
