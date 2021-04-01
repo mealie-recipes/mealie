@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     getSlug(name) {
+      if (!name) return;
       if (this.category) {
         const matches = this.allCategories.filter(x => x.name == name);
         if (matches.length > 0) return matches[0].slug;
