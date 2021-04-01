@@ -23,6 +23,11 @@ docker run \
 
 ```
 
+!!! tip "Default Credentials"
+    **Username:** changeme@email.com 
+
+    **Password:** MyPassword
+
 ## Docker Compose with SQLite
 Deployment with docker-compose is the recommended method for deployment. The example below will create an instance of mealie available on port `9925` with the data volume mounted from the local directory. To use, create a docker-compose.yml file, paste the contents below and save. In the terminal run `docker-compose up -d` to start the container. 
 
