@@ -4,19 +4,39 @@ import pytest
 from mealie.core.config import CWD, DATA_DIR, AppDirectories, AppSettings, determine_data_dir, determine_secrets
 
 
+def test_default_settings(monkeypatch):
+    monkeypatch.delenv("DEFAULT_GROUP", raising=False)
+    monkeypatch.delenv("DEFAULT_PASSWORD", raising=False)
+    monkeypatch.delenv("API_PORT", raising=False)
+    monkeypatch.delenv("API_DOCS", raising=False)
+    monkeypatch.delenv("DB_TYPE", raising=False)
+    monkeypatch.delenv("IS_DEMO", raising=False)
+
+    app_settings = AppSettings()
+
+    assert app_settings.DEFAULT_GROUP == "Home"
+    assert app_settings.DEFAULT_PASSWORD == "MyPassword"
+    assert app_settings.DATABASE_TYPE == "sqlite"
+    assert app_settings.API_PORT == 9000
+    assert app_settings.API_DOCS is True
+    assert app_settings.IS_DEMO is False
+
+    assert app_settings.REDOC_URL == "/redoc"
+    assert app_settings.DOCS_URL == "/docs"
+
+
 def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("DEFAULT_GROUP", "Test Group")
     monkeypatch.setenv("DEFAULT_PASSWORD", "Test Password")
     monkeypatch.setenv("API_PORT", "8000")
     monkeypatch.setenv("API_DOCS", False)
 
-    app_dirs = AppDirectories(CWD, DATA_DIR)
-    app_settings = AppSettings(app_dirs)
+    app_settings = AppSettings()
 
     assert app_settings.DEFAULT_GROUP == "Test Group"
     assert app_settings.DEFAULT_PASSWORD == "Test Password"
     assert app_settings.API_PORT == 8000
-    assert app_settings.API is False
+    assert app_settings.API_DOCS is False
 
     assert app_settings.REDOC_URL is None
     assert app_settings.DOCS_URL is None
@@ -25,9 +45,8 @@ def test_non_default_settings(monkeypatch):
 def test_unknown_database(monkeypatch):
     monkeypatch.setenv("DB_TYPE", "nonsense")
 
-    with pytest.raises(Exception, match="Unable to determine database type. Acceptible options are 'sqlite'"):
-        app_dirs = AppDirectories(CWD, DATA_DIR)
-        AppSettings(app_dirs)
+    with pytest.raises(ValueError, match="Unable to determine database type. Acceptible options are 'sqlite'"):
+        AppSettings()
 
 
 def test_secret_generation(tmp_path):

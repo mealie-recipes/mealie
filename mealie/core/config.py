@@ -1,8 +1,10 @@
 import os
 import secrets
 from pathlib import Path
+from typing import Optional, Union
 
 import dotenv
+from pydantic import BaseSettings, Field, validator
 
 APP_VERSION = "v0.4.0"
 DB_VERSION = "v0.4.0"
@@ -11,7 +13,6 @@ CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
 
 ENV = BASE_DIR.joinpath(".env")
-dotenv.load_dotenv(ENV)
 PRODUCTION = os.environ.get("ENV")
 
 
@@ -36,6 +37,11 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
             new_secret = secrets.token_hex(32)
             f.write(new_secret)
         return new_secret
+
+
+# General
+DATA_DIR = determine_data_dir(PRODUCTION)
+LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 
 
 class AppDirectories:
@@ -74,36 +80,51 @@ class AppDirectories:
             dir.mkdir(parents=True, exist_ok=True)
 
 
-class AppSettings:
-    def __init__(self, app_dirs: AppDirectories) -> None:
-        global DB_VERSION
-        self.PRODUCTION = bool(os.environ.get("ENV"))
-        self.IS_DEMO = os.getenv("DEMO", "False") == "True"
-        self.API_PORT = int(os.getenv("API_PORT", 9000))
-        self.API = os.getenv("API_DOCS", "True") == "True"
-        self.DOCS_URL = "/docs" if self.API else None
-        self.REDOC_URL = "/redoc" if self.API else None
-        self.SECRET = determine_secrets(app_dirs.DATA_DIR, self.PRODUCTION)
-        self.DATABASE_TYPE = os.getenv("DB_TYPE", "sqlite")
-
-        # Used to Set SQLite File Version
-        self.SQLITE_FILE = None
-        if self.DATABASE_TYPE == "sqlite":
-            self.SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
-        else:
-            raise Exception("Unable to determine database type. Acceptible options are 'sqlite'")
-
-        self.DEFAULT_GROUP = os.getenv("DEFAULT_GROUP", "Home")
-        self.DEFAULT_PASSWORD = os.getenv("DEFAULT_PASSWORD", "MyPassword")
-
-        # Not Used!
-        self.SFTP_USERNAME = os.getenv("SFTP_USERNAME", None)
-        self.SFTP_PASSWORD = os.getenv("SFTP_PASSWORD", None)
-
-
-# General
-DATA_DIR = determine_data_dir(PRODUCTION)
-LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
-
 app_dirs = AppDirectories(CWD, DATA_DIR)
-settings = AppSettings(app_dirs)
+
+
+class AppSettings(BaseSettings):
+    global DATA_DIR
+    PRODUCTION: bool = Field(False, env="ENV")
+    IS_DEMO: bool = False
+    API_PORT: int = 9000
+    API_DOCS: bool = True
+
+    @property
+    def DOCS_URL(self) -> str:
+        return "/docs" if self.API_DOCS else None
+
+    @property
+    def REDOC_URL(self) -> str:
+        return "/redoc" if self.API_DOCS else None
+
+    SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
+    DATABASE_TYPE: str = Field("sqlite", env="DB_TYPE")
+
+    @validator("DATABASE_TYPE", pre=True)
+    def validate_db_type(cls, v: str) -> Optional[str]:
+        if v != "sqlite":
+            raise ValueError("Unable to determine database type. Acceptible options are 'sqlite'")
+        else:
+            return v
+
+    # Used to Set SQLite File Version
+    SQLITE_FILE: Optional[Union[str, Path]]
+
+    @validator("SQLITE_FILE", pre=True)
+    def identify_sqlite_file(cls, v: str) -> Optional[str]:
+        return app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
+
+    DEFAULT_GROUP: str = "Home"
+    DEFAULT_PASSWORD: str = "MyPassword"
+
+    # Not Used!
+    SFTP_USERNAME: Optional[str]
+    SFTP_PASSWORD: Optional[str]
+
+    class Config:
+        env_file = BASE_DIR.joinpath(".env")
+        env_file_encoding = "utf-8"
+
+
+settings = AppSettings()
