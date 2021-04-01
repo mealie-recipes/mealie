@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.schema.category import RecipeTagResponse
 from mealie.schema.snackbar import SnackResponse
 from sqlalchemy.orm.session import Session
 
@@ -19,7 +20,7 @@ async def get_all_recipe_tags(session: Session = Depends(generate_session)):
     return db.tags.get_all_limit_columns(session, ["slug", "name"])
 
 
-@router.get("/{tag}")
+@router.get("/{tag}", response_model=RecipeTagResponse)
 def get_all_recipes_by_tag(tag: str, session: Session = Depends(generate_session)):
     """ Returns a list of recipes associated with the provided tag. """
     return db.tags.get(session, tag)
