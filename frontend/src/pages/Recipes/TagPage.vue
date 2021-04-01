@@ -43,7 +43,6 @@ export default {
   methods: {
     async getRecipes() {
       let data = await api.tags.getRecipesInTag(this.currentTag);
-      console.log(data);
       this.title = data.name;
       this.recipes = data.recipes;
     },

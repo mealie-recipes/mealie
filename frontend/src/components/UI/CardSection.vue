@@ -99,11 +99,6 @@ export default {
       default: 999,
     },
   },
-  watch: {
-    recipes() {
-      console.log(this.recipes);
-    },
-  },
   computed: {
     viewScale() {
       switch (this.$vuetify.breakpoint.name) {

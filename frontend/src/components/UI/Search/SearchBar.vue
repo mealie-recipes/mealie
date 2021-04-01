@@ -154,7 +154,6 @@ export default {
       return utils.getImageURL(image);
     },
     selected(slug, name) {
-      console.log("Selected", slug, name);
       this.$emit("selected", slug, name);
     },
     async onFocus() {
