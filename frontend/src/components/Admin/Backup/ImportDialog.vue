@@ -37,7 +37,12 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-btn color="accent" text :href="`/api/backups/${name}/download`">
+          <v-btn
+            color="accent"
+            text
+            :loading="downloading"
+            @click="downloadFile(`/api/backups/${name}/download`)"
+          >
             {{ $t("general.download") }}
           </v-btn>
           <v-spacer></v-spacer>
@@ -61,6 +66,7 @@
 
 <script>
 import ImportOptions from "@/components/Admin/Backup/ImportOptions";
+import axios from "axios";
 export default {
   components: { ImportOptions },
   props: {
@@ -83,6 +89,7 @@ export default {
       dialog: false,
       forceImport: false,
       rebaseImport: false,
+      downloading: false,
     };
   },
   methods: {
@@ -108,6 +115,23 @@ export default {
       };
       this.close();
       this.$emit(event, eventData);
+    },
+    async downloadFile(downloadURL) {
+      this.downloading = true;
+      const response = await axios({
+        url: downloadURL,
+        method: "GET",
+        responseType: "blob", // important
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${this.name}.zip`);
+      document.body.appendChild(link);
+      link.click();
+
+      this.downloading = false;
     },
   },
 };
