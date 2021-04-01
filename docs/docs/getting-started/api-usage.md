@@ -10,5 +10,46 @@ For example you could add `{"message": "Remember to thaw the chicken"}` to a rec
 
 
 ## Examples
+### Bulk import
+Recipes can be imported in bulk from a file containing a list of URLs. This can be done using the following bash script with the `list` file containing one URL per line.
+
+```bash
+#!/bin/bash
+
+function authentification () {
+  auth=$(curl -X 'POST' \
+    "$3/api/auth/token" \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'grant_type=&username='$1'&password='$2'&scope=&client_id=&client_secret=')
+
+    echo $auth |  sed -e 's/.*token":"\(.*\)",.*/\1/'
+}
+
+function import_from_file () {
+  while IFS= read -r line
+  do
+    echo $line
+    curl -X 'POST' \
+      "$3/api/recipes/create-url" \
+      -H "Authorization: Bearer $2" \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{"url": "'$line'" }'
+    echo
+  done < "$1"
+}
+
+input="list"
+mail="changeme@email.com"
+password="MyPassword"
+mealie_url=http://localhost:9000
+
+
+token=$(authentification $mail $password $mealie_url)
+import_from_file $input $token $mealie_url
+
+```
+
 
 Have Ideas? Submit a PR!
