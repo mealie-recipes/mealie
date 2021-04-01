@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center">
-    <v-dialog v-model="dialog" width="600px" height="0">
+  <div class="text-center ">
+    <v-dialog v-model="dialog" class="search-dialog" width="600px" height="0">
       <v-card>
         <v-app-bar dark color="primary">
           <v-toolbar-title class="headline">Search a Recipe</v-toolbar-title>
@@ -49,8 +49,8 @@ export default {
 };
 </script>
 
-<style>
-.v-dialog__content {
+<style scope>
+.search-dialog {
   margin-top: 10%;
   align-items: flex-start;
   justify-content: center;

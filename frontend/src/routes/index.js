@@ -6,6 +6,7 @@ import NewRecipe from "@/pages/Recipe/NewRecipe";
 import CustomPage from "@/pages/Recipes/CustomPage";
 import AllRecipes from "@/pages/Recipes/AllRecipes";
 import CategoryPage from "@/pages/Recipes/CategoryPage";
+import TagPage from "@/pages/Recipes/TagPage";
 import Planner from "@/pages/MealPlan/Planner";
 import Debug from "@/pages/Debug";
 import LoginPage from "@/pages/LoginPage";
@@ -33,7 +34,8 @@ export const routes = [
   { path: "/search", component: SearchPage },
   { path: "/recipes/all", component: AllRecipes },
   { path: "/pages/:customPage", component: CustomPage },
-  { path: "/recipes/:category", component: CategoryPage },
+  { path: "/recipes/tag/:tag", component: TagPage },
+  { path: "/recipes/category/:category", component: CategoryPage },
   { path: "/recipe/:recipe", component: ViewRecipe },
   { path: "/new/", component: NewRecipe },
   { path: "/meal-plan/planner", component: Planner },

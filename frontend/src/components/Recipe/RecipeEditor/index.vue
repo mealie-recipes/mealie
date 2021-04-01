@@ -83,14 +83,16 @@
                 :key="generateKey('ingredient', index)"
               >
                 <v-row align="center">
-                  <v-text-field
+                  <v-textarea
                     class="mr-2"
                     :label="$t('recipe.ingredient')"
                     v-model="value.recipeIngredient[index]"
                     append-outer-icon="mdi-menu"
                     mdi-move-resize
+                    auto-grow
                     solo
                     dense
+                    rows="2"
                   >
                     <v-icon
                       class="mr-n1"
@@ -100,7 +102,7 @@
                     >
                       mdi-delete
                     </v-icon>
-                  </v-text-field>
+                  </v-textarea>
                 </v-row>
               </div>
             </transition-group>
@@ -235,6 +237,7 @@
                     dense
                     v-model="value.recipeInstructions[index]['text']"
                     :key="generateKey('instructions', index)"
+                    rows="4"
                   >
                   </v-textarea>
                 </v-card-text>

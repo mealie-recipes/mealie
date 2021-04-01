@@ -27,5 +27,5 @@ class TagBase(CategoryBase):
     pass
 
 
-class RecipeTagResponse(TagBase):
+class RecipeTagResponse(RecipeCategoryResponse):
     pass

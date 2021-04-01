@@ -21,7 +21,6 @@ export const metaAPI = {
 
   async getIsDemo() {
     let response = await apiReq.get(debugURLs.demo);
-    console.log(response);
     return response.data;
   },
 };

@@ -125,7 +125,6 @@ export default {
 
   computed: {
     groupSettings() {
-      console.log(this.$store.getters.getCurrentGroup);
       return this.$store.getters.getCurrentGroup;
     },
     actualStartDate() {

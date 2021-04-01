@@ -273,7 +273,6 @@ export default {
       await this.initialize();
     },
     resetPassword() {
-      console.log(this.activeId);
       api.users.resetPassword(this.editedItem.id);
     },
   },

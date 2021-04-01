@@ -36,7 +36,6 @@ export default {
   },
   computed: {
     siteSettings() {
-      console.log(this.$store.getters.getSiteSettings);
       return this.$store.getters.getSiteSettings;
     },
     recentRecipes() {
@@ -54,7 +53,6 @@ export default {
       this.siteSettings.categories.forEach(async element => {
         let recipes = await this.getRecipeByCategory(element.slug);
         if (recipes.recipes.length < 0) recipes.recipes = [];
-        console.log(recipes);
         this.recipeByCategory.push(recipes);
       });
     },
