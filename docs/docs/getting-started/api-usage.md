@@ -11,8 +11,9 @@ For example you could add `{"message": "Remember to thaw the chicken"}` to a rec
 
 ## Examples
 ### Bulk import
-Recipes can be imported in bulk from a file containing a list of URLs. This can be done using the following bash script with the `list` file containing one URL per line.
+Recipes can be imported in bulk from a file containing a list of URLs. This can be done using the following bash or python scripts with the `list` file containing one URL per line.
 
+#### Bash
 ```bash
 #!/bin/bash
 
@@ -51,5 +52,52 @@ import_from_file $input $token $mealie_url
 
 ```
 
+#### Python
+```python
+import requests
+import re
+
+def authentification(mail, password, mealie_url):
+  headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }
+  data = {
+    'grant_type': '',
+    'username': mail,
+    'password': password,
+    'scope': '',
+    'client_id': '',
+    'client_secret': ''
+  }
+  auth = requests.post(mealie_url + "/api/auth/token", headers=headers, data=data)
+  token = re.sub(r'.*token":"(.*)",.*', r'\1', auth.text)
+  return token
+
+def import_from_file(input_file, token, mealie_url):
+  with open(input_file) as fp:
+    for l in fp:
+      line = re.sub(r'(.*)\n', r'\1', l)
+      print(line)
+      headers = {
+        'Authorization': "Bearer " + token,
+        'accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      data = {
+        'url': line
+      }
+      response = requests.post(mealie_url + "/api/recipes/create-url", headers=headers, json=data)
+      print(response.text)
+
+input_file="list"
+mail="changeme@email.com"
+password="MyPassword"
+mealie_url="http://192.168.0.44:5002"
+
+
+token = authentification(mail, password, mealie_url)
+import_from_file(input_file, token, mealie_url)
+```
 
 Have Ideas? Submit a PR!
