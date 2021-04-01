@@ -3,7 +3,6 @@ import secrets
 from pathlib import Path
 from typing import Optional, Union
 
-import dotenv
 from pydantic import BaseSettings, Field, validator
 
 APP_VERSION = "v0.4.0"
