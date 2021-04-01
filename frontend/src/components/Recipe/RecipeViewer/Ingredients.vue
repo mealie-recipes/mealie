@@ -55,7 +55,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 p {
   margin-bottom: auto !important;
 }
