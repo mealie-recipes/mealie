@@ -26,21 +26,16 @@
       </v-card-title>
 
       <v-card-actions class="">
-        <v-row dense align="center">
-          <v-col>
-            <v-rating
-              class="mr-2"
-              color="secondary"
-              background-color="secondary lighten-3"
-              dense
-              length="5"
-              size="15"
-              :value="rating"
-            ></v-rating>
-          </v-col>
-          <v-col></v-col>
-          <v-col align="end"> </v-col>
-        </v-row>
+        <v-rating
+          class="mr-2"
+          color="secondary"
+          background-color="secondary lighten-3"
+          dense
+          length="5"
+          size="15"
+          :value="rating"
+        ></v-rating>
+        <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
   </v-hover>
@@ -55,6 +50,7 @@ export default {
     description: String,
     rating: Number,
     image: String,
+
     route: {
       default: true,
     },
