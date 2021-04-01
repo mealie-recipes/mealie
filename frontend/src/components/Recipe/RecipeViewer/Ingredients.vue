@@ -1,24 +1,28 @@
 <template>
   <div>
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
-    <div
-      v-for="(ingredient, index) in ingredients"
+    <v-list-item
+      dense
+      v-for="(ingredient, index) in displayIngredients"
       :key="generateKey('ingredient', index)"
+      @click="ingredient.checked = !ingredient.checked"
     >
-      <v-card flat>
-        <v-card-text class="text-subtitle-1">
-          <v-row class="flex row ">
-            <v-checkbox
-              hide-details
-              class=" pt-0 ingredients my-auto py-auto"
-              color="secondary"
-            >
-            </v-checkbox>
-            <vue-markdown class="my-auto" :source="ingredient"> </vue-markdown>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </div>
+      <v-checkbox
+        hide-details
+        v-model="ingredient.checked"
+        class=" pt-0 ingredients my-auto py-auto"
+        color="secondary"
+      >
+      </v-checkbox>
+
+      <v-list-item-content>
+        <vue-markdown
+          class="my-auto text-subtitle-1 mb-0"
+          :source="ingredient.text"
+        >
+        </vue-markdown>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 
@@ -32,6 +36,17 @@ export default {
   props: {
     ingredients: Array,
   },
+  data() {
+    return {
+      displayIngredients: [],
+    };
+  },
+  mounted() {
+    this.displayIngredients = this.ingredients.map(x => ({
+      text: x,
+      checked: false,
+    }));
+  },
   methods: {
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);
@@ -43,5 +58,9 @@ export default {
 <style>
 p {
   margin-bottom: auto !important;
+}
+
+.my-card-text {
+  overflow-wrap: break-word;
 }
 </style>
