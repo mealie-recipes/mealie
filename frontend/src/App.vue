@@ -160,10 +160,12 @@ export default {
 
 .notify-base {
   color: white !important;
+  /* min-height: 50px; */
   margin-right: 60px;
   margin-bottom: -5px;
   opacity: 0.9 !important;
 }
+
 
 *::-webkit-scrollbar {
   width: 0.25rem;
@@ -175,12 +177,5 @@ export default {
 
 *::-webkit-scrollbar-thumb {
   background: grey;
-}
-
-.notify-base {
-  color: white !important;
-  margin-right: 60px;
-  margin-bottom: -5px;
-  opacity: 0.9 !important;
 }
 </style>
