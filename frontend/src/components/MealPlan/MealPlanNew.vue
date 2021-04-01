@@ -101,6 +101,7 @@ export default {
       endDate: null,
       menu1: false,
       menu2: false,
+      usedRecipes: [1],
     };
   },
 
@@ -151,6 +152,10 @@ export default {
     endComputedDateFormatted() {
       return this.formatDate(this.endDate);
     },
+    filteredRecipes() {
+      const recipes = this.items.filter(x => !this.usedRecipes.includes(x));
+      return recipes.length > 0 ? recipes : this.items;
+    },
   },
 
   methods: {
@@ -170,15 +175,21 @@ export default {
         this.items = await api.recipes.allByKeys(keys);
       }
     },
-    get_random(list) {
-      const object = list[Math.floor(Math.random() * list.length)];
-      return object;
+    getRandom(list) {
+      let recipe = 1;
+      while (this.usedRecipes.includes(recipe)) {
+        recipe = list[Math.floor(Math.random() * list.length)];
+      }
+      return recipe;
     },
     random() {
+      this.usedRecipes = [1];
       this.meals.forEach((element, index) => {
-        let recipe = this.get_random(this.items);
+        let recipe = this.getRandom(this.filteredRecipes);
         this.meals[index]["slug"] = recipe.slug;
         this.meals[index]["name"] = recipe.name;
+        this.usedRecipes.push(recipe);
+        console.log(this.usedRecipes, recipe);
       });
     },
     processTime(index) {
