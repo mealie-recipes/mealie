@@ -10,14 +10,14 @@
       <v-checkbox
         hide-details
         v-model="ingredient.checked"
-        class=" pt-0 ingredients my-auto py-auto"
+        class="pt-0 my-auto py-auto"
         color="secondary"
       >
       </v-checkbox>
 
       <v-list-item-content>
         <vue-markdown
-          class="my-auto text-subtitle-1 mb-0"
+          class="ma-0 pa-0 text-subtitle-1 dense-markdown"
           :source="ingredient.text"
         >
         </vue-markdown>
@@ -55,12 +55,8 @@ export default {
 };
 </script>
 
-<style scoped>
-p {
-  margin-bottom: auto !important;
-}
-
-.my-card-text {
-  overflow-wrap: break-word;
+<style >
+.dense-markdown p {
+  margin: auto !important;
 }
 </style>

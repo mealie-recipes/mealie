@@ -57,28 +57,23 @@
         <strong>{{ groupSettings.webhookTime }}</strong>
       </p>
 
-      <v-row dense align="center">
-        <v-col cols="12" md="2" sm="5">
-          <v-switch
-            v-model="groupSettings.webhookEnable"
-            :label="$t('general.enabled')"
-          ></v-switch>
-        </v-col>
-        <v-col cols="12" md="3" sm="5">
-          <TimePickerDialog @save-time="saveTime" />
-        </v-col>
-        <v-col cols="12" md="4" sm="5">
-          <v-btn text color="info" @click="testWebhooks">
-            <v-icon left> mdi-webhook </v-icon>
-            {{ $t("settings.webhooks.test-webhooks") }}
-          </v-btn>
-        </v-col>
+      <v-row dense class="flex align-center">
+        <v-switch
+        class="mx-2"
+          v-model="groupSettings.webhookEnable"
+          :label="$t('general.enabled')"
+        ></v-switch>
+        <TimePickerDialog @save-time="saveTime" class="ma-2" />
+        <v-btn class="ma-2" color="info" @click="testWebhooks">
+          <v-icon left> mdi-webhook </v-icon>
+          {{ $t("settings.webhooks.test-webhooks") }}
+        </v-btn>
       </v-row>
 
       <v-row
         v-for="(url, index) in groupSettings.webhookUrls"
         :key="index"
-        align="center"
+        align=" center"
         dense
       >
         <v-col cols="1">
