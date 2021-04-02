@@ -1,6 +1,5 @@
 import json
 import re
-from datetime import timedelta
 
 import pytest
 from mealie.services.scraper.cleaner import Cleaner
