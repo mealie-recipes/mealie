@@ -38,10 +38,6 @@ export default {
       const appInfo = this.$store.getters.getAppInfo;
       return appInfo.demoStatus;
     },
-    demo() {
-      const appInfo = this.$store.getters.getAppInfo;
-      return appInfo.demoStatus;
-    },
   },
 
   created() {
