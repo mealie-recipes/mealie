@@ -10,7 +10,7 @@ const debugURLs = {
 };
 
 export const metaAPI = {
-  async get_version() {
+  async getAppInfo() {
     let response = await apiReq.get(debugURLs.version);
     return response.data;
   },

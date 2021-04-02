@@ -12,7 +12,7 @@ CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
 
 ENV = BASE_DIR.joinpath(".env")
-PRODUCTION = os.getenv("ENV", 'False').lower() in ['true', '1']
+PRODUCTION = os.getenv("ENV", "False").lower() in ["true", "1"]
 
 
 def determine_data_dir(production: bool) -> Path:
@@ -127,3 +127,5 @@ class AppSettings(BaseSettings):
 
 
 settings = AppSettings()
+
+print(settings.dict())
