@@ -53,7 +53,6 @@ import AddRecipeFab from "@/components/UI/AddRecipeFab";
 import LanguageMenu from "@/components/UI/LanguageMenu";
 import Vuetify from "./plugins/vuetify";
 import { user } from "@/mixins/user";
-import { api } from "./api";
 
 export default {
   name: "App",
@@ -76,6 +75,10 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.name === "xs";
     },
+    demo() {
+      const appInfo = this.$store.getters.getAppInfo;
+      return appInfo.demoStatus;
+    },
   },
 
   created() {
@@ -96,14 +99,11 @@ export default {
     this.$store.dispatch("requestTags");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
-
-    const api_status = await api.meta.getIsDemo();
-    this.demo = api_status.demoStatus;
+    this.$store.dispatch("requestAppInfo");
   },
 
   data: () => ({
     search: false,
-    demo: false,
   }),
   methods: {
     // For Later!
@@ -165,7 +165,6 @@ export default {
   margin-bottom: -5px;
   opacity: 0.9 !important;
 }
-
 
 *::-webkit-scrollbar {
   width: 0.25rem;

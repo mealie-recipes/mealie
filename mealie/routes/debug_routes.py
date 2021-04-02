@@ -3,20 +3,15 @@ import json
 from fastapi import APIRouter, Depends
 from mealie.core.config import APP_VERSION, LOGGER_FILE, app_dirs, settings
 from mealie.routes.deps import get_current_user
+from mealie.schema.debug import AppInfo
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])
 
 
 @router.get("/version")
-async def get_mealie_version(current_user=Depends(get_current_user)):
+async def get_mealie_version():
     """ Returns the current version of mealie"""
-    return {"version": APP_VERSION}
-
-
-@router.get("/is-demo")
-async def get_demo_status():
-    print(settings.IS_DEMO)
-    return {"demoStatus": settings.IS_DEMO}
+    return AppInfo(version=APP_VERSION, demo_status=settings.IS_DEMO)
 
 
 @router.get("/last-recipe-json")

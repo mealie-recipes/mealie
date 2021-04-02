@@ -83,7 +83,7 @@
           <v-list-item-content>
             <v-list-item-title>
               {{ $t("settings.current") }}
-              {{ version }}
+              {{ appVersion }}
             </v-list-item-title>
             <v-list-item-subtitle>
               <a
@@ -106,14 +106,12 @@
 import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 import { user } from "@/mixins/user";
-import { api } from "@/api";
 import axios from "axios";
 export default {
   mixins: [validators, initials, user],
   data() {
     return {
       latestVersion: null,
-      version: null,
       hideImage: false,
       showSidebar: false,
       mobile: false,
@@ -163,8 +161,6 @@ export default {
     this.mobile = this.viewScale();
     this.showSidebar = !this.viewScale();
     this.getVersion();
-    let versionData = await api.meta.get_version();
-    this.version = versionData.version;
   },
 
   computed: {
@@ -172,7 +168,11 @@ export default {
       return `api/users/${this.user.id}/image`;
     },
     newVersionAvailable() {
-      return this.latestVersion == this.version ? false : true;
+      return this.latestVersion == this.appVersion ? false : true;
+    },
+    appVersion() {
+      const appInfo = this.$store.getters.getAppInfo;
+      return appInfo.version;
     },
   },
 

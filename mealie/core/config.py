@@ -12,7 +12,7 @@ CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
 
 ENV = BASE_DIR.joinpath(".env")
-PRODUCTION = os.environ.get("ENV")
+PRODUCTION = os.getenv("ENV", "False").lower() in ["true", "1"]
 
 
 def determine_data_dir(production: bool) -> Path:
@@ -111,7 +111,7 @@ class AppSettings(BaseSettings):
     SQLITE_FILE: Optional[Union[str, Path]]
 
     @validator("SQLITE_FILE", pre=True)
-    def identify_sqlite_file(_cls, v: str) -> Optional[str]:
+    def identify_sqlite_file(cls, v: str) -> Optional[str]:
         return app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
 
     DEFAULT_GROUP: str = "Home"
@@ -127,3 +127,5 @@ class AppSettings(BaseSettings):
 
 
 settings = AppSettings()
+
+print(settings.dict())
