@@ -1,5 +1,10 @@
 <template>
-  <v-card hover :to="`/recipe/${slug}`" max-height="125">
+  <v-card
+    hover
+    :to="`/recipe/${slug}`"
+    max-height="125"
+    @click="$emit('selected')"
+  >
     <v-list-item>
       <v-list-item-avatar rounded size="125" class="mt-0 ml-n4">
         <v-img :src="getImage(image)"> </v-img>

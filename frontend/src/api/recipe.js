@@ -56,9 +56,7 @@ export const recipeAPI = {
     const fd = new FormData();
     fd.append("image", fileObject);
     fd.append("extension", fileObject.name.split(".").pop());
-
     let response = apiReq.put(recipeURLs.updateImage(recipeSlug), fd);
-
     return response;
   },
 
