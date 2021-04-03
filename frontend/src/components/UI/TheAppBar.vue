@@ -89,6 +89,7 @@ export default {
   data() {
     return {
       search: false,
+      isMobile: false,
     };
   },
   watch: {
@@ -97,9 +98,9 @@ export default {
     },
   },
   computed: {
-    isMobile() {
-      return this.$vuetify.breakpoint.name === "xs";
-    },
+    // isMobile() {
+    //   return this.$vuetify.breakpoint.name === "xs";
+    // },
   },
   methods: {
     navigateFromSearch(slug) {
