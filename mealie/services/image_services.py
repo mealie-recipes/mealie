@@ -1,4 +1,5 @@
 import shutil
+from dataclasses import dataclass
 from pathlib import Path
 
 import requests
@@ -6,13 +7,35 @@ from fastapi.logger import logger
 from mealie.core.config import app_dirs
 
 
-def read_image(recipe_slug: str) -> Path:
-    if app_dirs.IMG_DIR.joinpath(recipe_slug).is_file():
-        return app_dirs.IMG_DIR.joinpath(recipe_slug)
+@dataclass
+class ImageOptions:
+    ORIGINAL_IMAGE: str = "original*"
+    MINIFIED_IMAGE: str = "min-original*"
+    TINY_IMAGE: str = "tiny-original*"
 
-    recipe_slug = recipe_slug.split(".")[0]
-    for file in app_dirs.IMG_DIR.glob(f"{recipe_slug}*"):
+
+IMG_OPTIONS = ImageOptions()
+
+
+def read_image(recipe_slug: str, image_type: str = "original") -> Path:
+    """returns the path to the image file for the recipe base of image_type
+
+    Args:
+        recipe_slug (str): Recipe Slug
+        image_type (str, optional): Glob Style Matcher "original*" | "min-original* | "tiny-original*"
+
+    Returns:
+        Path: [description]
+    """
+    recipe_slug = recipe_slug.split(".")[0]  # Incase of File Name
+    recipe_image_dir = app_dirs.IMG_DIR.joinpath(recipe_slug)
+
+    glob_string = "original*" if image_type else "min-original*"
+
+    for file in recipe_image_dir.glob(glob_string):
         return file
+
+    return None
 
 
 def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name:
