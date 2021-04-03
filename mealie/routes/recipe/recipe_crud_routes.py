@@ -7,7 +7,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
 from mealie.schema.snackbar import SnackResponse
-from mealie.services.image_services import IMG_OPTIONS, read_image, write_image
+from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, write_image
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
@@ -74,6 +74,7 @@ def delete_recipe(
 
     try:
         db.recipes.delete(session, recipe_slug)
+        delete_image(recipe_slug)
     except:
         raise HTTPException(status_code=404, detail=SnackResponse.error("Unable to Delete Recipe"))
 
@@ -90,13 +91,13 @@ class ImageType(str, Enum):
 async def get_recipe_img(recipe_slug: str, image_type: ImageType = ImageType.original):
     """ Takes in a recipe slug, returns the static image """
     if image_type == ImageType.original:
-        image_type = IMG_OPTIONS.ORIGINAL_IMAGE
+        which_image = IMG_OPTIONS.ORIGINAL_IMAGE
     elif image_type == ImageType.small:
-        image_type = IMG_OPTIONS.MINIFIED_IMAGE
+        which_image = IMG_OPTIONS.MINIFIED_IMAGE
     elif image_type == ImageType.tiny:
-        image_type = IMG_OPTIONS.TINY_IMAGE
+        which_image = IMG_OPTIONS.TINY_IMAGE
 
-    recipe_image = read_image(recipe_slug, image_type=image_type)
+    recipe_image = read_image(recipe_slug, image_type=which_image)
     print(recipe_image)
     if recipe_image:
         return FileResponse(recipe_image)

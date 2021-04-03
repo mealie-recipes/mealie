@@ -4,7 +4,7 @@ from mealie.core.config import app_dirs
 from PIL import Image, UnidentifiedImageError
 
 
-def minify_image(my_path: Path, min_dest: Path, tiny_dest: Path):
+def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):
     """Minifies an image in it's original file format. Quality is lost
 
     Args:
@@ -13,7 +13,7 @@ def minify_image(my_path: Path, min_dest: Path, tiny_dest: Path):
         tiny_dest (Path): FULL Destination File Path
     """
     try:
-        img = Image.open(my_path)
+        img = Image.open(image_file)
         basewidth = 720
         wpercent = basewidth / float(img.size[0])
         hsize = int((float(img.size[1]) * float(wpercent)))
@@ -50,6 +50,8 @@ def sizeof_fmt(size, decimal_places=2):
 def move_all_images():
     for image_file in app_dirs.IMG_DIR.iterdir():
         if image_file.is_file():
+            if image_file.name == ".DS_Store":
+                continue
             new_folder = app_dirs.IMG_DIR.joinpath(image_file.stem)
             new_folder.mkdir(parents=True, exist_ok=True)
             image_file.rename(new_folder.joinpath(f"original{image_file.suffix}"))

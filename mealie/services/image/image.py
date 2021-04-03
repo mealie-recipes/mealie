@@ -1,10 +1,12 @@
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Union
 
 import requests
 from fastapi.logger import logger
 from mealie.core.config import app_dirs
+from mealie.services.image import minify
 
 
 @dataclass
@@ -27,23 +29,35 @@ def read_image(recipe_slug: str, image_type: str = "original") -> Path:
     Returns:
         Path: [description]
     """
+    print(image_type)
     recipe_slug = recipe_slug.split(".")[0]  # Incase of File Name
     recipe_image_dir = app_dirs.IMG_DIR.joinpath(recipe_slug)
 
-    glob_string = "original*" if image_type else "min-original*"
-
-    for file in recipe_image_dir.glob(glob_string):
+    for file in recipe_image_dir.glob(image_type):
         return file
 
     return None
 
 
 def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name:
-    delete_image(recipe_slug)
+    try:
+        delete_image(recipe_slug)
+    except:
+        pass
 
-    image_path = Path(app_dirs.IMG_DIR.joinpath(f"{recipe_slug}.{extension}"))
-    with open(image_path, "ab") as f:
-        f.write(file_data)
+    image_dir = Path(app_dirs.IMG_DIR.joinpath(f"{recipe_slug}"))
+    image_dir.mkdir()
+    extension = extension.replace(".", "")
+    image_path = image_dir.joinpath(f"original.{extension}")
+
+    if isinstance(file_data, bytes):
+        with open(image_path, "ab") as f:
+            f.write(file_data)
+    else:
+        with open(image_path, "ab") as f:
+            shutil.copyfileobj(file_data, f)
+
+    minify.migrate_images()
 
     return image_path
 
@@ -51,7 +65,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name
 def delete_image(recipe_slug: str) -> str:
     recipe_slug = recipe_slug.split(".")[0]
     for file in app_dirs.IMG_DIR.glob(f"{recipe_slug}*"):
-        return file.unlink()
+        return shutil.rmtree(file)
 
 
 def scrape_image(image_url: str, slug: str) -> Path:
@@ -78,8 +92,9 @@ def scrape_image(image_url: str, slug: str) -> Path:
     if r.status_code == 200:
         r.raw.decode_content = True
 
-        with open(filename, "wb") as f:
-            shutil.copyfileobj(r.raw, f)
+        write_image(slug, r.raw, filename.suffix)
+
+        filename.unlink()
 
         return filename
 
