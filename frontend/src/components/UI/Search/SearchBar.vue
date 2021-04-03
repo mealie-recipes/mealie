@@ -16,7 +16,7 @@
       >
       </v-text-field>
     </template>
-    <v-card v-if="showResults" max-height="500" :max-width="maxWidth"> 
+    <v-card v-if="showResults" max-height="500" :max-width="maxWidth">
       <v-card-text class="py-1">Results</v-card-text>
       <v-divider></v-divider>
       <v-list scrollable>
@@ -54,7 +54,7 @@
 
 <script>
 import Fuse from "fuse.js";
-import utils from "@/utils";
+import { api } from "@/api";
 
 export default {
   props: {
@@ -151,7 +151,7 @@ export default {
       );
     },
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeTinyImage(image);
     },
     selected(slug, name) {
       this.$emit("selected", slug, name);

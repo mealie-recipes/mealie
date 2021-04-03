@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import utils from "@/utils";
+import { api } from "@/api";
 export default {
   props: {
     name: String,
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeSmallImage(image);
     },
   },
 };
