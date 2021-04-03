@@ -8,6 +8,7 @@ const prefix = baseURL + "recipes/";
 
 const recipeURLs = {
   allRecipes: baseURL + "recipes",
+  summary: baseURL + "recipes" + "/summary",
   allRecipesByCategory: prefix + "category",
   create: prefix + "create",
   createByURL: prefix + "create-url",
@@ -83,6 +84,11 @@ export const recipeAPI = {
       },
     });
 
+    return response.data;
+  },
+
+  async allSummary() {
+    const response = await apiReq.get(recipeURLs.summary);
     return response.data;
   },
 
