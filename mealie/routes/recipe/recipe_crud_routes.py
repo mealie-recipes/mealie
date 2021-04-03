@@ -1,3 +1,5 @@
+from enum import Enum
+
 from fastapi import APIRouter, Depends, File, Form, HTTPException
 from fastapi.responses import FileResponse
 from mealie.db.database import db
@@ -5,7 +7,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
 from mealie.schema.snackbar import SnackResponse
-from mealie.services.image_services import read_image, write_image
+from mealie.services.image_services import IMG_OPTIONS, read_image, write_image
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
@@ -78,14 +80,28 @@ def delete_recipe(
     return SnackResponse.error(f"Recipe {recipe_slug} Deleted")
 
 
+class ImageType(str, Enum):
+    original = "original"
+    small = "small"
+    tiny = "tiny"
+
+
 @router.get("/{recipe_slug}/image")
-async def get_recipe_img(recipe_slug: str):
+async def get_recipe_img(recipe_slug: str, image_type: ImageType = ImageType.original):
     """ Takes in a recipe slug, returns the static image """
-    recipe_image = read_image(recipe_slug)
+    if image_type == ImageType.original:
+        image_type = IMG_OPTIONS.ORIGINAL_IMAGE
+    elif image_type == ImageType.small:
+        image_type = IMG_OPTIONS.MINIFIED_IMAGE
+    elif image_type == ImageType.tiny:
+        image_type = IMG_OPTIONS.TINY_IMAGE
+
+    recipe_image = read_image(recipe_slug, image_type=image_type)
+    print(recipe_image)
     if recipe_image:
         return FileResponse(recipe_image)
     else:
-        return
+        raise HTTPException(404, "file not found")
 
 
 @router.put("/{recipe_slug}/image")
