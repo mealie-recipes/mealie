@@ -5,7 +5,7 @@ from typing import Optional, Union
 
 from pydantic import BaseSettings, Field, validator
 
-APP_VERSION = "v0.4.0"
+APP_VERSION = "v0.4.1"
 DB_VERSION = "v0.4.0"
 
 CWD = Path(__file__).parent
