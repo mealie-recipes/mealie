@@ -38,10 +38,11 @@
         ></v-rating>
         <v-spacer></v-spacer>
         <RecipeChips
-          :items="categories"
+          :items="tags"
           :title="false"
           :limit="2"
           :small="true"
+          :isCategory="false"
         />
       </v-card-actions>
     </v-card>
@@ -65,7 +66,7 @@ export default {
     route: {
       default: true,
     },
-    categories: {
+    tags: {
       default: true,
     },
   },
