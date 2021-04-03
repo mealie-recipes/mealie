@@ -6,6 +6,7 @@ import Migration from "@/pages/Admin/Migration";
 import Profile from "@/pages/Admin/Profile";
 import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
+import About from "@/pages/Admin/About";
 import { store } from "../store";
 
 export default {
@@ -49,6 +50,10 @@ export default {
     {
       path: "settings",
       component: Settings,
+    },
+    {
+      path: "about",
+      component: About,
     },
   ],
 };

@@ -3,6 +3,7 @@ from fastapi_camelcase import CamelModel
 
 
 class AppInfo(CamelModel):
+    production: bool
     version: str
     demo_status: bool
 
