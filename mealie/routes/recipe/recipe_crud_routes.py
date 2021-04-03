@@ -98,7 +98,6 @@ async def get_recipe_img(recipe_slug: str, image_type: ImageType = ImageType.ori
         which_image = IMG_OPTIONS.TINY_IMAGE
 
     recipe_image = read_image(recipe_slug, image_type=which_image)
-    print(recipe_image)
     if recipe_image:
         return FileResponse(recipe_image)
     else:
