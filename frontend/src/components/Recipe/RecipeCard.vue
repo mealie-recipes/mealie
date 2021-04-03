@@ -5,6 +5,7 @@
       :elevation="hover ? 12 : 2"
       :to="route ? `/recipe/${slug}` : ''"
       @click="$emit('click')"
+      min-height="275"
     >
       <v-img height="200" :src="getImage(image)">
         <v-expand-transition v-if="description">
@@ -25,9 +26,9 @@
         </div>
       </v-card-title>
 
-      <v-card-actions class="">
+      <v-card-actions>
         <v-rating
-          class="mr-2"
+          class="mr-2 my-auto"
           color="secondary"
           background-color="secondary lighten-3"
           dense
@@ -36,14 +37,25 @@
           :value="rating"
         ></v-rating>
         <v-spacer></v-spacer>
+        <RecipeChips
+          :items="tags"
+          :title="false"
+          :limit="2"
+          :small="true"
+          :isCategory="false"
+        />
       </v-card-actions>
     </v-card>
   </v-hover>
 </template>
 
 <script>
+import RecipeChips from "@/components/Recipe/RecipeViewer/RecipeChips";
 import { api } from "@/api";
 export default {
+  components: {
+    RecipeChips,
+  },
   props: {
     name: String,
     slug: String,
@@ -52,6 +64,9 @@ export default {
     image: String,
 
     route: {
+      default: true,
+    },
+    tags: {
       default: true,
     },
   },

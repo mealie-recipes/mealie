@@ -1,12 +1,13 @@
 <template>
   <div v-if="items && items.length > 0">
-    <h2 class="mt-4">{{ title }}</h2>
+    <h2 v-if="title" class="mt-4">{{ title }}</h2>
     <v-chip
       label
       class="ma-1"
       color="accent"
+      :small="small"
       dark
-      v-for="category in items"
+      v-for="category in items.slice(0, limit)"
       :to="`/recipes/${urlParam}/${getSlug(category)}`"
       :key="category"
     >
@@ -19,9 +20,17 @@
 export default {
   props: {
     items: Array,
-    title: String,
+    title: {
+      default: null,
+    },
     isCategory: {
       default: true,
+    },
+    limit: {
+      default: 999,
+    },
+    small: {
+      default: false,
     },
   },
   computed: {
@@ -32,8 +41,8 @@ export default {
       return this.$store.getters.getAllTags;
     },
     urlParam() {
-      return this.isCategory ? 'category' : 'tag'
-    }
+      return this.isCategory ? "category" : "tag";
+    },
   },
   methods: {
     getSlug(name) {

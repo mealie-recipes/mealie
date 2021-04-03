@@ -34,12 +34,30 @@ class Nutrition(BaseModel):
         orm_mode = True
 
 
-class Recipe(BaseModel):
+class RecipeSummary(BaseModel):
     name: str
-    description: Optional[str]
+    slug: Optional[str] = ""
     image: Optional[Any]
-    recipeYield: Optional[str]
+
+    description: Optional[str]
     recipeCategory: Optional[List[str]] = []
+    tags: Optional[List[str]] = []
+    rating: Optional[int]
+
+    class Config:
+        orm_mode = True
+
+        @classmethod
+        def getter_dict(_cls, name_orm: RecipeModel):
+            return {
+                **GetterDict(name_orm),
+                "recipeCategory": [x.name for x in name_orm.recipeCategory],
+                "tags": [x.name for x in name_orm.tags],
+            }
+
+
+class Recipe(RecipeSummary):
+    recipeYield: Optional[str]
     recipeIngredient: Optional[list[str]]
     recipeInstructions: Optional[list[RecipeStep]]
     nutrition: Optional[Nutrition]
@@ -50,11 +68,8 @@ class Recipe(BaseModel):
     performTime: Optional[str] = None
 
     # Mealie Specific
-    slug: Optional[str] = ""
-    tags: Optional[List[str]] = []
     dateAdded: Optional[datetime.date]
     notes: Optional[List[RecipeNote]] = []
-    rating: Optional[int]
     orgURL: Optional[str]
     extras: Optional[dict] = {}
 

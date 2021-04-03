@@ -33,7 +33,7 @@ export default {
     },
   },
   watch: {
-    async currentCategory() {
+    async currentTag() {
       this.getRecipes();
     },
   },

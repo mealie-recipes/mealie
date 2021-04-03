@@ -54,15 +54,15 @@ const store = new Vuex.Store({
 
   actions: {
     async requestRecentRecipes() {
-      const keys = [
-        "name",
-        "slug",
-        "image",
-        "description",
-        "dateAdded",
-        "rating",
-      ];
-      const payload = await api.recipes.allByKeys(keys);
+      // const keys = [
+      //   "name",
+      //   "slug",
+      //   "image",
+      //   "description",
+      //   "dateAdded",
+      //   "rating",
+      // ];
+      const payload = await api.recipes.allSummary();
 
       this.commit("setRecentRecipes", payload);
     },

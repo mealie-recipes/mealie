@@ -3,11 +3,22 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, Query
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.schema.recipe import AllRecipeRequest
+from mealie.schema.recipe import AllRecipeRequest, RecipeSummary
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(tags=["Query All Recipes"])
+
+
+@router.get("/api/recipes/summary")
+async def get_recipe_summary(
+    skip=0,
+    end=9999,
+    session: Session = Depends(generate_session),
+):
+    """ Returns the summary data for recipes in the database """
+
+    return db.recipes.get_all(session, limit=end, override_schema=RecipeSummary)
 
 
 @router.get("/api/recipes")

@@ -74,7 +74,7 @@
       </v-list>
 
       <v-list nav dense class="fixedBottom">
-        <v-list-item href="">
+        <v-list-item to="/admin/about">
           <v-list-item-icon class="mr-3 pt-1">
             <v-icon :color="newVersionAvailable ? 'red--text' : ''">
               mdi-information
@@ -87,6 +87,7 @@
             </v-list-item-title>
             <v-list-item-subtitle>
               <a
+                @click.prevent
                 href="https://github.com/hay-kot/mealie/releases/latest"
                 target="_blank"
                 :class="newVersionAvailable ? 'red--text' : 'green--text'"
