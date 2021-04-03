@@ -3,9 +3,24 @@ import json
 from fastapi import APIRouter, Depends
 from mealie.core.config import APP_VERSION, LOGGER_FILE, app_dirs, settings
 from mealie.routes.deps import get_current_user
-from mealie.schema.debug import AppInfo
+from mealie.schema.debug import AppInfo, DebugInfo
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])
+
+
+@router.get("/")
+async def get_debug_info(current_user=Depends(get_current_user)):
+    """ Returns general information about the application for debugging """
+
+    return DebugInfo(
+        version=APP_VERSION,
+        demo_status=settings.IS_DEMO,
+        api_port=settings.API_PORT,
+        api_docs=settings.API_DOCS,
+        db_type=settings.DATABASE_TYPE,
+        sqlite_file=settings.SQLITE_FILE,
+        default_group=settings.DEFAULT_GROUP,
+    )
 
 
 @router.get("/version")
