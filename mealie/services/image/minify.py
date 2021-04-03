@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 from mealie.core.config import app_dirs
@@ -23,8 +24,9 @@ def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):
         tiny_image = crop_center(img)
         tiny_image.save(tiny_dest, quality=70)
 
-    except UnidentifiedImageError:
-        pass
+    except:
+        shutil.copy(image_file, min_dest)
+        shutil.copy(image_file, tiny_dest)
 
 
 def crop_center(pil_img, crop_width=300, crop_height=300):
