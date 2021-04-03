@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items && items.length > 0">
+  <div v-if="items.length > 0">
     <h2 v-if="title" class="mt-4">{{ title }}</h2>
     <v-chip
       label
@@ -19,7 +19,9 @@
 <script>
 export default {
   props: {
-    items: Array,
+    items: {
+      default: [],
+    },
     title: {
       default: null,
     },

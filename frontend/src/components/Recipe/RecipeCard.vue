@@ -7,7 +7,7 @@
       @click="$emit('click')"
       min-height="275"
     >
-      <v-img height="200" :src="getImage(image)">
+      <v-img height="200" :src="getImage(slug)">
         <v-expand-transition v-if="description">
           <div
             v-if="hover"

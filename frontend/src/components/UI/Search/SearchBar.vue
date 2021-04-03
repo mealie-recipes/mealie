@@ -136,6 +136,7 @@ export default {
         this.fuseResults = this.result;
       }
     },
+    
     searchSlug() {
       this.selected(this.searchSlug);
     },

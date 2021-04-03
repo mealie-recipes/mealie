@@ -51,6 +51,11 @@ export default {
           to: "/recipes/all",
           title: this.$t("page.all-recipes"),
         },
+        {
+          icon: "mdi-magnify",
+          to: "/search",
+          title: "search",
+        },
       ],
     };
   },
