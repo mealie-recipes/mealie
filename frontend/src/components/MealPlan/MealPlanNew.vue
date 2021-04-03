@@ -223,7 +223,7 @@ export default {
     },
 
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeSmallImage(image);
     },
 
     formatDate(date) {

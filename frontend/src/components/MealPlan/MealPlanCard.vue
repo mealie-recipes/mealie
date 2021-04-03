@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import utils from "@/utils";
 import SearchDialog from "../UI/Search/SearchDialog";
+import { api } from "@/api";
 export default {
   components: {
     SearchDialog,
@@ -47,7 +47,7 @@ export default {
   methods: {
     getImage(slug) {
       if (slug) {
-        return utils.getImageURL(slug);
+        return api.recipes.recipeSmallImage(slug);
       }
     },
     setSlug(name, slug) {

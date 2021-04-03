@@ -52,7 +52,6 @@
 
 <script>
 import { api } from "@/api";
-import utils from "@/utils";
 export default {
   data() {
     return {
@@ -68,7 +67,7 @@ export default {
       else return 0;
     },
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeImage(image);
     },
   },
 };

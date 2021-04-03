@@ -1,6 +1,6 @@
 <template>
   <div class="text-center ">
-    <v-dialog v-model="dialog" class="search-dialog" width="600px" height="0">
+    <v-dialog v-model="dialog" width="600px" height="0" :fullscreen="isMobile">
       <v-card>
         <v-app-bar dark color="primary">
           <v-toolbar-title class="headline">Search a Recipe</v-toolbar-title>
@@ -9,13 +9,27 @@
           <SearchBar
             @results="updateResults"
             @selected="emitSelect"
-            :show-results="true"
+            :show-results="!isMobile"
             max-width="550px"
             :dense="false"
             :nav-on-click="false"
             :reset-search="dialog"
             :solo="false"
           />
+          <div v-if="isMobile">
+            <div v-for="recipe in searchResults.slice(0, 7)" :key="recipe.name">
+              <MobileRecipeCard
+                class="ma-1 px-0"
+                :name="recipe.item.name"
+                :description="recipe.item.description"
+                :slug="recipe.item.slug"
+                :rating="recipe.item.rating"
+                :image="recipe.item.image"
+                :route="true"
+                @selected="dialog = false"
+              />
+            </div>
+          </div>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -24,15 +38,31 @@
 
 <script>
 import SearchBar from "./SearchBar";
+import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
 export default {
   components: {
     SearchBar,
+    MobileRecipeCard,
   },
   data() {
     return {
-      searchResults: null,
+      searchResults: [],
       dialog: false,
     };
+  },
+  computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
+  },
+  watch: {
+    "$route.hash"(newHash, oldHash) {
+      if (newHash === "#mobile-search") {
+        this.dialog = true;
+      } else if (oldHash === "#mobile-search") {
+        this.dialog = false;
+      }
+    },
   },
   methods: {
     updateResults(results) {
@@ -44,15 +74,22 @@ export default {
     },
     open() {
       this.dialog = true;
+      this.$router.push("#mobile-search");
+    },
+    toggleDialog(open) {
+      if (open) {
+        this.$router.push("#mobile-search");
+      } else {
+        this.$router.back(); // 😎 back button click
+      }
     },
   },
 };
 </script>
 
 <style scope>
-.search-dialog {
-  margin-top: 10%;
+.mobile-dialog {
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
 }
 </style>

@@ -70,7 +70,7 @@ const actions = {
 
   async refreshToken({ commit, getters }) {
     if (!getters.getIsLoggedIn) {
-      commit("setIsLoggedIn", false); // This is to be here... for some reasons?  ¯\_(ツ)_/¯
+      commit("setIsLoggedIn", false); // This has to be here... for some reasons?  ¯\_(ツ)_/¯
       console.log("Not Logged In");
       return;
     }

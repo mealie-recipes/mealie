@@ -45,19 +45,19 @@ LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 
 class AppDirectories:
     def __init__(self, cwd, data_dir) -> None:
-        self.DATA_DIR = data_dir
-        self.WEB_PATH = cwd.joinpath("dist")
-        self.IMG_DIR = data_dir.joinpath("img")
-        self.BACKUP_DIR = data_dir.joinpath("backups")
-        self.DEBUG_DIR = data_dir.joinpath("debug")
-        self.MIGRATION_DIR = data_dir.joinpath("migration")
-        self.NEXTCLOUD_DIR = self.MIGRATION_DIR.joinpath("nextcloud")
-        self.CHOWDOWN_DIR = self.MIGRATION_DIR.joinpath("chowdown")
-        self.TEMPLATE_DIR = data_dir.joinpath("templates")
-        self.USER_DIR = data_dir.joinpath("users")
-        self.SQLITE_DIR = data_dir.joinpath("db")
-        self.RECIPE_DATA_DIR = data_dir.joinpath("recipes")
-        self.TEMP_DIR = data_dir.joinpath(".temp")
+        self.DATA_DIR: Path = data_dir
+        self.WEB_PATH: Path = cwd.joinpath("dist")
+        self.IMG_DIR: Path = data_dir.joinpath("img")
+        self.BACKUP_DIR: Path = data_dir.joinpath("backups")
+        self.DEBUG_DIR: Path = data_dir.joinpath("debug")
+        self.MIGRATION_DIR: Path = data_dir.joinpath("migration")
+        self.NEXTCLOUD_DIR: Path = self.MIGRATION_DIR.joinpath("nextcloud")
+        self.CHOWDOWN_DIR: Path = self.MIGRATION_DIR.joinpath("chowdown")
+        self.TEMPLATE_DIR: Path = data_dir.joinpath("templates")
+        self.USER_DIR: Path = data_dir.joinpath("users")
+        self.SQLITE_DIR: Path = data_dir.joinpath("db")
+        self.RECIPE_DATA_DIR: Path = data_dir.joinpath("recipes")
+        self.TEMP_DIR: Path = data_dir.joinpath(".temp")
 
         self.ensure_directories()
 

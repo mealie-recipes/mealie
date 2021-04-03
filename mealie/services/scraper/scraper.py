@@ -5,7 +5,7 @@ import requests
 import scrape_schema_recipe
 from mealie.core.config import app_dirs
 from fastapi.logger import logger
-from mealie.services.image_services import scrape_image
+from mealie.services.image.image import scrape_image
 from mealie.schema.recipe import Recipe
 from mealie.services.scraper import open_graph
 from mealie.services.scraper.cleaner import Cleaner
