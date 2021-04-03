@@ -11,6 +11,7 @@ from mealie.schema.restore import CustomPageImport, GroupImport, RecipeImport, S
 from mealie.schema.settings import CustomPageOut, SiteSettings
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import UpdateGroup, UserInDB
+from mealie.services.image import minify
 from pydantic.main import BaseModel
 from sqlalchemy.orm.session import Session
 
@@ -108,7 +109,13 @@ class ImportDatabase:
         image_dir = self.import_dir.joinpath("images")
         for image in image_dir.iterdir():
             if image.stem in successful_imports:
-                shutil.copy(image, app_dirs.IMG_DIR)
+                if image.is_dir():
+                    dest = app_dirs.IMG_DIR.joinpath(image.stem)
+                    shutil.copytree(image, dest, dirs_exist_ok=True)
+                if image.is_file():
+                    shutil.copy(image, app_dirs.IMG_DIR)
+
+        minify.migrate_images()
 
     def import_themes(self):
         themes_file = self.import_dir.joinpath("themes", "themes.json")
