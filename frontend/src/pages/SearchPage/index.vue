@@ -26,8 +26,8 @@
 
       <v-row dense class="mt-0 flex-row align-center justify-space-around">
         <v-col>
-          <h3 class="pl-2 headline mt-0">Category Filter</h3>
-          <FilterSelector v-model="catFilterType" class="mb-1" />
+          <h3 class="pl-2 text-center headline">Category Filter</h3>
+          <FilterSelector class="mb-1" @update="updateCatParams" />
           <CategorySelector
             :solo="true"
             :dense="false"
@@ -36,8 +36,8 @@
           />
         </v-col>
         <v-col>
-          <h3 class="pl-2 headline">Tag Filter</h3>
-          <FilterSelector v-model="tagFilterType" class="mb-1" />
+          <h3 class="pl-2 text-center headline">Tag Filter</h3>
+          <FilterSelector class="mb-1" @update="updateTagParams" />
           <TagSelector
             :solo="true"
             :dense="false"
@@ -78,9 +78,6 @@ import CategorySelector from "@/components/FormHelpers/CategorySelector";
 import TagSelector from "@/components/FormHelpers/TagSelector";
 import FilterSelector from "./FilterSelector.vue";
 
-const INCLUDE = "include";
-const EXCLUDE = "exclude";
-const ANY = "any";
 export default {
   components: {
     RecipeCard,
@@ -94,9 +91,15 @@ export default {
       searchString: "",
       maxResults: 21,
       searchResults: [],
-      catFilterType: "include",
+      catFilter: {
+        exclude: false,
+        matchAny: false,
+      },
+      tagFilter: {
+        exclude: false,
+        matchAny: false,
+      },
       includeCategories: [],
-      tagFilterType: "include",
       includeTags: [],
       options: {
         shouldSort: true,
@@ -116,8 +119,18 @@ export default {
     },
     filteredRecipes() {
       return this.allRecipes.filter(recipe => {
-        const includesTags = this.checkTags(recipe.tags);
-        const includesCats = this.checkCategories(recipe.recipeCategory);
+        const includesTags = this.check(
+          this.includeTags,
+          recipe.tags,
+          this.tagFilter.matchAny,
+          this.tagFilter.exclude
+        );
+        const includesCats = this.check(
+          this.includeCategories,
+          recipe.recipeCategory,
+          this.catFilter.matchAny,
+          this.catFilter.exclude
+        );
         return [includesTags, includesCats].every(x => x === true);
       });
     },
@@ -136,50 +149,26 @@ export default {
     },
   },
   methods: {
-    checkIncludes(filterBy, recipeList) {
+    check(filterBy, recipeList, matchAny, exclude) {
+      let isMatch = true;
+      if (filterBy.length === 0) return isMatch;
+
       if (recipeList) {
-        return filterBy.every(t => recipeList.includes(t));
+        if (matchAny) {
+          isMatch = filterBy.some(t => recipeList.includes(t)); // Checks if some items are a match
+        } else {
+          isMatch = filterBy.every(t => recipeList.includes(t)); // Checks if every items is a match
+        }
+        return exclude ? !isMatch : isMatch;
       } else;
       return false;
     },
 
-    checkExcludes(filterBy, recipeList) {
-      if (recipeList) {
-        return filterBy.every(t => !recipeList.includes(t));
-      } else;
-      return false;
+    updateTagParams(params) {
+      this.tagFilter = params;
     },
-
-    checkAny(filterBy, recipeList) {
-      if (filterBy.length === 0) return true;
-      if (recipeList) {
-        return filterBy.some(t => recipeList.includes(t));
-      } else;
-      return false;
-    },
-
-    checkTags(recipeTags) {
-      if (this.tagFilterType === INCLUDE) {
-        return this.checkIncludes(this.includeTags, recipeTags);
-      }
-      if (this.tagFilterType === EXCLUDE) {
-        return this.checkExcludes(this.includeTags, recipeTags);
-      }
-      if (this.tagFilterType === ANY) {
-        return this.checkAny(this.includeTags, recipeTags);
-      }
-    },
-
-    checkCategories(recipeCategories) {
-      if (this.catFilterType === INCLUDE) {
-        return this.checkIncludes(this.includeCategories, recipeCategories);
-      }
-      if (this.catFilterType === EXCLUDE) {
-        return this.checkExcludes(this.includeCategories, recipeCategories);
-      }
-      if (this.catFilterType === ANY) {
-        return this.checkAny(this.includeCategories, recipeCategories);
-      }
+    updateCatParams(params) {
+      this.catFilter = params;
     },
   },
 };
