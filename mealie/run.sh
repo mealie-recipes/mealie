@@ -2,6 +2,7 @@
 
 # Initialize Database Prerun
 python mealie/db/init_db.py
+python mealie/services/image/minify.py
 
 ## Migrations
 # TODO
