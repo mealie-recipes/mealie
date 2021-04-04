@@ -12,10 +12,14 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
     poetry config virtualenvs.create false
 
 # Copy poetry.lock* in case it doesn't exist in the repo
-COPY ./pyproject.toml ./poetry.lock* /app/
+COPY ./pyproject.toml /app/
 
-RUN poetry install 
+# RUN poetry install 
 
 COPY ./mealie /app/mealie
 
-CMD ["uvicorn", "mealie.app:app", "--host", "0.0.0.0", "--port", "9000", "--reload"]
+RUN poetry install 
+
+RUN ["poetry", "run", "python", "mealie/db/init_db.py"]
+RUN ["poetry", "run", "python", "mealie/services/image/minify.py"]
+CMD ["poetry", "run", "python", "mealie/app.py"]
