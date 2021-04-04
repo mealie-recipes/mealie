@@ -7,7 +7,9 @@
     deletable-chips
     :dense="dense"
     item-text="name"
+    persistent-hint
     multiple
+    :hint="hint"
     :solo="solo"
     :return-object="returnObject"
     :flat="flat"
@@ -45,6 +47,9 @@ export default {
     },
     tagSelector: {
       default: false,
+    },
+    hint: {
+      default: null,
     },
   },
   data() {
