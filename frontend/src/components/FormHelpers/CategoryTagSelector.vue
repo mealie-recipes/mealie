@@ -1,8 +1,8 @@
 <template>
   <v-select
-    :items="allCategories"
+    :items="activeItems"
     v-model="selected"
-    label="Categories"
+    :label="inputLabel"
     chips
     deletable-chips
     :dense="dense"
@@ -43,6 +43,9 @@ export default {
     returnObject: {
       default: true,
     },
+    tagSelector: {
+      default: false,
+    },
   },
   data() {
     return {
@@ -54,8 +57,17 @@ export default {
   },
 
   computed: {
+    inputLabel() {
+      return this.tagSelector ? "Tags" : "Categories";
+    },
+    activeItems() {
+      return this.tagSelector ? this.allTags : this.allCategories;
+    },
     allCategories() {
       return this.$store.getters.getAllCategories;
+    },
+    allTags() {
+      return this.$store.getters.getAllTags;
     },
     flat() {
       return this.selected.length > 0 && this.solo;
