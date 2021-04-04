@@ -8,7 +8,7 @@
       <h2 class="mt-1">{{ $t("recipe.categories") }}</h2>
 
       <CategoryTagSelector
-        class="mt-1"
+        class="mt-4"
         :solo="true"
         :dense="false"
         v-model="groupSettings.categories"
