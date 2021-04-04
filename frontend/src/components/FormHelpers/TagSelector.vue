@@ -1,16 +1,16 @@
 <template>
   <v-select
-    :items="allCategories"
+    :items="allTags"
     v-model="selected"
-    label="Categories"
+    label="Tags"
     chips
     deletable-chips
     :dense="dense"
+    :solo="solo"
+    :flat="flat"
     item-text="name"
     multiple
-    :solo="solo"
     :return-object="returnObject"
-    :flat="flat"
     @input="emitChange"
   >
     <template v-slot:selection="data">
@@ -25,8 +25,8 @@
       >
         {{ data.item.name }}
       </v-chip>
-    </template></v-select
-  >
+    </template>
+  </v-select>
 </template>
 
 <script>
@@ -54,8 +54,8 @@ export default {
   },
 
   computed: {
-    allCategories() {
-      return this.$store.getters.getAllCategories;
+    allTags() {
+      return this.$store.getters.getAllTags;
     },
     flat() {
       return this.selected.length > 0 && this.solo;

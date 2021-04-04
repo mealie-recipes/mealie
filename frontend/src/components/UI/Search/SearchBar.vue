@@ -27,7 +27,7 @@
           @click="navOnClick ? null : selected(item.item.slug, item.item.name)"
         >
           <v-list-item-avatar>
-            <v-img :src="getImage(item.item.image)"></v-img>
+            <v-img :src="getImage(item.item.slug)"></v-img>
           </v-list-item-avatar>
           <v-list-item-content
             @click="
@@ -136,6 +136,7 @@ export default {
         this.fuseResults = this.result;
       }
     },
+
     searchSlug() {
       this.selected(this.searchSlug);
     },

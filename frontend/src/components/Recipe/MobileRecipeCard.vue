@@ -7,7 +7,7 @@
   >
     <v-list-item>
       <v-list-item-avatar rounded size="125" class="mt-0 ml-n4">
-        <v-img :src="getImage(image)"> </v-img>
+        <v-img :src="getImage(slug)"> </v-img>
       </v-list-item-avatar>
       <v-list-item-content class="align-self-start">
         <v-list-item-title>
