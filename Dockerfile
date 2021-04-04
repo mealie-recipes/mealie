@@ -14,25 +14,11 @@ RUN apk add --no-cache libxml2-dev \
     libffi-dev \
     python3 \
     python3-dev \
-    openssl \
-    bash \
-    sudo \
-    # freetype-dev \
-    # fribidi-dev \
-    # harfbuzz-dev \
     jpeg-dev \
     lcms2-dev \
     openjpeg-dev \
-    # tcl-dev \
-    # tiff-dev \
-    # tk-dev \
     zlib-dev
 
-ADD depends /depends
-RUN cd /depends \
-    &&  chmod +x install_webp.sh \
-    &&  chmod +x download-and-extract.sh \
-    && ./install_webp.sh 
 
 ENV ENV True
 EXPOSE 80
