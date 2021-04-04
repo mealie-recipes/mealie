@@ -56,6 +56,12 @@ export default {
     this.$emit(MOUNTED_EVENT);
   },
 
+  watch: {
+    value(val) {
+      this.selected = val;
+    },
+  },
+
   computed: {
     inputLabel() {
       return this.tagSelector ? "Tags" : "Categories";

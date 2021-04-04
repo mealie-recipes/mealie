@@ -7,41 +7,18 @@
     <v-card-text>
       <h2 class="mt-1">{{ $t("recipe.categories") }}</h2>
 
-      <v-row>
-        <v-col sm="12" md="6">
-          <v-select
-            outlined
-            :flat="isFlat"
-            elavation="0"
-            v-model="groupSettings.categories"
-            :items="categories"
-            item-text="name"
-            return-object
-            multiple
-            chips
-            :hint="
-              $t(
-                'meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans'
-              )
-            "
-            class="mt-2"
-            persistent-hint
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                outlined
-                :input-value="data.selected"
-                close
-                @click:close="removeCategory(data.index)"
-                color="secondary"
-                dark
-              >
-                {{ data.item.name }}
-              </v-chip>
-            </template>
-          </v-select>
-        </v-col>
-      </v-row>
+      <CategoryTagSelector
+        class="mt-1"
+        :solo="true"
+        :dense="false"
+        v-model="groupSettings.categories"
+        :return-object="true"
+        :hint="
+          $t(
+            'meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans'
+          )
+        "
+      />
     </v-card-text>
     <v-divider> </v-divider>
     <v-card-text>
@@ -59,7 +36,7 @@
 
       <v-row dense class="flex align-center">
         <v-switch
-        class="mx-2"
+          class="mx-2"
           v-model="groupSettings.webhookEnable"
           :label="$t('general.enabled')"
         ></v-switch>
@@ -105,9 +82,11 @@
 <script>
 import { api } from "@/api";
 import TimePickerDialog from "@/components/Admin/MealPlanner/TimePickerDialog";
+import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 export default {
   components: {
     TimePickerDialog,
+    CategoryTagSelector,
   },
   data() {
     return {
@@ -155,15 +134,13 @@ export default {
       this.groupSettings.webhookUrls.splice(index, 1);
     },
     async saveGroupSettings() {
+      console.log(this.groupSettings);
       await api.groups.update(this.groupSettings);
       await this.$store.dispatch("requestCurrentGroup");
       this.getSiteSettings();
     },
     testWebhooks() {
       api.settings.testWebhooks();
-    },
-    removeCategory(index) {
-      this.groupSettings.categories.splice(index, 1);
     },
   },
 };
