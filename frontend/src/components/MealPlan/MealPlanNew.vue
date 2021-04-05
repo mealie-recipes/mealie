@@ -59,11 +59,11 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker
+            <DatePicker 
               v-model="endDate"
               no-title
               @input="menu2 = false"
-            ></v-date-picker>
+              />
           </v-menu>
         </v-col>
       </v-row>
