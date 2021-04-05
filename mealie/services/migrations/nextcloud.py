@@ -8,6 +8,7 @@ from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.schema.recipe import Recipe
 from mealie.services.scraper.cleaner import Cleaner
+from mealie.services.image import minify
 
 
 def process_selection(selection: Path) -> Path:
@@ -81,10 +82,12 @@ def migrate(session, selection: str):
 
                 successful_imports.append(recipe.name)
             except:
+                session.rollback()
                 logging.error(f"Failed Nextcloud Import: {dir.name}")
                 logging.exception("")
                 failed_imports.append(dir.name)
 
     cleanup()
+    minify.migrate_images()
 
     return {"successful": successful_imports, "failed": failed_imports}
