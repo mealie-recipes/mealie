@@ -20,7 +20,8 @@ export default {
 
   methods: {
     async getOptions() {
-      this.firstDayOfWeek = await api.siteSettings.get().firstDayOfWeek;
+      const settings = await api.siteSettings.get();
+      this.firstDayOfWeek = settings.firstDayOfWeek;
     },
   },
 }
