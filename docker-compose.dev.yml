@@ -29,7 +29,7 @@ services:
       db_type: sqlite
       TZ: America/Anchorage # Specify Correct Timezone for Date/Time to line up correctly.
     volumes:
-      - ./app_data:/app_data
+      - ./dev/data:/app/dev/data
       - ./mealie:/app/mealie
 
   # Mkdocs

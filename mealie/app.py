@@ -10,6 +10,8 @@ from mealie.routes.mealplans import mealplans
 from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_crud_routes, tag_routes
 from mealie.routes.site_settings import all_settings
 from mealie.routes.users import users
+from mealie.db import init_db
+from mealie.services.image import minify
 
 app = FastAPI(
     title="Mealie",
@@ -51,6 +53,8 @@ start_scheduler()
 
 
 def main():
+    init_db.main()
+    minify.migrate_images()
 
     uvicorn.run(
         "app:app",
