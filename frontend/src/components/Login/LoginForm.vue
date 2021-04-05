@@ -22,13 +22,11 @@
         <v-text-field
           v-if="!options.isLoggingIn"
           v-model="user.name"
-          light="light"
           prepend-icon="person"
           :label="$t('general.name')"
         ></v-text-field>
         <v-text-field
           v-model="user.email"
-          light="light"
           prepend-icon="mdi-email"
           validate-on-blur
           :label="$t('user.email')"
@@ -36,7 +34,6 @@
         ></v-text-field>
         <v-text-field
           v-model="user.password"
-          light="light"
           class="mb-2s"
           prepend-icon="mdi-lock"
           :label="$t('user.password')"
@@ -47,7 +44,6 @@
         <v-card-actions>
           <v-btn
             v-if="options.isLoggingIn"
-            dark
             color="primary"
             block="block"
             type="submit"
