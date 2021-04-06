@@ -31,7 +31,7 @@
       </v-chip>
     </template>
     <template v-slot:append-outer="">
-      <NewCategoryDialog
+      <NewCategoryTagDialog
         v-if="showAdd"
         :tag-dialog="tagSelector"
         @created-item="pushToItem"
@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import NewCategoryDialog from "@/components/UI/Dialogs/NewCategoryDialog";
+import NewCategoryTagDialog from "@/components/UI/Dialogs/NewCategoryTagDialog";
 const MOUNTED_EVENT = "mounted";
 export default {
   components: {
-    NewCategoryDialog,
+    NewCategoryTagDialog,
   },
   props: {
     value: Array,
