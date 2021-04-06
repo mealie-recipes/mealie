@@ -33,11 +33,14 @@ def clean_nextcloud_tags(nextcloud_tags: str):
 
 def import_recipes(recipe_dir: Path) -> Recipe:
     image = False
+
     for file in recipe_dir.glob("full.*"):
         image = file
+        break
 
     for file in recipe_dir.glob("*.json"):
         recipe_file = file
+        break
 
     with open(recipe_file, "r") as f:
         recipe_dict = json.loads(f.read())
@@ -45,12 +48,13 @@ def import_recipes(recipe_dir: Path) -> Recipe:
     recipe_data = Cleaner.clean(recipe_dict)
 
     image_name = recipe_data["slug"]
+    recipe_data["image"] = recipe_data["slug"]
     recipe_data["tags"] = clean_nextcloud_tags(recipe_data.get("keywords"))
 
     recipe = Recipe(**recipe_data)
 
     if image:
-        shutil.copy(image, app_dirs.IMG_DIR.joinpath(image_name))
+        shutil.copy(image, app_dirs.IMG_DIR.joinpath(image_name + image.suffix))
 
     return recipe
 
