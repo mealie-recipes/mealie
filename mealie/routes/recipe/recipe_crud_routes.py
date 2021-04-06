@@ -7,7 +7,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
 from mealie.schema.snackbar import SnackResponse
-from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, write_image
+from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, rename_image, write_image
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
@@ -60,6 +60,9 @@ def update_recipe(
     """ Updates a recipe by existing slug and data. """
 
     recipe: Recipe = db.recipes.update(session, recipe_slug, data.dict())
+
+    if recipe_slug != recipe.slug:
+        rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
 
     return recipe.slug
 

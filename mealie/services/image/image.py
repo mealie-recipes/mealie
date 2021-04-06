@@ -29,7 +29,6 @@ def read_image(recipe_slug: str, image_type: str = "original") -> Path:
     Returns:
         Path: [description]
     """
-    print(image_type)
     recipe_slug = recipe_slug.split(".")[0]  # Incase of File Name
     recipe_image_dir = app_dirs.IMG_DIR.joinpath(recipe_slug)
 
@@ -37,6 +36,18 @@ def read_image(recipe_slug: str, image_type: str = "original") -> Path:
         return file
 
     return None
+
+
+def rename_image(original_slug, new_slug) -> Path:
+    current_path = app_dirs.IMG_DIR.joinpath(original_slug)
+    new_path = app_dirs.IMG_DIR.joinpath(new_slug)
+
+    try:
+        new_path = current_path.rename(new_path)
+    except FileNotFoundError:
+        logger.error(f"Image Directory {original_slug} Doesn't Exist")
+
+    return new_path
 
 
 def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name:
