@@ -10,7 +10,7 @@ python mealie/services/image/minify.py
 ## Migrations
 # TODO
 
-if [[ "$ARG1" = "reload" ]]
+if [ "$ARG1" = "reload" ] 
 then
     echo "Hot reload"
 
