@@ -47,11 +47,12 @@ def default_user_init(session: Session):
     logger.info("Generating Default User")
     db.users.create(session, default_user)
 
-
-if __name__ == "__main__":
+def main():
     if sql_exists:
         print("Database Exists")
-        exit()
     else:
         print("Database Doesn't Exists, Initializing...")
         init_db()
+
+if __name__ == "__main__":
+    main()
