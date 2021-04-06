@@ -53,6 +53,8 @@ setup: ## Setup Development Instance
 	cd ..
 
 backend: ## Start Mealie Backend Development Server
+	poetry run python mealie/db/init_db.py && \
+	poetry run python mealie/services/image/minify.py && \
 	poetry run python mealie/app.py
 
 
