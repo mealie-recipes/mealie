@@ -14,12 +14,9 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 # Copy poetry.lock* in case it doesn't exist in the repo
 COPY ./pyproject.toml /app/
 
-# RUN poetry install 
-
 COPY ./mealie /app/mealie
 
 RUN poetry install 
 
-RUN ["poetry", "run", "python", "mealie/db/init_db.py"]
-RUN ["poetry", "run", "python", "mealie/services/image/minify.py"]
-CMD ["poetry", "run", "python", "mealie/app.py"]
+RUN chmod +x /app/mealie/run.sh
+CMD /app/mealie/run.sh reload

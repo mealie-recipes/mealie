@@ -3,7 +3,7 @@
 # Get Reload Arg `run.sh reload` for dev server
 ARG1=${1:-production}
 
-# Set Script Directory
+# Set Script Directory - Used for running the script from a different directory.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # # Initialize Database Prerun
@@ -12,6 +12,8 @@ poetry run python $DIR/services/image/minify.py
 
 # Migrations
 # TODO
+    # Migrations
+    # Set Port from ENV Variable
 
 if [[ "$ARG1" = "reload" ]]
 then
