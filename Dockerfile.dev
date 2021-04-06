@@ -19,4 +19,4 @@ COPY ./mealie /app/mealie
 RUN poetry install 
 
 RUN chmod +x /app/mealie/run.sh
-CMD /app/mealie/run.sh
+CMD /app/mealie/run.sh reload
