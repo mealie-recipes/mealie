@@ -4,7 +4,7 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.responses import FileResponse
 from mealie.core import security
-from mealie.core.config import settings, app_dirs
+from mealie.core.config import app_dirs, settings
 from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
