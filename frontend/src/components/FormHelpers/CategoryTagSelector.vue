@@ -13,7 +13,7 @@
     :solo="solo"
     :return-object="returnObject"
     :flat="flat"
-    @input="emitChange"
+    @change="emitChange"
   >
     <template v-slot:selection="data">
       <v-chip
@@ -27,8 +27,8 @@
       >
         {{ data.item.name }}
       </v-chip>
-    </template></v-select
-  >
+    </template>
+  </v-select>
 </template>
 
 <script>
@@ -72,13 +72,10 @@ export default {
       return this.tagSelector ? "Tags" : "Categories";
     },
     activeItems() {
-      return this.tagSelector ? this.allTags : this.allCategories;
-    },
-    allCategories() {
-      return this.$store.getters.getAllCategories;
-    },
-    allTags() {
-      return this.$store.getters.getAllTags;
+      if (this.tagSelector) return this.$store.getters.getAllTags;
+      else {
+        return this.$store.getters.getAllCategories;
+      }
     },
     flat() {
       return this.selected.length > 0 && this.solo;
