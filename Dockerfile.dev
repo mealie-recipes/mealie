@@ -18,4 +18,5 @@ COPY ./mealie /app/mealie
 
 RUN poetry install 
 
-CMD ["poetry", "run", "python", "mealie/app.py"]
+RUN chmod +x /app/mealie/run.sh
+CMD /app/mealie/run.sh
