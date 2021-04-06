@@ -7,8 +7,8 @@ from pathlib import Path
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.schema.recipe import Recipe
-from mealie.services.scraper.cleaner import Cleaner
 from mealie.services.image import minify
+from mealie.services.scraper.cleaner import Cleaner
 
 
 def process_selection(selection: Path) -> Path:
@@ -24,6 +24,13 @@ def process_selection(selection: Path) -> Path:
         return None
 
 
+def clean_nextcloud_tags(nextcloud_tags: str):
+    if not isinstance(nextcloud_tags, str):
+        return None
+
+    return [x.title().lstrip() for x in nextcloud_tags.split(",") if x != ""]
+
+
 def import_recipes(recipe_dir: Path) -> Recipe:
     image = False
     for file in recipe_dir.glob("full.*"):
@@ -37,12 +44,8 @@ def import_recipes(recipe_dir: Path) -> Recipe:
 
     recipe_data = Cleaner.clean(recipe_dict)
 
-    image_name = None
-    if image:
-        image_name = recipe_data["slug"] + image.suffix
-        recipe_data["image"] = image_name
-    else:
-        recipe_data["image"] = "none"
+    image_name = recipe_data["slug"]
+    recipe_data["tags"] = clean_nextcloud_tags(recipe_data.get("keywords"))
 
     recipe = Recipe(**recipe_data)
 
@@ -53,10 +56,7 @@ def import_recipes(recipe_dir: Path) -> Recipe:
 
 
 def prep():
-    try:
-        shutil.rmtree(app_dirs.TEMP_DIR)
-    except:
-        pass
+    shutil.rmtree(app_dirs.TEMP_DIR, ignore_errors=True)
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
 
 
@@ -81,7 +81,7 @@ def migrate(session, selection: str):
                 db.recipes.create(session, recipe.dict())
 
                 successful_imports.append(recipe.name)
-            except:
+            except Exception:
                 session.rollback()
                 logging.error(f"Failed Nextcloud Import: {dir.name}")
                 logging.exception("")
