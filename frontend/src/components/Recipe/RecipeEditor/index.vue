@@ -248,26 +248,14 @@ export default {
           v.split(" ").length <= 1 ||
           this.$i18n.t("recipe.no-white-space-allowed"),
       },
-      categoriesSearchInput: "",
-      tagsSearchInput: "",
     };
-  },
-  computed: {
-    allCategories() {
-      const categories = this.$store.getters.getAllCategories;
-      return categories.map(cat => cat.name);
-    },
-    allTags() {
-      const tags = this.$store.getters.getAllTags;
-      return tags.map(cat => cat.name);
-    },
   },
   methods: {
     uploadImage() {
       this.$emit("upload", this.fileObject);
     },
     async updateImage() {
-      let slug = this.value.slug;
+      const slug = this.value.slug;
       api.recipes.updateImage(slug, this.fileObject);
     },
     toggleDisabled(stepIndex) {
@@ -289,9 +277,6 @@ export default {
     },
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);
-    },
-    deleteRecipe() {
-      this.$emit("delete");
     },
 
     appendIngredients(ingredients) {
