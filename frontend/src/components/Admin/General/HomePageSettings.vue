@@ -133,7 +133,7 @@
 import { api } from "@/api";
 import LanguageMenu from "@/components/UI/LanguageMenu";
 import draggable from "vuedraggable";
-import NewCategoryDialog from "./NewCategoryDialog.vue";
+import NewCategoryDialog from "@/components/UI/Dialogs/NewCategoryDialog.vue";
 
 export default {
   components: {

@@ -1,7 +1,8 @@
 <template>
-  <v-select
+  <v-autocomplete
     :items="activeItems"
     v-model="selected"
+    :value="value"
     :label="inputLabel"
     chips
     deletable-chips
@@ -13,7 +14,7 @@
     :solo="solo"
     :return-object="returnObject"
     :flat="flat"
-    @change="emitChange"
+    @input="emitChange"
   >
     <template v-slot:selection="data">
       <v-chip
@@ -24,16 +25,28 @@
         label
         color="accent"
         dark
+        :key="data.index"
       >
-        {{ data.item.name }}
+        {{ data.item.name || data.item }}
       </v-chip>
     </template>
-  </v-select>
+    <template v-slot:append-outer="">
+      <NewCategoryDialog
+        v-if="showAdd"
+        :tag-dialog="tagSelector"
+        @created-item="pushToItem"
+      />
+    </template>
+  </v-autocomplete>
 </template>
 
 <script>
+import NewCategoryDialog from "@/components/UI/Dialogs/NewCategoryDialog";
 const MOUNTED_EVENT = "mounted";
 export default {
+  components: {
+    NewCategoryDialog,
+  },
   props: {
     value: Array,
     solo: {
@@ -51,6 +64,12 @@ export default {
     hint: {
       default: null,
     },
+    showAdd: {
+      default: false,
+    },
+    showLabel: {
+      default: true,
+    },
   },
   data() {
     return {
@@ -59,6 +78,7 @@ export default {
   },
   mounted() {
     this.$emit(MOUNTED_EVENT);
+    this.setInit(this.value);
   },
 
   watch: {
@@ -69,12 +89,18 @@ export default {
 
   computed: {
     inputLabel() {
+      if (!this.showLabel) return null;
       return this.tagSelector ? "Tags" : "Categories";
     },
     activeItems() {
-      if (this.tagSelector) return this.$store.getters.getAllTags;
+      let ItemObjects = [];
+      if (this.tagSelector) ItemObjects = this.$store.getters.getAllTags;
       else {
-        return this.$store.getters.getAllCategories;
+        ItemObjects = this.$store.getters.getAllCategories;
+      }
+      if (this.returnObject) return ItemObjects;
+      else {
+        return ItemObjects.map(x => x.name);
       }
     },
     flat() {
@@ -90,6 +116,10 @@ export default {
     },
     removeByIndex(index) {
       this.selected.splice(index, 1);
+    },
+    pushToItem(createdItem) {
+      createdItem = this.returnObject ? createdItem : createdItem.name;
+      this.selected.push(createdItem);
     },
   },
 };

@@ -13,6 +13,7 @@
         :dense="false"
         v-model="groupSettings.categories"
         :return-object="true"
+        :show-add="true"
         :hint="
           $t(
             'meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans'

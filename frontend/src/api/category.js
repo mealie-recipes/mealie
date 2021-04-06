@@ -44,6 +44,11 @@ export const tagAPI = {
     let response = await apiReq.get(tagURLs.getAll);
     return response.data;
   },
+  async create(name) {
+    let response = await apiReq.post(tagURLs.getAll, { name: name });
+    store.dispatch("requestTags");
+    return response.data;
+  },
   async getRecipesInTag(tag) {
     let response = await apiReq.get(tagURLs.getTag(tag));
     return response.data;
