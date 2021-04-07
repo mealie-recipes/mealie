@@ -52,6 +52,15 @@
         "group": "groupA"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Run python tests",
+      "command": "make test",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
     }
   ]
 }
