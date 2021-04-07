@@ -56,7 +56,10 @@ def move_all_images():
                 continue
             new_folder = app_dirs.IMG_DIR.joinpath(image_file.stem)
             new_folder.mkdir(parents=True, exist_ok=True)
-            image_file.rename(new_folder.joinpath(f"original{image_file.suffix}"))
+            new_file = new_folder.joinpath(f"original{image_file.suffix}")
+            if new_file.is_file():
+                new_file.unlink()
+            image_file.rename(new_file)
 
 
 def migrate_images():
