@@ -1,8 +1,12 @@
 import shutil
 from pathlib import Path
 
+from fastapi.logger import logger
 from mealie.core.config import app_dirs
-from PIL import Image, UnidentifiedImageError
+from mealie.db.database import db
+from mealie.db.db_setup import create_session
+from PIL import Image
+from sqlalchemy.orm.session import Session
 
 
 def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):
@@ -24,7 +28,7 @@ def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):
         tiny_image = crop_center(img)
         tiny_image.save(tiny_dest, quality=70)
 
-    except:
+    except Exception:
         shutil.copy(image_file, min_dest)
         shutil.copy(image_file, tiny_dest)
 
@@ -59,6 +63,28 @@ def move_all_images():
             image_file.rename(new_folder.joinpath(f"original{image_file.suffix}"))
 
 
+def validate_slugs_in_database(session: Session = None):
+    def check_image_path(image_name: str, slug_path: str) -> bool:
+        existing_path: Path = app_dirs.IMG_DIR.joinpath(image_name)
+        slug_path: Path = app_dirs.IMG_DIR.joinpath(slug_path)
+
+        if existing_path.is_dir():
+            slug_path.rename(existing_path)
+        else:
+            logger.info("No Image Found")
+
+    session = session or create_session()
+    all_recipes = db.recipes.get_all(session)
+
+    slugs_and_images = [(x.slug, x.image) for x in all_recipes]
+
+    for slug, image in slugs_and_images:
+        image_slug = image.split(".")[0]  # Remove Extension
+        if slug != image_slug:
+            logger.info(f"{slug}, Doesn't Match '{image_slug}'")
+            check_image_path(image, slug)
+
+
 def migrate_images():
     print("Checking for Images to Minify...")
 
@@ -77,10 +103,11 @@ def migrate_images():
         org_size = sizeof_fmt(image.stat().st_size)
         dest_size = sizeof_fmt(min_dest.stat().st_size)
         tiny_size = sizeof_fmt(tiny_dest.stat().st_size)
-        print(f"{image.name} Minified: {org_size} -> {dest_size} -> {tiny_size}")
+        logger.info(f"{image.name} Minified: {org_size} -> {dest_size} -> {tiny_size}")
 
-    print("Finished Minification Check")
+    logger.info("Finished Minification Check")
 
 
 if __name__ == "__main__":
     migrate_images()
+    validate_slugs_in_database()

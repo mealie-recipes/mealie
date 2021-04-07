@@ -60,7 +60,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     @validates("name")
     def validate_name(self, key, name):
-        assert not name == ""
+        assert name != ""
         return name
 
     def __init__(
@@ -92,11 +92,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.image = image
         self.recipeCuisine = recipeCuisine
 
-        if self.nutrition:
-            self.nutrition = Nutrition(**nutrition)
-        else:
-            self.nutrition = Nutrition()
-
+        self.nutrition = Nutrition(**nutrition) if self.nutrition else Nutrition()
         self.tools = [Tool(tool=x) for x in tools] if tools else []
 
         self.recipeYield = recipeYield

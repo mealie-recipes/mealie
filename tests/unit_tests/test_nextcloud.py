@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 import pytest
@@ -36,4 +37,4 @@ def test_zip_extraction(file_name: str, final_path: Path):
 def test_nextcloud_migration(recipe_dir: Path):
     recipe = import_recipes(recipe_dir)
     assert isinstance(recipe, Recipe)
-    app_dirs.IMG_DIR.joinpath(recipe.image).unlink(missing_ok=True)
+    shutil.rmtree(app_dirs.IMG_DIR.joinpath(recipe.image), ignore_errors=True)

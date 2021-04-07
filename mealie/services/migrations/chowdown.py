@@ -6,6 +6,7 @@ from fastapi.logger import logger
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.schema.recipe import Recipe
+from mealie.services.image.minify import migrate_images
 from mealie.utils.unzip import unpack_zip
 from sqlalchemy.orm.session import Session
 
@@ -89,4 +90,5 @@ def chowdown_migrate(session: Session, zip_file: Path):
                 failed_images.append(image.name)
         report = {"successful": successful_recipes, "failed": failed_recipes}
 
+    migrate_images()
     return report

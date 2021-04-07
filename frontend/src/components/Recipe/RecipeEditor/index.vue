@@ -114,60 +114,21 @@
           <BulkAdd @bulk-data="appendIngredients" />
 
           <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
-          <v-combobox
-            dense
-            multiple
-            chips
-            item-color="secondary"
-            deletable-chips
+          <CategoryTagSelector
+            :return-object="false"
             v-model="value.recipeCategory"
-            hide-selected
-            :items="allCategories"
-            text="name"
-            :search-input.sync="categoriesSearchInput"
-            @change="categoriesSearchInput = ''"
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                class="ma-1"
-                :input-value="data.selected"
-                close
-                @click:close="removeCategory(data.index)"
-                label
-                color="accent"
-                dark
-              >
-                {{ data.item }}
-              </v-chip>
-            </template>
-          </v-combobox>
+            :show-add="true"
+            :show-label="false"
+          />
 
           <h2 class="mt-4">{{ $t("recipe.tags") }}</h2>
-          <v-combobox
-            dense
-            multiple
-            chips
-            deletable-chips
+          <CategoryTagSelector
+            :return-object="false"
             v-model="value.tags"
-            hide-selected
-            :items="allTags"
-            :search-input.sync="tagsSearchInput"
-            @change="tagssSearchInput = ''"
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                class="ma-1"
-                :input-value="data.selected"
-                close
-                label
-                @click:close="removeTags(data.index)"
-                color="accent"
-                dark
-              >
-                {{ data.item }}
-              </v-chip>
-            </template>
-          </v-combobox>
+            :show-add="true"
+            :tag-selector="true"
+            :show-label="false"
+          />
 
           <h2 class="my-4">{{ $t("recipe.notes") }}</h2>
           <v-card
@@ -265,11 +226,13 @@ import { api } from "@/api";
 import utils from "@/utils";
 import BulkAdd from "./BulkAdd";
 import ExtrasEditor from "./ExtrasEditor";
+import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 export default {
   components: {
     BulkAdd,
     ExtrasEditor,
     draggable,
+    CategoryTagSelector,
   },
   props: {
     value: Object,
@@ -285,26 +248,14 @@ export default {
           v.split(" ").length <= 1 ||
           this.$i18n.t("recipe.no-white-space-allowed"),
       },
-      categoriesSearchInput: "",
-      tagsSearchInput: "",
     };
-  },
-  computed: {
-    allCategories() {
-      const categories = this.$store.getters.getAllCategories;
-      return categories.map(cat => cat.name);
-    },
-    allTags() {
-      const tags = this.$store.getters.getAllTags;
-      return tags.map(cat => cat.name);
-    },
   },
   methods: {
     uploadImage() {
       this.$emit("upload", this.fileObject);
     },
     async updateImage() {
-      let slug = this.value.slug;
+      const slug = this.value.slug;
       api.recipes.updateImage(slug, this.fileObject);
     },
     toggleDisabled(stepIndex) {
@@ -326,9 +277,6 @@ export default {
     },
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);
-    },
-    deleteRecipe() {
-      this.$emit("delete");
     },
 
     appendIngredients(ingredients) {

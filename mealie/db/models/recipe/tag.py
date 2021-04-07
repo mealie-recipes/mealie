@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from mealie.db.models.model_base import SqlAlchemyBase
 from fastapi.logger import logger
+from mealie.db.models.model_base import SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
 
@@ -25,7 +25,7 @@ class Tag(SqlAlchemyBase):
         assert name != ""
         return name
 
-    def __init__(self, name) -> None:
+    def __init__(self, name, session=None) -> None:
         self.name = name.strip()
         self.slug = slugify(self.name)
 

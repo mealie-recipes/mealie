@@ -17,11 +17,18 @@
       </v-text-field>
     </template>
     <v-card v-if="showResults" max-height="500" :max-width="maxWidth">
-      <v-card-text class="py-1">Results</v-card-text>
+      <v-card-text class="flex row mx-auto">
+        <div class="mr-auto">
+          Results
+        </div>
+        <router-link to="/search">
+          Advanced Search
+        </router-link>
+      </v-card-text>
       <v-divider></v-divider>
-      <v-list scrollable>
+      <v-list scrollable v-if="autoResults">
         <v-list-item
-          v-for="(item, index) in autoResults"
+          v-for="(item, index) in autoResults.slice(0, 15)"
           :key="index"
           :to="navOnClick ? `/recipe/${item.item.slug}` : null"
           @click="navOnClick ? null : selected(item.item.slug, item.item.name)"
