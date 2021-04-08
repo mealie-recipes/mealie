@@ -60,8 +60,7 @@ export default {
       dialog: false,
       itemName: "",
       rules: {
-        required: val =>
-          !!val || this.$t("settings.theme.theme-name-is-required"),
+        required: val => !!val || "A Name is Required",
       },
     };
   },
@@ -71,7 +70,7 @@ export default {
       return this.tagDialog ? "Create a Tag" : "Create a Category";
     },
     inputLabel() {
-      return this.tagDialog ? "Tag Name" : "Tag Category";
+      return this.tagDialog ? "Tag Name" : "Category Name";
     },
   },
   watch: {
