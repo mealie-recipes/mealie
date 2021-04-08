@@ -84,7 +84,7 @@
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
-              <NewCategoryTagDialog />
+              <NewCategoryTagDialog :tag-dialog="false" />
             </v-app-bar>
             <v-list height="300" dense style="overflow:auto">
               <v-list-item-group>
