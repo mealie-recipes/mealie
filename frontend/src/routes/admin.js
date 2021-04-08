@@ -7,6 +7,7 @@ import Profile from "@/pages/Admin/Profile";
 import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
 import About from "@/pages/Admin/About";
+import ToolBox from "@/pages/Admin/ToolBox";
 import { store } from "../store";
 
 export default {
@@ -54,6 +55,10 @@ export default {
     {
       path: "about",
       component: About,
+    },
+    {
+      path: "tool-box",
+      component: ToolBox,
     },
   ],
 };

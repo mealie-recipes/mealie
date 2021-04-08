@@ -155,6 +155,11 @@ export default {
           to: "/admin/meal-planner",
           title: this.$t("meal-plan.meal-planner"),
         },
+        {
+          icon: "mdi-toolbox",
+          to: "/admin/tool-box",
+          title: "Tool Box",
+        },
       ],
     };
   },
