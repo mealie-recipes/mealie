@@ -5,27 +5,27 @@ import { store } from "@/store";
 const prefix = baseURL + "categories";
 
 const categoryURLs = {
-  get_all: `${prefix}`,
-  get_category: category => `${prefix}/${category}`,
-  delete_category: category => `${prefix}/${category}`,
+  getAll: `${prefix}`,
+  getCategory: category => `${prefix}/${category}`,
+  deleteCategory: category => `${prefix}/${category}`,
 };
 
 export const categoryAPI = {
   async getAll() {
-    let response = await apiReq.get(categoryURLs.get_all);
+    let response = await apiReq.get(categoryURLs.getAll);
     return response.data;
   },
   async create(name) {
-    let response = await apiReq.post(categoryURLs.get_all, { name: name });
+    let response = await apiReq.post(categoryURLs.getAll, { name: name });
     store.dispatch("requestCategories");
     return response.data;
   },
   async getRecipesInCategory(category) {
-    let response = await apiReq.get(categoryURLs.get_category(category));
+    let response = await apiReq.get(categoryURLs.getCategory(category));
     return response.data;
   },
   async delete(category) {
-    let response = await apiReq.delete(categoryURLs.delete_category(category));
+    let response = await apiReq.delete(categoryURLs.deleteCategory(category));
     store.dispatch("requestCategories");
     return response.data;
   },
@@ -42,6 +42,11 @@ const tagURLs = {
 export const tagAPI = {
   async getAll() {
     let response = await apiReq.get(tagURLs.getAll);
+    return response.data;
+  },
+  async create(name) {
+    let response = await apiReq.post(tagURLs.getAll, { name: name });
+    store.dispatch("requestTags");
     return response.data;
   },
   async getRecipesInTag(tag) {

@@ -8,6 +8,7 @@ const prefix = baseURL + "recipes/";
 
 const recipeURLs = {
   allRecipes: baseURL + "recipes",
+  summary: baseURL + "recipes" + "/summary",
   allRecipesByCategory: prefix + "category",
   create: prefix + "create",
   createByURL: prefix + "create-url",
@@ -56,9 +57,7 @@ export const recipeAPI = {
     const fd = new FormData();
     fd.append("image", fileObject);
     fd.append("extension", fileObject.name.split(".").pop());
-
     let response = apiReq.put(recipeURLs.updateImage(recipeSlug), fd);
-
     return response;
   },
 
@@ -86,5 +85,22 @@ export const recipeAPI = {
     });
 
     return response.data;
+  },
+
+  async allSummary() {
+    const response = await apiReq.get(recipeURLs.summary);
+    return response.data;
+  },
+
+  recipeImage(recipeSlug) {
+    return `/api/recipes/${recipeSlug}/image?image_type=original`;
+  },
+
+  recipeSmallImage(recipeSlug) {
+    return `/api/recipes/${recipeSlug}/image?image_type=small`;
+  },
+
+  recipeTinyImage(recipeSlug) {
+    return `/api/recipes/${recipeSlug}/image?image_type=tiny`;
   },
 };

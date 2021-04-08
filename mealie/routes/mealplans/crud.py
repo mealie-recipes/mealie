@@ -1,12 +1,14 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.meal import MealPlanIn, MealPlanInDB
 from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import GroupInDB, UserInDB
+from mealie.services.image import image
 from mealie.services.meal_services import get_todays_meal, process_meals
 from sqlalchemy.orm.session import Session
+from starlette.responses import FileResponse
 
 router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
@@ -74,3 +76,22 @@ def get_today(session: Session = Depends(generate_session), current_user: UserIn
     recipe = get_todays_meal(session, group_in_db)
 
     return recipe.slug
+
+
+@router.get("/today/image", tags=["Meal Plan"])
+def get_today(session: Session = Depends(generate_session), group_name: str = "Home"):
+    """
+    Returns the image for todays meal-plan.
+    """
+
+    group_in_db: GroupInDB = db.groups.get(session, group_name, "name")
+    recipe = get_todays_meal(session, group_in_db)
+
+    if recipe:
+        recipe_image = image.read_image(recipe.slug, image_type=image.IMG_OPTIONS.ORIGINAL_IMAGE)
+    else:
+        raise HTTPException(404, "no meal for today")
+    if recipe_image:
+        return FileResponse(recipe_image)
+    else:
+        raise HTTPException(404, "file not found")

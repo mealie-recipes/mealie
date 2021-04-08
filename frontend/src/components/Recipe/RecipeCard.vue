@@ -5,8 +5,9 @@
       :elevation="hover ? 12 : 2"
       :to="route ? `/recipe/${slug}` : ''"
       @click="$emit('click')"
+      min-height="275"
     >
-      <v-img height="200" :src="getImage(image)">
+      <v-img height="200" :src="getImage(slug)">
         <v-expand-transition v-if="description">
           <div
             v-if="hover"
@@ -25,43 +26,53 @@
         </div>
       </v-card-title>
 
-      <v-card-actions class="">
-        <v-row dense align="center">
-          <v-col>
-            <v-rating
-              class="mr-2"
-              color="secondary"
-              background-color="secondary lighten-3"
-              dense
-              length="5"
-              size="15"
-              :value="rating"
-            ></v-rating>
-          </v-col>
-          <v-col></v-col>
-          <v-col align="end"> </v-col>
-        </v-row>
+      <v-card-actions>
+        <v-rating
+          class="mr-2 my-auto"
+          color="secondary"
+          background-color="secondary lighten-3"
+          dense
+          length="5"
+          size="15"
+          :value="rating"
+        ></v-rating>
+        <v-spacer></v-spacer>
+        <RecipeChips
+          :items="tags"
+          :title="false"
+          :limit="2"
+          :small="true"
+          :isCategory="false"
+        />
       </v-card-actions>
     </v-card>
   </v-hover>
 </template>
 
 <script>
-import utils from "@/utils";
+import RecipeChips from "@/components/Recipe/RecipeViewer/RecipeChips";
+import { api } from "@/api";
 export default {
+  components: {
+    RecipeChips,
+  },
   props: {
     name: String,
     slug: String,
     description: String,
     rating: Number,
     image: String,
+
     route: {
+      default: true,
+    },
+    tags: {
       default: true,
     },
   },
   methods: {
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeSmallImage(image);
     },
   },
 };

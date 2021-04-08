@@ -34,7 +34,11 @@
           <Ingredients :ingredients="ingredients" />
           <div v-if="medium">
             <RecipeChips :title="$t('recipe.categories')" :items="categories" />
-            <RecipeChips :title="$t('recipe.tags')" :items="tags" />
+            <RecipeChips
+              :title="$t('recipe.tags')"
+              :items="tags"
+              :isCategory="false"
+            />
             <Notes :notes="notes" />
           </div>
         </v-col>

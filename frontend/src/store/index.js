@@ -28,6 +28,10 @@ const store = new Vuex.Store({
     mealPlanCategories: [],
     allCategories: [],
     allTags: [],
+    appInfo: {
+      version: "",
+      demoStatus: false,
+    },
   },
 
   mutations: {
@@ -43,19 +47,22 @@ const store = new Vuex.Store({
     setAllTags(state, payload) {
       state.allTags = payload;
     },
+    setAppInfo(state, payload) {
+      state.appInfo = payload;
+    },
   },
 
   actions: {
     async requestRecentRecipes() {
-      const keys = [
-        "name",
-        "slug",
-        "image",
-        "description",
-        "dateAdded",
-        "rating",
-      ];
-      const payload = await api.recipes.allByKeys(keys);
+      // const keys = [
+      //   "name",
+      //   "slug",
+      //   "image",
+      //   "description",
+      //   "dateAdded",
+      //   "rating",
+      // ];
+      const payload = await api.recipes.allSummary();
 
       this.commit("setRecentRecipes", payload);
     },
@@ -67,6 +74,11 @@ const store = new Vuex.Store({
       const tags = await api.tags.getAll();
       commit("setAllTags", tags);
     },
+
+    async requestAppInfo({ commit }) {
+      const response = await api.meta.getAppInfo();
+      commit("setAppInfo", response);
+    },
   },
 
   getters: {
@@ -76,6 +88,7 @@ const store = new Vuex.Store({
       state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
     getAllTags: state =>
       state.allTags.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
+    getAppInfo: state => state.appInfo,
   },
 });
 

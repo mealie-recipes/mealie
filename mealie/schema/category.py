@@ -23,9 +23,13 @@ class RecipeCategoryResponse(CategoryBase):
         schema_extra = {"example": {"id": 1, "name": "dinner", "recipes": [{}]}}
 
 
+class TagIn(CategoryIn):
+    pass
+
+
 class TagBase(CategoryBase):
     pass
 
 
-class RecipeTagResponse(TagBase):
+class RecipeTagResponse(RecipeCategoryResponse):
     pass

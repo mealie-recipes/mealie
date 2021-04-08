@@ -7,41 +7,19 @@
     <v-card-text>
       <h2 class="mt-1">{{ $t("recipe.categories") }}</h2>
 
-      <v-row>
-        <v-col sm="12" md="6">
-          <v-select
-            outlined
-            :flat="isFlat"
-            elavation="0"
-            v-model="groupSettings.categories"
-            :items="categories"
-            item-text="name"
-            return-object
-            multiple
-            chips
-            :hint="
-              $t(
-                'meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans'
-              )
-            "
-            class="mt-2"
-            persistent-hint
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                outlined
-                :input-value="data.selected"
-                close
-                @click:close="removeCategory(data.index)"
-                color="secondary"
-                dark
-              >
-                {{ data.item.name }}
-              </v-chip>
-            </template>
-          </v-select>
-        </v-col>
-      </v-row>
+      <CategoryTagSelector
+        class="mt-4"
+        :solo="true"
+        :dense="false"
+        v-model="groupSettings.categories"
+        :return-object="true"
+        :show-add="true"
+        :hint="
+          $t(
+            'meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans'
+          )
+        "
+      />
     </v-card-text>
     <v-divider> </v-divider>
     <v-card-text>
@@ -57,28 +35,23 @@
         <strong>{{ groupSettings.webhookTime }}</strong>
       </p>
 
-      <v-row dense align="center">
-        <v-col cols="12" md="2" sm="5">
-          <v-switch
-            v-model="groupSettings.webhookEnable"
-            :label="$t('general.enabled')"
-          ></v-switch>
-        </v-col>
-        <v-col cols="12" md="3" sm="5">
-          <TimePickerDialog @save-time="saveTime" />
-        </v-col>
-        <v-col cols="12" md="4" sm="5">
-          <v-btn text color="info" @click="testWebhooks">
-            <v-icon left> mdi-webhook </v-icon>
-            {{ $t("settings.webhooks.test-webhooks") }}
-          </v-btn>
-        </v-col>
+      <v-row dense class="flex align-center">
+        <v-switch
+          class="mx-2"
+          v-model="groupSettings.webhookEnable"
+          :label="$t('general.enabled')"
+        ></v-switch>
+        <TimePickerDialog @save-time="saveTime" class="ma-2" />
+        <v-btn class="ma-2" color="info" @click="testWebhooks">
+          <v-icon left> mdi-webhook </v-icon>
+          {{ $t("settings.webhooks.test-webhooks") }}
+        </v-btn>
       </v-row>
 
       <v-row
         v-for="(url, index) in groupSettings.webhookUrls"
         :key="index"
-        align="center"
+        align=" center"
         dense
       >
         <v-col cols="1">
@@ -110,9 +83,11 @@
 <script>
 import { api } from "@/api";
 import TimePickerDialog from "@/components/Admin/MealPlanner/TimePickerDialog";
+import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 export default {
   components: {
     TimePickerDialog,
+    CategoryTagSelector,
   },
   data() {
     return {
@@ -160,15 +135,13 @@ export default {
       this.groupSettings.webhookUrls.splice(index, 1);
     },
     async saveGroupSettings() {
+      console.log(this.groupSettings);
       await api.groups.update(this.groupSettings);
       await this.$store.dispatch("requestCurrentGroup");
       this.getSiteSettings();
     },
     testWebhooks() {
       api.settings.testWebhooks();
-    },
-    removeCategory(index) {
-      this.groupSettings.categories.splice(index, 1);
     },
   },
 };

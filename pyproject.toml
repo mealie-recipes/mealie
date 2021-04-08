@@ -30,6 +30,8 @@ bcrypt = "^3.2.0"
 python-jose = "^3.2.0"
 passlib = "^1.7.4"
 lxml = "4.6.2"
+Pillow = "^8.2.0"
+
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"

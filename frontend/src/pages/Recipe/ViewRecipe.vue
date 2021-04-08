@@ -14,7 +14,7 @@
     <v-card v-else id="myRecipe">
       <v-img
         height="400"
-        :src="getImage(recipeDetails.image)"
+        :src="getImage(recipeDetails.slug)"
         class="d-print-none"
         :key="imageKey"
       >
@@ -71,7 +71,6 @@
 
 <script>
 import { api } from "@/api";
-import utils from "@/utils";
 import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "@/components/Recipe/RecipeViewer";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
@@ -160,7 +159,7 @@ export default {
     },
     getImage(image) {
       if (image) {
-        return utils.getImageURL(image) + "?rnd=" + this.imageKey;
+        return api.recipes.recipeImage(image) + "&rnd=" + this.imageKey;
       }
     },
     deleteRecipe() {

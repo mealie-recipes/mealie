@@ -15,9 +15,9 @@
             <v-menu offset-y v-if="sortable">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn-toggle group>
-                  <v-btn text v-bind="attrs" v-on="on">{{
-                    $t("general.sort")
-                  }}</v-btn>
+                  <v-btn text v-bind="attrs" v-on="on">
+                    {{ $t("general.sort") }}
+                  </v-btn>
                 </v-btn-toggle>
               </template>
               <v-list>
@@ -53,6 +53,7 @@
             :slug="recipe.slug"
             :rating="recipe.rating"
             :image="recipe.image"
+            :tags="recipe.tags"
           />
         </v-col>
       </v-row>

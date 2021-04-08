@@ -40,7 +40,13 @@
           <v-btn color="error" text @click="deleteMigration(migration.name)">
             {{ $t("general.delete") }}
           </v-btn>
-          <v-btn color="accent" text @click="importMigration(migration.name)">
+          <v-btn
+            color="accent"
+            text
+            @click="importMigration(migration.name)"
+            :loading="loading"
+            :disabled="loading"
+          >
             {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>
@@ -82,10 +88,10 @@ export default {
       this.$emit("refresh");
     },
     async importMigration(file_name) {
-      this.loading == true;
+      this.loading = true;
       let response = await api.migrations.import(this.folder, file_name);
       this.$emit("imported", response.successful, response.failed);
-      this.loading == false;
+      this.loading = false;
     },
     readableTime(timestamp) {
       let date = new Date(timestamp);

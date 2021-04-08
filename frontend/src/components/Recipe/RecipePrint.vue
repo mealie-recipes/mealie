@@ -162,6 +162,7 @@
 
 <script>
 import utils from "@/utils";
+import { api } from "@/api";
 
 export default {
   props: {
@@ -175,7 +176,7 @@ export default {
   methods: {
     getImage(image) {
       if (image) {
-        return utils.getImageURL(image) + "?rnd=" + this.imageKey;
+        return api.recipes.recipeImage(image) + "?rnd=" + this.imageKey;
       }
     },
     generateKey(item, index) {

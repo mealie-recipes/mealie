@@ -1,6 +1,6 @@
 
 
-![Recipe Image](../../images/{{ recipe.image }})
+![Recipe Image](../../images/{{ recipe.slug }}/original.jpg)
 
 # {{ recipe.name }}
 {{ recipe.description }}

@@ -89,3 +89,11 @@ def test_html_with_recipe_data():
     assert url_validation_regex.match(recipe_data["image"])
     assert len(recipe_data["recipeIngredient"]) == 13
     assert len(recipe_data["recipeInstructions"]) == 4
+
+
+def test_time_cleaner():
+
+    my_time_delta = "PT2H30M"
+    return_delta = Cleaner.time(my_time_delta)
+
+    assert return_delta == "2 Hours 30 Minutes"

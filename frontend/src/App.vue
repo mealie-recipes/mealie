@@ -1,35 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
-      <router-link v-if="!(isMobile && search)" to="/">
-        <v-btn icon>
-          <v-icon size="40"> mdi-silverware-variant </v-icon>
-        </v-btn>
-      </router-link>
-
-      <div v-if="!isMobile" btn class="pl-2">
-        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
-          >Mealie
-        </v-toolbar-title>
-      </div>
-
-      <v-spacer></v-spacer>
-      <v-expand-x-transition>
-        <SearchBar
-          ref="mainSearchBar"
-          v-if="search"
-          :show-results="true"
-          @selected="navigateFromSearch"
-          :max-width="isMobile ? '100%' : '450px'"
-        />
-      </v-expand-x-transition>
-      <v-btn icon @click="search = !search">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <SiteMenu />
-      <LanguageMenu />
-    </v-app-bar>
+    <TheAppBar />
     <v-main>
       <v-banner v-if="demo" sticky
         ><div class="text-center">
@@ -47,34 +18,25 @@
 </template>
 
 <script>
-import SiteMenu from "@/components/UI/SiteMenu";
-import SearchBar from "@/components/UI/Search/SearchBar";
+import TheAppBar from "@/components/UI/TheAppBar";
 import AddRecipeFab from "@/components/UI/AddRecipeFab";
-import LanguageMenu from "@/components/UI/LanguageMenu";
 import Vuetify from "./plugins/vuetify";
 import { user } from "@/mixins/user";
-import { api } from "./api";
 
 export default {
   name: "App",
 
   components: {
-    SiteMenu,
+    TheAppBar,
     AddRecipeFab,
-    SearchBar,
-    LanguageMenu,
   },
 
   mixins: [user],
 
-  watch: {
-    $route() {
-      this.search = false;
-    },
-  },
   computed: {
-    isMobile() {
-      return this.$vuetify.breakpoint.name === "xs";
+    demo() {
+      const appInfo = this.$store.getters.getAppInfo;
+      return appInfo.demoStatus;
     },
   },
 
@@ -96,15 +58,9 @@ export default {
     this.$store.dispatch("requestTags");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
-
-    const api_status = await api.meta.getIsDemo();
-    this.demo = api_status.demoStatus;
+    this.$store.dispatch("requestAppInfo");
   },
 
-  data: () => ({
-    search: false,
-    demo: false,
-  }),
   methods: {
     // For Later!
 
@@ -125,9 +81,6 @@ export default {
       darkMediaQuery.addEventListener("change", () => {
         this.darkModeSystemCheck();
       });
-    },
-    navigateFromSearch(slug) {
-      this.$router.push(`/recipe/${slug}`);
     },
   },
 };
@@ -160,6 +113,7 @@ export default {
 
 .notify-base {
   color: white !important;
+  /* min-height: 50px; */
   margin-right: 60px;
   margin-bottom: -5px;
   opacity: 0.9 !important;
@@ -175,12 +129,5 @@ export default {
 
 *::-webkit-scrollbar-thumb {
   background: grey;
-}
-
-.notify-base {
-  color: white !important;
-  margin-right: 60px;
-  margin-bottom: -5px;
-  opacity: 0.9 !important;
 }
 </style>

@@ -1,8 +1,13 @@
 <template>
-  <v-card hover :to="`/recipe/${slug}`" max-height="125">
+  <v-card
+    hover
+    :to="`/recipe/${slug}`"
+    max-height="125"
+    @click="$emit('selected')"
+  >
     <v-list-item>
       <v-list-item-avatar rounded size="125" class="mt-0 ml-n4">
-        <v-img :src="getImage(image)"> </v-img>
+        <v-img :src="getImage(slug)"> </v-img>
       </v-list-item-avatar>
       <v-list-item-content class="align-self-start">
         <v-list-item-title>
@@ -20,7 +25,7 @@
 </template>
 
 <script>
-import utils from "@/utils";
+import { api } from "@/api";
 export default {
   props: {
     name: String,
@@ -35,7 +40,7 @@ export default {
 
   methods: {
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeSmallImage(image);
     },
   },
 };

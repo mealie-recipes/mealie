@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-btn icon @click="dialog = true">
-      <v-icon color="white">mdi-plus</v-icon>
+    <v-btn icon @click="dialog = true" class="mt-n1">
+      <v-icon :color="color">mdi-plus</v-icon>
     </v-btn>
     <v-dialog v-model="dialog" width="500">
       <v-card>
@@ -11,7 +11,7 @@
           </v-icon>
 
           <v-toolbar-title class="headline">
-            Create a Category
+            {{ title }}
           </v-toolbar-title>
 
           <v-spacer></v-spacer>
@@ -21,8 +21,8 @@
           <v-card-text>
             <v-text-field
               dense
-              label="Category Name"
-              v-model="categoryName"
+              :label="inputLabel"
+              v-model="itemName"
               :rules="[rules.required]"
             ></v-text-field>
           </v-card-text>
@@ -31,7 +31,7 @@
             <v-btn color="grey" text @click="dialog = false">
               {{ $t("general.cancel") }}
             </v-btn>
-            <v-btn color="success" text type="submit" :disabled="!categoryName">
+            <v-btn color="success" text type="submit" :disabled="!itemName">
               {{ $t("general.create") }}
             </v-btn>
           </v-card-actions>
@@ -43,31 +43,55 @@
 
 <script>
 import { api } from "@/api";
+const CREATED_ITEM_EVENT = "created-item";
 export default {
   props: {
     buttonText: String,
     value: String,
+    color: {
+      default: null,
+    },
+    tagDialog: {
+      default: true,
+    },
   },
   data() {
     return {
       dialog: false,
-      categoryName: "",
+      itemName: "",
       rules: {
-        required: val =>
-          !!val || this.$t("settings.theme.theme-name-is-required"),
+        required: val => !!val || "A Name is Required",
       },
     };
   },
+
+  computed: {
+    title() {
+      return this.tagDialog ? "Create a Tag" : "Create a Category";
+    },
+    inputLabel() {
+      return this.tagDialog ? "Tag Name" : "Category Name";
+    },
+  },
   watch: {
     dialog(val) {
-      if (!val) this.categoryName = "";
+      if (!val) this.itemName = "";
     },
   },
 
   methods: {
     async select() {
-      await api.categories.create(this.categoryName);
-      this.$emit("new-category", this.categoryName);
+      const newItem = await (async () => {
+        if (this.tagDialog) {
+          const newItem = await api.tags.create(this.itemName);
+          return newItem;
+        } else {
+          const newItem = await api.categories.create(this.itemName);
+          return newItem;
+        }
+      })();
+
+      this.$emit(CREATED_ITEM_EVENT, newItem);
       this.dialog = false;
     },
   },

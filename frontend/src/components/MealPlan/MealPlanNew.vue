@@ -1,8 +1,12 @@
 <template>
   <v-card>
-    <v-card-title class="headline">
+    <v-card-title class=" headline">
       {{ $t("meal-plan.create-a-new-meal-plan") }}
+      <v-btn color="info" class="ml-auto" @click="setQuickWeek()">
+        <v-icon left>mdi-calendar-minus</v-icon> Quick Week
+      </v-btn>
     </v-card-title>
+
     <v-divider></v-divider>
     <v-card-text>
       <v-row dense>
@@ -101,6 +105,7 @@ export default {
       endDate: null,
       menu1: false,
       menu2: false,
+      usedRecipes: [1],
     };
   },
 
@@ -115,17 +120,14 @@ export default {
         });
       }
     },
-    groupSettings() {
-      this.buildMealStore();
-    },
   },
   async mounted() {
-    this.$store.dispatch("requestCurrentGroup");
+    await this.$store.dispatch("requestCurrentGroup");
+    await this.buildMealStore();
   },
 
   computed: {
     groupSettings() {
-      console.log(this.$store.getters.getCurrentGroup);
       return this.$store.getters.getCurrentGroup;
     },
     actualStartDate() {
@@ -152,11 +154,15 @@ export default {
     endComputedDateFormatted() {
       return this.formatDate(this.endDate);
     },
+    filteredRecipes() {
+      const recipes = this.items.filter(x => !this.usedRecipes.includes(x));
+      return recipes.length > 0 ? recipes : this.items;
+    },
   },
 
   methods: {
     async buildMealStore() {
-      let categories = Array.from(this.groupSettings.categories, x => x.name);
+      const categories = Array.from(this.groupSettings.categories, x => x.name);
       this.items = await api.recipes.getAllByCategory(categories);
 
       if (this.items.length === 0) {
@@ -171,15 +177,20 @@ export default {
         this.items = await api.recipes.allByKeys(keys);
       }
     },
-    get_random(list) {
-      const object = list[Math.floor(Math.random() * list.length)];
-      return object;
+    getRandom(list) {
+      let recipe = 1;
+      while (this.usedRecipes.includes(recipe)) {
+        recipe = list[Math.floor(Math.random() * list.length)];
+      }
+      return recipe;
     },
     random() {
+      this.usedRecipes = [1];
       this.meals.forEach((element, index) => {
-        let recipe = this.get_random(this.items);
+        let recipe = this.getRandom(this.filteredRecipes);
         this.meals[index]["slug"] = recipe.slug;
         this.meals[index]["name"] = recipe.name;
+        this.usedRecipes.push(recipe);
       });
     },
     processTime(index) {
@@ -212,7 +223,7 @@ export default {
     },
 
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeSmallImage(image);
     },
 
     formatDate(date) {
@@ -226,6 +237,33 @@ export default {
 
       const [month, day, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+    getNextDayOfTheWeek(dayName, excludeToday = true, refDate = new Date()) {
+      const dayOfWeek = [
+        "sun",
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+      ].indexOf(dayName.slice(0, 3).toLowerCase());
+      if (dayOfWeek < 0) return;
+      refDate.setHours(0, 0, 0, 0);
+      refDate.setDate(
+        refDate.getDate() +
+          +!!excludeToday +
+          ((dayOfWeek + 7 - refDate.getDay() - +!!excludeToday) % 7)
+      );
+      return refDate;
+    },
+    setQuickWeek() {
+      const nextMonday = this.getNextDayOfTheWeek("Monday", false);
+      const nextEndDate = new Date(nextMonday);
+      nextEndDate.setDate(nextEndDate.getDate() + 4);
+
+      this.startDate = nextMonday.toISOString().substr(0, 10);
+      this.endDate = nextEndDate.toISOString().substr(0, 10);
     },
   },
 };

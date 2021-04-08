@@ -65,8 +65,7 @@ class ExportDatabase:
                     f.write(content)
 
     def export_images(self):
-        for file in app_dirs.IMG_DIR.iterdir():
-            shutil.copy(file, self.img_dir.joinpath(file.name))
+        shutil.copytree(app_dirs.IMG_DIR, self.img_dir, dirs_exist_ok=True)
 
     def export_items(self, items: list[BaseModel], folder_name: str, export_list=True):
         items = [x.dict() for x in items]

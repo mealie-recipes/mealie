@@ -12,10 +12,11 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
     poetry config virtualenvs.create false
 
 # Copy poetry.lock* in case it doesn't exist in the repo
-COPY ./pyproject.toml ./poetry.lock* /app/
-
-RUN poetry install 
+COPY ./pyproject.toml /app/
 
 COPY ./mealie /app/mealie
 
-CMD ["uvicorn", "mealie.app:app", "--host", "0.0.0.0", "--port", "9000", "--reload"]
+RUN poetry install 
+
+RUN chmod +x /app/mealie/run.sh
+CMD ["/app/mealie/run.sh", "reload"]

@@ -117,7 +117,7 @@ export default {
       return utils.getDateAsTextAlt(dateObject);
     },
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeTinyImage(image);
     },
 
     editPlan(id) {

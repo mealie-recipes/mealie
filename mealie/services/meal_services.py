@@ -52,7 +52,7 @@ def get_todays_meal(session: Session, group: Union[int, GroupInDB]) -> Recipe:
     Returns:
         Recipe: Pydantic Recipe Object
     """
-    session = session if session else create_session()
+    session = session or create_session()
 
     if isinstance(group, int):
         group: GroupInDB = db.groups.get(session, group)

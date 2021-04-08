@@ -19,10 +19,11 @@
             v-model="page.name"
             label="Page Name"
           ></v-text-field>
-          <CategorySelector
+          <CategoryTagSelector
             v-model="page.categories"
             ref="categoryFormSelector"
             @mounted="catMounted = true"
+            tag-selector="false"
           />
         </v-card-text>
 
@@ -43,10 +44,10 @@
 <script>
 const NEW_PAGE_EVENT = "refresh-page";
 import { api } from "@/api";
-import CategorySelector from "@/components/FormHelpers/CategorySelector";
+import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 export default {
   components: {
-    CategorySelector,
+    CategoryTagSelector,
   },
   data() {
     return {

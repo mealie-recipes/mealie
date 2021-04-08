@@ -16,18 +16,25 @@
       >
       </v-text-field>
     </template>
-    <v-card v-if="showResults" max-height="500" :max-width="maxWidth"> 
-      <v-card-text class="py-1">Results</v-card-text>
+    <v-card v-if="showResults" max-height="500" :max-width="maxWidth">
+      <v-card-text class="flex row mx-auto">
+        <div class="mr-auto">
+          Results
+        </div>
+        <router-link to="/search">
+          Advanced Search
+        </router-link>
+      </v-card-text>
       <v-divider></v-divider>
-      <v-list scrollable>
+      <v-list scrollable v-if="autoResults">
         <v-list-item
-          v-for="(item, index) in autoResults"
+          v-for="(item, index) in autoResults.slice(0, 15)"
           :key="index"
           :to="navOnClick ? `/recipe/${item.item.slug}` : null"
           @click="navOnClick ? null : selected(item.item.slug, item.item.name)"
         >
           <v-list-item-avatar>
-            <v-img :src="getImage(item.item.image)"></v-img>
+            <v-img :src="getImage(item.item.slug)"></v-img>
           </v-list-item-avatar>
           <v-list-item-content
             @click="
@@ -54,7 +61,7 @@
 
 <script>
 import Fuse from "fuse.js";
-import utils from "@/utils";
+import { api } from "@/api";
 
 export default {
   props: {
@@ -136,6 +143,7 @@ export default {
         this.fuseResults = this.result;
       }
     },
+
     searchSlug() {
       this.selected(this.searchSlug);
     },
@@ -151,10 +159,9 @@ export default {
       );
     },
     getImage(image) {
-      return utils.getImageURL(image);
+      return api.recipes.recipeTinyImage(image);
     },
     selected(slug, name) {
-      console.log("Selected", slug, name);
       this.$emit("selected", slug, name);
     },
     async onFocus() {
