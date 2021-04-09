@@ -35,9 +35,10 @@ const state = {
       name: "German",
       value: "de",
     },
-	{
-	  name: "Português",
-	  value: "pt-PT"
+    {
+      name: "Português",
+      value: "pt-PT",
+    },
   ],
 };
 
@@ -51,13 +52,13 @@ const mutations = {
 const actions = {
   initLang({ getters }, { currentVueComponent }) {
     VueI18n.locale = getters.getActiveLang;
-    currentVueComponent.$vuetify.lang.current = getters.getActiveLang; 
+    currentVueComponent.$vuetify.lang.current = getters.getActiveLang;
   },
 };
 
 const getters = {
-  getActiveLang: (state) => state.lang,
-  getAllLangs: (state) => state.allLangs,
+  getActiveLang: state => state.lang,
+  getAllLangs: state => state.allLangs,
 };
 
 export default {
