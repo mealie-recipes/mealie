@@ -8,6 +8,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.migration import MigrationFile, Migrations
 from mealie.schema.snackbar import SnackResponse
+from mealie.services.migrations import migration
 from mealie.services.migrations.chowdown import chowdown_migrate as chowdow_migrate
 from mealie.services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session
@@ -16,7 +17,7 @@ router = APIRouter(prefix="/api/migrations", tags=["Migration"], dependencies=[D
 
 
 @router.get("", response_model=List[Migrations])
-def get_avaiable_nextcloud_imports():
+def get_all_migration_options():
     """ Returns a list of avaiable directories that can be imported into Mealie """
     response_data = []
     migration_dirs = [
@@ -36,23 +37,28 @@ def get_avaiable_nextcloud_imports():
     return response_data
 
 
-@router.post("/{type}/{file_name}/import")
-def import_nextcloud_directory(type: str, file_name: str, session: Session = Depends(generate_session)):
+@router.post("/{import_type}/{file_name}/import")
+def import_nextcloud_directory(
+    import_type: migration.Migration, file_name: str, session: Session = Depends(generate_session)
+):
     """ Imports all the recipes in a given directory """
-    file_path = app_dirs.MIGRATION_DIR.joinpath(type, file_name)
-    if type == "nextcloud":
-        return nextcloud_migrate(session, file_path)
-    elif type == "chowdown":
-        return chowdow_migrate(session, file_path)
-    else:
-        return SnackResponse.error("Incorrect Migration Type Selected")
+    file_path = app_dirs.MIGRATION_DIR.joinpath(import_type.value, file_name)
+    migration.migrate(import_type, file_path, session)
+
+    # file_path = app_dirs.MIGRATION_DIR.joinpath(type, file_name)
+    # if type == "nextcloud":
+    #     return nextcloud_migrate(session, file_path)
+    # elif type == "chowdown":
+    #     return chowdow_migrate(session, file_path)
+    # else:
+    #     return SnackResponse.error("Incorrect Migration Type Selected")
 
 
-@router.delete("/{type}/{file_name}/delete")
-def delete_migration_data(type: str, file_name: str):
+@router.delete("/{import_type}/{file_name}/delete")
+def delete_migration_data(import_type: migration.Migration, file_name: str):
     """ Removes migration data from the file system """
 
-    remove_path = app_dirs.MIGRATION_DIR.joinpath(type, file_name)
+    remove_path = app_dirs.MIGRATION_DIR.joinpath(import_type.value, file_name)
 
     if remove_path.is_file():
         remove_path.unlink()
@@ -64,10 +70,10 @@ def delete_migration_data(type: str, file_name: str):
     return SnackResponse.error(f"Migration Data Remove: {remove_path.absolute()}")
 
 
-@router.post("/{type}/upload")
-def upload_nextcloud_zipfile(type: str, archive: UploadFile = File(...)):
+@router.post("/{import_type}/upload")
+def upload_nextcloud_zipfile(import_type: migration.Migration, archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
-    dir = app_dirs.MIGRATION_DIR.joinpath(type)
+    dir = app_dirs.MIGRATION_DIR.joinpath(import_type.value)
     dir.mkdir(parents=True, exist_ok=True)
     dest = dir.joinpath(archive.filename)
 

@@ -65,8 +65,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name
         with open(image_path, "ab") as f:
             f.write(file_data)
     else:
-        with open(image_path, "ab") as f:
-            shutil.copyfileobj(file_data, f)
+        shutil.copy2(file_data, image_path)
 
     minify.migrate_images()
 

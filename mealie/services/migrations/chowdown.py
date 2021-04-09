@@ -18,12 +18,12 @@ except ImportError:
 
 def read_chowdown_file(recipe_file: Path) -> Recipe:
     """Parse through the yaml file to try and pull out the relavent information.
-    Some issues occur when ":" are used in the text. I have no put a lot of effort
+    Some issues occur when ":" are used in the text. I have not put a lot of effort
     into this so there may be better ways of going about it. Currently, I get about 80-90%
     of recipes from repos I've tried.
 
     Args:
-        recipe_file (Path): Path to the .yml file
+        recipe_file (Path): Path to the yaml file
 
     Returns:
         Recipe: Recipe class object
@@ -36,7 +36,6 @@ def read_chowdown_file(recipe_file: Path) -> Recipe:
             for x, item in enumerate(yaml.load_all(stream, Loader=Loader)):
                 if x == 0:
                     recipe_data = item
-
                 elif x == 1:
                     recipe_description = str(item)
 
