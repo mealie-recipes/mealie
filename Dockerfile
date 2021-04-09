@@ -40,9 +40,9 @@ RUN apk add --update --no-cache --virtual .build-deps \
     cd /app/ && poetry install --no-root --no-dev && \
     apk --purge del .build-deps
 
-
 COPY ./mealie /app/mealie
 RUN poetry install --no-dev 
+
 COPY ./Caddyfile /app
 COPY ./dev/data/templates /app/data/templates
 COPY --from=build-stage /app/dist /app/dist
