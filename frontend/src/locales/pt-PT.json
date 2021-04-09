@@ -1,0 +1,160 @@
+{
+  "404": {
+    "page-not-found": "404 Página não encontrada",
+    "take-me-home": "Voltar ao início"
+  },
+  "new-recipe": {
+    "from-url": "Do URL",
+    "recipe-url": "URL da Receita",
+    "error-message": "Ocorreu um erro ao ler o URL. Verifica os registos e o debug/last_recipe.json para perceber o que correu mal." ,
+    "bulk-add": "Adicionar Vários",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Insira os dados da sua receita. Cada linha será tratada como um item numa lista."
+  },
+  "general": {
+    "upload": "Enviar",
+    "submit": "Submeter",
+    "name": "Nome",
+    "settings": "Definições",
+    "close": "Fechar",
+    "save": "Guardar",
+    "image-file": "Ficheiro de Imagem",
+    "update": "Atualizar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "select": "Seleccionar",
+    "random": "Aleatório",
+    "new": "Novo",
+    "create": "Criar",
+    "cancel": "Cancelar",
+    "ok": "OK",
+    "enabled": "Ativado",
+    "download": "Transferir",
+    "import": "Importar",
+    "options": "Opções",
+    "templates": "Templates",
+    "recipes": "Receitas",
+    "themes": "Temas",
+    "confirm": "Confirmar"
+  },
+  "login": {
+    "stay-logged-in": "Manter a sessão iniciada?",
+    "email": "Email",
+    "password": "Password",
+    "sign-in": "Iniciar Sessão",
+    "sign-up": "Criar Conta"
+  },
+  "meal-plan": {
+    "shopping-list": "Lista de Compras",
+    "dinner-this-week": "Jantar esta semana",
+    "meal-planner": "Planeador de Refeições",
+    "dinner-today": "Jantar Hoje",
+    "planner": "Planeador",
+    "edit-meal-plan": "Editar Plano de Refeições",
+    "meal-plans": "Planos de Refeições",
+    "create-a-new-meal-plan": "Criar novo Plano de Refeições",
+    "start-date": "Data de Inicio",
+    "end-date": "Data de Fim"
+  },
+  "recipe": {
+    "description": "Descrição",
+    "ingredients": "Ingredientes",
+    "categories": "Categorias",
+    "tags": "Etiquetas",
+    "instructions": "Instruções",
+    "step-index": "Passo: {step}",
+    "recipe-name": "Nome da Receita",
+    "servings": "Porções",
+    "ingredient": "Ingrediente",
+    "notes": "Notas",
+    "note": "Nota",
+    "original-url": "URL Original",
+    "view-recipe": "Ver Receita",
+    "title": "Título",
+    "total-time": "Tempo Total",
+    "prep-time": "Tempo de Preparação",
+    "perform-time": "Tempo de Cozedura",
+    "api-extras": "Extras API",
+    "object-key": "Chave do Objeto",
+    "object-value": "Valor do Objeto",
+    "new-key-name": "Novo nome da Chave",
+    "add-key": "Adicionar Chave",
+    "key-name-required": "Nome da Chave é Obrigatório",
+    "no-white-space-allowed": "Espaço em Branco não Permitido",
+    "delete-recipe": "Eliminar Receita",
+    "delete-confirmation": "Tem a certeza que deseja eliminar esta receita?"
+  },
+  "search": {
+    "search-mealie": "Pesquisar Mealie"
+  },
+  "settings": {
+    "general-settings": "Definições Gerais",
+    "local-api": "API Local",
+    "language": "Língua",
+    "add-a-new-theme": "Adicionar novo tema",
+    "set-new-time": "Definir hora",
+    "current": "Versão:",
+    "latest": "Mais Recente",
+    "explore-the-docs": "Explorar Documentação",
+    "contribute": "Contribuir",
+    "backup-and-exports": "Backups",
+    "backup-info": "Backups are exported in standard JSON format along with all the images stored on the file system. In your backup folder you'll find a .zip file that contains all of the recipe JSON and images from the database. Additionally, if you selected a markdown file, those will also be stored in the .zip file. To import a backup, it must be located in your backups folder. Automated backups are done each day at 3:00 AM.",
+    "available-backups": "Backups Disponíveis",
+    "theme": {
+      "theme-name": "Nome do Tema",
+      "theme-settings": "Definições do Tema",
+      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Selecione um tema da lista ou crie um novo tema. Note que o tema por defeito será utilizado por todos os utilizadores que não selecionaram um tema preferido.",
+      "dark-mode": "Modo Escuro",
+      "theme-is-required": "Tema é Obrigatório",
+      "primary": "Primário",
+      "secondary": "Secondário",
+      "accent": "Accent",
+      "success": "Successo",
+      "info": "Info",
+      "warning": "Aviso",
+      "error": "Erro",
+      "default-to-system": "Mesmo do Sistema",
+      "light": "Claro",
+      "dark": "Escuro",
+      "theme": "Tema",
+      "saved-color-theme": "Cor de Tema Guardado",
+      "delete-theme": "Eliminar Tema",
+      "are-you-sure-you-want-to-delete-this-theme": "Tem a certeza que deseja eliminar este tema?",
+      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Escolha como o Mealie estará visivel. Escolha o Mesmo do sistema para seguir o tema do seu dispositivo, ou selecione claro ou escuro.",
+      "theme-name-is-required": "Nome do Tema é Obrigatório."
+    },
+    "webhooks": {
+      "meal-planner-webhooks": "Webhooks do Organizador de Refeições",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Os URLs apresentados abaixo receberão webhooks que contêm os dados da receita para o plano de refeições no dia marcado. Atualmente, os webhooks serão executados a ",
+      "test-webhooks": "Webhooks de Teste",
+      "webhook-url": "Webhook URL"
+    },
+    "new-version-available": "Uma nova versão do Mealie está disponível, <a {aContents}> Visite o Repo </a>",
+    "backup": {
+      "import-recipes": "Importar Receitas",
+      "import-themes": "Importar Temas",
+      "import-settings": "Importa Definições",
+      "create-heading": "Criar um Backup",
+      "backup-tag": "Etiqueta do Backup",
+      "full-backup": "Backup Completo",
+      "partial-backup": "Backup Parcial",
+      "backup-restore-report": "Análise do Resultado do Backup",
+      "successfully-imported": "Importado com Sucesso",
+      "failed-imports": "Importações falhadas"
+    }
+  },
+  "migration": {
+    "recipe-migration": "Migração da Receita",
+    "failed-imports": "Importações Falhadas",
+    "migration-report": "Análise das Migrações",
+    "successful-imports": "Importações Bem sucedidas",
+    "no-migration-data-available": "Não há dados de migração disponíveis",
+    "nextcloud": {
+      "title": "Nextcloud Cookbook",
+      "description": "Migraar dados de uma instância do Nextcloud CookBook"
+    },
+    "chowdown": {
+      "title": "Chowdown",
+      "description": "Migrar dados do Chowdown"
+    }
+  }
+}
