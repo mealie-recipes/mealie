@@ -61,20 +61,25 @@ class MigrationBase(BaseModel):
             yaml_file (Path): Path to yaml file
 
         Returns:
-            dict: Contains keys "recipe_data" and optional "description"
+            dict: representing the yaml file as a dictionary
         """
-        with open(yaml_file, "r") as stream:
-            try:
-                for x, item in enumerate(yaml.load_all(stream, Loader=Loader)):
-                    if x == 0:
-                        recipe_data = item
-                    elif x == 1:
-                        recipe_description = str(item)
+        with open(yaml_file, "r") as f:
+            contents = f.read().split("---")
+            recipe_data = {}
+            for x, document in enumerate(contents):
 
-            except yaml.YAMLError:
-                return
+                # Check if None or Empty String
+                if document is None or document == "":
+                    continue
 
-        return {"recipe_data": recipe_data, "description": recipe_description or None}
+                # Check if 'title:' present
+                elif "title:" in document:
+                    recipe_data.update(yaml.safe_load(document))
+
+                else:
+                    recipe_data["description"] = document
+
+        return recipe_data
 
     @staticmethod
     def glob_walker(directory: Path, glob_str: str, return_parent=True) -> list[Path]:  # TODO:

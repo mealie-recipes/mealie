@@ -3,7 +3,7 @@ from pathlib import Path
 
 from fastapi.logger import logger
 from mealie.schema.migration import MigrationImport
-from mealie.services.migrations import chowdown, nextcloud, nextcloud_new
+from mealie.services.migrations import chowdown, chowdown, nextcloud
 from sqlalchemy.orm.session import Session
 
 
@@ -34,11 +34,14 @@ def migrate(migration_type: str, file_path: Path, session: Session) -> list[Migr
     logger.info(f"Starting Migration from {migration_type}")
 
     if migration_type == Migration.nextcloud.value:
-        migration_imports = nextcloud_new.migrate(session, file_path)
+        migration_imports = nextcloud.migrate(session, file_path)
 
     elif migration_type == Migration.chowdown.value:
-        migration_imports = chowdown.chowdown_migrate(session, file_path)
+        migration_imports = chowdown.migrate(session, file_path)
+
+    else:
+        return []
 
     logger.info(f"Finishing Migration from {migration_type}")
 
-    return None
+    return migration_imports

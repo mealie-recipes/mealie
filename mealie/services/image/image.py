@@ -57,7 +57,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name
         pass
 
     image_dir = Path(app_dirs.IMG_DIR.joinpath(f"{recipe_slug}"))
-    image_dir.mkdir()
+    image_dir.mkdir(exist_ok=True, parents=True)
     extension = extension.replace(".", "")
     image_path = image_dir.joinpath(f"original.{extension}")
 

@@ -9,8 +9,6 @@ from mealie.routes.deps import get_current_user
 from mealie.schema.migration import MigrationFile, Migrations
 from mealie.schema.snackbar import SnackResponse
 from mealie.services.migrations import migration
-from mealie.services.migrations.chowdown import chowdown_migrate as chowdow_migrate
-from mealie.services.migrations.nextcloud import migrate as nextcloud_migrate
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/migrations", tags=["Migration"], dependencies=[Depends(get_current_user)])
@@ -38,20 +36,10 @@ def get_all_migration_options():
 
 
 @router.post("/{import_type}/{file_name}/import")
-def import_nextcloud_directory(
-    import_type: migration.Migration, file_name: str, session: Session = Depends(generate_session)
-):
+def import_migration(import_type: migration.Migration, file_name: str, session: Session = Depends(generate_session)):
     """ Imports all the recipes in a given directory """
     file_path = app_dirs.MIGRATION_DIR.joinpath(import_type.value, file_name)
-    migration.migrate(import_type, file_path, session)
-
-    # file_path = app_dirs.MIGRATION_DIR.joinpath(type, file_name)
-    # if type == "nextcloud":
-    #     return nextcloud_migrate(session, file_path)
-    # elif type == "chowdown":
-    #     return chowdow_migrate(session, file_path)
-    # else:
-    #     return SnackResponse.error("Incorrect Migration Type Selected")
+    return migration.migrate(import_type, file_path, session)
 
 
 @router.delete("/{import_type}/{file_name}/delete")

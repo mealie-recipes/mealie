@@ -1,93 +1,54 @@
-import shutil
 from pathlib import Path
+from typing import Optional
 
-import yaml
-from fastapi.logger import logger
 from mealie.core.config import app_dirs
-from mealie.db.database import db
-from mealie.schema.recipe import Recipe
-from mealie.services.image.minify import migrate_images
-from mealie.utils.unzip import unpack_zip
+from mealie.schema.migration import MigrationImport
+from mealie.services.migrations._migration_base import (MigrationAlias,
+                                                        MigrationBase)
 from sqlalchemy.orm.session import Session
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
+
+def process_tags(all_tags):
+    return [x.title() for x in all_tags.split(",")]
 
 
-def read_chowdown_file(recipe_file: Path) -> Recipe:
-    """Parse through the yaml file to try and pull out the relavent information.
-    Some issues occur when ":" are used in the text. I have not put a lot of effort
-    into this so there may be better ways of going about it. Currently, I get about 80-90%
-    of recipes from repos I've tried.
-
-    Args:
-        recipe_file (Path): Path to the yaml file
-
-    Returns:
-        Recipe: Recipe class object
-    """
-
-    with open(recipe_file, "r") as stream:
-        recipe_description: str = str
-        recipe_data: dict = {}
-        try:
-            for x, item in enumerate(yaml.load_all(stream, Loader=Loader)):
-                if x == 0:
-                    recipe_data = item
-                elif x == 1:
-                    recipe_description = str(item)
-
-        except yaml.YAMLError:
-            return
-
-        reformat_data = {
-            "name": recipe_data.get("title"),
-            "description": recipe_description,
-            "image": recipe_data.get("image", ""),
-            "recipeIngredient": recipe_data.get("ingredients"),
-            "recipeInstructions": recipe_data.get("directions"),
-            "tags": recipe_data.get("tags").split(","),
-        }
-
-        reformated_list = [{"text": instruction} for instruction in reformat_data["recipeInstructions"]]
-
-        reformat_data["recipeInstructions"] = reformated_list
-
-        return Recipe(**reformat_data)
+def process_instructions(all_instructions):
+    return [{"text": instruction} for instruction in all_instructions]
 
 
-def chowdown_migrate(session: Session, zip_file: Path):
+class ChowdownMigration(MigrationBase):
+    key_aliases: Optional[list[MigrationAlias]] = [
+        MigrationAlias(key="name", alias="title", func=None),
+        MigrationAlias(key="recipeIngredient", alias="ingredients", func=None),
+        MigrationAlias(key="recipeInstructions", alias="directions", func=process_instructions),
+        MigrationAlias(key="tags", alias="tags", func=process_tags),
+    ]
 
-    temp_dir = unpack_zip(zip_file)
 
-    with temp_dir as dir:
+def migrate(session: Session, zip_path: Path) -> list[MigrationImport]:
+    cd_migration = ChowdownMigration(migration_file=zip_path, session=session)
+
+    with cd_migration.temp_dir as dir:
         chow_dir = next(Path(dir).iterdir())
         image_dir = app_dirs.TEMP_DIR.joinpath(chow_dir, "images")
         recipe_dir = app_dirs.TEMP_DIR.joinpath(chow_dir, "_recipes")
 
-        failed_recipes = []
-        successful_recipes = []
-        for recipe in recipe_dir.glob("*.md"):
-            try:
-                new_recipe = read_chowdown_file(recipe)
-                db.recipes.create(session, new_recipe.dict())
-                successful_recipes.append(new_recipe.name)
-            except Exception as inst:
-                session.rollback()
-                logger.error(inst)
-                failed_recipes.append(recipe.stem)
+        recipes_as_dicts = [y for x in recipe_dir.glob("*.md") if (y := ChowdownMigration.yaml_reader(x)) is not None]
 
-        failed_images = []
-        for image in image_dir.iterdir():
-            try:
-                if image.stem not in failed_recipes:
-                    shutil.copy(image, app_dirs.IMG_DIR.joinpath(image.name))
-            except Exception as inst:
-                logger.error(inst)
-                failed_images.append(image.name)
-        report = {"successful": successful_recipes, "failed": failed_recipes}
+        recipes = [cd_migration.clean_recipe_dictionary(x) for x in recipes_as_dicts]
 
-    migrate_images()
-    return report
+        cd_migration.import_recipes_to_database(recipes)
+
+        recipe_lookup = {r.slug: r for r in recipes}
+
+        for report in cd_migration.migration_report:
+            if report.status:
+                try:
+                    original_image = recipe_lookup.get(report.slug).image
+                    cd_image = image_dir.joinpath(original_image)
+                except StopIteration:
+                    continue
+                if cd_image:
+                    ChowdownMigration.import_image(cd_image, report.slug)
+
+    return cd_migration.migration_report
