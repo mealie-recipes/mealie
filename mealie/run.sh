@@ -4,11 +4,11 @@
 ARG1=${1:-production}
 
 # Set Script Directory - Used for running the script from a different directory.
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+# DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )" 
 
 # # Initialize Database Prerun
-poetry run python $DIR/db/init_db.py
-poetry run python $DIR/services/image/minify.py
+poetry run python /app/mealie/db/init_db.py
+poetry run python /app/mealie/services/image/minify.py
 
 # Migrations
 # TODO
