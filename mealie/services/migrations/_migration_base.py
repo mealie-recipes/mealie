@@ -13,11 +13,6 @@ from mealie.services.scraper.cleaner import Cleaner
 from mealie.utils.unzip import unpack_zip
 from pydantic import BaseModel
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
-
 
 class MigrationAlias(BaseModel):
     """A datatype used by MigrationBase to pre-process a recipe dictionary to rewrite
@@ -115,19 +110,6 @@ class MigrationBase(BaseModel):
         image.write_image(dest_slug, src, extension=src.suffix)
         minify.migrate_images()  # TODO: Refactor to support single file minification that doesn't suck
 
-    def get_recipe_from_file(self, file) -> Recipe:
-        """This is the method called to read a file path and transform that data
-        into a recipe object. The expected return value is a Recipe object that is then
-        passed to
-
-        Args:
-            file ([type]): [description]
-
-        Raises:
-            NotImplementedError: [description]
-        """
-
-        raise NotImplementedError("Migration Type not Implemented")
 
     def rewrite_alias(self, recipe_dict: dict) -> dict:
         """A helper function to reassign attributes by an alias using a list
@@ -162,7 +144,7 @@ class MigrationBase(BaseModel):
         """Calls the rewrite_alias function and the Cleaner.clean function on a
         dictionary and returns the result unpacked into a Recipe object"""
         recipe_dict = self.rewrite_alias(recipe_dict)
-        recipe_dict = Cleaner.clean(recipe_dict)
+        recipe_dict = Cleaner.clean(recipe_dict, url=recipe_dict.get("orgURL", None))
 
         return Recipe(**recipe_dict)
 

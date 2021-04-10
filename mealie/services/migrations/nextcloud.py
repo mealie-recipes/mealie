@@ -3,16 +3,11 @@ from pathlib import Path
 from typing import Optional
 
 from mealie.schema.migration import MigrationImport
-from mealie.services.migrations._migration_base import MigrationAlias, MigrationBase
+from mealie.services.migrations import helpers
+from mealie.services.migrations._migration_base import (MigrationAlias,
+                                                        MigrationBase)
 from slugify import slugify
 from sqlalchemy.orm.session import Session
-
-
-def clean_nextcloud_tags(nextcloud_tags: str):
-    if not isinstance(nextcloud_tags, str):
-        return None
-
-    return [x.title().lstrip() for x in nextcloud_tags.split(",") if x != ""]
 
 
 @dataclass
@@ -42,7 +37,8 @@ class NextcloudDir:
 
 class NextcloudMigration(MigrationBase):
     key_aliases: Optional[list[MigrationAlias]] = [
-        MigrationAlias(key="tags", alias="keywords", func=clean_nextcloud_tags)
+        MigrationAlias(key="tags", alias="keywords", func=helpers.split_by_comma),
+        MigrationAlias(key="orgURL", alias="url", func=None),
     ]
 
 
@@ -53,8 +49,9 @@ def migrate(session: Session, zip_path: Path) -> list[MigrationImport]:
     with nc_migration.temp_dir as dir:
         potential_recipe_dirs = NextcloudMigration.glob_walker(dir, glob_str="**/[!.]*.json", return_parent=True)
 
-        nextcloud_dirs = [NextcloudDir.from_dir(x) for x in potential_recipe_dirs]
-        nextcloud_dirs = {x.slug: x for x in nextcloud_dirs}
+        # nextcloud_dirs = [NextcloudDir.from_dir(x) for x in potential_recipe_dirs]
+        nextcloud_dirs = {y.slug: y for x in potential_recipe_dirs if (y := NextcloudDir.from_dir(x))}
+        # nextcloud_dirs = {x.slug: x for x in nextcloud_dirs}
 
         all_recipes = []
         for _, nc_dir in nextcloud_dirs.items():

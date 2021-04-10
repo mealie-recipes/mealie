@@ -3,25 +3,17 @@ from typing import Optional
 
 from mealie.core.config import app_dirs
 from mealie.schema.migration import MigrationImport
-from mealie.services.migrations._migration_base import (MigrationAlias,
-                                                        MigrationBase)
+from mealie.services.migrations import helpers
+from mealie.services.migrations._migration_base import MigrationAlias, MigrationBase
 from sqlalchemy.orm.session import Session
-
-
-def process_tags(all_tags):
-    return [x.title() for x in all_tags.split(",")]
-
-
-def process_instructions(all_instructions):
-    return [{"text": instruction} for instruction in all_instructions]
 
 
 class ChowdownMigration(MigrationBase):
     key_aliases: Optional[list[MigrationAlias]] = [
         MigrationAlias(key="name", alias="title", func=None),
         MigrationAlias(key="recipeIngredient", alias="ingredients", func=None),
-        MigrationAlias(key="recipeInstructions", alias="directions", func=process_instructions),
-        MigrationAlias(key="tags", alias="tags", func=process_tags),
+        MigrationAlias(key="recipeInstructions", alias="directions", func=None),
+        MigrationAlias(key="tags", alias="tags", func=helpers.split_by_comma),
     ]
 
 
