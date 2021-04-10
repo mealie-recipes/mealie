@@ -51,7 +51,7 @@ def rename_image(original_slug, new_slug) -> Path:
     return new_path
 
 
-def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name:
+def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
     try:
         delete_image(recipe_slug)
     except:
@@ -68,7 +68,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name
     else:
         shutil.copy2(file_data, image_path)
 
-    minify.migrate_images()
+    minify.minify_image(image_path)
 
     return image_path
 

@@ -1,4 +1,5 @@
 import shutil
+from dataclasses import dataclass
 from pathlib import Path
 
 from mealie.core import root_logger
@@ -11,7 +12,22 @@ from sqlalchemy.orm.session import Session
 logger = root_logger.get_logger()
 
 
-def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):
+@dataclass
+class ImageSizes:
+    org: str
+    min: str
+    tiny: str
+
+
+def get_image_sizes(org_img: Path, min_img: Path, tiny_img: Path) -> ImageSizes:
+    return ImageSizes(
+        org=sizeof_fmt(org_img),
+        min=sizeof_fmt(min_img),
+        tiny=sizeof_fmt(tiny_img),
+    )
+
+
+def minify_image(image_file: Path) -> ImageSizes:
     """Minifies an image in it's original file format. Quality is lost
 
     Args:
@@ -19,6 +35,11 @@ def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):
         min_dest (Path): FULL Destination File Path
         tiny_dest (Path): FULL Destination File Path
     """
+    min_dest = image_file.parent.joinpath(f"min-original{image_file.suffix}")
+    tiny_dest = image_file.parent.joinpath(f"tiny-original{image_file.suffix}")
+
+    if min_dest.exists() and tiny_dest.exists():
+        return
     try:
         img = Image.open(image_file)
         basewidth = 720
@@ -34,6 +55,12 @@ def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):
         shutil.copy(image_file, min_dest)
         shutil.copy(image_file, tiny_dest)
 
+    image_sizes = get_image_sizes(image_file, min_dest, tiny_dest)
+
+    logger.info(f"{image_file.name} Minified: {image_sizes.org} -> {image_sizes.min} -> {image_sizes.tiny}")
+    
+    return image_sizes
+
 
 def crop_center(pil_img, crop_width=300, crop_height=300):
     img_width, img_height = pil_img.size
@@ -47,7 +74,10 @@ def crop_center(pil_img, crop_width=300, crop_height=300):
     )
 
 
-def sizeof_fmt(size, decimal_places=2):
+def sizeof_fmt(file_path: Path, decimal_places=2):
+    if not file_path.exists():
+        return "(File Not Found)"
+    size = file_path.stat().st_size
     for unit in ["B", "kB", "MB", "GB", "TB", "PB"]:
         if size < 1024.0 or unit == "PiB":
             break
@@ -91,24 +121,13 @@ def validate_slugs_in_database(session: Session = None):
 
 
 def migrate_images():
-    print("Checking for Images to Minify...")
+    logger.info("Checking for Images to Minify...")
 
     move_all_images()
 
-    # Minify Loop
     for image in app_dirs.IMG_DIR.glob("*/original.*"):
-        min_dest = image.parent.joinpath(f"min-original{image.suffix}")
-        tiny_dest = image.parent.joinpath(f"tiny-original{image.suffix}")
 
-        if min_dest.exists() and tiny_dest.exists():
-            continue
-
-        minify_image(image, min_dest, tiny_dest)
-
-        org_size = sizeof_fmt(image.stat().st_size)
-        dest_size = sizeof_fmt(min_dest.stat().st_size)
-        tiny_size = sizeof_fmt(tiny_dest.stat().st_size)
-        logger.info(f"{image.name} Minified: {org_size} -> {dest_size} -> {tiny_size}")
+        minify_image(image)
 
     logger.info("Finished Minification Check")
 

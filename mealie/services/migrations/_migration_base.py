@@ -110,7 +110,6 @@ class MigrationBase(BaseModel):
         after the migration occurs.
         """
         image.write_image(dest_slug, src, extension=src.suffix)
-        minify.migrate_images()  # TODO: Refactor to support single file minification that doesn't suck
 
     def rewrite_alias(self, recipe_dict: dict) -> dict:
         """A helper function to reassign attributes by an alias using a list

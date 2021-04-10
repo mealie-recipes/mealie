@@ -37,8 +37,8 @@ class Tag(SqlAlchemyBase):
         result = session.query(Tag).filter(Tag.slug == test_slug).one_or_none()
 
         if result:
-            logger.info("Tag exists, associating recipe")
+            logger.debug("Tag exists, associating recipe")
             return result
         else:
-            logger.info("Tag doesn't exists, creating tag")
+            logger.debug("Tag doesn't exists, creating tag")
             return Tag(name=name)
