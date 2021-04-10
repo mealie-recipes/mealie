@@ -4,12 +4,14 @@ from datetime import datetime
 from pathlib import Path
 from typing import Union
 
-from fastapi.logger import logger
+from mealie.core import root_logger
 from jinja2 import Template
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from pydantic.main import BaseModel
+
+logger = root_logger.get_logger()
 
 
 class ExportDatabase:

@@ -1,7 +1,8 @@
 import json
 
 from fastapi import APIRouter, Depends
-from mealie.core.config import APP_VERSION, LOGGER_FILE, app_dirs, settings
+from mealie.core.config import APP_VERSION, app_dirs, settings
+from mealie.core.root_logger import LOGGER_FILE
 from mealie.routes.deps import get_current_user
 from mealie.schema.debug import AppInfo, DebugInfo
 

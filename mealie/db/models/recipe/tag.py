@@ -1,9 +1,11 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.db.models.model_base import SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
+
+logger = root_logger.get_logger()
 
 recipes2tags = sa.Table(
     "recipes2tags",

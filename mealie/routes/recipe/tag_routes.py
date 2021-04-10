@@ -19,6 +19,7 @@ async def get_all_recipe_tags(session: Session = Depends(generate_session)):
     """ Returns a list of available tags in the database """
     return db.tags.get_all_limit_columns(session, ["slug", "name"])
 
+
 @router.post("")
 async def create_recipe_tag(
     tag: TagIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)

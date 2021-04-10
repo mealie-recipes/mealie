@@ -1,12 +1,14 @@
 import shutil
 from pathlib import Path
 
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from PIL import Image
 from sqlalchemy.orm.session import Session
+
+logger = root_logger.get_logger()
 
 
 def minify_image(image_file: Path, min_dest: Path, tiny_dest: Path):

@@ -1,12 +1,13 @@
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Union
 
 import requests
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.services.image import minify
+
+logger = root_logger.get_logger()
 
 
 @dataclass

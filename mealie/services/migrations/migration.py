@@ -1,10 +1,12 @@
 from enum import Enum
 from pathlib import Path
 
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.schema.migration import MigrationImport
-from mealie.services.migrations import chowdown, chowdown, nextcloud
+from mealie.services.migrations import chowdown, nextcloud
 from sqlalchemy.orm.session import Session
+
+logger = root_logger.get_logger()
 
 
 class Migration(str, Enum):

@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.logger import logger
+
+from mealie.core import root_logger
 
 # import utils.startup as startup
 from mealie.core.config import APP_VERSION, settings
@@ -10,6 +11,8 @@ from mealie.routes.mealplans import mealplans
 from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_crud_routes, tag_routes
 from mealie.routes.site_settings import all_settings
 from mealie.routes.users import users
+
+logger = root_logger.get_logger()
 
 app = FastAPI(
     title="Mealie",
@@ -50,8 +53,15 @@ api_routers()
 start_scheduler()
 
 
+@app.on_event("startup")
+def system_startup():
+    logger.info("-----SYSTEM STARTUP----- \n")
+    logger.info("------APP SETTINGS------")
+    logger.info(settings.json(indent=4, exclude={"SECRET", "DEFAULT_PASSWORD", "SFTP_PASSWORD", "SFTP_USERNAME"}))
+
+
 def main():
-    
+
     uvicorn.run(
         "app:app",
         host="0.0.0.0",
@@ -60,11 +70,11 @@ def main():
         reload_dirs=["mealie"],
         debug=True,
         log_level="info",
+        log_config=None,
         workers=1,
         forwarded_allow_ips="*",
     )
 
 
 if __name__ == "__main__":
-    logger.info("-----SYSTEM STARTUP-----")
     main()

@@ -4,7 +4,7 @@ from tempfile import TemporaryDirectory
 from typing import Any, Callable, Optional
 
 import yaml
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.db.database import db
 from mealie.schema.migration import MigrationImport
 from mealie.schema.recipe import Recipe
@@ -12,6 +12,8 @@ from mealie.services.image import image, minify
 from mealie.services.scraper.cleaner import Cleaner
 from mealie.utils.unzip import unpack_zip
 from pydantic import BaseModel
+
+logger = root_logger.get_logger()
 
 
 class MigrationAlias(BaseModel):
@@ -109,7 +111,6 @@ class MigrationBase(BaseModel):
         """
         image.write_image(dest_slug, src, extension=src.suffix)
         minify.migrate_images()  # TODO: Refactor to support single file minification that doesn't suck
-
 
     def rewrite_alias(self, recipe_dict: dict) -> dict:
         """A helper function to reassign attributes by an alias using a list
