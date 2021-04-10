@@ -35,9 +35,10 @@ const state = {
       name: "German",
       value: "de",
     },
-	{
-	  name: "Português",
-	  value: "pt-PT"
+    {
+      name: "Português",
+      value: "pt-PT",
+    }
   ],
 };
 
