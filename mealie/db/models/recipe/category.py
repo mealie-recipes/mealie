@@ -61,8 +61,8 @@ class Category(SqlAlchemyBase):
         test_slug = slugify(name)
         result = session.query(Category).filter(Category.slug == test_slug).one_or_none()
         if result:
-            logger.info("Category exists, associating recipe")
+            logger.debug("Category exists, associating recipe")
             return result
         else:
-            logger.info("Category doesn't exists, creating tag")
+            logger.debug("Category doesn't exists, creating tag")
             return Category(name=name)
