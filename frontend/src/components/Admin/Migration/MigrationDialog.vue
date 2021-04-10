@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" width="70%">
@@ -7,7 +9,7 @@
             mdi-import
           </v-icon>
           <v-toolbar-title class="headline">
-            Import Summary
+            Migration Summary
           </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-app-bar>
@@ -26,11 +28,6 @@
         </v-card-text>
         <v-tabs v-model="tab">
           <v-tab>{{ $t("general.recipes") }}</v-tab>
-          <v-tab>{{ $t("general.themes") }}</v-tab>
-          <v-tab>{{ $t("general.settings") }}</v-tab>
-          <v-tab> Pages </v-tab>
-          <v-tab>{{ $t("general.users") }}</v-tab>
-          <v-tab>{{ $t("general.groups") }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item v-for="(table, index) in allTables" :key="index">
@@ -80,43 +77,11 @@ export default {
     recipeNumbers() {
       return this.calculateNumbers(this.$t("general.recipes"), this.recipeData);
     },
-    settingsNumbers() {
-      return this.calculateNumbers(
-        this.$t("general.settings"),
-        this.settingsData
-      );
-    },
-    themeNumbers() {
-      return this.calculateNumbers(this.$t("general.themes"), this.themeData);
-    },
-    userNumbers() {
-      return this.calculateNumbers(this.$t("general.users"), this.userData);
-    },
-    groupNumbers() {
-      return this.calculateNumbers(this.$t("general.groups"), this.groupData);
-    },
-    pageNumbers() {
-      return this.calculateNumbers("Pages", this.pageData);
-    },
     allNumbers() {
-      return [
-        this.recipeNumbers,
-        this.themeNumbers,
-        this.settingsNumbers,
-        this.pageNumbers,
-        this.userNumbers,
-        this.groupNumbers,
-      ];
+      return [this.recipeNumbers];
     },
     allTables() {
-      return [
-        this.recipeData,
-        this.themeData,
-        this.settingsData,
-        this.pageData,
-        this.userData,
-        this.groupData,
-      ];
+      return [this.recipeData];
     },
   },
 
@@ -132,12 +97,8 @@ export default {
       return numbers;
     },
     open(importData) {
-      this.recipeData = importData.recipeImports;
-      this.themeData = importData.themeImports;
-      this.settingsData = importData.settingsImports;
-      this.userData = importData.userImports;
-      this.groupData = importData.groupImports;
-      this.pageData = importData.pageImports;
+      this.recipeData = importData;
+
       this.dialog = true;
     },
   },

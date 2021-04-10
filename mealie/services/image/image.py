@@ -1,12 +1,13 @@
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Union
 
 import requests
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.services.image import minify
+
+logger = root_logger.get_logger()
 
 
 @dataclass
@@ -57,7 +58,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name
         pass
 
     image_dir = Path(app_dirs.IMG_DIR.joinpath(f"{recipe_slug}"))
-    image_dir.mkdir()
+    image_dir.mkdir(exist_ok=True, parents=True)
     extension = extension.replace(".", "")
     image_path = image_dir.joinpath(f"original.{extension}")
 
@@ -65,8 +66,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path.name
         with open(image_path, "ab") as f:
             f.write(file_data)
     else:
-        with open(image_path, "ab") as f:
-            shutil.copyfileobj(file_data, f)
+        shutil.copy2(file_data, image_path)
 
     minify.migrate_images()
 

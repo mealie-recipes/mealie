@@ -7,6 +7,7 @@ class AppInfo(CamelModel):
     version: str
     demo_status: bool
 
+
 class DebugInfo(AppInfo):
     api_port: int
     api_docs: bool

@@ -9,7 +9,6 @@ from tests.app_routes import AppRoutes
 from tests.test_config import TEST_CHOWDOWN_DIR, TEST_NEXTCLOUD_DIR
 
 
-# Chowdown
 @pytest.fixture(scope="session")
 def chowdown_zip():
     zip = TEST_CHOWDOWN_DIR.joinpath("test_chowdown-gh-pages.zip")
@@ -42,14 +41,10 @@ def test_import_chowdown_directory(api_client: TestClient, api_routes: AppRoutes
 
     assert response.status_code == 200
 
-    report = json.loads(response.content)
-    assert report["failed"] == []
+    reports = json.loads(response.content)
 
-    expected_slug = "roasted-okra"
-
-    recipe_url = api_routes.recipes_recipe_slug(expected_slug)
-    response = api_client.get(recipe_url)
-    assert response.status_code == 200
+    for report in reports:
+        assert report.get("status") is True
 
 
 def test_delete_chowdown_migration_data(api_client: TestClient, api_routes: AppRoutes, chowdown_zip: Path, token):
@@ -91,13 +86,9 @@ def test_import_nextcloud_directory(api_client: TestClient, api_routes: AppRoute
 
     assert response.status_code == 200
 
-    report = json.loads(response.content)
-    assert report["failed"] == []
-
-    expected_slug = "air-fryer-shrimp"
-    recipe_url = api_routes.recipes_recipe_slug(expected_slug)
-    response = api_client.get(recipe_url)
-    assert response.status_code == 200
+    reports = json.loads(response.content)
+    for report in reports:
+        assert report.get("status") is True
 
 
 def test_delete__nextcloud_migration_data(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip: Path, token):

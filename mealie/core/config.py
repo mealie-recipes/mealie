@@ -40,7 +40,6 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
 
 # General
 DATA_DIR = determine_data_dir(PRODUCTION)
-LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 
 
 class AppDirectories:
