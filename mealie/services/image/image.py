@@ -64,6 +64,9 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
 
     if isinstance(file_data, Path):
         shutil.copy2(file_data, image_path)
+    elif isinstance(file_data, bytes):
+        with open(image_path, "ab") as f:
+            f.write(file_data)
     else:
         with open(image_path, "ab") as f:
             shutil.copyfileobj(file_data, f)
@@ -106,7 +109,7 @@ def scrape_image(image_url: str, slug: str) -> Path:
 
         write_image(slug, r.raw, filename.suffix)
 
-        filename.unlink()
+        filename.unlink(missing_ok=True)
 
         return slug
 

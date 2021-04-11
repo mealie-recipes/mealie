@@ -2,16 +2,12 @@
   <v-form ref="form">
     <v-card-text>
       <v-row dense>
-        <v-col cols="3"></v-col>
-        <v-col>
-          <v-file-input
-            v-model="fileObject"
-            :label="$t('general.image-file')"
-            truncate-length="30"
-            @change="uploadImage"
-          ></v-file-input>
-        </v-col>
-        <v-col cols="3"></v-col>
+        <ImageUploadBtn
+          class="mt-2"
+          @upload="uploadImage"
+          :slug="value.slug"
+          @refresh="$emit('upload')"
+        />
       </v-row>
       <v-row dense>
         <v-col>
@@ -223,12 +219,12 @@
 
 <script>
 import draggable from "vuedraggable";
-import { api } from "@/api";
 import utils from "@/utils";
 import BulkAdd from "./BulkAdd";
 import ExtrasEditor from "./ExtrasEditor";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import NutritionEditor from "./NutritionEditor";
+import ImageUploadBtn from "./ImageUploadBtn.vue";
 export default {
   components: {
     BulkAdd,
@@ -236,6 +232,7 @@ export default {
     draggable,
     CategoryTagSelector,
     NutritionEditor,
+    ImageUploadBtn,
   },
   props: {
     value: Object,
@@ -254,12 +251,8 @@ export default {
     };
   },
   methods: {
-    uploadImage() {
-      this.$emit("upload", this.fileObject);
-    },
-    async updateImage() {
-      const slug = this.value.slug;
-      api.recipes.updateImage(slug, this.fileObject);
+    uploadImage(fileObject) {
+      this.$emit("upload", fileObject);
     },
     toggleDisabled(stepIndex) {
       if (this.disabledSteps.includes(stepIndex)) {
