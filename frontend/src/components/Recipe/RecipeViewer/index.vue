@@ -40,6 +40,7 @@
               :isCategory="false"
             />
             <Notes :notes="notes" />
+            <NutritionEditor :value="nutrition" :edit="false" />
           </div>
         </v-col>
         <v-divider
@@ -56,6 +57,7 @@
         <RecipeChips :title="$t('recipe.categories')" :items="categories" />
         <RecipeChips :title="$t('recipe.tags')" :items="tags" />
         <Notes :notes="notes" />
+        <NutritionEditor :value="nutrition" :edit="false" />
       </div>
       <v-row class="mt-2 mb-1">
         <v-col></v-col>
@@ -80,6 +82,7 @@
 </template>
 
 <script>
+import NutritionEditor from "@/components/Recipe/RecipeEditor/NutritionEditor";
 import VueMarkdown from "@adapttive/vue-markdown";
 import utils from "@/utils";
 import RecipeChips from "./RecipeChips";
@@ -93,6 +96,7 @@ export default {
     Steps,
     Notes,
     Ingredients,
+    NutritionEditor,
   },
   props: {
     name: String,
@@ -105,6 +109,7 @@ export default {
     rating: Number,
     yields: String,
     orgURL: String,
+    nutrition: Object,
   },
   data() {
     return {
