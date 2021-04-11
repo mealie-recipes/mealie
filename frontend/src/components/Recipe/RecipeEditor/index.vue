@@ -92,7 +92,7 @@
                     auto-grow
                     solo
                     dense
-                    rows="2"
+                    rows="1"
                   >
                     <v-icon
                       class="mr-n1"
@@ -165,7 +165,7 @@
           <v-btn class="mt-1" color="secondary" fab dark small @click="addNote">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
-          <NutritionEditor v-model="value.nutrition" />
+          <NutritionEditor v-model="value.nutrition" :edit="true" />
           <ExtrasEditor :extras="value.extras" @save="saveExtras" />
         </v-col>
 

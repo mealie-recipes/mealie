@@ -1,16 +1,33 @@
 <template>
-  <div>
+  <div v-if="valueNotNull || edit">
     <h2 class="my-4">Nutrition</h2>
-    <div v-for="(item, key, index) in nutrition" :key="index">
-      <v-text-field
-        dense
-        :value="value[key]"
-        :label="labels[key].label"
-        :suffix="labels[key].suffix"
-        type="number"
-        autocomplete="off"
-        @input="updateValue(key, $event)"
-      ></v-text-field>
+    <div v-if="edit">
+      <div v-for="(item, key, index) in value" :key="index">
+        <v-text-field
+          dense
+          :value="value[key]"
+          :label="labels[key].label"
+          :suffix="labels[key].suffix"
+          type="number"
+          autocomplete="off"
+          @input="updateValue(key, $event)"
+        ></v-text-field>
+      </div>
+    </div>
+    <div v-if="showViewer">
+      <v-list dense>
+        <v-list-item-group color="primary">
+          <v-list-item v-for="(item, key, index) in labels" :key="index">
+            <v-list-item-content>
+              <v-list-item-title class="pl-4 text-subtitle-1 flex row ">
+                <div>{{ item.label }}</div>
+                <div class="ml-auto mr-1">{{ value[key] }}</div>
+                <div>{{ item.suffix }}</div>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
     </div>
   </div>
 </template>
@@ -19,17 +36,13 @@
 export default {
   props: {
     value: {},
+    edit: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
-      nutrition: {
-        calories: null,
-        fatContent: null,
-        fiberContent: null,
-        proteinContent: null,
-        sodiumContent: null,
-        sugarContent: null,
-      },
       labels: {
         calories: {
           label: "Calories",
@@ -42,6 +55,18 @@ export default {
         sugarContent: { label: "Sugar Content", suffix: "grams" },
       },
     };
+  },
+  computed: {
+    showViewer() {
+      return !this.edit && this.valueNotNull;
+    },
+    valueNotNull() {
+      for (const property in this.value) {
+        const valueProperty = this.value[property];
+        if (valueProperty && valueProperty !== "") return true;
+      }
+      return false;
+    },
   },
 
   methods: {

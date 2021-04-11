@@ -50,6 +50,7 @@
         :rating="recipeDetails.rating"
         :yields="recipeDetails.recipeYield"
         :orgURL="recipeDetails.orgURL"
+        :nutrition="recipeDetails.nutrition"
       />
       <VJsoneditor
         @error="logError()"
