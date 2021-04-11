@@ -165,6 +165,7 @@
           <v-btn class="mt-1" color="secondary" fab dark small @click="addNote">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
+          <NutritionEditor v-model="value.nutrition" />
           <ExtrasEditor :extras="value.extras" @save="saveExtras" />
         </v-col>
 
@@ -227,12 +228,14 @@ import utils from "@/utils";
 import BulkAdd from "./BulkAdd";
 import ExtrasEditor from "./ExtrasEditor";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
+import NutritionEditor from "./NutritionEditor";
 export default {
   components: {
     BulkAdd,
     ExtrasEditor,
     draggable,
     CategoryTagSelector,
+    NutritionEditor,
   },
   props: {
     value: Object,
