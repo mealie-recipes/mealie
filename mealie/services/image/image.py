@@ -62,12 +62,13 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
     extension = extension.replace(".", "")
     image_path = image_dir.joinpath(f"original.{extension}")
 
-    if isinstance(file_data, bytes):
-        with open(image_path, "ab") as f:
-            f.write(file_data)
-    else:
+    if isinstance(file_data, Path):
         shutil.copy2(file_data, image_path)
+    else:
+        with open(image_path, "ab") as f:
+            shutil.copyfileobj(file_data, f)
 
+    print(image_path)
     minify.minify_image(image_path)
 
     return image_path
