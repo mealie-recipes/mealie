@@ -1,10 +1,12 @@
 import operator
 import shutil
+from typing import Optional
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from mealie.core.config import app_dirs
+from mealie.core.security import create_file_token
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, validate_file_token
 from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
 from mealie.schema.snackbar import SnackResponse
 from mealie.services.backups import imports
@@ -68,13 +70,10 @@ def upload_backup_file(archive: UploadFile = File(...)):
 
 @router.get("/{file_name}/download")
 async def download_backup_file(file_name: str):
-    """ Upload a .zip File to later be imported into Mealie """
+    """ Returns a token to download a file """
     file = app_dirs.BACKUP_DIR.joinpath(file_name)
 
-    if file.is_file:
-        return FileResponse(file, media_type="application/octet-stream", filename=file_name)
-    else:
-        return SnackResponse.error("No File Found")
+    return {"fileToken": create_file_token(file)}
 
 
 @router.post("/{file_name}/import", status_code=200)

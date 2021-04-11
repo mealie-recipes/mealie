@@ -4,7 +4,7 @@ import { store } from "@/store";
 
 const backupBase = baseURL + "backups/";
 
-const backupURLs = {
+export const backupURLs = {
   // Backup
   available: `${backupBase}available`,
   createBackup: `${backupBase}export/database`,
@@ -12,6 +12,8 @@ const backupURLs = {
   deleteBackup: fileName => `${backupBase}${fileName}/delete`,
   downloadBackup: fileName => `${backupBase}${fileName}/download`,
 };
+
+
 
 export const backupAPI = {
   /**
@@ -43,19 +45,19 @@ export const backupAPI = {
   /**
    * Creates a backup on the serve given a set of options
    * @param {object} data
-   * @returns 
+   * @returns
    */
   async create(options) {
     let response = apiReq.post(backupURLs.createBackup, options);
     return response;
   },
   /**
-   * Downloads a file from the server. I don't actually think this is used? 
-   * @param {string} fileName 
+   * Downloads a file from the server. I don't actually think this is used?
+   * @param {string} fileName
    * @returns Download URL
    */
   async download(fileName) {
-    let response = await apiReq.get(backupURLs.downloadBackup(fileName));
-    return response.data;
+    const url = backupURLs.downloadBackup(fileName);
+    apiReq.download(url);
   },
 };
