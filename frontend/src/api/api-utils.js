@@ -61,9 +61,16 @@ const apiReq = {
     processResponse(response);
     return response;
   },
+
+  async download(url) {
+    const response = await this.get(url);
+    const token = response.data.fileToken;
+
+    const tokenURL = baseURL + "utils/download?token=" + token;
+    window.open(tokenURL, "_blank");
+    return response.data;
+  },
 };
-
-
 
 export { apiReq };
 export { baseURL };

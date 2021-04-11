@@ -37,14 +37,7 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-btn
-            color="accent"
-            text
-            :loading="downloading"
-            @click="downloadFile(`/api/backups/${name}/download`)"
-          >
-            {{ $t("general.download") }}
-          </v-btn>
+          <TheDownloadBtn :download-url="downloadUrl" />
           <v-spacer></v-spacer>
           <v-btn color="error" text @click="raiseEvent('delete')">
             {{ $t("general.delete") }}
@@ -66,9 +59,10 @@
 
 <script>
 import ImportOptions from "@/components/Admin/Backup/ImportOptions";
-import axios from "axios";
+import TheDownloadBtn from "@/components/UI/TheDownloadBtn.vue";
+import { backupURLs } from "@/api/backup";
 export default {
-  components: { ImportOptions },
+  components: { ImportOptions, TheDownloadBtn },
   props: {
     name: {
       default: "Backup Name",
@@ -91,6 +85,11 @@ export default {
       rebaseImport: false,
       downloading: false,
     };
+  },
+  computed: {
+    downloadUrl() {
+      return backupURLs.downloadBackup(this.name);
+    },
   },
   methods: {
     updateOptions(options) {
@@ -115,23 +114,6 @@ export default {
       };
       this.close();
       this.$emit(event, eventData);
-    },
-    async downloadFile(downloadURL) {
-      this.downloading = true;
-      const response = await axios({
-        url: downloadURL,
-        method: "GET",
-        responseType: "blob", // important
-      });
-
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `${this.name}.zip`);
-      document.body.appendChild(link);
-      link.click();
-
-      this.downloading = false;
     },
   },
 };

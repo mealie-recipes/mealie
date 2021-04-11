@@ -2,6 +2,8 @@ FROM python:3
 
 WORKDIR /app/
 
+ENV PRODUCTION false
+
 RUN apt-get update -y && \
     apt-get install -y python-pip python-dev
 

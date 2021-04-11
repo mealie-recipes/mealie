@@ -20,6 +20,17 @@
           </v-list-item>
         </v-list-item-group>
       </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <TheDownloadBtn
+          button-text="Download Recipe JSON"
+          download-url="/api/debug/last-recipe-json"
+        />
+        <TheDownloadBtn
+          button-text="Download Log"
+          download-url="/api/debug/log"
+        />
+      </v-card-actions>
       <v-divider></v-divider>
     </v-card>
   </div>
@@ -27,7 +38,9 @@
 
 <script>
 import { api } from "@/api";
+import TheDownloadBtn from "@/components/UI/TheDownloadBtn";
 export default {
+  components: { TheDownloadBtn },
   data() {
     return {
       prettyInfo: [],

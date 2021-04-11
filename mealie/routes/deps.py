@@ -1,3 +1,6 @@
+from pathlib import Path
+from typing import Optional
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -25,7 +28,25 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
+
     user = db.users.get(session, token_data.username, "email")
     if user is None:
         raise credentials_exception
     return user
+
+
+async def validate_file_token(token: Optional[str] = None) -> Path:
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="could not validate file token",
+    )
+    if not token:
+        return None
+
+    try:
+        payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
+        file_path = Path(payload.get("file"))
+    except JWTError:
+        raise credentials_exception
+
+    return file_path
