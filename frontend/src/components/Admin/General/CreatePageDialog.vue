@@ -23,7 +23,7 @@
             v-model="page.categories"
             ref="categoryFormSelector"
             @mounted="catMounted = true"
-            tag-selector="false"
+            :tag-selector="false"
           />
         </v-card-text>
 
