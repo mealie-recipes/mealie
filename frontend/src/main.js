@@ -18,6 +18,20 @@ const router = new VueRouter({
   mode: process.env.NODE_ENV === "production" ? "history" : "hash",
 });
 
+const DEFAULT_TITLE = 'Mealie';
+const TITLE_SEPARATOR = '🍴';
+const TITLE_SUFFIX = " " + TITLE_SEPARATOR + " " + DEFAULT_TITLE;
+router.afterEach( (to) => {
+  Vue.nextTick( async () => {
+    if(typeof to.meta.title === 'function' ) {
+      const title  = await to.meta.title(to);
+      document.title = title + TITLE_SUFFIX;
+    } else {
+      document.title = to.meta.title ? to.meta.title + TITLE_SUFFIX : DEFAULT_TITLE;
+    }
+  });
+});  
+
 const vueApp = new Vue({
   vuetify,
   store,

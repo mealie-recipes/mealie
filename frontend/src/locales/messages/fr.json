@@ -46,7 +46,8 @@
     "token": "Jeton",
     "field-required": "Champ obligatoire",
     "apply": "Appliquer",
-    "current-parenthesis": "(Actuel)"
+    "current-parenthesis": "(Actuel)",
+    "about": "À propos"
   },
   "page": {
     "home-page": "Accueil",
@@ -143,7 +144,8 @@
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?"
   },
   "search": {
-    "search-mealie": "Rechercher dans Mealie"
+    "search-mealie": "Rechercher dans Mealie",
+    "search": "Rechercher"
   },
   "settings": {
     "general-settings": "Paramètres généraux",
