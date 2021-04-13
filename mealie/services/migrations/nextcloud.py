@@ -1,90 +1,69 @@
-import json
-import logging
-import shutil
-import zipfile
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Optional
 
-from mealie.core.config import app_dirs
-from mealie.db.database import db
-from mealie.schema.recipe import Recipe
-from mealie.services.scraper.cleaner import Cleaner
-
-
-def process_selection(selection: Path) -> Path:
-    if selection.is_dir():
-        return selection
-    elif selection.suffix == ".zip":
-        with zipfile.ZipFile(selection, "r") as zip_ref:
-            nextcloud_dir = app_dirs.TEMP_DIR.joinpath("nextcloud")
-            nextcloud_dir.mkdir(exist_ok=False, parents=True)
-            zip_ref.extractall(nextcloud_dir)
-        return nextcloud_dir
-    else:
-        return None
+from mealie.schema.migration import MigrationImport
+from mealie.services.migrations import helpers
+from mealie.services.migrations._migration_base import MigrationAlias, MigrationBase
+from slugify import slugify
+from sqlalchemy.orm.session import Session
 
 
-def import_recipes(recipe_dir: Path) -> Recipe:
-    image = False
-    for file in recipe_dir.glob("full.*"):
-        image = file
+@dataclass
+class NextcloudDir:
+    name: str
+    recipe: dict
+    image: Optional[Path]
 
-    for file in recipe_dir.glob("*.json"):
-        recipe_file = file
+    @property
+    def slug(self):
+        return slugify(self.recipe.get("name"))
 
-    with open(recipe_file, "r") as f:
-        recipe_dict = json.loads(f.read())
+    @classmethod
+    def from_dir(cls, dir: Path):
+        try:
+            json_file = next(dir.glob("*.json"))
+        except StopIteration:
+            return None
 
-    recipe_data = Cleaner.clean(recipe_dict)
+        try:  # TODO: There's got to be a better way to do this.
+            image_file = next(dir.glob("full.*"))
+        except StopIteration:
+            image_file = None
 
-    image_name = None
-    if image:
-        image_name = recipe_data["slug"] + image.suffix
-        recipe_data["image"] = image_name
-    else:
-        recipe_data["image"] = "none"
-
-    recipe = Recipe(**recipe_data)
-
-    if image:
-        shutil.copy(image, app_dirs.IMG_DIR.joinpath(image_name))
-
-    return recipe
+        return cls(name=dir.name, recipe=NextcloudMigration.json_reader(json_file), image=image_file)
 
 
-def prep():
-    try:
-        shutil.rmtree(app_dirs.TEMP_DIR)
-    except:
-        pass
-    app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
+class NextcloudMigration(MigrationBase):
+    key_aliases: Optional[list[MigrationAlias]] = [
+        MigrationAlias(key="tags", alias="keywords", func=helpers.split_by_comma),
+        MigrationAlias(key="orgURL", alias="url", func=None),
+    ]
 
 
-def cleanup():
-    shutil.rmtree(app_dirs.TEMP_DIR)
+def migrate(session: Session, zip_path: Path) -> list[MigrationImport]:
 
+    nc_migration = NextcloudMigration(migration_file=zip_path, session=session)
 
-def migrate(session, selection: str):
-    prep()
-    app_dirs.MIGRATION_DIR.mkdir(exist_ok=True)
-    selection = app_dirs.MIGRATION_DIR.joinpath(selection)
+    with nc_migration.temp_dir as dir:
+        potential_recipe_dirs = NextcloudMigration.glob_walker(dir, glob_str="**/[!.]*.json", return_parent=True)
 
-    nextcloud_dir = process_selection(selection)
+        # nextcloud_dirs = [NextcloudDir.from_dir(x) for x in potential_recipe_dirs]
+        nextcloud_dirs = {y.slug: y for x in potential_recipe_dirs if (y := NextcloudDir.from_dir(x))}
+        # nextcloud_dirs = {x.slug: x for x in nextcloud_dirs}
 
-    successful_imports = []
-    failed_imports = []
-    for dir in nextcloud_dir.iterdir():
-        if dir.is_dir():
+        all_recipes = []
+        for _, nc_dir in nextcloud_dirs.items():
+            recipe = nc_migration.clean_recipe_dictionary(nc_dir.recipe)
+            all_recipes.append(recipe)
 
-            try:
-                recipe = import_recipes(dir)
-                db.recipes.create(session, recipe.dict())
+        nc_migration.import_recipes_to_database(all_recipes)
 
-                successful_imports.append(recipe.name)
-            except:
-                logging.error(f"Failed Nextcloud Import: {dir.name}")
-                logging.exception("")
-                failed_imports.append(dir.name)
+        for report in nc_migration.migration_report:
 
-    cleanup()
+            if report.status:
+                nc_dir: NextcloudDir = nextcloud_dirs[report.slug]
+                if nc_dir.image:
+                    NextcloudMigration.import_image(nc_dir.image, nc_dir.slug)
 
-    return {"successful": successful_imports, "failed": failed_imports}
+    return nc_migration.migration_report

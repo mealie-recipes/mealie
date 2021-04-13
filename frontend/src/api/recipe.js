@@ -61,6 +61,11 @@ export const recipeAPI = {
     return response;
   },
 
+  async updateImagebyURL(slug, url) {
+    const response = apiReq.post(recipeURLs.updateImage(slug), { url: url });
+    return response;
+  },
+
   async update(data) {
     let response = await apiReq.put(recipeURLs.update(data.slug), data);
     store.dispatch("requestRecentRecipes");

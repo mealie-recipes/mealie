@@ -1,9 +1,11 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.db.models.model_base import SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
+
+logger = root_logger.get_logger()
 
 site_settings2categories = sa.Table(
     "site_settings2categoories",
@@ -59,8 +61,8 @@ class Category(SqlAlchemyBase):
         test_slug = slugify(name)
         result = session.query(Category).filter(Category.slug == test_slug).one_or_none()
         if result:
-            logger.info("Category exists, associating recipe")
+            logger.debug("Category exists, associating recipe")
             return result
         else:
-            logger.info("Category doesn't exists, creating tag")
+            logger.debug("Category doesn't exists, creating tag")
             return Category(name=name)

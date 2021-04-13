@@ -79,7 +79,7 @@ def get_today(session: Session = Depends(generate_session), current_user: UserIn
 
 
 @router.get("/today/image", tags=["Meal Plan"])
-def get_today(session: Session = Depends(generate_session), group_name: str = "Home"):
+def get_todays_image(session: Session = Depends(generate_session), group_name: str = "Home"):
     """
     Returns the image for todays meal-plan.
     """

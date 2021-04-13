@@ -3,16 +3,19 @@ import secrets
 from pathlib import Path
 from typing import Optional, Union
 
+import dotenv
 from pydantic import BaseSettings, Field, validator
 
-APP_VERSION = "v0.4.1"
+APP_VERSION = "v0.4.2"
 DB_VERSION = "v0.4.0"
 
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
 
 ENV = BASE_DIR.joinpath(".env")
-PRODUCTION = os.getenv("ENV", "False").lower() in ["true", "1"]
+
+dotenv.load_dotenv(ENV)
+PRODUCTION = os.getenv("PRODUCTION", "True").lower() in ["true", "1"]
 
 
 def determine_data_dir(production: bool) -> Path:
@@ -40,7 +43,6 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
 
 # General
 DATA_DIR = determine_data_dir(PRODUCTION)
-LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 
 
 class AppDirectories:
@@ -84,7 +86,7 @@ app_dirs = AppDirectories(CWD, DATA_DIR)
 
 class AppSettings(BaseSettings):
     global DATA_DIR
-    PRODUCTION: bool = Field(False, env="ENV")
+    PRODUCTION: bool = Field(True, env="PRODUCTION")
     IS_DEMO: bool = False
     API_PORT: int = 9000
     API_DOCS: bool = True
@@ -127,5 +129,3 @@ class AppSettings(BaseSettings):
 
 
 settings = AppSettings()
-
-print(settings.dict())

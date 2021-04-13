@@ -1,5 +1,7 @@
+import shutil
 from enum import Enum
 
+import requests
 from fastapi import APIRouter, Depends, File, Form, HTTPException
 from fastapi.responses import FileResponse
 from mealie.db.database import db
@@ -7,7 +9,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
 from mealie.schema.snackbar import SnackResponse
-from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, write_image
+from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, rename_image, scrape_image, write_image
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
@@ -60,6 +62,9 @@ def update_recipe(
     """ Updates a recipe by existing slug and data. """
 
     recipe: Recipe = db.recipes.update(session, recipe_slug, data.dict())
+
+    if recipe_slug != recipe.slug:
+        rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
 
     return recipe.slug
 
@@ -117,3 +122,16 @@ def update_recipe_image(
     db.recipes.update_image(session, recipe_slug, extension)
 
     return response
+
+
+@router.post("/{recipe_slug}/image")
+def scrape_image_url(
+    recipe_slug: str,
+    url: RecipeURLIn,
+    current_user=Depends(get_current_user),
+):
+    """ Removes an existing image and replaces it with the incoming file. """
+
+    scrape_image(url.url, recipe_slug)
+
+    return SnackResponse.success("Recipe Image Updated")

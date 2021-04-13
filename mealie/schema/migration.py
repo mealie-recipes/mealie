@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List
 
+from mealie.schema.restore import RecipeImport
 from pydantic.main import BaseModel
 
 
@@ -23,3 +24,7 @@ class MigrationFile(BaseModel):
 class Migrations(BaseModel):
     type: str
     files: List[MigrationFile] = []
+
+
+class MigrationImport(RecipeImport):
+    pass

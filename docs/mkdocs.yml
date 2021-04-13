@@ -56,7 +56,6 @@ nav:
       - Organizing Recipes: "getting-started/organizing-recipes.md"
       - Planning Meals: "getting-started/meal-planner.md"
       - iOS Shortcuts: "getting-started/ios.md"
-      - API Usage: "getting-started/api-usage.md"
       - Site Administration:
           - User Settings: "site-administration/user-settings.md"
           - Site Settings: "site-administration/site-settings.md"
@@ -64,6 +63,10 @@ nav:
           - User Management: "site-administration/user-management.md"
           - Backups and Restore: "site-administration/backups-and-exports.md"
           - Recipe Migration: "site-administration/migration-imports.md"
+      - API Usage:
+          - Getting Started: "api-usage/getting-started.md"
+          - Home Assistant: "api-usage/home-assistant.md"
+          - Bulk Url Import: "api-usage/bulk-url-import.md"
   - API Reference: "api/redoc.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
@@ -74,6 +77,7 @@ nav:
           - Guidelines: "contributors/developers-guide/general-guidelines.md"
   - Development Road Map: "roadmap.md"
   - Change Log:
+      - v0.4.2 Backend/Migrations: "changelog/v0.4.2.md"
       - v0.4.1 Frontend/UI: "changelog/v0.4.1.md"
       - v0.4.0 Authentication: "changelog/v0.4.0.md"
       - v0.3.0 Improvements: "changelog/v0.3.0.md"

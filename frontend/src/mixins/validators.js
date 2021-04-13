@@ -3,7 +3,7 @@ export const validators = {
     return {
       emailRule: v =>
         !v ||
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+        /^[^@\s]+@[^@\s.]+.[^@.\s]+$/.test(v) ||
        this.$t('user.e-mail-must-be-valid'),
 
       existsRule: value => !!value || this.$t('general.field-required'),

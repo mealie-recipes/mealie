@@ -11,6 +11,8 @@ on:
 
 jobs:
   tests:
+    env:
+      PRODUCTION: false
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------

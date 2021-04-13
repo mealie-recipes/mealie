@@ -50,6 +50,7 @@
         :rating="recipeDetails.rating"
         :yields="recipeDetails.recipeYield"
         :orgURL="recipeDetails.orgURL"
+        :nutrition="recipeDetails.nutrition"
       />
       <VJsoneditor
         @error="logError()"
@@ -151,6 +152,7 @@ export default {
   methods: {
     getImageFile(fileObject) {
       this.fileObject = fileObject;
+      this.saveImage();
     },
     async getRecipeDetails() {
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
@@ -172,19 +174,21 @@ export default {
         return this.$refs.recipeEditor.validateRecipe();
       }
     },
+    async saveImage() {
+      if (this.fileObject) {
+        await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
+      }
+      this.imageKey += 1;
+    },
     async saveRecipe() {
       if (this.validateRecipe()) {
         let slug = await api.recipes.update(this.recipeDetails);
 
         if (this.fileObject) {
-          await api.recipes.updateImage(
-            this.recipeDetails.slug,
-            this.fileObject
-          );
+          this.saveImage();
         }
 
         this.form = false;
-        this.imageKey += 1;
         if (slug != this.recipeDetails.slug) {
           this.$router.push(`/recipe/${slug}`);
         }

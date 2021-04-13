@@ -4,12 +4,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import Union
 
-from fastapi.logger import logger
 from jinja2 import Template
+from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
+from pathvalidate import sanitize_filename
 from pydantic.main import BaseModel
+
+logger = root_logger.get_logger()
 
 
 class ExportDatabase:
@@ -76,7 +79,8 @@ class ExportDatabase:
             ExportDatabase._write_json_file(items, out_dir.joinpath(f"{folder_name}.json"))
         else:
             for item in items:
-                ExportDatabase._write_json_file(item, out_dir.joinpath(f"{item.get('name')}.json"))
+                filename = sanitize_filename(f"{item.get('name')}.json")
+                ExportDatabase._write_json_file(item, out_dir.joinpath(filename))
 
     @staticmethod
     def _write_json_file(data: Union[dict, list], out_file: Path):

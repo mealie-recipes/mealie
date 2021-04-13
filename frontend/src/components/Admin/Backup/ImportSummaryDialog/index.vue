@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import DataTable from "./DataTable";
+import DataTable from "@/components/Admin/Backup/ImportSummaryDialog/DataTable";
 export default {
   components: {
     DataTable,

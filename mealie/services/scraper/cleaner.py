@@ -128,8 +128,10 @@ class Cleaner:
 
     @staticmethod
     def ingredient(ingredients: list) -> str:
-
-        return [Cleaner.html(html.unescape(ing)) for ing in ingredients]
+        if ingredients:
+            return [Cleaner.html(html.unescape(ing)) for ing in ingredients]
+        else:
+            return []
 
     @staticmethod
     def yield_amount(yld) -> str:

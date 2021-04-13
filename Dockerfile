@@ -20,7 +20,7 @@ RUN apk add --no-cache libxml2-dev \
     zlib-dev
 
 
-ENV ENV True
+ENV PRODUCTION true
 EXPOSE 80
 WORKDIR /app/
 
@@ -40,14 +40,15 @@ RUN apk add --update --no-cache --virtual .build-deps \
     cd /app/ && poetry install --no-root --no-dev && \
     apk --purge del .build-deps
 
-
 COPY ./mealie /app/mealie
 RUN poetry install --no-dev 
+
 COPY ./Caddyfile /app
 COPY ./dev/data/templates /app/data/templates
 COPY --from=build-stage /app/dist /app/dist
 
 VOLUME [ "/app/data/" ]
+
 RUN chmod +x /app/mealie/run.sh
 CMD /app/mealie/run.sh
 

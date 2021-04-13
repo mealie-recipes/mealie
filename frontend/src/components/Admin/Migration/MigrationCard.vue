@@ -1,5 +1,6 @@
 <template>
   <v-card outlined class="my-2" :loading="loading">
+    <MigrationDialog ref="migrationDialog" />
     <v-card-title>
       {{ title }}
       <v-spacer></v-spacer>
@@ -40,7 +41,13 @@
           <v-btn color="error" text @click="deleteMigration(migration.name)">
             {{ $t("general.delete") }}
           </v-btn>
-          <v-btn color="accent" text @click="importMigration(migration.name)">
+          <v-btn
+            color="accent"
+            text
+            @click="importMigration(migration.name)"
+            :loading="loading"
+            :disabled="loading"
+          >
             {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>
@@ -61,6 +68,7 @@
 import UploadBtn from "../../UI/UploadBtn";
 import utils from "@/utils";
 import { api } from "@/api";
+import MigrationDialog from "@/components/Admin/Migration/MigrationDialog.vue";
 export default {
   props: {
     folder: String,
@@ -70,6 +78,7 @@ export default {
   },
   components: {
     UploadBtn,
+    MigrationDialog,
   },
   data() {
     return {
@@ -82,10 +91,11 @@ export default {
       this.$emit("refresh");
     },
     async importMigration(file_name) {
-      this.loading == true;
+      this.loading = true;
       let response = await api.migrations.import(this.folder, file_name);
-      this.$emit("imported", response.successful, response.failed);
-      this.loading == false;
+      this.$refs.migrationDialog.open(response);
+      // this.$emit("imported", response.successful, response.failed);
+      this.loading = false;
     },
     readableTime(timestamp) {
       let date = new Date(timestamp);

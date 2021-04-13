@@ -2,16 +2,12 @@
   <v-form ref="form">
     <v-card-text>
       <v-row dense>
-        <v-col cols="3"></v-col>
-        <v-col>
-          <v-file-input
-            v-model="fileObject"
-            :label="$t('general.image-file')"
-            truncate-length="30"
-            @change="uploadImage"
-          ></v-file-input>
-        </v-col>
-        <v-col cols="3"></v-col>
+        <ImageUploadBtn
+          class="mt-2"
+          @upload="uploadImage"
+          :slug="value.slug"
+          @refresh="$emit('upload')"
+        />
       </v-row>
       <v-row dense>
         <v-col>
@@ -92,7 +88,7 @@
                     auto-grow
                     solo
                     dense
-                    rows="2"
+                    rows="1"
                   >
                     <v-icon
                       class="mr-n1"
@@ -114,60 +110,21 @@
           <BulkAdd @bulk-data="appendIngredients" />
 
           <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
-          <v-combobox
-            dense
-            multiple
-            chips
-            item-color="secondary"
-            deletable-chips
+          <CategoryTagSelector
+            :return-object="false"
             v-model="value.recipeCategory"
-            hide-selected
-            :items="allCategories"
-            text="name"
-            :search-input.sync="categoriesSearchInput"
-            @change="categoriesSearchInput = ''"
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                class="ma-1"
-                :input-value="data.selected"
-                close
-                @click:close="removeCategory(data.index)"
-                label
-                color="accent"
-                dark
-              >
-                {{ data.item }}
-              </v-chip>
-            </template>
-          </v-combobox>
+            :show-add="true"
+            :show-label="false"
+          />
 
           <h2 class="mt-4">{{ $t("recipe.tags") }}</h2>
-          <v-combobox
-            dense
-            multiple
-            chips
-            deletable-chips
+          <CategoryTagSelector
+            :return-object="false"
             v-model="value.tags"
-            hide-selected
-            :items="allTags"
-            :search-input.sync="tagsSearchInput"
-            @change="tagssSearchInput = ''"
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                class="ma-1"
-                :input-value="data.selected"
-                close
-                label
-                @click:close="removeTags(data.index)"
-                color="accent"
-                dark
-              >
-                {{ data.item }}
-              </v-chip>
-            </template>
-          </v-combobox>
+            :show-add="true"
+            :tag-selector="true"
+            :show-label="false"
+          />
 
           <h2 class="my-4">{{ $t("recipe.notes") }}</h2>
           <v-card
@@ -204,6 +161,7 @@
           <v-btn class="mt-1" color="secondary" fab dark small @click="addNote">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
+          <NutritionEditor v-model="value.nutrition" :edit="true" />
           <ExtrasEditor :extras="value.extras" @save="saveExtras" />
         </v-col>
 
@@ -261,15 +219,20 @@
 
 <script>
 import draggable from "vuedraggable";
-import { api } from "@/api";
 import utils from "@/utils";
 import BulkAdd from "./BulkAdd";
 import ExtrasEditor from "./ExtrasEditor";
+import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
+import NutritionEditor from "./NutritionEditor";
+import ImageUploadBtn from "./ImageUploadBtn.vue";
 export default {
   components: {
     BulkAdd,
     ExtrasEditor,
     draggable,
+    CategoryTagSelector,
+    NutritionEditor,
+    ImageUploadBtn,
   },
   props: {
     value: Object,
@@ -285,27 +248,11 @@ export default {
           v.split(" ").length <= 1 ||
           this.$i18n.t("recipe.no-white-space-allowed"),
       },
-      categoriesSearchInput: "",
-      tagsSearchInput: "",
     };
   },
-  computed: {
-    allCategories() {
-      const categories = this.$store.getters.getAllCategories;
-      return categories.map(cat => cat.name);
-    },
-    allTags() {
-      const tags = this.$store.getters.getAllTags;
-      return tags.map(cat => cat.name);
-    },
-  },
   methods: {
-    uploadImage() {
-      this.$emit("upload", this.fileObject);
-    },
-    async updateImage() {
-      let slug = this.value.slug;
-      api.recipes.updateImage(slug, this.fileObject);
+    uploadImage(fileObject) {
+      this.$emit("upload", fileObject);
     },
     toggleDisabled(stepIndex) {
       if (this.disabledSteps.includes(stepIndex)) {
@@ -326,9 +273,6 @@ export default {
     },
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);
-    },
-    deleteRecipe() {
-      this.$emit("delete");
     },
 
     appendIngredients(ingredients) {

@@ -28,7 +28,7 @@
         <v-col>
           <h3 class="pl-2 text-center headline">Category Filter</h3>
           <FilterSelector class="mb-1" @update="updateCatParams" />
-          <CategorySelector
+          <CategoryTagSelector
             :solo="true"
             :dense="false"
             v-model="includeCategories"
@@ -38,11 +38,13 @@
         <v-col>
           <h3 class="pl-2 text-center headline">Tag Filter</h3>
           <FilterSelector class="mb-1" @update="updateTagParams" />
-          <TagSelector
+
+          <CategoryTagSelector
             :solo="true"
             :dense="false"
             v-model="includeTags"
             :return-object="false"
+            :tag-selector="true"
           />
         </v-col>
       </v-row>
@@ -74,16 +76,14 @@
 import Fuse from "fuse.js";
 import RecipeCard from "@/components/Recipe/RecipeCard";
 import CategorySidebar from "@/components/UI/CategorySidebar";
-import CategorySelector from "@/components/FormHelpers/CategorySelector";
-import TagSelector from "@/components/FormHelpers/TagSelector";
+import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import FilterSelector from "./FilterSelector.vue";
 
 export default {
   components: {
     RecipeCard,
     CategorySidebar,
-    CategorySelector,
-    TagSelector,
+    CategoryTagSelector,
     FilterSelector,
   },
   data() {

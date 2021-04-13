@@ -9,7 +9,8 @@ from mealie.db.models.users import User
 from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
 from mealie.schema.meal import MealPlanInDB
 from mealie.schema.recipe import Recipe
-from mealie.schema.settings import CustomPageOut, SiteSettings as SiteSettingsSchema
+from mealie.schema.settings import CustomPageOut
+from mealie.schema.settings import SiteSettings as SiteSettingsSchema
 from mealie.schema.sign_up import SignUpOut
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import GroupInDB, UserInDB
