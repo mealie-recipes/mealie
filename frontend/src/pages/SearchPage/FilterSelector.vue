@@ -10,11 +10,11 @@
       mandatory
     >
       <v-btn :value="false">
-        Include
+        {{$t('search.include')}}
       </v-btn>
 
       <v-btn :value="true">
-        Exclude
+        {{$t('search.exclude')}}
       </v-btn>
     </v-btn-toggle>
     <v-spacer></v-spacer>
@@ -28,10 +28,10 @@
       mandatory
     >
       <v-btn :value="false">
-        And
+       {{$t('search.and')}}
       </v-btn>
       <v-btn :value="true">
-        Or
+        {{$t('search.or')}}
       </v-btn>
     </v-btn-toggle>
   </v-toolbar>
