@@ -122,7 +122,7 @@
     "categories": "Catégories",
     "tags": "Tags",
     "instructions": "Instructions",
-    "step-index": "Etape: {step}",
+    "step-index": "Étape : {step}",
     "recipe-name": "Nom de la recette",
     "servings": "Portions",
     "ingredient": "Ingrédient",
