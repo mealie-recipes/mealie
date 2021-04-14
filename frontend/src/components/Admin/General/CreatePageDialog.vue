@@ -17,7 +17,7 @@
           <v-text-field
             autofocus
             v-model="page.name"
-            label="Page Name"
+            :label="$t('settings.page-name')"
           ></v-text-field>
           <CategoryTagSelector
             v-model="page.categories"

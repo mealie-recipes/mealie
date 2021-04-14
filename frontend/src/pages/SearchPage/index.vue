@@ -8,7 +8,7 @@
             v-model="searchString"
             outlined
             color="primary accent-3"
-            placeholder="Placeholder"
+            :placeholder="$t('search.search-placeholder')"
             append-icon="mdi-magnify"
           >
           </v-text-field>
@@ -16,7 +16,7 @@
         <v-col cols="12" md="2" sm="12">
           <v-text-field
             class="mt-0 pt-0"
-            label="Max Results"
+            :label="$t('search.max-results')"
             v-model="maxResults"
             type="number"
             outlined
@@ -26,7 +26,7 @@
 
       <v-row dense class="mt-0 flex-row align-center justify-space-around">
         <v-col>
-          <h3 class="pl-2 text-center headline">Category Filter</h3>
+          <h3 class="pl-2 text-center headline">{{$t('search.category-filter')}}</h3>
           <FilterSelector class="mb-1" @update="updateCatParams" />
           <CategoryTagSelector
             :solo="true"
@@ -36,7 +36,7 @@
           />
         </v-col>
         <v-col>
-          <h3 class="pl-2 text-center headline">Tag Filter</h3>
+          <h3 class="pl-2 text-center headline">{{$t('search.tag-filter')}}</h3>
           <FilterSelector class="mb-1" @update="updateTagParams" />
 
           <CategoryTagSelector

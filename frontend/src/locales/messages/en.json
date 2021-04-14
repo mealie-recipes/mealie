@@ -147,6 +147,14 @@
   },
   "search": {
     "search-mealie": "Search Mealie",
+    "search-placeholder": "Search...",
+    "max-results": "Max Results",
+    "category-filter": "Category Filter",
+    "tag-filter": "Tag Filter",
+    "include": "Include",
+    "exclude": "Exclude",
+    "and": "And",
+    "or": "Or",
     "search": "Search"
   },
   "settings": {
@@ -217,7 +225,11 @@
     "site-settings": "Site Settings",
     "manage-users": "Manage Users",
     "migrations": "Migrations",
-    "profile": "Profile"
+    "profile": "Profile",
+    "custom-pages": "Custom Pages",
+    "new-page": "New Page",
+    "edit-page": "Edit Page",
+    "page-name": "Page Name"
   },
   "migration": {
     "recipe-migration": "Recipe Migration",
