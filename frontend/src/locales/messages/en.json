@@ -48,7 +48,8 @@
     "apply": "Apply",
     "current-parenthesis": "(Current)",
     "users": "Users",
-    "groups": "Groups"
+    "groups": "Groups",
+    "about": "About"
   },
   "page": {
     "home-page": "Home Page",
@@ -153,7 +154,8 @@
     "include": "Include",
     "exclude": "Exclude",
     "and": "And",
-    "or": "Or"
+    "or": "Or",
+    "search": "Search"
   },
   "settings": {
     "general-settings": "General Settings",

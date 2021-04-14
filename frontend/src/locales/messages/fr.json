@@ -48,7 +48,8 @@
     "apply": "Appliquer",
     "current-parenthesis": "(Actuel)",
     "groups": "Groupes",
-    "users": "Utilisateurs"
+    "users": "Utilisateurs",
+    "about": "À propos"
   },
   "page": {
     "home-page": "Accueil",
@@ -153,7 +154,8 @@
     "include": "Inclure",
     "max-results": "Résultats max",
     "or": "Ou",
-    "tag-filter": "Filtre par tags"
+    "tag-filter": "Filtre par tags",
+    "search": "Rechercher"
   },
   "settings": {
     "general-settings": "Paramètres généraux",

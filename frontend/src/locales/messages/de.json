@@ -93,7 +93,7 @@
     "groups": "Gruppen",
     "could-not-validate-credentials": "Anmeldeinformationen konnten nicht validiert werden",
     "login": "Anmeldung",
-    "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
+    "groups-can-only-be-set-by-administrators": "Gruppen können nur durch einen Administrator gesetzt werden",
     "upload-photo": "Foto hochladen",
     "reset-password": "Passwort zurücksetzen",
     "current-password": "Aktuelles Passwort",
