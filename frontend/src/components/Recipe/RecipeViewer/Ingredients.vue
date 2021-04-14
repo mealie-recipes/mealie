@@ -12,6 +12,7 @@
         v-model="ingredient.checked"
         class="pt-0 my-auto py-auto"
         color="secondary"
+        :readonly="true"
       >
       </v-checkbox>
 
