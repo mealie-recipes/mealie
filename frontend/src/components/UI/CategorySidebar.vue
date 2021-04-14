@@ -54,7 +54,7 @@ export default {
         {
           icon: "mdi-magnify",
           to: "/search",
-          title: "search",
+          title: this.$t('search.search'),
         },
       ],
     };
