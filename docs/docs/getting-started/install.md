@@ -10,6 +10,12 @@ To deploy docker on your local network it is highly recommended to use docker to
  - linux/arm/v7
  - linux/arm64
 
+!!! tip "Fix for linux/arm/v7 container on Raspberry Pi 4: 'Fatal Python error: init_interp_main: can't initialize time'"
+ Update the host RP4 using [instructions](linuxserver/docker-papermerge#4 (comment)), summarized here:
+```shell
+ wget http://ftp.us.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb
+ sudo dpkg -i libseccomp2_2.5.1-1_armhf.deb
+```
 
 ## Quick Start - Docker CLI
 Deployment with the Docker CLI can be done with `docker run` and specify the database type, in this case `sqlite`, setting the exposed port `9925`, mounting the current directory, and pull the latest image. After the image is up an running you can navigate to http://your.ip.addres:9925 and you'll should see mealie up and running!
