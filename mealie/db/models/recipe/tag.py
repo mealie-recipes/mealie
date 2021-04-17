@@ -1,9 +1,11 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from fastapi.logger import logger
+from mealie.core import root_logger
 from mealie.db.models.model_base import SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
+
+logger = root_logger.get_logger()
 
 recipes2tags = sa.Table(
     "recipes2tags",
@@ -35,8 +37,8 @@ class Tag(SqlAlchemyBase):
         result = session.query(Tag).filter(Tag.slug == test_slug).one_or_none()
 
         if result:
-            logger.info("Tag exists, associating recipe")
+            logger.debug("Tag exists, associating recipe")
             return result
         else:
-            logger.info("Tag doesn't exists, creating tag")
+            logger.debug("Tag doesn't exists, creating tag")
             return Tag(name=name)

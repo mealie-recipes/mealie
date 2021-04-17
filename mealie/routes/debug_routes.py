@@ -1,7 +1,9 @@
 import json
 
 from fastapi import APIRouter, Depends
-from mealie.core.config import APP_VERSION, LOGGER_FILE, app_dirs, settings
+from mealie.core.config import APP_VERSION, app_dirs, settings
+from mealie.core.root_logger import LOGGER_FILE
+from mealie.core.security import create_file_token
 from mealie.routes.deps import get_current_user
 from mealie.schema.debug import AppInfo, DebugInfo
 
@@ -36,10 +38,8 @@ async def get_mealie_version():
 
 @router.get("/last-recipe-json")
 async def get_last_recipe_json(current_user=Depends(get_current_user)):
-    """ Doc Str """
-
-    with open(app_dirs.DEBUG_DIR.joinpath("last_recipe.json"), "r") as f:
-        return json.loads(f.read())
+    """ Returns a token to download a file """
+    return {"fileToken": create_file_token(app_dirs.DEBUG_DIR.joinpath("last_recipe.json"))}
 
 
 @router.get("/log/{num}")
@@ -48,6 +48,12 @@ async def get_log(num: int, current_user=Depends(get_current_user)):
     with open(LOGGER_FILE, "rb") as f:
         log_text = tail(f, num)
     return log_text
+
+
+@router.get("/log")
+async def get_log_file():
+    """ Returns a token to download a file """
+    return {"fileToken": create_file_token(LOGGER_FILE)}
 
 
 def tail(f, lines=20):

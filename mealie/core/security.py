@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
-from mealie.schema.user import UserInDB
+from pathlib import Path
 
 from jose import jwt
 from mealie.core.config import settings
 from mealie.db.database import db
+from mealie.schema.user import UserInDB
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -18,6 +19,11 @@ def create_access_token(data: dict(), expires_delta: timedelta = None) -> str:
         expire = datetime.utcnow() + timedelta(minutes=120)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM)
+
+
+def create_file_token(file_path: Path) -> bool:
+    token_data = {"file": str(file_path)}
+    return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
 def authenticate_user(session, email: str, password: str) -> UserInDB:

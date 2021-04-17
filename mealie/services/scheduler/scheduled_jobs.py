@@ -1,15 +1,18 @@
 from apscheduler.schedulers.background import BackgroundScheduler
+from mealie.core import root_logger
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
-from fastapi.logger import logger
 from mealie.schema.user import GroupInDB
 from mealie.services.backups.exports import auto_backup_job
 from mealie.services.scheduler.global_scheduler import scheduler
 from mealie.services.scheduler.scheduler_utils import Cron, cron_parser
 from mealie.utils.post_webhooks import post_webhooks
 
+logger = root_logger.get_logger()
 
 # TODO Fix Scheduler
+
+
 @scheduler.scheduled_job(trigger="interval", minutes=30)
 def update_webhook_schedule():
     """

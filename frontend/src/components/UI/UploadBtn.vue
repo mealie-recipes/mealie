@@ -1,7 +1,12 @@
 <template>
   <v-form ref="file">
     <input ref="uploader" class="d-none" type="file" @change="onFileChanged" />
-    <v-btn :loading="isSelecting" @click="onButtonClick" color="accent" text>
+    <v-btn
+      :loading="isSelecting"
+      @click="onButtonClick"
+      color="accent"
+      :text="textBtn"
+    >
       <v-icon left> {{ icon }}</v-icon>
       {{ text ? text : defaultText }}
     </v-btn>
@@ -13,10 +18,17 @@ const UPLOAD_EVENT = "uploaded";
 import { api } from "@/api";
 export default {
   props: {
+    post: {
+      type: Boolean,
+      default: true,
+    },
     url: String,
     text: { default: "Upload" },
     icon: { default: "mdi-cloud-upload" },
     fileName: { default: "archive" },
+    textBtn: {
+      default: true,
+    },
   },
   data: () => ({
     file: null,
@@ -33,6 +45,12 @@ export default {
     async upload() {
       if (this.file != null) {
         this.isSelecting = true;
+
+        if (this.post) {
+          this.$emit(UPLOAD_EVENT, this.file);
+          this.isSelecting = false;
+          return;
+        }
         let formData = new FormData();
         formData.append(this.fileName, this.file);
 

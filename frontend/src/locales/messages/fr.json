@@ -46,7 +46,10 @@
     "token": "Jeton",
     "field-required": "Champ obligatoire",
     "apply": "Appliquer",
-    "current-parenthesis": "(Actuel)"
+    "current-parenthesis": "(Actuel)",
+    "groups": "Groupes",
+    "users": "Utilisateurs",
+    "about": "À propos"
   },
   "page": {
     "home-page": "Accueil",
@@ -120,7 +123,7 @@
     "categories": "Catégories",
     "tags": "Tags",
     "instructions": "Instructions",
-    "step-index": "Etape: {step}",
+    "step-index": "Étape : {step}",
     "recipe-name": "Nom de la recette",
     "servings": "Portions",
     "ingredient": "Ingrédient",
@@ -143,7 +146,16 @@
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?"
   },
   "search": {
-    "search-mealie": "Rechercher dans Mealie"
+    "search-mealie": "Rechercher dans Mealie",
+    "search-placeholder": "Rechercher...",
+    "and": "Et",
+    "category-filter": "Filtre par catégories",
+    "exclude": "Exclure",
+    "include": "Inclure",
+    "max-results": "Résultats max",
+    "or": "Ou",
+    "tag-filter": "Filtre par tags",
+    "search": "Rechercher"
   },
   "settings": {
     "general-settings": "Paramètres généraux",
@@ -185,7 +197,7 @@
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooks du planificateur de repas",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les liens dans cette liste recevront les webhooks contenant les recettes pour le plan de menu du jour défini. Actuellement, les webhooks s'executeront à <strong>{ time }</strong>",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les liens dans cette liste recevront les webhooks contenant les recettes pour le plan de menu du jour défini. Actuellement, les webhooks s'exécuteront à",
       "test-webhooks": "Tester les webhooks",
       "webhook-url": "Lien du webhook"
     },
@@ -213,7 +225,11 @@
     "manage-users": "Utilisateurs",
     "migrations": "Migrations",
     "profile": "Profil",
-    "site-settings": "Paramètres site"
+    "site-settings": "Paramètres site",
+    "custom-pages": "Pages personnalisées",
+    "edit-page": "Modifier la page",
+    "new-page": "Nouvelle page",
+    "page-name": "Nom de la page"
   },
   "migration": {
     "recipe-migration": "Migrer les recettes",
