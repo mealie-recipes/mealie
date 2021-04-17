@@ -55,7 +55,8 @@
     "wednesday": "Wednesday",
     "thursday": "Thursday",
     "friday": "Friday",
-    "saturday": "Saturday"
+    "saturday": "Saturday",
+    "about": "About"
   },
   "page": {
     "home-page": "Home Page",
@@ -152,7 +153,16 @@
     "delete-confirmation": "Are you sure you want to delete this recipe?"
   },
   "search": {
-    "search-mealie": "Search Mealie"
+    "search-mealie": "Search Mealie",
+    "search-placeholder": "Search...",
+    "max-results": "Max Results",
+    "category-filter": "Category Filter",
+    "tag-filter": "Tag Filter",
+    "include": "Include",
+    "exclude": "Exclude",
+    "and": "And",
+    "or": "Or",
+    "search": "Search"
   },
   "settings": {
     "general-settings": "General Settings",
@@ -224,7 +234,11 @@
     "migrations": "Migrations",
     "profile": "Profile",
     "locale-settings": "Locale settings",
-    "first-day-of-week": "First day of the week"
+    "first-day-of-week": "First day of the week",
+    "custom-pages": "Custom Pages",
+    "new-page": "New Page",
+    "edit-page": "Edit Page",
+    "page-name": "Page Name"
   },
   "migration": {
     "recipe-migration": "Recipe Migration",

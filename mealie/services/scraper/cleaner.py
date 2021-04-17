@@ -26,9 +26,9 @@ class Cleaner:
         recipe_data["description"] = Cleaner.html(recipe_data.get("description", ""))
 
         # Times
-        recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime", None))
-        recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime", None))
-        recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime", None))
+        recipe_data["prepTime"] = Cleaner.time(recipe_data.get("prepTime"))
+        recipe_data["performTime"] = Cleaner.time(recipe_data.get("performTime"))
+        recipe_data["totalTime"] = Cleaner.time(recipe_data.get("totalTime"))
         recipe_data["recipeCategory"] = Cleaner.category(recipe_data.get("recipeCategory", []))
 
         recipe_data["recipeYield"] = Cleaner.yield_amount(recipe_data.get("recipeYield"))
@@ -69,6 +69,9 @@ class Cleaner:
     def instructions(instructions) -> List[dict]:
         if not instructions:
             return []
+
+        if isinstance(instructions[0], list):
+            instructions = instructions[0]
 
         # One long string split by (possibly multiple) new lines
         if isinstance(instructions, str):

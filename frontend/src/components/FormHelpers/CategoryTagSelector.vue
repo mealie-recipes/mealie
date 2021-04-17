@@ -90,7 +90,7 @@ export default {
   computed: {
     inputLabel() {
       if (!this.showLabel) return null;
-      return this.tagSelector ? "Tags" : "Categories";
+      return this.tagSelector ? this.$t('recipe.tags') : this.$t('recipe.categories');
     },
     activeItems() {
       let ItemObjects = [];
