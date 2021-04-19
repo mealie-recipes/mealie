@@ -6,7 +6,7 @@ from typing import Optional, Union
 import dotenv
 from pydantic import BaseSettings, Field, validator
 
-APP_VERSION = "v0.4.2"
+APP_VERSION = "v0.4.3"
 DB_VERSION = "v0.4.0"
 
 CWD = Path(__file__).parent
