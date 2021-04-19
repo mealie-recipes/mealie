@@ -46,11 +46,12 @@ export default {
       if (this.file != null) {
         this.isSelecting = true;
 
-        if (this.post) {
+        if (!this.post) {
           this.$emit(UPLOAD_EVENT, this.file);
           this.isSelecting = false;
           return;
         }
+
         let formData = new FormData();
         formData.append(this.fileName, this.file);
 
