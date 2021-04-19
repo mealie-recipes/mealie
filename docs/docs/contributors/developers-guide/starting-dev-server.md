@@ -46,4 +46,4 @@ Once the prerequisites are installed you can cd into the project base directory 
 
     **Solution:** Create an empty /mealie/dist directory. This directory is served as static content by FastAPI. It is provided during the build process and may be missing in development. 
 
-Run into another issue? [Ask for help on discord](https://discord.gg/R6QDyJgbD2)
+Run into another issue? [Ask for help on discord](https://discord.gg/QuStdQGSGK)

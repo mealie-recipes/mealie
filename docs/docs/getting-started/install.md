@@ -96,7 +96,7 @@ The Docker image provided by Mealie contains both the API and the html bundle in
 
 ## Deployed without Docker
 !!! error "Unsupported Deployment"
-    If you are experiencing a problem with manual deployment, please do not submit a github issue unless it is related to an aspect of the application. For deployment help, the [discord server](https://discord.gg/R6QDyJgbD2) is a better place to find support. 
+    If you are experiencing a problem with manual deployment, please do not submit a github issue unless it is related to an aspect of the application. For deployment help, the [discord server](https://discord.gg/QuStdQGSGK) is a better place to find support. 
 
 Alternatively, this project is built on Python and SQLite so you may run it as a python application on your server. This is not a supported options for deployment and is only here as a reference for those who would like to do this on their own. To get started you can clone this repository into a directory of your choice and use the instructions below as a reference for how to get started. 
 
