@@ -1,3 +1,4 @@
+preserve_hierarchy: false
 files:
   - source: /frontend/src/locales/messages/en-US.json
     translation: /frontend/src/locales/messages/%locale%.json
