@@ -3,11 +3,16 @@ import Vuetify from "vuetify/lib";
 
 Vue.use(Vuetify);
 
+// language IDs should match those from VueI18n with _ instead of - 
+import de_DE from 'vuetify/es5/locale/de';
+import en_US from 'vuetify/es5/locale/en';
+import fr_FR from 'vuetify/es5/locale/fr';
+import pl_PL from 'vuetify/es5/locale/pl';
+import pt_PT from 'vuetify/es5/locale/pt';
+import sv_SE from 'vuetify/es5/locale/sv';
+import zh_CN from 'vuetify/es5/locale/zh-Hans';
+import zh_TW from 'vuetify/es5/locale/zh-Hant';
 
-import fr from 'vuetify/es5/locale/fr';
-import pl from 'vuetify/es5/locale/pl';
-import sv from 'vuetify/es5/locale/sv';
-import de from 'vuetify/es5/locale/de';
 
 const vuetify = new Vuetify({
   theme: {
@@ -37,9 +42,16 @@ const vuetify = new Vuetify({
   },
   lang: {
     locales: {
-      fr, pl, sv, de
+      de_DE,
+      en_US, 
+      fr_FR, 
+      pl_PL, 
+      pt_PT, 
+      sv_SE, 
+      zh_CN,
+      zh_TW
     },
-    current: 'en',
+    current: 'en_US',
   },
 });
 

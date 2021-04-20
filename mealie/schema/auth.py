@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
+from pydantic.types import constr
 
 
 class Token(BaseModel):
@@ -8,4 +10,4 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: Optional[str] = None
+    username: Optional[constr(to_lower=True, strip_whitespace=True)] = None

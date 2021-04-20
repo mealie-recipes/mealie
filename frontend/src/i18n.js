@@ -36,8 +36,8 @@ function loadDateTimeFormats() {
 
 
 export default new VueI18n({
-  locale: "en",
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
+  locale: "en-US",
+  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en-US",
   messages: loadLocaleMessages(),
   dateTimeFormats: loadDateTimeFormats() 
 });

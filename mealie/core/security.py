@@ -13,10 +13,10 @@ ALGORITHM = "HS256"
 
 def create_access_token(data: dict(), expires_delta: timedelta = None) -> str:
     to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=120)
+    expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
+    
+    expire = datetime.utcnow() + expires_delta
+
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM)
 
@@ -27,7 +27,7 @@ def create_file_token(file_path: Path) -> bool:
 
 
 def authenticate_user(session, email: str, password: str) -> UserInDB:
-    user: UserInDB = db.users.get(session, email, "email")
+    user: UserInDB = db.users.get(session, email, "email", any_case=True)
     if not user:
         return False
     if not verify_password(password, user.password):

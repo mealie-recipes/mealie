@@ -3,10 +3,10 @@
     <CreatePageDialog ref="createDialog" @refresh-page="getPages" />
     <v-card-text>
       <h2 class="mt-1 mb-1 ">
-        Custom Pages
+        {{$t('settings.custom-pages')}}
         <span>
           <v-btn color="success" @click="newPage" small class="ml-3">
-            Create
+            {{$t('general.create')}}
           </v-btn>
         </span>
       </h2>
@@ -41,11 +41,11 @@
 
             <v-card-actions>
               <v-btn text small color="error" @click="deletePage(item.id)">
-                Delete
+                {{$t('general.delete')}}
               </v-btn>
               <v-spacer> </v-spacer>
               <v-btn small text color="success" @click="editPage(index)">
-                Edit
+                {{$t('general.edit')}}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -55,7 +55,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="success" @click="savePages">
-        Save
+        {{$t('general.save')}}
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -76,8 +76,8 @@ export default {
       customPages: [],
       newPageData: {
         create: true,
-        title: "New Page",
-        buttonText: "Create",
+        title: this.$t('settings.new-page'),
+        buttonText: this.$t('general.create'),
         data: {
           name: "",
           categories: [],
@@ -86,8 +86,8 @@ export default {
       },
       editPageData: {
         create: false,
-        title: "Edit Page",
-        buttonText: "Update",
+        title: this.$t('settings.edit-page'),
+        buttonText: this.$t('general.update'),
         data: {},
       },
     };

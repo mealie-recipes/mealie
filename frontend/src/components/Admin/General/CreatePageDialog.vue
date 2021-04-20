@@ -17,13 +17,13 @@
           <v-text-field
             autofocus
             v-model="page.name"
-            label="Page Name"
+            :label="$t('settings.page-name')"
           ></v-text-field>
           <CategoryTagSelector
             v-model="page.categories"
             ref="categoryFormSelector"
             @mounted="catMounted = true"
-            tag-selector="false"
+            :tag-selector="false"
           />
         </v-card-text>
 

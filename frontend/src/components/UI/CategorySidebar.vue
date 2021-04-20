@@ -54,21 +54,10 @@ export default {
         {
           icon: "mdi-magnify",
           to: "/search",
-          title: "search",
+          title: this.$t('search.search'),
         },
       ],
     };
-  },
-  computed: {
-    allCategories() {
-      return this.$store.getters.getCategories;
-    },
-  },
-  watch: {
-    allCategories() {
-      this.buildSidebar();
-    },
-    showSidebar() {},
   },
   mounted() {
     this.buildSidebar();
@@ -81,14 +70,27 @@ export default {
       this.links = [];
       this.links.push(...this.baseLinks);
       const pages = await api.siteSettings.getPages();
-      pages.sort((a, b) => a.position - b.position);
-      pages.forEach(async element => {
-        this.links.push({
-          title: element.name,
-          to: `/pages/${element.slug}`,
-          icon: "mdi-tag",
+      if(pages.length > 0) {
+        pages.sort((a, b) => a.position - b.position);
+        pages.forEach(async element => {
+          this.links.push({
+            title: element.name,
+            to: `/pages/${element.slug}`,
+            icon: "mdi-tag",
+          });
         });
-      });
+      }
+      else {
+        const categories = await api.categories.getAll();
+        categories.forEach(async element => {
+          this.links.push({
+            title: element.name,
+            to: `/recipes/category/${element.slug}`,
+            icon: "mdi-tag",
+          });
+        });
+      }
+
     },
     viewScale() {
       switch (this.$vuetify.breakpoint.name) {
