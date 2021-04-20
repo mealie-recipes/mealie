@@ -162,6 +162,7 @@ export default {
 
   methods: {
     writeLang(val) {
+      this.$store.commit("setLang", val);
       this.settings.language = val;
     },
     deleteCategoryfromDatabase(category) {
