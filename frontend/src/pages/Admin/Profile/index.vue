@@ -177,6 +177,7 @@ export default {
 
   computed: {
     userProfileImage() {
+      this.resetImage();
       return `api/users/${this.user.id}/image`;
     },
   },
@@ -186,6 +187,9 @@ export default {
   },
 
   methods: {
+    resetImage() {
+      this.hideImage = false;
+    },
     async refreshProfile() {
       this.user = await api.users.self();
     },
@@ -201,7 +205,7 @@ export default {
       this.$store.commit("setToken", newKey.access_token);
       this.refreshProfile();
       this.loading = false;
-      this.$store.dispatch("requestUserData")
+      this.$store.dispatch("requestUserData");
     },
     async changePassword() {
       this.paswordLoading = true;
