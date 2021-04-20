@@ -5,23 +5,23 @@ const state = {
   allLangs: [
     {
       name: "English",
-      value: "en",
+      value: "en-US",
     },
     {
       name: "Danish",
-      value: "da",
+      value: "da-DK",
     },
     {
       name: "French",
-      value: "fr",
+      value: "fr-FR",
     },
     {
       name: "Polish",
-      value: "pl",
+      value: "pl-PL",
     },
     {
       name: "Swedish",
-      value: "sv",
+      value: "sv-SE",
     },
     {
       name: "简体中文",
@@ -33,7 +33,7 @@ const state = {
     },
     {
       name: "German",
-      value: "de",
+      value: "de-DE",
     },
     {
       name: "Português",
