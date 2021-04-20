@@ -52,7 +52,7 @@ const mutations = {
 const actions = {
   initLang({ getters }, { currentVueComponent }) {
     VueI18n.locale = getters.getActiveLang;
-    currentVueComponent.$vuetify.lang.current = getters.getActiveLang;
+    currentVueComponent.$vuetify.lang.current = getters.getActiveLang.replace('-', '_');
   },
 };
 
