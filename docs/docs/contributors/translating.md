@@ -11,6 +11,6 @@ If your language is missing the translation for some strings, you can help out b
 ## Tooling
 Currently we use Vue-i18n for translations. Translations are stored in json format located in [frontend/src/locales](https://github.com/hay-kot/mealie/tree/master/frontend/src/locales).
 
-If you have experience with a good Translation Management System, please feel free to chime in on the [Discord](https://discord.gg/R6QDyJgbD2), as such a system could be helpful as the projects grow.
+If you have experience with a good Translation Management System, please feel free to chime in on the [Discord](https://discord.gg/QuStdQGSGK), as such a system could be helpful as the projects grow.
 Until then, [i18n Ally for VScode](https://marketplace.visualstudio.com/items?itemName=antfu.i18n-ally) is recommended to aid in translating. It also has a nice feature, which shows translations in-place when editing code.
 i18n Ally will also show which languages is missing translations.

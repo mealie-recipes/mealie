@@ -1,6 +1,6 @@
 # Contributing to Mealie
 
-[Please Join the Discord](https://discord.gg/R6QDyJgbD2). We are building a community of developers working on the project.
+[Please Join the Discord](https://discord.gg/QuStdQGSGK). We are building a community of developers working on the project.
 
 ## We Develop with Github
 We use github to host code, to track issues and feature requests, as well as accept pull requests.

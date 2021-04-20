@@ -50,14 +50,16 @@ services:
 
 ## Env Variables
 
-| Variables        | Default    | Description                                                                         |
-| ---------------- | ---------- | ----------------------------------------------------------------------------------- |
-| DB_TYPE          | sqlite     | The database type to be used. Current Options 'sqlite'                              |
-| DEFAULT_GROUP    | Home       | The default group for users                                                         |
-| DEFAULT_PASSWORD | MyPassword | The default password for all users created in Mealie                                |
-| API_PORT         | 9000       | The port exposed by backend API. **do not change this if you're running in docker** |
-| API_DOCS         | True       | Turns on/off access to the API documentation locally.                               |
-| TZ               | UTC        | Must be set to get correct date/time on the server                                  |
+| Variables        | Default            | Description                                                                         |
+| ---------------- | ------------------ | ----------------------------------------------------------------------------------- |
+| DB_TYPE          | sqlite             | The database type to be used. Current Options 'sqlite'                              |
+| DEFAULT_GROUP    | Home               | The default group for users                                                         |
+| DEFAULT_USERNAME | changeme@email.com | The default username for the superuser                                              |
+| DEFAULT_PASSWORD | MyPassword         | The default password for the superuser                                              |
+| TOKEN_TIME       | 2                  | The time in hours that a login/auth token is valid                                  |
+| API_PORT         | 9000               | The port exposed by backend API. **do not change this if you're running in docker** |
+| API_DOCS         | True               | Turns on/off access to the API documentation locally.                               |
+| TZ               | UTC                | Must be set to get correct date/time on the server                                  |
 
 
 
@@ -96,7 +98,7 @@ The Docker image provided by Mealie contains both the API and the html bundle in
 
 ## Deployed without Docker
 !!! error "Unsupported Deployment"
-    If you are experiencing a problem with manual deployment, please do not submit a github issue unless it is related to an aspect of the application. For deployment help, the [discord server](https://discord.gg/R6QDyJgbD2) is a better place to find support. 
+    If you are experiencing a problem with manual deployment, please do not submit a github issue unless it is related to an aspect of the application. For deployment help, the [discord server](https://discord.gg/QuStdQGSGK) is a better place to find support. 
 
 Alternatively, this project is built on Python and SQLite so you may run it as a python application on your server. This is not a supported options for deployment and is only here as a reference for those who would like to do this on their own. To get started you can clone this repository into a directory of your choice and use the instructions below as a reference for how to get started. 
 

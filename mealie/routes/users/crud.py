@@ -83,7 +83,7 @@ async def update_user(
     if current_user.id == id or current_user.admin:
         db.users.update(session, id, new_data.dict())
     if current_user.id == id:
-        access_token = security.create_access_token(data=dict(sub=new_data.email), expires_delta=timedelta(hours=2))
+        access_token = security.create_access_token(data=dict(sub=new_data.email))
         token = {"access_token": access_token, "token_type": "bearer"}
 
     return SnackResponse.success("User Updated", token)

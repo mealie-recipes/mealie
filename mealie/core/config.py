@@ -6,7 +6,7 @@ from typing import Optional, Union
 import dotenv
 from pydantic import BaseSettings, Field, validator
 
-APP_VERSION = "v0.4.2"
+APP_VERSION = "v0.4.3"
 DB_VERSION = "v0.4.0"
 
 CWD = Path(__file__).parent
@@ -117,7 +117,10 @@ class AppSettings(BaseSettings):
         return app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
 
     DEFAULT_GROUP: str = "Home"
+    DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
+
+    TOKEN_TIME: int = 2 # Time in Hours
 
     # Not Used!
     SFTP_USERNAME: Optional[str]

@@ -32,7 +32,7 @@ def get_token(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    access_token = security.create_access_token(dict(sub=email), timedelta(hours=2))
+    access_token = security.create_access_token(dict(sub=email))
     return SnackResponse.success(
         "User Successfully Logged In",
         {"access_token": access_token, "token_type": "bearer"},
@@ -42,5 +42,5 @@ def get_token(
 @router.get("/refresh")
 async def refresh_token(current_user: UserInDB = Depends(get_current_user)):
     """ Use a valid token to get another token"""
-    access_token = security.create_access_token(data=dict(sub=current_user.email), expires_delta=timedelta(hours=1))
+    access_token = security.create_access_token(data=dict(sub=current_user.email))
     return {"access_token": access_token, "token_type": "bearer"}
