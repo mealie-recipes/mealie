@@ -1,7 +1,7 @@
 {
   "short": {
-     "month": "short",
-     "day": "numeric",
-     "weekday": "long"
+    "month": "short",
+    "day": "numeric",
+    "weekday": "long"
   }
 }

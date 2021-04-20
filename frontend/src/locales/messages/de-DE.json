@@ -48,7 +48,8 @@
     "apply": "Anwenden",
     "current-parenthesis": "(Neueste)",
     "users": "Benutzer",
-    "groups": "Gruppen"
+    "groups": "Gruppen",
+    "about": "About"
   },
   "page": {
     "home-page": "Startseite",
@@ -106,8 +107,8 @@
   "meal-plan": {
     "shopping-list": "Einkaufsliste",
     "dinner-this-week": "Essen diese Woche",
-    "dinner-today": "Heutiges Essen",
     "meal-planner": "Essensplaner",
+    "dinner-today": "Heutiges Essen",
     "planner": "Planer",
     "edit-meal-plan": "Essensplan bearbeiten",
     "meal-plans": "Essenspläne",
@@ -145,7 +146,16 @@
     "delete-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?"
   },
   "search": {
-    "search-mealie": "Mealie durchsuchen"
+    "search-mealie": "Mealie durchsuchen",
+    "search-placeholder": "Search...",
+    "max-results": "Max Results",
+    "category-filter": "Category Filter",
+    "tag-filter": "Tag Filter",
+    "include": "Include",
+    "exclude": "Exclude",
+    "and": "And",
+    "or": "Or",
+    "search": "Search"
   },
   "settings": {
     "general-settings": "Einstellungen",
@@ -215,7 +225,11 @@
     "site-settings": "Seiteneinstellungen",
     "manage-users": "Benutzer verwalten",
     "migrations": "Migrationen",
-    "profile": "Profile"
+    "profile": "Profile",
+    "custom-pages": "Custom Pages",
+    "new-page": "New Page",
+    "edit-page": "Edit Page",
+    "page-name": "Page Name"
   },
   "migration": {
     "recipe-migration": "Rezepte übertragen",
