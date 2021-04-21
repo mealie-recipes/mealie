@@ -1,3 +1,4 @@
+// This is the data store for the options for language selection. Property is reference only, you cannot set this property.
 const state = {
   allLangs: [
     {

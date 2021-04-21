@@ -42,7 +42,6 @@ router.afterEach(to => {
 });
 
 function loadLocale() {
-  console.log("Router Lang", store.getters.getActiveLang);
   VueI18n.locale = store.getters.getActiveLang;
   Vuetify.framework.lang.current = store.getters.getActiveLang;
 }

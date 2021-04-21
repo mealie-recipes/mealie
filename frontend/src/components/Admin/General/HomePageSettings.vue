@@ -119,8 +119,8 @@
     <v-card-text>
       <h2 class="mt-1 mb-4">{{ $t("settings.locale-settings") }}</h2>
       <v-row>
-        <v-col cols="1">
-          <LanguageMenu @select-lang="writeLang" :site-settings="true" />
+        <v-col cols="3">
+          <LanguageSelector @select-lang="writeLang" :site-settings="true" />
         </v-col>
         <v-col sm="3">
           <v-select
@@ -147,14 +147,14 @@
 
 <script>
 import { api } from "@/api";
-import LanguageMenu from "@/components/UI/LanguageMenu";
+import LanguageSelector from "@/components/FormHelpers/LanguageSelector";
 import draggable from "vuedraggable";
 import NewCategoryTagDialog from "@/components/UI/Dialogs/NewCategoryTagDialog.vue";
 
 export default {
   components: {
     draggable,
-    LanguageMenu,
+    LanguageSelector,
     NewCategoryTagDialog,
   },
   data() {
