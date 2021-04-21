@@ -72,7 +72,9 @@ export default {
       if (this.siteSettings) {
         this.$emit(SELECT_EVENT, selectedLanguage);
       } else {
-        this.$store.commit("setLang", selectedLanguage);
+        this.$store.dispatch("setLang", { 
+          currentVueComponent: this, 
+          language: selectedLanguage });
       }
     },
   },

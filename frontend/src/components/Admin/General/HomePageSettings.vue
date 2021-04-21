@@ -211,7 +211,6 @@ export default {
 
   methods: {
     writeLang(val) {
-      this.$store.commit("setLang", val);
       this.settings.language = val;
     },
     deleteCategoryfromDatabase(category) {
@@ -225,7 +224,9 @@ export default {
     },
     async saveSettings() {
       await api.siteSettings.update(this.settings);
-      this.$store.commit("setLang", this.settings.language);
+      this.$store.dispatch("setLang", { 
+        currentVueComponent: this, 
+        language: this.settings.language });
       this.getOptions();
     },
   },

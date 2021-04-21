@@ -54,6 +54,11 @@ const actions = {
     VueI18n.locale = getters.getActiveLang;
     currentVueComponent.$vuetify.lang.current = getters.getActiveLang;
   },
+  setLang({ commit }, { language, currentVueComponent }) {
+    VueI18n.locale = language;
+    currentVueComponent.$vuetify.lang.current = language;
+    commit('setLang', language);
+  },
 };
 
 const getters = {
