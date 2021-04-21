@@ -12,7 +12,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ["userSettings", "language.lang", "siteSettings"],
+      paths: ["userSettings", "siteSettings"],
     }),
   ],
   modules: {

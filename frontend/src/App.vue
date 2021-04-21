@@ -40,13 +40,12 @@ export default {
     },
   },
 
-  created() {
+  async created() {
     window.addEventListener("keyup", e => {
       if (e.key == "/" && !document.activeElement.id.startsWith("input")) {
         this.search = !this.search;
       }
     });
-    this.$store.dispatch("initLang", { currentVueComponent: this });
   },
 
   async mounted() {

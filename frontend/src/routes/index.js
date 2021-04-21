@@ -15,7 +15,7 @@ import ThisWeek from "@/pages/MealPlan/ThisWeek";
 import { api } from "@/api";
 import Admin from "./admin";
 import { store } from "../store";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 export const routes = [
   { path: "/", name: "home", component: HomePage },
@@ -32,42 +32,41 @@ export const routes = [
   { path: "/sign-up", redirect: "/" },
   { path: "/sign-up/:token", component: SignUpPage },
   { path: "/debug", component: Debug },
-  { 
-    path: "/search", 
+  {
+    path: "/search",
     component: SearchPage,
     meta: {
-      title: i18n.t('search.search'),
+      title: i18n.t("search.search"),
     },
   },
   { path: "/recipes/all", component: AllRecipes },
   { path: "/pages/:customPage", component: CustomPage },
   { path: "/recipes/tag/:tag", component: TagPage },
   { path: "/recipes/category/:category", component: CategoryPage },
-  { 
-    path: "/recipe/:recipe", 
+  {
+    path: "/recipe/:recipe",
     component: ViewRecipe,
     meta: {
       title: async route => {
         const recipe = await api.recipes.requestDetails(route.params.recipe);
         return recipe.name;
       },
-    } 
+    },
   },
   { path: "/new/", component: NewRecipe },
-  { 
+  {
     path: "/meal-plan/planner",
     component: Planner,
     meta: {
-      title:  i18n.t('meal-plan.meal-planner'),
-    } 
+      title: i18n.t("meal-plan.meal-planner"),
+    },
   },
-  { 
-    path: "/meal-plan/this-week", 
+  {
+    path: "/meal-plan/this-week",
     component: ThisWeek,
     meta: {
-      title: i18n.t('meal-plan.dinner-this-week'),
-    } 
-
+      title: i18n.t("meal-plan.dinner-this-week"),
+    },
   },
   Admin,
   {

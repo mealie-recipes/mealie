@@ -8,6 +8,8 @@ import i18n from "./i18n";
 import FlashMessage from "@smartweb/vue-flash-message";
 import "@mdi/font/css/materialdesignicons.css";
 import "typeface-roboto/index.css";
+import VueI18n from "@/i18n";
+import Vuetify from "@/plugins/vuetify";
 
 Vue.use(FlashMessage);
 Vue.config.productionTip = false;
@@ -18,19 +20,32 @@ const router = new VueRouter({
   mode: process.env.NODE_ENV === "production" ? "history" : "hash",
 });
 
-const DEFAULT_TITLE = 'Mealie';
-const TITLE_SEPARATOR = '🍴';
+const DEFAULT_TITLE = "Mealie";
+const TITLE_SEPARATOR = "🍴";
 const TITLE_SUFFIX = " " + TITLE_SEPARATOR + " " + DEFAULT_TITLE;
-router.afterEach( (to) => {
-  Vue.nextTick( async () => {
-    if(typeof to.meta.title === 'function' ) {
-      const title  = await to.meta.title(to);
+router.afterEach(to => {
+  Vue.nextTick(async () => {
+    if (typeof to.meta.title === "function") {
+      const title = await to.meta.title(to);
       document.title = title + TITLE_SUFFIX;
     } else {
-      document.title = to.meta.title ? to.meta.title + TITLE_SUFFIX : DEFAULT_TITLE;
+      document.title = to.meta.title
+        ? to.meta.title + TITLE_SUFFIX
+        : DEFAULT_TITLE;
     }
   });
-});  
+});
+
+async function loadLocale() {
+  console.log("Router Lang", store.getters.getActiveLang);
+  VueI18n.locale = store.getters.getActiveLang;
+  Vuetify.framework.lang.current = store.getters.getActiveLang;
+}
+
+router.beforeEach((__, _, next) => {
+  loadLocale();
+  next();
+});
 
 const vueApp = new Vue({
   vuetify,

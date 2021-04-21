@@ -4,7 +4,7 @@ import Vuetify from "@/plugins/vuetify";
 
 const state = {
   siteSettings: {
-    language: "en",
+    language: "en-US",
     firstDayOfWeek: 0,
     showRecent: true,
     cardsPerSection: 9,
@@ -24,12 +24,6 @@ const actions = {
   async requestSiteSettings({ commit }) {
     let settings = await api.siteSettings.get();
     commit("setSettings", settings);
-  },
-  async initLang({ getters, commit }) {
-    // !Can Porbably Remove This?
-    await actions.requestSiteSettings({ commit });
-    VueI18n.locale = getters.getActiveLang;
-    Vuetify.framework.lang.current = getters.getActiveLang;
   },
 };
 

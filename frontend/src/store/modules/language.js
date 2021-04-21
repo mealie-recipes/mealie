@@ -1,5 +1,4 @@
 const state = {
-  lang: "en-US",
   allLangs: [
     {
       name: "English",
