@@ -47,7 +47,7 @@ export default {
       items: [
         {
           name: "English",
-          value: "en",
+          value: "en-US",
         },
       ],
     };
