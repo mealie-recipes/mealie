@@ -6,7 +6,7 @@
   "new-recipe": {
     "from-url": "输入网址",
     "recipe-url": "食谱网址",
-    "url-form-hint": "Copy and paste a link from your favorite recipe website",
+    "url-form-hint": "从您最喜爱的食谱网站复制并粘贴链接",
     "error-message": "貌似在解析网址时出错。请检查log和debug/last_recipe.json文件并找寻更多有关资讯。",
     "bulk-add": "批量添加",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "请粘贴您的食谱资料。每行将被视为列表中的一项。"
