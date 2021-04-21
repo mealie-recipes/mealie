@@ -28,30 +28,6 @@ export default {
     HomePageSettings,
     CustomPageCreator,
   },
-  data() {
-    return {
-      langOptions: [],
-      selectedLang: "en",
-    };
-  },
-  mounted() {
-    this.getOptions();
-  },
-  watch: {
-    selectedLang() {
-      this.$store.commit("setLang", this.selectedLang);
-    },
-  },
-  methods: {
-    getOptions() {
-      this.langOptions = this.$store.getters.getAllLangs;
-      this.selectedLang = this.$store.getters.getActiveLang;
-    },
-    removeCategory(index) {
-      this.value.categories.splice(index, 1);
-    },
-
-  },
 };
 </script>
 

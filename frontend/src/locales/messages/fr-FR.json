@@ -49,6 +49,13 @@
     "current-parenthesis": "(Actuel)",
     "users": "Utilisateurs",
     "groups": "Groupes",
+    "sunday": "Dimanche",
+    "monday": "Lundi",
+    "tuesday": "Mardi",
+    "wednesday": "Mercredi",
+    "thursday": "Jeudi",
+    "friday": "Vendredi",
+    "saturday": "Samedi",
     "about": "À propos"
   },
   "page": {
@@ -226,6 +233,8 @@
     "manage-users": "Utilisateurs",
     "migrations": "Migrations",
     "profile": "Profil",
+    "locale-settings": "Paramètres régionaux",
+    "first-day-of-week": "Premier jour de la semaine",
     "custom-pages": "Pages personnalisées",
     "new-page": "Nouvelle page",
     "edit-page": "Modifier la page",

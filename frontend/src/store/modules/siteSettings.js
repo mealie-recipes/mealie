@@ -3,6 +3,7 @@ import { api } from "@/api";
 const state = {
   siteSettings: {
     language: "en",
+    firstDayOfWeek: 0,
     showRecent: true,
     cardsPerSection: 9,
     categories: [],

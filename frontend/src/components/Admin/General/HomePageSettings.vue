@@ -3,9 +3,6 @@
     <v-card-text>
       <h2 class="mt-1 mb-1">{{ $t("settings.homepage.home-page") }}</h2>
       <v-row align="center" justify="center" dense class="mb-n7 pb-n5">
-        <v-col cols="1">
-          <LanguageMenu @select-lang="writeLang" :site-settings="true" />
-        </v-col>
         <v-col cols="12" sm="3" md="2">
           <v-switch
             v-model="settings.showRecent"
@@ -119,6 +116,25 @@
         </v-col>
       </v-row>
     </v-card-text>
+    <v-card-text>
+      <h2 class="mt-1 mb-4">{{$t('settings.locale-settings')}}</h2>
+      <v-row>
+        <v-col cols="1">
+          <LanguageMenu @select-lang="writeLang" :site-settings="true" />
+        </v-col>
+        <v-col sm="3">
+          <v-select
+                dense
+                prepend-icon="mdi-calendar-week-begin"
+                v-model="settings.firstDayOfWeek"
+                :items="allDays"
+                item-text="name"
+                item-value="value"
+                :label="$t('settings.first-day-of-week')"
+           />
+        </v-col>
+      </v-row>
+    </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="success" @click="saveSettings" class="mr-2">
@@ -145,6 +161,7 @@ export default {
     return {
       settings: {
         language: "en",
+        firstDayOfWeek: 0,
         showRecent: null,
         cardsPerSection: null,
         categories: [],
@@ -158,11 +175,42 @@ export default {
     allCategories() {
       return this.$store.getters.getAllCategories;
     },
+    allDays() {
+      return [
+        {
+          name: this.$t('general.sunday'),
+          value: 0,
+        },
+        {
+          name: this.$t('general.monday'),
+          value: 1,
+        },
+        {
+          name: this.$t('general.tuesday'),
+          value: 2,
+        },
+        {
+          name: this.$t('general.wednesday'),
+          value: 3,
+        },
+        {
+          name: this.$t('general.thursday'),
+          value: 4,
+        },
+        {
+          name: this.$t('general.friday'),
+          value: 5,
+        },
+        {
+          name: this.$t('general.saturday'),
+          value: 6,
+        }
+      ];
+    },
   },
 
   methods: {
     writeLang(val) {
-      this.$store.commit("setLang", val);
       this.settings.language = val;
     },
     deleteCategoryfromDatabase(category) {
@@ -176,6 +224,9 @@ export default {
     },
     async saveSettings() {
       await api.siteSettings.update(this.settings);
+      this.$store.dispatch("setLang", { 
+        currentVueComponent: this, 
+        language: this.settings.language });
       this.getOptions();
     },
   },

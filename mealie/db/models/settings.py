@@ -9,6 +9,7 @@ class SiteSettings(SqlAlchemyBase, BaseMixins):
     __tablename__ = "site_settings"
     id = sa.Column(sa.Integer, primary_key=True)
     language = sa.Column(sa.String)
+    first_day_of_week = sa.Column(sa.Integer)
     categories = orm.relationship(
         "Category",
         secondary=site_settings2categories,
@@ -21,12 +22,14 @@ class SiteSettings(SqlAlchemyBase, BaseMixins):
         self,
         session: Session = None,
         language="en",
+        first_day_of_week: int = 0,
         categories: list = [],
         show_recent=True,
         cards_per_section: int = 9,
     ) -> None:
         session.commit()
         self.language = language
+        self.first_day_of_week = first_day_of_week
         self.cards_per_section = cards_per_section
         self.show_recent = show_recent
         self.categories = [Category.get_ref(session=session, slug=cat.get("slug")) for cat in categories]
