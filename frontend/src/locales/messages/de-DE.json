@@ -27,7 +27,7 @@
     "new": "Neu",
     "create": "Erstellen",
     "cancel": "Abbrechen",
-    "ok": "OK",
+    "ok": "Okay",
     "enabled": "Aktiviert",
     "download": "Herunterladen",
     "import": "Importieren",
@@ -48,7 +48,8 @@
     "apply": "Anwenden",
     "current-parenthesis": "(Neueste)",
     "users": "Benutzer",
-    "groups": "Gruppen"
+    "groups": "Gruppen",
+    "about": "Über"
   },
   "page": {
     "home-page": "Startseite",
@@ -106,8 +107,8 @@
   "meal-plan": {
     "shopping-list": "Einkaufsliste",
     "dinner-this-week": "Essen diese Woche",
-    "dinner-today": "Heutiges Essen",
     "meal-planner": "Essensplaner",
+    "dinner-today": "Heutiges Essen",
     "planner": "Planer",
     "edit-meal-plan": "Essensplan bearbeiten",
     "meal-plans": "Essenspläne",
@@ -128,7 +129,7 @@
     "ingredient": "Zutat",
     "notes": "Notizen",
     "note": "Notiz",
-    "original-url": "Original URL",
+    "original-url": "Ursprüngliche URL",
     "view-recipe": "Rezept anschauen",
     "title": "Titel",
     "total-time": "Gesamtzeit",
@@ -145,7 +146,16 @@
     "delete-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?"
   },
   "search": {
-    "search-mealie": "Mealie durchsuchen"
+    "search-mealie": "Mealie durchsuchen",
+    "search-placeholder": "Suchen...",
+    "max-results": "Max. Ergebnisse",
+    "category-filter": "Kategoriefilter",
+    "tag-filter": "Markierungs-Filter",
+    "include": "Einbeziehen",
+    "exclude": "Ausschließen",
+    "and": "Und",
+    "or": "Oder",
+    "search": "Suchen"
   },
   "settings": {
     "general-settings": "Einstellungen",
@@ -189,7 +199,7 @@
       "meal-planner-webhooks": "Essensplaner Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Die unten stehenden URL's erhalten Webhooks welche die Rezeptdaten für den Menüplan am geplanten Tag enthalten. Derzeit werden die Webhooks ausgeführt um",
       "test-webhooks": "Teste Webhooks",
-      "webhook-url": "Webhook URL"
+      "webhook-url": "Webhook-URL"
     },
     "new-version-available": "Eine neue Version von Mealie steht zur Verfügung, <a {aContents}> Besuche das Repository </a>",
     "backup": {
@@ -215,7 +225,11 @@
     "site-settings": "Seiteneinstellungen",
     "manage-users": "Benutzer verwalten",
     "migrations": "Migrationen",
-    "profile": "Profile"
+    "profile": "Profil",
+    "custom-pages": "Benutzerdefinierte Seiten",
+    "new-page": "Neue Seite",
+    "edit-page": "Seite bearbeiten",
+    "page-name": "Seitenname"
   },
   "migration": {
     "recipe-migration": "Rezepte übertragen",

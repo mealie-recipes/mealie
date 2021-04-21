@@ -17,6 +17,7 @@
             file-name="image"
             :text-btn="false"
             @uploaded="uploadImage"
+            :post="false"
           />
         </v-card-title>
         <v-card-text class="mt-n5">

@@ -6,6 +6,7 @@
   "new-recipe": {
     "from-url": "輸入網址",
     "recipe-url": "食譜網址",
+    "url-form-hint": "Copy and paste a link from your favorite recipe website",
     "error-message": "貌似在解析網址時出錯。請檢查log和debug/last_recipe.json文件並找尋更多有關資訊。",
     "bulk-add": "批量添加",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "請粘貼您的食譜資料。每行將被視為列表中的一項。"
@@ -34,24 +35,87 @@
     "templates": "模板",
     "recipes": "食譜",
     "themes": "佈景主題",
-    "confirm": "確定"
+    "confirm": "確定",
+    "sort": "Sort",
+    "recent": "Recent",
+    "sort-alphabetically": "A-Z",
+    "reset": "Reset",
+    "filter": "Filter",
+    "yes": "Yes",
+    "no": "No",
+    "token": "Token",
+    "field-required": "Field Required",
+    "apply": "Apply",
+    "current-parenthesis": "(Current)",
+    "users": "Users",
+    "groups": "Groups",
+    "about": "About"
+  },
+  "page": {
+    "home-page": "Home Page",
+    "all-recipes": "All Recipes",
+    "recent": "Recent"
   },
   "user": {
     "stay-logged-in": "保持登錄狀態？",
     "email": "電子郵件",
     "password": "密碼",
     "sign-in": "登入",
-    "sign-up": "註冊"
+    "sign-up": "註冊",
+    "logout": "Logout",
+    "full-name": "Full Name",
+    "user-group": "User Group",
+    "user-password": "User Password",
+    "admin": "Admin",
+    "user-id": "User ID",
+    "user-id-with-value": "User ID: {id}",
+    "group": "Group",
+    "new-user": "New User",
+    "edit-user": "Edit User",
+    "create-user": "Create User",
+    "confirm-user-deletion": "Confirm User Deletion",
+    "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>?",
+    "confirm-group-deletion": "Confirm Group Deletion",
+    "total-users": "Total Users",
+    "total-mealplans": "Total MealPlans",
+    "webhooks-enabled": "Webhooks Enabled",
+    "webhook-time": "Webhook Time",
+    "create-group": "Create Group",
+    "sign-up-links": "Sign Up Links",
+    "create-link": "Create Link",
+    "link-name": "Link Name",
+    "group-id-with-value": "Group ID: {groupID}",
+    "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
+    "group-name": "Group Name",
+    "confirm-link-deletion": "Confirm Link Deletion",
+    "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
+    "link-id": "Link ID",
+    "users": "Users",
+    "groups": "Groups",
+    "could-not-validate-credentials": "Could Not Validate Credentials",
+    "login": "Login",
+    "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
+    "upload-photo": "Upload Photo",
+    "reset-password": "Reset Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-password": "Confirm Password",
+    "password-must-match": "Password must match",
+    "e-mail-must-be-valid": "E-mail must be valid",
+    "use-8-characters-or-more-for-your-password": "Use 8 characters or more for your password"
   },
   "meal-plan": {
+    "shopping-list": "Shopping List",
     "dinner-this-week": "本週晚餐",
+    "meal-planner": "Meal Planner",
     "dinner-today": "今日晚餐",
     "planner": "策劃人",
     "edit-meal-plan": "編輯用餐計劃",
     "meal-plans": "用餐計劃",
     "create-a-new-meal-plan": "創建一個新的用餐計劃",
     "start-date": "開始日期",
-    "end-date": "結束日期"
+    "end-date": "結束日期",
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans"
   },
   "recipe": {
     "description": "描述",
@@ -67,24 +131,38 @@
     "note": "貼士",
     "original-url": "原食譜鏈接",
     "view-recipe": "查看食譜",
-    "add-key": "Add Key",
+    "title": "標題",
+    "total-time": "總時間",
+    "prep-time": "準備時間",
+    "perform-time": "烹飪時間 / 執行時間",
     "api-extras": "API Extras",
-    "delete-confirmation": "您確定要刪除此食譜嗎？",
-    "delete-recipe": "刪除食譜",
-    "key-name-required": "Key Name Required",
-    "new-key-name": "New Key Name",
-    "no-white-space-allowed": "No White Space Allowed",
     "object-key": "Object Key",
     "object-value": "Object Value",
-    "perform-time": "烹飪時間 / 執行時間",
-    "prep-time": "準備時間",
-    "title": "標題",
-    "total-time": "總時間"
+    "new-key-name": "New Key Name",
+    "add-key": "Add Key",
+    "key-name-required": "Key Name Required",
+    "no-white-space-allowed": "No White Space Allowed",
+    "delete-recipe": "刪除食譜",
+    "delete-confirmation": "您確定要刪除此食譜嗎？"
   },
   "search": {
-    "search-mealie": "搜索Mealie"
+    "search-mealie": "搜索Mealie",
+    "search-placeholder": "Search...",
+    "max-results": "Max Results",
+    "category-filter": "Category Filter",
+    "tag-filter": "Tag Filter",
+    "include": "Include",
+    "exclude": "Exclude",
+    "and": "And",
+    "or": "Or",
+    "search": "Search"
   },
   "settings": {
+    "general-settings": "基本設置",
+    "change-password": "Change Password",
+    "admin-settings": "Admin Settings",
+    "local-api": "Local API",
+    "language": "語言",
     "add-a-new-theme": "新增佈景主題",
     "set-new-time": "設定新的時間",
     "current": "版本號：",
@@ -93,7 +171,9 @@
     "contribute": "參與貢獻",
     "backup-and-exports": "備份",
     "backup-info": "備份以標準JSON格式導出，並連同儲存在系統文件中的所有圖像。在備份文件夾中，您將找到一個.zip文件，其中包含數據庫中的所有食譜JSON和圖像。此外，如果您選擇了Markdown文件，這些文件也將一併儲存在.zip文件中。當需要要導入備份，它必須位於您的備份文件夾中。每天3:00 AM將進行自動備份。",
+    "available-backups": "可用備份",
     "theme": {
+      "theme-name": "主題名稱",
       "theme-settings": "佈景主題設置",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "從以下列表中選擇一個主題或創建一個新主題。請注意，默認主題將提供給尚未設置主題首選的所有用戶。",
       "dark-mode": "暗黑模式",
@@ -105,6 +185,7 @@
       "info": "信息（Info）",
       "warning": "警告（Warning）",
       "error": "錯誤（Error）",
+      "default-to-system": "默認爲系統",
       "light": "淺色",
       "dark": "深色",
       "theme": "佈景主題",
@@ -112,8 +193,6 @@
       "delete-theme": "刪除主題",
       "are-you-sure-you-want-to-delete-this-theme": "您確定要刪除此主題嗎？",
       "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "選擇Mealie的外觀模式。設置佈景主題首選並依據您的主機系統設置，或者選擇使用淺色或深色主題。",
-      "default-to-system": "默認爲系統",
-      "theme-name": "主題名稱",
       "theme-name-is-required": "主題名稱是必填項。"
     },
     "webhooks": {
@@ -129,30 +208,42 @@
       "import-settings": "導入設置",
       "create-heading": "創建備份",
       "backup-tag": "標籤備份",
-      "backup-restore-report": "備份還原報告",
-      "failed-imports": "導入失敗",
       "full-backup": "完整備份",
       "partial-backup": "部分備份",
-      "successfully-imported": "成功導入"
+      "backup-restore-report": "備份還原報告",
+      "successfully-imported": "成功導入",
+      "failed-imports": "導入失敗"
     },
-    "available-backups": "可用備份",
-    "general-settings": "基本設置",
-    "language": "語言",
-    "local-api": "Local API"
+    "homepage": {
+      "card-per-section": "Card Per Section",
+      "homepage-categories": "Homepage Categories",
+      "home-page": "Home Page",
+      "all-categories": "All Categories",
+      "show-recent": "Show Recent",
+      "home-page-sections": "Home Page Sections"
+    },
+    "site-settings": "Site Settings",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "custom-pages": "Custom Pages",
+    "new-page": "New Page",
+    "edit-page": "Edit Page",
+    "page-name": "Page Name"
   },
   "migration": {
     "recipe-migration": "食譜遷移",
     "failed-imports": "導入失敗",
-    "chowdown": {
-      "description": "從Chowdown遷移數據",
-      "title": "Chowdown"
-    },
     "migration-report": "遷移報告",
-    "nextcloud": {
-      "description": "從Nextcloud Cookbook遷移數據",
-      "title": "Nextcloud Cookbook"
-    },
+    "successful-imports": "成功導入",
     "no-migration-data-available": "無遷移數據可用",
-    "successful-imports": "成功導入"
+    "nextcloud": {
+      "title": "Nextcloud Cookbook",
+      "description": "從Nextcloud Cookbook遷移數據"
+    },
+    "chowdown": {
+      "title": "Chowdown",
+      "description": "從Chowdown遷移數據"
+    }
   }
 }

@@ -6,6 +6,7 @@ from mealie.db.models.group import Group
 from mealie.db.models.users import User
 from mealie.schema.category import CategoryBase
 from mealie.schema.meal import MealPlanInDB
+from pydantic.types import constr
 from pydantic.utils import GetterDict
 
 
@@ -23,7 +24,7 @@ class GroupBase(CamelModel):
 
 class UserBase(CamelModel):
     full_name: Optional[str] = None
-    email: str
+    email: constr(to_lower=True, strip_whitespace=True)
     admin: bool
     group: Optional[str]
 
@@ -31,7 +32,7 @@ class UserBase(CamelModel):
         orm_mode = True
 
         @classmethod
-        def getter_dict(_cls, name_orm: User):
+        def getter_dict(cls, name_orm: User):
             return {
                 **GetterDict(name_orm),
                 "group": name_orm.group.name,

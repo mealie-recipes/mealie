@@ -40,7 +40,7 @@ def default_group_init(session: Session):
 def default_user_init(session: Session):
     default_user = {
         "full_name": "Change Me",
-        "email": "changeme@email.com",
+        "email": settings.DEFAULT_EMAIL,
         "password": get_password_hash(settings.DEFAULT_PASSWORD),
         "group": settings.DEFAULT_GROUP,
         "admin": True,

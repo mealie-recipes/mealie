@@ -2,6 +2,7 @@ from typing import List
 
 from mealie.db.models.model_base import SqlAlchemyBase
 from pydantic import BaseModel
+from sqlalchemy import func
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
@@ -64,7 +65,9 @@ class BaseDocument:
 
         return session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
 
-    def get(self, session: Session, match_value: str, match_key: str = None, limit=1) -> BaseModel or List[BaseModel]:
+    def get(
+        self, session: Session, match_value: str, match_key: str = None, limit=1, any_case=False
+    ) -> BaseModel or List[BaseModel]:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
 
@@ -80,7 +83,13 @@ class BaseDocument:
         if match_key is None:
             match_key = self.primary_key
 
-        result = session.query(self.sql_model).filter_by(**{match_key: match_value}).limit(limit).all()
+        if any_case:
+            search_attr = getattr(self.sql_model, match_key)
+            result = (
+                session.query(self.sql_model).filter(func.lower(search_attr) == match_value.lower()).limit(limit).all()
+            )
+        else:
+            result = session.query(self.sql_model).filter_by(**{match_key: match_value}).limit(limit).all()
 
         if limit == 1:
             try:
