@@ -10,7 +10,7 @@ import About from "@/pages/Admin/About";
 import { store } from "../store";
 import i18n from '@/i18n.js';
 
-export default {
+export const adminRoutes =  {
   path: "/admin",
   component: Admin,
   beforeEnter: (to, _from, next) => {
