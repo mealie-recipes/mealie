@@ -8,6 +8,7 @@ from slugify import slugify
 
 class SiteSettings(CamelModel):
     language: str = "en"
+    first_day_of_week: int = 0
     show_recent: bool = True
     cards_per_section: int = 9
     categories: Optional[list[CategoryBase]] = []
@@ -18,6 +19,7 @@ class SiteSettings(CamelModel):
         schema_extra = {
             "example": {
                 "language": "en",
+                "firstDayOfWeek": 0,
                 "showRecent": True,
                 "categories": [
                     {"id": 1, "name": "thanksgiving", "slug": "thanksgiving"},
