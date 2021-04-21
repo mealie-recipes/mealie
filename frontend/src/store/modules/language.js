@@ -1,7 +1,7 @@
 import VueI18n from "../../i18n";
 
 const state = {
-  lang: "en",
+  lang: "en-US",
   allLangs: [
     {
       name: "English",
@@ -52,7 +52,12 @@ const mutations = {
 const actions = {
   initLang({ getters }, { currentVueComponent }) {
     VueI18n.locale = getters.getActiveLang;
-    currentVueComponent.$vuetify.lang.current = getters.getActiveLang.replace('-', '_');
+    currentVueComponent.$vuetify.lang.current = getters.getActiveLang;
+  },
+  setLang({ commit }, { language, currentVueComponent }) {
+    VueI18n.locale = language;
+    currentVueComponent.$vuetify.lang.current = language;
+    commit('setLang', language);
   },
 };
 
