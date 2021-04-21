@@ -49,6 +49,13 @@
     "current-parenthesis": "(当前)",
     "users": "用户",
     "groups": "群组",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
     "about": "关于"
   },
   "page": {
@@ -226,6 +233,8 @@
     "manage-users": "管理用户",
     "migrations": "迁移",
     "profile": "用户信息",
+    "locale-settings": "Locale settings",
+    "first-day-of-week": "First day of the week",
     "custom-pages": "自定义页面",
     "new-page": "新建页面",
     "edit-page": "编辑页面",
