@@ -7,9 +7,9 @@
       :extension-height="isSticky ? '20' : '0'"
       color="rgb(255, 0, 0, 0.0)"
     >
-      <Confirmation
+      <ConfirmationDialog
         :title="$t('recipe.delete-recipe')"
-        :message="$t('recipe.delete-confirmation')"
+        :message="$t('recipe.delete-ConfirmationDialog')"
         color="error"
         icon="mdi-alert-circle"
         ref="deleteRecipieConfirm"
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Confirmation from "@/components/UI/Confirmation.vue";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
 
 export default {
   props: {
@@ -56,7 +56,7 @@ export default {
   },
 
   components: {
-    Confirmation,
+    ConfirmationDialog,
   },
   data() {
     return {

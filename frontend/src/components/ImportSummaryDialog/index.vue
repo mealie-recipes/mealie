@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" width="70%">
@@ -9,7 +7,7 @@
             mdi-import
           </v-icon>
           <v-toolbar-title class="headline">
-            Migration Summary
+            Import Summary
           </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-app-bar>
@@ -28,6 +26,11 @@
         </v-card-text>
         <v-tabs v-model="tab">
           <v-tab>{{ $t("general.recipes") }}</v-tab>
+          <v-tab>{{ $t("general.themes") }}</v-tab>
+          <v-tab>{{ $t("general.settings") }}</v-tab>
+          <v-tab> Pages </v-tab>
+          <v-tab>{{ $t("general.users") }}</v-tab>
+          <v-tab>{{ $t("general.groups") }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item v-for="(table, index) in allTables" :key="index">
@@ -42,7 +45,7 @@
 </template>
 
 <script>
-import DataTable from "@/components/Admin/Backup/ImportSummaryDialog/DataTable";
+import DataTable from "@/components/ImportSummaryDialog";
 export default {
   components: {
     DataTable,
@@ -77,11 +80,43 @@ export default {
     recipeNumbers() {
       return this.calculateNumbers(this.$t("general.recipes"), this.recipeData);
     },
+    settingsNumbers() {
+      return this.calculateNumbers(
+        this.$t("general.settings"),
+        this.settingsData
+      );
+    },
+    themeNumbers() {
+      return this.calculateNumbers(this.$t("general.themes"), this.themeData);
+    },
+    userNumbers() {
+      return this.calculateNumbers(this.$t("general.users"), this.userData);
+    },
+    groupNumbers() {
+      return this.calculateNumbers(this.$t("general.groups"), this.groupData);
+    },
+    pageNumbers() {
+      return this.calculateNumbers("Pages", this.pageData);
+    },
     allNumbers() {
-      return [this.recipeNumbers];
+      return [
+        this.recipeNumbers,
+        this.themeNumbers,
+        this.settingsNumbers,
+        this.pageNumbers,
+        this.userNumbers,
+        this.groupNumbers,
+      ];
     },
     allTables() {
-      return [this.recipeData];
+      return [
+        this.recipeData,
+        this.themeData,
+        this.settingsData,
+        this.pageData,
+        this.userData,
+        this.groupData,
+      ];
     },
   },
 
@@ -97,8 +132,12 @@ export default {
       return numbers;
     },
     open(importData) {
-      this.recipeData = importData;
-
+      this.recipeData = importData.recipeImports;
+      this.themeData = importData.themeImports;
+      this.settingsData = importData.settingsImports;
+      this.userData = importData.userImports;
+      this.groupData = importData.groupImports;
+      this.pageData = importData.pageImports;
       this.dialog = true;
     },
   },

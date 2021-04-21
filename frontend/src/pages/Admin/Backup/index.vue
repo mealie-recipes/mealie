@@ -20,7 +20,7 @@
       <v-card-title class="mt-n6">
         {{ $t("settings.available-backups") }}
         <span>
-          <UploadBtn
+          <TheUploadBtn
             class="mt-1"
             url="/api/backups/upload"
             @uploaded="getAvailableBackups"
@@ -33,14 +33,7 @@
         @finished="processFinished"
         :backups="availableBackups"
       />
-      <SuccessFailureAlert
-        ref="report"
-        :title="$t('settings.backup.backup-restore-report')"
-        :success-header="$t('settings.backup.successfully-imported')"
-        :success="successfulImports"
-        :failed-header="$t('settings.backup.failed-imports')"
-        :failed="failedImports"
-      />
+
       <ImportSummaryDialog ref="report" :import-data="importData" />
     </v-card-text>
   </v-card>
@@ -48,16 +41,14 @@
 
 <script>
 import { api } from "@/api";
-import SuccessFailureAlert from "@/components/UI/SuccessFailureAlert";
-import ImportSummaryDialog from "@/components/Admin/Backup/ImportSummaryDialog";
-import UploadBtn from "@/components/UI/UploadBtn";
-import AvailableBackupCard from "@/components/Admin/Backup/AvailableBackupCard";
-import NewBackupCard from "@/components/Admin/Backup/NewBackupCard";
+import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
+import ImportSummaryDialog from "@/components/ImportSummaryDialog";
+import AvailableBackupCard from "@/pages/Admin/Backup/AvailableBackupCard";
+import NewBackupCard from "@/pages/Admin/Backup/NewBackupCard";
 
 export default {
   components: {
-    SuccessFailureAlert,
-    UploadBtn,
+    TheUploadBtn,
     AvailableBackupCard,
     NewBackupCard,
     ImportSummaryDialog,

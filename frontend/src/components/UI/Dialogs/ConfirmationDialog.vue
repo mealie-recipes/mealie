@@ -8,7 +8,7 @@
     @keydown.esc="cancel"
   >
     <v-card>
-      <v-app-bar v-if="Boolean(title)" :color="color" dense flat dark>
+      <v-app-bar v-if="Boolean(title)" :color="color" dense  dark>
         <v-icon v-if="Boolean(icon)" left> {{ icon }}</v-icon>
         <v-toolbar-title v-text="title" />
       </v-app-bar>
@@ -36,13 +36,13 @@
 const CLOSE_EVENT = "close";
 const OPEN_EVENT = "open";
 /**
- * Confirmation Component used to add a second validaion step to an action.
+ * ConfirmationDialog Component used to add a second validaion step to an action.
  * @version 1.0.1
  * @author [zackbcom](https://github.com/zackbcom)
  * @since Version 1.0.0
  */
 export default {
-  name: "Confirmation",
+  name: "ConfirmationDialog",
   props: {
     /**
      * Message to be in body.

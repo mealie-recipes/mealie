@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import HomePageSettings from "@/components/Admin/General/HomePageSettings";
-import CustomPageCreator from "@/components/Admin/General/CustomPageCreator";
+import HomePageSettings from "./HomePageSettings";
+import CustomPageCreator from "./CustomPageCreator";
 
 export default {
   components: {

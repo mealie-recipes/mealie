@@ -1,13 +1,5 @@
 <template>
   <div>
-    <SuccessFailureAlert
-      :title="$t('migration.migration-report')"
-      ref="report"
-      :failedHeader="$t('migration.failed-imports')"
-      :failed="failed"
-      :successHeader="$t('migration.successful-imports')"
-      :success="success"
-    />
     <v-card :loading="loading">
       <v-card-title class="headline">
         {{ $t("migration.recipe-migration") }}
@@ -42,13 +34,11 @@
 
 
 <script>
-import MigrationCard from "@/components/Admin/Migration/MigrationCard";
-import SuccessFailureAlert from "@/components/UI/SuccessFailureAlert";
+import MigrationCard from "./MigrationCard";
 import { api } from "@/api";
 export default {
   components: {
     MigrationCard,
-    SuccessFailureAlert,
   },
   data() {
     return {

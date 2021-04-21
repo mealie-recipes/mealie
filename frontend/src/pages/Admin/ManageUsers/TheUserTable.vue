@@ -1,6 +1,6 @@
 <template>
   <v-card outlined class="mt-n1">
-    <Confirmation
+    <ConfirmationDialog
       ref="deleteUserDialog"
       :title="$t('user.confirm-user-deletion')"
       :message="
@@ -144,11 +144,11 @@
 </template>
 
 <script>
-import Confirmation from "@/components/UI/Confirmation";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 export default {
-  components: { Confirmation },
+  components: { ConfirmationDialog },
   mixins: [validators],
   data() {
     return {

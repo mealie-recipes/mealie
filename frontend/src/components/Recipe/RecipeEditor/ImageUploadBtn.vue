@@ -11,7 +11,7 @@
           <div>
             Recipe Image
           </div>
-          <UploadBtn
+          <TheUploadBtn
             class="ml-auto"
             url="none"
             file-name="image"
@@ -44,12 +44,12 @@
 <script>
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
-import UploadBtn from "@/components/UI/UploadBtn";
+import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import { api } from "@/api";
 // import axios from "axios";
 export default {
   components: {
-    UploadBtn,
+    TheUploadBtn,
   },
   props: {
     slug: String,

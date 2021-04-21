@@ -82,7 +82,7 @@
 
 <script>
 import { api } from "@/api";
-import TimePickerDialog from "@/components/Admin/MealPlanner/TimePickerDialog";
+import TimePickerDialog from "@/components/FormHelpers/TimePickerDialog";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 export default {
   components: {

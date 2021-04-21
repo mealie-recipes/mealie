@@ -38,7 +38,7 @@
 
 <script>
 import { api } from "@/api";
-import TheDownloadBtn from "@/components/UI/TheDownloadBtn";
+import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn";
 export default {
   components: { TheDownloadBtn },
   data() {

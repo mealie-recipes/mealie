@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import ImportOptions from "@/components/Admin/Backup/ImportOptions";
+import ImportOptions from "./ImportOptions";
 import { api } from "@/api";
 export default {
   components: { ImportOptions },

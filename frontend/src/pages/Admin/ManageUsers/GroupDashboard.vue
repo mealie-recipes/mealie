@@ -85,7 +85,7 @@
 <script>
 import { validators } from "@/mixins/validators";
 import { api } from "@/api";
-import GroupCard from "@/components/Admin/ManageUsers/GroupCard";
+import GroupCard from "./GroupCard";
 export default {
   components: { GroupCard },
   mixins: [validators],
