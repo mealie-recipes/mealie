@@ -69,13 +69,7 @@ export default {
 
   methods: {
     setLanguage(selectedLanguage) {
-      if (this.siteSettings) {
-        this.$emit(SELECT_EVENT, selectedLanguage);
-      } else {
-        this.$store.dispatch("setLang", { 
-          currentVueComponent: this, 
-          language: selectedLanguage });
-      }
+      this.$emit(SELECT_EVENT, selectedLanguage);
     },
   },
 };

@@ -1,5 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
+import { store } from "@/store";
 
 const settingsBase = baseURL + "site-settings";
 
@@ -11,7 +12,7 @@ const settingsURLs = {
   customPage: id => `${settingsBase}/custom-pages/${id}`,
 };
 
-export const siteSettingsAPI =  {
+export const siteSettingsAPI = {
   async get() {
     let response = await apiReq.get(settingsURLs.siteSettings);
     return response.data;
@@ -19,6 +20,7 @@ export const siteSettingsAPI =  {
 
   async update(body) {
     let response = await apiReq.put(settingsURLs.updateSiteSettings, body);
+    store.dispatch("requestSiteSettings");
     return response.data;
   },
 

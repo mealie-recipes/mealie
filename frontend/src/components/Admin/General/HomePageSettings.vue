@@ -117,21 +117,21 @@
       </v-row>
     </v-card-text>
     <v-card-text>
-      <h2 class="mt-1 mb-4">{{$t('settings.locale-settings')}}</h2>
+      <h2 class="mt-1 mb-4">{{ $t("settings.locale-settings") }}</h2>
       <v-row>
         <v-col cols="1">
           <LanguageMenu @select-lang="writeLang" :site-settings="true" />
         </v-col>
         <v-col sm="3">
           <v-select
-                dense
-                prepend-icon="mdi-calendar-week-begin"
-                v-model="settings.firstDayOfWeek"
-                :items="allDays"
-                item-text="name"
-                item-value="value"
-                :label="$t('settings.first-day-of-week')"
-           />
+            dense
+            prepend-icon="mdi-calendar-week-begin"
+            v-model="settings.firstDayOfWeek"
+            :items="allDays"
+            item-text="name"
+            item-value="value"
+            :label="$t('settings.first-day-of-week')"
+          />
         </v-col>
       </v-row>
     </v-card-text>
@@ -178,33 +178,33 @@ export default {
     allDays() {
       return [
         {
-          name: this.$t('general.sunday'),
+          name: this.$t("general.sunday"),
           value: 0,
         },
         {
-          name: this.$t('general.monday'),
+          name: this.$t("general.monday"),
           value: 1,
         },
         {
-          name: this.$t('general.tuesday'),
+          name: this.$t("general.tuesday"),
           value: 2,
         },
         {
-          name: this.$t('general.wednesday'),
+          name: this.$t("general.wednesday"),
           value: 3,
         },
         {
-          name: this.$t('general.thursday'),
+          name: this.$t("general.thursday"),
           value: 4,
         },
         {
-          name: this.$t('general.friday'),
+          name: this.$t("general.friday"),
           value: 5,
         },
         {
-          name: this.$t('general.saturday'),
+          name: this.$t("general.saturday"),
           value: 6,
-        }
+        },
       ];
     },
   },
@@ -223,10 +223,8 @@ export default {
       this.settings.categories.splice(index, 1);
     },
     async saveSettings() {
-      await api.siteSettings.update(this.settings);
-      this.$store.dispatch("setLang", { 
-        currentVueComponent: this, 
-        language: this.settings.language });
+      const newSettings = await api.siteSettings.update(this.settings);
+      console.log("New Settings", newSettings);
       this.getOptions();
     },
   },
