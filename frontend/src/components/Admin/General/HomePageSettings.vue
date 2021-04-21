@@ -119,10 +119,10 @@
     <v-card-text>
       <h2 class="mt-1 mb-4">{{ $t("settings.locale-settings") }}</h2>
       <v-row>
-        <v-col cols="3">
+        <v-col cols="12" md="3" sm="12">
           <LanguageSelector @select-lang="writeLang" :site-settings="true" />
         </v-col>
-        <v-col sm="3">
+        <v-col cols="12" md="3" sm="12">
           <v-select
             dense
             prepend-icon="mdi-calendar-week-begin"
