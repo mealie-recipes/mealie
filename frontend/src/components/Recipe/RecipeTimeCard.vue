@@ -1,57 +1,26 @@
 <template>
   <v-card
     color="accent"
-    class="custom-transparent d-flex justify-start align-center text-center "
+    class="custom-transparent d-flex justify-start align-center text-center time-card-flex"
     tile
-    :width="`${timeCardWidth}`"
-    height="55"
     v-if="totalTime || prepTime || performTime"
   >
     <v-card flat color="rgb(255, 0, 0, 0.0)">
       <v-icon large color="white" class="mx-2"> mdi-clock-outline </v-icon>
     </v-card>
 
-    <v-divider vertical color="white" class="py-1" v-if="totalTime">
-    </v-divider>
-    <v-card flat color="rgb(255, 0, 0, 0.0)" class=" my-2 " v-if="totalTime">
-      <v-card-text class="white--text">
-        <div>
-          <strong> {{ $t("recipe.total-time") }} </strong>
-        </div>
-        <div>{{ totalTime }}</div>
-      </v-card-text>
-    </v-card>
-
-    <v-divider vertical color="white" class="py-1" v-if="prepTime"> </v-divider>
-
     <v-card
+      v-for="(time, index) in allTimes"
+      :key="index"
+      class="d-flex justify-start align-center text-center time-card-flex"
       flat
       color="rgb(255, 0, 0, 0.0)"
-      class="white--text my-2 "
-      v-if="prepTime"
     >
-      <v-card-text class="white--text">
+      <v-card-text class="white--text py-2">
         <div>
-          <strong> {{ $t("recipe.prep-time") }} </strong>
+          <strong> {{ time.name }} </strong>
         </div>
-        <div>{{ prepTime }}</div>
-      </v-card-text>
-    </v-card>
-
-    <v-divider vertical color="white" class="my-1" v-if="performTime">
-    </v-divider>
-
-    <v-card
-      flat
-      color="rgb(255, 0, 0, 0.0)"
-      class="white--text py-2 "
-      v-if="performTime"
-    >
-      <v-card-text class="white--text">
-        <div>
-          <strong> {{ $t("recipe.perform-time") }} </strong>
-        </div>
-        <div>{{ performTime }}</div>
+        <div>{{ time.value }}</div>
       </v-card-text>
     </v-card>
   </v-card>
@@ -65,51 +34,36 @@ export default {
     performTime: String,
   },
   computed: {
-    timeLength() {
-      let times = [];
-      let timeArray = [this.totalTime, this.prepTime, this.performTime];
-      timeArray.forEach(element => {
-        if (element) {
-          times.push(element);
-        }
-      });
-
-      return times.length;
+    allTimes() {
+      return [
+        this.validateTotalTime,
+        this.validatePrepTime,
+        this.validatePerformTime,
+      ];
     },
-    iconColumn() {
-      switch (this.timeLength) {
-        case 0:
-          return null;
-        case 1:
-          return 4;
-        case 2:
-          return 3;
-        case 3:
-          return 2;
-        default:
-          return 1;
-      }
+    validateTotalTime() {
+      return this.prepTime
+        ? { name: this.$t("recipe.prep-time"), value: this.prepTime }
+        : null;
     },
-    timeCardWidth() {
-      let timeArray = [this.totalTime, this.prepTime, this.performTime];
-      let width = 80;
-      timeArray.forEach(element => {
-        if (element) {
-          width += 95;
-        }
-      });
-
-      if (this.$vuetify.breakpoint.name === "xs") {
-        return "100%";
-      }
-
-      return `${width}px`;
+    validatePrepTime() {
+      return this.prepTime
+        ? { name: this.$t("recipe.prep-time"), value: this.prepTime }
+        : null;
+    },
+    validatePerformTime() {
+      return this.prepTime
+        ? { name: this.$t("recipe.perform-time"), value: this.performTime }
+        : null;
     },
   },
 };
 </script>
 
 <style scoped>
+.time-card-flex {
+  width: fit-content;
+}
 .custom-transparent {
   opacity: 0.7;
 }
