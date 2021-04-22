@@ -73,6 +73,7 @@
             :slug="recipe.slug"
             :rating="recipe.rating"
             :image="recipe.image"
+            :tags="recipe.tags"
           />
         </v-col>
       </v-row>
