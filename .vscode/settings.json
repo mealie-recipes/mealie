@@ -10,7 +10,7 @@
   "python.testing.pytestArgs": ["tests"],
   "cSpell.enableFiletypes": ["!javascript", "!python"],
   "i18n-ally.localesPaths": "frontend/src/locales/messages",
-  "i18n-ally.sourceLanguage": "en",
+  "i18n-ally.sourceLanguage": "en-US",
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.keystyle": "nested",
   "cSpell.words": ["performant"],
