@@ -26,7 +26,7 @@
                 <div>
                   <strong>{{ backup.name }}</strong>
                 </div>
-                <div>{{ readableTime(backup.date) }}</div>
+                <div>{{ $d(new Date(backup.date), "medium") }}</div>
               </v-col>
             </v-row>
           </v-card-text>
@@ -39,7 +39,6 @@
 <script>
 import ImportDialog from "./ImportDialog";
 import { api } from "@/api";
-import utils from "@/utils";
 export default {
   props: {
     backups: Array,
@@ -59,10 +58,6 @@ export default {
       this.selectedDate = this.readableTime(backup.date);
       this.selectedName = backup.name;
       this.$refs.import_dialog.open();
-    },
-    readableTime(timestamp) {
-      let date = new Date(timestamp);
-      return utils.getDateAsText(date);
     },
     async importBackup(data) {
       this.$emit("loading");

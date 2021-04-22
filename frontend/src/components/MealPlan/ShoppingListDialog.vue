@@ -3,10 +3,10 @@
     <v-dialog v-model="dialog" width="650">
       <v-card>
         <v-card-title class="headline">
-          Shopping List
+          {{$t('meal-plan.shopping-list')}}
           <v-spacer></v-spacer>
           <v-btn text color="accent" @click="group = !group">
-            Group (Beta)
+            {{$t('meal-plan.group')}}
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>

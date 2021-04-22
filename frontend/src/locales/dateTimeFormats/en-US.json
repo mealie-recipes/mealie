@@ -3,5 +3,11 @@
     "month": "short",
     "day": "numeric",
     "weekday": "long"
+  },
+  "medium": { 
+    "month": "long",
+    "day": "numeric",
+    "weekday": "long",
+    "year": "numeric"
   }
 }

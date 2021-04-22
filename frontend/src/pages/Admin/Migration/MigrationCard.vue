@@ -32,7 +32,7 @@
                 <strong>{{ migration.name }}</strong>
               </div>
               <div class="text-truncate">
-                {{ readableTime(migration.date) }}
+                {{ $d(new Date(migration.date), "medium") }}
               </div>
             </v-col>
           </v-row>
@@ -67,7 +67,6 @@
 
 <script>
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
-import utils from "@/utils";
 import { api } from "@/api";
 import MigrationDialog from "./MigrationDialog";
 export default {
@@ -97,10 +96,6 @@ export default {
       this.$refs.migrationDialog.open(response);
       // this.$emit("imported", response.successful, response.failed);
       this.loading = false;
-    },
-    readableTime(timestamp) {
-      let date = new Date(timestamp);
-      return utils.getDateAsText(date);
     },
   },
 };

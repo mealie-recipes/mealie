@@ -122,7 +122,9 @@
     "create-a-new-meal-plan": "Create a New Meal Plan",
     "start-date": "Start Date",
     "end-date": "End Date",
-    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans"
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans",
+    "quick-week": "Quick Week",
+    "group": "Group (Beta)"
   },
   "recipe": {
     "description": "Description",
