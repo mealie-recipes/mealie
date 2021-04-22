@@ -8,11 +8,11 @@
     "recipe-url": "Adresse de la recette",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
     "error-message": "Il y a eu une erreur en récupérant la recette. Veuillez vérifier les logs ainsi que le fichier debug/last_recipe.json pour localiser le problème.",
-    "bulk-add": "Ajouter en bloc",
+    "bulk-add": "Ajouter en masse",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste."
   },
   "general": {
-    "upload": "Téléverser",
+    "upload": "Importer",
     "submit": "Soumettre",
     "name": "Nom",
     "settings": "Options",
@@ -94,7 +94,7 @@
     "group-id-with-value": "ID groupe : {groupID}",
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous sûr de vouloir supprimer <b>{groupName}<b/> ?",
     "group-name": "Nom du groupe",
-    "confirm-link-deletion": "Confirmer la suppresion du lien",
+    "confirm-link-deletion": "Confirmer la suppression du lien",
     "are-you-sure-you-want-to-delete-the-link": "Êtes-vous sûr de vouloir supprimer le lien <b>{link}<b/> ?",
     "link-id": "ID du lien",
     "users": "Utilisateurs",
@@ -122,7 +122,7 @@
     "create-a-new-meal-plan": "Créer un nouveau plan de menu",
     "start-date": "Date de début",
     "end-date": "Date de fin",
-    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans le planificateur de repas."
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans le planificateur de repas"
   },
   "recipe": {
     "description": "Description",
@@ -168,7 +168,7 @@
     "general-settings": "Paramètres généraux",
     "change-password": "Modifier le mot de passe",
     "admin-settings": "Paramètres d'administration",
-    "local-api": "API local",
+    "local-api": "API locale",
     "language": "Langue",
     "add-a-new-theme": "Ajouter un nouveau thème",
     "set-new-time": "Indiquer une nouvelle heure",
@@ -184,7 +184,7 @@
       "theme-settings": "Paramètres du thème",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Sélectionnez un thème depuis la liste ou créez-en un nouveau. Le thème par défaut sera utilisé pour tous les utilisateurs qui n'ont pas choisi de thème personnalisé.",
       "dark-mode": "Mode sombre",
-      "theme-is-required": "Un thème est requis.",
+      "theme-is-required": "Un thème est requis",
       "primary": "Primaire",
       "secondary": "Secondaire",
       "accent": "Accentué",
@@ -198,7 +198,7 @@
       "theme": "Thème",
       "saved-color-theme": "Thèmes sauvegardés",
       "delete-theme": "Supprimer le thème",
-      "are-you-sure-you-want-to-delete-this-theme": "Etes-vous sûr(e) de vouloir supprimer ce thème ?",
+      "are-you-sure-you-want-to-delete-this-theme": "Êtes-vous sûr(e) de vouloir supprimer ce thème ?",
       "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Personnalisez l'apparence de Mealie. Utilisez le thème par défaut de votre système ou choisissez manuellement entre le thème clair ou sombre.",
       "theme-name-is-required": "Un nom de thème est requis."
     },
@@ -208,7 +208,7 @@
       "test-webhooks": "Tester les webhooks",
       "webhook-url": "Lien du webhook"
     },
-    "new-version-available": "Une nouvelle version de Mealie est disponible, <a {aContents}> vérifiez la source ! </a>",
+    "new-version-available": "Une nouvelle version de Mealie est disponible, <a {aContents}> rendez-vous sur le dépôt ! </a>",
     "backup": {
       "import-recipes": "Importer des recettes",
       "import-themes": "Importer des thèmes",
