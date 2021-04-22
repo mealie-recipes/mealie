@@ -5,7 +5,6 @@
       :sortable="true"
       :title="$t('page.all-recipes')"
       :recipes="allRecipes"
-      :card-limit="9999"
       @sort="sortAZ"
       @sort-recent="sortRecent"
     />
@@ -23,8 +22,12 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    this.$store.dispatch("requestAllRecipes");
+  },
   computed: {
     allRecipes() {
+      console.log(this.$store.getters.getRecentRecipes);
       return this.$store.getters.getRecentRecipes;
     },
   },
