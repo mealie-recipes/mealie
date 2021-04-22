@@ -57,7 +57,6 @@ const store = new Vuex.Store({
       const payload = await api.recipes.allSummary(0, 30);
       const recent = getters.getRecentRecipes;
       if (recent.length >= 30) return;
-      console.log("Recent", payload.length);
       this.commit("setRecentRecipes", payload);
     },
     async requestAllRecipes({ getters }) {
@@ -65,7 +64,6 @@ const store = new Vuex.Store({
       const start = recent.length + 1;
       const payload = await api.recipes.allSummary(start, 9999);
       this.commit("setRecentRecipes", [...recent, ...payload]);
-      console.log("All", getters.getRecentRecipes.length);
     },
     async requestCategories({ commit }) {
       const categories = await api.categories.getAll();

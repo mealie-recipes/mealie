@@ -27,7 +27,6 @@ export default {
   },
   computed: {
     allRecipes() {
-      console.log(this.$store.getters.getRecentRecipes);
       return this.$store.getters.getRecentRecipes;
     },
   },

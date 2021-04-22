@@ -117,11 +117,6 @@ export default {
       loading: false,
     };
   },
-  watch: {
-    cardLimit(val) {
-      console.log("Card Limit", val);
-    },
-  },
   computed: {
     viewScale() {
       switch (this.$vuetify.breakpoint.name) {
@@ -145,11 +140,9 @@ export default {
       this.cardLimit = newCardLimit;
     },
     async setLoader() {
-      console.log("Start");
       this.loading = true;
       await new Promise(r => setTimeout(r, 3000));
       this.loading = false;
-      console.log("Stop");
     },
   },
 };

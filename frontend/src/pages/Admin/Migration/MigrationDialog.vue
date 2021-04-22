@@ -97,7 +97,6 @@ export default {
       return numbers;
     },
     open(importData) {
-      console.log("Migration Data", importData);
       this.recipeData = importData;
 
       this.dialog = true;

@@ -33,11 +33,6 @@ export default {
     totalTime: String,
     performTime: String,
   },
-  watch: {
-    showCards(val) {
-      console.log(val);
-    },
-  },
   computed: {
     showCards() {
       return [this.prepTime, this.totalTime, this.performTime].some(
