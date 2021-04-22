@@ -8,7 +8,7 @@
     "recipe-url": "Adresse de la recette",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
     "error-message": "Il y a eu une erreur en récupérant la recette. Veuillez vérifier les logs ainsi que le fichier debug/last_recipe.json pour localiser le problème.",
-    "bulk-add": "Ajouter en bloc",
+    "bulk-add": "Ajouter en masse",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste."
   },
   "general": {
