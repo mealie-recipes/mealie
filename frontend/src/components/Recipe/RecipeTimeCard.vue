@@ -3,7 +3,7 @@
     color="accent"
     class="custom-transparent d-flex justify-start align-center text-center time-card-flex"
     tile
-    v-if="totalTime || prepTime || performTime"
+    v-if="showCards"
   >
     <v-card flat color="rgb(255, 0, 0, 0.0)">
       <v-icon large color="white" class="mx-2"> mdi-clock-outline </v-icon>
@@ -16,7 +16,7 @@
       flat
       color="rgb(255, 0, 0, 0.0)"
     >
-      <v-card-text class="white--text py-2">
+      <v-card-text class="caption white--text py-2">
         <div>
           <strong> {{ time.name }} </strong>
         </div>
@@ -33,28 +33,43 @@ export default {
     totalTime: String,
     performTime: String,
   },
+  watch: {
+    showCards(val) {
+      console.log(val);
+    },
+  },
   computed: {
+    showCards() {
+      return [this.prepTime, this.totalTime, this.performTime].some(
+        x => !this.isEmpty(x)
+      );
+    },
     allTimes() {
       return [
         this.validateTotalTime,
         this.validatePrepTime,
         this.validatePerformTime,
-      ];
+      ].filter(x => x !== null);
     },
     validateTotalTime() {
-      return this.prepTime
-        ? { name: this.$t("recipe.prep-time"), value: this.prepTime }
+      return !this.isEmpty(this.totalTime)
+        ? { name: this.$t("recipe.total-time"), value: this.totalTime }
         : null;
     },
     validatePrepTime() {
-      return this.prepTime
+      return !this.isEmpty(this.prepTime)
         ? { name: this.$t("recipe.prep-time"), value: this.prepTime }
         : null;
     },
     validatePerformTime() {
-      return this.prepTime
+      return !this.isEmpty(this.performTime)
         ? { name: this.$t("recipe.perform-time"), value: this.performTime }
         : null;
+    },
+  },
+  methods: {
+    isEmpty(str) {
+      return !str || str.length === 0;
     },
   },
 };
