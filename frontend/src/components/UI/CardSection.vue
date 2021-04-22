@@ -78,7 +78,16 @@
         </v-col>
       </v-row>
     </div>
-    <div v-intersect="bumpList"></div>
+    <div v-intersect="bumpList" class="d-flex">
+      <v-progress-circular
+        v-if="loading"
+        class="mx-auto mt-1"
+        :size="50"
+        :width="7"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div>
   </div>
 </template>
 
@@ -105,6 +114,7 @@ export default {
   data() {
     return {
       cardLimit: 30,
+      loading: false,
     };
   },
   watch: {
@@ -126,8 +136,20 @@ export default {
   },
   methods: {
     bumpList() {
-      const newLimit = this.cardLimit + 20;
-      this.cardLimit = Math.min(newLimit, this.hardLimit);
+      const newCardLimit = Math.min(this.cardLimit + 20, this.hardLimit);
+
+      if (this.loading === false && newCardLimit > this.cardLimit) {
+        this.setLoader();
+      }
+
+      this.cardLimit = newCardLimit;
+    },
+    async setLoader() {
+      console.log("Start");
+      this.loading = true;
+      await new Promise(r => setTimeout(r, 3000));
+      this.loading = false;
+      console.log("Stop");
     },
   },
 };
