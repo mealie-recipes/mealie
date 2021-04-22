@@ -12,7 +12,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste."
   },
   "general": {
-    "upload": "Téléverser",
+    "upload": "Importer",
     "submit": "Soumettre",
     "name": "Nom",
     "settings": "Options",
