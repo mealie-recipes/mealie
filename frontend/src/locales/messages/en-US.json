@@ -152,7 +152,17 @@
     "key-name-required": "Key Name Required",
     "no-white-space-allowed": "No White Space Allowed",
     "delete-recipe": "Delete Recipe",
-    "delete-confirmation": "Are you sure you want to delete this recipe?"
+    "delete-confirmation": "Are you sure you want to delete this recipe?",
+    "nutrition": "Nutrition",
+    "calories": "Calories",
+    "calories-suffix": "calories",
+    "fat-content": "Fat Content",
+    "fiber-content": "Fiber Content",
+    "protein-content": "Protein Content",
+    "sodium-content": "Sodium Content",
+    "sugar-content": "Sugar Content",
+    "grams": "grams",
+    "milligrams": "milligrams"
   },
   "search": {
     "search-mealie": "Search Mealie",

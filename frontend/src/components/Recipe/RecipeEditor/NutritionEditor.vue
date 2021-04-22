@@ -1,6 +1,6 @@
 <template>
   <div v-if="valueNotNull || edit">
-    <h2 class="my-4">Nutrition</h2>
+    <h2 class="my-4">{{$t('recipe.nutrition')}}</h2>
     <div v-if="edit">
       <div v-for="(item, key, index) in value" :key="index">
         <v-text-field
@@ -45,14 +45,14 @@ export default {
     return {
       labels: {
         calories: {
-          label: "Calories",
-          suffix: "calories",
+          label: this.$t('recipe.calories'),
+          suffix:this.$t('recipe.calories-suffix'),
         },
-        fatContent: { label: "Fat Content", suffix: "grams" },
-        fiberContent: { label: "Fiber Content", suffix: "grams" },
-        proteinContent: { label: "Protein Content", suffix: "grams" },
-        sodiumContent: { label: "Sodium Content", suffix: "milligrams" },
-        sugarContent: { label: "Sugar Content", suffix: "grams" },
+        fatContent: { label: this.$t('recipe.fat-content'), suffix: this.$t('recipe.grams') },
+        fiberContent: { label: this.$t('recipe.fiber-content'), suffix: this.$t('recipe.grams') },
+        proteinContent: { label: this.$t('recipe.protein-content'), suffix: this.$t('recipe.grams') },
+        sodiumContent: { label: this.$t('recipe.sodium-content'), suffix: this.$t('recipe.milligrams') },
+        sugarContent: { label: this.$t('recipe.sugar-content'), suffix: this.$t('recipe.grams') },
       },
     };
   },
