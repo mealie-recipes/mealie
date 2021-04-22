@@ -56,7 +56,9 @@
     "thursday": "Thursday",
     "friday": "Friday",
     "saturday": "Saturday",
-    "about": "About"
+    "about": "About",
+    "get": "Get",
+    "url": "URL"
   },
   "page": {
     "home-page": "Home Page",
@@ -162,7 +164,9 @@
     "sodium-content": "Sodium Content",
     "sugar-content": "Sugar Content",
     "grams": "grams",
-    "milligrams": "milligrams"
+    "milligrams": "milligrams",
+    "recipe-image": "Recipe Image",
+    "image": "Image"
   },
   "search": {
     "search-mealie": "Search Mealie",
