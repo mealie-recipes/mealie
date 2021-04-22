@@ -1,4 +1,3 @@
-import i18n from "@/i18n.js";
 import SearchPage from "@/pages/SearchPage";
 import HomePage from "@/pages/HomePage";
 
@@ -9,7 +8,7 @@ export const generalRoutes = [
     path: "/search",
     component: SearchPage,
     meta: {
-      title: i18n.t("search.search"),
+      title: "search.search",
     },
   },
 ];

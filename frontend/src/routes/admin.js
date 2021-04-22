@@ -8,7 +8,6 @@ import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
 import About from "@/pages/Admin/About";
 import { store } from "../store";
-import i18n from '@/i18n.js';
 
 export const adminRoutes =  {
   path: "/admin",
@@ -27,7 +26,7 @@ export const adminRoutes =  {
       path: "profile",
       component: Profile,
       meta: {
-        title: i18n.t('settings.profile'),
+        title: "settings.profile",
       },
     },
 
@@ -35,49 +34,49 @@ export const adminRoutes =  {
       path: "backups",
       component: Backup,
       meta: {
-        title: i18n.t('settings.backup-and-exports'),
+        title: "settings.backup-and-exports",
       },
     },
     {
       path: "themes",
       component: Theme,
       meta: {
-        title: i18n.t('general.themes'),
+        title: "general.themes",
       },
     },
     {
       path: "meal-planner",
       component: MealPlanner,
       meta: {
-        title: i18n.t('meal-plan.meal-planner'),
+        title: "meal-plan.meal-planner",
       },
     },
     {
       path: "migrations",
       component: Migration,
       meta: {
-        title: i18n.t('settings.migrations'),
+        title: "settings.migrations",
       },
     },
     {
       path: "manage-users",
       component: ManageUsers,
       meta: {
-        title: i18n.t('settings.manage-users'),
+        title: "settings.manage-users",
       },
     },
     {
       path: "settings",
       component: Settings,
       meta: {
-        title: i18n.t('settings.site-settings'),
+        title: "settings.site-settings",
       },
     },
     {
       path: "about",
       component: About,
       meta: {
-        title: i18n.t('general.about'),
+        title: "general.about",
       },
     },
   ],
