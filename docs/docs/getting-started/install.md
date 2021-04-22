@@ -54,7 +54,7 @@ services:
 | ---------------- | ------------------ | ----------------------------------------------------------------------------------- |
 | DB_TYPE          | sqlite             | The database type to be used. Current Options 'sqlite'                              |
 | DEFAULT_GROUP    | Home               | The default group for users                                                         |
-| DEFAULT_USERNAME | changeme@email.com | The default username for the superuser                                              |
+| DEFAULT_EMAIL    | changeme@email.com | The default username for the superuser                                              |
 | DEFAULT_PASSWORD | MyPassword         | The default password for the superuser                                              |
 | TOKEN_TIME       | 2                  | The time in hours that a login/auth token is valid                                  |
 | API_PORT         | 9000               | The port exposed by backend API. **do not change this if you're running in docker** |
