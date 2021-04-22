@@ -78,6 +78,7 @@
         </v-col>
       </v-row>
     </div>
+    <div v-intersect="bumpList"></div>
   </div>
 </template>
 
@@ -97,8 +98,15 @@ export default {
       default: null,
     },
     recipes: Array,
-    cardLimit: {
-      default: 999,
+  },
+  data() {
+    return {
+      cardLimit: 30,
+    };
+  },
+  watch: {
+    cardLimit(val) {
+      console.log("Card Limit", val);
     },
   },
   computed: {
@@ -111,6 +119,12 @@ export default {
         default:
           return false;
       }
+    },
+  },
+  methods: {
+    bumpList() {
+      if (this.cardLimit >= this.recipes.length) return;
+      this.cardLimit += 20;
     },
   },
 };

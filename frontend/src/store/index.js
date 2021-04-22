@@ -54,17 +54,15 @@ const store = new Vuex.Store({
 
   actions: {
     async requestRecentRecipes() {
-      // const keys = [
-      //   "name",
-      //   "slug",
-      //   "image",
-      //   "description",
-      //   "dateAdded",
-      //   "rating",
-      // ];
-      const payload = await api.recipes.allSummary();
-
+      const payload = await api.recipes.allSummary(0, 30);
+      console.log("Recent", payload.length);
       this.commit("setRecentRecipes", payload);
+    },
+    async requestAllRecipes({ getters }) {
+      const payload = await api.recipes.allSummary(31, 9999);
+      const recent = getters.getRecentRecipes;
+      this.commit("setRecentRecipes", [...recent, ...payload]);
+      console.log("All", getters.getRecentRecipes.length);
     },
     async requestCategories({ commit }) {
       const categories = await api.categories.getAll();
@@ -74,7 +72,6 @@ const store = new Vuex.Store({
       const tags = await api.tags.getAll();
       commit("setAllTags", tags);
     },
-
     async requestAppInfo({ commit }) {
       const response = await api.meta.getAppInfo();
       commit("setAppInfo", response);

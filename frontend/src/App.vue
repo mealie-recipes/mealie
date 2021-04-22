@@ -58,6 +58,7 @@ export default {
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
     this.$store.dispatch("requestAppInfo");
+    this.$store.dispatch("requestAllRecipes");
   },
 
   methods: {
