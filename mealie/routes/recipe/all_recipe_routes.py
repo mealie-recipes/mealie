@@ -21,7 +21,7 @@ async def get_recipe_summary(
     return db.recipes.get_all(session, limit=end, override_schema=RecipeSummary)
 
 
-@router.get("/api/recipes")
+@router.get("/api/recipes", deprecated=True)
 def get_all_recipes(
     keys: Optional[List[str]] = Query(...),
     num: Optional[int] = 100,
