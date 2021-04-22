@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import DataTable from "@/components/ImportSummaryDialog";
+import DataTable from "@/components/ImportSummaryDialog/DataTable";
 export default {
   components: {
     DataTable,
@@ -97,6 +97,7 @@ export default {
       return numbers;
     },
     open(importData) {
+      console.log("Migration Data", importData);
       this.recipeData = importData;
 
       this.dialog = true;
