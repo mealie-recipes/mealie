@@ -97,6 +97,9 @@ export default {
     title: {
       default: null,
     },
+    hardLimit: {
+      default: 99999,
+    },
     recipes: Array,
   },
   data() {
@@ -123,8 +126,8 @@ export default {
   },
   methods: {
     bumpList() {
-      if (this.cardLimit >= this.recipes.length) return;
-      this.cardLimit += 20;
+      const newLimit = this.cardLimit + 20;
+      this.cardLimit = Math.min(newLimit, this.hardLimit);
     },
   },
 };
