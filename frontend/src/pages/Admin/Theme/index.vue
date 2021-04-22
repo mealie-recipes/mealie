@@ -135,9 +135,9 @@
 
 <script>
 import { api } from "@/api";
-import ColorPickerDialog from "@/components/Admin/Theme/ColorPickerDialog";
-import NewThemeDialog from "@/components/Admin/Theme/NewThemeDialog";
-import ThemeCard from "@/components/Admin/Theme/ThemeCard";
+import ColorPickerDialog from "@/components/FormHelpers/ColorPickerDialog";
+import NewThemeDialog from "./NewThemeDialog";
+import ThemeCard from "./ThemeCard";
 
 export default {
   components: {

@@ -68,7 +68,7 @@
         </v-card-text>
 
         <v-card-actions>
-          <UploadBtn
+          <TheUploadBtn
             icon="mdi-image-area"
             :text="$t('user.upload-photo')"
             :url="userProfileImage"
@@ -145,13 +145,13 @@
 
 <script>
 // import AvatarPicker from '@/components/AvatarPicker'
-import UploadBtn from "@/components/UI/UploadBtn";
+import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 export default {
   components: {
-    UploadBtn,
+    TheUploadBtn,
   },
   mixins: [validators, initials],
   data() {

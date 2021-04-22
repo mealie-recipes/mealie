@@ -58,8 +58,8 @@
 
 
 <script>
-import ImportOptions from "@/components/Admin/Backup/ImportOptions";
-import TheDownloadBtn from "@/components/UI/TheDownloadBtn.vue";
+import ImportOptions from "./ImportOptions";
+import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn.vue";
 import { backupURLs } from "@/api/backup";
 export default {
   components: { ImportOptions, TheDownloadBtn },

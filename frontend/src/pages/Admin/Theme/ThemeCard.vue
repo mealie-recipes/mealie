@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Confirmation
+    <ConfirmationDialog
       :title="$t('settings.theme.delete-theme')"
       :message="$t('settings.theme.are-you-sure-you-want-to-delete-this-theme')"
       color="error"
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import Confirmation from "@/components/UI/Confirmation";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
 
 const DELETE_EVENT = "delete";
@@ -52,7 +52,7 @@ const APPLY_EVENT = "apply";
 const EDIT_EVENT = "edit";
 export default {
   components: {
-    Confirmation,
+    ConfirmationDialog,
   },
   props: {
     theme: Object,

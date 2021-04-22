@@ -33,7 +33,7 @@
         class="my-3"
         :label="$t('recipe.recipe-name')"
         v-model="value.name"
-        :rules="[rules.required]"
+        :rules="[existsRule]"
       >
       </v-text-field>
       <v-textarea
@@ -94,7 +94,7 @@
                       class="mr-n1"
                       slot="prepend"
                       color="error"
-                      @click="removeIngredient(index)"
+                      @click="removeByIndex(value.recipeIngredient, index)"
                     >
                       mdi-delete
                     </v-icon>
@@ -107,7 +107,7 @@
           <v-btn color="secondary" fab dark small @click="addIngredient">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
-          <BulkAdd @bulk-data="appendIngredients" />
+          <BulkAdd @bulk-data="addIngredient" />
 
           <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
           <CategoryTagSelector
@@ -140,7 +140,7 @@
                   color="white"
                   class="mr-2"
                   elevation="0"
-                  @click="removeNote(index)"
+                  @click="removeByIndex(value.notes, index)"
                 >
                   <v-icon color="error">mdi-delete</v-icon>
                 </v-btn>
@@ -183,7 +183,7 @@
                     color="white"
                     class="mr-2"
                     elevation="0"
-                    @click="removeStep(index)"
+                    @click="removeByIndex(value.recipeInstructions, index)"
                   >
                     <v-icon size="24" color="error">mdi-delete</v-icon>
                   </v-btn>
@@ -218,6 +218,7 @@
 </template>
 
 <script>
+const UPLOAD_EVENT = "upload";
 import draggable from "vuedraggable";
 import utils from "@/utils";
 import BulkAdd from "./BulkAdd";
@@ -225,6 +226,7 @@ import ExtrasEditor from "./ExtrasEditor";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import NutritionEditor from "./NutritionEditor";
 import ImageUploadBtn from "./ImageUploadBtn.vue";
+import { validators } from "@/mixins/validators";
 export default {
   components: {
     BulkAdd,
@@ -237,26 +239,20 @@ export default {
   props: {
     value: Object,
   },
+  mixins: [validators],
   data() {
     return {
       drag: false,
       fileObject: null,
-      rules: {
-        required: v => !!v || this.$i18n.t("recipe.key-name-required"),
-        whiteSpace: v =>
-          !v ||
-          v.split(" ").length <= 1 ||
-          this.$i18n.t("recipe.no-white-space-allowed"),
-      },
     };
   },
   methods: {
     uploadImage(fileObject) {
-      this.$emit("upload", fileObject);
+      this.$emit(UPLOAD_EVENT, fileObject);
     },
     toggleDisabled(stepIndex) {
       if (this.disabledSteps.includes(stepIndex)) {
-        let index = this.disabledSteps.indexOf(stepIndex);
+        const index = this.disabledSteps.indexOf(stepIndex);
         if (index !== -1) {
           this.disabledSteps.splice(index, 1);
         }
@@ -265,66 +261,40 @@ export default {
       }
     },
     isDisabled(stepIndex) {
-      if (this.disabledSteps.includes(stepIndex)) {
-        return "disabled-card";
-      } else {
-        return;
-      }
+      return this.disabledSteps.includes(stepIndex) ? "disabled-card" : null;
     },
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);
     },
-
-    appendIngredients(ingredients) {
-      this.value.recipeIngredient.push(...ingredients);
-    },
-    addIngredient() {
-      let list = this.value.recipeIngredient;
-      list.push("");
-    },
-
-    removeIngredient(index) {
-      this.value.recipeIngredient.splice(index, 1);
+    addIngredient(ingredients = null) {
+      if (ingredients) {
+        this.value.recipeIngredient.push(...ingredients);
+      } else {
+        this.value.recipeIngredient.push("");
+      }
     },
 
     appendSteps(steps) {
-      let processSteps = [];
-      steps.forEach(element => {
-        processSteps.push({ text: element });
-      });
-
-      this.value.recipeInstructions.push(...processSteps);
+      this.value.recipeInstructions.push(
+        ...steps.map(x => ({
+          text: x,
+        }))
+      );
     },
     addStep() {
-      let list = this.value.recipeInstructions;
-      list.push({ text: "" });
+      this.value.recipeInstructions.push({ text: "" });
     },
-    removeStep(index) {
-      this.value.recipeInstructions.splice(index, 1);
-    },
-
     addNote() {
-      let list = this.value.notes;
-      list.push({ text: "" });
-    },
-    removeNote(index) {
-      this.value.notes.splice(index, 1);
-    },
-    removeCategory(index) {
-      this.value.recipeCategory.splice(index, 1);
-    },
-    removeTags(index) {
-      this.value.tags.splice(index, 1);
+      this.value.notes.push({ text: "" });
     },
     saveExtras(extras) {
       this.value.extras = extras;
     },
+    removeByIndex(list, index) {
+      list.splice(index, 1);
+    },
     validateRecipe() {
-      if (this.$refs.form.validate()) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$refs.form.validate();
     },
   },
 };

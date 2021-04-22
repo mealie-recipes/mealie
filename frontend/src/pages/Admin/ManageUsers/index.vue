@@ -11,17 +11,17 @@
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab>
-          {{$t('user.users')}}
+          {{ $t("user.users") }}
           <v-icon>mdi-account</v-icon>
         </v-tab>
 
         <v-tab>
-          {{$t('user.sign-up-links')}}
+          {{ $t("user.sign-up-links") }}
           <v-icon>mdi-account-plus-outline</v-icon>
         </v-tab>
 
         <v-tab>
-          {{$t('user.groups')}}
+          {{ $t("user.groups") }}
           <v-icon>mdi-account-group</v-icon>
         </v-tab>
       </v-tabs>
@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import TheUserTable from "@/components/Admin/ManageUsers/TheUserTable";
-import GroupDashboard from "@/components/Admin/ManageUsers/GroupDashboard";
-import TheSignUpTable from "@/components/Admin/ManageUsers/TheSignUpTable";
+import TheUserTable from "./TheUserTable";
+import GroupDashboard from "./GroupDashboard";
+import TheSignUpTable from "./TheSignUpTable";
 export default {
   components: { TheUserTable, GroupDashboard, TheSignUpTable },
   data() {

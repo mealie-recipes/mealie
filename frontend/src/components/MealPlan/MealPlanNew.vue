@@ -31,11 +31,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <DatePicker 
-              v-model="startDate"
-              no-title
-              @input="menu2 = false"
-              />
+            <DatePicker v-model="startDate" no-title @input="menu2 = false" />
           </v-menu>
         </v-col>
         <v-col cols="12" lg="6" md="6" sm="12">
@@ -59,11 +55,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <DatePicker 
-              v-model="endDate"
-              no-title
-              @input="menu2 = false"
-              />
+            <DatePicker v-model="endDate" no-title @input="menu2 = false" />
           </v-menu>
         </v-col>
       </v-row>
@@ -87,7 +79,7 @@
 
 <script>
 const CREATE_EVENT = "created";
-import DatePicker from "../UI/DatePicker";
+import DatePicker from "@/components/FormHelpers/DatePicker";
 import { api } from "@/api";
 import utils from "@/utils";
 import MealPlanCard from "./MealPlanCard";

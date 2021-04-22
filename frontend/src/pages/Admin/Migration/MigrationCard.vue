@@ -5,7 +5,7 @@
       {{ title }}
       <v-spacer></v-spacer>
       <span>
-        <UploadBtn
+        <TheUploadBtn
           class="mt-1"
           :url="`/api/migrations/${folder}/upload`"
           fileName="archive"
@@ -66,10 +66,10 @@
 </template>
 
 <script>
-import UploadBtn from "../../UI/UploadBtn";
+import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import utils from "@/utils";
 import { api } from "@/api";
-import MigrationDialog from "@/components/Admin/Migration/MigrationDialog.vue";
+import MigrationDialog from "./MigrationDialog";
 export default {
   props: {
     folder: String,
@@ -78,7 +78,7 @@ export default {
     available: Array,
   },
   components: {
-    UploadBtn,
+    TheUploadBtn,
     MigrationDialog,
   },
   data() {

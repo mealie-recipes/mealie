@@ -1,7 +1,5 @@
-import VueI18n from "../../i18n";
-
+// This is the data store for the options for language selection. Property is reference only, you cannot set this property.
 const state = {
-  lang: "en-US",
   allLangs: [
     {
       name: "English",
@@ -42,33 +40,11 @@ const state = {
   ],
 };
 
-const mutations = {
-  setLang(state, payload) {
-    VueI18n.locale = payload;
-    state.lang = payload;
-  },
-};
-
-const actions = {
-  initLang({ getters }, { currentVueComponent }) {
-    VueI18n.locale = getters.getActiveLang;
-    currentVueComponent.$vuetify.lang.current = getters.getActiveLang;
-  },
-  setLang({ commit }, { language, currentVueComponent }) {
-    VueI18n.locale = language;
-    currentVueComponent.$vuetify.lang.current = language;
-    commit('setLang', language);
-  },
-};
-
 const getters = {
-  getActiveLang: state => state.lang,
   getAllLangs: state => state.allLangs,
 };
 
 export default {
   state,
-  mutations,
-  actions,
   getters,
 };

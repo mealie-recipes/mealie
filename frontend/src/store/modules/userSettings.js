@@ -1,5 +1,5 @@
 import { api } from "@/api";
-import Vuetify from "../../plugins/vuetify";
+import Vuetify from "@/plugins/vuetify";
 import axios from "axios";
 
 function inDarkMode(payload) {

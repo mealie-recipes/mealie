@@ -35,7 +35,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <SiteMenu />
+      <TheSiteMenu />
     </v-app-bar>
     <v-app-bar
       v-else
@@ -67,13 +67,13 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <SiteMenu />
+      <TheSiteMenu />
     </v-app-bar>
   </div>
 </template>
 
 <script>
-import SiteMenu from "@/components/UI/SiteMenu";
+import TheSiteMenu from "@/components/UI/TheSiteMenu";
 import SearchBar from "@/components/UI/Search/SearchBar";
 import SearchDialog from "@/components/UI/Search/SearchDialog";
 import { user } from "@/mixins/user";
@@ -82,7 +82,7 @@ export default {
 
   mixins: [user],
   components: {
-    SiteMenu,
+    TheSiteMenu,
     SearchBar,
     SearchDialog,
   },

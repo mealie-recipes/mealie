@@ -1,23 +1,39 @@
 <template>
   <v-card
+    class="mx-auto"
     hover
     :to="`/recipe/${slug}`"
-    max-height="125"
     @click="$emit('selected')"
   >
-    <v-list-item>
-      <v-list-item-avatar rounded size="125" class="mt-0 ml-n4">
-        <v-img :src="getImage(slug)"> </v-img>
-      </v-list-item-avatar>
-      <v-list-item-content class="align-self-start">
-        <v-list-item-title>
-          {{ name }}
-        </v-list-item-title>
-        <v-rating length="5" size="16" dense :value="rating"></v-rating>
-        <div class="text">
-          <v-list-item-action-text>
-            {{ description | truncate(115) }}
-          </v-list-item-action-text>
+    <v-list-item three-line>
+      <v-list-item-avatar
+        tile
+        size="125"
+        color="grey"
+        class="v-mobile-img rounded-sm my-0 ml-n4"
+      >
+        <v-img :src="getImage(slug)" lazy-src=""></v-img
+      ></v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class=" mb-1">{{ name }}</v-list-item-title>
+        <v-list-item-subtitle> {{ description }} </v-list-item-subtitle>
+        <div class="d-flex justify-center align-center">
+          <RecipeChips
+            :items="tags"
+            :title="false"
+            :limit="1"
+            :small="true"
+            :isCategory="false"
+          />
+          <v-rating
+            color="secondary"
+            class="ml-auto"
+            background-color="secondary lighten-3"
+            dense
+            length="5"
+            size="15"
+            :value="rating"
+          ></v-rating>
         </div>
       </v-list-item-content>
     </v-list-item>
@@ -25,8 +41,12 @@
 </template>
 
 <script>
+import RecipeChips from "@/components/Recipe/RecipeViewer/RecipeChips";
 import { api } from "@/api";
 export default {
+  components: {
+    RecipeChips,
+  },
   props: {
     name: String,
     slug: String,
@@ -34,6 +54,9 @@ export default {
     rating: Number,
     image: String,
     route: {
+      default: true,
+    },
+    tags: {
       default: true,
     },
   },
@@ -47,6 +70,11 @@ export default {
 </script>
 
 <style>
+.v-mobile-img {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
 .v-card--reveal {
   align-items: center;
   bottom: 0;

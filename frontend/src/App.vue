@@ -9,7 +9,7 @@
       >
 
       <v-slide-x-reverse-transition>
-        <AddRecipeFab v-if="loggedIn" />
+        <TheRecipeFab v-if="loggedIn" />
       </v-slide-x-reverse-transition>
       <router-view></router-view>
     </v-main>
@@ -19,7 +19,7 @@
 
 <script>
 import TheAppBar from "@/components/UI/TheAppBar";
-import AddRecipeFab from "@/components/UI/AddRecipeFab";
+import TheRecipeFab from "@/components/UI/TheRecipeFab";
 import Vuetify from "./plugins/vuetify";
 import { user } from "@/mixins/user";
 
@@ -28,7 +28,7 @@ export default {
 
   components: {
     TheAppBar,
-    AddRecipeFab,
+    TheRecipeFab,
   },
 
   mixins: [user],
@@ -40,13 +40,12 @@ export default {
     },
   },
 
-  created() {
+  async created() {
     window.addEventListener("keyup", e => {
       if (e.key == "/" && !document.activeElement.id.startsWith("input")) {
         this.search = !this.search;
       }
     });
-    this.$store.dispatch("initLang", { currentVueComponent: this });
   },
 
   async mounted() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Confirmation
+    <ConfirmationDialog
       ref="deleteGroupConfirm"
       :title="$t('user.confirm-group-deletion')"
       :message="
@@ -55,10 +55,10 @@
 
 <script>
 const RENDER_EVENT = "update";
-import Confirmation from "@/components/UI/Confirmation";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
 export default {
-  components: { Confirmation },
+  components: { ConfirmationDialog },
   props: {
     group: {
       default: {
