@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     openDialog(backup) {
-      this.selectedDate = this.readableTime(backup.date);
+      this.selectedDate = backup.date;
       this.selectedName = backup.name;
       this.$refs.import_dialog.open();
     },

@@ -240,7 +240,8 @@
     "custom-pages": "Custom Pages",
     "new-page": "New Page",
     "edit-page": "Edit Page",
-    "page-name": "Page Name"
+    "page-name": "Page Name",
+    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
   },
   "migration": {
     "recipe-migration": "Recipe Migration",
