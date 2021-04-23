@@ -56,7 +56,9 @@
     "thursday": "Thursday",
     "friday": "Friday",
     "saturday": "Saturday",
-    "about": "About"
+    "about": "About",
+    "get": "Get",
+    "url": "URL"
   },
   "page": {
     "home-page": "Home Page",
@@ -122,7 +124,9 @@
     "create-a-new-meal-plan": "Criar novo Plano de Refeições",
     "start-date": "Data de Inicio",
     "end-date": "Data de Fim",
-    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans"
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans",
+    "quick-week": "Quick Week",
+    "group": "Group (Beta)"
   },
   "recipe": {
     "description": "Descrição",
@@ -150,7 +154,19 @@
     "key-name-required": "Nome da Chave é Obrigatório",
     "no-white-space-allowed": "Espaço em Branco não Permitido",
     "delete-recipe": "Eliminar Receita",
-    "delete-confirmation": "Tem a certeza que deseja eliminar esta receita?"
+    "delete-confirmation": "Tem a certeza que deseja eliminar esta receita?",
+    "nutrition": "Nutrition",
+    "calories": "Calories",
+    "calories-suffix": "calories",
+    "fat-content": "Fat Content",
+    "fiber-content": "Fiber Content",
+    "protein-content": "Protein Content",
+    "sodium-content": "Sodium Content",
+    "sugar-content": "Sugar Content",
+    "grams": "grams",
+    "milligrams": "milligrams",
+    "recipe-image": "Recipe Image",
+    "image": "Image"
   },
   "search": {
     "search-mealie": "Pesquisar Mealie",
@@ -238,7 +254,8 @@
     "custom-pages": "Custom Pages",
     "new-page": "New Page",
     "edit-page": "Edit Page",
-    "page-name": "Page Name"
+    "page-name": "Page Name",
+    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
   },
   "migration": {
     "recipe-migration": "Migração da Receita",
