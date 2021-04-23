@@ -9,7 +9,7 @@
     >
       <ConfirmationDialog
         :title="$t('recipe.delete-recipe')"
-        :message="$t('recipe.delete-ConfirmationDialog')"
+        :message="$t('recipe.delete-confirmation')"
         color="error"
         icon="mdi-alert-circle"
         ref="deleteRecipieConfirm"

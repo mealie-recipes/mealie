@@ -12,16 +12,26 @@ router = APIRouter(tags=["Query All Recipes"])
 
 @router.get("/api/recipes/summary")
 async def get_recipe_summary(
-    skip=0,
-    end=9999,
+    start=0,
+    limit=9999,
     session: Session = Depends(generate_session),
 ):
-    """ Returns the summary data for recipes in the database """
+    """
+    Returns key the recipe summary data for recipes in the database. You can perform
+    slice operations to set the skip/end amounts for recipes. All recipes are sorted by the added date.
 
-    return db.recipes.get_all(session, limit=end, override_schema=RecipeSummary)
+    **Query Parameters**
+    - skip: The database entry to start at. (0 Indexed)
+    - end: The number of entries to return.
+
+    skip=2, end=10 will return entries
+
+    """
+
+    return db.recipes.get_all(session, limit=limit, start=start, override_schema=RecipeSummary)
 
 
-@router.get("/api/recipes")
+@router.get("/api/recipes", deprecated=True)
 def get_all_recipes(
     keys: Optional[List[str]] = Query(...),
     num: Optional[int] = 100,
@@ -54,7 +64,7 @@ def get_all_recipes(
     return db.recipes.get_all_limit_columns(session, keys, limit=num)
 
 
-@router.post("/api/recipes")
+@router.post("/api/recipes", deprecated=True)
 def get_all_recipes_post(body: AllRecipeRequest, session: Session = Depends(generate_session)):
     """
     Returns key data for all recipes based off the body data provided.

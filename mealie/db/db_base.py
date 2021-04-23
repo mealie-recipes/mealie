@@ -16,10 +16,12 @@ class BaseDocument:
         self.schema: BaseModel
 
     # TODO: Improve Get All Query Functionality
-    def get_all(self, session: Session, limit: int = None, order_by: str = None, override_schema=None) -> List[dict]:
+    def get_all(
+        self, session: Session, limit: int = None, order_by: str = None, start=0, end=9999, override_schema=None
+    ) -> List[dict]:
         eff_schema = override_schema or self.schema
 
-        return [eff_schema.from_orm(x) for x in session.query(self.sql_model).limit(limit).all()]
+        return [eff_schema.from_orm(x) for x in session.query(self.sql_model).offset(start).limit(limit).all()]
 
     def get_all_limit_columns(self, session: Session, fields: List[str], limit: int = None) -> List[SqlAlchemyBase]:
         """Queries the database for the selected model. Restricts return responses to the

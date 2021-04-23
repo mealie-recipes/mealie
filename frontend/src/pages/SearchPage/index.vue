@@ -26,7 +26,9 @@
 
       <v-row dense class="mt-0 flex-row align-center justify-space-around">
         <v-col>
-          <h3 class="pl-2 text-center headline">{{$t('search.category-filter')}}</h3>
+          <h3 class="pl-2 text-center headline">
+            {{ $t("search.category-filter") }}
+          </h3>
           <FilterSelector class="mb-1" @update="updateCatParams" />
           <CategoryTagSelector
             :solo="true"
@@ -36,7 +38,9 @@
           />
         </v-col>
         <v-col>
-          <h3 class="pl-2 text-center headline">{{$t('search.tag-filter')}}</h3>
+          <h3 class="pl-2 text-center headline">
+            {{ $t("search.tag-filter") }}
+          </h3>
           <FilterSelector class="mb-1" @update="updateTagParams" />
 
           <CategoryTagSelector
@@ -112,6 +116,9 @@ export default {
         keys: ["name", "description"],
       },
     };
+  },
+  mounted() {
+    this.$store.dispatch("requestAllRecipes");
   },
   computed: {
     allRecipes() {

@@ -5,7 +5,7 @@
       v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
       :recipes="recentRecipes"
-      :card-limit="siteSettings.cardsPerSection"
+      :hard-limit="siteSettings.cardsPerSection"
     />
     <CardSection
       :sortable="true"
@@ -13,7 +13,7 @@
       :key="section.name + section.position"
       :title="section.name"
       :recipes="section.recipes"
-      :card-limit="siteSettings.cardsPerSection"
+      :hard-limit="siteSettings.cardsPerSection"
       @sort="sortAZ(index)"
       @sort-recent="sortRecent(index)"
     />

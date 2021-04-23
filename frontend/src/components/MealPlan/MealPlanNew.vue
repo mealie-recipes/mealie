@@ -116,6 +116,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("requestCurrentGroup");
+    await this.$store.dispatch("requestAllRecipes");
     await this.buildMealStore();
   },
 
@@ -151,6 +152,9 @@ export default {
       const recipes = this.items.filter(x => !this.usedRecipes.includes(x));
       return recipes.length > 0 ? recipes : this.items;
     },
+    allRecipes() {
+      return this.$store.getters.getRecentRecipes;
+    },
   },
 
   methods: {
@@ -159,15 +163,7 @@ export default {
       this.items = await api.recipes.getAllByCategory(categories);
 
       if (this.items.length === 0) {
-        const keys = [
-          "name",
-          "slug",
-          "image",
-          "description",
-          "dateAdded",
-          "rating",
-        ];
-        this.items = await api.recipes.allByKeys(keys);
+        this.items = this.allRecipes;
       }
     },
     getRandom(list) {

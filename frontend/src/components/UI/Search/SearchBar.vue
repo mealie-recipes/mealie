@@ -89,7 +89,6 @@ export default {
       searchSlug: "",
       search: "",
       menuModel: false,
-      data: [],
       result: [],
       fuseResults: [],
       isDark: false,
@@ -107,9 +106,12 @@ export default {
   },
   mounted() {
     this.isDark = this.$store.getters.getIsDark;
-    this.data = this.$store.getters.getRecentRecipes;
+    this.$store.dispatch("requestAllRecipes");
   },
   computed: {
+    data() {
+      return this.$store.getters.getRecentRecipes;
+    },
     autoResults() {
       return this.fuseResults.length > 1 ? this.fuseResults : this.results;
     },

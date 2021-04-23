@@ -2,7 +2,6 @@ import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store";
 import { router } from "../main";
-import qs from "qs";
 
 const prefix = baseURL + "recipes/";
 
@@ -78,22 +77,10 @@ export const recipeAPI = {
     router.push(`/`);
   },
 
-  async allByKeys(recipeKeys, num = 9999) {
-    const response = await apiReq.get(recipeURLs.allRecipes, {
-      params: {
-        keys: recipeKeys,
-        num: num,
-      },
-      paramsSerializer: params => {
-        return qs.stringify(params, { arrayFormat: "repeat" });
-      },
+  async allSummary(start = 0, limit = 9999) {
+    const response = await apiReq.get(recipeURLs.summary, {
+      params: { start: start, limit: limit },
     });
-
-    return response.data;
-  },
-
-  async allSummary() {
-    const response = await apiReq.get(recipeURLs.summary);
     return response.data;
   },
 

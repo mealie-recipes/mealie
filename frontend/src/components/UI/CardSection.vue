@@ -78,6 +78,16 @@
         </v-col>
       </v-row>
     </div>
+    <div v-intersect="bumpList" class="d-flex">
+      <v-progress-circular
+        v-if="loading"
+        class="mx-auto mt-1"
+        :size="50"
+        :width="7"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div>
   </div>
 </template>
 
@@ -96,10 +106,16 @@ export default {
     title: {
       default: null,
     },
-    recipes: Array,
-    cardLimit: {
-      default: 999,
+    hardLimit: {
+      default: 99999,
     },
+    recipes: Array,
+  },
+  data() {
+    return {
+      cardLimit: 30,
+      loading: false,
+    };
   },
   computed: {
     viewScale() {
@@ -111,6 +127,22 @@ export default {
         default:
           return false;
       }
+    },
+  },
+  methods: {
+    bumpList() {
+      const newCardLimit = Math.min(this.cardLimit + 20, this.hardLimit);
+
+      if (this.loading === false && newCardLimit > this.cardLimit) {
+        this.setLoader();
+      }
+
+      this.cardLimit = newCardLimit;
+    },
+    async setLoader() {
+      this.loading = true;
+      await new Promise(r => setTimeout(r, 3000));
+      this.loading = false;
     },
   },
 };

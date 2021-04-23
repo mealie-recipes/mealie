@@ -223,8 +223,7 @@ export default {
       this.settings.categories.splice(index, 1);
     },
     async saveSettings() {
-      const newSettings = await api.siteSettings.update(this.settings);
-      console.log("New Settings", newSettings);
+      await api.siteSettings.update(this.settings);
       this.getOptions();
     },
   },

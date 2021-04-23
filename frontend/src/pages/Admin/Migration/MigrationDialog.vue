@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import DataTable from "@/components/ImportSummaryDialog";
+import DataTable from "@/components/ImportSummaryDialog/DataTable";
 export default {
   components: {
     DataTable,

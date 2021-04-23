@@ -24,6 +24,9 @@ export const routes = [
 const router = new VueRouter({
   routes,
   mode: process.env.NODE_ENV === "production" ? "history" : "hash",
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
 });
 
 const DEFAULT_TITLE = "Mealie";
