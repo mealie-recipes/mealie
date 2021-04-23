@@ -9,6 +9,7 @@ import VueRouter from "vue-router";
 import VueI18n from "@/i18n";
 import Vuetify from "@/plugins/vuetify";
 import Vue from "vue";
+import i18n from '@/i18n.js';
 
 export const routes = [
   ...generalRoutes,
@@ -34,8 +35,8 @@ router.afterEach(to => {
       const title = await to.meta.title(to);
       document.title = title + TITLE_SUFFIX;
     } else {
-      document.title = to.meta.title
-        ? to.meta.title + TITLE_SUFFIX
+      document.title = i18n.t(to.meta.title)
+        ? i18n.t(to.meta.title) + TITLE_SUFFIX
         : DEFAULT_TITLE;
     }
   });

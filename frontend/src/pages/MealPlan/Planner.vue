@@ -112,10 +112,6 @@ export default {
     generateKey(name, index) {
       return utils.generateUniqueKey(name, index);
     },
-    formatDate(timestamp) {
-      let dateObject = new Date(timestamp);
-      return utils.getDateAsTextAlt(dateObject);
-    },
     getImage(image) {
       return api.recipes.recipeTinyImage(image);
     },

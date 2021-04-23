@@ -23,7 +23,7 @@ export default {
       default: true,
     },
     url: String,
-    text: { default: "Upload" },
+    text: String,
     icon: { default: "mdi-cloud-upload" },
     fileName: { default: "archive" },
     textBtn: {

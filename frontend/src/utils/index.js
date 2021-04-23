@@ -9,45 +9,6 @@ const notifyHelpers = {
   info: "notify-info-color",
 };
 
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const monthsShort = [
-  "Jan",
-  "Feb",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "Aug",
-  "Sept",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
 export default {
   getImageURL(image) {
     return `/api/recipes/${image}/image?image_type=small`;
@@ -55,22 +16,6 @@ export default {
   generateUniqueKey(item, index) {
     const uniqueKey = `${item}-${index}`;
     return uniqueKey;
-  },
-  getDateAsText(dateObject) {
-    const dow = days[dateObject.getUTCDay()];
-    const month = months[dateObject.getUTCMonth()];
-    const day = dateObject.getUTCDate();
-    // const year = dateObject.getFullYear();
-
-    return `${dow}, ${month} ${day}`;
-  },
-  getDateAsTextAlt(dateObject) {
-    const dow = days[dateObject.getUTCDay()];
-    const month = monthsShort[dateObject.getUTCMonth()];
-    const day = dateObject.getUTCDate();
-    // const year = dateObject.getFullYear();
-
-    return `${dow}, ${month} ${day}`;
   },
   getDateAsPythonDate(dateObject) {
     const month = dateObject.getUTCMonth() + 1;

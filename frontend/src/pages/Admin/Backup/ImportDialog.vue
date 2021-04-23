@@ -19,7 +19,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-title> {{ name }} </v-card-title>
-        <v-card-subtitle class="mb-n3"> {{ date }} </v-card-subtitle>
+        <v-card-subtitle class="mb-n3"> {{ $d(new Date(date), "medium") }} </v-card-subtitle>
         <v-divider></v-divider>
 
         <v-card-text>
@@ -29,7 +29,7 @@
 
           <v-checkbox
             dense
-            label="Remove existing entries matching imported entries"
+            :label="$t('settings.remove-existing-entries-matching-imported-entries')"
             v-model="forceImport"
           ></v-checkbox>
         </v-card-text>
