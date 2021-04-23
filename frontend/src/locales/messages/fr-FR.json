@@ -57,7 +57,7 @@
     "friday": "Vendredi",
     "saturday": "Samedi",
     "about": "À propos",
-    "get": "Get",
+    "get": "Envoyer",
     "url": "URL"
   },
   "page": {
@@ -125,8 +125,8 @@
     "start-date": "Date de début",
     "end-date": "Date de fin",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans le planificateur de repas",
-    "quick-week": "Quick Week",
-    "group": "Group (Beta)"
+    "quick-week": "Semaine rapide",
+    "group": "Regrouper (Bêta)"
   },
   "recipe": {
     "description": "Description",
@@ -155,17 +155,17 @@
     "no-white-space-allowed": "Aucun espace blanc autorisé",
     "delete-recipe": "Supprimer la recette",
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
-    "nutrition": "Nutrition",
+    "nutrition": "Valeurs nutritionnelles",
     "calories": "Calories",
     "calories-suffix": "calories",
-    "fat-content": "Fat Content",
-    "fiber-content": "Fiber Content",
-    "protein-content": "Protein Content",
-    "sodium-content": "Sodium Content",
-    "sugar-content": "Sugar Content",
-    "grams": "grams",
-    "milligrams": "milligrams",
-    "recipe-image": "Recipe Image",
+    "fat-content": "Lipides",
+    "fiber-content": "Fibres",
+    "protein-content": "Protéines",
+    "sodium-content": "Sels",
+    "sugar-content": "Glucides",
+    "grams": "grammes",
+    "milligrams": "milligrammes",
+    "recipe-image": "Image de la recette",
     "image": "Image"
   },
   "search": {
@@ -255,7 +255,7 @@
     "new-page": "Nouvelle page",
     "edit-page": "Modifier la page",
     "page-name": "Nom de la page",
-    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
+    "remove-existing-entries-matching-imported-entries": "Supprimer les entrées existantes correspondant aux entrées importées"
   },
   "migration": {
     "recipe-migration": "Migrer les recettes",
