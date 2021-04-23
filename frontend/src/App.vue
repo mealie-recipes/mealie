@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app> 
+    <!-- Dummpy Comment -->
     <TheAppBar />
     <v-main>
       <v-banner v-if="demo" sticky
