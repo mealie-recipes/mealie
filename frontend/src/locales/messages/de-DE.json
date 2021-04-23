@@ -57,7 +57,7 @@
     "friday": "Freitag",
     "saturday": "Samstag",
     "about": "Über",
-    "get": "Get",
+    "get": "Holen",
     "url": "URL"
   },
   "page": {
@@ -155,18 +155,18 @@
     "no-white-space-allowed": "Kein Leerzeichen erlaubt",
     "delete-recipe": "Rezept löschen",
     "delete-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?",
-    "nutrition": "Nutrition",
-    "calories": "Calories",
-    "calories-suffix": "calories",
-    "fat-content": "Fat Content",
-    "fiber-content": "Fiber Content",
-    "protein-content": "Protein Content",
-    "sodium-content": "Sodium Content",
-    "sugar-content": "Sugar Content",
-    "grams": "grams",
-    "milligrams": "milligrams",
-    "recipe-image": "Recipe Image",
-    "image": "Image"
+    "nutrition": "Nährwerte",
+    "calories": "Kalorien",
+    "calories-suffix": "Kalorien",
+    "fat-content": "Fettgehalt",
+    "fiber-content": "Ballaststoffe",
+    "protein-content": "Eiweißgehalt",
+    "sodium-content": "Natriumgehalt",
+    "sugar-content": "Zuckergehalt",
+    "grams": "g",
+    "milligrams": "mg",
+    "recipe-image": "Rezeptbild",
+    "image": "Bild"
   },
   "search": {
     "search-mealie": "Mealie durchsuchen",
@@ -249,13 +249,13 @@
     "manage-users": "Benutzer verwalten",
     "migrations": "Migrationen",
     "profile": "Profil",
-    "locale-settings": "Locale settings",
-    "first-day-of-week": "First day of the week",
+    "locale-settings": "Spracheinstellungen",
+    "first-day-of-week": "Woche beginnt am",
     "custom-pages": "Benutzerdefinierte Seiten",
     "new-page": "Neue Seite",
     "edit-page": "Seite bearbeiten",
     "page-name": "Seitenname",
-    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
+    "remove-existing-entries-matching-imported-entries": "Entferne vorhandene Einträge passend zu importierten Einträgen"
   },
   "migration": {
     "recipe-migration": "Rezepte übertragen",
