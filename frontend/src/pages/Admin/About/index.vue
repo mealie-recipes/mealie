@@ -2,7 +2,7 @@
   <div>
     <v-card class="mt-3">
       <v-card-title class="headline">
-        About Mealie
+        {{$t('about.about-mealie')}}
       </v-card-title>
       <v-divider></v-divider>
       <v-card-text>
@@ -55,42 +55,42 @@ export default {
 
       this.prettyInfo = [
         {
-          name: "Version",
+          name: this.$t('about.version'),
           icon: "mdi-information",
           value: debugInfo.version,
         },
         {
-          name: "Application Mode",
+          name: this.$t('about.application-mode'),
           icon: "mdi-dev-to",
-          value: debugInfo.production ? "Production" : "Development",
+          value: debugInfo.production ? this.$t('about.production') : this.$t('about.development'),
         },
         {
-          name: "Demo Status",
+          name: this.$t('about.demo-status'),
           icon: "mdi-test-tube",
-          value: debugInfo.demoStatus ? "Demo" : "Not Demo",
+          value: debugInfo.demoStatus ? this.$t('about.demo') : this.$t('about.not-demo'),
         },
         {
-          name: "API Port",
+          name: this.$t('about.api-port'),
           icon: "mdi-api",
           value: debugInfo.apiPort,
         },
         {
-          name: "API Docs",
+          name: this.$t('about.api-docs'),
           icon: "mdi-file-document",
-          value: debugInfo.apiDocs ? "Enabled" : "Disabled",
+          value: debugInfo.apiDocs ? this.$t('general.enabled') : this.$t('general.disabled'),
         },
         {
-          name: "Database Type",
+          name: this.$t('about.database-type'),
           icon: "mdi-database",
           value: debugInfo.dbType,
         },
         {
-          name: "SQLite File",
+          name: this.$t('about.sqlite-file'),
           icon: "mdi-file-cabinet",
           value: debugInfo.sqliteFile,
         },
         {
-          name: "Default Group",
+          name: this.$t('about.default-group'),
           icon: "mdi-account-group",
           value: debugInfo.defaultGroup,
         },

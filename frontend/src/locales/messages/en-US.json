@@ -58,7 +58,8 @@
     "saturday": "Saturday",
     "about": "About",
     "get": "Get",
-    "url": "URL"
+    "url": "URL",
+    "disabled": "Disabled"
   },
   "page": {
     "home-page": "Home Page",
@@ -271,5 +272,20 @@
       "title": "Chowdown",
       "description": "Migrate data from Chowdown"
     }
+  },
+  "about": {
+    "about-mealie": "About Mealie",
+    "version": "Version",
+    "application-mode": "Application Mode",
+    "production": "Production",
+    "development": "Development",
+    "demo-status": "Demo Status",
+    "demo": "Demo",
+    "not-demo": "Not Demo",
+    "api-port": "API Port",
+    "api-docs": "API Docs",
+    "database-type": "Database Type",
+    "sqlite-file": "SQLite File",
+    "default-group": "Default Group"
   }
 }
