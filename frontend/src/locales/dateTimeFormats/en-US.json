@@ -4,7 +4,7 @@
     "day": "numeric",
     "weekday": "long"
   },
-  "medium": { 
+  "medium": {
     "month": "long",
     "day": "numeric",
     "weekday": "long",
