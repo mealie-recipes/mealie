@@ -37,16 +37,13 @@ export default {
   props: {
     ingredients: Array,
   },
-  data() {
-    return {
-      displayIngredients: [],
-    };
-  },
-  mounted() {
-    this.displayIngredients = this.ingredients.map(x => ({
-      text: x,
-      checked: false,
-    }));
+  computed: {
+    displayIngredients() {
+      return this.ingredients.map(x => ({
+        text: x,
+        checked: false,
+      }));
+    },
   },
   methods: {
     generateKey(item, index) {
