@@ -56,7 +56,9 @@
     "thursday": "Thursday",
     "friday": "Friday",
     "saturday": "Saturday",
-    "about": "About"
+    "about": "About",
+    "get": "Get",
+    "url": "URL"
   },
   "page": {
     "home-page": "Home Page",
@@ -122,7 +124,9 @@
     "create-a-new-meal-plan": "創建一個新的用餐計劃",
     "start-date": "開始日期",
     "end-date": "結束日期",
-    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans"
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans",
+    "quick-week": "Quick Week",
+    "group": "Group (Beta)"
   },
   "recipe": {
     "description": "描述",
@@ -150,7 +154,19 @@
     "key-name-required": "Key Name Required",
     "no-white-space-allowed": "No White Space Allowed",
     "delete-recipe": "刪除食譜",
-    "delete-confirmation": "您確定要刪除此食譜嗎？"
+    "delete-confirmation": "您確定要刪除此食譜嗎？",
+    "nutrition": "Nutrition",
+    "calories": "Calories",
+    "calories-suffix": "calories",
+    "fat-content": "Fat Content",
+    "fiber-content": "Fiber Content",
+    "protein-content": "Protein Content",
+    "sodium-content": "Sodium Content",
+    "sugar-content": "Sugar Content",
+    "grams": "grams",
+    "milligrams": "milligrams",
+    "recipe-image": "Recipe Image",
+    "image": "Image"
   },
   "search": {
     "search-mealie": "搜索Mealie",
@@ -238,7 +254,8 @@
     "custom-pages": "Custom Pages",
     "new-page": "New Page",
     "edit-page": "Edit Page",
-    "page-name": "Page Name"
+    "page-name": "Page Name",
+    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
   },
   "migration": {
     "recipe-migration": "食譜遷移",

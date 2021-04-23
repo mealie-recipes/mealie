@@ -56,7 +56,9 @@
     "thursday": "Jeudi",
     "friday": "Vendredi",
     "saturday": "Samedi",
-    "about": "À propos"
+    "about": "À propos",
+    "get": "Get",
+    "url": "URL"
   },
   "page": {
     "home-page": "Accueil",
@@ -122,7 +124,9 @@
     "create-a-new-meal-plan": "Créer un nouveau plan de menu",
     "start-date": "Date de début",
     "end-date": "Date de fin",
-    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans le planificateur de repas"
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans le planificateur de repas",
+    "quick-week": "Quick Week",
+    "group": "Group (Beta)"
   },
   "recipe": {
     "description": "Description",
@@ -150,7 +154,19 @@
     "key-name-required": "Un nom de clé est requis",
     "no-white-space-allowed": "Aucun espace blanc autorisé",
     "delete-recipe": "Supprimer la recette",
-    "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?"
+    "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
+    "nutrition": "Nutrition",
+    "calories": "Calories",
+    "calories-suffix": "calories",
+    "fat-content": "Fat Content",
+    "fiber-content": "Fiber Content",
+    "protein-content": "Protein Content",
+    "sodium-content": "Sodium Content",
+    "sugar-content": "Sugar Content",
+    "grams": "grams",
+    "milligrams": "milligrams",
+    "recipe-image": "Recipe Image",
+    "image": "Image"
   },
   "search": {
     "search-mealie": "Rechercher dans Mealie",
@@ -238,7 +254,8 @@
     "custom-pages": "Pages personnalisées",
     "new-page": "Nouvelle page",
     "edit-page": "Modifier la page",
-    "page-name": "Nom de la page"
+    "page-name": "Nom de la page",
+    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
   },
   "migration": {
     "recipe-migration": "Migrer les recettes",
