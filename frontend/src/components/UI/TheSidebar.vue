@@ -156,7 +156,7 @@ export default {
       const testVal = this.$route.path.split("/");
       if (testVal[1] === "recipe") this.closeSidebar();
       else this.resetView();
-      
+
       return !(testVal[1] === "admin");
     },
     customPages() {
@@ -191,6 +191,7 @@ export default {
       return this.isMain ? this.mainMenu : this.adminMenu;
     },
     userProfileImage() {
+      this.resetImage();
       return `api/users/${this.user.id}/image`;
     },
     newVersionAvailable() {
@@ -206,6 +207,9 @@ export default {
   },
 
   methods: {
+    resetImage() {
+      this.hideImage == false;
+    },
     resetView() {
       this.mobile = this.viewScale();
       this.showSidebar = !this.viewScale();
