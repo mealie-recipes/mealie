@@ -56,7 +56,7 @@
     </v-dialog>
     <v-speed-dial
       v-model="fab"
-      open-on-hover
+      :open-on-hover="absolute"
       :fixed="absolute"
       :bottom="absolute"
       :right="absolute"
