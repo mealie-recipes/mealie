@@ -57,7 +57,7 @@
     "friday": "Vendredi",
     "saturday": "Samedi",
     "about": "À propos",
-    "get": "Get",
+    "get": "Envoyer",
     "url": "URL"
   },
   "page": {
@@ -86,7 +86,7 @@
     "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
     "confirm-group-deletion": "Confirmer la suppression du groupe",
     "total-users": "Nombre d'utilisateurs",
-    "total-mealplans": "Nombre de repas planifiés",
+    "total-mealplans": "Nombre de menus",
     "webhooks-enabled": "Webhooks activés",
     "webhook-time": "Heure du Webhook",
     "create-group": "Créer un groupe",
@@ -115,24 +115,24 @@
   },
   "meal-plan": {
     "shopping-list": "Liste d'achats",
-    "dinner-this-week": "Repas cette semaine",
-    "meal-planner": "Planificateur de repas",
-    "dinner-today": "Repas aujourd'hui",
+    "dinner-this-week": "Au menu cette semaine",
+    "meal-planner": "Menus",
+    "dinner-today": "Menu du jour",
     "planner": "Planificateur",
-    "edit-meal-plan": "Modifier le plan de menu",
-    "meal-plans": "Plans de menu",
-    "create-a-new-meal-plan": "Créer un nouveau plan de menu",
+    "edit-meal-plan": "Modifier le menu",
+    "meal-plans": "Menus",
+    "create-a-new-meal-plan": "Créer un nouveau menu",
     "start-date": "Date de début",
     "end-date": "Date de fin",
-    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans le planificateur de repas",
-    "quick-week": "Quick Week",
-    "group": "Group (Beta)"
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans les menus",
+    "quick-week": "Semaine rapide",
+    "group": "Regrouper (Bêta)"
   },
   "recipe": {
     "description": "Description",
     "ingredients": "Ingrédients",
     "categories": "Catégories",
-    "tags": "Tags",
+    "tags": "Mots-clés",
     "instructions": "Instructions",
     "step-index": "Étape : {step}",
     "recipe-name": "Nom de la recette",
@@ -155,17 +155,17 @@
     "no-white-space-allowed": "Aucun espace blanc autorisé",
     "delete-recipe": "Supprimer la recette",
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
-    "nutrition": "Nutrition",
+    "nutrition": "Valeurs nutritionnelles",
     "calories": "Calories",
     "calories-suffix": "calories",
-    "fat-content": "Fat Content",
-    "fiber-content": "Fiber Content",
-    "protein-content": "Protein Content",
-    "sodium-content": "Sodium Content",
-    "sugar-content": "Sugar Content",
-    "grams": "grams",
-    "milligrams": "milligrams",
-    "recipe-image": "Recipe Image",
+    "fat-content": "Lipides",
+    "fiber-content": "Fibres",
+    "protein-content": "Protéines",
+    "sodium-content": "Sels",
+    "sugar-content": "Glucides",
+    "grams": "grammes",
+    "milligrams": "milligrammes",
+    "recipe-image": "Image de la recette",
     "image": "Image"
   },
   "search": {
@@ -173,7 +173,7 @@
     "search-placeholder": "Rechercher...",
     "max-results": "Résultats max",
     "category-filter": "Filtre par catégories",
-    "tag-filter": "Filtre par tags",
+    "tag-filter": "Filtre par mots-clés",
     "include": "Inclure",
     "exclude": "Exclure",
     "and": "Et",
@@ -219,8 +219,8 @@
       "theme-name-is-required": "Un nom de thème est requis."
     },
     "webhooks": {
-      "meal-planner-webhooks": "Webhooks du planificateur de repas",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les liens dans cette liste recevront les webhooks contenant les recettes pour le plan de menu du jour défini. Actuellement, les webhooks s'exécuteront à",
+      "meal-planner-webhooks": "Webhooks des menus",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les liens dans cette liste recevront les webhooks contenant les recettes pour le menu du jour. Actuellement, les webhooks se lancent à",
       "test-webhooks": "Tester les webhooks",
       "webhook-url": "Lien du webhook"
     },
@@ -255,7 +255,7 @@
     "new-page": "Nouvelle page",
     "edit-page": "Modifier la page",
     "page-name": "Nom de la page",
-    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
+    "remove-existing-entries-matching-imported-entries": "Supprimer les entrées existantes correspondant aux entrées importées"
   },
   "migration": {
     "recipe-migration": "Migrer les recettes",

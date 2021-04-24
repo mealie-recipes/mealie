@@ -167,11 +167,7 @@ export default {
       }
     },
     getRandom(list) {
-      let recipe = 1;
-      while (this.usedRecipes.includes(recipe)) {
-        recipe = list[Math.floor(Math.random() * list.length)];
-      }
-      return recipe;
+      return list[Math.floor(Math.random() * list.length)];
     },
     random() {
       this.usedRecipes = [1];
