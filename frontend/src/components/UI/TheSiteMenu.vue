@@ -11,7 +11,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn v-bind="attrs" v-on="on" icon>
-          <v-icon>mdi-menu</v-icon>
+          <v-icon>mdi-account</v-icon>
         </v-btn>
       </template>
 

@@ -3,7 +3,7 @@
     <v-navigation-drawer
       :value="mobile ? showSidebar : true"
       v-model="showSidebar"
-      width="175px"
+      width="180px"
       clipped
       app
     >
@@ -78,6 +78,7 @@
 <script>
 import { initials } from "@/mixins/initials";
 import { user } from "@/mixins/user";
+import axios from "axios";
 export default {
   mixins: [initials, user],
   data() {
@@ -146,14 +147,16 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$router);
-    this.mobile = this.viewScale();
-    this.showSidebar = !this.viewScale();
+    this.getVersion();
+    this.resetView();
   },
 
   computed: {
     isMain() {
       const testVal = this.$route.path.split("/");
+      if (testVal[1] === "recipe") this.closeSidebar();
+      else this.resetView();
+      
       return !(testVal[1] === "admin");
     },
     customPages() {
@@ -203,7 +206,14 @@ export default {
   },
 
   methods: {
+    resetView() {
+      this.mobile = this.viewScale();
+      this.showSidebar = !this.viewScale();
+    },
     forceOpen() {
+      this.showSidebar = !this.showSidebar;
+    },
+    closeSidebar() {
       this.showSidebar = !this.showSidebar;
     },
     viewScale() {
@@ -215,6 +225,19 @@ export default {
         default:
           return false;
       }
+    },
+    async getVersion() {
+      let response = await axios.get(
+        "https://api.github.com/repos/hay-kot/mealie/releases/latest",
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: null,
+          },
+        }
+      );
+
+      this.latestVersion = response.data.tag_name;
     },
   },
 };
