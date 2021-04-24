@@ -57,7 +57,7 @@
     "friday": "Vrijdag",
     "saturday": "Zaterdag",
     "about": "Over",
-    "get": "Get",
+    "get": "Haal op",
     "url": "URL"
   },
   "page": {
@@ -125,8 +125,8 @@
     "start-date": "Begindatum",
     "end-date": "Einddatum",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
-    "quick-week": "Quick Week",
-    "group": "Group (Beta)"
+    "quick-week": "Snelle Week",
+    "group": "Groep (Beta)"
   },
   "recipe": {
     "description": "Omschrijving",
@@ -156,17 +156,17 @@
     "delete-recipe": "Recept verwijderen",
     "delete-confirmation": "Weet u zeker dat u dit recept wilt verwijderen?",
     "nutrition": "Nutrition",
-    "calories": "Calories",
-    "calories-suffix": "calories",
-    "fat-content": "Fat Content",
-    "fiber-content": "Fiber Content",
-    "protein-content": "Protein Content",
-    "sodium-content": "Sodium Content",
-    "sugar-content": "Sugar Content",
-    "grams": "grams",
-    "milligrams": "milligrams",
-    "recipe-image": "Recipe Image",
-    "image": "Image"
+    "calories": "Calorieën",
+    "calories-suffix": "calorieën",
+    "fat-content": "Vetten",
+    "fiber-content": "Vezels",
+    "protein-content": "Eiwitten",
+    "sodium-content": "Sodium gehalte",
+    "sugar-content": "Suiker gehalte",
+    "grams": "gram",
+    "milligrams": "milligram",
+    "recipe-image": "Recept afbeelding",
+    "image": "Afbeelding"
   },
   "search": {
     "search-mealie": "Mealie Zoeken",
@@ -255,7 +255,7 @@
     "new-page": "Nieuwe pagina",
     "edit-page": "Pagina Bewerken",
     "page-name": "Pagina naam",
-    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries"
+    "remove-existing-entries-matching-imported-entries": "Verwijder bestaande items die overeenkomen met geïmporteerde items"
   },
   "migration": {
     "recipe-migration": "Recept Migratie",
