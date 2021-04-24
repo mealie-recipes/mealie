@@ -227,7 +227,7 @@ export default {
         "sat",
       ].indexOf(dayName.slice(0, 3).toLowerCase());
       if (dayOfWeek < 0) return;
-      refDate.setHours(0, 0, 0, 0);
+      refDate.setUTCHours(0, 0, 0, 0);
       refDate.setDate(
         refDate.getDate() +
           +!!excludeToday +
