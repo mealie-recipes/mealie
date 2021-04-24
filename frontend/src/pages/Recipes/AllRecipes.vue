@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <CategorySidebar />
     <CardSection
       :sortable="true"
       :title="$t('page.all-recipes')"
@@ -13,11 +12,10 @@
 
 <script>
 import CardSection from "@/components/UI/CardSection";
-import CategorySidebar from "@/components/UI/CategorySidebar";
+
 export default {
   components: {
     CardSection,
-    CategorySidebar,
   },
   data() {
     return {};

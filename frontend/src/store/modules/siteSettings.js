@@ -10,6 +10,7 @@ const state = {
     cardsPerSection: 9,
     categories: [],
   },
+  customPages: [],
 };
 
 const mutations = {
@@ -18,6 +19,9 @@ const mutations = {
     VueI18n.locale = payload.language;
     Vuetify.framework.lang.current = payload.language;
   },
+  setCustomPages(state, payload) {
+    state.customPages = payload;
+  },
 };
 
 const actions = {
@@ -25,11 +29,16 @@ const actions = {
     let settings = await api.siteSettings.get();
     commit("setSettings", settings);
   },
+  async requestCustomPages({commit }) {
+    const customPages = await api.siteSettings.getPages()
+    commit("setCustomPages", customPages)
+  }
 };
 
 const getters = {
   getActiveLang: state => state.siteSettings.language,
   getSiteSettings: state => state.siteSettings,
+  getCustomPages: state => state.customPages,
 };
 
 export default {

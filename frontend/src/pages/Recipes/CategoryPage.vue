@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <CategorySidebar />
     <CardSection
       :sortable="true"
       :title="title"
@@ -15,11 +14,9 @@
 <script>
 import { api } from "@/api";
 import CardSection from "@/components/UI/CardSection";
-import CategorySidebar from "@/components/UI/CategorySidebar";
 export default {
   components: {
     CardSection,
-    CategorySidebar,
   },
   data() {
     return {

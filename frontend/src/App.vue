@@ -1,5 +1,5 @@
 <template>
-  <v-app> 
+  <v-app>
     <!-- Dummpy Comment -->
     <TheAppBar />
     <v-main>
@@ -8,10 +8,6 @@
           <b> This is a Demo</b> | Username: changeme@email.com | Password: demo
         </div></v-banner
       >
-
-      <v-slide-x-reverse-transition>
-        <TheRecipeFab v-if="loggedIn" />
-      </v-slide-x-reverse-transition>
       <router-view></router-view>
     </v-main>
     <FlashMessage :position="'right bottom'"></FlashMessage>
@@ -20,7 +16,6 @@
 
 <script>
 import TheAppBar from "@/components/UI/TheAppBar";
-import TheRecipeFab from "@/components/UI/TheRecipeFab";
 import Vuetify from "./plugins/vuetify";
 import { user } from "@/mixins/user";
 
@@ -29,7 +24,6 @@ export default {
 
   components: {
     TheAppBar,
-    TheRecipeFab,
   },
 
   mixins: [user],
@@ -59,6 +53,7 @@ export default {
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
     this.$store.dispatch("requestAppInfo");
+    this.$store.dispatch("requestCustomPages");
   },
 
   methods: {

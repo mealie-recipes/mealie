@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <CategorySidebar />
+    
     <CardSection
       v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
@@ -23,11 +23,10 @@
 <script>
 import { api } from "@/api";
 import CardSection from "../components/UI/CardSection";
-import CategorySidebar from "../components/UI/CategorySidebar";
+
 export default {
   components: {
     CardSection,
-    CategorySidebar,
   },
   data() {
     return {
