@@ -43,12 +43,6 @@ export default {
   },
   mounted() {
     this.checked = this.ingredients.map(() => false);
-    console.log(this.checked);
-  },
-  watch: {
-    ingredients(val) {
-      console.log(val);
-    },
   },
   methods: {
     generateKey(item, index) {
