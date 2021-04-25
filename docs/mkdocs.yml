@@ -77,6 +77,7 @@ nav:
           - Guidelines: "contributors/developers-guide/general-guidelines.md"
   - Development Road Map: "roadmap.md"
   - Change Log:
+      - v0.5.0 General Upgrades: "changelog/v0.5.0.md"
       - v0.4.3 Hot Fix: "changelog/v0.4.3.md"
       - v0.4.2 Backend/Migrations: "changelog/v0.4.2.md"
       - v0.4.1 Frontend/UI: "changelog/v0.4.1.md"
