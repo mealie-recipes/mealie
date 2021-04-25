@@ -86,7 +86,26 @@ export default {
       showSidebar: false,
       mobile: false,
       links: [],
-      baseMainLinks: [
+
+      latestVersion: null,
+      hideImage: false,
+    };
+  },
+  mounted() {
+    this.getVersion();
+    this.resetView();
+  },
+
+  computed: {
+    isMain() {
+      const testVal = this.$route.path.split("/");
+      if (testVal[1] === "recipe") this.closeSidebar();
+      else this.resetView();
+
+      return !(testVal[1] === "admin");
+    },
+    baseMainLinks() {
+      return [
         {
           icon: "mdi-home",
           to: "/",
@@ -102,62 +121,7 @@ export default {
           to: "/search",
           title: this.$t("search.search"),
         },
-      ],
-      latestVersion: null,
-      hideImage: false,
-      settingsLinks: [
-        {
-          icon: "mdi-account",
-          to: "/admin/profile",
-          title: this.$t("settings.profile"),
-        },
-        {
-          icon: "mdi-format-color-fill",
-          to: "/admin/themes",
-          title: this.$t("general.themes"),
-        },
-        {
-          icon: "mdi-food",
-          to: "/admin/meal-planner",
-          title: this.$t("meal-plan.meal-planner"),
-        },
-      ],
-      adminLinks: [
-        {
-          icon: "mdi-cog",
-          to: "/admin/settings",
-          title: this.$t("settings.site-settings"),
-        },
-        {
-          icon: "mdi-account-group",
-          to: "/admin/manage-users",
-          title: this.$t("settings.manage-users"),
-        },
-        {
-          icon: "mdi-backup-restore",
-          to: "/admin/backups",
-          title: this.$t("settings.backup-and-exports"),
-        },
-        {
-          icon: "mdi-database-import",
-          to: "/admin/migrations",
-          title: this.$t("settings.migrations"),
-        },
-      ],
-    };
-  },
-  mounted() {
-    this.getVersion();
-    this.resetView();
-  },
-
-  computed: {
-    isMain() {
-      const testVal = this.$route.path.split("/");
-      if (testVal[1] === "recipe") this.closeSidebar();
-      else this.resetView();
-
-      return !(testVal[1] === "admin");
+      ];
     },
     customPages() {
       const pages = this.$store.getters.getCustomPages;
@@ -179,6 +143,49 @@ export default {
     },
     mainMenu() {
       return [...this.baseMainLinks, ...this.customPages];
+    },
+    settingsLink() {
+      return [
+        {
+          icon: "mdi-account",
+          to: "/admin/profile",
+          title: this.$t("settings.profile"),
+        },
+        {
+          icon: "mdi-format-color-fill",
+          to: "/admin/themes",
+          title: this.$t("general.themes"),
+        },
+        {
+          icon: "mdi-food",
+          to: "/admin/meal-planner",
+          title: this.$t("meal-plan.meal-planner"),
+        },
+      ];
+    },
+    adminLinks() {
+      return [
+        {
+          icon: "mdi-cog",
+          to: "/admin/settings",
+          title: this.$t("settings.site-settings"),
+        },
+        {
+          icon: "mdi-account-group",
+          to: "/admin/manage-users",
+          title: this.$t("settings.manage-users"),
+        },
+        {
+          icon: "mdi-backup-restore",
+          to: "/admin/backups",
+          title: this.$t("settings.backup-and-exports"),
+        },
+        {
+          icon: "mdi-database-import",
+          to: "/admin/migrations",
+          title: this.$t("settings.migrations"),
+        },
+      ];
     },
     adminMenu() {
       if (this.user.admin) {
