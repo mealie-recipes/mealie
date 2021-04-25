@@ -88,7 +88,7 @@ export default {
       this.$router.push(`/recipe/${slug}`);
     },
     openSidebar() {
-      this.$refs.theSidebar.forceOpen();
+      this.$refs.theSidebar.toggleSidebar();
     },
   },
 };

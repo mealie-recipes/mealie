@@ -1,12 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer
-      :value="mobile ? showSidebar : true"
-      v-model="showSidebar"
-      width="180px"
-      clipped
-      app
-    >
+    <v-navigation-drawer v-model="showSidebar" width="180px" clipped app>
       <template v-slot:prepend>
         <v-list-item two-line v-if="isLoggedIn">
           <v-list-item-avatar color="accent" class="white--text">
@@ -84,7 +78,6 @@ export default {
   data() {
     return {
       showSidebar: false,
-      mobile: false,
       links: [],
 
       latestVersion: null,
@@ -211,6 +204,9 @@ export default {
     isLoggedIn() {
       return this.$store.getters.getIsLoggedIn;
     },
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
   },
 
   methods: {
@@ -218,24 +214,13 @@ export default {
       this.hideImage == false;
     },
     resetView() {
-      this.mobile = this.viewScale();
-      this.showSidebar = !this.viewScale();
+      this.showSidebar = !this.isMobile;
     },
-    forceOpen() {
+    toggleSidebar() {
       this.showSidebar = !this.showSidebar;
     },
     closeSidebar() {
-      this.showSidebar = !this.showSidebar;
-    },
-    viewScale() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return true;
-        case "sm":
-          return true;
-        default:
-          return false;
-      }
+      this.showSidebar = false;
     },
     async getVersion() {
       let response = await axios.get(
