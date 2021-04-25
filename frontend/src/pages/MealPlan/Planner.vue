@@ -39,7 +39,7 @@
                   color="primary"
                   class="headline font-weight-light white--text"
                 >
-                  <v-img :src="getImage(meal.image)"></v-img>
+                  <v-img :src="getImage(meal.slug)"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title v-text="meal.name"></v-list-item-title>
