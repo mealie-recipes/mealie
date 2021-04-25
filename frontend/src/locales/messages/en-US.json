@@ -13,6 +13,8 @@
     "demo": "Demo",
     "demo-status": "Demo Status",
     "development": "Development",
+    "download-log": "Download Log",
+    "download-recipe-json": "Download Recipe JSON",
     "not-demo": "Not Demo",
     "production": "Production",
     "sqlite-file": "SQLite File",
