@@ -143,10 +143,10 @@ export default {
       return dateDif;
     },
     startComputedDateFormatted() {
-      return this.formatDate(this.startDate);
+      return this.formatDate(this.actualStartDate);
     },
     endComputedDateFormatted() {
-      return this.formatDate(this.endDate);
+      return this.formatDate(this.actualEndDate);
     },
     filteredRecipes() {
       const recipes = this.items.filter(x => !this.usedRecipes.includes(x));
@@ -210,14 +210,7 @@ export default {
     formatDate(date) {
       if (!date) return null;
 
-      const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
-    },
-    parseDate(date) {
-      if (!date) return null;
-
-      const [month, day, year] = date.split("/");
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+      return this.$d(date);
     },
     getNextDayOfTheWeek(dayName, excludeToday = true, refDate = new Date()) {
       const dayOfWeek = [
@@ -230,7 +223,7 @@ export default {
         "sat",
       ].indexOf(dayName.slice(0, 3).toLowerCase());
       if (dayOfWeek < 0) return;
-      refDate.setHours(0, 0, 0, 0);
+      refDate.setUTCHours(0, 0, 0, 0);
       refDate.setDate(
         refDate.getDate() +
           +!!excludeToday +
