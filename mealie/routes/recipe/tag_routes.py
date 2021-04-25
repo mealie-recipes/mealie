@@ -29,6 +29,15 @@ async def create_recipe_tag(
     return db.tags.create(session, tag.dict())
 
 
+@router.put("")
+async def update_recipe_tag(
+    tag: TagIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
+):
+    """ Creates a Tag in the database """
+
+    return "NOT IMPLEMENTED"
+
+
 @router.get("/{tag}", response_model=RecipeTagResponse)
 def get_all_recipes_by_tag(tag: str, session: Session = Depends(generate_session)):
     """ Returns a list of recipes associated with the provided tag. """
