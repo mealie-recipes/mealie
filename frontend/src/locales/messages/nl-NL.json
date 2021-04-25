@@ -145,15 +145,14 @@
     "view-recipe": "Bekijk Recept"
   },
   "search": {
-    "and": "En",
+    "search-mealie": "Search Mealie (press /)",
+    "search-placeholder": "Zoeken...",
+    "max-results": "Max. resultaten",
     "category-filter": "Categorie Filter",
     "exclude": "Exclusief",
     "include": "Inclusief",
-    "max-results": "Max. resultaten",
     "or": "Of",
     "search": "Zoek",
-    "search-mealie": "Mealie Zoeken",
-    "search-placeholder": "Zoeken...",
     "tag-filter": "Label Filter"
   },
   "settings": {
