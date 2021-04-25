@@ -35,14 +35,6 @@ export default {
     },
   },
 
-  async created() {
-    window.addEventListener("keyup", e => {
-      if (e.key == "/" && !document.activeElement.id.startsWith("input")) {
-        this.search = !this.search;
-      }
-    });
-  },
-
   async mounted() {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");

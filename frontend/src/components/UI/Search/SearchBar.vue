@@ -1,29 +1,49 @@
 <template>
-  <v-menu v-model="menuModel" offset-y readonly :width="maxWidth">
+  <v-menu
+    v-model="menuModel"
+    readonly
+    offset-y
+    offset-overflow
+    max-height="75vh"
+  >
     <template #activator="{ attrs }">
       <v-text-field
-        class="mt-6"
+        ref="searchInput"
+        class="my-auto pt-1"
         v-model="search"
         v-bind="attrs"
         :dense="dense"
         light
-        :label="$t('search.search-mealie')"
-        autofocus
+        dark
+        flat
+        :placeholder="$t('search.search-mealie')"
+        background-color="primary lighten-1"
+        color="white"
         :solo="solo"
         :style="`max-width: ${maxWidth};`"
         @focus="onFocus"
+        @blur="isFocused = false"
         autocomplete="off"
+        :autofocus="autofocus"
       >
+        <template #prepend-inner>
+          <v-icon color="grey lighten-3" size="29">
+            mdi-magnify
+          </v-icon>
+        </template>
       </v-text-field>
     </template>
-    <v-card v-if="showResults" max-height="500" :max-width="maxWidth">
-      <v-card-text class="flex row mx-auto">
+    <v-card
+      v-if="showResults"
+      max-height="75vh"
+      :max-width="maxWidth"
+      scrollable
+    >
+      <v-card-text class="flex row mx-auto ">
         <div class="mr-auto">
           Results
         </div>
-        <router-link to="/search">
-          Advanced Search
-        </router-link>
+        <router-link to="/search"> Advanced Search </router-link>
       </v-card-text>
       <v-divider></v-divider>
       <v-list scrollable v-if="autoResults">
@@ -77,21 +97,21 @@ export default {
     navOnClick: {
       default: true,
     },
-    resetSearch: {
-      default: false,
-    },
     solo: {
       default: true,
+    },
+    autofocus: {
+      default: false,
     },
   },
   data() {
     return {
+      isFocused: false,
       searchSlug: "",
       search: "",
       menuModel: false,
       result: [],
       fuseResults: [],
-      isDark: false,
       options: {
         shouldSort: true,
         threshold: 0.6,
@@ -105,8 +125,10 @@ export default {
     };
   },
   mounted() {
-    this.isDark = this.$store.getters.getIsDark;
-    this.$store.dispatch("requestAllRecipes");
+    document.addEventListener("keydown", this.onDocumentKeydown);
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.onDocumentKeydown);
   },
   computed: {
     data() {
@@ -124,11 +146,7 @@ export default {
   },
   watch: {
     isSearching(val) {
-      val ? (this.menuModel = true) : null;
-    },
-
-    resetSearch(val) {
-      val ? (this.search = "") : null;
+      val ? (this.menuModel = true) : this.resetSearch();
     },
 
     search() {
@@ -167,8 +185,25 @@ export default {
       this.$emit("selected", slug, name);
     },
     async onFocus() {
-      clearTimeout(this.timeout);
+      this.$store.dispatch("requestAllRecipes");
       this.isFocused = true;
+    },
+    resetSearch() {
+      this.$nextTick(() => {
+        this.search = "";
+        this.isFocused = false;
+        this.menuModel = false;
+      });
+    },
+    onDocumentKeydown(e) {
+      if (
+        e.key === "/" &&
+        e.target !== this.$refs.searchInput.$refs.input &&
+        !document.activeElement.id.startsWith("input")
+      ) {
+        e.preventDefault();
+        this.$refs.searchInput.focus();
+      }
     },
   },
 };
@@ -181,4 +216,9 @@ export default {
 </style>
 
 <style lang="sass" scoped>
+.v-menu__content
+  width: 100
+  &, & > *
+    display: flex
+    flex-direction: column
 </style>

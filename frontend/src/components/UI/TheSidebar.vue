@@ -137,7 +137,7 @@ export default {
     mainMenu() {
       return [...this.baseMainLinks, ...this.customPages];
     },
-    settingsLink() {
+    settingsLinks() {
       return [
         {
           icon: "mdi-account",

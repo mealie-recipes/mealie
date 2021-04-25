@@ -13,7 +13,7 @@
       <v-btn icon @click="openSidebar">
         <v-icon> mdi-menu </v-icon>
       </v-btn>
-      <router-link v-if="!(isMobile && search)" to="/">
+      <router-link to="/">
         <v-btn icon>
           <v-icon size="40"> mdi-silverware-variant </v-icon>
         </v-btn>
@@ -26,18 +26,18 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-expand-x-transition>
-        <SearchBar
-          ref="mainSearchBar"
-          v-if="search"
-          :show-results="true"
-          @selected="navigateFromSearch"
-          :max-width="isMobile ? '100%' : '450px'"
-        />
-      </v-expand-x-transition>
-      <v-btn icon @click="search = !search">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <SearchBar
+        v-if="!isMobile"
+        :show-results="true"
+        @selected="navigateFromSearch"
+        :max-width="isMobile ? '100%' : '450px'"
+      />
+      <div v-else>
+        <v-btn icon @click="$refs.recipeSearch.open()">
+          <v-icon> mdi-magnify </v-icon>
+        </v-btn>
+        <SearchDialog ref="recipeSearch"/>
+      </div>
 
       <TheSiteMenu />
 
@@ -54,6 +54,7 @@
 <script>
 import TheSiteMenu from "@/components/UI/TheSiteMenu";
 import SearchBar from "@/components/UI/Search/SearchBar";
+import SearchDialog from "@/components/UI/Search/SearchDialog";
 import TheRecipeFab from "@/components/UI/TheRecipeFab";
 import TheSidebar from "@/components/UI/TheSidebar";
 import { user } from "@/mixins/user";
@@ -62,6 +63,7 @@ export default {
 
   mixins: [user],
   components: {
+    SearchDialog,
     TheRecipeFab,
     TheSidebar,
     TheSiteMenu,
@@ -69,14 +71,8 @@ export default {
   },
   data() {
     return {
-      search: false,
       showSidebar: false,
     };
-  },
-  watch: {
-    $route() {
-      this.search = false;
-    },
   },
   computed: {
     isMobile() {
@@ -95,8 +91,4 @@ export default {
 </script>
 
 <style scoped>
-fab-position {
-  position: absolute;
-  bottom: 0;
-}
 </style>
