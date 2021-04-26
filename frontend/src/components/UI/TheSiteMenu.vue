@@ -6,6 +6,7 @@
       bottom
       right
       offset-y
+      offset-overflow
       open-on-hover
       close-delay="200"
     >
@@ -72,7 +73,7 @@ export default {
         },
         {
           icon: "mdi-logout",
-          title: this.$t('user.logout'),
+          title: this.$t("user.logout"),
           restricted: true,
           nav: "/logout",
         },
@@ -85,7 +86,6 @@ export default {
       ],
     };
   },
-  mounted() {},
   computed: {
     filteredItems() {
       if (this.loggedIn) {
