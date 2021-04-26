@@ -43,9 +43,9 @@ export default {
   components: {
     LoginDialog,
   },
-  data: function() {
-    return {
-      items: [
+  computed: {
+    items() {
+      return [
         {
           icon: "mdi-account",
           title: "Login",
@@ -82,11 +82,8 @@ export default {
           nav: "/admin",
           restricted: true,
         },
-      ],
-    };
-  },
-  mounted() {},
-  computed: {
+      ]
+    },
     filteredItems() {
       if (this.loggedIn) {
         return this.items.filter(x => x.restricted == true);
