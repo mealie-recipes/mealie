@@ -20,11 +20,11 @@
         <v-card-text class="mt-n4">
           <v-row>
             <v-col sm="4">
-              <p>{{ $t("general.options") }}:</p>
+              <p>{{ $t("general.options") }}</p>
               <ImportOptions @update-options="updateOptions" class="mt-5" />
             </v-col>
             <v-col>
-              <p>{{ $t("general.templates") }}:</p>
+              <p>{{ $t("general.templates") }}</p>
               <v-checkbox
                 v-for="template in availableTemplates"
                 :key="template"
