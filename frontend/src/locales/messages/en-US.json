@@ -152,6 +152,7 @@
     "exclude": "Exclude",
     "include": "Include",
     "or": "Or",
+    "and": "and",
     "search": "Search",
     "tag-filter": "Tag Filter"
   },
