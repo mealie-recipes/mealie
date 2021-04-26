@@ -46,6 +46,7 @@ export default {
     this.darkModeAddEventListener();
     this.$store.dispatch("requestAppInfo");
     this.$store.dispatch("requestCustomPages");
+    this.$store.dispatch("requestSiteSettings");
   },
 
   methods: {

@@ -29,10 +29,10 @@ const actions = {
     let settings = await api.siteSettings.get();
     commit("setSettings", settings);
   },
-  async requestCustomPages({commit }) {
-    const customPages = await api.siteSettings.getPages()
-    commit("setCustomPages", customPages)
-  }
+  async requestCustomPages({ commit }) {
+    const customPages = await api.siteSettings.getPages();
+    commit("setCustomPages", customPages);
+  },
 };
 
 const getters = {
