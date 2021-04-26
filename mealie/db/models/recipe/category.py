@@ -11,28 +11,28 @@ site_settings2categories = sa.Table(
     "site_settings2categoories",
     SqlAlchemyBase.metadata,
     sa.Column("sidebar_id", sa.Integer, sa.ForeignKey("site_settings.id")),
-    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+    sa.Column("category_id", sa.String, sa.ForeignKey("categories.id")),
 )
 
 group2categories = sa.Table(
     "group2categories",
     SqlAlchemyBase.metadata,
     sa.Column("group_id", sa.Integer, sa.ForeignKey("groups.id")),
-    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+    sa.Column("category_id", sa.String, sa.ForeignKey("categories.id")),
 )
 
 recipes2categories = sa.Table(
     "recipes2categories",
     SqlAlchemyBase.metadata,
     sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
-    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+    sa.Column("category_id", sa.String, sa.ForeignKey("categories.id")),
 )
 
 custom_pages2categories = sa.Table(
     "custom_pages2categories",
     SqlAlchemyBase.metadata,
     sa.Column("custom_page_id", sa.Integer, sa.ForeignKey("custom_pages.id")),
-    sa.Column("category_slug", sa.String, sa.ForeignKey("categories.slug")),
+    sa.Column("category_id", sa.String, sa.ForeignKey("categories.id")),
 )
 
 
@@ -51,6 +51,9 @@ class Category(SqlAlchemyBase):
     def __init__(self, name, session=None) -> None:
         self.name = name.strip()
         self.slug = slugify(name)
+
+    def update(self, name, session=None) -> None:
+        self.__init__(name, session)
 
     @staticmethod
     def get_ref(session, slug: str):

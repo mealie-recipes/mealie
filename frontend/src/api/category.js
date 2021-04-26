@@ -8,6 +8,7 @@ const categoryURLs = {
   getAll: `${prefix}`,
   getCategory: category => `${prefix}/${category}`,
   deleteCategory: category => `${prefix}/${category}`,
+  updateCategory: category => `${prefix}/${category}`,
 };
 
 export const categoryAPI = {
@@ -24,6 +25,15 @@ export const categoryAPI = {
     let response = await apiReq.get(categoryURLs.getCategory(category));
     return response.data;
   },
+  async update(name, newName, overrideRequest = false) {
+    let response = await apiReq.put(categoryURLs.updateCategory(name), {
+      name: newName,
+    });
+    if (!overrideRequest) {
+      store.dispatch("requestCategories");
+    }
+    return response.data;
+  },
   async delete(category) {
     let response = await apiReq.delete(categoryURLs.deleteCategory(category));
     store.dispatch("requestCategories");
@@ -37,6 +47,7 @@ const tagURLs = {
   getAll: `${tagPrefix}`,
   getTag: tag => `${tagPrefix}/${tag}`,
   deleteTag: tag => `${tagPrefix}/${tag}`,
+  updateTag: tag => `${tagPrefix}/${tag}`,
 };
 
 export const tagAPI = {
@@ -51,6 +62,15 @@ export const tagAPI = {
   },
   async getRecipesInTag(tag) {
     let response = await apiReq.get(tagURLs.getTag(tag));
+    return response.data;
+  },
+  async update(name, newName, overrideRequest = false) {
+    let response = await apiReq.put(tagURLs.updateTag(name), { name: newName });
+
+    if (!overrideRequest) {
+      store.dispatch("requestTags");
+    }
+
     return response.data;
   },
   async delete(tag) {

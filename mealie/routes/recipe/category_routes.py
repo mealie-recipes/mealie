@@ -33,6 +33,18 @@ def get_all_recipes_by_category(category: str, session: Session = Depends(genera
     return db.categories.get(session, category)
 
 
+@router.put("/{category}", response_model=RecipeCategoryResponse)
+async def update_recipe_category(
+    category: str,
+    new_category: CategoryIn,
+    session: Session = Depends(generate_session),
+    current_user=Depends(get_current_user),
+):
+    """ Updates an existing Tag in the database """
+
+    return db.categories.update(session, category, new_category.dict())
+
+
 @router.delete("/{category}")
 async def delete_recipe_category(
     category: str, session: Session = Depends(generate_session), current_user=Depends(get_current_user)

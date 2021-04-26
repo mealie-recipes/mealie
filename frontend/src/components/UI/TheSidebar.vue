@@ -164,6 +164,11 @@ export default {
           title: this.$t("settings.site-settings"),
         },
         {
+          icon: "mdi-tools",
+          to: "/admin/toolbox",
+          title: this.$t("settings.toolbox.toolbox"),
+        },
+        {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
           title: this.$t("settings.manage-users"),
