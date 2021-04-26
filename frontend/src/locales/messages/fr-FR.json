@@ -47,7 +47,7 @@
     "reset": "Réinitialiser",
     "saturday": "Samedi",
     "save": "Sauvegarder",
-    "settings": "Options",
+    "settings": "Paramètres",
     "sort": "Trier",
     "sort-alphabetically": "A-Z",
     "submit": "Soumettre",
@@ -145,15 +145,14 @@
     "view-recipe": "Voir la recette"
   },
   "search": {
-    "and": "Et",
+    "search-mealie": "Rechercher dans Mealie (appuyez sur /)",
+    "search-placeholder": "Rechercher...",
+    "max-results": "Résultats max",
     "category-filter": "Filtre par catégories",
     "exclude": "Exclure",
     "include": "Inclure",
-    "max-results": "Résultats max",
     "or": "Ou",
     "search": "Rechercher",
-    "search-mealie": "Rechercher dans Mealie",
-    "search-placeholder": "Rechercher...",
     "tag-filter": "Filtre par mots-clés"
   },
   "settings": {

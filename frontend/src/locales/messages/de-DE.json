@@ -145,15 +145,14 @@
     "view-recipe": "Rezept anschauen"
   },
   "search": {
-    "and": "Und",
+    "search-mealie": "Mealie durchsuchen (/ drücken)",
+    "search-placeholder": "Suchen...",
+    "max-results": "Max. Ergebnisse",
     "category-filter": "Kategoriefilter",
     "exclude": "Ausschließen",
     "include": "Einbeziehen",
-    "max-results": "Max. Ergebnisse",
     "or": "Oder",
     "search": "Suchen",
-    "search-mealie": "Mealie durchsuchen",
-    "search-placeholder": "Suchen...",
     "tag-filter": "Schlagwortfilter"
   },
   "settings": {

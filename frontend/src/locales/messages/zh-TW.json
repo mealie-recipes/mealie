@@ -145,15 +145,14 @@
     "view-recipe": "查看食譜"
   },
   "search": {
-    "and": "And",
+    "search-mealie": "Search Mealie (press /)",
+    "search-placeholder": "Search...",
+    "max-results": "Max Results",
     "category-filter": "Category Filter",
     "exclude": "Exclude",
     "include": "Include",
-    "max-results": "Max Results",
     "or": "Or",
     "search": "Search",
-    "search-mealie": "搜索Mealie",
-    "search-placeholder": "Search...",
     "tag-filter": "Tag Filter"
   },
   "settings": {
