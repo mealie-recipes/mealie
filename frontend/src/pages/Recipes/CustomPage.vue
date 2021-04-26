@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <CategorySidebar />
     <v-card flat height="100%">
       <v-app-bar flat>
         <v-spacer></v-spacer>
@@ -32,13 +31,11 @@
 
 <script>
 import CardSection from "@/components/UI/CardSection";
-import CategorySidebar from "@/components/UI/CategorySidebar";
 import { api } from "@/api";
 
 export default {
   components: {
     CardSection,
-    CategorySidebar,
   },
   data() {
     return {

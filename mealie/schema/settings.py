@@ -7,7 +7,7 @@ from slugify import slugify
 
 
 class SiteSettings(CamelModel):
-    language: str = "en"
+    language: str = "en-US"
     first_day_of_week: int = 0
     show_recent: bool = True
     cards_per_section: int = 9

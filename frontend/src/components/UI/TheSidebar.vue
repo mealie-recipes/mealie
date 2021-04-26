@@ -1,27 +1,8 @@
 <template>
   <div>
-    <v-btn
-      class="mt-9 ml-n1"
-      fixed
-      left
-      bottom
-      fab
-      small
-      color="primary"
-      @click="showSidebar = !showSidebar"
-    >
-      <v-icon>mdi-cog</v-icon></v-btn
-    >
-
-    <v-navigation-drawer
-      :value="mobile ? showSidebar : true"
-      v-model="showSidebar"
-      width="180px"
-      clipped
-      app
-    >
+    <v-navigation-drawer v-model="showSidebar" width="180px" clipped app>
       <template v-slot:prepend>
-        <v-list-item two-line>
+        <v-list-item two-line v-if="isLoggedIn">
           <v-list-item-avatar color="accent" class="white--text">
             <img
               :src="userProfileImage"
@@ -41,12 +22,11 @@
           </v-list-item-content>
         </v-list-item>
       </template>
-
       <v-divider></v-divider>
 
       <v-list nav dense>
         <v-list-item
-          v-for="nav in baseLinks"
+          v-for="nav in effectiveMenu"
           :key="nav.title"
           link
           :to="nav.to"
@@ -58,22 +38,8 @@
         </v-list-item>
       </v-list>
 
-      <v-divider></v-divider>
-      <v-list nav dense v-if="user.admin">
-        <v-list-item
-          v-for="nav in superLinks"
-          :key="nav.title"
-          link
-          :to="nav.to"
-        >
-          <v-list-item-icon>
-            <v-icon>{{ nav.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ nav.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-
-      <v-list nav dense class="fixedBottom">
+      <!-- Version List Item -->
+      <v-list nav dense class="fixedBottom" v-if="!isMain">
         <v-list-item to="/admin/about">
           <v-list-item-icon class="mr-3 pt-1">
             <v-icon :color="newVersionAvailable ? 'red--text' : ''">
@@ -104,20 +70,94 @@
 </template>
 
 <script>
-import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 import { user } from "@/mixins/user";
 import axios from "axios";
 export default {
-  mixins: [validators, initials, user],
+  mixins: [initials, user],
   data() {
     return {
+      showSidebar: false,
+      links: [],
+
       latestVersion: null,
       hideImage: false,
-      showSidebar: false,
-      mobile: false,
-      links: [],
-      superLinks: [
+    };
+  },
+  mounted() {
+    this.getVersion();
+    this.resetView();
+  },
+
+  computed: {
+    isMain() {
+      const testVal = this.$route.path.split("/");
+      if (testVal[1] === "recipe") this.closeSidebar();
+      else this.resetView();
+
+      return !(testVal[1] === "admin");
+    },
+    baseMainLinks() {
+      return [
+        {
+          icon: "mdi-home",
+          to: "/",
+          title: this.$t("page.home-page"),
+        },
+        {
+          icon: "mdi-view-module",
+          to: "/recipes/all",
+          title: this.$t("page.all-recipes"),
+        },
+        {
+          icon: "mdi-magnify",
+          to: "/search",
+          title: this.$t("search.search"),
+        },
+      ];
+    },
+    customPages() {
+      const pages = this.$store.getters.getCustomPages;
+      if (pages.length > 0) {
+        pages.sort((a, b) => a.position - b.position);
+        return pages.map(x => ({
+          title: x.name,
+          to: `/pages/${x.slug}`,
+          icon: "mdi-tag",
+        }));
+      } else {
+        const categories = this.$store.getters.getAllCategories;
+        return categories.map(x => ({
+          title: x.name,
+          to: `/recipes/category/${x.slug}`,
+          icon: "mdi-tag",
+        }));
+      }
+    },
+    mainMenu() {
+      return [...this.baseMainLinks, ...this.customPages];
+    },
+    settingsLinks() {
+      return [
+        {
+          icon: "mdi-account",
+          to: "/admin/profile",
+          title: this.$t("settings.profile"),
+        },
+        {
+          icon: "mdi-format-color-fill",
+          to: "/admin/themes",
+          title: this.$t("general.themes"),
+        },
+        {
+          icon: "mdi-food",
+          to: "/admin/meal-planner",
+          title: this.$t("meal-plan.meal-planner"),
+        },
+      ];
+    },
+    adminLinks() {
+      return [
         {
           icon: "mdi-cog",
           to: "/admin/settings",
@@ -138,34 +178,20 @@ export default {
           to: "/admin/migrations",
           title: this.$t("settings.migrations"),
         },
-      ],
-      baseLinks: [
-        {
-          icon: "mdi-account",
-          to: "/admin/profile",
-          title: this.$t("settings.profile"),
-        },
-        {
-          icon: "mdi-format-color-fill",
-          to: "/admin/themes",
-          title: this.$t("general.themes"),
-        },
-        {
-          icon: "mdi-food",
-          to: "/admin/meal-planner",
-          title: this.$t("meal-plan.meal-planner"),
-        },
-      ],
-    };
-  },
-  async mounted() {
-    this.mobile = this.viewScale();
-    this.showSidebar = !this.viewScale();
-    this.getVersion();
-  },
-
-  computed: {
+      ];
+    },
+    adminMenu() {
+      if (this.user.admin) {
+        return [...this.settingsLinks, ...this.adminLinks];
+      } else {
+        return this.settingsLinks;
+      }
+    },
+    effectiveMenu() {
+      return this.isMain ? this.mainMenu : this.adminMenu;
+    },
     userProfileImage() {
+      this.resetImage();
       return `api/users/${this.user.id}/image`;
     },
     newVersionAvailable() {
@@ -175,18 +201,26 @@ export default {
       const appInfo = this.$store.getters.getAppInfo;
       return appInfo.version;
     },
+    isLoggedIn() {
+      return this.$store.getters.getIsLoggedIn;
+    },
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
   },
 
   methods: {
-    viewScale() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return true;
-        case "sm":
-          return true;
-        default:
-          return false;
-      }
+    resetImage() {
+      this.hideImage == false;
+    },
+    resetView() {
+      this.showSidebar = !this.isMobile;
+    },
+    toggleSidebar() {
+      this.showSidebar = !this.showSidebar;
+    },
+    closeSidebar() {
+      this.showSidebar = false;
     },
     async getVersion() {
       let response = await axios.get(
@@ -198,6 +232,7 @@ export default {
           },
         }
       );
+
       this.latestVersion = response.data.tag_name;
     },
   },

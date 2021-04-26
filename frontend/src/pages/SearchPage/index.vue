@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <CategorySidebar />
     <v-card flat>
       <v-row dense>
         <v-col>
@@ -79,14 +78,12 @@
 <script>
 import Fuse from "fuse.js";
 import RecipeCard from "@/components/Recipe/RecipeCard";
-import CategorySidebar from "@/components/UI/CategorySidebar";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import FilterSelector from "./FilterSelector.vue";
 
 export default {
   components: {
     RecipeCard,
-    CategorySidebar,
     CategoryTagSelector,
     FilterSelector,
   },

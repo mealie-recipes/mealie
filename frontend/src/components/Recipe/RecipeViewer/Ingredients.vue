@@ -3,23 +3,22 @@
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
     <v-list-item
       dense
-      v-for="(ingredient, index) in displayIngredients"
+      v-for="(ingredient, index) in ingredients"
       :key="generateKey('ingredient', index)"
-      @click="ingredient.checked = !ingredient.checked"
+      @click="toggleChecked(index)"
     >
       <v-checkbox
         hide-details
-        v-model="ingredient.checked"
+        :value="checked[index]"
         class="pt-0 my-auto py-auto"
         color="secondary"
-        :readonly="true"
       >
       </v-checkbox>
 
       <v-list-item-content>
         <vue-markdown
           class="ma-0 pa-0 text-subtitle-1 dense-markdown"
-          :source="ingredient.text"
+          :source="ingredient"
         >
         </vue-markdown>
       </v-list-item-content>
@@ -37,17 +36,20 @@ export default {
   props: {
     ingredients: Array,
   },
-  computed: {
-    displayIngredients() {
-      return this.ingredients.map(x => ({
-        text: x,
-        checked: false,
-      }));
-    },
+  data() {
+    return {
+      checked: [],
+    };
+  },
+  mounted() {
+    this.checked = this.ingredients.map(() => false);
   },
   methods: {
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);
+    },
+    toggleChecked(index) {
+      this.$set(this.checked, index, !this.checked[index]);
     },
   },
 };
