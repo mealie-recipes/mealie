@@ -60,10 +60,10 @@
       <v-row v-else dense>
         <v-col
           cols="12"
-          sm="12"
-          md="6"
-          lg="4"
-          xl="3"
+          :sm="singleColumn ? '12' : '12'"
+          :md="singleColumn ? '12' : '6'"
+          :lg="singleColumn ? '12' : '4'"
+          :xl="singleColumn ? '12' : '3'"
           v-for="recipe in recipes.slice(0, cardLimit)"
           :key="recipe.name"
         >
@@ -79,14 +79,16 @@
       </v-row>
     </div>
     <div v-intersect="bumpList" class="d-flex">
-      <v-progress-circular
-        v-if="loading"
-        class="mx-auto mt-1"
-        :size="50"
-        :width="7"
-        color="primary"
-        indeterminate
-      ></v-progress-circular>
+      <v-expand-x-transition>
+        <v-progress-circular
+          v-if="loading"
+          class="mx-auto mt-1"
+          :size="50"
+          :width="7"
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </v-expand-x-transition>
     </div>
   </div>
 </template>
@@ -109,6 +111,12 @@ export default {
     hardLimit: {
       default: 99999,
     },
+    mobileCards: {
+      default: false,
+    },
+    singleColumn: {
+      defualt: false,
+    },
     recipes: Array,
   },
   data() {
@@ -117,8 +125,14 @@ export default {
       loading: false,
     };
   },
+  watch: {
+    recipes() {
+      this.bumpList();
+    },
+  },
   computed: {
     viewScale() {
+      if (this.mobileCards) return true;
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
           return true;
@@ -128,10 +142,16 @@ export default {
           return false;
       }
     },
+    effectiveHardLimit() {
+      return Math.min(this.hardLimit, this.recipes.length);
+    },
   },
   methods: {
     bumpList() {
-      const newCardLimit = Math.min(this.cardLimit + 20, this.hardLimit);
+      const newCardLimit = Math.min(
+        this.cardLimit + 20,
+        this.effectiveHardLimit
+      );
 
       if (this.loading === false && newCardLimit > this.cardLimit) {
         this.setLoader();
@@ -141,7 +161,7 @@ export default {
     },
     async setLoader() {
       this.loading = true;
-      await new Promise(r => setTimeout(r, 3000));
+      await new Promise(r => setTimeout(r, 1000));
       this.loading = false;
     },
   },

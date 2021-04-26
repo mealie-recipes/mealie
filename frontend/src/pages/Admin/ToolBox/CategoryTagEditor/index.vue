@@ -33,12 +33,44 @@
         />
       </template>
     </base-dialog>
-    <v-app-bar flat>
-      <v-spacer> </v-spacer>
-      <v-btn @click="titleCaseAll" small color="success">
+
+    <v-app-bar flat color="white">
+      <new-category-tag-dialog
+        ref="newDialog"
+        :tag-dialog="isTags"
+        class="mr-1"
+      >
+        <v-btn @click="openNewDialog" small color="success">
+          New
+        </v-btn>
+      </new-category-tag-dialog>
+      <BulkAssign isTags="isTags" />
+      <v-btn @click="titleCaseAll" class="mr-1" small color="success">
         Title Case All
       </v-btn>
+      <RemoveUnused :isTags="isTags" />
+      <v-spacer> </v-spacer>
+      <fuse-search-bar
+        :raw-data="allItems"
+        @results="filterItems"
+        :search="searchString"
+      >
+        <v-text-field
+          v-model="searchString"
+          clearable
+          solo
+          dense
+          class="mx-2"
+          hide-details
+          single-line
+          :placeholder="$t('search.search')"
+          prepend-inner-icon="mdi-magnify"
+        >
+        </v-text-field>
+      </fuse-search-bar>
     </v-app-bar>
+    <v-divider></v-divider>
+
     <v-card-text>
       <v-row>
         <v-col
@@ -46,16 +78,16 @@
           :md="6"
           :lg="4"
           :xl="3"
-          v-for="item in allItems"
+          v-for="item in results"
           :key="item.id"
         >
           <v-card>
             <v-card-actions>
               <v-card-title class="py-1">{{ item.name }}</v-card-title>
               <v-spacer></v-spacer>
-              <v-btn small text color="info" @click="openRename(item)"
-                >Rename</v-btn
-              >
+              <v-btn small text color="info" @click="openEditDialog(item)">
+                Edit
+              </v-btn>
               <v-btn small text color="error" @click="deleteItem(item.slug)"
                 >Delete
               </v-btn>
@@ -68,15 +100,23 @@
 </template>
 
 <script>
+import FuseSearchBar from "@/components/UI/Search/FuseSearchBar";
 import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import { api } from "@/api";
 import { validators } from "@/mixins/validators";
+import RemoveUnused from "./RemoveUnused";
+import BulkAssign from "./BulkAssign";
+import NewCategoryTagDialog from "@/components/UI/Dialogs/NewCategoryTagDialog";
 export default {
   mixins: [validators],
   components: {
     BaseDialog,
     MobileRecipeCard,
+    FuseSearchBar,
+    RemoveUnused,
+    NewCategoryTagDialog,
+    BulkAssign,
   },
   props: {
     isTags: {
@@ -85,6 +125,8 @@ export default {
   },
   data() {
     return {
+      searchString: "",
+      searchResults: [],
       renameTarget: {
         title: "",
         name: "",
@@ -100,9 +142,21 @@ export default {
         ? this.$store.getters.getAllTags
         : this.$store.getters.getAllCategories;
     },
+    results() {
+      if (this.searchString != null && this.searchString.length >= 1) {
+        return this.searchResults;
+      }
+      return this.allItems;
+    },
   },
   methods: {
-    async openRename(item) {
+    filterItems(val) {
+      this.searchResults = val.map(x => x.item);
+    },
+    openNewDialog() {
+      this.$refs.newDialog.open();
+    },
+    async openEditDialog(item) {
       let fromAPI = {};
       if (this.isTags) {
         fromAPI = await api.tags.getRecipesInTag(item.slug);
@@ -151,11 +205,13 @@ export default {
 
       if (this.isTags) {
         renameList.forEach(async element => {
+          if (element.name === element.newName) return;
           await api.tags.update(element.slug, element.newName, true);
         });
         this.$store.dispatch("requestTags");
       } else {
         renameList.forEach(async element => {
+          if (element.name === element.newName) return;
           await api.categories.update(element.slug, element.newName, true);
         });
         this.$store.dispatch("requestCategories");

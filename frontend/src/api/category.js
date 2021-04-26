@@ -6,6 +6,7 @@ const prefix = baseURL + "categories";
 
 const categoryURLs = {
   getAll: `${prefix}`,
+  getEmpty: `${prefix}/empty`,
   getCategory: category => `${prefix}/${category}`,
   deleteCategory: category => `${prefix}/${category}`,
   updateCategory: category => `${prefix}/${category}`,
@@ -14,6 +15,10 @@ const categoryURLs = {
 export const categoryAPI = {
   async getAll() {
     let response = await apiReq.get(categoryURLs.getAll);
+    return response.data;
+  },
+  async getEmpty() {
+    let response = await apiReq.get(categoryURLs.getEmpty);
     return response.data;
   },
   async create(name) {
@@ -34,9 +39,11 @@ export const categoryAPI = {
     }
     return response.data;
   },
-  async delete(category) {
+  async delete(category, overrideRequest = false) {
     let response = await apiReq.delete(categoryURLs.deleteCategory(category));
-    store.dispatch("requestCategories");
+    if (!overrideRequest) {
+      store.dispatch("requestCategories");
+    }
     return response.data;
   },
 };
@@ -45,6 +52,7 @@ const tagPrefix = baseURL + "tags";
 
 const tagURLs = {
   getAll: `${tagPrefix}`,
+  getEmpty: `${tagPrefix}/empty`,
   getTag: tag => `${tagPrefix}/${tag}`,
   deleteTag: tag => `${tagPrefix}/${tag}`,
   updateTag: tag => `${tagPrefix}/${tag}`,
@@ -53,6 +61,10 @@ const tagURLs = {
 export const tagAPI = {
   async getAll() {
     let response = await apiReq.get(tagURLs.getAll);
+    return response.data;
+  },
+  async getEmpty() {
+    let response = await apiReq.get(tagURLs.getEmpty);
     return response.data;
   },
   async create(name) {
@@ -73,9 +85,11 @@ export const tagAPI = {
 
     return response.data;
   },
-  async delete(tag) {
+  async delete(tag, overrideRequest = false) {
     let response = await apiReq.delete(tagURLs.deleteTag(tag));
-    store.dispatch("requestTags");
+    if (!overrideRequest) {
+      store.dispatch("requestTags");
+    }
     return response.data;
   },
 };

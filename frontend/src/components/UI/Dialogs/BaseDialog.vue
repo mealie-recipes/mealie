@@ -1,7 +1,11 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" :width="modalWidth + 'px'">
-      <v-card class="pb-2">
+    <v-dialog
+      v-model="dialog"
+      :width="modalWidth + 'px'"
+      :content-class="top ? 'top-dialog' : undefined"
+    >
+      <v-card class="pb-2" :loading="loading">
         <v-app-bar dark :color="color" class="mt-n1 mb-2">
           <v-icon large left v-if="!loading">
             {{ titleIcon }}
@@ -19,13 +23,15 @@
         </v-app-bar>
         <slot> </slot>
         <v-card-actions>
-          <v-btn text color="grey" @click="dialog = false">
-            Cancel
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="success" @click="$emit('submit')">
-            Submit
-          </v-btn>
+          <slot name="card-actions">
+            <v-btn text color="grey" @click="dialog = false">
+              Cancel
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="success" @click="$emit('submit')">
+              Submit
+            </v-btn>
+          </slot>
         </v-card-actions>
         <slot name="below-actions"> </slot>
       </v-card>
@@ -48,20 +54,31 @@ export default {
     modalWidth: {
       default: "500",
     },
+    loading: {
+      default: false,
+    },
+    top: {
+      default: false,
+    },
   },
   data() {
     return {
       dialog: false,
-      loading: false,
     };
   },
   methods: {
     open() {
       this.dialog = true;
     },
+    close() {
+      this.dialog = false;
+    },
   },
 };
 </script>
 
 <style scoped>
+.top-dialog {
+  align-self: flex-start;
+}
 </style>
