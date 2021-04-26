@@ -32,6 +32,8 @@
     "download": "Download",
     "edit": "Edit",
     "enabled": "Enabled",
+    "exception": "Exception",
+    "failed-count": "Failed: {count}",
     "field-required": "Field Required",
     "filter": "Filter",
     "friday": "Friday",
@@ -52,7 +54,9 @@
     "settings": "Settings",
     "sort": "Sort",
     "sort-alphabetically": "A-Z",
+    "status": "Status",
     "submit": "Submit",
+    "success-count": "Success: {count}",
     "sunday": "Sunday",
     "templates": "Templates",
     "themes": "Themes",
@@ -147,14 +151,14 @@
     "view-recipe": "View Recipe"
   },
   "search": {
-    "search-mealie": "Search Mealie (press /)",
-    "search-placeholder": "Search...",
-    "max-results": "Max Results",
     "category-filter": "Category Filter",
     "exclude": "Exclude",
     "include": "Include",
+    "max-results": "Max Results",
     "or": "Or",
     "search": "Search",
+    "search-mealie": "Search Mealie (press /)",
+    "search-placeholder": "Search...",
     "tag-filter": "Tag Filter"
   },
   "settings": {
@@ -165,6 +169,7 @@
       "backup-tag": "Backup Tag",
       "create-heading": "Create a Backup",
       "full-backup": "Full Backup",
+      "import-summary": "Import Summary",
       "partial-backup": "Partial Backup"
     },
     "backup-and-exports": "Backups",
@@ -189,6 +194,7 @@
     "migrations": "Migrations",
     "new-page": "New Page",
     "page-name": "Page Name",
+    "pages": "Pages",
     "profile": "Profile",
     "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries",
     "set-new-time": "Set New Time",
