@@ -38,13 +38,6 @@ class UserBase(CamelModel):
                 "group": name_orm.group.name,
             }
 
-        schema_extra = {
-            "fullName": "Change Me",
-            "email": "changeme@email.com",
-            "group": settings.DEFAULT_GROUP,
-            "admin": "false",
-        }
-
 
 class UserIn(UserBase):
     password: str

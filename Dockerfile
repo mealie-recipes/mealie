@@ -41,7 +41,9 @@ RUN apk add --update --no-cache --virtual .build-deps \
     apk --purge del .build-deps
 
 COPY ./mealie /app/mealie
-RUN poetry install --no-dev 
+RUN poetry install --no-dev
+# add database drivers
+RUN pip install psycopg2-binary
 
 COPY ./Caddyfile /app
 COPY ./dev/data/templates /app/data/templates
@@ -51,4 +53,3 @@ VOLUME [ "/app/data/" ]
 
 RUN chmod +x /app/mealie/run.sh
 CMD /app/mealie/run.sh
-

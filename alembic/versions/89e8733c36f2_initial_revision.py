@@ -37,8 +37,8 @@ def upgrade():
     groups_table = op.create_table('groups',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
-    sa.Column('webhook_enable', sa.Boolean(), nullable=True),
-    sa.Column('webhook_time', sa.String(), nullable=True),
+    sa.Column('webhook_enable', sa.Boolean(), nullable=False),
+    sa.Column('webhook_time', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_groups_name'), 'groups', ['name'], unique=True)

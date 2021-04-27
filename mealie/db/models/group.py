@@ -26,8 +26,8 @@ class Group(SqlAlchemyBase, BaseMixins):
     categories = orm.relationship("Category", secondary=group2categories, single_parent=True)
 
     # Webhook Settings
-    webhook_enable = sa.Column(sa.Boolean, default=False)
-    webhook_time = sa.Column(sa.String, default="00:00")
+    webhook_enable = sa.Column(sa.Boolean, default=False, nullable=False)
+    webhook_time = sa.Column(sa.String, default="00:00", nullable=False)
     webhook_urls = orm.relationship("WebhookURLModel", uselist=True, cascade="all, delete-orphan")
 
     def __init__(
