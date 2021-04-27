@@ -9,7 +9,6 @@ mealie/temp/*
 mealie/temp/api.html
 .temp/
 .secret
-*.zip
 
 dev/data/backups/*
 dev/data/debug/*

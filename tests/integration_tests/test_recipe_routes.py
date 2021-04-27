@@ -60,7 +60,7 @@ def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data,
     response = api_client.put(recipe_url, json=recipe, headers=token)
 
     assert response.status_code == 200
-    assert json.loads(response.text) == recipe_data.expected_slug
+    assert json.loads(response.text).get("slug") == recipe_data.expected_slug
 
     response = api_client.get(recipe_url)
 
@@ -84,7 +84,7 @@ def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data, toke
     response = api_client.put(recipe_url, json=recipe, headers=token)
 
     assert response.status_code == 200
-    assert json.loads(response.text) == new_slug
+    assert json.loads(response.text).get("slug") == new_slug
 
     recipe_data.expected_slug = new_slug
 
