@@ -3,7 +3,7 @@
     <v-menu offset-y top nudge-top="6" :close-on-content-click="false">
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="accent" dark v-bind="attrs" v-on="on">
-          {{$t('recipe.image')}}
+          {{$t('general.image')}}
         </v-btn>
       </template>
       <v-card width="400">
@@ -46,6 +46,7 @@ const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import { api } from "@/api";
+import utils from "@/utils";
 export default {
   components: {
     TheUploadBtn,
@@ -64,6 +65,11 @@ export default {
     async getImageFromURL() {
       this.loading = true;
       const response = await api.recipes.updateImagebyURL(this.slug, this.url);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('general.image-upload-failed'));
+      } else {
+        utils.notify.success(this.$t('general.image-updated'));
+      }
       if (response) this.$emit(REFRESH_EVENT);
       this.loading = false;
     },

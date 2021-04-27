@@ -3,7 +3,6 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.category import RecipeTagResponse, TagIn
-from mealie.schema.snackbar import SnackResponse
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(tags=["Recipes"])
@@ -43,6 +42,7 @@ async def delete_recipe_tag(
     tag does not impact a recipe. The tag will be removed
     from any recipes that contain it"""
 
-    db.tags.delete(session, tag)
-
-    return SnackResponse.error(f"Tag Deleted: {tag}")
+    try:
+        db.tags.delete(session, tag)
+    except:
+        raise HTTPException( status.HTTP_400_BAD_REQUEST )

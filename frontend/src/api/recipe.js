@@ -1,7 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store";
-import { router } from "../main";
 
 const prefix = baseURL + "recipes/";
 
@@ -72,9 +71,7 @@ export const recipeAPI = {
   },
 
   async delete(recipeSlug) {
-    await apiReq.delete(recipeURLs.delete(recipeSlug));
-    store.dispatch("requestRecentRecipes");
-    router.push(`/`);
+    return await apiReq.delete(recipeURLs.delete(recipeSlug));
   },
 
   async allSummary(start = 0, limit = 9999) {

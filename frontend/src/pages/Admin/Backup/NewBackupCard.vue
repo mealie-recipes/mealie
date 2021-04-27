@@ -44,6 +44,7 @@
 <script>
 import ImportOptions from "./ImportOptions";
 import { api } from "@/api";
+import utils from "@/utils";
 export default {
   components: { ImportOptions },
   data() {
@@ -97,10 +98,15 @@ export default {
         templates: this.selectedTemplates,
       };
 
-      await api.backups.create(data);
+      const response = await api.backups.create(data);
       this.loading = false;
+      if (response.status != 201) {
+        utils.notify.error(this.$t('settings.backup.error-creating-backup-see-log-file'));
+      } else {
+        utils.notify.success(this.$t('settings.backup.backup-created-at-response-export_path', {path: response.data.export_path}));
+        this.$emit("created");
+      }
 
-      this.$emit("created");
     },
     appendTemplate(templateName) {
       if (this.selectedTemplates.includes(templateName)) {

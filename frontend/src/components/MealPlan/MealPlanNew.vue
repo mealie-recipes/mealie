@@ -196,7 +196,12 @@ export default {
         endDate: this.endDate,
         meals: this.meals,
       };
-      await api.mealPlans.create(mealBody);
+      const response = await api.mealPlans.create(mealBody);
+      if (response.status != 201) {
+        utils.notify.error(this.$t('meal-plan.mealplan-creation-failed'));
+      } else {
+        utils.notify.success(this.$t('meal-plan.mealplan-created'));
+      }
       this.$emit(CREATE_EVENT);
       this.meals = [];
       this.startDate = null;

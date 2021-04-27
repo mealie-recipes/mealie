@@ -23,8 +23,7 @@ export const themeAPI = {
   },
 
   async create(postBody) {
-    let response = await apiReq.post(settingsURLs.createTheme, postBody);
-    return response.data;
+    return await apiReq.post(settingsURLs.createTheme, postBody);
   },
 
   async update(themeName, colors) {
@@ -32,12 +31,10 @@ export const themeAPI = {
       name: themeName,
       colors: colors,
     };
-    let response = await apiReq.put(settingsURLs.updateTheme(themeName), body);
-    return response.data;
+    return await apiReq.put(settingsURLs.updateTheme(themeName), body);
   },
 
   async delete(themeName) {
-    let response = await apiReq.delete(settingsURLs.deleteTheme(themeName));
-    return response.data;
+    return await apiReq.delete(settingsURLs.deleteTheme(themeName));
   },
 };

@@ -18,7 +18,7 @@ export const migrationAPI = {
   },
   async delete(folder, file) {
     let response = await apiReq.delete(migrationURLs.delete(folder, file));
-    return response.data;
+    return response;
   },
   async import(folder, file) {
     let response = await apiReq.post(migrationURLs.import(folder, file));

@@ -150,6 +150,7 @@ import { api } from "@/api";
 import LanguageSelector from "@/components/FormHelpers/LanguageSelector";
 import draggable from "vuedraggable";
 import NewCategoryTagDialog from "@/components/UI/Dialogs/NewCategoryTagDialog.vue";
+import utils from "@/utils";
 
 export default {
   components: {
@@ -213,8 +214,13 @@ export default {
     writeLang(val) {
       this.settings.language = val;
     },
-    deleteCategoryfromDatabase(category) {
-      api.categories.delete(category);
+    async deleteCategoryfromDatabase(category) {
+      const response = await api.categories.delete(category);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('settings.category-deletion-failed'));
+      } else {
+        utils.notify.success(this.$t('settings.category-deleted'));
+      }
     },
     async getOptions() {
       this.settings = await api.siteSettings.get();
@@ -223,7 +229,12 @@ export default {
       this.settings.categories.splice(index, 1);
     },
     async saveSettings() {
-      await api.siteSettings.update(this.settings);
+      const response = await api.siteSettings.update(this.settings);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('settings.settings-update-failed'));
+      } else {
+        utils.notify.success(this.$t('settings.settings-updated'));
+      }
       this.getOptions();
     },
   },

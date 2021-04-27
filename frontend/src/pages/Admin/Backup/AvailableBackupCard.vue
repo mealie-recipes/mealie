@@ -40,6 +40,7 @@
 <script>
 import ImportDialog from "./ImportDialog";
 import { api } from "@/api";
+import utils from "@/utils";
 export default {
   props: {
     backups: Array,
@@ -68,10 +69,15 @@ export default {
 
       this.$emit("finished", importData);
     },
-    deleteBackup(data) {
+    async deleteBackup(data) {
       this.$emit("loading");
 
-      api.backups.delete(data.name);
+      const response = await api.backups.delete(data.name);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('settings.backup.unable-to-delete-backup-see-log-file'));
+      } else {
+        utils.notify.success(this.$t('settings.backup.backup-deleted'));
+      }
       this.selectedBackup = null;
       this.backupLoading = false;
 

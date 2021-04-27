@@ -40,7 +40,7 @@ export const backupAPI = {
    * @param {string} fileName
    */
   async delete(fileName) {
-    await apiReq.delete(backupURLs.deleteBackup(fileName));
+    return await apiReq.delete(backupURLs.deleteBackup(fileName));
   },
   /**
    * Creates a backup on the serve given a set of options

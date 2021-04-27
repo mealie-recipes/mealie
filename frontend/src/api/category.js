@@ -27,7 +27,7 @@ export const categoryAPI = {
   async delete(category) {
     let response = await apiReq.delete(categoryURLs.deleteCategory(category));
     store.dispatch("requestCategories");
-    return response.data;
+    return response;
   },
 };
 

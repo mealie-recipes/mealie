@@ -37,8 +37,7 @@ export const userAPI = {
     return response.data;
   },
   async create(user) {
-    let response = await apiReq.post(usersURLs.users, user);
-    return response.data;
+    return await apiReq.post(usersURLs.users, user);
   },
   async self() {
     let response = await apiReq.get(usersURLs.self);
@@ -49,19 +48,16 @@ export const userAPI = {
     return response.data;
   },
   async update(user) {
-    let response = await apiReq.put(usersURLs.userID(user.id), user);
-    return response.data;
+    return await apiReq.put(usersURLs.userID(user.id), user);
   },
   async changePassword(id, password) {
     let response = await apiReq.put(usersURLs.password(id), password);
     return response.data;
   },
   async delete(id) {
-    let response = await apiReq.delete(usersURLs.userID(id));
-    return response.data;
+    return await apiReq.delete(usersURLs.userID(id));
   },
   async resetPassword(id) {
-    let response = await apiReq.put(usersURLs.resetPassword(id));
-    return response.data;
+    return await apiReq.put(usersURLs.resetPassword(id));
   },
 };

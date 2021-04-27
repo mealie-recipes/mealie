@@ -61,6 +61,7 @@
 
 <script>
 import { api } from "@/api";
+import utils from "@/utils";
 export default {
   props: {},
   data() {
@@ -98,9 +99,11 @@ export default {
         this.error = true;
       }
       if (key.status != 200) {
+        utils.notify.error(this.$t('user.incorrect-username-or-password'));
         this.error = true;
         this.loading = false;
       } else {
+        utils.notify.success(this.$t('user.user-successfully-logged-in'));
         this.clear();
         this.$store.commit("setToken", key.data.access_token);
         this.$emit("logged-in");

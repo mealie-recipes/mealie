@@ -1,7 +1,7 @@
 <template>
   <v-card outlined class="mt-n1">
     <ConfirmationDialog
-      ref="deleteUserDialog"
+      ref="deleteTokenDialog"
       :title="$t('user.confirm-link-deletion')"
       :message="
         $t('user.are-you-sure-you-want-to-delete-the-link', {
@@ -9,7 +9,7 @@
         })
       "
       icon="mdi-alert"
-      @confirm="deleteUser"
+      @confirm="deleteToken"
       :width="450"
       @close="closeDelete"
     />
@@ -109,6 +109,7 @@
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
+import utils from "@/utils";
 import { validators } from "@/mixins/validators";
 export default {
   components: { ConfirmationDialog },
@@ -181,8 +182,13 @@ export default {
       this.links = await api.signUps.getAll();
     },
 
-    async deleteUser() {
-      await api.signUps.deleteToken(this.activeId);
+    async deleteToken() {
+      const response = await api.signUps.deleteToken(this.activeId);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('general.not-authorized'));
+      } else {
+        utils.notify.success(this.$t('user.sign-up-token-deleted'));
+      }
       this.initialize();
     },
 
@@ -197,7 +203,7 @@ export default {
       this.activeName = item.name;
       this.editedIndex = this.links.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.$refs.deleteUserDialog.open();
+      this.$refs.deleteTokenDialog.open();
     },
 
     deleteItemConfirm() {

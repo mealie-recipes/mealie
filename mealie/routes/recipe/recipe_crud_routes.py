@@ -2,13 +2,12 @@ import shutil
 from enum import Enum
 
 import requests
-from fastapi import APIRouter, Depends, File, Form, HTTPException
+from fastapi import APIRouter, Depends, File, Form, HTTPException, status
 from fastapi.responses import FileResponse
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
-from mealie.schema.snackbar import SnackResponse
 from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, rename_image, scrape_image, write_image
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
@@ -81,9 +80,8 @@ def delete_recipe(
         db.recipes.delete(session, recipe_slug)
         delete_image(recipe_slug)
     except:
-        raise HTTPException(status_code=404, detail=SnackResponse.error("Unable to Delete Recipe"))
+        raise HTTPException( status.HTTP_400_BAD_REQUEST )
 
-    return SnackResponse.error(f"Recipe {recipe_slug} Deleted")
 
 
 class ImageType(str, Enum):
@@ -106,7 +104,7 @@ async def get_recipe_img(recipe_slug: str, image_type: ImageType = ImageType.ori
     if recipe_image:
         return FileResponse(recipe_image)
     else:
-        raise HTTPException(404, "file not found")
+        raise HTTPException( status.HTTP_404_NOT_FOUND )
 
 
 @router.put("/{recipe_slug}/image")
@@ -133,5 +131,3 @@ def scrape_image_url(
     """ Removes an existing image and replaces it with the incoming file. """
 
     scrape_image(url.url, recipe_slug)
-
-    return SnackResponse.success("Recipe Image Updated")

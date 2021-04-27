@@ -21,7 +21,7 @@ export const siteSettingsAPI = {
   async update(body) {
     let response = await apiReq.put(settingsURLs.updateSiteSettings, body);
     store.dispatch("requestSiteSettings");
-    return response.data;
+    return response;
   },
 
   async getPages() {
@@ -35,18 +35,15 @@ export const siteSettingsAPI = {
   },
 
   async createPage(body) {
-    let response = await apiReq.post(settingsURLs.customPages, body);
-    return response.data;
+    return await apiReq.post(settingsURLs.customPages, body);
   },
 
   async deletePage(id) {
-    let response = await apiReq.delete(settingsURLs.customPage(id));
-    return response.data;
+    return await apiReq.delete(settingsURLs.customPage(id));
   },
 
   async updatePage(body) {
-    let response = await apiReq.put(settingsURLs.customPage(body.id), body);
-    return response.data;
+    return await apiReq.put(settingsURLs.customPage(body.id), body);
   },
 
   async updateAllPages(allPages) {

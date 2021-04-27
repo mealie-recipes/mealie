@@ -78,6 +78,9 @@ import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
 import { user } from "@/mixins/user";
+import utils from "@/utils";
+import store from "@/store";
+import { router } from "@/routes";
 
 export default {
   components: {
@@ -164,8 +167,15 @@ export default {
         return api.recipes.recipeImage(image) + "&rnd=" + this.imageKey;
       }
     },
-    deleteRecipe() {
-      api.recipes.delete(this.recipeDetails.slug);
+    async deleteRecipe() {
+      let response = await api.recipes.delete(this.recipeDetails.slug);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('recipe.unable-to-delete-recipe'));
+      } else {
+        utils.notify.success(this.$t('recipe.recipe-deleted'));
+        store.dispatch("requestRecentRecipes");
+        router.push(`/`);
+      }
     },
     validateRecipe() {
       if (this.jsonEditor) {
@@ -176,7 +186,12 @@ export default {
     },
     async saveImage() {
       if (this.fileObject) {
-        await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
+        const response = await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
+        if (response.status != 200) {
+          utils.notify.error(this.$t('general.image-upload-failed'));
+        } else {
+          utils.notify.success(this.$t('recipe.recipe-image-updated'));
+        }
       }
       this.imageKey += 1;
     },

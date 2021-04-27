@@ -84,6 +84,7 @@
 import { api } from "@/api";
 import TimePickerDialog from "@/components/FormHelpers/TimePickerDialog";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
+import utils from "@/utils";
 export default {
   components: {
     TimePickerDialog,
@@ -135,9 +136,14 @@ export default {
       this.groupSettings.webhookUrls.splice(index, 1);
     },
     async saveGroupSettings() {
-      await api.groups.update(this.groupSettings);
-      await this.$store.dispatch("requestCurrentGroup");
-      this.getSiteSettings();
+      const response = await api.groups.update(this.groupSettings);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('user.error-updating-group'));
+      } else {
+        utils.notify.success(this.$t('settings.group-settings-updated'));
+        await this.$store.dispatch("requestCurrentGroup");
+        this.getSiteSettings();
+      }
     },
     testWebhooks() {
       api.settings.testWebhooks();

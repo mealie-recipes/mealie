@@ -17,11 +17,11 @@ export const groupAPI = {
   },
   async create(name) {
     let response = await apiReq.post(groupsURLs.create, { name: name });
-    return response.data;
+    return response;
   },
   async delete(id) {
     let response = await apiReq.delete(groupsURLs.delete(id));
-    return response.data;
+    return response;
   },
   async current() {
     let response = await apiReq.get(groupsURLs.current);
@@ -29,6 +29,6 @@ export const groupAPI = {
   },
   async update(data) {
     let response = await apiReq.put(groupsURLs.update(data.id), data);
-    return response.data;
+    return response;
   },
 };

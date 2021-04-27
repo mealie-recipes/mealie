@@ -6,7 +6,6 @@ from mealie.db.db_setup import generate_session
 from fastapi import APIRouter, Depends
 from mealie.routes.deps import get_current_user
 from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
-from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import UserIn, UserInDB
 from sqlalchemy.orm.session import Session
 
@@ -33,18 +32,16 @@ async def create_user_sign_up_key(
 ):
     """ Generates a Random Token that a new user can sign up with """
 
-    if current_user.admin:
-        sign_up = {
-            "token": str(uuid.uuid1().hex),
-            "name": key_data.name,
-            "admin": key_data.admin,
-        }
-        db_entry = db.sign_ups.create(session, sign_up)
+    if not current_user.admin:
+        raise HTTPException( status.HTTP_403_FORBIDDEN )
 
-        return db_entry
+    sign_up = {
+        "token": str(uuid.uuid1().hex),
+        "name": key_data.name,
+        "admin": key_data.admin,
+    }
+    return db.sign_ups.create(session, sign_up)
 
-    else:
-        return {"details": "not authorized"}
 
 
 @router.post("/{token}")
@@ -58,7 +55,7 @@ async def create_user_with_token(
     # Validate Token
     db_entry: SignUpOut = db.sign_ups.get(session, token, limit=1)
     if not db_entry:
-        return SnackResponse.error("Invalid Token")
+        raise HTTPException( status.HTTP_401_UNAUTHORIZED )
 
     # Create User
     new_user.admin = db_entry.admin
@@ -68,9 +65,6 @@ async def create_user_with_token(
     # DeleteToken
     db.sign_ups.delete(session, token)
 
-    # Respond
-    return SnackResponse.success(f"User Created: {new_user.full_name}", data)
-
 
 @router.delete("/{token}")
 async def delete_token(
@@ -79,8 +73,7 @@ async def delete_token(
     session: Session = Depends(generate_session),
 ):
     """ Removed a token from the database """
-    if current_user.admin:
-        db.sign_ups.delete(session, token)
-        return SnackResponse.error("Sign Up Token Deleted")
-    else:
-        return {"details", "not authorized"}
+    if not current_user.admin:
+        raise HTTPException( status.HTTP_403_FORBIDDEN )
+    
+    db.sign_ups.delete(session, token)

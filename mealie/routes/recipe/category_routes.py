@@ -1,9 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.category import CategoryIn, RecipeCategoryResponse
-from mealie.schema.snackbar import SnackResponse
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(
@@ -41,6 +40,7 @@ async def delete_recipe_category(
     category does not impact a recipe. The category will be removed
     from any recipes that contain it"""
 
-    db.categories.delete(session, category)
-
-    return SnackResponse.error(f"Category Deleted: {category}")
+    try:
+        db.categories.delete(session, category)
+    except:
+        raise HTTPException( status.HTTP_400_BAD_REQUEST )

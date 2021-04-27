@@ -128,8 +128,13 @@ export default {
       this.requestMeals();
     },
     async deletePlan(id) {
-      await api.mealPlans.delete(id);
-      this.requestMeals();
+      const response = await api.mealPlans.delete(id);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('meal-plan.mealplan-deletion-failed'));
+      } else {
+        utils.notify.success(this.$t('meal-plan.mealplan-deleted'));
+        this.requestMeals();
+      }
     },
     openShoppingList(id) {
       this.$refs.shoppingList.openDialog(id);

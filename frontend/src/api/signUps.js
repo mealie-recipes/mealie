@@ -20,11 +20,9 @@ export const signupAPI = {
     return response.data;
   },
   async deleteToken(token) {
-    let response = await apiReq.delete(signUpURLs.deleteToken(token));
-    return response.data;
+    return await apiReq.delete(signUpURLs.deleteToken(token));
   },
   async createUser(token, data) {
-    let response = await apiReq.post(signUpURLs.createUser(token), data);
-    return response.data;
+    return apiReq.post(signUpURLs.createUser(token), data);
   },
 };

@@ -86,6 +86,7 @@
 import { validators } from "@/mixins/validators";
 import { api } from "@/api";
 import GroupCard from "./GroupCard";
+import utils from "@/utils";
 export default {
   components: { GroupCard },
   mixins: [validators],
@@ -104,8 +105,11 @@ export default {
   methods: {
     async createGroup() {
       this.groupLoading = true;
-      let response = await api.groups.create(this.newGroupName);
-      if (response.created) {
+      const response = await api.groups.create(this.newGroupName);
+      if (response.status != 201) {
+        utils.notify.error(this.$t('user.user-group-creation-failed'));
+      } else {
+        utils.notify.success(this.$t('user.user-group-created'));
         this.groupLoading = false;
         this.groupDialog = false;
         this.$store.dispatch("requestAllGroups");

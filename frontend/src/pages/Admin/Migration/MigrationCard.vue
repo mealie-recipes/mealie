@@ -69,6 +69,7 @@
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import { api } from "@/api";
 import MigrationDialog from "./MigrationDialog";
+import utils from "@/utils";
 export default {
   props: {
     folder: String,
@@ -86,9 +87,14 @@ export default {
     };
   },
   methods: {
-    deleteMigration(file_name) {
-      api.migrations.delete(this.folder, file_name);
-      this.$emit("refresh");
+    async deleteMigration(file_name) {
+      const response = await api.migrations.delete(this.folder, file_name);
+      if (response.status != 200) {
+        utils.notify.error(this.$t('general.file-folder-not-found'));
+      } else {
+        utils.notify.success(this.$t('migration.migration-data-removed'));
+        this.$emit("refresh");
+      }
     },
     async importMigration(file_name) {
       this.loading = true;
