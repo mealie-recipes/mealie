@@ -38,8 +38,8 @@ export default {
       return this.$store.getters.getSiteSettings;
     },
     recentRecipes() {
-      let recipes = this.$store.getters.getRecentRecipes;
-      return recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+      return this.$store.getters.getRecentRecipes;
+ 
     },
   },
   async mounted() {

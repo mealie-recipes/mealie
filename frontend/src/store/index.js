@@ -5,6 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
 import language from "./modules/language";
 import siteSettings from "./modules/siteSettings";
+import recipes from "./modules/recipes";
 import groups from "./modules/groups";
 
 Vue.use(Vuex);
@@ -20,6 +21,7 @@ const store = new Vuex.Store({
     language,
     siteSettings,
     groups,
+    recipes,
   },
   state: {
     // All Recipe Data Store
@@ -35,9 +37,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setRecentRecipes(state, payload) {
-      state.recentRecipes = payload;
-    },
     setMealPlanCategories(state, payload) {
       state.mealPlanCategories = payload;
     },
@@ -53,18 +52,6 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    async requestRecentRecipes({ getters }) {
-      const payload = await api.recipes.allSummary(0, 30);
-      const recent = getters.getRecentRecipes;
-      if (recent.length >= 30) return;
-      this.commit("setRecentRecipes", payload);
-    },
-    async requestAllRecipes({ getters }) {
-      const recent = getters.getRecentRecipes;
-      const start = recent.length + 1;
-      const payload = await api.recipes.allSummary(start, 9999);
-      this.commit("setRecentRecipes", [...recent, ...payload]);
-    },
     async requestCategories({ commit }) {
       const categories = await api.categories.getAll();
       commit("setAllCategories", categories);
@@ -80,7 +67,6 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
     getAllCategories: state =>
       state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),

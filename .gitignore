@@ -9,7 +9,7 @@ mealie/temp/*
 mealie/temp/api.html
 .temp/
 .secret
-
+*.zip
 
 dev/data/backups/*
 dev/data/debug/*
@@ -193,3 +193,5 @@ frontend/dist/js/app.36f2760c.js
 frontend/dist/js/app.36f2760c.js.map
 frontend/dist/js/chunk-vendors.c93761e4.js
 frontend/dist/js/chunk-vendors.c93761e4.js.map
+dev/data/backups/dev_sample_data_2021-Apr-25.zip
+dev/data/backups/dev_sample_data_2021-Feb-13.zip

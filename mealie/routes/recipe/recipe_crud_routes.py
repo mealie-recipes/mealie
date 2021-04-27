@@ -61,7 +61,7 @@ def update_recipe(
     if recipe_slug != recipe.slug:
         rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
 
-    return recipe.slug
+    return recipe
 
 
 @router.patch("/{recipe_slug}")

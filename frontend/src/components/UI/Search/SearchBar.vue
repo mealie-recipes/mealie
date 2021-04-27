@@ -132,7 +132,7 @@ export default {
   },
   computed: {
     data() {
-      return this.$store.getters.getRecentRecipes;
+      return this.$store.getters.getAllRecipes;
     },
     autoResults() {
       return this.fuseResults.length > 1 ? this.fuseResults : this.results;

@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     allRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      return this.$store.getters.getAllRecipes;
     },
     // results() {
     //   if (this.search === null || this.search === "") {

@@ -86,6 +86,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         rating: int = None,
         orgURL: str = None,
         extras: dict = None,
+        *args,
+        **kwargs
     ) -> None:
         self.name = name
         self.description = description
@@ -139,6 +141,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         rating: int = None,
         orgURL: str = None,
         extras: dict = None,
+        *args,
+        **kwargs
     ):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
 

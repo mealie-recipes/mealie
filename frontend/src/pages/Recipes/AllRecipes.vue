@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+      color="primary"
+    ></v-progress-linear>
     <CardSection
       :sortable="true"
       :title="$t('page.all-recipes')"
@@ -18,14 +23,20 @@ export default {
     CardSection,
   },
   data() {
-    return {};
+    return {
+      loading: false,
+    };
   },
-  mounted() {
-    this.$store.dispatch("requestAllRecipes");
+  async mounted() {
+    if (this.allRecipes.length < 1) {
+      this.loading = true;
+    }
+    await this.$store.dispatch("requestAllRecipes");
+    this.loading = false;
   },
   computed: {
     allRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      return this.$store.getters.getAllRecipes;
     },
   },
   methods: {
