@@ -5,15 +5,10 @@ from mealie.db.models.model_base import SqlAlchemyBase
 from sqlalchemy.orm import sessionmaker
 
 
-def sql_global_init(db_file: Path, check_thread=False):
-
-    SQLALCHEMY_DATABASE_URL = "sqlite:///" + str(db_file.absolute())
-    # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
-
+def sql_global_init(db_url: str):
     engine = sa.create_engine(
-        SQLALCHEMY_DATABASE_URL,
+        db_url,
         echo=False,
-        connect_args={"check_same_thread": check_thread},
     )
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -9,4 +9,4 @@ services:
     ports:
       - 9090:80
     environment:
-      db_type: sqlite
+      DB_URL: sqlite:///mealie.db

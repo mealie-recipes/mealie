@@ -57,7 +57,6 @@ class AppDirectories:
         self.CHOWDOWN_DIR: Path = self.MIGRATION_DIR.joinpath("chowdown")
         self.TEMPLATE_DIR: Path = data_dir.joinpath("templates")
         self.USER_DIR: Path = data_dir.joinpath("users")
-        self.SQLITE_DIR: Path = data_dir.joinpath("db")
         self.RECIPE_DATA_DIR: Path = data_dir.joinpath("recipes")
         self.TEMP_DIR: Path = data_dir.joinpath(".temp")
 
@@ -70,7 +69,6 @@ class AppDirectories:
             self.DEBUG_DIR,
             self.MIGRATION_DIR,
             self.TEMPLATE_DIR,
-            self.SQLITE_DIR,
             self.NEXTCLOUD_DIR,
             self.CHOWDOWN_DIR,
             self.RECIPE_DATA_DIR,
@@ -100,21 +98,7 @@ class AppSettings(BaseSettings):
         return "/redoc" if self.API_DOCS else None
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
-    DATABASE_TYPE: str = Field("sqlite", env="DB_TYPE")
-
-    @validator("DATABASE_TYPE", pre=True)
-    def validate_db_type(cls, v: str) -> Optional[str]:
-        if v != "sqlite":
-            raise ValueError("Unable to determine database type. Acceptible options are 'sqlite'")
-        else:
-            return v
-
-    # Used to Set SQLite File Version
-    SQLITE_FILE: Optional[Union[str, Path]]
-
-    @validator("SQLITE_FILE", pre=True)
-    def identify_sqlite_file(cls, v: str) -> Optional[str]:
-        return app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
+    DB_URL: str = Field("sqlite:///mealie.db", env="DB_URL")
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"

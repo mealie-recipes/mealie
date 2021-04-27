@@ -16,7 +16,7 @@ SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath("test.db")
 SQLITE_FILE.unlink(missing_ok=True)
 
 
-TestSessionLocal = sql_global_init(SQLITE_FILE, check_thread=False)
+TestSessionLocal = sql_global_init(SQLITE_FILE)
 init_db(TestSessionLocal())
 
 
