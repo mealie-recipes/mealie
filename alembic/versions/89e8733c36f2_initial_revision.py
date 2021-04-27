@@ -268,6 +268,8 @@ def upgrade():
     op.bulk_insert(groups_table, [
         {
             "name": settings.DEFAULT_GROUP,
+            "webhook_enable": False,
+            "webhook_time": "00:00",
         },
     ])
     op.bulk_insert(users_table, [
