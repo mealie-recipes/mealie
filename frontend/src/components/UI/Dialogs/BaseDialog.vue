@@ -5,22 +5,19 @@
       :width="modalWidth + 'px'"
       :content-class="top ? 'top-dialog' : undefined"
     >
-      <v-card class="pb-10" :loading="loading" height="100%">
+      <v-card class="pb-10" height="100%">
         <v-app-bar dark :color="color" class="mt-n1 mb-2">
-          <v-icon large left v-if="!loading">
+          <v-icon large left>
             {{ titleIcon }}
           </v-icon>
-          <v-progress-circular
-            v-else
-            indeterminate
-            color="white"
-            large
-            class="mr-2"
-          >
-          </v-progress-circular>
           <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-app-bar>
+        <v-progress-linear
+          v-if="loading"
+          indeterminate
+          color="primary"
+        ></v-progress-linear>
         <slot> </slot>
         <v-card-actions>
           <slot name="card-actions">
@@ -33,6 +30,7 @@
             </v-btn>
           </slot>
         </v-card-actions>
+
         <slot name="below-actions"> </slot>
       </v-card>
     </v-dialog>

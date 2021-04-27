@@ -221,7 +221,13 @@
     },
     "toolbox": {
       "toolbox": "Toolbox",
-      "new-name": "New Name"
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "user": {

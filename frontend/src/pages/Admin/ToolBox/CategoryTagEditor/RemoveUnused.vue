@@ -4,7 +4,11 @@
       ref="deleteDialog"
       title-icon="mdi-tag"
       color="error"
-      :title="title"
+      :title="
+        $t('general.delete') +
+          ' ' +
+          (isTags ? $t('recipe.tags') : $t('recipe.categories'))
+      "
       :loading="loading"
       modal-width="400"
     >
@@ -16,11 +20,11 @@
         </v-list-item>
       </v-list>
       <v-card-text v-else class=" mt-4 text-center">
-        No Unused Items
+        {{ $t("settings.toolbox.no-unused-items") }}
       </v-card-text>
       <template slot="card-actions">
         <v-btn text color="grey" @click="closeDialog">
-          Cancel
+          {{ $t("general.cancel") }}
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
@@ -29,13 +33,13 @@
           :loading="loading"
           :disabled="deleteList.length < 1"
         >
-          Delete
+          {{ $t("general.delete") }}
         </v-btn>
       </template>
     </base-dialog>
 
     <v-btn @click="openDialog" small color="error" class="mr-1">
-      Remove Unused
+      {{ $t("settings.toolbox.remove-unused") }}
     </v-btn>
   </div>
 </template>
@@ -57,11 +61,6 @@ export default {
       deleteList: [],
       loading: false,
     };
-  },
-  computed: {
-    title() {
-      return this.isTags ? "Delete Tags" : "Delete Categories";
-    },
   },
   methods: {
     closeDialog() {

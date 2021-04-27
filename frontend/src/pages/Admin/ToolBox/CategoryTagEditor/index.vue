@@ -18,7 +18,8 @@
       </v-form>
       <template slot="below-actions">
         <v-card-title class="headline">
-          {{ renameTarget.recipes.length || 0 }} Recipes Effected
+          {{ renameTarget.recipes.length || 0 }}
+          {{ $t("settings.toolbox.recipes-effected") }}
         </v-card-title>
         <MobileRecipeCard
           class="ml-2 mr-2 mt-2 mb-2"
@@ -41,12 +42,18 @@
         class="mr-1"
       >
         <v-btn @click="openNewDialog" small color="success">
-          New
+          {{ $t("general.create") }}
         </v-btn>
       </new-category-tag-dialog>
       <BulkAssign isTags="isTags" />
-      <v-btn @click="titleCaseAll" class="mr-1" small color="success">
-        Title Case All
+      <v-btn
+        @click="titleCaseAll"
+        class="mr-1"
+        small
+        color="success"
+        :loading="loadingTitleCase"
+      >
+        {{ $t("settings.toolbox.title-case-all") }}
       </v-btn>
       <RemoveUnused :isTags="isTags" />
       <v-spacer> </v-spacer>
@@ -125,6 +132,7 @@ export default {
   },
   data() {
     return {
+      loadingTitleCase: false,
       searchString: "",
       searchResults: [],
       renameTarget: {
@@ -181,10 +189,11 @@ export default {
         await api.categories.delete(name);
       }
     },
-    renameFromDialog(name, newName) {
+    async renameFromDialog(name, newName) {
       if (this.$refs.renameForm.validate()) {
-        this.rename(name, newName);
+        await this.rename(name, newName);
       }
+      this.$refs.renameDialog.close();
     },
     async rename(name, newName) {
       if (this.isTags) {
@@ -197,6 +206,7 @@ export default {
       return lowerName.replace(/(?:^|\s|-)\S/g, x => x.toUpperCase());
     },
     async titleCaseAll() {
+      this.loadingTitleCase = true;
       const renameList = this.allItems.map(x => ({
         slug: x.slug,
         name: x.name,
@@ -216,6 +226,7 @@ export default {
         });
         this.$store.dispatch("requestCategories");
       }
+      this.loadingTitleCase = false;
     },
   },
 };
