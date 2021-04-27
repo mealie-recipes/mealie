@@ -50,7 +50,7 @@ def test_create_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, 
     meal_plan = get_meal_plan_template(slug_1, slug_2)
 
     response = api_client.post(api_routes.meal_plans_create, json=meal_plan, headers=token)
-    assert response.status_code == 200
+    assert response.status_code == 201
 
 
 def test_read_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, slug_2, token):

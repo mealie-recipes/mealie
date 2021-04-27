@@ -24,7 +24,7 @@ async def create_user(
 
     new_user.password = get_password_hash(new_user.password)
 
-    data = db.users.create(session, new_user.dict())
+    return db.users.create(session, new_user.dict())
 
 
 @router.get("", response_model=list[UserOut])
