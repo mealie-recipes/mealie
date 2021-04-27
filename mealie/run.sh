@@ -7,7 +7,7 @@ ARG1=${1:-production}
 # DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )" 
 
 # # Initialize Database Prerun
-poetry run python /app/mealie/db/init_db.py
+poetry run alembic upgrade head
 poetry run python /app/mealie/services/image/minify.py
 
 # Migrations

@@ -123,7 +123,7 @@ The frontend static files are generated with `npm run build`. This is done durin
 ### Backend API
 The backend API is build with Python, FastAPI, and SQLite and requires Python 3.9, and Poetry. Once the requirements are installed, in the project directory you can run the command `poetry install` to create a python virtual environment and install the python dependencies.
 
-Once the dependencies are installed you should be ready to run the server. To initialize that database you need to first run	`python mealie/db/init_db.py`. Then to start The web server, you run the command `uvicorn mealie.app:app --host 0.0.0.0 --port 9000`
+Once the dependencies are installed you should be ready to run the server. To initialize that database you need to first run	`alembic upgrade head`. Then to start The web server, you run the command `uvicorn mealie.app:app --host 0.0.0.0 --port 9000`
 
 
 ### Proxy Server

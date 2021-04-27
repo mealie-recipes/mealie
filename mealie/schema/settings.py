@@ -16,6 +16,7 @@ class SiteSettings(CamelModel):
     class Config:
         orm_mode = True
 
+<<<<<<< HEAD
         schema_extra = {
             "example": {
                 "language": "en",
@@ -29,6 +30,8 @@ class SiteSettings(CamelModel):
             }
         }
 
+=======
+>>>>>>> 0afdaf6 (Add alembic)
 
 class CustomPageBase(CamelModel):
     name: str

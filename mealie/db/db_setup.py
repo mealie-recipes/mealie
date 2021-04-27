@@ -3,8 +3,6 @@ from sqlalchemy.orm.session import Session
 
 from mealie.db.models.db_session import sql_global_init
 
-sql_exists = True
-
 SessionLocal = sql_global_init(settings.DB_URL)
 
 

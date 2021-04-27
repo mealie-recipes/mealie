@@ -11,11 +11,7 @@ recipes2tags = sa.Table(
     "recipes2tags",
     SqlAlchemyBase.metadata,
     sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
-<<<<<<< HEAD
     sa.Column("tag_id", sa.Integer, sa.ForeignKey("tags.id")),
-=======
-    sa.Column("tag_slug", sa.String, sa.ForeignKey("tags.slug")),
->>>>>>> e2e2ad5 (feat: other databases support)
 )
 
 

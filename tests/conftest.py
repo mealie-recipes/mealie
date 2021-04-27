@@ -5,7 +5,6 @@ from fastapi.testclient import TestClient
 from mealie.app import app
 from mealie.core.config import app_dirs, settings
 from mealie.db.db_setup import generate_session, sql_global_init
-from mealie.db.init_db import init_db
 from pytest import fixture
 
 from tests.app_routes import AppRoutes
@@ -17,7 +16,6 @@ SQLITE_FILE.unlink(missing_ok=True)
 
 
 TestSessionLocal = sql_global_init(SQLITE_FILE)
-init_db(TestSessionLocal())
 
 
 def override_get_db():

@@ -20,17 +20,3 @@ class SiteTheme(BaseModel):
 
     class Config:
         orm_mode = True
-        schema_extra = {
-            "example": {
-                "name": "default",
-                "colors": {
-                    "primary": "#E58325",
-                    "accent": "#00457A",
-                    "secondary": "#973542",
-                    "success": "#5AB1BB",
-                    "info": "#4990BA",
-                    "warning": "#FF4081",
-                    "error": "#EF5350",
-                },
-            }
-        }

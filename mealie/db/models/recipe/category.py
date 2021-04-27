@@ -8,7 +8,7 @@ from sqlalchemy.orm import validates
 logger = root_logger.get_logger()
 
 site_settings2categories = sa.Table(
-    "site_settings2categoories",
+    "site_settings2categories",
     SqlAlchemyBase.metadata,
     sa.Column("sidebar_id", sa.Integer, sa.ForeignKey("site_settings.id")),
     sa.Column("category_id", sa.String, sa.ForeignKey("categories.id")),
