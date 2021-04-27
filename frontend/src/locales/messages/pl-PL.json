@@ -152,6 +152,7 @@
     "exclude": "Exclude",
     "include": "Include",
     "or": "Or",
+    "and": "and",
     "search": "Search",
     "tag-filter": "Tag Filter"
   },
@@ -217,6 +218,16 @@
       "test-webhooks": "Testuj webhooki",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Odnośniki poniżej otrzymają webhook zawierający dane o przepisie dla danego dnia. Aktualnie webhooki zostanę wykonane o",
       "webhook-url": "Odnośnik webhooka"
+    },
+    "toolbox": {
+      "toolbox": "Toolbox",
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "user": {

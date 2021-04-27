@@ -152,6 +152,7 @@
     "exclude": "Exclude",
     "include": "Include",
     "or": "Or",
+    "and": "and",
     "search": "Search",
     "tag-filter": "Tag Filter"
   },
@@ -217,6 +218,16 @@
       "test-webhooks": "測試Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "下方列出的網址將在預定日期接收到有關用餐計劃的食譜資料。Webhooks將在<strong>{ time }</strong>執行",
       "webhook-url": "Webhook網址"
+    },
+    "toolbox": {
+      "toolbox": "Toolbox",
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "user": {

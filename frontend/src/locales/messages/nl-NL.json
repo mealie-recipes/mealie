@@ -152,6 +152,7 @@
     "exclude": "Exclusief",
     "include": "Inclusief",
     "or": "Of",
+    "and": "and",
     "search": "Zoek",
     "tag-filter": "Label Filter"
   },
@@ -217,6 +218,16 @@
       "test-webhooks": "Webhooks testen",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "De onderstaande URL's ontvangen webhooks met receptgegevens voor het maaltijdplan op de geplande dag. Momenteel zullen Webhooks uitvoeren op",
       "webhook-url": "Webhook URL"
+    },
+    "toolbox": {
+      "toolbox": "Toolbox",
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "user": {
