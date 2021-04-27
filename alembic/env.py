@@ -25,6 +25,7 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+from mealie.core.config import settings
 
 
 def run_migrations_offline():
@@ -39,7 +40,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = settings.DB_URL
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -58,6 +59,7 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    config.set_section_option(config.config_ini_section, "DB_URL", settings.DB_URL)
     connectable = engine_from_config(
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
