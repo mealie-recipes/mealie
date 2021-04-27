@@ -7,7 +7,7 @@ import Profile from "@/pages/Admin/Profile";
 import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
 import About from "@/pages/Admin/About";
-import Toolbox from "@/pages/Admin/Toolbox";
+import ToolBox from "@/pages/Admin/ToolBox";
 import { store } from "../store";
 
 export const adminRoutes = {
@@ -75,7 +75,7 @@ export const adminRoutes = {
     },
     {
       path: "toolbox",
-      component: Toolbox,
+      component: ToolBox,
       meta: {
         title: "settings.toolbox.toolbox",
       },
