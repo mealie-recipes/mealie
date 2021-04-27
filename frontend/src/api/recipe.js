@@ -71,6 +71,12 @@ export const recipeAPI = {
     return response.data;
   },
 
+  async patch(data) {
+    let response = await apiReq.patch(recipeURLs.update(data.slug), data);
+    store.dispatch("requestRecentRecipes");
+    return response.data;
+  },
+
   async delete(recipeSlug) {
     await apiReq.delete(recipeURLs.delete(recipeSlug));
     store.dispatch("requestRecentRecipes");

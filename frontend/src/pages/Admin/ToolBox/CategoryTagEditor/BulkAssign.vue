@@ -62,6 +62,7 @@
 import CardSection from "@/components/UI/CardSection";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
+import { api } from "@/api";
 export default {
   props: {
     isTags: {
@@ -113,9 +114,15 @@ export default {
       this.tagsToAssign = [];
     },
     assignAll() {
-      console.log("Categories", this.catsToAssign);
-      console.log("Tags", this.tagsToAssign);
-      console.log("results", this.results);
+      this.loading = true;
+      this.results.forEach(async element => {
+        element.recipeCategory = element.recipeCategory.concat(
+          this.catsToAssign
+        );
+        element.tags = element.tags.concat(this.tagsToAssign);
+        await api.recipes.patch(element);
+      });
+      this.loading = false;
     },
     closeDialog() {
       this.$refs.assignDialog.close();

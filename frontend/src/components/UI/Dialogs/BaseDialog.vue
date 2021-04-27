@@ -5,7 +5,7 @@
       :width="modalWidth + 'px'"
       :content-class="top ? 'top-dialog' : undefined"
     >
-      <v-card class="pb-2" :loading="loading">
+      <v-card class="pb-10" :loading="loading" height="100%">
         <v-app-bar dark :color="color" class="mt-n1 mb-2">
           <v-icon large left v-if="!loading">
             {{ titleIcon }}
