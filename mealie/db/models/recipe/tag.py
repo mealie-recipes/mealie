@@ -11,7 +11,7 @@ recipes2tags = sa.Table(
     "recipes2tags",
     SqlAlchemyBase.metadata,
     sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
-    sa.Column("tag_slug", sa.Integer, sa.ForeignKey("tags.slug")),
+    sa.Column("tag_id", sa.Integer, sa.ForeignKey("tags.id")),
 )
 
 
@@ -30,6 +30,9 @@ class Tag(SqlAlchemyBase):
     def __init__(self, name, session=None) -> None:
         self.name = name.strip()
         self.slug = slugify(self.name)
+
+    def update(self, name, session=None) -> None:
+        self.__init__(name, session)
 
     @staticmethod
     def create_if_not_exist(session, name: str = None):

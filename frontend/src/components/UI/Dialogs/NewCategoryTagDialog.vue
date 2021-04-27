@@ -1,8 +1,10 @@
 <template>
   <div>
-    <v-btn icon @click="dialog = true" class="mt-n1">
-      <v-icon :color="color">mdi-plus</v-icon>
-    </v-btn>
+    <slot>
+      <v-btn icon @click="dialog = true" class="mt-n1">
+        <v-icon :color="color">mdi-plus</v-icon>
+      </v-btn>
+    </slot>
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-app-bar dense dark color="primary mb-2">
@@ -80,6 +82,9 @@ export default {
   },
 
   methods: {
+    open() {
+      this.dialog = true;
+    },
     async select() {
       const newItem = await (async () => {
         if (this.tagDialog) {

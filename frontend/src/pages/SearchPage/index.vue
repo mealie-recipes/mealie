@@ -119,7 +119,7 @@ export default {
   },
   computed: {
     allRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      return this.$store.getters.getAllRecipes;
     },
     filteredRecipes() {
       return this.allRecipes.filter(recipe => {

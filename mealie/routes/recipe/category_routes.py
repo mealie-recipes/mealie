@@ -18,6 +18,18 @@ async def get_all_recipe_categories(session: Session = Depends(generate_session)
     return db.categories.get_all_limit_columns(session, ["slug", "name"])
 
 
+@router.get("/empty")
+def get_empty_categories(session: Session = Depends(generate_session)):
+    """ Returns a list of categories that do not contain any recipes"""
+    return db.categories.get_empty(session)
+
+
+@router.get("/{category}", response_model=RecipeCategoryResponse)
+def get_all_recipes_by_category(category: str, session: Session = Depends(generate_session)):
+    """ Returns a list of recipes associated with the provided category. """
+    return db.categories.get(session, category)
+
+
 @router.post("")
 async def create_recipe_category(
     category: CategoryIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
@@ -27,10 +39,16 @@ async def create_recipe_category(
     return db.categories.create(session, category.dict())
 
 
-@router.get("/{category}", response_model=RecipeCategoryResponse)
-def get_all_recipes_by_category(category: str, session: Session = Depends(generate_session)):
-    """ Returns a list of recipes associated with the provided category. """
-    return db.categories.get(session, category)
+@router.put("/{category}", response_model=RecipeCategoryResponse)
+async def update_recipe_category(
+    category: str,
+    new_category: CategoryIn,
+    session: Session = Depends(generate_session),
+    current_user=Depends(get_current_user),
+):
+    """ Updates an existing Tag in the database """
+
+    return db.categories.update(session, category, new_category.dict())
 
 
 @router.delete("/{category}")

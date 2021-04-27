@@ -4,12 +4,12 @@ import { authRoutes } from "./auth";
 import { recipeRoutes } from "./recipes";
 import { mealRoutes } from "./meal";
 import { generalRoutes } from "./general";
-import { store } from "../store";
+import { store } from "@/store";
 import VueRouter from "vue-router";
 import VueI18n from "@/i18n";
 import Vuetify from "@/plugins/vuetify";
 import Vue from "vue";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 export const routes = [
   ...generalRoutes,
