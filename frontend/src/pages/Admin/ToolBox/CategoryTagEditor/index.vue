@@ -35,28 +35,28 @@
       </template>
     </base-dialog>
 
-    <v-app-bar flat color="white">
-      <new-category-tag-dialog
-        ref="newDialog"
-        :tag-dialog="isTags"
-        class="mr-1"
-      >
-        <v-btn @click="openNewDialog" small color="success">
+    <div class="d-flex justify-center align-center pa-2 flex-wrap">
+      <new-category-tag-dialog ref="newDialog" :tag-dialog="isTags">
+        <v-btn @click="openNewDialog" small color="success" class="mr-1 mb-1">
           {{ $t("general.create") }}
         </v-btn>
       </new-category-tag-dialog>
-      <BulkAssign isTags="isTags" />
+
+      <BulkAssign isTags="isTags" class="mr-1 mb-1" />
+
       <v-btn
         @click="titleCaseAll"
-        class="mr-1"
         small
         color="success"
+        class="mr-1 mb-1"
         :loading="loadingTitleCase"
       >
         {{ $t("settings.toolbox.title-case-all") }}
       </v-btn>
-      <RemoveUnused :isTags="isTags" />
-      <v-spacer> </v-spacer>
+      <RemoveUnused :isTags="isTags" class="mb-1" />
+
+      <v-spacer v-if="!isMobile"> </v-spacer>
+
       <fuse-search-bar
         :raw-data="allItems"
         @results="filterItems"
@@ -75,13 +75,14 @@
         >
         </v-text-field>
       </fuse-search-bar>
-    </v-app-bar>
+    </div>
     <v-divider></v-divider>
 
     <v-card-text>
       <v-row>
         <v-col
-          :sm="6"
+          cols="12"
+          :sm="12"
           :md="6"
           :lg="4"
           :xl="3"
@@ -145,6 +146,9 @@ export default {
     };
   },
   computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
     allItems() {
       return this.isTags
         ? this.$store.getters.getAllTags
@@ -232,5 +236,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
+.overflow-fix .v-toolbar__content {
+  height: auto !important;
+  flex-wrap: wrap;
+}
 </style>

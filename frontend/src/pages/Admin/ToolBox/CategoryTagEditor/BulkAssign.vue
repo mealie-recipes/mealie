@@ -52,7 +52,7 @@
       </template>
     </base-dialog>
 
-    <v-btn @click="openDialog" small color="success" class="mr-1">
+    <v-btn @click="openDialog" small color="success">
       {{ $t("settings.toolbox.bulk-assign") }}
     </v-btn>
   </div>
