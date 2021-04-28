@@ -15,16 +15,16 @@ function deleteErrorText(response) {
   console.log(response.data);
   switch(response.data.detail) {
     case 'GROUP_WITH_USERS':
-      return i18n.t('user.cannot-delete-group-with-users');
+      return i18n.t('group.cannot-delete-group-with-users');
       
     case 'GROUP_NOT_FOUND':
-      return i18n.t('user.group-not-found');
+      return i18n.t('group.group-not-found');
       
     case 'DEFAULT_GROUP':
-      return i18n.t('user.cannot-delete-default-group');
+      return i18n.t('group.cannot-delete-default-group');
 
     default:
-      return i18n.t('user.group-deletion-failed');
+      return i18n.t('group.group-deletion-failed');
   }
 }
 
@@ -37,8 +37,8 @@ export const groupAPI = {
     return apiReq.post(
       groupsURLs.create,
       { name: name },
-      function() { return i18n.t('user.user-group-creation-failed'); },
-      function() { return i18n.t('user.user-group-created'); }
+      function() { return i18n.t('group.user-group-creation-failed'); },
+      function() { return i18n.t('group.user-group-created'); }
     );
   },
   delete(id) {
@@ -46,7 +46,7 @@ export const groupAPI = {
        groupsURLs.delete(id), 
        null, 
        deleteErrorText,
-       function() { return i18n.t('user.group-deleted'); }
+       function() { return i18n.t('group.group-deleted'); }
      );
   },
   async current() {
@@ -57,7 +57,7 @@ export const groupAPI = {
     return apiReq.put(
       groupsURLs.update(data.id), 
       data, 
-      function() { return i18n.t('user.error-updating-group'); },
+      function() { return i18n.t('group.error-updating-group'); },
       function() { return i18n.t('settings.group-settings-updated'); }
     );
   },

@@ -26,7 +26,7 @@
       <v-row dense class="mt-0 flex-row align-center justify-space-around">
         <v-col>
           <h3 class="pl-2 text-center headline">
-            {{ $t("search.category-filter") }}
+            {{ $t("category.category-filter") }}
           </h3>
           <FilterSelector class="mb-1" @update="updateCatParams" />
           <CategoryTagSelector

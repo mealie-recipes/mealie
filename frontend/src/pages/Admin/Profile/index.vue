@@ -55,11 +55,11 @@
                 >
                 </v-text-field>
                 <v-text-field
-                  :label="$t('user.group')"
+                  :label="$t('group.group')"
                   readonly
                   v-model="user.group"
                   persistent-hint
-                  :hint="$t('user.groups-can-only-be-set-by-administrators')"
+                  :hint="$t('group.groups-can-only-be-set-by-administrators')"
                 >
                 </v-text-field>
               </v-form>

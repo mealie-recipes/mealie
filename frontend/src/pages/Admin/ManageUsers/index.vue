@@ -21,7 +21,7 @@
         </v-tab>
 
         <v-tab>
-          {{ $t("user.groups") }}
+          {{ $t("group.groups") }}
           <v-icon>mdi-account-group</v-icon>
         </v-tab>
       </v-tabs>

@@ -26,8 +26,8 @@ export const categoryAPI = {
     const response = await apiReq.post(
       categoryURLs.getAll, 
       { name: name },
-      function() { return i18n.t('settings.category-creation-failed'); },
-      function() { return i18n.t('settings.category-created'); }
+      function() { return i18n.t('category.category-creation-failed'); },
+      function() { return i18n.t('category.category-created'); }
     );
     if(response) {
       store.dispatch("requestCategories");
@@ -42,8 +42,8 @@ export const categoryAPI = {
     const response = await apiReq.put(
       categoryURLs.updateCategory(name), 
       { name: newName },
-      function() { return i18n.t('settings.category-update-failed'); },
-      function() { return i18n.t('settings.category-updated'); }
+      function() { return i18n.t('category.category-update-failed'); },
+      function() { return i18n.t('category.category-updated'); }
     );
     if (response && !overrideRequest) {
       store.dispatch("requestCategories");
@@ -54,8 +54,8 @@ export const categoryAPI = {
     const response = await apiReq.delete(
       categoryURLs.deleteCategory(category),
       null,
-      function() { return i18n.t('settings.category-deletion-failed'); },
-      function() { return i18n.t('settings.category-deleted'); }
+      function() { return i18n.t('category.category-deletion-failed'); },
+      function() { return i18n.t('category.category-deleted'); }
     );
     if (response && !overrideRequest) {
       store.dispatch("requestCategories");

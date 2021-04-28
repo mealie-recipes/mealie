@@ -24,7 +24,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              {{ $t("user.create-group") }}
+              {{ $t("group.create-group") }}
             </v-btn>
           </template>
           <v-card>
@@ -34,7 +34,7 @@
               </v-icon>
 
               <v-toolbar-title class="headline">
-                {{ $t("user.create-group") }}
+                {{ $t("group.create-group") }}
               </v-toolbar-title>
 
               <v-spacer></v-spacer>
@@ -43,7 +43,7 @@
               <v-card-text>
                 <v-text-field
                   v-model="newGroupName"
-                  :label="$t('user.group-name')"
+                  :label="$t('group.group-name')"
                   :rules="[existsRule]"
                 ></v-text-field>
               </v-card-text>

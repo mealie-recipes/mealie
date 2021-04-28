@@ -72,7 +72,7 @@
                     dense
                     v-model="editedItem.group"
                     :items="existingGroups"
-                    :label="$t('user.user-group')"
+                    :label="$t('group.user-group')"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="showPassword">
@@ -165,7 +165,7 @@ export default {
         },
         { text: this.$t("user.full-name"), value: "fullName" },
         { text: this.$t("user.email"), value: "email" },
-        { text: this.$t("user.group"), value: "group" },
+        { text: this.$t("group.group"), value: "group" },
         { text: this.$t("user.admin"), value: "admin" },
         { text: "", value: "actions", sortable: false, align: "center" },
       ],
