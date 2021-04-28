@@ -6,17 +6,33 @@ from mealie.app import app
 from mealie.core.config import app_dirs, settings
 from mealie.db.db_setup import generate_session, sql_global_init
 from pytest import fixture
+from alembic import command, config
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
 from tests.utils.recipe_data import build_recipe_store, get_raw_no_image, get_raw_recipe
 
-SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath("test.db")
+# sqlite test db
+SQLITE_FILE = app_dirs.DATA_DIR.joinpath("test.db")
 SQLITE_FILE.unlink(missing_ok=True)
+DB_URL = "sqlite:///" + str(SQLITE_FILE.absolute())
+engine = create_engine(
+    DB_URL,
+    echo=False,
+    connect_args={"check_same_thread": False},
+)
 
+# alembic migrations
+config = config.Config("alembic.ini")
+config.set_main_option('sqlalchemy.url', DB_URL)
+config.attributes['connection'] = engine
+command.upgrade(config, "head")
 
-TestSessionLocal = sql_global_init(SQLITE_FILE)
-
+# test session
+TestSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def override_get_db():
     try:
@@ -32,8 +48,6 @@ def api_client():
     app.dependency_overrides[generate_session] = override_get_db
 
     yield TestClient(app)
-
-    SQLITE_FILE.unlink()
 
 
 @fixture(scope="session")

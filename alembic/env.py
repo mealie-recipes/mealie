@@ -60,11 +60,13 @@ def run_migrations_online():
 
     """
     config.set_section_option(config.config_ini_section, "DB_URL", settings.DB_URL)
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    connectable = config.attributes.get('connection', None)
+    if not connectable:
+        connectable = engine_from_config(
+            config.get_section(config.config_ini_section),
+            prefix="sqlalchemy.",
+            poolclass=pool.NullPool,
+        )
 
     with connectable.connect() as connection:
         context.configure(
