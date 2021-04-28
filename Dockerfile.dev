@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir "psycopg2-binary==2.8.6"
 WORKDIR /app
 COPY pyproject.toml poetry.lock /app/
 RUN poetry config virtualenvs.create false
-RUN poetry install --no-root --no-dev --no-interaction --no-ansi
+RUN poetry install --no-dev --no-interaction --no-ansi
 
 # project code
 COPY ./mealie /app/mealie
