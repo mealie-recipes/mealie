@@ -270,6 +270,7 @@ def upgrade():
     ])
     op.bulk_insert(groups_table, [
         {
+            "id": 1,
             "name": settings.DEFAULT_GROUP,
             "webhook_enable": False,
             "webhook_time": "00:00",
@@ -277,10 +278,11 @@ def upgrade():
     ])
     op.bulk_insert(users_table, [
         {
+            "id": 1,
             "full_name": "Change Me",
             "email": settings.DEFAULT_EMAIL,
             "password": get_password_hash(settings.DEFAULT_PASSWORD),
-            "group": settings.DEFAULT_GROUP,
+            "group_id": 1,
             "admin": True,
         },
     ])
