@@ -82,6 +82,11 @@ class AppDirectories:
 app_dirs = AppDirectories(CWD, DATA_DIR)
 
 
+def determine_sqlite_path() -> str:
+    db_path = app_dirs.DATA_DIR.joinpath("db", "mealie.db")
+    return "sqlite:///" + str(db_path.absolute())
+
+
 class AppSettings(BaseSettings):
     global DATA_DIR
     PRODUCTION: bool = Field(True, env="PRODUCTION")
@@ -98,13 +103,13 @@ class AppSettings(BaseSettings):
         return "/redoc" if self.API_DOCS else None
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
-    DB_URL: str = Field("sqlite:///mealie.db", env="DB_URL")
+    DB_URL: str = Field(default_factory=determine_sqlite_path, env="DB_URL")
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
 
-    TOKEN_TIME: int = 2 # Time in Hours
+    TOKEN_TIME: int = 2  # Time in Hours
 
     # Not Used!
     SFTP_USERNAME: Optional[str]
