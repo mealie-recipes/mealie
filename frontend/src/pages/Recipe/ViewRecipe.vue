@@ -51,6 +51,7 @@
         :yields="recipeDetails.recipeYield"
         :orgURL="recipeDetails.orgURL"
         :nutrition="recipeDetails.nutrition"
+        :assets="recipeDetails.assets"
       />
       <VJsoneditor
         @error="logError()"

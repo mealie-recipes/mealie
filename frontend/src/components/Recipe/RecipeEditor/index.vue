@@ -91,7 +91,7 @@
                     rows="1"
                   >
                     <template slot="append-outer">
-                      <v-icon class="handle">mdi-menu</v-icon>
+                      <v-icon class="handle">mdi-arrow-up-down</v-icon>
                     </template>
                     <v-icon
                       class="mr-n1"
@@ -168,14 +168,15 @@
               <v-icon>mdi-plus</v-icon>
             </v-btn>
           </div>
-          <NutritionEditor v-model="value.nutrition" :edit="true" />
+          <Nutrition v-model="value.nutrition" :edit="true" />
+          <Assets v-model="value.assets" :edit="true" />
           <ExtrasEditor :extras="value.extras" @save="saveExtras" />
         </v-col>
 
         <v-divider class="my-divider" :vertical="true"></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
-          <InstructionsEditor v-model="value.recipeInstructions" :edit="true" />
+          <Instructions v-model="value.recipeInstructions" :edit="true" />
           <div class="d-flex row justify-end mt-2">
             <BulkAdd @bulk-data="appendSteps" class="mr-2" />
             <v-btn color="secondary" dark @click="addStep" class="mr-4">
@@ -198,22 +199,24 @@
 const UPLOAD_EVENT = "upload";
 import draggable from "vuedraggable";
 import utils from "@/utils";
-import BulkAdd from "./BulkAdd";
+import BulkAdd from "@/components/Recipe/Parts/Helpers/BulkAdd";
 import ExtrasEditor from "./ExtrasEditor";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
-import NutritionEditor from "./NutritionEditor";
-import ImageUploadBtn from "./ImageUploadBtn.vue";
+import ImageUploadBtn from "@/components/Recipe/Parts/Helpers/ImageUploadBtn";
 import { validators } from "@/mixins/validators";
-import InstructionsEditor from "./InstructionsEditor.vue";
+import Nutrition from "@/components/Recipe/Parts/Nutrition";
+import Instructions from "@/components/Recipe/Parts/Instructions";
+import Assets from "@/components/Recipe/Parts/Assets.vue";
 export default {
   components: {
     BulkAdd,
     ExtrasEditor,
     draggable,
     CategoryTagSelector,
-    NutritionEditor,
+    Nutrition,
     ImageUploadBtn,
-    InstructionsEditor,
+    Instructions,
+    Assets,
   },
   props: {
     value: Object,

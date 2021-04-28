@@ -40,7 +40,8 @@
               :isCategory="false"
             />
             <Notes :notes="notes" />
-            <NutritionEditor :value="nutrition" :edit="false" />
+            <Nutrition :value="nutrition" :edit="false" />
+            <Assets :value="assets" :edit="false" />
           </div>
         </v-col>
         <v-divider
@@ -50,14 +51,15 @@
         ></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
-          <InstructionsEditor :value="instructions" :edit="false" />
+          <Instructions :value="instructions" :edit="false" />
         </v-col>
       </v-row>
       <div v-if="!medium">
         <RecipeChips :title="$t('recipe.categories')" :items="categories" />
         <RecipeChips :title="$t('recipe.tags')" :items="tags" />
         <Notes :notes="notes" />
-        <NutritionEditor :value="nutrition" :edit="false" />
+        <Nutrition :value="nutrition" :edit="false" />
+        <Assets :value="assets" :edit="false" />
       </div>
       <v-row class="mt-2 mb-1">
         <v-col></v-col>
@@ -82,21 +84,23 @@
 </template>
 
 <script>
-import NutritionEditor from "@/components/Recipe/RecipeEditor/NutritionEditor";
+import Nutrition from "@/components/Recipe/Parts/Nutrition";
 import VueMarkdown from "@adapttive/vue-markdown";
 import utils from "@/utils";
 import RecipeChips from "./RecipeChips";
 import Notes from "./Notes";
 import Ingredients from "./Ingredients";
-import InstructionsEditor from "../RecipeEditor/InstructionsEditor.vue";
+import Instructions from "@/components/Recipe/Parts/Instructions.vue";
+import Assets from "../Parts/Assets.vue";
 export default {
   components: {
     VueMarkdown,
     RecipeChips,
     Notes,
     Ingredients,
-    NutritionEditor,
-    InstructionsEditor,
+    Nutrition,
+    Instructions,
+    Assets,
   },
   props: {
     name: String,
@@ -110,6 +114,7 @@ export default {
     yields: String,
     orgURL: String,
     nutrition: Object,
+    assets: Array,
   },
   data() {
     return {

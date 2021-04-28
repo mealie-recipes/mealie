@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="open" v-bind="{ open }"> </slot>
     <v-dialog
       v-model="dialog"
       :width="modalWidth + 'px'"

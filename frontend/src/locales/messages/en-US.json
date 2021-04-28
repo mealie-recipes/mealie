@@ -105,6 +105,7 @@
     "recent": "Recent"
   },
   "recipe": {
+    "assets": "Assets",
     "add-key": "Add Key",
     "api-extras": "API Extras",
     "calories": "Calories",
@@ -115,6 +116,7 @@
     "description": "Description",
     "fat-content": "Fat Content",
     "fiber-content": "Fiber Content",
+    "carbohydrate-content": "Carbohydrate Content",
     "grams": "grams",
     "image": "Image",
     "ingredient": "Ingredient",
