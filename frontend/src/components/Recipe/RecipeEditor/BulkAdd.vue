@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" width="600">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          text
+        
           color="secondary lighten-2"
           dark
           v-bind="attrs"
