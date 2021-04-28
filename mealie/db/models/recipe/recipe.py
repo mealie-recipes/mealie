@@ -6,6 +6,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.api_extras import ApiExtras
+from mealie.db.models.recipe.assets import RecipeAsset
 from mealie.db.models.recipe.category import Category, recipes2categories
 from mealie.db.models.recipe.ingredient import RecipeIngredient
 from mealie.db.models.recipe.instruction import RecipeInstruction
@@ -86,6 +87,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         rating: int = None,
         orgURL: str = None,
         extras: dict = None,
+        assets: list = None,
         *args,
         **kwargs
     ) -> None:
@@ -99,6 +101,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         self.recipeYield = recipeYield
         self.recipeIngredient = [RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient]
+        self.assets = [RecipeAsset(name=a.get("name"), icon=a.get("icon")) for a in assets]
         self.recipeInstructions = [
             RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))
             for instruc in recipeInstructions
@@ -118,54 +121,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.orgURL = orgURL
         self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
 
-    def update(
-        self,
-        session,
-        name: str = None,
-        description: str = None,
-        image: str = None,
-        recipeYield: str = None,
-        recipeIngredient: List[str] = None,
-        recipeInstructions: List[dict] = None,
-        recipeCuisine: str = None,
-        totalTime: str = None,
-        tools: list[str] = [],
-        prepTime: str = None,
-        performTime: str = None,
-        nutrition: dict = None,
-        slug: str = None,
-        recipeCategory: List[str] = None,
-        tags: List[str] = None,
-        dateAdded: datetime.date = None,
-        notes: List[dict] = None,
-        rating: int = None,
-        orgURL: str = None,
-        extras: dict = None,
-        *args,
-        **kwargs
-    ):
+    def update(self, *args, **kwargs):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
 
-        self.__init__(
-            session=session,
-            name=name,
-            description=description,
-            image=image,
-            recipeYield=recipeYield,
-            recipeIngredient=recipeIngredient,
-            recipeInstructions=recipeInstructions,
-            totalTime=totalTime,
-            recipeCuisine=recipeCuisine,
-            prepTime=prepTime,
-            performTime=performTime,
-            nutrition=nutrition,
-            tools=tools,
-            slug=slug,
-            recipeCategory=recipeCategory,
-            tags=tags,
-            dateAdded=dateAdded,
-            notes=notes,
-            rating=rating,
-            orgURL=orgURL,
-            extras=extras,
-        )
+        self.__init__(*args, **kwargs)

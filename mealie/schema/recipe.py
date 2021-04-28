@@ -25,7 +25,9 @@ class RecipeStep(BaseModel):
 class RecipeAsset(BaseModel):
     name: str
     icon: str
-    path: str
+
+    class Config:
+        orm_mode = True
 
 
 class Nutrition(BaseModel):
@@ -76,6 +78,7 @@ class Recipe(RecipeSummary):
     performTime: Optional[str] = None
 
     # Mealie Specific
+    assets: Optional[list[RecipeAsset]] = []
     dateAdded: Optional[datetime.date]
     notes: Optional[List[RecipeNote]] = []
     orgURL: Optional[str]
