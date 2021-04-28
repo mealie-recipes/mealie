@@ -3,7 +3,7 @@
     <v-card-text>
       <v-row dense>
         <ImageUploadBtn
-          class="mt-2"
+          class="my-1"
           @upload="uploadImage"
           :slug="value.slug"
           @refresh="$emit('upload')"
@@ -69,6 +69,7 @@
             v-model="value.recipeIngredient"
             @start="drag = true"
             @end="drag = false"
+            handle=".handle"
           >
             <transition-group
               type="transition"
@@ -83,13 +84,15 @@
                     class="mr-2"
                     :label="$t('recipe.ingredient')"
                     v-model="value.recipeIngredient[index]"
-                    append-outer-icon="mdi-menu"
                     mdi-move-resize
                     auto-grow
                     solo
                     dense
                     rows="1"
                   >
+                    <template slot="append-outer">
+                      <v-icon class="handle">mdi-menu</v-icon>
+                    </template>
                     <v-icon
                       class="mr-n1"
                       slot="prepend"
@@ -104,10 +107,12 @@
             </transition-group>
           </draggable>
 
-          <v-btn color="secondary" fab dark small @click="addIngredient">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <BulkAdd @bulk-data="addIngredient" />
+          <div class="d-flex row justify-end">
+            <BulkAdd @bulk-data="addIngredient" class="mr-2" />
+            <v-btn color="secondary" dark @click="addIngredient" class="mr-4">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </div>
 
           <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
           <CategoryTagSelector
@@ -158,9 +163,11 @@
               </v-textarea>
             </v-card-text>
           </v-card>
-          <v-btn class="mt-1" color="secondary" fab dark small @click="addNote">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
+          <div class="d-flex justify-end">
+            <v-btn class="mt-1" color="secondary" dark @click="addNote">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </div>
           <NutritionEditor v-model="value.nutrition" :edit="true" />
           <ExtrasEditor :extras="value.extras" @save="saveExtras" />
         </v-col>
@@ -202,10 +209,13 @@
               </v-card>
             </v-hover>
           </div>
-          <v-btn color="secondary" fab dark small @click="addStep">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <BulkAdd @bulk-data="appendSteps" />
+          <div class="d-flex row justify-end mt-2">
+            <BulkAdd @bulk-data="appendSteps" class="mr-2" />
+            <v-btn color="secondary" dark @click="addStep" class="mr-4">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </div>
+
           <v-text-field
             v-model="value.orgURL"
             class="mt-10"
@@ -267,7 +277,7 @@ export default {
       return utils.generateUniqueKey(item, index);
     },
     addIngredient(ingredients = null) {
-      if (ingredients) {
+      if (ingredients.length) {
         this.value.recipeIngredient.push(...ingredients);
       } else {
         this.value.recipeIngredient.push("");
