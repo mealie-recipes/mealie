@@ -15,6 +15,19 @@ class SiteSettings(CamelModel):
 
     class Config:
         orm_mode = True
+        schema_extra = {
+            "example": {
+                "language": "en",
+                "firstDayOfWeek": 0,
+                "showRecent": True,
+                "categories": [
+                    {"id": 1, "name": "thanksgiving", "slug": "thanksgiving"},
+                    {"id": 2, "name": "homechef", "slug": "homechef"},
+                    {"id": 3, "name": "potatoes", "slug": "potatoes"},
+                ],
+            }
+        }
+
 
 class CustomPageBase(CamelModel):
     name: str
