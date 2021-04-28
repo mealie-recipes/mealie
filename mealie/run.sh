@@ -18,7 +18,7 @@ then
     echo "Development"
 
     # Start API
-    uvicorn mealie.app:app --host 0.0.0.0 --port 9000
+    uvicorn mealie.app:app --host 0.0.0.0 --port 9000 --reload
 else
     echo "Production"
     # Web Server
