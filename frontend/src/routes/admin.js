@@ -7,9 +7,10 @@ import Profile from "@/pages/Admin/Profile";
 import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
 import About from "@/pages/Admin/About";
+import ToolBox from "@/pages/Admin/ToolBox";
 import { store } from "../store";
 
-export const adminRoutes =  {
+export const adminRoutes = {
   path: "/admin",
   component: Admin,
   beforeEnter: (to, _from, next) => {
@@ -70,6 +71,13 @@ export const adminRoutes =  {
       component: Settings,
       meta: {
         title: "settings.site-settings",
+      },
+    },
+    {
+      path: "toolbox",
+      component: ToolBox,
+      meta: {
+        title: "settings.toolbox.toolbox",
       },
     },
     {

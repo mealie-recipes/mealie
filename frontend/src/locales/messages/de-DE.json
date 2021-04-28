@@ -145,15 +145,15 @@
     "view-recipe": "Rezept anschauen"
   },
   "search": {
-    "and": "Und",
+    "search-mealie": "Mealie durchsuchen (/ drücken)",
+    "search-placeholder": "Suchen...",
+    "max-results": "Max. Ergebnisse",
     "category-filter": "Kategoriefilter",
     "exclude": "Ausschließen",
     "include": "Einbeziehen",
-    "max-results": "Max. Ergebnisse",
     "or": "Oder",
+    "and": "and",
     "search": "Suchen",
-    "search-mealie": "Mealie durchsuchen",
-    "search-placeholder": "Suchen...",
     "tag-filter": "Schlagwortfilter"
   },
   "settings": {
@@ -218,6 +218,16 @@
       "test-webhooks": "Teste Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Die unten stehenden URL's erhalten Webhooks welche die Rezeptdaten für den Menüplan am geplanten Tag enthalten. Derzeit werden die Webhooks ausgeführt um",
       "webhook-url": "Webhook-URL"
+    },
+    "toolbox": {
+      "toolbox": "Toolbox",
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "user": {

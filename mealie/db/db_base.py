@@ -12,7 +12,6 @@ class BaseDocument:
         self.primary_key: str
         self.store: str
         self.sql_model: SqlAlchemyBase
-        self.orm_mode = False
         self.schema: BaseModel
 
     # TODO: Improve Get All Query Functionality
@@ -138,3 +137,4 @@ class BaseDocument:
 
         session.delete(result)
         session.commit()
+

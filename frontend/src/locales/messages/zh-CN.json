@@ -145,15 +145,15 @@
     "view-recipe": "查看食谱"
   },
   "search": {
-    "and": "与",
+    "search-mealie": "Search Mealie (press /)",
+    "search-placeholder": "搜索...",
+    "max-results": "最大结果",
     "category-filter": "分类筛选",
     "exclude": "排除",
     "include": "包括",
-    "max-results": "最大结果",
     "or": "或",
+    "and": "and",
     "search": "搜索",
-    "search-mealie": "搜索Mealie",
-    "search-placeholder": "搜索...",
     "tag-filter": "标签筛选"
   },
   "settings": {
@@ -218,6 +218,16 @@
       "test-webhooks": "测试Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "下方列出的网址将在预定日期接收到有关用餐计划的食谱资料。Webhooks执行将在",
       "webhook-url": "Webhook网址"
+    },
+    "toolbox": {
+      "toolbox": "Toolbox",
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "user": {

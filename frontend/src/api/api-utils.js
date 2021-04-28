@@ -24,6 +24,16 @@ const apiReq = {
     });
     return response;
   },
+  patch: async function(url, data) {
+    let response = await axios.patch(url, data).catch(function(error) {
+      if (error.response) {
+        processResponse(error.response);
+        return response;
+      } else return;
+    });
+    processResponse(response);
+    return response;
+  },
 
   get: async function(url, data) {
     let response = await axios.get(url, data).catch(function(error) {

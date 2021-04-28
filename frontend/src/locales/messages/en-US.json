@@ -180,6 +180,7 @@
     "include": "Include",
     "max-results": "Max Results",
     "or": "Or",
+    "and": "and",
     "search": "Search",
     "search-mealie": "Search Mealie (press /)",
     "search-placeholder": "Search...",
@@ -264,6 +265,16 @@
       "test-webhooks": "Test Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
       "webhook-url": "Webhook URL"
+    },
+    "toolbox": {
+      "toolbox": "Toolbox",
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "this": {},

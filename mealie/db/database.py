@@ -1,3 +1,5 @@
+from logging import getLogger
+
 from mealie.db.db_base import BaseDocument
 from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlanModel
@@ -16,12 +18,13 @@ from mealie.schema.theme import SiteTheme
 from mealie.schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
+logger = getLogger()
+
 
 class _Recipes(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "slug"
         self.sql_model: RecipeModel = RecipeModel
-        self.orm_mode = True
         self.schema: Recipe = Recipe
 
     def update_image(self, session: Session, slug: str, extension: str = None) -> str:
@@ -36,23 +39,26 @@ class _Categories(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "slug"
         self.sql_model = Category
-        self.orm_mode = True
         self.schema = RecipeCategoryResponse
+
+    def get_empty(self, session: Session):
+        return session.query(Category).filter(~Category.recipes.any()).all()
 
 
 class _Tags(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "slug"
         self.sql_model = Tag
-        self.orm_mode = True
         self.schema = RecipeTagResponse
+
+    def get_empty(self, session: Session):
+        return session.query(Tag).filter(~Tag.recipes.any()).all()
 
 
 class _Meals(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "uid"
         self.sql_model = MealPlanModel
-        self.orm_mode = True
         self.schema = MealPlanInDB
 
 
@@ -60,7 +66,6 @@ class _Settings(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "id"
         self.sql_model = SiteSettings
-        self.orm_mode = True
         self.schema = SiteSettingsSchema
 
 
@@ -68,7 +73,6 @@ class _Themes(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "name"
         self.sql_model = SiteThemeModel
-        self.orm_mode = True
         self.schema = SiteTheme
 
 
@@ -76,7 +80,6 @@ class _Users(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "id"
         self.sql_model = User
-        self.orm_mode = True
         self.schema = UserInDB
 
     def update_password(self, session, id, password: str):
@@ -91,7 +94,6 @@ class _Groups(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "id"
         self.sql_model = Group
-        self.orm_mode = True
         self.schema = GroupInDB
 
     def get_meals(self, session: Session, match_value: str, match_key: str = "name") -> list[MealPlanInDB]:
@@ -116,7 +118,6 @@ class _SignUps(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "token"
         self.sql_model = SignUp
-        self.orm_mode = True
         self.schema = SignUpOut
 
 
@@ -124,7 +125,6 @@ class _CustomPages(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "id"
         self.sql_model = CustomPage
-        self.orm_mode = True
         self.schema = CustomPageOut
 
 

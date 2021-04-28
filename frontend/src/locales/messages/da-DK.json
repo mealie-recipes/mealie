@@ -145,15 +145,15 @@
     "view-recipe": "Se opskrift"
   },
   "search": {
-    "and": "And",
+    "search-mealie": "Search Mealie (press /)",
+    "search-placeholder": "Search...",
+    "max-results": "Max Results",
     "category-filter": "Category Filter",
     "exclude": "Exclude",
     "include": "Include",
-    "max-results": "Max Results",
     "or": "Or",
+    "and": "and",
     "search": "Search",
-    "search-mealie": "Search Mealie",
-    "search-placeholder": "Search...",
     "tag-filter": "Tag Filter"
   },
   "settings": {
@@ -218,6 +218,16 @@
       "test-webhooks": "Test Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Webadresserne, der er anført nedenfor, modtager webhooks, der indeholder opskriftsdataene for måltidsplanen på den planlagte dag. \nWebhooks udføres i øjeblikket på <strong> {time} </strong>",
       "webhook-url": "Webhook adresse"
+    },
+    "toolbox": {
+      "toolbox": "Toolbox",
+      "new-name": "New Name",
+      "recipes-effected": "Recipes Effected",
+      "title-case-all": "Title Case All",
+      "no-unused-items": "No Unused Items",
+      "remove-unused": "Remove Unused",
+      "assign-all": "Assign All",
+      "bulk-assign": "Bulk Assign"
     }
   },
   "user": {

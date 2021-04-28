@@ -35,6 +35,7 @@ class Nutrition(BaseModel):
 
 
 class RecipeSummary(BaseModel):
+    id: Optional[int]
     name: str
     slug: Optional[str] = ""
     image: Optional[Any]

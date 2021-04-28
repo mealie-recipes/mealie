@@ -3,7 +3,8 @@
     <v-card-title class=" headline">
       {{ $t("meal-plan.create-a-new-meal-plan") }}
       <v-btn color="info" class="ml-auto" @click="setQuickWeek()">
-        <v-icon left>mdi-calendar-minus</v-icon> {{$t('meal-plan.quick-week')}}
+        <v-icon left>mdi-calendar-minus</v-icon>
+        {{ $t("meal-plan.quick-week") }}
       </v-btn>
     </v-card-title>
 
@@ -153,7 +154,7 @@ export default {
       return recipes.length > 0 ? recipes : this.items;
     },
     allRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      return this.$store.getters.getAllRecipes;
     },
   },
 

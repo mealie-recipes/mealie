@@ -1,21 +1,38 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" :width="modalWidth + 'px'">
-      <v-app-bar dark :color="color" class="mt-n1 mb-2">
-        <v-icon large left v-if="!loading">
-          {{ titleIcon }}
-        </v-icon>
-        <v-progress-circular
-          v-else
+    <v-dialog
+      v-model="dialog"
+      :width="modalWidth + 'px'"
+      :content-class="top ? 'top-dialog' : undefined"
+    >
+      <v-card class="pb-10" height="100%">
+        <v-app-bar dark :color="color" class="mt-n1 mb-2">
+          <v-icon large left>
+            {{ titleIcon }}
+          </v-icon>
+          <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-progress-linear
+          v-if="loading"
           indeterminate
-          color="white"
-          large
-          class="mr-2"
-        >
-        </v-progress-circular>
-        <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
-        <v-spacer></v-spacer>
-      </v-app-bar>
+          color="primary"
+        ></v-progress-linear>
+        <slot> </slot>
+        <v-card-actions>
+          <slot name="card-actions">
+            <v-btn text color="grey" @click="dialog = false">
+              Cancel
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="success" @click="$emit('submit')">
+              Submit
+            </v-btn>
+          </slot>
+        </v-card-actions>
+
+        <slot name="below-actions"> </slot>
+      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -35,6 +52,12 @@ export default {
     modalWidth: {
       default: "500",
     },
+    loading: {
+      default: false,
+    },
+    top: {
+      default: false,
+    },
   },
   data() {
     return {
@@ -45,9 +68,15 @@ export default {
     open() {
       this.dialog = true;
     },
+    close() {
+      this.dialog = false;
+    },
   },
 };
 </script>
 
 <style scoped>
+.top-dialog {
+  align-self: flex-start;
+}
 </style>

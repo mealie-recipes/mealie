@@ -1,7 +1,5 @@
-import shutil
 from enum import Enum
 
-import requests
 from fastapi import APIRouter, Depends, File, Form, HTTPException, status
 from fastapi.responses import FileResponse
 from mealie.db.database import db
@@ -12,10 +10,7 @@ from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, r
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(
-    prefix="/api/recipes",
-    tags=["Recipe CRUD"],
-)
+router = APIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
 
 
 @router.post("/create", status_code=201, response_model=str)
@@ -65,7 +60,30 @@ def update_recipe(
     if recipe_slug != recipe.slug:
         rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
 
-    return recipe.slug
+    return recipe
+
+
+@router.patch("/{recipe_slug}")
+def update_recipe(
+    recipe_slug: str,
+    data: dict,
+    session: Session = Depends(generate_session),
+    current_user=Depends(get_current_user),
+):
+    """ Updates a recipe by existing slug and data. """
+
+    existing_entry: Recipe = db.recipes.get(session, recipe_slug)
+
+    entry_dict = existing_entry.dict()
+    entry_dict.update(data)
+    updated_entry = Recipe(**entry_dict)  # ! Surely there's a better way?
+
+    recipe: Recipe = db.recipes.update(session, recipe_slug, updated_entry.dict())
+
+    if recipe_slug != recipe.slug:
+        rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
+
+    return recipe
 
 
 @router.delete("/{recipe_slug}")
