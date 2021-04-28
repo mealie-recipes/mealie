@@ -138,7 +138,6 @@ import { api } from "@/api";
 import ColorPickerDialog from "@/components/FormHelpers/ColorPickerDialog";
 import NewThemeDialog from "./NewThemeDialog";
 import ThemeCard from "./ThemeCard";
-import utils from "@/utils";
 
 export default {
   components: {
@@ -173,10 +172,7 @@ export default {
      */
     async appendTheme(NewThemeDialog) {
       const response = await api.themes.create(NewThemeDialog);
-      if (response.status != 201) {
-        utils.notify.error(this.$t('settings.theme.error-creating-theme-see-log-file'));
-      } else {
-        utils.notify.success(this.$t('settings.theme.theme-saved'));
+      if (response) {
         this.availableThemes.push(NewThemeDialog);
         this.$store.commit("setTheme", NewThemeDialog);
       }
@@ -187,16 +183,11 @@ export default {
     /**
      * This will save the current colors and make the selected theme live.
      */
-    async saveThemes() {
-      const response = await api.themes.update(
+    saveThemes() {
+      api.themes.update(
         this.selectedTheme.name,
         this.selectedTheme.colors
       );
-      if (response.status != 200) {
-        utils.notify.error(this.$t('settings.theme.error-updating-theme'));
-      } else {
-        utils.notify.success(this.$t('settings.theme.theme-updated'));
-      }
     },
   },
 };

@@ -78,7 +78,6 @@ import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
 import { user } from "@/mixins/user";
-import utils from "@/utils";
 import store from "@/store";
 import { router } from "@/routes";
 
@@ -169,10 +168,7 @@ export default {
     },
     async deleteRecipe() {
       let response = await api.recipes.delete(this.recipeDetails.slug);
-      if (response.status != 200) {
-        utils.notify.error(this.$t('recipe.unable-to-delete-recipe'));
-      } else {
-        utils.notify.success(this.$t('recipe.recipe-deleted'));
+      if (response) {
         store.dispatch("requestRecentRecipes");
         router.push(`/`);
       }
@@ -186,14 +182,10 @@ export default {
     },
     async saveImage() {
       if (this.fileObject) {
-        const response = await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
-        if (response.status != 200) {
-          utils.notify.error(this.$t('general.image-upload-failed'));
-        } else {
-          utils.notify.success(this.$t('recipe.recipe-image-updated'));
+        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject)) {
+          this.imageKey += 1;
         }
       }
-      this.imageKey += 1;
     },
     async saveRecipe() {
       if (this.validateRecipe()) {

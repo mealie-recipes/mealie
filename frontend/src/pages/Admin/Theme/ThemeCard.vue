@@ -46,7 +46,6 @@
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
-import utils from "@/utils";
 
 const DELETE_EVENT = "delete";
 const APPLY_EVENT = "apply";
@@ -71,11 +70,7 @@ export default {
     },
     async deleteSelectedTheme() {
       //Delete Theme from DB
-      const response = await api.themes.delete(this.theme.name);
-      if (response.status != 200) {
-        utils.notify.error(this.$t('settings.theme.error-deleting-theme'));
-      } else {
-        utils.notify.success(this.$t('settings.theme.theme-deleted'));
+      if (await api.themes.delete(this.theme.name)) {
         //Get the new list of available from DB
         this.availableThemes = await api.themes.requestAll();
         this.$emit(DELETE_EVENT);

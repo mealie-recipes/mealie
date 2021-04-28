@@ -42,7 +42,6 @@
 
 <script>
 import { api } from "@/api";
-import utils from "@/utils";
 
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import VJsoneditor from "v-jsoneditor";
@@ -102,12 +101,7 @@ export default {
         let slug = await api.recipes.create(this.recipeDetails);
 
         if (this.fileObject) {
-          const response = await api.recipes.updateImage(slug, this.fileObject);
-          if (response.status != 200) {
-            utils.notify.error(this.$t('general.image-upload-failed'));
-          } else {
-            utils.notify.success(this.$t('recipe.recipe-image-updated'));
-          }
+          api.recipes.updateImage(slug, this.fileObject, true);
         }
 
         this.isLoading = false;
