@@ -25,14 +25,15 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
 )
 
-# alembic migrations
-config = config.Config("alembic.ini")
-config.set_main_option('sqlalchemy.url', DB_URL)
-config.attributes['connection'] = engine
-command.upgrade(config, "head")
+# alembic migrations (disabled as migrations happen in `make test`)
+# config = config.Config("alembic.ini")
+# config.set_main_option('sqlalchemy.url', DB_URL)
+# config.attributes['connection'] = engine
+# command.upgrade(config, "head")
 
 # test session
 TestSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 
 def override_get_db():
     try:

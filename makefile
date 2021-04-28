@@ -38,6 +38,8 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 test: ## run tests quickly with the default Python
+	export DB_URL=sqlite:///dev/data/test.db
+	alembic upgrade head
 	poetry run pytest
 
 format:
