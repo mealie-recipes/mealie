@@ -74,6 +74,7 @@ def upgrade():
     sa.Column('language', sa.String(), nullable=True),
     sa.Column('show_recent', sa.Boolean(), nullable=True),
     sa.Column('cards_per_section', sa.Integer(), nullable=True),
+    sa.Column('first_day_of_week', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     site_theme_table = op.create_table('site_theme',
@@ -99,14 +100,14 @@ def upgrade():
     )
     custom_pages2categories_table = op.create_table('custom_pages2categories',
     sa.Column('custom_page_id', sa.Integer(), nullable=True),
-    sa.Column('category_slug', sa.String(), nullable=True),
-    sa.ForeignKeyConstraint(['category_slug'], ['categories.slug'], ),
+    sa.Column('category_id', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['custom_page_id'], ['custom_pages.id'], )
     )
     group2categories_table = op.create_table('group2categories',
     sa.Column('group_id', sa.Integer(), nullable=True),
-    sa.Column('category_slug', sa.String(), nullable=True),
-    sa.ForeignKeyConstraint(['category_slug'], ['categories.slug'], ),
+    sa.Column('category_id', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['group_id'], ['groups.id'], )
     )
     mealplan_table = op.create_table('mealplan',
@@ -149,15 +150,15 @@ def upgrade():
     )
     recipes2categories_table = op.create_table('recipes2categories',
     sa.Column('recipe_id', sa.Integer(), nullable=True),
-    sa.Column('category_slug', sa.String(), nullable=True),
-    sa.ForeignKeyConstraint(['category_slug'], ['categories.slug'], ),
+    sa.Column('category_id', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], )
     )
     recipes2tags_table = op.create_table('recipes2tags',
     sa.Column('recipe_id', sa.Integer(), nullable=True),
-    sa.Column('tag_slug', sa.String(), nullable=True),
+    sa.Column('tag_id', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
-    sa.ForeignKeyConstraint(['tag_slug'], ['tags.slug'], )
+    sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], )
     )
     recipes_ingredients_table = op.create_table('recipes_ingredients',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -167,10 +168,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['parent_id'], ['recipes.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    site_settings2categories_table = op.create_table('site_settings2categories_table',
+    site_settings2categories_table = op.create_table('site_settings2categories',
     sa.Column('sidebar_id', sa.Integer(), nullable=True),
-    sa.Column('category_slug', sa.String(), nullable=True),
-    sa.ForeignKeyConstraint(['category_slug'], ['categories.slug'], ),
+    sa.Column('category_id', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['sidebar_id'], ['site_settings.id'], )
     )
     theme_colors_table = op.create_table('theme_colors',
@@ -240,15 +241,15 @@ def upgrade():
     op.bulk_insert(site_settings2categories_table, [
         {
             "sidebar_id": 1,
-            "category_slug": "thanksgiving",
+            "category_id": "thanksgiving",
         },
         {
             "sidebar_id": 1,
-            "category_slug": "homechef",
+            "category_id": "homechef",
         },
         {
             "sidebar_id": 1,
-            "category_slug": "potatoes",
+            "category_id": "potatoes",
         },
     ])
     op.bulk_insert(theme_colors_table, [
@@ -320,6 +321,6 @@ def downgrade():
     op.drop_index(op.f('ix_groups_name'), table_name='groups')
     op.drop_table('groups')
     op.drop_table('custom_pages')
-    op.drop_index(op.f('ix_categories_slug'), table_name='categories')
+    op.drop_index(op.f('ix_categories_id'), table_name='categories')
     op.drop_index(op.f('ix_categories_name'), table_name='categories')
     op.drop_table('categories')
