@@ -12,6 +12,14 @@ class Colors(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class SiteTheme(BaseModel):
+    name: str = "default"
+    colors: Colors = Colors()
+
+    class Config:
+        orm_mode = True
         schema_extra = {
             "example": {
                 "name": "default",
@@ -26,11 +34,3 @@ class Colors(BaseModel):
                 },
             }
         }
-
-
-class SiteTheme(BaseModel):
-    name: str = "default"
-    colors: Colors = Colors()
-
-    class Config:
-        orm_mode = True
