@@ -7,7 +7,6 @@ import dotenv
 from pydantic import BaseSettings, Field, validator
 
 APP_VERSION = "v0.5.0beta"
-DB_VERSION = "v0.5.0"
 
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
@@ -83,7 +82,7 @@ app_dirs = AppDirectories(CWD, DATA_DIR)
 
 
 def determine_sqlite_path() -> str:
-    db_path = app_dirs.DATA_DIR.joinpath("db", "mealie.db")
+    db_path = app_dirs.DATA_DIR.joinpath("mealie.db")
     return "sqlite:///" + str(db_path.absolute())
 
 
