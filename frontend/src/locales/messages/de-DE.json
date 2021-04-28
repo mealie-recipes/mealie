@@ -152,7 +152,7 @@
     "exclude": "Ausschließen",
     "include": "Einbeziehen",
     "or": "Oder",
-    "and": "and",
+    "and": "und",
     "search": "Suchen",
     "tag-filter": "Schlagwortfilter"
   },
@@ -221,7 +221,7 @@
     },
     "toolbox": {
       "toolbox": "Toolbox",
-      "new-name": "New Name",
+      "new-name": "Neuer Name",
       "recipes-effected": "Recipes Effected",
       "title-case-all": "Title Case All",
       "no-unused-items": "No Unused Items",
