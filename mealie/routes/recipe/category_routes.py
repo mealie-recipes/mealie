@@ -35,7 +35,10 @@ async def create_recipe_category(
 ):
     """ Creates a Category in the database """
 
-    return db.categories.create(session, category.dict())
+    try:
+        return db.categories.create(session, category.dict())
+    except:
+        raise HTTPException( status.HTTP_400_BAD_REQUEST )
 
 
 @router.put("/{category}", response_model=RecipeCategoryResponse)
@@ -47,7 +50,10 @@ async def update_recipe_category(
 ):
     """ Updates an existing Tag in the database """
 
-    return db.categories.update(session, category, new_category.dict())
+    try:
+        return db.categories.update(session, category, new_category.dict())
+    except:
+        raise HTTPException( status.HTTP_400_BAD_REQUEST )
 
 
 @router.delete("/{category}")

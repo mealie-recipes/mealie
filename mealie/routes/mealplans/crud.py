@@ -28,7 +28,7 @@ def create_meal_plan(
 ):
     """ Creates a meal plan database entry """
     processed_plan = process_meals(session, data)
-    db.meals.create(session, processed_plan.dict())
+    return db.meals.create(session, processed_plan.dict())
 
 
 @router.put("/{plan_id}")
