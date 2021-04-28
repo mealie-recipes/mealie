@@ -58,7 +58,7 @@
     "token": "Token",
     "tuesday": "Wtorek",
     "update": "Uaktualnij",
-    "upload": "Wrzuć",
+    "upload": "Prześlij",
     "url": "URL",
     "users": "Użytkownicy",
     "wednesday": "Środa",
@@ -93,10 +93,10 @@
   },
   "new-recipe": {
     "bulk-add": "Dodanie zbiorcze",
-    "error-message": "Wygląda na to, że wystąpił błąd. Sprawdź log i debug/last_recipe.json aby zasięgnąć po więcej informacji.",
-    "from-url": "Z odnośnika",
-    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Przeklej zawartość przepisu. Każda indywidualna linia traktowana będzie jako pozycja na liście",
-    "recipe-url": "Odnośnik przepisu",
+    "error-message": "Wygląda na to, że wystąpił błąd. Sprawdź log i debug/last_recipe.json aby sprawdzić co poszło nie tak.",
+    "from-url": "Importuj przepis",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Wklej zawartość przepisu. Każda indywidualna linia traktowana będzie jako pozycja na liście",
+    "recipe-url": "Adres URL przepisu",
     "url-form-hint": "Skopiuj i wklej link ze swojej ulubionej strony z przepisami"
   },
   "page": {
@@ -129,7 +129,7 @@
     "nutrition": "Wartości odżywcze",
     "object-key": "Klucz obiektu",
     "object-value": "Wartość obiektu",
-    "original-url": "Oryginalny odnośnik",
+    "original-url": "Oryginalny adres URL",
     "perform-time": "Czas gotowania",
     "prep-time": "Czas przyrządzania",
     "protein-content": "Zawartość białka",
@@ -139,7 +139,7 @@
     "sodium-content": "Zawartość sodu",
     "step-index": "Krok: {step}",
     "sugar-content": "Zawartość cukrów",
-    "tags": "Etykiety",
+    "tags": "Tagi",
     "title": "Tytuł",
     "total-time": "Czas całkowity",
     "view-recipe": "Wyświetl przepis"
@@ -159,7 +159,7 @@
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
     "admin-settings": "Ustawienia administratora",
-    "available-backups": "Dostępne kopie zapsowe",
+    "available-backups": "Dostępne kopie zapasowe",
     "backup": {
       "backup-tag": "Etykieta kopii zapasowej",
       "create-heading": "Utwórz kopię zapasową",
@@ -167,7 +167,7 @@
       "partial-backup": "Częściowa kopia zapasowa"
     },
     "backup-and-exports": "Kopie zapasowe",
-    "backup-info": "Kopie zapasowe zapisywane są w standardowym formacie JSON wraz ze zdjęciami w systemie plików. W katalogu kopii zapasowej znajdziesz plik z rozszerzeniem .zip zawierający wszystkie przepisy i zdjęcia z bazy danych. Jeśli oznaczone zostały pliki markdown, one także znajdą się w pliku .zip. Aby zaimportować kopię, musi ona znajdować się w folderze kopii zapasowych. Kopie automatyczne tworzone są codziennie o godzinie 03:00.",
+    "backup-info": "Kopie zapasowe zapisywane są w standardowym formacie JSON wraz ze zdjęciami w systemie plików. W katalogu kopii zapasowej znajdziesz plik z rozszerzeniem .zip zawierający wszystkie przepisy i zdjęcia z bazy danych. Jeśli zaznaczone zostały pliki markdown, one także znajdą się w pliku .zip. Aby zaimportować kopię, musi ona znajdować się w folderze kopii zapasowych. Kopie automatyczne tworzone są codziennie o godzinie 03:00.",
     "change-password": "Zmień hasło",
     "current": "Wersja:",
     "custom-pages": "Niestandardowe strony",
@@ -198,12 +198,12 @@
       "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Wybierz jak Mealie ma dla Ciebie wyglądać. Dostępne opcje to podążanie za odcieniem systemowym, bądź motyw jasny lub ciemny.",
       "dark": "Ciemny",
       "dark-mode": "Ciemny motyw",
-      "default-to-system": "Domyślny dla systemu",
+      "default-to-system": "Motyw systemowy",
       "delete-theme": "Usuń motyw",
       "error": "Błąd",
       "info": "Informacja",
       "light": "Jasny",
-      "primary": "Pierwszorzędny",
+      "primary": "Podstawowy",
       "secondary": "Drugorzędny",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Wybierz motyw z rozwijanej listy bądź stwórz nowy. Domyślny motyw zostanie użyty dla wszystkich użytkowników którzy nie wybrali własnej preferencji.",
       "success": "Powodzenie",
@@ -217,7 +217,7 @@
       "meal-planner-webhooks": "Webhooki planera posiłków",
       "test-webhooks": "Testuj webhooki",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Odnośniki poniżej otrzymają webhook zawierający dane o przepisie dla danego dnia. Aktualnie webhooki zostanę wykonane o",
-      "webhook-url": "Odnośnik webhooka"
+      "webhook-url": "URL webhooka"
     },
     "toolbox": {
       "toolbox": "Przybornik",
@@ -233,8 +233,8 @@
   "user": {
     "admin": "Administrator",
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
-    "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
-    "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>?",
+    "are-you-sure-you-want-to-delete-the-link": "Czy na pewno chcesz usunąć link <b>{link}<b/>?",
+    "are-you-sure-you-want-to-delete-the-user": "Czy na pewno chcesz usunąć użytkownika <b>{activeName} ID: {activeId}<b/>?",
     "confirm-group-deletion": "Potwierdź usunięcie grupy",
     "confirm-link-deletion": "Potwierdź usunięcie linku",
     "confirm-password": "Potwierdź hasło",
@@ -255,7 +255,7 @@
     "groups-can-only-be-set-by-administrators": "Grupy mogą być ustawiane tylko przez administratorów",
     "link-id": "ID linku",
     "link-name": "Nazwa linku",
-    "login": "Zaloguj się",
+    "login": "Login",
     "logout": "Wyloguj się",
     "new-password": "Nowe Hasło",
     "new-user": "Nowy użytkownik",
