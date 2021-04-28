@@ -71,17 +71,6 @@ export default {
       this.availableBackups = response.imports;
       this.availableTemplates = response.templates;
     },
-    deleteBackup() {
-      if (this.$refs.form.validate()) {
-        this.backupLoading = true;
-
-        api.backups.delete(this.selectedBackup);
-        this.getAvailableBackups();
-
-        this.selectedBackup = null;
-        this.backupLoading = false;
-      }
-    },
     processFinished(data) {
       this.getAvailableBackups();
       this.backupLoading = false;
