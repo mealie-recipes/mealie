@@ -25,7 +25,6 @@ Deployment with the Docker CLI can be done with `docker run` and specify the dat
 
 ```shell
 docker run \
-    -e DB_URL='sqlite:///mealie.db' \
     -p 9925:80 \
     -v `pwd`:'/app/data/' \
     hkotel/mealie:latest
@@ -50,7 +49,6 @@ services:
     ports:
       - 9925:80
     environment:
-      DB_URL: sqlite:///mealie.db
       TZ: America/Anchorage
     volumes:
       - ./mealie/data/:/app/data
