@@ -22,12 +22,18 @@ class RecipeStep(BaseModel):
     class Config:
         orm_mode = True
 
+class RecipeAsset(BaseModel):
+    name: str
+    icon: str
+    path: str
+
 
 class Nutrition(BaseModel):
     calories: Optional[str]
     fatContent: Optional[str]
-    fiberContent: Optional[str]
     proteinContent: Optional[str]
+    carbohydrateContent: Optional[str]
+    fiberContent: Optional[str]
     sodiumContent: Optional[str]
     sugarContent: Optional[str]
 

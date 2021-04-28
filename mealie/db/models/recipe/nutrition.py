@@ -10,6 +10,7 @@ class Nutrition(SqlAlchemyBase):
     fatContent = sa.Column(sa.String)
     fiberContent = sa.Column(sa.String)
     proteinContent = sa.Column(sa.String)
+    carbohydrateContent = sa.Column(sa.String)
     sodiumContent = sa.Column(sa.String)
     sugarContent = sa.Column(sa.String)
 
@@ -21,6 +22,7 @@ class Nutrition(SqlAlchemyBase):
         proteinContent=None,
         sodiumContent=None,
         sugarContent=None,
+        carbohydrateContent=None,
     ) -> None:
         self.calories = calories
         self.fatContent = fatContent
@@ -28,3 +30,4 @@ class Nutrition(SqlAlchemyBase):
         self.proteinContent = proteinContent
         self.sodiumContent = sodiumContent
         self.sugarContent = sugarContent
+        self.carbohydrateContent = carbohydrateContent
