@@ -1,5 +1,5 @@
 {
-	auto_https off
+  auto_https off
   admin off
 }
 
@@ -18,5 +18,4 @@
     try_files {path}.html {path} /
     file_server 
   }
-
 }

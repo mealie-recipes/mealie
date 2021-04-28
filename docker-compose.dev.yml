@@ -27,7 +27,6 @@ services:
       - 9921:9000
     environment:
       TZ: America/Anchorage # Specify Correct Timezone for Date/Time to line up correctly.
-      DB_URL: sqlite:///mealie.db
     volumes:
       - ./dev/data:/app/dev/data
       - ./mealie:/app/mealie

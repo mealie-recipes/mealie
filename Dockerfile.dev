@@ -1,24 +1,23 @@
-FROM python:3
-
-WORKDIR /app/
+FROM python:3.9-buster
 
 ENV PRODUCTION false
+ENV POETRY_VERSION 1.1.6
 
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
+# poetry
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
 
-# Install Poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
-    cd /usr/local/bin && \
-    ln -s /opt/poetry/bin/poetry && \
-    poetry config virtualenvs.create false
+# database drivers
+RUN pip install --no-cache-dir "psycopg2-binary==2.8.6"
 
-# Copy poetry.lock* in case it doesn't exist in the repo
-COPY ./pyproject.toml /app/
+# project dependencies
+WORKDIR /app
+COPY pyproject.toml poetry.lock /app/
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-root --no-dev --no-interaction --no-ansi
 
+# project code
 COPY ./mealie /app/mealie
+COPY ./alembic /app/alembic
+COPY alembic.ini /app
 
-RUN poetry install 
-
-RUN chmod +x /app/mealie/run.sh
-CMD ["/app/mealie/run.sh", "reload"]
+CMD [ "/app/mealie/run.sh", "development" ]

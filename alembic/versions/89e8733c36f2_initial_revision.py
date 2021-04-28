@@ -240,29 +240,32 @@ def upgrade():
     op.bulk_insert(site_settings2categories_table, [
         {
             "sidebar_id": 1,
-            "category_slug", "thanksgiving",
+            "category_slug": "thanksgiving",
         },
         {
             "sidebar_id": 1,
-            "category_slug", "homechef",
+            "category_slug": "homechef",
         },
         {
             "sidebar_id": 1,
-            "category_slug", "potatoes",
+            "category_slug": "potatoes",
+        },
+    ])
+    op.bulk_insert(theme_colors_table, [
+        {
+            "parent_id": "default",
+            "primary": "#E58325",
+            "accent": "#00457A",
+            "secondary": "#973542",
+            "success": "#5AB1BB",
+            "info": "#4990BA",
+            "warning": "#FF4081",
+            "error": "#EF5350",
         },
     ])
     op.bulk_insert(site_theme_table, [
         {
             "name": "default",
-            "colors": {
-                "primary": "#E58325",
-                "accent": "#00457A",
-                "secondary": "#973542",
-                "success": "#5AB1BB",
-                "info": "#4990BA",
-                "warning": "#FF4081",
-                "error": "#EF5350",
-            },
         },
     ])
     op.bulk_insert(groups_table, [
