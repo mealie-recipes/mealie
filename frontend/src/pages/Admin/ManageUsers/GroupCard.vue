@@ -57,7 +57,6 @@
 const RENDER_EVENT = "update";
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
-import utils from "@/utils";
 export default {
   components: { ConfirmationDialog },
   props: {
@@ -92,26 +91,7 @@ export default {
       this.$refs.deleteGroupConfirm.open();
     },
     async deleteGroup() {
-      const response = await api.groups.delete(this.group.id);
-      if (response.status != 200) {
-        switch(response.data.detail) {
-          case 'GROUP_WITH_USERS':
-            utils.notify.error(this.$t('user.cannot-delete-group-with-users'));
-            break;
-            
-          case 'GROUP_NOT_FOUND':
-            utils.notify.error(this.$t('user.group-not-found'));
-            break;
-            
-          case 'DEFAULT_GROUP':
-            utils.notify.error(this.$t('user.cannot-delete-default-group'));
-            break;
-
-          default:
-            utils.notify.error(this.$t('user.group-deletion-failed'));
-        }
-      } else {
-        utils.notify.success(this.$t('user.group-deleted'));
+      if (await api.groups.delete(this.group.id)) {
         this.$emit(RENDER_EVENT);
       }
     },

@@ -1,5 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
+import i18n from '@/i18n.js';
 
 const signUpPrefix = baseURL + "users/sign-ups";
 
@@ -20,9 +21,16 @@ export const signupAPI = {
     return response.data;
   },
   async deleteToken(token) {
-    return await apiReq.delete(signUpURLs.deleteToken(token));
+    return await apiReq.delete(signUpURLs.deleteToken(token),
+    null,
+    null,
+    function() { return i18n.t('user.sign-up-token-deleted'); }
+    );
   },
   async createUser(token, data) {
-    return apiReq.post(signUpURLs.createUser(token), data);
+    return apiReq.post(signUpURLs.createUser(token), data,
+    function() { return i18n.t('user.you-are-not-allowed-to-create-a-user'); },
+    function() { return i18n.t('user.user-created'); }
+    );
   },
 };

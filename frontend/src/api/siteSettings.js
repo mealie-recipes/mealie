@@ -1,6 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
+import i18n from '@/i18n.js';
 
 const settingsBase = baseURL + "site-settings";
 
@@ -19,8 +20,15 @@ export const siteSettingsAPI = {
   },
 
   async update(body) {
-    let response = await apiReq.put(settingsURLs.updateSiteSettings, body);
-    store.dispatch("requestSiteSettings");
+    const response = await apiReq.put(
+      settingsURLs.updateSiteSettings, 
+      body,
+      function() { return i18n.t('settings.settings-update-failed'); },
+      function() { return i18n.t('settings.settings-updated'); }
+    );
+    if(response) {
+      store.dispatch("requestSiteSettings");
+    }
     return response;
   },
 
@@ -34,20 +42,39 @@ export const siteSettingsAPI = {
     return response.data;
   },
 
-  async createPage(body) {
-    return await apiReq.post(settingsURLs.customPages, body);
+  createPage(body) {
+    return apiReq.post(
+      settingsURLs.customPages, 
+      body,
+      function() { return i18n.t('page.page-creation-failed'); },
+      function() { return i18n.t('page.new-page-created'); }
+    );
   },
 
   async deletePage(id) {
-    return await apiReq.delete(settingsURLs.customPage(id));
+    return await apiReq.delete(
+      settingsURLs.customPage(id),
+      null,
+      function() { return i18n.t('page.page-deletion-failed'); },
+      function() { return i18n.t('page.page-deleted'); });
   },
 
-  async updatePage(body) {
-    return await apiReq.put(settingsURLs.customPage(body.id), body);
+  updatePage(body) {
+    return apiReq.put(
+      settingsURLs.customPage(body.id),
+      body,
+      function() { return i18n.t('page.page-update-failed'); },
+      function() { return i18n.t('page.page-updated'); }
+    );
   },
 
   async updateAllPages(allPages) {
-    let response = await apiReq.put(settingsURLs.customPages, allPages);
+    let response = await apiReq.put(
+      settingsURLs.customPages, 
+      allPages,
+      function() { return i18n.t('page.pages-update-failed'); },
+      function() { return i18n.t('page.pages-updated'); }
+    );
     return response;
   },
 };

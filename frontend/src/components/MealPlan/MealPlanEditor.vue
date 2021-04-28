@@ -36,11 +36,7 @@ export default {
       return utils.getDateAsPythonDate(dateObject);
     },
     async update() {
-      const response = await api.mealPlans.update(this.mealPlan.uid, this.mealPlan);
-      if (response.status != 200) {
-        utils.notify.error(this.$t('meal-plan.mealplan-update-failed'));
-      } else {
-        utils.notify.success(this.$t('meal-plan.mealplan-updated'));
+      if (await api.mealPlans.update(this.mealPlan.uid, this.mealPlan)) {
         this.$emit("updated");
       }
     },

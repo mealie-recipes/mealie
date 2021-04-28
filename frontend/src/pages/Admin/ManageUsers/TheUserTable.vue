@@ -146,7 +146,6 @@
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
-import utils from "@/utils";
 import { validators } from "@/mixins/validators";
 export default {
   components: { ConfirmationDialog },
@@ -224,18 +223,7 @@ export default {
     },
 
     async deleteUser() {
-      const response = await api.users.delete(this.activeId);
-      if (response.status != 200) {
-        switch(response.data.detail) {
-          case 'SUPER_USER':
-            utils.notify.error(this.$t('user.error-cannot-delete-super-user'));
-            break;
-
-          default: 
-            utils.notify.error(this.$t('user.you-are-not-allowed-to-delete-this-user'));
-        }
-      } else {
-        utils.notify.success(this.$t('user.user-deleted'));
+      if (await api.users.delete(this.activeId)) {
         this.initialize();
       }
     },
@@ -283,31 +271,18 @@ export default {
       }
       await this.initialize();
     },
-    async resetPassword() {
-      const response = await api.users.resetPassword(this.editedItem.id);
-      if (response.status != 200) {
-        utils.notify.error(this.$t('user.password-reset-failed'));
-      } else {
-        utils.notify.success(this.$t('user.password-has-been-reset-to-the-default-password'));
-      }
+    resetPassword() {
+      api.users.resetPassword(this.editedItem.id);
     },
     
     async createUser() {
-      const response = await api.users.create(this.editedItem);
-      if(response.status!=201) {
-        utils.notify.error(this.$t('user.user-creation-failed'));
-      } else {
-        utils.notify.success(this.$t('user.user-created'));
+      if(await api.users.create(this.editedItem)) {
         this.close();
       }
     },
 
     async updateUser() {
-      const response = await api.users.update(this.editedItem);
-      if(response.status!=200) {
-        utils.notify.error(this.$t('user.user-update-failed'));
-      } else {
-        utils.notify.success(this.$t('user.user-updated'));
+      if(await api.users.update(this.editedItem)) {
         this.close();
       }
     }

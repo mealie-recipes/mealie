@@ -1,15 +1,16 @@
 import { apiReq } from "./api-utils";
+import i18n from '@/i18n.js';
 
 export const utilsAPI = {
   // import { api } from "@/api";
-  async uploadFile(url, fileObject) {
+  uploadFile(url, fileObject) {
     console.log("API Called");
 
-    let response = await apiReq.post(url, fileObject, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return response;
+    return apiReq.post(
+      url,
+      fileObject,
+      function() { return i18n.t('general.failure-uploading-file'); },
+      function() { return i18n.t('general.file-uploaded'); }
+    );
   },
 };

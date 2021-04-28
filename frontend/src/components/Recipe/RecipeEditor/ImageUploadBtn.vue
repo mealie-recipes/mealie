@@ -46,7 +46,6 @@ const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import { api } from "@/api";
-import utils from "@/utils";
 export default {
   components: {
     TheUploadBtn,
@@ -64,13 +63,9 @@ export default {
     },
     async getImageFromURL() {
       this.loading = true;
-      const response = await api.recipes.updateImagebyURL(this.slug, this.url);
-      if (response.status != 200) {
-        utils.notify.error(this.$t('general.image-upload-failed'));
-      } else {
-        utils.notify.success(this.$t('general.image-updated'));
+      if (await api.recipes.updateImagebyURL(this.slug, this.url)) {
+        this.$emit(REFRESH_EVENT);
       }
-      if (response) this.$emit(REFRESH_EVENT);
       this.loading = false;
     },
   },

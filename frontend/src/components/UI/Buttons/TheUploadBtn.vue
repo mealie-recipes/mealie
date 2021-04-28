@@ -16,7 +16,6 @@
 <script>
 const UPLOAD_EVENT = "uploaded";
 import { api } from "@/api";
-import utils from "@/utils";
 export default {
   props: {
     post: {
@@ -56,15 +55,10 @@ export default {
         let formData = new FormData();
         formData.append(this.fileName, this.file);
 
-        const response = await api.utils.uploadFile(this.url, formData);
-        if(response.status != 200) {
-          utils.notify.error(this.$t('general.failure-uploading-file'));
-        } else {
-          utils.notify.success(this.$t('general.file-uploaded'));
-
+        if(await api.utils.uploadFile(this.url, formData)) {
+          this.$emit(UPLOAD_EVENT);
         }
         this.isSelecting = false;
-        this.$emit(UPLOAD_EVENT);
       }
     },
     onButtonClick() {

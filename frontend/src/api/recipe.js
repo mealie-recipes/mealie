@@ -1,6 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store";
+import i18n from '@/i18n.js';
 
 const prefix = baseURL + "recipes/";
 
@@ -24,9 +25,12 @@ export const recipeAPI = {
    * @returns {string} Recipe Slug
    */
   async createByURL(recipeURL) {
-    let response = await apiReq.post(recipeURLs.createByURL, {
-      url: recipeURL,
-    });
+    const response = await apiReq.post(
+      recipeURLs.createByURL, 
+      { url: recipeURL },
+      function() { return i18n.t('recipe.recipe-creation-failed'); },
+      function() { return i18n.t('recipe.recipe-created'); }
+    );
 
     store.dispatch("requestRecentRecipes");
     return response;
@@ -41,7 +45,12 @@ export const recipeAPI = {
   },
 
   async create(recipeData) {
-    let response = await apiReq.post(recipeURLs.create, recipeData);
+    const response = await apiReq.post(
+      recipeURLs.create, 
+      recipeData,
+      function() { return i18n.t('recipe.recipe-creation-failed'); },
+      function() { return i18n.t('recipe.recipe-created'); }
+    );
     store.dispatch("requestRecentRecipes");
     return response.data;
   },
@@ -51,17 +60,31 @@ export const recipeAPI = {
     return response.data;
   },
 
-  async updateImage(recipeSlug, fileObject) {
-    const fd = new FormData();
-    fd.append("image", fileObject);
-    fd.append("extension", fileObject.name.split(".").pop());
-    let response = apiReq.put(recipeURLs.updateImage(recipeSlug), fd);
-    return response;
+  updateImage(recipeSlug, fileObject, overrideSuccessMsg = false) {
+    const formData = new FormData();
+    formData.append("image", fileObject);
+    formData.append("extension", fileObject.name.split(".").pop());
+
+    let successMessage = null;
+    if(!overrideSuccessMsg) {
+      successMessage = function() { return overrideSuccessMsg ? null : i18n.t('recipe.recipe-image-updated'); };
+    }
+    
+    return apiReq.put(
+      recipeURLs.updateImage(recipeSlug), 
+      formData,
+      function() { return i18n.t('general.image-upload-failed'); },
+      successMessage
+    );
   },
 
-  async updateImagebyURL(slug, url) {
-    const response = apiReq.post(recipeURLs.updateImage(slug), { url: url });
-    return response;
+  updateImagebyURL(slug, url) {
+    return apiReq.post(
+      recipeURLs.updateImage(slug), 
+      { url: url },
+      function() { return i18n.t('general.image-upload-failed'); },
+      function() { return i18n.t('recipe.recipe-image-updated'); }
+    );
   },
 
   async update(data) {
@@ -76,8 +99,13 @@ export const recipeAPI = {
     return response.data;
   },
 
-  async delete(recipeSlug) {
-    return await apiReq.delete(recipeURLs.delete(recipeSlug));
+  delete(recipeSlug) {
+    return apiReq.delete(
+      recipeURLs.delete(recipeSlug),
+      null,
+      function() { return i18n.t('recipe.unable-to-delete-recipe'); },
+      function() { return i18n.t('recipe.recipe-deleted'); }
+    );
   },
 
   async allSummary(start = 0, limit = 9999) {

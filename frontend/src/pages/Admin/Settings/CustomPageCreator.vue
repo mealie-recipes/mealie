@@ -65,7 +65,6 @@
 import draggable from "vuedraggable";
 import CreatePageDialog from "./CreatePageDialog";
 import { api } from "@/api";
-import utils from "@/utils";
 export default {
   components: {
     draggable,
@@ -110,11 +109,7 @@ export default {
         element.position = index;
       });
 
-      const response = await api.siteSettings.updateAllPages(this.customPages);
-      if (response.status != 200) {
-        utils.notify.error(this.$t('page.pages-update-failed'));
-      } else {
-        utils.notify.success(this.$t('page.pages-updated'));
+      if (await api.siteSettings.updateAllPages(this.customPages)) {
         this.getPages();
       }
 

@@ -147,7 +147,6 @@
 // import AvatarPicker from '@/components/AvatarPicker'
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import { api } from "@/api";
-import utils from "@/utils";
 import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 export default {
@@ -203,10 +202,7 @@ export default {
     async updateUser() {
       this.loading = true;
       const response = await api.users.update(this.user);
-      if(response.status != 200) {
-        utils.notify.error(this.$t('user.user-update-failed'));
-      } else {
-        utils.notify.success(this.$t('user.user-updated'));
+      if(response) {
         this.$store.commit("setToken", response.data.access_token);
         this.refreshProfile();
         this.loading = false;
@@ -221,11 +217,7 @@ export default {
       };
 
       if (this.$refs.passChange.validate()) {
-        const response = await api.users.changePassword(this.user.id, data);
-        if (response.status != 200) {
-          utils.notify.error(this.$t('user.existing-password-does-not-match'));
-        } else {
-          utils.notify.success(this.$t('user.password-updated'));
+        if (await api.users.changePassword(this.user.id, data)) {
           this.$emit("refresh");
         }
       }

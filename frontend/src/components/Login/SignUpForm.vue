@@ -85,7 +85,6 @@
 <script>
 import { api } from "@/api";
 import { validators } from "@/mixins/validators";
-import utils from "@/utils";
 export default {
   mixins: [validators],
   data() {
@@ -134,11 +133,7 @@ export default {
       };
 
       if (this.$refs.signUpForm.validate()) {
-        let response = await api.signUps.createUser(this.token, userData);
-        if (response.status != 200) {
-          utils.notify.error(this.$t('user.you-are-not-allowed-to-create-a-user'));
-        } else {
-          utils.notify.success(this.$t('user.user-created'));
+        if (await api.signUps.createUser(this.token, userData)) {
           this.$emit("user-created");
           this.$router.push("/");
         }

@@ -109,7 +109,6 @@
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
-import utils from "@/utils";
 import { validators } from "@/mixins/validators";
 export default {
   components: { ConfirmationDialog },
@@ -183,13 +182,9 @@ export default {
     },
 
     async deleteToken() {
-      const response = await api.signUps.deleteToken(this.activeId);
-      if (response.status != 200) {
-        utils.notify.error(this.$t('general.not-authorized'));
-      } else {
-        utils.notify.success(this.$t('user.sign-up-token-deleted'));
+      if (await api.signUps.deleteToken(this.activeId)) {
+        this.initialize();
       }
-      this.initialize();
     },
 
     editItem(item) {

@@ -1,6 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
+import i18n from '@/i18n.js';
 
 const prefix = baseURL + "categories";
 
@@ -22,26 +23,41 @@ export const categoryAPI = {
     return response.data;
   },
   async create(name) {
-    let response = await apiReq.post(categoryURLs.getAll, { name: name });
-    store.dispatch("requestCategories");
-    return response.data;
+    const response = await apiReq.post(
+      categoryURLs.getAll, 
+      { name: name },
+      function() { return i18n.t('settings.category-creation-failed'); },
+      function() { return i18n.t('settings.category-created'); }
+    );
+    if(response) {
+      store.dispatch("requestCategories");
+      return response.data;
+    }
   },
   async getRecipesInCategory(category) {
     let response = await apiReq.get(categoryURLs.getCategory(category));
     return response.data;
   },
   async update(name, newName, overrideRequest = false) {
-    let response = await apiReq.put(categoryURLs.updateCategory(name), {
-      name: newName,
-    });
-    if (!overrideRequest) {
+    const response = await apiReq.put(
+      categoryURLs.updateCategory(name), 
+      { name: newName },
+      function() { return i18n.t('settings.category-update-failed'); },
+      function() { return i18n.t('settings.category-updated'); }
+    );
+    if (response && !overrideRequest) {
       store.dispatch("requestCategories");
+      return response.data;
     }
-    return response.data;
   },
   async delete(category, overrideRequest = false) {
-    let response = await apiReq.delete(categoryURLs.deleteCategory(category));
-    if (!overrideRequest) {
+    const response = await apiReq.delete(
+      categoryURLs.deleteCategory(category),
+      null,
+      function() { return i18n.t('settings.category-deletion-failed'); },
+      function() { return i18n.t('settings.category-deleted'); }
+    );
+    if (response && !overrideRequest) {
       store.dispatch("requestCategories");
     }
     return response;

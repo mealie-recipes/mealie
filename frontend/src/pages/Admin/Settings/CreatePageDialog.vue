@@ -44,7 +44,6 @@
 <script>
 const NEW_PAGE_EVENT = "refresh-page";
 import { api } from "@/api";
-import utils from "@/utils";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 export default {
   components: {
@@ -83,21 +82,14 @@ export default {
       this.$refs.categoryFormSelector.setInit(this.page.categories);
     },
     async submitForm() {
-      let response, sucessMessage, errorMessage;
+      let response;
       if (this.create) {
         response = await api.siteSettings.createPage(this.page);
-        sucessMessage = this.$t('page.new-page-created');
-        errorMessage = this.$t('page.page-creation-failed');
       } else {
         response = await api.siteSettings.updatePage(this.page);
-        sucessMessage = this.$t('page.page-updated');
-        errorMessage = this.$t('page.page-update-failed');
       }
       
-      if (response.status != 200) {
-        utils.notify.error(errorMessage);
-      } else {
-        utils.notify.success(sucessMessage);
+      if (response) {
         this.pageDialog = false;
         this.page.categories = [];
         this.$emit(NEW_PAGE_EVENT);
