@@ -100,7 +100,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.recipeYield = recipeYield
         self.recipeIngredient = [RecipeIngredient(ingredient=ingr) for ingr in recipeIngredient]
         self.recipeInstructions = [
-            RecipeInstruction(text=instruc.get("text"), type=instruc.get("@type", None))
+            RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))
             for instruc in recipeInstructions
         ]
         self.totalTime = totalTime

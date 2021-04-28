@@ -16,6 +16,7 @@ class RecipeNote(BaseModel):
 
 
 class RecipeStep(BaseModel):
+    title: Optional[str] = ""
     text: str
 
     class Config:

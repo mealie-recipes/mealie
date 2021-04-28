@@ -50,7 +50,7 @@
         ></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
-          <Steps :steps="instructions" />
+          <InstructionsEditor :value="instructions" :edit="false" />
         </v-col>
       </v-row>
       <div v-if="!medium">
@@ -86,17 +86,17 @@ import NutritionEditor from "@/components/Recipe/RecipeEditor/NutritionEditor";
 import VueMarkdown from "@adapttive/vue-markdown";
 import utils from "@/utils";
 import RecipeChips from "./RecipeChips";
-import Steps from "./Steps";
 import Notes from "./Notes";
 import Ingredients from "./Ingredients";
+import InstructionsEditor from "../RecipeEditor/InstructionsEditor.vue";
 export default {
   components: {
     VueMarkdown,
     RecipeChips,
-    Steps,
     Notes,
     Ingredients,
     NutritionEditor,
+    InstructionsEditor,
   },
   props: {
     name: String,

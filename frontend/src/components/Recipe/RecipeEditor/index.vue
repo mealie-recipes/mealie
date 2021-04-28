@@ -175,40 +175,7 @@
         <v-divider class="my-divider" :vertical="true"></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
-          <h2 class="mb-4">{{ $t("recipe.instructions") }}</h2>
-          <div v-for="(step, index) in value.recipeInstructions" :key="index">
-            <v-hover v-slot="{ hover }">
-              <v-card
-                class="ma-1"
-                :class="[{ 'on-hover': hover }]"
-                :elevation="hover ? 12 : 2"
-              >
-                <v-card-title>
-                  <v-btn
-                    fab
-                    x-small
-                    color="white"
-                    class="mr-2"
-                    elevation="0"
-                    @click="removeByIndex(value.recipeInstructions, index)"
-                  >
-                    <v-icon size="24" color="error">mdi-delete</v-icon>
-                  </v-btn>
-                  {{ $t("recipe.step-index", { step: index + 1 }) }}
-                </v-card-title>
-                <v-card-text>
-                  <v-textarea
-                    auto-grow
-                    dense
-                    v-model="value.recipeInstructions[index]['text']"
-                    :key="generateKey('instructions', index)"
-                    rows="4"
-                  >
-                  </v-textarea>
-                </v-card-text>
-              </v-card>
-            </v-hover>
-          </div>
+          <InstructionsEditor v-model="value.recipeInstructions" :edit="true" />
           <div class="d-flex row justify-end mt-2">
             <BulkAdd @bulk-data="appendSteps" class="mr-2" />
             <v-btn color="secondary" dark @click="addStep" class="mr-4">
@@ -237,6 +204,7 @@ import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import NutritionEditor from "./NutritionEditor";
 import ImageUploadBtn from "./ImageUploadBtn.vue";
 import { validators } from "@/mixins/validators";
+import InstructionsEditor from "./InstructionsEditor.vue";
 export default {
   components: {
     BulkAdd,
@@ -245,6 +213,7 @@ export default {
     CategoryTagSelector,
     NutritionEditor,
     ImageUploadBtn,
+    InstructionsEditor,
   },
   props: {
     value: Object,
@@ -254,9 +223,13 @@ export default {
     return {
       drag: false,
       fileObject: null,
+      lastTitleIndex: 0,
     };
   },
   methods: {
+    validateTitle(title) {
+      return !(title === null || title === "");
+    },
     uploadImage(fileObject) {
       this.$emit(UPLOAD_EVENT, fileObject);
     },
