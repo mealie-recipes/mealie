@@ -1,13 +1,12 @@
 import shutil
 
-from fastapi import APIRouter, Depends, File, Form
+from fastapi import APIRouter, Depends, File, Form, status, HTTPException
 from fastapi.datastructures import UploadFile
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeAsset
-from mealie.schema.snackbar import SnackResponse
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
@@ -41,10 +40,10 @@ def upload_recipe_asset(
     with dest.open("wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    if dest.is_file():
-        recipe: Recipe = db.recipes.get(session, recipe_slug)
-        recipe.assets.append(asset_in)
-        db.recipes.update(session, recipe_slug, recipe.dict())
-        return asset_in
-    else:
-        return SnackResponse.error("Failure uploading file")
+    if not dest.is_file():
+        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
+
+    recipe: Recipe = db.recipes.get(session, recipe_slug)
+    recipe.assets.append(asset_in)
+    db.recipes.update(session, recipe_slug, recipe.dict())
+    return asset_in
