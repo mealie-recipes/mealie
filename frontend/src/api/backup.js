@@ -1,6 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
+import i18n from '@/i18n.js';
 
 const backupBase = baseURL + "backups/";
 
@@ -40,7 +41,12 @@ export const backupAPI = {
    * @param {string} fileName
    */
   async delete(fileName) {
-    await apiReq.delete(backupURLs.deleteBackup(fileName));
+    return apiReq.delete(
+      backupURLs.deleteBackup(fileName),
+      null,
+      function() { return i18n.t('settings.backup.unable-to-delete-backup'); },
+      function() { return i18n.t('settings.backup.backup-deleted'); }
+    );
   },
   /**
    * Creates a backup on the serve given a set of options
@@ -48,8 +54,12 @@ export const backupAPI = {
    * @returns
    */
   async create(options) {
-    let response = apiReq.post(backupURLs.createBackup, options);
-    return response;
+    return apiReq.post(
+      backupURLs.createBackup, 
+      options,
+      function() { return i18n.t('settings.backup.error-creating-backup-see-log-file'); },
+      function(response) { return i18n.t('settings.backup.backup-created-at-response-export_path', {path: response.data.export_path}); }
+    );
   },
   /**
    * Downloads a file from the server. I don't actually think this is used?

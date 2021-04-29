@@ -4,7 +4,7 @@
       ref="assignDialog"
       title-icon="mdi-tag"
       color="primary"
-      title="Bulk Assign"
+      :title="$t('settings.toolbox.bulk-assign')"
       :loading="loading"
       modal-width="700"
       :top="true"
@@ -13,7 +13,7 @@
         <v-text-field
           v-model="search"
           autocomplete="off"
-          label="Keyword"
+          :label="$t('general.keyword')"
         ></v-text-field>
         <CategoryTagSelector
           :tag-selector="false"
@@ -44,7 +44,7 @@
         <v-card-title class="headline"> </v-card-title>
         <CardSection
           class="px-2 pb-2"
-          :title="`${results.length || 0} Recipes Effected`"
+          :title="$tc('settings.toolbox.recipes-affected', results.length || 0)"
           :mobile-cards="true"
           :recipes="results"
           :single-column="true"

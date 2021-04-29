@@ -128,8 +128,9 @@ export default {
       this.requestMeals();
     },
     async deletePlan(id) {
-      await api.mealPlans.delete(id);
-      this.requestMeals();
+      if (await api.mealPlans.delete(id)) {
+        this.requestMeals();
+      }
     },
     openShoppingList(id) {
       this.$refs.shoppingList.openDialog(id);

@@ -171,9 +171,11 @@ export default {
      * Create the new Theme and select it.
      */
     async appendTheme(NewThemeDialog) {
-      await api.themes.create(NewThemeDialog);
-      this.availableThemes.push(NewThemeDialog);
-      this.$store.commit("setTheme", NewThemeDialog);
+      const response = await api.themes.create(NewThemeDialog);
+      if (response) {
+        this.availableThemes.push(NewThemeDialog);
+        this.$store.commit("setTheme", NewThemeDialog);
+      }
     },
     setStoresDarkMode() {
       this.$store.commit("setDarkMode", this.selectedDarkMode);
@@ -181,8 +183,8 @@ export default {
     /**
      * This will save the current colors and make the selected theme live.
      */
-    async saveThemes() {
-      await api.themes.update(
+    saveThemes() {
+      api.themes.update(
         this.selectedTheme.name,
         this.selectedTheme.colors
       );

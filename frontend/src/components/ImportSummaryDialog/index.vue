@@ -7,7 +7,7 @@
             mdi-import
           </v-icon>
           <v-toolbar-title class="headline">
-            Import Summary
+            {{ $t("settings.backup.import-summary") }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-app-bar>
@@ -18,8 +18,8 @@
                 <div>
                   <h3>{{ values.title }}</h3>
                 </div>
-                <div class="success--text">Success: {{ values.success }}</div>
-                <div class="error--text">Failed: {{ values.failure }}</div>
+                <div class="success--text">{{ $t("general.success-count", { count: values.success }) }}</div>
+                <div class="error--text">{{ $t("general.failed-count", { count: values.failure }) }}</div>
               </v-card-text>
             </div>
           </v-row>
@@ -28,7 +28,7 @@
           <v-tab>{{ $t("general.recipes") }}</v-tab>
           <v-tab>{{ $t("general.themes") }}</v-tab>
           <v-tab>{{ $t("general.settings") }}</v-tab>
-          <v-tab> Pages </v-tab>
+          <v-tab> {{ $t("settings.pages") }} </v-tab>
           <v-tab>{{ $t("general.users") }}</v-tab>
           <v-tab>{{ $t("general.groups") }}</v-tab>
         </v-tabs>
@@ -59,24 +59,30 @@ export default {
     userData: [],
     groupData: [],
     pageData: [],
-    importHeaders: [
-      {
-        text: "Status",
-        value: "status",
-      },
-      {
-        text: "Name",
-        align: "start",
-        sortable: true,
-        value: "name",
-      },
-
-      { text: "Exception", value: "data-table-expand", align: "center" },
-    ],
     allDataTables: [],
   }),
 
   computed: {
+    
+    importHeaders() {
+      return [
+        {
+          text: this.$t('general.status'),
+          value: "status",
+        },
+        {
+          text: this.$t('general.name'),
+          align: "start",
+          sortable: true,
+          value: "name",
+        },
+        { 
+          text: this.$t('general.exception'), 
+          value: "data-table-expand", 
+          align: "center" 
+        },
+      ]
+    },
     recipeNumbers() {
       return this.calculateNumbers(this.$t("general.recipes"), this.recipeData);
     },
@@ -96,7 +102,7 @@ export default {
       return this.calculateNumbers(this.$t("general.groups"), this.groupData);
     },
     pageNumbers() {
-      return this.calculateNumbers("Pages", this.pageData);
+      return this.calculateNumbers(this.$t("settings.pages"), this.pageData);
     },
     allNumbers() {
       return [

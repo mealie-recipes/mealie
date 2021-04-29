@@ -2,6 +2,9 @@ import Planner from "@/pages/MealPlan/Planner";
 import ThisWeek from "@/pages/MealPlan/ThisWeek";
 import { api } from "@/api";
 
+import i18n from '@/i18n.js';
+import utils from "@/utils";
+
 export const mealRoutes = [
   {
     path: "/meal-plan/planner",
@@ -21,7 +24,12 @@ export const mealRoutes = [
     path: "/meal-plan/today",
     beforeEnter: async (_to, _from, next) => {
       await todaysMealRoute().then(redirect => {
-        next(redirect);
+        if(redirect) {
+          next(redirect);
+        } else {
+          utils.notify.error(i18n.t('meal-plan.no-meal-planned-for-today'));
+          next(_from);
+        }
       });
     },
   },
@@ -29,5 +37,9 @@ export const mealRoutes = [
 
 async function todaysMealRoute() {
   const response = await api.mealPlans.today();
-  return "/recipe/" + response.data;
+  if (response.status == 200 && response.data) {
+    return "/recipe/" + response.data;
+  } else {
+    return null;
+  }
 }

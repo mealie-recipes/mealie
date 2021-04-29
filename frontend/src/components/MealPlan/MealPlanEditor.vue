@@ -36,8 +36,9 @@ export default {
       return utils.getDateAsPythonDate(dateObject);
     },
     async update() {
-      await api.mealPlans.update(this.mealPlan.uid, this.mealPlan);
-      this.$emit("updated");
+      if (await api.mealPlans.update(this.mealPlan.uid, this.mealPlan)) {
+        this.$emit("updated");
+      }
     },
   },
 };

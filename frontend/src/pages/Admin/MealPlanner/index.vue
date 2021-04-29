@@ -135,9 +135,10 @@ export default {
       this.groupSettings.webhookUrls.splice(index, 1);
     },
     async saveGroupSettings() {
-      await api.groups.update(this.groupSettings);
-      await this.$store.dispatch("requestCurrentGroup");
-      this.getSiteSettings();
+      if (await api.groups.update(this.groupSettings)) {
+        await this.$store.dispatch("requestCurrentGroup");
+        this.getSiteSettings();
+      }
     },
     testWebhooks() {
       api.settings.testWebhooks();

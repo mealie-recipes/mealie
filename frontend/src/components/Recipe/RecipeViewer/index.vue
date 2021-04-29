@@ -44,7 +44,7 @@
             </v-card>
             <v-card class="mt-2" v-if="tags.length > 0">
               <v-card-title class="py-2">
-                {{ $t("recipe.tags") }}
+                {{ $t("tag.tags") }}
               </v-card-title>
               <v-divider class="mx-2"></v-divider>
               <v-card-text>
@@ -69,7 +69,7 @@
       </v-row>
       <div v-if="!medium">
         <RecipeChips :title="$t('recipe.categories')" :items="categories" />
-        <RecipeChips :title="$t('recipe.tags')" :items="tags" />
+        <RecipeChips :title="$t('tag.tags')" :items="tags" />
         <Nutrition :value="nutrition" :edit="false" />
         <Assets :value="assets" :edit="false" :slug="slug" />
       </div>

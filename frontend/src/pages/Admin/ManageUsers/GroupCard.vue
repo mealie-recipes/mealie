@@ -2,9 +2,9 @@
   <div>
     <ConfirmationDialog
       ref="deleteGroupConfirm"
-      :title="$t('user.confirm-group-deletion')"
+      :title="$t('group.confirm-group-deletion')"
       :message="
-        $t('user.are-you-sure-you-want-to-delete-the-group', {
+        $t('group.are-you-sure-you-want-to-delete-the-group', {
           groupName: group.name,
         })
       "
@@ -18,7 +18,7 @@
         <v-card-title class="py-1">{{ group.name }}</v-card-title>
         <v-divider></v-divider>
         <v-subheader>{{
-          $t("user.group-id-with-value", { groupID: group.id })
+          $t("group.group-id-with-value", { groupID: group.id })
         }}</v-subheader>
         <v-list-item-group color="primary">
           <v-list-item v-for="property in groupProps" :key="property.text">
@@ -91,8 +91,9 @@ export default {
       this.$refs.deleteGroupConfirm.open();
     },
     async deleteGroup() {
-      await api.groups.delete(this.group.id);
-      this.$emit(RENDER_EVENT);
+      if (await api.groups.delete(this.group.id)) {
+        this.$emit(RENDER_EVENT);
+      }
     },
     closeGroupDelete() {
       console.log("Close Delete");

@@ -55,10 +55,10 @@ export default {
         let formData = new FormData();
         formData.append(this.fileName, this.file);
 
-        await api.utils.uploadFile(this.url, formData);
-
+        if(await api.utils.uploadFile(this.url, formData)) {
+          this.$emit(UPLOAD_EVENT);
+        }
         this.isSelecting = false;
-        this.$emit(UPLOAD_EVENT);
       }
     },
     onButtonClick() {

@@ -18,8 +18,7 @@
       </v-form>
       <template slot="below-actions">
         <v-card-title class="headline">
-          {{ renameTarget.recipes.length || 0 }}
-          {{ $t("settings.toolbox.recipes-effected") }}
+          {{ $tc("settings.toolbox.recipes-affected", renameTarget.recipes.length || 0) }}
         </v-card-title>
         <MobileRecipeCard
           class="ml-2 mr-2 mt-2 mb-2"
@@ -94,10 +93,10 @@
               <v-card-title class="py-1">{{ item.name }}</v-card-title>
               <v-spacer></v-spacer>
               <v-btn small text color="info" @click="openEditDialog(item)">
-                Edit
+                {{$t('general.edit')}}
               </v-btn>
-              <v-btn small text color="error" @click="deleteItem(item.slug)"
-                >Delete
+              <v-btn small text color="error" @click="deleteItem(item.slug)">
+                {{$t('general.delete')}}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -177,7 +176,7 @@ export default {
       }
 
       this.renameTarget = {
-        title: `Rename ${item.name}`,
+        title:this.$t('general.rename-object', [item.name]),
         name: item.name,
         slug: item.slug,
         newName: "",

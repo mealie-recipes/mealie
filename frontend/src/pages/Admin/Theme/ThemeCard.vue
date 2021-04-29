@@ -70,11 +70,11 @@ export default {
     },
     async deleteSelectedTheme() {
       //Delete Theme from DB
-      await api.themes.delete(this.theme.name);
-
-      //Get the new list of available from DB
-      this.availableThemes = await api.themes.requestAll();
-      this.$emit(DELETE_EVENT);
+      if (await api.themes.delete(this.theme.name)) {
+        //Get the new list of available from DB
+        this.availableThemes = await api.themes.requestAll();
+        this.$emit(DELETE_EVENT);
+      }
     },
     async saveThemes() {
       this.$store.commit("setTheme", this.theme);
