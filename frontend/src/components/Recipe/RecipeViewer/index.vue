@@ -34,7 +34,7 @@
           <Ingredients :value="ingredients" :edit="false" />
           <div v-if="medium">
             <v-card class="mt-2" v-if="categories.length > 0"
-              >>
+              >
               <v-card-title class="py-2">
                 {{ $t("recipe.categories") }}
               </v-card-title>
