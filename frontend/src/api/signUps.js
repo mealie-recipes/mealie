@@ -17,14 +17,19 @@ export const signupAPI = {
     return response.data;
   },
   async createToken(data) {
-    let response = await apiReq.post(signUpURLs.createToken, data);
+    let response = await apiReq.post(
+      signUpURLs.createToken, 
+      data,
+      function() { return i18n.t('signup.sign-up-link-creation-failed'); },
+      function() { return i18n.t('signup.sign-up-link-created'); }
+    );
     return response.data;
   },
   async deleteToken(token) {
     return await apiReq.delete(signUpURLs.deleteToken(token),
     null,
-    null,
-    function() { return i18n.t('user.sign-up-token-deleted'); }
+    function() { return i18n.t('signup.sign-up-token-deletion-failed'); },
+    function() { return i18n.t('signup.sign-up-token-deleted'); }
     );
   },
   async createUser(token, data) {

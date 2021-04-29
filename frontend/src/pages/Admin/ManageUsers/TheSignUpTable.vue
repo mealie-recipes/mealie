@@ -18,7 +18,7 @@
         mdi-link-variant
       </v-icon>
       <v-toolbar-title class="headine">
-        {{ $t("user.sign-up-links") }}
+        {{ $t("signup.sign-up-links") }}
       </v-toolbar-title>
 
       <v-spacer> </v-spacer>

@@ -313,6 +313,11 @@
     "display-name": "Display Name",
     "error-signing-up": "Error Signing Up",
     "sign-up": "Sign Up",
+    "sign-up-link-created": "Sign up link created",
+    "sign-up-link-creation-failed": "Sign up link creation failed",
+    "sign-up-links": "Sign Up Links",
+    "sign-up-token-deleted": "Sign Up Token Deleted",
+    "sign-up-token-deletion-failed": "Sign up token deletion failed",
     "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
   },
   "tag": {
@@ -355,8 +360,6 @@
     "password-updated": "Password updated",
     "reset-password": "Reset Password",
     "sign-in": "Sign in",
-    "sign-up-links": "Sign Up Links",
-    "sign-up-token-deleted": "Sign Up Token Deleted",
     "total-mealplans": "Total MealPlans",
     "total-users": "Total Users",
     "upload-photo": "Upload Photo",
