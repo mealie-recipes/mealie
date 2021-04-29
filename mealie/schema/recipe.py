@@ -1,11 +1,21 @@
 import datetime
-from typing import Any, List, Optional
+from typing import Any, Optional
 
 from fastapi_camelcase import CamelModel
 from mealie.db.models.recipe.recipe import RecipeModel
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
+
+
+class RecipeSettings(CamelModel):
+    public: bool = True
+    show_nutrition: bool = True
+    show_assets: bool = True
+    landscape_view: bool = True
+
+    class Config:
+        orm_mode = True
 
 
 class RecipeNote(BaseModel):
@@ -53,8 +63,8 @@ class RecipeSummary(BaseModel):
     image: Optional[Any]
 
     description: Optional[str]
-    recipeCategory: Optional[List[str]] = []
-    tags: Optional[List[str]] = []
+    recipeCategory: Optional[list[str]] = []
+    tags: Optional[list[str]] = []
     rating: Optional[int]
 
     class Config:
@@ -81,9 +91,10 @@ class Recipe(RecipeSummary):
     performTime: Optional[str] = None
 
     # Mealie Specific
+    settings: Optional[RecipeSettings]
     assets: Optional[list[RecipeAsset]] = []
     dateAdded: Optional[datetime.date]
-    notes: Optional[List[RecipeNote]] = []
+    notes: Optional[list[RecipeNote]] = []
     orgURL: Optional[str]
     extras: Optional[dict] = {}
 
@@ -139,7 +150,7 @@ class Recipe(RecipeSummary):
 
 
 class AllRecipeRequest(BaseModel):
-    properties: List[str]
+    properties: list[str]
     limit: Optional[int]
 
     class Config:

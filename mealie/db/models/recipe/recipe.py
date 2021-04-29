@@ -11,6 +11,7 @@ from mealie.db.models.recipe.ingredient import RecipeIngredient
 from mealie.db.models.recipe.instruction import RecipeInstruction
 from mealie.db.models.recipe.note import Note
 from mealie.db.models.recipe.nutrition import Nutrition
+from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag, recipes2tags
 from mealie.db.models.recipe.tool import Tool
 from sqlalchemy.ext.orderinglist import ordering_list
@@ -52,6 +53,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Mealie Specific
     slug = sa.Column(sa.String, index=True, unique=True)
+    settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")
     tags: list[Tag] = orm.relationship("Tag", secondary=recipes2tags, back_populates="recipes")
     dateAdded = sa.Column(sa.Date, default=date.today)
     notes: list[Note] = orm.relationship("Note", cascade="all, delete-orphan")
@@ -88,6 +90,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         orgURL: str = None,
         extras: dict = None,
         assets: list = None,
+        settings: dict = None,
         *args,
         **kwargs
     ) -> None:
@@ -97,6 +100,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.recipeCuisine = recipeCuisine
 
         self.nutrition = Nutrition(**nutrition) if self.nutrition else Nutrition()
+
         self.tools = [Tool(tool=x) for x in tools] if tools else []
 
         self.recipeYield = recipeYield
@@ -113,6 +117,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.recipeCategory = [Category.create_if_not_exist(session=session, name=cat) for cat in recipeCategory]
 
         # Mealie Specific
+        self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
+        print(self.settings)
         self.tags = [Tag.create_if_not_exist(session=session, name=tag) for tag in tags]
         self.slug = slug
         self.dateAdded = dateAdded
@@ -123,5 +129,4 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     def update(self, *args, **kwargs):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
-
         self.__init__(*args, **kwargs)

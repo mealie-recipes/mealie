@@ -2,7 +2,6 @@ import shutil
 
 from fastapi import APIRouter, Depends, File, Form
 from fastapi.datastructures import UploadFile
-from fastapi.routing import run_endpoint_function
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
@@ -20,7 +19,6 @@ router = APIRouter(prefix="/api/recipes", tags=["Recipe Assets"])
 async def get_recipe_asset(recipe_slug, file_name: str):
     """ Returns a recipe asset """
     file = app_dirs.RECIPE_DATA_DIR.joinpath(recipe_slug, file_name)
-
     return FileResponse(file)
 
 
