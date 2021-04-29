@@ -68,7 +68,6 @@ export default {
     },
     async openDialog() {
       this.$refs.deleteDialog.open();
-      console.log(this.isTags);
       if (this.isTags) {
         this.deleteList = await api.tags.getEmpty();
       } else {

@@ -9,3 +9,4 @@ class RecipeInstruction(SqlAlchemyBase):
     position = sa.Column(sa.Integer)
     type = sa.Column(sa.String, default="")
     text = sa.Column(sa.String)
+    title = sa.Column(sa.String)

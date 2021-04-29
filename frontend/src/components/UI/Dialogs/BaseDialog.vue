@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="open" v-bind="{ open }"> </slot>
     <v-dialog
       v-model="dialog"
       :width="modalWidth + 'px'"
@@ -25,7 +26,7 @@
               Cancel
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="success" @click="$emit('submit')">
+            <v-btn color="success" @click="submitEvent">
               Submit
             </v-btn>
           </slot>
@@ -65,6 +66,10 @@ export default {
     };
   },
   methods: {
+    submitEvent() {
+      this.$emit("submit");
+      this.close();
+    },
     open() {
       this.dialog = true;
     },
