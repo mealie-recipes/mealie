@@ -5,7 +5,7 @@ from mealie.db.models.model_base import SqlAlchemyBase
 class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
+    parent_id = sa.Column(sa.Integer, sa.ForeignKey("recipes.id"))
     calories = sa.Column(sa.String)
     fat_content = sa.Column(sa.String)
     fiber_content = sa.Column(sa.String)
