@@ -44,7 +44,7 @@
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
-            <v-toolbar-title class="headline">
+            <v-toolbar-title class="headline" v-if="!this.createMode">
               {{ $t("user.user-id-with-value", { id: editedItem.id }) }}
             </v-toolbar-title>
           </v-app-bar>
@@ -75,7 +75,7 @@
                     :label="$t('group.user-group')"
                   ></v-select>
                 </v-col>
-                <v-col cols="12" sm="12" md="6" v-if="showPassword">
+                <v-col cols="12" sm="12" md="6" v-if="createMode">
                   <v-text-field
                     dense
                     v-model="editedItem.password"
@@ -93,7 +93,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn color="info" text @click="resetPassword">
+              <v-btn color="info" text @click="resetPassword" v-if="!createMode">
                 {{$t('user.reset-password')}}
               </v-btn>
               <v-spacer></v-spacer>
@@ -192,11 +192,11 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1
+      return this.createMode
         ? this.$t("user.new-user")
         : this.$t("user.edit-user");
     },
-    showPassword() {
+    createMode() {
       return this.editedIndex === -1 ? true : false;
     },
     existingGroups() {
