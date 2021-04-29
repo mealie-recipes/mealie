@@ -144,7 +144,7 @@ class MigrationBase(BaseModel):
         """Calls the rewrite_alias function and the Cleaner.clean function on a
         dictionary and returns the result unpacked into a Recipe object"""
         recipe_dict = self.rewrite_alias(recipe_dict)
-        recipe_dict = Cleaner.clean(recipe_dict, url=recipe_dict.get("orgURL", None))
+        recipe_dict = Cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
 
         return Recipe(**recipe_dict)
 

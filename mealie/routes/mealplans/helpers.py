@@ -21,4 +21,4 @@ def get_shopping_list(
     mealplan: MealPlanInDB
     slugs = [x.slug for x in mealplan.meals]
     recipes: list[Recipe] = [db.recipes.get(session, x) for x in slugs]
-    return [{"name": x.name, "recipeIngredient": x.recipeIngredient} for x in recipes if x]
+    return [{"name": x.name, "recipe_ingredient": x.recipe_ingredient} for x in recipes if x]

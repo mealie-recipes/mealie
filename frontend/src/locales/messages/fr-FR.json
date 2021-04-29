@@ -105,6 +105,7 @@
     "recent": "Récent"
   },
   "recipe": {
+    "assets": "Assets",
     "add-key": "Ajouter une clé",
     "api-extras": "Extras API",
     "calories": "Calories",
@@ -113,8 +114,9 @@
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
-    "fat-content": "Lipides",
-    "fiber-content": "Fibres",
+    "fat-content": "Fat",
+    "fiber-content": "Fiber",
+    "carbohydrate-content": "Carbohydrate",
     "grams": "grammes",
     "image": "Image",
     "ingredient": "Ingrédient",
@@ -132,13 +134,13 @@
     "original-url": "Recette originale",
     "perform-time": "Temps de cuisson",
     "prep-time": "Temps de préparation",
-    "protein-content": "Protéines",
+    "protein-content": "Protein",
     "recipe-image": "Image de la recette",
     "recipe-name": "Nom de la recette",
     "servings": "Portions",
-    "sodium-content": "Sels",
+    "sodium-content": "Sodium",
     "step-index": "Étape : {step}",
-    "sugar-content": "Glucides",
+    "sugar-content": "Sugar",
     "tags": "Mots-clés",
     "title": "Titre",
     "total-time": "Temps total",
@@ -152,7 +154,7 @@
     "exclude": "Exclure",
     "include": "Inclure",
     "or": "Ou",
-    "and": "and",
+    "and": "et",
     "search": "Rechercher",
     "tag-filter": "Filtre par mots-clés"
   },
@@ -220,14 +222,14 @@
       "webhook-url": "Lien du webhook"
     },
     "toolbox": {
-      "toolbox": "Toolbox",
-      "new-name": "New Name",
+      "toolbox": "Boîte à outils",
+      "new-name": "Nouveau nom",
       "recipes-effected": "Recipes Effected",
-      "title-case-all": "Title Case All",
-      "no-unused-items": "No Unused Items",
-      "remove-unused": "Remove Unused",
-      "assign-all": "Assign All",
-      "bulk-assign": "Bulk Assign"
+      "title-case-all": "Majuscules partout",
+      "no-unused-items": "Aucun élément inutilisé",
+      "remove-unused": "Supprimer orphelins",
+      "assign-all": "Assigner tout",
+      "bulk-assign": "Assigner en masse"
     }
   },
   "user": {

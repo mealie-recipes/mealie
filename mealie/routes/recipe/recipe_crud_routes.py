@@ -56,6 +56,7 @@ def update_recipe(
     """ Updates a recipe by existing slug and data. """
 
     recipe: Recipe = db.recipes.update(session, recipe_slug, data.dict())
+    print(recipe.assets)
 
     if recipe_slug != recipe.slug:
         rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
@@ -64,7 +65,7 @@ def update_recipe(
 
 
 @router.patch("/{recipe_slug}")
-def update_recipe(
+def patch_recipe(
     recipe_slug: str,
     data: dict,
     session: Session = Depends(generate_session),

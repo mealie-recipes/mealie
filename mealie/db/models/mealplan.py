@@ -9,7 +9,7 @@ from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 class Meal(SqlAlchemyBase):
     __tablename__ = "meal"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("mealplan.uid"))
+    parent_id = sa.Column(sa.Integer, sa.ForeignKey("mealplan.uid"))
     slug = sa.Column(sa.String)
     name = sa.Column(sa.String)
     date = sa.Column(sa.Date)

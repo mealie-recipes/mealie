@@ -16,6 +16,7 @@ const recipeURLs = {
   delete: slug => prefix + slug,
   recipeImage: slug => `${prefix}${slug}/image`,
   updateImage: slug => `${prefix}${slug}/image`,
+  createAsset: slug => `${prefix}${slug}/asset`,
 };
 
 export const recipeAPI = {
@@ -78,26 +79,16 @@ export const recipeAPI = {
     );
   },
 
-  updateImagebyURL(slug, url) {
-    return apiReq.post(
-      recipeURLs.updateImage(slug), 
-      { url: url },
-      function() { return i18n.t('general.image-upload-failed'); },
-      function() { return i18n.t('recipe.recipe-image-updated'); }
-    );
+  async updateImagebyURL(slug, url) {
+    const response = apiReq.post(recipeURLs.updateImage(slug), { url: url });
+    return response;
   },
 
   async update(data) {
-    let response = await apiReq.put(
-      recipeURLs.update(data.slug),
-      data, 
-      function() { return i18n.t('recipe.recipe-update-failed'); },
-      function() { return i18n.t('recipe.recipe-updated'); }
-    );
-    if(response) {
-      store.dispatch("patchRecipe", response.data);
-      return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
-    }
+    console.log(data)
+    let response = await apiReq.put(recipeURLs.update(data.slug), data);
+    store.dispatch("patchRecipe", response.data);
+    return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
   },
 
   async patch(data) {

@@ -50,11 +50,11 @@ def get_all_recipes(
     - description
     - image
     - recipeYield
-    - totalTime
-    - prepTime
-    - performTime
+    - total_time
+    - prep_time
+    - perform_time
     - rating
-    - orgURL
+    - org_url
 
     **Note:** You may experience problems with with query parameters. As an alternative
     you may also use the post method and provide a body.
@@ -78,11 +78,11 @@ def get_all_recipes_post(body: AllRecipeRequest, session: Session = Depends(gene
     - description
     - image
     - recipeYield
-    - totalTime
-    - prepTime
-    - performTime
+    - total_time
+    - prep_time
+    - perform_time
     - rating
-    - orgURL
+    - org_url
 
     Refer to the body example for data formats.
 

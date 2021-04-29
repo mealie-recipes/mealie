@@ -83,7 +83,7 @@ class ImportDatabase:
             del recipe_dict["categories"]
         try:
             del recipe_dict["_id"]
-            del recipe_dict["dateAdded"]
+            del recipe_dict["date_added"]
         except:
             pass
         # Migration from list to Object Type Data
