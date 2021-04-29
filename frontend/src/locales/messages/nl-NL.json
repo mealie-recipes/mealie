@@ -105,7 +105,7 @@
     "recent": "Recent(e)"
   },
   "recipe": {
-    "assets": "Assets",
+    "assets": "Middelen",
     "add-key": "Sleutel toevoegen",
     "api-extras": "API Extras",
     "calories": "Calorieën",
@@ -114,9 +114,9 @@
     "delete-confirmation": "Weet u zeker dat u dit recept wilt verwijderen?",
     "delete-recipe": "Recept verwijderen",
     "description": "Omschrijving",
-    "fat-content": "Fat",
-    "fiber-content": "Fiber",
-    "carbohydrate-content": "Carbohydrate",
+    "fat-content": "Vet",
+    "fiber-content": "Vezels",
+    "carbohydrate-content": "Koolhydraten",
     "grams": "gram",
     "image": "Afbeelding",
     "ingredient": "Ingrediënt",
@@ -134,27 +134,27 @@
     "original-url": "Oorspronkelijke URL",
     "perform-time": "Kook tijd",
     "prep-time": "Voorbereiding tijd",
-    "protein-content": "Protein",
+    "protein-content": "Eiwitten",
     "recipe-image": "Recept afbeelding",
     "recipe-name": "Receptnaam",
     "servings": "Porties",
-    "sodium-content": "Sodium",
+    "sodium-content": "Zout",
     "step-index": "Stap: {step}",
-    "sugar-content": "Sugar",
+    "sugar-content": "Suiker",
     "tags": "Labels",
     "title": "Titel",
     "total-time": "Totale Tijd",
     "view-recipe": "Bekijk Recept"
   },
   "search": {
-    "search-mealie": "Search Mealie (press /)",
+    "search-mealie": "Zoek Mealie (druk /)",
     "search-placeholder": "Zoeken...",
     "max-results": "Max. resultaten",
     "category-filter": "Categorie Filter",
     "exclude": "Exclusief",
     "include": "Inclusief",
     "or": "Of",
-    "and": "and",
+    "and": "en",
     "search": "Zoek",
     "tag-filter": "Label Filter"
   },
@@ -222,14 +222,14 @@
       "webhook-url": "Webhook URL"
     },
     "toolbox": {
-      "toolbox": "Toolbox",
-      "new-name": "New Name",
+      "toolbox": "Gereedschapskist",
+      "new-name": "Nieuwe naam",
       "recipes-effected": "Recipes Effected",
-      "title-case-all": "Title Case All",
-      "no-unused-items": "No Unused Items",
-      "remove-unused": "Remove Unused",
-      "assign-all": "Assign All",
-      "bulk-assign": "Bulk Assign"
+      "title-case-all": "Alle Titels In Hoofdletters",
+      "no-unused-items": "Geen Ongebruikte Items",
+      "remove-unused": "Verwijder Ongebruikte Items",
+      "assign-all": "Alles toewijzen",
+      "bulk-assign": "Bulk toewijzen"
     }
   },
   "user": {
