@@ -1,0 +1,24 @@
+FROM python:3
+
+WORKDIR /app/
+
+ENV PRODUCTION false
+
+RUN apt-get update -y && \
+    apt-get install -y python-pip python-dev
+
+# Install Poetry
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry config virtualenvs.create false
+
+# Copy poetry.lock* in case it doesn't exist in the repo
+COPY ./pyproject.toml /app/
+
+COPY ./mealie /app/mealie
+
+RUN poetry install 
+
+RUN chmod +x /app/mealie/run.sh
+CMD ["/app/mealie/run.sh", "reload"]
