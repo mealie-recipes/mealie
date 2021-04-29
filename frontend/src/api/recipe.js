@@ -16,6 +16,7 @@ const recipeURLs = {
   delete: slug => prefix + slug,
   recipeImage: slug => `${prefix}${slug}/image`,
   updateImage: slug => `${prefix}${slug}/image`,
+  createAsset: slug => `${prefix}${slug}/asset`,
 };
 
 export const recipeAPI = {
@@ -60,12 +61,23 @@ export const recipeAPI = {
     return response;
   },
 
+  async createAsset(recipeSlug, fileObject, name, icon) {
+    const fd = new FormData();
+    fd.append("file", fileObject);
+    fd.append("extension", fileObject.name.split(".").pop());
+    fd.append("name", name);
+    fd.append("icon", icon);
+    let response = apiReq.post(recipeURLs.createAsset(recipeSlug), fd);
+    return response;
+  },
+
   async updateImagebyURL(slug, url) {
     const response = apiReq.post(recipeURLs.updateImage(slug), { url: url });
     return response;
   },
 
   async update(data) {
+    console.log(data)
     let response = await apiReq.put(recipeURLs.update(data.slug), data);
     store.dispatch("patchRecipe", response.data);
     return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
