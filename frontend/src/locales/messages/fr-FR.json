@@ -152,7 +152,7 @@
     "exclude": "Exclure",
     "include": "Inclure",
     "or": "Ou",
-    "and": "and",
+    "and": "et",
     "search": "Rechercher",
     "tag-filter": "Filtre par mots-clés"
   },
@@ -220,14 +220,14 @@
       "webhook-url": "Lien du webhook"
     },
     "toolbox": {
-      "toolbox": "Toolbox",
-      "new-name": "New Name",
+      "toolbox": "Boîte à outils",
+      "new-name": "Nouveau nom",
       "recipes-effected": "Recipes Effected",
-      "title-case-all": "Title Case All",
-      "no-unused-items": "No Unused Items",
-      "remove-unused": "Remove Unused",
-      "assign-all": "Assign All",
-      "bulk-assign": "Bulk Assign"
+      "title-case-all": "Majuscules partout",
+      "no-unused-items": "Aucun élément inutilisé",
+      "remove-unused": "Supprimer orphelins",
+      "assign-all": "Assigner tout",
+      "bulk-assign": "Assigner en masse"
     }
   },
   "user": {
