@@ -1,3 +1,4 @@
+# build
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY ./frontend/package*.json ./
@@ -5,50 +6,53 @@ RUN npm install
 COPY ./frontend/ .
 RUN npm run build
 
-FROM python:3.9-alpine
-
-
-RUN apk add --no-cache libxml2-dev \
-    libxslt-dev \
-    libxml2 caddy \
-    libffi-dev \
-    python3 \
-    python3-dev \
-    jpeg-dev \
-    lcms2-dev \
-    openjpeg-dev \
-    zlib-dev
-
+# run
+FROM python:3.9-slim-buster
 
 ENV PRODUCTION true
-EXPOSE 80
-WORKDIR /app/
+ENV POETRY_VERSION 1.1.6
 
-COPY ./pyproject.toml /app/
-
-RUN apk add --update --no-cache --virtual .build-deps \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc g++ \
     curl \
-    g++ \
-    python3-dev \
-    musl-dev \
-    gcc \
-    build-base && \
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
-    cd /usr/local/bin && \
-    ln -s /opt/poetry/bin/poetry && \
-    poetry config virtualenvs.create false && \
-    cd /app/ && poetry install --no-root --no-dev && \
-    apk --purge del .build-deps
+    gnupg gnupg2 gnupg1  \
+    apt-transport-https \
+    debian-archive-keyring \
+    debian-keyring \
+    libwebp-dev \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee -a /etc/apt/sources.list.d/caddy-stable.list \
+    && apt-get update && apt-get install -y --no-install-recommends \
+    caddy \
+    && apt autoremove \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get remove -y curl apt-transport-https debian-keyring g++ gnupg gnupg2 gnupg1 
 
+
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION" \
+    && poetry config virtualenvs.create false
+
+    #! Future
+    # pip install --no-cache-dir "psycopg2-binary==2.8.6"
+
+# project dependencies
+WORKDIR /app
+COPY pyproject.toml /app/
 COPY ./mealie /app/mealie
-RUN poetry install --no-dev 
+RUN poetry install --no-dev
+
+#! Future
+# COPY ./alembic /app
+# COPY alembic.ini /app
 
 COPY ./Caddyfile /app
 COPY ./dev/data/templates /app/data/templates
+
+# frontend build
 COPY --from=build-stage /app/dist /app/dist
 
 VOLUME [ "/app/data/" ]
 
-RUN chmod +x /app/mealie/run.sh
-CMD /app/mealie/run.sh
+EXPOSE 80
 
+CMD /app/mealie/run.sh
