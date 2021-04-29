@@ -180,9 +180,9 @@ export default {
         return this.$refs.recipeEditor.validateRecipe();
       }
     },
-    async saveImage() {
+    async saveImage(overrideSuccessMsg = false) {
       if (this.fileObject) {
-        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject)) {
+        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg)) {
           this.imageKey += 1;
         }
       }
@@ -192,7 +192,7 @@ export default {
         let slug = await api.recipes.update(this.recipeDetails);
 
         if (this.fileObject) {
-          this.saveImage();
+          this.saveImage(true);
         }
 
         this.form = false;

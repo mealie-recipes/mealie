@@ -194,6 +194,8 @@
     "recipe-image": "Recipe Image",
     "recipe-image-updated": "Recipe image updated",
     "recipe-name": "Recipe Name",
+    "recipe-update-failed": "Recipe update failed",
+    "recipe-updated": "Recipe updated",
     "servings": "Servings",
     "sodium-content": "Sodium Content",
     "step-index": "Step: {step}",

@@ -88,9 +88,16 @@ export const recipeAPI = {
   },
 
   async update(data) {
-    let response = await apiReq.put(recipeURLs.update(data.slug), data);
-    store.dispatch("patchRecipe", response.data);
-    return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
+    let response = await apiReq.put(
+      recipeURLs.update(data.slug),
+      data, 
+      function() { return i18n.t('recipe.recipe-update-failed'); },
+      function() { return i18n.t('recipe.recipe-updated'); }
+    );
+    if(response) {
+      store.dispatch("patchRecipe", response.data);
+      return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
+    }
   },
 
   async patch(data) {
