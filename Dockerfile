@@ -36,7 +36,7 @@ RUN poetry install --no-dev --no-interaction --no-ansi
 
 # project code
 COPY ./mealie /app/mealie
-COPY ./alembic /app
+COPY ./alembic /app/alembic
 COPY alembic.ini /app
 COPY ./Caddyfile /app
 COPY ./dev/data/templates /app/data/templates
