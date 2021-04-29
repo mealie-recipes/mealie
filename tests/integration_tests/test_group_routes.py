@@ -13,12 +13,7 @@ def group_data():
 def test_create_group(api_client: TestClient, api_routes: AppRoutes, token):
     response = api_client.post(api_routes.groups, json={"name": "Test Group"}, headers=token)
 
-    assert response.status_code == 200
-
-    assert json.loads(response.content) == {
-        "snackbar": {"text": "User Group Created", "type": "success"},
-        "created": True,
-    }
+    assert response.status_code == 201
 
 
 def test_get_self_group(api_client: TestClient, api_routes: AppRoutes, token):
@@ -42,8 +37,7 @@ def test_update_group(api_client: TestClient, api_routes: AppRoutes, token):
     # Test Update
     response = api_client.put(api_routes.groups_id(2), json=new_data, headers=token)
     assert response.status_code == 200
-    assert json.loads(response.text) == {"snackbar": {"text": "Group Settings Updated", "type": "success"}}
-
+    
     # Validate Changes
     response = api_client.get(api_routes.groups, headers=token)
     all_groups = json.loads(response.text)
@@ -51,13 +45,13 @@ def test_update_group(api_client: TestClient, api_routes: AppRoutes, token):
     assert next(id_2) == new_data
 
 
-def test_block_delete(api_client: TestClient, api_routes: AppRoutes, token):
+def test_home_group_not_deletable(api_client: TestClient, api_routes: AppRoutes, token):
     response = api_client.delete(api_routes.groups_id(1), headers=token)
 
-    assert json.loads(response.text) == {"snackbar": {"text": "Cannot delete default group", "type": "error"}}
+    assert response.status_code == 400
 
 
 def test_delete_group(api_client: TestClient, api_routes: AppRoutes, token):
     response = api_client.delete(api_routes.groups_id(2), headers=token)
 
-    assert json.loads(response.text) is None
+    assert response.status_code == 200

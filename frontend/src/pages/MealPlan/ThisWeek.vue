@@ -52,6 +52,7 @@
 
 <script>
 import { api } from "@/api";
+import utils from "@/utils";
 export default {
   data() {
     return {
@@ -60,6 +61,9 @@ export default {
   },
   async mounted() {
     this.mealPlan = await api.mealPlans.thisWeek();
+    if(!this.mealPlan) {
+      utils.notify.warning(this.$t('meal-plan.no-meal-plan-defined-yet'))
+    }
   },
   methods: {
     getOrder(index) {

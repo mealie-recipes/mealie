@@ -105,17 +105,15 @@ export default {
     async createRecipe() {
       if (this.$refs.urlForm.validate()) {
         this.processing = true;
-        let response = await api.recipes.createByURL(this.recipeURL);
-        if (response.status !== 201) {
-          this.error = true;
-          this.processing = false;
-          return;
-        }
-
-        this.addRecipe = false;
+        const response = await api.recipes.createByURL(this.recipeURL);
         this.processing = false;
-        this.recipeURL = "";
-        this.$router.push(`/recipe/${response.data}`);
+        if (response) {
+          this.addRecipe = false;
+          this.recipeURL = "";
+          this.$router.push(`/recipe/${response.data}`);
+        } else {
+          this.error = true;
+        }
       }
     },
 

@@ -1,5 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
+import i18n from '@/i18n.js';
 
 const prefix = baseURL + "themes";
 
@@ -23,21 +24,31 @@ export const themeAPI = {
   },
 
   async create(postBody) {
-    let response = await apiReq.post(settingsURLs.createTheme, postBody);
-    return response.data;
+    return await apiReq.post(
+      settingsURLs.createTheme, 
+      postBody,
+      function() { return i18n.t('settings.theme.error-creating-theme-see-log-file'); },
+      function() { return i18n.t('settings.theme.theme-saved'); });
   },
 
-  async update(themeName, colors) {
+  update(themeName, colors) {
     const body = {
       name: themeName,
       colors: colors,
     };
-    let response = await apiReq.put(settingsURLs.updateTheme(themeName), body);
-    return response.data;
+    return apiReq.put(
+      settingsURLs.updateTheme(themeName), 
+      body,
+      function() { return i18n.t('settings.theme.error-updating-theme'); },
+      function() { return i18n.t('settings.theme.theme-updated'); });
   },
 
-  async delete(themeName) {
-    let response = await apiReq.delete(settingsURLs.deleteTheme(themeName));
-    return response.data;
+  delete(themeName) {
+    return apiReq.delete(
+      settingsURLs.deleteTheme(themeName),
+      null,
+      function() { return i18n.t('settings.theme.error-deleting-theme'); },
+      function() { return i18n.t('settings.theme.theme-deleted'); }
+    );
   },
 };

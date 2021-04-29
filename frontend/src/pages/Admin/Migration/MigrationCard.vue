@@ -86,9 +86,10 @@ export default {
     };
   },
   methods: {
-    deleteMigration(file_name) {
-      api.migrations.delete(this.folder, file_name);
-      this.$emit("refresh");
+    async deleteMigration(file_name) {
+      if (await api.migrations.delete(this.folder, file_name)) {
+        this.$emit("refresh");
+      }
     },
     async importMigration(file_name) {
       this.loading = true;

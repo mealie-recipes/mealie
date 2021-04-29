@@ -62,7 +62,7 @@ def test_default_theme(api_client: TestClient, api_routes: AppRoutes, default_th
 def test_create_theme(api_client: TestClient, api_routes: AppRoutes, new_theme, token):
 
     response = api_client.post(api_routes.themes_create, json=new_theme, headers=token)
-    assert response.status_code == 200
+    assert response.status_code == 201
 
     response = api_client.get(api_routes.themes_theme_name(new_theme.get("name")), headers=token)
     assert response.status_code == 200

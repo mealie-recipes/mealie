@@ -1,8 +1,7 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status, HTTPException
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from sqlalchemy.orm.session import Session
 
@@ -30,7 +29,7 @@ async def get_current_user_group(
     return db.groups.get(session, current_user.group, "name")
 
 
-@router.post("")
+@router.post("", status_code=status.HTTP_201_CREATED)
 async def create_group(
     group_data: GroupBase,
     current_user=Depends(get_current_user),
@@ -40,9 +39,8 @@ async def create_group(
 
     try:
         db.groups.create(session, group_data.dict())
-        return SnackResponse.success("User Group Created", {"created": True})
     except:
-        return SnackResponse.error("User Group Creation Failed")
+        raise HTTPException( status.HTTP_400_BAD_REQUEST )
 
 
 @router.put("/{id}")
@@ -55,8 +53,6 @@ async def update_group_data(
     """ Updates a User Group """
     db.groups.update(session, id, group_data.dict())
 
-    return SnackResponse.success("Group Settings Updated")
-
 
 @router.delete("/{id}")
 async def delete_user_group(
@@ -65,16 +61,23 @@ async def delete_user_group(
     """ Removes a user group from the database """
 
     if id == 1:
-        return SnackResponse.error("Cannot delete default group")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='DEFAULT_GROUP'
+        )
 
     group: GroupInDB = db.groups.get(session, id)
 
     if not group:
-        return SnackResponse.error("Group not found")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='GROUP_NOT_FOUND'
+        )
 
     if not group.users == []:
-        return SnackResponse.error("Cannot delete group with users")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='GROUP_WITH_USERS'
+        )
 
     db.groups.delete(session, id)
-
-    return

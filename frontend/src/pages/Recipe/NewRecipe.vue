@@ -101,7 +101,7 @@ export default {
         let slug = await api.recipes.create(this.recipeDetails);
 
         if (this.fileObject) {
-          await api.recipes.updateImage(slug, this.fileObject);
+          api.recipes.updateImage(slug, this.fileObject, true);
         }
 
         this.isLoading = false;

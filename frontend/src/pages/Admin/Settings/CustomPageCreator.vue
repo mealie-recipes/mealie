@@ -109,9 +109,10 @@ export default {
         element.position = index;
       });
 
-      await api.siteSettings.updateAllPages(this.customPages);
+      if (await api.siteSettings.updateAllPages(this.customPages)) {
+        this.getPages();
+      }
 
-      this.getPages();
     },
     editPage(index) {
       this.editPageData.data = this.customPages[index];

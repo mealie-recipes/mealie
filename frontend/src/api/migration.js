@@ -1,6 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store";
+import i18n from '@/i18n.js';
 
 const migrationBase = baseURL + "migrations";
 
@@ -17,8 +18,13 @@ export const migrationAPI = {
     return response.data;
   },
   async delete(folder, file) {
-    let response = await apiReq.delete(migrationURLs.delete(folder, file));
-    return response.data;
+    const response = await apiReq.delete(
+      migrationURLs.delete(folder, file),
+      null,
+      function() { return i18n.t('general.file-folder-not-found'); },
+      function() { return i18n.t('migration.migration-data-removed'); }
+    );
+    return response;
   },
   async import(folder, file) {
     let response = await apiReq.post(migrationURLs.import(folder, file));

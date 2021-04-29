@@ -16,12 +16,12 @@
         </v-tab>
 
         <v-tab>
-          {{ $t("user.sign-up-links") }}
+          {{ $t("signup.sign-up-links") }}
           <v-icon>mdi-account-plus-outline</v-icon>
         </v-tab>
 
         <v-tab>
-          {{ $t("user.groups") }}
+          {{ $t("group.groups") }}
           <v-icon>mdi-account-group</v-icon>
         </v-tab>
       </v-tabs>

@@ -214,7 +214,7 @@ export default {
       this.settings.language = val;
     },
     deleteCategoryfromDatabase(category) {
-      api.categories.delete(category);
+      api.categories.delete(category); 
     },
     async getOptions() {
       this.settings = await api.siteSettings.get();
@@ -223,8 +223,9 @@ export default {
       this.settings.categories.splice(index, 1);
     },
     async saveSettings() {
-      await api.siteSettings.update(this.settings);
-      this.getOptions();
+      if (await api.siteSettings.update(this.settings)) {
+        this.getOptions();
+      } 
     },
   },
 };

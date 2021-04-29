@@ -1,7 +1,7 @@
 import shutil
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile, status, HTTPException
 from fastapi.responses import FileResponse
 from mealie.core import security
 from mealie.core.config import app_dirs, settings
@@ -9,7 +9,6 @@ from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
 from sqlalchemy.orm.session import Session
 
@@ -25,8 +24,7 @@ async def create_user(
 
     new_user.password = get_password_hash(new_user.password)
 
-    data = db.users.create(session, new_user.dict())
-    return SnackResponse.success(f"User Created: {new_user.full_name}", data)
+    return db.users.create(session, new_user.dict())
 
 
 @router.get("", response_model=list[UserOut])
@@ -35,10 +33,10 @@ async def get_all_users(
     session: Session = Depends(generate_session),
 ):
 
-    if current_user.admin:
-        return db.users.get_all(session)
-    else:
-        return {"details": "user not authorized"}
+    if not current_user.admin:
+        raise HTTPException( status.HTTP_403_FORBIDDEN )
+    
+    return db.users.get_all(session)
 
 
 @router.get("/self", response_model=UserOut)
@@ -68,7 +66,6 @@ async def reset_user_password(
     new_password = get_password_hash(settings.DEFAULT_PASSWORD)
     db.users.update_password(session, id, new_password)
 
-    return SnackResponse.success("Users Password Reset")
 
 
 @router.put("/{id}")
@@ -85,8 +82,7 @@ async def update_user(
     if current_user.id == id:
         access_token = security.create_access_token(data=dict(sub=new_data.email))
         token = {"access_token": access_token, "token_type": "bearer"}
-
-    return SnackResponse.success("User Updated", token)
+        return token
 
 
 @router.get("/{id}/image")
@@ -121,10 +117,8 @@ async def update_user_image(
     with dest.open("wb") as buffer:
         shutil.copyfileobj(profile_image.file, buffer)
 
-    if dest.is_file:
-        return SnackResponse.success("File uploaded")
-    else:
-        return SnackResponse.error("Failure uploading file")
+    if not dest.is_file:
+        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
 
 
 @router.put("/{id}/password")
@@ -139,12 +133,12 @@ async def update_password(
     match_passwords = verify_password(password_change.current_password, current_user.password)
     match_id = current_user.id == id
 
-    if match_passwords and match_id:
-        new_password = get_password_hash(password_change.new_password)
-        db.users.update_password(session, id, new_password)
-        return SnackResponse.success("Password Updated")
-    else:
-        return SnackResponse.error("Existing password does not match")
+    if not ( match_passwords and match_id ):
+        raise HTTPException( status.HTTP_401_UNAUTHORIZED )
+
+    new_password = get_password_hash(password_change.new_password)
+    db.users.update_password(session, id, new_password)
+        
 
 
 @router.delete("/{id}")
@@ -156,8 +150,13 @@ async def delete_user(
     """ Removes a user from the database. Must be the current user or a super user"""
 
     if id == 1:
-        return SnackResponse.error("Error! Cannot Delete Super User")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail='SUPER_USER'
+        )
 
     if current_user.id == id or current_user.admin:
-        db.users.delete(session, id)
-        return SnackResponse.error("User Deleted")
+        try:
+            db.users.delete(session, id)
+        except:
+            raise HTTPException( status.HTTP_400_BAD_REQUEST )

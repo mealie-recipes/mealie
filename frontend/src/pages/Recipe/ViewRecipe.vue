@@ -80,6 +80,8 @@ import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
 import { user } from "@/mixins/user";
+import store from "@/store";
+import { router } from "@/routes";
 
 export default {
   components: {
@@ -166,8 +168,12 @@ export default {
         return api.recipes.recipeImage(image) + "&rnd=" + this.imageKey;
       }
     },
-    deleteRecipe() {
-      api.recipes.delete(this.recipeDetails.slug);
+    async deleteRecipe() {
+      let response = await api.recipes.delete(this.recipeDetails.slug);
+      if (response) {
+        store.dispatch("requestRecentRecipes");
+        router.push(`/`);
+      }
     },
     validateRecipe() {
       if (this.jsonEditor) {
@@ -176,18 +182,19 @@ export default {
         return this.$refs.recipeEditor.validateRecipe();
       }
     },
-    async saveImage() {
+    async saveImage(overrideSuccessMsg = false) {
       if (this.fileObject) {
-        await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
+        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg)) {
+          this.imageKey += 1;
+        }
       }
-      this.imageKey += 1;
     },
     async saveRecipe() {
       if (this.validateRecipe()) {
         let slug = await api.recipes.update(this.recipeDetails);
 
         if (this.fileObject) {
-          this.saveImage();
+          this.saveImage(true);
         }
 
         this.form = false;

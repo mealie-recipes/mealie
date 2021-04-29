@@ -72,7 +72,7 @@
                     dense
                     v-model="editedItem.group"
                     :items="existingGroups"
-                    :label="$t('user.user-group')"
+                    :label="$t('group.user-group')"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" v-if="createMode">
@@ -94,7 +94,7 @@
 
             <v-card-actions>
               <v-btn color="info" text @click="resetPassword" v-if="!createMode">
-                Reset Password
+                {{$t('user.reset-password')}}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn color="grey" text @click="close">
@@ -165,7 +165,7 @@ export default {
         },
         { text: this.$t("user.full-name"), value: "fullName" },
         { text: this.$t("user.email"), value: "email" },
-        { text: this.$t("user.group"), value: "group" },
+        { text: this.$t("group.group"), value: "group" },
         { text: this.$t("user.admin"), value: "admin" },
         { text: "", value: "actions", sortable: false, align: "center" },
       ],
@@ -223,8 +223,9 @@ export default {
     },
 
     async deleteUser() {
-      await api.users.delete(this.activeId);
-      this.initialize();
+      if (await api.users.delete(this.activeId)) {
+        this.initialize();
+      }
     },
 
     editItem(item) {
@@ -264,17 +265,27 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-        await api.users.update(this.editedItem);
-        this.close();
+        this.updateUser();
       } else if (this.$refs.newUser.validate()) {
-        await api.users.create(this.editedItem);
-        this.close();
+        this.createUser();
       }
       await this.initialize();
     },
     resetPassword() {
       api.users.resetPassword(this.editedItem.id);
     },
+    
+    async createUser() {
+      if(await api.users.create(this.editedItem)) {
+        this.close();
+      }
+    },
+
+    async updateUser() {
+      if(await api.users.update(this.editedItem)) {
+        this.close();
+      }
+    }
   },
 };
 </script>

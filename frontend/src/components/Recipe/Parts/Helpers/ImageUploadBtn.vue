@@ -6,7 +6,7 @@
           <v-icon left>
             mdi-image
           </v-icon>
-          {{ $t("recipe.image") }}
+          {{ $t("general.image") }}
         </v-btn>
       </template>
       <v-card width="400">
@@ -71,8 +71,9 @@ export default {
     },
     async getImageFromURL() {
       this.loading = true;
-      const response = await api.recipes.updateImagebyURL(this.slug, this.url);
-      if (response) this.$emit(REFRESH_EVENT);
+      if (await api.recipes.updateImagebyURL(this.slug, this.url)) {
+        this.$emit(REFRESH_EVENT);
+      }
       this.loading = false;
     },
   },

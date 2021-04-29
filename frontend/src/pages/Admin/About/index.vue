@@ -23,11 +23,11 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <TheDownloadBtn
-          button-text="Download Recipe JSON"
+          :button-text="$t('about.download-recipe-json')"
           download-url="/api/debug/last-recipe-json"
         />
         <TheDownloadBtn
-          button-text="Download Log"
+          :button-text="$t('about.download-log')"
           download-url="/api/debug/log"
         />
       </v-card-actions>

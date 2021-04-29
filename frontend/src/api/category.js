@@ -1,6 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
+import i18n from '@/i18n.js';
 
 const prefix = baseURL + "categories";
 
@@ -22,29 +23,44 @@ export const categoryAPI = {
     return response.data;
   },
   async create(name) {
-    let response = await apiReq.post(categoryURLs.getAll, { name: name });
-    store.dispatch("requestCategories");
-    return response.data;
+    const response = await apiReq.post(
+      categoryURLs.getAll, 
+      { name: name },
+      function() { return i18n.t('category.category-creation-failed'); },
+      function() { return i18n.t('category.category-created'); }
+    );
+    if(response) {
+      store.dispatch("requestCategories");
+      return response.data;
+    }
   },
   async getRecipesInCategory(category) {
     let response = await apiReq.get(categoryURLs.getCategory(category));
     return response.data;
   },
   async update(name, newName, overrideRequest = false) {
-    let response = await apiReq.put(categoryURLs.updateCategory(name), {
-      name: newName,
-    });
-    if (!overrideRequest) {
+    const response = await apiReq.put(
+      categoryURLs.updateCategory(name), 
+      { name: newName },
+      function() { return i18n.t('category.category-update-failed'); },
+      function() { return i18n.t('category.category-updated'); }
+    );
+    if (response && !overrideRequest) {
       store.dispatch("requestCategories");
+      return response.data;
     }
-    return response.data;
   },
   async delete(category, overrideRequest = false) {
-    let response = await apiReq.delete(categoryURLs.deleteCategory(category));
-    if (!overrideRequest) {
+    const response = await apiReq.delete(
+      categoryURLs.deleteCategory(category),
+      null,
+      function() { return i18n.t('category.category-deletion-failed'); },
+      function() { return i18n.t('category.category-deleted'); }
+    );
+    if (response && !overrideRequest) {
       store.dispatch("requestCategories");
     }
-    return response.data;
+    return response;
   },
 };
 
@@ -68,28 +84,48 @@ export const tagAPI = {
     return response.data;
   },
   async create(name) {
-    let response = await apiReq.post(tagURLs.getAll, { name: name });
-    store.dispatch("requestTags");
-    return response.data;
+    const response = await apiReq.post(
+      tagURLs.getAll, 
+      { name: name },
+      function() { return i18n.t('tag.tag-creation-failed'); },
+      function() { return i18n.t('tag.tag-created'); }
+    );
+    if(response) {
+      store.dispatch("requestTags");
+      return response.data;
+    }
   },
   async getRecipesInTag(tag) {
     let response = await apiReq.get(tagURLs.getTag(tag));
     return response.data;
   },
   async update(name, newName, overrideRequest = false) {
-    let response = await apiReq.put(tagURLs.updateTag(name), { name: newName });
+    const response = await apiReq.put(
+      tagURLs.updateTag(name), 
+      { name: newName },
+      function() { return i18n.t('tag.tag-update-failed'); },
+      function() { return i18n.t('tag.tag-updated'); }
+    );
 
-    if (!overrideRequest) {
-      store.dispatch("requestTags");
+    if(response) {
+      if (!overrideRequest) {
+        store.dispatch("requestTags");
+      }
+      return response.data;
     }
-
-    return response.data;
   },
   async delete(tag, overrideRequest = false) {
-    let response = await apiReq.delete(tagURLs.deleteTag(tag));
-    if (!overrideRequest) {
-      store.dispatch("requestTags");
+    const response = await apiReq.delete(
+      tagURLs.deleteTag(tag),
+      null,
+      function() { return i18n.t('tag.tag-deletion-failed'); },
+      function() { return i18n.t('tag.tag-deleted'); }
+    );
+    if(response) {
+      if (!overrideRequest) {
+        store.dispatch("requestTags");
+      }
+      return response.data;
     }
-    return response.data;
   },
 };

@@ -197,11 +197,12 @@ export default {
         endDate: this.endDate,
         meals: this.meals,
       };
-      await api.mealPlans.create(mealBody);
-      this.$emit(CREATE_EVENT);
-      this.meals = [];
-      this.startDate = null;
-      this.endDate = null;
+      if (await api.mealPlans.create(mealBody)) {
+        this.$emit(CREATE_EVENT);
+        this.meals = [];
+        this.startDate = null;
+        this.endDate = null;
+      }
     },
 
     getImage(image) {

@@ -91,18 +91,12 @@ export default {
       let formData = new FormData();
       formData.append("username", this.user.email);
       formData.append("password", this.user.password);
-      let key;
-      try {
-        key = await api.users.login(formData);
-      } catch {
+      const response = await api.users.login(formData);
+      if (!response) {
         this.error = true;
-      }
-      if (key.status != 200) {
-        this.error = true;
-        this.loading = false;
       } else {
         this.clear();
-        this.$store.commit("setToken", key.data.access_token);
+        this.$store.commit("setToken", response.data.access_token);
         this.$emit("logged-in");
       }
 

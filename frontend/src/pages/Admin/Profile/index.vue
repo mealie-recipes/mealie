@@ -55,11 +55,11 @@
                 >
                 </v-text-field>
                 <v-text-field
-                  :label="$t('user.group')"
+                  :label="$t('group.group')"
                   readonly
                   v-model="user.group"
                   persistent-hint
-                  :hint="$t('user.groups-can-only-be-set-by-administrators')"
+                  :hint="$t('group.groups-can-only-be-set-by-administrators')"
                 >
                 </v-text-field>
               </v-form>
@@ -201,11 +201,13 @@ export default {
     },
     async updateUser() {
       this.loading = true;
-      let newKey = await api.users.update(this.user);
-      this.$store.commit("setToken", newKey.access_token);
-      this.refreshProfile();
-      this.loading = false;
-      this.$store.dispatch("requestUserData");
+      const response = await api.users.update(this.user);
+      if(response) {
+        this.$store.commit("setToken", response.data.access_token);
+        this.refreshProfile();
+        this.loading = false;
+        this.$store.dispatch("requestUserData");
+      }
     },
     async changePassword() {
       this.paswordLoading = true;
@@ -215,7 +217,9 @@ export default {
       };
 
       if (this.$refs.passChange.validate()) {
-        await api.users.changePassword(this.user.id, data);
+        if (await api.users.changePassword(this.user.id, data)) {
+          this.$emit("refresh");
+        }
       }
       this.paswordLoading = false;
     },

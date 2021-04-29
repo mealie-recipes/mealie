@@ -82,14 +82,18 @@ export default {
       this.$refs.categoryFormSelector.setInit(this.page.categories);
     },
     async submitForm() {
+      let response;
       if (this.create) {
-        await api.siteSettings.createPage(this.page);
+        response = await api.siteSettings.createPage(this.page);
       } else {
-        await api.siteSettings.updatePage(this.page);
+        response = await api.siteSettings.updatePage(this.page);
       }
-      this.pageDialog = false;
-      this.page.categories = [];
-      this.$emit(NEW_PAGE_EVENT);
+      
+      if (response) {
+        this.pageDialog = false;
+        this.page.categories = [];
+        this.$emit(NEW_PAGE_EVENT);
+      }
     },
   },
 };

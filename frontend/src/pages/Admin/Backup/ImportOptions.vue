@@ -28,7 +28,7 @@ export default {
         },
         pages: {
           value: true,
-          text: "Pages",
+          text: this.$t("settings.pages"),
         },
         themes: {
           value: true,

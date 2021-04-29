@@ -62,17 +62,21 @@ export default {
     },
     async importBackup(data) {
       this.$emit("loading");
-      let response = await api.backups.import(data.name, data);
+      const response = await api.backups.import(data.name, data);
+      if(response) {
+        let importData = response.data;
+        this.$emit("finished", importData);
+      } else {
+        this.$emit("finished");
+      }
 
-      let importData = response.data;
-
-      this.$emit("finished", importData);
     },
-    deleteBackup(data) {
+    async deleteBackup(data) {
       this.$emit("loading");
 
-      api.backups.delete(data.name);
-      this.selectedBackup = null;
+      if (await api.backups.delete(data.name)) {
+        this.selectedBackup = null;
+      }
       this.backupLoading = false;
 
       this.$emit("finished");
