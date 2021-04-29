@@ -72,7 +72,7 @@
     "end-date": "Einddatum",
     "group": "Groep (Beta)",
     "meal-planner": "Maaltijd planner",
-    "meal-plans": "Maaltijd planner",
+    "meal-plans": "Maaltijd plannen",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
     "planner": "Planner",
     "quick-week": "Snelle Week",
@@ -133,7 +133,7 @@
     "object-value": "Object waarde",
     "original-url": "Oorspronkelijke URL",
     "perform-time": "Kook tijd",
-    "prep-time": "Voorbereiding tijd",
+    "prep-time": "Voorbereidings tijd",
     "protein-content": "Eiwitten",
     "recipe-image": "Recept afbeelding",
     "recipe-name": "Receptnaam",
@@ -160,13 +160,13 @@
   },
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",
-    "admin-settings": "Beheerder Instellingen",
+    "admin-settings": "Admin Instellingen",
     "available-backups": "Beschikbare back-ups",
     "backup": {
       "backup-tag": "Back-up label",
       "create-heading": "Back-up maken",
       "full-backup": "Volledige Back-up",
-      "partial-backup": "Gedeeltelijke Back-up"
+      "partial-backup": "Gedeeltelijke back-up"
     },
     "backup-and-exports": "Backups",
     "backup-info": "Back-ups worden geëxporteerd in standaard JSON-formaat, samen met alle afbeeldingen opgeslagen op het bestandssysteem. In de back-upmap vind je een .zip-bestand dat alle recepten JSON en afbeeldingen uit de database bevat. Bovendien, als je een markdown bestand hebt geselecteerd, worden deze ook opgeslagen in het .zip-bestand. Om een back-up te importeren, moet deze in de map van de back-ups staan. Elke dag om 3:00 AM worden er back-ups geautomatiseerd.",
