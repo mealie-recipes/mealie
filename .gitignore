@@ -9,6 +9,7 @@ mealie/temp/*
 mealie/temp/api.html
 .temp/
 .secret
+!*/components/Recipe/Parts
 
 dev/data/backups/*
 dev/data/debug/*
