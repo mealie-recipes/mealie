@@ -43,27 +43,27 @@ class RecipeAsset(CamelModel):
         orm_mode = True
 
 
-class Nutrition(BaseModel):
+class Nutrition(CamelModel):
     calories: Optional[str]
-    fatContent: Optional[str]
-    proteinContent: Optional[str]
-    carbohydrateContent: Optional[str]
-    fiberContent: Optional[str]
-    sodiumContent: Optional[str]
-    sugarContent: Optional[str]
+    fat_content: Optional[str]
+    protein_content: Optional[str]
+    carbohydrate_content: Optional[str]
+    fiber_content: Optional[str]
+    sodium_content: Optional[str]
+    sugar_content: Optional[str]
 
     class Config:
         orm_mode = True
 
 
-class RecipeSummary(BaseModel):
+class RecipeSummary(CamelModel):
     id: Optional[int]
     name: str
     slug: Optional[str] = ""
     image: Optional[Any]
 
     description: Optional[str]
-    recipeCategory: Optional[list[str]] = []
+    recipe_category: Optional[list[str]] = []
     tags: Optional[list[str]] = []
     rating: Optional[int]
 
@@ -74,28 +74,28 @@ class RecipeSummary(BaseModel):
         def getter_dict(_cls, name_orm: RecipeModel):
             return {
                 **GetterDict(name_orm),
-                "recipeCategory": [x.name for x in name_orm.recipeCategory],
+                "recipe_category": [x.name for x in name_orm.recipe_category],
                 "tags": [x.name for x in name_orm.tags],
             }
 
 
 class Recipe(RecipeSummary):
-    recipeYield: Optional[str]
-    recipeIngredient: Optional[list[str]]
-    recipeInstructions: Optional[list[RecipeStep]]
+    recipe_yield: Optional[str]
+    recipe_ingredient: Optional[list[str]]
+    recipe_instructions: Optional[list[RecipeStep]]
     nutrition: Optional[Nutrition]
     tools: Optional[list[str]] = []
 
-    totalTime: Optional[str] = None
-    prepTime: Optional[str] = None
-    performTime: Optional[str] = None
+    total_time: Optional[str] = None
+    prep_time: Optional[str] = None
+    perform_time: Optional[str] = None
 
     # Mealie Specific
     settings: Optional[RecipeSettings]
     assets: Optional[list[RecipeAsset]] = []
-    dateAdded: Optional[datetime.date]
+    date_added: Optional[datetime.date]
     notes: Optional[list[RecipeNote]] = []
-    orgURL: Optional[str]
+    org_url: Optional[str] = Field(None, alias="orgURL")
     extras: Optional[dict] = {}
 
     class Config:
@@ -105,8 +105,8 @@ class Recipe(RecipeSummary):
         def getter_dict(_cls, name_orm: RecipeModel):
             return {
                 **GetterDict(name_orm),
-                "recipeIngredient": [x.ingredient for x in name_orm.recipeIngredient],
-                "recipeCategory": [x.name for x in name_orm.recipeCategory],
+                "recipe_ingredient": [x.ingredient for x in name_orm.recipe_ingredient],
+                "recipe_category": [x.name for x in name_orm.recipe_category],
                 "tags": [x.name for x in name_orm.tags],
                 "tools": [x.tool for x in name_orm.tools],
                 "extras": {x.key_name: x.value for x in name_orm.extras},
@@ -117,22 +117,22 @@ class Recipe(RecipeSummary):
                 "name": "Chicken and Rice With Leeks and Salsa Verde",
                 "description": "This one-skillet dinner gets deep oniony flavor from lots of leeks cooked down to jammy tenderness.",
                 "image": "chicken-and-rice-with-leeks-and-salsa-verde.jpg",
-                "recipeYield": "4 Servings",
-                "recipeIngredient": [
+                "recipe_yield": "4 Servings",
+                "recipe_ingredient": [
                     "1 1/2 lb. skinless, boneless chicken thighs (4-8 depending on size)",
                     "Kosher salt, freshly ground pepper",
                     "3 Tbsp. unsalted butter, divided",
                 ],
-                "recipeInstructions": [
+                "recipe_instructions": [
                     {
                         "text": "Season chicken with salt and pepper.",
                     },
                 ],
                 "slug": "chicken-and-rice-with-leeks-and-salsa-verde",
                 "tags": ["favorite", "yummy!"],
-                "recipeCategory": ["Dinner", "Pasta"],
+                "recipe_category": ["Dinner", "Pasta"],
                 "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
-                "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
+                "org_url": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
                 "rating": 3,
                 "extras": {"message": "Don't forget to defrost the chicken!"},
             }
