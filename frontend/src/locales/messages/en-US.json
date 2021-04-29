@@ -294,7 +294,7 @@
       "bulk-assign": "Bulk Assign",
       "new-name": "New Name",
       "no-unused-items": "No Unused Items",
-      "recipes-effected": "Recipes Effected",
+      "recipes-affected": "No Recipes Affected|One Recipe Affected|{count} Recipes Affected",
       "remove-unused": "Remove Unused",
       "title-case-all": "Title Case All",
       "toolbox": "Toolbox"

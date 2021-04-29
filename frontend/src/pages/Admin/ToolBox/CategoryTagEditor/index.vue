@@ -19,7 +19,7 @@
       <template slot="below-actions">
         <v-card-title class="headline">
           {{ renameTarget.recipes.length || 0 }}
-          {{ $t("settings.toolbox.recipes-effected") }}
+          {{ $t("settings.toolbox.recipes-affected") }}
         </v-card-title>
         <MobileRecipeCard
           class="ml-2 mr-2 mt-2 mb-2"
