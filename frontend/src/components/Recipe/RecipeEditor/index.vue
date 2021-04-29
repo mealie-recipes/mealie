@@ -64,55 +64,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
-          <draggable
-            v-model="value.recipeIngredient"
-            @start="drag = true"
-            @end="drag = false"
-            handle=".handle"
-          >
-            <transition-group
-              type="transition"
-              :name="!drag ? 'flip-list' : null"
-            >
-              <div
-                v-for="(ingredient, index) in value.recipeIngredient"
-                :key="generateKey('ingredient', index)"
-              >
-                <v-row align="center">
-                  <v-textarea
-                    class="mr-2"
-                    :label="$t('recipe.ingredient')"
-                    v-model="value.recipeIngredient[index]"
-                    mdi-move-resize
-                    auto-grow
-                    solo
-                    dense
-                    rows="1"
-                  >
-                    <template slot="append-outer">
-                      <v-icon class="handle">mdi-arrow-up-down</v-icon>
-                    </template>
-                    <v-icon
-                      class="mr-n1"
-                      slot="prepend"
-                      color="error"
-                      @click="removeByIndex(value.recipeIngredient, index)"
-                    >
-                      mdi-delete
-                    </v-icon>
-                  </v-textarea>
-                </v-row>
-              </div>
-            </transition-group>
-          </draggable>
-
-          <div class="d-flex row justify-end">
-            <BulkAdd @bulk-data="addIngredient" class="mr-2" />
-            <v-btn color="secondary" dark @click="addIngredient" class="mr-4">
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-          </div>
+          <Ingredients :edit="true" v-model="value.recipeIngredient" />
 
           <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
           <CategoryTagSelector
@@ -130,46 +82,8 @@
             :tag-selector="true"
             :show-label="false"
           />
-
-          <h2 class="my-4">{{ $t("recipe.notes") }}</h2>
-          <v-card
-            class="mt-1"
-            v-for="(note, index) in value.notes"
-            :key="generateKey('note', index)"
-          >
-            <v-card-text>
-              <v-row align="center">
-                <v-btn
-                  fab
-                  x-small
-                  color="white"
-                  class="mr-2"
-                  elevation="0"
-                  @click="removeByIndex(value.notes, index)"
-                >
-                  <v-icon color="error">mdi-delete</v-icon>
-                </v-btn>
-                <v-text-field
-                  :label="$t('recipe.title')"
-                  v-model="value.notes[index]['title']"
-                ></v-text-field>
-              </v-row>
-
-              <v-textarea
-                auto-grow
-                :label="$t('recipe.note')"
-                v-model="value.notes[index]['text']"
-              >
-              </v-textarea>
-            </v-card-text>
-          </v-card>
-          <div class="d-flex justify-end">
-            <v-btn class="mt-1" color="secondary" dark @click="addNote">
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-          </div>
           <Nutrition v-model="value.nutrition" :edit="true" />
-          <Assets v-model="value.assets" :edit="true" />
+          <Assets v-model="value.assets" :edit="true" :slug="value.slug" />
           <ExtrasEditor :extras="value.extras" @save="saveExtras" />
         </v-col>
 
@@ -183,6 +97,7 @@
               <v-icon>mdi-plus</v-icon>
             </v-btn>
           </div>
+          <Notes :edit="true" v-model="value.notes" />
 
           <v-text-field
             v-model="value.orgURL"
@@ -197,26 +112,27 @@
 
 <script>
 const UPLOAD_EVENT = "upload";
-import draggable from "vuedraggable";
-import utils from "@/utils";
 import BulkAdd from "@/components/Recipe/Parts/Helpers/BulkAdd";
-import ExtrasEditor from "./ExtrasEditor";
+import ExtrasEditor from "@/components/Recipe/Parts/Helpers/ExtrasEditor";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import ImageUploadBtn from "@/components/Recipe/Parts/Helpers/ImageUploadBtn";
 import { validators } from "@/mixins/validators";
 import Nutrition from "@/components/Recipe/Parts/Nutrition";
 import Instructions from "@/components/Recipe/Parts/Instructions";
+import Ingredients from "@/components/Recipe/Parts/Ingredients";
 import Assets from "@/components/Recipe/Parts/Assets.vue";
+import Notes from "@/components/Recipe/Parts/Notes.vue";
 export default {
   components: {
     BulkAdd,
     ExtrasEditor,
-    draggable,
     CategoryTagSelector,
     Nutrition,
     ImageUploadBtn,
     Instructions,
+    Ingredients,
     Assets,
+    Notes,
   },
   props: {
     value: Object,
@@ -224,42 +140,13 @@ export default {
   mixins: [validators],
   data() {
     return {
-      drag: false,
       fileObject: null,
-      lastTitleIndex: 0,
     };
   },
   methods: {
-    validateTitle(title) {
-      return !(title === null || title === "");
-    },
     uploadImage(fileObject) {
       this.$emit(UPLOAD_EVENT, fileObject);
     },
-    toggleDisabled(stepIndex) {
-      if (this.disabledSteps.includes(stepIndex)) {
-        const index = this.disabledSteps.indexOf(stepIndex);
-        if (index !== -1) {
-          this.disabledSteps.splice(index, 1);
-        }
-      } else {
-        this.disabledSteps.push(stepIndex);
-      }
-    },
-    isDisabled(stepIndex) {
-      return this.disabledSteps.includes(stepIndex) ? "disabled-card" : null;
-    },
-    generateKey(item, index) {
-      return utils.generateUniqueKey(item, index);
-    },
-    addIngredient(ingredients = null) {
-      if (ingredients.length) {
-        this.value.recipeIngredient.push(...ingredients);
-      } else {
-        this.value.recipeIngredient.push("");
-      }
-    },
-
     appendSteps(steps) {
       this.value.recipeInstructions.push(
         ...steps.map(x => ({
@@ -270,14 +157,8 @@ export default {
     addStep() {
       this.value.recipeInstructions.push({ text: "" });
     },
-    addNote() {
-      this.value.notes.push({ text: "" });
-    },
     saveExtras(extras) {
       this.value.extras = extras;
-    },
-    removeByIndex(list, index) {
-      list.splice(index, 1);
     },
     validateRecipe() {
       return this.$refs.form.validate();

@@ -31,17 +31,29 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <Ingredients :ingredients="ingredients" />
+          <Ingredients :value="ingredients" :edit="false" />
           <div v-if="medium">
-            <RecipeChips :title="$t('recipe.categories')" :items="categories" />
-            <RecipeChips
-              :title="$t('recipe.tags')"
-              :items="tags"
-              :isCategory="false"
-            />
-            <Notes :notes="notes" />
+            <v-card class="mt-2">
+              <v-card-title class="py-2">
+                {{ $t("recipe.categories") }}
+              </v-card-title>
+              <v-divider class="mx-2"></v-divider>
+              <v-card-text>
+                <RecipeChips :items="categories" />
+              </v-card-text>
+            </v-card>
+            <v-card class="mt-2">
+              <v-card-title class="py-2">
+                {{ $t("recipe.tags") }}
+              </v-card-title>
+              <v-divider class="mx-2"></v-divider>
+              <v-card-text>
+                <RecipeChips :items="tags" :isCategory="false" />
+              </v-card-text>
+            </v-card>
+
             <Nutrition :value="nutrition" :edit="false" />
-            <Assets :value="assets" :edit="false" />
+            <Assets :value="assets" :edit="false" :slug="slug" />
           </div>
         </v-col>
         <v-divider
@@ -52,14 +64,14 @@
 
         <v-col cols="12" sm="12" md="8" lg="8">
           <Instructions :value="instructions" :edit="false" />
+          <Notes :value="notes" :edit="false" />
         </v-col>
       </v-row>
       <div v-if="!medium">
         <RecipeChips :title="$t('recipe.categories')" :items="categories" />
         <RecipeChips :title="$t('recipe.tags')" :items="tags" />
-        <Notes :notes="notes" />
         <Nutrition :value="nutrition" :edit="false" />
-        <Assets :value="assets" :edit="false" />
+        <Assets :value="assets" :edit="false" :slug="slug" />
       </div>
       <v-row class="mt-2 mb-1">
         <v-col></v-col>
@@ -88,8 +100,8 @@ import Nutrition from "@/components/Recipe/Parts/Nutrition";
 import VueMarkdown from "@adapttive/vue-markdown";
 import utils from "@/utils";
 import RecipeChips from "./RecipeChips";
-import Notes from "./Notes";
-import Ingredients from "./Ingredients";
+import Notes from "@/components/Recipe/Parts/Notes";
+import Ingredients from "@/components/Recipe/Parts/Ingredients";
 import Instructions from "@/components/Recipe/Parts/Instructions.vue";
 import Assets from "../Parts/Assets.vue";
 export default {
@@ -104,6 +116,7 @@ export default {
   },
   props: {
     name: String,
+    slug: String,
     description: String,
     ingredients: Array,
     instructions: Array,
