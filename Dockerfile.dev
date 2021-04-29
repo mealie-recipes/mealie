@@ -20,4 +20,7 @@ COPY ./mealie /app/mealie
 COPY ./alembic /app/alembic
 COPY alembic.ini /app
 
+# project app
+RUN poetry install --no-dev --no-interaction --no-ansi
+
 CMD [ "/app/mealie/run.sh", "development" ]

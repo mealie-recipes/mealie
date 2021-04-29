@@ -41,6 +41,9 @@ COPY alembic.ini /app
 COPY ./Caddyfile /app
 COPY ./dev/data/templates /app/data/templates
 
+# project app
+RUN poetry install --no-dev --no-interaction --no-ansi
+
 # frontend build
 COPY --from=build-stage /app/dist /app/dist
 
