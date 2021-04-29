@@ -72,7 +72,7 @@
     "end-date": "Einddatum",
     "group": "Groep (Beta)",
     "meal-planner": "Maaltijd planner",
-    "meal-plans": "Maaltijd planner",
+    "meal-plans": "Maaltijd plannen",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
     "planner": "Planner",
     "quick-week": "Snelle Week",
@@ -105,7 +105,7 @@
     "recent": "Recent(e)"
   },
   "recipe": {
-    "assets": "Assets",
+    "assets": "Middelen",
     "add-key": "Sleutel toevoegen",
     "api-extras": "API Extras",
     "calories": "Calorieën",
@@ -114,9 +114,9 @@
     "delete-confirmation": "Weet u zeker dat u dit recept wilt verwijderen?",
     "delete-recipe": "Recept verwijderen",
     "description": "Omschrijving",
-    "fat-content": "Fat",
-    "fiber-content": "Fiber",
-    "carbohydrate-content": "Carbohydrate",
+    "fat-content": "Vet",
+    "fiber-content": "Vezels",
+    "carbohydrate-content": "Koolhydraten",
     "grams": "gram",
     "image": "Afbeelding",
     "ingredient": "Ingrediënt",
@@ -133,40 +133,40 @@
     "object-value": "Object waarde",
     "original-url": "Oorspronkelijke URL",
     "perform-time": "Kook tijd",
-    "prep-time": "Voorbereiding tijd",
-    "protein-content": "Protein",
+    "prep-time": "Voorbereidings tijd",
+    "protein-content": "Eiwitten",
     "recipe-image": "Recept afbeelding",
     "recipe-name": "Receptnaam",
     "servings": "Porties",
-    "sodium-content": "Sodium",
+    "sodium-content": "Zout",
     "step-index": "Stap: {step}",
-    "sugar-content": "Sugar",
+    "sugar-content": "Suiker",
     "tags": "Labels",
     "title": "Titel",
     "total-time": "Totale Tijd",
     "view-recipe": "Bekijk Recept"
   },
   "search": {
-    "search-mealie": "Search Mealie (press /)",
+    "search-mealie": "Zoek Mealie (druk /)",
     "search-placeholder": "Zoeken...",
     "max-results": "Max. resultaten",
     "category-filter": "Categorie Filter",
     "exclude": "Exclusief",
     "include": "Inclusief",
     "or": "Of",
-    "and": "and",
+    "and": "en",
     "search": "Zoek",
     "tag-filter": "Label Filter"
   },
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",
-    "admin-settings": "Beheerder Instellingen",
+    "admin-settings": "Admin Instellingen",
     "available-backups": "Beschikbare back-ups",
     "backup": {
       "backup-tag": "Back-up label",
       "create-heading": "Back-up maken",
       "full-backup": "Volledige Back-up",
-      "partial-backup": "Gedeeltelijke Back-up"
+      "partial-backup": "Gedeeltelijke back-up"
     },
     "backup-and-exports": "Backups",
     "backup-info": "Back-ups worden geëxporteerd in standaard JSON-formaat, samen met alle afbeeldingen opgeslagen op het bestandssysteem. In de back-upmap vind je een .zip-bestand dat alle recepten JSON en afbeeldingen uit de database bevat. Bovendien, als je een markdown bestand hebt geselecteerd, worden deze ook opgeslagen in het .zip-bestand. Om een back-up te importeren, moet deze in de map van de back-ups staan. Elke dag om 3:00 AM worden er back-ups geautomatiseerd.",
@@ -222,14 +222,14 @@
       "webhook-url": "Webhook URL"
     },
     "toolbox": {
-      "toolbox": "Toolbox",
-      "new-name": "New Name",
+      "toolbox": "Gereedschapskist",
+      "new-name": "Nieuwe naam",
       "recipes-effected": "Recipes Effected",
-      "title-case-all": "Title Case All",
-      "no-unused-items": "No Unused Items",
-      "remove-unused": "Remove Unused",
-      "assign-all": "Assign All",
-      "bulk-assign": "Bulk Assign"
+      "title-case-all": "Alle Titels In Hoofdletters",
+      "no-unused-items": "Geen Ongebruikte Items",
+      "remove-unused": "Verwijder Ongebruikte Items",
+      "assign-all": "Alles toewijzen",
+      "bulk-assign": "Bulk toewijzen"
     }
   },
   "user": {
