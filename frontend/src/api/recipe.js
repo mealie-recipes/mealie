@@ -78,17 +78,37 @@ export const recipeAPI = {
       successMessage
     );
   },
-
-  async updateImagebyURL(slug, url) {
-    const response = apiReq.post(recipeURLs.updateImage(slug), { url: url });
+  
+  async createAsset(recipeSlug, fileObject, name, icon) {
+    const fd = new FormData();
+    fd.append("file", fileObject);
+    fd.append("extension", fileObject.name.split(".").pop());
+    fd.append("name", name);
+    fd.append("icon", icon);
+    let response = apiReq.post(recipeURLs.createAsset(recipeSlug), fd);
     return response;
+  },
+  
+  updateImagebyURL(slug, url) {
+    return apiReq.post(
+      recipeURLs.updateImage(slug), 
+      { url: url },
+      function() { return i18n.t('general.image-upload-failed'); },
+      function() { return i18n.t('recipe.recipe-image-updated'); }
+    );
   },
 
   async update(data) {
-    console.log(data)
-    let response = await apiReq.put(recipeURLs.update(data.slug), data);
-    store.dispatch("patchRecipe", response.data);
-    return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
+    let response = await apiReq.put(
+      recipeURLs.update(data.slug),
+      data, 
+      function() { return i18n.t('recipe.recipe-update-failed'); },
+      function() { return i18n.t('recipe.recipe-updated'); }
+    );
+    if(response) {
+      store.dispatch("patchRecipe", response.data);
+      return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
+    }
   },
 
   async patch(data) {
