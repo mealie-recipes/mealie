@@ -2,13 +2,14 @@ import uvicorn
 from fastapi import FastAPI
 
 from mealie.core import root_logger
-
-# import utils.startup as startup
 from mealie.core.config import APP_VERSION, settings
-from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes, utility_routes
+from mealie.routes import (backup_routes, debug_routes, migration_routes,
+                           theme_routes, utility_routes)
 from mealie.routes.groups import groups
 from mealie.routes.mealplans import mealplans
-from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_assets, recipe_crud_routes, tag_routes
+from mealie.routes.recipe import (all_recipe_routes, category_routes,
+                                  recipe_assets, recipe_crud_routes,
+                                  tag_routes)
 from mealie.routes.site_settings import all_settings
 from mealie.routes.users import users
 
@@ -51,11 +52,11 @@ def api_routers():
 
 
 api_routers()
-start_scheduler()
 
 
 @app.on_event("startup")
 def system_startup():
+    start_scheduler()
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
     logger.info(settings.json(indent=4, exclude={"SECRET", "DEFAULT_PASSWORD", "SFTP_PASSWORD", "SFTP_USERNAME"}))
