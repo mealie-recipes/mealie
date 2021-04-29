@@ -30,11 +30,12 @@ function deleteErrorText(response) {
 }
 export const userAPI = {
   async login(formData) {
-    let response = await apiReq.post(authURLs.token, formData, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
+    let response = await apiReq.post(
+      authURLs.token, 
+      formData,
+      function() { return i18n.t('user.incorrect-username-or-password'); },
+      function() { return i18n.t('user.user-successfully-logged-in'); }
+    );
     return response;
   },
   async refresh() {
