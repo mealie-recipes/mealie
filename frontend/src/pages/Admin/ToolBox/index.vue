@@ -16,7 +16,7 @@
         </v-tab>
 
         <v-tab>
-          {{ $t("recipe.tags") }}
+          {{ $t("tag.tags") }}
           <v-icon>mdi-tag-multiple-outline</v-icon>
         </v-tab>
       </v-tabs>

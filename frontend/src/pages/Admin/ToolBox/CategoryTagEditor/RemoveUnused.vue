@@ -7,7 +7,7 @@
       :title="
         $t('general.delete') +
           ' ' +
-          (isTags ? $t('recipe.tags') : $t('recipe.categories'))
+          (isTags ? $t('tag.tags') : $t('recipe.categories'))
       "
       :loading="loading"
       modal-width="400"

@@ -74,7 +74,7 @@
             :show-label="false"
           />
 
-          <h2 class="mt-4">{{ $t("recipe.tags") }}</h2>
+          <h2 class="mt-4">{{ $t("tag.tags") }}</h2>
           <CategoryTagSelector
             :return-object="false"
             v-model="value.tags"

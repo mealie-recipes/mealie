@@ -204,7 +204,6 @@
     "sodium-content": "Sodium",
     "step-index": "Step: {step}",
     "sugar-content": "Sugar",
-    "tags": "Tags",
     "title": "Title",
     "total-time": "Total Time",
     "unable-to-delete-recipe": "Unable to Delete Recipe",
@@ -309,6 +308,15 @@
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
       "webhook-url": "Webhook URL"
     }
+  },
+  "tag": {
+    "tag-created": "Tag created",
+    "tag-creation-failed": "Tag creation failed",
+    "tag-deleted": "Tag deleted",
+    "tag-deletion-failed": "Tag deletion failed",
+    "tag-update-failed": "Tag update failed",
+    "tag-updated": "Tag updated",
+    "tags": "Tags"
   },
   "user": {
     "admin": "Admin",

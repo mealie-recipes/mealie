@@ -84,28 +84,48 @@ export const tagAPI = {
     return response.data;
   },
   async create(name) {
-    let response = await apiReq.post(tagURLs.getAll, { name: name });
-    store.dispatch("requestTags");
-    return response.data;
+    const response = await apiReq.post(
+      tagURLs.getAll, 
+      { name: name },
+      function() { return i18n.t('tag.tag-creation-failed'); },
+      function() { return i18n.t('tag.tag-created'); }
+    );
+    if(response) {
+      store.dispatch("requestTags");
+      return response.data;
+    }
   },
   async getRecipesInTag(tag) {
     let response = await apiReq.get(tagURLs.getTag(tag));
     return response.data;
   },
   async update(name, newName, overrideRequest = false) {
-    let response = await apiReq.put(tagURLs.updateTag(name), { name: newName });
+    const response = await apiReq.put(
+      tagURLs.updateTag(name), 
+      { name: newName },
+      function() { return i18n.t('tag.tag-update-failed'); },
+      function() { return i18n.t('tag.tag-updated'); }
+    );
 
-    if (!overrideRequest) {
-      store.dispatch("requestTags");
+    if(response) {
+      if (!overrideRequest) {
+        store.dispatch("requestTags");
+      }
+      return response.data;
     }
-
-    return response.data;
   },
   async delete(tag, overrideRequest = false) {
-    let response = await apiReq.delete(tagURLs.deleteTag(tag));
-    if (!overrideRequest) {
-      store.dispatch("requestTags");
+    const response = await apiReq.delete(
+      tagURLs.deleteTag(tag),
+      null,
+      function() { return i18n.t('tag.tag-deletion-failed'); },
+      function() { return i18n.t('tag.tag-deleted'); }
+    );
+    if(response) {
+      if (!overrideRequest) {
+        store.dispatch("requestTags");
+      }
+      return response.data;
     }
-    return response.data;
   },
 };
