@@ -36,7 +36,6 @@ const actions = {
   async requestRecentRecipes() {
     const payload = await api.recipes.allSummary(0, 30);
     payload.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
-    console.log(payload);
     const hash = Object.fromEntries(payload.map(e => [e.id, e]));
     this.commit("setRecentRecipes", hash);
   },
@@ -44,7 +43,6 @@ const actions = {
     const all = getters.getAllRecipes;
     const payload = await api.recipes.allSummary(all.length, 9999);
     const hash = Object.fromEntries([...all, ...payload].map(e => [e.id, e]));
-    console.log(hash);
 
     this.commit("setAllRecipes", hash);
   },
