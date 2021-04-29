@@ -309,6 +309,12 @@
       "webhook-url": "Webhook URL"
     }
   },
+  "signup": {
+    "display-name": "Display Name",
+    "error-signing-up": "Error Signing Up",
+    "sign-up": "Sign Up",
+    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
+  },
   "tag": {
     "tag-created": "Tag created",
     "tag-creation-failed": "Tag creation failed",

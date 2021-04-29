@@ -13,13 +13,13 @@
         class="mr-2"
       >
       </v-progress-circular>
-      <v-toolbar-title class="headline"> Sign Up </v-toolbar-title>
+      <v-toolbar-title class="headline"> 
+        {{$t('signup.sign-up')}} 
+      </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-card-text>
-      Welcome to Mealie! To become a user of this instance you are required to
-      have a valid invitation link. If you haven't recieved an invitation you
-      are unable to sign-up. To recieve a link, contact the sites administrator.
+      {{$t('signup.welcome-to-mealie')}}
       <v-divider class="mt-3"></v-divider>
       <v-form ref="signUpForm" @submit.prevent="signUp">
         <v-text-field
@@ -28,7 +28,7 @@
           prepend-icon="mdi-account"
           validate-on-blur
           :rules="[existsRule]"
-          label="Display Name"
+          :label="$t('signup.display-name')"
           type="email"
         ></v-text-field>
         <v-text-field
@@ -59,7 +59,7 @@
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[
-            user.password === user.passwordConfirm || 'Password must match',
+            user.password === user.passwordConfirm || $t('user.password-must-match'),
           ]"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
@@ -71,11 +71,11 @@
             block="block"
             type="submit"
           >
-            Sign Up
+            {{$t('signup.sign-up')}}
           </v-btn>
         </v-card-actions>
         <v-alert dense v-if="error" outlined class="mt-3 mb-0" type="error">
-          Error Signing Up
+          {{$t('signup.error-signing-up')}}
         </v-alert>
       </v-form>
     </v-card-text>
