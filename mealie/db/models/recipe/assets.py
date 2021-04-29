@@ -8,13 +8,15 @@ class RecipeAsset(SqlAlchemyBase):
     parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
     name = sa.Column(sa.String)
     icon = sa.Column(sa.String)
-
+    file_name = sa.Column(sa.String)
 
     def __init__(
         self,
         name=None,
         icon=None,
+        file_name=None,
     ) -> None:
+        print("Asset Saved", name)
         self.name = name
+        self.file_name = file_name
         self.icon = icon
-

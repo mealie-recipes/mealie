@@ -8,7 +8,7 @@ from mealie.core.config import APP_VERSION, settings
 from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes, utility_routes
 from mealie.routes.groups import groups
 from mealie.routes.mealplans import mealplans
-from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_crud_routes, tag_routes
+from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_assets, recipe_crud_routes, tag_routes
 from mealie.routes.site_settings import all_settings
 from mealie.routes.users import users
 
@@ -37,6 +37,7 @@ def api_routers():
     app.include_router(category_routes.router)
     app.include_router(tag_routes.router)
     app.include_router(recipe_crud_routes.router)
+    app.include_router(recipe_assets.router)
     # Meal Routes
     app.include_router(mealplans.router)
     # Settings Routes

@@ -1,6 +1,7 @@
 import datetime
 from typing import Any, List, Optional
 
+from fastapi_camelcase import CamelModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from pydantic import BaseModel, validator
 from pydantic.utils import GetterDict
@@ -15,16 +16,18 @@ class RecipeNote(BaseModel):
         orm_mode = True
 
 
-class RecipeStep(BaseModel):
+class RecipeStep(CamelModel):
     title: Optional[str] = ""
     text: str
 
     class Config:
         orm_mode = True
 
-class RecipeAsset(BaseModel):
+
+class RecipeAsset(CamelModel):
     name: str
     icon: str
+    file_name: Optional[str]
 
     class Config:
         orm_mode = True
