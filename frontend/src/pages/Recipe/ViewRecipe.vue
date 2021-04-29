@@ -52,6 +52,7 @@
         :orgURL="recipeDetails.orgURL"
         :nutrition="recipeDetails.nutrition"
         :assets="recipeDetails.assets"
+        :slug="recipeDetails.slug"
       />
       <VJsoneditor
         @error="logError()"
