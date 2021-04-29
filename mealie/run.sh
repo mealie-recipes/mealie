@@ -7,8 +7,8 @@ ARG1=${1:-production}
 # DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )" 
 
 # # Initialize Database Prerun
-poetry run alembic upgrade head
-poetry run python /app/mealie/services/image/minify.py
+alembic upgrade head
+python /app/mealie/services/image/minify.py
 
 # TODO
 # Set Port from ENV Variable
