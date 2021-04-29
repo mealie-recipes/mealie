@@ -1,9 +1,16 @@
+from mealie.core.config import app_dirs, settings
+
+#! I don't like it either!
+SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath("test.db")
+SQLITE_FILE.unlink(missing_ok=True)
+
+settings.SQLITE_FILE = SQLITE_FILE
+
 import json
 
 import requests
 from fastapi.testclient import TestClient
 from mealie.app import app
-from mealie.core.config import app_dirs, settings
 from mealie.db.db_setup import generate_session, sql_global_init
 from mealie.db.init_db import init_db
 from pytest import fixture
@@ -11,10 +18,6 @@ from pytest import fixture
 from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
 from tests.utils.recipe_data import build_recipe_store, get_raw_no_image, get_raw_recipe
-
-SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath("test.db")
-SQLITE_FILE.unlink(missing_ok=True)
-
 
 TestSessionLocal = sql_global_init(SQLITE_FILE, check_thread=False)
 init_db(TestSessionLocal())
