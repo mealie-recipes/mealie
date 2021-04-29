@@ -50,8 +50,13 @@ export const groupAPI = {
      );
   },
   async current() {
-    let response = await apiReq.get(groupsURLs.current);
-    return response.data;
+    const response = await apiReq.get(
+      groupsURLs.current,
+      null,
+      null);
+    if(response) {
+      return response.data;
+    }
   },
   update(data) {
     return apiReq.put(

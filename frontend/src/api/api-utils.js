@@ -8,8 +8,10 @@ axios.defaults.headers.common[
 ] = `Bearer ${store.getters.getToken}`;
 
 function handleError(error, getText) {
+  if(getText) {
     utils.notify.error(getText(error.response));
-    return false;
+  }
+  return false;
 }
 function handleResponse(response, getText) {
   if(response && getText) {
