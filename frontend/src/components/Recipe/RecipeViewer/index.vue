@@ -33,7 +33,8 @@
         <v-col cols="12" sm="12" md="4" lg="4">
           <Ingredients :value="ingredients" :edit="false" />
           <div v-if="medium">
-            <v-card class="mt-2">
+            <v-card class="mt-2" v-if="categories.length > 0"
+              >>
               <v-card-title class="py-2">
                 {{ $t("recipe.categories") }}
               </v-card-title>
@@ -42,7 +43,7 @@
                 <RecipeChips :items="categories" />
               </v-card-text>
             </v-card>
-            <v-card class="mt-2">
+            <v-card class="mt-2" v-if="tags.length > 0">
               <v-card-title class="py-2">
                 {{ $t("recipe.tags") }}
               </v-card-title>
