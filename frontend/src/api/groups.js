@@ -12,7 +12,6 @@ const groupsURLs = {
 };
 
 function deleteErrorText(response) {
-  console.log(response.data);
   switch(response.data.detail) {
     case 'GROUP_WITH_USERS':
       return i18n.t('group.cannot-delete-group-with-users');

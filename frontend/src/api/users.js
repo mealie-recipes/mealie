@@ -19,7 +19,6 @@ const usersURLs = {
 };
 
 function deleteErrorText(response) {
-  console.log(response.data);
   switch(response.data.detail) {
     case 'SUPER_USER':
       return i18n.t('user.error-cannot-delete-super-user');
