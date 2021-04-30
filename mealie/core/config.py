@@ -117,7 +117,7 @@ class AppSettings(BaseSettings):
 
     @validator("DB_URL", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: dict[str, Any]) -> Any:
-        if isinstance(v, str):
+        if isinstance(v, str) or v is None:
             return determine_sqlite_path()
         return PostgresDsn.build(
             scheme="postgresql",
