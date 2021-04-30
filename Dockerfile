@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc g++ \
     curl \
     python3-dev \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
     gnupg gnupg2 gnupg1  \
     apt-transport-https \
     debian-archive-keyring \
