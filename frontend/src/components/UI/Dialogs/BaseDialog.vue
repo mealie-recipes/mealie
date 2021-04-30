@@ -23,11 +23,11 @@
         <v-card-actions>
           <slot name="card-actions">
             <v-btn text color="grey" @click="dialog = false">
-              Cancel
+              {{$t('general.cancel')}}
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn color="success" @click="submitEvent">
-              Submit
+              {{$t('general.submit')}}
             </v-btn>
           </slot>
         </v-card-actions>

@@ -49,7 +49,7 @@ export default {
       return [
         {
           icon: "mdi-account",
-          title: "Login",
+          title: this.$t('user.login'),
           restricted: false,
           login: true,
         },
