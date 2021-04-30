@@ -109,7 +109,7 @@ class AppSettings(BaseSettings):
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
 
-    DB_URL: Union[str, PostgresDsn]
+    DB_URL: Union[str, PostgresDsn] = "sqlite"
     POSTGRES_USER: str = "mealie"
     POSTGRES_PASSWORD: str = "mealie"
     POSTGRES_SERVER: str = "postgres"
@@ -117,7 +117,7 @@ class AppSettings(BaseSettings):
 
     @validator("DB_URL", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: dict[str, Any]) -> Any:
-        if isinstance(v, str) or v is None:
+        if isinstance(v, str) and "sqlite" in v:
             return determine_sqlite_path()
         return PostgresDsn.build(
             scheme="postgresql",
