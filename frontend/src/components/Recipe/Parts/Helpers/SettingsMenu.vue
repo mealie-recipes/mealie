@@ -12,7 +12,7 @@
       <v-card>
         <v-card-title class="py-2">
           <div>
-            Recipe Settings
+            {{$t('recipe.recipe-settings')}}
           </div>
         </v-card-title>
         <v-divider class="mx-2"></v-divider>
@@ -39,14 +39,18 @@ export default {
   props: {
     value: Object,
   },
-  data: () => ({
-    labels: {
-      public: "Public Recipe",
-      showNutrition: "Show Nutrition Values",
-      showAssets: "Show Assets",
-      landscapeView: "Landscape View (Coming Soon)",
-    },
-  }),
+
+  computed: {
+    labels() {
+      return {
+      public: this.$t('recipe.public-recipe'),
+      showNutrition: this.$t('recipe.show-nutrition-values'),
+      showAssets: this.$t('recipe.show-assets'),
+      landscapeView: this.$t('recipe.landscape-view-coming-soon'),
+    };
+    }
+  },
+  
   methods: {},
 };
 </script>

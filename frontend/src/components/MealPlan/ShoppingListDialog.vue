@@ -22,7 +22,7 @@
 
             <v-list-item-group color="primary">
               <v-list-item
-                v-for="(item, i) in recipe.recipeIngredient"
+                v-for="(item, i) in recipe.recipe_ingredient"
                 :key="i"
               >
                 <v-list-item-content>
@@ -75,8 +75,9 @@ export default {
       this.getRawIngredients();
     },
     getRawIngredients() {
+      this.rawIngredients = [];
       this.ingredients.forEach(element => {
-        this.rawIngredients.push(element.recipeIngredient);
+        this.rawIngredients.push(element.recipe_ingredient);
       });
 
       this.rawIngredients = this.rawIngredients.flat();
