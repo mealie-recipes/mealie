@@ -43,8 +43,13 @@ test: ## run tests quickly with the default Python
 format:
 	poetry run black .
 
+format-test:
+	poetry run black . --check
+
 lint: ## check style with flake8
 	poetry run flake8 mealie tests
+
+test-all: format-test lint test
 
 setup: ## Setup Development Instance
 	poetry install && \
