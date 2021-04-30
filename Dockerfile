@@ -16,6 +16,7 @@ ENV POETRY_VERSION 1.1.6
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc g++ \
     curl \
+    python3-dev \
     gnupg gnupg2 gnupg1  \
     apt-transport-https \
     debian-archive-keyring \
