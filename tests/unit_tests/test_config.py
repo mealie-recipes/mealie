@@ -1,13 +1,14 @@
 from pathlib import Path
 
-from mealie.core.config import CWD, DATA_DIR, AppDirectories, AppSettings, determine_data_dir, determine_secrets
+from mealie.core.config import (CWD, DATA_DIR, AppDirectories, AppSettings,
+                                determine_data_dir, determine_secrets)
 
 
 def test_default_settings(monkeypatch):
     monkeypatch.delenv("DEFAULT_GROUP", raising=False)
     monkeypatch.delenv("DEFAULT_PASSWORD", raising=False)
-    monkeypatch.delenv("DB_USERNAME", raising=False)
-    monkeypatch.delenv("DB_PASSWORD", raising=False)
+    monkeypatch.delenv("POSTGRES_USER", raising=False)
+    monkeypatch.delenv("POSTGRES_PASSWORD", raising=False)
     monkeypatch.delenv("DEFAULT_PASSWORD", raising=False)
     monkeypatch.delenv("API_PORT", raising=False)
     monkeypatch.delenv("API_DOCS", raising=False)
@@ -17,8 +18,8 @@ def test_default_settings(monkeypatch):
 
     assert app_settings.DEFAULT_GROUP == "Home"
     assert app_settings.DEFAULT_PASSWORD == "MyPassword"
-    assert app_settings.DB_USERNAME == "mealie"
-    assert app_settings.DB_PASSWORD == "mealie"
+    assert app_settings.POSTGRES_USER == "mealie"
+    assert app_settings.POSTGRES_PASSWORD == "mealie"
     assert app_settings.API_PORT == 9000
     assert app_settings.API_DOCS is True
     assert app_settings.IS_DEMO is False
@@ -30,8 +31,8 @@ def test_default_settings(monkeypatch):
 def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("DEFAULT_GROUP", "Test Group")
     monkeypatch.setenv("DEFAULT_PASSWORD", "Test Password")
-    monkeypatch.setenv("DB_USERNAME", "mealie-test")
-    monkeypatch.setenv("DB_PASSWORD", "mealie-test")
+    monkeypatch.setenv("POSTGRES_USER", "mealie-test")
+    monkeypatch.setenv("POSTGRES_PASSWORD", "mealie-test")
     monkeypatch.setenv("API_PORT", "8000")
     monkeypatch.setenv("API_DOCS", "False")
 
@@ -39,8 +40,8 @@ def test_non_default_settings(monkeypatch):
 
     assert app_settings.DEFAULT_GROUP == "Test Group"
     assert app_settings.DEFAULT_PASSWORD == "Test Password"
-    assert app_settings.DB_USERNAME == "mealie-test"
-    assert app_settings.DB_PASSWORD == "mealie-test"
+    assert app_settings.POSTGRES_USER == "mealie-test"
+    assert app_settings.POSTGRES_PASSWORD == "mealie-test"
     assert app_settings.API_PORT == 8000
     assert app_settings.API_DOCS is False
 
