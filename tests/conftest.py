@@ -4,7 +4,7 @@ from mealie.core.config import app_dirs, settings
 DB_URL = app_dirs.DATA_DIR.joinpath("test.db")
 DB_URL.unlink(missing_ok=True)
 
-settings.DB_URL = DB_URL
+settings.DB_URL = "sqlite:///" + str(DB_URL.absolute())
 
 import json
 
@@ -19,7 +19,7 @@ from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
 from tests.utils.recipe_data import build_recipe_store, get_raw_no_image, get_raw_recipe
 
-TestSessionLocal = sql_global_init(DB_URL)
+TestSessionLocal = sql_global_init(settings.DB_URL)
 init_db(TestSessionLocal())
 
 
