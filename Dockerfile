@@ -16,14 +16,11 @@ ENV POETRY_VERSION 1.1.6
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc g++ \
     curl \
-    python3-dev \
-    build-essential \
-    libssl-dev \
-    libffi-dev \
     gnupg gnupg2 gnupg1  \
     apt-transport-https \
     debian-archive-keyring \
     debian-keyring \
+    libpq-dev \
     libwebp-dev \
     && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
     && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee -a /etc/apt/sources.list.d/caddy-stable.list \
@@ -35,12 +32,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 
 RUN pip install --no-cache-dir "poetry==$POETRY_VERSION" 
+RUN pip install --no-cache-dir "psycopg2-binary==2.8.6"
 
-#! Future
-# pip install --no-cache-dir "psycopg2-binary==2.8.6"
-
+# project dependencies
 WORKDIR /app
-COPY pyproject.toml /app/
+COPY pyproject.toml poetry.lock /app/
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev --no-interaction --no-ansi
+
 COPY ./mealie /app/mealie
 RUN poetry config virtualenvs.create false \
     && poetry install --no-dev
@@ -48,7 +47,6 @@ RUN poetry config virtualenvs.create false \
 #! Future
 # COPY ./alembic /app
 # COPY alembic.ini /app
-
 COPY ./Caddyfile /app
 COPY ./dev/data/templates /app/data/templates
 

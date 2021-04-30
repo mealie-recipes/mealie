@@ -10,11 +10,7 @@ class SiteSettings(SqlAlchemyBase, BaseMixins):
     id = sa.Column(sa.Integer, primary_key=True)
     language = sa.Column(sa.String)
     first_day_of_week = sa.Column(sa.Integer)
-    categories = orm.relationship(
-        "Category",
-        secondary=site_settings2categories,
-        single_parent=True,
-    )
+    categories = orm.relationship("Category", secondary=site_settings2categories, single_parent=True)
     show_recent = sa.Column(sa.Boolean, default=True)
     cards_per_section = sa.Column(sa.Integer)
 
@@ -44,11 +40,7 @@ class CustomPage(SqlAlchemyBase, BaseMixins):
     position = sa.Column(sa.Integer, nullable=False)
     name = sa.Column(sa.String, nullable=False)
     slug = sa.Column(sa.String, nullable=False)
-    categories = orm.relationship(
-        "Category",
-        secondary=custom_pages2categories,
-        single_parent=True,
-    )
+    categories = orm.relationship("Category", secondary=custom_pages2categories, single_parent=True)
 
     def __init__(self, session=None, name=None, slug=None, position=0, categories=[], *args, **kwargs) -> None:
         self.name = name

@@ -16,7 +16,7 @@ class User(SqlAlchemyBase, BaseMixins):
     full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
-    group_id = Column(String, ForeignKey("groups.id"))
+    group_id = Column(Integer, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
     admin = Column(Boolean, default=False)
 
