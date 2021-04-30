@@ -8,5 +8,4 @@ services:
     restart: always
     ports:
       - 9090:80
-    environment:
-      db_type: sqlite
+

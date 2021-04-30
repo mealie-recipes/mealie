@@ -25,7 +25,6 @@ Deployment with the Docker CLI can be done with `docker run` and specify the dat
 
 ```shell
 docker run \
-    -e DB_TYPE='sqlite' \
     -p 9925:80 \
     -v `pwd`:'/app/data/' \
     hkotel/mealie:latest
@@ -50,7 +49,6 @@ services:
     ports:
       - 9925:80
     environment:
-      DB_TYPE: sqlite
       TZ: America/Anchorage
     volumes:
       - ./mealie/data/:/app/data
@@ -61,7 +59,7 @@ services:
 
 | Variables        | Default            | Description                                                                         |
 | ---------------- | ------------------ | ----------------------------------------------------------------------------------- |
-| DB_TYPE          | sqlite             | The database type to be used. Current Options 'sqlite'                              |
+| DB_URL           | None               | Leave blank for SQLite                                                              |
 | DEFAULT_GROUP    | Home               | The default group for users                                                         |
 | DEFAULT_EMAIL    | changeme@email.com | The default username for the superuser                                              |
 | DEFAULT_PASSWORD | MyPassword         | The default password for the superuser                                              |

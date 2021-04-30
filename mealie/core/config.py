@@ -1,10 +1,10 @@
 import os
 import secrets
 from pathlib import Path
-from typing import Optional, Union
+from typing import Optional
 
 import dotenv
-from pydantic import BaseSettings, Field, validator
+from pydantic import BaseSettings, Field
 
 APP_VERSION = "v0.5.0beta"
 DB_VERSION = "v0.5.0"
@@ -57,7 +57,6 @@ class AppDirectories:
         self.CHOWDOWN_DIR: Path = self.MIGRATION_DIR.joinpath("chowdown")
         self.TEMPLATE_DIR: Path = data_dir.joinpath("templates")
         self.USER_DIR: Path = data_dir.joinpath("users")
-        self.SQLITE_DIR: Path = data_dir.joinpath("db")
         self.RECIPE_DATA_DIR: Path = data_dir.joinpath("recipes")
         self.TEMP_DIR: Path = data_dir.joinpath(".temp")
 
@@ -70,7 +69,6 @@ class AppDirectories:
             self.DEBUG_DIR,
             self.MIGRATION_DIR,
             self.TEMPLATE_DIR,
-            self.SQLITE_DIR,
             self.NEXTCLOUD_DIR,
             self.CHOWDOWN_DIR,
             self.RECIPE_DATA_DIR,
@@ -82,6 +80,12 @@ class AppDirectories:
 
 
 app_dirs = AppDirectories(CWD, DATA_DIR)
+
+
+def determine_sqlite_path() -> str:
+    global app_dirs
+    db_path = app_dirs.DATA_DIR.joinpath(f"mealie_{DB_VERSION}.db") # ! Temporary Until Alembic
+    return "sqlite:///" + str(db_path.absolute())
 
 
 class AppSettings(BaseSettings):
@@ -100,21 +104,7 @@ class AppSettings(BaseSettings):
         return "/redoc" if self.API_DOCS else None
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
-    DATABASE_TYPE: str = Field("sqlite", env="DB_TYPE")
-
-    @validator("DATABASE_TYPE", pre=True)
-    def validate_db_type(cls, v: str) -> Optional[str]:
-        if v != "sqlite":
-            raise ValueError("Unable to determine database type. Acceptible options are 'sqlite'")
-        else:
-            return v
-
-    # Used to Set SQLite File Version
-    SQLITE_FILE: Optional[Union[str, Path]]
-
-    @validator("SQLITE_FILE", pre=True)
-    def identify_sqlite_file(cls, v: str) -> Optional[str]:
-        return app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
+    DB_URL: str = Field(default_factory=determine_sqlite_path, env="DB_URL")
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
