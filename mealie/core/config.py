@@ -104,7 +104,9 @@ class AppSettings(BaseSettings):
         return "/redoc" if self.API_DOCS else None
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
-    DB_URL: str = Field(default_factory=determine_sqlite_path, env="DB_URL")
+    DB_URL: str = Field(default_factory=determine_sqlite_path)
+    DB_USERNAME: str = 'mealie'
+    DB_PASSWORD: str = 'mealie'
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
