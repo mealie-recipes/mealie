@@ -49,7 +49,7 @@ format-test:
 lint: ## check style with flake8
 	poetry run flake8 mealie tests
 
-test-all: format-test lint test
+test-all: format-test lint test ## Check Lint Format and Testing
 
 setup: ## Setup Development Instance
 	poetry install && \

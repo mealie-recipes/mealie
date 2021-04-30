@@ -1,9 +1,6 @@
-from pathlib import Path
-
 from mealie.core.config import settings
 from mealie.db.models.db_session import sql_global_init
 from sqlalchemy.orm.session import Session
-
 
 SessionLocal = sql_global_init(settings.DB_URL)
 
