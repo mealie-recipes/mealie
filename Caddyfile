@@ -5,7 +5,7 @@
 
 :80 {
   @proxied path /api/* /docs /openapi.json
-
+  
   root * /app/dist
   encode gzip
   uri strip_suffix /

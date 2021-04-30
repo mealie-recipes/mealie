@@ -71,10 +71,10 @@ docs: ## Start Mkdocs Development Server
 	cd docs && poetry run python -m mkdocs serve
 
 docker-dev: ## Build and Start Docker Development Stack
-	docker-compose -f ./docker/docker-compose.dev.yml -p dev-mealie up --build
+	docker-compose -f docker-compose.dev.yml -p dev-mealie up --build
 
 docker-prod: ## Build and Start Docker Production Stack
-	docker-compose -f ./docker/docker-compose.yml -p mealie up --build -d
+	docker-compose -f docker-compose.yml -p mealie up --build -d
 
 code-gen: ## Run Code-Gen Scripts
 	poetry run python dev/scripts/app_routes_gen.py

@@ -2,6 +2,8 @@ from enum import Enum
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException
 from fastapi.responses import FileResponse
+from mealie.core.config import app_dirs
+from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
@@ -12,6 +14,7 @@ from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
+logger = get_logger()
 
 
 @router.post("/create", status_code=201, response_model=str)
@@ -106,22 +109,15 @@ def delete_recipe(
 
 
 class ImageType(str, Enum):
-    original = "original"
-    small = "small"
-    tiny = "tiny"
+    original = "original.webp"
+    small = "min-original.webp"
+    tiny = "tiny-original.webp"
 
 
-@router.get("/{recipe_slug}/image")
-async def get_recipe_img(recipe_slug: str, image_type: ImageType = ImageType.original):
+@router.get("/image/{recipe_slug}/{file_name}")
+async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.original):
     """ Takes in a recipe slug, returns the static image """
-    if image_type == ImageType.original:
-        which_image = IMG_OPTIONS.ORIGINAL_IMAGE
-    elif image_type == ImageType.small:
-        which_image = IMG_OPTIONS.MINIFIED_IMAGE
-    elif image_type == ImageType.tiny:
-        which_image = IMG_OPTIONS.TINY_IMAGE
-
-    recipe_image = read_image(recipe_slug, image_type=which_image)
+    recipe_image = app_dirs.IMG_DIR.joinpath(recipe_slug, file_name.value)
     if recipe_image:
         return FileResponse(recipe_image)
     else:

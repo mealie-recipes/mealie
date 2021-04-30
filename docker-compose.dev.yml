@@ -6,7 +6,7 @@ services:
     container_name: mealie-frontend
     image: mealie-frontend:dev
     build:
-      context: ../frontend
+      context: ./frontend
       dockerfile: frontend.Dockerfile
     restart: always
     ports:
@@ -14,7 +14,7 @@ services:
     environment:
       VUE_APP_API_BASE_URL: "http://mealie-api:9000"
     volumes:
-      - ../frontend/:/app
+      - ./frontend/:/app
       - /app/node_modules
 
   # Fast API
@@ -22,8 +22,8 @@ services:
     container_name: mealie-api
     image: mealie-api:dev
     build:
-      context: ../
-      dockerfile: ./docker/Dockerfile.dev
+      context: ./
+      dockerfile: Dockerfile.dev
     restart: always
     ports:
       - 9921:9000
@@ -31,8 +31,8 @@ services:
       db_type: sqlite
       TZ: America/Anchorage # Specify Correct Timezone for Date/Time to line up correctly.
     volumes:
-      - ../dev/data:/app/dev/data
-      - ../mealie:/app/mealie
+      - ./dev/data:/app/dev/data
+      - ./mealie:/app/mealie
 
   # Mkdocs
   mealie-docs:
@@ -42,5 +42,4 @@ services:
     ports:
       - 9922:8000
     volumes:
-      - ../docs:/docs
-
+      - ./docs:/docs

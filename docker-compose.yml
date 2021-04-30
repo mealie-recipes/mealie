@@ -2,8 +2,8 @@ version: "3.1"
 services:
   mealie:
     build:
-      context: ../
-      dockerfile: ./docker/Dockerfile
+      context: ./
+      dockerfile: Dockerfile
     container_name: mealie
     restart: always
     ports:
