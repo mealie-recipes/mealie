@@ -6,11 +6,12 @@ RUN npm install
 COPY ./frontend/ .
 RUN npm run build
 
-# run
+
 FROM python:3.9-slim-buster
 
 ENV PRODUCTION true
 ENV POETRY_VERSION 1.1.6
+
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc g++ \
@@ -29,17 +30,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get remove -y curl apt-transport-https debian-keyring g++ gnupg gnupg2 gnupg1 
 
 
-RUN pip install --no-cache-dir "poetry==$POETRY_VERSION" \
-    && poetry config virtualenvs.create false
 
-    #! Future
-    # pip install --no-cache-dir "psycopg2-binary==2.8.6"
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION" 
 
-# project dependencies
+#! Future
+# pip install --no-cache-dir "psycopg2-binary==2.8.6"
+
 WORKDIR /app
 COPY pyproject.toml /app/
 COPY ./mealie /app/mealie
-RUN poetry install --no-dev
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-dev
 
 #! Future
 # COPY ./alembic /app
