@@ -118,7 +118,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         # Mealie Specific
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
-        print(self.settings)
         self.tags = [Tag.create_if_not_exist(session=session, name=tag) for tag in tags]
         self.slug = slug
         self.date_added = date_added
