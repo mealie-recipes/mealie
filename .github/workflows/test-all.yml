@@ -34,7 +34,7 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
       #----------------------------------------------
-      #       load cached venv if cache exists #! This Breaks Stuff
+      #       load cached venv if cache exists 
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -51,6 +51,6 @@ jobs:
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      - name: Run tests
+      - name: Run Test Suite
         run: |
           make test-all
