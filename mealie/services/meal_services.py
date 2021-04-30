@@ -24,7 +24,7 @@ def process_meals(session: Session, meal_plan_base: MealPlanIn) -> MealPlanProce
                 description=recipe.description,
             )
 
-        except:
+        except Exception:
 
             meal_data = MealOut(
                 date=meal_plan_base.startDate + timedelta(days=x),

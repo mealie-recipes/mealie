@@ -3,27 +3,17 @@
 *__pycache__/
 *.py[cod]
 *$py.class
+
 # frontend/.env.development
 docs/site/
-mealie/temp/*
-mealie/temp/api.html
-.temp/
+*temp*
 .secret
-!*/components/Recipe/Parts
 
 dev/data/backups/*
 dev/data/debug/*
 dev/data/img/*
 dev/data/migration/*
 dev/data/users/*
-
-#Exception to keep folders
-!mealie/dist/.gitkeep
-!dev/data/backups/.gitkeep
-!dev/data/backups/dev_sample_data*
-!dev/data/debug/.gitkeep
-!dev/data/migration/.gitkeep
-!dev/data/img/.gitkeep
 
 .DS_Store
 node_modules
@@ -148,16 +138,11 @@ ENV/
 # mypy
 .mypy_cache/
 
-# IDE settings
-# .vscode/
-
 # Node Modules
 node_modules/
-mealie/data/debug/last_recipe.json
+*.db
 *.sqlite
-dev/data/db/test.db
 scratch.py
-dev/data/backups/dev_sample_data*.zip
 dev/data/backups/dev_sample_data*.zip
 !dev/data/backups/test*.zip
 dev/data/recipes/*

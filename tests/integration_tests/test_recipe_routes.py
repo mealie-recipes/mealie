@@ -34,11 +34,6 @@ def test_create_no_image(api_client: TestClient, api_routes: AppRoutes, token, r
     assert json.loads(response.text) == "banana-bread-no-image"
 
 
-def test_read_all_post(api_client: TestClient, api_routes: AppRoutes):
-    response = api_client.post(api_routes.recipes, json={"properties": ["slug", "description", "rating"]})
-    assert response.status_code == 200
-
-
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data, token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)

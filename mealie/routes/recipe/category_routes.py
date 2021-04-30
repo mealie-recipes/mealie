@@ -37,8 +37,8 @@ async def create_recipe_category(
 
     try:
         return db.categories.create(session, category.dict())
-    except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.put("/{category}", response_model=RecipeCategoryResponse)
@@ -52,8 +52,8 @@ async def update_recipe_category(
 
     try:
         return db.categories.update(session, category, new_category.dict())
-    except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.delete("/{category}")
@@ -66,5 +66,5 @@ async def delete_recipe_category(
 
     try:
         db.categories.delete(session, category)
-    except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

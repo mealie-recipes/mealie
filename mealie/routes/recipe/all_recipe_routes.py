@@ -1,9 +1,7 @@
-from typing import List, Optional
-
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.schema.recipe import AllRecipeRequest, RecipeSummary
+from mealie.schema.recipe import RecipeSummary
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
@@ -29,66 +27,6 @@ async def get_recipe_summary(
     """
 
     return db.recipes.get_all(session, limit=limit, start=start, override_schema=RecipeSummary)
-
-
-@router.get("/api/recipes", deprecated=True)
-def get_all_recipes(
-    keys: Optional[List[str]] = Query(...),
-    num: Optional[int] = 100,
-    session: Session = Depends(generate_session),
-):
-    """
-    Returns key data for all recipes based off the query paramters provided.
-    For example, if slug, image, and name are provided you will recieve a list of
-    recipes containing the slug, image, and name property. By default, responses
-    are limited to 100.
-
-    At this time you can only query top level values:
-
-    - slug
-    - name
-    - description
-    - image
-    - recipeYield
-    - total_time
-    - prep_time
-    - perform_time
-    - rating
-    - org_url
-
-    **Note:** You may experience problems with with query parameters. As an alternative
-    you may also use the post method and provide a body.
-    See the *Post* method for more details.
-    """
-
-    return db.recipes.get_all_limit_columns(session, keys, limit=num)
-
-
-@router.post("/api/recipes", deprecated=True)
-def get_all_recipes_post(body: AllRecipeRequest, session: Session = Depends(generate_session)):
-    """
-    Returns key data for all recipes based off the body data provided.
-    For example, if slug, image, and name are provided you will recieve a list of
-    recipes containing the slug, image, and name property.
-
-    At this time you can only query top level values:
-
-    - slug
-    - name
-    - description
-    - image
-    - recipeYield
-    - total_time
-    - prep_time
-    - perform_time
-    - rating
-    - org_url
-
-    Refer to the body example for data formats.
-
-    """
-
-    return db.recipes.get_all_limit_columns(session, body.properties, body.limit)
 
 
 @router.post("/api/recipes/category")

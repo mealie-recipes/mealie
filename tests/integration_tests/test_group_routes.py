@@ -37,7 +37,7 @@ def test_update_group(api_client: TestClient, api_routes: AppRoutes, token):
     # Test Update
     response = api_client.put(api_routes.groups_id(2), json=new_data, headers=token)
     assert response.status_code == 200
-    
+
     # Validate Changes
     response = api_client.get(api_routes.groups, headers=token)
     all_groups = json.loads(response.text)

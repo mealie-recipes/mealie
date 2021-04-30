@@ -1,17 +1,15 @@
 import operator
 import shutil
-from typing import Optional
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from mealie.core.config import app_dirs
 from mealie.core.security import create_file_token
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, validate_file_token
+from mealie.routes.deps import get_current_user
 from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
 from sqlalchemy.orm.session import Session
-from starlette.responses import FileResponse
 
 router = APIRouter(prefix="/api/backups", tags=["Backups"], dependencies=[Depends(get_current_user)])
 
@@ -46,8 +44,8 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
             export_groups=data.options.groups,
         )
         return {"export_path": export_path}
-    except:
-        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
+    except Exception:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @router.post("/upload", status_code=status.HTTP_200_OK)
@@ -59,8 +57,7 @@ def upload_backup_file(archive: UploadFile = File(...)):
         shutil.copyfileobj(archive.file, buffer)
 
     if not dest.is_file:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
-
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.get("/{file_name}/download")
@@ -95,8 +92,8 @@ def delete_backup(file_name: str):
     file_path = app_dirs.BACKUP_DIR.joinpath(file_name)
 
     if not file_path.is_file():
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
     try:
         file_path.unlink()
-    except:
-        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
+    except Exception:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)

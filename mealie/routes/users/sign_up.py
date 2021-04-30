@@ -8,6 +8,7 @@ from mealie.routes.deps import get_current_user
 from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
 from mealie.schema.user import UserIn, UserInDB
 from sqlalchemy.orm.session import Session
+from fastapi import HTTPException, status
 
 router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
 
@@ -33,7 +34,7 @@ async def create_user_sign_up_key(
     """ Generates a Random Token that a new user can sign up with """
 
     if not current_user.admin:
-        raise HTTPException( status.HTTP_403_FORBIDDEN )
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     sign_up = {
         "token": str(uuid.uuid1().hex),
@@ -41,7 +42,6 @@ async def create_user_sign_up_key(
         "admin": key_data.admin,
     }
     return db.sign_ups.create(session, sign_up)
-
 
 
 @router.post("/{token}")
@@ -55,12 +55,12 @@ async def create_user_with_token(
     # Validate Token
     db_entry: SignUpOut = db.sign_ups.get(session, token, limit=1)
     if not db_entry:
-        raise HTTPException( status.HTTP_401_UNAUTHORIZED )
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
     # Create User
     new_user.admin = db_entry.admin
     new_user.password = get_password_hash(new_user.password)
-    data = db.users.create(session, new_user.dict())
+    db.users.create(session, new_user.dict())
 
     # DeleteToken
     db.sign_ups.delete(session, token)
@@ -74,6 +74,6 @@ async def delete_token(
 ):
     """ Removed a token from the database """
     if not current_user.admin:
-        raise HTTPException( status.HTTP_403_FORBIDDEN )
-    
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
+
     db.sign_ups.delete(session, token)

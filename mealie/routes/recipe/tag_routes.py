@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
@@ -7,10 +7,7 @@ from sqlalchemy.orm.session import Session
 
 router = APIRouter(tags=["Recipes"])
 
-router = APIRouter(
-    prefix="/api/tags",
-    tags=["Recipe Tags"],
-)
+router = APIRouter(prefix="/api/tags", tags=["Recipe Tags"])
 
 
 @router.get("")
@@ -59,5 +56,5 @@ async def delete_recipe_tag(
 
     try:
         db.tags.delete(session, tag)
-    except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

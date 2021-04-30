@@ -84,20 +84,20 @@ class ImportDatabase:
         try:
             del recipe_dict["_id"]
             del recipe_dict["date_added"]
-        except:
+        except Exception:
             pass
         # Migration from list to Object Type Data
         try:
             if "" in recipe_dict["tags"]:
                 recipe_dict["tags"] = [tag for tag in recipe_dict["tags"] if tag != ""]
-        except:
+        except Exception:
             pass
 
         try:
             if "" in recipe_dict["categories"]:
                 recipe_dict["categories"] = [cat for cat in recipe_dict["categories"] if cat != ""]
 
-        except:
+        except Exception:
             pass
 
         if type(recipe_dict["extras"]) == list:

@@ -1,14 +1,10 @@
-from enum import Enum
-
 from fastapi import APIRouter, Depends, File, Form, HTTPException, status
-from fastapi.responses import FileResponse
-from mealie.core.config import app_dirs
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
-from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, rename_image, scrape_image, write_image
+from mealie.services.image.image import delete_image, rename_image, scrape_image, write_image
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
@@ -101,25 +97,8 @@ def delete_recipe(
     try:
         db.recipes.delete(session, recipe_slug)
         delete_image(recipe_slug)
-    except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
-
-
-
-class ImageType(str, Enum):
-    original = "original.webp"
-    small = "min-original.webp"
-    tiny = "tiny-original.webp"
-
-
-@router.get("/image/{recipe_slug}/{file_name}")
-async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.original):
-    """ Takes in a recipe slug, returns the static image """
-    recipe_image = app_dirs.IMG_DIR.joinpath(recipe_slug, file_name.value)
-    if recipe_image:
-        return FileResponse(recipe_image)
-    else:
-        raise HTTPException( status.HTTP_404_NOT_FOUND )
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.put("/{recipe_slug}/image")

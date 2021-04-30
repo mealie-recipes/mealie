@@ -1,5 +1,4 @@
 import shutil
-from datetime import timedelta
 
 from fastapi import APIRouter, Depends, File, UploadFile, status, HTTPException
 from fastapi.responses import FileResponse
@@ -34,8 +33,8 @@ async def get_all_users(
 ):
 
     if not current_user.admin:
-        raise HTTPException( status.HTTP_403_FORBIDDEN )
-    
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
+
     return db.users.get_all(session)
 
 
@@ -65,7 +64,6 @@ async def reset_user_password(
 
     new_password = get_password_hash(settings.DEFAULT_PASSWORD)
     db.users.update_password(session, id, new_password)
-
 
 
 @router.put("/{id}")
@@ -109,7 +107,7 @@ async def update_user_image(
 
     try:
         [x.unlink() for x in app_dirs.USER_DIR.join(id).glob("profile_image.*")]
-    except:
+    except Exception:
         pass
 
     dest = app_dirs.USER_DIR.joinpath(id, f"profile_image.{extension}")
@@ -118,7 +116,7 @@ async def update_user_image(
         shutil.copyfileobj(profile_image.file, buffer)
 
     if not dest.is_file:
-        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @router.put("/{id}/password")
@@ -133,12 +131,11 @@ async def update_password(
     match_passwords = verify_password(password_change.current_password, current_user.password)
     match_id = current_user.id == id
 
-    if not ( match_passwords and match_id ):
-        raise HTTPException( status.HTTP_401_UNAUTHORIZED )
+    if not (match_passwords and match_id):
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
     new_password = get_password_hash(password_change.new_password)
     db.users.update_password(session, id, new_password)
-        
 
 
 @router.delete("/{id}")
@@ -150,13 +147,10 @@ async def delete_user(
     """ Removes a user from the database. Must be the current user or a super user"""
 
     if id == 1:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail='SUPER_USER'
-        )
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
 
     if current_user.id == id or current_user.admin:
         try:
             db.users.delete(session, id)
-        except:
-            raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        except Exception:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST)

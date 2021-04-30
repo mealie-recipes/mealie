@@ -21,7 +21,7 @@ def basic_recipe_from_opengraph(html: str, url: str) -> dict:
     data = extruct.extract(html, base_url=base_url)
     try:
         properties = data["opengraph"][0]["properties"]
-    except:
+    except Exception:
         return
 
     return {

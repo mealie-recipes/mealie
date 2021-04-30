@@ -14,7 +14,7 @@ ALGORITHM = "HS256"
 def create_access_token(data: dict(), expires_delta: timedelta = None) -> str:
     to_encode = data.copy()
     expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
-    
+
     expire = datetime.utcnow() + expires_delta
 
     to_encode.update({"exp": expire})

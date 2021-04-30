@@ -1,6 +1,7 @@
 import shutil
+from enum import Enum
 
-from fastapi import APIRouter, Depends, File, Form, status, HTTPException
+from fastapi import APIRouter, Depends, File, Form, HTTPException, status
 from fastapi.datastructures import UploadFile
 from mealie.core.config import app_dirs
 from mealie.db.database import db
@@ -11,7 +12,24 @@ from slugify import slugify
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
-router = APIRouter(prefix="/api/recipes", tags=["Recipe Assets"])
+router = APIRouter(prefix="/api/recipes", tags=["Recipe Media"])
+
+
+class ImageType(str, Enum):
+    original = "original.webp"
+    small = "min-original.webp"
+    tiny = "tiny-original.webp"
+
+
+@router.get("/image/{recipe_slug}/{file_name}")
+async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.original):
+    """Takes in a recipe slug, returns the static image. This route is proxied in the docker image
+    and should not hit the API in production"""
+    recipe_image = app_dirs.IMG_DIR.joinpath(recipe_slug, file_name.value)
+    if recipe_image:
+        return FileResponse(recipe_image)
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
 @router.get("/{recipe_slug}/asset")
@@ -41,7 +59,7 @@ def upload_recipe_asset(
         shutil.copyfileobj(file.file, buffer)
 
     if not dest.is_file():
-        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     recipe: Recipe = db.recipes.get(session, recipe_slug)
     recipe.assets.append(asset_in)
