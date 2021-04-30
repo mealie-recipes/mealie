@@ -1,10 +1,10 @@
 import os
 import secrets
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional, Union
 
 import dotenv
-from pydantic import BaseSettings, Field
+from pydantic import BaseSettings, Field, PostgresDsn, validator
 
 APP_VERSION = "v0.5.0beta"
 DB_VERSION = "v0.5.0"
@@ -82,9 +82,13 @@ class AppDirectories:
 app_dirs = AppDirectories(CWD, DATA_DIR)
 
 
-def determine_sqlite_path() -> str:
+def determine_sqlite_path(path=False) -> str:
     global app_dirs
-    db_path = app_dirs.DATA_DIR.joinpath(f"mealie_{DB_VERSION}.db") # ! Temporary Until Alembic
+    db_path = app_dirs.DATA_DIR.joinpath(f"mealie_{DB_VERSION}.db")  # ! Temporary Until Alembic
+
+    if path:
+        return db_path
+
     return "sqlite:///" + str(db_path.absolute())
 
 
@@ -104,9 +108,24 @@ class AppSettings(BaseSettings):
         return "/redoc" if self.API_DOCS else None
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
-    DB_URL: str = Field(default_factory=determine_sqlite_path)
-    DB_USERNAME: str = 'mealie'
-    DB_PASSWORD: str = 'mealie'
+
+    DB_URL: Union[str, PostgresDsn]
+    POSTGRES_USER: str = "mealie"
+    POSTGRES_PASSWORD: str = "mealie"
+    POSTGRES_SERVER: str = "postgres"
+    POSTGRES_DB: str = "mealie"
+
+    @validator("DB_URL", pre=True)
+    def assemble_db_connection(cls, v: Optional[str], values: dict[str, Any]) -> Any:
+        if isinstance(v, str):
+            return determine_sqlite_path()
+        return PostgresDsn.build(
+            scheme="postgresql",
+            user=values.get("POSTGRES_USER"),
+            password=values.get("POSTGRES_PASSWORD"),
+            host=values.get("POSTGRES_SERVER"),
+            path=f"/{values.get('POSTGRES_DB') or ''}",
+        )
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
