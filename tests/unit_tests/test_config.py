@@ -1,5 +1,6 @@
-from pathlib import Path
 import re
+from pathlib import Path
+
 from mealie.core.config import CWD, DATA_DIR, AppDirectories, AppSettings, determine_data_dir, determine_secrets
 
 
