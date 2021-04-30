@@ -6,35 +6,35 @@ const state = {
       value: "en-US",
     },
     {
-      name: "Danish",
+      name: "Dansk (Danish)",
       value: "da-DK",
     },
     {
-      name: "French",
+      name: "Français (French)",
       value: "fr-FR",
     },
     {
-      name: "Polish",
+      name: "Polski (Polish)",
       value: "pl-PL",
     },
     {
-      name: "Swedish",
+      name: "Svenska (Swedish)",
       value: "sv-SE",
     },
     {
-      name: "简体中文",
+      name: "简体中文 (Chinese simplified)",
       value: "zh-CN",
     },
     {
-      name: "繁體中文",
+      name: "繁體中文 (Chinese traditional)",
       value: "zh-TW",
     },
     {
-      name: "German",
+      name: "Deutsch (German)",
       value: "de-DE",
     },
     {
-      name: "Português",
+      name: "Português (Portuguese)",
       value: "pt-PT",
     },
   ],
