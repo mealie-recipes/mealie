@@ -8,6 +8,11 @@
           :slug="value.slug"
           @refresh="$emit('upload')"
         />
+        <SettingsMenu
+          class="my-1 mx-1"
+          @upload="uploadImage"
+          :value="value.settings"
+        />
       </v-row>
       <v-row dense>
         <v-col>
@@ -122,6 +127,7 @@ import Instructions from "@/components/Recipe/Parts/Instructions";
 import Ingredients from "@/components/Recipe/Parts/Ingredients";
 import Assets from "@/components/Recipe/Parts/Assets.vue";
 import Notes from "@/components/Recipe/Parts/Notes.vue";
+import SettingsMenu from "@/components/Recipe/Parts/Helpers/SettingsMenu.vue";
 export default {
   components: {
     BulkAdd,
@@ -133,6 +139,7 @@ export default {
     Ingredients,
     Assets,
     Notes,
+    SettingsMenu,
   },
   props: {
     value: Object,
