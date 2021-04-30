@@ -163,7 +163,7 @@ export default {
     },
     getImage(image) {
       if (image) {
-        return api.recipes.recipeImage(image) + "&rnd=" + this.imageKey;
+        return api.recipes.recipeImage(image) + "?&rnd=" + this.imageKey;
       }
     },
     deleteRecipe() {
