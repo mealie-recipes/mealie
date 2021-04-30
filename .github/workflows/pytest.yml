@@ -8,6 +8,7 @@ on:
     branches:
       - master
       - dev
+    types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
   tests:
