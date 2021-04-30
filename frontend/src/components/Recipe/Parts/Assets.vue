@@ -38,7 +38,7 @@
       <v-spacer></v-spacer>
       <base-dialog
         @submit="addAsset"
-        title="New Asset"
+        :title="$t('recipe.new-asset')"
         :title-icon="newAsset.icon"
       >
         <template v-slot:open="{ open }">
