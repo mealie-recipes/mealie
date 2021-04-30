@@ -141,6 +141,7 @@ ENV/
 # Node Modules
 node_modules/
 *.db
+*.sqlite
 scratch.py
 dev/data/backups/dev_sample_data*.zip
 !dev/data/backups/test*.zip
