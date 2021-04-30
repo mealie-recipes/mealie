@@ -46,4 +46,4 @@ jobs:
         run: |
           docker build --push \
             --tag hkotel/mealie:dev \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
+            --platform linux/amd64,linux/arm64 .
