@@ -115,7 +115,7 @@ class Cleaner:
                         for step in instructions
                         if step["type"].find("HowToStep") > -1
                     ]
-                except:
+                except Exception:
                     pass
 
         else:

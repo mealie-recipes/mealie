@@ -37,7 +37,7 @@ async def create_recipe_category(
 
     try:
         return db.categories.create(session, category.dict())
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
@@ -52,7 +52,7 @@ async def update_recipe_category(
 
     try:
         return db.categories.update(session, category, new_category.dict())
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
@@ -66,5 +66,5 @@ async def delete_recipe_category(
 
     try:
         db.categories.delete(session, category)
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)

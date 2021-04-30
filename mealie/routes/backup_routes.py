@@ -44,7 +44,7 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
             export_groups=data.options.groups,
         )
         return {"export_path": export_path}
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -95,5 +95,5 @@ def delete_backup(file_name: str):
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
     try:
         file_path.unlink()
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)

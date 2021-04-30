@@ -107,7 +107,7 @@ async def update_user_image(
 
     try:
         [x.unlink() for x in app_dirs.USER_DIR.join(id).glob("profile_image.*")]
-    except:
+    except Exception:
         pass
 
     dest = app_dirs.USER_DIR.joinpath(id, f"profile_image.{extension}")
@@ -152,5 +152,5 @@ async def delete_user(
     if current_user.id == id or current_user.admin:
         try:
             db.users.delete(session, id)
-        except:
+        except Exception:
             raise HTTPException(status.HTTP_400_BAD_REQUEST)

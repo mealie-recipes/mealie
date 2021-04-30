@@ -43,5 +43,5 @@ def delete_theme(theme_name: str, session: Session = Depends(generate_session), 
     """ Deletes theme from the database """
     try:
         db.themes.delete(session, theme_name)
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)

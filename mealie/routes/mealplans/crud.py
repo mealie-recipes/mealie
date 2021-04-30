@@ -43,7 +43,7 @@ def update_meal_plan(
     processed_plan = MealPlanInDB(uid=plan_id, **processed_plan.dict())
     try:
         db.meals.update(session, plan_id, processed_plan.dict())
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
@@ -53,7 +53,7 @@ def delete_meal_plan(plan_id, session: Session = Depends(generate_session), curr
 
     try:
         db.meals.delete(session, plan_id)
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 

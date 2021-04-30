@@ -54,7 +54,7 @@ def rename_image(original_slug, new_slug) -> Path:
 def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
     try:
         delete_image(recipe_slug)
-    except:
+    except Exception:
         pass
 
     image_dir = Path(app_dirs.IMG_DIR.joinpath(f"{recipe_slug}"))
@@ -100,7 +100,7 @@ def scrape_image(image_url: str, slug: str) -> Path:
 
     try:
         r = requests.get(image_url, stream=True)
-    except:
+    except Exception:
         logger.exception("Fatal Image Request Exception")
         return None
 

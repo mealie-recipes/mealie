@@ -39,7 +39,7 @@ async def create_group(
 
     try:
         db.groups.create(session, group_data.dict())
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 

@@ -67,7 +67,7 @@ def download_image_for_recipe(recipe: dict) -> dict:
     try:
         img_path = scrape_image(recipe.get("image"), recipe.get("slug"))
         recipe["image"] = img_path.name
-    except:
+    except Exception:
         recipe["image"] = "no image"
 
     return recipe

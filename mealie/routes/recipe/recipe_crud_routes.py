@@ -97,7 +97,7 @@ def delete_recipe(
     try:
         db.recipes.delete(session, recipe_slug)
         delete_image(recipe_slug)
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 

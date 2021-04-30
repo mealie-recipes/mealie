@@ -56,5 +56,5 @@ async def delete_recipe_tag(
 
     try:
         db.tags.delete(session, tag)
-    except:
+    except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
