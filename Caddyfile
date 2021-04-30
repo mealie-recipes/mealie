@@ -5,11 +5,16 @@
 
 :80 {
   @proxied path /api/* /docs /openapi.json
-
+  
   root * /app/dist
   encode gzip
   uri strip_suffix /
   
+  handle_path /api/recipes/image/* {
+    root * /app/data/img/
+    file_server
+  }
+
   handle @proxied {
     reverse_proxy http://127.0.0.1:9000 
   }

@@ -35,21 +35,31 @@ def minify_image(image_file: Path) -> ImageSizes:
         min_dest (Path): FULL Destination File Path
         tiny_dest (Path): FULL Destination File Path
     """
-    min_dest = image_file.parent.joinpath(f"min-original{image_file.suffix}")
-    tiny_dest = image_file.parent.joinpath(f"tiny-original{image_file.suffix}")
+    def cleanup(dir: Path) -> None:
+        for file in dir.glob("*.*"):
+            if file.suffix != ".webp":
+                file.unlink()
 
-    if min_dest.exists() and tiny_dest.exists():
+    org_dest = image_file.parent.joinpath(f"original.webp")
+    min_dest = image_file.parent.joinpath(f"min-original.webp")
+    tiny_dest = image_file.parent.joinpath(f"tiny-original.webp")
+
+    if min_dest.exists() and tiny_dest.exists() and org_dest.exists():
         return
     try:
         img = Image.open(image_file)
+
+        img.save(org_dest, "WEBP")
         basewidth = 720
         wpercent = basewidth / float(img.size[0])
         hsize = int((float(img.size[1]) * float(wpercent)))
         img = img.resize((basewidth, hsize), Image.ANTIALIAS)
-        img.save(min_dest, quality=70)
+        img.save(min_dest, "WEBP", quality=70)
 
         tiny_image = crop_center(img)
-        tiny_image.save(tiny_dest, quality=70)
+        tiny_image.save(tiny_dest, "WEBP", quality=70)
+
+        cleanup_images = True
 
     except Exception:
         shutil.copy(image_file, min_dest)
@@ -58,7 +68,10 @@ def minify_image(image_file: Path) -> ImageSizes:
     image_sizes = get_image_sizes(image_file, min_dest, tiny_dest)
 
     logger.info(f"{image_file.name} Minified: {image_sizes.org} -> {image_sizes.min} -> {image_sizes.tiny}")
-    
+
+    if cleanup_images:
+        cleanup(image_file.parent)
+
     return image_sizes
 
 
