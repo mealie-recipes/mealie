@@ -137,4 +137,3 @@ class BaseDocument:
 
         session.delete(result)
         session.commit()
-

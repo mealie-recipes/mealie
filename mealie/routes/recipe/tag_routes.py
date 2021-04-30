@@ -7,10 +7,7 @@ from sqlalchemy.orm.session import Session
 
 router = APIRouter(tags=["Recipes"])
 
-router = APIRouter(
-    prefix="/api/tags",
-    tags=["Recipe Tags"],
-)
+router = APIRouter(prefix="/api/tags", tags=["Recipe Tags"])
 
 
 @router.get("")
@@ -60,4 +57,4 @@ async def delete_recipe_tag(
     try:
         db.tags.delete(session, tag)
     except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

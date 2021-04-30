@@ -47,7 +47,7 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
         )
         return {"export_path": export_path}
     except:
-        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @router.post("/upload", status_code=status.HTTP_200_OK)
@@ -59,8 +59,7 @@ def upload_backup_file(archive: UploadFile = File(...)):
         shutil.copyfileobj(archive.file, buffer)
 
     if not dest.is_file:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
-
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.get("/{file_name}/download")
@@ -95,8 +94,8 @@ def delete_backup(file_name: str):
     file_path = app_dirs.BACKUP_DIR.joinpath(file_name)
 
     if not file_path.is_file():
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
     try:
         file_path.unlink()
     except:
-        raise HTTPException( status.HTTP_500_INTERNAL_SERVER_ERROR )
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)

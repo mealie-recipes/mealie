@@ -35,6 +35,7 @@ def minify_image(image_file: Path) -> ImageSizes:
         min_dest (Path): FULL Destination File Path
         tiny_dest (Path): FULL Destination File Path
     """
+
     def cleanup(dir: Path) -> None:
         for file in dir.glob("*.*"):
             if file.suffix != ".webp":

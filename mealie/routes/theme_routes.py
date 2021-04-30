@@ -21,7 +21,6 @@ def create_theme(data: SiteTheme, session: Session = Depends(generate_session), 
     db.themes.create(session, data.dict())
 
 
-
 @router.get("/themes/{theme_name}")
 def get_single_theme(theme_name: str, session: Session = Depends(generate_session)):
     """ Returns a named theme """
@@ -45,4 +44,4 @@ def delete_theme(theme_name: str, session: Session = Depends(generate_session), 
     try:
         db.themes.delete(session, theme_name)
     except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

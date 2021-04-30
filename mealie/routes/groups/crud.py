@@ -40,7 +40,7 @@ async def create_group(
     try:
         db.groups.create(session, group_data.dict())
     except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.put("/{id}")
@@ -61,23 +61,14 @@ async def delete_user_group(
     """ Removes a user group from the database """
 
     if id == 1:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail='DEFAULT_GROUP'
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="DEFAULT_GROUP")
 
     group: GroupInDB = db.groups.get(session, id)
 
     if not group:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail='GROUP_NOT_FOUND'
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="GROUP_NOT_FOUND")
 
     if not group.users == []:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail='GROUP_WITH_USERS'
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="GROUP_WITH_USERS")
 
     db.groups.delete(session, id)

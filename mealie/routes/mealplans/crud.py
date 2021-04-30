@@ -44,7 +44,7 @@ def update_meal_plan(
     try:
         db.meals.update(session, plan_id, processed_plan.dict())
     except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.delete("/{plan_id}")
@@ -54,7 +54,7 @@ def delete_meal_plan(plan_id, session: Session = Depends(generate_session), curr
     try:
         db.meals.delete(session, plan_id)
     except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.get("/this-week", response_model=MealPlanInDB)
@@ -90,8 +90,8 @@ def get_todays_image(session: Session = Depends(generate_session), group_name: s
     if recipe:
         recipe_image = image.read_image(recipe.slug, image_type=image.IMG_OPTIONS.ORIGINAL_IMAGE)
     else:
-        raise HTTPException( status.HTTP_404_NOT_FOUND )
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
     if recipe_image:
         return FileResponse(recipe_image)
     else:
-        raise HTTPException( status.HTTP_404_NOT_FOUND )
+        raise HTTPException(status.HTTP_404_NOT_FOUND)

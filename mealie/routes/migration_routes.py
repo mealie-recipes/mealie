@@ -52,8 +52,7 @@ def delete_migration_data(import_type: migration.Migration, file_name: str):
     elif remove_path.is_dir():
         shutil.rmtree(remove_path)
     else:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
-
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.post("/{import_type}/upload", status_code=status.HTTP_200_OK)
@@ -67,4 +66,4 @@ def upload_nextcloud_zipfile(import_type: migration.Migration, archive: UploadFi
         shutil.copyfileobj(archive.file, buffer)
 
     if not dest.is_file:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

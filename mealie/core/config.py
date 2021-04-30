@@ -120,7 +120,7 @@ class AppSettings(BaseSettings):
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
 
-    TOKEN_TIME: int = 2 # Time in Hours
+    TOKEN_TIME: int = 2  # Time in Hours
 
     # Not Used!
     SFTP_USERNAME: Optional[str]

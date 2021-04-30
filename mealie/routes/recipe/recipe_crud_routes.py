@@ -102,24 +102,7 @@ def delete_recipe(
         db.recipes.delete(session, recipe_slug)
         delete_image(recipe_slug)
     except:
-        raise HTTPException( status.HTTP_400_BAD_REQUEST )
-
-
-
-class ImageType(str, Enum):
-    original = "original.webp"
-    small = "min-original.webp"
-    tiny = "tiny-original.webp"
-
-
-@router.get("/image/{recipe_slug}/{file_name}")
-async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.original):
-    """ Takes in a recipe slug, returns the static image """
-    recipe_image = app_dirs.IMG_DIR.joinpath(recipe_slug, file_name.value)
-    if recipe_image:
-        return FileResponse(recipe_image)
-    else:
-        raise HTTPException( status.HTTP_404_NOT_FOUND )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.put("/{recipe_slug}/image")
