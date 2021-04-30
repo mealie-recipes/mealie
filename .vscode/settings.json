@@ -8,7 +8,11 @@
   "python.testing.pytestEnabled": true,
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
   "python.testing.pytestArgs": ["tests"],
-  "cSpell.enableFiletypes": ["!javascript", "!python"],
+  "cSpell.enableFiletypes": [
+    "!javascript",
+    "!python",
+    "!yaml"
+  ],
   "i18n-ally.localesPaths": "frontend/src/locales/messages",
   "i18n-ally.sourceLanguage": "en-US",
   "i18n-ally.enabledFrameworks": ["vue"],
