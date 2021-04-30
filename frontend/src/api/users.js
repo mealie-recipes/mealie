@@ -32,7 +32,7 @@ export const userAPI = {
     let response = await apiReq.post(
       authURLs.token, 
       formData,
-      function() { return i18n.t('user.incorrect-username-or-password'); },
+      null,
       function() { return i18n.t('user.user-successfully-logged-in'); }
     );
     return response;
