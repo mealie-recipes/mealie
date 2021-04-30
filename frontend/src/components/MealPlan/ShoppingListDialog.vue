@@ -75,6 +75,7 @@ export default {
       this.getRawIngredients();
     },
     getRawIngredients() {
+      this.rawIngredients = [];
       this.ingredients.forEach(element => {
         this.rawIngredients.push(element.recipe_ingredient);
       });
