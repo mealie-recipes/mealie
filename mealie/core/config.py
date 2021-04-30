@@ -109,23 +109,28 @@ class AppSettings(BaseSettings):
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
 
-    DB_URL: Union[str, PostgresDsn] = "sqlite"
+    DB_ENGINE: Optional[str] = None  # Optional: 'sqlite', 'postgres'
     POSTGRES_USER: str = "mealie"
     POSTGRES_PASSWORD: str = "mealie"
     POSTGRES_SERVER: str = "postgres"
+    POSTGRES_PORT: str = 5432
     POSTGRES_DB: str = "mealie"
+
+    DB_URL: Union[str, PostgresDsn] = None  # Actual DB_URL is calculated with `assemble_db_connection`
 
     @validator("DB_URL", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: dict[str, Any]) -> Any:
-        if isinstance(v, str) and "sqlite" in v:
-            return determine_sqlite_path()
-        return PostgresDsn.build(
-            scheme="postgresql",
-            user=values.get("POSTGRES_USER"),
-            password=values.get("POSTGRES_PASSWORD"),
-            host=values.get("POSTGRES_SERVER"),
-            path=f"/{values.get('POSTGRES_DB') or ''}",
-        )
+        engine = values.get("DB_ENGINE", "sqlite")
+        if engine == "postgres":
+            host = f"{values.get('POSTGRES_SERVER')}:{values.get('POSTGRES_PORT')}"
+            return PostgresDsn.build(
+                scheme="postgresql",
+                user=values.get("POSTGRES_USER"),
+                password=values.get("POSTGRES_PASSWORD"),
+                host=host,
+                path=f"/{values.get('POSTGRES_DB') or ''}",
+            )
+        return determine_sqlite_path()
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
