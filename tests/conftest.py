@@ -1,6 +1,6 @@
 from mealie.core.config import app_dirs, settings
 
-#! I don't like it either!
+# ! I don't like it either!
 SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath("test.db")
 SQLITE_FILE.unlink(missing_ok=True)
 

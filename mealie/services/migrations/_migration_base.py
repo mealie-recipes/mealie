@@ -8,7 +8,7 @@ from mealie.core import root_logger
 from mealie.db.database import db
 from mealie.schema.migration import MigrationImport
 from mealie.schema.recipe import Recipe
-from mealie.services.image import image, minify
+from mealie.services.image import image
 from mealie.services.scraper.cleaner import Cleaner
 from mealie.utils.unzip import unpack_zip
 from pydantic import BaseModel

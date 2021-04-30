@@ -41,9 +41,9 @@ def minify_image(image_file: Path) -> ImageSizes:
             if file.suffix != ".webp":
                 file.unlink()
 
-    org_dest = image_file.parent.joinpath(f"original.webp")
-    min_dest = image_file.parent.joinpath(f"min-original.webp")
-    tiny_dest = image_file.parent.joinpath(f"tiny-original.webp")
+    org_dest = image_file.parent.joinpath("original.webp")
+    min_dest = image_file.parent.joinpath("min-original.webp")
+    tiny_dest = image_file.parent.joinpath("tiny-original.webp")
 
     if min_dest.exists() and tiny_dest.exists() and org_dest.exists():
         return

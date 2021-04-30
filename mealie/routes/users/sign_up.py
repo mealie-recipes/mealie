@@ -8,6 +8,7 @@ from mealie.routes.deps import get_current_user
 from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
 from mealie.schema.user import UserIn, UserInDB
 from sqlalchemy.orm.session import Session
+from fastapi import HTTPException, status
 
 router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
 
@@ -59,7 +60,7 @@ async def create_user_with_token(
     # Create User
     new_user.admin = db_entry.admin
     new_user.password = get_password_hash(new_user.password)
-    data = db.users.create(session, new_user.dict())
+    db.users.create(session, new_user.dict())
 
     # DeleteToken
     db.sign_ups.delete(session, token)

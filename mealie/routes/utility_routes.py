@@ -4,6 +4,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends
 from mealie.routes.deps import validate_file_token
 from starlette.responses import FileResponse
+from fastapi import HTTPException, status
 
 router = APIRouter(prefix="/api/utils", tags=["Utils"], include_in_schema=True)
 

@@ -9,6 +9,7 @@ from mealie.routes.deps import get_current_user
 from mealie.schema.migration import MigrationFile, Migrations
 from mealie.services.migrations import migration
 from sqlalchemy.orm.session import Session
+from fastapi import HTTPException
 
 router = APIRouter(prefix="/api/migrations", tags=["Migration"], dependencies=[Depends(get_current_user)])
 

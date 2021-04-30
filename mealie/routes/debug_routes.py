@@ -1,5 +1,3 @@
-import json
-
 from fastapi import APIRouter, Depends
 from mealie.core.config import APP_VERSION, app_dirs, settings
 from mealie.core.root_logger import LOGGER_FILE

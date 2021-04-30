@@ -1,14 +1,10 @@
-from enum import Enum
-
 from fastapi import APIRouter, Depends, File, Form, HTTPException, status
-from fastapi.responses import FileResponse
-from mealie.core.config import app_dirs
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
-from mealie.services.image.image import IMG_OPTIONS, delete_image, read_image, rename_image, scrape_image, write_image
+from mealie.services.image.image import delete_image, rename_image, scrape_image, write_image
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
