@@ -98,10 +98,9 @@ export default {
         this.clear();
         this.$store.commit("setToken", response.data.access_token);
         this.$emit("logged-in");
+        let user = await api.users.self();
+        this.$store.commit("setUserData", user);
       }
-
-      let user = await api.users.self();
-      this.$store.commit("setUserData", user);
 
       this.loading = false;
     },
