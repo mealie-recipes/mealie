@@ -1,4 +1,5 @@
 import { api } from "@/api";
+import Vue from "vue";
 
 const state = {
   recentRecipes: [],
@@ -16,7 +17,7 @@ const mutations = {
   },
   dropRecentRecipes(state, payload) {
     if (state.recentRecipes[payload.id]) {
-      delete state.recentRecipes[payload.id];
+      Vue.delete(state.recentRecipes, payload.id);
     }
   },
   setAllRecipes(state, payload) {
@@ -27,7 +28,7 @@ const mutations = {
   },
   dropAllRecipes(state, payload) {
     if (state.allRecipes[payload.id]) {
-      delete state.allRecipes[payload.id];
+      Vue.delete(state.allRecipes, payload.id);
     }
   },
 };
