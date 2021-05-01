@@ -3,6 +3,7 @@ import sqlalchemy.orm as orm
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.category import Category, group2categories
 from sqlalchemy.orm.session import Session
+from mealie.core.config import settings
 
 
 class WebhookURLModel(SqlAlchemyBase):
@@ -57,5 +58,5 @@ class Group(SqlAlchemyBase, BaseMixins):
     def get_ref(session: Session, name: str):
         item = session.query(Group).filter(Group.name == name).one_or_none()
         if item is None:
-            item = session.query(Group).filter(Group.id == 1).one()
+            item = session.query(Group).filter(Group.name == settings.DEFAULT_GROUP).one()
         return item

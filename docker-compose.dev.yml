@@ -28,7 +28,6 @@ services:
     ports:
       - 9921:9000
     environment:
-      db_type: sqlite
       TZ: America/Anchorage # Specify Correct Timezone for Date/Time to line up correctly.
     volumes:
       - ./dev/data:/app/dev/data

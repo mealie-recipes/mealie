@@ -44,7 +44,10 @@ format:
 	poetry run black .
 
 lint: ## check style with flake8
+	poetry run black . --check
 	poetry run flake8 mealie tests
+
+test-all: lint test ## Check Lint Format and Testing
 
 setup: ## Setup Development Instance
 	poetry install && \

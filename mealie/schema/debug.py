@@ -11,6 +11,5 @@ class AppInfo(CamelModel):
 class DebugInfo(AppInfo):
     api_port: int
     api_docs: bool
-    db_type: str
-    sqlite_file: Path
+    db_url: Path
     default_group: str

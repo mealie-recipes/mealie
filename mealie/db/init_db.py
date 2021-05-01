@@ -2,7 +2,7 @@ from mealie.core import root_logger
 from mealie.core.config import settings
 from mealie.core.security import get_password_hash
 from mealie.db.database import db
-from mealie.db.db_setup import create_session, sql_exists
+from mealie.db.db_setup import create_session
 from mealie.schema.settings import SiteSettings
 from mealie.schema.theme import SiteTheme
 from sqlalchemy.orm import Session
@@ -51,7 +51,9 @@ def default_user_init(session: Session):
 
 
 def main():
-    if sql_exists:
+    session = create_session()
+    init_user = db.users.get(session, "1", "id")
+    if init_user:
         print("Database Exists")
     else:
         print("Database Doesn't Exists, Initializing...")

@@ -1,20 +1,14 @@
-from pathlib import Path
-
 import sqlalchemy as sa
 from mealie.db.models.model_base import SqlAlchemyBase
 from sqlalchemy.orm import sessionmaker
 
 
-def sql_global_init(db_file: Path, check_thread=False):
+def sql_global_init(db_url: str):
+    connect_args = {}
+    if "sqlite" in db_url:
+        connect_args["check_same_thread"] = False
 
-    SQLALCHEMY_DATABASE_URL = "sqlite:///" + str(db_file.absolute())
-    # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
-
-    engine = sa.create_engine(
-        SQLALCHEMY_DATABASE_URL,
-        echo=False,
-        connect_args={"check_same_thread": check_thread},
-    )
+    engine = sa.create_engine(db_url, echo=False, connect_args=connect_args)
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

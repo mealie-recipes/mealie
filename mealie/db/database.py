@@ -18,6 +18,7 @@ from mealie.schema.theme import SiteTheme
 from mealie.schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
+
 logger = getLogger()
 
 

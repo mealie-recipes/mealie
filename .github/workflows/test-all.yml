@@ -8,12 +8,23 @@ on:
     branches:
       - master
       - dev
+    types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
   tests:
     env:
       PRODUCTION: false
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: mealie
+          POSTGRES_PASSWORD: mealie
+          POSTGRES_DB: mealie
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       #----------------------------------------------
       #       check-out repo and set-up python
@@ -32,9 +43,9 @@ jobs:
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
-      # #----------------------------------------------
-      # #       load cached venv if cache exists #! This Breaks Stuff
-      # #----------------------------------------------
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
       # - name: Load cached venv
       #   id: cached-poetry-dependencies
       #   uses: actions/cache@v2
@@ -45,11 +56,22 @@ jobs:
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
-        run: poetry install
+        run: |
+          poetry install
+          poetry add "psycopg2-binary==2.8.6"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      - name: Run tests
+      - name: Run Test Suite
         run: |
-          poetry run pytest
+          make test-all
+      #----------------------------------------------
+      #              run test suite
+      #----------------------------------------------
+      - name: Run Test Suite Postgres
+        env:
+          DB_ENGINE: postgres
+          POSTGRES_SERVER: localhost
+        run: |
+          make test-all
