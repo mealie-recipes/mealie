@@ -27,15 +27,7 @@
       </v-card-title>
 
       <v-card-actions>
-        <v-rating
-          class="mr-2 my-auto"
-          color="secondary"
-          background-color="secondary lighten-3"
-          dense
-          length="5"
-          size="15"
-          :value="rating"
-        ></v-rating>
+        <Rating :value="rating" :name="name" :slug="slug" :small="true" />
         <v-spacer></v-spacer>
         <RecipeChips
           :items="tags"
@@ -44,6 +36,7 @@
           :small="true"
           :isCategory="false"
         />
+        <ContextMenu :slug="slug" />
       </v-card-actions>
     </v-card>
   </v-hover>
@@ -51,10 +44,14 @@
 
 <script>
 import RecipeChips from "@/components/Recipe/RecipeViewer/RecipeChips";
+import ContextMenu from "@/components/Recipe/ContextMenu";
+import Rating from "@/components/Recipe/Parts/Rating";
 import { api } from "@/api";
 export default {
   components: {
     RecipeChips,
+    ContextMenu,
+    Rating,
   },
   props: {
     name: String,

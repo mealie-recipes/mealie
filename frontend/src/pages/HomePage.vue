@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    
     <CardSection
       v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
@@ -38,8 +37,8 @@ export default {
       return this.$store.getters.getSiteSettings;
     },
     recentRecipes() {
+      console.log("Recent Recipes");
       return this.$store.getters.getRecentRecipes;
- 
     },
   },
   async mounted() {

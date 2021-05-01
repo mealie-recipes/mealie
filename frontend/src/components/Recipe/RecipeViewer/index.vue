@@ -21,13 +21,7 @@
             {{ yields }}
           </v-btn>
         </v-col>
-        <v-rating
-          class="mr-2 align-end static"
-          color="secondary darken-1"
-          background-color="secondary lighten-3"
-          length="5"
-          :value="rating"
-        ></v-rating>
+        <Rating :value="rating" :name="name" :slug="slug"/>
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
@@ -100,6 +94,7 @@ import Nutrition from "@/components/Recipe/Parts/Nutrition";
 import VueMarkdown from "@adapttive/vue-markdown";
 import utils from "@/utils";
 import RecipeChips from "./RecipeChips";
+import Rating from "@/components/Recipe/Parts/Rating";
 import Notes from "@/components/Recipe/Parts/Notes";
 import Ingredients from "@/components/Recipe/Parts/Ingredients";
 import Instructions from "@/components/Recipe/Parts/Instructions.vue";
@@ -113,6 +108,7 @@ export default {
     Nutrition,
     Instructions,
     Assets,
+    Rating,
   },
   props: {
     name: String,

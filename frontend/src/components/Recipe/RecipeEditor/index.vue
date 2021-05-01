@@ -59,13 +59,7 @@
           </v-text-field>
         </v-col>
         <v-spacer></v-spacer>
-        <v-rating
-          class="mr-2 align-end"
-          color="secondary darken-1"
-          background-color="secondary lighten-3"
-          length="5"
-          v-model="value.rating"
-        ></v-rating>
+        <Rating v-model="value.rating" :emit-only="true" />
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
@@ -128,6 +122,7 @@ import Ingredients from "@/components/Recipe/Parts/Ingredients";
 import Assets from "@/components/Recipe/Parts/Assets.vue";
 import Notes from "@/components/Recipe/Parts/Notes.vue";
 import SettingsMenu from "@/components/Recipe/Parts/Helpers/SettingsMenu.vue";
+import Rating from "@/components/Recipe/Parts/Rating";
 export default {
   components: {
     BulkAdd,
@@ -140,6 +135,7 @@ export default {
     Assets,
     Notes,
     SettingsMenu,
+    Rating,
   },
   props: {
     value: Object,
