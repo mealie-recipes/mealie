@@ -31,7 +31,7 @@ def api_client():
 
     yield TestClient(app)
 
-    DB_URL.unlink()
+    DB_URL.unlink(missing_ok=True)
 
 
 @fixture(scope="session")

@@ -1,7 +1,8 @@
-from mealie.core.config import app_dirs, settings
+from mealie.core.config import determine_sqlite_path, settings
 
-# Monkeypatch Database Testing
-DB_URL = app_dirs.DATA_DIR.joinpath("test.db")
+DB_URL = determine_sqlite_path(path=True, suffix="test")
 DB_URL.unlink(missing_ok=True)
 
-settings.DB_URL = "sqlite:///" + str(DB_URL.absolute())
+if settings.DB_ENGINE != "postgres":
+    # Monkeypatch Database Testing
+    settings.DB_URL = determine_sqlite_path(path=False, suffix="test")

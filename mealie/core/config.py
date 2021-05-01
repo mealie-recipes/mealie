@@ -82,9 +82,9 @@ class AppDirectories:
 app_dirs = AppDirectories(CWD, DATA_DIR)
 
 
-def determine_sqlite_path(path=False) -> str:
+def determine_sqlite_path(path=False, suffix=DB_VERSION) -> str:
     global app_dirs
-    db_path = app_dirs.DATA_DIR.joinpath(f"mealie_{DB_VERSION}.db")  # ! Temporary Until Alembic
+    db_path = app_dirs.DATA_DIR.joinpath(f"mealie_{suffix}.db")  # ! Temporary Until Alembic
 
     if path:
         return db_path
