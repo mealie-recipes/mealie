@@ -71,4 +71,5 @@ jobs:
         env:
           DB_ENGINE: postgres
         run: |
+          pip install --no-cache-dir "psycopg2-binary==2.8.6"
           make test-all
