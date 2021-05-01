@@ -15,7 +15,6 @@ jobs:
     env:
       PRODUCTION: false
     runs-on: ubuntu-latest
-    container: python:3.9
     services:
       postgres:
         image: postgres
@@ -71,6 +70,7 @@ jobs:
       - name: Run Test Suite Postgres
         env:
           DB_ENGINE: postgres
+          POSTGRES_SERVER: localhost
         run: |
           poetry add "psycopg2-binary==2.8.6"
           make test-all
