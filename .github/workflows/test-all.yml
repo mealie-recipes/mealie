@@ -15,6 +15,7 @@ jobs:
     env:
       PRODUCTION: false
     runs-on: ubuntu-latest
+    container: python:3.9-slim-buster
     services:
       postgres:
         image: postgres
