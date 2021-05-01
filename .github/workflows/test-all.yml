@@ -56,7 +56,9 @@ jobs:
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
-        run: poetry install
+        run: |
+          poetry install
+          poetry add "psycopg2-binary==2.8.6"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       #----------------------------------------------
       #              run test suite
@@ -72,5 +74,4 @@ jobs:
           DB_ENGINE: postgres
           POSTGRES_SERVER: localhost
         run: |
-          poetry add "psycopg2-binary==2.8.6"
           make test-all
