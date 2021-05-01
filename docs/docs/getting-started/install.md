@@ -1,5 +1,5 @@
 # Installation
-To deploy docker on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. Currently only SQLite is supported. Postrgres support is planned, however for most loads you may find SQLite performant enough.  
+To deploy mealie on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. You can deploy with either SQLite (default) or Postgres. SQLite is sufficient for most use cases. Additionally, with mealies automated backup and restore functionality, you can easily move between SQLite and Postgres as you wish. 
 
 
 [Get Docker](https://docs.docker.com/get-docker/)
@@ -10,15 +10,6 @@ To deploy docker on your local network it is highly recommended to use docker to
  - linux/arm/v7
  - linux/arm64
 
-!!! tip "Fatal Python error: init_interp_main: can't initialize time"
-    Some users experience an problem with running the linux/arm/v7 container on Raspberry Pi 4. This is not a problem with the Mealie container, but with a bug in the hosts Docker installation.
-    
-    Update the host RP4 using [instructions](linuxserver/docker-papermerge#4 (comment)), summarized here:
-
-    ```shell
-    wget http://ftp.us.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb
-    sudo dpkg -i libseccomp2_2.5.1-1_armhf.deb
-    ```
 
 ## Quick Start - Docker CLI
 Deployment with the Docker CLI can be done with `docker run` and specify the database type, in this case `sqlite`, setting the exposed port `9925`, mounting the current directory, and pull the latest image. After the image is up an running you can navigate to http://your.ip.addres:9925 and you'll should see mealie up and running!
@@ -55,19 +46,61 @@ services:
 
 ```
 
+## Docker Compose with Postgres *(BETA)*
+Postgres support was introduced in v0.5.0. At this point it should be used with caution and frequent backups. 
+
+```yaml
+version: "3.1"
+services:
+  mealie:
+    container_name: mealie
+    image: hkotel/mealie:latest
+    restart: always
+    ports:
+      - 9090:80
+    environment:
+      DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_USER: mealie
+```
+
 ## Env Variables
 
-| Variables        | Default            | Description                                                                         |
-| ---------------- | ------------------ | ----------------------------------------------------------------------------------- |
-| DB_URL           | None               | Leave blank for SQLite                                                              |
-| DEFAULT_GROUP    | Home               | The default group for users                                                         |
-| DEFAULT_EMAIL    | changeme@email.com | The default username for the superuser                                              |
-| DEFAULT_PASSWORD | MyPassword         | The default password for the superuser                                              |
-| TOKEN_TIME       | 2                  | The time in hours that a login/auth token is valid                                  |
-| API_PORT         | 9000               | The port exposed by backend API. **do not change this if you're running in docker** |
-| API_DOCS         | True               | Turns on/off access to the API documentation locally.                               |
-| TZ               | UTC                | Must be set to get correct date/time on the server                                  |
+| Variables         | Default            | Description                                                                         |
+| ----------------- | ------------------ | ----------------------------------------------------------------------------------- |
+| DEFAULT_GROUP     | Home               | The default group for users                                                         |
+| DEFAULT_EMAIL     | changeme@email.com | The default username for the superuser                                              |
+| DB_ENGINE         | sqlite             | Optional: 'sqlite', 'postgres'                                                      |
+| POSTGRES_USER     | mealie             | Postgres database user                                                              |
+| POSTGRES_PASSWORD | mealie             | Postgres database password                                                          |
+| POSTGRES_SERVER   | postgres           | Postgres database server address                                                    |
+| POSTGRES_PORT     | 5432               | Postgres database port                                                              |
+| POSTGRES_DB       | mealie             | Postgres database name                                                              |
+| TOKEN_TIME        | 2                  | The time in hours that a login/auth token is valid                                  |
+| API_PORT          | 9000               | The port exposed by backend API. **do not change this if you're running in docker** |
+| API_DOCS          | True               | Turns on/off access to the API documentation locally.                               |
+| TZ                | UTC                | Must be set to get correct date/time on the server                                  |
 
+
+!!! tip "Fatal Python error: init_interp_main: can't initialize time"
+    Some users experience an problem with running the linux/arm/v7 container on Raspberry Pi 4. This is not a problem with the Mealie container, but with a bug in the hosts Docker installation.
+    
+    Update the host RP4 using [instructions](linuxserver/docker-papermerge#4 (comment)), summarized here:
+
+    ```shell
+    wget http://ftp.us.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb
+    sudo dpkg -i libseccomp2_2.5.1-1_armhf.deb
+    ```
 
 
 
@@ -80,17 +113,22 @@ The Docker image provided by Mealie contains both the API and the html bundle in
 
 ```
 {
-  auto_https off
+	auto_https off
   admin off
 }
 
 :80 {
   @proxied path /api/* /docs /openapi.json
-
+  
   root * /app/dist
   encode gzip
   uri strip_suffix /
   
+  handle_path /api/recipes/image/* {
+    root * /app/data/img/
+    file_server
+  }
+
   handle @proxied {
     reverse_proxy http://127.0.0.1:9000 
   }

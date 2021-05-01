@@ -17,6 +17,12 @@
   "i18n-ally.sourceLanguage": "en-US",
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.keystyle": "nested",
-  "cSpell.words": ["performant"],
+  "cSpell.words": [
+    "compression",
+    "hkotel",
+    "performant",
+    "postgres",
+    "webp"
+  ],
   "search.mode": "reuseEditor"
 }

@@ -1,3 +1,5 @@
 # Guidelines
 
-TODO
+## Python
+
+## Vue

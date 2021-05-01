@@ -8,7 +8,7 @@ Prerequisites
 - Docker
 - docker-compose
 
-You can easily start the development stack by running `make docker-dev` in the root of the project directory. This will run and build the docker-compose.dev.yml file. 
+You can easily start the development stack by running `make docker-dev` in the root of the project directory. This will run and build the docker-compose.dev.yml file.
 
 ## Without Docker
 Prerequisites
@@ -33,17 +33,8 @@ Once the prerequisites are installed you can cd into the project base directory 
 
 `make docker-prod` Builds docker-compose.yml to test for production
 
+## Before you Commit! 
 
-## Trouble Shooting
-
-!!! Error "Symptom: Vue Development Server Wont Start"
-    **Error:** `TypeError: Cannot read property 'upgrade' of undefined`
-
-    **Solution:** You may be missing the `/frontend/.env.development.` The contents should be `VUE_APP_API_BASE_URL=http://127.0.0.1:9921`. This is a reference to proxy the the API requests from Vue to 127.0.0.1 at port 9921 where FastAPI should be running.
-
-!!! Error "Symptom: FastAPI Development Server Wont Start"
-    **Error:** `RuntimeError: Directory '/app/dist' does not exist`
-
-    **Solution:** Create an empty /mealie/dist directory. This directory is served as static content by FastAPI. It is provided during the build process and may be missing in development. 
+Before you commit any changes on the backend/python side you'll want to run `make format` to format all the code with black. `make lint` to check with flake8, and `make test` to run pytests. You can also use `make test-all` to run both `lint` and `test`. 
 
 Run into another issue? [Ask for help on discord](https://discord.gg/QuStdQGSGK)
