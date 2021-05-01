@@ -105,10 +105,7 @@ async def update_user_image(
 
     app_dirs.USER_DIR.joinpath(id).mkdir(parents=True, exist_ok=True)
 
-    try:
-        [x.unlink() for x in app_dirs.USER_DIR.join(id).glob("profile_image.*")]
-    except Exception:
-        pass
+    [x.unlink() for x in app_dirs.USER_DIR.joinpath(id).glob("profile_image.*")]
 
     dest = app_dirs.USER_DIR.joinpath(id, f"profile_image.{extension}")
 

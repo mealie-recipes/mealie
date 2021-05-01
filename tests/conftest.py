@@ -47,8 +47,13 @@ def api_routes():
 
 
 @fixture(scope="session")
-def test_image():
-    return TEST_DATA.joinpath("test_image.jpg")
+def test_image_jpg():
+    return TEST_DATA.joinpath("images", "test_image.jpg")
+
+
+@fixture(scope="session")
+def test_image_png():
+    return TEST_DATA.joinpath("images", "test_image.png")
 
 
 @fixture(scope="session")
