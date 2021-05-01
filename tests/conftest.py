@@ -6,14 +6,14 @@ import requests
 from fastapi.testclient import TestClient
 from mealie.app import app
 from mealie.db.db_setup import SessionLocal, generate_session
-from mealie.db.init_db import init_db
+from mealie.db.init_db import main
 from pytest import fixture
 
 from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
 from tests.utils.recipe_data import build_recipe_store, get_raw_no_image, get_raw_recipe
 
-init_db(SessionLocal())
+main()
 
 
 def override_get_db():
