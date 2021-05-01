@@ -49,11 +49,6 @@ def test_non_default_settings(monkeypatch):
     assert app_settings.DOCS_URL is None
 
 
-def test_default_connection_args():
-    app_settings = AppSettings()
-    assert re.match(r"sqlite:////.*mealie/dev/data/mealie_v0.5.0.db", app_settings.DB_URL)
-
-
 def test_default_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "sqlite")
     app_settings = AppSettings()
