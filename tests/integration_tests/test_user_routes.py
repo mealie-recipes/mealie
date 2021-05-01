@@ -103,7 +103,7 @@ def test_update_user_image(
 
     assert response.status_code == 200
 
-    directory = app_dirs.USER_DIR.joinpath("1")
+    directory = app_dirs.USER_DIR.joinpath("2")
     assert directory.joinpath("profile_image.png").is_file()
 
     # Old profile images are removed
