@@ -1,10 +1,13 @@
 from typing import List
 
+from mealie.core.root_logger import get_logger
 from mealie.db.models.model_base import SqlAlchemyBase
 from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
+
+logger = get_logger()
 
 
 class BaseDocument:
@@ -145,11 +148,9 @@ class BaseDocument:
 
     def delete(self, session: Session, primary_key_value) -> dict:
         result = session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()
+        results_as_model = self.schema.from_orm(result)
 
         session.delete(result)
         session.commit()
 
-        try:
-            return self.schema.from_orm(result)
-        except Exception:
-            pass
+        return results_as_model
