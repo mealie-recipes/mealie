@@ -1,10 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog
-      v-model="dialog"
-      width="500"
-      :fullscreen="$vuetify.breakpoint.xsOnly"
-    >
+    <v-dialog v-model="dialog" width="500" :fullscreen="$vuetify.breakpoint.xsOnly">
       <v-card>
         <v-toolbar dark color="primary" v-show="$vuetify.breakpoint.xsOnly">
           <v-btn icon dark @click="dialog = false">
@@ -42,12 +38,7 @@
           <v-btn color="error" text @click="raiseEvent('delete')">
             {{ $t("general.delete") }}
           </v-btn>
-          <v-btn
-            color="success"
-            outlined
-            @click="raiseEvent('import')"
-            v-show="$vuetify.breakpoint.smAndUp"
-          >
+          <v-btn color="success" outlined @click="raiseEvent('import')" v-show="$vuetify.breakpoint.smAndUp">
             {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>
@@ -55,7 +46,6 @@
     </v-dialog>
   </div>
 </template>
-
 
 <script>
 import ImportOptions from "./ImportOptions";
@@ -119,5 +109,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

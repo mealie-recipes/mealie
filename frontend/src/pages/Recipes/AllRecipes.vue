@@ -1,10 +1,6 @@
 <template>
   <v-container>
-    <v-progress-linear
-      v-if="loading"
-      indeterminate
-      color="primary"
-    ></v-progress-linear>
+    <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
     <CardSection
       :sortable="true"
       :title="$t('page.all-recipes')"
@@ -50,5 +46,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

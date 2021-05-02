@@ -1,7 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 const backupBase = baseURL + "backups/";
 
@@ -13,8 +13,6 @@ export const backupURLs = {
   deleteBackup: fileName => `${backupBase}${fileName}/delete`,
   downloadBackup: fileName => `${backupBase}${fileName}/download`,
 };
-
-
 
 export const backupAPI = {
   /**
@@ -44,8 +42,8 @@ export const backupAPI = {
     return apiReq.delete(
       backupURLs.deleteBackup(fileName),
       null,
-      function() { return i18n.t('settings.backup.unable-to-delete-backup'); },
-      function() { return i18n.t('settings.backup.backup-deleted'); }
+      () => i18n.t("settings.backup.unable-to-delete-backup"),
+      () => i18n.t("settings.backup.backup-deleted")
     );
   },
   /**
@@ -55,10 +53,12 @@ export const backupAPI = {
    */
   async create(options) {
     return apiReq.post(
-      backupURLs.createBackup, 
+      backupURLs.createBackup,
       options,
-      function() { return i18n.t('settings.backup.error-creating-backup-see-log-file'); },
-      function(response) { return i18n.t('settings.backup.backup-created-at-response-export_path', {path: response.data.export_path}); }
+      () => i18n.t("settings.backup.error-creating-backup-see-log-file"),
+      response => {
+        return i18n.t("settings.backup.backup-created-at-response-export_path", { path: response.data.export_path });
+      }
     );
   },
   /**

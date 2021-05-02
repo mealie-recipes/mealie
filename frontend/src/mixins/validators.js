@@ -1,21 +1,13 @@
 export const validators = {
   data() {
     return {
-      emailRule: v =>
-        !v ||
-        /^[^@\s]+@[^@\s.]+.[^@.\s]+$/.test(v) ||
-        this.$t("user.e-mail-must-be-valid"),
+      emailRule: v => !v || /^[^@\s]+@[^@\s.]+.[^@.\s]+$/.test(v) || this.$t("user.e-mail-must-be-valid"),
 
       existsRule: value => !!value || this.$t("general.field-required"),
 
-      minRule: v =>
-        v.length >= 8 ||
-        this.$t("user.use-8-characters-or-more-for-your-password"),
+      minRule: v => v.length >= 8 || this.$t("user.use-8-characters-or-more-for-your-password"),
 
-      whiteSpace: v =>
-        !v ||
-        v.split(" ").length <= 1 ||
-        this.$t("recipe.no-white-space-allowed"),
+      whiteSpace: v => !v || v.split(" ").length <= 1 || this.$t("recipe.no-white-space-allowed"),
     };
   },
 };

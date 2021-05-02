@@ -21,12 +21,7 @@
         <v-card-title> </v-card-title>
         <v-form @submit.prevent="select">
           <v-card-text>
-            <v-text-field
-              dense
-              :label="inputLabel"
-              v-model="itemName"
-              :rules="[rules.required]"
-            ></v-text-field>
+            <v-text-field dense :label="inputLabel" v-model="itemName" :rules="[rules.required]"></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -103,5 +98,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

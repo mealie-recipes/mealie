@@ -6,14 +6,7 @@
           <v-icon large left v-if="!processing">
             mdi-link
           </v-icon>
-          <v-progress-circular
-            v-else
-            indeterminate
-            color="white"
-            large
-            class="mr-2"
-          >
-          </v-progress-circular>
+          <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
 
           <v-toolbar-title class="headline">
             {{ $t("new-recipe.from-url") }}
@@ -54,21 +47,9 @@
         </v-form>
       </v-card>
     </v-dialog>
-    <v-speed-dial
-      v-model="fab"
-      :open-on-hover="absolute"
-      :fixed="absolute"
-      :bottom="absolute"
-      :right="absolute"
-    >
+    <v-speed-dial v-model="fab" :open-on-hover="absolute" :fixed="absolute" :bottom="absolute" :right="absolute">
       <template v-slot:activator>
-        <v-btn
-          v-model="fab"
-          :color="absolute ? 'accent' : 'white'"
-          dark
-          :icon="!absolute"
-          :fab="absolute"
-        >
+        <v-btn v-model="fab" :color="absolute ? 'accent' : 'white'" dark :icon="!absolute" :fab="absolute">
           <v-icon> mdi-plus </v-icon>
         </v-btn>
       </template>
@@ -132,5 +113,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

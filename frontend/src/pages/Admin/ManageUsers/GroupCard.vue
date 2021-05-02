@@ -17,9 +17,7 @@
       <v-list dense>
         <v-card-title class="py-1">{{ group.name }}</v-card-title>
         <v-divider></v-divider>
-        <v-subheader>{{
-          $t("group.group-id-with-value", { groupID: group.id })
-        }}</v-subheader>
+        <v-subheader>{{ $t("group.group-id-with-value", { groupID: group.id }) }}</v-subheader>
         <v-list-item-group color="primary">
           <v-list-item v-for="property in groupProps" :key="property.text">
             <v-list-item-icon>
@@ -36,12 +34,7 @@
       </v-list>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          small
-          color="error"
-          @click="confirmDelete"
-          :disabled="ableToDelete"
-        >
+        <v-btn small color="error" @click="confirmDelete" :disabled="ableToDelete">
           {{ $t("general.delete") }}
         </v-btn>
         <!-- Coming Soon! -->
@@ -113,9 +106,7 @@ export default {
         {
           text: this.$t("user.webhooks-enabled"),
           icon: "mdi-webhook",
-          value: this.group.webhookEnable
-            ? this.$t("general.yes")
-            : this.$t("general.no"),
+          value: this.group.webhookEnable ? this.$t("general.yes") : this.$t("general.no"),
         },
         {
           text: this.$t("user.webhook-time"),
@@ -128,5 +119,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

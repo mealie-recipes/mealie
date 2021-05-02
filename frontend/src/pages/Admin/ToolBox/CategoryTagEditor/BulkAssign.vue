@@ -10,33 +10,16 @@
       :top="true"
     >
       <v-card-text>
-        <v-text-field
-          v-model="search"
-          autocomplete="off"
-          :label="$t('general.keyword')"
-        ></v-text-field>
-        <CategoryTagSelector
-          :tag-selector="false"
-          v-model="catsToAssign"
-          :return-object="false"
-        />
-        <CategoryTagSelector
-          :tag-selector="true"
-          v-model="tagsToAssign"
-          :return-object="false"
-        />
+        <v-text-field v-model="search" autocomplete="off" :label="$t('general.keyword')"></v-text-field>
+        <CategoryTagSelector :tag-selector="false" v-model="catsToAssign" :return-object="false" />
+        <CategoryTagSelector :tag-selector="true" v-model="tagsToAssign" :return-object="false" />
       </v-card-text>
       <template slot="card-actions">
         <v-btn text color="grey" @click="closeDialog">
           {{ $t("general.cancel") }}
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn
-          color="success"
-          @click="assignAll"
-          :loading="loading"
-          :disabled="results.length < 1"
-        >
+        <v-btn color="success" @click="assignAll" :loading="loading" :disabled="results.length < 1">
           {{ $t("settings.toolbox.assign-all") }}
         </v-btn>
       </template>
@@ -122,9 +105,7 @@ export default {
     assignAll() {
       this.loading = true;
       this.results.forEach(async element => {
-        element.recipeCategory = element.recipeCategory.concat(
-          this.catsToAssign
-        );
+        element.recipeCategory = element.recipeCategory.concat(this.catsToAssign);
         element.tags = element.tags.concat(this.tagsToAssign);
         await api.recipes.patch(element);
       });
@@ -154,9 +135,7 @@ export default {
         return [];
       }
       return this.allRecipes.filter(x => {
-        return (
-          this.checkForKeywords(x.name) || this.checkForKeywords(x.description)
-        );
+        return this.checkForKeywords(x.name) || this.checkForKeywords(x.description);
       });
     },
     checkForKeywords(str) {
@@ -167,5 +146,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

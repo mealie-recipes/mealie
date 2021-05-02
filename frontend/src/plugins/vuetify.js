@@ -3,15 +3,14 @@ import Vuetify from "vuetify/lib";
 
 Vue.use(Vuetify);
 
-import de from 'vuetify/es5/locale/de';
-import en from 'vuetify/es5/locale/en';
-import fr from 'vuetify/es5/locale/fr';
-import pl from 'vuetify/es5/locale/pl';
-import pt from 'vuetify/es5/locale/pt';
-import sv from 'vuetify/es5/locale/sv';
-import zhHans from 'vuetify/es5/locale/zh-Hans';
-import zhHant from 'vuetify/es5/locale/zh-Hant';
-
+import de from "vuetify/es5/locale/de";
+import en from "vuetify/es5/locale/en";
+import fr from "vuetify/es5/locale/fr";
+import pl from "vuetify/es5/locale/pl";
+import pt from "vuetify/es5/locale/pt";
+import sv from "vuetify/es5/locale/sv";
+import zhHans from "vuetify/es5/locale/zh-Hans";
+import zhHant from "vuetify/es5/locale/zh-Hant";
 
 const vuetify = new Vuetify({
   theme: {
@@ -41,16 +40,16 @@ const vuetify = new Vuetify({
   },
   lang: {
     locales: {
-      'de-DE' : de,
-      'en-US' : en, 
-      'fr-FR' : fr, 
-      'pl-PL' : pl, 
-      'pt-PT' : pt, 
-      'sv-SE' : sv, 
-      'zh-CN' : zhHans,
-      'zh-TW' : zhHant
+      "de-DE": de,
+      "en-US": en,
+      "fr-FR": fr,
+      "pl-PL": pl,
+      "pt-PT": pt,
+      "sv-SE": sv,
+      "zh-CN": zhHans,
+      "zh-TW": zhHant,
     },
-    current: 'en-US',
+    current: "en-US",
   },
 });
 

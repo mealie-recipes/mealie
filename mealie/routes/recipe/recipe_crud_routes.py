@@ -66,20 +66,15 @@ def update_recipe(
 @router.patch("/{recipe_slug}")
 def patch_recipe(
     recipe_slug: str,
-    data: dict,
+    data: Recipe,
     session: Session = Depends(generate_session),
     current_user=Depends(get_current_user),
 ):
     """ Updates a recipe by existing slug and data. """
 
-    existing_entry: Recipe = db.recipes.get(session, recipe_slug)
-
-    entry_dict = existing_entry.dict()
-    entry_dict.update(data)
-    updated_entry = Recipe(**entry_dict)  # ! Surely there's a better way?
-
-    recipe: Recipe = db.recipes.update(session, recipe_slug, updated_entry.dict())
-
+    recipe: Recipe = db.recipes.patch(
+        session, recipe_slug, new_data=data.dict(exclude_unset=True, exclude_defaults=True)
+    )
     if recipe_slug != recipe.slug:
         rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
 
@@ -95,8 +90,10 @@ def delete_recipe(
     """ Deletes a recipe by slug """
 
     try:
-        db.recipes.delete(session, recipe_slug)
+        delete_data = db.recipes.delete(session, recipe_slug)
         delete_image(recipe_slug)
+
+        return delete_data
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 

@@ -3,21 +3,9 @@
     <div class="text-center">
       <h3>{{ buttonText }}</h3>
     </div>
-    <v-text-field
-      v-model="color"
-      hide-details
-      class="ma-0 pa-0"
-      solo
-      v-show="$vuetify.breakpoint.mdAndUp"
-    >
+    <v-text-field v-model="color" hide-details class="ma-0 pa-0" solo v-show="$vuetify.breakpoint.mdAndUp">
       <template v-slot:append>
-        <v-menu
-          v-model="menu"
-          top
-          nudge-bottom="105"
-          nudge-left="16"
-          :close-on-content-click="false"
-        >
+        <v-menu v-model="menu" top nudge-bottom="105" nudge-left="16" :close-on-content-click="false">
           <template v-slot:activator="{ on }">
             <div :style="swatchStyle" v-on="on" swatches-max-height="300" />
           </template>
@@ -30,13 +18,7 @@
       </template>
     </v-text-field>
     <div class="text-center" v-show="$vuetify.breakpoint.smAndDown">
-      <v-menu
-        v-model="menu"
-        top
-        nudge-bottom="105"
-        nudge-left="16"
-        :close-on-content-click="false"
-      >
+      <v-menu v-model="menu" top nudge-bottom="105" nudge-left="16" :close-on-content-click="false">
         <template v-slot:activator="{ on, attrs }">
           <v-chip label :color="`${color}`" dark v-bind="attrs" v-on="on">
             {{ color }}
@@ -88,5 +70,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

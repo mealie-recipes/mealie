@@ -1,37 +1,21 @@
 <template>
   <v-toolbar dense flat>
-    <v-btn-toggle
-      dense
-      v-model="selected"
-      tile
-      color="primary accent-3"
-      @change="emitMulti"
-      group
-      mandatory
-    >
+    <v-btn-toggle dense v-model="selected" tile color="primary accent-3" @change="emitMulti" group mandatory>
       <v-btn :value="false">
-        {{$t('search.include')}}
+        {{ $t("search.include") }}
       </v-btn>
 
       <v-btn :value="true">
-        {{$t('search.exclude')}}
+        {{ $t("search.exclude") }}
       </v-btn>
     </v-btn-toggle>
     <v-spacer></v-spacer>
-    <v-btn-toggle
-      dense
-      v-model="match"
-      tile
-      color="primary accent-3"
-      @change="emitMulti"
-      group
-      mandatory
-    >
+    <v-btn-toggle dense v-model="match" tile color="primary accent-3" @change="emitMulti" group mandatory>
       <v-btn :value="false">
-       {{$t('search.and')}}
+        {{ $t("search.and") }}
       </v-btn>
       <v-btn :value="true">
-        {{$t('search.or')}}
+        {{ $t("search.or") }}
       </v-btn>
     </v-btn-toggle>
   </v-toolbar>
@@ -65,5 +49,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

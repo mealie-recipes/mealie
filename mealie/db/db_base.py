@@ -1,10 +1,13 @@
 from typing import List
 
+from mealie.core.root_logger import get_logger
 from mealie.db.models.model_base import SqlAlchemyBase
 from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
+
+logger = get_logger()
 
 
 class BaseDocument:
@@ -115,7 +118,7 @@ class BaseDocument:
 
         return self.schema.from_orm(new_document)
 
-    def update(self, session: Session, match_value: str, new_data: str) -> BaseModel:
+    def update(self, session: Session, match_value: str, new_data: dict) -> BaseModel:
         """Update a database entry.
         Args: \n
             session (Session): Database Session
@@ -132,8 +135,22 @@ class BaseDocument:
         session.commit()
         return self.schema.from_orm(entry)
 
+    def patch(self, session: Session, match_value: str, new_data: dict) -> BaseModel:
+        entry = self._query_one(session=session, match_value=match_value)
+
+        if not entry:
+            return
+
+        entry_as_dict = self.schema.from_orm(entry).dict()
+        entry_as_dict.update(new_data)
+
+        return self.update(session, match_value, entry_as_dict)
+
     def delete(self, session: Session, primary_key_value) -> dict:
         result = session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()
+        results_as_model = self.schema.from_orm(result)
 
         session.delete(result)
         session.commit()
+
+        return results_as_model

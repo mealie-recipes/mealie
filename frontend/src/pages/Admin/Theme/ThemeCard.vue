@@ -35,9 +35,7 @@
         </v-btn>
         <v-spacer></v-spacer>
         <!-- <v-btn text color="accent" @click="editTheme">Edit</v-btn> -->
-        <v-btn text color="success" @click="saveThemes">{{
-          $t("general.apply")
-        }}</v-btn>
+        <v-btn text color="success" @click="saveThemes">{{ $t("general.apply") }}</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -87,5 +85,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

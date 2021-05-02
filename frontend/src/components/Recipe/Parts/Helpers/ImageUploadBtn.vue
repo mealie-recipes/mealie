@@ -25,19 +25,9 @@
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
-            <v-text-field
-              :label="$t('general.url')"
-              class="pt-5"
-              clearable
-              v-model="url"
-            >
+            <v-text-field :label="$t('general.url')" class="pt-5" clearable v-model="url">
               <template v-slot:append-outer>
-                <v-btn
-                  class="ml-2"
-                  color="primary"
-                  @click="getImageFromURL"
-                  :loading="loading"
-                >
+                <v-btn class="ml-2" color="primary" @click="getImageFromURL" :loading="loading">
                   {{ $t("general.get") }}
                 </v-btn>
               </template>
@@ -80,5 +70,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

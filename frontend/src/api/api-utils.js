@@ -3,18 +3,16 @@ import axios from "axios";
 import { store } from "../store";
 import utils from "@/utils";
 
-axios.defaults.headers.common[
-  "Authorization"
-] = `Bearer ${store.getters.getToken}`;
+axios.defaults.headers.common["Authorization"] = `Bearer ${store.getters.getToken}`;
 
 function handleError(error, getText) {
-  if(getText) {
+  if (getText) {
     utils.notify.error(getText(error.response));
   }
   return false;
 }
 function handleResponse(response, getText) {
-  if(response && getText) {
+  if (response && getText) {
     const successText = getText(response);
     utils.notify.success(successText);
   }
@@ -31,26 +29,36 @@ function defaultSuccessText(response) {
 
 const apiReq = {
   post: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
-    const response = await axios.post(url, data).catch(function(error) { handleError(error, getErrorText) });
-    return handleResponse(response, getSuccessText);
-  }, 
-
-  put: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
-    const response = await axios.put(url, data).catch(function(error) { handleError(error, getErrorText) });
+    const response = await axios.post(url, data).catch(function(error) {
+      handleError(error, getErrorText);
+    });
     return handleResponse(response, getSuccessText);
   },
-  
+
+  put: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
+    const response = await axios.put(url, data).catch(function(error) {
+      handleError(error, getErrorText);
+    });
+    return handleResponse(response, getSuccessText);
+  },
+
   patch: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
-    const response = await axios.patch(url, data).catch(function(error) { handleError(error, getErrorText) });
+    const response = await axios.patch(url, data).catch(function(error) {
+      handleError(error, getErrorText);
+    });
     return handleResponse(response, getSuccessText);
   },
 
   get: function(url, data, getErrorText = defaultErrorText) {
-    return axios.get(url, data).catch(function(error) { handleError(error, getErrorText) });
+    return axios.get(url, data).catch(function(error) {
+      handleError(error, getErrorText);
+    });
   },
 
-  delete: async function(url, data, getErrorText = defaultErrorText, getSuccessText = defaultSuccessText ) {
-    const response = await axios.delete(url, data).catch( function(error) { handleError(error, getErrorText) } );
+  delete: async function(url, data, getErrorText = defaultErrorText, getSuccessText = defaultSuccessText) {
+    const response = await axios.delete(url, data).catch(function(error) {
+      handleError(error, getErrorText);
+    });
     return handleResponse(response, getSuccessText);
   },
 

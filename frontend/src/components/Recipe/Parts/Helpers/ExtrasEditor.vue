@@ -9,34 +9,17 @@
         <v-card-title> {{ $t("recipe.api-extras") }} </v-card-title>
 
         <v-card-text :key="formKey">
-          <v-row
-            align="center"
-            v-for="(value, key, index) in extras"
-            :key="index"
-          >
+          <v-row align="center" v-for="(value, key, index) in extras" :key="index">
             <v-col cols="12" sm="1">
-              <v-btn
-                fab
-                text
-                x-small
-                color="white"
-                elevation="0"
-                @click="removeExtra(key)"
-              >
+              <v-btn fab text x-small color="white" elevation="0" @click="removeExtra(key)">
                 <v-icon color="error">mdi-delete</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="12" md="3" sm="6">
-              <v-text-field
-                :label="$t('recipe.object-key')"
-                :value="key"
-                @input="updateKey(index)"
-              >
-              </v-text-field>
+              <v-text-field :label="$t('recipe.object-key')" :value="key" @input="updateKey(index)"> </v-text-field>
             </v-col>
             <v-col cols="12" md="8" sm="6">
-              <v-text-field :label="$t('recipe.object-value')" v-model="extras[key]">
-              </v-text-field>
+              <v-text-field :label="$t('recipe.object-value')" v-model="extras[key]"> </v-text-field>
             </v-col>
           </v-row>
         </v-card-text>
@@ -74,9 +57,8 @@ export default {
       dialog: false,
       formKey: 1,
       rules: {
-        required: (v) => !!v || this.$i18n.t("recipe.key-name-required"),
-        whiteSpace: (v) =>
-          !v || v.split(" ").length <= 1 || this.$i18n.t("recipe.no-white-space-allowed"),
+        required: v => !!v || this.$i18n.t("recipe.key-name-required"),
+        whiteSpace: v => !v || v.split(" ").length <= 1 || this.$i18n.t("recipe.no-white-space-allowed"),
       },
     };
   },
@@ -100,5 +82,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

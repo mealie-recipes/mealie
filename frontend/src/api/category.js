@@ -1,7 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 const prefix = baseURL + "categories";
 
@@ -24,12 +24,12 @@ export const categoryAPI = {
   },
   async create(name) {
     const response = await apiReq.post(
-      categoryURLs.getAll, 
+      categoryURLs.getAll,
       { name: name },
-      function() { return i18n.t('category.category-creation-failed'); },
-      function() { return i18n.t('category.category-created'); }
+      () => i18n.t("category.category-creation-failed"),
+      () => i18n.t("category.category-created")
     );
-    if(response) {
+    if (response) {
       store.dispatch("requestCategories");
       return response.data;
     }
@@ -40,10 +40,10 @@ export const categoryAPI = {
   },
   async update(name, newName, overrideRequest = false) {
     const response = await apiReq.put(
-      categoryURLs.updateCategory(name), 
+      categoryURLs.updateCategory(name),
       { name: newName },
-      function() { return i18n.t('category.category-update-failed'); },
-      function() { return i18n.t('category.category-updated'); }
+      () => i18n.t("category.category-update-failed"),
+      () => i18n.t("category.category-updated")
     );
     if (response && !overrideRequest) {
       store.dispatch("requestCategories");
@@ -54,8 +54,8 @@ export const categoryAPI = {
     const response = await apiReq.delete(
       categoryURLs.deleteCategory(category),
       null,
-      function() { return i18n.t('category.category-deletion-failed'); },
-      function() { return i18n.t('category.category-deleted'); }
+      () => i18n.t("category.category-deletion-failed"),
+      () => i18n.t("category.category-deleted")
     );
     if (response && !overrideRequest) {
       store.dispatch("requestCategories");
@@ -85,12 +85,12 @@ export const tagAPI = {
   },
   async create(name) {
     const response = await apiReq.post(
-      tagURLs.getAll, 
+      tagURLs.getAll,
       { name: name },
-      function() { return i18n.t('tag.tag-creation-failed'); },
-      function() { return i18n.t('tag.tag-created'); }
+      () => i18n.t("tag.tag-creation-failed"),
+      () => i18n.t("tag.tag-created")
     );
-    if(response) {
+    if (response) {
       store.dispatch("requestTags");
       return response.data;
     }
@@ -101,13 +101,13 @@ export const tagAPI = {
   },
   async update(name, newName, overrideRequest = false) {
     const response = await apiReq.put(
-      tagURLs.updateTag(name), 
+      tagURLs.updateTag(name),
       { name: newName },
-      function() { return i18n.t('tag.tag-update-failed'); },
-      function() { return i18n.t('tag.tag-updated'); }
+      () => i18n.t("tag.tag-update-failed"),
+      () => i18n.t("tag.tag-updated")
     );
 
-    if(response) {
+    if (response) {
       if (!overrideRequest) {
         store.dispatch("requestTags");
       }
@@ -118,10 +118,10 @@ export const tagAPI = {
     const response = await apiReq.delete(
       tagURLs.deleteTag(tag),
       null,
-      function() { return i18n.t('tag.tag-deletion-failed'); },
-      function() { return i18n.t('tag.tag-deleted'); }
+      () => i18n.t("tag.tag-deletion-failed"),
+      () => i18n.t("tag.tag-deleted")
     );
-    if(response) {
+    if (response) {
       if (!overrideRequest) {
         store.dispatch("requestTags");
       }

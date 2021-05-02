@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    
     <CardSection
       v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
@@ -38,8 +37,8 @@ export default {
       return this.$store.getters.getSiteSettings;
     },
     recentRecipes() {
+      console.log("Recent Recipes");
       return this.$store.getters.getRecentRecipes;
- 
     },
   },
   async mounted() {
@@ -62,18 +61,13 @@ export default {
       this.$store.dispatch("requestRecentRecipes");
     },
     sortAZ(index) {
-      this.recipeByCategory[index].recipes.sort((a, b) =>
-        a.name > b.name ? 1 : -1
-      );
+      this.recipeByCategory[index].recipes.sort((a, b) => (a.name > b.name ? 1 : -1));
     },
     sortRecent(index) {
-      this.recipeByCategory[index].recipes.sort((a, b) =>
-        a.dateAdded > b.dateAdded ? -1 : 1
-      );
+      this.recipeByCategory[index].recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

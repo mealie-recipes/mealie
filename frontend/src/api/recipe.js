@@ -1,7 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "../store";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 const prefix = baseURL + "recipes/";
 
@@ -27,10 +27,10 @@ export const recipeAPI = {
    */
   async createByURL(recipeURL) {
     const response = await apiReq.post(
-      recipeURLs.createByURL, 
+      recipeURLs.createByURL,
       { url: recipeURL },
-      function() { return i18n.t('recipe.recipe-creation-failed'); },
-      function() { return i18n.t('recipe.recipe-created'); }
+      () => i18n.t("recipe.recipe-creation-failed"),
+      () => i18n.t("recipe.recipe-created")
     );
 
     store.dispatch("requestRecentRecipes");
@@ -38,19 +38,16 @@ export const recipeAPI = {
   },
 
   async getAllByCategory(categories) {
-    let response = await apiReq.post(
-      recipeURLs.allRecipesByCategory,
-      categories
-    );
+    let response = await apiReq.post(recipeURLs.allRecipesByCategory, categories);
     return response.data;
   },
 
   async create(recipeData) {
     const response = await apiReq.post(
-      recipeURLs.create, 
+      recipeURLs.create,
       recipeData,
-      function() { return i18n.t('recipe.recipe-creation-failed'); },
-      function() { return i18n.t('recipe.recipe-created'); }
+      () => i18n.t("recipe.recipe-creation-failed"),
+      () => i18n.t("recipe.recipe-created")
     );
     store.dispatch("requestRecentRecipes");
     return response.data;
@@ -67,18 +64,20 @@ export const recipeAPI = {
     formData.append("extension", fileObject.name.split(".").pop());
 
     let successMessage = null;
-    if(!overrideSuccessMsg) {
-      successMessage = function() { return overrideSuccessMsg ? null : i18n.t('recipe.recipe-image-updated'); };
+    if (!overrideSuccessMsg) {
+      successMessage = function() {
+        return overrideSuccessMsg ? null : i18n.t("recipe.recipe-image-updated");
+      };
     }
-    
+
     return apiReq.put(
-      recipeURLs.updateImage(recipeSlug), 
+      recipeURLs.updateImage(recipeSlug),
       formData,
-      function() { return i18n.t('general.image-upload-failed'); },
+      () => i18n.t("general.image-upload-failed"),
       successMessage
     );
   },
-  
+
   async createAsset(recipeSlug, fileObject, name, icon) {
     const fd = new FormData();
     fd.append("file", fileObject);
@@ -88,24 +87,24 @@ export const recipeAPI = {
     let response = apiReq.post(recipeURLs.createAsset(recipeSlug), fd);
     return response;
   },
-  
+
   updateImagebyURL(slug, url) {
     return apiReq.post(
-      recipeURLs.updateImage(slug), 
+      recipeURLs.updateImage(slug),
       { url: url },
-      function() { return i18n.t('general.image-upload-failed'); },
-      function() { return i18n.t('recipe.recipe-image-updated'); }
+      () => i18n.t("general.image-upload-failed"),
+      () => i18n.t("recipe.recipe-image-updated")
     );
   },
 
   async update(data) {
     let response = await apiReq.put(
       recipeURLs.update(data.slug),
-      data, 
-      function() { return i18n.t('recipe.recipe-update-failed'); },
-      function() { return i18n.t('recipe.recipe-updated'); }
+      data,
+      () => i18n.t("recipe.recipe-update-failed"),
+      () => i18n.t("recipe.recipe-updated")
     );
-    if(response) {
+    if (response) {
       store.dispatch("patchRecipe", response.data);
       return response.data.slug; // ! Temporary until I rewrite to refresh page without additional request
     }
@@ -117,13 +116,15 @@ export const recipeAPI = {
     return response.data;
   },
 
-  delete(recipeSlug) {
-    return apiReq.delete(
+  async delete(recipeSlug) {
+    const response = await apiReq.delete(
       recipeURLs.delete(recipeSlug),
       null,
-      function() { return i18n.t('recipe.unable-to-delete-recipe'); },
-      function() { return i18n.t('recipe.recipe-deleted'); }
+      () => i18n.t("recipe.unable-to-delete-recipe"),
+      () => i18n.t("recipe.recipe-deleted")
     );
+    store.dispatch("dropRecipe", response.data);
+    return response;
   },
 
   async allSummary(start = 0, limit = 9999) {

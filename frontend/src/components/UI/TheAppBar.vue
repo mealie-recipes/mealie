@@ -1,15 +1,7 @@
 <template>
   <div>
     <TheSidebar ref="theSidebar" />
-    <v-app-bar
-      clipped-left
-      dense
-      app
-      color="primary"
-      dark
-      class="d-print-none"
-      :bottom="isMobile"
-    >
+    <v-app-bar clipped-left dense app color="primary" dark class="d-print-none" :bottom="isMobile">
       <v-btn icon @click="openSidebar">
         <v-icon> mdi-menu </v-icon>
       </v-btn>
@@ -36,7 +28,7 @@
         <v-btn icon @click="$refs.recipeSearch.open()">
           <v-icon> mdi-magnify </v-icon>
         </v-btn>
-        <SearchDialog ref="recipeSearch"/>
+        <SearchDialog ref="recipeSearch" />
       </div>
 
       <TheSiteMenu />
@@ -90,5 +82,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

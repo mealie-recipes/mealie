@@ -63,34 +63,30 @@ export default {
   }),
 
   computed: {
-    
     importHeaders() {
       return [
         {
-          text: this.$t('general.status'),
+          text: this.$t("general.status"),
           value: "status",
         },
         {
-          text: this.$t('general.name'),
+          text: this.$t("general.name"),
           align: "start",
           sortable: true,
           value: "name",
         },
-        { 
-          text: this.$t('general.exception'), 
-          value: "data-table-expand", 
-          align: "center" 
+        {
+          text: this.$t("general.exception"),
+          value: "data-table-expand",
+          align: "center",
         },
-      ]
+      ];
     },
     recipeNumbers() {
       return this.calculateNumbers(this.$t("general.recipes"), this.recipeData);
     },
     settingsNumbers() {
-      return this.calculateNumbers(
-        this.$t("general.settings"),
-        this.settingsData
-      );
+      return this.calculateNumbers(this.$t("general.settings"), this.settingsData);
     },
     themeNumbers() {
       return this.calculateNumbers(this.$t("general.themes"), this.themeData);
@@ -115,14 +111,7 @@ export default {
       ];
     },
     allTables() {
-      return [
-        this.recipeData,
-        this.themeData,
-        this.settingsData,
-        this.pageData,
-        this.userData,
-        this.groupData,
-      ];
+      return [this.recipeData, this.themeData, this.settingsData, this.pageData, this.userData, this.groupData];
     },
   },
 
@@ -150,5 +139,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

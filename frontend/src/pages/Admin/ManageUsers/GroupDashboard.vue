@@ -16,14 +16,7 @@
         </div>
         <v-dialog v-model="groupDialog" max-width="400">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              class="mx-2"
-              small
-              color="success"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
+            <v-btn class="mx-2" small color="success" dark v-bind="attrs" v-on="on">
               {{ $t("group.create-group") }}
             </v-btn>
           </template>
@@ -63,18 +56,8 @@
       </v-card-actions>
       <v-card-text>
         <v-row>
-          <v-col
-            :sm="6"
-            :md="6"
-            :lg="4"
-            :xl="3"
-            v-for="group in groups"
-            :key="group.id"
-          >
-            <GroupCard
-              :group="group"
-              @update="$store.dispatch('requestAllGroups')"
-            />
+          <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="group in groups" :key="group.id">
+            <GroupCard :group="group" @update="$store.dispatch('requestAllGroups')" />
           </v-col>
         </v-row>
       </v-card-text>
@@ -114,5 +97,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

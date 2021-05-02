@@ -1,23 +1,10 @@
 <template>
   <v-container>
-    <v-card
-      v-if="skeleton"
-      :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-      class="pa-3"
-    >
-      <v-skeleton-loader
-        class="mx-auto"
-        height="700px"
-        type="card"
-      ></v-skeleton-loader>
+    <v-card v-if="skeleton" :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-3">
+      <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
     <v-card v-else id="myRecipe">
-      <v-img
-        height="400"
-        :src="getImage(recipeDetails.slug)"
-        class="d-print-none"
-        :key="imageKey"
-      >
+      <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
         <RecipeTimeCard
           class="force-bottom"
           :prepTime="recipeDetails.prepTime"
@@ -62,12 +49,7 @@
         height="1500px"
         :options="jsonEditorOptions"
       />
-      <RecipeEditor
-        v-else
-        v-model="recipeDetails"
-        ref="recipeEditor"
-        @upload="getImageFile"
-      />
+      <RecipeEditor v-else v-model="recipeDetails" ref="recipeEditor" @upload="getImageFile" />
     </v-card>
   </v-container>
 </template>
@@ -80,7 +62,6 @@ import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
 import { user } from "@/mixins/user";
-import store from "@/store";
 import { router } from "@/routes";
 
 export default {
@@ -100,7 +81,6 @@ export default {
   data() {
     return {
       skeleton: true,
-      // currentRecipe: this.$route.params.recipe,
       form: false,
       jsonEditor: false,
       jsonEditorOptions: {
@@ -130,6 +110,8 @@ export default {
   },
   mounted() {
     this.getRecipeDetails();
+    this.jsonEditor = false;
+    this.form = this.$route.query.edit === "true" && this.loggedIn;
   },
 
   watch: {
@@ -141,6 +123,9 @@ export default {
   computed: {
     currentRecipe() {
       return this.$route.params.recipe;
+    },
+    edit() {
+      return true;
     },
     showIcons() {
       return this.form;
@@ -161,7 +146,6 @@ export default {
     async getRecipeDetails() {
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
       this.skeleton = false;
-      this.form = false;
     },
     getImage(image) {
       if (image) {
@@ -171,7 +155,6 @@ export default {
     async deleteRecipe() {
       let response = await api.recipes.delete(this.recipeDetails.slug);
       if (response) {
-        store.dispatch("requestRecentRecipes");
         router.push(`/`);
       }
     },
@@ -202,10 +185,6 @@ export default {
           this.$router.push(`/recipe/${slug}`);
         }
       }
-    },
-    showForm() {
-      this.form = true;
-      this.jsonEditor = false;
     },
   },
 };

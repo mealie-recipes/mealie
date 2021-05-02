@@ -16,12 +16,7 @@
     </v-card-title>
     <v-card-text> {{ description }}</v-card-text>
     <div v-if="available[0]">
-      <v-card
-        outlined
-        v-for="migration in available"
-        :key="migration.name"
-        class="ma-2"
-      >
+      <v-card outlined v-for="migration in available" :key="migration.name" class="ma-2">
         <v-card-text>
           <v-row align="center">
             <v-col cols="2">
@@ -42,13 +37,7 @@
           <v-btn color="error" text @click="deleteMigration(migration.name)">
             {{ $t("general.delete") }}
           </v-btn>
-          <v-btn
-            color="accent"
-            text
-            @click="importMigration(migration.name)"
-            :loading="loading"
-            :disabled="loading"
-          >
+          <v-btn color="accent" text @click="importMigration(migration.name)" :loading="loading" :disabled="loading">
             {{ $t("general.import") }}
           </v-btn>
         </v-card-actions>
@@ -102,5 +91,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

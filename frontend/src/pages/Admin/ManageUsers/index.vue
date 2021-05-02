@@ -1,13 +1,7 @@
 <template>
   <div>
     <v-card flat>
-      <v-tabs
-        v-model="tab"
-        background-color="primary"
-        centered
-        dark
-        icons-and-text
-      >
+      <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text>
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab>
@@ -58,5 +52,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

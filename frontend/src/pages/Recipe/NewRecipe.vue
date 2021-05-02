@@ -4,38 +4,22 @@
       <v-img v-if="image" height="400" :src="image">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular
-              indeterminate
-              color="grey lighten-5"
-            ></v-progress-circular>
+            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
           </v-row>
         </template>
       </v-img>
       <br v-else />
 
-      <EditorButtonRow
-        @json="jsonEditor = true"
-        @editor="jsonEditor = false"
-        @save="createRecipe"
-      />
+      <EditorButtonRow @json="jsonEditor = true" @editor="jsonEditor = false" @save="createRecipe" />
 
       <div v-if="jsonEditor">
         <!-- Probably not the best way, but it works! -->
         <br />
         <br />
-        <VJsoneditor
-          v-model="recipeDetails"
-          height="1500px"
-          :options="jsonEditorOptions"
-        />
+        <VJsoneditor v-model="recipeDetails" height="1500px" :options="jsonEditorOptions" />
       </div>
 
-      <RecipeEditor
-        ref="recipeEditor"
-        v-else
-        v-model="recipeDetails"
-        @upload="getImage"
-      />
+      <RecipeEditor ref="recipeEditor" v-else v-model="recipeDetails" @upload="getImage" />
     </v-card>
   </v-container>
 </template>

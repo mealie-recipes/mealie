@@ -8,15 +8,7 @@
       @delete="deleteBackup"
     />
     <v-row>
-      <v-col
-        :cols="12"
-        :sm="6"
-        :md="6"
-        :lg="4"
-        :xl="4"
-        v-for="backup in backups"
-        :key="backup.name"
-      >
+      <v-col :cols="12" :sm="6" :md="6" :lg="4" :xl="4" v-for="backup in backups" :key="backup.name">
         <v-card hover outlined @click="openDialog(backup)">
           <v-card-text>
             <v-row align="center">
@@ -63,13 +55,12 @@ export default {
     async importBackup(data) {
       this.$emit("loading");
       const response = await api.backups.import(data.name, data);
-      if(response) {
+      if (response) {
         let importData = response.data;
         this.$emit("finished", importData);
       } else {
         this.$emit("finished");
       }
-
     },
     async deleteBackup(data) {
       this.$emit("loading");
@@ -85,5 +76,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

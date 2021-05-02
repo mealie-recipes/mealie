@@ -14,11 +14,7 @@
       </v-app-bar>
       <v-form ref="newGroup" @submit.prevent="submitForm">
         <v-card-text>
-          <v-text-field
-            autofocus
-            v-model="page.name"
-            :label="$t('settings.page-name')"
-          ></v-text-field>
+          <v-text-field autofocus v-model="page.name" :label="$t('settings.page-name')"></v-text-field>
           <CategoryTagSelector
             v-model="page.categories"
             ref="categoryFormSelector"
@@ -88,7 +84,7 @@ export default {
       } else {
         response = await api.siteSettings.updatePage(this.page);
       }
-      
+
       if (response) {
         this.pageDialog = false;
         this.page.categories = [];
@@ -99,5 +95,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

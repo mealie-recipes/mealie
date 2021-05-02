@@ -1,6 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 const prefix = baseURL + "meal-plans/";
 
@@ -18,10 +18,10 @@ const mealPlanURLs = {
 export const mealplanAPI = {
   create(postBody) {
     return apiReq.post(
-      mealPlanURLs.create, 
+      mealPlanURLs.create,
       postBody,
-      function() { return i18n.t('meal-plan.mealplan-creation-failed')},
-      function() { return i18n.t('meal-plan.mealplan-created'); }
+      () => i18n.t("meal-plan.mealplan-creation-failed"),
+      () => i18n.t("meal-plan.mealplan-created")
     );
   },
 
@@ -41,19 +41,20 @@ export const mealplanAPI = {
   },
 
   delete(id) {
-    return apiReq.delete(mealPlanURLs.delete(id),
+    return apiReq.delete(
+      mealPlanURLs.delete(id),
       null,
-      function() { return i18n.t('meal-plan.mealplan-deletion-failed'); },
-      function() { return i18n.t('meal-plan.mealplan-deleted'); }
+      () => i18n.t("meal-plan.mealplan-deletion-failed"),
+      () => i18n.t("meal-plan.mealplan-deleted")
     );
   },
 
   update(id, body) {
     return apiReq.put(
-      mealPlanURLs.update(id), 
+      mealPlanURLs.update(id),
       body,
-      function() { return i18n.t('meal-plan.mealplan-update-failed'); },
-      function() { return i18n.t('meal-plan.mealplan-updated'); }
+      () => i18n.t("meal-plan.mealplan-update-failed"),
+      () => i18n.t("meal-plan.mealplan-updated")
     );
   },
 

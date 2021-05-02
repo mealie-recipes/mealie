@@ -15,12 +15,7 @@
       </p>
       <v-row dense align="center">
         <v-col cols="6">
-          <v-btn-toggle
-            v-model="selectedDarkMode"
-            color="primary "
-            mandatory
-            @change="setStoresDarkMode"
-          >
+          <v-btn-toggle v-model="selectedDarkMode" color="primary " mandatory @change="setStoresDarkMode">
             <v-btn value="system">
               <v-icon>mdi-desktop-tower-monitor</v-icon>
               <span class="ml-1" v-show="$vuetify.breakpoint.smAndUp">
@@ -58,66 +53,33 @@
 
       <v-row dense align-content="center" v-if="selectedTheme.colors">
         <v-col>
-          <ColorPickerDialog
-            :button-text="$t('settings.theme.primary')"
-            v-model="selectedTheme.colors.primary"
-          />
+          <ColorPickerDialog :button-text="$t('settings.theme.primary')" v-model="selectedTheme.colors.primary" />
         </v-col>
         <v-col>
-          <ColorPickerDialog
-            :button-text="$t('settings.theme.secondary')"
-            v-model="selectedTheme.colors.secondary"
-          />
+          <ColorPickerDialog :button-text="$t('settings.theme.secondary')" v-model="selectedTheme.colors.secondary" />
         </v-col>
         <v-col>
-          <ColorPickerDialog
-            :button-text="$t('settings.theme.accent')"
-            v-model="selectedTheme.colors.accent"
-          />
+          <ColorPickerDialog :button-text="$t('settings.theme.accent')" v-model="selectedTheme.colors.accent" />
         </v-col>
         <v-col>
-          <ColorPickerDialog
-            :button-text="$t('settings.theme.success')"
-            v-model="selectedTheme.colors.success"
-          />
+          <ColorPickerDialog :button-text="$t('settings.theme.success')" v-model="selectedTheme.colors.success" />
         </v-col>
         <v-col>
-          <ColorPickerDialog
-            :button-text="$t('settings.theme.info')"
-            v-model="selectedTheme.colors.info"
-          />
+          <ColorPickerDialog :button-text="$t('settings.theme.info')" v-model="selectedTheme.colors.info" />
         </v-col>
         <v-col>
-          <ColorPickerDialog
-            :button-text="$t('settings.theme.warning')"
-            v-model="selectedTheme.colors.warning"
-          />
+          <ColorPickerDialog :button-text="$t('settings.theme.warning')" v-model="selectedTheme.colors.warning" />
         </v-col>
         <v-col>
-          <ColorPickerDialog
-            :button-text="$t('settings.theme.error')"
-            v-model="selectedTheme.colors.error"
-          />
+          <ColorPickerDialog :button-text="$t('settings.theme.error')" v-model="selectedTheme.colors.error" />
         </v-col>
       </v-row>
     </v-card-text>
 
     <v-card-text>
       <v-row>
-        <v-col
-          cols="12"
-          sm="12"
-          md="6"
-          lg="4"
-          xl="3"
-          v-for="theme in availableThemes"
-          :key="theme.name"
-        >
-          <ThemeCard
-            :theme="theme"
-            :current="selectedTheme.name == theme.name ? true : false"
-            @delete="getAllThemes"
-          />
+        <v-col cols="12" sm="12" md="6" lg="4" xl="3" v-for="theme in availableThemes" :key="theme.name">
+          <ThemeCard :theme="theme" :current="selectedTheme.name == theme.name ? true : false" @delete="getAllThemes" />
         </v-col>
       </v-row>
     </v-card-text>
@@ -184,15 +146,10 @@ export default {
      * This will save the current colors and make the selected theme live.
      */
     saveThemes() {
-      api.themes.update(
-        this.selectedTheme.name,
-        this.selectedTheme.colors
-      );
+      api.themes.update(this.selectedTheme.name, this.selectedTheme.colors);
     },
   },
 };
 </script>
 
-<style>
-</style>
-
+<style></style>

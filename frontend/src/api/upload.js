@@ -1,5 +1,5 @@
 import { apiReq } from "./api-utils";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 export const utilsAPI = {
   // import { api } from "@/api";
@@ -9,8 +9,8 @@ export const utilsAPI = {
     return apiReq.post(
       url,
       fileObject,
-      function() { return i18n.t('general.failure-uploading-file'); },
-      function() { return i18n.t('general.file-uploaded'); }
+      () => i18n.t("general.failure-uploading-file"),
+      () => i18n.t("general.file-uploaded")
     );
   },
 };

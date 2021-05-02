@@ -1,12 +1,6 @@
 <template>
   <div class="text-center ">
-    <v-dialog
-      v-model="dialog"
-      width="600px"
-      height="0"
-      :fullscreen="isMobile"
-      content-class="top-dialog"
-    >
+    <v-dialog v-model="dialog" width="600px" height="0" :fullscreen="isMobile" content-class="top-dialog">
       <v-card>
         <v-app-bar dark color="primary lighten-1" rounded="0">
           <SearchBar

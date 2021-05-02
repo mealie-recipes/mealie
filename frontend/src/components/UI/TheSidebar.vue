@@ -4,11 +4,7 @@
       <template v-slot:prepend>
         <v-list-item two-line v-if="isLoggedIn">
           <v-list-item-avatar color="accent" class="white--text">
-            <img
-              :src="userProfileImage"
-              v-if="!hideImage"
-              @error="hideImage = true"
-            />
+            <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" />
             <div v-else>
               {{ initials }}
             </div>
@@ -16,21 +12,14 @@
 
           <v-list-item-content>
             <v-list-item-title> {{ user.fullName }}</v-list-item-title>
-            <v-list-item-subtitle>
-              {{ user.admin ? "Admin" : "User" }}</v-list-item-subtitle
-            >
+            <v-list-item-subtitle> {{ user.admin ? "Admin" : "User" }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
       <v-divider></v-divider>
 
       <v-list nav dense>
-        <v-list-item
-          v-for="nav in effectiveMenu"
-          :key="nav.title"
-          link
-          :to="nav.to"
-        >
+        <v-list-item v-for="nav in effectiveMenu" :key="nav.title" link :to="nav.to">
           <v-list-item-icon>
             <v-icon>{{ nav.icon }}</v-icon>
           </v-list-item-icon>
@@ -228,15 +217,12 @@ export default {
       this.showSidebar = false;
     },
     async getVersion() {
-      let response = await axios.get(
-        "https://api.github.com/repos/hay-kot/mealie/releases/latest",
-        {
-          headers: {
-            "content-type": "application/json",
-            Authorization: null,
-          },
-        }
-      );
+      let response = await axios.get("https://api.github.com/repos/hay-kot/mealie/releases/latest", {
+        headers: {
+          "content-type": "application/json",
+          Authorization: null,
+        },
+      });
 
       this.latestVersion = response.data.tag_name;
     },

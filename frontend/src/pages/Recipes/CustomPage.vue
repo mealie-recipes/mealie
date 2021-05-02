@@ -17,10 +17,7 @@
         </v-tabs>
 
         <v-tabs-items v-model="tab">
-          <v-tab-item
-            v-for="(item, index) in categories"
-            :key="item.slug + index"
-          >
+          <v-tab-item v-for="(item, index) in categories" :key="item.slug + index">
             <CardSection class="mb-5 mx-1" :recipes="filterRecipe(item.slug)" />
           </v-tab-item>
         </v-tabs-items>
@@ -76,9 +73,7 @@ export default {
       return await api.categories.getRecipesInCategory(category);
     },
     filterRecipe(slug) {
-      const storeCategory = this.recipeStore.find(
-        element => element.slug === slug
-      );
+      const storeCategory = this.recipeStore.find(element => element.slug === slug);
       return storeCategory ? storeCategory.recipes : [];
     },
   },

@@ -1,36 +1,17 @@
 <template>
   <div v-if="value.length > 0 || edit">
     <h2 class="my-4">{{ $t("recipe.note") }}</h2>
-    <v-card
-      class="mt-1"
-      v-for="(note, index) in value"
-      :key="generateKey('note', index)"
-    >
+    <v-card class="mt-1" v-for="(note, index) in value" :key="generateKey('note', index)">
       <div v-if="edit">
         <v-card-text>
           <v-row align="center">
-            <v-btn
-              fab
-              x-small
-              color="white"
-              class="mr-2"
-              elevation="0"
-              @click="removeByIndex(value, index)"
-            >
+            <v-btn fab x-small color="white" class="mr-2" elevation="0" @click="removeByIndex(value, index)">
               <v-icon color="error">mdi-delete</v-icon>
             </v-btn>
-            <v-text-field
-              :label="$t('recipe.title')"
-              v-model="value[index]['title']"
-            ></v-text-field>
+            <v-text-field :label="$t('recipe.title')" v-model="value[index]['title']"></v-text-field>
           </v-row>
 
-          <v-textarea
-            auto-grow
-            :placeholder="$t('recipe.note')"
-            v-model="value[index]['text']"
-          >
-          </v-textarea>
+          <v-textarea auto-grow :placeholder="$t('recipe.note')" v-model="value[index]['text']"> </v-textarea>
         </v-card-text>
       </div>
       <div v-else>
@@ -83,5 +64,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

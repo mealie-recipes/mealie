@@ -68,10 +68,8 @@ const store = new Vuex.Store({
 
   getters: {
     getMealPlanCategories: state => state.mealPlanCategories,
-    getAllCategories: state =>
-      state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
-    getAllTags: state =>
-      state.allTags.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
+    getAllCategories: state => state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
+    getAllTags: state => state.allTags.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
     getAppInfo: state => state.appInfo,
   },
 });

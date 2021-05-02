@@ -11,10 +11,7 @@
             <v-icon v-text="item.icon"></v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title
-              class="pl-2"
-              v-text="item.name"
-            ></v-list-item-title>
+            <v-list-item-title class="pl-2" v-text="item.name"></v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
             <v-btn
@@ -36,30 +33,16 @@
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
-      <base-dialog
-        @submit="addAsset"
-        :title="$t('recipe.new-asset')"
-        :title-icon="newAsset.icon"
-      >
+      <base-dialog @submit="addAsset" :title="$t('recipe.new-asset')" :title-icon="newAsset.icon">
         <template v-slot:open="{ open }">
           <v-btn color="secondary" dark @click="open" v-if="edit">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </template>
         <v-card-text class="pt-2">
-          <v-text-field
-            dense
-            v-model="newAsset.name"
-            :label="$t('general.name')"
-          ></v-text-field>
+          <v-text-field dense v-model="newAsset.name" :label="$t('general.name')"></v-text-field>
           <div class="d-flex justify-space-between">
-            <v-select
-              dense
-              :prepend-icon="newAsset.icon"
-              v-model="newAsset.icon"
-              :items="iconOptions"
-              class="mr-2"
-            >
+            <v-select dense :prepend-icon="newAsset.icon" v-model="newAsset.icon" :items="iconOptions" class="mr-2">
               <template v-slot:item="{ item }">
                 <v-list-item-avatar>
                   <v-icon class="mr-auto">
@@ -69,12 +52,7 @@
                 {{ item }}
               </template>
             </v-select>
-            <TheUploadBtn
-              @uploaded="setFileObject"
-              :post="false"
-              file-name="file"
-              :text-btn="false"
-            />
+            <TheUploadBtn @uploaded="setFileObject" :post="false" file-name="file" :text-btn="false" />
           </div>
           {{ fileObject.name }}
         </v-card-text>
@@ -109,13 +87,7 @@ export default {
         name: "",
         icon: "mdi-file",
       },
-      iconOptions: [
-        "mdi-file",
-        "mdi-file-pdf-box",
-        "mdi-file-image",
-        "mdi-code-json",
-        "mdi-silverware-fork-knife",
-      ],
+      iconOptions: ["mdi-file", "mdi-file-pdf-box", "mdi-file-image", "mdi-code-json", "mdi-silverware-fork-knife"],
       menu: [
         {
           title: "Link 1",
@@ -156,5 +128,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

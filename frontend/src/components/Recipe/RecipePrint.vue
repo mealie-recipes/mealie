@@ -3,35 +3,16 @@
     <v-card flat class="d-print-none">
       <v-card-text>
         <v-row align="center" justify="center">
-          <v-btn
-            left
-            color="accent lighten-1 "
-            class="ma-1 image-action"
-            @click="$emit('exit')"
-          >
+          <v-btn left color="accent lighten-1 " class="ma-1 image-action" @click="$emit('exit')">
             <v-icon> mdi-arrow-left </v-icon>
           </v-btn>
           <v-card flat class="text-center" align-center>
             <v-card-text>Font Size</v-card-text>
             <v-card-text>
-              <v-btn
-                class="mx-2"
-                fab
-                dark
-                x-small
-                color="primary"
-                @click="subtractFontSize"
-              >
+              <v-btn class="mx-2" fab dark x-small color="primary" @click="subtractFontSize">
                 <v-icon dark> mdi-minus </v-icon>
               </v-btn>
-              <v-btn
-                class="mx-2"
-                fab
-                dark
-                x-small
-                color="primary"
-                @click="addFontSize"
-              >
+              <v-btn class="mx-2" fab dark x-small color="primary" @click="addFontSize">
                 <v-icon dark> mdi-plus </v-icon>
               </v-btn>
             </v-card-text>
@@ -52,8 +33,7 @@
           </v-card>
         </v-col>
         <v-col md="1" sm="1" justify-end>
-          <v-img :src="getImage(recipe.image)" max-height="200" max-width="300">
-          </v-img>
+          <v-img :src="getImage(recipe.image)" max-height="200" max-width="300"> </v-img>
         </v-col>
       </v-row>
     </v-card>
@@ -104,37 +84,20 @@
           <v-col cols="12">
             <div v-if="recipe.categories[0]">
               <h2 class="mt-4">Categories</h2>
-              <v-chip
-                class="ma-1"
-                color="primary"
-                dark
-                v-for="category in recipe.categories"
-                :key="category"
-              >
+              <v-chip class="ma-1" color="primary" dark v-for="category in recipe.categories" :key="category">
                 {{ category }}
               </v-chip>
             </div>
 
             <div v-if="recipe.tags[0]">
               <h2 class="mt-4">Tags</h2>
-              <v-chip
-                class="ma-1"
-                color="primary"
-                dark
-                v-for="tag in recipe.tags"
-                :key="tag"
-              >
+              <v-chip class="ma-1" color="primary" dark v-for="tag in recipe.tags" :key="tag">
                 {{ tag }}
               </v-chip>
             </div>
 
             <h2 v-if="recipe.notes[0]" class="my-2">Notes</h2>
-            <v-card
-              flat
-              class="mt-1"
-              v-for="(note, index) in recipe.notes"
-              :key="generateKey('note', index)"
-            >
+            <v-card flat class="mt-1" v-for="(note, index) in recipe.notes" :key="generateKey('note', index)">
               <v-card-title> {{ note.title }}</v-card-title>
               <v-card-text>
                 {{ note.text }}

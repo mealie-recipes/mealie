@@ -48,10 +48,7 @@
                 :rules="[existsRule]"
                 validate-on-blur
               ></v-text-field>
-              <v-checkbox
-                v-model="editedItem.admin"
-                :label="$t('user.admin')"
-              ></v-checkbox>
+              <v-checkbox v-model="editedItem.admin" :label="$t('user.admin')"></v-checkbox>
             </v-card-text>
 
             <v-card-actions>
@@ -73,13 +70,7 @@
       <v-data-table :headers="headers" :items="links" sort-by="calories">
         <template v-slot:item.token="{ item }">
           {{ `${baseURL}/sign-up/${item.token}` }}
-          <v-btn
-            icon
-            class="mr-1"
-            small
-            color="accent"
-            @click="updateClipboard(`${baseURL}/sign-up/${item.token}`)"
-          >
+          <v-btn icon class="mr-1" small color="accent" @click="updateClipboard(`${baseURL}/sign-up/${item.token}`)">
             <v-icon>
               mdi-content-copy
             </v-icon>
@@ -239,5 +230,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

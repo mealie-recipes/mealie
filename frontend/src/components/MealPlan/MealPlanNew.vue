@@ -180,9 +180,7 @@ export default {
       });
     },
     processTime(index) {
-      let dateText = new Date(
-        this.actualStartDate.valueOf() + 1000 * 3600 * 24 * index
-      );
+      let dateText = new Date(this.actualStartDate.valueOf() + 1000 * 3600 * 24 * index);
       return dateText;
     },
     getDate(index) {
@@ -215,22 +213,10 @@ export default {
       return this.$d(date);
     },
     getNextDayOfTheWeek(dayName, excludeToday = true, refDate = new Date()) {
-      const dayOfWeek = [
-        "sun",
-        "mon",
-        "tue",
-        "wed",
-        "thu",
-        "fri",
-        "sat",
-      ].indexOf(dayName.slice(0, 3).toLowerCase());
+      const dayOfWeek = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"].indexOf(dayName.slice(0, 3).toLowerCase());
       if (dayOfWeek < 0) return;
       refDate.setUTCHours(0, 0, 0, 0);
-      refDate.setDate(
-        refDate.getDate() +
-          +!!excludeToday +
-          ((dayOfWeek + 7 - refDate.getDay() - +!!excludeToday) % 7)
-      );
+      refDate.setDate(refDate.getDate() + +!!excludeToday + ((dayOfWeek + 7 - refDate.getDay() - +!!excludeToday) % 7));
       return refDate;
     },
     setQuickWeek() {
@@ -245,5 +231,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

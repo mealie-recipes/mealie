@@ -22,7 +22,7 @@ const vueApp = new Vue({
 }).$mount("#app");
 
 // Truncate
-let truncate = function(text, length, clamp) {
+const truncate = function(text, length, clamp) {
   clamp = clamp || "...";
   let node = document.createElement("div");
   node.innerHTML = text;
@@ -30,7 +30,7 @@ let truncate = function(text, length, clamp) {
   return content.length > length ? content.slice(0, length) + clamp : content;
 };
 
-let titleCase = function(value) {
+const titleCase = function(value) {
   return value.replace(/(?:^|\s|-)\S/g, x => x.toUpperCase());
 };
 

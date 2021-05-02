@@ -5,14 +5,7 @@
       <v-icon large left v-if="!loading">
         mdi-account
       </v-icon>
-      <v-progress-circular
-        v-else
-        indeterminate
-        color="white"
-        large
-        class="mr-2"
-      >
-      </v-progress-circular>
+      <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
       <v-toolbar-title class="headline">{{ $t("user.login") }}</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
@@ -42,11 +35,7 @@
           @click:append="showPassword = !showPassword"
         ></v-text-field>
         <v-card-actions>
-          <v-btn
-            v-if="options.isLoggingIn"
-            color="primary"
-            block="block"
-            type="submit"
+          <v-btn v-if="options.isLoggingIn" color="primary" block="block" type="submit"
             >{{ $t("user.sign-in") }}
           </v-btn>
         </v-card-actions>
@@ -108,5 +97,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

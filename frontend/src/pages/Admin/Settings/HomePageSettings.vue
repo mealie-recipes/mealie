@@ -4,10 +4,7 @@
       <h2 class="mt-1 mb-1">{{ $t("settings.homepage.home-page") }}</h2>
       <v-row align="center" justify="center" dense class="mb-n7 pb-n5">
         <v-col cols="12" sm="3" md="2">
-          <v-switch
-            v-model="settings.showRecent"
-            :label="$t('settings.homepage.show-recent')"
-          ></v-switch>
+          <v-switch v-model="settings.showRecent" :label="$t('settings.homepage.show-recent')"></v-switch>
         </v-col>
         <v-col cols="12" sm="5" md="5">
           <v-slider
@@ -49,10 +46,7 @@
                     minHeight: `150px`,
                   }"
                 >
-                  <v-list-item
-                    v-for="(item, index) in settings.categories"
-                    :key="`${item.name}-${index}`"
-                  >
+                  <v-list-item v-for="(item, index) in settings.categories" :key="`${item.name}-${index}`">
                     <v-list-item-icon>
                       <v-icon>mdi-menu</v-icon>
                     </v-list-item-icon>
@@ -92,10 +86,7 @@
                     minHeight: `150px`,
                   }"
                 >
-                  <v-list-item
-                    v-for="(item, index) in allCategories"
-                    :key="`${item.name}-${index}`"
-                  >
+                  <v-list-item v-for="(item, index) in allCategories" :key="`${item.name}-${index}`">
                     <v-list-item-icon>
                       <v-icon>mdi-menu</v-icon>
                     </v-list-item-icon>
@@ -103,9 +94,7 @@
                     <v-list-item-content>
                       <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
-                    <v-list-item-icon
-                      @click="deleteCategoryfromDatabase(item.slug)"
-                    >
+                    <v-list-item-icon @click="deleteCategoryfromDatabase(item.slug)">
                       <v-icon>mdi-delete</v-icon>
                     </v-list-item-icon>
                   </v-list-item>
@@ -214,7 +203,7 @@ export default {
       this.settings.language = val;
     },
     deleteCategoryfromDatabase(category) {
-      api.categories.delete(category); 
+      api.categories.delete(category);
     },
     async getOptions() {
       this.settings = await api.siteSettings.get();
@@ -225,11 +214,10 @@ export default {
     async saveSettings() {
       if (await api.siteSettings.update(this.settings)) {
         this.getOptions();
-      } 
+      }
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

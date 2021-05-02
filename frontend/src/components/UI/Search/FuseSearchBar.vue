@@ -61,9 +61,7 @@ export default {
       try {
         this.results = this.fuse.search(this.search.trim());
       } catch {
-        this.results = this.rawData
-          .map(x => ({ item: x }))
-          .sort((a, b) => (a.name > b.name ? 1 : -1));
+        this.results = this.rawData.map(x => ({ item: x })).sort((a, b) => (a.name > b.name ? 1 : -1));
       }
       this.$emit(RESULTS_EVENT, this.results);
 
@@ -75,5 +73,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

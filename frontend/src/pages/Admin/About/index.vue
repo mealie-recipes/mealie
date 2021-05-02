@@ -2,7 +2,7 @@
   <div>
     <v-card class="mt-3">
       <v-card-title class="headline">
-        {{$t('about.about-mealie')}}
+        {{ $t("about.about-mealie") }}
       </v-card-title>
       <v-divider></v-divider>
       <v-card-text>
@@ -22,14 +22,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <TheDownloadBtn
-          :button-text="$t('about.download-recipe-json')"
-          download-url="/api/debug/last-recipe-json"
-        />
-        <TheDownloadBtn
-          :button-text="$t('about.download-log')"
-          download-url="/api/debug/log"
-        />
+        <TheDownloadBtn :button-text="$t('about.download-recipe-json')" download-url="/api/debug/last-recipe-json" />
+        <TheDownloadBtn :button-text="$t('about.download-log')" download-url="/api/debug/log" />
       </v-card-actions>
       <v-divider></v-divider>
     </v-card>
@@ -55,42 +49,42 @@ export default {
 
       this.prettyInfo = [
         {
-          name: this.$t('about.version'),
+          name: this.$t("about.version"),
           icon: "mdi-information",
           value: debugInfo.version,
         },
         {
-          name: this.$t('about.application-mode'),
+          name: this.$t("about.application-mode"),
           icon: "mdi-dev-to",
-          value: debugInfo.production ? this.$t('about.production') : this.$t('about.development'),
+          value: debugInfo.production ? this.$t("about.production") : this.$t("about.development"),
         },
         {
-          name: this.$t('about.demo-status'),
+          name: this.$t("about.demo-status"),
           icon: "mdi-test-tube",
-          value: debugInfo.demoStatus ? this.$t('about.demo') : this.$t('about.not-demo'),
+          value: debugInfo.demoStatus ? this.$t("about.demo") : this.$t("about.not-demo"),
         },
         {
-          name: this.$t('about.api-port'),
+          name: this.$t("about.api-port"),
           icon: "mdi-api",
           value: debugInfo.apiPort,
         },
         {
-          name: this.$t('about.api-docs'),
+          name: this.$t("about.api-docs"),
           icon: "mdi-file-document",
-          value: debugInfo.apiDocs ? this.$t('general.enabled') : this.$t('general.disabled'),
+          value: debugInfo.apiDocs ? this.$t("general.enabled") : this.$t("general.disabled"),
         },
         {
-          name: this.$t('about.database-type'),
+          name: this.$t("about.database-type"),
           icon: "mdi-database",
           value: debugInfo.dbType,
         },
         {
-          name: this.$t('about.sqlite-file'),
+          name: this.$t("about.sqlite-file"),
           icon: "mdi-file-cabinet",
           value: debugInfo.sqliteFile,
         },
         {
-          name: this.$t('about.default-group'),
+          name: this.$t("about.default-group"),
           icon: "mdi-account-group",
           value: debugInfo.defaultGroup,
         },
@@ -100,5 +94,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

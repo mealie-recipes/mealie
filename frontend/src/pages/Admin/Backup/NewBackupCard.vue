@@ -2,11 +2,7 @@
   <v-card :loading="loading">
     <v-card-title> {{ $t("settings.backup.create-heading") }} </v-card-title>
     <v-card-text class="mt-n3">
-      <v-text-field
-        dense
-        :label="$t('settings.backup.backup-tag')"
-        v-model="tag"
-      ></v-text-field>
+      <v-text-field dense :label="$t('settings.backup.backup-tag')" v-model="tag"></v-text-field>
     </v-card-text>
     <v-card-actions class="mt-n9 flex-wrap">
       <v-switch v-model="fullBackup" :label="switchLabel"></v-switch>
@@ -101,7 +97,6 @@ export default {
         this.$emit("created");
       }
       this.loading = false;
-
     },
     appendTemplate(templateName) {
       if (this.selectedTemplates.includes(templateName)) {
@@ -115,5 +110,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

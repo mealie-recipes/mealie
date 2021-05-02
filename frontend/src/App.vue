@@ -4,9 +4,7 @@
     <TheAppBar />
     <v-main>
       <v-banner v-if="demo" sticky
-        ><div class="text-center">
-          <b> This is a Demo</b> | Username: changeme@email.com | Password: demo
-        </div></v-banner
+        ><div class="text-center"><b> This is a Demo</b> | Username: changeme@email.com | Password: demo</div></v-banner
       >
       <router-view></router-view>
     </v-main>
@@ -57,9 +55,7 @@ export default {
      */
     darkModeSystemCheck() {
       if (this.$store.getters.getDarkMode === "system")
-        Vuetify.framework.theme.dark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
+        Vuetify.framework.theme.dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     },
     /**
      * This will monitor the OS level darkmode and call to update dark mode.

@@ -1,4 +1,3 @@
-
 <template>
   <v-dialog
     v-model="dialog"
@@ -7,17 +6,16 @@
     @click:outside="cancel"
     @keydown.esc="cancel"
   >
+    <template v-slot:activator="{}">
+      <slot v-bind="{ open }"> </slot>
+    </template>
     <v-card>
-      <v-app-bar v-if="Boolean(title)" :color="color" dense  dark>
+      <v-app-bar v-if="Boolean(title)" :color="color" dense dark>
         <v-icon v-if="Boolean(icon)" left> {{ icon }}</v-icon>
         <v-toolbar-title v-text="title" />
       </v-app-bar>
 
-      <v-card-text
-        v-show="!!message"
-        class="pa-4 text--primary"
-        v-html="message"
-      />
+      <v-card-text v-show="!!message" class="pa-4 text--primary" v-html="message" />
 
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -35,6 +33,7 @@
 <script>
 const CLOSE_EVENT = "close";
 const OPEN_EVENT = "open";
+const CONFIRM_EVENT = "confirm";
 /**
  * ConfirmationDialog Component used to add a second validaion step to an action.
  * @version 1.0.1
@@ -96,13 +95,9 @@ export default {
     dialog: false,
   }),
   methods: {
-    /**
-     * Sets the modal to be visiable.
-     */
     open() {
       this.dialog = true;
     },
-
     /**
      * Cancel button handler.
      */
@@ -129,7 +124,7 @@ export default {
        * @event confirm
        * @property {string} content content of the first prop passed to the event
        */
-      this.$emit("confirm");
+      this.$emit(CONFIRM_EVENT);
 
       //Hide Modal
       this.dialog = false;
@@ -138,5 +133,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" width="70%">
@@ -105,5 +103,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

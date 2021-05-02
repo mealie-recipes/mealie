@@ -1,22 +1,10 @@
 <template>
   <v-row>
     <SearchDialog ref="mealselect" @select="setSlug" />
-    <v-col
-      cols="12"
-      sm="12"
-      md="6"
-      lg="4"
-      xl="3"
-      v-for="(meal, index) in value"
-      :key="index"
-    >
+    <v-col cols="12" sm="12" md="6" lg="4" xl="3" v-for="(meal, index) in value" :key="index">
       <v-hover v-slot="{ hover }" :open-delay="50">
         <v-card :class="{ 'on-hover': hover }" :elevation="hover ? 12 : 2">
-          <v-img
-            height="200"
-            :src="getImage(meal.slug)"
-            @click="openSearch(index)"
-          ></v-img>
+          <v-img height="200" :src="getImage(meal.slug)" @click="openSearch(index)"></v-img>
           <v-card-title class="my-n3 mb-n6">
             {{ $d(new Date(meal.date.split("-")), "short") }}
           </v-card-title>
@@ -63,5 +51,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

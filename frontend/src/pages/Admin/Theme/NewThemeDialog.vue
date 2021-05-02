@@ -51,8 +51,7 @@ export default {
       dialog: false,
       themeName: "",
       rules: {
-        required: val =>
-          !!val || this.$t("settings.theme.theme-name-is-required"),
+        required: val => !!val || this.$t("settings.theme.theme-name-is-required"),
       },
     };
   },
@@ -87,5 +86,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

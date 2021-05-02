@@ -2,70 +2,27 @@
   <v-form ref="form">
     <v-card-text>
       <v-row dense>
-        <ImageUploadBtn
-          class="my-1"
-          @upload="uploadImage"
-          :slug="value.slug"
-          @refresh="$emit('upload')"
-        />
-        <SettingsMenu
-          class="my-1 mx-1"
-          @upload="uploadImage"
-          :value="value.settings"
-        />
+        <ImageUploadBtn class="my-1" @upload="uploadImage" :slug="value.slug" @refresh="$emit('upload')" />
+        <SettingsMenu class="my-1 mx-1" @upload="uploadImage" :value="value.settings" />
       </v-row>
       <v-row dense>
         <v-col>
-          <v-text-field
-            :label="$t('recipe.total-time')"
-            v-model="value.totalTime"
-          ></v-text-field>
+          <v-text-field :label="$t('recipe.total-time')" v-model="value.totalTime"></v-text-field>
         </v-col>
-        <v-col
-          ><v-text-field
-            :label="$t('recipe.prep-time')"
-            v-model="value.prepTime"
-          ></v-text-field
-        ></v-col>
-        <v-col
-          ><v-text-field
-            :label="$t('recipe.perform-time')"
-            v-model="value.performTime"
-          ></v-text-field
-        ></v-col>
+        <v-col><v-text-field :label="$t('recipe.prep-time')" v-model="value.prepTime"></v-text-field></v-col>
+        <v-col><v-text-field :label="$t('recipe.perform-time')" v-model="value.performTime"></v-text-field></v-col>
       </v-row>
-      <v-text-field
-        class="my-3"
-        :label="$t('recipe.recipe-name')"
-        v-model="value.name"
-        :rules="[existsRule]"
-      >
+      <v-text-field class="my-3" :label="$t('recipe.recipe-name')" v-model="value.name" :rules="[existsRule]">
       </v-text-field>
-      <v-textarea
-        auto-grow
-        min-height="100"
-        :label="$t('recipe.description')"
-        v-model="value.description"
-      >
+      <v-textarea auto-grow min-height="100" :label="$t('recipe.description')" v-model="value.description">
       </v-textarea>
       <div class="my-2"></div>
       <v-row dense disabled>
         <v-col sm="4">
-          <v-text-field
-            :label="$t('recipe.servings')"
-            v-model="value.recipeYield"
-            class="rounded-sm"
-          >
-          </v-text-field>
+          <v-text-field :label="$t('recipe.servings')" v-model="value.recipeYield" class="rounded-sm"> </v-text-field>
         </v-col>
         <v-spacer></v-spacer>
-        <v-rating
-          class="mr-2 align-end"
-          color="secondary darken-1"
-          background-color="secondary lighten-3"
-          length="5"
-          v-model="value.rating"
-        ></v-rating>
+        <Rating v-model="value.rating" :emit-only="true" />
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
@@ -104,11 +61,7 @@
           </div>
           <Notes :edit="true" v-model="value.notes" />
 
-          <v-text-field
-            v-model="value.orgURL"
-            class="mt-10"
-            :label="$t('recipe.original-url')"
-          ></v-text-field>
+          <v-text-field v-model="value.orgURL" class="mt-10" :label="$t('recipe.original-url')"></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>
@@ -128,6 +81,7 @@ import Ingredients from "@/components/Recipe/Parts/Ingredients";
 import Assets from "@/components/Recipe/Parts/Assets.vue";
 import Notes from "@/components/Recipe/Parts/Notes.vue";
 import SettingsMenu from "@/components/Recipe/Parts/Helpers/SettingsMenu.vue";
+import Rating from "@/components/Recipe/Parts/Rating";
 export default {
   components: {
     BulkAdd,
@@ -140,6 +94,7 @@ export default {
     Assets,
     Notes,
     SettingsMenu,
+    Rating,
   },
   props: {
     value: Object,
