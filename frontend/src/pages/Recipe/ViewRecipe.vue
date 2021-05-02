@@ -99,7 +99,6 @@ export default {
   data() {
     return {
       skeleton: true,
-      // currentRecipe: this.$route.params.recipe,
       form: false,
       jsonEditor: false,
       jsonEditorOptions: {
@@ -129,6 +128,9 @@ export default {
   },
   mounted() {
     this.getRecipeDetails();
+    this.jsonEditor = false;
+    this.form = Boolean(this.edit);
+    console.log(this.form);
   },
 
   watch: {
@@ -140,6 +142,9 @@ export default {
   computed: {
     currentRecipe() {
       return this.$route.params.recipe;
+    },
+    edit() {
+      return this.$route.query.edit;
     },
     showIcons() {
       return this.form;
@@ -182,7 +187,13 @@ export default {
     },
     async saveImage(overrideSuccessMsg = false) {
       if (this.fileObject) {
-        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg)) {
+        if (
+          api.recipes.updateImage(
+            this.recipeDetails.slug,
+            this.fileObject,
+            overrideSuccessMsg
+          )
+        ) {
           this.imageKey += 1;
         }
       }

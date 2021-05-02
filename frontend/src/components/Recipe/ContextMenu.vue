@@ -1,9 +1,8 @@
 <template>
-  <div class="text-center" v-if="loggedIn">
+  <div class="text-center">
     <v-menu offset-y top left>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          :loading="loading"
           color="primary"
           icon
           dark
@@ -16,7 +15,7 @@
       </template>
       <v-list dense>
         <v-list-item
-          v-for="(item, index) in items"
+          v-for="(item, index) in loggedIn ? userMenu : defaultMenu"
           :key="index"
           @click="menuAction(item.action)"
         >
@@ -48,36 +47,43 @@ export default {
     recipeURL() {
       return `${this.baseURL}/recipe/${this.slug}`;
     },
-  },
-  data() {
-    return {
-      items: [
+    defaultMenu() {
+      return [
         {
-          title: "Delete",
-          icon: "mdi-delete",
-          color: "error",
-          action: "delete",
-        },
-        {
-          title: "Edit",
-          icon: "mdi-square-edit-outline",
-          color: "accent",
-          action: "edit",
-        },
-        {
-          title: "Download",
+          title: this.$t("general.download"),
           icon: "mdi-download",
           color: "accent",
           action: "download",
         },
         {
-          title: "Link",
+          title: this.$t("general.link"),
           icon: "mdi-content-copy",
           color: "accent",
           action: "share",
         },
-      ],
-      loading: false,
+      ];
+    },
+    userMenu() {
+      return [
+        {
+          title: this.$t("general.delete"),
+          icon: "mdi-delete",
+          color: "error",
+          action: "delete",
+        },
+        {
+          title: this.$t("general.edit"),
+          icon: "mdi-square-edit-outline",
+          color: "accent",
+          action: "edit",
+        },
+        ...this.defaultMenu,
+      ];
+    },
+  },
+  data() {
+    return {
+      loading: true,
     };
   },
   methods: {
@@ -106,12 +112,8 @@ export default {
     updateClipboard() {
       const copyText = this.recipeURL;
       navigator.clipboard.writeText(copyText).then(
-        function() {
-          console.log("Copied", copyText);
-        },
-        function() {
-          console.log("Copy Failed", copyText);
-        }
+        () => console.log("Copied", copyText),
+        () => console.log("Copied Failed", copyText)
       );
     },
   },
