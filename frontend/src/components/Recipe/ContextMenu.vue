@@ -1,5 +1,13 @@
 <template>
   <div class="text-center">
+    <ConfirmationDialog
+      :title="$t('recipe.delete-recipe')"
+      :message="$t('recipe.delete-confirmation')"
+      color="error"
+      icon="mdi-alert-circle"
+      ref="deleteRecipieConfirm"
+      v-on:confirm="deleteRecipe()"
+    />
     <v-menu offset-y top left>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -30,8 +38,12 @@
 </template>
 
 <script>
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
 import { api } from "@/api";
 export default {
+  components: {
+    ConfirmationDialog,
+  },
   props: {
     slug: {
       type: String,
@@ -92,7 +104,7 @@ export default {
 
       switch (action) {
         case "delete":
-          await api.recipes.delete(this.slug);
+          this.$refs.deleteRecipieConfirm.open();
           break;
         case "share":
           this.updateClipboard();
@@ -108,6 +120,9 @@ export default {
       }
 
       this.loading = false;
+    },
+    async deleteRecipe() {
+      await api.recipes.delete(this.slug);
     },
     updateClipboard() {
       const copyText = this.recipeURL;
