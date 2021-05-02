@@ -108,7 +108,7 @@ class ImportDatabase:
     def _import_images(self, successful_imports: list[Recipe]):
         image_dir = self.import_dir.joinpath("images")
 
-        if image_dir.exists():
+        if image_dir.exists():  # Migrate from before v0.5.0
             for image in image_dir.iterdir():
                 item: Recipe = successful_imports.get(image.stem)
 
@@ -120,6 +120,10 @@ class ImportDatabase:
 
                     if image.is_file():
                         shutil.copy(image, dest_dir)
+
+        else:
+            recipe_dir = self.import_dir.joinpath("recipes")
+            shutil.copytree(recipe_dir, app_dirs.RECIPE_DATA_DIR, dirs_exist_ok=True)
 
         minify.migrate_images()
 
