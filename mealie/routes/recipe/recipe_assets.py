@@ -32,7 +32,7 @@ async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.orig
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
-@router.get("/{recipe_slug}/asset")
+@router.get("/{recipe_slug}/assets/{file_name}")
 async def get_recipe_asset(recipe_slug, file_name: str):
     """ Returns a recipe asset """
     file = app_dirs.RECIPE_DATA_DIR.joinpath(recipe_slug, file_name)
