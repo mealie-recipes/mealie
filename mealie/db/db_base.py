@@ -136,15 +136,12 @@ class BaseDocument:
         entry = self._query_one(session=session, match_value=match_value)
 
         if not entry:
-            return 
+            return
 
         entry_as_dict = self.schema.from_orm(entry).dict()
         entry_as_dict.update(new_data)
 
         return self.update(session, match_value, entry_as_dict)
-
-
-
 
     def delete(self, session: Session, primary_key_value) -> dict:
         result = session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()

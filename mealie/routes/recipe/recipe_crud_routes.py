@@ -72,7 +72,9 @@ def patch_recipe(
 ):
     """ Updates a recipe by existing slug and data. """
 
-    recipe: Recipe = db.recipes.patch(session, recipe_slug, new_data=data.dict(exclude_unset=True, exclude_defaults=True))
+    recipe: Recipe = db.recipes.patch(
+        session, recipe_slug, new_data=data.dict(exclude_unset=True, exclude_defaults=True)
+    )
     if recipe_slug != recipe.slug:
         rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
 
