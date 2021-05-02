@@ -42,6 +42,12 @@ export default {
     loggedIn() {
       return this.$store.getters.getIsLoggedIn;
     },
+    baseURL() {
+      return window.location.origin;
+    },
+    recipeURL() {
+      return `${this.baseURL}/recipe/${this.slug}`;
+    },
   },
   data() {
     return {
@@ -51,6 +57,24 @@ export default {
           icon: "mdi-delete",
           color: "error",
           action: "delete",
+        },
+        {
+          title: "Edit",
+          icon: "mdi-square-edit-outline",
+          color: "accent",
+          action: "edit",
+        },
+        {
+          title: "Download",
+          icon: "mdi-download",
+          color: "accent",
+          action: "download",
+        },
+        {
+          title: "Link",
+          icon: "mdi-content-copy",
+          color: "accent",
+          action: "share",
         },
       ],
       loading: false,
@@ -64,11 +88,31 @@ export default {
         case "delete":
           await api.recipes.delete(this.slug);
           break;
+        case "share":
+          this.updateClipboard();
+          break;
+        case "edit":
+          this.$router.push(`/recipe/${this.slug}` + "?edit=true");
+          break;
+        case "download":
+          console.log("Download");
+          break;
         default:
           break;
       }
 
       this.loading = false;
+    },
+    updateClipboard() {
+      const copyText = this.recipeURL;
+      navigator.clipboard.writeText(copyText).then(
+        function() {
+          console.log("Copied", copyText);
+        },
+        function() {
+          console.log("Copy Failed", copyText);
+        }
+      );
     },
   },
 };
