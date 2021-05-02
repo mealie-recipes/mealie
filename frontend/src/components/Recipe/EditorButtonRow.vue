@@ -18,14 +18,7 @@
       <template v-slot:extension>
         <v-col></v-col>
         <div v-if="open">
-          <v-btn
-            class="mr-2"
-            fab
-            dark
-            small
-            color="error"
-            @click="deleteRecipeConfrim"
-          >
+          <v-btn class="mr-2" fab dark small color="error" @click="deleteRecipeConfrim">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
 
@@ -101,5 +94,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -10,14 +10,7 @@
     />
     <v-menu offset-y top left>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          icon
-          dark
-          v-bind="attrs"
-          v-on="on"
-          @click.prevent
-        >
+        <v-btn color="primary" icon dark v-bind="attrs" v-on="on" @click.prevent>
           <v-icon>{{ menuIcon }}</v-icon>
         </v-btn>
       </template>

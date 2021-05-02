@@ -3,13 +3,7 @@
     <h2 class="mb-4">{{ $t("recipe.instructions") }}</h2>
     <div>
       <div v-for="(step, index) in value" :key="index">
-        <v-app-bar
-          v-if="showTitleEditor[index]"
-          class="primary mx-1 mt-6"
-          dark
-          dense
-          rounded
-        >
+        <v-app-bar v-if="showTitleEditor[index]" class="primary mx-1 mt-6" dark dense rounded>
           <v-toolbar-title class="headline" v-if="!edit">
             <v-app-bar-title v-text="step.title"> </v-app-bar-title>
           </v-toolbar-title>
@@ -46,16 +40,8 @@
                 <v-icon size="24" color="error">mdi-delete</v-icon>
               </v-btn>
               {{ $t("recipe.step-index", { step: index + 1 }) }}
-              <v-btn
-                v-if="edit"
-                text
-                color="primary"
-                class="ml-auto"
-                @click="toggleShowTitle(index)"
-              >
-                {{
-                  !showTitleEditor[index] ? "Insert Section" : "Remove Section"
-                }}
+              <v-btn v-if="edit" text color="primary" class="ml-auto" @click="toggleShowTitle(index)">
+                {{ !showTitleEditor[index] ? "Insert Section" : "Remove Section" }}
               </v-btn>
             </v-card-title>
             <v-card-text v-if="edit">
@@ -144,5 +130,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

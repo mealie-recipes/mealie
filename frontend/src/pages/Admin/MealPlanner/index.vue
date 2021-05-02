@@ -14,11 +14,7 @@
         v-model="groupSettings.categories"
         :return-object="true"
         :show-add="true"
-        :hint="
-          $t(
-            'meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans'
-          )
-        "
+        :hint="$t('meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans')"
       />
     </v-card-text>
     <v-divider> </v-divider>
@@ -36,11 +32,7 @@
       </p>
 
       <v-row dense class="flex align-center">
-        <v-switch
-          class="mx-2"
-          v-model="groupSettings.webhookEnable"
-          :label="$t('general.enabled')"
-        ></v-switch>
+        <v-switch class="mx-2" v-model="groupSettings.webhookEnable" :label="$t('general.enabled')"></v-switch>
         <TimePickerDialog @save-time="saveTime" class="ma-2" />
         <v-btn class="ma-2" color="info" @click="testWebhooks">
           <v-icon left> mdi-webhook </v-icon>
@@ -48,12 +40,7 @@
         </v-btn>
       </v-row>
 
-      <v-row
-        v-for="(url, index) in groupSettings.webhookUrls"
-        :key="index"
-        align=" center"
-        dense
-      >
+      <v-row v-for="(url, index) in groupSettings.webhookUrls" :key="index" align=" center" dense>
         <v-col cols="1">
           <v-btn icon color="error" @click="removeWebhook(index)">
             <v-icon>mdi-minus</v-icon>
@@ -147,5 +134,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

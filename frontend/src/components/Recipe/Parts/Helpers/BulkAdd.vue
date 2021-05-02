@@ -2,24 +2,17 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="600">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-        
-          color="secondary lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-          @click="inputText = ''"
-        >
-          {{$t('new-recipe.bulk-add')}}
+        <v-btn color="secondary lighten-2" dark v-bind="attrs" v-on="on" @click="inputText = ''">
+          {{ $t("new-recipe.bulk-add") }}
         </v-btn>
       </template>
 
       <v-card>
-        <v-card-title class="headline"> {{$t('new-recipe.bulk-add')}} </v-card-title>
+        <v-card-title class="headline"> {{ $t("new-recipe.bulk-add") }} </v-card-title>
 
         <v-card-text>
           <p>
-            {{$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')}}
+            {{ $t("new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list") }}
           </p>
           <v-textarea v-model="inputText"> </v-textarea>
         </v-card-text>
@@ -28,7 +21,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" text @click="save"> {{$t('general.save')}} </v-btn>
+          <v-btn color="success" text @click="save"> {{ $t("general.save") }} </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

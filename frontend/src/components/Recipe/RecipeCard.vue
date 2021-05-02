@@ -9,11 +9,7 @@
     >
       <v-img height="200" :src="getImage(slug)">
         <v-expand-transition v-if="description">
-          <div
-            v-if="hover"
-            class="d-flex transition-fast-in-fast-out secondary v-card--reveal  "
-            style="height: 100%;"
-          >
+          <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal  " style="height: 100%;">
             <v-card-text class="v-card--text-show white--text">
               {{ description | truncate(300) }}
             </v-card-text>
@@ -29,13 +25,7 @@
       <v-card-actions>
         <Rating :value="rating" :name="name" :slug="slug" :small="true" />
         <v-spacer></v-spacer>
-        <RecipeChips
-          :items="tags"
-          :title="false"
-          :limit="2"
-          :small="true"
-          :isCategory="false"
-        />
+        <RecipeChips :items="tags" :title="false" :limit="2" :small="true" :isCategory="false" />
         <ContextMenu :slug="slug" />
       </v-card-actions>
     </v-card>

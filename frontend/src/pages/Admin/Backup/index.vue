@@ -20,19 +20,11 @@
       <v-card-title class="mt-n6">
         {{ $t("settings.available-backups") }}
         <span>
-          <TheUploadBtn
-            class="mt-1"
-            url="/api/backups/upload"
-            @uploaded="getAvailableBackups"
-          />
+          <TheUploadBtn class="mt-1" url="/api/backups/upload" @uploaded="getAvailableBackups" />
         </span>
         <v-spacer></v-spacer>
       </v-card-title>
-      <AvailableBackupCard
-        @loading="backupLoading = true"
-        @finished="processFinished"
-        :backups="availableBackups"
-      />
+      <AvailableBackupCard @loading="backupLoading = true" @finished="processFinished" :backups="availableBackups" />
 
       <ImportSummaryDialog ref="report" :import-data="importData" />
     </v-card-text>
@@ -80,5 +72,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

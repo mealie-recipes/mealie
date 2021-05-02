@@ -22,14 +22,10 @@
               </template>
               <v-list>
                 <v-list-item @click="$emit('sort-recent')">
-                  <v-list-item-title>{{
-                    $t("general.recent")
-                  }}</v-list-item-title>
+                  <v-list-item-title>{{ $t("general.recent") }}</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="$emit('sort')">
-                  <v-list-item-title>{{
-                    $t("general.sort-alphabetically")
-                  }}</v-list-item-title>
+                  <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -39,14 +35,7 @@
     </v-card>
     <div v-if="recipes">
       <v-row v-if="!viewScale">
-        <v-col
-          :sm="6"
-          :md="6"
-          :lg="4"
-          :xl="3"
-          v-for="recipe in recipes.slice(0, cardLimit)"
-          :key="recipe.name"
-        >
+        <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="recipe in recipes.slice(0, cardLimit)" :key="recipe.name">
           <RecipeCard
             :name="recipe.name"
             :description="recipe.description"
@@ -148,10 +137,7 @@ export default {
   },
   methods: {
     bumpList() {
-      const newCardLimit = Math.min(
-        this.cardLimit + 20,
-        this.effectiveHardLimit
-      );
+      const newCardLimit = Math.min(this.cardLimit + 20, this.effectiveHardLimit);
 
       if (this.loading === false && newCardLimit > this.cardLimit) {
         this.setLoader();

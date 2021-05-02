@@ -2,61 +2,24 @@
   <v-form ref="form">
     <v-card-text>
       <v-row dense>
-        <ImageUploadBtn
-          class="my-1"
-          @upload="uploadImage"
-          :slug="value.slug"
-          @refresh="$emit('upload')"
-        />
-        <SettingsMenu
-          class="my-1 mx-1"
-          @upload="uploadImage"
-          :value="value.settings"
-        />
+        <ImageUploadBtn class="my-1" @upload="uploadImage" :slug="value.slug" @refresh="$emit('upload')" />
+        <SettingsMenu class="my-1 mx-1" @upload="uploadImage" :value="value.settings" />
       </v-row>
       <v-row dense>
         <v-col>
-          <v-text-field
-            :label="$t('recipe.total-time')"
-            v-model="value.totalTime"
-          ></v-text-field>
+          <v-text-field :label="$t('recipe.total-time')" v-model="value.totalTime"></v-text-field>
         </v-col>
-        <v-col
-          ><v-text-field
-            :label="$t('recipe.prep-time')"
-            v-model="value.prepTime"
-          ></v-text-field
-        ></v-col>
-        <v-col
-          ><v-text-field
-            :label="$t('recipe.perform-time')"
-            v-model="value.performTime"
-          ></v-text-field
-        ></v-col>
+        <v-col><v-text-field :label="$t('recipe.prep-time')" v-model="value.prepTime"></v-text-field></v-col>
+        <v-col><v-text-field :label="$t('recipe.perform-time')" v-model="value.performTime"></v-text-field></v-col>
       </v-row>
-      <v-text-field
-        class="my-3"
-        :label="$t('recipe.recipe-name')"
-        v-model="value.name"
-        :rules="[existsRule]"
-      >
+      <v-text-field class="my-3" :label="$t('recipe.recipe-name')" v-model="value.name" :rules="[existsRule]">
       </v-text-field>
-      <v-textarea
-        auto-grow
-        min-height="100"
-        :label="$t('recipe.description')"
-        v-model="value.description"
-      >
+      <v-textarea auto-grow min-height="100" :label="$t('recipe.description')" v-model="value.description">
       </v-textarea>
       <div class="my-2"></div>
       <v-row dense disabled>
         <v-col sm="4">
-          <v-text-field
-            :label="$t('recipe.servings')"
-            v-model="value.recipeYield"
-            class="rounded-sm"
-          >
-          </v-text-field>
+          <v-text-field :label="$t('recipe.servings')" v-model="value.recipeYield" class="rounded-sm"> </v-text-field>
         </v-col>
         <v-spacer></v-spacer>
         <Rating v-model="value.rating" :emit-only="true" />
@@ -98,11 +61,7 @@
           </div>
           <Notes :edit="true" v-model="value.notes" />
 
-          <v-text-field
-            v-model="value.orgURL"
-            class="mt-10"
-            :label="$t('recipe.original-url')"
-          ></v-text-field>
+          <v-text-field v-model="value.orgURL" class="mt-10" :label="$t('recipe.original-url')"></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>

@@ -1,6 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 const signUpPrefix = baseURL + "users/sign-ups";
 
@@ -18,24 +18,27 @@ export const signupAPI = {
   },
   async createToken(data) {
     let response = await apiReq.post(
-      signUpURLs.createToken, 
+      signUpURLs.createToken,
       data,
-      function() { return i18n.t('signup.sign-up-link-creation-failed'); },
-      function() { return i18n.t('signup.sign-up-link-created'); }
+      () => i18n.t("signup.sign-up-link-creation-failed"),
+      () => i18n.t("signup.sign-up-link-created")
     );
     return response.data;
   },
   async deleteToken(token) {
-    return await apiReq.delete(signUpURLs.deleteToken(token),
-    null,
-    function() { return i18n.t('signup.sign-up-token-deletion-failed'); },
-    function() { return i18n.t('signup.sign-up-token-deleted'); }
+    return await apiReq.delete(
+      signUpURLs.deleteToken(token),
+      null,
+      () => i18n.t("signup.sign-up-token-deletion-failed"),
+      () => i18n.t("signup.sign-up-token-deleted")
     );
   },
   async createUser(token, data) {
-    return apiReq.post(signUpURLs.createUser(token), data,
-    function() { return i18n.t('user.you-are-not-allowed-to-create-a-user'); },
-    function() { return i18n.t('user.user-created'); }
+    return apiReq.post(
+      signUpURLs.createUser(token),
+      data,
+      () => i18n.t("user.you-are-not-allowed-to-create-a-user"),
+      () => i18n.t("user.user-created")
     );
   },
 };

@@ -1,23 +1,10 @@
 <template>
   <v-container>
-    <v-card
-      v-if="skeleton"
-      :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-      class="pa-3"
-    >
-      <v-skeleton-loader
-        class="mx-auto"
-        height="700px"
-        type="card"
-      ></v-skeleton-loader>
+    <v-card v-if="skeleton" :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-3">
+      <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
     <v-card v-else id="myRecipe">
-      <v-img
-        height="400"
-        :src="getImage(recipeDetails.slug)"
-        class="d-print-none"
-        :key="imageKey"
-      >
+      <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
         <RecipeTimeCard
           class="force-bottom"
           :prepTime="recipeDetails.prepTime"
@@ -62,12 +49,7 @@
         height="1500px"
         :options="jsonEditorOptions"
       />
-      <RecipeEditor
-        v-else
-        v-model="recipeDetails"
-        ref="recipeEditor"
-        @upload="getImageFile"
-      />
+      <RecipeEditor v-else v-model="recipeDetails" ref="recipeEditor" @upload="getImageFile" />
     </v-card>
   </v-container>
 </template>
@@ -185,13 +167,7 @@ export default {
     },
     async saveImage(overrideSuccessMsg = false) {
       if (this.fileObject) {
-        if (
-          api.recipes.updateImage(
-            this.recipeDetails.slug,
-            this.fileObject,
-            overrideSuccessMsg
-          )
-        ) {
+        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg)) {
           this.imageKey += 1;
         }
       }

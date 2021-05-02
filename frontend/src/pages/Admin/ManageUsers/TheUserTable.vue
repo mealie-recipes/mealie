@@ -84,17 +84,14 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="3">
-                  <v-switch
-                    v-model="editedItem.admin"
-                    :label="$t('user.admin')"
-                  ></v-switch>
+                  <v-switch v-model="editedItem.admin" :label="$t('user.admin')"></v-switch>
                 </v-col>
               </v-row>
             </v-card-text>
 
             <v-card-actions>
               <v-btn color="info" text @click="resetPassword" v-if="!createMode">
-                {{$t('user.reset-password')}}
+                {{ $t("user.reset-password") }}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn color="grey" text @click="close">
@@ -110,12 +107,7 @@
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text>
-      <v-data-table
-        :headers="headers"
-        :items="users"
-        sort-by="calories"
-        :search="search"
-      >
+      <v-data-table :headers="headers" :items="users" sort-by="calories" :search="search">
         <template v-slot:item.actions="{ item }">
           <v-btn class="mr-1" small color="error" @click="deleteItem(item)">
             <v-icon small left>
@@ -192,9 +184,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.createMode
-        ? this.$t("user.new-user")
-        : this.$t("user.edit-user");
+      return this.createMode ? this.$t("user.new-user") : this.$t("user.edit-user");
     },
     createMode() {
       return this.editedIndex === -1 ? true : false;
@@ -274,21 +264,20 @@ export default {
     resetPassword() {
       api.users.resetPassword(this.editedItem.id);
     },
-    
+
     async createUser() {
-      if(await api.users.create(this.editedItem)) {
+      if (await api.users.create(this.editedItem)) {
         this.close();
       }
     },
 
     async updateUser() {
-      if(await api.users.update(this.editedItem)) {
+      if (await api.users.update(this.editedItem)) {
         this.close();
       }
-    }
+    },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

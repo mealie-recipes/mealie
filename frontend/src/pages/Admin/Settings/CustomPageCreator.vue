@@ -3,22 +3,15 @@
     <CreatePageDialog ref="createDialog" @refresh-page="getPages" />
     <v-card-text>
       <h2 class="mt-1 mb-1 ">
-        {{$t('settings.custom-pages')}}
+        {{ $t("settings.custom-pages") }}
         <span>
           <v-btn color="success" @click="newPage" small class="ml-3">
-            {{$t('general.create')}}
+            {{ $t("general.create") }}
           </v-btn>
         </span>
       </h2>
       <draggable class="row mt-1" v-model="customPages">
-        <v-col
-          :sm="6"
-          :md="6"
-          :lg="4"
-          :xl="3"
-          v-for="(item, index) in customPages"
-          :key="item + item.id"
-        >
+        <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="(item, index) in customPages" :key="item + item.id">
           <v-card>
             <v-card-text class="mb-0 pb-0">
               <h3>{{ item.name }}</h3>
@@ -41,11 +34,11 @@
 
             <v-card-actions>
               <v-btn text small color="error" @click="deletePage(item.id)">
-                {{$t('general.delete')}}
+                {{ $t("general.delete") }}
               </v-btn>
               <v-spacer> </v-spacer>
               <v-btn small text color="success" @click="editPage(index)">
-                {{$t('general.edit')}}
+                {{ $t("general.edit") }}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -55,7 +48,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="success" @click="savePages">
-        {{$t('general.save')}}
+        {{ $t("general.save") }}
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -76,8 +69,8 @@ export default {
       customPages: [],
       newPageData: {
         create: true,
-        title: this.$t('settings.new-page'),
-        buttonText: this.$t('general.create'),
+        title: this.$t("settings.new-page"),
+        buttonText: this.$t("general.create"),
         data: {
           name: "",
           categories: [],
@@ -86,8 +79,8 @@ export default {
       },
       editPageData: {
         create: false,
-        title: this.$t('settings.edit-page'),
-        buttonText: this.$t('general.update'),
+        title: this.$t("settings.edit-page"),
+        buttonText: this.$t("general.update"),
         data: {},
       },
     };
@@ -112,7 +105,6 @@ export default {
       if (await api.siteSettings.updateAllPages(this.customPages)) {
         this.getPages();
       }
-
     },
     editPage(index) {
       this.editPageData.data = this.customPages[index];
@@ -126,5 +118,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

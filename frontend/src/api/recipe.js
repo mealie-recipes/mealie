@@ -38,10 +38,7 @@ export const recipeAPI = {
   },
 
   async getAllByCategory(categories) {
-    let response = await apiReq.post(
-      recipeURLs.allRecipesByCategory,
-      categories
-    );
+    let response = await apiReq.post(recipeURLs.allRecipesByCategory, categories);
     return response.data;
   },
 
@@ -69,9 +66,7 @@ export const recipeAPI = {
     let successMessage = null;
     if (!overrideSuccessMsg) {
       successMessage = function() {
-        return overrideSuccessMsg
-          ? null
-          : i18n.t("recipe.recipe-image-updated");
+        return overrideSuccessMsg ? null : i18n.t("recipe.recipe-image-updated");
       };
     }
 

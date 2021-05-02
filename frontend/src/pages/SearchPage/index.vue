@@ -29,12 +29,7 @@
             {{ $t("category.category-filter") }}
           </h3>
           <FilterSelector class="mb-1" @update="updateCatParams" />
-          <CategoryTagSelector
-            :solo="true"
-            :dense="false"
-            v-model="includeCategories"
-            :return-object="false"
-          />
+          <CategoryTagSelector :solo="true" :dense="false" v-model="includeCategories" :return-object="false" />
         </v-col>
         <v-col>
           <h3 class="pl-2 text-center headline">
@@ -53,14 +48,7 @@
       </v-row>
 
       <v-row v-if="fuzzyRecipes">
-        <v-col
-          :sm="6"
-          :md="6"
-          :lg="4"
-          :xl="3"
-          v-for="item in fuzzyRecipes.slice(0, maxResults)"
-          :key="item.name"
-        >
+        <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="item in fuzzyRecipes.slice(0, maxResults)" :key="item.name">
           <RecipeCard
             :name="item.item.name"
             :description="item.item.description"
@@ -123,12 +111,7 @@ export default {
     },
     filteredRecipes() {
       return this.allRecipes.filter(recipe => {
-        const includesTags = this.check(
-          this.includeTags,
-          recipe.tags,
-          this.tagFilter.matchAny,
-          this.tagFilter.exclude
-        );
+        const includesTags = this.check(this.includeTags, recipe.tags, this.tagFilter.matchAny, this.tagFilter.exclude);
         const includesCats = this.check(
           this.includeCategories,
           recipe.recipeCategory,
@@ -178,5 +161,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

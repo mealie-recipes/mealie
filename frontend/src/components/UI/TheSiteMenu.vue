@@ -1,15 +1,7 @@
 <template>
   <div class="text-center">
     <LoginDialog ref="loginDialog" />
-    <v-menu
-      transition="slide-x-transition"
-      bottom
-      right
-      offset-y
-      offset-overflow
-      open-on-hover
-      close-delay="200"
-    >
+    <v-menu transition="slide-x-transition" bottom right offset-y offset-overflow open-on-hover close-delay="200">
       <template v-slot:activator="{ on, attrs }">
         <v-btn v-bind="attrs" v-on="on" icon>
           <v-icon>mdi-account</v-icon>
@@ -49,7 +41,7 @@ export default {
       return [
         {
           icon: "mdi-account",
-          title: this.$t('user.login'),
+          title: this.$t("user.login"),
           restricted: false,
           login: true,
         },
@@ -83,7 +75,7 @@ export default {
           nav: "/admin",
           restricted: true,
         },
-      ]
+      ];
     },
     filteredItems() {
       if (this.loggedIn) {

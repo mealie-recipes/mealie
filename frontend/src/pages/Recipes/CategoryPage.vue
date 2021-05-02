@@ -39,9 +39,7 @@ export default {
   },
   methods: {
     async getRecipes() {
-      let data = await api.categories.getRecipesInCategory(
-        this.currentCategory
-      );
+      let data = await api.categories.getRecipesInCategory(this.currentCategory);
       this.title = data.name;
       this.recipes = data.recipes;
     },
@@ -55,5 +53,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,7 +1,7 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 
 const settingsBase = baseURL + "site-settings";
 
@@ -21,12 +21,12 @@ export const siteSettingsAPI = {
 
   async update(body) {
     const response = await apiReq.put(
-      settingsURLs.updateSiteSettings, 
+      settingsURLs.updateSiteSettings,
       body,
-      function() { return i18n.t('settings.settings-update-failed'); },
-      function() { return i18n.t('settings.settings-updated'); }
+      () => i18n.t("settings.settings-update-failed"),
+      () => i18n.t("settings.settings-updated")
     );
-    if(response) {
+    if (response) {
       store.dispatch("requestSiteSettings");
     }
     return response;
@@ -44,10 +44,10 @@ export const siteSettingsAPI = {
 
   createPage(body) {
     return apiReq.post(
-      settingsURLs.customPages, 
+      settingsURLs.customPages,
       body,
-      function() { return i18n.t('page.page-creation-failed'); },
-      function() { return i18n.t('page.new-page-created'); }
+      () => i18n.t("page.page-creation-failed"),
+      () => i18n.t("page.new-page-created")
     );
   },
 
@@ -55,25 +55,26 @@ export const siteSettingsAPI = {
     return await apiReq.delete(
       settingsURLs.customPage(id),
       null,
-      function() { return i18n.t('page.page-deletion-failed'); },
-      function() { return i18n.t('page.page-deleted'); });
+      () => i18n.t("page.page-deletion-failed"),
+      () => i18n.t("page.page-deleted")
+    );
   },
 
   updatePage(body) {
     return apiReq.put(
       settingsURLs.customPage(body.id),
       body,
-      function() { return i18n.t('page.page-update-failed'); },
-      function() { return i18n.t('page.page-updated'); }
+      () => i18n.t("page.page-update-failed"),
+      () => i18n.t("page.page-updated")
     );
   },
 
   async updateAllPages(allPages) {
     let response = await apiReq.put(
-      settingsURLs.customPages, 
+      settingsURLs.customPages,
       allPages,
-      function() { return i18n.t('page.pages-update-failed'); },
-      function() { return i18n.t('page.pages-updated'); }
+      () => i18n.t("page.pages-update-failed"),
+      () => i18n.t("page.pages-updated")
     );
     return response;
   },

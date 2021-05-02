@@ -1,12 +1,7 @@
 <template>
   <v-form ref="file">
     <input ref="uploader" class="d-none" type="file" @change="onFileChanged" />
-    <v-btn
-      :loading="isSelecting"
-      @click="onButtonClick"
-      color="accent"
-      :text="textBtn"
-    >
+    <v-btn :loading="isSelecting" @click="onButtonClick" color="accent" :text="textBtn">
       <v-icon left> {{ icon }}</v-icon>
       {{ text ? text : defaultText }}
     </v-btn>
@@ -55,7 +50,7 @@ export default {
         let formData = new FormData();
         formData.append(this.fileName, this.file);
 
-        if(await api.utils.uploadFile(this.url, formData)) {
+        if (await api.utils.uploadFile(this.url, formData)) {
           this.$emit(UPLOAD_EVENT);
         }
         this.isSelecting = false;
@@ -81,5 +76,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

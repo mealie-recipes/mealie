@@ -4,11 +4,7 @@
       ref="deleteDialog"
       title-icon="mdi-tag"
       color="error"
-      :title="
-        $t('general.delete') +
-          ' ' +
-          (isTags ? $t('tag.tags') : $t('recipe.categories'))
-      "
+      :title="$t('general.delete') + ' ' + (isTags ? $t('tag.tags') : $t('recipe.categories'))"
       :loading="loading"
       modal-width="400"
     >
@@ -27,12 +23,7 @@
           {{ $t("general.cancel") }}
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn
-          color="error"
-          @click="deleteUnused"
-          :loading="loading"
-          :disabled="deleteList.length < 1"
-        >
+        <v-btn color="error" @click="deleteUnused" :loading="loading" :disabled="deleteList.length < 1">
           {{ $t("general.delete") }}
         </v-btn>
       </template>
@@ -95,5 +86,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

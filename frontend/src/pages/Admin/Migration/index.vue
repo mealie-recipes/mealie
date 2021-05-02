@@ -8,15 +8,7 @@
 
       <v-card-text>
         <v-row dense>
-          <v-col
-            :cols="12"
-            :sm="6"
-            :md="6"
-            :lg="4"
-            :xl="3"
-            v-for="migration in migrations"
-            :key="migration.title"
-          >
+          <v-col :cols="12" :sm="6" :md="6" :lg="4" :xl="3" v-for="migration in migrations" :key="migration.title">
             <MigrationCard
               :title="migration.title"
               :folder="migration.urlVariable"
@@ -31,7 +23,6 @@
     </v-card>
   </div>
 </template>
-
 
 <script>
 import MigrationCard from "./MigrationCard";
@@ -88,5 +79,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

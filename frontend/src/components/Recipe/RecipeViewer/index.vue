@@ -21,7 +21,7 @@
             {{ yields }}
           </v-btn>
         </v-col>
-        <Rating :value="rating" :name="name" :slug="slug"/>
+        <Rating :value="rating" :name="name" :slug="slug" />
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
@@ -50,11 +50,7 @@
             <Assets :value="assets" :edit="false" :slug="slug" />
           </div>
         </v-col>
-        <v-divider
-          v-if="medium"
-          class="my-divider"
-          :vertical="true"
-        ></v-divider>
+        <v-divider v-if="medium" class="my-divider" :vertical="true"></v-divider>
 
         <v-col cols="12" sm="12" md="8" lg="8">
           <Instructions :value="instructions" :edit="false" />

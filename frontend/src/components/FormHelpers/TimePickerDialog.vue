@@ -1,11 +1,5 @@
 <template>
-  <v-dialog
-    ref="dialog"
-    v-model="modal2"
-    :return-value.sync="time"
-    persistent
-    width="290px"
-  >
+  <v-dialog ref="dialog" v-model="modal2" :return-value.sync="time" persistent width="290px">
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         v-model="time"
@@ -18,8 +12,8 @@
     </template>
     <v-time-picker v-if="modal2" v-model="time" full-width>
       <v-spacer></v-spacer>
-      <v-btn text color="primary" @click="modal2 = false"> {{$t('general.cancel')}} </v-btn>
-      <v-btn text color="primary" @click="saveTime"> {{$t('general.ok')}} </v-btn>
+      <v-btn text color="primary" @click="modal2 = false"> {{ $t("general.cancel") }} </v-btn>
+      <v-btn text color="primary" @click="saveTime"> {{ $t("general.ok") }} </v-btn>
     </v-time-picker>
   </v-dialog>
 </template>
@@ -42,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.v-text-field{
-      max-width: 300px;
+.v-text-field {
+  max-width: 300px;
 }
 </style>

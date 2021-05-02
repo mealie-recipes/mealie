@@ -38,9 +38,7 @@ router.afterEach(to => {
       const title = await to.meta.title(to);
       document.title = title + TITLE_SUFFIX;
     } else {
-      document.title = i18n.t(to.meta.title)
-        ? i18n.t(to.meta.title) + TITLE_SUFFIX
-        : DEFAULT_TITLE;
+      document.title = i18n.t(to.meta.title) ? i18n.t(to.meta.title) + TITLE_SUFFIX : DEFAULT_TITLE;
     }
   });
 });

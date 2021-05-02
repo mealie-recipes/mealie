@@ -1,6 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-import i18n from '@/i18n.js';
+import i18n from "@/i18n.js";
 const groupPrefix = baseURL + "groups";
 
 const groupsURLs = {
@@ -12,18 +12,18 @@ const groupsURLs = {
 };
 
 function deleteErrorText(response) {
-  switch(response.data.detail) {
-    case 'GROUP_WITH_USERS':
-      return i18n.t('group.cannot-delete-group-with-users');
-      
-    case 'GROUP_NOT_FOUND':
-      return i18n.t('group.group-not-found');
-      
-    case 'DEFAULT_GROUP':
-      return i18n.t('group.cannot-delete-default-group');
+  switch (response.data.detail) {
+    case "GROUP_WITH_USERS":
+      return i18n.t("group.cannot-delete-group-with-users");
+
+    case "GROUP_NOT_FOUND":
+      return i18n.t("group.group-not-found");
+
+    case "DEFAULT_GROUP":
+      return i18n.t("group.cannot-delete-default-group");
 
     default:
-      return i18n.t('group.group-deletion-failed');
+      return i18n.t("group.group-deletion-failed");
   }
 }
 
@@ -36,33 +36,27 @@ export const groupAPI = {
     return apiReq.post(
       groupsURLs.create,
       { name: name },
-      function() { return i18n.t('group.user-group-creation-failed'); },
-      function() { return i18n.t('group.user-group-created'); }
+      () => i18n.t("group.user-group-creation-failed"),
+      () => i18n.t("group.user-group-created")
     );
   },
   delete(id) {
-     return apiReq.delete(
-       groupsURLs.delete(id), 
-       null, 
-       deleteErrorText,
-       function() { return i18n.t('group.group-deleted'); }
-     );
+    return apiReq.delete(groupsURLs.delete(id), null, deleteErrorText, function() {
+      return i18n.t("group.group-deleted");
+    });
   },
   async current() {
-    const response = await apiReq.get(
-      groupsURLs.current,
-      null,
-      null);
-    if(response) {
+    const response = await apiReq.get(groupsURLs.current, null, null);
+    if (response) {
       return response.data;
     }
   },
   update(data) {
     return apiReq.put(
-      groupsURLs.update(data.id), 
-      data, 
-      function() { return i18n.t('group.error-updating-group'); },
-      function() { return i18n.t('settings.group-settings-updated'); }
+      groupsURLs.update(data.id),
+      data,
+      () => i18n.t("group.error-updating-group"),
+      () => i18n.t("settings.group-settings-updated")
     );
   },
 };

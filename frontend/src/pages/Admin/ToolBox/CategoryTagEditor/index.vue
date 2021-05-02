@@ -43,24 +43,14 @@
 
       <BulkAssign isTags="isTags" class="mr-1 mb-1" />
 
-      <v-btn
-        @click="titleCaseAll"
-        small
-        color="success"
-        class="mr-1 mb-1"
-        :loading="loadingTitleCase"
-      >
+      <v-btn @click="titleCaseAll" small color="success" class="mr-1 mb-1" :loading="loadingTitleCase">
         {{ $t("settings.toolbox.title-case-all") }}
       </v-btn>
       <RemoveUnused :isTags="isTags" class="mb-1" />
 
       <v-spacer v-if="!isMobile"> </v-spacer>
 
-      <fuse-search-bar
-        :raw-data="allItems"
-        @results="filterItems"
-        :search="searchString"
-      >
+      <fuse-search-bar :raw-data="allItems" @results="filterItems" :search="searchString">
         <v-text-field
           v-model="searchString"
           clearable
@@ -79,24 +69,16 @@
 
     <v-card-text>
       <v-row>
-        <v-col
-          cols="12"
-          :sm="12"
-          :md="6"
-          :lg="4"
-          :xl="3"
-          v-for="item in results"
-          :key="item.id"
-        >
+        <v-col cols="12" :sm="12" :md="6" :lg="4" :xl="3" v-for="item in results" :key="item.id">
           <v-card>
             <v-card-actions>
               <v-card-title class="py-1">{{ item.name }}</v-card-title>
               <v-spacer></v-spacer>
               <v-btn small text color="info" @click="openEditDialog(item)">
-                {{$t('general.edit')}}
+                {{ $t("general.edit") }}
               </v-btn>
               <v-btn small text color="error" @click="deleteItem(item.slug)">
-                {{$t('general.delete')}}
+                {{ $t("general.delete") }}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -149,9 +131,7 @@ export default {
       return this.$vuetify.breakpoint.name === "xs";
     },
     allItems() {
-      return this.isTags
-        ? this.$store.getters.getAllTags
-        : this.$store.getters.getAllCategories;
+      return this.isTags ? this.$store.getters.getAllTags : this.$store.getters.getAllCategories;
     },
     results() {
       if (this.searchString != null && this.searchString.length >= 1) {
@@ -176,7 +156,7 @@ export default {
       }
 
       this.renameTarget = {
-        title:this.$t('general.rename-object', [item.name]),
+        title: this.$t("general.rename-object", [item.name]),
         name: item.name,
         slug: item.slug,
         newName: "",

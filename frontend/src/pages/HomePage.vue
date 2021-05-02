@@ -61,18 +61,13 @@ export default {
       this.$store.dispatch("requestRecentRecipes");
     },
     sortAZ(index) {
-      this.recipeByCategory[index].recipes.sort((a, b) =>
-        a.name > b.name ? 1 : -1
-      );
+      this.recipeByCategory[index].recipes.sort((a, b) => (a.name > b.name ? 1 : -1));
     },
     sortRecent(index) {
-      this.recipeByCategory[index].recipes.sort((a, b) =>
-        a.dateAdded > b.dateAdded ? -1 : 1
-      );
+      this.recipeByCategory[index].recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

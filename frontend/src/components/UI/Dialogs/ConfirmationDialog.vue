@@ -1,4 +1,3 @@
-
 <template>
   <v-dialog
     v-model="dialog"
@@ -8,8 +7,7 @@
     @keydown.esc="cancel"
   >
     <template v-slot:activator="{}">
-      <slot v-bind="{ open }"> 
-      </slot>
+      <slot v-bind="{ open }"> </slot>
     </template>
     <v-card>
       <v-app-bar v-if="Boolean(title)" :color="color" dense dark>
@@ -17,11 +15,7 @@
         <v-toolbar-title v-text="title" />
       </v-app-bar>
 
-      <v-card-text
-        v-show="!!message"
-        class="pa-4 text--primary"
-        v-html="message"
-      />
+      <v-card-text v-show="!!message" class="pa-4 text--primary" v-html="message" />
 
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -139,5 +133,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

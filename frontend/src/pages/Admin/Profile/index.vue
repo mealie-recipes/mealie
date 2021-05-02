@@ -4,14 +4,7 @@
       <v-card>
         <v-card-title class="headline">
           <span>
-            <v-progress-circular
-              v-if="loading"
-              indeterminate
-              color="primary"
-              large
-              class="mr-2"
-            >
-            </v-progress-circular>
+            <v-progress-circular v-if="loading" indeterminate color="primary" large class="mr-2"> </v-progress-circular>
           </span>
           {{ $t("settings.profile") }}
           <v-spacer></v-spacer>
@@ -21,16 +14,8 @@
         <v-card-text>
           <v-row>
             <v-col cols="12" md="3" align="center" justify="center">
-              <v-avatar
-                color="accent"
-                size="120"
-                class="white--text headline mr-2"
-              >
-                <img
-                  :src="userProfileImage"
-                  v-if="!hideImage"
-                  @error="hideImage = true"
-                />
+              <v-avatar color="accent" size="120" class="white--text headline mr-2">
+                <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" />
                 <div v-else>
                   {{ initials }}
                 </div>
@@ -113,10 +98,7 @@
               v-model="password.newTwo"
               prepend-icon="mdi-lock"
               :label="$t('user.confirm-password')"
-              :rules="[
-                password.newOne === password.newTwo ||
-                  $t('user.password-must-match'),
-              ]"
+              :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]"
               validate-on-blur
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword.newTwo = !showPassword.newTwo"
@@ -124,11 +106,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn
-            icon
-            @click="showPassword = !showPassword"
-            :loading="passwordLoading"
-          >
+          <v-btn icon @click="showPassword = !showPassword" :loading="passwordLoading">
             <v-icon v-if="!showPassword">mdi-eye-off</v-icon>
             <v-icon v-else> mdi-eye </v-icon>
           </v-btn>
@@ -202,7 +180,7 @@ export default {
     async updateUser() {
       this.loading = true;
       const response = await api.users.update(this.user);
-      if(response) {
+      if (response) {
         this.$store.commit("setToken", response.data.access_token);
         this.refreshProfile();
         this.loading = false;
@@ -227,5 +205,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
