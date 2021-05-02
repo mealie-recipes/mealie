@@ -149,4 +149,7 @@ class BaseDocument:
         session.delete(result)
         session.commit()
 
-        return self.schema.from_orm(result)
+        try:
+            return self.schema.from_orm(result)
+        except Exception:
+            pass
