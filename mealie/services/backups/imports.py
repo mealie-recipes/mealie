@@ -2,7 +2,7 @@ import json
 import shutil
 import zipfile
 from pathlib import Path
-from typing import Callable, List
+from typing import Callable
 
 from mealie.core.config import app_dirs
 from mealie.db.database import db
@@ -49,7 +49,7 @@ class ImportDatabase:
     def import_recipes(self):
         recipe_dir: Path = self.import_dir.joinpath("recipes")
         imports = []
-        successful_imports = []
+        successful_imports = {}
 
         recipes = ImportDatabase.read_models_file(
             file_path=recipe_dir, model=Recipe, single_file=False, migrate=ImportDatabase._recipe_migration
@@ -68,7 +68,7 @@ class ImportDatabase:
             )
 
             if import_status.status:
-                successful_imports.append(recipe.slug)
+                successful_imports.update({recipe.slug: recipe})
 
             imports.append(import_status)
 
@@ -105,15 +105,21 @@ class ImportDatabase:
 
         return recipe_dict
 
-    def _import_images(self, successful_imports: List[str]):
+    def _import_images(self, successful_imports: list[Recipe]):
         image_dir = self.import_dir.joinpath("images")
-        for image in image_dir.iterdir():
-            if image.stem in successful_imports:
-                if image.is_dir():
-                    dest = app_dirs.IMG_DIR.joinpath(image.stem)
-                    shutil.copytree(image, dest, dirs_exist_ok=True)
-                if image.is_file():
-                    shutil.copy(image, app_dirs.IMG_DIR)
+
+        if image_dir.exists():
+            for image in image_dir.iterdir():
+                item: Recipe = successful_imports.get(image.stem)
+
+                if item:
+                    dest_dir = item.image_dir
+
+                    if image.is_dir():
+                        shutil.copytree(image, dest_dir, dirs_exist_ok=True)
+
+                    if image.is_file():
+                        shutil.copy(image, dest_dir)
 
         minify.migrate_images()
 
@@ -227,7 +233,7 @@ class ImportDatabase:
             return [model(**g) for g in file_data]
 
         all_models = []
-        for file in file_path.glob("*.json"):
+        for file in file_path.glob("**/*.json"):
             with open(file, "r") as f:
                 file_data = json.loads(f.read())
 

@@ -18,7 +18,7 @@
               v-if="!edit"
               color="primary"
               icon
-              :href="`/api/recipes/${slug}/asset?file_name=${item.fileName}`"
+              :href="`/api/recipes/media/${slug}/assets/${item.fileName}`"
               target="_blank"
               top
             >
@@ -135,7 +135,7 @@ export default {
       this.value.splice(index, 1);
     },
     copyLink(name, fileName) {
-      const copyText = `![${name}](${this.baseURL}/api/recipes/${this.slug}/assets/${fileName})`;
+      const copyText = `![${name}](${this.baseURL}/api/recipes/media/${this.slug}/assets/${fileName})`;
       navigator.clipboard.writeText(copyText).then(
         () => console.log("Copied", copyText),
         () => console.log("Copied Failed", copyText)

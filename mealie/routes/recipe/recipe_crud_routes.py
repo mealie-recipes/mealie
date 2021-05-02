@@ -4,7 +4,8 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
-from mealie.services.image.image import delete_image, rename_image, scrape_image, write_image
+from mealie.services.image.image import scrape_image, write_image
+from mealie.services.recipe.asset import check_asset
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
@@ -58,7 +59,7 @@ def update_recipe(
     print(recipe.assets)
 
     if recipe_slug != recipe.slug:
-        rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
+        check_asset(original_slug=recipe_slug, recipe=recipe)
 
     return recipe
 
@@ -76,7 +77,7 @@ def patch_recipe(
         session, recipe_slug, new_data=data.dict(exclude_unset=True, exclude_defaults=True)
     )
     if recipe_slug != recipe.slug:
-        rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
+        check_asset(original_slug=recipe_slug, recipe=recipe)
 
     return recipe
 
@@ -91,7 +92,6 @@ def delete_recipe(
 
     try:
         delete_data = db.recipes.delete(session, recipe_slug)
-        delete_image(recipe_slug)
 
         return delete_data
     except Exception:

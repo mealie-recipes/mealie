@@ -1,7 +1,9 @@
 import datetime
+from pathlib import Path
 from typing import Any, Optional
 
 from fastapi_camelcase import CamelModel
+from mealie.core.config import app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
 from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
@@ -58,8 +60,8 @@ class Nutrition(CamelModel):
 
 class RecipeSummary(CamelModel):
     id: Optional[int]
-    name: str
-    slug: Optional[str] = ""
+    name: Optional[str]
+    slug: str = ""
     image: Optional[Any]
 
     description: Optional[str]
@@ -97,6 +99,28 @@ class Recipe(RecipeSummary):
     notes: Optional[list[RecipeNote]] = []
     org_url: Optional[str] = Field(None, alias="orgURL")
     extras: Optional[dict] = {}
+
+    @staticmethod
+    def directory_from_slug(slug) -> Path:
+        return app_dirs.RECIPE_DATA_DIR.joinpath(slug)
+
+    @property
+    def directory(self) -> Path:
+        dir = app_dirs.RECIPE_DATA_DIR.joinpath(self.slug)
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
+
+    @property
+    def asset_dir(self) -> Path:
+        dir = self.directory.joinpath("assets")
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
+
+    @property
+    def image_dir(self) -> Path:
+        dir = self.directory.joinpath("images")
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
 
     class Config:
         orm_mode = True
@@ -140,6 +164,8 @@ class Recipe(RecipeSummary):
 
     @validator("slug", always=True, pre=True)
     def validate_slug(slug: str, values):
+        if not values["name"]:
+            return slug
         name: str = values["name"]
         calc_slug: str = slugify(name)
 

@@ -14,9 +14,9 @@ const recipeURLs = {
   recipe: slug => prefix + slug,
   update: slug => prefix + slug,
   delete: slug => prefix + slug,
+  createAsset: slug => `${prefix}media/${slug}/assets`,
   recipeImage: slug => `${prefix}${slug}/image`,
   updateImage: slug => `${prefix}${slug}/image`,
-  createAsset: slug => `${prefix}${slug}/asset`,
 };
 
 export const recipeAPI = {
@@ -84,7 +84,7 @@ export const recipeAPI = {
     fd.append("extension", fileObject.name.split(".").pop());
     fd.append("name", name);
     fd.append("icon", icon);
-    let response = apiReq.post(recipeURLs.createAsset(recipeSlug), fd);
+    const response = apiReq.post(recipeURLs.createAsset(recipeSlug), fd);
     return response;
   },
 
@@ -135,14 +135,14 @@ export const recipeAPI = {
   },
 
   recipeImage(recipeSlug) {
-    return `/api/recipes/image/${recipeSlug}/original.webp`;
+    return `/api/recipes/media/${recipeSlug}/image/original.webp`;
   },
 
   recipeSmallImage(recipeSlug) {
-    return `/api/recipes/image/${recipeSlug}/min-original.webp`;
+    return `/api/recipes/media/${recipeSlug}/image/min-original.webp`;
   },
 
   recipeTinyImage(recipeSlug) {
-    return `/api/recipes/image/${recipeSlug}/tiny-original.webp`;
+    return `/api/recipes/media/${recipeSlug}/image/tiny-original.webp`;
   },
 };
