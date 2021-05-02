@@ -18,6 +18,7 @@ async def get_debug_info(current_user=Depends(get_current_user)):
         demo_status=settings.IS_DEMO,
         api_port=settings.API_PORT,
         api_docs=settings.API_DOCS,
+        db_type=settings.DB_ENGINE,
         db_url=settings.DB_URL,
         default_group=settings.DEFAULT_GROUP,
     )

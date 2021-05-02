@@ -17,7 +17,7 @@
     "download-recipe-json": "Download Recipe JSON",
     "not-demo": "Not Demo",
     "production": "Production",
-    "sqlite-file": "SQLite File",
+    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {

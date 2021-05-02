@@ -79,9 +79,9 @@ export default {
           value: debugInfo.dbType,
         },
         {
-          name: this.$t("about.sqlite-file"),
+          name: this.$t("about.database-url"),
           icon: "mdi-file-cabinet",
-          value: debugInfo.sqliteFile,
+          value: debugInfo.dbUrl,
         },
         {
           name: this.$t("about.default-group"),
@@ -93,5 +93,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
