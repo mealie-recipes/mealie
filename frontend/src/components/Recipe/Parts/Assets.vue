@@ -24,9 +24,14 @@
             >
               <v-icon> mdi-download</v-icon>
             </v-btn>
-            <v-btn v-else color="error" icon @click="deleteAsset(i)" top>
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
+            <div v-else>
+              <v-btn color="error" icon @click="deleteAsset(i)" top>
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <v-btn color="primary" icon @click="copyLink(item.name, item.fileName)" top>
+                <v-icon>mdi-content-copy</v-icon>
+              </v-btn>
+            </div>
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -107,6 +112,11 @@ export default {
       ],
     };
   },
+  computed: {
+    baseURL() {
+      return window.location.origin;
+    },
+  },
   methods: {
     setFileObject(obj) {
       this.fileObject = obj;
@@ -123,6 +133,13 @@ export default {
     },
     deleteAsset(index) {
       this.value.splice(index, 1);
+    },
+    copyLink(name, fileName) {
+      const copyText = `![${name}](${this.baseURL}/api/recipes/${this.slug}/assets/${fileName})`;
+      navigator.clipboard.writeText(copyText).then(
+        () => console.log("Copied", copyText),
+        () => console.log("Copied Failed", copyText)
+      );
     },
   },
 };
