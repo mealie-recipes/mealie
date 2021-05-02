@@ -1,5 +1,6 @@
 <template>
   <v-card
+    :ripple="false"
     class="mx-auto"
     hover
     :to="`/recipe/${slug}`"
@@ -15,7 +16,7 @@
         <v-img :src="getImage(slug)" lazy-src=""></v-img
       ></v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class=" mb-1">{{ name }}</v-list-item-title>
+        <v-list-item-title class=" mb-1">{{ name }} </v-list-item-title>
         <v-list-item-subtitle> {{ description }} </v-list-item-subtitle>
         <div class="d-flex justify-center align-center">
           <RecipeChips
@@ -34,6 +35,7 @@
             size="15"
             :value="rating"
           ></v-rating>
+          <ContextMenu :slug="slug" menu-icon="mdi-dots-horizontal" />
         </div>
       </v-list-item-content>
     </v-list-item>
@@ -42,10 +44,12 @@
 
 <script>
 import RecipeChips from "@/components/Recipe/RecipeViewer/RecipeChips";
+import ContextMenu from "@/components/Recipe/ContextMenu";
 import { api } from "@/api";
 export default {
   components: {
     RecipeChips,
+    ContextMenu,
   },
   props: {
     name: String,

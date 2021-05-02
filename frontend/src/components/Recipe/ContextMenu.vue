@@ -18,7 +18,7 @@
           v-on="on"
           @click.prevent
         >
-          <v-icon>mdi-dots-vertical</v-icon>
+          <v-icon>{{ menuIcon }}</v-icon>
         </v-btn>
       </template>
       <v-list dense>
@@ -47,6 +47,9 @@ export default {
   props: {
     slug: {
       type: String,
+    },
+    menuIcon: {
+      default: "mdi-dots-vertical",
     },
   },
   computed: {

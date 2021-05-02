@@ -129,8 +129,7 @@ export default {
   mounted() {
     this.getRecipeDetails();
     this.jsonEditor = false;
-    this.form = Boolean(this.edit);
-    console.log(this.form);
+    this.form = this.$route.query.edit === "true" && this.loggedIn;
   },
 
   watch: {
@@ -144,7 +143,7 @@ export default {
       return this.$route.params.recipe;
     },
     edit() {
-      return this.$route.query.edit;
+      return true;
     },
     showIcons() {
       return this.form;
@@ -165,7 +164,6 @@ export default {
     async getRecipeDetails() {
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
       this.skeleton = false;
-      this.form = false;
     },
     getImage(image) {
       if (image) {
@@ -211,10 +209,6 @@ export default {
           this.$router.push(`/recipe/${slug}`);
         }
       }
-    },
-    showForm() {
-      this.form = true;
-      this.jsonEditor = false;
     },
   },
 };
