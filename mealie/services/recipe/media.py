@@ -27,3 +27,4 @@ def check_assets(original_slug, recipe: Recipe) -> Path:
 def delete_assets(recipe_slug):
     recipe_dir = Recipe(slug=recipe_slug).directory
     rmtree(recipe_dir, ignore_errors=True)
+    logger.info(f"Recipe Directory Removed: {recipe_slug}")
