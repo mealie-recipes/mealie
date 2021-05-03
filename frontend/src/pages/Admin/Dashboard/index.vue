@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-15">
+  <div class="mt-10">
     <v-row>
-      <v-col>
+      <v-col  cols="12" sm="12" md="4">
         <StatCard icon="mdi-silverware-fork-knife">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
@@ -24,7 +24,7 @@
           </template>
         </StatCard>
       </v-col>
-      <v-col>
+      <v-col cols="12" sm="12" md="4">
         <StatCard icon="mdi-account">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
@@ -45,7 +45,7 @@
           </template>
         </StatCard>
       </v-col>
-      <v-col>
+      <v-col cols="12" sm="12" md="4">
         <StatCard icon="mdi-account-group">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
@@ -67,14 +67,21 @@
         </StatCard>
       </v-col>
     </v-row>
+    <v-row class="mt-10">
+      <v-col cols="12" sm="12" lg="6">
+        <EventViewer />
+      </v-col>
+      <v-col cols="12" sm="12" lg="6"> </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import { api } from "@/api";
 import StatCard from "./StatCard";
+import EventViewer from "./EventViewer";
 export default {
-  components: { StatCard },
+  components: { StatCard, EventViewer },
   data() {
     return {
       statistics: {
@@ -92,7 +99,6 @@ export default {
   methods: {
     async getStatistics() {
       this.statistics = await api.meta.getStatistics();
-      console.log(this.statistics);
     },
   },
 };

@@ -4,11 +4,13 @@ from fastapi import FastAPI
 from mealie.core import root_logger
 from mealie.core.config import APP_VERSION, settings
 from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes, utility_routes
+from mealie.routes.about import about_router
 from mealie.routes.groups import groups
 from mealie.routes.mealplans import mealplans
 from mealie.routes.recipe import router as recipe_router
 from mealie.routes.site_settings import all_settings
 from mealie.routes.users import users
+from mealie.services.events import create_general_event
 
 logger = root_logger.get_logger()
 
@@ -31,6 +33,7 @@ def api_routers():
     app.include_router(groups.router)
     # Recipes
     app.include_router(recipe_router)
+    app.include_router(about_router)
     # Meal Routes
     app.include_router(mealplans.router)
     # Settings Routes
@@ -53,6 +56,7 @@ def system_startup():
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
     logger.info(settings.json(indent=4, exclude={"SECRET", "DEFAULT_PASSWORD", "SFTP_PASSWORD", "SFTP_USERNAME"}))
+    create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
 
 
 def main():

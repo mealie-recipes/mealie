@@ -2,6 +2,7 @@ from pathlib import Path
 
 from fastapi_camelcase import CamelModel
 
+
 class AppStatistics(CamelModel):
     total_recipes: int
     total_users: int

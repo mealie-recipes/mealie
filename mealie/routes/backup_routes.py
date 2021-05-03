@@ -1,5 +1,6 @@
 import operator
 import shutil
+from pathlib import Path
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from mealie.core.config import app_dirs
@@ -10,6 +11,7 @@ from mealie.routes.deps import get_current_user
 from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
+from mealie.services.events import create_backup_event
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/backups", tags=["Backups"], dependencies=[Depends(get_current_user)])
@@ -45,6 +47,7 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
             export_users=data.options.users,
             export_groups=data.options.groups,
         )
+        create_backup_event("Manual Backup", f"Manual Backup Created '{Path(export_path).name}'", session)
         return {"export_path": export_path}
     except Exception as e:
         logger.error(e)
@@ -75,7 +78,7 @@ async def download_backup_file(file_name: str):
 def import_database(file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)):
     """ Import a database backup file generated from Mealie. """
 
-    return imports.import_database(
+    db_import = imports.import_database(
         session=session,
         archive=import_data.name,
         import_recipes=import_data.recipes,
@@ -87,6 +90,8 @@ def import_database(file_name: str, import_data: ImportJob, session: Session = D
         force_import=import_data.force,
         rebase=import_data.rebase,
     )
+    create_backup_event("Database Restore", f"Restored Database File {file_name}", session)
+    return db_import
 
 
 @router.delete("/{file_name}/delete", status_code=status.HTTP_200_OK)

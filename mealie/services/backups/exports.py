@@ -9,6 +9,7 @@ from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
+from mealie.services.events import create_backup_event
 from pathvalidate import sanitize_filename
 from pydantic.main import BaseModel
 
@@ -149,3 +150,5 @@ def auto_backup_job():
     session = create_session()
     backup_all(session=session, tag="Auto", templates=templates)
     logger.info("Auto Backup Called")
+    create_backup_event("Automated Backup", "Automated backup created", session)
+    session.close()

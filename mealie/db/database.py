@@ -1,6 +1,7 @@
 from logging import getLogger
 
 from mealie.db.db_base import BaseDocument
+from mealie.db.models.event import Event
 from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlanModel
 from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
@@ -9,6 +10,7 @@ from mealie.db.models.sign_up import SignUp
 from mealie.db.models.theme import SiteThemeModel
 from mealie.db.models.users import User
 from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
+from mealie.schema.events import Event as EventSchema
 from mealie.schema.meal import MealPlanInDB
 from mealie.schema.recipe import Recipe
 from mealie.schema.settings import CustomPageOut
@@ -35,10 +37,10 @@ class _Recipes(BaseDocument):
         return f"{slug}.{extension}"
 
     def count_uncategorized(self, session: Session) -> int:
-        return session.query(self.sql_model).filter(RecipeModel.recipe_category == None).count()
+        return session.query(self.sql_model).filter(RecipeModel.recipe_category == None).count()  # noqa: 711
 
     def count_untagged(self, session: Session) -> int:
-        return session.query(self.sql_model).filter(RecipeModel.tags == None).count()
+        return session.query(self.sql_model).filter(RecipeModel.tags == None).count()  # noqa: 711
 
 
 class _Categories(BaseDocument):
@@ -115,8 +117,6 @@ class _Groups(BaseDocument):
         """
         group: GroupInDB = session.query(self.sql_model).filter_by(**{match_key: match_value}).one_or_none()
 
-        # Potentially not needed? column is sorted by SqlAlchemy based on startDate
-        # return sorted(group.mealplans, key=lambda mealplan: mealplan.startDate)
         return group.mealplans
 
 
@@ -134,6 +134,13 @@ class _CustomPages(BaseDocument):
         self.schema = CustomPageOut
 
 
+class _Events(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "id"
+        self.sql_model = Event
+        self.schema = EventSchema
+
+
 class Database:
     def __init__(self) -> None:
         self.recipes = _Recipes()
@@ -146,6 +153,7 @@ class Database:
         self.sign_ups = _SignUps()
         self.groups = _Groups()
         self.custom_pages = _CustomPages()
+        self.events = _Events()
 
 
 db = Database()

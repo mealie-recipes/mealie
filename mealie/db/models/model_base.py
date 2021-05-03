@@ -4,5 +4,5 @@ SqlAlchemyBase = dec.declarative_base()
 
 
 class BaseMixins:
-    def _pass_on_me():
-        pass
+    def update(self, *args, **kwarg):
+        self.__init__(*args, **kwarg)

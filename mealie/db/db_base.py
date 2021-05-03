@@ -23,6 +23,14 @@ class BaseDocument:
     ) -> List[dict]:
         eff_schema = override_schema or self.schema
 
+        if order_by:
+            order_attr = getattr(self.sql_model, str(order_by))
+
+            return [
+                eff_schema.from_orm(x)
+                for x in session.query(self.sql_model).order_by(order_attr.desc()).offset(start).limit(limit).all()
+            ]
+
         return [eff_schema.from_orm(x) for x in session.query(self.sql_model).offset(start).limit(limit).all()]
 
     def get_all_limit_columns(self, session: Session, fields: List[str], limit: int = None) -> List[SqlAlchemyBase]:
@@ -154,6 +162,10 @@ class BaseDocument:
         session.commit()
 
         return results_as_model
+
+    def delete_all(self, session: Session) -> None:
+        session.query(self.sql_model).delete()
+        session.commit()
 
     def count_all(self, session: Session, match_key=None, match_value=None) -> int:
 

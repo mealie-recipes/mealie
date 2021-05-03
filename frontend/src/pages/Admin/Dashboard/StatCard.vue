@@ -2,14 +2,11 @@ w<template>
   <v-card v-bind="$attrs" :class="classes" class="v-card--material pa-3">
     <div class="d-flex grow flex-wrap">
       <v-sheet
-        :class="{
-          'pa-7': !$slots.image,
-        }"
         :color="color"
         :max-height="icon ? 90 : undefined"
         :width="icon ? 'auto' : '100%'"
         elevation="6"
-        class="text-start v-card--material__heading mb-n6"
+        class="text-start v-card--material__heading mb-n6 mt-n10 pa-7"
         dark
       >
         <v-icon v-if="icon" size="32" v-text="icon" />
@@ -29,6 +26,14 @@ w<template>
       <v-card-actions class="pb-0">
         <slot name="actions" />
       </v-card-actions>
+    </template>
+
+    <template v-if="$slots.bottom">
+      <v-divider class="mt-2" />
+
+      <div class="pb-0">
+        <slot name="bottom" />
+      </div>
     </template>
   </v-card>
 </template>
@@ -71,10 +76,10 @@ export default {
       };
     },
     hasHeading() {
-      return Boolean(this.$slots.heading || this.title || this.icon);
+      return false;
     },
     hasAltHeading() {
-      return Boolean(this.$slots.heading || (this.title && this.icon));
+      return false;
     },
   },
 };
@@ -82,14 +87,14 @@ export default {
 
 <style lang="sass">
 .v-card--material
-    &__avatar
-        position: relative
-        top: -64px
-        margin-bottom: -32px
+  &__avatar
+    position: relative
+    top: -64px
+    margin-bottom: -32px
 
     &__heading
-        position: relative
-        top: -40px
-        transition: .3s ease
-        z-index: 1
+      position: relative
+      top: -40px
+      transition: .3s ease
+      z-index: 1
 </style>
