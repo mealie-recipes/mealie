@@ -8,6 +8,7 @@ import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
 import About from "@/pages/Admin/About";
 import ToolBox from "@/pages/Admin/ToolBox";
+import Dashboard from "@/pages/Admin/Dashboard";
 import { store } from "../store";
 
 export const adminRoutes = {
@@ -85,6 +86,13 @@ export const adminRoutes = {
       component: About,
       meta: {
         title: "general.about",
+      },
+    },
+    {
+      path: "dashboard",
+      component: Dashboard,
+      meta: {
+        title: "general.dashboard",
       },
     },
   ],

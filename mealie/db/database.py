@@ -18,7 +18,6 @@ from mealie.schema.theme import SiteTheme
 from mealie.schema.user import GroupInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
-
 logger = getLogger()
 
 
@@ -34,6 +33,12 @@ class _Recipes(BaseDocument):
         session.commit()
 
         return f"{slug}.{extension}"
+
+    def count_uncategorized(self, session: Session) -> int:
+        return session.query(self.sql_model).filter(RecipeModel.recipe_category == None).count()
+
+    def count_untagged(self, session: Session) -> int:
+        return session.query(self.sql_model).filter(RecipeModel.tags == None).count()
 
 
 class _Categories(BaseDocument):

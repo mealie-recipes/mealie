@@ -154,3 +154,10 @@ class BaseDocument:
         session.commit()
 
         return results_as_model
+
+    def count_all(self, session: Session, match_key=None, match_value=None) -> int:
+
+        if None in [match_key, match_value]:
+            return session.query(self.sql_model).count()
+        else:
+            return session.query(self.sql_model).filter_by(**{match_key: match_value}).count()
