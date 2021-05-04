@@ -1,7 +1,11 @@
 <template>
-  <v-btn color="accent" text :loading="downloading" @click="downloadFile">
-    {{ showButtonText }}
-  </v-btn>
+  <div>
+    <slot v-bind="{ downloading, downloadFile }">
+      <v-btn color="accent" text :loading="downloading" @click="downloadFile">
+        {{ showButtonText }}
+      </v-btn>
+    </slot>
+  </div>
 </template>
 
 <script>

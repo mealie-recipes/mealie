@@ -8,11 +8,13 @@ const debugURLs = {
   debug: `${prefix}`,
   lastRecipe: `${prefix}/last-recipe-json`,
   demo: `${prefix}/is-demo`,
+  log: num => `${prefix}/log/${num}`,
+  statistics: `${prefix}/statistics`,
 };
 
 export const metaAPI = {
   async getAppInfo() {
-    let response = await apiReq.get(debugURLs.version);
+    const response = await apiReq.get(debugURLs.version);
     return response.data;
   },
 
@@ -21,13 +23,23 @@ export const metaAPI = {
     return response.data;
   },
 
+  async getLogText(num) {
+    const response = await apiReq.get(debugURLs.log(num));
+    return response.data;
+  },
+
   async getLastJson() {
-    let response = await apiReq.get(debugURLs.lastRecipe);
+    const response = await apiReq.get(debugURLs.lastRecipe);
     return response.data;
   },
 
   async getIsDemo() {
-    let response = await apiReq.get(debugURLs.demo);
+    const response = await apiReq.get(debugURLs.demo);
+    return response.data;
+  },
+
+  async getStatistics() {
+    const response = await apiReq.get(debugURLs.statistics);
     return response.data;
   },
 };

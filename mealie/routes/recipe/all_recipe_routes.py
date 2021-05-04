@@ -8,7 +8,7 @@ from sqlalchemy.orm.session import Session
 router = APIRouter(tags=["Query All Recipes"])
 
 
-@router.get("/api/recipes/summary")
+@router.get("/api/recipes/summary", response_model=list[RecipeSummary])
 async def get_recipe_summary(
     start=0,
     limit=9999,
@@ -27,6 +27,16 @@ async def get_recipe_summary(
     """
 
     return db.recipes.get_all(session, limit=limit, start=start, override_schema=RecipeSummary)
+
+
+@router.get("/api/recipes/summary/untagged", response_model=list[RecipeSummary])
+async def get_untagged_recipes(session: Session = Depends(generate_session)):
+    return db.recipes.count_untagged(session, False, override_schema=RecipeSummary)
+
+
+@router.get("/api/recipes/summary/uncategorized", response_model=list[RecipeSummary])
+async def get_uncategorized_recipes(session: Session = Depends(generate_session)):
+    return db.recipes.count_uncategorized(session, False, override_schema=RecipeSummary)
 
 
 @router.post("/api/recipes/category")

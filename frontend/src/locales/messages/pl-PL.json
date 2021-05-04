@@ -14,10 +14,10 @@
     "demo-status": "Status demo",
     "development": "Wersja testowa",
     "download-log": "Download Log",
-    "download-recipe-json": "Download Recipe JSON",
+    "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Nie demo",
     "production": "Produkcyjna",
-    "sqlite-file": "Plik SQLite'a",
+    "database-url": "Database URL",
     "version": "Wersja"
   },
   "category": {
@@ -27,7 +27,8 @@
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
-    "category-updated": "Category updated"
+    "category-updated": "Category updated",
+    "category": "Category"
   },
   "general": {
     "apply": "Zastosuj",
@@ -36,6 +37,7 @@
     "confirm": "Potwierdź",
     "create": "Utwórz",
     "current-parenthesis": "(Bieżący)",
+    "dashboard": "Dashboard",
     "delete": "Usuń",
     "disabled": "Wyłączone",
     "download": "Pobierz",
@@ -55,6 +57,7 @@
     "image-upload-failed": "Image upload failed",
     "import": "Importuj",
     "keyword": "Keyword",
+    "link": "Link",
     "monday": "Poniedziałek",
     "name": "Nazwa",
     "no": "Nie",

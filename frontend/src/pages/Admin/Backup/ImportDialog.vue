@@ -15,7 +15,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-title> {{ name }} </v-card-title>
-        <v-card-subtitle class="mb-n3"> {{ $d(new Date(date), "medium") }} </v-card-subtitle>
+        <v-card-subtitle class="mb-n3" v-if="date"> {{ $d(new Date(date), "medium") }} </v-card-subtitle>
         <v-divider></v-divider>
 
         <v-card-text>

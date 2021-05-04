@@ -14,10 +14,10 @@
     "demo-status": "Demo Status",
     "development": "Development",
     "download-log": "Download Log",
-    "download-recipe-json": "Download Recipe JSON",
+    "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Not Demo",
     "production": "Production",
-    "sqlite-file": "SQLite File",
+    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
@@ -27,7 +27,8 @@
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
-    "category-updated": "Category updated"
+    "category-updated": "Category updated",
+    "category": "Category"
   },
   "general": {
     "apply": "应用",
@@ -36,6 +37,7 @@
     "confirm": "确定",
     "create": "创建",
     "current-parenthesis": "(当前)",
+    "dashboard": "Dashboard",
     "delete": "删除",
     "disabled": "Disabled",
     "download": "下载",
@@ -55,6 +57,7 @@
     "image-upload-failed": "Image upload failed",
     "import": "导入",
     "keyword": "Keyword",
+    "link": "Link",
     "monday": "Monday",
     "name": "名称",
     "no": "否",

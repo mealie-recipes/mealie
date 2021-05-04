@@ -160,10 +160,10 @@ export default {
   methods: {
     updateClipboard(newClip) {
       navigator.clipboard.writeText(newClip).then(
-        function() {
+        () => {
           console.log("Copied", newClip);
         },
-        function() {
+        () => {
           console.log("Copy Failed", newClip);
         }
       );
