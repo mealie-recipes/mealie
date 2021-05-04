@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     container_name: mealie
     restart: always
+    depends_on:
+      - "postgres"
     ports:
       - 9090:80
     environment:
