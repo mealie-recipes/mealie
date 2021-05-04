@@ -3,8 +3,7 @@ from fastapi import FastAPI
 
 from mealie.core.config import APP_VERSION, settings
 from mealie.core.root_logger import get_logger
-from mealie.routes import (backup_routes, debug_routes, migration_routes,
-                           theme_routes, utility_routes)
+from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes, utility_routes
 from mealie.routes.about import about_router
 from mealie.routes.groups import groups_router
 from mealie.routes.mealplans import meal_plan_router
