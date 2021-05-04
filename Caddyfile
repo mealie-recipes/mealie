@@ -10,7 +10,8 @@
   encode gzip
   uri strip_suffix /
   
-  handle_path /api/recipes/media/* {
+  # Handles Recipe Images / Assets
+  handle_path /api/media/recipes/* {
     root * /app/data/recipes/
     file_server
   }
