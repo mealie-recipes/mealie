@@ -67,7 +67,7 @@
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import ImportSummaryDialog from "@/components/ImportSummaryDialog";
 import { api } from "@/api";
-import StatCard from "./StatCard";
+import StatCard from "@/components/UI/StatCard";
 import BackupDialog from "@/components/UI/Dialogs/BackupDialog";
 import ImportDialog from "@/components/UI/Dialogs/ImportDialog";
 export default {

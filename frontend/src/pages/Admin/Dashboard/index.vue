@@ -82,7 +82,7 @@
 
 <script>
 import { api } from "@/api";
-import StatCard from "./StatCard";
+import StatCard from "@/components/UI/StatCard";
 import EventViewer from "./EventViewer";
 import BackupViewer from "./BackupViewer";
 export default {

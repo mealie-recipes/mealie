@@ -2,6 +2,7 @@
   <v-container>
     <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
     <CardSection
+      title-icon=""
       :sortable="true"
       :title="$t('page.all-recipes')"
       :recipes="allRecipes"

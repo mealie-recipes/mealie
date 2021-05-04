@@ -1,17 +1,19 @@
 w<template>
   <v-card v-bind="$attrs" :class="classes" class="v-card--material pa-3">
     <div class="d-flex grow flex-wrap">
-      <v-sheet
-        :color="color"
-        :max-height="icon ? 90 : undefined"
-        :width="icon ? 'auto' : '100%'"
-        elevation="6"
-        class="text-start v-card--material__heading mb-n6 mt-n10 pa-7"
-        dark
-      >
-        <v-icon v-if="icon" size="40" v-text="icon" />
-        <div v-if="text" class="headline font-weight-thin" v-text="text" />
-      </v-sheet>
+      <slot name="avatar">
+        <v-sheet
+          :color="color"
+          :max-height="icon ? 90 : undefined"
+          :width="icon ? 'auto' : '100%'"
+          elevation="6"
+          class="text-start v-card--material__heading mb-n6 mt-n10 pa-7"
+          dark
+        >
+          <v-icon v-if="icon" size="40" v-text="icon" />
+          <div v-if="text" class="headline font-weight-thin" v-text="text" />
+        </v-sheet>
+      </slot>
 
       <div v-if="$slots['after-heading']" class="ml-auto">
         <slot name="after-heading" />
@@ -21,7 +23,7 @@ w<template>
     <slot />
 
     <template v-if="$slots.actions">
-      <v-divider class="mt-2" />
+      <v-divider class="mt-2" v-if="!$slots.bottom" />
 
       <v-card-actions class="pb-0">
         <slot name="actions" />
@@ -29,7 +31,7 @@ w<template>
     </template>
 
     <template v-if="$slots.bottom">
-      <v-divider class="mt-2" />
+      <v-divider class="mt-2" v-if="!$slots.actions" />
 
       <div class="pb-0">
         <slot name="bottom" />
