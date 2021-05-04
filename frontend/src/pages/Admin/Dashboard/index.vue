@@ -1,7 +1,7 @@
 <template>
   <div class="mt-10">
     <v-row>
-      <v-col  cols="12" sm="12" md="4">
+      <v-col cols="12" sm="12" md="4">
         <StatCard icon="mdi-silverware-fork-knife">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
@@ -71,7 +71,7 @@
       <v-col cols="12" sm="12" lg="6">
         <EventViewer />
       </v-col>
-      <v-col cols="12" sm="12" lg="6"> </v-col>
+      <v-col cols="12" sm="12" lg="6"> <BackupViewer /> </v-col>
     </v-row>
   </div>
 </template>
@@ -80,8 +80,9 @@
 import { api } from "@/api";
 import StatCard from "./StatCard";
 import EventViewer from "./EventViewer";
+import BackupViewer from "./BackupViewer";
 export default {
-  components: { StatCard, EventViewer },
+  components: { StatCard, EventViewer, BackupViewer },
   data() {
     return {
       statistics: {

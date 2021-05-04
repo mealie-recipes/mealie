@@ -9,7 +9,7 @@ w<template>
         class="text-start v-card--material__heading mb-n6 mt-n10 pa-7"
         dark
       >
-        <v-icon v-if="icon" size="32" v-text="icon" />
+        <v-icon v-if="icon" size="40" v-text="icon" />
         <div v-if="text" class="headline font-weight-thin" v-text="text" />
       </v-sheet>
 

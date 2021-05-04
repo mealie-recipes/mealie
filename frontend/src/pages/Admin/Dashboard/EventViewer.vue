@@ -1,45 +1,47 @@
 <template>
   <div>
-    <StatCard icon="mdi-bell-ring">
+    <StatCard icon="mdi-bell-ring" :color="color">
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
           <div class="body-3 grey--text font-weight-light" v-text="'Events'" />
 
           <h3 class="display-2 font-weight-light text--primary">
-            <small> {{ total }}</small>
+            <small> {{ total }} </small>
           </h3>
         </div>
       </template>
       <div class="d-flex row py-3 justify-end">
-        <v-btn class="mx-2" small color="primary" @click="deleteAll">
+        <v-btn class="mx-2" small :color="color" @click="deleteAll">
           <v-icon left> mdi-notification-clear-all </v-icon> Clear
         </v-btn>
       </div>
       <template v-slot:bottom>
-        <v-list subheader two-line>
-          <v-list-item v-for="(event, index) in events" :key="index">
-            <v-list-item-avatar>
-              <v-icon large dark :color="icons[event.category].color">
-                {{ icons[event.category].icon }}
-              </v-icon>
-            </v-list-item-avatar>
+        <v-virtual-scroll height="290" item-height="70" :items="events">
+          <template v-slot:default="{ item }">
+            <v-list-item>
+              <v-list-item-avatar>
+                <v-icon large dark :color="icons[item.category].color">
+                  {{ icons[item.category].icon }}
+                </v-icon>
+              </v-list-item-avatar>
 
-            <v-list-item-content>
-              <v-list-item-title v-text="event.title"></v-list-item-title>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
 
-              <v-list-item-subtitle v-text="event.text"></v-list-item-subtitle>
-              <v-list-item-subtitle>
-                {{ $d(Date.parse(event.timeStamp), "long") }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
+                <v-list-item-subtitle v-text="item.text"></v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ $d(Date.parse(item.timeStamp), "long") }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
 
-            <v-list-item-action class="ml-auto">
-              <v-btn large icon @click="deleteEvent(event.id)">
-                <v-icon color="error">mdi-delete</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
+              <v-list-item-action class="ml-auto">
+                <v-btn large icon @click="deleteEvent(item.id)">
+                  <v-icon color="error">mdi-delete</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+        </v-virtual-scroll>
       </template>
     </StatCard>
   </div>
@@ -52,6 +54,7 @@ export default {
   components: { StatCard },
   data() {
     return {
+      color: "secondary",
       total: 0,
       events: [],
       icons: {
