@@ -20,7 +20,7 @@ class ImageType(str, Enum):
     tiny = "tiny-original.webp"
 
 
-@router.get("/{recipe_slug}/image/{file_name}")
+@router.get("/{recipe_slug}/images/{file_name}")
 async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.original):
     """Takes in a recipe slug, returns the static image. This route is proxied in the docker image
     and should not hit the API in production"""

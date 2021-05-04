@@ -135,14 +135,14 @@ export const recipeAPI = {
   },
 
   recipeImage(recipeSlug) {
-    return `/api/recipes/media/${recipeSlug}/image/original.webp`;
+    return `/api/recipes/media/${recipeSlug}/images/original.webp`;
   },
 
   recipeSmallImage(recipeSlug) {
-    return `/api/recipes/media/${recipeSlug}/image/min-original.webp`;
+    return `/api/recipes/media/${recipeSlug}/images/min-original.webp`;
   },
 
   recipeTinyImage(recipeSlug) {
-    return `/api/recipes/media/${recipeSlug}/image/tiny-original.webp`;
+    return `/api/recipes/media/${recipeSlug}/images/tiny-original.webp`;
   },
 };
