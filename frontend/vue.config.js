@@ -1,7 +1,7 @@
 const path = require("path");
 module.exports = {
   transpileDependencies: ["vuetify"],
-  publicPath: process.env.NODE_ENV === "production" ? "/" : "",
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   outputDir: process.env.NODE_ENV === "production" ? "./dist" : "../mealie/web",
   devServer: {
     proxy: {
