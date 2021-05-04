@@ -47,7 +47,7 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
             export_users=data.options.users,
             export_groups=data.options.groups,
         )
-        create_backup_event("Manual Backup", f"Manual Backup Created '{Path(export_path).name}'", session)
+        create_backup_event("Database Backup", f"Manual Backup Created '{Path(export_path).name}'", session)
         return {"export_path": export_path}
     except Exception as e:
         logger.error(e)

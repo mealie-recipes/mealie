@@ -4,6 +4,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
+from mealie.services.events import create_recipe_event
 from mealie.services.image.image import scrape_image, write_image
 from mealie.services.recipe.media import check_assets, delete_assets
 from mealie.services.scraper.scraper import create_from_url
@@ -22,6 +23,8 @@ def create_from_json(
     """ Takes in a JSON string and loads data into the database as a new entry"""
     recipe: Recipe = db.recipes.create(session, data.dict())
 
+    create_recipe_event("Recipe Created", f"Recipe '{recipe.name}' created", session=session)
+
     return recipe.slug
 
 
@@ -35,6 +38,7 @@ def parse_recipe_url(
 
     recipe = create_from_url(url.url)
     recipe: Recipe = db.recipes.create(session, recipe.dict())
+    create_recipe_event("Recipe Created (URL)", f"Recipe '{recipe.name}' created", session=session)
 
     return recipe.slug
 
@@ -91,9 +95,12 @@ def delete_recipe(
     """ Deletes a recipe by slug """
 
     try:
-        recipes = db.recipes.delete(session, recipe_slug)
+        recipe: Recipe = db.recipes.delete(session, recipe_slug)
         delete_assets(recipe_slug=recipe_slug)
-        return recipes
+        create_recipe_event(
+            "Recipe Deleted", f"'{recipe.name}' deleted by {current_user.full_name}", session=session
+        )
+        return recipe
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
