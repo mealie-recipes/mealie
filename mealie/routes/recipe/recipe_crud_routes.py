@@ -97,9 +97,7 @@ def delete_recipe(
     try:
         recipe: Recipe = db.recipes.delete(session, recipe_slug)
         delete_assets(recipe_slug=recipe_slug)
-        create_recipe_event(
-            "Recipe Deleted", f"'{recipe.name}' deleted by {current_user.full_name}", session=session
-        )
+        create_recipe_event("Recipe Deleted", f"'{recipe.name}' deleted by {current_user.full_name}", session=session)
         return recipe
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
