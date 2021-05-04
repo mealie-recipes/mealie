@@ -38,7 +38,7 @@ def parse_recipe_url(
 
     recipe = create_from_url(url.url)
     recipe: Recipe = db.recipes.create(session, recipe.dict())
-    create_recipe_event("Recipe Created (URL)", f"Recipe '{recipe.name}' created", session=session)
+    create_recipe_event("Recipe Created (URL)", f"'{recipe.name}' by {current_user.full_name}", session=session)
 
     return recipe.slug
 

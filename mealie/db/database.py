@@ -42,8 +42,9 @@ class _Recipes(BaseDocument):
             return session.query(self.sql_model).filter(RecipeModel.recipe_category == None).count()  # noqa: 711
         else:
             return [
-                eff_schema.from_orm(x) for x in session.query(self.sql_model).filter(RecipeModel.tags == None).all()
-            ]  # noqa: 711
+                eff_schema.from_orm(x)
+                for x in session.query(self.sql_model).filter(RecipeModel.tags == None).all()  # noqa: 711
+            ]
 
     def count_untagged(self, session: Session, count=True, override_schema=None) -> int:
         eff_schema = override_schema or self.schema
@@ -51,8 +52,9 @@ class _Recipes(BaseDocument):
             return session.query(self.sql_model).filter(RecipeModel.tags == None).count()  # noqa: 711
         else:
             return [
-                eff_schema.from_orm(x) for x in session.query(self.sql_model).filter(RecipeModel.tags == None).all()
-            ]  # noqa: 711
+                eff_schema.from_orm(x)
+                for x in session.query(self.sql_model).filter(RecipeModel.tags == None).all()  # noqa: 711
+            ]
 
 
 class _Categories(BaseDocument):

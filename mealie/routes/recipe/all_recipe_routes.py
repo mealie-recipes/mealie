@@ -35,7 +35,7 @@ async def get_untagged_recipes(session: Session = Depends(generate_session)):
 
 
 @router.get("/api/recipes/summary/uncategorized", response_model=list[RecipeSummary])
-async def get_untagged_recipes(session: Session = Depends(generate_session)):
+async def get_uncategorized_recipes(session: Session = Depends(generate_session)):
     return db.recipes.count_uncategorized(session, False, override_schema=RecipeSummary)
 
 

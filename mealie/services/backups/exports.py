@@ -81,6 +81,7 @@ class ExportDatabase:
         else:
             for item in items:
                 final_dest = out_dir if not slug_folder else out_dir.joinpath(item.get("slug"))
+                final_dest.mkdir(exist_ok=True)
                 filename = sanitize_filename(f"{item.get('slug')}.json")
                 ExportDatabase._write_json_file(item, final_dest.joinpath(filename))
 
