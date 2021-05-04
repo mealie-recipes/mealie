@@ -14,10 +14,10 @@
     "demo-status": "Demo Status",
     "development": "Development",
     "download-log": "Download Log",
-    "download-recipe-json": "Download Recipe JSON",
+    "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Not Demo",
     "production": "Production",
-    "sqlite-file": "SQLite File",
+    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
@@ -27,7 +27,8 @@
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
-    "category-updated": "Category updated"
+    "category-updated": "Category updated",
+    "category": "Category"
   },
   "general": {
     "apply": "Apply",
@@ -36,6 +37,7 @@
     "confirm": "Confirm",
     "create": "Create",
     "current-parenthesis": "(Current)",
+    "dashboard": "Dashboard",
     "delete": "Delete",
     "disabled": "Disabled",
     "download": "Download",
