@@ -26,6 +26,8 @@
             </v-btn>
           </template>
         </TheUploadBtn>
+        <BackupDialog :color="color" />
+
         <v-btn :loading="loading" class="mx-2" small :color="color" @click="createBackup">
           <v-icon left> mdi-plus </v-icon> Create
         </v-btn>
@@ -36,7 +38,7 @@
             <v-list-item @click.prevent="openDialog(item)">
               <v-list-item-avatar>
                 <v-icon large dark :color="color">
-                  mdi-backup-restore
+                  mdi-database
                 </v-icon>
               </v-list-item-avatar>
 
@@ -66,9 +68,10 @@ import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import ImportSummaryDialog from "@/components/ImportSummaryDialog";
 import { api } from "@/api";
 import StatCard from "./StatCard";
-import ImportDialog from "../Backup/ImportDialog";
+import BackupDialog from "@/components/UI/Dialogs/BackupDialog";
+import ImportDialog from "@/components/UI/Dialogs/ImportDialog";
 export default {
-  components: { StatCard, ImportDialog, TheUploadBtn, ImportSummaryDialog },
+  components: { StatCard, ImportDialog, TheUploadBtn, ImportSummaryDialog, BackupDialog },
   data() {
     return {
       color: "accent",
@@ -91,7 +94,6 @@ export default {
     async getAvailableBackups() {
       const response = await api.backups.requestAvailable();
       this.availableBackups = response.imports;
-      console.log(this.availableBackups);
     },
 
     async deleteBackup(name) {
@@ -106,6 +108,7 @@ export default {
       this.selectedName = backup.name;
       this.$refs.import_dialog.open();
     },
+
     async importBackup(data) {
       this.loading = true;
       const response = await api.backups.import(data.name, data);

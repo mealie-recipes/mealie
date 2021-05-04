@@ -168,11 +168,6 @@ export default {
           title: this.$t("settings.manage-users"),
         },
         {
-          icon: "mdi-backup-restore",
-          to: "/admin/backups",
-          title: this.$t("settings.backup-and-exports"),
-        },
-        {
           icon: "mdi-database-import",
           to: "/admin/migrations",
           title: this.$t("settings.migrations"),

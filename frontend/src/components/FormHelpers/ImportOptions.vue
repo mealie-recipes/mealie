@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-checkbox
-      v-for="option in options"
-      :key="option.text"
+      v-for="(option, index) in options"
+      :key="index"
       class="mb-n4 mt-n3"
       dense
       :label="option.text"
@@ -62,5 +62,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

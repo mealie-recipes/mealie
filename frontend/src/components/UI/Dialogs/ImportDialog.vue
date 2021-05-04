@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import ImportOptions from "./ImportOptions";
+import ImportOptions from "@/components/FormHelpers/ImportOptions";
 import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn.vue";
 import { backupURLs } from "@/api/backup";
 export default {
