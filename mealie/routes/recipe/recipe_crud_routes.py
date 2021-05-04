@@ -62,8 +62,7 @@ def update_recipe(
     recipe: Recipe = db.recipes.update(session, recipe_slug, data.dict())
     print(recipe.assets)
 
-    if recipe_slug != recipe.slug:
-        check_assets(original_slug=recipe_slug, recipe=recipe)
+    check_assets(original_slug=recipe_slug, recipe=recipe)
 
     return recipe
 
@@ -80,8 +79,8 @@ def patch_recipe(
     recipe: Recipe = db.recipes.patch(
         session, recipe_slug, new_data=data.dict(exclude_unset=True, exclude_defaults=True)
     )
-    if recipe_slug != recipe.slug:
-        check_assets(original_slug=recipe_slug, recipe=recipe)
+
+    check_assets(original_slug=recipe_slug, recipe=recipe)
 
     return recipe
 
