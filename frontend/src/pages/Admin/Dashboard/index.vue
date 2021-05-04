@@ -14,10 +14,14 @@
           </template>
           <template v-slot:actions>
             <div class="d-flex row py-3 justify-space-around">
-              <v-btn small color="primary">
+              <v-btn small color="primary" :to="{ path: '/admin/toolbox/', query: { tab: 'organize', filter: 'tag' } }">
                 <v-icon left> mdi-tag </v-icon> Untagged {{ statistics.untaggedRecipes }}
               </v-btn>
-              <v-btn small color="primary">
+              <v-btn
+                small
+                color="primary"
+                :to="{ path: '/admin/toolbox/', query: { tab: 'organize', filter: 'category' } }"
+              >
                 <v-icon left> mdi-tag </v-icon> Uncategorized {{ statistics.uncategorizedRecipes }}
               </v-btn>
             </div>

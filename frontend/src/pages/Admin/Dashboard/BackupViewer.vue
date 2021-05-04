@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ImportSummaryDialog ref="report" />
     <ImportDialog
       :name="selectedName"
       :date="selectedDate"
@@ -62,11 +63,12 @@
 
 <script>
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
+import ImportSummaryDialog from "@/components/ImportSummaryDialog";
 import { api } from "@/api";
 import StatCard from "./StatCard";
 import ImportDialog from "../Backup/ImportDialog";
 export default {
-  components: { StatCard, ImportDialog, TheUploadBtn },
+  components: { StatCard, ImportDialog, TheUploadBtn, ImportSummaryDialog },
   data() {
     return {
       color: "secondary",
@@ -108,10 +110,8 @@ export default {
       this.loading = true;
       const response = await api.backups.import(data.name, data);
       if (response) {
-        let importData = response.data;
-        this.$emit("finished", importData);
-      } else {
-        this.$emit("finished");
+        const importData = response.data;
+        this.$refs.report.open(importData);
       }
       this.loading = false;
     },
