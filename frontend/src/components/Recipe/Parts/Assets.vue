@@ -131,7 +131,8 @@ export default {
       this.value.splice(index, 1);
     },
     copyLink(name, fileName) {
-      const copyText = `![${name}](${this.baseURL}/api/recipes/media/${this.slug}/assets/${fileName})`;
+      const assetLink = api.recipes.recipeAssetPath(this.slug, fileName);
+      const copyText = `![${name}](${assetLink})`;
       navigator.clipboard.writeText(copyText).then(
         () => console.log("Copied", copyText),
         () => console.log("Copied Failed", copyText)
