@@ -14,14 +14,7 @@
             <v-list-item-title class="pl-2" v-text="item.name"></v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn
-              v-if="!edit"
-              color="primary"
-              icon
-              :href="`/api/recipes/media/${slug}/assets/${item.fileName}`"
-              target="_blank"
-              top
-            >
+            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName)" target="_blank" top>
               <v-icon> mdi-download</v-icon>
             </v-btn>
             <div v-else>
@@ -118,6 +111,9 @@ export default {
     },
   },
   methods: {
+    assetURL(assetName) {
+      return api.recipes.recipeAssetPath(this.slug, assetName);
+    },
     setFileObject(obj) {
       this.fileObject = obj;
     },

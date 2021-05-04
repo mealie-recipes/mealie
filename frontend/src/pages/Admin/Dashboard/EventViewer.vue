@@ -54,7 +54,7 @@ export default {
   components: { StatCard },
   data() {
     return {
-      color: "secondary",
+      color: "accent",
       total: 0,
       events: [],
       icons: {

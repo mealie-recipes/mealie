@@ -1,7 +1,7 @@
 {
   "python.formatting.provider": "black",
   "python.pythonPath": ".venv/bin/python3.9",
-  "python.linting.pylintEnabled": true,
+  "python.linting.pylintEnabled": false,
   "python.linting.enabled": true,
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
@@ -24,5 +24,6 @@
     "postgres",
     "webp"
   ],
-  "search.mode": "reuseEditor"
+  "search.mode": "reuseEditor",
+  "python.linting.flake8Enabled": true
 }

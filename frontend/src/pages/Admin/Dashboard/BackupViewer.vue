@@ -71,7 +71,7 @@ export default {
   components: { StatCard, ImportDialog, TheUploadBtn, ImportSummaryDialog },
   data() {
     return {
-      color: "secondary",
+      color: "accent",
       selectedName: "",
       selectedDate: "",
       loading: false,

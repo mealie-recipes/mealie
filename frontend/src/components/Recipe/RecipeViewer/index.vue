@@ -18,7 +18,7 @@
             color="secondary darken-1"
             class="rounded-sm static"
           >
-            {{ yields }}
+            {{ recipe.yields }}
           </v-btn>
         </v-col>
         <Rating :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
