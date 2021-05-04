@@ -1,6 +1,6 @@
 import shutil
 
-from fastapi import APIRouter, Depends, File, UploadFile, status, HTTPException
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
 from mealie.core import security
 from mealie.core.config import app_dirs, settings
@@ -9,6 +9,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
+from mealie.services.events import create_sign_up_event
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/users", tags=["Users"])
@@ -22,7 +23,7 @@ async def create_user(
 ):
 
     new_user.password = get_password_hash(new_user.password)
-
+    create_sign_up_event("User Created", f"Created by {current_user.full_name}", session=session)
     return db.users.create(session, new_user.dict())
 
 

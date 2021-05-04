@@ -37,7 +37,6 @@ export default {
       return this.$store.getters.getSiteSettings;
     },
     recentRecipes() {
-      console.log("Recent Recipes");
       return this.$store.getters.getRecentRecipes;
     },
   },

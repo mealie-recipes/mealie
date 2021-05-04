@@ -4,7 +4,9 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.recipe import Recipe, RecipeURLIn
-from mealie.services.image.image import delete_image, rename_image, scrape_image, write_image
+from mealie.services.events import create_recipe_event
+from mealie.services.image.image import scrape_image, write_image
+from mealie.services.recipe.media import check_assets, delete_assets
 from mealie.services.scraper.scraper import create_from_url
 from sqlalchemy.orm.session import Session
 
@@ -21,6 +23,8 @@ def create_from_json(
     """ Takes in a JSON string and loads data into the database as a new entry"""
     recipe: Recipe = db.recipes.create(session, data.dict())
 
+    create_recipe_event("Recipe Created", f"Recipe '{recipe.name}' created", session=session)
+
     return recipe.slug
 
 
@@ -34,6 +38,7 @@ def parse_recipe_url(
 
     recipe = create_from_url(url.url)
     recipe: Recipe = db.recipes.create(session, recipe.dict())
+    create_recipe_event("Recipe Created (URL)", f"'{recipe.name}' by {current_user.full_name}", session=session)
 
     return recipe.slug
 
@@ -57,8 +62,7 @@ def update_recipe(
     recipe: Recipe = db.recipes.update(session, recipe_slug, data.dict())
     print(recipe.assets)
 
-    if recipe_slug != recipe.slug:
-        rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
+    check_assets(original_slug=recipe_slug, recipe=recipe)
 
     return recipe
 
@@ -75,8 +79,8 @@ def patch_recipe(
     recipe: Recipe = db.recipes.patch(
         session, recipe_slug, new_data=data.dict(exclude_unset=True, exclude_defaults=True)
     )
-    if recipe_slug != recipe.slug:
-        rename_image(original_slug=recipe_slug, new_slug=recipe.slug)
+
+    check_assets(original_slug=recipe_slug, recipe=recipe)
 
     return recipe
 
@@ -90,10 +94,10 @@ def delete_recipe(
     """ Deletes a recipe by slug """
 
     try:
-        delete_data = db.recipes.delete(session, recipe_slug)
-        delete_image(recipe_slug)
-
-        return delete_data
+        recipe: Recipe = db.recipes.delete(session, recipe_slug)
+        delete_assets(recipe_slug=recipe_slug)
+        create_recipe_event("Recipe Deleted", f"'{recipe.name}' deleted by {current_user.full_name}", session=session)
+        return recipe
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 

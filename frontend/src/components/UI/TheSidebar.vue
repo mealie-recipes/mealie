@@ -148,6 +148,11 @@ export default {
     adminLinks() {
       return [
         {
+          icon: "mdi-view-dashboard",
+          to: "/admin/dashboard",
+          title: this.$t("general.dashboard"),
+        },
+        {
           icon: "mdi-cog",
           to: "/admin/settings",
           title: this.$t("settings.site-settings"),

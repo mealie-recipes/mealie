@@ -2,8 +2,11 @@ from fastapi import APIRouter, Depends
 from mealie.core.config import APP_VERSION, app_dirs, settings
 from mealie.core.root_logger import LOGGER_FILE
 from mealie.core.security import create_file_token
+from mealie.db.database import db
+from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.debug import AppInfo, DebugInfo
+from mealie.schema.about import AppInfo, AppStatistics, DebugInfo
+from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/debug", tags=["Debug"])
 
@@ -18,8 +21,20 @@ async def get_debug_info(current_user=Depends(get_current_user)):
         demo_status=settings.IS_DEMO,
         api_port=settings.API_PORT,
         api_docs=settings.API_DOCS,
+        db_type=settings.DB_ENGINE,
         db_url=settings.DB_URL,
         default_group=settings.DEFAULT_GROUP,
+    )
+
+
+@router.get("/statistics")
+async def get_app_statistics(session: Session = Depends(generate_session)):
+    return AppStatistics(
+        total_recipes=db.recipes.count_all(session),
+        uncategorized_recipes=db.recipes.count_uncategorized(session),
+        untagged_recipes=db.recipes.count_untagged(session),
+        total_users=db.users.count_all(session),
+        total_groups=db.groups.count_all(session),
     )
 
 

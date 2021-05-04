@@ -19,7 +19,7 @@
                 <div class="text-truncate">
                   <strong>{{ backup.name }}</strong>
                 </div>
-                <div class="text-truncate">{{ $d(new Date(backup.date), "medium") }}</div>
+                <div class="text-truncate">{{ $d(Date.parse(backup.date), "medium") }}</div>
               </v-col>
             </v-row>
           </v-card-text>

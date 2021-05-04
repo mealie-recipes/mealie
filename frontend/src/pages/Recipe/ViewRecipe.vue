@@ -25,22 +25,7 @@
         class="sticky"
       />
 
-      <RecipeViewer
-        v-if="!form"
-        :name="recipeDetails.name"
-        :ingredients="recipeDetails.recipeIngredient"
-        :description="recipeDetails.description"
-        :instructions="recipeDetails.recipeInstructions"
-        :tags="recipeDetails.tags"
-        :categories="recipeDetails.recipeCategory"
-        :notes="recipeDetails.notes"
-        :rating="recipeDetails.rating"
-        :yields="recipeDetails.recipeYield"
-        :orgURL="recipeDetails.orgURL"
-        :nutrition="recipeDetails.nutrition"
-        :assets="recipeDetails.assets"
-        :slug="recipeDetails.slug"
-      />
+      <RecipeViewer v-if="!form" :recipe="recipeDetails" />
       <VJsoneditor
         @error="logError()"
         class="mt-10"

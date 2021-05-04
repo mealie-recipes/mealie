@@ -1,14 +1,14 @@
 import uuid
 
+from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.core.security import get_password_hash
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from fastapi import APIRouter, Depends
 from mealie.routes.deps import get_current_user
 from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
 from mealie.schema.user import UserIn, UserInDB
+from mealie.services.events import create_sign_up_event
 from sqlalchemy.orm.session import Session
-from fastapi import HTTPException, status
 
 router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
 
@@ -20,9 +20,7 @@ async def get_all_open_sign_ups(
 ):
     """ Returns a list of open sign up links """
 
-    all_sign_ups = db.sign_ups.get_all(session)
-
-    return all_sign_ups
+    return db.sign_ups.get_all(session)
 
 
 @router.post("", response_model=SignUpToken)
@@ -41,6 +39,7 @@ async def create_user_sign_up_key(
         "name": key_data.name,
         "admin": key_data.admin,
     }
+    create_sign_up_event("Sign-up Token Created", f"Created by {current_user.full_name}", session=session)
     return db.sign_ups.create(session, sign_up)
 
 
@@ -63,6 +62,7 @@ async def create_user_with_token(
     db.users.create(session, new_user.dict())
 
     # DeleteToken
+    create_sign_up_event("Sign-up Token Used", f"New User {new_user.full_name}", session=session)
     db.sign_ups.delete(session, token)
 
 

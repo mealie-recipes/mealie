@@ -4,8 +4,8 @@ import sys
 from mealie.core.config import DATA_DIR
 
 LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
-LOGGER_FORMAT = "%(levelname)s: \t%(message)s"
 DATE_FORMAT = "%d-%b-%y %H:%M:%S"
+LOGGER_FORMAT = "%(levelname)s: %(asctime)s \t%(message)s"
 
 logging.basicConfig(level=logging.INFO, format=LOGGER_FORMAT, datefmt="%d-%b-%y %H:%M:%S")
 
@@ -30,6 +30,9 @@ def logger_init() -> logging.Logger:
     return logger
 
 
+root_logger = logger_init()
+
+
 def get_logger(module=None) -> logging.Logger:
     """ Returns a child logger for mealie """
     global root_logger
@@ -38,6 +41,3 @@ def get_logger(module=None) -> logging.Logger:
         return root_logger
 
     return root_logger.getChild(module)
-
-
-root_logger = logger_init()

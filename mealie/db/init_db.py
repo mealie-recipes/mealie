@@ -5,6 +5,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.settings import SiteSettings
 from mealie.schema.theme import SiteTheme
+from mealie.services.events import create_general_event
 from sqlalchemy.orm import Session
 
 logger = root_logger.get_logger("init_db")
@@ -58,6 +59,7 @@ def main():
     else:
         print("Database Doesn't Exists, Initializing...")
         init_db()
+        create_general_event("Initialize Database", "Initialize database with default values", session)
 
 
 if __name__ == "__main__":

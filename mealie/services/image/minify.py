@@ -4,10 +4,8 @@ from pathlib import Path
 
 from mealie.core import root_logger
 from mealie.core.config import app_dirs
-from mealie.db.database import db
-from mealie.db.db_setup import create_session
+from mealie.schema.recipe import Recipe
 from PIL import Image
-from sqlalchemy.orm.session import Session
 
 logger = root_logger.get_logger()
 
@@ -20,11 +18,7 @@ class ImageSizes:
 
 
 def get_image_sizes(org_img: Path, min_img: Path, tiny_img: Path) -> ImageSizes:
-    return ImageSizes(
-        org=sizeof_fmt(org_img),
-        min=sizeof_fmt(min_img),
-        tiny=sizeof_fmt(tiny_img),
-    )
+    return ImageSizes(org=sizeof_fmt(org_img), min=sizeof_fmt(min_img), tiny=sizeof_fmt(tiny_img))
 
 
 def minify_image(image_file: Path) -> ImageSizes:
@@ -110,28 +104,9 @@ def move_all_images():
             if new_file.is_file():
                 new_file.unlink()
             image_file.rename(new_file)
-
-
-def validate_slugs_in_database(session: Session = None):
-    def check_image_path(image_name: str, slug_path: str) -> bool:
-        existing_path: Path = app_dirs.IMG_DIR.joinpath(image_name)
-        slug_path: Path = app_dirs.IMG_DIR.joinpath(slug_path)
-
-        if existing_path.is_dir():
-            slug_path.rename(existing_path)
-        else:
-            logger.info("No Image Found")
-
-    session = session or create_session()
-    all_recipes = db.recipes.get_all(session)
-
-    slugs_and_images = [(x.slug, x.image) for x in all_recipes]
-
-    for slug, image in slugs_and_images:
-        image_slug = image.split(".")[0]  # Remove Extension
-        if slug != image_slug:
-            logger.info(f"{slug}, Doesn't Match '{image_slug}'")
-            check_image_path(image, slug)
+        if image_file.is_dir():
+            slug = image_file.name
+            image_file.rename(Recipe(slug=slug).image_dir)
 
 
 def migrate_images():
@@ -139,7 +114,7 @@ def migrate_images():
 
     move_all_images()
 
-    for image in app_dirs.IMG_DIR.glob("*/original.*"):
+    for image in app_dirs.RECIPE_DATA_DIR.glob("**/original.*"):
 
         minify_image(image)
 
@@ -148,4 +123,3 @@ def migrate_images():
 
 if __name__ == "__main__":
     migrate_images()
-    validate_slugs_in_database()
