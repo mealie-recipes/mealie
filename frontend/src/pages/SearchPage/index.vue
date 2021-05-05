@@ -36,7 +36,6 @@
             {{ $t("search.tag-filter") }}
           </h3>
           <FilterSelector class="mb-1" @update="updateTagParams" />
-
           <CategoryTagSelector
             :solo="true"
             :dense="false"
