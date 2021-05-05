@@ -37,24 +37,14 @@ class _Recipes(BaseDocument):
         return f"{slug}.{extension}"
 
     def count_uncategorized(self, session: Session, count=True, override_schema=None) -> int:
-        eff_schema = override_schema or self.schema
-        if count:
-            return session.query(self.sql_model).filter(RecipeModel.recipe_category == None).count()  # noqa: 711
-        else:
-            return [
-                eff_schema.from_orm(x)
-                for x in session.query(self.sql_model).filter(RecipeModel.tags == None).all()  # noqa: 711
-            ]
+        return self._countr_attribute(
+            session, attribute_name=RecipeModel.recipe_category, attr_match=None, count=True, override_schema=None
+        )
 
     def count_untagged(self, session: Session, count=True, override_schema=None) -> int:
-        eff_schema = override_schema or self.schema
-        if count:
-            return session.query(self.sql_model).filter(RecipeModel.tags == None).count()  # noqa: 711
-        else:
-            return [
-                eff_schema.from_orm(x)
-                for x in session.query(self.sql_model).filter(RecipeModel.tags == None).all()  # noqa: 711
-            ]
+        return self._countr_attribute(
+            session, attribute_name=RecipeModel.tags, attr_match=None, count=True, override_schema=None
+        )
 
 
 class _Categories(BaseDocument):
