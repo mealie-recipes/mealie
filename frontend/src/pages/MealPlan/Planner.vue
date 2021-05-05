@@ -54,7 +54,7 @@
 
 <script>
 import { api } from "@/api";
-import utils from "@/utils";
+import { utils } from "@/utils";
 import NewMeal from "@/components/MealPlan/MealPlanNew";
 import EditPlan from "@/components/MealPlan/MealPlanEditor";
 import ShoppingListDialog from "@/components/MealPlan/ShoppingListDialog";

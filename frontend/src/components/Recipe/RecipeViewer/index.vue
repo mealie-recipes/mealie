@@ -88,7 +88,7 @@
 <script>
 import Nutrition from "@/components/Recipe/Parts/Nutrition";
 import VueMarkdown from "@adapttive/vue-markdown";
-import utils from "@/utils";
+import { utils } from "@/utils";
 import RecipeChips from "./RecipeChips";
 import Rating from "@/components/Recipe/Parts/Rating";
 import Notes from "@/components/Recipe/Parts/Notes";

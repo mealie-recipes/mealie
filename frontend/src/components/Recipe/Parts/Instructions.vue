@@ -66,7 +66,7 @@
 
 <script>
 import VueMarkdown from "@adapttive/vue-markdown";
-import utils from "@/utils";
+import { utils } from "@/utils";
 export default {
   components: {
     VueMarkdown,

@@ -3,7 +3,7 @@ import ThisWeek from "@/pages/MealPlan/ThisWeek";
 import { api } from "@/api";
 
 import i18n from "@/i18n.js";
-import utils from "@/utils";
+import { utils } from "@/utils";
 
 export const mealRoutes = [
   {
