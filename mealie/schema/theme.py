@@ -8,8 +8,8 @@ class Colors(BaseModel):
     accent: str = "#00457A"
     secondary: str = "#973542"
     success: str = "#43A047"
-    info: str = "#4990BA"
-    warning: str = "#FF4081"
+    info: str = "#1976D2"
+    warning: str = "#FF6F00"
     error: str = "#EF5350"
 
     class Config:

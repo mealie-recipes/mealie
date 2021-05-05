@@ -24,7 +24,23 @@ def init_db(db: Session = None) -> None:
 
 
 def default_theme_init(session: Session):
-    db.themes.create(session, SiteTheme().dict())
+    default_themes = [
+        SiteTheme().dict(),
+        {
+            "name": "Dark",
+            "colors": {
+                "primary": "#424242",
+                "accent": "#455A64",
+                "secondary": "#00796B",
+                "success": "#43A047",
+                "info": "#1976D2",
+                "warning": "#FF6F00",
+                "error": "#EF5350",
+            },
+        },
+    ]
+    for theme in default_themes:
+        db.themes.create(session, theme)
 
 
 def default_settings_init(session: Session):

@@ -1,14 +1,13 @@
-import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
-from sqlalchemy.sql.sqltypes import Integer
+from sqlalchemy import Column, ForeignKey, Integer, String
 
 
 class SiteThemeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "site_theme"
-    id = sa.Column(Integer, primary_key=True, unique=True)
-    name = sa.Column(sa.String, nullable=False, unique=True)
-    colors = orm.relationship("ThemeColorsModel", uselist=False, cascade="all, delete")
+    id = Column(Integer, primary_key=True, unique=True)
+    name = Column(String, nullable=False, unique=True)
+    colors = orm.relationship("ThemeColorsModel", uselist=False, single_parent=True, cascade="all, delete-orphan")
 
     def __init__(self, name: str, colors: dict, *arg, **kwargs) -> None:
         self.name = name
@@ -17,12 +16,12 @@ class SiteThemeModel(SqlAlchemyBase, BaseMixins):
 
 class ThemeColorsModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "theme_colors"
-    id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("site_theme.name"))
-    primary = sa.Column(sa.String)
-    accent = sa.Column(sa.String)
-    secondary = sa.Column(sa.String)
-    success = sa.Column(sa.String)
-    info = sa.Column(sa.String)
-    warning = sa.Column(sa.String)
-    error = sa.Column(sa.String)
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey("site_theme.id"))
+    primary = Column(String)
+    accent = Column(String)
+    secondary = Column(String)
+    success = Column(String)
+    info = Column(String)
+    warning = Column(String)
+    error = Column(String)
