@@ -6,7 +6,7 @@ from sqlalchemy.sql.sqltypes import Integer
 
 class SiteThemeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "site_theme"
-    id = sa.Column(Integer, primary_key=True)
+    id = sa.Column(Integer, primary_key=True, unique=True)
     name = sa.Column(sa.String, nullable=False)
     colors = orm.relationship("ThemeColorsModel", uselist=False, cascade="all, delete")
 
