@@ -75,6 +75,7 @@ export default {
     classes() {
       return {
         "v-card--material--has-heading": this.hasHeading,
+        "mt-3": this.$vuetify.breakpoint.name == "xs" || this.$vuetify.breakpoint.name == "sm"
       };
     },
     hasHeading() {
