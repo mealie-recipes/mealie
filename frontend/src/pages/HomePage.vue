@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <CardSection
+      title-icon=""
       v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
       :recipes="recentRecipes"

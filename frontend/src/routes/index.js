@@ -22,6 +22,7 @@ export const routes = [
 ];
 
 const router = new VueRouter({
+  base: process.env.BASE_URL,
   routes,
   mode: process.env.NODE_ENV === "production" ? "history" : "hash",
   scrollBehavior() {

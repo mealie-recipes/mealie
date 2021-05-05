@@ -6,10 +6,10 @@ const prefix = baseURL + "themes";
 
 const settingsURLs = {
   allThemes: `${baseURL}themes`,
-  specificTheme: themeName => `${prefix}/${themeName}`,
+  specificTheme: id => `${prefix}/${id}`,
   createTheme: `${prefix}/create`,
-  updateTheme: themeName => `${prefix}/${themeName}`,
-  deleteTheme: themeName => `${prefix}/${themeName}`,
+  updateTheme: id => `${prefix}/${id}`,
+  deleteTheme: id => `${prefix}/${id}`,
 };
 
 export const themeAPI = {
@@ -32,22 +32,18 @@ export const themeAPI = {
     );
   },
 
-  update(themeName, colors) {
-    const body = {
-      name: themeName,
-      colors: colors,
-    };
+  update(data) {
     return apiReq.put(
-      settingsURLs.updateTheme(themeName),
-      body,
+      settingsURLs.updateTheme(data.id),
+      data,
       () => i18n.t("settings.theme.error-updating-theme"),
       () => i18n.t("settings.theme.theme-updated")
     );
   },
 
-  delete(themeName) {
+  delete(id) {
     return apiReq.delete(
-      settingsURLs.deleteTheme(themeName),
+      settingsURLs.deleteTheme(id),
       null,
       () => i18n.t("settings.theme.error-deleting-theme"),
       () => i18n.t("settings.theme.theme-deleted")

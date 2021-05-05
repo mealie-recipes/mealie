@@ -49,12 +49,12 @@
 
 <script>
 import { api } from "@/api";
-import StatCard from "./StatCard";
+import StatCard from "@/components/UI/StatCard";
 export default {
   components: { StatCard },
   data() {
     return {
-      color: "secondary",
+      color: "accent",
       total: 0,
       events: [],
       icons: {

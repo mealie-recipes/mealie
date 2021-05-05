@@ -1,18 +1,19 @@
 import uvicorn
 from fastapi import FastAPI
 
-from mealie.core import root_logger
 from mealie.core.config import APP_VERSION, settings
+from mealie.core.root_logger import get_logger
 from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes, utility_routes
 from mealie.routes.about import about_router
-from mealie.routes.groups import groups
-from mealie.routes.mealplans import mealplans
-from mealie.routes.recipe import router as recipe_router
-from mealie.routes.site_settings import all_settings
-from mealie.routes.users import users
+from mealie.routes.groups import groups_router
+from mealie.routes.mealplans import meal_plan_router
+from mealie.routes.media import media_router
+from mealie.routes.recipe import recipe_router
+from mealie.routes.site_settings import settings_router
+from mealie.routes.users import user_router
 from mealie.services.events import create_general_event
 
-logger = root_logger.get_logger()
+logger = get_logger()
 
 app = FastAPI(
     title="Mealie",
@@ -29,15 +30,16 @@ def start_scheduler():
 
 def api_routers():
     # Authentication
-    app.include_router(users.router)
-    app.include_router(groups.router)
+    app.include_router(user_router)
+    app.include_router(groups_router)
     # Recipes
     app.include_router(recipe_router)
+    app.include_router(media_router)
     app.include_router(about_router)
     # Meal Routes
-    app.include_router(mealplans.router)
+    app.include_router(meal_plan_router)
     # Settings Routes
-    app.include_router(all_settings.router)
+    app.include_router(settings_router)
     app.include_router(theme_routes.router)
     # Backups/Imports Routes
     app.include_router(backup_routes.router)

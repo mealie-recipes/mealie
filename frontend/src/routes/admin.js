@@ -1,6 +1,4 @@
 import Admin from "@/pages/Admin";
-import Backup from "@/pages/Admin/Backup";
-import Theme from "@/pages/Admin/Theme";
 import MealPlanner from "@/pages/Admin/MealPlanner";
 import Migration from "@/pages/Admin/Migration";
 import Profile from "@/pages/Admin/Profile";
@@ -29,21 +27,6 @@ export const adminRoutes = {
       component: Profile,
       meta: {
         title: "settings.profile",
-      },
-    },
-
-    {
-      path: "backups",
-      component: Backup,
-      meta: {
-        title: "settings.backup-and-exports",
-      },
-    },
-    {
-      path: "themes",
-      component: Theme,
-      meta: {
-        title: "general.themes",
       },
     },
     {

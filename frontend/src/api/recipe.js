@@ -135,14 +135,18 @@ export const recipeAPI = {
   },
 
   recipeImage(recipeSlug) {
-    return `/api/recipes/media/${recipeSlug}/images/original.webp`;
+    return `/api/media/recipes/${recipeSlug}/images/original.webp`;
   },
 
   recipeSmallImage(recipeSlug) {
-    return `/api/recipes/media/${recipeSlug}/images/min-original.webp`;
+    return `/api/media/recipes/${recipeSlug}/images/min-original.webp`;
   },
 
   recipeTinyImage(recipeSlug) {
-    return `/api/recipes/media/${recipeSlug}/images/tiny-original.webp`;
+    return `/api/media/recipes/${recipeSlug}/images/tiny-original.webp`;
+  },
+
+  recipeAssetPath(recipeSlug, assetName) {
+    return `api/media/recipes/${recipeSlug}/assets/${assetName}`;
   },
 };

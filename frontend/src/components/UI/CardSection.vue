@@ -1,39 +1,30 @@
 <template>
-  <div class="mt-n5" v-if="recipes">
-    <v-card flat class="transparent" height="60px">
-      <v-card-text>
-        <v-row v-if="title != null">
-          <v-col>
-            <v-btn-toggle group>
-              <v-btn text>
-                {{ title.toUpperCase() }}
-              </v-btn>
-            </v-btn-toggle>
-          </v-col>
-          <v-spacer></v-spacer>
-          <v-col align="end">
-            <v-menu offset-y v-if="sortable">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn-toggle group>
-                  <v-btn text v-bind="attrs" v-on="on">
-                    {{ $t("general.sort") }}
-                  </v-btn>
-                </v-btn-toggle>
-              </template>
-              <v-list>
-                <v-list-item @click="$emit('sort-recent')">
-                  <v-list-item-title>{{ $t("general.recent") }}</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="$emit('sort')">
-                  <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
-    <div v-if="recipes">
+  <div v-if="recipes">
+    <v-app-bar color="transparent" flat class="mt-n1 rounded" v-if="!disableToolbar">
+      <v-icon large left v-if="title">
+        {{ titleIcon }}
+      </v-icon>
+      <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-menu offset-y v-if="$listeners.sortRecent || $listeners.sort">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn-toggle group>
+            <v-btn text v-bind="attrs" v-on="on">
+              {{ $t("general.sort") }}
+            </v-btn>
+          </v-btn-toggle>
+        </template>
+        <v-list>
+          <v-list-item @click="$emit('sortRecent')">
+            <v-list-item-title>{{ $t("general.recent") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="$emit('sort')">
+            <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-app-bar>
+    <div v-if="recipes" class="mt-2">
       <v-row v-if="!viewScale">
         <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="recipe in recipes.slice(0, cardLimit)" :key="recipe.name">
           <RecipeCard
@@ -91,8 +82,11 @@ export default {
     MobileRecipeCard,
   },
   props: {
-    sortable: {
+    disableToolbar: {
       default: false,
+    },
+    titleIcon: {
+      default: "mdi-tag-multiple-outline",
     },
     title: {
       default: null,

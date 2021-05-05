@@ -14,14 +14,7 @@
             <v-list-item-title class="pl-2" v-text="item.name"></v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn
-              v-if="!edit"
-              color="primary"
-              icon
-              :href="`/api/recipes/media/${slug}/assets/${item.fileName}`"
-              target="_blank"
-              top
-            >
+            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName)" target="_blank" top>
               <v-icon> mdi-download</v-icon>
             </v-btn>
             <div v-else>
@@ -118,6 +111,9 @@ export default {
     },
   },
   methods: {
+    assetURL(assetName) {
+      return api.recipes.recipeAssetPath(this.slug, assetName);
+    },
     setFileObject(obj) {
       this.fileObject = obj;
     },
@@ -135,7 +131,8 @@ export default {
       this.value.splice(index, 1);
     },
     copyLink(name, fileName) {
-      const copyText = `![${name}](${this.baseURL}/api/recipes/media/${this.slug}/assets/${fileName})`;
+      const assetLink = api.recipes.recipeAssetPath(this.slug, fileName);
+      const copyText = `![${name}](${assetLink})`;
       navigator.clipboard.writeText(copyText).then(
         () => console.log("Copied", copyText),
         () => console.log("Copied Failed", copyText)

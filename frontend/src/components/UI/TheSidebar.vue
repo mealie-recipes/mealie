@@ -134,11 +134,6 @@ export default {
           title: this.$t("settings.profile"),
         },
         {
-          icon: "mdi-format-color-fill",
-          to: "/admin/themes",
-          title: this.$t("general.themes"),
-        },
-        {
           icon: "mdi-food",
           to: "/admin/meal-planner",
           title: this.$t("meal-plan.meal-planner"),
@@ -166,11 +161,6 @@ export default {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
           title: this.$t("settings.manage-users"),
-        },
-        {
-          icon: "mdi-backup-restore",
-          to: "/admin/backups",
-          title: this.$t("settings.backup-and-exports"),
         },
         {
           icon: "mdi-database-import",
