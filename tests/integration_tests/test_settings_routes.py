@@ -20,7 +20,7 @@ def default_theme():
 @pytest.fixture(scope="session")
 def new_theme():
     return {
-        "id": 2,
+        "id": 3,
         "name": "myTestTheme",
         "colors": {
             "primary": "#E58325",
@@ -73,7 +73,9 @@ def test_create_theme(api_client: TestClient, api_routes: AppRoutes, new_theme, 
 def test_read_all_themes(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme):
     response = api_client.get(api_routes.themes)
     assert response.status_code == 200
-    assert json.loads(response.content) == [default_theme, new_theme]
+    response_dict = json.loads(response.content)
+    assert default_theme in response_dict
+    assert new_theme in response_dict
 
 
 def test_read_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme):
