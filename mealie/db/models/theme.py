@@ -1,5 +1,3 @@
-from enum import unique
-
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
