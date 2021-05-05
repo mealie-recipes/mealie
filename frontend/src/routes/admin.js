@@ -1,5 +1,4 @@
 import Admin from "@/pages/Admin";
-import Theme from "@/pages/Admin/Theme";
 import MealPlanner from "@/pages/Admin/MealPlanner";
 import Migration from "@/pages/Admin/Migration";
 import Profile from "@/pages/Admin/Profile";
@@ -28,13 +27,6 @@ export const adminRoutes = {
       component: Profile,
       meta: {
         title: "settings.profile",
-      },
-    },
-    {
-      path: "themes",
-      component: Theme,
-      meta: {
-        title: "general.themes",
       },
     },
     {

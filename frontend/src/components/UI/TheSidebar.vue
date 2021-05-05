@@ -134,11 +134,6 @@ export default {
           title: this.$t("settings.profile"),
         },
         {
-          icon: "mdi-format-color-fill",
-          to: "/admin/themes",
-          title: this.$t("general.themes"),
-        },
-        {
           icon: "mdi-food",
           to: "/admin/meal-planner",
           title: this.$t("meal-plan.meal-planner"),

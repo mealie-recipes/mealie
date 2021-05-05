@@ -1,23 +1,21 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from mealie.db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from sqlalchemy.sql.sqltypes import Integer
 
 
-class SiteThemeModel(SqlAlchemyBase):
+class SiteThemeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "site_theme"
-    name = sa.Column(sa.String, primary_key=True)
+    id = sa.Column(Integer, primary_key=True)
+    name = sa.Column(sa.String, nullable=False)
     colors = orm.relationship("ThemeColorsModel", uselist=False, cascade="all, delete")
 
-    def __init__(self, name: str, colors: dict, session=None) -> None:
+    def __init__(self, name: str, colors: dict, *arg, **kwargs) -> None:
         self.name = name
         self.colors = ThemeColorsModel(**colors)
 
-    def update(self, session=None, name: str = None, colors: dict = None) -> dict:
-        self.colors.update(**colors)
-        return self
 
-
-class ThemeColorsModel(SqlAlchemyBase):
+class ThemeColorsModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "theme_colors"
     id = sa.Column(sa.Integer, primary_key=True)
     parent_id = sa.Column(sa.String, sa.ForeignKey("site_theme.name"))
@@ -28,21 +26,3 @@ class ThemeColorsModel(SqlAlchemyBase):
     info = sa.Column(sa.String)
     warning = sa.Column(sa.String)
     error = sa.Column(sa.String)
-
-    def update(
-        self,
-        primary: str = None,
-        accent: str = None,
-        secondary: str = None,
-        success: str = None,
-        info: str = None,
-        warning: str = None,
-        error: str = None,
-    ) -> None:
-        self.primary = primary
-        self.accent = accent
-        self.secondary = secondary
-        self.success = success
-        self.info = info
-        self.warning = warning
-        self.error = error

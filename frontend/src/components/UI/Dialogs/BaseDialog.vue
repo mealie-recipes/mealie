@@ -18,6 +18,10 @@
               {{ $t("general.cancel") }}
             </v-btn>
             <v-spacer></v-spacer>
+
+            <v-btn color="error" text @click="deleteEvent" v-if="$listeners.delete">
+              {{ $t("general.delete") }}
+            </v-btn>
             <v-btn color="success" @click="submitEvent">
               {{ submitText }}
             </v-btn>
@@ -86,6 +90,10 @@ export default {
     },
     close() {
       this.dialog = false;
+    },
+    deleteEvent() {
+      this.$emit("delete");
+      this.submitted = true;
     },
   },
 };

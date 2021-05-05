@@ -3,7 +3,7 @@
     <div class="text-center">
       <h3>{{ buttonText }}</h3>
     </div>
-    <v-text-field v-model="color" hide-details class="ma-0 pa-0" solo v-show="$vuetify.breakpoint.mdAndUp">
+    <v-text-field v-model="color" hide-details class="ma-0 pa-0" solo >
       <template v-slot:append>
         <v-menu v-model="menu" top nudge-bottom="105" nudge-left="16" :close-on-content-click="false">
           <template v-slot:activator="{ on }">
@@ -17,15 +17,7 @@
         </v-menu>
       </template>
     </v-text-field>
-    <div class="text-center" v-show="$vuetify.breakpoint.smAndDown">
-      <v-menu v-model="menu" top nudge-bottom="105" nudge-left="16" :close-on-content-click="false">
-        <template v-slot:activator="{ on, attrs }">
-          <v-chip label :color="`${color}`" dark v-bind="attrs" v-on="on">
-            {{ color }}
-          </v-chip>
-        </template>
-      </v-menu>
-    </div>
+
   </div>
 </template>
 

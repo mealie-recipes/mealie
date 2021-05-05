@@ -93,7 +93,7 @@ class _Settings(BaseDocument):
 
 class _Themes(BaseDocument):
     def __init__(self) -> None:
-        self.primary_key = "name"
+        self.primary_key = "id"
         self.sql_model = SiteThemeModel
         self.schema = SiteTheme
 
