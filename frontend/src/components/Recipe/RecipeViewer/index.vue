@@ -8,7 +8,7 @@
       <v-row dense disabled>
         <v-col>
           <v-btn
-            v-if="recipe.yields"
+            v-if="recipe.recipeYield"
             dense
             small
             :hover="false"
@@ -18,7 +18,7 @@
             color="secondary darken-1"
             class="rounded-sm static"
           >
-            {{ recipe.yields }}
+            {{ recipe.recipeYield }}
           </v-btn>
         </v-col>
         <Rating :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
@@ -88,7 +88,7 @@
 <script>
 import Nutrition from "@/components/Recipe/Parts/Nutrition";
 import VueMarkdown from "@adapttive/vue-markdown";
-import utils from "@/utils";
+import { utils } from "@/utils";
 import RecipeChips from "./RecipeChips";
 import Rating from "@/components/Recipe/Parts/Rating";
 import Notes from "@/components/Recipe/Parts/Notes";

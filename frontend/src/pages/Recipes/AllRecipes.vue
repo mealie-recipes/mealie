@@ -5,9 +5,8 @@
       title-icon=""
       :sortable="true"
       :title="$t('page.all-recipes')"
-      :recipes="allRecipes"
-      @sort="sortAZ"
-      @sort-recent="sortRecent"
+      :recipes="shownRecipes"
+      @sort="assignSorted"
     />
   </v-container>
 </template>
@@ -22,6 +21,7 @@ export default {
   data() {
     return {
       loading: false,
+      sortedResults: [],
     };
   },
   async mounted() {
@@ -35,13 +35,17 @@ export default {
     allRecipes() {
       return this.$store.getters.getAllRecipes;
     },
+    shownRecipes() {
+      if (this.sortedResults.length > 0) {
+        return this.sortedResults;
+      } else {
+        return this.allRecipes;
+      }
+    },
   },
   methods: {
-    sortAZ() {
-      this.allRecipes.sort((a, b) => (a.name > b.name ? 1 : -1));
-    },
-    sortRecent() {
-      this.allRecipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+    assignSorted(val) {
+      this.sortedResults = val;
     },
   },
 };

@@ -36,7 +36,7 @@
 
 <script>
 import { api } from "@/api";
-import utils from "@/utils";
+import { utils } from "@/utils";
 export default {
   data() {
     return {

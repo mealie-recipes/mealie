@@ -69,6 +69,9 @@ class RecipeSummary(CamelModel):
     tags: Optional[list[str]] = []
     rating: Optional[int]
 
+    date_added: Optional[datetime.date]
+    date_updated: Optional[datetime.datetime]
+
     class Config:
         orm_mode = True
 
@@ -95,7 +98,6 @@ class Recipe(RecipeSummary):
     # Mealie Specific
     settings: Optional[RecipeSettings]
     assets: Optional[list[RecipeAsset]] = []
-    date_added: Optional[datetime.date]
     notes: Optional[list[RecipeNote]] = []
     org_url: Optional[str] = Field(None, alias="orgURL")
     extras: Optional[dict] = {}

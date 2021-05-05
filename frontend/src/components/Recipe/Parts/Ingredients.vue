@@ -56,7 +56,7 @@
 import BulkAdd from "@/components/Recipe/Parts/Helpers/BulkAdd";
 import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
-import utils from "@/utils";
+import { utils } from "@/utils";
 export default {
   components: {
     BulkAdd,

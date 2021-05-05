@@ -6,7 +6,7 @@
     <v-card v-else id="myRecipe">
       <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
         <RecipeTimeCard
-          class="force-bottom"
+          :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
           :totalTime="recipeDetails.totalTime"
           :performTime="recipeDetails.performTime"
@@ -106,6 +106,9 @@ export default {
   },
 
   computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
     currentRecipe() {
       return this.$route.params.recipe;
     },

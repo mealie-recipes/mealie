@@ -6,20 +6,27 @@
       </v-icon>
       <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu offset-y v-if="$listeners.sortRecent || $listeners.sort">
+      <v-btn text @click="navigateRandom">
+        Random
+      </v-btn>
+      <v-menu offset-y v-if="$listeners.sort">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn-toggle group>
-            <v-btn text v-bind="attrs" v-on="on">
-              {{ $t("general.sort") }}
-            </v-btn>
-          </v-btn-toggle>
+          <v-btn text v-bind="attrs" v-on="on">
+            {{ $t("general.sort") }}
+          </v-btn>
         </template>
         <v-list>
-          <v-list-item @click="$emit('sortRecent')">
-            <v-list-item-title>{{ $t("general.recent") }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="$emit('sort')">
+          <v-list-item @click="sortRecipes(EVENTS.az)">
             <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.rating)">
+            <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.updated)">
+            <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.created)">
+            <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -76,6 +83,9 @@
 <script>
 import RecipeCard from "../Recipe/RecipeCard";
 import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
+import { utils } from "@/utils";
+const SORT_EVENT = "sort";
+
 export default {
   components: {
     RecipeCard,
@@ -106,6 +116,12 @@ export default {
     return {
       cardLimit: 30,
       loading: false,
+      EVENTS: {
+        az: "az",
+        rating: "rating",
+        created: "created",
+        updated: "updated",
+      },
     };
   },
   watch: {
@@ -143,6 +159,31 @@ export default {
       this.loading = true;
       await new Promise(r => setTimeout(r, 1000));
       this.loading = false;
+    },
+    navigateRandom() {
+      const recipe = utils.recipe.randomRecipe(this.recipes);
+      this.$router.push(`/recipe/${recipe.slug}`);
+    },
+    sortRecipes(sortType) {
+      let sortTarget = [...this.recipes];
+      switch (sortType) {
+        case this.EVENTS.az:
+          utils.recipe.sortAToZ(sortTarget);
+          break;
+        case this.EVENTS.rating:
+          utils.recipe.sortByRating(sortTarget);
+          break;
+        case this.EVENTS.created:
+          utils.recipe.sortByCreated(sortTarget);
+          break;
+        case this.EVENTS.updated:
+          utils.recipe.sortByUpdated(sortTarget);
+          break;
+        default:
+          console.log("Unknown Event", sortType);
+          return;
+      }
+      this.$emit(SORT_EVENT, sortTarget);
     },
   },
 };

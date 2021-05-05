@@ -92,26 +92,36 @@
           :label="$t('settings.theme.theme-name')"
           v-model="defaultData.name"
           :rules="[rules.required]"
+          :append-outer-icon="jsonEditor ? 'mdi-form-select' : 'mdi-code-braces'"
+          @click:append-outer="jsonEditor = !jsonEditor"
         ></v-text-field>
-        <v-row dense dflex wrap justify-content-center v-if="defaultData.colors">
+        <v-row dense dflex wrap justify-content-center v-if="defaultData.colors && !jsonEditor">
           <v-col cols="12" sm="6" v-for="(_, key) in defaultData.colors" :key="key">
             <ColorPickerDialog :button-text="labels[key]" v-model="defaultData.colors[key]" />
           </v-col>
         </v-row>
+        <VJsoneditor @error="logError()" v-else v-model="defaultData" height="250px" :options="jsonEditorOptions" />
       </v-card-text>
     </BaseDialog>
   </div>
 </template>
 
 <script>
+import VJsoneditor from "v-jsoneditor";
 import { api } from "@/api";
 import ColorPickerDialog from "@/components/FormHelpers/ColorPickerDialog";
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import StatCard from "@/components/UI/StatCard";
 export default {
-  components: { StatCard, BaseDialog, ColorPickerDialog },
+  components: { StatCard, BaseDialog, ColorPickerDialog, VJsoneditor },
   data() {
     return {
+      jsonEditor: true,
+      jsonEditorOptions: {
+        mode: "code",
+        search: false,
+        mainMenuBar: false,
+      },
       availableThemes: [],
       color: "accent",
       newTheme: false,
