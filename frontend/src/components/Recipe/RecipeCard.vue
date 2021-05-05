@@ -25,7 +25,7 @@
       <v-card-actions>
         <Rating :value="rating" :name="name" :slug="slug" :small="true" />
         <v-spacer></v-spacer>
-        <RecipeChips :items="tags" :title="false" :limit="2" :small="true" :isCategory="false" />
+        <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :isCategory="false" />
         <ContextMenu :slug="slug" />
       </v-card-actions>
     </v-card>

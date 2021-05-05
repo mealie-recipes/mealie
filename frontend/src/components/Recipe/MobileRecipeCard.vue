@@ -8,7 +8,7 @@
         <v-list-item-title class=" mb-1">{{ name }} </v-list-item-title>
         <v-list-item-subtitle> {{ description }} </v-list-item-subtitle>
         <div class="d-flex justify-center align-center">
-          <RecipeChips :items="tags" :title="false" :limit="1" :small="true" :isCategory="false" />
+          <RecipeChips :truncate="true" :items="tags" :title="false" :limit="1" :small="true" :isCategory="false" />
           <v-rating
             color="secondary"
             class="ml-auto"
