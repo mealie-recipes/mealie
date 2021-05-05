@@ -14,7 +14,7 @@ const recipeURLs = {
   recipe: slug => prefix + slug,
   update: slug => prefix + slug,
   delete: slug => prefix + slug,
-  createAsset: slug => `${prefix}media/${slug}/assets`,
+  createAsset: slug => `${prefix}${slug}/assets`,
   recipeImage: slug => `${prefix}${slug}/image`,
   updateImage: slug => `${prefix}${slug}/image`,
 };
