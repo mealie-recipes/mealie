@@ -14,7 +14,7 @@ export const recipe = {
   sortByCreated(list) {
     list.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
   },
-  sortUpdated(list) {
+  sortByUpdated(list) {
     list.sort((a, b) => (a.dateUpdated > b.dateUpdated ? -1 : 1));
   },
   sortByRating(list) {
