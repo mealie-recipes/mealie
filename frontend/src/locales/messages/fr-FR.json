@@ -14,10 +14,10 @@
     "demo-status": "Mode démo",
     "development": "Développement",
     "download-log": "Télécharger les logs",
-    "download-recipe-json": "Last Scraped JSON",
+    "download-recipe-json": "Dernier JSON récupéré",
     "not-demo": "Non",
     "production": "Production",
-    "database-url": "Database URL",
+    "database-url": "URL de la base de données",
     "version": "Version"
   },
   "category": {
@@ -28,7 +28,7 @@
     "category-filter": "Filtre par catégories",
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
-    "category": "Category"
+    "category": "Catégorie"
   },
   "general": {
     "apply": "Appliquer",
@@ -36,9 +36,9 @@
     "close": "Supprimer",
     "confirm": "Confirmer",
     "create": "Créer",
-    "created": "Created",
+    "created": "Créé",
     "current-parenthesis": "(Actuel)",
-    "dashboard": "Dashboard",
+    "dashboard": "Tableau de bord",
     "delete": "Supprimer",
     "disabled": "Désactivé",
     "download": "Télécharger",
@@ -64,7 +64,7 @@
     "no": "Non",
     "ok": "OK",
     "options": "Options :",
-    "rating": "Rating",
+    "rating": "Note",
     "random": "Aléatoire",
     "recent": "Récent",
     "recipes": "Recettes",
@@ -85,7 +85,7 @@
     "token": "Jeton",
     "tuesday": "Mardi",
     "update": "Mettre à jour",
-    "updated": "Updated",
+    "updated": "Mis à jour",
     "upload": "Importer",
     "url": "URL",
     "users": "Utilisateurs",
