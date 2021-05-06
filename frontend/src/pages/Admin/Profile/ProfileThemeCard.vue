@@ -196,7 +196,6 @@ export default {
       this.availableThemes = await api.themes.requestAll();
     },
     editTheme(theme) {
-      console.log(theme);
       this.defaultData = theme;
       this.newTheme = false;
       this.$refs.themeDialog.open();
@@ -204,11 +203,9 @@ export default {
     createTheme() {
       this.newTheme = true;
       this.$refs.themeDialog.open();
-      console.log("Create Theme");
     },
     async processSubmit() {
       if (this.newTheme) {
-        console.log("New Theme");
         await api.themes.create(this.defaultData);
       } else {
         await api.themes.update(this.defaultData);
@@ -216,7 +213,6 @@ export default {
       this.getAllThemes();
     },
     async deleteTheme() {
-      console.log(this.defaultData);
       await api.themes.delete(this.defaultData.id);
       this.getAllThemes();
     },

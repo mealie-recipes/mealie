@@ -131,11 +131,6 @@ export default {
       }
     },
   },
-  watch: {
-    showRecipes(val) {
-      console.log(val);
-    },
-  },
   methods: {
     assignFuzzy(val) {
       this.sortedResults = val;
