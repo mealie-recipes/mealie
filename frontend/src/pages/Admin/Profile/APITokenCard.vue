@@ -53,7 +53,7 @@
               <v-textarea
                 class="mb-0 pb-0"
                 label="API Token"
-                read
+                readonly
                 v-model="createdToken"
                 append-outer-icon="mdi-content-copy"
                 @click:append-outer="copyToken"

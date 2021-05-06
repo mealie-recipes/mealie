@@ -24,9 +24,9 @@
       <v-subheader>USERS</v-subheader>
       <v-divider></v-divider>
 
-      <v-virtual-scroll v-if="currentGroup.users" :items="currentGroup.users" height="260" item-height="64">
+      <v-virtual-scroll v-if="currentGroup.users" :items="currentGroup.users" height="257" item-height="64">
         <template v-slot:default="{ item }">
-          <v-list-item :key="item.id">
+          <v-list-item :key="item.id" @click.prevent>
             <v-list-item-action>
               <v-btn fab small depressed color="primary">
                 {{ generateInitials(item.fullName) }}
@@ -38,22 +38,85 @@
                 {{ item.fullName }}
               </v-list-item-title>
             </v-list-item-content>
-            <!-- TODO: Future Profile Pages-->
-            <!-- <v-list-item-action>
-              <v-icon small>
-                mdi-open-in-new
-              </v-icon>
-            </v-list-item-action> -->
           </v-list-item>
-
           <v-divider></v-divider>
         </template>
       </v-virtual-scroll>
+
+      <div class="mt-3">
+        <h3 class="display-2 font-weight-light text--primary">
+          <v-icon x-large>
+            mdi-food-variant
+          </v-icon>
+          <small> Mealplan Settings </small>
+        </h3>
+      </div>
+      <v-divider></v-divider>
+
+      <v-subheader>MEALPLAN CATEGORIES</v-subheader>
+      <v-card-text class="mt-0 pt-0">
+        {{ $t("meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans") }}
+      </v-card-text>
+      <CategoryTagSelector
+        :solo="true"
+        :dense="false"
+        v-model="groupSettings.categories"
+        :return-object="true"
+        :show-add="true"
+      />
+
+      <v-divider></v-divider>
+      <v-subheader>WEBHOOKS</v-subheader>
+      <v-card-text class="mt-0 pt-0">
+        {{
+          $t(
+            "settings.webhooks.the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at"
+          )
+        }}
+        <strong>{{ groupSettings.webhookTime }}</strong>
+      </v-card-text>
+      <v-row dense class="flex align-center">
+        <v-switch class="ml-5 mr-auto" v-model="groupSettings.webhookEnable" :label="$t('general.enabled')"></v-switch>
+        <TimePickerDialog @save-time="saveTime" class="" />
+      </v-row>
+
+      <v-card-text>
+        <v-text-field
+          prepend-icon="mdi-delete"
+          v-for="(url, index) in groupSettings.webhookUrls"
+          @click:prepend="removeWebhook(index)"
+          :key="index"
+          v-model="groupSettings.webhookUrls[index]"
+          :label="$t('settings.webhooks.webhook-url')"
+        ></v-text-field>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn small color="success" @click="addWebhook">
+            <v-icon left> mdi-webhook </v-icon>
+            New
+          </v-btn>
+        </v-card-actions>
+      </v-card-text>
+
+      <v-divider></v-divider>
+      <v-card-actions class="pb-0">
+        <v-btn class="ma-2" color="info" @click="testWebhooks">
+          <v-icon left> mdi-webhook </v-icon>
+          {{ $t("settings.webhooks.test-webhooks") }}
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="success" @click="saveGroupSettings">
+          <v-icon left> mdi-content-save </v-icon>
+          {{ $t("general.update") }}
+        </v-btn>
+      </v-card-actions>
     </template>
   </StatCard>
 </template>
 
 <script>
+import TimePickerDialog from "@/components/FormHelpers/TimePickerDialog";
+import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
 import StatCard from "@/components/UI/StatCard";
 import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
 import { validators } from "@/mixins/validators";
@@ -63,6 +126,8 @@ export default {
   components: {
     StatCard,
     MobileRecipeCard,
+    CategoryTagSelector,
+    TimePickerDialog,
   },
   mixins: [validators, initials],
   data() {
@@ -75,6 +140,7 @@ export default {
         newOne: "",
         newTwo: "",
       },
+      groupSettings: {},
       showPassword: false,
       loading: false,
       user: {
@@ -97,8 +163,10 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     this.getTodaysMeal();
+    await this.$store.dispatch("requestCurrentGroup");
+    this.getSiteSettings();
   },
 
   methods: {
@@ -117,6 +185,27 @@ export default {
         },
         [""]
       );
+    },
+    getSiteSettings() {
+      this.groupSettings = this.$store.getters.getCurrentGroup;
+    },
+    saveTime(value) {
+      this.groupSettings.webhookTime = value;
+    },
+    addWebhook() {
+      this.groupSettings.webhookUrls.push(" ");
+    },
+    removeWebhook(index) {
+      this.groupSettings.webhookUrls.splice(index, 1);
+    },
+    async saveGroupSettings() {
+      if (await api.groups.update(this.groupSettings)) {
+        await this.$store.dispatch("requestCurrentGroup");
+        this.getSiteSettings();
+      }
+    },
+    testWebhooks() {
+      api.settings.testWebhooks();
     },
   },
 };
