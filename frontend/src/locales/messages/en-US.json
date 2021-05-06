@@ -384,6 +384,7 @@
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
-    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user"
+    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user",
+    "user": "User"
   }
 }
