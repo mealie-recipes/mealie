@@ -7,26 +7,50 @@
       <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text @click="navigateRandom">
-        Random
+        <v-icon left>
+          mdi-dice-multiple
+        </v-icon>
+        {{ $t("general.random") }}
       </v-btn>
-      <v-menu offset-y v-if="$listeners.sort">
+      <v-menu offset-y left v-if="$listeners.sort">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn text v-bind="attrs" v-on="on">
+          <v-btn text v-bind="attrs" v-on="on" :loading="sortLoading">
+            <v-icon left>
+              mdi-sort
+            </v-icon>
             {{ $t("general.sort") }}
           </v-btn>
         </template>
         <v-list>
           <v-list-item @click="sortRecipes(EVENTS.az)">
+            <v-icon left>
+              mdi-order-alphabetical-ascending
+            </v-icon>
             <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.rating)">
+            <v-icon left>
+              mdi-star
+            </v-icon>
             <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.created)">
+            <v-icon left>
+              mdi-new-box
+            </v-icon>
+            <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
+          </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.updated)">
+            <v-icon left>
+              mdi-update
+            </v-icon>
             <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="sortRecipes(EVENTS.created)">
-            <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
+          <v-list-item @click="sortRecipes(EVENTS.shuffle)">
+            <v-icon left>
+              mdi-shuffle-variant
+            </v-icon>
+            <v-list-item-title>{{ $t("general.shuffle") }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -114,6 +138,7 @@ export default {
   },
   data() {
     return {
+      sortLoading: false,
       cardLimit: 30,
       loading: false,
       EVENTS: {
@@ -121,6 +146,7 @@ export default {
         rating: "rating",
         created: "created",
         updated: "updated",
+        shuffle: "shuffle",
       },
     };
   },
@@ -165,6 +191,7 @@ export default {
       this.$router.push(`/recipe/${recipe.slug}`);
     },
     sortRecipes(sortType) {
+      this.sortLoading = true;
       let sortTarget = [...this.recipes];
       switch (sortType) {
         case this.EVENTS.az:
@@ -179,11 +206,16 @@ export default {
         case this.EVENTS.updated:
           utils.recipe.sortByUpdated(sortTarget);
           break;
+        case this.EVENTS.shuffle:
+          utils.recipe.shuffle(sortTarget);
+          break;
         default:
           console.log("Unknown Event", sortType);
           return;
       }
+
       this.$emit(SORT_EVENT, sortTarget);
+      this.sortLoading = false;
     },
   },
 };
