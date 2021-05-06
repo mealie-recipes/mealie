@@ -7,6 +7,7 @@
       </v-col>
       <v-col cols="12" sm="12" lg="6">
         <ProfileGroupCard />
+        <APITokenCard class="mt-10" />
       </v-col>
     </v-row>
     <v-row class="mt-7">
@@ -19,12 +20,14 @@
 <script>
 import ProfileThemeCard from "./ProfileThemeCard";
 import ProfileGroupCard from "./ProfileGroupCard";
+import APITokenCard from "./APITokenCard";
 import UserCard from "./UserCard";
 export default {
   components: {
     UserCard,
     ProfileThemeCard,
     ProfileGroupCard,
+    APITokenCard,
   },
 };
 </script>

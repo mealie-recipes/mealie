@@ -8,7 +8,7 @@ from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
 from mealie.db.models.settings import CustomPage, SiteSettings
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.theme import SiteThemeModel
-from mealie.db.models.users import User
+from mealie.db.models.users import LongLiveToken, User
 from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.meal import MealPlanInDB
@@ -17,7 +17,7 @@ from mealie.schema.settings import CustomPageOut
 from mealie.schema.settings import SiteSettings as SiteSettingsSchema
 from mealie.schema.sign_up import SignUpOut
 from mealie.schema.theme import SiteTheme
-from mealie.schema.user import GroupInDB, UserInDB
+from mealie.schema.user import GroupInDB, LongLiveTokenInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
 logger = getLogger()
@@ -106,6 +106,13 @@ class _Users(BaseDocument):
         return self.schema.from_orm(entry)
 
 
+class _LongLiveToken(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "id"
+        self.sql_model = LongLiveToken
+        self.schema = LongLiveTokenInDB
+
+
 class _Groups(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "id"
@@ -158,6 +165,7 @@ class Database:
         self.categories = _Categories()
         self.tags = _Tags()
         self.users = _Users()
+        self.api_tokens = _LongLiveToken()
         self.sign_ups = _SignUps()
         self.groups = _Groups()
         self.custom_pages = _CustomPages()

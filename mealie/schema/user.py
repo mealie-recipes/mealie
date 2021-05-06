@@ -10,6 +10,22 @@ from pydantic.types import constr
 from pydantic.utils import GetterDict
 
 
+class LoingLiveTokenIn(CamelModel):
+    name: str
+
+
+class LongLiveTokenOut(LoingLiveTokenIn):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class CreateToken(LoingLiveTokenIn):
+    parent_id: int
+    token: str
+
+
 class ChangePassword(CamelModel):
     current_password: str
     new_password: str
@@ -53,6 +69,7 @@ class UserIn(UserBase):
 class UserOut(UserBase):
     id: int
     group: str
+    tokens: Optional[list[LongLiveTokenOut]]
 
     class Config:
         orm_mode = True
@@ -96,3 +113,11 @@ class GroupInDB(UpdateGroup):
                 **GetterDict(orm_model),
                 "webhook_urls": [x.url for x in orm_model.webhook_urls if x],
             }
+
+
+class LongLiveTokenInDB(LoingLiveTokenIn):
+    id: int
+    user: UserInDB
+
+    class Config:
+        orm_mode = True

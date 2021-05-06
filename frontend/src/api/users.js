@@ -16,17 +16,10 @@ const usersURLs = {
   userID: id => `${userPrefix}/${id}`,
   password: id => `${userPrefix}/${id}/password`,
   resetPassword: id => `${userPrefix}/${id}/reset-password`,
+  userAPICreate: `${userPrefix}/api-tokens`,
+  userAPIDelete: id => `${userPrefix}/api-tokens/${id}`,
 };
 
-function deleteErrorText(response) {
-  switch (response.data.detail) {
-    case "SUPER_USER":
-      return i18n.t("user.error-cannot-delete-super-user");
-
-    default:
-      return i18n.t("user.you-are-not-allowed-to-delete-this-user");
-  }
-}
 export const userAPI = {
   async login(formData) {
     let response = await apiReq.post(authURLs.token, formData, null, function() {
@@ -90,4 +83,21 @@ export const userAPI = {
       () => i18n.t("user.password-has-been-reset-to-the-default-password")
     );
   },
+  async createAPIToken(name) {
+    const response = await apiReq.post(usersURLs.userAPICreate, { name });
+    return response.data;
+  },
+  async deleteAPIToken(id) {
+    const response = await apiReq.delete(usersURLs.userAPIDelete(id));
+    return response.data;
+  },
+};
+
+const deleteErrorText = response => {
+  switch (response.data.detail) {
+    case "SUPER_USER":
+      return i18n.t("user.error-cannot-delete-super-user");
+    default:
+      return i18n.t("user.you-are-not-allowed-to-delete-this-user");
+  }
 };

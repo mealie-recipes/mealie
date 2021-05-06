@@ -3,11 +3,19 @@ from mealie.db.models.group import Group
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
-# I'm not sure this is necessasry, browser based settings may be sufficient
-# class UserSettings(SqlAlchemyBase, BaseMixins):
-#     __tablename__ = "user_settings"
-#     id = Column(Integer, primary_key=True, index=True)
-#     parent_id = Column(String, ForeignKey("users.id"))
+
+class LongLiveToken(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "long_live_tokens"
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey("users.id"))
+    name = Column(String)
+    token = Column(String, unique=True, nullable=False)
+    user = orm.relationship("User")
+
+    def __init__(self, session, name, token, parent_id) -> None:
+        self.name = name
+        self.token = token
+        self.user = User.get_ref(session, parent_id)
 
 
 class User(SqlAlchemyBase, BaseMixins):
@@ -19,6 +27,9 @@ class User(SqlAlchemyBase, BaseMixins):
     group_id = Column(Integer, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
     admin = Column(Boolean, default=False)
+    tokens: list[LongLiveToken] = orm.relationship(
+        LongLiveToken, back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
+    )
 
     def __init__(
         self,
@@ -49,3 +60,7 @@ class User(SqlAlchemyBase, BaseMixins):
 
     def update_password(self, password):
         self.password = password
+
+    @staticmethod
+    def get_ref(session, id: str):
+        return session.query(User).filter(User.id == id).one()
