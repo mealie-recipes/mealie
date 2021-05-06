@@ -133,11 +133,6 @@ export default {
           to: "/admin/profile",
           title: this.$t("settings.profile"),
         },
-        {
-          icon: "mdi-food",
-          to: "/admin/meal-planner",
-          title: this.$t("meal-plan.meal-planner"),
-        },
       ];
     },
     adminLinks() {

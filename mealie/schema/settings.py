@@ -1,7 +1,7 @@
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.schema.category import CategoryBase
+from mealie.schema.category import CategoryBase, RecipeCategoryResponse
 from pydantic import validator
 from slugify import slugify
 
@@ -34,7 +34,7 @@ class CustomPageBase(CamelModel):
     name: str
     slug: Optional[str]
     position: int
-    categories: list[CategoryBase] = []
+    categories: list[RecipeCategoryResponse] = []
 
     class Config:
         orm_mode = True
