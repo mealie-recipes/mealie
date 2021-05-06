@@ -75,7 +75,7 @@ def get_today(session: Session = Depends(generate_session), current_user: UserIn
     group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
     recipe = get_todays_meal(session, group_in_db)
     if recipe:
-        return recipe.slug
+        return recipe
 
 
 @router.get("/today/image", tags=["Meal Plan"])

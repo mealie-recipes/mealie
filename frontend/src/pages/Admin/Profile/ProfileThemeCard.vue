@@ -35,9 +35,11 @@
           </v-btn>
         </v-btn-toggle>
       </template>
+
       <template v-slot:bottom>
         <v-virtual-scroll height="290" item-height="70" :items="availableThemes" class="mt-2">
           <template v-slot:default="{ item }">
+            <v-divider></v-divider>
             <v-list-item @click="selectedTheme = item">
               <v-list-item-avatar>
                 <v-icon large dark :color="item.colors.primary">
@@ -66,6 +68,7 @@
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
+            <v-divider></v-divider>
           </template>
         </v-virtual-scroll>
         <v-divider></v-divider>

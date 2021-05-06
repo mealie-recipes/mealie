@@ -38,7 +38,7 @@ export const mealRoutes = [
 async function todaysMealRoute() {
   const response = await api.mealPlans.today();
   if (response.status == 200 && response.data) {
-    return "/recipe/" + response.data;
+    return "/recipe/" + response.data.slug;
   } else {
     return null;
   }
