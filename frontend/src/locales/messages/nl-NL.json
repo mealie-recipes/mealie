@@ -14,7 +14,7 @@
     "demo-status": "Demo status",
     "development": "Versies in ontwikkeling",
     "download-log": "Logbestand downloaden",
-    "download-recipe-json": "Last Scraped JSON",
+    "download-recipe-json": "Laatste Ingelezen JSON",
     "not-demo": "Niet Demo",
     "production": "Productie",
     "database-url": "Database URL",
@@ -28,7 +28,7 @@
     "category-filter": "Categorie Filter",
     "category-update-failed": "Categorie bijwerken mislukt",
     "category-updated": "Categorie bijgewerkt",
-    "category": "Category"
+    "category": "Categorie"
   },
   "general": {
     "apply": "Toepassen",
@@ -36,7 +36,7 @@
     "close": "Sluiten",
     "confirm": "Bevestigen",
     "create": "Maak",
-    "created": "Created",
+    "created": "Aangemaakt op",
     "current-parenthesis": "(Huidig)",
     "dashboard": "Dashboard",
     "delete": "Verwijderen",
