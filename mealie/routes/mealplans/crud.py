@@ -4,6 +4,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.meal import MealPlanIn, MealPlanInDB
 from mealie.schema.user import GroupInDB, UserInDB
+from mealie.services.events import create_group_event
 from mealie.services.image import image
 from mealie.services.meal_services import get_todays_meal, process_meals
 from sqlalchemy.orm.session import Session
@@ -24,10 +25,11 @@ def get_all_meals(
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def create_meal_plan(
-    data: MealPlanIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
+    data: MealPlanIn, session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)
 ):
     """ Creates a meal plan database entry """
     processed_plan = process_meals(session, data)
+    create_group_event("Meal Plan Created", f"Mealplan Created for '{current_user.group}'")
     return db.meals.create(session, processed_plan.dict())
 
 
@@ -36,23 +38,29 @@ def update_meal_plan(
     plan_id: str,
     meal_plan: MealPlanIn,
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
+    current_user: UserInDB = Depends(get_current_user),
 ):
     """ Updates a meal plan based off ID """
     processed_plan = process_meals(session, meal_plan)
     processed_plan = MealPlanInDB(uid=plan_id, **processed_plan.dict())
     try:
         db.meals.update(session, plan_id, processed_plan.dict())
+        create_group_event("Meal Plan Updated", f"Mealplan Updated for '{current_user.group}'")
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.delete("/{plan_id}")
-def delete_meal_plan(plan_id, session: Session = Depends(generate_session), current_user=Depends(get_current_user)):
+def delete_meal_plan(
+    plan_id,
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
+):
     """ Removes a meal plan from the database """
 
     try:
         db.meals.delete(session, plan_id)
+        create_group_event("Meal Plan Deleted", f"Mealplan Deleted for '{current_user.group}'")
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 

@@ -90,7 +90,7 @@ def import_database(file_name: str, import_data: ImportJob, session: Session = D
         force_import=import_data.force,
         rebase=import_data.rebase,
     )
-    create_backup_event("Database Restore", f"Restored Database File {file_name}", session)
+    create_backup_event("Database Restore", f"Restore File: {file_name}", session)
     return db_import
 
 

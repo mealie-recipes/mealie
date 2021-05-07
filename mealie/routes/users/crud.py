@@ -9,7 +9,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
-from mealie.services.events import create_sign_up_event
+from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/users", tags=["Users"])
@@ -23,7 +23,7 @@ async def create_user(
 ):
 
     new_user.password = get_password_hash(new_user.password)
-    create_sign_up_event("User Created", f"Created by {current_user.full_name}", session=session)
+    create_user_event("User Created", f"Created by {current_user.full_name}", session=session)
     return db.users.create(session, new_user.dict())
 
 
@@ -150,5 +150,6 @@ async def delete_user(
     if current_user.id == id or current_user.admin:
         try:
             db.users.delete(session, id)
+            create_user_event("User Deleted", f"User ID: {id}", session=session)
         except Exception:
             raise HTTPException(status.HTTP_400_BAD_REQUEST)

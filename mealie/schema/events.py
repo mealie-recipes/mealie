@@ -12,7 +12,8 @@ class EventCategory(str, Enum):
     backup = "backup"
     scheduled = "scheduled"
     migration = "migration"
-    sign_up = "signup"
+    group = "group"
+    user = "user"
 
 
 class Event(CamelModel):

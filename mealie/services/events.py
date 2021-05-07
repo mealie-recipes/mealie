@@ -35,6 +35,11 @@ def create_migration_event(title, text, session=None):
     save_event(title=title, text=text, category=category, session=session)
 
 
-def create_sign_up_event(title, text, session=None):
-    category = EventCategory.sign_up
+def create_group_event(title, text, session=None):
+    category = EventCategory.group
+    save_event(title=title, text=text, category=category, session=session)
+
+
+def create_user_event(title, text, session=None):
+    category = EventCategory.user
     save_event(title=title, text=text, category=category, session=session)

@@ -67,7 +67,7 @@ export default {
           color: "primary",
         },
         backup: {
-          icon: "mdi-backup-restore",
+          icon: "mdi-database",
           color: "primary",
         },
         schedule: {
@@ -78,9 +78,13 @@ export default {
           icon: "mdi-database-import",
           color: "primary",
         },
-        signup: {
+        user: {
           icon: "mdi-account",
-          color: "primary",
+          color: "accent",
+        },
+        group: {
+          icon: "mdi-account-group-outline",
+          color: "accent",
         },
       },
     };
