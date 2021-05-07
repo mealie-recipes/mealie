@@ -5,11 +5,9 @@ import store from "./store";
 import VueRouter from "vue-router";
 import { router } from "./routes";
 import i18n from "./i18n";
-import FlashMessage from "@smartweb/vue-flash-message";
 import "@mdi/font/css/materialdesignicons.css";
 import "typeface-roboto/index.css";
 
-Vue.use(FlashMessage);
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 

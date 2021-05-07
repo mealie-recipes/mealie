@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@adapttive/vue-markdown": "^4.0.1",
-    "@smartweb/vue-flash-message": "^0.6.10",
     "axios": "^0.21.1",
     "core-js": "^3.9.1",
     "fast-levenshtein": "^3.0.0",
@@ -31,7 +30,7 @@
     "@mdi/font": "^5.9.55",
     "@vue/cli-plugin-babel": "^4.5.11",
     "@vue/cli-plugin-eslint": "^4.5.11",
-    "@vue/cli-service": "^4.1.1",
+    "@vue/cli-service": "^4.5.12",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
