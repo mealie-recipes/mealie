@@ -16,7 +16,6 @@
     "day": "numeric",
     "weekday": "long",
     "hour": "numeric",
-    "minute": "numeric",
-    "hour12": true
+    "minute": "numeric"
   }
 }
