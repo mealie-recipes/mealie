@@ -1,5 +1,6 @@
 import { api } from "@/api";
 import Vue from "vue";
+import { recipe } from "@/utils/recipe";
 
 const state = {
   recentRecipes: [],
@@ -36,13 +37,14 @@ const mutations = {
 const actions = {
   async requestRecentRecipes() {
     const payload = await api.recipes.allSummary(0, 30);
-    payload.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+    recipe.sortByUpdated(payload);
     const hash = Object.fromEntries(payload.map(e => [e.id, e]));
     this.commit("setRecentRecipes", hash);
   },
   async requestAllRecipes({ getters }) {
     const all = getters.getAllRecipes;
     const payload = await api.recipes.allSummary(all.length, 9999);
+    recipe.sortByUpdated(payload);
     const hash = Object.fromEntries([...all, ...payload].map(e => [e.id, e]));
 
     this.commit("setAllRecipes", hash);
@@ -60,7 +62,11 @@ const actions = {
 const getters = {
   getAllRecipes: state => Object.values(state.allRecipes),
   getAllRecipesHash: state => state.allRecipes,
-  getRecentRecipes: state => Object.values(state.recentRecipes),
+  getRecentRecipes: state => {
+    let list = Object.values(state.recentRecipes);
+    recipe.sortByUpdated(list);
+    return list;
+  },
   getRecentRecipesHash: state => state.recentRecipes,
 };
 
