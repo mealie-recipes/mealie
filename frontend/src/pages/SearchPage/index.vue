@@ -65,7 +65,6 @@ export default {
   },
   data() {
     return {
-      searchString: "",
       maxResults: 21,
       searchResults: [],
       catFilter: {
@@ -95,6 +94,14 @@ export default {
     this.$store.dispatch("requestAllRecipes");
   },
   computed: {
+    searchString: {
+      set(q) {
+        this.$router.replace({ query: { ...this.$route.query, q } });
+      },
+      get() {
+        return this.$route.query.q || "";
+      },
+    },
     allRecipes() {
       return this.$store.getters.getAllRecipes;
     },
