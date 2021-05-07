@@ -74,7 +74,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer class="mx-2"></v-spacer>
-          <v-btn class="my-1 mb-n1" :color="color" @click="createTheme">
+          <v-btn class="my-1 mb-n1" color="success" @click="createTheme">
             <v-icon left> mdi-plus </v-icon> {{ $t("general.create") }}
           </v-btn>
         </v-card-actions>

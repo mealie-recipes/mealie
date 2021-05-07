@@ -11,7 +11,7 @@
         </div>
       </template>
       <div class="d-flex row py-3 justify-end">
-        <v-btn class="mx-2" small :color="color" @click="deleteAll">
+        <v-btn class="mx-2" small color="error lighten-1" @click="deleteAll">
           <v-icon left> mdi-notification-clear-all </v-icon> Clear
         </v-btn>
       </div>
