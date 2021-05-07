@@ -22,6 +22,12 @@ export default {
     currentCategory() {
       return this.$route.params.category;
     },
+    currentTag() {
+      return this.$route.params.tag;
+    },
+    TagOrCategory() {
+      return this.currentCategory || this.currentTag;
+    },
     shownRecipes() {
       if (this.sortedResults.length > 0) {
         return this.sortedResults;
@@ -31,7 +37,8 @@ export default {
     },
   },
   watch: {
-    async currentCategory() {
+    async TagOrCategory() {
+      console.log(this.currentCategory, this.currentTag);
       this.sortedResults = [];
       this.getRecipes();
     },
@@ -42,7 +49,16 @@ export default {
   },
   methods: {
     async getRecipes() {
-      let data = await api.categories.getRecipesInCategory(this.currentCategory);
+      if (!this.TagOrCategory === null) return;
+      console.log(this.TagOrCategory);
+
+      let data = {};
+      if (this.currentCategory) {
+        data = await api.categories.getRecipesInCategory(this.TagOrCategory);
+      } else {
+        data = await api.tags.getRecipesInTag(this.TagOrCategory);
+      }
+      console.log(data);
       this.title = data.name;
       this.recipes = data.recipes;
     },

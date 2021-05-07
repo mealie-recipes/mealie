@@ -69,10 +69,7 @@ export default {
   methods: {
     async buildPage() {
       this.page = await api.siteSettings.getPage(this.pageSlug);
-    },
-    filterRecipe(slug) {
-      const storeCategory = this.recipeStore.find(element => element.slug === slug);
-      return storeCategory ? storeCategory.recipes : [];
+      this.tab = this.page.categories[0];
     },
     sortRecipes(sortedRecipes, destKey) {
       this.page.categories[destKey].recipes = sortedRecipes;
