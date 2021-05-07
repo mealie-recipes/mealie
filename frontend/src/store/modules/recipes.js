@@ -37,14 +37,12 @@ const mutations = {
 const actions = {
   async requestRecentRecipes() {
     const payload = await api.recipes.allSummary(0, 30);
-    recipe.sortByUpdated(payload);
     const hash = Object.fromEntries(payload.map(e => [e.id, e]));
     this.commit("setRecentRecipes", hash);
   },
   async requestAllRecipes({ getters }) {
     const all = getters.getAllRecipes;
     const payload = await api.recipes.allSummary(all.length, 9999);
-    recipe.sortByUpdated(payload);
     const hash = Object.fromEntries([...all, ...payload].map(e => [e.id, e]));
 
     this.commit("setAllRecipes", hash);
