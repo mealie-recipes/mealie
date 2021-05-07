@@ -39,7 +39,7 @@ export const adminRoutes = {
       path: "manage-users",
       component: ManageUsers,
       meta: {
-        title: "settings.manage-users",
+        title: "user.manage-users",
       },
     },
     {

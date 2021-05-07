@@ -155,7 +155,7 @@ export default {
         {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
-          title: this.$t("settings.manage-users"),
+          title: this.$t("user.manage-users"),
         },
         {
           icon: "mdi-database-import",

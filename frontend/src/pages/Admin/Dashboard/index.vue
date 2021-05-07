@@ -5,7 +5,9 @@
         <StatCard icon="mdi-silverware-fork-knife">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
-              <div class="body-3 grey--text font-weight-light" v-text="'Recipes'" />
+              <h2 class="body-3 grey--text font-weight-light">
+                {{$t('general.recipes')}}
+              </h2>
 
               <h3 class="display-2 font-weight-light text--primary">
                 <small> {{ statistics.totalRecipes }}</small>
@@ -15,14 +17,14 @@
           <template v-slot:actions>
             <div class="d-flex row py-3 justify-space-around">
               <v-btn small color="primary" :to="{ path: '/admin/toolbox/', query: { tab: 'organize', filter: 'tag' } }">
-                <v-icon left> mdi-tag </v-icon> Untagged {{ statistics.untaggedRecipes }}
+                <v-icon left> mdi-tag </v-icon> {{$tc('tag.untagged-count', [statistics.untaggedRecipes])}}
               </v-btn>
               <v-btn
                 small
                 color="primary"
                 :to="{ path: '/admin/toolbox/', query: { tab: 'organize', filter: 'category' } }"
               >
-                <v-icon left> mdi-tag </v-icon> Uncategorized {{ statistics.uncategorizedRecipes }}
+                <v-icon left> mdi-tag </v-icon> {{$tc('category.uncategorized-count', [statistics.uncategorizedRecipes])}}
               </v-btn>
             </div>
           </template>
@@ -32,8 +34,9 @@
         <StatCard icon="mdi-account">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
-              <div class="body-3 grey--text font-weight-light" v-text="'Users'" />
-
+              <h2 class="body-3 grey--text font-weight-light">
+                 {{$t('user.users')}}
+              </h2>
               <h3 class="display-2 font-weight-light text--primary">
                 <small> {{ statistics.totalUsers }}</small>
               </h3>
@@ -43,7 +46,7 @@
             <div class="ml-auto">
               <v-btn color="primary" small to="/admin/manage-users?tab=users">
                 <v-icon left>mdi-account</v-icon>
-                Manage Users
+                {{$t('user.manage-users')}}
               </v-btn>
             </div>
           </template>
@@ -53,7 +56,9 @@
         <StatCard icon="mdi-account-group">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
-              <div class="body-3 grey--text font-weight-light" v-text="'Groups'" />
+              <h2 class="body-3 grey--text font-weight-light">
+                {{$t('group.groups')}}
+              </h2>
 
               <h3 class="display-2 font-weight-light text--primary">
                 <small> {{ statistics.totalGroups }}</small>
@@ -64,7 +69,7 @@
             <div class="ml-auto">
               <v-btn color="primary" small to="/admin/manage-users?tab=groups">
                 <v-icon left>mdi-account-group</v-icon>
-                Manage Groups
+                {{$t('group.manage-groups')}}
               </v-btn>
             </div>
           </template>

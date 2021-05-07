@@ -28,16 +28,19 @@
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
-    "category-updated": "Category updated"
+    "category-updated": "Category updated",
+    "uncategorized-count": "Uncategorized {count}"
   },
   "general": {
     "apply": "Apply",
     "cancel": "Cancel",
+    "clear": "Clear",
     "close": "Close",
     "confirm": "Confirm",
     "create": "Create",
     "created": "Created",
     "current-parenthesis": "(Current)",
+    "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "Delete",
     "disabled": "Disabled",
@@ -53,7 +56,6 @@
     "filter": "Filter",
     "friday": "Friday",
     "get": "Get",
-    "groups": "Groups",
     "image": "Image",
     "image-upload-failed": "Image upload failed",
     "import": "Import",
@@ -90,7 +92,6 @@
     "updated": "Updated",
     "upload": "Upload",
     "url": "URL",
-    "users": "Users",
     "wednesday": "Wednesday",
     "yes": "Yes"
   },
@@ -109,6 +110,7 @@
     "group-not-found": "Group not found",
     "groups": "Groups",
     "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
+    "manage-groups": "Manage Groups",
     "user-group": "User Group",
     "user-group-created": "User Group Created",
     "user-group-creation-failed": "User Group Creation Failed"
@@ -258,6 +260,7 @@
     "current": "Version:",
     "custom-pages": "Custom Pages",
     "edit-page": "Edit Page",
+    "events": "Events",
     "first-day-of-week": "First day of the week",
     "group-settings-updated": "Group Settings Updated",
     "homepage": {
@@ -271,7 +274,6 @@
     "latest": "Latest",
     "local-api": "Local API",
     "locale-settings": "Locale settings",
-    "manage-users": "Manage Users",
     "migrations": "Migrations",
     "new-page": "New Page",
     "page-name": "Page Name",
@@ -353,7 +355,8 @@
     "tag-deletion-failed": "Tag deletion failed",
     "tag-update-failed": "Tag update failed",
     "tag-updated": "Tag updated",
-    "tags": "Tags"
+    "tags": "Tags",
+    "untagged-count": "Untagged {count}"
   },
   "user": {
     "admin": "Admin",
@@ -377,6 +380,7 @@
     "link-name": "Link Name",
     "login": "Login",
     "logout": "Logout",
+    "manage-users": "Manage Users",
     "new-password": "New Password",
     "new-user": "New User",
     "password": "Password",
