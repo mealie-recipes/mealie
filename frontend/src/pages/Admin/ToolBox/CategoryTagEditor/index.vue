@@ -1,9 +1,10 @@
 <template>
   <v-card outlined class="mt-n1">
-    <base-dialog
+    <BaseDialog
       ref="renameDialog"
       title-icon="mdi-tag"
       :title="renameTarget.title"
+      :submit-text="$t('general.update')"
       modal-width="800"
       @submit="renameFromDialog(renameTarget.slug, renameTarget.newName)"
     >
@@ -32,7 +33,7 @@
           :tags="recipe.tags"
         />
       </template>
-    </base-dialog>
+    </BaseDialog>
 
     <div class="d-flex justify-center align-center pa-2 flex-wrap">
       <new-category-tag-dialog ref="newDialog" :tag-dialog="isTags">

@@ -12,7 +12,7 @@
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
           <h2 class="body-3 grey--text font-weight-light">
-            {{$t('settings.backup-and-exports')}}
+            {{ $t("settings.backup-and-exports") }}
           </h2>
 
           <h3 class="display-2 font-weight-light text--primary">
@@ -23,15 +23,15 @@
       <div class="d-flex row py-3 justify-end">
         <TheUploadBtn url="/api/backups/upload" @uploaded="getAvailableBackups">
           <template v-slot="{ isSelecting, onButtonClick }">
-            <v-btn :loading="isSelecting" class="mx-2" small :color="color" @click="onButtonClick">
-              <v-icon left> mdi-cloud-upload </v-icon> {{$t('general.upload')}}
+            <v-btn :loading="isSelecting" class="mx-2" small color="info" @click="onButtonClick">
+              <v-icon left> mdi-cloud-upload </v-icon> {{ $t("general.upload") }}
             </v-btn>
           </template>
         </TheUploadBtn>
         <BackupDialog :color="color" />
 
-        <v-btn :loading="loading" class="mx-2" small :color="color" @click="createBackup">
-          <v-icon left> mdi-plus </v-icon> {{$t('general.create')}}
+        <v-btn :loading="loading" class="mx-2" small color="success" @click="createBackup">
+          <v-icon left> mdi-plus </v-icon> {{ $t("general.create") }}
         </v-btn>
       </div>
       <template v-slot:bottom>
