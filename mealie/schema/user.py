@@ -25,6 +25,9 @@ class CreateToken(LoingLiveTokenIn):
     parent_id: int
     token: str
 
+    class Config:
+        orm_mode = True
+
 
 class ChangePassword(CamelModel):
     current_password: str
@@ -115,7 +118,7 @@ class GroupInDB(UpdateGroup):
             }
 
 
-class LongLiveTokenInDB(LoingLiveTokenIn):
+class LongLiveTokenInDB(CreateToken):
     id: int
     user: UserInDB
 

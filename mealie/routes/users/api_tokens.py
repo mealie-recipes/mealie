@@ -12,7 +12,7 @@ from sqlalchemy.orm.session import Session
 router = APIRouter(prefix="/api/users", tags=["User API Tokens"])
 
 
-@router.post("/api-tokens")
+@router.post("/api-tokens", status_code=status.HTTP_201_CREATED)
 async def create_api_token(
     token_name: LoingLiveTokenIn,
     current_user: UserInDB = Depends(get_current_user),
@@ -20,7 +20,7 @@ async def create_api_token(
 ):
     """ Create api_token in the Database """
 
-    token_data = {"long_token": True, "user": current_user.email}
+    token_data = {"long_token": True, "id": current_user.id}
 
     five_years = timedelta(1825)
     token = create_access_token(token_data, five_years)

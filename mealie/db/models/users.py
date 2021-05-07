@@ -8,8 +8,8 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "long_live_tokens"
     id = Column(Integer, primary_key=True)
     parent_id = Column(Integer, ForeignKey("users.id"))
-    name = Column(String)
-    token = Column(String, unique=True, nullable=False)
+    name = Column(String, nullable=False)
+    token = Column(String, nullable=False)
     user = orm.relationship("User")
 
     def __init__(self, session, name, token, parent_id) -> None:

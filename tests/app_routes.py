@@ -8,7 +8,7 @@ class AppRoutes:
         self.users_sign_ups = "/api/users/sign-ups"
         self.users = "/api/users"
         self.users_self = "/api/users/self"
-        self.users_api_tokens = "/api/users-tokens"
+        self.users_api_tokens = "/api/users/api-tokens"
         self.groups = "/api/groups"
         self.groups_self = "/api/groups/self"
         self.recipes_summary = "/api/recipes/summary"
@@ -60,7 +60,7 @@ class AppRoutes:
         return f"{self.prefix}/users/{id}/password"
 
     def users_api_tokens_token_id(self, token_id):
-        return f"{self.prefix}/users-tokens/{token_id}"
+        return f"{self.prefix}/users/api-tokens/{token_id}"
 
     def groups_id(self, id):
         return f"{self.prefix}/groups/{id}"
