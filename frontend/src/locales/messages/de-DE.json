@@ -9,6 +9,7 @@
     "api-port": "API Port",
     "application-mode": "Anwendungsmodus",
     "database-type": "Datenbanktyp",
+    "database-url": "Database URL",
     "default-group": "Standardgruppe",
     "demo": "Demo",
     "demo-status": "Demostatus",
@@ -17,10 +18,10 @@
     "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Keine Demo",
     "production": "Production",
-    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
+    "category": "Category",
     "category-created": "Kategorie angelegt",
     "category-creation-failed": "Anlegen der Kategorie fehlgeschlagen",
     "category-deleted": "Kategorie entfernt",
@@ -28,16 +29,18 @@
     "category-filter": "Kategoriefilter",
     "category-update-failed": "Aktualisieren der Kategorie fehlgeschlagen",
     "category-updated": "Kategorie aktualisiert",
-    "category": "Category"
+    "uncategorized-count": "Uncategorized {count}"
   },
   "general": {
     "apply": "Anwenden",
     "cancel": "Abbrechen",
+    "clear": "Clear",
     "close": "Schließen",
     "confirm": "Bestätigen",
     "create": "Erstellen",
     "created": "Erstellt",
     "current-parenthesis": "(Neueste)",
+    "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "Löschen",
     "disabled": "Deaktiviert",
@@ -53,7 +56,6 @@
     "filter": "Filter",
     "friday": "Freitag",
     "get": "Holen",
-    "groups": "Gruppen",
     "image": "Image",
     "image-upload-failed": "Image upload failed",
     "import": "Importieren",
@@ -61,11 +63,12 @@
     "link": "Link",
     "monday": "Montag",
     "name": "Name",
+    "new": "New",
     "no": "Nein",
     "ok": "Okay",
     "options": "Optionen:",
-    "rating": "Bewertung",
     "random": "Zufall",
+    "rating": "Bewertung",
     "recent": "Neueste",
     "recipes": "Rezepte",
     "rename-object": "{0} umbenennen",
@@ -73,13 +76,13 @@
     "saturday": "Samstag",
     "save": "Speichern",
     "settings": "Einstellungen",
+    "shuffle": "Shuffle",
     "sort": "Sortierung",
     "sort-alphabetically": "Alphabetisch",
     "status": "Status",
     "submit": "Einfügen",
     "success-count": "Erfolgreich: {count}",
     "sunday": "Sonntag",
-    "shuffle": "Shuffle",
     "templates": "Templates:",
     "themes": "Themen",
     "thursday": "Donnerstag",
@@ -89,7 +92,6 @@
     "updated": "Aktualisiert",
     "upload": "Hochladen",
     "url": "URL",
-    "users": "Benutzer",
     "wednesday": "Mittwoch",
     "yes": "Ja"
   },
@@ -108,6 +110,7 @@
     "group-not-found": "Gruppe nicht gefunden",
     "groups": "Gruppen",
     "groups-can-only-be-set-by-administrators": "Gruppen können nur von Administratoren gesetzt werden",
+    "manage-groups": "Manage Groups",
     "user-group": "Benutzergruppe",
     "user-group-created": "Benutzergruppe angelegt",
     "user-group-creation-failed": "Anlegen der Benutzergruppe fehlgeschlagen"
@@ -116,15 +119,18 @@
     "create-a-new-meal-plan": "Neuen Essensplan erstellen",
     "dinner-this-week": "Essen diese Woche",
     "dinner-today": "Heutiges Essen",
+    "dinner-tonight": "DINNER TONIGHT",
     "edit-meal-plan": "Essensplan bearbeiten",
     "end-date": "Enddatum",
     "group": "Gruppe (Beta)",
     "meal-planner": "Essensplaner",
     "meal-plans": "Essenspläne",
+    "mealplan-categories": "MEALPLAN CATEGORIES",
     "mealplan-created": "Essensplan angelegt",
     "mealplan-creation-failed": "Anlegen des Essensplans fehlgeschlagen",
     "mealplan-deleted": "Essensplan entfernt",
     "mealplan-deletion-failed": "Entfernen des Essensplans fehlgeschlagen",
+    "mealplan-settings": "Mealplan Settings",
     "mealplan-update-failed": "Aktualisieren des Essensplans fehlgeschlagen",
     "mealplan-updated": "Essensplan aktualisiert",
     "no-meal-plan-defined-yet": "Noch kein Essensplan definiert",
@@ -254,6 +260,7 @@
     "current": "Version:",
     "custom-pages": "Benutzerdefinierte Seiten",
     "edit-page": "Seite bearbeiten",
+    "events": "Events",
     "first-day-of-week": "Woche beginnt am",
     "group-settings-updated": "Gruppeneinstellungen aktualisiert",
     "homepage": {
@@ -267,7 +274,6 @@
     "latest": "Neueste",
     "local-api": "Lokale API",
     "locale-settings": "Spracheinstellungen",
-    "manage-users": "Benutzer verwalten",
     "migrations": "Migrationen",
     "new-page": "Neue Seite",
     "page-name": "Seitenname",
@@ -305,6 +311,14 @@
       "theme-updated": "Thema aktualisiert",
       "warning": "Warnung"
     },
+    "token": {
+      "active-tokens": "ACTIVE TOKENS",
+      "api-token": "API Token",
+      "api-tokens": "API Tokens",
+      "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
+      "create-an-api-token": "Create an API Token",
+      "token-name": "Token Name"
+    },
     "toolbox": {
       "assign-all": "Assign All",
       "bulk-assign": "Bulk Assign",
@@ -319,7 +333,8 @@
       "meal-planner-webhooks": "Essensplaner Webhooks",
       "test-webhooks": "Teste Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Die unten stehenden URL's erhalten Webhooks welche die Rezeptdaten für den Menüplan am geplanten Tag enthalten. Derzeit werden die Webhooks ausgeführt um",
-      "webhook-url": "Webhook-URL"
+      "webhook-url": "Webhook-URL",
+      "webhooks-caps": "WEBHOOKS"
     }
   },
   "signup": {
@@ -340,7 +355,8 @@
     "tag-deletion-failed": "Entfernen des Schlagworts fehlgeschlagen",
     "tag-update-failed": "Aktualisieren des Schlagworts fehlgeschlagen",
     "tag-updated": "Schlagwort aktualisiert",
-    "tags": "Schlagworte"
+    "tags": "Schlagworte",
+    "untagged-count": "Untagged {count}"
   },
   "user": {
     "admin": "Admin",
@@ -364,6 +380,7 @@
     "link-name": "Linkname",
     "login": "Anmeldung",
     "logout": "Ausloggen",
+    "manage-users": "Manage Users",
     "new-password": "Neues Passwort",
     "new-user": "Neuer Benutzer",
     "password": "Passwort",
@@ -377,6 +394,7 @@
     "total-users": "Alle Benutzer",
     "upload-photo": "Foto hochladen",
     "use-8-characters-or-more-for-your-password": "Benutze 8 oder mehr Zeichen für das Passwort",
+    "user": "User",
     "user-created": "Benutzer angelegt",
     "user-creation-failed": "Anlegen des Benutzers fehlgeschlagen",
     "user-deleted": "Benutzer entfernt",
