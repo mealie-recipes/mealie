@@ -55,7 +55,7 @@ def test_update_settings(api_client: TestClient, api_routes: AppRoutes, default_
 
 
 def test_default_theme(api_client: TestClient, api_routes: AppRoutes, default_theme):
-    response = api_client.get(api_routes.themes_theme_name(1))
+    response = api_client.get(api_routes.themes_id(1))
     assert response.status_code == 200
     assert json.loads(response.content) == default_theme
 
@@ -65,7 +65,7 @@ def test_create_theme(api_client: TestClient, api_routes: AppRoutes, new_theme, 
     response = api_client.post(api_routes.themes_create, json=new_theme, headers=token)
     assert response.status_code == 201
 
-    response = api_client.get(api_routes.themes_theme_name(new_theme.get("id")), headers=token)
+    response = api_client.get(api_routes.themes_id(new_theme.get("id")), headers=token)
     assert response.status_code == 200
     assert json.loads(response.content) == new_theme
 
@@ -80,7 +80,7 @@ def test_read_all_themes(api_client: TestClient, api_routes: AppRoutes, default_
 
 def test_read_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme):
     for theme in [default_theme, new_theme]:
-        response = api_client.get(api_routes.themes_theme_name(theme.get("id")))
+        response = api_client.get(api_routes.themes_id(theme.get("id")))
         assert response.status_code == 200
         assert json.loads(response.content) == theme
 
@@ -97,14 +97,14 @@ def test_update_theme(api_client: TestClient, api_routes: AppRoutes, token, defa
     }
 
     new_theme["colors"] = theme_colors
-    response = api_client.put(api_routes.themes_theme_name(new_theme.get("id")), json=new_theme, headers=token)
+    response = api_client.put(api_routes.themes_id(new_theme.get("id")), json=new_theme, headers=token)
     assert response.status_code == 200
-    response = api_client.get(api_routes.themes_theme_name(new_theme.get("id")))
+    response = api_client.get(api_routes.themes_id(new_theme.get("id")))
     assert json.loads(response.content) == new_theme
 
 
 def test_delete_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme, token):
     for theme in [default_theme, new_theme]:
-        response = api_client.delete(api_routes.themes_theme_name(theme.get("id")), headers=token)
+        response = api_client.delete(api_routes.themes_id(theme.get("id")), headers=token)
 
         assert response.status_code == 200

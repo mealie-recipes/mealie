@@ -1,12 +1,10 @@
 import json
 import re
 from pathlib import Path
-from typing import Optional
 
 import slugify
 from jinja2 import Template
 from mealie.app import app
-from pydantic import BaseModel
 
 CWD = Path(__file__).parent
 OUT_FILE = CWD.joinpath("output", "app_routes.py")

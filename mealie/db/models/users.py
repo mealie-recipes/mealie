@@ -40,6 +40,8 @@ class User(SqlAlchemyBase, BaseMixins):
         group: str = settings.DEFAULT_GROUP,
         admin=False,
         id=None,
+        *args,
+        **kwargs
     ) -> None:
 
         group = group or settings.DEFAULT_GROUP
@@ -49,7 +51,7 @@ class User(SqlAlchemyBase, BaseMixins):
         self.admin = admin
         self.password = password
 
-    def update(self, full_name, email, group, admin, session=None, id=None, password=None):
+    def update(self, full_name, email, group, admin, session=None, id=None, password=None, *args, **kwargs):
         self.full_name = full_name
         self.email = email
         self.group = Group.get_ref(session, group)

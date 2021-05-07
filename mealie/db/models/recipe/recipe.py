@@ -93,7 +93,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         recipe_category: list[str] = None,
         tags: list[str] = None,
         date_added: datetime.date = None,
-        date_updated: datetime.datetime = None,
         notes: list[dict] = None,
         rating: int = None,
         org_url: str = None,
