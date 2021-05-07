@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
+from mealie.services.events import create_group_event
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/groups", tags=["Groups"])
@@ -39,6 +40,7 @@ async def create_group(
 
     try:
         db.groups.create(session, group_data.dict())
+        create_group_event("Group Created", f"'{group_data.name}' created")
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
@@ -68,7 +70,8 @@ async def delete_user_group(
     if not group:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="GROUP_NOT_FOUND")
 
-    if not group.users == []:
+    if group.users != []:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="GROUP_WITH_USERS")
 
+    create_group_event("Group Deleted", f"'{group.name}' Deleted")
     db.groups.delete(session, id)

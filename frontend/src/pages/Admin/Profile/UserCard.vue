@@ -27,7 +27,7 @@
         :top="true"
       >
         <template v-slot:open="{ open }">
-          <v-btn color="primary" class="mr-1" small @click="open">
+          <v-btn color="info" class="mr-1" small @click="open">
             <v-icon left>mdi-lock</v-icon>
             Change Password
           </v-btn>
@@ -99,7 +99,6 @@
 </template>
 
 <script>
-
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import StatCard from "@/components/UI/StatCard";
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";

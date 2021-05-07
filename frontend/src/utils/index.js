@@ -1,14 +1,7 @@
-import { vueApp } from "../main";
 import { recipe } from "@/utils/recipe";
+import { store } from "@/store";
 
 // TODO: Migrate to Mixins
-const notifyHelpers = {
-  baseCSS: "notify-base",
-  error: "notify-error-color",
-  warning: "notify-warning-color",
-  success: "notify-success-color",
-  info: "notify-info-color",
-};
 
 export const utils = {
   recipe: recipe,
@@ -27,27 +20,37 @@ export const utils = {
     return `${year}-${month}-${day}`;
   },
   notify: {
-    show: function(text, type = "info", title = null) {
-      vueApp.flashMessage.show({
-        status: type,
+    info: function(text, title = null) {
+      store.commit("setSnackbar", {
+        open: true,
         title: title,
-        message: text,
-        time: 3000,
-        blockClass: `${notifyHelpers.baseCSS} ${notifyHelpers[type]}`,
-        contentClass: `${notifyHelpers.baseCSS} ${notifyHelpers[type]}`,
+        text: text,
+        color: "info",
       });
     },
-    info: function(text, title = null) {
-      this.show(text, "info", title);
-    },
     success: function(text, title = null) {
-      this.show(text, "success", title);
+      store.commit("setSnackbar", {
+        open: true,
+        title: title,
+        text: text,
+        color: "success",
+      });
     },
     error: function(text, title = null) {
-      this.show(text, "error", title);
+      store.commit("setSnackbar", {
+        open: true,
+        title: title,
+        text: text,
+        color: "error",
+      });
     },
     warning: function(text, title = null) {
-      this.show(text, "warning", title);
+      store.commit("setSnackbar", {
+        open: true,
+        title: title,
+        text: text,
+        color: "warning",
+      });
     },
   },
 };

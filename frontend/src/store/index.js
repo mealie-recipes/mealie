@@ -7,6 +7,7 @@ import language from "./modules/language";
 import siteSettings from "./modules/siteSettings";
 import recipes from "./modules/recipes";
 import groups from "./modules/groups";
+import snackbar from "./modules/snackbar";
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ const store = new Vuex.Store({
     siteSettings,
     groups,
     recipes,
+    snackbar,
   },
   state: {
     // All Recipe Data Store

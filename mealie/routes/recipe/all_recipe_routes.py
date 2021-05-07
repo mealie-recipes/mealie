@@ -26,17 +26,17 @@ async def get_recipe_summary(
 
     """
 
-    return db.recipes.get_all(session, limit=limit, start=start, override_schema=RecipeSummary)
+    return db.recipes.get_all(session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary)
 
 
 @router.get("/api/recipes/summary/untagged", response_model=list[RecipeSummary])
-async def get_untagged_recipes(session: Session = Depends(generate_session)):
-    return db.recipes.count_untagged(session, False, override_schema=RecipeSummary)
+async def get_untagged_recipes(count: bool = False, session: Session = Depends(generate_session)):
+    return db.recipes.count_untagged(session, count=count, override_schema=RecipeSummary)
 
 
 @router.get("/api/recipes/summary/uncategorized", response_model=list[RecipeSummary])
-async def get_uncategorized_recipes(session: Session = Depends(generate_session)):
-    return db.recipes.count_uncategorized(session, False, override_schema=RecipeSummary)
+async def get_uncategorized_recipes(count: bool = False, session: Session = Depends(generate_session)):
+    return db.recipes.count_uncategorized(session, count=count, override_schema=RecipeSummary)
 
 
 @router.post("/api/recipes/category")

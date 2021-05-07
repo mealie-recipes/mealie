@@ -17,6 +17,8 @@ const recipeURLs = {
   createAsset: slug => `${prefix}${slug}/assets`,
   recipeImage: slug => `${prefix}${slug}/image`,
   updateImage: slug => `${prefix}${slug}/image`,
+  untagged: prefix + "summary/untagged",
+  uncategorized: prefix + "summary/uncategorized ",
 };
 
 export const recipeAPI = {
@@ -131,6 +133,16 @@ export const recipeAPI = {
     const response = await apiReq.get(recipeURLs.summary, {
       params: { start: start, limit: limit },
     });
+    return response.data;
+  },
+
+  async allUntagged() {
+    const response = await apiReq.get(recipeURLs.untagged);
+    return response.data;
+  },
+
+  async allUnategorized() {
+    const response = await apiReq.get(recipeURLs.uncategorized);
     return response.data;
   },
 

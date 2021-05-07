@@ -7,7 +7,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
 from mealie.schema.user import UserIn, UserInDB
-from mealie.services.events import create_sign_up_event
+from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
@@ -39,7 +39,7 @@ async def create_user_sign_up_key(
         "name": key_data.name,
         "admin": key_data.admin,
     }
-    create_sign_up_event("Sign-up Token Created", f"Created by {current_user.full_name}", session=session)
+    create_user_event("Sign-up Token Created", f"Created by {current_user.full_name}", session=session)
     return db.sign_ups.create(session, sign_up)
 
 
@@ -62,7 +62,7 @@ async def create_user_with_token(
     db.users.create(session, new_user.dict())
 
     # DeleteToken
-    create_sign_up_event("Sign-up Token Used", f"New User {new_user.full_name}", session=session)
+    create_user_event("Sign-up Token Used", f"New User {new_user.full_name}", session=session)
     db.sign_ups.delete(session, token)
 
 
