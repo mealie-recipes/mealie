@@ -1,6 +1,6 @@
 const state = {
   snackbar: {
-    open: true,
+    open: false,
     text: "Hello From The Store",
     color: "info",
   },

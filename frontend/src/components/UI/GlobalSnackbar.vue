@@ -22,7 +22,6 @@ export default {
         this.$store.commit("setSnackbar", val);
       },
       get() {
-        console.log(this.$store.getters.getSnackbar);
         return this.$store.getters.getSnackbar;
       },
     },

@@ -38,7 +38,6 @@ export default {
   },
   watch: {
     async TagOrCategory() {
-      console.log(this.currentCategory, this.currentTag);
       this.sortedResults = [];
       this.getRecipes();
     },
@@ -50,7 +49,6 @@ export default {
   methods: {
     async getRecipes() {
       if (!this.TagOrCategory === null) return;
-      console.log(this.TagOrCategory);
 
       let data = {};
       if (this.currentCategory) {
@@ -58,7 +56,6 @@ export default {
       } else {
         data = await api.tags.getRecipesInTag(this.TagOrCategory);
       }
-      console.log(data);
       this.title = data.name;
       this.recipes = data.recipes;
     },
