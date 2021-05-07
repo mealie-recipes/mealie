@@ -14,10 +14,10 @@
     "demo-status": "Demo Status",
     "development": "Development",
     "download-log": "Download Log",
-    "download-recipe-json": "Download Recipe JSON",
+    "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Not Demo",
     "production": "Production",
-    "sqlite-file": "SQLite File",
+    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
@@ -27,7 +27,8 @@
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
-    "category-updated": "Category updated"
+    "category-updated": "Category updated",
+    "category": "Category"
   },
   "general": {
     "apply": "Apply",
@@ -35,7 +36,9 @@
     "close": "Stäng",
     "confirm": "Confirm",
     "create": "Skapa",
+    "created": "Created",
     "current-parenthesis": "(Current)",
+    "dashboard": "Dashboard",
     "delete": "Ta bort",
     "disabled": "Disabled",
     "download": "Ladda ner",
@@ -61,6 +64,7 @@
     "no": "No",
     "ok": "Ok",
     "options": "Options:",
+    "rating": "Rating",
     "random": "Slumpa",
     "recent": "Recent",
     "recipes": "Recipes",
@@ -81,6 +85,7 @@
     "token": "Token",
     "tuesday": "Tuesday",
     "update": "Uppdatera",
+    "updated": "Updated",
     "upload": "Upload",
     "url": "URL",
     "users": "Users",

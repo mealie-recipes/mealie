@@ -27,23 +27,36 @@
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
           <Ingredients :edit="true" v-model="value.recipeIngredient" />
+          <v-card class="mt-6">
+            <v-card-title class="py-2">
+              {{ $t("recipe.categories") }}
+            </v-card-title>
+            <v-divider class="mx-2"></v-divider>
+            <v-card-text>
+              <CategoryTagSelector
+                :return-object="false"
+                v-model="value.recipeCategory"
+                :show-add="true"
+                :show-label="false"
+              />
+            </v-card-text>
+          </v-card>
 
-          <h2 class="mt-6">{{ $t("recipe.categories") }}</h2>
-          <CategoryTagSelector
-            :return-object="false"
-            v-model="value.recipeCategory"
-            :show-add="true"
-            :show-label="false"
-          />
-
-          <h2 class="mt-4">{{ $t("tag.tags") }}</h2>
-          <CategoryTagSelector
-            :return-object="false"
-            v-model="value.tags"
-            :show-add="true"
-            :tag-selector="true"
-            :show-label="false"
-          />
+          <v-card class="mt-2">
+            <v-card-title class="py-2">
+              {{ $t("tag.tags") }}
+            </v-card-title>
+            <v-divider class="mx-2"></v-divider>
+            <v-card-text>
+              <CategoryTagSelector
+                :return-object="false"
+                v-model="value.tags"
+                :show-add="true"
+                :tag-selector="true"
+                :show-label="false"
+              />
+            </v-card-text>
+          </v-card>
           <Nutrition v-model="value.nutrition" :edit="true" />
           <Assets v-model="value.assets" :edit="true" :slug="value.slug" />
           <ExtrasEditor :extras="value.extras" @save="saveExtras" />

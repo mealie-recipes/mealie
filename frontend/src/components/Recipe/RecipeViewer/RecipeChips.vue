@@ -11,7 +11,7 @@
       :to="`/recipes/${urlParam}/${getSlug(category)}`"
       :key="category"
     >
-      {{ category }}
+      {{ truncateText(category) }}
     </v-chip>
   </div>
 </template>
@@ -19,6 +19,9 @@
 <script>
 export default {
   props: {
+    truncate: {
+      default: false,
+    },
     items: {
       default: [],
     },
@@ -34,6 +37,7 @@ export default {
     small: {
       default: false,
     },
+    maxWidth: {},
   },
   computed: {
     allCategories() {
@@ -57,6 +61,14 @@ export default {
         const matches = this.allTags.filter(x => x.name == name);
         if (matches.length > 0) return matches[0].slug;
       }
+    },
+    truncateText(text, length = 20, clamp) {
+      if (!this.truncate) return text;
+      clamp = clamp || "...";
+      var node = document.createElement("div");
+      node.innerHTML = text;
+      var content = node.textContent;
+      return content.length > length ? content.slice(0, length) + clamp : content;
     },
   },
 };

@@ -14,10 +14,10 @@
     "demo-status": "Demo Status",
     "development": "Development",
     "download-log": "Download Log",
-    "download-recipe-json": "Download Recipe JSON",
+    "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Not Demo",
     "production": "Production",
-    "sqlite-file": "SQLite File",
+    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
@@ -27,7 +27,8 @@
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
-    "category-updated": "Category updated"
+    "category-updated": "Category updated",
+    "category": "Category"
   },
   "general": {
     "apply": "应用",
@@ -35,7 +36,9 @@
     "close": "关闭",
     "confirm": "确定",
     "create": "创建",
+    "created": "Created",
     "current-parenthesis": "(当前)",
+    "dashboard": "Dashboard",
     "delete": "删除",
     "disabled": "Disabled",
     "download": "下载",
@@ -61,6 +64,7 @@
     "no": "否",
     "ok": "好的",
     "options": "Options:",
+    "rating": "Rating",
     "random": "随机",
     "recent": "最近",
     "recipes": "食谱",
@@ -81,6 +85,7 @@
     "token": "密钥",
     "tuesday": "Tuesday",
     "update": "更新",
+    "updated": "Updated",
     "upload": "上传",
     "url": "URL",
     "users": "用户",

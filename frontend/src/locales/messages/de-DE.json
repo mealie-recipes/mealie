@@ -14,10 +14,10 @@
     "demo-status": "Demostatus",
     "development": "Entwicklung",
     "download-log": "Protokoll herunterladen",
-    "download-recipe-json": "Rezept JSON herunterladen",
+    "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Keine Demo",
     "production": "Production",
-    "sqlite-file": "SQLite Datei",
+    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
@@ -27,7 +27,8 @@
     "category-deletion-failed": "Entfernen der Kategorie fehlgeschlagen",
     "category-filter": "Kategoriefilter",
     "category-update-failed": "Aktualisieren der Kategorie fehlgeschlagen",
-    "category-updated": "Kategorie aktualisiert"
+    "category-updated": "Kategorie aktualisiert",
+    "category": "Category"
   },
   "general": {
     "apply": "Anwenden",
@@ -35,7 +36,9 @@
     "close": "Schließen",
     "confirm": "Bestätigen",
     "create": "Erstellen",
+    "created": "Erstellt",
     "current-parenthesis": "(Neueste)",
+    "dashboard": "Dashboard",
     "delete": "Löschen",
     "disabled": "Deaktiviert",
     "download": "Herunterladen",
@@ -61,6 +64,7 @@
     "no": "Nein",
     "ok": "Okay",
     "options": "Optionen:",
+    "rating": "Bewertung",
     "random": "Zufall",
     "recent": "Neueste",
     "recipes": "Rezepte",
@@ -81,6 +85,7 @@
     "token": "Token",
     "tuesday": "Dienstag",
     "update": "Aktualisieren",
+    "updated": "Aktualisiert",
     "upload": "Hochladen",
     "url": "URL",
     "users": "Benutzer",

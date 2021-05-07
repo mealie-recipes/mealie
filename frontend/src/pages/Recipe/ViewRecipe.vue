@@ -6,7 +6,7 @@
     <v-card v-else id="myRecipe">
       <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
         <RecipeTimeCard
-          class="force-bottom"
+          :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
           :totalTime="recipeDetails.totalTime"
           :performTime="recipeDetails.performTime"
@@ -25,22 +25,7 @@
         class="sticky"
       />
 
-      <RecipeViewer
-        v-if="!form"
-        :name="recipeDetails.name"
-        :ingredients="recipeDetails.recipeIngredient"
-        :description="recipeDetails.description"
-        :instructions="recipeDetails.recipeInstructions"
-        :tags="recipeDetails.tags"
-        :categories="recipeDetails.recipeCategory"
-        :notes="recipeDetails.notes"
-        :rating="recipeDetails.rating"
-        :yields="recipeDetails.recipeYield"
-        :orgURL="recipeDetails.orgURL"
-        :nutrition="recipeDetails.nutrition"
-        :assets="recipeDetails.assets"
-        :slug="recipeDetails.slug"
-      />
+      <RecipeViewer v-if="!form" :recipe="recipeDetails" />
       <VJsoneditor
         @error="logError()"
         class="mt-10"
@@ -121,6 +106,9 @@ export default {
   },
 
   computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
     currentRecipe() {
       return this.$route.params.recipe;
     },

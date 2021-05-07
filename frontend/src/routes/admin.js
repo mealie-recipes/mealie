@@ -1,13 +1,11 @@
 import Admin from "@/pages/Admin";
-import Backup from "@/pages/Admin/Backup";
-import Theme from "@/pages/Admin/Theme";
-import MealPlanner from "@/pages/Admin/MealPlanner";
 import Migration from "@/pages/Admin/Migration";
 import Profile from "@/pages/Admin/Profile";
 import ManageUsers from "@/pages/Admin/ManageUsers";
 import Settings from "@/pages/Admin/Settings";
 import About from "@/pages/Admin/About";
 import ToolBox from "@/pages/Admin/ToolBox";
+import Dashboard from "@/pages/Admin/Dashboard";
 import { store } from "../store";
 
 export const adminRoutes = {
@@ -28,28 +26,6 @@ export const adminRoutes = {
       component: Profile,
       meta: {
         title: "settings.profile",
-      },
-    },
-
-    {
-      path: "backups",
-      component: Backup,
-      meta: {
-        title: "settings.backup-and-exports",
-      },
-    },
-    {
-      path: "themes",
-      component: Theme,
-      meta: {
-        title: "general.themes",
-      },
-    },
-    {
-      path: "meal-planner",
-      component: MealPlanner,
-      meta: {
-        title: "meal-plan.meal-planner",
       },
     },
     {
@@ -85,6 +61,13 @@ export const adminRoutes = {
       component: About,
       meta: {
         title: "general.about",
+      },
+    },
+    {
+      path: "dashboard",
+      component: Dashboard,
+      meta: {
+        title: "general.dashboard",
       },
     },
   ],

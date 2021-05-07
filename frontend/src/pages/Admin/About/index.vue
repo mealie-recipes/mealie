@@ -22,19 +22,26 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <TheDownloadBtn :button-text="$t('about.download-recipe-json')" download-url="/api/debug/last-recipe-json" />
-        <TheDownloadBtn :button-text="$t('about.download-log')" download-url="/api/debug/log" />
+        <TheDownloadBtn download-url="/api/debug/last-recipe-json">
+          <template v-slot:default="{ downloadFile }">
+            <v-btn color="primary" @click="downloadFile">
+              <v-icon left> mdi-code-braces </v-icon> {{ $t("about.download-recipe-json") }}
+            </v-btn>
+          </template>
+        </TheDownloadBtn>
       </v-card-actions>
       <v-divider></v-divider>
     </v-card>
+    <LogCard />
   </div>
 </template>
 
 <script>
 import { api } from "@/api";
 import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn";
+import LogCard from "@/components/UI/LogCard.vue";
 export default {
-  components: { TheDownloadBtn },
+  components: { TheDownloadBtn, LogCard },
   data() {
     return {
       prettyInfo: [],
@@ -79,9 +86,9 @@ export default {
           value: debugInfo.dbType,
         },
         {
-          name: this.$t("about.sqlite-file"),
+          name: this.$t("about.database-url"),
           icon: "mdi-file-cabinet",
-          value: debugInfo.sqliteFile,
+          value: debugInfo.dbUrl,
         },
         {
           name: this.$t("about.default-group"),
@@ -93,5 +100,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

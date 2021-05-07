@@ -5,6 +5,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.settings import SiteSettings
 from mealie.schema.theme import SiteTheme
+from mealie.services.events import create_general_event
 from sqlalchemy.orm import Session
 
 logger = root_logger.get_logger("init_db")
@@ -23,7 +24,23 @@ def init_db(db: Session = None) -> None:
 
 
 def default_theme_init(session: Session):
-    db.themes.create(session, SiteTheme().dict())
+    default_themes = [
+        SiteTheme().dict(),
+        {
+            "name": "Dark",
+            "colors": {
+                "primary": "#424242",
+                "accent": "#455A64",
+                "secondary": "#00796B",
+                "success": "#43A047",
+                "info": "#1976D2",
+                "warning": "#FF6F00",
+                "error": "#EF5350",
+            },
+        },
+    ]
+    for theme in default_themes:
+        db.themes.create(session, theme)
 
 
 def default_settings_init(session: Session):
@@ -58,6 +75,7 @@ def main():
     else:
         print("Database Doesn't Exists, Initializing...")
         init_db()
+        create_general_event("Initialize Database", "Initialize database with default values", session)
 
 
 if __name__ == "__main__":

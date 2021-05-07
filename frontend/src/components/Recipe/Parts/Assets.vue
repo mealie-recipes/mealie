@@ -14,19 +14,17 @@
             <v-list-item-title class="pl-2" v-text="item.name"></v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn
-              v-if="!edit"
-              color="primary"
-              icon
-              :href="`/api/recipes/${slug}/asset?file_name=${item.fileName}`"
-              target="_blank"
-              top
-            >
+            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName)" target="_blank" top>
               <v-icon> mdi-download</v-icon>
             </v-btn>
-            <v-btn v-else color="error" icon @click="deleteAsset(i)" top>
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
+            <div v-else>
+              <v-btn color="error" icon @click="deleteAsset(i)" top>
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <v-btn color="primary" icon @click="copyLink(item.name, item.fileName)" top>
+                <v-icon>mdi-content-copy</v-icon>
+              </v-btn>
+            </div>
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -107,7 +105,15 @@ export default {
       ],
     };
   },
+  computed: {
+    baseURL() {
+      return window.location.origin;
+    },
+  },
   methods: {
+    assetURL(assetName) {
+      return api.recipes.recipeAssetPath(this.slug, assetName);
+    },
     setFileObject(obj) {
       this.fileObject = obj;
     },
@@ -123,6 +129,14 @@ export default {
     },
     deleteAsset(index) {
       this.value.splice(index, 1);
+    },
+    copyLink(name, fileName) {
+      const assetLink = api.recipes.recipeAssetPath(this.slug, fileName);
+      const copyText = `![${name}](${assetLink})`;
+      navigator.clipboard.writeText(copyText).then(
+        () => console.log("Copied", copyText),
+        () => console.log("Copied Failed", copyText)
+      );
     },
   },
 };

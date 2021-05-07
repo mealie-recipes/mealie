@@ -1,29 +1,13 @@
 <template>
-  <v-card
-    color="accent"
-    class="custom-transparent d-flex justify-start align-center text-center time-card-flex"
-    tile
-    v-if="showCards"
-  >
-    <v-card flat color="rgb(255, 0, 0, 0.0)">
-      <v-icon large color="white" class="mx-2"> mdi-clock-outline </v-icon>
-    </v-card>
-
-    <v-card
-      v-for="(time, index) in allTimes"
-      :key="index"
-      class="d-flex justify-start align-center text-center time-card-flex"
-      flat
-      color="rgb(255, 0, 0, 0.0)"
-    >
-      <v-card-text class="caption white--text py-2">
-        <div>
-          <strong> {{ time.name }} </strong>
-        </div>
-        <div>{{ time.value }}</div>
-      </v-card-text>
-    </v-card>
-  </v-card>
+  <div>
+    <v-chip label color="accent custom-transparent" class="ma-1" v-for="(time, index) in allTimes" :key="index">
+      <v-icon left>
+        mdi-clock-outline
+      </v-icon>
+      {{ time.name }} |
+      {{ time.value }}
+    </v-chip>
+  </div>
 </template>
 
 <script>

@@ -60,7 +60,7 @@ const actions = {
   },
 
   async resetTheme({ commit }) {
-    const defaultTheme = await api.themes.requestByName("default");
+    const defaultTheme = await api.themes.requestByName(1);
     if (defaultTheme.colors) {
       Vuetify.framework.theme.themes.dark = defaultTheme.colors;
       Vuetify.framework.theme.themes.light = defaultTheme.colors;

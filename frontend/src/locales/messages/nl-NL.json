@@ -14,10 +14,10 @@
     "demo-status": "Demo status",
     "development": "Versies in ontwikkeling",
     "download-log": "Logbestand downloaden",
-    "download-recipe-json": "Download Recept JSON",
+    "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Niet Demo",
     "production": "Productie",
-    "sqlite-file": "SQLite bestand",
+    "database-url": "Database URL",
     "version": "Versie"
   },
   "category": {
@@ -27,7 +27,8 @@
     "category-deletion-failed": "Categorie verwijderen mislukt",
     "category-filter": "Categorie Filter",
     "category-update-failed": "Categorie bijwerken mislukt",
-    "category-updated": "Categorie bijgewerkt"
+    "category-updated": "Categorie bijgewerkt",
+    "category": "Category"
   },
   "general": {
     "apply": "Toepassen",
@@ -35,7 +36,9 @@
     "close": "Sluiten",
     "confirm": "Bevestigen",
     "create": "Maak",
+    "created": "Created",
     "current-parenthesis": "(Huidig)",
+    "dashboard": "Dashboard",
     "delete": "Verwijderen",
     "disabled": "Uitgeschakeld",
     "download": "Download",
@@ -61,6 +64,7 @@
     "no": "Nee",
     "ok": "Ok",
     "options": "Opties:",
+    "rating": "Rating",
     "random": "Willekeurig",
     "recent": "Recent(e)",
     "recipes": "Recepten",
@@ -81,6 +85,7 @@
     "token": "Token",
     "tuesday": "Dinsdag",
     "update": "Bijwerken",
+    "updated": "Updated",
     "upload": "Uploaden",
     "url": "URL",
     "users": "Gebruikers",

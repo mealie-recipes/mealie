@@ -6,12 +6,12 @@
 :80 {
   @proxied path /api/* /docs /openapi.json
   
-  root * /app/dist
-  encode gzip
+  encode gzip zstd
   uri strip_suffix /
   
-  handle_path /api/recipes/image/* {
-    root * /app/data/img/
+  # Handles Recipe Images / Assets
+  handle_path /api/media/recipes/* {
+    root * /app/data/recipes/
     file_server
   }
 
@@ -20,8 +20,8 @@
   }
 
   handle {
-    try_files {path}.html {path} /
+    root * /app/dist
+    try_files {path}.html {path} /index.html
     file_server 
   }
-
 }

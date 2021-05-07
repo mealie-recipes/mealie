@@ -27,12 +27,16 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     name = sa.Column(sa.String, nullable=False)
     description = sa.Column(sa.String)
     image = sa.Column(sa.String)
+
+    # Time Related Properties
     total_time = sa.Column(sa.String)
     prep_time = sa.Column(sa.String)
     perform_time = sa.Column(sa.String)
-    cookTime = sa.Column(sa.String)
+    cook_time = sa.Column(sa.String)
+
     recipe_yield = sa.Column(sa.String)
     recipeCuisine = sa.Column(sa.String)
+
     tools: list[Tool] = orm.relationship("Tool", cascade="all, delete-orphan")
     assets: list[RecipeAsset] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
@@ -55,11 +59,14 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     slug = sa.Column(sa.String, index=True, unique=True)
     settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")
     tags: list[Tag] = orm.relationship("Tag", secondary=recipes2tags, back_populates="recipes")
-    date_added = sa.Column(sa.Date, default=date.today)
     notes: list[Note] = orm.relationship("Note", cascade="all, delete-orphan")
     rating = sa.Column(sa.Integer)
     org_url = sa.Column(sa.String)
     extras: list[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
+
+    # Time Stamp Properties
+    date_added = sa.Column(sa.Date, default=date.today)
+    date_updated = sa.Column(sa.DateTime)
 
     @validates("name")
     def validate_name(self, key, name):
@@ -78,6 +85,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         recipeCuisine: str = None,
         total_time: str = None,
         prep_time: str = None,
+        cook_time: str = None,
         nutrition: dict = None,
         tools: list[str] = None,
         perform_time: str = None,
@@ -113,6 +121,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.total_time = total_time
         self.prep_time = prep_time
         self.perform_time = perform_time
+        self.cook_time = cook_time
 
         self.recipe_category = [Category.create_if_not_exist(session=session, name=cat) for cat in recipe_category]
 
@@ -120,11 +129,14 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
         self.tags = [Tag.create_if_not_exist(session=session, name=tag) for tag in tags]
         self.slug = slug
-        self.date_added = date_added
         self.notes = [Note(**note) for note in notes]
         self.rating = rating
         self.org_url = org_url
         self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
+
+        # Time Stampes
+        self.date_added = date_added
+        self.date_updated = datetime.datetime.now()
 
     def update(self, *args, **kwargs):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""

@@ -15,7 +15,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-title> {{ name }} </v-card-title>
-        <v-card-subtitle class="mb-n3"> {{ $d(new Date(date), "medium") }} </v-card-subtitle>
+        <v-card-subtitle class="mb-n3" v-if="date"> {{ $d(new Date(date), "medium") }} </v-card-subtitle>
         <v-divider></v-divider>
 
         <v-card-text>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import ImportOptions from "./ImportOptions";
+import ImportOptions from "@/components/FormHelpers/ImportOptions";
 import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn.vue";
 import { backupURLs } from "@/api/backup";
 export default {

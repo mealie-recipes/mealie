@@ -1,39 +1,61 @@
 <template>
-  <div class="mt-n5" v-if="recipes">
-    <v-card flat class="transparent" height="60px">
-      <v-card-text>
-        <v-row v-if="title != null">
-          <v-col>
-            <v-btn-toggle group>
-              <v-btn text>
-                {{ title.toUpperCase() }}
-              </v-btn>
-            </v-btn-toggle>
-          </v-col>
-          <v-spacer></v-spacer>
-          <v-col align="end">
-            <v-menu offset-y v-if="sortable">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn-toggle group>
-                  <v-btn text v-bind="attrs" v-on="on">
-                    {{ $t("general.sort") }}
-                  </v-btn>
-                </v-btn-toggle>
-              </template>
-              <v-list>
-                <v-list-item @click="$emit('sort-recent')">
-                  <v-list-item-title>{{ $t("general.recent") }}</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="$emit('sort')">
-                  <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
-    <div v-if="recipes">
+  <div v-if="recipes">
+    <v-app-bar color="transparent" flat class="mt-n1 rounded" v-if="!disableToolbar">
+      <v-icon large left v-if="title">
+        {{ titleIcon }}
+      </v-icon>
+      <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text @click="navigateRandom">
+        <v-icon left>
+          mdi-dice-multiple
+        </v-icon>
+        {{ $t("general.random") }}
+      </v-btn>
+      <v-menu offset-y left v-if="$listeners.sort">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text v-bind="attrs" v-on="on" :loading="sortLoading">
+            <v-icon left>
+              mdi-sort
+            </v-icon>
+            {{ $t("general.sort") }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="sortRecipes(EVENTS.az)">
+            <v-icon left>
+              mdi-order-alphabetical-ascending
+            </v-icon>
+            <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.rating)">
+            <v-icon left>
+              mdi-star
+            </v-icon>
+            <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.created)">
+            <v-icon left>
+              mdi-new-box
+            </v-icon>
+            <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.updated)">
+            <v-icon left>
+              mdi-update
+            </v-icon>
+            <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.shuffle)">
+            <v-icon left>
+              mdi-shuffle-variant
+            </v-icon>
+            <v-list-item-title>{{ $t("general.shuffle") }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-app-bar>
+    <div v-if="recipes" class="mt-2">
       <v-row v-if="!viewScale">
         <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="recipe in recipes.slice(0, cardLimit)" :key="recipe.name">
           <RecipeCard
@@ -85,14 +107,20 @@
 <script>
 import RecipeCard from "../Recipe/RecipeCard";
 import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
+import { utils } from "@/utils";
+const SORT_EVENT = "sort";
+
 export default {
   components: {
     RecipeCard,
     MobileRecipeCard,
   },
   props: {
-    sortable: {
+    disableToolbar: {
       default: false,
+    },
+    titleIcon: {
+      default: "mdi-tag-multiple-outline",
     },
     title: {
       default: null,
@@ -110,8 +138,16 @@ export default {
   },
   data() {
     return {
+      sortLoading: false,
       cardLimit: 30,
       loading: false,
+      EVENTS: {
+        az: "az",
+        rating: "rating",
+        created: "created",
+        updated: "updated",
+        shuffle: "shuffle",
+      },
     };
   },
   watch: {
@@ -149,6 +185,37 @@ export default {
       this.loading = true;
       await new Promise(r => setTimeout(r, 1000));
       this.loading = false;
+    },
+    navigateRandom() {
+      const recipe = utils.recipe.randomRecipe(this.recipes);
+      this.$router.push(`/recipe/${recipe.slug}`);
+    },
+    sortRecipes(sortType) {
+      this.sortLoading = true;
+      let sortTarget = [...this.recipes];
+      switch (sortType) {
+        case this.EVENTS.az:
+          utils.recipe.sortAToZ(sortTarget);
+          break;
+        case this.EVENTS.rating:
+          utils.recipe.sortByRating(sortTarget);
+          break;
+        case this.EVENTS.created:
+          utils.recipe.sortByCreated(sortTarget);
+          break;
+        case this.EVENTS.updated:
+          utils.recipe.sortByUpdated(sortTarget);
+          break;
+        case this.EVENTS.shuffle:
+          utils.recipe.shuffle(sortTarget);
+          break;
+        default:
+          console.log("Unknown Event", sortType);
+          return;
+      }
+
+      this.$emit(SORT_EVENT, sortTarget);
+      this.sortLoading = false;
     },
   },
 };

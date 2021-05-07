@@ -1,13 +1,14 @@
-import sqlalchemy as sa
 from mealie.db.models.model_base import SqlAlchemyBase
+from sqlalchemy import Column, ForeignKey, Integer, String
 
 
 class RecipeIngredient(SqlAlchemyBase):
     __tablename__ = "recipes_ingredients"
-    id = sa.Column(sa.Integer, primary_key=True)
-    position = sa.Column(sa.Integer)
-    parent_id = sa.Column(sa.Integer, sa.ForeignKey("recipes.id"))
-    ingredient = sa.Column(sa.String)
+    id = Column(Integer, primary_key=True)
+    position = Column(Integer)
+    parent_id = Column(Integer, ForeignKey("recipes.id"))
+    # title = Column(String)
+    ingredient = Column(String)
 
     def update(self, ingredient):
         self.ingredient = ingredient

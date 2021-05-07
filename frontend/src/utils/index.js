@@ -1,4 +1,5 @@
 import { vueApp } from "../main";
+import { recipe } from "@/utils/recipe";
 
 // TODO: Migrate to Mixins
 const notifyHelpers = {
@@ -9,7 +10,8 @@ const notifyHelpers = {
   info: "notify-info-color",
 };
 
-export default {
+export const utils = {
+  recipe: recipe,
   getImageURL(image) {
     return `/api/recipes/${image}/image?image_type=small`;
   },

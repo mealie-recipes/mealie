@@ -1,9 +1,9 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from mealie.core.config import settings
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.category import Category, group2categories
 from sqlalchemy.orm.session import Session
-from mealie.core.config import settings
 
 
 class WebhookURLModel(SqlAlchemyBase):
@@ -49,10 +49,6 @@ class Group(SqlAlchemyBase, BaseMixins):
         self.webhook_enable = webhook_enable
         self.webhook_time = webhook_time
         self.webhook_urls = [WebhookURLModel(url=x) for x in webhook_urls]
-
-    def update(self, session: Session, *args, **kwargs):
-
-        self.__init__(session=session, *args, **kwargs)
 
     @staticmethod
     def get_ref(session: Session, name: str):

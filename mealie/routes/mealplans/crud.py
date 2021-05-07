@@ -75,7 +75,7 @@ def get_today(session: Session = Depends(generate_session), current_user: UserIn
     group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
     recipe = get_todays_meal(session, group_in_db)
     if recipe:
-        return recipe.slug
+        return recipe
 
 
 @router.get("/today/image", tags=["Meal Plan"])
@@ -88,7 +88,7 @@ def get_todays_image(session: Session = Depends(generate_session), group_name: s
     recipe = get_todays_meal(session, group_in_db)
 
     if recipe:
-        recipe_image = image.read_image(recipe.slug, image_type=image.IMG_OPTIONS.ORIGINAL_IMAGE)
+        recipe_image = recipe.image_dir.joinpath(image.ImageOptions.ORIGINAL_IMAGE)
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
     if recipe_image:

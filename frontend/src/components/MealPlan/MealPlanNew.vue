@@ -82,7 +82,7 @@
 const CREATE_EVENT = "created";
 import DatePicker from "@/components/FormHelpers/DatePicker";
 import { api } from "@/api";
-import utils from "@/utils";
+import { utils } from "@/utils";
 import MealPlanCard from "./MealPlanCard";
 export default {
   components: {

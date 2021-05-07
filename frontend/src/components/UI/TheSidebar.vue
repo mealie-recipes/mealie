@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer v-model="showSidebar" width="180px" clipped app>
       <template v-slot:prepend>
-        <v-list-item two-line v-if="isLoggedIn">
+        <v-list-item two-line v-if="isLoggedIn" to="/admin/profile">
           <v-list-item-avatar color="accent" class="white--text">
             <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" />
             <div v-else>
@@ -133,20 +133,15 @@ export default {
           to: "/admin/profile",
           title: this.$t("settings.profile"),
         },
-        {
-          icon: "mdi-format-color-fill",
-          to: "/admin/themes",
-          title: this.$t("general.themes"),
-        },
-        {
-          icon: "mdi-food",
-          to: "/admin/meal-planner",
-          title: this.$t("meal-plan.meal-planner"),
-        },
       ];
     },
     adminLinks() {
       return [
+        {
+          icon: "mdi-view-dashboard",
+          to: "/admin/dashboard",
+          title: this.$t("general.dashboard"),
+        },
         {
           icon: "mdi-cog",
           to: "/admin/settings",
@@ -161,11 +156,6 @@ export default {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
           title: this.$t("settings.manage-users"),
-        },
-        {
-          icon: "mdi-backup-restore",
-          to: "/admin/backups",
-          title: this.$t("settings.backup-and-exports"),
         },
         {
           icon: "mdi-database-import",

@@ -36,7 +36,6 @@
             {{ $t("search.tag-filter") }}
           </h3>
           <FilterSelector class="mb-1" @update="updateTagParams" />
-
           <CategoryTagSelector
             :solo="true"
             :dense="false"
@@ -47,37 +46,25 @@
         </v-col>
       </v-row>
 
-      <v-row v-if="fuzzyRecipes">
-        <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="item in fuzzyRecipes.slice(0, maxResults)" :key="item.name">
-          <RecipeCard
-            :name="item.item.name"
-            :description="item.item.description"
-            :slug="item.item.slug"
-            :rating="item.item.rating"
-            :image="item.item.image"
-            :tags="item.item.tags"
-          />
-        </v-col>
-      </v-row>
+      <CardSection title-icon="mdi-mag" :recipes="showRecipes" :hardLimit="maxResults" @sort="assignFuzzy" />
     </v-card>
   </v-container>
 </template>
 
 <script>
 import Fuse from "fuse.js";
-import RecipeCard from "@/components/Recipe/RecipeCard";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
+import CardSection from "@/components/UI/CardSection";
 import FilterSelector from "./FilterSelector.vue";
 
 export default {
   components: {
-    RecipeCard,
+    CardSection,
     CategoryTagSelector,
     FilterSelector,
   },
   data() {
     return {
-      searchString: "",
       maxResults: 21,
       searchResults: [],
       catFilter: {
@@ -88,6 +75,7 @@ export default {
         exclude: false,
         matchAny: false,
       },
+      sortedResults: [],
       includeCategories: [],
       includeTags: [],
       options: {
@@ -106,6 +94,14 @@ export default {
     this.$store.dispatch("requestAllRecipes");
   },
   computed: {
+    searchString: {
+      set(q) {
+        this.$router.replace({ query: { ...this.$route.query, q } });
+      },
+      get() {
+        return this.$route.query.q || "";
+      },
+    },
     allRecipes() {
       return this.$store.getters.getAllRecipes;
     },
@@ -126,16 +122,26 @@ export default {
     },
     fuzzyRecipes() {
       if (this.searchString.trim() === "") {
-        return this.filteredRecipes.map(x => ({ item: x }));
+        return this.filteredRecipes;
       }
       const result = this.fuse.search(this.searchString.trim());
-      return result;
+      return result.map(x => x.item);
     },
     isSearching() {
       return this.searchString && this.searchString.length > 0;
     },
+    showRecipes() {
+      if (this.sortedResults.length > 0) {
+        return this.sortedResults;
+      } else {
+        return this.fuzzyRecipes;
+      }
+    },
   },
   methods: {
+    assignFuzzy(val) {
+      this.sortedResults = val;
+    },
     check(filterBy, recipeList, matchAny, exclude) {
       let isMatch = true;
       if (filterBy.length === 0) return isMatch;
