@@ -9,6 +9,7 @@
     "api-port": "API Port",
     "application-mode": "Application Mode",
     "database-type": "Database Type",
+    "database-url": "Database URL",
     "default-group": "Default Group",
     "demo": "Demo",
     "demo-status": "Demo Status",
@@ -17,18 +18,17 @@
     "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Not Demo",
     "production": "Production",
-    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
+    "category": "Category",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
-    "category-updated": "Category updated",
-    "category": "Category"
+    "category-updated": "Category updated"
   },
   "general": {
     "apply": "Apply",
@@ -61,11 +61,12 @@
     "link": "Link",
     "monday": "Monday",
     "name": "Name",
+    "new": "New",
     "no": "No",
     "ok": "OK",
     "options": "Options:",
-    "rating": "Rating",
     "random": "Random",
+    "rating": "Rating",
     "recent": "Recent",
     "recipes": "Recipes",
     "rename-object": "Rename {0}",
@@ -73,13 +74,13 @@
     "saturday": "Saturday",
     "save": "Save",
     "settings": "Settings",
+    "shuffle": "Shuffle",
     "sort": "Sort",
     "sort-alphabetically": "Alphabetical",
     "status": "Status",
     "submit": "Submit",
     "success-count": "Success: {count}",
     "sunday": "Sunday",
-    "shuffle": "Shuffle",
     "templates": "Templates:",
     "themes": "Themes",
     "thursday": "Thursday",
@@ -116,15 +117,18 @@
     "create-a-new-meal-plan": "Create a New Meal Plan",
     "dinner-this-week": "Dinner This Week",
     "dinner-today": "Dinner Today",
+    "dinner-tonight": "DINNER TONIGHT",
     "edit-meal-plan": "Edit Meal Plan",
     "end-date": "End Date",
     "group": "Group (Beta)",
     "meal-planner": "Meal Planner",
     "meal-plans": "Meal Plans",
+    "mealplan-categories": "MEALPLAN CATEGORIES",
     "mealplan-created": "Mealplan created",
     "mealplan-creation-failed": "Mealplan creation failed",
     "mealplan-deleted": "Mealplan Deleted",
     "mealplan-deletion-failed": "Mealplan deletion failed",
+    "mealplan-settings": "Mealplan Settings",
     "mealplan-update-failed": "Mealplan update failed",
     "mealplan-updated": "Mealplan Updated",
     "no-meal-plan-defined-yet": "No meal plan defined yet",
@@ -305,6 +309,14 @@
       "theme-updated": "Theme updated",
       "warning": "Warning"
     },
+    "token": {
+      "active-tokens": "ACTIVE TOKENS",
+      "api-token": "API Token",
+      "api-tokens": "API Tokens",
+      "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
+      "create-an-api-token": "Create an API Token",
+      "token-name": "Token Name"
+    },
     "toolbox": {
       "assign-all": "Assign All",
       "bulk-assign": "Bulk Assign",
@@ -319,7 +331,8 @@
       "meal-planner-webhooks": "Meal Planner Webhooks",
       "test-webhooks": "Test Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
-      "webhook-url": "Webhook URL"
+      "webhook-url": "Webhook URL",
+      "webhooks-caps": "WEBHOOKS"
     }
   },
   "signup": {
@@ -377,6 +390,7 @@
     "total-users": "Total Users",
     "upload-photo": "Upload Photo",
     "use-8-characters-or-more-for-your-password": "Use 8 characters or more for your password",
+    "user": "User",
     "user-created": "User created",
     "user-creation-failed": "User creation failed",
     "user-deleted": "User deleted",
@@ -390,7 +404,6 @@
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
-    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user",
-    "user": "User"
+    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user"
   }
 }
