@@ -3,7 +3,9 @@
     <StatCard icon="mdi-bell-ring" :color="color">
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
-          <div class="body-3 grey--text font-weight-light" v-text="'Events'" />
+          <h2 class="body-3 grey--text font-weight-light">
+            {{$t('settings.events')}}
+          </h2>
 
           <h3 class="display-2 font-weight-light text--primary">
             <small> {{ total }} </small>
@@ -11,8 +13,8 @@
         </div>
       </template>
       <div class="d-flex row py-3 justify-end">
-        <v-btn class="mx-2" small color="error lighten-1" @click="deleteAll">
-          <v-icon left> mdi-notification-clear-all </v-icon> Clear
+        <v-btn class="mx-2" small :color="color" @click="deleteAll">
+          <v-icon left> mdi-notification-clear-all </v-icon> {{$t('general.clear')}}
         </v-btn>
       </div>
       <template v-slot:bottom>
