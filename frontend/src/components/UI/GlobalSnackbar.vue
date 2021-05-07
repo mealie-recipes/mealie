@@ -6,7 +6,7 @@
 
       <template v-slot:action="{ attrs }">
         <v-btn text v-bind="attrs" @click="snackbar.open = false">
-          {{ $t("general.cancel") }}
+          {{ $t("general.close") }}
         </v-btn>
       </template>
     </v-snackbar>
