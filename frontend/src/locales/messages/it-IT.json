@@ -9,6 +9,7 @@
     "api-port": "Porta API",
     "application-mode": "Modalità",
     "database-type": "Tipo Database",
+    "database-url": "URL Database",
     "default-group": "Gruppo Predefinito",
     "demo": "Demo",
     "demo-status": "Stato Demo",
@@ -17,10 +18,10 @@
     "download-recipe-json": "Ultimo JSON",
     "not-demo": "Non Demo",
     "production": "Produzione",
-    "database-url": "URL Database",
     "version": "Versione"
   },
   "category": {
+    "category": "Categoria",
     "category-created": "Categoria creata",
     "category-creation-failed": "Creazione categoria fallita",
     "category-deleted": "Categoria Eliminata",
@@ -28,16 +29,18 @@
     "category-filter": "Filtro Categoria",
     "category-update-failed": "Aggiornamento categoria fallito",
     "category-updated": "Categoria aggiornata",
-    "category": "Categoria"
+    "uncategorized-count": "Uncategorized {count}"
   },
   "general": {
     "apply": "Applica",
     "cancel": "Cancella",
+    "clear": "Clear",
     "close": "Chiudi",
     "confirm": "Conferma",
     "create": "Crea",
     "created": "Created",
     "current-parenthesis": "(Corrente)",
+    "custom": "Custom",
     "dashboard": "Pannello di controllo",
     "delete": "Elimina",
     "disabled": "Disabilitato",
@@ -53,7 +56,6 @@
     "filter": "Filtro",
     "friday": "Venerdì",
     "get": "Ottieni",
-    "groups": "Gruppi",
     "image": "Immagine",
     "image-upload-failed": "Caricamento immagine fallito",
     "import": "Importa",
@@ -61,11 +63,12 @@
     "link": "Link",
     "monday": "Lunedì",
     "name": "Nome",
+    "new": "New",
     "no": "No",
     "ok": "OK",
     "options": "Opzioni:",
-    "rating": "Rating",
     "random": "Casuale",
+    "rating": "Rating",
     "recent": "Recente",
     "recipes": "Ricette",
     "rename-object": "Rinomina {0}",
@@ -73,13 +76,13 @@
     "saturday": "Sabato",
     "save": "Salva",
     "settings": "Impostazioni",
+    "shuffle": "Shuffle",
     "sort": "Ordina",
     "sort-alphabetically": "Alphabetical",
     "status": "Stato",
     "submit": "Invia",
     "success-count": "Successo: {count}",
     "sunday": "Domenica",
-    "shuffle": "Shuffle",
     "templates": "Modelli:",
     "themes": "Temi",
     "thursday": "Giovedì",
@@ -89,7 +92,6 @@
     "updated": "Updated",
     "upload": "Carica",
     "url": "URL",
-    "users": "Utenti",
     "wednesday": "Mercoledì",
     "yes": "Sì"
   },
@@ -108,6 +110,7 @@
     "group-not-found": "Gruppo non trovato",
     "groups": "Gruppi",
     "groups-can-only-be-set-by-administrators": "I gruppi possono essere impostati solo dagli amministratori",
+    "manage-groups": "Manage Groups",
     "user-group": "Gruppo Utente",
     "user-group-created": "Gruppo Utente Creato",
     "user-group-creation-failed": "Creazione Gruppo Utente Fallita"
@@ -116,15 +119,18 @@
     "create-a-new-meal-plan": "Crea un Nuovo Piano Alimentare",
     "dinner-this-week": "Cena Questa Settimana",
     "dinner-today": "Cena Oggi",
+    "dinner-tonight": "DINNER TONIGHT",
     "edit-meal-plan": "Modifica Piano Alimentare",
     "end-date": "Data Fine",
     "group": "Gruppo (Beta)",
     "meal-planner": "Piano Alimentare",
     "meal-plans": "Piani Alimentari",
+    "mealplan-categories": "MEALPLAN CATEGORIES",
     "mealplan-created": "Piano allimentare creato",
     "mealplan-creation-failed": "Creazione piano alimentare fallita",
     "mealplan-deleted": "Piano Alimentare Eliminato",
     "mealplan-deletion-failed": "Eliminazione piano alimentare fallita",
+    "mealplan-settings": "Mealplan Settings",
     "mealplan-update-failed": "Aggiornamento piano alimentare fallito",
     "mealplan-updated": "Piano Alimentare Aggiornato",
     "no-meal-plan-defined-yet": "Ancora nessun piano alimentare definito",
@@ -254,6 +260,7 @@
     "current": "Versione:",
     "custom-pages": "Pagine Personalizzate",
     "edit-page": "Modifica Pagina",
+    "events": "Events",
     "first-day-of-week": "Primo giorno della settimana",
     "group-settings-updated": "Impostazioni Gruppo Aggiornate",
     "homepage": {
@@ -267,7 +274,6 @@
     "latest": "Recenti",
     "local-api": "API Locale",
     "locale-settings": "Impostazioni regionali",
-    "manage-users": "Gestisci Utenti",
     "migrations": "Migrazioni",
     "new-page": "Nuova Pagina",
     "page-name": "Nome Pagina",
@@ -305,6 +311,14 @@
       "theme-updated": "Tema aggiornato",
       "warning": "Avviso"
     },
+    "token": {
+      "active-tokens": "ACTIVE TOKENS",
+      "api-token": "API Token",
+      "api-tokens": "API Tokens",
+      "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
+      "create-an-api-token": "Create an API Token",
+      "token-name": "Token Name"
+    },
     "toolbox": {
       "assign-all": "Assegna Tutto",
       "bulk-assign": "Assegna Bulk",
@@ -319,7 +333,8 @@
       "meal-planner-webhooks": "Webhooks Pianificatore Alimentare",
       "test-webhooks": "Testa Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Gli URL elencati sotto riceveranno dei webhooks contenenti i dati delle ricette per il piano alimentare nel giorno programmato. I Webhooks correnti verrano eseguiti alle",
-      "webhook-url": "URL Webhook"
+      "webhook-url": "URL Webhook",
+      "webhooks-caps": "WEBHOOKS"
     }
   },
   "signup": {
@@ -340,7 +355,8 @@
     "tag-deletion-failed": "Eliminazione tag fallita",
     "tag-update-failed": "Aggiornamento tag fallito",
     "tag-updated": "Tag aggiornato",
-    "tags": "Tags"
+    "tags": "Tags",
+    "untagged-count": "Untagged {count}"
   },
   "user": {
     "admin": "Amministratore",
@@ -364,6 +380,7 @@
     "link-name": "Link Nome",
     "login": "Login",
     "logout": "Logout",
+    "manage-users": "Manage Users",
     "new-password": "Nuova Password",
     "new-user": "Nuovo Utente",
     "password": "Password",
@@ -377,6 +394,7 @@
     "total-users": "Totale Utenti",
     "upload-photo": "Carica Foto",
     "use-8-characters-or-more-for-your-password": "Usa 8 caratteri o piú per la password",
+    "user": "User",
     "user-created": "Utente creato",
     "user-creation-failed": "Creazione utente fallita",
     "user-deleted": "Utente eliminato",
