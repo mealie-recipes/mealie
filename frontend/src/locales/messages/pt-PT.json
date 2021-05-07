@@ -9,6 +9,7 @@
     "api-port": "API Port",
     "application-mode": "Application Mode",
     "database-type": "Database Type",
+    "database-url": "Database URL",
     "default-group": "Default Group",
     "demo": "Demo",
     "demo-status": "Demo Status",
@@ -17,10 +18,10 @@
     "download-recipe-json": "Last Scraped JSON",
     "not-demo": "Not Demo",
     "production": "Production",
-    "database-url": "Database URL",
     "version": "Version"
   },
   "category": {
+    "category": "Category",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
@@ -28,16 +29,18 @@
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
     "category-updated": "Category updated",
-    "category": "Category"
+    "uncategorized-count": "Uncategorized {count}"
   },
   "general": {
     "apply": "Apply",
     "cancel": "Cancelar",
+    "clear": "Clear",
     "close": "Fechar",
     "confirm": "Confirmar",
     "create": "Criar",
     "created": "Created",
     "current-parenthesis": "(Current)",
+    "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "Eliminar",
     "disabled": "Disabled",
@@ -53,7 +56,6 @@
     "filter": "Filter",
     "friday": "Friday",
     "get": "Get",
-    "groups": "Groups",
     "image": "Image",
     "image-upload-failed": "Image upload failed",
     "import": "Importar",
@@ -61,11 +63,12 @@
     "link": "Link",
     "monday": "Monday",
     "name": "Nome",
+    "new": "New",
     "no": "No",
     "ok": "OK",
     "options": "Options:",
-    "rating": "Rating",
     "random": "Aleatório",
+    "rating": "Rating",
     "recent": "Recent",
     "recipes": "Receitas",
     "rename-object": "Rename {0}",
@@ -73,13 +76,13 @@
     "saturday": "Saturday",
     "save": "Guardar",
     "settings": "Definições",
+    "shuffle": "Shuffle",
     "sort": "Sort",
     "sort-alphabetically": "Alphabetical",
     "status": "Status",
     "submit": "Submeter",
     "success-count": "Success: {count}",
     "sunday": "Sunday",
-    "shuffle": "Shuffle",
     "templates": "Templates:",
     "themes": "Temas",
     "thursday": "Thursday",
@@ -89,7 +92,6 @@
     "updated": "Updated",
     "upload": "Enviar",
     "url": "URL",
-    "users": "Users",
     "wednesday": "Wednesday",
     "yes": "Yes"
   },
@@ -108,6 +110,7 @@
     "group-not-found": "Group not found",
     "groups": "Groups",
     "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
+    "manage-groups": "Manage Groups",
     "user-group": "User Group",
     "user-group-created": "User Group Created",
     "user-group-creation-failed": "User Group Creation Failed"
@@ -116,15 +119,18 @@
     "create-a-new-meal-plan": "Criar novo Plano de Refeições",
     "dinner-this-week": "Jantar esta semana",
     "dinner-today": "Jantar Hoje",
+    "dinner-tonight": "DINNER TONIGHT",
     "edit-meal-plan": "Editar Plano de Refeições",
     "end-date": "Data de Fim",
     "group": "Group (Beta)",
     "meal-planner": "Planeador de Refeições",
     "meal-plans": "Planos de Refeições",
+    "mealplan-categories": "MEALPLAN CATEGORIES",
     "mealplan-created": "Mealplan created",
     "mealplan-creation-failed": "Mealplan creation failed",
     "mealplan-deleted": "Mealplan Deleted",
     "mealplan-deletion-failed": "Mealplan deletion failed",
+    "mealplan-settings": "Mealplan Settings",
     "mealplan-update-failed": "Mealplan update failed",
     "mealplan-updated": "Mealplan Updated",
     "no-meal-plan-defined-yet": "No meal plan defined yet",
@@ -254,6 +260,7 @@
     "current": "Versão:",
     "custom-pages": "Custom Pages",
     "edit-page": "Edit Page",
+    "events": "Events",
     "first-day-of-week": "First day of the week",
     "group-settings-updated": "Group Settings Updated",
     "homepage": {
@@ -267,7 +274,6 @@
     "latest": "Mais Recente",
     "local-api": "API Local",
     "locale-settings": "Locale settings",
-    "manage-users": "Manage Users",
     "migrations": "Migrations",
     "new-page": "New Page",
     "page-name": "Page Name",
@@ -305,6 +311,14 @@
       "theme-updated": "Theme updated",
       "warning": "Aviso"
     },
+    "token": {
+      "active-tokens": "ACTIVE TOKENS",
+      "api-token": "API Token",
+      "api-tokens": "API Tokens",
+      "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
+      "create-an-api-token": "Create an API Token",
+      "token-name": "Token Name"
+    },
     "toolbox": {
       "assign-all": "Assign All",
       "bulk-assign": "Bulk Assign",
@@ -319,7 +333,8 @@
       "meal-planner-webhooks": "Webhooks do Organizador de Refeições",
       "test-webhooks": "Webhooks de Teste",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Os URLs apresentados abaixo receberão webhooks que contêm os dados da receita para o plano de refeições no dia marcado. Atualmente, os webhooks serão executados a ",
-      "webhook-url": "Webhook URL"
+      "webhook-url": "Webhook URL",
+      "webhooks-caps": "WEBHOOKS"
     }
   },
   "signup": {
@@ -340,7 +355,8 @@
     "tag-deletion-failed": "Tag deletion failed",
     "tag-update-failed": "Tag update failed",
     "tag-updated": "Tag updated",
-    "tags": "Tags"
+    "tags": "Tags",
+    "untagged-count": "Untagged {count}"
   },
   "user": {
     "admin": "Admin",
@@ -364,6 +380,7 @@
     "link-name": "Link Name",
     "login": "Login",
     "logout": "Logout",
+    "manage-users": "Manage Users",
     "new-password": "New Password",
     "new-user": "New User",
     "password": "Password",
@@ -377,6 +394,7 @@
     "total-users": "Total Users",
     "upload-photo": "Upload Photo",
     "use-8-characters-or-more-for-your-password": "Use 8 characters or more for your password",
+    "user": "User",
     "user-created": "User created",
     "user-creation-failed": "User creation failed",
     "user-deleted": "User deleted",
