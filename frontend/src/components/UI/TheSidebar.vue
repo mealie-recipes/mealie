@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer v-model="showSidebar" width="180px" clipped app>
       <template v-slot:prepend>
-        <v-list-item two-line v-if="isLoggedIn">
+        <v-list-item two-line v-if="isLoggedIn" to="/admin/profile">
           <v-list-item-avatar color="accent" class="white--text">
             <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" />
             <div v-else>
@@ -132,11 +132,6 @@ export default {
           icon: "mdi-account",
           to: "/admin/profile",
           title: this.$t("settings.profile"),
-        },
-        {
-          icon: "mdi-food",
-          to: "/admin/meal-planner",
-          title: this.$t("meal-plan.meal-planner"),
         },
       ];
     },

@@ -23,7 +23,7 @@ def chowdown_zip():
 
 
 def test_upload_chowdown_zip(api_client: TestClient, api_routes: AppRoutes, chowdown_zip: Path, token):
-    upload_url = api_routes.migrations_source_upload("chowdown")
+    upload_url = api_routes.migrations_import_type_upload("chowdown")
     response = api_client.post(upload_url, files={"archive": chowdown_zip.open("rb")}, headers=token)
 
     assert response.status_code == 200
@@ -36,7 +36,7 @@ def test_import_chowdown_directory(api_client: TestClient, api_routes: AppRoutes
     api_client.delete(delete_url, headers=token)  # TODO: Manage Test Data better
     selection = chowdown_zip.name
 
-    import_url = api_routes.migrations_source_file_name_import("chowdown", selection)
+    import_url = api_routes.migrations_import_type_file_name_import("chowdown", selection)
     response = api_client.post(import_url, headers=token)
 
     assert response.status_code == 200
@@ -49,7 +49,7 @@ def test_import_chowdown_directory(api_client: TestClient, api_routes: AppRoutes
 
 def test_delete_chowdown_migration_data(api_client: TestClient, api_routes: AppRoutes, chowdown_zip: Path, token):
     selection = chowdown_zip.name
-    delete_url = api_routes.migrations_source_file_name_delete("chowdown", selection)
+    delete_url = api_routes.migrations_import_type_file_name_delete("chowdown", selection)
     response = api_client.delete(delete_url, headers=token)
 
     assert response.status_code == 200
@@ -71,7 +71,7 @@ def nextcloud_zip():
 
 
 def test_upload_nextcloud_zip(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip, token):
-    upload_url = api_routes.migrations_source_upload("nextcloud")
+    upload_url = api_routes.migrations_import_type_upload("nextcloud")
     response = api_client.post(upload_url, files={"archive": nextcloud_zip.open("rb")}, headers=token)
 
     assert response.status_code == 200
@@ -81,7 +81,7 @@ def test_upload_nextcloud_zip(api_client: TestClient, api_routes: AppRoutes, nex
 
 def test_import_nextcloud_directory(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip, token):
     selection = nextcloud_zip.name
-    import_url = api_routes.migrations_source_file_name_import("nextcloud", selection)
+    import_url = api_routes.migrations_import_type_file_name_import("nextcloud", selection)
     response = api_client.post(import_url, headers=token)
 
     assert response.status_code == 200
@@ -93,7 +93,7 @@ def test_import_nextcloud_directory(api_client: TestClient, api_routes: AppRoute
 
 def test_delete__nextcloud_migration_data(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip: Path, token):
     selection = nextcloud_zip.name
-    delete_url = api_routes.migrations_source_file_name_delete("nextcloud", selection)
+    delete_url = api_routes.migrations_import_type_file_name_delete("nextcloud", selection)
     response = api_client.delete(delete_url, headers=token)
 
     assert response.status_code == 200

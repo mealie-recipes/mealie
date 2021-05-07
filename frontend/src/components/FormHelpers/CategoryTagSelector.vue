@@ -100,7 +100,10 @@ export default {
       }
     },
     flat() {
-      return this.selected.length > 0 && this.solo;
+      if (this.selected) {
+        return this.selected.length > 0 && this.solo;
+      }
+      return false;
     },
   },
   methods: {

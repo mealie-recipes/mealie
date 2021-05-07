@@ -1,5 +1,4 @@
 import Admin from "@/pages/Admin";
-import MealPlanner from "@/pages/Admin/MealPlanner";
 import Migration from "@/pages/Admin/Migration";
 import Profile from "@/pages/Admin/Profile";
 import ManageUsers from "@/pages/Admin/ManageUsers";
@@ -27,13 +26,6 @@ export const adminRoutes = {
       component: Profile,
       meta: {
         title: "settings.profile",
-      },
-    },
-    {
-      path: "meal-planner",
-      component: MealPlanner,
-      meta: {
-        title: "meal-plan.meal-planner",
       },
     },
     {

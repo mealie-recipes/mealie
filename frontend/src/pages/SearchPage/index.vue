@@ -36,7 +36,6 @@
             {{ $t("search.tag-filter") }}
           </h3>
           <FilterSelector class="mb-1" @update="updateTagParams" />
-
           <CategoryTagSelector
             :solo="true"
             :dense="false"
@@ -66,7 +65,6 @@ export default {
   },
   data() {
     return {
-      searchString: "",
       maxResults: 21,
       searchResults: [],
       catFilter: {
@@ -96,6 +94,14 @@ export default {
     this.$store.dispatch("requestAllRecipes");
   },
   computed: {
+    searchString: {
+      set(q) {
+        this.$router.replace({ query: { ...this.$route.query, q } });
+      },
+      get() {
+        return this.$route.query.q || "";
+      },
+    },
     allRecipes() {
       return this.$store.getters.getAllRecipes;
     },
@@ -130,11 +136,6 @@ export default {
       } else {
         return this.fuzzyRecipes;
       }
-    },
-  },
-  watch: {
-    showRecipes(val) {
-      console.log(val);
     },
   },
   methods: {

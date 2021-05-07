@@ -35,9 +35,11 @@
           </v-btn>
         </v-btn-toggle>
       </template>
+
       <template v-slot:bottom>
         <v-virtual-scroll height="290" item-height="70" :items="availableThemes" class="mt-2">
           <template v-slot:default="{ item }">
+            <v-divider></v-divider>
             <v-list-item @click="selectedTheme = item">
               <v-list-item-avatar>
                 <v-icon large dark :color="item.colors.primary">
@@ -66,6 +68,7 @@
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
+            <v-divider></v-divider>
           </template>
         </v-virtual-scroll>
         <v-divider></v-divider>
@@ -116,7 +119,7 @@ export default {
   components: { StatCard, BaseDialog, ColorPickerDialog, VJsoneditor },
   data() {
     return {
-      jsonEditor: true,
+      jsonEditor: false,
       jsonEditorOptions: {
         mode: "code",
         search: false,
@@ -193,7 +196,6 @@ export default {
       this.availableThemes = await api.themes.requestAll();
     },
     editTheme(theme) {
-      console.log(theme);
       this.defaultData = theme;
       this.newTheme = false;
       this.$refs.themeDialog.open();
@@ -201,11 +203,9 @@ export default {
     createTheme() {
       this.newTheme = true;
       this.$refs.themeDialog.open();
-      console.log("Create Theme");
     },
     async processSubmit() {
       if (this.newTheme) {
-        console.log("New Theme");
         await api.themes.create(this.defaultData);
       } else {
         await api.themes.update(this.defaultData);
@@ -213,7 +213,6 @@ export default {
       this.getAllThemes();
     },
     async deleteTheme() {
-      console.log(this.defaultData);
       await api.themes.delete(this.defaultData.id);
       this.getAllThemes();
     },

@@ -1,13 +1,6 @@
 <template>
   <v-container>
-    <CardSection
-      :sortable="true"
-      :title="title"
-      :recipes="recipes"
-      :card-limit="9999"
-      @sort="sortAZ"
-      @sort-recent="sortRecent"
-    />
+    <CardSection :sortable="true" :title="title" :recipes="shownRecipes" @sort="assignSorted" />
   </v-container>
 </template>
 
@@ -22,20 +15,30 @@ export default {
     return {
       title: "",
       recipes: [],
+      sortedResults: [],
     };
   },
   computed: {
     currentCategory() {
       return this.$route.params.category;
     },
+    shownRecipes() {
+      if (this.sortedResults.length > 0) {
+        return this.sortedResults;
+      } else {
+        return this.recipes;
+      }
+    },
   },
   watch: {
     async currentCategory() {
+      this.sortedResults = [];
       this.getRecipes();
     },
   },
   mounted() {
     this.getRecipes();
+    this.sortedResults = [];
   },
   methods: {
     async getRecipes() {
@@ -43,11 +46,8 @@ export default {
       this.title = data.name;
       this.recipes = data.recipes;
     },
-    sortAZ() {
-      this.recipes.sort((a, b) => (a.name > b.name ? 1 : -1));
-    },
-    sortRecent() {
-      this.recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+    assignSorted(val) {
+      this.sortedResults = val.slice();
     },
   },
 };

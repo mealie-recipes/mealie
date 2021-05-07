@@ -10,12 +10,12 @@ from tests.app_routes import AppRoutes
 
 @fixture(scope="session")
 def default_user():
-    return UserOut(id=1, fullName="Change Me", email="changeme@email.com", group="Home", admin=True)
+    return UserOut(id=1, fullName="Change Me", email="changeme@email.com", group="Home", admin=True, tokens=[])
 
 
 @fixture(scope="session")
 def new_user():
-    return UserOut(id=3, fullName="My New User", email="newuser@email.com", group="Home", admin=False)
+    return UserOut(id=3, fullName="My New User", email="newuser@email.com", group="Home", admin=False, tokens=[])
 
 
 def test_superuser_login(api_client: TestClient, api_routes: AppRoutes, token):
@@ -45,6 +45,7 @@ def test_create_user(api_client: TestClient, api_routes: AppRoutes, token, new_u
         "password": "MyStrongPassword",
         "group": "Home",
         "admin": False,
+        "tokens": [],
     }
 
     response = api_client.post(api_routes.users, json=create_data, headers=token)
