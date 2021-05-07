@@ -2,14 +2,16 @@
   <StatCard icon="mdi-api" color="accent">
     <template v-slot:after-heading>
       <div class="ml-auto text-right">
-        <div class="body-3 grey--text font-weight-light" v-text="'API Tokens'" />
+        <h2 class="body-3 grey--text font-weight-light">
+          {{$t('settings.token.api-tokens')}}
+        </h2>
         <h3 class="display-2 font-weight-light text--primary">
           <small> {{ user.tokens.length }} </small>
         </h3>
       </div>
     </template>
     <template v-slot:bottom>
-      <v-subheader class="mb-n2">ACTIVE TOKENS</v-subheader>
+      <v-subheader class="mb-n2">{{$t('settings.token.active-tokens')}}</v-subheader>
       <v-virtual-scroll height="210" item-height="70" :items="user.tokens" class="mt-2">
         <template v-slot:default="{ item }">
           <v-divider></v-divider>
@@ -38,7 +40,7 @@
       <v-card-actions class="pb-1 pt-3">
         <v-spacer></v-spacer>
         <BaseDialog
-          :title="'Create an API Token'"
+          :title="$t('settings.token.create-an-api-token')"
           title-icon="mdi-api"
           @submit="createToken"
           :submit-text="buttonText"
@@ -46,13 +48,13 @@
         >
           <v-card-text>
             <v-form ref="newTokenForm">
-              <v-text-field v-model="name" label="Token Name" required> </v-text-field>
+              <v-text-field v-model="name" :label="$t('settings.token.token-name')" required> </v-text-field>
             </v-form>
 
             <div v-if="createdToken != ''">
               <v-textarea
                 class="mb-0 pb-0"
-                label="API Token"
+                :label="$t('settings.token.api-token')"
                 readonly
                 v-model="createdToken"
                 append-outer-icon="mdi-content-copy"
@@ -60,7 +62,7 @@
               >
               </v-textarea>
               <v-subheader class="text-center">
-                Copy this token for use with an external application. This token will not be viewable again.
+                {{$t('settings.token.copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again')}}
               </v-subheader>
             </div>
           </v-card-text>
@@ -107,9 +109,9 @@ export default {
     },
     buttonText() {
       if (this.createdToken === "") {
-        return "Create";
+        return this.$t('general.create');
       } else {
-        return "Close";
+        return this.$t('general.close');
       }
     },
   },

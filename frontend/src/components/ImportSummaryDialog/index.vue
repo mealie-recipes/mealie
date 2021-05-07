@@ -29,8 +29,8 @@
           <v-tab>{{ $t("general.themes") }}</v-tab>
           <v-tab>{{ $t("general.settings") }}</v-tab>
           <v-tab> {{ $t("settings.pages") }} </v-tab>
-          <v-tab>{{ $t("general.users") }}</v-tab>
-          <v-tab>{{ $t("general.groups") }}</v-tab>
+          <v-tab>{{ $t("user.users") }}</v-tab>
+          <v-tab>{{ $t("group.groups") }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item v-for="(table, index) in allTables" :key="index">
@@ -92,10 +92,10 @@ export default {
       return this.calculateNumbers(this.$t("general.themes"), this.themeData);
     },
     userNumbers() {
-      return this.calculateNumbers(this.$t("general.users"), this.userData);
+      return this.calculateNumbers(this.$t("user.users"), this.userData);
     },
     groupNumbers() {
-      return this.calculateNumbers(this.$t("general.groups"), this.groupData);
+      return this.calculateNumbers(this.$t("group.groups"), this.groupData);
     },
     pageNumbers() {
       return this.calculateNumbers(this.$t("settings.pages"), this.pageData);

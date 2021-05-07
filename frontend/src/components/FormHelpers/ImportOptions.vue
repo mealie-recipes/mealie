@@ -36,11 +36,11 @@ export default {
         },
         users: {
           value: true,
-          text: this.$t("general.users"),
+          text: this.$t("user.users"),
         },
         groups: {
           value: true,
-          text: this.$t("general.groups"),
+          text: this.$t("group.groups"),
         },
       },
     };

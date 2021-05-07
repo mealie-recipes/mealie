@@ -12,7 +12,7 @@
 
           <v-list-item-content>
             <v-list-item-title> {{ user.fullName }}</v-list-item-title>
-            <v-list-item-subtitle> {{ user.admin ? "Admin" : "User" }}</v-list-item-subtitle>
+            <v-list-item-subtitle> {{ user.admin ? $t('user.admin') : $t('user.user') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -155,7 +155,7 @@ export default {
         {
           icon: "mdi-account-group",
           to: "/admin/manage-users",
-          title: this.$t("settings.manage-users"),
+          title: this.$t("user.manage-users"),
         },
         {
           icon: "mdi-database-import",

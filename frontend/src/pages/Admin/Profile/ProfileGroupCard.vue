@@ -11,7 +11,7 @@
     </template>
     <template v-slot:bottom>
       <div v-if="todaysMeal">
-        <v-subheader>DINNER TONIGHT</v-subheader>
+        <v-subheader>{{$t('meal-plan.dinner-tonight')}}</v-subheader>
         <MobileRecipeCard
           :name="todaysMeal.name"
           :slug="todaysMeal.slug"
@@ -48,12 +48,12 @@
           <v-icon x-large>
             mdi-food-variant
           </v-icon>
-          <small> Mealplan Settings </small>
+          <small> {{$t('meal-plan.mealplan-settings')}} </small>
         </h3>
       </div>
       <v-divider></v-divider>
 
-      <v-subheader>MEALPLAN CATEGORIES</v-subheader>
+      <v-subheader>{{$t('meal-plan.mealplan-categories')}}</v-subheader>
       <v-card-text class="mt-0 pt-0">
         {{ $t("meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans") }}
       </v-card-text>
@@ -66,7 +66,7 @@
       />
 
       <v-divider></v-divider>
-      <v-subheader>WEBHOOKS</v-subheader>
+      <v-subheader>{{$t('settings.webhooks.webhooks-caps')}}</v-subheader>
       <v-card-text class="mt-0 pt-0">
         {{
           $t(
@@ -93,7 +93,7 @@
           <v-spacer></v-spacer>
           <v-btn small color="success" @click="addWebhook">
             <v-icon left> mdi-webhook </v-icon>
-            New
+            {{$t('general.new')}}
           </v-btn>
         </v-card-actions>
       </v-card-text>
