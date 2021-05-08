@@ -14,6 +14,7 @@ const aboutURLs = {
   event: id => `${prefix}/events/${id}`,
 
   allNotifications: `${prefix}/events/notifications`,
+  testNotifications: `${prefix}/events/notifications/test`,
   notification: id => `${prefix}/events/notifications/${id}`,
 };
 
@@ -43,6 +44,14 @@ export const aboutAPI = {
 
   async deleteNotification(id) {
     const response = await apiReq.delete(aboutURLs.notification(id));
+    return response.data;
+  },
+  async testNotificationByID(id) {
+    const response = await apiReq.post(aboutURLs.testNotifications, { id: id });
+    return response.data;
+  },
+  async testNotificationByURL(url) {
+    const response = await apiReq.post(aboutURLs.testNotifications, { test_url: url });
     return response.data;
   },
   //   async getAppInfo() {

@@ -1,13 +1,19 @@
-from fastapi import APIRouter, Depends
+from http.client import HTTPException
+
+from fastapi import APIRouter, Depends, status
+from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.event_notifications import EventNotificationIn, EventNotificationOut
-from mealie.schema.events import EventsOut
+from mealie.schema.events import Event, EventCategory, EventsOut, TestEvent
 from mealie.schema.user import UserInDB
+from mealie.services.events import post_notifications
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/events", tags=["App Events"])
+
+logger = get_logger()
 
 
 @router.get("", response_model=EventsOut)
@@ -41,8 +47,33 @@ async def create_event_notification(
     current_user: UserInDB = Depends(get_current_user),
 ):
     """ Create event_notification in the Database """
-    
+
     return db.event_notifications.create(session, event_data)
+
+
+@router.post("/notifications/test")
+async def test_notification(
+    test_data: TestEvent,
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
+):
+    """ Create event_notification in the Database """
+
+    if test_data.id:
+        print("TEST ID")
+        event_obj: EventNotificationIn = db.event_notifications.get(session, test_data.id)
+        test_data.test_url = event_obj.notification_url
+
+    test_event = Event(
+        title="Test Notification",
+        text="This is a test message from the Mealie API server",
+        category=EventCategory.general.value,
+    )
+    try:
+        post_notifications(test_event, [test_data.test_url])
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @router.get("/notifications", response_model=list[EventNotificationOut])

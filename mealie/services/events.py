@@ -1,8 +1,21 @@
+import apprise
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.events import Event, EventCategory
-from mealie.services.event_notifications import post_notifications
 from sqlalchemy.orm.session import Session
+
+
+def post_notifications(event: Event, notification_urls=list[str]):
+    asset = apprise.AppriseAsset(async_mode=False)
+    apobj = apprise.Apprise(asset=asset)
+
+    for dest in notification_urls:
+        apobj.add(dest)
+
+    apobj.notify(
+        body=event.text,
+        title=event.title,
+    )
 
 
 def save_event(title, text, category, session: Session):
@@ -11,7 +24,8 @@ def save_event(title, text, category, session: Session):
     db.events.create(session, event.dict())
 
     notification_objects = db.event_notifications.get(session=session, match_value=True, match_key=category, limit=9999)
-    post_notifications(event, notification_objects)
+    notification_urls = [x.notification_url for x in notification_objects]
+    post_notifications(event, notification_urls)
 
 
 def create_general_event(title, text, session=None):

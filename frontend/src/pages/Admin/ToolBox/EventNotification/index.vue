@@ -14,9 +14,9 @@
           </template>
           <v-card-text class="mt-2">
             We use the <a href="https://github.com/caronc/apprise/wiki" target="_blanks"> Apprise </a> library to
-            generate notifications. They offer many options for services to use. Refer to their wiki for a comprehensive
-            guide on how to create the URL for your service. If available, selecting the type of your notification can
-            include extra features Here are some common choices.
+            generate notifications. They offer many options for services to use for notifications. Refer to their wiki
+            for a comprehensive guide on how to create the URL for your service. If available, selecting the type of
+            your notification can include extra features Here are some common choices.
 
             <div class="d-flex justify-space-around mt-1">
               <a href="https://github.com/caronc/apprise/wiki/Notify_gotify" target="_blanks"> Gotify </a>
@@ -33,6 +33,10 @@
               </v-select>
               <v-text-field label="Name" v-model="newNotification.name"> </v-text-field>
               <v-text-field label="Notification URL" v-model="newNotification.notificationUrl"> </v-text-field>
+              <v-btn class="d-flex ml-auto" small color="info" @click="testByURL(newNotification.notificationUrl)">
+                <v-icon left> mdi-test-tube</v-icon>
+                Test
+              </v-btn>
               <v-subheader class="pa-0 mb-0">
                 Select the events you would like to recieve notifications for on this URL
               </v-subheader>
@@ -55,31 +59,31 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">
+                <th class="text-center">
                   Type
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   Name
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   General
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   Recipe
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   Backup
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   Scheduled
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   Migration
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   Group
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                   User
                 </th>
               </tr>
@@ -87,7 +91,7 @@
             <tbody>
               <tr v-for="(item, index) in notifications" :key="index">
                 <td>
-                  <v-avatar size="35" class="ma-1" color="primary">
+                  <v-avatar size="35" class="ma-1" :color="getIcon(item.type).icon ? 'primary' : undefined">
                     <v-icon dark v-if="getIcon(item.type).icon"> {{ getIcon(item.type).icon }}</v-icon>
                     <v-img v-else :src="getIcon(item.type).image"> </v-img>
                   </v-avatar>
@@ -96,30 +100,35 @@
                 <td>
                   {{ item.name }}
                 </td>
-                <td>
+                <td class="text-center">
                   <v-icon color="success"> {{ item.general ? "mdi-check" : "" }} </v-icon>
                 </td>
-                <td>
+                <td class="text-center">
                   <v-icon color="success"> {{ item.recipe ? "mdi-check" : "" }} </v-icon>
                 </td>
-                <td>
+                <td class="text-center">
                   <v-icon color="success"> {{ item.backup ? "mdi-check" : "" }} </v-icon>
                 </td>
-                <td>
+                <td class="text-center">
                   <v-icon color="success"> {{ item.scheduled ? "mdi-check" : "" }} </v-icon>
                 </td>
-                <td>
+                <td class="text-center">
                   <v-icon color="success"> {{ item.migration ? "mdi-check" : "" }} </v-icon>
                 </td>
-                <td>
+                <td class="text-center">
                   <v-icon color="success"> {{ item.group ? "mdi-check" : "" }} </v-icon>
                 </td>
-                <td>
+                <td class="text-center">
                   <v-icon color="success"> {{ item.user ? "mdi-check" : "" }} </v-icon>
                 </td>
                 <td>
-                  <v-btn small icon color="error" @click="deleteNotification(item.id)">
+                  <v-btn class="mx-1" small color="error" @click="deleteNotification(item.id)">
                     <v-icon> mdi-delete </v-icon>
+                    Delete
+                  </v-btn>
+                  <v-btn small color="info" @click="testByID(item.id)">
+                    <v-icon left> mdi-test-tube</v-icon>
+                    Test
                   </v-btn>
                 </td>
               </tr>
@@ -162,11 +171,19 @@ export default {
         },
         {
           text: "Discord",
-          icon: "mdi-discord",
+          image: "./static/discord.svg",
         },
         {
           text: "Gotify",
           image: "./static/gotify.png",
+        },
+        {
+          text: "Home Assistant",
+          image: "./static/home-assistant.png",
+        },
+        {
+          text: "Pushover",
+          image: "./static/pushover.svg",
         },
       ],
     };
@@ -189,6 +206,12 @@ export default {
     async deleteNotification(id) {
       await api.about.deleteNotification(id);
       this.getAllNotifications();
+    },
+    async testByID(id) {
+      await api.about.testNotificationByID(id);
+    },
+    async testByURL(url) {
+      await api.about.testNotificationByURL(url);
     },
   },
 };
