@@ -12,6 +12,9 @@ const aboutURLs = {
   statistics: `${prefix}/statistics`,
   events: `${prefix}/events`,
   event: id => `${prefix}/events/${id}`,
+
+  allNotifications: `${prefix}/events/notifications`,
+  notification: id => `${prefix}/events/notifications/${id}`,
 };
 
 export const aboutAPI = {
@@ -26,6 +29,21 @@ export const aboutAPI = {
   async deleteAllEvents() {
     const resposne = await apiReq.delete(aboutURLs.events);
     return resposne.data;
+  },
+
+  async allEventNotifications() {
+    const response = await apiReq.get(aboutURLs.allNotifications);
+    return response.data;
+  },
+
+  async createNotification(data) {
+    const response = await apiReq.post(aboutURLs.allNotifications, data);
+    return response.data;
+  },
+
+  async deleteNotification(id) {
+    const response = await apiReq.delete(aboutURLs.notification(id));
+    return response.data;
   },
   //   async getAppInfo() {
   //     const response = await apiReq.get(aboutURLs.version);

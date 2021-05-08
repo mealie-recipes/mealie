@@ -1,7 +1,7 @@
 from logging import getLogger
 
 from mealie.db.db_base import BaseDocument
-from mealie.db.models.event import Event
+from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlanModel
 from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
@@ -10,6 +10,7 @@ from mealie.db.models.sign_up import SignUp
 from mealie.db.models.theme import SiteThemeModel
 from mealie.db.models.users import LongLiveToken, User
 from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
+from mealie.schema.event_notifications import EventNotificationIn
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.meal import MealPlanInDB
 from mealie.schema.recipe import Recipe
@@ -156,6 +157,13 @@ class _Events(BaseDocument):
         self.schema = EventSchema
 
 
+class _EventNotification(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "id"
+        self.sql_model = EventNotification
+        self.schema = EventNotificationIn
+
+
 class Database:
     def __init__(self) -> None:
         self.recipes = _Recipes()
@@ -170,6 +178,7 @@ class Database:
         self.groups = _Groups()
         self.custom_pages = _CustomPages()
         self.events = _Events()
+        self.event_notifications = _EventNotification()
 
 
 db = Database()
