@@ -112,13 +112,7 @@ export default {
     },
 
     async importBackup(data) {
-      this.loading = true;
-      const response = await api.backups.import(data.name, data);
-      if (response) {
-        const importData = response.data;
-        this.$refs.report.open(importData);
-      }
-      this.loading = false;
+      this.$refs.report.open(data);
     },
 
     async createBackup() {

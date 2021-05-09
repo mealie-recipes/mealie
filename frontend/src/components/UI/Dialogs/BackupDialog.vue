@@ -8,7 +8,9 @@
       :loading="loading"
     >
       <template v-slot:open="{ open }">
-        <v-btn @click="open" class="mx-2" small :color="color"> <v-icon left> mdi-plus </v-icon> {{$t('general.custom')}} </v-btn>
+        <v-btn @click="open" class="mx-2" small :color="color">
+          <v-icon left> mdi-plus </v-icon> {{ $t("general.custom") }}
+        </v-btn>
       </template>
       <v-card-text class="mt-6">
         <v-text-field dense :label="$t('settings.backup.backup-tag')" v-model="tag"></v-text-field>

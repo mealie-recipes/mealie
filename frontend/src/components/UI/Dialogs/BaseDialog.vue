@@ -1,7 +1,12 @@
 <template>
   <div>
     <slot name="open" v-bind="{ open }"> </slot>
-    <v-dialog v-model="dialog" :width="modalWidth + 'px'" :content-class="top ? 'top-dialog' : undefined">
+    <v-dialog
+      v-model="dialog"
+      :width="modalWidth + 'px'"
+      :content-class="top ? 'top-dialog' : undefined"
+      :fullscreen="$vuetify.breakpoint.xsOnly"
+    >
       <v-card height="100%">
         <v-app-bar dark :color="color" class="mt-n1 mb-0">
           <v-icon large left>
@@ -24,6 +29,7 @@
             <v-btn color="error" text @click="deleteEvent" v-if="$listeners.delete">
               {{ $t("general.delete") }}
             </v-btn>
+            <slot name="extra-buttons"> </slot>
             <v-btn color="success" type="submit" @click="submitEvent">
               {{ submitText }}
             </v-btn>
