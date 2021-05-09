@@ -16,7 +16,7 @@ logger = root_logger.get_logger()
 # TODO Fix Scheduler
 
 
-@scheduler.scheduled_job(trigger="interval", seconds=30)
+@scheduler.scheduled_job(trigger="interval", minutes=1440)
 def purge_events_database():
     """
     Ran daily. Purges all events after 100
