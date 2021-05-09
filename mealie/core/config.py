@@ -95,6 +95,7 @@ def determine_sqlite_path(path=False, suffix=DB_VERSION) -> str:
 class AppSettings(BaseSettings):
     global DATA_DIR
     PRODUCTION: bool = Field(True, env="PRODUCTION")
+    BASE_URL: str = "http://localhost:8080"
     IS_DEMO: bool = False
     API_PORT: int = 9000
     API_DOCS: bool = True

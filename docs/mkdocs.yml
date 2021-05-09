@@ -55,6 +55,7 @@ nav:
       - Working With Recipes: "getting-started/recipes.md"
       - Organizing Recipes: "getting-started/organizing-recipes.md"
       - Planning Meals: "getting-started/meal-planner.md"
+      - External Notifications: "getting-started/notifications.md"
       - iOS Shortcuts: "getting-started/ios.md"
       - Site Administration:
           - User Settings: "site-administration/user-settings.md"

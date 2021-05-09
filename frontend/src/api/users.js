@@ -71,7 +71,7 @@ export const userAPI = {
   },
 
   delete(id) {
-    return apiReq.delete(usersURLs.userID(id), null, deleteErrorText, function() {
+    return apiReq.delete(usersURLs.userID(id), null, deleteErrorText, () => {
       return i18n.t("user.user-deleted");
     });
   },

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
@@ -25,16 +25,22 @@ def get_all_meals(
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def create_meal_plan(
-    data: MealPlanIn, session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)
+    background_tasks: BackgroundTasks,
+    data: MealPlanIn,
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
 ):
     """ Creates a meal plan database entry """
     processed_plan = process_meals(session, data)
-    create_group_event("Meal Plan Created", f"Mealplan Created for '{current_user.group}'")
+    background_tasks.add_task(
+        create_group_event, "Meal Plan Created", f"Mealplan Created for '{current_user.group}'", session=session
+    )
     return db.meals.create(session, processed_plan.dict())
 
 
 @router.put("/{plan_id}")
 def update_meal_plan(
+    background_tasks: BackgroundTasks,
     plan_id: str,
     meal_plan: MealPlanIn,
     session: Session = Depends(generate_session),
@@ -45,13 +51,16 @@ def update_meal_plan(
     processed_plan = MealPlanInDB(uid=plan_id, **processed_plan.dict())
     try:
         db.meals.update(session, plan_id, processed_plan.dict())
-        create_group_event("Meal Plan Updated", f"Mealplan Updated for '{current_user.group}'")
+        background_tasks.add_task(
+            create_group_event, "Meal Plan Updated", f"Mealplan Updated for '{current_user.group}'", session=session
+        )
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.delete("/{plan_id}")
 def delete_meal_plan(
+    background_tasks: BackgroundTasks,
     plan_id,
     session: Session = Depends(generate_session),
     current_user: UserInDB = Depends(get_current_user),
@@ -60,7 +69,9 @@ def delete_meal_plan(
 
     try:
         db.meals.delete(session, plan_id)
-        create_group_event("Meal Plan Deleted", f"Mealplan Deleted for '{current_user.group}'")
+        background_tasks.add_task(
+            create_group_event, "Meal Plan Deleted", f"Mealplan Deleted for '{current_user.group}'", session=session
+        )
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 

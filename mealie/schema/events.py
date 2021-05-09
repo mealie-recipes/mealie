@@ -30,3 +30,8 @@ class Event(CamelModel):
 class EventsOut(CamelModel):
     total: int
     events: list[Event]
+
+
+class TestEvent(CamelModel):
+    id: Optional[int]
+    test_url: Optional[str]

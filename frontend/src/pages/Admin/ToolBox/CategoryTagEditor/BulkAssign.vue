@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-dialog
+    <BaseDialog
       ref="assignDialog"
       title-icon="mdi-tag"
       color="primary"
@@ -33,7 +33,7 @@
           :single-column="true"
         />
       </template>
-    </base-dialog>
+    </BaseDialog>
 
     <v-btn @click="openDialog" small color="success">
       {{ $t("settings.toolbox.bulk-assign") }}
