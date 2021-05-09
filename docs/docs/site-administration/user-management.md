@@ -56,7 +56,7 @@ There are two ways to create users in Mealie.
 ### Manually Creating a User
 In the Manage Users section you are able to create a user by providing the necessary information in the pop-up dialog. 
 
-![Create User Image](../assets/img/add-user.png){: align=right style="height:50%;width:50%"}
+![Create User Image](../assets/img/add-user.webp){: align=right style="height:50%;width:50%"}
 
 - User Name
 - Email
@@ -69,7 +69,7 @@ When creating users manually, their password will be set from the default assign
 ### Sign Up Links
 You can generate sign-up links in the Manage Users section. Select the "create link" button and provide the name of the link and if the user will be an administrator. Once a link is created it will populate in the table where you'll be able to see all active links, delete a link, and copy the link as needed. 
 
-![Sign Up Links Image](../assets/img/sign-up-links.png)
+![Sign Up Links Image](../assets/img/sign-up-links.webp)
 
 !!! tip 
     When a link is used it is automatically removed from the database.
