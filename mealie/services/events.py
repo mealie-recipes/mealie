@@ -5,12 +5,27 @@ from mealie.schema.events import Event, EventCategory
 from sqlalchemy.orm.session import Session
 
 
-def post_notifications(event: Event, notification_urls=list[str]):
+def test_notification(notification_url, event=None) -> bool:
+
+    if event is None:
+        event = Event(
+            title="Test Notification",
+            text="This is a test message from the Mealie API server",
+            category=EventCategory.general.value,
+        )
+
+    post_notifications(event, [notification_url], hard_fail=True)
+
+
+def post_notifications(event: Event, notification_urls=list[str], hard_fail=False):
     asset = apprise.AppriseAsset(async_mode=False)
     apobj = apprise.Apprise(asset=asset)
 
     for dest in notification_urls:
-        apobj.add(dest)
+        status = apobj.add(dest)
+
+        if not status and hard_fail:
+            raise Exception("Apprise URL Add Failed")
 
     apobj.notify(
         body=event.text,

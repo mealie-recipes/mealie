@@ -8,6 +8,8 @@ class DeclaredTypes(str, Enum):
     general = "General"
     discord = "Discord"
     gotify = "Gotify"
+    pushover = "Pushover"
+    home_assistant = "Home Assistant"
 
 
 class EventNotificationOut(CamelModel):

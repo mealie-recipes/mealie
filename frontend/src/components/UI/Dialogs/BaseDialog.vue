@@ -2,7 +2,7 @@
   <div>
     <slot name="open" v-bind="{ open }"> </slot>
     <v-dialog v-model="dialog" :width="modalWidth + 'px'" :content-class="top ? 'top-dialog' : undefined">
-      <v-card class="pb-10" height="100%">
+      <v-card height="100%">
         <v-app-bar dark :color="color" class="mt-n1 mb-0">
           <v-icon large left>
             {{ titleIcon }}
@@ -11,7 +11,9 @@
           <v-spacer></v-spacer>
         </v-app-bar>
         <v-progress-linear class="mt-1" v-if="loading" indeterminate color="primary"></v-progress-linear>
-        <slot> </slot>
+
+        <slot v-bind="{ submitEvent }"> </slot>
+
         <v-card-actions>
           <slot name="card-actions">
             <v-btn text color="grey" @click="dialog = false">
@@ -22,13 +24,15 @@
             <v-btn color="error" text @click="deleteEvent" v-if="$listeners.delete">
               {{ $t("general.delete") }}
             </v-btn>
-            <v-btn color="success" @click="submitEvent">
+            <v-btn color="success" type="submit" @click="submitEvent">
               {{ submitText }}
             </v-btn>
           </slot>
         </v-card-actions>
 
-        <slot name="below-actions"> </slot>
+        <div class="pb-4" v-if="$slots['below-actions']">
+          <slot name="below-actions"> </slot>
+        </div>
       </v-card>
     </v-dialog>
   </div>
@@ -59,6 +63,9 @@ export default {
     submitText: {
       default: () => i18n.t("general.create"),
     },
+    keepOpen: {
+      default: false,
+    },
   },
   data() {
     return {
@@ -68,7 +75,7 @@ export default {
   },
   computed: {
     determineClose() {
-      return this.submitted && !this.loading;
+      return this.submitted && !this.loading && !this.keepOpen;
     },
   },
   watch: {
@@ -82,6 +89,7 @@ export default {
   },
   methods: {
     submitEvent() {
+      console.log("Submit");
       this.$emit("submit");
       this.submitted = true;
     },

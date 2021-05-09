@@ -1,5 +1,6 @@
 import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
+import i18n from "@/i18n.js";
 
 const prefix = baseURL + "about";
 
@@ -47,11 +48,21 @@ export const aboutAPI = {
     return response.data;
   },
   async testNotificationByID(id) {
-    const response = await apiReq.post(aboutURLs.testNotifications, { id: id });
+    const response = await apiReq.post(
+      aboutURLs.testNotifications,
+      { id: id },
+      () => i18n.t("events.something-went-wrong"),
+      () => i18n.t("events.test-message-sent")
+    );
     return response.data;
   },
   async testNotificationByURL(url) {
-    const response = await apiReq.post(aboutURLs.testNotifications, { test_url: url });
+    const response = await apiReq.post(
+      aboutURLs.testNotifications,
+      { test_url: url },
+      () => i18n.t("events.something-went-wrong"),
+      () => i18n.t("events.test-message-sent")
+    );
     return response.data;
   },
   //   async getAppInfo() {
