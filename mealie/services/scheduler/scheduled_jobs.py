@@ -1,7 +1,10 @@
+import datetime
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from mealie.core import root_logger
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
+from mealie.db.models.event import Event
 from mealie.schema.user import GroupInDB
 from mealie.services.backups.exports import auto_backup_job
 from mealie.services.scheduler.global_scheduler import scheduler
@@ -11,6 +14,21 @@ from mealie.utils.post_webhooks import post_webhooks
 logger = root_logger.get_logger()
 
 # TODO Fix Scheduler
+
+
+@scheduler.scheduled_job(trigger="interval", seconds=30)
+def purge_events_database():
+    """
+    Ran daily. Purges all events after 100
+    """
+    logger.info("Purging Events in Database")
+    expiration_days = 7
+    limit = datetime.datetime.now() - datetime.timedelta(days=expiration_days)
+    session = create_session()
+    session.query(Event).filter(Event.time_stamp <= limit).delete()
+    session.commit()
+    session.close()
+    logger.info("Events Purges")
 
 
 @scheduler.scheduled_job(trigger="interval", minutes=30)
