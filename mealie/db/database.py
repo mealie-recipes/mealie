@@ -38,7 +38,7 @@ class _Recipes(BaseDocument):
         return f"{slug}.{extension}"
 
     def count_uncategorized(self, session: Session, count=True, override_schema=None) -> int:
-        return self._countr_attribute(
+        return self._count_attribute(
             session,
             attribute_name=RecipeModel.recipe_category,
             attr_match=None,
@@ -47,7 +47,7 @@ class _Recipes(BaseDocument):
         )
 
     def count_untagged(self, session: Session, count=True, override_schema=None) -> int:
-        return self._countr_attribute(
+        return self._count_attribute(
             session, attribute_name=RecipeModel.tags, attr_match=None, count=count, override_schema=override_schema
         )
 
