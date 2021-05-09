@@ -178,7 +178,7 @@ class BaseDocument:
         else:
             return session.query(self.sql_model).filter_by(**{match_key: match_value}).count()
 
-    def _countr_attribute(
+    def _count_attribute(
         self, session: Session, attribute_name: str, attr_match: str = None, count=True, override_schema=None
     ) -> Union[int, BaseModel]:
         eff_schema = override_schema or self.schema

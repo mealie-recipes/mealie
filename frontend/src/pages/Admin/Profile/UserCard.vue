@@ -123,19 +123,12 @@ export default {
       },
       showPassword: false,
       loading: false,
-      user: {
-        fullName: "",
-        email: "",
-        group: "",
-        admin: false,
-        id: 0,
-      },
+      user: {},
     };
   },
 
   computed: {
     userProfileImage() {
-      this.resetImage();
       return `api/users/${this.user.id}/image`;
     },
   },
@@ -144,10 +137,13 @@ export default {
     this.refreshProfile();
   },
 
-  methods: {
-    resetImage() {
+  watch: {
+    user() {
       this.hideImage = false;
     },
+  },
+
+  methods: {
     async refreshProfile() {
       this.user = await api.users.self();
     },

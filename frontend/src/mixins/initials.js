@@ -1,6 +1,7 @@
 export const initials = {
   computed: {
     initials() {
+      if (!this.user.fullName) return "00"
       const allNames = this.user.fullName.trim().split(" ");
       const initials = allNames.reduce(
         (acc, curr, index) => {
