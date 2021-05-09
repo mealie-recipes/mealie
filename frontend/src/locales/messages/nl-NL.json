@@ -9,6 +9,7 @@
     "api-port": "API Poort",
     "application-mode": "Applicatie modus",
     "database-type": "Databasetype",
+    "database-url": "Database URL",
     "default-group": "Standaardgroep",
     "demo": "Demo",
     "demo-status": "Demo status",
@@ -17,10 +18,10 @@
     "download-recipe-json": "Laatste Ingelezen JSON",
     "not-demo": "Niet Demo",
     "production": "Productie",
-    "database-url": "Database URL",
     "version": "Versie"
   },
   "category": {
+    "category": "Categorie",
     "category-created": "Categorie aangemaakt",
     "category-creation-failed": "Categorie aanmaken mislukt",
     "category-deleted": "Categorie Verwijderd",
@@ -28,16 +29,18 @@
     "category-filter": "Categorie Filter",
     "category-update-failed": "Categorie bijwerken mislukt",
     "category-updated": "Categorie bijgewerkt",
-    "category": "Categorie"
+    "uncategorized-count": "Uncategorized {count}"
   },
   "general": {
     "apply": "Toepassen",
     "cancel": "Annuleren",
+    "clear": "Clear",
     "close": "Sluiten",
     "confirm": "Bevestigen",
     "create": "Maak",
     "created": "Aangemaakt op",
     "current-parenthesis": "(Huidig)",
+    "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "Verwijderen",
     "disabled": "Uitgeschakeld",
@@ -53,7 +56,6 @@
     "filter": "Filter",
     "friday": "Vrijdag",
     "get": "Haal op",
-    "groups": "Groepen",
     "image": "Afbeelding",
     "image-upload-failed": "Afbeelding uploaden mislukt",
     "import": "Importeren",
@@ -61,11 +63,12 @@
     "link": "Koppeling",
     "monday": "Maandag",
     "name": "Naam",
+    "new": "New",
     "no": "Nee",
     "ok": "Ok",
     "options": "Opties:",
-    "rating": "Beoordeling",
     "random": "Willekeurig",
+    "rating": "Beoordeling",
     "recent": "Recent(e)",
     "recipes": "Recepten",
     "rename-object": "Hernoem {0}",
@@ -73,13 +76,13 @@
     "saturday": "Zaterdag",
     "save": "Opslaan",
     "settings": "Instellingen",
+    "shuffle": "Willekeurig",
     "sort": "Sorteren",
     "sort-alphabetically": "Alfabetisch",
     "status": "Status",
     "submit": "Verzenden",
     "success-count": "Succes: {count}",
     "sunday": "Zondag",
-    "shuffle": "Willekeurig",
     "templates": "Sjablonen:",
     "themes": "Thema's",
     "thursday": "Donderdag",
@@ -89,7 +92,6 @@
     "updated": "Bijgewerkt",
     "upload": "Uploaden",
     "url": "URL",
-    "users": "Gebruikers",
     "wednesday": "Woensdag",
     "yes": "Ja"
   },
@@ -108,6 +110,7 @@
     "group-not-found": "Groep niet gevonden",
     "groups": "Groepen",
     "groups-can-only-be-set-by-administrators": "Groepen kunnen alleen worden ingesteld door beheerders",
+    "manage-groups": "Manage Groups",
     "user-group": "Gebruikersgroep",
     "user-group-created": "Gebruikersgroep aangemaakt",
     "user-group-creation-failed": "Aanmaken gebruikersgroep is mislukt"
@@ -116,15 +119,18 @@
     "create-a-new-meal-plan": "Maak een nieuw Maaltijdplan",
     "dinner-this-week": "Het avondeten deze week",
     "dinner-today": "Het avondeten vandaag",
+    "dinner-tonight": "DINNER TONIGHT",
     "edit-meal-plan": "Maaltijdplan bewerken",
     "end-date": "Einddatum",
     "group": "Groep (Beta)",
     "meal-planner": "Maaltijd planner",
     "meal-plans": "Maaltijd plannen",
+    "mealplan-categories": "MEALPLAN CATEGORIES",
     "mealplan-created": "Maaltijdplan aangemaakt",
     "mealplan-creation-failed": "Maaltijdplan aanmaken mislukt",
     "mealplan-deleted": "Maaltijdplan verwijderd",
     "mealplan-deletion-failed": "Maaltijdplan verwijderen mislukt",
+    "mealplan-settings": "Mealplan Settings",
     "mealplan-update-failed": "Maaltijdplan bijwerken mislukt",
     "mealplan-updated": "Maaltijdplan bijgewerkt",
     "no-meal-plan-defined-yet": "Nog geen maaltijdplan gedefinieerd",
@@ -254,6 +260,7 @@
     "current": "Versie:",
     "custom-pages": "Aangepaste paginas",
     "edit-page": "Pagina Bewerken",
+    "events": "Events",
     "first-day-of-week": "Eerste dag van de week",
     "group-settings-updated": "Groepsinstellingen bijgewerkt",
     "homepage": {
@@ -267,7 +274,6 @@
     "latest": "Laatste",
     "local-api": "Lokale API",
     "locale-settings": "Lokale instellingen",
-    "manage-users": "Beheer gebruikers",
     "migrations": "Migraties",
     "new-page": "Nieuwe pagina",
     "page-name": "Pagina naam",
@@ -305,6 +311,14 @@
       "theme-updated": "Thema bijgewerkt",
       "warning": "Waarschuwing"
     },
+    "token": {
+      "active-tokens": "ACTIVE TOKENS",
+      "api-token": "API Token",
+      "api-tokens": "API Tokens",
+      "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
+      "create-an-api-token": "Create an API Token",
+      "token-name": "Token Name"
+    },
     "toolbox": {
       "assign-all": "Alles toewijzen",
       "bulk-assign": "Bulk toewijzen",
@@ -319,7 +333,8 @@
       "meal-planner-webhooks": "Maaltijdplanner Webhooks",
       "test-webhooks": "Webhooks testen",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "De onderstaande URL's ontvangen webhooks met receptgegevens voor het maaltijdplan op de geplande dag. Momenteel zullen Webhooks uitvoeren op",
-      "webhook-url": "Webhook URL"
+      "webhook-url": "Webhook URL",
+      "webhooks-caps": "WEBHOOKS"
     }
   },
   "signup": {
@@ -340,7 +355,8 @@
     "tag-deletion-failed": "Label verwijderen mislukt",
     "tag-update-failed": "Label update mislukt",
     "tag-updated": "Label bijgewerkt",
-    "tags": "Labels"
+    "tags": "Labels",
+    "untagged-count": "Untagged {count}"
   },
   "user": {
     "admin": "Beheerder",
@@ -364,6 +380,7 @@
     "link-name": "Koppeling Naam",
     "login": "Inloggen",
     "logout": "Uitloggen",
+    "manage-users": "Manage Users",
     "new-password": "Nieuw Wachtwoord",
     "new-user": "Nieuwe Gebruiker",
     "password": "Wachtwoord",
@@ -377,6 +394,7 @@
     "total-users": "Totaal Gebruikers",
     "upload-photo": "Foto uploaden",
     "use-8-characters-or-more-for-your-password": "Gebruik 8 tekens of meer voor uw wachtwoord",
+    "user": "User",
     "user-created": "Gebruiker aangemaakt",
     "user-creation-failed": "Aanmaken van gebruiker mislukt",
     "user-deleted": "Gebruiker verwijderd",
