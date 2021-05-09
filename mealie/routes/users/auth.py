@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, Request, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from mealie.core import security
@@ -15,6 +15,7 @@ router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 @router.post("/token/long")
 @router.post("/token")
 def get_token(
+    background_tasks: BackgroundTasks,
     request: Request,
     data: OAuth2PasswordRequestForm = Depends(),
     session: Session = Depends(generate_session),
@@ -25,7 +26,9 @@ def get_token(
     user = authenticate_user(session, email, password)
 
     if not user:
-        create_user_event("Failed Login", f"Username: {email}, Source IP: '{request.client.host}'")
+        background_tasks.add_task(
+            create_user_event, "Failed Login", f"Username: {email}, Source IP: '{request.client.host}'"
+        )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             headers={"WWW-Authenticate": "Bearer"},

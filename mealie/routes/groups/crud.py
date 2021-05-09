@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
@@ -32,6 +32,7 @@ async def get_current_user_group(
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 async def create_group(
+    background_tasks: BackgroundTasks,
     group_data: GroupBase,
     current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
@@ -40,7 +41,7 @@ async def create_group(
 
     try:
         db.groups.create(session, group_data.dict())
-        create_group_event("Group Created", f"'{group_data.name}' created")
+        background_tasks.add_task(create_group_event, "Group Created", f"'{group_data.name}' created", session)
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
@@ -58,7 +59,10 @@ async def update_group_data(
 
 @router.delete("/{id}")
 async def delete_user_group(
-    id: int, current_user=Depends(get_current_user), session: Session = Depends(generate_session)
+    background_tasks: BackgroundTasks,
+    id: int,
+    current_user: UserInDB = Depends(get_current_user),
+    session: Session = Depends(generate_session),
 ):
     """ Removes a user group from the database """
 
@@ -73,5 +77,8 @@ async def delete_user_group(
     if group.users != []:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="GROUP_WITH_USERS")
 
-    create_group_event("Group Deleted", f"'{group.name}' Deleted")
+    background_tasks.add_task(
+        create_group_event, "Group Deleted", f"'{group.name}' deleted by {current_user.full_name}", session
+    )
+
     db.groups.delete(session, id)

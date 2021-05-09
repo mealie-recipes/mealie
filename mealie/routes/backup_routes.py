@@ -2,7 +2,7 @@ import operator
 import shutil
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from mealie.core.config import app_dirs
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
@@ -33,7 +33,7 @@ def available_imports():
 
 
 @router.post("/export/database", status_code=status.HTTP_201_CREATED)
-def export_database(data: BackupJob, session: Session = Depends(generate_session)):
+def export_database(background_tasks: BackgroundTasks, data: BackupJob, session: Session = Depends(generate_session)):
     """Generates a backup of the recipe database in json format."""
     try:
         export_path = backup_all(
@@ -47,7 +47,9 @@ def export_database(data: BackupJob, session: Session = Depends(generate_session
             export_users=data.options.users,
             export_groups=data.options.groups,
         )
-        create_backup_event("Database Backup", f"Manual Backup Created '{Path(export_path).name}'", session)
+        background_tasks.add_task(
+            create_backup_event, "Database Backup", f"Manual Backup Created '{Path(export_path).name}'", session
+        )
         return {"export_path": export_path}
     except Exception as e:
         logger.error(e)
@@ -75,7 +77,12 @@ async def download_backup_file(file_name: str):
 
 
 @router.post("/{file_name}/import", status_code=status.HTTP_200_OK)
-def import_database(file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)):
+def import_database(
+    background_tasks: BackgroundTasks,
+    file_name: str,
+    import_data: ImportJob,
+    session: Session = Depends(generate_session),
+):
     """ Import a database backup file generated from Mealie. """
 
     db_import = imports.import_database(
@@ -90,7 +97,7 @@ def import_database(file_name: str, import_data: ImportJob, session: Session = D
         force_import=import_data.force,
         rebase=import_data.rebase,
     )
-    create_backup_event("Database Restore", f"Restore File: {file_name}", session)
+    background_tasks.add_task(create_backup_event, "Database Restore", f"Restore File: {file_name}", session)
     return db_import
 
 

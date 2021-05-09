@@ -1,6 +1,6 @@
 from shutil import copyfileobj
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, status
 from fastapi.datastructures import UploadFile
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
@@ -20,6 +20,7 @@ logger = get_logger()
 
 @router.post("/create", status_code=201, response_model=str)
 def create_from_json(
+    background_tasks: BackgroundTasks,
     data: Recipe,
     session: Session = Depends(generate_session),
     current_user=Depends(get_current_user),
@@ -27,13 +28,20 @@ def create_from_json(
     """ Takes in a JSON string and loads data into the database as a new entry"""
     recipe: Recipe = db.recipes.create(session, data.dict())
 
-    create_recipe_event("Recipe Created", f"Recipe '{recipe.name}' created", session=session)
+    background_tasks.add_task(
+        create_recipe_event,
+        "Recipe Created (URL)",
+        f"'{recipe.name}' by {current_user.full_name}",
+        session=session,
+        attachment=recipe.image_dir.joinpath("min-original.webp"),
+    )
 
     return recipe.slug
 
 
 @router.post("/create-url", status_code=201, response_model=str)
 def parse_recipe_url(
+    background_tasks: BackgroundTasks,
     url: RecipeURLIn,
     session: Session = Depends(generate_session),
     current_user=Depends(get_current_user),
@@ -42,7 +50,14 @@ def parse_recipe_url(
 
     recipe = create_from_url(url.url)
     recipe: Recipe = db.recipes.create(session, recipe.dict())
-    create_recipe_event("Recipe Created (URL)", f"'{recipe.name}' by {current_user.full_name}", session=session)
+
+    background_tasks.add_task(
+        create_recipe_event,
+        "Recipe Created (URL)",
+        f"'{recipe.name}' by {current_user.full_name}",
+        session=session,
+        attachment=recipe.image_dir.joinpath("min-original.webp"),
+    )
 
     return recipe.slug
 
@@ -64,7 +79,6 @@ def update_recipe(
     """ Updates a recipe by existing slug and data. """
 
     recipe: Recipe = db.recipes.update(session, recipe_slug, data.dict())
-    print(recipe.assets)
 
     check_assets(original_slug=recipe_slug, recipe=recipe)
 
@@ -91,6 +105,7 @@ def patch_recipe(
 
 @router.delete("/{recipe_slug}")
 def delete_recipe(
+    background_tasks: BackgroundTasks,
     recipe_slug: str,
     session: Session = Depends(generate_session),
     current_user=Depends(get_current_user),
@@ -100,7 +115,12 @@ def delete_recipe(
     try:
         recipe: Recipe = db.recipes.delete(session, recipe_slug)
         delete_assets(recipe_slug=recipe_slug)
-        create_recipe_event("Recipe Deleted", f"'{recipe.name}' deleted by {current_user.full_name}", session=session)
+        background_tasks.add_task(
+            create_recipe_event,
+            "Recipe Deleted",
+            f"'{recipe.name}' deleted by {current_user.full_name}",
+            session=session,
+        )
         return recipe
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)

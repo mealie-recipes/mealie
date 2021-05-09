@@ -17,7 +17,7 @@ def test_notification(notification_url, event=None) -> bool:
     post_notifications(event, [notification_url], hard_fail=True)
 
 
-def post_notifications(event: Event, notification_urls=list[str], hard_fail=False):
+def post_notifications(event: Event, notification_urls=list[str], hard_fail=False, attachment=None):
     asset = apprise.AppriseAsset(async_mode=False)
     apobj = apprise.Apprise(asset=asset)
 
@@ -27,20 +27,23 @@ def post_notifications(event: Event, notification_urls=list[str], hard_fail=Fals
         if not status and hard_fail:
             raise Exception("Apprise URL Add Failed")
 
+    print(attachment)
+
     apobj.notify(
         body=event.text,
         title=event.title,
+        attach=str(attachment),
     )
 
 
-def save_event(title, text, category, session: Session):
+def save_event(title, text, category, session: Session, attachment=None):
     event = Event(title=title, text=text, category=category)
     session = session or create_session()
     db.events.create(session, event.dict())
 
     notification_objects = db.event_notifications.get(session=session, match_value=True, match_key=category, limit=9999)
     notification_urls = [x.notification_url for x in notification_objects]
-    post_notifications(event, notification_urls)
+    post_notifications(event, notification_urls, attachment=attachment)
 
 
 def create_general_event(title, text, session=None):
@@ -48,10 +51,10 @@ def create_general_event(title, text, session=None):
     save_event(title=title, text=text, category=category, session=session)
 
 
-def create_recipe_event(title, text, session=None):
+def create_recipe_event(title, text, session=None, attachment=None):
     category = EventCategory.recipe
 
-    save_event(title=title, text=text, category=category, session=session)
+    save_event(title=title, text=text, category=category, session=session, attachment=attachment)
 
 
 def create_backup_event(title, text, session=None):

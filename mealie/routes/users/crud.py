@@ -1,6 +1,6 @@
 import shutil
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
 from mealie.core import security
 from mealie.core.config import app_dirs, settings
@@ -17,13 +17,16 @@ router = APIRouter(prefix="/api/users", tags=["Users"])
 
 @router.post("", response_model=UserOut, status_code=201)
 async def create_user(
+    background_tasks: BackgroundTasks,
     new_user: UserIn,
     current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 
     new_user.password = get_password_hash(new_user.password)
-    create_user_event("User Created", f"Created by {current_user.full_name}", session=session)
+    background_tasks.add_task(
+        create_user_event, "User Created", f"Created by {current_user.full_name}", session=session
+    )
     return db.users.create(session, new_user.dict())
 
 
@@ -138,6 +141,7 @@ async def update_password(
 
 @router.delete("/{id}")
 async def delete_user(
+    background_tasks: BackgroundTasks,
     id: int,
     current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
@@ -150,6 +154,6 @@ async def delete_user(
     if current_user.id == id or current_user.admin:
         try:
             db.users.delete(session, id)
-            create_user_event("User Deleted", f"User ID: {id}", session=session)
+            background_tasks.add_task(create_user_event, "User Deleted", f"User ID: {id}", session=session)
         except Exception:
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
