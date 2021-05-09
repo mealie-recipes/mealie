@@ -31,6 +31,16 @@
     "category-updated": "Categoria aggiornata",
     "uncategorized-count": "Uncategorized {count}"
   },
+  "events": {
+    "notification": "Notification",
+    "apprise-url": "Apprise URL",
+    "subscribed-events": "Subscribed Events",
+    "scheduled": "Scheduled",
+    "database": "Database",
+    "test-message-sent": "Test Message Sent",
+    "something-went-wrong": "Something Went Wrong!",
+    "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features."
+  },
   "general": {
     "apply": "Applica",
     "cancel": "Cancella",
@@ -55,6 +65,7 @@
     "file-uploaded": "File caricato",
     "filter": "Filtro",
     "friday": "Venerdì",
+    "general": "General",
     "get": "Ottieni",
     "image": "Immagine",
     "image-upload-failed": "Caricamento immagine fallito",
@@ -70,6 +81,7 @@
     "random": "Casuale",
     "rating": "Rating",
     "recent": "Recente",
+    "recipe": "Recipe",
     "recipes": "Ricette",
     "rename-object": "Rinomina {0}",
     "reset": "Reimposta",
@@ -88,6 +100,8 @@
     "thursday": "Giovedì",
     "token": "Token",
     "tuesday": "Martedì",
+    "type": "Type",
+    "test": "Test",
     "update": "Aggiorna",
     "updated": "Updated",
     "upload": "Carica",
