@@ -29,7 +29,7 @@
     "category-filter": "Filtre par catégories",
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
-    "uncategorized-count": "{count} non catégorisé|{count} non catégorisés"
+    "uncategorized-count": "{count} non catégorisée|{count} non catégorisées"
   },
   "events": {
     "notification": "Notification",
