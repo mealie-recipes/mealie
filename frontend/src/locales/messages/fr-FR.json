@@ -29,7 +29,7 @@
     "category-filter": "Filtre par catégories",
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
-    "uncategorized-count": "{count} non catégorisé|{count} non catégorisés"
+    "uncategorized-count": "{count} non catégorisée|{count} non catégorisées"
   },
   "events": {
     "notification": "Notification",
@@ -370,7 +370,7 @@
     "tag-update-failed": "La mise à jour du mot-clé a échoué",
     "tag-updated": "Mot-clé mis à jour",
     "tags": "Mots-clés",
-    "untagged-count": "Untagged {count}"
+    "untagged-count": "{count} sans mot-clés"
   },
   "user": {
     "admin": "Admin",
@@ -394,7 +394,7 @@
     "link-name": "Nom du lien",
     "login": "Connexion",
     "logout": "Déconnexion",
-    "manage-users": "Manage Users",
+    "manage-users": "Gérer les utilisateurs",
     "new-password": "Nouveau mot de passe",
     "new-user": "Nouvel utilisateur",
     "password": "Mot de passe",
@@ -408,7 +408,7 @@
     "total-users": "Nombre d'utilisateurs",
     "upload-photo": "Importer une photo",
     "use-8-characters-or-more-for-your-password": "Utiliser au moins 8 caractères pour votre mot de passe",
-    "user": "User",
+    "user": "Utilisateur",
     "user-created": "Utilisateur créé",
     "user-creation-failed": "La création de l'utilisateur a échoué",
     "user-deleted": "Utilisateur supprimé",
