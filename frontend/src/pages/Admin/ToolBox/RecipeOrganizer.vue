@@ -4,7 +4,7 @@
       <v-btn-toggle v-model="filter" mandatory color="primary">
         <v-btn small value="category">
           <v-icon>mdi-tag-multiple</v-icon>
-          {{ $t("category.category") }}
+          {{ $t("recipe.categories") }}
         </v-btn>
 
         <v-btn small value="tag">

@@ -5,7 +5,7 @@
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab href="#event-notifications">
-          Notify
+          {{$t('settings.notify')}}
           <v-icon>mdi-bell-alert</v-icon>
         </v-tab>
         <v-tab href="#category-editor">
@@ -18,7 +18,7 @@
           <v-icon>mdi-tag-multiple-outline</v-icon>
         </v-tab>
         <v-tab href="#organize">
-          Organize
+          {{$t('settings.organize')}}
           <v-icon>mdi-broom</v-icon>
         </v-tab>
       </v-tabs>
