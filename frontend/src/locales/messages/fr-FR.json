@@ -32,14 +32,14 @@
     "uncategorized-count": "{count} non catégorisée|{count} non catégorisées"
   },
   "events": {
-    "notification": "Notification",
     "apprise-url": "URL Apprise",
-    "subscribed-events": "Événements suivis",
-    "scheduled": "Planifié",
     "database": "Base de données",
-    "test-message-sent": "Message de test envoyé",
+    "new-notification-form-description": "Mealie utilise la bibliothèque Apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
+    "notification": "Notification",
+    "scheduled": "Planifié",
     "something-went-wrong": "Une erreur s'est produite !",
-    "new-notification-form-description": "Mealie utilise la bibliothèque Apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires."
+    "subscribed-events": "Événements suivis",
+    "test-message-sent": "Message de test envoyé"
   },
   "general": {
     "apply": "Appliquer",
@@ -96,12 +96,12 @@
     "success-count": "Succès : {count}",
     "sunday": "Dimanche",
     "templates": "Modèles :",
+    "test": "Tester",
     "themes": "Thèmes",
     "thursday": "Jeudi",
     "token": "Jeton",
     "tuesday": "Mardi",
     "type": "Type",
-    "test": "Tester",
     "update": "Mettre à jour",
     "updated": "Mis à jour",
     "upload": "Importer",
@@ -290,6 +290,8 @@
     "locale-settings": "Paramètres régionaux",
     "migrations": "Migrations",
     "new-page": "Nouvelle page",
+    "notify": "Notify",
+    "organize": "Organize",
     "page-name": "Nom de la page",
     "pages": "Pages",
     "profile": "Profil",
