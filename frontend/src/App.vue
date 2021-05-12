@@ -3,7 +3,7 @@
     <!-- Dummpy Comment -->
     <TheAppBar />
     <v-main>
-      <v-banner v-if="!demo" sticky>
+      <v-banner v-if="demo" sticky>
         <div class="text-center"><b> This is a Demo of the v0.5.0 (BETA) </b> | Username: changeme@email.com | Password: demo</div>
       </v-banner>
       <GlobalSnackbar />
