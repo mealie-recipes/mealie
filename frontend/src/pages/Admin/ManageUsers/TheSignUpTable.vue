@@ -70,11 +70,7 @@
       <v-data-table :headers="headers" :items="links" sort-by="calories">
         <template v-slot:item.token="{ item }">
           {{ `${baseURL}/sign-up/${item.token}` }}
-          <v-btn icon class="mr-1" small color="accent" @click="updateClipboard(`${baseURL}/sign-up/${item.token}`)">
-            <v-icon>
-              mdi-content-copy
-            </v-icon>
-          </v-btn>
+          <TheCopyButton :copy-text="`${baseURL}/sign-up/${item.token}`"/>
         </template>
         <template v-slot:item.admin="{ item }">
           <v-btn small :color="item.admin ? 'success' : 'error'" text>
@@ -98,11 +94,12 @@
 </template>
 
 <script>
+import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 export default {
-  components: { ConfirmationDialog },
+  components: { ConfirmationDialog, TheCopyButton },
   mixins: [validators],
   data() {
     return {

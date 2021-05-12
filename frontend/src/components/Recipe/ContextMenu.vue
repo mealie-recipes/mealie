@@ -129,7 +129,7 @@ export default {
     },
     async downloadJson() {
       const recipe = await api.recipes.requestDetails(this.slug);
-      this.downloadString(JSON.stringify(recipe, "", 4), "text/json", recipe.slug+'.json');
+      this.downloadString(JSON.stringify(recipe, "", 4), "text/json", recipe.slug + ".json");
     },
     downloadString(text, fileType, fileName) {
       let blob = new Blob([text], { type: fileType });

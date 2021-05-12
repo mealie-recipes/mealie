@@ -3,9 +3,9 @@
     <!-- Dummpy Comment -->
     <TheAppBar />
     <v-main>
-      <v-banner v-if="demo" sticky
-        ><div class="text-center"><b> This is a Demo</b> | Username: changeme@email.com | Password: demo</div></v-banner
-      >
+      <v-banner v-if="!demo" sticky>
+        <div class="text-center"><b> This is a Demo of the v0.5.0 (BETA) </b> | Username: changeme@email.com | Password: demo</div>
+      </v-banner>
       <GlobalSnackbar />
       <router-view></router-view>
     </v-main>
@@ -73,15 +73,7 @@ export default {
 </script>
 
 <style>
-*::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-*::-webkit-scrollbar-track {
-  background: lightgray;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: grey;
+:root {
+  scrollbar-color: transparent transparent;
 }
 </style>
