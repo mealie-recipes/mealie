@@ -27,7 +27,8 @@
       <v-icon left dark>
         mdi-clipboard-check
       </v-icon>
-      Coppied!
+      {{ $t('general.coppied')}}!
+      
     </span>
   </v-tooltip>
 </template>
