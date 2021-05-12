@@ -73,15 +73,7 @@ export default {
 </script>
 
 <style>
-*::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-*::-webkit-scrollbar-track {
-  background: lightgray;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: grey;
+:root {
+  scrollbar-color: transparent transparent;
 }
 </style>
