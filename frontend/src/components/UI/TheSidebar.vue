@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-print-none no-print">
     <v-navigation-drawer v-model="showSidebar" width="180px" clipped app>
       <template v-slot:prepend>
         <v-list-item two-line v-if="isLoggedIn" to="/admin/profile">
@@ -230,5 +230,11 @@ export default {
   position: fixed !important;
   bottom: 0 !important;
   width: 100%;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
 }
 </style>
