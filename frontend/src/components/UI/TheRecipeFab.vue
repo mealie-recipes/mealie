@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div class="text-center d-print-none">
     <v-dialog v-model="addRecipe" width="650" @click:outside="reset">
       <v-card :loading="processing">
         <v-app-bar dark color="primary mb-2">

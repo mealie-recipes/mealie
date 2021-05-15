@@ -3,7 +3,7 @@
     <v-card v-if="skeleton" :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else id="myRecipe">
+    <v-card v-else id="myRecipe" class="d-print-none">
       <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
         <RecipeTimeCard
           :class="isMobile ? undefined : 'force-bottom'"
@@ -36,6 +36,7 @@
       />
       <RecipeEditor v-else v-model="recipeDetails" ref="recipeEditor" @upload="getImageFile" />
     </v-card>
+    <PrintView :recipe="recipeDetails" />
   </v-container>
 </template>
 
@@ -43,6 +44,7 @@
 import { api } from "@/api";
 import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "@/components/Recipe/RecipeViewer";
+import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
@@ -56,6 +58,7 @@ export default {
     RecipeEditor,
     EditorButtonRow,
     RecipeTimeCard,
+    PrintView,
   },
   mixins: [user],
   inject: {
@@ -93,10 +96,17 @@ export default {
       imageKey: 1,
     };
   },
-  mounted() {
-    this.getRecipeDetails();
+
+  async mounted() {
+    await this.getRecipeDetails();
     this.jsonEditor = false;
     this.form = this.$route.query.edit === "true" && this.loggedIn;
+
+    console.log(this.$route.query.print);
+    if (this.$route.query.print) {
+      this.printPage();
+      this.$router.push(this.$route.path);
+    }
   },
 
   watch: {
@@ -173,6 +183,9 @@ export default {
           this.$router.push(`/recipe/${slug}`);
         }
       }
+    },
+    printPage() {
+      window.print();
     },
   },
 };
