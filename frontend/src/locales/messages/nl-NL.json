@@ -32,7 +32,7 @@
     "uncategorized-count": "Niet gecategoriseerd {count}"
   },
   "events": {
-    "apprise-url": "Appprise URL",
+    "apprise-url": "Apprise URL",
     "database": "Database",
     "new-notification-form-description": "Mealie gebruikt de Apprise library om meldingen te genereren. Ze bieden vele opties voor diensten om te gebruiken voor meldingen. Raadpleeg hun wiki voor een uitgebreide handleiding over hoe je een URL voor je service kunt maken. Indien beschikbaar, kan het selecteren van het type van uw melding extra opties bevatten.",
     "notification": "Notificatie",
