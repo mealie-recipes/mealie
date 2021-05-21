@@ -42,6 +42,10 @@ export default {
           value: true,
           text: this.$t("group.groups"),
         },
+        notifications: {
+          value: true,
+          text: this.$t("events.notification"),
+        },
       },
     };
   },
@@ -57,6 +61,7 @@ export default {
         pages: this.options.pages.value,
         users: this.options.users.value,
         groups: this.options.groups.value,
+        notifications: this.options.notifications.value,
       });
     },
   },

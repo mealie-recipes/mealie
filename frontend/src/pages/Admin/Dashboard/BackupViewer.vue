@@ -120,13 +120,7 @@ export default {
 
       let data = {
         tag: this.tag,
-        options: {
-          recipes: true,
-          settings: true,
-          themes: true,
-          users: true,
-          groups: true,
-        },
+        options: {},
         templates: [],
       };
 

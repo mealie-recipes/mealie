@@ -98,6 +98,7 @@ export default {
         pages: true,
         users: true,
         groups: true,
+        notifications: true,
       };
       this.availableTemplates = [];
       this.selectedTemplates = [];
@@ -122,9 +123,12 @@ export default {
           themes: this.options.themes,
           users: this.options.users,
           groups: this.options.groups,
+          notifications: this.options.notifications,
         },
         templates: this.selectedTemplates,
       };
+
+      console.log(data);
 
       if (await api.backups.create(data)) {
         this.$emit("created");

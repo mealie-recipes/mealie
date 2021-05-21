@@ -6,8 +6,17 @@ from typing import Callable
 
 from mealie.core.config import app_dirs
 from mealie.db.database import db
+from mealie.schema.event_notifications import EventNotificationIn
 from mealie.schema.recipe import Recipe
-from mealie.schema.restore import CustomPageImport, GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
+from mealie.schema.restore import (
+    CustomPageImport,
+    GroupImport,
+    NotificationImport,
+    RecipeImport,
+    SettingsImport,
+    ThemeImport,
+    UserImport,
+)
 from mealie.schema.settings import CustomPageOut, SiteSettings
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import UpdateGroup, UserInDB
@@ -147,6 +156,24 @@ class ImportDatabase:
             theme_imports.append(import_status)
 
         return theme_imports
+
+    def import_notifications(self):
+        notify_file = self.import_dir.joinpath("notifications", "notifications.json")
+        notifications = ImportDatabase.read_models_file(notify_file, EventNotificationIn)
+        import_notifications = []
+
+        for notify in notifications:
+            import_status = self.import_model(
+                db_table=db.event_notifications,
+                model=notify,
+                return_model=NotificationImport,
+                name_attr="name",
+                search_key="notification_url",
+            )
+
+            import_notifications.append(import_status)
+
+        return import_notifications
 
     def import_settings(self):  # ! Broken
         settings_file = self.import_dir.joinpath("settings", "settings.json")
@@ -304,6 +331,7 @@ def import_database(
     import_themes=True,
     import_users=True,
     import_groups=True,
+    import_notifications=True,
     force_import: bool = False,
     rebase: bool = False,
 ):
@@ -333,6 +361,9 @@ def import_database(
     if import_users:
         user_report = import_session.import_users()
 
+    if import_notifications:
+        notification_report = import_session.import_notifications()
+
     import_session.clean_up()
 
     return {
@@ -342,4 +373,5 @@ def import_database(
         "pageImports": page_report,
         "groupImports": group_report,
         "userImports": user_report,
+        "notificationImports": notification_report,
     }

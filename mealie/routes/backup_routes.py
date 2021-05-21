@@ -46,6 +46,7 @@ def export_database(background_tasks: BackgroundTasks, data: BackupJob, session:
             export_themes=data.options.themes,
             export_users=data.options.users,
             export_groups=data.options.groups,
+            export_notifications=data.options.notifications,
         )
         background_tasks.add_task(
             create_backup_event, "Database Backup", f"Manual Backup Created '{Path(export_path).name}'", session
