@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card flat>
+    <v-card flat class="pa-3">
       <v-row dense>
         <v-col>
           <v-text-field
