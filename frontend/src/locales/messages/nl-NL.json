@@ -176,7 +176,7 @@
     "from-url": "Recept importeren",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-url": "Recept URL",
-    "url-form-hint": "Kopieer en plak een link vanuit uw favoriete receptwebsite"
+    "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite"
   },
   "page": {
     "all-recipes": "Alle recepten",
@@ -411,7 +411,7 @@
     "total-mealplans": "Totaal maaltijdplannen",
     "total-users": "Totaal Gebruikers",
     "upload-photo": "Foto uploaden",
-    "use-8-characters-or-more-for-your-password": "Gebruik 8 tekens of meer voor uw wachtwoord",
+    "use-8-characters-or-more-for-your-password": "Gebruik 8 tekens of meer voor jouw wachtwoord",
     "user": "Gebruiker",
     "user-created": "Gebruiker aangemaakt",
     "user-creation-failed": "Aanmaken van gebruiker mislukt",
