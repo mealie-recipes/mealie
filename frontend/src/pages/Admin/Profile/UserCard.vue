@@ -138,7 +138,7 @@ export default {
   },
 
   watch: {
-    user() {
+    userProfileImage() {
       this.hideImage = false;
     },
   },

@@ -102,7 +102,6 @@ export default {
     this.jsonEditor = false;
     this.form = this.$route.query.edit === "true" && this.loggedIn;
 
-    console.log(this.$route.query.print);
     if (this.$route.query.print) {
       this.printPage();
       this.$router.push(this.$route.path);

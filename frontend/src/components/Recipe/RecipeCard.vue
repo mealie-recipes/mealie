@@ -7,7 +7,10 @@
       @click="$emit('click')"
       min-height="275"
     >
-      <v-img height="200" :src="getImage(slug)">
+      <v-img height="200" class="d-flex" :src="getImage(slug)" @error="fallBackImage = true">
+        <v-icon v-if="fallBackImage" color="primary" class="icon-position" size="200">
+          mdi-silverware-variant
+        </v-icon>
         <v-expand-transition v-if="description">
           <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal  " style="height: 100%;">
             <v-card-text class="v-card--text-show white--text">
@@ -57,6 +60,11 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      fallBackImage: false,
+    };
+  },
   methods: {
     getImage(image) {
       return api.recipes.recipeSmallImage(image);
@@ -82,5 +90,13 @@ export default {
   word-break: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.icon-position {
+  opacity: 0.8;
+  display: flex !important;
+  position: relative;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 </style>

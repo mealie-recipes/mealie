@@ -70,7 +70,7 @@
       <v-data-table :headers="headers" :items="links" sort-by="calories">
         <template v-slot:item.token="{ item }">
           {{ `${baseURL}/sign-up/${item.token}` }}
-          <TheCopyButton :copy-text="`${baseURL}/sign-up/${item.token}`"/>
+          <TheCopyButton :copy-text="`${baseURL}/sign-up/${item.token}`" />
         </template>
         <template v-slot:item.admin="{ item }">
           <v-btn small :color="item.admin ? 'success' : 'error'" text>
