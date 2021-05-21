@@ -128,7 +128,6 @@ export default {
         templates: this.selectedTemplates,
       };
 
-      console.log(data);
 
       if (await api.backups.create(data)) {
         this.$emit("created");

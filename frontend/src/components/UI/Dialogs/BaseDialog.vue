@@ -95,7 +95,6 @@ export default {
   },
   methods: {
     submitEvent() {
-      console.log("Submit");
       this.$emit("submit");
       this.submitted = true;
     },
