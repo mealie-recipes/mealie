@@ -112,7 +112,7 @@
     "yes": "Ja"
   },
   "group": {
-    "are-you-sure-you-want-to-delete-the-group": "Weet u zeker dat u <b>{groupName}<b/> wilt verwijderen?",
+    "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wilt verwijderen?",
     "cannot-delete-default-group": "Je kunt de standaardgroep niet verwijderen",
     "cannot-delete-group-with-users": "Kan groep met gebruikers niet verwijderen",
     "confirm-group-deletion": "Verwijderen groep bevestigen",
@@ -267,7 +267,7 @@
       "error-creating-backup-see-log-file": "Fout bij aanmaken van back-up. Zie logbestand",
       "full-backup": "Volledige Back-up",
       "import-summary": "Samenvatting importeren",
-      "partial-backup": "Gedeeltelijke back-up",
+      "partial-backup": "Gedeeltelijke Back-up",
       "unable-to-delete-backup": "Back-up verwijderen niet mogelijk."
     },
     "backup-and-exports": "Backups",
@@ -304,7 +304,7 @@
     "site-settings": "Site-instellingen",
     "theme": {
       "accent": "Accent",
-      "are-you-sure-you-want-to-delete-this-theme": "Weet u zeker dat u dit thema wil verwijderen?",
+      "are-you-sure-you-want-to-delete-this-theme": "Weet je zeker dat je dit thema wil verwijderen?",
       "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Kies hoe Mealie er voor je uitziet. Stel je thema voorkeur in om jouw systeeminstellingen te volgen, of kies voor het licht of donker thema.",
       "dark": "Donker",
       "dark-mode": "Donkere Modus",
@@ -364,7 +364,7 @@
     "sign-up-links": "Registratielinks",
     "sign-up-token-deleted": "Registratie token verwijderd",
     "sign-up-token-deletion-failed": "Registratie token verwijderen mislukt",
-    "welcome-to-mealie": "Welkom bij Mealie! Om gebruiker te worden van deze instantie bent u verplicht om een geldige registratielink te hebben. Neem contact op met de beheerder als u nog geen uitnodiging hebt ontvangen."
+    "welcome-to-mealie": "Welkom bij Mealie! Om gebruiker te worden van deze instantie ben je verplicht om een geldige registratielink te hebben. Neem contact op met de beheerder als je nog geen uitnodiging hebt ontvangen."
   },
   "tag": {
     "tag-created": "Label aangemaakt",
@@ -374,12 +374,12 @@
     "tag-update-failed": "Label update mislukt",
     "tag-updated": "Label bijgewerkt",
     "tags": "Labels",
-    "untagged-count": "Niet getagd {count}"
+    "untagged-count": "Niet gelabeld {count}"
   },
   "user": {
     "admin": "Beheerder",
-    "are-you-sure-you-want-to-delete-the-link": "Weet u zeker dat u <b>{link}<b/> wilt verwijderen?",
-    "are-you-sure-you-want-to-delete-the-user": "Weet u zeker dat u gebruiker <b>{activeName} ID: {activeId}<b/> wilt verwijderen?",
+    "are-you-sure-you-want-to-delete-the-link": "Weet je zeker dat je <b>{link}<b/> wilt verwijderen?",
+    "are-you-sure-you-want-to-delete-the-user": "Weet je zeker dat je gebruiker <b>{activeName} ID: {activeId}<b/> wilt verwijderen?",
     "confirm-link-deletion": "Bevestig verwijderen koppeling",
     "confirm-password": "Bevestig Wachtwoord",
     "confirm-user-deletion": "Gebruiker verwijderen bevestigen",
@@ -425,7 +425,7 @@
     "users": "Gebruikers",
     "webhook-time": "Webhook Tijd",
     "webhooks-enabled": "Webhooks ingeschakeld",
-    "you-are-not-allowed-to-create-a-user": "U heeft geen toestemming om een gebruiker aan te maken",
-    "you-are-not-allowed-to-delete-this-user": "U heeft geen toestemming om deze gebruiker te verwijderen"
+    "you-are-not-allowed-to-create-a-user": "Je hebt geen toestemming om een gebruiker aan te maken",
+    "you-are-not-allowed-to-delete-this-user": "Je hebt geen toestemming om deze gebruiker te verwijderen"
   }
 }
