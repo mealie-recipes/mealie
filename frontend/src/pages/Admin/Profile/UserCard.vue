@@ -2,7 +2,7 @@
   <StatCard icon="mdi-account">
     <template v-slot:avatar>
       <v-avatar color="accent" size="120" class="white--text headline mt-n16">
-        <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" />
+        <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" @load="hideImage = false" />
         <div v-else>
           {{ initials }}
         </div>
