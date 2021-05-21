@@ -111,6 +111,7 @@ def backup_all(
     export_themes=True,
     export_users=True,
     export_groups=True,
+    export_notifications=True,
 ):
     db_export = ExportDatabase(tag=tag, templates=templates)
 
@@ -139,6 +140,10 @@ def backup_all(
     if export_themes:
         all_themes = db.themes.get_all(session)
         db_export.export_items(all_themes, "themes")
+
+    if export_notifications:
+        all_notifications = db.event_notifications.get_all(session)
+        db_export.export_items(all_notifications, "notifications")
 
     return db_export.finish_export()
 

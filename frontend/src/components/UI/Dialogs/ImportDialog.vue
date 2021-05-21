@@ -97,6 +97,7 @@ export default {
         themes: this.options.themes,
         users: this.options.users,
         groups: this.options.groups,
+        notifications: this.options.notifications,
       };
       this.loading = true;
       const importData = await this.importBackup(eventData);

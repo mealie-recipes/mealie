@@ -11,6 +11,7 @@ class BackupOptions(BaseModel):
     themes: bool = True
     groups: bool = True
     users: bool = True
+    notifications: bool = True
 
     class Config:
         schema_extra = {
