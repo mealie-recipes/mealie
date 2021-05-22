@@ -19,10 +19,10 @@ class Group(SqlAlchemyBase, BaseMixins):
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
     mealplans = orm.relationship(
-        "MealPlanModel",
+        "MealPlan",
         back_populates="group",
         single_parent=True,
-        order_by="MealPlanModel.startDate",
+        order_by="MealPlan.start_date",
     )
     categories = orm.relationship("Category", secondary=group2categories, single_parent=True)
 

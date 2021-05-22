@@ -17,10 +17,22 @@
             {{ $d(new Date(mealplan.startDate.split("-")), "short") }} -
             {{ $d(new Date(mealplan.endDate.split("-")), "short") }}
           </v-card-title>
-          <v-list nav>
-            <v-list-item-group color="primary">
+
+          <v-list>
+            <v-list-group v-for="(planDay, pdi) in mealplan.planDays" :key="`planDays-${pdi}`">
+              <template v-slot:activator>
+                <v-list-item-avatar color="primary" class="headline font-weight-light white--text">
+                  <v-img :src="getImage(planDay['meals'][0].slug)"></v-img>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title v-html="$d(new Date(planDay.date.split('-')), 'short')"></v-list-item-title>
+                  <v-list-item-subtitle v-html="planDay['meals'][0].name"></v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+
               <v-list-item
-                v-for="(meal, index) in mealplan.meals"
+                three-line
+                v-for="(meal, index) in planDay.meals"
                 :key="generateKey(meal.slug, index)"
                 :to="meal.slug ? `/recipe/${meal.slug}` : null"
               >
@@ -28,12 +40,13 @@
                   <v-img :src="getImage(meal.slug)"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title v-text="meal.name"></v-list-item-title>
-                  <v-list-item-subtitle v-text="$d(new Date(meal.date.split('-')), 'short')"> </v-list-item-subtitle>
+                  <v-list-item-title v-html="meal.name"></v-list-item-title>
+                  <v-list-item-subtitle v-html="meal.description"> </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
-            </v-list-item-group>
+            </v-list-group>
           </v-list>
+
           <v-card-actions class="mt-n5">
             <v-btn color="accent lighten-2" class="mx-0" text @click="openShoppingList(mealplan.uid)">
               {{ $t("meal-plan.shopping-list") }}
@@ -76,6 +89,7 @@ export default {
     async requestMeals() {
       const response = await api.mealPlans.all();
       this.plannedMeals = response.data;
+      console.log(this.plannedMeals);
     },
     generateKey(name, index) {
       return utils.generateUniqueKey(name, index);

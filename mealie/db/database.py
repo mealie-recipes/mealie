@@ -3,7 +3,7 @@ from logging import getLogger
 from mealie.db.db_base import BaseDocument
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
-from mealie.db.models.mealplan import MealPlanModel
+from mealie.db.models.mealplan import MealPlan
 from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
 from mealie.db.models.settings import CustomPage, SiteSettings
 from mealie.db.models.sign_up import SignUp
@@ -12,7 +12,7 @@ from mealie.db.models.users import LongLiveToken, User
 from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
 from mealie.schema.event_notifications import EventNotificationIn
 from mealie.schema.events import Event as EventSchema
-from mealie.schema.meal import MealPlanInDB
+from mealie.schema.meal import MealPlanOut
 from mealie.schema.recipe import Recipe
 from mealie.schema.settings import CustomPageOut
 from mealie.schema.settings import SiteSettings as SiteSettingsSchema
@@ -75,8 +75,8 @@ class _Tags(BaseDocument):
 class _Meals(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "uid"
-        self.sql_model = MealPlanModel
-        self.schema = MealPlanInDB
+        self.sql_model = MealPlan
+        self.schema = MealPlanOut
 
 
 class _Settings(BaseDocument):
@@ -120,7 +120,7 @@ class _Groups(BaseDocument):
         self.sql_model = Group
         self.schema = GroupInDB
 
-    def get_meals(self, session: Session, match_value: str, match_key: str = "name") -> list[MealPlanInDB]:
+    def get_meals(self, session: Session, match_value: str, match_key: str = "name") -> list[MealPlanOut]:
         """A Helper function to get the group from the database and return a sorted list of
 
         Args:
@@ -129,7 +129,7 @@ class _Groups(BaseDocument):
             match_key (str, optional): Match Key. Defaults to "name".
 
         Returns:
-            list[MealPlanInDB]: [description]
+            list[MealPlanOut]: [description]
         """
         group: GroupInDB = session.query(self.sql_model).filter_by(**{match_key: match_value}).one_or_none()
 

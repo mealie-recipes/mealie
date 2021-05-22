@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.meal import MealPlanInDB
+from mealie.schema.meal import MealPlanOut
 from mealie.schema.recipe import Recipe
 from sqlalchemy.orm.session import Session
 
@@ -18,7 +18,7 @@ def get_shopping_list(
 
     # ! Refactor into Single Database Call
     mealplan = db.meals.get(session, id)
-    mealplan: MealPlanInDB
+    mealplan: MealPlanOut
     slugs = [x.slug for x in mealplan.meals]
     recipes: list[Recipe] = [db.recipes.get(session, x) for x in slugs]
     return [{"name": x.name, "recipe_ingredient": x.recipe_ingredient} for x in recipes if x]

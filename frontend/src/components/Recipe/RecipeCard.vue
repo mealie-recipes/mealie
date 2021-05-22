@@ -92,11 +92,5 @@ export default {
   text-overflow: ellipsis;
 }
 
-.icon-position {
-  opacity: 0.8;
-  display: flex !important;
-  position: relative;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
+
 </style>

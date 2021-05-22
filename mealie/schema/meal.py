@@ -1,50 +1,60 @@
 from datetime import date
-from typing import List, Optional
+from typing import Optional
 
-from mealie.db.models.mealplan import MealPlanModel
-from pydantic import BaseModel, validator
+from fastapi_camelcase import CamelModel
+from mealie.db.models.mealplan import MealPlan
+from pydantic import validator
 from pydantic.utils import GetterDict
 
 
-class MealIn(BaseModel):
-    name: Optional[str]
+class MealIn(CamelModel):
     slug: Optional[str]
-    date: Optional[date]
-
-
-class MealOut(MealIn):
-    image: Optional[str]
+    name: Optional[str]
     description: Optional[str]
 
     class Config:
         orm_mode = True
 
 
-class MealPlanIn(BaseModel):
-    group: str
-    startDate: date
-    endDate: date
-    meals: List[MealIn]
+class MealDayIn(CamelModel):
+    date: Optional[date]
+    meals: list[MealIn]
 
-    @validator("endDate")
-    def endDate_after_startDate(v, values, config, field):
-        if "startDate" in values and v < values["startDate"]:
+    class Config:
+        orm_mode = True
+
+
+class MealDayOut(MealDayIn):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class MealPlanIn(CamelModel):
+    group: str
+    start_date: date
+    end_date: date
+    plan_days: list[MealDayIn]
+
+    @validator("end_date")
+    def end_date_after_start_date(v, values, config, field):
+        if "start_date" in values and v < values["start_date"]:
             raise ValueError("EndDate should be greater than StartDate")
         return v
 
+    class Config:
+        orm_mode = True
 
-class MealPlanProcessed(MealPlanIn):
-    meals: list[MealOut]
 
-
-class MealPlanInDB(MealPlanProcessed):
-    uid: str
+class MealPlanOut(MealPlanIn):
+    uid: int
 
     class Config:
         orm_mode = True
 
         @classmethod
-        def getter_dict(_cls, name_orm: MealPlanModel):
+        def getter_dict(_cls, name_orm: MealPlan):
             return {
                 **GetterDict(name_orm),
                 "group": name_orm.group.name,
