@@ -4,7 +4,7 @@ const icons = {
   // Crud
   create: "mdi-plus",
   delete: "mdi-delete",
-  save: "mdi-save-content",
+  save: "mdi-content-save",
   edit: "mdi-square-edit-outline",
 
   // Organization
