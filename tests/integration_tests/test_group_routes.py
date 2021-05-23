@@ -33,6 +33,7 @@ def test_update_group(api_client: TestClient, api_routes: AppRoutes, token):
         "webhookEnable": False,
         "users": [],
         "mealplans": [],
+        "shoppingLists": [],
     }
     # Test Update
     response = api_client.put(api_routes.groups_id(2), json=new_data, headers=token)
