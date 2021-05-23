@@ -64,7 +64,7 @@ export default {
       default: false,
     },
     top: {
-      default: false,
+      default: null,
     },
     submitText: {
       default: () => i18n.t("general.create"),

@@ -3,7 +3,8 @@
     <v-card v-if="skeleton" :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else id="myRecipe" class="d-print-none">
+    <NoRecipe v-else-if="loadFailed" />
+    <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
       <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
         <RecipeTimeCard
           :class="isMobile ? undefined : 'force-bottom'"
@@ -48,6 +49,7 @@ import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
+import NoRecipe from "@/components/Fallbacks/NoRecipe";
 import { user } from "@/mixins/user";
 import { router } from "@/routes";
 
@@ -59,6 +61,7 @@ export default {
     EditorButtonRow,
     RecipeTimeCard,
     PrintView,
+    NoRecipe,
   },
   mixins: [user],
   inject: {
@@ -68,6 +71,7 @@ export default {
   },
   data() {
     return {
+      loadFailed: false,
       skeleton: true,
       form: false,
       jsonEditor: false,
@@ -99,6 +103,7 @@ export default {
 
   async mounted() {
     await this.getRecipeDetails();
+
     this.jsonEditor = false;
     this.form = this.$route.query.edit === "true" && this.loggedIn;
 
@@ -141,6 +146,12 @@ export default {
       this.saveImage();
     },
     async getRecipeDetails() {
+      if (this.currentRecipe === "null") {
+        this.skeleton = false;
+        this.loadFailed = true;
+        return;
+      }
+
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
       this.skeleton = false;
     },

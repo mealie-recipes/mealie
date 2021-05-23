@@ -19,11 +19,18 @@ class Group(SqlAlchemyBase, BaseMixins):
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
     mealplans = orm.relationship(
-        "MealPlanModel",
+        "MealPlan",
         back_populates="group",
         single_parent=True,
-        order_by="MealPlanModel.startDate",
+        order_by="MealPlan.start_date",
     )
+
+    shopping_lists = orm.relationship(
+        "ShoppingList",
+        back_populates="group",
+        single_parent=True,
+    )
+
     categories = orm.relationship("Category", secondary=group2categories, single_parent=True)
 
     # Webhook Settings
@@ -32,16 +39,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     webhook_urls = orm.relationship("WebhookURLModel", uselist=True, cascade="all, delete-orphan")
 
     def __init__(
-        self,
-        name,
-        id=None,
-        users=None,
-        mealplans=None,
-        categories=[],
-        session=None,
-        webhook_enable=False,
-        webhook_time="00:00",
-        webhook_urls=[],
+        self, name, categories=[], session=None, webhook_enable=False, webhook_time="00:00", webhook_urls=[], **_
     ) -> None:
         self.name = name
         self.categories = [Category.get_ref(session=session, slug=cat.get("slug")) for cat in categories]
