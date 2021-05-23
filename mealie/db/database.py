@@ -1,4 +1,5 @@
 from logging import getLogger
+from random import randint
 
 from mealie.db.db_base import BaseDocument
 from mealie.db.models.event import Event, EventNotification
@@ -34,10 +35,10 @@ class _Recipes(BaseDocument):
 
     def update_image(self, session: Session, slug: str, extension: str = None) -> str:
         entry: RecipeModel = self._query_one(session, match_value=slug)
-        entry.image = f"{slug}.{extension}"
+        entry.image = randint(0, 255)
         session.commit()
 
-        return f"{slug}.{extension}"
+        return entry.image
 
     def count_uncategorized(self, session: Session, count=True, override_schema=None) -> int:
         return self._count_attribute(

@@ -59,8 +59,8 @@ export default {
     };
   },
   methods: {
-    getImage(image) {
-      return api.recipes.recipeSmallImage(image);
+    getImage(slug) {
+      return api.recipes.recipeSmallImage(slug, this.image);
     },
   },
 };
