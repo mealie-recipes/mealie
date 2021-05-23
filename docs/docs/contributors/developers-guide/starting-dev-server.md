@@ -27,7 +27,7 @@ Once the prerequisites are installed you can cd into the project base directory 
 
 `make vue` Starts the frontend server on port `8080`
 
-`make mdocs` Starts the documentation server on port `8000`
+`make docs` Starts the documentation server on port `8000`
 
 `make docker-dev` Builds docker-compose.dev.yml 
 

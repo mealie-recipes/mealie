@@ -63,6 +63,8 @@ nav:
           - User Management: "site-administration/user-management.md"
           - Backups and Restore: "site-administration/backups-and-exports.md"
           - Recipe Migration: "site-administration/migration-imports.md"
+      - Community Guide:
+          -  Reverse Proxy Swag: "community-guide/swag"
       - API Usage:
           - Getting Started: "api-usage/getting-started.md"
           - Home Assistant: "api-usage/home-assistant.md"
