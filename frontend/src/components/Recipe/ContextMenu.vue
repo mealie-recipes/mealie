@@ -81,7 +81,7 @@ export default {
         },
         {
           title: this.$t("general.edit"),
-          icon: "{{ $globals.icons.edit }}",
+          icon: this.$globals.icons.edit,
           color: "accent",
           action: "edit",
         },

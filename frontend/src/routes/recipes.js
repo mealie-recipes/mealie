@@ -9,6 +9,8 @@ export const recipeRoutes = [
   // Recipes
   { path: "/recipes/all", component: AllRecipes },
   { path: "/recipes/tag/:tag", component: CategoryTagPage },
+  { path: "/recipes/tag", component: CategoryTagPage },
+  { path: "/recipes/category", component: CategoryTagPage },
   { path: "/recipes/category/:category", component: CategoryTagPage },
   // Misc
   { path: "/new/", component: NewRecipe },

@@ -99,14 +99,24 @@ export default {
           title: this.$t("page.home-page"),
         },
         {
+          icon: "mdi-magnify",
+          to: "/search",
+          title: this.$t("search.search"),
+        },
+        {
           icon: "mdi-view-module",
           to: "/recipes/all",
           title: this.$t("page.all-recipes"),
         },
         {
-          icon: "mdi-magnify",
-          to: "/search",
-          title: this.$t("search.search"),
+          icon: this.$globals.icons.tags,
+          to: "/recipes/category",
+          title: this.$t("recipe.categories"),
+        },
+        {
+          icon: this.$globals.icons.tags,
+          to: "/recipes/tag",
+          title: this.$t("tag.tags"),
         },
       ];
     },
@@ -119,14 +129,8 @@ export default {
           to: `/pages/${x.slug}`,
           icon: this.$globals.icons.tags,
         }));
-      } else {
-        const categories = this.$store.getters.getAllCategories;
-        return categories.map(x => ({
-          title: x.name,
-          to: `/recipes/category/${x.slug}`,
-          icon: this.$globals.icons.tags,
-        }));
       }
+      return [];
     },
     mainMenu() {
       return [...this.baseMainLinks, ...this.customPages];
