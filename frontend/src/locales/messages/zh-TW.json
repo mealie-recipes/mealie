@@ -164,10 +164,10 @@
     },
     "migration-data-removed": "Migration data removed",
     "nextcloud": {
-      "description": "從Nextcloud Cookbook遷移數據",
+      "description": "Migrate data from a Nextcloud Cookbook instance",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "無遷移數據可用",
+    "no-migration-data-available": "No Migration Data Available",
     "recipe-migration": "食譜遷移"
   },
   "new-recipe": {
