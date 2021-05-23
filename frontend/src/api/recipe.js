@@ -146,16 +146,16 @@ export const recipeAPI = {
     return response.data;
   },
 
-  recipeImage(recipeSlug) {
-    return `/api/media/recipes/${recipeSlug}/images/original.webp`;
+  recipeImage(recipeSlug, version = null, key = null) {
+    return `/api/media/recipes/${recipeSlug}/images/original.webp?&rnd=${key}&version=${version}`;
   },
 
-  recipeSmallImage(recipeSlug) {
-    return `/api/media/recipes/${recipeSlug}/images/min-original.webp`;
+  recipeSmallImage(recipeSlug, version = null, key = null) {
+    return `/api/media/recipes/${recipeSlug}/images/min-original.webp?&rnd=${key}&version=${version}`;
   },
 
-  recipeTinyImage(recipeSlug) {
-    return `/api/media/recipes/${recipeSlug}/images/tiny-original.webp`;
+  recipeTinyImage(recipeSlug, version = null, key = null) {
+    return `/api/media/recipes/${recipeSlug}/images/tiny-original.webp?&rnd=${key}&version=${version}`;
   },
 
   recipeAssetPath(recipeSlug, assetName) {

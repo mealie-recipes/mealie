@@ -209,10 +209,6 @@ export default {
       }
     },
 
-    getImage(image) {
-      return api.recipes.recipeSmallImage(image);
-    },
-
     formatDate(date) {
       if (!date) return null;
 

@@ -155,9 +155,9 @@ export default {
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
       this.skeleton = false;
     },
-    getImage(image) {
-      if (image) {
-        return api.recipes.recipeImage(image) + "?&rnd=" + this.imageKey;
+    getImage(slug) {
+      if (slug) {
+        return api.recipes.recipeImage(slug, this.imageKey, this.recipeDetails.image);
       }
     },
     async deleteRecipe() {
@@ -175,7 +175,9 @@ export default {
     },
     async saveImage(overrideSuccessMsg = false) {
       if (this.fileObject) {
-        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg)) {
+        const newVersion = await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg);
+        if (newVersion) {
+          this.recipeDetails.image = newVersion.data.version;
           this.imageKey += 1;
         }
       }
@@ -192,6 +194,7 @@ export default {
         if (slug != this.recipeDetails.slug) {
           this.$router.push(`/recipe/${slug}`);
         }
+        window.URL.revokeObjectURL(this.getImage(this.recipeDetails.slug));
       }
     },
     printPage() {

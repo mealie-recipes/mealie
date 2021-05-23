@@ -42,6 +42,9 @@ export default {
     slug: {
       default: null,
     },
+    imageVersion: {
+      default: null,
+    },
     height: {
       default: 200,
     },
@@ -65,14 +68,14 @@ export default {
     };
   },
   methods: {
-    getImage(image) {
+    getImage(slug) {
       switch (this.imageSize) {
         case "tiny":
-          return api.recipes.recipeTinyImage(image);
+          return api.recipes.recipeTinyImage(slug, this.imageVersion);
         case "small":
-          return api.recipes.recipeSmallImage(image);
+          return api.recipes.recipeSmallImage(slug, this.imageVersion);
         case "large":
-          return api.recipes.recipeImage(image);
+          return api.recipes.recipeImage(slug, this.imageVersion);
       }
     },
   },
