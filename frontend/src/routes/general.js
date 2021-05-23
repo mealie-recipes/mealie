@@ -1,6 +1,6 @@
-import SearchPage from "@/pages/SearchPage";
+const SearchPage = () => import("@/pages/SearchPage");
+const ShoppingList = () => import("@/pages/ShoppingList");
 import HomePage from "@/pages/HomePage";
-import ShoppingList from "@/pages/ShoppingList";
 
 export const generalRoutes = [
   { path: "/", name: "home", component: HomePage },
