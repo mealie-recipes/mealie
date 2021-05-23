@@ -164,10 +164,10 @@
     },
     "migration-data-removed": "Données de migration supprimées",
     "nextcloud": {
-      "description": "Importer des recettes depuis un livre de recettes Nextcloud existant",
+      "description": "Migrate data from a Nextcloud Cookbook instance",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "Aucune donnée d'importation n'est disponible",
+    "no-migration-data-available": "No Migration Data Available",
     "recipe-migration": "Migrer les recettes"
   },
   "new-recipe": {
