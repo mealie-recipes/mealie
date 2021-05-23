@@ -17,6 +17,7 @@
         <v-col cols="12" lg="6" md="6" sm="12">
           <v-card-title class="headline">Sides</v-card-title>
           <MobileRecipeCard
+            class="mb-1"
             v-for="(side, index) in planDay.meals.slice(1)"
             :key="`side-${index}`"
             :name="side.name"
