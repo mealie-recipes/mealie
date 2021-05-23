@@ -3,7 +3,7 @@
     <SearchDialog ref="mealselect" @select="setSlug" />
     <BaseDialog
       title="Custom Meal"
-      title-icon="mdi-silverware-variant"
+      :title-icon="$globals.icons.primary"
       submit-text="Save"
       :top="true"
       ref="customMealDialog"
@@ -21,7 +21,7 @@
             <v-fade-transition>
               <v-btn v-if="hover" small color="info" class="ma-1" @click.stop="addCustomItem(index, modes.primary)">
                 <v-icon left>
-                  mdi-square-edit-outline
+                  {{ $globals.icons.edit }}
                 </v-icon>
                 No Recipe
               </v-btn>
@@ -38,14 +38,14 @@
               <v-fade-transition>
                 <v-btn v-if="hover" small color="info" text @click.stop="addCustomItem(index, modes.sides)">
                   <v-icon left>
-                    mdi-square-edit-outline
+                    {{ $globals.icons.edit }}
                   </v-icon>
                   No Recipe
                 </v-btn>
               </v-fade-transition>
               <v-btn color="info" outlined small @click="openSearch(index, modes.sides)">
                 <v-icon small class="mr-1">
-                  mdi-plus
+                  {{ $globals.icons.create }}
                 </v-icon>
                 Side
               </v-btn>
@@ -65,7 +65,7 @@
               <v-list-item-icon>
                 <v-btn icon @click="removeSide(index, i + 1)">
                   <v-icon color="error">
-                    mdi-delete
+                    {{ $globals.icons.delete }}
                   </v-icon>
                 </v-btn>
               </v-list-item-icon>

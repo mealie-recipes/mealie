@@ -2,7 +2,7 @@
   <div v-if="recipes">
     <v-app-bar color="transparent" flat class="mt-n1 rounded" v-if="!disableToolbar">
       <v-icon large left v-if="title">
-        {{ titleIcon }}
+        {{ displayTitleIcon }}
       </v-icon>
       <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -120,7 +120,7 @@ export default {
       default: false,
     },
     titleIcon: {
-      default: "mdi-tag-multiple-outline",
+      default: null,
     },
     title: {
       default: null,
@@ -169,6 +169,9 @@ export default {
     },
     effectiveHardLimit() {
       return Math.min(this.hardLimit, this.recipes.length);
+    },
+    displayTitleIcon() {
+      return this.titleIcon || this.$globals.icons.tags;
     },
   },
   methods: {

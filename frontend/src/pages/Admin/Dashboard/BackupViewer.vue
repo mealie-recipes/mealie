@@ -31,7 +31,7 @@
         <BackupDialog :color="color" />
 
         <v-btn :loading="loading" class="mx-2" small color="success" @click="createBackup">
-          <v-icon left> mdi-plus </v-icon> {{ $t("general.create") }}
+          <v-icon left> {{ $globals.icons.create }} </v-icon> {{ $t("general.create") }}
         </v-btn>
       </div>
       <template v-slot:bottom>
@@ -54,7 +54,7 @@
 
               <v-list-item-action class="ml-auto">
                 <v-btn large icon @click.stop="deleteBackup(item.name)">
-                  <v-icon color="error">mdi-delete</v-icon>
+                  <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </v-list-item-action>
             </v-list-item>

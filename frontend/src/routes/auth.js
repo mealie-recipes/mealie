@@ -1,5 +1,5 @@
-import LoginPage from "@/pages/LoginPage";
-import SignUpPage from "@/pages/SignUpPage";
+const LoginPage = () => import("@/pages/LoginPage");
+const SignUpPage = () => import("@/pages/SignUpPage");
 import { store } from "../store";
 
 export const authRoutes = [

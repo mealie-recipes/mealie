@@ -12,7 +12,7 @@
           <v-row align="center" v-for="(value, key, index) in extras" :key="index">
             <v-col cols="12" sm="1">
               <v-btn fab text x-small color="white" elevation="0" @click="removeExtra(key)">
-                <v-icon color="error">mdi-delete</v-icon>
+                <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="12" md="3" sm="6">

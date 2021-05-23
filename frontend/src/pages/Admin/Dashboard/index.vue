@@ -6,7 +6,7 @@
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
               <h2 class="body-3 grey--text font-weight-light">
-                {{$t('general.recipes')}}
+                {{ $t("general.recipes") }}
               </h2>
 
               <h3 class="display-2 font-weight-light text--primary">
@@ -17,25 +17,27 @@
           <template v-slot:actions>
             <div class="d-flex row py-3 justify-space-around">
               <v-btn small color="primary" :to="{ path: '/admin/toolbox/', query: { tab: 'organize', filter: 'tag' } }">
-                <v-icon left> mdi-tag </v-icon> {{$tc('tag.untagged-count', [statistics.untaggedRecipes])}}
+                <v-icon left> {{ $globals.icons.tags }} </v-icon>
+                {{ $tc("tag.untagged-count", [statistics.untaggedRecipes]) }}
               </v-btn>
               <v-btn
                 small
                 color="primary"
                 :to="{ path: '/admin/toolbox/', query: { tab: 'organize', filter: 'category' } }"
               >
-                <v-icon left> mdi-tag </v-icon> {{$tc('category.uncategorized-count', [statistics.uncategorizedRecipes])}}
+                <v-icon left> {{ $globals.icons.tags }} </v-icon>
+                {{ $tc("category.uncategorized-count", [statistics.uncategorizedRecipes]) }}
               </v-btn>
             </div>
           </template>
         </StatCard>
       </v-col>
       <v-col cols="12" sm="12" md="4">
-        <StatCard icon="mdi-account">
+        <StatCard :icon="$globals.icons.user">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
               <h2 class="body-3 grey--text font-weight-light">
-                 {{$t('user.users')}}
+                {{ $t("user.users") }}
               </h2>
               <h3 class="display-2 font-weight-light text--primary">
                 <small> {{ statistics.totalUsers }}</small>
@@ -45,19 +47,19 @@
           <template v-slot:actions>
             <div class="ml-auto">
               <v-btn color="primary" small to="/admin/manage-users?tab=users">
-                <v-icon left>mdi-account</v-icon>
-                {{$t('user.manage-users')}}
+                <v-icon left>{{ $globals.icons.user }}</v-icon>
+                {{ $t("user.manage-users") }}
               </v-btn>
             </div>
           </template>
         </StatCard>
       </v-col>
       <v-col cols="12" sm="12" md="4">
-        <StatCard icon="mdi-account-group">
+        <StatCard :icon="$globals.icons.group">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
               <h2 class="body-3 grey--text font-weight-light">
-                {{$t('group.groups')}}
+                {{ $t("group.groups") }}
               </h2>
 
               <h3 class="display-2 font-weight-light text--primary">
@@ -68,8 +70,8 @@
           <template v-slot:actions>
             <div class="ml-auto">
               <v-btn color="primary" small to="/admin/manage-users?tab=groups">
-                <v-icon left>mdi-account-group</v-icon>
-                {{$t('group.manage-groups')}}
+                <v-icon left>{{ $globals.icons.group }}</v-icon>
+                {{ $t("group.manage-groups") }}
               </v-btn>
             </div>
           </template>

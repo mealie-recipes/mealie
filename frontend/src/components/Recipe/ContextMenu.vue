@@ -75,13 +75,13 @@ export default {
       return [
         {
           title: this.$t("general.delete"),
-          icon: "mdi-delete",
+          icon: this.$globals.icons.delete,
           color: "error",
           action: "delete",
         },
         {
           title: this.$t("general.edit"),
-          icon: "mdi-square-edit-outline",
+          icon: this.$globals.icons.edit,
           color: "accent",
           action: "edit",
         },

@@ -9,7 +9,7 @@
     >
       <template v-slot:open="{ open }">
         <v-btn @click="open" class="mx-2" small :color="color">
-          <v-icon left> mdi-plus </v-icon> {{ $t("general.custom") }}
+          <v-icon left> {{ $globals.icons.create }} </v-icon> {{ $t("general.custom") }}
         </v-btn>
       </template>
       <v-card-text class="mt-6">
@@ -127,7 +127,6 @@ export default {
         },
         templates: this.selectedTemplates,
       };
-
 
       if (await api.backups.create(data)) {
         this.$emit("created");

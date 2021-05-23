@@ -38,7 +38,7 @@
 
               <v-list-item-action class="ml-auto">
                 <v-btn large icon @click="deleteEvent(item.id)">
-                  <v-icon color="error">mdi-delete</v-icon>
+                  <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
@@ -81,11 +81,11 @@ export default {
           color: "primary",
         },
         user: {
-          icon: "mdi-account",
+          icon: this.$globals.icons.user,
           color: "accent",
         },
         group: {
-          icon: "mdi-account-group-outline",
+          icon: this.$globals.icons.group,
           color: "accent",
         },
       },

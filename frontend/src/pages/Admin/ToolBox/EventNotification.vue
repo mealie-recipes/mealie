@@ -12,7 +12,7 @@
           <template v-slot:open="{ open }">
             <v-btn small color="info" @click="open">
               <v-icon left>
-                mdi-plus
+                {{ $globals.icons.create }}
               </v-icon>
               {{ $t("events.notification") }}
             </v-btn>
@@ -135,7 +135,7 @@
               </td>
               <td>
                 <v-btn class="mx-1" small color="error" @click="deleteNotification(item.id)">
-                  <v-icon> mdi-delete </v-icon>
+                  <v-icon> {{ $globals.icons.delete }} </v-icon>
                   {{ $t("general.delete") }}
                 </v-btn>
                 <v-btn small color="info" @click="testByID(item.id)">

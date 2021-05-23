@@ -1,5 +1,5 @@
 <template>
-  <StatCard icon="mdi-account-group">
+  <StatCard :icon="$globals.icons.group">
     <template v-slot:after-heading>
       <div class="ml-auto text-right">
         <div class="body-3 grey--text font-weight-light" v-text="$t('group.group')" />
@@ -11,7 +11,7 @@
     </template>
     <template v-slot:bottom>
       <div v-if="todaysMeal">
-        <v-subheader>{{$t('meal-plan.dinner-tonight')}}</v-subheader>
+        <v-subheader>{{ $t("meal-plan.dinner-tonight") }}</v-subheader>
         <MobileRecipeCard
           :name="todaysMeal.name"
           :slug="todaysMeal.slug"
@@ -48,12 +48,12 @@
           <v-icon x-large>
             mdi-food-variant
           </v-icon>
-          <small> {{$t('meal-plan.mealplan-settings')}} </small>
+          <small> {{ $t("meal-plan.mealplan-settings") }} </small>
         </h3>
       </div>
       <v-divider></v-divider>
 
-      <v-subheader>{{$t('meal-plan.mealplan-categories')}}</v-subheader>
+      <v-subheader>{{ $t("meal-plan.mealplan-categories") }}</v-subheader>
       <v-card-text class="mt-0 pt-0">
         {{ $t("meal-plan.only-recipes-with-these-categories-will-be-used-in-meal-plans") }}
       </v-card-text>
@@ -66,7 +66,7 @@
       />
 
       <v-divider></v-divider>
-      <v-subheader>{{$t('settings.webhooks.webhooks-caps')}}</v-subheader>
+      <v-subheader>{{ $t("settings.webhooks.webhooks-caps") }}</v-subheader>
       <v-card-text class="mt-0 pt-0">
         {{
           $t(
@@ -82,7 +82,7 @@
 
       <v-card-text>
         <v-text-field
-          prepend-icon="mdi-delete"
+          :prepend-icon="$globals.icons.delete"
           v-for="(url, index) in groupSettings.webhookUrls"
           @click:prepend="removeWebhook(index)"
           :key="index"
@@ -93,7 +93,7 @@
           <v-spacer></v-spacer>
           <v-btn small color="success" @click="addWebhook">
             <v-icon left> mdi-webhook </v-icon>
-            {{$t('general.new')}}
+            {{ $t("general.new") }}
           </v-btn>
         </v-card-actions>
       </v-card-text>
@@ -106,7 +106,7 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="success" @click="saveGroupSettings">
-          <v-icon left> mdi-content-save </v-icon>
+          <v-icon left> {{ $globals.icons.save }} </v-icon>
           {{ $t("general.update") }}
         </v-btn>
       </v-card-actions>

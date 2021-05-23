@@ -55,7 +55,7 @@
                       <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-icon @click="deleteActiveCategory(index)">
-                      <v-icon>mdi-delete</v-icon>
+                      <v-icon>{{ $globals.icons.delete }}</v-icon>
                     </v-list-item-icon>
                   </v-list-item>
                 </draggable>
@@ -67,7 +67,7 @@
           <v-card outlined height="350px">
             <v-app-bar dark dense color="primary">
               <v-icon left>
-                mdi-tag
+                {{ $globals.icons.tags }}
               </v-icon>
 
               <v-toolbar-title class="headline">
@@ -95,7 +95,7 @@
                       <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-icon @click="deleteCategoryfromDatabase(item.slug)">
-                      <v-icon>mdi-delete</v-icon>
+                      <v-icon>{{ $globals.icons.delete }}</v-icon>
                     </v-list-item-icon>
                   </v-list-item>
                 </draggable>
@@ -127,7 +127,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="success" @click="saveSettings" class="mr-2">
-        <v-icon left> mdi-content-save </v-icon>
+        <v-icon left> {{ $globals.icons.save }} </v-icon>
         {{ $t("general.save") }}
       </v-btn>
     </v-card-actions>

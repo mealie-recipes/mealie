@@ -1,5 +1,5 @@
 <template>
-  <StatCard icon="mdi-account">
+  <StatCard :icon="$globals.icons.user">
     <template v-slot:avatar>
       <v-avatar color="accent" size="120" class="white--text headline mt-n16">
         <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" @load="hideImage = false" />
@@ -90,7 +90,7 @@
         />
         <v-spacer></v-spacer>
         <v-btn color="success" @click="updateUser">
-          <v-icon left> mdi-content-save </v-icon>
+          <v-icon left> {{ $globals.icons.save }} </v-icon>
           {{ $t("general.update") }}
         </v-btn>
       </v-card-actions>

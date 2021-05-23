@@ -69,7 +69,7 @@
           <div class="d-flex row justify-end mt-2">
             <BulkAdd @bulk-data="appendSteps" class="mr-2" />
             <v-btn color="secondary" dark @click="addStep" class="mr-4">
-              <v-icon>mdi-plus</v-icon>
+              <v-icon>{{ $globals.icons.create }}</v-icon>
             </v-btn>
           </div>
           <Notes :edit="true" v-model="value.notes" />

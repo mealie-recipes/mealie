@@ -3,7 +3,7 @@
     <v-divider></v-divider>
     <v-app-bar dark color="primary" class="mt-n1">
       <v-icon large left v-if="!loading">
-        mdi-account
+        {{ $globals.icons.user }}
       </v-icon>
       <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
       <v-toolbar-title class="headline">
@@ -18,7 +18,7 @@
         <v-text-field
           v-model="user.name"
           light="light"
-          prepend-icon="mdi-account"
+          :prepend-icon="$globals.icons.user"
           validate-on-blur
           :rules="[existsRule]"
           :label="$t('signup.display-name')"

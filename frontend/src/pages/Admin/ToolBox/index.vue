@@ -5,20 +5,20 @@
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab href="#event-notifications">
-          {{$t('settings.notify')}}
+          {{ $t("settings.notify") }}
           <v-icon>mdi-bell-alert</v-icon>
         </v-tab>
         <v-tab href="#category-editor">
           {{ $t("recipe.categories") }}
-          <v-icon>mdi-tag-multiple-outline</v-icon>
+          <v-icon>{{ $globals.icons.tags }}</v-icon>
         </v-tab>
 
         <v-tab href="#tag-editor">
           {{ $t("tag.tags") }}
-          <v-icon>mdi-tag-multiple-outline</v-icon>
+          <v-icon>{{ $globals.icons.tags }}</v-icon>
         </v-tab>
         <v-tab href="#organize">
-          {{$t('settings.organize')}}
+          {{ $t("settings.organize") }}
           <v-icon>mdi-broom</v-icon>
         </v-tab>
       </v-tabs>

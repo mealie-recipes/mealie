@@ -10,7 +10,7 @@
       <v-card height="100%">
         <v-app-bar dark :color="color" class="mt-n1 mb-0">
           <v-icon large left>
-            {{ titleIcon }}
+            {{ displayTitleIcon }}
           </v-icon>
           <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
           <v-spacer></v-spacer>
@@ -55,7 +55,7 @@ export default {
       default: "Modal Title",
     },
     titleIcon: {
-      default: "mdi-account",
+      default: null,
     },
     modalWidth: {
       default: "500",
@@ -82,6 +82,9 @@ export default {
   computed: {
     determineClose() {
       return this.submitted && !this.loading && !this.keepOpen;
+    },
+    displayTitleIcon() {
+      return this.titleIcon || this.$globals.icons.user;
     },
   },
   watch: {

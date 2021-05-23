@@ -1,11 +1,11 @@
-import Admin from "@/pages/Admin";
-import Migration from "@/pages/Admin/Migration";
-import Profile from "@/pages/Admin/Profile";
-import ManageUsers from "@/pages/Admin/ManageUsers";
-import Settings from "@/pages/Admin/Settings";
-import About from "@/pages/Admin/About";
-import ToolBox from "@/pages/Admin/ToolBox";
-import Dashboard from "@/pages/Admin/Dashboard";
+const Admin = () => import("@/pages/Admin");
+const Migration = () => import("@/pages/Admin/Migration");
+const Profile = () => import("@/pages/Admin/Profile");
+const ManageUsers = () => import("@/pages/Admin/ManageUsers");
+const Settings = () => import("@/pages/Admin/Settings");
+const About = () => import("@/pages/Admin/About");
+const ToolBox = () => import("@/pages/Admin/ToolBox");
+const Dashboard = () => import("@/pages/Admin/Dashboard");
 import { store } from "../store";
 
 export const adminRoutes = {

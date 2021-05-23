@@ -16,7 +16,7 @@
         <template v-slot:open="{ open }">
           <v-btn color="info" @click="open">
             <v-icon left>
-              mdi-plus
+              {{ $globals.icons.create }}
             </v-icon>
             New List
           </v-btn>
@@ -39,7 +39,7 @@
             <v-card-actions>
               <v-btn text color="error" @click="deleteList(item.id)">
                 <v-icon left>
-                  mdi-delete
+                  {{ $globals.icons.delete }}
                 </v-icon>
                 Delete
               </v-btn>
@@ -85,13 +85,13 @@
                 </v-btn>
                 <v-btn x-small text class="mr-1" @click="activeList.items[index].quantity += 1">
                   <v-icon>
-                    mdi-plus
+                    {{ $globals.icons.create }}
                   </v-icon>
                 </v-btn>
               </div>
               <v-spacer></v-spacer>
               <v-btn v-if="edit" icon @click="removeItemByIndex(index)" color="error">
-                <v-icon>mdi-delete</v-icon>
+                <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
             </v-col>
 
@@ -130,13 +130,13 @@
           <v-spacer></v-spacer>
           <v-btn v-if="edit" color="success" @click="openSearch">
             <v-icon left>
-              mdi-silverware-variant
+              {{ $globals.icons.primary }}
             </v-icon>
             From Recipe
           </v-btn>
           <v-btn v-if="edit" color="success" @click="newItem">
             <v-icon left>
-              mdi-plus
+              {{ $globals.icons.create }}
             </v-icon>
             New
           </v-btn>

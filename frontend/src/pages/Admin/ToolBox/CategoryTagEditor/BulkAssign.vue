@@ -2,7 +2,7 @@
   <div>
     <BaseDialog
       ref="assignDialog"
-      title-icon="mdi-tag"
+      :title-icon="$globals.icons.tags"
       color="primary"
       :title="$t('settings.toolbox.bulk-assign')"
       :loading="loading"

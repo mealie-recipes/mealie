@@ -4,7 +4,7 @@
     <v-menu transition="slide-x-transition" bottom right offset-y offset-overflow open-on-hover close-delay="200">
       <template v-slot:activator="{ on, attrs }">
         <v-btn v-bind="attrs" v-on="on" icon>
-          <v-icon>mdi-account</v-icon>
+          <v-icon>{{ $globals.icons.user }}</v-icon>
         </v-btn>
       </template>
 
@@ -40,7 +40,7 @@ export default {
     items() {
       return [
         {
-          icon: "mdi-account",
+          icon: this.$globals.icons.user,
           title: this.$t("user.login"),
           restricted: false,
           login: true,

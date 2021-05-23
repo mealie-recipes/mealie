@@ -9,7 +9,7 @@
         <v-list-item-group color="primary">
           <v-list-item v-for="property in prettyInfo" :key="property.name">
             <v-list-item-icon>
-              <v-icon> {{ property.icon || "mdi-account" }} </v-icon>
+              <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title class="pl-4 flex row justify-space-between">
@@ -92,7 +92,7 @@ export default {
         },
         {
           name: this.$t("about.default-group"),
-          icon: "mdi-account-group",
+          icon: this.$globals.icons.group,
           value: debugInfo.defaultGroup,
         },
       ];

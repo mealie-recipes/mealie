@@ -50,14 +50,14 @@
     <v-speed-dial v-model="fab" :open-on-hover="absolute" :fixed="absolute" :bottom="absolute" :right="absolute">
       <template v-slot:activator>
         <v-btn v-model="fab" :color="absolute ? 'accent' : 'white'" dark :icon="!absolute" :fab="absolute">
-          <v-icon> mdi-plus </v-icon>
+          <v-icon> {{ $globals.icons.create }} </v-icon>
         </v-btn>
       </template>
       <v-btn fab dark small color="primary" @click="addRecipe = true">
         <v-icon>mdi-link</v-icon>
       </v-btn>
       <v-btn fab dark small color="accent" @click="$router.push('/new')">
-        <v-icon>mdi-square-edit-outline</v-icon>
+        <v-icon>{{ $globals.icons.edit }}</v-icon>
       </v-btn>
     </v-speed-dial>
   </div>

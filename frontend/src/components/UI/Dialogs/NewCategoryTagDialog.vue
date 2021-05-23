@@ -2,14 +2,14 @@
   <div>
     <slot>
       <v-btn icon @click="dialog = true" class="mt-n1">
-        <v-icon :color="color">mdi-plus</v-icon>
+        <v-icon :color="color">{{ $globals.icons.create }}</v-icon>
       </v-btn>
     </slot>
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-app-bar dense dark color="primary mb-2">
           <v-icon large left class="mt-1">
-            mdi-tag
+            {{ $globals.icons.tags }}
           </v-icon>
 
           <v-toolbar-title class="headline">
