@@ -120,7 +120,7 @@ export default {
       default: false,
     },
     titleIcon: {
-      default: "mdi-tag-multiple-outline",
+      default: "{{ $globals.icons.tags }}-multiple-outline",
     },
     title: {
       default: null,

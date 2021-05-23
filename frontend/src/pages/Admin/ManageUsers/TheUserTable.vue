@@ -36,7 +36,7 @@
         <v-card>
           <v-app-bar dark dense color="primary">
             <v-icon left>
-              mdi-account
+              {{ $globals.icons.user }}
             </v-icon>
 
             <v-toolbar-title class="headline">
@@ -111,7 +111,7 @@
         <template v-slot:item.actions="{ item }">
           <v-btn class="mr-1" small color="error" @click="deleteItem(item)">
             <v-icon small left>
-              mdi-delete
+              {{ $globals.icons.delete }}
             </v-icon>
             {{ $t("general.delete") }}
           </v-btn>

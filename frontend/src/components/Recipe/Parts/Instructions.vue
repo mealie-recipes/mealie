@@ -37,7 +37,7 @@
                 elevation="0"
                 @click="removeByIndex(value, index)"
               >
-                <v-icon size="24" color="error">mdi-delete</v-icon>
+                <v-icon size="24" color="error">{{ $globals.icons.delete }}</v-icon>
               </v-btn>
               {{ $t("recipe.step-index", { step: index + 1 }) }}
               <v-btn v-if="edit" text color="primary" class="ml-auto" @click="toggleShowTitle(index)">

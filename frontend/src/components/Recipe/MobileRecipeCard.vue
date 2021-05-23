@@ -9,7 +9,7 @@
           @error="fallBackImage = true"
         ></v-img>
         <v-icon v-else color="primary" class="icon-position" size="100">
-          mdi-silverware-variant
+          {{ $globals.icons.primary }}
         </v-icon>
       </v-list-item-avatar>
       <v-list-item-content>

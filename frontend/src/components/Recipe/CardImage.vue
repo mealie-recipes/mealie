@@ -14,7 +14,7 @@
         <slot> </slot>
       </div>
       <v-icon color="primary" class="icon-position" :size="iconSize">
-        mdi-silverware-variant
+        {{ $globals.icons.primary }}
       </v-icon>
     </div>
   </div>

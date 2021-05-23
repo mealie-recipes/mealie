@@ -55,7 +55,7 @@ export default {
       default: "Modal Title",
     },
     titleIcon: {
-      default: "mdi-account",
+      default: () => this.$globals.icons.user,
     },
     modalWidth: {
       default: "500",

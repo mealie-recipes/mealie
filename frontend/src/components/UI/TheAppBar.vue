@@ -7,7 +7,7 @@
       </v-btn>
       <router-link to="/">
         <v-btn icon>
-          <v-icon size="40"> mdi-silverware-variant </v-icon>
+          <v-icon size="40"> {{ $globals.icons.primary }} </v-icon>
         </v-btn>
       </router-link>
 

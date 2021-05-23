@@ -2,7 +2,7 @@
   <div>
     <base-dialog
       ref="deleteDialog"
-      title-icon="mdi-tag"
+      :title-icon="$globals.icons.tags"
       color="error"
       :title="$t('general.delete') + ' ' + (isTags ? $t('tag.tags') : $t('recipe.categories'))"
       :loading="loading"

@@ -20,7 +20,7 @@
                   <v-icon class="handle">mdi-arrow-up-down</v-icon>
                 </template>
                 <v-icon class="mr-n1" slot="prepend" color="error" @click="removeByIndex(value, index)">
-                  mdi-delete
+                  {{ $globals.icons.delete }}
                 </v-icon>
               </v-textarea>
             </v-row>
@@ -31,7 +31,7 @@
       <div class="d-flex row justify-end">
         <BulkAdd @bulk-data="addIngredient" class="mr-2" />
         <v-btn color="secondary" dark @click="addIngredient" class="mr-4">
-          <v-icon>mdi-plus</v-icon>
+          <v-icon>{{ $globals.icons.create }}</v-icon>
         </v-btn>
       </div>
     </div>

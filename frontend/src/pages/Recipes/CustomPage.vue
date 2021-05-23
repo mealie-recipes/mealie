@@ -2,9 +2,7 @@
   <v-container>
     <v-card flat height="100%">
       <v-app-bar color="transparent" flat class="mt-n1 rounded">
-        <v-icon large left>
-          mdi-tag-multiple-outline
-        </v-icon>
+        <v-icon large left> {{ $globals.icons.tags }}-multiple-outline </v-icon>
         <v-toolbar-title class="headline"> {{ page.name }} </v-toolbar-title>
       </v-app-bar>
 

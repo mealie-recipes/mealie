@@ -4,12 +4,15 @@ import vuetify from "./plugins/vuetify";
 import store from "./store";
 import VueRouter from "vue-router";
 import { router } from "./routes";
+import { globals } from "@/utils/globals";
 import i18n from "./i18n";
 import "@mdi/font/css/materialdesignicons.css";
 import "typeface-roboto/index.css";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
+
+Vue.prototype.$globals = globals;
 
 const vueApp = new Vue({
   vuetify,

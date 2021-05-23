@@ -9,7 +9,7 @@
       <div class="d-flex">
         <p>4</p>
         <v-icon color="primary" class="mx-auto" size="200">
-          mdi-silverware-variant
+          {{ $globals.icons.primary }}
         </v-icon>
         <p>4</p>
       </div>
@@ -33,7 +33,7 @@ export default {
     return {
       buttons: [
         { icon: "mdi-home", to: "/", text: "Home" },
-        { icon: "mdi-silverware-variant", to: "/recipes/all", text: "All Recipes" },
+        { icon: this.$globals.icons.primary, to: "/recipes/all", text: "All Recipes" },
         { icon: "mdi-magnify", to: "/search", text: "Search" },
       ],
     };

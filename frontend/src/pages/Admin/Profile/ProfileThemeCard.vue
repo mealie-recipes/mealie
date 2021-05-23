@@ -64,7 +64,7 @@
 
               <v-list-item-action class="ml-auto">
                 <v-btn large icon @click.stop="editTheme(item)">
-                  <v-icon color="accent">mdi-square-edit-outline</v-icon>
+                  <v-icon color="accent">{{ $globals.icons.edit }}</v-icon>
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
@@ -75,7 +75,7 @@
         <v-card-actions>
           <v-spacer class="mx-2"></v-spacer>
           <v-btn class="my-1 mb-n1" color="success" @click="createTheme">
-            <v-icon left> mdi-plus </v-icon> {{ $t("general.create") }}
+            <v-icon left> {{ $globals.icons.create }} </v-icon> {{ $t("general.create") }}
           </v-btn>
         </v-card-actions>
       </template>

@@ -2,7 +2,7 @@
   <v-card outlined class="mt-n1">
     <BaseDialog
       ref="renameDialog"
-      title-icon="mdi-tag"
+      :title-icon="$globals.icons.tags"
       :title="renameTarget.title"
       :submit-text="$t('general.update')"
       modal-width="800"

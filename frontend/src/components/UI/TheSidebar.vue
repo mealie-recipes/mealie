@@ -117,14 +117,14 @@ export default {
         return pages.map(x => ({
           title: x.name,
           to: `/pages/${x.slug}`,
-          icon: "mdi-tag",
+          icon: this.$globals.icons.tags,
         }));
       } else {
         const categories = this.$store.getters.getAllCategories;
         return categories.map(x => ({
           title: x.name,
           to: `/recipes/category/${x.slug}`,
-          icon: "mdi-tag",
+          icon: this.$globals.icons.tags,
         }));
       }
     },
@@ -134,7 +134,7 @@ export default {
     settingsLinks() {
       return [
         {
-          icon: "mdi-account",
+          icon: this.$globals.icons.user,
           to: "/admin/profile",
           title: this.$t("settings.profile"),
         },
@@ -158,7 +158,7 @@ export default {
           title: this.$t("settings.toolbox.toolbox"),
         },
         {
-          icon: "mdi-account-group",
+          icon: this.$globals.icons.group,
           to: "/admin/manage-users",
           title: this.$t("user.manage-users"),
         },

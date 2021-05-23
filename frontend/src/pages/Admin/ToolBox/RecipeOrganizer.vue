@@ -3,12 +3,12 @@
     <div class="d-flex justify-center align-center pa-2 flex-wrap">
       <v-btn-toggle v-model="filter" mandatory color="primary">
         <v-btn small value="category">
-          <v-icon>mdi-tag-multiple</v-icon>
+          <v-icon>{{ $globals.icons.tags }}-multiple</v-icon>
           {{ $t("recipe.categories") }}
         </v-btn>
 
         <v-btn small value="tag">
-          <v-icon>mdi-tag-multiple</v-icon>
+          <v-icon>{{ $globals.icons.tags }}-multiple</v-icon>
           {{ $t("tag.tags") }}
         </v-btn>
       </v-btn-toggle>
