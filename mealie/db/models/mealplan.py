@@ -2,6 +2,7 @@ import sqlalchemy.orm as orm
 from mealie.db.models.group import Group
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.shopping_list import ShoppingList
 from sqlalchemy import Column, Date, ForeignKey, Integer, String
 from sqlalchemy.ext.orderinglist import ordering_list
 
@@ -56,8 +57,24 @@ class MealPlan(SqlAlchemyBase, BaseMixins):
     group_id = Column(Integer, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="mealplans")
 
-    def __init__(self, start_date, end_date, plan_days, group: str, uid=None, session=None) -> None:
+    shopping_list_id = Column(Integer, ForeignKey("shopping_lists.id"))
+    shopping_list: ShoppingList = orm.relationship("ShoppingList", single_parent=True)
+
+    def __init__(
+        self,
+        start_date,
+        end_date,
+        plan_days,
+        group: str,
+        shopping_list: int = None,
+        session=None,
+        **_,
+    ) -> None:
         self.start_date = start_date
         self.end_date = end_date
         self.group = Group.get_ref(session, group)
+
+        if shopping_list:
+            self.shopping_list = ShoppingList.get_ref(session, shopping_list)
+
         self.plan_days = [MealDay(**day, session=session) for day in plan_days]

@@ -6,6 +6,7 @@ from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlan
 from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
 from mealie.db.models.settings import CustomPage, SiteSettings
+from mealie.db.models.shopping_list import ShoppingList
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.theme import SiteThemeModel
 from mealie.db.models.users import LongLiveToken, User
@@ -16,6 +17,7 @@ from mealie.schema.meal import MealPlanOut
 from mealie.schema.recipe import Recipe
 from mealie.schema.settings import CustomPageOut
 from mealie.schema.settings import SiteSettings as SiteSettingsSchema
+from mealie.schema.shopping_list import ShoppingListOut
 from mealie.schema.sign_up import SignUpOut
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, UserInDB
@@ -136,6 +138,13 @@ class _Groups(BaseDocument):
         return group.mealplans
 
 
+class _ShoppingList(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "id"
+        self.sql_model = ShoppingList
+        self.schema = ShoppingListOut
+
+
 class _SignUps(BaseDocument):
     def __init__(self) -> None:
         self.primary_key = "token"
@@ -179,6 +188,7 @@ class Database:
         self.custom_pages = _CustomPages()
         self.events = _Events()
         self.event_notifications = _EventNotification()
+        self.shopping_lists = _ShoppingList()
 
 
 db = Database()

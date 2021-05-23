@@ -7,11 +7,16 @@
       @load="fallBackImage = false"
       @error="fallBackImage = true"
     >
-      <slot></slot>
+      <slot> </slot>
     </v-img>
-    <v-icon v-else color="primary" class="icon-position" :size="iconSize">
-      mdi-silverware-variant
-    </v-icon>
+    <div class="icon-slot" v-else>
+      <div>
+        <slot> </slot>
+      </div>
+      <v-icon color="primary" class="icon-position" :size="iconSize">
+        mdi-silverware-variant
+      </v-icon>
+    </div>
   </div>
 </template>
 
@@ -75,6 +80,15 @@ export default {
 </script>
 
 <style scoped>
+.icon-slot {
+  position: relative;
+}
+
+.icon-slot > div {
+  position: absolute;
+  z-index: 1;
+}
+
 .icon-position {
   opacity: 0.8;
   display: flex !important;

@@ -49,13 +49,22 @@ class MealPlanIn(CamelModel):
 
 class MealPlanOut(MealPlanIn):
     uid: int
+    shopping_list: Optional[int]
 
     class Config:
         orm_mode = True
 
         @classmethod
         def getter_dict(_cls, name_orm: MealPlan):
-            return {
-                **GetterDict(name_orm),
-                "group": name_orm.group.name,
-            }
+            try:
+                return {
+                    **GetterDict(name_orm),
+                    "group": name_orm.group.name,
+                    "shopping_list": name_orm.shopping_list.id,
+                }
+            except Exception:
+                return {
+                    **GetterDict(name_orm),
+                    "group": name_orm.group.name,
+                    "shopping_list": None,
+                }

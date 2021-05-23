@@ -5,18 +5,14 @@ import { store } from "@/store";
 
 export const utils = {
   recipe: recipe,
-  getImageURL(image) {
-    return `/api/recipes/${image}/image?image_type=small`;
-  },
   generateUniqueKey(item, index) {
     const uniqueKey = `${item}-${index}`;
     return uniqueKey;
   },
   getDateAsPythonDate(dateObject) {
-    const month = dateObject.getUTCMonth() + 1;
-    const day = dateObject.getUTCDate();
+    const month = dateObject.getMonth() + 1;
+    const day = dateObject.getDate();
     const year = dateObject.getFullYear();
-
     return `${year}-${month}-${day}`;
   },
   notify: {

@@ -5,10 +5,7 @@ from mealie.routes.deps import get_current_user
 from mealie.schema.category import CategoryIn, RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(
-    prefix="/api/categories",
-    tags=["Recipe Categories"],
-)
+router = APIRouter(prefix="/api/categories", tags=["Recipe Categories"])
 
 
 @router.get("")

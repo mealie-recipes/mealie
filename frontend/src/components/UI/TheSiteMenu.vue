@@ -64,6 +64,12 @@ export default {
           restricted: true,
         },
         {
+          icon: "mdi-format-list-checks",
+          title: "Shopping Lists",
+          nav: "/shopping-list",
+          restricted: true,
+        },
+        {
           icon: "mdi-logout",
           title: this.$t("user.logout"),
           restricted: true,

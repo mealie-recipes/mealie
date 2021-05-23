@@ -12,7 +12,6 @@ from sqlalchemy.orm.session import Session
 def set_mealplan_dates(meal_plan_base: MealPlanIn) -> MealPlanIn:
     for x, plan_days in enumerate(meal_plan_base.plan_days):
         plan_days: MealDayIn
-
         plan_days.date = meal_plan_base.start_date + timedelta(days=x)
 
 
@@ -29,22 +28,22 @@ def get_todays_meal(session: Session, group: Union[int, GroupInDB]) -> Recipe:
         Recipe: Pydantic Recipe Object
     """
 
-    return
+    session = session or create_session()
 
-    # session = session or create_session()
+    if isinstance(group, int):
+        group: GroupInDB = db.groups.get(session, group)
 
-    # if isinstance(group, int):
-    #     group: GroupInDB = db.groups.get(session, group)
+    today_slug = None
 
-    # today_slug = None
+    for mealplan in group.mealplans:
+        for plan_day in mealplan.plan_days:
+            if plan_day.date == date.today():
+                if plan_day.meals[0].slug and plan_day.meals[0].slug != "":
+                    today_slug = plan_day.meals[0].slug
+                else:
+                    return plan_day.meals[0]
 
-    # for mealplan in group.mealplans:
-    #     for meal in mealplan.meals:
-    #         if meal.date == date.today():
-    #             today_slug = meal.slug
-    #             break
-
-    # if today_slug:
-    #     return db.recipes.get(session, today_slug)
-    # else:
-    #     return None
+    if today_slug:
+        return db.recipes.get(session, today_slug)
+    else:
+        return None

@@ -74,8 +74,6 @@ export default {
     },
     open() {
       this.dialog = true;
-      this.$refs.mealSearchBar.resetSearch();
-      this.$router.push("#search");
     },
     toggleDialog(open) {
       if (open) {

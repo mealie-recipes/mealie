@@ -6,6 +6,7 @@ from mealie.db.models.group import Group
 from mealie.db.models.users import User
 from mealie.schema.category import CategoryBase
 from mealie.schema.meal import MealPlanOut
+from mealie.schema.shopping_list import ShoppingListOut
 from pydantic.types import constr
 from pydantic.utils import GetterDict
 
@@ -106,6 +107,7 @@ class UpdateGroup(GroupBase):
 class GroupInDB(UpdateGroup):
     users: Optional[list[UserOut]]
     mealplans: Optional[list[MealPlanOut]]
+    shopping_lists: Optional[list[ShoppingListOut]]
 
     class Config:
         orm_mode = True
