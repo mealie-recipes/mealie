@@ -8,7 +8,7 @@
 
   @static {
     file
-    path *.ico *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.webp
+    path *.ico *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.webp
   }
   
   encode gzip zstd
@@ -16,7 +16,7 @@
   
   # Handles Recipe Images / Assets
   handle_path /api/media/recipes/* {
-    header @static Cache-Control max-age=5184000
+    header @static Cache-Control max-age=31536000
     root * /app/data/recipes/
     file_server
   }
@@ -26,6 +26,7 @@
   }
 
   handle {
+    header @static Cache-Control max-age=31536000
     root * /app/dist
     try_files {path}.html {path} /index.html
     file_server 
