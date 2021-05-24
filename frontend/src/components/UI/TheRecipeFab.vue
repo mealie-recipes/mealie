@@ -50,7 +50,7 @@
     <v-speed-dial v-model="fab" :open-on-hover="absolute" :fixed="absolute" :bottom="absolute" :right="absolute">
       <template v-slot:activator>
         <v-btn v-model="fab" :color="absolute ? 'accent' : 'white'" dark :icon="!absolute" :fab="absolute">
-          <v-icon> {{ $globals.icons.create }} </v-icon>
+          <v-icon> {{ $globals.icons.createAlt }} </v-icon>
         </v-btn>
       </template>
       <v-btn fab dark small color="primary" @click="addRecipe = true">

@@ -10,12 +10,7 @@
           @submit="createNotification"
         >
           <template v-slot:open="{ open }">
-            <v-btn small color="info" @click="open">
-              <v-icon left>
-                {{ $globals.icons.create }}
-              </v-icon>
-              {{ $t("events.notification") }}
-            </v-btn>
+            <TheButton create small @click="open"> {{ $t("events.notification") }}</TheButton>
           </template>
           <template v-slot:default>
             <v-card-text class="mt-2">
@@ -134,14 +129,13 @@
                 <v-icon color="success"> {{ item.user ? "mdi-check" : "" }} </v-icon>
               </td>
               <td>
-                <v-btn class="mx-1" small color="error" @click="deleteNotification(item.id)">
-                  <v-icon> {{ $globals.icons.delete }} </v-icon>
-                  {{ $t("general.delete") }}
-                </v-btn>
-                <v-btn small color="info" @click="testByID(item.id)">
-                  <v-icon left> mdi-test-tube</v-icon>
+                <TheButton delete small minor @click="deleteNotification(item.id)"> </TheButton>
+                <TheButton edit small @click="testByID(item.id)">
+                  <template v-slot:icon>
+                    mdi-test-tube
+                  </template>
                   {{ $t("general.test") }}
-                </v-btn>
+                </TheButton>
               </td>
             </tr>
           </tbody>

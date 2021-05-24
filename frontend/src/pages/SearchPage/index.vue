@@ -1,53 +1,45 @@
 <template>
   <v-container>
-    <v-card flat class="pa-3">
-      <v-row dense>
-        <v-col>
-          <v-text-field
-            v-model="searchString"
-            outlined
-            color="primary accent-3"
-            :placeholder="$t('search.search-placeholder')"
-            append-icon="mdi-magnify"
-          >
-          </v-text-field>
-        </v-col>
-        <v-col cols="12" md="2" sm="12">
-          <v-text-field
-            class="mt-0 pt-0"
-            :label="$t('search.max-results')"
-            v-model="maxResults"
-            type="number"
-            outlined
-          />
-        </v-col>
-      </v-row>
+    <v-row dense>
+      <v-col>
+        <v-text-field
+          v-model="searchString"
+          outlined
+          color="primary accent-3"
+          :placeholder="$t('search.search-placeholder')"
+          append-icon="mdi-magnify"
+        >
+        </v-text-field>
+      </v-col>
+      <v-col cols="12" md="2" sm="12">
+        <v-text-field class="mt-0 pt-0" :label="$t('search.max-results')" v-model="maxResults" type="number" outlined />
+      </v-col>
+    </v-row>
 
-      <v-row dense class="mt-0 flex-row align-center justify-space-around">
-        <v-col>
-          <h3 class="pl-2 text-center headline">
-            {{ $t("category.category-filter") }}
-          </h3>
-          <FilterSelector class="mb-1" @update="updateCatParams" />
-          <CategoryTagSelector :solo="true" :dense="false" v-model="includeCategories" :return-object="false" />
-        </v-col>
-        <v-col>
-          <h3 class="pl-2 text-center headline">
-            {{ $t("search.tag-filter") }}
-          </h3>
-          <FilterSelector class="mb-1" @update="updateTagParams" />
-          <CategoryTagSelector
-            :solo="true"
-            :dense="false"
-            v-model="includeTags"
-            :return-object="false"
-            :tag-selector="true"
-          />
-        </v-col>
-      </v-row>
+    <v-row dense class="my-0 flex-row align-center justify-space-around">
+      <v-col>
+        <h3 class="pl-2 text-center headline">
+          {{ $t("category.category-filter") }}
+        </h3>
+        <FilterSelector class="mb-1" @update="updateCatParams" />
+        <CategoryTagSelector :solo="true" :dense="false" v-model="includeCategories" :return-object="false" />
+      </v-col>
+      <v-col>
+        <h3 class="pl-2 text-center headline">
+          {{ $t("search.tag-filter") }}
+        </h3>
+        <FilterSelector class="mb-1" @update="updateTagParams" />
+        <CategoryTagSelector
+          :solo="true"
+          :dense="false"
+          v-model="includeTags"
+          :return-object="false"
+          :tag-selector="true"
+        />
+      </v-col>
+    </v-row>
 
-      <CardSection title-icon="mdi-mag" :recipes="showRecipes" :hardLimit="maxResults" @sort="assignFuzzy" />
-    </v-card>
+    <CardSection class="mt-n9" title-icon="mdi-mag" :recipes="showRecipes" :hardLimit="maxResults" @sort="assignFuzzy" />
   </v-container>
 </template>
 

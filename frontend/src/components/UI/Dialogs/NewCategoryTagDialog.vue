@@ -24,13 +24,9 @@
             <v-text-field dense :label="inputLabel" v-model="itemName" :rules="[rules.required]"></v-text-field>
           </v-card-text>
           <v-card-actions>
+            <TheButton cancel @click="dialog = false" />
             <v-spacer></v-spacer>
-            <v-btn color="grey" text @click="dialog = false">
-              {{ $t("general.cancel") }}
-            </v-btn>
-            <v-btn color="success" text type="submit" :disabled="!itemName">
-              {{ $t("general.create") }}
-            </v-btn>
+            <TheButton type="submit" create :disabled="!itemName" />
           </v-card-actions>
         </v-form>
       </v-card>

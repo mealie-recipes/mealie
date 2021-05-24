@@ -73,10 +73,8 @@
         </v-virtual-scroll>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-spacer class="mx-2"></v-spacer>
-          <v-btn class="my-1 mb-n1" color="success" @click="createTheme">
-            <v-icon left> {{ $globals.icons.create }} </v-icon> {{ $t("general.create") }}
-          </v-btn>
+          <v-spacer></v-spacer>
+          <TheButton class="mt-1 mb-n1" create @click="createTheme" />
         </v-card-actions>
       </template>
     </StatCard>

@@ -69,13 +69,9 @@
           </v-list>
 
           <v-card-actions class="mt-n3">
-            <v-btn color="error lighten-2" small outlined @click="deletePlan(mealplan.uid)">
-              {{ $t("general.delete") }}
-            </v-btn>
+            <TheButton small secondary delete @click="deletePlan(mealplan.uid)" />
             <v-spacer></v-spacer>
-            <v-btn color="info" small @click="editPlan(mealplan.uid)">
-              {{ $t("general.edit") }}
-            </v-btn>
+            <TheButton small edit @click="editPlan(mealplan.uid)" />
           </v-card-actions>
         </v-card>
       </v-col>

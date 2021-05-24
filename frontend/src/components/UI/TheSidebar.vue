@@ -127,7 +127,7 @@ export default {
         return pages.map(x => ({
           title: x.name,
           to: `/pages/${x.slug}`,
-          icon: this.$globals.icons.tags,
+          icon: this.$globals.icons.pages,
         }));
       }
       return [];

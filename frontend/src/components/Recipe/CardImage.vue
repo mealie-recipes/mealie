@@ -1,22 +1,21 @@
 <template>
-  <div @click="$emit('click')">
-    <v-img
-      :height="height"
-      v-if="!fallBackImage"
-      :src="getImage(slug)"
-      @load="fallBackImage = false"
-      @error="fallBackImage = true"
-    >
+  <v-img
+    @click="$emit('click')"
+    :height="height"
+    v-if="!fallBackImage"
+    :src="getImage(slug)"
+    @load="fallBackImage = false"
+    @error="fallBackImage = true"
+  >
+    <slot> </slot>
+  </v-img>
+  <div class="icon-slot" v-else @click="$emit('click')">
+    <div>
       <slot> </slot>
-    </v-img>
-    <div class="icon-slot" v-else>
-      <div>
-        <slot> </slot>
-      </div>
-      <v-icon color="primary" class="icon-position" :size="iconSize">
-        {{ $globals.icons.primary }}
-      </v-icon>
     </div>
+    <v-icon color="primary" class="icon-position" :size="iconSize">
+      {{ $globals.icons.primary }}
+    </v-icon>
   </div>
 </template>
 

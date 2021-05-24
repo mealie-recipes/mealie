@@ -9,9 +9,7 @@
       <MealPlanCard v-model="mealPlan.planDays" />
       <v-row align="center" justify="end">
         <v-card-actions>
-          <v-btn color="success" text @click="update">
-            {{ $t("general.update") }}
-          </v-btn>
+          <TheButton update @click="update" />
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-row>

@@ -2,13 +2,17 @@ const icons = {
   primary: "mdi-silverware-variant",
 
   // Crud
-  create: "mdi-plus",
+  createAlt: "mdi-plus",
+  create: "mdi-plus-circle",
   delete: "mdi-delete",
   save: "mdi-content-save",
+  update: "mdi-content-save-edit",
   edit: "mdi-square-edit-outline",
+  close: "mdi-close",
 
   // Organization
   tags: "mdi-tag-multiple-outline",
+  pages: "mdi-book-outline",
 
   // Admin
   user: "mdi-account",

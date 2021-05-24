@@ -36,11 +36,11 @@
     </BaseDialog>
 
     <div class="d-flex justify-center align-center pa-2 flex-wrap">
-      <new-category-tag-dialog ref="newDialog" :tag-dialog="isTags">
+      <NewCategoryTagDialog ref="newDialog" :tag-dialog="isTags">
         <v-btn @click="openNewDialog" small color="success" class="mr-1 mb-1">
           {{ $t("general.create") }}
         </v-btn>
-      </new-category-tag-dialog>
+      </NewCategoryTagDialog>
 
       <BulkAssign isTags="isTags" class="mr-1 mb-1" />
 
@@ -72,15 +72,12 @@
       <v-row>
         <v-col cols="12" :sm="12" :md="6" :lg="4" :xl="3" v-for="item in results" :key="item.id">
           <v-card>
+            <v-card-title class="py-1">{{ item.name }}</v-card-title>
+            <v-divider class="mx-2"></v-divider>
             <v-card-actions>
-              <v-card-title class="py-1">{{ item.name }}</v-card-title>
+              <TheButton minor small delete @click="deleteItem(item.slug)" />
               <v-spacer></v-spacer>
-              <v-btn small text color="info" @click="openEditDialog(item)">
-                {{ $t("general.edit") }}
-              </v-btn>
-              <v-btn small text color="error" @click="deleteItem(item.slug)">
-                {{ $t("general.delete") }}
-              </v-btn>
+              <TheButton small edit @click="openEditDialog(item)" />
             </v-card-actions>
           </v-card>
         </v-col>

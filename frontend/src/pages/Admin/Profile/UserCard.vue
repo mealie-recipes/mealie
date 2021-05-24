@@ -89,10 +89,7 @@
           file-name="profile_image"
         />
         <v-spacer></v-spacer>
-        <v-btn color="success" @click="updateUser">
-          <v-icon left> {{ $globals.icons.save }} </v-icon>
-          {{ $t("general.update") }}
-        </v-btn>
+        <TheButton update @click="updateUser" />
       </v-card-actions>
     </template>
   </StatCard>
