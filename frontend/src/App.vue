@@ -78,5 +78,4 @@ export default {
 :root {
   scrollbar-color: transparent transparent;
 }
-
 </style>

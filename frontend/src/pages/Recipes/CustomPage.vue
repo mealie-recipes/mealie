@@ -1,25 +1,23 @@
 <template>
   <v-container>
-    <v-card flat height="100%">
-      <v-app-bar color="transparent" flat class="mt-n1 rounded">
-        <v-icon large left> {{ $globals.icons.tags }}-multiple-outline </v-icon>
-        <v-toolbar-title class="headline"> {{ page.name }} </v-toolbar-title>
-      </v-app-bar>
+    <v-app-bar color="transparent" flat class="mt-n1 rounded">
+      <v-icon large left> {{ $globals.icons.pages }} </v-icon>
+      <v-toolbar-title class="headline"> {{ page.name }} </v-toolbar-title>
+    </v-app-bar>
 
-      <div v-if="render">
-        <v-tabs v-model="tab" background-color="transparent" grow>
-          <v-tab v-for="item in page.categories" :key="item.slug" :href="`#${item.slug}`">
-            {{ item.name }}
-          </v-tab>
-        </v-tabs>
+    <div v-if="render">
+      <v-tabs v-model="tab" background-color="transparent" grow>
+        <v-tab v-for="item in page.categories" :key="item.slug" :href="`#${item.slug}`">
+          {{ item.name }}
+        </v-tab>
+      </v-tabs>
 
-        <v-tabs-items v-model="tab">
-          <v-tab-item v-for="(item, index) in page.categories" :key="item.slug + index" :value="item.slug">
-            <CardSection class="mb-5 mx-1" :recipes="item.recipes" @sort="sortRecipes($event, index)" />
-          </v-tab-item>
-        </v-tabs-items>
-      </div>
-    </v-card>
+      <v-tabs-items class="transparent" v-model="tab">
+        <v-tab-item v-for="(item, index) in page.categories" :key="item.slug + index" :value="item.slug">
+          <CardSection class="mb-5 mx-1" :recipes="item.recipes" @sort="sortRecipes($event, index)" />
+        </v-tab-item>
+      </v-tabs-items>
+    </div>
   </v-container>
 </template>
 

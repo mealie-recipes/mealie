@@ -72,10 +72,7 @@
           </v-card-text>
 
           <template v-slot:open="{ open }">
-            <v-btn color="success" @click="open">
-              <v-icon left> {{ $globals.icons.create }} </v-icon>
-              {{ $t("general.create") }}
-            </v-btn>
+            <TheButton create @click="open" />
           </template>
         </BaseDialog>
       </v-card-actions>

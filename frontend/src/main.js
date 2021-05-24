@@ -11,6 +11,7 @@ import "typeface-roboto/index.css";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
+Vue.component("TheButton", () => import("@/components/UI/Buttons/TheButton.vue"));
 
 Vue.prototype.$globals = globals;
 

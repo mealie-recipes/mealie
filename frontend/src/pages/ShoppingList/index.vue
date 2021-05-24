@@ -14,14 +14,8 @@
       <v-spacer></v-spacer>
       <BaseDialog title="New List" title-icon="mdi-format-list-checks" submit-text="Create" @submit="createNewList">
         <template v-slot:open="{ open }">
-          <v-btn color="info" @click="open">
-            <v-icon left>
-              {{ $globals.icons.create }}
-            </v-icon>
-            New List
-          </v-btn>
+          <TheButton create @click="open" />
         </template>
-
         <v-card-text>
           <v-text-field autofocus v-model="newList.name" label="List Name"> </v-text-field>
         </v-card-text>
@@ -37,12 +31,7 @@
             </v-card-title>
             <v-divider class="mx-2"></v-divider>
             <v-card-actions>
-              <v-btn text color="error" @click="deleteList(item.id)">
-                <v-icon left>
-                  {{ $globals.icons.delete }}
-                </v-icon>
-                Delete
-              </v-btn>
+              <TheButton delete minor @click="deleteList(item.id)" />
               <v-spacer></v-spacer>
               <v-btn color="info" @click="list = item.id">
                 <v-icon left>
@@ -63,12 +52,8 @@
             {{ activeList.name }}
           </div>
           <v-spacer></v-spacer>
-          <v-btn v-if="edit" color="success" @click="saveList">
-            Save
-          </v-btn>
-          <v-btn v-else color="info" @click="edit = true">
-            Edit
-          </v-btn>
+          <TheButton v-if="edit" update @click="saveList" />
+          <TheButton v-else edit @click="edit = true" />
         </v-card-title>
         <v-divider class="mx-2 mb-1"></v-divider>
 
@@ -276,5 +261,8 @@ export default {
 };
 </script>
 
-<style >
+<style  >
+.dense-markdown p {
+  margin: auto !important;
+}
 </style>

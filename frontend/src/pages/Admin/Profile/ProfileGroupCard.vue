@@ -105,10 +105,7 @@
           {{ $t("settings.webhooks.test-webhooks") }}
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success" @click="saveGroupSettings">
-          <v-icon left> {{ $globals.icons.save }} </v-icon>
-          {{ $t("general.update") }}
-        </v-btn>
+        <TheButton update @click="saveGroupSettings" />
       </v-card-actions>
     </template>
   </StatCard>

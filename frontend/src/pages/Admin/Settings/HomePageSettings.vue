@@ -126,10 +126,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="success" @click="saveSettings" class="mr-2">
-        <v-icon left> {{ $globals.icons.save }} </v-icon>
-        {{ $t("general.save") }}
-      </v-btn>
+      <TheButton class="mr-2" update @click="saveSettings" />
     </v-card-actions>
   </v-card>
 </template>

@@ -5,7 +5,13 @@
     </v-card>
     <NoRecipe v-else-if="loadFailed" />
     <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
-      <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
+      <v-img
+        :height="hideImage ? '40' : imageHeight"
+        @error="hideImage = true"
+        :src="getImage(recipeDetails.slug)"
+        class="d-print-none"
+        :key="imageKey"
+      >
         <RecipeTimeCard
           :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
@@ -71,6 +77,7 @@ export default {
   },
   data() {
     return {
+      hideImage: false,
       loadFailed: false,
       skeleton: true,
       form: false,
@@ -122,6 +129,9 @@ export default {
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.name === "xs";
+    },
+    imageHeight() {
+      return this.isMobile ? "200" : "400";
     },
     currentRecipe() {
       return this.$route.params.recipe;
