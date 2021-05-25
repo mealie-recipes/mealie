@@ -36,12 +36,12 @@ class ExportDatabase:
         self.recipes = self.main_dir.joinpath("recipes")
         self.templates_dir = self.main_dir.joinpath("templates")
 
-        try:    
+        try:
             self.templates = [app_dirs.TEMPLATE_DIR.joinpath(x) for x in templates]
         except Exception:
             self.templates = False
             logger.info("No Jinja2 Templates Registered for Export")
-        
+
         required_dirs = [
             self.main_dir,
             self.recipes,
