@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <SearchDialog ref="mealselect" @select="setSlug" />
+    <SearchDialog ref="mealselect" @selected="setSlug" />
     <BaseDialog
       title="Custom Meal"
       :title-icon="$globals.icons.primary"
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import SearchDialog from "../UI/Search/SearchDialog";
+import SearchDialog from "../UI/Dialogs/SearchDialog";
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import { api } from "@/api";
 import CardImage from "../Recipe/CardImage.vue";
@@ -129,13 +129,13 @@ export default {
       this.value[this.activeIndex]["meals"][0]["name"] = name;
       this.value[this.activeIndex]["meals"][0]["description"] = description;
     },
-    setSlug(name, slug) {
+    setSlug(recipe) {
       switch (this.mode) {
         case this.modes.primary:
-          this.setPrimary(name, slug);
+          this.setPrimary(recipe.name, recipe.slug);
           break;
         default:
-          this.setSide(name, slug);
+          this.setSide(recipe.name, recipe.slug);
           break;
       }
     },
