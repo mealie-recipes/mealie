@@ -51,7 +51,7 @@
 
       <v-spacer v-if="!isMobile"> </v-spacer>
 
-      <fuse-search-bar :raw-data="allItems" @results="filterItems" :search="searchString">
+      <fuse-search-bar class="fit-search mr-2" :raw-data="allItems" @results="filterItems" :search="searchString">
         <v-text-field
           v-model="searchString"
           clearable
@@ -217,5 +217,8 @@ export default {
 .overflow-fix .v-toolbar__content {
   height: auto !important;
   flex-wrap: wrap;
+}
+.fit-search {
+  max-width: 300px;
 }
 </style>
