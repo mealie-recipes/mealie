@@ -140,19 +140,19 @@ export default {
         },
         {
           text: "Discord",
-          image: "./static/discord.svg",
+          image: "/static/discord.svg",
         },
         {
           text: "Gotify",
-          image: "./static/gotify.png",
+          image: "/static/gotify.png",
         },
         {
           text: "Home Assistant",
-          image: "./static/home-assistant.png",
+          image: "/static/home-assistant.png",
         },
         {
           text: "Pushover",
-          image: "./static/pushover.svg",
+          image: "/static/pushover.svg",
         },
       ],
     };
