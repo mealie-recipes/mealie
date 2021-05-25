@@ -46,7 +46,7 @@
 <script>
 import TheSiteMenu from "@/components/UI/TheSiteMenu";
 import SearchBar from "@/components/UI/Search/SearchBar";
-import SearchDialog from "@/components/UI/Search/SearchDialog";
+import SearchDialog from "@/components/UI/Dialogs/SearchDialog";
 import TheRecipeFab from "@/components/UI/TheRecipeFab";
 import TheSidebar from "@/components/UI/TheSidebar";
 import { user } from "@/mixins/user";

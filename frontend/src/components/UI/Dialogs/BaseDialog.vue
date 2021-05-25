@@ -115,8 +115,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.top-dialog {
-  align-self: flex-start;
-}
+<style>
 </style>

@@ -62,85 +62,46 @@
           </template>
         </BaseDialog>
       </v-card-actions>
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-center">
-                {{ $t("general.type") }}
-              </th>
-              <th class="text-center">
-                {{ $t("general.name") }}
-              </th>
-              <th class="text-center">
-                {{ $t("general.general") }}
-              </th>
-              <th class="text-center">
-                {{ $t("general.recipe") }}
-              </th>
-              <th class="text-center">
-                {{ $t("events.database") }}
-              </th>
-              <th class="text-center">
-                {{ $t("events.scheduled") }}
-              </th>
-              <th class="text-center">
-                {{ $t("settings.migrations") }}
-              </th>
-              <th class="text-center">
-                {{ $t("group.group") }}
-              </th>
-              <th class="text-center">
-                {{ $t("user.user") }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in notifications" :key="index">
-              <td>
-                <v-avatar size="35" class="ma-1" :color="getIcon(item.type).icon ? 'primary' : undefined">
-                  <v-icon dark v-if="getIcon(item.type).icon"> {{ getIcon(item.type).icon }}</v-icon>
-                  <v-img v-else :src="getIcon(item.type).image"> </v-img>
-                </v-avatar>
-                {{ item.type }}
-              </td>
-              <td>
-                {{ item.name }}
-              </td>
-              <td class="text-center">
-                <v-icon color="success"> {{ item.general ? "mdi-check" : "" }} </v-icon>
-              </td>
-              <td class="text-center">
-                <v-icon color="success"> {{ item.recipe ? "mdi-check" : "" }} </v-icon>
-              </td>
-              <td class="text-center">
-                <v-icon color="success"> {{ item.backup ? "mdi-check" : "" }} </v-icon>
-              </td>
-              <td class="text-center">
-                <v-icon color="success"> {{ item.scheduled ? "mdi-check" : "" }} </v-icon>
-              </td>
-              <td class="text-center">
-                <v-icon color="success"> {{ item.migration ? "mdi-check" : "" }} </v-icon>
-              </td>
-              <td class="text-center">
-                <v-icon color="success"> {{ item.group ? "mdi-check" : "" }} </v-icon>
-              </td>
-              <td class="text-center">
-                <v-icon color="success"> {{ item.user ? "mdi-check" : "" }} </v-icon>
-              </td>
-              <td>
-                <TheButton delete small minor @click="deleteNotification(item.id)"> </TheButton>
-                <TheButton edit small @click="testByID(item.id)">
-                  <template v-slot:icon>
-                    mdi-test-tube
-                  </template>
-                  {{ $t("general.test") }}
-                </TheButton>
-              </td>
-            </tr>
-          </tbody>
+      <v-data-table
+        disable-sort
+        :headers="headers"
+        :items="notifications"
+        class="elevation-1 text-center"
+        :footer-props="{
+          'items-per-page-options': [10, 20, 30, 40, -1],
+        }"
+        :items-per-page="10"
+      >
+        <template v-for="boolHeader in headers" v-slot:[`item.${boolHeader.value}`]="{ item }">
+          <div :key="boolHeader.value">
+            <div v-if="boolHeader.value === 'type'">
+              <v-avatar size="35" class="ma-1" :color="getIcon(item.type).icon ? 'primary' : undefined">
+                <v-icon dark v-if="getIcon(item.type).icon"> {{ getIcon(item.type).icon }}</v-icon>
+                <v-img v-else :src="getIcon(item.type).image"> </v-img>
+              </v-avatar>
+              {{ item[boolHeader.value] }}
+            </div>
+            <v-icon
+              v-else-if="item[boolHeader.value] === true || item[boolHeader.value] === false"
+              :color="item[boolHeader.value] ? 'success' : 'gray'"
+            >
+              {{ item[boolHeader.value] ? "mdi-check" : "mdi-close" }}
+            </v-icon>
+            <div v-else-if="boolHeader.text === 'Actions'">
+              <TheButton class="mr-1" delete x-small minor @click="deleteNotification(item.id)" />
+              <TheButton edit x-small @click="testByID(item.id)">
+                <template v-slot:icon>
+                  mdi-test-tube
+                </template>
+                {{ $t("general.test") }}
+              </TheButton>
+            </div>
+            <div v-else>
+              {{ item[boolHeader.value] }}
+            </div>
+          </div>
         </template>
-      </v-simple-table>
+      </v-data-table>
     </v-card>
   </div>
 </template>
@@ -179,25 +140,41 @@ export default {
         },
         {
           text: "Discord",
-          image: "./static/discord.svg",
+          image: "/static/discord.svg",
         },
         {
           text: "Gotify",
-          image: "./static/gotify.png",
+          image: "/static/gotify.png",
         },
         {
           text: "Home Assistant",
-          image: "./static/home-assistant.png",
+          image: "/static/home-assistant.png",
         },
         {
           text: "Pushover",
-          image: "./static/pushover.svg",
+          image: "/static/pushover.svg",
         },
       ],
     };
   },
   mounted() {
     this.getAllNotifications();
+  },
+  computed: {
+    headers() {
+      return [
+        { text: this.$t("general.type"), value: "type" },
+        { text: this.$t("general.name"), value: "name" },
+        { text: this.$t("general.general"), value: "general", align: "center" },
+        { text: this.$t("general.recipe"), value: "recipe", align: "center" },
+        { text: this.$t("events.database"), value: "backup", align: "center" },
+        { text: this.$t("events.scheduled"), value: "scheduled", align: "center" },
+        { text: this.$t("settings.migrations"), value: "migration", align: "center" },
+        { text: this.$t("group.group"), value: "group", align: "center" },
+        { text: this.$t("user.user"), value: "user", align: "center" },
+        { text: "Actions", align: "center" },
+      ];
+    },
   },
   methods: {
     getIcon(textValue) {
@@ -228,3 +205,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+th {
+  text-align: center !important;
+}
+</style>

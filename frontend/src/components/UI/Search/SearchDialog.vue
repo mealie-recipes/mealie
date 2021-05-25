@@ -1,21 +1,23 @@
 <template>
   <div class="text-center ">
-    <v-dialog v-model="dialog" width="600px" height="0" :fullscreen="isMobile" content-class="top-dialog">
-      <v-card>
+    <v-dialog
+      v-model="dialog"
+      :width="isMobile ? undefined : '600'"
+      :height="isMobile ? undefined : '0'"
+      :fullscreen="isMobile"
+      content-class="top-dialog"
+    >
+      <v-card relative>
         <v-app-bar dark color="primary lighten-1" rounded="0">
           <SearchBar
             ref="mealSearchBar"
             @results="updateResults"
             @selected="emitSelect"
             :show-results="!isMobile"
-            max-width="568"
             :dense="false"
             :nav-on-click="false"
             :autofocus="true"
           />
-          <v-btn icon @click="dialog = false" class="mt-1">
-            <v-icon> mdi-close </v-icon>
-          </v-btn>
         </v-app-bar>
         <v-card-text v-if="isMobile">
           <div v-for="recipe in searchResults.slice(0, 7)" :key="recipe.name">
@@ -31,6 +33,9 @@
             />
           </div>
         </v-card-text>
+        <v-btn v-if="isMobile" fab bottom @click="dialog = false" class="ma-2">
+          <v-icon> mdi-close </v-icon>
+        </v-btn>
       </v-card>
     </v-dialog>
   </div>
