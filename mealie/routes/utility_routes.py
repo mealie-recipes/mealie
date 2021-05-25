@@ -9,7 +9,7 @@ from fastapi import HTTPException, status
 router = APIRouter(prefix="/api/utils", tags=["Utils"], include_in_schema=True)
 
 
-@router.get("/download")
+@router.get("/download/{token}")
 async def download_file(file_path: Optional[Path] = Depends(validate_file_token)):
     """Uses a file token obtained by an active user to retrieve a file from the operating
     system."""

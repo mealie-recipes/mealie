@@ -36,12 +36,12 @@ class ExportDatabase:
         self.recipes = self.main_dir.joinpath("recipes")
         self.templates_dir = self.main_dir.joinpath("templates")
 
-        try:
+        try:    
             self.templates = [app_dirs.TEMPLATE_DIR.joinpath(x) for x in templates]
         except Exception:
             self.templates = False
             logger.info("No Jinja2 Templates Registered for Export")
-
+        
         required_dirs = [
             self.main_dir,
             self.recipes,
@@ -52,21 +52,22 @@ class ExportDatabase:
             dir.mkdir(parents=True, exist_ok=True)
 
     def export_templates(self, recipe_list: list[BaseModel]):
-        for template_path in self.templates:
-            out_dir = self.templates_dir.joinpath(template_path.name)
-            out_dir.mkdir(parents=True, exist_ok=True)
+        if self.templates:
+            for template_path in self.templates:
+                out_dir = self.templates_dir.joinpath(template_path.name)
+                out_dir.mkdir(parents=True, exist_ok=True)
 
-            with open(template_path, "r") as f:
-                template = Template(f.read())
+                with open(template_path, "r") as f:
+                    template = Template(f.read())
 
-            for recipe in recipe_list:
-                filename = recipe.slug + template_path.suffix
-                out_file = out_dir.joinpath(filename)
+                for recipe in recipe_list:
+                    filename = recipe.slug + template_path.suffix
+                    out_file = out_dir.joinpath(filename)
 
-                content = template.render(recipe=recipe)
+                    content = template.render(recipe=recipe)
 
-                with open(out_file, "w") as f:
-                    f.write(content)
+                    with open(out_file, "w") as f:
+                        f.write(content)
 
     def export_recipe_dirs(self):
         shutil.copytree(app_dirs.RECIPE_DATA_DIR, self.recipes, dirs_exist_ok=True)
