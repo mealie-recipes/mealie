@@ -92,20 +92,24 @@
 
               <p v-if="!edit" class="mb-0">{{ item.quantity }}</p>
 
-              <v-icon v-if="!edit" small class="mx-3">
+              <v-icon v-if="!edit" x-small class="mx-3">
                 mdi-window-close
               </v-icon>
 
-              <vue-markdown v-if="!edit" class="dense-markdown" :source="item.text"> </vue-markdown>
-              <v-textarea
-                single-line
-                rows="1"
-                auto-grow
-                class="mb-n2 pa-0"
-                dense
-                v-else
-                v-model="activeList.items[index].text"
-              ></v-textarea>
+              <v-lazy>
+                <div>
+                  <vue-markdown v-if="!edit" class="dense-markdown" :source="item.text"> </vue-markdown>
+                  <v-textarea
+                    single-line
+                    rows="1"
+                    auto-grow
+                    class="mb-n2 pa-0"
+                    dense
+                    v-else
+                    v-model="activeList.items[index].text"
+                  ></v-textarea>
+                </div>
+              </v-lazy>
             </v-col>
             <v-divider class="ma-1"></v-divider>
           </v-row>
