@@ -46,11 +46,20 @@ export default {
     };
   },
   async mounted() {
-    this.mealPlan = await api.mealPlans.thisWeek();
+    if (this.mealplanId) {
+      this.mealPlan = await api.mealPlans.getById(this.mealplanId);
+    } else {
+      this.mealPlan = await api.mealPlans.thisWeek();
+    }
+    console.log(this.mealPlans);
     if (!this.mealPlan) {
       utils.notify.warning(this.$t("meal-plan.no-meal-plan-defined-yet"));
     }
-    console.log(this.mealPlan);
+  },
+  computed: {
+    mealplanId() {
+      return this.$route.query.id || false;
+    },
   },
   methods: {
     getOrder(index) {
