@@ -377,6 +377,7 @@
     "untagged-count": "Niet gelabeld {count}"
   },
   "user": {
+    "username": "Username",
     "admin": "Beheerder",
     "are-you-sure-you-want-to-delete-the-link": "Weet je zeker dat je <b>{link}<b/> wilt verwijderen?",
     "are-you-sure-you-want-to-delete-the-user": "Weet je zeker dat je gebruiker <b>{activeName} ID: {activeId}<b/> wilt verwijderen?",

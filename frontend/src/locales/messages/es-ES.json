@@ -377,6 +377,7 @@
     "untagged-count": "{count} sin etiquetar"
   },
   "user": {
+    "username": "Username",
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "¿Está seguro que desea eliminar el enlace <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "¿Está seguro de que desea eliminar el usuario <b>{activeName} ID: {activeId}<b/>?",

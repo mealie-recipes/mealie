@@ -377,6 +377,7 @@
     "untagged-count": "Untagged {count}"
   },
   "user": {
+    "username": "Username",
     "admin": "Administrator",
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Er du sikker på, at du vil slette brugeren <b>{activeName} med ID: {activeId}<b/>?",
