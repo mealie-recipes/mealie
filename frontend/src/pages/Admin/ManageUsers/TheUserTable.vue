@@ -155,6 +155,7 @@ export default {
           sortable: false,
           value: "id",
         },
+        { text: this.$t("user.username"), value: "username" },
         { text: this.$t("user.full-name"), value: "fullName" },
         { text: this.$t("user.email"), value: "email" },
         { text: this.$t("group.group"), value: "group" },

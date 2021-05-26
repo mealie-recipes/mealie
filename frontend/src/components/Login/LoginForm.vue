@@ -22,7 +22,7 @@
           v-model="user.email"
           prepend-icon="mdi-email"
           validate-on-blur
-          :label="$t('user.email')"
+          :label="`${$t('user.email')} or ${$t('user.username')} `"
           type="email"
         ></v-text-field>
         <v-text-field

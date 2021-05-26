@@ -6,7 +6,7 @@
     </v-app-bar>
 
     <div v-if="render">
-      <v-tabs v-model="tab" background-color="transparent" grow>
+      <v-tabs v-model="tab" background-color="transparent" grow show-arrows="">
         <v-tab v-for="item in page.categories" :key="item.slug" :href="`#${item.slug}`">
           {{ item.name }}
         </v-tab>

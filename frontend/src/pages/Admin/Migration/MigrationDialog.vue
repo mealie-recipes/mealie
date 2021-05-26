@@ -24,7 +24,7 @@
             </div>
           </v-row>
         </v-card-text>
-        <v-tabs v-model="tab">
+        <v-tabs v-model="tab" show-arrows="">
           <v-tab>{{ $t("general.recipes") }}</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">

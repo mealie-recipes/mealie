@@ -37,6 +37,8 @@
               </v-icon>
               Shopping List
             </v-btn>
+            <v-spacer></v-spacer>
+            <TheCopyButton color="info" :copy-text="mealPlanURL(mealplan.uid)"> Link Coppied </TheCopyButton>
           </v-card-actions>
 
           <v-list class="mt-0 pt-0">
@@ -84,11 +86,12 @@ import { api } from "@/api";
 import { utils } from "@/utils";
 import NewMeal from "@/components/MealPlan/MealPlanNew";
 import EditPlan from "@/components/MealPlan/MealPlanEditor";
-
+import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
 export default {
   components: {
     NewMeal,
     EditPlan,
+    TheCopyButton,
   },
   data: () => ({
     plannedMeals: [],
@@ -102,6 +105,9 @@ export default {
       const response = await api.mealPlans.all();
       this.plannedMeals = response.data;
       console.log(this.plannedMeals);
+    },
+    mealPlanURL(uid) {
+      return window.location.origin + "/meal-plan?id=" + uid;
     },
     generateKey(name, index) {
       return utils.generateUniqueKey(name, index);

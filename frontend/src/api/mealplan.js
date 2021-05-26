@@ -9,6 +9,7 @@ const mealPlanURLs = {
   all: `${prefix}all`,
   create: `${prefix}create`,
   thisWeek: `${prefix}this-week`,
+  byId: planID => `${prefix}${planID}`,
   update: planID => `${prefix}${planID}`,
   delete: planID => `${prefix}${planID}`,
   today: `${prefix}today`,
@@ -38,6 +39,11 @@ export const mealplanAPI = {
   async today() {
     let response = await apiReq.get(mealPlanURLs.today);
     return response;
+  },
+
+  async getById(id) {
+    let response = await apiReq.get(mealPlanURLs.byId(id));
+    return response.data;
   },
 
   delete(id) {

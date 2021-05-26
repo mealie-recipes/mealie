@@ -43,6 +43,7 @@ class GroupBase(CamelModel):
 
 
 class UserBase(CamelModel):
+    username: Optional[str]
     full_name: Optional[str] = None
     email: constr(to_lower=True, strip_whitespace=True)
     admin: bool
@@ -59,6 +60,7 @@ class UserBase(CamelModel):
             }
 
         schema_extra = {
+            "username": "ChangeMe",
             "fullName": "Change Me",
             "email": "changeme@email.com",
             "group": settings.DEFAULT_GROUP,

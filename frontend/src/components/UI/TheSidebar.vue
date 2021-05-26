@@ -29,6 +29,14 @@
 
       <!-- Version List Item -->
       <v-list nav dense class="fixedBottom" v-if="!isMain">
+        <v-list-item href="https://github.com/sponsors/hay-kot" target="_target">
+          <v-list-item-icon >
+            <v-icon color="pink">
+              mdi-heart
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-title> Support </v-list-item-title>
+        </v-list-item>
         <v-list-item to="/admin/about">
           <v-list-item-icon class="mr-3 pt-1">
             <v-icon :color="newVersionAvailable ? 'red--text' : ''">

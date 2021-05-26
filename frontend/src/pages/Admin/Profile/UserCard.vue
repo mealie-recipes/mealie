@@ -67,7 +67,15 @@
     </template>
     <template v-slot:bottom>
       <v-card-text>
-        <v-form>
+        <v-form ref="userUpdate">
+          <v-text-field
+            :label="$t('user.username')"
+            required
+            v-model="user.username"
+            :rules="[existsRule]"
+            validate-on-blur
+          >
+          </v-text-field>
           <v-text-field
             :label="$t('user.full-name')"
             required
@@ -151,6 +159,9 @@ export default {
       this.user.avatar = avatar;
     },
     async updateUser() {
+      if (!this.$refs.userUpdate.validate()) {
+        return;
+      }
       this.loading = true;
 
       const response = await api.users.update(this.user);

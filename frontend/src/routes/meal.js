@@ -6,6 +6,13 @@ import i18n from "@/i18n.js";
 
 export const mealRoutes = [
   {
+    path: "/meal-plan",
+    component: ThisWeek,
+    meta: {
+      title: "meal-plan.dinner-this-week",
+    },
+  },
+  {
     path: "/meal-plan/planner",
     component: Planner,
     meta: {

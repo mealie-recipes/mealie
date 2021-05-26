@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
     <CardSection
       title-icon=""
       :sortable="true"
@@ -8,14 +7,19 @@
       :recipes="shownRecipes"
       @sort="assignSorted"
     />
+    <v-row class="d-flex">
+      <SiteLoader class="mx-auto" v-if="loading" :loading="loading" :size="200" />
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import SiteLoader from "@/components/UI/SiteLoader";
 import CardSection from "@/components/UI/CardSection";
 
 export default {
   components: {
+    SiteLoader,
     CardSection,
   },
   data() {

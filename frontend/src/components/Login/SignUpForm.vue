@@ -21,8 +21,15 @@
           :prepend-icon="$globals.icons.user"
           validate-on-blur
           :rules="[existsRule]"
-          :label="$t('signup.display-name')"
-          type="email"
+          :label="$t('user.full-name')"
+        ></v-text-field>
+        <v-text-field
+          v-model="user.username"
+          light="light"
+          :prepend-icon="$globals.icons.user"
+          validate-on-blur
+          :rules="[existsRule]"
+          :label="$t('user.username')"
         ></v-text-field>
         <v-text-field
           v-model="user.email"
@@ -111,6 +118,7 @@ export default {
 
       const userData = {
         fullName: this.user.name,
+        username: this.user.username,
         email: this.user.email,
         group: "default",
         password: this.user.password,
