@@ -40,6 +40,7 @@ volumes:
 ports:
 - 443:443
 restart: unless-stopped
+
 ```
 
 Don't forget to change the <code>mydomain.duckns</code> into your personal domain and the <code>duckdnstoken</code> into your token and remove the brackets.
