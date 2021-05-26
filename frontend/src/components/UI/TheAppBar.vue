@@ -18,12 +18,9 @@
       </div>
 
       <v-spacer></v-spacer>
-      <SearchBar
-        v-if="!isMobile"
-        :show-results="true"
-        @selected="navigateFromSearch"
-        :max-width="isMobile ? '100%' : '450px'"
-      />
+      <div v-if="!isMobile" style="width: 350px;">
+        <SearchBar :show-results="true" @selected="navigateFromSearch" :max-width="isMobile ? '100%' : '450px'" />
+      </div>
       <div v-else>
         <v-btn icon @click="$refs.recipeSearch.open()">
           <v-icon> mdi-magnify </v-icon>

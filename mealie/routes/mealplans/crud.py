@@ -23,6 +23,16 @@ def get_all_meals(
     return db.groups.get_meals(session, current_user.group)
 
 
+@router.get("/{id}", response_model=MealPlanOut)
+def get_meal_plan(
+    id,
+    session: Session = Depends(generate_session),
+):
+    """ Returns a single Meal Plan from the Database """
+
+    return db.meals.get(session, id, "uid")
+
+
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def create_meal_plan(
     background_tasks: BackgroundTasks,

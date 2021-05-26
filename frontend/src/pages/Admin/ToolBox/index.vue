@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card flat>
-      <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text>
+      <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text show-arrows>
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab href="#event-notifications">

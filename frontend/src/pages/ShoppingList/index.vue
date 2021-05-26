@@ -57,7 +57,7 @@
         </v-card-title>
         <v-divider class="mx-2 mb-1"></v-divider>
 
-        <SearchDialog ref="searchRecipe" @select="importIngredients" />
+        <SearchDialog ref="searchRecipe" @selected="importIngredients" />
         <v-card-text>
           <v-row dense v-for="(item, index) in activeList.items" :key="index">
             <v-col v-if="edit" cols="12" class="d-flex no-wrap align-center">
@@ -80,7 +80,7 @@
               </v-btn>
             </v-col>
 
-            <v-col cols="12" class="d-flex no-wrap align-center">
+            <v-col cols="12" class="no-wrap align-center" :class="!edit ? 'd-flex' : null">
               <v-checkbox
                 v-if="!edit"
                 hide-details
@@ -97,18 +97,16 @@
               </v-icon>
 
               <v-lazy>
-                <div>
-                  <vue-markdown v-if="!edit" class="dense-markdown" :source="item.text"> </vue-markdown>
-                  <v-textarea
-                    single-line
-                    rows="1"
-                    auto-grow
-                    class="mb-n2 pa-0"
-                    dense
-                    v-else
-                    v-model="activeList.items[index].text"
-                  ></v-textarea>
-                </div>
+                <vue-markdown v-if="!edit" class="dense-markdown" :source="item.text"> </vue-markdown>
+                <v-textarea
+                  single-line
+                  rows="1"
+                  auto-grow
+                  class="mb-n2 pa-0"
+                  dense
+                  v-else
+                  v-model="activeList.items[index].text"
+                ></v-textarea>
               </v-lazy>
             </v-col>
             <v-divider class="ma-1"></v-divider>
@@ -137,7 +135,7 @@
 
 <script>
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
-import SearchDialog from "@/components/UI/Search/SearchDialog";
+import SearchDialog from "@/components/UI/Dialogs/SearchDialog";
 import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
 import VueMarkdown from "@adapttive/vue-markdown";
 import { api } from "@/api";
@@ -194,8 +192,8 @@ export default {
     openSearch() {
       this.$refs.searchRecipe.open();
     },
-    async importIngredients(_, slug) {
-      const recipe = await api.recipes.requestDetails(slug);
+    async importIngredients(selected) {
+      const recipe = await api.recipes.requestDetails(selected.slug);
 
       const ingredients = recipe.recipeIngredient.map(x => ({
         title: "",

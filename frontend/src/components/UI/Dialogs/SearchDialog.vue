@@ -43,25 +43,31 @@
           </div>
           <router-link to="/search"> Advanced Search </router-link>
         </v-card-actions>
-        <MobileRecipeCard
-          v-for="(recipe, index) in results.slice(0, 10)"
-          :tabindex="index"
-          :key="index"
-          class="ma-1 arrow-nav"
-          :name="recipe.name"
-          :description="recipe.description"
-          :slug="recipe.slug"
-          :rating="recipe.rating"
-          :image="recipe.image"
-          :route="true"
-          v-on="$listeners.selected ? { selected: () => grabRecipe(recipe) } : {}"
-        />
+        <v-card-actions v-if="loading">
+          <SiteLoader :loading="loading" />
+        </v-card-actions>
+        <div v-else>
+          <MobileRecipeCard
+            v-for="(recipe, index) in results.slice(0, 10)"
+            :tabindex="index"
+            :key="index"
+            class="ma-1 arrow-nav"
+            :name="recipe.name"
+            :description="recipe.description"
+            :slug="recipe.slug"
+            :rating="recipe.rating"
+            :image="recipe.image"
+            :route="true"
+            v-on="$listeners.selected ? { selected: () => grabRecipe(recipe) } : {}"
+          />
+        </div>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
+import SiteLoader from "@/components/UI/SiteLoader";
 const SELECTED_EVENT = "selected";
 import FuseSearchBar from "@/components/UI/Search/FuseSearchBar";
 import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
@@ -69,9 +75,11 @@ export default {
   components: {
     FuseSearchBar,
     MobileRecipeCard,
+    SiteLoader,
   },
   data() {
     return {
+      loading: false,
       selectedIndex: -1,
       dialog: false,
       searchString: "",
@@ -82,14 +90,17 @@ export default {
     $route() {
       this.dialog = false;
     },
-    dialog(val) {
+    async dialog(val) {
       if (!val) {
         this.resetSelected();
+      } else if (this.allItems.length <= 0) {
+        this.loading = true;
+        await this.$store.dispatch("requestAllRecipes");
+        this.loading = false;
       }
     },
   },
   mounted() {
-    this.$store.dispatch("requestAllRecipes");
     document.addEventListener("keydown", this.onUpDown);
   },
   beforeDestroy() {
