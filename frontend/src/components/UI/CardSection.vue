@@ -58,14 +58,16 @@
     <div v-if="recipes" class="mt-2">
       <v-row v-if="!viewScale">
         <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="recipe in recipes.slice(0, cardLimit)" :key="recipe.name">
-          <RecipeCard
-            :name="recipe.name"
-            :description="recipe.description"
-            :slug="recipe.slug"
-            :rating="recipe.rating"
-            :image="recipe.image"
-            :tags="recipe.tags"
-          />
+          <v-lazy>
+            <RecipeCard
+              :name="recipe.name"
+              :description="recipe.description"
+              :slug="recipe.slug"
+              :rating="recipe.rating"
+              :image="recipe.image"
+              :tags="recipe.tags"
+            />
+          </v-lazy>
         </v-col>
       </v-row>
       <v-row v-else dense>
@@ -78,14 +80,16 @@
           v-for="recipe in recipes.slice(0, cardLimit)"
           :key="recipe.name"
         >
-          <MobileRecipeCard
-            :name="recipe.name"
-            :description="recipe.description"
-            :slug="recipe.slug"
-            :rating="recipe.rating"
-            :image="recipe.image"
-            :tags="recipe.tags"
-          />
+          <v-lazy>
+            <MobileRecipeCard
+              :name="recipe.name"
+              :description="recipe.description"
+              :slug="recipe.slug"
+              :rating="recipe.rating"
+              :image="recipe.image"
+              :tags="recipe.tags"
+            />
+          </v-lazy>
         </v-col>
       </v-row>
     </div>
@@ -139,7 +143,7 @@ export default {
   data() {
     return {
       sortLoading: false,
-      cardLimit: 30,
+      cardLimit: 50,
       loading: false,
       EVENTS: {
         az: "az",
