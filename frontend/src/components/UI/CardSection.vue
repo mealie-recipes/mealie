@@ -95,20 +95,14 @@
     </div>
     <div v-intersect="bumpList" class="d-flex">
       <v-expand-x-transition>
-        <v-progress-circular
-          v-if="loading"
-          class="mx-auto mt-1"
-          :size="50"
-          :width="7"
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
+        <SiteLoader v-if="loading" :loading="loading" :size="150" />
       </v-expand-x-transition>
     </div>
   </div>
 </template>
 
 <script>
+import SiteLoader from "@/components/UI/SiteLoader";
 import RecipeCard from "../Recipe/RecipeCard";
 import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
 import { utils } from "@/utils";
@@ -118,6 +112,7 @@ export default {
   components: {
     RecipeCard,
     MobileRecipeCard,
+    SiteLoader,
   },
   props: {
     disableToolbar: {
