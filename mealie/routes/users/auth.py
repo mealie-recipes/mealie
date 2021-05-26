@@ -23,7 +23,7 @@ def get_token(
     email = data.username
     password = data.password
 
-    user = authenticate_user(session, email, password)
+    user: UserInDB = authenticate_user(session, email, password)
 
     if not user:
         background_tasks.add_task(
@@ -34,7 +34,7 @@ def get_token(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    access_token = security.create_access_token(dict(sub=email))
+    access_token = security.create_access_token(dict(sub=user.email))
     return {"access_token": access_token, "token_type": "bearer"}
 
 
