@@ -57,7 +57,7 @@
         </v-card-title>
         <v-divider class="mx-2 mb-1"></v-divider>
 
-        <SearchDialog ref="searchRecipe" @select="importIngredients" />
+        <SearchDialog ref="searchRecipe" @selected="importIngredients" />
         <v-card-text>
           <v-row dense v-for="(item, index) in activeList.items" :key="index">
             <v-col v-if="edit" cols="12" class="d-flex no-wrap align-center">
@@ -137,7 +137,7 @@
 
 <script>
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
-import SearchDialog from "@/components/UI/Search/SearchDialog";
+import SearchDialog from "@/components/UI/Dialogs/SearchDialog";
 import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
 import VueMarkdown from "@adapttive/vue-markdown";
 import { api } from "@/api";
@@ -194,8 +194,8 @@ export default {
     openSearch() {
       this.$refs.searchRecipe.open();
     },
-    async importIngredients(_, slug) {
-      const recipe = await api.recipes.requestDetails(slug);
+    async importIngredients(selected) {
+      const recipe = await api.recipes.requestDetails(selected.slug);
 
       const ingredients = recipe.recipeIngredient.map(x => ({
         title: "",
