@@ -377,6 +377,7 @@
     "untagged-count": "{count} sans mot-clés"
   },
   "user": {
+    "username": "Username",
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Êtes-vous sûr de vouloir supprimer le lien <b>{link}<b/> ?",
     "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
