@@ -23,7 +23,7 @@
           <v-card>
             <v-app-bar dark dense color="primary">
               <v-icon left>
-                mdi-account-group
+                {{ $globals.icons.group }}
               </v-icon>
 
               <v-toolbar-title class="headline">

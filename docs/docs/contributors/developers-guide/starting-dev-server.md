@@ -18,22 +18,30 @@ Prerequisites
 - Nodejs
 - npm
 
-Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies. Once that is complete you can run `make backend` and `make vue` to start the backend and frontend servers. 
+Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies. Once that is complete you can run `make backend` and `make frontend` to start the backend and frontend servers. 
 
 ## Make File Reference 
-`make help` Get an overview of the make commands
 
-`make setup` Installs python and node dependencies
+Run `make help` for reference
 
-`make backend` Starts the backend server on port `9000`
+```
+clean                remove all build, test, coverage and Python artifacts
+clean-pyc            remove Python file artifacts
+clean-test           remove test and coverage artifacts
+test                 run tests quickly with the default Python
+lint                 check style with flake8
+test-all             Check Lint Format and Testing
+setup                Setup Development Instance
+backend              Start Mealie Backend Development Server
+frontend             Start Mealie Frontend Development Server
+frontend-build       Build Frontend in frontend/dist
+docs                 Start Mkdocs Development Server
+docker-dev           Build and Start Docker Development Stack
+docker-prod          Build and Start Docker Production Stack
+code-gen             Run Code-Gen Scripts
+coverage             check code coverage quickly with the default Python
 
-`make frontend` Starts the frontend server on port `8080`
-
-`make docs` Starts the documentation server on port `8000`
-
-`make docker-dev` Builds docker-compose.dev.yml 
-
-`make docker-prod` Builds docker-compose.yml to test for production
+```
 
 ## Before you Commit! 
 

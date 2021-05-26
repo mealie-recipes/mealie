@@ -7,10 +7,7 @@
       @click="$emit('click')"
       min-height="275"
     >
-      <v-img height="200" class="d-flex" :src="getImage(slug)" @error="fallBackImage = true">
-        <v-icon v-if="fallBackImage" color="primary" class="icon-position" size="200">
-          mdi-silverware-variant
-        </v-icon>
+      <CardImage icon-size="200" :slug="slug" :image-version="image">
         <v-expand-transition v-if="description">
           <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal  " style="height: 100%;">
             <v-card-text class="v-card--text-show white--text">
@@ -18,7 +15,7 @@
             </v-card-text>
           </div>
         </v-expand-transition>
-      </v-img>
+      </CardImage>
       <v-card-title class="my-n3 mb-n6 ">
         <div class="headerClass">
           {{ name }}
@@ -38,6 +35,7 @@
 <script>
 import RecipeChips from "@/components/Recipe/RecipeViewer/RecipeChips";
 import ContextMenu from "@/components/Recipe/ContextMenu";
+import CardImage from "@/components/Recipe/CardImage";
 import Rating from "@/components/Recipe/Parts/Rating";
 import { api } from "@/api";
 export default {
@@ -45,6 +43,7 @@ export default {
     RecipeChips,
     ContextMenu,
     Rating,
+    CardImage,
   },
   props: {
     name: String,
@@ -66,8 +65,8 @@ export default {
     };
   },
   methods: {
-    getImage(image) {
-      return api.recipes.recipeSmallImage(image);
+    getImage(slug) {
+      return api.recipes.recipeSmallImage(slug, this.image);
     },
   },
 };
@@ -90,13 +89,5 @@ export default {
   word-break: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.icon-position {
-  opacity: 0.8;
-  display: flex !important;
-  position: relative;
-  margin-left: auto !important;
-  margin-right: auto !important;
 }
 </style>

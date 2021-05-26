@@ -41,6 +41,7 @@ const actions = {
     this.commit("setRecentRecipes", hash);
   },
   async requestAllRecipes({ getters }) {
+    console.log("All Recipes");
     const all = getters.getAllRecipes;
     const payload = await api.recipes.allSummary(all.length, 9999);
     const hash = Object.fromEntries([...all, ...payload].map(e => [e.id, e]));

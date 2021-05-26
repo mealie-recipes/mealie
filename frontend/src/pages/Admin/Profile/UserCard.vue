@@ -1,5 +1,5 @@
 <template>
-  <StatCard icon="mdi-account">
+  <StatCard :icon="$globals.icons.user">
     <template v-slot:avatar>
       <v-avatar color="accent" size="120" class="white--text headline mt-n16">
         <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" @load="hideImage = false" />
@@ -67,7 +67,15 @@
     </template>
     <template v-slot:bottom>
       <v-card-text>
-        <v-form>
+        <v-form ref="userUpdate">
+          <v-text-field
+            :label="$t('user.username')"
+            required
+            v-model="user.username"
+            :rules="[existsRule]"
+            validate-on-blur
+          >
+          </v-text-field>
           <v-text-field
             :label="$t('user.full-name')"
             required
@@ -89,10 +97,7 @@
           file-name="profile_image"
         />
         <v-spacer></v-spacer>
-        <v-btn color="success" @click="updateUser">
-          <v-icon left> mdi-content-save </v-icon>
-          {{ $t("general.update") }}
-        </v-btn>
+        <TheButton update @click="updateUser" />
       </v-card-actions>
     </template>
   </StatCard>
@@ -154,6 +159,9 @@ export default {
       this.user.avatar = avatar;
     },
     async updateUser() {
+      if (!this.$refs.userUpdate.validate()) {
+        return;
+      }
       this.loading = true;
 
       const response = await api.users.update(this.user);

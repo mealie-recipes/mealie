@@ -77,6 +77,7 @@ nav:
           - Code Contributions: "contributors/developers-guide/code-contributions.md"
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
           - Guidelines: "contributors/developers-guide/general-guidelines.md"
+          - Style Guide: "contributors/developers-guide/style-guide.md"
   - Development Road Map: "roadmap.md"
   - Change Log:
       - v0.5.0 General Upgrades: "changelog/v0.5.0.md"

@@ -128,19 +128,18 @@ def delete_recipe(
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
-@router.put("/{recipe_slug}/image")
+@router.put("/{recipe_slug}/image", dependencies=[Depends(get_current_user)])
 def update_recipe_image(
     recipe_slug: str,
     image: bytes = File(...),
     extension: str = Form(...),
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Removes an existing image and replaces it with the incoming file. """
-    response = write_image(recipe_slug, image, extension)
-    db.recipes.update_image(session, recipe_slug, extension)
+    write_image(recipe_slug, image, extension)
+    new_version = db.recipes.update_image(session, recipe_slug, extension)
 
-    return response
+    return {"image": new_version}
 
 
 @router.post("/{recipe_slug}/image")

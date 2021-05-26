@@ -28,8 +28,13 @@ def create_file_token(file_path: Path) -> bool:
 
 def authenticate_user(session, email: str, password: str) -> UserInDB:
     user: UserInDB = db.users.get(session, email, "email", any_case=True)
+
+    if not user:
+        user = db.users.get(session, email, "username", any_case=True)
     if not user:
         return False
+
+    print(user)
     if not verify_password(password, user.password):
         return False
     return user

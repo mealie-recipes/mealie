@@ -1,5 +1,33 @@
 <template>
   <div>
+    <v-app-bar color="primary">
+      <v-spacer></v-spacer>
+      <v-btn href="https://github.com/sponsors/hay-kot" target="_blank" class="mx-1" color="secondary">
+        <v-icon left>
+          mdi-heart
+        </v-icon>
+        Support
+      </v-btn>
+      <v-btn href="https://github.com/hay-kot" target="_blank" class="mx-1" color="secondary">
+        <v-icon left>
+          mdi-github
+        </v-icon>
+        Github
+      </v-btn>
+      <v-btn href="https://hay-kot.dev" target="_blank" class="mx-1" color="secondary">
+        <v-icon left>
+          mdi-account
+        </v-icon>
+        Portfolio
+      </v-btn>
+      <v-btn href="https://hay-kot.github.io/mealie/" target="_blank" class="mx-1" color="secondary">
+        <v-icon left>
+          mdi-folder-outline
+        </v-icon>
+        Docs
+      </v-btn>
+      <v-spacer></v-spacer>
+    </v-app-bar>
     <v-card class="mt-3">
       <v-card-title class="headline">
         {{ $t("about.about-mealie") }}
@@ -9,7 +37,7 @@
         <v-list-item-group color="primary">
           <v-list-item v-for="property in prettyInfo" :key="property.name">
             <v-list-item-icon>
-              <v-icon> {{ property.icon || "mdi-account" }} </v-icon>
+              <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title class="pl-4 flex row justify-space-between">
@@ -92,7 +120,7 @@ export default {
         },
         {
           name: this.$t("about.default-group"),
-          icon: "mdi-account-group",
+          icon: this.$globals.icons.group,
           value: debugInfo.defaultGroup,
         },
       ];

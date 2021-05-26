@@ -21,7 +21,7 @@ def get_image_sizes(org_img: Path, min_img: Path, tiny_img: Path) -> ImageSizes:
     return ImageSizes(org=sizeof_fmt(org_img), min=sizeof_fmt(min_img), tiny=sizeof_fmt(tiny_img))
 
 
-def minify_image(image_file: Path) -> ImageSizes:
+def minify_image(image_file: Path, force=False) -> ImageSizes:
     """Minifies an image in it's original file format. Quality is lost
 
     Args:
@@ -39,7 +39,7 @@ def minify_image(image_file: Path) -> ImageSizes:
     min_dest = image_file.parent.joinpath("min-original.webp")
     tiny_dest = image_file.parent.joinpath("tiny-original.webp")
 
-    if min_dest.exists() and tiny_dest.exists() and org_dest.exists():
+    if min_dest.exists() and tiny_dest.exists() and org_dest.exists() and not force:
         return
     try:
         img = Image.open(image_file)
@@ -56,7 +56,8 @@ def minify_image(image_file: Path) -> ImageSizes:
 
         cleanup_images = True
 
-    except Exception:
+    except Exception as e:
+        logger.error(e)
         shutil.copy(image_file, min_dest)
         shutil.copy(image_file, tiny_dest)
 

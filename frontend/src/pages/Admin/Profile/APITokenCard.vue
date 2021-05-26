@@ -3,7 +3,7 @@
     <template v-slot:after-heading>
       <div class="ml-auto text-right">
         <h2 class="body-3 grey--text font-weight-light">
-          {{$t('settings.token.api-tokens')}}
+          {{ $t("settings.token.api-tokens") }}
         </h2>
         <h3 class="display-2 font-weight-light text--primary">
           <small> {{ user.tokens.length }} </small>
@@ -11,7 +11,7 @@
       </div>
     </template>
     <template v-slot:bottom>
-      <v-subheader class="mb-n2">{{$t('settings.token.active-tokens')}}</v-subheader>
+      <v-subheader class="mb-n2">{{ $t("settings.token.active-tokens") }}</v-subheader>
       <v-virtual-scroll height="210" item-height="70" :items="user.tokens" class="mt-2">
         <template v-slot:default="{ item }">
           <v-divider></v-divider>
@@ -28,7 +28,7 @@
 
             <v-list-item-action class="ml-auto">
               <v-btn large icon @click.stop="deleteToken(item.id)">
-                <v-icon color="accent">mdi-delete</v-icon>
+                <v-icon color="accent">{{ $globals.icons.delete }}</v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>
@@ -62,16 +62,17 @@
               >
               </v-textarea>
               <v-subheader class="text-center">
-                {{$t('settings.token.copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again')}}
+                {{
+                  $t(
+                    "settings.token.copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again"
+                  )
+                }}
               </v-subheader>
             </div>
           </v-card-text>
 
           <template v-slot:open="{ open }">
-            <v-btn color="success" @click="open">
-              <v-icon left> mdi-plus </v-icon>
-              {{ $t("general.create") }}
-            </v-btn>
+            <TheButton create @click="open" />
           </template>
         </BaseDialog>
       </v-card-actions>
@@ -109,9 +110,9 @@ export default {
     },
     buttonText() {
       if (this.createdToken === "") {
-        return this.$t('general.create');
+        return this.$t("general.create");
       } else {
-        return this.$t('general.close');
+        return this.$t("general.close");
       }
     },
   },

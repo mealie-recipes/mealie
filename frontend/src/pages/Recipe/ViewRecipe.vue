@@ -3,8 +3,15 @@
     <v-card v-if="skeleton" :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else id="myRecipe" class="d-print-none">
-      <v-img height="400" :src="getImage(recipeDetails.slug)" class="d-print-none" :key="imageKey">
+    <NoRecipe v-else-if="loadFailed" />
+    <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
+      <v-img
+        :height="hideImage ? '40' : imageHeight"
+        @error="hideImage = true"
+        :src="getImage(recipeDetails.slug)"
+        class="d-print-none"
+        :key="imageKey"
+      >
         <RecipeTimeCard
           :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
@@ -48,6 +55,7 @@ import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
+import NoRecipe from "@/components/Fallbacks/NoRecipe";
 import { user } from "@/mixins/user";
 import { router } from "@/routes";
 
@@ -59,6 +67,7 @@ export default {
     EditorButtonRow,
     RecipeTimeCard,
     PrintView,
+    NoRecipe,
   },
   mixins: [user],
   inject: {
@@ -68,6 +77,8 @@ export default {
   },
   data() {
     return {
+      hideImage: false,
+      loadFailed: false,
       skeleton: true,
       form: false,
       jsonEditor: false,
@@ -99,6 +110,7 @@ export default {
 
   async mounted() {
     await this.getRecipeDetails();
+
     this.jsonEditor = false;
     this.form = this.$route.query.edit === "true" && this.loggedIn;
 
@@ -117,6 +129,9 @@ export default {
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.name === "xs";
+    },
+    imageHeight() {
+      return this.isMobile ? "200" : "400";
     },
     currentRecipe() {
       return this.$route.params.recipe;
@@ -141,12 +156,18 @@ export default {
       this.saveImage();
     },
     async getRecipeDetails() {
+      if (this.currentRecipe === "null") {
+        this.skeleton = false;
+        this.loadFailed = true;
+        return;
+      }
+
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
       this.skeleton = false;
     },
-    getImage(image) {
-      if (image) {
-        return api.recipes.recipeImage(image) + "?&rnd=" + this.imageKey;
+    getImage(slug) {
+      if (slug) {
+        return api.recipes.recipeImage(slug, this.imageKey, this.recipeDetails.image);
       }
     },
     async deleteRecipe() {
@@ -164,7 +185,9 @@ export default {
     },
     async saveImage(overrideSuccessMsg = false) {
       if (this.fileObject) {
-        if (api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg)) {
+        const newVersion = await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg);
+        if (newVersion) {
+          this.recipeDetails.image = newVersion.data.version;
           this.imageKey += 1;
         }
       }
@@ -181,6 +204,7 @@ export default {
         if (slug != this.recipeDetails.slug) {
           this.$router.push(`/recipe/${slug}`);
         }
+        window.URL.revokeObjectURL(this.getImage(this.recipeDetails.slug));
       }
     },
     printPage() {

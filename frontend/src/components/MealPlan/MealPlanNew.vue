@@ -63,14 +63,14 @@
     </v-card-text>
 
     <v-card-text v-if="startDate">
-      <MealPlanCard v-model="meals" />
+      <MealPlanCard v-model="planDays" />
     </v-card-text>
     <v-row align="center" justify="end">
       <v-card-actions class="mr-5">
-        <v-btn color="success" @click="random" v-if="meals.length > 0" text>
+        <v-btn color="success" @click="random" v-if="planDays.length > 0" text>
           {{ $t("general.random") }}
         </v-btn>
-        <v-btn color="success" @click="save" text :disabled="meals.length == 0">
+        <v-btn color="success" @click="save" text :disabled="planDays.length == 0">
           {{ $t("general.save") }}
         </v-btn>
       </v-card-actions>
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      meals: [],
+      planDays: [],
       items: [],
 
       // Dates
@@ -106,11 +106,17 @@ export default {
 
   watch: {
     dateDif() {
-      this.meals = [];
+      this.planDays = [];
       for (let i = 0; i < this.dateDif; i++) {
-        this.meals.push({
-          slug: "empty",
+        this.planDays.push({
           date: this.getDate(i),
+          meals: [
+            {
+              name: "",
+              slug: "empty",
+              description: "empty",
+            },
+          ],
         });
       }
     },
@@ -172,10 +178,10 @@ export default {
     },
     random() {
       this.usedRecipes = [1];
-      this.meals.forEach((element, index) => {
+      this.planDays.forEach((element, index) => {
         let recipe = this.getRandom(this.filteredRecipes);
-        this.meals[index]["slug"] = recipe.slug;
-        this.meals[index]["name"] = recipe.name;
+        this.planDays[index]["meals"][0]["slug"] = recipe.slug;
+        this.planDays[index]["meals"][0]["name"] = recipe.name;
         this.usedRecipes.push(recipe);
       });
     },
@@ -193,18 +199,14 @@ export default {
         group: this.groupSettings.name,
         startDate: this.startDate,
         endDate: this.endDate,
-        meals: this.meals,
+        planDays: this.planDays,
       };
       if (await api.mealPlans.create(mealBody)) {
         this.$emit(CREATE_EVENT);
-        this.meals = [];
+        this.planDays = [];
         this.startDate = null;
         this.endDate = null;
       }
-    },
-
-    getImage(image) {
-      return api.recipes.recipeSmallImage(image);
     },
 
     formatDate(date) {

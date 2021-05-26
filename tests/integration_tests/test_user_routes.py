@@ -10,12 +10,28 @@ from tests.app_routes import AppRoutes
 
 @fixture(scope="session")
 def default_user():
-    return UserOut(id=1, fullName="Change Me", email="changeme@email.com", group="Home", admin=True, tokens=[])
+    return UserOut(
+        id=1,
+        fullName="Change Me",
+        username="Change Me",
+        email="changeme@email.com",
+        group="Home",
+        admin=True,
+        tokens=[],
+    )
 
 
 @fixture(scope="session")
 def new_user():
-    return UserOut(id=3, fullName="My New User", email="newuser@email.com", group="Home", admin=False, tokens=[])
+    return UserOut(
+        id=3,
+        fullName="My New User",
+        username="My New User",
+        email="newuser@email.com",
+        group="Home",
+        admin=False,
+        tokens=[],
+    )
 
 
 def test_superuser_login(api_client: TestClient, api_routes: AppRoutes, token):

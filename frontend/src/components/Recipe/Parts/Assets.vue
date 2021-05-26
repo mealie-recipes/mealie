@@ -19,7 +19,7 @@
             </v-btn>
             <div v-else>
               <v-btn color="error" icon @click="deleteAsset(i)" top>
-                <v-icon>mdi-delete</v-icon>
+                <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
               <v-btn color="primary" icon @click="copyLink(item.name, item.fileName)" top>
                 <v-icon>mdi-content-copy</v-icon>
@@ -34,7 +34,7 @@
       <base-dialog @submit="addAsset" :title="$t('recipe.new-asset')" :title-icon="newAsset.icon">
         <template v-slot:open="{ open }">
           <v-btn color="secondary" dark @click="open" v-if="edit">
-            <v-icon>mdi-plus</v-icon>
+            <v-icon>{{ $globals.icons.create }}</v-icon>
           </v-btn>
         </template>
         <v-card-text class="pt-2">

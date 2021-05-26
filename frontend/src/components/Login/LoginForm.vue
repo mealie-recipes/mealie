@@ -3,7 +3,7 @@
     <v-divider></v-divider>
     <v-app-bar dark color="primary" class="mt-n1 mb-2">
       <v-icon large left v-if="!loading">
-        mdi-account
+        {{ $globals.icons.user }}
       </v-icon>
       <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
       <v-toolbar-title class="headline">{{ $t("user.login") }}</v-toolbar-title>
@@ -22,7 +22,7 @@
           v-model="user.email"
           prepend-icon="mdi-email"
           validate-on-blur
-          :label="$t('user.email')"
+          :label="`${$t('user.email')} or ${$t('user.username')} `"
           type="email"
         ></v-text-field>
         <v-text-field

@@ -12,6 +12,7 @@ import { signupAPI } from "./signUps";
 import { groupAPI } from "./groups";
 import { siteSettingsAPI } from "./siteSettings";
 import { aboutAPI } from "./about";
+import { shoppingListsAPI } from "./shoppingLists";
 
 /**
  * The main object namespace for interacting with the backend database
@@ -32,4 +33,5 @@ export const api = {
   signUps: signupAPI,
   groups: groupAPI,
   about: aboutAPI,
+  shoppingLists: shoppingListsAPI,
 };

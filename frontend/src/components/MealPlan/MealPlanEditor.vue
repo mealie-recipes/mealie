@@ -6,12 +6,10 @@
     <v-divider></v-divider>
 
     <v-card-text>
-      <MealPlanCard v-model="mealPlan.meals" />
+      <MealPlanCard v-model="mealPlan.planDays" />
       <v-row align="center" justify="end">
         <v-card-actions>
-          <v-btn color="success" text @click="update">
-            {{ $t("general.update") }}
-          </v-btn>
+          <TheButton update @click="update" />
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-row>
@@ -29,6 +27,9 @@ export default {
   },
   props: {
     mealPlan: Object,
+  },
+  mounted() {
+    console.log(this.mealPlan);
   },
   methods: {
     formatDate(timestamp) {

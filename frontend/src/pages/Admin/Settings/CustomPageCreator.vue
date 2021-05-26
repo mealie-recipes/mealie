@@ -5,9 +5,7 @@
       <h2 class="mt-1 mb-1 ">
         {{ $t("settings.custom-pages") }}
         <span>
-          <v-btn color="success" @click="newPage" small class="ml-3">
-            {{ $t("general.create") }}
-          </v-btn>
+          <TheButton create small class="ml-3" @click="newPage" />
         </span>
       </h2>
       <draggable class="row mt-1" v-model="customPages">
@@ -33,13 +31,9 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn text small color="error" @click="deletePage(item.id)">
-                {{ $t("general.delete") }}
-              </v-btn>
+              <TheButton delete small minor @click="deletePage(item.id)" />
               <v-spacer> </v-spacer>
-              <v-btn small text color="success" @click="editPage(index)">
-                {{ $t("general.edit") }}
-              </v-btn>
+              <TheButton edit small @click="editPage(index)" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -47,9 +41,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="success" @click="savePages">
-        {{ $t("general.save") }}
-      </v-btn>
+      <TheButton update @click="savePages" />
     </v-card-actions>
   </v-card>
 </template>

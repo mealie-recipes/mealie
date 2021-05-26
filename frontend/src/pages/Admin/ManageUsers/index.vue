@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-card flat>
-      <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text>
+      <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text show-arrows>
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab href="#users">
           {{ $t("user.users") }}
-          <v-icon>mdi-account</v-icon>
+          <v-icon>{{ $globals.icons.user }}</v-icon>
         </v-tab>
 
         <v-tab href="#sign-ups">
@@ -16,7 +16,7 @@
 
         <v-tab href="#groups">
           {{ $t("group.groups") }}
-          <v-icon>mdi-account-group</v-icon>
+          <v-icon>{{ $globals.icons.group }}</v-icon>
         </v-tab>
       </v-tabs>
 

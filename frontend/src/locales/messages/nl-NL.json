@@ -164,10 +164,10 @@
     },
     "migration-data-removed": "Migratie gegevens verwijderd",
     "nextcloud": {
-      "description": "Migreer gegevens uit een Nextcloud Kookbook intance",
+      "description": "Migrate data from a Nextcloud Cookbook instance",
       "title": "Nextcloud Kookboek"
     },
-    "no-migration-data-available": "Geen migratie-gegevens beschikbaar",
+    "no-migration-data-available": "No Migration Data Available",
     "recipe-migration": "Recept Migratie"
   },
   "new-recipe": {

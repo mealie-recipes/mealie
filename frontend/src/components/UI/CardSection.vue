@@ -1,24 +1,24 @@
 <template>
   <div v-if="recipes">
-    <v-app-bar color="transparent" flat class="mt-n1 rounded" v-if="!disableToolbar">
+    <v-app-bar color="transparent" flat class="mt-n1 flex-sm-wrap  rounded " v-if="!disableToolbar">
       <v-icon large left v-if="title">
-        {{ titleIcon }}
+        {{ displayTitleIcon }}
       </v-icon>
       <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text @click="navigateRandom">
-        <v-icon left>
+      <v-btn :icon="$vuetify.breakpoint.xsOnly" text @click="navigateRandom">
+        <v-icon :left="!$vuetify.breakpoint.xsOnly">
           mdi-dice-multiple
         </v-icon>
-        {{ $t("general.random") }}
+        {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
       <v-menu offset-y left v-if="$listeners.sort">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn text v-bind="attrs" v-on="on" :loading="sortLoading">
-            <v-icon left>
+          <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" v-on="on" :loading="sortLoading">
+            <v-icon :left="!$vuetify.breakpoint.xsOnly">
               mdi-sort
             </v-icon>
-            {{ $t("general.sort") }}
+            {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
           </v-btn>
         </template>
         <v-list>
@@ -58,14 +58,16 @@
     <div v-if="recipes" class="mt-2">
       <v-row v-if="!viewScale">
         <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="recipe in recipes.slice(0, cardLimit)" :key="recipe.name">
-          <RecipeCard
-            :name="recipe.name"
-            :description="recipe.description"
-            :slug="recipe.slug"
-            :rating="recipe.rating"
-            :image="recipe.image"
-            :tags="recipe.tags"
-          />
+          <v-lazy>
+            <RecipeCard
+              :name="recipe.name"
+              :description="recipe.description"
+              :slug="recipe.slug"
+              :rating="recipe.rating"
+              :image="recipe.image"
+              :tags="recipe.tags"
+            />
+          </v-lazy>
         </v-col>
       </v-row>
       <v-row v-else dense>
@@ -78,33 +80,29 @@
           v-for="recipe in recipes.slice(0, cardLimit)"
           :key="recipe.name"
         >
-          <MobileRecipeCard
-            :name="recipe.name"
-            :description="recipe.description"
-            :slug="recipe.slug"
-            :rating="recipe.rating"
-            :image="recipe.image"
-            :tags="recipe.tags"
-          />
+          <v-lazy>
+            <MobileRecipeCard
+              :name="recipe.name"
+              :description="recipe.description"
+              :slug="recipe.slug"
+              :rating="recipe.rating"
+              :image="recipe.image"
+              :tags="recipe.tags"
+            />
+          </v-lazy>
         </v-col>
       </v-row>
     </div>
     <div v-intersect="bumpList" class="d-flex">
       <v-expand-x-transition>
-        <v-progress-circular
-          v-if="loading"
-          class="mx-auto mt-1"
-          :size="50"
-          :width="7"
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
+        <SiteLoader v-if="loading" :loading="loading" :size="150" />
       </v-expand-x-transition>
     </div>
   </div>
 </template>
 
 <script>
+import SiteLoader from "@/components/UI/SiteLoader";
 import RecipeCard from "../Recipe/RecipeCard";
 import MobileRecipeCard from "@/components/Recipe/MobileRecipeCard";
 import { utils } from "@/utils";
@@ -114,13 +112,14 @@ export default {
   components: {
     RecipeCard,
     MobileRecipeCard,
+    SiteLoader,
   },
   props: {
     disableToolbar: {
       default: false,
     },
     titleIcon: {
-      default: "mdi-tag-multiple-outline",
+      default: null,
     },
     title: {
       default: null,
@@ -139,7 +138,7 @@ export default {
   data() {
     return {
       sortLoading: false,
-      cardLimit: 30,
+      cardLimit: 50,
       loading: false,
       EVENTS: {
         az: "az",
@@ -169,6 +168,9 @@ export default {
     },
     effectiveHardLimit() {
       return Math.min(this.hardLimit, this.recipes.length);
+    },
+    displayTitleIcon() {
+      return this.titleIcon || this.$globals.icons.tags;
     },
   },
   methods: {

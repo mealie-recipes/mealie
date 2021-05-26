@@ -7,7 +7,7 @@
       </v-btn>
       <router-link to="/">
         <v-btn icon>
-          <v-icon size="40"> mdi-silverware-variant </v-icon>
+          <v-icon size="40"> {{ $globals.icons.primary }} </v-icon>
         </v-btn>
       </router-link>
 
@@ -18,12 +18,9 @@
       </div>
 
       <v-spacer></v-spacer>
-      <SearchBar
-        v-if="!isMobile"
-        :show-results="true"
-        @selected="navigateFromSearch"
-        :max-width="isMobile ? '100%' : '450px'"
-      />
+      <div v-if="!isMobile" style="width: 350px;">
+        <SearchBar :show-results="true" @selected="navigateFromSearch" :max-width="isMobile ? '100%' : '450px'" />
+      </div>
       <div v-else>
         <v-btn icon @click="$refs.recipeSearch.open()">
           <v-icon> mdi-magnify </v-icon>
@@ -46,7 +43,7 @@
 <script>
 import TheSiteMenu from "@/components/UI/TheSiteMenu";
 import SearchBar from "@/components/UI/Search/SearchBar";
-import SearchDialog from "@/components/UI/Search/SearchDialog";
+import SearchDialog from "@/components/UI/Dialogs/SearchDialog";
 import TheRecipeFab from "@/components/UI/TheRecipeFab";
 import TheSidebar from "@/components/UI/TheSidebar";
 import { user } from "@/mixins/user";

@@ -3,7 +3,7 @@
     ref="copyToolTip"
     v-model="show"
     color="success lighten-1"
-    right
+    top
     :open-on-hover="false"
     :open-on-click="true"
     close-delay="500"
@@ -12,7 +12,7 @@
     <template v-slot:activator="{ on }">
       <v-btn
         icon
-        color="primary"
+        :color="color"
         @click="
           on.click;
           textToClipboard();
@@ -27,8 +27,7 @@
       <v-icon left dark>
         mdi-clipboard-check
       </v-icon>
-      {{ $t('general.coppied')}}!
-      
+      <slot> {{ $t("general.coppied") }}! </slot>
     </span>
   </v-tooltip>
 </template>
@@ -38,6 +37,9 @@ export default {
   props: {
     copyText: {
       default: "Default Copy Text",
+    },
+    color: {
+      default: "primary",
     },
   },
   data() {

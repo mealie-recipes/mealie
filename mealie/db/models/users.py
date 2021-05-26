@@ -22,6 +22,11 @@ class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     full_name = Column(String, index=True)
+    username = Column(
+        String,
+        index=True,
+        unique=True,
+    )
     email = Column(String, unique=True, index=True)
     password = Column(String)
     group_id = Column(Integer, ForeignKey("groups.id"))
@@ -32,16 +37,7 @@ class User(SqlAlchemyBase, BaseMixins):
     )
 
     def __init__(
-        self,
-        session,
-        full_name,
-        email,
-        password,
-        group: str = settings.DEFAULT_GROUP,
-        admin=False,
-        id=None,
-        *args,
-        **kwargs
+        self, session, full_name, email, password, group: str = settings.DEFAULT_GROUP, admin=False, **_
     ) -> None:
 
         group = group or settings.DEFAULT_GROUP
@@ -51,11 +47,18 @@ class User(SqlAlchemyBase, BaseMixins):
         self.admin = admin
         self.password = password
 
-    def update(self, full_name, email, group, admin, session=None, id=None, password=None, *args, **kwargs):
+        if self.username is None:
+            self.username = full_name
+
+    def update(self, full_name, email, group, admin, username, session=None, id=None, password=None, *args, **kwargs):
+        self.username = username
         self.full_name = full_name
         self.email = email
         self.group = Group.get_ref(session, group)
         self.admin = admin
+
+        if self.username is None:
+            self.username = full_name
 
         if password:
             self.password = password

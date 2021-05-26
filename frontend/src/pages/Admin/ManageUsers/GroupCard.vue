@@ -21,7 +21,7 @@
         <v-list-item-group color="primary">
           <v-list-item v-for="property in groupProps" :key="property.text">
             <v-list-item-icon>
-              <v-icon> {{ property.icon || "mdi-account" }} </v-icon>
+              <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title class="pl-4 flex row justify-space-between">
@@ -95,7 +95,7 @@ export default {
       this.groupProps = [
         {
           text: this.$t("user.total-users"),
-          icon: "mdi-account",
+          icon: this.$globals.icons.user,
           value: this.group.users.length,
         },
         {

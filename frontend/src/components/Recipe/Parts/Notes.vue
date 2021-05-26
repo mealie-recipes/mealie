@@ -6,7 +6,7 @@
         <v-card-text>
           <v-row align="center">
             <v-btn fab x-small color="white" class="mr-2" elevation="0" @click="removeByIndex(value, index)">
-              <v-icon color="error">mdi-delete</v-icon>
+              <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
             </v-btn>
             <v-text-field :label="$t('recipe.title')" v-model="value[index]['title']"></v-text-field>
           </v-row>
@@ -27,7 +27,7 @@
 
     <div class="d-flex justify-end" v-if="edit">
       <v-btn class="mt-1" color="secondary" dark @click="addNote">
-        <v-icon>mdi-plus</v-icon>
+        <v-icon>{{ $globals.icons.create }}</v-icon>
       </v-btn>
     </div>
   </div>

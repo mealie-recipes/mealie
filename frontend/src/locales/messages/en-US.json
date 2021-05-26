@@ -164,10 +164,10 @@
     },
     "migration-data-removed": "Migration data removed",
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook intance",
+      "description": "Migrate data from a Nextcloud Cookbook instance",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "No Migration Data Avaiable",
+    "no-migration-data-available": "No Migration Data Available",
     "recipe-migration": "Recipe Migration"
   },
   "new-recipe": {
@@ -377,6 +377,7 @@
     "untagged-count": "Untagged {count}"
   },
   "user": {
+    "username": "Username",
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>?",

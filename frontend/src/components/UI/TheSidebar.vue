@@ -29,6 +29,14 @@
 
       <!-- Version List Item -->
       <v-list nav dense class="fixedBottom" v-if="!isMain">
+        <v-list-item href="https://github.com/sponsors/hay-kot" target="_target">
+          <v-list-item-icon >
+            <v-icon color="pink">
+              mdi-heart
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-title> Support </v-list-item-title>
+        </v-list-item>
         <v-list-item to="/admin/about">
           <v-list-item-icon class="mr-3 pt-1">
             <v-icon :color="newVersionAvailable ? 'red--text' : ''">
@@ -99,14 +107,24 @@ export default {
           title: this.$t("page.home-page"),
         },
         {
+          icon: "mdi-magnify",
+          to: "/search",
+          title: this.$t("search.search"),
+        },
+        {
           icon: "mdi-view-module",
           to: "/recipes/all",
           title: this.$t("page.all-recipes"),
         },
         {
-          icon: "mdi-magnify",
-          to: "/search",
-          title: this.$t("search.search"),
+          icon: this.$globals.icons.tags,
+          to: "/recipes/category",
+          title: this.$t("recipe.categories"),
+        },
+        {
+          icon: this.$globals.icons.tags,
+          to: "/recipes/tag",
+          title: this.$t("tag.tags"),
         },
       ];
     },
@@ -117,16 +135,10 @@ export default {
         return pages.map(x => ({
           title: x.name,
           to: `/pages/${x.slug}`,
-          icon: "mdi-tag",
-        }));
-      } else {
-        const categories = this.$store.getters.getAllCategories;
-        return categories.map(x => ({
-          title: x.name,
-          to: `/recipes/category/${x.slug}`,
-          icon: "mdi-tag",
+          icon: this.$globals.icons.pages,
         }));
       }
+      return [];
     },
     mainMenu() {
       return [...this.baseMainLinks, ...this.customPages];
@@ -134,7 +146,7 @@ export default {
     settingsLinks() {
       return [
         {
-          icon: "mdi-account",
+          icon: this.$globals.icons.user,
           to: "/admin/profile",
           title: this.$t("settings.profile"),
         },
@@ -158,7 +170,7 @@ export default {
           title: this.$t("settings.toolbox.toolbox"),
         },
         {
-          icon: "mdi-account-group",
+          icon: this.$globals.icons.group,
           to: "/admin/manage-users",
           title: this.$t("user.manage-users"),
         },

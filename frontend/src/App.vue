@@ -75,8 +75,10 @@ export default {
 </script>
 
 <style>
+.top-dialog {
+  align-self: flex-start;
+}
 :root {
   scrollbar-color: transparent transparent;
 }
-
 </style>

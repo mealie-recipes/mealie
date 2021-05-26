@@ -1,11 +1,17 @@
-import Planner from "@/pages/MealPlan/Planner";
-import ThisWeek from "@/pages/MealPlan/ThisWeek";
+const Planner = () => import("@/pages/MealPlan/Planner");
+const ThisWeek = () => import("@/pages/MealPlan/ThisWeek");
 import { api } from "@/api";
-
-import i18n from "@/i18n.js";
 import { utils } from "@/utils";
+import i18n from "@/i18n.js";
 
 export const mealRoutes = [
+  {
+    path: "/meal-plan",
+    component: ThisWeek,
+    meta: {
+      title: "meal-plan.dinner-this-week",
+    },
+  },
   {
     path: "/meal-plan/planner",
     component: Planner,

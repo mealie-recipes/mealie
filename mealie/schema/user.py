@@ -5,7 +5,8 @@ from mealie.core.config import settings
 from mealie.db.models.group import Group
 from mealie.db.models.users import User
 from mealie.schema.category import CategoryBase
-from mealie.schema.meal import MealPlanInDB
+from mealie.schema.meal import MealPlanOut
+from mealie.schema.shopping_list import ShoppingListOut
 from pydantic.types import constr
 from pydantic.utils import GetterDict
 
@@ -42,6 +43,7 @@ class GroupBase(CamelModel):
 
 
 class UserBase(CamelModel):
+    username: Optional[str]
     full_name: Optional[str] = None
     email: constr(to_lower=True, strip_whitespace=True)
     admin: bool
@@ -58,6 +60,7 @@ class UserBase(CamelModel):
             }
 
         schema_extra = {
+            "username": "ChangeMe",
             "fullName": "Change Me",
             "email": "changeme@email.com",
             "group": settings.DEFAULT_GROUP,
@@ -105,7 +108,8 @@ class UpdateGroup(GroupBase):
 
 class GroupInDB(UpdateGroup):
     users: Optional[list[UserOut]]
-    mealplans: Optional[list[MealPlanInDB]]
+    mealplans: Optional[list[MealPlanOut]]
+    shopping_lists: Optional[list[ShoppingListOut]]
 
     class Config:
         orm_mode = True

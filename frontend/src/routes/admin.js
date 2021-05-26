@@ -1,11 +1,11 @@
-import Admin from "@/pages/Admin";
-import Migration from "@/pages/Admin/Migration";
-import Profile from "@/pages/Admin/Profile";
-import ManageUsers from "@/pages/Admin/ManageUsers";
-import Settings from "@/pages/Admin/Settings";
-import About from "@/pages/Admin/About";
-import ToolBox from "@/pages/Admin/ToolBox";
-import Dashboard from "@/pages/Admin/Dashboard";
+const Admin = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin");
+const Migration = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin/Migration");
+const Profile = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin/Profile");
+const ManageUsers = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin/ManageUsers");
+const Settings = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin/Settings");
+const About = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin/About");
+const ToolBox = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin/ToolBox");
+const Dashboard = () => import(/* webpackChunkName: "admin" */ "@/pages/Admin/Dashboard");
 import { store } from "../store";
 
 export const adminRoutes = {
