@@ -68,6 +68,7 @@ nav:
           - Getting Started: "api-usage/getting-started.md"
           - Home Assistant: "api-usage/home-assistant.md"
           - Bulk Url Import: "api-usage/bulk-url-import.md"
+  - Community Guide: "community-guide/swag.md"
   - API Reference: "api/redoc.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
