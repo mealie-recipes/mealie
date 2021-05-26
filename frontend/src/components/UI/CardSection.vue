@@ -1,24 +1,24 @@
 <template>
   <div v-if="recipes">
-    <v-app-bar color="transparent" flat class="mt-n1 rounded" v-if="!disableToolbar">
+    <v-app-bar color="transparent" flat class="mt-n1 flex-sm-wrap  rounded " v-if="!disableToolbar">
       <v-icon large left v-if="title">
         {{ displayTitleIcon }}
       </v-icon>
       <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text @click="navigateRandom">
-        <v-icon left>
+      <v-btn :icon="$vuetify.breakpoint.xsOnly" text @click="navigateRandom">
+        <v-icon :left="!$vuetify.breakpoint.xsOnly">
           mdi-dice-multiple
         </v-icon>
-        {{ $t("general.random") }}
+        {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
       <v-menu offset-y left v-if="$listeners.sort">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn text v-bind="attrs" v-on="on" :loading="sortLoading">
-            <v-icon left>
+          <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" v-on="on" :loading="sortLoading">
+            <v-icon :left="!$vuetify.breakpoint.xsOnly">
               mdi-sort
             </v-icon>
-            {{ $t("general.sort") }}
+            {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
           </v-btn>
         </template>
         <v-list>
