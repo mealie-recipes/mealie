@@ -21,13 +21,15 @@ Prerequisites
 Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies. Once that is complete you can run `make backend` and `make vue` to start the backend and frontend servers. 
 
 ## Make File Reference 
-`make setup` installs python and node dependencies
+`make help` Get an overview of the make commands
+
+`make setup` Installs python and node dependencies
 
 `make backend` Starts the backend server on port `9000`
 
-`make vue` Starts the frontend server on port `8080`
+`make frontend` Starts the frontend server on port `8080`
 
-`make mdocs` Starts the documentation server on port `8000`
+`make docs` Starts the documentation server on port `8000`
 
 `make docker-dev` Builds docker-compose.dev.yml 
 
