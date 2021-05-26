@@ -377,6 +377,7 @@
     "untagged-count": "Untagged {count}"
   },
   "user": {
+    "username": "Username",
     "admin": "管理员",
     "are-you-sure-you-want-to-delete-the-link": "您确定要删除链接<b>{link}<b/>吗？",
     "are-you-sure-you-want-to-delete-the-user": "您确定要删除用户 <b>{activeName} ID：{activeId}<b/> 吗？",
