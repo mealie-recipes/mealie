@@ -9,7 +9,7 @@
     "api-port": "API Port",
     "application-mode": "Anwendungsmodus",
     "database-type": "Datenbanktyp",
-    "database-url": "Database URL",
+    "database-url": "Datenbank URL",
     "default-group": "Standardgruppe",
     "demo": "Demo",
     "demo-status": "Demostatus",
@@ -21,7 +21,7 @@
     "version": "Version"
   },
   "category": {
-    "category": "Category",
+    "category": "Kategorie",
     "category-created": "Kategorie angelegt",
     "category-creation-failed": "Anlegen der Kategorie fehlgeschlagen",
     "category-deleted": "Kategorie entfernt",
@@ -29,13 +29,13 @@
     "category-filter": "Kategoriefilter",
     "category-update-failed": "Aktualisieren der Kategorie fehlgeschlagen",
     "category-updated": "Kategorie aktualisiert",
-    "uncategorized-count": "Uncategorized {count}"
+    "uncategorized-count": "Nicht kategorisierte {count}"
   },
   "events": {
     "apprise-url": "Apprise URL",
-    "database": "Database",
-    "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
-    "notification": "Notification",
+    "database": "Datenbank",
+    "new-notification-form-description": "Mealie verwendet die Apprise-Bibliothek, um Benachrichtigungen zu erzeugen. Sie bietet viele Optionen für Dienste an, die für Benachrichtigungen genutzt werden können. Werfe einen Blick in ihr Wiki für eine umfassende Anleitung zum Erstellen der URL für Ihren Dienst. Falls verfügbar, kann die Auswahl des Benachrichtigungstyps zusätzliche Funktionen enthalten.",
+    "notification": "Benachrichtigung",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
@@ -351,7 +351,7 @@
       "meal-planner-webhooks": "Essensplaner Webhooks",
       "test-webhooks": "Teste Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Die unten stehenden URL's erhalten Webhooks welche die Rezeptdaten für den Menüplan am geplanten Tag enthalten. Derzeit werden die Webhooks ausgeführt um",
-      "webhook-url": "Webhook-URL",
+      "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS"
     }
   },
@@ -377,7 +377,7 @@
     "untagged-count": "Untagged {count}"
   },
   "user": {
-    "username": "Username",
+    "username": "Benutzername",
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Bist du dir sicher, dass du den Link <b>{link}<b/> löschen möchtest?",
     "are-you-sure-you-want-to-delete-the-user": "Bist du dir sicher, dass du den Benutzer <b>{activeName} ID: {activeId}<b/> löschen möchtest?",
