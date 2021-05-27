@@ -19,7 +19,7 @@ class EventNotification(SqlAlchemyBase, BaseMixins):
     user = Column(Boolean, default=False)
 
     def __init__(
-        self, name, notification_url, type, general, recipe, backup, scheduled, migration, group, user, *args, **kwargs
+        self, name, notification_url, type, general, recipe, backup, scheduled, migration, group, user, **_
     ) -> None:
         self.name = name
         self.notification_url = notification_url
@@ -41,7 +41,7 @@ class Event(SqlAlchemyBase, BaseMixins):
     time_stamp = Column(DateTime)
     category = Column(String)
 
-    def __init__(self, title, text, time_stamp, category, *args, **kwargs) -> None:
+    def __init__(self, title, text, time_stamp, category, **_) -> None:
         self.title = title
         self.text = text
         self.time_stamp = time_stamp

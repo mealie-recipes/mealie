@@ -15,6 +15,17 @@
             <v-list-item-subtitle> {{ user.admin ? $t("user.admin") : $t("user.user") }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item dense v-if="isLoggedIn" :to="`/user/${user.id}/favorites`">
+          <v-list-item-icon>
+            <v-icon>
+              mdi-heart
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title> Favorites </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </template>
       <v-divider></v-divider>
 
@@ -30,7 +41,7 @@
       <!-- Version List Item -->
       <v-list nav dense class="fixedBottom" v-if="!isMain">
         <v-list-item href="https://github.com/sponsors/hay-kot" target="_target">
-          <v-list-item-icon >
+          <v-list-item-icon>
             <v-icon color="pink">
               mdi-heart
             </v-icon>

@@ -49,7 +49,7 @@ const apiReq = {
     return handleResponse(response, getSuccessText);
   },
 
-  get: function(url, data, getErrorText = defaultErrorText) {
+  get: async function(url, data, getErrorText = defaultErrorText) {
     return axios.get(url, data).catch(function(error) {
       handleError(error, getErrorText);
     });

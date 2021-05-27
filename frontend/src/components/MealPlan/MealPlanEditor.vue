@@ -28,9 +28,7 @@ export default {
   props: {
     mealPlan: Object,
   },
-  mounted() {
-    console.log(this.mealPlan);
-  },
+
   methods: {
     formatDate(timestamp) {
       let dateObject = new Date(timestamp);

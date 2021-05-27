@@ -23,6 +23,7 @@
       </v-card-title>
 
       <v-card-actions>
+        <FavoriteBadge v-if="loggedIn" :slug="slug" show-always />
         <Rating :value="rating" :name="name" :slug="slug" :small="true" />
         <v-spacer></v-spacer>
         <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :isCategory="false" />
@@ -33,18 +34,14 @@
 </template>
 
 <script>
+import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
 import RecipeChips from "@/components/Recipe/RecipeViewer/RecipeChips";
 import ContextMenu from "@/components/Recipe/ContextMenu";
 import CardImage from "@/components/Recipe/CardImage";
 import Rating from "@/components/Recipe/Parts/Rating";
 import { api } from "@/api";
 export default {
-  components: {
-    RecipeChips,
-    ContextMenu,
-    Rating,
-    CardImage,
-  },
+  components: { FavoriteBadge, RecipeChips, ContextMenu, Rating, CardImage },
   props: {
     name: String,
     slug: String,
@@ -63,6 +60,11 @@ export default {
     return {
       fallBackImage: false,
     };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.getIsLoggedIn;
+    },
   },
   methods: {
     getImage(slug) {

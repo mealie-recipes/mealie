@@ -1,4 +1,5 @@
 import { baseURL } from "./api-utils";
+import { API_ROUTES } from "./apiRoutes";
 import { apiReq } from "./api-utils";
 import axios from "axios";
 import i18n from "@/i18n.js";
@@ -89,6 +90,27 @@ export const userAPI = {
   },
   async deleteAPIToken(id) {
     const response = await apiReq.delete(usersURLs.userAPIDelete(id));
+    return response.data;
+  },
+  /** Adds a Recipe to the users favorites
+   * @param id
+   */
+  async getFavorites(id) {
+    const response = await apiReq.get(API_ROUTES.usersIdFavorites(id));
+    return response.data;
+  },
+  /** Adds a Recipe to the users favorites
+   * @param id
+   */
+  async addFavorite(id, slug) {
+    const response = await apiReq.post(API_ROUTES.usersIdFavoritesSlug(id, slug));
+    return response.data;
+  },
+  /** Adds a Recipe to the users favorites
+   * @param id
+   */
+  async removeFavorite(id, slug) {
+    const response = await apiReq.delete(API_ROUTES.usersIdFavoritesSlug(id, slug));
     return response.data;
   },
 };

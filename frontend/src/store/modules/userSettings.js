@@ -54,9 +54,11 @@ const mutations = {
 };
 
 const actions = {
-  async requestUserData({ commit }) {
-    const userData = await api.users.self();
-    commit("setUserData", userData);
+  async requestUserData({ getters, commit }) {
+    if (getters.getIsLoggedIn) {
+      const userData = await api.users.self();
+      commit("setUserData", userData);
+    }
   },
 
   async resetTheme({ commit }) {
