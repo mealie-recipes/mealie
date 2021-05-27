@@ -1,4 +1,5 @@
 const path = require("path");
+const manifestJSON = require("./public/manifest.json");
 module.exports = {
   transpileDependencies: ["vuetify"],
   publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
@@ -24,6 +25,19 @@ module.exports = {
       alias: {
         "@": path.resolve("src"),
       },
+    },
+  },
+  pwa: {
+    name: manifestJSON.short_name,
+    themeColor: manifestJSON.theme_color,
+    msTileColor: manifestJSON.background_color,
+    appleMobileWebAppCapable: "yes",
+    appleMobileWebAppStatusBarStyle: "black",
+
+    workboxPluginMode: "InjectManifest",
+    workboxOptions: {
+      swSrc: "./src/sw.js",
+      swDest: "service-worker.js",
     },
   },
 };

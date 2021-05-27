@@ -15,6 +15,7 @@
     "fast-levenshtein": "^3.0.0",
     "fuse.js": "^6.4.6",
     "qs": "^6.9.6",
+    "register-service-worker": "^1.7.1",
     "typeface-roboto": "^1.1.13",
     "v-jsoneditor": "^1.4.2",
     "vue": "^2.6.11",
@@ -30,6 +31,7 @@
     "@mdi/font": "^5.9.55",
     "@vue/cli-plugin-babel": "^4.5.11",
     "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-service": "^4.5.12",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
@@ -55,16 +57,16 @@
     },
     "rules": {}
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ],
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
     "semi": true,
     "singleQuote": false,
     "printWidth": 120
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
