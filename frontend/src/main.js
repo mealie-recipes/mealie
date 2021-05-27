@@ -8,6 +8,7 @@ import { globals } from "@/utils/globals";
 import i18n from "./i18n";
 import "@mdi/font/css/materialdesignicons.css";
 import "typeface-roboto/index.css";
+import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
