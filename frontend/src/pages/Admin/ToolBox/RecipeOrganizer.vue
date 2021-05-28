@@ -15,7 +15,7 @@
       <v-spacer v-if="!isMobile"> </v-spacer>
     </div>
     <v-card-text>
-      <CardSection :sortable="true" title="Unorganized" :recipes="shownRecipes" @sort="assignSorted" />
+      <CardSection :sortable="true" :title="$t('settings.toolbox.unorganized')" :recipes="shownRecipes" @sort="assignSorted" />
     </v-card-text>
   </v-card>
 </template>
