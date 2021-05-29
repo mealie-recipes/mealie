@@ -14,10 +14,15 @@
     "demo": "Demo",
     "demo-status": "Stato Demo",
     "development": "In Sviluppo",
+    "docs": "Docs",
     "download-log": "Scarica Log",
     "download-recipe-json": "Ultimo JSON",
+    "github": "Github",
+    "log-lines": "Log Lines",
     "not-demo": "Non Demo",
+    "portfolio": "Portfolio",
     "production": "Produzione",
+    "support": "Support",
     "version": "Versione"
   },
   "category": {
@@ -47,9 +52,9 @@
     "clear": "Clear",
     "close": "Chiudi",
     "confirm": "Conferma",
+    "copied": "Copied",
     "create": "Crea",
     "created": "Created",
-    "coppied": "Coppied",
     "current-parenthesis": "(Corrente)",
     "custom": "Custom",
     "dashboard": "Pannello di controllo",
@@ -73,6 +78,7 @@
     "import": "Importa",
     "keyword": "Parola chiave",
     "link": "Link",
+    "link-copied": "Link Copied",
     "monday": "Lunedì",
     "name": "Nome",
     "new": "New",
@@ -108,6 +114,7 @@
     "updated": "Updated",
     "upload": "Carica",
     "url": "URL",
+    "view": "View",
     "wednesday": "Mercoledì",
     "yes": "Sì"
   },
@@ -154,7 +161,6 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Solo ricette con queste categorie possono essere utilizzate un un Piano Alimentare",
     "planner": "Pianificatore",
     "quick-week": "Settimana Veloce",
-    "shopping-list": "Lista della Spesa",
     "start-date": "Data Inizio"
   },
   "migration": {
@@ -345,7 +351,8 @@
       "recipes-affected": "Nessuna Ricetta Interessata|Una Ricetta Interessata|{count} Ricette Interessate",
       "remove-unused": "Rimuovi Inutilizzate",
       "title-case-all": "Maiuscole Ovunque",
-      "toolbox": "Strumenti"
+      "toolbox": "Strumenti",
+      "unorganized": "Unorganized"
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooks Pianificatore Alimentare",
@@ -354,6 +361,16 @@
       "webhook-url": "URL Webhook",
       "webhooks-caps": "WEBHOOKS"
     }
+  },
+  "shopping-list": {
+    "all-lists": "All Lists",
+    "create-shopping-list": "Create Shopping List",
+    "from-recipe": "From Recipe",
+    "list-name": "List Name",
+    "new-list": "New List",
+    "quantity": "Quantity: {0}",
+    "shopping-list": "Shopping List",
+    "shopping-lists": "Shopping Lists"
   },
   "signup": {
     "display-name": "Mostra Nome",
@@ -377,7 +394,6 @@
     "untagged-count": "Untagged {count}"
   },
   "user": {
-    "username": "Username",
     "admin": "Amministratore",
     "are-you-sure-you-want-to-delete-the-link": "Sei sicuro di voler eliminare il link <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Sei dicuro di voler eliminare l'utente <b>{activeName} ID: {activeId}<b/>?",
@@ -423,7 +439,9 @@
     "user-successfully-logged-in": "Autenticato Con Successo",
     "user-update-failed": "Aggiornamento Utenete Fallito",
     "user-updated": "Utente Aggiornato",
+    "username": "Username",
     "users": "Utenti",
+    "users-header": "USERS",
     "webhook-time": "Ora Webhook",
     "webhooks-enabled": "Webhooks Abilitati",
     "you-are-not-allowed-to-create-a-user": "Non sei autorizzato per la creazione di utenti",
