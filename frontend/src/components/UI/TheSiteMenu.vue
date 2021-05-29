@@ -65,7 +65,7 @@ export default {
         },
         {
           icon: "mdi-format-list-checks",
-          title: "Shopping Lists",
+          title: this.$t('shopping-list.shopping-lists'),
           nav: "/shopping-list",
           restricted: true,
         },

@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" width="650">
       <v-card>
         <v-card-title class="headline">
-          {{ $t("meal-plan.shopping-list") }}
+          {{ $t("shopping-list.shopping-list") }}
           <v-spacer></v-spacer>
           <v-btn text color="accent" @click="group = !group">
             {{ $t("meal-plan.group") }}

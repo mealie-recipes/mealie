@@ -22,7 +22,7 @@
               <v-icon left small>
                 mdi-cart-check
               </v-icon>
-              Create Shopping List
+              {{$t('shopping-list.create-shopping-list')}}
             </v-btn>
             <v-btn
               text
@@ -35,10 +35,10 @@
               <v-icon left small>
                 mdi-cart-check
               </v-icon>
-              Shopping List
+              {{$t('shopping-list.shopping-list')}}
             </v-btn>
             <v-spacer></v-spacer>
-            <TheCopyButton color="info" :copy-text="mealPlanURL(mealplan.uid)"> Link Coppied </TheCopyButton>
+            <TheCopyButton color="info" :copy-text="mealPlanURL(mealplan.uid)"> {{$t('general.link-copied')}} </TheCopyButton>
           </v-card-actions>
 
           <v-list class="mt-0 pt-0">
