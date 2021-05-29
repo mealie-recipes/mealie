@@ -12,6 +12,7 @@
         class="d-print-none"
         :key="imageKey"
       >
+        <FavoriteBadge class="ma-1" button-style v-if="loggedIn" :slug="recipeDetails.slug" show-always />
         <RecipeTimeCard
           :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
@@ -49,6 +50,7 @@
 
 <script>
 import { api } from "@/api";
+import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
 import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "@/components/Recipe/RecipeViewer";
 import PrintView from "@/components/Recipe/PrintView";
@@ -68,6 +70,7 @@ export default {
     RecipeTimeCard,
     PrintView,
     NoRecipe,
+    FavoriteBadge,
   },
   mixins: [user],
   inject: {
@@ -127,6 +130,9 @@ export default {
   },
 
   computed: {
+    loggedIn() {
+      return this.$store.getters.getIsLoggedIn;
+    },
     isMobile() {
       return this.$vuetify.breakpoint.name === "xs";
     },

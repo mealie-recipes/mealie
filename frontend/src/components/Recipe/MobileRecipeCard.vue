@@ -23,6 +23,7 @@
           <v-list-item-title class=" mb-1">{{ name }} </v-list-item-title>
           <v-list-item-subtitle> {{ description }} </v-list-item-subtitle>
           <div class="d-flex justify-center align-center">
+            <FavoriteBadge v-if="loggedIn" :slug="slug" show-always />
             <v-rating
               color="secondary"
               class="ml-auto"
@@ -42,10 +43,12 @@
 </template>
 
 <script>
+import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
 import ContextMenu from "@/components/Recipe/ContextMenu";
 import { api } from "@/api";
 export default {
   components: {
+    FavoriteBadge,
     ContextMenu,
   },
   props: {
@@ -69,6 +72,11 @@ export default {
   methods: {
     getImage(slug) {
       return api.recipes.recipeSmallImage(slug, this.image);
+    },
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.getIsLoggedIn;
     },
   },
 };

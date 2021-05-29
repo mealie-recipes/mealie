@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <CardSection
-      title-icon=""
+      title-icon="mdi-test"
       v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
       :recipes="recentRecipes"

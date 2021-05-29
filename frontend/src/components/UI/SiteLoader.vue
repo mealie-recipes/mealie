@@ -1,5 +1,5 @@
 <template>
-  <v-progress-circular class="mx-auto" :width="size / 20" :size="size" color="primary lighten-2" indeterminate>
+  <v-progress-circular class="mx-auto" :width="size / 50" :size="size" color="primary lighten-2" indeterminate>
     <div class="text-center">
       <v-icon :size="size / 2" color="primary lighten-2">
         {{ $globals.icons.primary }}

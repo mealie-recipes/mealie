@@ -1,6 +1,13 @@
 <template>
-  <v-btn small @click.prevent="toggleFavorite" v-if="isFavorite || showAlways" color="pink lighten-2" icon>
-    <v-icon small>
+  <v-btn
+    small
+    @click.prevent="toggleFavorite"
+    v-if="isFavorite || showAlways"
+    :color="isFavoite && buttonStyle ? 'secondary' : 'primary'"
+    :icon="!buttonStyle"
+    :fab="buttonStyle"
+  >
+    <v-icon :small="!buttonStyle" color="secondary">
       {{ isFavorite ? "mdi-heart" : "mdi-heart-outline" }}
     </v-icon>
   </v-btn>
@@ -14,6 +21,10 @@ export default {
       default: "",
     },
     showAlways: {
+      type: Boolean,
+      default: false,
+    },
+    buttonStyle: {
       type: Boolean,
       default: false,
     },
