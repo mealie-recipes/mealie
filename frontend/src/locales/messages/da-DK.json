@@ -14,10 +14,15 @@
     "demo": "Demo",
     "demo-status": "Demo Status",
     "development": "Development",
+    "docs": "Docs",
     "download-log": "Download Log",
     "download-recipe-json": "Last Scraped JSON",
+    "github": "Github",
+    "log-lines": "Log Lines",
     "not-demo": "Not Demo",
+    "portfolio": "Portfolio",
     "production": "Production",
+    "support": "Support",
     "version": "Version"
   },
   "category": {
@@ -47,9 +52,9 @@
     "clear": "Clear",
     "close": "Luk",
     "confirm": "Bekræft",
+    "copied": "Copied",
     "create": "Opret",
     "created": "Created",
-    "coppied": "Coppied",
     "current-parenthesis": "(Current)",
     "custom": "Custom",
     "dashboard": "Dashboard",
@@ -73,6 +78,7 @@
     "import": "Importere",
     "keyword": "Keyword",
     "link": "Link",
+    "link-copied": "Link Copied",
     "monday": "Mandag",
     "name": "Navn",
     "new": "New",
@@ -108,6 +114,7 @@
     "updated": "Updated",
     "upload": "Upload",
     "url": "URL",
+    "view": "View",
     "wednesday": "Onsdag",
     "yes": "Ja"
   },
@@ -154,7 +161,6 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans",
     "planner": "Planlægger",
     "quick-week": "Quick Week",
-    "shopping-list": "Shopping List",
     "start-date": "Start dato"
   },
   "migration": {
@@ -345,7 +351,8 @@
       "recipes-affected": "No Recipes Affected|One Recipe Affected|{count} Recipes Affected",
       "remove-unused": "Remove Unused",
       "title-case-all": "Title Case All",
-      "toolbox": "Toolbox"
+      "toolbox": "Toolbox",
+      "unorganized": "Unorganized"
     },
     "webhooks": {
       "meal-planner-webhooks": "Måltidsplanlægning Webhooks",
@@ -354,6 +361,16 @@
       "webhook-url": "Webhook adresse",
       "webhooks-caps": "WEBHOOKS"
     }
+  },
+  "shopping-list": {
+    "all-lists": "All Lists",
+    "create-shopping-list": "Create Shopping List",
+    "from-recipe": "From Recipe",
+    "list-name": "List Name",
+    "new-list": "New List",
+    "quantity": "Quantity: {0}",
+    "shopping-list": "Shopping List",
+    "shopping-lists": "Shopping Lists"
   },
   "signup": {
     "display-name": "Display Name",
@@ -377,7 +394,6 @@
     "untagged-count": "Untagged {count}"
   },
   "user": {
-    "username": "Username",
     "admin": "Administrator",
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Er du sikker på, at du vil slette brugeren <b>{activeName} med ID: {activeId}<b/>?",
@@ -423,7 +439,9 @@
     "user-successfully-logged-in": "User Successfully Logged In",
     "user-update-failed": "User update failed",
     "user-updated": "User updated",
+    "username": "Username",
     "users": "Users",
+    "users-header": "USERS",
     "webhook-time": "Webhook Tid",
     "webhooks-enabled": "Webhooks Aktiveret",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
