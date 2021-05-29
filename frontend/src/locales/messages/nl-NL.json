@@ -14,10 +14,15 @@
     "demo": "Demo",
     "demo-status": "Demo status",
     "development": "Versies in ontwikkeling",
+    "docs": "Docs",
     "download-log": "Logbestand downloaden",
     "download-recipe-json": "Laatste Ingelezen JSON",
+    "github": "Github",
+    "log-lines": "Log Lines",
     "not-demo": "Niet Demo",
+    "portfolio": "Portfolio",
     "production": "Productie",
+    "support": "Support",
     "version": "Versie"
   },
   "category": {
@@ -47,9 +52,9 @@
     "clear": "Wissen",
     "close": "Sluiten",
     "confirm": "Bevestigen",
+    "copied": "Copied",
     "create": "Aanmaken",
     "created": "Aangemaakt op",
-    "coppied": "Gekopieerd",
     "current-parenthesis": "(Huidig)",
     "custom": "Eigen",
     "dashboard": "Dashboard",
@@ -73,6 +78,7 @@
     "import": "Importeren",
     "keyword": "Trefwoord",
     "link": "Koppeling",
+    "link-copied": "Link Copied",
     "monday": "Maandag",
     "name": "Naam",
     "new": "Nieuw",
@@ -108,6 +114,7 @@
     "updated": "Bijgewerkt",
     "upload": "Uploaden",
     "url": "URL",
+    "view": "View",
     "wednesday": "Woensdag",
     "yes": "Ja"
   },
@@ -154,7 +161,6 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
     "planner": "Planner",
     "quick-week": "Snelle Week",
-    "shopping-list": "Boodschappenlijstje",
     "start-date": "Begindatum"
   },
   "migration": {
@@ -345,7 +351,8 @@
       "recipes-affected": "Geen recepten beïnvloed|Een recept beinvloed|{count} recepten beïnvloed",
       "remove-unused": "Verwijder Ongebruikte Items",
       "title-case-all": "Alle Titels In Hoofdletters",
-      "toolbox": "Gereedschapskist"
+      "toolbox": "Gereedschapskist",
+      "unorganized": "Unorganized"
     },
     "webhooks": {
       "meal-planner-webhooks": "Maaltijdplanner Webhooks",
@@ -354,6 +361,16 @@
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS"
     }
+  },
+  "shopping-list": {
+    "all-lists": "All Lists",
+    "create-shopping-list": "Create Shopping List",
+    "from-recipe": "From Recipe",
+    "list-name": "List Name",
+    "new-list": "New List",
+    "quantity": "Quantity: {0}",
+    "shopping-list": "Shopping List",
+    "shopping-lists": "Shopping Lists"
   },
   "signup": {
     "display-name": "Schermnaam",
@@ -377,7 +394,6 @@
     "untagged-count": "Niet gelabeld {count}"
   },
   "user": {
-    "username": "Username",
     "admin": "Beheerder",
     "are-you-sure-you-want-to-delete-the-link": "Weet je zeker dat je <b>{link}<b/> wilt verwijderen?",
     "are-you-sure-you-want-to-delete-the-user": "Weet je zeker dat je gebruiker <b>{activeName} ID: {activeId}<b/> wilt verwijderen?",
@@ -423,7 +439,9 @@
     "user-successfully-logged-in": "Gebruiker succesvol ingelogd",
     "user-update-failed": "Bijwerken van gebruiker mislukt",
     "user-updated": "Gebruiker is geüpdate",
+    "username": "Username",
     "users": "Gebruikers",
+    "users-header": "USERS",
     "webhook-time": "Webhook Tijd",
     "webhooks-enabled": "Webhooks ingeschakeld",
     "you-are-not-allowed-to-create-a-user": "Je hebt geen toestemming om een gebruiker aan te maken",

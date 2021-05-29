@@ -14,10 +14,15 @@
     "demo": "Demo",
     "demo-status": "Demo status",
     "development": "Utveckling",
+    "docs": "Docs",
     "download-log": "Ladda ner logg",
     "download-recipe-json": "Senast hämtad JSON",
+    "github": "Github",
+    "log-lines": "Log Lines",
     "not-demo": "Ingen Demo",
+    "portfolio": "Portfolio",
     "production": "Produktion",
+    "support": "Support",
     "version": "Version"
   },
   "category": {
@@ -47,9 +52,9 @@
     "clear": "Rensa",
     "close": "Stäng",
     "confirm": "Bekräfta",
+    "copied": "Copied",
     "create": "Skapa",
     "created": "Skapad",
-    "coppied": "Kopierad",
     "current-parenthesis": "(Nuvarande)",
     "custom": "Anpassad",
     "dashboard": "Dashboard",
@@ -73,6 +78,7 @@
     "import": "Importera",
     "keyword": "Nyckelord",
     "link": "Länk",
+    "link-copied": "Link Copied",
     "monday": "Måndag",
     "name": "Namn",
     "new": "Ny",
@@ -108,6 +114,7 @@
     "updated": "Uppdaterad",
     "upload": "Ladda upp",
     "url": "URL",
+    "view": "View",
     "wednesday": "Onsdag",
     "yes": "Ja"
   },
@@ -154,7 +161,6 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
     "planner": "Planeringkalender",
     "quick-week": "Snabb vecka",
-    "shopping-list": "Inköpslista",
     "start-date": "Startdatum"
   },
   "migration": {
@@ -345,7 +351,8 @@
       "recipes-affected": "Inga recept påverkas | Ett recept påverkas | {count} berörda recept",
       "remove-unused": "Ta bort oanvända",
       "title-case-all": "Ändra alla taggar",
-      "toolbox": "Verktygslåda"
+      "toolbox": "Verktygslåda",
+      "unorganized": "Unorganized"
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooks för denna måltidsplan",
@@ -354,6 +361,16 @@
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS"
     }
+  },
+  "shopping-list": {
+    "all-lists": "All Lists",
+    "create-shopping-list": "Create Shopping List",
+    "from-recipe": "From Recipe",
+    "list-name": "List Name",
+    "new-list": "New List",
+    "quantity": "Quantity: {0}",
+    "shopping-list": "Shopping List",
+    "shopping-lists": "Shopping Lists"
   },
   "signup": {
     "display-name": "Visningsnamn",
@@ -377,7 +394,6 @@
     "untagged-count": "Otaggad {count}"
   },
   "user": {
-    "username": "Användarnamn",
     "admin": "Administratör",
     "are-you-sure-you-want-to-delete-the-link": "Är du säker på att du vill ta bort länken <b> {link} <b />?",
     "are-you-sure-you-want-to-delete-the-user": "Är du säker på att du vill ta bort användaren <b> {activeName} ID: {activeId} <b />?",
@@ -423,7 +439,9 @@
     "user-successfully-logged-in": "Användaren inloggad",
     "user-update-failed": "Gick inte att uppdatera användare",
     "user-updated": "Användare uppdaterad",
+    "username": "Användarnamn",
     "users": "Användare",
+    "users-header": "USERS",
     "webhook-time": "Webbhook tid",
     "webhooks-enabled": "Webhooks aktiverat",
     "you-are-not-allowed-to-create-a-user": "Du har inte behörighet att skapa en användare",
