@@ -51,7 +51,6 @@ export default {
     } else {
       this.mealPlan = await api.mealPlans.thisWeek();
     }
-    console.log(this.mealPlans);
     if (!this.mealPlan) {
       utils.notify.warning(this.$t("meal-plan.no-meal-plan-defined-yet"));
     }

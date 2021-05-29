@@ -163,7 +163,6 @@ export default {
         return;
       }
       this.loading = true;
-
       const response = await api.users.update(this.user);
       if (response) {
         this.$store.commit("setToken", response.data.access_token);

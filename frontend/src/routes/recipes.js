@@ -3,11 +3,13 @@ const NewRecipe = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipe
 const CustomPage = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/CustomPage");
 const AllRecipes = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/AllRecipes");
 const CategoryTagPage = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/CategoryTagPage");
+const Favorites = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/Favorites");
 import { api } from "@/api";
 
 export const recipeRoutes = [
   // Recipes
   { path: "/recipes/all", component: AllRecipes },
+  { path: "/user/:id/favorites", component: Favorites },
   { path: "/recipes/tag/:tag", component: CategoryTagPage },
   { path: "/recipes/tag", component: CategoryTagPage },
   { path: "/recipes/category", component: CategoryTagPage },

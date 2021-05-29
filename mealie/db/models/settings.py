@@ -42,7 +42,7 @@ class CustomPage(SqlAlchemyBase, BaseMixins):
     slug = sa.Column(sa.String, nullable=False)
     categories = orm.relationship("Category", secondary=custom_pages2categories, single_parent=True)
 
-    def __init__(self, session=None, name=None, slug=None, position=0, categories=[], *args, **kwargs) -> None:
+    def __init__(self, session=None, name=None, slug=None, position=0, categories=[], **_) -> None:
         self.name = name
         self.slug = slug
         self.position = position

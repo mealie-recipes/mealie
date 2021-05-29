@@ -95,7 +95,7 @@
     </div>
     <div v-intersect="bumpList" class="d-flex">
       <v-expand-x-transition>
-        <SiteLoader v-if="loading" :loading="loading" :size="150" />
+        <SiteLoader v-if="loading" :loading="loading" />
       </v-expand-x-transition>
     </div>
   </div>

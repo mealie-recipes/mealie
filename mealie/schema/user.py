@@ -6,6 +6,7 @@ from mealie.db.models.group import Group
 from mealie.db.models.users import User
 from mealie.schema.category import CategoryBase
 from mealie.schema.meal import MealPlanOut
+from mealie.schema.recipe import RecipeSummary
 from mealie.schema.shopping_list import ShoppingListOut
 from pydantic.types import constr
 from pydantic.utils import GetterDict
@@ -48,6 +49,7 @@ class UserBase(CamelModel):
     email: constr(to_lower=True, strip_whitespace=True)
     admin: bool
     group: Optional[str]
+    favorite_recipes: Optional[list[str]] = []
 
     class Config:
         orm_mode = True
@@ -76,6 +78,22 @@ class UserOut(UserBase):
     id: int
     group: str
     tokens: Optional[list[LongLiveTokenOut]]
+    favorite_recipes: Optional[list[str]] = []
+
+    class Config:
+        orm_mode = True
+
+        @classmethod
+        def getter_dict(cls, ormModel: User):
+            return {
+                **GetterDict(ormModel),
+                "group": ormModel.group.name,
+                "favorite_recipes": [x.slug for x in ormModel.favorite_recipes],
+            }
+
+
+class UserFavorites(UserBase):
+    favorite_recipes: list[RecipeSummary] = []
 
     class Config:
         orm_mode = True
@@ -90,7 +108,6 @@ class UserOut(UserBase):
 
 class UserInDB(UserOut):
     password: str
-    pass
 
     class Config:
         orm_mode = True

@@ -106,14 +106,7 @@ export default {
       },
     };
   },
-  watch: {
-    value(val) {
-      console.log(val);
-    },
-  },
-  mounted() {
-    console.log(this.value);
-  },
+
   methods: {
     getImage(slug) {
       if (slug) {
@@ -161,7 +154,6 @@ export default {
           this.setSide(this.customMeal.name, this.customMeal.slug, this.customMeal.description);
           break;
       }
-      console.log("Hello World");
       this.customMeal = { name: "", slug: null, description: "" };
     },
   },

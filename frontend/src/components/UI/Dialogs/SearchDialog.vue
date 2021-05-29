@@ -3,7 +3,7 @@
     <slot v-bind="{ open, close }"> </slot>
     <v-dialog
       v-model="dialog"
-      :width="isMobile ? undefined : '700'"
+      :width="isMobile ? undefined : '65%'"
       :height="isMobile ? undefined : '0'"
       :fullscreen="isMobile"
       content-class="top-dialog"

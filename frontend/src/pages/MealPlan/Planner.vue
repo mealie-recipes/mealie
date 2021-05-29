@@ -104,7 +104,6 @@ export default {
     async requestMeals() {
       const response = await api.mealPlans.all();
       this.plannedMeals = response.data;
-      console.log(this.plannedMeals);
     },
     mealPlanURL(uid) {
       return window.location.origin + "/meal-plan?id=" + uid;

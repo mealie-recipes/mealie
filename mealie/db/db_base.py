@@ -78,7 +78,7 @@ class BaseDocument:
         return session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
 
     def get(
-        self, session: Session, match_value: str, match_key: str = None, limit=1, any_case=False
+        self, session: Session, match_value: str, match_key: str = None, limit=1, any_case=False, override_schema=None
     ) -> Union[BaseModel, list[BaseModel]]:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
@@ -91,6 +91,7 @@ class BaseDocument:
 
         Returns:
             dict or list[dict]:
+
         """
         if match_key is None:
             match_key = self.primary_key
@@ -103,12 +104,14 @@ class BaseDocument:
         else:
             result = session.query(self.sql_model).filter_by(**{match_key: match_value}).limit(limit).all()
 
+        eff_schema = override_schema or self.schema
+
         if limit == 1:
             try:
-                return self.schema.from_orm(result[0])
+                return eff_schema.from_orm(result[0])
             except IndexError:
                 return None
-        return [self.schema.from_orm(x) for x in result]
+        return [eff_schema.from_orm(x) for x in result]
 
     def create(self, session: Session, document: dict) -> BaseModel:
         """Creates a new database entry for the given SQL Alchemy Model.

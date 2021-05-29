@@ -74,6 +74,9 @@ class AppRoutes:
     def groups_id(self, id):
         return f"{self.prefix}/groups/{id}"
 
+    def meal_plans_id(self, id):
+        return f"{self.prefix}/meal-plans/{id}"
+
     def meal_plans_id_shopping_list(self, id):
         return f"{self.prefix}/meal-plans/{id}/shopping-list"
 
@@ -121,6 +124,12 @@ class AppRoutes:
 
     def users_id(self, id):
         return f"{self.prefix}/users/{id}"
+
+    def users_id_favorites(self, id):
+        return f"{self.prefix}/users/{id}/favorites/"
+
+    def users_id_favorites_slug(self, id, slug):
+        return f"{self.prefix}/users/{id}/favorites/{slug}"
 
     def users_id_image(self, id):
         return f"{self.prefix}/users/{id}/image"

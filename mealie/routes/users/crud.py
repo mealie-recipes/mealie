@@ -8,7 +8,7 @@ from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.user import ChangePassword, UserBase, UserIn, UserInDB, UserOut
+from mealie.schema.user import ChangePassword, UserBase, UserFavorites, UserIn, UserInDB, UserOut
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
@@ -19,7 +19,7 @@ router = APIRouter(prefix="/api/users", tags=["Users"])
 async def create_user(
     background_tasks: BackgroundTasks,
     new_user: UserIn,
-    current_user=Depends(get_current_user),
+    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 
@@ -45,24 +45,21 @@ async def get_all_users(
 @router.get("/self", response_model=UserOut)
 async def get_logged_in_user(
     current_user: UserInDB = Depends(get_current_user),
-    session: Session = Depends(generate_session),
 ):
     return current_user.dict()
 
 
-@router.get("/{id}", response_model=UserOut)
+@router.get("/{id}", response_model=UserOut, dependencies=[Depends(get_current_user)])
 async def get_user_by_id(
     id: int,
-    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     return db.users.get(session, id)
 
 
-@router.put("/{id}/reset-password")
+@router.put("/{id}/reset-password", dependencies=[Depends(get_current_user)])
 async def reset_user_password(
     id: int,
-    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 
@@ -97,11 +94,10 @@ async def get_user_image(id: str):
         return False
 
 
-@router.post("/{id}/image")
+@router.post("/{id}/image", dependencies=[Depends(get_current_user)])
 async def update_user_image(
     id: str,
     profile_image: UploadFile = File(...),
-    current_user: UserInDB = Depends(get_current_user),
 ):
     """ Updates a User Image """
 
@@ -137,6 +133,41 @@ async def update_password(
 
     new_password = get_password_hash(password_change.new_password)
     db.users.update_password(session, id, new_password)
+
+
+@router.get("/{id}/favorites", response_model=UserFavorites)
+async def get_favorites(id: str, session: Session = Depends(generate_session)):
+    """ Adds a Recipe to the users favorites """
+
+    return db.users.get(session, id, override_schema=UserFavorites)
+
+
+@router.post("/{id}/favorites/{slug}")
+async def add_favorite(
+    slug: str,
+    current_user: UserInDB = Depends(get_current_user),
+    session: Session = Depends(generate_session),
+):
+    """ Adds a Recipe to the users favorites """
+
+    current_user.favorite_recipes.append(slug)
+
+    db.users.update(session, current_user.id, current_user)
+
+
+@router.delete("/{id}/favorites/{slug}")
+async def remove_favorite(
+    slug: str,
+    current_user: UserInDB = Depends(get_current_user),
+    session: Session = Depends(generate_session),
+):
+    """ Adds a Recipe to the users favorites """
+
+    current_user.favorite_recipes = [x for x in current_user.favorite_recipes if x != slug]
+
+    db.users.update(session, current_user.id, current_user)
+
+    return
 
 
 @router.delete("/{id}")

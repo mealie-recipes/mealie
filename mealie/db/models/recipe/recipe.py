@@ -68,6 +68,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     date_added = sa.Column(sa.Date, default=date.today)
     date_updated = sa.Column(sa.DateTime)
 
+    # Favorited By
+    favorited_by_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
+    favorited_by = orm.relationship("User", back_populates="favorite_recipes")
+
     @validates("name")
     def validate_name(self, key, name):
         assert name != ""
@@ -99,8 +103,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         extras: dict = None,
         assets: list = None,
         settings: dict = None,
-        *args,
-        **kwargs
+        **_
     ) -> None:
         self.name = name
         self.description = description
@@ -138,6 +141,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.date_added = date_added
         self.date_updated = datetime.datetime.now()
 
-    def update(self, *args, **kwargs):
+    def update(self, **_):
         """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
-        self.__init__(*args, **kwargs)
+        self.__init__(**_)
