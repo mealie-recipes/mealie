@@ -1,14 +1,23 @@
 <template>
-  <v-progress-circular class="mx-auto" :width="size / 50" :size="size" color="primary lighten-2" indeterminate>
-    <div class="text-center">
-      <v-icon :size="size / 2" color="primary lighten-2">
-        {{ $globals.icons.primary }}
-      </v-icon>
-      <div>
-        Loading Recipes
+  <div class="mx-auto">
+    <v-progress-circular :width="size.width" :size="size.size" color="primary lighten-2" indeterminate>
+      <div class="text-center">
+        <v-icon :size="size.icon" color="primary lighten-2">
+          {{ $globals.icons.primary }}
+        </v-icon>
+        <div v-if="large" class="text-small">
+          <slot>
+            {{ small ? "" : "Loading Recipes" }}
+          </slot>
+        </div>
       </div>
+    </v-progress-circular>
+    <div v-if="!large" class="text-small">
+      <slot>
+        {{ small ? "" : "Loading Recipes" }}
+      </slot>
     </div>
-  </v-progress-circular>
+  </div>
 </template>
 
 <script>
@@ -17,8 +26,39 @@ export default {
     loading: {
       default: true,
     },
-    size: {
-      default: 200,
+    small: {
+      type: Boolean,
+      default: false,
+    },
+    medium: {
+      type: Boolean,
+      default: true,
+    },
+    large: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    size() {
+      if (this.small) {
+        return {
+          width: 2,
+          icon: 30,
+          size: 50,
+        };
+      } else if (this.large) {
+        return {
+          width: 4,
+          icon: 120,
+          size: 200,
+        };
+      }
+      return {
+        width: 3,
+        icon: 75,
+        size: 125,
+      };
     },
   },
 };

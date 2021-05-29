@@ -8,7 +8,7 @@
       @sort="assignSorted"
     />
     <v-row class="d-flex">
-      <SiteLoader class="mx-auto" v-if="loading" :loading="loading" :size="200" />
+      <SiteLoader class="mx-auto" v-if="loading" :loading="loading" />
     </v-row>
   </v-container>
 </template>
