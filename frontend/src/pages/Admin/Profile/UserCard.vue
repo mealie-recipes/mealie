@@ -151,7 +151,6 @@ export default {
   methods: {
     async refreshProfile() {
       this.user = await api.users.self();
-      console.log(this.user);
     },
     openAvatarPicker() {
       this.showAvatarPicker = true;
@@ -164,7 +163,6 @@ export default {
         return;
       }
       this.loading = true;
-      console.log(this.user);
       const response = await api.users.update(this.user);
       if (response) {
         this.$store.commit("setToken", response.data.access_token);
