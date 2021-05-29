@@ -49,7 +49,7 @@
     "confirm": "Confirmer",
     "create": "Créer",
     "created": "Créé",
-    "coppied": "Coppied",
+    "coppied": "Copié",
     "current-parenthesis": "(Actuel)",
     "custom": "Personnalisé",
     "dashboard": "Tableau de bord",
@@ -79,7 +79,7 @@
     "no": "Non",
     "ok": "OK",
     "options": "Options :",
-    "print": "Print",
+    "print": "Imprimer",
     "random": "Aléatoire",
     "rating": "Note",
     "recent": "Récent",
@@ -164,10 +164,10 @@
     },
     "migration-data-removed": "Données de migration supprimées",
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
+      "description": "Importer des recettes depuis un livre de recettes Nextcloud existant",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "No Migration Data Available",
+    "no-migration-data-available": "Aucune donnée d'importation n'est disponible",
     "recipe-migration": "Migrer les recettes"
   },
   "new-recipe": {
@@ -377,7 +377,7 @@
     "untagged-count": "{count} sans mot-clés"
   },
   "user": {
-    "username": "Username",
+    "username": "Nom d'utilisateur",
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Êtes-vous sûr de vouloir supprimer le lien <b>{link}<b/> ?",
     "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
