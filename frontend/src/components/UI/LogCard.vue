@@ -7,7 +7,7 @@
         <v-text-field
           class="ml-auto shrink mb-n7"
           solo
-          label="Log Lines"
+          :label="$t('about.log-lines')"
           type="number"
           append-icon="mdi-refresh-circle"
           v-model="lines"

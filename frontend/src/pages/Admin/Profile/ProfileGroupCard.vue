@@ -21,7 +21,7 @@
         />
       </div>
 
-      <v-subheader>USERS</v-subheader>
+      <v-subheader>{{$t('user.users-header')}}</v-subheader>
       <v-divider></v-divider>
 
       <v-virtual-scroll v-if="currentGroup.users" :items="currentGroup.users" height="257" item-height="64">

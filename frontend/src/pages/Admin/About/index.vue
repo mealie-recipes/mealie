@@ -6,25 +6,25 @@
         <v-icon left>
           mdi-heart
         </v-icon>
-        Support
+        {{$t('about.support')}}
       </v-btn>
       <v-btn href="https://github.com/hay-kot" target="_blank" class="mx-1" color="secondary">
         <v-icon left>
           mdi-github
         </v-icon>
-        Github
+        {{$t('about.github')}}
       </v-btn>
       <v-btn href="https://hay-kot.dev" target="_blank" class="mx-1" color="secondary">
         <v-icon left>
           mdi-account
         </v-icon>
-        Portfolio
+        {{$t('about.portfolio')}}
       </v-btn>
       <v-btn href="https://hay-kot.github.io/mealie/" target="_blank" class="mx-1" color="secondary">
         <v-icon left>
           mdi-folder-outline
         </v-icon>
-        Docs
+        {{$t('about.docs')}}
       </v-btn>
       <v-spacer></v-spacer>
     </v-app-bar>
