@@ -14,10 +14,15 @@
     "demo": "Demo",
     "demo-status": "Demo Status",
     "development": "Development",
+    "docs": "Docs",
     "download-log": "Download Log",
     "download-recipe-json": "Last Scraped JSON",
+    "github": "Github",
+    "log-lines": "Log Lines",
     "not-demo": "Not Demo",
+    "portfolio": "Portfolio",
     "production": "Production",
+    "support": "Support",
     "version": "Version"
   },
   "category": {
@@ -47,9 +52,9 @@
     "clear": "Clear",
     "close": "关闭",
     "confirm": "确定",
+    "copied": "Copied",
     "create": "创建",
     "created": "Created",
-    "coppied": "Coppied",
     "current-parenthesis": "(当前)",
     "custom": "Custom",
     "dashboard": "Dashboard",
@@ -73,6 +78,7 @@
     "import": "导入",
     "keyword": "Keyword",
     "link": "Link",
+    "link-copied": "Link Copied",
     "monday": "Monday",
     "name": "名称",
     "new": "New",
@@ -108,6 +114,7 @@
     "updated": "Updated",
     "upload": "上传",
     "url": "URL",
+    "view": "View",
     "wednesday": "Wednesday",
     "yes": "是"
   },
@@ -154,7 +161,6 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "只有与这些类别相关的食谱才会被用于用餐计划",
     "planner": "策划人",
     "quick-week": "Quick Week",
-    "shopping-list": "购物清单",
     "start-date": "开始日期"
   },
   "migration": {
@@ -345,7 +351,8 @@
       "recipes-affected": "No Recipes Affected|One Recipe Affected|{count} Recipes Affected",
       "remove-unused": "Remove Unused",
       "title-case-all": "Title Case All",
-      "toolbox": "Toolbox"
+      "toolbox": "Toolbox",
+      "unorganized": "Unorganized"
     },
     "webhooks": {
       "meal-planner-webhooks": "用餐计划器Webhooks",
@@ -354,6 +361,16 @@
       "webhook-url": "Webhook网址",
       "webhooks-caps": "WEBHOOKS"
     }
+  },
+  "shopping-list": {
+    "all-lists": "All Lists",
+    "create-shopping-list": "Create Shopping List",
+    "from-recipe": "From Recipe",
+    "list-name": "List Name",
+    "new-list": "New List",
+    "quantity": "Quantity: {0}",
+    "shopping-list": "Shopping List",
+    "shopping-lists": "Shopping Lists"
   },
   "signup": {
     "display-name": "Display Name",
@@ -377,7 +394,6 @@
     "untagged-count": "Untagged {count}"
   },
   "user": {
-    "username": "Username",
     "admin": "管理员",
     "are-you-sure-you-want-to-delete-the-link": "您确定要删除链接<b>{link}<b/>吗？",
     "are-you-sure-you-want-to-delete-the-user": "您确定要删除用户 <b>{activeName} ID：{activeId}<b/> 吗？",
@@ -423,7 +439,9 @@
     "user-successfully-logged-in": "User Successfully Logged In",
     "user-update-failed": "User update failed",
     "user-updated": "User updated",
+    "username": "Username",
     "users": "用户",
+    "users-header": "USERS",
     "webhook-time": "Webhook时间",
     "webhooks-enabled": "Webhooks 启用",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
