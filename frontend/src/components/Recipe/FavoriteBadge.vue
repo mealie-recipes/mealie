@@ -3,7 +3,7 @@
     small
     @click.prevent="toggleFavorite"
     v-if="isFavorite || showAlways"
-    :color="isFavoite && buttonStyle ? 'secondary' : 'primary'"
+    :color="isFavorite && buttonStyle ? 'secondary' : 'primary'"
     :icon="!buttonStyle"
     :fab="buttonStyle"
   >
