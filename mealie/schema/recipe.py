@@ -5,6 +5,7 @@ from typing import Any, Optional
 from fastapi_camelcase import CamelModel
 from mealie.core.config import app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.schema.comments import CommentOut
 from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
@@ -101,6 +102,8 @@ class Recipe(RecipeSummary):
     notes: Optional[list[RecipeNote]] = []
     org_url: Optional[str] = Field(None, alias="orgURL")
     extras: Optional[dict] = {}
+
+    comments: Optional[list[CommentOut]] = []
 
     @staticmethod
     def directory_from_slug(slug) -> Path:

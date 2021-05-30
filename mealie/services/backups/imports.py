@@ -6,6 +6,7 @@ from typing import Callable
 
 from mealie.core.config import app_dirs
 from mealie.db.database import db
+from mealie.schema.comments import CommentOut
 from mealie.schema.event_notifications import EventNotificationIn
 from mealie.schema.recipe import Recipe
 from mealie.schema.restore import (
@@ -84,6 +85,22 @@ class ImportDatabase:
         self._import_images(successful_imports)
 
         return imports
+
+    def import_comments(self):
+        comment_dir: Path = self.import_dir.joinpath("comments", "comments.json")
+
+        comments = ImportDatabase.read_models_file(file_path=comment_dir, model=CommentOut)
+
+        for comment in comments:
+            comment: CommentOut
+
+            self.import_model(
+                db_table=db.comments,
+                model=comment,
+                return_model=ThemeImport,
+                name_attr="uuid",
+                search_key="uuid",
+            )
 
     @staticmethod
     def _recipe_migration(recipe_dict: dict) -> dict:
@@ -363,6 +380,9 @@ def import_database(
 
     if import_notifications:
         notification_report = import_session.import_notifications()
+
+    if import_recipes:
+        import_session.import_comments()
 
     import_session.clean_up()
 

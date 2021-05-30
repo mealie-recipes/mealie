@@ -13,8 +13,8 @@
       <v-col :sm="6" :md="6" :lg="4" :xl="3" v-for="(mealplan, i) in plannedMeals" :key="i">
         <v-card class="mt-1">
           <v-card-title class="mb-0 pb-0">
-            {{ $d(new Date(mealplan.startDate.split("-")), "short") }} -
-            {{ $d(new Date(mealplan.endDate.split("-")), "short") }}
+            {{ $d(new Date(mealplan.startDate.replaceAll("-", "/")), "short") }} -
+            {{ $d(new Date(mealplan.endDate.replaceAll("-", "/")), "short") }}
           </v-card-title>
           <v-divider class="mx-2 pa-1"></v-divider>
           <v-card-actions class="mb-0 px-2 py-0">
@@ -22,7 +22,7 @@
               <v-icon left small>
                 mdi-cart-check
               </v-icon>
-              {{$t('shopping-list.create-shopping-list')}}
+              {{ $t("shopping-list.create-shopping-list") }}
             </v-btn>
             <v-btn
               text
@@ -35,10 +35,12 @@
               <v-icon left small>
                 mdi-cart-check
               </v-icon>
-              {{$t('shopping-list.shopping-list')}}
+              {{ $t("shopping-list.shopping-list") }}
             </v-btn>
             <v-spacer></v-spacer>
-            <TheCopyButton color="info" :copy-text="mealPlanURL(mealplan.uid)"> {{$t('general.link-copied')}} </TheCopyButton>
+            <TheCopyButton color="info" :copy-text="mealPlanURL(mealplan.uid)">
+              {{ $t("general.link-copied") }}
+            </TheCopyButton>
           </v-card-actions>
 
           <v-list class="mt-0 pt-0">
@@ -48,7 +50,9 @@
                   <v-img :src="getImage(planDay['meals'][0].slug)"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title v-html="$d(new Date(planDay.date.split('-')), 'short')"></v-list-item-title>
+                  <v-list-item-title
+                    v-html="$d(new Date(planDay.date.replaceAll('-', '/')), 'short')"
+                  ></v-list-item-title>
                   <v-list-item-subtitle v-html="planDay['meals'][0].name"></v-list-item-subtitle>
                 </v-list-item-content>
               </template>

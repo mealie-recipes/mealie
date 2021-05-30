@@ -129,6 +129,9 @@ def backup_all(
         db_export.export_items(all_recipes, "recipes", export_list=False, slug_folder=True)
         db_export.export_templates(all_recipes)
 
+        all_comments = db.comments.get_all(session)
+        db_export.export_items(all_comments, "comments")
+
     if export_settings:
         all_settings = db.settings.get_all(session)
         db_export.export_items(all_settings, "settings")

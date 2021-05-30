@@ -1,4 +1,3 @@
-import json
 import re
 from enum import Enum
 from itertools import groupby
@@ -81,8 +80,6 @@ class PathObject(BaseModel):
 def get_path_objects(app: FastAPI):
     paths = []
 
-    with open("scratch.json", "w") as f:
-        f.write(json.dumps(app.openapi()))
     for key, value in app.openapi().items():
         if key == "paths":
             for key, value in value.items():

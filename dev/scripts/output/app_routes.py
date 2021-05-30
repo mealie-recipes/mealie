@@ -107,6 +107,12 @@ class AppRoutes:
     def recipes_recipe_slug_image(self, recipe_slug):
         return f"{self.prefix}/recipes/{recipe_slug}/image"
 
+    def recipes_slug_comments(self, slug):
+        return f"{self.prefix}/recipes/{slug}/comments"
+
+    def recipes_slug_comments_id(self, slug, id):
+        return f"{self.prefix}/recipes/{slug}/comments/{id}"
+
     def shopping_lists_id(self, id):
         return f"{self.prefix}/shopping-lists/{id}"
 
@@ -126,7 +132,7 @@ class AppRoutes:
         return f"{self.prefix}/users/{id}"
 
     def users_id_favorites(self, id):
-        return f"{self.prefix}/users/{id}/favorites/"
+        return f"{self.prefix}/users/{id}/favorites"
 
     def users_id_favorites_slug(self, id, slug):
         return f"{self.prefix}/users/{id}/favorites/{slug}"
