@@ -33,6 +33,10 @@ class User(SqlAlchemyBase, BaseMixins):
         LongLiveToken, back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )
 
+    comments: list = orm.relationship(
+        "RecipeComment", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
+    )
+
     favorite_recipes: list[RecipeModel] = orm.relationship(RecipeModel, back_populates="favorited_by")
 
     def __init__(
@@ -56,7 +60,7 @@ class User(SqlAlchemyBase, BaseMixins):
         self.password = password
 
         self.favorite_recipes = [
-            RecipeModel.get_ref(RecipeModel, session=session, match_value=x, match_attr="slug")
+            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug")
             for x in favorite_recipes
         ]
 
@@ -78,7 +82,7 @@ class User(SqlAlchemyBase, BaseMixins):
             self.password = password
 
         self.favorite_recipes = [
-            RecipeModel.get_ref(RecipeModel, session=session, match_value=x, match_attr="slug")
+            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug")
             for x in favorite_recipes
         ]
 

@@ -55,6 +55,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         collection_class=ordering_list("position"),
     )
 
+    comments: list = orm.relationship("RecipeComment", back_populates="recipe", cascade="all, delete, delete-orphan")
+
     # Mealie Specific
     slug = sa.Column(sa.String, index=True, unique=True)
     settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")

@@ -16,7 +16,6 @@ class RecipeAsset(SqlAlchemyBase):
         icon=None,
         file_name=None,
     ) -> None:
-        print("Asset Saved", name)
         self.name = name
         self.file_name = file_name
         self.icon = icon
