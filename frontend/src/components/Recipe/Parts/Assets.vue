@@ -21,9 +21,7 @@
               <v-btn color="error" icon @click="deleteAsset(i)" top>
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <v-btn color="primary" icon @click="copyLink(item.name, item.fileName)" top>
-                <v-icon>mdi-content-copy</v-icon>
-              </v-btn>
+              <TheCopyButton :copy-text="copyLink(item.name, item.fileName)" />
             </div>
           </v-list-item-action>
         </v-list-item>
@@ -60,6 +58,7 @@
 </template>
 
 <script>
+import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import { api } from "@/api";
@@ -67,6 +66,7 @@ export default {
   components: {
     BaseDialog,
     TheUploadBtn,
+    TheCopyButton,
   },
   props: {
     slug: String,
@@ -132,11 +132,7 @@ export default {
     },
     copyLink(name, fileName) {
       const assetLink = api.recipes.recipeAssetPath(this.slug, fileName);
-      const copyText = `![${name}](${assetLink})`;
-      navigator.clipboard.writeText(copyText).then(
-        () => console.log("Copied", copyText),
-        () => console.log("Copied Failed", copyText)
-      );
+      return `<img src="${window.location.origin}${assetLink}" height="100%" width="100%"> </img>`;
     },
   },
 };
