@@ -60,8 +60,7 @@ class User(SqlAlchemyBase, BaseMixins):
         self.password = password
 
         self.favorite_recipes = [
-            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug")
-            for x in favorite_recipes
+            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug") for x in favorite_recipes
         ]
 
         if self.username is None:
@@ -82,8 +81,7 @@ class User(SqlAlchemyBase, BaseMixins):
             self.password = password
 
         self.favorite_recipes = [
-            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug")
-            for x in favorite_recipes
+            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug") for x in favorite_recipes
         ]
 
     def update_password(self, password):
