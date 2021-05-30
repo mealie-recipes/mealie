@@ -14,15 +14,15 @@
     "demo": "Demo",
     "demo-status": "Demo status",
     "development": "Utveckling",
-    "docs": "Docs",
+    "docs": "Dokumentation",
     "download-log": "Ladda ner logg",
     "download-recipe-json": "Senast hämtad JSON",
     "github": "Github",
-    "log-lines": "Log Lines",
+    "log-lines": "Loggrader",
     "not-demo": "Ingen Demo",
-    "portfolio": "Portfolio",
+    "portfolio": "Portfölj",
     "production": "Produktion",
-    "support": "Support",
+    "support": "Hjälp",
     "version": "Version"
   },
   "category": {
@@ -52,7 +52,7 @@
     "clear": "Rensa",
     "close": "Stäng",
     "confirm": "Bekräfta",
-    "copied": "Copied",
+    "copied": "Kopierad",
     "create": "Skapa",
     "created": "Skapad",
     "current-parenthesis": "(Nuvarande)",
@@ -78,7 +78,7 @@
     "import": "Importera",
     "keyword": "Nyckelord",
     "link": "Länk",
-    "link-copied": "Link Copied",
+    "link-copied": "Länk kopierad",
     "monday": "Måndag",
     "name": "Namn",
     "new": "Ny",
@@ -114,7 +114,7 @@
     "updated": "Uppdaterad",
     "upload": "Ladda upp",
     "url": "URL",
-    "view": "View",
+    "view": "Visa",
     "wednesday": "Onsdag",
     "yes": "Ja"
   },
@@ -352,7 +352,7 @@
       "remove-unused": "Ta bort oanvända",
       "title-case-all": "Ändra alla taggar",
       "toolbox": "Verktygslåda",
-      "unorganized": "Unorganized"
+      "unorganized": "Okategoriserad"
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooks för denna måltidsplan",
@@ -363,14 +363,14 @@
     }
   },
   "shopping-list": {
-    "all-lists": "All Lists",
-    "create-shopping-list": "Create Shopping List",
-    "from-recipe": "From Recipe",
-    "list-name": "List Name",
-    "new-list": "New List",
-    "quantity": "Quantity: {0}",
-    "shopping-list": "Shopping List",
-    "shopping-lists": "Shopping Lists"
+    "all-lists": "Visa alla listor",
+    "create-shopping-list": "Skapa inköpslista",
+    "from-recipe": "Från recept",
+    "list-name": "Listnamn",
+    "new-list": "Ny lista",
+    "quantity": "Antal {0}",
+    "shopping-list": "Inköpslista",
+    "shopping-lists": "Inköpslistor"
   },
   "signup": {
     "display-name": "Visningsnamn",
@@ -441,7 +441,7 @@
     "user-updated": "Användare uppdaterad",
     "username": "Användarnamn",
     "users": "Användare",
-    "users-header": "USERS",
+    "users-header": "ANVÄNDARE",
     "webhook-time": "Webbhook tid",
     "webhooks-enabled": "Webhooks aktiverat",
     "you-are-not-allowed-to-create-a-user": "Du har inte behörighet att skapa en användare",
