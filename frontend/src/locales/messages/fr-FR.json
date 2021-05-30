@@ -18,11 +18,11 @@
     "download-log": "Télécharger les logs",
     "download-recipe-json": "Dernier JSON récupéré",
     "github": "Github",
-    "log-lines": "Log Lines",
+    "log-lines": "Lignes de log",
     "not-demo": "Non",
     "portfolio": "Portfolio",
     "production": "Production",
-    "support": "Support",
+    "support": "Soutenir",
     "version": "Version"
   },
   "category": {
@@ -52,7 +52,7 @@
     "clear": "Effacer",
     "close": "Fermer",
     "confirm": "Confirmer",
-    "copied": "Copied",
+    "copied": "Copié",
     "create": "Créer",
     "created": "Créé",
     "current-parenthesis": "(Actuel)",
@@ -78,7 +78,7 @@
     "import": "Importer",
     "keyword": "Mot-clé",
     "link": "Lien",
-    "link-copied": "Link Copied",
+    "link-copied": "Lien copié",
     "monday": "Lundi",
     "name": "Nom",
     "new": "Nouveau",
@@ -114,7 +114,7 @@
     "updated": "Mis à jour",
     "upload": "Importer",
     "url": "URL",
-    "view": "View",
+    "view": "Voir",
     "wednesday": "Mercredi",
     "yes": "Oui"
   },
@@ -352,7 +352,7 @@
       "remove-unused": "Supprimer orphelins",
       "title-case-all": "Majuscules partout",
       "toolbox": "Boîte à outils",
-      "unorganized": "Unorganized"
+      "unorganized": "Non organisé"
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooks des menus",
@@ -363,14 +363,14 @@
     }
   },
   "shopping-list": {
-    "all-lists": "All Lists",
-    "create-shopping-list": "Create Shopping List",
-    "from-recipe": "From Recipe",
-    "list-name": "List Name",
-    "new-list": "New List",
-    "quantity": "Quantity: {0}",
-    "shopping-list": "Shopping List",
-    "shopping-lists": "Shopping Lists"
+    "all-lists": "Toutes les listes",
+    "create-shopping-list": "Créer une liste de courses",
+    "from-recipe": "À partir d'une recette",
+    "list-name": "Nom de la liste",
+    "new-list": "Nouvelle liste",
+    "quantity": "Quantité : {0}",
+    "shopping-list": "Liste de courses",
+    "shopping-lists": "Listes de courses"
   },
   "signup": {
     "display-name": "Nom affiché",
@@ -441,7 +441,7 @@
     "user-updated": "Utilisateur mis à jour",
     "username": "Nom d'utilisateur",
     "users": "Utilisateurs",
-    "users-header": "USERS",
+    "users-header": "UTILISATEURS",
     "webhook-time": "Heure du Webhook",
     "webhooks-enabled": "Webhooks activés",
     "you-are-not-allowed-to-create-a-user": "Vous n'avez pas le droit de créer un utilisateur",
