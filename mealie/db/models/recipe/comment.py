@@ -14,7 +14,7 @@ def generate_uuid():
 class RecipeComment(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_comments"
     id = Column(Integer, primary_key=True)
-    uuid = Column(Integer, unique=True, nullable=False, default=generate_uuid)
+    uuid = Column(String, unique=True, nullable=False, default=generate_uuid)
     parent_id = Column(Integer, ForeignKey("recipes.id"), nullable=False)
     recipe = orm.relationship("RecipeModel", back_populates="comments")
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
