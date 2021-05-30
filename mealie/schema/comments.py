@@ -28,6 +28,7 @@ class CommentSaveToDB(CommentIn):
 
 class CommentOut(CommentIn):
     id: int
+    uuid: str
     recipe_slug: str
     date_added: datetime
     user: UserBase
