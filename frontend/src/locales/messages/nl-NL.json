@@ -14,15 +14,15 @@
     "demo": "Demo",
     "demo-status": "Demo status",
     "development": "Versies in ontwikkeling",
-    "docs": "Docs",
+    "docs": "Documentatie",
     "download-log": "Logbestand downloaden",
     "download-recipe-json": "Laatste Ingelezen JSON",
     "github": "Github",
-    "log-lines": "Log Lines",
+    "log-lines": "Logboek regels",
     "not-demo": "Niet Demo",
     "portfolio": "Portfolio",
     "production": "Productie",
-    "support": "Support",
+    "support": "Ondersteuning",
     "version": "Versie"
   },
   "category": {
@@ -52,7 +52,7 @@
     "clear": "Wissen",
     "close": "Sluiten",
     "confirm": "Bevestigen",
-    "copied": "Copied",
+    "copied": "Gekopieerd",
     "create": "Aanmaken",
     "created": "Aangemaakt op",
     "current-parenthesis": "(Huidig)",
@@ -78,7 +78,7 @@
     "import": "Importeren",
     "keyword": "Trefwoord",
     "link": "Koppeling",
-    "link-copied": "Link Copied",
+    "link-copied": "Link Gekopieerd",
     "monday": "Maandag",
     "name": "Naam",
     "new": "Nieuw",
@@ -114,7 +114,7 @@
     "updated": "Bijgewerkt",
     "upload": "Uploaden",
     "url": "URL",
-    "view": "View",
+    "view": "Bekijken",
     "wednesday": "Woensdag",
     "yes": "Ja"
   },
@@ -352,7 +352,7 @@
       "remove-unused": "Verwijder Ongebruikte Items",
       "title-case-all": "Alle Titels In Hoofdletters",
       "toolbox": "Gereedschapskist",
-      "unorganized": "Unorganized"
+      "unorganized": "Ongeorganiseerd"
     },
     "webhooks": {
       "meal-planner-webhooks": "Maaltijdplanner Webhooks",
@@ -363,9 +363,9 @@
     }
   },
   "shopping-list": {
-    "all-lists": "All Lists",
-    "create-shopping-list": "Create Shopping List",
-    "from-recipe": "From Recipe",
+    "all-lists": "Alle Lijsten",
+    "create-shopping-list": "Boodschappenlijst maken",
+    "from-recipe": "Uit Recept",
     "list-name": "List Name",
     "new-list": "New List",
     "quantity": "Quantity: {0}",
