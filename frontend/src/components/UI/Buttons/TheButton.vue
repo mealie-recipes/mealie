@@ -4,6 +4,7 @@
     :small="small"
     :x-small="xSmall"
     :loading="loading"
+    :disabled="disabled"
     @click="$emit('click')"
     :outlined="btnStyle.outlined"
     :text="btnStyle.text"
@@ -46,6 +47,10 @@ export default {
     },
     // Property
     loading: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },

@@ -67,12 +67,13 @@
     </v-card-text>
     <v-row align="center" justify="end">
       <v-card-actions class="mr-5">
-        <v-btn color="success" @click="random" v-if="planDays.length > 0" text>
+        <TheButton edit @click="random" v-if="planDays.length > 0" text>
+          <template v-slot:icon>
+            mdi-dice-multiple
+          </template>
           {{ $t("general.random") }}
-        </v-btn>
-        <v-btn color="success" @click="save" text :disabled="planDays.length == 0">
-          {{ $t("general.save") }}
-        </v-btn>
+        </TheButton>
+        <TheButton create @click="save" :disabled="planDays.length == 0" />
       </v-card-actions>
     </v-row>
   </v-card>
@@ -105,6 +106,9 @@ export default {
   },
 
   watch: {
+    startDate(val) {
+      console.log(val);
+    },
     dateDif() {
       this.planDays = [];
       for (let i = 0; i < this.dateDif; i++) {
@@ -138,16 +142,10 @@ export default {
       return Date.parse(this.endDate);
     },
     dateDif() {
-      let startDate = new Date(this.startDate);
-      let endDate = new Date(this.endDate);
-      console.log(startDate, endDate);
-
-      let dateDif = (endDate - startDate) / (1000 * 3600 * 24) + 1;
-
+      let dateDif = (this.actualEndDate - this.actualStartDate) / (1000 * 3600 * 24) + 1;
       if (dateDif < 1) {
         return null;
       }
-
       return dateDif;
     },
     startComputedDateFormatted() {
@@ -179,22 +177,17 @@ export default {
     },
     random() {
       this.usedRecipes = [1];
-      this.planDays.forEach((element, index) => {
+      this.planDays.forEach((_, index) => {
         let recipe = this.getRandom(this.filteredRecipes);
         this.planDays[index]["meals"][0]["slug"] = recipe.slug;
         this.planDays[index]["meals"][0]["name"] = recipe.name;
         this.usedRecipes.push(recipe);
       });
     },
-    processTime(index) {
-      let dateText = new Date(this.actualStartDate.valueOf() + 1000 * 3600 * 24 * index);
-      return dateText;
-    },
     getDate(index) {
-      const dateObj = this.processTime(index);
+      const dateObj = new Date(this.actualStartDate.valueOf() + 1000 * 3600 * 24 * index);
       return utils.getDateAsPythonDate(dateObj);
     },
-
     async save() {
       const mealBody = {
         group: this.groupSettings.name,
@@ -209,7 +202,6 @@ export default {
         this.endDate = null;
       }
     },
-
     formatDate(date) {
       if (!date) return null;
 
@@ -227,12 +219,9 @@ export default {
       const nextEndDate = new Date(nextMonday);
       nextEndDate.setDate(nextEndDate.getDate() + 4);
 
-      this.startDate = nextMonday.toISOString().substr(0, 10);
-
-      this.endDate = nextEndDate.toISOString().substr(0, 10);
+      this.startDate = utils.getDateAsPythonDate(nextMonday);
+      this.endDate = utils.getDateAsPythonDate(nextEndDate);
     },
   },
 };
 </script>
-
-<style></style>
