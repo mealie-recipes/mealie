@@ -50,7 +50,9 @@
                   <v-img :src="getImage(planDay['meals'][0].slug)"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title v-html="$d(new Date(planDay.date.replaceAll('-', '/')), 'short')"></v-list-item-title>
+                  <v-list-item-title
+                    v-html="$d(new Date(planDay.date.replaceAll('-', '/')), 'short')"
+                  ></v-list-item-title>
                   <v-list-item-subtitle v-html="planDay['meals'][0].name"></v-list-item-subtitle>
                 </v-list-item-content>
               </template>
