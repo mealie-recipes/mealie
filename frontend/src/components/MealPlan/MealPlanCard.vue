@@ -29,7 +29,7 @@
           </CardImage>
 
           <v-card-title class="my-n3 mb-n6">
-            {{ $d(new Date(planDay.date.split("-")), "short") }}
+            {{ $d(new Date(planDay.date.replaceAll("-", "/")), "short") }}
           </v-card-title>
           <v-card-subtitle class="mb-0 pb-0"> {{ planDay.meals[0].name }}</v-card-subtitle>
           <v-hover v-slot="{ hover }">

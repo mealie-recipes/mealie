@@ -140,6 +140,7 @@ export default {
     dateDif() {
       let startDate = new Date(this.startDate);
       let endDate = new Date(this.endDate);
+      console.log(startDate, endDate);
 
       let dateDif = (endDate - startDate) / (1000 * 3600 * 24) + 1;
 
@@ -227,6 +228,7 @@ export default {
       nextEndDate.setDate(nextEndDate.getDate() + 4);
 
       this.startDate = nextMonday.toISOString().substr(0, 10);
+
       this.endDate = nextEndDate.toISOString().substr(0, 10);
     },
   },
