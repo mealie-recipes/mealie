@@ -170,10 +170,10 @@
     },
     "migration-data-removed": "Migratie gegevens verwijderd",
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
+      "description": "Migreer gegevens uit een Nextcloud Kookboek instance",
       "title": "Nextcloud Kookboek"
     },
-    "no-migration-data-available": "No Migration Data Available",
+    "no-migration-data-available": "Geen Migratiegegevens Beschikbaar",
     "recipe-migration": "Recept Migratie"
   },
   "new-recipe": {
@@ -366,11 +366,11 @@
     "all-lists": "Alle Lijsten",
     "create-shopping-list": "Boodschappenlijst maken",
     "from-recipe": "Uit Recept",
-    "list-name": "List Name",
-    "new-list": "New List",
-    "quantity": "Quantity: {0}",
-    "shopping-list": "Shopping List",
-    "shopping-lists": "Shopping Lists"
+    "list-name": "Lijstnaam",
+    "new-list": "Nieuwe Lijst",
+    "quantity": "Hoeveelheid: {0}",
+    "shopping-list": "Boodschappenlijst",
+    "shopping-lists": "Boodschappenlijsten"
   },
   "signup": {
     "display-name": "Schermnaam",
@@ -439,9 +439,9 @@
     "user-successfully-logged-in": "Gebruiker succesvol ingelogd",
     "user-update-failed": "Bijwerken van gebruiker mislukt",
     "user-updated": "Gebruiker is geüpdate",
-    "username": "Username",
+    "username": "Gebruikersnaam",
     "users": "Gebruikers",
-    "users-header": "USERS",
+    "users-header": "GEBRUIKERS",
     "webhook-time": "Webhook Tijd",
     "webhooks-enabled": "Webhooks ingeschakeld",
     "you-are-not-allowed-to-create-a-user": "Je hebt geen toestemming om een gebruiker aan te maken",
