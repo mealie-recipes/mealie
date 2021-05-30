@@ -1,5 +1,6 @@
-import { baseURL } from "./api-utils";
+import { API_ROUTES } from "./apiRoutes";
 import { apiReq } from "./api-utils";
+import { baseURL } from "./api-utils";
 import { store } from "../store";
 import i18n from "@/i18n.js";
 
@@ -160,5 +161,29 @@ export const recipeAPI = {
 
   recipeAssetPath(recipeSlug, assetName) {
     return `api/media/recipes/${recipeSlug}/assets/${assetName}`;
+  },
+
+  /** Create comment in the Database
+   * @param slug
+   */
+  async createComment(slug, data) {
+    const response = await apiReq.post(API_ROUTES.recipesSlugComments(slug), data);
+    return response.data;
+  },
+  /** Update comment in the Database
+   * @param slug
+   * @param id
+   */
+  async updateComment(slug, id, data) {
+    const response = await apiReq.put(API_ROUTES.recipesSlugCommentsId(slug, id), data);
+    return response.data;
+  },
+  /** Delete comment from the Database
+   * @param slug
+   * @param id
+   */
+  async deleteComment(slug, id) {
+    const response = await apiReq.delete(API_ROUTES.recipesSlugCommentsId(slug, id));
+    return response.data;
   },
 };

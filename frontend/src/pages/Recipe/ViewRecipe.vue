@@ -44,6 +44,13 @@
       />
       <RecipeEditor v-else v-model="recipeDetails" ref="recipeEditor" @upload="getImageFile" />
     </v-card>
+    <CommentsSection
+      class="mt-2"
+      :slug="recipeDetails.slug"
+      :comments="recipeDetails.comments"
+      @new-comment="getRecipeDetails"
+      @update-comment="getRecipeDetails"
+    />
     <PrintView :recipe="recipeDetails" />
   </v-container>
 </template>
@@ -60,6 +67,7 @@ import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
 import NoRecipe from "@/components/Fallbacks/NoRecipe";
 import { user } from "@/mixins/user";
 import { router } from "@/routes";
+import CommentsSection from "@/components/Recipe/CommentSection";
 
 export default {
   components: {
@@ -71,6 +79,7 @@ export default {
     PrintView,
     NoRecipe,
     FavoriteBadge,
+    CommentsSection,
   },
   mixins: [user],
   inject: {
