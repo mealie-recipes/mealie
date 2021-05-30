@@ -21,7 +21,7 @@
               <v-btn color="error" icon @click="deleteAsset(i)" top>
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <TheCopyButton :copy-text="copyLink(item.name, item.fileName)" />
+              <TheCopyButton :copy-text="copyLink(item.fileName)" />
             </div>
           </v-list-item-action>
         </v-list-item>
@@ -130,9 +130,9 @@ export default {
     deleteAsset(index) {
       this.value.splice(index, 1);
     },
-    copyLink(name, fileName) {
+    copyLink(fileName) {
       const assetLink = api.recipes.recipeAssetPath(this.slug, fileName);
-      return `<img src="${window.location.origin}${assetLink}" height="100%" width="100%"> </img>`;
+      return `<img src="${this.baseURL}${assetLink}" height="100%" width="100%"> </img>`;
     },
   },
 };
