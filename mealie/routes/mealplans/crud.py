@@ -23,6 +23,28 @@ def get_all_meals(
     return db.groups.get_meals(session, current_user.group)
 
 
+@router.get("/this-week", response_model=MealPlanOut)
+def get_this_week(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
+    """ Returns the meal plan data for this week """
+    plans = db.groups.get_meals(session, current_user.group)
+    print(plans)
+    if plans:
+        return plans[0]
+
+
+@router.get("/today", tags=["Meal Plan"])
+def get_today(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
+    """
+    Returns the recipe slug for the meal scheduled for today.
+    If no meal is scheduled nothing is returned
+    """
+
+    group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
+    recipe = get_todays_meal(session, group_in_db)
+    if recipe:
+        return recipe
+
+
 @router.get("/{id}", response_model=MealPlanOut)
 def get_meal_plan(
     id,
@@ -84,27 +106,6 @@ def delete_meal_plan(
         )
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
-
-
-@router.get("/this-week", response_model=MealPlanOut)
-def get_this_week(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
-    """ Returns the meal plan data for this week """
-    plans = db.groups.get_meals(session, current_user.group)
-    if plans:
-        return plans[0]
-
-
-@router.get("/today", tags=["Meal Plan"])
-def get_today(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
-    """
-    Returns the recipe slug for the meal scheduled for today.
-    If no meal is scheduled nothing is returned
-    """
-
-    group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
-    recipe = get_todays_meal(session, group_in_db)
-    if recipe:
-        return recipe
 
 
 @router.get("/today/image", tags=["Meal Plan"])
