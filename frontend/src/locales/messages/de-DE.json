@@ -14,15 +14,15 @@
     "demo": "Demo",
     "demo-status": "Demostatus",
     "development": "Entwicklung",
-    "docs": "Docs",
+    "docs": "Dokumentation",
     "download-log": "Protokoll herunterladen",
     "download-recipe-json": "Last Scraped JSON",
-    "github": "Github",
+    "github": "GitHub",
     "log-lines": "Log Lines",
     "not-demo": "Keine Demo",
     "portfolio": "Portfolio",
-    "production": "Production",
-    "support": "Support",
+    "production": "Produktivumgebung",
+    "support": "Unterstützen",
     "version": "Version"
   },
   "category": {
@@ -34,7 +34,7 @@
     "category-filter": "Kategoriefilter",
     "category-update-failed": "Aktualisieren der Kategorie fehlgeschlagen",
     "category-updated": "Kategorie aktualisiert",
-    "uncategorized-count": "Nicht kategorisierte {count}"
+    "uncategorized-count": "{count} nicht kategorisierte"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -52,7 +52,7 @@
     "clear": "Clear",
     "close": "Schließen",
     "confirm": "Bestätigen",
-    "copied": "Copied",
+    "copied": "Kopiert",
     "create": "Erstellen",
     "created": "Erstellt",
     "current-parenthesis": "(Neueste)",
@@ -78,7 +78,7 @@
     "import": "Importieren",
     "keyword": "Keyword",
     "link": "Link",
-    "link-copied": "Link Copied",
+    "link-copied": "Link kopiert",
     "monday": "Montag",
     "name": "Name",
     "new": "Neu",
