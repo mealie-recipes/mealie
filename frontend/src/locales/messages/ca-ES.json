@@ -1,12 +1,12 @@
 {
   "404": {
-    "page-not-found": "404 Page Not Found",
+    "page-not-found": "404 No s'ha trobat la pàgina",
     "take-me-home": "Take me Home"
   },
   "about": {
-    "about-mealie": "About Mealie",
-    "api-docs": "API Docs",
-    "api-port": "API Port",
+    "about-mealie": "Quant a Mealie",
+    "api-docs": "Documentació de l'API",
+    "api-port": "Port de l'API",
     "application-mode": "Application Mode",
     "database-type": "Database Type",
     "database-url": "Database URL",
