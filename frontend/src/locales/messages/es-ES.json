@@ -350,9 +350,9 @@
       "no-unused-items": "No hay elementos sin usar",
       "recipes-affected": "Ninguna receta afectuada | Una receta afectada |{count} recetas afectuadas",
       "remove-unused": "Eliminar los no usados",
-      "title-case-all": "Title Case All",
+      "title-case-all": "Primera letra en mayúscula",
       "toolbox": "Cuadro de herramientas",
-      "unorganized": "Unorganized"
+      "unorganized": "Sin organizar"
     },
     "webhooks": {
       "meal-planner-webhooks": "Meal Planner Webhooks",
@@ -363,14 +363,14 @@
     }
   },
   "shopping-list": {
-    "all-lists": "All Lists",
+    "all-lists": "Todas las listas",
     "create-shopping-list": "Create Shopping List",
     "from-recipe": "From Recipe",
-    "list-name": "List Name",
-    "new-list": "New List",
-    "quantity": "Quantity: {0}",
-    "shopping-list": "Shopping List",
-    "shopping-lists": "Shopping Lists"
+    "list-name": "Nombre de la lista",
+    "new-list": "Nueva lista",
+    "quantity": "Cantidad: {0}",
+    "shopping-list": "Lista de la compra",
+    "shopping-lists": "Listas de la compra"
   },
   "signup": {
     "display-name": "Mostrar nombre",
@@ -439,9 +439,9 @@
     "user-successfully-logged-in": "Usuario conectado correctamente",
     "user-update-failed": "Error al actualizar el usuario",
     "user-updated": "Usuario actualizado",
-    "username": "Username",
+    "username": "Usuario",
     "users": "Usuarios",
-    "users-header": "USERS",
+    "users-header": "USUARIOS",
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "No tiene permisos para crear usuarios",
