@@ -14,15 +14,15 @@
     "demo": "Versión Demo",
     "demo-status": "Estado Demo",
     "development": "Desarrollo",
-    "docs": "Docs",
+    "docs": "Documentación",
     "download-log": "Descargar Log",
-    "download-recipe-json": "Last Scraped JSON",
+    "download-recipe-json": "Último JSON raspado",
     "github": "Github",
     "log-lines": "Log Lines",
     "not-demo": "No Demo",
     "portfolio": "Portfolio",
     "production": "Producción",
-    "support": "Support",
+    "support": "Soporte",
     "version": "Versión"
   },
   "category": {
@@ -78,7 +78,7 @@
     "import": "Importar",
     "keyword": "Etiqueta",
     "link": "Enlace",
-    "link-copied": "Link Copied",
+    "link-copied": "Enlace copiado",
     "monday": "Lunes",
     "name": "Nombre",
     "new": "Nuevo",
@@ -114,7 +114,7 @@
     "updated": "Actualizado",
     "upload": "Subir",
     "url": "URL",
-    "view": "View",
+    "view": "Ver",
     "wednesday": "Miércoles",
     "yes": "Si"
   },
@@ -170,10 +170,10 @@
     },
     "migration-data-removed": "Datos de migración eliminados",
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
+      "description": "Migrar datos desde Nextcloud Cookbook",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "No Migration Data Available",
+    "no-migration-data-available": "No hay datos de migración disponibles",
     "recipe-migration": "Migración de recetas"
   },
   "new-recipe": {
