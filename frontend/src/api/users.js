@@ -113,6 +113,11 @@ export const userAPI = {
     const response = await apiReq.delete(API_ROUTES.usersIdFavoritesSlug(id, slug));
     return response.data;
   },
+
+  userProfileImage(id) {
+    if (!id || id === undefined) return;
+    return `/api/users/${id}/image`;
+  },
 };
 
 const deleteErrorText = response => {

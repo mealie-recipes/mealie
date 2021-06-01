@@ -91,7 +91,7 @@ export default {
       this.hideImage == false;
     },
     getProfileImage(id) {
-      return `api/users/${id}/image`;
+      return api.users.userProfileImage(id);
     },
     editComment(id) {
       this.$set(this.editKeys, id, true);

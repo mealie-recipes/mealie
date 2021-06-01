@@ -2,19 +2,7 @@
   <div class="d-print-none no-print">
     <v-navigation-drawer v-model="showSidebar" width="180px" clipped app>
       <template v-slot:prepend>
-        <v-list-item two-line v-if="isLoggedIn" to="/admin/profile">
-          <v-list-item-avatar color="accent" class="white--text">
-            <img :src="userProfileImage" v-if="!hideImage" @error="hideImage = true" />
-            <div v-else>
-              {{ initials }}
-            </div>
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title> {{ user.fullName }}</v-list-item-title>
-            <v-list-item-subtitle> {{ user.admin ? $t("user.admin") : $t("user.user") }}</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+        <UserAvatar v-if="isLoggedIn" :user="user" />
 
         <v-list-item dense v-if="isLoggedIn" :to="`/user/${user.id}/favorites`">
           <v-list-item-icon>
@@ -46,7 +34,7 @@
               mdi-heart
             </v-icon>
           </v-list-item-icon>
-          <v-list-item-title> {{$t('about.support')}} </v-list-item-title>
+          <v-list-item-title> {{ $t("about.support") }} </v-list-item-title>
         </v-list-item>
         <v-list-item to="/admin/about">
           <v-list-item-icon class="mr-3 pt-1">
@@ -78,10 +66,14 @@
 </template>
 
 <script>
+import UserAvatar from "@/components/User/UserAvatar";
 import { initials } from "@/mixins/initials";
 import { user } from "@/mixins/user";
 import axios from "axios";
 export default {
+  components: {
+    UserAvatar,
+  },
   mixins: [initials, user],
   data() {
     return {
