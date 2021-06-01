@@ -134,7 +134,7 @@ export default {
 
   computed: {
     userProfileImage() {
-      return `api/users/${this.user.id}/image`;
+      return api.users.userProfileImage(this.user.id);
     },
   },
 

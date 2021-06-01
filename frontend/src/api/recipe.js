@@ -160,7 +160,7 @@ export const recipeAPI = {
   },
 
   recipeAssetPath(recipeSlug, assetName) {
-    return `api/media/recipes/${recipeSlug}/assets/${assetName}`;
+    return `/api/media/recipes/${recipeSlug}/assets/${assetName}`;
   },
 
   /** Create comment in the Database

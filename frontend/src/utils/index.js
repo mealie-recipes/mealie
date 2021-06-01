@@ -6,10 +6,10 @@ import { store } from "@/store";
 export const utils = {
   recipe: recipe,
   generateUniqueKey(item, index) {
-    const uniqueKey = `${item}-${index}`;
-    return uniqueKey;
+    return `${item}-${index}`;
   },
   getDateAsPythonDate(dateObject) {
+    if (!dateObject) return null;
     const month = dateObject.getMonth() + 1;
     const day = dateObject.getDate();
     const year = dateObject.getFullYear();

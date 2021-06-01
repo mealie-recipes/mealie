@@ -73,8 +73,7 @@
         </v-virtual-scroll>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <TheButton class="mt-1 mb-n1" create @click="createTheme" />
+          <TheButton class="ml-auto mt-1 mb-n1" create @click="createTheme" />
         </v-card-actions>
       </template>
     </StatCard>

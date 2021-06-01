@@ -91,7 +91,7 @@ async def get_user_image(id: str):
     for recipe_image in user_dir.glob("profile_image.*"):
         return FileResponse(recipe_image)
     else:
-        return False
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
 @router.post("/{id}/image", dependencies=[Depends(get_current_user)])
