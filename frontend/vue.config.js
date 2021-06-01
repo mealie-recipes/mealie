@@ -33,6 +33,7 @@ module.exports = {
     msTileColor: manifestJSON.background_color,
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black",
+    manifestCrossorigin: "use-credentials",
 
     workboxPluginMode: "InjectManifest",
     workboxOptions: {
