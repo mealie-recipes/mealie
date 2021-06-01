@@ -18,6 +18,9 @@
       </div>
 
       <v-spacer></v-spacer>
+      <v-btn icon class="mr-1" small @click="isDark = !isDark">
+        <v-icon v-text="isDark ? 'mdi-weather-night' : 'mdi-weather-sunny'"> </v-icon>
+      </v-btn>
       <div v-if="!isMobile" style="width: 350px;">
         <SearchBar :show-results="true" @selected="navigateFromSearch" :max-width="isMobile ? '100%' : '450px'" />
       </div>
@@ -67,12 +70,25 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.name === "xs";
     },
+    isDark: {
+      get() {
+        return this.$store.getters.getIsDark;
+      },
+      set() {
+        let setVal = "dark";
+        if (this.isDark) {
+          setVal = "light";
+        }
+        this.$store.commit("setDarkMode", setVal);
+      },
+    },
   },
   methods: {
     navigateFromSearch(slug) {
       this.$router.push(`/recipe/${slug}`);
     },
     openSidebar() {
+      console.log(this.isDarkMode);
       this.$refs.theSidebar.toggleSidebar();
     },
   },

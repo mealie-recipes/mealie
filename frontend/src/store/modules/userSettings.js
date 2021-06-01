@@ -17,7 +17,7 @@ function inDarkMode(payload) {
 
 const state = {
   activeTheme: {},
-  darkMode: "light",
+  darkMode: "light", // light, dark, system
   isDark: false,
   isLoggedIn: false,
   token: "",
