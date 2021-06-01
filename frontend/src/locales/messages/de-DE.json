@@ -369,8 +369,8 @@
     "list-name": "List Name",
     "new-list": "New List",
     "quantity": "Quantity: {0}",
-    "shopping-list": "Shopping List",
-    "shopping-lists": "Shopping Lists"
+    "shopping-list": "Einkaufsliste",
+    "shopping-lists": "Einkaufslisten"
   },
   "signup": {
     "display-name": "Anzeigename",
