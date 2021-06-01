@@ -136,12 +136,15 @@ export default {
       return this.$store.getters.getCurrentGroup;
     },
     actualStartDate() {
-      return Date.parse(this.startDate);
+      if (!this.startDate) return null;
+      return Date.parse(this.startDate.replaceAll("-", "/"));
     },
     actualEndDate() {
-      return Date.parse(this.endDate);
+      if (!this.endDate) return null;
+      return Date.parse(this.endDate.replaceAll("-", "/"));
     },
     dateDif() {
+      if (!this.actualEndDate || !this.actualStartDate) return null;
       let dateDif = (this.actualEndDate - this.actualStartDate) / (1000 * 3600 * 24) + 1;
       if (dateDif < 1) {
         return null;
