@@ -56,7 +56,7 @@
     "create": "Erstellen",
     "created": "Erstellt",
     "current-parenthesis": "(Neueste)",
-    "custom": "Custom",
+    "custom": "Benutzerdefiniert",
     "dashboard": "Dashboard",
     "delete": "Löschen",
     "disabled": "Deaktiviert",
@@ -142,18 +142,18 @@
     "create-a-new-meal-plan": "Neuen Essensplan erstellen",
     "dinner-this-week": "Essen diese Woche",
     "dinner-today": "Heutiges Essen",
-    "dinner-tonight": "DINNER TONIGHT",
+    "dinner-tonight": "HEUTE GIBT ES",
     "edit-meal-plan": "Essensplan bearbeiten",
     "end-date": "Enddatum",
     "group": "Gruppe (Beta)",
     "meal-planner": "Essensplaner",
     "meal-plans": "Essenspläne",
-    "mealplan-categories": "MEALPLAN CATEGORIES",
+    "mealplan-categories": "KATEGORIEN FÜR ESSENSPLÄNE",
     "mealplan-created": "Essensplan angelegt",
     "mealplan-creation-failed": "Anlegen des Essensplans fehlgeschlagen",
     "mealplan-deleted": "Essensplan entfernt",
     "mealplan-deletion-failed": "Entfernen des Essensplans fehlgeschlagen",
-    "mealplan-settings": "Mealplan Settings",
+    "mealplan-settings": "Essensplaneinstellungen",
     "mealplan-update-failed": "Aktualisieren des Essensplans fehlgeschlagen",
     "mealplan-updated": "Essensplan aktualisiert",
     "no-meal-plan-defined-yet": "Noch kein Essensplan definiert",
@@ -170,10 +170,10 @@
     },
     "migration-data-removed": "Migrationsdaten entfernt",
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
+      "description": "Übertrage Daten aus einer Nextcloud Cookbook Instanz",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "No Migration Data Available",
+    "no-migration-data-available": "Keine Übertragungsdaten verfügbar",
     "recipe-migration": "Rezepte übertragen"
   },
   "new-recipe": {
@@ -336,7 +336,7 @@
       "warning": "Warnung"
     },
     "token": {
-      "active-tokens": "ACTIVE TOKENS",
+      "active-tokens": "AKTIVE TOKEN",
       "api-token": "API-Token",
       "api-tokens": "API-Tokens",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopieren Sie dieses Token für die Verwendung mit einer externen Anwendung. Dieses Token wird nicht mehr sichtbar sein.",
@@ -345,14 +345,14 @@
     },
     "toolbox": {
       "assign-all": "Assign All",
-      "bulk-assign": "Bulk Assign",
+      "bulk-assign": "Massenzuordnung",
       "new-name": "Neuer Name",
-      "no-unused-items": "No Unused Items",
-      "recipes-affected": "No Recipes Affected|One Recipe Affected|{count} Recipes Affected",
-      "remove-unused": "Remove Unused",
+      "no-unused-items": "Keine unbenutzten Elemente",
+      "recipes-affected": "Keine Rezepte betroffen|Ein Rezept betroffen|{count} Rezepte betroffen",
+      "remove-unused": "Unbenutzte entfernen",
       "title-case-all": "Alles groß schreiben",
       "toolbox": "Toolbox",
-      "unorganized": "Unorganized"
+      "unorganized": "Unorganisiert"
     },
     "webhooks": {
       "meal-planner-webhooks": "Essensplaner Webhooks",
@@ -441,7 +441,7 @@
     "user-updated": "Benutzer aktualisiert",
     "username": "Benutzername",
     "users": "Benutzer",
-    "users-header": "USERS",
+    "users-header": "BENUTZER",
     "webhook-time": "Webhook Zeit",
     "webhooks-enabled": "Webhooks aktiviert",
     "you-are-not-allowed-to-create-a-user": "Sie sind nicht berechtigt, einen Benutzer anzulegen",
