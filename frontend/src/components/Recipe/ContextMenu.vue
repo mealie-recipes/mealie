@@ -33,6 +33,7 @@
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
 import { api } from "@/api";
+import { utils } from "@/utils";
 export default {
   components: {
     ConfirmationDialog,
@@ -43,6 +44,9 @@ export default {
     },
     menuIcon: {
       default: "mdi-dots-vertical",
+    },
+    name: {
+      type: String,
     },
   },
   computed: {
@@ -64,8 +68,8 @@ export default {
           action: "print",
         },
         {
-          title: this.$t("general.link"),
-          icon: "mdi-content-copy",
+          title: this.$t("Share"),
+          icon: "mdi-share-variant",
           color: "accent",
           action: "share",
         },
@@ -88,6 +92,9 @@ export default {
         ...this.defaultMenu,
       ];
     },
+    recipeText() {
+      return this.$t(`I wanted to share you my {0} recipe.`, [this.name]);
+    },
   },
   data() {
     return {
@@ -103,7 +110,15 @@ export default {
           this.$refs.deleteRecipieConfirm.open();
           break;
         case "share":
-          this.updateClipboard();
+            if (navigator.share){
+            navigator.share({
+              title: this.name,
+              text: this.recipeText,
+              url: this.recipeURL,
+            })
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('WebShareAPI not supported', error))
+            } else this.updateClipboard();
           break;
         case "edit":
           this.$router.push(`/recipe/${this.slug}` + "?edit=true");
@@ -123,10 +138,11 @@ export default {
     updateClipboard() {
       const copyText = this.recipeURL;
       navigator.clipboard.writeText(copyText).then(
-        () => console.log("Copied", copyText),
-        () => console.log("Copied Failed", copyText)
+        () => console.log("Copied to Clipboard", copyText),
+        () => console.log("Copied Failed", copyText),
+        utils.notify.success("Copied to Clipboard")
       );
     },
   },
-};
+}
 </script>

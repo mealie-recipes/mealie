@@ -34,7 +34,11 @@
               :value="rating"
             ></v-rating>
             <v-spacer></v-spacer>
-            <ContextMenu :slug="slug" menu-icon="mdi-dots-horizontal" />
+            <ContextMenu
+                :slug="slug"
+                menu-icon="mdi-dots-horizontal"
+                :name="name"
+            />
           </div>
         </v-list-item-content>
       </v-list-item>
