@@ -138,10 +138,9 @@ export default {
     updateClipboard() {
       const copyText = this.recipeURL;
       navigator.clipboard.writeText(copyText).then(
-        () => console.log("Copied to Clipboard", copyText),
-        () => console.log("Copied Failed", copyText),
-        utils.notify.success("Copied to Clipboard")
-      );
+          () => { console.log("Copied to Clipboard", copyText);
+            utils.notify.success("Copied to Clipboard");},
+          () => console.log("Copied Failed", copyText));
     },
   },
 }
