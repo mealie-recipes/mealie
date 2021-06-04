@@ -62,6 +62,7 @@ nav:
           - Site Settings: "site-administration/site-settings.md"
           - Building Pages: "site-administration/building-pages.md"
           - User Management: "site-administration/user-management.md"
+          - Dashboard: "site-administration/dashboard.md"
           - Backups and Restore: "site-administration/backups-and-exports.md"
           - Recipe Migration: "site-administration/migration-imports.md"
       - API Usage:
