@@ -1,6 +1,6 @@
 {
   "404": {
-    "page-not-found": "404 Página No Encontrada",
+    "page-not-found": "Página no encontrada",
     "take-me-home": "Ir a Inicio"
   },
   "about": {
@@ -18,7 +18,7 @@
     "download-log": "Descargar Log",
     "download-recipe-json": "Último JSON raspado",
     "github": "Github",
-    "log-lines": "Log Lines",
+    "log-lines": "Líneas de registro",
     "not-demo": "No Demo",
     "portfolio": "Portfolio",
     "production": "Producción",
@@ -37,7 +37,7 @@
     "uncategorized-count": "{count} no categorizado"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "URL de aviso",
     "database": "Base de Datos",
     "new-notification-form-description": "Mealie utiliza la biblioteca Apprise para generar notificaciones. Ofrecen muchas opciones para que los servicios se usen para notificaciones. Consulte su wiki para obtener una guía completa sobre cómo crear la URL para su servicio. Si está disponible, seleccionar el tipo de notificación puede incluir características extra.",
     "notification": "Notificación",
@@ -52,7 +52,7 @@
     "clear": "Eliminar",
     "close": "Cerrar",
     "confirm": "Confirmar",
-    "copied": "Copied",
+    "copied": "Copiado",
     "create": "Crear",
     "created": "Creado",
     "current-parenthesis": "(Actual)",
@@ -143,14 +143,14 @@
     "dinner-this-week": "Cena para esta semana",
     "dinner-today": "Cena para hoy",
     "dinner-tonight": "Cena para esta noche",
-    "edit-meal-plan": "Editar Plan de Comida",
+    "edit-meal-plan": "Editar menú",
     "end-date": "Fecha de Finalización",
     "group": "Grupo (Beta)",
-    "meal-planner": "Plan de Comidas",
-    "meal-plans": "Planes de Comidas",
+    "meal-planner": "Menús",
+    "meal-plans": "Menús",
     "mealplan-categories": "Categorías del menú",
-    "mealplan-created": "Plan de Comida creado",
-    "mealplan-creation-failed": "Error al crear Plan de Comida",
+    "mealplan-created": "Menú creado",
+    "mealplan-creation-failed": "Error al crear el menú",
     "mealplan-deleted": "Menú borrado",
     "mealplan-deletion-failed": "Error al borrar el menú",
     "mealplan-settings": "Ajustes del menú",
@@ -355,17 +355,17 @@
       "unorganized": "Sin organizar"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Meal Planner Webhooks",
-      "test-webhooks": "Test Webhooks",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
+      "meal-planner-webhooks": "Webhooks del Menú",
+      "test-webhooks": "Probar Webhooks",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Las URLs que se muestran a continuación recibirán webhooks que contienen los datos de la receta para el menú del día programado. Actualmente los Webhooks se ejecutarán en",
       "webhook-url": "Dirección URL del Webhook",
       "webhooks-caps": "WEBHOOKS"
     }
   },
   "shopping-list": {
     "all-lists": "Todas las listas",
-    "create-shopping-list": "Create Shopping List",
-    "from-recipe": "From Recipe",
+    "create-shopping-list": "Crear lista de la compra",
+    "from-recipe": "Desde receta",
     "list-name": "Nombre de la lista",
     "new-list": "Nueva lista",
     "quantity": "Cantidad: {0}",
@@ -442,8 +442,8 @@
     "username": "Usuario",
     "users": "Usuarios",
     "users-header": "USUARIOS",
-    "webhook-time": "Webhook Time",
-    "webhooks-enabled": "Webhooks Enabled",
+    "webhook-time": "Tiempo de Webhook",
+    "webhooks-enabled": "Webhooks habilitados",
     "you-are-not-allowed-to-create-a-user": "No tiene permisos para crear usuarios",
     "you-are-not-allowed-to-delete-this-user": "No tiene permiso para eliminar este usuario"
   }
