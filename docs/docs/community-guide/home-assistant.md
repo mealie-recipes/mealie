@@ -1,3 +1,7 @@
+!!! info
+	This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
+
+
 In a lot of ways, Home Assistant is why this project exists! Since it Mealie has a robust API it makes it a great fit for interacting with Home Assistant and pulling information into your dashboard.
 
 ### Get Todays Meal in Lovelace

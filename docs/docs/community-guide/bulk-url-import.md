@@ -1,5 +1,5 @@
 !!! info
-    This example was submitted by a user. Have an Example? Submit a PR!
+	This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
 
 
 Recipes can be imported in bulk from a file containing a list of URLs. This can be done using the following bash or python scripts with the `list` file containing one URL per line.

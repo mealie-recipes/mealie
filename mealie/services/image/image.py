@@ -12,9 +12,9 @@ logger = root_logger.get_logger()
 
 @dataclass
 class ImageOptions:
-    ORIGINAL_IMAGE: str = "original*"
-    MINIFIED_IMAGE: str = "min-original*"
-    TINY_IMAGE: str = "tiny-original*"
+    ORIGINAL_IMAGE: str = "original.webp"
+    MINIFIED_IMAGE: str = "min-original.webp"
+    TINY_IMAGE: str = "tiny-original.webp"
 
 
 IMG_OPTIONS = ImageOptions()

@@ -45,7 +45,7 @@
       <RecipeEditor v-else v-model="recipeDetails" ref="recipeEditor" @upload="getImageFile" />
     </v-card>
     <CommentsSection
-      class="mt-2"
+      class="mt-2 d-print-none"
       :slug="recipeDetails.slug"
       :comments="recipeDetails.comments"
       @new-comment="getRecipeDetails"

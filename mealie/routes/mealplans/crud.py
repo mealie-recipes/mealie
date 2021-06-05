@@ -45,6 +45,25 @@ def get_today(session: Session = Depends(generate_session), current_user: UserIn
         return recipe
 
 
+@router.get("/today/image", tags=["Meal Plan"])
+def get_todays_image(session: Session = Depends(generate_session), group_name: str = "Home"):
+    """
+    Returns the image for todays meal-plan.
+    """
+
+    group_in_db: GroupInDB = db.groups.get(session, group_name, "name")
+    recipe = get_todays_meal(session, group_in_db)
+
+    if recipe:
+        recipe_image = recipe.image_dir.joinpath(image.ImageOptions.ORIGINAL_IMAGE)
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+    if recipe_image:
+        return FileResponse(recipe_image)
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+
 @router.get("/{id}", response_model=MealPlanOut)
 def get_meal_plan(
     id,
@@ -106,22 +125,3 @@ def delete_meal_plan(
         )
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
-
-
-@router.get("/today/image", tags=["Meal Plan"])
-def get_todays_image(session: Session = Depends(generate_session), group_name: str = "Home"):
-    """
-    Returns the image for todays meal-plan.
-    """
-
-    group_in_db: GroupInDB = db.groups.get(session, group_name, "name")
-    recipe = get_todays_meal(session, group_in_db)
-
-    if recipe:
-        recipe_image = recipe.image_dir.joinpath(image.ImageOptions.ORIGINAL_IMAGE)
-    else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
-    if recipe_image:
-        return FileResponse(recipe_image)
-    else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)

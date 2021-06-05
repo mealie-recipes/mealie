@@ -27,7 +27,7 @@
           <div>
             <v-text-field :label="$t('general.url')" class="pt-5" clearable v-model="url">
               <template v-slot:append-outer>
-                <v-btn class="ml-2" color="primary" @click="getImageFromURL" :loading="loading">
+                <v-btn class="ml-2" color="primary" @click="getImageFromURL" :loading="loading" :disabled="slug">
                   {{ $t("general.get") }}
                 </v-btn>
               </template>
