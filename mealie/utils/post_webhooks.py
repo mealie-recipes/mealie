@@ -1,3 +1,5 @@
+import json
+
 import requests
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
@@ -20,7 +22,7 @@ def post_webhooks(group: int, session: Session = None):
         return
 
     for url in group_settings.webhook_urls:
-        requests.post(url, json=todays_recipe.json())
+        requests.post(url, json=json.loads(todays_recipe.json()))
 
         create_scheduled_event("Meal Plan Webhook", f"Meal plan webhook executed for group '{group}'")
 
