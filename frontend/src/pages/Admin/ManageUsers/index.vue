@@ -14,7 +14,7 @@
           <v-icon>mdi-account-plus-outline</v-icon>
         </v-tab>
 
-        <v-tab href="#groups">
+        <v-tab href="#groups" @click="reqGroups">
           {{ $t("group.groups") }}
           <v-icon>{{ $globals.icons.group }}</v-icon>
         </v-tab>
@@ -55,7 +55,12 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("requestAllGroups");
+    this.reqGroups();
+  },
+  methods: {
+    reqGroups() {
+      this.$store.dispatch("requestAllGroups");
+    },
   },
 };
 </script>
