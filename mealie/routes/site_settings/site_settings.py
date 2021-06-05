@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
@@ -35,4 +35,7 @@ def test_webhooks(
     """ Run the function to test your webhooks """
     group_entry: GroupInDB = db.groups.get(session, current_user.group, "name")
 
-    return post_webhooks(group_entry.id, session)
+    try:
+        post_webhooks(group_entry.id, session)
+    except Exception:
+        return HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)

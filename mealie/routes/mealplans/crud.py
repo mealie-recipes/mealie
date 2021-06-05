@@ -56,7 +56,6 @@ def get_todays_image(session: Session = Depends(generate_session), group_name: s
 
     if recipe:
         recipe_image = recipe.image_dir.joinpath(image.ImageOptions.ORIGINAL_IMAGE)
-        print(recipe_image)
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
     if recipe_image:
