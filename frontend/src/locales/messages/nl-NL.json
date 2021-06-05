@@ -39,7 +39,7 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Database",
-    "new-notification-form-description": "Mealie gebruikt de Apprise library om meldingen te genereren. Ze bieden vele opties voor diensten om te gebruiken voor meldingen. Raadpleeg hun wiki voor een uitgebreide handleiding over hoe je een URL voor je service kunt maken. Indien beschikbaar, kan het selecteren van het type van uw melding extra opties bevatten.",
+    "new-notification-form-description": "Mealie gebruikt de Apprise library om meldingen te genereren. Ze bieden vele opties voor diensten om te gebruiken voor meldingen. Raadpleeg hun wiki voor een uitgebreide handleiding over hoe je een URL voor je service kunt maken. Indien beschikbaar, kan het selecteren van het type van jouw melding extra opties bevatten.",
     "notification": "Notificatie",
     "scheduled": "Gepland",
     "something-went-wrong": "Er is iets fout gegaan!",
@@ -205,7 +205,7 @@
     "calories-suffix": "calorieën",
     "carbohydrate-content": "Koolhydraten",
     "categories": "Categorieën",
-    "delete-confirmation": "Weet u zeker dat u dit recept wilt verwijderen?",
+    "delete-confirmation": "Weet je zeker dat je dit recept wilt verwijderen?",
     "delete-recipe": "Recept verwijderen",
     "description": "Omschrijving",
     "fat-content": "Vet",
