@@ -1,4 +1,9 @@
 # Using iOS Shortcuts with Mealie
+
+!!! info
+	This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
+
+
 ![](../assets/img/iphone-image.png){: align=right style="height:400px;width:400px"}
 
 

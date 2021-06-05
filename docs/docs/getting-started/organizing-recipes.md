@@ -19,7 +19,7 @@ Below are some general guidelines that were considered when creating the organiz
 
 In the diagram below you will see what we came up with using the new custom pages feature. The large circles indicate pages, and the rectangles indicate categories. We've grouped several 'like' categories with each other as a way to quickly find similar items. 
 
-![Mealie Diagram](../../assets/img/mealie-diagram.webp)
+![Mealie Diagram](../assets/img/mealie-diagram.webp)
 
 ## Toolbox
 The toolbox gives you multiple options to clean-up and organize your recipes. You can acces it through the 'Settings' menu or through the [dashboard](../site-administration/dashboard.md).

@@ -56,20 +56,20 @@ nav:
       - Organizing Recipes: "getting-started/organizing-recipes.md"
       - Planning Meals: "getting-started/meal-planner.md"
       - External Notifications: "getting-started/notifications.md"
-      - iOS Shortcuts: "getting-started/ios.md"
+      - API Usage: "getting-started/api-usage.md"
       - Site Administration:
+          - Dashboard: "site-administration/dashboard.md"
           - User Settings: "site-administration/user-settings.md"
           - Site Settings: "site-administration/site-settings.md"
           - Building Pages: "site-administration/building-pages.md"
           - User Management: "site-administration/user-management.md"
-          - Dashboard: "site-administration/dashboard.md"
           - Backups and Restore: "site-administration/backups-and-exports.md"
           - Recipe Migration: "site-administration/migration-imports.md"
-      - API Usage:
-          - Getting Started: "api-usage/getting-started.md"
-          - Home Assistant: "api-usage/home-assistant.md"
-          - Bulk Url Import: "api-usage/bulk-url-import.md"
-  - Community Guide: "community-guide/swag.md"
+      - Community Guides:
+          - iOS Shortcuts: "community-guide/ios.md"
+          - Reverse Proxy (SWAG): "community-guide/swag.md"
+          - Home Assistant: "community-guide/home-assistant.md"
+          - Bulk Url Import: "community-guide/bulk-url-import.md"
   - API Reference: "api/redoc.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"

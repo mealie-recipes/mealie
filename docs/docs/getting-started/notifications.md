@@ -47,13 +47,13 @@ New events can be created and viewed in admin Toolbox `/admin/toolbox?tab=event-
 !!! tip
     The feedback provided from the test feature is only an indicated of if the URL you provided is valid, not if the message was successfully sent. Be sure to check the notification feed for the test message.
 
-![Add Notification Image](../../assets/img/add-notification.webp)
+![Add Notification Image](../assets/img/add-notification.webp)
 
 
 ## Examples
 
 ### Discord
-![Discord]()
+![Discord](../assets/img/discord-notification-example.webp)
 
 ### Gotify
-![Gotify]()
+![Gotify](../assets/img/gotify-notification-example.webp)
