@@ -38,16 +38,24 @@ curl -X 'POST' \
     "settings": true,
     "themes": true
   },
-  "template": [
+  "templates": [
     "recipes.md"
   ]
 }'
 ```
 
 ### wget Example
-Download a backup with `wget`
+First request a file token with curl:
 ```bash
-wget http://localhost:9000/api/backups/{file_name}/download
+curl -X 'GET' \
+  'http://localhost:9000/api/backups/{file_name}/download' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json'
+```
+
+Then download the file with wget:
+```bash
+wget http://localhost:9000/api/utils/download?token={fileToken}
 ```
 
 
