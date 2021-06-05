@@ -33,7 +33,7 @@ class Cleaner:
 
         recipe_data["recipeYield"] = Cleaner.yield_amount(recipe_data.get("recipeYield"))
         recipe_data["recipeIngredient"] = Cleaner.ingredient(recipe_data.get("recipeIngredient"))
-        recipe_data["recipeInstructions"] = Cleaner.instructions(recipe_data["recipeInstructions"])
+        recipe_data["recipeInstructions"] = Cleaner.instructions(recipe_data.get("recipeInstructions"))
         recipe_data["image"] = Cleaner.image(recipe_data.get("image"))
         recipe_data["slug"] = slugify(recipe_data.get("name"))
         recipe_data["orgURL"] = url
