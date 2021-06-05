@@ -68,7 +68,7 @@ export default {
           action: "print",
         },
         {
-          title: this.$t("Share"),
+          title: this.$t("general.share"),
           icon: "mdi-share-variant",
           color: "accent",
           action: "share",
@@ -93,7 +93,7 @@ export default {
       ];
     },
     recipeText() {
-      return this.$t(`I wanted to share you my {0} recipe.`, [this.name]);
+      return this.$t("recipe.share-recipe-message", [this.name]);
     },
   },
   data() {
