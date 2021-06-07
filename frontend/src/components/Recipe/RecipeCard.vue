@@ -27,7 +27,7 @@
         <Rating :value="rating" :name="name" :slug="slug" :small="true" />
         <v-spacer></v-spacer>
         <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :isCategory="false" />
-        <ContextMenu :slug="slug" />
+        <ContextMenu :slug="slug" :name="name"/>
       </v-card-actions>
     </v-card>
   </v-hover>
