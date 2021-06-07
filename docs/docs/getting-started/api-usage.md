@@ -2,7 +2,7 @@
 
 ## Getting a Token
 
-Currently Mealie doesn't support creating a long-live token. You can however get a token from the API. This example was pulled from the automatic API documentation provided by Mealie.
+Mealie supports long-live api tokens in the user frontend. In you profile section you can use the 
 
 ### Curl
 ```bash

@@ -110,15 +110,19 @@ export default {
           this.$refs.deleteRecipieConfirm.open();
           break;
         case "share":
-            if (navigator.share){
-            navigator.share({
-              title: this.name,
-              text: this.recipeText,
-              url: this.recipeURL,
-            })
-            .then(() => console.log('Successful share'))
-            .catch((error) => console.log('WebShareAPI not supported', error))
-            } else this.updateClipboard();
+          if (navigator.share) {
+            navigator
+              .share({
+                title: this.name,
+                text: this.recipeText,
+                url: this.recipeURL,
+              })
+              .then(() => console.log("Successful share"))
+              .catch(error => {
+                console.log("WebShareAPI not supported", error);
+                this.updateClipboard();
+              });
+          } else this.updateClipboard();
           break;
         case "edit":
           this.$router.push(`/recipe/${this.slug}` + "?edit=true");
@@ -138,10 +142,13 @@ export default {
     updateClipboard() {
       const copyText = this.recipeURL;
       navigator.clipboard.writeText(copyText).then(
-          () => { console.log("Copied to Clipboard", copyText);
-            utils.notify.success("Copied to Clipboard");},
-          () => console.log("Copied Failed", copyText));
+        () => {
+          console.log("Copied to Clipboard", copyText);
+          utils.notify.success("Copied to Clipboard");
+        },
+        () => console.log("Copied Failed", copyText)
+      );
     },
   },
-}
+};
 </script>
