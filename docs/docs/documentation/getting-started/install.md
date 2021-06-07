@@ -7,7 +7,6 @@ To deploy mealie on your local network it is highly recommended to use docker to
 [Mealie on Dockerhub](https://hub.docker.com/r/hkotel/mealie) 
 
  - linux/amd64 
- - linux/arm/v7
  - linux/arm64
 
 
@@ -76,20 +75,21 @@ services:
 
 ## Env Variables
 
-| Variables         | Default            | Description                                                                         |
-| ----------------- | ------------------ | ----------------------------------------------------------------------------------- |
-| DEFAULT_GROUP     | Home               | The default group for users                                                         |
-| DEFAULT_EMAIL     | changeme@email.com | The default username for the superuser                                              |
-| DB_ENGINE         | sqlite             | Optional: 'sqlite', 'postgres'                                                      |
-| POSTGRES_USER     | mealie             | Postgres database user                                                              |
-| POSTGRES_PASSWORD | mealie             | Postgres database password                                                          |
-| POSTGRES_SERVER   | postgres           | Postgres database server address                                                    |
-| POSTGRES_PORT     | 5432               | Postgres database port                                                              |
-| POSTGRES_DB       | mealie             | Postgres database name                                                              |
-| TOKEN_TIME        | 2                  | The time in hours that a login/auth token is valid                                  |
-| API_PORT          | 9000               | The port exposed by backend API. **do not change this if you're running in docker** |
-| API_DOCS          | True               | Turns on/off access to the API documentation locally.                               |
-| TZ                | UTC                | Must be set to get correct date/time on the server                                  |
+| Variables         | Default               | Description                                                                         |
+| ----------------- | --------------------- | ----------------------------------------------------------------------------------- |
+| DEFAULT_GROUP     | Home                  | The default group for users                                                         |
+| DEFAULT_EMAIL     | changeme@email.com    | The default username for the superuser                                              |
+| BASE_URL          | http://localhost:8080 | Used for Notifications                                                              |
+| DB_ENGINE         | sqlite                | Optional: 'sqlite', 'postgres'                                                      |
+| POSTGRES_USER     | mealie                | Postgres database user                                                              |
+| POSTGRES_PASSWORD | mealie                | Postgres database password                                                          |
+| POSTGRES_SERVER   | postgres              | Postgres database server address                                                    |
+| POSTGRES_PORT     | 5432                  | Postgres database port                                                              |
+| POSTGRES_DB       | mealie                | Postgres database name                                                              |
+| TOKEN_TIME        | 2                     | The time in hours that a login/auth token is valid                                  |
+| API_PORT          | 9000                  | The port exposed by backend API. **do not change this if you're running in docker** |
+| API_DOCS          | True                  | Turns on/off access to the API documentation locally.                               |
+| TZ                | UTC                   | Must be set to get correct date/time on the server                                  |
 
 
 !!! tip "Fatal Python error: init_interp_main: can't initialize time"

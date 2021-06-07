@@ -19,7 +19,7 @@ To import a backup it must be in your backups folder. If it is in the backup fol
 
 ## Demo
 
-![](../assets/gifs/backup-demo-v1.gif)
+![](../../assets/gifs/backup-demo-v1.gif)
 
 ## API Examples
 You can use the API to create and retrieve backups remotely from any server that can access the Mealie instance. This is useful for easily managing off-site backups via cron-job or other scheduled tasks. You can find interactive documentation for your API at https://your-mealie-instance.com/docs

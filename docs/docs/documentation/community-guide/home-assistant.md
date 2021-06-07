@@ -9,7 +9,7 @@ Starting in v0.4.1 you are now able to use the uri `/api​/meal-plans​/today�
 
 Here's an example where `sensor.mealie_todays_meal` is pulling in the meal-plan name and I'm using the url to get the image.
 
-![api-extras-gif](../assets/img/home-assistant-card.png)
+![api-extras-gif](../../assets/img/home-assistant-card.png)
 
 ```yaml
 type: picture-entity

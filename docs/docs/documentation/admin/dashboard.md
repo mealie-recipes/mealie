@@ -2,7 +2,7 @@
 
 The dashboard gives you a quick overview of how your Mealie is doing. There is a 'Recipes' card, an overview of the users and groups, an 'Events' card and a 'Backups' card.
 
-![dashboard](../assets/img/dashboard.webp)
+![dashboard](../../assets/img/dashboard.webp)
 
 
 ##Recipes
