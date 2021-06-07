@@ -9,5 +9,5 @@ To edit the meal in a meal plan simply select the edit button on the card in the
 ## Shopping Lists
 For any meal plan created you can view a breakdown of all the ingredients and use an experimental sort function to sort similarly ingredients. This is a very new feature and results of the auto sort may vary. 
 
-![](../assets/gifs/meal-plan-demo-v2.gif)
+![](../../assets/gifs/meal-plan-demo-v2.gif)
 

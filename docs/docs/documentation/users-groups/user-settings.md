@@ -14,7 +14,7 @@ In as users profile they are able to
 ## Themes
 Color themes can be created and set from the UI in the users settings page. You can select an existing color theme or create a new one. On creation of a new color theme, the default colors will be used, then you can select and save as you'd like. By default the "default" theme will be loaded for all new users visiting the site. All created color themes are available to all users of the site. Theme Colors will be set for both light and dark modes.
 
-![](../assets/gifs/theme-demo-v2.gif)
+![](../../assets/gifs/theme-demo-v2.gif)
 
 !!! tip
     Theme data is stored in local storage in the browser. Calling "Save colors and apply theme will refresh the local storage with the selected theme as well save the theme to the database. 
