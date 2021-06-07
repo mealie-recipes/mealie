@@ -49,27 +49,38 @@ repo_name: hay-kot/mealie
 nav:
   - Home: "index.md"
   - Getting Started:
-      - Introduction: "getting-started/introduction.md"
-      - Installation: "getting-started/install.md"
-      - Updating: "getting-started/updating.md"
-      - Working With Recipes: "getting-started/recipes.md"
-      - Organizing Recipes: "getting-started/organizing-recipes.md"
-      - Planning Meals: "getting-started/meal-planner.md"
-      - External Notifications: "getting-started/notifications.md"
-      - API Usage: "getting-started/api-usage.md"
-      - Site Administration:
-          - Dashboard: "site-administration/dashboard.md"
-          - User Settings: "site-administration/user-settings.md"
-          - Site Settings: "site-administration/site-settings.md"
-          - Building Pages: "site-administration/building-pages.md"
-          - User Management: "site-administration/user-management.md"
-          - Backups and Restore: "site-administration/backups-and-exports.md"
-          - Recipe Migration: "site-administration/migration-imports.md"
+      - Introduction: "documentation/getting-started/introduction.md"
+      - Installation: "documentation/getting-started/install.md"
+      - Updating: "documentation/getting-started/updating.md"
+      - API: "documentation/getting-started/api-usage.md"
+
+      - Recipes:
+          - Working With Recipes: "documentation/recipes/recipes.md"
+          - Organizing Recipes: "documentation/recipes/organizing-recipes.md"
+
+      - Users & Groups:
+          - User Settings: "documentation/users-groups/user-settings.md"
+          - Planning Meals: "documentation/users-groups/meal-planner.md"
+          - Shopping Lists: "documentation/users-groups/shopping-lists.md"
+
+      - Admin:
+          - Dashboard: "documentation/admin/dashboard.md"
+          - Site Settings: "documentation/admin/site-settings.md"
+          - Building Pages: "documentation/admin/building-pages.md"
+          - User Management: "documentation/admin/user-management.md"
+          - Backups and Restore: "documentation/admin/backups-and-exports.md"
+          - Recipe Migration: "documentation/admin/migration-imports.md"
+      - Toolbox:
+          - Event Notifications: "documentation/toolbox/notifications.md"
+          - Category Tag Editor: "documentation/toolbox/category-tag-editor.md"
+          - Bulk Organizer: "documentation/toolbox/bulk-organize.md"
+
       - Community Guides:
-          - iOS Shortcuts: "community-guide/ios.md"
-          - Reverse Proxy (SWAG): "community-guide/swag.md"
-          - Home Assistant: "community-guide/home-assistant.md"
-          - Bulk Url Import: "community-guide/bulk-url-import.md"
+          - iOS Shortcuts: "documentation/community-guide/ios.md"
+          - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
+          - Home Assistant: "documentation/community-guide/home-assistant.md"
+          - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
+
   - API Reference: "api/redoc.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
