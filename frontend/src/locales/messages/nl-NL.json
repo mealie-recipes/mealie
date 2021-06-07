@@ -171,7 +171,7 @@
     },
     "migration-data-removed": "Migratie gegevens verwijderd",
     "nextcloud": {
-      "description": "Migreer gegevens uit een Nextcloud Kookboek instance",
+      "description": "Migreer gegevens uit Nextcloud Cookbook",
       "title": "Nextcloud Kookboek"
     },
     "no-migration-data-available": "Geen Migratiegegevens Beschikbaar",
@@ -201,7 +201,7 @@
   "recipe": {
     "add-key": "Sleutel toevoegen",
     "api-extras": "API Extras",
-    "assets": "Bijlagen",
+    "assets": "Onderdelen",
     "calories": "Calorieën",
     "calories-suffix": "calorieën",
     "carbohydrate-content": "Koolhydraten",
@@ -215,7 +215,7 @@
     "ingredient": "Ingrediënt",
     "ingredients": "Ingrediënten",
     "instructions": "Instructies",
-    "share-recipe-message": "Ik wilde mijn {0} recept met je delen.",
+    "share-recipe-message": "Ik wilde je mijn {0} recept met je delen.",
     "key-name-required": "Sleutelnaam vereist",
     "landscape-view-coming-soon": "Landschapsweergave (binnenkort beschikbaar)",
     "milligrams": "milligram",
