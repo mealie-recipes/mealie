@@ -9,7 +9,7 @@ Your sites settings panel can only be accessed by administrators. This where you
 | Home Page Sections | Category sections to include on the home page                  |
 | Language           | The default site language                                      |
 | First day of the week | The default start day of the week used in Meal Plans        |
-| Custom Pages | Create a custom page which appears in the sidebar with the categories you chose       |
+| Custom Pages | Create a [custom page](../admin/building-pages.md) which appears in the sidebar with the categories you chose       |
 
 ![Site Settings Image](../../assets/img/site-settings.webp)
 
