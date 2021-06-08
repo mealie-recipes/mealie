@@ -10,6 +10,10 @@ const state = {
       value: "da-DK",
     },
     {
+      name: "Deutsch (German)",
+      value: "de-DE",
+    },
+    {
       name: "Français (French)",
       value: "fr-FR",
     },
@@ -22,6 +26,10 @@ const state = {
       value: "pl-PL",
     },
     {
+      name: "Português (Portuguese)",
+      value: "pt-PT",
+    },
+    {
       name: "Svenska (Swedish)",
       value: "sv-SE",
     },
@@ -32,14 +40,6 @@ const state = {
     {
       name: "繁體中文 (Chinese traditional)",
       value: "zh-TW",
-    },
-    {
-      name: "Deutsch (German)",
-      value: "de-DE",
-    },
-    {
-      name: "Português (Portuguese)",
-      value: "pt-PT",
     },
   ],
 };
