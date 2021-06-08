@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 import requests
 import scrape_schema_recipe
@@ -34,19 +33,15 @@ def create_from_url(url: str) -> Recipe:
 
 
 def extract_recipe_from_html(html: str, url: str) -> dict:
-    try:
-        scraped_recipes: List[dict] = scrape_schema_recipe.loads(html, python_objects=True)
-        dump_last_json(scraped_recipes)
+    scraped_recipes: list[dict]
 
-        if not scraped_recipes:
-            scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(url, python_objects=True)
+    try:
+        scraped_recipes = scrape_schema_recipe.scrape_url(url)
     except Exception as e:
         print(e)
-        scraped_recipes: List[dict] = scrape_schema_recipe.loads(html)
-        dump_last_json(scraped_recipes)
+        scraped_recipes = scrape_schema_recipe.loads(html, python_objects=True)
 
-        if not scraped_recipes:
-            scraped_recipes: List[dict] = scrape_schema_recipe.scrape_url(url)
+    dump_last_json(scraped_recipes)
 
     if scraped_recipes:
         new_recipe: dict = scraped_recipes[0]

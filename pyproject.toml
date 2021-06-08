@@ -33,6 +33,7 @@ lxml = "4.6.2"
 Pillow = "^8.2.0"
 pathvalidate = "^2.4.1"
 apprise = "^0.9.2"
+recipe-scrapers = "^13.2.7"
 
 
 [tool.poetry.dev-dependencies]

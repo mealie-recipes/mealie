@@ -940,6 +940,19 @@ python-versions = "*"
 rdflib = ">=4.2.2"
 
 [[package]]
+name = "recipe-scrapers"
+version = "13.2.7"
+description = "Python package, scraping recipes from all over the internet"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+beautifulsoup4 = ">=4.6.0"
+extruct = ">=0.8.0"
+requests = ">=2.19.1"
+
+[[package]]
 name = "regex"
 version = "2021.4.4"
 description = "Alternative regular expression module, to replace re."
@@ -1236,7 +1249,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "73bac73c62e64c90a29816dde9ef1d896e8ca0b4271e67cde6ca8cc56bd87efd"
+content-hash = "8a123b6b0cf37c1d4a66ea4f137f79bba79f373c7019af879e1b06fb5ded0ed4"
 
 [metadata.files]
 aiofiles = [
@@ -1892,6 +1905,10 @@ rdflib = [
 ]
 rdflib-jsonld = [
     {file = "rdflib-jsonld-0.5.0.tar.gz", hash = "sha256:4f7d55326405071c7bce9acf5484643bcb984eadb84a6503053367da207105ed"},
+]
+recipe-scrapers = [
+    {file = "recipe_scrapers-13.2.7-py3-none-any.whl", hash = "sha256:e5b2a251bbba2ef319ce32a10c4073b23f483f0ee2db83da543204549b06dffe"},
+    {file = "recipe_scrapers-13.2.7.tar.gz", hash = "sha256:e03d20a5c39f9c3dcb0185be1b6480ac0a086900d6aacf1699c77fa090944901"},
 ]
 regex = [
     {file = "regex-2021.4.4-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:619d71c59a78b84d7f18891fe914446d07edd48dc8328c8e149cbe0929b4e000"},
