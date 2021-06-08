@@ -6,9 +6,7 @@
 
         <v-list-item dense v-if="isLoggedIn" :to="`/user/${user.id}/favorites`">
           <v-list-item-icon>
-            <v-icon>
-              mdi-heart
-            </v-icon>
+            <v-icon> mdi-heart </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title> Favorites </v-list-item-title>
@@ -30,17 +28,13 @@
       <v-list nav dense class="fixedBottom" v-if="!isMain">
         <v-list-item href="https://github.com/sponsors/hay-kot" target="_target">
           <v-list-item-icon>
-            <v-icon color="pink">
-              mdi-heart
-            </v-icon>
+            <v-icon color="pink"> mdi-heart </v-icon>
           </v-list-item-icon>
           <v-list-item-title> {{ $t("about.support") }} </v-list-item-title>
         </v-list-item>
         <v-list-item to="/admin/about">
           <v-list-item-icon class="mr-3 pt-1">
-            <v-icon :color="newVersionAvailable ? 'red--text' : ''">
-              mdi-information
-            </v-icon>
+            <v-icon :color="newVersionAvailable ? 'red--text' : ''"> mdi-information </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -86,7 +80,8 @@ export default {
   },
   mounted() {
     this.getVersion();
-    this.resetView();
+
+    this.showSidebar = !this.isMobile;
   },
   watch: {
     user() {
@@ -98,7 +93,6 @@ export default {
     isMain() {
       const testVal = this.$route.path.split("/");
       if (testVal[1] === "recipe") this.closeSidebar();
-      else this.resetView();
 
       return !(testVal[1] === "admin");
     },
@@ -135,7 +129,7 @@ export default {
       const pages = this.$store.getters.getCustomPages;
       if (pages.length > 0) {
         pages.sort((a, b) => a.position - b.position);
-        return pages.map(x => ({
+        return pages.map((x) => ({
           title: x.name,
           to: `/pages/${x.slug}`,
           icon: this.$globals.icons.pages,
@@ -217,9 +211,7 @@ export default {
     resetImage() {
       this.hideImage == false;
     },
-    resetView() {
-      this.showSidebar = !this.isMobile;
-    },
+
     toggleSidebar() {
       this.showSidebar = !this.showSidebar;
     },
