@@ -28,8 +28,43 @@
               persistent-hint
             ></v-text-field>
 
-            <v-alert v-if="error" color="red" outlined type="success">
-              {{ $t("new-recipe.error-message") }}
+            <v-alert v-if="error" color="error" class="mt-6 white--text">
+              <v-card-title class="ma-0 pa-0">
+                <v-icon left color="white" x-large>
+                  mdi-robot
+                </v-icon>
+                {{ $t("new-recipe.error-title") }}
+              </v-card-title>
+              <v-divider class="my-3 mx-2"></v-divider>
+
+              <p>
+                {{ $t("new-recipe.error-details") }}
+              </p>
+              <div class="d-flex row justify-space-around my-3 force-white">
+                <a
+                  class="dark"
+                  href="https://developers.google.com/search/docs/data-types/recipe"
+                  target="_blank"
+                  rel="noreferrer nofollow"
+                >
+                  Google ld+json Info
+                </a>
+                <a href="https://github.com/hay-kot/mealie/issues" target="_blank" rel="noreferrer nofollow">
+                  GitHub Issues
+                </a>
+                <a href="https://schema.org/Recipe" target="_blank" rel="noreferrer nofollow">
+                  Recipe Markup Specification
+                </a>
+              </div>
+              <div class="d-flex justify-end">
+                <TheDownloadBtn download-url="/api/debug/last-recipe-json">
+                  <template v-slot:default="{ downloadFile }">
+                    <v-btn class="ml-auto mt-4" color="info" @click="downloadFile">
+                      <v-icon left> mdi-download </v-icon> {{ $t("about.download-recipe-json") }}
+                    </v-btn>
+                  </template>
+                </TheDownloadBtn>
+              </div>
             </v-alert>
           </v-card-text>
 
@@ -65,8 +100,9 @@
 
 <script>
 import { api } from "@/api";
-
+import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn.vue";
 export default {
+  components: { TheDownloadBtn },
   props: {
     absolute: {
       default: false,
@@ -113,4 +149,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.force-white > a {
+  color: white !important;
+}
+</style>
