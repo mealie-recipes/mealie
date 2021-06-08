@@ -14,6 +14,10 @@ const state = {
       value: "fr-FR",
     },
     {
+      name: "Nederlands (Dutch)",
+      value: "nl-NL",
+    },
+    {
       name: "Polski (Polish)",
       value: "pl-PL",
     },

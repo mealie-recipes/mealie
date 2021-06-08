@@ -6,6 +6,7 @@ Vue.use(Vuetify);
 import de from "vuetify/es5/locale/de";
 import en from "vuetify/es5/locale/en";
 import fr from "vuetify/es5/locale/fr";
+import nl from "vuetify/es5/locale/nl";
 import pl from "vuetify/es5/locale/pl";
 import pt from "vuetify/es5/locale/pt";
 import sv from "vuetify/es5/locale/sv";
@@ -43,6 +44,7 @@ const vuetify = new Vuetify({
       "de-DE": de,
       "en-US": en,
       "fr-FR": fr,
+      "nl-NL": nl,
       "pl-PL": pl,
       "pt-PT": pt,
       "sv-SE": sv,
