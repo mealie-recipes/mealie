@@ -29,11 +29,8 @@ export const recipeAPI = {
    * @returns {string} Recipe Slug
    */
   async createByURL(recipeURL) {
-    const response = await apiReq.post(
-      recipeURLs.createByURL,
-      { url: recipeURL },
-      () => i18n.t("recipe.recipe-creation-failed"),
-      () => i18n.t("recipe.recipe-created")
+    const response = await apiReq.post(recipeURLs.createByURL, { url: recipeURL }, false, () =>
+      i18n.t("recipe.recipe-created")
     );
 
     store.dispatch("requestRecentRecipes");
