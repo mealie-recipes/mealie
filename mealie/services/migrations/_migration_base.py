@@ -9,7 +9,7 @@ from mealie.db.database import db
 from mealie.schema.migration import MigrationImport
 from mealie.schema.recipe import Recipe
 from mealie.services.image import image
-from mealie.services.scraper.cleaner import Cleaner
+from mealie.services.scraper import cleaner
 from mealie.utils.unzip import unpack_zip
 from pydantic import BaseModel
 
@@ -144,7 +144,7 @@ class MigrationBase(BaseModel):
         """Calls the rewrite_alias function and the Cleaner.clean function on a
         dictionary and returns the result unpacked into a Recipe object"""
         recipe_dict = self.rewrite_alias(recipe_dict)
-        recipe_dict = Cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
+        recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
 
         return Recipe(**recipe_dict)
 

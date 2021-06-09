@@ -42,6 +42,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
 
 
 def scrape_image(image_url: str, slug: str) -> Path:
+    logger.info(f"Image URL: {image_url}")
     if isinstance(image_url, str):  # Handles String Types
         image_url = image_url
 
@@ -64,7 +65,7 @@ def scrape_image(image_url: str, slug: str) -> Path:
 
     if r.status_code == 200:
         r.raw.decode_content = True
-
+        logger.info(f"File Name Suffix {filename.suffix}")
         write_image(slug, r.raw, filename.suffix)
 
         filename.unlink(missing_ok=True)

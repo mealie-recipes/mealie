@@ -2,7 +2,7 @@ import json
 import re
 
 import pytest
-from mealie.services.scraper.cleaner import Cleaner
+from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraper import extract_recipe_from_html
 from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
 
@@ -39,23 +39,23 @@ url_validation_regex = re.compile(
     ],
 )
 def test_cleaner_clean(json_file, num_steps):
-    recipe_data = Cleaner.clean(json.load(open(TEST_RAW_RECIPES.joinpath(json_file))))
+    recipe_data = cleaner.clean(json.load(open(TEST_RAW_RECIPES.joinpath(json_file))))
     assert len(recipe_data["recipeInstructions"]) == num_steps
 
 
 def test_clean_category():
-    assert Cleaner.category("my-category") == ["my-category"]
+    assert cleaner.category("my-category") == ["my-category"]
 
 
-def test_clean_html():
-    assert Cleaner.html("<div>Hello World</div>") == "Hello World"
+def test_clean_string():
+    assert cleaner.clean_string("<div>Hello World</div>") == "Hello World"
 
 
 def test_clean_image():
-    assert Cleaner.image(None) == "no image"
-    assert Cleaner.image("https://my.image/path/") == "https://my.image/path/"
-    assert Cleaner.image({"url": "My URL!"}) == "My URL!"
-    assert Cleaner.image(["My URL!", "MY SECOND URL"]) == "My URL!"
+    assert cleaner.image(None) == "no image"
+    assert cleaner.image("https://my.image/path/") == "https://my.image/path/"
+    assert cleaner.image({"url": "My URL!"}) == "My URL!"
+    assert cleaner.image(["My URL!", "MY SECOND URL"]) == "My URL!"
 
 
 @pytest.mark.parametrize(
@@ -70,7 +70,7 @@ def test_clean_image():
     ],
 )
 def test_cleaner_instructions(instructions):
-    assert Cleaner.instructions(instructions) == [
+    assert cleaner.instructions(instructions) == [
         {"text": "A"},
         {"text": "B"},
         {"text": "C"},
@@ -94,6 +94,6 @@ def test_html_with_recipe_data():
 def test_time_cleaner():
 
     my_time_delta = "PT2H30M"
-    return_delta = Cleaner.time(my_time_delta)
+    return_delta = cleaner.clean_time(my_time_delta)
 
     assert return_delta == "2 Hours 30 Minutes"

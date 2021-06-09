@@ -13,6 +13,7 @@ from mealie.services.events import create_recipe_event
 from mealie.services.image.image import scrape_image, write_image
 from mealie.services.recipe.media import check_assets, delete_assets
 from mealie.services.scraper.scraper import create_from_url
+from scrape_schema_recipe import scrape_url
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
@@ -39,6 +40,11 @@ def create_from_json(
     )
 
     return recipe.slug
+
+
+@router.post("/test-scrape-url", dependencies=[Depends(get_current_user)])
+def test_parse_recipe_url(url: RecipeURLIn):
+    return scrape_url(url.url)
 
 
 @router.post("/create-url", status_code=201, response_model=str)

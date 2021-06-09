@@ -12,6 +12,7 @@ const recipeURLs = {
   allRecipesByCategory: prefix + "category",
   create: prefix + "create",
   createByURL: prefix + "create-url",
+  testParseURL: prefix + "test-scrape-url",
   recipe: slug => prefix + slug,
   update: slug => prefix + slug,
   delete: slug => prefix + slug,
@@ -181,6 +182,11 @@ export const recipeAPI = {
    */
   async deleteComment(slug, id) {
     const response = await apiReq.delete(API_ROUTES.recipesSlugCommentsId(slug, id));
+    return response.data;
+  },
+
+  async testScrapeURL(url) {
+    const response = await apiReq.post(recipeURLs.testParseURL, { url: url });
     return response.data;
   },
 };

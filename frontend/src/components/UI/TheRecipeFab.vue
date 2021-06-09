@@ -54,13 +54,15 @@
                   </a>
                 </div>
                 <div class="d-flex justify-end">
-                  <TheDownloadBtn download-url="/api/debug/last-recipe-json">
-                    <template v-slot:default="{ downloadFile }">
-                      <v-btn class="ml-auto mt-4" outlined color="white" @click="downloadFile">
-                        <v-icon left> mdi-download </v-icon> {{ $t("about.download-recipe-json") }}
-                      </v-btn>
-                    </template>
-                  </TheDownloadBtn>
+                  <v-btn
+                    white
+                    outlined
+                    :to="{ path: '/recipes/debugger', query: { test_url: recipeURL } }"
+                    @click="addRecipe = false"
+                  >
+                    <v-icon> mdi-external-link </v-icon>
+                    View Scraped Data
+                  </v-btn>
                 </div>
               </v-alert>
             </v-expand-transition>
@@ -100,9 +102,7 @@
 
 <script>
 import { api } from "@/api";
-import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn.vue";
 export default {
-  components: { TheDownloadBtn },
   props: {
     absolute: {
       default: false,
