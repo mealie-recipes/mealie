@@ -179,7 +179,8 @@
   },
   "new-recipe": {
     "bulk-add": "Massenimport",
-    "error-message": "Anscheinend ist ein Fehler ist beim Parsen der URL aufgetreten. Überprüfe das Log sowie debug/last_recipe.json, um zu sehen, was fehlgeschlagen ist.",
+    "error-title": "Looks Like We Couldn't Find Anything",
+    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "from-url": "Von URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
     "recipe-url": "Rezept URL",
