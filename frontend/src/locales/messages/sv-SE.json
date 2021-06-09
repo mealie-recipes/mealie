@@ -179,7 +179,8 @@
   },
   "new-recipe": {
     "bulk-add": "Lägg till flera",
-    "error-message": "Ett fel uppstod när receptet skulle läsas in. Undersök loggen och debug/last_recipe.json för att felsöka problemet.",
+    "error-title": "Looks Like We Couldn't Find Anything",
+    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "from-url": "Från länk",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
     "recipe-url": "Recept URL",
