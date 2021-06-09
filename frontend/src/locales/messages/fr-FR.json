@@ -179,7 +179,8 @@
   },
   "new-recipe": {
     "bulk-add": "Ajouter en masse",
-    "error-message": "Il y a eu une erreur en récupérant la recette. Veuillez vérifier les logs ainsi que le fichier debug/last_recipe.json pour localiser le problème.",
+    "error-title": "Looks Like We Couldn't Find Anything",
+    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "from-url": "Depuis une adresse web",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
     "recipe-url": "Adresse de la recette",
