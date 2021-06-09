@@ -63,7 +63,7 @@ import RecipeViewer from "@/components/Recipe/RecipeViewer";
 import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
-import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
+import EditorButtonRow from "@/components/Recipe/EditorButtonRow.vue";
 import NoRecipe from "@/components/Fallbacks/NoRecipe";
 import { user } from "@/mixins/user";
 import { router } from "@/routes";
@@ -133,7 +133,7 @@ export default {
   },
 
   watch: {
-    $route: function() {
+    $route: function () {
       this.getRecipeDetails();
     },
   },

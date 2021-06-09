@@ -3,6 +3,18 @@
 ## URL Import
 Adding a recipe can be as easy as copying the recipe URL into mealie and letting the web scrapper try to pull down the information. Currently this scraper is implemented with [scrape-schema-recipe package](https://pypi.org/project/scrape-schema-recipe/). You may have mixed results on some websites, especially with blogs or non specific recipe websites. See the bulk import Option below for another a convenient way to add blog style recipes into Mealie.
 
+## Using Bookmarklets
+
+You can use bookmarklets to generate a bookmark that will take your current location, and open a new tab that will try to import that URL into Mealie.
+
+You can use a [bookmarklet generator site](https://caiorss.github.io/bookmarklet-maker/) and the code below to generate a bookmark for your site. Just change the `http://localhost:8080` to your sites web address and follow the instructions. Note that there is no trailing `/`. 
+
+```js
+var url = document.URL ;
+var mealie = "http://localhost:8080"
+var dest = mealie + "/?recipe_import_url=" + url
+window.open(dest, '_blank') 
+```
 
 ## Recipe Editor
 Recipes can be edited and created via the UI. This is done with both a form based approach where you have a UI to work with as well as with a in browser JSON Editor. The JSON editor allows you to easily copy and paste data from other sources. 
