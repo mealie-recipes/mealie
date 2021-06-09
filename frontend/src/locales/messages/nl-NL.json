@@ -179,7 +179,8 @@
   },
   "new-recipe": {
     "bulk-add": "Bulk toevoegen",
-    "error-message": "Het lijkt erop dat er een fout is opgetreden bij het verwerken van de URL. Controleer het logboek en de debug/last_recipe.json om te zien wat er fout ging.",
+    "error-title": "Looks Like We Couldn't Find Anything",
+    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "from-url": "Recept importeren",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-url": "Recept URL",
