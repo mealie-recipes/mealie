@@ -3,7 +3,7 @@ import re
 
 import pytest
 from mealie.services.scraper import cleaner
-from mealie.services.scraper.scraper import extract_recipe_from_html
+from mealie.services.scraper.scraper import open_graph
 from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
 
 # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
@@ -80,15 +80,13 @@ def test_cleaner_instructions(instructions):
 def test_html_with_recipe_data():
     path = TEST_RAW_HTML.joinpath("healthy_pasta_bake_60759.html")
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
-    recipe_data = extract_recipe_from_html(open(path, encoding="utf8").read(), url)
+    recipe_data = open_graph.basic_recipe_from_opengraph(open(path, encoding="utf8").read(), url)
 
     assert len(recipe_data["name"]) > 10
     assert len(recipe_data["slug"]) > 10
     assert recipe_data["orgURL"] == url
     assert len(recipe_data["description"]) > 100
     assert url_validation_regex.match(recipe_data["image"])
-    assert len(recipe_data["recipeIngredient"]) == 13
-    assert len(recipe_data["recipeInstructions"]) == 4
 
 
 def test_time_cleaner():
