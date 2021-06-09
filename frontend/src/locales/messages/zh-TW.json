@@ -179,7 +179,8 @@
   },
   "new-recipe": {
     "bulk-add": "批量添加",
-    "error-message": "貌似在解析網址時出錯。請檢查log和debug/last_recipe.json文件並找尋更多有關資訊。",
+    "error-title": "Looks Like We Couldn't Find Anything",
+    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "from-url": "輸入網址",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "請粘貼您的食譜資料。每行將被視為列表中的一項。",
     "recipe-url": "食譜網址",
