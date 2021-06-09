@@ -113,15 +113,32 @@ export default {
       error: false,
       fab: false,
       addRecipe: false,
-      recipeURL: "",
       processing: false,
     };
+  },
+
+  mounted() {
+    if (this.$route.query.recipe_import_url) {
+      this.addRecipe = true;
+      this.createRecipe();
+    }
+  },
+
+  computed: {
+    recipeURL: {
+      set(recipe_import_url) {
+        this.$router.replace({ query: { ...this.$route.query, recipe_import_url } });
+      },
+      get() {
+        return this.$route.query.recipe_import_url || "";
+      },
+    },
   },
 
   methods: {
     async createRecipe() {
       this.error = false;
-      if (this.$refs.urlForm.validate()) {
+      if (this.$refs.urlForm === undefined || this.$refs.urlForm.validate()) {
         this.processing = true;
         const response = await api.recipes.createByURL(this.recipeURL);
         this.processing = false;
@@ -146,6 +163,10 @@ export default {
       let regEx =
         /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
       return regEx.test(url) ? true : "Must be a Valid URL";
+    },
+
+    bookmark() {
+      return `javascript:(function()%7Bvar url %3D document.URL %3B%0Avar mealie %3D "http%3A%2F%2Flocalhost%3A8080%2F%23"%0Avar dest %3D mealie %2B "%2F%3Frecipe_import_url%3D" %2B url%0Awindow.open(dest%2C '_blank')%7D)()%3B`;
     },
   },
 };
