@@ -75,12 +75,9 @@ def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), i
     """ Takes in a recipe slug, returns all data for a recipe """
 
     recipe: Recipe = db.recipes.get(session, recipe_slug)
-    print(is_user)
-    return recipe
 
     if recipe.settings.public or is_user:
-        print(recipe)
-        print(is_user)
+
         return recipe
 
     else:
