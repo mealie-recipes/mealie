@@ -37,7 +37,7 @@ class _Recipes(BaseDocument):
         self.schema: Recipe = Recipe
 
     def get_all_not_private(
-        self, session: Session, limit: int = None, order_by: str = None, start=0, end=9999, override_schema=None
+        self, session: Session, limit: int = None, order_by: str = None, start=0, override_schema=None
     ):
         eff_schema = override_schema or self.schema
 
