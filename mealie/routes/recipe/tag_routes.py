@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.category import RecipeTagResponse, TagIn
 from sqlalchemy.orm.session import Session
 
@@ -23,9 +23,17 @@ def get_empty_tags(session: Session = Depends(generate_session)):
 
 
 @router.get("/{tag}", response_model=RecipeTagResponse)
-def get_all_recipes_by_tag(tag: str, session: Session = Depends(generate_session)):
+def get_all_recipes_by_tag(
+    tag: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)
+):
     """ Returns a list of recipes associated with the provided tag. """
-    return db.tags.get(session, tag)
+    tag_obj = db.tags.get(session, tag)
+    tag_obj = RecipeTagResponse.from_orm(tag_obj)
+
+    if not is_user:
+        tag_obj.recipes = [x for x in tag_obj.recipes if x.settings.public]
+
+    return tag_obj
 
 
 @router.post("")

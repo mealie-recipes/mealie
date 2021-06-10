@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.category import CategoryIn, RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 
@@ -21,9 +21,18 @@ def get_empty_categories(session: Session = Depends(generate_session)):
 
 
 @router.get("/{category}", response_model=RecipeCategoryResponse)
-def get_all_recipes_by_category(category: str, session: Session = Depends(generate_session)):
+def get_all_recipes_by_category(
+    category: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)
+):
     """ Returns a list of recipes associated with the provided category. """
-    return db.categories.get(session, category)
+
+    category_obj = db.categories.get(session, category)
+    category_obj = RecipeCategoryResponse.from_orm(category_obj)
+
+    if not is_user:
+        category_obj.recipes = [x for x in category_obj.recipes if x.settings.public]
+
+    return category_obj
 
 
 @router.post("", dependencies=[Depends(get_current_user)])
