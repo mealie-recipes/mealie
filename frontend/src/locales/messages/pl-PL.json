@@ -14,15 +14,15 @@
     "demo": "Demo",
     "demo-status": "Status demo",
     "development": "Wersja testowa",
-    "docs": "Docs",
+    "docs": "Dokumentacja",
     "download-log": "Pobierz dziennik",
     "download-recipe-json": "Last Scraped JSON",
-    "github": "Github",
-    "log-lines": "Log Lines",
+    "github": "GitHub",
+    "log-lines": "Wiersze dziennika",
     "not-demo": "Nie demo",
     "portfolio": "Portfolio",
     "production": "Produkcyjna",
-    "support": "Support",
+    "support": "Wsparcie",
     "version": "Wersja"
   },
   "category": {
@@ -38,7 +38,7 @@
   },
   "events": {
     "apprise-url": "Apprise URL",
-    "database": "Database",
+    "database": "Baza danych",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
     "notification": "Notification",
     "scheduled": "Scheduled",
