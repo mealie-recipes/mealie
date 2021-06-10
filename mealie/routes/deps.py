@@ -15,6 +15,23 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 ALGORITHM = "HS256"
 
 
+async def is_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> bool:
+    try:
+        payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        long_token: str = payload.get("long_token")
+
+        # return True
+
+        if long_token is not None:
+            return validate_long_live_token(session, token, payload.get("id"))
+
+        return username is not None
+
+    except JWTError:
+        return False
+
+
 async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> UserInDB:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
