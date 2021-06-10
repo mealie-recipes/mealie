@@ -83,12 +83,11 @@ def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), i
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, {"details": "unauthorized"})
 
 
-@router.put("/{recipe_slug}")
+@router.put("/{recipe_slug}", dependencies=[Depends(get_current_user)])
 def update_recipe(
     recipe_slug: str,
     data: Recipe,
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Updates a recipe by existing slug and data. """
 
@@ -99,12 +98,11 @@ def update_recipe(
     return recipe
 
 
-@router.patch("/{recipe_slug}")
+@router.patch("/{recipe_slug}", dependencies=[Depends(get_current_user)])
 def patch_recipe(
     recipe_slug: str,
     data: Recipe,
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Updates a recipe by existing slug and data. """
 
@@ -154,18 +152,17 @@ def update_recipe_image(
     return {"image": new_version}
 
 
-@router.post("/{recipe_slug}/image")
+@router.post("/{recipe_slug}/image", dependencies=[Depends(get_current_user)])
 def scrape_image_url(
     recipe_slug: str,
     url: RecipeURLIn,
-    current_user=Depends(get_current_user),
 ):
     """ Removes an existing image and replaces it with the incoming file. """
 
     scrape_image(url.url, recipe_slug)
 
 
-@router.post("/{recipe_slug}/assets", response_model=RecipeAsset)
+@router.post("/{recipe_slug}/assets", response_model=RecipeAsset, dependencies=[Depends(get_current_user)])
 def upload_recipe_asset(
     recipe_slug: str,
     name: str = Form(...),
@@ -173,7 +170,6 @@ def upload_recipe_asset(
     extension: str = Form(...),
     file: UploadFile = File(...),
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Upload a file to store as a recipe asset """
     file_name = slugify(name) + "." + extension
