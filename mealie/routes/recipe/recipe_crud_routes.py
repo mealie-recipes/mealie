@@ -6,7 +6,7 @@ from mealie.core.config import settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_user
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.recipe import Recipe, RecipeAsset, RecipeURLIn
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
@@ -71,12 +71,16 @@ def parse_recipe_url(
 
 
 @router.get("/{recipe_slug}", response_model=Recipe)
-def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_user)):
+def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)):
     """ Takes in a recipe slug, returns all data for a recipe """
 
     recipe: Recipe = db.recipes.get(session, recipe_slug)
+    print(is_user)
+    return recipe
 
-    if is_user or recipe.settings.public:
+    if recipe.settings.public or is_user:
+        print(recipe)
+        print(is_user)
         return recipe
 
     else:

@@ -12,23 +12,39 @@ from mealie.schema.user import LongLiveTokenInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
+oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 ALGORITHM = "HS256"
 
 
-async def is_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> bool:
+async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)) -> bool:
+    """
+    When you need to determine if the user is logged in, but don't need the user, you can use this
+    function to return a boolean value to represent if the user is logged in. No Auth exceptions are raised
+    if the user is not logged in. This behavior is not the same as 'get_current_user'
+
+    Args:
+        token (str, optional): [description]. Defaults to Depends(oauth2_scheme_soft_fail).
+        session ([type], optional): [description]. Defaults to Depends(generate_session).
+
+    Returns:
+        bool: True = Valid User / False = Not User
+    """
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         long_token: str = payload.get("long_token")
 
-        # return True
-
         if long_token is not None:
-            return validate_long_live_token(session, token, payload.get("id"))
+            try:
+                user = validate_long_live_token(session, token, payload.get("id"))
+                if user:
+                    return True
+            except Exception:
+                return False
 
         return username is not None
 
-    except JWTError:
+    except Exception:
         return False
 
 

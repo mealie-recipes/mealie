@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_user
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.recipe import RecipeSummary
 from slugify import slugify
 from sqlalchemy.orm.session import Session
@@ -11,7 +11,7 @@ router = APIRouter(tags=["Query All Recipes"])
 
 @router.get("/api/recipes/summary", response_model=list[RecipeSummary])
 async def get_recipe_summary(
-    start=0, limit=9999, session: Session = Depends(generate_session), is_user: bool = Depends(is_user)
+    start=0, limit=9999, session: Session = Depends(generate_session), user: bool = Depends(is_logged_in)
 ):
     """
     Returns key the recipe summary data for recipes in the database. You can perform
@@ -25,7 +25,7 @@ async def get_recipe_summary(
 
     """
 
-    if is_user:
+    if user:
         return db.recipes.get_all(
             session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
         )
