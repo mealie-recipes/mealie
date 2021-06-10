@@ -39,12 +39,12 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Baza danych",
-    "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
-    "notification": "Notification",
-    "scheduled": "Scheduled",
-    "something-went-wrong": "Something Went Wrong!",
-    "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent"
+    "new-notification-form-description": "Mealie używa biblioteki Apprise do generowania powiadomień. Oferują one wiele możliwości korzystania z usług do powiadomień. Zobacz ich wiki w celu uzyskania wyczerpującego poradnika jak utworzyć adres URL dla Twojej usługi. Jeśli jest to możliwe, wybór typu powiadomienia może zawierać dodatkowe funkcje.",
+    "notification": "Powiadomienie",
+    "scheduled": "Zaplanowane",
+    "something-went-wrong": "Coś poszło nie tak!",
+    "subscribed-events": "Zasubskrybowane wydarzenia",
+    "test-message-sent": "Wiadomość została wysłana"
   },
   "general": {
     "apply": "Zastosuj",
@@ -52,7 +52,7 @@
     "clear": "Wyczyść",
     "close": "Zamknij",
     "confirm": "Potwierdź",
-    "copied": "Copied",
+    "copied": "Skopiowane",
     "create": "Utwórz",
     "created": "Utworzono",
     "current-parenthesis": "(Bieżący)",
@@ -71,7 +71,7 @@
     "file-uploaded": "Plik przesłany",
     "filter": "Filtruj",
     "friday": "Piątek",
-    "general": "General",
+    "general": "Ogólny",
     "get": "Zastosuj",
     "image": "Zdjęcie",
     "image-upload-failed": "Przesyłanie zdjęcia nie powiodło się",
