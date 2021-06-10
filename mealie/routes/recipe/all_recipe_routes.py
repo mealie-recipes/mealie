@@ -25,9 +25,15 @@ async def get_recipe_summary(
 
     """
 
-    print(is_user)
+    if is_user:
+        return db.recipes.get_all(
+            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
+        )
 
-    return db.recipes.get_all(session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary)
+    else:
+        return db.recipes.get_all_not_private(
+            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
+        )
 
 
 @router.get("/api/recipes/summary/untagged", response_model=list[RecipeSummary])
