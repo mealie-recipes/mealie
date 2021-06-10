@@ -6,7 +6,7 @@ from mealie.core.config import settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, is_user
 from mealie.schema.recipe import Recipe, RecipeAsset, RecipeURLIn
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
@@ -71,10 +71,16 @@ def parse_recipe_url(
 
 
 @router.get("/{recipe_slug}", response_model=Recipe)
-def get_recipe(recipe_slug: str, session: Session = Depends(generate_session)):
+def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_user)):
     """ Takes in a recipe slug, returns all data for a recipe """
 
-    return db.recipes.get(session, recipe_slug)
+    recipe: Recipe = db.recipes.get(session, recipe_slug)
+
+    if is_user or recipe.settings.public:
+        return recipe
+
+    else:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, {"details": "unauthorized"})
 
 
 @router.put("/{recipe_slug}")
