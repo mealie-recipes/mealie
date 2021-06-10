@@ -180,7 +180,7 @@
   "new-recipe": {
     "bulk-add": "Bulk toevoegen",
     "error-title": "Het Lijkt Erop Dat We Niets Konden Vinden",
-    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Alleen websites met ld+json of microdata kunnen worden geïmporteerd door Mealie. De meeste recepten websites ondersteunen deze gegevensstructuur. Als je site niet kan worden geïmporteerd, maar er zijn json gegevens in de log, stuur dan een github issue met de URL en gegevens.",
     "from-url": "Recept importeren",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-url": "Recept URL",
