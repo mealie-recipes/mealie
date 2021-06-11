@@ -31,18 +31,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get remove -y curl apt-transport-https debian-keyring g++ gnupg gnupg2 gnupg1 
 
 
-RUN pip install --no-cache-dir "poetry==$POETRY_VERSION" 
-RUN pip install --no-cache-dir "psycopg2-binary==2.8.6"
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
 
 # project dependencies
 WORKDIR /app
 COPY pyproject.toml poetry.lock /app/
 RUN poetry config virtualenvs.create false
-RUN poetry install --no-dev --no-interaction --no-ansi
+RUN poetry install -E pgsql --no-dev --no-interaction --no-ansi
 
 COPY ./mealie /app/mealie
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev
+    && poetry install -E pgsql --no-dev
 
 #! Future
 # COPY ./alembic /app
