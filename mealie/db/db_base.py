@@ -17,7 +17,6 @@ class BaseDocument:
         self.sql_model: SqlAlchemyBase
         self.schema: BaseModel
 
-    # TODO: Improve Get All Query Functionality
     def get_all(
         self, session: Session, limit: int = None, order_by: str = None, start=0, end=9999, override_schema=None
     ) -> list[dict]:
@@ -37,7 +36,7 @@ class BaseDocument:
         """Queries the database for the selected model. Restricts return responses to the
         keys specified under "fields"
 
-        Args: \n
+        Args:
             session (Session): Database Session Object
             fields (list[str]): list of column names to query
             limit (int): A limit of values to return
@@ -51,7 +50,7 @@ class BaseDocument:
         """Queries the database of the selected model and returns a list
         of all primary_key values
 
-        Args: \n
+        Args:
             session (Session): Database Session object
 
         Returns:
@@ -65,7 +64,8 @@ class BaseDocument:
         """Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
 
-        Args: \n
+        Args:
+            session (Session): Database Session object
             match_value (str): The value to use in the query
             match_key (str, optional): the key/property to match against. Defaults to None.
 
@@ -84,7 +84,7 @@ class BaseDocument:
         key is provided the class objects primary key will be used to match against.
 
 
-        Args: \n
+        Args:
             match_value (str): A value used to match against the key/value in the database \n
             match_key (str, optional): They key to match the value against. Defaults to None. \n
             limit (int, optional): A limit to returned responses. Defaults to 1. \n
@@ -116,7 +116,7 @@ class BaseDocument:
     def create(self, session: Session, document: dict) -> BaseModel:
         """Creates a new database entry for the given SQL Alchemy Model.
 
-        Args: \n
+        Args:
             session (Session): A Database Session
             document (dict): A python dictionary representing the data structure
 
@@ -133,7 +133,7 @@ class BaseDocument:
 
     def update(self, session: Session, match_value: str, new_data: dict) -> BaseModel:
         """Update a database entry.
-        Args: \n
+        Args:
             session (Session): Database Session
             match_value (str): Match "key"
             new_data (str): Match "value"

@@ -35,17 +35,18 @@ def test_create_no_image(api_client: TestClient, api_routes: AppRoutes, token, r
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data, token):
+def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeTestData, token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=token)
     assert response.status_code == 200
 
-    recipe = json.loads(response.content)
+    recipe = json.loads(response.text)
 
     test_notes = [
         {"title": "My Test Title1", "text": "My Test Text1"},
         {"title": "My Test Title2", "text": "My Test Text2"},
     ]
+
     recipe["notes"] = test_notes
     recipe["tools"] = ["one tool", "two tool"]
 
@@ -58,15 +59,16 @@ def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data,
     assert json.loads(response.text).get("slug") == recipe_data.expected_slug
 
     response = api_client.get(recipe_url)
-
-    recipe = json.loads(response.content)
+    assert response.status_code == 200
+    print(response)
+    recipe = json.loads(response.text)
 
     assert recipe["notes"] == test_notes
     assert recipe["recipeCategory"].sort() == test_categories.sort()
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data, token):
+def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeTestData, token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=token)
     assert response.status_code == 200
@@ -85,7 +87,7 @@ def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data, toke
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_delete(api_client: TestClient, api_routes: AppRoutes, recipe_data, token):
+def test_delete(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeTestData, token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
     response = api_client.delete(recipe_url, headers=token)
     assert response.status_code == 200
