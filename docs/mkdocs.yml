@@ -61,8 +61,6 @@ nav:
       - Users & Groups:
           - User Settings: "documentation/users-groups/user-settings.md"
           - Planning Meals: "documentation/users-groups/meal-planner.md"
-          - Shopping Lists: "documentation/users-groups/shopping-lists.md"
-
       - Admin:
           - Dashboard: "documentation/admin/dashboard.md"
           - Site Settings: "documentation/admin/site-settings.md"
@@ -71,9 +69,7 @@ nav:
           - Backups and Restore: "documentation/admin/backups-and-exports.md"
           - Recipe Migration: "documentation/admin/migration-imports.md"
       - Toolbox:
-          - Event Notifications: "documentation/toolbox/notifications.md"
-          - Category Tag Editor: "documentation/toolbox/category-tag-editor.md"
-          - Bulk Organizer: "documentation/toolbox/bulk-organize.md"
+          - Toolbox: "documentation/toolbox/toolbox-intro.md"
 
       - Community Guides:
           - iOS Shortcuts: "documentation/community-guide/ios.md"
