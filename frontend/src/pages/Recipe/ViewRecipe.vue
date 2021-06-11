@@ -6,7 +6,7 @@
     <NoRecipe v-else-if="loadFailed" />
     <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
       <v-img
-        :height="hideImage ? '40' : imageHeight"
+        :height="hideImage ? '50' : imageHeight"
         @error="hideImage = true"
         :src="getImage(recipeDetails.slug)"
         class="d-print-none"
@@ -20,17 +20,18 @@
           :performTime="recipeDetails.performTime"
         />
       </v-img>
-      <EditorButtonRow
+      <RecipePageActionMenu
         v-if="loggedIn"
         :open="showIcons"
-        @json="jsonEditor = true"
-        @editor="
+        @close="form = false"
+        @json="jsonEditor = !jsonEditor"
+        @edit="
           jsonEditor = false;
           form = true;
         "
         @save="saveRecipe"
         @delete="deleteRecipe"
-        class="sticky"
+        class="ml-auto"
       />
 
       <RecipeViewer v-if="!form" :recipe="recipeDetails" />
@@ -42,7 +43,13 @@
         height="1500px"
         :options="jsonEditorOptions"
       />
-      <RecipeEditor v-else v-model="recipeDetails" ref="recipeEditor" @upload="getImageFile" />
+      <RecipeEditor
+        v-else
+        v-model="recipeDetails"
+        :class="$vuetify.breakpoint.xs ? 'mt-5' : undefiend"
+        ref="recipeEditor"
+        @upload="getImageFile"
+      />
     </v-card>
     <CommentsSection
       class="mt-2 d-print-none"
@@ -56,6 +63,7 @@
 </template>
 
 <script>
+import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu.vue";
 import { api } from "@/api";
 import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
 import VJsoneditor from "v-jsoneditor";
@@ -63,7 +71,6 @@ import RecipeViewer from "@/components/Recipe/RecipeViewer";
 import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
-import EditorButtonRow from "@/components/Recipe/EditorButtonRow.vue";
 import NoRecipe from "@/components/Fallbacks/NoRecipe";
 import { user } from "@/mixins/user";
 import { router } from "@/routes";
@@ -74,8 +81,8 @@ export default {
     VJsoneditor,
     RecipeViewer,
     RecipeEditor,
-    EditorButtonRow,
     RecipeTimeCard,
+    RecipePageActionMenu,
     PrintView,
     NoRecipe,
     FavoriteBadge,

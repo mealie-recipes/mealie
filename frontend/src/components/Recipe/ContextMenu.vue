@@ -118,7 +118,7 @@ export default {
                 url: this.recipeURL,
               })
               .then(() => console.log("Successful share"))
-              .catch(error => {
+              .catch((error) => {
                 console.log("WebShareAPI not supported", error);
                 this.updateClipboard();
               });

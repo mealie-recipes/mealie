@@ -10,7 +10,7 @@
       </v-img>
       <br v-else />
 
-      <EditorButtonRow @json="jsonEditor = true" @editor="jsonEditor = false" @save="createRecipe" />
+      <RecipePageActionMenu @json="jsonEditor = true" @edit="jsonEditor = false" @save="createRecipe" />
 
       <div v-if="jsonEditor">
         <!-- Probably not the best way, but it works! -->
@@ -29,12 +29,12 @@ import { api } from "@/api";
 
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import VJsoneditor from "v-jsoneditor";
-import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
+import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu";
 export default {
   components: {
     VJsoneditor,
     RecipeEditor,
-    EditorButtonRow,
+    RecipePageActionMenu,
   },
   data() {
     return {
