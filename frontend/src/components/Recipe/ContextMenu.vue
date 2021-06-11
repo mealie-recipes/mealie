@@ -8,15 +8,23 @@
       ref="deleteRecipieConfirm"
       v-on:confirm="deleteRecipe()"
     />
-    <v-menu offset-y top left>
+    <v-menu
+      offset-y
+      left
+      :bottom="!menuTop"
+      :nudge-bottom="!menuTop ? '5' : '0'"
+      :top="menuTop"
+      :nudge-top="menuTop ? '5' : '0'"
+      allow-overflow
+    >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" icon dark v-bind="attrs" v-on="on" @click.prevent>
+        <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
           <v-icon>{{ menuIcon }}</v-icon>
         </v-btn>
       </template>
       <v-list dense>
         <v-list-item
-          v-for="(item, index) in loggedIn ? userMenu : defaultMenu"
+          v-for="(item, index) in loggedIn && cardMenu ? userMenu : defaultMenu"
           :key="index"
           @click="menuAction(item.action)"
         >
@@ -39,6 +47,18 @@ export default {
     ConfirmationDialog,
   },
   props: {
+    menuTop: {
+      type: Boolean,
+      default: true,
+    },
+    fab: {
+      type: Boolean,
+      default: false,
+    },
+    color: {
+      type: String,
+      default: "primary",
+    },
     slug: {
       type: String,
     },
@@ -47,6 +67,10 @@ export default {
     },
     name: {
       type: String,
+    },
+    cardMenu: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
@@ -118,7 +142,7 @@ export default {
                 url: this.recipeURL,
               })
               .then(() => console.log("Successful share"))
-              .catch(error => {
+              .catch((error) => {
                 console.log("WebShareAPI not supported", error);
                 this.updateClipboard();
               });

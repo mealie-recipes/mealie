@@ -39,6 +39,8 @@ def minify_image(image_file: Path, force=False) -> ImageSizes:
     min_dest = image_file.parent.joinpath("min-original.webp")
     tiny_dest = image_file.parent.joinpath("tiny-original.webp")
 
+    cleanup_images = False
+
     if min_dest.exists() and tiny_dest.exists() and org_dest.exists() and not force:
         return
     try:

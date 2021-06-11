@@ -25,21 +25,22 @@ Once the prerequisites are installed you can cd into the project base directory 
 Run `make help` for reference
 
 ```
-clean                remove all build, test, coverage and Python artifacts
-clean-pyc            remove Python file artifacts
-clean-test           remove test and coverage artifacts
-test                 run tests quickly with the default Python
-lint                 check style with flake8
-test-all             Check Lint Format and Testing
-setup                Setup Development Instance
-backend              Start Mealie Backend Development Server
-frontend             Start Mealie Frontend Development Server
-frontend-build       Build Frontend in frontend/dist
-docs                 Start Mkdocs Development Server
-docker-dev           Build and Start Docker Development Stack
-docker-prod          Build and Start Docker Production Stack
-code-gen             Run Code-Gen Scripts
-coverage             check code coverage quickly with the default Python
+clean-purge          ⚠️  Removes All Developer Data for a fresh server start
+clean                🧹 remove all build, test, coverage and Python artifacts
+clean-pyc            🧹 remove Python file artifacts
+clean-test           🧹 remove test and coverage artifacts
+test-all             🧪 Check Lint Format and Testing
+test                 🧪 run tests quickly with the default Python
+lint                 🧺 check style with flake8
+coverage             ☂️  check code coverage quickly with the default Python
+setup                🏗  Setup Development Instance
+backend              🎬 Start Mealie Backend Development Server
+frontend             🎬 Start Mealie Frontend Development Server
+frontend-build       🏗  Build Frontend in frontend/dist
+docs                 📄 Start Mkdocs Development Server
+docker-dev           🐳 Build and Start Docker Development Stack
+docker-prod          🐳 Build and Start Docker Production Stack
+code-gen             🤖 Run Code-Gen Scripts
 
 ```
 

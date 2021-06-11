@@ -3,9 +3,7 @@
     <v-dialog v-model="addRecipe" width="650" @click:outside="reset">
       <v-card :loading="processing">
         <v-app-bar dark color="primary mb-2">
-          <v-icon large left v-if="!processing">
-            mdi-link
-          </v-icon>
+          <v-icon large left v-if="!processing"> mdi-link </v-icon>
           <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
 
           <v-toolbar-title class="headline">
@@ -28,19 +26,58 @@
               persistent-hint
             ></v-text-field>
 
-            <v-alert v-if="error" color="red" outlined type="success">
-              {{ $t("new-recipe.error-message") }}
-            </v-alert>
+            <v-expand-transition>
+              <v-alert v-if="error" color="error" class="mt-6 white--text">
+                <v-card-title class="ma-0 pa-0">
+                  <v-icon left color="white" x-large> mdi-robot </v-icon>
+                  {{ $t("new-recipe.error-title") }}
+                </v-card-title>
+                <v-divider class="my-3 mx-2"></v-divider>
+
+                <p>
+                  {{ $t("new-recipe.error-details") }}
+                </p>
+                <div class="d-flex row justify-space-around my-3 force-white">
+                  <a
+                    class="dark"
+                    href="https://developers.google.com/search/docs/data-types/recipe"
+                    target="_blank"
+                    rel="noreferrer nofollow"
+                  >
+                    Google ld+json Info
+                  </a>
+                  <a href="https://github.com/hay-kot/mealie/issues" target="_blank" rel="noreferrer nofollow">
+                    GitHub Issues
+                  </a>
+                  <a href="https://schema.org/Recipe" target="_blank" rel="noreferrer nofollow">
+                    Recipe Markup Specification
+                  </a>
+                </div>
+                <div class="d-flex justify-end">
+                  <v-btn
+                    white
+                    outlined
+                    :to="{ path: '/recipes/debugger', query: { test_url: recipeURL } }"
+                    @click="addRecipe = false"
+                  >
+                    <v-icon> mdi-external-link </v-icon>
+                    View Scraped Data
+                  </v-btn>
+                </div>
+              </v-alert>
+            </v-expand-transition>
           </v-card-text>
 
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-spacer></v-spacer>
             <v-btn color="grey" text @click="reset">
+              <v-icon left> mdi-close </v-icon>
               {{ $t("general.close") }}
             </v-btn>
-            <v-btn color="success" text type="submit" :loading="processing">
+            <v-spacer></v-spacer>
+            <v-btn color="success" type="submit" :loading="processing">
+              <v-icon left> {{ $globals.icons.create }} </v-icon>
               {{ $t("general.submit") }}
             </v-btn>
           </v-card-actions>
@@ -65,7 +102,6 @@
 
 <script>
 import { api } from "@/api";
-
 export default {
   props: {
     absolute: {
@@ -77,14 +113,32 @@ export default {
       error: false,
       fab: false,
       addRecipe: false,
-      recipeURL: "",
       processing: false,
     };
   },
 
+  mounted() {
+    if (this.$route.query.recipe_import_url) {
+      this.addRecipe = true;
+      this.createRecipe();
+    }
+  },
+
+  computed: {
+    recipeURL: {
+      set(recipe_import_url) {
+        this.$router.replace({ query: { ...this.$route.query, recipe_import_url } });
+      },
+      get() {
+        return this.$route.query.recipe_import_url || "";
+      },
+    },
+  },
+
   methods: {
     async createRecipe() {
-      if (this.$refs.urlForm.validate()) {
+      this.error = false;
+      if (this.$refs.urlForm === undefined || this.$refs.urlForm.validate()) {
         this.processing = true;
         const response = await api.recipes.createByURL(this.recipeURL);
         this.processing = false;
@@ -106,11 +160,20 @@ export default {
       this.processing = false;
     },
     isValidWebUrl(url) {
-      let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
+      let regEx =
+        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
       return regEx.test(url) ? true : "Must be a Valid URL";
+    },
+
+    bookmark() {
+      return `javascript:(function()%7Bvar url %3D document.URL %3B%0Avar mealie %3D "http%3A%2F%2Flocalhost%3A8080%2F%23"%0Avar dest %3D mealie %2B "%2F%3Frecipe_import_url%3D" %2B url%0Awindow.open(dest%2C '_blank')%7D)()%3B`;
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.force-white > a {
+  color: white !important;
+}
+</style>

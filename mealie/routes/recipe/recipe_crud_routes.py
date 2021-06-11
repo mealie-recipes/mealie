@@ -6,13 +6,14 @@ from mealie.core.config import settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.recipe import Recipe, RecipeAsset, RecipeURLIn
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
 from mealie.services.image.image import scrape_image, write_image
 from mealie.services.recipe.media import check_assets, delete_assets
 from mealie.services.scraper.scraper import create_from_url
+from scrape_schema_recipe import scrape_url
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
@@ -41,6 +42,11 @@ def create_from_json(
     return recipe.slug
 
 
+@router.post("/test-scrape-url", dependencies=[Depends(get_current_user)])
+def test_parse_recipe_url(url: RecipeURLIn):
+    return scrape_url(url.url)
+
+
 @router.post("/create-url", status_code=201, response_model=str)
 def parse_recipe_url(
     background_tasks: BackgroundTasks,
@@ -65,18 +71,24 @@ def parse_recipe_url(
 
 
 @router.get("/{recipe_slug}", response_model=Recipe)
-def get_recipe(recipe_slug: str, session: Session = Depends(generate_session)):
+def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)):
     """ Takes in a recipe slug, returns all data for a recipe """
 
-    return db.recipes.get(session, recipe_slug)
+    recipe: Recipe = db.recipes.get(session, recipe_slug)
+
+    if recipe.settings.public or is_user:
+
+        return recipe
+
+    else:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, {"details": "unauthorized"})
 
 
-@router.put("/{recipe_slug}")
+@router.put("/{recipe_slug}", dependencies=[Depends(get_current_user)])
 def update_recipe(
     recipe_slug: str,
     data: Recipe,
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Updates a recipe by existing slug and data. """
 
@@ -87,12 +99,11 @@ def update_recipe(
     return recipe
 
 
-@router.patch("/{recipe_slug}")
+@router.patch("/{recipe_slug}", dependencies=[Depends(get_current_user)])
 def patch_recipe(
     recipe_slug: str,
     data: Recipe,
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Updates a recipe by existing slug and data. """
 
@@ -142,18 +153,17 @@ def update_recipe_image(
     return {"image": new_version}
 
 
-@router.post("/{recipe_slug}/image")
+@router.post("/{recipe_slug}/image", dependencies=[Depends(get_current_user)])
 def scrape_image_url(
     recipe_slug: str,
     url: RecipeURLIn,
-    current_user=Depends(get_current_user),
 ):
     """ Removes an existing image and replaces it with the incoming file. """
 
     scrape_image(url.url, recipe_slug)
 
 
-@router.post("/{recipe_slug}/assets", response_model=RecipeAsset)
+@router.post("/{recipe_slug}/assets", response_model=RecipeAsset, dependencies=[Depends(get_current_user)])
 def upload_recipe_asset(
     recipe_slug: str,
     name: str = Form(...),
@@ -161,7 +171,6 @@ def upload_recipe_asset(
     extension: str = Form(...),
     file: UploadFile = File(...),
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Upload a file to store as a recipe asset """
     file_name = slugify(name) + "." + extension

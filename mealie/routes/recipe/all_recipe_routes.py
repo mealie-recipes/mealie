@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.recipe import RecipeSummary
 from slugify import slugify
 from sqlalchemy.orm.session import Session
@@ -10,9 +11,7 @@ router = APIRouter(tags=["Query All Recipes"])
 
 @router.get("/api/recipes/summary", response_model=list[RecipeSummary])
 async def get_recipe_summary(
-    start=0,
-    limit=9999,
-    session: Session = Depends(generate_session),
+    start=0, limit=9999, session: Session = Depends(generate_session), user: bool = Depends(is_logged_in)
 ):
     """
     Returns key the recipe summary data for recipes in the database. You can perform
@@ -26,20 +25,32 @@ async def get_recipe_summary(
 
     """
 
-    return db.recipes.get_all(session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary)
+    if user:
+        return db.recipes.get_all(
+            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
+        )
+
+    else:
+        return db.recipes.get_all_not_private(
+            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
+        )
 
 
-@router.get("/api/recipes/summary/untagged", response_model=list[RecipeSummary])
+@router.get(
+    "/api/recipes/summary/untagged", response_model=list[RecipeSummary], dependencies=[Depends(get_current_user)]
+)
 async def get_untagged_recipes(count: bool = False, session: Session = Depends(generate_session)):
     return db.recipes.count_untagged(session, count=count, override_schema=RecipeSummary)
 
 
-@router.get("/api/recipes/summary/uncategorized", response_model=list[RecipeSummary])
+@router.get(
+    "/api/recipes/summary/uncategorized", response_model=list[RecipeSummary], dependencies=[Depends(get_current_user)]
+)
 async def get_uncategorized_recipes(count: bool = False, session: Session = Depends(generate_session)):
     return db.recipes.count_uncategorized(session, count=count, override_schema=RecipeSummary)
 
 
-@router.post("/api/recipes/category")
+@router.post("/api/recipes/category", deprecated=True, dependencies=[Depends(get_current_user)])
 def filter_by_category(categories: list, session: Session = Depends(generate_session)):
     """ pass a list of categories and get a list of recipes associated with those categories """
     # ! This should be refactored into a single database call, but I couldn't figure it out
@@ -49,7 +60,7 @@ def filter_by_category(categories: list, session: Session = Depends(generate_ses
     return in_category
 
 
-@router.post("/api/recipes/tag")
+@router.post("/api/recipes/tag", deprecated=True, dependencies=[Depends(get_current_user)])
 async def filter_by_tags(tags: list, session: Session = Depends(generate_session)):
     """ pass a list of tags and get a list of recipes associated with those tags"""
     # ! This should be refactored into a single database call, but I couldn't figure it out

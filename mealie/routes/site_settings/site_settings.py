@@ -17,11 +17,10 @@ def get_main_settings(session: Session = Depends(generate_session)):
     return db.settings.get(session, 1)
 
 
-@router.put("")
+@router.put("", dependencies=[Depends(get_current_user)])
 def update_settings(
     data: SiteSettings,
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
 ):
     """ Returns Site Settings """
     db.settings.update(session, 1, data.dict())
