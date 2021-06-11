@@ -18,7 +18,7 @@
       allow-overflow
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn :fab="fab" small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
+        <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
           <v-icon>{{ menuIcon }}</v-icon>
         </v-btn>
       </template>

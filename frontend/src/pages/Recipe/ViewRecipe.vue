@@ -23,6 +23,7 @@
       <RecipePageActionMenu
         :slug="recipeDetails.slug"
         :name="recipeDetails.name"
+        v-model="form"
         v-if="loggedIn"
         :open="showIcons"
         @close="form = false"
@@ -48,7 +49,7 @@
       <RecipeEditor
         v-else
         v-model="recipeDetails"
-        :class="$vuetify.breakpoint.xs ? 'mt-5' : undefiend"
+        :class="$vuetify.breakpoint.xs ? 'mt-5' : ''"
         ref="recipeEditor"
         @upload="getImageFile"
       />

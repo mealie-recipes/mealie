@@ -17,17 +17,8 @@
       v-on:confirm="emitDelete()"
     />
     <v-spacer></v-spacer>
-    <div v-if="!edit" class="custom-btn-group ma-1">
-      <v-btn
-        fab
-        small
-        class="mx-1"
-        color="info"
-        @click="
-          edit = true;
-          $emit('edit');
-        "
-      >
+    <div v-if="!value" class="custom-btn-group ma-1">
+      <v-btn fab small class="mx-1" color="info" @click="$emit('input', true)">
         <v-icon> {{ $globals.icons.edit }} </v-icon>
       </v-btn>
       <ContextMenu
@@ -40,7 +31,7 @@
         :card-menu="false"
       />
     </div>
-    <div v-if="edit" class="custom-btn-group mb-">
+    <div v-if="value" class="custom-btn-group mb-">
       <v-btn
         v-for="(btn, index) in editorButtons"
         :key="index"
@@ -74,6 +65,10 @@ export default {
     name: {
       type: String,
     },
+    value: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -95,7 +90,7 @@ export default {
           text: "Close",
           icon: "mdi-close",
           event: CLOSE_EVENT,
-          color: undefined,
+          color: "",
         },
         {
           text: "Save",
@@ -111,11 +106,11 @@ export default {
       switch (event) {
         case CLOSE_EVENT:
           this.$emit(CLOSE_EVENT);
-          this.edit = false;
+          this.$emit("input", false);
           break;
         case SAVE_EVENT:
           this.$emit(SAVE_EVENT);
-          this.edit = false;
+          this.$emit("input", false);
           break;
         case JSON_EVENT:
           this.$emit(JSON_EVENT);
@@ -129,7 +124,7 @@ export default {
     },
     emitDelete() {
       this.$emit(DELETE_EVENT);
-      this.edit = false;
+      this.$emit("input", false);
     },
   },
 };
