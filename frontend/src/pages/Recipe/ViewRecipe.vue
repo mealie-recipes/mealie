@@ -21,6 +21,8 @@
         />
       </v-img>
       <RecipePageActionMenu
+        :slug="recipeDetails.slug"
+        :name="recipeDetails.name"
         v-if="loggedIn"
         :open="showIcons"
         @close="form = false"
@@ -133,15 +135,13 @@ export default {
     this.jsonEditor = false;
     this.form = this.$route.query.edit === "true" && this.loggedIn;
 
-    if (this.$route.query.print) {
-      this.printPage();
-      this.$router.push(this.$route.path);
-    }
+    this.checkPrintRecipe();
   },
 
   watch: {
     $route: function () {
       this.getRecipeDetails();
+      this.checkPrintRecipe();
     },
   },
 
@@ -173,6 +173,13 @@ export default {
     },
   },
   methods: {
+    checkPrintRecipe() {
+      if (this.$route.query.print) {
+        this.printPage();
+        this.$router.push(this.$route.path);
+        this.$route.query.print = null;
+      }
+    },
     getImageFile(fileObject) {
       this.fileObject = fileObject;
       this.saveImage();

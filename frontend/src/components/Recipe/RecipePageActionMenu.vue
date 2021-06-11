@@ -30,17 +30,15 @@
       >
         <v-icon> {{ $globals.icons.edit }} </v-icon>
       </v-btn>
-      <v-menu :nudge-bottom="5" bottom open-on-hover left :offset-y="true" close-on-click close-delay="200">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn fab small color="info" v-bind="attrs" v-on="on"> <v-icon> mdi-dots-horizontal </v-icon> </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item>
-            <v-list-item-title> PLACE HOLDER </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <ContextMenu
+        :menu-top="false"
+        :slug="slug"
+        :name="name"
+        menu-icon="mdi-dots-horizontal"
+        fab
+        color="info"
+        :card-menu="false"
+      />
     </div>
     <div v-if="edit" class="custom-btn-group mb-">
       <v-btn
@@ -61,13 +59,22 @@
 
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
+import ContextMenu from "@/components/Recipe/ContextMenu.vue";
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
 export default {
-  components: { ConfirmationDialog },
+  components: { ConfirmationDialog, ContextMenu },
+  props: {
+    slug: {
+      type: String,
+    },
+    name: {
+      type: String,
+    },
+  },
   data() {
     return {
       edit: false,
