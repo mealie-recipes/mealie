@@ -339,7 +339,9 @@
       "theme-saved": "Tema sparat",
       "theme-settings": "Temainställningar",
       "theme-updated": "Tema uppdaterat",
-      "warning": "Varning"
+      "warning": "Varning",
+      "switch-to-light-mode": "Switch to light mode",
+      "switch-to-dark-mode": "Switch to dark mode"
     },
     "token": {
       "active-tokens": "Aktiv token",
