@@ -117,7 +117,8 @@
     "url": "URL",
     "view": "Bekijken",
     "wednesday": "Woensdag",
-    "yes": "Ja"
+    "yes": "Ja",
+    "more": "More"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wilt verwijderen?",
@@ -251,7 +252,9 @@
     "title": "Titel",
     "total-time": "Totale Tijd",
     "unable-to-delete-recipe": "Kan recept niet verwijderen",
-    "view-recipe": "Bekijk Recept"
+    "view-recipe": "Bekijk Recept",
+    "add-to-favorites": "Add to Favorites",
+    "remove-from-favorites": "Remove from Favorites"
   },
   "search": {
     "and": "en",
