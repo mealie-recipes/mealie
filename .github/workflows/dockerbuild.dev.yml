@@ -26,7 +26,7 @@ jobs:
         with:
           push: true
           tags: |
-            context: ./docs
+            context: /docs
             docker.pkg.github.com/${{ github.repository }}/dev-docs:latest
   build:
     runs-on: ubuntu-latest
