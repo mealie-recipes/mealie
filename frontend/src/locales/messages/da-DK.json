@@ -117,7 +117,8 @@
     "url": "URL",
     "view": "View",
     "wednesday": "Onsdag",
-    "yes": "Ja"
+    "yes": "Ja",
+    "more": "More"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -251,7 +252,9 @@
     "title": "Title",
     "total-time": "Total Time",
     "unable-to-delete-recipe": "Unable to Delete Recipe",
-    "view-recipe": "Se opskrift"
+    "view-recipe": "Se opskrift",
+    "add-to-favorites": "Add to Favorites",
+    "remove-from-favorites": "Remove from Favorites"
   },
   "search": {
     "and": "and",
