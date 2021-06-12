@@ -1,4 +1,4 @@
-const baseURL = "/api/";
+import { prefix } from "./apiRoutes";
 import axios from "axios";
 import { store } from "../store";
 import { utils } from "@/utils";
@@ -66,11 +66,10 @@ const apiReq = {
     const response = await this.get(url);
     const token = response.data.fileToken;
 
-    const tokenURL = baseURL + "utils/download?token=" + token;
+    const tokenURL = prefix + "utils/download?token=" + token;
     window.open(tokenURL, "_blank");
     return response.data;
   },
 };
 
 export { apiReq };
-export { baseURL };

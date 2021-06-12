@@ -1,27 +1,17 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
 import i18n from "@/i18n.js";
-
-const settingsBase = baseURL + "site-settings";
-
-const settingsURLs = {
-  siteSettings: `${settingsBase}`,
-  updateSiteSettings: `${settingsBase}`,
-  testWebhooks: `${settingsBase}/webhooks/test`,
-  customPages: `${settingsBase}/custom-pages`,
-  customPage: id => `${settingsBase}/custom-pages/${id}`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 export const siteSettingsAPI = {
   async get() {
-    let response = await apiReq.get(settingsURLs.siteSettings);
+    let response = await apiReq.get(API_ROUTES.siteSettings);
     return response.data;
   },
 
   async update(body) {
     const response = await apiReq.put(
-      settingsURLs.updateSiteSettings,
+      API_ROUTES.siteSettings,
       body,
       () => i18n.t("settings.settings-update-failed"),
       () => i18n.t("settings.settings-updated")
@@ -33,18 +23,18 @@ export const siteSettingsAPI = {
   },
 
   async getPages() {
-    let response = await apiReq.get(settingsURLs.customPages);
+    let response = await apiReq.get(API_ROUTES.siteSettingsCustomPages);
     return response.data;
   },
 
   async getPage(id) {
-    let response = await apiReq.get(settingsURLs.customPage(id));
+    let response = await apiReq.get(API_ROUTES.siteSettingsCustomPagesId(id));
     return response.data;
   },
 
   createPage(body) {
     return apiReq.post(
-      settingsURLs.customPages,
+      API_ROUTES.siteSettingsCustomPages,
       body,
       () => i18n.t("page.page-creation-failed"),
       () => i18n.t("page.new-page-created")
@@ -53,7 +43,7 @@ export const siteSettingsAPI = {
 
   async deletePage(id) {
     return await apiReq.delete(
-      settingsURLs.customPage(id),
+      API_ROUTES.siteSettingsCustomPagesId(id),
       null,
       () => i18n.t("page.page-deletion-failed"),
       () => i18n.t("page.page-deleted")
@@ -62,7 +52,7 @@ export const siteSettingsAPI = {
 
   updatePage(body) {
     return apiReq.put(
-      settingsURLs.customPage(body.id),
+      API_ROUTES.siteSettingsCustomPagesId(body.id),
       body,
       () => i18n.t("page.page-update-failed"),
       () => i18n.t("page.page-updated")
@@ -71,7 +61,7 @@ export const siteSettingsAPI = {
 
   async updateAllPages(allPages) {
     let response = await apiReq.put(
-      settingsURLs.customPages,
+      API_ROUTES.siteSettingsCustomPages,
       allPages,
       () => i18n.t("page.pages-update-failed"),
       () => i18n.t("page.pages-updated")

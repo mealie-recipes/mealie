@@ -1,27 +1,7 @@
 import { API_ROUTES } from "./apiRoutes";
 import { apiReq } from "./api-utils";
-import { baseURL } from "./api-utils";
 import { store } from "../store";
 import i18n from "@/i18n.js";
-
-const prefix = baseURL + "recipes/";
-
-const recipeURLs = {
-  allRecipes: baseURL + "recipes",
-  summary: baseURL + "recipes" + "/summary",
-  allRecipesByCategory: prefix + "category",
-  create: prefix + "create",
-  createByURL: prefix + "create-url",
-  testParseURL: prefix + "test-scrape-url",
-  recipe: slug => prefix + slug,
-  update: slug => prefix + slug,
-  delete: slug => prefix + slug,
-  createAsset: slug => `${prefix}${slug}/assets`,
-  recipeImage: slug => `${prefix}${slug}/image`,
-  updateImage: slug => `${prefix}${slug}/image`,
-  untagged: prefix + "summary/untagged",
-  uncategorized: prefix + "summary/uncategorized ",
-};
 
 export const recipeAPI = {
   /**
@@ -30,7 +10,7 @@ export const recipeAPI = {
    * @returns {string} Recipe Slug
    */
   async createByURL(recipeURL) {
-    const response = await apiReq.post(recipeURLs.createByURL, { url: recipeURL }, false, () =>
+    const response = await apiReq.post(API_ROUTES.recipesCreateUrl, { url: recipeURL }, false, () =>
       i18n.t("recipe.recipe-created")
     );
 
@@ -39,13 +19,13 @@ export const recipeAPI = {
   },
 
   async getAllByCategory(categories) {
-    let response = await apiReq.post(recipeURLs.allRecipesByCategory, categories);
+    let response = await apiReq.post(API_ROUTES.recipesCategory, categories);
     return response.data;
   },
 
   async create(recipeData) {
     const response = await apiReq.post(
-      recipeURLs.create,
+      API_ROUTES.recipesCreate,
       recipeData,
       () => i18n.t("recipe.recipe-creation-failed"),
       () => i18n.t("recipe.recipe-created")
@@ -55,7 +35,7 @@ export const recipeAPI = {
   },
 
   async requestDetails(recipeSlug) {
-    let response = await apiReq.get(recipeURLs.recipe(recipeSlug));
+    let response = await apiReq.get(API_ROUTES.recipesRecipeSlug(recipeSlug));
     return response.data;
   },
 
@@ -72,7 +52,7 @@ export const recipeAPI = {
     }
 
     return apiReq.put(
-      recipeURLs.updateImage(recipeSlug),
+      API_ROUTES.recipesRecipeSlugImage(recipeSlug),
       formData,
       () => i18n.t("general.image-upload-failed"),
       successMessage
@@ -85,13 +65,13 @@ export const recipeAPI = {
     fd.append("extension", fileObject.name.split(".").pop());
     fd.append("name", name);
     fd.append("icon", icon);
-    const response = apiReq.post(recipeURLs.createAsset(recipeSlug), fd);
+    const response = apiReq.post(API_ROUTES.recipesRecipeSlugAssets(recipeSlug), fd);
     return response;
   },
 
   updateImagebyURL(slug, url) {
     return apiReq.post(
-      recipeURLs.updateImage(slug),
+      API_ROUTES.recipesRecipeSlugImage(slug),
       { url: url },
       () => i18n.t("general.image-upload-failed"),
       () => i18n.t("recipe.recipe-image-updated")
@@ -100,7 +80,7 @@ export const recipeAPI = {
 
   async update(data) {
     let response = await apiReq.put(
-      recipeURLs.update(data.slug),
+      API_ROUTES.recipesRecipeSlug(data.slug),
       data,
       () => i18n.t("recipe.recipe-update-failed"),
       () => i18n.t("recipe.recipe-updated")
@@ -112,14 +92,14 @@ export const recipeAPI = {
   },
 
   async patch(data) {
-    let response = await apiReq.patch(recipeURLs.update(data.slug), data);
+    let response = await apiReq.patch(API_ROUTES.recipesRecipeSlug(data.slug), data);
     store.dispatch("patchRecipe", response.data);
     return response.data;
   },
 
   async delete(recipeSlug) {
     const response = await apiReq.delete(
-      recipeURLs.delete(recipeSlug),
+      API_ROUTES.recipesRecipeSlug(recipeSlug),
       null,
       () => i18n.t("recipe.unable-to-delete-recipe"),
       () => i18n.t("recipe.recipe-deleted")
@@ -129,19 +109,19 @@ export const recipeAPI = {
   },
 
   async allSummary(start = 0, limit = 9999) {
-    const response = await apiReq.get(recipeURLs.summary, {
+    const response = await apiReq.get(API_ROUTES.recipesSummary, {
       params: { start: start, limit: limit },
     });
     return response.data;
   },
 
   async allUntagged() {
-    const response = await apiReq.get(recipeURLs.untagged);
+    const response = await apiReq.get(API_ROUTES.recipesSummaryUntagged);
     return response.data;
   },
 
   async allUnategorized() {
-    const response = await apiReq.get(recipeURLs.uncategorized);
+    const response = await apiReq.get(API_ROUTES.recipesSummaryUncategorized);
     return response.data;
   },
 
@@ -186,7 +166,7 @@ export const recipeAPI = {
   },
 
   async testScrapeURL(url) {
-    const response = await apiReq.post(recipeURLs.testParseURL, { url: url });
+    const response = await apiReq.post(API_ROUTES.recipesTestScrapeUrl, { url: url });
     return response.data;
   },
 };

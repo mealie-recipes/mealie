@@ -36,6 +36,7 @@ class AppRoutes:
         self.recipes_summary_uncategorized = "/api/recipes/summary/uncategorized"
         self.recipes_summary_untagged = "/api/recipes/summary/untagged"
         self.recipes_tag = "/api/recipes/tag"
+        self.recipes_test_scrape_url = "/api/recipes/test-scrape-url"
         self.shopping_lists = "/api/shopping-lists"
         self.site_settings = "/api/site-settings"
         self.site_settings_custom_pages = "/api/site-settings/custom-pages"

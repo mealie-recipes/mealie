@@ -1,27 +1,19 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-
-const settingsBase = baseURL + "site-settings";
-
-const settingsURLs = {
-  siteSettings: `${settingsBase}`,
-  updateSiteSettings: `${settingsBase}`,
-  testWebhooks: `${settingsBase}/webhooks/test`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 export const settingsAPI = {
   async requestAll() {
-    let response = await apiReq.get(settingsURLs.siteSettings);
+    let response = await apiReq.get(API_ROUTES.siteSettings);
     return response.data;
   },
 
   async testWebhooks() {
-    let response = await apiReq.post(settingsURLs.testWebhooks);
+    let response = await apiReq.post(API_ROUTES.siteSettingsWebhooksTest);
     return response.data;
   },
 
   async update(body) {
-    let response = await apiReq.put(settingsURLs.updateSiteSettings, body);
+    let response = await apiReq.put(API_ROUTES.siteSettings, body);
     return response.data;
   },
 };

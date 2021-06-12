@@ -1,30 +1,20 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
 import i18n from "@/i18n.js";
-
-const prefix = baseURL + "categories";
-
-const categoryURLs = {
-  getAll: `${prefix}`,
-  getEmpty: `${prefix}/empty`,
-  getCategory: category => `${prefix}/${category}`,
-  deleteCategory: category => `${prefix}/${category}`,
-  updateCategory: category => `${prefix}/${category}`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 export const categoryAPI = {
   async getAll() {
-    let response = await apiReq.get(categoryURLs.getAll);
+    let response = await apiReq.get(API_ROUTES.categories);
     return response.data;
   },
   async getEmpty() {
-    let response = await apiReq.get(categoryURLs.getEmpty);
+    let response = await apiReq.get(API_ROUTES.categoriesEmpty);
     return response.data;
   },
   async create(name) {
     const response = await apiReq.post(
-      categoryURLs.getAll,
+      API_ROUTES.categories,
       { name: name },
       () => i18n.t("category.category-creation-failed"),
       () => i18n.t("category.category-created")
@@ -35,12 +25,12 @@ export const categoryAPI = {
     }
   },
   async getRecipesInCategory(category) {
-    let response = await apiReq.get(categoryURLs.getCategory(category));
+    let response = await apiReq.get(API_ROUTES.categoriesCategory(category));
     return response.data;
   },
   async update(name, newName, overrideRequest = false) {
     const response = await apiReq.put(
-      categoryURLs.updateCategory(name),
+      API_ROUTES.categoriesCategory(name),
       { name: newName },
       () => i18n.t("category.category-update-failed"),
       () => i18n.t("category.category-updated")
@@ -52,7 +42,7 @@ export const categoryAPI = {
   },
   async delete(category, overrideRequest = false) {
     const response = await apiReq.delete(
-      categoryURLs.deleteCategory(category),
+      API_ROUTES.categoriesCategory(category),
       null,
       () => i18n.t("category.category-deletion-failed"),
       () => i18n.t("category.category-deleted")
@@ -64,28 +54,18 @@ export const categoryAPI = {
   },
 };
 
-const tagPrefix = baseURL + "tags";
-
-const tagURLs = {
-  getAll: `${tagPrefix}`,
-  getEmpty: `${tagPrefix}/empty`,
-  getTag: tag => `${tagPrefix}/${tag}`,
-  deleteTag: tag => `${tagPrefix}/${tag}`,
-  updateTag: tag => `${tagPrefix}/${tag}`,
-};
-
 export const tagAPI = {
   async getAll() {
-    let response = await apiReq.get(tagURLs.getAll);
+    let response = await apiReq.get(API_ROUTES.tags);
     return response.data;
   },
   async getEmpty() {
-    let response = await apiReq.get(tagURLs.getEmpty);
+    let response = await apiReq.get(API_ROUTES.tagsEmpty);
     return response.data;
   },
   async create(name) {
     const response = await apiReq.post(
-      tagURLs.getAll,
+      API_ROUTES.tags,
       { name: name },
       () => i18n.t("tag.tag-creation-failed"),
       () => i18n.t("tag.tag-created")
@@ -96,12 +76,12 @@ export const tagAPI = {
     }
   },
   async getRecipesInTag(tag) {
-    let response = await apiReq.get(tagURLs.getTag(tag));
+    let response = await apiReq.get(API_ROUTES.tagsTag(tag));
     return response.data;
   },
   async update(name, newName, overrideRequest = false) {
     const response = await apiReq.put(
-      tagURLs.updateTag(name),
+      API_ROUTES.tagsTag(name),
       { name: newName },
       () => i18n.t("tag.tag-update-failed"),
       () => i18n.t("tag.tag-updated")
@@ -116,7 +96,7 @@ export const tagAPI = {
   },
   async delete(tag, overrideRequest = false) {
     const response = await apiReq.delete(
-      tagURLs.deleteTag(tag),
+      API_ROUTES.tagsTag(tag),
       null,
       () => i18n.t("tag.tag-deletion-failed"),
       () => i18n.t("tag.tag-deleted")

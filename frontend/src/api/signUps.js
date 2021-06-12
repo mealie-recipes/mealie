@@ -1,24 +1,15 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import i18n from "@/i18n.js";
-
-const signUpPrefix = baseURL + "users/sign-ups";
-
-const signUpURLs = {
-  all: `${signUpPrefix}`,
-  createToken: `${signUpPrefix}`,
-  deleteToken: token => `${signUpPrefix}/${token}`,
-  createUser: token => `${signUpPrefix}/${token}`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 export const signupAPI = {
   async getAll() {
-    let response = await apiReq.get(signUpURLs.all);
+    let response = await apiReq.get(API_ROUTES.usersSignUps);
     return response.data;
   },
   async createToken(data) {
     let response = await apiReq.post(
-      signUpURLs.createToken,
+      API_ROUTES.usersSignUps,
       data,
       () => i18n.t("signup.sign-up-link-creation-failed"),
       () => i18n.t("signup.sign-up-link-created")
@@ -27,7 +18,7 @@ export const signupAPI = {
   },
   async deleteToken(token) {
     return await apiReq.delete(
-      signUpURLs.deleteToken(token),
+      API_ROUTES.usersSignUpsToken(token),
       null,
       () => i18n.t("signup.sign-up-token-deletion-failed"),
       () => i18n.t("signup.sign-up-token-deleted")
@@ -35,7 +26,7 @@ export const signupAPI = {
   },
   async createUser(token, data) {
     return apiReq.post(
-      signUpURLs.createUser(token),
+      API_ROUTES.usersSignUpsToken(token),
       data,
       () => i18n.t("user.you-are-not-allowed-to-create-a-user"),
       () => i18n.t("user.user-created")

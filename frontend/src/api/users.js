@@ -1,62 +1,44 @@
-import { baseURL } from "./api-utils";
 import { API_ROUTES } from "./apiRoutes";
 import { apiReq } from "./api-utils";
 import axios from "axios";
 import i18n from "@/i18n.js";
-const authPrefix = baseURL + "auth";
-const userPrefix = baseURL + "users";
-
-const authURLs = {
-  token: `${authPrefix}/token`,
-  refresh: `${authPrefix}/refresh`,
-};
-
-const usersURLs = {
-  users: `${userPrefix}`,
-  self: `${userPrefix}/self`,
-  userID: id => `${userPrefix}/${id}`,
-  password: id => `${userPrefix}/${id}/password`,
-  resetPassword: id => `${userPrefix}/${id}/reset-password`,
-  userAPICreate: `${userPrefix}/api-tokens`,
-  userAPIDelete: id => `${userPrefix}/api-tokens/${id}`,
-};
 
 export const userAPI = {
   async login(formData) {
-    let response = await apiReq.post(authURLs.token, formData, null, function() {
+    let response = await apiReq.post(API_ROUTES.authToken, formData, null, function() {
       return i18n.t("user.user-successfully-logged-in");
     });
     return response;
   },
   async refresh() {
-    let response = await axios.get(authURLs.refresh).catch(function(event) {
+    let response = await axios.get(API_ROUTES.authRefresh).catch(function(event) {
       console.log("Fetch failed", event);
     });
     return response.data ? response.data : false;
   },
   async allUsers() {
-    let response = await apiReq.get(usersURLs.users);
+    let response = await apiReq.get(API_ROUTES.users);
     return response.data;
   },
   create(user) {
     return apiReq.post(
-      usersURLs.users,
+      API_ROUTES.users,
       user,
       () => i18n.t("user.user-creation-failed"),
       () => i18n.t("user.user-created")
     );
   },
   async self() {
-    let response = await apiReq.get(usersURLs.self);
+    let response = await apiReq.get(API_ROUTES.usersSelf);
     return response.data;
   },
   async byID(id) {
-    let response = await apiReq.get(usersURLs.userID(id));
+    let response = await apiReq.get(API_ROUTES.usersId(id));
     return response.data;
   },
   update(user) {
     return apiReq.put(
-      usersURLs.userID(user.id),
+      API_ROUTES.usersId(user.id),
       user,
       () => i18n.t("user.user-update-failed"),
       () => i18n.t("user.user-updated")
@@ -64,7 +46,7 @@ export const userAPI = {
   },
   changePassword(id, password) {
     return apiReq.put(
-      usersURLs.password(id),
+      API_ROUTES.usersIdPassword(id),
       password,
       () => i18n.t("user.existing-password-does-not-match"),
       () => i18n.t("user.password-updated")
@@ -72,24 +54,24 @@ export const userAPI = {
   },
 
   delete(id) {
-    return apiReq.delete(usersURLs.userID(id), null, deleteErrorText, () => {
+    return apiReq.delete(API_ROUTES.usersId(id), null, deleteErrorText, () => {
       return i18n.t("user.user-deleted");
     });
   },
   resetPassword(id) {
     return apiReq.put(
-      usersURLs.resetPassword(id),
+      API_ROUTES.usersIdResetPassword(id),
       null,
       () => i18n.t("user.password-reset-failed"),
       () => i18n.t("user.password-has-been-reset-to-the-default-password")
     );
   },
   async createAPIToken(name) {
-    const response = await apiReq.post(usersURLs.userAPICreate, { name });
+    const response = await apiReq.post(API_ROUTES.usersApiTokens, { name });
     return response.data;
   },
   async deleteAPIToken(id) {
-    const response = await apiReq.delete(usersURLs.userAPIDelete(id));
+    const response = await apiReq.delete(API_ROUTES.usersApiTokensTokenId(id));
     return response.data;
   },
   /** Adds a Recipe to the users favorites

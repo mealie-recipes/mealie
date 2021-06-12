@@ -1,55 +1,38 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import i18n from "@/i18n.js";
-
-const prefix = baseURL + "about";
-
-const aboutURLs = {
-  version: `${prefix}/version`,
-  debug: `${prefix}`,
-  lastRecipe: `${prefix}/last-recipe-json`,
-  demo: `${prefix}/is-demo`,
-  log: num => `${prefix}/log/${num}`,
-  statistics: `${prefix}/statistics`,
-  events: `${prefix}/events`,
-  event: id => `${prefix}/events/${id}`,
-
-  allNotifications: `${prefix}/events/notifications`,
-  testNotifications: `${prefix}/events/notifications/test`,
-  notification: id => `${prefix}/events/notifications/${id}`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 export const aboutAPI = {
   async getEvents() {
-    const resposne = await apiReq.get(aboutURLs.events);
+    const resposne = await apiReq.get(API_ROUTES.aboutEvents);
     return resposne.data;
   },
   async deleteEvent(id) {
-    const resposne = await apiReq.delete(aboutURLs.event(id));
+    const resposne = await apiReq.delete(API_ROUTES.aboutEventsId(id));
     return resposne.data;
   },
   async deleteAllEvents() {
-    const resposne = await apiReq.delete(aboutURLs.events);
+    const resposne = await apiReq.delete(API_ROUTES.aboutEvents);
     return resposne.data;
   },
 
   async allEventNotifications() {
-    const response = await apiReq.get(aboutURLs.allNotifications);
+    const response = await apiReq.get(API_ROUTES.aboutEventsNotifications);
     return response.data;
   },
 
   async createNotification(data) {
-    const response = await apiReq.post(aboutURLs.allNotifications, data);
+    const response = await apiReq.post(API_ROUTES.aboutEventsNotifications, data);
     return response.data;
   },
 
   async deleteNotification(id) {
-    const response = await apiReq.delete(aboutURLs.notification(id));
+    const response = await apiReq.delete(API_ROUTES.aboutEventsNotificationsId(id));
     return response.data;
   },
   async testNotificationByID(id) {
     const response = await apiReq.post(
-      aboutURLs.testNotifications,
+      API_ROUTES.aboutEventsNotificationsTest,
       { id: id },
       () => i18n.t("events.something-went-wrong"),
       () => i18n.t("events.test-message-sent")
@@ -58,7 +41,7 @@ export const aboutAPI = {
   },
   async testNotificationByURL(url) {
     const response = await apiReq.post(
-      aboutURLs.testNotifications,
+      API_ROUTES.aboutEventsNotificationsTest,
       { test_url: url },
       () => i18n.t("events.something-went-wrong"),
       () => i18n.t("events.test-message-sent")

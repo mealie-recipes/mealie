@@ -1,15 +1,6 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import i18n from "@/i18n.js";
-const groupPrefix = baseURL + "groups";
-
-const groupsURLs = {
-  groups: `${groupPrefix}`,
-  create: `${groupPrefix}`,
-  delete: id => `${groupPrefix}/${id}`,
-  current: `${groupPrefix}/self`,
-  update: id => `${groupPrefix}/${id}`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 function deleteErrorText(response) {
   switch (response.data.detail) {
@@ -29,31 +20,31 @@ function deleteErrorText(response) {
 
 export const groupAPI = {
   async allGroups() {
-    let response = await apiReq.get(groupsURLs.groups);
+    let response = await apiReq.get(API_ROUTES.groups);
     return response.data;
   },
   create(name) {
     return apiReq.post(
-      groupsURLs.create,
+      API_ROUTES.groups,
       { name: name },
       () => i18n.t("group.user-group-creation-failed"),
       () => i18n.t("group.user-group-created")
     );
   },
   delete(id) {
-    return apiReq.delete(groupsURLs.delete(id), null, deleteErrorText, function() {
+    return apiReq.delete(API_ROUTES.groupsId(id), null, deleteErrorText, function() {
       return i18n.t("group.group-deleted");
     });
   },
   async current() {
-    const response = await apiReq.get(groupsURLs.current, null, null);
+    const response = await apiReq.get(API_ROUTES.groupsSelf, null, null);
     if (response) {
       return response.data;
     }
   },
   update(data) {
     return apiReq.put(
-      groupsURLs.update(data.id),
+      API_ROUTES.groupsId(data.id),
       data,
       () => i18n.t("group.error-updating-group"),
       () => i18n.t("settings.group-settings-updated")
