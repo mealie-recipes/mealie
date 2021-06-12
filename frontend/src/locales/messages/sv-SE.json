@@ -117,7 +117,8 @@
     "url": "URL",
     "view": "Visa",
     "wednesday": "Onsdag",
-    "yes": "Ja"
+    "yes": "Ja",
+    "more": "More"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -251,7 +252,9 @@
     "title": "Titel",
     "total-time": "Total tid",
     "unable-to-delete-recipe": "Gick inte att radera receptet",
-    "view-recipe": "Visa recept"
+    "view-recipe": "Visa recept",
+    "add-to-favorites": "Add to Favorites",
+    "remove-from-favorites": "Remove from Favorites"
   },
   "search": {
     "and": "och",
