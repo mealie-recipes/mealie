@@ -82,7 +82,7 @@ nav:
           - Home Assistant: "documentation/community-guide/home-assistant.md"
           - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
   - API Reference: "api/redoc.md"
-  - Contributors Guide: 
+  - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
       - Translating: "contributors/translating.md"
       - Developers Guide:
