@@ -27,4 +27,4 @@ jobs:
           context: ./docs
           push: true
           tags: |
-            ghrc.io/${{ github.repository }}/dev-docs:latest
+            ghcr.io/${{ github.repository }}/dev-docs:latest
