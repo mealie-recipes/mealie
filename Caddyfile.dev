@@ -21,9 +21,11 @@
 
 localhost {
   log
-  route /demo/* {
-      uri strip_prefix demo
-      reverse_proxy  localhost:9090  {
+  redir /dev-docs /dev-docs/
+  route /dev-docs* {
+    
+      uri strip_prefix dev-docs
+      reverse_proxy  localhost:8888  {
           import theheaders
       }
       import webconf

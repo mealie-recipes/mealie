@@ -1,6 +1,6 @@
 site_name: Mealie
 demo_url: https://mealie-demo.hay-kot.dev/
-site_url: https://hay-kot.github.io/
+site_url: https://hay-kot.github.io/mealie/
 use_directory_urls: true
 theme:
   palette:
