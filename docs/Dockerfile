@@ -1,6 +1,6 @@
 FROM python:3.8-slim as build-stage
 WORKDIR /app
-RUN pip install mkdocs mkdocs-material
+RUN pip install --no-cache-dir mkdocs mkdocs-material
 COPY . .
 RUN mkdocs build
 
