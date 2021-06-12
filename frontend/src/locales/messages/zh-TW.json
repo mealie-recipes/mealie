@@ -117,7 +117,8 @@
     "url": "URL",
     "view": "View",
     "wednesday": "Wednesday",
-    "yes": "Yes"
+    "yes": "Yes",
+    "more": "More"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -251,7 +252,9 @@
     "title": "標題",
     "total-time": "總時間",
     "unable-to-delete-recipe": "Unable to Delete Recipe",
-    "view-recipe": "查看食譜"
+    "view-recipe": "查看食譜",
+    "add-to-favorites": "Add to Favorites",
+    "remove-from-favorites": "Remove from Favorites"
   },
   "search": {
     "and": "and",
