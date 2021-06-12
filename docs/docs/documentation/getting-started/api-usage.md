@@ -2,29 +2,8 @@
 
 ## Getting a Token
 
-Mealie supports long-live api tokens in the user frontend. In you profile section you can use the 
+Mealie supports long-live api tokens in the user frontend. See [user settings page](../../users-groups/user-settings/)
 
-### Curl
-```bash
-curl -X 'POST' \
-  'https://mealie-demo.hay-kot.dev/api/auth/token' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d 'grant_type=&username=changeme%40email.com&password=demo&scope=&client_id=&client_secret='
-
-```
-
-#### Response
-```json
-{
-  "snackbar": {
-    "text": "User Successfully Logged In",
-    "type": "success"
-  },
-  "access_token": "your-long-token-string",
-  "token_type": "bearer"
-}
-```
 
 ## Key Components
 

@@ -1,18 +1,7 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import { store } from "@/store";
 import i18n from "@/i18n.js";
-
-const backupBase = baseURL + "backups/";
-
-export const backupURLs = {
-  // Backup
-  available: `${backupBase}available`,
-  createBackup: `${backupBase}export/database`,
-  importBackup: fileName => `${backupBase}${fileName}/import`,
-  deleteBackup: fileName => `${backupBase}${fileName}/delete`,
-  downloadBackup: fileName => `${backupBase}${fileName}/download`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 export const backupAPI = {
   /**
@@ -20,7 +9,7 @@ export const backupAPI = {
    * @returns {Array} List of Available Backups
    */
   async requestAvailable() {
-    let response = await apiReq.get(backupURLs.available);
+    let response = await apiReq.get(API_ROUTES.backupsAvailable);
     return response.data;
   },
   /**
@@ -30,7 +19,7 @@ export const backupAPI = {
    * @returns A report containing status of imported items
    */
   async import(fileName, data) {
-    let response = await apiReq.post(backupURLs.importBackup(fileName), data);
+    let response = await apiReq.post(API_ROUTES.backupsFileNameImport(fileName), data);
     store.dispatch("requestRecentRecipes");
     return response;
   },
@@ -40,7 +29,7 @@ export const backupAPI = {
    */
   async delete(fileName) {
     return apiReq.delete(
-      backupURLs.deleteBackup(fileName),
+      API_ROUTES.backupsFileNameDelete(fileName),
       null,
       () => i18n.t("settings.backup.unable-to-delete-backup"),
       () => i18n.t("settings.backup.backup-deleted")
@@ -53,7 +42,7 @@ export const backupAPI = {
    */
   async create(options) {
     return apiReq.post(
-      backupURLs.createBackup,
+      API_ROUTES.backupsExportDatabase,
       options,
       () => i18n.t("settings.backup.error-creating-backup-see-log-file"),
       response => {
@@ -67,7 +56,7 @@ export const backupAPI = {
    * @returns Download URL
    */
   async download(fileName) {
-    const url = backupURLs.downloadBackup(fileName);
+    const url = API_ROUTES.backupsFileNameDownload(fileName);
     apiReq.download(url);
   },
 };

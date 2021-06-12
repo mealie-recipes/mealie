@@ -1,5 +1,7 @@
 site_name: Mealie
 demo_url: https://mealie-demo.hay-kot.dev/
+site_url: https://hay-kot.github.io/mealie/
+use_directory_urls: true
 theme:
   palette:
     # Light mode
@@ -61,6 +63,7 @@ nav:
       - Users & Groups:
           - User Settings: "documentation/users-groups/user-settings.md"
           - Planning Meals: "documentation/users-groups/meal-planner.md"
+
       - Admin:
           - Dashboard: "documentation/admin/dashboard.md"
           - Site Settings: "documentation/admin/site-settings.md"
@@ -68,15 +71,16 @@ nav:
           - User Management: "documentation/admin/user-management.md"
           - Backups and Restore: "documentation/admin/backups-and-exports.md"
           - Recipe Migration: "documentation/admin/migration-imports.md"
+
       - Toolbox:
-          - Toolbox: "documentation/toolbox/toolbox-intro.md"
+          - External Notifications: "documentation/toolbox/notifications.md"
+          - Organization Tools: "documentation/toolbox/organize-tools.md"
 
       - Community Guides:
           - iOS Shortcuts: "documentation/community-guide/ios.md"
           - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
           - Home Assistant: "documentation/community-guide/home-assistant.md"
           - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
-
   - API Reference: "api/redoc.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"

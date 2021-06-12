@@ -1,0 +1,7 @@
+{% for api in files.files  %}
+import { {{ api }}API } from "./{{api}}.js" {% endfor %}
+
+export const api = {
+{% for api in files.files  %}
+    {{api}}: {{api}}API, {% endfor %}
+}

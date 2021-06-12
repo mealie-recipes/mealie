@@ -1,0 +1,11 @@
+version: "3"
+services:
+  wiki:
+    container_name: mealie-docs
+    image: mealie-docs
+    ports:
+      - 8888:80
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always

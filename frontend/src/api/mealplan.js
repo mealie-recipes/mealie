@@ -1,25 +1,11 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
 import i18n from "@/i18n.js";
-
-const prefix = baseURL + "meal-plans/";
-
-const mealPlanURLs = {
-  // Meals
-  all: `${prefix}all`,
-  create: `${prefix}create`,
-  thisWeek: `${prefix}this-week`,
-  byId: planID => `${prefix}${planID}`,
-  update: planID => `${prefix}${planID}`,
-  delete: planID => `${prefix}${planID}`,
-  today: `${prefix}today`,
-  shopping: planID => `${prefix}${planID}/shopping-list`,
-};
+import { API_ROUTES } from "./apiRoutes";
 
 export const mealplanAPI = {
   create(postBody) {
     return apiReq.post(
-      mealPlanURLs.create,
+      API_ROUTES.mealPlansCreate,
       postBody,
       () => i18n.t("meal-plan.mealplan-creation-failed"),
       () => i18n.t("meal-plan.mealplan-created")
@@ -27,28 +13,28 @@ export const mealplanAPI = {
   },
 
   async all() {
-    let response = await apiReq.get(mealPlanURLs.all);
+    let response = await apiReq.get(API_ROUTES.mealPlansAll);
     return response;
   },
 
   async thisWeek() {
-    let response = await apiReq.get(mealPlanURLs.thisWeek);
+    let response = await apiReq.get(API_ROUTES.mealPlansThisWeek);
     return response.data;
   },
 
   async today() {
-    let response = await apiReq.get(mealPlanURLs.today);
+    let response = await apiReq.get(API_ROUTES.mealPlansToday);
     return response;
   },
 
   async getById(id) {
-    let response = await apiReq.get(mealPlanURLs.byId(id));
+    let response = await apiReq.get(API_ROUTES.mealPlansId(id));
     return response.data;
   },
 
   delete(id) {
     return apiReq.delete(
-      mealPlanURLs.delete(id),
+      API_ROUTES.mealPlansId(id),
       null,
       () => i18n.t("meal-plan.mealplan-deletion-failed"),
       () => i18n.t("meal-plan.mealplan-deleted")
@@ -57,7 +43,7 @@ export const mealplanAPI = {
 
   update(id, body) {
     return apiReq.put(
-      mealPlanURLs.update(id),
+      API_ROUTES.mealPlansId(id),
       body,
       () => i18n.t("meal-plan.mealplan-update-failed"),
       () => i18n.t("meal-plan.mealplan-updated")
@@ -65,7 +51,7 @@ export const mealplanAPI = {
   },
 
   async shoppingList(id) {
-    let response = await apiReq.get(mealPlanURLs.shopping(id));
+    let response = await apiReq.get(API_ROUTES.mealPlansIdShoppingList(id));
     return response.data;
   },
 };

@@ -1,0 +1,7 @@
+// This Content is Auto Generated
+const prefix = '{{paths.prefix}}'
+export const API_ROUTES = { {% for path in paths.static_paths %}
+  {{ path.router_camel }}: `${prefix}{{ path.route }}`,{% endfor %}
+{% for path in paths.function_paths  %}
+  {{path.router_camel}}: ({{path.var|join(", ")}}) => `${prefix}{{ path.js_route }}`,{% endfor %}
+}

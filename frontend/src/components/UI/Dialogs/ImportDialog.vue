@@ -44,7 +44,7 @@ import { api } from "@/api";
 import BaseDialog from "./BaseDialog";
 import ImportOptions from "@/components/FormHelpers/ImportOptions";
 import TheDownloadBtn from "@/components/UI/Buttons/TheDownloadBtn.vue";
-import { backupURLs } from "@/api/backup";
+import { API_ROUTES } from "@/api/apiRoutes";
 export default {
   components: { ImportOptions, TheDownloadBtn, BaseDialog },
   props: {
@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     downloadUrl() {
-      return backupURLs.downloadBackup(this.name);
+      return API_ROUTES.backupsFileNameDownload(this.name);
     },
   },
   methods: {

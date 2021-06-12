@@ -23,12 +23,3 @@ const icons = {
 export const globals = {
   icons,
 };
-
-/*
-
-import { globals } from "@/utils/globals"
-globals: globals,
-
-{{ globals.icons. }}
-
-*/

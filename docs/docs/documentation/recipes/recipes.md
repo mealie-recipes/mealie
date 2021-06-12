@@ -1,8 +1,11 @@
 # Recipes
 
 ## URL Import
-Adding a recipe can be as easy as clicking in the bottom-right corner, copying the recipe URL into Mealie and letting the web scrapper organize information. Currently this scraper is implemented with [scrape-schema-recipe package](https://pypi.org/project/scrape-schema-recipe/). You may have mixed results on some websites, especially with blogs or non-specific recipe websites. See the bulk import Option below for another a convenient way to add blog style recipes into Mealie.
-You can add different sections to make sure your recipe is divided correctly into separate 'chapters'
+Adding a recipe can be as easy as clicking in the bottom-right corner, copying the recipe URL into Mealie and letting the web scrapper organize information. Currently this scraper is implemented with [recipe-scrapers](https://github.com/hhursev/recipe-scrapers). You may have mixed results on some websites, especially with blogs or non-specific recipe websites. See the bulk import Option below for another a convenient way to add blog style recipes into Mealie.
+
+!!! tip
+    You can find a list of some of the supported sites in the recipe-scrapers repo. If you're site isn't supported, you can work with the recipe-scrapers team to implement it and we can down-stream those changes into Mealie. 
+
 ![](../../assets/gifs/URL-import.gif)
 
 ## Using Bookmarklets
@@ -19,12 +22,33 @@ window.open(dest, '_blank')
 ```
 
 ## Recipe Editor
+
+![edit-recipe](../../assets/img/edit-recipe.webp){: align=right style="height:225px;width:275px"}
 Recipes can be edited and created via the UI. This is done with both a form based approach where you have a UI to work with as well as with a in browser JSON Editor. The JSON editor allows you to easily copy and paste data from other sources.
-![edit-recipe](../../assets/img/edit-recipe.webp)
 
-You can also add a custom recipe with the UI editor built into the web view.
+You can also add a custom recipe with the UI editor built into the web view. Using the `+` button on the site.
 
-## Bulk Import
+### Recipe Settings
+
+Settings for a specific recipe can be adjusted in the settings menu inside the editor. Currently the settings supports
+
+- Settings a Recipe to Public/Private
+- Show Nutrition Values
+- Show Assets
+- Landscape Mode (Coming Soon)
+
+!!! note
+    Recipes set to private will only be displayed when a user is logged in. Currently there is no way to generate a share-link for a private recipe, but it is on the roadmap.
+
+### Recipe Assets
+
+While in the editor you also have an opportunity to upload any asset to your recipe. There are several icons that you can choose from or you can choose an arbitrary file icon. Once uploaded you can view or download the asset when viewing the page.
+
+!!! tip
+    You can get a link to an asset to embed in a recipe step by select the copy icon in editor mode. 
+
+### Bulk Import
+
 Mealie also supports bulk import of recipe instructions and ingredients. Select "Bulk Add" in the editor and paste in your plain text data to be parsed. Each line is treated as one entry and will be appended to the existing ingredients or instructions if they exist. Empty lines will be stripped from the text.
 
 ![](../../assets/gifs/bulk-add-demo.gif)

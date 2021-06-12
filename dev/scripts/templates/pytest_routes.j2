@@ -1,0 +1,12 @@
+# This Content is Auto Generated for Pytest
+
+
+class AppRoutes:
+    def __init__(self) -> None:
+        self.prefix = '{{paths.prefix}}'
+{% for path in paths.static_paths %}
+        self.{{ path.router_slug }} = "{{path.prefix}}{{ path.route }}"{% endfor %}
+{% for path in paths.function_paths  %}
+    def {{path.router_slug}}(self, {{path.var|join(", ")}}):
+        return f"{self.prefix}{{ path.route }}"
+{% endfor %}
