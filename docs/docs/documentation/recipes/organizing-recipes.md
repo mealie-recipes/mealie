@@ -9,7 +9,7 @@ Below are some general guidelines that were considered when creating the organiz
 > 
 > My tags are for picking the exact type of meal I'm looking for, based on my mood or my guests' diet, like gluten-free, vegetarian, sweet-sour or casserole. They can also act as sub-categories, like "alcohol" for beverages or "hot meal" for a main course.
 > 
-> User: [sephrat](https://github.com/sephrat)
+> User: [sephrat](https://github.com/sephrat){:target="_blank"}
 
 
 ## Structure 
