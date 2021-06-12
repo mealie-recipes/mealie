@@ -339,7 +339,9 @@
       "theme-saved": "Theme Saved",
       "theme-settings": "佈景主題設置",
       "theme-updated": "Theme updated",
-      "warning": "警告（Warning）"
+      "warning": "警告（Warning）",
+      "switch-to-light-mode": "Switch to light mode",
+      "switch-to-dark-mode": "Switch to dark mode"
     },
     "token": {
       "active-tokens": "ACTIVE TOKENS",
