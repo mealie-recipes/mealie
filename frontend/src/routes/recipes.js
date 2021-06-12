@@ -27,7 +27,8 @@ export const recipeRoutes = [
     meta: {
       title: async route => {
         const recipe = await api.recipes.requestDetails(route.params.recipe);
-        return recipe.name;
+        if (recipe && recipe.name) return recipe.name;
+        else return null;
       },
     },
   },
