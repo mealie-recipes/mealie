@@ -18,9 +18,14 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-btn icon class="mr-1" small @click="isDark = !isDark">
-        <v-icon v-text="isDark ? 'mdi-weather-night' : 'mdi-weather-sunny'"> </v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon class="mr-1" small v-bind="attrs" v-on="on" @click="isDark = !isDark">
+            <v-icon v-text="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'"> </v-icon>
+          </v-btn>
+        </template>
+        <span>{{ isDark ? $t("settings.theme.switch-to-light-mode") : $t("settings.theme.switch-to-dark-mode") }}</span>
+      </v-tooltip>
       <div v-if="!isMobile" style="width: 350px;">
         <SearchBar :show-results="true" @selected="navigateFromSearch" :max-width="isMobile ? '100%' : '450px'" />
       </div>
@@ -88,7 +93,6 @@ export default {
       this.$router.push(`/recipe/${slug}`);
     },
     openSidebar() {
-      console.log(this.isDarkMode);
       this.$refs.theSidebar.toggleSidebar();
     },
   },
