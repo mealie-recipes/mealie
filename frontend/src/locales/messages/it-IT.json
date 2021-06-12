@@ -117,7 +117,8 @@
     "url": "URL",
     "view": "View",
     "wednesday": "Mercoledì",
-    "yes": "Sì"
+    "yes": "Sì",
+    "more": "More"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -251,7 +252,9 @@
     "title": "Titolo",
     "total-time": "Tempo Totale",
     "unable-to-delete-recipe": "Impossibile eliminare ricetta",
-    "view-recipe": "Vedi Ricetta"
+    "view-recipe": "Vedi Ricetta",
+    "add-to-favorites": "Add to Favorites",
+    "remove-from-favorites": "Remove from Favorites"
   },
   "search": {
     "and": "e",
