@@ -4,4 +4,4 @@
 
 ## Vue
 
-[See The Style Guide](/mealie/contributors/developers-guide/style-guide/)
+[See The Style Guide](../developers-guide/style-guide.md)

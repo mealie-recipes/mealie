@@ -1,6 +1,6 @@
 # Development: Getting Started
 
-After reading through the [Code Contributions Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
+After reading through the [Code Contributions Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/){:target="_blank"} and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
 
 ## With Docker
 Prerequisites
@@ -48,4 +48,4 @@ code-gen             🤖 Run Code-Gen Scripts
 
 Before you commit any changes on the backend/python side you'll want to run `make format` to format all the code with black. `make lint` to check with flake8, and `make test` to run pytests. You can also use `make test-all` to run both `lint` and `test`. 
 
-Run into another issue? [Ask for help on discord](https://discord.gg/QuStdQGSGK)
+Run into another issue? [Ask for help on discord](https://discord.gg/QuStdQGSGK){:target="_blank"}

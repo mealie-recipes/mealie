@@ -2,9 +2,9 @@
 To deploy mealie on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. You can deploy with either SQLite (default) or Postgres. SQLite is sufficient for most use cases. Additionally, with mealies automated backup and restore functionality, you can easily move between SQLite and Postgres as you wish. 
 
 
-[Get Docker](https://docs.docker.com/get-docker/)
+[Get Docker](https://docs.docker.com/get-docker/){:target="_blank"}
 
-[Mealie on Dockerhub](https://hub.docker.com/r/hkotel/mealie) 
+[Mealie on Dockerhub](https://hub.docker.com/r/hkotel/mealie){:target="_blank"}
 
  - linux/amd64 
  - linux/arm64
@@ -92,10 +92,12 @@ services:
 | TZ                | UTC                   | Must be set to get correct date/time on the server                                  |
 
 
+## Raspberry Pi 4
+
 !!! tip "Fatal Python error: init_interp_main: can't initialize time"
     Some users experience an problem with running the linux/arm/v7 container on Raspberry Pi 4. This is not a problem with the Mealie container, but with a bug in the hosts Docker installation.
     
-    Update the host RP4 using [instructions](linuxserver/docker-papermerge#4 (comment)), summarized here:
+    Update the host RP4 using [instructions](https://github.com/linuxserver/docker-papermerge/issues/4#issuecomment-735236388){:target="_blank"}, summarized here:
 
     ```shell
     wget http://ftp.us.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb
@@ -143,7 +145,7 @@ The Docker image provided by Mealie contains both the API and the html bundle in
 
 ## Deployed without Docker
 !!! error "Unsupported Deployment"
-    If you are experiencing a problem with manual deployment, please do not submit a github issue unless it is related to an aspect of the application. For deployment help, the [discord server](https://discord.gg/QuStdQGSGK) is a better place to find support. 
+    If you are experiencing a problem with manual deployment, please do not submit a github issue unless it is related to an aspect of the application. For deployment help, the [discord server](https://discord.gg/QuStdQGSGK){:target="_blank"} is a better place to find support. 
 
 Alternatively, this project is built on Python and SQLite so you may run it as a python application on your server. This is not a supported options for deployment and is only here as a reference for those who would like to do this on their own. To get started you can clone this repository into a directory of your choice and use the instructions below as a reference for how to get started. 
 
