@@ -24,7 +24,7 @@ jobs:
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
-          context: /docs
+          context: ./docs
           push: true
           tags: |
             ghrc.io/${{ github.repository }}/dev-docs:latest
