@@ -90,12 +90,22 @@
           <v-icon> {{ $globals.icons.createAlt }} </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark small color="primary" @click="addRecipe = true">
-        <v-icon>mdi-link</v-icon>
-      </v-btn>
-      <v-btn fab dark small color="accent" @click="$router.push('/new')">
-        <v-icon>{{ $globals.icons.edit }}</v-icon>
-      </v-btn>
+      <v-tooltip left dark color="primary">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab dark small color="primary" v-bind="attrs" v-on="on" @click="addRecipe = true">
+            <v-icon>mdi-link</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t("new-recipe.from-url") }}</span>
+      </v-tooltip>
+      <v-tooltip left dark color="accent">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab dark small color="accent" v-bind="attrs" v-on="on" @click="$router.push('/new')">
+            <v-icon>{{ $globals.icons.edit }}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t("general.new") }}</span>
+      </v-tooltip>
     </v-speed-dial>
   </div>
 </template>
@@ -160,8 +170,7 @@ export default {
       this.processing = false;
     },
     isValidWebUrl(url) {
-      let regEx =
-        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
+      let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
       return regEx.test(url) ? true : "Must be a Valid URL";
     },
 

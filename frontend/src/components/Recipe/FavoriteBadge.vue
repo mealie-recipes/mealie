@@ -1,16 +1,23 @@
 <template>
-  <v-btn
-    small
-    @click.prevent="toggleFavorite"
-    v-if="isFavorite || showAlways"
-    :color="buttonStyle ? 'primary' : 'secondary'"
-    :icon="!buttonStyle"
-    :fab="buttonStyle"
-  >
-    <v-icon :small="!buttonStyle" color="secondary">
-      {{ isFavorite ? "mdi-heart" : "mdi-heart-outline" }}
-    </v-icon>
-  </v-btn>
+  <v-tooltip right :color="buttonStyle ? 'primary' : 'secondary'">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn
+        small
+        @click.prevent="toggleFavorite"
+        v-if="isFavorite || showAlways"
+        :color="buttonStyle ? 'primary' : 'secondary'"
+        :icon="!buttonStyle"
+        :fab="buttonStyle"
+        v-bind="attrs"
+        v-on="on"
+      >
+        <v-icon :small="!buttonStyle" color="secondary">
+          {{ isFavorite ? "mdi-heart" : "mdi-heart-outline" }}
+        </v-icon>
+      </v-btn>
+    </template>
+    <span>{{ isFavorite ? $t("recipe.remove-from-favorites") : $t("recipe.add-to-favorites") }}</span>
+  </v-tooltip>
 </template>
 
 <script>
