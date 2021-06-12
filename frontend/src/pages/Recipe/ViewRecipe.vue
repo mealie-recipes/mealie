@@ -140,7 +140,7 @@ export default {
   },
 
   watch: {
-    $route: function () {
+    $route: function() {
       this.getRecipeDetails();
       this.checkPrintRecipe();
     },
@@ -193,6 +193,7 @@ export default {
       }
 
       this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
+      if (!this.recipeDetails) router.push(`/login`);
       this.skeleton = false;
     },
     getImage(slug) {
