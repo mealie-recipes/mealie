@@ -37,7 +37,7 @@ def get_shopping_list(
                 logger.error("Recipe Not Found")
 
     new_list = ShoppingListIn(
-        name="MealPlan Shopping List", group=current_user.group, items=[ListItem(text=t) for t in all_ingredients]
+        name="MealPlan Shopping List", group=current_user.group, items=[ListItem(text=t.note) for t in all_ingredients]
     )
 
     created_list: ShoppingListOut = db.shopping_lists.create(session, new_list)

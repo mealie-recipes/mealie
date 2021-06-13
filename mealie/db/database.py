@@ -6,6 +6,7 @@ from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlan
 from mealie.db.models.recipe.comment import RecipeComment
+from mealie.db.models.recipe.ingredient import IngredientFood, IngredientUnit
 from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.settings import CustomPage, SiteSettings
@@ -18,7 +19,8 @@ from mealie.schema.comments import CommentOut
 from mealie.schema.event_notifications import EventNotificationIn
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.meal import MealPlanOut
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import (Recipe, RecipeIngredientFood,
+                                  RecipeIngredientUnit)
 from mealie.schema.settings import CustomPageOut
 from mealie.schema.settings import SiteSettings as SiteSettingsSchema
 from mealie.schema.shopping_list import ShoppingListOut
@@ -85,6 +87,20 @@ class _Recipes(BaseDocument):
         return self._count_attribute(
             session, attribute_name=RecipeModel.tags, attr_match=None, count=count, override_schema=override_schema
         )
+
+
+class _IngredientFoods(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "id"
+        self.sql_model = IngredientFood
+        self.schema = RecipeIngredientFood
+
+
+class _IngredientUnits(BaseDocument):
+    def __init__(self) -> None:
+        self.primary_key = "id"
+        self.sql_model = IngredientUnit
+        self.schema = RecipeIngredientUnit
 
 
 class _Categories(BaseDocument):
@@ -215,21 +231,28 @@ class _EventNotification(BaseDocument):
 
 class Database:
     def __init__(self) -> None:
+        # Recipes
         self.recipes = _Recipes()
-        self.meals = _Meals()
-        self.settings = _Settings()
-        self.themes = _Themes()
+        self.ingredient_foods = _IngredientUnits()
+        self.ingredient_units = _IngredientFoods()
         self.categories = _Categories()
         self.tags = _Tags()
+        self.comments = _Comments()
+
+        # Site
+        self.settings = _Settings()
+        self.themes = _Themes()
+        self.sign_ups = _SignUps()
+        self.custom_pages = _CustomPages()
+        self.event_notifications = _EventNotification()
+        self.events = _Events()
+
+        # Users / Groups
         self.users = _Users()
         self.api_tokens = _LongLiveToken()
-        self.sign_ups = _SignUps()
         self.groups = _Groups()
-        self.custom_pages = _CustomPages()
-        self.events = _Events()
-        self.event_notifications = _EventNotification()
+        self.meals = _Meals()
         self.shopping_lists = _ShoppingList()
-        self.comments = _Comments()
 
 
 db = Database()
