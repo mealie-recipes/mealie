@@ -96,7 +96,7 @@
     "saturday": "Sábado",
     "save": "Guardar",
     "settings": "Ajustes",
-    "share": "Share",
+    "share": "Compartir",
     "shuffle": "Aleatorio",
     "sort": "Ordenar",
     "sort-alphabetically": "Alfabéticamente",
@@ -118,7 +118,7 @@
     "view": "Ver",
     "wednesday": "Miércoles",
     "yes": "Si",
-    "more": "More"
+    "more": "Más"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -180,8 +180,8 @@
   },
   "new-recipe": {
     "bulk-add": "Añadir en masa",
-    "error-title": "Looks Like We Couldn't Find Anything",
-    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-title": "Parece que no hemos podido encontrar nada",
+    "error-details": "Sólo los sitios web que contengan ld+json o microdatos pueden ser importados por Mealie. La mayoría de los sitios web de recetas principales soportan esta estructura de datos. Si su sitio no puede ser importado pero hay datos json en el registro, por favor envíe un problema a github con la URL y los datos.",
     "from-url": "Importar una receta",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Pegar los datos de tu receta. Cada línea será tratada como un elemento de una lista",
     "recipe-url": "URL de la receta",
@@ -217,7 +217,7 @@
     "ingredient": "Ingrediente",
     "ingredients": "Ingredientes",
     "instructions": "Instrucciones",
-    "share-recipe-message": "I wanted to share my {0} recipe with you.",
+    "share-recipe-message": "Quería compartir mi receta {0} contigo.",
     "key-name-required": "Nombre de clave requerido",
     "landscape-view-coming-soon": "Vista apaisada (Próximamente)",
     "milligrams": "miligramos",
@@ -253,8 +253,8 @@
     "total-time": "Tiempo total",
     "unable-to-delete-recipe": "No se puede eliminar la receta",
     "view-recipe": "Ver Receta",
-    "add-to-favorites": "Add to Favorites",
-    "remove-from-favorites": "Remove from Favorites"
+    "add-to-favorites": "Añadir a favoritos",
+    "remove-from-favorites": "Eliminar de favoritos"
   },
   "search": {
     "and": "y",
@@ -340,8 +340,8 @@
       "theme-settings": "Ajustes del tema",
       "theme-updated": "Tema actualizado",
       "warning": "Aviso",
-      "switch-to-light-mode": "Switch to light mode",
-      "switch-to-dark-mode": "Switch to dark mode"
+      "switch-to-light-mode": "Cambiar a modo claro",
+      "switch-to-dark-mode": "Cambiar a modo oscuro"
     },
     "token": {
       "active-tokens": "TOKENS ACTIVOS",

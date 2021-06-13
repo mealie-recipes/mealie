@@ -14,6 +14,10 @@ const state = {
       value: "de-DE",
     },
     {
+      name: "Español (Spanish)",
+      value: "es-ES",
+    },
+    {
       name: "Français (French)",
       value: "fr-FR",
     },
