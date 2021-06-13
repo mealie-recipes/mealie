@@ -54,13 +54,13 @@ lint: ## 🧺 Check style with flake8
 	poetry run black . --check
 	poetry run flake8 mealie tests
 
-coverage: ## ☂️ Check code coverage quickly with the default Python
+coverage: ## ☂️  Check code coverage quickly with the default Python
 	poetry run pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
-setup: ## 🏗 Setup Development Instance
+setup: ## 🏗  Setup Development Instance
 	poetry install && \
 	cd frontend && \
 	npm install && \
@@ -76,7 +76,7 @@ backend: ## 🎬 Start Mealie Backend Development Server
 frontend: ## 🎬 Start Mealie Frontend Development Server
 	cd frontend && npm run serve
 
-frontend-build: ## 🏗 Build Frontend in frontend/dist
+frontend-build: ## 🏗  Build Frontend in frontend/dist
 	cd frontned && npm run build
 
 .PHONY: docs
