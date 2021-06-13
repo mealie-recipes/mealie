@@ -34,7 +34,6 @@ def authenticate_user(session, email: str, password: str) -> UserInDB:
     if not user:
         return False
 
-    print(user)
     if not verify_password(password, user.password):
         return False
     return user
