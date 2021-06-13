@@ -4,13 +4,13 @@ import pytest
 from fastapi.testclient import TestClient
 from slugify import slugify
 from tests.app_routes import AppRoutes
-from tests.utils.recipe_data import RecipeTestData, build_recipe_store
+from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
 
-recipe_test_data = build_recipe_store()
+recipe_test_data = get_recipe_test_cases()
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_create_by_url(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeTestData, token):
+def test_create_by_url(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
 
     api_client.delete(api_routes.recipes_recipe_slug(recipe_data.expected_slug), headers=token)
     response = api_client.post(api_routes.recipes_create_url, json={"url": recipe_data.url}, headers=token)
@@ -35,7 +35,7 @@ def test_create_no_image(api_client: TestClient, api_routes: AppRoutes, token, r
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeTestData, token):
+def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=token)
     assert response.status_code == 200
@@ -68,7 +68,7 @@ def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data:
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeTestData, token):
+def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=token)
     assert response.status_code == 200
@@ -87,7 +87,7 @@ def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: Reci
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_delete(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeTestData, token):
+def test_delete(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
     response = api_client.delete(recipe_url, headers=token)
     assert response.status_code == 200
