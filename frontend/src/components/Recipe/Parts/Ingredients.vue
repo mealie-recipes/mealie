@@ -84,20 +84,27 @@ export default {
   },
   methods: {
     addIngredient(ingredients = null) {
-      const newIngredients = ingredients.map(x => {
-        return {
+      if (ingredients.length) {
+        const newIngredients = ingredients.map(x => {
+          return {
+            title: null,
+            note: x,
+            unit: null,
+            food: null,
+            disableAmount: true,
+            quantity: 1,
+          };
+        });
+        this.value.push(...newIngredients);
+      } else {
+        this.value.push({
           title: null,
-          note: x,
+          note: "",
           unit: null,
           food: null,
           disableAmount: true,
           quantity: 1,
-        };
-      });
-      if (ingredients.length) {
-        this.value.push(...newIngredients);
-      } else {
-        this.value.push("");
+        });
       }
     },
     generateKey(item, index) {
