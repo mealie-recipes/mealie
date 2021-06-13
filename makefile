@@ -30,15 +30,15 @@ purge: clean ## ⚠️  Removes All Developer Data for a fresh server start
 	rm -f ./dev/data/mealie.log
 	rm -f ./dev/data/.secret
 
-clean: clean-pyc clean-test ## 🧹 remove all build, test, coverage and Python artifacts
+clean: clean-pyc clean-test ## 🧹 Remove all build, test, coverage and Python artifacts
 
-clean-pyc: ## 🧹 remove Python file artifacts
+clean-pyc: ## 🧹 Remove Python file artifacts
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
-clean-test: ## 🧹 remove test and coverage artifacts
+clean-test: ## 🧹 Remove test and coverage artifacts
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
@@ -46,15 +46,15 @@ clean-test: ## 🧹 remove test and coverage artifacts
 
 test-all: lint test ## 🧪 Check Lint Format and Testing
 
-test: ## 🧪 run tests quickly with the default Python
+test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
-lint: ## 🧺 check style with flake8
+lint: ## 🧺 Check style with flake8
 	poetry run black .
 	poetry run black . --check
 	poetry run flake8 mealie tests
 
-coverage: ## ☂️  check code coverage quickly with the default Python
+coverage: ## ☂️  Check code coverage quickly with the default Python
 	poetry run pytest
 	coverage report -m
 	coverage html
