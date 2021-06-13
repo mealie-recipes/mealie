@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "theButton",
+  name: "TheButton",
   props: {
     // Types
     cancel: {

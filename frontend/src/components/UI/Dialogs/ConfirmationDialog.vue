@@ -5,9 +5,10 @@
     :style="{ zIndex: zIndex }"
     @click:outside="cancel"
     @keydown.esc="cancel"
+    @keydown.enter="confirm"
   >
     <template v-slot:activator="{}">
-      <slot v-bind="{ open }"> </slot>
+      <slot  v-bind="{ open }"> </slot>
     </template>
     <v-card>
       <v-app-bar v-if="Boolean(title)" :color="color" dense dark>

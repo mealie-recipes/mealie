@@ -31,7 +31,16 @@
             </v-card-text>
 
             <v-card-actions>
-              <TheButton delete small minor @click="deletePage(item.id)" />
+              <ConfirmationDialog
+                :title="$t('page.page') + ' ' + $t('general.delete')"
+                :icon="$globals.icons.pages"
+                :message="$t('general.confirm-delete-generic')"
+                @confirm="deletePage(item.id)"
+              >
+                <template v-slot="{ open }">
+                  <TheButton delete small minor @click="open" />
+                </template>
+              </ConfirmationDialog>
               <v-spacer> </v-spacer>
               <TheButton edit small @click="editPage(index)" />
             </v-card-actions>
@@ -49,11 +58,15 @@
 <script>
 import draggable from "vuedraggable";
 import CreatePageDialog from "./CreatePageDialog";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
+import TheButton from "@/components/UI/Buttons/TheButton.vue";
 import { api } from "@/api";
 export default {
   components: {
     draggable,
     CreatePageDialog,
+    ConfirmationDialog,
+    TheButton,
   },
   data() {
     return {
