@@ -18,6 +18,7 @@ export const routes = [
   ...mealRoutes,
   ...recipeRoutes,
 
+  { path: "/page-not-found", component: Page404 },
   { path: "*", component: Page404 },
 ];
 
