@@ -34,6 +34,13 @@ def new_user():
     )
 
 
+def test_failed_login(api_client: TestClient, api_routes: AppRoutes):
+    form_data = {"username": "changeme@email.com", "password": "WRONG_PASSWORD"}
+    response = api_client.post(api_routes.auth_token, form_data)
+
+    assert response.status_code == 401
+
+
 def test_superuser_login(api_client: TestClient, api_routes: AppRoutes, token):
     form_data = {"username": "changeme@email.com", "password": "MyPassword"}
     response = api_client.post(api_routes.auth_token, form_data)

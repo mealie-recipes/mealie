@@ -56,8 +56,8 @@ lint: ## 🧺 Check style with flake8
 
 coverage: ## ☂️  Check code coverage quickly with the default Python
 	poetry run pytest
-	coverage report -m
-	coverage html
+	poetry run coverage report -m
+	poetry run coverage html
 	$(BROWSER) htmlcov/index.html
 
 setup: ## 🏗  Setup Development Instance

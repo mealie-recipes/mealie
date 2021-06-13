@@ -11,7 +11,7 @@ from pytest import fixture
 
 from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
-from tests.utils.recipe_data import build_recipe_store, get_raw_no_image, get_raw_recipe
+from tests.utils.recipe_data import get_raw_no_image, get_raw_recipe, get_recipe_test_cases
 
 main()
 
@@ -71,4 +71,4 @@ def raw_recipe_no_image():
 
 @fixture(scope="session")
 def recipe_store():
-    return build_recipe_store()
+    return get_recipe_test_cases()
