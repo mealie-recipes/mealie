@@ -26,7 +26,8 @@ export const recipeRoutes = [
     component: ViewRecipe,
     meta: {
       title: async route => {
-        const recipe = await api.recipes.requestDetails(route.params.recipe);
+        const response = await api.recipes.requestDetails(route.params.recipe);
+        const recipe = response.data;
         if (recipe && recipe.name) return recipe.name;
         else return null;
       },

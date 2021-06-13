@@ -59,6 +59,30 @@ class Nutrition(CamelModel):
         orm_mode = True
 
 
+class RecipeIngredientFood(CamelModel):
+    name: str = ""
+    description: str = ""
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeIngredientUnit(RecipeIngredientFood):
+    pass
+
+
+class RecipeIngredient(CamelModel):
+    title: Optional[str]
+    note: Optional[str]
+    unit: Optional[RecipeIngredientUnit]
+    food: Optional[RecipeIngredientFood]
+    disable_amount: bool = True
+    quantity: int = 1
+
+    class Config:
+        orm_mode = True
+
+
 class RecipeSummary(CamelModel):
     id: Optional[int]
     name: Optional[str]
@@ -87,7 +111,7 @@ class RecipeSummary(CamelModel):
 
 class Recipe(RecipeSummary):
     recipe_yield: Optional[str]
-    recipe_ingredient: Optional[list[str]]
+    recipe_ingredient: Optional[list[RecipeIngredient]]
     recipe_instructions: Optional[list[RecipeStep]]
     nutrition: Optional[Nutrition]
     tools: Optional[list[str]] = []
@@ -134,7 +158,7 @@ class Recipe(RecipeSummary):
         def getter_dict(_cls, name_orm: RecipeModel):
             return {
                 **GetterDict(name_orm),
-                "recipe_ingredient": [x.ingredient for x in name_orm.recipe_ingredient],
+                # "recipe_ingredient": [x.note for x in name_orm.recipe_ingredient],
                 "recipe_category": [x.name for x in name_orm.recipe_category],
                 "tags": [x.name for x in name_orm.tags],
                 "tools": [x.tool for x in name_orm.tools],
@@ -178,6 +202,16 @@ class Recipe(RecipeSummary):
             slug = calc_slug
 
         return slug
+
+    @validator("recipe_ingredient", always=True, pre=True)
+    def validate_ingredients(recipe_ingredient, values):
+        if not recipe_ingredient or not isinstance(recipe_ingredient, list):
+            return recipe_ingredient
+
+        if all(isinstance(elem, str) for elem in recipe_ingredient):
+            return [RecipeIngredient(note=x) for x in recipe_ingredient]
+
+        return recipe_ingredient
 
 
 class AllRecipeRequest(BaseModel):

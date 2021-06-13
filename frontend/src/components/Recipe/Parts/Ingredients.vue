@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="value && value.length > 0">
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
     <div v-if="edit">
       <draggable :value="value" @input="updateIndex" @start="drag = true" @end="drag = false" handle=".handle">
@@ -9,7 +9,7 @@
               <v-textarea
                 class="mr-2"
                 :label="$t('recipe.ingredient')"
-                v-model="value[index]"
+                v-model="value[index].note"
                 mdi-move-resize
                 auto-grow
                 solo
@@ -45,7 +45,7 @@
         <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary"> </v-checkbox>
 
         <v-list-item-content>
-          <vue-markdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredient"> </vue-markdown>
+          <vue-markdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredient.note"> </vue-markdown>
         </v-list-item-content>
       </v-list-item>
     </div>
@@ -85,9 +85,26 @@ export default {
   methods: {
     addIngredient(ingredients = null) {
       if (ingredients.length) {
-        this.value.push(...ingredients);
+        const newIngredients = ingredients.map(x => {
+          return {
+            title: null,
+            note: x,
+            unit: null,
+            food: null,
+            disableAmount: true,
+            quantity: 1,
+          };
+        });
+        this.value.push(...newIngredients);
       } else {
-        this.value.push("");
+        this.value.push({
+          title: null,
+          note: "",
+          unit: null,
+          food: null,
+          disableAmount: true,
+          quantity: 1,
+        });
       }
     },
     generateKey(item, index) {
