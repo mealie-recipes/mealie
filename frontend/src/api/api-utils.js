@@ -31,6 +31,7 @@ const apiReq = {
   post: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
     const response = await axios.post(url, data).catch(function(error) {
       handleError(error, getErrorText);
+      return error;
     });
     return handleResponse(response, getSuccessText);
   },
@@ -38,6 +39,7 @@ const apiReq = {
   put: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
     const response = await axios.put(url, data).catch(function(error) {
       handleError(error, getErrorText);
+      return error;
     });
     return handleResponse(response, getSuccessText);
   },
@@ -45,6 +47,7 @@ const apiReq = {
   patch: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
     const response = await axios.patch(url, data).catch(function(error) {
       handleError(error, getErrorText);
+      return error;
     });
     return handleResponse(response, getSuccessText);
   },
@@ -52,12 +55,14 @@ const apiReq = {
   get: async function(url, data, getErrorText = defaultErrorText) {
     return axios.get(url, data).catch(function(error) {
       handleError(error, getErrorText);
+      return error;
     });
   },
 
   delete: async function(url, data, getErrorText = defaultErrorText, getSuccessText = defaultSuccessText) {
     const response = await axios.delete(url, data).catch(function(error) {
       handleError(error, getErrorText);
+      return error;
     });
     return handleResponse(response, getSuccessText);
   },

@@ -192,8 +192,12 @@ export default {
         return;
       }
 
-      this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
-      if (!this.recipeDetails) router.push(`/login`);
+      const response = await api.recipes.requestDetails(this.currentRecipe);
+      console.log("View Response", { response });
+      if (response.status === 401) router.push(`/login`);
+      if (response.status === 404) return;
+
+      this.recipeDetails = response.data;
       this.skeleton = false;
     },
     getImage(slug) {

@@ -5,18 +5,19 @@
         <v-icon left>
           mdi-arrow-left-bold
         </v-icon>
-        {{$t('shopping-list.all-lists')}}
+        {{ $t("shopping-list.all-lists") }}
       </v-btn>
       <v-icon v-if="!list" large left>
         mdi-format-list-checks
       </v-icon>
-      <v-toolbar-title v-if="!list" class="headline"> {{$t('shopping-list.shopping-lists')}} </v-toolbar-title>
+      <v-toolbar-title v-if="!list" class="headline"> {{ $t("shopping-list.shopping-lists") }} </v-toolbar-title>
       <v-spacer></v-spacer>
-      <BaseDialog 
-        :title="$t('shopping-list.new-list')" 
-        title-icon="mdi-format-list-checks" 
-        :submit-text="$t('general.create')" 
-        @submit="createNewList">
+      <BaseDialog
+        :title="$t('shopping-list.new-list')"
+        title-icon="mdi-format-list-checks"
+        :submit-text="$t('general.create')"
+        @submit="createNewList"
+      >
         <template v-slot:open="{ open }">
           <TheButton create @click="open" />
         </template>
@@ -41,7 +42,7 @@
                 <v-icon left>
                   mdi-cart-check
                 </v-icon>
-                {{$t('general.view')}}
+                {{ $t("general.view") }}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -65,7 +66,7 @@
         <v-card-text>
           <v-row dense v-for="(item, index) in activeList.items" :key="index">
             <v-col v-if="edit" cols="12" class="d-flex no-wrap align-center">
-              <p class="mb-0">{{$t('shopping-list.quantity', [item.quantity])}}</p>
+              <p class="mb-0">{{ $t("shopping-list.quantity", [item.quantity]) }}</p>
               <div v-if="edit">
                 <v-btn x-small text class="ml-1" @click="activeList.items[index].quantity -= 1">
                   <v-icon>
@@ -123,13 +124,13 @@
             <v-icon left>
               {{ $globals.icons.primary }}
             </v-icon>
-            {{$t('shopping-list.from-recipe')}}
+            {{ $t("shopping-list.from-recipe") }}
           </v-btn>
           <v-btn v-if="edit" color="success" @click="newItem">
             <v-icon left>
               {{ $globals.icons.create }}
             </v-icon>
-            {{$t('general.new')}}
+            {{ $t("general.new") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -197,7 +198,8 @@ export default {
       this.$refs.searchRecipe.open();
     },
     async importIngredients(selected) {
-      const recipe = await api.recipes.requestDetails(selected.slug);
+      const response = await api.recipes.requestDetails(selected.slug);
+      const recipe = response.data;
 
       const ingredients = recipe.recipeIngredient.map(x => ({
         title: "",
