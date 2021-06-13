@@ -1,6 +1,6 @@
 # Development: Getting Started
 
-After reading through the [Code Contributions Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/){:target="_blank"} and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
+After reading through the [Code Contributions Guide](../developers-guide/code-contributions.md) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
 
 ## With Docker
 Prerequisites
@@ -25,18 +25,18 @@ Once the prerequisites are installed you can cd into the project base directory 
 Run `make help` for reference
 
 ```
-clean-purge          ⚠️  Removes All Developer Data for a fresh server start
-clean                🧹 remove all build, test, coverage and Python artifacts
-clean-pyc            🧹 remove Python file artifacts
-clean-test           🧹 remove test and coverage artifacts
+clean-purge          ⚠️ Removes All Developer Data for a fresh server start
+clean                🧹 Remove all build, test, coverage and Python artifacts
+clean-pyc            🧹 Remove Python file artifacts
+clean-test           🧹 Remove test and coverage artifacts
 test-all             🧪 Check Lint Format and Testing
-test                 🧪 run tests quickly with the default Python
-lint                 🧺 check style with flake8
-coverage             ☂️  check code coverage quickly with the default Python
-setup                🏗  Setup Development Instance
+test                 🧪 Run tests quickly with the default Python
+lint                 🧺 Check style with flake8
+coverage             ☂️ Check code coverage quickly with the default Python
+setup                🏗 Setup Development Instance
 backend              🎬 Start Mealie Backend Development Server
 frontend             🎬 Start Mealie Frontend Development Server
-frontend-build       🏗  Build Frontend in frontend/dist
+frontend-build       🏗 Build Frontend in frontend/dist
 docs                 📄 Start Mkdocs Development Server
 docker-dev           🐳 Build and Start Docker Development Stack
 docker-prod          🐳 Build and Start Docker Production Stack

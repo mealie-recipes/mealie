@@ -3,7 +3,7 @@
 All recipe data can be imported and exported as necessary from the UI. Under the admin page you'll find the section for using Backups and Exports. 
 
 !!! danger
-    As this is still a **BETA** It is recommended that you backup your data often and store in more than one place. Ad-hear to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup). Prior to upgrading you **should** perform a backup to limit any data loss.
+    As this is still a **BETA** It is recommended that you backup your data often and store in more than one place. Ad-hear to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup){:target="_blank"}. Prior to upgrading you **should** perform a backup to limit any data loss.
 
 !!! tip "Mealie data that is saved on backups"
     - [x] Recipe Data

@@ -32,7 +32,7 @@
     ·
     <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>    
     ·
-    <a href="https://hay-kot.github.io/mealie/api/docs/">API</a>
+    <a href="https://hay-kot.github.io/mealie/api/redoc/">API</a>
     ·
     <a href="https://github.com/hay-kot/mealie/issues">
     Request Feature
@@ -96,7 +96,7 @@ As to why we need a database?
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests. See the [Contributors Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/) for help getting started.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests. See the [Contributors Guide](https://hay-kot.github.io/mealie/contributors/non-coders/) for help getting started.
 
 If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development. 
 
