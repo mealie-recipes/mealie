@@ -38,14 +38,14 @@ def clean(recipe_data: dict, url=None) -> dict:
 def clean_string(text: str) -> str:
     if text == "" or text is None:
         return ""
-    else:
-        cleaned_text = html.unescape(text)
-        cleaned_text = re.sub("<[^<]+?>", "", cleaned_text)
-        cleaned_text = re.sub(" +", " ", cleaned_text)
-        cleaned_text = re.sub("</p>", "\n", cleaned_text)
-        cleaned_text = re.sub(r"\n\s*\n", "\n\n", cleaned_text)
-        cleaned_text = cleaned_text.replace("\xa0", " ").replace("\t", " ").strip()
-        return cleaned_text
+
+    cleaned_text = html.unescape(text)
+    cleaned_text = re.sub("<[^<]+?>", "", cleaned_text)
+    cleaned_text = re.sub(" +", " ", cleaned_text)
+    cleaned_text = re.sub("</p>", "\n", cleaned_text)
+    cleaned_text = re.sub(r"\n\s*\n", "\n\n", cleaned_text)
+    cleaned_text = cleaned_text.replace("\xa0", " ").replace("\t", " ").strip()
+    return cleaned_text
 
 
 def category(category: str):
@@ -81,6 +81,10 @@ def instructions(instructions) -> List[dict]:
 
     if not instructions:
         return []
+
+    # Dictionary (Keys: step number strings, Values: the instructions)
+    if isinstance(instructions, dict):
+        instructions = list(instructions.values())
 
     if isinstance(instructions, list) and isinstance(instructions[0], list):
         instructions = instructions[0]
