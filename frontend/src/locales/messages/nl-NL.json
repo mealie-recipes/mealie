@@ -339,7 +339,9 @@
       "theme-saved": "Thema opgeslagen",
       "theme-settings": "Thema Instellingen",
       "theme-updated": "Thema bijgewerkt",
-      "warning": "Waarschuwing"
+      "warning": "Waarschuwing",
+      "switch-to-light-mode": "Switch to light mode",
+      "switch-to-dark-mode": "Switch to dark mode"
     },
     "token": {
       "active-tokens": "ACTIEVE TOKENS",

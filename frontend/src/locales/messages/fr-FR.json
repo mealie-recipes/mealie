@@ -339,7 +339,9 @@
       "theme-saved": "Thème enregistré",
       "theme-settings": "Paramètres du thème",
       "theme-updated": "Thème mis à jour",
-      "warning": "Avertissement"
+      "warning": "Avertissement",
+      "switch-to-light-mode": "Switch to light mode",
+      "switch-to-dark-mode": "Switch to dark mode"
     },
     "token": {
       "active-tokens": "JETONS ACTIFS",

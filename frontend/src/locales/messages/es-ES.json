@@ -339,7 +339,9 @@
       "theme-saved": "Tema guardado",
       "theme-settings": "Ajustes del tema",
       "theme-updated": "Tema actualizado",
-      "warning": "Aviso"
+      "warning": "Aviso",
+      "switch-to-light-mode": "Switch to light mode",
+      "switch-to-dark-mode": "Switch to dark mode"
     },
     "token": {
       "active-tokens": "TOKENS ACTIVOS",
