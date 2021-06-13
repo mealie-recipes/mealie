@@ -16,25 +16,13 @@
       :top="menuTop"
       :nudge-top="menuTop ? '5' : '0'"
       allow-overflow
+      close-delay="125"
+      open-on-hover
     >
-      <template v-slot:activator="{ on: onMenu, attrs: attrsMenu }">
-        <v-tooltip bottom dark :color="color">
-          <template v-slot:activator="{ on: onTooltip, attrs: attrsTooltip }">
-            <v-btn
-              :fab="fab"
-              :small="fab"
-              :color="color"
-              :icon="!fab"
-              dark
-              v-bind="{ ...attrsMenu, ...attrsTooltip }"
-              v-on="{ ...onMenu, ...onTooltip }"
-              @click.prevent
-            >
-              <v-icon>{{ menuIcon }}</v-icon>
-            </v-btn>
-          </template>
-          <span>{{ $t("general.more") }}</span>
-        </v-tooltip>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
+          <v-icon>{{ menuIcon }}</v-icon>
+        </v-btn>
       </template>
       <v-list dense>
         <v-list-item

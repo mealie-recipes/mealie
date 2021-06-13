@@ -117,7 +117,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.tools = [Tool(tool=x) for x in tools] if tools else []
 
         self.recipe_yield = recipe_yield
-        self.recipe_ingredient = [RecipeIngredient(ingredient=ingr) for ingr in recipe_ingredient]
+        self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
         self.assets = [RecipeAsset(**a) for a in assets]
         self.recipe_instructions = [
             RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))

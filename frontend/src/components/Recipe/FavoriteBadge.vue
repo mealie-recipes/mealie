@@ -1,5 +1,5 @@
 <template>
-  <v-tooltip right :color="buttonStyle ? 'primary' : 'secondary'">
+  <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'primary' : 'secondary'">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         small

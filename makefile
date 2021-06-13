@@ -23,7 +23,7 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean-purge: clean ## ⚠️ Removes All Developer Data for a fresh server start
+purge: clean ## ⚠️  Removes All Developer Data for a fresh server start
 	rm -r ./dev/data/recipes/
 	rm -r ./dev/data/users/
 	rm -f ./dev/data/mealie_v*.db

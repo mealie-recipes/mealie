@@ -35,9 +35,11 @@ export const recipeAPI = {
   },
 
   async requestDetails(recipeSlug) {
-    let response = await apiReq.get(API_ROUTES.recipesRecipeSlug(recipeSlug));
-    if (response && response.data) return response.data;
-    else return null;
+    const response = await apiReq.get(API_ROUTES.recipesRecipeSlug(recipeSlug));
+    if (response.response) {
+      return response.response;
+    }
+    return response;
   },
 
   updateImage(recipeSlug, fileObject, overrideSuccessMsg = false) {
