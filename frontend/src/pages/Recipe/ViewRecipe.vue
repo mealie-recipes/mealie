@@ -192,10 +192,12 @@ export default {
         return;
       }
 
-      const response = await api.recipes.requestDetails(this.currentRecipe);
-      console.log("View Response", { response });
-      if (response.status === 401) router.push(`/login`);
-      if (response.status === 404) return;
+      const [response, error] = await api.recipes.requestDetails(this.currentRecipe);
+
+      if (error) {
+        if (error.response.status === 401) router.push(`/login`);
+        if (error.response.status === 404) router.push("/page-not-found");
+      }
 
       this.recipeDetails = response.data;
       this.skeleton = false;

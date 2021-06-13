@@ -18,6 +18,7 @@ export const routes = [
   ...mealRoutes,
   ...recipeRoutes,
 
+  { path: "/page-not-found", component: Page404 },
   { path: "*", component: Page404 },
 ];
 
@@ -31,7 +32,7 @@ const router = new VueRouter({
 });
 
 const DEFAULT_TITLE = "Mealie";
-const TITLE_SEPARATOR = "🍴";
+const TITLE_SEPARATOR = "|";
 const TITLE_SUFFIX = " " + TITLE_SEPARATOR + " " + DEFAULT_TITLE;
 router.afterEach(to => {
   Vue.nextTick(async () => {

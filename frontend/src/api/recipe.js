@@ -35,10 +35,8 @@ export const recipeAPI = {
   },
 
   async requestDetails(recipeSlug) {
-    const response = await apiReq.get(API_ROUTES.recipesRecipeSlug(recipeSlug));
-    if (response.response) {
-      return response.response;
-    }
+    const response = await apiReq.getSafe(API_ROUTES.recipesRecipeSlug(recipeSlug));
+    console.log(response);
     return response;
   },
 

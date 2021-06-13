@@ -13,12 +13,6 @@
     <v-form @submit.prevent="login">
       <v-card-text>
         <v-text-field
-          v-if="!options.isLoggingIn"
-          v-model="user.name"
-          prepend-icon="person"
-          :label="$t('general.name')"
-        ></v-text-field>
-        <v-text-field
           v-model="user.email"
           prepend-icon="mdi-email"
           validate-on-blur
@@ -35,12 +29,10 @@
           @click:append="showPassword = !showPassword"
         ></v-text-field>
         <v-card-actions>
-          <v-btn v-if="options.isLoggingIn" color="primary" block="block" type="submit"
-            >{{ $t("user.sign-in") }}
-          </v-btn>
+          <v-btn v-if="options.isLoggingIn" color="primary" block large type="submit">{{ $t("user.sign-in") }} </v-btn>
         </v-card-actions>
 
-        <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
+        <v-alert v-if="error" class="mt-3 mb-0" type="error">
           {{ $t("user.could-not-validate-credentials") }}
         </v-alert>
       </v-card-text>
