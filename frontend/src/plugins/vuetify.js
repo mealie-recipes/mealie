@@ -5,6 +5,7 @@ Vue.use(Vuetify);
 
 import de from "vuetify/es5/locale/de";
 import en from "vuetify/es5/locale/en";
+import es from "vuetify/es5/locale/es";
 import fr from "vuetify/es5/locale/fr";
 import nl from "vuetify/es5/locale/nl";
 import pl from "vuetify/es5/locale/pl";
@@ -43,6 +44,7 @@ const vuetify = new Vuetify({
     locales: {
       "de-DE": de,
       "en-US": en,
+      "es-ES": es,
       "fr-FR": fr,
       "nl-NL": nl,
       "pl-PL": pl,
