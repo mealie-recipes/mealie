@@ -70,6 +70,10 @@ class Cleaner:
         if not instructions:
             return []
 
+        # Dictionary (Keys: step number strings, Values: the instructions)
+        if isinstance(instructions, dict):                            
+           instructions = list(instructions.values())    
+
         if isinstance(instructions[0], list):
             instructions = instructions[0]
 
