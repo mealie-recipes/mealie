@@ -75,7 +75,16 @@
             <v-card-title class="py-1">{{ item.name }}</v-card-title>
             <v-divider class="mx-2"></v-divider>
             <v-card-actions>
-              <TheButton minor small delete @click="deleteItem(item.slug)" />
+              <ConfirmationDialog
+                :title="$t('general.confirm') + ' ' + $t('general.delete')"
+                :icon="$globals.icons.tags"
+                :message="$t('general.confirm-delete-generic')"
+                @confirm="deleteItem(item.slug)"
+              >
+                <template v-slot="{ open }">
+                  <TheButton minor small delete @click="open"></TheButton>
+                </template>
+              </ConfirmationDialog>
               <v-spacer></v-spacer>
               <TheButton small edit @click="openEditDialog(item)" />
             </v-card-actions>
@@ -95,6 +104,8 @@ import { validators } from "@/mixins/validators";
 import RemoveUnused from "./RemoveUnused";
 import BulkAssign from "./BulkAssign";
 import NewCategoryTagDialog from "@/components/UI/Dialogs/NewCategoryTagDialog";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
+import TheButton from "@/components/UI/Buttons/TheButton.vue";
 export default {
   mixins: [validators],
   components: {
@@ -104,6 +115,8 @@ export default {
     RemoveUnused,
     NewCategoryTagDialog,
     BulkAssign,
+    ConfirmationDialog,
+    TheButton,
   },
   props: {
     isTags: {
