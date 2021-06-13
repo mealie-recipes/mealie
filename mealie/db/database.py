@@ -19,8 +19,7 @@ from mealie.schema.comments import CommentOut
 from mealie.schema.event_notifications import EventNotificationIn
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.meal import MealPlanOut
-from mealie.schema.recipe import (Recipe, RecipeIngredientFood,
-                                  RecipeIngredientUnit)
+from mealie.schema.recipe import Recipe, RecipeIngredientFood, RecipeIngredientUnit
 from mealie.schema.settings import CustomPageOut
 from mealie.schema.settings import SiteSettings as SiteSettingsSchema
 from mealie.schema.shopping_list import ShoppingListOut

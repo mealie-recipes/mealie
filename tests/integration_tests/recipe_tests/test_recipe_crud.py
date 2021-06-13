@@ -11,9 +11,10 @@ recipe_test_data = get_recipe_test_cases()
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_create_by_url(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
-
     api_client.delete(api_routes.recipes_recipe_slug(recipe_data.expected_slug), headers=token)
+
     response = api_client.post(api_routes.recipes_create_url, json={"url": recipe_data.url}, headers=token)
+
     assert response.status_code == 201
     assert json.loads(response.text) == recipe_data.expected_slug
 
