@@ -12,7 +12,7 @@
   }
   
   encode gzip zstd
-  uri strip_suffix /
+  
   
   # Handles Recipe Images / Assets
   handle_path /api/media/recipes/* {
@@ -22,6 +22,7 @@
   }
 
   handle @proxied {
+    uri strip_suffix /
     reverse_proxy http://127.0.0.1:9000 
   }
 
