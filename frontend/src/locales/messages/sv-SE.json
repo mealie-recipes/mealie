@@ -340,8 +340,8 @@
       "theme-settings": "Temainställningar",
       "theme-updated": "Tema uppdaterat",
       "warning": "Varning",
-      "switch-to-light-mode": "Switch to light mode",
-      "switch-to-dark-mode": "Switch to dark mode"
+      "switch-to-light-mode": "Växla till ljust läge",
+      "switch-to-dark-mode": "Växla till mörkt ljust"
     },
     "token": {
       "active-tokens": "Aktiv token",
