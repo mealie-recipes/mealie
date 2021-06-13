@@ -198,12 +198,18 @@ export default {
       this.$refs.searchRecipe.open();
     },
     async importIngredients(selected) {
-      const response = await api.recipes.requestDetails(selected.slug);
+      const [response, error] = await api.recipes.requestDetails(selected.slug);
+      console.log(response);
+
+      if (error) {
+        console.log(error);
+      }
+
       const recipe = response.data;
 
       const ingredients = recipe.recipeIngredient.map(x => ({
         title: "",
-        text: x,
+        text: x.note,
         quantity: 1,
         checked: false,
       }));
