@@ -85,7 +85,7 @@ def validate_long_live_token(session: Session, client_token: str, id: int) -> Us
             return token.user
 
 
-async def validate_file_token(token: Optional[str] = None) -> Path:
+def validate_file_token(token: Optional[str] = None) -> Path:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="could not validate file token",
