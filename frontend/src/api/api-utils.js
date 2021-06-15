@@ -112,7 +112,7 @@ const apiReq = {
     const response = await this.get(url);
     const token = response.data.fileToken;
 
-    const tokenURL = prefix + "utils/download?token=" + token;
+    const tokenURL = prefix + "/utils/download?token=" + token;
     window.open(tokenURL, "_blank");
     return response.data;
   },
