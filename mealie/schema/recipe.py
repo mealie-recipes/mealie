@@ -16,6 +16,8 @@ class RecipeSettings(CamelModel):
     show_nutrition: bool = True
     show_assets: bool = True
     landscape_view: bool = True
+    disable_comments: bool = False
+    disable_amount: bool = False
 
     class Config:
         orm_mode = True

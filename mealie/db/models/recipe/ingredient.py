@@ -1,6 +1,6 @@
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from requests import Session
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table, orm
+from sqlalchemy import Column, ForeignKey, Integer, String, Table, orm
 
 ingredients_to_units = Table(
     "ingredients_to_units",
@@ -82,14 +82,10 @@ class RecipeIngredient(SqlAlchemyBase):
     quantity = Column(Integer)
 
     # Extras
-    disable_amount = Column(Boolean, default=False)
 
-    def __init__(
-        self, title: str, note: str, unit: dict, food: dict, quantity: int, disable_amount: bool, session: Session, **_
-    ) -> None:
+    def __init__(self, title: str, note: str, unit: dict, food: dict, quantity: int, session: Session, **_) -> None:
         self.title = title
         self.note = note
         self.unit = IngredientUnit.get_ref_or_create(session, unit)
         self.food = IngredientFood.get_ref_or_create(session, food)
         self.quantity = quantity
-        self.disable_amount = disable_amount
