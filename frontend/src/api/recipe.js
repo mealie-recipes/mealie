@@ -36,7 +36,6 @@ export const recipeAPI = {
 
   async requestDetails(recipeSlug) {
     const response = await apiReq.getSafe(API_ROUTES.recipesRecipeSlug(recipeSlug));
-    console.log(response);
     return response;
   },
 

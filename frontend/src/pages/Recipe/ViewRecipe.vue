@@ -55,6 +55,7 @@
       />
     </v-card>
     <CommentsSection
+      v-if="recipeDetails.settings && !recipeDetails.settings.disableComments"
       class="mt-2 d-print-none"
       :slug="recipeDetails.slug"
       :comments="recipeDetails.comments"

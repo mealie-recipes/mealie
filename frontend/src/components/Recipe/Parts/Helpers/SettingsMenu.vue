@@ -47,6 +47,8 @@ export default {
         showNutrition: this.$t("recipe.show-nutrition-values"),
         showAssets: this.$t("recipe.show-assets"),
         landscapeView: this.$t("recipe.landscape-view-coming-soon"),
+        disableComments: this.$t("recipe.disable-comments"),
+        disableAmount: this.$t("recipe.disable-amount"),
       };
     },
   },

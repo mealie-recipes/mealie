@@ -1,20 +1,16 @@
 import { API_ROUTES } from "./apiRoutes";
 import { apiReq } from "./api-utils";
-import axios from "axios";
 import i18n from "@/i18n.js";
 
 export const userAPI = {
   async login(formData) {
-    let response = await apiReq.post(API_ROUTES.authToken, formData, null, function() {
+    let response = await apiReq.post(API_ROUTES.authToken, formData, null, () => {
       return i18n.t("user.user-successfully-logged-in");
     });
     return response;
   },
   async refresh() {
-    let response = await axios.get(API_ROUTES.authRefresh).catch(function(event) {
-      console.log("Fetch failed", event);
-    });
-    return response.data ? response.data : false;
+    return apiReq.getSafe(API_ROUTES.authRefresh);
   },
   async allUsers() {
     let response = await apiReq.get(API_ROUTES.users);
@@ -29,8 +25,7 @@ export const userAPI = {
     );
   },
   async self() {
-    let response = await apiReq.get(API_ROUTES.usersSelf);
-    return response.data;
+    return apiReq.getSafe(API_ROUTES.usersSelf);
   },
   async byID(id) {
     let response = await apiReq.get(API_ROUTES.usersId(id));

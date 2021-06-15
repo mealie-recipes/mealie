@@ -82,9 +82,6 @@ export default {
         this.$set(this.editKeys, comment.id, false);
       }
     },
-    editKeys() {
-      console.log(this.editKeys);
-    },
   },
   methods: {
     resetImage() {
@@ -103,7 +100,6 @@ export default {
       this.$emit(UPDATE_COMMENT_EVENT);
     },
     async createNewComment() {
-      console.log(this.slug);
       await api.recipes.createComment(this.slug, { text: this.newComment });
       this.$emit(NEW_COMMENT_EVENT);
 
