@@ -106,9 +106,6 @@ export default {
   },
 
   watch: {
-    startDate(val) {
-      console.log(val);
-    },
     dateDif() {
       this.planDays = [];
       for (let i = 0; i < this.dateDif; i++) {

@@ -150,7 +150,13 @@ export default {
 
   methods: {
     async refreshProfile() {
-      this.user = await api.users.self();
+      const [response, err] = await api.users.self();
+
+      if (err) {
+        return; // TODO: Log or Notifty User of Error
+      }
+
+      this.user = response.data;
     },
     openAvatarPicker() {
       this.showAvatarPicker = true;

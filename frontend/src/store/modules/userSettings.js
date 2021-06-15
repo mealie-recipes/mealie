@@ -56,8 +56,13 @@ const mutations = {
 const actions = {
   async requestUserData({ getters, commit }) {
     if (getters.getIsLoggedIn) {
-      const userData = await api.users.self();
-      commit("setUserData", userData);
+      const [response, err] = await api.users.self();
+
+      if (err) {
+        return; // TODO: Log or Notifty User of Error
+      }
+
+      commit("setUserData", response.data);
     }
   },
 
@@ -76,13 +81,15 @@ const actions = {
       console.log("Not Logged In");
       return;
     }
-    try {
-      let authResponse = await api.users.refresh();
-      commit("setToken", authResponse.access_token);
-    } catch {
+
+    const [response, err] = await api.users.refresh();
+
+    if (err) {
       console.log("Failed Token Refresh, Logging Out...");
       commit("setIsLoggedIn", false);
     }
+
+    commit("setToken", response.data.access_token);
   },
 
   async initTheme({ dispatch, getters }) {

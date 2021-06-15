@@ -199,7 +199,6 @@ export default {
     },
     async importIngredients(selected) {
       const [response, error] = await api.recipes.requestDetails(selected.slug);
-      console.log(response);
 
       if (error) {
         console.log(error);
