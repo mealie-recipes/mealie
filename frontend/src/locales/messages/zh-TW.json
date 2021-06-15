@@ -210,6 +210,8 @@
     "calories-suffix": "calories",
     "carbohydrate-content": "Carbohydrate",
     "categories": "分類目錄",
+    "disable-comments": "Disable Comments",
+    "disable-amount": "Disable Ingredient Amounts",
     "delete-confirmation": "您確定要刪除此食譜嗎？",
     "delete-recipe": "刪除食譜",
     "description": "描述",
