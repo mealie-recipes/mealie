@@ -10,12 +10,10 @@
     <slot> </slot>
   </v-img>
   <div class="icon-slot" v-else @click="$emit('click')">
-    <div>
-      <slot> </slot>
-    </div>
     <v-icon color="primary" class="icon-position" :size="iconSize">
       {{ $globals.icons.primary }}
     </v-icon>
+    <slot> </slot>
   </div>
 </template>
 
