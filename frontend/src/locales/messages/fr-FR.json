@@ -210,6 +210,8 @@
     "calories-suffix": "calories",
     "carbohydrate-content": "Glucides",
     "categories": "Catégories",
+    "disable-comments": "Disable Comments",
+    "disable-amount": "Disable Ingredient Amounts",
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
