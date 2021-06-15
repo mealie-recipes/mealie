@@ -29,7 +29,7 @@
   handle {
     header @static Cache-Control max-age=31536000
     root * /app/dist
-    try_files {path}.html {path} /index.html
+    try_files {path}.html {path} /
     file_server 
   }
 }
