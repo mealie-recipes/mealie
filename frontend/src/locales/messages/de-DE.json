@@ -210,6 +210,8 @@
     "calories-suffix": "Kalorien",
     "carbohydrate-content": "Kohlenhydrate",
     "categories": "Kategorien",
+    "disable-comments": "Disable Comments",
+    "disable-amount": "Disable Ingredient Amounts",
     "delete-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?",
     "delete-recipe": "Rezept löschen",
     "description": "Beschreibung",
