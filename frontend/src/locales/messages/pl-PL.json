@@ -210,6 +210,8 @@
     "calories-suffix": "kalorie",
     "carbohydrate-content": "Węglowodany",
     "categories": "Kategorie",
+    "disable-comments": "Disable Comments",
+    "disable-amount": "Disable Ingredient Amounts",
     "delete-confirmation": "Czy jesteś pewien, że chcesz usunąć ten przepis?",
     "delete-recipe": "Usuń przepis",
     "description": "Opis",
