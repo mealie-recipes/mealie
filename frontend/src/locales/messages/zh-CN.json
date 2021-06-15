@@ -210,6 +210,8 @@
     "calories-suffix": "卡路里",
     "carbohydrate-content": "碳水化合物",
     "categories": "分类目录",
+    "disable-comments": "Disable Comments",
+    "disable-amount": "Disable Ingredient Amounts",
     "delete-confirmation": "您确定要删除此食谱吗？",
     "delete-recipe": "删除食谱",
     "description": "描述",
