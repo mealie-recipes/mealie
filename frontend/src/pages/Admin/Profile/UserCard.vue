@@ -29,7 +29,7 @@
         <template v-slot:open="{ open }">
           <v-btn color="info" class="mr-1" small @click="open">
             <v-icon left>mdi-lock</v-icon>
-            Change Password
+            {{$t('settings.change-password')}}
           </v-btn>
         </template>
 
