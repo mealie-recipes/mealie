@@ -44,7 +44,9 @@
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent"
+    "test-message-sent": "Test Message Sent",
+    "refresh": "Refresh",
+    "new-version": "New version available!"
   },
   "general": {
     "apply": "Apply",
