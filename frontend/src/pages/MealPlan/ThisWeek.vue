@@ -7,7 +7,7 @@
       <v-divider class="mx-2"></v-divider>
       <v-row>
         <v-col cols="12" md="5" sm="12">
-          <v-card-title class="headline">Main</v-card-title>
+          <v-card-title class="headline">{{ $t('meal-plan.main') }}</v-card-title>
           <RecipeCard
             :name="planDay.meals[0].name"
             :slug="planDay.meals[0].slug"
@@ -15,7 +15,7 @@
           />
         </v-col>
         <v-col cols="12" lg="6" md="6" sm="12">
-          <v-card-title class="headline">Sides</v-card-title>
+          <v-card-title class="headline">{{ $t('meal-plan.sides') }}</v-card-title>
           <MobileRecipeCard
             class="mb-1"
             v-for="(side, index) in planDay.meals.slice(1)"

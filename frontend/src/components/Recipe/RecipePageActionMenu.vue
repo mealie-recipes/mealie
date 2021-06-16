@@ -78,33 +78,38 @@ export default {
   data() {
     return {
       edit: false,
-      editorButtons: [
-        {
-          text: "Delete",
-          icon: this.$globals.icons.delete,
-          event: DELETE_EVENT,
-          color: "error",
-        },
-        {
-          text: "JSON",
-          icon: "mdi-code-braces",
-          event: JSON_EVENT,
-          color: "accent",
-        },
-        {
-          text: "Close",
-          icon: "mdi-close",
-          event: CLOSE_EVENT,
-          color: "",
-        },
-        {
-          text: "Save",
-          icon: this.$globals.icons.save,
-          event: SAVE_EVENT,
-          color: "success",
-        },
-      ],
     };
+  },
+  
+  computed: {
+      editorButtons() {
+        return [
+          {
+            text: this.$t('general.delete'),
+            icon: this.$globals.icons.delete,
+            event: DELETE_EVENT,
+            color: "error",
+          },
+          {
+            text: this.$t('general.json'),
+            icon: "mdi-code-braces",
+            event: JSON_EVENT,
+            color: "accent",
+          },
+          {
+            text: this.$t('general.close'),
+            icon: "mdi-close",
+            event: CLOSE_EVENT,
+            color: "",
+          },
+          {
+            text: this.$t('general.save'),
+            icon: this.$globals.icons.save,
+            event: SAVE_EVENT,
+            color: "success",
+          },
+        ]; 
+      },
   },
   methods: {
     emitHandler(event) {

@@ -14,7 +14,7 @@
             dense
             solo
             flat
-            placeholder="Section Title"
+            :placeholder="$t('recipe.section-title')"
             background-color="primary"
           >
           </v-text-field>
@@ -41,7 +41,7 @@
               </v-btn>
               {{ $t("recipe.step-index", { step: index + 1 }) }}
               <v-btn v-if="edit" text color="primary" class="ml-auto" @click="toggleShowTitle(index)">
-                {{ !showTitleEditor[index] ? "Insert Section" : "Remove Section" }}
+                {{ !showTitleEditor[index] ? $t('recipe.insert-section') : $t('recipe.remove-section') }}
               </v-btn>
             </v-card-title>
             <v-card-text v-if="edit">
