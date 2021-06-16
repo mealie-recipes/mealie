@@ -46,7 +46,7 @@ class AppRoutes:
         self.themes = "/api/themes"
         self.themes_create = "/api/themes/create"
         self.users = "/api/users"
-        self.users_api_tokens = "/api/users-tokens"
+        self.users_api_tokens = "/api/users/api-tokens"
         self.users_self = "/api/users/self"
         self.users_sign_ups = "/api/users/sign-ups"
         self.utils_download = "/api/utils/download"
@@ -127,7 +127,7 @@ class AppRoutes:
         return f"{self.prefix}/themes/{id}"
 
     def users_api_tokens_token_id(self, token_id):
-        return f"{self.prefix}/users-tokens/{token_id}"
+        return f"{self.prefix}/users/api-tokens/{token_id}"
 
     def users_id(self, id):
         return f"{self.prefix}/users/{id}"

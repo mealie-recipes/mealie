@@ -29,7 +29,7 @@ JS_DIR.mkdir(exist_ok=True, parents=True)
 class RouteObject:
     def __init__(self, route_string) -> None:
         self.prefix = "/" + route_string.split("/")[1]
-        self.route = route_string.replace(self.prefix, "")
+        self.route = "/" + route_string.split("/", 2)[2]
         self.js_route = self.route.replace("{", "${")
         self.parts = route_string.split("/")[1:]
         self.var = re.findall(r"\{(.*?)\}", route_string)
