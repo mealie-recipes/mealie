@@ -55,6 +55,9 @@ const vuetify = new Vuetify({
     },
     current: "en-US",
   },
+  icons: {
+    iconfont: 'mdiSvg',
+  },
 });
 
 export default vuetify;
