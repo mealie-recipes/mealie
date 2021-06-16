@@ -4,6 +4,7 @@
     "take-me-home": "Retour à l'accueil"
   },
   "about": {
+    "about": "About",
     "about-mealie": "À propos de Mealie",
     "api-docs": "Docs API",
     "api-port": "Port de l'API",
@@ -44,7 +45,9 @@
     "scheduled": "Planifié",
     "something-went-wrong": "Une erreur s'est produite !",
     "subscribed-events": "Événements suivis",
-    "test-message-sent": "Message de test envoyé"
+    "test-message-sent": "Message de test envoyé",
+    "refresh": "Refresh",
+    "new-version": "New version available!"
   },
   "general": {
     "apply": "Appliquer",
@@ -52,6 +55,7 @@
     "clear": "Effacer",
     "close": "Fermer",
     "confirm": "Confirmer",
+    "confirm-delete-generic": "Voulez-vous vraiment supprimer ceci ?",
     "copied": "Copié",
     "create": "Créer",
     "created": "Créé",
@@ -66,6 +70,7 @@
     "exception": "Exception",
     "failed-count": "Échec : {count}",
     "failure-uploading-file": "Échec de l'envoi du fichier",
+    "favorites": "Favorites",
     "field-required": "Champ obligatoire",
     "file-folder-not-found": "Fichier/dossier introuvable",
     "file-uploaded": "Fichier envoyé",
@@ -76,10 +81,12 @@
     "image": "Image",
     "image-upload-failed": "Le téléchargement de l'image a échoué",
     "import": "Importer",
+    "json": "JSON",
     "keyword": "Mot-clé",
     "link": "Lien",
     "link-copied": "Lien copié",
     "monday": "Lundi",
+    "more": "Plus",
     "name": "Nom",
     "new": "Nouveau",
     "no": "Non",
@@ -117,8 +124,7 @@
     "url": "URL",
     "view": "Voir",
     "wednesday": "Mercredi",
-    "yes": "Oui",
-    "more": "More"
+    "yes": "Oui"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/> ?",
@@ -148,6 +154,7 @@
     "edit-meal-plan": "Modifier le menu",
     "end-date": "Date de fin",
     "group": "Regrouper (Bêta)",
+    "main": "Main",
     "meal-planner": "Menus",
     "meal-plans": "Menus",
     "mealplan-categories": "CATÉGORIES DES MENUS",
@@ -163,6 +170,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans les menus",
     "planner": "Planificateur",
     "quick-week": "Semaine rapide",
+    "side": "Side",
+    "sides": "Sides",
     "start-date": "Date de début"
   },
   "migration": {
@@ -180,8 +189,8 @@
   },
   "new-recipe": {
     "bulk-add": "Ajouter en masse",
-    "error-title": "Looks Like We Couldn't Find Anything",
-    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Seuls les sites web contenant ld+json ou les microdonnées peuvent être importés par Mealie. La plupart des grands sites web de recettes supportent cette structure de données. Si votre site ne peut pas être importé mais qu'il y a des données json dans le journal, veuillez soumettre un problème github avec l'URL et les données.",
+    "error-title": "On dirait qu'on n'a pas pu trouver quoi que ce soit",
     "from-url": "Depuis une adresse web",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
     "recipe-url": "Adresse de la recette",
@@ -191,6 +200,7 @@
     "all-recipes": "Toutes mes recettes",
     "home-page": "Accueil",
     "new-page-created": "Nouvelle page créée",
+    "page": "Page",
     "page-creation-failed": "La création de la page a échoué",
     "page-deleted": "Page supprimée",
     "page-deletion-failed": "La suppression de la page a échoué",
@@ -202,22 +212,27 @@
   },
   "recipe": {
     "add-key": "Ajouter une clé",
+    "add-to-favorites": "Ajouter aux favoris",
     "api-extras": "Extras API",
     "assets": "Ressources",
     "calories": "Calories",
     "calories-suffix": "calories",
     "carbohydrate-content": "Glucides",
     "categories": "Catégories",
+    "comment-action": "Comment",
+    "comments": "Comments",
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
+    "disable-amount": "Désactiver les quantités des ingrédients",
+    "disable-comments": "Désactiver les commentaires",
     "fat-content": "Matières grasses",
     "fiber-content": "Fibres",
     "grams": "grammes",
     "ingredient": "Ingrédient",
     "ingredients": "Ingrédients",
+    "insert-section": "Insert Section",
     "instructions": "Instructions",
-    "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
     "key-name-required": "Un nom de clé est requis",
     "landscape-view-coming-soon": "Vue paysage (bientôt disponible)",
     "milligrams": "milligrammes",
@@ -243,7 +258,11 @@
     "recipe-settings": "Paramètres de la recette",
     "recipe-update-failed": "La mise à jour de la recette a échoué",
     "recipe-updated": "Recette mise à jour",
+    "remove-from-favorites": "Supprimer des favoris",
+    "remove-section": "Remove Section",
+    "section-title": "Section Title",
     "servings": "Portions",
+    "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
     "show-assets": "Afficher les ressources",
     "show-nutrition-values": "Afficher les valeurs nutritionnelles",
     "sodium-content": "Sodium",
@@ -252,16 +271,19 @@
     "title": "Titre",
     "total-time": "Temps total",
     "unable-to-delete-recipe": "Impossible de supprimer la recette",
-    "view-recipe": "Voir la recette",
-    "add-to-favorites": "Add to Favorites",
-    "remove-from-favorites": "Remove from Favorites"
+    "view-recipe": "Voir la recette"
+  },
+  "reicpe": {
+    "no-recipe": "No Recipe"
   },
   "search": {
+    "advanced-search": "Advanced Search",
     "and": "et",
     "exclude": "Exclure",
     "include": "Inclure",
     "max-results": "Résultats max",
     "or": "Ou",
+    "results": "Results",
     "search": "Rechercher",
     "search-mealie": "Rechercher dans Mealie (appuyez sur /)",
     "search-placeholder": "Rechercher...",
@@ -332,6 +354,8 @@
       "secondary": "Secondaire",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Sélectionnez un thème depuis la liste ou créez-en un nouveau. Le thème par défaut sera utilisé pour tous les utilisateurs qui n'ont pas choisi de thème personnalisé.",
       "success": "Succès",
+      "switch-to-dark-mode": "Basculer en mode sombre",
+      "switch-to-light-mode": "Basculer en mode clair",
       "theme": "Thème",
       "theme-deleted": "Thème supprimé",
       "theme-name": "Nom du thème",
@@ -339,9 +363,7 @@
       "theme-saved": "Thème enregistré",
       "theme-settings": "Paramètres du thème",
       "theme-updated": "Thème mis à jour",
-      "warning": "Avertissement",
-      "switch-to-light-mode": "Switch to light mode",
-      "switch-to-dark-mode": "Switch to dark mode"
+      "warning": "Avertissement"
     },
     "token": {
       "active-tokens": "JETONS ACTIFS",

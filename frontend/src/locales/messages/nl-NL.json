@@ -4,6 +4,7 @@
     "take-me-home": "Breng me terug naar de Startpagina"
   },
   "about": {
+    "about": "About",
     "about-mealie": "Over Mealie",
     "api-docs": "API-documentatie",
     "api-port": "API Poort",
@@ -44,7 +45,9 @@
     "scheduled": "Gepland",
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde Events",
-    "test-message-sent": "Testbericht verzonden"
+    "test-message-sent": "Testbericht verzonden",
+    "refresh": "Refresh",
+    "new-version": "New version available!"
   },
   "general": {
     "apply": "Toepassen",
@@ -52,6 +55,7 @@
     "clear": "Wissen",
     "close": "Sluiten",
     "confirm": "Bevestigen",
+    "confirm-delete-generic": "Weet je zeker dat je dit wilt verwijderen?",
     "copied": "Gekopieerd",
     "create": "Aanmaken",
     "created": "Aangemaakt op",
@@ -66,6 +70,7 @@
     "exception": "Uitzondering",
     "failed-count": "Mislukt: {count}",
     "failure-uploading-file": "Bestand uploaden mislukt",
+    "favorites": "Favorites",
     "field-required": "Verplicht veld",
     "file-folder-not-found": "Bestand/map niet gevonden",
     "file-uploaded": "Bestand geüpload",
@@ -76,10 +81,12 @@
     "image": "Afbeelding",
     "image-upload-failed": "Afbeelding uploaden mislukt",
     "import": "Importeren",
+    "json": "JSON",
     "keyword": "Trefwoord",
     "link": "Koppeling",
     "link-copied": "Link Gekopieerd",
     "monday": "Maandag",
+    "more": "Meer",
     "name": "Naam",
     "new": "Nieuw",
     "no": "Nee",
@@ -117,8 +124,7 @@
     "url": "URL",
     "view": "Bekijken",
     "wednesday": "Woensdag",
-    "yes": "Ja",
-    "more": "Meer"
+    "yes": "Ja"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wilt verwijderen?",
@@ -148,6 +154,7 @@
     "edit-meal-plan": "Maaltijdplan bewerken",
     "end-date": "Einddatum",
     "group": "Groeperen (Beta)",
+    "main": "Main",
     "meal-planner": "Maaltijd planner",
     "meal-plans": "Maaltijd plannen",
     "mealplan-categories": "MAALTIJDPLAN CATEGORIEËN",
@@ -158,16 +165,18 @@
     "mealplan-settings": "Maaltijdplan instellingen",
     "mealplan-update-failed": "Maaltijdplan bijwerken mislukt",
     "mealplan-updated": "Maaltijdplan bijgewerkt",
-    "no-meal-plan-defined-yet": "Nog geen maaltijdplan gedefinieerd",
+    "no-meal-plan-defined-yet": "Nog geen maaltijdplan opgesteld",
     "no-meal-planned-for-today": "Geen maaltijd gepland voor vandaag",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
     "planner": "Planner",
     "quick-week": "Snelle Week",
+    "side": "Side",
+    "sides": "Sides",
     "start-date": "Begindatum"
   },
   "migration": {
     "chowdown": {
-      "description": "Gegevens migreren uit Chowdown",
+      "description": "Migreer gegevens uit Chowdown",
       "title": "Chowdown"
     },
     "migration-data-removed": "Migratie gegevens verwijderd",
@@ -180,8 +189,8 @@
   },
   "new-recipe": {
     "bulk-add": "Bulk toevoegen",
-    "error-title": "Het Lijkt Erop Dat We Niets Konden Vinden",
     "error-details": "Alleen websites met ld+json of microdata kunnen worden geïmporteerd door Mealie. De meeste recepten websites ondersteunen deze gegevensstructuur. Als je site niet kan worden geïmporteerd, maar er zijn json gegevens in de log, stuur dan een github issue met de URL en gegevens.",
+    "error-title": "Het Lijkt Erop Dat We Niets Konden Vinden",
     "from-url": "Recept importeren",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-url": "Recept URL",
@@ -191,6 +200,7 @@
     "all-recipes": "Alle recepten",
     "home-page": "Startpagina",
     "new-page-created": "Nieuwe pagina aangemaakt",
+    "page": "Pagina",
     "page-creation-failed": "Aanmaken pagina mislukt",
     "page-deleted": "Pagina verwijderd",
     "page-deletion-failed": "Pagina verwijderen mislukt",
@@ -202,22 +212,27 @@
   },
   "recipe": {
     "add-key": "Sleutel toevoegen",
+    "add-to-favorites": "Toevoegen aan Favorieten",
     "api-extras": "API Extras",
     "assets": "Onderdelen",
     "calories": "Calorieën",
     "calories-suffix": "calorieën",
     "carbohydrate-content": "Koolhydraten",
     "categories": "Categorieën",
+    "comment-action": "Comment",
+    "comments": "Comments",
     "delete-confirmation": "Weet je zeker dat je dit recept wilt verwijderen?",
     "delete-recipe": "Recept verwijderen",
     "description": "Omschrijving",
+    "disable-amount": "Ingrediënt Hoeveelheden Uitschakelen",
+    "disable-comments": "Reacties Uitschakelen",
     "fat-content": "Vet",
     "fiber-content": "Vezels",
     "grams": "gram",
     "ingredient": "Ingrediënt",
     "ingredients": "Ingrediënten",
+    "insert-section": "Insert Section",
     "instructions": "Instructies",
-    "share-recipe-message": "Ik wou mijn {0} recept met je delen.",
     "key-name-required": "Sleutelnaam vereist",
     "landscape-view-coming-soon": "Landschapsweergave (binnenkort beschikbaar)",
     "milligrams": "milligram",
@@ -243,7 +258,11 @@
     "recipe-settings": "Recept Instellingen",
     "recipe-update-failed": "Recept bijwerken mislukt",
     "recipe-updated": "Recept bijgewerkt",
+    "remove-from-favorites": "Verwijder uit Favorieten",
+    "remove-section": "Remove Section",
+    "section-title": "Section Title",
     "servings": "Porties",
+    "share-recipe-message": "Ik wou mijn {0} recept met je delen.",
     "show-assets": "Toon Bijlagen",
     "show-nutrition-values": "Toon voedingswaarden",
     "sodium-content": "Zout",
@@ -252,16 +271,19 @@
     "title": "Titel",
     "total-time": "Totale Tijd",
     "unable-to-delete-recipe": "Kan recept niet verwijderen",
-    "view-recipe": "Bekijk Recept",
-    "add-to-favorites": "Toevoegen aan Favorieten",
-    "remove-from-favorites": "Verwijder uit Favorieten"
+    "view-recipe": "Bekijk Recept"
+  },
+  "reicpe": {
+    "no-recipe": "No Recipe"
   },
   "search": {
+    "advanced-search": "Advanced Search",
     "and": "en",
     "exclude": "Exclusief",
     "include": "Inclusief",
     "max-results": "Max. resultaten",
     "or": "Of",
+    "results": "Results",
     "search": "Zoek",
     "search-mealie": "Zoek Mealie (druk /)",
     "search-placeholder": "Zoeken...",
@@ -332,6 +354,8 @@
       "secondary": "Secundair",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Selecteer een thema uit de keuzelijst of maak een nieuw thema. Let op dat het standaardthema zal worden geserveerd aan alle gebruikers die geen themavoorkeuren hebben ingesteld.",
       "success": "Geslaagd",
+      "switch-to-dark-mode": "Verander naar donker thema",
+      "switch-to-light-mode": "Verander naar licht thema",
       "theme": "Thema",
       "theme-deleted": "Thema verwijderd",
       "theme-name": "Themanaam",
@@ -339,9 +363,7 @@
       "theme-saved": "Thema opgeslagen",
       "theme-settings": "Thema Instellingen",
       "theme-updated": "Thema bijgewerkt",
-      "warning": "Waarschuwing",
-      "switch-to-light-mode": "Switch to light mode",
-      "switch-to-dark-mode": "Switch to dark mode"
+      "warning": "Waarschuwing"
     },
     "token": {
       "active-tokens": "ACTIEVE TOKENS",
@@ -359,7 +381,7 @@
       "recipes-affected": "Geen recepten beïnvloed|Een recept beinvloed|{count} recepten beïnvloed",
       "remove-unused": "Verwijder Ongebruikte Items",
       "title-case-all": "Alle Titels In Hoofdletters",
-      "toolbox": "Gereedschapskist",
+      "toolbox": "Gereedschap",
       "unorganized": "Ongeorganiseerd"
     },
     "webhooks": {

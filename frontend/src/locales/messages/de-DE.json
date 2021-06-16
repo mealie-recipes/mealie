@@ -4,6 +4,7 @@
     "take-me-home": "Zurück"
   },
   "about": {
+    "about": "About",
     "about-mealie": "Über Mealie",
     "api-docs": "API Dokumentation",
     "api-port": "API Port",
@@ -44,7 +45,9 @@
     "scheduled": "Geplant",
     "something-went-wrong": "Etwas ist schief gelaufen!",
     "subscribed-events": "Abonnierte Ereignisse",
-    "test-message-sent": "Testnachricht gesendet"
+    "test-message-sent": "Testnachricht gesendet",
+    "refresh": "Refresh",
+    "new-version": "New version available!"
   },
   "general": {
     "apply": "Anwenden",
@@ -52,6 +55,7 @@
     "clear": "Zurücksetzen",
     "close": "Schließen",
     "confirm": "Bestätigen",
+    "confirm-delete-generic": "Bist du dir sicher, dass du dies löschen möchtest?",
     "copied": "Kopiert",
     "create": "Erstellen",
     "created": "Erstellt",
@@ -66,6 +70,7 @@
     "exception": "Fehler",
     "failed-count": "Fehlgeschlagen: {count}",
     "failure-uploading-file": "Fehler beim Hochladen der Datei",
+    "favorites": "Favorites",
     "field-required": "Erforderliches Feld",
     "file-folder-not-found": "Datei/Ordner nicht gefunden",
     "file-uploaded": "Datei hochgeladen",
@@ -76,10 +81,12 @@
     "image": "Bild",
     "image-upload-failed": "Das Bild konnte nicht hochgeladen werden",
     "import": "Importieren",
+    "json": "JSON",
     "keyword": "Keyword",
     "link": "Link",
     "link-copied": "Link kopiert",
     "monday": "Montag",
+    "more": "More",
     "name": "Name",
     "new": "Neu",
     "no": "Nein",
@@ -117,8 +124,7 @@
     "url": "URL",
     "view": "Ansicht",
     "wednesday": "Mittwoch",
-    "yes": "Ja",
-    "more": "More"
+    "yes": "Ja"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -148,6 +154,7 @@
     "edit-meal-plan": "Essensplan bearbeiten",
     "end-date": "Enddatum",
     "group": "Gruppe (Beta)",
+    "main": "Main",
     "meal-planner": "Essensplaner",
     "meal-plans": "Essenspläne",
     "mealplan-categories": "KATEGORIEN FÜR ESSENSPLÄNE",
@@ -163,6 +170,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Nur Rezepte dieser Kategorien werden in Essensplänen verwendet",
     "planner": "Planer",
     "quick-week": "Schnelle Woche",
+    "side": "Side",
+    "sides": "Sides",
     "start-date": "Startdatum"
   },
   "migration": {
@@ -180,8 +189,8 @@
   },
   "new-recipe": {
     "bulk-add": "Massenimport",
-    "error-title": "Looks Like We Couldn't Find Anything",
-    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Nur Webseiten mit ld+json oder Mikrodaten können von Mealie importiert werden. Die meisten großen Rezeptwebseiten unterstützen diese Datenstruktur. Wenn Ihre Website nicht importiert werden kann, aber Json-Daten im Log vorhanden sind, melden Sie es bitte mit der URL und diesen Daten auf GitHub.",
+    "error-title": "Anscheinend konnten wir nichts finden",
     "from-url": "Von URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
     "recipe-url": "Rezept URL",
@@ -191,6 +200,7 @@
     "all-recipes": "Alle Rezepte",
     "home-page": "Startseite",
     "new-page-created": "Neue Seite angelegt",
+    "page": "Seite",
     "page-creation-failed": "Anlegen der Seite fehlgeschlagen",
     "page-deleted": "Seite entfernt",
     "page-deletion-failed": "Entfernen der Seite fehlgeschlagen",
@@ -202,22 +212,27 @@
   },
   "recipe": {
     "add-key": "Schlüssel hinzufügen",
+    "add-to-favorites": "Zu Favoriten hinzufügen",
     "api-extras": "API Extras",
     "assets": "Anlagen",
     "calories": "Kalorien",
     "calories-suffix": "Kalorien",
     "carbohydrate-content": "Kohlenhydrate",
     "categories": "Kategorien",
+    "comment-action": "Comment",
+    "comments": "Comments",
     "delete-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?",
     "delete-recipe": "Rezept löschen",
     "description": "Beschreibung",
+    "disable-amount": "Disable Ingredient Amounts",
+    "disable-comments": "Disable Comments",
     "fat-content": "Fett",
     "fiber-content": "Ballaststoffe",
     "grams": "g",
     "ingredient": "Zutat",
     "ingredients": "Zutaten",
+    "insert-section": "Insert Section",
     "instructions": "Anweisungen",
-    "share-recipe-message": "Ich möchte mein Rezept {0} mit dir teilen.",
     "key-name-required": "Schlüsselname benötigt",
     "landscape-view-coming-soon": "Landschaftsansicht (demnächst verfügbar)",
     "milligrams": "mg",
@@ -243,7 +258,11 @@
     "recipe-settings": "Rezepteinstellungen",
     "recipe-update-failed": "Aktualisieren des Rezepts fehlgeschlagen",
     "recipe-updated": "Rezept aktualisiert",
+    "remove-from-favorites": "Von Favoriten entfernen",
+    "remove-section": "Remove Section",
+    "section-title": "Section Title",
     "servings": "Portionen",
+    "share-recipe-message": "Ich möchte mein Rezept {0} mit dir teilen.",
     "show-assets": "Anhänge anzeigen",
     "show-nutrition-values": "Nährwerte anzeigen",
     "sodium-content": "Natrium",
@@ -252,16 +271,19 @@
     "title": "Titel",
     "total-time": "Gesamtzeit",
     "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden",
-    "view-recipe": "Rezept anschauen",
-    "add-to-favorites": "Add to Favorites",
-    "remove-from-favorites": "Remove from Favorites"
+    "view-recipe": "Rezept anschauen"
+  },
+  "reicpe": {
+    "no-recipe": "No Recipe"
   },
   "search": {
+    "advanced-search": "Advanced Search",
     "and": "und",
     "exclude": "Ausschließen",
     "include": "Einbeziehen",
     "max-results": "Max. Ergebnisse",
     "or": "Oder",
+    "results": "Results",
     "search": "Suchen",
     "search-mealie": "Mealie durchsuchen (/ drücken)",
     "search-placeholder": "Suchen...",
@@ -332,6 +354,8 @@
       "secondary": "Sekundär",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Wähle ein Thema aus der Dropdown-Liste oder erstelle ein neues. Beachte, dass das Standard-Thema auf alle Benutzer angewandt wird die keine Einstellung für ein Thema getroffen haben.",
       "success": "Erfolg",
+      "switch-to-dark-mode": "Switch to dark mode",
+      "switch-to-light-mode": "Switch to light mode",
       "theme": "Thema",
       "theme-deleted": "Thema gelöscht",
       "theme-name": "Themenname",
@@ -339,9 +363,7 @@
       "theme-saved": "Thema gespeichert",
       "theme-settings": "Themeneinstellungen",
       "theme-updated": "Thema aktualisiert",
-      "warning": "Warnung",
-      "switch-to-light-mode": "Switch to light mode",
-      "switch-to-dark-mode": "Switch to dark mode"
+      "warning": "Warnung"
     },
     "token": {
       "active-tokens": "AKTIVE TOKEN",
