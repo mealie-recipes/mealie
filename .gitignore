@@ -8,6 +8,7 @@
 docs/site/
 *temp/*
 .secret
+frontend/dist/
 
 dev/data/backups/*
 dev/data/debug/*

@@ -1,10 +1,10 @@
-const ViewRecipe = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipe/ViewRecipe");
-const NewRecipe = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipe/NewRecipe");
-const ScraperDebugger = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipe/ScraperDebugger");
-const CustomPage = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/CustomPage");
-const AllRecipes = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/AllRecipes");
-const CategoryTagPage = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/CategoryTagPage");
-const Favorites = () => import(/* webpackChunkName: "recipes" */ "@/pages/Recipes/Favorites");
+const ViewRecipe = () => import("@/pages/Recipe/ViewRecipe");
+const NewRecipe = () => import("@/pages/Recipe/NewRecipe");
+const ScraperDebugger = () => import("@/pages/Recipe/ScraperDebugger");
+const CustomPage = () => import("@/pages/Recipes/CustomPage");
+const AllRecipes = () => import("@/pages/Recipes/AllRecipes");
+const CategoryTagPage = () => import("@/pages/Recipes/CategoryTagPage");
+const Favorites = () => import("@/pages/Recipes/Favorites");
 import { api } from "@/api";
 
 export const recipeRoutes = [

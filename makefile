@@ -77,7 +77,7 @@ frontend: ## 🎬 Start Mealie Frontend Development Server
 	cd frontend && npm run serve
 
 frontend-build: ## 🏗  Build Frontend in frontend/dist
-	cd frontned && npm run build
+	cd frontend && npm run build
 
 .PHONY: docs
 docs: ## 📄 Start Mkdocs Development Server
