@@ -9,7 +9,7 @@
             <v-icon> mdi-heart </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title> Favorites </v-list-item-title>
+            <v-list-item-title> {{ $t('general.favorites') }} </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>

@@ -60,7 +60,7 @@ export const adminRoutes = {
       path: "about",
       component: About,
       meta: {
-        title: "general.about",
+        title: "about.about",
       },
     },
     {

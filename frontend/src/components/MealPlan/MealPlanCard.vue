@@ -4,14 +4,14 @@
     <BaseDialog
       title="Custom Meal"
       :title-icon="$globals.icons.primary"
-      submit-text="Save"
+      :submit-text="$t('general.save')"
       :top="true"
       ref="customMealDialog"
       @submit="pushCustomMeal"
     >
       <v-card-text>
-        <v-text-field autofocus v-model="customMeal.name" label="Name"> </v-text-field>
-        <v-textarea v-model="customMeal.description" label="Description"> </v-textarea>
+        <v-text-field autofocus v-model="customMeal.name" :label="$t('general.name')"> </v-text-field>
+        <v-textarea v-model="customMeal.description" :label="$t('recipe.description')"> </v-textarea>
       </v-card-text>
     </BaseDialog>
     <v-col cols="12" sm="12" md="6" lg="4" xl="3" v-for="(planDay, index) in value" :key="index">
@@ -23,7 +23,7 @@
                 <v-icon left>
                   {{ $globals.icons.edit }}
                 </v-icon>
-                No Recipe
+                {{ $t('reicpe.no-recipe') }}
               </v-btn>
             </v-fade-transition>
           </CardImage>
@@ -40,14 +40,14 @@
                   <v-icon left>
                     {{ $globals.icons.edit }}
                   </v-icon>
-                  No Recipe
+                  {{ $t('reicpe.no-recipe') }}
                 </v-btn>
               </v-fade-transition>
               <v-btn color="info" outlined small @click="openSearch(index, modes.sides)">
                 <v-icon small class="mr-1">
                   {{ $globals.icons.create }}
                 </v-icon>
-                Side
+                {{ $t('meal-plan.side') }}
               </v-btn>
             </v-card-actions>
           </v-hover>
