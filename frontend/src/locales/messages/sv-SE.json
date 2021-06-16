@@ -4,7 +4,7 @@
     "take-me-home": "Ta mig hem"
   },
   "about": {
-    "about": "About",
+    "about": "Om",
     "about-mealie": "Om Mealie",
     "api-docs": "API Dokumentation",
     "api-port": "API port",
@@ -46,8 +46,8 @@
     "something-went-wrong": "Hmmm, något blev fel!",
     "subscribed-events": "Prenumererade händelser",
     "test-message-sent": "Test meddelande skickat",
-    "refresh": "Refresh",
-    "new-version": "New version available!"
+    "refresh": "Uppdatera",
+    "new-version": "Uppdatering tillgänglig!"
   },
   "general": {
     "apply": "Utför",
@@ -70,7 +70,7 @@
     "exception": "Undantag",
     "failed-count": "Misslyckades: {count}",
     "failure-uploading-file": "Uppladdning misslyckades",
-    "favorites": "Favorites",
+    "favorites": "Favoriter",
     "field-required": "Obligatoriskt fält",
     "file-folder-not-found": "Fil/mapp ej hittad",
     "file-uploaded": "Ful uppladdad",
@@ -219,8 +219,8 @@
     "calories-suffix": "kalorier",
     "carbohydrate-content": "Kolhydrat",
     "categories": "Kategorier",
-    "comment-action": "Comment",
-    "comments": "Comments",
+    "comment-action": "Kommentar",
+    "comments": "Kommentarer",
     "delete-confirmation": "Är du säker på att du vill ta bort detta recept?",
     "delete-recipe": "Radera recept",
     "description": "Beskrivning",
@@ -274,16 +274,16 @@
     "view-recipe": "Visa recept"
   },
   "reicpe": {
-    "no-recipe": "No Recipe"
+    "no-recipe": "Inget recept"
   },
   "search": {
-    "advanced-search": "Advanced Search",
+    "advanced-search": "Avancerad sökning",
     "and": "och",
     "exclude": "Exkludera",
     "include": "Inkludera",
     "max-results": "Max resultat",
     "or": "Eller",
-    "results": "Results",
+    "results": "Resultat",
     "search": "Sök",
     "search-mealie": "Sök Mealie (tryck /)",
     "search-placeholder": "Sök...",
