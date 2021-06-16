@@ -4,7 +4,7 @@
     "take-me-home": "Ir a Inicio"
   },
   "about": {
-    "about": "About",
+    "about": "Acerca de",
     "about-mealie": "Acerca de Mealie",
     "api-docs": "Documentación API",
     "api-port": "Puerto API",
@@ -46,8 +46,8 @@
     "something-went-wrong": "¡Algo salió mal!",
     "subscribed-events": "Eventos suscritos",
     "test-message-sent": "Mensaje Enviado",
-    "refresh": "Refresh",
-    "new-version": "New version available!"
+    "refresh": "Actualizar",
+    "new-version": "¡Nueva versión disponible!"
   },
   "general": {
     "apply": "Aplicar",
@@ -70,7 +70,7 @@
     "exception": "Excepción",
     "failed-count": "Error: {count}",
     "failure-uploading-file": "Error al cargar el archivo",
-    "favorites": "Favorites",
+    "favorites": "Favoritos",
     "field-required": "Campo Requerido",
     "file-folder-not-found": "No se ha encontrado el archivo o la carpeta",
     "file-uploaded": "Archivo cargado",
@@ -219,8 +219,8 @@
     "calories-suffix": "calorías",
     "carbohydrate-content": "Hidratos de carbono",
     "categories": "Categorías",
-    "comment-action": "Comment",
-    "comments": "Comments",
+    "comment-action": "Comentar",
+    "comments": "Comentarios",
     "delete-confirmation": "¿Estás seguro de eliminar esta receta?",
     "delete-recipe": "Borrar receta",
     "description": "Descripción",
@@ -231,7 +231,7 @@
     "grams": "gramos",
     "ingredient": "Ingrediente",
     "ingredients": "Ingredientes",
-    "insert-section": "Insert Section",
+    "insert-section": "Insertar sección",
     "instructions": "Instrucciones",
     "key-name-required": "Nombre de clave requerido",
     "landscape-view-coming-soon": "Vista apaisada (Próximamente)",
@@ -259,8 +259,8 @@
     "recipe-update-failed": "Error al actualizar la receta",
     "recipe-updated": "Receta actualizada",
     "remove-from-favorites": "Eliminar de favoritos",
-    "remove-section": "Remove Section",
-    "section-title": "Section Title",
+    "remove-section": "Eliminar sección",
+    "section-title": "Título de la sección",
     "servings": "Porciones",
     "share-recipe-message": "Quería compartir mi receta {0} contigo.",
     "show-assets": "Mostrar recursos",
@@ -274,16 +274,16 @@
     "view-recipe": "Ver Receta"
   },
   "reicpe": {
-    "no-recipe": "No Recipe"
+    "no-recipe": "Sin Receta"
   },
   "search": {
-    "advanced-search": "Advanced Search",
+    "advanced-search": "Búsqueda avanzada",
     "and": "y",
     "exclude": "Excluir",
     "include": "Incluir",
     "max-results": "Resultados máximos",
     "or": "O",
-    "results": "Results",
+    "results": "Resultados",
     "search": "Buscar",
     "search-mealie": "Buscar Mealie (presione /)",
     "search-placeholder": "Buscar...",
