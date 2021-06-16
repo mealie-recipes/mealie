@@ -46,7 +46,7 @@ class AppRoutes:
         self.themes = "/api/themes"
         self.themes_create = "/api/themes/create"
         self.users = "/api/users"
-        self.users_api_tokens = "/api/users-tokens"
+        self.users_api_tokens = "/api/users/api-tokens"
         self.users_self = "/api/users/self"
         self.users_sign_ups = "/api/users/sign-ups"
         self.utils_download = "/api/utils/download"
