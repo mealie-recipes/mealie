@@ -127,7 +127,7 @@ class AppRoutes:
         return f"{self.prefix}/themes/{id}"
 
     def users_api_tokens_token_id(self, token_id):
-        return f"{self.prefix}/users-tokens/{token_id}"
+        return f"{self.prefix}/users/api-tokens/{token_id}"
 
     def users_id(self, id):
         return f"{self.prefix}/users/{id}"
