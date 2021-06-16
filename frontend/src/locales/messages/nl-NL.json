@@ -159,7 +159,7 @@
     "mealplan-settings": "Maaltijdplan instellingen",
     "mealplan-update-failed": "Maaltijdplan bijwerken mislukt",
     "mealplan-updated": "Maaltijdplan bijgewerkt",
-    "no-meal-plan-defined-yet": "Nog geen maaltijdplan gedefinieerd",
+    "no-meal-plan-defined-yet": "Nog geen maaltijdplan opgesteld",
     "no-meal-planned-for-today": "Geen maaltijd gepland voor vandaag",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
     "planner": "Planner",
@@ -168,7 +168,7 @@
   },
   "migration": {
     "chowdown": {
-      "description": "Gegevens migreren uit Chowdown",
+      "description": "Migreer gegevens uit Chowdown",
       "title": "Chowdown"
     },
     "migration-data-removed": "Migratie gegevens verwijderd",
@@ -344,8 +344,8 @@
       "theme-settings": "Thema Instellingen",
       "theme-updated": "Thema bijgewerkt",
       "warning": "Waarschuwing",
-      "switch-to-light-mode": "Switch to light mode",
-      "switch-to-dark-mode": "Switch to dark mode"
+      "switch-to-light-mode": "Verander naar licht thema",
+      "switch-to-dark-mode": "Verander naar donker thema"
     },
     "token": {
       "active-tokens": "ACTIEVE TOKENS",
@@ -363,7 +363,7 @@
       "recipes-affected": "Geen recepten beïnvloed|Een recept beinvloed|{count} recepten beïnvloed",
       "remove-unused": "Verwijder Ongebruikte Items",
       "title-case-all": "Alle Titels In Hoofdletters",
-      "toolbox": "Gereedschapskist",
+      "toolbox": "Gereedschap",
       "unorganized": "Ongeorganiseerd"
     },
     "webhooks": {
