@@ -274,11 +274,13 @@
     "no-recipe": "No Recipe"
   },
   "search": {
+    "advanced-search": "Advanced Search",
     "and": "and",
     "exclude": "Exclude",
     "include": "Include",
     "max-results": "Max Results",
     "or": "Or",
+    "results": "Results",
     "search": "Search",
     "search-mealie": "Search Mealie (press /)",
     "search-placeholder": "Search...",

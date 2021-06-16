@@ -39,9 +39,9 @@
       <v-card class="mt-1 pa-1" relative>
         <v-card-actions>
           <div class="mr-auto">
-            Results
+            {{ $t('search.results') }}
           </div>
-          <router-link to="/search"> Advanced Search </router-link>
+          <router-link to="/search"> {{ $t('search.advanced-search') }} </router-link>
         </v-card-actions>
         <v-card-actions v-if="loading">
           <SiteLoader :loading="loading" />
