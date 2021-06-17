@@ -27,6 +27,7 @@
   "devDependencies": {
     "@intlify/vue-i18n-loader": "^1.1.0",
     "@mdi/font": "^5.9.55",
+    "@mdi/js": "^5.9.55",
     "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-pwa": "~4.5.0",
@@ -38,6 +39,7 @@
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-i18n": "~1.0.1",
     "vue-cli-plugin-vuetify": "^2.4.1",
+    "vue-cli-plugin-webpack-bundle-analyzer": "^4.0.0",
     "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.2"
   },
