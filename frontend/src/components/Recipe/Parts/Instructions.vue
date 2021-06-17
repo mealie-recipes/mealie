@@ -91,6 +91,15 @@ export default {
   mounted() {
     this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
   },
+
+  watch: {
+    value: {
+      handler() { 
+        this.disabledSteps = [];  
+      }
+    }
+  },
+  
   methods: {
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);

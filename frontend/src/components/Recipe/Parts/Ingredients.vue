@@ -1,5 +1,5 @@
 <template>
-  <div v-if="value && value.length > 0">
+  <div v-if="edit || ( value && value.length > 0 )">
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
     <div v-if="edit">
       <draggable :value="value" @input="updateIndex" @start="drag = true" @end="drag = false" handle=".handle">

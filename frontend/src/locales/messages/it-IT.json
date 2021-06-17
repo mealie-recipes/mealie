@@ -189,7 +189,7 @@
   },
   "new-recipe": {
     "bulk-add": "Aggiungi In Massa",
-    "error-details": "Only websites containing ld+json or microdata can be imported imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "Importa ricetta",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Incolla nei dati delle tue ricette. Ogni riga sarà trattata come un elemento in una lista",
