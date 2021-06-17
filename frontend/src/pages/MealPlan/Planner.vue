@@ -20,7 +20,7 @@
           <v-card-actions class="mb-0 px-2 py-0">
             <v-btn text small v-if="!mealplan.shoppingList" color="info" @click="createShoppingList(mealplan.uid)">
               <v-icon left small>
-                {{ $globals.icons.mdiCartCheck }}
+                {{ $globals.icons.cartCheck }}
               </v-icon>
               {{ $t("shopping-list.create-shopping-list") }}
             </v-btn>
