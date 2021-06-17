@@ -16,7 +16,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" v-on="on" :loading="sortLoading">
             <v-icon :left="!$vuetify.breakpoint.xsOnly">
-              {{ $globals.icons.diceMultiple }}
+              {{ $globals.icons.sort }}
             </v-icon>
             {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
           </v-btn>

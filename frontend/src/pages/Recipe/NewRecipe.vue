@@ -28,11 +28,10 @@
 import { api } from "@/api";
 
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
-import VJsoneditor from "v-jsoneditor";
 import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu";
 export default {
   components: {
-    VJsoneditor,
+    VJsoneditor: () => import(/* webpackChunkName: "json-editor" */ "v-jsoneditor"),
     RecipeEditor,
     RecipePageActionMenu,
   },

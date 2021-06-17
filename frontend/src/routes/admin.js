@@ -1,11 +1,11 @@
-const Admin = () => import("@/pages/Admin");
-const Migration = () => import("@/pages/Admin/Migration");
-const Profile = () => import("@/pages/Admin/Profile");
-const ManageUsers = () => import("@/pages/Admin/ManageUsers");
-const Settings = () => import("@/pages/Admin/Settings");
-const About = () => import("@/pages/Admin/About");
-const ToolBox = () => import("@/pages/Admin/ToolBox");
-const Dashboard = () => import("@/pages/Admin/Dashboard");
+const Admin = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin");
+const Migration = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin/Migration");
+const Profile = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin/Profile");
+const ManageUsers = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin/ManageUsers");
+const Settings = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin/Settings");
+const About = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin/About");
+const ToolBox = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin/ToolBox");
+const Dashboard = () => import(/* webpackChunkName: "admin-pages" */ "@/pages/Admin/Dashboard");
 import { store } from "../store";
 
 export const adminRoutes = {

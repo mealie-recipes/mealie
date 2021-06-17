@@ -14,7 +14,6 @@
     "core-js": "^3.14.0",
     "fuse.js": "^6.4.6",
     "register-service-worker": "^1.7.1",
-    "typeface-roboto": "^1.1.13",
     "v-jsoneditor": "^1.4.4",
     "vue": "^2.6.14",
     "vue-i18n": "^8.24.1",
@@ -25,6 +24,7 @@
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
+    "typeface-roboto": "^1.1.13",
     "@intlify/vue-i18n-loader": "^1.1.0",
     "@mdi/font": "^5.9.55",
     "@mdi/js": "^5.9.55",
@@ -32,9 +32,12 @@
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-service": "^4.5.13",
+    "@vue/preload-webpack-plugin": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "html-webpack-plugin": "^5.3.1",
+    "preload-webpack-plugin": "^2.3.0",
     "sass": "^1.34.1",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-i18n": "~1.0.1",

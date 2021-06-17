@@ -70,7 +70,6 @@
 import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu.vue";
 import { api } from "@/api";
 import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
-import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "@/components/Recipe/RecipeViewer";
 import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
@@ -82,7 +81,7 @@ import CommentsSection from "@/components/Recipe/CommentSection";
 
 export default {
   components: {
-    VJsoneditor,
+    VJsoneditor: () => import(/* webpackChunkName: "json-editor" */ "v-jsoneditor"),
     RecipeViewer,
     RecipeEditor,
     RecipeTimeCard,
