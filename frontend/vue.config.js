@@ -1,5 +1,7 @@
 const path = require("path");
 const manifestJSON = require("./public/manifest.json");
+const PreloadWebpackPlugin = require("preload-webpack-plugin");
+
 module.exports = {
   transpileDependencies: ["vuetify"],
   publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
@@ -28,6 +30,7 @@ module.exports = {
       alias: {
         "@": path.resolve("src"),
       },
+      plugins: [new PreloadWebpackPlugin({})],
     },
   },
   pwa: {

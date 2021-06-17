@@ -1,5 +1,5 @@
-const ViewRecipe = () => import("@/pages/Recipe/ViewRecipe");
-const NewRecipe = () => import("@/pages/Recipe/NewRecipe");
+const ViewRecipe = () => import(/* webpackChunkName: "recipe-page" */ "@/pages/Recipe/ViewRecipe");
+const NewRecipe = () => import(/* webpackChunkName: "recipe-page" */ "@/pages/Recipe/NewRecipe");
 const ScraperDebugger = () => import("@/pages/Recipe/ScraperDebugger");
 const CustomPage = () => import("@/pages/Recipes/CustomPage");
 const AllRecipes = () => import("@/pages/Recipes/AllRecipes");

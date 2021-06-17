@@ -107,13 +107,17 @@
 </template>
 
 <script>
-import VJsoneditor from "v-jsoneditor";
 import { api } from "@/api";
 import ColorPickerDialog from "@/components/FormHelpers/ColorPickerDialog";
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import StatCard from "@/components/UI/StatCard";
 export default {
-  components: { StatCard, BaseDialog, ColorPickerDialog, VJsoneditor },
+  components: {
+    StatCard,
+    BaseDialog,
+    ColorPickerDialog,
+    VJsoneditor: () => import(/* webpackChunkName: "json-editor" */ "v-jsoneditor"),
+  },
   data() {
     return {
       jsonEditor: false,
