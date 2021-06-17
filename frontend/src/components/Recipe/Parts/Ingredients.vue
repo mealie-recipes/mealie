@@ -81,12 +81,6 @@ export default {
   mounted() {
     this.checked = this.value.map(() => false);
   },
-
-  computed: {
-    ingredients() {
-      return this.value ? this.value : [];
-    },
-  },
   methods: {
     addIngredient(ingredients = null) {
       if (ingredients.length) {
