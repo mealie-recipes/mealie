@@ -195,7 +195,7 @@ class ImportDatabase:
 
         return import_notifications
 
-    def import_settings(self):  # ! Broken
+    def import_settings(self):
         settings_file = self.import_dir.joinpath("settings", "settings.json")
         settings = ImportDatabase.read_models_file(settings_file, SiteSettings)
         settings = settings[0]
