@@ -45,6 +45,12 @@ def update_webhook_schedule():
         time = cron_parser(group.webhook_time)
         job = JOB_STORE.get(group.name)
 
+        if not job:
+            logger.error(f"No job found for group: {group.name}")
+            logger.info(f"Creating scheduled task for {group.name}")
+            JOB_STORE.update(add_group_to_schedule(scheduler, group))
+            continue
+
         scheduler.reschedule_job(
             job.scheduled_task.id,
             trigger="cron",
@@ -77,24 +83,26 @@ class ScheduledFunction:
         )
 
 
+def add_group_to_schedule(scheduler, group: GroupInDB):
+    cron = cron_parser(group.webhook_time)
+
+    return {
+        group.name: ScheduledFunction(
+            scheduler,
+            post_webhooks,
+            cron=cron,
+            name=group.name,
+            args=[group.id],
+        )
+    }
+
+
 def init_webhook_schedule(scheduler, job_store: dict):
     session = create_session()
     all_groups: list[GroupInDB] = db.groups.get_all(session)
 
     for group in all_groups:
-        cron = cron_parser(group.webhook_time)
-
-        job_store.update(
-            {
-                group.name: ScheduledFunction(
-                    scheduler,
-                    post_webhooks,
-                    cron=cron,
-                    name=group.name,
-                    args=[group.id],
-                )
-            }
-        )
+        job_store.update(add_group_to_schedule(scheduler, group))
 
     session.close()
 
