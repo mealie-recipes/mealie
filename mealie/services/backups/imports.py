@@ -89,6 +89,9 @@ class ImportDatabase:
     def import_comments(self):
         comment_dir: Path = self.import_dir.joinpath("comments", "comments.json")
 
+        if not comment_dir.exists():
+            return
+
         comments = ImportDatabase.read_models_file(file_path=comment_dir, model=CommentOut)
 
         for comment in comments:
@@ -367,7 +370,6 @@ def import_database(
         theme_report = import_session.import_themes()
 
     if import_pages:
-        print("IMport Pages")
         page_report = import_session.import_pages()
 
     group_report = []
@@ -378,6 +380,7 @@ def import_database(
     if import_users:
         user_report = import_session.import_users()
 
+    notification_report = []
     if import_notifications:
         notification_report = import_session.import_notifications()
 
