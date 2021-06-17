@@ -2,7 +2,7 @@
 	This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
 
 
-In a lot of ways, Home Assistant is why this project exists! Since it Mealie has a robust API it makes it a great fit for interacting with Home Assistant and pulling information into your dashboard.
+In a lot of ways, Home Assistant is why this project exists! Since Mealie has a robust API it makes it a great fit for interacting with Home Assistant and pulling information into your dashboard.
 
 ### Get Todays Meal in Lovelace
 Starting in v0.4.1 you are now able to use the uri `/api​/meal-plans​/today​/image?group_name=Home` to directly access the image to todays meal. This makes it incredible easy to include the image into your Home Assistant Dashboard using the picture entity. 
@@ -28,6 +28,21 @@ style:
     justify-content: center;
     }
 ```
+
+The sensor that gets the name of the meal can be achieved using the following REST sensor in Home Assistant
+```
+sensor:
+  - platform: rest
+    resource: http://localhost:9000/api/meal-plans/today
+    method: GET
+    name: Meal Today
+    headers:
+      Authorization: Bearer MySuperSecretBearerCode
+    value_template: "{{ value_json.name }}"
+    json_attributes:
+      - slug
+```
+The Bearer token can be created from the User Settings page (https://hay-kot.github.io/mealie/documentation/users-groups/user-settings/#api-key-generation) 
 
 
 !!! tip
