@@ -34,7 +34,7 @@
           </div>
         </v-card-text>
         <v-btn v-if="isMobile" fab bottom @click="dialog = false" class="ma-2">
-          <v-icon> mdi-close </v-icon>
+          <v-icon> {{ $globals.icons.close }} </v-icon>
         </v-btn>
       </v-card>
     </v-dialog>

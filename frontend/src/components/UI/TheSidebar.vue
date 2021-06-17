@@ -6,10 +6,10 @@
 
         <v-list-item dense v-if="isLoggedIn" :to="`/user/${user.id}/favorites`">
           <v-list-item-icon>
-            <v-icon> mdi-heart </v-icon>
+            <v-icon> {{ $globals.icons.heart }} </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title> {{ $t('general.favorites') }} </v-list-item-title>
+            <v-list-item-title> {{ $t("general.favorites") }} </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -28,13 +28,13 @@
       <v-list nav dense class="fixedBottom" v-if="!isMain">
         <v-list-item href="https://github.com/sponsors/hay-kot" target="_target">
           <v-list-item-icon>
-            <v-icon color="pink"> mdi-heart </v-icon>
+            <v-icon color="pink"> {{ $globals.icons.heart }} </v-icon>
           </v-list-item-icon>
           <v-list-item-title> {{ $t("about.support") }} </v-list-item-title>
         </v-list-item>
         <v-list-item to="/admin/about">
           <v-list-item-icon class="mr-3 pt-1">
-            <v-icon :color="newVersionAvailable ? 'red--text' : ''"> mdi-information </v-icon>
+            <v-icon :color="newVersionAvailable ? 'red--text' : ''"> {{ $globals.icons.information }} </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -99,17 +99,17 @@ export default {
     baseMainLinks() {
       return [
         {
-          icon: "mdi-home",
+          icon: this.$globals.icons.home,
           to: "/",
           title: this.$t("page.home-page"),
         },
         {
-          icon: "mdi-magnify",
+          icon: this.$globals.icons.search,
           to: "/search",
           title: this.$t("search.search"),
         },
         {
-          icon: "mdi-view-module",
+          icon: this.$globals.icons.viewModule,
           to: "/recipes/all",
           title: this.$t("page.all-recipes"),
         },
@@ -129,7 +129,7 @@ export default {
       const pages = this.$store.getters.getCustomPages;
       if (pages.length > 0) {
         pages.sort((a, b) => a.position - b.position);
-        return pages.map((x) => ({
+        return pages.map(x => ({
           title: x.name,
           to: `/pages/${x.slug}`,
           icon: this.$globals.icons.pages,
@@ -152,17 +152,17 @@ export default {
     adminLinks() {
       return [
         {
-          icon: "mdi-view-dashboard",
+          icon: this.$globals.icons.viewDashboard,
           to: "/admin/dashboard",
           title: this.$t("general.dashboard"),
         },
         {
-          icon: "mdi-cog",
+          icon: this.$globals.icons.cog,
           to: "/admin/settings",
           title: this.$t("settings.site-settings"),
         },
         {
-          icon: "mdi-tools",
+          icon: this.$globals.icons.tools,
           to: "/admin/toolbox",
           title: this.$t("settings.toolbox.toolbox"),
         },
@@ -172,7 +172,7 @@ export default {
           title: this.$t("user.manage-users"),
         },
         {
-          icon: "mdi-database-import",
+          icon: this.$globals.icons.import,
           to: "/admin/migrations",
           title: this.$t("settings.migrations"),
         },

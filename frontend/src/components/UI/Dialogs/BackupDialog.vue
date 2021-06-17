@@ -2,7 +2,7 @@
   <div>
     <BaseDialog
       :title="$t('settings.backup.create-heading')"
-      titleIcon="mdi-database"
+      :titleIcon="$globals.icons.database"
       @submit="createBackup"
       :submit-text="$t('general.create')"
       :loading="loading"

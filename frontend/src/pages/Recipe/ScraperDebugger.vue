@@ -3,7 +3,7 @@
     <v-text-field v-model="testUrl" outlined single-line label="Recipe Url"> </v-text-field>
     <div class="d-flex">
       <v-btn class="mt-0 ml-auto" color="info" @click="getTestData">
-        <v-icon left> mdi-test-tube </v-icon>
+        <v-icon left> {{ $globals.icons.testTube}} </v-icon>
         Test Scrape
       </v-btn>
     </div>

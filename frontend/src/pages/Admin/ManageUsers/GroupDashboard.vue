@@ -8,7 +8,7 @@
             v-model="filter"
             clearable
             class="mr-2 pt-0"
-            append-icon="mdi-filter"
+            :append-icon="$globals.icons.filter"
             :label="$t('general.filter')"
             single-line
             hide-details

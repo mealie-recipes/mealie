@@ -21,7 +21,7 @@
         />
       </div>
 
-      <v-subheader>{{$t('user.users-header')}}</v-subheader>
+      <v-subheader>{{ $t("user.users-header") }}</v-subheader>
       <v-divider></v-divider>
 
       <v-virtual-scroll v-if="currentGroup.users" :items="currentGroup.users" height="257" item-height="64">
@@ -46,7 +46,7 @@
       <div class="mt-3">
         <h3 class="display-2 font-weight-light text--primary">
           <v-icon x-large>
-            mdi-food-variant
+            {{ $globals.icons.food }}
           </v-icon>
           <small> {{ $t("meal-plan.mealplan-settings") }} </small>
         </h3>
@@ -92,7 +92,7 @@
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
           <v-btn small color="success" @click="addWebhook">
-            <v-icon left> mdi-webhook </v-icon>
+            <v-icon left> {{ $globals.icons.webhook }} </v-icon>
             {{ $t("general.new") }}
           </v-btn>
         </v-card-actions>
@@ -101,7 +101,7 @@
       <v-divider></v-divider>
       <v-card-actions class="pb-0">
         <v-btn class="ma-2" color="info" @click="testWebhooks">
-          <v-icon left> mdi-webhook </v-icon>
+          <v-icon left> {{ $globals.icons.webhook }} </v-icon>
           {{ $t("settings.webhooks.test-webhooks") }}
         </v-btn>
         <v-spacer></v-spacer>

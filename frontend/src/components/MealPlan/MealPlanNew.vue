@@ -3,7 +3,7 @@
     <v-card-title class=" headline">
       {{ $t("meal-plan.create-a-new-meal-plan") }}
       <v-btn color="info" class="ml-auto" @click="setQuickWeek()">
-        <v-icon left>mdi-calendar-minus</v-icon>
+        <v-icon left> {{ $globals.icons.calendarMinus }} </v-icon>
         {{ $t("meal-plan.quick-week") }}
       </v-btn>
     </v-card-title>
@@ -26,7 +26,7 @@
                 v-model="startComputedDateFormatted"
                 :label="$t('meal-plan.start-date')"
                 persistent-hint
-                prepend-icon="mdi-calendar"
+                :prepend-icon="$globals.icons.calendarMinus"
                 readonly
                 v-bind="attrs"
                 v-on="on"
@@ -50,7 +50,7 @@
                 v-model="endComputedDateFormatted"
                 :label="$t('meal-plan.end-date')"
                 persistent-hint
-                prepend-icon="mdi-calendar"
+                :prepend-icon="$globals.icons.calendarMinus"
                 readonly
                 v-bind="attrs"
                 v-on="on"
@@ -69,7 +69,7 @@
       <v-card-actions class="mr-5">
         <TheButton edit @click="random" v-if="planDays.length > 0" text>
           <template v-slot:icon>
-            mdi-dice-multiple
+            {{ $globals.icons.diceMultiple }}
           </template>
           {{ $t("general.random") }}
         </TheButton>

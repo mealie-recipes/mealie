@@ -4,7 +4,7 @@
       :title="$t('recipe.delete-recipe')"
       :message="$t('recipe.delete-confirmation')"
       color="error"
-      icon="mdi-alert-circle"
+      :icon="$globals.icons.alertCircle"
       ref="deleteRecipieConfirm"
       v-on:confirm="deleteRecipe()"
     />
@@ -21,7 +21,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
-          <v-icon>{{ menuIcon }}</v-icon>
+          <v-icon>{{ effMenuIcon }}</v-icon>
         </v-btn>
       </template>
       <v-list dense>
@@ -65,7 +65,7 @@ export default {
       type: String,
     },
     menuIcon: {
-      default: "mdi-dots-vertical",
+      default: null,
     },
     name: {
       type: String,
@@ -76,6 +76,9 @@ export default {
     },
   },
   computed: {
+    effMenuIcon() {
+      return this.menuIcon ? this.menuIcon : this.$globals.icons.dotsVertical;
+    },
     loggedIn() {
       return this.$store.getters.getIsLoggedIn;
     },
@@ -89,13 +92,13 @@ export default {
       return [
         {
           title: this.$t("general.print"),
-          icon: "mdi-printer",
+          icon: this.$globals.icons.printer,
           color: "accent",
           action: "print",
         },
         {
           title: this.$t("general.share"),
-          icon: "mdi-share-variant",
+          icon: this.$globals.icons.shareVariant,
           color: "accent",
           action: "share",
         },

@@ -32,9 +32,9 @@ export default {
   data() {
     return {
       buttons: [
-        { icon: "mdi-home", to: "/", text: "Home" },
+        { icon: this.$globals.icons.home, to: "/", text: "Home" },
         { icon: this.$globals.icons.primary, to: "/recipes/all", text: "All Recipes" },
-        { icon: "mdi-magnify", to: "/search", text: "Search" },
+        { icon: this.$globals.icons.search, to: "/search", text: "Search" },
       ],
     };
   },

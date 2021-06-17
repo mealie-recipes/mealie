@@ -11,7 +11,7 @@
 
         <v-tab href="#sign-ups">
           {{ $t("signup.sign-up-links") }}
-          <v-icon>mdi-account-plus-outline</v-icon>
+          <v-icon>{{ $globals.icons.accountPlusOutline }}</v-icon>
         </v-tab>
 
         <v-tab href="#groups" @click="reqGroups">

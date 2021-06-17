@@ -5,7 +5,7 @@
         <v-spacer></v-spacer>
         <BaseDialog
           :keep-open="keepDialogOpen"
-          title-icon="mdi-bell-alert"
+          :title-icon="$globals.icons.bellAlert"
           :title="$t('general.new') + ' ' + $t('events.notification')"
           @submit="createNotification"
         >
@@ -46,7 +46,7 @@
                 >
                 </v-text-field>
                 <v-btn class="d-flex ml-auto" small color="info" @click="testByURL(newNotification.notificationUrl)">
-                  <v-icon left> mdi-test-tube</v-icon>
+                  <v-icon left> {{ $globals.icons.testTube }}</v-icon>
                   {{ $t("general.test") }}
                 </v-btn>
                 <v-subheader class="pa-0 mb-0">
@@ -85,13 +85,13 @@
               v-else-if="item[boolHeader.value] === true || item[boolHeader.value] === false"
               :color="item[boolHeader.value] ? 'success' : 'gray'"
             >
-              {{ item[boolHeader.value] ? "mdi-check" : "mdi-close" }}
+              {{ item[boolHeader.value] ? $globals.icons.check : $globals.icons.close }}
             </v-icon>
             <div v-else-if="boolHeader.text === 'Actions'">
               <TheButton class="mr-1" delete x-small minor @click="deleteNotification(item.id)" />
               <TheButton edit x-small @click="testByID(item.id)">
                 <template v-slot:icon>
-                  mdi-test-tube
+                  {{ $globals.icons.testTube }}
                 </template>
                 {{ $t("general.test") }}
               </TheButton>
@@ -136,7 +136,7 @@ export default {
       notificationTypes: [
         {
           text: "General",
-          icon: "mdi-bell-alert",
+          icon: this.$globals.icons.bellAlert,
         },
         {
           text: "Discord",

@@ -61,7 +61,7 @@
           hide-details
           single-line
           :placeholder="$t('search.search')"
-          prepend-inner-icon="mdi-magnify"
+          :prepend-inner-icon="$globals.icons.search"
         >
         </v-text-field>
       </fuse-search-bar>

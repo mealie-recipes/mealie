@@ -12,7 +12,7 @@
       :title="$t('recipe.delete-recipe')"
       :message="$t('recipe.delete-confirmation')"
       color="error"
-      icon="mdi-alert-circle"
+      :icon="$globals.icons.alertCircle"
       ref="deleteRecipieConfirm"
       v-on:confirm="emitDelete()"
     />
@@ -30,7 +30,7 @@
         :menu-top="false"
         :slug="slug"
         :name="name"
-        menu-icon="mdi-dots-horizontal"
+        :menu-icon="$globals.icons.mdiDotsHorizontal"
         fab
         color="info"
         :card-menu="false"
@@ -80,36 +80,36 @@ export default {
       edit: false,
     };
   },
-  
+
   computed: {
-      editorButtons() {
-        return [
-          {
-            text: this.$t('general.delete'),
-            icon: this.$globals.icons.delete,
-            event: DELETE_EVENT,
-            color: "error",
-          },
-          {
-            text: this.$t('general.json'),
-            icon: "mdi-code-braces",
-            event: JSON_EVENT,
-            color: "accent",
-          },
-          {
-            text: this.$t('general.close'),
-            icon: "mdi-close",
-            event: CLOSE_EVENT,
-            color: "",
-          },
-          {
-            text: this.$t('general.save'),
-            icon: this.$globals.icons.save,
-            event: SAVE_EVENT,
-            color: "success",
-          },
-        ]; 
-      },
+    editorButtons() {
+      return [
+        {
+          text: this.$t("general.delete"),
+          icon: this.$globals.icons.delete,
+          event: DELETE_EVENT,
+          color: "error",
+        },
+        {
+          text: this.$t("general.json"),
+          icon: this.$globals.icons.codeBraces,
+          event: JSON_EVENT,
+          color: "accent",
+        },
+        {
+          text: this.$t("general.close"),
+          icon: this.$globals.icons.close,
+          event: CLOSE_EVENT,
+          color: "",
+        },
+        {
+          text: this.$t("general.save"),
+          icon: this.$globals.icons.save,
+          event: SAVE_EVENT,
+          color: "success",
+        },
+      ];
+    },
   },
   methods: {
     emitHandler(event) {

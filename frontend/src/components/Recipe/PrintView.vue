@@ -33,9 +33,9 @@
       <ul>
         <li v-for="(ingredient, index) in recipe.recipeIngredient" :key="index">
           <v-icon>
-            mdi-checkbox-blank-outline
+            {{ $globals.icons.checkboxBlankOutline }}
           </v-icon>
-          <p>{{ ingredient }}</p>
+          <p>{{ ingredient.note }}</p>
         </li>
       </ul>
     </div>

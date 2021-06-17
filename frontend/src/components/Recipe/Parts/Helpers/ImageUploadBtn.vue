@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="accent" dark v-bind="attrs" v-on="on">
           <v-icon left>
-            mdi-image
+            {{ $globals.icons.fileImage }}
           </v-icon>
           {{ $t("general.image") }}
         </v-btn>

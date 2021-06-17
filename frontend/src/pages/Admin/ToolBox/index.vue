@@ -6,7 +6,7 @@
 
         <v-tab href="#event-notifications">
           {{ $t("settings.notify") }}
-          <v-icon>mdi-bell-alert</v-icon>
+          <v-icon>{{ $globals.icons.bellAlert }}</v-icon>
         </v-tab>
         <v-tab href="#category-editor">
           {{ $t("recipe.categories") }}
@@ -19,7 +19,7 @@
         </v-tab>
         <v-tab href="#organize">
           {{ $t("settings.organize") }}
-          <v-icon>mdi-broom</v-icon>
+          <v-icon>{{ $globals.icons.broom }}</v-icon>
         </v-tab>
       </v-tabs>
 

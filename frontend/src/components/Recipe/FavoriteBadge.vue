@@ -12,7 +12,7 @@
         v-on="on"
       >
         <v-icon :small="!buttonStyle" color="secondary">
-          {{ isFavorite ? "mdi-heart" : "mdi-heart-outline" }}
+          {{ isFavorite ? $globals.icons.heart : $globals.icons.heartOutline }}
         </v-icon>
       </v-btn>
     </template>

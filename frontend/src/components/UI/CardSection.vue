@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
       <v-btn :icon="$vuetify.breakpoint.xsOnly" text @click="navigateRandom">
         <v-icon :left="!$vuetify.breakpoint.xsOnly">
-          mdi-dice-multiple
+          {{ $globals.icons.diceMultiple }}
         </v-icon>
         {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
@@ -16,7 +16,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" v-on="on" :loading="sortLoading">
             <v-icon :left="!$vuetify.breakpoint.xsOnly">
-              mdi-sort
+              {{ $globals.icons.diceMultiple }}
             </v-icon>
             {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
           </v-btn>
@@ -24,31 +24,31 @@
         <v-list>
           <v-list-item @click="sortRecipes(EVENTS.az)">
             <v-icon left>
-              mdi-order-alphabetical-ascending
+              {{ $globals.icons.orderAlphabeticalAscending }}
             </v-icon>
             <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.rating)">
             <v-icon left>
-              mdi-star
+              {{ $globals.icons.star }}
             </v-icon>
             <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.created)">
             <v-icon left>
-              mdi-new-box
+              {{ $globals.icons.newBox }}
             </v-icon>
             <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.updated)">
             <v-icon left>
-              mdi-update
+              {{ $globals.icons.update }}
             </v-icon>
             <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.shuffle)">
             <v-icon left>
-              mdi-shuffle-variant
+              {{ $globals.icons.shuffleVariant }}
             </v-icon>
             <v-list-item-title>{{ $t("general.shuffle") }}</v-list-item-title>
           </v-list-item>

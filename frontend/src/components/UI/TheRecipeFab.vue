@@ -3,7 +3,7 @@
     <v-dialog v-model="addRecipe" width="650" @click:outside="reset">
       <v-card :loading="processing">
         <v-app-bar dark color="primary mb-2">
-          <v-icon large left v-if="!processing"> mdi-link </v-icon>
+          <v-icon large left v-if="!processing"> {{ $globals.icons.link }} </v-icon>
           <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
 
           <v-toolbar-title class="headline">
@@ -29,7 +29,7 @@
             <v-expand-transition>
               <v-alert v-if="error" color="error" class="mt-6 white--text">
                 <v-card-title class="ma-0 pa-0">
-                  <v-icon left color="white" x-large> mdi-robot </v-icon>
+                  <v-icon left color="white" x-large> {{ $globals.icons.robot }} </v-icon>
                   {{ $t("new-recipe.error-title") }}
                 </v-card-title>
                 <v-divider class="my-3 mx-2"></v-divider>
@@ -60,7 +60,7 @@
                     :to="{ path: '/recipes/debugger', query: { test_url: recipeURL } }"
                     @click="addRecipe = false"
                   >
-                    <v-icon> mdi-external-link </v-icon>
+                    <v-icon left> {{ $globals.icons.externalLink }} </v-icon>
                     View Scraped Data
                   </v-btn>
                 </div>
@@ -72,7 +72,7 @@
 
           <v-card-actions>
             <v-btn color="grey" text @click="reset">
-              <v-icon left> mdi-close </v-icon>
+              <v-icon left> {{ $globals.icons.close }}</v-icon>
               {{ $t("general.close") }}
             </v-btn>
             <v-spacer></v-spacer>
@@ -93,7 +93,7 @@
       <v-tooltip left dark color="primary">
         <template v-slot:activator="{ on, attrs }">
           <v-btn fab dark small color="primary" v-bind="attrs" v-on="on" @click="addRecipe = true">
-            <v-icon>mdi-link</v-icon>
+            <v-icon>{{ $globals.icons.link }} </v-icon>
           </v-btn>
         </template>
         <span>{{ $t("new-recipe.from-url") }}</span>

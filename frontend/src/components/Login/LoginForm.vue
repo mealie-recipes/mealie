@@ -14,18 +14,21 @@
       <v-card-text>
         <v-text-field
           v-model="user.email"
-          prepend-icon="mdi-email"
+          :prepend-icon="$globals.icons.email"
           validate-on-blur
+          autocomplete
+          autofocus
           :label="`${$t('user.email')} or ${$t('user.username')} `"
           type="email"
         ></v-text-field>
         <v-text-field
           v-model="user.password"
           class="mb-2s"
-          prepend-icon="mdi-lock"
+          autocomplete
+          :prepend-icon="$globals.icons.lock"
           :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
         <v-card-actions>

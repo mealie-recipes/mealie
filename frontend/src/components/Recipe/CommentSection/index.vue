@@ -2,9 +2,9 @@
   <v-card>
     <v-card-title class="headline">
       <v-icon large class="mr-2">
-        mdi-comment-text-multiple-outline
+        {{ $globals.icons.commentTextMultipleOutline }}
       </v-icon>
-      {{ $t('recipe.comments') }}
+      {{ $t("recipe.comments") }}
     </v-card-title>
     <v-divider class="mx-2"></v-divider>
     <v-card class="ma-2" v-for="(comment, index) in comments" :key="comment.id">
@@ -43,7 +43,7 @@
     <v-card-text v-if="loggedIn">
       <v-textarea auto-grow row-height="1" outlined v-model="newComment"> </v-textarea>
       <div class="d-flex">
-        <TheButton class="ml-auto" create @click="createNewComment"> {{ $t('recipe.comment-action') }} </TheButton>
+        <TheButton class="ml-auto" create @click="createNewComment"> {{ $t("recipe.comment-action") }} </TheButton>
       </div>
     </v-card-text>
   </v-card>

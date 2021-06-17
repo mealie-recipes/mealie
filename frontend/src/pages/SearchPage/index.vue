@@ -7,7 +7,7 @@
           outlined
           color="primary accent-3"
           :placeholder="$t('search.search-placeholder')"
-          append-icon="mdi-magnify"
+          :append-icon="$globals.icons.search"
         >
         </v-text-field>
       </v-col>
@@ -39,7 +39,13 @@
       </v-col>
     </v-row>
 
-    <CardSection class="mt-n9" title-icon="mdi-mag" :recipes="showRecipes" :hardLimit="maxResults" @sort="assignFuzzy" />
+    <CardSection
+      class="mt-n9"
+      :title-icon="$globals.icons.magnify"
+      :recipes="showRecipes"
+      :hardLimit="maxResults"
+      @sort="assignFuzzy"
+    />
   </v-container>
 </template>
 

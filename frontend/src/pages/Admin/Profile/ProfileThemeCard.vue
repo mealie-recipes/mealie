@@ -1,6 +1,6 @@
 <template>
   <div>
-    <StatCard icon="mdi-format-color-fill" :color="color">
+    <StatCard :icon="$globals.icons.formatColorFill" :color="color">
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
           <div class="body-3 grey--text font-weight-light" v-text="$t('general.themes')" />
@@ -14,21 +14,21 @@
       <template v-slot:actions>
         <v-btn-toggle v-model="darkMode" color="primary " mandatory>
           <v-btn small value="system">
-            <v-icon>mdi-desktop-tower-monitor</v-icon>
+            <v-icon>{{ $globals.icons.desktopTowerMonitor }}</v-icon>
             <span class="ml-1" v-show="$vuetify.breakpoint.smAndUp">
               {{ $t("settings.theme.default-to-system") }}
             </span>
           </v-btn>
 
           <v-btn small value="light">
-            <v-icon>mdi-white-balance-sunny</v-icon>
+            <v-icon>{{ $globals.icons.weatherSunny }}</v-icon>
             <span class="ml-1" v-show="$vuetify.breakpoint.smAndUp">
               {{ $t("settings.theme.light") }}
             </span>
           </v-btn>
 
           <v-btn small value="dark">
-            <v-icon>mdi-weather-night</v-icon>
+            <v-icon>{{ $globals.icons.weatherNight }}</v-icon>
             <span class="ml-1" v-show="$vuetify.breakpoint.smAndUp">
               {{ $t("settings.theme.dark") }}
             </span>
@@ -43,7 +43,7 @@
             <v-list-item @click="selectedTheme = item">
               <v-list-item-avatar>
                 <v-icon large dark :color="item.colors.primary">
-                  mdi-format-color-fill
+                  {{ $globals.icons.formatColorFill }}
                 </v-icon>
               </v-list-item-avatar>
 
@@ -80,7 +80,7 @@
     <BaseDialog
       :loading="loading"
       :title="modalLabel.title"
-      title-icon="mdi-format-color-fill"
+      :title-icon="$globals.icons.formatColorFill"
       modal-width="700"
       ref="themeDialog"
       :submit-text="modalLabel.button"
@@ -92,7 +92,7 @@
           :label="$t('settings.theme.theme-name')"
           v-model="defaultData.name"
           :rules="[rules.required]"
-          :append-outer-icon="jsonEditor ? 'mdi-form-select' : 'mdi-code-braces'"
+          :append-outer-icon="jsonEditor ? $globals.icons.formSelect : $globals.icons.codeBraces"
           @click:append-outer="jsonEditor = !jsonEditor"
         ></v-text-field>
         <v-row dense dflex wrap justify-content-center v-if="defaultData.colors && !jsonEditor">
