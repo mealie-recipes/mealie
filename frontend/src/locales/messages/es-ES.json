@@ -154,7 +154,7 @@
     "edit-meal-plan": "Editar menú",
     "end-date": "Fecha de Finalización",
     "group": "Grupo (Beta)",
-    "main": "Main",
+    "main": "Principal",
     "meal-planner": "Menús",
     "meal-plans": "Menús",
     "mealplan-categories": "Categorías del menú",
@@ -170,8 +170,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sólo las recetas con estas categorías se utilizarán en los menús",
     "planner": "Planificador",
     "quick-week": "Vista rápida",
-    "side": "Side",
-    "sides": "Sides",
+    "side": "Entremés",
+    "sides": "Entremeses",
     "start-date": "Fecha de Inicio"
   },
   "migration": {

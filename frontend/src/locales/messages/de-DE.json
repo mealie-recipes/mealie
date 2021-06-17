@@ -189,7 +189,7 @@
   },
   "new-recipe": {
     "bulk-add": "Massenimport",
-    "error-details": "Nur Webseiten mit ld+json oder Mikrodaten können von Mealie importiert werden. Die meisten großen Rezeptwebseiten unterstützen diese Datenstruktur. Wenn Ihre Website nicht importiert werden kann, aber Json-Daten im Log vorhanden sind, melden Sie es bitte mit der URL und diesen Daten auf GitHub.",
+    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Anscheinend konnten wir nichts finden",
     "from-url": "Von URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
