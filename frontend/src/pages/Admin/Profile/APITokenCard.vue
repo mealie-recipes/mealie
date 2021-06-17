@@ -1,5 +1,5 @@
 <template>
-  <StatCard icon="mdi-api" color="accent">
+  <StatCard :icon="$globals.icons.api" color="accent">
     <template v-slot:after-heading>
       <div class="ml-auto text-right">
         <h2 class="body-3 grey--text font-weight-light">
@@ -18,7 +18,7 @@
           <v-list-item @click.prevent>
             <v-list-item-avatar>
               <v-icon large dark color="accent">
-                mdi-api
+                {{ $globals.icons.api }}
               </v-icon>
             </v-list-item-avatar>
 
@@ -41,7 +41,7 @@
         <v-spacer></v-spacer>
         <BaseDialog
           :title="$t('settings.token.create-an-api-token')"
-          title-icon="mdi-api"
+          :title-icon="$globals.icons.api"
           @submit="createToken"
           :submit-text="buttonText"
           :loading="loading"
@@ -57,7 +57,7 @@
                 :label="$t('settings.token.api-token')"
                 readonly
                 v-model="createdToken"
-                append-outer-icon="mdi-content-copy"
+                :append-outer-icon="$globals.icons.contentCopy"
                 @click:append-outer="copyToken"
               >
               </v-textarea>

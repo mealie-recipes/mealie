@@ -9,7 +9,7 @@
           solo
           :label="$t('about.log-lines')"
           type="number"
-          append-icon="mdi-refresh-circle"
+          :append-icon="$globals.icons.refreshCircle"
           v-model="lines"
           @click:append="getLogText"
           suffix="lines"
@@ -19,7 +19,7 @@
         <TheDownloadBtn :button-text="$t('about.download-log')" download-url="/api/debug/log">
           <template v-slot:default="{ downloadFile }">
             <v-btn bottom right relative fab icon color="primary" @click="downloadFile">
-              <v-icon> mdi-download </v-icon>
+              <v-icon> {{ $globals.icons.download }}</v-icon>
             </v-btn>
           </template>
         </TheDownloadBtn>

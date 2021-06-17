@@ -4,7 +4,7 @@
       <v-text-field
         v-model="time"
         :label="$t('settings.set-new-time')"
-        prepend-icon="mdi-clock-time-four-outline"
+        :prepend-icon="$globals.icons.clockOutline"
         readonly
         v-bind="attrs"
         v-on="on"

@@ -20,7 +20,7 @@
         <v-card-text>
           <v-row align="center">
             <v-col cols="2">
-              <v-icon large color="primary">mdi-import</v-icon>
+              <v-icon large color="primary">{{ $globals.icons.import }}</v-icon>
             </v-col>
             <v-col cols="10">
               <div class="text-truncate">

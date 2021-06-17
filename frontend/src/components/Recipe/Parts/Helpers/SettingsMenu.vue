@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="accent" dark v-bind="attrs" v-on="on">
           <v-icon left>
-            mdi-cog
+            {{ $globals.icons.cog }}
           </v-icon>
           {{ $t("general.settings") }}
         </v-btn>

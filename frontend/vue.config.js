@@ -19,6 +19,9 @@ module.exports = {
       localeDir: "locales",
       enableInSFC: true,
     },
+    webpackBundleAnalyzer: {
+      openAnalyzer: process.env.PREVIEW_BUNDLE,
+    },
   },
   configureWebpack: {
     resolve: {

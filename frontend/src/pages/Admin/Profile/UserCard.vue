@@ -20,7 +20,7 @@
     <template v-slot:actions>
       <BaseDialog
         :title="$t('user.reset-password')"
-        title-icon="mdi-lock"
+        :title-icon="$globals.icons.lock"
         :submit-text="$t('settings.change-password')"
         @submit="changePassword"
         :loading="loading"
@@ -28,8 +28,8 @@
       >
         <template v-slot:open="{ open }">
           <v-btn color="info" class="mr-1" small @click="open">
-            <v-icon left>mdi-lock</v-icon>
-            {{$t('settings.change-password')}}
+            <v-icon left>{{ $globals.icons.lock }}</v-icon>
+            {{ $t("settings.change-password") }}
           </v-btn>
         </template>
 
@@ -37,7 +37,7 @@
           <v-form ref="passChange">
             <v-text-field
               v-model="password.current"
-              prepend-icon="mdi-lock"
+              :prepend-icon="$globals.icons.lock"
               :label="$t('user.current-password')"
               :rules="[existsRule]"
               validate-on-blur
@@ -46,7 +46,7 @@
             ></v-text-field>
             <v-text-field
               v-model="password.newOne"
-              prepend-icon="mdi-lock"
+              :prepend-icon="$globals.icons.lock"
               :label="$t('user.new-password')"
               :rules="[minRule]"
               :type="showPassword ? 'text' : 'password'"
@@ -54,7 +54,7 @@
             ></v-text-field>
             <v-text-field
               v-model="password.newTwo"
-              prepend-icon="mdi-lock"
+              :prepend-icon="$globals.icons.lock"
               :label="$t('user.confirm-password')"
               :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]"
               validate-on-blur
@@ -91,7 +91,7 @@
       <v-divider></v-divider>
       <v-card-actions class="pb-1 pt-3">
         <TheUploadBtn
-          icon="mdi-image-area"
+          :icon="$globals.icons.fileImage"
           :text="$t('user.upload-photo')"
           :url="userProfileImage"
           file-name="profile_image"

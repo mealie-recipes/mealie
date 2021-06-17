@@ -3,7 +3,7 @@
     <v-card>
       <v-app-bar dark dense color="primary">
         <v-icon left>
-          mdi-page-layout-body
+          {{ $globals.icons.pageLayoutBody }}
         </v-icon>
 
         <v-toolbar-title class="headline">

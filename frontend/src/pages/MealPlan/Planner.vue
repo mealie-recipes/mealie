@@ -20,7 +20,7 @@
           <v-card-actions class="mb-0 px-2 py-0">
             <v-btn text small v-if="!mealplan.shoppingList" color="info" @click="createShoppingList(mealplan.uid)">
               <v-icon left small>
-                mdi-cart-check
+                {{ $globals.icons.mdiCartCheck }}
               </v-icon>
               {{ $t("shopping-list.create-shopping-list") }}
             </v-btn>
@@ -33,7 +33,7 @@
               :to="{ path: '/shopping-list', query: { list: mealplan.shoppingList } }"
             >
               <v-icon left small>
-                mdi-cart-check
+                {{ $globals.icons.mdiCartCheck }}
               </v-icon>
               {{ $t("shopping-list.shopping-list") }}
             </v-btn>

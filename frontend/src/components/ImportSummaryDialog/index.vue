@@ -4,7 +4,7 @@
       <v-card>
         <v-app-bar dark color="primary mb-2">
           <v-icon large left>
-            mdi-import
+            {{ $globals.icons.import }}
           </v-icon>
           <v-toolbar-title class="headline">
             {{ $t("settings.backup.import-summary") }}

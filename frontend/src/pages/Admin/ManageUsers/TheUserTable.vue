@@ -9,7 +9,7 @@
           activeId,
         })
       "
-      icon="mdi-alert"
+      :icon="$globals.icons.alert"
       @confirm="deleteUser"
       :width="450"
       @close="closeDelete"
@@ -20,7 +20,7 @@
         <v-text-field
           v-model="search"
           class="mr-2"
-          append-icon="mdi-filter"
+          :append-icon="$globals.icons.filter"
           :label="$t('general.filter')"
           single-line
           hide-details
@@ -117,7 +117,7 @@
           </v-btn>
           <v-btn small color="success" @click="editItem(item)">
             <v-icon small left class="mr-2">
-              mdi-pencil
+              {{ $globals.icons.edit }}
             </v-icon>
             {{ $t("general.edit") }}
           </v-btn>

@@ -3,7 +3,7 @@
     <TheSidebar ref="theSidebar" />
     <v-app-bar clipped-left dense app color="primary" dark class="d-print-none" :bottom="isMobile">
       <v-btn icon @click="openSidebar">
-        <v-icon> mdi-menu </v-icon>
+        <v-icon> {{ $globals.icons.menu }}</v-icon>
       </v-btn>
       <router-link to="/">
         <v-btn icon>
@@ -21,7 +21,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon class="mr-1" small v-bind="attrs" v-on="on" @click="isDark = !isDark">
-            <v-icon v-text="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'"> </v-icon>
+            <v-icon v-text="isDark ? $globals.icons.weatherSunny : $globals.icons.weatherNight"> </v-icon>
           </v-btn>
         </template>
         <span>{{ isDark ? $t("settings.theme.switch-to-light-mode") : $t("settings.theme.switch-to-dark-mode") }}</span>
@@ -31,7 +31,7 @@
       </div>
       <div v-else>
         <v-btn icon @click="$refs.recipeSearch.open()">
-          <v-icon> mdi-magnify </v-icon>
+          <v-icon> {{ $globals.icons.search }} </v-icon>
         </v-btn>
         <SearchDialog ref="recipeSearch" />
       </div>

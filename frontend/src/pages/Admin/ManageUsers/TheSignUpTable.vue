@@ -8,14 +8,14 @@
           link: activeName,
         })
       "
-      icon="mdi-alert"
+      :icon="$globals.icons.alert"
       @confirm="deleteToken"
       :width="450"
       @close="closeDelete"
     />
     <v-toolbar flat>
       <v-icon large color="accent" class="mr-1">
-        mdi-link-variant
+        {{ $globals.icons.externalLink }}
       </v-icon>
       <v-toolbar-title class="headine">
         {{ $t("signup.sign-up-links") }}
@@ -75,7 +75,7 @@
         <template v-slot:item.admin="{ item }">
           <v-btn small :color="item.admin ? 'success' : 'error'" text>
             <v-icon small left>
-              mdi-account-cog
+              {{ $globals.icons.admin }}
             </v-icon>
             {{ item.admin ? $t("general.yes") : $t("general.no") }}
           </v-btn>

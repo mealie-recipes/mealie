@@ -18,7 +18,7 @@
       >
         <template #prepend-inner>
           <v-icon color="grey lighten-3" size="29">
-            mdi-magnify
+            {{ $globals.icons.search }}
           </v-icon>
         </template>
       </v-text-field>

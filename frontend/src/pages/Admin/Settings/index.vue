@@ -6,7 +6,7 @@
       <span>
         <v-btn class="pt-1" text href="/docs">
           {{ $t("settings.local-api") }}
-          <v-icon right>mdi-open-in-new</v-icon>
+          <v-icon right>{{ $globals.icons.openInNew }}</v-icon>
         </v-btn>
       </span>
     </v-card-title>

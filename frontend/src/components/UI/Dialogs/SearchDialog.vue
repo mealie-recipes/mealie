@@ -26,22 +26,22 @@
             hide-details
             single-line
             :placeholder="$t('search.search')"
-            prepend-inner-icon="mdi-magnify"
+            :prepend-inner-icon="$globals.icons.search"
           >
           </v-text-field>
         </FuseSearchBar>
         <v-btn v-if="isMobile" x-small fab light @click="dialog = false">
           <v-icon>
-            mdi-close
+            {{ $globals.icons.close }}
           </v-icon>
         </v-btn>
       </v-app-bar>
       <v-card class="mt-1 pa-1" relative>
         <v-card-actions>
           <div class="mr-auto">
-            {{ $t('search.results') }}
+            {{ $t("search.results") }}
           </div>
-          <router-link to="/search"> {{ $t('search.advanced-search') }} </router-link>
+          <router-link to="/search"> {{ $t("search.advanced-search") }} </router-link>
         </v-card-actions>
         <v-card-actions v-if="loading">
           <SiteLoader :loading="loading" />

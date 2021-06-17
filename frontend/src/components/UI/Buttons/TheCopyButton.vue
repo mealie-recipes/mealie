@@ -20,12 +20,12 @@
         @blur="on.blur"
         retain-focus-on-click
       >
-        <v-icon>mdi-content-copy</v-icon>
+        <v-icon>{{ $globals.icons.contentCopy }}</v-icon>
       </v-btn>
     </template>
     <span>
       <v-icon left dark>
-        mdi-clipboard-check
+        {{ $globals.icons.clipboardCheck }}
       </v-icon>
       <slot> {{ $t("general.copied") }}! </slot>
     </span>

@@ -32,13 +32,13 @@ export default {
     icon() {
       switch (this.snackbar.color) {
         case "error":
-          return "mdi-alert";
+          return this.$globals.icons.alert;
         case "success":
-          return "mdi-checkbox-marked-circle";
+          return this.$globals.icons.checkboxMarkedCircle;
         case "info":
-          return "mdi-information";
+          return this.$globals.icons.information;
         default:
-          return "mdi-bell-alert";
+          return this.$globals.icons.bellAlert;
       }
     },
   },

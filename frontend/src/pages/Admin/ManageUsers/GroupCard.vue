@@ -8,7 +8,7 @@
           groupName: group.name,
         })
       "
-      icon="mdi-alert"
+      :icon="$globals.icons.alert"
       @confirm="deleteGroup"
       :width="450"
       @close="closeGroupDelete"
@@ -100,17 +100,17 @@ export default {
         },
         {
           text: this.$t("user.total-mealplans"),
-          icon: "mdi-food",
+          icon: this.$globals.icons.food,
           value: this.group.mealplans.length,
         },
         {
           text: this.$t("user.webhooks-enabled"),
-          icon: "mdi-webhook",
+          icon: this.$globals.icons.webhook,
           value: this.group.webhookEnable ? this.$t("general.yes") : this.$t("general.no"),
         },
         {
           text: this.$t("user.webhook-time"),
-          icon: "mdi-clock-outline",
+          icon: this.$globals.icons.clockOutline,
           value: this.group.webhookTime,
         },
       ];

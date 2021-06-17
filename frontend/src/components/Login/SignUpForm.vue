@@ -34,7 +34,7 @@
         <v-text-field
           v-model="user.email"
           light="light"
-          prepend-icon="mdi-email"
+          :prepend-icon="$globals.icons.email"
           validate-on-blur
           :rules="[existsRule, emailRule]"
           :label="$t('user.email')"
@@ -44,7 +44,7 @@
           v-model="user.password"
           light="light"
           class="mb-2s"
-          prepend-icon="mdi-lock"
+          :prepend-icon="$globals.icons.lock"
           validate-on-blur
           :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
@@ -54,10 +54,10 @@
           v-model="user.passwordConfirm"
           light="light"
           class="mb-2s"
-          prepend-icon="mdi-lock"
+          :prepend-icon="$globals.icons.lock"
           :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
           :rules="[user.password === user.passwordConfirm || $t('user.password-must-match')]"
           @click:append="showPassword = !showPassword"
         ></v-text-field>

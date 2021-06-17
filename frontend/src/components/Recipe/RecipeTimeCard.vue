@@ -2,7 +2,7 @@
   <div>
     <v-chip label color="accent custom-transparent" class="ma-1" v-for="(time, index) in allTimes" :key="index">
       <v-icon left>
-        mdi-clock-outline
+        {{ $globals.icons.clockOutline }}
       </v-icon>
       {{ time.name }} |
       {{ time.value }}

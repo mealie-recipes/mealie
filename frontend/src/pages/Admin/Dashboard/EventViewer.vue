@@ -1,6 +1,6 @@
 <template>
   <div>
-    <StatCard icon="mdi-bell-ring" :color="color">
+    <StatCard :icon="$globals.icons.bellAlert" :color="color">
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
           <h2 class="body-3 grey--text font-weight-light">
@@ -14,7 +14,7 @@
       </template>
       <div class="d-flex row py-3 justify-end">
         <v-btn class="mx-2" small color="error lighten-1" @click="deleteAll">
-          <v-icon left> mdi-notification-clear-all </v-icon> {{ $t("general.clear") }}
+          <v-icon left> {{ $globals.icons.notificationClearAll }} </v-icon> {{ $t("general.clear") }}
         </v-btn>
       </div>
       <template v-slot:bottom>
@@ -61,23 +61,23 @@ export default {
       events: [],
       icons: {
         general: {
-          icon: "mdi-information",
+          icon: this.$globals.icons.information,
           color: "info",
         },
         recipe: {
-          icon: "mdi-silverware-fork-knife",
+          icon: this.$globals.icons.primary,
           color: "primary",
         },
         backup: {
-          icon: "mdi-database",
+          icon: this.$globals.icons.database,
           color: "primary",
         },
         schedule: {
-          icon: "mdi-calendar-clock",
+          icon: this.$globals.icons.calendar,
           color: "primary",
         },
         migration: {
-          icon: "mdi-database-import",
+          icon: this.$globals.icons.backupRestore,
           color: "primary",
         },
         user: {

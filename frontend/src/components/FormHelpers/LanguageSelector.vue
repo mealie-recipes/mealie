@@ -4,7 +4,7 @@
     :items="allLanguages"
     item-text="name"
     :label="$t('settings.language')"
-    prepend-icon="mdi-translate"
+    :prepend-icon="$globals.icons.translate"
     :value="selectedItem"
     @input="setLanguage"
   >

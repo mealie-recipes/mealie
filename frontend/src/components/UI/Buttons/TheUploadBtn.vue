@@ -3,7 +3,7 @@
     <input ref="uploader" class="d-none" type="file" @change="onFileChanged" />
     <slot v-bind="{ isSelecting, onButtonClick }">
       <v-btn :loading="isSelecting" @click="onButtonClick" :small="small" color="accent" :text="textBtn">
-        <v-icon left> {{ icon }}</v-icon>
+        <v-icon left> {{ effIcon }}</v-icon>
         {{ text ? text : defaultText }}
       </v-btn>
     </slot>
@@ -24,7 +24,7 @@ export default {
     },
     url: String,
     text: String,
-    icon: { default: "mdi-cloud-upload" },
+    icon: { default: null },
     fileName: { default: "archive" },
     textBtn: {
       default: true,
@@ -36,6 +36,9 @@ export default {
   }),
 
   computed: {
+    effIcon() {
+      return this.icon ? this.icon : this.$globals.icons.upload;
+    },
     defaultText() {
       return this.$t("general.upload");
     },

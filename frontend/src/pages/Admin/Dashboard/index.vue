@@ -2,7 +2,7 @@
   <div class="mt-10">
     <v-row>
       <v-col cols="12" sm="12" md="4">
-        <StatCard icon="mdi-silverware-fork-knife">
+        <StatCard :icon="$globals.icons.primary">
           <template v-slot:after-heading>
             <div class="ml-auto text-right">
               <h2 class="body-3 grey--text font-weight-light">

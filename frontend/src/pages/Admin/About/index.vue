@@ -4,27 +4,27 @@
       <v-spacer></v-spacer>
       <v-btn href="https://github.com/sponsors/hay-kot" target="_blank" class="mx-1" color="secondary">
         <v-icon left>
-          mdi-heart
+          {{ $globals.icons.heart }}
         </v-icon>
-        {{$t('about.support')}}
+        {{ $t("about.support") }}
       </v-btn>
       <v-btn href="https://github.com/hay-kot" target="_blank" class="mx-1" color="secondary">
         <v-icon left>
-          mdi-github
+          {{ $globals.icons.github }}
         </v-icon>
-        {{$t('about.github')}}
+        {{ $t("about.github") }}
       </v-btn>
       <v-btn href="https://hay-kot.dev" target="_blank" class="mx-1" color="secondary">
         <v-icon left>
-          mdi-account
+          {{ $globals.icons.account }}
         </v-icon>
-        {{$t('about.portfolio')}}
+        {{ $t("about.portfolio") }}
       </v-btn>
       <v-btn href="https://hay-kot.github.io/mealie/" target="_blank" class="mx-1" color="secondary">
         <v-icon left>
-          mdi-folder-outline
+          {{ $globals.icons.folderOutline }}
         </v-icon>
-        {{$t('about.docs')}}
+        {{ $t("about.docs") }}
       </v-btn>
       <v-spacer></v-spacer>
     </v-app-bar>
@@ -53,7 +53,7 @@
         <TheDownloadBtn download-url="/api/debug/last-recipe-json">
           <template v-slot:default="{ downloadFile }">
             <v-btn color="primary" @click="downloadFile">
-              <v-icon left> mdi-code-braces </v-icon> {{ $t("about.download-recipe-json") }}
+              <v-icon left> {{ $globals.icons.codeBraces }} </v-icon> {{ $t("about.download-recipe-json") }}
             </v-btn>
           </template>
         </TheDownloadBtn>
@@ -85,37 +85,37 @@ export default {
       this.prettyInfo = [
         {
           name: this.$t("about.version"),
-          icon: "mdi-information",
+          icon: this.$globals.icons.information,
           value: debugInfo.version,
         },
         {
           name: this.$t("about.application-mode"),
-          icon: "mdi-dev-to",
+          icon: this.$globals.icons.devTo,
           value: debugInfo.production ? this.$t("about.production") : this.$t("about.development"),
         },
         {
           name: this.$t("about.demo-status"),
-          icon: "mdi-test-tube",
+          icon: this.$globals.icons.testTube,
           value: debugInfo.demoStatus ? this.$t("about.demo") : this.$t("about.not-demo"),
         },
         {
           name: this.$t("about.api-port"),
-          icon: "mdi-api",
+          icon: this.$globals.icons.api,
           value: debugInfo.apiPort,
         },
         {
           name: this.$t("about.api-docs"),
-          icon: "mdi-file-document",
+          icon: this.$globals.icons.file,
           value: debugInfo.apiDocs ? this.$t("general.enabled") : this.$t("general.disabled"),
         },
         {
           name: this.$t("about.database-type"),
-          icon: "mdi-database",
+          icon: this.$globals.icons.database,
           value: debugInfo.dbType,
         },
         {
           name: this.$t("about.database-url"),
-          icon: "mdi-file-cabinet",
+          icon: this.$globals.icons.database,
           value: debugInfo.dbUrl,
         },
         {

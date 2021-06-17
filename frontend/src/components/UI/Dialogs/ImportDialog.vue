@@ -2,7 +2,7 @@
   <div class="text-center">
     <BaseDialog
       :title="name"
-      titleIcon="mdi-database"
+      :titleIcon="$globals.icons.database"
       :submit-text="$t('general.import')"
       :loading="loading"
       ref="baseDialog"
@@ -28,7 +28,7 @@
         <TheDownloadBtn :download-url="downloadUrl">
           <template v-slot:default="{ downloadFile }">
             <v-btn class="mr-1" color="info" @click="downloadFile">
-              <v-icon left> mdi-download </v-icon>
+              <v-icon left> {{ $globals.icons.download }}</v-icon>
               {{ $t("general.download") }}
             </v-btn>
           </template>

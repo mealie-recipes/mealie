@@ -10,14 +10,13 @@
                 class="mr-2"
                 :label="$t('recipe.ingredient')"
                 v-model="value[index].note"
-                mdi-move-resize
                 auto-grow
                 solo
                 dense
                 rows="1"
               >
                 <template slot="append-outer">
-                  <v-icon class="handle">mdi-arrow-up-down</v-icon>
+                  <v-icon class="handle">{{ $globals.icons.arrowUpDown }}</v-icon>
                 </template>
                 <v-icon class="mr-n1" slot="prepend" color="error" @click="removeByIndex(value, index)">
                   {{ $globals.icons.delete }}

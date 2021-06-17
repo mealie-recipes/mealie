@@ -8,7 +8,7 @@
       @import="importBackup"
       @delete="deleteBackup"
     />
-    <StatCard icon="mdi-backup-restore" :color="color">
+    <StatCard :icon="$globals.icons.backupRestore" :color="color">
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
           <h2 class="body-3 grey--text font-weight-light">
@@ -24,7 +24,7 @@
         <TheUploadBtn url="/api/backups/upload" @uploaded="getAvailableBackups">
           <template v-slot="{ isSelecting, onButtonClick }">
             <v-btn :loading="isSelecting" class="mx-2" small color="info" @click="onButtonClick">
-              <v-icon left> mdi-cloud-upload </v-icon> {{ $t("general.upload") }}
+              <v-icon left> {{ $globals.icons.upload }} </v-icon> {{ $t("general.upload") }}
             </v-btn>
           </template>
         </TheUploadBtn>
@@ -40,7 +40,7 @@
             <v-list-item @click.prevent="openDialog(item)">
               <v-list-item-avatar>
                 <v-icon large dark :color="color">
-                  mdi-database
+                  {{ $globals.icons.database }}
                 </v-icon>
               </v-list-item-avatar>
 

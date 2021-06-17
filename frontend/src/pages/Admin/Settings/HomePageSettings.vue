@@ -28,7 +28,7 @@
           <v-card outlined min-height="350px">
             <v-app-bar dark dense color="primary">
               <v-icon left>
-                mdi-home
+                {{ $globals.icons.home }}
               </v-icon>
 
               <v-toolbar-title class="headline">
@@ -48,7 +48,7 @@
                 >
                   <v-list-item v-for="(item, index) in settings.categories" :key="`${item.name}-${index}`">
                     <v-list-item-icon>
-                      <v-icon>mdi-menu</v-icon>
+                      <v-icon> {{ $globals.icons.menu }}</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
@@ -88,7 +88,7 @@
                 >
                   <v-list-item v-for="(item, index) in allCategories" :key="`${item.name}-${index}`">
                     <v-list-item-icon>
-                      <v-icon>mdi-menu</v-icon>
+                      <v-icon>{{ $globals.icons.menu }}</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
@@ -114,7 +114,7 @@
         <v-col cols="12" md="3" sm="12">
           <v-select
             dense
-            prepend-icon="mdi-calendar-week-begin"
+            :prepend-icon="$globals.icons.calendarWeekBegin"
             v-model="settings.firstDayOfWeek"
             :items="allDays"
             item-text="name"

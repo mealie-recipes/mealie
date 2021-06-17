@@ -3,18 +3,18 @@
     <v-app-bar color="transparent" flat class="mt-n1 rounded">
       <v-btn v-if="list" color="info" @click="list = null">
         <v-icon left>
-          mdi-arrow-left-bold
+          {{ $globals.icons.arrowLeftBold }}
         </v-icon>
         {{ $t("shopping-list.all-lists") }}
       </v-btn>
       <v-icon v-if="!list" large left>
-        mdi-format-list-checks
+        {{ $globals.icons.formatListChecks }}
       </v-icon>
       <v-toolbar-title v-if="!list" class="headline"> {{ $t("shopping-list.shopping-lists") }} </v-toolbar-title>
       <v-spacer></v-spacer>
       <BaseDialog
         :title="$t('shopping-list.new-list')"
-        title-icon="mdi-format-list-checks"
+        :title-icon="$globals.icons.formatListChecks"
         :submit-text="$t('general.create')"
         @submit="createNewList"
       >
@@ -40,7 +40,7 @@
               <v-spacer></v-spacer>
               <v-btn color="info" @click="list = item.id">
                 <v-icon left>
-                  mdi-cart-check
+                  {{ $globals.icons.cartCheck }}
                 </v-icon>
                 {{ $t("general.view") }}
               </v-btn>
@@ -70,7 +70,7 @@
               <div v-if="edit">
                 <v-btn x-small text class="ml-1" @click="activeList.items[index].quantity -= 1">
                   <v-icon>
-                    mdi-minus
+                    {{ $globals.icons.mdiMinus }}
                   </v-icon>
                 </v-btn>
                 <v-btn x-small text class="mr-1" @click="activeList.items[index].quantity += 1">
@@ -98,7 +98,7 @@
               <p v-if="!edit" class="mb-0">{{ item.quantity }}</p>
 
               <v-icon v-if="!edit" x-small class="mx-3">
-                mdi-window-close
+                {{ $globals.icons.windowClose }}
               </v-icon>
 
               <v-lazy>
