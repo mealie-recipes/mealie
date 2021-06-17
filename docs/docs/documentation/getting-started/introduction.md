@@ -8,7 +8,7 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
     In some of the demo gifs the styling may be different than the finale application. demos were done during development prior to finale styling.
 
 !!! warning
-    This is a **BETA** release and that means things may break and or change down the line. I'll do my best to make sure that any API changes are thoughtful and necessary in order not to break things. Additionally, I'll do my best to provide a migration path if the database schema ever changes. Do not use programs like watchtower to auto update your container. You **WILL** run into issues if you do this,
+    This is a **BETA** release and that means things may break and or change down the line. I'll do my best to make sure that any API changes are thoughtful and necessary in order not to break things. Additionally, I'll do my best to provide a migration path if the database schema ever changes. Do not use programs like watchtower to auto update your container. You **WILL** run into issues if you do this!
 
 
 ## Key Features
@@ -62,9 +62,9 @@ As to why we need a database?
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, develop, and create. Any contributions you make are **greatly appreciated**. See the [Contributors Guide](../../contributors/non-coders.md) for help getting started.
+Contributions are what make the open source community such an amazing place to learn, develop, and create. Any contributions you make are **greatly appreciated**. See the [Contributors Guide](../../contributors/non-coders.md) for help getting started.
 
-If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development. 
+If you are not a coder, you can still contribute financially. Financial contributions help me prioritize working on this project over others and help me to know that there is a real demand for project development. 
 
 <a href="https://www.buymeacoffee.com/haykot" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
