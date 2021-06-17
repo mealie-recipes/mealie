@@ -1,43 +1,42 @@
-import { baseURL } from "./api-utils";
 import { apiReq } from "./api-utils";
-
-const prefix = baseURL + "themes";
-
-const settingsURLs = {
-  allThemes: `${baseURL}themes`,
-  specificTheme: themeName => `${prefix}/${themeName}`,
-  createTheme: `${prefix}/create`,
-  updateTheme: themeName => `${prefix}/${themeName}`,
-  deleteTheme: themeName => `${prefix}/${themeName}`,
-};
+import i18n from "@/i18n.js";
+import { API_ROUTES } from "./apiRoutes";
 
 export const themeAPI = {
   async requestAll() {
-    let response = await apiReq.get(settingsURLs.allThemes);
+    let response = await apiReq.get(API_ROUTES.themes);
     return response.data;
   },
 
   async requestByName(name) {
-    let response = await apiReq.get(settingsURLs.specificTheme(name));
+    let response = await apiReq.get(API_ROUTES.themesId(name));
     return response.data;
   },
 
   async create(postBody) {
-    let response = await apiReq.post(settingsURLs.createTheme, postBody);
-    return response.data;
+    return await apiReq.post(
+      API_ROUTES.themesCreate,
+      postBody,
+      () => i18n.t("settings.theme.error-creating-theme-see-log-file"),
+      () => i18n.t("settings.theme.theme-saved")
+    );
   },
 
-  async update(themeName, colors) {
-    const body = {
-      name: themeName,
-      colors: colors,
-    };
-    let response = await apiReq.put(settingsURLs.updateTheme(themeName), body);
-    return response.data;
+  update(data) {
+    return apiReq.put(
+      API_ROUTES.themesId(data.id),
+      data,
+      () => i18n.t("settings.theme.error-updating-theme"),
+      () => i18n.t("settings.theme.theme-updated")
+    );
   },
 
-  async delete(themeName) {
-    let response = await apiReq.delete(settingsURLs.deleteTheme(themeName));
-    return response.data;
+  delete(id) {
+    return apiReq.delete(
+      API_ROUTES.themesId(id),
+      null,
+      () => i18n.t("settings.theme.error-deleting-theme"),
+      () => i18n.t("settings.theme.theme-deleted")
+    );
   },
 };

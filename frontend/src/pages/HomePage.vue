@@ -1,11 +1,11 @@
 <template>
   <v-container>
-    <CategorySidebar />
     <CardSection
+      title-icon="mdi-none"
       v-if="siteSettings.showRecent"
       :title="$t('page.recent')"
       :recipes="recentRecipes"
-      :card-limit="siteSettings.cardsPerSection"
+      :hard-limit="siteSettings.cardsPerSection"
     />
     <CardSection
       :sortable="true"
@@ -13,7 +13,7 @@
       :key="section.name + section.position"
       :title="section.name"
       :recipes="section.recipes"
-      :card-limit="siteSettings.cardsPerSection"
+      :hard-limit="siteSettings.cardsPerSection"
       @sort="sortAZ(index)"
       @sort-recent="sortRecent(index)"
     />
@@ -23,11 +23,10 @@
 <script>
 import { api } from "@/api";
 import CardSection from "../components/UI/CardSection";
-import CategorySidebar from "../components/UI/CategorySidebar";
+
 export default {
   components: {
     CardSection,
-    CategorySidebar,
   },
   data() {
     return {
@@ -39,8 +38,7 @@ export default {
       return this.$store.getters.getSiteSettings;
     },
     recentRecipes() {
-      let recipes = this.$store.getters.getRecentRecipes;
-      return recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+      return this.$store.getters.getRecentRecipes;
     },
   },
   async mounted() {
@@ -63,18 +61,13 @@ export default {
       this.$store.dispatch("requestRecentRecipes");
     },
     sortAZ(index) {
-      this.recipeByCategory[index].recipes.sort((a, b) =>
-        a.name > b.name ? 1 : -1
-      );
+      this.recipeByCategory[index].recipes.sort((a, b) => (a.name > b.name ? 1 : -1));
     },
     sortRecent(index) {
-      this.recipeByCategory[index].recipes.sort((a, b) =>
-        a.dateAdded > b.dateAdded ? -1 : 1
-      );
+      this.recipeByCategory[index].recipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

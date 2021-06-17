@@ -1,49 +1,38 @@
 <template>
   <v-container>
-    <CategorySidebar />
-    <v-card flat height="100%">
-      <v-app-bar flat>
-        <v-spacer></v-spacer>
-        <v-card-title class="text-center justify-center py-3 ">
-          {{ title.toUpperCase() }}
-        </v-card-title>
-        <v-spacer></v-spacer>
-      </v-app-bar>
+    <v-app-bar color="transparent" flat class="mt-n1 rounded">
+      <v-icon large left> {{ $globals.icons.pages }} </v-icon>
+      <v-toolbar-title class="headline"> {{ page.name }} </v-toolbar-title>
+    </v-app-bar>
 
-      <div v-if="render">
-        <v-tabs v-model="tab" background-color="transparent" grow>
-          <v-tab v-for="item in categories" :key="item.slug">
-            {{ item.name }}
-          </v-tab>
-        </v-tabs>
+    <div v-if="render">
+      <v-tabs v-model="tab" background-color="transparent" grow show-arrows="">
+        <v-tab v-for="item in page.categories" :key="item.slug" :href="`#${item.slug}`">
+          {{ item.name }}
+        </v-tab>
+      </v-tabs>
 
-        <v-tabs-items v-model="tab">
-          <v-tab-item
-            v-for="(item, index) in categories"
-            :key="item.slug + index"
-          >
-            <CardSection class="mb-5 mx-1" :recipes="filterRecipe(item.slug)" />
-          </v-tab-item>
-        </v-tabs-items>
-      </div>
-    </v-card>
+      <v-tabs-items class="transparent" v-model="tab">
+        <v-tab-item v-for="(item, index) in page.categories" :key="item.slug + index" :value="item.slug">
+          <CardSection class="mb-5 mx-1" :recipes="item.recipes" @sort="sortRecipes($event, index)" />
+        </v-tab-item>
+      </v-tabs-items>
+    </div>
   </v-container>
 </template>
 
 <script>
 import CardSection from "@/components/UI/CardSection";
-import CategorySidebar from "@/components/UI/CategorySidebar";
 import { api } from "@/api";
 
 export default {
   components: {
     CardSection,
-    CategorySidebar,
   },
   data() {
     return {
+      page: "",
       title: "",
-      tab: null,
       render: false,
       recipeStore: [],
       categories: [],
@@ -52,6 +41,14 @@ export default {
   computed: {
     pageSlug() {
       return this.$route.params.customPage;
+    },
+    tab: {
+      set(tab) {
+        this.$router.replace({ query: { ...this.$route.query, tab } });
+      },
+      get() {
+        return this.$route.query.tab;
+      },
     },
   },
 
@@ -67,29 +64,12 @@ export default {
   },
   methods: {
     async buildPage() {
-      const page = await api.siteSettings.getPage(this.pageSlug);
-      this.title = page.name;
-      this.categories = page.categories;
-      page.categories.forEach(async element => {
-        let categoryRecipes = await this.getRecipeByCategory(element.slug);
-        this.recipeStore.push(categoryRecipes);
-      });
+      this.page = await api.siteSettings.getPage(this.pageSlug);
+      this.tab = this.page.categories[0];
     },
-    async getRecipeByCategory(category) {
-      return await api.categories.getRecipesInCategory(category);
-    },
-    filterRecipe(slug) {
-      const storeCategory = this.recipeStore.find(
-        element => element.slug === slug
-      );
-      return storeCategory ? storeCategory.recipes : [];
+    sortRecipes(sortedRecipes, destKey) {
+      this.page.categories[destKey].recipes = sortedRecipes;
     },
   },
 };
 </script>
-
-<style>
-.header-background {
-  background-color: #121619;
-}
-</style>

@@ -23,64 +23,73 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
-	
-clean-pyc: ## remove Python file artifacts
+purge: clean ## ⚠️  Removes All Developer Data for a fresh server start
+	rm -r ./dev/data/recipes/
+	rm -r ./dev/data/users/
+	rm -f ./dev/data/mealie_v*.db
+	rm -f ./dev/data/mealie.log
+	rm -f ./dev/data/.secret
+
+clean: clean-pyc clean-test ## 🧹 Remove all build, test, coverage and Python artifacts
+
+clean-pyc: ## 🧹 Remove Python file artifacts
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
-clean-test: ## remove test and coverage artifacts
+clean-test: ## 🧹 Remove test and coverage artifacts
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-test: ## run tests quickly with the default Python
+test-all: lint test ## 🧪 Check Lint Format and Testing
+
+test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
-format:
+lint: ## 🧺 Check style with flake8
 	poetry run black .
-
-lint: ## check style with flake8
+	poetry run black . --check
 	poetry run flake8 mealie tests
 
-setup: ## Setup Development Instance
+coverage: ## ☂️  Check code coverage quickly with the default Python
+	poetry run pytest
+	poetry run coverage report -m
+	poetry run coverage html
+	$(BROWSER) htmlcov/index.html
+
+setup: ## 🏗  Setup Development Instance
 	poetry install && \
 	cd frontend && \
 	npm install && \
 	cd ..
 
-backend: ## Start Mealie Backend Development Server
+backend: ## 🎬 Start Mealie Backend Development Server
 	poetry run python mealie/db/init_db.py && \
 	poetry run python mealie/services/image/minify.py && \
 	poetry run python mealie/app.py
 
 
 .PHONY: frontend
-frontend: ## Start Mealie Frontend Development Server
+frontend: ## 🎬 Start Mealie Frontend Development Server
 	cd frontend && npm run serve
 
-frontend-build: ## Build Frontend in frontend/dist
-	cd frontned && npm run build
+frontend-build: ## 🏗  Build Frontend in frontend/dist
+	cd frontend && npm run build
 
 .PHONY: docs
-docs: ## Start Mkdocs Development Server
+docs: ## 📄 Start Mkdocs Development Server
 	poetry run python dev/scripts/api_docs_gen.py && \
 	cd docs && poetry run python -m mkdocs serve
 
-docker-dev: ## Build and Start Docker Development Stack
+docker-dev: ## 🐳 Build and Start Docker Development Stack
 	docker-compose -f docker-compose.dev.yml -p dev-mealie up --build
 
-docker-prod: ## Build and Start Docker Production Stack
-	docker-compose -p mealie up --build -d
+docker-prod: ## 🐳 Build and Start Docker Production Stack
+	docker-compose -f docker-compose.yml -p mealie up --build
 
-code-gen: ## Run Code-Gen Scripts
+code-gen: ## 🤖 Run Code-Gen Scripts
 	poetry run python dev/scripts/app_routes_gen.py
 
-coverage: ## check code coverage quickly with the default Python
-	poetry run pytest
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html

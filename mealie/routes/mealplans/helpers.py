@@ -1,10 +1,15 @@
 from fastapi import APIRouter, Depends
+from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.meal import MealPlanInDB
+from mealie.schema.meal import MealPlanOut
 from mealie.schema.recipe import Recipe
+from mealie.schema.shopping_list import ListItem, ShoppingListIn, ShoppingListOut
+from mealie.schema.user import UserInDB
 from sqlalchemy.orm.session import Session
+
+logger = get_logger()
 
 router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
@@ -13,12 +18,32 @@ router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 def get_shopping_list(
     id: str,
     session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
+    current_user: UserInDB = Depends(get_current_user),
 ):
 
-    # ! Refactor into Single Database Call
-    mealplan = db.meals.get(session, id)
-    mealplan: MealPlanInDB
-    slugs = [x.slug for x in mealplan.meals]
-    recipes: list[Recipe] = [db.recipes.get(session, x) for x in slugs]
-    return [{"name": x.name, "recipeIngredient": x.recipeIngredient} for x in recipes if x]
+    mealplan: MealPlanOut = db.meals.get(session, id)
+
+    all_ingredients = []
+
+    for plan_day in mealplan.plan_days:
+        for meal in plan_day.meals:
+            if not meal.slug:
+                continue
+
+            try:
+                recipe: Recipe = db.recipes.get(session, meal.slug)
+                all_ingredients += recipe.recipe_ingredient
+            except Exception:
+                logger.error("Recipe Not Found")
+
+    new_list = ShoppingListIn(
+        name="MealPlan Shopping List", group=current_user.group, items=[ListItem(text=t.note) for t in all_ingredients]
+    )
+
+    created_list: ShoppingListOut = db.shopping_lists.create(session, new_list)
+
+    mealplan.shopping_list = created_list.id
+
+    db.meals.update(session, mealplan.uid, mealplan)
+
+    return created_list

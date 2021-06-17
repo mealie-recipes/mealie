@@ -5,26 +5,29 @@ from mealie.db.models.model_base import SqlAlchemyBase
 class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
+    parent_id = sa.Column(sa.Integer, sa.ForeignKey("recipes.id"))
     calories = sa.Column(sa.String)
-    fatContent = sa.Column(sa.String)
-    fiberContent = sa.Column(sa.String)
-    proteinContent = sa.Column(sa.String)
-    sodiumContent = sa.Column(sa.String)
-    sugarContent = sa.Column(sa.String)
+    fat_content = sa.Column(sa.String)
+    fiber_content = sa.Column(sa.String)
+    protein_content = sa.Column(sa.String)
+    carbohydrate_content = sa.Column(sa.String)
+    sodium_content = sa.Column(sa.String)
+    sugar_content = sa.Column(sa.String)
 
     def __init__(
         self,
         calories=None,
-        fatContent=None,
-        fiberContent=None,
-        proteinContent=None,
-        sodiumContent=None,
-        sugarContent=None,
+        fat_content=None,
+        fiber_content=None,
+        protein_content=None,
+        sodium_content=None,
+        sugar_content=None,
+        carbohydrate_content=None,
     ) -> None:
         self.calories = calories
-        self.fatContent = fatContent
-        self.fiberContent = fiberContent
-        self.proteinContent = proteinContent
-        self.sodiumContent = sodiumContent
-        self.sugarContent = sugarContent
+        self.fat_content = fat_content
+        self.fiber_content = fiber_content
+        self.protein_content = protein_content
+        self.sodium_content = sodium_content
+        self.sugar_content = sugar_content
+        self.carbohydrate_content = carbohydrate_content

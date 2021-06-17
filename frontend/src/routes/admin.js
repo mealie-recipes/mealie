@@ -1,16 +1,14 @@
-import Admin from "@/pages/Admin";
-import Backup from "@/pages/Admin/Backup";
-import Theme from "@/pages/Admin/Theme";
-import MealPlanner from "@/pages/Admin/MealPlanner";
-import Migration from "@/pages/Admin/Migration";
-import Profile from "@/pages/Admin/Profile";
-import ManageUsers from "@/pages/Admin/ManageUsers";
-import Settings from "@/pages/Admin/Settings";
-import About from "@/pages/Admin/About";
+const Admin = () => import("@/pages/Admin");
+const Migration = () => import("@/pages/Admin/Migration");
+const Profile = () => import("@/pages/Admin/Profile");
+const ManageUsers = () => import("@/pages/Admin/ManageUsers");
+const Settings = () => import("@/pages/Admin/Settings");
+const About = () => import("@/pages/Admin/About");
+const ToolBox = () => import("@/pages/Admin/ToolBox");
+const Dashboard = () => import("@/pages/Admin/Dashboard");
 import { store } from "../store";
-import i18n from '@/i18n.js';
 
-export default {
+export const adminRoutes = {
   path: "/admin",
   component: Admin,
   beforeEnter: (to, _from, next) => {
@@ -27,57 +25,49 @@ export default {
       path: "profile",
       component: Profile,
       meta: {
-        title: i18n.t('settings.profile'),
-      },
-    },
-
-    {
-      path: "backups",
-      component: Backup,
-      meta: {
-        title: i18n.t('settings.backup-and-exports'),
-      },
-    },
-    {
-      path: "themes",
-      component: Theme,
-      meta: {
-        title: i18n.t('general.themes'),
-      },
-    },
-    {
-      path: "meal-planner",
-      component: MealPlanner,
-      meta: {
-        title: i18n.t('meal-plan.meal-planner'),
+        title: "settings.profile",
       },
     },
     {
       path: "migrations",
       component: Migration,
       meta: {
-        title: i18n.t('settings.migrations'),
+        title: "settings.migrations",
       },
     },
     {
       path: "manage-users",
       component: ManageUsers,
       meta: {
-        title: i18n.t('settings.manage-users'),
+        title: "user.manage-users",
       },
     },
     {
       path: "settings",
       component: Settings,
       meta: {
-        title: i18n.t('settings.site-settings'),
+        title: "settings.site-settings",
+      },
+    },
+    {
+      path: "toolbox",
+      component: ToolBox,
+      meta: {
+        title: "settings.toolbox.toolbox",
       },
     },
     {
       path: "about",
       component: About,
       meta: {
-        title: i18n.t('general.about'),
+        title: "about.about",
+      },
+    },
+    {
+      path: "dashboard",
+      component: Dashboard,
+      meta: {
+        title: "general.dashboard",
       },
     },
   ],

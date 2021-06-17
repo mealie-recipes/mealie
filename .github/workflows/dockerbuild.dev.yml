@@ -44,6 +44,6 @@ jobs:
       #
       - name: build the image
         run: |
-          docker build --push \
+          docker build --push --no-cache \
             --tag hkotel/mealie:dev \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
+            --platform linux/amd64,linux/arm64 .

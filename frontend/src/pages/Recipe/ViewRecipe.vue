@@ -1,57 +1,43 @@
 <template>
   <v-container>
-    <v-card
-      v-if="skeleton"
-      :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-      class="pa-3"
-    >
-      <v-skeleton-loader
-        class="mx-auto"
-        height="700px"
-        type="card"
-      ></v-skeleton-loader>
+    <v-card v-if="skeleton" :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-3">
+      <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else id="myRecipe">
+    <NoRecipe v-else-if="loadFailed" />
+    <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
       <v-img
-        height="400"
+        :height="hideImage ? '50' : imageHeight"
+        @error="hideImage = true"
         :src="getImage(recipeDetails.slug)"
         class="d-print-none"
         :key="imageKey"
       >
+        <FavoriteBadge class="ma-1" button-style v-if="loggedIn" :slug="recipeDetails.slug" show-always />
         <RecipeTimeCard
-          class="force-bottom"
+          :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
           :totalTime="recipeDetails.totalTime"
           :performTime="recipeDetails.performTime"
         />
       </v-img>
-      <EditorButtonRow
+      <RecipePageActionMenu
+        :slug="recipeDetails.slug"
+        :name="recipeDetails.name"
+        v-model="form"
         v-if="loggedIn"
         :open="showIcons"
-        @json="jsonEditor = true"
-        @editor="
+        @close="form = false"
+        @json="jsonEditor = !jsonEditor"
+        @edit="
           jsonEditor = false;
           form = true;
         "
         @save="saveRecipe"
         @delete="deleteRecipe"
-        class="sticky"
+        class="ml-auto"
       />
 
-      <RecipeViewer
-        v-if="!form"
-        :name="recipeDetails.name"
-        :ingredients="recipeDetails.recipeIngredient"
-        :description="recipeDetails.description"
-        :instructions="recipeDetails.recipeInstructions"
-        :tags="recipeDetails.tags"
-        :categories="recipeDetails.recipeCategory"
-        :notes="recipeDetails.notes"
-        :rating="recipeDetails.rating"
-        :yields="recipeDetails.recipeYield"
-        :orgURL="recipeDetails.orgURL"
-        :nutrition="recipeDetails.nutrition"
-      />
+      <RecipeViewer v-if="!form" :recipe="recipeDetails" />
       <VJsoneditor
         @error="logError()"
         class="mt-10"
@@ -63,29 +49,48 @@
       <RecipeEditor
         v-else
         v-model="recipeDetails"
+        :class="$vuetify.breakpoint.xs ? 'mt-5' : ''"
         ref="recipeEditor"
         @upload="getImageFile"
       />
     </v-card>
+    <CommentsSection
+      v-if="recipeDetails.settings && !recipeDetails.settings.disableComments"
+      class="mt-2 d-print-none"
+      :slug="recipeDetails.slug"
+      :comments="recipeDetails.comments"
+      @new-comment="getRecipeDetails"
+      @update-comment="getRecipeDetails"
+    />
+    <PrintView :recipe="recipeDetails" />
   </v-container>
 </template>
 
 <script>
+import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu.vue";
 import { api } from "@/api";
+import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
 import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "@/components/Recipe/RecipeViewer";
+import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
 import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
-import EditorButtonRow from "@/components/Recipe/EditorButtonRow";
+import NoRecipe from "@/components/Fallbacks/NoRecipe";
 import { user } from "@/mixins/user";
+import { router } from "@/routes";
+import CommentsSection from "@/components/Recipe/CommentSection";
 
 export default {
   components: {
     VJsoneditor,
     RecipeViewer,
     RecipeEditor,
-    EditorButtonRow,
     RecipeTimeCard,
+    RecipePageActionMenu,
+    PrintView,
+    NoRecipe,
+    FavoriteBadge,
+    CommentsSection,
   },
   mixins: [user],
   inject: {
@@ -95,8 +100,9 @@ export default {
   },
   data() {
     return {
+      hideImage: false,
+      loadFailed: false,
       skeleton: true,
-      // currentRecipe: this.$route.params.recipe,
       form: false,
       jsonEditor: false,
       jsonEditorOptions: {
@@ -124,19 +130,38 @@ export default {
       imageKey: 1,
     };
   },
-  mounted() {
-    this.getRecipeDetails();
+
+  async mounted() {
+    await this.getRecipeDetails();
+
+    this.jsonEditor = false;
+    this.form = this.$route.query.edit === "true" && this.loggedIn;
+
+    this.checkPrintRecipe();
   },
 
   watch: {
     $route: function() {
       this.getRecipeDetails();
+      this.checkPrintRecipe();
     },
   },
 
   computed: {
+    loggedIn() {
+      return this.$store.getters.getIsLoggedIn;
+    },
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
+    imageHeight() {
+      return this.isMobile ? "200" : "400";
+    },
     currentRecipe() {
       return this.$route.params.recipe;
+    },
+    edit() {
+      return true;
     },
     showIcons() {
       return this.form;
@@ -150,22 +175,44 @@ export default {
     },
   },
   methods: {
+    checkPrintRecipe() {
+      if (this.$route.query.print) {
+        this.printPage();
+        this.$router.push(this.$route.path);
+        this.$route.query.print = null;
+      }
+    },
     getImageFile(fileObject) {
       this.fileObject = fileObject;
       this.saveImage();
     },
     async getRecipeDetails() {
-      this.recipeDetails = await api.recipes.requestDetails(this.currentRecipe);
+      if (this.currentRecipe === "null") {
+        this.skeleton = false;
+        this.loadFailed = true;
+        return;
+      }
+
+      const [response, error] = await api.recipes.requestDetails(this.currentRecipe);
+
+      if (error) {
+        if (error.response.status === 401) router.push(`/login`);
+        if (error.response.status === 404) router.push("/page-not-found");
+      }
+
+      this.recipeDetails = response.data;
       this.skeleton = false;
-      this.form = false;
     },
-    getImage(image) {
-      if (image) {
-        return api.recipes.recipeImage(image) + "&rnd=" + this.imageKey;
+    getImage(slug) {
+      if (slug) {
+        return api.recipes.recipeImage(slug, this.imageKey, this.recipeDetails.image);
       }
     },
-    deleteRecipe() {
-      api.recipes.delete(this.recipeDetails.slug);
+    async deleteRecipe() {
+      let response = await api.recipes.delete(this.recipeDetails.slug);
+      if (response) {
+        router.push(`/`);
+      }
     },
     validateRecipe() {
       if (this.jsonEditor) {
@@ -174,29 +221,32 @@ export default {
         return this.$refs.recipeEditor.validateRecipe();
       }
     },
-    async saveImage() {
+    async saveImage(overrideSuccessMsg = false) {
       if (this.fileObject) {
-        await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject);
+        const newVersion = await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg);
+        if (newVersion) {
+          this.recipeDetails.image = newVersion.data.version;
+          this.imageKey += 1;
+        }
       }
-      this.imageKey += 1;
     },
     async saveRecipe() {
       if (this.validateRecipe()) {
         let slug = await api.recipes.update(this.recipeDetails);
 
         if (this.fileObject) {
-          this.saveImage();
+          this.saveImage(true);
         }
 
         this.form = false;
         if (slug != this.recipeDetails.slug) {
           this.$router.push(`/recipe/${slug}`);
         }
+        window.URL.revokeObjectURL(this.getImage(this.recipeDetails.slug));
       }
     },
-    showForm() {
-      this.form = true;
-      this.jsonEditor = false;
+    printPage() {
+      window.print();
     },
   },
 };

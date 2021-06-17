@@ -31,3 +31,7 @@ class UserImport(ImportBase):
 
 class CustomPageImport(ImportBase):
     pass
+
+
+class NotificationImport(ImportBase):
+    pass

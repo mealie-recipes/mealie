@@ -1,32 +1,56 @@
 <template>
-  <v-card
-    hover
-    :to="`/recipe/${slug}`"
-    max-height="125"
-    @click="$emit('selected')"
-  >
-    <v-list-item>
-      <v-list-item-avatar rounded size="125" class="mt-0 ml-n4">
-        <v-img :src="getImage(slug)"> </v-img>
-      </v-list-item-avatar>
-      <v-list-item-content class="align-self-start">
-        <v-list-item-title>
-          {{ name }}
-        </v-list-item-title>
-        <v-rating length="5" size="16" dense :value="rating"></v-rating>
-        <div class="text">
-          <v-list-item-action-text>
-            {{ description | truncate(115) }}
-          </v-list-item-action-text>
-        </div>
-      </v-list-item-content>
-    </v-list-item>
-  </v-card>
+  <v-expand-transition>
+    <v-card
+      :ripple="false"
+      class="mx-auto"
+      hover
+      :to="this.$listeners.selected ? undefined : `/recipe/${slug}`"
+      @click="$emit('selected')"
+    >
+      <v-list-item three-line>
+        <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0 ml-n4">
+          <v-img
+            v-if="!fallBackImage"
+            :src="getImage(slug)"
+            @load="fallBackImage = false"
+            @error="fallBackImage = true"
+          ></v-img>
+          <v-icon v-else color="primary" class="icon-position" size="100">
+            {{ $globals.icons.primary }}
+          </v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class=" mb-1">{{ name }} </v-list-item-title>
+          <v-list-item-subtitle> {{ description }} </v-list-item-subtitle>
+          <div class="d-flex justify-center align-center">
+            <FavoriteBadge v-if="loggedIn" :slug="slug" show-always />
+            <v-rating
+              color="secondary"
+              class="ml-auto"
+              background-color="secondary lighten-3"
+              dense
+              length="5"
+              size="15"
+              :value="rating"
+            ></v-rating>
+            <v-spacer></v-spacer>
+            <ContextMenu :slug="slug" :menu-icon="$globals.icons.dotsHorizontal" :name="name" />
+          </div>
+        </v-list-item-content>
+      </v-list-item>
+    </v-card>
+  </v-expand-transition>
 </template>
 
 <script>
+import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
+import ContextMenu from "@/components/Recipe/ContextMenu";
 import { api } from "@/api";
 export default {
+  components: {
+    FavoriteBadge,
+    ContextMenu,
+  },
   props: {
     name: String,
     slug: String,
@@ -36,17 +60,34 @@ export default {
     route: {
       default: true,
     },
+    tags: {
+      default: true,
+    },
   },
-
+  data() {
+    return {
+      fallBackImage: false,
+    };
+  },
   methods: {
-    getImage(image) {
-      return api.recipes.recipeSmallImage(image);
+    getImage(slug) {
+      return api.recipes.recipeSmallImage(slug, this.image);
+    },
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.getIsLoggedIn;
     },
   },
 };
 </script>
 
 <style>
+.v-mobile-img {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
 .v-card--reveal {
   align-items: center;
   bottom: 0;

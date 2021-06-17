@@ -1,13 +1,5 @@
 <template>
   <div>
-    <SuccessFailureAlert
-      :title="$t('migration.migration-report')"
-      ref="report"
-      :failedHeader="$t('migration.failed-imports')"
-      :failed="failed"
-      :successHeader="$t('migration.successful-imports')"
-      :success="success"
-    />
     <v-card :loading="loading">
       <v-card-title class="headline">
         {{ $t("migration.recipe-migration") }}
@@ -16,15 +8,7 @@
 
       <v-card-text>
         <v-row dense>
-          <v-col
-            :cols="12"
-            :sm="6"
-            :md="6"
-            :lg="4"
-            :xl="3"
-            v-for="migration in migrations"
-            :key="migration.title"
-          >
+          <v-col :cols="12" :sm="6" :md="6" :lg="4" :xl="3" v-for="migration in migrations" :key="migration.title">
             <MigrationCard
               :title="migration.title"
               :folder="migration.urlVariable"
@@ -40,15 +24,12 @@
   </div>
 </template>
 
-
 <script>
-import MigrationCard from "@/components/Admin/Migration/MigrationCard";
-import SuccessFailureAlert from "@/components/UI/SuccessFailureAlert";
+import MigrationCard from "./MigrationCard";
 import { api } from "@/api";
 export default {
   components: {
     MigrationCard,
-    SuccessFailureAlert,
   },
   data() {
     return {
@@ -98,5 +79,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

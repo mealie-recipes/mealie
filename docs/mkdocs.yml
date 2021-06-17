@@ -1,5 +1,7 @@
 site_name: Mealie
 demo_url: https://mealie-demo.hay-kot.dev/
+site_url: https://hay-kot.github.io/mealie/
+use_directory_urls: true
 theme:
   palette:
     # Light mode
@@ -17,7 +19,7 @@ theme:
   custom_dir: docs/overrides
   features:
     - navigation.top
-    - navigation.instant
+    # - navigation.instant
     - navigation.expand
     - navigation.sections
     - navigation.tabs
@@ -49,24 +51,36 @@ repo_name: hay-kot/mealie
 nav:
   - Home: "index.md"
   - Getting Started:
-      - Introduction: "getting-started/introduction.md"
-      - Installation: "getting-started/install.md"
-      - Updating: "getting-started/updating.md"
-      - Working With Recipes: "getting-started/recipes.md"
-      - Organizing Recipes: "getting-started/organizing-recipes.md"
-      - Planning Meals: "getting-started/meal-planner.md"
-      - iOS Shortcuts: "getting-started/ios.md"
-      - Site Administration:
-          - User Settings: "site-administration/user-settings.md"
-          - Site Settings: "site-administration/site-settings.md"
-          - Building Pages: "site-administration/building-pages.md"
-          - User Management: "site-administration/user-management.md"
-          - Backups and Restore: "site-administration/backups-and-exports.md"
-          - Recipe Migration: "site-administration/migration-imports.md"
-      - API Usage:
-          - Getting Started: "api-usage/getting-started.md"
-          - Home Assistant: "api-usage/home-assistant.md"
-          - Bulk Url Import: "api-usage/bulk-url-import.md"
+      - Introduction: "documentation/getting-started/introduction.md"
+      - Installation: "documentation/getting-started/install.md"
+      - Updating: "documentation/getting-started/updating.md"
+      - API: "documentation/getting-started/api-usage.md"
+
+      - Recipes:
+          - Working With Recipes: "documentation/recipes/recipes.md"
+          - Organizing Recipes: "documentation/recipes/organizing-recipes.md"
+
+      - Users & Groups:
+          - User Settings: "documentation/users-groups/user-settings.md"
+          - Planning Meals: "documentation/users-groups/meal-planner.md"
+
+      - Admin:
+          - Dashboard: "documentation/admin/dashboard.md"
+          - Site Settings: "documentation/admin/site-settings.md"
+          - Building Pages: "documentation/admin/building-pages.md"
+          - User Management: "documentation/admin/user-management.md"
+          - Backups and Restore: "documentation/admin/backups-and-exports.md"
+          - Recipe Migration: "documentation/admin/migration-imports.md"
+
+      - Toolbox:
+          - External Notifications: "documentation/toolbox/notifications.md"
+          - Organization Tools: "documentation/toolbox/organize-tools.md"
+
+      - Community Guides:
+          - iOS Shortcuts: "documentation/community-guide/ios.md"
+          - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
+          - Home Assistant: "documentation/community-guide/home-assistant.md"
+          - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
   - API Reference: "api/redoc.md"
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
@@ -75,8 +89,10 @@ nav:
           - Code Contributions: "contributors/developers-guide/code-contributions.md"
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
           - Guidelines: "contributors/developers-guide/general-guidelines.md"
+          - Style Guide: "contributors/developers-guide/style-guide.md"
   - Development Road Map: "roadmap.md"
   - Change Log:
+      - v0.5.0 General Upgrades: "changelog/v0.5.0.md"
       - v0.4.3 Hot Fix: "changelog/v0.4.3.md"
       - v0.4.2 Backend/Migrations: "changelog/v0.4.2.md"
       - v0.4.1 Frontend/UI: "changelog/v0.4.1.md"

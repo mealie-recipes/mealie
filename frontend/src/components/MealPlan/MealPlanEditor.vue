@@ -6,12 +6,10 @@
     <v-divider></v-divider>
 
     <v-card-text>
-      <MealPlanCard v-model="mealPlan.meals" />
+      <MealPlanCard v-model="mealPlan.planDays" />
       <v-row align="center" justify="end">
         <v-card-actions>
-          <v-btn color="success" text @click="update">
-            {{ $t("general.update") }}
-          </v-btn>
+          <TheButton update @click="update" />
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-row>
@@ -21,7 +19,7 @@
 
 <script>
 import { api } from "@/api";
-import utils from "@/utils";
+import { utils } from "@/utils";
 import MealPlanCard from "./MealPlanCard";
 export default {
   components: {
@@ -30,18 +28,19 @@ export default {
   props: {
     mealPlan: Object,
   },
+
   methods: {
     formatDate(timestamp) {
       let dateObject = new Date(timestamp);
       return utils.getDateAsPythonDate(dateObject);
     },
     async update() {
-      await api.mealPlans.update(this.mealPlan.uid, this.mealPlan);
-      this.$emit("updated");
+      if (await api.mealPlans.update(this.mealPlan.uid, this.mealPlan)) {
+        this.$emit("updated");
+      }
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

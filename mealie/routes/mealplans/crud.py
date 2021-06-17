@@ -1,19 +1,19 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.meal import MealPlanIn, MealPlanInDB
-from mealie.schema.snackbar import SnackResponse
+from mealie.schema.meal import MealPlanIn, MealPlanOut
 from mealie.schema.user import GroupInDB, UserInDB
+from mealie.services.events import create_group_event
 from mealie.services.image import image
-from mealie.services.meal_services import get_todays_meal, process_meals
+from mealie.services.meal_services import get_todays_meal, set_mealplan_dates
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
 router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
 
-@router.get("/all", response_model=list[MealPlanInDB])
+@router.get("/all", response_model=list[MealPlanOut])
 def get_all_meals(
     current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
@@ -23,46 +23,13 @@ def get_all_meals(
     return db.groups.get_meals(session, current_user.group)
 
 
-@router.post("/create")
-def create_meal_plan(
-    data: MealPlanIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
-):
-    """ Creates a meal plan database entry """
-    processed_plan = process_meals(session, data)
-    db.meals.create(session, processed_plan.dict())
-
-    return SnackResponse.success("Mealplan Created")
-
-
-@router.put("/{plan_id}")
-def update_meal_plan(
-    plan_id: str,
-    meal_plan: MealPlanIn,
-    session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
-):
-    """ Updates a meal plan based off ID """
-    processed_plan = process_meals(session, meal_plan)
-    processed_plan = MealPlanInDB(uid=plan_id, **processed_plan.dict())
-    db.meals.update(session, plan_id, processed_plan.dict())
-
-    return SnackResponse.info("Mealplan Updated")
-
-
-@router.delete("/{plan_id}")
-def delete_meal_plan(plan_id, session: Session = Depends(generate_session), current_user=Depends(get_current_user)):
-    """ Removes a meal plan from the database """
-
-    db.meals.delete(session, plan_id)
-
-    return SnackResponse.error("Mealplan Deleted")
-
-
-@router.get("/this-week", response_model=MealPlanInDB)
+@router.get("/this-week", response_model=MealPlanOut)
 def get_this_week(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
     """ Returns the meal plan data for this week """
-
-    return db.groups.get_meals(session, current_user.group)[0]
+    plans = db.groups.get_meals(session, current_user.group)
+    print(plans)
+    if plans:
+        return plans[0]
 
 
 @router.get("/today", tags=["Meal Plan"])
@@ -74,8 +41,8 @@ def get_today(session: Session = Depends(generate_session), current_user: UserIn
 
     group_in_db: GroupInDB = db.groups.get(session, current_user.group, "name")
     recipe = get_todays_meal(session, group_in_db)
-
-    return recipe.slug
+    if recipe:
+        return recipe
 
 
 @router.get("/today/image", tags=["Meal Plan"])
@@ -88,10 +55,73 @@ def get_todays_image(session: Session = Depends(generate_session), group_name: s
     recipe = get_todays_meal(session, group_in_db)
 
     if recipe:
-        recipe_image = image.read_image(recipe.slug, image_type=image.IMG_OPTIONS.ORIGINAL_IMAGE)
+        recipe_image = recipe.image_dir.joinpath(image.ImageOptions.ORIGINAL_IMAGE)
     else:
-        raise HTTPException(404, "no meal for today")
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
     if recipe_image:
         return FileResponse(recipe_image)
     else:
-        raise HTTPException(404, "file not found")
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+
+@router.get("/{id}", response_model=MealPlanOut)
+def get_meal_plan(
+    id,
+    session: Session = Depends(generate_session),
+):
+    """ Returns a single Meal Plan from the Database """
+
+    return db.meals.get(session, id, "uid")
+
+
+@router.post("/create", status_code=status.HTTP_201_CREATED)
+def create_meal_plan(
+    background_tasks: BackgroundTasks,
+    data: MealPlanIn,
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
+):
+    """ Creates a meal plan database entry """
+    set_mealplan_dates(data)
+    background_tasks.add_task(
+        create_group_event, "Meal Plan Created", f"Mealplan Created for '{current_user.group}'", session=session
+    )
+    return db.meals.create(session, data.dict())
+
+
+@router.put("/{plan_id}")
+def update_meal_plan(
+    background_tasks: BackgroundTasks,
+    plan_id: str,
+    meal_plan: MealPlanIn,
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
+):
+    """ Updates a meal plan based off ID """
+    set_mealplan_dates(meal_plan)
+    processed_plan = MealPlanOut(uid=plan_id, **meal_plan.dict())
+    try:
+        db.meals.update(session, plan_id, processed_plan.dict())
+        background_tasks.add_task(
+            create_group_event, "Meal Plan Updated", f"Mealplan Updated for '{current_user.group}'", session=session
+        )
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+
+@router.delete("/{plan_id}")
+def delete_meal_plan(
+    background_tasks: BackgroundTasks,
+    plan_id,
+    session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
+):
+    """ Removes a meal plan from the database """
+
+    try:
+        db.meals.delete(session, plan_id)
+        background_tasks.add_task(
+            create_group_event, "Meal Plan Deleted", f"Mealplan Deleted for '{current_user.group}'", session=session
+        )
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

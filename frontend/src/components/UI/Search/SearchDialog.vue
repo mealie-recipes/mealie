@@ -1,36 +1,41 @@
 <template>
   <div class="text-center ">
-    <v-dialog v-model="dialog" width="600px" height="0" :fullscreen="isMobile">
-      <v-card>
-        <v-app-bar dark color="primary">
-          <v-toolbar-title class="headline">Search a Recipe</v-toolbar-title>
-        </v-app-bar>
-        <v-card-text>
+    <v-dialog
+      v-model="dialog"
+      :width="isMobile ? undefined : '600'"
+      :height="isMobile ? undefined : '0'"
+      :fullscreen="isMobile"
+      content-class="top-dialog"
+    >
+      <v-card relative>
+        <v-app-bar dark color="primary lighten-1" rounded="0">
           <SearchBar
+            ref="mealSearchBar"
             @results="updateResults"
             @selected="emitSelect"
             :show-results="!isMobile"
-            max-width="550px"
             :dense="false"
             :nav-on-click="false"
-            :reset-search="dialog"
-            :solo="false"
+            :autofocus="true"
           />
-          <div v-if="isMobile">
-            <div v-for="recipe in searchResults.slice(0, 7)" :key="recipe.name">
-              <MobileRecipeCard
-                class="ma-1 px-0"
-                :name="recipe.item.name"
-                :description="recipe.item.description"
-                :slug="recipe.item.slug"
-                :rating="recipe.item.rating"
-                :image="recipe.item.image"
-                :route="true"
-                @selected="dialog = false"
-              />
-            </div>
+        </v-app-bar>
+        <v-card-text v-if="isMobile">
+          <div v-for="recipe in searchResults.slice(0, 7)" :key="recipe.name">
+            <MobileRecipeCard
+              class="ma-1 px-0"
+              :name="recipe.item.name"
+              :description="recipe.item.description"
+              :slug="recipe.item.slug"
+              :rating="recipe.item.rating"
+              :image="recipe.item.image"
+              :route="true"
+              @selected="dialog = false"
+            />
           </div>
         </v-card-text>
+        <v-btn v-if="isMobile" fab bottom @click="dialog = false" class="ma-2">
+          <v-icon> {{ $globals.icons.close }} </v-icon>
+        </v-btn>
       </v-card>
     </v-dialog>
   </div>
@@ -74,11 +79,10 @@ export default {
     },
     open() {
       this.dialog = true;
-      this.$router.push("#mobile-search");
     },
     toggleDialog(open) {
       if (open) {
-        this.$router.push("#mobile-search");
+        this.$router.push("#search");
       } else {
         this.$router.back(); // 😎 back button click
       }
@@ -91,5 +95,9 @@ export default {
 .mobile-dialog {
   align-items: flex-start;
   justify-content: flex-start;
+}
+
+.top-dialog {
+  align-self: flex-start;
 }
 </style>

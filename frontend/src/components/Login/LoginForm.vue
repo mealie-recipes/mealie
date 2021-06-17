@@ -3,16 +3,9 @@
     <v-divider></v-divider>
     <v-app-bar dark color="primary" class="mt-n1 mb-2">
       <v-icon large left v-if="!loading">
-        mdi-account
+        {{ $globals.icons.user }}
       </v-icon>
-      <v-progress-circular
-        v-else
-        indeterminate
-        color="white"
-        large
-        class="mr-2"
-      >
-      </v-progress-circular>
+      <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
       <v-toolbar-title class="headline">{{ $t("user.login") }}</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
@@ -20,38 +13,29 @@
     <v-form @submit.prevent="login">
       <v-card-text>
         <v-text-field
-          v-if="!options.isLoggingIn"
-          v-model="user.name"
-          prepend-icon="person"
-          :label="$t('general.name')"
-        ></v-text-field>
-        <v-text-field
           v-model="user.email"
-          prepend-icon="mdi-email"
+          :prepend-icon="$globals.icons.email"
           validate-on-blur
-          :label="$t('user.email')"
+          autocomplete
+          autofocus
+          :label="`${$t('user.email')} or ${$t('user.username')} `"
           type="email"
         ></v-text-field>
         <v-text-field
           v-model="user.password"
           class="mb-2s"
-          prepend-icon="mdi-lock"
+          autocomplete
+          :prepend-icon="$globals.icons.lock"
           :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
         <v-card-actions>
-          <v-btn
-            v-if="options.isLoggingIn"
-            color="primary"
-            block="block"
-            type="submit"
-            >{{ $t("user.sign-in") }}
-          </v-btn>
+          <v-btn v-if="options.isLoggingIn" color="primary" block large type="submit">{{ $t("user.sign-in") }} </v-btn>
         </v-card-actions>
 
-        <v-alert v-if="error" outlined class="mt-3 mb-0" type="error">
+        <v-alert v-if="error" class="mt-3 mb-0" type="error">
           {{ $t("user.could-not-validate-credentials") }}
         </v-alert>
       </v-card-text>
@@ -91,23 +75,15 @@ export default {
       let formData = new FormData();
       formData.append("username", this.user.email);
       formData.append("password", this.user.password);
-      let key;
-      try {
-        key = await api.users.login(formData);
-      } catch {
+      const response = await api.users.login(formData);
+      if (!response) {
         this.error = true;
-      }
-      if (key.status != 200) {
-        this.error = true;
-        this.loading = false;
       } else {
         this.clear();
-        this.$store.commit("setToken", key.data.access_token);
+        this.$store.commit("setToken", response.data.access_token);
         this.$emit("logged-in");
+        this.$store.dispatch("requestUserData");
       }
-
-      let user = await api.users.self();
-      this.$store.commit("setUserData", user);
 
       this.loading = false;
     },
@@ -115,5 +91,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

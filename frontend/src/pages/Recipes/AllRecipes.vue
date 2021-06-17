@@ -1,43 +1,58 @@
 <template>
   <v-container>
-    <CategorySidebar />
     <CardSection
+      title-icon=""
       :sortable="true"
       :title="$t('page.all-recipes')"
-      :recipes="allRecipes"
-      :card-limit="9999"
-      @sort="sortAZ"
-      @sort-recent="sortRecent"
+      :recipes="shownRecipes"
+      @sort="assignSorted"
     />
+    <v-row class="d-flex">
+      <SiteLoader class="mx-auto" v-if="loading" :loading="loading" />
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import SiteLoader from "@/components/UI/SiteLoader";
 import CardSection from "@/components/UI/CardSection";
-import CategorySidebar from "@/components/UI/CategorySidebar";
+
 export default {
   components: {
+    SiteLoader,
     CardSection,
-    CategorySidebar,
   },
   data() {
-    return {};
+    return {
+      loading: false,
+      sortedResults: [],
+    };
+  },
+  async mounted() {
+    if (this.allRecipes.length < 1) {
+      this.loading = true;
+    }
+    await this.$store.dispatch("requestAllRecipes");
+    this.loading = false;
   },
   computed: {
     allRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      return this.$store.getters.getAllRecipes;
+    },
+    shownRecipes() {
+      if (this.sortedResults.length > 0) {
+        return this.sortedResults;
+      } else {
+        return this.allRecipes;
+      }
     },
   },
   methods: {
-    sortAZ() {
-      this.allRecipes.sort((a, b) => (a.name > b.name ? 1 : -1));
-    },
-    sortRecent() {
-      this.allRecipes.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+    assignSorted(val) {
+      this.sortedResults = val;
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

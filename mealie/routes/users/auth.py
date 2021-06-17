@@ -1,14 +1,12 @@
-from datetime import timedelta
-
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, BackgroundTasks, Depends, Request, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from mealie.core import security
 from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
-from mealie.schema.snackbar import SnackResponse
 from mealie.schema.user import UserInDB
+from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(prefix="/api/auth", tags=["Authentication"])
@@ -17,26 +15,27 @@ router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 @router.post("/token/long")
 @router.post("/token")
 def get_token(
+    background_tasks: BackgroundTasks,
+    request: Request,
     data: OAuth2PasswordRequestForm = Depends(),
     session: Session = Depends(generate_session),
 ):
     email = data.username
     password = data.password
 
-    user = authenticate_user(session, email, password)
+    user: UserInDB = authenticate_user(session, email, password)
 
     if not user:
+        background_tasks.add_task(
+            create_user_event, "Failed Login", f"Username: {email}, Source IP: '{request.client.host}'"
+        )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    access_token = security.create_access_token(dict(sub=email))
-    return SnackResponse.success(
-        "User Successfully Logged In",
-        {"access_token": access_token, "token_type": "bearer"},
-    )
+    access_token = security.create_access_token(dict(sub=user.email))
+    return {"access_token": access_token, "token_type": "bearer"}
 
 
 @router.get("/refresh")

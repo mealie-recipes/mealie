@@ -9,6 +9,7 @@ from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
+from mealie.services.events import create_backup_event
 from pathvalidate import sanitize_filename
 from pydantic.main import BaseModel
 
@@ -32,18 +33,18 @@ class ExportDatabase:
             export_tag = datetime.now().strftime("%Y-%b-%d")
 
         self.main_dir = app_dirs.TEMP_DIR.joinpath(export_tag)
-        self.img_dir = self.main_dir.joinpath("images")
+        self.recipes = self.main_dir.joinpath("recipes")
         self.templates_dir = self.main_dir.joinpath("templates")
 
         try:
             self.templates = [app_dirs.TEMPLATE_DIR.joinpath(x) for x in templates]
-        except:
+        except Exception:
             self.templates = False
             logger.info("No Jinja2 Templates Registered for Export")
 
         required_dirs = [
             self.main_dir,
-            self.img_dir,
+            self.recipes,
             self.templates_dir,
         ]
 
@@ -51,26 +52,27 @@ class ExportDatabase:
             dir.mkdir(parents=True, exist_ok=True)
 
     def export_templates(self, recipe_list: list[BaseModel]):
-        for template_path in self.templates:
-            out_dir = self.templates_dir.joinpath(template_path.name)
-            out_dir.mkdir(parents=True, exist_ok=True)
+        if self.templates:
+            for template_path in self.templates:
+                out_dir = self.templates_dir.joinpath(template_path.name)
+                out_dir.mkdir(parents=True, exist_ok=True)
 
-            with open(template_path, "r") as f:
-                template = Template(f.read())
+                with open(template_path, "r") as f:
+                    template = Template(f.read())
 
-            for recipe in recipe_list:
-                filename = recipe.slug + template_path.suffix
-                out_file = out_dir.joinpath(filename)
+                for recipe in recipe_list:
+                    filename = recipe.slug + template_path.suffix
+                    out_file = out_dir.joinpath(filename)
 
-                content = template.render(recipe=recipe)
+                    content = template.render(recipe=recipe)
 
-                with open(out_file, "w") as f:
-                    f.write(content)
+                    with open(out_file, "w") as f:
+                        f.write(content)
 
-    def export_images(self):
-        shutil.copytree(app_dirs.IMG_DIR, self.img_dir, dirs_exist_ok=True)
+    def export_recipe_dirs(self):
+        shutil.copytree(app_dirs.RECIPE_DATA_DIR, self.recipes, dirs_exist_ok=True)
 
-    def export_items(self, items: list[BaseModel], folder_name: str, export_list=True):
+    def export_items(self, items: list[BaseModel], folder_name: str, export_list=True, slug_folder=False):
         items = [x.dict() for x in items]
         out_dir = self.main_dir.joinpath(folder_name)
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -79,8 +81,10 @@ class ExportDatabase:
             ExportDatabase._write_json_file(items, out_dir.joinpath(f"{folder_name}.json"))
         else:
             for item in items:
-                filename = sanitize_filename(f"{item.get('name')}.json")
-                ExportDatabase._write_json_file(item, out_dir.joinpath(filename))
+                final_dest = out_dir if not slug_folder else out_dir.joinpath(item.get("slug"))
+                final_dest.mkdir(exist_ok=True)
+                filename = sanitize_filename(f"{item.get('slug')}.json")
+                ExportDatabase._write_json_file(item, final_dest.joinpath(filename))
 
     @staticmethod
     def _write_json_file(data: Union[dict, list], out_file: Path):
@@ -108,6 +112,7 @@ def backup_all(
     export_themes=True,
     export_users=True,
     export_groups=True,
+    export_notifications=True,
 ):
     db_export = ExportDatabase(tag=tag, templates=templates)
 
@@ -121,9 +126,12 @@ def backup_all(
 
     if export_recipes:
         all_recipes = db.recipes.get_all(session)
-        db_export.export_items(all_recipes, "recipes", export_list=False)
+        db_export.export_recipe_dirs()
+        db_export.export_items(all_recipes, "recipes", export_list=False, slug_folder=True)
         db_export.export_templates(all_recipes)
-        db_export.export_images()
+
+        all_comments = db.comments.get_all(session)
+        db_export.export_items(all_comments, "comments")
 
     if export_settings:
         all_settings = db.settings.get_all(session)
@@ -137,6 +145,10 @@ def backup_all(
         all_themes = db.themes.get_all(session)
         db_export.export_items(all_themes, "themes")
 
+    if export_notifications:
+        all_notifications = db.event_notifications.get_all(session)
+        db_export.export_items(all_notifications, "notifications")
+
     return db_export.finish_export()
 
 
@@ -148,3 +160,5 @@ def auto_backup_job():
     session = create_session()
     backup_all(session=session, tag="Auto", templates=templates)
     logger.info("Auto Backup Called")
+    create_backup_event("Automated Backup", "Automated backup created", session)
+    session.close()

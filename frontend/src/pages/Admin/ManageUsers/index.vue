@@ -1,39 +1,33 @@
 <template>
   <div>
     <v-card flat>
-      <v-tabs
-        v-model="tab"
-        background-color="primary"
-        centered
-        dark
-        icons-and-text
-      >
+      <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text show-arrows>
         <v-tabs-slider></v-tabs-slider>
 
-        <v-tab>
-          {{$t('user.users')}}
-          <v-icon>mdi-account</v-icon>
+        <v-tab href="#users">
+          {{ $t("user.users") }}
+          <v-icon>{{ $globals.icons.user }}</v-icon>
         </v-tab>
 
-        <v-tab>
-          {{$t('user.sign-up-links')}}
-          <v-icon>mdi-account-plus-outline</v-icon>
+        <v-tab href="#sign-ups">
+          {{ $t("signup.sign-up-links") }}
+          <v-icon>{{ $globals.icons.accountPlusOutline }}</v-icon>
         </v-tab>
 
-        <v-tab>
-          {{$t('user.groups')}}
-          <v-icon>mdi-account-group</v-icon>
+        <v-tab href="#groups" @click="reqGroups">
+          {{ $t("group.groups") }}
+          <v-icon>{{ $globals.icons.group }}</v-icon>
         </v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <v-tab-item>
+        <v-tab-item value="users">
           <TheUserTable />
         </v-tab-item>
-        <v-tab-item>
+        <v-tab-item value="sign-ups">
           <TheSignUpTable />
         </v-tab-item>
-        <v-tab-item>
+        <v-tab-item value="groups">
           <GroupDashboard />
         </v-tab-item>
       </v-tabs-items>
@@ -42,21 +36,33 @@
 </template>
 
 <script>
-import TheUserTable from "@/components/Admin/ManageUsers/TheUserTable";
-import GroupDashboard from "@/components/Admin/ManageUsers/GroupDashboard";
-import TheSignUpTable from "@/components/Admin/ManageUsers/TheSignUpTable";
+import TheUserTable from "./TheUserTable";
+import GroupDashboard from "./GroupDashboard";
+import TheSignUpTable from "./TheSignUpTable";
 export default {
   components: { TheUserTable, GroupDashboard, TheSignUpTable },
   data() {
-    return {
-      tab: 0,
-    };
+    return {};
+  },
+  computed: {
+    tab: {
+      set(tab) {
+        this.$router.replace({ query: { ...this.$route.query, tab } });
+      },
+      get() {
+        return this.$route.query.tab;
+      },
+    },
   },
   mounted() {
-    this.$store.dispatch("requestAllGroups");
+    this.reqGroups();
+  },
+  methods: {
+    reqGroups() {
+      this.$store.dispatch("requestAllGroups");
+    },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

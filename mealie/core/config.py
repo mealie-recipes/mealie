@@ -1,13 +1,13 @@
 import os
 import secrets
 from pathlib import Path
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import dotenv
-from pydantic import BaseSettings, Field, validator
+from pydantic import BaseSettings, Field, PostgresDsn, validator
 
-APP_VERSION = "v0.4.3"
-DB_VERSION = "v0.4.0"
+APP_VERSION = "v0.5.0"
+DB_VERSION = "v0.5.0"
 
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
@@ -57,7 +57,6 @@ class AppDirectories:
         self.CHOWDOWN_DIR: Path = self.MIGRATION_DIR.joinpath("chowdown")
         self.TEMPLATE_DIR: Path = data_dir.joinpath("templates")
         self.USER_DIR: Path = data_dir.joinpath("users")
-        self.SQLITE_DIR: Path = data_dir.joinpath("db")
         self.RECIPE_DATA_DIR: Path = data_dir.joinpath("recipes")
         self.TEMP_DIR: Path = data_dir.joinpath(".temp")
 
@@ -70,7 +69,6 @@ class AppDirectories:
             self.DEBUG_DIR,
             self.MIGRATION_DIR,
             self.TEMPLATE_DIR,
-            self.SQLITE_DIR,
             self.NEXTCLOUD_DIR,
             self.CHOWDOWN_DIR,
             self.RECIPE_DATA_DIR,
@@ -84,9 +82,20 @@ class AppDirectories:
 app_dirs = AppDirectories(CWD, DATA_DIR)
 
 
+def determine_sqlite_path(path=False, suffix=DB_VERSION) -> str:
+    global app_dirs
+    db_path = app_dirs.DATA_DIR.joinpath(f"mealie_{suffix}.db")  # ! Temporary Until Alembic
+
+    if path:
+        return db_path
+
+    return "sqlite:///" + str(db_path.absolute())
+
+
 class AppSettings(BaseSettings):
     global DATA_DIR
     PRODUCTION: bool = Field(True, env="PRODUCTION")
+    BASE_URL: str = "http://localhost:8080"
     IS_DEMO: bool = False
     API_PORT: int = 9000
     API_DOCS: bool = True
@@ -100,27 +109,35 @@ class AppSettings(BaseSettings):
         return "/redoc" if self.API_DOCS else None
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
-    DATABASE_TYPE: str = Field("sqlite", env="DB_TYPE")
 
-    @validator("DATABASE_TYPE", pre=True)
-    def validate_db_type(cls, v: str) -> Optional[str]:
-        if v != "sqlite":
-            raise ValueError("Unable to determine database type. Acceptible options are 'sqlite'")
-        else:
-            return v
+    DB_ENGINE: Optional[str] = None  # Optional: 'sqlite', 'postgres'
+    POSTGRES_USER: str = "mealie"
+    POSTGRES_PASSWORD: str = "mealie"
+    POSTGRES_SERVER: str = "postgres"
+    POSTGRES_PORT: str = 5432
+    POSTGRES_DB: str = "mealie"
 
-    # Used to Set SQLite File Version
-    SQLITE_FILE: Optional[Union[str, Path]]
+    DB_URL: Union[str, PostgresDsn] = None  # Actual DB_URL is calculated with `assemble_db_connection`
 
-    @validator("SQLITE_FILE", pre=True)
-    def identify_sqlite_file(cls, v: str) -> Optional[str]:
-        return app_dirs.SQLITE_DIR.joinpath(f"mealie_{DB_VERSION}.sqlite")
+    @validator("DB_URL", pre=True)
+    def assemble_db_connection(cls, v: Optional[str], values: dict[str, Any]) -> Any:
+        engine = values.get("DB_ENGINE", "sqlite")
+        if engine == "postgres":
+            host = f"{values.get('POSTGRES_SERVER')}:{values.get('POSTGRES_PORT')}"
+            return PostgresDsn.build(
+                scheme="postgresql",
+                user=values.get("POSTGRES_USER"),
+                password=values.get("POSTGRES_PASSWORD"),
+                host=host,
+                path=f"/{values.get('POSTGRES_DB') or ''}",
+            )
+        return determine_sqlite_path()
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
 
-    TOKEN_TIME: int = 2 # Time in Hours
+    TOKEN_TIME: int = 2  # Time in Hours
 
     # Not Used!
     SFTP_USERNAME: Optional[str]

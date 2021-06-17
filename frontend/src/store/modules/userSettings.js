@@ -1,5 +1,5 @@
 import { api } from "@/api";
-import Vuetify from "../../plugins/vuetify";
+import Vuetify from "@/plugins/vuetify";
 import axios from "axios";
 
 function inDarkMode(payload) {
@@ -17,7 +17,7 @@ function inDarkMode(payload) {
 
 const state = {
   activeTheme: {},
-  darkMode: "light",
+  darkMode: "light", // light, dark, system
   isDark: false,
   isLoggedIn: false,
   token: "",
@@ -54,13 +54,20 @@ const mutations = {
 };
 
 const actions = {
-  async requestUserData({ commit }) {
-    const userData = await api.users.self();
-    commit("setUserData", userData);
+  async requestUserData({ getters, commit }) {
+    if (getters.getIsLoggedIn) {
+      const [response, err] = await api.users.self();
+
+      if (err) {
+        return; // TODO: Log or Notifty User of Error
+      }
+
+      commit("setUserData", response.data);
+    }
   },
 
   async resetTheme({ commit }) {
-    const defaultTheme = await api.themes.requestByName("default");
+    const defaultTheme = await api.themes.requestByName(1);
     if (defaultTheme.colors) {
       Vuetify.framework.theme.themes.dark = defaultTheme.colors;
       Vuetify.framework.theme.themes.light = defaultTheme.colors;
@@ -74,13 +81,15 @@ const actions = {
       console.log("Not Logged In");
       return;
     }
-    try {
-      let authResponse = await api.users.refresh();
-      commit("setToken", authResponse.access_token);
-    } catch {
+
+    const [response, err] = await api.users.refresh();
+
+    if (err) {
       console.log("Failed Token Refresh, Logging Out...");
       commit("setIsLoggedIn", false);
     }
+
+    commit("setToken", response.data.access_token);
   },
 
   async initTheme({ dispatch, getters }) {

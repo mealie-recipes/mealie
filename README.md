@@ -4,6 +4,11 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![Docker Pulls][docker-pull]][docker-pull]
+[![CodeFactor](https://www.codefactor.io/repository/github/hay-kot/mealie/badge)](https://www.codefactor.io/repository/github/hay-kot/mealie)
+[![Docker Build Production](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.release.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.release.yml)
+[![Project Tests Production](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml)
+[![Docker Build Dev](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml)
+[![Project Tests Dev](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -27,7 +32,7 @@
     ·
     <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>    
     ·
-    <a href="https://hay-kot.github.io/mealie/api/docs/">API</a>
+    <a href="https://hay-kot.github.io/mealie/api/redoc/">API</a>
     ·
     <a href="https://github.com/hay-kot/mealie/issues">
     Request Feature
@@ -52,14 +57,16 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
 
 ## Key Features
 - 🔍 Fuzzy search
-- 🏷️ Tag recipes with categories or tags to flexible sorting
+- 🏷️ Tag recipes with categories or tags for flexible sorting
 - 🕸 Import recipes from around the web by URL
+- 💪 Powerful bulk Category/Tag assignment
 - 📱 Beautiful Mobile Views
 - 📆 Create Meal Plans
 - 🛒 Generate shopping lists
 - 🐳 Easy setup with Docker
-- 🎨 Customize your interface with color themes layouts
-- 💾 Export all your data in any format with Jinja2 Templates, with easy data restoration from the user interface.
+- 🎨 Customize your interface with color themes 
+- 💾 Export all your data in any format with Jinja2 Templates
+- 🔒 Keep your data safe with automated backup and easy restore options
 - 🌍 localized in many languages
 - ➕ Plus tons more!
     - Flexible API
@@ -89,7 +96,7 @@ As to why we need a database?
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests. See the [Contributors Guide](https://hay-kot.github.io/mealie/contributors/developers-guide/code-contributions/) for help getting started.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests. See the [Contributors Guide](https://hay-kot.github.io/mealie/contributors/non-coders/) for help getting started.
 
 If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development. 
 

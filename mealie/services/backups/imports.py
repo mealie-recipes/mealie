@@ -2,12 +2,22 @@ import json
 import shutil
 import zipfile
 from pathlib import Path
-from typing import Callable, List
+from typing import Callable
 
 from mealie.core.config import app_dirs
 from mealie.db.database import db
+from mealie.schema.comments import CommentOut
+from mealie.schema.event_notifications import EventNotificationIn
 from mealie.schema.recipe import Recipe
-from mealie.schema.restore import CustomPageImport, GroupImport, RecipeImport, SettingsImport, ThemeImport, UserImport
+from mealie.schema.restore import (
+    CustomPageImport,
+    GroupImport,
+    NotificationImport,
+    RecipeImport,
+    SettingsImport,
+    ThemeImport,
+    UserImport,
+)
 from mealie.schema.settings import CustomPageOut, SiteSettings
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import UpdateGroup, UserInDB
@@ -49,7 +59,7 @@ class ImportDatabase:
     def import_recipes(self):
         recipe_dir: Path = self.import_dir.joinpath("recipes")
         imports = []
-        successful_imports = []
+        successful_imports = {}
 
         recipes = ImportDatabase.read_models_file(
             file_path=recipe_dir, model=Recipe, single_file=False, migrate=ImportDatabase._recipe_migration
@@ -68,13 +78,29 @@ class ImportDatabase:
             )
 
             if import_status.status:
-                successful_imports.append(recipe.slug)
+                successful_imports.update({recipe.slug: recipe})
 
             imports.append(import_status)
 
         self._import_images(successful_imports)
 
         return imports
+
+    def import_comments(self):
+        comment_dir: Path = self.import_dir.joinpath("comments", "comments.json")
+
+        comments = ImportDatabase.read_models_file(file_path=comment_dir, model=CommentOut)
+
+        for comment in comments:
+            comment: CommentOut
+
+            self.import_model(
+                db_table=db.comments,
+                model=comment,
+                return_model=ThemeImport,
+                name_attr="uuid",
+                search_key="uuid",
+            )
 
     @staticmethod
     def _recipe_migration(recipe_dict: dict) -> dict:
@@ -83,21 +109,21 @@ class ImportDatabase:
             del recipe_dict["categories"]
         try:
             del recipe_dict["_id"]
-            del recipe_dict["dateAdded"]
-        except:
+            del recipe_dict["date_added"]
+        except Exception:
             pass
         # Migration from list to Object Type Data
         try:
             if "" in recipe_dict["tags"]:
                 recipe_dict["tags"] = [tag for tag in recipe_dict["tags"] if tag != ""]
-        except:
+        except Exception:
             pass
 
         try:
             if "" in recipe_dict["categories"]:
                 recipe_dict["categories"] = [cat for cat in recipe_dict["categories"] if cat != ""]
 
-        except:
+        except Exception:
             pass
 
         if type(recipe_dict["extras"]) == list:
@@ -105,15 +131,25 @@ class ImportDatabase:
 
         return recipe_dict
 
-    def _import_images(self, successful_imports: List[str]):
+    def _import_images(self, successful_imports: list[Recipe]):
         image_dir = self.import_dir.joinpath("images")
-        for image in image_dir.iterdir():
-            if image.stem in successful_imports:
-                if image.is_dir():
-                    dest = app_dirs.IMG_DIR.joinpath(image.stem)
-                    shutil.copytree(image, dest, dirs_exist_ok=True)
-                if image.is_file():
-                    shutil.copy(image, app_dirs.IMG_DIR)
+
+        if image_dir.exists():  # Migrate from before v0.5.0
+            for image in image_dir.iterdir():
+                item: Recipe = successful_imports.get(image.stem)
+
+                if item:
+                    dest_dir = item.image_dir
+
+                    if image.is_dir():
+                        shutil.copytree(image, dest_dir, dirs_exist_ok=True)
+
+                    if image.is_file():
+                        shutil.copy(image, dest_dir)
+
+        else:
+            recipe_dir = self.import_dir.joinpath("recipes")
+            shutil.copytree(recipe_dir, app_dirs.RECIPE_DATA_DIR, dirs_exist_ok=True)
 
         minify.migrate_images()
 
@@ -137,6 +173,24 @@ class ImportDatabase:
             theme_imports.append(import_status)
 
         return theme_imports
+
+    def import_notifications(self):
+        notify_file = self.import_dir.joinpath("notifications", "notifications.json")
+        notifications = ImportDatabase.read_models_file(notify_file, EventNotificationIn)
+        import_notifications = []
+
+        for notify in notifications:
+            import_status = self.import_model(
+                db_table=db.event_notifications,
+                model=notify,
+                return_model=NotificationImport,
+                name_attr="name",
+                search_key="notification_url",
+            )
+
+            import_notifications.append(import_status)
+
+        return import_notifications
 
     def import_settings(self):  # ! Broken
         settings_file = self.import_dir.joinpath("settings", "settings.json")
@@ -227,7 +281,7 @@ class ImportDatabase:
             return [model(**g) for g in file_data]
 
         all_models = []
-        for file in file_path.glob("*.json"):
+        for file in file_path.glob("**/*.json"):
             with open(file, "r") as f:
                 file_data = json.loads(f.read())
 
@@ -294,6 +348,7 @@ def import_database(
     import_themes=True,
     import_users=True,
     import_groups=True,
+    import_notifications=True,
     force_import: bool = False,
     rebase: bool = False,
 ):
@@ -323,6 +378,12 @@ def import_database(
     if import_users:
         user_report = import_session.import_users()
 
+    if import_notifications:
+        notification_report = import_session.import_notifications()
+
+    if import_recipes:
+        import_session.import_comments()
+
     import_session.clean_up()
 
     return {
@@ -332,4 +393,5 @@ def import_database(
         "pageImports": page_report,
         "groupImports": group_report,
         "userImports": user_report,
+        "notificationImports": notification_report,
     }

@@ -37,7 +37,7 @@ class NextcloudDir:
 class NextcloudMigration(MigrationBase):
     key_aliases: Optional[list[MigrationAlias]] = [
         MigrationAlias(key="tags", alias="keywords", func=helpers.split_by_comma),
-        MigrationAlias(key="orgURL", alias="url", func=None),
+        MigrationAlias(key="org_url", alias="url", func=None),
     ]
 
 

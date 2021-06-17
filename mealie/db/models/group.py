@@ -1,5 +1,6 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from mealie.core.config import settings
 from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.category import Category, group2categories
 from sqlalchemy.orm.session import Session
@@ -18,11 +19,18 @@ class Group(SqlAlchemyBase, BaseMixins):
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
     mealplans = orm.relationship(
-        "MealPlanModel",
+        "MealPlan",
         back_populates="group",
         single_parent=True,
-        order_by="MealPlanModel.startDate",
+        order_by="MealPlan.start_date",
     )
+
+    shopping_lists = orm.relationship(
+        "ShoppingList",
+        back_populates="group",
+        single_parent=True,
+    )
+
     categories = orm.relationship("Category", secondary=group2categories, single_parent=True)
 
     # Webhook Settings
@@ -31,16 +39,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     webhook_urls = orm.relationship("WebhookURLModel", uselist=True, cascade="all, delete-orphan")
 
     def __init__(
-        self,
-        name,
-        id=None,
-        users=None,
-        mealplans=None,
-        categories=[],
-        session=None,
-        webhook_enable=False,
-        webhook_time="00:00",
-        webhook_urls=[],
+        self, name, categories=[], session=None, webhook_enable=False, webhook_time="00:00", webhook_urls=[], **_
     ) -> None:
         self.name = name
         self.categories = [Category.get_ref(session=session, slug=cat.get("slug")) for cat in categories]
@@ -49,13 +48,9 @@ class Group(SqlAlchemyBase, BaseMixins):
         self.webhook_time = webhook_time
         self.webhook_urls = [WebhookURLModel(url=x) for x in webhook_urls]
 
-    def update(self, session: Session, *args, **kwargs):
-
-        self.__init__(session=session, *args, **kwargs)
-
     @staticmethod
     def get_ref(session: Session, name: str):
         item = session.query(Group).filter(Group.name == name).one_or_none()
         if item is None:
-            item = session.query(Group).filter(Group.id == 1).one()
+            item = session.query(Group).filter(Group.name == settings.DEFAULT_GROUP).one()
         return item

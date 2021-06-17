@@ -1,114 +1,102 @@
 <template>
   <div>
-    <v-app-bar
-      v-if="!isMobile"
-      clipped-left
-      dense
-      app
-      color="primary"
-      dark
-      class="d-print-none"
-    >
-      <router-link v-if="!(isMobile && search)" to="/">
-        <v-btn icon>
-          <v-icon size="40"> mdi-silverware-variant </v-icon>
-        </v-btn>
-      </router-link>
-
-      <div v-if="!isMobile" btn class="pl-2">
-        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
-          >Mealie
-        </v-toolbar-title>
-      </div>
-
-      <v-spacer></v-spacer>
-      <v-expand-x-transition>
-        <SearchBar
-          ref="mainSearchBar"
-          v-if="search"
-          :show-results="true"
-          @selected="navigateFromSearch"
-          :max-width="isMobile ? '100%' : '450px'"
-        />
-      </v-expand-x-transition>
-      <v-btn icon @click="search = !search">
-        <v-icon>mdi-magnify</v-icon>
+    <TheSidebar ref="theSidebar" />
+    <v-app-bar clipped-left dense app color="primary" dark class="d-print-none" :bottom="isMobile">
+      <v-btn icon @click="openSidebar">
+        <v-icon> {{ $globals.icons.menu }}</v-icon>
       </v-btn>
-
-      <SiteMenu />
-    </v-app-bar>
-    <v-app-bar
-      v-else
-      bottom
-      clipped-left
-      dense
-      app
-      color="primary"
-      dark
-      class="d-print-none"
-    >
       <router-link to="/">
         <v-btn icon>
-          <v-icon size="40"> mdi-silverware-variant </v-icon>
+          <v-icon size="40"> {{ $globals.icons.primary }} </v-icon>
         </v-btn>
       </router-link>
 
       <div v-if="!isMobile" btn class="pl-2">
-        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"
-          >Mealie
+        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')">
+          Mealie
         </v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
-      <v-expand-x-transition>
-        <SearchDialog ref="mainSearchDialog" />
-      </v-expand-x-transition>
-      <v-btn icon @click="$refs.mainSearchDialog.open()">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon class="mr-1" small v-bind="attrs" v-on="on" @click="isDark = !isDark">
+            <v-icon v-text="isDark ? $globals.icons.weatherSunny : $globals.icons.weatherNight"> </v-icon>
+          </v-btn>
+        </template>
+        <span>{{ isDark ? $t("settings.theme.switch-to-light-mode") : $t("settings.theme.switch-to-dark-mode") }}</span>
+      </v-tooltip>
+      <div v-if="!isMobile" style="width: 350px;">
+        <SearchBar :show-results="true" @selected="navigateFromSearch" :max-width="isMobile ? '100%' : '450px'" />
+      </div>
+      <div v-else>
+        <v-btn icon @click="$refs.recipeSearch.open()">
+          <v-icon> {{ $globals.icons.search }} </v-icon>
+        </v-btn>
+        <SearchDialog ref="recipeSearch" />
+      </div>
 
-      <SiteMenu />
+      <TheSiteMenu />
+
+      <v-slide-x-reverse-transition>
+        <TheRecipeFab v-if="loggedIn && isMobile" />
+      </v-slide-x-reverse-transition>
     </v-app-bar>
+    <v-slide-x-reverse-transition>
+      <TheRecipeFab v-if="loggedIn && !isMobile" :absolute="true" />
+    </v-slide-x-reverse-transition>
   </div>
 </template>
 
 <script>
-import SiteMenu from "@/components/UI/SiteMenu";
+import TheSiteMenu from "@/components/UI/TheSiteMenu";
 import SearchBar from "@/components/UI/Search/SearchBar";
-import SearchDialog from "@/components/UI/Search/SearchDialog";
+import SearchDialog from "@/components/UI/Dialogs/SearchDialog";
+import TheRecipeFab from "@/components/UI/TheRecipeFab";
+import TheSidebar from "@/components/UI/TheSidebar";
 import { user } from "@/mixins/user";
 export default {
   name: "AppBar",
 
   mixins: [user],
   components: {
-    SiteMenu,
-    SearchBar,
     SearchDialog,
+    TheRecipeFab,
+    TheSidebar,
+    TheSiteMenu,
+    SearchBar,
   },
   data() {
     return {
-      search: false,
-      isMobile: false,
+      showSidebar: false,
     };
   },
-  watch: {
-    $route() {
-      this.search = false;
-    },
-  },
   computed: {
-    // isMobile() {
-    //   return this.$vuetify.breakpoint.name === "xs";
-    // },
+    isMobile() {
+      return this.$vuetify.breakpoint.name === "xs";
+    },
+    isDark: {
+      get() {
+        return this.$store.getters.getIsDark;
+      },
+      set() {
+        let setVal = "dark";
+        if (this.isDark) {
+          setVal = "light";
+        }
+        this.$store.commit("setDarkMode", setVal);
+      },
+    },
   },
   methods: {
     navigateFromSearch(slug) {
       this.$router.push(`/recipe/${slug}`);
     },
+    openSidebar() {
+      this.$refs.theSidebar.toggleSidebar();
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style scoped></style>

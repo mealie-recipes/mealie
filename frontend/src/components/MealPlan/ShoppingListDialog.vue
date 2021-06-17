@@ -3,28 +3,21 @@
     <v-dialog v-model="dialog" width="650">
       <v-card>
         <v-card-title class="headline">
-          Shopping List
+          {{ $t("shopping-list.shopping-list") }}
           <v-spacer></v-spacer>
           <v-btn text color="accent" @click="group = !group">
-            Group (Beta)
+            {{ $t("meal-plan.group") }}
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
 
         <v-card-text v-if="group == false">
-          <v-list
-            dense
-            v-for="(recipe, index) in ingredients"
-            :key="`${index}-recipe`"
-          >
+          <v-list dense v-for="(recipe, index) in ingredients" :key="`${index}-recipe`">
             <v-subheader>{{ recipe.name }} </v-subheader>
             <v-divider></v-divider>
 
             <v-list-item-group color="primary">
-              <v-list-item
-                v-for="(item, i) in recipe.recipeIngredient"
-                :key="i"
-              >
+              <v-list-item v-for="(item, i) in recipe.recipe_ingredient" :key="i">
                 <v-list-item-content>
                   <v-list-item-title v-text="item"></v-list-item-title>
                 </v-list-item-content>
@@ -75,8 +68,9 @@ export default {
       this.getRawIngredients();
     },
     getRawIngredients() {
+      this.rawIngredients = [];
       this.ingredients.forEach(element => {
-        this.rawIngredients.push(element.recipeIngredient);
+        this.rawIngredients.push(element.recipe_ingredient);
       });
 
       this.rawIngredients = this.rawIngredients.flat();
@@ -103,8 +97,4 @@ export default {
 };
 </script>
 
-
-
-
-<style>
-</style>
+<style></style>

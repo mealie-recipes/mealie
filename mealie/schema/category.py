@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from fastapi_camelcase import CamelModel
 from mealie.schema.recipe import Recipe
+from pydantic.utils import GetterDict
 
 
 class CategoryIn(CamelModel):
@@ -14,6 +15,13 @@ class CategoryBase(CategoryIn):
 
     class Config:
         orm_mode = True
+
+        @classmethod
+        def getter_dict(_cls, name_orm):
+            return {
+                **GetterDict(name_orm),
+                "total_recipes": len(name_orm.recipes),
+            }
 
 
 class RecipeCategoryResponse(CategoryBase):

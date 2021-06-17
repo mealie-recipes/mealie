@@ -1,94 +1,68 @@
 <template>
   <v-container>
-    <CategorySidebar />
-    <v-card flat>
-      <v-row dense>
-        <v-col>
-          <v-text-field
-            v-model="searchString"
-            outlined
-            color="primary accent-3"
-            :placeholder="$t('search.search-placeholder')"
-            append-icon="mdi-magnify"
-          >
-          </v-text-field>
-        </v-col>
-        <v-col cols="12" md="2" sm="12">
-          <v-text-field
-            class="mt-0 pt-0"
-            :label="$t('search.max-results')"
-            v-model="maxResults"
-            type="number"
-            outlined
-          />
-        </v-col>
-      </v-row>
-
-      <v-row dense class="mt-0 flex-row align-center justify-space-around">
-        <v-col>
-          <h3 class="pl-2 text-center headline">{{$t('search.category-filter')}}</h3>
-          <FilterSelector class="mb-1" @update="updateCatParams" />
-          <CategoryTagSelector
-            :solo="true"
-            :dense="false"
-            v-model="includeCategories"
-            :return-object="false"
-          />
-        </v-col>
-        <v-col>
-          <h3 class="pl-2 text-center headline">{{$t('search.tag-filter')}}</h3>
-          <FilterSelector class="mb-1" @update="updateTagParams" />
-
-          <CategoryTagSelector
-            :solo="true"
-            :dense="false"
-            v-model="includeTags"
-            :return-object="false"
-            :tag-selector="true"
-          />
-        </v-col>
-      </v-row>
-
-      <v-row v-if="fuzzyRecipes">
-        <v-col
-          :sm="6"
-          :md="6"
-          :lg="4"
-          :xl="3"
-          v-for="item in fuzzyRecipes.slice(0, maxResults)"
-          :key="item.name"
+    <v-row dense>
+      <v-col>
+        <v-text-field
+          v-model="searchString"
+          outlined
+          color="primary accent-3"
+          :placeholder="$t('search.search-placeholder')"
+          :append-icon="$globals.icons.search"
         >
-          <RecipeCard
-            :name="item.item.name"
-            :description="item.item.description"
-            :slug="item.item.slug"
-            :rating="item.item.rating"
-            :image="item.item.image"
-            :tags="item.item.tags"
-          />
-        </v-col>
-      </v-row>
-    </v-card>
+        </v-text-field>
+      </v-col>
+      <v-col cols="12" md="2" sm="12">
+        <v-text-field class="mt-0 pt-0" :label="$t('search.max-results')" v-model="maxResults" type="number" outlined />
+      </v-col>
+    </v-row>
+
+    <v-row dense class="my-0 flex-row align-center justify-space-around">
+      <v-col>
+        <h3 class="pl-2 text-center headline">
+          {{ $t("category.category-filter") }}
+        </h3>
+        <FilterSelector class="mb-1" @update="updateCatParams" />
+        <CategoryTagSelector :solo="true" :dense="false" v-model="includeCategories" :return-object="false" />
+      </v-col>
+      <v-col>
+        <h3 class="pl-2 text-center headline">
+          {{ $t("search.tag-filter") }}
+        </h3>
+        <FilterSelector class="mb-1" @update="updateTagParams" />
+        <CategoryTagSelector
+          :solo="true"
+          :dense="false"
+          v-model="includeTags"
+          :return-object="false"
+          :tag-selector="true"
+        />
+      </v-col>
+    </v-row>
+
+    <CardSection
+      class="mt-n9"
+      :title-icon="$globals.icons.magnify"
+      :recipes="showRecipes"
+      :hardLimit="maxResults"
+      @sort="assignFuzzy"
+    />
   </v-container>
 </template>
 
 <script>
 import Fuse from "fuse.js";
-import RecipeCard from "@/components/Recipe/RecipeCard";
-import CategorySidebar from "@/components/UI/CategorySidebar";
 import CategoryTagSelector from "@/components/FormHelpers/CategoryTagSelector";
+import CardSection from "@/components/UI/CardSection";
 import FilterSelector from "./FilterSelector.vue";
 
 export default {
   components: {
-    RecipeCard,
-    CategorySidebar,
+    CardSection,
     CategoryTagSelector,
     FilterSelector,
   },
   data() {
     return {
-      searchString: "",
       maxResults: 21,
       searchResults: [],
       catFilter: {
@@ -99,6 +73,7 @@ export default {
         exclude: false,
         matchAny: false,
       },
+      sortedResults: [],
       includeCategories: [],
       includeTags: [],
       options: {
@@ -113,18 +88,24 @@ export default {
       },
     };
   },
+  mounted() {
+    this.$store.dispatch("requestAllRecipes");
+  },
   computed: {
+    searchString: {
+      set(q) {
+        this.$router.replace({ query: { ...this.$route.query, q } });
+      },
+      get() {
+        return this.$route.query.q || "";
+      },
+    },
     allRecipes() {
-      return this.$store.getters.getRecentRecipes;
+      return this.$store.getters.getAllRecipes;
     },
     filteredRecipes() {
       return this.allRecipes.filter(recipe => {
-        const includesTags = this.check(
-          this.includeTags,
-          recipe.tags,
-          this.tagFilter.matchAny,
-          this.tagFilter.exclude
-        );
+        const includesTags = this.check(this.includeTags, recipe.tags, this.tagFilter.matchAny, this.tagFilter.exclude);
         const includesCats = this.check(
           this.includeCategories,
           recipe.recipeCategory,
@@ -139,16 +120,26 @@ export default {
     },
     fuzzyRecipes() {
       if (this.searchString.trim() === "") {
-        return this.filteredRecipes.map(x => ({ item: x }));
+        return this.filteredRecipes;
       }
       const result = this.fuse.search(this.searchString.trim());
-      return result;
+      return result.map(x => x.item);
     },
     isSearching() {
       return this.searchString && this.searchString.length > 0;
     },
+    showRecipes() {
+      if (this.sortedResults.length > 0) {
+        return this.sortedResults;
+      } else {
+        return this.fuzzyRecipes;
+      }
+    },
   },
   methods: {
+    assignFuzzy(val) {
+      this.sortedResults = val;
+    },
     check(filterBy, recipeList, matchAny, exclude) {
       let isMatch = true;
       if (filterBy.length === 0) return isMatch;
@@ -174,5 +165,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

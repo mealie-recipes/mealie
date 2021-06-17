@@ -2,14 +2,14 @@ import operator
 import shutil
 from typing import List
 
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile, status
 from mealie.core.config import app_dirs
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.schema.migration import MigrationFile, Migrations
-from mealie.schema.snackbar import SnackResponse
 from mealie.services.migrations import migration
 from sqlalchemy.orm.session import Session
+from fastapi import HTTPException
 
 router = APIRouter(prefix="/api/migrations", tags=["Migration"], dependencies=[Depends(get_current_user)])
 
@@ -42,7 +42,7 @@ def import_migration(import_type: migration.Migration, file_name: str, session: 
     return migration.migrate(import_type, file_path, session)
 
 
-@router.delete("/{import_type}/{file_name}/delete")
+@router.delete("/{import_type}/{file_name}/delete", status_code=status.HTTP_200_OK)
 def delete_migration_data(import_type: migration.Migration, file_name: str):
     """ Removes migration data from the file system """
 
@@ -53,12 +53,10 @@ def delete_migration_data(import_type: migration.Migration, file_name: str):
     elif remove_path.is_dir():
         shutil.rmtree(remove_path)
     else:
-        SnackResponse.error("File/Folder not found.")
-
-    return SnackResponse.error(f"Migration Data Remove: {remove_path.absolute()}")
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
-@router.post("/{import_type}/upload")
+@router.post("/{import_type}/upload", status_code=status.HTTP_200_OK)
 def upload_nextcloud_zipfile(import_type: migration.Migration, archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
     dir = app_dirs.MIGRATION_DIR.joinpath(import_type.value)
@@ -68,7 +66,5 @@ def upload_nextcloud_zipfile(import_type: migration.Migration, archive: UploadFi
     with dest.open("wb") as buffer:
         shutil.copyfileobj(archive.file, buffer)
 
-    if dest.is_file:
-        return SnackResponse.success("Migration data uploaded")
-    else:
-        return SnackResponse.error("Failure uploading file")
+    if not dest.is_file:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

@@ -1,15 +1,11 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.category import CategoryIn, RecipeCategoryResponse
-from mealie.schema.snackbar import SnackResponse
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(
-    prefix="/api/categories",
-    tags=["Recipe Categories"],
-)
+router = APIRouter(prefix="/api/categories", tags=["Recipe Categories"])
 
 
 @router.get("")
@@ -18,29 +14,56 @@ async def get_all_recipe_categories(session: Session = Depends(generate_session)
     return db.categories.get_all_limit_columns(session, ["slug", "name"])
 
 
-@router.post("")
-async def create_recipe_category(
-    category: CategoryIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
-):
-    """ Creates a Category in the database """
-
-    return db.categories.create(session, category.dict())
+@router.get("/empty")
+def get_empty_categories(session: Session = Depends(generate_session)):
+    """ Returns a list of categories that do not contain any recipes"""
+    return db.categories.get_empty(session)
 
 
 @router.get("/{category}", response_model=RecipeCategoryResponse)
-def get_all_recipes_by_category(category: str, session: Session = Depends(generate_session)):
-    """ Returns a list of recipes associated with the provided category. """
-    return db.categories.get(session, category)
-
-
-@router.delete("/{category}")
-async def delete_recipe_category(
-    category: str, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
+def get_all_recipes_by_category(
+    category: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)
 ):
-    """Removes a recipe category from the database. Deleting a
+    """ Returns a list of recipes associated with the provided category. """
+
+    category_obj = db.categories.get(session, category)
+    category_obj = RecipeCategoryResponse.from_orm(category_obj)
+
+    if not is_user:
+        category_obj.recipes = [x for x in category_obj.recipes if x.settings.public]
+
+    return category_obj
+
+
+@router.post("", dependencies=[Depends(get_current_user)])
+async def create_recipe_category(category: CategoryIn, session: Session = Depends(generate_session)):
+    """ Creates a Category in the database """
+
+    try:
+        return db.categories.create(session, category.dict())
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+
+@router.put("/{category}", response_model=RecipeCategoryResponse, dependencies=[Depends(get_current_user)])
+async def update_recipe_category(category: str, new_category: CategoryIn, session: Session = Depends(generate_session)):
+    """ Updates an existing Tag in the database """
+
+    try:
+        return db.categories.update(session, category, new_category.dict())
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+
+@router.delete("/{category}", dependencies=[Depends(get_current_user)])
+async def delete_recipe_category(category: str, session: Session = Depends(generate_session)):
+    """
+    Removes a recipe category from the database. Deleting a
     category does not impact a recipe. The category will be removed
-    from any recipes that contain it"""
+    from any recipes that contain it
+    """
 
-    db.categories.delete(session, category)
-
-    return SnackResponse.error(f"Category Deleted: {category}")
+    try:
+        db.categories.delete(session, category)
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

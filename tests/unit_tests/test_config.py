@@ -1,22 +1,25 @@
+import re
 from pathlib import Path
 
-import pytest
 from mealie.core.config import CWD, DATA_DIR, AppDirectories, AppSettings, determine_data_dir, determine_secrets
 
 
 def test_default_settings(monkeypatch):
     monkeypatch.delenv("DEFAULT_GROUP", raising=False)
     monkeypatch.delenv("DEFAULT_PASSWORD", raising=False)
+    monkeypatch.delenv("POSTGRES_USER", raising=False)
+    monkeypatch.delenv("POSTGRES_PASSWORD", raising=False)
+    monkeypatch.delenv("DEFAULT_PASSWORD", raising=False)
     monkeypatch.delenv("API_PORT", raising=False)
     monkeypatch.delenv("API_DOCS", raising=False)
-    monkeypatch.delenv("DB_TYPE", raising=False)
     monkeypatch.delenv("IS_DEMO", raising=False)
 
     app_settings = AppSettings()
 
     assert app_settings.DEFAULT_GROUP == "Home"
     assert app_settings.DEFAULT_PASSWORD == "MyPassword"
-    assert app_settings.DATABASE_TYPE == "sqlite"
+    assert app_settings.POSTGRES_USER == "mealie"
+    assert app_settings.POSTGRES_PASSWORD == "mealie"
     assert app_settings.API_PORT == 9000
     assert app_settings.API_DOCS is True
     assert app_settings.IS_DEMO is False
@@ -28,6 +31,8 @@ def test_default_settings(monkeypatch):
 def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("DEFAULT_GROUP", "Test Group")
     monkeypatch.setenv("DEFAULT_PASSWORD", "Test Password")
+    monkeypatch.setenv("POSTGRES_USER", "mealie-test")
+    monkeypatch.setenv("POSTGRES_PASSWORD", "mealie-test")
     monkeypatch.setenv("API_PORT", "8000")
     monkeypatch.setenv("API_DOCS", "False")
 
@@ -35,6 +40,8 @@ def test_non_default_settings(monkeypatch):
 
     assert app_settings.DEFAULT_GROUP == "Test Group"
     assert app_settings.DEFAULT_PASSWORD == "Test Password"
+    assert app_settings.POSTGRES_USER == "mealie-test"
+    assert app_settings.POSTGRES_PASSWORD == "mealie-test"
     assert app_settings.API_PORT == 8000
     assert app_settings.API_DOCS is False
 
@@ -42,11 +49,17 @@ def test_non_default_settings(monkeypatch):
     assert app_settings.DOCS_URL is None
 
 
-def test_unknown_database(monkeypatch):
-    monkeypatch.setenv("DB_TYPE", "nonsense")
+def test_default_connection_args(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "sqlite")
+    app_settings = AppSettings()
+    assert re.match(r"sqlite:////.*mealie/dev/data/mealie_v0.5.0.db", app_settings.DB_URL)
 
-    with pytest.raises(ValueError, match="Unable to determine database type. Acceptible options are 'sqlite'"):
-        AppSettings()
+
+def test_pg_connection_args(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "postgres")
+    monkeypatch.setenv("POSTGRES_SERVER", "postgres")
+    app_settings = AppSettings()
+    assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
 
 
 def test_secret_generation(tmp_path):

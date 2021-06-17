@@ -1,17 +1,13 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, is_logged_in
 from mealie.schema.category import RecipeTagResponse, TagIn
-from mealie.schema.snackbar import SnackResponse
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(tags=["Recipes"])
 
-router = APIRouter(
-    prefix="/api/tags",
-    tags=["Recipe Tags"],
-)
+router = APIRouter(prefix="/api/tags", tags=["Recipe Tags"])
 
 
 @router.get("")
@@ -20,29 +16,47 @@ async def get_all_recipe_tags(session: Session = Depends(generate_session)):
     return db.tags.get_all_limit_columns(session, ["slug", "name"])
 
 
-@router.post("")
-async def create_recipe_tag(
-    tag: TagIn, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
+@router.get("/empty")
+def get_empty_tags(session: Session = Depends(generate_session)):
+    """ Returns a list of tags that do not contain any recipes"""
+    return db.tags.get_empty(session)
+
+
+@router.get("/{tag}", response_model=RecipeTagResponse)
+def get_all_recipes_by_tag(
+    tag: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)
 ):
+    """ Returns a list of recipes associated with the provided tag. """
+    tag_obj = db.tags.get(session, tag)
+    tag_obj = RecipeTagResponse.from_orm(tag_obj)
+
+    if not is_user:
+        tag_obj.recipes = [x for x in tag_obj.recipes if x.settings.public]
+
+    return tag_obj
+
+
+@router.post("", dependencies=[Depends(get_current_user)])
+async def create_recipe_tag(tag: TagIn, session: Session = Depends(generate_session)):
     """ Creates a Tag in the database """
 
     return db.tags.create(session, tag.dict())
 
 
-@router.get("/{tag}", response_model=RecipeTagResponse)
-def get_all_recipes_by_tag(tag: str, session: Session = Depends(generate_session)):
-    """ Returns a list of recipes associated with the provided tag. """
-    return db.tags.get(session, tag)
+@router.put("/{tag}", response_model=RecipeTagResponse, dependencies=[Depends(get_current_user)])
+async def update_recipe_tag(tag: str, new_tag: TagIn, session: Session = Depends(generate_session)):
+    """ Updates an existing Tag in the database """
+
+    return db.tags.update(session, tag, new_tag.dict())
 
 
-@router.delete("/{tag}")
-async def delete_recipe_tag(
-    tag: str, session: Session = Depends(generate_session), current_user=Depends(get_current_user)
-):
+@router.delete("/{tag}", dependencies=[Depends(get_current_user)])
+async def delete_recipe_tag(tag: str, session: Session = Depends(generate_session)):
     """Removes a recipe tag from the database. Deleting a
     tag does not impact a recipe. The tag will be removed
     from any recipes that contain it"""
 
-    db.tags.delete(session, tag)
-
-    return SnackResponse.error(f"Tag Deleted: {tag}")
+    try:
+        db.tags.delete(session, tag)
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

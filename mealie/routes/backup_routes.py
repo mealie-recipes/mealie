@@ -1,20 +1,21 @@
 import operator
 import shutil
-from typing import Optional
+from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from mealie.core.config import app_dirs
+from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, validate_file_token
+from mealie.routes.deps import get_current_user
 from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
-from mealie.schema.snackbar import SnackResponse
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
+from mealie.services.events import create_backup_event
 from sqlalchemy.orm.session import Session
-from starlette.responses import FileResponse
 
 router = APIRouter(prefix="/api/backups", tags=["Backups"], dependencies=[Depends(get_current_user)])
+logger = get_logger()
 
 
 @router.get("/available", response_model=Imports)
@@ -31,30 +32,32 @@ def available_imports():
     return Imports(imports=imports, templates=templates)
 
 
-@router.post("/export/database", status_code=201)
-def export_database(data: BackupJob, session: Session = Depends(generate_session)):
+@router.post("/export/database", status_code=status.HTTP_201_CREATED)
+def export_database(background_tasks: BackgroundTasks, data: BackupJob, session: Session = Depends(generate_session)):
     """Generates a backup of the recipe database in json format."""
-    export_path = backup_all(
-        session=session,
-        tag=data.tag,
-        templates=data.templates,
-        export_recipes=data.options.recipes,
-        export_settings=data.options.settings,
-        export_pages=data.options.pages,
-        export_themes=data.options.themes,
-        export_users=data.options.users,
-        export_groups=data.options.groups,
-    )
     try:
-        return SnackResponse.success("Backup Created at " + export_path)
-    except:
-        HTTPException(
-            status_code=400,
-            detail=SnackResponse.error("Error Creating Backup. See Log File"),
+        export_path = backup_all(
+            session=session,
+            tag=data.tag,
+            templates=data.templates,
+            export_recipes=data.options.recipes,
+            export_settings=data.options.settings,
+            export_pages=data.options.pages,
+            export_themes=data.options.themes,
+            export_users=data.options.users,
+            export_groups=data.options.groups,
+            export_notifications=data.options.notifications,
         )
+        background_tasks.add_task(
+            create_backup_event, "Database Backup", f"Manual Backup Created '{Path(export_path).name}'", session
+        )
+        return {"export_path": export_path}
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@router.post("/upload")
+@router.post("/upload", status_code=status.HTTP_200_OK)
 def upload_backup_file(archive: UploadFile = File(...)):
     """ Upload a .zip File to later be imported into Mealie """
     dest = app_dirs.BACKUP_DIR.joinpath(archive.filename)
@@ -62,10 +65,8 @@ def upload_backup_file(archive: UploadFile = File(...)):
     with dest.open("wb") as buffer:
         shutil.copyfileobj(archive.file, buffer)
 
-    if dest.is_file:
-        return SnackResponse.success("Backup uploaded")
-    else:
-        return SnackResponse.error("Failure uploading file")
+    if not dest.is_file:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
 @router.get("/{file_name}/download")
@@ -76,11 +77,16 @@ async def download_backup_file(file_name: str):
     return {"fileToken": create_file_token(file)}
 
 
-@router.post("/{file_name}/import", status_code=200)
-def import_database(file_name: str, import_data: ImportJob, session: Session = Depends(generate_session)):
+@router.post("/{file_name}/import", status_code=status.HTTP_200_OK)
+def import_database(
+    background_tasks: BackgroundTasks,
+    file_name: str,
+    import_data: ImportJob,
+    session: Session = Depends(generate_session),
+):
     """ Import a database backup file generated from Mealie. """
 
-    return imports.import_database(
+    db_import = imports.import_database(
         session=session,
         archive=import_data.name,
         import_recipes=import_data.recipes,
@@ -92,18 +98,18 @@ def import_database(file_name: str, import_data: ImportJob, session: Session = D
         force_import=import_data.force,
         rebase=import_data.rebase,
     )
+    background_tasks.add_task(create_backup_event, "Database Restore", f"Restore File: {file_name}", session)
+    return db_import
 
 
-@router.delete("/{file_name}/delete", status_code=200)
+@router.delete("/{file_name}/delete", status_code=status.HTTP_200_OK)
 def delete_backup(file_name: str):
     """ Removes a database backup from the file system """
+    file_path = app_dirs.BACKUP_DIR.joinpath(file_name)
 
+    if not file_path.is_file():
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
     try:
-        app_dirs.BACKUP_DIR.joinpath(file_name).unlink()
-    except:
-        HTTPException(
-            status_code=400,
-            detail=SnackResponse.error("Unable to Delete Backup. See Log File"),
-        )
-
-    return SnackResponse.error(f"{file_name} Deleted")
+        file_path.unlink()
+    except Exception:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)

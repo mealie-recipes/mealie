@@ -5,14 +5,16 @@ import createPersistedState from "vuex-persistedstate";
 import userSettings from "./modules/userSettings";
 import language from "./modules/language";
 import siteSettings from "./modules/siteSettings";
+import recipes from "./modules/recipes";
 import groups from "./modules/groups";
+import snackbar from "./modules/snackbar";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ["userSettings", "language.lang", "siteSettings"],
+      paths: ["userSettings", "siteSettings"],
     }),
   ],
   modules: {
@@ -20,6 +22,8 @@ const store = new Vuex.Store({
     language,
     siteSettings,
     groups,
+    recipes,
+    snackbar,
   },
   state: {
     // All Recipe Data Store
@@ -35,9 +39,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setRecentRecipes(state, payload) {
-      state.recentRecipes = payload;
-    },
     setMealPlanCategories(state, payload) {
       state.mealPlanCategories = payload;
     },
@@ -53,19 +54,6 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    async requestRecentRecipes() {
-      // const keys = [
-      //   "name",
-      //   "slug",
-      //   "image",
-      //   "description",
-      //   "dateAdded",
-      //   "rating",
-      // ];
-      const payload = await api.recipes.allSummary();
-
-      this.commit("setRecentRecipes", payload);
-    },
     async requestCategories({ commit }) {
       const categories = await api.categories.getAll();
       commit("setAllCategories", categories);
@@ -74,7 +62,6 @@ const store = new Vuex.Store({
       const tags = await api.tags.getAll();
       commit("setAllTags", tags);
     },
-
     async requestAppInfo({ commit }) {
       const response = await api.meta.getAppInfo();
       commit("setAppInfo", response);
@@ -82,12 +69,9 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    getRecentRecipes: state => state.recentRecipes,
     getMealPlanCategories: state => state.mealPlanCategories,
-    getAllCategories: state =>
-      state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
-    getAllTags: state =>
-      state.allTags.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
+    getAllCategories: state => state.allCategories.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
+    getAllTags: state => state.allTags.sort((a, b) => (a.slug > b.slug ? 1 : -1)),
     getAppInfo: state => state.appInfo,
   },
 });

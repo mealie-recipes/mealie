@@ -1,0 +1,77 @@
+name: Project Tests
+on:
+  push:
+    branches:
+      - master
+      - dev
+  pull_request:
+    branches:
+      - master
+      - dev
+    types: [synchronize, opened, reopened, ready_for_review]
+
+jobs:
+  tests:
+    env:
+      PRODUCTION: false
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: mealie
+          POSTGRES_PASSWORD: mealie
+          POSTGRES_DB: mealie
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.1.1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        run: |
+          poetry install
+          poetry add "psycopg2-binary==2.8.6"
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      #----------------------------------------------
+      #              run test suite
+      #----------------------------------------------
+      - name: Run Test Suite
+        run: |
+          make test-all
+      #----------------------------------------------
+      #              run test suite
+      #----------------------------------------------
+      - name: Run Test Suite Postgres
+        env:
+          DB_ENGINE: postgres
+          POSTGRES_SERVER: localhost
+        run: |
+          make test-all

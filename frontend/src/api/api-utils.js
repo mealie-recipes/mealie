@@ -1,76 +1,121 @@
-const baseURL = "/api/";
+import { prefix } from "./apiRoutes";
 import axios from "axios";
-import utils from "@/utils";
 import { store } from "../store";
+import { utils } from "@/utils";
 
-axios.defaults.headers.common[
-  "Authorization"
-] = `Bearer ${store.getters.getToken}`;
+axios.defaults.headers.common["Authorization"] = `Bearer ${store.getters.getToken}`;
 
-function processResponse(response) {
-  try {
-    utils.notify.show(response.data.snackbar.text, response.data.snackbar.type);
-  } catch (err) {
-    return;
+function handleError(error, getText) {
+  if (getText) {
+    utils.notify.error(getText(error.response));
   }
-
-  return;
+  return false;
+}
+function handleResponse(response, getText) {
+  if (response && getText) {
+    const successText = getText(response);
+    utils.notify.success(successText);
+  }
+  return response;
 }
 
+function defaultErrorText(response) {
+  return response.statusText;
+}
+
+function defaultSuccessText(response) {
+  return response.statusText;
+}
+
+const requests = {
+  /**
+   *
+   * @param {*} funcCall Callable Axios Function
+   * @param {*} url Destination url
+   * @param {*} data Request Data
+   * @param {*} getErrorText Error Text Function
+   * @param {*} getSuccessText Success Text Function
+   * @returns Object response
+   */
+  unsafe: async function(funcCall, url, data, getErrorText = defaultErrorText, getSuccessText) {
+    const response = await funcCall(url, data).catch(function(error) {
+      handleError(error, getErrorText);
+    });
+    return handleResponse(response, getSuccessText);
+  },
+  /**
+   *
+   * @param {*} funcCall Callable Axios Function
+   * @param {*} url Destination url
+   * @param {*} data Request Data
+   * @param {*} getErrorText Error Text Function
+   * @param {*} getSuccessText Success Text Function
+   * @returns Array [response, error]
+   */
+  safe: async function(funcCall, url, data, getErrorText = defaultErrorText, getSuccessText) {
+    const response = await funcCall(url, data).catch(function(error) {
+      handleError(error, getErrorText);
+      return [null, error];
+    });
+    return [handleResponse(response, getSuccessText), null];
+  },
+};
+
 const apiReq = {
-  post: async function(url, data) {
-    let response = await axios.post(url, data).catch(function(error) {
-      if (error.response) {
-        processResponse(error.response);
-        return error.response;
-      }
+  get: async function(url, getErrorText = defaultErrorText) {
+    return axios.get(url).catch(function(error) {
+      handleError(error, getErrorText);
     });
-    processResponse(response);
-    return response;
   },
 
-  put: async function(url, data) {
-    let response = await axios.put(url, data).catch(function(error) {
-      if (error.response) {
-        processResponse(error.response);
-        return response;
-      } else return;
+  getSafe: async function(url) {
+    let error = null;
+    const response = await axios.get(url).catch(e => {
+      error = e;
     });
-    processResponse(response);
-    return response;
+    return [response, error];
   },
 
-  get: async function(url, data) {
-    let response = await axios.get(url, data).catch(function(error) {
-      if (error.response) {
-        processResponse(error.response);
-        return response;
-      } else return;
-    });
-    processResponse(response);
-    return response;
+  post: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
+    return await requests.unsafe(axios.post, url, data, getErrorText, getSuccessText);
   },
 
-  delete: async function(url, data) {
-    let response = await axios.delete(url, data).catch(function(error) {
-      if (error.response) {
-        processResponse(error.response);
-        return response;
-      }
-    });
-    processResponse(response);
-    return response;
+  postSafe: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
+    return await requests.safe(axios.post, url, data, getErrorText, getSuccessText);
   },
 
-  async download(url) {
+  put: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
+    return await requests.unsafe(axios.put, url, data, getErrorText, getSuccessText);
+  },
+
+  putSafe: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
+    return await requests.safe(axios.put, url, data, getErrorText, getSuccessText);
+  },
+
+  patch: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
+    return await requests.unsafe(axios.patch, url, data, getErrorText, getSuccessText);
+  },
+
+  patchSafe: async function(url, data, getErrorText = defaultErrorText, getSuccessText) {
+    return await requests.safe(axios.patch, url, data, getErrorText, getSuccessText);
+  },
+
+  delete: async function(url, data, getErrorText = defaultErrorText, getSuccessText = defaultSuccessText) {
+    return await requests.unsafe(axios.delete, url, data, getErrorText, getSuccessText);
+  },
+
+  deleteSafe: async function(url, data, getErrorText = defaultErrorText, getSuccessText = defaultSuccessText) {
+    return await requests.unsafe(axios.delete, url, data, getErrorText, getSuccessText);
+  },
+
+  download: async function(url) {
     const response = await this.get(url);
     const token = response.data.fileToken;
 
-    const tokenURL = baseURL + "utils/download?token=" + token;
+    const tokenURL = prefix + "/utils/download?token=" + token;
     window.open(tokenURL, "_blank");
     return response.data;
   },
 };
 
 export { apiReq };
-export { baseURL };

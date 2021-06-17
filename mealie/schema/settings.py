@@ -1,13 +1,14 @@
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.schema.category import CategoryBase
+from mealie.schema.category import CategoryBase, RecipeCategoryResponse
 from pydantic import validator
 from slugify import slugify
 
 
 class SiteSettings(CamelModel):
-    language: str = "en"
+    language: str = "en-US"
+    first_day_of_week: int = 0
     show_recent: bool = True
     cards_per_section: int = 9
     categories: Optional[list[CategoryBase]] = []
@@ -18,6 +19,7 @@ class SiteSettings(CamelModel):
         schema_extra = {
             "example": {
                 "language": "en",
+                "firstDayOfWeek": 0,
                 "showRecent": True,
                 "categories": [
                     {"id": 1, "name": "thanksgiving", "slug": "thanksgiving"},
@@ -32,7 +34,7 @@ class CustomPageBase(CamelModel):
     name: str
     slug: Optional[str]
     position: int
-    categories: list[CategoryBase] = []
+    categories: list[RecipeCategoryResponse] = []
 
     class Config:
         orm_mode = True

@@ -1,25 +1,33 @@
 <template>
   <v-app>
+    <!-- Dummpy Comment -->
     <TheAppBar />
     <v-main>
-      <v-banner v-if="demo" sticky
-        ><div class="text-center">
-          <b> This is a Demo</b> | Username: changeme@email.com | Password: demo
-        </div></v-banner
-      >
-
-      <v-slide-x-reverse-transition>
-        <AddRecipeFab v-if="loggedIn" />
-      </v-slide-x-reverse-transition>
+      <v-banner v-if="demo" sticky>
+        <div class="text-center">
+          <b> This is a Demo of the v0.5.0 (BETA) </b> | Username: changeme@email.com | Password: demo
+        </div>
+      </v-banner>
+      <GlobalSnackbar />
+      <v-snackbar v-model="snackWithButtons" bottom left timeout="-1">
+        {{ snackWithBtnText }}
+        <template v-slot:action="{ attrs }">
+          <v-btn text color="primary" v-bind="attrs" @click.stop="refreshApp">
+            {{ snackBtnText }}
+          </v-btn>
+          <v-btn icon class="ml-4" @click="snackWithButtons = false">
+            <v-icon>{{ $globals.icons.close }}</v-icon>
+          </v-btn>
+        </template>
+      </v-snackbar>
       <router-view></router-view>
     </v-main>
-    <FlashMessage :position="'right bottom'"></FlashMessage>
   </v-app>
 </template>
 
 <script>
 import TheAppBar from "@/components/UI/TheAppBar";
-import AddRecipeFab from "@/components/UI/AddRecipeFab";
+import GlobalSnackbar from "@/components/UI/GlobalSnackbar";
 import Vuetify from "./plugins/vuetify";
 import { user } from "@/mixins/user";
 
@@ -28,7 +36,7 @@ export default {
 
   components: {
     TheAppBar,
-    AddRecipeFab,
+    GlobalSnackbar,
   },
 
   mixins: [user],
@@ -40,25 +48,42 @@ export default {
     },
   },
 
-  created() {
-    window.addEventListener("keyup", e => {
-      if (e.key == "/" && !document.activeElement.id.startsWith("input")) {
-        this.search = !this.search;
-      }
-    });
-    this.$store.dispatch("initLang", { currentVueComponent: this });
-  },
-
   async mounted() {
     this.$store.dispatch("initTheme");
     this.$store.dispatch("requestRecentRecipes");
     this.$store.dispatch("refreshToken");
     this.$store.dispatch("requestCurrentGroup");
+    this.$store.dispatch("requestUserData");
     this.$store.dispatch("requestCategories");
     this.$store.dispatch("requestTags");
     this.darkModeSystemCheck();
     this.darkModeAddEventListener();
     this.$store.dispatch("requestAppInfo");
+    this.$store.dispatch("requestCustomPages");
+    this.$store.dispatch("requestSiteSettings");
+  },
+
+  data() {
+    return {
+      refreshing: false,
+      registration: null,
+      snackBtnText: "",
+      snackWithBtnText: "",
+      snackWithButtons: false,
+    };
+  },
+
+  created() {
+    // Listen for swUpdated event and display refresh snackbar as required.
+    document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
+    // Refresh all open app tabs when a new service worker is installed.
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (this.refreshing) return;
+        this.refreshing = true;
+        window.location.reload();
+      });
+    }
   },
 
   methods: {
@@ -69,9 +94,7 @@ export default {
      */
     darkModeSystemCheck() {
       if (this.$store.getters.getDarkMode === "system")
-        Vuetify.framework.theme.dark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
+        Vuetify.framework.theme.dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     },
     /**
      * This will monitor the OS level darkmode and call to update dark mode.
@@ -82,52 +105,34 @@ export default {
         this.darkModeSystemCheck();
       });
     },
+
+    showRefreshUI(e) {
+      // Display a snackbar inviting the user to refresh/reload the app due
+      // to an app update being available.
+      // The new service worker is installed, but not yet active.
+      // Store the ServiceWorkerRegistration instance for later use.
+      this.registration = e.detail;
+      this.snackBtnText = this.$t("events.refresh");
+      this.snackWithBtnText = this.$t("events.new-version");
+      this.snackWithButtons = true;
+    },
+    refreshApp() {
+      this.snackWithButtons = false;
+      // Protect against missing registration.waiting.
+      if (!this.registration || !this.registration.waiting) {
+        return;
+      }
+      this.registration.waiting.postMessage("skipWaiting");
+    },
   },
 };
 </script>
 
 <style>
-.notify-info-color {
-  border: 1px, solid, var(--v-info-base) !important;
-  border-left: 3px, solid, var(--v-info-base) !important;
-  background-color: var(--v-info-base) !important;
+.top-dialog {
+  align-self: flex-start;
 }
-
-.notify-warning-color {
-  border: 1px, solid, var(--v-warning-base) !important;
-  border-left: 3px, solid, var(--v-warning-base) !important;
-  background-color: var(--v-warning-base) !important;
-}
-
-.notify-error-color {
-  border: 1px, solid, var(--v-error-base) !important;
-  border-left: 3px, solid, var(--v-error-base) !important;
-  background-color: var(--v-error-base) !important;
-}
-
-.notify-success-color {
-  border: 1px, solid, var(--v-success-base) !important;
-  border-left: 3px, solid, var(--v-success-base) !important;
-  background-color: var(--v-success-base) !important;
-}
-
-.notify-base {
-  color: white !important;
-  /* min-height: 50px; */
-  margin-right: 60px;
-  margin-bottom: -5px;
-  opacity: 0.9 !important;
-}
-
-*::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-*::-webkit-scrollbar-track {
-  background: lightgray;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: grey;
+:root {
+  scrollbar-color: transparent transparent;
 }
 </style>

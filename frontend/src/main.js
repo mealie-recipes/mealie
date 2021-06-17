@@ -3,34 +3,18 @@ import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import store from "./store";
 import VueRouter from "vue-router";
-import { routes } from "./routes";
+import { router } from "./routes";
+import { globals } from "@/utils/globals";
 import i18n from "./i18n";
-import FlashMessage from "@smartweb/vue-flash-message";
-import "@mdi/font/css/materialdesignicons.css";
+// import "@mdi/font/css/materialdesignicons.css";
 import "typeface-roboto/index.css";
+import "./registerServiceWorker";
 
-Vue.use(FlashMessage);
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
+Vue.component("TheButton", () => import("@/components/UI/Buttons/TheButton.vue"));
 
-const router = new VueRouter({
-  routes,
-  mode: process.env.NODE_ENV === "production" ? "history" : "hash",
-});
-
-const DEFAULT_TITLE = 'Mealie';
-const TITLE_SEPARATOR = '🍴';
-const TITLE_SUFFIX = " " + TITLE_SEPARATOR + " " + DEFAULT_TITLE;
-router.afterEach( (to) => {
-  Vue.nextTick( async () => {
-    if(typeof to.meta.title === 'function' ) {
-      const title  = await to.meta.title(to);
-      document.title = title + TITLE_SUFFIX;
-    } else {
-      document.title = to.meta.title ? to.meta.title + TITLE_SUFFIX : DEFAULT_TITLE;
-    }
-  });
-});  
+Vue.prototype.$globals = globals;
 
 const vueApp = new Vue({
   vuetify,
@@ -41,7 +25,7 @@ const vueApp = new Vue({
 }).$mount("#app");
 
 // Truncate
-let truncate = function(text, length, clamp) {
+const truncate = function(text, length, clamp) {
   clamp = clamp || "...";
   let node = document.createElement("div");
   node.innerHTML = text;
@@ -49,12 +33,11 @@ let truncate = function(text, length, clamp) {
   return content.length > length ? content.slice(0, length) + clamp : content;
 };
 
-let titleCase = function(value) {
+const titleCase = function(value) {
   return value.replace(/(?:^|\s|-)\S/g, x => x.toUpperCase());
 };
 
 Vue.filter("truncate", truncate);
 Vue.filter("titleCase", titleCase);
 
-export { vueApp };
-export { router };
+export { router, vueApp };

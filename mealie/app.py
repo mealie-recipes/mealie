@@ -1,18 +1,20 @@
 import uvicorn
 from fastapi import FastAPI
 
-from mealie.core import root_logger
-
-# import utils.startup as startup
 from mealie.core.config import APP_VERSION, settings
+from mealie.core.root_logger import get_logger
 from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes, utility_routes
-from mealie.routes.groups import groups
-from mealie.routes.mealplans import mealplans
-from mealie.routes.recipe import all_recipe_routes, category_routes, recipe_crud_routes, tag_routes
-from mealie.routes.site_settings import all_settings
-from mealie.routes.users import users
+from mealie.routes.about import about_router
+from mealie.routes.groups import groups_router
+from mealie.routes.mealplans import meal_plan_router
+from mealie.routes.media import media_router
+from mealie.routes.recipe import recipe_router
+from mealie.routes.shopping_list import shopping_list_router
+from mealie.routes.site_settings import settings_router
+from mealie.routes.users import user_router
+from mealie.services.events import create_general_event
 
-logger = root_logger.get_logger()
+logger = get_logger()
 
 app = FastAPI(
     title="Mealie",
@@ -29,35 +31,36 @@ def start_scheduler():
 
 def api_routers():
     # Authentication
-    app.include_router(utility_routes.router)
-    app.include_router(users.router)
-    app.include_router(groups.router)
+    app.include_router(user_router)
+    app.include_router(groups_router)
+    app.include_router(shopping_list_router)
     # Recipes
-    app.include_router(all_recipe_routes.router)
-    app.include_router(category_routes.router)
-    app.include_router(tag_routes.router)
-    app.include_router(recipe_crud_routes.router)
+    app.include_router(recipe_router)
+    app.include_router(media_router)
+    app.include_router(about_router)
     # Meal Routes
-    app.include_router(mealplans.router)
+    app.include_router(meal_plan_router)
     # Settings Routes
-    app.include_router(all_settings.router)
+    app.include_router(settings_router)
     app.include_router(theme_routes.router)
     # Backups/Imports Routes
     app.include_router(backup_routes.router)
     # Migration Routes
     app.include_router(migration_routes.router)
     app.include_router(debug_routes.router)
+    app.include_router(utility_routes.router)
 
 
 api_routers()
-start_scheduler()
 
 
 @app.on_event("startup")
 def system_startup():
+    start_scheduler()
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
     logger.info(settings.json(indent=4, exclude={"SECRET", "DEFAULT_PASSWORD", "SFTP_PASSWORD", "SFTP_USERNAME"}))
+    create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
 
 
 def main():

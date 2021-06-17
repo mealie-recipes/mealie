@@ -31,11 +31,7 @@
       </v-chip>
     </template>
     <template v-slot:append-outer="">
-      <NewCategoryTagDialog
-        v-if="showAdd"
-        :tag-dialog="tagSelector"
-        @created-item="pushToItem"
-      />
+      <NewCategoryTagDialog v-if="showAdd" :tag-dialog="tagSelector" @created-item="pushToItem" />
     </template>
   </v-autocomplete>
 </template>
@@ -90,7 +86,7 @@ export default {
   computed: {
     inputLabel() {
       if (!this.showLabel) return null;
-      return this.tagSelector ? this.$t('recipe.tags') : this.$t('recipe.categories');
+      return this.tagSelector ? this.$t("tag.tags") : this.$t("recipe.categories");
     },
     activeItems() {
       let ItemObjects = [];
@@ -104,7 +100,10 @@ export default {
       }
     },
     flat() {
-      return this.selected.length > 0 && this.solo;
+      if (this.selected) {
+        return this.selected.length > 0 && this.solo;
+      }
+      return false;
     },
   },
   methods: {
@@ -125,5 +124,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

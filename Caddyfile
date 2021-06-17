@@ -6,17 +6,30 @@
 :80 {
   @proxied path /api/* /docs /openapi.json
 
-  root * /app/dist
-  encode gzip
-  uri strip_suffix /
+  @static {
+    file
+    path *.ico *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.webp
+  }
   
+  encode gzip zstd
+  
+  
+  # Handles Recipe Images / Assets
+  handle_path /api/media/recipes/* {
+    header @static Cache-Control max-age=31536000
+    root * /app/data/recipes/
+    file_server
+  }
+
   handle @proxied {
+    uri strip_suffix /
     reverse_proxy http://127.0.0.1:9000 
   }
 
   handle {
+    header @static Cache-Control max-age=31536000
+    root * /app/dist
     try_files {path}.html {path} /
     file_server 
   }
-
 }

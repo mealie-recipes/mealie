@@ -1,28 +1,24 @@
+from tests.pre_test import DB_URL, settings  # isort:skip
+
 import json
 
 import requests
 from fastapi.testclient import TestClient
 from mealie.app import app
-from mealie.core.config import app_dirs, settings
-from mealie.db.db_setup import generate_session, sql_global_init
-from mealie.db.init_db import init_db
+from mealie.db.db_setup import SessionLocal, generate_session
+from mealie.db.init_db import main
 from pytest import fixture
 
 from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
-from tests.utils.recipe_data import build_recipe_store, get_raw_no_image, get_raw_recipe
+from tests.utils.recipe_data import get_raw_no_image, get_raw_recipe, get_recipe_test_cases
 
-SQLITE_FILE = app_dirs.SQLITE_DIR.joinpath("test.db")
-SQLITE_FILE.unlink(missing_ok=True)
-
-
-TestSessionLocal = sql_global_init(SQLITE_FILE, check_thread=False)
-init_db(TestSessionLocal())
+main()
 
 
 def override_get_db():
     try:
-        db = TestSessionLocal()
+        db = SessionLocal()
         yield db
     finally:
         db.close()
@@ -35,7 +31,7 @@ def api_client():
 
     yield TestClient(app)
 
-    SQLITE_FILE.unlink()
+    DB_URL.unlink(missing_ok=True)
 
 
 @fixture(scope="session")
@@ -44,8 +40,13 @@ def api_routes():
 
 
 @fixture(scope="session")
-def test_image():
-    return TEST_DATA.joinpath("test_image.jpg")
+def test_image_jpg():
+    return TEST_DATA.joinpath("images", "test_image.jpg")
+
+
+@fixture(scope="session")
+def test_image_png():
+    return TEST_DATA.joinpath("images", "test_image.png")
 
 
 @fixture(scope="session")
@@ -70,4 +71,4 @@ def raw_recipe_no_image():
 
 @fixture(scope="session")
 def recipe_store():
-    return build_recipe_store()
+    return get_recipe_test_cases()

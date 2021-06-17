@@ -1,182 +1,65 @@
 <template>
-  <v-menu v-model="menuModel" offset-y readonly :width="maxWidth">
-    <template #activator="{ attrs }">
+  <SearchDialog ref="searchDialog">
+    <template v-slot="{ open }">
       <v-text-field
-        class="mt-6"
-        v-model="search"
-        v-bind="attrs"
-        :dense="dense"
+        readonly
+        @click="open"
+        ref="searchInput"
+        class="my-auto mt-5 pt-1"
+        dense
         light
-        :label="$t('search.search-mealie')"
-        autofocus
-        :solo="solo"
-        :style="`max-width: ${maxWidth};`"
-        @focus="onFocus"
-        autocomplete="off"
+        dark
+        flat
+        :placeholder="$t('search.search-mealie')"
+        background-color="primary lighten-1"
+        color="white"
+        solo=""
+        :style="`max-width: 450;`"
       >
+        <template #prepend-inner>
+          <v-icon color="grey lighten-3" size="29">
+            {{ $globals.icons.search }}
+          </v-icon>
+        </template>
       </v-text-field>
     </template>
-    <v-card v-if="showResults" max-height="500" :max-width="maxWidth">
-      <v-card-text class="flex row mx-auto">
-        <div class="mr-auto">
-          Results
-        </div>
-        <router-link to="/search">
-          Advanced Search
-        </router-link>
-      </v-card-text>
-      <v-divider></v-divider>
-      <v-list scrollable v-if="autoResults">
-        <v-list-item
-          v-for="(item, index) in autoResults.slice(0, 15)"
-          :key="index"
-          :to="navOnClick ? `/recipe/${item.item.slug}` : null"
-          @click="navOnClick ? null : selected(item.item.slug, item.item.name)"
-        >
-          <v-list-item-avatar>
-            <v-img :src="getImage(item.item.slug)"></v-img>
-          </v-list-item-avatar>
-          <v-list-item-content
-            @click="
-              showResults ? null : selected(item.item.slug, item.item.name)
-            "
-          >
-            <v-list-item-title v-html="highlight(item.item.name)">
-            </v-list-item-title>
-            <v-rating
-              dense
-              v-if="item.item.rating"
-              :value="item.item.rating"
-              size="12"
-            >
-            </v-rating>
-            <v-list-item-subtitle v-html="highlight(item.item.description)">
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-card>
-  </v-menu>
+  </SearchDialog>
 </template>
 
 <script>
-import Fuse from "fuse.js";
-import { api } from "@/api";
+import SearchDialog from "@/components/UI/Dialogs/SearchDialog";
 
 export default {
-  props: {
-    showResults: {
-      default: false,
-    },
-    maxWidth: {
-      default: "450px",
-    },
-    dense: {
-      default: true,
-    },
-    navOnClick: {
-      default: true,
-    },
-    resetSearch: {
-      default: false,
-    },
-    solo: {
-      default: true,
-    },
+  components: {
+    SearchDialog,
   },
-  data() {
-    return {
-      searchSlug: "",
-      search: "",
-      menuModel: false,
-      data: [],
-      result: [],
-      fuseResults: [],
-      isDark: false,
-      options: {
-        shouldSort: true,
-        threshold: 0.6,
-        location: 0,
-        distance: 100,
-        findAllMatches: true,
-        maxPatternLength: 32,
-        minMatchCharLength: 2,
-        keys: ["name", "description"],
-      },
-    };
-  },
+
   mounted() {
-    this.isDark = this.$store.getters.getIsDark;
-    this.data = this.$store.getters.getRecentRecipes;
+    document.addEventListener("keydown", this.onDocumentKeydown);
   },
-  computed: {
-    autoResults() {
-      return this.fuseResults.length > 1 ? this.fuseResults : this.results;
-    },
-    fuse() {
-      return new Fuse(this.data, this.options);
-    },
-    isSearching() {
-      return this.search && this.search.length > 0;
-    },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.onDocumentKeydown);
   },
-  watch: {
-    isSearching(val) {
-      val ? (this.menuModel = true) : null;
-    },
 
-    resetSearch(val) {
-      val ? (this.search = "") : null;
-    },
-
-    search() {
-      try {
-        this.result = this.fuse.search(this.search.trim());
-      } catch {
-        this.result = this.data
-          .map(x => ({ item: x }))
-          .sort((a, b) => (a.name > b.name ? 1 : -1));
-      }
-      this.$emit("results", this.result);
-
-      if (this.showResults === true) {
-        this.fuseResults = this.result;
-      }
-    },
-
-    searchSlug() {
-      this.selected(this.searchSlug);
-    },
-  },
   methods: {
     highlight(string) {
       if (!this.search) {
         return string;
       }
-      return string.replace(
-        new RegExp(this.search, "gi"),
-        match => `<mark>${match}</mark>`
-      );
+      return string.replace(new RegExp(this.search, "gi"), match => `<mark>${match}</mark>`);
     },
-    getImage(image) {
-      return api.recipes.recipeTinyImage(image);
-    },
-    selected(slug, name) {
-      this.$emit("selected", slug, name);
-    },
-    async onFocus() {
-      clearTimeout(this.timeout);
-      this.isFocused = true;
+
+    onDocumentKeydown(e) {
+      if (
+        e.key === "/" &&
+        e.target !== this.$refs.searchInput.$refs.input &&
+        !document.activeElement.id.startsWith("input")
+      ) {
+        e.preventDefault();
+        this.$refs.searchDialog.open();
+      }
     },
   },
 };
 </script>
 
-<style scoped>
-.color-transition {
-  transition: background-color 0.3s ease;
-}
-</style>
-
-<style lang="sass" scoped>
-</style>

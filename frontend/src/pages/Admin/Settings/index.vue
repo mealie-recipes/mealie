@@ -6,7 +6,7 @@
       <span>
         <v-btn class="pt-1" text href="/docs">
           {{ $t("settings.local-api") }}
-          <v-icon right>mdi-open-in-new</v-icon>
+          <v-icon right>{{ $globals.icons.openInNew }}</v-icon>
         </v-btn>
       </span>
     </v-card-title>
@@ -20,40 +20,15 @@
 </template>
 
 <script>
-import HomePageSettings from "@/components/Admin/General/HomePageSettings";
-import CustomPageCreator from "@/components/Admin/General/CustomPageCreator";
+import HomePageSettings from "./HomePageSettings";
+import CustomPageCreator from "./CustomPageCreator";
 
 export default {
   components: {
     HomePageSettings,
     CustomPageCreator,
   },
-  data() {
-    return {
-      langOptions: [],
-      selectedLang: "en",
-    };
-  },
-  mounted() {
-    this.getOptions();
-  },
-  watch: {
-    selectedLang() {
-      this.$store.commit("setLang", this.selectedLang);
-    },
-  },
-  methods: {
-    getOptions() {
-      this.langOptions = this.$store.getters.getAllLangs;
-      this.selectedLang = this.$store.getters.getActiveLang;
-    },
-    removeCategory(index) {
-      this.value.categories.splice(index, 1);
-    },
-
-  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

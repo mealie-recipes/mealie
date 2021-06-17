@@ -3,38 +3,38 @@
     <v-divider></v-divider>
     <v-app-bar dark color="primary" class="mt-n1">
       <v-icon large left v-if="!loading">
-        mdi-account
+        {{ $globals.icons.user }}
       </v-icon>
-      <v-progress-circular
-        v-else
-        indeterminate
-        color="white"
-        large
-        class="mr-2"
-      >
-      </v-progress-circular>
-      <v-toolbar-title class="headline"> Sign Up </v-toolbar-title>
+      <v-progress-circular v-else indeterminate color="white" large class="mr-2"> </v-progress-circular>
+      <v-toolbar-title class="headline">
+        {{ $t("signup.sign-up") }}
+      </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-card-text>
-      Welcome to Mealie! To become a user of this instance you are required to
-      have a valid invitation link. If you haven't recieved an invitation you
-      are unable to sign-up. To recieve a link, contact the sites administrator.
+      {{ $t("signup.welcome-to-mealie") }}
       <v-divider class="mt-3"></v-divider>
       <v-form ref="signUpForm" @submit.prevent="signUp">
         <v-text-field
           v-model="user.name"
           light="light"
-          prepend-icon="mdi-account"
+          :prepend-icon="$globals.icons.user"
           validate-on-blur
           :rules="[existsRule]"
-          label="Display Name"
-          type="email"
+          :label="$t('user.full-name')"
+        ></v-text-field>
+        <v-text-field
+          v-model="user.username"
+          light="light"
+          :prepend-icon="$globals.icons.user"
+          validate-on-blur
+          :rules="[existsRule]"
+          :label="$t('user.username')"
         ></v-text-field>
         <v-text-field
           v-model="user.email"
           light="light"
-          prepend-icon="mdi-email"
+          :prepend-icon="$globals.icons.email"
           validate-on-blur
           :rules="[existsRule, emailRule]"
           :label="$t('user.email')"
@@ -44,7 +44,7 @@
           v-model="user.password"
           light="light"
           class="mb-2s"
-          prepend-icon="mdi-lock"
+          :prepend-icon="$globals.icons.lock"
           validate-on-blur
           :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
@@ -54,28 +54,20 @@
           v-model="user.passwordConfirm"
           light="light"
           class="mb-2s"
-          prepend-icon="mdi-lock"
+          :prepend-icon="$globals.icons.lock"
           :label="$t('user.password')"
           :type="showPassword ? 'text' : 'password'"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[
-            user.password === user.passwordConfirm || 'Password must match',
-          ]"
+          :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+          :rules="[user.password === user.passwordConfirm || $t('user.password-must-match')]"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
         <v-card-actions>
-          <v-btn
-            v-if="options.isLoggingIn"
-            dark
-            color="primary"
-            block="block"
-            type="submit"
-          >
-            Sign Up
+          <v-btn v-if="options.isLoggingIn" dark color="primary" block="block" type="submit">
+            {{ $t("signup.sign-up") }}
           </v-btn>
         </v-card-actions>
         <v-alert dense v-if="error" outlined class="mt-3 mb-0" type="error">
-          Error Signing Up
+          {{ $t("signup.error-signing-up") }}
         </v-alert>
       </v-form>
     </v-card-text>
@@ -126,28 +118,24 @@ export default {
 
       const userData = {
         fullName: this.user.name,
+        username: this.user.username,
         email: this.user.email,
         group: "default",
         password: this.user.password,
         admin: false,
       };
 
-      let successUser = false;
       if (this.$refs.signUpForm.validate()) {
-        let response = await api.signUps.createUser(this.token, userData);
-        successUser = response.snackbar.text.includes("Created");
+        if (await api.signUps.createUser(this.token, userData)) {
+          this.$emit("user-created");
+          this.$router.push("/");
+        }
       }
-
-      this.$emit("user-created");
 
       this.loading = false;
-      if (successUser) {
-        this.$router.push("/");
-      }
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

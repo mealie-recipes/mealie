@@ -1,87 +1,56 @@
-from typing import List, Optional
-
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.schema.recipe import AllRecipeRequest, RecipeSummary
+from mealie.routes.deps import get_current_user, is_logged_in
+from mealie.schema.recipe import RecipeSummary
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(tags=["Query All Recipes"])
 
 
-@router.get("/api/recipes/summary")
+@router.get("/api/recipes/summary", response_model=list[RecipeSummary])
 async def get_recipe_summary(
-    skip=0,
-    end=9999,
-    session: Session = Depends(generate_session),
-):
-    """ Returns the summary data for recipes in the database """
-
-    return db.recipes.get_all(session, limit=end, override_schema=RecipeSummary)
-
-
-@router.get("/api/recipes")
-def get_all_recipes(
-    keys: Optional[List[str]] = Query(...),
-    num: Optional[int] = 100,
-    session: Session = Depends(generate_session),
+    start=0, limit=9999, session: Session = Depends(generate_session), user: bool = Depends(is_logged_in)
 ):
     """
-    Returns key data for all recipes based off the query paramters provided.
-    For example, if slug, image, and name are provided you will recieve a list of
-    recipes containing the slug, image, and name property. By default, responses
-    are limited to 100.
+    Returns key the recipe summary data for recipes in the database. You can perform
+    slice operations to set the skip/end amounts for recipes. All recipes are sorted by the added date.
 
-    At this time you can only query top level values:
+    **Query Parameters**
+    - skip: The database entry to start at. (0 Indexed)
+    - end: The number of entries to return.
 
-    - slug
-    - name
-    - description
-    - image
-    - recipeYield
-    - totalTime
-    - prepTime
-    - performTime
-    - rating
-    - orgURL
-
-    **Note:** You may experience problems with with query parameters. As an alternative
-    you may also use the post method and provide a body.
-    See the *Post* method for more details.
-    """
-
-    return db.recipes.get_all_limit_columns(session, keys, limit=num)
-
-
-@router.post("/api/recipes")
-def get_all_recipes_post(body: AllRecipeRequest, session: Session = Depends(generate_session)):
-    """
-    Returns key data for all recipes based off the body data provided.
-    For example, if slug, image, and name are provided you will recieve a list of
-    recipes containing the slug, image, and name property.
-
-    At this time you can only query top level values:
-
-    - slug
-    - name
-    - description
-    - image
-    - recipeYield
-    - totalTime
-    - prepTime
-    - performTime
-    - rating
-    - orgURL
-
-    Refer to the body example for data formats.
+    skip=2, end=10 will return entries
 
     """
 
-    return db.recipes.get_all_limit_columns(session, body.properties, body.limit)
+    if user:
+        return db.recipes.get_all(
+            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
+        )
+
+    else:
+        return db.recipes.get_all_not_private(
+            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
+        )
 
 
-@router.post("/api/recipes/category")
+@router.get(
+    "/api/recipes/summary/untagged", response_model=list[RecipeSummary], dependencies=[Depends(get_current_user)]
+)
+async def get_untagged_recipes(count: bool = False, session: Session = Depends(generate_session)):
+    return db.recipes.count_untagged(session, count=count, override_schema=RecipeSummary)
+
+
+@router.get(
+    "/api/recipes/summary/uncategorized", response_model=list[RecipeSummary], dependencies=[Depends(get_current_user)]
+)
+async def get_uncategorized_recipes(count: bool = False, session: Session = Depends(generate_session)):
+    return db.recipes.count_uncategorized(session, count=count, override_schema=RecipeSummary)
+
+
+@router.post("/api/recipes/category", deprecated=True, dependencies=[Depends(get_current_user)])
 def filter_by_category(categories: list, session: Session = Depends(generate_session)):
     """ pass a list of categories and get a list of recipes associated with those categories """
     # ! This should be refactored into a single database call, but I couldn't figure it out
@@ -91,7 +60,7 @@ def filter_by_category(categories: list, session: Session = Depends(generate_ses
     return in_category
 
 
-@router.post("/api/recipes/tag")
+@router.post("/api/recipes/tag", deprecated=True, dependencies=[Depends(get_current_user)])
 async def filter_by_tags(tags: list, session: Session = Depends(generate_session)):
     """ pass a list of tags and get a list of recipes associated with those tags"""
     # ! This should be refactored into a single database call, but I couldn't figure it out

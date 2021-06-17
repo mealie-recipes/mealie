@@ -3,7 +3,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 from tests.app_routes import AppRoutes
-from tests.utils.recipe_data import RecipeTestData
+from tests.utils.recipe_data import RecipeSiteTestCase
 
 
 def get_meal_plan_template(first=None, second=None):
@@ -11,22 +11,21 @@ def get_meal_plan_template(first=None, second=None):
         "group": "Home",
         "startDate": "2021-01-18",
         "endDate": "2021-01-19",
-        "meals": [
+        "planDays": [
             {
-                "slug": first,
-                "date": "2021-1-17",
+                "date": "2021-1-18",
+                "meals": [{"slug": first, "name": "", "description": ""}],
             },
             {
-                "slug": second,
-                "date": "2021-1-18",
+                "date": "2021-1-19",
+                "meals": [{"slug": second, "name": "", "description": ""}],
             },
         ],
     }
 
 
 @pytest.fixture(scope="session")
-def slug_1(api_client: TestClient, api_routes: AppRoutes, token, recipe_store: list[RecipeTestData]):
-    # Slug 1
+def slug_1(api_client: TestClient, api_routes: AppRoutes, token, recipe_store: list[RecipeSiteTestCase]):
     slug_1 = api_client.post(api_routes.recipes_create_url, json={"url": recipe_store[0].url}, headers=token)
     slug_1 = json.loads(slug_1.content)
 
@@ -36,8 +35,7 @@ def slug_1(api_client: TestClient, api_routes: AppRoutes, token, recipe_store: l
 
 
 @pytest.fixture(scope="session")
-def slug_2(api_client: TestClient, api_routes: AppRoutes, token, recipe_store: list[RecipeTestData]):
-    # Slug 2
+def slug_2(api_client: TestClient, api_routes: AppRoutes, token, recipe_store: list[RecipeSiteTestCase]):
     slug_2 = api_client.post(api_routes.recipes_create_url, json={"url": recipe_store[1].url}, headers=token)
     slug_2 = json.loads(slug_2.content)
 
@@ -50,7 +48,7 @@ def test_create_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, 
     meal_plan = get_meal_plan_template(slug_1, slug_2)
 
     response = api_client.post(api_routes.meal_plans_create, json=meal_plan, headers=token)
-    assert response.status_code == 200
+    assert response.status_code == 201
 
 
 def test_read_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, slug_2, token):
@@ -58,13 +56,13 @@ def test_read_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, sl
 
     assert response.status_code == 200
 
-    meal_plan = get_meal_plan_template(slug_1, slug_2)
+    meal_plan_template = get_meal_plan_template(slug_1, slug_2)
 
-    new_meal_plan = json.loads(response.text)
-    meals = new_meal_plan[0]["meals"]
+    created_meal_plan = json.loads(response.text)
+    meals = created_meal_plan[0]["planDays"]
 
-    assert meals[0]["slug"] == meal_plan["meals"][0]["slug"]
-    assert meals[1]["slug"] == meal_plan["meals"][1]["slug"]
+    assert meals[0]["meals"][0]["slug"] == meal_plan_template["planDays"][0]["meals"][0]["slug"]
+    assert meals[1]["meals"][0]["slug"] == meal_plan_template["planDays"][1]["meals"][0]["slug"]
 
 
 def test_update_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, slug_2, token):
@@ -76,8 +74,8 @@ def test_update_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, 
 
     # Swap
     plan_uid = existing_mealplan.get("uid")
-    existing_mealplan["meals"][0]["slug"] = slug_2
-    existing_mealplan["meals"][1]["slug"] = slug_1
+    existing_mealplan["planDays"][0]["meals"][0]["slug"] = slug_2
+    existing_mealplan["planDays"][1]["meals"][0]["slug"] = slug_1
 
     response = api_client.put(api_routes.meal_plans_plan_id(plan_uid), json=existing_mealplan, headers=token)
 
@@ -87,8 +85,8 @@ def test_update_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, 
     existing_mealplan = json.loads(response.text)
     existing_mealplan = existing_mealplan[0]
 
-    assert existing_mealplan["meals"][0]["slug"] == slug_2
-    assert existing_mealplan["meals"][1]["slug"] == slug_1
+    assert existing_mealplan["planDays"][0]["meals"][0]["slug"] == slug_2
+    assert existing_mealplan["planDays"][1]["meals"][0]["slug"] == slug_1
 
 
 def test_delete_mealplan(api_client: TestClient, api_routes: AppRoutes, token):

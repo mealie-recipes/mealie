@@ -1,24 +1,33 @@
-FROM python:3
+FROM python:3.9-slim-buster
+
+
+ENV PRODUCTION false
+ENV POETRY_VERSION 1.1.6
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc g++ \
+    curl \
+    gnupg gnupg2 gnupg1  \
+    apt-transport-https \
+    debian-archive-keyring \
+    debian-keyring \
+    libwebp-dev \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee -a /etc/apt/sources.list.d/caddy-stable.list \
+    && apt-get update && apt-get install -y --no-install-recommends \
+    && apt autoremove \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get remove -y curl apt-transport-https debian-keyring g++ gnupg gnupg2 gnupg1 
+
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION" 
 
 WORKDIR /app/
 
-ENV PRODUCTION false
-
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
-
-# Install Poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
-    cd /usr/local/bin && \
-    ln -s /opt/poetry/bin/poetry && \
-    poetry config virtualenvs.create false
-
 # Copy poetry.lock* in case it doesn't exist in the repo
 COPY ./pyproject.toml /app/
-
 COPY ./mealie /app/mealie
-
-RUN poetry install 
+RUN poetry config virtualenvs.create false \
+    && poetry install
 
 RUN chmod +x /app/mealie/run.sh
 CMD ["/app/mealie/run.sh", "reload"]

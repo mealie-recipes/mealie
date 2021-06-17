@@ -3,27 +3,18 @@
 *__pycache__/
 *.py[cod]
 *$py.class
+
 # frontend/.env.development
 docs/site/
-mealie/temp/*
-mealie/temp/api.html
-.temp/
+*temp/*
 .secret
-
+frontend/dist/
 
 dev/data/backups/*
 dev/data/debug/*
 dev/data/img/*
 dev/data/migration/*
 dev/data/users/*
-
-#Exception to keep folders
-!mealie/dist/.gitkeep
-!dev/data/backups/.gitkeep
-!dev/data/backups/dev_sample_data*
-!dev/data/debug/.gitkeep
-!dev/data/migration/.gitkeep
-!dev/data/img/.gitkeep
 
 .DS_Store
 node_modules
@@ -148,48 +139,13 @@ ENV/
 # mypy
 .mypy_cache/
 
-# IDE settings
-# .vscode/
-
 # Node Modules
 node_modules/
-mealie/data/debug/last_recipe.json
+*.db
 *.sqlite
-dev/data/db/test.db
 scratch.py
-frontend/dist/favicon.ico
-frontend/dist/index.html
-frontend/dist/css/app.29fe0155.css
-frontend/dist/css/chunk-vendors.db944396.css
-frontend/dist/fonts/materialdesignicons-webfont.7a44ea19.woff2
-frontend/dist/fonts/materialdesignicons-webfont.64d4cf64.eot
-frontend/dist/fonts/materialdesignicons-webfont.147e3378.woff
-frontend/dist/fonts/materialdesignicons-webfont.174c02fc.ttf
-frontend/dist/fonts/roboto-latin-100.5cb7edfc.woff
-frontend/dist/fonts/roboto-latin-100.7370c367.woff2
-frontend/dist/fonts/roboto-latin-100italic.f8b1df51.woff2
-frontend/dist/fonts/roboto-latin-100italic.f9e8e590.woff
-frontend/dist/fonts/roboto-latin-300.b00849e0.woff
-frontend/dist/fonts/roboto-latin-300.ef7c6637.woff2
-frontend/dist/fonts/roboto-latin-300italic.4df32891.woff
-frontend/dist/fonts/roboto-latin-300italic.14286f3b.woff2
-frontend/dist/fonts/roboto-latin-400.60fa3c06.woff
-frontend/dist/fonts/roboto-latin-400.479970ff.woff2
-frontend/dist/fonts/roboto-latin-400italic.51521a2a.woff2
-frontend/dist/fonts/roboto-latin-400italic.fe65b833.woff
-frontend/dist/fonts/roboto-latin-500.020c97dc.woff2
-frontend/dist/fonts/roboto-latin-500.87284894.woff
-frontend/dist/fonts/roboto-latin-500italic.288ad9c6.woff
-frontend/dist/fonts/roboto-latin-500italic.db4a2a23.woff2
-frontend/dist/fonts/roboto-latin-700.2735a3a6.woff2
-frontend/dist/fonts/roboto-latin-700.adcde98f.woff
-frontend/dist/fonts/roboto-latin-700italic.81f57861.woff
-frontend/dist/fonts/roboto-latin-700italic.da0e7178.woff2
-frontend/dist/fonts/roboto-latin-900.9b3766ef.woff2
-frontend/dist/fonts/roboto-latin-900.bb1e4dc6.woff
-frontend/dist/fonts/roboto-latin-900italic.28f91510.woff
-frontend/dist/fonts/roboto-latin-900italic.ebf6d164.woff2
-frontend/dist/js/app.36f2760c.js
-frontend/dist/js/app.36f2760c.js.map
-frontend/dist/js/chunk-vendors.c93761e4.js
-frontend/dist/js/chunk-vendors.c93761e4.js.map
+dev/data/backups/dev_sample_data*.zip
+!dev/data/backups/test*.zip
+dev/data/recipes/*
+dev/scripts/output/app_routes.py
+dev/scripts/output/javascriptAPI/*

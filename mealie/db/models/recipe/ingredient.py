@@ -1,13 +1,91 @@
-import sqlalchemy as sa
-from mealie.db.models.model_base import SqlAlchemyBase
+from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from requests import Session
+from sqlalchemy import Column, ForeignKey, Integer, String, Table, orm
+
+ingredients_to_units = Table(
+    "ingredients_to_units",
+    SqlAlchemyBase.metadata,
+    Column("ingredient_units.id", Integer, ForeignKey("ingredient_units.id")),
+    Column("recipes_ingredients_id", Integer, ForeignKey("recipes_ingredients.id")),
+)
+
+ingredients_to_foods = Table(
+    "ingredients_to_foods",
+    SqlAlchemyBase.metadata,
+    Column("ingredient_foods.id", Integer, ForeignKey("ingredient_foods.id")),
+    Column("recipes_ingredients_id", Integer, ForeignKey("recipes_ingredients.id")),
+)
+
+
+class IngredientUnit(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "ingredient_units"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    description = Column(String)
+    ingredients = orm.relationship("RecipeIngredient", secondary=ingredients_to_units, back_populates="unit")
+
+    def __init__(self, name: str, description: str = None) -> None:
+        self.name = name
+        self.description = description
+
+    @classmethod
+    def get_ref_or_create(cls, session: Session, obj: dict):
+        # sourcery skip: flip-comparison
+        if obj is None:
+            return None
+
+        name = obj.get("name")
+
+        unit = session.query(cls).filter("name" == name).one_or_none()
+
+        if not unit:
+            return cls(**obj)
+
+
+class IngredientFood(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "ingredient_foods"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    description = Column(String)
+    ingredients = orm.relationship("RecipeIngredient", secondary=ingredients_to_foods, back_populates="food")
+
+    def __init__(self, name: str, description: str = None) -> None:
+        self.name = name
+        self.description = description
+
+    @classmethod
+    def get_ref_or_create(cls, session: Session, obj: dict):
+        # sourcery skip: flip-comparison
+        if obj is None:
+            return None
+
+        name = obj.get("name")
+
+        unit = session.query(cls).filter("name" == name).one_or_none()
+
+        if not unit:
+            return cls(**obj)
 
 
 class RecipeIngredient(SqlAlchemyBase):
     __tablename__ = "recipes_ingredients"
-    id = sa.Column(sa.Integer, primary_key=True)
-    position = sa.Column(sa.Integer)
-    parent_id = sa.Column(sa.String, sa.ForeignKey("recipes.id"))
-    ingredient = sa.Column(sa.String)
+    id = Column(Integer, primary_key=True)
+    position = Column(Integer)
+    parent_id = Column(Integer, ForeignKey("recipes.id"))
 
-    def update(self, ingredient):
-        self.ingredient = ingredient
+    title = Column(String)  # Section Header - Shows if Present
+    note = Column(String)  # Force Show Text - Overrides Concat
+
+    # Scaling Items
+    unit = orm.relationship(IngredientUnit, secondary=ingredients_to_units, uselist=False)
+    food = orm.relationship(IngredientFood, secondary=ingredients_to_foods, uselist=False)
+    quantity = Column(Integer)
+
+    # Extras
+
+    def __init__(self, title: str, note: str, unit: dict, food: dict, quantity: int, session: Session, **_) -> None:
+        self.title = title
+        self.note = note
+        self.unit = IngredientUnit.get_ref_or_create(session, unit)
+        self.food = IngredientFood.get_ref_or_create(session, food)
+        self.quantity = quantity

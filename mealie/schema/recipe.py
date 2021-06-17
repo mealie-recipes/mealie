@@ -1,10 +1,26 @@
 import datetime
-from typing import Any, List, Optional
+from pathlib import Path
+from typing import Any, Optional
 
+from fastapi_camelcase import CamelModel
+from mealie.core.config import app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
-from pydantic import BaseModel, validator
+from mealie.schema.comments import CommentOut
+from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
+
+
+class RecipeSettings(CamelModel):
+    public: bool = True
+    show_nutrition: bool = True
+    show_assets: bool = True
+    landscape_view: bool = True
+    disable_comments: bool = False
+    disable_amount: bool = False
+
+    class Config:
+        orm_mode = True
 
 
 class RecipeNote(BaseModel):
@@ -15,34 +31,73 @@ class RecipeNote(BaseModel):
         orm_mode = True
 
 
-class RecipeStep(BaseModel):
+class RecipeStep(CamelModel):
+    title: Optional[str] = ""
     text: str
 
     class Config:
         orm_mode = True
 
 
-class Nutrition(BaseModel):
-    calories: Optional[str]
-    fatContent: Optional[str]
-    fiberContent: Optional[str]
-    proteinContent: Optional[str]
-    sodiumContent: Optional[str]
-    sugarContent: Optional[str]
+class RecipeAsset(CamelModel):
+    name: str
+    icon: str
+    file_name: Optional[str]
 
     class Config:
         orm_mode = True
 
 
-class RecipeSummary(BaseModel):
-    name: str
-    slug: Optional[str] = ""
+class Nutrition(CamelModel):
+    calories: Optional[str]
+    fat_content: Optional[str]
+    protein_content: Optional[str]
+    carbohydrate_content: Optional[str]
+    fiber_content: Optional[str]
+    sodium_content: Optional[str]
+    sugar_content: Optional[str]
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeIngredientFood(CamelModel):
+    name: str = ""
+    description: str = ""
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeIngredientUnit(RecipeIngredientFood):
+    pass
+
+
+class RecipeIngredient(CamelModel):
+    title: Optional[str]
+    note: Optional[str]
+    unit: Optional[RecipeIngredientUnit]
+    food: Optional[RecipeIngredientFood]
+    disable_amount: bool = True
+    quantity: int = 1
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeSummary(CamelModel):
+    id: Optional[int]
+    name: Optional[str]
+    slug: str = ""
     image: Optional[Any]
 
     description: Optional[str]
-    recipeCategory: Optional[List[str]] = []
-    tags: Optional[List[str]] = []
+    recipe_category: Optional[list[str]] = []
+    tags: Optional[list[str]] = []
     rating: Optional[int]
+
+    date_added: Optional[datetime.date]
+    date_updated: Optional[datetime.datetime]
 
     class Config:
         orm_mode = True
@@ -51,27 +106,52 @@ class RecipeSummary(BaseModel):
         def getter_dict(_cls, name_orm: RecipeModel):
             return {
                 **GetterDict(name_orm),
-                "recipeCategory": [x.name for x in name_orm.recipeCategory],
+                "recipe_category": [x.name for x in name_orm.recipe_category],
                 "tags": [x.name for x in name_orm.tags],
             }
 
 
 class Recipe(RecipeSummary):
-    recipeYield: Optional[str]
-    recipeIngredient: Optional[list[str]]
-    recipeInstructions: Optional[list[RecipeStep]]
+    recipe_yield: Optional[str]
+    recipe_ingredient: Optional[list[RecipeIngredient]]
+    recipe_instructions: Optional[list[RecipeStep]]
     nutrition: Optional[Nutrition]
     tools: Optional[list[str]] = []
 
-    totalTime: Optional[str] = None
-    prepTime: Optional[str] = None
-    performTime: Optional[str] = None
+    total_time: Optional[str] = None
+    prep_time: Optional[str] = None
+    perform_time: Optional[str] = None
 
     # Mealie Specific
-    dateAdded: Optional[datetime.date]
-    notes: Optional[List[RecipeNote]] = []
-    orgURL: Optional[str]
+    settings: Optional[RecipeSettings]
+    assets: Optional[list[RecipeAsset]] = []
+    notes: Optional[list[RecipeNote]] = []
+    org_url: Optional[str] = Field(None, alias="orgURL")
     extras: Optional[dict] = {}
+
+    comments: Optional[list[CommentOut]] = []
+
+    @staticmethod
+    def directory_from_slug(slug) -> Path:
+        return app_dirs.RECIPE_DATA_DIR.joinpath(slug)
+
+    @property
+    def directory(self) -> Path:
+        dir = app_dirs.RECIPE_DATA_DIR.joinpath(self.slug)
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
+
+    @property
+    def asset_dir(self) -> Path:
+        dir = self.directory.joinpath("assets")
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
+
+    @property
+    def image_dir(self) -> Path:
+        dir = self.directory.joinpath("images")
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
 
     class Config:
         orm_mode = True
@@ -80,8 +160,8 @@ class Recipe(RecipeSummary):
         def getter_dict(_cls, name_orm: RecipeModel):
             return {
                 **GetterDict(name_orm),
-                "recipeIngredient": [x.ingredient for x in name_orm.recipeIngredient],
-                "recipeCategory": [x.name for x in name_orm.recipeCategory],
+                # "recipe_ingredient": [x.note for x in name_orm.recipe_ingredient],
+                "recipe_category": [x.name for x in name_orm.recipe_category],
                 "tags": [x.name for x in name_orm.tags],
                 "tools": [x.tool for x in name_orm.tools],
                 "extras": {x.key_name: x.value for x in name_orm.extras},
@@ -92,22 +172,22 @@ class Recipe(RecipeSummary):
                 "name": "Chicken and Rice With Leeks and Salsa Verde",
                 "description": "This one-skillet dinner gets deep oniony flavor from lots of leeks cooked down to jammy tenderness.",
                 "image": "chicken-and-rice-with-leeks-and-salsa-verde.jpg",
-                "recipeYield": "4 Servings",
-                "recipeIngredient": [
+                "recipe_yield": "4 Servings",
+                "recipe_ingredient": [
                     "1 1/2 lb. skinless, boneless chicken thighs (4-8 depending on size)",
                     "Kosher salt, freshly ground pepper",
                     "3 Tbsp. unsalted butter, divided",
                 ],
-                "recipeInstructions": [
+                "recipe_instructions": [
                     {
                         "text": "Season chicken with salt and pepper.",
                     },
                 ],
                 "slug": "chicken-and-rice-with-leeks-and-salsa-verde",
                 "tags": ["favorite", "yummy!"],
-                "recipeCategory": ["Dinner", "Pasta"],
+                "recipe_category": ["Dinner", "Pasta"],
                 "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
-                "orgURL": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
+                "org_url": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
                 "rating": 3,
                 "extras": {"message": "Don't forget to defrost the chicken!"},
             }
@@ -115,6 +195,8 @@ class Recipe(RecipeSummary):
 
     @validator("slug", always=True, pre=True)
     def validate_slug(slug: str, values):
+        if not values["name"]:
+            return slug
         name: str = values["name"]
         calc_slug: str = slugify(name)
 
@@ -123,9 +205,19 @@ class Recipe(RecipeSummary):
 
         return slug
 
+    @validator("recipe_ingredient", always=True, pre=True)
+    def validate_ingredients(recipe_ingredient, values):
+        if not recipe_ingredient or not isinstance(recipe_ingredient, list):
+            return recipe_ingredient
+
+        if all(isinstance(elem, str) for elem in recipe_ingredient):
+            return [RecipeIngredient(note=x) for x in recipe_ingredient]
+
+        return recipe_ingredient
+
 
 class AllRecipeRequest(BaseModel):
-    properties: List[str]
+    properties: list[str]
     limit: Optional[int]
 
     class Config:
