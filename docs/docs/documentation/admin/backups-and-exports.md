@@ -3,7 +3,7 @@
 All recipe data can be imported and exported as necessary from the UI. Under the admin page you'll find the section for using Backups and Exports. 
 
 !!! danger
-    As this is still a **BETA** It is recommended that you backup your data often and store in more than one place. Ad-hear to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup){:target="_blank"}. Prior to upgrading you **should** perform a backup to limit any data loss.
+    As this is still a **BETA** it is recommended that you backup your data often and store in more than one place. Adhere to backup best practices with the [3-2-1 Backup Rule](https://en.wikipedia.org/wiki/Backup){:target="_blank"}. Prior to upgrading you **should** perform a backup to limit any data loss.
 
 !!! tip "Mealie data that is saved on backups"
     - [x] Recipe Data
@@ -15,7 +15,7 @@ All recipe data can be imported and exported as necessary from the UI. Under the
 
 To create an export simply add the tag and the markdown template and click "Create" and your backup will be created on the server. The backup is a standard zipfile containing all the images, json files, and rendered jinaj2 templates for each recipe. To view the available variables, open a recipe in the json editor.
 
-To import a backup it must be in your backups folder. If it is in the backup folder it will automatically show up as a source to restore from. Selected the desired backup and import the backup file. Backups can be uploaded from the UI as well as added on the file system
+To import a backup it must be in your backups folder. If it is in the backup folder it will automatically show up as a source to restore from. Selected the desired backup and import the backup file. Backups can be uploaded from the UI as well as added on the file system.
 
 ## Demo
 
@@ -60,7 +60,7 @@ wget http://localhost:9000/api/utils/download?token={fileToken}
 
 
 ## Jinja2 Templating
-On export you can select a template to use to render files using the jinja2 syntax. This can be done to export recipes in other formats besides regular .json.Look at this example for rendering a markdown recipe using the jinja2 syntax. 
+On export you can select a template to use to render files using the jinja2 syntax. This can be done to export recipes in other formats besides regular .json. Look at this example for rendering a markdown recipe using the jinja2 syntax. 
 
 ### Input
 ```jinja2
@@ -128,4 +128,4 @@ Categories: []
 Original URL: https://www.bonappetit.com/recipe/five-spice-popcorn-chicken#intcid=_bon-appetit-recipe-bottom-recirc_3cad5ce9-734a-46f8-b503-78c33d2e7279_similar2-3
 ```
 
-If you decide you don't like mealie. This is a good way to export into a format that can be imported into another. 
+If you decide you don't like mealie: This is a good way to export into a format that can be imported into another. 

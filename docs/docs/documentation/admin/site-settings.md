@@ -1,5 +1,5 @@
 # Site Settings 
-Your sites settings panel can only be accessed by administrators. This where you can customize your site for all users.
+Your sites settings panel can only be accessed by administrators. This is where you can customize your site for all users.
 
 ## Home Page Settings
 | Option                | Description                                                                                                   |
@@ -12,8 +12,4 @@ Your sites settings panel can only be accessed by administrators. This where you
 | Custom Pages          | Create a [custom page](../admin/building-pages.md) which appears in the sidebar with the categories you chose |
 
 ![Site Settings Image](../../assets/img/site-settings.webp)
-
-
-
-
 
