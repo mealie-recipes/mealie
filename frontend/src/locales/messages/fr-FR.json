@@ -4,7 +4,7 @@
     "take-me-home": "Retour à l'accueil"
   },
   "about": {
-    "about": "About",
+    "about": "À propos",
     "about-mealie": "À propos de Mealie",
     "api-docs": "Docs API",
     "api-port": "Port de l'API",
@@ -46,8 +46,8 @@
     "something-went-wrong": "Une erreur s'est produite !",
     "subscribed-events": "Événements suivis",
     "test-message-sent": "Message de test envoyé",
-    "refresh": "Refresh",
-    "new-version": "New version available!"
+    "refresh": "Rafraîchir",
+    "new-version": "Nouvelle version disponible !"
   },
   "general": {
     "apply": "Appliquer",
@@ -70,7 +70,7 @@
     "exception": "Exception",
     "failed-count": "Échec : {count}",
     "failure-uploading-file": "Échec de l'envoi du fichier",
-    "favorites": "Favorites",
+    "favorites": "Favoris",
     "field-required": "Champ obligatoire",
     "file-folder-not-found": "Fichier/dossier introuvable",
     "file-uploaded": "Fichier envoyé",
@@ -154,7 +154,7 @@
     "edit-meal-plan": "Modifier le menu",
     "end-date": "Date de fin",
     "group": "Regrouper (Bêta)",
-    "main": "Main",
+    "main": "Plat",
     "meal-planner": "Menus",
     "meal-plans": "Menus",
     "mealplan-categories": "CATÉGORIES DES MENUS",
@@ -170,8 +170,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans les menus",
     "planner": "Planificateur",
     "quick-week": "Semaine rapide",
-    "side": "Side",
-    "sides": "Sides",
+    "side": "Accompagnement",
+    "sides": "Accompagnements",
     "start-date": "Date de début"
   },
   "migration": {
@@ -219,8 +219,8 @@
     "calories-suffix": "calories",
     "carbohydrate-content": "Glucides",
     "categories": "Catégories",
-    "comment-action": "Comment",
-    "comments": "Comments",
+    "comment-action": "Commenter",
+    "comments": "Commentaires",
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
@@ -231,7 +231,7 @@
     "grams": "grammes",
     "ingredient": "Ingrédient",
     "ingredients": "Ingrédients",
-    "insert-section": "Insert Section",
+    "insert-section": "Insérer une section",
     "instructions": "Instructions",
     "key-name-required": "Un nom de clé est requis",
     "landscape-view-coming-soon": "Vue paysage (bientôt disponible)",
@@ -259,8 +259,8 @@
     "recipe-update-failed": "La mise à jour de la recette a échoué",
     "recipe-updated": "Recette mise à jour",
     "remove-from-favorites": "Supprimer des favoris",
-    "remove-section": "Remove Section",
-    "section-title": "Section Title",
+    "remove-section": "Supprimer une section",
+    "section-title": "Titre de la section",
     "servings": "Portions",
     "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
     "show-assets": "Afficher les ressources",
@@ -274,16 +274,16 @@
     "view-recipe": "Voir la recette"
   },
   "reicpe": {
-    "no-recipe": "No Recipe"
+    "no-recipe": "Pas de recette"
   },
   "search": {
-    "advanced-search": "Advanced Search",
+    "advanced-search": "Recherche avancée",
     "and": "et",
     "exclude": "Exclure",
     "include": "Inclure",
     "max-results": "Résultats max",
     "or": "Ou",
-    "results": "Results",
+    "results": "Résultats",
     "search": "Rechercher",
     "search-mealie": "Rechercher dans Mealie (appuyez sur /)",
     "search-placeholder": "Rechercher...",

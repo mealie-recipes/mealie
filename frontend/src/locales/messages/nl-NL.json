@@ -4,7 +4,7 @@
     "take-me-home": "Breng me terug naar de Startpagina"
   },
   "about": {
-    "about": "About",
+    "about": "Over",
     "about-mealie": "Over Mealie",
     "api-docs": "API-documentatie",
     "api-port": "API Poort",
@@ -46,8 +46,8 @@
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde Events",
     "test-message-sent": "Testbericht verzonden",
-    "refresh": "Refresh",
-    "new-version": "New version available!"
+    "refresh": "Vernieuwen",
+    "new-version": "Nieuwe versie beschikbaar!"
   },
   "general": {
     "apply": "Toepassen",
@@ -70,7 +70,7 @@
     "exception": "Uitzondering",
     "failed-count": "Mislukt: {count}",
     "failure-uploading-file": "Bestand uploaden mislukt",
-    "favorites": "Favorites",
+    "favorites": "Favorieten",
     "field-required": "Verplicht veld",
     "file-folder-not-found": "Bestand/map niet gevonden",
     "file-uploaded": "Bestand geüpload",
@@ -154,7 +154,7 @@
     "edit-meal-plan": "Maaltijdplan bewerken",
     "end-date": "Einddatum",
     "group": "Groeperen (Beta)",
-    "main": "Main",
+    "main": "Hoofd",
     "meal-planner": "Maaltijd planner",
     "meal-plans": "Maaltijd plannen",
     "mealplan-categories": "MAALTIJDPLAN CATEGORIEËN",
@@ -219,8 +219,8 @@
     "calories-suffix": "calorieën",
     "carbohydrate-content": "Koolhydraten",
     "categories": "Categorieën",
-    "comment-action": "Comment",
-    "comments": "Comments",
+    "comment-action": "Opmerking",
+    "comments": "Opmerkingen",
     "delete-confirmation": "Weet je zeker dat je dit recept wilt verwijderen?",
     "delete-recipe": "Recept verwijderen",
     "description": "Omschrijving",
@@ -231,7 +231,7 @@
     "grams": "gram",
     "ingredient": "Ingrediënt",
     "ingredients": "Ingrediënten",
-    "insert-section": "Insert Section",
+    "insert-section": "Sectie Invoegen",
     "instructions": "Instructies",
     "key-name-required": "Sleutelnaam vereist",
     "landscape-view-coming-soon": "Landschapsweergave (binnenkort beschikbaar)",
@@ -259,8 +259,8 @@
     "recipe-update-failed": "Recept bijwerken mislukt",
     "recipe-updated": "Recept bijgewerkt",
     "remove-from-favorites": "Verwijder uit Favorieten",
-    "remove-section": "Remove Section",
-    "section-title": "Section Title",
+    "remove-section": "Sectie Verwijderen",
+    "section-title": "Sectietitel",
     "servings": "Porties",
     "share-recipe-message": "Ik wou mijn {0} recept met je delen.",
     "show-assets": "Toon Bijlagen",
@@ -274,16 +274,16 @@
     "view-recipe": "Bekijk Recept"
   },
   "reicpe": {
-    "no-recipe": "No Recipe"
+    "no-recipe": "Geen Recept"
   },
   "search": {
-    "advanced-search": "Advanced Search",
+    "advanced-search": "Geavanceerd Zoeken",
     "and": "en",
     "exclude": "Exclusief",
     "include": "Inclusief",
     "max-results": "Max. resultaten",
     "or": "Of",
-    "results": "Results",
+    "results": "Resultaten",
     "search": "Zoek",
     "search-mealie": "Zoek Mealie (druk /)",
     "search-placeholder": "Zoeken...",
