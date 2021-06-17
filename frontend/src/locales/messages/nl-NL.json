@@ -154,7 +154,7 @@
     "edit-meal-plan": "Maaltijdplan bewerken",
     "end-date": "Einddatum",
     "group": "Groeperen (Beta)",
-    "main": "Hoofd",
+    "main": "Hoofdgerecht",
     "meal-planner": "Maaltijd planner",
     "meal-plans": "Maaltijd plannen",
     "mealplan-categories": "MAALTIJDPLAN CATEGORIEËN",
@@ -170,8 +170,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
     "planner": "Planner",
     "quick-week": "Snelle Week",
-    "side": "Side",
-    "sides": "Sides",
+    "side": "Bijgerecht",
+    "sides": "Bijgerechten",
     "start-date": "Begindatum"
   },
   "migration": {
