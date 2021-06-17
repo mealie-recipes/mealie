@@ -189,7 +189,7 @@
   },
   "new-recipe": {
     "bulk-add": "Lägg till flera",
-    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Endast webbplatser som innehåller ld+json eller mikrodata kan importeras av Mealie. De flesta större receptwebbplatser stöder denna datastruktur. Om din webbplats inte kan importeras men det finns json data i loggen, skicka in en github problem med URL och data.",
     "error-title": "Vi hittade inget",
     "from-url": "Från länk",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
