@@ -6,9 +6,9 @@
 [![Docker Pulls][docker-pull]][docker-pull]
 [![CodeFactor](https://www.codefactor.io/repository/github/hay-kot/mealie/badge)](https://www.codefactor.io/repository/github/hay-kot/mealie)
 [![Docker Build Production](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.release.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.release.yml)
-[![Project Tests Production](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml)
+[![Project Tests Production](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
 [![Docker Build Dev](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml)
-[![Project Tests Dev](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/pytest.yml)
+[![Project Tests Dev](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
 
 <!-- PROJECT LOGO -->
 <br />

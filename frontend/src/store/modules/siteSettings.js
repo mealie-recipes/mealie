@@ -1,6 +1,5 @@
 import { api } from "@/api";
-import VueI18n from "@/i18n";
-import Vuetify from "@/plugins/vuetify";
+import { loadLanguageAsync } from "@/i18n"
 
 const state = {
   siteSettings: {
@@ -16,8 +15,7 @@ const state = {
 const mutations = {
   setSettings(state, payload) {
     state.siteSettings = payload;
-    VueI18n.locale = payload.language;
-    Vuetify.framework.lang.current = payload.language;
+    loadLanguageAsync(payload.language);
   },
   setCustomPages(state, payload) {
     state.customPages = payload;

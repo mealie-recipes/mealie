@@ -43,7 +43,10 @@
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent"
+    "test-message-sent": "Test Message Sent",
+    "refresh": "Refresh",
+    "new-version": "New version available!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "cancel": "Cancel",
@@ -293,7 +296,8 @@
       "full-backup": "Full Backup",
       "import-summary": "Import Summary",
       "partial-backup": "Partial Backup",
-      "unable-to-delete-backup": "Unable to Delete Backup."
+      "unable-to-delete-backup": "Unable to Delete Backup.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Backups",
     "change-password": "Change Password",
