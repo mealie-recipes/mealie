@@ -1,7 +1,7 @@
 <template>
   <div>
     <The404>
-      <h1 class="mx-auto">No Recipe Found</h1>
+      <h1 class="mx-auto">{{ $t('general.no-recipe-found') }}</h1>
     </The404>
   </div>
 </template>
