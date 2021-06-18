@@ -47,7 +47,8 @@
     "subscribed-events": "Prenumererade händelser",
     "test-message-sent": "Test meddelande skickat",
     "refresh": "Uppdatera",
-    "new-version": "Uppdatering tillgänglig!"
+    "new-version": "Uppdatering tillgänglig!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Utför",
@@ -303,7 +304,8 @@
       "full-backup": "Komplett backup",
       "import-summary": "Import sammanfattning",
       "partial-backup": "Partiell backup",
-      "unable-to-delete-backup": "Kan inte radera backup."
+      "unable-to-delete-backup": "Kan inte radera backup.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Backuper",
     "backup-info": "Säkerhetskopior exporteras i JSON-format tillsammans med de bilder som finns i systemet. I din mapp för säkerhetskopior finner du en zip-fil som innehåller alla recept i JSON samt bilder från databasen. Om du dessutom valde att exportera till markdown så hittas också de i samma zip-fil. För att importera en säkerhetskopia så måste den ligga i din backup-mapp. Automatisk säkerhetskopiering genomförs varje dag kl. 03:00.",
