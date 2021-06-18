@@ -7,10 +7,10 @@ from tests.app_routes import AppRoutes
 
 
 @pytest.fixture()
-def active_link(api_client: TestClient, api_routes: AppRoutes, token):
+def active_link(api_client: TestClient, api_routes: AppRoutes, admin_token):
     data = {"name": "Fixture Token", "admin": True}
 
-    response = api_client.post(api_routes.users_sign_ups, json=data, headers=token)
+    response = api_client.post(api_routes.users_sign_ups, json=data, headers=admin_token)
 
     return SignUpToken(**json.loads(response.text))
 
@@ -26,10 +26,10 @@ def sign_up_user():
     }
 
 
-def test_create_sign_up_link(api_client: TestClient, api_routes: AppRoutes, token):
+def test_create_sign_up_link(api_client: TestClient, api_routes: AppRoutes, admin_token):
     data = {"name": "Test Token", "admin": False}
 
-    response = api_client.post(api_routes.users_sign_ups, json=data, headers=token)
+    response = api_client.post(api_routes.users_sign_ups, json=data, headers=admin_token)
     assert response.status_code == 200
 
 
@@ -47,11 +47,11 @@ def test_new_user_signup(api_client: TestClient, api_routes: AppRoutes, active_l
 
 
 def test_delete_sign_up_link(
-    api_client: TestClient, api_routes: AppRoutes, token, active_link: SignUpToken, sign_up_user
+    api_client: TestClient, api_routes: AppRoutes, admin_token, active_link: SignUpToken, sign_up_user
 ):
-    response = api_client.delete(api_routes.users_sign_ups_token(active_link.token), headers=token)
+    response = api_client.delete(api_routes.users_sign_ups_token(active_link.token), headers=admin_token)
     assert response.status_code == 200
 
-    # Validate Token is Gone
-    response = api_client.get(api_routes.users_sign_ups, headers=token)
+    # Validate admin_token is Gone
+    response = api_client.get(api_routes.users_sign_ups, headers=admin_token)
     assert sign_up_user not in json.loads(response.content)

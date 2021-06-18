@@ -19,11 +19,11 @@ def test_default_settings(api_client: TestClient, api_routes: AppRoutes, default
     assert json.loads(response.content) == default_settings
 
 
-def test_update_settings(api_client: TestClient, api_routes: AppRoutes, default_settings, token):
+def test_update_settings(api_client: TestClient, api_routes: AppRoutes, default_settings, admin_token):
     default_settings["language"] = "fr"
     default_settings["showRecent"] = False
 
-    response = api_client.put(api_routes.site_settings, json=default_settings, headers=token)
+    response = api_client.put(api_routes.site_settings, json=default_settings, headers=admin_token)
 
     assert response.status_code == 200
 

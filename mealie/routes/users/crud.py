@@ -75,9 +75,19 @@ async def update_user(
     session: Session = Depends(generate_session),
 ):
 
-    token = None
-    if current_user.id == id or current_user.admin:
-        db.users.update(session, id, new_data.dict())
+    if current_user.id != id and not current_user.admin:
+        # only admins can edit other users
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+
+    if not current_user.admin and new_data.admin:
+        # prevent a regular user from promoting themself to admin
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+        
+    if current_user.id == id and current_user.admin and not new_data.admin:
+        # prevent an admin from demoting themself
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+    db.users.update(session, id, new_data.dict())
     if current_user.id == id:
         access_token = security.create_access_token(data=dict(sub=new_data.email))
         token = {"access_token": access_token, "token_type": "bearer"}

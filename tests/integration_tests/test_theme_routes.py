@@ -34,12 +34,12 @@ def test_default_theme(api_client: TestClient, api_routes: AppRoutes, default_th
     assert json.loads(response.content) == default_theme
 
 
-def test_create_theme(api_client: TestClient, api_routes: AppRoutes, new_theme, token):
+def test_create_theme(api_client: TestClient, api_routes: AppRoutes, new_theme, user_token):
 
-    response = api_client.post(api_routes.themes_create, json=new_theme, headers=token)
+    response = api_client.post(api_routes.themes_create, json=new_theme, headers=user_token)
     assert response.status_code == 201
 
-    response = api_client.get(api_routes.themes_id(new_theme.get("id")), headers=token)
+    response = api_client.get(api_routes.themes_id(new_theme.get("id")), headers=user_token)
     assert response.status_code == 200
     assert json.loads(response.content) == new_theme
 
@@ -59,7 +59,7 @@ def test_read_theme(api_client: TestClient, api_routes: AppRoutes, default_theme
         assert json.loads(response.content) == theme
 
 
-def test_update_theme(api_client: TestClient, api_routes: AppRoutes, token, new_theme):
+def test_update_theme(api_client: TestClient, api_routes: AppRoutes, user_token, new_theme):
     theme_colors = {
         "primary": "#E12345",
         "accent": "#012345",
@@ -72,14 +72,14 @@ def test_update_theme(api_client: TestClient, api_routes: AppRoutes, token, new_
 
     new_theme["colors"] = theme_colors
     new_theme["name"] = "New Theme Name"
-    response = api_client.put(api_routes.themes_id(new_theme.get("id")), json=new_theme, headers=token)
+    response = api_client.put(api_routes.themes_id(new_theme.get("id")), json=new_theme, headers=user_token)
     assert response.status_code == 200
     response = api_client.get(api_routes.themes_id(new_theme.get("id")))
     assert json.loads(response.content) == new_theme
 
 
-def test_delete_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme, token):
+def test_delete_theme(api_client: TestClient, api_routes: AppRoutes, default_theme, new_theme, user_token):
     for theme in [default_theme, new_theme]:
-        response = api_client.delete(api_routes.themes_id(theme.get("id")), headers=token)
+        response = api_client.delete(api_routes.themes_id(theme.get("id")), headers=user_token)
 
         assert response.status_code == 200
