@@ -47,7 +47,8 @@
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
     "refresh": "Refresh",
-    "new-version": "New version available!"
+    "new-version": "New version available!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Apply",
@@ -302,7 +303,8 @@
       "full-backup": "Full Backup",
       "import-summary": "Import Summary",
       "partial-backup": "Partial Backup",
-      "unable-to-delete-backup": "Unable to Delete Backup."
+      "unable-to-delete-backup": "Unable to Delete Backup.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Backups",
     "backup-info": "Backups are exported in standard JSON format along with all the images stored on the file system. In your backup folder you'll find a .zip file that contains all of the recipe JSON and images from the database. Additionally, if you selected a markdown file, those will also be stored in the .zip file. To import a backup, it must be located in your backups folder. Automated backups are done each day at 3:00 AM.",
