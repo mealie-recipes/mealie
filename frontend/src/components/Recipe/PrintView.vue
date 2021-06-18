@@ -109,7 +109,7 @@ ul {
   -webkit-flex-flow: wrap column;
   flex-flow: wrap column;
   max-height: 300px;
-  column-gap: 20px;
+  column-gap: 25px;
 }
 
 li {
