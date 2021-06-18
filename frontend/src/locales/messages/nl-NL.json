@@ -44,7 +44,7 @@
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde Events",
     "test-message-sent": "Testbericht verzonden",
-    "delete-event": "Delete Event"
+    "delete-event": "Evenement Verwijderen"
   },
   "general": {
     "cancel": "Annuleren",
@@ -120,7 +120,7 @@
     "view": "Bekijken",
     "wednesday": "Woensdag",
     "yes": "Ja",
-    "no-recipe-found": "No Recipe Found"
+    "no-recipe-found": "Geen Recept Gevonden"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wilt verwijderen?",
@@ -295,7 +295,7 @@
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke Back-up",
       "unable-to-delete-backup": "Back-up verwijderen niet mogelijk.",
-      "delete-backup": "Delete Backup"
+      "delete-backup": "Back-up Verwijderen"
     },
     "backup-and-exports": "Backups",
     "change-password": "Wachtwoord wijzigen",
