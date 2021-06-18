@@ -47,7 +47,8 @@
     "subscribed-events": "Geabonneerde Events",
     "test-message-sent": "Testbericht verzonden",
     "refresh": "Vernieuwen",
-    "new-version": "Nieuwe versie beschikbaar!"
+    "new-version": "Nieuwe versie beschikbaar!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Toepassen",
@@ -303,7 +304,8 @@
       "full-backup": "Volledige Back-up",
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke Back-up",
-      "unable-to-delete-backup": "Back-up verwijderen niet mogelijk."
+      "unable-to-delete-backup": "Back-up verwijderen niet mogelijk.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Backups",
     "backup-info": "Back-ups worden geëxporteerd in standaard JSON-formaat, samen met alle afbeeldingen opgeslagen op het bestandssysteem. In de back-upmap vind je een .zip-bestand dat alle recepten JSON en afbeeldingen uit de database bevat. Bovendien, als je een markdown bestand hebt geselecteerd, worden deze ook opgeslagen in het .zip-bestand. Om een back-up te importeren, moet deze in de map van de back-ups staan. Elke dag om 3:00 AM worden er back-ups geautomatiseerd.",
