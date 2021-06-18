@@ -47,7 +47,8 @@
     "subscribed-events": "Événements suivis",
     "test-message-sent": "Message de test envoyé",
     "refresh": "Rafraîchir",
-    "new-version": "Nouvelle version disponible !"
+    "new-version": "Nouvelle version disponible !",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Appliquer",
@@ -303,7 +304,8 @@
       "full-backup": "Sauvegarde complète",
       "import-summary": "Résumé de l'importation",
       "partial-backup": "Sauvegarde partielle",
-      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde."
+      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Sauvegardes",
     "backup-info": "Les sauvegardes sont exportées en format JSON standard, ainsi que toutes les images stockées sur le système. Dans votre dossier de sauvegarde, vous trouverez un dossier .zip qui contient toutes les recettes en JSON et les images de la base de données. De plus, si vous avez sélectionné le format de fichier markdown, il sera sauvegardé dans le même dossier .zip. Pour importer une sauvegarde, celle-ci doit être enregistrée dans votre dossier de sauvegardes. Une sauvegarde automatique est effectuée quotidiennement à 03h00.",

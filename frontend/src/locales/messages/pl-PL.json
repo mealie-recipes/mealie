@@ -47,7 +47,8 @@
     "subscribed-events": "Zasubskrybowane wydarzenia",
     "test-message-sent": "Wiadomość została wysłana",
     "refresh": "Odśwież",
-    "new-version": "Dostępna jest nowa wersja!"
+    "new-version": "Dostępna jest nowa wersja!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Zastosuj",
@@ -303,7 +304,8 @@
       "full-backup": "Pełna kopia zapasowa",
       "import-summary": "Import Summary",
       "partial-backup": "Częściowa kopia zapasowa",
-      "unable-to-delete-backup": "Unable to Delete Backup."
+      "unable-to-delete-backup": "Unable to Delete Backup.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Kopie zapasowe",
     "backup-info": "Kopie zapasowe zapisywane są w standardowym formacie JSON wraz ze zdjęciami w systemie plików. W katalogu kopii zapasowej znajdziesz plik z rozszerzeniem .zip zawierający wszystkie przepisy i zdjęcia z bazy danych. Jeśli zaznaczone zostały pliki markdown, one także znajdą się w pliku .zip. Aby zaimportować kopię, musi ona znajdować się w folderze kopii zapasowych. Kopie automatyczne tworzone są codziennie o godzinie 03:00.",

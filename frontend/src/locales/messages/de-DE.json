@@ -47,7 +47,8 @@
     "subscribed-events": "Abonnierte Ereignisse",
     "test-message-sent": "Testnachricht gesendet",
     "refresh": "Refresh",
-    "new-version": "Neue Version verfügbar!"
+    "new-version": "Neue Version verfügbar!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Anwenden",
@@ -303,7 +304,8 @@
       "full-backup": "Komplettsicherung",
       "import-summary": "Zusammenfassung des Imports",
       "partial-backup": "Teilsicherung",
-      "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden."
+      "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Sicherungen",
     "backup-info": "Sicherungen werden mitsamt aller Bilder im Standard-JSON-Format in das Dateisystem exportiert. In deinem Sicherungsordner findest du eine ZIP Datei, welche sämtliche JSON's deiner Rezepte und die Bilder aus der Datenbank enthält. Solltest du eine Markdown Datei auswählen werden diese ebenfalls im ZIP gespeichert. Um eine Sicherung zurückzuspielen muss die entsprechende ZIP-Datei im Sicherungsordner liegen. Automatische Sicherungen finden jeden Tag um 3 Uhr morgens statt.",

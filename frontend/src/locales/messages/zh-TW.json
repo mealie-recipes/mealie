@@ -47,7 +47,8 @@
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
     "refresh": "Refresh",
-    "new-version": "New version available!"
+    "new-version": "New version available!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Apply",
@@ -303,7 +304,8 @@
       "full-backup": "完整備份",
       "import-summary": "Import Summary",
       "partial-backup": "部分備份",
-      "unable-to-delete-backup": "Unable to Delete Backup."
+      "unable-to-delete-backup": "Unable to Delete Backup.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "備份",
     "backup-info": "備份以標準JSON格式導出，並連同儲存在系統文件中的所有圖像。在備份文件夾中，您將找到一個.zip文件，其中包含數據庫中的所有食譜JSON和圖像。此外，如果您選擇了Markdown文件，這些文件也將一併儲存在.zip文件中。當需要要導入備份，它必須位於您的備份文件夾中。每天3:00 AM將進行自動備份。",

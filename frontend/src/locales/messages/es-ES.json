@@ -47,7 +47,8 @@
     "subscribed-events": "Eventos suscritos",
     "test-message-sent": "Mensaje Enviado",
     "refresh": "Actualizar",
-    "new-version": "¡Nueva versión disponible!"
+    "new-version": "¡Nueva versión disponible!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Aplicar",
@@ -303,7 +304,8 @@
       "full-backup": "Copia de seguridad completa",
       "import-summary": "Importar resumen",
       "partial-backup": "Copia de seguridad parcial",
-      "unable-to-delete-backup": "No se puede eliminar la copia de seguridad."
+      "unable-to-delete-backup": "No se puede eliminar la copia de seguridad.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Copias de Seguridad",
     "backup-info": "Las copias de seguridad se exportan en formato JSON estándar junto con todas las imágenes almacenadas en el sistema de archivos. En su carpeta de copia de seguridad encontrará un archivo .zip que contiene todos los JSON de la receta y las imágenes de la base de datos. Adicionalmente, si seleccionó un archivo markdown, también se almacenarán en el archivo .zip. Para importar una copia de seguridad, debe ubicarse en la carpeta de copias de seguridad. Las copias de seguridad automatizadas se realizan cada día a las 3:00 AM.",
