@@ -8,6 +8,14 @@
       @import="importBackup"
       @delete="deleteBackup"
     />
+    <ConfirmationDialog
+      :title="$t('settings.backup.delete-backup')"
+      :message="$t('general.confirm-delete-generic')"
+      color="error"
+      :icon="$globals.icons.alertCircle"
+      ref="deleteBackupConfirm"
+      v-on:confirm="emitDelete()"
+    />
     <StatCard :icon="$globals.icons.backupRestore" :color="color">
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
@@ -37,7 +45,7 @@
       <template v-slot:bottom>
         <v-virtual-scroll height="290" item-height="70" :items="availableBackups">
           <template v-slot:default="{ item }">
-            <v-list-item @click.prevent="openDialog(item)">
+            <v-list-item @click.prevent="openDialog(item, btnEvent.IMPORT_EVENT)">
               <v-list-item-avatar>
                 <v-icon large dark :color="color">
                   {{ $globals.icons.database }}
@@ -53,7 +61,7 @@
               </v-list-item-content>
 
               <v-list-item-action class="ml-auto">
-                <v-btn large icon @click.stop="deleteBackup(item.name)">
+                <v-btn large icon @click.stop="openDialog(item, btnEvent.DELETE_EVENT)">
                   <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </v-list-item-action>
@@ -68,12 +76,16 @@
 <script>
 import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import ImportSummaryDialog from "@/components/ImportSummaryDialog";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
 import StatCard from "@/components/UI/StatCard";
 import BackupDialog from "@/components/UI/Dialogs/BackupDialog";
 import ImportDialog from "@/components/UI/Dialogs/ImportDialog";
+const IMPORT_EVENT = "import";
+const DELETE_EVENT = "delete";
+
 export default {
-  components: { StatCard, ImportDialog, TheUploadBtn, ImportSummaryDialog, BackupDialog },
+  components: { StatCard, ImportDialog, TheUploadBtn, ImportSummaryDialog, BackupDialog, ConfirmationDialog },
   data() {
     return {
       color: "accent",
@@ -82,6 +94,7 @@ export default {
       loading: false,
       events: [],
       availableBackups: [],
+      btnEvent: { IMPORT_EVENT, DELETE_EVENT },
     };
   },
   computed: {
@@ -105,10 +118,18 @@ export default {
       this.getAvailableBackups();
     },
 
-    openDialog(backup) {
+    openDialog(backup, event) {
       this.selectedDate = backup.date;
       this.selectedName = backup.name;
-      this.$refs.import_dialog.open();
+
+      switch (event) {
+        case IMPORT_EVENT:
+          this.$refs.import_dialog.open();
+          break;
+        case DELETE_EVENT:
+          this.$refs.deleteBackupConfirm.open();
+          break;
+      }
     },
 
     async importBackup(data) {
@@ -128,6 +149,10 @@ export default {
         this.getAvailableBackups();
       }
       this.loading = false;
+    },
+
+    emitDelete() {
+      this.deleteBackup(this.selectedName);
     },
   },
 };
