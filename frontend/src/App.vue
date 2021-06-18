@@ -48,32 +48,16 @@ export default {
     },
   },
 
-  async mounted() {
+  async created() {
+    // Initial API Requests
     this.$store.dispatch("initTheme");
-    this.$store.dispatch("requestRecentRecipes");
     this.$store.dispatch("refreshToken");
-    this.$store.dispatch("requestCurrentGroup");
     this.$store.dispatch("requestUserData");
-    this.$store.dispatch("requestCategories");
+    this.$store.dispatch("requestCurrentGroup");
     this.$store.dispatch("requestTags");
-    this.darkModeSystemCheck();
-    this.darkModeAddEventListener();
     this.$store.dispatch("requestAppInfo");
-    this.$store.dispatch("requestCustomPages");
     this.$store.dispatch("requestSiteSettings");
-  },
 
-  data() {
-    return {
-      refreshing: false,
-      registration: null,
-      snackBtnText: "",
-      snackWithBtnText: "",
-      snackWithButtons: false,
-    };
-  },
-
-  created() {
     // Listen for swUpdated event and display refresh snackbar as required.
     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
     // Refresh all open app tabs when a new service worker is installed.
@@ -84,6 +68,21 @@ export default {
         window.location.reload();
       });
     }
+  },
+
+  mounted() {
+    this.darkModeSystemCheck();
+    this.darkModeAddEventListener();
+  },
+
+  data() {
+    return {
+      refreshing: false,
+      registration: null,
+      snackBtnText: "",
+      snackWithBtnText: "",
+      snackWithButtons: false,
+    };
   },
 
   methods: {

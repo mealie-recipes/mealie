@@ -160,7 +160,7 @@ export default {
     },
   },
 
-  async mounted() {
+  async created() {
     this.getTodaysMeal();
     await this.$store.dispatch("requestCurrentGroup");
     this.getSiteSettings();

@@ -78,14 +78,20 @@ export default {
       hideImage: false,
     };
   },
-  mounted() {
-    this.getVersion();
-
+  created() {
     this.showSidebar = !this.isMobile;
   },
+
   watch: {
     user() {
       this.hideImage = false;
+    },
+    isMain(val) {
+      if (val) {
+        this.$store.dispatch("requestCustomPages");
+      } else {
+        this.getVersion();
+      }
     },
   },
 

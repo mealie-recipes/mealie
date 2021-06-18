@@ -34,7 +34,7 @@ export default {
       }
     },
   },
-  async mounted() {
+  async created() {
     this.userData = await api.users.getFavorites(this.$route.params.id);
     this.sortedResults = [];
   },

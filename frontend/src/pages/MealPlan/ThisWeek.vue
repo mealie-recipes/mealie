@@ -45,7 +45,7 @@ export default {
       mealPlan: {},
     };
   },
-  async mounted() {
+  async created() {
     if (this.mealplanId) {
       this.mealPlan = await api.mealPlans.getById(this.mealplanId);
     } else {

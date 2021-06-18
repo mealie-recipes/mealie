@@ -72,6 +72,13 @@ export default {
       selected: [],
     };
   },
+  async created() {
+    if (this.tagSelector) {
+      this.$store.dispatch("requestTags");
+    } else {
+      this.$store.dispatch("requestCategories");
+    }
+  },
   mounted() {
     this.$emit(MOUNTED_EVENT);
     this.setInit(this.value);

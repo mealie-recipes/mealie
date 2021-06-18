@@ -101,7 +101,7 @@ export default {
     plannedMeals: [],
     editMealPlan: null,
   }),
-  async mounted() {
+  async created() {
     this.requestMeals();
   },
   methods: {

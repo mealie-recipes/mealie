@@ -75,7 +75,7 @@ export default {
       prettyInfo: [],
     };
   },
-  async mounted() {
+  async created() {
     await this.getInfo();
   },
   methods: {
