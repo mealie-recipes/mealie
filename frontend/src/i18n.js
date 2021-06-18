@@ -5,26 +5,7 @@ import axios from 'axios';
 
 Vue.use(VueI18n);
 
-function parseLocaleFiles(locales) {
-  const messages = {};
-  locales.keys().forEach(key => {
-    const matched = key.match(/([A-Za-z0-9-_]+)\./i);
-    if (matched && matched.length > 1) {
-      const locale = matched[1];
-      messages[locale] = locales(key);
-    }
-  });
-  return messages;
-}
-
-function loadDateTimeFormats() {
-  const locales = require.context("./locales/dateTimeFormats", true, /[A-Za-z0-9-_,\s]+\.json$/i);
-  return parseLocaleFiles(locales);
-}
-
-const i18n = new VueI18n({
-  dateTimeFormats: loadDateTimeFormats(),
-});
+const i18n = new VueI18n();
 
 export default i18n;
 
@@ -48,10 +29,14 @@ export function loadLanguageAsync(lang) {
   if (loadedLanguages.includes(lang)) {
     return Promise.resolve(setI18nLanguage(lang))
   }
+
+  const messages = import(`./locales/messages/${lang}.json`);
+  const dateTimeFormats = import(`./locales/dateTimeFormats/${lang}.json`);
   
-   return import(`./locales/messages/${lang}.json`).then(
-    messages => {
-      i18n.setLocaleMessage(lang, messages.default)
+  return Promise.all([messages, dateTimeFormats]).then(
+    values  => {
+      i18n.setLocaleMessage(lang, values[0].default)
+      i18n.setDateTimeFormat(lang, values[1].default)
       loadedLanguages.push(lang)
       return setI18nLanguage(lang)
     }
