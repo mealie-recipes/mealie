@@ -44,7 +44,7 @@
     "something-went-wrong": "Etwas ist schief gelaufen!",
     "subscribed-events": "Abonnierte Ereignisse",
     "test-message-sent": "Testnachricht gesendet",
-    "delete-event": "Delete Event"
+    "delete-event": "Ereignis löschen"
   },
   "general": {
     "cancel": "Abbrechen",
@@ -120,7 +120,7 @@
     "view": "Ansicht",
     "wednesday": "Mittwoch",
     "yes": "Ja",
-    "no-recipe-found": "No Recipe Found"
+    "no-recipe-found": "Kein Rezept gefunden"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -295,7 +295,7 @@
       "import-summary": "Zusammenfassung des Imports",
       "partial-backup": "Teilsicherung",
       "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden.",
-      "delete-backup": "Delete Backup"
+      "delete-backup": "Sicherung löschen"
     },
     "backup-and-exports": "Sicherungen",
     "change-password": "Passwort ändern",
