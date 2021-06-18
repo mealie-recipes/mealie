@@ -3,7 +3,7 @@
     <CardSection
       title-icon="mdi-none"
       v-if="siteSettings.showRecent"
-      :title="$t('page.recent')"
+      :title="$t('general.recent')"
       :recipes="recentRecipes"
       :hard-limit="siteSettings.cardsPerSection"
     />
