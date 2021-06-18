@@ -157,7 +157,7 @@ export default {
       ],
     };
   },
-  mounted() {
+  created() {
     this.getAllNotifications();
   },
   computed: {

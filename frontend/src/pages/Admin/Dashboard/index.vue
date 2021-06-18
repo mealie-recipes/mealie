@@ -105,7 +105,7 @@ export default {
       },
     };
   },
-  mounted() {
+  created() {
     this.getStatistics();
   },
   methods: {

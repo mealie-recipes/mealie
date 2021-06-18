@@ -30,7 +30,7 @@ export default {
       ],
     };
   },
-  mounted() {
+  created() {
     this.selectedItem = this.$store.getters.getActiveLang;
   },
   computed: {

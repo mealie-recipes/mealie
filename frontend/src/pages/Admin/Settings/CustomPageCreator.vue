@@ -90,7 +90,7 @@ export default {
       },
     };
   },
-  async mounted() {
+  async created() {
     this.getPages();
   },
   methods: {

@@ -89,7 +89,7 @@ export default {
       return this.availableBackups.length;
     },
   },
-  mounted() {
+  created() {
     this.getAvailableBackups();
   },
   methods: {

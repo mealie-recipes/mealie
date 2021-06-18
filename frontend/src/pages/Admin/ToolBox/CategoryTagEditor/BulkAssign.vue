@@ -67,7 +67,7 @@ export default {
       tagsToAssign: [],
     };
   },
-  mounted() {
+  created() {
     this.$store.dispatch("requestAllRecipes");
   },
   watch: {

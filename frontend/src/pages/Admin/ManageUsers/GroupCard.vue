@@ -76,7 +76,7 @@ export default {
       return this.group.users.length >= 1 ? true : false;
     },
   },
-  mounted() {
+  created() {
     this.buildData();
   },
   methods: {

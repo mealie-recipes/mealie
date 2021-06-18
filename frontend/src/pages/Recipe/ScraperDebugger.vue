@@ -28,7 +28,7 @@ export default {
       defaultMessage: { details: "site failed to return valid schema" },
     };
   },
-  mounted() {
+  created() {
     if (this.$route.query.test_url) {
       this.getTestData();
     }

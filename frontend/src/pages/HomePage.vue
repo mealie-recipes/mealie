@@ -33,6 +33,11 @@ export default {
       recipeByCategory: [],
     };
   },
+  async created() {
+    await this.$store.dispatch("requestRecentRecipes");
+    await this.buildPage();
+    this.recipeByCategory.sort((a, b) => a.position - b.position);
+  },
   computed: {
     siteSettings() {
       return this.$store.getters.getSiteSettings;
@@ -41,10 +46,7 @@ export default {
       return this.$store.getters.getRecentRecipes;
     },
   },
-  async mounted() {
-    await this.buildPage();
-    this.recipeByCategory.sort((a, b) => a.position - b.position);
-  },
+
   methods: {
     async buildPage() {
       await this.$store.dispatch("requestSiteSettings");

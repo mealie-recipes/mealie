@@ -130,12 +130,13 @@ export default {
     };
   },
 
-  async mounted() {
-    await this.getRecipeDetails();
-
+  created() {
+    this.getRecipeDetails();
     this.jsonEditor = false;
     this.form = this.$route.query.edit === "true" && this.loggedIn;
+  },
 
+  async mounted() {
     this.checkPrintRecipe();
   },
 

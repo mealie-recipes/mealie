@@ -122,7 +122,7 @@ export default {
       }
     },
   },
-  async mounted() {
+  async created() {
     await this.$store.dispatch("requestCurrentGroup");
     await this.$store.dispatch("requestAllRecipes");
     await this.buildMealStore();
