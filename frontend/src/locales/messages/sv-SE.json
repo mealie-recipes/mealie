@@ -74,7 +74,7 @@
     "friday": "Fredag",
     "general": "Allmänt",
     "get": "Hämta",
-    "home": "Home",
+    "home": "Startsida",
     "image": "Bild",
     "image-upload-failed": "Bild uppladdning misslyckad",
     "import": "Importera",
@@ -120,7 +120,7 @@
     "view": "Visa",
     "wednesday": "Onsdag",
     "yes": "Ja",
-    "no-recipe-found": "No Recipe Found"
+    "no-recipe-found": "Inga recept hittades"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
