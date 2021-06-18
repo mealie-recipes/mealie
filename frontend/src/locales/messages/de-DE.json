@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404 Seite nicht gefunden",
-    "take-me-home": "Zurück"
-  },
   "about": {
     "about": "Über",
     "about-mealie": "Über Mealie",
@@ -41,17 +37,16 @@
     "apprise-url": "Apprise URL",
     "database": "Datenbank",
     "new-notification-form-description": "Mealie verwendet die Apprise-Bibliothek, um Benachrichtigungen zu erzeugen. Sie bietet viele Optionen für Dienste an, die für Benachrichtigungen genutzt werden können. Werfe einen Blick in ihr Wiki für eine umfassende Anleitung zum Erstellen der URL für Ihren Dienst. Falls verfügbar, kann die Auswahl des Benachrichtigungstyps zusätzliche Funktionen enthalten.",
+    "new-version": "Neue Version verfügbar!",
     "notification": "Benachrichtigung",
+    "refresh": "Refresh",
     "scheduled": "Geplant",
     "something-went-wrong": "Etwas ist schief gelaufen!",
     "subscribed-events": "Abonnierte Ereignisse",
     "test-message-sent": "Testnachricht gesendet",
-    "refresh": "Refresh",
-    "new-version": "Neue Version verfügbar!",
     "delete-event": "Delete Event"
   },
   "general": {
-    "apply": "Anwenden",
     "cancel": "Abbrechen",
     "clear": "Zurücksetzen",
     "close": "Schließen",
@@ -79,15 +74,14 @@
     "friday": "Freitag",
     "general": "Allgemein",
     "get": "Holen",
+    "home": "Home",
     "image": "Bild",
     "image-upload-failed": "Das Bild konnte nicht hochgeladen werden",
     "import": "Importieren",
     "json": "JSON",
     "keyword": "Keyword",
-    "link": "Link",
     "link-copied": "Link kopiert",
     "monday": "Montag",
-    "more": "More",
     "name": "Name",
     "new": "Neu",
     "no": "Nein",
@@ -125,7 +119,8 @@
     "url": "URL",
     "view": "Ansicht",
     "wednesday": "Mittwoch",
-    "yes": "Ja"
+    "yes": "Ja",
+    "no-recipe-found": "No Recipe Found"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -141,7 +136,6 @@
     "group-name": "Name der Gruppe",
     "group-not-found": "Gruppe nicht gefunden",
     "groups": "Gruppen",
-    "groups-can-only-be-set-by-administrators": "Gruppen können nur von Administratoren gesetzt werden",
     "manage-groups": "Gruppen verwalten",
     "user-group": "Benutzergruppe",
     "user-group-created": "Benutzergruppe angelegt",
@@ -208,8 +202,7 @@
     "page-update-failed": "Aktualisieren der Seite fehlgeschlagen",
     "page-updated": "Seite aktualisiert",
     "pages-update-failed": "Aktualisieren der Seiten fehlgeschlagen",
-    "pages-updated": "Seiten aktualisiert",
-    "recent": "Neueste"
+    "pages-updated": "Seiten aktualisiert"
   },
   "recipe": {
     "add-key": "Schlüssel hinzufügen",
@@ -241,7 +234,6 @@
     "new-key-name": "Neuer Schlüsselname",
     "no-white-space-allowed": "Kein Leerzeichen erlaubt",
     "note": "Notiz",
-    "notes": "Notizen",
     "nutrition": "Nährwerte",
     "object-key": "Objektschlüssel",
     "object-value": "Objektwert",
@@ -272,8 +264,7 @@
     "sugar-content": "Zucker",
     "title": "Titel",
     "total-time": "Gesamtzeit",
-    "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden",
-    "view-recipe": "Rezept anschauen"
+    "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden"
   },
   "reicpe": {
     "no-recipe": "Kein Rezept"
@@ -294,7 +285,6 @@
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
     "admin-settings": "Admin Einstellungen",
-    "available-backups": "Verfügbare Sicherungen",
     "backup": {
       "backup-created-at-response-export_path": "Sicherung erstellt unter {path}",
       "backup-deleted": "Sicherung gelöscht",
@@ -308,7 +298,6 @@
       "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Sicherungen",
-    "backup-info": "Sicherungen werden mitsamt aller Bilder im Standard-JSON-Format in das Dateisystem exportiert. In deinem Sicherungsordner findest du eine ZIP Datei, welche sämtliche JSON's deiner Rezepte und die Bilder aus der Datenbank enthält. Solltest du eine Markdown Datei auswählen werden diese ebenfalls im ZIP gespeichert. Um eine Sicherung zurückzuspielen muss die entsprechende ZIP-Datei im Sicherungsordner liegen. Automatische Sicherungen finden jeden Tag um 3 Uhr morgens statt.",
     "change-password": "Passwort ändern",
     "current": "Version:",
     "custom-pages": "Benutzerdefinierte Seiten",
@@ -341,12 +330,8 @@
     "site-settings": "Seiteneinstellungen",
     "theme": {
       "accent": "Akzent",
-      "are-you-sure-you-want-to-delete-this-theme": "Bist du dir sicher, dass du dieses Thema löschen möchtest?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Entscheide, wie Mealie für dich aussehen soll. Wähle die Einstellung deines Systems oder bestimme ob es Hell oder Dunkel dargestellt werden soll.",
       "dark": "Dunkel",
-      "dark-mode": "Dunkler Modus",
       "default-to-system": "Standardeinstellung",
-      "delete-theme": "Thema löschen",
       "error": "Fehler",
       "error-creating-theme-see-log-file": "Fehler beim Erstellen des Themas. Siehe Protokolldatei.",
       "error-deleting-theme": "Fehler beim Löschen des Themas",
@@ -364,7 +349,6 @@
       "theme-name": "Themenname",
       "theme-name-is-required": "Themenname wird benötigt.",
       "theme-saved": "Thema gespeichert",
-      "theme-settings": "Themeneinstellungen",
       "theme-updated": "Thema aktualisiert",
       "warning": "Warnung"
     },
@@ -388,7 +372,6 @@
       "unorganized": "Unorganisiert"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Essensplaner Webhooks",
       "test-webhooks": "Teste Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Die unten stehenden URL's erhalten Webhooks welche die Rezeptdaten für den Menüplan am geplanten Tag enthalten. Derzeit werden die Webhooks ausgeführt um",
       "webhook-url": "Webhook URL",
@@ -406,7 +389,6 @@
     "shopping-lists": "Einkaufslisten"
   },
   "signup": {
-    "display-name": "Anzeigename",
     "error-signing-up": "Fehler beim Registrieren",
     "sign-up": "Registrieren",
     "sign-up-link-created": "Einladungslink angelegt",
@@ -443,7 +425,6 @@
     "error-cannot-delete-super-user": "Fehler! Super Benutzer kann nicht gelöscht werden",
     "existing-password-does-not-match": "Bestehendes Passwort stimmt nicht überein",
     "full-name": "Vollständiger Name",
-    "incorrect-username-or-password": "Ungültiger Benutzername oder Passwort",
     "link-id": "Linkkennung",
     "link-name": "Linkname",
     "login": "Anmeldung",
