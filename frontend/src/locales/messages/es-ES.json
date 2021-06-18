@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "Página no encontrada",
-    "take-me-home": "Ir a Inicio"
-  },
   "about": {
     "about": "Acerca de",
     "about-mealie": "Acerca de Mealie",
@@ -41,17 +37,16 @@
     "apprise-url": "URL de aviso",
     "database": "Base de Datos",
     "new-notification-form-description": "Mealie utiliza la biblioteca Apprise para generar notificaciones. Ofrecen muchas opciones para que los servicios se usen para notificaciones. Consulte su wiki para obtener una guía completa sobre cómo crear la URL para su servicio. Si está disponible, seleccionar el tipo de notificación puede incluir características extra.",
+    "new-version": "¡Nueva versión disponible!",
     "notification": "Notificación",
+    "refresh": "Actualizar",
     "scheduled": "Programado",
     "something-went-wrong": "¡Algo salió mal!",
     "subscribed-events": "Eventos suscritos",
     "test-message-sent": "Mensaje Enviado",
-    "refresh": "Actualizar",
-    "new-version": "¡Nueva versión disponible!",
     "delete-event": "Delete Event"
   },
   "general": {
-    "apply": "Aplicar",
     "cancel": "Cancelar",
     "clear": "Eliminar",
     "close": "Cerrar",
@@ -79,15 +74,14 @@
     "friday": "Viernes",
     "general": "General",
     "get": "Obtener",
+    "home": "Home",
     "image": "Imagen",
     "image-upload-failed": "Error al subir la imagen",
     "import": "Importar",
     "json": "JSON",
     "keyword": "Etiqueta",
-    "link": "Enlace",
     "link-copied": "Enlace copiado",
     "monday": "Lunes",
-    "more": "Más",
     "name": "Nombre",
     "new": "Nuevo",
     "no": "No",
@@ -125,7 +119,8 @@
     "url": "URL",
     "view": "Ver",
     "wednesday": "Miércoles",
-    "yes": "Si"
+    "yes": "Si",
+    "no-recipe-found": "No Recipe Found"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -141,7 +136,6 @@
     "group-name": "Nombre del Grupo",
     "group-not-found": "Grupo no encontrado",
     "groups": "Grupos",
-    "groups-can-only-be-set-by-administrators": "Los grupos sólo pueden ser establecidos por administradores",
     "manage-groups": "Administrar grupos",
     "user-group": "Grupo de usuarios",
     "user-group-created": "Grupo de usuarios creado",
@@ -208,8 +202,7 @@
     "page-update-failed": "Error al actualizar la página",
     "page-updated": "Página actualizada",
     "pages-update-failed": "Fallo al actualizar las páginas",
-    "pages-updated": "Páginas actualizadas",
-    "recent": "Reciente"
+    "pages-updated": "Páginas actualizadas"
   },
   "recipe": {
     "add-key": "Añadir Clave",
@@ -241,7 +234,6 @@
     "new-key-name": "Nuevo nombre de clave",
     "no-white-space-allowed": "No se permite espacio en blanco",
     "note": "Nota",
-    "notes": "Notas",
     "nutrition": "Nutrición",
     "object-key": "Clave de objeto",
     "object-value": "Valor del objeto",
@@ -272,8 +264,7 @@
     "sugar-content": "Azúcar",
     "title": "Título",
     "total-time": "Tiempo total",
-    "unable-to-delete-recipe": "No se puede eliminar la receta",
-    "view-recipe": "Ver Receta"
+    "unable-to-delete-recipe": "No se puede eliminar la receta"
   },
   "reicpe": {
     "no-recipe": "Sin Receta"
@@ -294,7 +285,6 @@
   "settings": {
     "add-a-new-theme": "Añadir un nuevo tema",
     "admin-settings": "Configuración del Administrador",
-    "available-backups": "Copias de seguridad disponibles",
     "backup": {
       "backup-created-at-response-export_path": "Copia de seguridad creada en {path}",
       "backup-deleted": "Copia de seguridad eliminada",
@@ -308,7 +298,6 @@
       "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Copias de Seguridad",
-    "backup-info": "Las copias de seguridad se exportan en formato JSON estándar junto con todas las imágenes almacenadas en el sistema de archivos. En su carpeta de copia de seguridad encontrará un archivo .zip que contiene todos los JSON de la receta y las imágenes de la base de datos. Adicionalmente, si seleccionó un archivo markdown, también se almacenarán en el archivo .zip. Para importar una copia de seguridad, debe ubicarse en la carpeta de copias de seguridad. Las copias de seguridad automatizadas se realizan cada día a las 3:00 AM.",
     "change-password": "Cambia Contraseña",
     "current": "Versión:",
     "custom-pages": "Páginas Personalizadas",
@@ -341,12 +330,8 @@
     "site-settings": "Configuración del sitio",
     "theme": {
       "accent": "Destacado",
-      "are-you-sure-you-want-to-delete-this-theme": "¿Está seguro de que desea eliminar este tema?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Elija cómo se le ve Mealie. Establezca la preferencia de su tema para seguir los ajustes de su sistema, o elija usar el tema claro o oscuro.",
       "dark": "Oscuro",
-      "dark-mode": "Modo oscuro",
       "default-to-system": "Sistema por defecto",
-      "delete-theme": "Eliminar tema",
       "error": "Error",
       "error-creating-theme-see-log-file": "Error al crear el tema. Ver archivo de registro.",
       "error-deleting-theme": "Error al eliminar el tema",
@@ -364,7 +349,6 @@
       "theme-name": "Nombre del tema",
       "theme-name-is-required": "Se requiere el nombre del tema.",
       "theme-saved": "Tema guardado",
-      "theme-settings": "Ajustes del tema",
       "theme-updated": "Tema actualizado",
       "warning": "Aviso"
     },
@@ -388,7 +372,6 @@
       "unorganized": "Sin organizar"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Webhooks del Menú",
       "test-webhooks": "Probar Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Las URLs que se muestran a continuación recibirán webhooks que contienen los datos de la receta para el menú del día programado. Actualmente los Webhooks se ejecutarán en",
       "webhook-url": "Dirección URL del Webhook",
@@ -406,7 +389,6 @@
     "shopping-lists": "Listas de la compra"
   },
   "signup": {
-    "display-name": "Mostrar nombre",
     "error-signing-up": "Error al registrarse",
     "sign-up": "Registrarse",
     "sign-up-link-created": "Enlace de registro creado",
@@ -443,7 +425,6 @@
     "error-cannot-delete-super-user": "¡Error! No se puede eliminar el Super Usuario",
     "existing-password-does-not-match": "La contraseña actual no coincide",
     "full-name": "Nombre completo",
-    "incorrect-username-or-password": "Nombre de usuario o contraseña incorrectos",
     "link-id": "Link ID",
     "link-name": "Link Name",
     "login": "Iniciar sesión",
