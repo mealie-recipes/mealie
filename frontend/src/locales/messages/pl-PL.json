@@ -150,11 +150,11 @@
     "create-a-new-meal-plan": "Utwórz nowy plan posiłku",
     "dinner-this-week": "Obiad w tym tygodniu",
     "dinner-today": "Obiad dziś",
-    "dinner-tonight": "DINNER TONIGHT",
+    "dinner-tonight": "OBIAD DZIŚ",
     "edit-meal-plan": "Edytuj plan posiłku",
     "end-date": "Data zakończenia",
     "group": "Grupa (Beta)",
-    "main": "Main",
+    "main": "Główne",
     "meal-planner": "Plan posiłków",
     "meal-plans": "Plany posiłku",
     "mealplan-categories": "MEALPLAN CATEGORIES",
@@ -170,8 +170,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Tylko przepisy z tych kategorii będą używane w planach posiłków",
     "planner": "Planer",
     "quick-week": "Szybki plan na tydzień",
-    "side": "Side",
-    "sides": "Sides",
+    "side": "Przystawka",
+    "sides": "Przystawki",
     "start-date": "Data rozpoczęcia"
   },
   "migration": {
@@ -179,9 +179,9 @@
       "description": "Przenieś dane z Chowdown",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Migration data removed",
+    "migration-data-removed": "Dane migracji usunięte",
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
+      "description": "Przenieś dane z Nextcloud Cookbook",
       "title": "Nextcloud Cookbook"
     },
     "no-migration-data-available": "No Migration Data Available",
@@ -200,19 +200,19 @@
     "all-recipes": "Wszystkie przepisy",
     "home-page": "Strona Główna",
     "new-page-created": "New page created",
-    "page": "Page",
-    "page-creation-failed": "Page creation failed",
-    "page-deleted": "Page deleted",
-    "page-deletion-failed": "Page deletion failed",
-    "page-update-failed": "Page update failed",
-    "page-updated": "Page updated",
-    "pages-update-failed": "Pages update failed",
-    "pages-updated": "Pages updated",
+    "page": "Strona",
+    "page-creation-failed": "Utworzenie strony nie powiodło się",
+    "page-deleted": "Strona usunięta",
+    "page-deletion-failed": "Usunięcie strony nie powiodło się",
+    "page-update-failed": "Aktualizacja strony nie powiodła się",
+    "page-updated": "Strona została zaktualizowana",
+    "pages-update-failed": "Aktualizacja strony nie powiodła się",
+    "pages-updated": "Strony zostały zaktualizowane",
     "recent": "Najnowsze"
   },
   "recipe": {
     "add-key": "Dodaj klucz",
-    "add-to-favorites": "Add to Favorites",
+    "add-to-favorites": "Dodaj do ulubionych",
     "api-extras": "Dodatki API",
     "assets": "Assets",
     "calories": "Kalorie",
@@ -220,7 +220,7 @@
     "carbohydrate-content": "Węglowodany",
     "categories": "Kategorie",
     "comment-action": "Comment",
-    "comments": "Comments",
+    "comments": "Komentarze",
     "delete-confirmation": "Czy jesteś pewien, że chcesz usunąć ten przepis?",
     "delete-recipe": "Usuń przepis",
     "description": "Opis",
@@ -283,7 +283,7 @@
     "include": "Dołącz",
     "max-results": "Maksymalna liczba wyników",
     "or": "Lub",
-    "results": "Results",
+    "results": "Wyniki",
     "search": "Szukaj",
     "search-mealie": "Przeszukaj Mealie (naciśnij /)",
     "search-placeholder": "Szukaj...",
@@ -310,7 +310,7 @@
     "current": "Wersja:",
     "custom-pages": "Niestandardowe strony",
     "edit-page": "Edytuj stronę",
-    "events": "Events",
+    "events": "Wydarzenia",
     "first-day-of-week": "Pierwszy dzień tygodnia",
     "group-settings-updated": "Group Settings Updated",
     "homepage": {
@@ -334,7 +334,7 @@
     "remove-existing-entries-matching-imported-entries": "Usuń istniejące wpisy pasujące do importowanych wpisów",
     "set-new-time": "Ustaw nowy czas",
     "settings-update-failed": "Settings update failed",
-    "settings-updated": "Settings updated",
+    "settings-updated": "Ustawienia zostały zaktualizowane",
     "site-settings": "Ustawienia strony",
     "theme": {
       "accent": "Akcent",
@@ -354,8 +354,8 @@
       "secondary": "Drugorzędny",
       "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Wybierz motyw z rozwijanej listy bądź stwórz nowy. Domyślny motyw zostanie użyty dla wszystkich użytkowników którzy nie wybrali własnej preferencji.",
       "success": "Powodzenie",
-      "switch-to-dark-mode": "Switch to dark mode",
-      "switch-to-light-mode": "Switch to light mode",
+      "switch-to-dark-mode": "Przełącz na tryb nocny",
+      "switch-to-light-mode": "Przełącz na tryb dzienny",
       "theme": "Motyw",
       "theme-deleted": "Theme deleted",
       "theme-name": "Nazwa motywu",
@@ -366,12 +366,12 @@
       "warning": "Ostrzeżenie"
     },
     "token": {
-      "active-tokens": "ACTIVE TOKENS",
-      "api-token": "API Token",
-      "api-tokens": "API Tokens",
+      "active-tokens": "AKTYWNE TOKENY",
+      "api-token": "Token API",
+      "api-tokens": "Tokeny API",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
       "create-an-api-token": "Create an API Token",
-      "token-name": "Token Name"
+      "token-name": "Nazwa tokenu"
     },
     "toolbox": {
       "assign-all": "Przypisz wszystkie",
@@ -382,7 +382,7 @@
       "remove-unused": "Usuń nieużywane",
       "title-case-all": "Wszędzie wielkie litery",
       "toolbox": "Przybornik",
-      "unorganized": "Unorganized"
+      "unorganized": "Niezorganizowane"
     },
     "webhooks": {
       "meal-planner-webhooks": "Webhooki planera posiłków",
@@ -395,15 +395,15 @@
   "shopping-list": {
     "all-lists": "All Lists",
     "create-shopping-list": "Create Shopping List",
-    "from-recipe": "From Recipe",
+    "from-recipe": "Z przepisu",
     "list-name": "List Name",
     "new-list": "New List",
-    "quantity": "Quantity: {0}",
-    "shopping-list": "Shopping List",
+    "quantity": "Ilość: {0}",
+    "shopping-list": "Lista zakupów",
     "shopping-lists": "Shopping Lists"
   },
   "signup": {
-    "display-name": "Display Name",
+    "display-name": "Nazwa wyświetlana",
     "error-signing-up": "Error Signing Up",
     "sign-up": "Sign Up",
     "sign-up-link-created": "Sign up link created",
@@ -420,7 +420,7 @@
     "tag-deletion-failed": "Tag deletion failed",
     "tag-update-failed": "Tag update failed",
     "tag-updated": "Tag updated",
-    "tags": "Tags",
+    "tags": "Tagi",
     "untagged-count": "Untagged {count}"
   },
   "user": {
@@ -445,7 +445,7 @@
     "link-name": "Nazwa linku",
     "login": "Login",
     "logout": "Wyloguj się",
-    "manage-users": "Manage Users",
+    "manage-users": "Zarządzaj użytkownikami",
     "new-password": "Nowe Hasło",
     "new-user": "Nowy użytkownik",
     "password": "Hasło",
