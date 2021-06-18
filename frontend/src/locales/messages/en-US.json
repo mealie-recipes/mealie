@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404 Page Not Found",
-    "take-me-home": "Take me Home"
-  },
   "about": {
     "about": "About",
     "about-mealie": "About Mealie",
@@ -41,13 +37,13 @@
     "apprise-url": "Apprise URL",
     "database": "Database",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
+    "new-version": "New version available!",
     "notification": "Notification",
+    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent",
-    "refresh": "Refresh",
-    "new-version": "New version available!"
+    "test-message-sent": "Test Message Sent"
   },
   "general": {
     "apply": "Apply",
@@ -78,6 +74,7 @@
     "friday": "Friday",
     "general": "General",
     "get": "Get",
+    "home": "Home",
     "image": "Image",
     "image-upload-failed": "Image upload failed",
     "import": "Import",
