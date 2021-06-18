@@ -47,7 +47,8 @@
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
     "refresh": "Refresh",
-    "new-version": "New version available!"
+    "new-version": "New version available!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Anvend",
@@ -303,7 +304,8 @@
       "full-backup": "Full Backup",
       "import-summary": "Import Summary",
       "partial-backup": "Partial Backup",
-      "unable-to-delete-backup": "Unable to Delete Backup."
+      "unable-to-delete-backup": "Unable to Delete Backup.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Backup og eksport",
     "backup-info": "Sikkerhedskopier eksporteres i standard JSON-format sammen med alle de billeder, der er gemt på filsystemet. \nI din sikkerhedskopimappe finder du en .zip-fil, der indeholder alle opskrifterne JSON og billeder fra databasen. \nDerudover, hvis du valgte en markdown-fil, gemmes disse også i .zip-filen. \nFor at importere en sikkerhedskopi skal den være placeret i din sikkerhedskopimappe. \nAutomatiske sikkerhedskopier udføres hver dag kl. 3:00.",
