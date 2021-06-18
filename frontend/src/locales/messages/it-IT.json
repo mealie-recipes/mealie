@@ -47,7 +47,8 @@
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
     "refresh": "Refresh",
-    "new-version": "New version available!"
+    "new-version": "New version available!",
+    "delete-event": "Delete Event"
   },
   "general": {
     "apply": "Applica",
@@ -303,7 +304,8 @@
       "full-backup": "Backup Completo",
       "import-summary": "Importa Riepilogo",
       "partial-backup": "Backup Parziale",
-      "unable-to-delete-backup": "Impossibile rimuovere backup."
+      "unable-to-delete-backup": "Impossibile rimuovere backup.",
+      "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Backups",
     "backup-info": "I backup sono esportati in formato standard JSON insieme a tutte le immagine salvate nei file di sistema. Nella tua cartella di backup troverai un file .zip contenente tutto le ricette JSON e immagini del database. In aggiunta, se hai selezionato un file markdown, anche questo verrà salvato nel file .zip. Per importare il backup, deve essere salvato nella cartella di backup. Backup automatici vengono eseguiti ogni giorno alle 03:00.",
