@@ -197,7 +197,7 @@
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori"
   },
   "page": {
-    "all-recipes": "Toutes mes recettes",
+    "all-recipes": "Toutes les recettes",
     "home-page": "Accueil",
     "new-page-created": "Nouvelle page créée",
     "page": "Page",
@@ -260,7 +260,7 @@
     "recipe-updated": "Recette mise à jour",
     "remove-from-favorites": "Supprimer des favoris",
     "remove-section": "Supprimer une section",
-    "save-recipe-before-use": "Save recipe before use",
+    "save-recipe-before-use": "Enregistrez la recette avant utilisation",
     "section-title": "Titre de la section",
     "servings": "Portions",
     "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
