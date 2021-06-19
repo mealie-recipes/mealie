@@ -18,10 +18,12 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
 
-      WEB_CONCURRENCY: 1 # at least 1 worker to run concurrency
-      
-      # WORKERS_PER_CORE: 2 # default = WORKERS_PER_CORE * number of CPUs in the system
-      # MAX_WORKERS: 8 # max workers to run concurrency
+      # WORKERS_PER_CORE: 0.5 # It will set the number of workers to the number of CPU cores multiplied by this value
+      # MAX_WORKERS: 8 # Set the maximum number of workers to use
+
+      WEB_CONCURRENCY: 2 # Override the automatic definition of number of workers
+    tmpfs:
+      - /mem:size=64m,mode=1777,noatime
   postgres:
     container_name: postgres
     image: postgres

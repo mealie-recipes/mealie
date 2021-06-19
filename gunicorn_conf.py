@@ -11,7 +11,7 @@ if max_workers_str:
     use_max_workers = int(max_workers_str)
 web_concurrency_str = os.getenv("WEB_CONCURRENCY", None)
 
-host = os.getenv("HOST", "0.0.0.0")
+host = os.getenv("HOST", "127.0.0.1")  # 0.0.0.0
 port = os.getenv("PORT", "80")
 bind_env = os.getenv("BIND", None)
 use_loglevel = os.getenv("LOG_LEVEL", "info")
@@ -43,7 +43,7 @@ loglevel = use_loglevel
 workers = web_concurrency
 bind = use_bind
 errorlog = use_errorlog
-worker_tmp_dir = "/dev/shm"
+worker_tmp_dir = "/mem"  # "/dev/shm"
 accesslog = use_accesslog
 graceful_timeout = int(graceful_timeout_str)
 timeout = int(timeout_str)
