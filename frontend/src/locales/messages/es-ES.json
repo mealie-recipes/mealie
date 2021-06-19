@@ -41,10 +41,10 @@
     "notification": "Notificación",
     "refresh": "Actualizar",
     "scheduled": "Programado",
-    "something-went-wrong": "¡Algo salió mal!",
+    "something-went-wrong": "¡Algo ha salido mal!",
     "subscribed-events": "Eventos suscritos",
     "test-message-sent": "Mensaje Enviado",
-    "delete-event": "Delete Event"
+    "delete-event": "Borrar evento"
   },
   "general": {
     "cancel": "Cancelar",
@@ -74,7 +74,7 @@
     "friday": "Viernes",
     "general": "General",
     "get": "Obtener",
-    "home": "Home",
+    "home": "Inicio",
     "image": "Imagen",
     "image-upload-failed": "Error al subir la imagen",
     "import": "Importar",
@@ -120,7 +120,7 @@
     "view": "Ver",
     "wednesday": "Miércoles",
     "yes": "Si",
-    "no-recipe-found": "No Recipe Found"
+    "no-recipe-found": "Receta no encontrada"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -295,7 +295,7 @@
       "import-summary": "Importar resumen",
       "partial-backup": "Copia de seguridad parcial",
       "unable-to-delete-backup": "No se puede eliminar la copia de seguridad.",
-      "delete-backup": "Delete Backup"
+      "delete-backup": "Eliminar copia de seguridad"
     },
     "backup-and-exports": "Copias de Seguridad",
     "change-password": "Cambia Contraseña",
