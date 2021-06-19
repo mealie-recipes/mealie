@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -e
+
+# activate our virtual environment here
+. /opt/pysetup/.venv/bin/activate
+
 # Get Reload Arg `run.sh reload` for dev server
 ARG1=${1:-production}
 
