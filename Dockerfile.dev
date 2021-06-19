@@ -21,8 +21,8 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 # Builder Image
 ###############################################
 FROM python-base as builder-base
-RUN apt update \
-    && apt install --no-install-recommends -y \
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
     curl \
     build-essential \
     libpq-dev \
@@ -33,8 +33,8 @@ RUN apt update \
     apt-transport-https \
     && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
     && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list \
-    && apt update \
-    && apt install --no-install-recommends -y \
+    && apt-get update \
+    && apt-get install --no-install-recommends -y \
     caddy \
     && pip install -U pip
 
