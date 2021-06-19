@@ -86,6 +86,7 @@ RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
 COPY --from=frontend-build /app/dist ./dist
 COPY ./dev/data/templates ./data/templates
 COPY ./Caddyfile ./
+COPY ./gunicorn_conf.py ./
 
 #! Future
 # COPY ./alembic ./

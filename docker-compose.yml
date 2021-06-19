@@ -17,6 +17,11 @@ services:
       POSTGRES_SERVER: postgres
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
+
+      WEB_CONCURRENCY: 1 # at least 1 worker to run concurrency
+      
+      # WORKERS_PER_CORE: 2 # default = WORKERS_PER_CORE * number of CPUs in the system
+      # MAX_WORKERS: 8 # max workers to run concurrency
   postgres:
     container_name: postgres
     image: postgres
