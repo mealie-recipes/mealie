@@ -1,59 +1,99 @@
-# build
-FROM node:lts-alpine as build-stage
+###############################################
+# Frontend Builder Image
+###############################################
+FROM node:lts-alpine as frontend-build
 WORKDIR /app
 COPY ./frontend/package*.json ./
 RUN npm install
 COPY ./frontend/ .
 RUN npm run build
 
+###############################################
+# Base Image
+###############################################
+FROM python:3.9-slim as python-base
 
-FROM python:3.9-slim-buster
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_HOME="/opt/poetry" \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1 \
+    PYSETUP_PATH="/opt/pysetup" \
+    VENV_PATH="/opt/pysetup/.venv"
 
-ENV PRODUCTION true
-ENV POETRY_VERSION 1.1.6
+# prepend poetry and venv to path
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc g++ \
+###############################################
+# Builder Image
+###############################################
+FROM python-base as builder-base
+RUN apt update \
+    && apt install --no-install-recommends -y \
     curl \
-    gnupg gnupg2 gnupg1  \
-    apt-transport-https \
-    debian-archive-keyring \
-    debian-keyring \
+    build-essential \
     libpq-dev \
     libwebp-dev \
+    gnupg gnupg2 gnupg1 \
+    debian-keyring \
+    debian-archive-keyring \
+    apt-transport-https \
     && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
-    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee -a /etc/apt/sources.list.d/caddy-stable.list \
-    && apt-get update && apt-get install -y --no-install-recommends \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list \
+    && apt update \
+    && apt install --no-install-recommends -y \
     caddy \
-    && apt autoremove \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get remove -y curl apt-transport-https debian-keyring g++ gnupg gnupg2 gnupg1 
+    && pip install -U pip
 
+# install poetry - respects $POETRY_VERSION & $POETRY_HOME
+ENV POETRY_VERSION=1.1.6
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 
-RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
+# copy project requirement files here to ensure they will be cached.
+WORKDIR $PYSETUP_PATH
+COPY ./poetry.lock ./pyproject.toml ./
 
-# project dependencies
+# install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
+RUN poetry install -E pgsql --no-dev
+
+###############################################
+# Production Image
+###############################################
+FROM python-base as production
+ENV PRODUCTION=true
+
+# copying poetry and venv into image
+COPY --from=builder-base $POETRY_HOME $POETRY_HOME
+COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+
+# copying caddy into image
+COPY --from=builder-base /usr/bin/caddy /usr/bin/caddy
+
 WORKDIR /app
-COPY pyproject.toml poetry.lock /app/
-RUN poetry config virtualenvs.create false
-RUN poetry install -E pgsql --no-dev --no-interaction --no-ansi
 
-COPY ./mealie /app/mealie
-RUN poetry config virtualenvs.create false \
-    && poetry install -E pgsql --no-dev
+# copy backend
+COPY ./mealie ./mealie
+COPY ./poetry.lock ./pyproject.toml ./
+
+# venv already has runtime deps installed we get a quicker install
+# WORKDIR $PYSETUP_PATH
+RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
+
+# copy frontend
+COPY --from=frontend-build /app/dist ./dist
+COPY ./dev/data/templates ./data/templates
+COPY ./Caddyfile ./
 
 #! Future
-# COPY ./alembic /app
-# COPY alembic.ini /app
-COPY ./Caddyfile /app
-COPY ./dev/data/templates /app/data/templates
-
-# frontend build
-COPY --from=build-stage /app/dist /app/dist
+# COPY ./alembic ./
+# COPY ./alembic.ini ./
 
 VOLUME [ "/app/data/" ]
 
 EXPOSE 80
 
-CMD /app/mealie/run.sh
+RUN chmod +x ./mealie/run.sh
+ENTRYPOINT ./mealie/run.sh
