@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404 Pagina Non Trovata",
-    "take-me-home": "Vai alla Home"
-  },
   "about": {
     "about": "About",
     "about-mealie": "Info su Mealie",
@@ -41,17 +37,16 @@
     "apprise-url": "Apprise URL",
     "database": "Database",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
+    "new-version": "New version available!",
     "notification": "Notification",
+    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
-    "refresh": "Refresh",
-    "new-version": "New version available!",
     "delete-event": "Delete Event"
   },
   "general": {
-    "apply": "Applica",
     "cancel": "Cancella",
     "clear": "Clear",
     "close": "Chiudi",
@@ -79,15 +74,14 @@
     "friday": "Venerdì",
     "general": "General",
     "get": "Ottieni",
+    "home": "Home",
     "image": "Immagine",
     "image-upload-failed": "Caricamento immagine fallito",
     "import": "Importa",
     "json": "JSON",
     "keyword": "Parola chiave",
-    "link": "Link",
     "link-copied": "Link Copied",
     "monday": "Lunedì",
-    "more": "More",
     "name": "Nome",
     "new": "New",
     "no": "No",
@@ -125,7 +119,8 @@
     "url": "URL",
     "view": "View",
     "wednesday": "Mercoledì",
-    "yes": "Sì"
+    "yes": "Sì",
+    "no-recipe-found": "No Recipe Found"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -141,7 +136,6 @@
     "group-name": "Nome Gruppo",
     "group-not-found": "Gruppo non trovato",
     "groups": "Gruppi",
-    "groups-can-only-be-set-by-administrators": "I gruppi possono essere impostati solo dagli amministratori",
     "manage-groups": "Manage Groups",
     "user-group": "Gruppo Utente",
     "user-group-created": "Gruppo Utente Creato",
@@ -208,8 +202,7 @@
     "page-update-failed": "Aggiornamento pagina fallito",
     "page-updated": "Pagina aggiornata",
     "pages-update-failed": "Aggiornamento pagine fallito",
-    "pages-updated": "Pagine aggiornate",
-    "recent": "Recente"
+    "pages-updated": "Pagine aggiornate"
   },
   "recipe": {
     "add-key": "Aggiungi Chiave",
@@ -241,7 +234,6 @@
     "new-key-name": "Nuovo Nome Chiave",
     "no-white-space-allowed": "Nessun Spazio Consentito",
     "note": "Nota",
-    "notes": "Note",
     "nutrition": "Nutrienti",
     "object-key": "Chiave Oggetto",
     "object-value": "Valore Oggetto",
@@ -272,8 +264,7 @@
     "sugar-content": "Zuccheri",
     "title": "Titolo",
     "total-time": "Tempo Totale",
-    "unable-to-delete-recipe": "Impossibile eliminare ricetta",
-    "view-recipe": "Vedi Ricetta"
+    "unable-to-delete-recipe": "Impossibile eliminare ricetta"
   },
   "reicpe": {
     "no-recipe": "No Recipe"
@@ -294,7 +285,6 @@
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
     "admin-settings": "Impostazioni Amministratore",
-    "available-backups": "Backups Disponibili",
     "backup": {
       "backup-created-at-response-export_path": "Backup Creato in {path}",
       "backup-deleted": "Backup eliminato",
@@ -308,7 +298,6 @@
       "delete-backup": "Delete Backup"
     },
     "backup-and-exports": "Backups",
-    "backup-info": "I backup sono esportati in formato standard JSON insieme a tutte le immagine salvate nei file di sistema. Nella tua cartella di backup troverai un file .zip contenente tutto le ricette JSON e immagini del database. In aggiunta, se hai selezionato un file markdown, anche questo verrà salvato nel file .zip. Per importare il backup, deve essere salvato nella cartella di backup. Backup automatici vengono eseguiti ogni giorno alle 03:00.",
     "change-password": "Modifica Password",
     "current": "Versione:",
     "custom-pages": "Pagine Personalizzate",
@@ -341,12 +330,8 @@
     "site-settings": "Impostazioni Sito",
     "theme": {
       "accent": "Accento",
-      "are-you-sure-you-want-to-delete-this-theme": "Sei sicuro di voler eliminare questo tema?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Scegli l'aspetto die Mealie. Seleziona la di seguire le impostazioni di sistema, oppure segli tema scuro o chiaro.",
       "dark": "Scuro",
-      "dark-mode": "Modalità Scura",
       "default-to-system": "Predefinito di sistema",
-      "delete-theme": "Elimina Tema",
       "error": "Errore",
       "error-creating-theme-see-log-file": "Errore creazione tema. Guarda i log.",
       "error-deleting-theme": "Errore eliminazione tema",
@@ -364,7 +349,6 @@
       "theme-name": "Nome Tema",
       "theme-name-is-required": "Nome Tema obbligatorio.",
       "theme-saved": "Tema Salvato",
-      "theme-settings": "Impostazioni Tema",
       "theme-updated": "Tema aggiornato",
       "warning": "Avviso"
     },
@@ -388,7 +372,6 @@
       "unorganized": "Unorganized"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Webhooks Pianificatore Alimentare",
       "test-webhooks": "Testa Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Gli URL elencati sotto riceveranno dei webhooks contenenti i dati delle ricette per il piano alimentare nel giorno programmato. I Webhooks correnti verrano eseguiti alle",
       "webhook-url": "URL Webhook",
@@ -406,7 +389,6 @@
     "shopping-lists": "Shopping Lists"
   },
   "signup": {
-    "display-name": "Mostra Nome",
     "error-signing-up": "Errore Registrazione",
     "sign-up": "Registrati",
     "sign-up-link-created": "Link di registrazione creato",
@@ -443,7 +425,6 @@
     "error-cannot-delete-super-user": "Errore! Impossibile Eliminare Super User",
     "existing-password-does-not-match": "La nuova password non corrisponde",
     "full-name": "Nome",
-    "incorrect-username-or-password": "Passwor o nome untete sbagliato",
     "link-id": "Link ID",
     "link-name": "Link Nome",
     "login": "Login",
