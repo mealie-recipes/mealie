@@ -18,6 +18,7 @@
       allow-overflow
       close-delay="125"
       open-on-hover
+      content-class="d-print-none"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
@@ -102,6 +103,12 @@ export default {
           color: "accent",
           action: "share",
         },
+        {
+          title: this.$t("general.download"),
+          icon: this.$globals.icons.download,
+          color: "accent",
+          action: "download",
+        },
       ];
     },
     userMenu() {
@@ -158,6 +165,9 @@ export default {
           break;
         case "print":
           this.$router.push(`/recipe/${this.slug}` + "?print=true");
+          break;
+        case "download":
+          window.open(`/api/recipes/${this.slug}/zip`);
           break;
         default:
           break;
