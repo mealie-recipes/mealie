@@ -18,10 +18,10 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
 
-      # WORKERS_PER_CORE: 0.5 # It will set the number of workers to the number of CPU cores multiplied by this value
-      # MAX_WORKERS: 8 # Set the maximum number of workers to use
+      # WORKERS_PER_CORE: 0.5
+      # MAX_WORKERS: 8
 
-      WEB_CONCURRENCY: 2 # Override the automatic definition of number of workers
+      WEB_CONCURRENCY: 2
     tmpfs:
       - /mem:size=64m,mode=1777,noatime
   postgres:
