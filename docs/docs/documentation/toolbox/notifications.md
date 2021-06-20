@@ -2,13 +2,13 @@
 
 ## Apprise
 
-Using the [Apprise](https://github.com/caronc/apprise/){:target="_blank"} library Mealie is able to provided notification services for nearly every popular service. Some of our favorites are...
+Using the [Apprise](https://github.com/caronc/apprise/) library Mealie is able to provided notification services for nearly every popular service. Some of our favorites are...
 
-- [Gotify](https://github.com/caronc/apprise/wiki/Notify_gotify){:target="_blank"}
-- [Discord](https://github.com/caronc/apprise/wiki/Notify_discord){:target="_blank"}
-- [Home Assistant](https://github.com/caronc/apprise/wiki/Notify_homeassistant){:target="_blank"}
-- [Matrix](https://github.com/caronc/apprise/wiki/Notify_matrix){:target="_blank"}
-- [Pushover](https://github.com/caronc/apprise/wiki/Notify_pushover){:target="_blank"}
+- [Gotify](https://github.com/caronc/apprise/wiki/Notify_gotify)
+- [Discord](https://github.com/caronc/apprise/wiki/Notify_discord)
+- [Home Assistant](https://github.com/caronc/apprise/wiki/Notify_homeassistant)
+- [Matrix](https://github.com/caronc/apprise/wiki/Notify_matrix)
+- [Pushover](https://github.com/caronc/apprise/wiki/Notify_pushover)
 
 But there are some many to choose from! Take a look at their wiki for information on how to create their URL formats and that you can use to create a notification integration in Mealie.
 
