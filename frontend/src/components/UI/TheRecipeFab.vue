@@ -84,6 +84,27 @@
         </v-form>
       </v-card>
     </v-dialog>
+    <BaseDialog
+      title="Upload a Recipe"
+      :titleIcon="$globals.icons.zip"
+      :submit-text="$t('general.import')"
+      ref="uploadZipDialog"
+      @submit="uploadZip"
+      :loading="processing"
+    >
+      <v-card-text class="mt-1 pb-0">
+
+        Upload an individual .zip file exported from another Mealie instance. 
+
+        <div class="headline mx-auto mb-0 pb-0 text-center">
+          {{ this.fileName }}
+        </div>
+      </v-card-text>
+
+      <v-card-actions>
+        <TheUploadBtn class="mx-auto" :text-btn="false" @uploaded="setFile" :post="false"> </TheUploadBtn>
+      </v-card-actions>
+    </BaseDialog>
     <v-speed-dial v-model="fab" :open-on-hover="absolute" :fixed="absolute" :bottom="absolute" :right="absolute">
       <template v-slot:activator>
         <v-btn v-model="fab" :color="absolute ? 'accent' : 'white'" dark :icon="!absolute" :fab="absolute">
@@ -106,13 +127,27 @@
         </template>
         <span>{{ $t("general.new") }}</span>
       </v-tooltip>
+      <v-tooltip left dark color="info">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab dark small color="info" v-bind="attrs" v-on="on" @click="openZipUploader">
+            <v-icon>{{ $globals.icons.zip }}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t("general.upload") }}</span>
+      </v-tooltip>
     </v-speed-dial>
   </div>
 </template>
 
 <script>
 import { api } from "@/api";
+import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn.vue";
+import BaseDialog from "@/components/UI/Dialogs/BaseDialog.vue";
 export default {
+  components: {
+    TheUploadBtn,
+    BaseDialog,
+  },
   props: {
     absolute: {
       default: false,
@@ -124,6 +159,10 @@ export default {
       fab: false,
       addRecipe: false,
       processing: false,
+      uploadData: {
+        fileName: "archive",
+        file: null,
+      },
     };
   },
 
@@ -143,9 +182,34 @@ export default {
         return this.$route.query.recipe_import_url || "";
       },
     },
+    fileName() {
+      return this.uploadData.file?.name || "";
+    },
   },
 
   methods: {
+    resetVars() {
+      this.uploadData = {
+        fileName: "archive",
+        file: null,
+      };
+    },
+    setFile(file) {
+      this.uploadData.file = file;
+      console.log("Uploaded");
+    },
+    openZipUploader() {
+      this.resetVars();
+      this.$refs.uploadZipDialog.open();
+    },
+    async uploadZip() {
+      let formData = new FormData();
+      formData.append(this.uploadData.fileName, this.uploadData.file);
+
+      const response = await api.utils.uploadFile("/api/recipes/create-from-zip", formData);
+
+      this.$router.push(`/recipe/${response.data.slug}`);
+    },
     async createRecipe() {
       this.error = false;
       if (this.$refs.urlForm === undefined || this.$refs.urlForm.validate()) {
@@ -161,7 +225,6 @@ export default {
         }
       }
     },
-
     reset() {
       this.fab = false;
       this.error = false;
@@ -172,10 +235,6 @@ export default {
     isValidWebUrl(url) {
       let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
       return regEx.test(url) ? true : "Must be a Valid URL";
-    },
-
-    bookmark() {
-      return `javascript:(function()%7Bvar url %3D document.URL %3B%0Avar mealie %3D "http%3A%2F%2Flocalhost%3A8080%2F%23"%0Avar dest %3D mealie %2B "%2F%3Frecipe_import_url%3D" %2B url%0Awindow.open(dest%2C '_blank')%7D)()%3B`;
     },
   },
 };

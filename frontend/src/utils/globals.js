@@ -91,6 +91,7 @@ import {
   mdiArrowLeftBold,
   mdiMinus,
   mdiWindowClose,
+  mdiFolderZipOutline,
 } from "@mdi/js";
 
 const icons = {
@@ -176,6 +177,7 @@ const icons = {
   weatherSunny: mdiWeatherSunny,
   webhook: mdiWebhook,
   windowClose: mdiWindowClose,
+  zip: mdiFolderZipOutline,
 
   // Crud
   createAlt: mdiPlus,
