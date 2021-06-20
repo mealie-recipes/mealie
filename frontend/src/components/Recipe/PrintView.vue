@@ -30,9 +30,9 @@
     <div>
       <vue-markdown :source="recipe.description"> </vue-markdown>
       <h2>{{ $t("recipe.ingredients") }}</h2>
-      <ul>
+      <ul class=common-list>
         <li v-for="(ingredient, index) in recipe.recipeIngredient" :key="index" >
-          <v-icon>
+          <v-icon class="mb-5">
             {{ $globals.icons.checkboxBlankOutline }}
           </v-icon>
           <p>{{ ingredient.note }}</p>
@@ -103,13 +103,6 @@ h3 {
 
 ul {
   padding-left: 1rem;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: wrap column;
-  flex-flow: wrap column;
-  max-height: 300px;
-  column-gap: 25px;
 }
 
 li {
@@ -154,7 +147,12 @@ p {
 .print {
   display: none;
 }
-
+.common-list {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+  grid-auto-rows: 50px;
+  grid-auto-flow: row;
+}
 @media print {
   .print {
     display: initial;
