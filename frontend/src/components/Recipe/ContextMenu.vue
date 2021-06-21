@@ -18,6 +18,7 @@
       allow-overflow
       close-delay="125"
       open-on-hover
+      content-class="d-print-none"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
@@ -25,11 +26,7 @@
         </v-btn>
       </template>
       <v-list dense>
-        <v-list-item
-          v-for="(item, index) in loggedIn && cardMenu ? userMenu : defaultMenu"
-          :key="index"
-          @click="menuAction(item.action)"
-        >
+        <v-list-item v-for="(item, index) in displayedMenu" :key="index" @click="menuAction(item.action)">
           <v-list-item-icon>
             <v-icon v-text="item.icon" :color="item.color"></v-icon>
           </v-list-item-icon>
@@ -52,6 +49,10 @@ export default {
     menuTop: {
       type: Boolean,
       default: true,
+    },
+    showPrint: {
+      type: Boolean,
+      default: false,
     },
     fab: {
       type: Boolean,
@@ -88,19 +89,27 @@ export default {
     recipeURL() {
       return `${this.baseURL}/recipe/${this.slug}`;
     },
+    printerMenu() {
+      return {
+        title: this.$t("general.print"),
+        icon: this.$globals.icons.printer,
+        color: "accent",
+        action: "print",
+      };
+    },
     defaultMenu() {
       return [
-        {
-          title: this.$t("general.print"),
-          icon: this.$globals.icons.printer,
-          color: "accent",
-          action: "print",
-        },
         {
           title: this.$t("general.share"),
           icon: this.$globals.icons.shareVariant,
           color: "accent",
           action: "share",
+        },
+        {
+          title: this.$t("general.download"),
+          icon: this.$globals.icons.download,
+          color: "accent",
+          action: "download",
         },
       ];
     },
@@ -118,8 +127,17 @@ export default {
           color: "accent",
           action: "edit",
         },
-        ...this.defaultMenu,
       ];
+    },
+    displayedMenu() {
+      let menu = this.defaultMenu;
+      if (this.loggedIn && this.cardMenu) {
+        menu = [...this.userMenu, ...menu];
+      }
+      if (this.showPrint) {
+        menu = [this.printerMenu, ...menu];
+      }
+      return menu;
     },
     recipeText() {
       return this.$t("recipe.share-recipe-message", [this.name]);
@@ -158,6 +176,9 @@ export default {
           break;
         case "print":
           this.$router.push(`/recipe/${this.slug}` + "?print=true");
+          break;
+        case "download":
+          window.open(`/api/recipes/${this.slug}/zip`);
           break;
         default:
           break;

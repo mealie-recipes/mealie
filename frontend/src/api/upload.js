@@ -4,8 +4,6 @@ import i18n from "@/i18n.js";
 export const utilsAPI = {
   // import { api } from "@/api";
   uploadFile(url, fileObject) {
-    console.log("API Called");
-
     return apiReq.post(
       url,
       fileObject,

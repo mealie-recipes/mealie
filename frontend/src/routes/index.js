@@ -6,7 +6,7 @@ import { mealRoutes } from "./meal";
 import { generalRoutes } from "./general";
 import { store } from "@/store";
 import VueRouter from "vue-router";
-import { loadLanguageAsync } from "@/i18n"
+import { loadLanguageAsync } from "@/i18n";
 import Vue from "vue";
 import i18n from "@/i18n.js";
 

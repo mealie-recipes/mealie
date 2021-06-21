@@ -1,4 +1,5 @@
 import datetime
+from enum import Enum
 from pathlib import Path
 from typing import Any, Optional
 
@@ -9,6 +10,12 @@ from mealie.schema.comments import CommentOut
 from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
+
+
+class RecipeImageTypes(str, Enum):
+    original = "original.webp"
+    min = "min-original.webp"
+    tiny = "tiny-original.webp"
 
 
 class RecipeSettings(CamelModel):
