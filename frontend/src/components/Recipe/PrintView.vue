@@ -31,7 +31,7 @@
       <vue-markdown :source="recipe.description"> </vue-markdown>
       <h2>{{ $t("recipe.ingredients") }}</h2>
       <ul>
-        <li v-for="(ingredient, index) in recipe.recipeIngredient" :key="index" >
+        <li v-for="(ingredient, index) in recipe.recipeIngredient" :key="index">
           <v-icon>
             {{ $globals.icons.checkboxBlankOutline }}
           </v-icon>
@@ -67,7 +67,6 @@ export default {
   components: {
     RecipeTimeCard,
     VueMarkdown,
-
   },
   props: {
     recipe: Object,
@@ -103,13 +102,6 @@ h3 {
 
 ul {
   padding-left: 1rem;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: wrap column;
-  flex-flow: wrap column;
-  max-height: 300px;
-  column-gap: 25px;
 }
 
 li {
