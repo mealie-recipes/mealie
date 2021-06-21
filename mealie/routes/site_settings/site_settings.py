@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_current_user, get_admin_user
 from mealie.schema.settings import SiteSettings
 from mealie.schema.user import GroupInDB, UserInDB
 from mealie.utils.post_webhooks import post_webhooks
@@ -17,7 +17,7 @@ def get_main_settings(session: Session = Depends(generate_session)):
     return db.settings.get(session, 1)
 
 
-@router.put("", dependencies=[Depends(get_current_user)])
+@router.put("", dependencies=[Depends(get_admin_user)])
 def update_settings(
     data: SiteSettings,
     session: Session = Depends(generate_session),
@@ -26,7 +26,7 @@ def update_settings(
     db.settings.update(session, 1, data.dict())
 
 
-@router.post("/webhooks/test")
+@router.post("/webhooks/test", dependencies=[Depends(get_admin_user)])
 def test_webhooks(
     current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),

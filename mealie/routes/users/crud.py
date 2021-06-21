@@ -40,9 +40,7 @@ async def create_user(
 
 
 @router.get("", dependencies=[Depends(get_admin_user)], response_model=list[UserOut])
-async def get_all_users(
-    session: Session = Depends(generate_session)
-):
+async def get_all_users(session: Session = Depends(generate_session)):
     return db.users.get_all(session)
 
 

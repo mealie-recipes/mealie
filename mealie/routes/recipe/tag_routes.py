@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_logged_in
+from mealie.routes.deps import get_admin_user, get_current_user, is_logged_in
 from mealie.schema.category import RecipeTagResponse, TagIn
 from sqlalchemy.orm.session import Session
 
@@ -43,14 +43,14 @@ async def create_recipe_tag(tag: TagIn, session: Session = Depends(generate_sess
     return db.tags.create(session, tag.dict())
 
 
-@router.put("/{tag}", response_model=RecipeTagResponse, dependencies=[Depends(get_current_user)])
+@router.put("/{tag}", response_model=RecipeTagResponse, dependencies=[Depends(get_admin_user)])
 async def update_recipe_tag(tag: str, new_tag: TagIn, session: Session = Depends(generate_session)):
     """ Updates an existing Tag in the database """
 
     return db.tags.update(session, tag, new_tag.dict())
 
 
-@router.delete("/{tag}", dependencies=[Depends(get_current_user)])
+@router.delete("/{tag}", dependencies=[Depends(get_admin_user)])
 async def delete_recipe_tag(tag: str, session: Session = Depends(generate_session)):
     """Removes a recipe tag from the database. Deleting a
     tag does not impact a recipe. The tag will be removed

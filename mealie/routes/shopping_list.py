@@ -6,7 +6,9 @@ from mealie.schema.shopping_list import ShoppingListIn, ShoppingListOut
 from mealie.schema.user import UserInDB
 from sqlalchemy.orm.session import Session
 
-shopping_list_router = APIRouter(prefix="/api/shopping-lists", tags=["Shopping Lists"])
+shopping_list_router = APIRouter(
+    prefix="/api/shopping-lists", tags=["Shopping Lists"], dependencies=[Depends(get_current_user)]
+)
 
 
 @shopping_list_router.post("", response_model=ShoppingListOut)

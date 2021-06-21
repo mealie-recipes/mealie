@@ -35,7 +35,7 @@ async def update_comment(
     old_comment: CommentOut = db.comments.get(session, id)
 
     if current_user.id != old_comment.user.id:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     return db.comments.update(session, id, new_comment)
 
@@ -51,4 +51,4 @@ async def delete_comment(
         db.comments.delete(session, id)
         return
 
-    raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+    raise HTTPException(status.HTTP_403_FORBIDDEN)

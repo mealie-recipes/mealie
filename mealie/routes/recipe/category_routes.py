@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_logged_in
+from mealie.routes.deps import get_current_user, is_logged_in, get_admin_user
 from mealie.schema.category import CategoryIn, RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 
@@ -45,7 +45,7 @@ async def create_recipe_category(category: CategoryIn, session: Session = Depend
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
-@router.put("/{category}", response_model=RecipeCategoryResponse, dependencies=[Depends(get_current_user)])
+@router.put("/{category}", response_model=RecipeCategoryResponse, dependencies=[Depends(get_admin_user)])
 async def update_recipe_category(category: str, new_category: CategoryIn, session: Session = Depends(generate_session)):
     """ Updates an existing Tag in the database """
 
@@ -55,7 +55,7 @@ async def update_recipe_category(category: str, new_category: CategoryIn, sessio
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
-@router.delete("/{category}", dependencies=[Depends(get_current_user)])
+@router.delete("/{category}", dependencies=[Depends(get_admin_user)])
 async def delete_recipe_category(category: str, session: Session = Depends(generate_session)):
     """
     Removes a recipe category from the database. Deleting a

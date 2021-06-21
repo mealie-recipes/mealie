@@ -4,15 +4,15 @@ from mealie.core.root_logger import LOGGER_FILE
 from mealie.core.security import create_file_token
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.deps import get_admin_user
 from mealie.schema.about import AppInfo, AppStatistics, DebugInfo
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/debug", tags=["Debug"])
+router = APIRouter(prefix="/api/debug", tags=["Debug"], dependencies=[Depends(get_admin_user)])
 
 
 @router.get("")
-async def get_debug_info(current_user=Depends(get_current_user)):
+async def get_debug_info():
     """ Returns general information about the application for debugging """
 
     return DebugInfo(
@@ -49,13 +49,13 @@ async def get_mealie_version():
 
 
 @router.get("/last-recipe-json")
-async def get_last_recipe_json(current_user=Depends(get_current_user)):
+async def get_last_recipe_json():
     """ Returns a token to download a file """
     return {"fileToken": create_file_token(app_dirs.DEBUG_DIR.joinpath("last_recipe.json"))}
 
 
 @router.get("/log/{num}")
-async def get_log(num: int, current_user=Depends(get_current_user)):
+async def get_log(num: int):
     """ Doc Str """
     with open(LOGGER_FILE, "rb") as f:
         log_text = tail(f, num)
