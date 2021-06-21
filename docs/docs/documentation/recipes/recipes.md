@@ -1,7 +1,7 @@
 # Recipes
 
 ## URL Import
-Adding a recipe can be as easy as clicking in the bottom-right corner, copying the recipe URL into Mealie and letting the web scrapper organize information. Currently this scraper is implemented with [recipe-scrapers](https://github.com/hhursev/recipe-scrapers){:target="_blank"}. You may have mixed results on some websites, especially with blogs or non-specific recipe websites. See the bulk import Option below for another a convenient way to add blog style recipes into Mealie.
+Adding a recipe can be as easy as clicking in the bottom-right corner, copying the recipe URL into Mealie and letting the web scraper organize information. Currently this scraper is implemented with [recipe-scrapers](https://github.com/hhursev/recipe-scrapers){:target="_blank"}. You may have mixed results on some websites, especially with blogs or non-specific recipe websites. See the bulk import Option below for another a convenient way to add blog style recipes into Mealie.
 
 !!! tip
     You can find a list of some of the supported sites in the recipe-scrapers repo. If you're site isn't supported, you can work with the recipe-scrapers team to implement it and we can down-stream those changes into Mealie. 

@@ -8,7 +8,7 @@ To migrate recipes from a Chowdown
   3. Select import on the newly available migration. 
 
 ## Nextcloud Recipes
-Nextcloud recipes can be imported from a zip file the contains the data stored in Nextcloud. The zip file can be uploaded from the frontend or placed in the data/migrations/nextcloud directory. See the example folder structure below to ensure your recipes are able to be imported. 
+Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. The zip file can be uploaded from the frontend or placed in the data/migrations/nextcloud directory. See the example folder structure below to ensure your recipes are able to be imported. 
 
 ```
 nextcloud_recipes.zip
