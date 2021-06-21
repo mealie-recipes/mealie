@@ -36,6 +36,7 @@
         <span>{{ $t("general.edit") }}</span>
       </v-tooltip>
       <ContextMenu
+        show-print
         :menu-top="false"
         :slug="slug"
         :name="name"

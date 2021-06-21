@@ -93,8 +93,7 @@
       :loading="processing"
     >
       <v-card-text class="mt-1 pb-0">
-
-        Upload an individual .zip file exported from another Mealie instance. 
+        {{ $t("new-recipe.upload-individual-zip-file") }}
 
         <div class="headline mx-auto mb-0 pb-0 text-center">
           {{ this.fileName }}

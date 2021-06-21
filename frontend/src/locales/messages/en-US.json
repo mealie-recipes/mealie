@@ -189,6 +189,7 @@
     "from-url": "Import a Recipe",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Paste in your recipe data. Each line will be treated as an item in a list",
     "recipe-url": "Recipe URL",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "Copy and paste a link from your favorite recipe website"
   },
   "page": {
