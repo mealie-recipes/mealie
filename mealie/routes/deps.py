@@ -75,6 +75,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
     return user
 
 
+async def get_admin_user(current_user=Depends(get_current_user)) -> UserInDB:
+    if not current_user.admin:
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
+    return current_user
+
+
 def validate_long_live_token(session: Session, client_token: str, id: int) -> UserInDB:
 
     tokens: list[LongLiveTokenInDB] = db.api_tokens.get(session, id, "parent_id", limit=9999)

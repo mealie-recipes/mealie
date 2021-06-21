@@ -60,6 +60,7 @@ def admin_token(api_client: requests, api_routes: AppRoutes):
     form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
     return login(form_data, api_client, api_routes)
 
+
 @fixture(scope="session")
 def user_token(admin_token, api_client: requests, api_routes: AppRoutes):
     # Create the user

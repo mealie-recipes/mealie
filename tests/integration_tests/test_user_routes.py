@@ -75,7 +75,21 @@ def test_create_user(api_client: TestClient, api_routes: AppRoutes, admin_token,
 
     assert response.status_code == 201
     assert json.loads(response.text) == new_user.dict(by_alias=True)
-    assert True
+
+
+def test_create_user_as_non_admin(api_client: TestClient, api_routes: AppRoutes, user_token):
+    create_data = {
+        "fullName": "My New User",
+        "email": "newuser@email.com",
+        "password": "MyStrongPassword",
+        "group": "Home",
+        "admin": False,
+        "tokens": [],
+    }
+
+    response = api_client.post(api_routes.users, json=create_data, headers=user_token)
+
+    assert response.status_code == 403
 
 
 def test_get_all_users(api_client: TestClient, api_routes: AppRoutes, admin_token, new_user, admin_user):
@@ -99,21 +113,28 @@ def test_update_other_user_as_not_admin(api_client: TestClient, api_routes: AppR
     update_data = {"id": 1, "fullName": "Updated Name", "email": "changeme@email.com", "group": "Home", "admin": True}
     response = api_client.put(api_routes.users_id(1), headers=user_token, json=update_data)
 
-    assert response.status_code == 401
+    assert response.status_code == 403
+
+
+def test_update_self_as_not_admin(api_client: TestClient, api_routes: AppRoutes, user_token):
+    update_data = {"id": 3, "fullName": "User fullname", "email": "user@email.com", "group": "Home", "admin": False}
+    response = api_client.put(api_routes.users_id(3), headers=user_token, json=update_data)
+
+    assert response.status_code == 200
 
 
 def test_self_demote_admin(api_client: TestClient, api_routes: AppRoutes, admin_token):
     update_data = {"id": 1, "fullName": "Updated Name", "email": "changeme@email.com", "group": "Home", "admin": False}
     response = api_client.put(api_routes.users_id(1), headers=admin_token, json=update_data)
 
-    assert response.status_code == 400
+    assert response.status_code == 403
 
 
 def test_self_promote_admin(api_client: TestClient, api_routes: AppRoutes, user_token):
-    update_data = {"id": 1, "fullName": "Updated Name", "email": "changeme@email.com", "group": "Home", "admin": True}
-    response = api_client.put(api_routes.users_id(1), headers=user_token, json=update_data)
+    update_data = {"id": 3, "fullName": "Updated Name", "email": "user@email.com", "group": "Home", "admin": True}
+    response = api_client.put(api_routes.users_id(3), headers=user_token, json=update_data)
 
-    assert response.status_code == 401
+    assert response.status_code == 403
 
 
 def test_reset_user_password(api_client: TestClient, api_routes: AppRoutes, admin_token):
