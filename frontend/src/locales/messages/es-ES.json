@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "URL de aviso",
     "database": "Base de Datos",
+    "delete-event": "Borrar evento",
     "new-notification-form-description": "Mealie utiliza la biblioteca Apprise para generar notificaciones. Ofrecen muchas opciones para que los servicios se usen para notificaciones. Consulte su wiki para obtener una guía completa sobre cómo crear la URL para su servicio. Si está disponible, seleccionar el tipo de notificación puede incluir características extra.",
+    "new-version": "¡Nueva versión disponible!",
     "notification": "Notificación",
+    "refresh": "Actualizar",
     "scheduled": "Programado",
     "something-went-wrong": "¡Algo ha salido mal!",
     "subscribed-events": "Eventos suscritos",
-    "test-message-sent": "Mensaje Enviado",
-    "refresh": "Actualizar",
-    "new-version": "¡Nueva versión disponible!",
-    "delete-event": "Borrar evento"
+    "test-message-sent": "Mensaje Enviado"
   },
   "general": {
     "cancel": "Cancelar",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Etiqueta",
     "link-copied": "Enlace copiado",
+    "loading-recipes": "Loading Recipes",
     "monday": "Lunes",
     "name": "Nombre",
     "new": "Nuevo",
     "no": "No",
+    "no-recipe-found": "Receta no encontrada",
     "ok": "OK",
     "options": "Opciones:",
     "print": "Imprimir",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "Ver",
     "wednesday": "Miércoles",
-    "yes": "Si",
-    "no-recipe-found": "Receta no encontrada"
+    "yes": "Si"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -193,6 +194,7 @@
     "url-form-hint": "Copia y pega un enlace desde tu página web favorita"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "Todas las recetas",
     "home-page": "Página de inicio",
     "new-page-created": "Nueva página creada",
@@ -291,12 +293,12 @@
       "backup-deleted": "Copia de seguridad eliminada",
       "backup-tag": "Etiqueta de la copia de seguridad",
       "create-heading": "Crear una copia de seguridad",
+      "delete-backup": "Eliminar copia de seguridad",
       "error-creating-backup-see-log-file": "Error al crear la copia de seguridad. Ver archivo de registro",
       "full-backup": "Copia de seguridad completa",
       "import-summary": "Importar resumen",
       "partial-backup": "Copia de seguridad parcial",
-      "unable-to-delete-backup": "No se puede eliminar la copia de seguridad.",
-      "delete-backup": "Eliminar copia de seguridad"
+      "unable-to-delete-backup": "No se puede eliminar la copia de seguridad."
     },
     "backup-and-exports": "Copias de Seguridad",
     "change-password": "Cambia Contraseña",
