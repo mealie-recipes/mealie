@@ -37,13 +37,13 @@
     "apprise-url": "URL Apprise",
     "database": "Base de données",
     "new-notification-form-description": "Mealie utilise la bibliothèque Apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
-    "new-version": "Nouvelle version disponible !",
     "notification": "Notification",
-    "refresh": "Rafraîchir",
     "scheduled": "Planifié",
     "something-went-wrong": "Une erreur s'est produite !",
     "subscribed-events": "Événements suivis",
     "test-message-sent": "Message de test envoyé",
+    "refresh": "Rafraîchir",
+    "new-version": "Nouvelle version disponible !",
     "delete-event": "Supprimer l’événement"
   },
   "general": {
@@ -189,6 +189,7 @@
     "from-url": "Depuis une adresse web",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
     "recipe-url": "Adresse de la recette",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori"
   },
   "page": {
