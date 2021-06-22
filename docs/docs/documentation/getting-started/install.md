@@ -10,6 +10,7 @@ To deploy mealie on your local network it is highly recommended to use docker to
 - linux/arm64
 
 ## Quick Start - Docker CLI
+
 Deployment with the Docker CLI can be done with `docker run` and specify the database type, in this case `sqlite`, setting the exposed port `9925`, mounting the current directory, and pull the latest image. After the image is up and running you can navigate to http://your.ip.address:9925 and you'll should see mealie up and running!
 
 ```shell
@@ -40,6 +41,8 @@ services:
     ports:
       - 9925:80
     environment:
+      PUID: 1000
+      PGID: 1000
       TZ: America/Anchorage
 
       # WORKERS_PER_CORE: 0.5
@@ -68,6 +71,8 @@ services:
     depends_on:
       - postgres
     environment:
+      PUID: 1000
+      PGID: 1000
       TZ: America/Anchorage
       DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
       POSTGRES_USER: mealie
@@ -97,6 +102,8 @@ services:
 
 | Variables         | Default               | Description                                                                                                                       |
 | ----------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| PUID              | 911                   | UserID permissions between host OS and container                                                                                  |
+| PGID              | 911                   | GroupID permissions between host OS and container                                                                                 |
 | DEFAULT_GROUP     | Home                  | The default group for users                                                                                                       |
 | DEFAULT_EMAIL     | changeme@email.com    | The default username for the superuser                                                                                            |
 | BASE_URL          | http://localhost:8080 | Used for Notifications                                                                                                            |
