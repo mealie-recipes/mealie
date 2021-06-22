@@ -6,10 +6,6 @@ const state = {
       value: "en-US",
     },
     {
-      name: "Dansk (Danish)",
-      value: "da-DK",
-    },
-    {
       name: "Deutsch (German)",
       value: "de-DE",
     },
@@ -30,20 +26,12 @@ const state = {
       value: "pl-PL",
     },
     {
-      name: "Português (Portuguese)",
-      value: "pt-PT",
-    },
-    {
       name: "Svenska (Swedish)",
       value: "sv-SE",
     },
     {
       name: "简体中文 (Chinese simplified)",
       value: "zh-CN",
-    },
-    {
-      name: "繁體中文 (Chinese traditional)",
-      value: "zh-TW",
     },
   ],
 };
