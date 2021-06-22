@@ -31,4 +31,4 @@ style:
 
 
 !!! tip
-    Due to how Home Assistant works with images, I had to include the additional styling to get the images to not appear distorted. This includes and [additional installation](https://github.com/thomasloven/lovelace-card-mod){:target="_blank"} from HACS. 
+    Due to how Home Assistant works with images, I had to include the additional styling to get the images to not appear distorted. This includes and [additional installation](https://github.com/thomasloven/lovelace-card-mod) from HACS. 

@@ -48,4 +48,4 @@ code-gen             🤖 Run Code-Gen Scripts
 
 Before you commit any changes on the backend/python side you'll want to run `make format` to format all the code with black. `make lint` to check with flake8, and `make test` to run pytests. You can also use `make test-all` to run both `lint` and `test`. 
 
-Run into another issue? [Ask for help on discord](https://discord.gg/QuStdQGSGK){:target="_blank"}
+Run into another issue? [Ask for help on discord](https://discord.gg/QuStdQGSGK)

@@ -3,6 +3,7 @@ services:
   mealie:
     build:
       context: ./
+      target: production
       dockerfile: Dockerfile
     container_name: mealie
     restart: always
@@ -17,6 +18,13 @@ services:
       POSTGRES_SERVER: postgres
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
+
+      # WORKERS_PER_CORE: 0.5
+      # MAX_WORKERS: 8
+
+      WEB_CONCURRENCY: 2
+    tmpfs:
+      - /mem:size=64m,mode=1777,noatime
   postgres:
     container_name: postgres
     image: postgres
