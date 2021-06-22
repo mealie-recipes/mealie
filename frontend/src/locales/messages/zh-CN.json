@@ -37,13 +37,13 @@
     "apprise-url": "Apprise URL",
     "database": "数据库",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
-    "new-version": "New version available!",
     "notification": "通知",
-    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
+    "refresh": "Refresh",
+    "new-version": "New version available!",
     "delete-event": "Delete Event"
   },
   "general": {
@@ -189,6 +189,7 @@
     "from-url": "输入网址",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "请粘贴您的食谱资料。每行将被视为列表中的一项。",
     "recipe-url": "食谱网址",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "从您最喜爱的食谱网站复制并粘贴链接"
   },
   "page": {
