@@ -81,7 +81,7 @@ COPY ./mealie $MEALIE_HOME/mealie
 COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 
 #! Future
-# COPY ./alembic ./alembic.ini $MEALIE_HOME
+# COPY ./alembic ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
@@ -97,6 +97,13 @@ ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
 FROM python-base as production
 ENV PRODUCTION=true
 
+# curl for used by healthcheck
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    curl \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
+
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
@@ -110,7 +117,7 @@ COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 COPY ./gunicorn_conf.py $MEALIE_HOME
 
 #! Future
-# COPY ./alembic ./alembic.ini $MEALIE_HOME
+# COPY ./alembic ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
@@ -123,8 +130,11 @@ COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
 
 VOLUME [ "$MEALIE_HOME/data/" ]
+ENV APP_PORT=80
 
-EXPOSE 80
+EXPOSE ${APP_PORT}
+
+HEALTHCHECK CMD curl -f http://localhost:${APP_PORT} || exit 1
 
 RUN chmod +x $MEALIE_HOME/mealie/run.sh
 ENTRYPOINT $MEALIE_HOME/mealie/run.sh
