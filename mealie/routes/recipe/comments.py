@@ -1,14 +1,15 @@
 from http.client import HTTPException
 
-from fastapi import APIRouter, Depends, status
+from fastapi import Depends, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import UserAPIRouter
 from mealie.schema.comments import CommentIn, CommentOut, CommentSaveToDB
 from mealie.schema.user import UserInDB
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api", tags=["Recipe Comments"])
+router = UserAPIRouter(prefix="/api", tags=["Recipe Comments"])
 
 
 @router.post("/recipes/{slug}/comments")
@@ -35,7 +36,7 @@ async def update_comment(
     old_comment: CommentOut = db.comments.get(session, id)
 
     if current_user.id != old_comment.user.id:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     return db.comments.update(session, id, new_comment)
 
@@ -51,4 +52,4 @@ async def delete_comment(
         db.comments.delete(session, id)
         return
 
-    raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+    raise HTTPException(status.HTTP_403_FORBIDDEN)

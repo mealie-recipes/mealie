@@ -1,15 +1,16 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import HTTPException, status
 from fastapi.param_functions import Depends
 from mealie.core.security import create_access_token
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/users", tags=["User API Tokens"])
+router = UserAPIRouter(prefix="/api/users", tags=["User API Tokens"])
 
 
 @router.post("/api-tokens", status_code=status.HTTP_201_CREATED)
@@ -53,4 +54,4 @@ async def delete_api_token(
         deleted_token = db.api_tokens.delete(session, token_id)
         return {"token_delete": deleted_token.name}
     else:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+        raise HTTPException(status.HTTP_403_FORBIDDEN)

@@ -5,15 +5,17 @@ from mealie.core import security
 from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/auth", tags=["Authentication"])
+public_router = APIRouter(prefix="/api/auth", tags=["Authentication"])
+user_router = UserAPIRouter(prefix="/api/auth", tags=["Authentication"])
 
 
-@router.post("/token/long")
-@router.post("/token")
+@public_router.post("/token/long")
+@public_router.post("/token")
 def get_token(
     background_tasks: BackgroundTasks,
     request: Request,
@@ -38,7 +40,7 @@ def get_token(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.get("/refresh")
+@user_router.get("/refresh")
 async def refresh_token(current_user: UserInDB = Depends(get_current_user)):
     """ Use a valid token to get another token"""
     access_token = security.create_access_token(data=dict(sub=current_user.email))

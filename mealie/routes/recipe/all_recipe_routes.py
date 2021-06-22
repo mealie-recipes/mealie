@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_logged_in
+from mealie.routes.deps import is_logged_in
 from mealie.schema.recipe import RecipeSummary
 from slugify import slugify
 from sqlalchemy.orm.session import Session
@@ -36,21 +36,17 @@ async def get_recipe_summary(
         )
 
 
-@router.get(
-    "/api/recipes/summary/untagged", response_model=list[RecipeSummary], dependencies=[Depends(get_current_user)]
-)
+@router.get("/api/recipes/summary/untagged", response_model=list[RecipeSummary])
 async def get_untagged_recipes(count: bool = False, session: Session = Depends(generate_session)):
     return db.recipes.count_untagged(session, count=count, override_schema=RecipeSummary)
 
 
-@router.get(
-    "/api/recipes/summary/uncategorized", response_model=list[RecipeSummary], dependencies=[Depends(get_current_user)]
-)
+@router.get("/api/recipes/summary/uncategorized", response_model=list[RecipeSummary])
 async def get_uncategorized_recipes(count: bool = False, session: Session = Depends(generate_session)):
     return db.recipes.count_uncategorized(session, count=count, override_schema=RecipeSummary)
 
 
-@router.post("/api/recipes/category", deprecated=True, dependencies=[Depends(get_current_user)])
+@router.post("/api/recipes/category", deprecated=True)
 def filter_by_category(categories: list, session: Session = Depends(generate_session)):
     """ pass a list of categories and get a list of recipes associated with those categories """
     # ! This should be refactored into a single database call, but I couldn't figure it out
@@ -60,7 +56,7 @@ def filter_by_category(categories: list, session: Session = Depends(generate_ses
     return in_category
 
 
-@router.post("/api/recipes/tag", deprecated=True, dependencies=[Depends(get_current_user)])
+@router.post("/api/recipes/tag", deprecated=True)
 async def filter_by_tags(tags: list, session: Session = Depends(generate_session)):
     """ pass a list of tags and get a list of recipes associated with those tags"""
     # ! This should be refactored into a single database call, but I couldn't figure it out

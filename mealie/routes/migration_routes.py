@@ -2,16 +2,15 @@ import operator
 import shutil
 from typing import List
 
-from fastapi import APIRouter, Depends, File, UploadFile, status
+from fastapi import Depends, File, HTTPException, UploadFile, status
 from mealie.core.config import app_dirs
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.migration import MigrationFile, Migrations
 from mealie.services.migrations import migration
 from sqlalchemy.orm.session import Session
-from fastapi import HTTPException
 
-router = APIRouter(prefix="/api/migrations", tags=["Migration"], dependencies=[Depends(get_current_user)])
+router = AdminAPIRouter(prefix="/api/migrations", tags=["Migration"])
 
 
 @router.get("", response_model=List[Migrations])

@@ -1,4 +1,5 @@
 import json
+from mealie.routes.routers import UserAPIRouter
 import shutil
 from shutil import copyfileobj
 from zipfile import ZipFile
@@ -21,11 +22,12 @@ from slugify import slugify
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
-router = APIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
+user_router = UserAPIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
+public_router = APIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
 logger = get_logger()
 
 
-@router.post("/create", status_code=201, response_model=str)
+@user_router.post("/create", status_code=201, response_model=str)
 def create_from_json(
     background_tasks: BackgroundTasks,
     data: Recipe,
@@ -46,12 +48,12 @@ def create_from_json(
     return recipe.slug
 
 
-@router.post("/test-scrape-url", dependencies=[Depends(get_current_user)])
+@user_router.post("/test-scrape-url")
 def test_parse_recipe_url(url: RecipeURLIn):
     return scrape_url(url.url)
 
 
-@router.post("/create-url", status_code=201, response_model=str)
+@user_router.post("/create-url", status_code=201, response_model=str)
 def parse_recipe_url(
     background_tasks: BackgroundTasks,
     url: RecipeURLIn,
@@ -74,7 +76,7 @@ def parse_recipe_url(
     return recipe.slug
 
 
-@router.get("/{recipe_slug}", response_model=Recipe)
+@public_router.get("/{recipe_slug}", response_model=Recipe)
 def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)):
     """ Takes in a recipe slug, returns all data for a recipe """
 
@@ -88,10 +90,10 @@ def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), i
         return recipe
 
     else:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, {"details": "unauthorized"})
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
 
 
-@router.post("/create-from-zip", dependencies=[Depends(get_current_user)])
+@user_router.post("/create-from-zip")
 async def create_recipe_from_zip(
     session: Session = Depends(generate_session),
     temp_path=Depends(temporary_zip_path),
@@ -121,7 +123,7 @@ async def create_recipe_from_zip(
     return recipe
 
 
-@router.get("/{recipe_slug}/zip")
+@public_router.get("/{recipe_slug}/zip")
 async def get_recipe_as_zip(
     recipe_slug: str, session: Session = Depends(generate_session), temp_path=Depends(temporary_zip_path)
 ):
@@ -139,7 +141,7 @@ async def get_recipe_as_zip(
     return FileResponse(temp_path, filename=f"{recipe_slug}.zip")
 
 
-@router.put("/{recipe_slug}", dependencies=[Depends(get_current_user)])
+@user_router.put("/{recipe_slug}")
 def update_recipe(
     recipe_slug: str,
     data: Recipe,
@@ -154,7 +156,7 @@ def update_recipe(
     return recipe
 
 
-@router.patch("/{recipe_slug}", dependencies=[Depends(get_current_user)])
+@user_router.patch("/{recipe_slug}")
 def patch_recipe(
     recipe_slug: str,
     data: Recipe,
@@ -171,7 +173,7 @@ def patch_recipe(
     return recipe
 
 
-@router.delete("/{recipe_slug}")
+@user_router.delete("/{recipe_slug}")
 def delete_recipe(
     background_tasks: BackgroundTasks,
     recipe_slug: str,
@@ -194,7 +196,7 @@ def delete_recipe(
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
-@router.put("/{recipe_slug}/image", dependencies=[Depends(get_current_user)])
+@user_router.put("/{recipe_slug}/image")
 def update_recipe_image(
     recipe_slug: str,
     image: bytes = File(...),
@@ -208,7 +210,7 @@ def update_recipe_image(
     return {"image": new_version}
 
 
-@router.post("/{recipe_slug}/image", dependencies=[Depends(get_current_user)])
+@user_router.post("/{recipe_slug}/image")
 def scrape_image_url(
     recipe_slug: str,
     url: RecipeURLIn,
@@ -218,7 +220,7 @@ def scrape_image_url(
     scrape_image(url.url, recipe_slug)
 
 
-@router.post("/{recipe_slug}/assets", response_model=RecipeAsset, dependencies=[Depends(get_current_user)])
+@user_router.post("/{recipe_slug}/assets", response_model=RecipeAsset)
 def upload_recipe_asset(
     recipe_slug: str,
     name: str = Form(...),

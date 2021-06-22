@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends
+from fastapi import Depends
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal import MealPlanOut
 from mealie.schema.recipe import Recipe
 from mealie.schema.shopping_list import ListItem, ShoppingListIn, ShoppingListOut
@@ -11,7 +12,7 @@ from sqlalchemy.orm.session import Session
 
 logger = get_logger()
 
-router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
+router = UserAPIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
 
 @router.get("/{id}/shopping-list")

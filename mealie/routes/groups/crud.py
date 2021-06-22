@@ -1,17 +1,18 @@
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from fastapi import BackgroundTasks, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from mealie.services.events import create_group_event
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/groups", tags=["Groups"])
+admin_router = AdminAPIRouter(prefix="/api/groups", tags=["Groups administration"])
+user_router = UserAPIRouter(prefix="/api/groups", tags=["Groups"])
 
 
-@router.get("", response_model=list[GroupInDB])
+@admin_router.get("", response_model=list[GroupInDB])
 async def get_all_groups(
-    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns a list of all groups in the database """
@@ -19,7 +20,7 @@ async def get_all_groups(
     return db.groups.get_all(session)
 
 
-@router.get("/self", response_model=GroupInDB)
+@user_router.get("/self", response_model=GroupInDB)
 async def get_current_user_group(
     current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
@@ -30,11 +31,10 @@ async def get_current_user_group(
     return db.groups.get(session, current_user.group, "name")
 
 
-@router.post("", status_code=status.HTTP_201_CREATED)
+@admin_router.post("", status_code=status.HTTP_201_CREATED)
 async def create_group(
     background_tasks: BackgroundTasks,
     group_data: GroupBase,
-    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Creates a Group in the Database """
@@ -46,18 +46,17 @@ async def create_group(
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
-@router.put("/{id}")
+@admin_router.put("/{id}")
 async def update_group_data(
     id: int,
     group_data: UpdateGroup,
-    current_user=Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Updates a User Group """
     db.groups.update(session, id, group_data.dict())
 
 
-@router.delete("/{id}")
+@admin_router.delete("/{id}")
 async def delete_user_group(
     background_tasks: BackgroundTasks,
     id: int,
