@@ -2,11 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import is_logged_in
-from mealie.routes.routers import AdminAPIRouter
+from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.category import RecipeTagResponse, TagIn
 from sqlalchemy.orm.session import Session
 
 public_router = APIRouter(prefix="/api/tags", tags=["Recipe Tags"])
+user_router = UserAPIRouter(prefix="/api/tags", tags=["Recipe Tags"])
 admin_router = AdminAPIRouter(prefix="/api/tags", tags=["Recipe Tags"])
 
 
@@ -36,7 +37,7 @@ def get_all_recipes_by_tag(
     return tag_obj
 
 
-@admin_router.post("")
+@user_router.post("")
 async def create_recipe_tag(tag: TagIn, session: Session = Depends(generate_session)):
     """ Creates a Tag in the database """
 

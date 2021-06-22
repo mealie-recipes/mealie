@@ -2,11 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import is_logged_in
-from mealie.routes.routers import AdminAPIRouter
+from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.category import CategoryIn, RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 
 public_router = APIRouter(prefix="/api/categories", tags=["Recipe Categories"])
+user_router = UserAPIRouter(prefix="/api/categories", tags=["Recipe Categories"])
 admin_router = AdminAPIRouter(prefix="/api/categories", tags=["Recipe Categories"])
 
 
@@ -37,7 +38,7 @@ def get_all_recipes_by_category(
     return category_obj
 
 
-@admin_router.post("")
+@user_router.post("")
 async def create_recipe_category(category: CategoryIn, session: Session = Depends(generate_session)):
     """ Creates a Category in the database """
 
