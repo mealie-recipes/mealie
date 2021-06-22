@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import UserAPIRouter
 from mealie.schema.theme import SiteTheme
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api", tags=["Themes"])
+router = UserAPIRouter(prefix="/api", tags=["Themes"])
 
 
 @router.get("/themes")
