@@ -37,13 +37,13 @@
     "apprise-url": "Apprise URL",
     "database": "Database",
     "new-notification-form-description": "Mealie gebruikt de Apprise library om meldingen te genereren. Ze bieden vele opties voor diensten om te gebruiken voor meldingen. Raadpleeg hun wiki voor een uitgebreide handleiding over hoe je een URL voor je service kunt maken. Indien beschikbaar, kan het selecteren van het type van jouw melding extra opties bevatten.",
-    "new-version": "Nieuwe versie beschikbaar!",
     "notification": "Notificatie",
-    "refresh": "Vernieuwen",
     "scheduled": "Gepland",
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde Events",
     "test-message-sent": "Testbericht verzonden",
+    "refresh": "Vernieuwen",
+    "new-version": "Nieuwe versie beschikbaar!",
     "delete-event": "Evenement Verwijderen"
   },
   "general": {
@@ -189,6 +189,7 @@
     "from-url": "Recept importeren",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-url": "Recept URL",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite"
   },
   "page": {
