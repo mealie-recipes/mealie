@@ -1,4 +1,7 @@
+import json
+import shutil
 from shutil import copyfileobj
+from zipfile import ZipFile
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, status
 from fastapi.datastructures import UploadFile
@@ -6,8 +9,8 @@ from mealie.core.config import settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_logged_in
-from mealie.schema.recipe import Recipe, RecipeAsset, RecipeURLIn
+from mealie.routes.deps import get_current_user, is_logged_in, temporary_zip_path
+from mealie.schema.recipe import Recipe, RecipeAsset, RecipeImageTypes, RecipeURLIn
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
 from mealie.services.image.image import scrape_image, write_image
@@ -16,6 +19,7 @@ from mealie.services.scraper.scraper import create_from_url
 from scrape_schema_recipe import scrape_url
 from slugify import slugify
 from sqlalchemy.orm.session import Session
+from starlette.responses import FileResponse
 
 router = APIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
 logger = get_logger()
@@ -85,6 +89,54 @@ def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), i
 
     else:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, {"details": "unauthorized"})
+
+
+@router.post("/create-from-zip", dependencies=[Depends(get_current_user)])
+async def create_recipe_from_zip(
+    session: Session = Depends(generate_session),
+    temp_path=Depends(temporary_zip_path),
+    archive: UploadFile = File(...),
+):
+    """ Create recipe from archive """
+
+    with temp_path.open("wb") as buffer:
+        shutil.copyfileobj(archive.file, buffer)
+
+    recipe_dict = None
+    recipe_image = None
+
+    with ZipFile(temp_path) as myzip:
+        for file in myzip.namelist():
+            if file.endswith(".json"):
+                with myzip.open(file) as myfile:
+                    recipe_dict = json.loads(myfile.read())
+            elif file.endswith(".webp"):
+                with myzip.open(file) as myfile:
+                    recipe_image = myfile.read()
+
+    recipe: Recipe = db.recipes.create(session, Recipe(**recipe_dict))
+
+    write_image(recipe.slug, recipe_image, "webp")
+
+    return recipe
+
+
+@router.get("/{recipe_slug}/zip")
+async def get_recipe_as_zip(
+    recipe_slug: str, session: Session = Depends(generate_session), temp_path=Depends(temporary_zip_path)
+):
+    """ Get a Recipe and It's Original Image as a Zip File """
+    recipe: Recipe = db.recipes.get(session, recipe_slug)
+
+    image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
+
+    with ZipFile(temp_path, "w") as myzip:
+        myzip.writestr(f"{recipe_slug}.json", recipe.json())
+
+        if image_asset.is_file():
+            myzip.write(image_asset, arcname=image_asset.name)
+
+    return FileResponse(temp_path, filename=f"{recipe_slug}.zip")
 
 
 @router.put("/{recipe_slug}", dependencies=[Depends(get_current_user)])

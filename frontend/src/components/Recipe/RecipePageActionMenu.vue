@@ -20,13 +20,23 @@
     <div v-if="!value" class="custom-btn-group ma-1">
       <v-tooltip bottom color="info">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('input', true)">
+          <v-btn
+            v-if="loggedIn"
+            fab
+            small
+            class="mx-1"
+            color="info"
+            v-bind="attrs"
+            v-on="on"
+            @click="$emit('input', true)"
+          >
             <v-icon> {{ $globals.icons.edit }} </v-icon>
           </v-btn>
         </template>
         <span>{{ $t("general.edit") }}</span>
       </v-tooltip>
       <ContextMenu
+        show-print
         :menu-top="false"
         :slug="slug"
         :name="name"
@@ -71,6 +81,10 @@ export default {
       type: String,
     },
     value: {
+      type: Boolean,
+      default: false,
+    },
+    loggedIn: {
       type: Boolean,
       default: false,
     },

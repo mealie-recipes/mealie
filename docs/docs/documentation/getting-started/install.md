@@ -10,8 +10,7 @@ To deploy mealie on your local network it is highly recommended to use docker to
 - linux/arm64
 
 ## Quick Start - Docker CLI
-
-Deployment with the Docker CLI can be done with `docker run` and specify the database type, in this case `sqlite`, setting the exposed port `9925`, mounting the current directory, and pull the latest image. After the image is up an running you can navigate to http://your.ip.addres:9925 and you'll should see mealie up and running!
+Deployment with the Docker CLI can be done with `docker run` and specify the database type, in this case `sqlite`, setting the exposed port `9925`, mounting the current directory, and pull the latest image. After the image is up and running you can navigate to http://your.ip.address:9925 and you'll should see mealie up and running!
 
 ```shell
 docker run \

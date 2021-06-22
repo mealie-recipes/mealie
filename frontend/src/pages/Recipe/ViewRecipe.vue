@@ -24,7 +24,7 @@
         :slug="recipeDetails.slug"
         :name="recipeDetails.name"
         v-model="form"
-        v-if="loggedIn"
+        :logged-in="loggedIn"
         :open="showIcons"
         @close="form = false"
         @json="jsonEditor = !jsonEditor"

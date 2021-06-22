@@ -53,7 +53,7 @@ Don't forget to change the <code>mydomain.duckns</code> into your personal domai
 ## Step 3: Change the config files
 
 Navigate to the config folder of SWAG and head to <code>proxy-confs</code>. If you used the example above, you should navigate to: <code>/etc/config/swag/nginx/proxy-confs/</code>.
-There are a lot of preconfigured files to use for different apps such as radarr,sonarr,overseerr,...
+There are a lot of preconfigured files to use for different apps such as radarr, sonarr, overseerr, ...
 
 To use the bundled configuration file, simply rename <code>mealie.subdomain.conf.sample</code> in the proxy-confs folder to <code>mealie.subdomain.conf</code>.
 Alternatively, you can create a new file <code>mealie.subdomain.conf</code> in proxy-confs with the following configuration:

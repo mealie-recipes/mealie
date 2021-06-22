@@ -1,4 +1,4 @@
-# User Managemenet
+# User Management
 
 As of version v0.4.0 users have limited functionality, but they will offer more permissions and structure as time goes on. To understand the different systems, see each section below. Note, that by default all users will be assigned the default group. If you're only managing one household you won't need to do anything to set up a new group.
 
@@ -47,7 +47,7 @@ As of version v0.4.0 users have limited functionality, but they will offer more 
 On the first startup you'll need to login to Mealie using the default username and password `changeme@email.com` and `MyPassword` or the default set through the env variable. On first login you'll be required to reset your password. After resetting your password you should also change your email address as appropriate. This will be used for logins on all future requests. 
 
 !!! tip 
-    Your default password environmental variable will be the default password for all new users that are created. This is stored in plain text and should not be used **any where** else.
+    Your default password environment variable will be the default password for all new users that are created. This is stored in plain text and should not be used **anywhere** else.
     
 
 ## Creating and Editing Users
@@ -80,7 +80,7 @@ You can easily create and manage groups via the frontend in the admin panel unde
 ![Group Management Panel](../../assets/img/group-manager.png)
 
 !!! tip
-    User Groups can only be deleted if no users are apart of the group. If you want to delete a group, you must assign the users to another group before removing. 
+    User Groups can only be deleted if no users are a part of the group. If you want to delete a group, you must assign the users to another group before removing. 
 
 ## Password Reset
-If a user forgets their password an administrator is able to reset their password through the user management page. In the user table, select edit. In the popup windows click the "Reset Password" to reset a user's password to the default. This is either 'MyPassword' or set through an environment variable. See the [Installation Page](../getting-started/install.md) for more details on environmental variables 
+If a user forgets their password an administrator is able to reset their password through the user management page. In the user table, select edit. In the popup window click the "Reset Password" to reset a user's password to the default. This is either 'MyPassword' or set through an environment variable. See the [Installation Page](../getting-started/install.md) for more details on environment variables.
