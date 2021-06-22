@@ -53,7 +53,7 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
     caddy \
-    && pip install -U pip
+    && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
 ENV POETRY_VERSION=1.1.6
@@ -78,7 +78,7 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # copy backend
 COPY ./mealie $MEALIE_HOME/mealie
-COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME
+COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 
 #! Future
 # COPY ./alembic ./alembic.ini $MEALIE_HOME
@@ -106,7 +106,7 @@ COPY --from=builder-base /usr/bin/caddy /usr/bin/caddy
 
 # copy backend
 COPY ./mealie $MEALIE_HOME/mealie
-COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME
+COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 COPY ./gunicorn_conf.py $MEALIE_HOME
 
 #! Future
