@@ -7,14 +7,14 @@
         </v-icon>
         <div v-if="large" class="text-small">
           <slot>
-            {{ small ? "" : "Loading Recipes" }}
+            {{ small ? "" : waitingText }}
           </slot>
         </div>
       </div>
     </v-progress-circular>
     <div v-if="!large" class="text-small">
       <slot>
-        {{ small ? "" : "Loading Recipes" }}
+        {{ small ? "" : waitingText }}
       </slot>
     </div>
   </div>
@@ -60,6 +60,9 @@ export default {
         size: 125,
       };
     },
+    waitingText() {
+      return this.$t("general.loading-recipes");
+    }
   },
 };
 </script>
