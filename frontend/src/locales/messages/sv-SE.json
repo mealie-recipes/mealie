@@ -81,7 +81,7 @@
     "json": "JSON",
     "keyword": "Nyckelord",
     "link-copied": "Länk kopierad",
-    "loading-recipes": "Loading Recipes",
+    "loading-recipes": "Laddar recept",
     "monday": "Måndag",
     "name": "Namn",
     "new": "Ny",
@@ -194,7 +194,7 @@
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats"
   },
   "page": {
-    "404-page-not-found": "404 Page not found",
+    "404-page-not-found": "404 sidan hittades inte",
     "all-recipes": "Alla recept",
     "home-page": "Startsida",
     "new-page-created": "Ny sida skapad",
