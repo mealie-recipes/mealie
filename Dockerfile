@@ -67,6 +67,31 @@ COPY ./poetry.lock ./pyproject.toml ./
 RUN poetry install -E pgsql --no-dev
 
 ###############################################
+# Development Image
+###############################################
+FROM python-base as development
+ENV PRODUCTION=false
+
+# copying poetry and venv into image
+COPY --from=builder-base $POETRY_HOME $POETRY_HOME
+COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+
+# copy backend
+COPY ./mealie $MEALIE_HOME/mealie
+COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME
+
+#! Future
+# COPY ./alembic ./alembic.ini $MEALIE_HOME
+
+# venv already has runtime deps installed we get a quicker install
+WORKDIR $MEALIE_HOME
+RUN . $VENV_PATH/bin/activate && poetry install
+WORKDIR /
+
+RUN chmod +x $MEALIE_HOME/mealie/run.sh
+ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
+
+###############################################
 # Production Image
 ###############################################
 FROM python-base as production

@@ -23,7 +23,8 @@ services:
     image: mealie-api:dev
     build:
       context: ./
-      dockerfile: Dockerfile.dev
+      target: development
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 9921:9000
