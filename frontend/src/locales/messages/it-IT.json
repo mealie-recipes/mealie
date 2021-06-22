@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Database",
+    "delete-event": "Delete Event",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
+    "new-version": "New version available!",
     "notification": "Notification",
+    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent",
-    "refresh": "Refresh",
-    "new-version": "New version available!",
-    "delete-event": "Delete Event"
+    "test-message-sent": "Test Message Sent"
   },
   "general": {
     "cancel": "Cancella",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Parola chiave",
     "link-copied": "Link Copied",
+    "loading-recipes": "Loading Recipes",
     "monday": "Lunedì",
     "name": "Nome",
     "new": "New",
     "no": "No",
+    "no-recipe-found": "No Recipe Found",
     "ok": "OK",
     "options": "Opzioni:",
     "print": "Print",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "View",
     "wednesday": "Mercoledì",
-    "yes": "Sì",
-    "no-recipe-found": "No Recipe Found"
+    "yes": "Sì"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -193,6 +194,7 @@
     "url-form-hint": "Copia e incolla un link dal tuo sito di ricette preferito"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "Tutte le ricette",
     "home-page": "Home Page",
     "new-page-created": "Nuova pagina creata",
@@ -291,12 +293,12 @@
       "backup-deleted": "Backup eliminato",
       "backup-tag": "Tag Backup",
       "create-heading": "Crea un Backup",
+      "delete-backup": "Delete Backup",
       "error-creating-backup-see-log-file": "Errore nella creazione del Backup. Vedi il file di log",
       "full-backup": "Backup Completo",
       "import-summary": "Importa Riepilogo",
       "partial-backup": "Backup Parziale",
-      "unable-to-delete-backup": "Impossibile rimuovere backup.",
-      "delete-backup": "Delete Backup"
+      "unable-to-delete-backup": "Impossibile rimuovere backup."
     },
     "backup-and-exports": "Backups",
     "change-password": "Modifica Password",
