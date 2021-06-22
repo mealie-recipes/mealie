@@ -1,14 +1,14 @@
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from fastapi import BackgroundTasks, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_admin_user, get_current_user
+from mealie.routes.deps import get_current_user
+from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from mealie.services.events import create_group_event
 from sqlalchemy.orm.session import Session
 
-admin_router = APIRouter(prefix="/api/groups", tags=["Groups administration"], dependencies=[Depends(get_admin_user)])
-
-user_router = APIRouter(prefix="/api/groups", tags=["Groups"], dependencies=[Depends(get_current_user)])
+admin_router = AdminAPIRouter(prefix="/api/groups", tags=["Groups administration"])
+user_router = UserAPIRouter(prefix="/api/groups", tags=["Groups"])
 
 
 @admin_router.get("", response_model=list[GroupInDB])

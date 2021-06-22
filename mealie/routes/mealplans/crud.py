@@ -1,7 +1,8 @@
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from fastapi import BackgroundTasks, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal import MealPlanIn, MealPlanOut
 from mealie.schema.user import GroupInDB, UserInDB
 from mealie.services.events import create_group_event
@@ -10,7 +11,7 @@ from mealie.services.meal_services import get_todays_meal, set_mealplan_dates
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
-router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
+router = UserAPIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
 
 @router.get("/all", response_model=list[MealPlanOut])

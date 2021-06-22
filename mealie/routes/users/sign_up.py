@@ -5,15 +5,17 @@ from mealie.core.security import get_password_hash
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_admin_user
+from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.sign_up import SignUpIn, SignUpOut, SignUpToken
 from mealie.schema.user import UserIn, UserInDB
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
+public_router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
+admin_router = AdminAPIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
 
 
-@router.get("", response_model=list[SignUpOut], dependencies=[Depends(get_admin_user)])
+@admin_router.get("", response_model=list[SignUpOut])
 async def get_all_open_sign_ups(
     session: Session = Depends(generate_session),
 ):
@@ -22,7 +24,7 @@ async def get_all_open_sign_ups(
     return db.sign_ups.get_all(session)
 
 
-@router.post("", response_model=SignUpToken, dependencies=[Depends(get_admin_user)])
+@admin_router.post("", response_model=SignUpToken)
 async def create_user_sign_up_key(
     background_tasks: BackgroundTasks,
     key_data: SignUpIn,
@@ -43,7 +45,7 @@ async def create_user_sign_up_key(
     return db.sign_ups.create(session, sign_up)
 
 
-@router.post("/{token}")
+@public_router.post("/{token}")
 async def create_user_with_token(
     background_tasks: BackgroundTasks,
     token: str,
@@ -69,7 +71,7 @@ async def create_user_with_token(
     db.sign_ups.delete(session, token)
 
 
-@router.delete("/{token}", dependencies=[Depends(get_admin_user)])
+@admin_router.delete("/{token}")
 async def delete_token(
     token: str,
     session: Session = Depends(generate_session),

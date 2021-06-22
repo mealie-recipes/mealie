@@ -1,16 +1,17 @@
 from http.client import HTTPException
 
-from fastapi import APIRouter, Depends, status
+from fastapi import Depends, status
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_admin_user
-from mealie.schema.event_notifications import EventNotificationIn, EventNotificationOut
+from mealie.routes.routers import AdminAPIRouter
+from mealie.schema.event_notifications import (EventNotificationIn,
+                                               EventNotificationOut)
 from mealie.schema.events import EventsOut, TestEvent
 from mealie.services.events import test_notification
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/events", tags=["App Events"], dependencies=[Depends(get_admin_user)])
+router = AdminAPIRouter(prefix="/events", tags=["App Events"])
 
 logger = get_logger()
 

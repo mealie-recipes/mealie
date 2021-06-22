@@ -1,18 +1,24 @@
 import shutil
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile, status
+from fastapi import (BackgroundTasks, Depends, File, HTTPException, UploadFile,
+                     status)
 from fastapi.responses import FileResponse
+from fastapi.routing import APIRouter
 from mealie.core import security
 from mealie.core.config import app_dirs, settings
 from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, get_admin_user
-from mealie.schema.user import ChangePassword, UserBase, UserFavorites, UserIn, UserInDB, UserOut
+from mealie.routes.deps import get_current_user
+from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
+from mealie.schema.user import (ChangePassword, UserBase, UserFavorites,
+                                UserIn, UserInDB, UserOut)
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/users", tags=["Users"])
+public_router = APIRouter(prefix="/api/users", tags=["Users"])
+user_router = UserAPIRouter(prefix="/api/users", tags=["Users"])
+admin_router = AdminAPIRouter(prefix="/api/users", tags=["Users"])
 
 
 async def assert_user_change_allowed(
@@ -24,7 +30,7 @@ async def assert_user_change_allowed(
         raise HTTPException(status.HTTP_403_FORBIDDEN, detail="NOT_AN_ADMIN")
 
 
-@router.post("", dependencies=[Depends(get_admin_user)], response_model=UserOut, status_code=201)
+@admin_router.post("", response_model=UserOut, status_code=201)
 async def create_user(
     background_tasks: BackgroundTasks,
     new_user: UserIn,
@@ -39,19 +45,19 @@ async def create_user(
     return db.users.create(session, new_user.dict())
 
 
-@router.get("", dependencies=[Depends(get_admin_user)], response_model=list[UserOut])
+@admin_router.get("", response_model=list[UserOut])
 async def get_all_users(session: Session = Depends(generate_session)):
     return db.users.get_all(session)
 
 
-@router.get("/self", response_model=UserOut)
+@user_router.get("/self", response_model=UserOut)
 async def get_logged_in_user(
     current_user: UserInDB = Depends(get_current_user),
 ):
     return current_user.dict()
 
 
-@router.get("/{id}", response_model=UserOut, dependencies=[Depends(get_admin_user)])
+@admin_router.get("/{id}", response_model=UserOut)
 async def get_user_by_id(
     id: int,
     session: Session = Depends(generate_session),
@@ -59,7 +65,7 @@ async def get_user_by_id(
     return db.users.get(session, id)
 
 
-@router.put("/{id}/reset-password", dependencies=[Depends(get_current_user)])
+@user_router.put("/{id}/reset-password")
 async def reset_user_password(
     id: int,
     session: Session = Depends(generate_session),
@@ -69,7 +75,7 @@ async def reset_user_password(
     db.users.update_password(session, id, new_password)
 
 
-@router.put("/{id}")
+@user_router.put("/{id}")
 async def update_user(
     id: int,
     new_data: UserBase,
@@ -94,7 +100,7 @@ async def update_user(
         return token
 
 
-@router.get("/{id}/image")
+@public_router.get("/{id}/image")
 async def get_user_image(id: str):
     """ Returns a users profile picture """
     user_dir = app_dirs.USER_DIR.joinpath(id)
@@ -104,7 +110,7 @@ async def get_user_image(id: str):
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
-@router.post("/{id}/image")
+@user_router.post("/{id}/image")
 async def update_user_image(
     id: str,
     profile_image: UploadFile = File(...),
@@ -128,7 +134,7 @@ async def update_user_image(
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@router.put("/{id}/password")
+@user_router.put("/{id}/password")
 async def update_password(
     id: int,
     password_change: ChangePassword,
@@ -148,14 +154,14 @@ async def update_password(
     db.users.update_password(session, id, new_password)
 
 
-@router.get("/{id}/favorites", response_model=UserFavorites)
+@user_router.get("/{id}/favorites", response_model=UserFavorites)
 async def get_favorites(id: str, session: Session = Depends(generate_session)):
     """ Get user's favorite recipes """
 
     return db.users.get(session, id, override_schema=UserFavorites)
 
 
-@router.post("/{id}/favorites/{slug}")
+@user_router.post("/{id}/favorites/{slug}")
 async def add_favorite(
     slug: str,
     current_user: UserInDB = Depends(get_current_user),
@@ -168,7 +174,7 @@ async def add_favorite(
     db.users.update(session, current_user.id, current_user)
 
 
-@router.delete("/{id}/favorites/{slug}")
+@user_router.delete("/{id}/favorites/{slug}")
 async def remove_favorite(
     slug: str,
     current_user: UserInDB = Depends(get_current_user),
@@ -183,7 +189,7 @@ async def remove_favorite(
     return
 
 
-@router.delete("/{id}")
+@admin_router.delete("/{id}")
 async def delete_user(
     background_tasks: BackgroundTasks,
     id: int,

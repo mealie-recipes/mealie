@@ -1,14 +1,14 @@
-from fastapi import APIRouter, Depends
+from fastapi import Depends
 from mealie.core.config import APP_VERSION, app_dirs, settings
 from mealie.core.root_logger import LOGGER_FILE
 from mealie.core.security import create_file_token
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_admin_user
+from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.about import AppInfo, AppStatistics, DebugInfo
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/debug", tags=["Debug"], dependencies=[Depends(get_admin_user)])
+router = AdminAPIRouter(prefix="/api/debug", tags=["Debug"])
 
 
 @router.get("")
