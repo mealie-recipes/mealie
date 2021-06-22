@@ -169,6 +169,7 @@ async def add_favorite(
 ):
     """ Adds a Recipe to the users favorites """
 
+    assert_user_change_allowed(id)
     current_user.favorite_recipes.append(slug)
 
     db.users.update(session, current_user.id, current_user)
@@ -182,6 +183,7 @@ async def remove_favorite(
 ):
     """ Adds a Recipe to the users favorites """
 
+    assert_user_change_allowed(id)
     current_user.favorite_recipes = [x for x in current_user.favorite_recipes if x != slug]
 
     db.users.update(session, current_user.id, current_user)
