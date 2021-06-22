@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Databas",
+    "delete-event": "Radera händelse",
     "new-notification-form-description": "Mealie använder Apprise-biblioteket för att generera aviseringar. De erbjuder många alternativ för tjänster att använda för aviseringar. Se deras wiki för en omfattande guide om hur du skapar URL för din tjänst. Om det är tillgängligt kan det vara extra funktioner att välja typ av anmälan.",
+    "new-version": "Uppdatering tillgänglig!",
     "notification": "Notifiering",
+    "refresh": "Uppdatera",
     "scheduled": "Schemalagd",
     "something-went-wrong": "Hmmm, något blev fel!",
     "subscribed-events": "Prenumererade händelser",
-    "test-message-sent": "Test meddelande skickat",
-    "refresh": "Uppdatera",
-    "new-version": "Uppdatering tillgänglig!",
-    "delete-event": "Radera händelse"
+    "test-message-sent": "Test meddelande skickat"
   },
   "general": {
     "cancel": "Avbryt",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Nyckelord",
     "link-copied": "Länk kopierad",
+    "loading-recipes": "Loading Recipes",
     "monday": "Måndag",
     "name": "Namn",
     "new": "Ny",
     "no": "Nej",
+    "no-recipe-found": "Inga recept hittades",
     "ok": "Ok",
     "options": "Alternativ:",
     "print": "Skriv ut",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "Visa",
     "wednesday": "Onsdag",
-    "yes": "Ja",
-    "no-recipe-found": "Inga recept hittades"
+    "yes": "Ja"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -193,6 +194,7 @@
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "Alla recept",
     "home-page": "Startsida",
     "new-page-created": "Ny sida skapad",
@@ -291,12 +293,12 @@
       "backup-deleted": "Backup raderad",
       "backup-tag": "Backup tagg",
       "create-heading": "Skapa en säkerhetskopia",
+      "delete-backup": "Ta bort säkerhetskopian",
       "error-creating-backup-see-log-file": "Fel vid skapande av backup. Se loggfil",
       "full-backup": "Komplett backup",
       "import-summary": "Import sammanfattning",
       "partial-backup": "Partiell backup",
-      "unable-to-delete-backup": "Kan inte radera backup.",
-      "delete-backup": "Ta bort säkerhetskopian"
+      "unable-to-delete-backup": "Kan inte radera backup."
     },
     "backup-and-exports": "Backuper",
     "change-password": "Ändra lösenord",
