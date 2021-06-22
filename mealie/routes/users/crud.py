@@ -145,9 +145,8 @@ async def update_password(
 
     assert_user_change_allowed(id)
     match_passwords = verify_password(password_change.current_password, current_user.password)
-    match_id = current_user.id == id
 
-    if not (match_passwords and match_id):
+    if not (match_passwords):
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     new_password = get_password_hash(password_change.new_password)
@@ -195,7 +194,6 @@ async def remove_favorite(
 async def delete_user(
     background_tasks: BackgroundTasks,
     id: int,
-    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Removes a user from the database. Must be the current user or a super user"""
@@ -205,9 +203,8 @@ async def delete_user(
     if id == 1:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
 
-    if current_user.id == id or current_user.admin:
-        try:
-            db.users.delete(session, id)
-            background_tasks.add_task(create_user_event, "User Deleted", f"User ID: {id}", session=session)
-        except Exception:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST)
+    try:
+        db.users.delete(session, id)
+        background_tasks.add_task(create_user_event, "User Deleted", f"User ID: {id}", session=session)
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
