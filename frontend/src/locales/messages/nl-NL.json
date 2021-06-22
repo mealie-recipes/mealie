@@ -189,7 +189,7 @@
     "from-url": "Recept importeren",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-url": "Recept URL",
-    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
+    "upload-individual-zip-file": "Upload een individueel .zip-bestand geëxporteerd vanuit een andere Mealie-instantie.",
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite"
   },
   "page": {
