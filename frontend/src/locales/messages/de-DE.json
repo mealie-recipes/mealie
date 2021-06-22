@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Datenbank",
+    "delete-event": "Ereignis löschen",
     "new-notification-form-description": "Mealie verwendet die Apprise-Bibliothek, um Benachrichtigungen zu erzeugen. Sie bietet viele Optionen für Dienste an, die für Benachrichtigungen genutzt werden können. Werfe einen Blick in ihr Wiki für eine umfassende Anleitung zum Erstellen der URL für Ihren Dienst. Falls verfügbar, kann die Auswahl des Benachrichtigungstyps zusätzliche Funktionen enthalten.",
+    "new-version": "Neue Version verfügbar!",
     "notification": "Benachrichtigung",
+    "refresh": "Aktualisieren",
     "scheduled": "Geplant",
     "something-went-wrong": "Etwas ist schief gelaufen!",
     "subscribed-events": "Abonnierte Ereignisse",
-    "test-message-sent": "Testnachricht gesendet",
-    "refresh": "Aktualisieren",
-    "new-version": "Neue Version verfügbar!",
-    "delete-event": "Ereignis löschen"
+    "test-message-sent": "Testnachricht gesendet"
   },
   "general": {
     "cancel": "Abbrechen",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Keyword",
     "link-copied": "Link kopiert",
+    "loading-recipes": "Loading Recipes",
     "monday": "Montag",
     "name": "Name",
     "new": "Neu",
     "no": "Nein",
+    "no-recipe-found": "Kein Rezept gefunden",
     "ok": "Okay",
     "options": "Optionen:",
     "print": "Drucken",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "Ansicht",
     "wednesday": "Mittwoch",
-    "yes": "Ja",
-    "no-recipe-found": "Kein Rezept gefunden"
+    "yes": "Ja"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -193,6 +194,7 @@
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "Alle Rezepte",
     "home-page": "Startseite",
     "new-page-created": "Neue Seite angelegt",
@@ -291,12 +293,12 @@
       "backup-deleted": "Sicherung gelöscht",
       "backup-tag": "Sicherungsbeschreibung",
       "create-heading": "Sicherung erstellen",
+      "delete-backup": "Sicherung löschen",
       "error-creating-backup-see-log-file": "Fehler beim Erstellen der Sicherung. Siehe Protokolldatei",
       "full-backup": "Komplettsicherung",
       "import-summary": "Zusammenfassung des Imports",
       "partial-backup": "Teilsicherung",
-      "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden.",
-      "delete-backup": "Sicherung löschen"
+      "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden."
     },
     "backup-and-exports": "Sicherungen",
     "change-password": "Passwort ändern",
