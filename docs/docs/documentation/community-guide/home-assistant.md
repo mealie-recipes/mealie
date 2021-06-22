@@ -29,6 +29,19 @@ style:
     }
 ```
 
+The sensor that gets the name of the meal can be achieved using the following REST sensor in Home Assistant
+```yaml
+sensor:
+  - platform: rest
+    resource: 'http://localhost:9000/api/meal-plans/today'
+    method: GET
+    name: Mealie todays meal 
+    headers:
+      Authorization: Bearer MySuperSecretBearerCode
+    value_template: "{{ value_json.name }}"
+```
+The Bearer token can be created from the User Settings page (https://hay-kot.github.io/mealie/documentation/users-groups/user-settings/#api-key-generation) 
+
 
 !!! tip
     Due to how Home Assistant works with images, I had to include the additional styling to get the images to not appear distorted. This includes and [additional installation](https://github.com/thomasloven/lovelace-card-mod) from HACS. 
