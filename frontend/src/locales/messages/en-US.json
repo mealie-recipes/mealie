@@ -203,7 +203,8 @@
     "page-update-failed": "Page update failed",
     "page-updated": "Page updated",
     "pages-update-failed": "Pages update failed",
-    "pages-updated": "Pages updated"
+    "pages-updated": "Pages updated",
+    "404-page-not-found": "404 Page not found"
   },
   "recipe": {
     "add-key": "Add Key",
