@@ -13,6 +13,8 @@ RUN npm run build
 ###############################################
 FROM python:3.9-slim as python-base
 
+ENV MEALIE_HOME="/app"
+
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=off \
@@ -26,6 +28,11 @@ ENV PYTHONUNBUFFERED=1 \
 
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+
+# create user account
+RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
+    && usermod -G users abc \
+    && mkdir $MEALIE_HOME
 
 ###############################################
 # Builder Image
@@ -72,29 +79,27 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 # copying caddy into image
 COPY --from=builder-base /usr/bin/caddy /usr/bin/caddy
 
-WORKDIR /app
-
 # copy backend
-COPY ./mealie ./mealie
-COPY ./poetry.lock ./pyproject.toml ./
-
-# venv already has runtime deps installed we get a quicker install
-# WORKDIR $PYSETUP_PATH
-RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
-
-# copy frontend
-COPY --from=frontend-build /app/dist ./dist
-COPY ./dev/data/templates ./data/templates
-COPY ./Caddyfile ./
-COPY ./gunicorn_conf.py ./
+COPY ./mealie $MEALIE_HOME/mealie
+COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME
+COPY ./gunicorn_conf.py $MEALIE_HOME
 
 #! Future
-# COPY ./alembic ./
-# COPY ./alembic.ini ./
+# COPY ./alembic ./alembic.ini $MEALIE_HOME
 
-VOLUME [ "/app/data/" ]
+# venv already has runtime deps installed we get a quicker install
+WORKDIR $MEALIE_HOME
+RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
+WORKDIR /
+
+# copy frontend
+COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
+COPY ./dev/data/templates $MEALIE_HOME/data/templates
+COPY ./Caddyfile $MEALIE_HOME
+
+VOLUME [ "$MEALIE_HOME/data/" ]
 
 EXPOSE 80
 
-RUN chmod +x ./mealie/run.sh
-ENTRYPOINT ./mealie/run.sh
+RUN chmod +x $MEALIE_HOME/mealie/run.sh
+ENTRYPOINT $MEALIE_HOME/mealie/run.sh
