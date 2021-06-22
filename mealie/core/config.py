@@ -110,7 +110,7 @@ class AppSettings(BaseSettings):
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
 
-    DB_ENGINE: Optional[str] = None  # Optional: 'sqlite', 'postgres'
+    DB_ENGINE: str = "sqlite"  # Optional: 'sqlite', 'postgres'
     POSTGRES_USER: str = "mealie"
     POSTGRES_PASSWORD: str = "mealie"
     POSTGRES_SERVER: str = "postgres"

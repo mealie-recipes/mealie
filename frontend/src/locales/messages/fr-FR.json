@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404 Page introuvable",
-    "take-me-home": "Retour à l'accueil"
-  },
   "about": {
     "about": "À propos",
     "about-mealie": "À propos de Mealie",
@@ -41,16 +37,16 @@
     "apprise-url": "URL Apprise",
     "database": "Base de données",
     "new-notification-form-description": "Mealie utilise la bibliothèque Apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
+    "new-version": "Nouvelle version disponible !",
     "notification": "Notification",
+    "refresh": "Rafraîchir",
     "scheduled": "Planifié",
     "something-went-wrong": "Une erreur s'est produite !",
     "subscribed-events": "Événements suivis",
     "test-message-sent": "Message de test envoyé",
-    "refresh": "Rafraîchir",
-    "new-version": "Nouvelle version disponible !"
+    "delete-event": "Supprimer l’événement"
   },
   "general": {
-    "apply": "Appliquer",
     "cancel": "Annuler",
     "clear": "Effacer",
     "close": "Fermer",
@@ -78,15 +74,14 @@
     "friday": "Vendredi",
     "general": "Général",
     "get": "Envoyer",
+    "home": "Page d'accueil",
     "image": "Image",
     "image-upload-failed": "Le téléchargement de l'image a échoué",
     "import": "Importer",
     "json": "JSON",
     "keyword": "Mot-clé",
-    "link": "Lien",
     "link-copied": "Lien copié",
     "monday": "Lundi",
-    "more": "Plus",
     "name": "Nom",
     "new": "Nouveau",
     "no": "Non",
@@ -124,7 +119,8 @@
     "url": "URL",
     "view": "Voir",
     "wednesday": "Mercredi",
-    "yes": "Oui"
+    "yes": "Oui",
+    "no-recipe-found": "Aucune recette trouvée"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/> ?",
@@ -140,7 +136,6 @@
     "group-name": "Nom du groupe",
     "group-not-found": "Groupe non trouvé",
     "groups": "Groupes",
-    "groups-can-only-be-set-by-administrators": "Les groupes peuvent uniquement être assignés par les administrateurs",
     "manage-groups": "Gérer les groupes",
     "user-group": "Groupe utilisateur",
     "user-group-created": "Groupe d'utilisateurs créé",
@@ -197,7 +192,7 @@
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori"
   },
   "page": {
-    "all-recipes": "Toutes mes recettes",
+    "all-recipes": "Toutes les recettes",
     "home-page": "Accueil",
     "new-page-created": "Nouvelle page créée",
     "page": "Page",
@@ -207,8 +202,7 @@
     "page-update-failed": "La mise à jour de la page a échoué",
     "page-updated": "Page mise à jour",
     "pages-update-failed": "La mise à jour des pages a échoué",
-    "pages-updated": "Pages mises à jour",
-    "recent": "Récent"
+    "pages-updated": "Pages mises à jour"
   },
   "recipe": {
     "add-key": "Ajouter une clé",
@@ -240,7 +234,6 @@
     "new-key-name": "Nouveau nom de clé",
     "no-white-space-allowed": "Aucun espace blanc autorisé",
     "note": "Note",
-    "notes": "Notes",
     "nutrition": "Valeurs nutritionnelles",
     "object-key": "Clé d'objet",
     "object-value": "Valeur d'objet",
@@ -260,6 +253,7 @@
     "recipe-updated": "Recette mise à jour",
     "remove-from-favorites": "Supprimer des favoris",
     "remove-section": "Supprimer une section",
+    "save-recipe-before-use": "Enregistrez la recette avant utilisation",
     "section-title": "Titre de la section",
     "servings": "Portions",
     "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
@@ -270,8 +264,7 @@
     "sugar-content": "Sucres",
     "title": "Titre",
     "total-time": "Temps total",
-    "unable-to-delete-recipe": "Impossible de supprimer la recette",
-    "view-recipe": "Voir la recette"
+    "unable-to-delete-recipe": "Impossible de supprimer la recette"
   },
   "reicpe": {
     "no-recipe": "Pas de recette"
@@ -292,7 +285,6 @@
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
     "admin-settings": "Paramètres d'administration",
-    "available-backups": "Sauvegardes disponibles",
     "backup": {
       "backup-created-at-response-export_path": "Sauvegarde créée dans {path}",
       "backup-deleted": "Sauvegarde supprimée",
@@ -302,10 +294,10 @@
       "full-backup": "Sauvegarde complète",
       "import-summary": "Résumé de l'importation",
       "partial-backup": "Sauvegarde partielle",
-      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde."
+      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
+      "delete-backup": "Supprimer la sauvegarde"
     },
     "backup-and-exports": "Sauvegardes",
-    "backup-info": "Les sauvegardes sont exportées en format JSON standard, ainsi que toutes les images stockées sur le système. Dans votre dossier de sauvegarde, vous trouverez un dossier .zip qui contient toutes les recettes en JSON et les images de la base de données. De plus, si vous avez sélectionné le format de fichier markdown, il sera sauvegardé dans le même dossier .zip. Pour importer une sauvegarde, celle-ci doit être enregistrée dans votre dossier de sauvegardes. Une sauvegarde automatique est effectuée quotidiennement à 03h00.",
     "change-password": "Modifier le mot de passe",
     "current": "Version :",
     "custom-pages": "Pages personnalisées",
@@ -338,12 +330,8 @@
     "site-settings": "Paramètres site",
     "theme": {
       "accent": "Accentué",
-      "are-you-sure-you-want-to-delete-this-theme": "Êtes-vous sûr(e) de vouloir supprimer ce thème ?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Personnalisez l'apparence de Mealie. Utilisez le thème par défaut de votre système ou choisissez manuellement entre le thème clair ou sombre.",
       "dark": "Sombre",
-      "dark-mode": "Mode sombre",
       "default-to-system": "Identique au système",
-      "delete-theme": "Supprimer le thème",
       "error": "Erreur",
       "error-creating-theme-see-log-file": "Erreur lors de la création du thème. Consultez les logs.",
       "error-deleting-theme": "Erreur lors de la suppression du thème",
@@ -361,7 +349,6 @@
       "theme-name": "Nom du thème",
       "theme-name-is-required": "Un nom de thème est requis.",
       "theme-saved": "Thème enregistré",
-      "theme-settings": "Paramètres du thème",
       "theme-updated": "Thème mis à jour",
       "warning": "Avertissement"
     },
@@ -385,7 +372,6 @@
       "unorganized": "Non organisé"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Webhooks des menus",
       "test-webhooks": "Tester les webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les liens dans cette liste recevront les webhooks contenant les recettes pour le menu du jour. Actuellement, les webhooks se lancent à",
       "webhook-url": "Lien du webhook",
@@ -403,7 +389,6 @@
     "shopping-lists": "Listes de courses"
   },
   "signup": {
-    "display-name": "Nom affiché",
     "error-signing-up": "Erreur lors de l'inscription",
     "sign-up": "S'inscrire",
     "sign-up-link-created": "Lien d'inscription créé",
@@ -440,7 +425,6 @@
     "error-cannot-delete-super-user": "Erreur ! Impossible de supprimer le super utilisateur",
     "existing-password-does-not-match": "Le mot de passe actuel ne correspond pas",
     "full-name": "Nom",
-    "incorrect-username-or-password": "Nom d'utilisateur ou mot de passe incorrect",
     "link-id": "ID du lien",
     "link-name": "Nom du lien",
     "login": "Connexion",

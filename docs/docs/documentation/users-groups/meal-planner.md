@@ -2,7 +2,7 @@
 
 ## Working with Planner
 
-In Mealie you can create a meal plan based off the calendar inputs on the meal planner page. There is no limit to how long or how short a meal plan is. You may also create duplicate meal plans for the same date range. After selecting your date range, click on the card for each day and search through recipes to find your choice. Add a side-dish if you prefer to. After selecting a recipe for all meals, save the plan. Selecting the 'No Recipe' button will allow you to add an entry without a recipe by providing a title and description
+In Mealie you can create a meal plan based off the calendar inputs on the meal planner page. There is no limit to how long or how short a meal plan is. You may also create duplicate meal plans for the same date range. After selecting your date range, click on the card for each day and search through recipes to find your choice. Add a side-dish if you prefer to. After selecting a recipe for all meals, save the plan. Selecting the 'No Recipe' button will allow you to add an entry without a recipe by providing a title and description.
 
 You can also randomly generate meal plans with the dice-button at the bottom. 
 

@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from mealie.core.config import settings
+from mealie.core.config import app_dirs, settings
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.schema.auth import TokenData
@@ -106,3 +106,13 @@ def validate_file_token(token: Optional[str] = None) -> Path:
         raise credentials_exception
 
     return file_path
+
+
+async def temporary_zip_path() -> Path:
+    temp_path = app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
+    temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
+
+    try:
+        yield temp_path
+    finally:
+        temp_path.unlink(missing_ok=True)

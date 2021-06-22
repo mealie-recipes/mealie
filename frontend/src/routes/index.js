@@ -6,8 +6,7 @@ import { mealRoutes } from "./meal";
 import { generalRoutes } from "./general";
 import { store } from "@/store";
 import VueRouter from "vue-router";
-import VueI18n from "@/i18n";
-import Vuetify from "@/plugins/vuetify";
+import { loadLanguageAsync } from "@/i18n";
 import Vue from "vue";
 import i18n from "@/i18n.js";
 
@@ -45,14 +44,8 @@ router.afterEach(to => {
   });
 });
 
-function loadLocale() {
-  VueI18n.locale = store.getters.getActiveLang;
-  Vuetify.framework.lang.current = store.getters.getActiveLang;
-}
-
 router.beforeEach((__, _, next) => {
-  loadLocale();
-  next();
+  loadLanguageAsync(store.getters.getActiveLang).then(() => next());
 });
 
 export { router };

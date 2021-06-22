@@ -1,5 +1,13 @@
 <template>
   <div>
+    <ConfirmationDialog
+      :title="$t('events.delete-event')"
+      :message="$t('general.confirm-delete-generic')"
+      color="error"
+      :icon="$globals.icons.alertCircle"
+      ref="deleteEventConfirm"
+      v-on:confirm="emitDelete()"
+    />
     <StatCard :icon="$globals.icons.bellAlert" :color="color">
       <template v-slot:after-heading>
         <div class="ml-auto text-right">
@@ -37,7 +45,7 @@
               </v-list-item-content>
 
               <v-list-item-action class="ml-auto">
-                <v-btn large icon @click="deleteEvent(item.id)">
+                <v-btn large icon @click="openDialog(item)">
                   <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </v-list-item-action>
@@ -52,12 +60,14 @@
 <script>
 import { api } from "@/api";
 import StatCard from "@/components/UI/StatCard";
+import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 export default {
-  components: { StatCard },
+  components: { StatCard, ConfirmationDialog },
   data() {
     return {
       color: "accent",
       total: 0,
+      selectedId: "",
       events: [],
       icons: {
         general: {
@@ -107,6 +117,15 @@ export default {
     async deleteAll() {
       await api.about.deleteAllEvents();
       this.getEvents();
+    },
+
+    openDialog(events) {
+      this.selectedId = events.id;
+      this.$refs.deleteEventConfirm.open();
+    },
+
+    emitDelete() {
+      this.deleteEvent(this.selectedId);
     },
   },
 };

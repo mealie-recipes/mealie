@@ -13,7 +13,7 @@ export const metaAPI = {
   },
 
   async getLogText(num) {
-    const response = await apiReq.get(API_ROUTES.debugLog(num));
+    const response = await apiReq.get(API_ROUTES.debugLogNum(num));
     return response.data;
   },
 

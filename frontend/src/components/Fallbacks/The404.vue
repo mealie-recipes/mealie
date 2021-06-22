@@ -29,15 +29,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      buttons: [
-        { icon: this.$globals.icons.home, to: "/", text: "Home" },
-        { icon: this.$globals.icons.primary, to: "/recipes/all", text: "All Recipes" },
-        { icon: this.$globals.icons.search, to: "/search", text: "Search" },
-      ],
-    };
-  },
+  computed: {
+    buttons() {
+      return[ 
+        { icon: this.$globals.icons.home, to: "/", text: this.$t('general.home') },
+        { icon: this.$globals.icons.primary, to: "/recipes/all", text: this.$t('page.all-recipes') },
+        { icon: this.$globals.icons.search, to: "/search", text: this.$t('search.search') },
+      ]; 
+    },
+  }
 };
 </script>
 

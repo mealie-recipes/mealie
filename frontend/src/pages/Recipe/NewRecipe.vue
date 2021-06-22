@@ -10,7 +10,13 @@
       </v-img>
       <br v-else />
 
-      <RecipePageActionMenu :value="true" @json="jsonEditor = true" @edit="jsonEditor = false" @save="createRecipe" />
+      <RecipePageActionMenu
+        logged-in
+        :value="true"
+        @json="jsonEditor = true"
+        @edit="jsonEditor = false"
+        @save="createRecipe"
+      />
 
       <div v-if="jsonEditor">
         <!-- Probably not the best way, but it works! -->
