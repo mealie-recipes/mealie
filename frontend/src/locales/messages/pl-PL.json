@@ -37,13 +37,13 @@
     "apprise-url": "Apprise URL",
     "database": "Baza danych",
     "new-notification-form-description": "Mealie używa biblioteki Apprise do generowania powiadomień. Oferują one wiele możliwości korzystania z usług do powiadomień. Zobacz ich wiki w celu uzyskania wyczerpującego poradnika jak utworzyć adres URL dla Twojej usługi. Jeśli jest to możliwe, wybór typu powiadomienia może zawierać dodatkowe funkcje.",
-    "new-version": "Dostępna jest nowa wersja!",
     "notification": "Powiadomienie",
-    "refresh": "Odśwież",
     "scheduled": "Zaplanowane",
     "something-went-wrong": "Coś poszło nie tak!",
     "subscribed-events": "Zasubskrybowane wydarzenia",
     "test-message-sent": "Wiadomość została wysłana",
+    "refresh": "Odśwież",
+    "new-version": "Dostępna jest nowa wersja!",
     "delete-event": "Delete Event"
   },
   "general": {
@@ -189,6 +189,7 @@
     "from-url": "Importuj przepis",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Wklej zawartość przepisu. Każda indywidualna linia traktowana będzie jako pozycja na liście",
     "recipe-url": "Adres URL przepisu",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "Skopiuj i wklej link ze swojej ulubionej strony z przepisami"
   },
   "page": {

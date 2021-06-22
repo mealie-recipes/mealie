@@ -37,13 +37,13 @@
     "apprise-url": "Apprise URL",
     "database": "Databas",
     "new-notification-form-description": "Mealie använder Apprise-biblioteket för att generera aviseringar. De erbjuder många alternativ för tjänster att använda för aviseringar. Se deras wiki för en omfattande guide om hur du skapar URL för din tjänst. Om det är tillgängligt kan det vara extra funktioner att välja typ av anmälan.",
-    "new-version": "Uppdatering tillgänglig!",
     "notification": "Notifiering",
-    "refresh": "Uppdatera",
     "scheduled": "Schemalagd",
     "something-went-wrong": "Hmmm, något blev fel!",
     "subscribed-events": "Prenumererade händelser",
     "test-message-sent": "Test meddelande skickat",
+    "refresh": "Uppdatera",
+    "new-version": "Uppdatering tillgänglig!",
     "delete-event": "Radera händelse"
   },
   "general": {
@@ -189,6 +189,7 @@
     "from-url": "Från länk",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
     "recipe-url": "Recept URL",
+    "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats"
   },
   "page": {

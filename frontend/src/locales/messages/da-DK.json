@@ -37,13 +37,13 @@
     "apprise-url": "Apprise URL",
     "database": "Database",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
-    "new-version": "New version available!",
     "notification": "Notification",
-    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
+    "refresh": "Refresh",
+    "new-version": "New version available!",
     "delete-event": "Delete Event"
   },
   "general": {
@@ -189,6 +189,7 @@
     "from-url": "Fra URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Indsæt dine opskriftsdata. \nHver linje behandles som et element på en liste",
     "recipe-url": "URL på opskrift",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "Kopiér og indsæt et link fra din foretrukne opskrifts hjemmeside"
   },
   "page": {
