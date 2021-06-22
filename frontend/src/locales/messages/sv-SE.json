@@ -189,7 +189,7 @@
     "from-url": "Från länk",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
     "recipe-url": "Recept URL",
-    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
+    "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats"
   },
   "page": {
