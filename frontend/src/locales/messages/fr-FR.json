@@ -189,7 +189,7 @@
     "from-url": "Depuis une adresse web",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
     "recipe-url": "Adresse de la recette",
-    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
+    "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori"
   },
   "page": {
