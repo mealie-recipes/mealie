@@ -1,4 +1,5 @@
 from fastapi import Depends
+from fastapi.routing import APIRouter
 from mealie.core.config import APP_VERSION, app_dirs, settings
 from mealie.core.root_logger import LOGGER_FILE
 from mealie.core.security import create_file_token
@@ -8,10 +9,12 @@ from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.about import AppInfo, AppStatistics, DebugInfo
 from sqlalchemy.orm.session import Session
 
-router = AdminAPIRouter(prefix="/api/debug", tags=["Debug"])
+
+admin_router = AdminAPIRouter(prefix="/api/debug", tags=["Debug"])
+public_router = APIRouter(prefix="/api/debug", tags=["Debug"])
 
 
-@router.get("")
+@admin_router.get("")
 async def get_debug_info():
     """ Returns general information about the application for debugging """
 
@@ -27,7 +30,7 @@ async def get_debug_info():
     )
 
 
-@router.get("/statistics")
+@admin_router.get("/statistics")
 async def get_app_statistics(session: Session = Depends(generate_session)):
     return AppStatistics(
         total_recipes=db.recipes.count_all(session),
@@ -38,7 +41,7 @@ async def get_app_statistics(session: Session = Depends(generate_session)):
     )
 
 
-@router.get("/version")
+@public_router.get("/version")
 async def get_mealie_version():
     """ Returns the current version of mealie"""
     return AppInfo(
@@ -48,13 +51,13 @@ async def get_mealie_version():
     )
 
 
-@router.get("/last-recipe-json")
+@admin_router.get("/last-recipe-json")
 async def get_last_recipe_json():
     """ Returns a token to download a file """
     return {"fileToken": create_file_token(app_dirs.DEBUG_DIR.joinpath("last_recipe.json"))}
 
 
-@router.get("/log/{num}")
+@admin_router.get("/log/{num}")
 async def get_log(num: int):
     """ Doc Str """
     with open(LOGGER_FILE, "rb") as f:
@@ -62,7 +65,7 @@ async def get_log(num: int):
     return log_text
 
 
-@router.get("/log")
+@admin_router.get("/log")
 async def get_log_file():
     """ Returns a token to download a file """
     return {"fileToken": create_file_token(LOGGER_FILE)}
