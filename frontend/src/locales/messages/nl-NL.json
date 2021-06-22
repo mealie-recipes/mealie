@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Database",
+    "delete-event": "Evenement Verwijderen",
     "new-notification-form-description": "Mealie gebruikt de Apprise library om meldingen te genereren. Ze bieden vele opties voor diensten om te gebruiken voor meldingen. Raadpleeg hun wiki voor een uitgebreide handleiding over hoe je een URL voor je service kunt maken. Indien beschikbaar, kan het selecteren van het type van jouw melding extra opties bevatten.",
+    "new-version": "Nieuwe versie beschikbaar!",
     "notification": "Notificatie",
+    "refresh": "Vernieuwen",
     "scheduled": "Gepland",
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde Events",
-    "test-message-sent": "Testbericht verzonden",
-    "refresh": "Vernieuwen",
-    "new-version": "Nieuwe versie beschikbaar!",
-    "delete-event": "Evenement Verwijderen"
+    "test-message-sent": "Testbericht verzonden"
   },
   "general": {
     "cancel": "Annuleren",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Trefwoord",
     "link-copied": "Link Gekopieerd",
+    "loading-recipes": "Loading Recipes",
     "monday": "Maandag",
     "name": "Naam",
     "new": "Nieuw",
     "no": "Nee",
+    "no-recipe-found": "Geen Recept Gevonden",
     "ok": "Ok",
     "options": "Opties:",
     "print": "Afdrukken",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "Weergave",
     "wednesday": "Woensdag",
-    "yes": "Ja",
-    "no-recipe-found": "Geen Recept Gevonden"
+    "yes": "Ja"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wilt verwijderen?",
@@ -193,6 +194,7 @@
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "Alle recepten",
     "home-page": "Startpagina",
     "new-page-created": "Nieuwe pagina aangemaakt",
@@ -291,12 +293,12 @@
       "backup-deleted": "Back-up verwijderd",
       "backup-tag": "Back-up label",
       "create-heading": "Back-up maken",
+      "delete-backup": "Back-up Verwijderen",
       "error-creating-backup-see-log-file": "Fout bij aanmaken van back-up. Zie logbestand",
       "full-backup": "Volledige Back-up",
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke Back-up",
-      "unable-to-delete-backup": "Back-up verwijderen niet mogelijk.",
-      "delete-backup": "Back-up Verwijderen"
+      "unable-to-delete-backup": "Back-up verwijderen niet mogelijk."
     },
     "backup-and-exports": "Backups",
     "change-password": "Wachtwoord wijzigen",
