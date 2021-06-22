@@ -91,7 +91,9 @@ def test_import_nextcloud_directory(api_client: TestClient, api_routes: AppRoute
         assert report.get("status") is True
 
 
-def test_delete__nextcloud_migration_data(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip: Path, admin_token):
+def test_delete__nextcloud_migration_data(
+    api_client: TestClient, api_routes: AppRoutes, nextcloud_zip: Path, admin_token
+):
     selection = nextcloud_zip.name
     delete_url = api_routes.migrations_import_type_file_name_delete("nextcloud", selection)
     response = api_client.delete(delete_url, headers=admin_token)

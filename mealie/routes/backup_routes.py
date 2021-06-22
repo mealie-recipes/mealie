@@ -2,8 +2,7 @@ import operator
 import shutil
 from pathlib import Path
 
-from fastapi import (BackgroundTasks, Depends, File, HTTPException, UploadFile,
-                     status)
+from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from mealie.core.config import app_dirs
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token

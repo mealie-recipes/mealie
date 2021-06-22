@@ -6,8 +6,7 @@ from mealie.routes.deps import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal import MealPlanOut
 from mealie.schema.recipe import Recipe
-from mealie.schema.shopping_list import (ListItem, ShoppingListIn,
-                                         ShoppingListOut)
+from mealie.schema.shopping_list import ListItem, ShoppingListIn, ShoppingListOut
 from mealie.schema.user import UserInDB
 from sqlalchemy.orm.session import Session
 

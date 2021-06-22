@@ -7,8 +7,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.user import (CreateToken, LoingLiveTokenIn,
-                                LongLiveTokenInDB, UserInDB)
+from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
 router = UserAPIRouter(prefix="/api/users", tags=["User API Tokens"])

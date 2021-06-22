@@ -1,7 +1,6 @@
 import shutil
 
-from fastapi import (BackgroundTasks, Depends, File, HTTPException, UploadFile,
-                     status)
+from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
 from fastapi.routing import APIRouter
 from mealie.core import security
@@ -11,8 +10,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
-from mealie.schema.user import (ChangePassword, UserBase, UserFavorites,
-                                UserIn, UserInDB, UserOut)
+from mealie.schema.user import ChangePassword, UserBase, UserFavorites, UserIn, UserInDB, UserOut
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
