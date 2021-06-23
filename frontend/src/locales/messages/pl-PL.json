@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Baza danych",
+    "delete-event": "Delete Event",
     "new-notification-form-description": "Mealie używa biblioteki Apprise do generowania powiadomień. Oferują one wiele możliwości korzystania z usług do powiadomień. Zobacz ich wiki w celu uzyskania wyczerpującego poradnika jak utworzyć adres URL dla Twojej usługi. Jeśli jest to możliwe, wybór typu powiadomienia może zawierać dodatkowe funkcje.",
+    "new-version": "Dostępna jest nowa wersja!",
     "notification": "Powiadomienie",
+    "refresh": "Odśwież",
     "scheduled": "Zaplanowane",
     "something-went-wrong": "Coś poszło nie tak!",
     "subscribed-events": "Zasubskrybowane wydarzenia",
-    "test-message-sent": "Wiadomość została wysłana",
-    "refresh": "Odśwież",
-    "new-version": "Dostępna jest nowa wersja!",
-    "delete-event": "Delete Event"
+    "test-message-sent": "Wiadomość została wysłana"
   },
   "general": {
     "cancel": "Anuluj",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Słowo kluczowe",
     "link-copied": "Odnośnik skopiowany",
+    "loading-recipes": "Loading Recipes",
     "monday": "Poniedziałek",
     "name": "Nazwa",
     "new": "Nowy",
     "no": "Nie",
+    "no-recipe-found": "No Recipe Found",
     "ok": "OK",
     "options": "Opcje:",
     "print": "Drukuj",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "Widok",
     "wednesday": "Środa",
-    "yes": "Tak",
-    "no-recipe-found": "No Recipe Found"
+    "yes": "Tak"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -193,6 +194,7 @@
     "url-form-hint": "Skopiuj i wklej link ze swojej ulubionej strony z przepisami"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "Wszystkie przepisy",
     "home-page": "Strona Główna",
     "new-page-created": "New page created",
@@ -291,12 +293,12 @@
       "backup-deleted": "Backup deleted",
       "backup-tag": "Etykieta kopii zapasowej",
       "create-heading": "Utwórz kopię zapasową",
+      "delete-backup": "Delete Backup",
       "error-creating-backup-see-log-file": "Error Creating Backup. See Log File",
       "full-backup": "Pełna kopia zapasowa",
       "import-summary": "Import Summary",
       "partial-backup": "Częściowa kopia zapasowa",
-      "unable-to-delete-backup": "Unable to Delete Backup.",
-      "delete-backup": "Delete Backup"
+      "unable-to-delete-backup": "Unable to Delete Backup."
     },
     "backup-and-exports": "Kopie zapasowe",
     "change-password": "Zmień hasło",

@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "URL Apprise",
     "database": "Base de données",
+    "delete-event": "Supprimer l’événement",
     "new-notification-form-description": "Mealie utilise la bibliothèque Apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
+    "new-version": "Nouvelle version disponible !",
     "notification": "Notification",
+    "refresh": "Rafraîchir",
     "scheduled": "Planifié",
     "something-went-wrong": "Une erreur s'est produite !",
     "subscribed-events": "Événements suivis",
-    "test-message-sent": "Message de test envoyé",
-    "refresh": "Rafraîchir",
-    "new-version": "Nouvelle version disponible !",
-    "delete-event": "Supprimer l’événement"
+    "test-message-sent": "Message de test envoyé"
   },
   "general": {
     "cancel": "Annuler",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Mot-clé",
     "link-copied": "Lien copié",
+    "loading-recipes": "Chargement des recettes",
     "monday": "Lundi",
     "name": "Nom",
     "new": "Nouveau",
     "no": "Non",
+    "no-recipe-found": "Aucune recette trouvée",
     "ok": "OK",
     "options": "Options :",
     "print": "Imprimer",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "Voir",
     "wednesday": "Mercredi",
-    "yes": "Oui",
-    "no-recipe-found": "Aucune recette trouvée"
+    "yes": "Oui"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/> ?",
@@ -193,6 +194,7 @@
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori"
   },
   "page": {
+    "404-page-not-found": "404 Page introuvable",
     "all-recipes": "Toutes les recettes",
     "home-page": "Accueil",
     "new-page-created": "Nouvelle page créée",
@@ -291,12 +293,12 @@
       "backup-deleted": "Sauvegarde supprimée",
       "backup-tag": "Tag de la sauvegarde",
       "create-heading": "Créer une sauvegarde",
+      "delete-backup": "Supprimer la sauvegarde",
       "error-creating-backup-see-log-file": "Erreur de création de la sauvegarde. Voir les logs",
       "full-backup": "Sauvegarde complète",
       "import-summary": "Résumé de l'importation",
       "partial-backup": "Sauvegarde partielle",
-      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
-      "delete-backup": "Supprimer la sauvegarde"
+      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde."
     },
     "backup-and-exports": "Sauvegardes",
     "change-password": "Modifier le mot de passe",

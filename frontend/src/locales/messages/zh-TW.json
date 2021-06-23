@@ -36,15 +36,15 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Database",
+    "delete-event": "Delete Event",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
+    "new-version": "New version available!",
     "notification": "Notification",
+    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent",
-    "refresh": "Refresh",
-    "new-version": "New version available!",
-    "delete-event": "Delete Event"
+    "test-message-sent": "Test Message Sent"
   },
   "general": {
     "cancel": "取消",
@@ -81,10 +81,12 @@
     "json": "JSON",
     "keyword": "Keyword",
     "link-copied": "Link Copied",
+    "loading-recipes": "Loading Recipes",
     "monday": "Monday",
     "name": "名稱",
     "new": "New",
     "no": "No",
+    "no-recipe-found": "No Recipe Found",
     "ok": "好的",
     "options": "Options:",
     "print": "Print",
@@ -119,8 +121,7 @@
     "url": "URL",
     "view": "View",
     "wednesday": "Wednesday",
-    "yes": "Yes",
-    "no-recipe-found": "No Recipe Found"
+    "yes": "Yes"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -193,6 +194,7 @@
     "url-form-hint": "Copy and paste a link from your favorite recipe website"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "All Recipes",
     "home-page": "Home Page",
     "new-page-created": "New page created",
@@ -291,12 +293,12 @@
       "backup-deleted": "Backup deleted",
       "backup-tag": "標籤備份",
       "create-heading": "創建備份",
+      "delete-backup": "Delete Backup",
       "error-creating-backup-see-log-file": "Error Creating Backup. See Log File",
       "full-backup": "完整備份",
       "import-summary": "Import Summary",
       "partial-backup": "部分備份",
-      "unable-to-delete-backup": "Unable to Delete Backup.",
-      "delete-backup": "Delete Backup"
+      "unable-to-delete-backup": "Unable to Delete Backup."
     },
     "backup-and-exports": "備份",
     "change-password": "Change Password",
