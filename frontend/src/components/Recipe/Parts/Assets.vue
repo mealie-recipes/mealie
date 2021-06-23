@@ -2,7 +2,7 @@
   <div v-if="value.length > 0 || edit">
     <v-card class="mt-2">
       <v-card-title class="py-2">
-        {{ $t("recipe.assets") }}
+        {{ $t("asset.assets") }}
       </v-card-title>
       <v-divider class="mx-2"></v-divider>
       <v-list :flat="!edit" v-if="value.length > 0">
@@ -29,7 +29,7 @@
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
-      <base-dialog @submit="addAsset" :title="$t('recipe.new-asset')" :title-icon="getIcon(newAsset.icon)">
+      <base-dialog @submit="addAsset" :title="$t('asset.new-asset')" :title-icon="getIcon(newAsset.icon)">
         <template v-slot:open="{ open }">
           <v-btn color="secondary" dark @click="open" v-if="edit">
             <v-icon>{{ $globals.icons.create }}</v-icon>
@@ -43,15 +43,17 @@
               :prepend-icon="getIcon(newAsset.icon)"
               v-model="newAsset.icon"
               :items="iconOptions"
+              item-text="title"
+              item-value="name"
               class="mr-2"
             >
               <template v-slot:item="{ item }">
                 <v-list-item-avatar>
                   <v-icon class="mr-auto">
-                    {{ getIcon(item) }}
+                    {{ item.icon }}
                   </v-icon>
                 </v-list-item-avatar>
-                {{ item }}
+                {{ item.title }}
               </template>
             </v-select>
             <TheUploadBtn @uploaded="setFileObject" :post="false" file-name="file" :text-btn="false" />
@@ -91,30 +93,45 @@ export default {
         name: "",
         icon: "mdi-file",
       },
-      iconOptions: ["mdi-file", "mdi-file-pdf-box", "mdi-file-image", "mdi-code-json", "mdi-silverware-fork-knife"],
     };
   },
   computed: {
     baseURL() {
       return window.location.origin;
     },
+    iconOptions() {
+      return [ 
+        { 
+          name: "mdi-file",
+          title: this.$i18n.t('asset.file'),
+          icon: this.$globals.icons.file 
+        },
+        { 
+          name: "mdi-file-pdf-box",
+          title: this.$i18n.t('asset.pdf'),
+          icon: this.$globals.icons.filePDF 
+        },
+        { 
+          name: "mdi-file-image",
+          title: this.$i18n.t('asset.image'),
+          icon: this.$globals.icons.fileImage 
+        },
+        { 
+          name: "mdi-code-json",
+          title: this.$i18n.t('asset.code'),
+          icon: this.$globals.icons.codeJson 
+        },
+        { 
+          name: "mdi-silverware-fork-knife",
+          title: this.$i18n.t('asset.recipe'),
+          icon: this.$globals.icons.primary 
+        },
+      ];
+    },
   },
   methods: {
     getIcon(val) {
-      switch (val) {
-        case "mdi-file":
-          return this.$globals.icons.file;
-        case "mdi-file-pdf-box":
-          return this.$globals.icons.filePDF;
-        case "mdi-file-image":
-          return this.$globals.icons.fileImage;
-        case "mdi-code-json":
-          return this.$globals.icons.codeJson;
-        case "mdi-silverware-fork-knife":
-          return this.$globals.icons.primary;
-        default:
-          return this.$globals.icons.file;
-      }
+      return this.iconOptions.find(({ name }) => name === val ).icon;
     },
     assetURL(assetName) {
       return api.recipes.recipeAssetPath(this.slug, assetName);
