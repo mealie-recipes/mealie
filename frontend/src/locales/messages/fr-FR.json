@@ -22,6 +22,16 @@
     "support": "Soutenir",
     "version": "Version"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
     "category": "Catégorie",
     "category-created": "Catégorie créée",
@@ -211,7 +221,6 @@
     "add-key": "Ajouter une clé",
     "add-to-favorites": "Ajouter aux favoris",
     "api-extras": "Extras API",
-    "assets": "Ressources",
     "calories": "Calories",
     "calories-suffix": "calories",
     "carbohydrate-content": "Glucides",
@@ -233,7 +242,6 @@
     "key-name-required": "Un nom de clé est requis",
     "landscape-view-coming-soon": "Vue paysage (bientôt disponible)",
     "milligrams": "milligrammes",
-    "new-asset": "Nouvelle ressource",
     "new-key-name": "Nouveau nom de clé",
     "no-white-space-allowed": "Aucun espace blanc autorisé",
     "note": "Note",
@@ -260,7 +268,6 @@
     "section-title": "Titre de la section",
     "servings": "Portions",
     "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
-    "show-assets": "Afficher les ressources",
     "show-nutrition-values": "Afficher les valeurs nutritionnelles",
     "sodium-content": "Sodium",
     "step-index": "Étape : {step}",
