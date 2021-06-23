@@ -81,7 +81,7 @@
     "json": "JSON",
     "keyword": "Trefwoord",
     "link-copied": "Link Gekopieerd",
-    "loading-recipes": "Loading Recipes",
+    "loading-recipes": "Recepten Ophalen",
     "monday": "Maandag",
     "name": "Naam",
     "new": "Nieuw",
@@ -194,7 +194,7 @@
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite"
   },
   "page": {
-    "404-page-not-found": "404 Page not found",
+    "404-page-not-found": "404 Pagina niet gevonden",
     "all-recipes": "Alle recepten",
     "home-page": "Startpagina",
     "new-page-created": "Nieuwe pagina aangemaakt",
