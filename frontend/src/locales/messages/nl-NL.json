@@ -23,14 +23,14 @@
     "version": "Versie"
   },
   "asset": {
-    "assets": "Assets",
+    "assets": "Bijlagen",
     "code": "Code",
-    "file": "File",
-    "image": "Image",
-    "new-asset": "New Asset",
+    "file": "Bestand",
+    "image": "Afbeelding",
+    "new-asset": "Nieuwe Bijlage",
     "pdf": "PDF",
-    "recipe": "Recipe",
-    "show-assets": "Show Assets"
+    "recipe": "Recept",
+    "show-assets": "Toon Bijlagen"
   },
   "category": {
     "category": "Categorie",
