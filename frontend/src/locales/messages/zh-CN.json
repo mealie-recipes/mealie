@@ -22,6 +22,16 @@
     "support": "支持",
     "version": "版本"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
     "category": "类别",
     "category-created": "类别已创建",
@@ -211,7 +221,6 @@
     "add-key": "Add Key",
     "add-to-favorites": "Add to Favorites",
     "api-extras": "API Extras",
-    "assets": "素材",
     "calories": "卡路里",
     "calories-suffix": "卡路里",
     "carbohydrate-content": "碳水化合物",
@@ -233,7 +242,6 @@
     "key-name-required": "必须输入关键字",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
     "milligrams": "毫克",
-    "new-asset": "新素材",
     "new-key-name": "New Key Name",
     "no-white-space-allowed": "不允许有空格",
     "note": "备注",
@@ -260,7 +268,6 @@
     "section-title": "Section Title",
     "servings": "份量",
     "share-recipe-message": "我想与你分享我的 {0} 配方。",
-    "show-assets": "Show Assets",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sodium",
     "step-index": "步骤：{step}",
