@@ -23,14 +23,14 @@
     "version": "Version"
   },
   "asset": {
-    "assets": "Assets",
-    "code": "Code",
-    "file": "File",
-    "image": "Image",
-    "new-asset": "New Asset",
+    "assets": "Tillgångar",
+    "code": "Kod",
+    "file": "Fil",
+    "image": "Bild",
+    "new-asset": "Ny tillgång",
     "pdf": "PDF",
-    "recipe": "Recipe",
-    "show-assets": "Show Assets"
+    "recipe": "Recept",
+    "show-assets": "Visa tillgångar"
   },
   "category": {
     "category": "Kategori",
