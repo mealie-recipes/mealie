@@ -22,6 +22,16 @@
     "support": "Unterstützen",
     "version": "Version"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
     "category": "Kategorie",
     "category-created": "Kategorie angelegt",
@@ -211,7 +221,6 @@
     "add-key": "Schlüssel hinzufügen",
     "add-to-favorites": "Zu Favoriten hinzufügen",
     "api-extras": "API Extras",
-    "assets": "Anhänge",
     "calories": "Kalorien",
     "calories-suffix": "Kalorien",
     "carbohydrate-content": "Kohlenhydrate",
@@ -233,7 +242,6 @@
     "key-name-required": "Schlüsselname benötigt",
     "landscape-view-coming-soon": "Landschaftsansicht (demnächst verfügbar)",
     "milligrams": "mg",
-    "new-asset": "Neuer Anhang",
     "new-key-name": "Neuer Schlüsselname",
     "no-white-space-allowed": "Kein Leerzeichen erlaubt",
     "note": "Notiz",
@@ -260,7 +268,6 @@
     "section-title": "Titel des Abschnitts",
     "servings": "Portionen",
     "share-recipe-message": "Ich möchte mein Rezept {0} mit dir teilen.",
-    "show-assets": "Anhänge anzeigen",
     "show-nutrition-values": "Nährwerte anzeigen",
     "sodium-content": "Natrium",
     "step-index": "Schritt {step}:",
