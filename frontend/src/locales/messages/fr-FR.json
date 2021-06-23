@@ -81,7 +81,7 @@
     "json": "JSON",
     "keyword": "Mot-clé",
     "link-copied": "Lien copié",
-    "loading-recipes": "Loading Recipes",
+    "loading-recipes": "Chargement des recettes",
     "monday": "Lundi",
     "name": "Nom",
     "new": "Nouveau",
@@ -194,7 +194,7 @@
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori"
   },
   "page": {
-    "404-page-not-found": "404 Page not found",
+    "404-page-not-found": "404 Page introuvable",
     "all-recipes": "Toutes les recettes",
     "home-page": "Accueil",
     "new-page-created": "Nouvelle page créée",
