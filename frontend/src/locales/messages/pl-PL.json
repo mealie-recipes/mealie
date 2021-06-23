@@ -22,6 +22,16 @@
     "support": "Wsparcie",
     "version": "Wersja"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
     "category": "Kategoria",
     "category-created": "Kategoria stworzona",
@@ -211,7 +221,6 @@
     "add-key": "Dodaj klucz",
     "add-to-favorites": "Dodaj do ulubionych",
     "api-extras": "Dodatki API",
-    "assets": "Assets",
     "calories": "Kalorie",
     "calories-suffix": "kalorie",
     "carbohydrate-content": "Węglowodany",
@@ -233,7 +242,6 @@
     "key-name-required": "Nazwa klucza jest wymagana",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
     "milligrams": "miligram",
-    "new-asset": "New Asset",
     "new-key-name": "Nazwa nowego klucza",
     "no-white-space-allowed": "Znaki niedrukowalne są niedozwolone",
     "note": "Notatka",
@@ -260,7 +268,6 @@
     "section-title": "Section Title",
     "servings": "Porcje",
     "share-recipe-message": "I wanted to share my {0} recipe with you.",
-    "show-assets": "Show Assets",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sód",
     "step-index": "Krok: {step}",
