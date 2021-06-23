@@ -22,6 +22,16 @@
     "support": "Ondersteuning",
     "version": "Versie"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
     "category": "Categorie",
     "category-created": "Categorie aangemaakt",
@@ -211,7 +221,6 @@
     "add-key": "Sleutel toevoegen",
     "add-to-favorites": "Toevoegen aan Favorieten",
     "api-extras": "API Extras",
-    "assets": "Onderdelen",
     "calories": "Calorieën",
     "calories-suffix": "calorieën",
     "carbohydrate-content": "Koolhydraten",
@@ -233,7 +242,6 @@
     "key-name-required": "Sleutelnaam vereist",
     "landscape-view-coming-soon": "Landschapsweergave (binnenkort beschikbaar)",
     "milligrams": "milligram",
-    "new-asset": "Nieuw onderdeel",
     "new-key-name": "Nieuwe sleutelnaam",
     "no-white-space-allowed": "Geen Witruimte Toegestaan",
     "note": "Opmerking",
@@ -260,7 +268,6 @@
     "section-title": "Sectietitel",
     "servings": "Porties",
     "share-recipe-message": "Ik wou mijn {0} recept met je delen.",
-    "show-assets": "Toon Bijlagen",
     "show-nutrition-values": "Toon voedingswaarden",
     "sodium-content": "Zout",
     "step-index": "Stap: {step}",
