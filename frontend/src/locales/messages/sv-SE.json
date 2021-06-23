@@ -22,6 +22,16 @@
     "support": "Hjälp",
     "version": "Version"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
     "category": "Kategori",
     "category-created": "Kategori skapad",
@@ -211,7 +221,6 @@
     "add-key": "Lägg till nyckel",
     "add-to-favorites": "Lägg till i favoriter",
     "api-extras": "API Extras",
-    "assets": "Tillgångar",
     "calories": "Kalorier",
     "calories-suffix": "kalorier",
     "carbohydrate-content": "Kolhydrat",
@@ -233,7 +242,6 @@
     "key-name-required": "Nyckelnamn krävs",
     "landscape-view-coming-soon": "Landskapsvy (kommer snart)",
     "milligrams": "milligram",
-    "new-asset": "Ny tillgång",
     "new-key-name": "Nytt nyckelnamn",
     "no-white-space-allowed": "Inget vitt utrymme tillåtet",
     "note": "Anteckning",
@@ -260,7 +268,6 @@
     "section-title": "Avdelningens rubrik",
     "servings": "Portioner",
     "share-recipe-message": "Jag vill dela mitt {0} recept med dig.",
-    "show-assets": "Visa tillgångar",
     "show-nutrition-values": "Visa näringsvärde",
     "sodium-content": "Natrium",
     "step-index": "Steg: {step}",
