@@ -8,7 +8,12 @@
       <v-list :flat="!edit" v-if="value.length > 0">
         <v-list-item v-for="(item, i) in value" :key="i">
           <v-list-item-icon class="ma-auto">
-            <v-icon v-text="getIcon(item.icon)"></v-icon>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon v-text="getIconDefinition(item.icon).icon" v-bind="attrs" v-on="on"></v-icon>
+              </template>
+              <span>{{ getIconDefinition(item.icon).title }}</span>
+            </v-tooltip>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title class="pl-2" v-text="item.name"></v-list-item-title>
@@ -29,7 +34,7 @@
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
-      <base-dialog @submit="addAsset" :title="$t('asset.new-asset')" :title-icon="getIcon(newAsset.icon)">
+      <base-dialog @submit="addAsset" :title="$t('asset.new-asset')" :title-icon="getIconDefinition(newAsset.icon).icon">
         <template v-slot:open="{ open }">
           <v-btn color="secondary" dark @click="open" v-if="edit">
             <v-icon>{{ $globals.icons.create }}</v-icon>
@@ -40,7 +45,7 @@
           <div class="d-flex justify-space-between">
             <v-select
               dense
-              :prepend-icon="getIcon(newAsset.icon)"
+              :prepend-icon="getIconDefinition(newAsset.icon).icon"
               v-model="newAsset.icon"
               :items="iconOptions"
               item-text="title"
@@ -130,8 +135,8 @@ export default {
     },
   },
   methods: {
-    getIcon(val) {
-      return this.iconOptions.find(({ name }) => name === val ).icon;
+    getIconDefinition(val) {
+      return this.iconOptions.find(({ name }) => name === val );
     },
     assetURL(assetName) {
       return api.recipes.recipeAssetPath(this.slug, assetName);
