@@ -233,6 +233,7 @@ export default {
     async saveRecipe() {
       if (this.validateRecipe()) {
         let slug = await api.recipes.update(this.recipeDetails);
+        if(!slug) return;
 
         if (this.fileObject) {
           this.saveImage(true);

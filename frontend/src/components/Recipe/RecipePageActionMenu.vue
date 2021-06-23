@@ -134,7 +134,6 @@ export default {
           break;
         case SAVE_EVENT:
           this.$emit(SAVE_EVENT);
-          this.$emit("input", false);
           break;
         case JSON_EVENT:
           this.$emit(JSON_EVENT);
