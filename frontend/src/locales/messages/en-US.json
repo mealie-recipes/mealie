@@ -33,7 +33,6 @@
     "show-assets": "Show Assets"
   },
   "category": {
-    "category": "Category",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
@@ -65,7 +64,6 @@
     "copied": "Copied",
     "create": "Create",
     "created": "Created",
-    "current-parenthesis": "(Current)",
     "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "Delete",
@@ -357,11 +355,9 @@
       "light": "Light",
       "primary": "Primary",
       "secondary": "Secondary",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Select a theme from the dropdown or create a new theme. Note that the default theme will be served to all users who have not set a theme preference.",
       "success": "Success",
       "switch-to-dark-mode": "Switch to dark mode",
       "switch-to-light-mode": "Switch to light mode",
-      "theme": "Theme",
       "theme-deleted": "Theme deleted",
       "theme-name": "Theme Name",
       "theme-name-is-required": "Theme Name is required.",
