@@ -7,6 +7,7 @@ import de from "vuetify/es5/locale/de";
 import en from "vuetify/es5/locale/en";
 import es from "vuetify/es5/locale/es";
 import fr from "vuetify/es5/locale/fr";
+import it from "vuetify/es5/locale/it";
 import nl from "vuetify/es5/locale/nl";
 import pl from "vuetify/es5/locale/pl";
 import sv from "vuetify/es5/locale/sv";
@@ -44,6 +45,7 @@ const vuetify = new Vuetify({
       "en-US": en,
       "es-ES": es,
       "fr-FR": fr,
+      "it-IT": it,
       "nl-NL": nl,
       "pl-PL": pl,
       "sv-SE": sv,

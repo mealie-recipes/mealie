@@ -18,6 +18,10 @@ const state = {
       value: "fr-FR",
     },
     {
+      name: "Italiano (Italian)",
+      value: "it-IT",
+    },
+    {
       name: "Nederlands (Dutch)",
       value: "nl-NL",
     },
