@@ -107,27 +107,27 @@ export default {
         {
           icon: this.$globals.icons.home,
           to: "/",
-          title: this.$t("page.home-page"),
+          title: this.$t("sidebar.home-page"),
         },
         {
           icon: this.$globals.icons.search,
           to: "/search",
-          title: this.$t("search.search"),
+          title: this.$t("sidebar.search"),
         },
         {
           icon: this.$globals.icons.viewModule,
           to: "/recipes/all",
-          title: this.$t("page.all-recipes"),
+          title: this.$t("sidebar.all-recipes"),
         },
         {
           icon: this.$globals.icons.tags,
           to: "/recipes/category",
-          title: this.$t("recipe.categories"),
+          title: this.$t("sidebar.categories"),
         },
         {
           icon: this.$globals.icons.tags,
           to: "/recipes/tag",
-          title: this.$t("tag.tags"),
+          title: this.$t("sidebar.tags"),
         },
       ];
     },
@@ -151,7 +151,7 @@ export default {
         {
           icon: this.$globals.icons.user,
           to: "/admin/profile",
-          title: this.$t("settings.profile"),
+          title: this.$t("sidebar.profile"),
         },
       ];
     },
@@ -160,27 +160,27 @@ export default {
         {
           icon: this.$globals.icons.viewDashboard,
           to: "/admin/dashboard",
-          title: this.$t("general.dashboard"),
+          title: this.$t("sidebar.dashboard"),
         },
         {
           icon: this.$globals.icons.cog,
           to: "/admin/settings",
-          title: this.$t("settings.site-settings"),
+          title: this.$t("sidebar.site-settings"),
         },
         {
           icon: this.$globals.icons.tools,
           to: "/admin/toolbox",
-          title: this.$t("settings.toolbox.toolbox"),
+          title: this.$t("sidebar.toolbox"),
         },
         {
           icon: this.$globals.icons.group,
           to: "/admin/manage-users",
-          title: this.$t("user.manage-users"),
+          title: this.$t("sidebar.manage-users"),
         },
         {
           icon: this.$globals.icons.import,
           to: "/admin/migrations",
-          title: this.$t("settings.migrations"),
+          title: this.$t("sidebar.migrations"),
         },
       ];
     },

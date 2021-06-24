@@ -211,7 +211,6 @@
   "page": {
     "404-page-not-found": "404 Page not found",
     "all-recipes": "All Recipes",
-    "home-page": "Home Page",
     "new-page-created": "New page created",
     "page": "Page",
     "page-creation-failed": "Page creation failed",
@@ -400,6 +399,19 @@
     "quantity": "Quantity: {0}",
     "shopping-list": "Shopping List",
     "shopping-lists": "Shopping Lists"
+  },
+  "sidebar": {
+    "all-recipes": "All Recipes",
+    "categories": "Categories",
+    "dashboard": "Dashboard",
+    "home-page": "Home Page",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "search": "Search",
+    "site-settings": "Site Settings",
+    "tags": "Tags",
+    "toolbox": "Toolbox"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",
