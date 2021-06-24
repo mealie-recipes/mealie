@@ -146,6 +146,7 @@
     "group-id-with-value": "Group ID: {groupID}",
     "group-name": "Group Name",
     "group-not-found": "Group not found",
+    "group-with-value": "Group: {groupID}",
     "groups": "Groups",
     "manage-groups": "Manage Groups",
     "user-group": "User Group",
