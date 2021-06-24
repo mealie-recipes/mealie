@@ -23,14 +23,14 @@
     "version": "Version"
   },
   "asset": {
-    "assets": "Assets",
+    "assets": "Ressources",
     "code": "Code",
-    "file": "File",
+    "file": "Fichier",
     "image": "Image",
-    "new-asset": "New Asset",
+    "new-asset": "Nouvelle ressource",
     "pdf": "PDF",
-    "recipe": "Recipe",
-    "show-assets": "Show Assets"
+    "recipe": "Recette",
+    "show-assets": "Afficher les ressources"
   },
   "category": {
     "category": "Catégorie",
