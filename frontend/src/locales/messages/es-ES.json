@@ -23,14 +23,14 @@
     "version": "Versión"
   },
   "asset": {
-    "assets": "Assets",
-    "code": "Code",
-    "file": "File",
-    "image": "Image",
-    "new-asset": "New Asset",
+    "assets": "Recursos",
+    "code": "Código",
+    "file": "Archivo",
+    "image": "Imagen",
+    "new-asset": "Nuevo recurso",
     "pdf": "PDF",
-    "recipe": "Recipe",
-    "show-assets": "Show Assets"
+    "recipe": "Receta",
+    "show-assets": "Mostrar recursos"
   },
   "category": {
     "category": "Categoría",
@@ -91,7 +91,7 @@
     "json": "JSON",
     "keyword": "Etiqueta",
     "link-copied": "Enlace copiado",
-    "loading-recipes": "Loading Recipes",
+    "loading-recipes": "Cargando recetas",
     "monday": "Lunes",
     "name": "Nombre",
     "new": "Nuevo",
@@ -200,11 +200,11 @@
     "from-url": "Importar una receta",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Pegar los datos de tu receta. Cada línea será tratada como un elemento de una lista",
     "recipe-url": "URL de la receta",
-    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
+    "upload-individual-zip-file": "Sube un archivo .zip individual exportado desde otra instancia de Mealie.",
     "url-form-hint": "Copia y pega un enlace desde tu página web favorita"
   },
   "page": {
-    "404-page-not-found": "404 Page not found",
+    "404-page-not-found": "404 Página no encontrada",
     "all-recipes": "Todas las recetas",
     "home-page": "Página de inicio",
     "new-page-created": "Nueva página creada",
