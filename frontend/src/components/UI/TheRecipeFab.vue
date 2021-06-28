@@ -44,13 +44,13 @@
                     target="_blank"
                     rel="noreferrer nofollow"
                   >
-                    Google ld+json Info
+                    {{ $t('new-recipe.google-ld-json-info') }}
                   </a>
                   <a href="https://github.com/hay-kot/mealie/issues" target="_blank" rel="noreferrer nofollow">
-                    GitHub Issues
+                    {{ $t('new-recipe.github-issues') }}
                   </a>
                   <a href="https://schema.org/Recipe" target="_blank" rel="noreferrer nofollow">
-                    Recipe Markup Specification
+                    {{ $t('new-recipe.recipe-markup-specification') }}
                   </a>
                 </div>
                 <div class="d-flex justify-end">
@@ -61,7 +61,7 @@
                     @click="addRecipe = false"
                   >
                     <v-icon left> {{ $globals.icons.externalLink }} </v-icon>
-                    View Scraped Data
+                    {{ $t('new-recipe.view-scraped-data') }}
                   </v-btn>
                 </div>
               </v-alert>
@@ -85,7 +85,7 @@
       </v-card>
     </v-dialog>
     <BaseDialog
-      title="Upload a Recipe"
+      :title="$t('new-recipe.upload-a-recipe')"
       :titleIcon="$globals.icons.zip"
       :submit-text="$t('general.import')"
       ref="uploadZipDialog"
@@ -233,7 +233,7 @@ export default {
     },
     isValidWebUrl(url) {
       let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
-      return regEx.test(url) ? true : "Must be a Valid URL";
+      return regEx.test(url) ? true : this.$t('new-recipe.must-be-a-valid-url');
     },
   },
 };

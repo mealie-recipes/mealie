@@ -13,7 +13,7 @@
         <div class="body-3 grey--text font-weight-light" v-text="$t('user.user-id-with-value', { id: user.id })" />
 
         <h3 class="display-2 font-weight-light text--primary">
-          <small> {{ $t("group.group") }}: {{ user.group }} </small>
+          <small> {{ $t("group.group-with-value", { groupID: user.group }) }}</small>
         </h3>
       </div>
     </template>
