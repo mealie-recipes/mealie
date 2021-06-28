@@ -33,7 +33,6 @@
     "show-assets": "Afficher les ressources"
   },
   "category": {
-    "category": "Catégorie",
     "category-created": "Catégorie créée",
     "category-creation-failed": "La création de la catégorie a échoué",
     "category-deleted": "Catégorie supprimée",
@@ -65,7 +64,6 @@
     "copied": "Copié",
     "create": "Créer",
     "created": "Créé",
-    "current-parenthesis": "(Actuel)",
     "custom": "Personnalisé",
     "dashboard": "Tableau de bord",
     "delete": "Supprimer",
@@ -146,6 +144,7 @@
     "group-id-with-value": "ID groupe : {groupID}",
     "group-name": "Nom du groupe",
     "group-not-found": "Groupe non trouvé",
+    "group-with-value": "Group: {groupID}",
     "groups": "Groupes",
     "manage-groups": "Gérer les groupes",
     "user-group": "Groupe utilisateur",
@@ -198,15 +197,20 @@
     "error-details": "Seuls les sites web contenant ld+json ou des microdonnées peuvent être importés par Mealie. La plupart des grands sites web de recettes sont compatibles avec cette structure de données. Si votre site ne peut pas être importé mais qu'il y a des données json dans le journal, veuillez soumettre un problème GitHub avec l'URL et les données.",
     "error-title": "On dirait qu'on n'a pas pu trouver quoi que ce soit",
     "from-url": "Depuis une adresse web",
+    "github-issues": "GitHub Issues",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Must be a Valid URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
+    "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "Adresse de la recette",
+    "upload-a-recipe": "Upload a Recipe",
     "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
-    "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori"
+    "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
+    "view-scraped-data": "View Scraped Data"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
     "all-recipes": "Toutes les recettes",
-    "home-page": "Accueil",
     "new-page-created": "Nouvelle page créée",
     "page": "Page",
     "page-creation-failed": "La création de la page a échoué",
@@ -350,11 +354,9 @@
       "light": "Clair",
       "primary": "Primaire",
       "secondary": "Secondaire",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Sélectionnez un thème depuis la liste ou créez-en un nouveau. Le thème par défaut sera utilisé pour tous les utilisateurs qui n'ont pas choisi de thème personnalisé.",
       "success": "Succès",
       "switch-to-dark-mode": "Basculer en mode sombre",
       "switch-to-light-mode": "Basculer en mode clair",
-      "theme": "Thème",
       "theme-deleted": "Thème supprimé",
       "theme-name": "Nom du thème",
       "theme-name-is-required": "Un nom de thème est requis.",
@@ -397,6 +399,19 @@
     "quantity": "Quantité : {0}",
     "shopping-list": "Liste de courses",
     "shopping-lists": "Listes de courses"
+  },
+  "sidebar": {
+    "all-recipes": "All Recipes",
+    "categories": "Categories",
+    "dashboard": "Dashboard",
+    "home-page": "Home Page",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "search": "Search",
+    "site-settings": "Site Settings",
+    "tags": "Tags",
+    "toolbox": "Toolbox"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",
