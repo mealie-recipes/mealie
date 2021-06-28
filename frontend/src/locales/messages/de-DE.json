@@ -33,7 +33,6 @@
     "show-assets": "Show Assets"
   },
   "category": {
-    "category": "Kategorie",
     "category-created": "Kategorie angelegt",
     "category-creation-failed": "Anlegen der Kategorie fehlgeschlagen",
     "category-deleted": "Kategorie entfernt",
@@ -65,7 +64,6 @@
     "copied": "Kopiert",
     "create": "Erstellen",
     "created": "Erstellt",
-    "current-parenthesis": "(Neueste)",
     "custom": "Benutzerdefiniert",
     "dashboard": "Dashboard",
     "delete": "Löschen",
@@ -146,6 +144,7 @@
     "group-id-with-value": "Gruppenkennung: {groupID}",
     "group-name": "Name der Gruppe",
     "group-not-found": "Gruppe nicht gefunden",
+    "group-with-value": "Group: {groupID}",
     "groups": "Gruppen",
     "manage-groups": "Gruppen verwalten",
     "user-group": "Benutzergruppe",
@@ -198,15 +197,20 @@
     "error-details": "Mealie kann Rezepte nur von Webseiten importieren, die Id+json oder Mikrodaten enthalten. Die meisten großen Rezeptwebseiten unterstützen diese Datenstruktur. Wenn das Rezept nicht importiert werden kann, aber JSON-Daten im Log vorhanden sind, melde es bitte mit der URL und diesen Daten auf GitHub.",
     "error-title": "Anscheinend konnten wir nichts finden",
     "from-url": "Von URL",
+    "github-issues": "GitHub Issues",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Must be a Valid URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
+    "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "Rezept URL",
+    "upload-a-recipe": "Upload a Recipe",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
-    "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein"
+    "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
+    "view-scraped-data": "View Scraped Data"
   },
   "page": {
     "404-page-not-found": "404 Page not found",
     "all-recipes": "Alle Rezepte",
-    "home-page": "Startseite",
     "new-page-created": "Neue Seite angelegt",
     "page": "Seite",
     "page-creation-failed": "Anlegen der Seite fehlgeschlagen",
@@ -350,11 +354,9 @@
       "light": "Hell",
       "primary": "Primär",
       "secondary": "Sekundär",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Wähle ein Thema aus der Dropdown-Liste oder erstelle ein neues. Beachte, dass das Standard-Thema auf alle Benutzer angewandt wird die keine Einstellung für ein Thema getroffen haben.",
       "success": "Erfolg",
       "switch-to-dark-mode": "Zum dunklen Modus wechseln",
       "switch-to-light-mode": "Zum hellen Modus wechseln",
-      "theme": "Thema",
       "theme-deleted": "Thema gelöscht",
       "theme-name": "Themenname",
       "theme-name-is-required": "Themenname wird benötigt.",
@@ -397,6 +399,19 @@
     "quantity": "Menge: {0}",
     "shopping-list": "Einkaufsliste",
     "shopping-lists": "Einkaufslisten"
+  },
+  "sidebar": {
+    "all-recipes": "All Recipes",
+    "categories": "Categories",
+    "dashboard": "Dashboard",
+    "home-page": "Home Page",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "search": "Search",
+    "site-settings": "Site Settings",
+    "tags": "Tags",
+    "toolbox": "Toolbox"
   },
   "signup": {
     "error-signing-up": "Fehler beim Registrieren",
