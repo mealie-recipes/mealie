@@ -56,6 +56,6 @@ VOLUME [ "/app/data/" ]
 
 EXPOSE 80
 
-HEALTHCHECK CMD curl http://localhost || exit 1
+HEALTHCHECK CMD curl -f http://localhost || exit 1
 
 CMD /app/mealie/run.sh
