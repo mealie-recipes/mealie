@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     caddy \
     && apt autoremove \
     && rm -rf /var/lib/apt/lists/* \
-    && apt-get remove -y curl apt-transport-https debian-keyring g++ gnupg gnupg2 gnupg1 
+    && apt-get remove -y apt-transport-https debian-keyring g++ gnupg gnupg2 gnupg1 
 
 
 RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
@@ -55,5 +55,7 @@ COPY --from=build-stage /app/dist /app/dist
 VOLUME [ "/app/data/" ]
 
 EXPOSE 80
+
+HEALTHCHECK CMD curl http://localhost || exit 1
 
 CMD /app/mealie/run.sh
