@@ -403,15 +403,15 @@
   "sidebar": {
     "all-recipes": "Alla recept",
     "categories": "Kategorier",
-    "dashboard": "Dashboard",
-    "home-page": "Home Page",
+    "dashboard": "Startsida",
+    "home-page": "Startsida",
     "manage-users": "Manage Users",
-    "migrations": "Migrations",
-    "profile": "Profile",
-    "search": "Search",
+    "migrations": "Importer",
+    "profile": "Profil",
+    "search": "Sök",
     "site-settings": "Site Settings",
-    "tags": "Tags",
-    "toolbox": "Toolbox"
+    "tags": "Taggar",
+    "toolbox": "Verktygslåda"
   },
   "signup": {
     "error-signing-up": "Fel vid registreringen",
