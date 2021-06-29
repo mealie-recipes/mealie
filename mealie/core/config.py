@@ -133,6 +133,20 @@ class AppSettings(BaseSettings):
             )
         return determine_sqlite_path()
 
+    DB_URL_PUBLIC: str = ""  # hide credentials to show on logs/frontend
+
+    @validator("DB_URL_PUBLIC", pre=True)
+    def public_db_url(cls, v: Optional[str], values: dict[str, Any]) -> str:
+        url = values.get("DB_URL")
+        engine = values.get("DB_ENGINE", "sqlite")
+        if engine == "postgres":
+            user = values.get("POSTGRES_USER")
+            password = values.get("POSTGRES_PASSWORD")
+            return url.replace(user, "*****", 1).replace(password, "*****", 1)
+        else:
+            # sqlite
+            return url
+
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"

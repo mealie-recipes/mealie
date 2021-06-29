@@ -25,7 +25,7 @@ async def get_debug_info():
         api_port=settings.API_PORT,
         api_docs=settings.API_DOCS,
         db_type=settings.DB_ENGINE,
-        db_url=settings.DB_URL,
+        db_url=settings.DB_URL_PUBLIC,
         default_group=settings.DEFAULT_GROUP,
     )
 
