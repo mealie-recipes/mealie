@@ -401,16 +401,16 @@
     "shopping-lists": "Boodschappenlijsten"
   },
   "sidebar": {
-    "all-recipes": "All Recipes",
+    "all-recipes": "Recepten",
     "categories": "Categorieën",
     "dashboard": "Dashboard",
     "home-page": "Home Pagina",
-    "manage-users": "Manage Users",
+    "manage-users": "Gebruikers",
     "migrations": "Migraties",
-    "profile": "Profile",
-    "search": "Search",
-    "site-settings": "Site Settings",
-    "tags": "Tags",
+    "profile": "Profiel",
+    "search": "Zoeken",
+    "site-settings": "Instellingen",
+    "tags": "Labels",
     "toolbox": "Toolbox"
   },
   "signup": {
