@@ -33,7 +33,6 @@
     "show-assets": "Show Assets"
   },
   "category": {
-    "category": "Category",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
@@ -65,7 +64,6 @@
     "copied": "Copied",
     "create": "Opret",
     "created": "Created",
-    "current-parenthesis": "(Current)",
     "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "Slet",
@@ -146,6 +144,7 @@
     "group-id-with-value": "Group ID: {groupID}",
     "group-name": "Group Name",
     "group-not-found": "Group not found",
+    "group-with-value": "Group: {groupID}",
     "groups": "Groups",
     "manage-groups": "Manage Groups",
     "user-group": "User Group",
@@ -198,15 +197,20 @@
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "Fra URL",
+    "github-issues": "GitHub Issues",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Must be a Valid URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Indsæt dine opskriftsdata. \nHver linje behandles som et element på en liste",
+    "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "URL på opskrift",
+    "upload-a-recipe": "Upload a Recipe",
     "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
-    "url-form-hint": "Kopiér og indsæt et link fra din foretrukne opskrifts hjemmeside"
+    "url-form-hint": "Kopiér og indsæt et link fra din foretrukne opskrifts hjemmeside",
+    "view-scraped-data": "View Scraped Data"
   },
   "page": {
     "404-page-not-found": "404 Page not found",
     "all-recipes": "Alle Opskrifter",
-    "home-page": "Startside",
     "new-page-created": "New page created",
     "page": "Page",
     "page-creation-failed": "Page creation failed",
@@ -350,11 +354,9 @@
       "light": "Lyst",
       "primary": "Primær",
       "secondary": "Sekundær",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Vælg et tema i rullemenuen, eller opret et nyt tema. \nBemærk, at standardtemaet serveres til alle brugere, der ikke har angivet en temapræference.",
       "success": "Succes",
       "switch-to-dark-mode": "Switch to dark mode",
       "switch-to-light-mode": "Switch to light mode",
-      "theme": "Tema",
       "theme-deleted": "Theme deleted",
       "theme-name": "Theme Name",
       "theme-name-is-required": "Theme Name is required.",
@@ -397,6 +399,19 @@
     "quantity": "Quantity: {0}",
     "shopping-list": "Shopping List",
     "shopping-lists": "Shopping Lists"
+  },
+  "sidebar": {
+    "all-recipes": "All Recipes",
+    "categories": "Categories",
+    "dashboard": "Dashboard",
+    "home-page": "Home Page",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "search": "Search",
+    "site-settings": "Site Settings",
+    "tags": "Tags",
+    "toolbox": "Toolbox"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",

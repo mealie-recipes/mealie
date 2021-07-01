@@ -33,7 +33,6 @@
     "show-assets": "Show Assets"
   },
   "category": {
-    "category": "类别",
     "category-created": "类别已创建",
     "category-creation-failed": "创建类别失败",
     "category-deleted": "类别已删除",
@@ -65,7 +64,6 @@
     "copied": "已复制",
     "create": "创建",
     "created": "已创建",
-    "current-parenthesis": "(当前)",
     "custom": "自定义",
     "dashboard": "仪表盘",
     "delete": "删除",
@@ -146,6 +144,7 @@
     "group-id-with-value": "Group ID: {groupID}",
     "group-name": "Group Name",
     "group-not-found": "Group not found",
+    "group-with-value": "Group: {groupID}",
     "groups": "群组",
     "manage-groups": "管理群组",
     "user-group": "用户群组",
@@ -198,15 +197,20 @@
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "输入网址",
+    "github-issues": "GitHub Issues",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Must be a Valid URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "请粘贴您的食谱资料。每行将被视为列表中的一项。",
+    "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "食谱网址",
+    "upload-a-recipe": "Upload a Recipe",
     "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
-    "url-form-hint": "从您最喜爱的食谱网站复制并粘贴链接"
+    "url-form-hint": "从您最喜爱的食谱网站复制并粘贴链接",
+    "view-scraped-data": "View Scraped Data"
   },
   "page": {
     "404-page-not-found": "404 Page not found",
     "all-recipes": "全部食谱",
-    "home-page": "主页",
     "new-page-created": "新页面已创建",
     "page": "页面",
     "page-creation-failed": "创建页面失败",
@@ -350,11 +354,9 @@
       "light": "浅色",
       "primary": "Primary（主要）",
       "secondary": "Secondary（次要）",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "从以下列表中选择一个主题或创建一个新主题。请注意，默认主题将提供给尚未设置主题首选的所有用户。",
       "success": "Success（成功）",
       "switch-to-dark-mode": "切换暗色主题",
       "switch-to-light-mode": "切换到亮色模式",
-      "theme": "布景主题",
       "theme-deleted": "Theme deleted",
       "theme-name": "主题名称",
       "theme-name-is-required": "主题名称是必填项。",
@@ -397,6 +399,19 @@
     "quantity": "Quantity: {0}",
     "shopping-list": "Shopping List",
     "shopping-lists": "Shopping Lists"
+  },
+  "sidebar": {
+    "all-recipes": "All Recipes",
+    "categories": "Categories",
+    "dashboard": "Dashboard",
+    "home-page": "Home Page",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "search": "Search",
+    "site-settings": "Site Settings",
+    "tags": "Tags",
+    "toolbox": "Toolbox"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",
