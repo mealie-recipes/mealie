@@ -63,7 +63,20 @@ def system_startup():
     start_scheduler()
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
-    logger.info(settings.json(indent=4, exclude={"SECRET", "DEFAULT_PASSWORD", "SFTP_PASSWORD", "SFTP_USERNAME"}))
+    logger.info(
+        settings.json(
+            indent=4,
+            exclude={
+                "SECRET",
+                "DEFAULT_PASSWORD",
+                "SFTP_PASSWORD",
+                "SFTP_USERNAME",
+                "DB_URL",  # replace by DB_URL_PUBLIC for logs
+                "POSTGRES_USER",
+                "POSTGRES_PASSWORD",
+            },
+        )
+    )
     create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
 
 
