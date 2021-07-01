@@ -43,7 +43,6 @@ loglevel = use_loglevel
 workers = web_concurrency
 bind = use_bind
 errorlog = use_errorlog
-worker_tmp_dir = "/mem"  # "/dev/shm"
 accesslog = use_accesslog
 graceful_timeout = int(graceful_timeout_str)
 timeout = int(timeout_str)

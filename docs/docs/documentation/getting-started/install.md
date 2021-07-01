@@ -51,8 +51,6 @@ services:
       WEB_CONCURRENCY: 2
     volumes:
       - ./mealie/data/:/app/data
-    tmpfs:
-      - /mem:size=64m,mode=1777,noatime
 ```
 
 ## Docker Compose with Postgres _(BETA)_
@@ -87,8 +85,6 @@ services:
       WEB_CONCURRENCY: 2
     volumes:
       - ./mealie/data/:/app/data
-    tmpfs:
-      - /mem:size=64m,mode=1777,noatime
   postgres:
     container_name: postgres
     image: postgres

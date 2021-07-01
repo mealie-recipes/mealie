@@ -23,8 +23,6 @@ services:
       # MAX_WORKERS: 8
 
       WEB_CONCURRENCY: 2
-    tmpfs:
-      - /mem:size=64m,mode=1777,noatime
   postgres:
     container_name: postgres
     image: postgres
