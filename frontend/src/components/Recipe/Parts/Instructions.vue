@@ -120,6 +120,7 @@ export default {
     value: {
       handler() {
         this.disabledSteps = [];
+        this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
       },
     },
   },
