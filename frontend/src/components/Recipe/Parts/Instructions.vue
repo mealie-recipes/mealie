@@ -22,12 +22,12 @@
         <v-hover v-slot="{ hover }">
           <v-card
             class="ma-1"
-            :class="[{ 'on-hover': hover }, isDisabled(index)]"
+            :class="[{ 'on-hover': hover }, isChecked(index)]"
             :elevation="hover ? 12 : 2"
             :ripple="!edit"
             @click="toggleDisabled(index)"
           >
-            <v-card-title>
+            <v-card-title :class="{ 'pb-0': !isChecked(index) }">
               <v-btn
                 v-if="edit"
                 fab
@@ -39,9 +39,17 @@
               >
                 <v-icon size="24" color="error">{{ $globals.icons.delete }}</v-icon>
               </v-btn>
+
               {{ $t("recipe.step-index", { step: index + 1 }) }}
+
+              <v-fade-transition>
+                <v-icon v-if="isChecked(index)" size="24" class="ml-auto" color="success">
+                  {{ $globals.icons.checkboxMarkedCircle }}
+                </v-icon>
+              </v-fade-transition>
+
               <v-btn v-if="edit" text color="primary" class="ml-auto" @click="toggleShowTitle(index)">
-                {{ !showTitleEditor[index] ? $t('recipe.insert-section') : $t('recipe.remove-section') }}
+                {{ !showTitleEditor[index] ? $t("recipe.insert-section") : $t("recipe.remove-section") }}
               </v-btn>
             </v-card-title>
             <v-card-text v-if="edit">
@@ -54,9 +62,13 @@
               >
               </v-textarea>
             </v-card-text>
-            <v-card-text v-else>
-              <vue-markdown :source="step.text"> </vue-markdown>
-            </v-card-text>
+            <v-expand-transition>
+              <div class="m-0 p-0" v-if="!isChecked(index) && !edit">
+                <v-card-text>
+                  <vue-markdown :source="step.text"> </vue-markdown>
+                </v-card-text>
+              </div>
+            </v-expand-transition>
           </v-card>
         </v-hover>
       </div>
@@ -94,12 +106,12 @@ export default {
 
   watch: {
     value: {
-      handler() { 
-        this.disabledSteps = [];  
-      }
-    }
+      handler() {
+        this.disabledSteps = [];
+      },
+    },
   },
-  
+
   methods: {
     generateKey(item, index) {
       return utils.generateUniqueKey(item, index);
@@ -121,7 +133,7 @@ export default {
         this.disabledSteps.push(stepIndex);
       }
     },
-    isDisabled(stepIndex) {
+    isChecked(stepIndex) {
       if (this.disabledSteps.includes(stepIndex) && !this.edit) {
         return "disabled-card";
       } else {
@@ -139,4 +151,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+
