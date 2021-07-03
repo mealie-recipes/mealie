@@ -401,7 +401,7 @@
     "shopping-lists": "Listes de courses"
   },
   "sidebar": {
-    "all-recipes": "All Recipes",
+    "all-recipes": "Les recettes",
     "categories": "Catégories",
     "dashboard": "Dashboard",
     "home-page": "Accueil",
@@ -409,9 +409,9 @@
     "migrations": "Migrations",
     "profile": "Profil",
     "search": "Rechercher",
-    "site-settings": "Param. site",
+    "site-settings": "Paramètres",
     "tags": "Mots-clés",
-    "toolbox": "Toolbox"
+    "toolbox": "Boîte à outils"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",
