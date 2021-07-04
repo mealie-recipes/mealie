@@ -2,8 +2,8 @@
   "about": {
     "about": "Om",
     "about-mealie": "Om Mealie",
-    "api-docs": "API Docs",
-    "api-port": "API Port",
+    "api-docs": "API dokumentation",
+    "api-port": "API port",
     "application-mode": "Application Mode",
     "database-type": "Database Type",
     "database-url": "Database URL",
