@@ -407,11 +407,11 @@
     "home-page": "Startseite",
     "manage-users": "Benutzer",
     "migrations": "Migrationen",
-    "profile": "Profile",
-    "search": "Search",
-    "site-settings": "Site Settings",
-    "tags": "Tags",
-    "toolbox": "Toolbox"
+    "profile": "Profil",
+    "search": "Suche",
+    "site-settings": "Einstellungen",
+    "tags": "Schlagworte",
+    "toolbox": "Werkzeuge"
   },
   "signup": {
     "error-signing-up": "Fehler beim Registrieren",
