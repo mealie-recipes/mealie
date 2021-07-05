@@ -68,11 +68,26 @@ export default {
         notes: [],
         extras: {},
         assets: [],
+        settings: {
+          public: true,
+          showNutrition: true,
+          showAssets: true,
+          landscapeView: true,
+          disableComments: false,
+          disableAmount: true,
+        },
       },
     };
   },
+  created() {
+    this.getDefaultSettings();
+  },
 
   methods: {
+    async getDefaultSettings() {
+      const response = await api.recipes.getDefaultSettings();
+      this.recipeDetails.settings = response.data;
+    },
     getImage(fileObject) {
       this.fileObject = fileObject;
       this.onFileChange();

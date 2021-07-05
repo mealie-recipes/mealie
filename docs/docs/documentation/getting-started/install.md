@@ -96,26 +96,33 @@ services:
 
 ## Env Variables
 
-| Variables         | Default               | Description                                                                                                                       |
-| ----------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| PUID              | 911                   | UserID permissions between host OS and container                                                                                  |
-| PGID              | 911                   | GroupID permissions between host OS and container                                                                                 |
-| DEFAULT_GROUP     | Home                  | The default group for users                                                                                                       |
-| DEFAULT_EMAIL     | changeme@email.com    | The default username for the superuser                                                                                            |
-| BASE_URL          | http://localhost:8080 | Used for Notifications                                                                                                            |
-| DB_ENGINE         | sqlite                | Optional: 'sqlite', 'postgres'                                                                                                    |
-| POSTGRES_USER     | mealie                | Postgres database user                                                                                                            |
-| POSTGRES_PASSWORD | mealie                | Postgres database password                                                                                                        |
-| POSTGRES_SERVER   | postgres              | Postgres database server address                                                                                                  |
-| POSTGRES_PORT     | 5432                  | Postgres database port                                                                                                            |
-| POSTGRES_DB       | mealie                | Postgres database name                                                                                                            |
-| TOKEN_TIME        | 2                     | The time in hours that a login/auth token is valid                                                                                |
-| API_PORT          | 9000                  | The port exposed by backend API. **Do not change this if you're running in Docker**                                               |
-| API_DOCS          | True                  | Turns on/off access to the API documentation locally.                                                                             |
-| TZ                | UTC                   | Must be set to get correct date/time on the server                                                                                |
-| WORKERS_PER_CORE  | 1                     | Set the number of workers to the number of CPU cores multiplied by this value (Value \* CPUs). More info [here][workers_per_core] |
-| MAX_WORKERS       |                       | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
-| WEB_CONCURRENCY   | 2                     | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
+| Variables               | Default               | Description                                                                                                                       |
+| ----------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| PUID                    | 911                   | UserID permissions between host OS and container                                                                                  |
+| PGID                    | 911                   | GroupID permissions between host OS and container                                                                                 |
+| DEFAULT_GROUP           | Home                  | The default group for users                                                                                                       |
+| DEFAULT_EMAIL           | changeme@email.com    | The default username for the superuser                                                                                            |
+| BASE_URL                | http://localhost:8080 | Used for Notifications                                                                                                            |
+| DB_ENGINE               | sqlite                | Optional: 'sqlite', 'postgres'                                                                                                    |
+| POSTGRES_USER           | mealie                | Postgres database user                                                                                                            |
+| POSTGRES_PASSWORD       | mealie                | Postgres database password                                                                                                        |
+| POSTGRES_SERVER         | postgres              | Postgres database server address                                                                                                  |
+| POSTGRES_PORT           | 5432                  | Postgres database port                                                                                                            |
+| POSTGRES_DB             | mealie                | Postgres database name                                                                                                            |
+| TOKEN_TIME              | 2                     | The time in hours that a login/auth token is valid                                                                                |
+| RECIPE_PUBLIC           | True                  | Default Recipe Settings - Make Recipe Public                                                                                      |
+| RECIPE_SHOW_NUTRITION   | True                  | Default Recipe Settings - Show Recipe Nutrition                                                                                   |
+| RECIPE_SHOW_ASSETS      | True                  | Default Recipe Settings - Show Recipe Assets                                                                                      |
+| RECIPE_LANDSCAPE_VIEW   | True                  | Default Recipe Settings - Set Landscape View                                                                                      |
+| RECIPE_DISABLE_COMMENTS | False                 | Default Recipe Settings - Disable Comments                                                                                        |
+| RECIPE_DISABLE_AMOUNT   | False                 | Default Recipe Settings - Disable Amount                                                                                          |
+| API_PORT                | 9000                  | The port exposed by backend API. **Do not change this if you're running in Docker**                                               |
+| API_DOCS                | True                  | Turns on/off access to the API documentation locally.                                                                             |
+| TZ                      | UTC                   | Must be set to get correct date/time on the server                                                                                |
+| WORKERS_PER_CORE        | 1                     | Set the number of workers to the number of CPU cores multiplied by this value (Value \* CPUs). More info [here][workers_per_core] |
+| MAX_WORKERS             |                       | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
+| WEB_CONCURRENCY         | 2                     | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
+
 
 ## Raspberry Pi 4
 

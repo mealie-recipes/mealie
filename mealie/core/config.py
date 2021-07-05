@@ -139,13 +139,13 @@ class AppSettings(BaseSettings):
     def public_db_url(cls, v: Optional[str], values: dict[str, Any]) -> str:
         url = values.get("DB_URL")
         engine = values.get("DB_ENGINE", "sqlite")
-        if engine == "postgres":
-            user = values.get("POSTGRES_USER")
-            password = values.get("POSTGRES_PASSWORD")
-            return url.replace(user, "*****", 1).replace(password, "*****", 1)
-        else:
+        if engine != "postgres":
             # sqlite
             return url
+
+        user = values.get("POSTGRES_USER")
+        password = values.get("POSTGRES_PASSWORD")
+        return url.replace(user, "*****", 1).replace(password, "*****", 1)
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
@@ -156,6 +156,14 @@ class AppSettings(BaseSettings):
     # Not Used!
     SFTP_USERNAME: Optional[str]
     SFTP_PASSWORD: Optional[str]
+
+    # Recipe Default Settings
+    RECIPE_PUBLIC: bool = True
+    RECIPE_SHOW_NUTRITION: bool = True
+    RECIPE_SHOW_ASSETS: bool = True
+    RECIPE_LANDSCAPE_VIEW: bool = True
+    RECIPE_DISABLE_COMMENTS: bool = False
+    RECIPE_DISABLE_AMOUNT: bool = False
 
     class Config:
         env_file = BASE_DIR.joinpath(".env")

@@ -8,6 +8,7 @@ class AppRoutes:
         self.about_events = "/api/about/events"
         self.about_events_notifications = "/api/about/events/notifications"
         self.about_events_notifications_test = "/api/about/events/notifications/test"
+        self.about_recipes_defaults = "/api/about/recipes/defaults"
         self.auth_refresh = "/api/auth/refresh"
         self.auth_token = "/api/auth/token"
         self.auth_token_long = "/api/auth/token/long"
@@ -31,6 +32,7 @@ class AppRoutes:
         self.migrations = "/api/migrations"
         self.recipes_category = "/api/recipes/category"
         self.recipes_create = "/api/recipes/create"
+        self.recipes_create_from_zip = "/api/recipes/create-from-zip"
         self.recipes_create_url = "/api/recipes/create-url"
         self.recipes_summary = "/api/recipes/summary"
         self.recipes_summary_uncategorized = "/api/recipes/summary/uncategorized"
@@ -107,6 +109,9 @@ class AppRoutes:
 
     def recipes_recipe_slug_image(self, recipe_slug):
         return f"{self.prefix}/recipes/{recipe_slug}/image"
+
+    def recipes_recipe_slug_zip(self, recipe_slug):
+        return f"{self.prefix}/recipes/{recipe_slug}/zip"
 
     def recipes_slug_comments(self, slug):
         return f"{self.prefix}/recipes/{slug}/comments"
