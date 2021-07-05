@@ -45,10 +45,18 @@ services:
       PGID: 1000
       TZ: America/Anchorage
 
+      # Default Recipe Settings
+      RECIPE_PUBLIC: true
+      RECIPE_SHOW_NUTRITION: true
+      RECIPE_SHOW_ASSETS: true
+      RECIPE_LANDSCAPE_VIEW: true
+      RECIPE_DISABLE_COMMENTS: false
+      RECIPE_DISABLE_AMOUNT: false
+
+      # Gunicorn
+      WEB_CONCURRENCY: 2
       # WORKERS_PER_CORE: 0.5
       # MAX_WORKERS: 8
-
-      WEB_CONCURRENCY: 2
     volumes:
       - ./mealie/data/:/app/data
 ```
@@ -72,6 +80,8 @@ services:
       PUID: 1000
       PGID: 1000
       TZ: America/Anchorage
+
+      # Database Settings
       DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
       POSTGRES_USER: mealie
       POSTGRES_PASSWORD: mealie
@@ -79,10 +89,18 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
 
+      # Default Recipe Settings
+      RECIPE_PUBLIC: true
+      RECIPE_SHOW_NUTRITION: true
+      RECIPE_SHOW_ASSETS: true
+      RECIPE_LANDSCAPE_VIEW: true
+      RECIPE_DISABLE_COMMENTS: false
+      RECIPE_DISABLE_AMOUNT: false
+
+      # Gunicorn
+      WEB_CONCURRENCY: 2
       # WORKERS_PER_CORE: 0.5
       # MAX_WORKERS: 8
-
-      WEB_CONCURRENCY: 2
     volumes:
       - ./mealie/data/:/app/data
   postgres:
