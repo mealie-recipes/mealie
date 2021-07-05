@@ -70,6 +70,6 @@ def scrape_image(image_url: str, slug: str) -> Path:
 
         filename.unlink(missing_ok=True)
 
-        return slug
+        return Path(slug)
 
     return None
