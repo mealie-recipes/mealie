@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.core.config import app_dirs
+from mealie.core.config import app_dirs, settings
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema.comments import CommentOut
 from pydantic import BaseModel, Field, validator
@@ -19,12 +19,12 @@ class RecipeImageTypes(str, Enum):
 
 
 class RecipeSettings(CamelModel):
-    public: bool = True
-    show_nutrition: bool = True
-    show_assets: bool = True
-    landscape_view: bool = True
-    disable_comments: bool = False
-    disable_amount: bool = False
+    public: bool = settings.RECIPE_PUBLIC
+    show_nutrition: bool = settings.RECIPE_SHOW_NUTRITION
+    show_assets: bool = settings.RECIPE_SHOW_ASSETS
+    landscape_view: bool = settings.RECIPE_LANDSCAPE_VIEW
+    disable_comments: bool = settings.RECIPE_DISABLE_COMMENTS
+    disable_amount: bool = settings.RECIPE_DISABLE_AMOUNT
 
     class Config:
         orm_mode = True
@@ -130,7 +130,7 @@ class Recipe(RecipeSummary):
     perform_time: Optional[str] = None
 
     # Mealie Specific
-    settings: Optional[RecipeSettings]
+    settings: Optional[RecipeSettings] = RecipeSettings()
     assets: Optional[list[RecipeAsset]] = []
     notes: Optional[list[RecipeNote]] = []
     org_url: Optional[str] = Field(None, alias="orgURL")

@@ -5,6 +5,15 @@ import i18n from "@/i18n.js";
 
 export const recipeAPI = {
   /**
+   * Returns the Default Recipe Settings for the Site
+   * @returns {AxoisResponse} Axois Response Object
+   */
+  async getDefaultSettings() {
+    const response = await apiReq.get(API_ROUTES.aboutRecipesDefaults);
+    return response;
+  },
+
+  /**
    * Create a Recipe by URL
    * @param {string} recipeURL
    * @returns {string} Recipe Slug

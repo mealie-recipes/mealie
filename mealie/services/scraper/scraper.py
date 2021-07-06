@@ -1,6 +1,7 @@
 import json
 from enum import Enum
 from typing import Any, Callable
+from uuid import uuid4
 
 import requests
 from fastapi import HTTPException, status
@@ -10,6 +11,7 @@ from mealie.schema.recipe import Recipe, RecipeStep
 from mealie.services.image.image import scrape_image
 from mealie.services.scraper import cleaner, open_graph
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, WebsiteNotImplementedError, scrape_me
+from slugify import slugify
 
 LAST_JSON = app_dirs.DEBUG_DIR.joinpath("last_recipe.json")
 
@@ -31,13 +33,17 @@ def create_from_url(url: str) -> Recipe:
     logger.info(f"Image {new_recipe.image}")
     new_recipe.image = download_image_for_recipe(new_recipe.slug, new_recipe.image)
 
+    if new_recipe.name is None or new_recipe.name == "":
+        new_recipe.name = "No Recipe Found" + uuid4().hex
+        new_recipe.slug = slugify(new_recipe.name)
+
     return new_recipe
 
 
 class ParserErrors(str, Enum):
-    bad_recipe = "BAD_RECIPE_DATA"
-    no_recipe_data = "NO_RECIPE_DATA"
-    connection_error = "CONNECTION_ERROR"
+    BAD_RECIPE_DATA = "BAD_RECIPE_DATA"
+    NO_RECIPE_DATA = "NO_RECIPE_DATA"
+    CONNECTION_ERROR = "CONNECTION_ERROR"
 
 
 def extract_open_graph_values(url) -> Recipe:
@@ -70,10 +76,10 @@ def scrape_from_url(url: str) -> Recipe:
             recipe = extract_open_graph_values(url)
             if recipe.name != "":
                 return recipe
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.bad_recipe.value})
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
 
     except ConnectionError:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.connection_error.value})
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.CONNECTION_ERROR.value})
 
     try:
         instruct = scraped_schema.instructions()
@@ -86,7 +92,7 @@ def scrape_from_url(url: str) -> Recipe:
         ing = []
 
     if not instruct and not ing:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.no_recipe_data.value})
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.NO_RECIPE_DATA.value})
     else:
         return clean_scraper(scraped_schema, url)
 
