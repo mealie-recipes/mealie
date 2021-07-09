@@ -1,11 +1,20 @@
 <template>
-  <div v-if="edit || ( value && value.length > 0 )">
+  <div v-if="edit || (value && value.length > 0)">
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
     <div v-if="edit">
       <draggable :value="value" @input="updateIndex" @start="drag = true" @end="drag = false" handle=".handle">
         <transition-group type="transition" :name="!drag ? 'flip-list' : null">
           <div v-for="(ingredient, index) in value" :key="generateKey('ingredient', index)">
             <v-row align="center">
+              <v-text-field
+                v-if="edit && showTitleEditor[index]"
+                class="mx-3 mt-3"
+                v-model="value[index].title"
+                dense
+                :label="$t('recipe.section-title')"
+              >
+              </v-text-field>
+
               <v-textarea
                 class="mr-2"
                 :label="$t('recipe.ingredient')"
@@ -15,6 +24,18 @@
                 dense
                 rows="1"
               >
+                <template slot="append">
+                  <v-tooltip right nudge-right="10">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn icon small class="mt-n1" v-bind="attrs" v-on="on" @click="toggleShowTitle(index)">
+                        <v-icon>{{ showTitleEditor[index] ? $globals.icons.minus : $globals.icons.createAlt }}</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>{{
+                      showTitleEditor[index] ? $t("recipe.remove-section") : $t("recipe.insert-section")
+                    }}</span>
+                  </v-tooltip>
+                </template>
                 <template slot="append-outer">
                   <v-icon class="handle">{{ $globals.icons.arrowUpDown }}</v-icon>
                 </template>
@@ -35,18 +56,16 @@
       </div>
     </div>
     <div v-else>
-      <v-list-item
-        dense
-        v-for="(ingredient, index) in value"
-        :key="generateKey('ingredient', index)"
-        @click="toggleChecked(index)"
-      >
-        <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary"> </v-checkbox>
-
-        <v-list-item-content>
-          <vue-markdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredient.note"> </vue-markdown>
-        </v-list-item-content>
-      </v-list-item>
+      <div v-for="(ingredient, index) in value" :key="generateKey('ingredient', index)">
+        <h3 class="mt-2" v-if="showTitleEditor[index]">{{ ingredient.title }}</h3>
+        <v-divider v-if="showTitleEditor[index]"></v-divider>
+        <v-list-item dense @click="toggleChecked(index)">
+          <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary"> </v-checkbox>
+          <v-list-item-content>
+            <vue-markdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredient.note"> </vue-markdown>
+          </v-list-item-content>
+        </v-list-item>
+      </div>
     </div>
   </div>
 </template>
@@ -76,10 +95,19 @@ export default {
     return {
       drag: false,
       checked: [],
+      showTitleEditor: [],
     };
   },
   mounted() {
     this.checked = this.value.map(() => false);
+    this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
+  },
+  watch: {
+    value: {
+      handler() {
+        this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
+      },
+    },
   },
   methods: {
     addIngredient(ingredients = null) {
@@ -117,6 +145,16 @@ export default {
     },
     removeByIndex(list, index) {
       list.splice(index, 1);
+    },
+    validateTitle(title) {
+      return !(title === null || title === "");
+    },
+    toggleShowTitle(index) {
+      const newVal = !this.showTitleEditor[index];
+      if (!newVal) {
+        this.value[index].title = "";
+      }
+      this.$set(this.showTitleEditor, index, newVal);
     },
   },
 };
