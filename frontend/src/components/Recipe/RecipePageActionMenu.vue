@@ -18,6 +18,7 @@
     />
     <v-spacer></v-spacer>
     <div v-if="!value" class="custom-btn-group ma-1">
+      <FavoriteBadge class="mx-1" color="info" button-style v-if="loggedIn" :slug="slug" show-always />
       <v-tooltip bottom color="info">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -66,13 +67,15 @@
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
 import ContextMenu from "@/components/Recipe/ContextMenu.vue";
+import FavoriteBadge from "@/components/Recipe/FavoriteBadge.vue";
+
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
 export default {
-  components: { ConfirmationDialog, ContextMenu },
+  components: { ConfirmationDialog, ContextMenu, FavoriteBadge },
   props: {
     slug: {
       type: String,

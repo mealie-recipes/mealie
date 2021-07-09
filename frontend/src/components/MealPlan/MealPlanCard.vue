@@ -18,14 +18,16 @@
       <v-hover v-slot="{ hover }" :open-delay="50">
         <v-card :class="{ 'on-hover': hover }" :elevation="hover ? 12 : 2">
           <CardImage large :slug="planDay.meals[0].slug" icon-size="200" @click="openSearch(index, modes.primary)">
-            <v-fade-transition>
-              <v-btn v-if="hover" small color="info" class="ma-1" @click.stop="addCustomItem(index, modes.primary)">
-                <v-icon left>
-                  {{ $globals.icons.edit }}
-                </v-icon>
-                {{ $t('reicpe.no-recipe') }}
-              </v-btn>
-            </v-fade-transition>
+            <div>
+              <v-fade-transition>
+                <v-btn v-if="hover" small color="info" class="ma-1" @click.stop="addCustomItem(index, modes.primary)">
+                  <v-icon left>
+                    {{ $globals.icons.edit }}
+                  </v-icon>
+                  {{ $t("reicpe.no-recipe") }}
+                </v-btn>
+              </v-fade-transition>
+            </div>
           </CardImage>
 
           <v-card-title class="my-n3 mb-n6">
@@ -40,14 +42,14 @@
                   <v-icon left>
                     {{ $globals.icons.edit }}
                   </v-icon>
-                  {{ $t('reicpe.no-recipe') }}
+                  {{ $t("reicpe.no-recipe") }}
                 </v-btn>
               </v-fade-transition>
               <v-btn color="info" outlined small @click="openSearch(index, modes.sides)">
                 <v-icon small class="mr-1">
                   {{ $globals.icons.create }}
                 </v-icon>
-                {{ $t('meal-plan.side') }}
+                {{ $t("meal-plan.side") }}
               </v-btn>
             </v-card-actions>
           </v-hover>

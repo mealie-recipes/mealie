@@ -1,17 +1,17 @@
 <template>
-  <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'primary' : 'secondary'">
+  <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         small
         @click.prevent="toggleFavorite"
         v-if="isFavorite || showAlways"
-        :color="buttonStyle ? 'primary' : 'secondary'"
+        :color="buttonStyle ? 'info' : 'secondary'"
         :icon="!buttonStyle"
         :fab="buttonStyle"
         v-bind="attrs"
         v-on="on"
       >
-        <v-icon :small="!buttonStyle" color="secondary">
+        <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">
           {{ isFavorite ? $globals.icons.heart : $globals.icons.heartOutline }}
         </v-icon>
       </v-btn>

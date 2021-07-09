@@ -12,7 +12,6 @@
         class="d-print-none"
         :key="imageKey"
       >
-        <FavoriteBadge class="ma-1" button-style v-if="loggedIn" :slug="recipeDetails.slug" show-always />
         <RecipeTimeCard
           :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
@@ -69,7 +68,6 @@
 <script>
 import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu.vue";
 import { api } from "@/api";
-import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
 import RecipeViewer from "@/components/Recipe/RecipeViewer";
 import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
@@ -88,7 +86,6 @@ export default {
     RecipePageActionMenu,
     PrintView,
     NoRecipe,
-    FavoriteBadge,
     CommentsSection,
   },
   mixins: [user],
@@ -233,7 +230,7 @@ export default {
     async saveRecipe() {
       if (this.validateRecipe()) {
         let slug = await api.recipes.update(this.recipeDetails);
-        if(!slug) return;
+        if (!slug) return;
 
         if (this.fileObject) {
           this.saveImage(true);
