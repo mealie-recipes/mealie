@@ -13,7 +13,7 @@
     <v-icon color="primary" class="icon-position" :size="iconSize">
       {{ $globals.icons.primary }}
     </v-icon>
-    <slot> </slot>
+      <slot> </slot>
   </div>
 </template>
 
@@ -85,6 +85,7 @@ export default {
 }
 
 .icon-slot > div {
+  top: 0;
   position: absolute;
   z-index: 1;
 }
