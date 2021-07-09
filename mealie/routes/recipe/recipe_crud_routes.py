@@ -1,5 +1,4 @@
 import json
-from mealie.routes.routers import UserAPIRouter
 import shutil
 from shutil import copyfileobj
 from zipfile import ZipFile
@@ -11,6 +10,7 @@ from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user, is_logged_in, temporary_zip_path
+from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeAsset, RecipeImageTypes, RecipeURLIn
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
@@ -185,15 +185,14 @@ def delete_recipe(
     try:
         recipe: Recipe = db.recipes.delete(session, recipe_slug)
         delete_assets(recipe_slug=recipe_slug)
-        background_tasks.add_task(
-            create_recipe_event,
-            "Recipe Deleted",
-            f"'{recipe.name}' deleted by {current_user.full_name}",
-            session=session,
-        )
-        return recipe
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+    background_tasks.add_task(
+        create_recipe_event, "Recipe Deleted", f"'{recipe.name}' deleted by {current_user.full_name}", session=session
+    )
+
+    return recipe
 
 
 @user_router.put("/{recipe_slug}/image")
