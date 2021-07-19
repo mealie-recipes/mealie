@@ -43,6 +43,7 @@ const vuetify = new Vuetify({
     locales: {
       "de-DE": de,
       "en-US": en,
+      "en-GB": en,
       "es-ES": es,
       "fr-FR": fr,
       "it-IT": it,

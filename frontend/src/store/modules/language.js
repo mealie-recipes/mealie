@@ -6,6 +6,10 @@ const state = {
       value: "en-US",
     },
     {
+      name: "British English",
+      value: "en-GB",
+    },
+    {
       name: "Deutsch (German)",
       value: "de-DE",
     },
