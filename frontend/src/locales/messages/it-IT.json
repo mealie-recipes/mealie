@@ -1,6 +1,6 @@
 {
   "about": {
-    "about": "Chi siamo",
+    "about": "Dettagli",
     "about-mealie": "Info su Mealie",
     "api-docs": "Documentazione API",
     "api-port": "Porta API",
@@ -144,7 +144,7 @@
     "group-id-with-value": "ID Gruppo:{groupID}",
     "group-name": "Nome Gruppo",
     "group-not-found": "Gruppo non trovato",
-    "group-with-value": "Group: {groupID}",
+    "group-with-value": "Gruppo: {groupID}",
     "groups": "Gruppi",
     "manage-groups": "Gestisci Gruppi",
     "user-group": "Gruppo Utente",
@@ -193,17 +193,17 @@
     "recipe-migration": "Migrazione Ricetta"
   },
   "new-recipe": {
-    "bulk-add": "Aggiungi Blocco",
+    "bulk-add": "Inserimento Multiplo",
     "error-details": "Solo i siti web contenenti ld+json o microdata possono essere importati da Mealie. Se il tuo sito non può essere importato, ma ci sono dati json nel log, per favore crea una issue su github con l'URL e i dati.",
     "error-title": "Sembra che non riusciamo a trovare nulla",
     "from-url": "Importa ricetta",
     "github-issues": "GitHub Issues",
     "google-ld-json-info": "Google ld+json Info",
-    "must-be-a-valid-url": "Must be a Valid URL",
-    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Incolla nei dati delle tue ricette. Ogni riga sarà trattata come un elemento in una lista",
+    "must-be-a-valid-url": "Deve essere un URL valido",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Inserisci i dati della tua ricetta. Ogni riga sarà trattata come uno step della ricetta.",
     "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "URL Ricetta",
-    "upload-a-recipe": "Upload a Recipe",
+    "upload-a-recipe": "Carica una Ricetta",
     "upload-individual-zip-file": "Carica un singolo file .zip esportato da un'altra istanza di Mealie.",
     "url-form-hint": "Copia e incolla un link dal tuo sito di ricette preferito",
     "view-scraped-data": "View Scraped Data"
@@ -274,7 +274,7 @@
     "share-recipe-message": "Volevo condividere la mia {0} ricetta con te.",
     "show-nutrition-values": "Mostra Valori Nutrizionali",
     "sodium-content": "Sodio",
-    "step-index": "Passo: {step}",
+    "step-index": "Step: {step}",
     "sugar-content": "Zuccheri",
     "title": "Titolo",
     "total-time": "Tempo Totale",
@@ -374,7 +374,7 @@
     },
     "toolbox": {
       "assign-all": "Assegna Tutto",
-      "bulk-assign": "Assegna Blocco",
+      "bulk-assign": "Assegnazione Multipla",
       "new-name": "Nuovo nome",
       "no-unused-items": "Nessun Elemento Inutilizzato",
       "recipes-affected": "Nessuna Ricetta Interessata|Una Ricetta Interessata|{count} Ricette Interessate",
@@ -401,17 +401,17 @@
     "shopping-lists": "Liste della Spesa"
   },
   "sidebar": {
-    "all-recipes": "All Recipes",
-    "categories": "Categories",
+    "all-recipes": "Ricette",
+    "categories": "Categorie",
     "dashboard": "Dashboard",
     "home-page": "Home Page",
-    "manage-users": "Manage Users",
-    "migrations": "Migrations",
-    "profile": "Profile",
-    "search": "Search",
-    "site-settings": "Site Settings",
+    "manage-users": "Gestire Utenti",
+    "migrations": "Migrazioni",
+    "profile": "Profilo",
+    "search": "Cerca",
+    "site-settings": "Impostazioni",
     "tags": "Tags",
-    "toolbox": "Toolbox"
+    "toolbox": "Strumenti"
   },
   "signup": {
     "error-signing-up": "Errore Registrazione",
