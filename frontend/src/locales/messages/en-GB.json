@@ -35,12 +35,12 @@
   "category": {
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
-    "category-deleted": "Category Deleted",
+    "category-deleted": "Category deleted",
     "category-deletion-failed": "Category deletion failed",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
     "category-updated": "Category updated",
-    "uncategorized-count": "Uncategorized {count}"
+    "uncategorized-count": "Uncategorised {count}"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -237,7 +237,7 @@
     "disable-amount": "Disable Ingredient Amounts",
     "disable-comments": "Disable Comments",
     "fat-content": "Fat",
-    "fiber-content": "Fiber",
+    "fiber-content": "Fibre",
     "grams": "grams",
     "ingredient": "Ingredient",
     "ingredients": "Ingredients",
