@@ -74,7 +74,7 @@
     "exception": "Exception",
     "failed-count": "Failed: {count}",
     "failure-uploading-file": "Failure uploading file",
-    "favorites": "Favorites",
+    "favorites": "Favourites",
     "field-required": "Field Required",
     "file-folder-not-found": "File/folder not found",
     "file-uploaded": "File uploaded",
@@ -165,7 +165,7 @@
     "mealplan-categories": "MEALPLAN CATEGORIES",
     "mealplan-created": "Mealplan created",
     "mealplan-creation-failed": "Mealplan creation failed",
-    "mealplan-deleted": "Mealplan Deleted",
+    "mealplan-deleted": "Mealplan deleted",
     "mealplan-deletion-failed": "Mealplan deletion failed",
     "mealplan-settings": "Mealplan Settings",
     "mealplan-update-failed": "Mealplan update failed",
@@ -205,7 +205,7 @@
     "recipe-url": "Recipe URL",
     "upload-a-recipe": "Upload a Recipe",
     "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
-    "url-form-hint": "Copy and paste a link from your favorite recipe website",
+    "url-form-hint": "Copy and paste a link from your favourite recipe website",
     "view-scraped-data": "View Scraped Data"
   },
   "page": {
@@ -223,7 +223,7 @@
   },
   "recipe": {
     "add-key": "Add Key",
-    "add-to-favorites": "Add to Favorites",
+    "add-to-favorites": "Add to Favourites",
     "api-extras": "API Extras",
     "calories": "Calories",
     "calories-suffix": "calories",
@@ -266,7 +266,7 @@
     "recipe-settings": "Recipe Settings",
     "recipe-update-failed": "Recipe update failed",
     "recipe-updated": "Recipe updated",
-    "remove-from-favorites": "Remove from Favorites",
+    "remove-from-favorites": "Remove from Favourites",
     "remove-section": "Remove Section",
     "save-recipe-before-use": "Save recipe before use",
     "section-title": "Section Title",
@@ -274,7 +274,7 @@
     "share-recipe-message": "I wanted to share my {0} recipe with you.",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sodium",
-    "step-index": "Step: {step}",
+    "step-index": "Step. {step}",
     "sugar-content": "Sugar",
     "title": "Title",
     "total-time": "Total Time",
@@ -333,7 +333,7 @@
     "migrations": "Migrations",
     "new-page": "New Page",
     "notify": "Notify",
-    "organize": "Organize",
+    "organize": "Organise",
     "page-name": "Page Name",
     "pages": "Pages",
     "profile": "Profile",
@@ -381,11 +381,11 @@
       "remove-unused": "Remove Unused",
       "title-case-all": "Title Case All",
       "toolbox": "Toolbox",
-      "unorganized": "Unorganized"
+      "unorganized": "Unorganised"
     },
     "webhooks": {
       "test-webhooks": "Test Webhooks",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on its scheduled day. Currently Webhooks will execute at",
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS"
     }
@@ -421,7 +421,7 @@
     "sign-up-links": "Sign Up Links",
     "sign-up-token-deleted": "Sign Up Token Deleted",
     "sign-up-token-deletion-failed": "Sign up token deletion failed",
-    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
+    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't received an invitation you are unable to sign-up. To receive a link, contact the sites administrator."
   },
   "tag": {
     "tag-created": "Tag created",
@@ -444,7 +444,7 @@
     "create-link": "Create Link",
     "create-user": "Create User",
     "current-password": "Current Password",
-    "e-mail-must-be-valid": "E-mail must be valid",
+    "e-mail-must-be-valid": "Email must be valid",
     "edit-user": "Edit User",
     "email": "Email",
     "error-cannot-delete-super-user": "Error! Cannot Delete Super User",
