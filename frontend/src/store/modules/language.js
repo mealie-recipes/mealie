@@ -2,8 +2,12 @@
 const state = {
   allLangs: [
     {
-      name: "English",
+      name: "American English",
       value: "en-US",
+    },
+    {
+      name: "British English",
+      value: "en-GB",
     },
     {
       name: "Deutsch (German)",
