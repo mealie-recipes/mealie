@@ -50,16 +50,15 @@
 
                 {{ $t("recipe.step-index", { step: index + 1 }) }}
 
-                <v-fade-transition>
-                  <v-icon v-if="isChecked(index)" size="24" class="ml-auto" color="success">
-                    {{ $globals.icons.checkboxMarkedCircle }}
-                  </v-icon>
-                </v-fade-transition>
-
                 <v-btn v-if="edit" text color="primary" class="ml-auto" @click="toggleShowTitle(index)">
                   {{ !showTitleEditor[index] ? $t("recipe.insert-section") : $t("recipe.remove-section") }}
                 </v-btn>
                 <v-icon v-if="edit" class="handle">{{ $globals.icons.arrowUpDown }}</v-icon>
+                <v-fade-transition>
+                  <v-icon v-show="isChecked(index)" size="24" class="ml-auto" color="success">
+                    {{ $globals.icons.checkboxMarkedCircle }}
+                  </v-icon>
+                </v-fade-transition>
               </v-card-title>
               <v-card-text v-if="edit">
                 <v-textarea
@@ -72,7 +71,7 @@
                 </v-textarea>
               </v-card-text>
               <v-expand-transition>
-                <div class="m-0 p-0" v-if="!isChecked(index) && !edit">
+                <div class="m-0 p-0" v-show="!isChecked(index) && !edit">
                   <v-card-text>
                     <vue-markdown :source="step.text"> </vue-markdown>
                   </v-card-text>

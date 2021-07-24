@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mealie"
-version = "0.5.1"
+version = "0.5.2"
 description = "A Recipe Manager"
 authors = ["Hayden <hay-kot@pm.me>"]
 license = "MIT"
@@ -36,7 +36,6 @@ apprise = "^0.9.2"
 recipe-scrapers = "^13.2.7"
 psycopg2-binary = {version = "^2.9.1", optional = true}
 gunicorn = "^20.1.0"
-
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
