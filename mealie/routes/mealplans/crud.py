@@ -1,4 +1,4 @@
-from fastapi import BackgroundTasks, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
@@ -12,6 +12,7 @@ from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
 router = UserAPIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
+public_router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
 
 @router.get("/all", response_model=list[MealPlanOut])
@@ -46,7 +47,7 @@ def get_today(session: Session = Depends(generate_session), current_user: UserIn
         return recipe
 
 
-@router.get("/today/image", tags=["Meal Plan"])
+@public_router.get("/today/image", tags=["Meal Plan"])
 def get_todays_image(session: Session = Depends(generate_session), group_name: str = "Home"):
     """
     Returns the image for todays meal-plan.
@@ -54,15 +55,12 @@ def get_todays_image(session: Session = Depends(generate_session), group_name: s
 
     group_in_db: GroupInDB = db.groups.get(session, group_name, "name")
     recipe = get_todays_meal(session, group_in_db)
+    recipe_image = recipe.image_dir.joinpath(image.ImageOptions.ORIGINAL_IMAGE)
 
-    if recipe:
-        recipe_image = recipe.image_dir.joinpath(image.ImageOptions.ORIGINAL_IMAGE)
-    else:
+    if not recipe and not recipe_image.exists():
         raise HTTPException(status.HTTP_404_NOT_FOUND)
-    if recipe_image:
-        return FileResponse(recipe_image)
-    else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    return FileResponse(recipe_image)
 
 
 @router.get("/{id}", response_model=MealPlanOut)
