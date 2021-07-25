@@ -85,6 +85,7 @@ docs: ## 📄 Start Mkdocs Development Server
 	cd docs && poetry run python -m mkdocs serve
 
 docker-dev: ## 🐳 Build and Start Docker Development Stack
+	docker-compose -f docker-compose.dev.yml -p dev-mealie down && \
 	docker-compose -f docker-compose.dev.yml -p dev-mealie up --build
 
 docker-prod: ## 🐳 Build and Start Docker Production Stack

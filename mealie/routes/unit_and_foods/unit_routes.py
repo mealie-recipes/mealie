@@ -1,8 +1,7 @@
-from fastapi import APIRouter, Depends
+from mealie.routes.routers import UserAPIRouter
 from mealie.core.root_logger import get_logger
-from mealie.routes.deps import get_current_user
 
-router = APIRouter(prefix="/api/units", dependencies=[Depends(get_current_user)])
+router = UserAPIRouter(prefix="/api/units")
 logger = get_logger()
 
 

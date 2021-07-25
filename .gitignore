@@ -55,6 +55,7 @@ eggs/
 lib/
 lib64/
 parts/
+!frontend/src/components/Recipe/Parts/
 sdist/
 var/
 wheels/

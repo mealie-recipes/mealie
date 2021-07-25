@@ -55,7 +55,7 @@ export default {
       return utils.generateUniqueKey(item, index);
     },
     addNote() {
-      this.value.push({ text: "" });
+      this.value.push({ title: "", text: "" });
     },
     removeByIndex(list, index) {
       list.splice(index, 1);

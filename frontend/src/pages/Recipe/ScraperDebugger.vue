@@ -3,7 +3,7 @@
     <v-text-field v-model="testUrl" outlined single-line label="Recipe Url"> </v-text-field>
     <div class="d-flex">
       <v-btn class="mt-0 ml-auto" color="info" @click="getTestData">
-        <v-icon left> {{ $globals.icons.testTube}} </v-icon>
+        <v-icon left> {{ $globals.icons.testTube }} </v-icon>
         Test Scrape
       </v-btn>
     </div>
@@ -12,11 +12,10 @@
 </template>
 
 <script>
-import VJsoneditor from "v-jsoneditor";
 import { api } from "@/api";
 export default {
   components: {
-    VJsoneditor,
+    VJsoneditor: () => import(/* webpackChunkName: "json-editor" */ "v-jsoneditor"),
   },
   data() {
     return {
@@ -29,7 +28,7 @@ export default {
       defaultMessage: { details: "site failed to return valid schema" },
     };
   },
-  mounted() {
+  created() {
     if (this.$route.query.test_url) {
       this.getTestData();
     }

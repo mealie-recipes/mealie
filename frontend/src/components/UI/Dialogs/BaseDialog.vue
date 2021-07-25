@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import i18n from "@/i18n";
+import i18n from "@/i18n.js";
 export default {
   props: {
     color: {
@@ -65,12 +65,14 @@ export default {
     },
     top: {
       default: null,
+      type: Boolean,
     },
     submitText: {
       default: () => i18n.t("general.create"),
     },
     keepOpen: {
       default: false,
+      type: Boolean,
     },
   },
   data() {
@@ -101,15 +103,16 @@ export default {
       this.$emit("submit");
       this.submitted = true;
     },
+    deleteEvent() {
+      this.$emit("delete");
+      this.submitted = true;
+    },
     open() {
+      console.log("Open Dialog");
       this.dialog = true;
     },
     close() {
       this.dialog = false;
-    },
-    deleteEvent() {
-      this.$emit("delete");
-      this.submitted = true;
     },
   },
 };

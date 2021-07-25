@@ -81,7 +81,7 @@ export default {
       this.getRecipes();
     },
   },
-  mounted() {
+  created() {
     this.getRecipes();
     this.sortedResults = [];
   },

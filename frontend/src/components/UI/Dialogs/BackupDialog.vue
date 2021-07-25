@@ -82,7 +82,7 @@ export default {
       } else return this.$t("settings.backup.partial-backup");
     },
   },
-  mounted() {
+  created() {
     this.resetData();
     this.getAvailableBackups();
   },

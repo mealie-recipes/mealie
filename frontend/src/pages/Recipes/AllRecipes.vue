@@ -28,7 +28,7 @@ export default {
       sortedResults: [],
     };
   },
-  async mounted() {
+  async created() {
     if (this.allRecipes.length < 1) {
       this.loading = true;
     }

@@ -49,14 +49,37 @@ def test_image_png():
     return TEST_DATA.joinpath("images", "test_image.png")
 
 
-@fixture(scope="session")
-def token(api_client: requests, api_routes: AppRoutes):
-    form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
+def login(form_data, api_client: requests, api_routes: AppRoutes):
     response = api_client.post(api_routes.auth_token, form_data)
-
+    assert response.status_code == 200
     token = json.loads(response.text).get("access_token")
-
     return {"Authorization": f"Bearer {token}"}
+
+
+@fixture(scope="session")
+def admin_token(api_client: requests, api_routes: AppRoutes):
+    form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
+    return login(form_data, api_client, api_routes)
+
+
+@fixture(scope="session")
+def user_token(admin_token, api_client: requests, api_routes: AppRoutes):
+    # Create the user
+    create_data = {
+        "fullName": "User",
+        "email": "user@email.com",
+        "password": "useruser",
+        "group": "Home",
+        "admin": False,
+        "tokens": [],
+    }
+
+    response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
+    assert response.status_code == 201
+
+    # Log in as this user
+    form_data = {"username": "user@email.com", "password": "useruser"}
+    return login(form_data, api_client, api_routes)
 
 
 @fixture(scope="session")

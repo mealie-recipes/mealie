@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404 sidan kan inte hittas",
-    "take-me-home": "Ta mig hem"
-  },
   "about": {
     "about": "Om",
     "about-mealie": "Om Mealie",
@@ -26,8 +22,17 @@
     "support": "Hjälp",
     "version": "Version"
   },
+  "asset": {
+    "assets": "Tillgångar",
+    "code": "Kod",
+    "file": "Fil",
+    "image": "Bild",
+    "new-asset": "Ny tillgång",
+    "pdf": "PDF",
+    "recipe": "Recept",
+    "show-assets": "Visa tillgångar"
+  },
   "category": {
-    "category": "Kategori",
     "category-created": "Kategori skapad",
     "category-creation-failed": "Kategori misslyckades",
     "category-deleted": "Kategori raderad",
@@ -40,17 +45,17 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Databas",
+    "delete-event": "Radera händelse",
     "new-notification-form-description": "Mealie använder Apprise-biblioteket för att generera aviseringar. De erbjuder många alternativ för tjänster att använda för aviseringar. Se deras wiki för en omfattande guide om hur du skapar URL för din tjänst. Om det är tillgängligt kan det vara extra funktioner att välja typ av anmälan.",
+    "new-version": "Uppdatering tillgänglig!",
     "notification": "Notifiering",
+    "refresh": "Uppdatera",
     "scheduled": "Schemalagd",
     "something-went-wrong": "Hmmm, något blev fel!",
     "subscribed-events": "Prenumererade händelser",
-    "test-message-sent": "Test meddelande skickat",
-    "refresh": "Uppdatera",
-    "new-version": "Uppdatering tillgänglig!"
+    "test-message-sent": "Test meddelande skickat"
   },
   "general": {
-    "apply": "Utför",
     "cancel": "Avbryt",
     "clear": "Rensa",
     "close": "Stäng",
@@ -59,7 +64,6 @@
     "copied": "Kopierad",
     "create": "Skapa",
     "created": "Skapad",
-    "current-parenthesis": "(Nuvarande)",
     "custom": "Anpassad",
     "dashboard": "Dashboard",
     "delete": "Ta bort",
@@ -78,18 +82,19 @@
     "friday": "Fredag",
     "general": "Allmänt",
     "get": "Hämta",
+    "home": "Startsida",
     "image": "Bild",
     "image-upload-failed": "Bild uppladdning misslyckad",
     "import": "Importera",
     "json": "JSON",
     "keyword": "Nyckelord",
-    "link": "Länk",
     "link-copied": "Länk kopierad",
+    "loading-recipes": "Laddar recept",
     "monday": "Måndag",
-    "more": "Se mer",
     "name": "Namn",
     "new": "Ny",
     "no": "Nej",
+    "no-recipe-found": "Inga recept hittades",
     "ok": "Ok",
     "options": "Alternativ:",
     "print": "Skriv ut",
@@ -139,8 +144,8 @@
     "group-id-with-value": "Grupp ID: {groupID}",
     "group-name": "Gruppnamn",
     "group-not-found": "Grupp ej funnen",
+    "group-with-value": "Grupp: {groupID}",
     "groups": "Grupper",
-    "groups-can-only-be-set-by-administrators": "Grupper kan endast väljas av administratörer",
     "manage-groups": "Hantera grupper",
     "user-group": "Användargrupp",
     "user-group-created": "Användargrupp skapad",
@@ -189,16 +194,23 @@
   },
   "new-recipe": {
     "bulk-add": "Lägg till flera",
-    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Endast webbplatser som innehåller ld+json eller mikrodata kan importeras av Mealie. De flesta större receptwebbplatser stöder denna datastruktur. Om din webbplats inte kan importeras men det finns json data i loggen, skicka in en github problem med URL och data.",
     "error-title": "Vi hittade inget",
     "from-url": "Från länk",
+    "github-issues": "GitHub problem",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Måste vara en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
+    "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "Recept URL",
-    "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats"
+    "upload-a-recipe": "Ladda upp ett recept",
+    "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
+    "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats",
+    "view-scraped-data": "Visa skrotade data"
   },
   "page": {
+    "404-page-not-found": "404 sidan hittades inte",
     "all-recipes": "Alla recept",
-    "home-page": "Startsida",
     "new-page-created": "Ny sida skapad",
     "page": "Sida",
     "page-creation-failed": "Sidan gick inte att skapa",
@@ -207,14 +219,12 @@
     "page-update-failed": "Sidan gick inte att uppdatera",
     "page-updated": "Sida uppdaterad",
     "pages-update-failed": "Gick inte att uppdatera sidan",
-    "pages-updated": "Sidor uppdaterad",
-    "recent": "Senaste"
+    "pages-updated": "Sidor uppdaterad"
   },
   "recipe": {
     "add-key": "Lägg till nyckel",
     "add-to-favorites": "Lägg till i favoriter",
     "api-extras": "API Extras",
-    "assets": "Tillgångar",
     "calories": "Kalorier",
     "calories-suffix": "kalorier",
     "carbohydrate-content": "Kolhydrat",
@@ -236,11 +246,9 @@
     "key-name-required": "Nyckelnamn krävs",
     "landscape-view-coming-soon": "Landskapsvy (kommer snart)",
     "milligrams": "milligram",
-    "new-asset": "Ny tillgång",
     "new-key-name": "Nytt nyckelnamn",
     "no-white-space-allowed": "Inget vitt utrymme tillåtet",
     "note": "Anteckning",
-    "notes": "Anteckningar",
     "nutrition": "Näring",
     "object-key": "Målnyckel",
     "object-value": "Objekt värde",
@@ -260,18 +268,17 @@
     "recipe-updated": "Recept uppdaterad",
     "remove-from-favorites": "Ta bort från favoriter",
     "remove-section": "Ta bort avdelning",
+    "save-recipe-before-use": "Spara recept innan användning",
     "section-title": "Avdelningens rubrik",
     "servings": "Portioner",
     "share-recipe-message": "Jag vill dela mitt {0} recept med dig.",
-    "show-assets": "Visa tillgångar",
     "show-nutrition-values": "Visa näringsvärde",
     "sodium-content": "Natrium",
     "step-index": "Steg: {step}",
     "sugar-content": "Socker",
     "title": "Titel",
     "total-time": "Total tid",
-    "unable-to-delete-recipe": "Gick inte att radera receptet",
-    "view-recipe": "Visa recept"
+    "unable-to-delete-recipe": "Gick inte att radera receptet"
   },
   "reicpe": {
     "no-recipe": "Inget recept"
@@ -292,12 +299,12 @@
   "settings": {
     "add-a-new-theme": "Lägg till ett nytt tema",
     "admin-settings": "Administratörsinställningar",
-    "available-backups": "Tillgängliga backuper",
     "backup": {
       "backup-created-at-response-export_path": "Backup skapad {path}",
       "backup-deleted": "Backup raderad",
       "backup-tag": "Backup tagg",
       "create-heading": "Skapa en säkerhetskopia",
+      "delete-backup": "Ta bort säkerhetskopian",
       "error-creating-backup-see-log-file": "Fel vid skapande av backup. Se loggfil",
       "full-backup": "Komplett backup",
       "import-summary": "Import sammanfattning",
@@ -305,7 +312,6 @@
       "unable-to-delete-backup": "Kan inte radera backup."
     },
     "backup-and-exports": "Backuper",
-    "backup-info": "Säkerhetskopior exporteras i JSON-format tillsammans med de bilder som finns i systemet. I din mapp för säkerhetskopior finner du en zip-fil som innehåller alla recept i JSON samt bilder från databasen. Om du dessutom valde att exportera till markdown så hittas också de i samma zip-fil. För att importera en säkerhetskopia så måste den ligga i din backup-mapp. Automatisk säkerhetskopiering genomförs varje dag kl. 03:00.",
     "change-password": "Ändra lösenord",
     "current": "Version:",
     "custom-pages": "Anpassad sida",
@@ -338,12 +344,8 @@
     "site-settings": "Systeminställningar",
     "theme": {
       "accent": "Accent",
-      "are-you-sure-you-want-to-delete-this-theme": "Är du säker på att du vill radera temat?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Välj hur Mealie ska se ut för dig. Låt Mealie följa dina systeminställningar, eller välj mörkt eller ljust tema.",
       "dark": "Mörkt",
-      "dark-mode": "Mörkt läge",
       "default-to-system": "Standard",
-      "delete-theme": "Radera tema",
       "error": "Fel",
       "error-creating-theme-see-log-file": "Fel vid skapande av tema. Se loggfil.",
       "error-deleting-theme": "Fel vid borttagning av tema",
@@ -352,16 +354,13 @@
       "light": "Ljust",
       "primary": "Primär",
       "secondary": "Sekundär",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Välj ett tema från menyn eller skapa ett nytt. Standardtemat kommer att användas för alla användare som inte gjort något val.",
       "success": "Klart",
       "switch-to-dark-mode": "Växla till mörkt ljust",
       "switch-to-light-mode": "Växla till ljust läge",
-      "theme": "Tema",
       "theme-deleted": "Tema raderat",
       "theme-name": "Tema namn",
       "theme-name-is-required": "Tema namn krävs.",
       "theme-saved": "Tema sparat",
-      "theme-settings": "Temainställningar",
       "theme-updated": "Tema uppdaterat",
       "warning": "Varning"
     },
@@ -385,7 +384,6 @@
       "unorganized": "Okategoriserad"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Webhooks för denna måltidsplan",
       "test-webhooks": "Testa Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Följande URLer kommer att mottaga webhooks med receptdata för dagens planerade måltid. Datan kommer att skickas klockan <strong>{ time }</strong>",
       "webhook-url": "Webhook URL",
@@ -402,8 +400,20 @@
     "shopping-list": "Inköpslista",
     "shopping-lists": "Inköpslistor"
   },
+  "sidebar": {
+    "all-recipes": "Alla recept",
+    "categories": "Kategorier",
+    "dashboard": "Startsida",
+    "home-page": "Startsida",
+    "manage-users": "Manage Users",
+    "migrations": "Importer",
+    "profile": "Profil",
+    "search": "Sök",
+    "site-settings": "Site Settings",
+    "tags": "Taggar",
+    "toolbox": "Verktygslåda"
+  },
   "signup": {
-    "display-name": "Visningsnamn",
     "error-signing-up": "Fel vid registreringen",
     "sign-up": "Skapa konto",
     "sign-up-link-created": "Registreringslänk skapad",
@@ -440,7 +450,6 @@
     "error-cannot-delete-super-user": "Fel! Det går inte att ta bort superanvändare",
     "existing-password-does-not-match": "Befintligt lösenord matchar inte",
     "full-name": "Fullständigt namn",
-    "incorrect-username-or-password": "Felaktigt användarnamn eller lösenord",
     "link-id": "Länk ID",
     "link-name": "Länk namn",
     "login": "Login",

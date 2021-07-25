@@ -58,7 +58,7 @@ export default {
     },
   },
 
-  async mounted() {
+  async created() {
     await this.buildPage();
     this.render = true;
   },

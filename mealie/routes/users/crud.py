@@ -1,21 +1,34 @@
 import shutil
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile, status
+from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
+from fastapi.routing import APIRouter
 from mealie.core import security
 from mealie.core.config import app_dirs, settings
 from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
+from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.user import ChangePassword, UserBase, UserFavorites, UserIn, UserInDB, UserOut
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
-router = APIRouter(prefix="/api/users", tags=["Users"])
+public_router = APIRouter(prefix="/api/users", tags=["Users"])
+user_router = UserAPIRouter(prefix="/api/users", tags=["Users"])
+admin_router = AdminAPIRouter(prefix="/api/users", tags=["Users"])
 
 
-@router.post("", response_model=UserOut, status_code=201)
+async def assert_user_change_allowed(
+    id: int,
+    current_user: UserInDB = Depends(get_current_user),
+):
+    if current_user.id != id and not current_user.admin:
+        # only admins can edit other users
+        raise HTTPException(status.HTTP_403_FORBIDDEN, detail="NOT_AN_ADMIN")
+
+
+@admin_router.post("", response_model=UserOut, status_code=201)
 async def create_user(
     background_tasks: BackgroundTasks,
     new_user: UserIn,
@@ -30,26 +43,19 @@ async def create_user(
     return db.users.create(session, new_user.dict())
 
 
-@router.get("", response_model=list[UserOut])
-async def get_all_users(
-    current_user: UserInDB = Depends(get_current_user),
-    session: Session = Depends(generate_session),
-):
-
-    if not current_user.admin:
-        raise HTTPException(status.HTTP_403_FORBIDDEN)
-
+@admin_router.get("", response_model=list[UserOut])
+async def get_all_users(session: Session = Depends(generate_session)):
     return db.users.get_all(session)
 
 
-@router.get("/self", response_model=UserOut)
+@user_router.get("/self", response_model=UserOut)
 async def get_logged_in_user(
     current_user: UserInDB = Depends(get_current_user),
 ):
     return current_user.dict()
 
 
-@router.get("/{id}", response_model=UserOut, dependencies=[Depends(get_current_user)])
+@admin_router.get("/{id}", response_model=UserOut)
 async def get_user_by_id(
     id: int,
     session: Session = Depends(generate_session),
@@ -57,7 +63,7 @@ async def get_user_by_id(
     return db.users.get(session, id)
 
 
-@router.put("/{id}/reset-password", dependencies=[Depends(get_current_user)])
+@user_router.put("/{id}/reset-password")
 async def reset_user_password(
     id: int,
     session: Session = Depends(generate_session),
@@ -67,7 +73,7 @@ async def reset_user_password(
     db.users.update_password(session, id, new_password)
 
 
-@router.put("/{id}")
+@user_router.put("/{id}")
 async def update_user(
     id: int,
     new_data: UserBase,
@@ -75,16 +81,24 @@ async def update_user(
     session: Session = Depends(generate_session),
 ):
 
-    token = None
-    if current_user.id == id or current_user.admin:
-        db.users.update(session, id, new_data.dict())
+    assert_user_change_allowed(id)
+
+    if not current_user.admin and (new_data.admin or current_user.group != new_data.group):
+        # prevent a regular user from doing admin tasks on themself
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
+
+    if current_user.id == id and current_user.admin and not new_data.admin:
+        # prevent an admin from demoting themself
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
+
+    db.users.update(session, id, new_data.dict())
     if current_user.id == id:
         access_token = security.create_access_token(data=dict(sub=new_data.email))
         token = {"access_token": access_token, "token_type": "bearer"}
         return token
 
 
-@router.get("/{id}/image")
+@public_router.get("/{id}/image")
 async def get_user_image(id: str):
     """ Returns a users profile picture """
     user_dir = app_dirs.USER_DIR.joinpath(id)
@@ -94,12 +108,14 @@ async def get_user_image(id: str):
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
-@router.post("/{id}/image", dependencies=[Depends(get_current_user)])
+@user_router.post("/{id}/image")
 async def update_user_image(
     id: str,
     profile_image: UploadFile = File(...),
 ):
     """ Updates a User Image """
+
+    assert_user_change_allowed(id)
 
     extension = profile_image.filename.split(".")[-1]
 
@@ -116,7 +132,7 @@ async def update_user_image(
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@router.put("/{id}/password")
+@user_router.put("/{id}/password")
 async def update_password(
     id: int,
     password_change: ChangePassword,
@@ -125,24 +141,24 @@ async def update_password(
 ):
     """ Resets the User Password"""
 
+    assert_user_change_allowed(id)
     match_passwords = verify_password(password_change.current_password, current_user.password)
-    match_id = current_user.id == id
 
-    if not (match_passwords and match_id):
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+    if not (match_passwords):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     new_password = get_password_hash(password_change.new_password)
     db.users.update_password(session, id, new_password)
 
 
-@router.get("/{id}/favorites", response_model=UserFavorites)
+@user_router.get("/{id}/favorites", response_model=UserFavorites)
 async def get_favorites(id: str, session: Session = Depends(generate_session)):
-    """ Adds a Recipe to the users favorites """
+    """ Get user's favorite recipes """
 
     return db.users.get(session, id, override_schema=UserFavorites)
 
 
-@router.post("/{id}/favorites/{slug}")
+@user_router.post("/{id}/favorites/{slug}")
 async def add_favorite(
     slug: str,
     current_user: UserInDB = Depends(get_current_user),
@@ -150,12 +166,13 @@ async def add_favorite(
 ):
     """ Adds a Recipe to the users favorites """
 
+    assert_user_change_allowed(id)
     current_user.favorite_recipes.append(slug)
 
     db.users.update(session, current_user.id, current_user)
 
 
-@router.delete("/{id}/favorites/{slug}")
+@user_router.delete("/{id}/favorites/{slug}")
 async def remove_favorite(
     slug: str,
     current_user: UserInDB = Depends(get_current_user),
@@ -163,6 +180,7 @@ async def remove_favorite(
 ):
     """ Adds a Recipe to the users favorites """
 
+    assert_user_change_allowed(id)
     current_user.favorite_recipes = [x for x in current_user.favorite_recipes if x != slug]
 
     db.users.update(session, current_user.id, current_user)
@@ -170,21 +188,21 @@ async def remove_favorite(
     return
 
 
-@router.delete("/{id}")
+@admin_router.delete("/{id}")
 async def delete_user(
     background_tasks: BackgroundTasks,
     id: int,
-    current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Removes a user from the database. Must be the current user or a super user"""
 
+    assert_user_change_allowed(id)
+
     if id == 1:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
 
-    if current_user.id == id or current_user.admin:
-        try:
-            db.users.delete(session, id)
-            background_tasks.add_task(create_user_event, "User Deleted", f"User ID: {id}", session=session)
-        except Exception:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST)
+    try:
+        db.users.delete(session, id)
+        background_tasks.add_task(create_user_event, "User Deleted", f"User ID: {id}", session=session)
+    except Exception:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)

@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404 Página não encontrada",
-    "take-me-home": "Voltar ao início"
-  },
   "about": {
     "about": "About",
     "about-mealie": "About Mealie",
@@ -26,8 +22,17 @@
     "support": "Support",
     "version": "Version"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
-    "category": "Category",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
@@ -40,17 +45,17 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Database",
+    "delete-event": "Delete Event",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
+    "new-version": "New version available!",
     "notification": "Notification",
+    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent",
-    "refresh": "Refresh",
-    "new-version": "New version available!"
+    "test-message-sent": "Test Message Sent"
   },
   "general": {
-    "apply": "Apply",
     "cancel": "Cancelar",
     "clear": "Clear",
     "close": "Fechar",
@@ -59,7 +64,6 @@
     "copied": "Copied",
     "create": "Criar",
     "created": "Created",
-    "current-parenthesis": "(Current)",
     "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "Eliminar",
@@ -78,18 +82,19 @@
     "friday": "Friday",
     "general": "General",
     "get": "Get",
+    "home": "Home",
     "image": "Image",
     "image-upload-failed": "Image upload failed",
     "import": "Importar",
     "json": "JSON",
     "keyword": "Keyword",
-    "link": "Link",
     "link-copied": "Link Copied",
+    "loading-recipes": "Loading Recipes",
     "monday": "Monday",
-    "more": "More",
     "name": "Nome",
     "new": "New",
     "no": "No",
+    "no-recipe-found": "No Recipe Found",
     "ok": "OK",
     "options": "Options:",
     "print": "Print",
@@ -139,8 +144,8 @@
     "group-id-with-value": "Group ID: {groupID}",
     "group-name": "Group Name",
     "group-not-found": "Group not found",
+    "group-with-value": "Group: {groupID}",
     "groups": "Groups",
-    "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
     "manage-groups": "Manage Groups",
     "user-group": "User Group",
     "user-group-created": "User Group Created",
@@ -192,13 +197,20 @@
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "Do URL",
+    "github-issues": "GitHub Issues",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Must be a Valid URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Insira os dados da sua receita. Cada linha será tratada como um item numa lista.",
+    "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "URL da Receita",
-    "url-form-hint": "Copy and paste a link from your favorite recipe website"
+    "upload-a-recipe": "Upload a Recipe",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
+    "url-form-hint": "Copy and paste a link from your favorite recipe website",
+    "view-scraped-data": "View Scraped Data"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "All Recipes",
-    "home-page": "Home Page",
     "new-page-created": "New page created",
     "page": "Page",
     "page-creation-failed": "Page creation failed",
@@ -207,14 +219,12 @@
     "page-update-failed": "Page update failed",
     "page-updated": "Page updated",
     "pages-update-failed": "Pages update failed",
-    "pages-updated": "Pages updated",
-    "recent": "Recent"
+    "pages-updated": "Pages updated"
   },
   "recipe": {
     "add-key": "Adicionar Chave",
     "add-to-favorites": "Add to Favorites",
     "api-extras": "Extras API",
-    "assets": "Assets",
     "calories": "Calories",
     "calories-suffix": "calories",
     "carbohydrate-content": "Carbohydrate",
@@ -236,11 +246,9 @@
     "key-name-required": "Nome da Chave é Obrigatório",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
     "milligrams": "milligrams",
-    "new-asset": "New Asset",
     "new-key-name": "Novo nome da Chave",
     "no-white-space-allowed": "Espaço em Branco não Permitido",
     "note": "Nota",
-    "notes": "Notas",
     "nutrition": "Nutrition",
     "object-key": "Chave do Objeto",
     "object-value": "Valor do Objeto",
@@ -260,18 +268,17 @@
     "recipe-updated": "Recipe updated",
     "remove-from-favorites": "Remove from Favorites",
     "remove-section": "Remove Section",
+    "save-recipe-before-use": "Save recipe before use",
     "section-title": "Section Title",
     "servings": "Porções",
     "share-recipe-message": "I wanted to share my {0} recipe with you.",
-    "show-assets": "Show Assets",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sodium",
     "step-index": "Passo: {step}",
     "sugar-content": "Sugar",
     "title": "Título",
     "total-time": "Tempo Total",
-    "unable-to-delete-recipe": "Unable to Delete Recipe",
-    "view-recipe": "Ver Receita"
+    "unable-to-delete-recipe": "Unable to Delete Recipe"
   },
   "reicpe": {
     "no-recipe": "No Recipe"
@@ -292,12 +299,12 @@
   "settings": {
     "add-a-new-theme": "Adicionar novo tema",
     "admin-settings": "Admin Settings",
-    "available-backups": "Backups Disponíveis",
     "backup": {
       "backup-created-at-response-export_path": "Backup Created at {path}",
       "backup-deleted": "Backup deleted",
       "backup-tag": "Etiqueta do Backup",
       "create-heading": "Criar um Backup",
+      "delete-backup": "Delete Backup",
       "error-creating-backup-see-log-file": "Error Creating Backup. See Log File",
       "full-backup": "Backup Completo",
       "import-summary": "Import Summary",
@@ -305,7 +312,6 @@
       "unable-to-delete-backup": "Unable to Delete Backup."
     },
     "backup-and-exports": "Backups",
-    "backup-info": "Backups are exported in standard JSON format along with all the images stored on the file system. In your backup folder you'll find a .zip file that contains all of the recipe JSON and images from the database. Additionally, if you selected a markdown file, those will also be stored in the .zip file. To import a backup, it must be located in your backups folder. Automated backups are done each day at 3:00 AM.",
     "change-password": "Change Password",
     "current": "Versão:",
     "custom-pages": "Custom Pages",
@@ -338,12 +344,8 @@
     "site-settings": "Site Settings",
     "theme": {
       "accent": "Accent",
-      "are-you-sure-you-want-to-delete-this-theme": "Tem a certeza que deseja eliminar este tema?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Escolha como o Mealie estará visivel. Escolha o Mesmo do sistema para seguir o tema do seu dispositivo, ou selecione claro ou escuro.",
       "dark": "Escuro",
-      "dark-mode": "Modo Escuro",
       "default-to-system": "Mesmo do Sistema",
-      "delete-theme": "Eliminar Tema",
       "error": "Erro",
       "error-creating-theme-see-log-file": "Error creating theme. See log file.",
       "error-deleting-theme": "Error deleting theme",
@@ -352,16 +354,13 @@
       "light": "Claro",
       "primary": "Primário",
       "secondary": "Secondário",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Selecione um tema da lista ou crie um novo tema. Note que o tema por defeito será utilizado por todos os utilizadores que não selecionaram um tema preferido.",
       "success": "Successo",
       "switch-to-dark-mode": "Switch to dark mode",
       "switch-to-light-mode": "Switch to light mode",
-      "theme": "Tema",
       "theme-deleted": "Theme deleted",
       "theme-name": "Nome do Tema",
       "theme-name-is-required": "Nome do Tema é Obrigatório.",
       "theme-saved": "Theme Saved",
-      "theme-settings": "Definições do Tema",
       "theme-updated": "Theme updated",
       "warning": "Aviso"
     },
@@ -385,7 +384,6 @@
       "unorganized": "Unorganized"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Webhooks do Organizador de Refeições",
       "test-webhooks": "Webhooks de Teste",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Os URLs apresentados abaixo receberão webhooks que contêm os dados da receita para o plano de refeições no dia marcado. Atualmente, os webhooks serão executados a ",
       "webhook-url": "Webhook URL",
@@ -402,8 +400,20 @@
     "shopping-list": "Shopping List",
     "shopping-lists": "Shopping Lists"
   },
+  "sidebar": {
+    "all-recipes": "All Recipes",
+    "categories": "Categories",
+    "dashboard": "Dashboard",
+    "home-page": "Home Page",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "search": "Search",
+    "site-settings": "Site Settings",
+    "tags": "Tags",
+    "toolbox": "Toolbox"
+  },
   "signup": {
-    "display-name": "Display Name",
     "error-signing-up": "Error Signing Up",
     "sign-up": "Sign Up",
     "sign-up-link-created": "Sign up link created",
@@ -440,7 +450,6 @@
     "error-cannot-delete-super-user": "Error! Cannot Delete Super User",
     "existing-password-does-not-match": "Existing password does not match",
     "full-name": "Full Name",
-    "incorrect-username-or-password": "Incorrect username or password",
     "link-id": "Link ID",
     "link-name": "Link Name",
     "login": "Login",

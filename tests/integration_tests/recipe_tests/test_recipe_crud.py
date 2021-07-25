@@ -10,35 +10,35 @@ recipe_test_data = get_recipe_test_cases()
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_create_by_url(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
-    api_client.delete(api_routes.recipes_recipe_slug(recipe_data.expected_slug), headers=token)
+def test_create_by_url(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, user_token):
+    api_client.delete(api_routes.recipes_recipe_slug(recipe_data.expected_slug), headers=user_token)
 
-    response = api_client.post(api_routes.recipes_create_url, json={"url": recipe_data.url}, headers=token)
+    response = api_client.post(api_routes.recipes_create_url, json={"url": recipe_data.url}, headers=user_token)
 
     assert response.status_code == 201
     assert json.loads(response.text) == recipe_data.expected_slug
 
 
-def test_create_by_json(api_client: TestClient, api_routes: AppRoutes, token, raw_recipe):
+def test_create_by_json(api_client: TestClient, api_routes: AppRoutes, user_token, raw_recipe):
     recipe_url = api_routes.recipes_recipe_slug("banana-bread")
-    api_client.delete(recipe_url, headers=token)
-    response = api_client.post(api_routes.recipes_create, json=raw_recipe, headers=token)
+    api_client.delete(recipe_url, headers=user_token)
+    response = api_client.post(api_routes.recipes_create, json=raw_recipe, headers=user_token)
 
     assert response.status_code == 201
     assert json.loads(response.text) == "banana-bread"
 
 
-def test_create_no_image(api_client: TestClient, api_routes: AppRoutes, token, raw_recipe_no_image):
-    response = api_client.post(api_routes.recipes_create, json=raw_recipe_no_image, headers=token)
+def test_create_no_image(api_client: TestClient, api_routes: AppRoutes, user_token, raw_recipe_no_image):
+    response = api_client.post(api_routes.recipes_create, json=raw_recipe_no_image, headers=user_token)
 
     assert response.status_code == 201
     assert json.loads(response.text) == "banana-bread-no-image"
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
+def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, user_token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
-    response = api_client.get(recipe_url, headers=token)
+    response = api_client.get(recipe_url, headers=user_token)
     assert response.status_code == 200
 
     recipe = json.loads(response.text)
@@ -54,14 +54,13 @@ def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data:
     test_categories = ["one", "two", "three"]
     recipe["recipeCategory"] = test_categories
 
-    response = api_client.put(recipe_url, json=recipe, headers=token)
+    response = api_client.put(recipe_url, json=recipe, headers=user_token)
 
     assert response.status_code == 200
     assert json.loads(response.text).get("slug") == recipe_data.expected_slug
 
-    response = api_client.get(recipe_url)
+    response = api_client.get(recipe_url, headers=user_token)
     assert response.status_code == 200
-    print(response)
     recipe = json.loads(response.text)
 
     assert recipe["notes"] == test_notes
@@ -69,9 +68,9 @@ def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data:
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
+def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, user_token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
-    response = api_client.get(recipe_url, headers=token)
+    response = api_client.get(recipe_url, headers=user_token)
     assert response.status_code == 200
 
     recipe = json.loads(response.text)
@@ -79,7 +78,7 @@ def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: Reci
     new_slug = slugify(new_name)
     recipe["name"] = new_name
 
-    response = api_client.put(recipe_url, json=recipe, headers=token)
+    response = api_client.put(recipe_url, json=recipe, headers=user_token)
 
     assert response.status_code == 200
     assert json.loads(response.text).get("slug") == new_slug
@@ -88,7 +87,7 @@ def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: Reci
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_delete(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, token):
+def test_delete(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, user_token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
-    response = api_client.delete(recipe_url, headers=token)
+    response = api_client.delete(recipe_url, headers=user_token)
     assert response.status_code == 200

@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404頁面不存在",
-    "take-me-home": "返回主頁"
-  },
   "about": {
     "about": "About",
     "about-mealie": "About Mealie",
@@ -26,8 +22,17 @@
     "support": "Support",
     "version": "Version"
   },
+  "asset": {
+    "assets": "Assets",
+    "code": "Code",
+    "file": "File",
+    "image": "Image",
+    "new-asset": "New Asset",
+    "pdf": "PDF",
+    "recipe": "Recipe",
+    "show-assets": "Show Assets"
+  },
   "category": {
-    "category": "Category",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
@@ -40,17 +45,17 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Database",
+    "delete-event": "Delete Event",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
+    "new-version": "New version available!",
     "notification": "Notification",
+    "refresh": "Refresh",
     "scheduled": "Scheduled",
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
-    "test-message-sent": "Test Message Sent",
-    "refresh": "Refresh",
-    "new-version": "New version available!"
+    "test-message-sent": "Test Message Sent"
   },
   "general": {
-    "apply": "Apply",
     "cancel": "取消",
     "clear": "Clear",
     "close": "關閉",
@@ -59,7 +64,6 @@
     "copied": "Copied",
     "create": "創建",
     "created": "Created",
-    "current-parenthesis": "(Current)",
     "custom": "Custom",
     "dashboard": "Dashboard",
     "delete": "删除",
@@ -78,18 +82,19 @@
     "friday": "Friday",
     "general": "General",
     "get": "Get",
+    "home": "Home",
     "image": "Image",
     "image-upload-failed": "Image upload failed",
     "import": "導入",
     "json": "JSON",
     "keyword": "Keyword",
-    "link": "Link",
     "link-copied": "Link Copied",
+    "loading-recipes": "Loading Recipes",
     "monday": "Monday",
-    "more": "More",
     "name": "名稱",
     "new": "New",
     "no": "No",
+    "no-recipe-found": "No Recipe Found",
     "ok": "好的",
     "options": "Options:",
     "print": "Print",
@@ -139,8 +144,8 @@
     "group-id-with-value": "Group ID: {groupID}",
     "group-name": "Group Name",
     "group-not-found": "Group not found",
+    "group-with-value": "Group: {groupID}",
     "groups": "Groups",
-    "groups-can-only-be-set-by-administrators": "Groups can only be set by administrators",
     "manage-groups": "Manage Groups",
     "user-group": "User Group",
     "user-group-created": "User Group Created",
@@ -192,13 +197,20 @@
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "輸入網址",
+    "github-issues": "GitHub Issues",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Must be a Valid URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "請粘貼您的食譜資料。每行將被視為列表中的一項。",
+    "recipe-markup-specification": "Recipe Markup Specification",
     "recipe-url": "食譜網址",
-    "url-form-hint": "Copy and paste a link from your favorite recipe website"
+    "upload-a-recipe": "Upload a Recipe",
+    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
+    "url-form-hint": "Copy and paste a link from your favorite recipe website",
+    "view-scraped-data": "View Scraped Data"
   },
   "page": {
+    "404-page-not-found": "404 Page not found",
     "all-recipes": "All Recipes",
-    "home-page": "Home Page",
     "new-page-created": "New page created",
     "page": "Page",
     "page-creation-failed": "Page creation failed",
@@ -207,14 +219,12 @@
     "page-update-failed": "Page update failed",
     "page-updated": "Page updated",
     "pages-update-failed": "Pages update failed",
-    "pages-updated": "Pages updated",
-    "recent": "Recent"
+    "pages-updated": "Pages updated"
   },
   "recipe": {
     "add-key": "Add Key",
     "add-to-favorites": "Add to Favorites",
     "api-extras": "API Extras",
-    "assets": "Assets",
     "calories": "Calories",
     "calories-suffix": "calories",
     "carbohydrate-content": "Carbohydrate",
@@ -236,11 +246,9 @@
     "key-name-required": "Key Name Required",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
     "milligrams": "milligrams",
-    "new-asset": "New Asset",
     "new-key-name": "New Key Name",
     "no-white-space-allowed": "No White Space Allowed",
     "note": "貼士",
-    "notes": "貼士",
     "nutrition": "Nutrition",
     "object-key": "Object Key",
     "object-value": "Object Value",
@@ -260,18 +268,17 @@
     "recipe-updated": "Recipe updated",
     "remove-from-favorites": "Remove from Favorites",
     "remove-section": "Remove Section",
+    "save-recipe-before-use": "Save recipe before use",
     "section-title": "Section Title",
     "servings": "份量",
     "share-recipe-message": "I wanted to share my {0} recipe with you.",
-    "show-assets": "Show Assets",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sodium",
     "step-index": "步驟：{step}",
     "sugar-content": "Sugar",
     "title": "標題",
     "total-time": "總時間",
-    "unable-to-delete-recipe": "Unable to Delete Recipe",
-    "view-recipe": "查看食譜"
+    "unable-to-delete-recipe": "Unable to Delete Recipe"
   },
   "reicpe": {
     "no-recipe": "No Recipe"
@@ -292,12 +299,12 @@
   "settings": {
     "add-a-new-theme": "新增佈景主題",
     "admin-settings": "Admin Settings",
-    "available-backups": "可用備份",
     "backup": {
       "backup-created-at-response-export_path": "Backup Created at {path}",
       "backup-deleted": "Backup deleted",
       "backup-tag": "標籤備份",
       "create-heading": "創建備份",
+      "delete-backup": "Delete Backup",
       "error-creating-backup-see-log-file": "Error Creating Backup. See Log File",
       "full-backup": "完整備份",
       "import-summary": "Import Summary",
@@ -305,7 +312,6 @@
       "unable-to-delete-backup": "Unable to Delete Backup."
     },
     "backup-and-exports": "備份",
-    "backup-info": "備份以標準JSON格式導出，並連同儲存在系統文件中的所有圖像。在備份文件夾中，您將找到一個.zip文件，其中包含數據庫中的所有食譜JSON和圖像。此外，如果您選擇了Markdown文件，這些文件也將一併儲存在.zip文件中。當需要要導入備份，它必須位於您的備份文件夾中。每天3:00 AM將進行自動備份。",
     "change-password": "Change Password",
     "current": "版本號：",
     "custom-pages": "Custom Pages",
@@ -338,12 +344,8 @@
     "site-settings": "Site Settings",
     "theme": {
       "accent": "強調（Accent）",
-      "are-you-sure-you-want-to-delete-this-theme": "您確定要刪除此主題嗎？",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "選擇Mealie的外觀模式。設置佈景主題首選並依據您的主機系統設置，或者選擇使用淺色或深色主題。",
       "dark": "深色",
-      "dark-mode": "暗黑模式",
       "default-to-system": "默認爲系統",
-      "delete-theme": "刪除主題",
       "error": "錯誤（Error）",
       "error-creating-theme-see-log-file": "Error creating theme. See log file.",
       "error-deleting-theme": "Error deleting theme",
@@ -352,16 +354,13 @@
       "light": "淺色",
       "primary": "主要（Primary）",
       "secondary": "次要（Secondary）",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "從以下列表中選擇一個主題或創建一個新主題。請注意，默認主題將提供給尚未設置主題首選的所有用戶。",
       "success": "成功（Success）",
       "switch-to-dark-mode": "Switch to dark mode",
       "switch-to-light-mode": "Switch to light mode",
-      "theme": "佈景主題",
       "theme-deleted": "Theme deleted",
       "theme-name": "主題名稱",
       "theme-name-is-required": "主題名稱是必填項。",
       "theme-saved": "Theme Saved",
-      "theme-settings": "佈景主題設置",
       "theme-updated": "Theme updated",
       "warning": "警告（Warning）"
     },
@@ -385,7 +384,6 @@
       "unorganized": "Unorganized"
     },
     "webhooks": {
-      "meal-planner-webhooks": "用餐計劃器Webhooks",
       "test-webhooks": "測試Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "下方列出的網址將在預定日期接收到有關用餐計劃的食譜資料。Webhooks將在<strong>{ time }</strong>執行",
       "webhook-url": "Webhook網址",
@@ -402,8 +400,20 @@
     "shopping-list": "Shopping List",
     "shopping-lists": "Shopping Lists"
   },
+  "sidebar": {
+    "all-recipes": "All Recipes",
+    "categories": "Categories",
+    "dashboard": "Dashboard",
+    "home-page": "Home Page",
+    "manage-users": "Manage Users",
+    "migrations": "Migrations",
+    "profile": "Profile",
+    "search": "Search",
+    "site-settings": "Site Settings",
+    "tags": "Tags",
+    "toolbox": "Toolbox"
+  },
   "signup": {
-    "display-name": "Display Name",
     "error-signing-up": "Error Signing Up",
     "sign-up": "Sign Up",
     "sign-up-link-created": "Sign up link created",
@@ -440,7 +450,6 @@
     "error-cannot-delete-super-user": "Error! Cannot Delete Super User",
     "existing-password-does-not-match": "Existing password does not match",
     "full-name": "Full Name",
-    "incorrect-username-or-password": "Incorrect username or password",
     "link-id": "Link ID",
     "link-name": "Link Name",
     "login": "Login",

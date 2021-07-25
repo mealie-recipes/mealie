@@ -125,12 +125,13 @@ export default {
     appendSteps(steps) {
       this.value.recipeInstructions.push(
         ...steps.map(x => ({
+          title: "",
           text: x,
         }))
       );
     },
     addStep() {
-      this.value.recipeInstructions.push({ text: "" });
+      this.value.recipeInstructions.push({ title: "", text: "" });
     },
     saveExtras(extras) {
       this.value.extras = extras;

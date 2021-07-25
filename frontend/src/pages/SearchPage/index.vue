@@ -88,7 +88,7 @@ export default {
       },
     };
   },
-  mounted() {
+  created() {
     this.$store.dispatch("requestAllRecipes");
   },
   computed: {

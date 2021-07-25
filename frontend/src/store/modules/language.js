@@ -2,12 +2,12 @@
 const state = {
   allLangs: [
     {
-      name: "English",
+      name: "American English",
       value: "en-US",
     },
     {
-      name: "Dansk (Danish)",
-      value: "da-DK",
+      name: "British English",
+      value: "en-GB",
     },
     {
       name: "Deutsch (German)",
@@ -22,6 +22,10 @@ const state = {
       value: "fr-FR",
     },
     {
+      name: "Italiano (Italian)",
+      value: "it-IT",
+    },
+    {
       name: "Nederlands (Dutch)",
       value: "nl-NL",
     },
@@ -30,20 +34,12 @@ const state = {
       value: "pl-PL",
     },
     {
-      name: "Português (Portuguese)",
-      value: "pt-PT",
-    },
-    {
       name: "Svenska (Swedish)",
       value: "sv-SE",
     },
     {
       name: "简体中文 (Chinese simplified)",
       value: "zh-CN",
-    },
-    {
-      name: "繁體中文 (Chinese traditional)",
-      value: "zh-TW",
     },
   ],
 };

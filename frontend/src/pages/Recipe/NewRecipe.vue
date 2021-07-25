@@ -10,7 +10,13 @@
       </v-img>
       <br v-else />
 
-      <RecipePageActionMenu :value="true" @json="jsonEditor = true" @edit="jsonEditor = false" @save="createRecipe" />
+      <RecipePageActionMenu
+        logged-in
+        :value="true"
+        @json="jsonEditor = true"
+        @edit="jsonEditor = false"
+        @save="createRecipe"
+      />
 
       <div v-if="jsonEditor">
         <!-- Probably not the best way, but it works! -->
@@ -28,11 +34,10 @@
 import { api } from "@/api";
 
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
-import VJsoneditor from "v-jsoneditor";
 import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu";
 export default {
   components: {
-    VJsoneditor,
+    VJsoneditor: () => import(/* webpackChunkName: "json-editor" */ "v-jsoneditor"),
     RecipeEditor,
     RecipePageActionMenu,
   },
@@ -63,11 +68,26 @@ export default {
         notes: [],
         extras: {},
         assets: [],
+        settings: {
+          public: true,
+          showNutrition: true,
+          showAssets: true,
+          landscapeView: true,
+          disableComments: false,
+          disableAmount: true,
+        },
       },
     };
   },
+  created() {
+    this.getDefaultSettings();
+  },
 
   methods: {
+    async getDefaultSettings() {
+      const response = await api.recipes.getDefaultSettings();
+      this.recipeDetails.settings = response.data;
+    },
     getImage(fileObject) {
       this.fileObject = fileObject;
       this.onFileChange();

@@ -33,6 +33,12 @@ a.md-button.md-button:hover {
   color: #ffffff;
 }
 
+/* Add icon after external links */
+/* Ignore auto-generated material theme links */
+a[target="_blank"]:not([class*="md-"]):after {
+  content: " " url("../svg/open-in-new.svg");
+}
+
 /* Site width etc.*/
 .md-grid {
   max-width: 64rem !important;

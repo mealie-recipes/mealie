@@ -52,7 +52,7 @@ export default {
       },
     };
   },
-  mounted() {
+  created() {
     this.getAvailableMigrations();
   },
   methods: {

@@ -6,7 +6,7 @@ from typing import Any, Optional, Union
 import dotenv
 from pydantic import BaseSettings, Field, PostgresDsn, validator
 
-APP_VERSION = "v0.5.1"
+APP_VERSION = "v0.5.2"
 DB_VERSION = "v0.5.0"
 
 CWD = Path(__file__).parent
@@ -110,7 +110,7 @@ class AppSettings(BaseSettings):
 
     SECRET: str = determine_secrets(DATA_DIR, PRODUCTION)
 
-    DB_ENGINE: Optional[str] = None  # Optional: 'sqlite', 'postgres'
+    DB_ENGINE: str = "sqlite"  # Optional: 'sqlite', 'postgres'
     POSTGRES_USER: str = "mealie"
     POSTGRES_PASSWORD: str = "mealie"
     POSTGRES_SERVER: str = "postgres"
@@ -133,15 +133,39 @@ class AppSettings(BaseSettings):
             )
         return determine_sqlite_path()
 
+    DB_URL_PUBLIC: str = ""  # hide credentials to show on logs/frontend
+
+    @validator("DB_URL_PUBLIC", pre=True)
+    def public_db_url(cls, v: Optional[str], values: dict[str, Any]) -> str:
+        url = values.get("DB_URL")
+        engine = values.get("DB_ENGINE", "sqlite")
+        if engine != "postgres":
+            # sqlite
+            return url
+
+        user = values.get("POSTGRES_USER")
+        password = values.get("POSTGRES_PASSWORD")
+        return url.replace(user, "*****", 1).replace(password, "*****", 1)
+
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
+
+    SCHEDULER_DATABASE = f"sqlite:///{app_dirs.DATA_DIR.joinpath('scheduler.db')}"
 
     TOKEN_TIME: int = 2  # Time in Hours
 
     # Not Used!
     SFTP_USERNAME: Optional[str]
     SFTP_PASSWORD: Optional[str]
+
+    # Recipe Default Settings
+    RECIPE_PUBLIC: bool = True
+    RECIPE_SHOW_NUTRITION: bool = True
+    RECIPE_SHOW_ASSETS: bool = True
+    RECIPE_LANDSCAPE_VIEW: bool = True
+    RECIPE_DISABLE_COMMENTS: bool = False
+    RECIPE_DISABLE_AMOUNT: bool = False
 
     class Config:
         env_file = BASE_DIR.joinpath(".env")

@@ -18,15 +18,26 @@
     />
     <v-spacer></v-spacer>
     <div v-if="!value" class="custom-btn-group ma-1">
+      <FavoriteBadge class="mx-1" color="info" button-style v-if="loggedIn" :slug="slug" show-always />
       <v-tooltip bottom color="info">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('input', true)">
+          <v-btn
+            v-if="loggedIn"
+            fab
+            small
+            class="mx-1"
+            color="info"
+            v-bind="attrs"
+            v-on="on"
+            @click="$emit('input', true)"
+          >
             <v-icon> {{ $globals.icons.edit }} </v-icon>
           </v-btn>
         </template>
         <span>{{ $t("general.edit") }}</span>
       </v-tooltip>
       <ContextMenu
+        show-print
         :menu-top="false"
         :slug="slug"
         :name="name"
@@ -56,13 +67,15 @@
 <script>
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
 import ContextMenu from "@/components/Recipe/ContextMenu.vue";
+import FavoriteBadge from "@/components/Recipe/FavoriteBadge.vue";
+
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
 export default {
-  components: { ConfirmationDialog, ContextMenu },
+  components: { ConfirmationDialog, ContextMenu, FavoriteBadge },
   props: {
     slug: {
       type: String,
@@ -71,6 +84,10 @@ export default {
       type: String,
     },
     value: {
+      type: Boolean,
+      default: false,
+    },
+    loggedIn: {
       type: Boolean,
       default: false,
     },
@@ -120,7 +137,6 @@ export default {
           break;
         case SAVE_EVENT:
           this.$emit(SAVE_EVENT);
-          this.$emit("input", false);
           break;
         case JSON_EVENT:
           this.$emit(JSON_EVENT);

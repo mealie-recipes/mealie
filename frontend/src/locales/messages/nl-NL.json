@@ -1,8 +1,4 @@
 {
-  "404": {
-    "page-not-found": "404: Pagina niet gevonden",
-    "take-me-home": "Breng me terug naar de Startpagina"
-  },
   "about": {
     "about": "Over",
     "about-mealie": "Over Mealie",
@@ -26,8 +22,17 @@
     "support": "Ondersteuning",
     "version": "Versie"
   },
+  "asset": {
+    "assets": "Bijlagen",
+    "code": "Code",
+    "file": "Bestand",
+    "image": "Afbeelding",
+    "new-asset": "Nieuwe Bijlage",
+    "pdf": "PDF",
+    "recipe": "Recept",
+    "show-assets": "Toon Bijlagen"
+  },
   "category": {
-    "category": "Categorie",
     "category-created": "Categorie aangemaakt",
     "category-creation-failed": "Categorie aanmaken mislukt",
     "category-deleted": "Categorie Verwijderd",
@@ -40,17 +45,17 @@
   "events": {
     "apprise-url": "Apprise URL",
     "database": "Database",
+    "delete-event": "Evenement Verwijderen",
     "new-notification-form-description": "Mealie gebruikt de Apprise library om meldingen te genereren. Ze bieden vele opties voor diensten om te gebruiken voor meldingen. Raadpleeg hun wiki voor een uitgebreide handleiding over hoe je een URL voor je service kunt maken. Indien beschikbaar, kan het selecteren van het type van jouw melding extra opties bevatten.",
+    "new-version": "Nieuwe versie beschikbaar!",
     "notification": "Notificatie",
+    "refresh": "Vernieuwen",
     "scheduled": "Gepland",
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde Events",
-    "test-message-sent": "Testbericht verzonden",
-    "refresh": "Vernieuwen",
-    "new-version": "Nieuwe versie beschikbaar!"
+    "test-message-sent": "Testbericht verzonden"
   },
   "general": {
-    "apply": "Toepassen",
     "cancel": "Annuleren",
     "clear": "Wissen",
     "close": "Sluiten",
@@ -59,7 +64,6 @@
     "copied": "Gekopieerd",
     "create": "Aanmaken",
     "created": "Aangemaakt op",
-    "current-parenthesis": "(Huidig)",
     "custom": "Eigen",
     "dashboard": "Dashboard",
     "delete": "Verwijderen",
@@ -78,18 +82,19 @@
     "friday": "Vrijdag",
     "general": "Algemeen",
     "get": "Haal op",
+    "home": "Home",
     "image": "Afbeelding",
     "image-upload-failed": "Afbeelding uploaden mislukt",
     "import": "Importeren",
     "json": "JSON",
     "keyword": "Trefwoord",
-    "link": "Koppeling",
     "link-copied": "Link Gekopieerd",
+    "loading-recipes": "Recepten Ophalen",
     "monday": "Maandag",
-    "more": "Meer",
     "name": "Naam",
     "new": "Nieuw",
     "no": "Nee",
+    "no-recipe-found": "Geen Recept Gevonden",
     "ok": "Ok",
     "options": "Opties:",
     "print": "Afdrukken",
@@ -122,7 +127,7 @@
     "updated": "Bijgewerkt",
     "upload": "Uploaden",
     "url": "URL",
-    "view": "Bekijken",
+    "view": "Weergave",
     "wednesday": "Woensdag",
     "yes": "Ja"
   },
@@ -139,8 +144,8 @@
     "group-id-with-value": "Groep ID: {groupID}",
     "group-name": "Naam van groep",
     "group-not-found": "Groep niet gevonden",
+    "group-with-value": "Groep: {groupID}",
     "groups": "Groepen",
-    "groups-can-only-be-set-by-administrators": "Groepen kunnen alleen worden ingesteld door beheerders",
     "manage-groups": "Groepen beheren",
     "user-group": "Gebruikersgroep",
     "user-group-created": "Gebruikersgroep aangemaakt",
@@ -153,7 +158,7 @@
     "dinner-tonight": "MAALTIJD VOOR DEZE AVOND",
     "edit-meal-plan": "Maaltijdplan bewerken",
     "end-date": "Einddatum",
-    "group": "Groeperen (Beta)",
+    "group": "Groep (Beta)",
     "main": "Hoofdgerecht",
     "meal-planner": "Maaltijd planner",
     "meal-plans": "Maaltijd plannen",
@@ -189,16 +194,23 @@
   },
   "new-recipe": {
     "bulk-add": "Bulk toevoegen",
-    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Alleen websites met ld+json of microdata kunnen worden geïmporteerd door Mealie. De meeste grote recepten websites ondersteunen deze gegevensstructuur. Als je site niet kan worden geïmporteerd, maar er zijn json gegevens in de log, maak dan een github issue aan met de URL en gegevens.",
     "error-title": "Het Lijkt Erop Dat We Niets Konden Vinden",
     "from-url": "Recept importeren",
+    "github-issues": "GitHub Issues",
+    "google-ld-json-info": "Google ld+json Info",
+    "must-be-a-valid-url": "Moet een geldige URL zijn",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
+    "recipe-markup-specification": "Recept Opmaak Specificatie",
     "recipe-url": "Recept URL",
-    "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite"
+    "upload-a-recipe": "Upload een Recept",
+    "upload-individual-zip-file": "Upload een individueel .zip-bestand geëxporteerd vanuit een andere Mealie-instantie.",
+    "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite",
+    "view-scraped-data": "Bekijk Opgehaalde Data"
   },
   "page": {
+    "404-page-not-found": "404 Pagina niet gevonden",
     "all-recipes": "Alle recepten",
-    "home-page": "Startpagina",
     "new-page-created": "Nieuwe pagina aangemaakt",
     "page": "Pagina",
     "page-creation-failed": "Aanmaken pagina mislukt",
@@ -207,14 +219,12 @@
     "page-update-failed": "Pagina bijwerken mislukt",
     "page-updated": "Pagina bijgewerkt",
     "pages-update-failed": "Pagina bijwerken mislukt",
-    "pages-updated": "Pagina's bijgewerkt",
-    "recent": "Recent(e)"
+    "pages-updated": "Pagina's bijgewerkt"
   },
   "recipe": {
     "add-key": "Sleutel toevoegen",
     "add-to-favorites": "Toevoegen aan Favorieten",
     "api-extras": "API Extras",
-    "assets": "Onderdelen",
     "calories": "Calorieën",
     "calories-suffix": "calorieën",
     "carbohydrate-content": "Koolhydraten",
@@ -236,11 +246,9 @@
     "key-name-required": "Sleutelnaam vereist",
     "landscape-view-coming-soon": "Landschapsweergave (binnenkort beschikbaar)",
     "milligrams": "milligram",
-    "new-asset": "Nieuw onderdeel",
     "new-key-name": "Nieuwe sleutelnaam",
     "no-white-space-allowed": "Geen Witruimte Toegestaan",
     "note": "Opmerking",
-    "notes": "Notities",
     "nutrition": "Voedingswaarde",
     "object-key": "Object Sleutel",
     "object-value": "Object waarde",
@@ -260,18 +268,17 @@
     "recipe-updated": "Recept bijgewerkt",
     "remove-from-favorites": "Verwijder uit Favorieten",
     "remove-section": "Sectie Verwijderen",
+    "save-recipe-before-use": "Recept opslaan voor gebruik",
     "section-title": "Sectietitel",
     "servings": "Porties",
     "share-recipe-message": "Ik wou mijn {0} recept met je delen.",
-    "show-assets": "Toon Bijlagen",
     "show-nutrition-values": "Toon voedingswaarden",
     "sodium-content": "Zout",
     "step-index": "Stap: {step}",
     "sugar-content": "Suiker",
     "title": "Titel",
     "total-time": "Totale Tijd",
-    "unable-to-delete-recipe": "Kan recept niet verwijderen",
-    "view-recipe": "Bekijk Recept"
+    "unable-to-delete-recipe": "Kan recept niet verwijderen"
   },
   "reicpe": {
     "no-recipe": "Geen Recept"
@@ -292,12 +299,12 @@
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",
     "admin-settings": "Admin Instellingen",
-    "available-backups": "Beschikbare back-ups",
     "backup": {
       "backup-created-at-response-export_path": "Back-up gemaakt op {path}",
       "backup-deleted": "Back-up verwijderd",
       "backup-tag": "Back-up label",
       "create-heading": "Back-up maken",
+      "delete-backup": "Back-up Verwijderen",
       "error-creating-backup-see-log-file": "Fout bij aanmaken van back-up. Zie logbestand",
       "full-backup": "Volledige Back-up",
       "import-summary": "Samenvatting importeren",
@@ -305,7 +312,6 @@
       "unable-to-delete-backup": "Back-up verwijderen niet mogelijk."
     },
     "backup-and-exports": "Backups",
-    "backup-info": "Back-ups worden geëxporteerd in standaard JSON-formaat, samen met alle afbeeldingen opgeslagen op het bestandssysteem. In de back-upmap vind je een .zip-bestand dat alle recepten JSON en afbeeldingen uit de database bevat. Bovendien, als je een markdown bestand hebt geselecteerd, worden deze ook opgeslagen in het .zip-bestand. Om een back-up te importeren, moet deze in de map van de back-ups staan. Elke dag om 3:00 AM worden er back-ups geautomatiseerd.",
     "change-password": "Wachtwoord wijzigen",
     "current": "Versie:",
     "custom-pages": "Persoonlijke pagina's",
@@ -338,12 +344,8 @@
     "site-settings": "Site-instellingen",
     "theme": {
       "accent": "Accent",
-      "are-you-sure-you-want-to-delete-this-theme": "Weet je zeker dat je dit thema wil verwijderen?",
-      "choose-how-mealie-looks-to-you-set-your-theme-preference-to-follow-your-system-settings-or-choose-to-use-the-light-or-dark-theme": "Kies hoe Mealie er voor je uitziet. Stel je thema voorkeur in om jouw systeeminstellingen te volgen, of kies voor het licht of donker thema.",
       "dark": "Donker",
-      "dark-mode": "Donkere Modus",
       "default-to-system": "Standaard systeem",
-      "delete-theme": "Thema verwijderen",
       "error": "Fout",
       "error-creating-theme-see-log-file": "Fout bij aanmaken thema. Zie logboekbestand.",
       "error-deleting-theme": "Fout bij verwijderen thema",
@@ -352,16 +354,13 @@
       "light": "Licht",
       "primary": "Primair",
       "secondary": "Secundair",
-      "select-a-theme-from-the-dropdown-or-create-a-new-theme-note-that-the-default-theme-will-be-served-to-all-users-who-have-not-set-a-theme-preference": "Selecteer een thema uit de keuzelijst of maak een nieuw thema. Let op dat het standaardthema zal worden geserveerd aan alle gebruikers die geen themavoorkeuren hebben ingesteld.",
       "success": "Geslaagd",
       "switch-to-dark-mode": "Verander naar donker thema",
       "switch-to-light-mode": "Verander naar licht thema",
-      "theme": "Thema",
       "theme-deleted": "Thema verwijderd",
       "theme-name": "Themanaam",
       "theme-name-is-required": "Themanaam is vereist.",
       "theme-saved": "Thema opgeslagen",
-      "theme-settings": "Thema Instellingen",
       "theme-updated": "Thema bijgewerkt",
       "warning": "Waarschuwing"
     },
@@ -385,7 +384,6 @@
       "unorganized": "Ongeorganiseerd"
     },
     "webhooks": {
-      "meal-planner-webhooks": "Maaltijdplanner Webhooks",
       "test-webhooks": "Webhooks testen",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "De onderstaande URL's ontvangen webhooks met receptgegevens voor het maaltijdplan op de geplande dag. Momenteel zullen Webhooks uitvoeren op",
       "webhook-url": "Webhook URL",
@@ -402,8 +400,20 @@
     "shopping-list": "Boodschappenlijst",
     "shopping-lists": "Boodschappenlijsten"
   },
+  "sidebar": {
+    "all-recipes": "Recepten",
+    "categories": "Categorieën",
+    "dashboard": "Dashboard",
+    "home-page": "Home Pagina",
+    "manage-users": "Gebruikers",
+    "migrations": "Migraties",
+    "profile": "Profiel",
+    "search": "Zoeken",
+    "site-settings": "Instellingen",
+    "tags": "Labels",
+    "toolbox": "Toolbox"
+  },
   "signup": {
-    "display-name": "Schermnaam",
     "error-signing-up": "Fout bij registreren",
     "sign-up": "Registreren",
     "sign-up-link-created": "Registratielink aangemaakt",
@@ -440,7 +450,6 @@
     "error-cannot-delete-super-user": "Fout! Kan supergebruiker niet verwijderen",
     "existing-password-does-not-match": "Bestaande wachtwoord komt niet overeen",
     "full-name": "Voor- en achternaam",
-    "incorrect-username-or-password": "Onjuiste gebruikersnaam of wachtwoord",
     "link-id": "Koppeling ID",
     "link-name": "Koppeling Naam",
     "login": "Inloggen",

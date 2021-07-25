@@ -25,9 +25,9 @@
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
-            <v-text-field :label="$t('general.url')" class="pt-5" clearable v-model="url">
+            <v-text-field :label="$t('general.url')" class="pt-5" clearable v-model="url" :messages="getMessages()">
               <template v-slot:append-outer>
-                <v-btn class="ml-2" color="primary" @click="getImageFromURL" :loading="loading" :disabled="slug">
+                <v-btn class="ml-2" color="primary" @click="getImageFromURL" :loading="loading" :disabled="!slug">
                   {{ $t("general.get") }}
                 </v-btn>
               </template>
@@ -65,6 +65,9 @@ export default {
         this.$emit(REFRESH_EVENT);
       }
       this.loading = false;
+    },
+    getMessages() {
+      return this.slug ? [""] : [this.$i18n.t("recipe.save-recipe-before-use")];
     },
   },
 };

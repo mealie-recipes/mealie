@@ -12,7 +12,6 @@
         class="d-print-none"
         :key="imageKey"
       >
-        <FavoriteBadge class="ma-1" button-style v-if="loggedIn" :slug="recipeDetails.slug" show-always />
         <RecipeTimeCard
           :class="isMobile ? undefined : 'force-bottom'"
           :prepTime="recipeDetails.prepTime"
@@ -24,7 +23,7 @@
         :slug="recipeDetails.slug"
         :name="recipeDetails.name"
         v-model="form"
-        v-if="loggedIn"
+        :logged-in="loggedIn"
         :open="showIcons"
         @close="form = false"
         @json="jsonEditor = !jsonEditor"
@@ -69,8 +68,6 @@
 <script>
 import RecipePageActionMenu from "@/components/Recipe/RecipePageActionMenu.vue";
 import { api } from "@/api";
-import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
-import VJsoneditor from "v-jsoneditor";
 import RecipeViewer from "@/components/Recipe/RecipeViewer";
 import PrintView from "@/components/Recipe/PrintView";
 import RecipeEditor from "@/components/Recipe/RecipeEditor";
@@ -82,14 +79,13 @@ import CommentsSection from "@/components/Recipe/CommentSection";
 
 export default {
   components: {
-    VJsoneditor,
+    VJsoneditor: () => import(/* webpackChunkName: "json-editor" */ "v-jsoneditor"),
     RecipeViewer,
     RecipeEditor,
     RecipeTimeCard,
     RecipePageActionMenu,
     PrintView,
     NoRecipe,
-    FavoriteBadge,
     CommentsSection,
   },
   mixins: [user],
@@ -131,12 +127,13 @@ export default {
     };
   },
 
-  async mounted() {
-    await this.getRecipeDetails();
-
+  created() {
+    this.getRecipeDetails();
     this.jsonEditor = false;
     this.form = this.$route.query.edit === "true" && this.loggedIn;
+  },
 
+  async mounted() {
     this.checkPrintRecipe();
   },
 
@@ -233,6 +230,7 @@ export default {
     async saveRecipe() {
       if (this.validateRecipe()) {
         let slug = await api.recipes.update(this.recipeDetails);
+        if (!slug) return;
 
         if (this.fileObject) {
           this.saveImage(true);

@@ -42,12 +42,16 @@ def api_routers():
     app.include_router(meal_plan_router)
     # Settings Routes
     app.include_router(settings_router)
-    app.include_router(theme_routes.router)
+    app.include_router(theme_routes.public_router)
+    app.include_router(theme_routes.user_router)
     # Backups/Imports Routes
     app.include_router(backup_routes.router)
     # Migration Routes
     app.include_router(migration_routes.router)
-    app.include_router(debug_routes.router)
+    # Debug routes
+    app.include_router(debug_routes.public_router)
+    app.include_router(debug_routes.admin_router)
+    # Utility routes
     app.include_router(utility_routes.router)
 
 
@@ -59,7 +63,20 @@ def system_startup():
     start_scheduler()
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
-    logger.info(settings.json(indent=4, exclude={"SECRET", "DEFAULT_PASSWORD", "SFTP_PASSWORD", "SFTP_USERNAME"}))
+    logger.info(
+        settings.json(
+            indent=4,
+            exclude={
+                "SECRET",
+                "DEFAULT_PASSWORD",
+                "SFTP_PASSWORD",
+                "SFTP_USERNAME",
+                "DB_URL",  # replace by DB_URL_PUBLIC for logs
+                "POSTGRES_USER",
+                "POSTGRES_PASSWORD",
+            },
+        )
+    )
     create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
 
 
