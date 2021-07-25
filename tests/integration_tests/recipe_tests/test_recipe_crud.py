@@ -59,9 +59,8 @@ def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data:
     assert response.status_code == 200
     assert json.loads(response.text).get("slug") == recipe_data.expected_slug
 
-    response = api_client.get(recipe_url)
+    response = api_client.get(recipe_url, headers=user_token)
     assert response.status_code == 200
-    print(response)
     recipe = json.loads(response.text)
 
     assert recipe["notes"] == test_notes

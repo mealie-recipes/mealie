@@ -84,7 +84,7 @@ def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), i
 
     if not recipe:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
-
+    print(recipe.settings.public, is_user)
     if recipe.settings.public or is_user:
 
         return recipe

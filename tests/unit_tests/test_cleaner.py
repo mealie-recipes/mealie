@@ -80,7 +80,7 @@ def test_cleaner_instructions(instructions):
 def test_html_with_recipe_data():
     path = TEST_RAW_HTML.joinpath("healthy_pasta_bake_60759.html")
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
-    recipe_data = open_graph.basic_recipe_from_opengraph(open(path, encoding="utf8").read(), url)
+    recipe_data = open_graph.basic_recipe_from_opengraph(path.read_text(), url)
 
     assert len(recipe_data["name"]) > 10
     assert len(recipe_data["slug"]) > 10

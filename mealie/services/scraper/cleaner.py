@@ -36,8 +36,15 @@ def clean(recipe_data: dict, url=None) -> dict:
 
 
 def clean_string(text: str) -> str:
+    if isinstance(text, list):
+        text = text[0]
+
+    print(type(text))
+
     if text == "" or text is None:
         return ""
+
+    print(text)
 
     cleaned_text = html.unescape(text)
     cleaned_text = re.sub("<[^<]+?>", "", cleaned_text)
