@@ -3,12 +3,12 @@ name: ci
 on:
   push:
     branches:
-      - main
-      - master
+      - mealie-next
+      - mealie-next
   pull_request:
     branches:
-      - main
-      - master
+      - mealie-next
+      - mealie-next
 
 jobs:
   ci:
@@ -47,4 +47,3 @@ jobs:
 
       - name: Run linter 👀
         run: yarn lint
-
