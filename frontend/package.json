@@ -1,76 +1,39 @@
 {
   "name": "frontend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "prepare": "husky install",
+    "lint": "yarn lint:js"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint"
   },
   "dependencies": {
-    "@adapttive/vue-markdown": "^4.0.1",
-    "@vue/composition-api": "^1.0.4",
-    "axios": "^0.21.1",
-    "core-js": "^3.14.0",
-    "fuse.js": "^6.4.6",
-    "register-service-worker": "^1.7.1",
-    "v-jsoneditor": "^1.4.4",
-    "vue": "^2.6.14",
-    "vue-i18n": "^8.24.1",
-    "vue-router": "^3.5.1",
-    "vuedraggable": "^2.24.3",
-    "vuetify": "^2.5.3",
-    "vuex": "^3.6.2",
-    "vuex-persistedstate": "^4.0.0-beta.3"
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/pwa": "^3.3.5",
+    "core-js": "^3.15.1",
+    "nuxt": "^2.15.7",
+    "vuetify": "^2.5.5"
   },
   "devDependencies": {
-    "@intlify/vue-i18n-loader": "^1.1.0",
-    "@mdi/font": "^5.9.55",
-    "@mdi/js": "^5.9.55",
-    "@vue/cli-plugin-babel": "^4.5.13",
-    "@vue/cli-plugin-eslint": "^4.5.13",
-    "@vue/cli-plugin-pwa": "~4.5.0",
-    "@vue/cli-service": "^4.5.13",
-    "@vue/preload-webpack-plugin": "^2.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "html-webpack-plugin": "^5.3.1",
-    "preload-webpack-plugin": "^2.3.0",
-    "sass": "^1.34.1",
-    "sass-loader": "^8.0.2",
-    "typeface-roboto": "^1.1.13",
-    "vue-cli-plugin-i18n": "~1.0.1",
-    "vue-cli-plugin-vuetify": "^2.4.1",
-    "vue-cli-plugin-webpack-bundle-analyzer": "^4.0.0",
-    "vue-template-compiler": "^2.6.14",
-    "vuetify-loader": "^1.7.2"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": false,
-    "printWidth": 120
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@babel/eslint-parser": "^7.14.7",
+    "@nuxt/types": "^2.15.7",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^6.0.1",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/vuetify": "^1.12.1",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-vue": "^7.12.1",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.3.2"
+  }
 }
