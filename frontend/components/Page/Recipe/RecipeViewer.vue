@@ -94,7 +94,7 @@ import Rating from "@/components/Recipe/Parts/Rating";
 import Notes from "@/components/Recipe/Parts/Notes";
 import Ingredients from "@/components/Recipe/Parts/Ingredients";
 import Instructions from "@/components/Recipe/Parts/Instructions.vue";
-import Assets from "../Parts/Assets.vue";
+import Assets from "../../../../frontend.old/src/components/Recipe/Parts/Assets.vue";
 export default {
   components: {
     VueMarkdown,
