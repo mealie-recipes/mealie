@@ -9,12 +9,18 @@
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
   "python.testing.pytestArgs": ["tests"],
   "cSpell.enableFiletypes": ["!javascript", "!python", "!yaml"],
-  "i18n-ally.localesPaths": "frontend/src/locales/messages",
+  "i18n-ally.localesPaths": "frontend/lang/messages",
   "i18n-ally.sourceLanguage": "en-US",
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.keystyle": "nested",
   "cSpell.words": ["compression", "hkotel", "performant", "postgres", "webp"],
   "search.mode": "reuseEditor",
   "python.linting.flake8Enabled": true,
-  "conventionalCommits.scopes": ["frontend"]
+  "conventionalCommits.scopes": ["frontend"],
+  "editor.formatOnSave": true,
+  "eslint.workingDirectories": ["./frontend"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "vetur.validation.template": false
 }
