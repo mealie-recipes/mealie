@@ -1,10 +1,10 @@
-from mealie.routes.routers import AdminAPIRouter
 from typing import Union
 
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.schema.settings import CustomPageBase, CustomPageOut
+from mealie.routes.routers import AdminAPIRouter
+from mealie.schema.admin import CustomPageBase, CustomPageOut
 from sqlalchemy.orm.session import Session
 
 public_router = APIRouter(prefix="/api/site-settings/custom-pages", tags=["Settings"])

@@ -14,18 +14,17 @@ from mealie.db.models.shopping_list import ShoppingList
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.theme import SiteThemeModel
 from mealie.db.models.users import LongLiveToken, User
-from mealie.schema.category import RecipeCategoryResponse, RecipeTagResponse
-from mealie.schema.comments import CommentOut
-from mealie.schema.event_notifications import EventNotificationIn
+from mealie.schema.admin import CustomPageOut
+from mealie.schema.admin import SiteSettings as SiteSettingsSchema
+from mealie.schema.admin import SiteTheme
 from mealie.schema.events import Event as EventSchema
-from mealie.schema.meal import MealPlanOut
-from mealie.schema.recipe import Recipe, RecipeIngredientFood, RecipeIngredientUnit
-from mealie.schema.settings import CustomPageOut
-from mealie.schema.settings import SiteSettings as SiteSettingsSchema
-from mealie.schema.shopping_list import ShoppingListOut
-from mealie.schema.sign_up import SignUpOut
-from mealie.schema.theme import SiteTheme
-from mealie.schema.user import GroupInDB, LongLiveTokenInDB, UserInDB
+from mealie.schema.events import EventNotificationIn
+from mealie.schema.meal_plan import MealPlanOut, ShoppingListOut
+from mealie.schema.recipe import (CommentOut, Recipe, RecipeCategoryResponse,
+                                  RecipeIngredientFood, RecipeIngredientUnit,
+                                  RecipeTagResponse)
+from mealie.schema.user import (GroupInDB, LongLiveTokenInDB, SignUpOut,
+                                UserInDB)
 from sqlalchemy.orm.session import Session
 
 logger = getLogger()

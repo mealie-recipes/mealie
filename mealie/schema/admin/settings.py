@@ -1,9 +1,10 @@
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.schema.category import CategoryBase, RecipeCategoryResponse
 from pydantic import validator
 from slugify import slugify
+
+from ..recipe.category import CategoryBase, RecipeCategoryResponse
 
 
 class SiteSettings(CamelModel):

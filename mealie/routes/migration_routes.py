@@ -6,7 +6,7 @@ from fastapi import Depends, File, HTTPException, UploadFile, status
 from mealie.core.config import app_dirs
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
-from mealie.schema.migration import MigrationFile, Migrations
+from mealie.schema.admin import MigrationFile, Migrations
 from mealie.services.migrations import migration
 from sqlalchemy.orm.session import Session
 

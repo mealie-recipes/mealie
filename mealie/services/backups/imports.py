@@ -6,20 +6,20 @@ from typing import Callable
 
 from mealie.core.config import app_dirs
 from mealie.db.database import db
-from mealie.schema.comments import CommentOut
-from mealie.schema.event_notifications import EventNotificationIn
-from mealie.schema.recipe import Recipe
-from mealie.schema.restore import (
+from mealie.schema.admin import (
     CustomPageImport,
+    CustomPageOut,
     GroupImport,
     NotificationImport,
     RecipeImport,
     SettingsImport,
+    SiteSettings,
+    SiteTheme,
     ThemeImport,
     UserImport,
 )
-from mealie.schema.settings import CustomPageOut, SiteSettings
-from mealie.schema.theme import SiteTheme
+from mealie.schema.events import EventNotificationIn
+from mealie.schema.recipe import CommentOut, Recipe
 from mealie.schema.user import UpdateGroup, UserInDB
 from mealie.services.image import minify
 from pydantic.main import BaseModel

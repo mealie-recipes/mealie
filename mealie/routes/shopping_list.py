@@ -3,7 +3,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.shopping_list import ShoppingListIn, ShoppingListOut
+from mealie.schema.meal_plan import ShoppingListIn, ShoppingListOut
 from mealie.schema.user import UserInDB
 from sqlalchemy.orm.session import Session
 

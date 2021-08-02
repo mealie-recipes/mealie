@@ -7,8 +7,7 @@ from jose import JWTError, jwt
 from mealie.core.config import app_dirs, settings
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.schema.auth import TokenData
-from mealie.schema.user import LongLiveTokenInDB, UserInDB
+from mealie.schema.user import LongLiveTokenInDB, TokenData, UserInDB
 from sqlalchemy.orm.session import Session
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")

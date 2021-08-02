@@ -1,7 +1,6 @@
 from typing import List, Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.schema.recipe import Recipe
 from pydantic.utils import GetterDict
 
 
@@ -25,7 +24,7 @@ class CategoryBase(CategoryIn):
 
 
 class RecipeCategoryResponse(CategoryBase):
-    recipes: Optional[List[Recipe]]
+    recipes: Optional[List["Recipe"]]
 
     class Config:
         schema_extra = {"example": {"id": 1, "name": "dinner", "recipes": [{}]}}
@@ -41,3 +40,9 @@ class TagBase(CategoryBase):
 
 class RecipeTagResponse(RecipeCategoryResponse):
     pass
+
+
+from .recipe import Recipe
+
+RecipeCategoryResponse.update_forward_refs()
+RecipeTagResponse.update_forward_refs()

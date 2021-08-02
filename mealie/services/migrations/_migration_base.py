@@ -6,7 +6,7 @@ from typing import Any, Callable, Optional
 import yaml
 from mealie.core import root_logger
 from mealie.db.database import db
-from mealie.schema.migration import MigrationImport
+from mealie.schema.admin import MigrationImport
 from mealie.schema.recipe import Recipe
 from mealie.services.image import image
 from mealie.services.scraper import cleaner

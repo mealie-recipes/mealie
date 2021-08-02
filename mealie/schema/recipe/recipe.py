@@ -6,10 +6,15 @@ from typing import Any, Optional
 from fastapi_camelcase import CamelModel
 from mealie.core.config import app_dirs, settings
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.schema.comments import CommentOut
 from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
+
+from .comments import CommentOut
+
+
+class CreateRecipe(CamelModel):
+    name: str
 
 
 class RecipeImageTypes(str, Enum):
@@ -120,8 +125,8 @@ class RecipeSummary(CamelModel):
 
 class Recipe(RecipeSummary):
     recipe_yield: Optional[str]
-    recipe_ingredient: Optional[list[RecipeIngredient]]
-    recipe_instructions: Optional[list[RecipeStep]]
+    recipe_ingredient: Optional[list[RecipeIngredient]] = []
+    recipe_instructions: Optional[list[RecipeStep]] = []
     nutrition: Optional[Nutrition]
     tools: Optional[list[str]] = []
 

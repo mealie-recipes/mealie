@@ -3,8 +3,7 @@ from mealie.core.config import settings
 from mealie.core.security import get_password_hash
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
-from mealie.schema.settings import SiteSettings
-from mealie.schema.theme import SiteTheme
+from mealie.schema.admin import SiteSettings, SiteTheme
 from mealie.services.events import create_general_event
 from sqlalchemy.orm import Session
 

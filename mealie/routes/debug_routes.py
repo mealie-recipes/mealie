@@ -6,9 +6,8 @@ from mealie.core.security import create_file_token
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
-from mealie.schema.about import AppInfo, AppStatistics, DebugInfo
+from mealie.schema.admin import AppInfo, AppStatistics, DebugInfo
 from sqlalchemy.orm.session import Session
-
 
 admin_router = AdminAPIRouter(prefix="/api/debug", tags=["Debug"])
 public_router = APIRouter(prefix="/api/debug", tags=["Debug"])

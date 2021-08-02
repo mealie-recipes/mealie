@@ -2,7 +2,7 @@ from enum import Enum
 from pathlib import Path
 
 from mealie.core import root_logger
-from mealie.schema.migration import MigrationImport
+from mealie.schema.admin import MigrationImport
 from mealie.services.migrations import chowdown, nextcloud
 from sqlalchemy.orm.session import Session
 

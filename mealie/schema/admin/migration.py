@@ -1,8 +1,9 @@
 from datetime import datetime
 from typing import List
 
-from mealie.schema.restore import RecipeImport
 from pydantic.main import BaseModel
+
+from .restore import RecipeImport
 
 
 class ChowdownURL(BaseModel):

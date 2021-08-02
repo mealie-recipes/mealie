@@ -3,7 +3,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import is_logged_in
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
-from mealie.schema.category import CategoryIn, RecipeCategoryResponse
+from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 
 public_router = APIRouter(prefix="/api/categories", tags=["Recipe Categories"])

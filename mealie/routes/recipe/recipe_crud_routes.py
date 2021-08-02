@@ -12,6 +12,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user, is_logged_in, temporary_zip_path
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeAsset, RecipeImageTypes, RecipeURLIn
+from mealie.schema.recipe.recipe import CreateRecipe
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
 from mealie.services.image.image import scrape_image, write_image
@@ -25,6 +26,30 @@ from starlette.responses import FileResponse
 user_router = UserAPIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
 public_router = APIRouter(prefix="/api/recipes", tags=["Recipe CRUD"])
 logger = get_logger()
+
+
+@user_router.post("", status_code=201, response_model=str)
+def create_from_name(
+    background_tasks: BackgroundTasks,
+    data: CreateRecipe,
+    session: Session = Depends(generate_session),
+    current_user=Depends(get_current_user),
+) -> str:
+    """ Takes in a JSON string and loads data into the database as a new entry"""
+
+    data = Recipe(name=data.name)
+
+    recipe: Recipe = db.recipes.create(session, data.dict())
+
+    background_tasks.add_task(
+        create_recipe_event,
+        "Recipe Created (URL)",
+        f"'{recipe.name}' by {current_user.full_name} \n {settings.BASE_URL}/recipe/{recipe.slug}",
+        session=session,
+        attachment=recipe.image_dir.joinpath("min-original.webp"),
+    )
+
+    return recipe.slug
 
 
 @user_router.post("/create", status_code=201, response_model=str)

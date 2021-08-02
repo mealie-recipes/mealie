@@ -8,7 +8,7 @@ from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
-from mealie.schema.backup import BackupJob, ImportJob, Imports, LocalBackup
+from mealie.schema.admin import BackupJob, ImportJob, Imports, LocalBackup
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
 from mealie.services.events import create_backup_event

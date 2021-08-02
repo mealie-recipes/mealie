@@ -3,7 +3,7 @@ from typing import Union
 
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
-from mealie.schema.meal import MealDayIn, MealPlanIn
+from mealie.schema.meal_plan import MealDayIn, MealPlanIn
 from mealie.schema.recipe import Recipe
 from mealie.schema.user import GroupInDB
 from sqlalchemy.orm.session import Session

@@ -2,9 +2,10 @@ from pathlib import Path
 from typing import Optional
 
 from mealie.core.config import app_dirs
-from mealie.schema.migration import MigrationImport
+from mealie.schema.admin import MigrationImport
 from mealie.services.migrations import helpers
-from mealie.services.migrations._migration_base import MigrationAlias, MigrationBase
+from mealie.services.migrations._migration_base import (MigrationAlias,
+                                                        MigrationBase)
 from sqlalchemy.orm.session import Session
 
 
