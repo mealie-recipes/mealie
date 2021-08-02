@@ -1,24 +1,24 @@
 <template>
   <v-img
-    @click="$emit('click')"
-    :height="height"
     v-if="!fallBackImage"
+    :height="height"
     :src="getImage(slug)"
+    @click="$emit('click')"
     @load="fallBackImage = false"
     @error="fallBackImage = true"
   >
     <slot> </slot>
   </v-img>
-  <div class="icon-slot" v-else @click="$emit('click')">
+  <div v-else class="icon-slot" @click="$emit('click')">
     <v-icon color="primary" class="icon-position" :size="iconSize">
       {{ $globals.icons.primary }}
     </v-icon>
-      <slot> </slot>
+    <slot> </slot>
   </div>
 </template>
 
 <script>
-import { api } from "@/api";
+import { useApi } from "~/composables/use-api";
 export default {
   props: {
     tiny: {
@@ -34,17 +34,31 @@ export default {
       default: null,
     },
     iconSize: {
+      type: [Number, String],
       default: 100,
     },
     slug: {
+      type: String,
       default: null,
     },
     imageVersion: {
+      type: String,
       default: null,
     },
     height: {
+      type: Number,
       default: 200,
     },
+  },
+  setup() {
+    const api = useApi();
+
+    return { api };
+  },
+  data() {
+    return {
+      fallBackImage: false,
+    };
   },
   computed: {
     imageSize() {
@@ -59,20 +73,15 @@ export default {
       this.fallBackImage = false;
     },
   },
-  data() {
-    return {
-      fallBackImage: false,
-    };
-  },
   methods: {
     getImage(slug) {
       switch (this.imageSize) {
         case "tiny":
-          return api.recipes.recipeTinyImage(slug, this.imageVersion);
+          return this.api.recipes.recipeTinyImage(slug, this.imageVersion);
         case "small":
-          return api.recipes.recipeSmallImage(slug, this.imageVersion);
+          return this.api.recipes.recipeSmallImage(slug, this.imageVersion);
         case "large":
-          return api.recipes.recipeImage(slug, this.imageVersion);
+          return this.api.recipes.recipeImage(slug, this.imageVersion);
       }
     },
   },

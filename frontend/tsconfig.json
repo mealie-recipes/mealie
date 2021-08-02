@@ -10,12 +10,13 @@
     "strict": true,
     "noEmit": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@nuxt/content", "@types/node"]
+    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node", "nuxt-i18n", "@nuxtjs/auth-next"]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

@@ -1,6 +1,7 @@
 <template>
   <div @click.prevent>
     <v-rating
+      v-model="rating"
       :readonly="!loggedIn"
       color="secondary"
       background-color="secondary lighten-3"
@@ -8,7 +9,6 @@
       :dense="small ? true : undefined"
       :size="small ? 15 : undefined"
       hover
-      v-model="rating"
       :value="value"
       @input="updateRating"
       @click="updateRating"
@@ -21,17 +21,25 @@ import { api } from "@/api";
 export default {
   props: {
     emitOnly: {
+      type: Boolean,
       default: false,
     },
-    name: String,
-    slug: String,
-    value: Number,
+    name: {
+      type: String,
+      default: "",
+    },
+    slug: {
+      type: String,
+      default: "",
+    },
+    value: {
+      type: Number,
+      default: 0,
+    },
     small: {
+      type: Boolean,
       default: false,
     },
-  },
-  mounted() {
-    this.rating = this.value;
   },
   data() {
     return {
@@ -42,6 +50,9 @@ export default {
     loggedIn() {
       return this.$store.getters.getIsLoggedIn;
     },
+  },
+  mounted() {
+    this.rating = this.value;
   },
   methods: {
     updateRating(val) {

@@ -15,11 +15,17 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
+    "@adapttive/vue-markdown": "^4.0.1",
+    "@mdi/js": "^5.9.55",
+    "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@vueuse/core": "^5.2.0",
     "core-js": "^3.15.1",
     "nuxt": "^2.15.7",
+    "nuxt-i18n": "^6.28.0",
+    "vuedraggable": "^2.24.3",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {
@@ -33,6 +39,7 @@
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.12.1",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",

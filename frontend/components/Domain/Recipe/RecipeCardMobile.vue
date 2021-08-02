@@ -4,7 +4,7 @@
       :ripple="false"
       class="mx-auto"
       hover
-      :to="this.$listeners.selected ? undefined : `/recipe/${slug}`"
+      :to="$listeners.selected ? undefined : `/recipe/${slug}`"
       @click="$emit('selected')"
     >
       <v-list-item three-line>
@@ -20,10 +20,10 @@
           </v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class=" mb-1">{{ name }} </v-list-item-title>
+          <v-list-item-title class="mb-1">{{ name }} </v-list-item-title>
           <v-list-item-subtitle> {{ description }} </v-list-item-subtitle>
           <div class="d-flex justify-center align-center">
-            <FavoriteBadge v-if="loggedIn" :slug="slug" show-always />
+            <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
             <v-rating
               color="secondary"
               class="ml-auto"
@@ -34,7 +34,7 @@
               :value="rating"
             ></v-rating>
             <v-spacer></v-spacer>
-            <ContextMenu :slug="slug" :menu-icon="$globals.icons.dotsHorizontal" :name="name" />
+            <RecipeContextMenu :slug="slug" :menu-icon="$globals.icons.dotsHorizontal" :name="name" />
           </div>
         </v-list-item-content>
       </v-list-item>
@@ -43,24 +43,41 @@
 </template>
 
 <script>
-import FavoriteBadge from "@/components/Recipe/FavoriteBadge";
-import ContextMenu from "@/components/Recipe/ContextMenu";
 import { api } from "@/api";
+import RecipeFavoriteBadge from "./RecipeFavoriteBadge";
+import RecipeContextMenu from "./RecipeContextMenu";
 export default {
   components: {
-    FavoriteBadge,
-    ContextMenu,
+    RecipeFavoriteBadge,
+    RecipeContextMenu,
   },
   props: {
-    name: String,
-    slug: String,
-    description: String,
-    rating: Number,
-    image: String,
+    name: {
+      type: String,
+      required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
     route: {
+      type: Boolean,
       default: true,
     },
     tags: {
+      type: Boolean,
       default: true,
     },
   },
@@ -69,14 +86,14 @@ export default {
       fallBackImage: false,
     };
   },
-  methods: {
-    getImage(slug) {
-      return api.recipes.recipeSmallImage(slug, this.image);
-    },
-  },
   computed: {
     loggedIn() {
       return this.$store.getters.getIsLoggedIn;
+    },
+  },
+  methods: {
+    getImage(slug) {
+      return api.recipes.recipeSmallImage(slug, this.image);
     },
   },
 };

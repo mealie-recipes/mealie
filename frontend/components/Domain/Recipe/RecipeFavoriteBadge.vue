@@ -1,14 +1,14 @@
 <template>
   <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-btn
-        small
-        @click.prevent="toggleFavorite"
         v-if="isFavorite || showAlways"
+        small
         :color="buttonStyle ? 'info' : 'secondary'"
         :icon="!buttonStyle"
         :fab="buttonStyle"
         v-bind="attrs"
+        @click.prevent="toggleFavorite"
         v-on="on"
       >
         <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">
@@ -25,6 +25,7 @@ import { api } from "@/api";
 export default {
   props: {
     slug: {
+      type: String,
       default: "",
     },
     showAlways: {
@@ -41,7 +42,7 @@ export default {
       return this.$store.getters.getUserData;
     },
     isFavorite() {
-      return this.user.favoriteRecipes.indexOf(this.slug) !== -1;
+      return this.user.favoriteRecipes.includes(this.slug);
     },
   },
   methods: {

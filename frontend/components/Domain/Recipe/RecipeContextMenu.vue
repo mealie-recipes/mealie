@@ -1,12 +1,12 @@
 <template>
   <div class="text-center">
-    <ConfirmationDialog
+    <BaseDialog
+      ref="deleteRecipieConfirm"
       :title="$t('recipe.delete-recipe')"
       :message="$t('recipe.delete-confirmation')"
       color="error"
       :icon="$globals.icons.alertCircle"
-      ref="deleteRecipieConfirm"
-      v-on:confirm="deleteRecipe()"
+      @confirm="deleteRecipe()"
     />
     <v-menu
       offset-y
@@ -20,7 +20,7 @@
       open-on-hover
       content-class="d-print-none"
     >
-      <template v-slot:activator="{ on, attrs }">
+      <template #activator="{ on, attrs }">
         <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
           <v-icon>{{ effMenuIcon }}</v-icon>
         </v-btn>
@@ -28,7 +28,7 @@
       <v-list dense>
         <v-list-item v-for="(item, index) in displayedMenu" :key="index" @click="menuAction(item.action)">
           <v-list-item-icon>
-            <v-icon v-text="item.icon" :color="item.color"></v-icon>
+            <v-icon :color="item.color" v-text="item.icon"></v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
@@ -38,13 +38,9 @@
 </template>
 
 <script>
-import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog.vue";
 import { api } from "@/api";
 import { utils } from "@/utils";
 export default {
-  components: {
-    ConfirmationDialog,
-  },
   props: {
     menuTop: {
       type: Boolean,
@@ -75,6 +71,11 @@ export default {
       type: Boolean,
       default: true,
     },
+  },
+  data() {
+    return {
+      loading: true,
+    };
   },
   computed: {
     effMenuIcon() {
@@ -143,11 +144,6 @@ export default {
       return this.$t("recipe.share-recipe-message", [this.name]);
     },
   },
-  data() {
-    return {
-      loading: true,
-    };
-  },
   methods: {
     async menuAction(action) {
       this.loading = true;
@@ -165,7 +161,7 @@ export default {
                 url: this.recipeURL,
               })
               .then(() => console.log("Successful share"))
-              .catch(error => {
+              .catch((error) => {
                 console.log("WebShareAPI not supported", error);
                 this.updateClipboard();
               });

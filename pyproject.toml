@@ -45,6 +45,7 @@ pytest-cov = "^2.11.0"
 mkdocs-material = "^7.0.2"
 flake8 = "^3.9.0"
 coverage = "^5.5"
+pydantic-to-typescript = "^1.0.7"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
