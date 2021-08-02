@@ -1,0 +1,17 @@
+import { requests } from "../requests";
+
+const prefix = '{{paths.prefix}}'
+
+const routes = { {% for path in paths.static_paths %}
+  {{ path.router_camel }}: `${prefix}{{ path.route }}`,{% endfor %}
+{% for path in paths.function_paths  %}
+  {{path.router_camel}}: ({{path.var|join(", ")}}) => `${prefix}{{ path.js_route }}`,{% endfor %}
+}
+
+export const {{paths.export_name}}API = { {% for path in paths.all_paths  %} {% for verb in path.http_verbs  %}
+   {% if verb.js_docs %}/** {{ verb.js_docs }} 
+   */ {% endif %}
+  async {{ verb.summary_camel }}({{ verb.function_args() }}) {
+    return await requests.{{ verb.request_type.value }}(routes.{{ path.route_object.router_camel }}{% if path.route_object.is_function %}({{verb.path_params()}}){% endif %}, {{ verb.query_params() }} {{ verb.payload() }})
+  }, {% endfor %} {% endfor %}
+}
