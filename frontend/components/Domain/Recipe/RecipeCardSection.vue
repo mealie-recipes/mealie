@@ -117,7 +117,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    titleIcon: {
+    icon: {
       type: String,
       default: null,
     },
@@ -172,7 +172,7 @@ export default {
       return Math.min(this.hardLimit, this.recipes.length);
     },
     displayTitleIcon() {
-      return this.titleIcon || this.$globals.icons.tags;
+      return this.icon || this.$globals.icons.tags;
     },
   },
   watch: {
@@ -223,7 +223,6 @@ export default {
           console.log("Unknown Event", sortType);
           return;
       }
-
       this.$emit(SORT_EVENT, sortTarget);
       this.sortLoading = false;
     },

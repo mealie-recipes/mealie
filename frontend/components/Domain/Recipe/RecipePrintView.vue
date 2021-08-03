@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import RecipeTimeCard from "@/components/Recipe/RecipeTimeCard.vue";
 import VueMarkdown from "@adapttive/vue-markdown";
+import RecipeTimeCard from "./RecipeTimeCard.vue";
 export default {
   components: {
     RecipeTimeCard,

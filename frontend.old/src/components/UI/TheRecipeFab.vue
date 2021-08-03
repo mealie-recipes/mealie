@@ -44,13 +44,13 @@
                     target="_blank"
                     rel="noreferrer nofollow"
                   >
-                    {{ $t('new-recipe.google-ld-json-info') }}
+                    {{ $t("new-recipe.google-ld-json-info") }}
                   </a>
                   <a href="https://github.com/hay-kot/mealie/issues" target="_blank" rel="noreferrer nofollow">
-                    {{ $t('new-recipe.github-issues') }}
+                    {{ $t("new-recipe.github-issues") }}
                   </a>
                   <a href="https://schema.org/Recipe" target="_blank" rel="noreferrer nofollow">
-                    {{ $t('new-recipe.recipe-markup-specification') }}
+                    {{ $t("new-recipe.recipe-markup-specification") }}
                   </a>
                 </div>
                 <div class="d-flex justify-end">
@@ -61,7 +61,7 @@
                     @click="addRecipe = false"
                   >
                     <v-icon left> {{ $globals.icons.externalLink }} </v-icon>
-                    {{ $t('new-recipe.view-scraped-data') }}
+                    {{ $t("new-recipe.view-scraped-data") }}
                   </v-btn>
                 </div>
               </v-alert>
@@ -101,7 +101,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <TheUploadBtn class="mx-auto" :text-btn="false" @uploaded="setFile" :post="false"> </TheUploadBtn>
+        <AppButtonUpload class="mx-auto" :text-btn="false" @uploaded="setFile" :post="false"> </AppButtonUpload>
       </v-card-actions>
     </BaseDialog>
     <v-speed-dial v-model="fab" :open-on-hover="absolute" :fixed="absolute" :bottom="absolute" :right="absolute">
@@ -140,11 +140,11 @@
 
 <script>
 import { api } from "@/api";
-import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn.vue";
+import AppButtonUpload from "@/components/UI/Buttons/AppButtonUpload.vue";
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog.vue";
 export default {
   components: {
-    TheUploadBtn,
+    AppButtonUpload,
     BaseDialog,
   },
   props: {
@@ -232,8 +232,9 @@ export default {
       this.processing = false;
     },
     isValidWebUrl(url) {
-      let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
-      return regEx.test(url) ? true : this.$t('new-recipe.must-be-a-valid-url');
+      let regEx =
+        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
+      return regEx.test(url) ? true : this.$t("new-recipe.must-be-a-valid-url");
     },
   },
 };

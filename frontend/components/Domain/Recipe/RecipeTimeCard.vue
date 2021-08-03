@@ -13,16 +13,25 @@
 <script>
 export default {
   props: {
-    prepTime: String,
-    totalTime: String,
-    performTime: String,
+    prepTime: {
+      type: String,
+      default: null,
+    },
+    totalTime: {
+      type: String,
+      default: null,
+    },
+    performTime: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
     showCards() {
-      return [this.prepTime, this.totalTime, this.performTime].some(x => !this.isEmpty(x));
+      return [this.prepTime, this.totalTime, this.performTime].some((x) => !this.isEmpty(x));
     },
     allTimes() {
-      return [this.validateTotalTime, this.validatePrepTime, this.validatePerformTime].filter(x => x !== null);
+      return [this.validateTotalTime, this.validatePrepTime, this.validatePerformTime].filter((x) => x !== null);
     },
     validateTotalTime() {
       return !this.isEmpty(this.totalTime) ? { name: this.$t("recipe.total-time"), value: this.totalTime } : null;

@@ -12,6 +12,10 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
+  router: {
+    base: process.env.SUB_PATH || "",
+  },
+
   layoutTransition: {
     name: "layout",
     mode: "out-in",
@@ -36,9 +40,13 @@ export default {
     "@nuxtjs/composition-api/module",
   ],
 
+  publicRuntimeConfig: {
+    GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
+    ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
+  },
+
   env: {
-    PUBLIC_SITE: process.env.PUBLIC_SITE || true,
-    BASE_URL: process.env.BASE_URL || "",
+    GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
     ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
   },
 

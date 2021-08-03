@@ -7,9 +7,9 @@
       :submit-text="$t('general.create')"
       :loading="processing"
       width="600px"
-      @submit="uploadZip"
+      @submit="createOnByUrl"
     >
-      <v-form ref="urlForm" @submit.prevent="createRecipe">
+      <v-form ref="domImportFromUrlForm" @submit.prevent="createOnByUrl">
         <v-card-text>
           <v-text-field
             v-model="recipeURL"
@@ -19,7 +19,7 @@
             filled
             rounded
             class="rounded-lg"
-            :rules="[isValidWebUrl]"
+            :rules="[validators.url]"
             :hint="$t('new-recipe.url-form-hint')"
             persistent-hint
           ></v-text-field>
@@ -84,7 +84,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <!-- <TheUploadBtn class="mx-auto" :text-btn="false" :post="false" @uploaded="setFile"> </TheUploadBtn> -->
+        <!-- <AppButtonUpload class="mx-auto" :text-btn="false" :post="false" @uploaded="setFile"> </AppButtonUpload> -->
       </v-card-actions>
     </BaseDialog>
     <BaseDialog
@@ -137,10 +137,11 @@
 
 
 <script lang="ts">
-// import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn.vue";
+// import AppButtonUpload from "@/components/UI/Buttons/AppButtonUpload.vue";
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
-import { useApi } from "~/composables/use-api";
+import { useApiSingleton } from "~/composables/use-api";
+import { validators } from "~/composables/use-validators";
 
 export default defineComponent({
   props: {
@@ -151,12 +152,26 @@ export default defineComponent({
   },
   setup() {
     const domCreateDialog = ref(null);
+    const domCreateForm = ref<VForm | null>(null);
+
     const domUploadZipDialog = ref(null);
+    const domUploadZipForm = ref<VForm | null>(null);
+
     const domImportFromUrlDialog = ref(null);
+    const domImportFromUrlForm = ref<VForm | null>(null);
 
-    const api = useApi();
+    const api = useApiSingleton();
 
-    return { domCreateDialog, domUploadZipDialog, domImportFromUrlDialog, api };
+    return {
+      domCreateDialog,
+      domCreateForm,
+      domUploadZipDialog,
+      domUploadZipForm,
+      domImportFromUrlDialog,
+      domImportFromUrlForm,
+      api,
+      validators,
+    };
   },
   data() {
     return {
@@ -204,43 +219,46 @@ export default defineComponent({
   mounted() {
     if (this.$route.query.recipe_import_url) {
       this.addRecipe = true;
-      this.createRecipe();
+      this.createOnByUrl();
     }
   },
 
   methods: {
-    async manualCreateRecipe() {
-      console.log(this.createRecipeData.form);
-      await this.api.recipes.createOne(this.createRecipeData.form.name);
+    reset() {
+      this.fab = false;
+      this.error = false;
+      this.addRecipe = false;
+      this.recipeURL = "";
+      this.processing = false;
     },
-
     resetVars() {
       this.uploadData = {
         fileName: "archive",
         file: null,
       };
     },
-    setFile(file) {
+    setFile(file: any) {
       this.uploadData.file = file;
       console.log("Uploaded");
-    },
-    openZipUploader() {
-      this.resetVars();
-      this.$refs.uploadZipDialog.open();
     },
     async uploadZip() {
       const formData = new FormData();
       formData.append(this.uploadData.fileName, this.uploadData.file);
 
-      const response = await api.utils.uploadFile("/api/recipes/create-from-zip", formData);
+      const response = await this.api.utils.uploadFile("/api/recipes/create-from-zip", formData);
 
       this.$router.push(`/recipe/${response.data.slug}`);
     },
-    async createRecipe() {
+    async manualCreateRecipe() {
+      await this.api.recipes.createOne(this.createRecipeData.form.name);
+    },
+    async createOnByUrl() {
       this.error = false;
-      if (this.$refs.urlForm === undefined || this.$refs.urlForm.validate()) {
+      console.log(this.domImportFromUrlForm?.validate());
+
+      if (this.domImportFromUrlForm?.validate()) {
         this.processing = true;
-        const response = await api.recipes.createByURL(this.recipeURL);
+        const response = await this.api.recipes.createOneByUrl(this.recipeURL);
         this.processing = false;
         if (response) {
           this.addRecipe = false;
@@ -250,18 +268,6 @@ export default defineComponent({
           this.error = true;
         }
       }
-    },
-    reset() {
-      this.fab = false;
-      this.error = false;
-      this.addRecipe = false;
-      this.recipeURL = "";
-      this.processing = false;
-    },
-    isValidWebUrl(url: string) {
-      const regEx =
-        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/gm;
-      return regEx.test(url) ? true : this.$t("new-recipe.must-be-a-valid-url");
     },
   },
 });

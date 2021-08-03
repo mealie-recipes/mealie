@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     loggedIn() {
-      return this.$store.getters.getIsLoggedIn;
+      return this.$auth.loggedIn;
     },
   },
   mounted() {

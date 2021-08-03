@@ -49,7 +49,7 @@
       </draggable>
 
       <div class="d-flex row justify-end">
-        <BulkAdd class="mr-2" @bulk-data="addIngredient" />
+        <RecipeDialogBulkAdd class="mr-2" @bulk-data="addIngredient" />
         <v-btn color="secondary" dark class="mr-4" @click="addIngredient">
           <v-icon>{{ $globals.icons.create }}</v-icon>
         </v-btn>
@@ -71,13 +71,13 @@
 </template>
 
 <script>
-import BulkAdd from "@/components/Recipe/Parts/Helpers/BulkAdd";
 import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
 import { utils } from "@/utils";
+import RecipeDialogBulkAdd from "./RecipeDialogBulkAdd";
 export default {
   components: {
-    BulkAdd,
+    RecipeDialogBulkAdd,
     draggable,
     VueMarkdown,
   },
@@ -101,18 +101,18 @@ export default {
   watch: {
     value: {
       handler() {
-        this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
+        this.showTitleEditor = this.value.map((x) => this.validateTitle(x.title));
       },
     },
   },
   mounted() {
     this.checked = this.value.map(() => false);
-    this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
+    this.showTitleEditor = this.value.map((x) => this.validateTitle(x.title));
   },
   methods: {
     addIngredient(ingredients = null) {
       if (ingredients.length) {
-        const newIngredients = ingredients.map(x => {
+        const newIngredients = ingredients.map((x) => {
           return {
             title: null,
             note: x,

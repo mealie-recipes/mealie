@@ -49,8 +49,8 @@ export interface Nutrition {
 }
 export interface Recipe {
   id?: number;
-  name?: string;
-  slug?: string;
+  name: string;
+  slug: string;
   image?: unknown;
   description?: string;
   recipeCategory?: string[];

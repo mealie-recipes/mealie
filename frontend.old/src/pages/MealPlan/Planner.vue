@@ -38,9 +38,9 @@
               {{ $t("shopping-list.shopping-list") }}
             </v-btn>
             <v-spacer></v-spacer>
-            <TheCopyButton color="info" :copy-text="mealPlanURL(mealplan.uid)">
+            <AppCopyButton color="info" :copy-text="mealPlanURL(mealplan.uid)">
               {{ $t("general.link-copied") }}
-            </TheCopyButton>
+            </AppCopyButton>
           </v-card-actions>
 
           <v-list class="mt-0 pt-0">
@@ -90,12 +90,12 @@ import { api } from "@/api";
 import { utils } from "@/utils";
 import NewMeal from "@/components/MealPlan/MealPlanNew";
 import EditPlan from "@/components/MealPlan/MealPlanEditor";
-import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
+import AppCopyButton from "@/components/UI/Buttons/AppCopyButton";
 export default {
   components: {
     NewMeal,
     EditPlan,
-    TheCopyButton,
+    AppCopyButton,
   },
   data: () => ({
     plannedMeals: [],
@@ -120,7 +120,7 @@ export default {
     },
 
     editPlan(id) {
-      this.plannedMeals.forEach(element => {
+      this.plannedMeals.forEach((element) => {
         if (element.uid === id) {
           this.editMealPlan = element;
         }

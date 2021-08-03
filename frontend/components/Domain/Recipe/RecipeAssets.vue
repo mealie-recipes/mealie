@@ -26,7 +26,7 @@
               <v-btn color="error" icon top @click="deleteAsset(i)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <TheCopyButton :copy-text="copyLink(item.fileName)" />
+              <AppCopyButton :copy-text="copyLink(item.fileName)" />
             </div>
           </v-list-item-action>
         </v-list-item>
@@ -34,7 +34,7 @@
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
-      <BaseDialog :title="$t('asset.new-asset')" :title-icon="getIconDefinition(newAsset.icon).icon" @submit="addAsset">
+      <BaseDialog :title="$t('asset.new-asset')" :icon="getIconDefinition(newAsset.icon).icon" @submit="addAsset">
         <template #open="{ open }">
           <v-btn v-if="edit" color="secondary" dark @click="open">
             <v-icon>{{ $globals.icons.create }}</v-icon>
@@ -61,7 +61,7 @@
                 {{ item.title }}
               </template>
             </v-select>
-            <TheUploadBtn :post="false" file-name="file" :text-btn="false" @uploaded="setFileObject" />
+            <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="setFileObject" />
           </div>
           {{ fileObject.name }}
         </v-card-text>
@@ -71,25 +71,26 @@
 </template>
 
 <script>
-import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
-import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
-import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
-import { api } from "@/api";
+import { useApiSingleton } from "~/composables/use-api";
 export default {
-  components: {
-    BaseDialog,
-    TheUploadBtn,
-    TheCopyButton,
-  },
   props: {
-    slug: String,
+    slug: {
+      type: String,
+      required: true,
+    },
     value: {
       type: Array,
+      required: true,
     },
     edit: {
       type: Boolean,
       default: true,
     },
+  },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
   },
   data() {
     return {
@@ -105,38 +106,38 @@ export default {
       return window.location.origin;
     },
     iconOptions() {
-      return [ 
-        { 
+      return [
+        {
           name: "mdi-file",
           title: this.$i18n.t("asset.file"),
-          icon: this.$globals.icons.file 
+          icon: this.$globals.icons.file,
         },
-        { 
+        {
           name: "mdi-file-pdf-box",
           title: this.$i18n.t("asset.pdf"),
-          icon: this.$globals.icons.filePDF 
+          icon: this.$globals.icons.filePDF,
         },
-        { 
+        {
           name: "mdi-file-image",
           title: this.$i18n.t("asset.image"),
-          icon: this.$globals.icons.fileImage 
+          icon: this.$globals.icons.fileImage,
         },
-        { 
+        {
           name: "mdi-code-json",
           title: this.$i18n.t("asset.code"),
-          icon: this.$globals.icons.codeJson 
+          icon: this.$globals.icons.codeJson,
         },
-        { 
+        {
           name: "mdi-silverware-fork-knife",
           title: this.$i18n.t("asset.recipe"),
-          icon: this.$globals.icons.primary 
+          icon: this.$globals.icons.primary,
         },
       ];
     },
   },
   methods: {
     getIconDefinition(val) {
-      return this.iconOptions.find(({ name }) => name === val );
+      return this.iconOptions.find(({ name }) => name === val);
     },
     assetURL(assetName) {
       return api.recipes.recipeAssetPath(this.slug, assetName);

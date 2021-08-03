@@ -178,7 +178,7 @@
           </v-btn>
         </v-form>
       </v-card-text>
-      <v-btn v-if="allowSignup" class="mx-auto" text to="/user/sign-up"> Sign Up </v-btn>
+      <v-btn v-if="$config.ALLOW_SIGNUP" class="mx-auto" text to="/user/sign-up"> Sign Up </v-btn>
       <v-btn v-else class="mx-auto" text disabled> Invite Only </v-btn>
     </v-card>
     <!-- <v-col class="fill-height"> </v-col> -->

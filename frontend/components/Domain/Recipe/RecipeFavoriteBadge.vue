@@ -39,18 +39,18 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.getters.getUserData;
+      return this.$auth.user;
     },
     isFavorite() {
-      return this.user.favoriteRecipes.includes(this.slug);
+      return this.$auth.user.favoriteRecipes.includes(this.slug);
     },
   },
   methods: {
     async toggleFavorite() {
       if (!this.isFavorite) {
-        await api.users.addFavorite(this.user.id, this.slug);
+        await api.users.addFavorite(this.$auth.user.id, this.slug);
       } else {
-        await api.users.removeFavorite(this.user.id, this.slug);
+        await api.users.removeFavorite(this.$auth.user.id, this.slug);
       }
       this.$store.dispatch("requestUserData");
     },

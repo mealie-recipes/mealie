@@ -29,13 +29,13 @@
         </div>
       </template>
       <div class="d-flex row py-3 justify-end">
-        <TheUploadBtn url="/api/backups/upload" @uploaded="getAvailableBackups">
+        <AppButtonUpload url="/api/backups/upload" @uploaded="getAvailableBackups">
           <template v-slot="{ isSelecting, onButtonClick }">
             <v-btn :loading="isSelecting" class="mx-2" small color="info" @click="onButtonClick">
               <v-icon left> {{ $globals.icons.upload }} </v-icon> {{ $t("general.upload") }}
             </v-btn>
           </template>
-        </TheUploadBtn>
+        </AppButtonUpload>
         <BackupDialog :color="color" />
 
         <v-btn :loading="loading" class="mx-2" small color="success" @click="createBackup">
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
+import AppButtonUpload from "@/components/UI/Buttons/AppButtonUpload";
 import ImportSummaryDialog from "@/components/ImportSummaryDialog";
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
@@ -85,7 +85,7 @@ const IMPORT_EVENT = "import";
 const DELETE_EVENT = "delete";
 
 export default {
-  components: { StatCard, ImportDialog, TheUploadBtn, ImportSummaryDialog, BackupDialog, ConfirmationDialog },
+  components: { StatCard, ImportDialog, AppButtonUpload, ImportSummaryDialog, BackupDialog, ConfirmationDialog },
   data() {
     return {
       color: "accent",

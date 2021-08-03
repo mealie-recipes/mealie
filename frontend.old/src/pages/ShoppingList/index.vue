@@ -51,7 +51,7 @@
 
       <v-card v-else-if="activeList">
         <v-card-title class="headline">
-          <TheCopyButton v-if="!edit" :copy-text="listAsText" color="info" />
+          <AppCopyButton v-if="!edit" :copy-text="listAsText" color="info" />
           <v-text-field label="Name" single-line dense v-if="edit" v-model="activeList.name"> </v-text-field>
           <div v-else>
             {{ activeList.name }}
@@ -141,14 +141,14 @@
 <script>
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import SearchDialog from "@/components/UI/Dialogs/SearchDialog";
-import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
+import AppCopyButton from "@/components/UI/Buttons/AppCopyButton";
 import VueMarkdown from "@adapttive/vue-markdown";
 import { api } from "@/api";
 export default {
   components: {
     BaseDialog,
     SearchDialog,
-    TheCopyButton,
+    AppCopyButton,
     VueMarkdown,
   },
   data() {
@@ -176,7 +176,7 @@ export default {
       },
     },
     listAsText() {
-      const formatList = this.activeList.items.map(x => {
+      const formatList = this.activeList.items.map((x) => {
         return `${x.quantity} - ${x.text}`;
       });
 
@@ -206,7 +206,7 @@ export default {
 
       const recipe = response.data;
 
-      const ingredients = recipe.recipeIngredient.map(x => ({
+      const ingredients = recipe.recipeIngredient.map((x) => ({
         title: "",
         text: x.note,
         quantity: 1,
@@ -217,14 +217,14 @@ export default {
       this.consolidateList();
     },
     consolidateList() {
-      const allText = this.activeList.items.map(x => x.text);
+      const allText = this.activeList.items.map((x) => x.text);
 
       const uniqueText = allText.filter((item, index) => {
         return allText.indexOf(item) === index;
       });
 
-      const newItems = uniqueText.map(x => {
-        let matchingItems = this.activeList.items.filter(y => y.text === x);
+      const newItems = uniqueText.map((x) => {
+        let matchingItems = this.activeList.items.filter((y) => y.text === x);
         matchingItems[0].quantity = this.sumQuantiy(matchingItems);
         return matchingItems[0];
       });
@@ -233,7 +233,7 @@ export default {
     },
     sumQuantiy(itemList) {
       let quantity = 0;
-      itemList.forEach(element => {
+      itemList.forEach((element) => {
         quantity += element.quantity;
       });
       return quantity;
@@ -241,7 +241,7 @@ export default {
     setActiveList() {
       if (!this.list) return null;
       if (!this.group.shoppingLists) return null;
-      this.activeList = this.group.shoppingLists.find(x => x.id == this.list);
+      this.activeList = this.group.shoppingLists.find((x) => x.id == this.list);
     },
     async createNewList() {
       this.newList.group = this.group.name;

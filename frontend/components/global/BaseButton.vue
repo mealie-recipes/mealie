@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    :color="btnAttrs.color"
+    :color="color || btnAttrs.color"
     :small="small"
     :x-small="xSmall"
     :loading="loading"
@@ -73,6 +73,10 @@ export default {
       default: false,
     },
     to: {
+      type: String,
+      default: null,
+    },
+    color: {
       type: String,
       default: null,
     },

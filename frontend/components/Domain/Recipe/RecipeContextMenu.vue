@@ -1,13 +1,16 @@
 <template>
   <div class="text-center">
     <BaseDialog
-      ref="deleteRecipieConfirm"
+      ref="confirmDelete"
       :title="$t('recipe.delete-recipe')"
-      :message="$t('recipe.delete-confirmation')"
       color="error"
       :icon="$globals.icons.alertCircle"
       @confirm="deleteRecipe()"
-    />
+    >
+      <v-card-text>
+        {{ $t("recipe.delete-confirmation") }}
+      </v-card-text>
+    </BaseDialog>
     <v-menu
       offset-y
       left
@@ -38,9 +41,10 @@
 </template>
 
 <script>
-import { api } from "@/api";
 import { utils } from "@/utils";
-export default {
+import { defineComponent, ref } from "@nuxtjs/composition-api";
+import { useApiSingleton } from "~/composables/use-api";
+export default defineComponent({
   props: {
     menuTop: {
       type: Boolean,
@@ -60,17 +64,25 @@ export default {
     },
     slug: {
       type: String,
+      required: true,
     },
     menuIcon: {
+      type: String,
       default: null,
     },
     name: {
+      required: true,
       type: String,
     },
     cardMenu: {
       type: Boolean,
       default: true,
     },
+  },
+  setup() {
+    const api = useApiSingleton();
+    const confirmDelete = ref(null);
+    return { api, confirmDelete };
   },
   data() {
     return {
@@ -82,7 +94,7 @@ export default {
       return this.menuIcon ? this.menuIcon : this.$globals.icons.dotsVertical;
     },
     loggedIn() {
-      return this.$store.getters.getIsLoggedIn;
+      return this.$auth.loggedIn;
     },
     baseURL() {
       return window.location.origin;
@@ -145,12 +157,12 @@ export default {
     },
   },
   methods: {
-    async menuAction(action) {
+    menuAction(action) {
       this.loading = true;
 
       switch (action) {
         case "delete":
-          this.$refs.deleteRecipieConfirm.open();
+          this.confirmDelete.open();
           break;
         case "share":
           if (navigator.share) {
@@ -183,7 +195,8 @@ export default {
       this.loading = false;
     },
     async deleteRecipe() {
-      await api.recipes.delete(this.slug);
+      console.log("Delete Called");
+      await this.api.recipes.deleteOne(this.slug);
     },
     updateClipboard() {
       const copyText = this.recipeURL;
@@ -196,5 +209,5 @@ export default {
       );
     },
   },
-};
+});
 </script>

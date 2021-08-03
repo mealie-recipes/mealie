@@ -70,7 +70,7 @@
       <v-data-table :headers="headers" :items="links" sort-by="calories">
         <template v-slot:item.token="{ item }">
           {{ `${baseURL}/sign-up/${item.token}` }}
-          <TheCopyButton :copy-text="`${baseURL}/sign-up/${item.token}`" />
+          <AppCopyButton :copy-text="`${baseURL}/sign-up/${item.token}`" />
         </template>
         <template v-slot:item.admin="{ item }">
           <v-btn small :color="item.admin ? 'success' : 'error'" text>
@@ -94,12 +94,12 @@
 </template>
 
 <script>
-import TheCopyButton from "@/components/UI/Buttons/TheCopyButton";
+import AppCopyButton from "@/components/UI/Buttons/AppCopyButton";
 import ConfirmationDialog from "@/components/UI/Dialogs/ConfirmationDialog";
 import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 export default {
-  components: { ConfirmationDialog, TheCopyButton },
+  components: { ConfirmationDialog, AppCopyButton },
   mixins: [validators],
   data() {
     return {

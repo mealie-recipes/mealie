@@ -14,7 +14,7 @@
           <div>
             {{ $t("recipe.recipe-image") }}
           </div>
-          <TheUploadBtn
+          <AppButtonUpload
             class="ml-auto"
             url="none"
             file-name="image"
@@ -40,14 +40,10 @@
 </template>
 
 <script>
-import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
 import { api } from "@/api";
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 export default {
-  components: {
-    TheUploadBtn,
-  },
   props: {
     slug: String,
   },

@@ -15,7 +15,9 @@
       :icon="$globals.icons.alertCircle"
       @confirm="emitDelete()"
     >
-      {{ $t("recipe.delete-confirmation") }}
+      <v-card-text>
+        {{ $t("recipe.delete-confirmation") }}
+      </v-card-text>
     </BaseDialog>
 
     <v-spacer></v-spacer>

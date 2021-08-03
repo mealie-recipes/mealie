@@ -32,7 +32,7 @@
             <v-spacer></v-spacer>
 
             <BaseButton v-if="$listeners.delete" delete secondary @click="deleteEvent" />
-            <BaseButton v-if="$listeners.confirm" :color="color" type="submit" @click="submitEvent">
+            <BaseButton v-if="$listeners.confirm" :color="color" type="submit" @click="$emit('confirm')">
               {{ $t("general.confirm") }}
             </BaseButton>
             <BaseButton v-else-if="$listeners.submit" type="submit" @click="submitEvent">

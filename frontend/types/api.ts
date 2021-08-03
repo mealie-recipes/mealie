@@ -7,10 +7,10 @@ interface RequestResponse<T> {
   }
 
 export interface ApiRequestInstance {
-    get<T>(url: string, data?: object): Promise<RequestResponse<T>>;
-    post<T>(url: string, data: object): Promise<RequestResponse<T>>;
-    put<T>(url: string, data: object): Promise<RequestResponse<T>>;
-    patch<T>(url: string, data: object): Promise<RequestResponse<T>>;
-    delete<T>(url: string, data: object): Promise<RequestResponse<T>>;
+    get<T>(url: string, data?: T | object): Promise<RequestResponse<T>>;
+    post<T>(url: string, data: T | object): Promise<RequestResponse<T>>;
+    put<T>(url: string, data: T | object): Promise<RequestResponse<T>>;
+    patch<T>(url: string, data: T | object): Promise<RequestResponse<T>>;
+    delete<T>(url: string, data?: T | object): Promise<RequestResponse<T>>;
 }
 

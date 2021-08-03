@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { useApi } from "~/composables/use-api";
+import { useApiSingleton } from "~/composables/use-api";
 export default {
   props: {
     tiny: {
@@ -51,7 +51,7 @@ export default {
     },
   },
   setup() {
-    const api = useApi();
+    const api = useApiSingleton();
 
     return { api };
   },

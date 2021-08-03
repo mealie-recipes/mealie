@@ -5,7 +5,7 @@
       {{ title }}
       <v-spacer></v-spacer>
       <span>
-        <TheUploadBtn
+        <AppButtonUpload
           class="mt-1"
           :url="`/api/migrations/${folder}/upload`"
           fileName="archive"
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
+import AppButtonUpload from "@/components/UI/Buttons/AppButtonUpload";
 import { api } from "@/api";
 import MigrationDialog from "./MigrationDialog";
 export default {
@@ -66,7 +66,7 @@ export default {
     available: Array,
   },
   components: {
-    TheUploadBtn,
+    AppButtonUpload,
     MigrationDialog,
   },
   data() {

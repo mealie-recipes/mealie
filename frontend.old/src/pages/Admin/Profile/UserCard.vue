@@ -90,7 +90,7 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions class="pb-1 pt-3">
-        <TheUploadBtn
+        <AppButtonUpload
           :icon="$globals.icons.fileImage"
           :text="$t('user.upload-photo')"
           :url="userProfileImage"
@@ -106,14 +106,14 @@
 <script>
 import BaseDialog from "@/components/UI/Dialogs/BaseDialog";
 import StatCard from "@/components/UI/StatCard";
-import TheUploadBtn from "@/components/UI/Buttons/TheUploadBtn";
+import AppButtonUpload from "@/components/UI/Buttons/AppButtonUpload";
 import { api } from "@/api";
 import { validators } from "@/mixins/validators";
 import { initials } from "@/mixins/initials";
 export default {
   components: {
     BaseDialog,
-    TheUploadBtn,
+    AppButtonUpload,
     StatCard,
   },
   mixins: [validators, initials],
