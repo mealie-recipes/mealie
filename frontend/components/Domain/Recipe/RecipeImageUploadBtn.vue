@@ -40,12 +40,21 @@
 </template>
 
 <script>
-import { api } from "@/api";
+import { defineComponent } from "@nuxtjs/composition-api";
+import { useApiSingleton } from "~/composables/use-api";
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
-export default {
+export default defineComponent({
   props: {
-    slug: String,
+    slug: {
+      type: String,
+      required: true,
+    },
+  },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
   },
   data: () => ({
     url: "",
@@ -57,7 +66,7 @@ export default {
     },
     async getImageFromURL() {
       this.loading = true;
-      if (await api.recipes.updateImagebyURL(this.slug, this.url)) {
+      if (await this.api.recipes.updateImagebyURL(this.slug, this.url)) {
         this.$emit(REFRESH_EVENT);
       }
       this.loading = false;
@@ -66,7 +75,7 @@ export default {
       return this.slug ? [""] : [this.$i18n.t("recipe.save-recipe-before-use")];
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped></style>

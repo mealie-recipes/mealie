@@ -22,7 +22,9 @@
 
 <script>
 import { api } from "@/api";
-export default {
+import { defineComponent } from "@nuxtjs/composition-api";
+import { useApiSingleton } from "~/composables/use-api";
+export default defineComponent({
   props: {
     slug: {
       type: String,
@@ -37,6 +39,11 @@ export default {
       default: false,
     },
   },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
+  },
   computed: {
     user() {
       return this.$auth.user;
@@ -48,14 +55,14 @@ export default {
   methods: {
     async toggleFavorite() {
       if (!this.isFavorite) {
-        await api.users.addFavorite(this.$auth.user.id, this.slug);
+        await this.api.users.addFavorite(this.$auth.user.id, this.slug);
       } else {
-        await api.users.removeFavorite(this.$auth.user.id, this.slug);
+        await this.api.users.removeFavorite(this.$auth.user.id, this.slug);
       }
-      this.$store.dispatch("requestUserData");
+      this.$auth.fetchUser();
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,6 @@
-import { BaseAPIClass } from "./_base";
+import { BaseAPIClass, crudMixins } from "./_base";
 import { Recipe } from "~/types/api-types/admin";
+import { ApiRequestInstance } from "~/types/api";
 
 const prefix = "/api";
 
@@ -10,7 +11,6 @@ const routes = {
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
   recipesCreateUrl: `${prefix}/recipes/create-url`,
   recipesCreateFromZip: `${prefix}/recipes/create-from-zip`,
-
   recipesCategory: `${prefix}/recipes/category`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
@@ -19,20 +19,45 @@ const routes = {
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
 };
 
-class RecipeAPI extends BaseAPIClass<Recipe> {
+export class RecipeAPI extends BaseAPIClass<Recipe> {
   baseRoute: string = routes.recipesSummary;
-  itemRoute = (itemid: string) => routes.recipesRecipeSlug(itemid);
+  itemRoute = routes.recipesRecipeSlug;
 
+  constructor(requests: ApiRequestInstance) {
+    super(requests);
+    const { getAll, getOne, updateOne, patchOne, deleteOne } = crudMixins<Recipe>(
+      requests,
+      routes.recipesSummary,
+      routes.recipesRecipeSlug
+    );
+
+    this.getAll = getAll;
+    this.getOne = getOne;
+    this.updateOne = updateOne;
+    this.patchOne = patchOne;
+    this.deleteOne = deleteOne;
+  }
 
   async getAllByCategory(categories: string[]) {
     return await this.requests.get<Recipe[]>(routes.recipesCategory, {
-      categories
+      categories,
     });
   }
 
-  // @ts-ignore - Override method doesn't take same arguments are parent class
+  updateImage(slug: string, fileObject: File) {
+    const formData = new FormData();
+    formData.append("image", fileObject);
+    formData.append("extension", fileObject.name.split(".").pop());
+
+    return this.requests.put<any>(routes.recipesRecipeSlugImage(slug), formData);
+  }
+
+  updateImagebyURL(slug: string, url: string) {
+    return this.requests.post(routes.recipesRecipeSlugImage(slug), { url });
+  }
+
   async createOne(name: string) {
-    return await this.requests.post(routes.recipesBase, { name });
+    return await this.requests.post<Recipe>(routes.recipesBase, { name });
   }
 
   async createOneByUrl(url: string) {
@@ -56,5 +81,3 @@ class RecipeAPI extends BaseAPIClass<Recipe> {
     return `/api/media/recipes/${recipeSlug}/assets/${assetName}`;
   }
 }
-
-export { RecipeAPI };

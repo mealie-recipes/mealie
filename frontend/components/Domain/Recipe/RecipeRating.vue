@@ -17,8 +17,9 @@
 </template>
 
 <script>
-import { api } from "@/api";
-export default {
+import { defineComponent } from "@nuxtjs/composition-api";
+import { useApiSingleton } from "~/composables/use-api";
+export default defineComponent({
   props: {
     emitOnly: {
       type: Boolean,
@@ -41,6 +42,11 @@ export default {
       default: false,
     },
   },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
+  },
   data() {
     return {
       rating: 0,
@@ -60,14 +66,14 @@ export default {
         this.$emit("input", val);
         return;
       }
-      api.recipes.patch({
+      this.api.recipes.patchOne(this.slug, {
         name: this.name,
         slug: this.slug,
         rating: val,
       });
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped></style>

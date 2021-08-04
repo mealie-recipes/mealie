@@ -4,20 +4,49 @@
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
     <v-card v-else-if="recipe">
-      <v-img
-        :key="imageKey"
-        :height="hideImage ? '50' : imageHeight"
-        :src="api.recipes.recipeImage(recipe.slug)"
-        class="d-print-none"
-        @error="hideImage = true"
-      >
-        <RecipeTimeCard
-          :class="true ? undefined : 'force-bottom'"
-          :prep-time="recipe.prepTime"
-          :total-time="recipe.totalTime"
-          :perform-time="recipe.performTime"
-        />
-      </v-img>
+      <div class="d-flex justify-end flex-wrap align-stretch">
+        <v-card
+          v-if="!recipe.settings.landscapeView"
+          width="50%"
+          flat
+          class="d-flex flex-column justify-center align-center"
+        >
+          <v-card-text>
+            <v-card-title class="headline pa-0 flex-column align-center">
+              {{ recipe.name }}
+              <RecipeRating :key="recipe.slug" :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
+            </v-card-title>
+            <v-divider class="my-2"></v-divider>
+            <VueMarkdown :source="recipe.description"> </VueMarkdown>
+            <v-divider></v-divider>
+            <div class="d-flex justify-center mt-5">
+              <RecipeTimeCard
+                :class="true ? undefined : 'force-bottom'"
+                :prep-time="recipe.prepTime"
+                :total-time="recipe.totalTime"
+                :perform-time="recipe.performTime"
+              />
+            </div>
+          </v-card-text>
+        </v-card>
+        <v-img
+          :key="imageKey"
+          :max-width="recipe.settings.landscapeView ? null : '50%'"
+          :height="hideImage ? '50' : imageHeight"
+          :src="api.recipes.recipeImage(recipe.slug, imageKey)"
+          class="d-print-none"
+          @error="hideImage = true"
+        >
+          <RecipeTimeCard
+            v-if="recipe.settings.landscapeView"
+            :class="true ? undefined : 'force-bottom'"
+            :prep-time="recipe.prepTime"
+            :total-time="recipe.totalTime"
+            :perform-time="recipe.performTime"
+          />
+        </v-img>
+      </div>
+      <v-divider></v-divider>
       <RecipeActionMenu
         v-model="form"
         :slug="recipe.slug"
@@ -38,18 +67,18 @@
       <div>
         <v-card-text>
           <div v-if="form" class="d-flex justify-start align-center">
-            <RecipeImageUploadBtn class="my-1" :slug="recipe.slug" @upload="uploadImage" @refresh="$emit('upload')" />
-            <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" @upload="null" />
+            <RecipeImageUploadBtn class="my-1" :slug="recipe.slug" @upload="uploadImage" @refresh="imageKey++" />
+            <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" @upload="uploadImage" />
           </div>
           <!-- Recipe Title Section -->
-          <template v-if="!form">
+          <template v-if="!form && recipe.settings.landscapeView">
             <v-card-title class="pa-0 ma-0 headline">
               {{ recipe.name }}
             </v-card-title>
             <VueMarkdown :source="recipe.description"> </VueMarkdown>
           </template>
 
-          <template v-else>
+          <template v-else-if="form">
             <v-text-field
               v-model="recipe.name"
               class="my-3"
@@ -68,7 +97,7 @@
             </v-textarea>
           </template>
 
-          <div class="d-flex justify-space-between align-center">
+          <div class="d-flex justify-space-between align-center pb-3">
             <v-btn
               v-if="recipe.recipeYield"
               dense
@@ -82,7 +111,13 @@
             >
               {{ recipe.recipeYield }}
             </v-btn>
-            <RecipeRating :key="recipe.slug" :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
+            <RecipeRating
+              v-if="recipe.settings.landscapeView"
+              :key="recipe.slug"
+              :value="recipe.rating"
+              :name="recipe.name"
+              :slug="recipe.slug"
+            />
           </div>
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4">
@@ -169,6 +204,7 @@ export default defineComponent({
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useApiSingleton();
+    const imageKey = ref(1);
 
     const { getBySlug, loading } = useRecipeContext();
 
@@ -191,20 +227,31 @@ export default defineComponent({
       }
     }
 
+    async function uploadImage(fileObject: File) {
+      if (!recipe.value) {
+        return;
+      }
+      const newVersion = await api.recipes.updateImage(recipe.value.slug, fileObject);
+      if (newVersion?.data?.version) {
+        recipe.value.image = newVersion.data.version;
+      }
+      imageKey.value++;
+    }
+
     return {
+      imageKey,
       recipe,
       api,
       form,
       loading,
       deleteRecipe,
       updateRecipe,
-
+      uploadImage,
       validators,
     };
   },
   data() {
     return {
-      imageKey: 1,
       hideImage: false,
       loadFailed: false,
       skeleton: false,
@@ -226,38 +273,6 @@ export default defineComponent({
     printPage() {
       window.print();
     },
-    // validateRecipe() {
-    //   if (this.jsonEditor) {
-    //     return true;
-    //   } else {
-    //     return this.$refs.recipeEditor.validateRecipe();
-    //   }
-    // },
-    // async saveImage(overrideSuccessMsg = false) {
-    //   if (this.fileObject) {
-    //     const newVersion = await api.recipes.updateImage(this.recipeDetails.slug, this.fileObject, overrideSuccessMsg);
-    //     if (newVersion) {
-    //       this.recipeDetails.image = newVersion.data.version;
-    //       this.imageKey += 1;
-    //     }
-    //   }
-    // },
-    // async saveRecipe() {
-    //   if (this.validateRecipe()) {
-    //     const slug = await this.api.recipes.updateOne(this.recipeDetails);
-    //     if (!slug) return;
-
-    //     if (this.fileObject) {
-    //       this.saveImage(true);
-    //     }
-
-    //     this.form = false;
-    //     if (slug !== this.recipe.slug) {
-    //       this.$router.push(`/recipe/${slug}`);
-    //     }
-    //     window.URL.revokeObjectURL(this.api.recipes.(this.recipe.slug));
-    //   }
-    // },
   },
 });
 </script>

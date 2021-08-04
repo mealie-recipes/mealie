@@ -1,6 +1,10 @@
 <template>
   <v-container>
-    <RecipeCardSection :recipes="recipes"></RecipeCardSection>
+    <RecipeCardSection
+      :icon="$globals.icons.primary"
+      :title="$t('general.recent')"
+      :recipes="recipes"
+    ></RecipeCardSection>
   </v-container>
 </template>
   

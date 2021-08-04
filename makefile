@@ -63,7 +63,7 @@ coverage: ## ☂️  Check code coverage quickly with the default Python
 setup: ## 🏗  Setup Development Instance
 	poetry install && \
 	cd frontend && \
-	npm install && \
+	yarn install && \
 	cd ..
 
 backend: ## 🎬 Start Mealie Backend Development Server
@@ -74,10 +74,10 @@ backend: ## 🎬 Start Mealie Backend Development Server
 
 .PHONY: frontend
 frontend: ## 🎬 Start Mealie Frontend Development Server
-	cd frontend && npm run serve
+	cd frontend && yarn run dev
 
 frontend-build: ## 🏗  Build Frontend in frontend/dist
-	cd frontend && npm run build
+	cd frontend && yarn run build
 
 .PHONY: docs
 docs: ## 📄 Start Mkdocs Development Server

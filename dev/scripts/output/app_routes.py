@@ -30,6 +30,7 @@ class AppRoutes:
         self.meal_plans_today = "/api/meal-plans/today"
         self.meal_plans_today_image = "/api/meal-plans/today/image"
         self.migrations = "/api/migrations"
+        self.recipes = "/api/recipes"
         self.recipes_category = "/api/recipes/category"
         self.recipes_create = "/api/recipes/create"
         self.recipes_create_from_zip = "/api/recipes/create-from-zip"
