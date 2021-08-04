@@ -1,7 +1,7 @@
 [build]
 publish = "docs/site/"
 command = """
-pip3 install -q poetry &&
+pip install -q poetry &&
 poetry config settings.virtualenvs.in-project true &&
 poetry install &&
 poetry run mkdocs build
