@@ -16,7 +16,7 @@
   "cSpell.words": ["compression", "hkotel", "performant", "postgres", "webp"],
   "search.mode": "reuseEditor",
   "python.linting.flake8Enabled": true,
-  "conventionalCommits.scopes": ["frontend"],
+  "conventionalCommits.scopes": ["frontend", "docs"],
   "editor.formatOnSave": true,
   "eslint.workingDirectories": ["./frontend"],
   "editor.codeActionsOnSave": {
