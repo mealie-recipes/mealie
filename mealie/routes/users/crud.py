@@ -19,10 +19,7 @@ user_router = UserAPIRouter(prefix="/api/users", tags=["Users"])
 admin_router = AdminAPIRouter(prefix="/api/users", tags=["Users"])
 
 
-async def assert_user_change_allowed(
-    id: int,
-    current_user: UserInDB = Depends(get_current_user),
-):
+def assert_user_change_allowed(id: int, current_user: UserInDB):
     if current_user.id != id and not current_user.admin:
         # only admins can edit other users
         raise HTTPException(status.HTTP_403_FORBIDDEN, detail="NOT_AN_ADMIN")
@@ -81,7 +78,7 @@ async def update_user(
     session: Session = Depends(generate_session),
 ):
 
-    assert_user_change_allowed(id)
+    assert_user_change_allowed(id, current_user)
 
     if not current_user.admin and (new_data.admin or current_user.group != new_data.group):
         # prevent a regular user from doing admin tasks on themself
@@ -109,13 +106,14 @@ async def get_user_image(id: str):
 
 
 @user_router.post("/{id}/image")
-async def update_user_image(
+def update_user_image(
     id: str,
     profile_image: UploadFile = File(...),
+    current_user: UserInDB = Depends(get_current_user),
 ):
     """ Updates a User Image """
 
-    assert_user_change_allowed(id)
+    assert_user_change_allowed(id, current_user)
 
     extension = profile_image.filename.split(".")[-1]
 
@@ -133,7 +131,7 @@ async def update_user_image(
 
 
 @user_router.put("/{id}/password")
-async def update_password(
+def update_password(
     id: int,
     password_change: ChangePassword,
     current_user: UserInDB = Depends(get_current_user),
@@ -141,7 +139,7 @@ async def update_password(
 ):
     """ Resets the User Password"""
 
-    assert_user_change_allowed(id)
+    assert_user_change_allowed(id, current_user)
     match_passwords = verify_password(password_change.current_password, current_user.password)
 
     if not (match_passwords):
@@ -159,28 +157,28 @@ async def get_favorites(id: str, session: Session = Depends(generate_session)):
 
 
 @user_router.post("/{id}/favorites/{slug}")
-async def add_favorite(
+def add_favorite(
     slug: str,
     current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Adds a Recipe to the users favorites """
 
-    assert_user_change_allowed(id)
+    assert_user_change_allowed(id, current_user)
     current_user.favorite_recipes.append(slug)
 
     db.users.update(session, current_user.id, current_user)
 
 
 @user_router.delete("/{id}/favorites/{slug}")
-async def remove_favorite(
+def remove_favorite(
     slug: str,
     current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Adds a Recipe to the users favorites """
 
-    assert_user_change_allowed(id)
+    assert_user_change_allowed(id, current_user)
     current_user.favorite_recipes = [x for x in current_user.favorite_recipes if x != slug]
 
     db.users.update(session, current_user.id, current_user)
@@ -189,14 +187,15 @@ async def remove_favorite(
 
 
 @admin_router.delete("/{id}")
-async def delete_user(
+def delete_user(
     background_tasks: BackgroundTasks,
     id: int,
     session: Session = Depends(generate_session),
+    current_user: UserInDB = Depends(get_current_user),
 ):
     """ Removes a user from the database. Must be the current user or a super user"""
 
-    assert_user_change_allowed(id)
+    assert_user_change_allowed(id, current_user)
 
     if id == 1:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
