@@ -57,7 +57,7 @@
     </v-app-bar>
     <div v-if="recipes" class="mt-2">
       <v-row v-if="!viewScale">
-        <v-col v-for="recipe in recipes.slice(0, cardLimit)" :key="recipe.name" :sm="6" :md="6" :lg="4" :xl="3">
+        <v-col v-for="recipe in recipes" :key="recipe.name" :sm="6" :md="6" :lg="4" :xl="3">
           <v-lazy>
             <RecipeCard
               :name="recipe.name"

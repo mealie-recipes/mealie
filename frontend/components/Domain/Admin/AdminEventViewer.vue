@@ -1,3 +1,5 @@
+// TODO: Fix date/time Localization
+
 <template>
   <div>
     <!-- <BaseDialog
@@ -21,7 +23,7 @@
         </div>
       </template>
       <div class="d-flex row py-3 justify-end">
-        <v-btn class="mx-2" small color="error lighten-1" @click="deleteAll">
+        <v-btn class="mx-2" small color="error lighten-1" @click="$emit('delete-all')">
           <v-icon left> {{ $globals.icons.notificationClearAll }} </v-icon> {{ $t("general.clear") }}
         </v-btn>
       </div>
@@ -45,7 +47,7 @@
               </v-list-item-content>
 
               <v-list-item-action class="ml-auto">
-                <v-btn large icon @click="openDialog(item)">
+                <v-btn large icon @click="$emit('delete-item', item.id)">
                   <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </v-list-item-action>
@@ -62,15 +64,20 @@ import { defineComponent } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   layout: "admin",
-  setup() {
-    return {};
+  props: {
+    events: {
+      type: Array,
+      required: true,
+    },
+    total: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
       color: "accent",
-      total: 0,
       selectedId: "",
-      events: [],
       icons: {
         general: {
           icon: this.$globals.icons.information,

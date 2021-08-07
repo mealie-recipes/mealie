@@ -1,6 +1,8 @@
+// TODO: Possibly add confirmation dialog? I'm not sure that it's really requried for events...
+
 <template>
   <v-container class="mt-10">
-    <v-row>
+    <v-row v-if="statistics">
       <v-col cols="12" sm="12" md="4">
         <BaseStatCard :icon="$globals.icons.primary">
           <template #after-heading>
@@ -76,10 +78,16 @@
     </v-row>
     <v-row class="mt-10" align-content="stretch">
       <v-col cols="12" sm="12" lg="6">
-        <AdminEventViewer />
+        <AdminEventViewer
+          v-if="events"
+          :events="events.events"
+          :total="events.total"
+          @delete-all="deleteEvents"
+          @delete-item="deleteEvent"
+        />
       </v-col>
       <v-col cols="12" sm="12" lg="6">
-        <AdminBackupViewer />
+        <AdminBackupViewer v-if="backups" :available-backups="backups.imports" :templates="backups.templates" />
       </v-col>
     </v-row>
   </v-container>
@@ -87,26 +95,62 @@
 
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, useAsync } from "@nuxtjs/composition-api";
 import AdminEventViewer from "@/components/Domain/Admin/AdminEventViewer.vue";
 import AdminBackupViewer from "@/components/Domain/Admin/AdminBackupViewer.vue";
+import { useApiSingleton } from "~/composables/use-api";
+import { useBackups } from "~/composables/use-backups";
+import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
   components: { AdminEventViewer, AdminBackupViewer },
   layout: "admin",
   setup() {
-    return {};
-  },
-  data() {
-    return {
-      statistics: {
-        totalGroups: 0,
-        totalRecipes: 0,
-        totalUsers: 0,
-        uncategorizedRecipes: 0,
-        untaggedRecipes: 0,
-      },
-    };
+    const api = useApiSingleton();
+
+    function getStatistics() {
+      const statistics = useAsync(async () => {
+        const { data } = await api.debug.getAppStatistics();
+        return data;
+      }, useAsyncKey());
+
+      return statistics;
+    }
+
+    function getEvents() {
+      const events = useAsync(async () => {
+        const { data } = await api.events.getEvents();
+        return data;
+      });
+      return events;
+    }
+
+    async function refreshEvents() {
+      const { data } = await api.events.getEvents();
+      events.value = data;
+    }
+
+    async function deleteEvent(id: number) {
+      const { response } = await api.events.deleteEvent(id);
+
+      if (response && response.status === 200) {
+        refreshEvents();
+      }
+    }
+
+    async function deleteEvents() {
+      const { response } = await api.events.deleteEvents();
+
+      if (response && response.status === 200) {
+        events.value = { events: [], total: 0 };
+      }
+    }
+
+    const { backups } = useBackups();
+    const events = getEvents();
+    const statistics = getStatistics();
+
+    return { statistics, events, deleteEvents, deleteEvent, backups };
   },
 });
 </script>

@@ -1,4 +1,4 @@
-import { BaseAPIClass } from "./_base";
+import { BaseCRUDAPI } from "./_base";
 import { Recipe } from "~/types/api-types/admin";
 import { CreateRecipe } from "~/types/api-types/recipe";
 
@@ -18,7 +18,7 @@ const routes = {
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
 };
 
-export class RecipeAPI extends BaseAPIClass<Recipe, CreateRecipe> {
+export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
@@ -31,6 +31,7 @@ export class RecipeAPI extends BaseAPIClass<Recipe, CreateRecipe> {
   updateImage(slug: string, fileObject: File) {
     const formData = new FormData();
     formData.append("image", fileObject);
+    // @ts-ignore
     formData.append("extension", fileObject.name.split(".").pop());
 
     return this.requests.put<any>(routes.recipesRecipeSlugImage(slug), formData);

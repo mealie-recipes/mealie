@@ -32,7 +32,15 @@
             <v-spacer></v-spacer>
 
             <BaseButton v-if="$listeners.delete" delete secondary @click="deleteEvent" />
-            <BaseButton v-if="$listeners.confirm" :color="color" type="submit" @click="$emit('confirm')">
+            <BaseButton
+              v-if="$listeners.confirm"
+              :color="color"
+              type="submit"
+              @click="
+                $emit('confirm');
+                dialog = false;
+              "
+            >
               <template #icon>
                 {{ $globals.icons.check }}
               </template>
@@ -97,10 +105,10 @@ export default defineComponent({
     };
   },
   computed: {
-    determineClose() {
+    determineClose(): Boolean {
       return this.submitted && !this.loading && !this.keepOpen;
     },
-    displayicon() {
+    displayicon(): Boolean {
       return this.icon || this.$globals.icons.user;
     },
   },

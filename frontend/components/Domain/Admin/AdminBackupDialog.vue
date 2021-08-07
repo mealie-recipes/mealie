@@ -25,7 +25,7 @@
             <v-row>
               <v-col sm="4">
                 <p>{{ $t("general.options") }}</p>
-                <AdminBackupImportOptions class="mt-5" @update-options="updateOptions" />
+                <AdminBackupImportOptions v-model="updateOptions" class="mt-5" />
               </v-col>
               <v-col>
                 <p>{{ $t("general.templates") }}</p>
@@ -47,11 +47,9 @@
 </template>
 
 <script>
-import { api } from "@/api";
 import AdminBackupImportOptions from "./AdminBackupImportOptions";
 export default {
   components: {
-    BaseDialog,
     AdminBackupImportOptions,
   },
   props: {

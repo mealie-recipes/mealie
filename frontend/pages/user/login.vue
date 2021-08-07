@@ -216,11 +216,8 @@ export default defineComponent({
       formData.append("username", this.form.email);
       formData.append("password", this.form.password);
 
-      const response = await this.$auth.loginWith("local", { data: formData });
-      console.log(response);
+      await this.$auth.loginWith("local", { data: formData });
       this.loggingIn = false;
-
-      console.log(this.$auth.user);
     },
   },
 });

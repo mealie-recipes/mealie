@@ -9,21 +9,25 @@
 </template>
   
   <script lang="ts">
-import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import { defineComponent, useAsync } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useApiSingleton } from "~/composables/use-api";
-import { Recipe } from "~/types/api-types/admin";
 
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
     const api = useApiSingleton();
 
-    const recipes = ref<Recipe[] | null>([]);
-    onMounted(async () => {
+    const recipes = useAsync(async () => {
       const { data } = await api.recipes.getAll();
-      recipes.value = data;
+      return data;
     });
+
+    // const recipes = ref<Recipe[] | null>([]);
+    // onMounted(async () => {
+    //   const { data } = await api.recipes.getAll();
+    //   recipes.value = data;
+    // });
 
     return { api, recipes };
   },

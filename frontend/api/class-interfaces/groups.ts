@@ -1,5 +1,5 @@
 import { requests } from "../requests";
-import { BaseAPIClass } from "./_base";
+import { BaseCRUDAPI } from "./_base";
 import { GroupInDB } from "~/types/api-types/user";
 
 const prefix = "/api";
@@ -15,7 +15,7 @@ export interface CreateGroup {
   name: string;
 }
 
-export class GroupAPI extends BaseAPIClass<GroupInDB, CreateGroup> {
+export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
   baseRoute = routes.groups;
   itemRoute = routes.groupsId;
   /** Returns the Group Data for the Current User

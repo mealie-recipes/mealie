@@ -9,12 +9,28 @@
       :label="option.text"
       @change="emitValue()"
     ></v-checkbox>
+    <template v-if="importBackup">
+      <v-divider class="my-3"></v-divider>
+      <v-checkbox
+        v-model="forceImport"
+        class="mb-n4"
+        dense
+        :label="$t('settings.remove-existing-entries-matching-imported-entries')"
+        @change="emitValue()"
+      ></v-checkbox>
+    </template>
   </div>
 </template>
 
 <script>
-const UPDATE_EVENT = "update-options";
+const UPDATE_EVENT = "input";
 export default {
+  props: {
+    importBackup: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       options: {
@@ -47,6 +63,7 @@ export default {
           text: this.$t("events.notification"),
         },
       },
+      forceImport: false,
     };
   },
   mounted() {
@@ -62,6 +79,7 @@ export default {
         users: this.options.users.value,
         groups: this.options.groups.value,
         notifications: this.options.notifications.value,
+        forceImport: this.forceImport,
       });
     },
   },

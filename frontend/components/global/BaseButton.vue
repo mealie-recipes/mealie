@@ -86,32 +86,32 @@ export default {
       buttonOptions: {
         create: {
           text: "Create",
-          icon: "mdi-plus",
+          icon: this.$globals.icons.createAlt,
           color: "success",
         },
         update: {
           text: "Update",
-          icon: "mdi-edit",
+          icon: this.$globals.icons.edit,
           color: "success",
         },
         save: {
           text: "Save",
-          icon: "mdi-save",
+          icon: this.$globals.icons.save,
           color: "success",
         },
         edit: {
           text: "Edit",
-          icon: "mdi-square-edit-outline",
+          icon: this.$globals.icons.edit,
           color: "info",
         },
         delete: {
           text: "Delete",
-          icon: "mdi-delete",
+          icon: this.$globals.icons.delete,
           color: "error",
         },
         cancel: {
           text: "Cancel",
-          icon: "mdi-close",
+          icon: this.$globals.icons.cancel,
           color: "grey",
         },
       },

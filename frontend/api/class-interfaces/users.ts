@@ -1,4 +1,4 @@
-import { BaseAPIClass } from "./_base";
+import { BaseCRUDAPI } from "./_base";
 import { UserIn, UserOut } from "~/types/api-types/user";
 
 // Interfaces
@@ -31,7 +31,7 @@ const routes = {
   usersApiTokensTokenId: (token_id: string) => `${prefix}/users/api-tokens/${token_id}`,
 };
 
-export class UserApi extends BaseAPIClass<UserOut, UserIn> {
+export class UserApi extends BaseCRUDAPI<UserOut, UserIn> {
   baseRoute: string = routes.users;
   itemRoute = (itemid: string) => routes.usersId(itemid);
 

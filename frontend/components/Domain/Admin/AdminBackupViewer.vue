@@ -1,22 +1,34 @@
 
 <template>
   <div>
-    <ImportSummaryDialog ref="report" />
-    <AdminBackupImportDialog
-      ref="import_dialog"
-      :name="selectedName"
-      :date="selectedDate"
-      @import="importBackup"
-      @delete="deleteBackup"
-    />
     <BaseDialog
-      ref="deleteBackupConfirm"
+      ref="refImportDialog"
+      :title="selectedBackup.name"
+      :icon="$globals.icons.database"
+      :submit-text="$t('general.import')"
+      :loading="loading"
+      @submit="restoreBackup"
+    >
+      <v-card-subtitle v-if="selectedBackup.date" class="mb-n3 mt-3">
+        {{ $d(new Date(selectedBackup.date), "medium") }}
+      </v-card-subtitle>
+      <v-divider></v-divider>
+      <v-card-text>
+        <AdminBackupImportOptions v-model="importOptions" import-backup class="mt-5 mb-2" />
+      </v-card-text>
+    </BaseDialog>
+
+    <BaseDialog
+      ref="refDeleteConfirmation"
       :title="$t('settings.backup.delete-backup')"
-      :message="$t('general.confirm-delete-generic')"
       color="error"
       :icon="$globals.icons.alertCircle"
-      @confirm="emitDelete()"
-    />
+      @confirm="deleteBackup(selectedBackup.name)"
+    >
+      <v-card-text>
+        {{ $t("general.confirm-delete-generic") }}
+      </v-card-text>
+    </BaseDialog>
     <BaseStatCard :icon="$globals.icons.backupRestore" :color="color">
       <template #after-heading>
         <div class="ml-auto text-right">
@@ -30,7 +42,7 @@
         </div>
       </template>
       <div class="d-flex row py-3 justify-end">
-        <AppButtonUpload url="/api/backups/upload" @uploaded="getAvailableBackups">
+        <AppButtonUpload url="/api/backups/upload" @uploaded="refreshBackups">
           <template #default="{ isSelecting, onButtonClick }">
             <v-btn :loading="isSelecting" class="mx-2" small color="info" @click="onButtonClick">
               <v-icon left> {{ $globals.icons.upload }} </v-icon> {{ $t("general.upload") }}
@@ -39,7 +51,7 @@
         </AppButtonUpload>
         <AdminBackupDialog :color="color" />
 
-        <v-btn :loading="loading" class="mx-2" small color="success" @click="createBackup">
+        <v-btn :loading="loading" class="mx-2" small color="success" @click="createBackup(null)">
           <v-icon left> {{ $globals.icons.create }} </v-icon> {{ $t("general.create") }}
         </v-btn>
       </div>
@@ -75,32 +87,81 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-import AdminBackupImportDialog from "./AdminBackupImportDialog.vue";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
+import AdminBackupImportOptions from "./AdminBackupImportOptions.vue";
+import AdminBackupDialog from "./AdminBackupDialog.vue";
+import { BackupFile } from "~/api/class-interfaces/backups";
+import { useBackups } from "~/composables/use-backups";
 
 const IMPORT_EVENT = "import";
 const DELETE_EVENT = "delete";
 
+type EVENTS = "import" | "delete";
+
 export default defineComponent({
-  components: { AdminBackupImportDialog },
-  layout: "admin",
+  components: { AdminBackupImportOptions, AdminBackupDialog },
+  props: {
+    availableBackups: {
+      type: Array,
+      required: true,
+    },
+    templates: {
+      type: Array,
+      required: true,
+    },
+  },
   setup() {
-    return {};
+    const refImportDialog = ref();
+    const refDeleteConfirmation = ref();
+
+    const { refreshBackups, importBackup, createBackup, deleteBackup } = useBackups();
+
+    return {
+      btnEvent: { IMPORT_EVENT, DELETE_EVENT },
+      refImportDialog,
+      refDeleteConfirmation,
+      refreshBackups,
+      importBackup,
+      createBackup,
+      deleteBackup,
+    };
   },
   data() {
     return {
       color: "accent",
-      selectedName: "",
-      selectedDate: "",
       loading: false,
-      events: [],
-      availableBackups: [],
-      btnEvent: { IMPORT_EVENT, DELETE_EVENT },
+      selectedBackup: {
+        name: "",
+        date: "",
+      },
+      importOptions: {},
     };
   },
   computed: {
-    total() {
+    total(): number {
       return this.availableBackups.length || 0;
+    },
+  },
+  methods: {
+    openDialog(backup: BackupFile, event: EVENTS) {
+      this.selectedBackup = backup;
+
+      switch (event) {
+        case IMPORT_EVENT:
+          this.refImportDialog.open();
+          break;
+        case DELETE_EVENT:
+          this.refDeleteConfirmation.open();
+          break;
+      }
+    },
+    async restoreBackup() {
+      const payload = {
+        name: this.selectedBackup.name,
+        ...this.importOptions,
+      };
+
+      await this.importBackup(this.selectedBackup.name, payload);
     },
   },
 });

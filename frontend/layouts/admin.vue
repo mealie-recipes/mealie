@@ -13,6 +13,8 @@
       @input="sidebar = !sidebar"
     />
 
+    <TheSnackbar />
+
     <AppHeader>
       <v-btn icon @click.stop="sidebar = !sidebar">
         <v-icon> {{ $globals.icons.menu }}</v-icon>
@@ -31,9 +33,10 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
+import TheSnackbar from "~/components/Layout/TheSnackbar.vue";
 
 export default defineComponent({
-  components: { AppHeader, AppSidebar },
+  components: { AppHeader, AppSidebar, TheSnackbar },
   middleware: "auth",
   auth: true,
   setup() {

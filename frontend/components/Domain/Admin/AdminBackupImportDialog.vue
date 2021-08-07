@@ -1,3 +1,5 @@
+// TODO: Fix Download Links
+
 <template>
   <div class="text-center">
     <BaseDialog
@@ -39,7 +41,6 @@
 </template>
 
 <script>
-import { api } from "@/api";
 import AdminBackupImportOptions from "./AdminBackupImportOptions";
 const IMPORT_EVENT = "import";
 export default {
@@ -86,7 +87,7 @@ export default {
     close() {
       this.dialog = false;
     },
-    async raiseEvent() {
+    raiseEvent() {
       const eventData = {
         name: this.name,
         force: this.forceImport,
@@ -99,17 +100,8 @@ export default {
         notifications: this.options.notifications,
       };
       this.loading = true;
-      const importData = await this.importBackup(eventData);
-
-      this.$emit(IMPORT_EVENT, importData);
+      this.$emit(IMPORT_EVENT, eventData);
       this.loading = false;
-    },
-    async importBackup(data) {
-      this.loading = true;
-      const response = await api.backups.import(data.name, data);
-      if (response) {
-        return response.data;
-      }
     },
   },
 };

@@ -50,10 +50,10 @@ export default {
   },
   computed: {
     allCategories() {
-      return this.$store.getters.getAllCategories;
+      return this.$store.getters.getAllCategories || [];
     },
     allTags() {
-      return this.$store.getters.getAllTags;
+      return this.$store.getters.getAllTags || [];
     },
     urlParam() {
       return this.isCategory ? "category" : "tag";

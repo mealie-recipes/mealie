@@ -11,24 +11,43 @@
 </template>
 
 <script>
-import { api } from "@/api";
+import { useApiSingleton } from "~/composables/use-api";
 const UPLOAD_EVENT = "uploaded";
 export default {
   props: {
     small: {
+      type: Boolean,
       default: false,
     },
     post: {
       type: Boolean,
       default: true,
     },
-    url: String,
-    text: String,
-    icon: { default: null },
-    fileName: { default: "archive" },
+    url: {
+      type: String,
+      default: "",
+    },
+    text: {
+      type: String,
+      default: "",
+    },
+    icon: {
+      type: String,
+      default: null,
+    },
+    fileName: {
+      type: String,
+      default: "archive",
+    },
     textBtn: {
+      type: Boolean,
       default: true,
     },
+  },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
   },
   data: () => ({
     file: null,
@@ -58,7 +77,7 @@ export default {
         const formData = new FormData();
         formData.append(this.fileName, this.file);
 
-        const response = await api.utils.uploadFile(this.url, formData);
+        const response = await this.api.upload.file(this.url, formData);
 
         if (response) {
           this.$emit(UPLOAD_EVENT, response);

@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { api } from "@/api";
 import { defineComponent } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
 export default defineComponent({

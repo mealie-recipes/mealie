@@ -204,12 +204,14 @@ export default defineComponent({
       set(recipe_import_url: string) {
         this.$router.replace({ query: { ...this.$route.query, recipe_import_url } });
       },
-      get(): string {
+      get(): string | (string | null)[] {
         return this.$route.query.recipe_import_url || "";
       },
     },
     fileName(): string {
+      // @ts-ignore
       if (this.uploadData?.file?.name) {
+        // @ts-ignore
         return this.uploadData.file.name;
       }
       return "";
@@ -243,22 +245,31 @@ export default defineComponent({
     },
     async uploadZip() {
       const formData = new FormData();
+
+      // @ts-ignore
       formData.append(this.uploadData.fileName, this.uploadData.file);
 
-      const response = await this.api.utils.uploadFile("/api/recipes/create-from-zip", formData);
+      const { response, data } = await this.api.upload.file("/api/recipes/create-from-zip", formData);
 
-      this.$router.push(`/recipe/${response.data.slug}`);
+      if (response && response.status === 201) {
+        // @ts-ignore
+        this.$router.push(`/recipe/${data.slug}`);
+      }
     },
     async manualCreateRecipe() {
       await this.api.recipes.createOne({ name: this.createRecipeData.form.name });
     },
     async createOnByUrl() {
       this.error = false;
-      console.log(this.domImportFromUrlForm?.validate());
 
       if (this.domImportFromUrlForm?.validate()) {
         this.processing = true;
-        const response = await this.api.recipes.createOneByUrl(this.recipeURL);
+
+        let response;
+        if (typeof this.recipeURL === "string") {
+          response = await this.api.recipes.createOneByUrl(this.recipeURL);
+        }
+
         this.processing = false;
         if (response) {
           this.addRecipe = false;

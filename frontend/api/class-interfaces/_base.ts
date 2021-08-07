@@ -44,15 +44,17 @@ export const crudMixins = <T>(
   return { getAll, getOne, updateOne, patchOne, deleteOne, createOne };
 };
 
-export abstract class BaseAPIClass<T, U> implements CrudAPIInterface {
+export abstract class BaseAPI {
   requests: ApiRequestInstance;
-
-  abstract baseRoute: string;
-  abstract itemRoute(itemId: string | number): string;
 
   constructor(requests: ApiRequestInstance) {
     this.requests = requests;
   }
+}
+
+export abstract class BaseCRUDAPI<T, U> extends BaseAPI implements CrudAPIInterface {
+  abstract baseRoute: string;
+  abstract itemRoute(itemId: string | number): string;
 
   async getAll(start = 0, limit = 9999) {
     return await this.requests.get<T[]>(this.baseRoute, {
