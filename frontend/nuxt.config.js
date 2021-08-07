@@ -107,14 +107,79 @@ export default {
 
   i18n: {
     locales: [
-      {
-        code: "en-US",
-        file: "en-US.js",
-      },
+      // Auto Generated from "generate_nuxt_locales.py"
+      { code: "el-GR", file: "el-GR.json" },
+      { code: "it-IT", file: "it-IT.json" },
+      { code: "ko-KR", file: "ko-KR.json" },
+      { code: "es-ES", file: "es-ES.json" },
+      { code: "ja-JP", file: "ja-JP.json" },
+      { code: "zh-CN", file: "zh-CN.json" },
+      { code: "tr-TR", file: "tr-TR.json" },
+      { code: "ar-SA", file: "ar-SA.json" },
+      { code: "hu-HU", file: "hu-HU.json" },
+      { code: "pt-PT", file: "pt-PT.json" },
+      { code: "no-NO", file: "no-NO.json" },
+      { code: "sv-SE", file: "sv-SE.json" },
+      { code: "ro-RO", file: "ro-RO.json" },
+      { code: "uk-UA", file: "uk-UA.json" },
+      { code: "pl-PL", file: "pl-PL.json" },
+      { code: "da-DK", file: "da-DK.json" },
+      { code: "pt-BR", file: "pt-BR.json" },
+      { code: "de-DE", file: "de-DE.json" },
+      { code: "ca-ES", file: "ca-ES.json" },
+      { code: "sr-SP", file: "sr-SP.json" },
+      { code: "cs-CZ", file: "cs-CZ.json" },
+      { code: "fr-FR", file: "fr-FR.json" },
+      { code: "zh-TW", file: "zh-TW.json" },
+      { code: "af-ZA", file: "af-ZA.json" },
+      { code: "ru-RU", file: "ru-RU.json" },
+      { code: "he-IL", file: "he-IL.json" },
+      { code: "nl-NL", file: "nl-NL.json" },
+      { code: "en-US", file: "en-US.json" },
+      { code: "en-GB", file: "en-GB.json" },
+      { code: "fi-FI", file: "fi-FI.json" },
+      { code: "vi-VN", file: "vi-VN.json" },
     ],
     lazy: true,
     langDir: "lang/messages",
     defaultLocale: "en-US",
+    vueI18n: {
+      dateTimeFormats: {
+        // Auto Generated from "generate_nuxt_locales.py"
+        "el-GR": require("./lang/dateTimeFormats/el-GR.json"),
+        "it-IT": require("./lang/dateTimeFormats/it-IT.json"),
+        "ko-KR": require("./lang/dateTimeFormats/ko-KR.json"),
+        "es-ES": require("./lang/dateTimeFormats/es-ES.json"),
+        "ja-JP": require("./lang/dateTimeFormats/ja-JP.json"),
+        "zh-CN": require("./lang/dateTimeFormats/zh-CN.json"),
+        "tr-TR": require("./lang/dateTimeFormats/tr-TR.json"),
+        "ar-SA": require("./lang/dateTimeFormats/ar-SA.json"),
+        "hu-HU": require("./lang/dateTimeFormats/hu-HU.json"),
+        "pt-PT": require("./lang/dateTimeFormats/pt-PT.json"),
+        "no-NO": require("./lang/dateTimeFormats/no-NO.json"),
+        "sv-SE": require("./lang/dateTimeFormats/sv-SE.json"),
+        "ro-RO": require("./lang/dateTimeFormats/ro-RO.json"),
+        "uk-UA": require("./lang/dateTimeFormats/uk-UA.json"),
+        "pl-PL": require("./lang/dateTimeFormats/pl-PL.json"),
+        "da-DK": require("./lang/dateTimeFormats/da-DK.json"),
+        "pt-BR": require("./lang/dateTimeFormats/pt-BR.json"),
+        "de-DE": require("./lang/dateTimeFormats/de-DE.json"),
+        "ca-ES": require("./lang/dateTimeFormats/ca-ES.json"),
+        "sr-SP": require("./lang/dateTimeFormats/sr-SP.json"),
+        "cs-CZ": require("./lang/dateTimeFormats/cs-CZ.json"),
+        "fr-FR": require("./lang/dateTimeFormats/fr-FR.json"),
+        "zh-TW": require("./lang/dateTimeFormats/zh-TW.json"),
+        "af-ZA": require("./lang/dateTimeFormats/af-ZA.json"),
+        "ru-RU": require("./lang/dateTimeFormats/ru-RU.json"),
+        "he-IL": require("./lang/dateTimeFormats/he-IL.json"),
+        "nl-NL": require("./lang/dateTimeFormats/nl-NL.json"),
+        "en-US": require("./lang/dateTimeFormats/en-US.json"),
+        "en-GB": require("./lang/dateTimeFormats/en-GB.json"),
+        "fi-FI": require("./lang/dateTimeFormats/fi-FI.json"),
+        "vi-VN": require("./lang/dateTimeFormats/vi-VN.json"),
+      },
+    },
+    fallbackLocale: "es",
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -130,6 +195,15 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
+    icons: {
+      iconfont: "mdiSvg", // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+    },
+    defaultAssets: {
+      font: {
+        family: "Roboto",
+      },
+      icons: false,
+    },
     theme: {
       dark: false,
       themes: {
