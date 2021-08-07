@@ -1,13 +1,12 @@
-import { BaseAPIClass, crudMixins } from "./_base";
+import { BaseAPIClass } from "./_base";
 import { Recipe } from "~/types/api-types/admin";
-import { ApiRequestInstance } from "~/types/api";
+import { CreateRecipe } from "~/types/api-types/recipe";
 
 const prefix = "/api";
 
 const routes = {
   recipesCreate: `${prefix}/recipes/create`,
   recipesBase: `${prefix}/recipes`,
-  recipesSummary: `${prefix}/recipes/summary`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
   recipesCreateUrl: `${prefix}/recipes/create-url`,
   recipesCreateFromZip: `${prefix}/recipes/create-from-zip`,
@@ -19,24 +18,9 @@ const routes = {
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
 };
 
-export class RecipeAPI extends BaseAPIClass<Recipe> {
-  baseRoute: string = routes.recipesSummary;
+export class RecipeAPI extends BaseAPIClass<Recipe, CreateRecipe> {
+  baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
-
-  constructor(requests: ApiRequestInstance) {
-    super(requests);
-    const { getAll, getOne, updateOne, patchOne, deleteOne } = crudMixins<Recipe>(
-      requests,
-      routes.recipesSummary,
-      routes.recipesRecipeSlug
-    );
-
-    this.getAll = getAll;
-    this.getOne = getOne;
-    this.updateOne = updateOne;
-    this.patchOne = patchOne;
-    this.deleteOne = deleteOne;
-  }
 
   async getAllByCategory(categories: string[]) {
     return await this.requests.get<Recipe[]>(routes.recipesCategory, {
@@ -54,10 +38,6 @@ export class RecipeAPI extends BaseAPIClass<Recipe> {
 
   updateImagebyURL(slug: string, url: string) {
     return this.requests.post(routes.recipesRecipeSlugImage(slug), { url });
-  }
-
-  async createOne(name: string) {
-    return await this.requests.post<Recipe>(routes.recipesBase, { name });
   }
 
   async createOneByUrl(url: string) {

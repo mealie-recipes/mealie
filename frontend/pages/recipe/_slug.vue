@@ -165,7 +165,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import { useApiSingleton } from "~/composables/use-api";
@@ -211,6 +211,8 @@ export default defineComponent({
     const recipe = getBySlug(slug);
 
     const form = ref<boolean>(false);
+
+    useMeta(() => ({ title: recipe?.value?.name || "Recipe" }));
 
     async function updateRecipe(slug: string, recipe: Recipe) {
       const { data } = await api.recipes.updateOne(slug, recipe);
@@ -263,6 +265,7 @@ export default defineComponent({
       },
     };
   },
+  head: {},
   computed: {
     imageHeight() {
       // @ts-ignore

@@ -33,9 +33,12 @@
 
             <BaseButton v-if="$listeners.delete" delete secondary @click="deleteEvent" />
             <BaseButton v-if="$listeners.confirm" :color="color" type="submit" @click="$emit('confirm')">
+              <template #icon>
+                {{ $globals.icons.check }}
+              </template>
               {{ $t("general.confirm") }}
             </BaseButton>
-            <BaseButton v-else-if="$listeners.submit" type="submit" @click="submitEvent">
+            <BaseButton v-if="$listeners.submit" type="submit" @click="submitEvent">
               {{ submitText }}
             </BaseButton>
           </slot>
@@ -108,6 +111,7 @@ export default defineComponent({
     },
     dialog(val) {
       if (val) this.submitted = false;
+      if (!val) this.$emit("close");
     },
   },
   methods: {
@@ -130,4 +134,9 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+.top-dialog {
+  position: fixed;
+  top: 0;
+}
+</style>

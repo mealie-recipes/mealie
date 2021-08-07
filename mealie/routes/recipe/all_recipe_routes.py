@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 router = APIRouter(tags=["Query All Recipes"])
 
 
-@router.get("/api/recipes/summary", response_model=list[RecipeSummary])
+@router.get("/api/recipes", response_model=list[RecipeSummary])
 async def get_recipe_summary(
     start=0, limit=9999, session: Session = Depends(generate_session), user: bool = Depends(is_logged_in)
 ):

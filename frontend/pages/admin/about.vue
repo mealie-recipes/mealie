@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <v-container fluid>
+    <BaseCardSectionTitle title="About Mealie"> </BaseCardSectionTitle>
+  </v-container>
 </template>
 
 <script lang="ts">

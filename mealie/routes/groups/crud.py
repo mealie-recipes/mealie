@@ -31,7 +31,7 @@ async def get_current_user_group(
     return db.groups.get(session, current_user.group, "name")
 
 
-@admin_router.post("", status_code=status.HTTP_201_CREATED)
+@admin_router.post("", status_code=status.HTTP_201_CREATED, response_model=GroupInDB)
 async def create_group(
     background_tasks: BackgroundTasks,
     group_data: GroupBase,
@@ -40,8 +40,9 @@ async def create_group(
     """ Creates a Group in the Database """
 
     try:
-        db.groups.create(session, group_data.dict())
+        new_group = db.groups.create(session, group_data.dict())
         background_tasks.add_task(create_group_event, "Group Created", f"'{group_data.name}' created", session)
+        return new_group
     except Exception:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 

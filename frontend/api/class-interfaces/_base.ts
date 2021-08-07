@@ -5,7 +5,7 @@ export interface CrudAPIInterface {
 
   // Route Properties / Methods
   baseRoute: string;
-  itemRoute(itemId: string): string;
+  itemRoute(itemId: string | number): string;
 
   // Methods
 }
@@ -19,6 +19,10 @@ export const crudMixins = <T>(
     return await requests.get<T[]>(baseRoute, {
       params: { start, limit },
     });
+  }
+
+  async function createOne(payload: T) {
+    return await requests.post<T>(baseRoute, payload);
   }
 
   async function getOne(itemId: string) {
@@ -37,14 +41,14 @@ export const crudMixins = <T>(
     return await requests.delete<T>(itemRoute(itemId));
   }
 
-  return { getAll, getOne, updateOne, patchOne, deleteOne };
+  return { getAll, getOne, updateOne, patchOne, deleteOne, createOne };
 };
 
-export abstract class BaseAPIClass<T> implements CrudAPIInterface {
+export abstract class BaseAPIClass<T, U> implements CrudAPIInterface {
   requests: ApiRequestInstance;
 
   abstract baseRoute: string;
-  abstract itemRoute(itemId: string): string;
+  abstract itemRoute(itemId: string | number): string;
 
   constructor(requests: ApiRequestInstance) {
     this.requests = requests;
@@ -54,6 +58,10 @@ export abstract class BaseAPIClass<T> implements CrudAPIInterface {
     return await this.requests.get<T[]>(this.baseRoute, {
       params: { start, limit },
     });
+  }
+
+  async createOne(payload: U) {
+    return await this.requests.post<T>(this.baseRoute, payload);
   }
 
   async getOne(itemId: string) {
@@ -68,7 +76,7 @@ export abstract class BaseAPIClass<T> implements CrudAPIInterface {
     return await this.requests.patch(this.itemRoute(itemId), payload);
   }
 
-  async deleteOne(itemId: string) {
+  async deleteOne(itemId: string | number) {
     return await this.requests.delete<T>(this.itemRoute(itemId));
   }
 }

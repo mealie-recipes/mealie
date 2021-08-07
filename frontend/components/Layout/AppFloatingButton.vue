@@ -250,7 +250,7 @@ export default defineComponent({
       this.$router.push(`/recipe/${response.data.slug}`);
     },
     async manualCreateRecipe() {
-      await this.api.recipes.createOne(this.createRecipeData.form.name);
+      await this.api.recipes.createOne({ name: this.createRecipeData.form.name });
     },
     async createOnByUrl() {
       this.error = false;

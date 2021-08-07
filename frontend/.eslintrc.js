@@ -21,5 +21,11 @@ module.exports = {
     "vue/multiline-html-element-content-newline": "off",
     "vue/no-mutating-props": "off",
     "vue/no-v-for-template-key-on-child": "off",
+    "vue/valid-v-slot": [
+      "error",
+      {
+        allowModifiers: true,
+      },
+    ],
   },
 };

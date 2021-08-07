@@ -5,6 +5,10 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export interface CreateRecipe {
+  name: string;
+}
+
 export interface AllRecipeRequest {
   properties: string[];
   limit?: number;

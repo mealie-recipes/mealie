@@ -15,7 +15,6 @@ export const useRecipeContext = function () {
     }, slug);
 
     loading.value = false
-
     return recipe;
   }
 

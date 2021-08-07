@@ -9,6 +9,7 @@
       :secondary-links="$auth.user.admin ? adminLinks : null"
       :bottom-links="$auth.user.admin ? bottomLinks : null"
       :user="{ data: true }"
+      :secondary-header="$t('user.admin')"
       @input="sidebar = !sidebar"
     />
 
@@ -47,6 +48,16 @@ export default defineComponent({
           to: "/user/profile",
           title: this.$t("sidebar.profile"),
         },
+        {
+          icon: this.$globals.icons.group,
+          to: "/user/group",
+          title: this.$t("group.group"),
+        },
+        {
+          icon: this.$globals.icons.pages,
+          to: "/user/group/pages",
+          title: this.$t("settings.pages"),
+        },
       ],
       adminLinks: [
         {
@@ -63,11 +74,45 @@ export default defineComponent({
           icon: this.$globals.icons.tools,
           to: "/admin/toolbox",
           title: this.$t("sidebar.toolbox"),
+          children: [
+            {
+              icon: this.$globals.icons.bellAlert,
+              to: "/admin/toolbox/notifications",
+              title: this.$t("events.notification"),
+            },
+            {
+              icon: this.$globals.icons.tags,
+              to: "/admin/toolbox/categories",
+              title: this.$t("sidebar.tags"),
+            },
+            {
+              icon: this.$globals.icons.tags,
+              to: "/admin/toolbox/tags",
+              title: this.$t("sidebar.categories"),
+            },
+            {
+              icon: this.$globals.icons.broom,
+              to: "/admin/toolbox/organize",
+              title: this.$t("settings.organize"),
+            },
+          ],
         },
         {
           icon: this.$globals.icons.group,
           to: "/admin/manage-users",
           title: this.$t("sidebar.manage-users"),
+          children: [
+            {
+              icon: this.$globals.icons.user,
+              to: "/admin/manage-users/all-users",
+              title: this.$t("user.users"),
+            },
+            {
+              icon: this.$globals.icons.group,
+              to: "/admin/manage-users/all-groups",
+              title: this.$t("group.groups"),
+            },
+          ],
         },
         {
           icon: this.$globals.icons.import,
@@ -88,6 +133,9 @@ export default defineComponent({
         },
       ],
     };
+  },
+  head: {
+    title: "Admin",
   },
 });
 </script>

@@ -18,6 +18,7 @@
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
+          :disabled="updateMode && inputField.fixed"
           @change="emitBlur"
         />
 
