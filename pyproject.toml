@@ -46,6 +46,7 @@ mkdocs-material = "^7.0.2"
 flake8 = "^3.9.0"
 coverage = "^5.5"
 pydantic-to-typescript = "^1.0.7"
+rich = "^10.7.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
