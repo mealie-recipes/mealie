@@ -3,14 +3,15 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import is_logged_in
 from mealie.schema.recipe import RecipeSummary
+from mealie.services.recipe.all_recipes import get_all_recipes_public, get_all_recipes_user
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
 router = APIRouter(tags=["Query All Recipes"])
 
 
-@router.get("/api/recipes", response_model=list[RecipeSummary])
-async def get_recipe_summary(
+@router.get("/api/recipes")
+def get_recipe_summary(
     start=0, limit=9999, session: Session = Depends(generate_session), user: bool = Depends(is_logged_in)
 ):
     """
@@ -26,14 +27,10 @@ async def get_recipe_summary(
     """
 
     if user:
-        return db.recipes.get_all(
-            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
-        )
+        return get_all_recipes_user(limit, start)
 
     else:
-        return db.recipes.get_all_not_private(
-            session, limit=limit, start=start, order_by="date_updated", override_schema=RecipeSummary
-        )
+        return get_all_recipes_public(limit, start)
 
 
 @router.get("/api/recipes/summary/untagged", response_model=list[RecipeSummary])

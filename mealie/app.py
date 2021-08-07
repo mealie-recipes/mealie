@@ -1,5 +1,7 @@
+from mealie.services.recipe.all_recipes import subscripte_to_recipe_events
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.gzip import GZipMiddleware
 
 from mealie.core.config import APP_VERSION, settings
 from mealie.core.root_logger import get_logger
@@ -23,6 +25,8 @@ app = FastAPI(
     docs_url=settings.DOCS_URL,
     redoc_url=settings.REDOC_URL,
 )
+
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
 def start_scheduler():
@@ -78,6 +82,7 @@ def system_startup():
         )
     )
     create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
+    subscripte_to_recipe_events()
 
 
 def main():

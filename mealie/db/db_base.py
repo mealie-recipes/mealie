@@ -16,20 +16,24 @@ class BaseDocument:
         self.store: str
         self.sql_model: SqlAlchemyBase
         self.schema: BaseModel
+        self.observers: list = None
 
     def get_all(
         self, session: Session, limit: int = None, order_by: str = None, start=0, end=9999, override_schema=None
     ) -> list[dict]:
+        logger.info("Starting Query")
         eff_schema = override_schema or self.schema
 
         if order_by:
             order_attr = getattr(self.sql_model, str(order_by))
+            logger.info("Ending Query")
 
             return [
                 eff_schema.from_orm(x)
                 for x in session.query(self.sql_model).order_by(order_attr.desc()).offset(start).limit(limit).all()
             ]
 
+        logger.info("Ending Query")
         return [eff_schema.from_orm(x) for x in session.query(self.sql_model).offset(start).limit(limit).all()]
 
     def get_all_limit_columns(self, session: Session, fields: list[str], limit: int = None) -> list[SqlAlchemyBase]:
@@ -129,6 +133,9 @@ class BaseDocument:
         session.add(new_document)
         session.commit()
 
+        if hasattr(self, "update_observers"):
+            self.update_observers()
+
         return self.schema.from_orm(new_document)
 
     def update(self, session: Session, match_value: str, new_data: dict) -> BaseModel:
@@ -145,6 +152,9 @@ class BaseDocument:
 
         entry = self._query_one(session=session, match_value=match_value)
         entry.update(session=session, **new_data)
+
+        if hasattr(self, "update_observers"):
+            self.update_observers()
 
         session.commit()
         return self.schema.from_orm(entry)
@@ -169,11 +179,17 @@ class BaseDocument:
         session.delete(result)
         session.commit()
 
+        if hasattr(self, "update_observers"):
+            self.update_observers()
+
         return results_as_model
 
     def delete_all(self, session: Session) -> None:
         session.query(self.sql_model).delete()
         session.commit()
+
+        if hasattr(self, "update_observers"):
+            self.update_observers()
 
     def count_all(self, session: Session, match_key=None, match_value=None) -> int:
         if None in [match_key, match_value]:

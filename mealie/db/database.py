@@ -1,5 +1,6 @@
 from logging import getLogger
 from random import randint
+from typing import Callable
 
 from mealie.db.db_base import BaseDocument
 from mealie.db.models.event import Event, EventNotification
@@ -20,11 +21,15 @@ from mealie.schema.admin import SiteTheme
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.meal_plan import MealPlanOut, ShoppingListOut
-from mealie.schema.recipe import (CommentOut, Recipe, RecipeCategoryResponse,
-                                  RecipeIngredientFood, RecipeIngredientUnit,
-                                  RecipeTagResponse)
-from mealie.schema.user import (GroupInDB, LongLiveTokenInDB, SignUpOut,
-                                UserInDB)
+from mealie.schema.recipe import (
+    CommentOut,
+    Recipe,
+    RecipeCategoryResponse,
+    RecipeIngredientFood,
+    RecipeIngredientUnit,
+    RecipeTagResponse,
+)
+from mealie.schema.user import GroupInDB, LongLiveTokenInDB, SignUpOut, UserInDB
 from sqlalchemy.orm.session import Session
 
 logger = getLogger()
@@ -36,9 +41,9 @@ class _Recipes(BaseDocument):
         self.sql_model: RecipeModel = RecipeModel
         self.schema: Recipe = Recipe
 
-    def get_all_not_private(
-        self, session: Session, limit: int = None, order_by: str = None, start=0, override_schema=None
-    ):
+        self.observers = []
+
+    def get_all_public(self, session: Session, limit: int = None, order_by: str = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema
 
         if order_by:
@@ -85,6 +90,15 @@ class _Recipes(BaseDocument):
         return self._count_attribute(
             session, attribute_name=RecipeModel.tags, attr_match=None, count=count, override_schema=override_schema
         )
+
+    def subscribe(self, func: Callable) -> None:
+        print("Subscripe", func)
+        self.observers.append(func)
+
+    def update_observers(self) -> None:
+        print("Updating Observers", self.observers)
+        for observer in self.observers:
+            observer()
 
 
 class _IngredientFoods(BaseDocument):
