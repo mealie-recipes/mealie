@@ -1,4 +1,3 @@
-from mealie.services.recipe.all_recipes import subscripte_to_recipe_events
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
@@ -15,6 +14,7 @@ from mealie.routes.shopping_list import shopping_list_router
 from mealie.routes.site_settings import settings_router
 from mealie.routes.users import user_router
 from mealie.services.events import create_general_event
+from mealie.services.recipe.all_recipes import subscripte_to_recipe_events
 
 logger = get_logger()
 
@@ -86,7 +86,6 @@ def system_startup():
 
 
 def main():
-
     uvicorn.run(
         "app:app",
         host="0.0.0.0",
@@ -94,7 +93,8 @@ def main():
         reload=True,
         reload_dirs=["mealie"],
         debug=True,
-        log_level="info",
+        log_level="debug",
+        use_colors=True,
         log_config=None,
         workers=1,
         forwarded_allow_ips="*",

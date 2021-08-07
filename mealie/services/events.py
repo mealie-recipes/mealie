@@ -27,8 +27,6 @@ def post_notifications(event: Event, notification_urls=list[str], hard_fail=Fals
         if not status and hard_fail:
             raise Exception("Apprise URL Add Failed")
 
-    print(attachment)
-
     apobj.notify(
         body=event.text,
         title=event.title,

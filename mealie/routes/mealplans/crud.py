@@ -29,7 +29,6 @@ def get_all_meals(
 def get_this_week(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
     """ Returns the meal plan data for this week """
     plans = db.groups.get_meals(session, current_user.group)
-    print(plans)
     if plans:
         return plans[0]
 

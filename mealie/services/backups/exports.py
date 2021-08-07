@@ -97,8 +97,7 @@ class ExportDatabase:
         zip_path = app_dirs.BACKUP_DIR.joinpath(f"{self.main_dir.name}")
         shutil.make_archive(zip_path, "zip", self.main_dir)
 
-        shutil.rmtree(app_dirs.TEMP_DIR)
-
+        shutil.rmtree(app_dirs.TEMP_DIR, ignore_errors=True)
         return str(zip_path.absolute()) + ".zip"
 
 

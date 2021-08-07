@@ -3,9 +3,12 @@ from functools import lru_cache
 
 from fastapi import Response
 from fastapi.encoders import jsonable_encoder
+from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import SessionLocal
 from mealie.schema.recipe import RecipeSummary
+
+logger = get_logger()
 
 
 @lru_cache(maxsize=1)
@@ -29,10 +32,11 @@ def get_all_recipes_public(limit, start):
 
 
 def clear_all_cache():
-    print("Cache Cleared")
     get_all_recipes_user.cache_clear()
     get_all_recipes_public.cache_clear()
+    logger.info("All Recipes Cache Cleared")
 
 
 def subscripte_to_recipe_events():
     db.recipes.subscribe(clear_all_cache)
+    logger.info("All Recipes Subscribed to Database Events")

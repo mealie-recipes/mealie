@@ -1,36 +1,66 @@
 import logging
-import sys
+from dataclasses import dataclass
+from functools import lru_cache
 
 from mealie.core.config import DATA_DIR
+
+from .config import settings
 
 LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 DATE_FORMAT = "%d-%b-%y %H:%M:%S"
 LOGGER_FORMAT = "%(levelname)s: %(asctime)s \t%(message)s"
+LOGGER_HANDLER = None
 
-logging.basicConfig(level=logging.INFO, format=LOGGER_FORMAT, datefmt="%d-%b-%y %H:%M:%S")
+
+@dataclass
+class LoggerConfig:
+    handlers: list
+    format: str
+    date_format: str
+    logger_file: str
+    level: str = logging.INFO
+
+
+@lru_cache
+def get_logger_config():
+    if not settings.PRODUCTION:
+        from rich.logging import RichHandler
+
+        return LoggerConfig(
+            handlers=[RichHandler(rich_tracebacks=True)],
+            format=None,
+            date_format=None,
+            logger_file=None,
+        )
+
+    return LoggerConfig(
+        handlers=[
+            logging.FileHandler(LOGGER_FILE),
+            logging.Formatter(LOGGER_FORMAT, datefmt=DATE_FORMAT),
+        ],
+        format="%(levelname)s: %(asctime)s \t%(message)s",
+        date_format="%d-%b-%y %H:%M:%S",
+        logger_file=LOGGER_FILE,
+    )
+
+
+logger_config = get_logger_config()
+
+logging.basicConfig(
+    level=logger_config.level,
+    format=logger_config.format,
+    datefmt=logger_config.date_format,
+    handlers=logger_config.handlers,
+)
 
 
 def logger_init() -> logging.Logger:
     """ Returns the Root Loggin Object for Mealie """
-    logger = logging.getLogger("mealie")
-    logger.propagate = False
-
-    # File Handler
-    output_file_handler = logging.FileHandler(LOGGER_FILE)
-    handler_format = logging.Formatter(LOGGER_FORMAT, datefmt=DATE_FORMAT)
-    output_file_handler.setFormatter(handler_format)
-
-    # Stdout
-    stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setFormatter(handler_format)
-
-    logger.addHandler(output_file_handler)
-    logger.addHandler(stdout_handler)
-
-    return logger
+    return logging.getLogger("mealie")
 
 
 root_logger = logger_init()
+root_logger.info("Testing Root Logger")
 
 
 def get_logger(module=None) -> logging.Logger:

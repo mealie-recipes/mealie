@@ -45,7 +45,6 @@ class MigrationBase(BaseModel):
 
     @staticmethod
     def json_reader(json_file: Path) -> dict:
-        print(json_file)
         with open(json_file, "r") as f:
             return json.loads(f.read())
 

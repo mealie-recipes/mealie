@@ -92,11 +92,9 @@ class _Recipes(BaseDocument):
         )
 
     def subscribe(self, func: Callable) -> None:
-        print("Subscripe", func)
         self.observers.append(func)
 
     def update_observers(self) -> None:
-        print("Updating Observers", self.observers)
         for observer in self.observers:
             observer()
 

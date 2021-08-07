@@ -47,7 +47,6 @@ async def delete_comment(
 ):
     """ Delete comment from the Database """
     comment: CommentOut = db.comments.get(session, id)
-    print(current_user.id, comment.user.id, current_user.admin)
     if current_user.id == comment.user.id or current_user.admin:
         db.comments.delete(session, id)
         return

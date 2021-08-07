@@ -6,18 +6,10 @@ from typing import Callable
 
 from mealie.core.config import app_dirs
 from mealie.db.database import db
-from mealie.schema.admin import (
-    CustomPageImport,
-    CustomPageOut,
-    GroupImport,
-    NotificationImport,
-    RecipeImport,
-    SettingsImport,
-    SiteSettings,
-    SiteTheme,
-    ThemeImport,
-    UserImport,
-)
+from mealie.schema.admin import (CustomPageImport, CustomPageOut, GroupImport,
+                                 NotificationImport, RecipeImport,
+                                 SettingsImport, SiteSettings, SiteTheme,
+                                 ThemeImport, UserImport)
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.recipe import CommentOut, Recipe
 from mealie.schema.user import UpdateGroup, UserInDB
@@ -369,6 +361,7 @@ def import_database(
     if import_themes:
         theme_report = import_session.import_themes()
 
+    page_report = []
     if import_pages:
         page_report = import_session.import_pages()
 

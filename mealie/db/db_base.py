@@ -21,19 +21,16 @@ class BaseDocument:
     def get_all(
         self, session: Session, limit: int = None, order_by: str = None, start=0, end=9999, override_schema=None
     ) -> list[dict]:
-        logger.info("Starting Query")
         eff_schema = override_schema or self.schema
 
         if order_by:
             order_attr = getattr(self.sql_model, str(order_by))
-            logger.info("Ending Query")
 
             return [
                 eff_schema.from_orm(x)
                 for x in session.query(self.sql_model).order_by(order_attr.desc()).offset(start).limit(limit).all()
             ]
 
-        logger.info("Ending Query")
         return [eff_schema.from_orm(x) for x in session.query(self.sql_model).offset(start).limit(limit).all()]
 
     def get_all_limit_columns(self, session: Session, fields: list[str], limit: int = None) -> list[SqlAlchemyBase]:

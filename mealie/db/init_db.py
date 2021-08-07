@@ -70,9 +70,9 @@ def main():
     session = create_session()
     init_user = db.users.get(session, "1", "id")
     if init_user:
-        print("Database Exists")
+        logger.info("Database Exists")
     else:
-        print("Database Doesn't Exists, Initializing...")
+        logger.info("Database Doesn't Exists, Initializing...")
         init_db()
         create_general_event("Initialize Database", "Initialize database with default values", session)
 
