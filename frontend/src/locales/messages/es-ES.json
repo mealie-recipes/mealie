@@ -13,7 +13,7 @@
     "development": "Desarrollo",
     "docs": "Documentación",
     "download-log": "Descargar Log",
-    "download-recipe-json": "Último JSON analizado",
+    "download-recipe-json": "Último JSON recuperado",
     "github": "Github",
     "log-lines": "Líneas de registro",
     "not-demo": "No Demo",
@@ -206,7 +206,7 @@
     "upload-a-recipe": "Subir una receta",
     "upload-individual-zip-file": "Sube un archivo .zip individual exportado desde otra instancia de Mealie.",
     "url-form-hint": "Copia y pega un enlace desde tu página web favorita",
-    "view-scraped-data": "Ver información analizada"
+    "view-scraped-data": "Ver información recuperada"
   },
   "page": {
     "404-page-not-found": "404 Página no encontrada",
@@ -249,8 +249,8 @@
     "new-key-name": "Nuevo nombre de clave",
     "no-white-space-allowed": "No se permite espacio en blanco",
     "note": "Nota",
-    "nutrition": "Nutrición",
-    "object-key": "Clave de objeto",
+    "nutrition": "Valores nutricionales",
+    "object-key": "Nombre de la clave",
     "object-value": "Valor del objeto",
     "original-url": "URL original",
     "perform-time": "Tiempo de cocción",
@@ -275,7 +275,7 @@
     "show-nutrition-values": "Mostrar valores nutricionales",
     "sodium-content": "Sodio",
     "step-index": "Paso: {step}",
-    "sugar-content": "Azúcar",
+    "sugar-content": "Azúcares",
     "title": "Título",
     "total-time": "Tiempo total",
     "unable-to-delete-recipe": "No se puede eliminar la receta"
@@ -298,7 +298,7 @@
   },
   "settings": {
     "add-a-new-theme": "Añadir un nuevo tema",
-    "admin-settings": "Configuración del Administrador",
+    "admin-settings": "Opciones del adminstrador",
     "backup": {
       "backup-created-at-response-export_path": "Copia de seguridad creada en {path}",
       "backup-deleted": "Copia de seguridad eliminada",
@@ -329,7 +329,7 @@
     "language": "Idioma",
     "latest": "Nuevo",
     "local-api": "API local",
-    "locale-settings": "Configuración local",
+    "locale-settings": "Configuración de idioma",
     "migrations": "Migraciones",
     "new-page": "Nueva página",
     "notify": "Notificar",
