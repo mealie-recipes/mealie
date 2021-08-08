@@ -140,7 +140,7 @@
 <script>
 import { validators } from "@/composables/use-validators";
 import { fieldTypes } from "@/composables/forms";
-import { ref } from "@vue/composition-api";
+import { ref } from "@nuxtjs/composition-api";
 
 const BLUR_EVENT = "blur";
 

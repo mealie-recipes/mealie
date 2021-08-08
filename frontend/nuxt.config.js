@@ -1,3 +1,5 @@
+// TODO: Fix composition API "Should only be called once" error
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -63,14 +65,6 @@ export default {
     // https://github.com/nuxt-community/proxy-module
     "@nuxtjs/proxy",
   ],
-
-  proxy: {
-    // see Proxy section
-    "/api": {
-      changeOrigin: true,
-      target: "http://localhost:9000",
-    },
-  },
 
   auth: {
     redirect: {
@@ -183,7 +177,17 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    proxy: true,
+  },
+
+  proxy: {
+    // see Proxy section
+    "/api": {
+      changeOrigin: true,
+      target: process.env.NODE_ENV === "production" ? "http://mealie-api:9000" : "http://localhost:9000",
+    },
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -230,5 +234,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: [/@vue[\\/]composition-api/],
+  },
 };
