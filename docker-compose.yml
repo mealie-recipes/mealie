@@ -11,8 +11,9 @@ services:
       - 9091:3000
     environment:
       - GLOBAL_MIDDLEWARE=null
-      - BASE_URL=""
+      - SUB_PATH=/mealie/
       - ALLOW_SIGNUP=true
+      - API_URL=http://mealie-api:9000
   mealie:
     container_name: mealie-api
     build:
@@ -30,5 +31,5 @@ services:
       # POSTGRES_PORT: 5432
       # POSTGRES_DB: mealie
       # WORKERS_PER_CORE: 0.5
-      # MAX_WORKERS: 8
-      WEB_CONCURRENCY: 2
+      MAX_WORKERS: 1
+      WEB_CONCURRENCY: 1

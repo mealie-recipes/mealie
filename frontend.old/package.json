@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@adapttive/vue-markdown": "^4.0.1",
-    "@vue/composition-api": "^1.0.4",
     "axios": "^0.21.1",
     "core-js": "^3.14.0",
     "fuse.js": "^6.4.6",

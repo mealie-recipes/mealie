@@ -14,6 +14,11 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
+  env: {
+    GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
+    ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
+  },
+
   router: {
     base: process.env.SUB_PATH || "",
   },
@@ -27,7 +32,7 @@ export default {
   css: [{ src: "~/assets/main.css" }, { src: "~/assets/style-overrides.scss" }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/globals.js"],
+  plugins: ["~/plugins/globals.js", { src: "~/plugins/axios", mode: "server" }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -42,16 +47,6 @@ export default {
     "@nuxtjs/composition-api/module",
   ],
 
-  publicRuntimeConfig: {
-    GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
-    ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
-  },
-
-  env: {
-    GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
-    ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
-  },
-
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -63,7 +58,23 @@ export default {
     // https://auth.nuxtjs.org/guide/setup
     "@nuxtjs/auth-next",
     // https://github.com/nuxt-community/proxy-module
-    "@nuxtjs/proxy",
+    [
+      "@nuxtjs/proxy",
+      {
+        logProvider: () => {
+          const provider = {
+            log: console.log,
+            debug: console.log,
+            info: console.info,
+            warn: console.warn,
+            error: console.error,
+          };
+
+          return provider;
+        },
+        logLevel: "debug",
+      },
+    ],
   ],
 
   auth: {
@@ -76,6 +87,7 @@ export default {
     // Options
     strategies: {
       local: {
+        resetOnError: true,
         token: {
           property: "access_token",
           global: true,
@@ -88,12 +100,12 @@ export default {
         },
         endpoints: {
           login: {
-            url: "/api/auth/token",
+            url: "api/auth/token",
             method: "post",
             propertyName: "access_token",
           },
-          refresh: { url: "/api/auth/refresh", method: "post" },
-          user: { url: "/api/users/self", method: "get" },
+          refresh: { url: "api/auth/refresh", method: "post" },
+          user: { url: "api/users/self", method: "get" },
         },
       },
     },
@@ -181,11 +193,17 @@ export default {
     proxy: true,
   },
 
+  publicRuntimeConfig: {
+    GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
+    ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
+  },
+
   proxy: {
-    // see Proxy section
-    "/api": {
+    // "http://localhost:9000/*/api",
+    // See Proxy section
+    "/api/": {
       changeOrigin: true,
-      target: process.env.NODE_ENV === "production" ? "http://mealie-api:9000" : "http://localhost:9000",
+      target: process.env.API_URL || "http://localhost:9000",
     },
   },
 
@@ -234,7 +252,11 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
+  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/@vue[\\/]composition-api/],
+    babel: {
+      plugins: [["@babel/plugin-proposal-private-property-in-object", { loose: true }]],
+    },
+    // transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : null
   },
 };
