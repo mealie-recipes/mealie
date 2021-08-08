@@ -483,7 +483,7 @@
     "users-header": "USUARIS",
     "webhook-time": "Hora del Webhook",
     "webhooks-enabled": "Webhooks habilitats",
-    "you-are-not-allowed-to-create-a-user": "Vostè no està autoritzat per crear un usuari",
+    "you-are-not-allowed-to-create-a-user": "Vostè no està autoritzat per a crear un usuari",
     "you-are-not-allowed-to-delete-this-user": "Vostè no està autoritzat per a suprimir l'usuari"
   }
 }
