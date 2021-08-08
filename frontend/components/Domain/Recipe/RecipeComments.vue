@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { api } from "@/api";
+import { useApiSingleton } from "~/composables/use-api";
 const NEW_COMMENT_EVENT = "new-comment";
 const UPDATE_COMMENT_EVENT = "update-comment";
 export default {
@@ -63,6 +63,11 @@ export default {
       type: String,
       required: true,
     },
+  },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
   },
   data() {
     return {
@@ -89,8 +94,9 @@ export default {
     resetImage() {
       this.hideImage = false;
     },
-    getProfileImage(id) {
-      return api.users.userProfileImage(id);
+    getProfileImage() {
+      // TODO Actually get Profile Image
+      return null;
     },
     editComment(id) {
       this.$set(this.editKeys, id, true);
@@ -98,17 +104,17 @@ export default {
     async updateComment(id, index) {
       this.$set(this.editKeys, id, false);
 
-      await api.recipes.updateComment(this.slug, id, this.comments[index]);
+      await this.api.recipes.updateComment(this.slug, id, this.comments[index]);
       this.$emit(UPDATE_COMMENT_EVENT);
     },
     async createNewComment() {
-      await api.recipes.createComment(this.slug, { text: this.newComment });
+      await this.api.recipes.createComment(this.slug, { text: this.newComment });
       this.$emit(NEW_COMMENT_EVENT);
 
       this.newComment = "";
     },
     async deleteComment(id) {
-      await api.recipes.deleteComment(this.slug, id);
+      await this.api.recipes.deleteComment(this.slug, id);
       this.$emit(UPDATE_COMMENT_EVENT);
     },
   },

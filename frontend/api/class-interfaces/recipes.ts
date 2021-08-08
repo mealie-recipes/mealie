@@ -16,6 +16,9 @@ const routes = {
   recipesRecipeSlugZip: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/zip`,
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
+
+  recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
+  recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
 };
 
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
@@ -45,7 +48,9 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     return await this.requests.post(routes.recipesCreateUrl, { url });
   }
 
-  // * Methods to Generate reference urls for assets/images *
+  // Recipe Comments
+
+  // Methods to Generate reference urls for assets/images *
   recipeImage(recipeSlug: string, version = null, key = null) {
     return `/api/media/recipes/${recipeSlug}/images/original.webp?&rnd=${key}&version=${version}`;
   }
@@ -60,5 +65,21 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
 
   recipeAssetPath(recipeSlug: string, assetName: string) {
     return `/api/media/recipes/${recipeSlug}/assets/${assetName}`;
+  }
+
+  async createComment(slug: string, payload: Object) {
+    return await this.requests.post(routes.recipesSlugComments(slug), payload);
+  }
+
+  /** Update comment in the Database
+   */
+  async updateComment(slug: string, id: number, payload: Object) {
+    return await this.requests.put(routes.recipesSlugCommentsId(slug, id), payload);
+  }
+
+  /** Delete comment from the Database
+   */
+  async deleteComment(slug: string, id: number) {
+    return await this.requests.delete(routes.recipesSlugCommentsId(slug, id));
   }
 }

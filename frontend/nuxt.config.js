@@ -196,12 +196,24 @@ export default {
   publicRuntimeConfig: {
     GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
     ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
+    axios: {
+      browserBaseURL: process.env.SUB_PATH || "",
+    },
   },
+
+  privateRuntimeConfig: {},
 
   proxy: {
     // "http://localhost:9000/*/api",
     // See Proxy section
-    "/api/": {
+    [`${process.env.SUB_PATH}api`]: {
+      pathRewrite: {
+        [`${process.env.SUB_PATH}api`]: "/api", // rewrite path
+      },
+      changeOrigin: true,
+      target: process.env.API_URL || "http://localhost:9000",
+    },
+    "/api": {
       changeOrigin: true,
       target: process.env.API_URL || "http://localhost:9000",
     },
