@@ -13,7 +13,7 @@
     "development": "Desarrollo",
     "docs": "Documentación",
     "download-log": "Descargar Log",
-    "download-recipe-json": "Último JSON raspado",
+    "download-recipe-json": "Último JSON analizado",
     "github": "Github",
     "log-lines": "Líneas de registro",
     "not-demo": "No Demo",
@@ -206,7 +206,7 @@
     "upload-a-recipe": "Subir una receta",
     "upload-individual-zip-file": "Sube un archivo .zip individual exportado desde otra instancia de Mealie.",
     "url-form-hint": "Copia y pega un enlace desde tu página web favorita",
-    "view-scraped-data": "View Scraped Data"
+    "view-scraped-data": "Ver información analizada"
   },
   "page": {
     "404-page-not-found": "404 Página no encontrada",
@@ -401,15 +401,15 @@
     "shopping-lists": "Listas de la compra"
   },
   "sidebar": {
-    "all-recipes": "All Recipes",
-    "categories": "Categories",
+    "all-recipes": "Recetas",
+    "categories": "Categorías",
     "dashboard": "Dashboard",
     "home-page": "Inicio",
     "manage-users": "Usuarios",
     "migrations": "Migraciones",
     "profile": "Perfil",
     "search": "Buscar",
-    "site-settings": "Site Settings",
+    "site-settings": "Ajustes",
     "tags": "Etiquetas",
     "toolbox": "Herramientas"
   },
