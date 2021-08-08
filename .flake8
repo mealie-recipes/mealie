@@ -4,3 +4,7 @@ ignore = [
     E402 # Import Not at Top of File
 ]
 exclude = _all_models.py
+
+
+per-file-ignores = 
+    __init__.py:F403,F401

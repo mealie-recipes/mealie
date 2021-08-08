@@ -49,10 +49,14 @@ test-all: lint test ## 🧪 Check Lint Format and Testing
 test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
-lint: ## 🧺 Check style with flake8
+lint: ## 🧺 Format, Check and Flake8 
 	poetry run black .
 	poetry run black . --check
 	poetry run flake8 mealie tests
+
+
+lint-frontend: ## 🧺 Run yarn lint
+	cd frontend && yarn lint
 
 coverage: ## ☂️  Check code coverage quickly with the default Python
 	poetry run pytest
