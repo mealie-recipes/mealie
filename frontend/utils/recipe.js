@@ -6,8 +6,8 @@ export const recipe = {
    */
   sortAToZ(list) {
     list.sort((a, b) => {
-      var textA = a.name.toUpperCase();
-      var textB = b.name.toUpperCase();
+      const textA = a.name.toUpperCase();
+      const textB = b.name.toUpperCase();
       return textA < textB ? -1 : textA > textB ? 1 : 0;
     });
   },
@@ -42,7 +42,7 @@ const rand = n =>
   Math.floor(Math.random() * n)
 
 function swap(t, i, j) {
-  let q = t[i];
+  const q = t[i];
   t[i] = t[j];
   t[j] = q;
   return t;

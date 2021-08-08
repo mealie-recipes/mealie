@@ -200,7 +200,8 @@ const icons = {
   accountPlusOutline: mdiAccountPlusOutline,
 };
 
-export default ({ app }, inject) => {
+// eslint-disable-next-line no-empty-pattern
+export default ({}, inject) => {
   // Inject $hello(msg) in Vue, context and store.
   inject("globals", { icons });
 };

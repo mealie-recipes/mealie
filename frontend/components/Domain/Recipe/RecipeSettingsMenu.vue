@@ -37,7 +37,10 @@
 export default {
   components: {},
   props: {
-    value: Object,
+    value: {
+      type: Object,
+      required: true,
+    },
   },
 
   computed: {

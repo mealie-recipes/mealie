@@ -69,7 +69,10 @@ export default {
     VueMarkdown,
   },
   props: {
-    recipe: Object,
+    recipe: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

@@ -36,9 +36,11 @@
 export default {
   props: {
     copyText: {
+      type: String,
       default: "Default Copy Text",
     },
     color: {
+      type: String,
       default: "primary",
     },
   },

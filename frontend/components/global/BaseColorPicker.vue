@@ -23,8 +23,14 @@
 <script>
 export default {
   props: {
-    buttonText: String,
-    value: String,
+    buttonText: {
+      type: String,
+      default: "Choose a color",
+    },
+    value: {
+      type: String,
+      default: "#ff0000",
+    },
   },
   data() {
     return {

@@ -49,7 +49,10 @@
 <script>
 export default {
   props: {
-    extras: Object,
+    extras: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
@@ -57,8 +60,8 @@ export default {
       dialog: false,
       formKey: 1,
       rules: {
-        required: v => !!v || this.$i18n.t("recipe.key-name-required"),
-        whiteSpace: v => !v || v.split(" ").length <= 1 || this.$i18n.t("recipe.no-white-space-allowed"),
+        required: (v) => !!v || this.$i18n.t("recipe.key-name-required"),
+        whiteSpace: (v) => !v || v.split(" ").length <= 1 || this.$i18n.t("recipe.no-white-space-allowed"),
       },
     };
   },

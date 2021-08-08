@@ -4,7 +4,7 @@ import { store } from "@/store";
 // TODO: Migrate to Mixins
 
 export const utils = {
-  recipe: recipe,
+  recipe,
   generateUniqueKey(item, index) {
     return `${item}-${index}`;
   },
@@ -16,35 +16,35 @@ export const utils = {
     return `${year}-${month}-${day}`;
   },
   notify: {
-    info: function(text, title = null) {
+    info(text, title = null) {
       store.commit("setSnackbar", {
         open: true,
-        title: title,
-        text: text,
+        title,
+        text,
         color: "info",
       });
     },
-    success: function(text, title = null) {
+    success(text, title = null) {
       store.commit("setSnackbar", {
         open: true,
-        title: title,
-        text: text,
+        title,
+        text,
         color: "success",
       });
     },
-    error: function(text, title = null) {
+    error(text, title = null) {
       store.commit("setSnackbar", {
         open: true,
-        title: title,
-        text: text,
+        title,
+        text,
         color: "error",
       });
     },
-    warning: function(text, title = null) {
+    warning(text, title = null) {
       store.commit("setSnackbar", {
         open: true,
-        title: title,
-        text: text,
+        title,
+        text,
         color: "warning",
       });
     },

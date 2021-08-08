@@ -41,7 +41,7 @@ export default {
       const split = this.inputText.split("\n");
 
       split.forEach((element, index) => {
-        if ((element === "\n") | (element == false)) {
+        if ((element === "\n") | (element === false)) {
           split.splice(index, 1);
         }
       });

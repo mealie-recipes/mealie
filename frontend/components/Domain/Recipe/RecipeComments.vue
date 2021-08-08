@@ -57,9 +57,11 @@ export default {
   props: {
     comments: {
       type: Array,
+      default: () => [],
     },
     slug: {
       type: String,
+      required: true,
     },
   },
   data() {
@@ -85,7 +87,7 @@ export default {
   },
   methods: {
     resetImage() {
-      this.hideImage == false;
+      this.hideImage = false;
     },
     getProfileImage(id) {
       return api.users.userProfileImage(id);

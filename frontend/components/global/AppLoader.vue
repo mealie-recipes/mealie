@@ -24,6 +24,7 @@
 export default {
   props: {
     loading: {
+      type: Boolean,
       default: true,
     },
     small: {
@@ -62,7 +63,7 @@ export default {
     },
     waitingText() {
       return this.$t("general.loading-recipes");
-    }
+    },
   },
 };
 </script>

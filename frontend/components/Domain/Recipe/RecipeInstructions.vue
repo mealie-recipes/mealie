@@ -97,6 +97,7 @@ export default {
   props: {
     value: {
       type: Array,
+      required: true,
     },
 
     edit: {
@@ -115,13 +116,13 @@ export default {
     value: {
       handler() {
         this.disabledSteps = [];
-        this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
+        this.showTitleEditor = this.value.map((x) => this.validateTitle(x.title));
       },
     },
   },
 
   mounted() {
-    this.showTitleEditor = this.value.map(x => this.validateTitle(x.title));
+    this.showTitleEditor = this.value.map((x) => this.validateTitle(x.title));
   },
 
   methods: {
@@ -148,8 +149,6 @@ export default {
     isChecked(stepIndex) {
       if (this.disabledSteps.includes(stepIndex) && !this.edit) {
         return "disabled-card";
-      } else {
-        
       }
     },
     toggleShowTitle(index) {

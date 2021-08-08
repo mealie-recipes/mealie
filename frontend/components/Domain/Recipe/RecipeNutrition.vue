@@ -21,7 +21,7 @@
       <v-list v-if="showViewer" dense class="mt-0 pt-0">
         <v-list-item v-for="(item, key, index) in labels" :key="index">
           <v-list-item-content>
-            <v-list-item-title class="pl-4 text-subtitle-1 flex row ">
+            <v-list-item-title class="pl-4 text-subtitle-1 flex row">
               <div>{{ item.label }}</div>
               <div class="ml-auto mr-1">{{ value[key] }}</div>
               <div>{{ item.suffix }}</div>
@@ -36,7 +36,10 @@
 <script>
 export default {
   props: {
-    value: {},
+    value: {
+      type: Object,
+      required: true,
+    },
     edit: {
       type: Boolean,
       default: true,
