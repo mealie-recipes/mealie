@@ -1,13 +1,11 @@
-name: Project Tests
+name: Backend Tests
 on:
   push:
     branches:
-      - master
-      - dev
+      - mealie-next
   pull_request:
     branches:
-      - master
-      - dev
+      - mealie-next
     types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
