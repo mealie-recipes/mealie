@@ -1,12 +1,12 @@
 ###############################################
-# Frontend Builder Image
-###############################################
-FROM node:lts-alpine as frontend-build
-WORKDIR /app
-COPY ./frontend/package*.json ./
-RUN npm install
-COPY ./frontend/ .
-RUN npm run build
+# # Frontend Builder Image
+# ###############################################
+# FROM node:lts-alpine as frontend-build
+# WORKDIR /app
+# COPY ./frontend/package*.json ./
+# RUN npm install
+# COPY ./frontend/ .
+# RUN npm run build
 
 ###############################################
 # Base Image
@@ -125,7 +125,7 @@ RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
 WORKDIR /
 
 # copy frontend
-COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
+# COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
 

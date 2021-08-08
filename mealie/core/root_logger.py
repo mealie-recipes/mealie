@@ -1,4 +1,5 @@
 import logging
+import sys
 from dataclasses import dataclass
 from functools import lru_cache
 
@@ -33,11 +34,16 @@ def get_logger_config():
             logger_file=None,
         )
 
+    output_file_handler = logging.FileHandler(LOGGER_FILE)
+    handler_format = logging.Formatter(LOGGER_FORMAT, datefmt=DATE_FORMAT)
+    output_file_handler.setFormatter(handler_format)
+
+    # Stdout
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setFormatter(handler_format)
+
     return LoggerConfig(
-        handlers=[
-            logging.FileHandler(LOGGER_FILE),
-            logging.Formatter(LOGGER_FORMAT, datefmt=DATE_FORMAT),
-        ],
+        handlers=[output_file_handler, stdout_handler],
         format="%(levelname)s: %(asctime)s \t%(message)s",
         date_format="%d-%b-%y %H:%M:%S",
         logger_file=LOGGER_FILE,
