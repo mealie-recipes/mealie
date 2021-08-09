@@ -193,7 +193,7 @@
     "recipe-migration": "Migració de receptes"
   },
   "new-recipe": {
-    "bulk-add": "Afegiu 'a granel'",
+    "bulk-add": "Afegiu tot d'una",
     "error-details": "Mealie només pot importar els llocs web amb Id+json o microdata. Els principals llocs de receptes suporten aquesta estructura de les dades. Si no pot importar-les però hi ha dades json al registre, per favor, obriu un problema (issue) a GitHub amb l'URL i les dades. A GitHub només obriu problemes en anglés.",
     "error-title": "No hem pout trobar res",
     "from-url": "Importa una recepta",
@@ -374,7 +374,7 @@
     },
     "toolbox": {
       "assign-all": "Asigna tots",
-      "bulk-assign": "Asigna en grup",
+      "bulk-assign": "Assigna en grup",
       "new-name": "Nou nom",
       "no-unused-items": "No hi han elements sense utilitzar",
       "recipes-affected": "Cap recepta afectada|Una recepta afectada|{count} receptes afectades",
