@@ -126,7 +126,7 @@ export default {
       default: null,
     },
     hardLimit: {
-      type: Number,
+      type: [String, Number],
       default: 99999,
     },
     mobileCards: {

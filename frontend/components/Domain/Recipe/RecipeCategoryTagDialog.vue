@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot>
-      <v-btn icon @click="dialog = true" class="mt-n1">
+      <v-btn icon class="mt-n1" @click="dialog = true">
         <v-icon :color="color">{{ $globals.icons.create }}</v-icon>
       </v-btn>
     </slot>
@@ -21,12 +21,12 @@
         <v-card-title> </v-card-title>
         <v-form @submit.prevent="select">
           <v-card-text>
-            <v-text-field dense :label="inputLabel" v-model="itemName" :rules="[rules.required]"></v-text-field>
+            <v-text-field v-model="itemName" dense :label="inputLabel" :rules="[rules.required]"></v-text-field>
           </v-card-text>
           <v-card-actions>
-            <TheButton cancel @click="dialog = false" />
+            <BaseButton cancel @click="dialog = false" />
             <v-spacer></v-spacer>
-            <TheButton type="submit" create :disabled="!itemName" />
+            <BaseButton type="submit" create :disabled="!itemName" />
           </v-card-actions>
         </v-form>
       </v-card>
@@ -35,25 +35,39 @@
 </template>
 
 <script>
-import { api } from "@/api";
+import { defineComponent } from "vue-demi";
+import { useApiSingleton } from "~/composables/use-api";
 const CREATED_ITEM_EVENT = "created-item";
-export default {
+export default defineComponent({
   props: {
-    buttonText: String,
-    value: String,
+    buttonText: {
+      type: String,
+      default: "Add",
+    },
+    value: {
+      type: String,
+      default: "",
+    },
     color: {
+      type: String,
       default: null,
     },
     tagDialog: {
+      type: Boolean,
       default: true,
     },
+  },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
   },
   data() {
     return {
       dialog: false,
       itemName: "",
       rules: {
-        required: val => !!val || "A Name is Required",
+        required: (val) => !!val || "A Name is Required",
       },
     };
   },
@@ -79,10 +93,10 @@ export default {
     async select() {
       const newItem = await (async () => {
         if (this.tagDialog) {
-          const newItem = await api.tags.create(this.itemName);
+          const newItem = await this.api.tags.createOne({ name: this.itemName });
           return newItem;
         } else {
-          const newItem = await api.categories.create(this.itemName);
+          const newItem = await this.api.categories.createOne({ name: this.itemName });
           return newItem;
         }
       })();
@@ -91,7 +105,7 @@ export default {
       this.dialog = false;
     },
   },
-};
+});
 </script>
 
 <style></style>

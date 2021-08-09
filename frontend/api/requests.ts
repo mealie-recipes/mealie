@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 
-
 interface RequestResponse<T> {
   response: AxiosResponse<T> | null;
   data: T | null;
@@ -21,9 +20,9 @@ const request = {
 };
 
 export const requests = {
-  async get<T>(url: string, queryParams = {}): Promise<RequestResponse<T>> {
+  async get<T>(url: string, params = {}): Promise<RequestResponse<T>> {
     let error = null;
-    const response = await axios.get<T>(url, { params: { queryParams } }).catch((e) => {
+    const response = await axios.get<T>(url, { ...params }).catch((e) => {
       error = e;
     });
     if (response != null) {

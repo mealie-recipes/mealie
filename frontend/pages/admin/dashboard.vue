@@ -1,7 +1,7 @@
 // TODO: Possibly add confirmation dialog? I'm not sure that it's really requried for events...
 
 <template>
-  <v-container class="mt-10">
+  <v-container v-if="statistics" class="mt-10">
     <v-row v-if="statistics">
       <v-col cols="12" sm="12" md="4">
         <BaseStatCard :icon="$globals.icons.primary">
@@ -121,7 +121,7 @@ export default defineComponent({
       const events = useAsync(async () => {
         const { data } = await api.events.getEvents();
         return data;
-      });
+      }, useAsyncKey());
       return events;
     }
 

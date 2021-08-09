@@ -53,12 +53,12 @@ export default defineComponent({
         },
         {
           icon: this.$globals.icons.tags,
-          to: "/recipes/category",
+          to: "/recipes/categories",
           title: this.$t("sidebar.categories"),
         },
         {
           icon: this.$globals.icons.tags,
-          to: "/recipes/tag",
+          to: "/recipes/tags",
           title: this.$t("sidebar.tags"),
         },
       ],

@@ -23,9 +23,9 @@ const request = {
 
 function getRequests(axoisInstance: NuxtAxiosInstance): ApiRequestInstance {
   const requests = {
-    async get<T>(url: string, queryParams = {}): Promise<RequestResponse<T>> {
+    async get<T>(url: string, params = {}): Promise<RequestResponse<T>> {
       let error = null;
-      const response = await axoisInstance.get<T>(url, { params: { queryParams } }).catch((e) => {
+      const response = await axoisInstance.get<T>(url, params).catch((e) => {
         error = e;
       });
       if (response != null) {
@@ -53,12 +53,9 @@ function getRequests(axoisInstance: NuxtAxiosInstance): ApiRequestInstance {
   return requests;
 }
 
-
-
-
 export const useApiSingleton = function (): Api {
   const { $axios } = useContext();
   const requests = getRequests($axios);
 
-  return new Api(requests)
+  return new Api(requests);
 };

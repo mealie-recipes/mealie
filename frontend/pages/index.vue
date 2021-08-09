@@ -1,35 +1,25 @@
 <template>
   <v-container>
     <RecipeCardSection
+      v-if="recentRecipes"
       :icon="$globals.icons.primary"
       :title="$t('general.recent')"
-      :recipes="recipes"
+      :recipes="recentRecipes"
     ></RecipeCardSection>
   </v-container>
 </template>
   
   <script lang="ts">
-import { defineComponent, useAsync } from "@nuxtjs/composition-api";
+import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { useApiSingleton } from "~/composables/use-api";
+import { useRecipes, recentRecipes } from "~/composables/use-recipes";
 
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
-    const api = useApiSingleton();
+    const { assignSorted } = useRecipes(false);
 
-    const recipes = useAsync(async () => {
-      const { data } = await api.recipes.getAll();
-      return data;
-    });
-
-    // const recipes = ref<Recipe[] | null>([]);
-    // onMounted(async () => {
-    //   const { data } = await api.recipes.getAll();
-    //   recipes.value = data;
-    // });
-
-    return { api, recipes };
+    return { recentRecipes, assignSorted };
   },
 });
 </script>
