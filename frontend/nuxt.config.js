@@ -45,6 +45,8 @@ export default {
     "@nuxtjs/vuetify",
     // https://composition-api.nuxtjs.org/getting-started/setup
     "@nuxtjs/composition-api/module",
+    // https://vite.nuxtjs.org/getting-started/installation
+    "nuxt-vite",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
