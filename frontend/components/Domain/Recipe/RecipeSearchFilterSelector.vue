@@ -11,10 +11,10 @@
     </v-btn-toggle>
     <v-spacer></v-spacer>
     <v-btn-toggle v-model="match" tile group color="primary accent-3" mandatory @change="emitMulti">
-      <v-btn small :value="false">
+      <v-btn small :value="false" class="text-uppercase">
         {{ $t("search.and") }}
       </v-btn>
-      <v-btn small :value="true">
+      <v-btn small :value="true" class="text-uppercase">
         {{ $t("search.or") }}
       </v-btn>
     </v-btn-toggle>

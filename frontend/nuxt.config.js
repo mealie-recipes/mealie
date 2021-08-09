@@ -32,7 +32,7 @@ export default {
   css: [{ src: "~/assets/main.css" }, { src: "~/assets/style-overrides.scss" }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/globals.js", { src: "~/plugins/axios", mode: "server" }],
+  plugins: ["~/plugins/globals.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -266,11 +266,12 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-build
+    analyze: true,
     babel: {
       plugins: [["@babel/plugin-proposal-private-property-in-object", { loose: true }]],
     },
-    // transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : null
+    transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : null,
   },
 };

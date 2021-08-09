@@ -1,4 +1,5 @@
 import { BaseCRUDAPI } from "./_base";
+import { Recipe } from "~/types/api-types/admin";
 
 const prefix = "/api";
 
@@ -6,6 +7,7 @@ export interface Tag {
   name: string;
   id: number;
   slug: string;
+  recipes?: Recipe[];
 }
 
 export interface CreateTag {

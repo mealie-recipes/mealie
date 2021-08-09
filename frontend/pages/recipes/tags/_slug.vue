@@ -31,7 +31,9 @@ export default defineComponent({
   },
   methods: {
     assignSorted(val: Array<Recipe>) {
-      this.tag.recipes = val;
+      if (this.tag) {
+        this.tag.recipes = val;
+      }
     },
   },
 });
