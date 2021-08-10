@@ -1,5 +1,5 @@
 <template>
-  <div v-if="recipes">
+  <div>
     <v-app-bar v-if="!disableToolbar" color="transparent" flat class="mt-n1 flex-sm-wrap rounded">
       <v-icon v-if="title" large left>
         {{ displayTitleIcon }}
@@ -139,7 +139,7 @@ export default {
     },
     recipes: {
       type: Array,
-      required: true,
+      default: () => [],
     },
   },
   data() {

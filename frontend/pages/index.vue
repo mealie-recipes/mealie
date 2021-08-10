@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <RecipeCardSection
-      v-if="recentRecipes"
       :icon="$globals.icons.primary"
       :title="$t('general.recent')"
       :recipes="recentRecipes"
@@ -13,11 +12,14 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useRecipes, recentRecipes } from "~/composables/use-recipes";
+import { useStaticRoutes } from "~/composables/api";
 
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
     const { assignSorted } = useRecipes(false);
+
+    useStaticRoutes();
 
     return { recentRecipes, assignSorted };
   },

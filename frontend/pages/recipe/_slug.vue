@@ -33,7 +33,7 @@
           :key="imageKey"
           :max-width="recipe.settings.landscapeView ? null : '50%'"
           :height="hideImage ? '50' : imageHeight"
-          :src="api.recipes.recipeImage(recipe.slug, imageKey)"
+          :src="recipeImage(recipe.slug, imageKey)"
           class="d-print-none"
           @error="hideImage = true"
         >
@@ -183,6 +183,7 @@ import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import { Recipe } from "~/types/api-types/admin";
+import { useStaticRoutes } from "~/composables/api";
 
 export default defineComponent({
   components: {
@@ -207,6 +208,8 @@ export default defineComponent({
     const imageKey = ref(1);
 
     const { getBySlug, loading } = useRecipeContext();
+
+    const { recipeImage } = useStaticRoutes();
 
     const recipe = getBySlug(slug);
 
@@ -250,6 +253,7 @@ export default defineComponent({
       updateRecipe,
       uploadImage,
       validators,
+      recipeImage,
     };
   },
   data() {

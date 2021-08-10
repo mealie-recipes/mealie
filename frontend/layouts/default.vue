@@ -28,7 +28,7 @@ import AppFloatingButton from "@/components/Layout/AppFloatingButton.vue";
 export default defineComponent({
   components: { AppHeader, AppSidebar, AppFloatingButton },
   // @ts-ignore
-  middleware: process.env.GLOBAL_MIDDLEWARE,
+  // middleware: process.env.GLOBAL_MIDDLEWARE,
   setup() {
     return {};
   },

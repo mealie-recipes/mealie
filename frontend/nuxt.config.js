@@ -198,6 +198,7 @@ export default {
   publicRuntimeConfig: {
     GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
     ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
+    SUB_PATH: process.env.SUB_PATH || "",
     axios: {
       browserBaseURL: process.env.SUB_PATH || "",
     },
@@ -208,9 +209,9 @@ export default {
   proxy: {
     // "http://localhost:9000/*/api",
     // See Proxy section
-    [`${process.env.SUB_PATH}api`]: {
+    [`${process.env.SUB_PATH || ""}api`]: {
       pathRewrite: {
-        [`${process.env.SUB_PATH}api`]: "/api", // rewrite path
+        [`${process.env.SUB_PATH || ""}api`]: "/api", // rewrite path
       },
       changeOrigin: true,
       target: process.env.API_URL || "http://localhost:9000",
@@ -268,7 +269,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-build
-    analyze: true,
+    analyze: process.env.NODE_ENV !== "production",
     babel: {
       plugins: [["@babel/plugin-proposal-private-property-in-object", { loose: true }]],
     },

@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { useStaticRoutes } from "~/composables/api";
 import { useApiSingleton } from "~/composables/use-api";
 export default {
   props: {
@@ -53,7 +54,9 @@ export default {
   setup() {
     const api = useApiSingleton();
 
-    return { api };
+    const { recipeImage, recipeSmallImage, recipeTinyImage } = useStaticRoutes();
+
+    return { api, recipeImage, recipeSmallImage, recipeTinyImage };
   },
   data() {
     return {
@@ -77,11 +80,11 @@ export default {
     getImage(slug) {
       switch (this.imageSize) {
         case "tiny":
-          return this.api.recipes.recipeTinyImage(slug, this.imageVersion);
+          return this.recipeTinyImage(slug, this.imageVersion);
         case "small":
-          return this.api.recipes.recipeSmallImage(slug, this.imageVersion);
+          return this.recipeSmallImage(slug, this.imageVersion);
         case "large":
-          return this.api.recipes.recipeImage(slug, this.imageVersion);
+          return this.recipeImage(slug, this.imageVersion);
       }
     },
   },
