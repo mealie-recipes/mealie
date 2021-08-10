@@ -22,13 +22,13 @@
 
 	handle @proxied {
 		uri strip_suffix /
-		reverse_proxy http://mealie-api
+		reverse_proxy http://127.0.0.1:9000
 	}
 
-	handle {
-		header @static Cache-Control max-age=31536000
-		root * /app/dist
-		try_files {path}.html {path} /
-		file_server
-	}
+	# handle {
+	# 	header @static Cache-Control max-age=31536000
+	# 	root * /app/dist
+	# 	try_files {path}.html {path} /
+	# 	file_server
+	# }
 }

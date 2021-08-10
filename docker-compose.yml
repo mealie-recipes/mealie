@@ -10,10 +10,10 @@ services:
     ports:
       - 9091:3000
     environment:
-      - GLOBAL_MIDDLEWARE=null
+      - GLOBAL_MIDDLEWARE=auth
       - SUB_PATH=/mealie/
       - ALLOW_SIGNUP=true
-      - API_URL=http://mealie-api:9000
+      - API_URL=http://mealie-api:80
   mealie:
     container_name: mealie-api
     build:
