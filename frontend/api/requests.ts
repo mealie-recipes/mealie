@@ -10,9 +10,7 @@ const request = {
   async safe<T>(funcCall: any, url: string, data: object = {}): Promise<RequestResponse<T>> {
     const response = await funcCall(url, data).catch(function (error: object) {
       console.log(error);
-
       // Insert Generic Error Handling Here
-
       return { response: null, error, data: null };
     });
     return { response, error: null, data: response.data };
