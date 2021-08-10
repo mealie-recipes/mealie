@@ -28,7 +28,7 @@ def get_logger_config():
         from rich.logging import RichHandler
 
         return LoggerConfig(
-            handlers=[RichHandler(rich_tracebacks=True)],
+            handlers=[RichHandler(rich_tracebacks=True, tracebacks_show_locals=True)],
             format=None,
             date_format=None,
             logger_file=None,
