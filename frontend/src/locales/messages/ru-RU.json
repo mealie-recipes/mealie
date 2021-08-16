@@ -18,7 +18,7 @@
     "log-lines": "Строки журнала",
     "not-demo": "Не демо",
     "portfolio": "Портфолио",
-    "production": "Production",
+    "production": "Создание",
     "support": "Поддержка",
     "version": "Версия"
   },
@@ -189,7 +189,7 @@
       "description": "Миграция данных из Nextcloud Cookbook",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "No Migration Data Available",
+    "no-migration-data-available": "Данные о миграции отсутствуют",
     "recipe-migration": "Миграция рецепта"
   },
   "new-recipe": {
@@ -250,8 +250,8 @@
     "no-white-space-allowed": "Пробелы не допускаются",
     "note": "Заметка",
     "nutrition": "Пищевая ценность",
-    "object-key": "Object Key",
-    "object-value": "Object Value",
+    "object-key": "Ключ объекта",
+    "object-value": "Значение объекта",
     "original-url": "Исходный URL",
     "perform-time": "Время приготовления",
     "prep-time": "Время подготовки",
@@ -269,9 +269,9 @@
     "remove-from-favorites": "Убрать из избранного",
     "remove-section": "Удалить раздел",
     "save-recipe-before-use": "Сохранить рецепт перед использованием",
-    "section-title": "Section Title",
+    "section-title": "Название раздела",
     "servings": "Порции",
-    "share-recipe-message": "I wanted to share my {0} recipe with you.",
+    "share-recipe-message": "Я хотел(а) поделиться с тобой моим рецептом {0}.",
     "show-nutrition-values": "Показать пищевую ценность",
     "sodium-content": "Соль",
     "step-index": "Шаг: {step}",
