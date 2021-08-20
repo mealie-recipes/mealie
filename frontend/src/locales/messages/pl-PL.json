@@ -401,11 +401,11 @@
     "shopping-lists": "Lista zakupów"
   },
   "sidebar": {
-    "all-recipes": "All Recipes",
+    "all-recipes": "Wszystkie",
     "categories": "Kategorie",
     "dashboard": "Kokpit",
     "home-page": "Strona główna",
-    "manage-users": "Manage Users",
+    "manage-users": "Zarządzanie",
     "migrations": "Migracje",
     "profile": "Profil",
     "search": "Wyszukaj",
