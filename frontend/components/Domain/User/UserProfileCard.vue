@@ -137,12 +137,6 @@ export default defineComponent({
   },
 
   methods: {
-    openAvatarPicker() {
-      this.showAvatarPicker = true;
-    },
-    selectAvatar(avatar) {
-      this.user.avatar = avatar;
-    },
     // async updateUser() {
     //   if (!this.$refs.userUpdate.validate()) {
     //     return;
