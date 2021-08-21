@@ -8,6 +8,7 @@ import { UploadFile } from "./class-interfaces/upload";
 import { CategoriesAPI } from "./class-interfaces/categories";
 import { TagsAPI } from "./class-interfaces/tags";
 import { UtilsAPI } from "./class-interfaces/utils";
+import { NotificationsAPI } from "./class-interfaces/event-notifications";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -21,6 +22,7 @@ class Api {
   public categories: CategoriesAPI;
   public tags: TagsAPI;
   public utils: UtilsAPI;
+  public notifications: NotificationsAPI;
 
   // Utils
   public upload: UploadFile;
@@ -43,6 +45,7 @@ class Api {
     this.debug = new DebugAPI(requests);
     this.events = new EventsAPI(requests);
     this.backups = new BackupAPI(requests);
+    this.notifications = new NotificationsAPI(requests);
 
     // Utils
     this.upload = new UploadFile(requests);
