@@ -1,10 +1,8 @@
 {
   "python.formatting.provider": "black",
   "python.pythonPath": ".venv/bin/python3.9",
-  "python.linting.pylintEnabled": false,
   "python.linting.enabled": true,
   "python.testing.unittestEnabled": false,
-  "python.testing.nosetestsEnabled": false,
   "python.testing.pytestEnabled": true,
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
   "python.testing.pytestArgs": ["tests"],
@@ -20,7 +18,9 @@
   "editor.formatOnSave": true,
   "eslint.workingDirectories": ["./frontend"],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false
   },
-  "vetur.validation.template": false
+  "vetur.validation.template": false,
+  "python.linting.pylintEnabled": false
 }

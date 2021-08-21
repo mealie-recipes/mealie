@@ -1,6 +1,6 @@
 from fastapi import Depends
 from fastapi.routing import APIRouter
-from mealie.core.config import APP_VERSION, app_dirs, settings
+from mealie.core.config import APP_VERSION, settings
 from mealie.core.root_logger import LOGGER_FILE
 from mealie.core.security import create_file_token
 from mealie.db.database import db
@@ -48,12 +48,6 @@ async def get_mealie_version():
         demo_status=settings.IS_DEMO,
         production=settings.PRODUCTION,
     )
-
-
-@admin_router.get("/last-recipe-json")
-async def get_last_recipe_json():
-    """ Returns a token to download a file """
-    return {"fileToken": create_file_token(app_dirs.DEBUG_DIR.joinpath("last_recipe.json"))}
 
 
 @admin_router.get("/log/{num}")

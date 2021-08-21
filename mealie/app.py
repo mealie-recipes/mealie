@@ -4,7 +4,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 
 from mealie.core.config import APP_VERSION, settings
 from mealie.core.root_logger import get_logger
-from mealie.routes import backup_routes, debug_routes, migration_routes, theme_routes, utility_routes
+from mealie.routes import backup_routes, debug_routes, migration_routes, router, theme_routes, utility_routes
 from mealie.routes.about import about_router
 from mealie.routes.groups import groups_router
 from mealie.routes.mealplans import meal_plan_router
@@ -12,7 +12,6 @@ from mealie.routes.media import media_router
 from mealie.routes.recipe import recipe_router
 from mealie.routes.shopping_list import shopping_list_router
 from mealie.routes.site_settings import settings_router
-from mealie.routes.users import user_router
 from mealie.services.events import create_general_event
 from mealie.services.recipe.all_recipes import subscripte_to_recipe_events
 
@@ -35,7 +34,7 @@ def start_scheduler():
 
 def api_routers():
     # Authentication
-    app.include_router(user_router)
+    app.include_router(router)
     app.include_router(groups_router)
     app.include_router(shopping_list_router)
     # Recipes

@@ -10,7 +10,7 @@ from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, UserInDB
 from sqlalchemy.orm.session import Session
 
-router = UserAPIRouter(prefix="/api/users", tags=["User API Tokens"])
+router = UserAPIRouter()
 
 
 @router.post("/api-tokens", status_code=status.HTTP_201_CREATED)

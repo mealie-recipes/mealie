@@ -6,12 +6,13 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_admin_user
 from mealie.routes.routers import AdminAPIRouter
-from mealie.schema.user import SignUpIn, SignUpOut, SignUpToken, UserIn, UserInDB
+from mealie.schema.user import (SignUpIn, SignUpOut, SignUpToken, UserIn,
+                                UserInDB)
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
-public_router = APIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
-admin_router = AdminAPIRouter(prefix="/api/users/sign-ups", tags=["User Signup"])
+public_router = APIRouter(prefix="/sign-ups")
+admin_router = AdminAPIRouter(prefix="/sign-ups")
 
 
 @admin_router.get("", response_model=list[SignUpOut])
