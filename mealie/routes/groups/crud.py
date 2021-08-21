@@ -7,17 +7,8 @@ from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from mealie.services.events import create_group_event
 from sqlalchemy.orm.session import Session
 
-admin_router = AdminAPIRouter(prefix="/api/groups", tags=["Groups administration"])
-user_router = UserAPIRouter(prefix="/api/groups", tags=["Groups"])
-
-
-@admin_router.get("", response_model=list[GroupInDB])
-async def get_all_groups(
-    session: Session = Depends(generate_session),
-):
-    """ Returns a list of all groups in the database """
-
-    return db.groups.get_all(session)
+admin_router = AdminAPIRouter(prefix="/api/groups", tags=["Groups: CRUD"])
+user_router = UserAPIRouter(prefix="/api/groups", tags=["Groups: CRUD"])
 
 
 @user_router.get("/self", response_model=GroupInDB)
@@ -29,6 +20,15 @@ async def get_current_user_group(
     current_user: UserInDB
 
     return db.groups.get(session, current_user.group, "name")
+
+
+@admin_router.get("", response_model=list[GroupInDB])
+async def get_all_groups(
+    session: Session = Depends(generate_session),
+):
+    """ Returns a list of all groups in the database """
+
+    return db.groups.get_all(session)
 
 
 @admin_router.post("", status_code=status.HTTP_201_CREATED, response_model=GroupInDB)

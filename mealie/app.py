@@ -6,7 +6,6 @@ from mealie.core.config import APP_VERSION, settings
 from mealie.core.root_logger import get_logger
 from mealie.routes import backup_routes, debug_routes, migration_routes, router, theme_routes, utility_routes
 from mealie.routes.about import about_router
-from mealie.routes.groups import groups_router
 from mealie.routes.mealplans import meal_plan_router
 from mealie.routes.media import media_router
 from mealie.routes.recipe import recipe_router
@@ -35,7 +34,6 @@ def start_scheduler():
 def api_routers():
     # Authentication
     app.include_router(router)
-    app.include_router(groups_router)
     app.include_router(shopping_list_router)
     # Recipes
     app.include_router(recipe_router)

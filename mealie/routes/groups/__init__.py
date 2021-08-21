@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 
-from . import groups
+from . import crud
 
-groups_router = APIRouter()
+router = APIRouter()
 
-groups_router.include_router(groups.router)
+router.include_router(crud.user_router)
+router.include_router(crud.admin_router)
