@@ -10,8 +10,8 @@ from mealie.schema.user import UserInDB
 from mealie.services.events import create_user_event
 from sqlalchemy.orm.session import Session
 
-public_router = APIRouter(tags=["Authentication"])
-user_router = UserAPIRouter(tags=["Authentication"])
+public_router = APIRouter(tags=["Users: Authentication"])
+user_router = UserAPIRouter(tags=["Users: Authentication"])
 
 
 @public_router.post("/token/long")
