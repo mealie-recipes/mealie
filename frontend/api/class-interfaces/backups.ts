@@ -10,8 +10,9 @@ export interface BackupOptions {
   notifications?: boolean;
 }
 
-export interface ImportBackup extends BackupOptions {
+export interface ImportBackup {
   name: string;
+  options: BackupOptions;
 }
 
 export interface BackupJob {
@@ -58,7 +59,7 @@ export class BackupAPI extends BaseAPI {
   /** Import a database backup file generated from Mealie.
    */
   async restoreDatabase(fileName: string, payload: BackupOptions) {
-    return await this.requests.post(routes.backupsFileNameImport(fileName), payload);
+    return await this.requests.post(routes.backupsFileNameImport(fileName), {name: fileName, ...payload});
   }
 
   /** Removes a database backup from the file system

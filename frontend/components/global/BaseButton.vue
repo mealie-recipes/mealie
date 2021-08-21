@@ -8,7 +8,8 @@
     :outlined="btnStyle.outlined"
     :text="btnStyle.text"
     :to="to"
-    @click="$emit('click')"
+    v-on="$listeners"
+    @click="download ? downloadFile() : undefined"
   >
     <v-icon left>
       <slot name="icon">
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import { useApiSingleton } from "~/composables/use-api";
 export default {
   name: "BaseButton",
   props: {
@@ -45,6 +47,15 @@ export default {
     delete: {
       type: Boolean,
       default: false,
+    },
+    // Download
+    download: {
+      type: Boolean,
+      default: false,
+    },
+    downloadUrl: {
+      type: String,
+      default: "",
     },
     // Property
     loading: {
@@ -81,6 +92,11 @@ export default {
       default: null,
     },
   },
+  setup() {
+    const api = useApiSingleton();
+
+    return { api };
+  },
   data() {
     return {
       buttonOptions: {
@@ -114,6 +130,11 @@ export default {
           icon: this.$globals.icons.cancel,
           color: "grey",
         },
+        download: {
+          text: "Download",
+          icon: this.$globals.icons.download,
+          color: "info",
+        },
       },
       buttonStyles: {
         defaults: {
@@ -144,6 +165,8 @@ export default {
         return this.buttonOptions.cancel;
       } else if (this.save) {
         return this.buttonOptions.save;
+      } else if (this.download) {
+        return this.buttonOptions.download;
       }
       return this.buttonOptions.create;
     },
@@ -162,6 +185,9 @@ export default {
     },
     setSecondary() {
       this.buttonStyles.defaults = this.buttonStyles.secondary;
+    },
+    downloadFile() {
+      this.api.utils.download(this.downloadUrl);
     },
   },
 };

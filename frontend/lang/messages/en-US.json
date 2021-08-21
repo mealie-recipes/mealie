@@ -303,7 +303,7 @@
       "backup-created-at-response-export_path": "Backup Created at {path}",
       "backup-deleted": "Backup deleted",
       "backup-tag": "Backup Tag",
-      "create-heading": "Create a Backup",
+      "create-heading": "Create A Backup",
       "delete-backup": "Delete Backup",
       "error-creating-backup-see-log-file": "Error Creating Backup. See Log File",
       "full-backup": "Full Backup",
@@ -411,7 +411,8 @@
     "search": "Search",
     "site-settings": "Site Settings",
     "tags": "Tags",
-    "toolbox": "Toolbox"
+    "toolbox": "Toolbox",
+    "backups": "Backups"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",

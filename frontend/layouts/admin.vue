@@ -122,6 +122,11 @@ export default defineComponent({
           to: "/admin/migrations",
           title: this.$t("sidebar.migrations"),
         },
+        {
+          icon: this.$globals.icons.database,
+          to: "/admin/backups",
+          title: this.$t("sidebar.backups"),
+        },
       ],
       bottomLinks: [
         {

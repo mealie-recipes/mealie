@@ -7,6 +7,7 @@ import { BackupAPI } from "./class-interfaces/backups";
 import { UploadFile } from "./class-interfaces/upload";
 import { CategoriesAPI } from "./class-interfaces/categories";
 import { TagsAPI } from "./class-interfaces/tags";
+import { UtilsAPI } from "./class-interfaces/utils";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -19,6 +20,7 @@ class Api {
   public backups: BackupAPI;
   public categories: CategoriesAPI;
   public tags: TagsAPI;
+  public utils: UtilsAPI;
 
   // Utils
   public upload: UploadFile;
@@ -44,6 +46,7 @@ class Api {
 
     // Utils
     this.upload = new UploadFile(requests);
+    this.utils = new UtilsAPI(requests);
 
     Object.freeze(this);
     Api.instance = this;

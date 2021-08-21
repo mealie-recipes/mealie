@@ -12,6 +12,10 @@ interface CreateAPIToken {
   name: string;
 }
 
+interface ResponseToken {
+  token: string;
+}
+
 // Code
 
 const prefix = "/api";
@@ -28,7 +32,7 @@ const routes = {
   usersIdFavoritesSlug: (id: string, slug: string) => `${prefix}/users/${id}/favorites/${slug}`,
 
   usersApiTokens: `${prefix}/users/api-tokens`,
-  usersApiTokensTokenId: (token_id: string) => `${prefix}/users/api-tokens/${token_id}`,
+  usersApiTokensTokenId: (token_id: string | number) => `${prefix}/users/api-tokens/${token_id}`,
 };
 
 export class UserApi extends BaseCRUDAPI<UserOut, UserIn> {
@@ -56,10 +60,10 @@ export class UserApi extends BaseCRUDAPI<UserOut, UserIn> {
   }
 
   async createAPIToken(tokenName: CreateAPIToken) {
-    return await this.requests.post(routes.usersApiTokens, tokenName);
+    return await this.requests.post<ResponseToken>(routes.usersApiTokens, tokenName);
   }
 
-  async deleteApiToken(tokenId: string) {
+  async deleteAPIToken(tokenId: string | number) {
     return await this.requests.delete(routes.usersApiTokensTokenId(tokenId));
   }
 

@@ -246,7 +246,7 @@ export default {
       themes: {
         dark: {
           primary: "#E58325",
-          accent: "#00457A",
+          accent: "#007A99",
           secondary: "#973542",
           success: "#43A047",
           info: "#1976d2",
@@ -255,7 +255,7 @@ export default {
         },
         light: {
           primary: "#E58325",
-          accent: "#00457A",
+          accent: "#007A99",
           secondary: "#973542",
           success: "#43A047",
           info: "#1976d2",

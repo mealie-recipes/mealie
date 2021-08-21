@@ -11,9 +11,7 @@ router = APIRouter(tags=["Query All Recipes"])
 
 
 @router.get("/api/recipes")
-def get_recipe_summary(
-    start=0, limit=9999, session: Session = Depends(generate_session), user: bool = Depends(is_logged_in)
-):
+def get_recipe_summary(start=0, limit=9999, user: bool = Depends(is_logged_in)):
     """
     Returns key the recipe summary data for recipes in the database. You can perform
     slice operations to set the skip/end amounts for recipes. All recipes are sorted by the added date.

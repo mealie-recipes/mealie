@@ -2,28 +2,30 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12" sm="12" md="12" lg="6">
-        <UserProfileCard class="mt-14" />
+        <UserProfileCard :user="user" class="mt-14" @refresh="$auth.fetchUser()" />
       </v-col>
       <v-col cols="12" sm="12" md="12" lg="6">
-        <UserThemeCard class="mt-14" />
+        <UserAPITokenCard :tokens="user.tokens" class="mt-14" @refresh="$auth.fetchUser()" />
       </v-col>
     </v-row>
   </v-container>
 </template>
     
-    <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import UserProfileCard from "~/components/Domain/User/UserProfileCard.vue";
-import UserThemeCard from "~/components/Domain/User/UserThemeCard.vue";
+import UserAPITokenCard from "~/components/Domain/User/UserAPITokenCard.vue";
 
 export default defineComponent({
-  components: { UserProfileCard, UserThemeCard },
+  components: { UserProfileCard, UserAPITokenCard },
   layout: "admin",
   setup() {
-    return {};
+    const user = computed(() => {
+      return useContext().$auth.user;
+    });
+
+    return { user };
   },
 });
 </script>
     
-    <style scoped>
-</style>

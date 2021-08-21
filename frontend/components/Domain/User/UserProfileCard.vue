@@ -1,18 +1,5 @@
 <template>
-  <BaseStatCard :icon="$globals.icons.user">
-    <template #avatar>
-      <v-avatar color="accent" size="120" class="white--text headline mt-n16">
-        <img
-          v-if="!hideImage"
-          :src="require(`~/static/account.png`)"
-          @error="hideImage = true"
-          @load="hideImage = false"
-        />
-        <div v-else>
-          {{ initials }}
-        </div>
-      </v-avatar>
-    </template>
+  <BaseStatCard :icon="$globals.icons.user" color="accent">
     <template #after-heading>
       <div class="ml-auto text-right">
         <div class="body-3 grey--text font-weight-light" v-text="$t('user.user-id-with-value', { id: user.id })" />
@@ -22,6 +9,8 @@
         </h3>
       </div>
     </template>
+
+    <!-- Change Password -->
     <template #actions>
       <BaseDialog
         :title="$t('user.reset-password')"
@@ -29,7 +18,7 @@
         :submit-text="$t('settings.change-password')"
         :loading="loading"
         :top="true"
-        @submit="changePassword"
+        @submit="updatePassword"
       >
         <template #activator="{ open }">
           <v-btn color="info" class="mr-1" small @click="open">
@@ -68,12 +57,16 @@
         </v-card-text>
       </BaseDialog>
     </template>
+
+    <!-- Update User -->
     <template #bottom>
       <v-card-text>
         <v-form ref="userUpdate">
-          <v-text-field v-model="user.username" :label="$t('user.username')" required validate-on-blur> </v-text-field>
-          <v-text-field v-model="user.fullName" :label="$t('user.full-name')" required validate-on-blur> </v-text-field>
-          <v-text-field v-model="user.email" :label="$t('user.email')" validate-on-blur required> </v-text-field>
+          <v-text-field v-model="userCopy.username" :label="$t('user.username')" required validate-on-blur>
+          </v-text-field>
+          <v-text-field v-model="userCopy.fullName" :label="$t('user.full-name')" required validate-on-blur>
+          </v-text-field>
+          <v-text-field v-model="userCopy.email" :label="$t('user.email')" validate-on-blur required> </v-text-field>
         </v-form>
       </v-card-text>
       <v-divider></v-divider>
@@ -86,58 +79,83 @@
   </BaseStatCard>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { ref, reactive, defineComponent } from "@nuxtjs/composition-api";
+import { useApiSingleton } from "~/composables/use-api";
+const events = {
+  UPDATE_USER: "update",
+  CHANGE_PASSWORD: "change-password",
+  UPLOAD_PHOTO: "upload-photo",
+  REFRESH: "refresh",
+};
+
+export default defineComponent({
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props, context) {
+    const userCopy = ref({ ...props.user });
+    const api = useApiSingleton();
+
+    const domUpdatePassword = ref<VForm | null>(null);
+    const password = reactive({
+      current: "",
+      newOne: "",
+      newTwo: "",
+    });
+
+    async function updateUser() {
+      const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
+      if (response?.status === 200) {
+        context.emit(events.REFRESH);
+      }
+    }
+
+    async function updatePassword() {
+      const { response } = await api.users.changePassword(userCopy.value.id, {
+        currentPassword: password.current,
+        newPassword: password.newOne,
+      });
+
+      if (response?.status === 200) {
+        console.log("Password Changed");
+      }
+    }
+
+    return { updateUser, updatePassword, userCopy, password, domUpdatePassword };
+  },
   data() {
     return {
       hideImage: false,
       passwordLoading: false,
-      password: {
-        current: "",
-        newOne: "",
-        newTwo: "",
-      },
       showPassword: false,
       loading: false,
-      user: {},
     };
   },
 
-  watch: {
-    userProfileImage() {
-      this.hideImage = false;
-    },
-  },
-
   methods: {
-    async refreshProfile() {
-      const [response, err] = await api.users.self();
-
-      if (err) {
-        return; // TODO: Log or Notifty User of Error
-      }
-
-      this.user = response.data;
-    },
     openAvatarPicker() {
       this.showAvatarPicker = true;
     },
     selectAvatar(avatar) {
       this.user.avatar = avatar;
     },
-    async updateUser() {
-      if (!this.$refs.userUpdate.validate()) {
-        return;
-      }
-      this.loading = true;
-      const response = await api.users.update(this.user);
-      if (response) {
-        this.$store.commit("setToken", response.data.access_token);
-        this.refreshProfile();
-        this.loading = false;
-        this.$store.dispatch("requestUserData");
-      }
-    },
+    // async updateUser() {
+    //   if (!this.$refs.userUpdate.validate()) {
+    //     return;
+    //   }
+    //   this.loading = true;
+    //   const response = await api.users.update(this.user);
+    //   if (response) {
+    //     this.$store.commit("setToken", response.data.access_token);
+    //     this.refreshProfile();
+    //     this.loading = false;
+    //     this.$store.dispatch("requestUserData");
+    //   }
+    // },
     async changePassword() {
       this.paswordLoading = true;
       const data = {
@@ -153,7 +171,7 @@ export default {
       this.paswordLoading = false;
     },
   },
-};
+});
 </script>
 
 <style></style>

@@ -77,7 +77,7 @@
       </v-col>
     </v-row>
     <v-row class="mt-10" align-content="stretch">
-      <v-col cols="12" sm="12" lg="6">
+      <v-col>
         <AdminEventViewer
           v-if="events"
           :events="events.events"
@@ -85,9 +85,6 @@
           @delete-all="deleteEvents"
           @delete-item="deleteEvent"
         />
-      </v-col>
-      <v-col cols="12" sm="12" lg="6">
-        <AdminBackupViewer v-if="backups" :available-backups="backups.imports" :templates="backups.templates" />
       </v-col>
     </v-row>
   </v-container>
@@ -97,13 +94,11 @@
 <script lang="ts">
 import { defineComponent, useAsync } from "@nuxtjs/composition-api";
 import AdminEventViewer from "@/components/Domain/Admin/AdminEventViewer.vue";
-import AdminBackupViewer from "@/components/Domain/Admin/AdminBackupViewer.vue";
 import { useApiSingleton } from "~/composables/use-api";
-import { useBackups } from "~/composables/use-backups";
 import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
-  components: { AdminEventViewer, AdminBackupViewer },
+  components: { AdminEventViewer },
   layout: "admin",
   setup() {
     const api = useApiSingleton();
@@ -146,11 +141,10 @@ export default defineComponent({
       }
     }
 
-    const { backups } = useBackups();
     const events = getEvents();
     const statistics = getStatistics();
 
-    return { statistics, events, deleteEvents, deleteEvent, backups };
+    return { statistics, events, deleteEvents, deleteEvent };
   },
 });
 </script>

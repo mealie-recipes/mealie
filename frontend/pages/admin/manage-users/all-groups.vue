@@ -1,5 +1,6 @@
 // TODO: Add Loading Indicator...Maybe?
 // TODO: Edit Group
+// TODO: Migrate all stuff to setup()
 <template>
   <v-container fluid>
     <BaseCardSectionTitle title="Group Management"> </BaseCardSectionTitle>
@@ -77,9 +78,7 @@ export default defineComponent({
   layout: "admin",
   setup() {
     const api = useApiSingleton();
-
     const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
-
     return { api, groups, refreshAllGroups, deleteGroup, createGroup };
   },
   data() {
@@ -117,6 +116,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-</style>

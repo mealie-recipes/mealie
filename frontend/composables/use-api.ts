@@ -53,6 +53,7 @@ function getRequests(axoisInstance: NuxtAxiosInstance): ApiRequestInstance {
   return requests;
 }
 
+
 export const useApiSingleton = function (): Api {
   const { $axios } = useContext();
   const requests = getRequests($axios);

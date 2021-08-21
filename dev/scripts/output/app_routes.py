@@ -35,7 +35,6 @@ class AppRoutes:
         self.recipes_create = "/api/recipes/create"
         self.recipes_create_from_zip = "/api/recipes/create-from-zip"
         self.recipes_create_url = "/api/recipes/create-url"
-        self.recipes_summary = "/api/recipes/summary"
         self.recipes_summary_uncategorized = "/api/recipes/summary/uncategorized"
         self.recipes_summary_untagged = "/api/recipes/summary/untagged"
         self.recipes_tag = "/api/recipes/tag"

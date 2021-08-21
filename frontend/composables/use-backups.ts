@@ -1,7 +1,7 @@
-import { useAsync, ref } from "@nuxtjs/composition-api";
+import { useAsync, ref, reactive } from "@nuxtjs/composition-api";
 import { set } from "@vueuse/core";
 import { toastLoading, loader } from "./use-toast";
-import { AllBackups, ImportBackup, BackupJob } from "~/api/class-interfaces/backups";
+import { AllBackups, ImportBackup } from "~/api/class-interfaces/backups";
 import { useApiSingleton } from "~/composables/use-api";
 
 const backups = ref<AllBackups>({
@@ -15,8 +15,40 @@ function setBackups(newBackups: AllBackups | null) {
   }
 }
 
+function optionsFactory() {
+  return {
+    tag: "",
+    templates: [],
+    options: {
+      recipes: true,
+      settings: true,
+      themes: true,
+      pages: true,
+      users: true,
+      groups: true,
+      notifications: true,
+    },
+  };
+}
+
 export const useBackups = function (fetch = true) {
   const api = useApiSingleton();
+
+  const backupOptions = reactive(optionsFactory());
+  const deleteTarget = ref("");
+
+  const selected = ref<ImportBackup | null>({
+    name: "",
+    options: {
+      recipes: true,
+      settings: true,
+      pages: true,
+      themes: true,
+      groups: true,
+      users: true,
+      notifications: true,
+    },
+  });
 
   function getBackups() {
     const backups = useAsync(async () => {
@@ -33,42 +65,33 @@ export const useBackups = function (fetch = true) {
     }
   }
 
-  async function createBackup(payload: BackupJob | null = null) {
-    if (payload === null) {
-      payload = {
-        tag: "",
-        templates: [],
-        options: {
-          recipes: true,
-          settings: true,
-          themes: true,
-          pages: true,
-          users: true,
-          groups: true,
-          notifications: true,
-        },
-      };
-    }
+  async function createBackup() {
     loader.info("Creating Backup...");
+    const { response } = await api.backups.createOne(backupOptions);
 
-    const { response } = await api.backups.createOne(payload);
     if (response && response.status === 201) {
       refreshBackups();
       toastLoading.open = false;
+      Object.assign(backupOptions, optionsFactory());
     }
   }
 
-  async function deleteBackup(fileName: string) {
-    const { response } = await api.backups.deleteOne(fileName);
+  async function deleteBackup() {
+    const { response } = await api.backups.deleteOne(deleteTarget.value);
 
     if (response && response.status === 200) {
       refreshBackups();
     }
   }
 
-  async function importBackup(fileName: string, payload: ImportBackup) {
+  async function importBackup() {
     loader.info("Import Backup...");
-    const { response } = await api.backups.restoreDatabase(fileName, payload);
+
+    if (!selected.value) {
+      return;
+    }
+
+    const { response } = await api.backups.restoreDatabase(selected.value.name, selected.value.options);
 
     if (response && response.status === 200) {
       refreshBackups();
@@ -80,5 +103,15 @@ export const useBackups = function (fetch = true) {
     refreshBackups();
   }
 
-  return { getBackups, refreshBackups, deleteBackup, backups, importBackup, createBackup };
+  return {
+    getBackups,
+    refreshBackups,
+    deleteBackup,
+    importBackup,
+    createBackup,
+    backups,
+    backupOptions,
+    deleteTarget,
+    selected,
+  };
 };
