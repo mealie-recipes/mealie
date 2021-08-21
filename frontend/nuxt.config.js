@@ -1,5 +1,3 @@
-// TODO: Fix composition API "Should only be called once" error
-
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -47,6 +45,8 @@ export default {
     "@nuxtjs/composition-api/module",
     // https://vite.nuxtjs.org/getting-started/installation
     "nuxt-vite",
+    // https://github.com/antfu/vue2-script-setup-transform
+    "vue2-script-setup-transform/nuxt",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

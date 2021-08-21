@@ -1,6 +1,4 @@
-// TODO: Add Loading Indicator...Maybe?
 // TODO: Edit Group
-// TODO: Migrate all stuff to setup()
 <template>
   <v-container fluid>
     <BaseCardSectionTitle title="Group Management"> </BaseCardSectionTitle>
@@ -69,33 +67,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
-import { useApiSingleton } from "~/composables/use-api";
 import { useGroups } from "~/composables/use-groups";
 
 export default defineComponent({
   layout: "admin",
   setup() {
-    const api = useApiSingleton();
+    const { i18n } = useContext();
     const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
-    return { api, groups, refreshAllGroups, deleteGroup, createGroup };
-  },
-  data() {
-    return {
+
+    const state = reactive({
       search: "",
       headers: [
         {
-          text: this.$t("group.group"),
+          text: i18n.t("group.group"),
           align: "start",
           sortable: false,
           value: "id",
         },
-        { text: this.$t("general.name"), value: "name" },
-        { text: this.$t("user.total-users"), value: "users" },
-        { text: this.$t("user.webhooks-enabled"), value: "webhookEnable" },
-        { text: this.$t("user.total-mealplans"), value: "mealplans" },
-        { text: this.$t("shopping-list.shopping-lists"), value: "shoppingLists" },
+        { text: i18n.t("general.name"), value: "name" },
+        { text: i18n.t("user.total-users"), value: "users" },
+        { text: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
+        { text: i18n.t("user.total-mealplans"), value: "mealplans" },
+        { text: i18n.t("shopping-list.shopping-lists"), value: "shoppingLists" },
         { value: "actions" },
       ],
       updateMode: false,
@@ -112,7 +107,9 @@ export default defineComponent({
           name: "",
         },
       },
-    };
+    });
+
+    return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup };
   },
 });
 </script>

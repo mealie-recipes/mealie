@@ -93,7 +93,7 @@
     </section>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import AdminBackupImportOptions from "@/components/Domain/Admin/AdminBackupImportOptions.vue";
 import { defineComponent, reactive, toRefs, useContext, ref } from "@nuxtjs/composition-api";

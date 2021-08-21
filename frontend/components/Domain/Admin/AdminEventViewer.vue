@@ -1,15 +1,5 @@
-// TODO: Fix date/time Localization
-
 <template>
   <div>
-    <!-- <BaseDialog
-      ref="deleteEventConfirm"
-      :title="$t('events.delete-event')"
-      :message="$t('general.confirm-delete-generic')"
-      color="error"
-      :icon="$globals.icons.alertCircle"
-      @confirm="emitDelete()"
-    /> -->
     <BaseStatCard :icon="$globals.icons.bellAlert" :color="color">
       <template #after-heading>
         <div class="ml-auto text-right">

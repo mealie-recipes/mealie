@@ -44,7 +44,8 @@
     "eslint-plugin-vue": "^7.12.1",
     "lint-staged": "^10.5.4",
     "nuxt-vite": "^0.1.1",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "vue2-script-setup-transform": "^0.2.0"
   },
   "resolutions": {
     "vite": "2.3.8"
