@@ -19,22 +19,6 @@ def test_create_by_url(api_client: TestClient, api_routes: AppRoutes, recipe_dat
     assert json.loads(response.text) == recipe_data.expected_slug
 
 
-def test_create_by_json(api_client: TestClient, api_routes: AppRoutes, user_token, raw_recipe):
-    recipe_url = api_routes.recipes_recipe_slug("banana-bread")
-    api_client.delete(recipe_url, headers=user_token)
-    response = api_client.post(api_routes.recipes_create, json=raw_recipe, headers=user_token)
-
-    assert response.status_code == 201
-    assert json.loads(response.text) == "banana-bread"
-
-
-def test_create_no_image(api_client: TestClient, api_routes: AppRoutes, user_token, raw_recipe_no_image):
-    response = api_client.post(api_routes.recipes_create, json=raw_recipe_no_image, headers=user_token)
-
-    assert response.status_code == 201
-    assert json.loads(response.text) == "banana-bread-no-image"
-
-
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_read_update(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, user_token):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)

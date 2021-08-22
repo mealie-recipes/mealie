@@ -9,10 +9,10 @@ from mealie.schema.recipe import CommentIn, CommentOut, CommentSaveToDB
 from mealie.schema.user import UserInDB
 from sqlalchemy.orm.session import Session
 
-router = UserAPIRouter(prefix="/api", tags=["Recipe Comments"])
+router = UserAPIRouter()
 
 
-@router.post("/recipes/{slug}/comments")
+@router.post("/{slug}/comments")
 async def create_comment(
     slug: str,
     new_comment: CommentIn,
@@ -25,7 +25,7 @@ async def create_comment(
     return db.comments.create(session, new_comment)
 
 
-@router.put("/recipes/{slug}/comments/{id}")
+@router.put("/{slug}/comments/{id}")
 async def update_comment(
     id: int,
     new_comment: CommentIn,
@@ -41,7 +41,7 @@ async def update_comment(
     return db.comments.update(session, id, new_comment)
 
 
-@router.delete("/recipes/{slug}/comments/{id}")
+@router.delete("/{slug}/comments/{id}")
 async def delete_comment(
     id: int, session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)
 ):

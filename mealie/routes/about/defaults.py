@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from mealie.schema.recipe import RecipeSettings
 
-router = APIRouter(prefix="/recipes", tags=["About Recipes"])
+router = APIRouter(prefix="/recipes")
 
 
 @router.get("/defaults")

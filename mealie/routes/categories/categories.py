@@ -6,9 +6,9 @@ from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from sqlalchemy.orm.session import Session
 
-public_router = APIRouter(prefix="/api/categories", tags=["Recipe Categories"])
-user_router = UserAPIRouter(prefix="/api/categories", tags=["Recipe Categories"])
-admin_router = AdminAPIRouter(prefix="/api/categories", tags=["Recipe Categories"])
+public_router = APIRouter()
+user_router = UserAPIRouter()
+admin_router = AdminAPIRouter()
 
 
 @public_router.get("")

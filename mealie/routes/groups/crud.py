@@ -7,8 +7,8 @@ from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from mealie.services.events import create_group_event
 from sqlalchemy.orm.session import Session
 
-admin_router = AdminAPIRouter(prefix="/api/groups", tags=["Groups: CRUD"])
-user_router = UserAPIRouter(prefix="/api/groups", tags=["Groups: CRUD"])
+admin_router = AdminAPIRouter(prefix="/groups", tags=["Groups: CRUD"])
+user_router = UserAPIRouter(prefix="/groups", tags=["Groups: CRUD"])
 
 
 @user_router.get("/self", response_model=GroupInDB)

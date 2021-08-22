@@ -1,7 +1,7 @@
-from mealie.routes.routers import UserAPIRouter
 from mealie.core.root_logger import get_logger
+from mealie.routes.routers import UserAPIRouter
 
-router = UserAPIRouter(prefix="/api/foods")
+router = UserAPIRouter()
 logger = get_logger()
 
 

@@ -8,8 +8,6 @@ from mealie.routes import backup_routes, debug_routes, migration_routes, router,
 from mealie.routes.about import about_router
 from mealie.routes.mealplans import meal_plan_router
 from mealie.routes.media import media_router
-from mealie.routes.recipe import recipe_router
-from mealie.routes.shopping_list import shopping_list_router
 from mealie.routes.site_settings import settings_router
 from mealie.services.events import create_general_event
 from mealie.services.recipe.all_recipes import subscripte_to_recipe_events
@@ -34,9 +32,7 @@ def start_scheduler():
 def api_routers():
     # Authentication
     app.include_router(router)
-    app.include_router(shopping_list_router)
     # Recipes
-    app.include_router(recipe_router)
     app.include_router(media_router)
     app.include_router(about_router)
     # Meal Routes
