@@ -215,11 +215,11 @@
     "page": "Side",
     "page-creation-failed": "Sideopprettelse feilet",
     "page-deleted": "Side slettet",
-    "page-deletion-failed": "Page deletion failed",
-    "page-update-failed": "Page update failed",
-    "page-updated": "Page updated",
-    "pages-update-failed": "Pages update failed",
-    "pages-updated": "Pages updated"
+    "page-deletion-failed": "Sletting av siden mislyktes",
+    "page-update-failed": "Oppdatering av siden mislyktes",
+    "page-updated": "Side oppdatert",
+    "pages-update-failed": "Oppdatering av siden mislyktes",
+    "pages-updated": "Sider oppdatert"
   },
   "recipe": {
     "add-key": "Add Key",
