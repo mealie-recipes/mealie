@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 router = APIRouter()
 
 
-@router.get("/api/recipes")
+@router.get("")
 def get_recipe_summary(start=0, limit=9999, user: bool = Depends(is_logged_in)):
     """
     Returns key the recipe summary data for recipes in the database. You can perform
@@ -30,11 +30,11 @@ def get_recipe_summary(start=0, limit=9999, user: bool = Depends(is_logged_in)):
         return get_all_recipes_public(limit, start)
 
 
-@router.get("/api/recipes/summary/untagged", response_model=list[RecipeSummary])
+@router.get("/summary/untagged", response_model=list[RecipeSummary])
 async def get_untagged_recipes(count: bool = False, session: Session = Depends(generate_session)):
     return db.recipes.count_untagged(session, count=count, override_schema=RecipeSummary)
 
 
-@router.get("/api/recipes/summary/uncategorized", response_model=list[RecipeSummary])
+@router.get("/summary/uncategorized", response_model=list[RecipeSummary])
 async def get_uncategorized_recipes(count: bool = False, session: Session = Depends(generate_session)):
     return db.recipes.count_uncategorized(session, count=count, override_schema=RecipeSummary)
