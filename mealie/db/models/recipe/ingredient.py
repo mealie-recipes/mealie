@@ -2,6 +2,8 @@ from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
 from requests import Session
 from sqlalchemy import Column, ForeignKey, Integer, String, Table, orm
 
+from .._model_utils import auto_init
+
 ingredients_to_units = Table(
     "ingredients_to_units",
     SqlAlchemyBase.metadata,
@@ -17,54 +19,29 @@ ingredients_to_foods = Table(
 )
 
 
-class IngredientUnit(SqlAlchemyBase, BaseMixins):
+class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units"
     id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
+    abbreviation = Column(String)
     ingredients = orm.relationship("RecipeIngredient", secondary=ingredients_to_units, back_populates="unit")
 
-    def __init__(self, name: str, description: str = None) -> None:
-        self.name = name
-        self.description = description
-
-    @classmethod
-    def get_ref_or_create(cls, session: Session, obj: dict):
-        # sourcery skip: flip-comparison
-        if obj is None:
-            return None
-
-        name = obj.get("name")
-
-        unit = session.query(cls).filter("name" == name).one_or_none()
-
-        if not unit:
-            return cls(**obj)
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
 
 
-class IngredientFood(SqlAlchemyBase, BaseMixins):
+class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_foods"
     id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
     ingredients = orm.relationship("RecipeIngredient", secondary=ingredients_to_foods, back_populates="food")
 
-    def __init__(self, name: str, description: str = None) -> None:
-        self.name = name
-        self.description = description
-
-    @classmethod
-    def get_ref_or_create(cls, session: Session, obj: dict):
-        # sourcery skip: flip-comparison
-        if obj is None:
-            return None
-
-        name = obj.get("name")
-
-        unit = session.query(cls).filter("name" == name).one_or_none()
-
-        if not unit:
-            return cls(**obj)
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
 
 
 class RecipeIngredient(SqlAlchemyBase):
@@ -77,8 +54,8 @@ class RecipeIngredient(SqlAlchemyBase):
     note = Column(String)  # Force Show Text - Overrides Concat
 
     # Scaling Items
-    unit = orm.relationship(IngredientUnit, secondary=ingredients_to_units, uselist=False)
-    food = orm.relationship(IngredientFood, secondary=ingredients_to_foods, uselist=False)
+    unit = orm.relationship(IngredientUnitModel, secondary=ingredients_to_units, uselist=False)
+    food = orm.relationship(IngredientFoodModel, secondary=ingredients_to_foods, uselist=False)
     quantity = Column(Integer)
 
     # Extras
@@ -86,6 +63,6 @@ class RecipeIngredient(SqlAlchemyBase):
     def __init__(self, title: str, note: str, unit: dict, food: dict, quantity: int, session: Session, **_) -> None:
         self.title = title
         self.note = note
-        self.unit = IngredientUnit.get_ref_or_create(session, unit)
-        self.food = IngredientFood.get_ref_or_create(session, food)
+        self.unit = IngredientUnitModel.get_ref_or_create(session, unit)
+        self.food = IngredientFoodModel.get_ref_or_create(session, food)
         self.quantity = quantity

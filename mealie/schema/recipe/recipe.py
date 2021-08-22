@@ -11,6 +11,7 @@ from pydantic.utils import GetterDict
 from slugify import slugify
 
 from .comments import CommentOut
+from .units_and_foods import IngredientFood, IngredientUnit
 
 
 class CreateRecipe(CamelModel):
@@ -73,23 +74,11 @@ class Nutrition(CamelModel):
         orm_mode = True
 
 
-class RecipeIngredientFood(CamelModel):
-    name: str = ""
-    description: str = ""
-
-    class Config:
-        orm_mode = True
-
-
-class RecipeIngredientUnit(RecipeIngredientFood):
-    pass
-
-
 class RecipeIngredient(CamelModel):
     title: Optional[str]
     note: Optional[str]
-    unit: Optional[RecipeIngredientUnit]
-    food: Optional[RecipeIngredientFood]
+    unit: Optional[IngredientUnit]
+    food: Optional[IngredientFood]
     disable_amount: bool = True
     quantity: int = 1
 
