@@ -10,39 +10,16 @@ export interface CrudAPIInterface {
   // Methods
 }
 
-export const crudMixins = <T>(
-  requests: ApiRequestInstance,
-  baseRoute: string,
-  itemRoute: (itemId: string) => string
-) => {
-  async function getAll(start = 0, limit = 9999) {
-    return await requests.get<T[]>(baseRoute, {
-      params: { start, limit },
-    });
-  }
+export interface CrudAPIMethodsInterface {
+  // CRUD Methods
+  getAll(): any
+  createOne(): any
+  getOne(): any
+  updateOne(): any
+  patchOne(): any
+  deleteOne(): any
+}
 
-  async function createOne(payload: T) {
-    return await requests.post<T>(baseRoute, payload);
-  }
-
-  async function getOne(itemId: string) {
-    return await requests.get<T>(itemRoute(itemId));
-  }
-
-  async function updateOne(itemId: string, payload: T) {
-    return await requests.put<T>(itemRoute(itemId), payload);
-  }
-
-  async function patchOne(itemId: string, payload: T) {
-    return await requests.patch(itemRoute(itemId), payload);
-  }
-
-  async function deleteOne(itemId: string) {
-    return await requests.delete<T>(itemRoute(itemId));
-  }
-
-  return { getAll, getOne, updateOne, patchOne, deleteOne, createOne };
-};
 
 export abstract class BaseAPI {
   requests: ApiRequestInstance;
@@ -66,11 +43,11 @@ export abstract class BaseCRUDAPI<T, U> extends BaseAPI implements CrudAPIInterf
     return await this.requests.post<T>(this.baseRoute, payload);
   }
 
-  async getOne(itemId: string) {
+  async getOne(itemId: string | number) {
     return await this.requests.get<T>(this.itemRoute(itemId));
   }
 
-  async updateOne(itemId: string, payload: T) {
+  async updateOne(itemId: string | number, payload: T) {
     return await this.requests.put<T>(this.itemRoute(itemId), payload);
   }
 

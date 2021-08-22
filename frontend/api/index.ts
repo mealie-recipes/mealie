@@ -9,6 +9,8 @@ import { CategoriesAPI } from "./class-interfaces/categories";
 import { TagsAPI } from "./class-interfaces/tags";
 import { UtilsAPI } from "./class-interfaces/utils";
 import { NotificationsAPI } from "./class-interfaces/event-notifications";
+import { FoodAPI } from "./class-interfaces/recipe-foods";
+import { UnitAPI } from "./class-interfaces/recipe-units";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -23,6 +25,8 @@ class Api {
   public tags: TagsAPI;
   public utils: UtilsAPI;
   public notifications: NotificationsAPI;
+  public foods: FoodAPI;
+  public units: UnitAPI;
 
   // Utils
   public upload: UploadFile;
@@ -36,6 +40,8 @@ class Api {
     this.recipes = new RecipeAPI(requests);
     this.categories = new CategoriesAPI(requests);
     this.tags = new TagsAPI(requests);
+    this.units = new UnitAPI(requests);
+    this.foods = new FoodAPI(requests);
 
     // Users
     this.users = new UserApi(requests);

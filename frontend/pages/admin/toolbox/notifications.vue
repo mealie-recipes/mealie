@@ -47,7 +47,12 @@
             :label="$t('events.apprise-url')"
           ></v-text-field>
 
-          <BaseButton class="d-flex ml-auto" small color="info" @click="testByUrl(newNotification.notificationUrl)">
+          <BaseButton
+            class="d-flex ml-auto"
+            small
+            color="info"
+            @click="testByUrl(createNotificationData.notificationUrl)"
+          >
             <template #icon> {{ $globals.icons.testTube }}</template>
             {{ $t("general.test") }}
           </BaseButton>

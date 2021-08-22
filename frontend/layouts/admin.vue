@@ -84,6 +84,16 @@ export default defineComponent({
               title: this.$t("events.notification"),
             },
             {
+              icon: this.$globals.icons.foods,
+              to: "/admin/toolbox/foods",
+              title: "Manage Foods",
+            },
+            {
+              icon: this.$globals.icons.units,
+              to: "/admin/toolbox/units",
+              title: "Manage Units",
+            },
+            {
               icon: this.$globals.icons.tags,
               to: "/admin/toolbox/categories",
               title: this.$t("sidebar.tags"),

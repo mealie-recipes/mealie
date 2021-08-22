@@ -92,6 +92,8 @@ import {
   mdiMinus,
   mdiWindowClose,
   mdiFolderZipOutline,
+  mdiFoodApple,
+  mdiBeakerOutline,
 } from "@mdi/js";
 
 const icons = {
@@ -99,6 +101,8 @@ const icons = {
   primary: mdiSilverwareVariant,
 
   // General
+  foods: mdiFoodApple,
+  units: mdiBeakerOutline,
   alert: mdiAlert,
   alertCircle: mdiAlertCircle,
   api: mdiApi,

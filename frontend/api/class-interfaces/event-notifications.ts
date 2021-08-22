@@ -1,4 +1,3 @@
-import { requests } from "../requests";
 import { BaseCRUDAPI } from "./_base";
 
 export type EventCategory = "general" | "recipe" | "backup" | "scheduled" | "migration" | "group" | "user";
@@ -36,7 +35,7 @@ export class NotificationsAPI extends BaseCRUDAPI<EventNotification, CreateEvent
   itemRoute = routes.aboutEventsNotificationsId;
   /** Returns the Group Data for the Current User
    */
-  async testNotification(id: number) {
-    return await requests.post(routes.aboutEventsNotificationsTest, { id });
+  async testNotification(id: number | null = null, testUrl: string | null = null) {
+    return await this.requests.post(routes.aboutEventsNotificationsTest, { id, testUrl });
   }
 }

@@ -62,12 +62,14 @@ export const useNotifications = function () {
     }
   }
 
-  async function testById() {
-      // TODO: Test by ID
+  async function testById(id: number) {
+    const {data} = await api.notifications.testNotification(id, null)
+    console.log(data)
   }
 
-  async function testByUrl() {
-      // TODO: Test by URL
+  async function testByUrl(testUrl: string) {
+    const {data} = await api.notifications.testNotification(null, testUrl)
+    console.log(data)
   }
 
   const notifications = getNotifications();
