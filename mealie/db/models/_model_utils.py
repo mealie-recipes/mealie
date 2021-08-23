@@ -56,6 +56,8 @@ def auto_init(exclude: Union[set, list] = None):  # sourcery no-metrics
             model_columns = self.__mapper__.columns
             relationships = self.__mapper__.relationships
 
+            session = kwargs.get("session", None)
+
             for key, val in kwargs.items():
                 if key in exclude:
                     continue
@@ -86,24 +88,22 @@ def auto_init(exclude: Union[set, list] = None):  # sourcery no-metrics
                             val = val.get("id")
 
                             if val is None:
-                                raise ValueError(
-                                    f"Expected 'id' to be provided for {key}"
-                                )
+                                raise ValueError(f"Expected 'id' to be provided for {key}")
 
                         if isinstance(val, (str, int)):
-                            instance = relation_cls.get_ref(match_value=val)
+                            instance = relation_cls.get_ref(match_value=val, session=session)
                             setattr(self, key, instance)
 
                     elif relation_dir == MANYTOMANY.name:
-                        if not isinstance(val, list):
-                            raise ValueError(
-                                f"Expected many to many input to be of type list for {key}"
-                            )
 
-                        if isinstance(val[0], dict):
+                        if not isinstance(val, list):
+                            raise ValueError(f"Expected many to many input to be of type list for {key}")
+
+                        if len(val) > 0 and isinstance(val[0], dict):
                             val = [elem.get("id") for elem in val]
-                        intstances = [relation_cls.get_ref(elem) for elem in val]
-                        setattr(self, key, intstances)
+
+                        instances = [relation_cls.get_ref(elem, session=session) for elem in val]
+                        setattr(self, key, instances)
 
             return init(self, *args, **kwargs)
 

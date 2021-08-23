@@ -5,6 +5,7 @@ from mealie.db.db_setup import SessionLocal
 from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm.session import Session
 
 
 def get_uuid_as_hex() -> str:
@@ -38,15 +39,15 @@ class BaseMixins:
         self.__init__(*args, **kwarg)
 
     @classmethod
-    def get_ref(cls, match_value: str, match_attr: str = None):
+    def get_ref(cls, match_value: str, match_attr: str = None, session: Session = None):
         match_attr = match_attr = cls.Config.get_attr
 
-        if match_value is None:
+        if match_value is None or session is None:
             return None
 
-        with SessionLocal() as session:
-            eff_ref = getattr(cls, match_attr)
-            return session.query(cls).filter(eff_ref == match_value).one_or_none()
+        eff_ref = getattr(cls, match_attr)
+
+        return session.query(cls).filter(eff_ref == match_value).one_or_none()
 
 
 SqlAlchemyBase = declarative_base(cls=Base, constructor=None)

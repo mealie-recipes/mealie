@@ -7,6 +7,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import validates
 
 from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_utils import auto_init
 from .api_extras import ApiExtras
 from .assets import RecipeAsset
 from .category import Category, recipes2categories
@@ -77,66 +78,44 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
+    @auto_init(
+        {
+            "assets",
+            "extras",
+            "notes",
+            "nutrition",
+            "recipe_ingredient",
+            "recipe_instructions",
+            "settings",
+            "tools",
+        }
+    )
     def __init__(
         self,
         session,
-        name: str = None,
-        description: str = None,
-        image: str = None,
-        recipe_yield: str = None,
+        assets: list = None,
+        extras: dict = None,
+        notes: list[dict] = None,
+        nutrition: dict = None,
         recipe_ingredient: list[str] = None,
         recipe_instructions: list[dict] = None,
-        recipeCuisine: str = None,
-        total_time: str = None,
-        prep_time: str = None,
-        cook_time: str = None,
-        nutrition: dict = None,
-        tools: list[str] = None,
-        perform_time: str = None,
-        slug: str = None,
-        recipe_category: list[str] = None,
-        tags: list[str] = None,
-        date_added: datetime.date = None,
-        notes: list[dict] = None,
-        rating: int = None,
-        org_url: str = None,
-        extras: dict = None,
-        assets: list = None,
         settings: dict = None,
+        tools: list[str] = None,
         **_
     ) -> None:
-        self.name = name
-        self.description = description
-        self.image = image
-        self.recipeCuisine = recipeCuisine
-
         self.nutrition = Nutrition(**nutrition) if self.nutrition else Nutrition()
-
         self.tools = [Tool(tool=x) for x in tools] if tools else []
-
-        self.recipe_yield = recipe_yield
         self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
         self.assets = [RecipeAsset(**a) for a in assets]
         self.recipe_instructions = [
             RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))
             for instruc in recipe_instructions
         ]
-        self.total_time = total_time
-        self.prep_time = prep_time
-        self.perform_time = perform_time
-        self.cook_time = cook_time
-
-        self.recipe_category = [x for x in [Category.create_if_not_exist(cat) for cat in recipe_category] if x]
 
         # Mealie Specific
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
-        self.tags = [Tag.create_if_not_exist(tag) for tag in tags]
-        self.slug = slug
         self.notes = [Note(**note) for note in notes]
-        self.rating = rating
-        self.org_url = org_url
         self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
 
         # Time Stampes
-        self.date_added = date_added
         self.date_updated = datetime.datetime.now()
