@@ -97,30 +97,6 @@ export default defineComponent({
           nav: "/user/login",
         },
         {
-          icon: this.$globals.icons.calendarWeek,
-          title: this.$t("meal-plan.dinner-this-week"),
-          nav: "/meal-plan/this-week",
-          restricted: true,
-        },
-        {
-          icon: this.$globals.icons.calendarToday,
-          title: this.$t("meal-plan.dinner-today"),
-          nav: "/meal-plan/today",
-          restricted: true,
-        },
-        {
-          icon: this.$globals.icons.calendarMultiselect,
-          title: this.$t("meal-plan.planner"),
-          nav: "/meal-plan/planner",
-          restricted: true,
-        },
-        {
-          icon: this.$globals.icons.formatListCheck,
-          title: this.$t("shopping-list.shopping-lists"),
-          nav: "/shopping-list",
-          restricted: true,
-        },
-        {
           icon: this.$globals.icons.logout,
           title: this.$t("user.logout"),
           restricted: true,

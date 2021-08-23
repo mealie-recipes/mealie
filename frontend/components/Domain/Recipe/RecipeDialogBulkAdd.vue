@@ -2,9 +2,9 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="600">
       <template #activator="{ on, attrs }">
-        <v-btn color="secondary lighten-2" dark v-bind="attrs" v-on="on" @click="inputText = ''">
+        <BaseButton v-bind="attrs" v-on="on" @click="inputText = ''">
           {{ $t("new-recipe.bulk-add") }}
-        </v-btn>
+        </BaseButton>
       </template>
 
       <v-card>

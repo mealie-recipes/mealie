@@ -32,7 +32,7 @@
               class="ma-1"
               :class="[{ 'on-hover': hover }, isChecked(index)]"
               :elevation="hover ? 12 : 2"
-              :ripple="!edit"
+              :ripple="false"
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">

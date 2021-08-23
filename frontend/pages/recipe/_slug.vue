@@ -97,6 +97,24 @@
             </v-textarea>
           </template>
 
+          <!-- Advanced Editor -->
+          <div v-if="form">
+            <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
+            <draggable v-model="recipe.recipeIngredient" handle=".handle">
+              <RecipeIngredientEditor
+                v-for="(ingredient, index) in recipe.recipeIngredient"
+                :key="index + 'ing-editor'"
+                v-model="recipe.recipeIngredient[index]"
+                :disable-amount="recipe.settings.disableAmount"
+                @delete="removeByIndex(recipe.recipeIngredient, index)"
+              />
+            </draggable>
+            <div class="d-flex justify-end mt-2">
+              <RecipeDialogBulkAdd class="mr-2" @bulk-data="addIngredient" />
+              <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
+            </div>
+          </div>
+
           <div class="d-flex justify-space-between align-center pb-3">
             <v-btn
               v-if="recipe.recipeYield"
@@ -121,24 +139,43 @@
           </div>
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <RecipeIngredients :value="recipe.recipeIngredient" :edit="form" />
-              <div v-if="$vuetify.breakpoint.mdAndUp">
-                <v-card v-if="recipe.recipeCategory.length > 0" class="mt-2">
+              <RecipeIngredients v-if="!form" :value="recipe.recipeIngredient" />
+
+              <!-- Recipe Categories -->
+              <div v-if="$vuetify.breakpoint.mdAndUp" class="mt-5">
+                <v-card v-if="recipe.recipeCategory.length > 0 || form" class="mt-2">
                   <v-card-title class="py-2">
                     {{ $t("recipe.categories") }}
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeChips :items="recipe.recipeCategory" />
+                    <RecipeCategoryTagSelector
+                      v-if="form"
+                      v-model="recipe.recipeCategory"
+                      :return-object="false"
+                      :show-add="true"
+                      :show-label="false"
+                    />
+                    <RecipeChips v-else :items="recipe.recipeCategory" />
                   </v-card-text>
                 </v-card>
-                <v-card v-if="recipe.tags.length > 0" class="mt-2">
+
+                <!-- Recipe Tags -->
+                <v-card v-if="recipe.tags.length > 0 || form" class="mt-2">
                   <v-card-title class="py-2">
                     {{ $t("tag.tags") }}
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeChips :items="recipe.tags" :is-category="false" />
+                    <RecipeCategoryTagSelector
+                      v-if="form"
+                      v-model="recipe.tags"
+                      :return-object="false"
+                      :show-add="true"
+                      :tag-selector="true"
+                      :show-label="false"
+                    />
+                    <RecipeChips v-else :items="recipe.tags" :is-category="false" />
                   </v-card-text>
                 </v-card>
 
@@ -168,6 +205,9 @@
 import { defineComponent, ref, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
+import draggable from "vuedraggable";
+import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
+import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
 import { useApiSingleton } from "~/composables/use-api";
 import { validators } from "~/composables/use-validators";
 import { useRecipeContext } from "~/composables/use-recipe-context";
@@ -182,23 +222,28 @@ import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vu
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
+import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { Recipe } from "~/types/api-types/admin";
 import { useStaticRoutes } from "~/composables/api";
 
 export default defineComponent({
   components: {
     RecipeActionMenu,
+    RecipeDialogBulkAdd,
     RecipeAssets,
+    RecipeCategoryTagSelector,
     RecipeChips,
+    RecipeImageUploadBtn,
     RecipeIngredients,
     RecipeInstructions,
     RecipeNotes,
     RecipeNutrition,
     RecipeRating,
-    RecipeTimeCard,
-    RecipeImageUploadBtn,
     RecipeSettingsMenu,
+    RecipeIngredientEditor,
+    RecipeTimeCard,
     VueMarkdown,
+    draggable,
   },
   setup() {
     const route = useRoute();
@@ -243,6 +288,38 @@ export default defineComponent({
       imageKey.value++;
     }
 
+    function removeByIndex(list: Array<any>, index: number) {
+      list.splice(index, 1);
+    }
+
+    function addIngredient(ingredients: Array<string> | null = null) {
+      if (ingredients?.length) {
+        const newIngredients = ingredients.map((x) => {
+          return {
+            title: "",
+            note: x,
+            unit: {},
+            food: {},
+            disableAmount: true,
+            quantity: 1,
+          };
+        });
+
+        if (newIngredients) {
+          recipe?.value?.recipeIngredient?.push(...newIngredients);
+        }
+      } else {
+        recipe?.value?.recipeIngredient?.push({
+          title: "",
+          note: "",
+          unit: {},
+          food: {},
+          disableAmount: true,
+          quantity: 1,
+        });
+      }
+    }
+
     return {
       imageKey,
       recipe,
@@ -254,6 +331,8 @@ export default defineComponent({
       uploadImage,
       validators,
       recipeImage,
+      addIngredient,
+      removeByIndex,
     };
   },
   data() {
