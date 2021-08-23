@@ -126,11 +126,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.perform_time = perform_time
         self.cook_time = cook_time
 
-        self.recipe_category = [x for x in [Category.get_ref(cat) for cat in recipe_category] if x]
+        self.recipe_category = [x for x in [Category.create_if_not_exist(cat) for cat in recipe_category] if x]
 
         # Mealie Specific
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
-        self.tags = [x for x in [Tag.get_ref(tag) for tag in tags] if x]
+        self.tags = [Tag.create_if_not_exist(tag) for tag in tags]
         self.slug = slug
         self.notes = [Note(**note) for note in notes]
         self.rating = rating
