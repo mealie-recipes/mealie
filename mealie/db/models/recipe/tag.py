@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from mealie.core import root_logger
-from mealie.db.models.model_base import SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
 
@@ -15,12 +15,15 @@ recipes2tags = sa.Table(
 )
 
 
-class Tag(SqlAlchemyBase):
+class Tag(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tags"
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, unique=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes2tags, back_populates="tags")
+
+    class Config:
+        get_attr = "slug"
 
     @validates("name")
     def validate_name(self, key, name):
@@ -30,9 +33,6 @@ class Tag(SqlAlchemyBase):
     def __init__(self, name, session=None) -> None:
         self.name = name.strip()
         self.slug = slugify(self.name)
-
-    def update(self, name, session=None) -> None:
-        self.__init__(name, session)
 
     @staticmethod
     def create_if_not_exist(session, name: str = None):

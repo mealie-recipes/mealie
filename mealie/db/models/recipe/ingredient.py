@@ -1,4 +1,4 @@
-from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from requests import Session
 from sqlalchemy import Column, ForeignKey, Integer, String, Table, orm
 
@@ -44,7 +44,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         pass
 
 
-class RecipeIngredient(SqlAlchemyBase):
+class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id = Column(Integer, primary_key=True)
     position = Column(Integer)
@@ -63,6 +63,10 @@ class RecipeIngredient(SqlAlchemyBase):
     def __init__(self, title: str, note: str, unit: dict, food: dict, quantity: int, session: Session, **_) -> None:
         self.title = title
         self.note = note
-        self.unit = IngredientUnitModel.get_ref_or_create(session, unit)
-        self.food = IngredientFoodModel.get_ref_or_create(session, food)
         self.quantity = quantity
+
+        if unit:
+            self.unit = IngredientUnitModel.get_ref(unit.get("id"))
+
+        if food:
+            self.food = IngredientFoodModel.get_ref(unit.get("id"))

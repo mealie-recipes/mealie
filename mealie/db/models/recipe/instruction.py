@@ -1,4 +1,4 @@
-from mealie.db.models.model_base import SqlAlchemyBase
+from mealie.db.models._model_base import SqlAlchemyBase
 from sqlalchemy import Column, ForeignKey, Integer, String
 
 

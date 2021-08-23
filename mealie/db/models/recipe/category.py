@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from mealie.core import root_logger
-from mealie.db.models.model_base import SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
 
@@ -36,28 +36,24 @@ custom_pages2categories = sa.Table(
 )
 
 
-class Category(SqlAlchemyBase):
+class Category(SqlAlchemyBase, BaseMixins):
     __tablename__ = "categories"
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, unique=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes2categories, back_populates="recipe_category")
 
+    class Config:
+        get_attr = "slug"
+
     @validates("name")
     def validate_name(self, key, name):
         assert name != ""
         return name
 
-    def __init__(self, name, session=None) -> None:
+    def __init__(self, name, **_) -> None:
         self.name = name.strip()
         self.slug = slugify(name)
-
-    def update(self, name, session=None) -> None:
-        self.__init__(name, session)
-
-    @staticmethod
-    def get_ref(session, slug: str):
-        return session.query(Category).filter(Category.slug == slug).one()
 
     @staticmethod
     def create_if_not_exist(session, name: str = None):

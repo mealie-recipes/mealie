@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.category import Category, custom_pages2categories, site_settings2categories
 from sqlalchemy.orm import Session
 

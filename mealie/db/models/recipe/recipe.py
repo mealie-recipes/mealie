@@ -3,26 +3,24 @@ from datetime import date
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models.recipe.api_extras import ApiExtras
-from mealie.db.models.recipe.assets import RecipeAsset
-from mealie.db.models.recipe.category import Category, recipes2categories
-from mealie.db.models.recipe.ingredient import RecipeIngredient
-from mealie.db.models.recipe.instruction import RecipeInstruction
-from mealie.db.models.recipe.note import Note
-from mealie.db.models.recipe.nutrition import Nutrition
-from mealie.db.models.recipe.settings import RecipeSettings
-from mealie.db.models.recipe.tag import Tag, recipes2tags
-from mealie.db.models.recipe.tool import Tool
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import validates
+
+from .._model_base import BaseMixins, SqlAlchemyBase
+from .api_extras import ApiExtras
+from .assets import RecipeAsset
+from .category import Category, recipes2categories
+from .ingredient import RecipeIngredient
+from .instruction import RecipeInstruction
+from .note import Note
+from .nutrition import Nutrition
+from .settings import RecipeSettings
+from .tag import Tag, recipes2tags
+from .tool import Tool
 
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
-    # Database Specific
-    id = sa.Column(sa.Integer, primary_key=True)
-
     # General Recipe Properties
     name = sa.Column(sa.String, nullable=False)
     description = sa.Column(sa.String)
@@ -128,11 +126,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.perform_time = perform_time
         self.cook_time = cook_time
 
-        self.recipe_category = [Category.create_if_not_exist(session=session, name=cat) for cat in recipe_category]
+        self.recipe_category = [x for x in [Category.get_ref(cat) for cat in recipe_category] if x]
 
         # Mealie Specific
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
-        self.tags = [Tag.create_if_not_exist(session=session, name=tag) for tag in tags]
+        self.tags = [x for x in [Tag.get_ref(tag) for tag in tags] if x]
         self.slug = slug
         self.notes = [Note(**note) for note in notes]
         self.rating = rating
@@ -142,7 +140,3 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         # Time Stampes
         self.date_added = date_added
         self.date_updated = datetime.datetime.now()
-
-    def update(self, **_):
-        """Updated a database entry by removing nested rows and rebuilds the row through the __init__ functions"""
-        self.__init__(**_)

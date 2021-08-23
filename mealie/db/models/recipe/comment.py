@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users import User
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, orm

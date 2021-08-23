@@ -1,5 +1,5 @@
 import sqlalchemy.orm as orm
-from mealie.db.models.model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from sqlalchemy import Column, ForeignKey, Integer, String
 
 

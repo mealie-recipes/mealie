@@ -1,4 +1,4 @@
-from mealie.schema.recipe.recipe import IngredientUnit
+from mealie.schema.recipe.units_and_foods import CreateIngredientUnit
 from sqlalchemy.orm.session import Session
 
 from ..data_access_layer import DatabaseAccessLayer
@@ -7,21 +7,21 @@ from ..data_access_layer import DatabaseAccessLayer
 def get_default_units():
     return [
         # Volume
-        IngredientUnit(name="teaspoon", abbreviation="tsp"),
-        IngredientUnit(name="tablespoon", abbreviation="tbsp"),
-        IngredientUnit(name="fluid ounce", abbreviation="fl oz"),
-        IngredientUnit(name="cup", abbreviation="cup"),
-        IngredientUnit(name="pint", abbreviation="pt"),
-        IngredientUnit(name="quart", abbreviation="qt"),
-        IngredientUnit(name="gallon", abbreviation="gal"),
-        IngredientUnit(name="milliliter", abbreviation="ml"),
-        IngredientUnit(name="liter", abbreviation="l"),
+        CreateIngredientUnit(name="teaspoon", abbreviation="tsp"),
+        CreateIngredientUnit(name="tablespoon", abbreviation="tbsp"),
+        CreateIngredientUnit(name="fluid ounce", abbreviation="fl oz"),
+        CreateIngredientUnit(name="cup", abbreviation="cup"),
+        CreateIngredientUnit(name="pint", abbreviation="pt"),
+        CreateIngredientUnit(name="quart", abbreviation="qt"),
+        CreateIngredientUnit(name="gallon", abbreviation="gal"),
+        CreateIngredientUnit(name="milliliter", abbreviation="ml"),
+        CreateIngredientUnit(name="liter", abbreviation="l"),
         # Mass Weight
-        IngredientUnit(name="pound", abbreviation="lb"),
-        IngredientUnit(name="ounce", abbreviation="oz"),
-        IngredientUnit(name="gram", abbreviation="g"),
-        IngredientUnit(name="kilogram", abbreviation="kg"),
-        IngredientUnit(name="milligram", abbreviation="mg"),
+        CreateIngredientUnit(name="pound", abbreviation="lb"),
+        CreateIngredientUnit(name="ounce", abbreviation="oz"),
+        CreateIngredientUnit(name="gram", abbreviation="g"),
+        CreateIngredientUnit(name="kilogram", abbreviation="kg"),
+        CreateIngredientUnit(name="milligram", abbreviation="mg"),
     ]
 
 

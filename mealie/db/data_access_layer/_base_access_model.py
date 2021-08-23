@@ -1,7 +1,7 @@
-from typing import Union
+from typing import Callable, Union
 
 from mealie.core.root_logger import get_logger
-from mealie.db.models.model_base import SqlAlchemyBase
+from mealie.db.models._model_base import SqlAlchemyBase
 from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import load_only
@@ -10,16 +10,25 @@ from sqlalchemy.orm.session import Session
 logger = get_logger()
 
 
-class BaseDocument:
-    def __init__(self) -> None:
-        self.primary_key: str
-        self.store: str
-        self.sql_model: SqlAlchemyBase
-        self.schema: BaseModel
-        self.observers: list = None
+class BaseAccessModel:
+    def __init__(self, primary_key, sql_model, schema) -> None:
+        self.primary_key: str = primary_key
+        self.sql_model: SqlAlchemyBase = sql_model
+        self.schema: BaseModel = schema
+
+        self.observers: list = []
+
+    def subscribe(self, func: Callable) -> None:
+        self.observers.append(func)
+
+    # TODO: Run Observer in Async Background Task
+    def update_observers(self) -> None:
+        if self.observers:
+            for observer in self.observers:
+                observer()
 
     def get_all(
-        self, session: Session, limit: int = None, order_by: str = None, start=0, end=9999, override_schema=None
+        self, session: Session, limit: int = None, order_by: str = None, start=0, override_schema=None
     ) -> list[dict]:
         eff_schema = override_schema or self.schema
 
@@ -130,7 +139,7 @@ class BaseDocument:
         session.add(new_document)
         session.commit()
 
-        if hasattr(self, "update_observers"):
+        if self.observers:
             self.update_observers()
 
         return self.schema.from_orm(new_document)
@@ -150,7 +159,7 @@ class BaseDocument:
         entry = self._query_one(session=session, match_value=match_value)
         entry.update(session=session, **new_data)
 
-        if hasattr(self, "update_observers"):
+        if self.observers:
             self.update_observers()
 
         session.commit()
@@ -176,7 +185,7 @@ class BaseDocument:
         session.delete(result)
         session.commit()
 
-        if hasattr(self, "update_observers"):
+        if self.observers:
             self.update_observers()
 
         return results_as_model
@@ -185,7 +194,7 @@ class BaseDocument:
         session.query(self.sql_model).delete()
         session.commit()
 
-        if hasattr(self, "update_observers"):
+        if self.observers:
             self.update_observers()
 
     def count_all(self, session: Session, match_key=None, match_value=None) -> int:

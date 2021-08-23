@@ -1,8 +1,10 @@
 from mealie.core import root_logger
 from mealie.core.config import settings
 from mealie.core.security import get_password_hash
+from mealie.db.data_initialization.init_units_foods import default_recipe_unit_init
 from mealie.db.database import db
-from mealie.db.db_setup import create_session
+from mealie.db.db_setup import create_session, engine
+from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema.admin import SiteSettings, SiteTheme
 from mealie.services.events import create_general_event
 from sqlalchemy.orm import Session
@@ -10,16 +12,26 @@ from sqlalchemy.orm import Session
 logger = root_logger.get_logger("init_db")
 
 
-def init_db(db: Session = None) -> None:
-    if not db:
-        db = create_session()
+def create_all_models():
+    import mealie.db.models._all_models  # noqa: F401
 
-    default_group_init(db)
-    default_settings_init(db)
-    default_theme_init(db)
-    default_user_init(db)
+    SqlAlchemyBase.metadata.create_all(engine)
 
-    db.close()
+
+def init_db(session: Session = None) -> None:
+    create_all_models()
+
+    if not session:
+        session = create_session()
+
+    default_group_init(session)
+    default_settings_init(session)
+    default_theme_init(session)
+    default_user_init(session)
+
+    default_recipe_unit_init(db, session)
+
+    session.close()
 
 
 def default_theme_init(session: Session):
@@ -67,8 +79,12 @@ def default_user_init(session: Session):
 
 
 def main():
-    session = create_session()
-    init_user = db.users.get(session, "1", "id")
+    try:
+        session = create_session()
+        init_user = db.users.get(session, "1", "id")
+    except Exception:
+        init_db()
+        return
     if init_user:
         logger.info("Database Exists")
     else:
