@@ -69,7 +69,7 @@ def get_meal_plan(
 ):
     """ Returns a single Meal Plan from the Database """
 
-    return db.meals.get(session, id, "uid")
+    return db.meals.get(session, id)
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
@@ -97,7 +97,7 @@ def update_meal_plan(
 ):
     """ Updates a meal plan based off ID """
     set_mealplan_dates(meal_plan)
-    processed_plan = MealPlanOut(uid=plan_id, **meal_plan.dict())
+    processed_plan = MealPlanOut(id=plan_id, **meal_plan.dict())
     try:
         db.meals.update(session, plan_id, processed_plan.dict())
         background_tasks.add_task(

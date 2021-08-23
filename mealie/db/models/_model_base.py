@@ -1,7 +1,6 @@
 import uuid
 from datetime import datetime
 
-from mealie.db.db_setup import SessionLocal
 from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.orm import declarative_base

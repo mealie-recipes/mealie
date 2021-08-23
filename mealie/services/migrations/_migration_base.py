@@ -140,15 +140,18 @@ class MigrationBase(BaseModel):
         return recipe_dict
 
     def clean_recipe_dictionary(self, recipe_dict) -> Recipe:
-        """Calls the rewrite_alias function and the Cleaner.clean function on a
-        dictionary and returns the result unpacked into a Recipe object"""
+        """
+        Calls the rewrite_alias function and the Cleaner.clean function on a
+        dictionary and returns the result unpacked into a Recipe object
+        """
         recipe_dict = self.rewrite_alias(recipe_dict)
         recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
 
         return Recipe(**recipe_dict)
 
     def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> None:
-        """Used as a single access point to process a list of Recipe objects into the
+        """
+        Used as a single access point to process a list of Recipe objects into the
         database in a predictable way. If an error occurs the session is rolled back
         and the process will continue. All import information is appended to the
         'migration_report' attribute to be returned to the frontend for display.
@@ -166,6 +169,7 @@ class MigrationBase(BaseModel):
 
             except Exception as inst:
                 exception = inst
+                logger.error(inst)
                 self.session.rollback()
 
             import_status = MigrationImport(slug=recipe.slug, name=recipe.name, status=status, exception=str(exception))

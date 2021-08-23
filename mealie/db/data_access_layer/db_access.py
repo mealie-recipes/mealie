@@ -4,9 +4,10 @@ from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlan
+from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
-from mealie.db.models.recipe.recipe import Category, RecipeModel, Tag
+from mealie.db.models.recipe.recipe import RecipeModel, Tag
 from mealie.db.models.settings import CustomPage, SiteSettings
 from mealie.db.models.shopping_list import ShoppingList
 from mealie.db.models.sign_up import SignUp
@@ -82,5 +83,5 @@ class DatabaseAccessLayer:
         self.users = UserDataAccessModel(DEFAULT_PK, User, UserInDB)
         self.api_tokens = BaseAccessModel(DEFAULT_PK, LongLiveToken, LongLiveTokenInDB)
         self.groups = GroupDataAccessModel(DEFAULT_PK, Group, GroupInDB)
-        self.meals = BaseAccessModel("uid", MealPlan, MealPlanOut)
+        self.meals = BaseAccessModel(DEFAULT_PK, MealPlan, MealPlanOut)
         self.shopping_lists = BaseAccessModel(DEFAULT_PK, ShoppingList, ShoppingListOut)

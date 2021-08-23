@@ -1,4 +1,5 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
+import {set } from "@vueuse/core"
 import { useAsyncKey } from "./use-utils";
 import { useApiSingleton } from "~/composables/use-api";
 import { Recipe } from "~/types/api-types/recipe";
@@ -29,7 +30,8 @@ export const useRecipes = (all = false, fetchRecipes = true) => {
   async function refreshRecipes() {
     const { data } = await api.recipes.getAll(start, end);
     if (data) {
-      recipes.value = data;
+      set(recipes, data);
+      
     }
   }
 

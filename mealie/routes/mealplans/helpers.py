@@ -44,6 +44,6 @@ def get_shopping_list(
 
     mealplan.shopping_list = created_list.id
 
-    db.meals.update(session, mealplan.uid, mealplan)
+    db.meals.update(session, mealplan.id, mealplan)
 
     return created_list

@@ -48,7 +48,7 @@ class MealPlanIn(CamelModel):
 
 
 class MealPlanOut(MealPlanIn):
-    uid: int
+    id: int
     shopping_list: Optional[int]
 
     class Config:

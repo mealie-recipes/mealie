@@ -223,7 +223,7 @@ import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
-import { Recipe } from "~/types/api-types/admin";
+import { Recipe } from "~/types/api-types/recipe";
 import { useStaticRoutes } from "~/composables/api";
 
 export default defineComponent({

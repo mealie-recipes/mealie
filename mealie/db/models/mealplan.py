@@ -1,6 +1,6 @@
 import sqlalchemy.orm as orm
-from mealie.db.models.group import Group
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models.group import Group
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.shopping_list import ShoppingList
 from sqlalchemy import Column, Date, ForeignKey, Integer, String
@@ -33,7 +33,7 @@ class Meal(SqlAlchemyBase):
 class MealDay(SqlAlchemyBase, BaseMixins):
     __tablename__ = "mealdays"
     id = Column(Integer, primary_key=True)
-    parent_id = Column(Integer, ForeignKey("mealplan.uid"))
+    parent_id = Column(Integer, ForeignKey("mealplan.id"))
     date = Column(Date)
     meals: list[Meal] = orm.relationship(
         Meal,
@@ -49,7 +49,7 @@ class MealDay(SqlAlchemyBase, BaseMixins):
 
 class MealPlan(SqlAlchemyBase, BaseMixins):
     __tablename__ = "mealplan"
-    uid = Column(Integer, primary_key=True, unique=True)
+    # TODO: Migrate to use ID as PK
     start_date = Column(Date)
     end_date = Column(Date)
     plan_days: list[MealDay] = orm.relationship(MealDay, cascade="all, delete, delete-orphan")

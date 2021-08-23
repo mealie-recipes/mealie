@@ -10,7 +10,7 @@ from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .api_extras import ApiExtras
 from .assets import RecipeAsset
-from .category import Category, recipes2categories
+from .category import recipes2categories
 from .ingredient import RecipeIngredient
 from .instruction import RecipeInstruction
 from .note import Note

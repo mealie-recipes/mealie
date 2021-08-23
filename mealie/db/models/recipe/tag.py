@@ -1,7 +1,6 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from mealie.core import root_logger
-from mealie.db.db_setup import SessionLocal
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
@@ -35,15 +34,17 @@ class Tag(SqlAlchemyBase, BaseMixins):
         self.name = name.strip()
         self.slug = slugify(self.name)
 
-    @staticmethod
-    def create_if_not_exist(name: str = None):
-        test_slug = slugify(name)
-        with SessionLocal() as session:
-            result = session.query(Tag).filter(Tag.slug == test_slug).one_or_none()
+    @classmethod
+    def get_ref(cls, match_value: str, session=None):
+        if not session or not match_value:
+            return None
 
-            if result:
-                logger.debug("Tag exists, associating recipe")
-                return result
-            else:
-                logger.debug("Tag doesn't exists, creating tag")
-                return Tag(name=name)
+        slug = slugify(match_value)
+
+        result = session.query(Tag).filter(Tag.slug == slug).one_or_none()
+        if result:
+            logger.debug("Category exists, associating recipe")
+            return result
+        else:
+            logger.debug("Category doesn't exists, creating Category")
+            return Tag(name=match_value)

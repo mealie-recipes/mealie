@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "./_base";
-import { Recipe } from "~/types/api-types/admin";
-import { CreateRecipe } from "~/types/api-types/recipe";
+import { Recipe , CreateRecipe } from "~/types/api-types/recipe";
+
 
 const prefix = "/api";
 

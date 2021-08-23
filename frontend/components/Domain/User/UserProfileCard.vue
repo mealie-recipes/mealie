@@ -108,6 +108,7 @@ export default defineComponent({
     });
 
     async function updateUser() {
+      // @ts-ignore
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
         context.emit(events.REFRESH);
@@ -151,17 +152,22 @@ export default defineComponent({
     //   }
     // },
     async changePassword() {
+      // @ts-ignore
       this.paswordLoading = true;
       const data = {
         currentPassword: this.password.current,
         newPassword: this.password.newOne,
       };
 
+      // @ts-ignore
       if (this.$refs.passChange.validate()) {
+        // @ts-ignore
         if (await api.users.changePassword(this.user.id, data)) {
           this.$emit("refresh");
         }
       }
+
+      // @ts-ignore
       this.paswordLoading = false;
     },
   },

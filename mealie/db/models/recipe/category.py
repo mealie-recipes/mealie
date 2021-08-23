@@ -1,12 +1,8 @@
-from functools import lru_cache
-
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from mealie.core import root_logger
-from mealie.db.db_setup import SessionLocal
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from slugify import slugify
-from sqlalchemy import inspect
 from sqlalchemy.orm import validates
 
 logger = root_logger.get_logger()
@@ -64,7 +60,9 @@ class Category(SqlAlchemyBase, BaseMixins):
         if not session or not match_value:
             return None
 
-        result = session.query(Category).filter(Category.name == match_value).one_or_none()
+        slug = slugify(match_value)
+
+        result = session.query(Category).filter(Category.slug == slug).one_or_none()
         if result:
             logger.debug("Category exists, associating recipe")
             return result

@@ -73,7 +73,7 @@ def test_update_mealplan(api_client: TestClient, api_routes: AppRoutes, slug_1, 
     existing_mealplan = existing_mealplan[0]
 
     # Swap
-    plan_uid = existing_mealplan.get("uid")
+    plan_uid = existing_mealplan.get("id")
     existing_mealplan["planDays"][0]["meals"][0]["slug"] = slug_2
     existing_mealplan["planDays"][1]["meals"][0]["slug"] = slug_1
 
@@ -96,7 +96,7 @@ def test_delete_mealplan(api_client: TestClient, api_routes: AppRoutes, admin_to
     existing_mealplan = json.loads(response.text)
     existing_mealplan = existing_mealplan[0]
 
-    plan_uid = existing_mealplan.get("uid")
+    plan_uid = existing_mealplan.get("id")
     response = api_client.delete(api_routes.meal_plans_plan_id(plan_uid), headers=admin_token)
 
     assert response.status_code == 200
