@@ -2,7 +2,7 @@ from fastapi import Depends, status
 from mealie.db.database import db
 from mealie.db.db_setup import Session, generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.recipe.units_and_foods import CreateIngredientUnit, IngredientUnit
+from mealie.schema.recipe import CreateIngredientUnit, IngredientUnit
 
 router = UserAPIRouter()
 

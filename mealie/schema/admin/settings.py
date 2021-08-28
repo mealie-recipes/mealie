@@ -4,7 +4,7 @@ from fastapi_camelcase import CamelModel
 from pydantic import validator
 from slugify import slugify
 
-from ..recipe.category import CategoryBase, RecipeCategoryResponse
+from ..recipe.recipe_category import CategoryBase, RecipeCategoryResponse
 
 
 class SiteSettings(CamelModel):

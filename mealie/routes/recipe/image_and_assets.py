@@ -5,7 +5,7 @@ from fastapi.datastructures import UploadFile
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.recipe import Recipe, RecipeAsset, RecipeURLIn
+from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeAsset
 from mealie.services.image.image import scrape_image, write_image
 from slugify import slugify
 from sqlalchemy.orm.session import Session
@@ -16,7 +16,7 @@ user_router = UserAPIRouter()
 @user_router.post("/{recipe_slug}/image")
 def scrape_image_url(
     recipe_slug: str,
-    url: RecipeURLIn,
+    url: CreateRecipeByURL,
 ):
     """ Removes an existing image and replaces it with the incoming file. """
 

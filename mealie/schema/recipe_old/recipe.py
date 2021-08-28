@@ -1,32 +1,89 @@
 import datetime
+from enum import Enum
 from pathlib import Path
 from typing import Any, Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.core.config import app_dirs
+from mealie.core.config import app_dirs, settings
 from mealie.db.models.recipe.recipe import RecipeModel
 from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
 
-from .recipe_asset import RecipeAsset
-from .recipe_comments import CommentOut
-from .recipe_ingredient import RecipeIngredient
-from .recipe_notes import RecipeNote
-from .recipe_nutrition import Nutrition
-from .recipe_settings import RecipeSettings
-from .recipe_step import RecipeStep
-
-
-class CreateRecipeByURL(BaseModel):
-    url: str
-
-    class Config:
-        schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes"}}
+from .comments import CommentOut
+from .units_and_foods import IngredientFood, IngredientUnit
 
 
 class CreateRecipe(CamelModel):
     name: str
+
+
+class RecipeImageTypes(str, Enum):
+    original = "original.webp"
+    min = "min-original.webp"
+    tiny = "tiny-original.webp"
+
+
+class RecipeSettings(CamelModel):
+    public: bool = settings.RECIPE_PUBLIC
+    show_nutrition: bool = settings.RECIPE_SHOW_NUTRITION
+    show_assets: bool = settings.RECIPE_SHOW_ASSETS
+    landscape_view: bool = settings.RECIPE_LANDSCAPE_VIEW
+    disable_comments: bool = settings.RECIPE_DISABLE_COMMENTS
+    disable_amount: bool = settings.RECIPE_DISABLE_AMOUNT
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeNote(BaseModel):
+    title: str
+    text: str
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeStep(CamelModel):
+    title: Optional[str] = ""
+    text: str
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeAsset(CamelModel):
+    name: str
+    icon: str
+    file_name: Optional[str]
+
+    class Config:
+        orm_mode = True
+
+
+class Nutrition(CamelModel):
+    calories: Optional[str]
+    fat_content: Optional[str]
+    protein_content: Optional[str]
+    carbohydrate_content: Optional[str]
+    fiber_content: Optional[str]
+    sodium_content: Optional[str]
+    sugar_content: Optional[str]
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeIngredient(CamelModel):
+    title: Optional[str]
+    note: Optional[str]
+    unit: Optional[IngredientUnit]
+    food: Optional[IngredientFood]
+    disable_amount: bool = True
+    quantity: int = 1
+
+    class Config:
+        orm_mode = True
 
 
 class RecipeSummary(CamelModel):
@@ -139,10 +196,15 @@ class Recipe(RecipeSummary):
 
     @validator("slug", always=True, pre=True)
     def validate_slug(slug: str, values):
-        if not values.get("name"):
+        if not values["name"]:
             return slug
+        name: str = values["name"]
+        calc_slug: str = slugify(name)
 
-        return slugify(values["name"])
+        if slug != calc_slug:
+            slug = calc_slug
+
+        return slug
 
     @validator("recipe_ingredient", always=True, pre=True)
     def validate_ingredients(recipe_ingredient, values):
@@ -153,3 +215,28 @@ class Recipe(RecipeSummary):
             return [RecipeIngredient(note=x) for x in recipe_ingredient]
 
         return recipe_ingredient
+
+
+class AllRecipeRequest(BaseModel):
+    properties: list[str]
+    limit: Optional[int]
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "properties": ["name", "slug", "image"],
+                "limit": 100,
+            }
+        }
+
+
+class RecipeURLIn(BaseModel):
+    url: str
+
+    class Config:
+        schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes"}}
+
+
+class SlugResponse(BaseModel):
+    class Config:
+        schema_extra = {"example": "adult-mac-and-cheese"}

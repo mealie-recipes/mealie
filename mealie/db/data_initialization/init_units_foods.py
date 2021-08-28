@@ -1,4 +1,4 @@
-from mealie.schema.recipe.units_and_foods import CreateIngredientUnit
+from mealie.schema.recipe import CreateIngredientUnit
 from sqlalchemy.orm.session import Session
 
 from ..data_access_layer import DatabaseAccessLayer

@@ -10,7 +10,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user, is_logged_in, temporary_zip_path
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.recipe import Recipe, RecipeImageTypes, RecipeURLIn
+from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
 from mealie.schema.recipe.recipe import CreateRecipe
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
@@ -51,14 +51,14 @@ def create_from_name(
 
 
 @user_router.post("/test-scrape-url")
-def test_parse_recipe_url(url: RecipeURLIn):
+def test_parse_recipe_url(url: CreateRecipeByURL):
     return scrape_url(url.url)
 
 
 @user_router.post("/create-url", status_code=201, response_model=str)
 def parse_recipe_url(
     background_tasks: BackgroundTasks,
-    url: RecipeURLIn,
+    url: CreateRecipeByURL,
     session: Session = Depends(generate_session),
     current_user: UserInDB = Depends(get_current_user),
 ):
