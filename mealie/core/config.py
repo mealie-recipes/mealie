@@ -173,3 +173,13 @@ class AppSettings(BaseSettings):
 
 
 settings = AppSettings()
+
+
+def get_app_dirs() -> AppDirectories:
+    global app_dirs
+    return app_dirs
+
+
+def get_settings() -> AppSettings:
+    global settings
+    return settings
