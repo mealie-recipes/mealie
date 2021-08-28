@@ -1,10 +1,11 @@
 from typing import Any
 
 from fastapi import BackgroundTasks, Depends
-from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_logged_in
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
+
+from mealie.db.db_setup import generate_session
+from mealie.routes.deps import get_current_user, is_logged_in
 
 
 class CommonDeps(BaseModel):

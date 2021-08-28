@@ -44,14 +44,19 @@ clean-test: ## 🧹 Remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-test-all: lint test ## 🧪 Check Lint Format and Testing
+test-all: lint-test test ## 🧪 Check Lint Format and Testing
 
 test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
-lint: ## 🧺 Format, Check and Flake8 
-	poetry run black .
+lint-test:
 	poetry run black . --check
+	poetry run isort . --check-only
+	poetry run flake8 mealie tests
+
+lint: ## 🧺 Format, Check and Flake8 
+	poetry run isort .
+	poetry run black .
 	poetry run flake8 mealie tests
 
 

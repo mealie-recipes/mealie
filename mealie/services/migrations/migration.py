@@ -1,10 +1,11 @@
 from enum import Enum
 from pathlib import Path
 
+from sqlalchemy.orm.session import Session
+
 from mealie.core import root_logger
 from mealie.schema.admin import MigrationImport
 from mealie.services.migrations import chowdown, nextcloud
-from sqlalchemy.orm.session import Session
 
 logger = root_logger.get_logger()
 

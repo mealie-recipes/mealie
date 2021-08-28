@@ -47,6 +47,7 @@ flake8 = "^3.9.0"
 coverage = "^5.5"
 pydantic-to-typescript = "^1.0.7"
 rich = "^10.7.0"
+isort = "^5.9.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -54,6 +55,11 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+multi_line_output = 3
  
 [tool.pytest.ini_options]
 minversion = "6.0"

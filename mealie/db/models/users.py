@@ -1,8 +1,9 @@
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
+
 from mealie.core.config import settings
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.group import Group
 from mealie.db.models.recipe.recipe import RecipeModel
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):

@@ -2,6 +2,7 @@ import json
 
 import pytest
 from fastapi.testclient import TestClient
+
 from mealie.schema.admin import SiteSettings
 from tests.app_routes import AppRoutes
 

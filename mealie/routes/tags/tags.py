@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm.session import Session
+
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import is_logged_in
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.recipe import RecipeTagResponse, TagIn
-from sqlalchemy.orm.session import Session
 
 public_router = APIRouter()
 user_router = UserAPIRouter()

@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+
 from mealie.db.models._model_base import SqlAlchemyBase
 
 

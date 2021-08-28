@@ -4,11 +4,12 @@ from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
+from sqlalchemy.orm.session import Session
+
 from mealie.core.config import app_dirs, settings
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.schema.user import LongLiveTokenInDB, TokenData, UserInDB
-from sqlalchemy.orm.session import Session
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)

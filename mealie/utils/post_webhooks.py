@@ -1,12 +1,13 @@
 import json
 
 import requests
+from sqlalchemy.orm.session import Session
+
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.user import GroupInDB
 from mealie.services.events import create_scheduled_event
 from mealie.services.meal_services import get_todays_meal
-from sqlalchemy.orm.session import Session
 
 
 def post_webhooks(group: int, session: Session = None, force=True):

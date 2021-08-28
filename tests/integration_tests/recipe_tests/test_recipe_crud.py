@@ -3,6 +3,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 from slugify import slugify
+
 from tests.app_routes import AppRoutes
 from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
 

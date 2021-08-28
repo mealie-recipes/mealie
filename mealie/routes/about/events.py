@@ -1,10 +1,11 @@
 from fastapi import Depends
+from sqlalchemy.orm.session import Session
+
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.events import EventsOut
-from sqlalchemy.orm.session import Session
 
 router = AdminAPIRouter(prefix="/events")
 

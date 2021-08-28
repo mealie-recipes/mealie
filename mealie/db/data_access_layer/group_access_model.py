@@ -1,7 +1,8 @@
+from sqlalchemy.orm.session import Session
+
 from mealie.db.models.group import Group
 from mealie.schema.meal_plan.meal import MealPlanOut
 from mealie.schema.user.user import GroupInDB
-from sqlalchemy.orm.session import Session
 
 from ._base_access_model import BaseAccessModel
 

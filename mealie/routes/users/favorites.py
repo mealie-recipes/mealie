@@ -1,11 +1,12 @@
 from fastapi import Depends
+from sqlalchemy.orm.session import Session
+
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.user import UserFavorites, UserInDB
-from sqlalchemy.orm.session import Session
 
 user_router = UserAPIRouter()
 

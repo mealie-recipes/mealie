@@ -1,4 +1,7 @@
 from fastapi import BackgroundTasks, Depends, HTTPException, status
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm.session import Session
+
 from mealie.core.config import get_settings
 from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
@@ -6,8 +9,6 @@ from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.user.user import UserInDB
 from mealie.services.events import create_recipe_event
 from mealie.services.recipe.media import delete_assets
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm.session import Session
 
 from .common_deps import CommonDeps, _read_deps, _write_deps
 

@@ -1,9 +1,10 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from mealie.core import root_logger
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from slugify import slugify
 from sqlalchemy.orm import validates
+
+from mealie.core import root_logger
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
 logger = root_logger.get_logger()
 

@@ -1,4 +1,6 @@
 from fastapi import Depends
+from sqlalchemy.orm.session import Session
+
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
@@ -7,7 +9,6 @@ from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import ListItem, MealPlanOut, ShoppingListIn, ShoppingListOut
 from mealie.schema.recipe import Recipe
 from mealie.schema.user import UserInDB
-from sqlalchemy.orm.session import Session
 
 logger = get_logger()
 

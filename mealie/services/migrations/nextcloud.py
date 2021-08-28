@@ -2,11 +2,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from slugify import slugify
+from sqlalchemy.orm.session import Session
+
 from mealie.schema.admin import MigrationImport
 from mealie.services.migrations import helpers
 from mealie.services.migrations._migration_base import MigrationAlias, MigrationBase
-from slugify import slugify
-from sqlalchemy.orm.session import Session
 
 
 @dataclass

@@ -2,9 +2,10 @@ import json
 from pathlib import Path
 
 from fastapi.testclient import TestClient
+from pytest import fixture
+
 from mealie.core.config import app_dirs
 from mealie.schema.user import UserOut
-from pytest import fixture
 from tests.app_routes import AppRoutes
 
 

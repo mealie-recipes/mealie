@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends
+
 from mealie.routes.deps import get_admin_user, get_current_user
 
 

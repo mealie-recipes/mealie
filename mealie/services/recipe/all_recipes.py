@@ -3,12 +3,13 @@ from functools import lru_cache
 
 from fastapi import Depends, Response
 from fastapi.encoders import jsonable_encoder
+from sqlalchemy.orm.session import Session
+
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import SessionLocal, generate_session
 from mealie.routes.deps import is_logged_in
 from mealie.schema.recipe import RecipeSummary
-from sqlalchemy.orm.session import Session
 
 logger = get_logger()
 

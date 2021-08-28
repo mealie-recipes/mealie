@@ -4,11 +4,11 @@ import json
 
 import requests
 from fastapi.testclient import TestClient
+from pytest import fixture
+
 from mealie.app import app
 from mealie.db.db_setup import SessionLocal, generate_session
 from mealie.db.init_db import main
-from pytest import fixture
-
 from tests.app_routes import AppRoutes
 from tests.test_config import TEST_DATA
 from tests.utils.recipe_data import get_raw_no_image, get_raw_recipe, get_recipe_test_cases

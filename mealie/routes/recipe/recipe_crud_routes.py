@@ -4,6 +4,10 @@ from zipfile import ZipFile
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File
 from fastapi.datastructures import UploadFile
+from scrape_schema_recipe import scrape_url
+from sqlalchemy.orm.session import Session
+from starlette.responses import FileResponse
+
 from mealie.core.config import settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
@@ -18,9 +22,6 @@ from mealie.services.image.image import write_image
 from mealie.services.recipe.media import check_assets
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.scraper.scraper import create_from_url
-from scrape_schema_recipe import scrape_url
-from sqlalchemy.orm.session import Session
-from starlette.responses import FileResponse
 
 user_router = UserAPIRouter()
 public_router = APIRouter()

@@ -2,10 +2,11 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from jose import jwt
+from passlib.context import CryptContext
+
 from mealie.core.config import settings
 from mealie.db.database import db
 from mealie.schema.user import UserInDB
-from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"

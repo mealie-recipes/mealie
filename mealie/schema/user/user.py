@@ -1,12 +1,13 @@
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
+from pydantic.types import constr
+from pydantic.utils import GetterDict
+
 from mealie.core.config import settings
 from mealie.db.models.group import Group
 from mealie.db.models.users import User
 from mealie.schema.recipe import RecipeSummary
-from pydantic.types import constr
-from pydantic.utils import GetterDict
 
 from ..meal_plan import MealPlanOut, ShoppingListOut
 from ..recipe import CategoryBase

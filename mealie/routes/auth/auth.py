@@ -1,6 +1,8 @@
 from fastapi import APIRouter, BackgroundTasks, Depends, Request, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm.session import Session
+
 from mealie.core import security
 from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
@@ -8,7 +10,6 @@ from mealie.routes.deps import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_user_event
-from sqlalchemy.orm.session import Session
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])

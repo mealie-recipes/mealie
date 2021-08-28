@@ -2,9 +2,10 @@ from datetime import date
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.db.models.mealplan import MealPlan
 from pydantic import validator
 from pydantic.utils import GetterDict
+
+from mealie.db.models.mealplan import MealPlan
 
 
 class MealIn(CamelModel):

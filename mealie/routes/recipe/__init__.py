@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from mealie.routes.recipe import all_recipe_routes, comments, image_and_assets, ingredient_parser, recipe_crud_routes
 
 prefix = "/recipes"

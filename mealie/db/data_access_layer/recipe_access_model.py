@@ -1,9 +1,10 @@
 from random import randint
 
+from sqlalchemy.orm.session import Session
+
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.schema.recipe import Recipe
-from sqlalchemy.orm.session import Session
 
 from ._base_access_model import BaseAccessModel
 

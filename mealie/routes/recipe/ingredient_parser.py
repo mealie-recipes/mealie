@@ -1,9 +1,10 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
+
 from mealie.services.scraper.ingredient_nlp.processor import (
     convert_crf_models_to_ingredients,
     convert_list_to_crf_model,
 )
-from pydantic import BaseModel
 
 public_router = APIRouter()
 

@@ -1321,7 +1321,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "4aaa78bc2bbe0e21ad78acd6fa35339eea5cdc88e7055337a0b0244021d7cec6"
+content-hash = "03d6e9fea568f4167c5cc6865d417c57575305f7ad6813dd503c6f40e85090d7"
 
 [metadata.files]
 aiofiles = [

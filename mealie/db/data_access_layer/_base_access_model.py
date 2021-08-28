@@ -1,9 +1,10 @@
 from typing import Callable, Generic, TypeVar, Union
 
-from mealie.core.root_logger import get_logger
 from sqlalchemy import func
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
+
+from mealie.core.root_logger import get_logger
 
 logger = get_logger()
 

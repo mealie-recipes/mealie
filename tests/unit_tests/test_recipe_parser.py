@@ -1,4 +1,5 @@
 import pytest
+
 from mealie.services.scraper import scraper
 from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
 

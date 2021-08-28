@@ -3,6 +3,7 @@ import shutil
 from fastapi import Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
 from fastapi.routing import APIRouter
+
 from mealie.core.config import app_dirs
 from mealie.routes.deps import get_current_user
 from mealie.routes.routers import UserAPIRouter

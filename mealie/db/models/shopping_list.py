@@ -1,9 +1,10 @@
 import sqlalchemy.orm as orm
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models.group import Group
 from requests import Session
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.ext.orderinglist import ordering_list
+
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models.group import Group
 
 
 class ShoppingListItem(SqlAlchemyBase, BaseMixins):

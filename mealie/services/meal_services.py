@@ -1,12 +1,13 @@
 from datetime import date, timedelta
 from typing import Union
 
+from sqlalchemy.orm.session import Session
+
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.meal_plan import MealDayIn, MealPlanIn
 from mealie.schema.recipe import Recipe
 from mealie.schema.user import GroupInDB
-from sqlalchemy.orm.session import Session
 
 
 def set_mealplan_dates(meal_plan_base: MealPlanIn) -> MealPlanIn:

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import requests
+
 from mealie.core import root_logger
 from mealie.schema.recipe import Recipe
 from mealie.services.image import minify

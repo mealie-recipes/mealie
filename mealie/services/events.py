@@ -1,8 +1,9 @@
 import apprise
+from sqlalchemy.orm.session import Session
+
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.schema.events import Event, EventCategory
-from sqlalchemy.orm.session import Session
 
 
 def test_notification(notification_url, event=None) -> bool:

@@ -1,4 +1,5 @@
 from fastapi_camelcase import CamelModel
+
 from mealie.core.config import settings
 
 

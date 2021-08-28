@@ -3,11 +3,12 @@ from pathlib import Path
 from typing import Any, Optional
 
 from fastapi_camelcase import CamelModel
-from mealie.core.config import app_dirs
-from mealie.db.models.recipe.recipe import RecipeModel
 from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
+
+from mealie.core.config import app_dirs
+from mealie.db.models.recipe.recipe import RecipeModel
 
 from .recipe_asset import RecipeAsset
 from .recipe_comments import CommentOut

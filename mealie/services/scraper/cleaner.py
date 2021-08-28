@@ -4,8 +4,9 @@ import re
 from datetime import datetime, timedelta
 from typing import List
 
-from mealie.core.root_logger import get_logger
 from slugify import slugify
+
+from mealie.core.root_logger import get_logger
 
 logger = get_logger()
 

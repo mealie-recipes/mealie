@@ -1,3 +1,5 @@
+from sqlalchemy.orm import Session
+
 from mealie.core import root_logger
 from mealie.core.config import settings
 from mealie.core.security import get_password_hash
@@ -7,7 +9,6 @@ from mealie.db.db_setup import create_session, engine
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema.admin import SiteSettings
 from mealie.services.events import create_general_event
-from sqlalchemy.orm import Session
 
 logger = root_logger.get_logger("init_db")
 

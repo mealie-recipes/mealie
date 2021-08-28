@@ -1,8 +1,9 @@
 from enum import Enum
 
 from fastapi import APIRouter, HTTPException, status
-from mealie.schema.recipe import Recipe
 from starlette.responses import FileResponse
+
+from mealie.schema.recipe import Recipe
 
 """
 These routes are for development only! These assets are served by Caddy when not

@@ -1,4 +1,5 @@
 from fastapi import Depends, status
+
 from mealie.db.database import db
 from mealie.db.db_setup import Session, generate_session
 from mealie.routes.routers import UserAPIRouter

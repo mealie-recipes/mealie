@@ -2,6 +2,7 @@ import json
 import re
 
 import pytest
+
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraper import open_graph
 from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES

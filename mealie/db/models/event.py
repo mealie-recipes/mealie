@@ -1,5 +1,6 @@
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
+
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
 
 class EventNotification(SqlAlchemyBase, BaseMixins):

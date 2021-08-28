@@ -5,13 +5,14 @@ from pathlib import Path
 from typing import Union
 
 from jinja2 import Template
+from pathvalidate import sanitize_filename
+from pydantic.main import BaseModel
+
 from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.services.events import create_backup_event
-from pathvalidate import sanitize_filename
-from pydantic.main import BaseModel
 
 logger = root_logger.get_logger()
 

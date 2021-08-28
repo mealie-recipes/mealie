@@ -8,9 +8,10 @@ from typing import Optional
 from fastapi import FastAPI
 from humps import camelize
 from jinja2 import Template
-from mealie.app import app
 from pydantic import BaseModel, Field
 from slugify import slugify
+
+from mealie.app import app
 
 CWD = Path(__file__).parent
 OUT_DIR = CWD / "output"

@@ -1,5 +1,7 @@
 from logging import getLogger
 
+from sqlalchemy.orm.session import Session
+
 from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
@@ -26,7 +28,6 @@ from mealie.schema.recipe import (
     RecipeTagResponse,
 )
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, SignUpOut, UserInDB
-from sqlalchemy.orm.session import Session
 
 from ._base_access_model import BaseAccessModel
 from .recipe_access_model import RecipeDataAccessModel

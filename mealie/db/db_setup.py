@@ -1,7 +1,8 @@
 import sqlalchemy as sa
-from mealie.core.config import settings
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+
+from mealie.core.config import settings
 
 
 def sql_global_init(db_url: str):

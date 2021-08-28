@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm.session import Session
+
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.deps import get_current_user
@@ -6,7 +8,6 @@ from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.admin import SiteSettings
 from mealie.schema.user import GroupInDB, UserInDB
 from mealie.utils.post_webhooks import post_webhooks
-from sqlalchemy.orm.session import Session
 
 public_router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
 admin_router = AdminAPIRouter(prefix="/api/site-settings", tags=["Settings"])

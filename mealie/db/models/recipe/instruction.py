@@ -1,5 +1,6 @@
-from mealie.db.models._model_base import SqlAlchemyBase
 from sqlalchemy import Column, ForeignKey, Integer, String
+
+from mealie.db.models._model_base import SqlAlchemyBase
 
 
 class RecipeInstruction(SqlAlchemyBase):

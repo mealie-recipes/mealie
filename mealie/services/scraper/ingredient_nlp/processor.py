@@ -5,10 +5,11 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Optional
 
+from pydantic import BaseModel
+
 from mealie.core.config import settings
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, CreateIngredientUnit
-from pydantic import BaseModel
 
 from . import utils
 

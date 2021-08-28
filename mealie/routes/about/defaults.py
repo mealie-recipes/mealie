@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from mealie.schema.recipe import RecipeSettings
 
 router = APIRouter(prefix="/recipes")

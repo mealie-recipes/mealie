@@ -2,10 +2,11 @@ import shutil
 from dataclasses import dataclass
 from pathlib import Path
 
+from PIL import Image
+
 from mealie.core import root_logger
 from mealie.core.config import app_dirs
 from mealie.schema.recipe import Recipe
-from PIL import Image
 
 logger = root_logger.get_logger()
 

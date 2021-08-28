@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
+from sqlalchemy.orm.session import Session
+
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.schema.recipe import RecipeSummary
 from mealie.services.recipe.all_recipes import AllRecipesService
-from sqlalchemy.orm.session import Session
 
 router = APIRouter()
 
