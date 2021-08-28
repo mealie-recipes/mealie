@@ -3,7 +3,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import is_logged_in
+from mealie.core.dependencies import is_logged_in
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 

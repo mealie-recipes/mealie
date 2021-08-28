@@ -5,7 +5,7 @@ from mealie.core.config import settings
 from mealie.core.security import get_password_hash, verify_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.user import ChangePassword, UserInDB

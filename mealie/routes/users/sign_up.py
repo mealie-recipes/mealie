@@ -6,7 +6,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core.security import get_password_hash
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_admin_user
+from mealie.core.dependencies import get_admin_user
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.user import SignUpIn, SignUpOut, SignUpToken, UserIn, UserInDB
 from mealie.services.events import create_user_event

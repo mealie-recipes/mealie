@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from mealie.core import security
-from mealie.routes.deps import validate_file_token
+from mealie.core.dependencies import validate_file_token
 
 
 def test_create_file_token():

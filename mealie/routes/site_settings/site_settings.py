@@ -3,7 +3,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.admin import SiteSettings
 from mealie.schema.user import GroupInDB, UserInDB

@@ -12,7 +12,7 @@ from mealie.core.config import settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, temporary_zip_path
+from mealie.core.dependencies import get_current_user, temporary_zip_path
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
 from mealie.schema.recipe.recipe import CreateRecipe

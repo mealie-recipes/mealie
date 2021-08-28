@@ -3,14 +3,14 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_settings
+from mealie.core.dependencies import ReadDeps
+from mealie.core.dependencies.grouped import WriteDeps
 from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.user.user import UserInDB
 from mealie.services.events import create_recipe_event
 from mealie.services.recipe.media import delete_assets
-
-from .common_deps import CommonDeps, _read_deps, _write_deps
 
 
 class RecipeService:
@@ -27,7 +27,7 @@ class RecipeService:
         self.settings = get_settings()
 
     @classmethod
-    def read_existing(cls, slug: str, local_deps: CommonDeps = Depends(_read_deps)):
+    def read_existing(cls, slug: str, deps: ReadDeps = Depends()):
         """
         Used for dependency injection for routes that require an existing recipe. If the recipe doesn't exist
         or the user doens't not have the required permissions, the proper HTTP Status code will be raised.
@@ -44,12 +44,12 @@ class RecipeService:
         Returns:
             RecipeService: The Recipe Service class with a populated recipe attribute
         """
-        new_class = cls(local_deps.session, local_deps.user, local_deps.background_tasks)
+        new_class = cls(deps.session, deps.user, deps.background_tasks)
         new_class.assert_existing(slug)
         return new_class
 
     @classmethod
-    def write_existing(cls, slug: str, local_deps: CommonDeps = Depends(_write_deps)):
+    def write_existing(cls, slug: str, deps: WriteDeps = Depends()):
         """
         Used for dependency injection for routes that require an existing recipe. The only difference between
         read_existing and write_existing is that the user is required to be logged in on write_existing method.
@@ -66,19 +66,19 @@ class RecipeService:
         Returns:
             RecipeService: The Recipe Service class with a populated recipe attribute
         """
-        new_class = cls(local_deps.session, local_deps.user, local_deps.background_tasks)
+        new_class = cls(deps.session, deps.user, deps.background_tasks)
         new_class.assert_existing(slug)
         return new_class
 
     @classmethod
-    def base(cls, local_deps: CommonDeps = Depends(_write_deps)) -> Recipe:
+    def base(cls, deps: WriteDeps = Depends()) -> Recipe:
         """A Base instance to be used as a router dependency
 
         Raises:
             HTTPException: 400 Bad Request
 
         """
-        return cls(local_deps.session, local_deps.user, local_deps.background_tasks)
+        return cls(deps.session, deps.user, deps.background_tasks)
 
     def pupulate_recipe(self, slug: str) -> Recipe:
         """Populates the recipe attribute with the recipe from the database.

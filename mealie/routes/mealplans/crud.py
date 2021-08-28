@@ -4,7 +4,7 @@ from starlette.responses import FileResponse
 
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
+from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import MealPlanIn, MealPlanOut
 from mealie.schema.user import GroupInDB, UserInDB

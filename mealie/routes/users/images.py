@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi.routing import APIRouter
 
 from mealie.core.config import app_dirs
-from mealie.routes.deps import get_current_user
+from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.user import UserInDB

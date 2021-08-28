@@ -4,9 +4,9 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm.session import Session
 
 from mealie.core import security
+from mealie.core.dependencies import get_current_user
 from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_user_event

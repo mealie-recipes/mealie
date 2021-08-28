@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_logged_in
+from mealie.core.dependencies import get_current_user, is_logged_in
 
 
 class CommonDeps(BaseModel):
@@ -17,7 +17,7 @@ class CommonDeps(BaseModel):
         arbitrary_types_allowed = True
 
 
-def _read_deps(
+def read_deps(
     background_tasks: BackgroundTasks,
     session: Session = Depends(generate_session),
     current_user=Depends(is_logged_in),
@@ -29,7 +29,7 @@ def _read_deps(
     )
 
 
-def _write_deps(
+def write_deps(
     background_tasks: BackgroundTasks,
     session: Session = Depends(generate_session),
     current_user=Depends(get_current_user),
