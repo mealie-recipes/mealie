@@ -13,7 +13,7 @@ class RecipeImport(ImportBase):
     slug: Optional[str]
 
 
-class ThemeImport(ImportBase):
+class CommentImport(ImportBase):
     pass
 
 

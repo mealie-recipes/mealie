@@ -75,6 +75,7 @@ def user_token(admin_token, api_client: requests, api_routes: AppRoutes):
     }
 
     response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
+
     assert response.status_code == 201
 
     # Log in as this user

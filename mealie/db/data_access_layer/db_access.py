@@ -11,11 +11,9 @@ from mealie.db.models.recipe.recipe import RecipeModel, Tag
 from mealie.db.models.settings import CustomPage, SiteSettings
 from mealie.db.models.shopping_list import ShoppingList
 from mealie.db.models.sign_up import SignUp
-from mealie.db.models.theme import SiteThemeModel
 from mealie.db.models.users import LongLiveToken, User
 from mealie.schema.admin import CustomPageOut
 from mealie.schema.admin import SiteSettings as SiteSettingsSchema
-from mealie.schema.admin import SiteTheme
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.meal_plan import MealPlanOut, ShoppingListOut
@@ -73,7 +71,6 @@ class DatabaseAccessLayer:
 
         # Site
         self.settings = BaseAccessModel(DEFAULT_PK, SiteSettings, SiteSettingsSchema)
-        self.themes = BaseAccessModel(DEFAULT_PK, SiteThemeModel, SiteTheme)
         self.sign_ups = BaseAccessModel("token", SignUp, SignUpOut)
         self.custom_pages = BaseAccessModel(DEFAULT_PK, CustomPage, CustomPageOut)
         self.event_notifications = BaseAccessModel(DEFAULT_PK, EventNotification, EventNotificationIn)

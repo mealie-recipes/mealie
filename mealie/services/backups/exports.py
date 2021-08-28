@@ -108,7 +108,6 @@ def backup_all(
     export_recipes=True,
     export_settings=True,
     export_pages=True,
-    export_themes=True,
     export_users=True,
     export_groups=True,
     export_notifications=True,
@@ -139,10 +138,6 @@ def backup_all(
     if export_pages:
         all_pages = db.custom_pages.get_all(session)
         db_export.export_items(all_pages, "pages")
-
-    if export_themes:
-        all_themes = db.themes.get_all(session)
-        db_export.export_items(all_themes, "themes")
 
     if export_notifications:
         all_notifications = db.event_notifications.get_all(session)

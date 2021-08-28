@@ -5,5 +5,4 @@ from .recipe.recipe import *
 from .settings import *
 from .shopping_list import *
 from .sign_up import *
-from .theme import *
 from .users import *

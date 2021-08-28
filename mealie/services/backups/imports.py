@@ -7,6 +7,7 @@ from typing import Callable
 from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.schema.admin import (
+    CommentImport,
     CustomPageImport,
     CustomPageOut,
     GroupImport,
@@ -14,8 +15,6 @@ from mealie.schema.admin import (
     RecipeImport,
     SettingsImport,
     SiteSettings,
-    SiteTheme,
-    ThemeImport,
     UserImport,
 )
 from mealie.schema.events import EventNotificationIn
@@ -100,7 +99,7 @@ class ImportDatabase:
             self.import_model(
                 db_table=db.comments,
                 model=comment,
-                return_model=ThemeImport,
+                return_model=CommentImport,
                 name_attr="uuid",
                 search_key="uuid",
             )
@@ -155,27 +154,6 @@ class ImportDatabase:
             shutil.copytree(recipe_dir, app_dirs.RECIPE_DATA_DIR, dirs_exist_ok=True)
 
         minify.migrate_images()
-
-    def import_themes(self):
-        themes_file = self.import_dir.joinpath("themes", "themes.json")
-        themes = ImportDatabase.read_models_file(themes_file, SiteTheme)
-        theme_imports = []
-
-        for theme in themes:
-            if theme.name == "default":
-                continue
-
-            import_status = self.import_model(
-                db_table=db.themes,
-                model=theme,
-                return_model=ThemeImport,
-                name_attr="name",
-                search_key="name",
-            )
-
-            theme_imports.append(import_status)
-
-        return theme_imports
 
     def import_notifications(self):
         notify_file = self.import_dir.joinpath("notifications", "notifications.json")
@@ -348,7 +326,6 @@ def import_database(
     import_recipes=True,
     import_settings=True,
     import_pages=True,
-    import_themes=True,
     import_users=True,
     import_groups=True,
     import_notifications=True,
@@ -364,10 +341,6 @@ def import_database(
     settings_report = []
     if import_settings:
         settings_report = import_session.import_settings()
-
-    theme_report = []
-    if import_themes:
-        theme_report = import_session.import_themes()
 
     page_report = []
     if import_pages:
@@ -393,7 +366,6 @@ def import_database(
     return {
         "recipeImports": recipe_report,
         "settingsImports": settings_report,
-        "themeImports": theme_report,
         "pageImports": page_report,
         "groupImports": group_report,
         "userImports": user_report,

@@ -12,7 +12,6 @@ def backup_data():
         "force": True,
         "recipes": True,
         "settings": False,  # ! Broken
-        "themes": True,
         "groups": True,
         "users": True,
         "pages": True,
