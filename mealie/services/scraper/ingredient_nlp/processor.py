@@ -1,5 +1,6 @@
 import subprocess
 import tempfile
+import unicodedata
 from fractions import Fraction
 from pathlib import Path
 from typing import Optional
@@ -41,8 +42,24 @@ def _exec_crf_test(input_text):
         )
 
 
+def fraction_finder(string: str):
+    # TODO: I'm not confident this works well enough for production needs some testing and/or refacorting
+    for c in string:
+        try:
+            name = unicodedata.name(c)
+        except ValueError:
+            continue
+        if name.startswith("VULGAR FRACTION"):
+            normalized = unicodedata.normalize("NFKC", c)
+            numerator, _slash, denominator = normalized.partition("⁄")
+            text = f"{numerator}/{denominator}"
+            return string.replace(c, text)
+
+    return string
+
+
 def convert_list_to_crf_model(list_of_ingrdeint_text: list[str]):
-    crf_output = _exec_crf_test(list_of_ingrdeint_text)
+    crf_output = _exec_crf_test([fraction_finder(x) for x in list_of_ingrdeint_text])
 
     crf_models = [CRFIngredient(**ingredient) for ingredient in utils.import_data(crf_output.split("\n"))]
 
