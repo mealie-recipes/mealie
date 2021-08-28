@@ -2,12 +2,13 @@ from random import randint
 
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
+from mealie.schema.recipe import Recipe
 from sqlalchemy.orm.session import Session
 
 from ._base_access_model import BaseAccessModel
 
 
-class RecipeDataAccessModel(BaseAccessModel):
+class RecipeDataAccessModel(BaseAccessModel[Recipe, RecipeModel]):
     def get_all_public(self, session: Session, limit: int = None, order_by: str = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema
 
