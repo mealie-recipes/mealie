@@ -1,34 +1,36 @@
-from mealie.schema.recipe import CreateIngredientUnit
+import json
+from pathlib import Path
+
 from sqlalchemy.orm.session import Session
 
 from ..data_access_layer import DatabaseAccessLayer
 
+CWD = Path(__file__).parent
+
+
+def get_default_foods():
+    with open(CWD.joinpath("resources", "foods", "en-us.json"), "r") as f:
+        foods = json.loads(f.read())
+    return foods
+
 
 def get_default_units():
-    return [
-        # Volume
-        CreateIngredientUnit(name="teaspoon", abbreviation="tsp"),
-        CreateIngredientUnit(name="tablespoon", abbreviation="tbsp"),
-        CreateIngredientUnit(name="fluid ounce", abbreviation="fl oz"),
-        CreateIngredientUnit(name="cup", abbreviation="cup"),
-        CreateIngredientUnit(name="pint", abbreviation="pt"),
-        CreateIngredientUnit(name="quart", abbreviation="qt"),
-        CreateIngredientUnit(name="gallon", abbreviation="gal"),
-        CreateIngredientUnit(name="milliliter", abbreviation="ml"),
-        CreateIngredientUnit(name="liter", abbreviation="l"),
-        # Mass Weight
-        CreateIngredientUnit(name="pound", abbreviation="lb"),
-        CreateIngredientUnit(name="ounce", abbreviation="oz"),
-        CreateIngredientUnit(name="gram", abbreviation="g"),
-        CreateIngredientUnit(name="kilogram", abbreviation="kg"),
-        CreateIngredientUnit(name="milligram", abbreviation="mg"),
-    ]
+    with open(CWD.joinpath("resources", "units", "en-us.json"), "r") as f:
+        units = json.loads(f.read())
+    return units
 
 
 def default_recipe_unit_init(db: DatabaseAccessLayer, session: Session) -> None:
     for unit in get_default_units():
         try:
             db.ingredient_units.create(session, unit)
-            print("Ingredient Unit Committed")
+            print("Ingredient Unit Created")
+        except Exception as e:
+            print(e)
+
+    for food in get_default_foods():
+        try:
+            db.ingredient_foods.create(session, food)
+            print("Ingredient Food Created")
         except Exception as e:
             print(e)

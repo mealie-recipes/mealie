@@ -1,0 +1,86 @@
+[
+    {
+        "name": "teaspoon",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "tsp"
+    },
+    {
+        "name": "tablespoon",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "tbsp"
+    },
+    {
+        "name": "cup",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "cup"
+    },
+    {
+        "name": "fluid ounce",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "fl oz"
+    },
+    {
+        "name": "pint",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "pt"
+    },
+    {
+        "name": "quart",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "qt"
+    },
+    {
+        "name": "gallon",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "gal"
+    },
+    {
+        "name": "milliliter",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "ml"
+    },
+    {
+        "name": "liter",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "l"
+    },
+    {
+        "name": "pound",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "lb"
+    },
+    {
+        "name": "ounce",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "oz"
+    },
+    {
+        "name": "gram",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "g"
+    },
+    {
+        "name": "kilogram",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "kg"
+    },
+    {
+        "name": "milligram",
+        "description": "",
+        "fraction": true,
+        "abbreviation": "mg"
+    }
+]
