@@ -2,20 +2,21 @@ import json
 import shutil
 from zipfile import ZipFile
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, File
 from fastapi.datastructures import UploadFile
 from mealie.core.config import settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import get_current_user, is_logged_in, temporary_zip_path
+from mealie.routes.deps import get_current_user, temporary_zip_path
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
 from mealie.schema.recipe.recipe import CreateRecipe
 from mealie.schema.user import UserInDB
 from mealie.services.events import create_recipe_event
 from mealie.services.image.image import write_image
-from mealie.services.recipe.media import check_assets, delete_assets
+from mealie.services.recipe.media import check_assets
+from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.scraper.scraper import create_from_url
 from scrape_schema_recipe import scrape_url
 from sqlalchemy.orm.session import Session
@@ -27,27 +28,9 @@ logger = get_logger()
 
 
 @user_router.post("", status_code=201, response_model=str)
-def create_from_name(
-    background_tasks: BackgroundTasks,
-    data: CreateRecipe,
-    session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
-) -> str:
+def create_from_name(data: CreateRecipe, recipe_service: RecipeService = Depends(RecipeService.base)) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
-
-    data = Recipe(name=data.name)
-
-    recipe: Recipe = db.recipes.create(session, data.dict())
-
-    background_tasks.add_task(
-        create_recipe_event,
-        "Recipe Created (URL)",
-        f"'{recipe.name}' by {current_user.full_name} \n {settings.BASE_URL}/recipe/{recipe.slug}",
-        session=session,
-        attachment=recipe.image_dir.joinpath("min-original.webp"),
-    )
-
-    return recipe.slug
+    return recipe_service.create_recipe(data).slug
 
 
 @user_router.post("/test-scrape-url")
@@ -78,20 +61,10 @@ def parse_recipe_url(
     return recipe.slug
 
 
-@public_router.get("/{recipe_slug}", response_model=Recipe)
-def get_recipe(recipe_slug: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)):
+@public_router.get("/{slug}", response_model=Recipe)
+def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existing)):
     """ Takes in a recipe slug, returns all data for a recipe """
-
-    recipe: Recipe = db.recipes.get(session, recipe_slug)
-
-    if not recipe:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
-    if recipe.settings.public or is_user:
-
-        return recipe
-
-    else:
-        raise HTTPException(status.HTTP_403_FORBIDDEN)
+    return recipe_service.recipe
 
 
 @user_router.post("/create-from-zip")
@@ -174,23 +147,7 @@ def patch_recipe(
     return recipe
 
 
-@user_router.delete("/{recipe_slug}")
-def delete_recipe(
-    background_tasks: BackgroundTasks,
-    recipe_slug: str,
-    session: Session = Depends(generate_session),
-    current_user=Depends(get_current_user),
-):
+@user_router.delete("/{slug}")
+def delete_recipe(recipe_service: RecipeService = Depends(RecipeService.write_existing)):
     """ Deletes a recipe by slug """
-
-    try:
-        recipe: Recipe = db.recipes.delete(session, recipe_slug)
-        delete_assets(recipe_slug=recipe_slug)
-    except Exception:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST)
-
-    background_tasks.add_task(
-        create_recipe_event, "Recipe Deleted", f"'{recipe.name}' deleted by {current_user.full_name}", session=session
-    )
-
-    return recipe
+    return recipe_service.delete_recipe()

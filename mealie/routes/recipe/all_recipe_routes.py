@@ -1,16 +1,15 @@
 from fastapi import APIRouter, Depends
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.routes.deps import is_logged_in
 from mealie.schema.recipe import RecipeSummary
-from mealie.services.recipe.all_recipes import get_all_recipes_public, get_all_recipes_user
+from mealie.services.recipe.all_recipes import AllRecipesService
 from sqlalchemy.orm.session import Session
 
 router = APIRouter()
 
 
 @router.get("")
-def get_recipe_summary(start=0, limit=9999, user: bool = Depends(is_logged_in)):
+def get_recipe_summary(all_recipes_service: AllRecipesService.query = Depends()):
     """
     Returns key the recipe summary data for recipes in the database. You can perform
     slice operations to set the skip/end amounts for recipes. All recipes are sorted by the added date.
@@ -23,11 +22,7 @@ def get_recipe_summary(start=0, limit=9999, user: bool = Depends(is_logged_in)):
 
     """
 
-    if user:
-        return get_all_recipes_user(limit, start)
-
-    else:
-        return get_all_recipes_public(limit, start)
+    return all_recipes_service.get_recipes()
 
 
 @router.get("/summary/untagged", response_model=list[RecipeSummary])
