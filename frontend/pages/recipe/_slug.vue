@@ -127,8 +127,22 @@
               color="secondary darken-1"
               class="rounded-sm static"
             >
-              {{ recipe.recipeYield }}
+              {{ scaledYield }}
             </v-btn>
+            <template v-if="!recipe.settings.disableAmount">
+              <v-btn color="secondary darken-1" class="mx-1" small @click="scale > 1 ? scale-- : null">
+                <v-icon>
+                  {{ $globals.icons.minus }}
+                </v-icon>
+              </v-btn>
+              <v-btn color="secondary darken-1" small @click="scale++">
+                <v-icon>
+                  {{ $globals.icons.createAlt }}
+                </v-icon>
+              </v-btn>
+            </template>
+            <v-spacer></v-spacer>
+
             <RecipeRating
               v-if="recipe.settings.landscapeView"
               :key="recipe.slug"
@@ -137,9 +151,15 @@
               :slug="recipe.slug"
             />
           </div>
+
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <RecipeIngredients v-if="!form" :value="recipe.recipeIngredient" />
+              <RecipeIngredients
+                v-if="!form"
+                :value="recipe.recipeIngredient"
+                :scale="scale"
+                :disable-amount="recipe.settings.disableAmount"
+              />
 
               <!-- Recipe Categories -->
               <div v-if="$vuetify.breakpoint.mdAndUp" class="mt-5">
@@ -202,7 +222,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import {
+  computed,
+  defineComponent,
+  reactive,
+  ref,
+  toRefs,
+  useMeta,
+  useRoute,
+  useRouter,
+} from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
@@ -277,6 +306,19 @@ export default defineComponent({
       }
     }
 
+    const scaledYield = computed(() => {
+      const regMatchNum = /\d+/;
+      const yieldString = recipe.value?.recipeYield;
+      const num = yieldString?.match(regMatchNum);
+
+      if (num && num?.length > 0) {
+        const yieldAsInt = parseInt(num[0]);
+        return yieldString?.replace(num[0], String(yieldAsInt * state.scale));
+      }
+
+      return recipe.value?.recipeYield;
+    });
+
     async function uploadImage(fileObject: File) {
       if (!recipe.value) {
         return;
@@ -320,7 +362,13 @@ export default defineComponent({
       }
     }
 
+    const state = reactive({
+      scale: 1,
+    });
+
     return {
+      scaledYield,
+      ...toRefs(state),
       imageKey,
       recipe,
       api,

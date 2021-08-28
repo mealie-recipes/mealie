@@ -27,7 +27,7 @@
         </v-text-field>
       </v-col>
       <v-col v-if="!disableAmount && units" sm="12" md="3" cols="12">
-        <v-select
+        <v-autocomplete
           v-model="value.unit"
           hide-details
           dense
@@ -38,10 +38,13 @@
           class="mx-1"
           placeholder="Choose Unit"
         >
-        </v-select>
+          <template #no-data>
+            <RecipeIngredientUnitDialog class="mx-2" block small />
+          </template>
+        </v-autocomplete>
       </v-col>
       <v-col v-if="!disableAmount && foods" m="12" md="3" cols="12" class="">
-        <v-select
+        <v-autocomplete
           v-model="value.food"
           hide-details
           dense
@@ -52,7 +55,10 @@
           class="mx-1 py-0"
           placeholder="Choose Food"
         >
-        </v-select>
+          <template #no-data>
+            <RecipeIngredientFoodDialog class="mx-2" block small />
+          </template>
+        </v-autocomplete>
       </v-col>
       <v-col sm="12" md="" cols="12">
         <v-text-field v-model="value.note" hide-details dense solo class="mx-1" placeholder="Notes">
@@ -81,10 +87,14 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
+import RecipeIngredientUnitDialog from "./RecipeIngredientUnitDialog.vue";
+import RecipeIngredientFoodDialog from "./RecipeIngredientFoodDialog.vue";
 import { useFoods } from "~/composables/use-recipe-foods";
 import { useUnits } from "~/composables/use-recipe-units";
+import { validators } from "~/composables/use-validators";
 
 export default defineComponent({
+  components: { RecipeIngredientUnitDialog, RecipeIngredientFoodDialog },
   props: {
     value: {
       type: Object,
@@ -99,7 +109,7 @@ export default defineComponent({
     const { value } = props;
 
     const { foods } = useFoods();
-    const { units } = useUnits();
+    const { units, workingUnitData, actions: unitActions } = useUnits();
 
     const state = reactive({
       showTitle: false,
@@ -115,8 +125,14 @@ export default defineComponent({
       }
     }
 
-    return { foods, units, ...toRefs(state), toggleTitle };
+    return { workingUnitData, unitActions, validators, foods, units, ...toRefs(state), toggleTitle };
   },
 });
 </script>
 
+<style >
+.v-input__append-outer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+</style>

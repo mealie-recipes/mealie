@@ -5,6 +5,7 @@ const prefix = "/api";
 export interface CreateUnit {
   name: string;
   abbreviation: string;
+  fraction: boolean;
   description: string;
 }
 

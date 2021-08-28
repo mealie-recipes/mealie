@@ -1,7 +1,9 @@
-import { useAsync, ref, reactive } from "@nuxtjs/composition-api";
+import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useApiSingleton } from "~/composables/use-api";
 import { Food } from "~/api/class-interfaces/recipe-foods";
+
+let foodStore: Ref<Food[] | null> | null = null;
 
 export const useFoods = function () {
   const api = useApiSingleton();
@@ -23,15 +25,15 @@ export const useFoods = function () {
         return data;
       }, useAsyncKey());
 
-      loading.value = false
+      loading.value = false;
       return units;
     },
     async refreshAll() {
       loading.value = true;
       const { data } = await api.foods.getAll();
 
-      if (data) {
-        foods.value = data;
+      if (data && foodStore) {
+        foodStore.value = data;
       }
 
       loading.value = false;
@@ -44,8 +46,8 @@ export const useFoods = function () {
 
       loading.value = true;
       const { data } = await api.foods.createOne(workingFoodData);
-      if (data && foods.value) {
-        foods.value.push(data);
+      if (data && foodStore?.value) {
+        foodStore.value.push(data);
       } else {
         this.refreshAll();
       }
@@ -61,7 +63,7 @@ export const useFoods = function () {
 
       loading.value = true;
       const { data } = await api.foods.updateOne(workingFoodData.id, workingFoodData);
-      if (data && foods.value) {
+      if (data && foodStore?.value) {
         this.refreshAll();
       }
       loading.value = false;
@@ -69,7 +71,7 @@ export const useFoods = function () {
     async deleteOne(id: string | number) {
       loading.value = true;
       const { data } = await api.foods.deleteOne(id);
-      if (data && foods.value) {
+      if (data && foodStore?.value) {
         this.refreshAll();
       }
     },
@@ -83,9 +85,14 @@ export const useFoods = function () {
       workingFoodData.name = item.name;
       workingFoodData.description = item.description;
     },
+    flushStore() {
+      foodStore = null;
+    },
   };
 
-  const foods = actions.getAll();
+  if (!foodStore) {
+    foodStore = actions.getAll();
+  }
 
-  return { foods, workingFoodData, deleteTargetId, actions, validForm };
+  return { foods: foodStore, workingFoodData, deleteTargetId, actions, validForm };
 };
