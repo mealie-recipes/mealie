@@ -15,8 +15,6 @@ logger = get_logger(module=__name__)
 
 
 class UserService:
-    """"""
-
     def __init__(self, session: Session, acting_user: PrivateUser, background_tasks: BackgroundTasks = None) -> None:
         self.session = session or SessionLocal()
         self.acting_user = acting_user

@@ -73,6 +73,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     favorited_by_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
     favorited_by = orm.relationship("User", back_populates="favorite_recipes")
 
+    class Config:
+        get_attr = "slug"
+
     @validates("name")
     def validate_name(self, key, name):
         assert name != ""

@@ -102,7 +102,7 @@ def auto_init(exclude: Union[set, list] = None):  # sourcery no-metrics
                         if len(val) > 0 and isinstance(val[0], dict):
                             val = [elem.get("id") for elem in val]
 
-                        instances = [relation_cls.get_ref(elem, session=session) for elem in val]
+                        instances = [x for x in [relation_cls.get_ref(elem, session=session) for elem in val] if x]
                         setattr(self, key, instances)
 
             return init(self, *args, **kwargs)
