@@ -8,7 +8,7 @@ from mealie.core.dependencies import get_current_user
 from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.user import UserInDB
+from mealie.schema.user import PrivateUser
 from mealie.services.events import create_user_event
 
 public_router = APIRouter(tags=["Users: Authentication"])
@@ -26,7 +26,7 @@ def get_token(
     email = data.username
     password = data.password
 
-    user: UserInDB = authenticate_user(session, email, password)
+    user: PrivateUser = authenticate_user(session, email, password)
 
     if not user:
         background_tasks.add_task(
@@ -42,7 +42,7 @@ def get_token(
 
 
 @user_router.get("/refresh")
-async def refresh_token(current_user: UserInDB = Depends(get_current_user)):
+async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
     """ Use a valid token to get another token"""
     access_token = security.create_access_token(data=dict(sub=current_user.email))
     return {"access_token": access_token, "token_type": "bearer"}

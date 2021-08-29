@@ -7,7 +7,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import MealPlanIn, MealPlanOut
-from mealie.schema.user import GroupInDB, UserInDB
+from mealie.schema.user import GroupInDB, PrivateUser
 from mealie.services.events import create_group_event
 from mealie.services.image import image
 from mealie.services.meal_services import get_todays_meal, set_mealplan_dates
@@ -18,7 +18,7 @@ public_router = APIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 
 @router.get("/all", response_model=list[MealPlanOut])
 def get_all_meals(
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns a list of all available Meal Plan """
@@ -27,7 +27,7 @@ def get_all_meals(
 
 
 @router.get("/this-week", response_model=MealPlanOut)
-def get_this_week(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
+def get_this_week(session: Session = Depends(generate_session), current_user: PrivateUser = Depends(get_current_user)):
     """ Returns the meal plan data for this week """
     plans = db.groups.get_meals(session, current_user.group)
     if plans:
@@ -35,7 +35,7 @@ def get_this_week(session: Session = Depends(generate_session), current_user: Us
 
 
 @router.get("/today", tags=["Meal Plan"])
-def get_today(session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)):
+def get_today(session: Session = Depends(generate_session), current_user: PrivateUser = Depends(get_current_user)):
     """
     Returns the recipe slug for the meal scheduled for today.
     If no meal is scheduled nothing is returned
@@ -78,7 +78,7 @@ def create_meal_plan(
     background_tasks: BackgroundTasks,
     data: MealPlanIn,
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
     """ Creates a meal plan database entry """
     set_mealplan_dates(data)
@@ -94,7 +94,7 @@ def update_meal_plan(
     plan_id: str,
     meal_plan: MealPlanIn,
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
     """ Updates a meal plan based off ID """
     set_mealplan_dates(meal_plan)
@@ -113,7 +113,7 @@ def delete_meal_plan(
     background_tasks: BackgroundTasks,
     plan_id,
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
     """ Removes a meal plan from the database """
 

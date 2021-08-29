@@ -6,7 +6,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import ShoppingListIn, ShoppingListOut
-from mealie.schema.user import UserInDB
+from mealie.schema.user import PrivateUser
 
 router = UserAPIRouter(prefix="/shopping-lists", tags=["Shopping Lists: CRUD"])
 
@@ -14,7 +14,7 @@ router = UserAPIRouter(prefix="/shopping-lists", tags=["Shopping Lists: CRUD"])
 @router.post("", response_model=ShoppingListOut)
 async def create_shopping_list(
     list_in: ShoppingListIn,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Create Shopping List in the Database """

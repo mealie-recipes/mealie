@@ -13,7 +13,7 @@ from mealie.core.root_logger import get_logger
 from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
-from mealie.schema.user.user import UserInDB
+from mealie.schema.user.user import PrivateUser
 from mealie.services.events import create_recipe_event
 
 logger = get_logger(module=__name__)
@@ -29,7 +29,7 @@ class RecipeService:
 
     recipe: Recipe  # Required for proper type hints
 
-    def __init__(self, session: Session, user: UserInDB, background_tasks: BackgroundTasks = None) -> None:
+    def __init__(self, session: Session, user: PrivateUser, background_tasks: BackgroundTasks = None) -> None:
         self.session = session or SessionLocal()
         self.user = user
         self.background_tasks = background_tasks
@@ -58,7 +58,7 @@ class RecipeService:
         Returns:
             RecipeService: The Recipe Service class with a populated recipe attribute
         """
-        new_class = cls(deps.session, deps.user, deps.background_tasks)
+        new_class = cls(deps.session, deps.user, deps.bg_tasks)
         new_class.assert_existing(slug)
         return new_class
 
@@ -80,7 +80,7 @@ class RecipeService:
         Returns:
             RecipeService: The Recipe Service class with a populated recipe attribute
         """
-        new_class = cls(deps.session, deps.user, deps.background_tasks)
+        new_class = cls(deps.session, deps.user, deps.bg_task)
         new_class.assert_existing(slug)
         return new_class
 
@@ -92,7 +92,7 @@ class RecipeService:
             HTTPException: 400 Bad Request
 
         """
-        return cls(deps.session, deps.user, deps.background_tasks)
+        return cls(deps.session, deps.user, deps.bg_task)
 
     def pupulate_recipe(self, slug: str) -> Recipe:
         """Populates the recipe attribute with the recipe from the database.

@@ -1,42 +1,25 @@
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import settings
-from mealie.core.dependencies import get_current_user
-from mealie.core.security import get_password_hash, verify_password
+from mealie.core.security import hash_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user import ChangePassword, UserInDB
+from mealie.schema.user import ChangePassword
+from mealie.services.user.user_service import UserService
 
 user_router = UserAPIRouter(prefix="")
 
 
 @user_router.put("/{id}/reset-password")
-async def reset_user_password(
-    id: int,
-    session: Session = Depends(generate_session),
-):
-
-    new_password = get_password_hash(settings.DEFAULT_PASSWORD)
+async def reset_user_password(id: int, session: Session = Depends(generate_session)):
+    new_password = hash_password(settings.DEFAULT_PASSWORD)
     db.users.update_password(session, id, new_password)
 
 
 @user_router.put("/{id}/password")
-def update_password(
-    id: int,
-    password_change: ChangePassword,
-    current_user: UserInDB = Depends(get_current_user),
-    session: Session = Depends(generate_session),
-):
+def update_password(password_change: ChangePassword, user_service: UserService = Depends(UserService.write_existing)):
     """ Resets the User Password"""
 
-    assert_user_change_allowed(id, current_user)
-    match_passwords = verify_password(password_change.current_password, current_user.password)
-
-    if not (match_passwords):
-        raise HTTPException(status.HTTP_400_BAD_REQUEST)
-
-    new_password = get_password_hash(password_change.new_password)
-    db.users.update_password(session, id, new_password)
+    return user_service.change_password(password_change)

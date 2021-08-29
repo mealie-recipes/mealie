@@ -3,12 +3,12 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core import security
 from mealie.core.dependencies import get_current_user
-from mealie.core.security import get_password_hash
+from mealie.core.security import hash_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user import UserBase, UserIn, UserInDB, UserOut
+from mealie.schema.user import UserBase, UserIn, PrivateUser, UserOut
 from mealie.services.events import create_user_event
 
 user_router = UserAPIRouter(prefix="")
@@ -24,22 +24,20 @@ async def get_all_users(session: Session = Depends(generate_session)):
 async def create_user(
     background_tasks: BackgroundTasks,
     new_user: UserIn,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 
-    new_user.password = get_password_hash(new_user.password)
+    new_user.password = hash_password(new_user.password)
     background_tasks.add_task(
         create_user_event, "User Created", f"Created by {current_user.full_name}", session=session
     )
+
     return db.users.create(session, new_user.dict())
 
 
 @admin_router.get("/{id}", response_model=UserOut)
-async def get_user(
-    id: int,
-    session: Session = Depends(generate_session),
-):
+async def get_user(id: int, session: Session = Depends(generate_session)):
     return db.users.get(session, id)
 
 
@@ -48,7 +46,7 @@ def delete_user(
     background_tasks: BackgroundTasks,
     id: int,
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
     """ Removes a user from the database. Must be the current user or a super user"""
 
@@ -66,7 +64,7 @@ def delete_user(
 
 @user_router.get("/self", response_model=UserOut)
 async def get_logged_in_user(
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
     return current_user.dict()
 
@@ -75,7 +73,7 @@ async def get_logged_in_user(
 async def update_user(
     id: int,
     new_data: UserBase,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
 

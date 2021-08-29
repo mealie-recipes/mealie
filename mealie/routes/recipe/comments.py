@@ -8,7 +8,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CommentOut, CreateComment, SaveComment
-from mealie.schema.user import UserInDB
+from mealie.schema.user import PrivateUser
 
 router = UserAPIRouter()
 
@@ -18,7 +18,7 @@ async def create_comment(
     slug: str,
     new_comment: CreateComment,
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
     """ Create comment in the Database """
 
@@ -31,7 +31,7 @@ async def update_comment(
     id: int,
     new_comment: CreateComment,
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
     """ Update comment in the Database """
     old_comment: CommentOut = db.comments.get(session, id)
@@ -44,7 +44,7 @@ async def update_comment(
 
 @router.delete("/{slug}/comments/{id}")
 async def delete_comment(
-    id: int, session: Session = Depends(generate_session), current_user: UserInDB = Depends(get_current_user)
+    id: int, session: Session = Depends(generate_session), current_user: PrivateUser = Depends(get_current_user)
 ):
     """ Delete comment from the Database """
     comment: CommentOut = db.comments.get(session, id)

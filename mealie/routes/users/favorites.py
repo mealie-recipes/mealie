@@ -6,7 +6,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user import UserFavorites, UserInDB
+from mealie.schema.user import UserFavorites, PrivateUser
 
 user_router = UserAPIRouter()
 
@@ -21,7 +21,7 @@ async def get_favorites(id: str, session: Session = Depends(generate_session)):
 @user_router.post("/{id}/favorites/{slug}")
 def add_favorite(
     slug: str,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Adds a Recipe to the users favorites """
@@ -35,7 +35,7 @@ def add_favorite(
 @user_router.delete("/{id}/favorites/{slug}")
 def remove_favorite(
     slug: str,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Adds a Recipe to the users favorites """

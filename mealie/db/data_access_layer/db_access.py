@@ -27,7 +27,7 @@ from mealie.schema.recipe import (
     RecipeCategoryResponse,
     RecipeTagResponse,
 )
-from mealie.schema.user import GroupInDB, LongLiveTokenInDB, SignUpOut, UserInDB
+from mealie.schema.user import GroupInDB, LongLiveTokenInDB, SignUpOut, PrivateUser
 
 from ._base_access_model import BaseAccessModel
 from .recipe_access_model import RecipeDataAccessModel
@@ -78,7 +78,7 @@ class DatabaseAccessLayer:
         self.events = BaseAccessModel(DEFAULT_PK, Event, EventSchema)
 
         # Users / Groups
-        self.users = UserDataAccessModel(DEFAULT_PK, User, UserInDB)
+        self.users = UserDataAccessModel(DEFAULT_PK, User, PrivateUser)
         self.api_tokens = BaseAccessModel(DEFAULT_PK, LongLiveToken, LongLiveTokenInDB)
         self.groups = GroupDataAccessModel(DEFAULT_PK, Group, GroupInDB)
         self.meals = BaseAccessModel(DEFAULT_PK, MealPlan, MealPlanOut)

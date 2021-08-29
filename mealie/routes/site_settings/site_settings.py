@@ -6,7 +6,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.admin import SiteSettings
-from mealie.schema.user import GroupInDB, UserInDB
+from mealie.schema.user import GroupInDB, PrivateUser
 from mealie.utils.post_webhooks import post_webhooks
 
 public_router = APIRouter(prefix="/api/site-settings", tags=["Settings"])
@@ -31,7 +31,7 @@ def update_settings(
 
 @admin_router.post("/webhooks/test")
 def test_webhooks(
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Run the function to test your webhooks """

@@ -8,7 +8,7 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import ListItem, MealPlanOut, ShoppingListIn, ShoppingListOut
 from mealie.schema.recipe import Recipe
-from mealie.schema.user import UserInDB
+from mealie.schema.user import PrivateUser
 
 logger = get_logger()
 
@@ -19,7 +19,7 @@ router = UserAPIRouter(prefix="/api/meal-plans", tags=["Meal Plan"])
 def get_shopping_list(
     id: str,
     session: Session = Depends(generate_session),
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
 ):
 
     mealplan: MealPlanOut = db.meals.get(session, id)

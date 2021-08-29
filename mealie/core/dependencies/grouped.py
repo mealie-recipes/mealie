@@ -1,6 +1,8 @@
 from fastapi import BackgroundTasks, Depends
 from sqlalchemy.orm.session import Session
 
+from mealie.schema.user.user import PrivateUser
+
 from .dependencies import generate_session, get_current_user, is_logged_in
 
 
@@ -21,9 +23,9 @@ class ReadDeps:
         session: Session = Depends(generate_session),
         user=Depends(is_logged_in),
     ):
-        self.session = session
-        self.background_tasks = background_tasks
-        self.user = user
+        self.session: Session = session
+        self.bg_tasks: BackgroundTasks = background_tasks
+        self.user: bool = user
 
 
 class WriteDeps:
@@ -34,7 +36,7 @@ class WriteDeps:
     Args:
         background_tasks: BackgroundTasks
         session: Session
-        user: bool
+        user: UserInDB
     """
 
     def __init__(
@@ -43,6 +45,6 @@ class WriteDeps:
         session: Session = Depends(generate_session),
         user=Depends(get_current_user),
     ):
-        self.session = session
-        self.background_tasks = background_tasks
-        self.user = user
+        self.session: Session = session
+        self.bg_task: BackgroundTasks = background_tasks
+        self.user: PrivateUser = user

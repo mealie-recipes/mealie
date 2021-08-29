@@ -107,7 +107,7 @@ class UserFavorites(UserBase):
             }
 
 
-class UserInDB(UserOut):
+class PrivateUser(UserOut):
     password: str
 
     class Config:
@@ -142,7 +142,7 @@ class GroupInDB(UpdateGroup):
 
 class LongLiveTokenInDB(CreateToken):
     id: int
-    user: UserInDB
+    user: PrivateUser
 
     class Config:
         orm_mode = True

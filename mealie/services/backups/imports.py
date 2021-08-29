@@ -22,7 +22,7 @@ from mealie.schema.admin import (
 )
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.recipe import CommentOut, Recipe
-from mealie.schema.user import UpdateGroup, UserInDB
+from mealie.schema.user import UpdateGroup, PrivateUser
 from mealie.services.image import minify
 
 
@@ -215,7 +215,7 @@ class ImportDatabase:
 
     def import_users(self):
         users_file = self.import_dir.joinpath("users", "users.json")
-        users = ImportDatabase.read_models_file(users_file, UserInDB)
+        users = ImportDatabase.read_models_file(users_file, PrivateUser)
         user_imports = []
         for user in users:
             if user.id == 1:  # Update Default User

@@ -9,7 +9,7 @@ from mealie.core.security import create_access_token
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, UserInDB
+from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, PrivateUser
 
 router = UserAPIRouter()
 
@@ -17,7 +17,7 @@ router = UserAPIRouter()
 @router.post("/api-tokens", status_code=status.HTTP_201_CREATED)
 async def create_api_token(
     token_name: LoingLiveTokenIn,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Create api_token in the Database """
@@ -42,7 +42,7 @@ async def create_api_token(
 @router.delete("/api-tokens/{token_id}")
 async def delete_api_token(
     token_id: int,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Delete api_token from the Database """

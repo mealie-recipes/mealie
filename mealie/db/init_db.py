@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from mealie.core import root_logger
 from mealie.core.config import settings
-from mealie.core.security import get_password_hash
+from mealie.core.security import hash_password
 from mealie.db.data_initialization.init_units_foods import default_recipe_unit_init
 from mealie.db.database import db
 from mealie.db.db_setup import create_session, engine
@@ -48,7 +48,7 @@ def default_user_init(session: Session):
         "full_name": "Change Me",
         "username": "admin",
         "email": settings.DEFAULT_EMAIL,
-        "password": get_password_hash(settings.DEFAULT_PASSWORD),
+        "password": hash_password(settings.DEFAULT_PASSWORD),
         "group": settings.DEFAULT_GROUP,
         "admin": True,
     }

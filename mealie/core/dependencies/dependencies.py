@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core.config import app_dirs, settings
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.schema.user import LongLiveTokenInDB, TokenData, UserInDB
+from mealie.schema.user import LongLiveTokenInDB, TokenData, PrivateUser
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
@@ -48,7 +48,7 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
         return False
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> UserInDB:
+async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> PrivateUser:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -75,13 +75,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
     return user
 
 
-async def get_admin_user(current_user=Depends(get_current_user)) -> UserInDB:
+async def get_admin_user(current_user=Depends(get_current_user)) -> PrivateUser:
     if not current_user.admin:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
     return current_user
 
 
-def validate_long_live_token(session: Session, client_token: str, id: int) -> UserInDB:
+def validate_long_live_token(session: Session, client_token: str, id: int) -> PrivateUser:
 
     tokens: list[LongLiveTokenInDB] = db.api_tokens.get(session, id, "parent_id", limit=9999)
 

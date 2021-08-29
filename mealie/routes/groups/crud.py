@@ -5,7 +5,7 @@ from mealie.core.dependencies import get_current_user
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
-from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
+from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, PrivateUser
 from mealie.services.events import create_group_event
 
 admin_router = AdminAPIRouter(prefix="/groups", tags=["Groups: CRUD"])
@@ -14,11 +14,11 @@ user_router = UserAPIRouter(prefix="/groups", tags=["Groups: CRUD"])
 
 @user_router.get("/self", response_model=GroupInDB)
 async def get_current_user_group(
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Returns the Group Data for the Current User """
-    current_user: UserInDB
+    current_user: PrivateUser
 
     return db.groups.get(session, current_user.group, "name")
 
@@ -62,7 +62,7 @@ async def update_group_data(
 async def delete_user_group(
     background_tasks: BackgroundTasks,
     id: int,
-    current_user: UserInDB = Depends(get_current_user),
+    current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
     """ Removes a user group from the database """

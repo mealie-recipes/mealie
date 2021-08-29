@@ -6,7 +6,7 @@ from passlib.context import CryptContext
 
 from mealie.core.config import settings
 from mealie.db.database import db
-from mealie.schema.user import UserInDB
+from mealie.schema.user import PrivateUser
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"
@@ -27,8 +27,8 @@ def create_file_token(file_path: Path) -> bool:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def authenticate_user(session, email: str, password: str) -> UserInDB:
-    user: UserInDB = db.users.get(session, email, "email", any_case=True)
+def authenticate_user(session, email: str, password: str) -> PrivateUser:
+    user: PrivateUser = db.users.get(session, email, "email", any_case=True)
 
     if not user:
         user = db.users.get(session, email, "username", any_case=True)
@@ -53,7 +53,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def get_password_hash(password: str) -> str:
+def hash_password(password: str) -> str:
     """Takes in a raw password and hashes it. Used prior to saving
     a new password to the database.
 
