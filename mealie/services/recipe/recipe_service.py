@@ -177,7 +177,8 @@ class RecipeService:
     def _create_event(self, title: str, message: str) -> None:
         self.background_tasks.add_task(create_recipe_event, title, message, self.session)
 
-    def _check_assets(self, original_slug) -> None:
+    def _check_assets(self, original_slug: str) -> None:
+        """Checks if the recipe slug has changed, and if so moves the assets to a new file with the new slug."""
         if original_slug != self.recipe.slug:
             current_dir = self.app_dirs.RECIPE_DATA_DIR.joinpath(original_slug)
 
