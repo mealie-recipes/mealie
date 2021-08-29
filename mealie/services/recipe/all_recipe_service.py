@@ -5,10 +5,10 @@ from fastapi import Depends, Response
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm.session import Session
 
+from mealie.core.dependencies import is_logged_in
 from mealie.core.root_logger import get_logger
 from mealie.db.database import db
 from mealie.db.db_setup import SessionLocal, generate_session
-from mealie.core.dependencies import is_logged_in
 from mealie.schema.recipe import RecipeSummary
 
 logger = get_logger()

@@ -1,9 +1,9 @@
 from fastapi import BackgroundTasks, Depends, HTTPException, status
 from sqlalchemy.orm.session import Session
 
+from mealie.core.dependencies import get_current_user
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, UserInDB
 from mealie.services.events import create_group_event

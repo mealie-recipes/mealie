@@ -2,9 +2,9 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
+from mealie.core.dependencies import get_current_user
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import MealPlanIn, MealPlanOut
 from mealie.schema.user import GroupInDB, UserInDB

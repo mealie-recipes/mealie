@@ -1,9 +1,9 @@
 from fastapi import Depends
 from sqlalchemy.orm.session import Session
 
+from mealie.core.dependencies import get_current_user
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import ShoppingListIn, ShoppingListOut
 from mealie.schema.user import UserInDB

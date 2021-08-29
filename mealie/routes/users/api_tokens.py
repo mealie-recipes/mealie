@@ -4,10 +4,10 @@ from fastapi import HTTPException, status
 from fastapi.param_functions import Depends
 from sqlalchemy.orm.session import Session
 
+from mealie.core.dependencies import get_current_user
 from mealie.core.security import create_access_token
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, UserInDB
 

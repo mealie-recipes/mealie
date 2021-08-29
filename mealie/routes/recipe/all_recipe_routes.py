@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.schema.recipe import RecipeSummary
-from mealie.services.recipe.all_recipes import AllRecipesService
+from mealie.services.recipe.all_recipe_service import AllRecipesService
 
 router = APIRouter()
 

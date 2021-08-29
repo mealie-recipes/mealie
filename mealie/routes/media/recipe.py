@@ -19,11 +19,11 @@ class ImageType(str, Enum):
     tiny = "tiny-original.webp"
 
 
-@router.get("/{recipe_slug}/images/{file_name}")
-async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.original):
+@router.get("/{slug}/images/{file_name}")
+async def get_recipe_img(slug: str, file_name: ImageType = ImageType.original):
     """Takes in a recipe slug, returns the static image. This route is proxied in the docker image
     and should not hit the API in production"""
-    recipe_image = Recipe(slug=recipe_slug).image_dir.joinpath(file_name.value)
+    recipe_image = Recipe(slug=slug).image_dir.joinpath(file_name.value)
 
     if recipe_image:
         return FileResponse(recipe_image)
@@ -31,10 +31,10 @@ async def get_recipe_img(recipe_slug: str, file_name: ImageType = ImageType.orig
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
-@router.get("/{recipe_slug}/assets/{file_name}")
-async def get_recipe_asset(recipe_slug: str, file_name: str):
+@router.get("/{slug}/assets/{file_name}")
+async def get_recipe_asset(slug: str, file_name: str):
     """ Returns a recipe asset """
-    file = Recipe(slug=recipe_slug).asset_dir.joinpath(file_name)
+    file = Recipe(slug=slug).asset_dir.joinpath(file_name)
 
     try:
         return FileResponse(file)
