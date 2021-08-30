@@ -10,7 +10,10 @@
         </v-btn>
       </template>
       <v-card width="400">
-        <v-card-title class="mb-1 pb-0"> Warning Experimental </v-card-title>
+        <v-card-title class="mb-1 pb-0">
+          <v-icon left color="warning"> {{ $globals.icons.alert }}</v-icon> Experimental
+        </v-card-title>
+        <v-divider class="mx-2"> </v-divider>
         <v-card-text>
           Mealie can use natural language processing to attempt to parse and create units, and foods for your Recipe
           ingredients. This is experimental and may not work as expected. If you choose to not use the parsed results
@@ -29,10 +32,32 @@
     </v-menu>
     <BaseDialog ref="domParsedDataDialog" width="100%">
       <v-card-text>
-        <div v-for="(ing, index) in parsedData.ingredient" :key="index">
-          <div class="ml-10 text-body-1" :class="index > 0 ? 'mt-4' : null">{{ ingredients[index].note }}</div>
-          <RecipeIngredientEditor :value="ing" />
-        </div>
+        <v-expansion-panels v-model="panels" multiple>
+          <v-expansion-panel v-for="(ing, index) in parsedData.ingredient" :key="index">
+            <v-expansion-panel-header class="my-0 py-0">
+              <div class="text-body-1">
+                <span>
+                  <v-icon v-if="errors[index].foodError" color="warning">
+                    {{ $globals.icons.close }}
+                  </v-icon>
+                  <v-icon v-else color="success">
+                    {{ $globals.icons.check }}
+                  </v-icon>
+                </span>
+                {{ ingredients[index].note }}
+              </div>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content class="pb-0 mb-0">
+              <RecipeIngredientEditor v-model="parsedData.ingredient[index]" />
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <BaseButton v-if="errors[index].foodError" color="warning" small @click="createFood(ing.food, index)">
+                  {{ errors[index].foodErrorMessage }}
+                </BaseButton>
+              </v-card-actions>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-card-text>
     </BaseDialog>
   </div>
@@ -42,7 +67,18 @@
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import RecipeIngredientEditor from "./RecipeIngredientEditor.vue";
 import { useApiSingleton } from "~/composables/use-api";
-import { RecipeIngredient } from "~/types/api-types/recipe";
+import { RecipeIngredient, RecipeIngredientUnit } from "~/types/api-types/recipe";
+import { useFoods } from "~/composables/use-recipe-foods";
+import { useUnits } from "~/composables/use-recipe-units";
+import { Food } from "~/api/class-interfaces/recipe-foods";
+
+interface Error {
+  ingredientIndex: number;
+  unitError: Boolean;
+  unitErrorMessage: string;
+  foodError: Boolean;
+  foodErrorMessage: string;
+}
 
 export default defineComponent({
   components: {
@@ -60,7 +96,35 @@ export default defineComponent({
 
     const parsedData = ref<any>([]);
 
+    const { foods, workingFoodData, actions } = useFoods();
+    const { units } = useUnits();
+
     const domParsedDataDialog = ref(null);
+
+    const panels = ref<number[]>([]);
+    const errors = ref<Error[]>([]);
+
+    function checkForUnit(unit: RecipeIngredientUnit) {
+      if (units.value && unit?.name) {
+        return units.value.some((u) => u.name === unit.name);
+      }
+      return false;
+    }
+
+    function checkForFood(food: Food) {
+      if (foods.value && food?.name) {
+        return foods.value.some((f) => f.name === food.name);
+      }
+      return false;
+    }
+
+    async function createFood(food: Food, index: number) {
+      workingFoodData.name = food.name;
+
+      parsedData.value[index] = await actions.createOne();
+
+      errors.value[index].foodError = false;
+    }
 
     async function parseIngredients() {
       // @ts-ignore -> No idea what it's talking about
@@ -73,12 +137,38 @@ export default defineComponent({
         domParsedDataDialog.value.open();
         console.log(data);
         parsedData.value = data;
-      }
 
-      console.log("ingredientNotes", ingredientNotes);
+        // @ts-ignore
+        errors.value = data.ingredient.map((ing, index: number) => {
+          const unitError = !checkForUnit(ing.unit);
+          const foodError = !checkForFood(ing.food);
+
+          let unitErrorMessage = "";
+          let foodErrorMessage = "";
+
+          if (unitError || foodError) {
+            if (unitError) {
+              unitErrorMessage = `Create missing unit '${ing.unit.name || "No unit"}'`;
+            }
+
+            if (foodError) {
+              panels.value.push(index);
+              foodErrorMessage = `Create missing food '${ing.food.name || "No food"}'?`;
+            }
+          }
+
+          return {
+            ingredientIndex: index,
+            unitError,
+            unitErrorMessage,
+            foodError,
+            foodErrorMessage,
+          };
+        });
+      }
     }
 
-    return { api, parseIngredients, parsedData, domParsedDataDialog };
+    return { api, parseIngredients, parsedData, domParsedDataDialog, panels, errors, createFood };
   },
 });
 </script>

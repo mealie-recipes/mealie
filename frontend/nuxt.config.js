@@ -250,7 +250,7 @@ export default {
           secondary: "#973542",
           success: "#43A047",
           info: "#1976d2",
-          warning: "#FF4081",
+          warning: "#FF6D00",
           error: "#EF5350",
         },
         light: {
@@ -259,7 +259,7 @@ export default {
           secondary: "#973542",
           success: "#43A047",
           info: "#1976d2",
-          warning: "#FF4081",
+          warning: "#FF6D00",
           error: "#EF5350",
         },
       },

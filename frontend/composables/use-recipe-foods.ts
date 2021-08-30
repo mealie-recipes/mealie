@@ -48,6 +48,7 @@ export const useFoods = function () {
       const { data } = await api.foods.createOne(workingFoodData);
       if (data && foodStore?.value) {
         foodStore.value.push(data);
+        return data;
       } else {
         this.refreshAll();
       }

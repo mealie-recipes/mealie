@@ -59,9 +59,6 @@
             <RecipeIngredientFoodDialog class="mx-2" block small />
           </template>
         </v-autocomplete>
-        <template v-if="!checkForFood(value.food)">
-          '{{ value.food && value.food !== "" ? value.food.name : null }}' does not exists. Would you like to create it?
-        </template>
       </v-col>
       <v-col sm="12" md="" cols="12">
         <v-text-field v-model="value.note" hide-details dense solo class="mx-1" placeholder="Notes">
@@ -95,7 +92,6 @@ import RecipeIngredientFoodDialog from "./RecipeIngredientFoodDialog.vue";
 import { useFoods } from "~/composables/use-recipe-foods";
 import { useUnits } from "~/composables/use-recipe-units";
 import { validators } from "~/composables/use-validators";
-import { RecipeIngredientFood } from "~/types/api-types/recipe";
 
 export default defineComponent({
   components: { RecipeIngredientUnitDialog, RecipeIngredientFoodDialog },
@@ -119,20 +115,6 @@ export default defineComponent({
       showTitle: false,
     });
 
-    function checkForUnit(unit: RecipeIngredientFood) {
-      if (units.value && unit?.name) {
-        return units.value.some((u) => u.name === unit.name);
-      }
-      return false;
-    }
-
-    function checkForFood(food: RecipeIngredientFood) {
-      if (foods.value && food?.name) {
-        return foods.value.some((f) => f.name === food.name);
-      }
-      return false;
-    }
-
     function toggleTitle() {
       if (value.title) {
         state.showTitle = false;
@@ -151,8 +133,6 @@ export default defineComponent({
       units,
       ...toRefs(state),
       toggleTitle,
-      checkForUnit,
-      checkForFood,
     };
   },
 });
