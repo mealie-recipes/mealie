@@ -8,7 +8,7 @@ from mealie.core.security import hash_password
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
-from mealie.schema.user import SignUpIn, SignUpOut, SignUpToken, UserIn, PrivateUser
+from mealie.schema.user import PrivateUser, SignUpIn, SignUpOut, SignUpToken, UserIn
 from mealie.services.events import create_user_event
 
 public_router = APIRouter(prefix="/sign-ups")

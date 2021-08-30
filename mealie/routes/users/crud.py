@@ -8,7 +8,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user import UserBase, UserIn, PrivateUser, UserOut
+from mealie.schema.user import PrivateUser, UserBase, UserIn, UserOut
 from mealie.services.events import create_user_event
 
 user_router = UserAPIRouter(prefix="")

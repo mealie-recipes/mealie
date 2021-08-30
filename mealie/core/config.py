@@ -1,5 +1,6 @@
 import os
 import secrets
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Optional, Union
 
@@ -175,11 +176,13 @@ class AppSettings(BaseSettings):
 settings = AppSettings()
 
 
+@lru_cache
 def get_app_dirs() -> AppDirectories:
     global app_dirs
     return app_dirs
 
 
+@lru_cache
 def get_settings() -> AppSettings:
     global settings
     return settings

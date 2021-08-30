@@ -6,7 +6,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user import UserFavorites, PrivateUser
+from mealie.schema.user import PrivateUser, UserFavorites
 
 user_router = UserAPIRouter()
 

@@ -5,7 +5,7 @@ from mealie.core.dependencies import get_current_user
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
-from mealie.schema.user import GroupBase, GroupInDB, UpdateGroup, PrivateUser
+from mealie.schema.user import GroupBase, GroupInDB, PrivateUser, UpdateGroup
 from mealie.services.events import create_group_event
 
 admin_router = AdminAPIRouter(prefix="/groups", tags=["Groups: CRUD"])

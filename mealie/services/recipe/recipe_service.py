@@ -2,106 +2,35 @@ from pathlib import Path
 from shutil import copytree, rmtree
 from typing import Union
 
-from fastapi import BackgroundTasks, Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_app_dirs, get_settings
-from mealie.core.dependencies import ReadDeps
 from mealie.core.dependencies.grouped import WriteDeps
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
-from mealie.db.db_setup import SessionLocal
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
-from mealie.schema.user.user import PrivateUser
+from mealie.services.base_http_service.base_http_service import BaseHttpService
 from mealie.services.events import create_recipe_event
 
 logger = get_logger(module=__name__)
 
 
-class RecipeService:
+class RecipeService(BaseHttpService[str, str]):
     """
     Class Methods:
         `read_existing`: Reads an existing recipe from the database.
         `write_existing`: Updates an existing recipe in the database.
         `base`: Requires write permissions, but doesn't perform recipe checks
     """
-
+    event_func = create_recipe_event
     recipe: Recipe  # Required for proper type hints
-
-    def __init__(self, session: Session, user: PrivateUser, background_tasks: BackgroundTasks = None) -> None:
-        self.session = session or SessionLocal()
-        self.user = user
-        self.background_tasks = background_tasks
-        self.recipe: Recipe = None
-
-        # Static Globals Dependency Injection
-        self.db = get_database()
-        self.app_dirs = get_app_dirs()
-        self.settings = get_settings()
-
-    @classmethod
-    def read_existing(cls, slug: str, deps: ReadDeps = Depends()):
-        """
-        Used for dependency injection for routes that require an existing recipe. If the recipe doesn't exist
-        or the user doens't not have the required permissions, the proper HTTP Status code will be raised.
-
-        Args:
-            slug (str): Recipe Slug used to query the database
-            session (Session, optional): The Injected SQLAlchemy Session.
-            user (bool, optional): The injected determination of is_logged_in.
-
-        Raises:
-            HTTPException: 404 Not Found
-            HTTPException: 403 Forbidden
-
-        Returns:
-            RecipeService: The Recipe Service class with a populated recipe attribute
-        """
-        new_class = cls(deps.session, deps.user, deps.bg_tasks)
-        new_class.assert_existing(slug)
-        return new_class
 
     @classmethod
     def write_existing(cls, slug: str, deps: WriteDeps = Depends()):
-        """
-        Used for dependency injection for routes that require an existing recipe. The only difference between
-        read_existing and write_existing is that the user is required to be logged in on write_existing method.
-
-        Args:
-            slug (str): Recipe Slug used to query the database
-            session (Session, optional): The Injected SQLAlchemy Session.
-            user (bool, optional): The injected determination of is_logged_in.
-
-        Raises:
-            HTTPException: 404 Not Found
-            HTTPException: 403 Forbidden
-
-        Returns:
-            RecipeService: The Recipe Service class with a populated recipe attribute
-        """
-        new_class = cls(deps.session, deps.user, deps.bg_task)
-        new_class.assert_existing(slug)
-        return new_class
+        return super().write_existing(slug, deps)
 
     @classmethod
-    def base(cls, deps: WriteDeps = Depends()) -> Recipe:
-        """A Base instance to be used as a router dependency
-
-        Raises:
-            HTTPException: 400 Bad Request
-
-        """
-        return cls(deps.session, deps.user, deps.bg_task)
-
-    def pupulate_recipe(self, slug: str) -> Recipe:
-        """Populates the recipe attribute with the recipe from the database.
-
-        Returns:
-            Recipe: The populated recipe
-        """
-        self.recipe = self.db.recipes.get(self.session, slug)
-        return self.recipe
+    def read_existing(cls, slug: str, deps: WriteDeps = Depends()):
+        return super().write_existing(slug, deps)
 
     def assert_existing(self, slug: str):
         self.pupulate_recipe(slug)
@@ -111,6 +40,10 @@ class RecipeService:
 
         if not self.recipe.settings.public and not self.user:
             raise HTTPException(status.HTTP_403_FORBIDDEN)
+
+    def pupulate_recipe(self, slug: str) -> Recipe:
+        self.recipe = self.db.recipes.get(self.session, slug)
+        return self.recipe
 
     # CRUD METHODS
     def create_recipe(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
@@ -173,9 +106,6 @@ class RecipeService:
 
         self._create_event("Recipe Delete", f"'{recipe.name}' deleted by {self.user.full_name}")
         return recipe
-
-    def _create_event(self, title: str, message: str) -> None:
-        self.background_tasks.add_task(create_recipe_event, title, message, self.session)
 
     def _check_assets(self, original_slug: str) -> None:
         """Checks if the recipe slug has changed, and if so moves the assets to a new file with the new slug."""

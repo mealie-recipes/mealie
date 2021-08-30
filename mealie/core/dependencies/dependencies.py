@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core.config import app_dirs, settings
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
-from mealie.schema.user import LongLiveTokenInDB, TokenData, PrivateUser
+from mealie.schema.user import LongLiveTokenInDB, PrivateUser, TokenData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)

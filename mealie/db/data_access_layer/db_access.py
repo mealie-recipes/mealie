@@ -27,7 +27,7 @@ from mealie.schema.recipe import (
     RecipeCategoryResponse,
     RecipeTagResponse,
 )
-from mealie.schema.user import GroupInDB, LongLiveTokenInDB, SignUpOut, PrivateUser
+from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut
 
 from ._base_access_model import BaseAccessModel
 from .recipe_access_model import RecipeDataAccessModel
