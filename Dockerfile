@@ -30,8 +30,8 @@ ENV PYTHONUNBUFFERED=1 \
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 # create user account
-RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
-    && usermod -G users abc \
+RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash mealie \
+    && usermod -G users mealie \
     && mkdir $MEALIE_HOME
 
 ###############################################
@@ -137,4 +137,6 @@ EXPOSE ${APP_PORT}
 HEALTHCHECK CMD curl -f http://localhost:${APP_PORT} || exit 1
 
 RUN chmod +x $MEALIE_HOME/mealie/run.sh
+USER mealie
 ENTRYPOINT $MEALIE_HOME/mealie/run.sh
+`
