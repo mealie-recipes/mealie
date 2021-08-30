@@ -22,7 +22,7 @@ from mealie.schema.admin import (
 )
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.recipe import CommentOut, Recipe
-from mealie.schema.user import UpdateGroup, PrivateUser
+from mealie.schema.user import PrivateUser, UpdateGroup
 from mealie.services.image import minify
 
 

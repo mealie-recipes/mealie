@@ -1,17 +1,17 @@
 import subprocess
 import tempfile
-import unicodedata
 from fractions import Fraction
 from pathlib import Path
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 from mealie.core.config import settings
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, CreateIngredientUnit
 
 from . import utils
+from .pre_processor import pre_process_string
 
 CWD = Path(__file__).parent
 MODEL_PATH = CWD / "model.crfmodel"
@@ -33,6 +33,17 @@ class CRFIngredient(BaseModel):
     comment: Optional[str] = ""
     unit: Optional[str] = ""
 
+    @validator("qty", always=True, pre=True)
+    def validate_qty(qty, values):  # sourcery skip: merge-nested-ifs
+        if qty is None or qty == "":
+            # Check if other contains a fraction
+            if values["other"] is not None and values["other"].find("/") != -1:
+                return float(Fraction(values["other"])).__round__(1)
+            else:
+                return 1
+
+        return qty
+
 
 def _exec_crf_test(input_text):
     with tempfile.NamedTemporaryFile(mode="w") as input_file:
@@ -43,24 +54,8 @@ def _exec_crf_test(input_text):
         )
 
 
-def fraction_finder(string: str):
-    # TODO: I'm not confident this works well enough for production needs some testing and/or refacorting
-    for c in string:
-        try:
-            name = unicodedata.name(c)
-        except ValueError:
-            continue
-        if name.startswith("VULGAR FRACTION"):
-            normalized = unicodedata.normalize("NFKC", c)
-            numerator, _slash, denominator = normalized.partition("⁄")
-            text = f"{numerator}/{denominator}"
-            return string.replace(c, text)
-
-    return string
-
-
 def convert_list_to_crf_model(list_of_ingrdeint_text: list[str]):
-    crf_output = _exec_crf_test([fraction_finder(x) for x in list_of_ingrdeint_text])
+    crf_output = _exec_crf_test([pre_process_string(x) for x in list_of_ingrdeint_text])
 
     crf_models = [CRFIngredient(**ingredient) for ingredient in utils.import_data(crf_output.split("\n"))]
 
@@ -89,4 +84,4 @@ if __name__ == "__main__":
     ingredients = convert_crf_models_to_ingredients(crf_models)
 
     for ingredient in ingredients:
-        print(ingredient)
+        print(ingredient.input)

@@ -47,7 +47,7 @@ def unclump(s):
 
 def normalizeToken(s):
     """
-    ToDo: FIX THIS. We used to use the pattern.en package to singularize words, but
+    TODO: FIX THIS. We used to use the pattern.en package to singularize words, but
     in the name of simple deployments, we took it out. We should fix this at some
     point.
     """
@@ -221,6 +221,20 @@ def import_data(lines):
             # turn B-NAME/123 back into "name"
             tag, confidence = re.split(r"/", columns[-1], 1)
             tag = re.sub(r"^[BI]\-", "", tag).lower()
+
+            # TODO: Integrate Confidence into API Response
+            print("Confidence", confidence)
+
+            # new token
+            if prevTag != tag or token == "n/a":
+                display[-1].append((tag, [token]))
+                data[-1][tag] = []
+                prevTag = tag
+
+            # continuation
+            else:
+                display[-1][-1][1].append(token)
+                data[-1][tag].append(token)
 
             # ---- DISPLAY ----
             # build a structure which groups each token by its tag, so we can
