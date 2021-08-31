@@ -2,7 +2,7 @@
   <v-navigation-drawer :value="value" clipped app width="240px">
     <!-- User Profile -->
     <template v-if="$auth.user">
-      <v-list-item two-line to="/user/profile">
+      <v-list-item two-line to="/user/profile" exact>
         <v-list-item-avatar color="accent" class="white--text">
           <v-img :src="require(`~/static/account.png`)" />
         </v-list-item-avatar>
@@ -31,7 +31,7 @@
               <v-list-item-title>{{ nav.title }}</v-list-item-title>
             </template>
 
-            <v-list-item v-for="child in nav.children" :key="child.title" :to="child.to">
+            <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
               <v-list-item-icon>
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-icon>
@@ -47,7 +47,7 @@
             v-model="secondarySelected"
             color="primary"
           >
-            <v-list-item link :to="nav.to">
+            <v-list-item exact link :to="nav.to">
               <v-list-item-icon>
                 <v-icon>{{ nav.icon }}</v-icon>
               </v-list-item-icon>
@@ -62,7 +62,7 @@
     <template v-if="secondaryLinks">
       <v-subheader v-if="secondaryHeader" class="pb-0">{{ secondaryHeader }}</v-subheader>
       <v-divider></v-divider>
-      <v-list nav dense>
+      <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">
           <!-- Multi Items -->
           <v-list-group
@@ -76,7 +76,7 @@
               <v-list-item-title>{{ nav.title }}</v-list-item-title>
             </template>
 
-            <v-list-item v-for="child in nav.children" :key="child.title" :to="child.to">
+            <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
               <v-list-item-icon>
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-icon>
@@ -87,7 +87,7 @@
 
           <!-- Single Item -->
           <v-list-item-group v-else :key="nav.title + 'single-item'" v-model="secondarySelected" color="primary">
-            <v-list-item link :to="nav.to">
+            <v-list-item exact link :to="nav.to">
               <v-list-item-icon>
                 <v-icon>{{ nav.icon }}</v-icon>
               </v-list-item-icon>
@@ -105,6 +105,7 @@
           <v-list-item
             v-for="nav in bottomLinks"
             :key="nav.title"
+            exact
             link
             :to="nav.to || null"
             :href="nav.href || null"

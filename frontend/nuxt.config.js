@@ -242,6 +242,9 @@ export default {
       icons: false,
     },
     theme: {
+      options: {
+        customProperties: true,
+      },
       dark: false,
       themes: {
         dark: {

@@ -44,6 +44,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    save: {
+      type: Boolean,
+      default: false,
+    },
     delete: {
       type: Boolean,
       default: false,

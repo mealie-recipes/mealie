@@ -46,6 +46,7 @@ export default {
       if (props.disableAmount) {
         return ingredient.note;
       }
+
       const { quantity, food, unit, note } = ingredient;
 
       let return_qty = "";
@@ -59,7 +60,7 @@ export default {
           return_qty += ` <sup>${fraction[1]}</sup>&frasl;<sub>${fraction[2]}</sub>`;
         }
       } else {
-        return_qty = quantity;
+        return_qty = quantity * props.scale;
       }
 
       return `${return_qty} ${unit?.name || " "}  ${food?.name || " "} ${note}`;

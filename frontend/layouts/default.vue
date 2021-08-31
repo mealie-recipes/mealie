@@ -2,7 +2,14 @@
   <v-app dark>
     <!-- <TheSnackbar /> -->
 
-    <AppSidebar v-model="sidebar" absolute :top-link="topLinks" @input="sidebar = !sidebar" />
+    <AppSidebar
+      v-model="sidebar"
+      absolute
+      :top-link="topLinks"
+      secondary-header="Cookbooks"
+      :secondary-links="cookbookLinks || []"
+      @input="sidebar = !sidebar"
+    />
 
     <AppHeader>
       <v-btn icon @click.stop="sidebar = !sidebar">
@@ -20,17 +27,32 @@
   
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
 import AppFloatingButton from "@/components/Layout/AppFloatingButton.vue";
+import { useCookbooks } from "~/composables/use-cookbooks";
 
 export default defineComponent({
   components: { AppHeader, AppSidebar, AppFloatingButton },
   // @ts-ignore
   // middleware: process.env.GLOBAL_MIDDLEWARE,
   setup() {
-    return {};
+    const { cookbooks } = useCookbooks();
+    // @ts-ignore
+    const { $globals } = useContext();
+
+    const cookbookLinks = computed(() => {
+      if (!cookbooks.value) return [];
+      return cookbooks.value.map((cookbook) => {
+        return {
+          icon: $globals.icons.pages,
+          title: cookbook.name,
+          to: `/cookbooks/${cookbook.slug}`,
+        };
+      });
+    });
+    return { cookbookLinks };
   },
   data() {
     return {

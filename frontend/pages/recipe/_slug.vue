@@ -110,26 +110,35 @@
               />
             </draggable>
             <div class="d-flex justify-end mt-2">
+              <RecipeIngredientParserMenu class="mr-1" :ingredients="recipe.recipeIngredient" />
               <RecipeDialogBulkAdd class="mr-1" @bulk-data="addIngredient" />
-              <BaseButton class="mr-1" @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
-              <RecipeIngredientParserMenu :ingredients="recipe.recipeIngredient" />
+              <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
           </div>
 
           <div class="d-flex justify-space-between align-center pb-3">
-            <v-btn
-              v-if="recipe.recipeYield"
-              dense
-              small
-              :hover="false"
-              type="label"
-              :ripple="false"
-              elevation="0"
-              color="secondary darken-1"
-              class="rounded-sm static"
-            >
-              {{ scaledYield }}
-            </v-btn>
+            <v-tooltip small top color="secondary darken-1">
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  v-if="recipe.recipeYield"
+                  dense
+                  small
+                  :hover="false"
+                  type="label"
+                  :ripple="false"
+                  elevation="0"
+                  color="secondary darken-1"
+                  class="rounded-sm static"
+                  v-bind="attrs"
+                  @click="scale = 1"
+                  v-on="on"
+                >
+                  {{ scaledYield }}
+                </v-btn>
+              </template>
+              <span> Reset Scale </span>
+            </v-tooltip>
+
             <template v-if="!recipe.settings.disableAmount">
               <v-btn color="secondary darken-1" class="mx-1" small @click="scale > 1 ? scale-- : null">
                 <v-icon>
