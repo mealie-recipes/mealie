@@ -2,7 +2,7 @@ from fastapi_camelcase import CamelModel
 from pydantic import validator
 from slugify import slugify
 
-from ..recipe.recipe_category import CategoryBase
+from ..recipe.recipe_category import CategoryBase, RecipeCategoryResponse
 
 
 class CreateCookBook(CamelModel):
@@ -34,6 +34,14 @@ class SaveCookBook(CreateCookBook):
 class ReadCookBook(UpdateCookBook):
     group_id: int
     categories: list[CategoryBase] = []
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeCookBook(ReadCookBook):
+    group_id: int
+    categories: list[RecipeCategoryResponse]
 
     class Config:
         orm_mode = True

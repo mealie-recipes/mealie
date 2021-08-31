@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 from fastapi_camelcase import CamelModel
 from pydantic.utils import GetterDict
@@ -23,9 +23,10 @@ class CategoryBase(CategoryIn):
 
 
 class RecipeCategoryResponse(CategoryBase):
-    recipes: Optional[List["Recipe"]]
+    recipes: List["Recipe"] = []
 
     class Config:
+        orm_mode = True
         schema_extra = {"example": {"id": 1, "name": "dinner", "recipes": [{}]}}
 
 

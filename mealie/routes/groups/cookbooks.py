@@ -1,7 +1,7 @@
 from fastapi import Depends
 
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook
+from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook
 from mealie.services.cookbook import CookbookService
 
 user_router = UserAPIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"])
@@ -28,7 +28,7 @@ def update_many(data: list[ReadCookBook], cb_service: CookbookService = Depends(
     return cb_service.update_many(data)
 
 
-@user_router.get("/{id}", response_model=ReadCookBook)
+@user_router.get("/{id}", response_model=RecipeCookBook)
 def get_cookbook(cb_service: CookbookService = Depends(CookbookService.write_existing)):
     """ Get cookbook from the Database """
     # Get Item

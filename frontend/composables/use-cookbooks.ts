@@ -5,6 +5,22 @@ import { CookBook } from "~/api/class-interfaces/cookbooks";
 
 let cookbookStore: Ref<CookBook[] | null> | null = null;
 
+export const useCookbook = function () {
+  function getOne(id: string | number) {
+    const api = useApiSingleton();
+
+    const units = useAsync(async () => {
+      const { data } = await api.cookbooks.getOne(id);
+
+      return data;
+    }, useAsyncKey());
+
+    return units;
+  }
+
+  return { getOne };
+};
+
 export const useCookbooks = function () {
   const api = useApiSingleton();
   const loading = ref(false);
