@@ -55,8 +55,8 @@ def _exec_crf_test(input_text):
 
 
 def convert_list_to_crf_model(list_of_ingrdeint_text: list[str]):
+    print(list_of_ingrdeint_text)
     crf_output = _exec_crf_test([pre_process_string(x) for x in list_of_ingrdeint_text])
-
     crf_models = [CRFIngredient(**ingredient) for ingredient in utils.import_data(crf_output.split("\n"))]
 
     for model in crf_models:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Callable, Generic, TypeVar, Union
 
 from sqlalchemy import func
@@ -22,11 +24,8 @@ class BaseAccessModel(Generic[T, D]):
 
     def __init__(self, primary_key: Union[str, int], sql_model: D, schema: T) -> None:
         self.primary_key = primary_key
-
         self.sql_model = sql_model
-
         self.schema = schema
-
         self.observers: list = []
 
     def subscribe(self, func: Callable) -> None:
@@ -82,40 +81,52 @@ class BaseAccessModel(Generic[T, D]):
         return [x.get(self.primary_key) for x in results_as_dict]
 
     def _query_one(self, session: Session, match_value: str, match_key: str = None) -> D:
-        """Query the sql database for one item an return the sql alchemy model
+        """
+        Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
-
-        Args:
-            session (Session): Database Session object
-            match_value (str): The value to use in the query
-            match_key (str, optional): the key/property to match against. Defaults to None.
-
-        Returns:
-            Union[Session, SqlAlchemyBase]: Will return both the session and found model
         """
         if match_key is None:
             match_key = self.primary_key
 
         return session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
 
+    def get_one(self, session: Session, value: str | int, key: str = None, any_case=False, override_schema=None) -> T:
+        key = key or self.primary_key
+
+        if any_case:
+            search_attr = getattr(self.sql_model, key)
+            result = session.query(self.sql_model).filter(func.lower(search_attr) == key.lower()).one_or_none()
+
+        result = session.query(self.sql_model).filter_by(**{key: value}).one_or_none()
+
+        if not result:
+            return
+
+        eff_schema = override_schema or self.schema
+        return eff_schema.from_orm(result)
+
+    def get_many(
+        self, session: Session, value: str, key: str = None, limit=1, any_case=False, override_schema=None
+    ) -> list[T]:
+        pass
+
     def get(
         self, session: Session, match_value: str, match_key: str = None, limit=1, any_case=False, override_schema=None
-    ) -> Union[T, list[T]]:
+    ) -> T | list[T]:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
 
 
         Args:
-            match_value (str): A value used to match against the key/value in the database \n
-            match_key (str, optional): They key to match the value against. Defaults to None. \n
-            limit (int, optional): A limit to returned responses. Defaults to 1. \n
+            match_value (str): A value used to match against the key/value in the database
+            match_key (str, optional): They key to match the value against. Defaults to None.
+            limit (int, optional): A limit to returned responses. Defaults to 1.
 
         Returns:
             dict or list[dict]:
 
         """
-        if match_key is None:
-            match_key = self.primary_key
+        match_key = match_key or self.primary_key
 
         if any_case:
             search_attr = getattr(self.sql_model, match_key)

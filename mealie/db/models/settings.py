@@ -3,7 +3,7 @@ import sqlalchemy.orm as orm
 from sqlalchemy.orm import Session
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models.recipe.category import Category, custom_pages2categories, site_settings2categories
+from mealie.db.models.recipe.category import Category, site_settings2categories
 
 
 class SiteSettings(SqlAlchemyBase, BaseMixins):
@@ -29,24 +29,6 @@ class SiteSettings(SqlAlchemyBase, BaseMixins):
         self.first_day_of_week = first_day_of_week
         self.cards_per_section = cards_per_section
         self.show_recent = show_recent
-        self.categories = [Category.get_ref(session=session, slug=cat.get("slug")) for cat in categories]
-
-    def update(self, *args, **kwarg):
-        self.__init__(*args, **kwarg)
-
-
-class CustomPage(SqlAlchemyBase, BaseMixins):
-    __tablename__ = "custom_pages"
-    id = sa.Column(sa.Integer, primary_key=True)
-    position = sa.Column(sa.Integer, nullable=False)
-    name = sa.Column(sa.String, nullable=False)
-    slug = sa.Column(sa.String, nullable=False)
-    categories = orm.relationship("Category", secondary=custom_pages2categories, single_parent=True)
-
-    def __init__(self, session=None, name=None, slug=None, position=0, categories=[], **_) -> None:
-        self.name = name
-        self.slug = slug
-        self.position = position
         self.categories = [Category.get_ref(session=session, slug=cat.get("slug")) for cat in categories]
 
     def update(self, *args, **kwarg):

@@ -3,6 +3,7 @@ from logging import getLogger
 from sqlalchemy.orm.session import Session
 
 from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
+from mealie.db.models.cookbook import CookBook
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
 from mealie.db.models.mealplan import MealPlan
@@ -10,12 +11,12 @@ from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel, Tag
-from mealie.db.models.settings import CustomPage, SiteSettings
+from mealie.db.models.settings import SiteSettings
 from mealie.db.models.shopping_list import ShoppingList
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
-from mealie.schema.admin import CustomPageOut
 from mealie.schema.admin import SiteSettings as SiteSettingsSchema
+from mealie.schema.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.meal_plan import MealPlanOut, ShoppingListOut
@@ -73,7 +74,6 @@ class DatabaseAccessLayer:
         # Site
         self.settings = BaseAccessModel(DEFAULT_PK, SiteSettings, SiteSettingsSchema)
         self.sign_ups = BaseAccessModel("token", SignUp, SignUpOut)
-        self.custom_pages = BaseAccessModel(DEFAULT_PK, CustomPage, CustomPageOut)
         self.event_notifications = BaseAccessModel(DEFAULT_PK, EventNotification, EventNotificationIn)
         self.events = BaseAccessModel(DEFAULT_PK, Event, EventSchema)
 
@@ -83,3 +83,4 @@ class DatabaseAccessLayer:
         self.groups = GroupDataAccessModel(DEFAULT_PK, Group, GroupInDB)
         self.meals = BaseAccessModel(DEFAULT_PK, MealPlan, MealPlanOut)
         self.shopping_lists = BaseAccessModel(DEFAULT_PK, ShoppingList, ShoppingListOut)
+        self.cookbooks = BaseAccessModel(DEFAULT_PK, CookBook, ReadCookBook)

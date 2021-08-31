@@ -3,7 +3,7 @@ import unicodedata
 
 replace_abbreviations = {
     "cup ": "cup ",
-    "g ": "gram ",
+    " g ": "gram ",
     "kg ": "kilogram ",
     "lb ": "pound ",
     "ml ": "milliliter ",

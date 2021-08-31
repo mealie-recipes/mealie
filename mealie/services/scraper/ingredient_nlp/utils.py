@@ -11,6 +11,7 @@ def cleanUnicodeFractions(s):
     """
     Replace unicode fractions with ascii representation, preceded by a
     space.
+
     "1\x215e" => "1 7/8"
     """
 
@@ -47,7 +48,7 @@ def unclump(s):
 
 def normalizeToken(s):
     """
-    TODO: FIX THIS. We used to use the pattern.en package to singularize words, but
+    ToDo: FIX THIS. We used to use the pattern.en package to singularize words, but
     in the name of simple deployments, we took it out. We should fix this at some
     point.
     """
@@ -133,12 +134,13 @@ def insideParenthesis(token, tokens):
         return True
     else:
         line = " ".join(tokens)
-        return re.match(r".*\(.*" + re.escape(token) + r".*\).*", line) is not None
+        return re.match(r".*\(.*" + re.escape(token) + ".*\).*", line) is not None
 
 
 def displayIngredient(ingredient):
     """
     Format a list of (tag, [tokens]) tuples as an HTML string for display.
+
         displayIngredient([("qty", ["1"]), ("name", ["cat", "pie"])])
         # => <span class='qty'>1</span> <span class='name'>cat pie</span>
     """
@@ -220,21 +222,7 @@ def import_data(lines):
 
             # turn B-NAME/123 back into "name"
             tag, confidence = re.split(r"/", columns[-1], 1)
-            tag = re.sub(r"^[BI]\-", "", tag).lower()
-
-            # TODO: Integrate Confidence into API Response
-            print("Confidence", confidence)
-
-            # new token
-            if prevTag != tag or token == "n/a":
-                display[-1].append((tag, [token]))
-                data[-1][tag] = []
-                prevTag = tag
-
-            # continuation
-            else:
-                display[-1][-1][1].append(token)
-                data[-1][tag].append(token)
+            tag = re.sub("^[BI]\-", "", tag).lower()
 
             # ---- DISPLAY ----
             # build a structure which groups each token by its tag, so we can

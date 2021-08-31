@@ -31,13 +31,13 @@ def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existi
 
 
 @user_router.post("", status_code=201, response_model=str)
-def create_from_name(data: CreateRecipe, recipe_service: RecipeService = Depends(RecipeService.base)) -> str:
+def create_from_name(data: CreateRecipe, recipe_service: RecipeService = Depends(RecipeService.private)) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
     return recipe_service.create_recipe(data).slug
 
 
 @user_router.post("/create-url", status_code=201, response_model=str)
-def parse_recipe_url(url: CreateRecipeByURL, recipe_service: RecipeService = Depends(RecipeService.base)):
+def parse_recipe_url(url: CreateRecipeByURL, recipe_service: RecipeService = Depends(RecipeService.private)):
     """ Takes in a URL and attempts to scrape data and load it into the database """
 
     recipe = create_from_url(url.url)

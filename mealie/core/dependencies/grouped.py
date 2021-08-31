@@ -24,7 +24,7 @@ class ReadDeps:
         user=Depends(is_logged_in),
     ):
         self.session: Session = session
-        self.bg_tasks: BackgroundTasks = background_tasks
+        self.bg_task: BackgroundTasks = background_tasks
         self.user: bool = user
 
 

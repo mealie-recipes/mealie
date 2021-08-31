@@ -5,7 +5,7 @@ from typing import Union
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 
-from mealie.core.dependencies.grouped import WriteDeps
+from mealie.core.dependencies.grouped import ReadDeps, WriteDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.services.base_http_service.base_http_service import BaseHttpService
@@ -21,6 +21,7 @@ class RecipeService(BaseHttpService[str, str]):
         `write_existing`: Updates an existing recipe in the database.
         `base`: Requires write permissions, but doesn't perform recipe checks
     """
+
     event_func = create_recipe_event
     recipe: Recipe  # Required for proper type hints
 
@@ -29,7 +30,7 @@ class RecipeService(BaseHttpService[str, str]):
         return super().write_existing(slug, deps)
 
     @classmethod
-    def read_existing(cls, slug: str, deps: WriteDeps = Depends()):
+    def read_existing(cls, slug: str, deps: ReadDeps = Depends()):
         return super().write_existing(slug, deps)
 
     def assert_existing(self, slug: str):

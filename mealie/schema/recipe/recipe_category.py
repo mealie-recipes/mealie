@@ -19,7 +19,6 @@ class CategoryBase(CategoryIn):
         def getter_dict(_cls, name_orm):
             return {
                 **GetterDict(name_orm),
-                "total_recipes": len(name_orm.recipes),
             }
 
 

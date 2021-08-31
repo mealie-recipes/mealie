@@ -29,10 +29,10 @@ recipes2categories = sa.Table(
     sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
 )
 
-custom_pages2categories = sa.Table(
-    "custom_pages2categories",
+cookbooks_to_categories = sa.Table(
+    "cookbooks_to_categories",
     SqlAlchemyBase.metadata,
-    sa.Column("custom_page_id", sa.Integer, sa.ForeignKey("custom_pages.id")),
+    sa.Column("cookbook_id", sa.Integer, sa.ForeignKey("cookbooks.id")),
     sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
 )
 
@@ -61,6 +61,7 @@ class Category(SqlAlchemyBase, BaseMixins):
         if not session or not match_value:
             return None
 
+        print(match_value)
         slug = slugify(match_value)
 
         result = session.query(Category).filter(Category.slug == slug).one_or_none()

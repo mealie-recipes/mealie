@@ -4,7 +4,7 @@ from typing import Union
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY
 
 
-def handle_one_to_many_list(relation_cls, all_elements: list[dict]):
+def handle_one_to_many_list(get_attr, relation_cls, all_elements: list[dict]):
     elems_to_create = []
     updated_elems = []
 
@@ -75,8 +75,17 @@ def auto_init(exclude: Union[set, list] = None):  # sourcery no-metrics
                     relation_cls = relationships[key].mapper.entity
                     use_list = relationships[key].uselist
 
+                    try:
+                        get_attr = relation_cls.Config.get_attr
+                        if get_attr is None:
+                            get_attr = "id"
+                    except Exception:
+                        get_attr = "id"
+
+                    print(get_attr)
+
                     if relation_dir == ONETOMANY.name and use_list:
-                        instances = handle_one_to_many_list(relation_cls, val)
+                        instances = handle_one_to_many_list(get_attr, relation_cls, val)
                         setattr(self, key, instances)
 
                     if relation_dir == ONETOMANY.name and not use_list:
@@ -85,7 +94,7 @@ def auto_init(exclude: Union[set, list] = None):  # sourcery no-metrics
 
                     elif relation_dir == MANYTOONE.name and not use_list:
                         if isinstance(val, dict):
-                            val = val.get("id")
+                            val = val.get(get_attr)
 
                             if val is None:
                                 raise ValueError(f"Expected 'id' to be provided for {key}")
@@ -100,7 +109,7 @@ def auto_init(exclude: Union[set, list] = None):  # sourcery no-metrics
                             raise ValueError(f"Expected many to many input to be of type list for {key}")
 
                         if len(val) > 0 and isinstance(val[0], dict):
-                            val = [elem.get("id") for elem in val]
+                            val = [elem.get(get_attr) for elem in val]
 
                         instances = [x for x in [relation_cls.get_ref(elem, session=session) for elem in val] if x]
                         setattr(self, key, instances)
