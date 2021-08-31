@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from fractions import Fraction
 
+import pytest
+
 from mealie.services.scraper.ingredient_nlp.processor import CRFIngredient, convert_list_to_crf_model
 
 
@@ -18,6 +20,7 @@ test_ingredients = [
 ]
 
 
+@pytest.mark.skip
 def test_nlp_parser():
     models: list[CRFIngredient] = convert_list_to_crf_model([x.input for x in test_ingredients])
 
