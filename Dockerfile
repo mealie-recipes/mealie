@@ -11,9 +11,12 @@ RUN npm run build
 ###############################################
 # Base Image
 ###############################################
-FROM python:3.9-slim as python-base
+FROM python:3.9.6-slim as python-base
 
 ENV MEALIE_HOME="/app"
+
+ENV PUID=911 \
+    PGID=911
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -24,20 +27,21 @@ ENV PYTHONUNBUFFERED=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=true \
     POETRY_NO_INTERACTION=1 \
     PYSETUP_PATH="/opt/pysetup" \
-    VENV_PATH="/opt/pysetup/.venv"
+    VENV_PATH="/opt/pysetup/.venv" 
 
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-# create user account
-RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash mealie \
-    && usermod -G users mealie \
+# create user account with default group
+RUN groupadd -g $PGID mealie \
+    && useradd -u $PUID  -g $PGID -d $MEALIE_HOME -s /bin/bash mealie \
     && mkdir $MEALIE_HOME
 
 ###############################################
 # Builder Image
 ###############################################
 FROM python-base as builder-base
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
@@ -56,7 +60,7 @@ RUN apt-get update \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.1.6
+ENV POETRY_VERSION=1.1.7
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 
 # copy project requirement files here to ensure they will be cached.
@@ -96,7 +100,7 @@ ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
 ###############################################
 FROM python-base as production
 ENV PRODUCTION=true
-
+ARG DEBIAN_FRONTEND=noninteractive
 # curl for used by healthcheck
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
@@ -129,14 +133,14 @@ COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
 
+RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
+USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
-ENV APP_PORT=80
+ENV APP_PORT=9080
 
 EXPOSE ${APP_PORT}
 
 HEALTHCHECK CMD curl -f http://localhost:${APP_PORT} || exit 1
 
 RUN chmod +x $MEALIE_HOME/mealie/run.sh
-USER mealie
 ENTRYPOINT $MEALIE_HOME/mealie/run.sh
-`
