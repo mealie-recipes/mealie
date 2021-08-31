@@ -6,7 +6,12 @@
       <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
         <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 my-border rounded">
           <v-expansion-panel-header disable-icon-rotate class="headline">
-            {{ cookbook.name }}
+            <div class="d-flex align-center">
+              <v-icon color="accent" large left>
+                {{ $globals.icons.pages }}
+              </v-icon>
+              {{ cookbook.name }}
+            </div>
             <template #actions>
               <v-btn color="info" fab small class="ml-auto mr-2">
                 <v-icon color="white">
@@ -21,6 +26,7 @@
           <v-expansion-panel-content>
             <v-card-text>
               <v-text-field v-model="cookbooks[index].name" label="Cookbook Name"></v-text-field>
+              <v-textarea v-model="cookbooks[index].description" auto-grow :rows="2" label="Description"></v-textarea>
               <DomainRecipeCategoryTagSelector v-model="cookbooks[index].categories" />
             </v-card-text>
             <v-card-actions>

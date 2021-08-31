@@ -11,6 +11,7 @@ export interface CreateCookBook {
 export interface CookBook extends CreateCookBook {
   id: number;
   slug: string;
+  description: string;
   position: number;
   group_id: number;
   categories: Category[] | CategoryBase[];

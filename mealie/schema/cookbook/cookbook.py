@@ -7,6 +7,7 @@ from ..recipe.recipe_category import CategoryBase
 
 class CreateCookBook(CamelModel):
     name: str
+    description: str = ""
     slug: str = None
     position: int = 1
     categories: list[CategoryBase] = []

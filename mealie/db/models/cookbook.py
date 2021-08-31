@@ -10,6 +10,7 @@ class CookBook(SqlAlchemyBase, BaseMixins):
     id = Column(Integer, primary_key=True)
     position = Column(Integer, nullable=False)
     name = Column(String, nullable=False)
+    description = Column(String, default="")
     slug = Column(String, nullable=False)
     categories = orm.relationship(Category, secondary=cookbooks_to_categories, single_parent=True)
 

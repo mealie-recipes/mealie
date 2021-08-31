@@ -48,7 +48,7 @@ export const useCookbooks = function () {
         name: "New Cookbook" + String(cookbookStore?.value?.length + 1 || 1),
       });
       if (data && cookbookStore?.value) {
-        cookbookStore.value.unshift(data);
+        cookbookStore.value.push(data);
       } else {
         this.refreshAll();
       }
