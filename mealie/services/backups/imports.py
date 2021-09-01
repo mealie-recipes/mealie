@@ -11,8 +11,6 @@ from mealie.core.config import app_dirs
 from mealie.db.database import db
 from mealie.schema.admin import (
     CommentImport,
-    CustomPageImport,
-    CustomPageOut,
     GroupImport,
     NotificationImport,
     RecipeImport,
@@ -189,19 +187,6 @@ class ImportDatabase:
 
         return [import_status]
 
-    def import_pages(self):
-        pages_file = self.import_dir.joinpath("pages", "pages.json")
-        pages = ImportDatabase.read_models_file(pages_file, CustomPageOut)
-
-        page_imports = []
-        for page in pages:
-            import_stats = self.import_model(
-                db_table=db.custom_pages, model=page, return_model=CustomPageImport, name_attr="name", search_key="slug"
-            )
-            page_imports.append(import_stats)
-
-        return page_imports
-
     def import_groups(self):
         groups_file = self.import_dir.joinpath("groups", "groups.json")
         groups = ImportDatabase.read_models_file(groups_file, UpdateGroup)
@@ -326,7 +311,6 @@ def import_database(
     archive,
     import_recipes=True,
     import_settings=True,
-    import_pages=True,
     import_users=True,
     import_groups=True,
     import_notifications=True,
@@ -342,10 +326,6 @@ def import_database(
     settings_report = []
     if import_settings:
         settings_report = import_session.import_settings()
-
-    page_report = []
-    if import_pages:
-        page_report = import_session.import_pages()
 
     group_report = []
     if import_groups:
@@ -367,7 +347,6 @@ def import_database(
     return {
         "recipeImports": recipe_report,
         "settingsImports": settings_report,
-        "pageImports": page_report,
         "groupImports": group_report,
         "userImports": user_report,
         "notificationImports": notification_report,
