@@ -28,7 +28,7 @@ class AppRoutes:
         self.meal_plans_this_week = "/api/meal-plans/this-week"
         self.meal_plans_today = "/api/meal-plans/today"
         self.meal_plans_today_image = "/api/meal-plans/today/image"
-        self.site_settings_custom_pages = "/api/site-settings/custom-pages"
+        self.group_cookbook = "/api/groups/cookbooks"
         self.site_settings = "/api/site-settings"
         self.site_settings_webhooks_test = "/api/site-settings/webhooks/test"
         self.themes = "/api/themes"
@@ -95,8 +95,8 @@ class AppRoutes:
     def meal_plans_id_shopping_list(self, id):
         return f"{self.prefix}/meal-plans/{id}/shopping-list"
 
-    def site_settings_custom_pages_id(self, id):
-        return f"{self.prefix}/site-settings/custom-pages/{id}"
+    def group_cookbook_id(self, id):
+        return f"{self.prefix}/groups/cookbooks/{id}"
 
     def themes_id(self, id):
         return f"{self.prefix}/themes/{id}"
