@@ -1,12 +1,20 @@
 <template>
   <v-container v-if="book" fluid>
-    <BaseCardSectionTitle :title="book.name"> </BaseCardSectionTitle>
+    <v-app-bar color="transparent" flat class="mt-n1 rounded">
+      <v-icon large left> {{ $globals.icons.pages }} </v-icon>
+      <v-toolbar-title class="headline"> {{ book.name }} </v-toolbar-title>
+    </v-app-bar>
+    <v-card flat>
+      <v-card-text class="py-0">
+        {{ book.description }}
+      </v-card-text>
+    </v-card>
     <v-tabs v-model="tab" show-arrows>
       <v-tab v-for="(cat, index) in book.categories" :key="index">
         {{ cat.name }}
       </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tab" >
+    <v-tabs-items v-model="tab">
       <v-tab-item v-for="(cat, idx) in book.categories" :key="`tabs` + idx">
         <RecipeCardSection class="mb-5 mx-1" :recipes="cat.recipes" />
       </v-tab-item>

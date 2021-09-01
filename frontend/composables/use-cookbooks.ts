@@ -61,7 +61,7 @@ export const useCookbooks = function () {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
         // @ts-ignore. I"m thinking this will always be defined.
-        name: "New Cookbook" + String(cookbookStore?.value?.length + 1 || 1),
+        name: "Cookbook " + String(cookbookStore?.value?.length + 1 || 1),
       });
       if (data && cookbookStore?.value) {
         cookbookStore.value.push(data);

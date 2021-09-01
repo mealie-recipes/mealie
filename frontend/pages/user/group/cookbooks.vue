@@ -7,20 +7,20 @@
         <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 my-border rounded">
           <v-expansion-panel-header disable-icon-rotate class="headline">
             <div class="d-flex align-center">
-              <v-icon color="accent" large left>
+              <v-icon large left>
                 {{ $globals.icons.pages }}
               </v-icon>
               {{ cookbook.name }}
             </div>
             <template #actions>
-              <v-btn color="info" fab small class="ml-auto mr-2">
+              <v-icon class="handle">
+                {{ $globals.icons.arrowUpDown }}
+              </v-icon>
+              <v-btn color="info" fab small class="ml-2">
                 <v-icon color="white">
                   {{ $globals.icons.edit }}
                 </v-icon>
               </v-btn>
-              <v-icon class="handle">
-                {{ $globals.icons.arrowUpDown }}
-              </v-icon>
             </template>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
@@ -32,7 +32,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <BaseButton delete @click="actions.deleteOne(cookbook.id)" />
-              <BaseButton update @click="actions.updateOne(cookbook)"> </BaseButton>
+              <BaseButton save @click="actions.updateOne(cookbook)"> </BaseButton>
             </v-card-actions>
           </v-expansion-panel-content>
         </v-expansion-panel>
