@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Union
-
 from fastapi import HTTPException, status
 
 from mealie.core.root_logger import get_logger
