@@ -134,7 +134,9 @@ def insideParenthesis(token, tokens):
         return True
     else:
         line = " ".join(tokens)
-        return re.match(r".*\(.*" + re.escape(token) + ".*\).*", line) is not None
+        return (
+            re.match(r".*\(.*" + re.escape(token) + ".*\).*", line) is not None  # noqa: W605 - invalid dscape sequence
+        )
 
 
 def displayIngredient(ingredient):
@@ -222,7 +224,7 @@ def import_data(lines):
 
             # turn B-NAME/123 back into "name"
             tag, confidence = re.split(r"/", columns[-1], 1)
-            tag = re.sub("^[BI]\-", "", tag).lower()
+            tag = re.sub("^[BI]\-", "", tag).lower()  # noqa: W605 - invalid dscape sequence
 
             # ---- DISPLAY ----
             # build a structure which groups each token by its tag, so we can
