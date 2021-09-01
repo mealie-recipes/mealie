@@ -15,7 +15,6 @@ def backup_data():
         "settings": False,  # ! Broken
         "groups": True,
         "users": True,
-        "pages": True,
     }
 
 

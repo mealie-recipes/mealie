@@ -58,8 +58,8 @@ export default defineComponent({
         },
         {
           icon: this.$globals.icons.pages,
-          to: "/user/group/pages",
-          title: this.$t("settings.pages"),
+          to: "/user/group/cookbooks",
+          title: this.$t("sidebar.cookbooks"),
         },
       ],
       adminLinks: [

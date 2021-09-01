@@ -5,6 +5,22 @@ import { CookBook } from "~/api/class-interfaces/cookbooks";
 
 let cookbookStore: Ref<CookBook[] | null> | null = null;
 
+export const useCookbook = function () {
+  function getOne(id: string | number) {
+    const api = useApiSingleton();
+
+    const units = useAsync(async () => {
+      const { data } = await api.cookbooks.getOne(id);
+
+      return data;
+    }, useAsyncKey());
+
+    return units;
+  }
+
+  return { getOne };
+};
+
 export const useCookbooks = function () {
   const api = useApiSingleton();
   const loading = ref(false);
@@ -45,10 +61,10 @@ export const useCookbooks = function () {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
         // @ts-ignore. I"m thinking this will always be defined.
-        name: "New Cookbook" + String(cookbookStore?.value?.length + 1 || 1),
+        name: "Cookbook " + String(cookbookStore?.value?.length + 1 || 1),
       });
       if (data && cookbookStore?.value) {
-        cookbookStore.value.unshift(data);
+        cookbookStore.value.push(data);
       } else {
         this.refreshAll();
       }

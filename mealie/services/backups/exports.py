@@ -108,7 +108,6 @@ def backup_all(
     templates=None,
     export_recipes=True,
     export_settings=True,
-    export_pages=True,
     export_users=True,
     export_groups=True,
     export_notifications=True,
@@ -135,10 +134,6 @@ def backup_all(
     if export_settings:
         all_settings = db.settings.get_all(session)
         db_export.export_items(all_settings, "settings")
-
-    if export_pages:
-        all_pages = db.custom_pages.get_all(session)
-        db_export.export_items(all_pages, "pages")
 
     if export_notifications:
         all_notifications = db.event_notifications.get_all(session)

@@ -1,14 +1,16 @@
+from __future__ import annotations
+
 from fastapi import HTTPException, status
 
 from mealie.core.root_logger import get_logger
-from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, SaveCookBook
+from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook
 from mealie.services.base_http_service.base_http_service import BaseHttpService
 from mealie.services.events import create_group_event
 
 logger = get_logger(module=__name__)
 
 
-class CookbookService(BaseHttpService[str, str]):
+class CookbookService(BaseHttpService[int, str]):
     """
     Class Methods:
         `read_existing`: Reads an existing recipe from the database.
@@ -39,8 +41,17 @@ class CookbookService(BaseHttpService[str, str]):
         if self.cookbook.group_id != self.group_id:
             raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    def populate_cookbook(self, id):
-        self.cookbook = self.db.cookbooks.get(self.session, id)
+    def populate_cookbook(self, id: int | str):
+        try:
+            id = int(id)
+        except Exception:
+            pass
+
+        if isinstance(id, int):
+            self.cookbook = self.db.cookbooks.get_one(self.session, id, override_schema=RecipeCookBook)
+
+        else:
+            self.cookbook = self.db.cookbooks.get_one(self.session, id, key="slug", override_schema=RecipeCookBook)
 
     def get_all(self) -> list[ReadCookBook]:
         items = self.db.cookbooks.get(self.session, self.group_id, "group_id", limit=999)

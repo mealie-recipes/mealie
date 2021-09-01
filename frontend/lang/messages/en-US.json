@@ -402,7 +402,9 @@
   },
   "sidebar": {
     "all-recipes": "All Recipes",
+    "backups": "Backups",
     "categories": "Categories",
+    "cookbooks": "Cookbooks",
     "dashboard": "Dashboard",
     "home-page": "Home Page",
     "manage-users": "Manage Users",
@@ -411,8 +413,7 @@
     "search": "Search",
     "site-settings": "Site Settings",
     "tags": "Tags",
-    "toolbox": "Toolbox",
-    "backups": "Backups"
+    "toolbox": "Toolbox"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",
