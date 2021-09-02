@@ -9,7 +9,9 @@
 [![Project Tests Production](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
 [![Docker Build Dev](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml)
 [![Project Tests Dev](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
+  
 
+  
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
