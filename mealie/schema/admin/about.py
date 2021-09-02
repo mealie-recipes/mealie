@@ -17,7 +17,7 @@ class AppInfo(CamelModel):
     demo_status: bool
 
 
-class DebugInfo(AppInfo):
+class AdminAboutInfo(AppInfo):
     api_port: int
     api_docs: bool
     db_type: str

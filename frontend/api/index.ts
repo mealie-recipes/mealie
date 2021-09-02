@@ -1,7 +1,6 @@
 import { RecipeAPI } from "./class-interfaces/recipes";
 import { UserApi } from "./class-interfaces/users";
 import { GroupAPI } from "./class-interfaces/groups";
-import { DebugAPI } from "./class-interfaces/debug";
 import { EventsAPI } from "./class-interfaces/events";
 import { BackupAPI } from "./class-interfaces/backups";
 import { UploadFile } from "./class-interfaces/upload";
@@ -13,14 +12,30 @@ import { FoodAPI } from "./class-interfaces/recipe-foods";
 import { UnitAPI } from "./class-interfaces/recipe-units";
 import { CookbookAPI } from "./class-interfaces/cookbooks";
 import { WebhooksAPI } from "./class-interfaces/group-webhooks";
+import { AdminAboutAPI } from "./class-interfaces/admin-about";
 import { ApiRequestInstance } from "~/types/api";
+
+class AdminAPI {
+  private static instance: AdminAPI;
+  public about: AdminAboutAPI;
+
+  constructor(requests: ApiRequestInstance) {
+    if (AdminAPI.instance instanceof AdminAPI) {
+      return AdminAPI.instance;
+    }
+
+    this.about = new AdminAboutAPI(requests);
+
+    Object.freeze(this);
+    AdminAPI.instance = this;
+  }
+}
 
 class Api {
   private static instance: Api;
   public recipes: RecipeAPI;
   public users: UserApi;
   public groups: GroupAPI;
-  public debug: DebugAPI;
   public events: EventsAPI;
   public backups: BackupAPI;
   public categories: CategoriesAPI;
@@ -54,7 +69,6 @@ class Api {
     this.groupWebhooks = new WebhooksAPI(requests);
 
     // Admin
-    this.debug = new DebugAPI(requests);
     this.events = new EventsAPI(requests);
     this.backups = new BackupAPI(requests);
     this.notifications = new NotificationsAPI(requests);
@@ -68,4 +82,4 @@ class Api {
   }
 }
 
-export { Api };
+export { Api, AdminAPI };

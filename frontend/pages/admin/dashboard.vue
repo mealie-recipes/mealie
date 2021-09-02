@@ -94,7 +94,7 @@
 <script lang="ts">
 import { defineComponent, useAsync } from "@nuxtjs/composition-api";
 import AdminEventViewer from "@/components/Domain/Admin/AdminEventViewer.vue";
-import { useApiSingleton } from "~/composables/use-api";
+import { useAdminApi, useApiSingleton } from "~/composables/use-api";
 import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
@@ -103,9 +103,11 @@ export default defineComponent({
   setup() {
     const api = useApiSingleton();
 
+    const adminApi = useAdminApi();
+
     function getStatistics() {
       const statistics = useAsync(async () => {
-        const { data } = await api.debug.getAppStatistics();
+        const { data } = await adminApi.about.statistics();
         return data;
       }, useAsyncKey());
 
