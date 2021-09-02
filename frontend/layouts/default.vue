@@ -31,7 +31,7 @@ import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
 import AppFloatingButton from "@/components/Layout/AppFloatingButton.vue";
-import { useCookbooks } from "~/composables/use-cookbooks";
+import { useCookbooks } from "~/composables/use-group-cookbooks";
 
 export default defineComponent({
   components: { AppHeader, AppSidebar, AppFloatingButton },

@@ -61,7 +61,6 @@ class Category(SqlAlchemyBase, BaseMixins):
         if not session or not match_value:
             return None
 
-        print(match_value)
         slug = slugify(match_value)
 
         result = session.query(Category).filter(Category.slug == slug).one_or_none()

@@ -25,7 +25,7 @@
 <script lang="ts">
 import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
 import { defineComponent, useRoute, ref } from "@nuxtjs/composition-api";
-import { useCookbook } from "~/composables/use-cookbooks";
+import { useCookbook } from "~/composables/use-group-cookbooks";
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {

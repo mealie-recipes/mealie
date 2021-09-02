@@ -12,6 +12,7 @@ import { NotificationsAPI } from "./class-interfaces/event-notifications";
 import { FoodAPI } from "./class-interfaces/recipe-foods";
 import { UnitAPI } from "./class-interfaces/recipe-units";
 import { CookbookAPI } from "./class-interfaces/cookbooks";
+import { WebhooksAPI } from "./class-interfaces/group-webhooks";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -29,6 +30,7 @@ class Api {
   public foods: FoodAPI;
   public units: UnitAPI;
   public cookbooks: CookbookAPI;
+  public groupWebhooks: WebhooksAPI;
 
   // Utils
   public upload: UploadFile;
@@ -49,6 +51,7 @@ class Api {
     this.users = new UserApi(requests);
     this.groups = new GroupAPI(requests);
     this.cookbooks = new CookbookAPI(requests);
+    this.groupWebhooks = new WebhooksAPI(requests);
 
     // Admin
     this.debug = new DebugAPI(requests);

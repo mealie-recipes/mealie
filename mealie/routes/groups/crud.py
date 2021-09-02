@@ -12,17 +12,6 @@ admin_router = AdminAPIRouter(prefix="/groups", tags=["Groups: CRUD"])
 user_router = UserAPIRouter(prefix="/groups", tags=["Groups: CRUD"])
 
 
-@user_router.get("/self", response_model=GroupInDB)
-async def get_current_user_group(
-    current_user: PrivateUser = Depends(get_current_user),
-    session: Session = Depends(generate_session),
-):
-    """ Returns the Group Data for the Current User """
-    current_user: PrivateUser
-
-    return db.groups.get(session, current_user.group, "name")
-
-
 @admin_router.get("", response_model=list[GroupInDB])
 async def get_all_groups(
     session: Session = Depends(generate_session),
