@@ -14,7 +14,7 @@ from mealie.services.events import create_recipe_event
 logger = get_logger(module=__name__)
 
 
-class RecipeService(BaseHttpService[str, str]):
+class RecipeService(BaseHttpService[str, Recipe]):
     """
     Class Methods:
         `read_existing`: Reads an existing recipe from the database.
@@ -23,7 +23,6 @@ class RecipeService(BaseHttpService[str, str]):
     """
 
     event_func = create_recipe_event
-    recipe: Recipe  # Required for proper type hints
 
     @classmethod
     def write_existing(cls, slug: str, deps: WriteDeps = Depends()):
@@ -34,17 +33,17 @@ class RecipeService(BaseHttpService[str, str]):
         return super().write_existing(slug, deps)
 
     def assert_existing(self, slug: str):
-        self.pupulate_recipe(slug)
+        self.populate_item(slug)
 
-        if not self.recipe:
+        if not self.item:
             raise HTTPException(status.HTTP_404_NOT_FOUND)
 
-        if not self.recipe.settings.public and not self.user:
+        if not self.item.settings.public and not self.user:
             raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    def pupulate_recipe(self, slug: str) -> Recipe:
-        self.recipe = self.db.recipes.get(self.session, slug)
-        return self.recipe
+    def populate_item(self, slug: str) -> Recipe:
+        self.item = self.db.recipes.get(self.session, slug)
+        return self.item
 
     # CRUD METHODS
     def create_recipe(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
@@ -52,34 +51,34 @@ class RecipeService(BaseHttpService[str, str]):
             create_data = Recipe(name=create_data.name)
 
         try:
-            self.recipe = self.db.recipes.create(self.session, create_data)
+            self.item = self.db.recipes.create(self.session, create_data)
         except IntegrityError:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "RECIPE_ALREADY_EXISTS"})
 
         self._create_event(
             "Recipe Created (URL)",
-            f"'{self.recipe.name}' by {self.user.username} \n {self.settings.BASE_URL}/recipe/{self.recipe.slug}",
+            f"'{self.item.name}' by {self.user.username} \n {self.settings.BASE_URL}/recipe/{self.item.slug}",
         )
 
-        return self.recipe
+        return self.item
 
     def update_recipe(self, update_data: Recipe) -> Recipe:
-        original_slug = self.recipe.slug
+        original_slug = self.item.slug
 
         try:
-            self.recipe = self.db.recipes.update(self.session, original_slug, update_data)
+            self.item = self.db.recipes.update(self.session, original_slug, update_data)
         except IntegrityError:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "RECIPE_ALREADY_EXISTS"})
 
         self._check_assets(original_slug)
 
-        return self.recipe
+        return self.item
 
     def patch_recipe(self, patch_data: Recipe) -> Recipe:
-        original_slug = self.recipe.slug
+        original_slug = self.item.slug
 
         try:
-            self.recipe = self.db.recipes.patch(
+            self.item = self.db.recipes.patch(
                 self.session, original_slug, patch_data.dict(exclude_unset=True, exclude_defaults=True)
             )
         except IntegrityError:
@@ -87,7 +86,7 @@ class RecipeService(BaseHttpService[str, str]):
 
         self._check_assets(original_slug)
 
-        return self.recipe
+        return self.item
 
     def delete_recipe(self) -> Recipe:
         """removes a recipe from the database and purges the existing files from the filesystem.
@@ -100,7 +99,7 @@ class RecipeService(BaseHttpService[str, str]):
         """
 
         try:
-            recipe: Recipe = self.db.recipes.delete(self.session, self.recipe.slug)
+            recipe: Recipe = self.db.recipes.delete(self.session, self.item.slug)
             self._delete_assets()
         except Exception:
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
@@ -110,18 +109,18 @@ class RecipeService(BaseHttpService[str, str]):
 
     def _check_assets(self, original_slug: str) -> None:
         """Checks if the recipe slug has changed, and if so moves the assets to a new file with the new slug."""
-        if original_slug != self.recipe.slug:
+        if original_slug != self.item.slug:
             current_dir = self.app_dirs.RECIPE_DATA_DIR.joinpath(original_slug)
 
             try:
-                copytree(current_dir, self.recipe.directory, dirs_exist_ok=True)
-                logger.info(f"Renaming Recipe Directory: {original_slug} -> {self.recipe.slug}")
+                copytree(current_dir, self.item.directory, dirs_exist_ok=True)
+                logger.info(f"Renaming Recipe Directory: {original_slug} -> {self.item.slug}")
             except FileNotFoundError:
                 logger.error(f"Recipe Directory not Found: {original_slug}")
 
-        all_asset_files = [x.file_name for x in self.recipe.assets]
+        all_asset_files = [x.file_name for x in self.item.assets]
 
-        for file in self.recipe.asset_dir.iterdir():
+        for file in self.item.asset_dir.iterdir():
             file: Path
             if file.is_dir():
                 continue
@@ -129,6 +128,6 @@ class RecipeService(BaseHttpService[str, str]):
                 file.unlink()
 
     def _delete_assets(self) -> None:
-        recipe_dir = self.recipe.directory
+        recipe_dir = self.item.directory
         rmtree(recipe_dir, ignore_errors=True)
-        logger.info(f"Recipe Directory Removed: {self.recipe.slug}")
+        logger.info(f"Recipe Directory Removed: {self.item.slug}")
