@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { useContext } from "@nuxtjs/composition-api";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
-import { Api } from "~/api";
+import { AdminAPI, Api } from "~/api";
 import { ApiRequestInstance } from "~/types/api";
 
 interface RequestResponse<T> {
@@ -53,6 +53,11 @@ function getRequests(axoisInstance: NuxtAxiosInstance): ApiRequestInstance {
   return requests;
 }
 
+export const useAdminApi = function (): AdminAPI {
+  const { $axios } = useContext();
+  const requests = getRequests($axios);
+  return new AdminAPI(requests);
+};
 
 export const useApiSingleton = function (): Api {
   const { $axios } = useContext();

@@ -102,20 +102,22 @@
     <template v-if="bottomLinks">
       <v-list class="fixedBottom" nav dense>
         <v-list-item-group v-model="bottomSelected" color="primary">
-          <v-list-item
-            v-for="nav in bottomLinks"
-            :key="nav.title"
-            exact
-            link
-            :to="nav.to || null"
-            :href="nav.href || null"
-            :target="nav.href ? '_blank' : null"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ nav.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>{{ nav.title }}</v-list-item-title>
-          </v-list-item>
+          <template v-for="nav in bottomLinks">
+            <v-list-item
+              v-if="!nav.restricted || $auth.loggedIn"
+              :key="nav.title"
+              exact
+              link
+              :to="nav.to || null"
+              :href="nav.href || null"
+              :target="nav.href ? '_blank' : null"
+            >
+              <v-list-item-icon>
+                <v-icon>{{ nav.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{ nav.title }}</v-list-item-title>
+            </v-list-item>
+          </template>
         </v-list-item-group>
       </v-list>
     </template>

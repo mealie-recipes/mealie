@@ -8,6 +8,7 @@
       :top-link="topLinks"
       secondary-header="Cookbooks"
       :secondary-links="cookbookLinks || []"
+      :bottom-links="bottomLink"
       @input="sidebar = !sidebar"
     />
 
@@ -57,6 +58,14 @@ export default defineComponent({
   data() {
     return {
       sidebar: null,
+      bottomLink: [
+        {
+          icon: this.$globals.icons.cog,
+          title: this.$t("general.settings"),
+          to: "/user/profile",
+          restricted: true,
+        },
+      ],
       topLinks: [
         {
           icon: this.$globals.icons.calendar,

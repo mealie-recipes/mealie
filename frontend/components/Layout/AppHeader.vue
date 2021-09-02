@@ -30,42 +30,16 @@
     </div> -->
 
     <!-- Navigation Menu -->
-    <v-menu
-      v-if="menu"
-      transition="slide-x-transition"
-      bottom
-      right
-      offset-y
-      offset-overflow
-      open-on-hover
-      close-delay="200"
-    >
-      <template #activator="{ on, attrs }">
-        <v-btn v-bind="attrs" icon v-on="on">
-          <v-icon>{{ $globals.icons.user }}</v-icon>
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item-group v-model="itemSelected" color="primary">
-          <v-list-item
-            v-for="(item, i) in filteredItems"
-            :key="i"
-            link
-            :to="item.nav ? item.nav : null"
-            @click="item.logout ? $auth.logout() : null"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ item.title }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-menu>
+    <template v-if="menu">
+      <v-btn v-if="$auth.loggedIn" text @click="$auth.logout()">
+        <v-icon left>{{ $globals.icons.logout }}</v-icon>
+        {{ $t("user.logout") }}
+      </v-btn>
+      <v-btn v-else text nuxt to="/user/login">
+        <v-icon left>{{ $globals.icons.user }}</v-icon>
+        {{ $t("user.login") }}
+      </v-btn>
+    </template>
   </v-app-bar>
 </template>
     
@@ -81,46 +55,6 @@ export default defineComponent({
     menu: {
       type: Boolean,
       default: true,
-    },
-  },
-  setup() {
-    return {};
-  },
-  data() {
-    return {
-      itemSelected: null,
-      items: [
-        {
-          icon: this.$globals.icons.user,
-          title: this.$t("user.login"),
-          restricted: false,
-          nav: "/user/login",
-        },
-        {
-          icon: this.$globals.icons.logout,
-          title: this.$t("user.logout"),
-          restricted: true,
-          logout: true,
-        },
-        {
-          icon: this.$globals.icons.cog,
-          title: this.$t("general.settings"),
-          nav: "/user/profile",
-          restricted: true,
-        },
-      ],
-    };
-  },
-  computed: {
-    filteredItems(): Array<any> {
-      if (this.loggedIn) {
-        return this.items.filter((x) => x.restricted === true);
-      } else {
-        return this.items.filter((x) => x.restricted === false);
-      }
-    },
-    loggedIn(): Boolean {
-      return this.$auth.loggedIn;
     },
   },
 });
