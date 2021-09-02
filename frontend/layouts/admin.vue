@@ -61,6 +61,11 @@ export default defineComponent({
           to: "/user/group/cookbooks",
           title: this.$t("sidebar.cookbooks"),
         },
+        {
+          icon: this.$globals.icons.webhook,
+          to: "/user/group/webhooks",
+          title: "Webhooks",
+        },
       ],
       adminLinks: [
         {

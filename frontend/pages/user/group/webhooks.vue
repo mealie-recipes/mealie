@@ -1,0 +1,68 @@
+<template>
+  <v-container fluid>
+    <BaseCardSectionTitle title="MealPlan Webhooks">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias error provident, eveniet, laboriosam assumenda
+      earum amet quaerat vel consequatur molestias sed enim. Adipisci a consequuntur dolor culpa expedita voluptatem
+      praesentium optio iste atque, ea reiciendis iure non aut suscipit modi ducimus ratione, quam numquam quaerat
+      distinctio illum nemo. Dicta, doloremque!
+    </BaseCardSectionTitle>
+    <BaseButton create @click="actions.createOne()" />
+    <v-expansion-panels class="mt-2">
+      <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 my-border rounded">
+        <v-expansion-panel-header disable-icon-rotate class="headline">
+          <div class="d-flex align-center">
+            <v-icon large left :color="webhook.enabled ? 'info' : null">
+              {{ $globals.icons.webhook }}
+            </v-icon>
+            {{ webhook.name }} - {{ webhook.time }}
+          </div>
+          <template #actions>
+            <v-btn color="info" fab small class="ml-2">
+              <v-icon color="white">
+                {{ $globals.icons.edit }}
+              </v-icon>
+            </v-btn>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-card-text>
+            <v-switch v-model="webhook.enabled" label="Enabled"></v-switch>
+            <v-text-field v-model="webhook.name" label="Webhook Name"></v-text-field>
+            <v-text-field v-model="webhook.url" label="Webhook Url"></v-text-field>
+            <v-time-picker v-model="webhook.time" class="elevation-2" ampm-in-title format="ampm"></v-time-picker>
+          </v-card-text>
+          <v-card-actions>
+            <BaseButton secondary color="info">
+              <template #icon>
+                {{ $globals.icons.testTube }}
+              </template>
+              Test
+            </BaseButton>
+            <v-spacer></v-spacer>
+            <BaseButton delete @click="actions.deleteOne(webhook.id)" />
+            <BaseButton save @click="actions.updateOne(webhook)" />
+          </v-card-actions>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+  </v-container>
+</template>
+    
+<script lang="ts">
+import { defineComponent } from "@nuxtjs/composition-api";
+import { useGroupWebhooks } from "~/composables/use-group-webhooks";
+
+export default defineComponent({
+  layout: "admin",
+  setup() {
+    const { actions, webhooks } = useGroupWebhooks();
+    return {
+      actions,
+      webhooks,
+    };
+  },
+});
+</script>
+    
+<style scoped>
+</style>

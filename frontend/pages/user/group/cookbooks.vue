@@ -43,27 +43,24 @@
     
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
-import { useCookbooks } from "@/composables/use-cookbooks";
+import { useCookbooks } from "@/composables/use-group-cookbooks";
 import draggable from "vuedraggable";
 
 export default defineComponent({
   components: { draggable },
   layout: "admin",
   setup() {
-    const { cookbooks, actions, workingCookbookData, deleteTargetId, validForm } = useCookbooks();
+    const { cookbooks, actions } = useCookbooks();
 
     return {
       cookbooks,
       actions,
-      workingCookbookData,
-      deleteTargetId,
-      validForm,
     };
   },
 });
 </script>
     
-<style scoped>
+<style>
 .my-border {
   border-left: 5px solid var(--v-primary-base);
 }
