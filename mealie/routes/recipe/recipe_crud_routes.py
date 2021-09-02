@@ -27,7 +27,7 @@ logger = get_logger()
 @public_router.get("/{slug}", response_model=Recipe)
 def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existing)):
     """ Takes in a recipe slug, returns all data for a recipe """
-    return recipe_service.recipe
+    return recipe_service.item
 
 
 @user_router.post("", status_code=201, response_model=str)

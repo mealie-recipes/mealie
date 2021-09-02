@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 from fastapi_camelcase import CamelModel
 from pydantic.types import constr
@@ -119,9 +119,7 @@ class UpdateGroup(GroupBase):
     name: str
     categories: Optional[list[CategoryBase]] = []
 
-    webhook_urls: list[str] = []
-    webhook_time: str = "00:00"
-    webhook_enable: bool
+    webhooks: list[Any] = []
 
 
 class GroupInDB(UpdateGroup):
@@ -136,7 +134,6 @@ class GroupInDB(UpdateGroup):
         def getter_dict(_cls, orm_model: Group):
             return {
                 **GetterDict(orm_model),
-                "webhook_urls": [x.url for x in orm_model.webhook_urls if x],
             }
 
 

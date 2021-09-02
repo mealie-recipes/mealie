@@ -26,6 +26,7 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
 def start_scheduler():
+    return  # TODO: Disable Scheduler for now
     import mealie.services.scheduler.scheduled_jobs  # noqa: F401
 
 

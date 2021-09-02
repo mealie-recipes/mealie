@@ -6,6 +6,7 @@ from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
 from mealie.db.models.cookbook import CookBook
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
+from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.db.models.mealplan import MealPlan
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
@@ -19,6 +20,7 @@ from mealie.schema.admin import SiteSettings as SiteSettingsSchema
 from mealie.schema.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
+from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan import MealPlanOut, ShoppingListOut
 from mealie.schema.recipe import (
     CommentOut,
@@ -42,7 +44,6 @@ DEFAULT_PK = "id"
 
 class CategoryDataAccessModel(BaseAccessModel):
     def get_empty(self, session: Session):
-        self.schema
         return session.query(Category).filter(~Category.recipes.any()).all()
 
 
@@ -77,10 +78,13 @@ class DatabaseAccessLayer:
         self.event_notifications = BaseAccessModel(DEFAULT_PK, EventNotification, EventNotificationIn)
         self.events = BaseAccessModel(DEFAULT_PK, Event, EventSchema)
 
-        # Users / Groups
+        # Users
         self.users = UserDataAccessModel(DEFAULT_PK, User, PrivateUser)
         self.api_tokens = BaseAccessModel(DEFAULT_PK, LongLiveToken, LongLiveTokenInDB)
+
+        # Group Data
         self.groups = GroupDataAccessModel(DEFAULT_PK, Group, GroupInDB)
         self.meals = BaseAccessModel(DEFAULT_PK, MealPlan, MealPlanOut)
+        self.webhooks = BaseAccessModel(DEFAULT_PK, GroupWebhooksModel, ReadWebhook)
         self.shopping_lists = BaseAccessModel(DEFAULT_PK, ShoppingList, ShoppingListOut)
         self.cookbooks = BaseAccessModel(DEFAULT_PK, CookBook, ReadCookBook)

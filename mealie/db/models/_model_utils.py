@@ -9,7 +9,7 @@ def handle_one_to_many_list(get_attr, relation_cls, all_elements: list[dict]):
     updated_elems = []
 
     for elem in all_elements:
-        elem_id = elem.get("id", None)
+        elem_id = elem.get(get_attr, None)
 
         existing_elem = relation_cls.get_ref(match_value=elem_id)
 
