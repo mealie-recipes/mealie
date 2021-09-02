@@ -4,7 +4,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 
 from mealie.core.config import APP_VERSION, settings
 from mealie.core.root_logger import get_logger
-from mealie.routes import backup_routes, debug_routes, migration_routes, router, utility_routes
+from mealie.routes import backup_routes, migration_routes, router, utility_routes
 from mealie.routes.about import about_router
 from mealie.routes.mealplans import meal_plan_router
 from mealie.routes.media import media_router
@@ -45,9 +45,6 @@ def api_routers():
     # Migration Routes
     app.include_router(migration_routes.router)
     # Debug routes
-    app.include_router(debug_routes.public_router)
-    app.include_router(debug_routes.admin_router)
-    # Utility routes
     app.include_router(utility_routes.router)
 
 
