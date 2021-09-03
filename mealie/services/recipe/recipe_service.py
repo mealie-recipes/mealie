@@ -5,7 +5,7 @@ from typing import Union
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 
-from mealie.core.dependencies.grouped import ReadDeps, WriteDeps
+from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.services.base_http_service.base_http_service import BaseHttpService
@@ -25,11 +25,11 @@ class RecipeService(BaseHttpService[str, Recipe]):
     event_func = create_recipe_event
 
     @classmethod
-    def write_existing(cls, slug: str, deps: WriteDeps = Depends()):
+    def write_existing(cls, slug: str, deps: UserDeps = Depends()):
         return super().write_existing(slug, deps)
 
     @classmethod
-    def read_existing(cls, slug: str, deps: ReadDeps = Depends()):
+    def read_existing(cls, slug: str, deps: PublicDeps = Depends()):
         return super().write_existing(slug, deps)
 
     def assert_existing(self, slug: str):

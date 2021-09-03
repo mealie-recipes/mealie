@@ -3,12 +3,12 @@ from sqlalchemy.orm.session import Session
 
 from mealie.schema.user.user import PrivateUser
 
-from .dependencies import generate_session, get_current_user, is_logged_in
+from .dependencies import generate_session, get_admin_user, get_current_user, is_logged_in
 
 
-class ReadDeps:
+class PublicDeps:
     """
-    ReadDeps contains the common dependencies for all read operations through the API.
+    PublicDeps contains the common dependencies for all read operations through the API.
     Note: The user object is used to definer what assets the user has access to.
 
     Args:
@@ -28,9 +28,9 @@ class ReadDeps:
         self.user: bool = user
 
 
-class WriteDeps:
+class UserDeps:
     """
-    WriteDeps contains the common dependencies for all read operations through the API.
+    UserDeps contains the common dependencies for all read operations through the API.
     Note: The user must be logged in or the route will return a 401 error.
 
     Args:
@@ -44,6 +44,18 @@ class WriteDeps:
         background_tasks: BackgroundTasks,
         session: Session = Depends(generate_session),
         user=Depends(get_current_user),
+    ):
+        self.session: Session = session
+        self.bg_task: BackgroundTasks = background_tasks
+        self.user: PrivateUser = user
+
+
+class AdminDeps:
+    def __init__(
+        self,
+        background_tasks: BackgroundTasks,
+        session: Session = Depends(generate_session),
+        user=Depends(get_admin_user),
     ):
         self.session: Session = session
         self.bg_task: BackgroundTasks = background_tasks

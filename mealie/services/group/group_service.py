@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi import Depends, HTTPException, status
 
-from mealie.core.dependencies.grouped import WriteDeps
+from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe_category import CategoryBase
 from mealie.schema.user.user import GroupInDB
@@ -18,12 +18,12 @@ class GroupSelfService(BaseHttpService[int, str]):
     item: GroupInDB
 
     @classmethod
-    def read_existing(cls, deps: WriteDeps = Depends()):
+    def read_existing(cls, deps: UserDeps = Depends()):
         """Override parent method to remove `item_id` from arguments"""
         return super().read_existing(item_id=0, deps=deps)
 
     @classmethod
-    def write_existing(cls, deps: WriteDeps = Depends()):
+    def write_existing(cls, deps: UserDeps = Depends()):
         """Override parent method to remove `item_id` from arguments"""
         return super().write_existing(item_id=0, deps=deps)
 
