@@ -1,3 +1,4 @@
+import inspect
 from typing import Any, Callable, Optional, Sequence, Type, TypeVar
 
 from fastapi import APIRouter
@@ -23,15 +24,7 @@ class RouterFactory(APIRouter):
     update_schema: Type[T]
     _base_path: str = "/"
 
-    def __init__(
-        self,
-        service: Type[S],
-        prefix: Optional[str] = None,
-        tags: Optional[list[str]] = None,
-        *args,
-        **kwargs,
-    ):
-
+    def __init__(self, service: Type[S], prefix: Optional[str] = None, tags: Optional[list[str]] = None, *_, **kwargs):
         self.service: Type[S] = service
         self.schema: Type[T] = service._schema
 
@@ -57,6 +50,7 @@ class RouterFactory(APIRouter):
                 methods=["GET"],
                 response_model=Optional[list[self.schema]],  # type: ignore
                 summary="Get All",
+                description=inspect.cleandoc(self.service.get_all.__doc__ or ""),
             )
 
         if self.service.create_one:
@@ -66,6 +60,7 @@ class RouterFactory(APIRouter):
                 methods=["POST"],
                 response_model=self.schema,
                 summary="Create One",
+                description=inspect.cleandoc(self.service.create_one.__doc__ or ""),
             )
 
         if self.service.update_many:
@@ -75,6 +70,7 @@ class RouterFactory(APIRouter):
                 methods=["PUT"],
                 response_model=Optional[list[self.schema]],  # type: ignore
                 summary="Update Many",
+                description=inspect.cleandoc(self.service.update_many.__doc__ or ""),
             )
 
         if self.service.delete_all:
@@ -84,6 +80,7 @@ class RouterFactory(APIRouter):
                 methods=["DELETE"],
                 response_model=Optional[list[self.schema]],  # type: ignore
                 summary="Delete All",
+                description=inspect.cleandoc(self.service.delete_all.__doc__ or ""),
             )
 
         if self.service.populate_item:
@@ -93,6 +90,7 @@ class RouterFactory(APIRouter):
                 methods=["GET"],
                 response_model=self.get_one_schema,
                 summary="Get One",
+                description=inspect.cleandoc(self.service.populate_item.__doc__ or ""),
             )
 
         if self.service.update_one:
@@ -102,15 +100,18 @@ class RouterFactory(APIRouter):
                 methods=["PUT"],
                 response_model=self.schema,
                 summary="Update One",
+                description=inspect.cleandoc(self.service.update_one.__doc__ or ""),
             )
 
         if self.service.delete_one:
+            print(self.service.delete_one.__doc__)
             self._add_api_route(
                 "/{item_id}",
                 self._delete_one(),
                 methods=["DELETE"],
                 response_model=self.schema,
                 summary="Delete One",
+                description=inspect.cleandoc(self.service.delete_one.__doc__ or ""),
             )
 
     def _add_api_route(self, path: str, endpoint: Callable[..., Any], **kwargs: Any) -> None:

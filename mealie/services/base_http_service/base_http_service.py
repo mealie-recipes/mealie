@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Callable, Generic, TypeVar
+from typing import Callable, Generic, Type, TypeVar
 
 from fastapi import BackgroundTasks, Depends, HTTPException, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs, get_settings
-from mealie.core.dependencies.grouped import ReadDeps, WriteDeps
+from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
@@ -17,25 +17,25 @@ T = TypeVar("T")
 D = TypeVar("D")
 
 
+CLS_DEP = TypeVar("CLS_DEP")  # Generic Used for the class method dependencies
+
+
 class BaseHttpService(Generic[T, D], ABC):
-    """The BaseHttpService class is a generic class that can be used to create
+    """
+    The BaseHttpService class is a generic class that can be used to create
     http services that are injected via `Depends` into a route function. To use,
     you must define the Generic type arguments:
 
     `T`: The type passed into the *_existing functions (e.g. id) which is then passed into assert_existing
     `D`: Item returned from database layer
-
-    Child Requirements:
-        Define the following functions:
-            `assert_existing(self, data: T) -> None:`
-
-        Define the following variables:
-            `event_func`: A function that is called when an event is created.
     """
 
     item: D = None
 
-    # Function that Generate Corrsesponding Routes through RouterFactor
+    # Function that Generate Corrsesponding Routes through RouterFactory:
+    # if the method is defined or != `None` than the corresponding route is defined through the RouterFactory.
+    # If the method is not defined, then the route will be excluded from creation. This service based articheture
+    # is being adopted as apart of the v1 migration
     get_all: Callable = None
     create_one: Callable = None
     update_one: Callable = None
@@ -75,47 +75,34 @@ class BaseHttpService(Generic[T, D], ABC):
             self._group_id_cache = group.id
         return self._group_id_cache
 
-    @classmethod
-    def read_existing(cls, item_id: T, deps: ReadDeps = Depends()):
-        """
-        Used for dependency injection for routes that require an existing recipe. If the recipe doesn't exist
-        or the user doens't not have the required permissions, the proper HTTP Status code will be raised.
-        """
-        new_class = cls(deps.session, deps.user, deps.bg_task)
-        new_class.assert_existing(item_id)
-        return new_class
+    def _existing_factory(dependency: Type[CLS_DEP]) -> classmethod:
+        def cls_method(cls, item_id: T, deps: CLS_DEP = Depends(dependency)):
+            new_class = cls(deps.session, deps.user, deps.bg_task)
+            new_class.assert_existing(item_id)
+            return new_class
 
-    @classmethod
-    def write_existing(cls, item_id: T, deps: WriteDeps = Depends()):
-        """
-        Used for dependency injection for routes that require an existing recipe. The only difference between
-        read_existing and write_existing is that the user is required to be logged in on write_existing method.
-        """
-        new_class = cls(deps.session, deps.user, deps.bg_task)
-        new_class.assert_existing(item_id)
-        return new_class
+        return classmethod(cls_method)
 
-    @classmethod
-    def public(cls, deps: ReadDeps = Depends()):
-        """
-        A Base instance to be used as a router dependency
-        """
-        return cls(deps.session, deps.user, deps.bg_task)
+    def _class_method_factory(dependency: Type[CLS_DEP]) -> classmethod:
+        def cls_method(cls, deps: CLS_DEP = Depends(dependency)):
+            return cls(deps.session, deps.user, deps.bg_task)
 
-    @classmethod
-    def private(cls, deps: WriteDeps = Depends()):
-        """
-        A Base instance to be used as a router dependency
-        """
-        return cls(deps.session, deps.user, deps.bg_task)
+        return classmethod(cls_method)
 
-    @abstractmethod
-    def populate_item(self) -> None:
-        ...
+    # TODO: Refactor to allow for configurable dependencies base on substantiation
+    read_existing = _existing_factory(PublicDeps)
+    write_existing = _existing_factory(UserDeps)
+
+    public = _class_method_factory(PublicDeps)
+    private = _class_method_factory(UserDeps)
 
     def assert_existing(self, id: T) -> None:
         self.populate_item(id)
         self._check_item()
+
+    @abstractmethod
+    def populate_item(self) -> None:
+        ...
 
     def _check_item(self) -> None:
         if not self.item:

@@ -4,13 +4,13 @@ from fastapi import HTTPException, status
 
 from mealie.core.root_logger import get_logger
 from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
-from mealie.services.base_http_service.base_http_service import BaseHttpService
+from mealie.services.base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 
 logger = get_logger(module=__name__)
 
 
-class CookbookService(BaseHttpService[int, ReadCookBook]):
+class CookbookService(UserHttpService[int, ReadCookBook]):
     event_func = create_group_event
     _restrict_by_group = True
 
@@ -19,17 +19,17 @@ class CookbookService(BaseHttpService[int, ReadCookBook]):
     _update_schema = UpdateCookBook
     _get_one_schema = RecipeCookBook
 
-    def populate_item(self, id: int | str):
+    def populate_item(self, item_id: int | str):
         try:
-            id = int(id)
+            item_id = int(item_id)
         except Exception:
             pass
 
-        if isinstance(id, int):
-            self.item = self.db.cookbooks.get_one(self.session, id, override_schema=RecipeCookBook)
+        if isinstance(item_id, int):
+            self.item = self.db.cookbooks.get_one(self.session, item_id, override_schema=RecipeCookBook)
 
         else:
-            self.item = self.db.cookbooks.get_one(self.session, id, key="slug", override_schema=RecipeCookBook)
+            self.item = self.db.cookbooks.get_one(self.session, item_id, key="slug", override_schema=RecipeCookBook)
 
     def get_all(self) -> list[ReadCookBook]:
         items = self.db.cookbooks.get(self.session, self.group_id, "group_id", limit=999)
