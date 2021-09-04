@@ -27,9 +27,11 @@ class User(SqlAlchemyBase, BaseMixins):
     username = Column(String, index=True, unique=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
+    admin = Column(Boolean, default=False)
+
     group_id = Column(Integer, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
-    admin = Column(Boolean, default=False)
+
     tokens: list[LongLiveToken] = orm.relationship(
         LongLiveToken, back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )

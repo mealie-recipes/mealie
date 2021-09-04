@@ -5,7 +5,8 @@ from sqlalchemy.ext.orderinglist import ordering_list
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.group import Group
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.db.models.shopping_list import ShoppingList
+
+from .group.shopping_list import ShoppingList
 
 
 class Meal(SqlAlchemyBase):

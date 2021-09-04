@@ -8,13 +8,13 @@ from sqlalchemy.exc import IntegrityError
 from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
-from mealie.services.base_http_service.base_http_service import BaseHttpService
+from mealie.services.base_http_service.http_services import PublicHttpService
 from mealie.services.events import create_recipe_event
 
 logger = get_logger(module=__name__)
 
 
-class RecipeService(BaseHttpService[str, Recipe]):
+class RecipeService(PublicHttpService[str, Recipe]):
     """
     Class Methods:
         `read_existing`: Reads an existing recipe from the database.

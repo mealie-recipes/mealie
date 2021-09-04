@@ -3,13 +3,13 @@ from fastapi import HTTPException, status
 from mealie.core.root_logger import get_logger
 from mealie.core.security import hash_password, verify_password
 from mealie.schema.user.user import ChangePassword, PrivateUser
-from mealie.services.base_http_service.base_http_service import BaseHttpService
+from mealie.services.base_http_service.http_services import UserHttpService
 from mealie.services.events import create_user_event
 
 logger = get_logger(module=__name__)
 
 
-class UserService(BaseHttpService[int, str]):
+class UserService(UserHttpService[int, str]):
     event_func = create_user_event
     acting_user: PrivateUser = None
 

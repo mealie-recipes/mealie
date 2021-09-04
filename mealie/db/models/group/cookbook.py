@@ -1,8 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, orm
 
-from ._model_base import BaseMixins, SqlAlchemyBase
-from ._model_utils import auto_init
-from .recipe.category import Category, cookbooks_to_categories
+from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_utils import auto_init
+from ..recipe.category import Category, cookbooks_to_categories
 
 
 class CookBook(SqlAlchemyBase, BaseMixins):

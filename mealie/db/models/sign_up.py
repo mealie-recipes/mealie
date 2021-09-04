@@ -2,6 +2,8 @@ from sqlalchemy import Boolean, Column, Integer, String
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
+from ._model_utils import auto_init
+
 
 class SignUp(SqlAlchemyBase, BaseMixins):
     __tablename__ = "sign_ups"
@@ -10,13 +12,6 @@ class SignUp(SqlAlchemyBase, BaseMixins):
     name = Column(String, index=True)
     admin = Column(Boolean, default=False)
 
-    def __init__(
-        self,
-        session,
-        token,
-        name,
-        admin,
-    ) -> None:
-        self.token = token
-        self.name = name
-        self.admin = admin
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass

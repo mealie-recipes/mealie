@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
-from typing import Callable, Generic, Type, TypeVar
+from typing import Any, Callable, Generic, Type, TypeVar
 
 from fastapi import BackgroundTasks, Depends, HTTPException, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs, get_settings
-from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
+from mealie.db.data_access_layer.db_access import DatabaseAccessLayer
 from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
 from mealie.schema.user.user import PrivateUser
@@ -44,10 +44,10 @@ class BaseHttpService(Generic[T, D], ABC):
     delete_one: Callable = None
     delete_all: Callable = None
 
+    db_access: DatabaseAccessLayer = None
+
     # Type Definitions
     _schema = None
-    _create_schema = None
-    _update_schema = None
 
     # Function called to create a server side event
     event_func: Callable = None
@@ -67,14 +67,6 @@ class BaseHttpService(Generic[T, D], ABC):
         self.app_dirs = get_app_dirs()
         self.settings = get_settings()
 
-    @property
-    def group_id(self):
-        # TODO: Populate Group in Private User Call WARNING: May require significant refactoring
-        if not self._group_id_cache:
-            group = self.db.groups.get(self.session, self.user.group, "name")
-            self._group_id_cache = group.id
-        return self._group_id_cache
-
     def _existing_factory(dependency: Type[CLS_DEP]) -> classmethod:
         def cls_method(cls, item_id: T, deps: CLS_DEP = Depends(dependency)):
             new_class = cls(deps.session, deps.user, deps.bg_task)
@@ -89,20 +81,41 @@ class BaseHttpService(Generic[T, D], ABC):
 
         return classmethod(cls_method)
 
-    # TODO: Refactor to allow for configurable dependencies base on substantiation
-    read_existing = _existing_factory(PublicDeps)
-    write_existing = _existing_factory(UserDeps)
+    @classmethod
+    @abstractmethod
+    def public(cls, deps: Any):
+        pass
 
-    public = _class_method_factory(PublicDeps)
-    private = _class_method_factory(UserDeps)
+    @classmethod
+    @abstractmethod
+    def private(cls, deps: Any):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def read_existing(cls, deps: Any):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def write_existing(cls, deps: Any):
+        pass
+
+    @abstractmethod
+    def populate_item(self) -> None:
+        pass
+
+    @property
+    def group_id(self):
+        # TODO: Populate Group in Private User Call WARNING: May require significant refactoring
+        if not self._group_id_cache:
+            group = self.db.groups.get(self.session, self.user.group, "name")
+            self._group_id_cache = group.id
+        return self._group_id_cache
 
     def assert_existing(self, id: T) -> None:
         self.populate_item(id)
         self._check_item()
-
-    @abstractmethod
-    def populate_item(self) -> None:
-        ...
 
     def _check_item(self) -> None:
         if not self.item:
@@ -114,8 +127,38 @@ class BaseHttpService(Generic[T, D], ABC):
             if not group_id or group_id != self.group_id:
                 raise HTTPException(status.HTTP_403_FORBIDDEN)
 
+        if hasattr(self, "check_item"):
+            self.check_item()
+
     def _create_event(self, title: str, message: str) -> None:
         if not self.__class__.event_func:
             raise NotImplementedError("`event_func` must be set by child class")
 
         self.background_tasks.add_task(self.__class__.event_func, title, message, self.session)
+
+    # Generic CRUD Functions
+    def _create_one(self, data: Any, exception_msg="generic-create-error") -> D:
+        try:
+            self.item = self.db_access.create(self.session, data)
+        except Exception as ex:
+            logger.exception(ex)
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": exception_msg, "exception": str(ex)})
+
+        return self.item
+
+    def _update_one(self, data: Any, id: int = None) -> D:
+        if not self.item:
+            return
+
+        target_id = id or self.item.id
+        self.item = self.db_access.update(self.session, target_id, data)
+
+        return self.item
+
+    def _delete_one(self, id: int = None) -> D:
+        if not self.item:
+            return
+
+        target_id = id or self.item.id
+        self.item = self.db_access.delete(self.session, target_id)
+        return self.item

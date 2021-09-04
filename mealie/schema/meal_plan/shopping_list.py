@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi_camelcase import CamelModel
 from pydantic.utils import GetterDict
 
-from mealie.db.models.shopping_list import ShoppingList
+from mealie.db.models.group.shopping_list import ShoppingList
 
 
 class ListItem(CamelModel):

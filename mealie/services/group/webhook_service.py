@@ -5,13 +5,13 @@ from fastapi import HTTPException, status
 from mealie.core.root_logger import get_logger
 from mealie.schema.group import ReadWebhook
 from mealie.schema.group.webhook import CreateWebhook, SaveWebhook
-from mealie.services.base_http_service.base_http_service import BaseHttpService
+from mealie.services.base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 
 logger = get_logger(module=__name__)
 
 
-class WebhookService(BaseHttpService[int, ReadWebhook]):
+class WebhookService(UserHttpService[int, ReadWebhook]):
     event_func = create_group_event
     _restrict_by_group = True
 
@@ -19,8 +19,9 @@ class WebhookService(BaseHttpService[int, ReadWebhook]):
     _create_schema = CreateWebhook
     _update_schema = CreateWebhook
 
-    def populate_item(self, id: int | str):
+    def populate_item(self, id: int) -> ReadWebhook:
         self.item = self.db.webhooks.get_one(self.session, id)
+        return self.item
 
     def get_all(self) -> list[ReadWebhook]:
         return self.db.webhooks.get(self.session, self.group_id, match_key="group_id", limit=9999)
