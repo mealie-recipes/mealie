@@ -96,8 +96,8 @@ class BaseAccessModel(Generic[T, D]):
         if any_case:
             search_attr = getattr(self.sql_model, key)
             result = session.query(self.sql_model).filter(func.lower(search_attr) == key.lower()).one_or_none()
-
-        result = session.query(self.sql_model).filter_by(**{key: value}).one_or_none()
+        else:
+            result = session.query(self.sql_model).filter_by(**{key: value}).one_or_none()
 
         if not result:
             return
