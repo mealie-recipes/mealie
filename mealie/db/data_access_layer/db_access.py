@@ -55,14 +55,13 @@ class TagsDataAccessModel(BaseAccessModel):
 
 
 class DatabaseAccessLayer:
-    """
-    `DatabaseAccessLayer` class is the data access layer for all database actions within
-    Mealie. Database uses composition from classes derived from BaseAccessModel. These
-    can be substantiated from the BaseAccessModel class or through inheritance when
-    additional methods are required.
-    """
-
     def __init__(self) -> None:
+        """
+        `DatabaseAccessLayer` class is the data access layer for all database actions within
+        Mealie. Database uses composition from classes derived from BaseAccessModel. These
+        can be substantiated from the BaseAccessModel class or through inheritance when
+        additional methods are required.
+        """
 
         # Recipes
         self.recipes = RecipeDataAccessModel(pk_slug, RecipeModel, Recipe)
