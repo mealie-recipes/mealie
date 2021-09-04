@@ -1,4 +1,3 @@
-import uuid
 from datetime import datetime
 
 from sqlalchemy import Column, DateTime, Integer
@@ -7,22 +6,11 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm.session import Session
 
 
-def get_uuid_as_hex() -> str:
-    """
-    Generate a UUID as a hex string.
-    :return: UUID as a hex string.
-    """
-    return uuid.uuid4().hex
-
-
 @as_declarative()
 class Base:
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime, default=datetime.now())
-
-    # @declared_attr
-    # def __tablename__(cls):
-    #     return cls.__name__.lower()
+    update_at = Column(DateTime, default=datetime.now(), onupdate=datetime.now())
 
 
 class BaseMixins:

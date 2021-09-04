@@ -6,13 +6,13 @@ from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe_category import CategoryBase
 from mealie.schema.user.user import GroupInDB
-from mealie.services.base_http_service.base_http_service import BaseHttpService
+from mealie.services.base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 
 logger = get_logger(module=__name__)
 
 
-class GroupSelfService(BaseHttpService[int, str]):
+class GroupSelfService(UserHttpService[int, str]):
     _restrict_by_group = True
     event_func = create_group_event
     item: GroupInDB
@@ -36,8 +36,9 @@ class GroupSelfService(BaseHttpService[int, str]):
         if self.item.id != self.group_id:
             raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    def populate_item(self, _: str = None):
+    def populate_item(self, _: str = None) -> GroupInDB:
         self.item = self.db.groups.get(self.session, self.group_id)
+        return self.item
 
     def update_categories(self, new_categories: list[CategoryBase]):
         if not self.item:

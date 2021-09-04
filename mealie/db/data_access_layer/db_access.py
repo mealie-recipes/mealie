@@ -3,9 +3,10 @@ from logging import getLogger
 from sqlalchemy.orm.session import Session
 
 from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
-from mealie.db.models.cookbook import CookBook
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
+from mealie.db.models.group.cookbook import CookBook
+from mealie.db.models.group.shopping_list import ShoppingList
 from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.db.models.mealplan import MealPlan
 from mealie.db.models.recipe.category import Category
@@ -13,7 +14,6 @@ from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel, Tag
 from mealie.db.models.settings import SiteSettings
-from mealie.db.models.shopping_list import ShoppingList
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
 from mealie.schema.admin import SiteSettings as SiteSettingsSchema
@@ -39,7 +39,9 @@ from .user_access_model import UserDataAccessModel
 logger = getLogger()
 
 
-DEFAULT_PK = "id"
+pk_id = "id"
+pk_slug = "slug"
+pk_token = "token"
 
 
 class CategoryDataAccessModel(BaseAccessModel):
@@ -63,28 +65,28 @@ class DatabaseAccessLayer:
     def __init__(self) -> None:
 
         # Recipes
-        self.recipes = RecipeDataAccessModel("slug", RecipeModel, Recipe)
-        self.ingredient_foods = BaseAccessModel(DEFAULT_PK, IngredientFoodModel, IngredientFood)
-        self.ingredient_units = BaseAccessModel(DEFAULT_PK, IngredientUnitModel, IngredientUnit)
-        self.comments = BaseAccessModel(DEFAULT_PK, RecipeComment, CommentOut)
+        self.recipes = RecipeDataAccessModel(pk_slug, RecipeModel, Recipe)
+        self.ingredient_foods = BaseAccessModel(pk_id, IngredientFoodModel, IngredientFood)
+        self.ingredient_units = BaseAccessModel(pk_id, IngredientUnitModel, IngredientUnit)
+        self.comments = BaseAccessModel(pk_id, RecipeComment, CommentOut)
 
         # Tags and Categories
-        self.categories = CategoryDataAccessModel("slug", Category, RecipeCategoryResponse)
-        self.tags = TagsDataAccessModel("slug", Tag, RecipeTagResponse)
+        self.categories = CategoryDataAccessModel(pk_slug, Category, RecipeCategoryResponse)
+        self.tags = TagsDataAccessModel(pk_slug, Tag, RecipeTagResponse)
 
         # Site
-        self.settings = BaseAccessModel(DEFAULT_PK, SiteSettings, SiteSettingsSchema)
-        self.sign_ups = BaseAccessModel("token", SignUp, SignUpOut)
-        self.event_notifications = BaseAccessModel(DEFAULT_PK, EventNotification, EventNotificationIn)
-        self.events = BaseAccessModel(DEFAULT_PK, Event, EventSchema)
+        self.settings = BaseAccessModel(pk_id, SiteSettings, SiteSettingsSchema)
+        self.sign_ups = BaseAccessModel(pk_token, SignUp, SignUpOut)
+        self.event_notifications = BaseAccessModel(pk_id, EventNotification, EventNotificationIn)
+        self.events = BaseAccessModel(pk_id, Event, EventSchema)
 
         # Users
-        self.users = UserDataAccessModel(DEFAULT_PK, User, PrivateUser)
-        self.api_tokens = BaseAccessModel(DEFAULT_PK, LongLiveToken, LongLiveTokenInDB)
+        self.users = UserDataAccessModel(pk_id, User, PrivateUser)
+        self.api_tokens = BaseAccessModel(pk_id, LongLiveToken, LongLiveTokenInDB)
 
         # Group Data
-        self.groups = GroupDataAccessModel(DEFAULT_PK, Group, GroupInDB)
-        self.meals = BaseAccessModel(DEFAULT_PK, MealPlan, MealPlanOut)
-        self.webhooks = BaseAccessModel(DEFAULT_PK, GroupWebhooksModel, ReadWebhook)
-        self.shopping_lists = BaseAccessModel(DEFAULT_PK, ShoppingList, ShoppingListOut)
-        self.cookbooks = BaseAccessModel(DEFAULT_PK, CookBook, ReadCookBook)
+        self.groups = GroupDataAccessModel(pk_id, Group, GroupInDB)
+        self.meals = BaseAccessModel(pk_id, MealPlan, MealPlanOut)
+        self.webhooks = BaseAccessModel(pk_id, GroupWebhooksModel, ReadWebhook)
+        self.shopping_lists = BaseAccessModel(pk_id, ShoppingList, ShoppingListOut)
+        self.cookbooks = BaseAccessModel(pk_id, CookBook, ReadCookBook)

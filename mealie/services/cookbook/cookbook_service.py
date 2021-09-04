@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from fastapi import HTTPException, status
-
 from mealie.core.root_logger import get_logger
+from mealie.db.database import get_database
 from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
 from mealie.services.base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
+from mealie.utils.error_messages import ErrorMessages
 
 logger = get_logger(module=__name__)
 
@@ -15,11 +15,10 @@ class CookbookService(UserHttpService[int, ReadCookBook]):
     _restrict_by_group = True
 
     _schema = ReadCookBook
-    _create_schema = CreateCookBook
-    _update_schema = UpdateCookBook
-    _get_one_schema = RecipeCookBook
 
-    def populate_item(self, item_id: int | str):
+    db_access = get_database().cookbooks
+
+    def populate_item(self, item_id: int) -> RecipeCookBook:
         try:
             item_id = int(item_id)
         except Exception:
@@ -37,25 +36,13 @@ class CookbookService(UserHttpService[int, ReadCookBook]):
         return items
 
     def create_one(self, data: CreateCookBook) -> ReadCookBook:
-        try:
-            self.item = self.db.cookbooks.create(self.session, SaveCookBook(group_id=self.group_id, **data.dict()))
-        except Exception as ex:
-            raise HTTPException(
-                status.HTTP_400_BAD_REQUEST, detail={"message": "PAGE_CREATION_ERROR", "exception": str(ex)}
-            )
+        data = SaveCookBook(group_id=self.group_id, **data.dict())
+        return self._create_one(data, ErrorMessages.cookbook_create_failure)
 
-        return self.item
+    def update_one(self, data: UpdateCookBook, id: int = None) -> ReadCookBook:
+        return self._update_one(data, id)
 
-    def update_one(self, data: CreateCookBook, id: int = None) -> ReadCookBook:
-        if not self.item:
-            return
-
-        target_id = id or self.item.id
-        self.item = self.db.cookbooks.update(self.session, target_id, data)
-
-        return self.item
-
-    def update_many(self, data: list[ReadCookBook]) -> list[ReadCookBook]:
+    def update_many(self, data: list[UpdateCookBook]) -> list[ReadCookBook]:
         updated = []
 
         for cookbook in data:
@@ -65,10 +52,4 @@ class CookbookService(UserHttpService[int, ReadCookBook]):
         return updated
 
     def delete_one(self, id: int = None) -> ReadCookBook:
-        if not self.item:
-            return
-
-        target_id = id or self.item.id
-        self.item = self.db.cookbooks.delete(self.session, target_id)
-
-        return self.item
+        return self._delete_one(id)

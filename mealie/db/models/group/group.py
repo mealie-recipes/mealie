@@ -3,12 +3,12 @@ import sqlalchemy.orm as orm
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import settings
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models.cookbook import CookBook
-from mealie.db.models.group.webhooks import GroupWebhooksModel
-from mealie.db.models.recipe.category import Category, group2categories
 
+from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
+from ..group.webhooks import GroupWebhooksModel
+from ..recipe.category import Category, group2categories
+from .cookbook import CookBook
 
 
 class Group(SqlAlchemyBase, BaseMixins):

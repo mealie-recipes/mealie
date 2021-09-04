@@ -2,6 +2,8 @@ from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
+from ._model_utils import auto_init
+
 
 class EventNotification(SqlAlchemyBase, BaseMixins):
     __tablename__ = "event_notifications"
@@ -19,19 +21,9 @@ class EventNotification(SqlAlchemyBase, BaseMixins):
     group = Column(Boolean, default=False)
     user = Column(Boolean, default=False)
 
-    def __init__(
-        self, name, notification_url, type, general, recipe, backup, scheduled, migration, group, user, **_
-    ) -> None:
-        self.name = name
-        self.notification_url = notification_url
-        self.type = type
-        self.general = general
-        self.recipe = recipe
-        self.backup = backup
-        self.scheduled = scheduled
-        self.migration = migration
-        self.group = group
-        self.user = user
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
 
 
 class Event(SqlAlchemyBase, BaseMixins):
@@ -42,8 +34,6 @@ class Event(SqlAlchemyBase, BaseMixins):
     time_stamp = Column(DateTime)
     category = Column(String)
 
-    def __init__(self, title, text, time_stamp, category, **_) -> None:
-        self.title = title
-        self.text = text
-        self.time_stamp = time_stamp
-        self.category = category
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass

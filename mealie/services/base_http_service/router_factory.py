@@ -1,5 +1,5 @@
 import inspect
-from typing import Any, Callable, Optional, Sequence, Type, TypeVar
+from typing import Any, Callable, Optional, Sequence, Type, TypeVar, get_type_hints
 
 from fastapi import APIRouter
 from fastapi.params import Depends
@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 from .base_http_service import BaseHttpService
 
-""""
+"""
 This code is largely based off of the FastAPI Crud Router
 https://github.com/awtkns/fastapi-crudrouter/blob/master/fastapi_crudrouter/core/_base.py
 """
@@ -18,24 +18,39 @@ S = TypeVar("S", bound=BaseHttpService)
 DEPENDENCIES = Optional[Sequence[Depends]]
 
 
+def get_return(func: Callable, default) -> Type:
+    return get_type_hints(func).get("return", default)
+
+
+def get_func_args(func: Callable) -> Sequence[str]:
+    for _, value in get_type_hints(func).items():
+        if value:
+            return value
+        else:
+            return None
+
+
 class RouterFactory(APIRouter):
+
     schema: Type[T]
-    create_schema: Type[T]
-    update_schema: Type[T]
     _base_path: str = "/"
 
     def __init__(self, service: Type[S], prefix: Optional[str] = None, tags: Optional[list[str]] = None, *_, **kwargs):
+        """
+        RouterFactory takes a concrete service class derived from the BaseHttpService class and returns common
+        CRUD Routes for the service. The following features are implmeneted in the RouterFactory:
+
+        1. API endpoint Descriptions are read from the docstrings of the methods in the passed in service class
+        2. Return types are inferred from the concrete service schema, or specified from the return type annotations.
+        This provides flexibility to return different types based on each route depending on client needs.
+        3. Arguemnt types are inferred for Post and Put routes where the first type annotated argument is the data that
+        is beging posted or updated. Note that this is only done for the first argument of the method.
+        4. The Get and Delete routes assume that you've defined the `write_existing` and `read_existing` methods in the
+        service class. The dependencies defined in the `write_existing` and `read_existing` methods are passed directly
+        to the FastAPI router and as such should include the `item_id` or equilivent argument.
+        """
         self.service: Type[S] = service
         self.schema: Type[T] = service._schema
-
-        # HACK: Special Case for Coobooks, not sure this is a good way to handle the abstraction :/
-        if hasattr(self.service, "_get_one_schema"):
-            self.get_one_schema = self.service._get_one_schema
-        else:
-            self.get_one_schema = self.schema
-
-        self.update_schema: Type[T] = service._update_schema
-        self.create_schema: Type[T] = service._create_schema
 
         prefix = str(prefix or self.schema.__name__).lower()
         prefix = self._base_path + prefix.strip("/")
@@ -88,7 +103,7 @@ class RouterFactory(APIRouter):
                 "/{item_id}",
                 self._get_one(),
                 methods=["GET"],
-                response_model=self.get_one_schema,
+                response_model=get_type_hints(self.service.populate_item).get("return", self.schema),
                 summary="Get One",
                 description=inspect.cleandoc(self.service.populate_item.__doc__ or ""),
             )
@@ -104,7 +119,6 @@ class RouterFactory(APIRouter):
             )
 
         if self.service.delete_one:
-            print(self.service.delete_one.__doc__)
             self._add_api_route(
                 "/{item_id}",
                 self._delete_one(),
@@ -160,19 +174,25 @@ class RouterFactory(APIRouter):
         return route
 
     def _create(self, *args: Any, **kwargs: Any) -> Callable[..., Any]:
-        def route(data: self.create_schema, service: S = Depends(self.service.private)) -> T:  # type: ignore
+        create_schema = get_func_args(self.service.create_one) or self.schema
+
+        def route(data: create_schema, service: S = Depends(self.service.private)) -> T:  # type: ignore
             return service.create_one(data)
 
         return route
 
     def _update(self, *args: Any, **kwargs: Any) -> Callable[..., Any]:
-        def route(data: self.update_schema, service: S = Depends(self.service.write_existing)) -> T:  # type: ignore
+        update_schema = get_func_args(self.service.update_one) or self.schema
+
+        def route(data: update_schema, service: S = Depends(self.service.write_existing)) -> T:  # type: ignore
             return service.update_one(data)
 
         return route
 
     def _update_many(self, *args: Any, **kwargs: Any) -> Callable[..., Any]:
-        def route(data: list[self.update_schema], service: S = Depends(self.service.write_existing)) -> T:  # type: ignore
+        update_many_schema = get_func_args(self.service.update_many) or list[self.schema]
+
+        def route(data: update_many_schema, service: S = Depends(self.service.private)) -> T:  # type: ignore
             return service.update_many(data)
 
         return route
