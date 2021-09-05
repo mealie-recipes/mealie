@@ -8,7 +8,7 @@
       :top-link="topLinks"
       secondary-header="Cookbooks"
       :secondary-links="cookbookLinks || []"
-      :bottom-links="bottomLink"
+      :bottom-links="$auth.user.admin ? bottomLink : []"
       @input="sidebar = !sidebar"
     />
 
@@ -62,7 +62,7 @@ export default defineComponent({
         {
           icon: this.$globals.icons.cog,
           title: this.$t("general.settings"),
-          to: "/user/profile",
+          to: "/admin/dashboard",
           restricted: true,
         },
       ],

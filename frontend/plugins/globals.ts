@@ -20,6 +20,7 @@ import {
   mdiEmail,
   mdiLock,
   mdiEye,
+  mdiDrag,
   mdiEyeOff,
   mdiCalendarMinus,
   mdiCalendar,
@@ -38,7 +39,6 @@ import {
   mdiFilePdfBox,
   mdiFileImage,
   mdiCodeJson,
-  mdiArrowUpDown,
   mdiCog,
   mdiSort,
   mdiOrderAlphabeticalAscending,
@@ -92,6 +92,8 @@ import {
   mdiMinus,
   mdiWindowClose,
   mdiFolderZipOutline,
+  mdiFoodApple,
+  mdiBeakerOutline,
 } from "@mdi/js";
 
 const icons = {
@@ -99,11 +101,13 @@ const icons = {
   primary: mdiSilverwareVariant,
 
   // General
+  foods: mdiFoodApple,
+  units: mdiBeakerOutline,
   alert: mdiAlert,
   alertCircle: mdiAlertCircle,
   api: mdiApi,
   arrowLeftBold: mdiArrowLeftBold,
-  arrowUpDown: mdiArrowUpDown,
+  arrowUpDown: mdiDrag,
   backupRestore: mdiBackupRestore,
   bellAlert: mdiBellAlert,
   broom: mdiBroom,
@@ -200,6 +204,8 @@ const icons = {
   accountPlusOutline: mdiAccountPlusOutline,
 };
 
-export const globals = {
-  icons,
+// eslint-disable-next-line no-empty-pattern
+export default ({}, inject: any) => {
+  // Inject $hello(msg) in Vue, context and store.
+  inject("globals", { icons });
 };

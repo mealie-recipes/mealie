@@ -47,28 +47,6 @@ export default defineComponent({
       sidebar: null,
       topLinks: [
         {
-          icon: this.$globals.icons.user,
-          to: "/user/profile",
-          title: this.$t("sidebar.profile"),
-        },
-        {
-          icon: this.$globals.icons.group,
-          to: "/user/group",
-          title: this.$t("group.group"),
-        },
-        {
-          icon: this.$globals.icons.pages,
-          to: "/user/group/cookbooks",
-          title: this.$t("sidebar.cookbooks"),
-        },
-        {
-          icon: this.$globals.icons.webhook,
-          to: "/user/group/webhooks",
-          title: "Webhooks",
-        },
-      ],
-      adminLinks: [
-        {
           icon: this.$globals.icons.viewDashboard,
           to: "/admin/dashboard",
           title: this.$t("sidebar.dashboard"),
@@ -156,9 +134,6 @@ export default defineComponent({
         },
       ],
     };
-  },
-  head: {
-    title: "Admin",
   },
 });
 </script>

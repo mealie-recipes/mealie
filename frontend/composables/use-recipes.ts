@@ -7,6 +7,56 @@ import { Recipe } from "~/types/api-types/recipe";
 export const allRecipes = ref<Recipe[] | null>([]);
 export const recentRecipes = ref<Recipe[] | null>([]);
 
+const rand = (n: number) => Math.floor(Math.random() * n);
+
+function swap(t: Array<any>, i: number, j: number) {
+  const q = t[i];
+  t[i] = t[j];
+  t[j] = q;
+  return t;
+}
+
+export const useSorter = () => {
+  function sortAToZ(list: Array<Recipe>) {
+    list.sort((a, b) => {
+      const textA = a.name.toUpperCase();
+      const textB = b.name.toUpperCase();
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+  }
+  function sortByCreated(list: Array<Recipe>) {
+    list.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+  }
+  function sortByUpdated(list: Array<Recipe>) {
+    list.sort((a, b) => (a.dateUpdated > b.dateUpdated ? -1 : 1));
+  }
+  function sortByRating(list: Array<Recipe>) {
+    list.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+  }
+
+  function randomRecipe(list: Array<Recipe>): Recipe {
+    return list[Math.floor(Math.random() * list.length)];
+  }
+
+  function shuffle(list: Array<Recipe>) {
+    let last = list.length;
+    let n;
+    while (last > 0) {
+      n = rand(last);
+      swap(list, n, --last);
+    }
+  }
+
+  return {
+    sortAToZ,
+    sortByCreated,
+    sortByUpdated,
+    sortByRating,
+    randomRecipe,
+    shuffle,
+  };
+};
+
 export const useRecipes = (all = false, fetchRecipes = true) => {
   const api = useApiSingleton();
 

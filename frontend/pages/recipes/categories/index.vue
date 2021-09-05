@@ -7,9 +7,10 @@
       <v-toolbar-title class="headline"> {{ $t("recipe.categories") }} </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
-    <v-slide-x-transition hide-on-leave>
+    <section v-for="(items, key, idx) in categoriesByLetter" :key="'header' + idx" :class="idx === 1 ? null : 'my-4'">
+      <BaseCardSectionTitle :title="key"> </BaseCardSectionTitle>
       <v-row>
-        <v-col v-for="item in categories" :key="item.id" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
+        <v-col v-for="(item, index) in items" :key="'cat' + index" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
           <v-card hover :to="`/recipes/categories/${item.slug}`">
             <v-card-actions>
               <v-icon>
@@ -21,12 +22,12 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-slide-x-transition>
+    </section>
   </v-container>
 </template>
   
 <script lang="ts">
-import { defineComponent, useAsync } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useAsync } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
 import { useAsyncKey } from "~/composables/use-utils";
 
@@ -38,7 +39,25 @@ export default defineComponent({
       const { data } = await api.categories.getAll();
       return data;
     }, useAsyncKey());
-    return { categories, api };
+
+    const categoriesByLetter: any = computed(() => {
+      const catsByLetter: { [key: string]: Array<any> } = {};
+
+      if (!categories.value) return catsByLetter;
+
+      categories.value.forEach((item) => {
+        const letter = item.name[0].toUpperCase();
+        if (!catsByLetter[letter]) {
+          catsByLetter[letter] = [];
+        }
+
+        catsByLetter[letter].push(item);
+      });
+
+      return catsByLetter;
+    });
+
+    return { categories, api, categoriesByLetter };
   },
 });
 </script>

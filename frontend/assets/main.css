@@ -6,3 +6,7 @@
 .layout-leave-active {
   opacity: 0;
 }
+
+.narrow-container {
+  max-width: 700px !important;
+}

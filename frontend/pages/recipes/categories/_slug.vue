@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <RecipeCardSection
+      v-if="category"
       :icon="$globals.icons.tags"
       :title="category.name"
       :recipes="category.recipes"
