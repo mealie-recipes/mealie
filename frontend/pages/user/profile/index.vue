@@ -4,7 +4,7 @@
       <v-avatar color="primary" size="75" class="mb-2">
         <v-img :src="require(`~/static/account.png`)" />
       </v-avatar>
-      <h2 class="headline">👋 Welcome, {{ user.fullName }}!</h2>
+      <h2 class="headline">👋 Welcome, {{ user.fullName }}</h2>
       <p class="subtitle-1 mb-0">
         Manage your profile, recipes, and group settings.
         <a href="https://hay-kot.github.io/mealie/" target="_blank"> Learn More </a>
@@ -59,6 +59,15 @@
           >
             <template #title> Cookbooks </template>
             Manage a collection of recipe categories and generate pages for them.
+          </UserProfileLinkCard>
+        </v-col>
+        <v-col cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: 'Manage Webhooks', to: '/user/group/webhooks' }"
+            :image="require('~/static/svgs/manage-webhooks.svg')"
+          >
+            <template #title> Webhooks </template>
+            Setup webhooks that trigger on days that you have have mealplan scheduled.
           </UserProfileLinkCard>
         </v-col>
       </v-row>
