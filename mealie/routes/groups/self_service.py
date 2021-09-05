@@ -2,7 +2,7 @@ from fastapi import Depends
 
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user.user import GroupInDB
-from mealie.services.group.group_service import GroupSelfService
+from mealie.services.group_services.group_service import GroupSelfService
 
 user_router = UserAPIRouter(prefix="/groups/self", tags=["Groups: Self Service"])
 

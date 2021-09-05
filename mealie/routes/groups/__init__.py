@@ -1,8 +1,7 @@
 from fastapi import APIRouter
 
-from mealie.services.base_http_service import RouterFactory
-from mealie.services.cookbook.cookbook_service import CookbookService
-from mealie.services.group.webhook_service import WebhookService
+from mealie.services._base_http_service import RouterFactory
+from mealie.services.group_services import CookbookService, WebhookService
 
 from . import categories, crud, self_service
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from mealie.core.root_logger import get_logger
 from mealie.db.database import get_database
 from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
-from mealie.services.base_http_service.http_services import UserHttpService
+from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 from mealie.utils.error_messages import ErrorMessages
 

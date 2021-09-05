@@ -6,6 +6,7 @@ from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group
 from mealie.db.models.group.cookbook import CookBook
+from mealie.db.models.group.preferences import GroupPreferencesModel
 from mealie.db.models.group.shopping_list import ShoppingList
 from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.db.models.mealplan import MealPlan
@@ -20,6 +21,7 @@ from mealie.schema.admin import SiteSettings as SiteSettingsSchema
 from mealie.schema.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
+from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan import MealPlanOut, ShoppingListOut
 from mealie.schema.recipe import (
@@ -89,3 +91,4 @@ class DatabaseAccessLayer:
         self.webhooks = BaseAccessModel(pk_id, GroupWebhooksModel, ReadWebhook)
         self.shopping_lists = BaseAccessModel(pk_id, ShoppingList, ShoppingListOut)
         self.cookbooks = BaseAccessModel(pk_id, CookBook, ReadCookBook)
+        self.group_preferences = BaseAccessModel("group_id", GroupPreferencesModel, ReadGroupPreferences)

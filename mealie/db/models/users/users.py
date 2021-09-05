@@ -28,6 +28,7 @@ class User(SqlAlchemyBase, BaseMixins):
     email = Column(String, unique=True, index=True)
     password = Column(String)
     admin = Column(Boolean, default=False)
+    advanced = Column(Boolean, default=False)
 
     group_id = Column(Integer, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
@@ -51,6 +52,7 @@ class User(SqlAlchemyBase, BaseMixins):
         favorite_recipes: list[str] = None,
         group: str = settings.DEFAULT_GROUP,
         admin=False,
+        advanced=False,
         **_
     ) -> None:
 
@@ -61,6 +63,7 @@ class User(SqlAlchemyBase, BaseMixins):
         self.group = Group.get_ref(session, group)
         self.admin = admin
         self.password = password
+        self.advanced = advanced
 
         self.favorite_recipes = [
             RecipeModel.get_ref(session=session, match_value=x, match_attr="slug") for x in favorite_recipes
@@ -69,13 +72,26 @@ class User(SqlAlchemyBase, BaseMixins):
         if self.username is None:
             self.username = full_name
 
-    def update(self, full_name, email, group, admin, username, session=None, favorite_recipes=None, password=None, **_):
+    def update(
+        self,
+        full_name,
+        email,
+        group,
+        admin,
+        username,
+        session=None,
+        favorite_recipes=None,
+        password=None,
+        advanced=False,
+        **_
+    ):
         favorite_recipes = favorite_recipes or []
         self.username = username
         self.full_name = full_name
         self.email = email
         self.group = Group.get_ref(session, group)
         self.admin = admin
+        self.advanced = advanced
 
         if self.username is None:
             self.username = full_name

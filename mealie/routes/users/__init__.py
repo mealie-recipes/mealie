@@ -1,11 +1,13 @@
 from fastapi import APIRouter
 
-from . import api_tokens, crud, favorites, images, passwords, sign_up
+from . import api_tokens, crud, favorites, images, passwords, registration, sign_up
 
 # Must be used because of the way FastAPI works with nested routes
 user_prefix = "/users"
 
 router = APIRouter()
+
+router.include_router(registration.router, prefix=user_prefix, tags=["Users: Registration"])
 
 router.include_router(sign_up.admin_router, prefix=user_prefix, tags=["Users: Sign-Up"])
 router.include_router(sign_up.public_router, prefix=user_prefix, tags=["Users: Sign-Up"])

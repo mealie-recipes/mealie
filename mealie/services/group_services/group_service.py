@@ -6,7 +6,7 @@ from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe_category import CategoryBase
 from mealie.schema.user.user import GroupInDB
-from mealie.services.base_http_service.http_services import UserHttpService
+from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 
 logger = get_logger(module=__name__)
