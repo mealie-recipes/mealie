@@ -1,11 +1,14 @@
 <template>
-  <v-container fluid>
-    <BaseCardSectionTitle title="MealPlan Webhooks">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias error provident, eveniet, laboriosam assumenda
-      earum amet quaerat vel consequatur molestias sed enim. Adipisci a consequuntur dolor culpa expedita voluptatem
-      praesentium optio iste atque, ea reiciendis iure non aut suscipit modi ducimus ratione, quam numquam quaerat
-      distinctio illum nemo. Dicta, doloremque!
-    </BaseCardSectionTitle>
+  <v-container class="narrow-container">
+    <BasePageTitle divider>
+      <template #header>
+        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-webhooks.svg')"></v-img>
+      </template>
+      <template #title> Webhooks </template>
+      The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks
+      will be sent with the data from the recipe that is scheduled for the day
+    </BasePageTitle>
+
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
       <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 my-border rounded">
@@ -53,16 +56,13 @@ import { defineComponent } from "@nuxtjs/composition-api";
 import { useGroupWebhooks } from "~/composables/use-group-webhooks";
 
 export default defineComponent({
-  layout: "admin",
   setup() {
     const { actions, webhooks } = useGroupWebhooks();
+
     return {
-      actions,
       webhooks,
+      actions,
     };
   },
 });
 </script>
-    
-<style scoped>
-</style>

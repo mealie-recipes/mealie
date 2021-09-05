@@ -16,31 +16,47 @@
       </v-col>
     </v-row>
 
-    <v-row dense class="my-0 flex-row align-center justify-space-around">
-      <v-col>
-        <h3 class="pl-2 text-center headline">
-          {{ $t("category.category-filter") }}
-        </h3>
-        <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
-        <RecipeCategoryTagSelector v-model="includeCategories" :solo="true" :dense="false" :return-object="false" />
-      </v-col>
-      <v-col>
-        <h3 class="pl-2 text-center headline">
-          {{ $t("search.tag-filter") }}
-        </h3>
-        <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
-        <RecipeCategoryTagSelector
-          v-model="includeTags"
-          :solo="true"
-          :dense="false"
-          :return-object="false"
-          :tag-selector="true"
-        />
-      </v-col>
-    </v-row>
+    <ToggleState>
+      <template #activator="{ state, toggle }">
+        <v-switch :value="state" color="info" class="ma-0 pa-0" label="Advanced" @input="toggle" @click="toggle">
+          Advanced
+        </v-switch>
+      </template>
+      <template #default="{ state }">
+        <v-expand-transition>
+          <v-row v-show="state" dense class="my-0 dense flex-row align-center justify-space-around">
+            <v-col>
+              <h3 class="pl-2 text-center headline">
+                {{ $t("category.category-filter") }}
+              </h3>
+              <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
+              <RecipeCategoryTagSelector
+                v-model="includeCategories"
+                :solo="true"
+                :dense="false"
+                :return-object="false"
+              />
+            </v-col>
+            <v-col>
+              <h3 class="pl-2 text-center headline">
+                {{ $t("search.tag-filter") }}
+              </h3>
+              <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
+              <RecipeCategoryTagSelector
+                v-model="includeTags"
+                :solo="true"
+                :dense="false"
+                :return-object="false"
+                :tag-selector="true"
+              />
+            </v-col>
+          </v-row>
+        </v-expand-transition>
+      </template>
+    </ToggleState>
 
     <RecipeCardSection
-      class="mt-n9"
+      class="mt-n5"
       :title-icon="$globals.icons.magnify"
       :recipes="showRecipes"
       :hard-limit="maxResults"

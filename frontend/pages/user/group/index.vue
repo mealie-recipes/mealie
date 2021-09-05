@@ -1,17 +1,23 @@
 <template>
-  <v-container fluid>
-    <section>
-      <BaseCardSectionTitle title="Group Settings">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias error provident, eveniet, laboriosam assumenda
-        earum amet quaerat vel consequatur molestias sed enim. Adipisci a consequuntur dolor culpa expedita voluptatem
-        praesentium optio iste atque, ea reiciendis iure non aut suscipit modi ducimus ratione, quam numquam quaerat
-        distinctio illum nemo. Dicta, doloremque!
-      </BaseCardSectionTitle>
-      <div v-if="categories" class="d-flex">
-        <DomainRecipeCategoryTagSelector v-model="categories" class="mt-5 mr-5" />
-        <BaseButton save class="mt-auto mb-3" @click="actions.updateAll()" />
-      </div>
-    </section>
+  <v-container>
+    <BasePageTitle divider>
+      <template #header>
+        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
+      </template>
+      <template #title> Group Settings </template>
+      These items are shared within your group. Editing one of them will change it for the whole group!
+    </BasePageTitle>
+    <v-card tag="section" outlined>
+      <v-card-text>
+        <BaseCardSectionTitle title="Mealplan Categories">
+          Set the categories below for the ones that you want to be included in your mealplan random generation.
+          <div class="mt-2">
+            <BaseButton save @click="actions.updateAll()" />
+          </div>
+        </BaseCardSectionTitle>
+        <DomainRecipeCategoryTagSelector v-if="categories" v-model="categories" />
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
     
@@ -20,7 +26,6 @@ import { defineComponent } from "@nuxtjs/composition-api";
 import { useGroup } from "~/composables/use-groups";
 
 export default defineComponent({
-  layout: "admin",
   setup() {
     const { categories, actions } = useGroup();
 
@@ -32,5 +37,3 @@ export default defineComponent({
 });
 </script>
     
-<style scoped>
-</style>

@@ -2,7 +2,7 @@
   <div v-if="value && value.length > 0">
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
     <div>
-      <div v-for="(ingredient, index) in value" :key="generateKey('ingredient', index)">
+      <div v-for="(ingredient, index) in value" :key="'ingredient' + index">
         <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
         <v-divider v-if="showTitleEditor[index]"></v-divider>
         <v-list-item dense @click="toggleChecked(index)">
@@ -20,7 +20,6 @@
 <script>
 import VueMarkdown from "@adapttive/vue-markdown";
 import { useFraction } from "@/composables/use-fraction";
-import { utils } from "@/utils";
 export default {
   components: {
     VueMarkdown,
@@ -87,10 +86,6 @@ export default {
     this.showTitleEditor = this.value.map((x) => this.validateTitle(x.title));
   },
   methods: {
-    generateKey(item, index) {
-      return utils.generateUniqueKey(item, index);
-    },
-
     toggleChecked(index) {
       this.$set(this.checked, index, !this.checked[index]);
     },

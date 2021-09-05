@@ -88,7 +88,6 @@
 <script>
 import draggable from "vuedraggable";
 import VueMarkdown from "@adapttive/vue-markdown";
-import { utils } from "@/utils";
 export default {
   components: {
     VueMarkdown,
@@ -126,9 +125,6 @@ export default {
   },
 
   methods: {
-    generateKey(item, index) {
-      return utils.generateUniqueKey(item, index);
-    },
     removeByIndex(list, index) {
       list.splice(index, 1);
     },

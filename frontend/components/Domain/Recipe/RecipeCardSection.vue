@@ -102,9 +102,9 @@
 </template>
 
 <script>
-import { utils } from "@/utils";
 import RecipeCard from "./RecipeCard";
 import RecipeCardMobile from "./RecipeCardMobile";
+import { useSorter } from "~/composables/use-recipes";
 const SORT_EVENT = "sort";
 
 export default {
@@ -141,6 +141,11 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  setup() {
+    const utils = useSorter();
+
+    return { utils };
   },
   data() {
     return {
@@ -197,7 +202,7 @@ export default {
       this.loading = false;
     },
     navigateRandom() {
-      const recipe = utils.recipe.randomRecipe(this.recipes);
+      const recipe = this.utils.recipe.randomRecipe(this.recipes);
       this.$router.push(`/recipe/${recipe.slug}`);
     },
     sortRecipes(sortType) {
@@ -205,19 +210,19 @@ export default {
       const sortTarget = [...this.recipes];
       switch (sortType) {
         case this.EVENTS.az:
-          utils.recipe.sortAToZ(sortTarget);
+          this.utils.sortAToZ(sortTarget);
           break;
         case this.EVENTS.rating:
-          utils.recipe.sortByRating(sortTarget);
+          this.utils.sortByRating(sortTarget);
           break;
         case this.EVENTS.created:
-          utils.recipe.sortByCreated(sortTarget);
+          this.utils.sortByCreated(sortTarget);
           break;
         case this.EVENTS.updated:
-          utils.recipe.sortByUpdated(sortTarget);
+          this.utils.sortByUpdated(sortTarget);
           break;
         case this.EVENTS.shuffle:
-          utils.recipe.shuffle(sortTarget);
+          this.utils.shuffle(sortTarget);
           break;
         default:
           console.log("Unknown Event", sortType);

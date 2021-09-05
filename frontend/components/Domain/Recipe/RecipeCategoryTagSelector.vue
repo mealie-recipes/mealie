@@ -18,6 +18,7 @@
   >
     <template #selection="data">
       <v-chip
+        v-if="showSelected"
         :key="data.index"
         class="ma-1"
         :input-value="data.selected"
@@ -75,6 +76,10 @@ export default {
       default: false,
     },
     showLabel: {
+      type: Boolean,
+      default: true,
+    },
+    showSelected: {
       type: Boolean,
       default: true,
     },

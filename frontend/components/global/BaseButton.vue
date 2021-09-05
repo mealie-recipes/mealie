@@ -131,7 +131,7 @@ export default {
         },
         cancel: {
           text: "Cancel",
-          icon: this.$globals.icons.cancel,
+          icon: this.$globals.icons.close,
           color: "grey",
         },
         download: {

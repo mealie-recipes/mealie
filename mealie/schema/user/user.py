@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any, Optional
 
 from fastapi_camelcase import CamelModel
@@ -19,6 +20,7 @@ class LoingLiveTokenIn(CamelModel):
 
 class LongLiveTokenOut(LoingLiveTokenIn):
     id: int
+    created_at: datetime
 
     class Config:
         orm_mode = True

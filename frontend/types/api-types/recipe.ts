@@ -60,8 +60,8 @@ export interface Recipe {
   recipeCategory: string[];
   tags: string[];
   rating: number;
-  dateAdded?: string;
-  dateUpdated?: string;
+  dateAdded: string;
+  dateUpdated: string;
   recipeYield?: string;
   recipeIngredient: RecipeIngredient[];
   recipeInstructions: RecipeStep[];

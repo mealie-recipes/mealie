@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import { utils } from "@/utils";
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
 export default defineComponent({
@@ -203,7 +202,6 @@ export default defineComponent({
       navigator.clipboard.writeText(copyText).then(
         () => {
           console.log("Copied to Clipboard", copyText);
-          utils.notify.success("Copied to Clipboard");
         },
         () => console.log("Copied Failed", copyText)
       );

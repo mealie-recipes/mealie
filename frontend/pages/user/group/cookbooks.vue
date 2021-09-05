@@ -1,6 +1,13 @@
 <template>
-  <v-container fluid>
-    <BaseCardSectionTitle title="Cookbooks"> </BaseCardSectionTitle>
+  <v-container class="narrow-container">
+    <BasePageTitle divider>
+      <template #header>
+        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
+      </template>
+      <template #title> Cookbooks </template>
+      Arrange and edit your cookbooks here.
+    </BasePageTitle>
+
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
       <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
@@ -48,7 +55,6 @@ import draggable from "vuedraggable";
 
 export default defineComponent({
   components: { draggable },
-  layout: "admin",
   setup() {
     const { cookbooks, actions } = useCookbooks();
 
@@ -62,6 +68,6 @@ export default defineComponent({
     
 <style>
 .my-border {
-  border-left: 5px solid var(--v-primary-base);
+  border-left: 5px solid var(--v-primary-base) !important;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="value.length > 0 || edit">
     <h2 class="my-4">{{ $t("recipe.note") }}</h2>
-    <v-card v-for="(note, index) in value" :key="generateKey('note', index)" class="mt-1">
+    <v-card v-for="(note, index) in value" :key="'note' + index" class="mt-1">
       <div v-if="edit">
         <v-card-text>
           <v-row align="center">
@@ -35,7 +35,6 @@
 
 <script>
 import VueMarkdown from "@adapttive/vue-markdown";
-import { utils } from "@/utils";
 export default {
   components: {
     VueMarkdown,
@@ -52,9 +51,6 @@ export default {
     },
   },
   methods: {
-    generateKey(item, index) {
-      return utils.generateUniqueKey(item, index);
-    },
     addNote() {
       this.value.push({ title: "", text: "" });
     },
