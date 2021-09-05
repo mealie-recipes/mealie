@@ -27,6 +27,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
+            v-if="user.advanced"
             :link="{ text: 'Manage Your API Tokens', to: '/user/profile/api-tokens' }"
             :image="require('~/static/svgs/manage-api-tokens.svg')"
           >
@@ -63,6 +64,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
+            v-if="user.advanced"
             :link="{ text: 'Manage Webhooks', to: '/user/group/webhooks' }"
             :image="require('~/static/svgs/manage-webhooks.svg')"
           >

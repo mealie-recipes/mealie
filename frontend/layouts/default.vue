@@ -8,7 +8,7 @@
       :top-link="topLinks"
       secondary-header="Cookbooks"
       :secondary-links="cookbookLinks || []"
-      :bottom-links="$auth.user.admin ? bottomLink : []"
+      :bottom-links="isAdmin ? bottomLink : []"
       @input="sidebar = !sidebar"
     />
 
@@ -41,7 +41,9 @@ export default defineComponent({
   setup() {
     const { cookbooks } = useCookbooks();
     // @ts-ignore
-    const { $globals } = useContext();
+    const { $globals, $auth } = useContext();
+
+    const isAdmin = computed(() => $auth.user?.admin);
 
     const cookbookLinks = computed(() => {
       if (!cookbooks.value) return [];
@@ -53,7 +55,7 @@ export default defineComponent({
         };
       });
     });
-    return { cookbookLinks };
+    return { cookbookLinks, isAdmin };
   },
   data() {
     return {

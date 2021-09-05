@@ -82,6 +82,18 @@
         </template>
       </ToggleState>
     </section>
+    <section>
+      <BaseCardSectionTitle class="mt-10" title="Preferences"> </BaseCardSectionTitle>
+      <v-checkbox
+        v-model="userCopy.advanced"
+        class="mt-n4"
+        label="Show advanced features (API Keys, Webhooks, and Data Management)"
+        @change="updateUser"
+      ></v-checkbox>
+      <div class="d-flex justify-center mt-5">
+        <v-btn outlined class="rounded-xl" to="/user/group"> Looking for Privacy Settings? </v-btn>
+      </div>
+    </section>
   </v-container>
 </template>
     

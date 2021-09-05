@@ -56,7 +56,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     "@nuxtjs/pwa",
     // https://i18n.nuxtjs.org/setup
-    "nuxt-i18n",
+    "@nuxtjs/i18n",
     // https://auth.nuxtjs.org/guide/setup
     "@nuxtjs/auth-next",
     // https://github.com/nuxt-community/proxy-module
