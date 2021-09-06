@@ -92,9 +92,12 @@
               can always change this later
             </p>
           </div>
-          <v-btn :loading="loggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
-            Register
-          </v-btn>
+          <div class="d-flex flex-column justify-center">
+            <v-btn :loading="loggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
+              Register
+            </v-btn>
+            <v-btn class="mx-auto my-2" text to="/login"> Login </v-btn>
+          </div>
         </v-form>
       </v-card-text>
     </v-card>
@@ -102,9 +105,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, ref, useRouter } from "@nuxtjs/composition-api";
 import { validators } from "@/composables/use-validators";
 import { useApiSingleton } from "~/composables/use-api";
+import { alert } from "~/composables/use-toast";
 
 export default defineComponent({
   layout: "basic",
@@ -115,6 +119,8 @@ export default defineComponent({
       success: false,
     });
     const allowSignup = computed(() => process.env.AllOW_SIGNUP);
+
+    const router = useRouter();
 
     // @ts-ignore
     const domRegisterForm = ref<VForm>(null);
@@ -142,6 +148,8 @@ export default defineComponent({
 
       if (response?.status === 201) {
         state.success = true;
+        alert.success("Registration Success");
+        router.push("/user/login");
       }
 
       console.log(data, response);

@@ -1,7 +1,5 @@
 <template>
   <v-app dark>
-    <!-- <TheSnackbar /> -->
-
     <AppSidebar
       v-model="sidebar"
       absolute

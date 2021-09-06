@@ -37,7 +37,7 @@ import { useCookbooks } from "~/composables/use-group-cookbooks";
 export default defineComponent({
   components: { AppHeader, AppSidebar, AppFloatingButton },
   // @ts-ignore
-  // middleware: process.env.GLOBAL_MIDDLEWARE,
+  middleware: "auth",
   setup() {
     const { cookbooks } = useCookbooks();
     // @ts-ignore
