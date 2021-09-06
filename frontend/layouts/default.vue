@@ -8,7 +8,7 @@
       :top-link="topLinks"
       secondary-header="Cookbooks"
       :secondary-links="cookbookLinks || []"
-      :bottom-links="$auth.user.admin ? bottomLink : []"
+      :bottom-links="isAdmin ? bottomLink : []"
       @input="sidebar = !sidebar"
     />
 
@@ -37,11 +37,13 @@ import { useCookbooks } from "~/composables/use-group-cookbooks";
 export default defineComponent({
   components: { AppHeader, AppSidebar, AppFloatingButton },
   // @ts-ignore
-  // middleware: process.env.GLOBAL_MIDDLEWARE,
+  middleware: "auth",
   setup() {
     const { cookbooks } = useCookbooks();
     // @ts-ignore
-    const { $globals } = useContext();
+    const { $globals, $auth } = useContext();
+
+    const isAdmin = computed(() => $auth.user?.admin);
 
     const cookbookLinks = computed(() => {
       if (!cookbooks.value) return [];
@@ -53,7 +55,7 @@ export default defineComponent({
         };
       });
     });
-    return { cookbookLinks };
+    return { cookbookLinks, isAdmin };
   },
   data() {
     return {

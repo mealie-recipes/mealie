@@ -4,6 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from tests.app_routes import AppRoutes
+from tests.utils.assertion_helpers import assert_ignore_keys
 
 
 @pytest.fixture
@@ -41,8 +42,10 @@ def test_update_group(api_client: TestClient, api_routes: AppRoutes, admin_token
     # Validate Changes
     response = api_client.get(api_routes.groups, headers=admin_token)
     all_groups = json.loads(response.text)
+
     id_2 = filter(lambda x: x["id"] == 2, all_groups)
-    assert next(id_2) == new_data
+
+    assert_ignore_keys(new_data, next(id_2), ["preferences"])
 
 
 def test_home_group_not_deletable(api_client: TestClient, api_routes: AppRoutes, admin_token):

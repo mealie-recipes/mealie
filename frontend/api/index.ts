@@ -13,6 +13,7 @@ import { UnitAPI } from "./class-interfaces/recipe-units";
 import { CookbookAPI } from "./class-interfaces/cookbooks";
 import { WebhooksAPI } from "./class-interfaces/group-webhooks";
 import { AdminAboutAPI } from "./class-interfaces/admin-about";
+import { RegisterAPI } from "./class-interfaces/user-registration";
 import { ApiRequestInstance } from "~/types/api";
 
 class AdminAPI {
@@ -46,6 +47,7 @@ class Api {
   public units: UnitAPI;
   public cookbooks: CookbookAPI;
   public groupWebhooks: WebhooksAPI;
+  public register: RegisterAPI;
 
   // Utils
   public upload: UploadFile;
@@ -67,6 +69,7 @@ class Api {
     this.groups = new GroupAPI(requests);
     this.cookbooks = new CookbookAPI(requests);
     this.groupWebhooks = new WebhooksAPI(requests);
+    this.register = new RegisterAPI(requests);
 
     // Admin
     this.events = new EventsAPI(requests);

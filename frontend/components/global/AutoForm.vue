@@ -134,9 +134,9 @@
 </template>
 
 <script>
+import { ref } from "@nuxtjs/composition-api";
 import { validators } from "@/composables/use-validators";
 import { fieldTypes } from "@/composables/forms";
-import { ref } from "@nuxtjs/composition-api";
 
 const BLUR_EVENT = "blur";
 

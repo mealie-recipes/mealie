@@ -9,6 +9,7 @@ from .._model_utils import auto_init
 from ..group.webhooks import GroupWebhooksModel
 from ..recipe.category import Category, group2categories
 from .cookbook import CookBook
+from .preferences import GroupPreferencesModel
 
 
 class Group(SqlAlchemyBase, BaseMixins):
@@ -16,7 +17,15 @@ class Group(SqlAlchemyBase, BaseMixins):
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
-    categories = orm.relationship(Category, secondary=group2categories, single_parent=True)
+    categories = orm.relationship(Category, secondary=group2categories, single_parent=True, uselist=True)
+
+    preferences = orm.relationship(
+        GroupPreferencesModel,
+        back_populates="group",
+        uselist=False,
+        single_parent=True,
+        cascade="all, delete-orphan",
+    )
 
     # CRUD From Others
     mealplans = orm.relationship("MealPlan", back_populates="group", single_parent=True, order_by="MealPlan.start_date")
@@ -24,7 +33,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     cookbooks = orm.relationship(CookBook, back_populates="group", single_parent=True)
     shopping_lists = orm.relationship("ShoppingList", back_populates="group", single_parent=True)
 
-    @auto_init({"users", "webhooks", "shopping_lists", "cookbooks"})
+    @auto_init({"users", "webhooks", "shopping_lists", "cookbooks", "preferences"})
     def __init__(self, **_) -> None:
         pass
 

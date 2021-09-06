@@ -4,9 +4,10 @@ from fastapi import Depends, HTTPException, status
 
 from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
+from mealie.schema.group.group_preferences import UpdateGroupPreferences
 from mealie.schema.recipe.recipe_category import CategoryBase
 from mealie.schema.user.user import GroupInDB
-from mealie.services.base_http_service.http_services import UserHttpService
+from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 
 logger = get_logger(module=__name__)
@@ -41,8 +42,11 @@ class GroupSelfService(UserHttpService[int, str]):
         return self.item
 
     def update_categories(self, new_categories: list[CategoryBase]):
-        if not self.item:
-            return
         self.item.categories = new_categories
 
         return self.db.groups.update(self.session, self.group_id, self.item)
+
+    def update_preferences(self, new_preferences: UpdateGroupPreferences):
+        self.db.group_preferences.update(self.session, self.group_id, new_preferences)
+
+        return self.populate_item()

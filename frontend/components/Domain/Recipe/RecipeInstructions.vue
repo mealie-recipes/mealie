@@ -61,13 +61,7 @@
                 </v-fade-transition>
               </v-card-title>
               <v-card-text v-if="edit">
-                <v-textarea
-                  :key="generateKey('instructions', index)"
-                  v-model="value[index]['text']"
-                  auto-grow
-                  dense
-                  rows="4"
-                >
+                <v-textarea :key="'instructions' + index" v-model="value[index]['text']" auto-grow dense rows="4">
                 </v-textarea>
               </v-card-text>
               <v-expand-transition>

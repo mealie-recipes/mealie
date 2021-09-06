@@ -5,7 +5,7 @@ from fastapi import HTTPException, status
 from mealie.core.root_logger import get_logger
 from mealie.schema.group import ReadWebhook
 from mealie.schema.group.webhook import CreateWebhook, SaveWebhook
-from mealie.services.base_http_service.http_services import UserHttpService
+from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 
 logger = get_logger(module=__name__)

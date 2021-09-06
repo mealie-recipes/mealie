@@ -50,8 +50,8 @@
     
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
-import { useCookbooks } from "@/composables/use-group-cookbooks";
 import draggable from "vuedraggable";
+import { useCookbooks } from "@/composables/use-group-cookbooks";
 
 export default defineComponent({
   components: { draggable },

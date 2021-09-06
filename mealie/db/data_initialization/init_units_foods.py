@@ -24,13 +24,11 @@ def default_recipe_unit_init(db: DatabaseAccessLayer, session: Session) -> None:
     for unit in get_default_units():
         try:
             db.ingredient_units.create(session, unit)
-            print("Ingredient Unit Created")
         except Exception as e:
             print(e)
 
     for food in get_default_foods():
         try:
             db.ingredient_foods.create(session, food)
-            print("Ingredient Food Created")
         except Exception as e:
             print(e)

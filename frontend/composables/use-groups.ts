@@ -3,7 +3,38 @@ import { useAsyncKey } from "./use-utils";
 import { useApiSingleton } from "~/composables/use-api";
 import { CreateGroup } from "~/api/class-interfaces/groups";
 
-export const useGroup = function () {
+export const useGroupSelf = function () {
+  const api = useApiSingleton();
+
+  const actions = {
+    get() {
+      const group = useAsync(async () => {
+        const { data } = await api.groups.getCurrentUserGroup();
+
+        return data;
+      }, useAsyncKey());
+
+      return group;
+    },
+    async updatePreferences() {
+      if (!group.value) {
+        return;
+      }
+
+      const { data } = await api.groups.setPreferences(group.value.preferences);
+
+      if (data) {
+        group.value.preferences = data;
+      }
+    },
+  };
+
+  const group = actions.get();
+
+  return { actions, group };
+};
+
+export const useGroupCategories = function () {
   const api = useApiSingleton();
 
   const actions = {
@@ -61,7 +92,6 @@ export const useGroups = function () {
   }
 
   async function createGroup(payload: CreateGroup) {
-    console.log(payload);
     loading.value = true;
     const { data } = await api.groups.createOne(payload);
 

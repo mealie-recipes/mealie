@@ -1,7 +1,6 @@
 import operator
 import shutil
 from pathlib import Path
-from pprint import pprint
 
 from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm.session import Session
@@ -96,8 +95,6 @@ def import_database(
         force_import=import_data.force,
         rebase=import_data.rebase,
     )
-
-    pprint(db_import)
 
     background_tasks.add_task(create_backup_event, "Database Restore", f"Restore File: {file_name}", session)
     return db_import

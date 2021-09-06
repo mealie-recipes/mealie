@@ -8,6 +8,8 @@ const routes = {
   groupsSelf: `${prefix}/groups/self`,
   categories: `${prefix}/groups/categories`,
 
+  preferences: `${prefix}/groups/preferences`,
+
   groupsId: (id: string | number) => `${prefix}/groups/${id}`,
 };
 
@@ -21,13 +23,34 @@ export interface CreateGroup {
   name: string;
 }
 
+export interface UpdatePreferences {
+  privateGroup: boolean;
+  firstDayOfWeek: number;
+  recipePublic: boolean;
+  recipeShowNutrition: boolean;
+  recipeShowAssets: boolean;
+  recipeLandscapeView: boolean;
+  recipeDisableComments: boolean;
+  recipeDisableAmount: boolean;
+}
+
+export interface Preferences extends UpdatePreferences {
+  id: number;
+  group_id: number;
+}
+
+export interface Group extends CreateGroup {
+  id: number;
+  preferences: Preferences;
+}
+
 export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
   baseRoute = routes.groups;
   itemRoute = routes.groupsId;
   /** Returns the Group Data for the Current User
    */
   async getCurrentUserGroup() {
-    return await this.requests.get(routes.groupsSelf);
+    return await this.requests.get<Group>(routes.groupsSelf);
   }
 
   async getCategories() {
@@ -36,5 +59,13 @@ export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
 
   async setCategories(payload: Category[]) {
     return await this.requests.put<Category[]>(routes.categories, payload);
+  }
+
+  async getPreferences() {
+    return await this.requests.get<Preferences>(routes.preferences);
+  }
+
+  async setPreferences(payload: UpdatePreferences) {
+    return await this.requests.put<Preferences>(routes.preferences, payload);
   }
 }

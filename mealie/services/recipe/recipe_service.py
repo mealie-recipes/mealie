@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
-from mealie.services.base_http_service.http_services import PublicHttpService
+from mealie.services._base_http_service.http_services import PublicHttpService
 from mealie.services.events import create_recipe_event
 
 logger = get_logger(module=__name__)

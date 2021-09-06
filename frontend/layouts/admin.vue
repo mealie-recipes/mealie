@@ -1,13 +1,10 @@
 <template>
   <v-app dark>
-    <!-- <TheSnackbar /> -->
-
     <AppSidebar
       v-model="sidebar"
       absolute
       :top-link="topLinks"
-      :secondary-links="$auth.user.admin ? adminLinks : null"
-      :bottom-links="$auth.user.admin ? bottomLinks : null"
+      :bottom-links="bottomLinks"
       :user="{ data: true }"
       :secondary-header="$t('user.admin')"
       @input="sidebar = !sidebar"
@@ -30,7 +27,7 @@
   
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
 import TheSnackbar from "~/components/Layout/TheSnackbar.vue";
@@ -40,103 +37,110 @@ export default defineComponent({
   middleware: "auth",
   auth: true,
   setup() {
-    return {};
-  },
-  data() {
+    // @ts-ignore - $globals not found in type definition
+    const { $globals, i18n } = useContext();
+
+    const sidebar = ref(null);
+
+    const topLinks = [
+      {
+        icon: $globals.icons.viewDashboard,
+        to: "/admin/dashboard",
+        title: i18n.t("sidebar.dashboard"),
+      },
+      {
+        icon: $globals.icons.cog,
+        to: "/admin/site-settings",
+        title: i18n.t("sidebar.site-settings"),
+      },
+      {
+        icon: $globals.icons.tools,
+        to: "/admin/toolbox",
+        title: i18n.t("sidebar.toolbox"),
+        children: [
+          {
+            icon: $globals.icons.bellAlert,
+            to: "/admin/toolbox/notifications",
+            title: i18n.t("events.notification"),
+          },
+          {
+            icon: $globals.icons.foods,
+            to: "/admin/toolbox/foods",
+            title: "Manage Foods",
+          },
+          {
+            icon: $globals.icons.units,
+            to: "/admin/toolbox/units",
+            title: "Manage Units",
+          },
+          {
+            icon: $globals.icons.tags,
+            to: "/admin/toolbox/categories",
+            title: i18n.t("sidebar.tags"),
+          },
+          {
+            icon: $globals.icons.tags,
+            to: "/admin/toolbox/tags",
+            title: i18n.t("sidebar.categories"),
+          },
+          {
+            icon: $globals.icons.broom,
+            to: "/admin/toolbox/organize",
+            title: i18n.t("settings.organize"),
+          },
+        ],
+      },
+      {
+        icon: $globals.icons.group,
+        to: "/admin/manage-users",
+        title: i18n.t("sidebar.manage-users"),
+        children: [
+          {
+            icon: $globals.icons.user,
+            to: "/admin/manage-users/all-users",
+            title: i18n.t("user.users"),
+          },
+          {
+            icon: $globals.icons.group,
+            to: "/admin/manage-users/all-groups",
+            title: i18n.t("group.groups"),
+          },
+        ],
+      },
+      {
+        icon: $globals.icons.import,
+        to: "/admin/migrations",
+        title: i18n.t("sidebar.migrations"),
+      },
+      {
+        icon: $globals.icons.database,
+        to: "/admin/backups",
+        title: i18n.t("sidebar.backups"),
+      },
+    ];
+
+    const bottomLinks = [
+      {
+        icon: $globals.icons.heart,
+        title: i18n.t("about.support"),
+        href: "https://github.com/sponsors/hay-kot",
+      },
+      {
+        icon: $globals.icons.information,
+        title: i18n.t("about.about"),
+        to: "/admin/about",
+      },
+    ];
+
     return {
-      sidebar: null,
-      topLinks: [
-        {
-          icon: this.$globals.icons.viewDashboard,
-          to: "/admin/dashboard",
-          title: this.$t("sidebar.dashboard"),
-        },
-        {
-          icon: this.$globals.icons.cog,
-          to: "/admin/site-settings",
-          title: this.$t("sidebar.site-settings"),
-        },
-        {
-          icon: this.$globals.icons.tools,
-          to: "/admin/toolbox",
-          title: this.$t("sidebar.toolbox"),
-          children: [
-            {
-              icon: this.$globals.icons.bellAlert,
-              to: "/admin/toolbox/notifications",
-              title: this.$t("events.notification"),
-            },
-            {
-              icon: this.$globals.icons.foods,
-              to: "/admin/toolbox/foods",
-              title: "Manage Foods",
-            },
-            {
-              icon: this.$globals.icons.units,
-              to: "/admin/toolbox/units",
-              title: "Manage Units",
-            },
-            {
-              icon: this.$globals.icons.tags,
-              to: "/admin/toolbox/categories",
-              title: this.$t("sidebar.tags"),
-            },
-            {
-              icon: this.$globals.icons.tags,
-              to: "/admin/toolbox/tags",
-              title: this.$t("sidebar.categories"),
-            },
-            {
-              icon: this.$globals.icons.broom,
-              to: "/admin/toolbox/organize",
-              title: this.$t("settings.organize"),
-            },
-          ],
-        },
-        {
-          icon: this.$globals.icons.group,
-          to: "/admin/manage-users",
-          title: this.$t("sidebar.manage-users"),
-          children: [
-            {
-              icon: this.$globals.icons.user,
-              to: "/admin/manage-users/all-users",
-              title: this.$t("user.users"),
-            },
-            {
-              icon: this.$globals.icons.group,
-              to: "/admin/manage-users/all-groups",
-              title: this.$t("group.groups"),
-            },
-          ],
-        },
-        {
-          icon: this.$globals.icons.import,
-          to: "/admin/migrations",
-          title: this.$t("sidebar.migrations"),
-        },
-        {
-          icon: this.$globals.icons.database,
-          to: "/admin/backups",
-          title: this.$t("sidebar.backups"),
-        },
-      ],
-      bottomLinks: [
-        {
-          icon: this.$globals.icons.heart,
-          title: this.$t("about.support"),
-          href: "https://github.com/sponsors/hay-kot",
-        },
-        {
-          icon: this.$globals.icons.information,
-          title: this.$t("about.about"),
-          to: "/admin/about",
-        },
-      ],
+      sidebar,
+      topLinks,
+      bottomLinks,
     };
   },
 });
 </script>
-      
-      <style scoped>
-</style>+
+
+
+
+    

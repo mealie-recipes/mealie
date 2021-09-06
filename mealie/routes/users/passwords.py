@@ -7,7 +7,7 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import ChangePassword
-from mealie.services.user.user_service import UserService
+from mealie.services.user_services import UserService
 
 user_router = UserAPIRouter(prefix="")
 

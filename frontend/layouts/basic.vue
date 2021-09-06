@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <!-- <TheSnackbar /> -->
+    <TheSnackbar />
 
     <AppHeader :menu="false"> </AppHeader>
     <v-main>
@@ -17,9 +17,10 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import AppFooter from "@/components/Layout/AppFooter.vue";
 import AppHeader from "@/components/Layout/AppHeader.vue";
+import TheSnackbar from "~/components/Layout/TheSnackbar.vue";
 
 export default defineComponent({
-  components: { AppHeader, AppFooter },
+  components: { AppHeader, AppFooter, TheSnackbar },
   setup() {
     return {};
   },

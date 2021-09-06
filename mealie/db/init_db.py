@@ -8,7 +8,9 @@ from mealie.db.database import db
 from mealie.db.db_setup import create_session, engine
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema.admin import SiteSettings
+from mealie.schema.user.user import GroupBase
 from mealie.services.events import create_general_event
+from mealie.services.group_services.group_mixins import create_new_group
 
 logger = root_logger.get_logger("init_db")
 
@@ -38,9 +40,8 @@ def default_settings_init(session: Session):
 
 
 def default_group_init(session: Session):
-    default_group = {"name": settings.DEFAULT_GROUP}
     logger.info("Generating Default Group")
-    db.groups.create(session, default_group)
+    create_new_group(session, GroupBase(name=settings.DEFAULT_GROUP))
 
 
 def default_user_init(session: Session):

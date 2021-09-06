@@ -6,8 +6,8 @@ from pydantic.types import constr
 from pydantic.utils import GetterDict
 
 from mealie.core.config import settings
-from mealie.db.models.group import Group
 from mealie.db.models.users import User
+from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
 
 from ..meal_plan import MealPlanOut, ShoppingListOut
@@ -50,8 +50,9 @@ class UserBase(CamelModel):
     username: Optional[str]
     full_name: Optional[str] = None
     email: constr(to_lower=True, strip_whitespace=True)
-    admin: bool
+    admin: bool = False
     group: Optional[str]
+    advanced: bool = False
     favorite_recipes: Optional[list[str]] = []
 
     class Config:
@@ -128,15 +129,10 @@ class GroupInDB(UpdateGroup):
     users: Optional[list[UserOut]]
     mealplans: Optional[list[MealPlanOut]]
     shopping_lists: Optional[list[ShoppingListOut]]
+    preferences: Optional[ReadGroupPreferences] = None
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(_cls, orm_model: Group):
-            return {
-                **GetterDict(orm_model),
-            }
 
 
 class LongLiveTokenInDB(CreateToken):

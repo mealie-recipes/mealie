@@ -82,8 +82,6 @@ def auto_init(exclude: Union[set, list] = None):  # sourcery no-metrics
                     except Exception:
                         get_attr = "id"
 
-                    print(get_attr)
-
                     if relation_dir == ONETOMANY.name and use_list:
                         instances = handle_one_to_many_list(get_attr, relation_cls, val)
                         setattr(self, key, instances)
