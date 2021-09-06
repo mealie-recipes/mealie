@@ -5,6 +5,7 @@ from mealie.schema.user.registration import CreateUserRegistration
 from mealie.schema.user.user import GroupBase, GroupInDB, PrivateUser, UserIn
 from mealie.services._base_http_service.http_services import PublicHttpService
 from mealie.services.events import create_user_event
+from mealie.services.group_services.group_mixins import create_new_group
 
 logger = get_logger(module=__name__)
 
@@ -41,10 +42,9 @@ class RegistrationService(PublicHttpService[int, str]):
 
     def _create_new_group(self) -> GroupInDB:
         group_data = GroupBase(name=self.registration.group)
-        created_group = self.db.groups.create(self.session, group_data)
 
         group_preferences = CreateGroupPreferences(
-            group_id=created_group.id,
+            group_id=0,
             private_group=self.registration.private,
             first_day_of_week=0,
             recipe_public=not self.registration.private,
@@ -55,9 +55,7 @@ class RegistrationService(PublicHttpService[int, str]):
             recipe_disable_amount=self.registration.advanced,
         )
 
-        self.db.group_preferences.create(self.session, group_preferences)
-
-        return created_group
+        return create_new_group(self.session, group_data, group_preferences)
 
     def _existing_group_ref(self) -> GroupInDB:
         pass

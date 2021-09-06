@@ -11,7 +11,7 @@ class GroupPreferencesModel(SqlAlchemyBase, BaseMixins):
     group = orm.relationship("Group", back_populates="preferences")
 
     private_group: bool = sa.Column(sa.Boolean, default=True)
-    first_day_of_week = sa.Column(sa.Integer)
+    first_day_of_week = sa.Column(sa.Integer, default=0)
 
     # Recipe Defaults
     recipe_public: bool = sa.Column(sa.Boolean, default=True)

@@ -129,6 +129,7 @@ class GroupInDB(UpdateGroup):
     users: Optional[list[UserOut]]
     mealplans: Optional[list[MealPlanOut]]
     shopping_lists: Optional[list[ShoppingListOut]]
+    preferences: Optional[ReadGroupPreferences] = None
 
     class Config:
         orm_mode = True

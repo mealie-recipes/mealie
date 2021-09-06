@@ -1,8 +1,7 @@
 from fastapi_camelcase import CamelModel
 
 
-class CreateGroupPreferences(CamelModel):
-    group_id: int
+class UpdateGroupPreferences(CamelModel):
     private_group: bool = False
     first_day_of_week: int = 0
 
@@ -14,8 +13,9 @@ class CreateGroupPreferences(CamelModel):
     recipe_disable_comments: bool = False
     recipe_disable_amount: bool = False
 
-    class Config:
-        orm_mode = True
+
+class CreateGroupPreferences(UpdateGroupPreferences):
+    group_id: int
 
 
 class ReadGroupPreferences(CreateGroupPreferences):

@@ -17,10 +17,10 @@ class Group(SqlAlchemyBase, BaseMixins):
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
-    categories = orm.relationship(Category, secondary=group2categories, single_parent=True, uselist=False)
+    categories = orm.relationship(Category, secondary=group2categories, single_parent=True, uselist=True)
 
     preferences = orm.relationship(
-        GroupPreferencesModel, back_populates="group", single_parent=True, cascade="all, delete-orphan"
+        GroupPreferencesModel, back_populates="group", uselist=False, single_parent=True, cascade="all, delete-orphan"
     )
 
     # CRUD From Others
