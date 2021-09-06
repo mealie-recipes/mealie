@@ -42,10 +42,10 @@ def test_update_preferences(api_client: TestClient, admin_token) -> None:
 
     assert response.status_code == 200
 
-    group = response.json()
+    preferences = response.json()
 
-    assert group["preferences"] is not None
-    assert group["preferences"]["recipePublic"] is False
-    assert group["preferences"]["recipeShowNutrition"] is True
+    assert preferences is not None
+    assert preferences["recipePublic"] is False
+    assert preferences["recipeShowNutrition"] is True
 
-    assert_ignore_keys(new_data.dict(by_alias=True), group["preferences"], ["id", "groupId"])
+    assert_ignore_keys(new_data.dict(by_alias=True), preferences, ["id", "groupId"])

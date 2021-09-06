@@ -13,7 +13,7 @@ def backup_data():
         "force": True,
         "recipes": True,
         "settings": False,  # ! Broken
-        "groups": True,
+        "groups": False,  # ! Also Broken
         "users": True,
     }
 

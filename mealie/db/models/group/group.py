@@ -20,7 +20,11 @@ class Group(SqlAlchemyBase, BaseMixins):
     categories = orm.relationship(Category, secondary=group2categories, single_parent=True, uselist=True)
 
     preferences = orm.relationship(
-        GroupPreferencesModel, back_populates="group", uselist=False, single_parent=True, cascade="all, delete-orphan"
+        GroupPreferencesModel,
+        back_populates="group",
+        uselist=False,
+        single_parent=True,
+        cascade="all, delete-orphan",
     )
 
     # CRUD From Others
