@@ -95,8 +95,8 @@
 </template>
 
 <script lang="ts">
-import AdminBackupImportOptions from "@/components/Domain/Admin/AdminBackupImportOptions.vue";
 import { defineComponent, reactive, toRefs, useContext, ref } from "@nuxtjs/composition-api";
+import AdminBackupImportOptions from "@/components/Domain/Admin/AdminBackupImportOptions.vue";
 import { useBackups } from "~/composables/use-backups";
 
 export default defineComponent({
