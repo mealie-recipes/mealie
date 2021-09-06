@@ -174,50 +174,44 @@
             type="password"
           />
           <v-btn :loading="loggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
-            Login
+            {{ $t("user.login") }}
           </v-btn>
         </v-form>
       </v-card-text>
-      <v-btn v-if="$config.ALLOW_SIGNUP" class="mx-auto" text to="/register"> Register </v-btn>
-      <v-btn v-else class="mx-auto" text disabled> Invite Only </v-btn>
+      <v-btn v-if="allowSignup" class="mx-auto" text to="/register"> {{ $t("user.register") }} </v-btn>
+      <v-btn v-else class="mx-auto" text disabled> {{ $t("user.invite-only") }} </v-btn>
     </v-card>
   </v-container>
 </template>
 
-    
-    <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts" setup>
+import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { computed, reactive } from "@vue/reactivity";
 
+const { $auth } = useContext();
+
+const form = reactive({
+  email: "changeme@email.com",
+  password: "MyPassword",
+});
+
+const loggingIn = ref(false);
+
+const allowSignup = computed(() => process.env.ALLOW_SIGNUP);
+
+async function authenticate() {
+  loggingIn.value = true;
+  const formData = new FormData();
+  formData.append("username", form.email);
+  formData.append("password", form.password);
+
+  await $auth.loginWith("local", { data: formData });
+  loggingIn.value = false;
+}
+</script>
+
+<script lang="ts">
 export default defineComponent({
   layout: "basic",
-  setup() {
-    return {};
-  },
-  data() {
-    return {
-      loggingIn: false,
-      form: {
-        email: "changeme@email.com",
-        password: "MyPassword",
-      },
-    };
-  },
-  computed: {
-    allowSignup(): boolean {
-      // @ts-ignore
-      return process.env.ALLOW_SIGNUP;
-    },
-  },
-  methods: {
-    async authenticate() {
-      this.loggingIn = true;
-      const formData = new FormData();
-      formData.append("username", this.form.email);
-      formData.append("password", this.form.password);
-
-      await this.$auth.loginWith("local", { data: formData });
-      this.loggingIn = false;
-    },
-  },
 });
 </script>

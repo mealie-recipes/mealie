@@ -144,15 +144,13 @@ export default defineComponent({
         return;
       }
 
-      const { data, response } = await api.register.register(form);
+      const { response } = await api.register.register(form);
 
       if (response?.status === 201) {
         state.success = true;
         alert.success("Registration Success");
         router.push("/user/login");
       }
-
-      console.log(data, response);
     }
 
     return {

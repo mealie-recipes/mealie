@@ -21,7 +21,7 @@
             :link="{ text: 'Manage User Profile', to: '/user/profile/edit' }"
             :image="require('~/static/svgs/manage-profile.svg')"
           >
-            <template #title> User Profile </template>
+            <template #title> User Settings </template>
             Manage your preferences, change your password, and update your email
           </UserProfileLinkCard>
         </v-col>

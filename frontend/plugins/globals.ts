@@ -94,6 +94,7 @@ import {
   mdiFolderZipOutline,
   mdiFoodApple,
   mdiBeakerOutline,
+  mdiArrowLeftBoldOutline,
 } from "@mdi/js";
 
 const icons = {
@@ -184,6 +185,7 @@ const icons = {
   zip: mdiFolderZipOutline,
 
   // Crud
+  backArrow: mdiArrowLeftBoldOutline,
   createAlt: mdiPlus,
   create: mdiPlusCircle,
   delete: mdiDelete,
