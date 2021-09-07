@@ -32,11 +32,15 @@ class CreateRecipe(CamelModel):
 
 class RecipeSummary(CamelModel):
     id: Optional[int]
+
+    user_id: Optional[int] = 0
+    group_id: Optional[int] = 0
+
     name: Optional[str]
     slug: str = ""
     image: Optional[Any]
 
-    description: Optional[str]
+    description: Optional[str] = ""
     recipe_category: Optional[list[str]] = []
     tags: Optional[list[str]] = []
     rating: Optional[int]
@@ -111,32 +115,6 @@ class Recipe(RecipeSummary):
                 "tools": [x.tool for x in name_orm.tools],
                 "extras": {x.key_name: x.value for x in name_orm.extras},
             }
-
-        schema_extra = {
-            "example": {
-                "name": "Chicken and Rice With Leeks and Salsa Verde",
-                "description": "This one-skillet dinner gets deep oniony flavor from lots of leeks cooked down to jammy tenderness.",
-                "image": "chicken-and-rice-with-leeks-and-salsa-verde.jpg",
-                "recipe_yield": "4 Servings",
-                "recipe_ingredient": [
-                    "1 1/2 lb. skinless, boneless chicken thighs (4-8 depending on size)",
-                    "Kosher salt, freshly ground pepper",
-                    "3 Tbsp. unsalted butter, divided",
-                ],
-                "recipe_instructions": [
-                    {
-                        "text": "Season chicken with salt and pepper.",
-                    },
-                ],
-                "slug": "chicken-and-rice-with-leeks-and-salsa-verde",
-                "tags": ["favorite", "yummy!"],
-                "recipe_category": ["Dinner", "Pasta"],
-                "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}],
-                "org_url": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde",
-                "rating": 3,
-                "extras": {"message": "Don't forget to defrost the chicken!"},
-            }
-        }
 
     @validator("slug", always=True, pre=True)
     def validate_slug(slug: str, values):

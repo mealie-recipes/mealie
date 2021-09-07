@@ -52,6 +52,21 @@ class BaseAccessModel(Generic[T, D]):
 
         return [eff_schema.from_orm(x) for x in session.query(self.sql_model).offset(start).limit(limit).all()]
 
+    def multi_query(
+        self,
+        session: Session,
+        query_by: dict[str, str],
+        start=0,
+        limit: int = None,
+        override_schema=None,
+    ) -> list[T]:
+        eff_schema = override_schema or self.schema
+
+        return [
+            eff_schema.from_orm(x)
+            for x in session.query(self.sql_model).filter_by(**query_by).offset(start).limit(limit).all()
+        ]
+
     def get_all_limit_columns(self, session: Session, fields: list[str], limit: int = None) -> list[D]:
         """Queries the database for the selected model. Restricts return responses to the
         keys specified under "fields"

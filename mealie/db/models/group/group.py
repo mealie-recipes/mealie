@@ -27,6 +27,9 @@ class Group(SqlAlchemyBase, BaseMixins):
         cascade="all, delete-orphan",
     )
 
+    # Recipes
+    recipes = orm.relationship("RecipeModel", back_populates="group", uselist=True)
+
     # CRUD From Others
     mealplans = orm.relationship("MealPlan", back_populates="group", single_parent=True, order_by="MealPlan.start_date")
     webhooks = orm.relationship(GroupWebhooksModel, uselist=True, cascade="all, delete-orphan")

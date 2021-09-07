@@ -8,6 +8,7 @@ from sqlalchemy.orm import validates
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
+from ..users import users_to_favorites
 from .api_extras import ApiExtras
 from .assets import RecipeAsset
 from .category import recipes2categories
@@ -22,6 +23,19 @@ from .tool import Tool
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
+    __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
+
+    slug = sa.Column(sa.String, index=True)
+
+    # ID Relationships
+    group_id = sa.Column(sa.Integer, sa.ForeignKey("groups.id"))
+    group = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
+
+    user_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
+    user = orm.relationship("User", uselist=False, foreign_keys=[user_id])
+
+    favorited_by: list = orm.relationship("User", secondary=users_to_favorites, back_populates="favorite_recipes")
+
     # General Recipe Properties
     name = sa.Column(sa.String, nullable=False)
     description = sa.Column(sa.String)
@@ -57,7 +71,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     comments: list = orm.relationship("RecipeComment", back_populates="recipe", cascade="all, delete, delete-orphan")
 
     # Mealie Specific
-    slug = sa.Column(sa.String, index=True, unique=True)
     settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")
     tags: list[Tag] = orm.relationship("Tag", secondary=recipes2tags, back_populates="recipes")
     notes: list[Note] = orm.relationship("Note", cascade="all, delete-orphan")
@@ -68,10 +81,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     # Time Stamp Properties
     date_added = sa.Column(sa.Date, default=date.today)
     date_updated = sa.Column(sa.DateTime)
-
-    # Favorited By
-    favorited_by_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
-    favorited_by = orm.relationship("User", back_populates="favorite_recipes")
 
     class Config:
         get_attr = "slug"

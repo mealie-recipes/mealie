@@ -2,7 +2,7 @@ import json
 import shutil
 from zipfile import ZipFile
 
-from fastapi import APIRouter, Depends, File
+from fastapi import Depends, File
 from fastapi.datastructures import UploadFile
 from scrape_schema_recipe import scrape_url
 from sqlalchemy.orm.session import Session
@@ -14,26 +14,24 @@ from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
-from mealie.schema.recipe.recipe import CreateRecipe
+from mealie.schema.recipe.recipe import CreateRecipe, RecipeSummary
 from mealie.services.image.image import write_image
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.scraper.scraper import create_from_url
 
 user_router = UserAPIRouter()
-public_router = APIRouter()
 logger = get_logger()
 
 
-@public_router.get("/{slug}", response_model=Recipe)
-def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existing)):
-    """ Takes in a recipe slug, returns all data for a recipe """
-    return recipe_service.item
+@user_router.get("", response_model=list[RecipeSummary])
+async def get_all(start=0, limit=None, service: RecipeService = Depends(RecipeService.private)):
+    return service.get_all(start, limit)
 
 
 @user_router.post("", status_code=201, response_model=str)
 def create_from_name(data: CreateRecipe, recipe_service: RecipeService = Depends(RecipeService.private)) -> str:
     """ Takes in a JSON string and loads data into the database as a new entry"""
-    return recipe_service.create_recipe(data).slug
+    return recipe_service.create_one(data).slug
 
 
 @user_router.post("/create-url", status_code=201, response_model=str)
@@ -41,7 +39,7 @@ def parse_recipe_url(url: CreateRecipeByURL, recipe_service: RecipeService = Dep
     """ Takes in a URL and attempts to scrape data and load it into the database """
 
     recipe = create_from_url(url.url)
-    return recipe_service.create_recipe(recipe).slug
+    return recipe_service.create_one(recipe).slug
 
 
 @user_router.post("/test-scrape-url")
@@ -80,7 +78,13 @@ async def create_recipe_from_zip(
     return recipe
 
 
-@public_router.get("/{slug}/zip")
+@user_router.get("/{slug}", response_model=Recipe)
+def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existing)):
+    """ Takes in a recipe slug, returns all data for a recipe """
+    return recipe_service.item
+
+
+@user_router.get("/{slug}/zip")
 async def get_recipe_as_zip(
     slug: str, session: Session = Depends(generate_session), temp_path=Depends(temporary_zip_path)
 ):
@@ -102,17 +106,17 @@ async def get_recipe_as_zip(
 def update_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
     """ Updates a recipe by existing slug and data. """
 
-    return recipe_service.update_recipe(data)
+    return recipe_service.update_one(data)
 
 
 @user_router.patch("/{slug}")
 def patch_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
     """ Updates a recipe by existing slug and data. """
 
-    return recipe_service.patch_recipe(data)
+    return recipe_service.patch_one(data)
 
 
 @user_router.delete("/{slug}")
 def delete_recipe(recipe_service: RecipeService = Depends(RecipeService.write_existing)):
     """ Deletes a recipe by slug """
-    return recipe_service.delete_recipe()
+    return recipe_service.delete_one()
