@@ -1,0 +1,9 @@
+{% for mod in mods  %}
+class {{mod.name}}Routes:{% for route in mod.routes  %}{% if not route.path_is_func   %}
+    {{route.name_snake}} = "{{ route.py_route }}"{% endif %}{% endfor %}{% for route in mod.routes  %}
+{% if route.path_is_func   %}
+    @staticmethod
+    def {{route.name_snake}}({{ route.path_vars|join(", ") }}):
+        return f"{{route.py_route}}"       
+{% endif %}{% endfor %}
+{% endfor %}
