@@ -7,8 +7,22 @@
     ></RecipeCardSection>
   </v-container>
 </template>
-
-<script lang="ts" setup>
+  
+  <script lang="ts">
+import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { recentRecipes } from "~/composables/use-recipes";
+import { useRecipes, recentRecipes } from "~/composables/use-recipes";
+import { useStaticRoutes } from "~/composables/api";
+
+export default defineComponent({
+  components: { RecipeCardSection },
+  setup() {
+    const { assignSorted } = useRecipes(false);
+
+    useStaticRoutes();
+
+    return { recentRecipes, assignSorted };
+  },
+});
 </script>
+  
