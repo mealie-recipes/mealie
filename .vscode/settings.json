@@ -1,5 +1,10 @@
 {
-  "conventionalCommits.scopes": ["frontend", "docs", "backend"],
+  "conventionalCommits.scopes": [
+    "frontend",
+    "docs",
+    "backend",
+    "code-generation"
+  ],
   "cSpell.enableFiletypes": ["!javascript", "!python", "!yaml"],
   "cSpell.words": ["compression", "hkotel", "performant", "postgres", "webp"],
   "editor.codeActionsOnSave": {
