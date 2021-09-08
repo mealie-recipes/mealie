@@ -5,6 +5,7 @@
     </v-card>
     <NoRecipe v-else-if="loadFailed" />
     <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
+    <a :href="getImage(recipeDetails.slug)">
       <v-img
         :height="hideImage ? '50' : imageHeight"
         @error="hideImage = true"
@@ -19,6 +20,7 @@
           :performTime="recipeDetails.performTime"
         />
       </v-img>
+    </a>
       <RecipePageActionMenu
         :slug="recipeDetails.slug"
         :name="recipeDetails.name"
