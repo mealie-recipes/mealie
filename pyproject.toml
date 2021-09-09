@@ -34,6 +34,7 @@ pathvalidate = "^2.4.1"
 apprise = "0.9.3"
 recipe-scrapers = "^13.2.7"
 psycopg2-binary = {version = "^2.9.1", optional = true}
+python-ldap = "^3.3.0"
 gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
@@ -67,3 +68,4 @@ skip_empty = true
 
 [tool.poetry.extras]
 pgsql = ["psycopg2-binary"]
+ldap = ["python-ldap"]
