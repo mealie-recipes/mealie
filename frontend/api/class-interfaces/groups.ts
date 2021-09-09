@@ -4,13 +4,13 @@ import { GroupInDB } from "~/types/api-types/user";
 const prefix = "/api";
 
 const routes = {
-  groups: `${prefix}/groups`,
+  groups: `${prefix}/admin/groups`,
   groupsSelf: `${prefix}/groups/self`,
   categories: `${prefix}/groups/categories`,
 
   preferences: `${prefix}/groups/preferences`,
 
-  groupsId: (id: string | number) => `${prefix}/groups/${id}`,
+  groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,
 };
 
 interface Category {
