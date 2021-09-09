@@ -11,6 +11,44 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"
 
 
+def user_from_ldap(session, username: str, password: str) -> UserInDB:
+    """Given a username and password, tries to authenticate by BINDing to an
+    LDAP server
+
+    If the BIND succeeds, it will either create a new user of that username on
+    the server or return an existing one.
+    Returns False on failure.
+    """
+    import ldap
+
+    conn = ldap.initialize(settings.LDAP_SERVER_URL)
+    user_dn = settings.LDAP_BIND_TEMPLATE.format(username)
+    try:
+        conn.simple_bind_s(user_dn, password)
+    except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        return False
+
+    user = db.users.get(session, username, "username", any_case=True)
+    if not user:
+        user = db.users.create(
+            session,
+            {
+                "username": username,
+                "password": "LDAP",
+                # Fill the next two values with something unique and vaguely
+                # relevant
+                "full_name": username,
+                "email": username,
+            },
+        )
+
+    if settings.LDAP_ADMIN_FILTER:
+        user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
+        db.users.update(session, user.id, user)
+
+    return user
+
+
 def create_access_token(data: dict(), expires_delta: timedelta = None) -> str:
     to_encode = data.copy()
     expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
@@ -31,6 +69,8 @@ def authenticate_user(session, email: str, password: str) -> UserInDB:
 
     if not user:
         user = db.users.get(session, email, "username", any_case=True)
+    if settings.LDAP_AUTH_ENABLED and (not user or user.password == "LDAP"):
+        return user_from_ldap(session, email, password)
     if not user:
         return False
 

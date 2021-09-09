@@ -151,6 +151,11 @@ class AppSettings(BaseSettings):
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
 
+    LDAP_AUTH_ENABLED: bool = False
+    LDAP_SERVER_URL: str = None
+    LDAP_BIND_TEMPLATE: str = None
+    LDAP_ADMIN_FILTER: str = None
+
     SCHEDULER_DATABASE = f"sqlite:///{app_dirs.DATA_DIR.joinpath('scheduler.db')}"
 
     TOKEN_TIME: int = 2  # Time in Hours

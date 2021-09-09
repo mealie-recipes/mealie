@@ -128,6 +128,10 @@ services:
 | POSTGRES_PORT           | 5432                  | Postgres database port                                                                                                            |
 | POSTGRES_DB             | mealie                | Postgres database name                                                                                                            |
 | TOKEN_TIME              | 2                     | The time in hours that a login/auth token is valid                                                                                |
+| LDAP_AUTH_ENABLED       | False                 | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                                      |
+| LDAP_SERVER_URL         | None                  | LDAP server URL (e.g. ldap://ldap.example.com)                                                                                    |
+| LDAP_BIND_TEMPLATE      | None                  | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`)                                  |
+| LDAP_ADMIN_FILTER       | None                  | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`)                |
 | RECIPE_PUBLIC           | True                  | Default Recipe Settings - Make Recipe Public                                                                                      |
 | RECIPE_SHOW_NUTRITION   | True                  | Default Recipe Settings - Show Recipe Nutrition                                                                                   |
 | RECIPE_SHOW_ASSETS      | True                  | Default Recipe Settings - Show Recipe Assets                                                                                      |
