@@ -10,6 +10,7 @@ from mealie.core import root_logger
 from mealie.db.database import db
 from mealie.schema.admin import MigrationImport
 from mealie.schema.recipe import Recipe
+from mealie.schema.user.user import PrivateUser
 from mealie.services.image import image
 from mealie.services.scraper import cleaner
 from mealie.utils.unzip import unpack_zip
@@ -33,6 +34,8 @@ class MigrationBase(BaseModel):
     migration_file: Path
     session: Optional[Any]
     key_aliases: Optional[list[MigrationAlias]]
+
+    user: PrivateUser
 
     @property
     def temp_dir(self) -> TemporaryDirectory:
@@ -162,6 +165,10 @@ class MigrationBase(BaseModel):
         """
 
         for recipe in validated_recipes:
+
+            recipe.user_id = self.user.id
+            recipe.group_id = self.user.group_id
+
             exception = ""
             status = False
             try:
