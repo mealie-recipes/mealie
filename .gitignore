@@ -151,3 +151,5 @@ dev/data/recipes/*
 dev/scripts/output/app_routes.py
 dev/scripts/output/javascriptAPI/*
 mealie/services/scraper/ingredient_nlp/model.crfmodel
+dev/code-generation/generated/openapi.json
+dev/code-generation/generated/test_routes.py

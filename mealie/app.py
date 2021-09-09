@@ -10,7 +10,6 @@ from mealie.routes.mealplans import meal_plan_router
 from mealie.routes.media import media_router
 from mealie.routes.site_settings import settings_router
 from mealie.services.events import create_general_event
-from mealie.services.recipe.all_recipe_service import subscripte_to_recipe_events
 
 logger = get_logger()
 
@@ -71,7 +70,6 @@ def system_startup():
         )
     )
     create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
-    subscripte_to_recipe_events()
 
 
 def main():

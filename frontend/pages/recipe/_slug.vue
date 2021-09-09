@@ -222,6 +222,9 @@
 
             <v-col cols="12" sm="12" md="8" lg="8">
               <RecipeInstructions v-model="recipe.recipeInstructions" :edit="form" />
+              <div class="d-flex">
+                <BaseButton v-if="form" class="ml-auto my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
+              </div>
               <RecipeNotes v-model="recipe.notes" :edit="form" />
             </v-col>
           </v-row>
@@ -346,6 +349,22 @@ export default defineComponent({
       list.splice(index, 1);
     }
 
+    function addStep(steps: Array<string> | null = null) {
+      if (!recipe.value?.recipeInstructions) {
+        return;
+      }
+
+      if (steps) {
+        const cleanedSteps = steps.map((step) => {
+          return { text: step, title: "" };
+        });
+
+        recipe.value.recipeInstructions.push(...cleanedSteps);
+      } else {
+        recipe.value.recipeInstructions.push({ text: "", title: "" });
+      }
+    }
+
     function addIngredient(ingredients: Array<string> | null = null) {
       if (ingredients?.length) {
         const newIngredients = ingredients.map((x) => {
@@ -386,6 +405,7 @@ export default defineComponent({
       api,
       form,
       loading,
+      addStep,
       deleteRecipe,
       updateRecipe,
       uploadImage,

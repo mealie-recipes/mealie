@@ -4,13 +4,15 @@ import { GroupInDB } from "~/types/api-types/user";
 const prefix = "/api";
 
 const routes = {
-  groups: `${prefix}/groups`,
+  groups: `${prefix}/admin/groups`,
   groupsSelf: `${prefix}/groups/self`,
   categories: `${prefix}/groups/categories`,
 
   preferences: `${prefix}/groups/preferences`,
 
-  groupsId: (id: string | number) => `${prefix}/groups/${id}`,
+  invitation: `${prefix}/groups/invitations`,
+
+  groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,
 };
 
 interface Category {
@@ -44,6 +46,16 @@ export interface Group extends CreateGroup {
   preferences: Preferences;
 }
 
+export interface CreateInvitation {
+  uses: number;
+}
+
+export interface Invitation {
+  group_id: number;
+  token: string;
+  uses_left: number;
+}
+
 export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
   baseRoute = routes.groups;
   itemRoute = routes.groupsId;
@@ -67,5 +79,9 @@ export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
 
   async setPreferences(payload: UpdatePreferences) {
     return await this.requests.put<Preferences>(routes.preferences, payload);
+  }
+
+  async createInvitation(payload: CreateInvitation) {
+    return await this.requests.post<Invitation>(routes.invitation, payload);
   }
 }

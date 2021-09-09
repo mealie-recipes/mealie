@@ -6,11 +6,13 @@ from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, s
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import app_dirs
+from mealie.core.dependencies import get_current_user
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.admin import BackupJob, ImportJob, Imports, LocalBackup
+from mealie.schema.user.user import PrivateUser
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
 from mealie.services.events import create_backup_event
@@ -82,10 +84,12 @@ def import_database(
     file_name: str,
     import_data: ImportJob,
     session: Session = Depends(generate_session),
+    user: PrivateUser = Depends(get_current_user),
 ):
     """ Import a database backup file generated from Mealie. """
 
     db_import = imports.import_database(
+        user=user,
         session=session,
         archive=import_data.name,
         import_recipes=import_data.recipes,

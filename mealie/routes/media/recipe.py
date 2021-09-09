@@ -25,7 +25,7 @@ async def get_recipe_img(slug: str, file_name: ImageType = ImageType.original):
     and should not hit the API in production"""
     recipe_image = Recipe(slug=slug).image_dir.joinpath(file_name.value)
 
-    if recipe_image:
+    if recipe_image.exists():
         return FileResponse(recipe_image)
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)

@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from mealie.schema.user.registration import CreateUserRegistration
+from tests.utils.factories import user_registration_factory
 
 
 class Routes:
@@ -9,21 +9,13 @@ class Routes:
 
 
 def test_user_registration_new_group(api_client: TestClient):
-    registration = CreateUserRegistration(
-        group="New Group Name",
-        email="email@email.com",
-        username="fake-user-name",
-        password="fake-password",
-        password_confirm="fake-password",
-        advanced=False,
-        private=False,
-    )
+    registration = user_registration_factory()
 
     response = api_client.post(Routes.base, json=registration.dict(by_alias=True))
     assert response.status_code == 201
 
     # Login
-    form_data = {"username": "email@email.com", "password": "fake-password"}
+    form_data = {"username": registration.email, "password": registration.password}
 
     response = api_client.post(Routes.auth_token, form_data)
     assert response.status_code == 200

@@ -1,9 +1,10 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 from mealie.core.config import settings
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models.group import Group
-from mealie.db.models.recipe.recipe import RecipeModel
+
+from .._model_base import BaseMixins, SqlAlchemyBase
+from ..group import Group
+from .user_to_favorite import users_to_favorites
 
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
@@ -33,6 +34,8 @@ class User(SqlAlchemyBase, BaseMixins):
     group_id = Column(Integer, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
 
+    # Recipes
+
     tokens: list[LongLiveToken] = orm.relationship(
         LongLiveToken, back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )
@@ -41,7 +44,10 @@ class User(SqlAlchemyBase, BaseMixins):
         "RecipeComment", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )
 
-    favorite_recipes: list[RecipeModel] = orm.relationship(RecipeModel, back_populates="favorited_by")
+    owned_recipes_id = Column(Integer, ForeignKey("recipes.id"))
+    owned_recipes = orm.relationship("RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id])
+
+    favorite_recipes = orm.relationship("RecipeModel", secondary=users_to_favorites, back_populates="favorited_by")
 
     def __init__(
         self,
@@ -65,9 +71,7 @@ class User(SqlAlchemyBase, BaseMixins):
         self.password = password
         self.advanced = advanced
 
-        self.favorite_recipes = [
-            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug") for x in favorite_recipes
-        ]
+        self.favorite_recipes = []
 
         if self.username is None:
             self.username = full_name
@@ -98,10 +102,6 @@ class User(SqlAlchemyBase, BaseMixins):
 
         if password:
             self.password = password
-
-        self.favorite_recipes = [
-            RecipeModel.get_ref(session=session, match_value=x, match_attr="slug") for x in favorite_recipes
-        ]
 
     def update_password(self, password):
         self.password = password

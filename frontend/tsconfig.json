@@ -18,5 +18,8 @@
     },
     "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node", "@nuxtjs/i18n", "@nuxtjs/auth-next"]
   },
-  "exclude": ["node_modules", ".nuxt", "dist"]
+  "exclude": ["node_modules", ".nuxt", "dist"],
+  "vueCompilerOptions": {
+    "experimentalCompatMode": 2
+  }
 }

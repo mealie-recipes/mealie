@@ -40,6 +40,7 @@ export default {
     // https://go.nuxtjs.dev/typescript
     "@nuxt/typescript-build",
     // https://go.nuxtjs.dev/vuetify
+    // https://go.nuxtjs.dev/vuetify
     "@nuxtjs/vuetify",
     // https://composition-api.nuxtjs.org/getting-started/setup
     "@nuxtjs/composition-api/module",
@@ -115,7 +116,7 @@ export default {
 
   i18n: {
     locales: [
-      // Auto Generated from "generate_nuxt_locales.py"
+      // CODE_GEN_ID: MESSAGE_LOCALES
       { code: "el-GR", file: "el-GR.json" },
       { code: "it-IT", file: "it-IT.json" },
       { code: "ko-KR", file: "ko-KR.json" },
@@ -147,13 +148,14 @@ export default {
       { code: "en-GB", file: "en-GB.json" },
       { code: "fi-FI", file: "fi-FI.json" },
       { code: "vi-VN", file: "vi-VN.json" },
+      // END: MESSAGE_LOCALES
     ],
     lazy: true,
     langDir: "lang/messages",
     defaultLocale: "en-US",
     vueI18n: {
       dateTimeFormats: {
-        // Auto Generated from "generate_nuxt_locales.py"
+        // CODE_GEN_ID: DATE_LOCALES
         "el-GR": require("./lang/dateTimeFormats/el-GR.json"),
         "it-IT": require("./lang/dateTimeFormats/it-IT.json"),
         "ko-KR": require("./lang/dateTimeFormats/ko-KR.json"),
@@ -185,6 +187,7 @@ export default {
         "en-GB": require("./lang/dateTimeFormats/en-GB.json"),
         "fi-FI": require("./lang/dateTimeFormats/fi-FI.json"),
         "vi-VN": require("./lang/dateTimeFormats/vi-VN.json"),
+        // END: DATE_LOCALES
       },
     },
     fallbackLocale: "es",

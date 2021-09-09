@@ -4,41 +4,35 @@
       <v-card-title class="headline"> User Registration </v-card-title>
       <v-card-text>
         <v-form ref="domRegisterForm" @submit.prevent="register()">
-          <ToggleState>
-            <template #activator="{ toggle }">
-              <div class="d-flex justify-center my-2">
-                <v-btn-toggle tile mandatory group color="primary">
-                  <v-btn small @click="toggle(false)"> Create a Group </v-btn>
-                  <v-btn small @click="toggle(true)"> Join a Group </v-btn>
-                </v-btn-toggle>
-              </div>
-            </template>
-            <template #default="{ state }">
-              <v-text-field
-                v-if="!state"
-                v-model="form.group"
-                filled
-                rounded
-                autofocus
-                validate-on-blur
-                class="rounded-lg"
-                :prepend-icon="$globals.icons.group"
-                :rules="[tokenOrGroup]"
-                label="New Group Name"
-              />
-              <v-text-field
-                v-else
-                v-model="form.groupToken"
-                filled
-                rounded
-                validate-on-blur
-                :rules="[tokenOrGroup]"
-                class="rounded-lg"
-                :prepend-icon="$globals.icons.group"
-                label="Group Token"
-              />
-            </template>
-          </ToggleState>
+          <div class="d-flex justify-center my-2">
+            <v-btn-toggle v-model="joinGroup" mandatory tile group color="primary">
+              <v-btn :value="false" small @click="joinGroup = false"> Create a Group </v-btn>
+              <v-btn :value="true" small @click="joinGroup = true"> Join a Group </v-btn>
+            </v-btn-toggle>
+          </div>
+          <v-text-field
+            v-if="!joinGroup"
+            v-model="form.group"
+            filled
+            rounded
+            autofocus
+            validate-on-blur
+            class="rounded-lg"
+            :prepend-icon="$globals.icons.group"
+            :rules="[tokenOrGroup]"
+            label="New Group Name"
+          />
+          <v-text-field
+            v-else
+            v-model="form.groupToken"
+            filled
+            rounded
+            validate-on-blur
+            :rules="[tokenOrGroup]"
+            class="rounded-lg"
+            :prepend-icon="$globals.icons.group"
+            label="Group Token"
+          />
           <v-text-field
             v-model="form.email"
             filled
@@ -105,29 +99,42 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, ref, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, ref, useRouter, watch } from "@nuxtjs/composition-api";
 import { validators } from "@/composables/use-validators";
 import { useApiSingleton } from "~/composables/use-api";
 import { alert } from "~/composables/use-toast";
+import { useRouterQuery } from "@/composables/use-router";
 
 export default defineComponent({
   layout: "basic",
   setup() {
     const api = useApiSingleton();
     const state = reactive({
+      joinGroup: false,
       loggingIn: false,
       success: false,
     });
     const allowSignup = computed(() => process.env.AllOW_SIGNUP);
 
-    const router = useRouter();
+    const token = useRouterQuery("token");
+
+    watch(token, (newToken) => {
+      if (newToken) {
+        console.log(token);
+        form.groupToken = newToken;
+      }
+    });
+
+    if (token) {
+      state.joinGroup = true;
+    }
 
     // @ts-ignore
     const domRegisterForm = ref<VForm>(null);
 
     const form = reactive({
       group: "",
-      groupToken: "",
+      groupToken: token,
       email: "",
       username: "",
       password: "",
@@ -139,23 +146,24 @@ export default defineComponent({
     const passwordMatch = () => form.password === form.passwordConfirm || "Passwords do not match";
     const tokenOrGroup = () => form.group !== "" || form.groupToken !== "" || "Group name or token must be given";
 
+    const router = useRouter();
+
     async function register() {
       if (!domRegisterForm.value?.validate()) {
         return;
       }
 
-      const { data, response } = await api.register.register(form);
+      const { response } = await api.register.register(form);
 
       if (response?.status === 201) {
         state.success = true;
         alert.success("Registration Success");
         router.push("/user/login");
       }
-
-      console.log(data, response);
     }
 
     return {
+      token,
       domRegisterForm,
       validators,
       allowSignup,

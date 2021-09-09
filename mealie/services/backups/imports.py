@@ -27,6 +27,7 @@ from mealie.services.image import minify
 class ImportDatabase:
     def __init__(
         self,
+        user: PrivateUser,
         session: Session,
         zip_archive: str,
         force_import: bool = False,
@@ -41,6 +42,7 @@ class ImportDatabase:
         Raises:
             Exception: If the zip file does not exists an exception raise.
         """
+        self.user = user
         self.session = session
         self.archive = app_dirs.BACKUP_DIR.joinpath(zip_archive)
         self.force_imports = force_import
@@ -65,6 +67,9 @@ class ImportDatabase:
 
         for recipe in recipes:
             recipe: Recipe
+
+            recipe.group_id = self.user.group_id
+            recipe.user_id = self.user.id
 
             import_status = self.import_model(
                 db_table=db.recipes,
@@ -308,6 +313,7 @@ class ImportDatabase:
 
 def import_database(
     session: Session,
+    user: PrivateUser,
     archive,
     import_recipes=True,
     import_settings=True,
@@ -317,7 +323,7 @@ def import_database(
     force_import: bool = False,
     rebase: bool = False,
 ):
-    import_session = ImportDatabase(session, archive, force_import)
+    import_session = ImportDatabase(user, session, archive, force_import)
 
     recipe_report = []
     if import_recipes:

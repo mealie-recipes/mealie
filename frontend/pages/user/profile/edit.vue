@@ -5,8 +5,10 @@
         <v-img max-height="200" max-width="200" class="mb-2" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
       </template>
       <template #title> Your Profile Settings </template>
-      Some text here...
     </BasePageTitle>
+
+
+
     <section>
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
@@ -19,9 +21,8 @@
             {{ $t("settings.profile") }}
           </v-btn>
         </template>
-
         <template #default="{ state }">
-          <v-slide-x-transition group mode="in" hide-on-leave>
+          <v-slide-x-transition>
             <div v-if="!state" key="personal-info">
               <BaseCardSectionTitle class="mt-10" title="Personal Information"> </BaseCardSectionTitle>
               <v-card tag="article" outlined>
@@ -90,8 +91,14 @@
         label="Show advanced features (API Keys, Webhooks, and Data Management)"
         @change="updateUser"
       ></v-checkbox>
-      <div class="d-flex justify-center mt-5">
-        <v-btn outlined class="rounded-xl" to="/user/group"> Looking for Privacy Settings? </v-btn>
+      <div class="d-flex flex-wrap justify-center mt-5">
+        <v-btn outlined class="rounded-xl my-1 mx-1" to="/user/profile" nuxt exact>
+          <v-icon left>
+            {{ $globals.icons.backArrow }}
+          </v-icon>
+          Back to Profile
+        </v-btn>
+        <v-btn outlined class="rounded-xl my-1 mx-1" to="/user/group"> Looking for Privacy Settings? </v-btn>
       </div>
     </section>
   </v-container>

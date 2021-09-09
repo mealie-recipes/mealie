@@ -81,6 +81,7 @@ class UserIn(UserBase):
 class UserOut(UserBase):
     id: int
     group: str
+    group_id: int
     tokens: Optional[list[LongLiveTokenOut]]
     favorite_recipes: Optional[list[str]] = []
 
@@ -112,6 +113,7 @@ class UserFavorites(UserBase):
 
 class PrivateUser(UserOut):
     password: str
+    group_id: int
 
     class Config:
         orm_mode = True

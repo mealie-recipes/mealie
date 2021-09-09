@@ -4,26 +4,8 @@ from sqlalchemy.orm.session import Session
 from mealie.db.database import db
 from mealie.db.db_setup import generate_session
 from mealie.schema.recipe import RecipeSummary
-from mealie.services.recipe.all_recipe_service import AllRecipesService
 
 router = APIRouter()
-
-
-@router.get("")
-def get_recipe_summary(all_recipes_service: AllRecipesService.query = Depends()):
-    """
-    Returns key the recipe summary data for recipes in the database. You can perform
-    slice operations to set the skip/end amounts for recipes. All recipes are sorted by the added date.
-
-    **Query Parameters**
-    - skip: The database entry to start at. (0 Indexed)
-    - end: The number of entries to return.
-
-    skip=2, end=10 will return entries
-
-    """
-
-    return all_recipes_service.get_recipes()
 
 
 @router.get("/summary/untagged", response_model=list[RecipeSummary])

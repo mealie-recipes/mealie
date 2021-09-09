@@ -9,6 +9,23 @@
         Manage your profile, recipes, and group settings.
         <a href="https://hay-kot.github.io/mealie/" target="_blank"> Learn More </a>
       </p>
+      <v-card flat width="100%" max-width="600px">
+        <v-card-actions class="d-flex justify-center">
+          <v-btn outlined rounded @click="getSignupLink()">
+            <v-icon left>
+              {{ $globals.icons.createAlt }}
+            </v-icon>
+            Get Invite Link
+          </v-btn>
+        </v-card-actions>
+        <v-card-text v-if="generatedLink !== ''" class="d-flex">
+          <v-text-field v-model="generatedLink" solo  readonly>
+            <template #append>
+              <AppButtonCopy :copy-text="generatedLink" />
+            </template>
+          </v-text-field>
+        </v-card-text>
+      </v-card>
     </section>
     <section>
       <div>
@@ -21,7 +38,7 @@
             :link="{ text: 'Manage User Profile', to: '/user/profile/edit' }"
             :image="require('~/static/svgs/manage-profile.svg')"
           >
-            <template #title> User Profile </template>
+            <template #title> User Settings </template>
             Manage your preferences, change your password, and update your email
           </UserProfileLinkCard>
         </v-col>
@@ -78,8 +95,9 @@
 </template>
     
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, ref } from "@nuxtjs/composition-api";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
+import { useApiSingleton } from "~/composables/use-api";
 
 export default defineComponent({
   components: {
@@ -88,7 +106,23 @@ export default defineComponent({
   setup() {
     const user = computed(() => useContext().$auth.user);
 
-    return { user };
+    const generatedLink = ref("");
+
+    const api = useApiSingleton();
+
+    async function getSignupLink() {
+      const { data } = await api.groups.createInvitation({ uses: 1 });
+
+      if (data) {
+        generatedLink.value = constructLink(data.token);
+      }
+    }
+
+    function constructLink(token: string) {
+      return `${window.location.origin}/register?token=${token}`;
+    }
+
+    return { user, constructLink, generatedLink, getSignupLink };
   },
 });
 </script>

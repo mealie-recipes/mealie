@@ -7,14 +7,15 @@ from sqlalchemy.exc import IntegrityError
 
 from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
-from mealie.schema.recipe.recipe import CreateRecipe, Recipe
-from mealie.services._base_http_service.http_services import PublicHttpService
+from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeSummary
+from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_recipe_event
+from mealie.services.recipe.mixins import recipe_creation_factory
 
 logger = get_logger(module=__name__)
 
 
-class RecipeService(PublicHttpService[str, Recipe]):
+class RecipeService(UserHttpService[str, Recipe]):
     """
     Class Methods:
         `read_existing`: Reads an existing recipe from the database.
@@ -46,9 +47,13 @@ class RecipeService(PublicHttpService[str, Recipe]):
         return self.item
 
     # CRUD METHODS
-    def create_recipe(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
-        if isinstance(create_data, CreateRecipe):
-            create_data = Recipe(name=create_data.name)
+    def get_all(self, start=0, limit=None):
+        return self.db.recipes.multi_query(
+            self.session, {"group_id": self.user.group_id}, start=start, limit=limit, override_schema=RecipeSummary
+        )
+
+    def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
+        create_data = recipe_creation_factory(self.user, name=create_data.name, additional_attrs=create_data.dict())
 
         try:
             self.item = self.db.recipes.create(self.session, create_data)
@@ -56,13 +61,13 @@ class RecipeService(PublicHttpService[str, Recipe]):
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "RECIPE_ALREADY_EXISTS"})
 
         self._create_event(
-            "Recipe Created (URL)",
+            "Recipe Created",
             f"'{self.item.name}' by {self.user.username} \n {self.settings.BASE_URL}/recipe/{self.item.slug}",
         )
 
         return self.item
 
-    def update_recipe(self, update_data: Recipe) -> Recipe:
+    def update_one(self, update_data: Recipe) -> Recipe:
         original_slug = self.item.slug
 
         try:
@@ -74,7 +79,7 @@ class RecipeService(PublicHttpService[str, Recipe]):
 
         return self.item
 
-    def patch_recipe(self, patch_data: Recipe) -> Recipe:
+    def patch_one(self, patch_data: Recipe) -> Recipe:
         original_slug = self.item.slug
 
         try:
@@ -88,16 +93,7 @@ class RecipeService(PublicHttpService[str, Recipe]):
 
         return self.item
 
-    def delete_recipe(self) -> Recipe:
-        """removes a recipe from the database and purges the existing files from the filesystem.
-
-        Raises:
-            HTTPException: 400 Bad Request
-
-        Returns:
-            Recipe: The deleted recipe
-        """
-
+    def delete_one(self) -> Recipe:
         try:
             recipe: Recipe = self.db.recipes.delete(self.session, self.item.slug)
             self._delete_assets()

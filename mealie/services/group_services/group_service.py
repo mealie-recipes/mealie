@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+from uuid import uuid4
+
 from fastapi import Depends, HTTPException, status
 
 from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.schema.group.group_preferences import UpdateGroupPreferences
+from mealie.schema.group.invite_token import ReadInviteToken, SaveInviteToken
 from mealie.schema.recipe.recipe_category import CategoryBase
 from mealie.schema.user.user import GroupInDB
 from mealie.services._base_http_service.http_services import UserHttpService
@@ -50,3 +53,10 @@ class GroupSelfService(UserHttpService[int, str]):
         self.db.group_preferences.update(self.session, self.group_id, new_preferences)
 
         return self.populate_item()
+
+    def create_invite_token(self, uses: int = 1) -> None:
+        token = SaveInviteToken(uses_left=uses, group_id=self.group_id, token=uuid4().hex)
+        return self.db.group_tokens.create(self.session, token)
+
+    def get_invite_tokens(self) -> list[ReadInviteToken]:
+        return self.db.group_tokens.multi_query(self.session, {"group_id": self.group_id})
