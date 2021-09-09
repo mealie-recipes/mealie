@@ -139,7 +139,6 @@ def unique_user(api_client: TestClient, api_routes: AppRoutes):
     registration = user_registration_factory()
 
     response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
-
     assert response.status_code == 201
 
     form_data = {"username": registration.username, "password": registration.password}
@@ -147,11 +146,31 @@ def unique_user(api_client: TestClient, api_routes: AppRoutes):
     token = login(form_data, api_client, api_routes)
 
     user_data = api_client.get(api_routes.users_self, headers=token).json()
-
     assert token is not None
 
     try:
-        yield TestUser(group_id=user_data.get("groupId"), user_id=user_data.get("userId"), token=token)
+        yield TestUser(group_id=user_data.get("groupId"), user_id=user_data.get("id"), token=token)
+    finally:
+        # TODO: Delete User after test
+        pass
+
+
+@fixture(scope="session")
+def admin_user(api_client: TestClient, api_routes: AppRoutes):
+
+    form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
+
+    token = login(form_data, api_client, api_routes)
+
+    user_data = api_client.get(api_routes.users_self, headers=token).json()
+    assert token is not None
+
+    assert user_data.get("admin") is True
+    assert user_data.get("groupId") is not None
+    assert user_data.get("id") is not None
+
+    try:
+        yield TestUser(group_id=user_data.get("groupId"), user_id=user_data.get("id"), token=token)
     finally:
         # TODO: Delete User after test
         pass

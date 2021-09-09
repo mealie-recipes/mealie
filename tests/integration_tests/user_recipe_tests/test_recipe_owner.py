@@ -44,27 +44,31 @@ def test_ownership_on_new_with_user(api_client: TestClient, g2_user: TestUser):
     assert recipe["groupId"] == g2_user.group_id
 
 
-def test_get_all_only_includes_group_recipes(api_client: TestClient, admin_token):
-    response = api_client.get(Routes.base, headers=admin_token)
+def test_get_all_only_includes_group_recipes(api_client: TestClient, unique_user: TestUser):
+    for _ in range(5):
+        recipe_name = random_string()
+        response = api_client.post(Routes.base, json={"name": recipe_name}, headers=unique_user.token)
+
+    response = api_client.get(Routes.base, headers=unique_user.token)
 
     assert response.status_code == 200
 
     recipes = response.json()
 
+    assert len(recipes) == 5
+
     for recipe in recipes:
-        assert recipe["groupId"] == GROUP_ID
-        assert recipe["userId"] == ADMIN_ID
+        assert recipe["groupId"] == unique_user.group_id
+        assert recipe["userId"] == unique_user.user_id
 
 
-def test_unique_slug_by_group(api_client: TestClient, admin_token, g2_user: TestUser) -> None:
+def test_unique_slug_by_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser) -> None:
     create_data = {"name": random_string()}
 
-    response = api_client.post(Routes.base, json=create_data, headers=admin_token)
-
+    response = api_client.post(Routes.base, json=create_data, headers=unique_user.token)
     assert response.status_code == 201
 
     response = api_client.post(Routes.base, json=create_data, headers=g2_user.token)
-
     assert response.status_code == 201
 
     # Try to create a recipe again with the same name

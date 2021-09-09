@@ -33,8 +33,8 @@ class CreateRecipe(CamelModel):
 class RecipeSummary(CamelModel):
     id: Optional[int]
 
-    user_id: Optional[int] = 0
-    group_id: Optional[int] = 0
+    user_id: int = 0
+    group_id: int = 0
 
     name: Optional[str]
     slug: str = ""

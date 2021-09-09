@@ -25,16 +25,6 @@ def invite(api_client: TestClient, unique_user: TestUser) -> None:
     return invitation["token"]
 
 
-def register_user(api_client, invite):
-    # Test User can Join Group
-    registration = user_registration_factory()
-    registration.group = ""
-    registration.group_token = invite
-
-    response = api_client.post(Routes.register, json=registration.dict(by_alias=True))
-    return registration, response
-
-
 def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invite: str) -> None:
     # Get All Invites
     r = api_client.get(Routes.base, headers=unique_user.token)
@@ -48,6 +38,17 @@ def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invit
     for item in items:
         assert item["groupId"] == unique_user.group_id
         assert item["token"] == invite
+
+
+def register_user(api_client, invite):
+    # Test User can Join Group
+    registration = user_registration_factory()
+    registration.group = ""
+    registration.group_token = invite
+
+    response = api_client.post(Routes.register, json=registration.dict(by_alias=True))
+    print(response.json())
+    return registration, response
 
 
 def test_group_invitation_link(api_client: TestClient, unique_user: TestUser, invite: str):

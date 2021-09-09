@@ -19,7 +19,9 @@ class Group(SqlAlchemyBase, BaseMixins):
     users = orm.relationship("User", back_populates="group")
     categories = orm.relationship(Category, secondary=group2categories, single_parent=True, uselist=True)
 
-    invite_tokens = orm.relationship(GroupInviteToken, back_populates="group", cascade="all, delete-orphan", uselist=True)
+    invite_tokens = orm.relationship(
+        GroupInviteToken, back_populates="group", cascade="all, delete-orphan", uselist=True
+    )
     preferences = orm.relationship(
         GroupPreferencesModel,
         back_populates="group",
