@@ -120,11 +120,6 @@ class BaseAccessModel(Generic[T, D]):
         eff_schema = override_schema or self.schema
         return eff_schema.from_orm(result)
 
-    def get_many(
-        self, session: Session, value: str, key: str = None, limit=1, any_case=False, override_schema=None
-    ) -> list[T]:
-        pass
-
     def get(
         self, session: Session, match_value: str, match_key: str = None, limit=1, any_case=False, override_schema=None
     ) -> T | list[T]:

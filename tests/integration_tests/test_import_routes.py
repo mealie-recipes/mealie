@@ -14,7 +14,7 @@ def backup_data():
         "recipes": True,
         "settings": False,  # ! Broken
         "groups": False,  # ! Also Broken
-        "users": True,
+        "users": False,
     }
 
 

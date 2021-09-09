@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from mealie.services._base_http_service import RouterFactory
 from mealie.services.group_services import CookbookService, WebhookService
 
-from . import categories, crud, self_service
+from . import categories, crud, invitations, preferences, self_service
 
 router = APIRouter()
 
@@ -14,4 +14,6 @@ router.include_router(cookbook_router)
 router.include_router(categories.user_router)
 router.include_router(webhook_router)
 router.include_router(crud.user_router)
+router.include_router(invitations.router, prefix="/groups/invitations", tags=["Groups: Invitations"])
+router.include_router(preferences.router, prefix="/groups/preferences", tags=["Group: Preferences"])
 router.include_router(crud.admin_router)

@@ -13,9 +13,7 @@ user_router = UserAPIRouter(prefix="/groups", tags=["Groups: CRUD"])
 
 
 @admin_router.get("", response_model=list[GroupInDB])
-async def get_all_groups(
-    session: Session = Depends(generate_session),
-):
+async def get_all_groups(session: Session = Depends(generate_session)):
     """ Returns a list of all groups in the database """
 
     return db.groups.get_all(session)
@@ -38,11 +36,7 @@ async def create_group(
 
 
 @admin_router.put("/{id}")
-async def update_group_data(
-    id: int,
-    group_data: UpdateGroup,
-    session: Session = Depends(generate_session),
-):
+async def update_group_data(id: int, group_data: UpdateGroup, session: Session = Depends(generate_session)):
     """ Updates a User Group """
     db.groups.update(session, id, group_data.dict())
 

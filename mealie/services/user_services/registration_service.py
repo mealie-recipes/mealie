@@ -1,3 +1,5 @@
+from fastapi import HTTPException, status
+
 from mealie.core.root_logger import get_logger
 from mealie.core.security import hash_password
 from mealie.schema.group.group_preferences import CreateGroupPreferences
@@ -20,13 +22,34 @@ class RegistrationService(PublicHttpService[int, str]):
         self.registration = registration
 
         logger.info(f"Registering user {registration.username}")
+        token_entry = None
 
-        if registration.group:
-            group = self._create_new_group()
+        if g_token := registration.group_token:
+            token_entry = self.db.group_tokens.get(self.session, g_token)
+
+            if not token_entry:
+                raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
+
+            group = self.db.groups.get(self.session, token_entry.group_id)
+
+        elif registration.group:
+            group = self._register_new_group()
+
         else:
-            group = self._existing_group_ref()
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 
-        return self._create_new_user(group)
+        user = self._create_new_user(group)
+
+        if token_entry:
+            token_entry.uses_left = token_entry.uses_left - 1
+
+            if token_entry.uses_left == 0:
+                self.db.group_tokens.delete(self.session, token_entry.token)
+
+            else:
+                self.db.group_tokens.update(self.session, token_entry.token, token_entry)
+
+        return user
 
     def _create_new_user(self, group: GroupInDB) -> PrivateUser:
         new_user = UserIn(
@@ -40,7 +63,7 @@ class RegistrationService(PublicHttpService[int, str]):
 
         return self.db.users.create(self.session, new_user)
 
-    def _create_new_group(self) -> GroupInDB:
+    def _register_new_group(self) -> GroupInDB:
         group_data = GroupBase(name=self.registration.group)
 
         group_preferences = CreateGroupPreferences(
@@ -56,6 +79,3 @@ class RegistrationService(PublicHttpService[int, str]):
         )
 
         return create_new_group(self.session, group_data, group_preferences)
-
-    def _existing_group_ref(self) -> GroupInDB:
-        pass
