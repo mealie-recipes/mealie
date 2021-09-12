@@ -34,7 +34,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     user_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
     user = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
-    favorited_by: list = orm.relationship("User", secondary=users_to_favorites, back_populates="favorite_recipes")
+    meal_entries = orm.relationship("GroupMealPlan", back_populates="recipe")
+
+    favorited_by = orm.relationship("User", secondary=users_to_favorites, back_populates="favorite_recipes")
 
     # General Recipe Properties
     name = sa.Column(sa.String, nullable=False)

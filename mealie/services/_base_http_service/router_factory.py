@@ -75,6 +75,7 @@ class RouterFactory(APIRouter):
                 methods=["POST"],
                 response_model=self.schema,
                 summary="Create One",
+                status_code=201,
                 description=inspect.cleandoc(self.service.create_one.__doc__ or ""),
             )
 
