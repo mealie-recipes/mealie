@@ -16,7 +16,7 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     group_id = Column(Integer, ForeignKey("groups.id"), index=True)
     group = orm.relationship("Group", back_populates="mealplans")
 
-    recipe_id = Column(String, ForeignKey("recipes.id"))
+    recipe_id = Column(Integer, ForeignKey("recipes.id"))
     recipe = orm.relationship("RecipeModel", back_populates="meal_entries", uselist=False)
 
     @auto_init()
