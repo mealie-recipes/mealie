@@ -12,14 +12,13 @@ export interface CrudAPIInterface {
 
 export interface CrudAPIMethodsInterface {
   // CRUD Methods
-  getAll(): any
-  createOne(): any
-  getOne(): any
-  updateOne(): any
-  patchOne(): any
-  deleteOne(): any
+  getAll(): any;
+  createOne(): any;
+  getOne(): any;
+  updateOne(): any;
+  patchOne(): any;
+  deleteOne(): any;
 }
-
 
 export abstract class BaseAPI {
   requests: ApiRequestInstance;
@@ -33,9 +32,9 @@ export abstract class BaseCRUDAPI<T, U> extends BaseAPI implements CrudAPIInterf
   abstract baseRoute: string;
   abstract itemRoute(itemId: string | number): string;
 
-  async getAll(start = 0, limit = 9999) {
+  async getAll(start = 0, limit = 9999, params = {}) {
     return await this.requests.get<T[]>(this.baseRoute, {
-      params: { start, limit },
+      params: { start, limit, ...params },
     });
   }
 

@@ -75,6 +75,7 @@ class RouterFactory(APIRouter):
                 methods=["POST"],
                 response_model=self.schema,
                 summary="Create One",
+                status_code=201,
                 description=inspect.cleandoc(self.service.create_one.__doc__ or ""),
             )
 
@@ -162,7 +163,9 @@ class RouterFactory(APIRouter):
                 self.routes.remove(route)
 
     def _get_all(self, *args: Any, **kwargs: Any) -> Callable[..., Any]:
-        def route(service: S = Depends(self.service.private)) -> T:  # type: ignore
+        service_dep = getattr(self.service, "get_all_dep", self.service.private)
+
+        def route(service: S = Depends(service_dep)) -> T:  # type: ignore
             return service.get_all()
 
         return route

@@ -95,6 +95,7 @@ import {
   mdiFoodApple,
   mdiBeakerOutline,
   mdiArrowLeftBoldOutline,
+  mdiArrowRightBoldOutline,
 } from "@mdi/js";
 
 const icons = {
@@ -204,6 +205,9 @@ const icons = {
   admin: mdiAccountCog,
   group: mdiAccountGroup,
   accountPlusOutline: mdiAccountPlusOutline,
+
+  forward: mdiArrowRightBoldOutline,
+  back: mdiArrowLeftBoldOutline,
 };
 
 // eslint-disable-next-line no-empty-pattern

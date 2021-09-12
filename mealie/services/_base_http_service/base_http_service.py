@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Callable, Generic, Type, TypeVar
 
 from fastapi import BackgroundTasks, Depends, HTTPException, status
+from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs, get_settings
@@ -113,6 +114,25 @@ class BaseHttpService(Generic[T, D], ABC):
             self._group_id_cache = group.id
         return self._group_id_cache
 
+    def cast(self, item: BaseModel, dest, assign_owner=True) -> T:
+        """cast a pydantic model to the destination type
+
+        Args:
+            item (BaseModel): A pydantic model containing data
+            dest ([type]): A type to cast the data to
+            assign_owner (bool, optional): If true, will assign the user_id and group_id to the dest type. Defaults to True.
+
+        Returns:
+            TypeVar(dest): Returns the destionation model type
+        """
+        data = item.dict()
+
+        if assign_owner:
+            data["user_id"] = self.user.id
+            data["group_id"] = self.group_id
+
+        return dest(**data)
+
     def assert_existing(self, id: T) -> None:
         self.populate_item(id)
         self._check_item()
@@ -135,30 +155,3 @@ class BaseHttpService(Generic[T, D], ABC):
             raise NotImplementedError("`event_func` must be set by child class")
 
         self.background_tasks.add_task(self.__class__.event_func, title, message, self.session)
-
-    # Generic CRUD Functions
-    def _create_one(self, data: Any, exception_msg="generic-create-error") -> D:
-        try:
-            self.item = self.db_access.create(self.session, data)
-        except Exception as ex:
-            logger.exception(ex)
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": exception_msg, "exception": str(ex)})
-
-        return self.item
-
-    def _update_one(self, data: Any, id: int = None) -> D:
-        if not self.item:
-            return
-
-        target_id = id or self.item.id
-        self.item = self.db_access.update(self.session, target_id, data)
-
-        return self.item
-
-    def _delete_one(self, id: int = None) -> D:
-        if not self.item:
-            return
-
-        target_id = id or self.item.id
-        self.item = self.db_access.delete(self.session, target_id)
-        return self.item

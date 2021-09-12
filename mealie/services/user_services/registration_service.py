@@ -7,7 +7,7 @@ from mealie.schema.user.registration import CreateUserRegistration
 from mealie.schema.user.user import GroupBase, GroupInDB, PrivateUser, UserIn
 from mealie.services._base_http_service.http_services import PublicHttpService
 from mealie.services.events import create_user_event
-from mealie.services.group_services.group_mixins import create_new_group
+from mealie.services.group_services.group_utils import create_new_group
 
 logger = get_logger(module=__name__)
 

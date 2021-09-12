@@ -10,7 +10,7 @@ from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema.admin import SiteSettings
 from mealie.schema.user.user import GroupBase
 from mealie.services.events import create_general_event
-from mealie.services.group_services.group_mixins import create_new_group
+from mealie.services.group_services.group_utils import create_new_group
 
 logger = root_logger.get_logger("init_db")
 

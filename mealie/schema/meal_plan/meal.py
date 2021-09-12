@@ -3,9 +3,6 @@ from typing import Optional
 
 from fastapi_camelcase import CamelModel
 from pydantic import validator
-from pydantic.utils import GetterDict
-
-from mealie.db.models.mealplan import MealPlan
 
 
 class MealIn(CamelModel):
@@ -54,18 +51,3 @@ class MealPlanOut(MealPlanIn):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(_cls, name_orm: MealPlan):
-            try:
-                return {
-                    **GetterDict(name_orm),
-                    "group": name_orm.group.name,
-                    "shopping_list": name_orm.shopping_list.id,
-                }
-            except Exception:
-                return {
-                    **GetterDict(name_orm),
-                    "group": name_orm.group.name,
-                    "shopping_list": None,
-                }

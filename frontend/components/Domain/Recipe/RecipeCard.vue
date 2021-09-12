@@ -30,6 +30,7 @@
           <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :is-category="false" />
           <RecipeContextMenu :slug="slug" :name="name" />
         </v-card-actions>
+        <slot></slot>
       </v-card>
     </v-hover>
   </v-lazy>
@@ -58,11 +59,13 @@ export default {
     },
     rating: {
       type: Number,
+      required: false,
       default: 0,
     },
     image: {
       type: String,
-      default: null,
+      required: false,
+      default: "abc123",
     },
     route: {
       type: Boolean,

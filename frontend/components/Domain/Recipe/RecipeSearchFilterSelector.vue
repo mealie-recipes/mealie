@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "@nuxtjs/composition-api";
 
 type SelectionValue = "include" | "exclude" | "any";
 
