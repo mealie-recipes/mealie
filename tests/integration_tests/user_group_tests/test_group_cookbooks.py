@@ -17,7 +17,7 @@ def page_data():
 def test_create_cookbook(api_client: TestClient, admin_token, page_data):
     response = api_client.post(Routes.base, json=page_data, headers=admin_token)
 
-    assert response.status_code == 200
+    assert response.status_code == 201
 
 
 def test_read_cookbook(api_client: TestClient, page_data, admin_token):

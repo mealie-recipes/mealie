@@ -10,10 +10,11 @@ import { UtilsAPI } from "./class-interfaces/utils";
 import { NotificationsAPI } from "./class-interfaces/event-notifications";
 import { FoodAPI } from "./class-interfaces/recipe-foods";
 import { UnitAPI } from "./class-interfaces/recipe-units";
-import { CookbookAPI } from "./class-interfaces/cookbooks";
+import { CookbookAPI } from "./class-interfaces/group-cookbooks";
 import { WebhooksAPI } from "./class-interfaces/group-webhooks";
 import { AdminAboutAPI } from "./class-interfaces/admin-about";
 import { RegisterAPI } from "./class-interfaces/user-registration";
+import { MealPlanAPI } from "./class-interfaces/group-mealplan";
 import { ApiRequestInstance } from "~/types/api";
 
 class AdminAPI {
@@ -48,6 +49,7 @@ class Api {
   public cookbooks: CookbookAPI;
   public groupWebhooks: WebhooksAPI;
   public register: RegisterAPI;
+  public mealplans: MealPlanAPI;
 
   // Utils
   public upload: UploadFile;
@@ -70,6 +72,7 @@ class Api {
     this.cookbooks = new CookbookAPI(requests);
     this.groupWebhooks = new WebhooksAPI(requests);
     this.register = new RegisterAPI(requests);
+    this.mealplans = new MealPlanAPI(requests);
 
     // Admin
     this.events = new EventsAPI(requests);
