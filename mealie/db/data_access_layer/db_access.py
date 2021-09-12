@@ -3,6 +3,7 @@ from logging import getLogger
 from sqlalchemy.orm.session import Session
 
 from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
+from mealie.db.data_access_layer.meal_access_model import MealDataAccessModel
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group, GroupMealPlan
 from mealie.db.models.group.cookbook import CookBook
@@ -90,7 +91,7 @@ class DatabaseAccessLayer:
         # Group Data
         self.groups = GroupDataAccessModel(pk_id, Group, GroupInDB)
         self.group_tokens = BaseAccessModel("token", GroupInviteToken, ReadInviteToken)
-        self.meals = BaseAccessModel(pk_id, GroupMealPlan, ReadPlanEntry)
+        self.meals = MealDataAccessModel(pk_id, GroupMealPlan, ReadPlanEntry)
         self.webhooks = BaseAccessModel(pk_id, GroupWebhooksModel, ReadWebhook)
         self.shopping_lists = BaseAccessModel(pk_id, ShoppingList, ShoppingListOut)
         self.cookbooks = BaseAccessModel(pk_id, CookBook, ReadCookBook)

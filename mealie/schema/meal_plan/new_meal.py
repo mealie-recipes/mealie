@@ -24,7 +24,7 @@ class CreatePlanEntry(CamelModel):
 
     @validator("recipe_id", always=True)
     @classmethod
-    def slug_or_title(cls, value, values):
+    def id_or_title(cls, value, values):
         print(value, values)
         if bool(value) is False and bool(values["title"]) is False:
             raise ValueError(f"`recipe_id={value}` or `title={values['title']}` must be provided")
