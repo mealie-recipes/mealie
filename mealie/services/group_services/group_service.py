@@ -46,7 +46,6 @@ class GroupSelfService(UserHttpService[int, str]):
 
     def update_categories(self, new_categories: list[CategoryBase]):
         self.item.categories = new_categories
-
         return self.db.groups.update(self.session, self.group_id, self.item)
 
     def update_preferences(self, new_preferences: UpdateGroupPreferences):

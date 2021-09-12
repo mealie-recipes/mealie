@@ -7,7 +7,7 @@ def create_new_group(session, g_base: GroupBase, g_preferences: CreateGroupPrefe
     db = get_database()
     created_group = db.groups.create(session, g_base)
 
-    g_preferences = g_preferences or CreateGroupPreferences(group_id=0)
+    g_preferences = g_preferences or CreateGroupPreferences(group_id=0)  # Assign Temporary ID before group is created
 
     g_preferences.group_id = created_group.id
 
