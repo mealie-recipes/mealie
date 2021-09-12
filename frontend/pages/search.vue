@@ -67,7 +67,7 @@
 
 <script>
 import Fuse from "fuse.js";
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchFilterSelector.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";

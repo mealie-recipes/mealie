@@ -57,8 +57,8 @@
         <v-icon>{{ $globals.icons.forward }} </v-icon>
       </v-btn>
     </div>
-    <!-- <v-row class="mt-2">
-      <v-col v-for="(plan, index) in mealsByDate" :key="index">
+    <v-row class="mt-2">
+      <v-col v-for="(plan, index) in mealsByDate" :key="index" cols="12" sm="12" md="4" lg="3" xl="2">
         <p class="h5 text-center">
           {{ $d(plan.date, "short") }}
         </p>
@@ -72,55 +72,22 @@
           @end="onMoveCallback"
         >
           <v-hover v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" open-delay="100">
-            <RecipeCardMobile
-              class="relative my-1 text-center"
-              :name="mealplan.recipe.name"
-              :slug="mealplan.recipe.slug"
-              @selected="() => {}"
-            >
-              <template #avatar>
-                <div />
-              </template>
-              <template #actions>
-                <div />
-              </template>
-            </RecipeCardMobile>
+            <v-card class="my-2">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="mb-1">
+                    {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ mealplan.recipe ? mealplan.recipe.description : mealplan.text }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
           </v-hover>
         </draggable>
       </v-col>
-    </v-row> -->
-    <section>
-      <v-card v-for="(plan, index) in mealsByDate" :key="index" flat class="d-flex flex-column align-center mb-4">
-        <v-card-title label color="accent" class="headline mr-auto pb-0">
-          {{ $d(plan.date, "short") }}
-        </v-card-title>
-        <v-divider class="my-1"></v-divider>
-        <draggable
-          tag="div"
-          :value="plan.meals"
-          group="meals"
-          :data-index="index"
-          :data-box="plan.date"
-          style="min-height: 100px; min-width: 100%"
-          class="d-flex flex-wrap"
-          @end="onMoveCallback"
-        >
-          <v-hover v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" open-delay="100">
-            <RecipeCardMobile
-              class="relative ma-1"
-              style="max-width: 500px"
-              :name="mealplan.recipe.name"
-              :slug="mealplan.recipe.slug"
-              :description="mealplan.recipe.description"
-              :rating="mealplan.recipe.rating"
-              :image="mealplan.recipe.image"
-              @selected="() => {}"
-            >
-            </RecipeCardMobile>
-          </v-hover>
-        </draggable>
-      </v-card>
-    </section>
+    </v-row>
   </v-container>
 </template>
   
@@ -131,12 +98,10 @@ import { SortableEvent } from "sortablejs"; // eslint-disable-line
 import draggable from "vuedraggable";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useRecipes, allRecipes } from "~/composables/use-recipes";
-import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 
 export default defineComponent({
   components: {
     draggable,
-    RecipeCardMobile,
   },
   setup() {
     const { mealplans, actions } = useMealplans();
@@ -189,7 +154,6 @@ export default defineComponent({
           // @ts-ignore
           const destDate = mealsByDate.value[toMealsByIndex].date;
 
-          console.log({ destDate });
           mealData.date = format(destDate, "yyyy-MM-dd");
 
           actions.updateOne(mealData);
@@ -213,7 +177,7 @@ export default defineComponent({
 
     const days = computed(() => {
       if (weekRange.value?.start === null) return [];
-      return Array.from(Array(5).keys()).map(
+      return Array.from(Array(8).keys()).map(
         // @ts-ignore
         (i) => new Date(weekRange.value.start.getTime() + i * 24 * 60 * 60 * 1000)
       );

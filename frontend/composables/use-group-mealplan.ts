@@ -1,4 +1,5 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
+import { addDays, subDays, format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useApiSingleton } from "~/composables/use-api";
 import { CreateMealPlan, UpdateMealPlan } from "~/api/class-interfaces/group-mealplan";
@@ -12,7 +13,12 @@ export const useMealplans = function () {
     getAll() {
       loading.value = true;
       const units = useAsync(async () => {
-        const { data } = await api.mealplans.getAll();
+        const query = {
+          start: format(subDays(new Date(), 30), "yyyy-MM-dd"),
+          limit: format(addDays(new Date(), 30), "yyyy-MM-dd"),
+        };
+        // @ts-ignore
+        const { data } = await api.mealplans.getAll(query.start, query.limit);
 
         return data;
       }, useAsyncKey());
@@ -22,7 +28,12 @@ export const useMealplans = function () {
     },
     async refreshAll() {
       loading.value = true;
-      const { data } = await api.mealplans.getAll();
+      const query = {
+        start: format(subDays(new Date(), 30), "yyyy-MM-dd"),
+        limit: format(addDays(new Date(), 30), "yyyy-MM-dd"),
+      };
+      // @ts-ignore
+      const { data } = await api.mealplans.getAll(query.start, query.limit);
 
       if (data) {
         mealplans.value = data;

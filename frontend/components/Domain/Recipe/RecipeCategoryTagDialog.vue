@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
 const CREATED_ITEM_EVENT = "created-item";
 export default defineComponent({
