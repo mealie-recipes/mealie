@@ -109,7 +109,7 @@ def validate_file_token(token: Optional[str] = None) -> Path:
 
 
 async def temporary_zip_path() -> Path:
-    temp_path = app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
+    app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
 
     try:

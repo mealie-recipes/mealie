@@ -44,7 +44,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
 def scrape_image(image_url: str, slug: str) -> Path:
     logger.info(f"Image URL: {image_url}")
     if isinstance(image_url, str):  # Handles String Types
-        image_url = image_url
+        pass
 
     if isinstance(image_url, list):  # Handles List Types
         image_url = image_url[0]
