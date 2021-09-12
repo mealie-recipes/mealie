@@ -9,13 +9,13 @@ def test_create_plan_with_title():
     entry = CreatePlanEntry(date=date.today(), title="Test Title")
 
     assert entry.title == "Test Title"
-    assert entry.recipe_slug is None
+    assert entry.recipe_id is None
 
 
 def test_create_plan_with_slug():
-    entry = CreatePlanEntry(date=date.today(), recipe_slug="test-slug")
+    entry = CreatePlanEntry(date=date.today(), recipe_id=123)
 
-    assert entry.recipe_slug == "test-slug"
+    assert entry.recipe_id == 123
     assert entry.title == ""
 
 

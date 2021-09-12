@@ -19,7 +19,7 @@ def webhook_data():
 def test_create_webhook(api_client: TestClient, unique_user: TestUser, webhook_data):
     response = api_client.post(Routes.base, json=webhook_data, headers=unique_user.token)
 
-    assert response.status_code == 200
+    assert response.status_code == 201
 
 
 def test_read_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from fastapi.testclient import TestClient
 
@@ -11,6 +11,9 @@ class Routes:
     base = "/api/groups/mealplans"
     recipe = "/api/recipes"
     today = "/api/groups/mealplans/today"
+
+    def all_slice(start: str, end: str):
+        return f"{Routes.base}?start={start}&limit={end}"
 
     def item(item_id: int) -> str:
         return f"{Routes.base}/{item_id}"
@@ -108,9 +111,57 @@ def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
     assert len(response.json()) >= 3
 
 
-def test_get_slice_mealplans():
-    assert False
+def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
+    # Make List of 10 dates from now to +10 days
+    dates = [date.today() + timedelta(days=x) for x in range(10)]
+
+    # Make a list of 10 meal plans
+    meal_plans = [
+        CreatePlanEntry(date=date, entry_type="breakfast", title=random_string(), text=random_string()).dict()
+        for date in dates
+    ]
+
+    # Add the meal plans to the database
+    for meal_plan in meal_plans:
+        meal_plan["date"] = meal_plan["date"].strftime("%Y-%m-%d")
+        response = api_client.post(Routes.base, json=meal_plan, headers=unique_user.token)
+        assert response.status_code == 201
+
+    # Get meal slice of meal plans from database
+    slices = [dates, dates[1:2], dates[2:3], dates[3:4], dates[4:5]]
+
+    for date_range in slices:
+        start = date_range[0].strftime("%Y-%m-%d")
+        end = date_range[-1].strftime("%Y-%m-%d")
+
+        response = api_client.get(Routes.all_slice(start, end), headers=unique_user.token)
+
+        assert response.status_code == 200
+        response_json = response.json()
+
+        for meal_plan in response_json:
+            assert meal_plan["date"] in [date.strftime("%Y-%m-%d") for date in date_range]
 
 
-def test_get_mealplan_today():
-    assert False
+def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
+    # Create Meal Plans for today
+    test_meal_plans = [
+        CreatePlanEntry(date=date.today(), entry_type="breakfast", title=random_string(), text=random_string()).dict()
+        for _ in range(3)
+    ]
+
+    # Add the meal plans to the database
+    for meal_plan in test_meal_plans:
+        meal_plan["date"] = meal_plan["date"].strftime("%Y-%m-%d")
+        response = api_client.post(Routes.base, json=meal_plan, headers=unique_user.token)
+        assert response.status_code == 201
+
+    # Get meal plan for today
+    response = api_client.get(Routes.today, headers=unique_user.token)
+
+    assert response.status_code == 200
+
+    response_json = response.json()
+
+    for meal_plan in response_json:
+        assert meal_plan["date"] == date.today().strftime("%Y-%m-%d")
