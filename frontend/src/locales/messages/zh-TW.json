@@ -33,10 +33,10 @@
     "show-assets": "Show Assets"
   },
   "category": {
-    "category-created": "Category created",
-    "category-creation-failed": "Category creation failed",
-    "category-deleted": "Category Deleted",
-    "category-deletion-failed": "Category deletion failed",
+    "category-created": "類別已新增",
+    "category-creation-failed": "新增類別失敗",
+    "category-deleted": "類別已刪除",
+    "category-deletion-failed": "類別刪除失敗",
     "category-filter": "Category Filter",
     "category-update-failed": "Category update failed",
     "category-updated": "Category updated",
