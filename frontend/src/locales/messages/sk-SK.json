@@ -275,10 +275,10 @@
     "show-nutrition-values": "Ukáž nutričné hodnoty",
     "sodium-content": "Sodík",
     "step-index": "Krok: {step}",
-    "sugar-content": "Sugar",
-    "title": "Title",
-    "total-time": "Total Time",
-    "unable-to-delete-recipe": "Unable to Delete Recipe"
+    "sugar-content": "Cukry",
+    "title": "Názov",
+    "total-time": "Celkový čas",
+    "unable-to-delete-recipe": "Recept nie je možné odstrániť"
   },
   "reicpe": {
     "no-recipe": "No Recipe"
