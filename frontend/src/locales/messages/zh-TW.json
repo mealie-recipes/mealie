@@ -357,11 +357,11 @@
       "success": "成功（Success）",
       "switch-to-dark-mode": "Switch to dark mode",
       "switch-to-light-mode": "Switch to light mode",
-      "theme-deleted": "Theme deleted",
+      "theme-deleted": "佈景主題已刪除",
       "theme-name": "主題名稱",
       "theme-name-is-required": "主題名稱是必填項。",
-      "theme-saved": "Theme Saved",
-      "theme-updated": "Theme updated",
+      "theme-saved": "佈景主題已保存",
+      "theme-updated": "佈景主題已更新",
       "warning": "警告（Warning）"
     },
     "token": {
