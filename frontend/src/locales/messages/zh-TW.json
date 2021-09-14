@@ -13,12 +13,12 @@
     "development": "開發版",
     "docs": "文件",
     "download-log": "下載日誌",
-    "download-recipe-json": "Last Scraped JSON",
+    "download-recipe-json": "上次網頁擷取的JSON",
     "github": "GitHub",
     "log-lines": "日誌行數",
     "not-demo": "非展示",
-    "portfolio": "Portfolio",
-    "production": "Production",
+    "portfolio": "個人檔案",
+    "production": "正式版",
     "support": "支持",
     "version": "版本"
   },
@@ -206,7 +206,7 @@
     "upload-a-recipe": "上傳食譜",
     "upload-individual-zip-file": "上傳從另一個Mealie匯出的zip壓縮檔",
     "url-form-hint": "複製您最喜歡的食譜網站的網址並在此貼上",
-    "view-scraped-data": "View Scraped Data"
+    "view-scraped-data": "查看網頁擷取資料"
   },
   "page": {
     "404-page-not-found": "404 找不到頁面",
@@ -268,7 +268,7 @@
     "recipe-updated": "食譜已更新",
     "remove-from-favorites": "從我的最愛中删除",
     "remove-section": "刪除段落",
-    "save-recipe-before-use": "Save recipe before use",
+    "save-recipe-before-use": "使用食譜前先儲存",
     "section-title": "段落標題",
     "servings": "份量",
     "share-recipe-message": "我想跟你分享我的 {0} 個食譜。",
@@ -365,7 +365,7 @@
       "warning": "警告"
     },
     "token": {
-      "active-tokens": "ACTIVE TOKENS",
+      "active-tokens": "使用中的密鑰",
       "api-token": "API 密鑰",
       "api-tokens": "API 密鑰",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
