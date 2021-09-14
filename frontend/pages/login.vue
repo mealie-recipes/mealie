@@ -184,34 +184,40 @@
   </v-container>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { computed, reactive } from "@vue/reactivity";
-
-const { $auth } = useContext();
-
-const form = reactive({
-  email: "changeme@email.com",
-  password: "MyPassword",
-});
-
-const loggingIn = ref(false);
-
-const allowSignup = computed(() => process.env.ALLOW_SIGNUP);
-
-async function authenticate() {
-  loggingIn.value = true;
-  const formData = new FormData();
-  formData.append("username", form.email);
-  formData.append("password", form.password);
-
-  await $auth.loginWith("local", { data: formData });
-  loggingIn.value = false;
-}
-</script>
-
-<script lang="ts">
 export default defineComponent({
   layout: "basic",
+
+  setup() {
+    const { $auth } = useContext();
+
+    const form = reactive({
+      email: "changeme@email.com",
+      password: "MyPassword",
+    });
+
+    const loggingIn = ref(false);
+
+    const allowSignup = computed(() => process.env.ALLOW_SIGNUP);
+
+    async function authenticate() {
+      loggingIn.value = true;
+      const formData = new FormData();
+      formData.append("username", form.email);
+      formData.append("password", form.password);
+
+      await $auth.loginWith("local", { data: formData });
+      loggingIn.value = false;
+    }
+
+    return {
+      form,
+      loggingIn,
+      allowSignup,
+      authenticate,
+    };
+  },
 });
 </script>
