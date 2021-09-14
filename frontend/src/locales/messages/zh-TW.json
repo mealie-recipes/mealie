@@ -337,7 +337,7 @@
     "page-name": "頁面名稱",
     "pages": "頁面",
     "profile": "個人資料",
-    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries",
+    "remove-existing-entries-matching-imported-entries": "移除和匯入項目相同的現有項目",
     "set-new-time": "設定新的時間",
     "settings-update-failed": "設定更新失敗",
     "settings-updated": "設定已更新",
@@ -421,7 +421,7 @@
     "sign-up-links": "註冊連結",
     "sign-up-token-deleted": "註冊密鑰已刪除",
     "sign-up-token-deletion-failed": "註冊密鑰刪除失敗",
-    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
+    "welcome-to-mealie": "歡迎來到Mealie！您必須持有一個有效的邀請連結才能成為此應用的用戶。如果尚未獲得邀請您將無法註冊。請聯繫管理員來獲得邀請連結。"
   },
   "tag": {
     "tag-created": "標籤已創建",
