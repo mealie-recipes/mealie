@@ -193,7 +193,7 @@
     "recipe-migration": "Recipe Migration"
   },
   "new-recipe": {
-    "bulk-add": "Bulk Add",
+    "bulk-add": "Adicionar em Massa",
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "Importar uma Receita",
