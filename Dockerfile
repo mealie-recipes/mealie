@@ -132,18 +132,20 @@ WORKDIR /
 COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
+RUN mkdir /app/temp
 
 RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
 USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9080
 
+LABEL org.opencontainers.image.source=https://github.com/hay-kot/mealie
 # Add labels to identify this image and version
-ARG REVISION
+# ARG REVISION
 # Set env from build argument or default to empty string
 # ENV REVISION=${REVISION:-""}
-LABEL org.opencontainers.image.source=https://github.com/hay-kot/mealie
 # LABEL org.opencontainers.image.revision=$REVISION
+
 
 EXPOSE ${APP_PORT}
 
