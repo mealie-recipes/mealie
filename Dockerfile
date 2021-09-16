@@ -149,7 +149,7 @@ LABEL org.opencontainers.image.source=https://github.com/hay-kot/mealie
 
 EXPOSE ${APP_PORT}
 
-HEALTHCHECK CMD curl -f http://localhost:${APP_PORT} || exit 1
+HEALTHCHECK CMD curl -fs http://localhost:${APP_PORT} || exit 1
 
 RUN chmod +x $MEALIE_HOME/mealie/run.sh
 ENTRYPOINT $MEALIE_HOME/mealie/run.sh
