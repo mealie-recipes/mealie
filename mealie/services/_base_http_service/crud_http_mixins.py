@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from typing import Generic, TypeVar
 
 from fastapi import HTTPException, status
@@ -14,14 +15,23 @@ DAL = TypeVar("DAL", bound=DatabaseAccessLayer)
 logger = get_logger()
 
 
-class CrudHttpMixins(Generic[C, R, U]):
+class CrudHttpMixins(Generic[C, R, U], ABC):
     item: C
     session: Session
-    dal: DAL
+
+    @property
+    @abstractmethod
+    def dal(self) -> DAL:
+        ...
+
+    def populate_item(self, id: int) -> R:
+        self.item = self.dal.get_one(id)
+        print(self.item)
+        return self.item
 
     def _create_one(self, data: C, exception_msg="generic-create-error") -> R:
         try:
-            self.item = self.dal.create(self.session, data)
+            self.item = self.dal.create(data)
         except Exception as ex:
             logger.exception(ex)
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": exception_msg, "exception": str(ex)})
@@ -33,7 +43,7 @@ class CrudHttpMixins(Generic[C, R, U]):
             return
 
         target_id = item_id or self.item.id
-        self.item = self.dal.update(self.session, target_id, data)
+        self.item = self.dal.update(target_id, data)
 
         return self.item
 
@@ -45,5 +55,5 @@ class CrudHttpMixins(Generic[C, R, U]):
             return
 
         target_id = item_id or self.item.id
-        self.item = self.dal.delete(self.session, target_id)
+        self.item = self.dal.delete(target_id)
         return self.item

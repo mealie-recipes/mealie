@@ -3,14 +3,12 @@ from logging import getLogger
 from sqlalchemy.orm.session import Session
 
 from mealie.db.data_access_layer.group_access_model import GroupDataAccessModel
-from mealie.db.data_access_layer.meal_access_model import MealDataAccessModel
 from mealie.db.models.event import Event, EventNotification
-from mealie.db.models.group import Group, GroupMealPlan
+from mealie.db.models.group import Group
 from mealie.db.models.group.cookbook import CookBook
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.preferences import GroupPreferencesModel
 from mealie.db.models.group.shopping_list import ShoppingList
-from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
@@ -24,9 +22,7 @@ from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.invite_token import ReadInviteToken
-from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan import ShoppingListOut
-from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.recipe import (
     CommentOut,
     IngredientFood,
@@ -91,8 +87,6 @@ class DatabaseAccessLayer:
         # Group Data
         self.groups = GroupDataAccessModel(pk_id, Group, GroupInDB)
         self.group_tokens = BaseAccessModel("token", GroupInviteToken, ReadInviteToken)
-        self.meals = MealDataAccessModel(pk_id, GroupMealPlan, ReadPlanEntry)
-        self.webhooks = BaseAccessModel(pk_id, GroupWebhooksModel, ReadWebhook)
         self.shopping_lists = BaseAccessModel(pk_id, ShoppingList, ShoppingListOut)
         self.cookbooks = BaseAccessModel(pk_id, CookBook, ReadCookBook)
         self.group_preferences = BaseAccessModel("group_id", GroupPreferencesModel, ReadGroupPreferences)

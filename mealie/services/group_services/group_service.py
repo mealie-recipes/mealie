@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from uuid import uuid4
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends
 
 from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
@@ -30,15 +30,6 @@ class GroupSelfService(UserHttpService[int, str]):
     def write_existing(cls, deps: UserDeps = Depends()):
         """Override parent method to remove `item_id` from arguments"""
         return super().write_existing(item_id=0, deps=deps)
-
-    def assert_existing(self, _: str = None):
-        self.populate_item()
-
-        if not self.item:
-            raise HTTPException(status.HTTP_404_NOT_FOUND)
-
-        if self.item.id != self.group_id:
-            raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     def populate_item(self, _: str = None) -> GroupInDB:
         self.item = self.db.groups.get(self.session, self.group_id)

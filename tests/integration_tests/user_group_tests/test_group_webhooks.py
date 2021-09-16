@@ -22,12 +22,15 @@ def test_create_webhook(api_client: TestClient, unique_user: TestUser, webhook_d
     assert response.status_code == 201
 
 
-def test_read_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
+def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_data):
+    response = api_client.post(Routes.base, json=webhook_data, headers=unique_user.token)
     response = api_client.get(Routes.item(1), headers=unique_user.token)
 
     webhook = response.json()
 
-    assert webhook["id"] == 1
+    print(webhook)
+
+    assert webhook["id"]
     assert webhook["name"] == webhook_data["name"]
     assert webhook["url"] == webhook_data["url"]
     assert webhook["time"] == webhook_data["time"]
