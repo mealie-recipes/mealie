@@ -139,14 +139,6 @@ USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9080
 
-LABEL org.opencontainers.image.source=https://github.com/hay-kot/mealie
-# Add labels to identify this image and version
-# ARG REVISION
-# Set env from build argument or default to empty string
-# ENV REVISION=${REVISION:-""}
-# LABEL org.opencontainers.image.revision=$REVISION
-
-
 EXPOSE ${APP_PORT}
 
 HEALTHCHECK CMD curl -fs http://localhost:${APP_PORT} || exit 1
