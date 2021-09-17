@@ -30,9 +30,7 @@ if [ "$ARG1" == "reload" ]; then
     # Start API
     python /app/mealie/app.py
 else
-    echo "Production"
-    echo "User: " $(whoami)
-    #add_user
+    echo "Running in Production env as $(whoami) with id $(id -u)"
     init
 
     # Web Server
