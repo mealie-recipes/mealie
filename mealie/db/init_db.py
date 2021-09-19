@@ -21,8 +21,6 @@ def create_all_models():
 
 
 def init_db(db: Database) -> None:
-    create_all_models()
-
     default_group_init(db)
     default_settings_init(db)
     default_user_init(db)
@@ -54,6 +52,8 @@ def default_user_init(db: Database):
 
 
 def main():
+    create_all_models()
+
     session = create_session()
     db = get_database(session)
 
