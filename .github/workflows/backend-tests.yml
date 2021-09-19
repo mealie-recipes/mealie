@@ -55,7 +55,8 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         run: |
-          poetry install --extras pgsql
+          poetry install
+          poetry add "psycopg2-binary==2.8.6"
         # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       #----------------------------------------------
       #              run test suite
