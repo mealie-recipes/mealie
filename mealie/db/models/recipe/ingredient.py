@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, orm, Boolean
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
