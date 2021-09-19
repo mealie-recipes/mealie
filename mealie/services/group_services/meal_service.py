@@ -22,7 +22,7 @@ class MealService(CrudHttpMixins[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry
 
     @cached_property
     def dal(self):
-        return self.new_db.meals
+        return self.db.meals
 
     def populate_item(self, id: int) -> ReadPlanEntry:
         self.item = self.dal.get_one(id)

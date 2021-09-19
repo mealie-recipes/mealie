@@ -22,7 +22,7 @@ class CookbookService(
 
     @cached_property
     def dal(self):
-        return self.new_db.cookbooks
+        return self.db.cookbooks
 
     def populate_item(self, item_id: int) -> RecipeCookBook:
         try:

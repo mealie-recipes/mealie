@@ -19,7 +19,7 @@ class WebhookService(CrudHttpMixins[ReadWebhook, CreateWebhook, CreateWebhook], 
 
     @cached_property
     def dal(self):
-        return self.new_db.webhooks
+        return self.db.webhooks
 
     def populate_item(self, id: int) -> ReadWebhook:
         self.item = self.dal.get_one(id)

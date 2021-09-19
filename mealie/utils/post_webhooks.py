@@ -7,7 +7,6 @@ from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
 from mealie.schema.user import GroupInDB
 from mealie.services.events import create_scheduled_event
-from mealie.services.meal_services import get_todays_meal
 
 
 def post_webhooks(group: int, session: Session = None, force=True):
@@ -18,7 +17,8 @@ def post_webhooks(group: int, session: Session = None, force=True):
     if not group_settings.webhook_enable and not force:
         return
 
-    todays_recipe = get_todays_meal(session, group)
+    # TODO: Fix Mealplan Webhooks
+    todays_recipe = None
 
     if not todays_recipe:
         return

@@ -3,6 +3,7 @@ from typing import Generic, TypeVar
 
 from fastapi import HTTPException, status
 from pydantic import BaseModel
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
@@ -16,7 +17,7 @@ logger = get_logger()
 
 
 class CrudHttpMixins(Generic[C, R, U], ABC):
-    item: C
+    item: R
     session: Session
 
     @property
@@ -26,7 +27,6 @@ class CrudHttpMixins(Generic[C, R, U], ABC):
 
     def populate_item(self, id: int) -> R:
         self.item = self.dal.get_one(id)
-        print(self.item)
         return self.item
 
     def _create_one(self, data: C, exception_msg="generic-create-error") -> R:
@@ -47,13 +47,22 @@ class CrudHttpMixins(Generic[C, R, U], ABC):
 
         return self.item
 
-    def _patch_one(self) -> None:
-        raise NotImplementedError
+    def _patch_one(self, data: U, item_id: int) -> None:
+        try:
+            self.item = self.dal.patch(item_id, data.dict(exclude_unset=True, exclude_defaults=True))
+        except IntegrityError:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "generic-patch-error"})
 
-    def _delete_one(self, item_id: int = None) -> None:
-        if not self.item:
-            return
-
+    def _delete_one(self, item_id: int = None) -> R:
         target_id = item_id or self.item.id
-        self.item = self.dal.delete(target_id)
+        logger.info(f"Deleting item with id {target_id}")
+
+        try:
+            self.item = self.dal.delete(target_id)
+        except Exception as ex:
+            logger.exception(ex)
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, detail={"message": "generic-delete-error", "exception": str(ex)}
+            )
+
         return self.item
