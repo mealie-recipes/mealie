@@ -30,7 +30,7 @@ class RecipeUnitService(
     def create_one(self, data: CreateIngredientUnit) -> IngredientUnit:
         return self._create_one(data)
 
-    def update_one(self, data: CreateIngredientUnit, item_id: int = None) -> IngredientUnit:
+    def update_one(self, data: IngredientUnit, item_id: int = None) -> IngredientUnit:
         return self._update_one(data, item_id)
 
     def delete_one(self, id: int = None) -> IngredientUnit:

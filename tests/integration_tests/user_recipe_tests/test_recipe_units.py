@@ -59,7 +59,7 @@ def test_update_unit(api_client: TestClient, unit: dict, unique_user: TestUser):
         "id": unit["id"],
         "name": random_string(10),
         "description": random_string(10),
-        "fraction": random_bool(),
+        "fraction": not unit["fraction"],
         "abbreviation": random_string(3) + ".",
     }
     response = api_client.put(Routes.item(unit["id"]), json=update_data, headers=unique_user.token)
