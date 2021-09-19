@@ -56,11 +56,13 @@ def default_user_init(db: Database):
 def main():
     session = create_session()
     db = get_database(session)
+
     try:
         init_user = db.users.get("1", "id")
     except Exception:
         init_db(db)
         return
+
     if init_user:
         logger.info("Database Exists")
     else:
