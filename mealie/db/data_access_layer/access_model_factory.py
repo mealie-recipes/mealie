@@ -53,8 +53,8 @@ class Database:
     def __init__(self, session: Session) -> None:
         """
         `DatabaseAccessLayer` class is the data access layer for all database actions within
-        Mealie. Database uses composition from classes derived from BaseAccessModel. These
-        can be substantiated from the BaseAccessModel class or through inheritance when
+        Mealie. Database uses composition from classes derived from AccessModel. These
+        can be substantiated from the AccessModel class or through inheritance when
         additional methods are required.
         """
 

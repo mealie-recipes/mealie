@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from functools import cached_property
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, IngredientFood
 
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, IngredientFood
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_recipe_event
