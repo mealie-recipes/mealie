@@ -6,12 +6,12 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer.db_access import DatabaseAccessLayer
+from mealie.db.data_access_layer._access_model import AccessModel
 
 C = TypeVar("C", bound=BaseModel)
 R = TypeVar("R", bound=BaseModel)
 U = TypeVar("U", bound=BaseModel)
-DAL = TypeVar("DAL", bound=DatabaseAccessLayer)
+DAL = TypeVar("DAL", bound=AccessModel)
 logger = get_logger()
 
 

@@ -25,7 +25,7 @@ class UserService(UserHttpService[int, str]):
 
     def _populate_target_user(self, id: int = None):
         if id:
-            self.target_user = self.db.users.get(self.session, id)
+            self.target_user = self.db.users.get(id)
             if not self.target_user:
                 raise HTTPException(status.HTTP_404_NOT_FOUND)
         else:
@@ -38,4 +38,4 @@ class UserService(UserHttpService[int, str]):
 
         self.target_user.password = hash_password(password_change.new_password)
 
-        return self.db.users.update_password(self.session, self.target_user.id, self.target_user.password)
+        return self.db.users.update_password(self.target_user.id, self.target_user.password)

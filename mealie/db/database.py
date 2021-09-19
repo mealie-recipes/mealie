@@ -1,10 +1,7 @@
-from functools import lru_cache
+from sqlalchemy.orm import Session
 
-from .data_access_layer import DatabaseAccessLayer
-
-db = DatabaseAccessLayer()
+from .data_access_layer.access_model_factory import Database
 
 
-@lru_cache
-def get_database():
-    return db
+def get_database(session: Session):
+    return Database(session)

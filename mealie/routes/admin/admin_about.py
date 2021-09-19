@@ -28,7 +28,7 @@ async def get_app_info():
 
 @router.get("/statistics", response_model=AppStatistics)
 async def get_app_statistics(session: Session = Depends(generate_session)):
-    db = get_database()
+    db = get_database(session)
     return AppStatistics(
         total_recipes=db.recipes.count_all(session),
         uncategorized_recipes=db.recipes.count_uncategorized(session),

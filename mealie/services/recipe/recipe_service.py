@@ -43,20 +43,20 @@ class RecipeService(UserHttpService[str, Recipe]):
             raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     def populate_item(self, slug: str) -> Recipe:
-        self.item = self.db.recipes.get(self.session, slug)
+        self.item = self.db.recipes.get(slug)
         return self.item
 
     # CRUD METHODS
     def get_all(self, start=0, limit=None):
         return self.db.recipes.multi_query(
-            self.session, {"group_id": self.user.group_id}, start=start, limit=limit, override_schema=RecipeSummary
+            {"group_id": self.user.group_id}, start=start, limit=limit, override_schema=RecipeSummary
         )
 
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
         create_data = recipe_creation_factory(self.user, name=create_data.name, additional_attrs=create_data.dict())
 
         try:
-            self.item = self.db.recipes.create(self.session, create_data)
+            self.item = self.db.recipes.create(create_data)
         except IntegrityError:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "RECIPE_ALREADY_EXISTS"})
 
@@ -71,7 +71,7 @@ class RecipeService(UserHttpService[str, Recipe]):
         original_slug = self.item.slug
 
         try:
-            self.item = self.db.recipes.update(self.session, original_slug, update_data)
+            self.item = self.db.recipes.update(original_slug, update_data)
         except IntegrityError:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "RECIPE_ALREADY_EXISTS"})
 
@@ -83,9 +83,7 @@ class RecipeService(UserHttpService[str, Recipe]):
         original_slug = self.item.slug
 
         try:
-            self.item = self.db.recipes.patch(
-                self.session, original_slug, patch_data.dict(exclude_unset=True, exclude_defaults=True)
-            )
+            self.item = self.db.recipes.patch(original_slug, patch_data.dict(exclude_unset=True, exclude_defaults=True))
         except IntegrityError:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "RECIPE_ALREADY_EXISTS"})
 
@@ -95,7 +93,7 @@ class RecipeService(UserHttpService[str, Recipe]):
 
     def delete_one(self) -> Recipe:
         try:
-            recipe: Recipe = self.db.recipes.delete(self.session, self.item.slug)
+            recipe: Recipe = self.db.recipes.delete(self.item.slug)
             self._delete_assets()
         except Exception:
             raise HTTPException(status.HTTP_400_BAD_REQUEST)

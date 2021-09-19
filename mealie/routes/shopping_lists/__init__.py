@@ -2,7 +2,7 @@ from fastapi import Depends
 from sqlalchemy.orm.session import Session
 
 from mealie.core.dependencies import get_current_user
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.meal_plan import ShoppingListIn, ShoppingListOut
@@ -18,25 +18,28 @@ async def create_shopping_list(
     session: Session = Depends(generate_session),
 ):
     """ Create Shopping List in the Database """
-
+    db = get_database(session)
     list_in.group = current_user.group
 
-    return db.shopping_lists.create(session, list_in)
+    return db.shopping_lists.create(list_in)
 
 
 @router.get("/{id}", response_model=ShoppingListOut)
 async def get_shopping_list(id: int, session: Session = Depends(generate_session)):
     """ Get Shopping List from the Database """
-    return db.shopping_lists.get(session, id)
+    db = get_database(session)
+    return db.shopping_lists.get(id)
 
 
 @router.put("/{id}", response_model=ShoppingListOut)
 async def update_shopping_list(id: int, new_data: ShoppingListIn, session: Session = Depends(generate_session)):
     """ Update Shopping List in the Database """
-    return db.shopping_lists.update(session, id, new_data)
+    db = get_database(session)
+    return db.shopping_lists.update(id, new_data)
 
 
 @router.delete("/{id}")
 async def delete_shopping_list(id: int, session: Session = Depends(generate_session)):
     """ Delete Shopping List from the Database """
-    return db.shopping_lists.delete(session, id)
+    db = get_database(session)
+    return db.shopping_lists.delete(id)

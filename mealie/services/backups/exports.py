@@ -10,7 +10,7 @@ from pydantic.main import BaseModel
 
 from mealie.core import root_logger
 from mealie.core.config import app_dirs
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
 from mealie.services.events import create_backup_event
 
@@ -114,29 +114,31 @@ def backup_all(
 ):
     db_export = ExportDatabase(tag=tag, templates=templates)
 
+    db = get_database(session)
+
     if export_users:
-        all_users = db.users.get_all(session)
+        all_users = db.users.get_all()
         db_export.export_items(all_users, "users")
 
     if export_groups:
-        all_groups = db.groups.get_all(session)
+        all_groups = db.groups.get_all()
         db_export.export_items(all_groups, "groups")
 
     if export_recipes:
-        all_recipes = db.recipes.get_all(session)
+        all_recipes = db.recipes.get_all()
         db_export.export_recipe_dirs()
         db_export.export_items(all_recipes, "recipes", export_list=False, slug_folder=True)
         db_export.export_templates(all_recipes)
 
-        all_comments = db.comments.get_all(session)
+        all_comments = db.comments.get_all()
         db_export.export_items(all_comments, "comments")
 
     if export_settings:
-        all_settings = db.settings.get_all(session)
+        all_settings = db.settings.get_all()
         db_export.export_items(all_settings, "settings")
 
     if export_notifications:
-        all_notifications = db.event_notifications.get_all(session)
+        all_notifications = db.event_notifications.get_all()
         db_export.export_items(all_notifications, "notifications")
 
     return db_export.finish_export()

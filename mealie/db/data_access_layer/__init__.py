@@ -1,1 +1,1 @@
-from .db_access import DatabaseAccessLayer
+from .access_model_factory import Database

@@ -7,7 +7,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs, get_settings
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer.db_access import DatabaseAccessLayer
+from mealie.db.data_access_layer.access_model_factory import Database
 from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
 from mealie.schema.user.user import PrivateUser
@@ -45,8 +45,6 @@ class BaseHttpService(Generic[T, D], ABC):
     delete_one: Callable = None
     delete_all: Callable = None
 
-    db_access: DatabaseAccessLayer = None
-
     # Type Definitions
     _schema = None
 
@@ -64,7 +62,8 @@ class BaseHttpService(Generic[T, D], ABC):
         self.background_tasks = background_tasks
 
         # Static Globals Dependency Injection
-        self.db = get_database()
+        self.db = get_database(session)
+        self.new_db = Database(session)
         self.app_dirs = get_app_dirs()
         self.settings = get_settings()
 
@@ -110,7 +109,7 @@ class BaseHttpService(Generic[T, D], ABC):
     def group_id(self):
         # TODO: Populate Group in Private User Call WARNING: May require significant refactoring
         if not self._group_id_cache:
-            group = self.db.groups.get(self.session, self.user.group, "name")
+            group = self.db.groups.get(self.user.group, "name")
             self._group_id_cache = group.id
         return self._group_id_cache
 

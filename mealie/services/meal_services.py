@@ -3,7 +3,7 @@ from typing import Union
 
 from sqlalchemy.orm.session import Session
 
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
 from mealie.schema.meal_plan import MealDayIn, MealPlanIn
 from mealie.schema.recipe import Recipe
@@ -31,8 +31,10 @@ def get_todays_meal(session: Session, group: Union[int, GroupInDB]) -> Recipe:
 
     session = session or create_session()
 
+    db = get_database(session)
+
     if isinstance(group, int):
-        group: GroupInDB = db.groups.get(session, group)
+        group: GroupInDB = db.groups.get(group)
 
     today_slug = None
 
@@ -45,6 +47,6 @@ def get_todays_meal(session: Session, group: Union[int, GroupInDB]) -> Recipe:
                     return plan_day.meals[0]
 
     if today_slug:
-        return db.recipes.get(session, today_slug)
+        return db.recipes.get(today_slug)
     else:
         return None

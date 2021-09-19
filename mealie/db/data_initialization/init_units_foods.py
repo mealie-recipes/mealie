@@ -1,9 +1,7 @@
 import json
 from pathlib import Path
 
-from sqlalchemy.orm.session import Session
-
-from ..data_access_layer import DatabaseAccessLayer
+from mealie.db.data_access_layer.access_model_factory import Database
 
 CWD = Path(__file__).parent
 
@@ -20,15 +18,15 @@ def get_default_units():
     return units
 
 
-def default_recipe_unit_init(db: DatabaseAccessLayer, session: Session) -> None:
+def default_recipe_unit_init(db: Database) -> None:
     for unit in get_default_units():
         try:
-            db.ingredient_units.create(session, unit)
+            db.ingredient_units.create(unit)
         except Exception as e:
             print(e)
 
     for food in get_default_foods():
         try:
-            db.ingredient_foods.create(session, food)
+            db.ingredient_foods.create(food)
         except Exception as e:
             print(e)

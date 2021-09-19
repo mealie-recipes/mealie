@@ -17,7 +17,7 @@ logger = get_logger(module=__name__)
 
 
 class GroupSelfService(UserHttpService[int, str]):
-    _restrict_by_group = True
+    _restrict_by_group = False
     event_func = create_group_event
     item: GroupInDB
 
@@ -32,21 +32,20 @@ class GroupSelfService(UserHttpService[int, str]):
         return super().write_existing(item_id=0, deps=deps)
 
     def populate_item(self, _: str = None) -> GroupInDB:
-        self.item = self.db.groups.get(self.session, self.group_id)
+        self.item = self.db.groups.get(self.group_id)
         return self.item
 
     def update_categories(self, new_categories: list[CategoryBase]):
         self.item.categories = new_categories
-        return self.db.groups.update(self.session, self.group_id, self.item)
+        return self.db.groups.update(self.group_id, self.item)
 
     def update_preferences(self, new_preferences: UpdateGroupPreferences):
-        self.db.group_preferences.update(self.session, self.group_id, new_preferences)
-
+        self.db.group_preferences.update(self.group_id, new_preferences)
         return self.populate_item()
 
     def create_invite_token(self, uses: int = 1) -> None:
         token = SaveInviteToken(uses_left=uses, group_id=self.group_id, token=uuid4().hex)
-        return self.db.group_tokens.create(self.session, token)
+        return self.db.group_invite_tokens.create(token)
 
     def get_invite_tokens(self) -> list[ReadInviteToken]:
-        return self.db.group_tokens.multi_query(self.session, {"group_id": self.group_id})
+        return self.db.group_invite_tokens.multi_query({"group_id": self.group_id})

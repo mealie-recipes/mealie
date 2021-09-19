@@ -4,7 +4,6 @@ from datetime import date
 from functools import cached_property
 
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer.access_model_factory import get_meal_dal
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 
 from .._base_http_service.crud_http_mixins import CrudHttpMixins
@@ -23,7 +22,7 @@ class MealService(CrudHttpMixins[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry
 
     @cached_property
     def dal(self):
-        return get_meal_dal(self.session)
+        return self.new_db.meals
 
     def populate_item(self, id: int) -> ReadPlanEntry:
         self.item = self.dal.get_one(id)

@@ -3,7 +3,6 @@ from __future__ import annotations
 from functools import cached_property
 
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer.access_model_factory import get_webhook_dal
 from mealie.schema.group import ReadWebhook
 from mealie.schema.group.webhook import CreateWebhook, SaveWebhook
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
@@ -20,7 +19,7 @@ class WebhookService(CrudHttpMixins[ReadWebhook, CreateWebhook, CreateWebhook], 
 
     @cached_property
     def dal(self):
-        return get_webhook_dal(self.session)
+        return self.new_db.webhooks
 
     def populate_item(self, id: int) -> ReadWebhook:
         self.item = self.dal.get_one(id)

@@ -3,7 +3,6 @@ from __future__ import annotations
 from functools import cached_property
 
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer.access_model_factory import get_cookbook_dal
 from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
@@ -23,7 +22,7 @@ class CookbookService(
 
     @cached_property
     def dal(self):
-        return get_cookbook_dal(self.session)
+        return self.new_db.cookbooks
 
     def populate_item(self, item_id: int) -> RecipeCookBook:
         try:

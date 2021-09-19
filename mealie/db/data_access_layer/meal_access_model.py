@@ -3,10 +3,10 @@ from datetime import date
 from mealie.db.models.group import GroupMealPlan
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 
-from ._new_access_model import NewAccessModel
+from ._access_model import AccessModel
 
 
-class MealDataAccessModel(NewAccessModel[ReadPlanEntry, GroupMealPlan]):
+class MealDataAccessModel(AccessModel[ReadPlanEntry, GroupMealPlan]):
     def get_slice(self, start: date, end: date, group_id: int) -> list[ReadPlanEntry]:
         start = start.strftime("%Y-%m-%d")
         end = end.strftime("%Y-%m-%d")

@@ -6,7 +6,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.dependencies import get_current_user
 from mealie.core.security import create_access_token
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, PrivateUser
@@ -33,7 +33,9 @@ async def create_api_token(
         parent_id=current_user.id,
     )
 
-    new_token_in_db = db.api_tokens.create(session, token_model)
+    db = get_database(session)
+
+    new_token_in_db = db.api_tokens.create(token_model)
 
     if new_token_in_db:
         return {"token": token}
@@ -46,13 +48,14 @@ async def delete_api_token(
     session: Session = Depends(generate_session),
 ):
     """ Delete api_token from the Database """
-    token: LongLiveTokenInDB = db.api_tokens.get(session, token_id)
+    db = get_database(session)
+    token: LongLiveTokenInDB = db.api_tokens.get(token_id)
 
     if not token:
         raise HTTPException(status.HTTP_404_NOT_FOUND, f"Could not locate token with id '{token_id}' in database")
 
     if token.user.email == current_user.email:
-        deleted_token = db.api_tokens.delete(session, token_id)
+        deleted_token = db.api_tokens.delete(token_id)
         return {"token_delete": deleted_token.name}
     else:
         raise HTTPException(status.HTTP_403_FORBIDDEN)

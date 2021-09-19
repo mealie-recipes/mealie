@@ -6,7 +6,6 @@ from mealie.core.config import APP_VERSION, settings
 from mealie.core.root_logger import get_logger
 from mealie.routes import backup_routes, migration_routes, router, utility_routes
 from mealie.routes.about import about_router
-from mealie.routes.mealplans import meal_plan_router
 from mealie.routes.media import media_router
 from mealie.routes.site_settings import settings_router
 from mealie.services.events import create_general_event
@@ -36,7 +35,6 @@ def api_routers():
     app.include_router(media_router)
     app.include_router(about_router)
     # Meal Routes
-    app.include_router(meal_plan_router)
     # Settings Routes
     app.include_router(settings_router)
     # Backups/Imports Routes
