@@ -6,5 +6,5 @@ from mealie.services.recipe.recipe_unit_service import RecipeUnitService
 
 router = APIRouter()
 
-router.include_router(RouterFactory(RecipeFoodService, prefix="/foods"), tags=["Recipes: Foods"])
-router.include_router(RouterFactory(RecipeUnitService, prefix="/units"), tags=["Recipes: Units"])
+router.include_router(RouterFactory(RecipeFoodService, prefix="/foods", tags=["Recipes: Foods"]))
+router.include_router(RouterFactory(RecipeUnitService, prefix="/units", tags=["Recipes: Units"]))
