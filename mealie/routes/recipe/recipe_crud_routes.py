@@ -10,7 +10,7 @@ from starlette.responses import FileResponse
 
 from mealie.core.dependencies import temporary_zip_path
 from mealie.core.root_logger import get_logger
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
@@ -71,7 +71,9 @@ async def create_recipe_from_zip(
                 with myzip.open(file) as myfile:
                     recipe_image = myfile.read()
 
-    recipe: Recipe = db.recipes.create(session, Recipe(**recipe_dict))
+    db = get_database(session)
+
+    recipe: Recipe = db.recipes.create(Recipe(**recipe_dict))
 
     write_image(recipe.slug, recipe_image, "webp")
 
@@ -89,7 +91,9 @@ async def get_recipe_as_zip(
     slug: str, session: Session = Depends(generate_session), temp_path=Depends(temporary_zip_path)
 ):
     """ Get a Recipe and It's Original Image as a Zip File """
-    recipe: Recipe = db.recipes.get(session, slug)
+    db = get_database(session)
+
+    recipe: Recipe = db.recipes.get(slug)
 
     image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
 
@@ -105,14 +109,12 @@ async def get_recipe_as_zip(
 @user_router.put("/{slug}")
 def update_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
     """ Updates a recipe by existing slug and data. """
-
     return recipe_service.update_one(data)
 
 
 @user_router.patch("/{slug}")
 def patch_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
     """ Updates a recipe by existing slug and data. """
-
     return recipe_service.patch_one(data)
 
 

@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from functools import cached_property
+
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
 from mealie.schema.group import ReadWebhook
 from mealie.schema.group.webhook import CreateWebhook, SaveWebhook
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
@@ -11,22 +12,21 @@ from mealie.services.events import create_group_event
 logger = get_logger(module=__name__)
 
 
-class WebhookService(UserHttpService[int, ReadWebhook], CrudHttpMixins[ReadWebhook, CreateWebhook, CreateWebhook]):
+class WebhookService(CrudHttpMixins[ReadWebhook, CreateWebhook, CreateWebhook], UserHttpService[int, ReadWebhook]):
     event_func = create_group_event
     _restrict_by_group = True
-
     _schema = ReadWebhook
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.dal = get_database().webhooks
+    @cached_property
+    def dal(self):
+        return self.db.webhooks
 
     def populate_item(self, id: int) -> ReadWebhook:
-        self.item = self.db.webhooks.get_one(self.session, id)
+        self.item = self.dal.get_one(id)
         return self.item
 
     def get_all(self) -> list[ReadWebhook]:
-        return self.db.webhooks.get(self.session, self.group_id, match_key="group_id", limit=9999)
+        return self.dal.get(self.group_id, match_key="group_id", limit=9999)
 
     def create_one(self, data: CreateWebhook) -> ReadWebhook:
         data = self.cast(data, SaveWebhook)

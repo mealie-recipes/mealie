@@ -37,7 +37,7 @@ jobs:
       #  -----  install & configure poetry  -----
       #----------------------------------------------
       - name: Install Poetry
-        uses: snok/install-poetry@v1.1.1
+        uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
@@ -57,7 +57,7 @@ jobs:
         run: |
           poetry install
           poetry add "psycopg2-binary==2.8.6"
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------

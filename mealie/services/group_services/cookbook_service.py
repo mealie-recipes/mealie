@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from functools import cached_property
+
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
 from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
@@ -12,17 +13,16 @@ logger = get_logger(module=__name__)
 
 
 class CookbookService(
-    UserHttpService[int, ReadCookBook],
     CrudHttpMixins[CreateCookBook, ReadCookBook, UpdateCookBook],
+    UserHttpService[int, ReadCookBook],
 ):
     event_func = create_group_event
     _restrict_by_group = True
-
     _schema = ReadCookBook
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.dal = get_database().cookbooks
+    @cached_property
+    def dal(self):
+        return self.db.cookbooks
 
     def populate_item(self, item_id: int) -> RecipeCookBook:
         try:
@@ -31,13 +31,13 @@ class CookbookService(
             pass
 
         if isinstance(item_id, int):
-            self.item = self.db.cookbooks.get_one(self.session, item_id, override_schema=RecipeCookBook)
+            self.item = self.dal.get_one(item_id, override_schema=RecipeCookBook)
 
         else:
-            self.item = self.db.cookbooks.get_one(self.session, item_id, key="slug", override_schema=RecipeCookBook)
+            self.item = self.dal.get_one(item_id, key="slug", override_schema=RecipeCookBook)
 
     def get_all(self) -> list[ReadCookBook]:
-        items = self.db.cookbooks.get(self.session, self.group_id, "group_id", limit=999)
+        items = self.dal.get(self.group_id, "group_id", limit=999)
         items.sort(key=lambda x: x.position)
         return items
 
@@ -52,7 +52,7 @@ class CookbookService(
         updated = []
 
         for cookbook in data:
-            cb = self.db.cookbooks.update(self.session, cookbook.id, cookbook)
+            cb = self.dal.update(cookbook.id, cookbook)
             updated.append(cb)
 
         return updated

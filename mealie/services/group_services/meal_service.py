@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from datetime import date
+from functools import cached_property
 
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 
 from .._base_http_service.crud_http_mixins import CrudHttpMixins
@@ -13,26 +13,27 @@ from ..events import create_group_event
 logger = get_logger(module=__name__)
 
 
-class MealService(UserHttpService[int, ReadPlanEntry], CrudHttpMixins[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry]):
+class MealService(CrudHttpMixins[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry], UserHttpService[int, ReadPlanEntry]):
     event_func = create_group_event
     _restrict_by_group = True
 
     _schema = ReadPlanEntry
+    item: ReadPlanEntry
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.dal = get_database().meals
+    @cached_property
+    def dal(self):
+        return self.db.meals
 
     def populate_item(self, id: int) -> ReadPlanEntry:
-        self.item = self.db.meals.get_one(self.session, id)
+        self.item = self.dal.get_one(id)
         return self.item
 
     def get_slice(self, start: date = None, end: date = None) -> list[ReadPlanEntry]:
         # 2 days ago
-        return self.db.meals.get_slice(self.session, start, end, group_id=self.group_id)
+        return self.dal.get_slice(start, end, group_id=self.group_id)
 
     def get_today(self) -> list[ReadPlanEntry]:
-        return self.db.meals.get_today(self.session, group_id=self.group_id)
+        return self.dal.get_today(group_id=self.group_id)
 
     def create_one(self, data: CreatePlanEntry) -> ReadPlanEntry:
         data = self.cast(data, SavePlanEntry)

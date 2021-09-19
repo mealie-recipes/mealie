@@ -1,13 +1,12 @@
 import apprise
 from sqlalchemy.orm.session import Session
 
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
 from mealie.schema.events import Event, EventCategory
 
 
 def test_notification(notification_url, event=None) -> bool:
-
     if event is None:
         event = Event(
             title="Test Notification",
@@ -38,9 +37,10 @@ def post_notifications(event: Event, notification_urls=list[str], hard_fail=Fals
 def save_event(title, text, category, session: Session, attachment=None):
     event = Event(title=title, text=text, category=category)
     session = session or create_session()
-    db.events.create(session, event.dict())
+    db = get_database(session)
+    db.events.create(event.dict())
 
-    notification_objects = db.event_notifications.get(session=session, match_value=True, match_key=category, limit=9999)
+    notification_objects = db.event_notifications.get(match_value=True, match_key=category, limit=9999)
     notification_urls = [x.notification_url for x in notification_objects]
     post_notifications(event, notification_urls, attachment=attachment)
 

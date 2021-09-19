@@ -3,21 +3,22 @@ import json
 import requests
 from sqlalchemy.orm.session import Session
 
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
 from mealie.schema.user import GroupInDB
 from mealie.services.events import create_scheduled_event
-from mealie.services.meal_services import get_todays_meal
 
 
 def post_webhooks(group: int, session: Session = None, force=True):
     session = session or create_session()
-    group_settings: GroupInDB = db.groups.get(session, group)
+    db = get_database(session)
+    group_settings: GroupInDB = db.groups.get(group)
 
     if not group_settings.webhook_enable and not force:
         return
 
-    todays_recipe = get_todays_meal(session, group)
+    # TODO: Fix Mealplan Webhooks
+    todays_recipe = None
 
     if not todays_recipe:
         return

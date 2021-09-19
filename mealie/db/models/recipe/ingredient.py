@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
@@ -11,6 +11,7 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     name = Column(String)
     description = Column(String)
     abbreviation = Column(String)
+    fraction = Column(Boolean)
     ingredients = orm.relationship("RecipeIngredient", back_populates="unit")
 
     @auto_init()

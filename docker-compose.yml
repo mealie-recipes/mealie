@@ -24,12 +24,19 @@ services:
     ports:
       - 9092:80
     environment:
-      # DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
-      # POSTGRES_USER: mealie
-      # POSTGRES_PASSWORD: mealie
-      # POSTGRES_SERVER: postgres
-      # POSTGRES_PORT: 5432
-      # POSTGRES_DB: mealie
-      # WORKERS_PER_CORE: 0.5
+      DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
+      WORKERS_PER_CORE: 0.5
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_USER: mealie

@@ -3,7 +3,7 @@ import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 
 from mealie.core import root_logger
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
 from mealie.db.models.event import Event
 from mealie.schema.user import GroupInDB
@@ -39,7 +39,8 @@ def update_webhook_schedule():
     poll the database for changes and reschedule the webhook time
     """
     session = create_session()
-    all_groups: list[GroupInDB] = db.groups.get_all(session)
+    db = get_database(session)
+    all_groups: list[GroupInDB] = db.groups.get_all()
 
     for group in all_groups:
 
@@ -100,7 +101,8 @@ def add_group_to_schedule(scheduler, group: GroupInDB):
 
 def init_webhook_schedule(scheduler, job_store: dict):
     session = create_session()
-    all_groups: list[GroupInDB] = db.groups.get_all(session)
+    db = get_database(session)
+    all_groups: list[GroupInDB] = db.groups.get_all()
 
     for group in all_groups:
         job_store.update(add_group_to_schedule(scheduler, group))

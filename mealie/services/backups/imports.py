@@ -8,7 +8,7 @@ from pydantic.main import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import app_dirs
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.schema.admin import (
     CommentImport,
     GroupImport,
@@ -44,6 +44,7 @@ class ImportDatabase:
         """
         self.user = user
         self.session = session
+        self.db = get_database(session)
         self.archive = app_dirs.BACKUP_DIR.joinpath(zip_archive)
         self.force_imports = force_import
 
@@ -72,7 +73,7 @@ class ImportDatabase:
             recipe.user_id = self.user.id
 
             import_status = self.import_model(
-                db_table=db.recipes,
+                db_table=self.db.recipes,
                 model=recipe,
                 return_model=RecipeImport,
                 name_attr="name",
@@ -101,7 +102,7 @@ class ImportDatabase:
             comment: CommentOut
 
             self.import_model(
-                db_table=db.comments,
+                db_table=self.db.comments,
                 model=comment,
                 return_model=CommentImport,
                 name_attr="uuid",
@@ -166,7 +167,7 @@ class ImportDatabase:
 
         for notify in notifications:
             import_status = self.import_model(
-                db_table=db.event_notifications,
+                db_table=self.db.event_notifications,
                 model=notify,
                 return_model=NotificationImport,
                 name_attr="name",
@@ -183,7 +184,7 @@ class ImportDatabase:
         settings = settings[0]
 
         try:
-            db.settings.update(self.session, 1, settings.dict())
+            self.db.settings.update(1, settings.dict())
             import_status = SettingsImport(name="Site Settings", status=True)
 
         except Exception as inst:
@@ -198,7 +199,7 @@ class ImportDatabase:
         group_imports = []
 
         for group in groups:
-            import_status = self.import_model(db.groups, group, GroupImport, search_key="name")
+            import_status = self.import_model(self.db.groups, group, GroupImport, search_key="name")
             group_imports.append(import_status)
 
         return group_imports
@@ -209,13 +210,13 @@ class ImportDatabase:
         user_imports = []
         for user in users:
             if user.id == 1:  # Update Default User
-                db.users.update(self.session, 1, user.dict())
+                self.db.users.update(1, user.dict())
                 import_status = UserImport(name=user.full_name, status=True)
                 user_imports.append(import_status)
                 continue
 
             import_status = self.import_model(
-                db_table=db.users,
+                db_table=self.db.users,
                 model=user,
                 return_model=UserImport,
                 name_attr="full_name",
@@ -283,7 +284,7 @@ class ImportDatabase:
         model_name = getattr(model, name_attr)
         search_value = getattr(model, search_key)
 
-        item = db_table.get(self.session, search_value, search_key)
+        item = db_table.get(search_value, search_key)
         if item:
             if not self.force_imports:
                 return return_model(
@@ -293,9 +294,9 @@ class ImportDatabase:
                 )
 
             primary_key = getattr(item, db_table.primary_key)
-            db_table.delete(self.session, primary_key)
+            db_table.delete(primary_key)
         try:
-            db_table.create(self.session, model.dict())
+            db_table.create(model.dict())
             import_status = return_model(name=model_name, status=True)
 
         except Exception as inst:

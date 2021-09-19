@@ -29,14 +29,14 @@ class RegistrationService(PublicHttpService[int, str]):
 
         elif registration.group_token and registration.group_token != "":
 
-            token_entry = self.db.group_tokens.get(self.session, registration.group_token)
+            token_entry = self.db.group_invite_tokens.get(registration.group_token)
 
             print("Token Entry", token_entry)
 
             if not token_entry:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
 
-            group = self.db.groups.get(self.session, token_entry.group_id)
+            group = self.db.groups.get(token_entry.group_id)
 
         else:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
@@ -47,10 +47,10 @@ class RegistrationService(PublicHttpService[int, str]):
             token_entry.uses_left = token_entry.uses_left - 1
 
             if token_entry.uses_left == 0:
-                self.db.group_tokens.delete(self.session, token_entry.token)
+                self.db.group_invite_tokens.delete(token_entry.token)
 
             else:
-                self.db.group_tokens.update(self.session, token_entry.token, token_entry)
+                self.db.group_invite_tokens.update(token_entry.token, token_entry)
 
         return user
 
@@ -64,7 +64,7 @@ class RegistrationService(PublicHttpService[int, str]):
             group=group.name,
         )
 
-        return self.db.users.create(self.session, new_user)
+        return self.db.users.create(new_user)
 
     def _register_new_group(self) -> GroupInDB:
         group_data = GroupBase(name=self.registration.group)
@@ -81,4 +81,4 @@ class RegistrationService(PublicHttpService[int, str]):
             recipe_disable_amount=self.registration.advanced,
         )
 
-        return create_new_group(self.session, group_data, group_preferences)
+        return create_new_group(self.db, group_data, group_preferences)

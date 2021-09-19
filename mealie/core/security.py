@@ -5,7 +5,7 @@ from jose import jwt
 from passlib.context import CryptContext
 
 from mealie.core.config import settings
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.schema.user import PrivateUser
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -28,10 +28,12 @@ def create_file_token(file_path: Path) -> bool:
 
 
 def authenticate_user(session, email: str, password: str) -> PrivateUser:
-    user: PrivateUser = db.users.get(session, email, "email", any_case=True)
+    db = get_database(session)
+
+    user: PrivateUser = db.users.get(email, "email", any_case=True)
 
     if not user:
-        user = db.users.get(session, email, "username", any_case=True)
+        user = db.users.get(email, "username", any_case=True)
     if not user:
         return False
 

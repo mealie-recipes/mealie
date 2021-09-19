@@ -7,7 +7,7 @@ import yaml
 from pydantic import BaseModel
 
 from mealie.core import root_logger
-from mealie.db.database import db
+from mealie.db.database import get_database
 from mealie.schema.admin import MigrationImport
 from mealie.schema.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
@@ -38,6 +38,10 @@ class MigrationBase(BaseModel):
     user: PrivateUser
 
     @property
+    def db(self):
+        return get_database(self.session)
+
+    @property
     def temp_dir(self) -> TemporaryDirectory:
         """unpacks the migration_file into a temporary directory
         that can be used as a context manager.
@@ -66,7 +70,7 @@ class MigrationBase(BaseModel):
         with open(yaml_file, "r") as f:
             contents = f.read().split("---")
             recipe_data = {}
-            for x, document in enumerate(contents):
+            for _, document in enumerate(contents):
 
                 # Check if None or Empty String
                 if document is None or document == "":
@@ -172,7 +176,7 @@ class MigrationBase(BaseModel):
             exception = ""
             status = False
             try:
-                db.recipes.create(self.session, recipe.dict())
+                self.db.recipes.create(recipe.dict())
                 status = True
 
             except Exception as inst:
