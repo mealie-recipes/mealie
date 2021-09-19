@@ -30,9 +30,9 @@ async def get_app_info():
 async def get_app_statistics(session: Session = Depends(generate_session)):
     db = get_database(session)
     return AppStatistics(
-        total_recipes=db.recipes.count_all(session),
-        uncategorized_recipes=db.recipes.count_uncategorized(session),
-        untagged_recipes=db.recipes.count_untagged(session),
-        total_users=db.users.count_all(session),
-        total_groups=db.groups.count_all(session),
+        total_recipes=db.recipes.count_all(),
+        uncategorized_recipes=db.recipes.count_uncategorized(),
+        untagged_recipes=db.recipes.count_untagged(),
+        total_users=db.users.count_all(),
+        total_groups=db.groups.count_all(),
     )
