@@ -29,9 +29,12 @@ ENV PYTHONUNBUFFERED=1 \
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-# create user account
-RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
-    && usermod -G users abc \
+ENV PUID=911 \
+    PGID=911
+
+# create user account with default group
+RUN groupadd -g $PGID mealie \
+    && useradd -u $PUID  -g $PGID -d $MEALIE_HOME -s /bin/bash mealie \
     && mkdir $MEALIE_HOME
 
 ###############################################
