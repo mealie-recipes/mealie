@@ -132,6 +132,8 @@ WORKDIR /
 COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
+# create directory for application temporary files
+RUN mkdir /app/temp
 
 RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
 USER $PUID:$PGID

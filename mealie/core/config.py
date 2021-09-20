@@ -43,6 +43,7 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
 
 # General
 DATA_DIR = determine_data_dir(PRODUCTION)
+CONTAINER_TEMP_DIR = Path("/app/temp")
 
 
 class AppDirectories:
@@ -151,7 +152,7 @@ class AppSettings(BaseSettings):
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
 
-    SCHEDULER_DATABASE = f"sqlite:///{app_dirs.DATA_DIR.joinpath('scheduler.db')}"
+    SCHEDULER_DATABASE = f"sqlite:///{CONTAINER_TEMP_DIR.joinpath('scheduler.db')}"
 
     TOKEN_TIME: int = 2  # Time in Hours
 
