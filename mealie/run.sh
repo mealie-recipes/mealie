@@ -5,21 +5,6 @@ set -e
 # Get Reload Arg `run.sh reload` for dev server
 ARG1=${1:-production}
 
-# Get PUID/PGID
-PUID=${PUID:-911}
-PGID=${PGID:-911}
-
-add_user() {
-    groupmod -o -g "$PGID" abc
-    usermod -o -u "$PUID" abc
-
-    echo "
-    User uid:    $(id -u abc)
-    User gid:    $(id -g abc)
-    "
-    chown -R abc:abc /app
-}
-
 init() {
     # $MEALIE_HOME directory
     cd /app
@@ -44,9 +29,7 @@ if [ "$ARG1" == "reload" ]; then
     # Start API
     python /app/mealie/app.py
 else
-    echo "Production"
-
-    add_user
+    echo "Running in Production env as $(whoami) with id $(id -u)"
     init
 
     # Web Server
