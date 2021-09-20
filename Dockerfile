@@ -99,6 +99,7 @@ ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
 ###############################################
 FROM python-base as production
 ENV PRODUCTION=true
+ARG DEBIAN_FRONTEND=noninteractive
 
 # curl for used by healthcheck
 RUN apt-get update \
@@ -132,8 +133,10 @@ COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
 
+RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
+USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
-ENV APP_PORT=80
+ENV APP_PORT=9080
 
 EXPOSE ${APP_PORT}
 

@@ -3,7 +3,7 @@
 	admin off
 }
 
-:80 {
+:{APP_PORT} {
 	@proxied path /api/* /docs /openapi.json
 
 	@static {
