@@ -29,9 +29,12 @@ if [ "$ARG1" == "reload" ]; then
     # Start API
     python /app/mealie/app.py
 else
-    echo "Running in Production env as $(whoami) with id $(id -u)"
-    init
+    if [[ -z "$APP_PORT" ]];then
+        export APP_PORT=80
+    fi
 
+    echo "Running in Production env as $(whoami) with id $(id -u) on port $APP_PORT"
+    init
     # Web Server
     caddy start --config /app/Caddyfile
 
