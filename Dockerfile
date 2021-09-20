@@ -11,7 +11,7 @@ RUN npm run build
 ###############################################
 # Base Image
 ###############################################
-FROM python:3.9-slim as python-base
+FROM python:3.9.6-slim as python-base
 
 ENV MEALIE_HOME="/app"
 
