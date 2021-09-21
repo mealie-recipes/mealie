@@ -132,11 +132,12 @@ WORKDIR /
 COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
+RUN mkdir /app/temp
 
 RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
 USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
-ENV APP_PORT=8080
+ENV APP_PORT=9080
 
 EXPOSE ${APP_PORT}
 
