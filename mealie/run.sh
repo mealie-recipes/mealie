@@ -32,12 +32,13 @@ else
     if [[ -z "$APP_PORT" ]];then
         export APP_PORT=80
     fi
-
     echo "Running in Production env as $(whoami) with id $(id -u) on port $APP_PORT"
     init
     # Web Server
+    echo "Starting web server"
     caddy start --config /app/Caddyfile
 
+    echo "Starting API server"
     # Start API
     # uvicorn mealie.app:app --host 0.0.0.0 --port 9000
     gunicorn mealie.app:app -b 0.0.0.0:9000 -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
