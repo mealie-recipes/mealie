@@ -45,6 +45,10 @@ const state = {
       name: "简体中文 (Chinese simplified)",
       value: "zh-CN",
     },
+    {
+      name: "繁體中文 (Chinese traditional)",
+      value: "zh-TW",
+    },
   ],
 };
 
