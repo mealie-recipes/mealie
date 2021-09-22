@@ -3,7 +3,7 @@ services:
   mealie:
     build:
       context: ./
-      target: production
+      # target: production
       dockerfile: Dockerfile
     container_name: mealie
     restart: always
@@ -21,6 +21,8 @@ services:
       # WORKERS_PER_CORE: 0.5
       # MAX_WORKERS: 8
       WEB_CONCURRENCY: 2
+    volumes:
+      - /app/data:/home/usma/repos/opensource/mealie/data
   postgres:
     container_name: postgres
     image: postgres
