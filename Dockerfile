@@ -126,7 +126,6 @@ COPY ./gunicorn_conf.py $MEALIE_HOME
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
 RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
-RUN mkdir $MEALIE_HOME/temp
 WORKDIR /
 
 # copy frontend
@@ -134,7 +133,8 @@ COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
 
-RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
+RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME \
+&& mkdir $MEALIE_HOME/temp
 USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9080
