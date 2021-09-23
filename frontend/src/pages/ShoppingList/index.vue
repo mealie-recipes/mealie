@@ -70,7 +70,7 @@
               <div v-if="edit">
                 <v-btn x-small text class="ml-1" @click="activeList.items[index].quantity -= 1">
                   <v-icon>
-                    {{ $globals.icons.mdiMinus }}
+                    {{ $globals.icons.minus }}
                   </v-icon>
                 </v-btn>
                 <v-btn x-small text class="mr-1" @click="activeList.items[index].quantity += 1">
