@@ -23,7 +23,7 @@ services:
     image: mealie-api:dev
     build:
       context: ./
-      # target: development
+      target: development
       dockerfile: Dockerfile
     restart: always
     ports:
