@@ -10,7 +10,7 @@ services:
     depends_on:
       - "postgres"
     ports:
-      - 9090:80
+      - 9080:9080
     environment:
       DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
       POSTGRES_USER: mealie
