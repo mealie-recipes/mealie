@@ -3,7 +3,7 @@ services:
   mealie:
     build:
       context: ./
-      # target: production
+      target: production
       dockerfile: Dockerfile
     container_name: mealie
     restart: always
