@@ -34,7 +34,7 @@ ENV PUID=911 \
 
 # create user account with default group
 RUN groupadd -g $PGID mealie \
-    && useradd -u $PUID  -g $PGID -d $MEALIE_HOME -s /bin/bash mealie \
+    && useradd -l -u $PUID  -g $PGID -d $MEALIE_HOME -s /bin/bash mealie \
     && mkdir $MEALIE_HOME
 
 ###############################################
@@ -126,22 +126,24 @@ COPY ./gunicorn_conf.py $MEALIE_HOME
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
 RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
+RUN mkdir $MEALIE_HOME/temp
 WORKDIR /
 
 # copy frontend
 COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
-RUN mkdir /app/temp
 
 RUN id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
 USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9080
 
+WORKDIR /app
+
 EXPOSE ${APP_PORT}
 
 HEALTHCHECK CMD curl -f http://localhost:${APP_PORT} || exit 1
 
-RUN chmod +x $MEALIE_HOME/mealie/run.sh
-ENTRYPOINT $MEALIE_HOME/mealie/run.sh
+RUN chmod +x mealie/run.sh
+ENTRYPOINT mealie/run.sh
