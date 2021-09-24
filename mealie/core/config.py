@@ -74,7 +74,6 @@ class AppDirectories:
             self.CHOWDOWN_DIR,
             self.RECIPE_DATA_DIR,
             self.USER_DIR,
-            self.SCHEDULER_DIR
         ]
 
         for dir in required_dirs:
