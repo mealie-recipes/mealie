@@ -5,6 +5,42 @@ from mealie.schema.category import CategoryBase, RecipeCategoryResponse
 from pydantic import validator
 from slugify import slugify
 
+# Cluge Validator for ISSUE: #671
+langs = {
+    "el-GR",
+    "it-IT",
+    "ko-KR",
+    "es-ES",
+    "ja-JP",
+    "zh-CN",
+    "tr-TR",
+    "ar-SA",
+    "hu-HU",
+    "pt-PT",
+    "no-NO",
+    "sv-SE",
+    "ro-RO",
+    "sk-SK",
+    "uk-UA",
+    "pl-PL",
+    "da-DK",
+    "pt-BR",
+    "de-DE",
+    "ca-ES",
+    "sr-SP",
+    "cs-CZ",
+    "fr-FR",
+    "zh-TW",
+    "af-ZA",
+    "ru-RU",
+    "he-IL",
+    "nl-NL",
+    "en-US",
+    "en-GB",
+    "fi-FI",
+    "vi-VN",
+}
+
 
 class SiteSettings(CamelModel):
     language: str = "en-US"
@@ -28,6 +64,12 @@ class SiteSettings(CamelModel):
                 ],
             }
         }
+
+    @validator("language")
+    def language_validator(cls, v: str):
+        if v not in langs:
+            return "en-US"
+        return v
 
 
 class CustomPageBase(CamelModel):

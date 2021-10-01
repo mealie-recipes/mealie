@@ -20,7 +20,7 @@ def test_default_settings(api_client: TestClient, api_routes: AppRoutes, default
 
 
 def test_update_settings(api_client: TestClient, api_routes: AppRoutes, default_settings, admin_token):
-    default_settings["language"] = "fr"
+    default_settings["language"] = "fr-FR"
     default_settings["showRecent"] = False
 
     response = api_client.put(api_routes.site_settings, json=default_settings, headers=admin_token)

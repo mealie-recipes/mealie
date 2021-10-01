@@ -150,3 +150,8 @@ dev/data/backups/dev_sample_data*.zip
 dev/data/recipes/*
 dev/scripts/output/app_routes.py
 dev/scripts/output/javascriptAPI/*
+mealie/services/scraper/ingredient_nlp/model.crfmodel
+.gitignore
+frontend/.nuxt/**
+frontend/static/sw.js
+dev/code-generation/generated/*
