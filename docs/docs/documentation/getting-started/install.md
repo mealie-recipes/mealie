@@ -116,10 +116,10 @@ services:
 
 | Variables               | Default               | Description                                                                                                                       |
 | ----------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| APP_PORT                | Default: 80           | Web app port binding/listening. **For Docker this is set to 9080 for binding without elevated permissions**.                   |
+| APP_PORT                | Default: 80           | Web app port binding/listening. **For Docker this is set to 9080 (Binding without elevated permissions)**.                  |
 | API_PORT                | 9000                  | The port exposed by backend API. **Do not change this if you're running in Docker**                                               |
-| PUID                    | 911                   | UserID permissions between host OS and container. **By Default container will run as non-root with 911 as userid**              |
-| PGID                    | 911                   | GroupID permissions between host OS and container. **By Default container will run as non-root with 911 as groupid**             |
+| PUID                    | 911                   | UserID permissions between host OS and container. **This ensures cotnainer will run as non-root**                                 |
+| PGID                    | 911                   | GroupID permissions between host OS and container. **This ensures cotnainer will run as non-root**                            |
 | DEFAULT_GROUP           | Home                  | The default group for users                                                                                                       |
 | DEFAULT_EMAIL           | changeme@email.com    | The default username for the superuser                                                                                            |
 | BASE_URL                | http://localhost:8080 | Used for Notifications                                                                                                            |
