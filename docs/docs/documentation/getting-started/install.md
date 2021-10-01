@@ -134,7 +134,7 @@ services:
 | RECIPE_LANDSCAPE_VIEW   | True                  | Default Recipe Settings - Set Landscape View                                                                                      |
 | RECIPE_DISABLE_COMMENTS | False                 | Default Recipe Settings - Disable Comments                                                                                        |
 | RECIPE_DISABLE_AMOUNT   | False                 | Default Recipe Settings - Disable Amount                                                                                          |
-| APP_PORT                | Default: 80           | Web app port binding/listening. **For Docker this is set to 9080 for binding without elevated permissions***                   |
+| APP_PORT                | Default: 80           | Web app port binding/listening. **For Docker this is set to 9080 for binding without elevated permissions**. More info [here][https://docs.docker.com/engine/security/]  |
 | API_PORT                | 9000                  | The port exposed by backend API. **Do not change this if you're running in Docker**                                               |
 | API_DOCS                | True                  | Turns on/off access to the API documentation locally.                                                                             |
 | TZ                      | UTC                   | Must be set to get correct date/time on the server                                                                                |
