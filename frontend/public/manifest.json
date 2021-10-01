@@ -78,5 +78,13 @@
   "start_url": ".",
   "display": "standalone",
   "background_color": "#FFFFFF",
-  "theme_color": "#E58325"
+  "theme_color": "#E58325",
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "recipe_import_url"
+    }
+  }
 }

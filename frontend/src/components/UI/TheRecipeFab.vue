@@ -166,10 +166,12 @@ export default {
   },
 
   mounted() {
-    if (this.$route.query.recipe_import_url) {
-      this.addRecipe = true;
-      this.createRecipe();
-    }
+    this.$router.onReady(() => {
+      if (this.$route.query.recipe_import_url) {
+        this.addRecipe = true;
+        this.createRecipe();
+      }
+    });
   },
 
   computed: {
