@@ -1,0 +1,51 @@
+name: Code review
+description: "Request a new code review"
+body:
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: First Check
+      description: Please confirm and check all the following options.
+      options:
+        - label: This is not a feature request
+          required: true
+        - label: I added a very descriptive title to this issue.
+          required: true
+        - label: I used the GitHub search to find a similar issue and didn't find it.
+          required: true
+        - label: I searched the Mealie documentation, with the integrated search.
+          required: true
+        - label: I already read the docs and didn't find an answer.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the issue you are experiencing?
+      placeholder: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Deployment
+      description: What Deployment system are you using?
+      multiple: true
+      options:
+        - Docker (Linux)
+        - Docker (Windows)
+        - Docker (Synology)
+        - Unraid
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: os-details
+    attributes:
+      label: Deployment Details
+      description: You can add more details about your operating system here, in particular if you chose "Other". If you are experiencing issues with deployment, please provide your docker-compose or docker commands
+  - type: input
+    id: mealie-version
+    attributes:
+      label: Mealie Version
+    validations:
+      required: true
