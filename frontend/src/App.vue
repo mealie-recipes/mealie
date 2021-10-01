@@ -55,6 +55,7 @@ export default {
     this.$store.dispatch("requestUserData");
     this.$store.dispatch("requestCurrentGroup");
     this.$store.dispatch("requestTags");
+    this.$store.dispatch("requestCategories");
     this.$store.dispatch("requestAppInfo");
     this.$store.dispatch("requestSiteSettings");
 

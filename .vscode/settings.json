@@ -15,5 +15,6 @@
   "i18n-ally.keystyle": "nested",
   "cSpell.words": ["compression", "hkotel", "performant", "postgres", "webp"],
   "search.mode": "reuseEditor",
-  "python.linting.flake8Enabled": true
+  "python.linting.flake8Enabled": true,
+  "conventionalCommits.scopes": ["frontend"]
 }
