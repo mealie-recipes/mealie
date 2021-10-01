@@ -1,62 +1,51 @@
-name: Bug Report
-description: File a bug report
-title: "[Bug]: "
-labels: ["bug", "triage"]
-assignees:
-  - octocat
+name: Code review
+description: "Request a new code review"
 body:
-  - type: markdown
+  - type: checkboxes
+    id: checks
     attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
-  - type: textarea
-    id: what-happened
-    attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
-    validations:
-      required: true
-  - type: dropdown
-    id: version
-    attributes:
-      label: Version
-      description: What version of our software are you running?
+      label: First Check
+      description: Please confirm and check all the following options.
       options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
+        - label: This is not a feature request
+          required: true
+        - label: I added a very descriptive title to this issue.
+          required: true
+        - label: I used the GitHub search to find a similar issue and didn't find it.
+          required: true
+        - label: I searched the Mealie documentation, with the integrated search.
+          required: true
+        - label: I already read the docs and didn't find an answer.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the issue you are experiencing?
+      placeholder: A clear and concise description of what the bug is.
     validations:
       required: true
   - type: dropdown
-    id: browsers
+    id: os
     attributes:
-      label: What browsers are you seeing the problem on?
+      label: Deployment
+      description: What Deployment system are you using?
       multiple: true
       options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
+        - Docker (Linux)
+        - Docker (Windows)
+        - Docker (Synology)
+        - Unraid
+        - Other
+    validations:
+      required: true
   - type: textarea
-    id: logs
+    id: os-details
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
-  - type: checkboxes
-    id: terms
+      label: Deployment Details
+      description: You can add more details about your operating system here, in particular if you chose "Other". If you are experiencing issues with deployment, please provide your docker-compose or docker commands
+  - type: input
+    id: mealie-version
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
+      label: Mealie Version
+    validations:
+      required: true
