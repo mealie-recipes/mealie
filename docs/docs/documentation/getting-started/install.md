@@ -46,12 +46,12 @@ services:
       TZ: America/Anchorage
 
       # Default Recipe Settings
-      RECIPE_PUBLIC: true
-      RECIPE_SHOW_NUTRITION: true
-      RECIPE_SHOW_ASSETS: true
-      RECIPE_LANDSCAPE_VIEW: true
-      RECIPE_DISABLE_COMMENTS: false
-      RECIPE_DISABLE_AMOUNT: false
+      RECIPE_PUBLIC: 'true'
+      RECIPE_SHOW_NUTRITION: 'true'
+      RECIPE_SHOW_ASSETS: 'true'
+      RECIPE_LANDSCAPE_VIEW: 'true'
+      RECIPE_DISABLE_COMMENTS: 'false'
+      RECIPE_DISABLE_AMOUNT: 'false'
 
       # Gunicorn
       WEB_CONCURRENCY: 2
@@ -90,12 +90,12 @@ services:
       POSTGRES_DB: mealie
 
       # Default Recipe Settings
-      RECIPE_PUBLIC: true
-      RECIPE_SHOW_NUTRITION: true
-      RECIPE_SHOW_ASSETS: true
-      RECIPE_LANDSCAPE_VIEW: true
-      RECIPE_DISABLE_COMMENTS: false
-      RECIPE_DISABLE_AMOUNT: false
+      RECIPE_PUBLIC: 'true'
+      RECIPE_SHOW_NUTRITION: 'true'
+      RECIPE_SHOW_ASSETS: 'true'
+      RECIPE_LANDSCAPE_VIEW: 'true'
+      RECIPE_DISABLE_COMMENTS: 'false'
+      RECIPE_DISABLE_AMOUNT: 'false'
 
       # Gunicorn
       WEB_CONCURRENCY: 2
