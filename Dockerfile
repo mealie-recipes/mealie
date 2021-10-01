@@ -137,10 +137,13 @@ RUN mkdir $MEALIE_HOME/temp \
 && id -u mealie | xargs -I{} chown -R {}:{} $MEALIE_HOME
 USER $PUID:$PGID
 VOLUME [ "$MEALIE_HOME/data/" ]
-ENV APP_PORT=9080
+
+RUN chmod 755 "$MEALIE_HOME/data/" \
+&& chmod g+s "$MEALIE_HOME/data/"
 
 WORKDIR /app
 
+ENV APP_PORT=9080
 EXPOSE ${APP_PORT}
 
 HEALTHCHECK CMD curl -f http://localhost:${APP_PORT} || exit 1
