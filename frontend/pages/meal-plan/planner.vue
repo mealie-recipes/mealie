@@ -128,12 +128,17 @@
           </v-card>
         </draggable>
         <v-card v-if="edit" outlined class="mt-auto">
-          <v-card-actions class="my-auto">
-            <v-spacer></v-spacer>
-            <v-btn text block @click="openDialog(plan.date)">
-              <v-icon large>{{ $globals.icons.createAlt }}</v-icon>
-            </v-btn>
-            <v-spacer></v-spacer>
+          <v-card-actions class="d-flex">
+            <div style="width: 50%">
+              <v-btn block text @click="randomMeal(plan.date)">
+                <v-icon large>{{ $globals.icons.diceMultiple }}</v-icon>
+              </v-btn>
+            </div>
+            <div style="width: 50%">
+              <v-btn block text @click="openDialog(plan.date)">
+                <v-icon large>{{ $globals.icons.createAlt }}</v-icon>
+              </v-btn>
+            </div>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -244,6 +249,13 @@ export default defineComponent({
       note: false,
     });
 
+    watch(dialog, () => {
+      if (dialog.note) {
+        newMeal.recipeId = null;
+      }
+      newMeal.title = "";
+      newMeal.text = "";
+    });
     const newMeal = reactive({
       date: "",
       title: "",
@@ -257,14 +269,6 @@ export default defineComponent({
       domMealDialog.value.open();
     }
 
-    watch(dialog, () => {
-      if (dialog.note) {
-        newMeal.recipeId = null;
-      }
-      newMeal.title = "";
-      newMeal.text = "";
-    });
-
     function resetDialog() {
       newMeal.date = "";
       newMeal.title = "";
@@ -272,8 +276,23 @@ export default defineComponent({
       newMeal.recipeId = null;
     }
 
+    function randomMeal(date: Date) {
+      // TODO: Refactor to use API call to get random recipe
+      // @ts-ignore
+      const randomRecipe = allRecipes.value[Math.floor(Math.random() * allRecipes.value.length)];
+
+      newMeal.date = format(date, "yyyy-MM-dd");
+      // @ts-ignore
+      newMeal.recipeId = randomRecipe.id;
+
+      // @ts-ignore
+      actions.createOne(newMeal);
+      resetDialog();
+    }
+
     return {
       resetDialog,
+      randomMeal,
       dialog,
       domMealDialog,
       openDialog,
