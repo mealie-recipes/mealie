@@ -91,9 +91,7 @@ export default defineComponent({
           to: "/recipe/create?tab=url",
           restricted: true,
         },
-        {
-          divider: true,
-        },
+        { divider: true },
         {
           icon: this.$globals.icons.edit,
           title: "Create",
@@ -101,14 +99,28 @@ export default defineComponent({
           to: "/recipe/create?tab=new",
           restricted: true,
         },
-        {
-          divider: true,
-        },
+        { divider: true },
         {
           icon: this.$globals.icons.zip,
-          title: "Restore",
+          title: "Recipe from zip",
           subtitle: "Restore from a exported recipe",
           to: "/recipe/create?tab=zip",
+          restricted: true,
+        },
+        { divider: true },
+        {
+          icon: this.$globals.icons.pages,
+          title: "Cookbook",
+          subtitle: "Create a new cookbook",
+          to: "/user/group/cookbooks",
+          restricted: true,
+        },
+        { divider: true },
+        {
+          icon: this.$globals.icons.cartCheck,
+          title: "Shopping List",
+          subtitle: "Create a new shopping list",
+          to: "/user/group/shopping-list/create",
           restricted: true,
         },
       ],

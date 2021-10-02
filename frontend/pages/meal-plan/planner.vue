@@ -74,6 +74,9 @@
           <v-hover v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" open-delay="100">
             <v-card class="my-2">
               <v-list-item>
+                <v-list-item-avatar :rounded="false">
+                  <RecipeCardImage tiny icon-size="25" :slug="mealplan.recipe.slug" />
+                </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title class="mb-1">
                     {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
@@ -83,6 +86,18 @@
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
+              <v-card-actions>
+                <v-btn icon @click="actions.deleteOne(mealplan.id)">
+                  <v-icon>{{ $globals.icons.delete }}</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>{{ $globals.icons.edit }}</v-icon>
+                </v-btn>
+                <v-btn icon>
+                  <v-icon>{{ $globals.icons.eye }}</v-icon>
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-hover>
         </draggable>
@@ -98,10 +113,12 @@ import { SortableEvent } from "sortablejs"; // eslint-disable-line
 import draggable from "vuedraggable";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useRecipes, allRecipes } from "~/composables/use-recipes";
+import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 
 export default defineComponent({
   components: {
     draggable,
+    RecipeCardImage,
   },
   setup() {
     const { mealplans, actions } = useMealplans();
