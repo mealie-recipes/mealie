@@ -59,6 +59,7 @@ class AppDirectories:
         self.USER_DIR: Path = data_dir.joinpath("users")
         self.RECIPE_DATA_DIR: Path = data_dir.joinpath("recipes")
         self.TEMP_DIR: Path = data_dir.joinpath(".temp")
+        self.SCHEDULER_DIR: Path = Path("/app/temp")
 
         self.ensure_directories()
 
@@ -95,7 +96,7 @@ def determine_sqlite_path(path=False, suffix=DB_VERSION) -> str:
 class AppSettings(BaseSettings):
     global DATA_DIR
     PRODUCTION: bool = Field(True, env="PRODUCTION")
-    BASE_URL: str = "http://localhost:8080"
+    BASE_URL: str = "http://localhost:{}".format(os.getenv("APP_PORT"))
     IS_DEMO: bool = False
     API_PORT: int = 9000
     API_DOCS: bool = True
@@ -151,7 +152,7 @@ class AppSettings(BaseSettings):
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
 
-    SCHEDULER_DATABASE = f"sqlite:///{app_dirs.DATA_DIR.joinpath('scheduler.db')}"
+    SCHEDULER_DATABASE = f"sqlite:///{app_dirs.SCHEDULER_DIR.joinpath('scheduler.db')}"
 
     TOKEN_TIME: int = 2  # Time in Hours
 
