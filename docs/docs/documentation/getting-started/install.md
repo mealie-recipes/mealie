@@ -2,6 +2,9 @@
 
 To deploy mealie on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. You can deploy with either SQLite (default) or Postgres. SQLite is sufficient for most use cases. Additionally, with mealies automated backup and restore functionality, you can easily move between SQLite and Postgres as you wish.
 
+**Latest release has changed container port binding from port 80 to 9080, for existing container based installations, please change exposed port or service binindg accordingly**
+
+
 [Get Docker](https://docs.docker.com/get-docker/)
 
 [Mealie on Dockerhub](https://hub.docker.com/r/hkotel/mealie)
