@@ -1,12 +1,13 @@
 <template>
-  <v-container fill-height fluid class="d-flex justify-center align-start">
-    <v-card color="background d-flex flex-column align-center " flat width="600px">
+  <v-container fill-height fluid class="d-flex justify-center align-center">
+    <v-card color="background d-flex flex-column align-center" flat width="600px">
       <svg
         id="bbc88faa-5a3b-49cf-bdbb-6c9ab11be594"
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 728 754.88525"
-        style="max-height: 300px"
+        style="max-height: 200px"
+        class="mt-2"
       >
         <rect
           x="514.67011"
@@ -147,7 +148,7 @@
         <ellipse cx="659.69176" cy="616.02594" rx="2.00365" ry="1.00183" fill="#e6e6e6" />
         <ellipse cx="664.42232" cy="619.57385" rx="2.00365" ry="1.00183" fill="#e6e6e6" />
       </svg>
-      <v-card-title class="headline justify-center"> Mealie Login </v-card-title>
+      <v-card-title class="headline justify-center"> Sign In To Mealie </v-card-title>
       <BaseDivider />
       <v-card-text>
         <v-form @submit.prevent="authenticate()">
@@ -157,7 +158,6 @@
             rounded
             autofocus
             class="rounded-lg"
-            prepend-icon="mdi-account"
             name="login"
             label="Email or Username"
             type="text"
@@ -168,17 +168,21 @@
             filled
             rounded
             class="rounded-lg"
-            prepend-icon="mdi-lock"
             name="password"
             label="Password"
             type="password"
           />
-          <v-btn :loading="loggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
-            {{ $t("user.login") }}
-          </v-btn>
+          <v-checkbox class="ml-2 mt-n4" label="Remember Me"></v-checkbox>
+          <v-card-actions class="justify-center">
+            <div class="max-button">
+              <v-btn :loading="loggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
+                {{ $t("user.login") }}
+              </v-btn>
+            </div>
+          </v-card-actions>
         </v-form>
       </v-card-text>
-      <v-btn v-if="allowSignup" class="mx-auto" text to="/register"> {{ $t("user.register") }} </v-btn>
+      <v-btn v-if="allowSignup" rounded class="mx-auto" text to="/register"> {{ $t("user.register") }} </v-btn>
       <v-btn v-else class="mx-auto" text disabled> {{ $t("user.invite-only") }} </v-btn>
     </v-card>
   </v-container>
@@ -221,3 +225,10 @@ export default defineComponent({
   },
 });
 </script>
+
+
+<style lang="css">
+.max-button {
+  width: 300px;
+}
+</style>
