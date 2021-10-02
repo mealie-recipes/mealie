@@ -11,7 +11,7 @@ from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
-from mealie.schema.admin import BackupJob, ImportJob, Imports, LocalBackup
+from mealie.schema.admin import AllBackups, BackupFile, CreateBackup, ImportJob
 from mealie.schema.user.user import PrivateUser
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
@@ -21,22 +21,24 @@ router = AdminAPIRouter(prefix="/api/backups", tags=["Backups"])
 logger = get_logger()
 
 
-@router.get("/available", response_model=Imports)
+@router.get("/available", response_model=AllBackups)
 def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
     for archive in app_dirs.BACKUP_DIR.glob("*.zip"):
-        backup = LocalBackup(name=archive.name, date=archive.stat().st_ctime)
+        backup = BackupFile(name=archive.name, date=archive.stat().st_ctime)
         imports.append(backup)
 
     templates = [template.name for template in app_dirs.TEMPLATE_DIR.glob("*.*")]
     imports.sort(key=operator.attrgetter("date"), reverse=True)
 
-    return Imports(imports=imports, templates=templates)
+    return AllBackups(imports=imports, templates=templates)
 
 
 @router.post("/export/database", status_code=status.HTTP_201_CREATED)
-def export_database(background_tasks: BackgroundTasks, data: BackupJob, session: Session = Depends(generate_session)):
+def export_database(
+    background_tasks: BackgroundTasks, data: CreateBackup, session: Session = Depends(generate_session)
+):
     """Generates a backup of the recipe database in json format."""
     try:
         export_path = backup_all(

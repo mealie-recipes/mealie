@@ -1,9 +1,12 @@
+import json
+import shutil
 from functools import cached_property
 from pathlib import Path
 from shutil import copytree, rmtree
 from typing import Union
+from zipfile import ZipFile
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, UploadFile, status
 
 from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
@@ -12,7 +15,10 @@ from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeSummary
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_recipe_event
+from mealie.services.image.image import write_image
 from mealie.services.recipe.mixins import recipe_creation_factory
+
+from .template_service import TemplateService
 
 logger = get_logger(module=__name__)
 
@@ -65,6 +71,33 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         )
         return self.item
 
+    def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
+        """
+        `create_from_zip` creates a recipe in the database from a zip file exported from Mealie. This is NOT
+        a generic import from a zip file.
+        """
+        with temp_path.open("wb") as buffer:
+            shutil.copyfileobj(archive.file, buffer)
+
+        recipe_dict = None
+        recipe_image = None
+
+        with ZipFile(temp_path) as myzip:
+            for file in myzip.namelist():
+                if file.endswith(".json"):
+                    with myzip.open(file) as myfile:
+                        recipe_dict = json.loads(myfile.read())
+                elif file.endswith(".webp"):
+                    with myzip.open(file) as myfile:
+                        recipe_image = myfile.read()
+
+        self.create_one(Recipe(**recipe_dict))
+
+        if self.item:
+            write_image(self.item.slug, recipe_image, "webp")
+
+        return self.item
+
     def update_one(self, update_data: Recipe) -> Recipe:
         original_slug = self.item.slug
         self._update_one(update_data, original_slug)
@@ -107,3 +140,10 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         recipe_dir = self.item.directory
         rmtree(recipe_dir, ignore_errors=True)
         logger.info(f"Recipe Directory Removed: {self.item.slug}")
+
+    # =================================================================
+    # Recipe Template Methods
+
+    def render_template(self, temp_dir: Path, template: str = None) -> Path:
+        t_service = TemplateService(temp_dir)
+        return t_service.render(self.item, template)

@@ -23,7 +23,6 @@ class ExportDatabase:
         with any supported backend database platform. By default tags are timestamps, and no
         Jinja2 templates are rendered
 
-
         Args:
             tag ([str], optional): A str to be used as a file tag. Defaults to None.
             templates (list, optional): A list of template file names. Defaults to None.

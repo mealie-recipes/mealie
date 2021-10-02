@@ -1,5 +1,3 @@
-import json
-import shutil
 from zipfile import ZipFile
 
 from fastapi import Depends, File
@@ -15,7 +13,6 @@ from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
 from mealie.schema.recipe.recipe import CreateRecipe, RecipeSummary
-from mealie.services.image.image import write_image
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.scraper.scraper import create_from_url
 
@@ -48,36 +45,15 @@ def test_parse_recipe_url(url: CreateRecipeByURL):
     return scrape_url(url.url)
 
 
-@user_router.post("/create-from-zip")
+@user_router.post("/create-from-zip", status_code=201)
 async def create_recipe_from_zip(
-    session: Session = Depends(generate_session),
+    recipe_service: RecipeService = Depends(RecipeService.private),
     temp_path=Depends(temporary_zip_path),
     archive: UploadFile = File(...),
 ):
     """ Create recipe from archive """
-
-    with temp_path.open("wb") as buffer:
-        shutil.copyfileobj(archive.file, buffer)
-
-    recipe_dict = None
-    recipe_image = None
-
-    with ZipFile(temp_path) as myzip:
-        for file in myzip.namelist():
-            if file.endswith(".json"):
-                with myzip.open(file) as myfile:
-                    recipe_dict = json.loads(myfile.read())
-            elif file.endswith(".webp"):
-                with myzip.open(file) as myfile:
-                    recipe_image = myfile.read()
-
-    db = get_database(session)
-
-    recipe: Recipe = db.recipes.create(Recipe(**recipe_dict))
-
-    write_image(recipe.slug, recipe_image, "webp")
-
-    return recipe
+    recipe = recipe_service.create_from_zip(archive, temp_path)
+    return recipe.slug
 
 
 @user_router.get("/{slug}", response_model=Recipe)

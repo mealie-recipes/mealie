@@ -35,13 +35,22 @@ class GroupSelfService(UserHttpService[int, str]):
         self.item = self.db.groups.get(self.group_id)
         return self.item
 
+    # ====================================================================
+    # Meal Categories
+
     def update_categories(self, new_categories: list[CategoryBase]):
         self.item.categories = new_categories
         return self.db.groups.update(self.group_id, self.item)
 
+    # ====================================================================
+    # Preferences
+
     def update_preferences(self, new_preferences: UpdateGroupPreferences):
         self.db.group_preferences.update(self.group_id, new_preferences)
         return self.populate_item()
+
+    # ====================================================================
+    # Group Invites
 
     def create_invite_token(self, uses: int = 1) -> None:
         token = SaveInviteToken(uses_left=uses, group_id=self.group_id, token=uuid4().hex)
@@ -49,3 +58,6 @@ class GroupSelfService(UserHttpService[int, str]):
 
     def get_invite_tokens(self) -> list[ReadInviteToken]:
         return self.db.group_invite_tokens.multi_query({"group_id": self.group_id})
+
+    # ====================================================================
+    # Export / Import Recipes
