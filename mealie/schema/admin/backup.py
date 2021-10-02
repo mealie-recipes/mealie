@@ -42,7 +42,7 @@ class ImportJob(BackupOptions):
         }
 
 
-class BackupJob(BaseModel):
+class CreateBackup(BaseModel):
     tag: Optional[str]
     options: BackupOptions
     templates: Optional[List[str]]
@@ -57,13 +57,13 @@ class BackupJob(BaseModel):
         }
 
 
-class LocalBackup(BaseModel):
+class BackupFile(BaseModel):
     name: str
     date: datetime
 
 
-class Imports(BaseModel):
-    imports: List[LocalBackup]
+class AllBackups(BaseModel):
+    imports: List[BackupFile]
     templates: List[str]
 
     class Config:

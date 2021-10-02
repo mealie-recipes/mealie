@@ -1,5 +1,7 @@
+import shutil
 from pathlib import Path
 from typing import Optional
+from uuid import uuid4
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -112,10 +114,20 @@ def validate_file_token(token: Optional[str] = None) -> Path:
 
 
 async def temporary_zip_path() -> Path:
-    temp_path = app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
+    app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
 
     try:
         yield temp_path
     finally:
         temp_path.unlink(missing_ok=True)
+
+
+async def temporary_dir() -> Path:
+    temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
+    temp_path.mkdir(exist_ok=True, parents=True)
+
+    try:
+        yield temp_path
+    finally:
+        shutil.rmtree(temp_path)

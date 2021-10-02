@@ -16,9 +16,7 @@ USER_ID = 2
 
 def test_ownership_on_new_with_admin(api_client: TestClient, admin_token):
     recipe_name = random_string()
-
     response = api_client.post(Routes.base, json={"name": recipe_name}, headers=admin_token)
-
     assert response.status_code == 201
 
     recipe = api_client.get(Routes.base + f"/{recipe_name}", headers=admin_token).json()
