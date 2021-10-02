@@ -8,8 +8,10 @@ RUN yarn install \
   --prefer-offline \
   --frozen-lockfile \
   --non-interactive \
-  --production=false
-
+  --production=false \ 
+  # https://github.com/docker/build-push-action/issues/471
+  --network-timeout 1000000
+  
 RUN yarn build
 
 RUN rm -rf node_modules && \
