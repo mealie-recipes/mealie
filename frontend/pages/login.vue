@@ -189,8 +189,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
-import { computed, reactive } from "@vue/reactivity";
+import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
 export default defineComponent({
   layout: "basic",
 

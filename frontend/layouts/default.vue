@@ -11,7 +11,7 @@
       :bottom-links="isAdmin ? bottomLink : []"
       @input="sidebar = !sidebar"
     >
-      <v-menu offset-y nudge-bottom="5" open-on-hover close-delay="30" nudge-right="15">
+      <v-menu offset-y nudge-bottom="5" open-on-hover close-delay="50" nudge-right="15">
         <template #activator="{ on, attrs }">
           <v-btn rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
             <v-icon left large color="primary">
@@ -20,7 +20,7 @@
             {{ $t("general.create") }}
           </v-btn>
         </template>
-        <v-list>
+        <v-list dense class="my-0 py-0">
           <template v-for="(item, index) in createLinks">
             <v-divider v-if="item.divider" :key="index" class="mx-2"></v-divider>
             <v-list-item v-else :key="item.title" :to="item.to" exact>
@@ -148,12 +148,6 @@ export default defineComponent({
               icon: this.$globals.icons.calendarWeek,
               title: this.$t("meal-plan.dinner-this-week"),
               to: "/meal-plan/this-week",
-              restricted: true,
-            },
-            {
-              icon: this.$globals.icons.calendarToday,
-              title: this.$t("meal-plan.dinner-today"),
-              to: "/meal-plan/today",
               restricted: true,
             },
           ],
