@@ -15,6 +15,8 @@
       <v-divider></v-divider>
     </template>
 
+    <slot></slot>
+
     <!-- Primary Links -->
     <template v-if="topLink">
       <v-list nav dense>

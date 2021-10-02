@@ -10,7 +10,32 @@
       :secondary-links="cookbookLinks || []"
       :bottom-links="isAdmin ? bottomLink : []"
       @input="sidebar = !sidebar"
-    />
+    >
+      <v-menu offset-y nudge-bottom="5" open-on-hover close-delay="30" nudge-right="15">
+        <template #activator="{ on, attrs }">
+          <v-btn rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
+            <v-icon left large color="primary">
+              {{ $globals.icons.createAlt }}
+            </v-icon>
+            {{ $t("general.create") }}
+          </v-btn>
+        </template>
+        <v-list>
+          <template v-for="(item, index) in createLinks">
+            <v-divider v-if="item.divider" :key="index" class="mx-2"></v-divider>
+            <v-list-item v-else :key="item.title" :to="item.to" exact>
+              <v-list-item-avatar>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+                <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>
+      </v-menu>
+    </AppSidebar>
 
     <AppHeader>
       <v-btn icon @click.stop="sidebar = !sidebar">
@@ -22,7 +47,6 @@
         <Nuxt />
       </v-scroll-x-transition>
     </v-main>
-    <AppFloatingButton absolute />
   </v-app>
 </template>
   
@@ -31,11 +55,10 @@
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
-import AppFloatingButton from "@/components/Layout/AppFloatingButton.vue";
 import { useCookbooks } from "~/composables/use-group-cookbooks";
 
 export default defineComponent({
-  components: { AppHeader, AppSidebar, AppFloatingButton },
+  components: { AppHeader, AppSidebar },
   // @ts-ignore
   middleware: "auth",
   setup() {
@@ -60,6 +83,35 @@ export default defineComponent({
   data() {
     return {
       sidebar: null,
+      createLinks: [
+        {
+          icon: this.$globals.icons.link,
+          title: "Import",
+          subtitle: "Import a recipe by URL",
+          to: "/recipe/create?tab=url",
+          restricted: true,
+        },
+        {
+          divider: true,
+        },
+        {
+          icon: this.$globals.icons.edit,
+          title: "Create",
+          subtitle: "Create a recipe manually",
+          to: "/recipe/create?tab=new",
+          restricted: true,
+        },
+        {
+          divider: true,
+        },
+        {
+          icon: this.$globals.icons.zip,
+          title: "Restore",
+          subtitle: "Restore from a exported recipe",
+          to: "/recipe/create?tab=zip",
+          restricted: true,
+        },
+      ],
       bottomLink: [
         {
           icon: this.$globals.icons.cog,
