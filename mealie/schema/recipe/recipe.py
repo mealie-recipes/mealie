@@ -30,6 +30,18 @@ class CreateRecipe(CamelModel):
     name: str
 
 
+class RecipeTag(CamelModel):
+    name: str
+    slug: str
+
+    class Config:
+        orm_mode = True
+
+
+class RecipeCategory(RecipeTag):
+    pass
+
+
 class RecipeSummary(CamelModel):
     id: Optional[int]
 
@@ -39,11 +51,18 @@ class RecipeSummary(CamelModel):
     name: Optional[str]
     slug: str = ""
     image: Optional[Any]
+    recipe_yield: Optional[str]
+
+    total_time: Optional[str] = None
+    prep_time: Optional[str] = None
+    cook_time: Optional[str] = None
+    perform_time: Optional[str] = None
 
     description: Optional[str] = ""
-    recipe_category: Optional[list[str]] = []
-    tags: Optional[list[str]] = []
+    recipe_category: Optional[list[RecipeTag]] = []
+    tags: Optional[list[RecipeTag]] = []
     rating: Optional[int]
+    org_url: Optional[str] = Field(None, alias="orgURL")
 
     date_added: Optional[datetime.date]
     date_updated: Optional[datetime.datetime]
@@ -51,31 +70,29 @@ class RecipeSummary(CamelModel):
     class Config:
         orm_mode = True
 
-        @classmethod
-        def getter_dict(_cls, name_orm: RecipeModel):
-            return {
-                **GetterDict(name_orm),
-                "recipe_category": [x.name for x in name_orm.recipe_category],
-                "tags": [x.name for x in name_orm.tags],
-            }
+    @validator("tags", always=True, pre=True)
+    def validate_tags(cats: list[Any], values):
+        if isinstance(cats, list) and cats and isinstance(cats[0], str):
+            return [RecipeTag(name=c, slug=slugify(c)) for c in cats]
+        return cats
+
+    @validator("recipe_category", always=True, pre=True)
+    def validate_categories(cats: list[Any], values):
+        if isinstance(cats, list) and cats and isinstance(cats[0], str):
+            return [RecipeCategory(name=c, slug=slugify(c)) for c in cats]
+        return cats
 
 
 class Recipe(RecipeSummary):
-    recipe_yield: Optional[str]
     recipe_ingredient: Optional[list[RecipeIngredient]] = []
     recipe_instructions: Optional[list[RecipeStep]] = []
     nutrition: Optional[Nutrition]
     tools: Optional[list[str]] = []
 
-    total_time: Optional[str] = None
-    prep_time: Optional[str] = None
-    perform_time: Optional[str] = None
-
     # Mealie Specific
     settings: Optional[RecipeSettings] = RecipeSettings()
     assets: Optional[list[RecipeAsset]] = []
     notes: Optional[list[RecipeNote]] = []
-    org_url: Optional[str] = Field(None, alias="orgURL")
     extras: Optional[dict] = {}
 
     comments: Optional[list[CommentOut]] = []
@@ -110,8 +127,8 @@ class Recipe(RecipeSummary):
             return {
                 **GetterDict(name_orm),
                 # "recipe_ingredient": [x.note for x in name_orm.recipe_ingredient],
-                "recipe_category": [x.name for x in name_orm.recipe_category],
-                "tags": [x.name for x in name_orm.tags],
+                # "recipe_category": [x.name for x in name_orm.recipe_category],
+                # "tags": [x.name for x in name_orm.tags],
                 "tools": [x.tool for x in name_orm.tools],
                 "extras": {x.key_name: x.value for x in name_orm.extras},
             }
