@@ -58,8 +58,7 @@
     <RecipeCardSection
       class="mt-n5"
       :title-icon="$globals.icons.magnify"
-      :recipes="showRecipes"
-      :hard-limit="maxResults"
+      :recipes="showRecipes.slice(0, maxResults)"
       @sort="assignFuzzy"
     />
   </v-container>

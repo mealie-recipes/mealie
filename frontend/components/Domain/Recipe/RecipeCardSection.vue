@@ -57,7 +57,7 @@
     </v-app-bar>
     <div v-if="recipes" class="mt-2">
       <v-row v-if="!viewScale">
-        <v-col v-for="recipe in recipes" :key="recipe.name" :sm="6" :md="6" :lg="4" :xl="3">
+        <v-col v-for="(recipe, index) in recipes" :key="recipe.slug + index" :sm="6" :md="6" :lg="4" :xl="3">
           <v-lazy>
             <RecipeCard
               :name="recipe.name"
@@ -72,7 +72,7 @@
       </v-row>
       <v-row v-else dense>
         <v-col
-          v-for="recipe in recipes.slice(0, cardLimit)"
+          v-for="recipe in recipes"
           :key="recipe.name"
           cols="12"
           :sm="singleColumn ? '12' : '12'"
@@ -92,11 +92,6 @@
           </v-lazy>
         </v-col>
       </v-row>
-    </div>
-    <div v-intersect="bumpList" class="d-flex mt-5">
-      <v-fade-transition>
-        <AppLoader v-if="loading" :loading="loading" />
-      </v-fade-transition>
     </div>
   </div>
 </template>
@@ -150,7 +145,6 @@ export default {
   data() {
     return {
       sortLoading: false,
-      cardLimit: 50,
       loading: false,
       EVENTS: {
         az: "az",
@@ -180,21 +174,8 @@ export default {
       return this.icon || this.$globals.icons.tags;
     },
   },
-  watch: {
-    recipes() {
-      this.bumpList();
-    },
-  },
+
   methods: {
-    bumpList() {
-      const newCardLimit = Math.min(this.cardLimit + 20, this.effectiveHardLimit);
-
-      if (this.loading === false && newCardLimit > this.cardLimit) {
-        this.setLoader();
-      }
-
-      this.cardLimit = newCardLimit;
-    },
     async setLoader() {
       this.loading = true;
       // eslint-disable-next-line promise/param-names
@@ -202,7 +183,7 @@ export default {
       this.loading = false;
     },
     navigateRandom() {
-      const recipe = this.utils.recipe.randomRecipe(this.recipes);
+      const recipe = this.recipes[Math.floor(Math.random() * this.recipes.length)];
       this.$router.push(`/recipe/${recipe.slug}`);
     },
     sortRecipes(sortType) {
