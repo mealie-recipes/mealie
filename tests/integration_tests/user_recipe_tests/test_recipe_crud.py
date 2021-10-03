@@ -41,7 +41,11 @@ def test_read_update(
     recipe["notes"] = test_notes
     recipe["tools"] = ["one tool", "two tool"]
 
-    test_categories = ["one", "two", "three"]
+    test_categories = [
+        {"name": "one", "slug": "one"},
+        {"name": "two", "slug": "two"},
+        {"name": "three", "slug": "three"},
+    ]
     recipe["recipeCategory"] = test_categories
 
     response = api_client.put(recipe_url, json=recipe, headers=unique_user.token)
@@ -54,7 +58,12 @@ def test_read_update(
     recipe = json.loads(response.text)
 
     assert recipe["notes"] == test_notes
-    assert recipe["recipeCategory"].sort() == test_categories.sort()
+
+    assert len(recipe["recipeCategory"]) == len(test_categories)
+
+    test_name = [x["name"] for x in test_categories]
+    for cats in zip(recipe["recipeCategory"], test_categories):
+        assert cats[0]["name"] in test_name
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)

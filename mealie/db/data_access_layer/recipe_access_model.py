@@ -61,9 +61,12 @@ class RecipeDataAccessModel(AccessModel[Recipe, RecipeModel]):
             override_schema=override_schema,
         )
 
-    def summary(self, group_id, start, limit) -> Any:
+    def summary(self, group_id, start=0, limit=99999) -> Any:
         return (
             self.session.query(RecipeModel)
             .options(joinedload(RecipeModel.recipe_category), joinedload(RecipeModel.tags))
+            .filter(RecipeModel.group_id == group_id)
+            .offset(start)
+            .limit(limit)
             .all()
         )
