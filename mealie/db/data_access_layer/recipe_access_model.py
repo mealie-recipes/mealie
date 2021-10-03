@@ -1,4 +1,7 @@
 from random import randint
+from typing import Any
+
+from sqlalchemy.orm import joinedload
 
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
@@ -56,4 +59,14 @@ class RecipeDataAccessModel(AccessModel[Recipe, RecipeModel]):
             attr_match=None,
             count=count,
             override_schema=override_schema,
+        )
+
+    def summary(self, group_id, start=0, limit=99999) -> Any:
+        return (
+            self.session.query(RecipeModel)
+            .options(joinedload(RecipeModel.recipe_category), joinedload(RecipeModel.tags))
+            .filter(RecipeModel.group_id == group_id)
+            .offset(start)
+            .limit(limit)
+            .all()
         )

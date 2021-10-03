@@ -81,11 +81,11 @@ class Database:
 
     @cached_property
     def categories(self) -> CategoryDataAccessModel:
-        return CategoryDataAccessModel(self.session, pk_id, Category, RecipeCategoryResponse)
+        return CategoryDataAccessModel(self.session, pk_slug, Category, RecipeCategoryResponse)
 
     @cached_property
     def tags(self) -> TagsDataAccessModel:
-        return TagsDataAccessModel(self.session, pk_id, Tag, RecipeTagResponse)
+        return TagsDataAccessModel(self.session, pk_slug, Tag, RecipeTagResponse)
 
     # ================================================================
     # Site Items

@@ -55,12 +55,8 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
 
     # CRUD METHODS
     def get_all(self, start=0, limit=None):
-        return self.db.recipes.multi_query(
-            {"group_id": self.user.group_id},
-            start=start,
-            limit=limit,
-            override_schema=RecipeSummary,
-        )
+        items = self.db.recipes.summary(self.user.group_id, start=start, limit=limit)
+        return [RecipeSummary.construct(**x.__dict__) for x in items]
 
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
         create_data = recipe_creation_factory(self.user, name=create_data.name, additional_attrs=create_data.dict())

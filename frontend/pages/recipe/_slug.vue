@@ -182,7 +182,7 @@
                     <RecipeCategoryTagSelector
                       v-if="form"
                       v-model="recipe.recipeCategory"
-                      :return-object="false"
+                      :return-object="true"
                       :show-add="true"
                       :show-label="false"
                     />
@@ -200,7 +200,7 @@
                     <RecipeCategoryTagSelector
                       v-if="form"
                       v-model="recipe.tags"
-                      :return-object="false"
+                      :return-object="true"
                       :show-add="true"
                       :tag-selector="true"
                       :show-label="false"

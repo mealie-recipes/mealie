@@ -2,6 +2,8 @@ from zipfile import ZipFile
 
 from fastapi import Depends, File
 from fastapi.datastructures import UploadFile
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 from scrape_schema_recipe import scrape_url
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
@@ -22,7 +24,8 @@ logger = get_logger()
 
 @user_router.get("", response_model=list[RecipeSummary])
 async def get_all(start=0, limit=None, service: RecipeService = Depends(RecipeService.private)):
-    return service.get_all(start, limit)
+    json_compatible_item_data = jsonable_encoder(service.get_all(start, limit))
+    return JSONResponse(content=json_compatible_item_data)
 
 
 @user_router.post("", status_code=201, response_model=str)
