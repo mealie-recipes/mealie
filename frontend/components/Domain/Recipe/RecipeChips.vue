@@ -3,15 +3,15 @@
     <h2 v-if="title" class="mt-4">{{ title }}</h2>
     <v-chip
       v-for="category in items.slice(0, limit)"
-      :key="category"
+      :key="category.name"
       label
       class="ma-1"
       color="accent"
       :small="small"
       dark
-      :to="`/recipes/${urlParam}/${getSlug(category)}`"
+      :to="`/recipes/${urlParam}/${category.slug}`"
     >
-      {{ truncateText(category) }}
+      {{ truncateText(category.name) }}
     </v-chip>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
       return this.$store.getters.getAllTags || [];
     },
     urlParam() {
-      return this.isCategory ? "category" : "tag";
+      return this.isCategory ? "categories" : "tags";
     },
   },
   methods: {

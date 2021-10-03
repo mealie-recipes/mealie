@@ -122,10 +122,15 @@ export default defineComponent({
     },
     filteredRecipes() {
       return this.allRecipes.filter((recipe) => {
-        const includesTags = this.check(this.includeTags, recipe.tags, this.tagFilter.matchAny, this.tagFilter.exclude);
+        const includesTags = this.check(
+          this.includeTags,
+          recipe.tags.map((x) => x.name),
+          this.tagFilter.matchAny,
+          this.tagFilter.exclude
+        );
         const includesCats = this.check(
           this.includeCategories,
-          recipe.recipeCategory,
+          recipe.recipeCategory.map((x) => x.name),
           this.catFilter.matchAny,
           this.catFilter.exclude
         );
