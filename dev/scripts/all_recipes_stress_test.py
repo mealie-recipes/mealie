@@ -40,7 +40,9 @@ def populate_data(token):
 
 def time_request(url, headers):
     start = time.time()
-    _ = requests.get(url, headers=headers)
+    r = requests.get(url, headers=headers)
+
+    print(f"Total Recipes {len(r.json())}")
     end = time.time()
     print(end - start)
 
