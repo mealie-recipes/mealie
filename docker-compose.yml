@@ -11,9 +11,28 @@ services:
       - 9091:3000
     environment:
       - GLOBAL_MIDDLEWARE=auth
-      - SUB_PATH=/mealie/
+      # - SUB_PATH=/mealie/
       - ALLOW_SIGNUP=true
       - API_URL=http://mealie-api:80
+
+      # =====================================
+      # Light Mode Config
+      - THEME_LIGHT_PRIMARY=#E58325
+      - THEME_LIGHT_ACCENT=#007A99
+      - THEME_LIGHT_SECONDARY=#973542
+      - THEME_LIGHT_SUCCESS=#43A047
+      - THEME_LIGHT_INFO=#1976D2
+      - THEME_LIGHT_WARNING=#FF6D00
+      - THEME_LIGHT_ERROR=#EF5350
+      # =====================================
+      # Light Mode Config
+      - THEME_DARK_PRIMARY=#E58325
+      - THEME_DARK_ACCENT=#007A99
+      - THEME_DARK_SECONDARY=#973542
+      - THEME_DARK_SUCCESS=#43A047
+      - THEME_DARK_INFO=#1976D2
+      - THEME_DARK_WARNING=#FF6D00
+      - THEME_DARK_ERROR=#EF5350
   mealie:
     container_name: mealie-api
     build:

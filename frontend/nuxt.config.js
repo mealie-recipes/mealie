@@ -30,7 +30,7 @@ export default {
   css: [{ src: "~/assets/main.css" }, { src: "~/assets/style-overrides.scss" }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/globals.ts"],
+  plugins: ["~/plugins/globals.ts", "~/plugins/theme.ts"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -205,6 +205,26 @@ export default {
     axios: {
       browserBaseURL: process.env.SUB_PATH || "",
     },
+    themes: {
+      dark: {
+        primary: process.env.THEME_DARK_PRIMARY || "#E58325",
+        accent: process.env.THEME_DARK_ACCENT || "#007A99",
+        secondary: process.env.THEME_DARK_SECONDARY || "#973542",
+        success: process.env.THEME_DARK_SUCCESS || "#43A047",
+        info: process.env.THEME_DARK_INFO || "#1976d2",
+        warning: process.env.THEME_DARK_WARNING || "#FF6D00",
+        error: process.env.THEME_DARK_ERROR || "#EF5350",
+      },
+      light: {
+        primary: process.env.THEME_LIGHT_PRIMARY || "#007A99",
+        accent: process.env.THEME_LIGHT_ACCENT || "#007A99",
+        secondary: process.env.THEME_DARK_SECONDARY || "#973542",
+        success: process.env.THEME_DARK_SUCCESS || "#43A047",
+        info: process.env.THEME_LIGHT_INFO || "#1976d2",
+        warning: process.env.THEME_LIGHT_WARNING || "#FF6D00",
+        error: process.env.THEME_LIGHT_ERROR || "#EF5350",
+      },
+    },
   },
 
   privateRuntimeConfig: {},
@@ -249,6 +269,8 @@ export default {
         customProperties: true,
       },
       dark: false,
+      // Theme Config set at runtime by /plugins/theme.ts
+      // This config doesn't do anything.
       themes: {
         dark: {
           primary: "#E58325",

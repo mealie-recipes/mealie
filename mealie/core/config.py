@@ -7,8 +7,8 @@ from typing import Any, Optional, Union
 import dotenv
 from pydantic import BaseSettings, Field, PostgresDsn, validator
 
-APP_VERSION = "v0.5.2"
-DB_VERSION = "v0.5.0"
+APP_VERSION = "v1.0.0b"
+DB_VERSION = "v1.0.0b"
 
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent

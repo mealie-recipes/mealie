@@ -57,6 +57,26 @@ export const useSorter = () => {
   };
 };
 
+export const useLazyRecipes = function () {
+  const api = useApiSingleton();
+
+  const recipes = ref<Recipe[] | null>([]);
+
+  async function fetchMore(start: number, limit: number) {
+    const { data } = await api.recipes.getAll(start, limit);
+    if (data) {
+      data.forEach((recipe) => {
+        recipes.value?.push(recipe);
+      });
+    }
+  }
+
+  return {
+    recipes,
+    fetchMore,
+  };
+};
+
 export const useRecipes = (all = false, fetchRecipes = true) => {
   const api = useApiSingleton();
 

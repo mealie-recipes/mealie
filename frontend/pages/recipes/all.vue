@@ -3,23 +3,49 @@
     <RecipeCardSection
       :icon="$globals.icons.primary"
       :title="$t('page.all-recipes')"
-      :recipes="allRecipes"
-      @sort="assignSorted"
+      :recipes="recipes"
     ></RecipeCardSection>
+    <v-card v-intersect="infiniteScroll"></v-card>
+    <v-fade-transition>
+      <AppLoader v-if="loading" :loading="loading" />
+    </v-fade-transition>
   </v-container>
 </template>
   
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import { useThrottleFn } from "@vueuse/core";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { useRecipes, allRecipes } from "~/composables/use-recipes";
+import { useLazyRecipes } from "~/composables/use-recipes";
 
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
-    const { assignSorted } = useRecipes(true);
+    const start = ref(1);
+    const limit = ref(30);
+    const increment = ref(30);
+    const ready = ref(false);
+    const loading = ref(false);
 
-    return { allRecipes, assignSorted };
+    const { recipes, fetchMore } = useLazyRecipes();
+
+    onMounted(async () => {
+      await fetchMore(start.value, limit.value);
+      ready.value = true;
+    });
+
+    const infiniteScroll = useThrottleFn(() => {
+      if (!ready.value) {
+        return;
+      }
+      loading.value = true;
+      start.value = limit.value + 1;
+      limit.value = limit.value + increment.value;
+      fetchMore(start.value, limit.value);
+      loading.value = false;
+    }, 500);
+
+    return { recipes, infiniteScroll, loading };
   },
 });
 </script>
