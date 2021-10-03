@@ -18,7 +18,6 @@ export default defineComponent({
   },
   setup() {
     const [state, toggle] = useToggle();
-    console.log(state, toggle);
     return {
       state,
       toggle,
