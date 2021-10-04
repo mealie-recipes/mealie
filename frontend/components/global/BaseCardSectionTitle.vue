@@ -1,7 +1,11 @@
 <template>
   <v-card flat class="pb-2">
-    <h2 class="headline">{{ title }}</h2>
-    <!-- <BaseDivider width="200px" color="primary" class="my-2" thickness="1px" /> -->
+    <v-card-title class="headline py-0">
+      <v-icon v-if="icon !== ''" left>
+        {{ icon }}
+      </v-icon>
+      {{ title }}
+    </v-card-title>
     <p class="pb-0 mb-0">
       <slot />
     </p>
@@ -15,6 +19,10 @@ export default {
     title: {
       type: String,
       default: "Place Holder",
+    },
+    icon: {
+      type: String,
+      default: "",
     },
   },
 };

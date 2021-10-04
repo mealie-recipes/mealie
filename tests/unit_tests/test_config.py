@@ -77,3 +77,19 @@ def test_set_data_dir():
 
     assert determine_data_dir(True) == PROD_DIR
     assert determine_data_dir(False) == DEV_DIR
+
+
+def test_smtp_enable(monkeypatch):
+    app_settings = AppSettings()
+    assert app_settings.SMTP_ENABLE is False
+
+    monkeypatch.setenv("SMTP_HOST", "email.mealie.io")
+    monkeypatch.setenv("SMTP_PORT", "587")
+    monkeypatch.setenv("SMTP_TLS", "true")
+    monkeypatch.setenv("SMTP_FROM_NAME", "Mealie")
+    monkeypatch.setenv("SMTP_FROM_EMAIL", "mealie@mealie.io")
+    monkeypatch.setenv("SMTP_USER", "mealie@mealie.io")
+    monkeypatch.setenv("SMTP_PASSWORD", "mealie-password")
+
+    app_settings = AppSettings()
+    assert app_settings.SMTP_ENABLE is True

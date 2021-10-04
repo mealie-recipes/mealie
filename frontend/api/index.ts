@@ -15,6 +15,7 @@ import { WebhooksAPI } from "./class-interfaces/group-webhooks";
 import { AdminAboutAPI } from "./class-interfaces/admin-about";
 import { RegisterAPI } from "./class-interfaces/user-registration";
 import { MealPlanAPI } from "./class-interfaces/group-mealplan";
+import { EmailAPI } from "./class-interfaces/email";
 import { ApiRequestInstance } from "~/types/api";
 
 class AdminAPI {
@@ -50,6 +51,7 @@ class Api {
   public groupWebhooks: WebhooksAPI;
   public register: RegisterAPI;
   public mealplans: MealPlanAPI;
+  public email: EmailAPI;
 
   // Utils
   public upload: UploadFile;
@@ -82,6 +84,8 @@ class Api {
     // Utils
     this.upload = new UploadFile(requests);
     this.utils = new UtilsAPI(requests);
+
+    this.email = new EmailAPI(requests);
 
     Object.freeze(this);
     Api.instance = this;
