@@ -25,7 +25,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <v-toolbar flat class="justify-between">
+    <v-toolbar color="background" flat class="justify-between">
       <BaseDialog
         :icon="$globals.icons.bellAlert"
         :title="$t('general.new') + ' ' + $t('events.notification')"

@@ -35,6 +35,16 @@
           </template>
         </v-list>
       </v-menu>
+      <template #bottom>
+        <v-list-item @click="toggleDark">
+          <v-list-item-icon>
+            <v-icon>
+              {{ $vuetify.theme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-title> {{ $vuetify.theme.dark ? "Light Mode" : "Dark Mode" }} </v-list-item-title>
+        </v-list-item>
+      </template>
     </AppSidebar>
 
     <AppHeader>
@@ -64,9 +74,14 @@ export default defineComponent({
   setup() {
     const { cookbooks } = useCookbooks();
     // @ts-ignore
-    const { $globals, $auth } = useContext();
+    const { $globals, $auth, $vuetify } = useContext();
 
     const isAdmin = computed(() => $auth.user?.admin);
+
+    function toggleDark() {
+      $vuetify.theme.dark = !$vuetify.theme.dark;
+      console.log("toggleDark");
+    }
 
     const cookbookLinks = computed(() => {
       if (!cookbooks.value) return [];
@@ -78,7 +93,7 @@ export default defineComponent({
         };
       });
     });
-    return { cookbookLinks, isAdmin };
+    return { cookbookLinks, isAdmin, toggleDark };
   },
   data() {
     return {

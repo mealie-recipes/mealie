@@ -3,7 +3,7 @@
   <v-container fluid>
     <BaseCardSectionTitle title="Group Management"> </BaseCardSectionTitle>
     <section>
-      <v-toolbar flat class="justify-between">
+      <v-toolbar flat color="background" class="justify-between">
         <BaseDialog
           ref="refUserDialog"
           top

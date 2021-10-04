@@ -9,7 +9,7 @@
         Manage your profile, recipes, and group settings.
         <a href="https://hay-kot.github.io/mealie/" target="_blank"> Learn More </a>
       </p>
-      <v-card flat width="100%" max-width="600px">
+      <v-card v-if="$auth.user.canInvite" flat color="background" width="100%" max-width="600px">
         <v-card-actions class="d-flex justify-center">
           <v-btn outlined rounded @click="getSignupLink()">
             <v-icon left>
@@ -18,13 +18,24 @@
             Get Invite Link
           </v-btn>
         </v-card-actions>
-        <v-card-text v-if="generatedLink !== ''" class="d-flex">
-          <v-text-field v-model="generatedLink" solo  readonly>
-            <template #append>
-              <AppButtonCopy :copy-text="generatedLink" />
-            </template>
-          </v-text-field>
-        </v-card-text>
+        <v-fade-transition>
+          <div v-show="generatedLink !== ''">
+            <v-card-text>
+              <p class="text-center pb-0">
+                {{ generatedLink }}
+              </p>
+            </v-card-text>
+            <v-card-actions class="py-0 align-center justify-center" style="gap: 4px">
+              <AppButtonCopy :icon="false" color="info" :copy-text="generatedLink" />
+              <BaseButton color="info">
+                <template #icon>
+                  {{ $globals.icons.email }}
+                </template>
+                {{ $t("user.email") }}
+              </BaseButton>
+            </v-card-actions>
+          </div>
+        </v-fade-transition>
       </v-card>
     </section>
     <section>
@@ -87,6 +98,16 @@
           >
             <template #title> Webhooks </template>
             Setup webhooks that trigger on days that you have have mealplan scheduled.
+          </UserProfileLinkCard>
+        </v-col>
+        <v-col cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            v-if="user.canManage"
+            :link="{ text: 'Manage Members', to: '/user/group/members' }"
+            :image="require('~/static/svgs/manage-members.svg')"
+          >
+            <template #title> Members </template>
+            See who's in your group and manage their permissions.
           </UserProfileLinkCard>
         </v-col>
       </v-row>

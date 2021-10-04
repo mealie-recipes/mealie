@@ -34,7 +34,7 @@
         <v-divider></v-divider>
       </BaseDialog>
 
-      <v-toolbar flat class="justify-between">
+      <v-toolbar flat color="background" class="justify-between">
         <BaseButton class="mr-2" @click="createBackup(null)" />
         <!-- Backup Creation Dialog -->
         <BaseDialog

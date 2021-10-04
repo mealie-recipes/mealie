@@ -121,6 +121,7 @@
             </v-list-item>
           </template>
         </v-list-item-group>
+        <slot name="bottom"></slot>
       </v-list>
     </template>
   </v-navigation-drawer>

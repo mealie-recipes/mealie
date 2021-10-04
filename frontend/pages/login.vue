@@ -195,6 +195,7 @@ export default defineComponent({
 
   setup() {
     const { $auth } = useContext();
+    const context = useContext();
 
     const form = reactive({
       email: "changeme@email.com",
@@ -203,7 +204,7 @@ export default defineComponent({
 
     const loggingIn = ref(false);
 
-    const allowSignup = computed(() => process.env.ALLOW_SIGNUP);
+    const allowSignup = computed(() => context.env.ALLOW_SIGNUP);
 
     async function authenticate() {
       loggingIn.value = true;

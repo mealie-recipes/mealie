@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="pb-2">
+  <v-card color="background" flat class="pb-2">
     <v-card-title class="headline py-0">
       <v-icon v-if="icon !== ''" left>
         {{ icon }}

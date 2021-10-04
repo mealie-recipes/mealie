@@ -35,7 +35,7 @@
         <v-icon left>{{ $globals.icons.logout }}</v-icon>
         {{ $t("user.logout") }}
       </v-btn>
-      <v-btn v-else text nuxt to="/user/login">
+      <v-btn v-else text nuxt to="/login">
         <v-icon left>{{ $globals.icons.user }}</v-icon>
         {{ $t("user.login") }}
       </v-btn>
