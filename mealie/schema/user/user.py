@@ -55,6 +55,10 @@ class UserBase(CamelModel):
     advanced: bool = False
     favorite_recipes: Optional[list[str]] = []
 
+    can_invite: bool = False
+    can_manage: bool = False
+    can_organize: bool = False
+
     class Config:
         orm_mode = True
 

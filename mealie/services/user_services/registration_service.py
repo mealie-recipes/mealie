@@ -23,25 +23,21 @@ class RegistrationService(PublicHttpService[int, str]):
 
         logger.info(f"Registering user {registration.username}")
         token_entry = None
+        new_group = False
 
         if registration.group:
+            new_group = True
             group = self._register_new_group()
 
         elif registration.group_token and registration.group_token != "":
-
             token_entry = self.db.group_invite_tokens.get(registration.group_token)
-
-            print("Token Entry", token_entry)
-
             if not token_entry:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
-
             group = self.db.groups.get(token_entry.group_id)
-
         else:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 
-        user = self._create_new_user(group)
+        user = self._create_new_user(group, new_group)
 
         if token_entry and user:
             token_entry.uses_left = token_entry.uses_left - 1
@@ -54,7 +50,7 @@ class RegistrationService(PublicHttpService[int, str]):
 
         return user
 
-    def _create_new_user(self, group: GroupInDB) -> PrivateUser:
+    def _create_new_user(self, group: GroupInDB, new_group=bool) -> PrivateUser:
         new_user = UserIn(
             email=self.registration.email,
             username=self.registration.username,
@@ -62,6 +58,9 @@ class RegistrationService(PublicHttpService[int, str]):
             full_name=self.registration.username,
             advanced=self.registration.advanced,
             group=group.name,
+            can_invite=new_group,
+            can_manage=new_group,
+            can_organize=new_group,
         )
 
         return self.db.users.create(new_user)

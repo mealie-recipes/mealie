@@ -1,8 +1,8 @@
 from mealie.core import root_logger
 from mealie.core.config import settings
-from mealie.core.security import hash_password
 from mealie.db.data_access_layer.access_model_factory import Database
 from mealie.db.data_initialization.init_units_foods import default_recipe_unit_init
+from mealie.db.data_initialization.init_users import default_user_init
 from mealie.db.database import get_database
 from mealie.db.db_setup import create_session, engine
 from mealie.db.models._model_base import SqlAlchemyBase
@@ -35,20 +35,6 @@ def default_settings_init(db: Database):
 def default_group_init(db: Database):
     logger.info("Generating Default Group")
     create_new_group(db, GroupBase(name=settings.DEFAULT_GROUP))
-
-
-def default_user_init(db: Database):
-    default_user = {
-        "full_name": "Change Me",
-        "username": "admin",
-        "email": settings.DEFAULT_EMAIL,
-        "password": hash_password(settings.DEFAULT_PASSWORD),
-        "group": settings.DEFAULT_GROUP,
-        "admin": True,
-    }
-
-    logger.info("Generating Default User")
-    db.users.create(default_user)
 
 
 def main():
