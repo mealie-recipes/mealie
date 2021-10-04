@@ -156,10 +156,6 @@ class AppSettings(BaseSettings):
 
     TOKEN_TIME: int = 2  # Time in Hours
 
-    # Not Used!
-    SFTP_USERNAME: Optional[str]
-    SFTP_PASSWORD: Optional[str]
-
     # Recipe Default Settings
     RECIPE_PUBLIC: bool = True
     RECIPE_SHOW_NUTRITION: bool = True
@@ -167,6 +163,30 @@ class AppSettings(BaseSettings):
     RECIPE_LANDSCAPE_VIEW: bool = True
     RECIPE_DISABLE_COMMENTS: bool = False
     RECIPE_DISABLE_AMOUNT: bool = False
+
+    # ===============================================
+    # Email Configuration
+    SMTP_HOST: Optional[str]
+    SMTP_PORT: Optional[str]
+    SMTP_FROM_NAME: Optional[str]
+    SMTP_TLS: Optional[bool]
+    SMTP_FROM_EMAIL: Optional[str]
+    SMTP_USER: Optional[str]
+    SMTP_PASSWORD: Optional[str]
+
+    @property
+    def SMTP_ENABLE(self) -> bool:
+        required = {
+            self.SMTP_HOST,
+            self.SMTP_PORT,
+            self.SMTP_FROM_NAME,
+            self.SMTP_TLS,
+            self.SMTP_FROM_EMAIL,
+            self.SMTP_USER,
+            self.SMTP_PASSWORD,
+        }
+
+        return "" not in required and None not in required
 
     class Config:
         env_file = BASE_DIR.joinpath(".env")
