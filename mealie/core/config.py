@@ -167,15 +167,16 @@ class AppSettings(BaseSettings):
     # ===============================================
     # Email Configuration
     SMTP_HOST: Optional[str]
-    SMTP_PORT: Optional[str]
-    SMTP_FROM_NAME: Optional[str]
-    SMTP_TLS: Optional[bool]
+    SMTP_PORT: Optional[str] = "587"
+    SMTP_FROM_NAME: Optional[str] = "Mealie"
+    SMTP_TLS: Optional[bool] = True
     SMTP_FROM_EMAIL: Optional[str]
     SMTP_USER: Optional[str]
     SMTP_PASSWORD: Optional[str]
 
     @property
     def SMTP_ENABLE(self) -> bool:
+        """Validates all SMTP variables are set"""
         required = {
             self.SMTP_HOST,
             self.SMTP_PORT,
