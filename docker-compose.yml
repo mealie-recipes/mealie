@@ -16,6 +16,16 @@ services:
       - API_URL=http://mealie-api:80
 
       # =====================================
+      # Email Configuration
+      # - SMTP_HOST=
+      # - SMTP_PORT=587
+      # - SMTP_FROM_NAME=Mealie
+      # - SMTP_TLS=true
+      # - SMTP_FROM_EMAIL=
+      # - SMTP_USER=
+      # - SMTP_PASSWORD=
+
+      # =====================================
       # Light Mode Config
       - THEME_LIGHT_PRIMARY=#E58325
       - THEME_LIGHT_ACCENT=#007A99
