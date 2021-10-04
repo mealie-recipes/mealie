@@ -1,6 +1,6 @@
 ---
-name: Code review
-description: "Request a new code review"
+name: Bug Report
+description: "submit a bug report for the current release"
 body:
   - type: checkboxes
     id: checks
