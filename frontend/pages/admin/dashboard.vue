@@ -1,5 +1,3 @@
-// TODO: Possibly add confirmation dialog? I'm not sure that it's really requried for events...
-
 <template>
   <v-container v-if="statistics" class="mt-10">
     <v-row v-if="statistics">

@@ -17,26 +17,14 @@
       <v-card class="mb-4">
         <v-list-item>
           <v-list-item-avatar>
-            <v-icon :color="appConfig.baseUrlSet ? 'success' : 'error'">
+            <v-icon :color="getColor(appConfig.baseUrlSet)">
               {{ appConfig.baseUrlSet ? $globals.icons.checkboxMarkedCircle : $globals.icons.close }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title
-              :class="{
-                'success--text': appConfig.baseUrlSet,
-                'error--text': !appConfig.baseUrlSet,
-              }"
-            >
-              Server Side Base URL
-            </v-list-item-title>
-            <v-list-item-subtitle
-              :class="{
-                'success--text': appConfig.baseUrlSet,
-                'error--text': !appConfig.baseUrlSet,
-              }"
-            >
-              {{ appConfig.baseUrlSet ? "Ready" : "Not Ready - Set `BASE_URL` on API Server" }}
+            <v-list-item-title :class="getTextClass(appConfig.baseUrlSet)"> Server Side Base URL </v-list-item-title>
+            <v-list-item-subtitle :class="getTextClass(appConfig.baseUrlSet)">
+              {{ appConfig.baseUrlSet ? "Ready" : "Not Ready - `BASE_URL` still default on API Server" }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -49,25 +37,15 @@
         <v-card-text>
           <v-list-item>
             <v-list-item-avatar>
-              <v-icon :color="appConfig.emailReady ? 'success' : 'error'">
+              <v-icon :color="getColor(appConfig.emailReady)">
                 {{ appConfig.emailReady ? $globals.icons.checkboxMarkedCircle : $globals.icons.close }}
               </v-icon>
             </v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title
-                :class="{
-                  'success--text': appConfig.emailReady,
-                  'error--text': !appConfig.emailReady,
-                }"
-              >
+              <v-list-item-title :class="getTextClass(appConfig.emailReady)">
                 Email Configuration Status
               </v-list-item-title>
-              <v-list-item-subtitle
-                :class="{
-                  'success--text': appConfig.emailReady,
-                  'error--text': !appConfig.emailReady,
-                }"
-              >
+              <v-list-item-subtitle :class="getTextClass(appConfig.emailReady)">
                 {{ appConfig.emailReady ? "Ready" : "Not Ready - Check Env Variables" }}
               </v-list-item-subtitle>
             </v-list-item-content>
@@ -161,7 +139,16 @@ export default defineComponent({
       return false;
     });
 
+    function getTextClass(booly: boolean | any) {
+      return booly ? "success--text" : "error--text";
+    }
+    function getColor(booly: boolean | any) {
+      return booly ? "success" : "error";
+    }
+
     return {
+      getColor,
+      getTextClass,
       appConfig,
       validEmail,
       validators,
