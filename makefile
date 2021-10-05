@@ -70,8 +70,10 @@ coverage: ## ☂️  Check code coverage quickly with the default Python
 	$(BROWSER) htmlcov/index.html
 
 setup: ## 🏗  Setup Development Instance
+	cp template.env .env -n 
 	poetry install && \
 	cd frontend && \
+	cp template.env .env -n 
 	yarn install && \
 	cd ..
 
