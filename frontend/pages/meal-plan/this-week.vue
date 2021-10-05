@@ -9,6 +9,11 @@ export default defineComponent({
   setup() {
     return {};
   },
+  head() {
+    return {
+      title: this.$t("meal-plan.dinner-this-week") as string,
+    };
+  },
 });
 </script>
   

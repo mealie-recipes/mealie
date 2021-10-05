@@ -111,5 +111,10 @@ export default defineComponent({
 
     return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup };
   },
+  head() {
+    return {
+      title: this.$t("group.manage-groups") as string,
+    };
+  },
 });
 </script>

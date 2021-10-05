@@ -29,6 +29,11 @@ export default defineComponent({
     }, slug);
     return { category };
   },
+  head() {
+    return {
+      title: this.$t("sidebar.categories") as string,
+    };
+  },
   methods: {
     assignSorted(val: Array<Recipe>) {
       if (this.category) {

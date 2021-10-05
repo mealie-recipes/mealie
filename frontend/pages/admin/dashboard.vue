@@ -146,6 +146,11 @@ export default defineComponent({
 
     return { statistics, events, deleteEvents, deleteEvent };
   },
+  head() {
+    return {
+      title: this.$t("sidebar.dashboard") as string,
+    };
+  },
 });
 </script>
 

@@ -110,6 +110,11 @@ export default defineComponent({
       },
     };
   },
+  head() {
+    return {
+      title: this.$t("search.search"),
+    };
+  },
   computed: {
     searchString: {
       set(q) {

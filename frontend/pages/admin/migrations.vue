@@ -17,6 +17,11 @@ export default defineComponent({
   setup() {
     return {};
   },
+  head() {
+    return {
+      title: this.$t("settings.migrations") as string,
+    };
+  },
 });
 </script>
     

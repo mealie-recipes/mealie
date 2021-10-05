@@ -223,6 +223,12 @@ export default defineComponent({
       authenticate,
     };
   },
+
+  head() {
+    return {
+      title: this.$t("user.login") as string,
+    };
+  },
 });
 </script>
 

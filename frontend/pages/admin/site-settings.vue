@@ -156,6 +156,11 @@ export default defineComponent({
       testEmail,
     };
   },
+  head() {
+    return {
+      title: this.$t("settings.site-settings") as string,
+    };
+  },
 });
 </script>
     

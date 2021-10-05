@@ -64,5 +64,10 @@ export default defineComponent({
       actions,
     };
   },
+  head() {
+    return {
+      title: this.$t("settings.webhooks.webhooks") as string,
+    };
+  },
 });
 </script>

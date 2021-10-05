@@ -214,6 +214,11 @@ export default defineComponent({
       validators,
     };
   },
+  head() {
+    return {
+      title: this.$t("general.create") as string,
+    };
+  },
   // Computed State is used because of the limitation of vue-composition-api in v2.0
   computed: {
     tab: {

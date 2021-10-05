@@ -133,6 +133,11 @@ export default defineComponent({
       allDays,
     };
   },
+  head() {
+    return {
+      title: this.$t("group.group") as string,
+    };
+  },
 });
 </script>
     

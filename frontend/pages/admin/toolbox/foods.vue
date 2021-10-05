@@ -113,6 +113,11 @@ export default defineComponent({
       workingFoodData,
     };
   },
+  head() {
+    return {
+      title: "Foods",
+    };
+  },
 });
 </script>
     
