@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <!-- <TheSnackbar /> -->
+    <TheSnackbar />
 
     <AppSidebar
       v-model="sidebar"
@@ -65,10 +65,11 @@
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
+import TheSnackbar from "@/components/Layout/TheSnackbar.vue";
 import { useCookbooks } from "~/composables/use-group-cookbooks";
 
 export default defineComponent({
-  components: { AppHeader, AppSidebar },
+  components: { AppHeader, AppSidebar, TheSnackbar },
   // @ts-ignore
   middleware: "auth",
   setup() {

@@ -18,24 +18,25 @@
             Get Invite Link
           </v-btn>
         </v-card-actions>
-        <v-fade-transition>
-          <div v-show="generatedLink !== ''">
-            <v-card-text>
-              <p class="text-center pb-0">
-                {{ generatedLink }}
-              </p>
-            </v-card-text>
-            <v-card-actions class="py-0 align-center justify-center" style="gap: 4px">
-              <AppButtonCopy :icon="false" color="info" :copy-text="generatedLink" />
-              <BaseButton color="info">
-                <template #icon>
-                  {{ $globals.icons.email }}
-                </template>
-                {{ $t("user.email") }}
-              </BaseButton>
-            </v-card-actions>
-          </div>
-        </v-fade-transition>
+        <div v-show="generatedLink !== ''">
+          <v-card-text>
+            <p class="text-center pb-0">
+              {{ generatedLink }}
+            </p>
+            <v-text-field v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]"> </v-text-field>
+          </v-card-text>
+          <v-card-actions class="py-0 align-center" style="gap: 4px">
+            <BaseButton cancel @click="generatedLink = ''"> {{ $t("general.close") }} </BaseButton>
+            <v-spacer></v-spacer>
+            <AppButtonCopy :icon="false" color="info" :copy-text="generatedLink" />
+            <BaseButton color="info" :disabled="!validEmail" :loading="loading" @click="sendInvite">
+              <template #icon>
+                {{ $globals.icons.email }}
+              </template>
+              {{ $t("user.email") }}
+            </BaseButton>
+          </v-card-actions>
+        </div>
       </v-card>
     </section>
     <section>
@@ -116,25 +117,28 @@
 </template>
     
 <script lang="ts">
-import { computed, defineComponent, useContext, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, ref, toRefs, reactive } from "@nuxtjs/composition-api";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
 import { useApiSingleton } from "~/composables/use-api";
+import { validators } from "~/composables/use-validators";
+import { alert } from "~/composables/use-toast";
 
 export default defineComponent({
   components: {
     UserProfileLinkCard,
   },
   setup() {
-    const user = computed(() => useContext().$auth.user);
+    const { $auth } = useContext();
+
+    const user = computed(() => $auth.user);
 
     const generatedLink = ref("");
-
+    const token = ref("");
     const api = useApiSingleton();
-
     async function getSignupLink() {
       const { data } = await api.groups.createInvitation({ uses: 1 });
-
       if (data) {
+        token.value = data.token;
         generatedLink.value = constructLink(data.token);
       }
     }
@@ -143,7 +147,51 @@ export default defineComponent({
       return `${window.location.origin}/register?token=${token}`;
     }
 
-    return { user, constructLink, generatedLink, getSignupLink };
+    // =================================================
+    // Email Invitation
+    const state = reactive({
+      loading: false,
+      sendTo: "",
+    });
+
+    async function sendInvite() {
+      state.loading = true;
+      const { data } = await api.email.sendInvitation({
+        email: state.sendTo,
+        token: token.value,
+      });
+
+      if (data && data.success) {
+        alert.success("Email Sent");
+      } else {
+        alert.error("Error Sending Email");
+      }
+      state.loading = false;
+    }
+
+    const validEmail = computed(() => {
+      if (state.sendTo === "") {
+        return false;
+      }
+      const valid = validators.email(state.sendTo);
+
+      // Explicit bool check because validators.email sometimes returns a string
+      if (valid === true) {
+        return true;
+      }
+      return false;
+    });
+
+    return {
+      user,
+      constructLink,
+      generatedLink,
+      getSignupLink,
+      sendInvite,
+      validators,
+      validEmail,
+      ...toRefs(state),
+    };
   },
 });
 </script>
