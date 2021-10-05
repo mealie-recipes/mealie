@@ -9,9 +9,8 @@
       secondary-header="Cookbooks"
       :secondary-links="cookbookLinks || []"
       :bottom-links="isAdmin ? bottomLink : []"
-      @input="sidebar = !sidebar"
     >
-      <v-menu offset-y nudge-bottom="5" open-on-hover close-delay="50" nudge-right="15">
+      <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
         <template #activator="{ on, attrs }">
           <v-btn rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
             <v-icon left large color="primary">
@@ -62,7 +61,7 @@
   
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
 import TheSnackbar from "@/components/Layout/TheSnackbar.vue";
@@ -84,6 +83,12 @@ export default defineComponent({
       console.log("toggleDark");
     }
 
+    const sidebar = ref<Boolean | null>(null);
+
+    onMounted(() => {
+      sidebar.value = !$vuetify.breakpoint.xs;
+    });
+
     const cookbookLinks = computed(() => {
       if (!cookbooks.value) return [];
       return cookbooks.value.map((cookbook) => {
@@ -94,11 +99,10 @@ export default defineComponent({
         };
       });
     });
-    return { cookbookLinks, isAdmin, toggleDark };
+    return { cookbookLinks, isAdmin, toggleDark, sidebar };
   },
   data() {
     return {
-      sidebar: null,
       createLinks: [
         {
           icon: this.$globals.icons.link,
