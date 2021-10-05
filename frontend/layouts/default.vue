@@ -86,7 +86,7 @@ export default defineComponent({
     const sidebar = ref<Boolean | null>(null);
 
     onMounted(() => {
-      sidebar.value = !$vuetify.breakpoint.xs;
+      sidebar.value = !$vuetify.breakpoint.md;
     });
 
     const cookbookLinks = computed(() => {

@@ -27,7 +27,7 @@
   
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
 import TheSnackbar from "~/components/Layout/TheSnackbar.vue";
@@ -38,9 +38,12 @@ export default defineComponent({
   auth: true,
   setup() {
     // @ts-ignore - $globals not found in type definition
-    const { $globals, i18n } = useContext();
+    const { $globals, i18n, $vuetify } = useContext();
 
-    const sidebar = ref(null);
+    const sidebar = ref<boolean | null>(null);
+    onMounted(() => {
+      sidebar.value = !$vuetify.breakpoint.md;
+    });
 
     const topLinks = [
       {

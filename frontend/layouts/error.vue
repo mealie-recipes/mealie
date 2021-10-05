@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  layout: "empty",
+  layout: "basic",
   props: {
     error: {
       type: Object,
