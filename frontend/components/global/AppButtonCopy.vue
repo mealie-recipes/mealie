@@ -11,7 +11,7 @@
   >
     <template #activator="{ on }">
       <v-btn
-        icon
+        :icon="icon"
         :color="color"
         retain-focus-on-click
         @click="
@@ -21,6 +21,7 @@
         @blur="on.blur"
       >
         <v-icon>{{ $globals.icons.contentCopy }}</v-icon>
+        {{ icon ? "" : "Copy" }}
       </v-btn>
     </template>
     <span>
@@ -42,6 +43,10 @@ export default {
     color: {
       type: String,
       default: "primary",
+    },
+    icon: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

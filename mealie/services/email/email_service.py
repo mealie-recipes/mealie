@@ -55,7 +55,7 @@ class EmailService(BaseService):
     def send_invitation(self, address: str, invitation_url: str) -> bool:
         invitation = EmailTemplate(
             subject="Invitation to join Mealie",
-            header_text="Invitation",
+            header_text="Your Invited!",
             message_top="You have been invited to join Mealie.",
             message_bottom="Please click the button below to accept the invitation.",
             button_link=invitation_url,

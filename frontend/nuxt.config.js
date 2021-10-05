@@ -201,10 +201,16 @@ export default {
   publicRuntimeConfig: {
     GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
     ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
+    envProps: {
+      allowSignup: process.env.ALLOW_SIGNUP || true,
+    },
     SUB_PATH: process.env.SUB_PATH || "",
     axios: {
       browserBaseURL: process.env.SUB_PATH || "",
     },
+    // ==============================================
+    // Theme Runtime Config
+    useDark: process.env.THEME_USE_DARK || false,
     themes: {
       dark: {
         primary: process.env.THEME_DARK_PRIMARY || "#E58325",
@@ -214,6 +220,7 @@ export default {
         info: process.env.THEME_DARK_INFO || "#1976d2",
         warning: process.env.THEME_DARK_WARNING || "#FF6D00",
         error: process.env.THEME_DARK_ERROR || "#EF5350",
+        background: "#202021",
       },
       light: {
         primary: process.env.THEME_LIGHT_PRIMARY || "#007A99",

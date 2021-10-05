@@ -18,3 +18,13 @@ class ReadInviteToken(CamelModel):
 
     class Config:
         orm_mode = True
+
+
+class EmailInvitation(CamelModel):
+    email: str
+    token: str
+
+
+class EmailInitationResponse(CamelModel):
+    success: bool
+    error: str = None

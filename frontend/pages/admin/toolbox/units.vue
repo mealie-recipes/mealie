@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <BaseCardSectionTitle title="Manage Units"> </BaseCardSectionTitle>
-    <v-toolbar flat>
+    <v-toolbar flat color="background">
       <BaseDialog
         ref="domUnitDialog"
         :title="dialog.title"

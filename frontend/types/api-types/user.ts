@@ -34,6 +34,9 @@ export interface GroupInDB {
   shoppingLists?: ShoppingListOut[];
 }
 export interface UserOut {
+  canOrganize: boolean;
+  canManage: boolean;
+  canInvite: boolean;
   username?: string;
   fullName?: string;
   email: string;

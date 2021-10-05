@@ -34,8 +34,12 @@ class User(SqlAlchemyBase, BaseMixins):
     group_id = Column(Integer, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
 
-    # Recipes
+    # Group Permissions
+    can_manage = Column(Boolean, default=False)
+    can_invite = Column(Boolean, default=False)
+    can_organize = Column(Boolean, default=False)
 
+    # Recipes
     tokens: list[LongLiveToken] = orm.relationship(
         LongLiveToken, back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )
@@ -59,6 +63,9 @@ class User(SqlAlchemyBase, BaseMixins):
         group: str = settings.DEFAULT_GROUP,
         admin=False,
         advanced=False,
+        can_manage=False,
+        can_invite=False,
+        can_organize=False,
         **_
     ) -> None:
 
@@ -70,6 +77,15 @@ class User(SqlAlchemyBase, BaseMixins):
         self.admin = admin
         self.password = password
         self.advanced = advanced
+
+        if self.admin:
+            self.can_manage = True
+            self.can_invite = True
+            self.can_organize = True
+        else:
+            self.can_manage = can_manage
+            self.can_invite = can_invite
+            self.can_organize = can_organize
 
         self.favorite_recipes = []
 
@@ -87,6 +103,9 @@ class User(SqlAlchemyBase, BaseMixins):
         favorite_recipes=None,
         password=None,
         advanced=False,
+        can_manage=False,
+        can_invite=False,
+        can_organize=False,
         **_
     ):
         favorite_recipes = favorite_recipes or []
@@ -102,6 +121,15 @@ class User(SqlAlchemyBase, BaseMixins):
 
         if password:
             self.password = password
+
+        if self.admin:
+            self.can_manage = True
+            self.can_invite = True
+            self.can_organize = True
+        else:
+            self.can_manage = can_manage
+            self.can_invite = can_invite
+            self.can_organize = can_organize
 
     def update_password(self, password):
         self.password = password

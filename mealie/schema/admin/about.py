@@ -23,3 +23,8 @@ class AdminAboutInfo(AppInfo):
     db_type: str
     db_url: Path
     default_group: str
+
+
+class CheckAppConfig(CamelModel):
+    email_ready: bool = False
+    base_url_set: bool = False

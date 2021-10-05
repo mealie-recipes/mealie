@@ -158,7 +158,7 @@ export default defineComponent({
       if (response?.status === 201) {
         state.success = true;
         alert.success("Registration Success");
-        router.push("/user/login");
+        router.push("/login");
       }
     }
 

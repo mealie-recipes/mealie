@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core.config import APP_VERSION, get_settings
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
-from mealie.schema.admin.about import AdminAboutInfo, AppStatistics
+from mealie.schema.admin.about import AdminAboutInfo, AppStatistics, CheckAppConfig
 
 router = APIRouter(prefix="/about")
 
@@ -35,4 +35,16 @@ async def get_app_statistics(session: Session = Depends(generate_session)):
         untagged_recipes=db.recipes.count_untagged(),
         total_users=db.users.count_all(),
         total_groups=db.groups.count_all(),
+    )
+
+
+@router.get("/check", response_model=CheckAppConfig)
+async def check_app_config():
+    settings = get_settings()
+
+    url_set = settings.BASE_URL != "http://localhost:8080"
+
+    return CheckAppConfig(
+        email_ready=settings.SMTP_ENABLE,
+        base_url_set=url_set,
     )

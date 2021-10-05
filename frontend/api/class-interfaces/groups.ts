@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "./_base";
-import { GroupInDB } from "~/types/api-types/user";
+import { GroupInDB, UserOut } from "~/types/api-types/user";
 
 const prefix = "/api";
 
@@ -7,6 +7,8 @@ const routes = {
   groups: `${prefix}/admin/groups`,
   groupsSelf: `${prefix}/groups/self`,
   categories: `${prefix}/groups/categories`,
+  members: `${prefix}/groups/members`,
+  permissions: `${prefix}/groups/permissions`,
 
   preferences: `${prefix}/groups/preferences`,
 
@@ -56,6 +58,13 @@ export interface Invitation {
   uses_left: number;
 }
 
+export interface SetPermissions {
+  userId: number;
+  canInvite: boolean;
+  canManage: boolean;
+  canOrganize: boolean;
+}
+
 export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
   baseRoute = routes.groups;
   itemRoute = routes.groupsId;
@@ -83,5 +92,13 @@ export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
 
   async createInvitation(payload: CreateInvitation) {
     return await this.requests.post<Invitation>(routes.invitation, payload);
+  }
+
+  async fetchMembers() {
+    return await this.requests.get<UserOut[]>(routes.members);
+  }
+
+  async setMemberPermissions(payload: SetPermissions) {
+    return await this.requests.put<UserOut>(routes.permissions, payload);
   }
 }

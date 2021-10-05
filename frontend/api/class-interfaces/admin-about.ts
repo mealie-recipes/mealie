@@ -5,6 +5,7 @@ const prefix = "/api";
 const routes = {
   about: `${prefix}/admin/about`,
   aboutStatistics: `${prefix}/admin/about/statistics`,
+  check: `${prefix}/admin/about/check`,
 };
 
 export interface AdminAboutInfo {
@@ -26,6 +27,11 @@ export interface AdminStatistics {
   untaggedRecipes: number;
 }
 
+export interface CheckAppConfig {
+  emailReady: boolean;
+  baseUrlSet: boolean;
+}
+
 export class AdminAboutAPI extends BaseAPI {
   async about() {
     return await this.requests.get<AdminAboutInfo>(routes.about);
@@ -33,5 +39,9 @@ export class AdminAboutAPI extends BaseAPI {
 
   async statistics() {
     return await this.requests.get(routes.aboutStatistics);
+  }
+
+  async checkApp() {
+    return await this.requests.get<CheckAppConfig>(routes.check);
   }
 }

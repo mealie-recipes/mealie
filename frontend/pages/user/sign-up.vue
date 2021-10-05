@@ -68,7 +68,7 @@
           </v-btn>
         </v-form>
       </v-card-text>
-      <v-btn v-if="allowSignup" class="mx-auto" text to="/user/login"> Login </v-btn>
+      <v-btn v-if="allowSignup" class="mx-auto" text to="/login"> Login </v-btn>
     </v-card>
     <!-- <v-col class="fill-height"> </v-col> -->
   </v-container>
