@@ -2,9 +2,6 @@
 
 To deploy mealie on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose below you should be able to get a stack up and running easily by changing a few default values and deploying. You can deploy with either SQLite (default) or Postgres. SQLite is sufficient for most use cases. Additionally, with mealies automated backup and restore functionality, you can easily move between SQLite and Postgres as you wish.
 
-**Latest release has changed container port binding from port 80 to 9080, for existing container based installations, please change exposed port or service binindg accordingly**
-
-
 [Get Docker](https://docs.docker.com/get-docker/)
 
 [Mealie on Dockerhub](https://hub.docker.com/r/hkotel/mealie)
@@ -119,10 +116,8 @@ services:
 
 | Variables               | Default               | Description                                                                                                                       |
 | ----------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| APP_PORT                | Default: 80           | Web app port binding/listening. **For Docker this is set to 9080 (Binding without elevated permissions)**.                  |
-| API_PORT                | 9000                  | The port exposed by backend API. **Do not change this if you're running in Docker**                                               |
-| PUID                    | 911                   | UserID permissions between host OS and container. **This ensures cotnainer will run as non-root**                                 |
-| PGID                    | 911                   | GroupID permissions between host OS and container. **This ensures cotnainer will run as non-root**                            |
+| PUID                    | 911                   | UserID permissions between host OS and container                                                                                  |
+| PGID                    | 911                   | GroupID permissions between host OS and container                                                                                 |
 | DEFAULT_GROUP           | Home                  | The default group for users                                                                                                       |
 | DEFAULT_EMAIL           | changeme@email.com    | The default username for the superuser                                                                                            |
 | BASE_URL                | http://localhost:8080 | Used for Notifications                                                                                                            |
@@ -139,11 +134,13 @@ services:
 | RECIPE_LANDSCAPE_VIEW   | True                  | Default Recipe Settings - Set Landscape View                                                                                      |
 | RECIPE_DISABLE_COMMENTS | False                 | Default Recipe Settings - Disable Comments                                                                                        |
 | RECIPE_DISABLE_AMOUNT   | False                 | Default Recipe Settings - Disable Amount                                                                                          |
+| API_PORT                | 9000                  | The port exposed by backend API. **Do not change this if you're running in Docker**                                               |
 | API_DOCS                | True                  | Turns on/off access to the API documentation locally.                                                                             |
 | TZ                      | UTC                   | Must be set to get correct date/time on the server                                                                                |
 | WORKERS_PER_CORE        | 1                     | Set the number of workers to the number of CPU cores multiplied by this value (Value \* CPUs). More info [here][workers_per_core] |
 | MAX_WORKERS             |                       | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
 | WEB_CONCURRENCY         | 2                     | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
+
 
 ## Raspberry Pi 4
 
