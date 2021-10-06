@@ -2,7 +2,8 @@
 	auto_https off
 	admin off
 }
-:{$APP_PORT} {
+
+:80 {
 	@proxied path /api/* /docs /openapi.json
 
 	@static {
