@@ -2,20 +2,17 @@ import { BaseAPI } from "./_base";
 
 const routes = {
   base: "/api/admin/email",
+  forgotPassword: "/api/users/forgot-password",
 
   invitation: "/api/groups/invitations/email",
 };
 
-export interface CheckEmailResponse {
-  ready: boolean;
-}
-
-export interface TestEmailResponse {
+export interface EmailResponse {
   success: boolean;
   error: string;
 }
 
-export interface TestEmailPayload {
+export interface EmailPayload {
   email: string;
 }
 
@@ -24,21 +21,16 @@ export interface InvitationEmail {
   token: string;
 }
 
-export interface InvitationEmailResponse {
-  success: boolean;
-  error: string;
-}
-
 export class EmailAPI extends BaseAPI {
-  check() {
-    return this.requests.get<CheckEmailResponse>(routes.base);
-  }
-
-  test(payload: TestEmailPayload) {
-    return this.requests.post<TestEmailResponse>(routes.base, payload);
+  test(payload: EmailPayload) {
+    return this.requests.post<EmailResponse>(routes.base, payload);
   }
 
   sendInvitation(payload: InvitationEmail) {
-    return this.requests.post<InvitationEmailResponse>(routes.invitation, payload);
+    return this.requests.post<EmailResponse>(routes.invitation, payload);
+  }
+
+  sendForgotPassword(payload: EmailPayload) {
+    return this.requests.post<EmailResponse>(routes.forgotPassword, payload);
   }
 }
