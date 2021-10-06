@@ -45,14 +45,6 @@ services:
       PGID: 1000
       TZ: America/Anchorage
 
-      # Default Recipe Settings
-      RECIPE_PUBLIC: true
-      RECIPE_SHOW_NUTRITION: true
-      RECIPE_SHOW_ASSETS: true
-      RECIPE_LANDSCAPE_VIEW: true
-      RECIPE_DISABLE_COMMENTS: false
-      RECIPE_DISABLE_AMOUNT: false
-
       # Gunicorn
       WEB_CONCURRENCY: 2
       # WORKERS_PER_CORE: 0.5
@@ -88,14 +80,6 @@ services:
       POSTGRES_SERVER: postgres
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
-
-      # Default Recipe Settings
-      RECIPE_PUBLIC: true
-      RECIPE_SHOW_NUTRITION: true
-      RECIPE_SHOW_ASSETS: true
-      RECIPE_LANDSCAPE_VIEW: true
-      RECIPE_DISABLE_COMMENTS: false
-      RECIPE_DISABLE_AMOUNT: false
 
       # Gunicorn
       WEB_CONCURRENCY: 2

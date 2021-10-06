@@ -60,14 +60,6 @@ class AppSettings(BaseSettings):
 
     TOKEN_TIME: int = 48  # Time in Hours
 
-    # Recipe Default Settings
-    RECIPE_PUBLIC: bool = True
-    RECIPE_SHOW_NUTRITION: bool = True
-    RECIPE_SHOW_ASSETS: bool = True
-    RECIPE_LANDSCAPE_VIEW: bool = True
-    RECIPE_DISABLE_COMMENTS: bool = False
-    RECIPE_DISABLE_AMOUNT: bool = False
-
     # ===============================================
     # Email Configuration
     SMTP_HOST: Optional[str]

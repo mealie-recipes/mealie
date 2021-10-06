@@ -6,12 +6,12 @@ settings = get_settings()
 
 
 class RecipeSettings(CamelModel):
-    public: bool = settings.RECIPE_PUBLIC
-    show_nutrition: bool = settings.RECIPE_SHOW_NUTRITION
-    show_assets: bool = settings.RECIPE_SHOW_ASSETS
-    landscape_view: bool = settings.RECIPE_LANDSCAPE_VIEW
-    disable_comments: bool = settings.RECIPE_DISABLE_COMMENTS
-    disable_amount: bool = settings.RECIPE_DISABLE_AMOUNT
+    public: bool = False
+    show_nutrition: bool = False
+    show_assets: bool = False
+    landscape_view: bool = False
+    disable_comments: bool = True
+    disable_amount: bool = True
 
     class Config:
         orm_mode = True
