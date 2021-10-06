@@ -13,6 +13,7 @@ router.include_router(crud.user_router, prefix=user_prefix, tags=["Users: CRUD"]
 router.include_router(crud.admin_router, prefix=user_prefix, tags=["Users: CRUD"])
 
 router.include_router(passwords.user_router, prefix=user_prefix, tags=["Users: Passwords"])
+router.include_router(passwords.public_router, prefix=user_prefix, tags=["Users: Passwords"])
 
 router.include_router(images.public_router, prefix=user_prefix, tags=["Users: Images"])
 router.include_router(images.user_router, prefix=user_prefix, tags=["Users: Images"])

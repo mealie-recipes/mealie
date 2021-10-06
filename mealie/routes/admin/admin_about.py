@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import APP_VERSION, get_settings
+from mealie.core.config import get_settings
+from mealie.core.settings.static import APP_VERSION
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.schema.admin.about import AdminAboutInfo, AppStatistics, CheckAppConfig

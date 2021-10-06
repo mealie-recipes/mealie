@@ -5,7 +5,9 @@ from typing import List
 from fastapi import Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
+
+app_dirs = get_app_dirs()
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
 from mealie.routes.users.crud import get_logged_in_user

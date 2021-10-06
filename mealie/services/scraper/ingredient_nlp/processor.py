@@ -6,7 +6,9 @@ from typing import Optional
 
 from pydantic import BaseModel, validator
 
-from mealie.core.config import settings
+from mealie.core.config import get_settings
+
+settings = get_settings()
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, CreateIngredientUnit
 

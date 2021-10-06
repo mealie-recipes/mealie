@@ -4,9 +4,11 @@ from pathlib import Path
 from jose import jwt
 from passlib.context import CryptContext
 
-from mealie.core.config import settings
+from mealie.core.config import get_settings
 from mealie.db.database import get_database
 from mealie.schema.user import PrivateUser
+
+settings = get_settings()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"

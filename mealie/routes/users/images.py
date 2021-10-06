@@ -4,7 +4,9 @@ from fastapi import Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
 from fastapi.routing import APIRouter
 
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
+
+app_dirs = get_app_dirs()
 from mealie.core.dependencies import get_current_user
 from mealie.routes.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed

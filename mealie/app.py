@@ -2,15 +2,18 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 
-from mealie.core.config import APP_VERSION, settings
+from mealie.core.config import get_settings
 from mealie.core.root_logger import get_logger
+from mealie.core.settings.static import APP_VERSION
 from mealie.routes import backup_routes, migration_routes, router, utility_routes
 from mealie.routes.about import about_router
 from mealie.routes.media import media_router
 from mealie.routes.site_settings import settings_router
 from mealie.services.events import create_general_event
+from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
 
 logger = get_logger()
+settings = get_settings()
 
 app = FastAPI(
     title="Mealie",
@@ -23,9 +26,17 @@ app = FastAPI(
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
+def log_event():
+    logger.warning("Minutelty Event Logged")
+
+
 def start_scheduler():
-    return  # TODO: Disable Scheduler for now
-    import mealie.services.scheduler.scheduled_jobs  # noqa: F401
+    SchedulerService.start()
+    SchedulerRegistry.register_daily(tasks.purge_events_database, tasks.purge_group_registration, tasks.auto_backup)
+    SchedulerRegistry.register_hourly()
+    SchedulerRegistry.register_minutely(tasks.update_group_webhooks, log_event)
+
+    logger.info(SchedulerService.scheduler.print_jobs())
 
 
 def api_routers():
@@ -51,6 +62,7 @@ api_routers()
 @app.on_event("startup")
 def system_startup():
     start_scheduler()
+
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
     logger.info(
@@ -64,9 +76,11 @@ def system_startup():
                 "DB_URL",  # replace by DB_URL_PUBLIC for logs
                 "POSTGRES_USER",
                 "POSTGRES_PASSWORD",
+                "SMTP_USER" "SMTP_PASSWORD",
             },
         )
     )
+
     create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
 
 

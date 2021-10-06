@@ -5,13 +5,15 @@ from fastapi_camelcase import CamelModel
 from pydantic.types import constr
 from pydantic.utils import GetterDict
 
-from mealie.core.config import settings
+from mealie.core.config import get_settings
 from mealie.db.models.users import User
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
 
 from ..meal_plan import ShoppingListOut
 from ..recipe import CategoryBase
+
+settings = get_settings()
 
 
 class LoingLiveTokenIn(CamelModel):

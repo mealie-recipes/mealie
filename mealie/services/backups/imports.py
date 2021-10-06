@@ -7,7 +7,9 @@ from typing import Callable
 from pydantic.main import BaseModel
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
+
+app_dirs = get_app_dirs()
 from mealie.db.database import get_database
 from mealie.schema.admin import (
     CommentImport,

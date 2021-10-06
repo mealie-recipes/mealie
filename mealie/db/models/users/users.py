@@ -1,10 +1,12 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
-from mealie.core.config import settings
+from mealie.core.config import get_settings
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from ..group import Group
 from .user_to_favorite import users_to_favorites
+
+settings = get_settings()
 
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):

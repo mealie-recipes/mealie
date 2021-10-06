@@ -1,4 +1,4 @@
-from tests.pre_test import DB_URL, settings  # isort:skip
+from tests.pre_test import settings  # isort:skip
 
 import json
 
@@ -33,7 +33,10 @@ def api_client():
 
     yield TestClient(app)
 
-    DB_URL.unlink(missing_ok=True)
+    try:
+        settings.DB_PROVIDER.db_path.unlink()  # Handle SQLite Provider
+    except Exception:
+        pass
 
 
 @fixture(scope="session")

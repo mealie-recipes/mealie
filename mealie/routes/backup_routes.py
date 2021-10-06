@@ -5,7 +5,9 @@ from pathlib import Path
 from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
+
+app_dirs = get_app_dirs()
 from mealie.core.dependencies import get_current_user
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token

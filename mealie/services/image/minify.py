@@ -5,10 +5,11 @@ from pathlib import Path
 from PIL import Image
 
 from mealie.core import root_logger
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
 from mealie.schema.recipe import Recipe
 
 logger = root_logger.get_logger()
+app_dirs = get_app_dirs()
 
 
 @dataclass
