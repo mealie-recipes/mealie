@@ -7,8 +7,6 @@ from typing import Optional
 from pydantic import BaseModel, validator
 
 from mealie.core.config import get_settings
-
-settings = get_settings()
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, CreateIngredientUnit
 
@@ -17,6 +15,8 @@ from .pre_processor import pre_process_string
 
 CWD = Path(__file__).parent
 MODEL_PATH = CWD / "model.crfmodel"
+settings = get_settings()
+
 
 INGREDIENT_TEXT = [
     "2 tablespoons honey",
