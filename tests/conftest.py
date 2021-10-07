@@ -97,7 +97,7 @@ def g2_user(admin_token, api_client: requests, api_routes: AppRoutes):
     user_id = json.loads(self_response.text).get("id")
     group_id = json.loads(self_response.text).get("groupId")
 
-    return TestUser(user_id=user_id, group_id=group_id, token=token)
+    return TestUser(user_id=user_id, group_id=group_id, token=token, email=create_data["email"])
 
 
 @fixture(scope="session")
@@ -175,7 +175,9 @@ def admin_user(api_client: TestClient, api_routes: AppRoutes):
     assert user_data.get("id") is not None
 
     try:
-        yield TestUser(group_id=user_data.get("groupId"), user_id=user_data.get("id"), token=token)
+        yield TestUser(
+            group_id=user_data.get("groupId"), user_id=user_data.get("id"), email=user_data.get("email"), token=token
+        )
     finally:
         # TODO: Delete User after test
         pass
