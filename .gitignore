@@ -3,6 +3,7 @@
 *__pycache__/
 *.py[cod]
 *$py.class
+*.temp
 
 # frontend/.env.development
 docs/site/

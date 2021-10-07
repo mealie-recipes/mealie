@@ -153,6 +153,11 @@ export default defineComponent({
       },
     };
   },
+  head() {
+    return {
+      title: this.$t("sidebar.manage-users") as string,
+    };
+  },
   methods: {
     updateUser(userData: any) {
       this.updateMode = true;

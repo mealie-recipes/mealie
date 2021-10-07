@@ -397,6 +397,34 @@ export default defineComponent({
       scale: 1,
     });
 
+    // ===============================================================
+    // Metadata
+
+    const structuredData = computed(() => {
+      return {
+        "@context": "http://schema.org",
+        "@type": "Recipe",
+        ...recipe.value,
+      };
+    });
+
+    useMeta(() => {
+      return {
+        title: recipe?.value?.name || "Recipe",
+        // @ts-ignore
+        mainImage: recipeImage(recipe?.value?.image),
+        meta: [
+          {
+            hid: "description",
+            name: "description",
+            content: recipe?.value?.description || "",
+          },
+        ],
+        __dangerouslyDisableSanitizers: ["script"],
+        script: [{ innerHTML: JSON.stringify(structuredData), type: "application/ld+json" }],
+      };
+    });
+
     return {
       scaledYield,
       ...toRefs(state),

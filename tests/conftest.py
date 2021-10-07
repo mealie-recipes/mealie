@@ -1,4 +1,4 @@
-from tests.pre_test import DB_URL, settings  # isort:skip
+from tests.pre_test import settings  # isort:skip
 
 import json
 
@@ -33,7 +33,10 @@ def api_client():
 
     yield TestClient(app)
 
-    DB_URL.unlink(missing_ok=True)
+    try:
+        settings.DB_PROVIDER.db_path.unlink()  # Handle SQLite Provider
+    except Exception:
+        pass
 
 
 @fixture(scope="session")
@@ -94,7 +97,7 @@ def g2_user(admin_token, api_client: requests, api_routes: AppRoutes):
     user_id = json.loads(self_response.text).get("id")
     group_id = json.loads(self_response.text).get("groupId")
 
-    return TestUser(user_id=user_id, group_id=group_id, token=token)
+    return TestUser(user_id=user_id, group_id=group_id, token=token, email=create_data["email"])
 
 
 @fixture(scope="session")
@@ -149,7 +152,9 @@ def unique_user(api_client: TestClient, api_routes: AppRoutes):
     assert token is not None
 
     try:
-        yield TestUser(group_id=user_data.get("groupId"), user_id=user_data.get("id"), token=token)
+        yield TestUser(
+            group_id=user_data.get("groupId"), user_id=user_data.get("id"), email=user_data.get("email"), token=token
+        )
     finally:
         # TODO: Delete User after test
         pass
@@ -170,7 +175,9 @@ def admin_user(api_client: TestClient, api_routes: AppRoutes):
     assert user_data.get("id") is not None
 
     try:
-        yield TestUser(group_id=user_data.get("groupId"), user_id=user_data.get("id"), token=token)
+        yield TestUser(
+            group_id=user_data.get("groupId"), user_id=user_data.get("id"), email=user_data.get("email"), token=token
+        )
     finally:
         # TODO: Delete User after test
         pass

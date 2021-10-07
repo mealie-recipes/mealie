@@ -115,6 +115,11 @@ export default defineComponent({
       workingUnitData,
     };
   },
+  head() {
+    return {
+      title: "Units",
+    };
+  },
 });
 </script>
     

@@ -9,6 +9,11 @@ export default defineComponent({
   setup() {
     return {};
   },
+  head() {
+    return {
+      title: this.$t("shopping-list.shopping-list") as string,
+    };
+  },
 });
 </script>
   

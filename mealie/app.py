@@ -2,15 +2,18 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 
-from mealie.core.config import APP_VERSION, settings
+from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
+from mealie.core.settings.static import APP_VERSION
 from mealie.routes import backup_routes, migration_routes, router, utility_routes
 from mealie.routes.about import about_router
 from mealie.routes.media import media_router
 from mealie.routes.site_settings import settings_router
 from mealie.services.events import create_general_event
+from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
 
 logger = get_logger()
+settings = get_app_settings()
 
 app = FastAPI(
     title="Mealie",
@@ -24,24 +27,28 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
 def start_scheduler():
-    return  # TODO: Disable Scheduler for now
-    import mealie.services.scheduler.scheduled_jobs  # noqa: F401
+    SchedulerService.start()
+
+    SchedulerRegistry.register_daily(
+        tasks.purge_events_database,
+        tasks.purge_group_registration,
+        tasks.auto_backup,
+        tasks.purge_password_reset_tokens,
+    )
+
+    SchedulerRegistry.register_hourly()
+    SchedulerRegistry.register_minutely(tasks.update_group_webhooks)
+
+    logger.info(SchedulerService.scheduler.print_jobs())
 
 
 def api_routers():
-    # Authentication
     app.include_router(router)
-    # Recipes
     app.include_router(media_router)
     app.include_router(about_router)
-    # Meal Routes
-    # Settings Routes
     app.include_router(settings_router)
-    # Backups/Imports Routes
     app.include_router(backup_routes.router)
-    # Migration Routes
     app.include_router(migration_routes.router)
-    # Debug routes
     app.include_router(utility_routes.router)
 
 
@@ -51,6 +58,7 @@ api_routers()
 @app.on_event("startup")
 def system_startup():
     start_scheduler()
+
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
     logger.info(
@@ -64,9 +72,12 @@ def system_startup():
                 "DB_URL",  # replace by DB_URL_PUBLIC for logs
                 "POSTGRES_USER",
                 "POSTGRES_PASSWORD",
+                "SMTP_USER",
+                "SMTP_PASSWORD",
             },
         )
     )
+
     create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
 
 
@@ -77,6 +88,7 @@ def main():
         port=settings.API_PORT,
         reload=True,
         reload_dirs=["mealie"],
+        reload_delay=2,
         debug=True,
         log_level="debug",
         use_colors=True,

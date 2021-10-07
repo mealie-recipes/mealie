@@ -55,7 +55,7 @@ export interface Recipe {
   id?: number;
   name: string;
   slug: string;
-  image?: unknown;
+  image: string;
   description: string;
   recipeCategory: string[];
   tags: string[];

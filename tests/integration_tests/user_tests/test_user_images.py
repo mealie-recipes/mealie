@@ -2,7 +2,9 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
+
+app_dirs = get_app_dirs()
 from tests.app_routes import AppRoutes
 
 

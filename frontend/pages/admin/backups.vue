@@ -146,6 +146,11 @@ export default defineComponent({
       backupsFileNameDownload,
     };
   },
+  head() {
+    return {
+      title: this.$t("sidebar.backups") as string,
+    };
+  },
 });
 </script>
     

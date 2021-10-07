@@ -7,8 +7,6 @@
       <template #title> Your Profile Settings </template>
     </BasePageTitle>
 
-
-
     <section>
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
@@ -159,6 +157,11 @@ export default defineComponent({
       passwordLoading: false,
       showPassword: false,
       loading: false,
+    };
+  },
+  head() {
+    return {
+      title: this.$t("settings.profile") as string,
     };
   },
 

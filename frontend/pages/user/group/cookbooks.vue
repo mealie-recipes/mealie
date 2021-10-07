@@ -63,6 +63,11 @@ export default defineComponent({
       actions,
     };
   },
+  head() {
+    return {
+      title: this.$t("settings.pages") as string,
+    };
+  },
 });
 </script>
     

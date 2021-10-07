@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, ref } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, ref, useMeta } from "@nuxtjs/composition-api";
 import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
 import { useCookbook } from "~/composables/use-group-cookbooks";
 export default defineComponent({
@@ -37,11 +37,18 @@ export default defineComponent({
 
     const book = getOne(slug);
 
+    useMeta(() => {
+      return {
+        title: book?.value?.name || "Cookbook",
+      };
+    });
+
     return {
       book,
       tab,
     };
   },
+  head: {}, // Must include for useMeta
 });
 </script>
 

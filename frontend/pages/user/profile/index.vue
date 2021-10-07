@@ -193,6 +193,11 @@ export default defineComponent({
       ...toRefs(state),
     };
   },
+  head() {
+    return {
+      title: this.$t("settings.profile") as string,
+    };
+  },
 });
 </script>
     

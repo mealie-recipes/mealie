@@ -1,12 +1,12 @@
 <template>
   <v-container fill-height fluid class="d-flex justify-center align-center">
-    <v-card color="background d-flex flex-column align-center" flat width="600px">
+    <v-card tag="section" color="background d-flex flex-column align-center" flat width="600px">
       <svg
         id="bbc88faa-5a3b-49cf-bdbb-6c9ab11be594"
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 728 754.88525"
-        style="max-height: 200px"
+        style="max-height: 100px"
         class="mt-2"
       >
         <rect
@@ -182,8 +182,11 @@
           </v-card-actions>
         </v-form>
       </v-card-text>
-      <v-btn v-if="allowSignup" rounded class="mx-auto" text to="/register"> {{ $t("user.register") }} </v-btn>
-      <v-btn v-else class="mx-auto" text disabled> {{ $t("user.invite-only") }} </v-btn>
+      <v-card-actions>
+        <v-btn v-if="allowSignup" text to="/register"> {{ $t("user.register") }} </v-btn>
+        <v-btn v-else text disabled> {{ $t("user.invite-only") }} </v-btn>
+        <v-btn class="mr-auto" text to="/forgot-password"> {{ $t("user.reset-password") }} </v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -223,9 +226,14 @@ export default defineComponent({
       authenticate,
     };
   },
+
+  head() {
+    return {
+      title: this.$t("user.login") as string,
+    };
+  },
 });
 </script>
-
 
 <style lang="css">
 .max-button {

@@ -29,6 +29,11 @@ export default defineComponent({
     }, slug);
     return { tag };
   },
+  head() {
+    return {
+      title: this.$t("sidebar.tags") as string,
+    };
+  },
   methods: {
     assignSorted(val: Array<Recipe>) {
       if (this.tag) {

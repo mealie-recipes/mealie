@@ -18,9 +18,7 @@ export default defineComponent({
   components: { RecipeCardSection },
   setup() {
     const { assignSorted } = useRecipes(false);
-
     useStaticRoutes();
-
     return { recentRecipes, assignSorted };
   },
 });

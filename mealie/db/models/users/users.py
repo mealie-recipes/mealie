@@ -1,10 +1,12 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
-from mealie.core.config import settings
+from mealie.core.config import get_app_settings
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from ..group import Group
 from .user_to_favorite import users_to_favorites
+
+settings = get_app_settings()
 
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
@@ -46,6 +48,10 @@ class User(SqlAlchemyBase, BaseMixins):
 
     comments: list = orm.relationship(
         "RecipeComment", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
+    )
+
+    password_reset_tokens = orm.relationship(
+        "PasswordResetModel", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )
 
     owned_recipes_id = Column(Integer, ForeignKey("recipes.id"))

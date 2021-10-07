@@ -47,6 +47,11 @@ export default defineComponent({
 
     return { recipes, infiniteScroll, loading };
   },
+  head() {
+    return {
+      title: this.$t("page.all-recipes") as string,
+    };
+  },
 });
 </script>
   

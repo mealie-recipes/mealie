@@ -12,6 +12,11 @@ export default defineComponent({
   setup() {
     return {};
   },
+  head() {
+    return {
+      title: this.$t("settings.organize") as string,
+    };
+  },
 });
 </script>
     

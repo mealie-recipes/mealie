@@ -126,6 +126,11 @@ export default defineComponent({
 
     return { createToken, deleteToken, copyToken, createdToken, loading, name, user, resetCreate };
   },
+  head() {
+    return {
+      title: this.$t("settings.token.api-tokens") as string,
+    };
+  },
 });
 </script>
     

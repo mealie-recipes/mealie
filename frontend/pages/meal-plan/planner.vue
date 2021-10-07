@@ -309,6 +309,11 @@ export default defineComponent({
       days,
     };
   },
+  head() {
+    return {
+      title: this.$t("meal-plan.dinner-this-week") as string,
+    };
+  },
 });
 </script>
 

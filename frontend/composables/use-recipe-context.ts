@@ -1,4 +1,4 @@
-import { useAsync, ref, reactive } from "@nuxtjs/composition-api";
+import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
 import { Recipe } from "~/types/api-types/recipe";
 

@@ -1,16 +1,21 @@
 <template>
-    <div></div>
-  </template>
+  <div></div>
+</template>
   
-  <script lang="ts">
-  import { defineComponent } from "@nuxtjs/composition-api"
+<script lang="ts">
+import { defineComponent } from "@nuxtjs/composition-api";
+
+export default defineComponent({
+  setup() {
+    return {};
+  },
+  head() {
+    return {
+      title: this.$t("shopping-list.shopping-list") as string,
+    };
+  },
+});
+</script>
   
-  export default defineComponent({
-    setup() {
-      return {}
-    }
-  })
-  </script>
-  
-  <style scoped>
-  </style>
+<style scoped>
+</style>

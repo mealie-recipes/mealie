@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from uuid import uuid4
-
 from fastapi import Depends, HTTPException, status
 
 from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
+from mealie.core.security import url_safe_token
 from mealie.schema.group.group_permissions import SetPermissions
 from mealie.schema.group.group_preferences import UpdateGroupPreferences
 from mealie.schema.group.invite_token import EmailInitationResponse, EmailInvitation, ReadInviteToken, SaveInviteToken
@@ -86,7 +85,7 @@ class GroupSelfService(UserHttpService[int, str]):
         if not self.user.can_invite:
             raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not allowed to create invite tokens")
 
-        token = SaveInviteToken(uses_left=uses, group_id=self.group_id, token=uuid4().hex)
+        token = SaveInviteToken(uses_left=uses, group_id=self.group_id, token=url_safe_token())
         return self.db.group_invite_tokens.create(token)
 
     def get_invite_tokens(self) -> list[ReadInviteToken]:

@@ -9,10 +9,10 @@ from pathvalidate import sanitize_filename
 from pydantic.main import BaseModel
 
 from mealie.core import root_logger
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
+
+app_dirs = get_app_dirs()
 from mealie.db.database import get_database
-from mealie.db.db_setup import create_session
-from mealie.services.events import create_backup_event
 
 logger = root_logger.get_logger()
 
@@ -141,15 +141,3 @@ def backup_all(
         db_export.export_items(all_notifications, "notifications")
 
     return db_export.finish_export()
-
-
-def auto_backup_job():
-    for backup in app_dirs.BACKUP_DIR.glob("Auto*.zip"):
-        backup.unlink()
-
-    templates = [template for template in app_dirs.TEMPLATE_DIR.iterdir()]
-    session = create_session()
-    backup_all(session=session, tag="Auto", templates=templates)
-    logger.info("Auto Backup Called")
-    create_backup_event("Automated Backup", "Automated backup created", session)
-    session.close()

@@ -1,12 +1,15 @@
+import secrets
 from datetime import datetime, timedelta
 from pathlib import Path
 
 from jose import jwt
 from passlib.context import CryptContext
 
-from mealie.core.config import settings
+from mealie.core.config import get_app_settings
 from mealie.db.database import get_database
 from mealie.schema.user import PrivateUser
+
+settings = get_app_settings()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"
@@ -43,26 +46,15 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser:
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Compares a plain string to a hashed password
-
-    Args:
-        plain_password (str): raw password string
-        hashed_password (str): hashed password from the database
-
-    Returns:
-        bool: Returns True if a match return False
-    """
+    """Compares a plain string to a hashed password"""
     return pwd_context.verify(plain_password, hashed_password)
 
 
 def hash_password(password: str) -> str:
-    """Takes in a raw password and hashes it. Used prior to saving
-    a new password to the database.
-
-    Args:
-        password (str): Password String
-
-    Returns:
-        str: Hashed Password
-    """
+    """Takes in a raw password and hashes it. Used prior to saving a new password to the database."""
     return pwd_context.hash(password)
+
+
+def url_safe_token() -> str:
+    """Generates a cryptographic token without embedded data. Used for password reset tokens and invitation tokens"""
+    return secrets.token_urlsafe(24)

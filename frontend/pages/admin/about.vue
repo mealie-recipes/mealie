@@ -99,6 +99,11 @@ export default defineComponent({
       appInfo,
     };
   },
+  head() {
+    return {
+      title: this.$t("about.about") as string,
+    };
+  },
 });
 </script>
 

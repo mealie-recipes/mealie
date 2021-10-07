@@ -215,6 +215,11 @@ export default defineComponent({
       notificationTypes,
     };
   },
+  head() {
+    return {
+      title: this.$t("events.notification") as string,
+    };
+  },
 });
 </script>
     

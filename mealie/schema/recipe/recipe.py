@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
 
-from mealie.core.config import app_dirs
+from mealie.core.config import get_app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
 
 from .recipe_asset import RecipeAsset
@@ -17,6 +17,8 @@ from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
 from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
+
+app_dirs = get_app_dirs()
 
 
 class CreateRecipeByURL(BaseModel):

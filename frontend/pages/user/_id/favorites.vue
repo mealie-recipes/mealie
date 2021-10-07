@@ -9,6 +9,11 @@ export default defineComponent({
   setup() {
     return {};
   },
+  head() {
+    return {
+      title: this.$t("general.favorites") as string,
+    };
+  },
 });
 </script>
   

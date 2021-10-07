@@ -59,6 +59,11 @@ export default defineComponent({
 
     return { tags, api, tagsByLetter };
   },
+  head() {
+    return {
+      title: this.$t("sidebar.tags") as string,
+    };
+  },
 });
 </script>
   

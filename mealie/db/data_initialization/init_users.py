@@ -1,9 +1,10 @@
 from mealie.core import root_logger
-from mealie.core.config import settings
+from mealie.core.config import get_app_settings
 from mealie.core.security import hash_password
 from mealie.db.data_access_layer.access_model_factory import Database
 
 logger = root_logger.get_logger("init_users")
+settings = get_app_settings()
 
 
 def dev_users() -> list[dict]:

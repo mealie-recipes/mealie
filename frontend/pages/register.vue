@@ -174,5 +174,10 @@ export default defineComponent({
       register,
     };
   },
+  head() {
+    return {
+      title: this.$t("user.register") as string,
+    };
+  },
 });
 </script>

@@ -109,5 +109,10 @@ export default defineComponent({
 
     return { members, headers, setPermissions };
   },
+  head() {
+    return {
+      title: "Members",
+    };
+  },
 });
 </script>
