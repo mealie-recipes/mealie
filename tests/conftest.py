@@ -152,7 +152,9 @@ def unique_user(api_client: TestClient, api_routes: AppRoutes):
     assert token is not None
 
     try:
-        yield TestUser(group_id=user_data.get("groupId"), user_id=user_data.get("id"), token=token)
+        yield TestUser(
+            group_id=user_data.get("groupId"), user_id=user_data.get("id"), email=user_data.get("email"), token=token
+        )
     finally:
         # TODO: Delete User after test
         pass
