@@ -54,10 +54,15 @@ nav:
   - Home: "index.md"
   - Getting Started:
       - Introduction: "documentation/getting-started/introduction.md"
-      - Installation: "documentation/getting-started/install.md"
       - Updating: "documentation/getting-started/updating.md"
       - API: "documentation/getting-started/api-usage.md"
-
+      - Installation:
+          - Installation Checklist: "documentation/getting-started/installation/installation-checklist.md"
+          - SQLite (Recommended): "documentation/getting-started/installation/sqlite.md"
+          - PostgreSQL: "documentation/getting-started/installation/postgres.md"
+          - Frontend Configuration: "documentation/getting-started/installation/frontend-config.md"
+          - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
+          - Advanced: "documentation/getting-started/installation/advanced.md"
       - Recipes:
           - Working With Recipes: "documentation/recipes/recipes.md"
           - Organizing Recipes: "documentation/recipes/organizing-recipes.md"
