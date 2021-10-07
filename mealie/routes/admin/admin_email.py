@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi_camelcase import CamelModel
 
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.services.email import EmailService
 
@@ -26,7 +26,7 @@ class EmailTest(CamelModel):
 @router.get("", response_model=EmailReady)
 async def check_email_config():
     """ Get general application information """
-    settings = get_settings()
+    settings = get_app_settings()
 
     return EmailReady(ready=settings.SMTP_ENABLE)
 

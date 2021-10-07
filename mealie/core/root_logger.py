@@ -3,13 +3,13 @@ import sys
 from dataclasses import dataclass
 from functools import lru_cache
 
-from mealie.core.config import get_app_data
+from mealie.core.config import determine_data_dir
 
-DATA_DIR = get_app_data()
+DATA_DIR = determine_data_dir()
 
-from .config import get_settings
+from .config import get_app_settings
 
-settings = get_settings()
+settings = get_app_settings()
 
 LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 DATE_FORMAT = "%d-%b-%y %H:%M:%S"

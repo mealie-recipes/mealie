@@ -1,6 +1,6 @@
 import pytest
 
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 from mealie.services.email import EmailService
 from mealie.services.email.email_senders import ABCEmailSender
 
@@ -39,15 +39,15 @@ def patch_env(monkeypatch):
 def email_service(monkeypatch) -> EmailService:
     patch_env(monkeypatch)
     email_service = EmailService(TestEmailSender())
-    get_settings.cache_clear()
-    email_service.settings = get_settings()
+    get_app_settings.cache_clear()
+    email_service.settings = get_app_settings()
     return email_service
 
 
 def test_email_disabled():
     email_service = EmailService(TestEmailSender())
-    get_settings.cache_clear()
-    email_service.settings = get_settings()
+    get_app_settings.cache_clear()
+    email_service.settings = get_app_settings()
     success = email_service.send_test_email(FAKE_ADDRESS)
     assert not success
 

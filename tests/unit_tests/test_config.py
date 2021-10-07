@@ -1,6 +1,6 @@
 import re
 
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 
 
 def test_default_settings(monkeypatch):
@@ -13,8 +13,8 @@ def test_default_settings(monkeypatch):
     monkeypatch.delenv("API_DOCS", raising=False)
     monkeypatch.delenv("IS_DEMO", raising=False)
 
-    get_settings.cache_clear()
-    app_settings = get_settings()
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
 
     assert app_settings.DEFAULT_GROUP == "Home"
     assert app_settings.DEFAULT_PASSWORD == "MyPassword"
@@ -32,8 +32,8 @@ def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("API_PORT", "8000")
     monkeypatch.setenv("API_DOCS", "False")
 
-    get_settings.cache_clear()
-    app_settings = get_settings()
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
 
     assert app_settings.DEFAULT_GROUP == "Test Group"
     assert app_settings.DEFAULT_PASSWORD == "Test Password"
@@ -46,22 +46,22 @@ def test_non_default_settings(monkeypatch):
 
 def test_default_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "sqlite")
-    get_settings.cache_clear()
-    app_settings = get_settings()
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
     assert re.match(r"sqlite:////.*mealie/dev/data/*mealie*.db", app_settings.DB_URL)
 
 
 def test_pg_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "postgres")
     monkeypatch.setenv("POSTGRES_SERVER", "postgres")
-    get_settings.cache_clear()
-    app_settings = get_settings()
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
     assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
 
 
 def test_smtp_enable(monkeypatch):
-    get_settings.cache_clear()
-    app_settings = get_settings()
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
     assert app_settings.SMTP_ENABLE is False
 
     monkeypatch.setenv("SMTP_HOST", "email.mealie.io")
@@ -72,7 +72,7 @@ def test_smtp_enable(monkeypatch):
     monkeypatch.setenv("SMTP_USER", "mealie@mealie.io")
     monkeypatch.setenv("SMTP_PASSWORD", "mealie-password")
 
-    get_settings.cache_clear()
-    app_settings = get_settings()
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
 
     assert app_settings.SMTP_ENABLE is True

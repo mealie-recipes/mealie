@@ -2,7 +2,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -13,7 +13,7 @@ from .cookbook import CookBook
 from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
 
-settings = get_settings()
+settings = get_app_settings()
 
 
 class Group(SqlAlchemyBase, BaseMixins):

@@ -1,9 +1,9 @@
 import json
 
 from mealie.app import app
-from mealie.core.config import get_app_data
+from mealie.core.config import determine_data_dir
 
-DATA_DIR = get_app_data()
+DATA_DIR = determine_data_dir()
 
 """Script to export the ReDoc documentation page into a standalone HTML file."""
 

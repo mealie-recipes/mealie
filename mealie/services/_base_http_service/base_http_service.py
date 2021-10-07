@@ -5,7 +5,7 @@ from fastapi import BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_app_dirs, get_settings
+from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
@@ -63,7 +63,7 @@ class BaseHttpService(Generic[T, D], ABC):
         # Static Globals Dependency Injection
         self.db = get_database(session)
         self.app_dirs = get_app_dirs()
-        self.settings = get_settings()
+        self.settings = get_app_settings()
 
     def _existing_factory(dependency: Type[CLS_DEP]) -> classmethod:
         def cls_method(cls, item_id: T, deps: CLS_DEP = Depends(dependency)):

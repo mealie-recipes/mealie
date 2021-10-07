@@ -1,5 +1,5 @@
 from mealie.core import root_logger
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 from mealie.db.data_access_layer.access_model_factory import Database
 from mealie.db.data_initialization.init_units_foods import default_recipe_unit_init
 from mealie.db.data_initialization.init_users import default_user_init
@@ -13,7 +13,7 @@ from mealie.services.group_services.group_utils import create_new_group
 
 logger = root_logger.get_logger("init_db")
 
-settings = get_settings()
+settings = get_app_settings()
 
 
 def create_all_models():

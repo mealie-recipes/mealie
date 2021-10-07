@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 from mealie.core.security import hash_password
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
@@ -13,7 +13,7 @@ from mealie.services.user_services.password_reset_service import PasswordResetSe
 
 user_router = UserAPIRouter(prefix="")
 public_router = APIRouter(prefix="")
-settings = get_settings()
+settings = get_app_settings()
 
 
 @user_router.put("/{id}/reset-password")

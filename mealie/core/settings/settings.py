@@ -28,6 +28,8 @@ class AppSettings(BaseSettings):
     IS_DEMO: bool = False
     API_PORT: int = 9000
     API_DOCS: bool = True
+    TOKEN_TIME: int = 48  # Time in Hours
+    SECRET: str
 
     @property
     def DOCS_URL(self) -> str:
@@ -37,13 +39,10 @@ class AppSettings(BaseSettings):
     def REDOC_URL(self) -> str:
         return "/redoc" if self.API_DOCS else None
 
-    SECRET: str
-
-    # =================================================================
-    # Database Provider
+    # ===============================================
+    # Database Configuration
 
     DB_ENGINE: str = "sqlite"  # Options: 'sqlite', 'postgres'
-
     DB_PROVIDER: AbstractDBProvider = None
 
     @property
@@ -58,10 +57,9 @@ class AppSettings(BaseSettings):
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
 
-    TOKEN_TIME: int = 48  # Time in Hours
-
     # ===============================================
     # Email Configuration
+
     SMTP_HOST: Optional[str]
     SMTP_PORT: Optional[str] = "587"
     SMTP_FROM_NAME: Optional[str] = "Mealie"
@@ -90,6 +88,11 @@ class AppSettings(BaseSettings):
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
+    """
+    app_settings_constructor is a factory function that returns an AppSettings object. It is used to inject the
+    required dependencies into the AppSettings object and nested child objects. AppSettings should not be substantiated
+    directly, but rather through this factory function.
+    """
     app_settings = AppSettings(
         _env_file=env_file,
         _env_file_encoding=env_encoding,

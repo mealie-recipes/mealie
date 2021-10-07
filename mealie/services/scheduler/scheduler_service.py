@@ -4,6 +4,7 @@ from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.schedulers.background import BackgroundScheduler
 
 from mealie.core import root_logger
+from mealie.core.config import get_app_dirs
 
 from .scheduled_func import ScheduledFunc
 from .scheduler_registry import SchedulerRegistry
@@ -11,18 +12,26 @@ from .scheduler_registry import SchedulerRegistry
 logger = root_logger.get_logger()
 
 CWD = Path(__file__).parent
-TEMP_DATA = CWD / ".temp"
+
+app_dirs = get_app_dirs()
+TEMP_DATA = app_dirs.DATA_DIR / ".temp"
 SCHEDULER_DB = TEMP_DATA / "scheduler.db"
 SCHEDULER_DATABASE = f"sqlite:///{SCHEDULER_DB}"
 
-DAY_IN_MINUTES = 1440
-MINUTELY_INTERVAL = 1
-HOUR_IN_MINUTES = 60
+MINUTES_DAY = 1440
+MINUTES_15 = 1
+MINUTES_HOUR = 60
 
 
 class SchedulerService:
-    _scheduler: BackgroundScheduler = None
+    """
+    SchedulerService is a wrapper class around the APScheduler library. It is resonpseible for interacting with the scheduler
+    and scheduling events. This includes the interval events that are registered in the SchedulerRegistry as well as cron events
+    that are used for sending webhooks. In most cases, unless the the schedule is dynamic, events should be registered with the
+    SchedulerRegistry. See app.py for examples.
+    """
 
+    _scheduler: BackgroundScheduler = None
     # Not Sure if this is still needed?
     # _job_store: dict[str, ScheduledFunc] = {}
 
@@ -33,14 +42,11 @@ class SchedulerService:
         # Scaffold
         TEMP_DATA.mkdir(parents=True, exist_ok=True)
 
-        # Start
+        # Register Interval Jobs and Start Scheduler
         SchedulerService._scheduler = BackgroundScheduler(jobstores={"default": SQLAlchemyJobStore(SCHEDULER_DATABASE)})
-        SchedulerService._scheduler.add_job(run_daily, "interval", minutes=DAY_IN_MINUTES, id="Daily Interval Jobs")
-        SchedulerService._scheduler.add_job(run_hourly, "interval", minutes=HOUR_IN_MINUTES, id="Hourly Interval Jobs")
-        SchedulerService._scheduler.add_job(
-            run_minutely, "interval", minutes=MINUTELY_INTERVAL, id="Regular Interval Jobs"
-        )
-
+        SchedulerService._scheduler.add_job(run_daily, "interval", minutes=MINUTES_DAY, id="Daily Interval Jobs")
+        SchedulerService._scheduler.add_job(run_hourly, "interval", minutes=MINUTES_HOUR, id="Hourly Interval Jobs")
+        SchedulerService._scheduler.add_job(run_minutely, "interval", minutes=MINUTES_15, id="Regular Interval Jobs")
         SchedulerService._scheduler.start()
 
     @classmethod
@@ -77,7 +83,7 @@ def _scheduled_task_wrapper(callable):
     try:
         callable()
     except Exception as e:
-        logger.error(f"Error in scheduled task: {e}")
+        logger.error(f"Error in scheduled task func='{callable.__name__}': exception='{e}'")
 
 
 def run_daily():

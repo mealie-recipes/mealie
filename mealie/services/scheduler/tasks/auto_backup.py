@@ -16,6 +16,7 @@ def auto_backup():
     templates = [template for template in app_dirs.TEMPLATE_DIR.iterdir()]
     session = create_session()
     backup_all(session=session, tag="Auto", templates=templates)
-    logger.info("Auto Backup Called")
+    logger.info("generating automated backup")
     create_backup_event("Automated Backup", "Automated backup created", session)
     session.close()
+    logger.info("automated backup generated")

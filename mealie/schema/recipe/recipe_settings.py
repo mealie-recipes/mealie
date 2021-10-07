@@ -1,8 +1,8 @@
 from fastapi_camelcase import CamelModel
 
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 
-settings = get_settings()
+settings = get_app_settings()
 
 
 class RecipeSettings(CamelModel):

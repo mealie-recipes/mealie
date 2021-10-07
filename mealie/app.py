@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 
-from mealie.core.config import get_settings
+from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.static import APP_VERSION
 from mealie.routes import backup_routes, migration_routes, router, utility_routes
@@ -13,7 +13,7 @@ from mealie.services.events import create_general_event
 from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
 
 logger = get_logger()
-settings = get_settings()
+settings = get_app_settings()
 
 app = FastAPI(
     title="Mealie",
@@ -26,33 +26,29 @@ app = FastAPI(
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
-def log_event():
-    logger.warning("Minutelty Event Logged")
-
-
 def start_scheduler():
     SchedulerService.start()
-    SchedulerRegistry.register_daily(tasks.purge_events_database, tasks.purge_group_registration, tasks.auto_backup)
+
+    SchedulerRegistry.register_daily(
+        tasks.purge_events_database,
+        tasks.purge_group_registration,
+        tasks.auto_backup,
+        tasks.purge_password_reset_tokens,
+    )
+
     SchedulerRegistry.register_hourly()
-    SchedulerRegistry.register_minutely(tasks.update_group_webhooks, log_event)
+    SchedulerRegistry.register_minutely(tasks.update_group_webhooks)
 
     logger.info(SchedulerService.scheduler.print_jobs())
 
 
 def api_routers():
-    # Authentication
     app.include_router(router)
-    # Recipes
     app.include_router(media_router)
     app.include_router(about_router)
-    # Meal Routes
-    # Settings Routes
     app.include_router(settings_router)
-    # Backups/Imports Routes
     app.include_router(backup_routes.router)
-    # Migration Routes
     app.include_router(migration_routes.router)
-    # Debug routes
     app.include_router(utility_routes.router)
 
 
@@ -76,7 +72,8 @@ def system_startup():
                 "DB_URL",  # replace by DB_URL_PUBLIC for logs
                 "POSTGRES_USER",
                 "POSTGRES_PASSWORD",
-                "SMTP_USER" "SMTP_PASSWORD",
+                "SMTP_USER",
+                "SMTP_PASSWORD",
             },
         )
     )
@@ -91,6 +88,7 @@ def main():
         port=settings.API_PORT,
         reload=True,
         reload_dirs=["mealie"],
+        reload_delay=2,
         debug=True,
         log_level="debug",
         use_colors=True,

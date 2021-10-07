@@ -20,7 +20,7 @@ dotenv.load_dotenv(ENV)
 PRODUCTION = os.getenv("PRODUCTION", "True").lower() in ["true", "1"]
 
 
-def get_app_data() -> Path:
+def determine_data_dir() -> Path:
     global PRODUCTION
     global BASE_DIR
     if PRODUCTION:
@@ -31,10 +31,9 @@ def get_app_data() -> Path:
 
 @lru_cache
 def get_app_dirs() -> AppDirectories:
-    return AppDirectories(get_app_data())
+    return AppDirectories(determine_data_dir())
 
 
 @lru_cache
-def get_settings() -> AppSettings:
-
-    return app_settings_constructor(env_file=ENV, production=PRODUCTION, data_dir=get_app_data())
+def get_app_settings() -> AppSettings:
+    return app_settings_constructor(env_file=ENV, production=PRODUCTION, data_dir=determine_data_dir())
