@@ -16,6 +16,7 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.settings import SiteSettings
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
+from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.schema.admin import SiteSettings as SiteSettingsSchema
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
@@ -27,6 +28,7 @@ from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.recipe import CommentOut, Recipe, RecipeCategoryResponse, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut
+from mealie.schema.user.user_passwords import PrivatePasswordResetToken
 
 from ._access_model import AccessModel
 from .group_access_model import GroupDataAccessModel
@@ -117,6 +119,10 @@ class Database:
     def api_tokens(self) -> AccessModel:
         return AccessModel(self.session, pk_id, LongLiveToken, LongLiveTokenInDB)
 
+    @cached_property
+    def tokens_pw_reset(self) -> AccessModel[PrivatePasswordResetToken, PasswordResetModel]:
+        return AccessModel(self.session, pk_token, PasswordResetModel, PrivatePasswordResetToken)
+
     # ================================================================
     # Group Items
 
@@ -126,7 +132,7 @@ class Database:
 
     @cached_property
     def group_invite_tokens(self) -> AccessModel:
-        return AccessModel(self.session, "token", GroupInviteToken, ReadInviteToken)
+        return AccessModel(self.session, pk_token, GroupInviteToken, ReadInviteToken)
 
     @cached_property
     def group_preferences(self) -> AccessModel:

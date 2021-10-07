@@ -50,6 +50,10 @@ class User(SqlAlchemyBase, BaseMixins):
         "RecipeComment", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )
 
+    password_reset_tokens = orm.relationship(
+        "PasswordResetModel", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
+    )
+
     owned_recipes_id = Column(Integer, ForeignKey("recipes.id"))
     owned_recipes = orm.relationship("RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id])
 

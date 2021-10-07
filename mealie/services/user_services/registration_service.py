@@ -30,7 +30,7 @@ class RegistrationService(PublicHttpService[int, str]):
             group = self._register_new_group()
 
         elif registration.group_token and registration.group_token != "":
-            token_entry = self.db.group_invite_tokens.get(registration.group_token)
+            token_entry = self.db.group_invite_tokens.get_one(registration.group_token)
             if not token_entry:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
             group = self.db.groups.get(token_entry.group_id)
