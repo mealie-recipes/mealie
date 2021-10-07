@@ -16,12 +16,20 @@ interface ResponseToken {
   token: string;
 }
 
+interface PasswordResetPayload {
+  token: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 // Code
 
 const prefix = "/api";
 
 const routes = {
   usersSelf: `${prefix}/users/self`,
+  passwordReset: `${prefix}/users/reset-password`,
   users: `${prefix}/users`,
 
   usersIdImage: (id: string) => `${prefix}/users/${id}/image`,
@@ -55,10 +63,6 @@ export class UserApi extends BaseCRUDAPI<UserOut, UserIn> {
     return await this.requests.put(routes.usersIdPassword(id), changePassword);
   }
 
-  async resetPassword(id: string) {
-    return await this.requests.post(routes.usersIdResetPassword(id), {});
-  }
-
   async createAPIToken(tokenName: CreateAPIToken) {
     return await this.requests.post<ResponseToken>(routes.usersApiTokens, tokenName);
   }
@@ -70,5 +74,9 @@ export class UserApi extends BaseCRUDAPI<UserOut, UserIn> {
   userProfileImage(id: string) {
     if (!id || id === undefined) return;
     return `/api/users/${id}/image`;
+  }
+
+  async resetPassword(payload: PasswordResetPayload) {
+    return await this.requests.post(routes.passwordReset, payload);
   }
 }

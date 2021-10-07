@@ -1,4 +1,4 @@
-import { useRoute, WritableComputedRef, computed } from "@nuxtjs/composition-api";
+import { useRoute, WritableComputedRef, computed, nextTick, useRouter } from "@nuxtjs/composition-api";
 
 export function useRouterQuery(query: string) {
   const router = useRoute();
@@ -6,6 +6,7 @@ export function useRouterQuery(query: string) {
 
   const param: WritableComputedRef<string> = computed({
     get(): string {
+      console.log("Get Query Change");
       // @ts-ignore
       return router.value?.query[query] || "";
     },
@@ -15,4 +16,25 @@ export function useRouterQuery(query: string) {
   });
 
   return param;
+}
+
+export function useRouteQuery<T extends string | string[]>(name: string, defaultValue?: T) {
+  const route = useRoute();
+  const router = useRouter();
+
+  return computed<any>({
+    get() {
+      console.log("Getter");
+      const data = route.value.query[name];
+      if (data == null) return defaultValue ?? null;
+      return data;
+    },
+    set(v) {
+      nextTick(() => {
+        console.log("Setter");
+        // @ts-ignore
+        router.value.replace({ query: { ...route.value.query, [name]: v } });
+      });
+    },
+  });
 }
