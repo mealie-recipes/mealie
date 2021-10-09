@@ -2,7 +2,6 @@
 .github
 .dockerignore
 .gitignore
-
 .idea
 .vscode
 
@@ -27,3 +26,5 @@ venv
 */data/db
 */mealie/test 
 */mealie/.temp
+
+model.crfmodel

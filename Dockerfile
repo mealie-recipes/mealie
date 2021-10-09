@@ -1,14 +1,4 @@
 ###############################################
-# # Frontend Builder Image
-# ###############################################
-# FROM node:lts-alpine as frontend-build
-# WORKDIR /app
-# COPY ./frontend/package*.json ./
-# RUN npm install
-# COPY ./frontend/ .
-# RUN npm run build
-
-###############################################
 # Base Image
 ###############################################
 FROM python:3.9-slim as python-base
@@ -92,6 +82,13 @@ RUN chmod +x $MEALIE_HOME/mealie/run.sh
 ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
 
 ###############################################
+# CRFPP Image
+###############################################
+FROM hkotel/crfpp as crfpp
+
+RUN echo "crfpp-container" 
+
+###############################################
 # Production Image
 ###############################################
 FROM python-base as production
@@ -107,6 +104,16 @@ RUN apt-get update \
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+
+# copy CRF++ Binary from crfpp
+ENV CRF_MODEL_URL=https://github.com/hay-kot/mealie-nlp-model/releases/download/v1.0.0/model.crfmodel
+
+ENV LD_LIBRARY_PATH=/usr/local/lib
+COPY --from=crfpp /usr/local/lib/ /usr/local/lib
+COPY --from=crfpp /usr/local/bin/crf_learn /usr/local/bin/crf_learn
+COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
+
+
 
 # copying caddy into image
 COPY --from=builder-base /usr/bin/caddy /usr/bin/caddy
@@ -128,6 +135,9 @@ WORKDIR /
 # COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
 COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
+
+# Grab CRF++ Model Release
+RUN curl -L0 $CRF_MODEL_URL --output $MEALIE_HOME/mealie/services/scraper/ingredient_nlp/model.crfmodel
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=80

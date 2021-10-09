@@ -18,15 +18,6 @@ MODEL_PATH = CWD / "model.crfmodel"
 settings = get_app_settings()
 
 
-INGREDIENT_TEXT = [
-    "2 tablespoons honey",
-    "1/2 cup flour",
-    "Black pepper, to taste",
-    "2 cups of garlic finely chopped",
-    "2 liters whole milk",
-]
-
-
 class CRFIngredient(BaseModel):
     input: Optional[str] = ""
     name: Optional[str] = ""
@@ -73,7 +64,7 @@ def convert_crf_models_to_ingredients(crf_models: list[CRFIngredient]):
             note=crf_model.comment,
             unit=CreateIngredientUnit(name=crf_model.unit),
             food=CreateIngredientFood(name=crf_model.name),
-            disable_amount=settings.RECIPE_DISABLE_AMOUNT,
+            disable_amount=False,
             quantity=float(sum(Fraction(s) for s in crf_model.qty.split())),
         )
         for crf_model in crf_models
@@ -81,5 +72,12 @@ def convert_crf_models_to_ingredients(crf_models: list[CRFIngredient]):
 
 
 if __name__ == "__main__":
+    INGREDIENT_TEXT = [
+        "2 tablespoons honey",
+        "1/2 cup flour",
+        "Black pepper, to taste",
+        "2 cups of garlic finely chopped",
+        "2 liters whole milk",
+    ]
     crf_models = convert_list_to_crf_model(INGREDIENT_TEXT)
     ingredients = convert_crf_models_to_ingredients(crf_models)
