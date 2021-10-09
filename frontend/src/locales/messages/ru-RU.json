@@ -307,7 +307,7 @@
       "delete-backup": "Удалить резервную копию",
       "error-creating-backup-see-log-file": "Ошибка создания резервной копии. Смотрите файл журнала",
       "full-backup": "Полное резервное копирование",
-      "import-summary": "Import Summary",
+      "import-summary": "Сводка по импорту",
       "partial-backup": "Частичное резервное копирование",
       "unable-to-delete-backup": "Невозможно удалить резервную копию."
     },
@@ -385,7 +385,7 @@
     },
     "webhooks": {
       "test-webhooks": "Тестировать Webhook",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "На перечисленные ниже URL будут отправляться вебхуки, содержащие данные рецептов для плана питания на запланированный день. Сейчас вебхуки будут отправляться в",
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS"
     }
@@ -421,7 +421,7 @@
     "sign-up-links": "Ссылки для регистрации",
     "sign-up-token-deleted": "Токен регистрации удален",
     "sign-up-token-deletion-failed": "Ошибка удаления токена для регистрации",
-    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
+    "welcome-to-mealie": "Добро пожаловать в Mealie! Чтобы стать пользователем этого сервера, вы должны иметь действительную ссылку-приглашение. Вы не можете зарегистрироваться без приглашения. Для получения ссылки свяжитесь с администратором сайта."
   },
   "tag": {
     "tag-created": "Тег создан",
