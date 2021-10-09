@@ -69,7 +69,7 @@ class BaseHttpService(Generic[T, D], ABC):
 
     def _existing_factory(dependency: Type[CLS_DEP]) -> classmethod:
         def cls_method(cls, item_id: T, deps: CLS_DEP = Depends(dependency)):
-            new_class = cls(deps.session, deps.user, deps.bg_task)
+            new_class = cls(session=deps.session, user=deps.user, background_tasks=deps.bg_task)
             new_class.assert_existing(item_id)
             return new_class
 
@@ -77,7 +77,7 @@ class BaseHttpService(Generic[T, D], ABC):
 
     def _class_method_factory(dependency: Type[CLS_DEP]) -> classmethod:
         def cls_method(cls, deps: CLS_DEP = Depends(dependency)):
-            return cls(deps.session, deps.user, deps.bg_task)
+            return cls(session=deps.session, user=deps.user, background_tasks=deps.bg_task)
 
         return classmethod(cls_method)
 

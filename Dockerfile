@@ -137,7 +137,7 @@ COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
 
 # Grab CRF++ Model Release
-RUN curl -L0 $CRF_MODEL_URL --output $MEALIE_HOME/mealie/services/scraper/ingredient_nlp/model.crfmodel
+RUN curl -L0 $CRF_MODEL_URL --output $MEALIE_HOME/mealie/services/parser_services/crfpp/model.crfmodel
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=80
