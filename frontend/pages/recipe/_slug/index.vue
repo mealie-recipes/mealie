@@ -110,7 +110,7 @@
               />
             </draggable>
             <div class="d-flex justify-end mt-2">
-              <RecipeIngredientParserMenu class="mr-1" :ingredients="recipe.recipeIngredient" />
+              <RecipeIngredientParserMenu class="mr-1" :slug="recipe.slug" :ingredients="recipe.recipeIngredient" />
               <RecipeDialogBulkAdd class="mr-1" @bulk-data="addIngredient" />
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>

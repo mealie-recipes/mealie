@@ -12,6 +12,7 @@ import {
   mdiBookOutline,
   mdiAccountCog,
   mdiAccountGroup,
+  mdiSlotMachine,
   mdiHome,
   mdiMagnify,
   mdiTranslate,
@@ -208,4 +209,5 @@ export const icons = {
 
   forward: mdiArrowRightBoldOutline,
   back: mdiArrowLeftBoldOutline,
+  slotMachine: mdiSlotMachine,
 };

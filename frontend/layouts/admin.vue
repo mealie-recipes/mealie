@@ -120,6 +120,11 @@ export default defineComponent({
         to: "/admin/backups",
         title: i18n.t("sidebar.backups"),
       },
+      {
+        icon: $globals.icons.slotMachine,
+        to: "/admin/parser",
+        title: "Parser",
+      },
     ];
 
     const bottomLinks = [
