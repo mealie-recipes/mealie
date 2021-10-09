@@ -1,6 +1,6 @@
 {
   "about": {
-    "about": "Сведения",
+    "about": "О проекте",
     "about-mealie": "О Mealie",
     "api-docs": "API Документация",
     "api-port": "Порт API",
@@ -52,7 +52,7 @@
     "refresh": "Обновить",
     "scheduled": "Запланировано",
     "something-went-wrong": "Что-то пошло не так!",
-    "subscribed-events": "Subscribed Events",
+    "subscribed-events": "Уведомлять о событиях",
     "test-message-sent": "Тестовое сообщение отправлено"
   },
   "general": {
@@ -243,10 +243,10 @@
     "ingredients": "Ингредиенты",
     "insert-section": "Вставить раздел",
     "instructions": "Инструкции",
-    "key-name-required": "Key Name Required",
+    "key-name-required": "Требуется имя ключа",
     "landscape-view-coming-soon": "В ландшафтном режиме (скоро)",
     "milligrams": "мг.",
-    "new-key-name": "New Key Name",
+    "new-key-name": "Имя нового ключа",
     "no-white-space-allowed": "Пробелы не допускаются",
     "note": "Заметка",
     "nutrition": "Пищевая ценность",
@@ -321,7 +321,7 @@
     "group-settings-updated": "Настройки группы обновлены",
     "homepage": {
       "all-categories": "Все категории",
-      "card-per-section": "Card Per Section",
+      "card-per-section": "Карточек в разделе",
       "home-page": "Домашняя страница",
       "home-page-sections": "Разделы домашней страницы",
       "show-recent": "Показать недавние"
@@ -337,7 +337,7 @@
     "page-name": "Название страницы",
     "pages": "Страницы",
     "profile": "Профиль",
-    "remove-existing-entries-matching-imported-entries": "Remove existing entries matching imported entries",
+    "remove-existing-entries-matching-imported-entries": "Удалить существующие записи, совпадающие с импортированными",
     "set-new-time": "Задать новое время",
     "settings-update-failed": "Ошибка обновления настроек",
     "settings-updated": "Настройки обновлены",
@@ -379,9 +379,9 @@
       "no-unused-items": "Нет неиспользуемых предметов",
       "recipes-affected": "Нет затронутых рецептов|Один рецепт затронут|{count} рецептов затронуто",
       "remove-unused": "Удалить неиспользованные",
-      "title-case-all": "Title Case All",
+      "title-case-all": "С Заглавной Буквы",
       "toolbox": "Инструменты",
-      "unorganized": "Unorganized"
+      "unorganized": "Неупорядоченное"
     },
     "webhooks": {
       "test-webhooks": "Тестировать Webhook",
