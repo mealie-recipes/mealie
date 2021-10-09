@@ -7,6 +7,7 @@ from typing import Union
 from zipfile import ZipFile
 
 from fastapi import Depends, HTTPException, UploadFile, status
+from sqlalchemy import exc
 
 from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
@@ -34,6 +35,10 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
     event_func = create_recipe_event
 
     @cached_property
+    def exception_key(self) -> dict:
+        return {exc.IntegrityError: self.t("recipe.unique-name-error")}
+
+    @cached_property
     def dal(self) -> RecipeDataAccessModel:
         return self.db.recipes
 
@@ -53,14 +58,13 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         if not self.item.settings.public and not self.user:
             raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    # CRUD METHODS
     def get_all(self, start=0, limit=None):
         items = self.db.recipes.summary(self.user.group_id, start=start, limit=limit)
         return [RecipeSummary.construct(**x.__dict__) for x in items]
 
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
         create_data = recipe_creation_factory(self.user, name=create_data.name, additional_attrs=create_data.dict())
-        self._create_one(create_data, "RECIPE_ALREAD_EXISTS")
+        self._create_one(create_data, self.t("generic.server-error"), self.exception_key)
         self._create_event(
             "Recipe Created",
             f"'{self.item.name}' by {self.user.username} \n {self.settings.BASE_URL}/recipe/{self.item.slug}",
