@@ -26,6 +26,7 @@ test_ingredients = [
 
 def crf_exists() -> bool:
     import shutil
+
     return shutil.which("crf_test") is not None
 
 
