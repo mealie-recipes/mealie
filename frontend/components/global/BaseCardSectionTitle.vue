@@ -6,9 +6,11 @@
       </v-icon>
       {{ title }}
     </v-card-title>
-    <p class="pb-0 mb-0">
-      <slot />
-    </p>
+    <v-card-text class="pt-2">
+      <p class="pb-0 mb-0">
+        <slot />
+      </p>
+    </v-card-text>
     <v-divider class="my-4"></v-divider>
   </v-card>
 </template>

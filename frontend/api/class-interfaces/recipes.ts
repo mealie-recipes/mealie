@@ -10,7 +10,8 @@ const routes = {
   recipesCreateUrl: `${prefix}/recipes/create-url`,
   recipesCreateFromZip: `${prefix}/recipes/create-from-zip`,
   recipesCategory: `${prefix}/recipes/category`,
-  recipesParseIngredients: `${prefix}/parse/ingredient`,
+  recipesParseIngredient: `${prefix}/parser/ingredient`,
+  recipesParseIngredients: `${prefix}/parser/ingredients`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
   recipesRecipeSlugZip: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/zip`,
@@ -85,5 +86,9 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
 
   async parseIngredients(ingredients: Array<string>) {
     return await this.requests.post(routes.recipesParseIngredients, { ingredients });
+  }
+
+  async parseIngredient(ingredient: string) {
+    return await this.requests.post(routes.recipesParseIngredient, { ingredient });
   }
 }

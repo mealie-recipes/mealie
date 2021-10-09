@@ -21,7 +21,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <BaseButton small color="accent" @click="parseIngredients">
+          <BaseButton small color="accent" :to="`${slug}/ingredient-parser`">
             <template #icon>
               {{ $globals.icons.check }}
             </template>
@@ -87,6 +87,10 @@ export default defineComponent({
   props: {
     ingredients: {
       type: Array,
+      required: true,
+    },
+    slug: {
+      type: String,
       required: true,
     },
   },

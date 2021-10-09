@@ -1,0 +1,8 @@
+{
+    "generic": {
+        "server-error": "Something went wrong"
+    },
+    "recipe": {
+        "unique-name-error": "Recipe names must be unique"
+    }
+}

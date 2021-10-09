@@ -38,7 +38,7 @@ def replace_fraction_unicode(string: str):
             continue
         if name.startswith("VULGAR FRACTION"):
             normalized = unicodedata.normalize("NFKC", c)
-            numerator, _slash, denominator = normalized.partition("⁄")
+            numerator, _, denominator = normalized.partition("⁄")  # _ = slash
             text = f" {numerator}/{denominator}"
             return string.replace(c, text).replace("  ", " ")
 

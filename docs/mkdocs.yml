@@ -97,6 +97,8 @@ nav:
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
           - Guidelines: "contributors/developers-guide/general-guidelines.md"
           - Style Guide: "contributors/developers-guide/style-guide.md"
+      - Guides:
+          - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
   - Development Road Map: "roadmap.md"
   - Change Log:
       - v1.0.0 A Whole New App: "changelog/v1.0.0.md"
