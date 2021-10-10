@@ -2,7 +2,7 @@
   <v-container>
     <v-container>
       <BaseCardSectionTitle title="Ingredients Natural Language Processor">
-        Mealie uses conditional random Conditional Random Fields (CRFs) for parsing and processing ingredients. The
+        Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The
         model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the
         New York Times. Note that as the model is trained in English only, you may have varied results when using the
         model in other languages. This page is a playground for testing the model.
