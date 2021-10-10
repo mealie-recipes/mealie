@@ -28,7 +28,7 @@
     <v-container v-if="results">
       <v-row class="d-flex">
         <template v-for="(prop, index) in properties">
-          <v-col v-if="prop.value" :key="index" xs="12" sm="6" lg="3">
+          <v-col v-if="prop.value" :key="index" cols="12" xs="12" sm="6" lg="3">
             <v-card>
               <v-card-title> {{ prop.value }} </v-card-title>
               <v-card-text>
