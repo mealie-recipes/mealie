@@ -96,7 +96,7 @@ def test_html_with_recipe_data():
         ("PT30M", "30 Minutes"),
         ("PT3H", "3 Hours"),
         ("P1DT1H1M1S", "1 day 1 Hour 1 Minute 1 Second"),
-        ("PT-3H", None)
+        ("PT-3H", None),
     ],
 )
 def test_time_cleaner(time_delta, expected):
