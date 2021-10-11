@@ -214,15 +214,7 @@ def pretty_print_timedelta(t, max_components=None, max_decimal_places=2):
     For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days, 4 hours, 48 minutes'. Setting max_components to e.g. 1 will change this to '2.2 days', where the
     number of decimal points can also be set.
     """
-    time_scales = [
-        timedelta(days=365),
-        timedelta(days=1),
-        timedelta(hours=1),
-        timedelta(minutes=1),
-        timedelta(seconds=1),
-        timedelta(microseconds=1000),
-        timedelta(microseconds=1),
-    ]
+
     time_scale_names_dict = {
         timedelta(days=365): "year",
         timedelta(days=1): "day",
@@ -233,9 +225,8 @@ def pretty_print_timedelta(t, max_components=None, max_decimal_places=2):
         timedelta(microseconds=1): "microsecond",
     }
     count = 0
-    txt = ""
-    first = True
-    for scale in time_scales:
+    out_list = []
+    for scale, scale_name in time_scale_names_dict.items():
         if t >= scale:
             count += 1
             n = t / scale if count == max_components else int(t / scale)
@@ -244,15 +235,9 @@ def pretty_print_timedelta(t, max_components=None, max_decimal_places=2):
             n_txt = str(round(n, max_decimal_places))
             if n_txt[-2:] == ".0":
                 n_txt = n_txt[:-2]
-            txt += "{}{} {}{}".format(
-                "" if first else " ",
-                n_txt,
-                time_scale_names_dict[scale],
-                "s" if n > 1 else "",
-            )
-            if first:
-                first = False
 
-    if len(txt) == 0:
-        txt = "none"
-    return txt
+            out_list.append(f"{n_txt} {scale_name}{'s' if n > 1 else ''}")
+
+    if out_list == []:
+        return "none"
+    return " ".join(out_list)
