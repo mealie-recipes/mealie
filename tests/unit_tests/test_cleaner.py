@@ -89,9 +89,14 @@ def test_html_with_recipe_data():
     assert url_validation_regex.match(recipe_data["image"])
 
 
-def test_time_cleaner():
-
-    my_time_delta = "PT2H30M"
-    return_delta = cleaner.clean_time(my_time_delta)
-
-    assert return_delta == "2 Hours 30 Minutes"
+@pytest.mark.parametrize(
+    "time_delta,expected",
+    [
+        ("PT2H30M", "2 Hours 30 Minutes"),
+        ("PT30M", "30 Minutes"),
+        ("PT3H", "3 Hours"),
+        ("PT-3H", None)
+    ],
+)
+def test_time_cleaner(time_delta, expected):
+    assert cleaner.clean_time(time_delta) == expected
