@@ -22,6 +22,43 @@ const routes = {
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
 };
 
+export type Parser = "nlp" | "brute";
+
+export interface Confidence {
+  average?: number;
+  comment?: number;
+  name?: number;
+  unit?: number;
+  quantity?: number;
+  food?: number;
+}
+
+export interface Unit {
+  name: string;
+  description: string;
+  fraction: boolean;
+  abbreviation: string;
+}
+
+export interface Food {
+  name: string;
+  description: string;
+}
+
+export interface Ingredient {
+  title: string;
+  note: string;
+  unit: Unit;
+  food: Food;
+  disableAmount: boolean;
+  quantity: number;
+}
+
+export interface ParsedIngredient {
+  confidence: Confidence;
+  ingredient: Ingredient;
+}
+
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
@@ -84,11 +121,13 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     return await this.requests.delete(routes.recipesSlugCommentsId(slug, id));
   }
 
-  async parseIngredients(ingredients: Array<string>) {
-    return await this.requests.post(routes.recipesParseIngredients, { ingredients });
+  async parseIngredients(parser: Parser, ingredients: Array<string>) {
+    parser = parser || "nlp";
+    return await this.requests.post<ParsedIngredient[]>(routes.recipesParseIngredients, { parser, ingredients });
   }
 
-  async parseIngredient(ingredient: string) {
-    return await this.requests.post(routes.recipesParseIngredient, { ingredient });
+  async parseIngredient(parser: Parser, ingredient: string) {
+    parser = parser || "nlp";
+    return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
   }
 }
