@@ -2,6 +2,7 @@ import json
 import re
 
 import pytest
+from datetime import timedelta
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraper import open_graph
 from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
@@ -103,3 +104,15 @@ def test_html_with_recipe_data():
 )
 def test_time_cleaner(time_delta, expected):
     assert cleaner.clean_time(time_delta) == expected
+
+
+@pytest.mark.parametrize(
+    "t,max_components,max_decimal_places,expected",
+    [
+        (timedelta(days=2, seconds=17280), None, 2, "2 days 4 Hours 48 Minutes"),
+        (timedelta(days=2, seconds=17280), 1, 2, "2.2 days"),
+        (timedelta(days=365), None, 2, "1 year"),
+    ],
+)
+def test_pretty_print_timedelta(t, max_components, max_decimal_places, expected):
+    assert cleaner.pretty_print_timedelta(t, max_components, max_decimal_places) == expected

@@ -211,7 +211,7 @@ def parse_duration(iso_duration):
 def pretty_print_timedelta(t, max_components=None, max_decimal_places=2):
     """
     Print a pretty string for a timedelta.
-    For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days, 4 hours, 48 minutes'. Setting max_components to e.g. 1 will change this to '2.2 days', where the
+    For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days 4 Hours 48 Minutes'. Setting max_components to e.g. 1 will change this to '2.2 days', where the
     number of decimal points can also be set.
     """
 
