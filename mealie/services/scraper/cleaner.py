@@ -5,6 +5,9 @@ from datetime import datetime, timedelta
 from typing import List
 
 from slugify import slugify
+from mealie.core.root_logger import get_logger
+
+logger = get_logger()
 
 
 def clean(recipe_data: dict, url=None) -> dict:
@@ -167,9 +170,11 @@ def clean_time(time_entry):
     elif isinstance(time_entry, datetime):
         print(time_entry)
     elif isinstance(time_entry, str):
-        if re.match("PT.*H.*M", time_entry):
+        try:
             time_delta_object = parse_duration(time_entry)
             return pretty_print_timedelta(time_delta_object)
+        except ValueError:
+            logger.error(f"Could not parse time_entry `{time_entry}`")
     else:
         return str(time_entry)
 
