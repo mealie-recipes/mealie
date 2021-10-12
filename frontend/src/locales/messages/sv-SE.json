@@ -159,7 +159,7 @@
     "edit-meal-plan": "Redigera måltidsplan",
     "end-date": "Slutdatum",
     "group": "Grupp (Beta)",
-    "main": "Startsida",
+    "main": "Huvudrätt",
     "meal-planner": "Måltidsplanering",
     "meal-plans": "Måltidsplaner",
     "mealplan-categories": "Målplans kategorier",
@@ -175,8 +175,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
     "planner": "Planeringkalender",
     "quick-week": "Snabb vecka",
-    "side": "Sida",
-    "sides": "Sidor",
+    "side": "Sidorätt",
+    "sides": "Sidorätter",
     "start-date": "Startdatum"
   },
   "migration": {
