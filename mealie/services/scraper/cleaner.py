@@ -2,7 +2,7 @@ import html
 import json
 import re
 from datetime import datetime, timedelta
-from typing import List
+from typing import List, Optional
 
 from slugify import slugify
 
@@ -65,6 +65,29 @@ def category(category: str):
 def clean_html(raw_html):
     cleanr = re.compile("<.*?>")
     return re.sub(cleanr, "", raw_html)
+
+
+def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
+    # Assumes that all units are supplied in grams, except sodium which may be in mg.
+    if nutrition is None:
+        return None
+
+    # Fn only expects a dict[str,str]. Other structures should not be parsed.
+    try:
+        output_nutrition = {key: re.sub("[^0-9.]", "", val) for key, val in nutrition.items()}
+    except TypeError:
+        return {}
+
+    if "sodiumContent" in nutrition and "m" not in nutrition["sodiumContent"] and "g" in nutrition["sodiumContent"]:
+        # Sodium is in grams. Parse its value, multiple by 1k and return to string.
+        try:
+            output_nutrition["sodiumContent"] = str(float(output_nutrition["sodiumContent"]) * 1000)
+        except ValueError:
+            # Could not parse sodium content as float, so don't touch it.
+            pass
+
+    # Don't return empty strings
+    return {key: val for key, val in output_nutrition.items() if val != ""}
 
 
 def image(image=None) -> str:

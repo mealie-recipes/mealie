@@ -137,7 +137,7 @@ def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) ->
         slug="",
         image=try_get_default(scraped_data.image, "image", None),
         description=try_get_default(None, "description", "", cleaner.clean_string),
-        nutrition=try_get_default(None, "nutrition", None),
+        nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
         recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
         recipe_ingredient=try_get_default(scraped_data.ingredients, "recipeIngredient", [""], cleaner.ingredient),
         recipe_instructions=get_instructions(),
