@@ -132,6 +132,10 @@ def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) ->
         except TypeError:
             return []
 
+    cook_time = try_get_default(None, "performTime", None, cleaner.clean_time) or try_get_default(
+        None, "cookTime", None, cleaner.clean_time
+    )
+
     return Recipe(
         name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
         slug="",
@@ -142,7 +146,7 @@ def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) ->
         recipe_instructions=get_instructions(),
         total_time=try_get_default(None, "totalTime", None, cleaner.clean_time),
         prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time),
-        perform_time=try_get_default(None, "performTime", None, cleaner.clean_time),
+        perform_time=cook_time,
         org_url=url,
     )
 
