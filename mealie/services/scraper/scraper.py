@@ -29,7 +29,8 @@ def create_from_url(url: str) -> Recipe:
     Returns:
         Recipe: Recipe Object
     """
-    new_recipe = scrape_from_url(url)
+    scraped_data = scrape_from_url(url)
+    new_recipe = clean_scraper(scraped_data, url)
     logger.info(f"Image {new_recipe.image}")
     new_recipe.image = download_image_for_recipe(new_recipe.slug, new_recipe.image)
 
@@ -94,7 +95,7 @@ def scrape_from_url(url: str) -> Recipe:
     if not instruct and not ing:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.NO_RECIPE_DATA.value})
     else:
-        return clean_scraper(scraped_schema, url)
+        return scraped_schema
 
 
 def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> Recipe:
