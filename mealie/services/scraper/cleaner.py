@@ -74,6 +74,9 @@ def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
 
     # Fn only expects a dict[str,str]. Other structures should not be parsed.
     try:
+        # Allow for commas as decimals
+        nutrition = {key: val.replace(",", ".") for key, val in nutrition.items()}
+        # Remove strings
         output_nutrition = {key: re.sub("[^0-9.]", "", val) for key, val in nutrition.items()}
     except TypeError:
         return {}
