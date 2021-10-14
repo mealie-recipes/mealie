@@ -50,7 +50,10 @@ def create_from_json(
 @user_router.post("/test-scrape-url")
 def test_parse_recipe_url(url: RecipeURLIn):
     # Debugger should produce the same result as the scraper sees before cleaning
-    return scrape_from_url(url.url).schema.data
+    scraped_data = scrape_from_url(url.url)
+    if scraped_data:
+        return scraped_data.schema.data
+    return "recipe_scrapers was unable to scrape this URL"
 
 
 @user_router.post("/create-url", status_code=201, response_model=str)
