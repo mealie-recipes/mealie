@@ -13,10 +13,10 @@ Basically it is a visual scripting language that lets a user build an automation
 
 You need to replace `username` and `password` with the login information for your mealie instance.
 
-![screenshot](../img/iOS_username.jpg)
+![screenshot](../../assets/img/ios-shortcut-username.jpg)
 
 Then, you need to put in your mealie domain. The API port of `:9000` is not needed when putting your domain in the text field.
 
-![screenshot](../img/iOS_host.jpg)
+![screenshot](../../assets/img/ios-shortcut-host.jpg)
 
 You should now be able to share a website to the shortcut and have mealie grab all the necessary information!
