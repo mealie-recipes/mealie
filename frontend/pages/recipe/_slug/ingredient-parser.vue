@@ -10,7 +10,26 @@
         <div class="mt-6">
           Alerts will be displayed if a matching foods or unit is found but does not exists in the database.
         </div>
+        <v-divider class="my-4"> </v-divider>
+        <div class="mb-n4">
+          Select Parser
+          <BaseOverflowButton
+            v-model="parser"
+            btn-class="mx-2"
+            :items="[
+              {
+                text: 'Natural Language Processor ',
+                value: 'nlp',
+              },
+              {
+                text: 'Brute Parser',
+                value: 'brute',
+              },
+            ]"
+          />
+        </div>
       </BaseCardSectionTitle>
+
       <v-card-actions class="justify-end">
         <BaseButton color="info" @click="fetchParsed">
           <template #icon> {{ $globals.icons.foods }}</template>
@@ -53,8 +72,8 @@
 </template>
   
 <script lang="ts">
-import { defineComponent, ref, useRoute } from "@nuxtjs/composition-api";
-import { Food, ParsedIngredient } from "~/api/class-interfaces/recipes";
+import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useApiSingleton } from "~/composables/use-api";
 import { useRecipeContext } from "~/composables/use-recipe-context";
@@ -78,6 +97,7 @@ export default defineComponent({
     const panels = ref<number[]>([]);
 
     const route = useRoute();
+    const router = useRouter();
     const slug = route.value.params.slug;
     const api = useApiSingleton();
 
@@ -90,6 +110,8 @@ export default defineComponent({
     // =========================================================
     // Parser Logic
 
+    const parser = ref<Parser>("nlp");
+
     const parsedIng = ref<any[]>([]);
 
     async function fetchParsed() {
@@ -97,7 +119,7 @@ export default defineComponent({
         return;
       }
       const raw = recipe.value.recipeIngredient.map((ing) => ing.note);
-      const { response, data } = await api.recipes.parseIngredients(raw);
+      const { response, data } = await api.recipes.parseIngredients(parser.value, raw);
       console.log({ response });
 
       if (data) {
@@ -210,15 +232,15 @@ export default defineComponent({
       }
 
       recipe.value.recipeIngredient = ingredients;
-      console.log({ recipe: recipe.value });
       const { response } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
 
       if (response?.status === 200) {
-        console.log("Success");
+        router.push("/recipe/" + recipe.value.slug);
       }
     }
 
     return {
+      parser,
       saveAll,
       createFood,
       errors,

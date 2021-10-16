@@ -1,7 +1,7 @@
   <template>
   <v-menu offset-y>
     <template #activator="{ on, attrs }">
-      <v-btn color="primary" rounded large v-bind="attrs" v-on="on">
+      <v-btn color="primary" v-bind="attrs" :class="btnClass" v-on="on">
         <v-icon v-if="activeObj.icon" left>
           {{ activeObj.icon }}
         </v-icon>
@@ -36,6 +36,11 @@ export default defineComponent({
       required: true,
     },
     value: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    btnClass: {
       type: String,
       required: false,
       default: "",
