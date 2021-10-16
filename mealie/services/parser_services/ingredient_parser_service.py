@@ -1,13 +1,18 @@
 from mealie.schema.recipe import RecipeIngredient
 from mealie.services._base_http_service.http_services import UserHttpService
 
-from .ingredient_parser import ABCIngredientParser, CRFPPIngredientParser
+from .ingredient_parser import ABCIngredientParser, RegisteredParser, get_parser
 
 
 class IngredientParserService(UserHttpService):
-    def __init__(self, parser: ABCIngredientParser = None, *args, **kwargs) -> None:
-        self.parser: ABCIngredientParser = parser() if parser else CRFPPIngredientParser()
+    parser: ABCIngredientParser
+
+    def __init__(self, parser: RegisteredParser = RegisteredParser.nlp, *args, **kwargs) -> None:
+        self.set_parser(parser)
         super().__init__(*args, **kwargs)
+
+    def set_parser(self, parser: RegisteredParser) -> None:
+        self.parser = get_parser(parser)
 
     def populate_item(self) -> None:
         """Satisfy abstract method"""

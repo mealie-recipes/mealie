@@ -12,6 +12,14 @@ CWD = Path(__file__).parent
 MODEL_PATH = CWD / "model.crfmodel"
 
 
+class CRFConfidence(BaseModel):
+    average: float = 0.0
+    comment: float = None
+    name: float = None
+    unit: float = None
+    qty: float = None
+
+
 class CRFIngredient(BaseModel):
     input: str = ""
     name: str = ""
@@ -19,15 +27,19 @@ class CRFIngredient(BaseModel):
     qty: str = ""
     comment: str = ""
     unit: str = ""
+    confidence: CRFConfidence
 
     @validator("qty", always=True, pre=True)
     def validate_qty(qty, values):  # sourcery skip: merge-nested-ifs
         if qty is None or qty == "":
             # Check if other contains a fraction
-            if values["other"] is not None and values["other"].find("/") != -1:
-                return float(Fraction(values["other"])).__round__(1)
-            else:
-                return 1
+            try:
+                if values["other"] is not None and values["other"].find("/") != -1:
+                    return float(Fraction(values["other"])).__round__(1)
+                else:
+                    return 1
+            except Exception:
+                pass
 
         return qty
 
