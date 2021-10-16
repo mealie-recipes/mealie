@@ -30,6 +30,7 @@ import {
   mdiDotsVertical,
   mdiPrinter,
   mdiShareVariant,
+  mdiChevronDown,
   mdiHeart,
   mdiHeartOutline,
   mdiDotsHorizontal,
@@ -210,4 +211,5 @@ export const icons = {
   forward: mdiArrowRightBoldOutline,
   back: mdiArrowLeftBoldOutline,
   slotMachine: mdiSlotMachine,
+  chevronDown: mdiChevronDown,
 };

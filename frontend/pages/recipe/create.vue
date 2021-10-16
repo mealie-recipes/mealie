@@ -7,11 +7,8 @@
       <template #title> Recipe Creation </template>
       Select one of the various ways to create a recipe
     </BasePageTitle>
-    <v-tabs v-model="tab">
-      <v-tab href="#url">From URL</v-tab>
-      <v-tab href="#new">Create</v-tab>
-      <v-tab href="#zip">Import Zip</v-tab>
-    </v-tabs>
+    <BaseOverflowButton v-model="tab" rounded class="mx-2" outlined :items="tabs"> </BaseOverflowButton>
+  
     <section>
       <v-tabs-items v-model="tab" class="mt-10">
         <v-tab-item value="url" eager>
@@ -127,7 +124,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, ref, useRouter, useContext } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
 import { validators } from "~/composables/use-validators";
 export default defineComponent({
@@ -136,6 +133,27 @@ export default defineComponent({
       error: false,
       loading: false,
     });
+
+    // @ts-ignore - $globals not found in type definition
+    const { $globals } = useContext();
+
+    const tabs = [
+      {
+        icon: $globals.icons.edit,
+        text: "Create Recipe",
+        value: "new",
+      },
+      {
+        icon: $globals.icons.link,
+        text: "Import with URL",
+        value: "url",
+      },
+      {
+        icon: $globals.icons.zip,
+        text: "Import with .zip",
+        value: "zip",
+      },
+    ];
 
     const api = useApiSingleton();
     const router = useRouter();
@@ -203,6 +221,7 @@ export default defineComponent({
     }
 
     return {
+      tabs,
       domCreateByName,
       domUrlForm,
       newRecipeName,
