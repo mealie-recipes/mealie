@@ -22,3 +22,22 @@ nextcloud_recipes.zip
   └── recipe_3
       └── recipe.json
 ```
+
+## CSV Import
+Imports lists of URLs from a CSV file, with optional tags and categories.
+
+The CSV file should be pipe (`|`) separated and contain one url per row. Tags and categories should be comma separated and are optional.
+
+```
+links|tags|categories
+https://www.smoking-meat.com/september-24-2015-smoked-pork-tenderloin|bbq,smoking,american|main
+https://bbqpitboys.com/smoked-whiskey-cheeseburgers/
+```
+
+The ZIP file should contain the CSV files in a flat directory. The files can end in any `.*sv` pattern.
+
+```
+recipes.zp
+  ├── recipes_american.csv
+  └── recipes_bbq.tsv
+```

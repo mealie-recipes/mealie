@@ -189,6 +189,10 @@
       "description": "Übertrage Daten aus einer Nextcloud Cookbook Instanz",
       "title": "Nextcloud Cookbook"
     },
+    "csv": {
+      "description": "Übertrage Daten aus einer CSV Datei.",
+      "title": "CSV"
+    },
     "no-migration-data-available": "Keine Übertragungsdaten verfügbar",
     "recipe-migration": "Rezepte übertragen"
   },

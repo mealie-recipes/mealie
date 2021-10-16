@@ -1,9 +1,10 @@
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, Generator
 
 import yaml
+import csv
 from mealie.core import root_logger
 from mealie.db.database import db
 from mealie.schema.migration import MigrationImport
@@ -77,6 +78,41 @@ class MigrationBase(BaseModel):
                     recipe_data["description"] = document
 
         return recipe_data
+
+    @staticmethod
+    def csv_reader(csv_file: Path, sep="|", col_sep=",") -> Generator[dict,None,None]:
+        """A helper function to read in a csv file from a Path. This assumes the
+        following schema:
+
+        url|tags|categories
+
+        Args:
+            csv_file (Path): Path to csv file
+
+        Returns:
+            List[dict]: representing the csv file as a dictionary per row
+        """
+        with open(csv_file, "r") as f:
+            csv_file = csv.reader(f, delimiter=sep, quotechar='"')
+            for row in csv_file:
+                # Check if the row is valid and not the header
+                # The header validation checks for a URL scheme, so that header-less CSV files
+                # are still being accepted
+                if row is None or row == [] or len(row) < 1 or not row[0].lower().startswith("http"):
+                    continue
+
+                # Build the import and tagging instructions
+                tags = []
+                if len(row) > 1:
+                    tags = row[1].split(col_sep)
+                if len(row) > 2:
+                    categories = row[2].split(col_sep)
+                yield {
+                    "url": row[0],
+                    "tags": tags,
+                    "categories": categories
+                }
+
 
     @staticmethod
     def glob_walker(directory: Path, glob_str: str, return_parent=True) -> list[Path]:  # TODO:

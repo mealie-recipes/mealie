@@ -189,6 +189,10 @@
       "description": "Migrate data from a Nextcloud Cookbook instance",
       "title": "Nextcloud Cookbook"
     },
+    "csv": {
+      "description": "Migrate data from a pipe-separated CSV file.",
+      "title": "CSV"
+    },
     "no-migration-data-available": "No Migration Data Available",
     "recipe-migration": "Recipe Migration"
   },

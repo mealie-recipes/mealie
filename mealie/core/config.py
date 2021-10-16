@@ -55,6 +55,7 @@ class AppDirectories:
         self.MIGRATION_DIR: Path = data_dir.joinpath("migration")
         self.NEXTCLOUD_DIR: Path = self.MIGRATION_DIR.joinpath("nextcloud")
         self.CHOWDOWN_DIR: Path = self.MIGRATION_DIR.joinpath("chowdown")
+        self.CSV_DIR: Path = self.MIGRATION_DIR.joinpath("csv")
         self.TEMPLATE_DIR: Path = data_dir.joinpath("templates")
         self.USER_DIR: Path = data_dir.joinpath("users")
         self.RECIPE_DATA_DIR: Path = data_dir.joinpath("recipes")

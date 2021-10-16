@@ -20,6 +20,7 @@ def get_all_migration_options():
     migration_dirs = [
         app_dirs.MIGRATION_DIR.joinpath("nextcloud"),
         app_dirs.MIGRATION_DIR.joinpath("chowdown"),
+        app_dirs.MIGRATION_DIR.joinpath("csv"),
     ]
     for directory in migration_dirs:
         migration = Migrations(type=directory.stem)

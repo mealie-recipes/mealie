@@ -3,7 +3,7 @@ from pathlib import Path
 
 from mealie.core import root_logger
 from mealie.schema.migration import MigrationImport
-from mealie.services.migrations import chowdown, nextcloud
+from mealie.services.migrations import chowdown, nextcloud, csv
 from sqlalchemy.orm.session import Session
 
 logger = root_logger.get_logger()
@@ -16,6 +16,7 @@ class Migration(str, Enum):
 
     nextcloud = "nextcloud"
     chowdown = "chowdown"
+    csv = "csv"
 
 
 def migrate(migration_type: str, file_path: Path, session: Session) -> list[MigrationImport]:
@@ -40,7 +41,8 @@ def migrate(migration_type: str, file_path: Path, session: Session) -> list[Migr
 
     elif migration_type == Migration.chowdown.value:
         migration_imports = chowdown.migrate(session, file_path)
-
+    elif migration_type == Migration.csv.value:
+        migration_imports = csv.migrate(session, file_path)
     else:
         return []
 

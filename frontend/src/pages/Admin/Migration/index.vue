@@ -49,6 +49,12 @@ export default {
           urlVariable: "chowdown",
           availableImports: [],
         },
+        csv: {
+          title: this.$t("migration.csv.title"),
+          description: this.$t("migration.csv.description"),
+          urlVariable: "csv",
+          availableImports: [],
+        },
       },
     };
   },
@@ -67,6 +73,8 @@ export default {
           this.migrations.nextcloud.availableImports = element.files;
         } else if (element.type === "chowdown") {
           this.migrations.chowdown.availableImports = element.files;
+        } else if (element.type === "csv") {
+          this.migrations.csv.availableImports = element.files;
         }
       });
     },
