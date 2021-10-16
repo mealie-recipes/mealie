@@ -10,11 +10,11 @@
     <section>
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
-          <v-btn v-if="!state" text color="info" class="mt-2 mb-n3" @click="toggle">
+          <v-btn v-if="!state" color="info" class="mt-2 mb-n3" @click="toggle">
             <v-icon left>{{ $globals.icons.lock }}</v-icon>
             {{ $t("settings.change-password") }}
           </v-btn>
-          <v-btn v-else text color="info" class="mt-2 mb-n3" @click="toggle">
+          <v-btn v-else color="info" class="mt-2 mb-n3" @click="toggle">
             <v-icon left>{{ $globals.icons.user }}</v-icon>
             {{ $t("settings.profile") }}
           </v-btn>
