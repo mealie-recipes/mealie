@@ -47,7 +47,21 @@ def scrape_image(image_url: str, slug: str) -> Path:
         pass
 
     if isinstance(image_url, list):  # Handles List Types
-        image_url = image_url[0]
+        # Multiple images have been defined in the schema - usually different resolutions
+        # Typically would be in smallest->biggest order, but can't be certain so test each.
+        # 'Google will pick the best image to display in Search results based on the aspect ratio and resolution.'
+
+        all_image_requests = []
+        for url in image_url:
+            try:
+                r = requests.get(url, stream=True, headers={"User-Agent": ""})
+            except Exception:
+                logger.exception("Image {url} could not be requested")
+                continue
+            if r.status_code == 200:
+                all_image_requests.append((url, r))
+
+        image_url, _ = max(all_image_requests, key=lambda url_r: len(url_r[1].content))
 
     if isinstance(image_url, dict):  # Handles Dictionary Types
         for key in image_url:
