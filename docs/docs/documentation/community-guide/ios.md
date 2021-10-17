@@ -9,14 +9,14 @@ Don't know what an iOS shortcut is? Neither did I! Experienced iOS users may alr
 > A shortcut is a quick way to get one or more tasks done with your apps. The Shortcuts app lets you create your own shortcuts with multiple steps. For example, build a “Surf Time” shortcut that grabs the surf report, gives an ETA to the beach, and launches your surf music playlist.
 >
 
-Basically it is a visual scripting language that lets a user build an automation in a guided fashion. The automation can be [shared with anyone](https://www.icloud.com/shortcuts/4c40fcc6f39549f9a189995a449cd44f) but if it is a user creation, you'll have to jump through a few hoops to make an untrusted automation work on your device.
+Basically it is a visual scripting language that lets a user build an automation in a guided fashion. The automation can be [shared with anyone](https://www.icloud.com/shortcuts/9d8827cabde44b379e673a60f27fe4bb) but if it is a user creation, you'll have to jump through a few hoops to make an untrusted automation work on your device.
 
 You need to replace `username` and `password` with the login information for your mealie instance.
 
-![screenshot](../img/iOS_username.jpg)
+![screenshot](../../assets/img/ios-shortcut-username.jpg)
 
 Then, you need to put in your mealie domain. The API port of `:9000` is not needed when putting your domain in the text field.
 
-![screenshot](../img/iOS_host.jpg)
+![screenshot](../../assets/img/ios-shortcut-host.jpg)
 
 You should now be able to share a website to the shortcut and have mealie grab all the necessary information!
