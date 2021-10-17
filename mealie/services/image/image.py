@@ -61,7 +61,7 @@ def scrape_image(image_url: str, slug: str) -> Path:
             if r.status_code == 200:
                 all_image_requests.append((url, r))
 
-        image_url, _ = max(all_image_requests, key=lambda url_r: len(url_r[1].content), default=("",0))
+        image_url, _ = max(all_image_requests, key=lambda url_r: len(url_r[1].content), default=("", 0))
 
     if isinstance(image_url, dict):  # Handles Dictionary Types
         for key in image_url:
