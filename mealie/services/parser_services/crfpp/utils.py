@@ -1,4 +1,5 @@
 import re
+from statistics import mean
 
 from . import tokenizer
 
@@ -179,6 +180,9 @@ def import_data(lines):
     data = [{}]
     display = [[]]
     prevTag = None
+
+    confidence_all = [{}]
+
     #
     # iterate lines in the data file, which looks like:
     #
@@ -208,6 +212,8 @@ def import_data(lines):
             display.append([])
             prevTag = None
 
+            confidence_all.append({})
+
         # ignore comments
         elif line[0] == "#":
             pass
@@ -226,6 +232,18 @@ def import_data(lines):
             tag, confidence = re.split(r"/", columns[-1], 1)
             tag = re.sub("^[BI]\-", "", tag).lower()  # noqa: W605 - invalid dscape sequence
 
+            # ====================
+            # Confidence Getter
+            if prevTag != tag:
+                if confidence_all[-1].get(tag):
+                    confidence_all[-1][tag].append(confidence)
+                else:
+                    confidence_all[-1][tag] = [confidence]
+            else:
+                if confidence_all[-1].get(tag):
+                    confidence_all[-1][tag].append(confidence)
+                else:
+                    confidence_all[-1][tag] = [confidence]
             # ---- DISPLAY ----
             # build a structure which groups each token by its tag, so we can
             # rebuild the original display name later.
@@ -257,13 +275,23 @@ def import_data(lines):
     output = [
         dict([(k, smartJoin(tokens)) for k, tokens in ingredient.items()]) for ingredient in data if len(ingredient)
     ]
-    # Add the marked-up display data
-    for i, v in enumerate(output):
-        output[i]["display"] = displayIngredient(display[i])
+
+    # Preclean Confidence
+    for i, c in enumerate(confidence_all):
+        avg_of_all = []
+        for k, v in c.items():
+            v = [float(x) for x in v]
+            avg = round(mean(v), 2)
+            avg_of_all.append(avg)
+            confidence_all[i][k] = avg
+
+        if avg_of_all:
+            confidence_all[i]["average"] = round(mean(avg_of_all), 2)
 
     # Add the raw ingredient phrase
-    for i, v in enumerate(output):
-        output[i]["input"] = smartJoin([" ".join(tokens) for k, tokens in display[i]])
+    for i, _ in enumerate(output):
+        output[i]["input"] = smartJoin([" ".join(tokens) for _, tokens in display[i]])
+        output[i]["confidence"] = confidence_all[i]
 
     return output
 

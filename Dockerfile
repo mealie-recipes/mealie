@@ -106,7 +106,7 @@ COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # copy CRF++ Binary from crfpp
-ENV CRF_MODEL_URL=https://github.com/hay-kot/mealie-nlp-model/releases/download/v1.0.0/model.crfmodel
+ENV CRF_MODEL_URL=https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel
 
 ENV LD_LIBRARY_PATH=/usr/local/lib
 COPY --from=crfpp /usr/local/lib/ /usr/local/lib

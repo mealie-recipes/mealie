@@ -2,23 +2,25 @@ import re
 import unicodedata
 
 replace_abbreviations = {
-    "cup ": "cup ",
-    " g ": "gram ",
-    "kg ": "kilogram ",
-    "lb ": "pound ",
-    "ml ": "milliliter ",
-    "oz ": "ounce ",
-    "pint ": "pint ",
-    "qt ": "quart ",
-    "tbs ": "tablespoon ",
-    "tbsp ": "tablespoon ",
-    "tsp ": "teaspoon ",
+    "cup": " cup ",
+    "g": " gram ",
+    "kg": " kilogram ",
+    "lb": " pound ",
+    "ml": " milliliter ",
+    "oz": " ounce ",
+    "pint": " pint ",
+    "qt": " quart ",
+    "tbsp": " tablespoon ",
+    "tbs": " tablespoon ",  # Order Matters!, 'tsb' must come after 'tbsp' incase of duplicate matches
+    "tsp": " teaspoon ",
 }
 
 
 def replace_common_abbreviations(string: str) -> str:
+
     for k, v in replace_abbreviations.items():
-        string = string.replace(k, v)
+        regex = rf"(?<=\d)\s?({k}s?)"
+        string = re.sub(regex, v, string)
 
     return string
 
@@ -81,17 +83,3 @@ def pre_process_string(string: str) -> str:
         string = wrap_or_clause(string)
 
     return string
-
-
-def main():
-    # TODO: Migrate to unittests
-    print("Starting...")
-    print(pre_process_string("1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt, plus more"))
-    print(pre_process_string("1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt"))
-    print(pre_process_string("¼ cup michiu tou or other rice wine"))
-    print(pre_process_string("1 tbs. wine, expensive or other white wine, plus more"))
-    print("Finished...")
-
-
-if __name__ == "__main__":
-    main()

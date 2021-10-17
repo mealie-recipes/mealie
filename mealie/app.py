@@ -7,6 +7,7 @@ from mealie.core.root_logger import get_logger
 from mealie.core.settings.static import APP_VERSION
 from mealie.routes import backup_routes, migration_routes, router, utility_routes
 from mealie.routes.about import about_router
+from mealie.routes.handlers import register_debug_handler
 from mealie.routes.media import media_router
 from mealie.routes.site_settings import settings_router
 from mealie.services.events import create_general_event
@@ -24,6 +25,8 @@ app = FastAPI(
 )
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+
+register_debug_handler(app)
 
 
 def start_scheduler():

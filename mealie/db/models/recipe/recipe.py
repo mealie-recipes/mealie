@@ -117,7 +117,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         tools: list[str] = None,
         **_
     ) -> None:
-        self.nutrition = Nutrition(**nutrition) if self.nutrition else Nutrition()
+        self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
         self.tools = [Tool(tool=x) for x in tools] if tools else []
         self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
         self.assets = [RecipeAsset(**a) for a in assets]
