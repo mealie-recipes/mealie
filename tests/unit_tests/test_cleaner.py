@@ -61,7 +61,7 @@ def test_clean_image():
 @pytest.mark.parametrize(
     "nutrition,expected",
     [
-        (None, None),
+        (None, {}),
         ({"calories": "105 kcal"}, {"calories": "105"}),
         ({"calories": ""}, {}),
         ({"calories": ["not just a string"]}, {}),

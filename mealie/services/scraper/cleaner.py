@@ -70,7 +70,7 @@ def clean_html(raw_html):
 def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
     # Assumes that all units are supplied in grams, except sodium which may be in mg.
     if nutrition is None:
-        return None
+        return {}
 
     # Fn only expects a dict[str,str]. Other structures should not be parsed.
     try:
@@ -78,7 +78,7 @@ def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
         nutrition = {key: val.replace(",", ".") for key, val in nutrition.items()}
         # Remove strings
         output_nutrition = {key: re.sub("[^0-9.]", "", val) for key, val in nutrition.items()}
-    except TypeError:
+    except Exception:
         return {}
 
     if "sodiumContent" in nutrition and "m" not in nutrition["sodiumContent"] and "g" in nutrition["sodiumContent"]:
