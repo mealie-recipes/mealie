@@ -73,7 +73,7 @@ def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
     # Fn only expects a dict[str,str]. Other structures should not be parsed.
     if not isinstance(nutrition, dict):
         return {}
-    
+
     # Allow for commas as decimals (common in Europe)
     # Compile once for efficiency
     re_match_digits = re.compile(r"\d+([.,]\d+)?")
