@@ -98,8 +98,7 @@ def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
             # Could not parse sodium content as float, so don't touch it.
             pass
 
-    # Don't return empty strings
-    return {key: val for key, val in output_nutrition.items() if val != ""}
+    return output_nutrition
 
 
 def image(image=None) -> str:
