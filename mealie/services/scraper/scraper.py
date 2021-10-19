@@ -1,6 +1,5 @@
-import json
 from enum import Enum
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 from uuid import uuid4
 
 import requests
@@ -8,16 +7,10 @@ from fastapi import HTTPException, status
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, WebsiteNotImplementedError, scrape_me
 from slugify import slugify
 
-from mealie.core.config import get_app_dirs
-
-app_dirs = get_app_dirs()
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe import Recipe, RecipeStep
 from mealie.services.image.image import scrape_image
 from mealie.services.scraper import cleaner, open_graph
-
-LAST_JSON = app_dirs.DEBUG_DIR.joinpath("last_recipe.json")
-
 
 logger = get_logger()
 
@@ -32,7 +25,14 @@ def create_from_url(url: str) -> Recipe:
     Returns:
         Recipe: Recipe Object
     """
-    new_recipe = scrape_from_url(url)
+    # Try the different scrapers in order.
+    if scraped_data := scrape_from_url(url):
+        new_recipe = clean_scraper(scraped_data, url)
+    elif og_dict := extract_open_graph_values(url):
+        new_recipe = Recipe(**og_dict)
+    else:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
+
     logger.info(f"Image {new_recipe.image}")
     new_recipe.image = download_image_for_recipe(new_recipe.slug, new_recipe.image)
 
@@ -49,16 +49,17 @@ class ParserErrors(str, Enum):
     CONNECTION_ERROR = "CONNECTION_ERROR"
 
 
-def extract_open_graph_values(url) -> Recipe:
+def extract_open_graph_values(url) -> Optional[dict]:
     r = requests.get(url)
     recipe = open_graph.basic_recipe_from_opengraph(r.text, url)
+    if recipe.get("name", "") == "":
+        return None
+    return recipe
 
-    return Recipe(**recipe)
 
-
-def scrape_from_url(url: str) -> Recipe:
-    """Entry function to generating are recipe obejct from a url
-    This will determine if a url can be parsed and raise an appropriate error keyword
+def scrape_from_url(url: str):
+    """Entry function to scrape a recipe from a url
+    This will determine if a url can be parsed and return None if not, to allow another parser to try.
     This keyword is used on the frontend to reference a localized string to present on the UI.
 
     Args:
@@ -68,7 +69,7 @@ def scrape_from_url(url: str) -> Recipe:
         HTTPException: 400_BAD_REQUEST - See ParserErrors Class for Key Details
 
     Returns:
-        Recipe: Recipe Model
+        Optional[Scraped schema for cleaning]
     """
     try:
         scraped_schema = scrape_me(url)
@@ -76,28 +77,26 @@ def scrape_from_url(url: str) -> Recipe:
         try:
             scraped_schema = scrape_me(url, wild_mode=True)
         except (NoSchemaFoundInWildMode, AttributeError):
-            recipe = extract_open_graph_values(url)
-            if recipe.name != "":
-                return recipe
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
+            # Recipe_scraper was unable to extract a recipe.
+            return None
 
     except ConnectionError:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.CONNECTION_ERROR.value})
 
+    # Check to see if the recipe is valid
     try:
+        ingredients = scraped_schema.ingredients()
         instruct = scraped_schema.instructions()
     except Exception:
+        ingredients = []
         instruct = []
 
-    try:
-        ing = scraped_schema.ingredients()
-    except Exception:
-        ing = []
+    if instruct and ingredients:
+        return scraped_schema
 
-    if not instruct and not ing:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.NO_RECIPE_DATA.value})
-    else:
-        return clean_scraper(scraped_schema, url)
+    # recipe_scrapers did not get a valid recipe.
+    # Return None to let another scraper try.
+    return None
 
 
 def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> Recipe:
@@ -135,17 +134,22 @@ def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) ->
         except TypeError:
             return []
 
+    cook_time = try_get_default(None, "performTime", None, cleaner.clean_time) or try_get_default(
+        None, "cookTime", None, cleaner.clean_time
+    )
+
     return Recipe(
         name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
         slug="",
-        image=try_get_default(scraped_data.image, "image", None),
+        image=try_get_default(None, "image", None),
         description=try_get_default(None, "description", "", cleaner.clean_string),
+        nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
         recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
         recipe_ingredient=try_get_default(scraped_data.ingredients, "recipeIngredient", [""], cleaner.ingredient),
         recipe_instructions=get_instructions(),
         total_time=try_get_default(None, "totalTime", None, cleaner.clean_time),
         prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time),
-        perform_time=try_get_default(None, "performTime", None, cleaner.clean_time),
+        perform_time=cook_time,
         org_url=url,
     )
 
@@ -160,10 +164,3 @@ def download_image_for_recipe(slug, image_url) -> dict:
         img_name = None
 
     return img_name or "no image"
-
-
-def dump_last_json(recipe_data: dict):
-    with open(LAST_JSON, "w") as f:
-        f.write(json.dumps(recipe_data, indent=4, default=str))
-
-    return

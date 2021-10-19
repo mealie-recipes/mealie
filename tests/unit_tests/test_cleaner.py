@@ -1,5 +1,6 @@
 import json
 import re
+from datetime import timedelta
 
 import pytest
 
@@ -60,6 +61,24 @@ def test_clean_image():
 
 
 @pytest.mark.parametrize(
+    "nutrition,expected",
+    [
+        (None, {}),
+        ({"calories": "105 kcal"}, {"calories": "105"}),
+        ({"calories": "105 kcal 104 sugar"}, {"calories": "105"}),
+        ({"calories": ""}, {}),
+        ({"calories": ["not just a string"], "sugarContent": "but still tries 555.321"}, {"sugarContent": "555.321"}),
+        ({"sodiumContent": "5.1235g"}, {"sodiumContent": "5123.5"}),
+        ({"sodiumContent": "5mg"}, {"sodiumContent": "5"}),
+        ({"sodiumContent": "10oz"}, {"sodiumContent": "10"}),
+        ({"sodiumContent": "10.1.2g"}, {"sodiumContent": "10100.0"}),
+    ],
+)
+def test_clean_nutrition(nutrition, expected):
+    assert cleaner.clean_nutrition(nutrition) == expected
+
+
+@pytest.mark.parametrize(
     "instructions",
     [
         "A\n\nB\n\nC\n\n",
@@ -90,9 +109,29 @@ def test_html_with_recipe_data():
     assert url_validation_regex.match(recipe_data["image"])
 
 
-def test_time_cleaner():
+@pytest.mark.parametrize(
+    "time_delta,expected",
+    [
+        ("PT2H30M", "2 Hours 30 Minutes"),
+        ("PT30M", "30 Minutes"),
+        ("PT3H", "3 Hours"),
+        ("P1DT1H1M1S", "1 day 1 Hour 1 Minute 1 Second"),
+        ("P1DT1H1M1.53S", "1 day 1 Hour 1 Minute 1 Second"),
+        ("PT-3H", None),
+        ("PT", "none"),
+    ],
+)
+def test_time_cleaner(time_delta, expected):
+    assert cleaner.clean_time(time_delta) == expected
 
-    my_time_delta = "PT2H30M"
-    return_delta = cleaner.clean_time(my_time_delta)
 
-    assert return_delta == "2 Hours 30 Minutes"
+@pytest.mark.parametrize(
+    "t,max_components,max_decimal_places,expected",
+    [
+        (timedelta(days=2, seconds=17280), None, 2, "2 days 4 Hours 48 Minutes"),
+        (timedelta(days=2, seconds=17280), 1, 2, "2.2 days"),
+        (timedelta(days=365), None, 2, "1 year"),
+    ],
+)
+def test_pretty_print_timedelta(t, max_components, max_decimal_places, expected):
+    assert cleaner.pretty_print_timedelta(t, max_components, max_decimal_places) == expected
