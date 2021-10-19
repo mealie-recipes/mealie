@@ -1,4 +1,3 @@
-import json
 from enum import Enum
 from typing import Any, Callable, Optional
 from uuid import uuid4
@@ -8,16 +7,10 @@ from fastapi import HTTPException, status
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, WebsiteNotImplementedError, scrape_me
 from slugify import slugify
 
-from mealie.core.config import get_app_dirs
-
-app_dirs = get_app_dirs()
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe import Recipe, RecipeStep
 from mealie.services.image.image import scrape_image
 from mealie.services.scraper import cleaner, open_graph
-
-LAST_JSON = app_dirs.DEBUG_DIR.joinpath("last_recipe.json")
-
 
 logger = get_logger()
 
@@ -148,7 +141,7 @@ def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) ->
     return Recipe(
         name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
         slug="",
-        image=try_get_default(scraped_data.image, "image", None),
+        image=try_get_default(None, "image", None),
         description=try_get_default(None, "description", "", cleaner.clean_string),
         nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
         recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
@@ -171,10 +164,3 @@ def download_image_for_recipe(slug, image_url) -> dict:
         img_name = None
 
     return img_name or "no image"
-
-
-def dump_last_json(recipe_data: dict):
-    with open(LAST_JSON, "w") as f:
-        f.write(json.dumps(recipe_data, indent=4, default=str))
-
-    return
