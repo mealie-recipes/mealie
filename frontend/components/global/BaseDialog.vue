@@ -132,7 +132,6 @@ export default defineComponent({
       this.submitted = true;
     },
     open() {
-      console.log("Open Dialog");
       this.dialog = true;
     },
     close() {

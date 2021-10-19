@@ -54,9 +54,8 @@
             Manage your preferences, change your password, and update your email
           </UserProfileLinkCard>
         </v-col>
-        <v-col cols="12" sm="12" md="6">
+        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            v-if="user.advanced"
             :link="{ text: 'Manage Your API Tokens', to: '/user/profile/api-tokens' }"
             :image="require('~/static/svgs/manage-api-tokens.svg')"
           >
@@ -91,9 +90,8 @@
             Manage a collection of recipe categories and generate pages for them.
           </UserProfileLinkCard>
         </v-col>
-        <v-col cols="12" sm="12" md="6">
+        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            v-if="user.advanced"
             :link="{ text: 'Manage Webhooks', to: '/user/group/webhooks' }"
             :image="require('~/static/svgs/manage-webhooks.svg')"
           >
@@ -101,14 +99,22 @@
             Setup webhooks that trigger on days that you have have mealplan scheduled.
           </UserProfileLinkCard>
         </v-col>
-        <v-col cols="12" sm="12" md="6">
+        <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            v-if="user.canManage"
             :link="{ text: 'Manage Members', to: '/user/group/members' }"
             :image="require('~/static/svgs/manage-members.svg')"
           >
             <template #title> Members </template>
             See who's in your group and manage their permissions.
+          </UserProfileLinkCard>
+        </v-col>
+        <v-col cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: 'Manage Recipe Data', to: '/user/group/recipe-data' }"
+            :image="require('~/static/svgs/manage-recipes.svg')"
+          >
+            <template #title> Recipe Data </template>
+            Manage your recipe data and make bulk changes
           </UserProfileLinkCard>
         </v-col>
       </v-row>
@@ -127,6 +133,7 @@ export default defineComponent({
   components: {
     UserProfileLinkCard,
   },
+  scrollToTop: true,
   setup() {
     const { $auth } = useContext();
 

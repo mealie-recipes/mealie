@@ -16,6 +16,7 @@ import { AdminAboutAPI } from "./class-interfaces/admin-about";
 import { RegisterAPI } from "./class-interfaces/user-registration";
 import { MealPlanAPI } from "./class-interfaces/group-mealplan";
 import { EmailAPI } from "./class-interfaces/email";
+import { BulkActionsAPI } from "./class-interfaces/recipe-bulk-actions";
 import { ApiRequestInstance } from "~/types/api";
 
 class AdminAPI {
@@ -52,6 +53,7 @@ class Api {
   public register: RegisterAPI;
   public mealplans: MealPlanAPI;
   public email: EmailAPI;
+  public bulk: BulkActionsAPI;
 
   // Utils
   public upload: UploadFile;
@@ -86,6 +88,7 @@ class Api {
     this.utils = new UtilsAPI(requests);
 
     this.email = new EmailAPI(requests);
+    this.bulk = new BulkActionsAPI(requests);
 
     Object.freeze(this);
     Api.instance = this;
