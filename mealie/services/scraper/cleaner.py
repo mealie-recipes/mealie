@@ -205,9 +205,11 @@ def clean_time(time_entry):
     elif isinstance(time_entry, datetime):
         print(time_entry)
     elif isinstance(time_entry, str):
-        if re.match("PT.*H.*M", time_entry):
+        try:
             time_delta_object = parse_duration(time_entry)
             return pretty_print_timedelta(time_delta_object)
+        except ValueError:
+            logger.error(f"Could not parse time_entry `{time_entry}`")
     else:
         return str(time_entry)
 
@@ -222,14 +224,13 @@ def parse_duration(iso_duration):
     Returns:
         a datetime.timedelta instance
     """
-    m = re.match(r"^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:.\d+)?)S)?$", iso_duration)
+    m = re.match(
+        r"^P((\d+)Y)?((\d+)M)?((?P<days>\d+)D)?"
+        r"T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+(?:\.\d+)?)S)?$",
+        iso_duration,
+    )
     if m is None:
         raise ValueError("invalid ISO 8601 duration string")
-
-    days = 0
-    hours = 0
-    minutes = 0
-    seconds = 0.0
 
     # Years and months are not being utilized here, as there is not enough
     # information provided to determine which year and which month.
@@ -237,33 +238,20 @@ def parse_duration(iso_duration):
     # microseconds internally, and therefore we'd have to
     # convert parsed years and months to specific number of days.
 
-    if m[3]:
-        days = int(m[3])
-    if m[4]:
-        hours = int(m[4])
-    if m[5]:
-        minutes = int(m[5])
-    if m[6]:
-        seconds = float(m[6])
+    times = {"days": 0, "hours": 0, "minutes": 0, "seconds": 0}
+    for unit, _ in times.items():
+        if m.group(unit):
+            times[unit] = int(float(m.group(unit)))
 
-    return timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
+    return timedelta(**times)
 
 
-def pretty_print_timedelta(t, max_components=None, max_decimal_places=2):
+def pretty_print_timedelta(t: timedelta, max_components=None, max_decimal_places=2):
     """
     Print a pretty string for a timedelta.
-    For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days, 4 hours, 48 minutes'. Setting max_components to e.g. 1 will change this to '2.2 days', where the
+    For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days 4 Hours 48 Minutes'. Setting max_components to e.g. 1 will change this to '2.2 days', where the
     number of decimal points can also be set.
     """
-    time_scales = [
-        timedelta(days=365),
-        timedelta(days=1),
-        timedelta(hours=1),
-        timedelta(minutes=1),
-        timedelta(seconds=1),
-        timedelta(microseconds=1000),
-        timedelta(microseconds=1),
-    ]
     time_scale_names_dict = {
         timedelta(days=365): "year",
         timedelta(days=1): "day",
@@ -274,9 +262,8 @@ def pretty_print_timedelta(t, max_components=None, max_decimal_places=2):
         timedelta(microseconds=1): "microsecond",
     }
     count = 0
-    txt = ""
-    first = True
-    for scale in time_scales:
+    out_list = []
+    for scale, scale_name in time_scale_names_dict.items():
         if t >= scale:
             count += 1
             n = t / scale if count == max_components else int(t / scale)
@@ -285,15 +272,9 @@ def pretty_print_timedelta(t, max_components=None, max_decimal_places=2):
             n_txt = str(round(n, max_decimal_places))
             if n_txt[-2:] == ".0":
                 n_txt = n_txt[:-2]
-            txt += "{}{} {}{}".format(
-                "" if first else " ",
-                n_txt,
-                time_scale_names_dict[scale],
-                "s" if n > 1 else "",
-            )
-            if first:
-                first = False
 
-    if len(txt) == 0:
-        txt = "none"
-    return txt
+            out_list.append(f"{n_txt} {scale_name}{'s' if n > 1 else ''}")
+
+    if out_list == []:
+        return "none"
+    return " ".join(out_list)
