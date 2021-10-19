@@ -60,6 +60,24 @@ def test_clean_image():
 
 
 @pytest.mark.parametrize(
+    "nutrition,expected",
+    [
+        (None, {}),
+        ({"calories": "105 kcal"}, {"calories": "105"}),
+        ({"calories": "105 kcal 104 sugar"}, {"calories": "105"}),
+        ({"calories": ""}, {}),
+        ({"calories": ["not just a string"], "sugarContent": "but still tries 555.321"}, {"sugarContent": "555.321"}),
+        ({"sodiumContent": "5.1235g"}, {"sodiumContent": "5123.5"}),
+        ({"sodiumContent": "5mg"}, {"sodiumContent": "5"}),
+        ({"sodiumContent": "10oz"}, {"sodiumContent": "10"}),
+        ({"sodiumContent": "10.1.2g"}, {"sodiumContent": "10100.0"}),
+    ],
+)
+def test_clean_nutrition(nutrition, expected):
+    assert cleaner.clean_nutrition(nutrition) == expected
+
+
+@pytest.mark.parametrize(
     "instructions",
     [
         "A\n\nB\n\nC\n\n",
