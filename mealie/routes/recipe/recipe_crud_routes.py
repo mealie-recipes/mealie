@@ -4,7 +4,6 @@ from fastapi import Depends, File
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from scrape_schema_recipe import scrape_url
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
@@ -16,7 +15,7 @@ from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
 from mealie.schema.recipe.recipe import CreateRecipe, RecipeSummary
 from mealie.services.recipe.recipe_service import RecipeService
-from mealie.services.scraper.scraper import create_from_url
+from mealie.services.scraper.scraper import create_from_url, scrape_from_url
 
 user_router = UserAPIRouter()
 logger = get_logger()
@@ -44,8 +43,11 @@ def parse_recipe_url(url: CreateRecipeByURL, recipe_service: RecipeService = Dep
 
 @user_router.post("/test-scrape-url")
 def test_parse_recipe_url(url: CreateRecipeByURL):
-    # TODO: Replace with more current implementation of testing schema
-    return scrape_url(url.url)
+    # Debugger should produce the same result as the scraper sees before cleaning
+    scraped_data = scrape_from_url(url.url)
+    if scraped_data:
+        return scraped_data.schema.data
+    return "recipe_scrapers was unable to scrape this URL"
 
 
 @user_router.post("/create-from-zip", status_code=201)
