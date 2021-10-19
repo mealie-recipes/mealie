@@ -1,17 +1,18 @@
   <template>
   <v-menu offset-y>
     <template #activator="{ on, attrs }">
-      <v-btn color="primary" v-bind="attrs" :class="btnClass" v-on="on">
+      <v-btn color="primary" v-bind="attrs" :class="btnClass" :disabled="disabled" v-on="on">
         <v-icon v-if="activeObj.icon" left>
           {{ activeObj.icon }}
         </v-icon>
-        {{ activeObj.text }}
+        {{ mode === MODES.model ? activeObj.text : btnText }}
         <v-icon right>
           {{ $globals.icons.chevronDown }}
         </v-icon>
       </v-btn>
     </template>
-    <v-list>
+    <!--  Model -->
+    <v-list v-if="mode === MODES.model" dense>
       <v-list-item-group v-model="itemGroup">
         <v-list-item v-for="(item, index) in items" :key="index" @click="setValue(item)">
           <v-list-item-icon v-if="item.icon">
@@ -21,6 +22,26 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
+    <!--  Event -->
+    <v-list v-else-if="mode === MODES.link" dense>
+      <v-list-item-group v-model="itemGroup">
+        <v-list-item v-for="(item, index) in items" :key="index" :to="item.to">
+          <v-list-item-icon v-if="item.icon">
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ item.text }}</v-list-item-title>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+    <!--  Event -->
+    <v-list v-else-if="mode === MODES.event" dense>
+      <v-list-item v-for="(item, index) in items" :key="index" @click="$emit(item.event)">
+        <v-list-item-icon v-if="item.icon">
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>{{ item.text }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
   </v-menu>
 </template>
 
@@ -29,11 +50,27 @@ import { defineComponent, ref } from "@nuxtjs/composition-api";
 
 const INPUT_EVENT = "input";
 
+type modes = "model" | "link" | "event";
+
+const MODES = {
+  model: "model",
+  link: "link",
+  event: "event",
+};
+
 export default defineComponent({
   props: {
+    mode: {
+      type: String as () => modes,
+      default: "model",
+    },
     items: {
       type: Array,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
     },
     value: {
       type: String,
@@ -44,6 +81,11 @@ export default defineComponent({
       type: String,
       required: false,
       default: "",
+    },
+    btnText: {
+      type: String,
+      required: false,
+      default: "Actions",
     },
   },
   setup(props, context) {
@@ -70,6 +112,7 @@ export default defineComponent({
     }
 
     return {
+      MODES,
       activeObj,
       itemGroup,
       setValue,

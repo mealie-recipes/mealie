@@ -118,5 +118,5 @@ export const useRecipes = (all = false, fetchRecipes = true) => {
     getAllRecipes();
   }
 
-  return { getAllRecipes, assignSorted };
+  return { getAllRecipes, assignSorted, refreshRecipes };
 };
