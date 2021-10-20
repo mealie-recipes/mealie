@@ -80,7 +80,7 @@ class MigrationBase(BaseModel):
         return recipe_data
 
     @staticmethod
-    def csv_reader(csv_file: Path, sep="|", col_sep=",") -> Generator[dict,None,None]:
+    def csv_reader(csv_file: Path, sep=",", col_sep="|") -> Generator[dict,None,None]:
         """A helper function to read in a csv file from a Path. This assumes the
         following schema:
 

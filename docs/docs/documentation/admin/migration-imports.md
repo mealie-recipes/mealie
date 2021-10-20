@@ -24,13 +24,13 @@ nextcloud_recipes.zip
 ```
 
 ## CSV Import
-Imports lists of URLs from a CSV file, with optional tags and categories.
+Imports lists of URLs from a CSV file, with optional tags and categories. **Each CSV file can contain up to 10 rows**.
 
-The CSV file should be pipe (`|`) separated and contain one url per row. Tags and categories should be comma separated and are optional.
+The CSV file should be comma-separated and contain one url per row. Tags and categories should be pipe (`|`) separated and are optional.
 
 ```
 links|tags|categories
-https://www.smoking-meat.com/september-24-2015-smoked-pork-tenderloin|bbq,smoking,american|main
+https://www.smoking-meat.com/september-24-2015-smoked-pork-tenderloin,bbq|smoking|american,main
 https://bbqpitboys.com/smoked-whiskey-cheeseburgers/
 ```
 

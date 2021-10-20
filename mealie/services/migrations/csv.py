@@ -33,10 +33,8 @@ def migrate(session: Session, csv_path: Path, max_rows=10) -> list[MigrationImpo
             # Temporarily check the length
             for row in cur_csvs[:max_rows]:
                 # Scrape the recipe
-                try:
-                    recipe = create_from_url(row["url"])
-                except Exception:
-                    continue
+                recipe = create_from_url(row["url"])
+
                 if not recipe or recipe.name is None:
                     continue
                 # Keep count
