@@ -8,6 +8,7 @@
     :outlined="btnStyle.outlined"
     :text="btnStyle.text"
     :to="to"
+    v-bind="$attrs"
     v-on="$listeners"
     @click="download ? downloadFile() : undefined"
   >

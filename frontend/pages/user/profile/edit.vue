@@ -20,7 +20,7 @@
           </v-btn>
         </template>
         <template #default="{ state }">
-          <v-slide-x-transition>
+          <v-slide-x-transition leave-absolute hide-on-leave>
             <div v-if="!state" key="personal-info">
               <BaseCardSectionTitle class="mt-10" title="Personal Information"> </BaseCardSectionTitle>
               <v-card tag="article" outlined>
