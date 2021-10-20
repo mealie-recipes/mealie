@@ -112,7 +112,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.image = image
         self.recipeCuisine = recipeCuisine
 
-        self.nutrition = Nutrition(**nutrition) if self.nutrition else Nutrition()
+        self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
 
         self.tools = [Tool(tool=x) for x in tools] if tools else []
 
