@@ -39,7 +39,7 @@
                   ></v-text-field>
                 </v-card-text>
                 <v-card-actions class="justify-center">
-                  <div style="width: 200px">
+                  <div style="width: 250px">
                     <BaseButton rounded block type="submit" :loading="loading" />
                   </div>
                 </v-card-actions>
@@ -99,7 +99,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions class="justify-center">
-                <div style="width: 200px">
+                <div style="width: 250px">
                   <BaseButton rounded block :loading="loading" @click="createByName(newRecipeName)" />
                 </div>
               </v-card-actions>
@@ -130,8 +130,8 @@
                   </v-file-input>
                 </v-card-text>
                 <v-card-actions class="justify-center">
-                  <div style="width: 200px">
-                    <BaseButton rounded block :loading="loading" @click="createByZip" />
+                  <div style="width: 250px">
+                    <BaseButton large rounded block :loading="loading" @click="createByZip" />
                   </div>
                 </v-card-actions>
               </v-card>
@@ -162,7 +162,7 @@
                   ></v-text-field>
                 </v-card-text>
                 <v-card-actions class="justify-center">
-                  <div style="width: 200px">
+                  <div style="width: 250px">
                     <BaseButton rounded block type="submit" color="info" :loading="loading">
                       <template #icon>
                         {{ $globals.icons.robot }}
