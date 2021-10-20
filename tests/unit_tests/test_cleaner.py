@@ -2,6 +2,7 @@ import json
 import re
 
 import pytest
+from datetime import timedelta
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraper import open_graph
 from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
@@ -107,9 +108,29 @@ def test_html_with_recipe_data():
     assert url_validation_regex.match(recipe_data["image"])
 
 
-def test_time_cleaner():
+@pytest.mark.parametrize(
+    "time_delta,expected",
+    [
+        ("PT2H30M", "2 Hours 30 Minutes"),
+        ("PT30M", "30 Minutes"),
+        ("PT3H", "3 Hours"),
+        ("P1DT1H1M1S", "1 day 1 Hour 1 Minute 1 Second"),
+        ("P1DT1H1M1.53S", "1 day 1 Hour 1 Minute 1 Second"),
+        ("PT-3H", None),
+        ("PT", "none"),
+    ],
+)
+def test_time_cleaner(time_delta, expected):
+    assert cleaner.clean_time(time_delta) == expected
 
-    my_time_delta = "PT2H30M"
-    return_delta = cleaner.clean_time(my_time_delta)
 
-    assert return_delta == "2 Hours 30 Minutes"
+@pytest.mark.parametrize(
+    "t,max_components,max_decimal_places,expected",
+    [
+        (timedelta(days=2, seconds=17280), None, 2, "2 days 4 Hours 48 Minutes"),
+        (timedelta(days=2, seconds=17280), 1, 2, "2.2 days"),
+        (timedelta(days=365), None, 2, "1 year"),
+    ],
+)
+def test_pretty_print_timedelta(t, max_components, max_decimal_places, expected):
+    assert cleaner.pretty_print_timedelta(t, max_components, max_decimal_places) == expected
