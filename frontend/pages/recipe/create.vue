@@ -347,17 +347,21 @@ export default defineComponent({
   computed: {
     tab: {
       set(tab) {
+        // @ts-ignore
         this.$router.replace({ query: { ...this.$route.query, tab } });
       },
       get() {
+        // @ts-ignore
         return this.$route.query.tab;
       },
     },
     recipeUrl: {
       set(recipe_import_url) {
+        // @ts-ignore
         this.$router.replace({ query: { ...this.$route.query, recipe_import_url } });
       },
       get() {
+        // @ts-ignore
         return this.$route.query.recipe_import_url;
       },
     },
