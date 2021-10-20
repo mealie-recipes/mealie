@@ -10,6 +10,9 @@
         <slot> </slot>
       </h3>
     </section>
+    <section class="d-flex">
+      <slot name="content"></slot>
+    </section>
     <v-divider v-if="divider" class="my-4"></v-divider>
   </div>
 </template>
