@@ -78,7 +78,7 @@
     
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive, toRefs, ref } from "@nuxtjs/composition-api";
-import { CheckAppConfig } from "~/api/class-interfaces/admin-about";
+import { CheckAppConfig } from "~/api/admin/admin-about";
 import { useAdminApi, useApiSingleton } from "~/composables/use-api";
 import { validators } from "~/composables/use-validators";
 

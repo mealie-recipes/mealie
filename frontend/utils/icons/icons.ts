@@ -98,6 +98,8 @@ import {
   mdiBeakerOutline,
   mdiArrowLeftBoldOutline,
   mdiArrowRightBoldOutline,
+  mdiTimerSand,
+  mdiRefresh,
 } from "@mdi/js";
 
 export const icons = {
@@ -197,6 +199,8 @@ export const icons = {
   edit: mdiSquareEditOutline,
   close: mdiClose,
   minus: mdiMinus,
+  pending: mdiTimerSand,
+  refresh: mdiRefresh,
 
   // Organization
   tags: mdiTagMultipleOutline,

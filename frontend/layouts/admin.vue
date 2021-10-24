@@ -121,6 +121,11 @@ export default defineComponent({
         title: i18n.t("sidebar.backups"),
       },
       {
+        icon: $globals.icons.check,
+        to: "/admin/background-tasks",
+        title: "Background Tasks",
+      },
+      {
         icon: $globals.icons.slotMachine,
         to: "/admin/parser",
         title: "Parser",
