@@ -1,4 +1,4 @@
-import { BaseCRUDAPI } from "./_base";
+import { BaseCRUDAPI } from "../_base";
 import { UserIn, UserOut } from "~/types/api-types/user";
 
 // Interfaces

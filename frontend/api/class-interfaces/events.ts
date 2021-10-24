@@ -1,4 +1,4 @@
-import { BaseAPI } from "./_base";
+import { BaseAPI } from "../_base";
 
 export type EventCategory = "general" | "recipe" | "backup" | "scheduled" | "migration" | "group" | "user";
 

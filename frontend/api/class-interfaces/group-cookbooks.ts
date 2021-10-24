@@ -1,4 +1,4 @@
-import { BaseCRUDAPI } from "./_base";
+import { BaseCRUDAPI } from "../_base";
 import { Category } from "./categories";
 import { CategoryBase } from "~/types/api-types/recipe";
 

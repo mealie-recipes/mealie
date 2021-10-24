@@ -1,4 +1,4 @@
-import { BaseCRUDAPI } from "./_base";
+import { BaseCRUDAPI } from "../_base";
 
 export type EventCategory = "general" | "recipe" | "backup" | "scheduled" | "migration" | "group" | "user";
 export type DeclaredTypes = "General" | "Discord" | "Gotify" | "Pushover" | "Home Assistant";

@@ -1,4 +1,4 @@
-import { BaseAPI } from "./_base";
+import { BaseAPI } from "../_base";
 
 const prefix = "/api";
 

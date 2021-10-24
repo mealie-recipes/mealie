@@ -12,28 +12,13 @@ import { FoodAPI } from "./class-interfaces/recipe-foods";
 import { UnitAPI } from "./class-interfaces/recipe-units";
 import { CookbookAPI } from "./class-interfaces/group-cookbooks";
 import { WebhooksAPI } from "./class-interfaces/group-webhooks";
-import { AdminAboutAPI } from "./class-interfaces/admin-about";
 import { RegisterAPI } from "./class-interfaces/user-registration";
 import { MealPlanAPI } from "./class-interfaces/group-mealplan";
 import { EmailAPI } from "./class-interfaces/email";
 import { BulkActionsAPI } from "./class-interfaces/recipe-bulk-actions";
+import { GroupServerTaskAPI } from "./class-interfaces/group-tasks";
+import { AdminAPI } from "./admin-api";
 import { ApiRequestInstance } from "~/types/api";
-
-class AdminAPI {
-  private static instance: AdminAPI;
-  public about: AdminAboutAPI;
-
-  constructor(requests: ApiRequestInstance) {
-    if (AdminAPI.instance instanceof AdminAPI) {
-      return AdminAPI.instance;
-    }
-
-    this.about = new AdminAboutAPI(requests);
-
-    Object.freeze(this);
-    AdminAPI.instance = this;
-  }
-}
 
 class Api {
   private static instance: Api;
@@ -54,6 +39,7 @@ class Api {
   public mealplans: MealPlanAPI;
   public email: EmailAPI;
   public bulk: BulkActionsAPI;
+  public grouperServerTasks: GroupServerTaskAPI;
 
   // Utils
   public upload: UploadFile;
@@ -77,6 +63,7 @@ class Api {
     this.groupWebhooks = new WebhooksAPI(requests);
     this.register = new RegisterAPI(requests);
     this.mealplans = new MealPlanAPI(requests);
+    this.grouperServerTasks = new GroupServerTaskAPI(requests);
 
     // Admin
     this.events = new EventsAPI(requests);

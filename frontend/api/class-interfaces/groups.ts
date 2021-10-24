@@ -1,4 +1,4 @@
-import { BaseCRUDAPI } from "./_base";
+import { BaseCRUDAPI } from "../_base";
 import { GroupInDB, UserOut } from "~/types/api-types/user";
 
 const prefix = "/api";
