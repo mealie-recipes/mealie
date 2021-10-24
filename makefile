@@ -26,7 +26,7 @@ help:
 purge: clean ## ⚠️  Removes All Developer Data for a fresh server start
 	rm -r ./dev/data/recipes/
 	rm -r ./dev/data/users/
-	rm -f ./dev/data/mealie_v*.db
+	rm -f ./dev/data/mealie*.db
 	rm -f ./dev/data/mealie.log
 	rm -f ./dev/data/.secret
 
