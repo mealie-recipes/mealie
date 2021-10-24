@@ -9,8 +9,8 @@ from sqlalchemy.orm.session import Session
 @as_declarative()
 class Base:
     id = Column(Integer, primary_key=True)
-    created_at = Column(DateTime, default=datetime.now())
-    update_at = Column(DateTime, default=datetime.now(), onupdate=datetime.now())
+    created_at = Column(DateTime, default=datetime.now)
+    update_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
 
 class BaseMixins:

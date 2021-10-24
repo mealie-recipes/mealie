@@ -13,6 +13,7 @@ from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.server.task import ServerTaskModel
 from mealie.db.models.settings import SiteSettings
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
@@ -27,6 +28,7 @@ from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.recipe import CommentOut, Recipe, RecipeCategoryResponse, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
 
@@ -70,15 +72,15 @@ class Database:
         return RecipeDataAccessModel(self.session, pk_slug, RecipeModel, Recipe)
 
     @cached_property
-    def ingredient_foods(self) -> AccessModel:
+    def ingredient_foods(self) -> AccessModel[IngredientFood, IngredientFoodModel]:
         return AccessModel(self.session, pk_id, IngredientFoodModel, IngredientFood)
 
     @cached_property
-    def ingredient_units(self) -> AccessModel:
+    def ingredient_units(self) -> AccessModel[IngredientUnit, IngredientUnitModel]:
         return AccessModel(self.session, pk_id, IngredientUnitModel, IngredientUnit)
 
     @cached_property
-    def comments(self) -> AccessModel:
+    def comments(self) -> AccessModel[CommentOut, RecipeComment]:
         return AccessModel(self.session, pk_id, RecipeComment, CommentOut)
 
     @cached_property
@@ -93,19 +95,19 @@ class Database:
     # Site Items
 
     @cached_property
-    def settings(self) -> AccessModel:
+    def settings(self) -> AccessModel[SiteSettingsSchema, SiteSettings]:
         return AccessModel(self.session, pk_id, SiteSettings, SiteSettingsSchema)
 
     @cached_property
-    def sign_up(self) -> AccessModel:
+    def sign_up(self) -> AccessModel[SignUpOut, SignUp]:
         return AccessModel(self.session, pk_id, SignUp, SignUpOut)
 
     @cached_property
-    def event_notifications(self) -> AccessModel:
+    def event_notifications(self) -> AccessModel[EventNotificationIn, EventNotification]:
         return AccessModel(self.session, pk_id, EventNotification, EventNotificationIn)
 
     @cached_property
-    def events(self) -> AccessModel:
+    def events(self) -> AccessModel[EventSchema, Event]:
         return AccessModel(self.session, pk_id, Event, EventSchema)
 
     # ================================================================
@@ -116,7 +118,7 @@ class Database:
         return UserDataAccessModel(self.session, pk_id, User, PrivateUser)
 
     @cached_property
-    def api_tokens(self) -> AccessModel:
+    def api_tokens(self) -> AccessModel[LongLiveTokenInDB, LongLiveToken]:
         return AccessModel(self.session, pk_id, LongLiveToken, LongLiveTokenInDB)
 
     @cached_property
@@ -127,15 +129,19 @@ class Database:
     # Group Items
 
     @cached_property
+    def server_tasks(self) -> AccessModel[ServerTask, ServerTaskModel]:
+        return AccessModel(self.session, pk_id, ServerTaskModel, ServerTask)
+
+    @cached_property
     def groups(self) -> GroupDataAccessModel:
         return GroupDataAccessModel(self.session, pk_id, Group, GroupInDB)
 
     @cached_property
-    def group_invite_tokens(self) -> AccessModel:
+    def group_invite_tokens(self) -> AccessModel[ReadInviteToken, GroupInviteToken]:
         return AccessModel(self.session, pk_token, GroupInviteToken, ReadInviteToken)
 
     @cached_property
-    def group_preferences(self) -> AccessModel:
+    def group_preferences(self) -> AccessModel[ReadGroupPreferences, GroupPreferencesModel]:
         return AccessModel(self.session, "group_id", GroupPreferencesModel, ReadGroupPreferences)
 
     @cached_property
@@ -143,9 +149,9 @@ class Database:
         return MealDataAccessModel(self.session, pk_id, GroupMealPlan, ReadPlanEntry)
 
     @cached_property
-    def cookbooks(self) -> AccessModel:
+    def cookbooks(self) -> AccessModel[ReadCookBook, CookBook]:
         return AccessModel(self.session, pk_id, CookBook, ReadCookBook)
 
     @cached_property
-    def webhooks(self) -> AccessModel:
+    def webhooks(self) -> AccessModel[ReadWebhook, GroupWebhooksModel]:
         return AccessModel(self.session, pk_id, GroupWebhooksModel, ReadWebhook)

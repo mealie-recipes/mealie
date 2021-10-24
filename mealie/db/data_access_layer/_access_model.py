@@ -41,22 +41,41 @@ class AccessModel(Generic[T, D]):
     def get_all(self, limit: int = None, order_by: str = None, start=0, override_schema=None) -> list[T]:
         eff_schema = override_schema or self.schema
 
+        order_attr = None
         if order_by:
             order_attr = getattr(self.sql_model, str(order_by))
+            order_attr = order_attr.desc()
 
             return [
                 eff_schema.from_orm(x)
-                for x in self.session.query(self.sql_model).order_by(order_attr.desc()).offset(start).limit(limit).all()
+                for x in self.session.query(self.sql_model).order_by(order_attr).offset(start).limit(limit).all()
             ]
 
         return [eff_schema.from_orm(x) for x in self.session.query(self.sql_model).offset(start).limit(limit).all()]
 
-    def multi_query(self, query_by: dict[str, str], start=0, limit: int = None, override_schema=None) -> list[T]:
+    def multi_query(
+        self,
+        query_by: dict[str, str],
+        start=0,
+        limit: int = None,
+        override_schema=None,
+        order_by: str = None,
+    ) -> list[T]:
         eff_schema = override_schema or self.schema
+
+        order_attr = None
+        if order_by:
+            order_attr = getattr(self.sql_model, str(order_by))
+            order_attr = order_attr.desc()
 
         return [
             eff_schema.from_orm(x)
-            for x in self.session.query(self.sql_model).filter_by(**query_by).offset(start).limit(limit).all()
+            for x in self.session.query(self.sql_model)
+            .filter_by(**query_by)
+            .order_by(order_attr)
+            .offset(start)
+            .limit(limit)
+            .all()
         ]
 
     def get_all_limit_columns(self, fields: list[str], limit: int = None) -> list[D]:

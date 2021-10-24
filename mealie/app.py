@@ -93,7 +93,7 @@ def main():
         reload_dirs=["mealie"],
         reload_delay=2,
         debug=True,
-        log_level="debug",
+        log_level="info",
         use_colors=True,
         log_config=None,
         workers=1,

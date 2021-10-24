@@ -4,6 +4,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.db.models.group.invite_tokens import GroupInviteToken
+from mealie.db.models.server.task import ServerTaskModel
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
@@ -42,6 +43,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     )
     webhooks = orm.relationship(GroupWebhooksModel, uselist=True, cascade="all, delete-orphan")
     cookbooks = orm.relationship(CookBook, back_populates="group", single_parent=True)
+    server_tasks = orm.relationship(ServerTaskModel, back_populates="group", single_parent=True)
     shopping_lists = orm.relationship("ShoppingList", back_populates="group", single_parent=True)
 
     @auto_init({"users", "webhooks", "shopping_lists", "cookbooks", "preferences", "invite_tokens", "mealplans"})
