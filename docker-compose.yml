@@ -16,16 +16,6 @@ services:
       - API_URL=http://mealie-api:80
 
       # =====================================
-      # Email Configuration
-      # - SMTP_HOST=
-      # - SMTP_PORT=587
-      # - SMTP_FROM_NAME=Mealie
-      # - SMTP_TLS=true
-      # - SMTP_FROM_EMAIL=
-      # - SMTP_USER=
-      # - SMTP_PASSWORD=
-
-      # =====================================
       # Light Mode Config
       - THEME_LIGHT_PRIMARY=#E58325
       - THEME_LIGHT_ACCENT=#007A99
@@ -62,6 +52,17 @@ services:
       WORKERS_PER_CORE: 0.5
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
+
+      # =====================================
+      # Email Configuration
+      # - SMTP_HOST=
+      # - SMTP_PORT=587
+      # - SMTP_FROM_NAME=Mealie
+      # - SMTP_TLS=true
+      # - SMTP_FROM_EMAIL=
+      # - SMTP_USER=
+      # - SMTP_PASSWORD=
+
   postgres:
     container_name: postgres
     image: postgres
