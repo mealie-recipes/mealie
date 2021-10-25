@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
-import os 
+import os
 import glob
 from mealie.schema.migration import MigrationImport
 from mealie.services.migrations import helpers
@@ -55,7 +55,7 @@ def migrate(session: Session, csv_path: Path, max_rows=10) -> list[MigrationImpo
         csv_migration.import_recipes_to_database(all_recipes)
     if len(cur_csvs) > max_rows:
         # TODO: this needs to be removed w/ the async queue
-        err = f"Can only import {max_rows} recipes at once. Please reduce the import size per CSV!"
+        err = f"Can only import {max_rows} recipes at once. Please reduce the import size to 10 per zipped CSV!"
         csv_migration.migration_report.append(MigrationImport(slug="", name=err, status=False, exception=err))
     # If this were a generator, we could return partial results
     return csv_migration.migration_report

@@ -80,7 +80,7 @@ class MigrationBase(BaseModel):
         return recipe_data
 
     @staticmethod
-    def csv_reader(csv_file: Path, sep=",", col_sep="|") -> Generator[dict,None,None]:
+    def csv_reader(csv_file: Path, sep=",", col_sep="|") -> Generator[dict, None, None]:
         """A helper function to read in a csv file from a Path. This assumes the
         following schema:
 
@@ -107,12 +107,7 @@ class MigrationBase(BaseModel):
                     tags = row[1].split(col_sep)
                 if len(row) > 2:
                     categories = row[2].split(col_sep)
-                yield {
-                    "url": row[0],
-                    "tags": tags,
-                    "categories": categories
-                }
-
+                yield {"url": row[0], "tags": tags, "categories": categories}
 
     @staticmethod
     def glob_walker(directory: Path, glob_str: str, return_parent=True) -> list[Path]:  # TODO:
