@@ -12,10 +12,12 @@ from mealie.core.root_logger import get_logger
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeImageTypes
-from mealie.schema.recipe.recipe import CreateRecipe, RecipeSummary
+from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeImageTypes
+from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
+from mealie.schema.server.tasks import ServerTaskNames
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.scraper.scraper import create_from_url, scrape_from_url
+from mealie.services.server_tasks.background_executory import BackgroundExecutor
 
 user_router = UserAPIRouter()
 logger = get_logger()
@@ -34,15 +36,55 @@ def create_from_name(data: CreateRecipe, recipe_service: RecipeService = Depends
 
 
 @user_router.post("/create-url", status_code=201, response_model=str)
-def parse_recipe_url(url: CreateRecipeByURL, recipe_service: RecipeService = Depends(RecipeService.private)):
+def parse_recipe_url(url: CreateRecipeByUrl, recipe_service: RecipeService = Depends(RecipeService.private)):
     """ Takes in a URL and attempts to scrape data and load it into the database """
-
     recipe = create_from_url(url.url)
     return recipe_service.create_one(recipe).slug
 
 
+@user_router.post("/create-url/bulk", status_code=202)
+def parse_recipe_url_bulk(
+    bulk: CreateRecipeByUrlBulk,
+    recipe_service: RecipeService = Depends(RecipeService.private),
+    bg_service: BackgroundExecutor = Depends(BackgroundExecutor.private),
+):
+    """ Takes in a URL and attempts to scrape data and load it into the database """
+
+    def bulk_import_func(task_id: int, session: Session) -> None:
+        database = get_database(session)
+        task = database.server_tasks.get_one(task_id)
+
+        task.append_log("test task has started")
+
+        for b in bulk.imports:
+            try:
+                recipe = create_from_url(b.url)
+
+                if b.tags:
+                    recipe.tags = b.tags
+
+                if b.categories:
+                    recipe.recipe_category = b.categories
+
+                recipe_service.create_one(recipe)
+                task.append_log(f"INFO: Created recipe from url: {b.url}")
+            except Exception as e:
+                task.append_log(f"Error: Failed to create recipe from url: {b.url}")
+                task.append_log(f"Error: {e}")
+                logger.error(f"Failed to create recipe from url: {b.url}")
+                logger.error(e)
+            database.server_tasks.update(task.id, task)
+
+        task.set_finished()
+        database.server_tasks.update(task.id, task)
+
+    bg_service.dispatch(ServerTaskNames.bulk_recipe_import, bulk_import_func)
+
+    return {"details": "task has been started"}
+
+
 @user_router.post("/test-scrape-url")
-def test_parse_recipe_url(url: CreateRecipeByURL):
+def test_parse_recipe_url(url: CreateRecipeByUrl):
     # Debugger should produce the same result as the scraper sees before cleaning
     scraped_data = scrape_from_url(url.url)
     if scraped_data:
@@ -73,11 +115,8 @@ async def get_recipe_as_zip(
 ):
     """ Get a Recipe and It's Original Image as a Zip File """
     db = get_database(session)
-
     recipe: Recipe = db.recipes.get(slug)
-
     image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
-
     with ZipFile(temp_path, "w") as myzip:
         myzip.writestr(f"{slug}.json", recipe.json())
 

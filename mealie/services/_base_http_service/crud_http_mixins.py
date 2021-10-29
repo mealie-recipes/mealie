@@ -37,6 +37,7 @@ class CrudHttpMixins(Generic[C, R, U], ABC):
             self.item = self.dal.create(data)
         except Exception as ex:
             logger.exception(ex)
+            self.session.rollback()
 
             msg = default_msg
             if exception_msgs:

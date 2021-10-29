@@ -110,8 +110,8 @@
               />
             </draggable>
             <div class="d-flex justify-end mt-2">
-              <RecipeIngredientParserMenu class="mr-1" :slug="recipe.slug" :ingredients="recipe.recipeIngredient" />
-              <RecipeDialogBulkAdd class="mr-1" @bulk-data="addIngredient" />
+              <RecipeIngredientParserMenu :slug="recipe.slug" :ingredients="recipe.recipeIngredient" />
+              <RecipeDialogBulkAdd class="ml-1 mr-1" @bulk-data="addIngredient" />
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
           </div>
@@ -228,6 +228,30 @@
               <RecipeNotes v-model="recipe.notes" :edit="form" />
             </v-col>
           </v-row>
+
+          <v-card-actions class="justify-end">
+            <v-text-field
+              v-if="form"
+              v-model="recipe.orgURL"
+              class="mt-10"
+              :label="$t('recipe.original-url')"
+            ></v-text-field>
+            <v-btn
+              v-else-if="recipe.orgURL"
+              dense
+              small
+              :hover="false"
+              type="label"
+              :ripple="false"
+              elevation="0"
+              :href="recipe.orgURL"
+              color="secondary darken-1"
+              target="_blank"
+              class="rounded-sm mr-4"
+            >
+              {{ $t("recipe.original-url") }}
+            </v-btn>
+          </v-card-actions>
         </v-card-text>
       </div>
     </v-card>

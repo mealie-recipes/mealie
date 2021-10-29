@@ -43,12 +43,8 @@ def clean_string(text: str) -> str:
     if isinstance(text, list):
         text = text[0]
 
-    print(type(text))
-
     if text == "" or text is None:
         return ""
-
-    print(text)
 
     cleaned_text = html.unescape(text)
     cleaned_text = re.sub("<[^<]+?>", "", cleaned_text)
@@ -201,9 +197,10 @@ def clean_time(time_entry):
     if time_entry is None:
         return None
     elif isinstance(time_entry, timedelta):
-        pretty_print_timedelta(time_entry)
+        return pretty_print_timedelta(time_entry)
     elif isinstance(time_entry, datetime):
-        print(time_entry)
+        pass
+        # print(time_entry)
     elif isinstance(time_entry, str):
         try:
             time_delta_object = parse_duration(time_entry)

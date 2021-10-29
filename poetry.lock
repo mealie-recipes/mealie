@@ -373,6 +373,19 @@ pycodestyle = ">=2.7.0,<2.8.0"
 pyflakes = ">=2.3.0,<2.4.0"
 
 [[package]]
+name = "flake8-print"
+version = "4.0.0"
+description = "print statement checker plugin for flake8"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+flake8 = ">=3.0"
+pycodestyle = "*"
+six = "*"
+
+[[package]]
 name = "ghp-import"
 version = "2.0.2"
 description = "Copy your docs directly to the gh-pages branch."
@@ -1381,7 +1394,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "89271346f576de3d209ae69639ab7227c03bb8512a1671905a48407d76371ba9"
+content-hash = "31d3ee104998ad61b18322584c0cc84de32dbad0dc7657c9f7b7ae8214dae9c3"
 
 [metadata.files]
 aiofiles = [
@@ -1618,6 +1631,10 @@ fastapi-camelcase = [
 flake8 = [
     {file = "flake8-3.9.2-py2.py3-none-any.whl", hash = "sha256:bf8fd333346d844f616e8d47905ef3a3384edae6b4e9beb0c5101e25e3110907"},
     {file = "flake8-3.9.2.tar.gz", hash = "sha256:07528381786f2a6237b061f6e96610a4167b226cb926e2aa2b6b1d78057c576b"},
+]
+flake8-print = [
+    {file = "flake8-print-4.0.0.tar.gz", hash = "sha256:5afac374b7dc49aac2c36d04b5eb1d746d72e6f5df75a6ecaecd99e9f79c6516"},
+    {file = "flake8_print-4.0.0-py3-none-any.whl", hash = "sha256:6c0efce658513169f96d7a24cf136c434dc711eb00ebd0a985eb1120103fe584"},
 ]
 ghp-import = [
     {file = "ghp-import-2.0.2.tar.gz", hash = "sha256:947b3771f11be850c852c64b561c600fdddf794bab363060854c1ee7ad05e071"},

@@ -92,7 +92,7 @@
           @end="onMoveCallback"
         >
           <v-card v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" class="my-1">
-            <v-list-item>
+            <v-list-item :to="edit ? null : `/recipe/${mealplan.recipe.slug}`">
               <v-list-item-avatar :rounded="false">
                 <RecipeCardImage v-if="mealplan.recipe" tiny icon-size="25" :slug="mealplan.recipe.slug" />
                 <v-icon v-else>
@@ -108,8 +108,8 @@
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-            <v-divider class="mx-2"></v-divider>
-            <v-card-actions>
+            <v-divider v-if="edit" class="mx-2"></v-divider>
+            <v-card-actions v-if="edit">
               <v-btn color="error" icon @click="actions.deleteOne(mealplan.id)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>

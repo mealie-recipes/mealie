@@ -1,3 +1,5 @@
+//TODO: Prevent fetching Categories/Tags multiple time when selector is on page multiple times
+
 <template>
   <v-autocomplete
     v-model="selected"
@@ -14,12 +16,14 @@
     :solo="solo"
     :return-object="returnObject"
     :flat="flat"
+    v-bind="$attrs"
     @input="emitChange"
   >
     <template #selection="data">
       <v-chip
         v-if="showSelected"
         :key="data.index"
+        :small="dense"
         class="ma-1"
         :input-value="data.selected"
         close

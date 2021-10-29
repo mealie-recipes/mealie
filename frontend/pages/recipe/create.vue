@@ -142,7 +142,7 @@
           <v-tab-item value="debug" eager>
             <v-form ref="domUrlForm" @submit.prevent="debugUrl(recipeUrl)">
               <v-card flat>
-                <v-card-title class="headline"> Recipe Debugger</v-card-title>
+                <v-card-title class="headline"> Recipe Importer </v-card-title>
                 <v-card-text>
                   Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe
                   scraper and the results will be displayed. If you don't see any data returned, the site you are trying
@@ -174,6 +174,17 @@
               </v-card>
             </v-form>
           </v-tab-item>
+
+          <v-tab-item value="bulk" eager>
+            <v-card flat>
+              <v-card-title class="headline"> Recipe Bulk Importer </v-card-title>
+              <v-card-text>
+                The Bulk recipe importer allows you to import multiple recipes at once by queing the sites on the
+                backend and running the task in the background. This can be useful when initially migrating to Mealie,
+                or when you want to import a large number of recipes.
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
         </v-tabs-items>
       </section>
       <v-divider class="mt-5"></v-divider>
@@ -195,6 +206,74 @@
           height="700px"
         />
       </section>
+      <!--  Debug Extras -->
+      <section v-else-if="tab === 'bulk'" class="mt-2">
+        <v-row v-for="(bulkUrl, idx) in bulkUrls" :key="'bulk-url' + idx" class="my-1" dense>
+          <v-col cols="12" xs="12" sm="12" md="12">
+            <v-text-field
+              v-model="bulkUrls[idx].url"
+              :label="$t('new-recipe.recipe-url')"
+              dense
+              single-line
+              validate-on-blur
+              autofocus
+              filled
+              hide-details
+              clearable
+              :prepend-inner-icon="$globals.icons.link"
+              rounded
+              class="rounded-lg"
+            >
+              <template #append>
+                <v-btn color="error" icon x-small @click="bulkUrls.splice(idx, 1)">
+                  <v-icon>
+                    {{ $globals.icons.delete }}
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" xs="12" sm="6">
+            <RecipeCategoryTagSelector
+              v-model="bulkUrls[idx].categories"
+              validate-on-blur
+              autofocus
+              single-line
+              filled
+              hide-details
+              dense
+              clearable
+              rounded
+              class="rounded-lg"
+            ></RecipeCategoryTagSelector>
+          </v-col>
+          <v-col cols="12" xs="12" sm="6">
+            <RecipeCategoryTagSelector
+              v-model="bulkUrls[idx].tags"
+              validate-on-blur
+              autofocus
+              tag-selector
+              hide-details
+              filled
+              dense
+              single-line
+              clearable
+              rounded
+              class="rounded-lg"
+            ></RecipeCategoryTagSelector>
+          </v-col>
+        </v-row>
+        <v-card-actions class="justify-end">
+          <BaseButton delete @click="bulkUrls = []"> Clear </BaseButton>
+          <v-spacer></v-spacer>
+          <BaseButton color="info" @click="bulkUrls.push({ url: '', categories: [], tags: [] })">
+            <template #icon> {{ $globals.icons.createAlt }} </template> New
+          </BaseButton>
+          <BaseButton :disabled="bulkUrls.length === 0" @click="bulkCreate">
+            <template #icon> {{ $globals.icons.check }} </template> Submit
+          </BaseButton>
+        </v-card-actions>
+      </section>
     </v-container>
   </div>
 </template>
@@ -204,10 +283,12 @@ import { defineComponent, reactive, toRefs, ref, useRouter, useContext } from "@
 // @ts-ignore No Types for v-jsoneditor
 import VJsoneditor from "v-jsoneditor";
 import { useApiSingleton } from "~/composables/use-api";
+import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import { validators } from "~/composables/use-validators";
 import { Recipe } from "~/types/api-types/recipe";
+import { alert } from "~/composables/use-toast";
 export default defineComponent({
-  components: { VJsoneditor },
+  components: { VJsoneditor, RecipeCategoryTagSelector },
   setup() {
     const state = reactive({
       error: false,
@@ -234,6 +315,11 @@ export default defineComponent({
         value: "zip",
       },
       {
+        icon: $globals.icons.link,
+        text: "Bulk URL Import",
+        value: "bulk",
+      },
+      {
         icon: $globals.icons.robot,
         text: "Debug Scraper",
         value: "debug",
@@ -249,7 +335,6 @@ export default defineComponent({
         state.loading = false;
         return;
       }
-      console.log(response);
       router.push(`/recipe/${response.data}`);
     }
 
@@ -300,7 +385,6 @@ export default defineComponent({
         return;
       }
       const { response } = await api.recipes.createOne({ name });
-      console.log("Create By Name Func", response);
       handleResponse(response);
     }
 
@@ -318,11 +402,31 @@ export default defineComponent({
       formData.append(newRecipeZipFileName, newRecipeZip.value);
 
       const { response } = await api.upload.file("/api/recipes/create-from-zip", formData);
-      console.log(response);
       handleResponse(response);
     }
 
+    // ===================================================
+    // Bulk Importer
+
+    const bulkUrls = ref([{ url: "", categories: [], tags: [] }]);
+
+    async function bulkCreate() {
+      if (bulkUrls.value.length === 0) {
+        return;
+      }
+
+      const { response } = await api.recipes.createManyByUrl({ imports: bulkUrls.value });
+
+      if (response?.status === 202) {
+        alert.success("Bulk Import process has started");
+      } else {
+        alert.error("Bulk import process has failed");
+      }
+    }
+
     return {
+      bulkCreate,
+      bulkUrls,
       debugTreeView,
       tabs,
       domCreateByName,

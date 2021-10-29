@@ -1,4 +1,6 @@
 import { BaseCRUDAPI } from "../_base";
+import { Category } from "./categories";
+import { Tag } from "./tags";
 import { Recipe, CreateRecipe } from "~/types/api-types/recipe";
 
 const prefix = "/api";
@@ -8,6 +10,7 @@ const routes = {
   recipesBase: `${prefix}/recipes`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
   recipesCreateUrl: `${prefix}/recipes/create-url`,
+  recipesCreateUrlBulk: `${prefix}/recipes/create-url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create-from-zip`,
   recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
@@ -59,6 +62,16 @@ export interface ParsedIngredient {
   ingredient: Ingredient;
 }
 
+export interface BulkCreateRecipe {
+  url: string;
+  categories: Category[];
+  tags: Tag[];
+}
+
+export interface BulkCreatePayload {
+  imports: BulkCreateRecipe[];
+}
+
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
@@ -88,6 +101,10 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
 
   async createOneByUrl(url: string) {
     return await this.requests.post(routes.recipesCreateUrl, { url });
+  }
+
+  async createManyByUrl(payload: BulkCreatePayload) {
+    return await this.requests.post(routes.recipesCreateUrlBulk, payload);
   }
 
   // Recipe Comments

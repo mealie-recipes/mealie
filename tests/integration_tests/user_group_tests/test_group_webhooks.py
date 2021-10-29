@@ -28,8 +28,6 @@ def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_dat
 
     webhook = response.json()
 
-    print(webhook)
-
     assert webhook["id"]
     assert webhook["name"] == webhook_data["name"]
     assert webhook["url"] == webhook_data["url"]

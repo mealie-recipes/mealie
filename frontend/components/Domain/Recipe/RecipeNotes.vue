@@ -26,9 +26,7 @@
     </v-card>
 
     <div v-if="edit" class="d-flex justify-end">
-      <v-btn class="mt-1" color="secondary" dark @click="addNote">
-        <v-icon>{{ $globals.icons.create }}</v-icon>
-      </v-btn>
+      <BaseButton class="ml-auto my-2" @click="addNote"> {{ $t("general.new") }}</BaseButton>
     </div>
   </div>
 </template>
