@@ -33,7 +33,6 @@ async def check_email_config():
 
 @router.post("", response_model=EmailSuccess)
 async def send_test_email(data: EmailTest):
-    print(data)
     service = EmailService()
     status = False
     error = None
