@@ -71,8 +71,8 @@ def parse_recipe_url_bulk(
             except Exception as e:
                 task.append_log(f"Error: Failed to create recipe from url: {b.url}")
                 task.append_log(f"Error: {e}")
-                # logger.error(f"Failed to create recipe from url: {b.url}")
-                # logger.error(e)
+                logger.error(f"Failed to create recipe from url: {b.url}")
+                logger.error(e)
             database.server_tasks.update(task.id, task)
 
         task.set_finished()
