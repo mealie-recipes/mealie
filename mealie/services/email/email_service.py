@@ -73,14 +73,3 @@ class EmailService(BaseService):
             button_text="Test Email",
         )
         return self.send_email(address, test_email)
-
-
-def main():
-    print("Starting...")
-    service = EmailService()
-    service.send_test_email("hay-kot@pm.me")
-    print("Finished...")
-
-
-if __name__ == "__main__":
-    main()

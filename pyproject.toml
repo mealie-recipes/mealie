@@ -50,6 +50,7 @@ pydantic-to-typescript = "^1.0.7"
 rich = "^10.7.0"
 isort = "^5.9.3"
 regex = "2021.9.30" # TODO: Remove during Upgrade -> https://github.com/psf/black/issues/2524
+flake8-print = "^4.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

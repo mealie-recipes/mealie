@@ -47,7 +47,6 @@ def register_user(api_client, invite):
     registration.group_token = invite
 
     response = api_client.post(Routes.register, json=registration.dict(by_alias=True))
-    print(response.json())
     return registration, response
 
 

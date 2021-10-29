@@ -73,5 +73,4 @@ def test_delete_food(api_client: TestClient, food: dict, unique_user: TestUser):
     assert response.status_code == 200
 
     response = api_client.get(Routes.item(id), headers=unique_user.token)
-    print(response.json())
     assert response.status_code == 404
