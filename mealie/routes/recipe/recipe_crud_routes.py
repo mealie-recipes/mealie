@@ -73,7 +73,6 @@ def parse_recipe_url_bulk(
                 task.append_log(f"Error: {e}")
                 # logger.error(f"Failed to create recipe from url: {b.url}")
                 # logger.error(e)
-            print("Hello World")
             database.server_tasks.update(task.id, task)
 
         task.set_finished()
