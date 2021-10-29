@@ -8,17 +8,14 @@ from sqlalchemy.orm.session import Session
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.recipe import CreateRecipeByURL, Recipe, RecipeAsset
+from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeAsset
 from mealie.services.image.image import scrape_image, write_image
 
 user_router = UserAPIRouter()
 
 
 @user_router.post("/{slug}/image")
-def scrape_image_url(
-    slug: str,
-    url: CreateRecipeByURL,
-):
+def scrape_image_url(slug: str, url: CreateRecipeByUrl):
     """ Removes an existing image and replaces it with the incoming file. """
 
     scrape_image(url.url, slug)

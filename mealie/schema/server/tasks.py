@@ -8,6 +8,7 @@ from pydantic import Field
 class ServerTaskNames(str, enum.Enum):
     default = "Background Task"
     backup_task = "Database Backup"
+    bulk_recipe_import = "Bulk Recipe Import"
 
 
 class ServerTaskStatus(str, enum.Enum):

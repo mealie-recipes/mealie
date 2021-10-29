@@ -21,17 +21,6 @@ from .recipe_step import RecipeStep
 app_dirs = get_app_dirs()
 
 
-class CreateRecipeByURL(BaseModel):
-    url: str
-
-    class Config:
-        schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes"}}
-
-
-class CreateRecipe(CamelModel):
-    name: str
-
-
 class RecipeTag(CamelModel):
     name: str
     slug: str
@@ -42,6 +31,27 @@ class RecipeTag(CamelModel):
 
 class RecipeCategory(RecipeTag):
     pass
+
+
+class CreateRecipeByUrl(BaseModel):
+    url: str
+
+    class Config:
+        schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes"}}
+
+
+class CreateRecipeBulk(BaseModel):
+    url: str
+    categories: list[RecipeCategory] = None
+    tags: list[RecipeTag] = None
+
+
+class CreateRecipeByUrlBulk(BaseModel):
+    imports: list[CreateRecipeBulk]
+
+
+class CreateRecipe(CamelModel):
+    name: str
 
 
 class RecipeSummary(CamelModel):

@@ -1,3 +1,5 @@
+//TODO: Prevent fetching Categories/Tags multiple time when selector is on page multiple times
+
 <template>
   <v-autocomplete
     v-model="selected"
