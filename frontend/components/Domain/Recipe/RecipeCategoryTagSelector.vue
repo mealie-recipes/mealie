@@ -15,6 +15,7 @@
     :hint="hint"
     :solo="solo"
     :return-object="returnObject"
+    :prepend-inner-icon="$globals.icons.tags"
     :flat="flat"
     v-bind="$attrs"
     @input="emitChange"
