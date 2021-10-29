@@ -14,12 +14,14 @@
     :solo="solo"
     :return-object="returnObject"
     :flat="flat"
+    v-bind="$attrs"
     @input="emitChange"
   >
     <template #selection="data">
       <v-chip
         v-if="showSelected"
         :key="data.index"
+        :small="dense"
         class="ma-1"
         :input-value="data.selected"
         close
