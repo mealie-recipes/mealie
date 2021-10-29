@@ -21,7 +21,7 @@ import { useLazyRecipes } from "~/composables/use-recipes";
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
-    const start = ref(1);
+    const start = ref(0);
     const limit = ref(30);
     const increment = ref(30);
     const ready = ref(false);
