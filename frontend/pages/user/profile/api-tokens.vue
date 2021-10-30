@@ -20,9 +20,7 @@
               class="mb-0 pb-0"
               :label="$t('settings.token.api-token')"
               readonly
-              :append-outer-icon="$globals.icons.contentCopy"
-              @click="copyToken"
-              @click:append-outer="copyToken"
+              rows="3"
             >
             </v-textarea>
             <v-subheader class="text-center">
@@ -34,13 +32,14 @@
             </v-subheader>
           </template>
         </v-card-text>
-        <v-expand-transition>
-          <v-card-actions v-show="name != ''">
-            <v-spacer></v-spacer>
-            <BaseButton v-if="createdToken" cancel @click="resetCreate()"> Close </BaseButton>
-            <BaseButton v-else :cancel="false" @click="createToken(name)"> Generate </BaseButton>
-          </v-card-actions>
-        </v-expand-transition>
+        <v-card-actions>
+          <BaseButton v-if="createdToken" cancel @click="resetCreate()"> Close </BaseButton>
+          <v-spacer></v-spacer>
+          <AppButtonCopy v-if="createdToken" :icon="false" color="info" :copy-text="createdToken"> </AppButtonCopy>
+          <BaseButton v-else key="generate-button" :disabled="name == ''" @click="createToken(name)">
+            Generate
+          </BaseButton>
+        </v-card-actions>
       </v-card>
     </section>
     <BaseCardSectionTitle class="mt-10" title="Active Tokens"> </BaseCardSectionTitle>
@@ -117,14 +116,7 @@ export default defineComponent({
       return data;
     }
 
-    function copyToken() {
-      navigator.clipboard.writeText(createdToken.value).then(
-        () => console.log("Copied", createdToken.value),
-        () => console.log("Copied Failed", createdToken.value)
-      );
-    }
-
-    return { createToken, deleteToken, copyToken, createdToken, loading, name, user, resetCreate };
+    return { createToken, deleteToken, createdToken, loading, name, user, resetCreate };
   },
   head() {
     return {
