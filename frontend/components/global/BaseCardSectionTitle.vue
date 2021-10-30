@@ -6,7 +6,7 @@
       </v-icon>
       {{ title }}
     </v-card-title>
-    <v-card-text class="pt-2">
+    <v-card-text v-if="$slots.default" class="pt-2">
       <p class="pb-0 mb-0">
         <slot />
       </p>
