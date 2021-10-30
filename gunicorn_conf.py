@@ -21,8 +21,8 @@ class GunicornConfig:
         self.timeout = int(os.getenv("TIMEOUT", "120"))
         self.keepalive = int(os.getenv("KEEP_ALIVE", "5"))
         self.workers_per_core = float(os.getenv("WORKERS_PER_CORE", "1"))
-        self.web_concurrency_str: str = os.getenv("WEB_CONCURRENCY", None)
-        self.max_workers_str: str = os.getenv("MAX_WORKERS", None)
+        self.web_concurrency_str: str = os.getenv("WEB_CONCURRENCY", "1")
+        self.max_workers_str: str = os.getenv("MAX_WORKERS", "1")
 
         # Computed Variables
         self.cores = multiprocessing.cpu_count()

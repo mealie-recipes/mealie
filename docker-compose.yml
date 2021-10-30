@@ -20,7 +20,7 @@ services:
       POSTGRES_DB: mealie
       # WORKERS_PER_CORE: 0.5
       # MAX_WORKERS: 8
-      WEB_CONCURRENCY: 2
+      # WEB_CONCURRENCY: 2
   postgres:
     container_name: postgres
     image: postgres

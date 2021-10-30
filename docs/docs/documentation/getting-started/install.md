@@ -54,7 +54,7 @@ services:
       RECIPE_DISABLE_AMOUNT: 'false'
 
       # Gunicorn
-      WEB_CONCURRENCY: 2
+      # WEB_CONCURRENCY: 2
       # WORKERS_PER_CORE: 0.5
       # MAX_WORKERS: 8
     volumes:
@@ -98,7 +98,7 @@ services:
       RECIPE_DISABLE_AMOUNT: 'false'
 
       # Gunicorn
-      WEB_CONCURRENCY: 2
+      # WEB_CONCURRENCY: 2
       # WORKERS_PER_CORE: 0.5
       # MAX_WORKERS: 8
     volumes:
