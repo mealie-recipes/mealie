@@ -108,7 +108,7 @@
             See who's in your group and manage their permissions.
           </UserProfileLinkCard>
         </v-col>
-        <v-col cols="12" sm="12" md="6">
+        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: 'Manage Recipe Data', to: '/user/group/recipe-data' }"
             :image="require('~/static/svgs/manage-recipes.svg')"
