@@ -2,29 +2,25 @@
   <v-container fluid class="narrow-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img
-          max-height="200"
-          max-width="150"
-          class="mb-2"
-          :src="require('~/static/svgs/admin-site-settings.svg')"
-        ></v-img>
+        <v-img max-height="200" max-width="150" :src="require('~/static/svgs/admin-site-settings.svg')"></v-img>
       </template>
       <template #title> {{ $t("settings.site-settings") }} </template>
     </BasePageTitle>
 
     <section>
-      <BaseCardSectionTitle :icon="$globals.icons.cog" title="General Configuration"> </BaseCardSectionTitle>
-      <v-card class="mb-4">
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="General Configuration">
+      </BaseCardSectionTitle>
+      <v-card v-for="(check, idx) in simpleChecks" :key="idx" class="mb-4">
         <v-list-item>
           <v-list-item-avatar>
-            <v-icon :color="getColor(appConfig.baseUrlSet)">
-              {{ appConfig.baseUrlSet ? $globals.icons.checkboxMarkedCircle : $globals.icons.close }}
+            <v-icon :color="getColor(check.status)">
+              {{ check.status ? $globals.icons.checkboxMarkedCircle : $globals.icons.close }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title :class="getTextClass(appConfig.baseUrlSet)"> Server Side Base URL </v-list-item-title>
-            <v-list-item-subtitle :class="getTextClass(appConfig.baseUrlSet)">
-              {{ appConfig.baseUrlSet ? "Ready" : "Not Ready - `BASE_URL` still default on API Server" }}
+            <v-list-item-title :class="getTextClass(check.status)"> {{ check.text }} </v-list-item-title>
+            <v-list-item-subtitle :class="getTextClass(check.status)">
+              {{ check.status ? check.successText : check.errorText }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -82,6 +78,13 @@ import { CheckAppConfig } from "~/api/admin/admin-about";
 import { useAdminApi, useApiSingleton } from "~/composables/use-api";
 import { validators } from "~/composables/use-validators";
 
+interface SimpleCheck {
+  status: boolean;
+  text: string;
+  successText: string;
+  errorText: string;
+}
+
 export default defineComponent({
   layout: "admin",
   setup() {
@@ -96,6 +99,7 @@ export default defineComponent({
     const appConfig = ref<CheckAppConfig>({
       emailReady: false,
       baseUrlSet: false,
+      isSiteSecure: false,
     });
 
     const api = useApiSingleton();
@@ -107,6 +111,29 @@ export default defineComponent({
       if (data) {
         appConfig.value = data;
       }
+
+      appConfig.value.isSiteSecure = isLocalhostorHttps();
+    });
+
+    function isLocalhostorHttps() {
+      return window.location.hostname === "localhost" || window.location.protocol === "https:";
+    }
+
+    const simpleChecks = computed<SimpleCheck[]>(() => {
+      return [
+        {
+          status: appConfig.value.baseUrlSet,
+          text: "Server Side Base URL",
+          errorText: "Error - `BASE_URL` still default on API Server",
+          successText: "Server Side URL does not match the default",
+        },
+        {
+          status: appConfig.value.isSiteSecure,
+          text: "Secure Site",
+          errorText: "Error - Serve via localhost or secure with https.",
+          successText: "Site is accessed by localhost or https",
+        },
+      ];
     });
 
     async function testEmail() {
@@ -147,6 +174,7 @@ export default defineComponent({
     }
 
     return {
+      simpleChecks,
       getColor,
       getTextClass,
       appConfig,

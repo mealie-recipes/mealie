@@ -30,6 +30,7 @@ export interface AdminStatistics {
 export interface CheckAppConfig {
   emailReady: boolean;
   baseUrlSet: boolean;
+  isSiteSecure: boolean;
 }
 
 export class AdminAboutAPI extends BaseAPI {
