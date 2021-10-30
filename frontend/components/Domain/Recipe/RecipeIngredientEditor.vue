@@ -5,7 +5,7 @@
       v-model="value.title"
       dense
       hide-details
-      class="mx-1 mb-4"
+      class="mx-1 mt-3 mb-4"
       placeholder="Section Title"
       style="max-width: 500px"
     >
@@ -29,6 +29,7 @@
       <v-col v-if="!disableAmount && units" sm="12" md="3" cols="12">
         <v-autocomplete
           v-model="value.unit"
+          :search-input.sync="unitSearch"
           hide-details
           dense
           solo
@@ -38,14 +39,19 @@
           class="mx-1"
           placeholder="Choose Unit"
         >
-          <template #no-data>
-            <RecipeIngredientUnitDialog class="mx-2" block small />
+          <template #append-item>
+            <div class="px-2">
+              <BaseButton block small @click="createAssignUnit()"></BaseButton>
+            </div>
           </template>
         </v-autocomplete>
       </v-col>
+
+      <!-- Foods Input -->
       <v-col v-if="!disableAmount && foods" m="12" md="3" cols="12" class="">
         <v-autocomplete
           v-model="value.food"
+          :search-input.sync="foodSearch"
           hide-details
           dense
           solo
@@ -55,8 +61,10 @@
           class="mx-1 py-0"
           placeholder="Choose Food"
         >
-          <template #no-data>
-            <RecipeIngredientFoodDialog class="mx-2" block small />
+          <template #append-item>
+            <div class="px-2">
+              <BaseButton block small @click="createAssignFood()"></BaseButton>
+            </div>
           </template>
         </v-autocomplete>
       </v-col>
@@ -86,15 +94,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
-import RecipeIngredientUnitDialog from "./RecipeIngredientUnitDialog.vue";
-import RecipeIngredientFoodDialog from "./RecipeIngredientFoodDialog.vue";
+import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
 import { useFoods } from "~/composables/use-recipe-foods";
 import { useUnits } from "~/composables/use-recipe-units";
 import { validators } from "~/composables/use-validators";
 
 export default defineComponent({
-  components: { RecipeIngredientUnitDialog, RecipeIngredientFoodDialog },
   props: {
     value: {
       type: Object,
@@ -108,8 +113,28 @@ export default defineComponent({
   setup(props) {
     const { value } = props;
 
-    const { foods } = useFoods();
+    // ==================================================
+    // Foods
+    const { foods, workingFoodData, actions: foodActions } = useFoods();
+    const foodSearch = ref("");
+
+    async function createAssignFood() {
+      workingFoodData.name = foodSearch.value;
+      await foodActions.createOne();
+      value.food = foods.value?.find((food) => food.name === foodSearch.value);
+    }
+
+    // ==================================================
+    // Units
     const { units, workingUnitData, actions: unitActions } = useUnits();
+    const unitSearch = ref("");
+
+    async function createAssignUnit() {
+      workingUnitData.name = unitSearch.value;
+      await unitActions.createOne();
+      value.unit = units.value?.find((unit) => unit.name === unitSearch.value);
+      console.log(value.unit);
+    }
 
     const state = reactive({
       showTitle: false,
@@ -126,13 +151,17 @@ export default defineComponent({
     }
 
     return {
-      workingUnitData,
-      unitActions,
-      validators,
-      foods,
-      units,
       ...toRefs(state),
+      createAssignFood,
+      createAssignUnit,
+      foods,
+      foodSearch,
       toggleTitle,
+      unitActions,
+      units,
+      unitSearch,
+      validators,
+      workingUnitData,
     };
   },
 });

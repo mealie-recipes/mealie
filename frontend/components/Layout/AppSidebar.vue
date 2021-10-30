@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :value="value" clipped app width="240px">
+  <v-navigation-drawer class="d-flex flex-column" :value="value" clipped app width="240px">
     <!-- User Profile -->
     <template v-if="$auth.user">
       <v-list-item two-line to="/user/profile" exact>
@@ -101,8 +101,8 @@
     </template>
 
     <!-- Bottom Navigation Links -->
-    <template v-if="bottomLinks">
-      <v-list class="fixedBottom" nav dense>
+    <template v-if="bottomLinks" #append>
+      <v-list nav dense>
         <v-list-item-group v-model="bottomSelected" color="primary">
           <template v-for="nav in bottomLinks">
             <v-list-item
@@ -175,12 +175,6 @@ export default defineComponent({
 </script>
   
 <style>
-.fixedBottom {
-  position: fixed !important;
-  bottom: 0 !important;
-  width: 100%;
-}
-
 @media print {
   .no-print {
     display: none;

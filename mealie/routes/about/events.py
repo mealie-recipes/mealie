@@ -24,7 +24,8 @@ async def get_events(session: Session = Depends(generate_session)):
 async def delete_events(session: Session = Depends(generate_session)):
     """ Get event from the Database """
     db = get_database(session)
-    return db.events.delete_all()
+    db.events.delete_all()
+    return {"message": "All events deleted"}
 
 
 @router.delete("/{id}")

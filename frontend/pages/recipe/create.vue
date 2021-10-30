@@ -27,6 +27,7 @@
                   <v-text-field
                     v-model="recipeUrl"
                     :label="$t('new-recipe.recipe-url')"
+                    :prepend-inner-icon="$globals.icons.link"
                     validate-on-blur
                     autofocus
                     filled
@@ -40,7 +41,7 @@
                 </v-card-text>
                 <v-card-actions class="justify-center">
                   <div style="width: 250px">
-                    <BaseButton rounded block type="submit" :loading="loading" />
+                    <BaseButton :disabled="recipeUrl === null" rounded block type="submit" :loading="loading" />
                   </div>
                 </v-card-actions>
               </v-card>
@@ -86,6 +87,7 @@
                   <v-text-field
                     v-model="newRecipeName"
                     :label="$t('recipe.recipe-name')"
+                    :prepend-inner-icon="$globals.icons.primary"
                     validate-on-blur
                     autofocus
                     filled
@@ -100,7 +102,13 @@
               </v-card-text>
               <v-card-actions class="justify-center">
                 <div style="width: 250px">
-                  <BaseButton rounded block :loading="loading" @click="createByName(newRecipeName)" />
+                  <BaseButton
+                    :disabled="newRecipeName === ''"
+                    rounded
+                    block
+                    :loading="loading"
+                    @click="createByName(newRecipeName)"
+                  />
                 </div>
               </v-card-actions>
             </v-card>
@@ -131,7 +139,14 @@
                 </v-card-text>
                 <v-card-actions class="justify-center">
                   <div style="width: 250px">
-                    <BaseButton large rounded block :loading="loading" @click="createByZip" />
+                    <BaseButton
+                      :disabled="newRecipeZip === null"
+                      large
+                      rounded
+                      block
+                      :loading="loading"
+                      @click="createByZip"
+                    />
                   </div>
                 </v-card-actions>
               </v-card>
@@ -142,7 +157,7 @@
           <v-tab-item value="debug" eager>
             <v-form ref="domUrlForm" @submit.prevent="debugUrl(recipeUrl)">
               <v-card flat>
-                <v-card-title class="headline"> Recipe Importer </v-card-title>
+                <v-card-title class="headline"> Recipe Debugger </v-card-title>
                 <v-card-text>
                   Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe
                   scraper and the results will be displayed. If you don't see any data returned, the site you are trying
@@ -151,6 +166,7 @@
                     v-model="recipeUrl"
                     :label="$t('new-recipe.recipe-url')"
                     validate-on-blur
+                    :prepend-inner-icon="$globals.icons.link"
                     autofocus
                     filled
                     clearable
@@ -163,7 +179,14 @@
                 </v-card-text>
                 <v-card-actions class="justify-center">
                   <div style="width: 250px">
-                    <BaseButton rounded block type="submit" color="info" :loading="loading">
+                    <BaseButton
+                      :disabled="recipeUrl === null"
+                      rounded
+                      block
+                      type="submit"
+                      color="info"
+                      :loading="loading"
+                    >
                       <template #icon>
                         {{ $globals.icons.robot }}
                       </template>
