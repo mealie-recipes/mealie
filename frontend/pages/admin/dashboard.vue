@@ -137,7 +137,7 @@ export default defineComponent({
       const { response } = await api.events.deleteEvents();
 
       if (response && response.status === 200) {
-        events.value = { events: [], total: 0 };
+        refreshEvents();
       }
     }
 
