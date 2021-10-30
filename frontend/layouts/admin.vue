@@ -86,11 +86,6 @@ export default defineComponent({
             to: "/admin/toolbox/tags",
             title: i18n.t("sidebar.categories"),
           },
-          {
-            icon: $globals.icons.broom,
-            to: "/admin/toolbox/organize",
-            title: i18n.t("settings.organize"),
-          },
         ],
       },
       {
