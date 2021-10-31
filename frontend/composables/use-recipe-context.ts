@@ -14,7 +14,15 @@ export const useRecipeContext = function () {
     }, slug);
 
     loading.value = false;
+
     return recipe;
+  }
+
+  async function fetchRecipe(slug: string) {
+    loading.value = true;
+    const { data } = await api.recipes.getOne(slug);
+    loading.value = false;
+    return data;
   }
 
   async function deleteRecipe(slug: string) {
@@ -31,5 +39,5 @@ export const useRecipeContext = function () {
     return data;
   }
 
-  return { loading, getBySlug, deleteRecipe, updateRecipe };
+  return { loading, getBySlug, deleteRecipe, updateRecipe, fetchRecipe };
 };

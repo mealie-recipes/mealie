@@ -84,7 +84,7 @@
             </v-tooltip>
           </template>
           <template slot="append-outer">
-            <v-icon class="handle">{{ $globals.icons.arrowUpDown }}</v-icon>
+            <v-icon class="handle mt-1">{{ $globals.icons.arrowUpDown }}</v-icon>
           </template>
         </v-text-field>
       </v-col>

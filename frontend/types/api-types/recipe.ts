@@ -80,10 +80,11 @@ export interface Recipe {
   comments?: CommentOut[];
 }
 export interface RecipeIngredient {
+  ref: string;
   title: string;
   note: string;
-  unit: RecipeIngredientUnit;
-  food: RecipeIngredientFood;
+  unit?: RecipeIngredientUnit | null;
+  food?: RecipeIngredientFood | null;
   disableAmount: boolean;
   quantity: number;
 }
