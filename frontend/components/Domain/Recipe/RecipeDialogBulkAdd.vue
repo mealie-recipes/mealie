@@ -17,10 +17,13 @@
         </v-app-bar>
 
         <v-card-text>
-          <p>
-            {{ $t("new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list") }}
-          </p>
-          <v-textarea v-model="inputText" outlined rows="10"> </v-textarea>
+          <v-textarea
+            v-model="inputText"
+            outlined
+            rows="10"
+            :placeholder="$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')"
+          >
+          </v-textarea>
           <v-btn outlined color="info" small @click="trimAllLines"> Trim Whitespace </v-btn>
         </v-card-text>
 
