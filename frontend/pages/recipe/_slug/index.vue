@@ -103,7 +103,7 @@
             <draggable v-model="recipe.recipeIngredient" handle=".handle">
               <RecipeIngredientEditor
                 v-for="(ingredient, index) in recipe.recipeIngredient"
-                :key="index + 'ing-editor'"
+                :key="index + uuid()"
                 v-model="recipe.recipeIngredient[index]"
                 :disable-amount="recipe.settings.disableAmount"
                 @delete="removeByIndex(recipe.recipeIngredient, index)"
@@ -292,6 +292,7 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipeIngredientParserMenu from "~/components/Domain/Recipe/RecipeIngredientParserMenu.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { useStaticRoutes } from "~/composables/api";
+import { uuid } from "~/composables/use-uuid";
 
 export default defineComponent({
   components: {
@@ -450,6 +451,7 @@ export default defineComponent({
     });
 
     return {
+      uuid,
       scaledYield,
       ...toRefs(state),
       imageKey,
