@@ -1,17 +1,16 @@
 <template>
-  <v-container>
+  <v-container
+    :class="{
+      'pa-0': $vuetify.breakpoint.smAndDown,
+    }"
+  >
     <v-card v-if="skeleton" :color="`white ${false ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
     <v-card v-else-if="recipe">
       <!-- Recipe Header -->
       <div class="d-flex justify-end flex-wrap align-stretch">
-        <v-card
-          v-if="!recipe.settings.landscapeView"
-          width="50%"
-          flat
-          class="d-flex flex-column justify-center align-center"
-        >
+        <v-card v-if="!enableLandscape" width="50%" flat class="d-flex flex-column justify-center align-center">
           <v-card-text>
             <v-card-title class="headline pa-0 flex-column align-center">
               {{ recipe.name }}
@@ -23,7 +22,7 @@
             <div class="d-flex justify-center mt-5">
               <RecipeTimeCard
                 class="d-flex justify-center flex-wrap"
-                :class="!recipe.settings.landscapeView ? undefined : 'force-bottom'"
+                :class="true ? undefined : 'force-bottom'"
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"
                 :perform-time="recipe.performTime"
@@ -33,14 +32,14 @@
         </v-card>
         <v-img
           :key="imageKey"
-          :max-width="recipe.settings.landscapeView ? null : '50%'"
+          :max-width="enableLandscape ? null : '50%'"
           :height="hideImage ? '50' : imageHeight"
           :src="recipeImage(recipe.slug, imageKey)"
           class="d-print-none"
           @error="hideImage = true"
         >
           <RecipeTimeCard
-            v-if="recipe.settings.landscapeView"
+            v-if="enableLandscape"
             :class="true ? undefined : 'force-bottom'"
             :prep-time="recipe.prepTime"
             :total-time="recipe.totalTime"
@@ -69,13 +68,17 @@
       <!--  Editors  -->
       <LazyRecipeJsonEditor v-if="jsonEditor" v-model="recipe" class="mt-10" :options="jsonEditorOptions" />
       <div v-else>
-        <v-card-text>
+        <v-card-text
+          :class="{
+            'px-2': $vuetify.breakpoint.smAndDown,
+          }"
+        >
           <div v-if="form" class="d-flex justify-start align-center">
             <RecipeImageUploadBtn class="my-1" :slug="recipe.slug" @upload="uploadImage" @refresh="imageKey++" />
             <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" @upload="uploadImage" />
           </div>
           <!-- Recipe Title Section -->
-          <template v-if="!form && recipe.settings.landscapeView">
+          <template v-if="!form && !enableLandscape">
             <v-card-title class="pa-0 ma-0 headline">
               {{ recipe.name }}
             </v-card-title>
@@ -158,7 +161,7 @@
             <v-spacer></v-spacer>
 
             <RecipeRating
-              v-if="recipe.settings.landscapeView"
+              v-if="!enableLandscape"
               :key="recipe.slug"
               :value="recipe.rating"
               :name="recipe.name"
@@ -264,7 +267,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import {
+  computed,
+  defineComponent,
+  reactive,
+  toRefs,
+  useContext,
+  useMeta,
+  useRoute,
+  useRouter,
+} from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
@@ -335,7 +347,26 @@ export default defineComponent({
 
     const { recipeImage } = useStaticRoutes();
 
+    // @ts-ignore
+    const { $vuetify } = useContext();
+
     const recipe = getBySlug(slug);
+
+    // ===========================================================================
+    // Layout Helpers
+
+    const enableLandscape = computed(() => {
+      const preferLandscape = recipe?.value?.settings?.landscapeView;
+      const smallScreen = !$vuetify.breakpoint.smAndUp;
+
+      if (preferLandscape) {
+        return true;
+      } else if (smallScreen) {
+        return true;
+      }
+
+      return false;
+    });
 
     // ===========================================================================
     // Button Click Event Handlers
@@ -465,6 +496,7 @@ export default defineComponent({
     });
 
     return {
+      enableLandscape,
       scaledYield,
       toggleJson,
       ...toRefs(state),
