@@ -16,14 +16,14 @@
           </div>
         </v-card-title>
         <v-divider class="mx-2"></v-divider>
-        <v-card-text class="mt-n5">
+        <v-card-text class="mt-n5 pt-6 pb-2">
           <v-switch
             v-for="(itemValue, key) in value"
             :key="key"
             v-model="value[key]"
+            xs
             dense
-            flat
-            inset
+            class="my-1"
             :label="labels[key]"
             hide-details
           ></v-switch>
