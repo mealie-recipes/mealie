@@ -4,6 +4,7 @@
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
     <v-card v-else-if="recipe">
+      <!-- Recipe Header -->
       <div class="d-flex justify-end flex-wrap align-stretch">
         <v-card
           v-if="!recipe.settings.landscapeView"
@@ -21,7 +22,8 @@
             <v-divider></v-divider>
             <div class="d-flex justify-center mt-5">
               <RecipeTimeCard
-                :class="true ? undefined : 'force-bottom'"
+                class="d-flex justify-center flex-wrap"
+                :class="!recipe.settings.landscapeView ? undefined : 'force-bottom'"
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"
                 :perform-time="recipe.performTime"
@@ -54,8 +56,8 @@
         :logged-in="$auth.loggedIn"
         :open="form"
         class="ml-auto"
-        @close="form = false"
-        @json="jsonEditor = !jsonEditor"
+        @close="closeEditor"
+        @json="toggleJson"
         @edit="
           jsonEditor = false;
           form = true;
@@ -64,7 +66,9 @@
         @delete="deleteRecipe(recipe.slug)"
       />
 
-      <div>
+      <!--  Editors  -->
+      <LazyRecipeJsonEditor v-if="jsonEditor" v-model="recipe" class="mt-10" :options="jsonEditorOptions" />
+      <div v-else>
         <v-card-text>
           <div v-if="form" class="d-flex justify-start align-center">
             <RecipeImageUploadBtn class="my-1" :slug="recipe.slug" @upload="uploadImage" @refresh="imageKey++" />
@@ -95,6 +99,7 @@
 
             <v-textarea v-model="recipe.description" auto-grow min-height="100" :label="$t('recipe.description')">
             </v-textarea>
+            <v-text-field v-model="recipe.recipeYield" dense :label="$t('recipe.servings')"> </v-text-field>
           </template>
 
           <!-- Advanced Editor -->
@@ -103,10 +108,10 @@
             <draggable v-model="recipe.recipeIngredient" handle=".handle">
               <RecipeIngredientEditor
                 v-for="(ingredient, index) in recipe.recipeIngredient"
-                :key="index + uuid()"
+                :key="ingredient.ref"
                 v-model="recipe.recipeIngredient[index]"
                 :disable-amount="recipe.settings.disableAmount"
-                @delete="removeByIndex(recipe.recipeIngredient, index)"
+                @delete="recipe.recipeIngredient.splice(index, 1)"
               />
             </draggable>
             <div class="d-flex justify-end mt-2">
@@ -115,9 +120,8 @@
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
           </div>
-
           <div class="d-flex justify-space-between align-center pb-3">
-            <v-tooltip small top color="secondary darken-1">
+            <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
                 <v-btn
                   v-if="recipe.recipeYield"
@@ -139,7 +143,7 @@
               <span> Reset Scale </span>
             </v-tooltip>
 
-            <template v-if="!recipe.settings.disableAmount">
+            <template v-if="!recipe.settings.disableAmount && !form">
               <v-btn color="secondary darken-1" class="mx-1" small @click="scale > 1 ? scale-- : null">
                 <v-icon>
                   {{ $globals.icons.minus }}
@@ -222,8 +226,9 @@
 
             <v-col cols="12" sm="12" md="8" lg="8">
               <RecipeInstructions v-model="recipe.recipeInstructions" :edit="form" />
-              <div class="d-flex">
-                <BaseButton v-if="form" class="ml-auto my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
+              <div v-if="form" class="d-flex">
+                <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
+                <BaseButton class="my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
               </div>
               <RecipeNotes v-model="recipe.notes" :edit="form" />
             </v-col>
@@ -259,16 +264,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  reactive,
-  ref,
-  toRefs,
-  useMeta,
-  useRoute,
-  useRouter,
-} from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
@@ -292,7 +288,7 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipeIngredientParserMenu from "~/components/Domain/Recipe/RecipeIngredientParserMenu.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { useStaticRoutes } from "~/composables/api";
-import { uuid } from "~/composables/use-uuid";
+import { uuid4 } from "~/composables/use-uuid";
 
 export default defineComponent({
   components: {
@@ -319,21 +315,34 @@ export default defineComponent({
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useApiSingleton();
-    const imageKey = ref(1);
 
-    const { getBySlug, loading } = useRecipeContext();
+    const state = reactive({
+      form: false,
+      scale: 1,
+      hideImage: false,
+      imageKey: 1,
+      loadFailed: false,
+      skeleton: false,
+      jsonEditor: false,
+      jsonEditorOptions: {
+        mode: "code",
+        search: false,
+        mainMenuBar: false,
+      },
+    });
+
+    const { getBySlug, loading, fetchRecipe } = useRecipeContext();
 
     const { recipeImage } = useStaticRoutes();
 
     const recipe = getBySlug(slug);
 
-    const form = ref<boolean>(false);
-
-    useMeta(() => ({ title: recipe?.value?.name || "Recipe" }));
+    // ===========================================================================
+    // Button Click Event Handlers
 
     async function updateRecipe(slug: string, recipe: Recipe) {
       const { data } = await api.recipes.updateOne(slug, recipe);
-      form.value = false;
+      state.form = false;
       if (data?.slug) {
         router.push("/recipe/" + data.slug);
       }
@@ -344,6 +353,16 @@ export default defineComponent({
       if (data?.slug) {
         router.push("/");
       }
+    }
+
+    async function closeEditor() {
+      state.form = false;
+      state.jsonEditor = false;
+      recipe.value = await fetchRecipe(slug);
+    }
+
+    function toggleJson() {
+      state.jsonEditor = !state.jsonEditor;
     }
 
     const scaledYield = computed(() => {
@@ -367,11 +386,7 @@ export default defineComponent({
       if (newVersion?.data?.version) {
         recipe.value.image = newVersion.data.version;
       }
-      imageKey.value++;
-    }
-
-    function removeByIndex(list: Array<any>, index: number) {
-      list.splice(index, 1);
+      state.imageKey++;
     }
 
     function addStep(steps: Array<string> | null = null) {
@@ -394,10 +409,11 @@ export default defineComponent({
       if (ingredients?.length) {
         const newIngredients = ingredients.map((x) => {
           return {
+            ref: uuid4(),
             title: "",
             note: x,
-            unit: {},
-            food: {},
+            unit: null,
+            food: null,
             disableAmount: true,
             quantity: 1,
           };
@@ -408,24 +424,22 @@ export default defineComponent({
         }
       } else {
         recipe?.value?.recipeIngredient?.push({
+          ref: uuid4(),
           title: "",
           note: "",
-          unit: {},
-          food: {},
+          unit: null,
+          food: null,
           disableAmount: true,
           quantity: 1,
         });
       }
     }
 
-    const state = reactive({
-      scale: 1,
-    });
-
     // ===============================================================
     // Metadata
 
     const structuredData = computed(() => {
+      // TODO: Get this working with other scrapers, unsure why it isn't properly being delivered to clients.
       return {
         "@context": "http://schema.org",
         "@type": "Recipe",
@@ -451,35 +465,20 @@ export default defineComponent({
     });
 
     return {
-      uuid,
       scaledYield,
+      toggleJson,
       ...toRefs(state),
-      imageKey,
       recipe,
       api,
-      form,
       loading,
       addStep,
       deleteRecipe,
+      closeEditor,
       updateRecipe,
       uploadImage,
       validators,
       recipeImage,
       addIngredient,
-      removeByIndex,
-    };
-  },
-  data() {
-    return {
-      hideImage: false,
-      loadFailed: false,
-      skeleton: false,
-      jsonEditor: false,
-      jsonEditorOptions: {
-        mode: "code",
-        search: false,
-        mainMenuBar: false,
-      },
     };
   },
   head: {},

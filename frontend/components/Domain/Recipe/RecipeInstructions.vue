@@ -96,6 +96,7 @@ export default {
       default: true,
     },
   },
+
   data() {
     return {
       disabledSteps: [],
