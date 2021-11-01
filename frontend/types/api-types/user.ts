@@ -31,7 +31,7 @@ export interface GroupInDB {
   webhookEnable: boolean;
   users?: UserOut[];
   mealplans?: MealPlanOut[];
-  shoppingLists?: ShoppingListOut[];
+  shoppingLists?: ShoppingList[];
 }
 export interface UserOut {
   canOrganize: boolean;
@@ -67,7 +67,7 @@ export interface MealIn {
   name?: string;
   description?: string;
 }
-export interface ShoppingListOut {
+export interface ShoppingList {
   name: string;
   group?: string;
   items: ListItem[];

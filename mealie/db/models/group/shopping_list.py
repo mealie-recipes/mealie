@@ -25,7 +25,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
         self.checked = checked
 
 
-class ShoppingList(SqlAlchemyBase, BaseMixins):
+class ShoppingListModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists"
     id = Column(Integer, primary_key=True)
 
@@ -47,4 +47,4 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
 
     @staticmethod
     def get_ref(session: Session, id: int):
-        return session.query(ShoppingList).filter(ShoppingList.id == id).one_or_none()
+        return session.query(ShoppingListModel).filter(ShoppingListModel.id == id).one_or_none()

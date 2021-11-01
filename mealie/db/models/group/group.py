@@ -44,7 +44,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     webhooks = orm.relationship(GroupWebhooksModel, uselist=True, cascade="all, delete-orphan")
     cookbooks = orm.relationship(CookBook, back_populates="group", single_parent=True)
     server_tasks = orm.relationship(ServerTaskModel, back_populates="group", single_parent=True)
-    shopping_lists = orm.relationship("ShoppingList", back_populates="group", single_parent=True)
+    shopping_lists = orm.relationship("ShoppingListModel", back_populates="group", single_parent=True)
 
     @auto_init({"users", "webhooks", "shopping_lists", "cookbooks", "preferences", "invite_tokens", "mealplans"})
     def __init__(self, **_) -> None:

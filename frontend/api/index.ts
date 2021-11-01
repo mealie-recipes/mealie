@@ -19,6 +19,7 @@ import { BulkActionsAPI } from "./class-interfaces/recipe-bulk-actions";
 import { GroupServerTaskAPI } from "./class-interfaces/group-tasks";
 import { AdminAPI } from "./admin-api";
 import { ApiRequestInstance } from "~/types/api";
+import { ShoppingListAPI } from "./class-interfaces/shoppingLists";
 
 class Api {
   private static instance: Api;
@@ -34,6 +35,7 @@ class Api {
   public foods: FoodAPI;
   public units: UnitAPI;
   public cookbooks: CookbookAPI;
+  public shoppingLists: ShoppingListAPI;
   public groupWebhooks: WebhooksAPI;
   public register: RegisterAPI;
   public mealplans: MealPlanAPI;
@@ -55,6 +57,9 @@ class Api {
     this.tags = new TagsAPI(requests);
     this.units = new UnitAPI(requests);
     this.foods = new FoodAPI(requests);
+
+    // Shopping Lists
+    this.cookbooks = new CookbookAPI(requests);
 
     // Users
     this.users = new UserApi(requests);

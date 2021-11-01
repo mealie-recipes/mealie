@@ -7,6 +7,7 @@ from mealie.db.models.group import Group, GroupMealPlan
 from mealie.db.models.group.cookbook import CookBook
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.preferences import GroupPreferencesModel
+from mealie.db.models.group.shopping_list import ShoppingListModel
 from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
@@ -26,6 +27,7 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
+from mealie.schema.meal_plan.shopping_list import ShoppingList
 from mealie.schema.recipe import CommentOut, Recipe, RecipeCategoryResponse, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.server import ServerTask
@@ -155,3 +157,9 @@ class Database:
     @cached_property
     def webhooks(self) -> AccessModel[ReadWebhook, GroupWebhooksModel]:
         return AccessModel(self.session, pk_id, GroupWebhooksModel, ReadWebhook)
+
+    # ================================================================
+    # Shopping List Items
+    @cached_property
+    def shopping_lists(self) -> AccessModel[ShoppingList, ShoppingListModel]:
+        return AccessModel[ShoppingList, ShoppingListModel](self.session, pk_id, ShoppingListModel, ShoppingList)

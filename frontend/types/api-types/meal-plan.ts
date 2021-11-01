@@ -39,12 +39,7 @@ export interface MealPlanOut {
   uid: number;
   shoppingList?: number;
 }
-export interface ShoppingListIn {
-  name: string;
-  group?: string;
-  items: ListItem[];
-}
-export interface ShoppingListOut {
+export interface ShoppingList {
   name: string;
   group?: string;
   items: ListItem[];

@@ -8,9 +8,9 @@ from pydantic.utils import GetterDict
 from mealie.core.config import get_app_settings
 from mealie.db.models.users import User
 from mealie.schema.group.group_preferences import ReadGroupPreferences
+from mealie.schema.meal_plan.shopping_list import ShoppingList
 from mealie.schema.recipe import RecipeSummary
 
-from ..meal_plan import ShoppingListOut
 from ..recipe import CategoryBase
 
 settings = get_app_settings()
@@ -135,7 +135,7 @@ class UpdateGroup(GroupBase):
 
 class GroupInDB(UpdateGroup):
     users: Optional[list[UserOut]]
-    shopping_lists: Optional[list[ShoppingListOut]]
+    shopping_lists: Optional[list[ShoppingList]]
     preferences: Optional[ReadGroupPreferences] = None
 
     class Config:

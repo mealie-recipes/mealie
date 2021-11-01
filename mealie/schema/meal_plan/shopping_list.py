@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi_camelcase import CamelModel
 from pydantic.utils import GetterDict
 
-from mealie.db.models.group.shopping_list import ShoppingList
+from mealie.db.models.group.shopping_list import ShoppingListModel
 
 
 class ListItem(CamelModel):
@@ -16,21 +16,15 @@ class ListItem(CamelModel):
         orm_mode = True
 
 
-class ShoppingListIn(CamelModel):
+class ShoppingList(CamelModel):
     name: str
-    group: Optional[str]
+    group_id: int
     items: list[ListItem]
-
-
-class ShoppingListOut(ShoppingListIn):
     id: int
 
     class Config:
         orm_mode = True
 
         @classmethod
-        def getter_dict(cls, ormModel: ShoppingList):
-            return {
-                **GetterDict(ormModel),
-                "group": ormModel.group.name,
-            }
+        def getter_dict(cls, ormModel: ShoppingListModel):
+            return {**GetterDict(ormModel)}
