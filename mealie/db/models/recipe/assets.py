@@ -11,12 +11,7 @@ class RecipeAsset(SqlAlchemyBase):
     icon = sa.Column(sa.String)
     file_name = sa.Column(sa.String)
 
-    def __init__(
-        self,
-        name=None,
-        icon=None,
-        file_name=None,
-    ) -> None:
+    def __init__(self, name=None, icon=None, file_name=None) -> None:
         self.name = name
         self.file_name = file_name
         self.icon = icon
