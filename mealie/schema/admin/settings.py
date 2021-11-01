@@ -4,31 +4,7 @@ from fastapi_camelcase import CamelModel
 from pydantic import validator
 from slugify import slugify
 
-from ..recipe.recipe_category import CategoryBase, RecipeCategoryResponse
-
-
-class SiteSettings(CamelModel):
-    language: str = "en-US"
-    first_day_of_week: int = 0
-    show_recent: bool = True
-    cards_per_section: int = 9
-    categories: Optional[list[CategoryBase]] = []
-
-    class Config:
-        orm_mode = True
-
-        schema_extra = {
-            "example": {
-                "language": "en",
-                "firstDayOfWeek": 0,
-                "showRecent": True,
-                "categories": [
-                    {"id": 1, "name": "thanksgiving", "slug": "thanksgiving"},
-                    {"id": 2, "name": "homechef", "slug": "homechef"},
-                    {"id": 3, "name": "potatoes", "slug": "potatoes"},
-                ],
-            }
-        }
+from ..recipe.recipe_category import RecipeCategoryResponse
 
 
 class CustomPageBase(CamelModel):

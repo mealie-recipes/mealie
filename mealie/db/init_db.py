@@ -6,7 +6,6 @@ from mealie.db.data_initialization.init_users import default_user_init
 from mealie.db.database import get_database
 from mealie.db.db_setup import create_session, engine
 from mealie.db.models._model_base import SqlAlchemyBase
-from mealie.schema.admin import SiteSettings
 from mealie.schema.user.user import GroupBase
 from mealie.services.events import create_general_event
 from mealie.services.group_services.group_utils import create_new_group
@@ -24,14 +23,8 @@ def create_all_models():
 
 def init_db(db: Database) -> None:
     default_group_init(db)
-    default_settings_init(db)
     default_user_init(db)
     default_recipe_unit_init(db)
-
-
-def default_settings_init(db: Database):
-    document = db.settings.create(SiteSettings().dict())
-    logger.info(f"Created Site Settings: \n {document}")
 
 
 def default_group_init(db: Database):

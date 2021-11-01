@@ -8,12 +8,6 @@ from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
 logger = root_logger.get_logger()
 
-site_settings2categories = sa.Table(
-    "site_settings2categories",
-    SqlAlchemyBase.metadata,
-    sa.Column("site_settings.id", sa.Integer, sa.ForeignKey("site_settings.id")),
-    sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
-)
 
 group2categories = sa.Table(
     "group2categories",

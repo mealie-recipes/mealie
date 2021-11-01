@@ -14,11 +14,9 @@ from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUn
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.server.task import ServerTaskModel
-from mealie.db.models.settings import SiteSettings
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
-from mealie.schema.admin import SiteSettings as SiteSettingsSchema
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
@@ -93,10 +91,6 @@ class Database:
 
     # ================================================================
     # Site Items
-
-    @cached_property
-    def settings(self) -> AccessModel[SiteSettingsSchema, SiteSettings]:
-        return AccessModel(self.session, pk_id, SiteSettings, SiteSettingsSchema)
 
     @cached_property
     def sign_up(self) -> AccessModel[SignUpOut, SignUp]:
