@@ -86,14 +86,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     class Config:
         get_attr = "slug"
-
-    @validates("name")
-    def validate_name(self, key, name):
-        assert name != ""
-        return name
-
-    @auto_init(
-        {
+        exclude = {
             "assets",
             "extras",
             "notes",
@@ -103,7 +96,13 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "settings",
             "tools",
         }
-    )
+
+    @validates("name")
+    def validate_name(self, key, name):
+        assert name != ""
+        return name
+
+    @auto_init()
     def __init__(
         self,
         session,
@@ -115,7 +114,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         recipe_instructions: list[dict] = None,
         settings: dict = None,
         tools: list[str] = None,
-        **_
+        **_,
     ) -> None:
         self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
         self.tools = [Tool(tool=x) for x in tools] if tools else []

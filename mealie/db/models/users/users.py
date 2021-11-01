@@ -11,7 +11,6 @@ settings = get_app_settings()
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "long_live_tokens"
-    id = Column(Integer, primary_key=True)
     parent_id = Column(Integer, ForeignKey("users.id"))
     name = Column(String, nullable=False)
     token = Column(String, nullable=False)
@@ -25,7 +24,6 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
 
 class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
     full_name = Column(String, index=True)
     username = Column(String, index=True, unique=True)
     email = Column(String, unique=True, index=True)
@@ -41,7 +39,6 @@ class User(SqlAlchemyBase, BaseMixins):
     can_invite = Column(Boolean, default=False)
     can_organize = Column(Boolean, default=False)
 
-    # Recipes
     tokens: list[LongLiveToken] = orm.relationship(
         LongLiveToken, back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
     )
@@ -74,7 +71,6 @@ class User(SqlAlchemyBase, BaseMixins):
         can_organize=False,
         **_
     ) -> None:
-
         group = group or settings.DEFAULT_GROUP
         favorite_recipes = favorite_recipes or []
         self.full_name = full_name
@@ -118,6 +114,7 @@ class User(SqlAlchemyBase, BaseMixins):
         self.username = username
         self.full_name = full_name
         self.email = email
+
         self.group = Group.get_ref(session, group)
         self.admin = admin
         self.advanced = advanced
