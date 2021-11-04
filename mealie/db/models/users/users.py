@@ -100,7 +100,7 @@ class User(SqlAlchemyBase, BaseMixins):
     def update_password(self, password):
         self.password = password
 
-    def _set_permissions(self, admin, can_manage, can_invite, can_organize, **_):
+    def _set_permissions(self, admin, can_manage=False, can_invite=False, can_organize=False, **_):
         """Set user permissions based on the admin flag and the passed in kwargs
 
         Args:

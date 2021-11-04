@@ -13,7 +13,12 @@ class UserService(UserHttpService[int, str]):
     event_func = create_user_event
     acting_user: PrivateUser = None
 
+    def populate_item(self, item_id: int) -> None:
+        self.acting_user = self.db.users.get_one(item_id)
+        return self.acting_user
+
     def assert_existing(self, id) -> PrivateUser:
+        self.populate_item(id)
         self._populate_target_user(id)
         self._assert_user_change_allowed()
         return self.target_user
@@ -32,7 +37,6 @@ class UserService(UserHttpService[int, str]):
             self.target_user = self.acting_user
 
     def change_password(self, password_change: ChangePassword) -> PrivateUser:
-        """"""
         if not verify_password(password_change.current_password, self.target_user.password):
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
 

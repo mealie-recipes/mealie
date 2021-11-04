@@ -69,13 +69,14 @@ coverage: ## ☂️  Check code coverage quickly with the default Python
 	poetry run coverage html
 	$(BROWSER) htmlcov/index.html
 
+.PHONY: setup
 setup: ## 🏗  Setup Development Instance
-	cp template.env .env -n 
 	poetry install && \
 	cd frontend && \
-	cp template.env .env -n 
 	yarn install && \
 	cd ..
+
+	echo "Be sure to copy the template.env files"
 
 backend: ## 🎬 Start Mealie Backend Development Server
 	poetry run python mealie/db/init_db.py && \
