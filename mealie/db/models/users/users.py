@@ -64,67 +64,52 @@ class User(SqlAlchemyBase, BaseMixins):
         password,
         favorite_recipes: list[str] = None,
         group: str = settings.DEFAULT_GROUP,
-        admin=False,
         advanced=False,
-        can_manage=False,
-        can_invite=False,
-        can_organize=False,
-        **_
+        **kwargs
     ) -> None:
         group = group or settings.DEFAULT_GROUP
         favorite_recipes = favorite_recipes or []
+        self.group = Group.get_ref(session, group)
+
         self.full_name = full_name
         self.email = email
-        self.group = Group.get_ref(session, group)
-        self.admin = admin
         self.password = password
         self.advanced = advanced
-
-        if self.admin:
-            self.can_manage = True
-            self.can_invite = True
-            self.can_organize = True
-        else:
-            self.can_manage = can_manage
-            self.can_invite = can_invite
-            self.can_organize = can_organize
 
         self.favorite_recipes = []
 
         if self.username is None:
             self.username = full_name
 
-    def update(
-        self,
-        full_name,
-        email,
-        group,
-        admin,
-        username,
-        session=None,
-        favorite_recipes=None,
-        password=None,
-        advanced=False,
-        can_manage=False,
-        can_invite=False,
-        can_organize=False,
-        **_
-    ):
+        self._set_permissions(**kwargs)
+
+    def update(self, full_name, email, group, username, session=None, favorite_recipes=None, advanced=False, **kwargs):
         favorite_recipes = favorite_recipes or []
         self.username = username
         self.full_name = full_name
         self.email = email
 
         self.group = Group.get_ref(session, group)
-        self.admin = admin
         self.advanced = advanced
 
         if self.username is None:
             self.username = full_name
 
-        if password:
-            self.password = password
+        self._set_permissions(**kwargs)
 
+    def update_password(self, password):
+        self.password = password
+
+    def _set_permissions(self, admin, can_manage, can_invite, can_organize, **_):
+        """Set user permissions based on the admin flag and the passed in kwargs
+
+        Args:
+            admin (bool):
+            can_manage (bool):
+            can_invite (bool):
+            can_organize (bool):
+        """
+        self.admin = admin
         if self.admin:
             self.can_manage = True
             self.can_invite = True
@@ -133,9 +118,6 @@ class User(SqlAlchemyBase, BaseMixins):
             self.can_manage = can_manage
             self.can_invite = can_invite
             self.can_organize = can_organize
-
-    def update_password(self, password):
-        self.password = password
 
     @staticmethod
     def get_ref(session, id: str):
