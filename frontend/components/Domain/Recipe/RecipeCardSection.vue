@@ -6,7 +6,7 @@
       </v-icon>
       <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn :icon="$vuetify.breakpoint.xsOnly" text @click="navigateRandom">
+      <v-btn :icon="$vuetify.breakpoint.xsOnly" text :disabled="recipes.length === 0" @click="navigateRandom">
         <v-icon :left="!$vuetify.breakpoint.xsOnly">
           {{ $globals.icons.diceMultiple }}
         </v-icon>
