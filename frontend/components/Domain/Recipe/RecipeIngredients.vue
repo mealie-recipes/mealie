@@ -1,6 +1,9 @@
 <template>
   <div v-if="value && value.length > 0">
-    <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
+    <div class="d-flex justify-start">
+      <h2 class="mb-4 mt-1">{{ $t("recipe.ingredients") }}</h2>
+      <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
+    </div>
     <div>
       <div v-for="(ingredient, index) in value" :key="'ingredient' + index">
         <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
@@ -18,9 +21,10 @@
 </template>
 
 <script>
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import VueMarkdown from "@adapttive/vue-markdown";
 import { useFraction } from "@/composables/use-fraction";
-export default {
+export default defineComponent({
   components: {
     VueMarkdown,
   },
@@ -65,7 +69,16 @@ export default {
       return `${return_qty} ${unit?.name || " "}  ${food?.name || " "} ${note}`;
     }
 
-    return { parseIngredientText };
+    const ingredientCopyText = computed(() => {
+      // Returns a string of all ingredients in markdown list format -[ ]
+      return props.value
+        .map((ingredient) => {
+          return `- [ ] ${parseIngredientText(ingredient)}`;
+        })
+        .join("\n");
+    });
+
+    return { parseIngredientText, ingredientCopyText };
   },
   data() {
     return {
@@ -101,7 +114,7 @@ export default {
       this.$set(this.showTitleEditor, index, newVal);
     },
   },
-};
+});
 </script>
 
 <style>

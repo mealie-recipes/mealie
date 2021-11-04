@@ -14,6 +14,7 @@
         :icon="icon"
         :color="color"
         retain-focus-on-click
+        :class="btnClass"
         @click="
           on.click;
           textToClipboard();
@@ -47,6 +48,10 @@ export default {
     icon: {
       type: Boolean,
       default: true,
+    },
+    btnClass: {
+      type: String,
+      default: "",
     },
   },
   data() {
