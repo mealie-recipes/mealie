@@ -136,16 +136,18 @@ export default {
       this.$emit(SELECTED_EVENT, recipe);
     },
     onUpDown(e) {
-      if (e.keyCode === 38) {
-        e.preventDefault();
-        this.selectedIndex--;
-      } else if (e.keyCode === 40) {
-        e.preventDefault();
-        this.selectedIndex++;
-      } else {
-        return;
+      if (this.dialog) {
+        if (e.keyCode === 38) {
+          e.preventDefault();
+          this.selectedIndex--;
+        } else if (e.keyCode === 40) {
+          e.preventDefault();
+          this.selectedIndex++;
+        } else {
+          return;
+        }
+        this.selectRecipe();
       }
-      this.selectRecipe();
     },
     resetSelected() {
       this.searchString = "";
