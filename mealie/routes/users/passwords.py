@@ -24,10 +24,9 @@ async def reset_user_password(id: int, session: Session = Depends(generate_sessi
     db.users.update_password(id, new_password)
 
 
-@user_router.put("/{id}/password")
+@user_router.put("/{item_id}/password")
 def update_password(password_change: ChangePassword, user_service: UserService = Depends(UserService.write_existing)):
     """ Resets the User Password"""
-
     return user_service.change_password(password_change)
 
 

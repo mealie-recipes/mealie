@@ -11,15 +11,7 @@ from mealie.core.config import get_app_dirs
 
 app_dirs = get_app_dirs()
 from mealie.db.database import get_database
-from mealie.schema.admin import (
-    CommentImport,
-    GroupImport,
-    NotificationImport,
-    RecipeImport,
-    SettingsImport,
-    SiteSettings,
-    UserImport,
-)
+from mealie.schema.admin import CommentImport, GroupImport, NotificationImport, RecipeImport, UserImport
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.recipe import CommentOut, Recipe
 from mealie.schema.user import PrivateUser, UpdateGroup
@@ -181,19 +173,7 @@ class ImportDatabase:
         return import_notifications
 
     def import_settings(self):
-        settings_file = self.import_dir.joinpath("settings", "settings.json")
-        settings = ImportDatabase.read_models_file(settings_file, SiteSettings)
-        settings = settings[0]
-
-        try:
-            self.db.settings.update(1, settings.dict())
-            import_status = SettingsImport(name="Site Settings", status=True)
-
-        except Exception as inst:
-            self.session.rollback()
-            import_status = SettingsImport(name="Site Settings", status=False, exception=str(inst))
-
-        return [import_status]
+        return []
 
     def import_groups(self):
         groups_file = self.import_dir.joinpath("groups", "groups.json")

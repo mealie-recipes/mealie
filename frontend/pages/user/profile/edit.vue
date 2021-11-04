@@ -73,7 +73,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <BaseButton update @click="updateUser" />
+                  <BaseButton update @click="updatePassword" />
                 </v-card-actions>
               </v-card>
             </div>
@@ -163,28 +163,6 @@ export default defineComponent({
     return {
       title: this.$t("settings.profile") as string,
     };
-  },
-
-  methods: {
-    async changePassword() {
-      // @ts-ignore
-      this.paswordLoading = true;
-      const data = {
-        currentPassword: this.password.current,
-        newPassword: this.password.newOne,
-      };
-
-      // @ts-ignore
-      if (this.$refs.passChange.validate()) {
-        // @ts-ignore
-        if (await api.users.changePassword(this.user.id, data)) {
-          this.$emit("refresh");
-        }
-      }
-
-      // @ts-ignore
-      this.paswordLoading = false;
-    },
   },
 });
 </script>

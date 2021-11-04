@@ -5,7 +5,6 @@ from mealie.core.dependencies import get_current_user
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter
-from mealie.schema.admin import SiteSettings
 from mealie.schema.user import GroupInDB, PrivateUser
 from mealie.utils.post_webhooks import post_webhooks
 
@@ -19,16 +18,6 @@ def get_main_settings(session: Session = Depends(generate_session)):
     db = get_database(session)
 
     return db.settings.get(1)
-
-
-@admin_router.put("")
-def update_settings(
-    data: SiteSettings,
-    session: Session = Depends(generate_session),
-):
-    """ Returns Site Settings """
-    db = get_database(session)
-    db.settings.update(1, data.dict())
 
 
 @admin_router.post("/webhooks/test")

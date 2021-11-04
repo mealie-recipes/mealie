@@ -46,7 +46,10 @@ class Group(SqlAlchemyBase, BaseMixins):
     server_tasks = orm.relationship(ServerTaskModel, back_populates="group", single_parent=True)
     shopping_lists = orm.relationship("ShoppingList", back_populates="group", single_parent=True)
 
-    @auto_init({"users", "webhooks", "shopping_lists", "cookbooks", "preferences", "invite_tokens", "mealplans"})
+    class Config:
+        exclude = {"users", "webhooks", "shopping_lists", "cookbooks", "preferences", "invite_tokens", "mealplans"}
+
+    @auto_init()
     def __init__(self, **_) -> None:
         pass
 

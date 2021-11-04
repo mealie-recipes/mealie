@@ -19,9 +19,6 @@ class BaseMixins:
     `cls.get_ref` method which will return the object from the database or none. Useful for many-to-many relationships.
     """
 
-    class Config:
-        get_attr = "id"
-
     def update(self, *args, **kwarg):
         self.__init__(*args, **kwarg)
 

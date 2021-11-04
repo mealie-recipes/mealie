@@ -40,8 +40,8 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs } from "@nuxtjs/composition-api";
-export default {
+import { reactive, toRefs, defineComponent } from "@nuxtjs/composition-api";
+export default defineComponent({
   setup(_, context) {
     const state = reactive({
       dialog: false,
@@ -74,5 +74,5 @@ export default {
       ...toRefs(state),
     };
   },
-};
+});
 </script>

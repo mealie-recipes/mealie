@@ -181,7 +181,7 @@ class MigrationBase(BaseModel):
 
             except Exception as inst:
                 exception = inst
-                logger.error(inst)
+                logger.exception(inst)
                 self.session.rollback()
 
             import_status = MigrationImport(slug=recipe.slug, name=recipe.name, status=status, exception=str(exception))
