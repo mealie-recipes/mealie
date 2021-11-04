@@ -74,23 +74,23 @@ def handle_many_to_many(session, get_attr, relation_cls, all_elements: list[dict
     return handle_one_to_many_list(session, get_attr, relation_cls, all_elements)
 
 
-def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elements: list[dict]):
+def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elements: list[dict] | list[str]):
     elems_to_create: list[dict] = []
     updated_elems: list[dict] = []
 
     for elem in all_elements:
-        elem_id = elem.get(get_attr, None)
-
+        elem_id = elem.get(get_attr, None) if isinstance(elem, dict) else elem
         existing_elem = session.query(relation_cls).filter_by(**{get_attr: elem_id}).one_or_none()
 
         if existing_elem is None:
             elems_to_create.append(elem)
+            continue
 
-        else:
+        elif isinstance(elem, dict):
             for key, value in elem.items():
                 setattr(existing_elem, key, value)
 
-            updated_elems.append(existing_elem)
+        updated_elems.append(existing_elem)
 
     new_elems = [safe_call(relation_cls, elem) for elem in elems_to_create]
     return new_elems + updated_elems
