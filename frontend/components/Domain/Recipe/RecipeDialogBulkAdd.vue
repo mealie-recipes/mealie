@@ -24,7 +24,23 @@
             :placeholder="$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')"
           >
           </v-textarea>
-          <v-btn outlined color="info" small @click="trimAllLines"> Trim Whitespace </v-btn>
+          <v-tooltip top>
+            <template #activator="{ on, attrs }">
+              <v-btn outlined color="info" small v-bind="attrs" @click="trimAllLines" v-on="on">
+                Trim Whitespace
+              </v-btn>
+            </template>
+            <span> Trim leading and trailing whitespace as well as blank lines </span>
+          </v-tooltip>
+
+          <v-tooltip top>
+            <template #activator="{ on, attrs }">
+              <v-btn class="ml-1" outlined color="info" small v-bind="attrs" @click="removeFirstCharacter" v-on="on">
+                Trim Prefix
+              </v-btn>
+            </template>
+            <span> Trim first character from each line </span>
+          </v-tooltip>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -52,14 +68,20 @@ export default defineComponent({
       return state.inputText.split("\n").filter((line) => !(line === "\n" || !line));
     }
 
-    function trimAllLines() {
-      const splitLintes = splitText();
+    function removeFirstCharacter() {
+      state.inputText = splitText()
+        .map((line) => line.substr(1))
+        .join("\n");
+    }
 
-      splitLintes.forEach((element: string, index: number) => {
-        splitLintes[index] = element.trim();
+    function trimAllLines() {
+      const splitLines = splitText();
+
+      splitLines.forEach((element: string, index: number) => {
+        splitLines[index] = element.trim();
       });
 
-      state.inputText = splitLintes.join("\n");
+      state.inputText = splitLines.join("\n");
     }
 
     function save() {
@@ -70,6 +92,7 @@ export default defineComponent({
     return {
       splitText,
       trimAllLines,
+      removeFirstCharacter,
       save,
       ...toRefs(state),
     };
