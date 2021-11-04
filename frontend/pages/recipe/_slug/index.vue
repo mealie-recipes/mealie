@@ -7,7 +7,7 @@
     <v-card v-if="skeleton" :color="`white ${false ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else-if="recipe">
+    <v-card v-else-if="recipe" class="d-print-none">
       <!-- Recipe Header -->
       <div class="d-flex justify-end flex-wrap align-stretch">
         <v-card v-if="!enableLandscape" width="50%" flat class="d-flex flex-column justify-center align-center">
@@ -63,6 +63,7 @@
         "
         @save="updateRecipe(recipe.slug, recipe)"
         @delete="deleteRecipe(recipe.slug)"
+        @print="printRecipe"
       />
 
       <!--  Editors  -->
@@ -263,6 +264,7 @@
         </v-card-text>
       </div>
     </v-card>
+    <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>
 </template>
 
@@ -298,29 +300,31 @@ import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBt
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeIngredientParserMenu from "~/components/Domain/Recipe/RecipeIngredientParserMenu.vue";
+import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { useStaticRoutes } from "~/composables/api";
 import { uuid4 } from "~/composables/use-uuid";
 
 export default defineComponent({
   components: {
+    draggable,
     RecipeActionMenu,
-    RecipeDialogBulkAdd,
     RecipeAssets,
     RecipeCategoryTagSelector,
     RecipeChips,
+    RecipeDialogBulkAdd,
     RecipeImageUploadBtn,
+    RecipeIngredientEditor,
+    RecipeIngredientParserMenu,
     RecipeIngredients,
     RecipeInstructions,
     RecipeNotes,
     RecipeNutrition,
+    RecipePrintView,
     RecipeRating,
     RecipeSettingsMenu,
-    RecipeIngredientEditor,
     RecipeTimeCard,
-    RecipeIngredientParserMenu,
     VueMarkdown,
-    draggable,
   },
   setup() {
     const route = useRoute();
@@ -521,7 +525,7 @@ export default defineComponent({
     },
   },
   methods: {
-    printPage() {
+    printRecipe() {
       window.print();
     },
   },

@@ -182,7 +182,7 @@ export default defineComponent({
           this.$router.push(`/recipe/${this.slug}` + "?edit=true");
           break;
         case "print":
-          this.$router.push(`/recipe/${this.slug}` + "?print=true");
+          this.$emit("print");
           break;
         case "download":
           window.open(`/api/recipes/${this.slug}/zip`);

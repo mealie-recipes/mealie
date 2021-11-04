@@ -49,6 +49,7 @@
         fab
         color="info"
         :card-menu="false"
+        @print="$emit('print')"
       />
     </div>
     <div v-if="value" class="custom-btn-group mb-">

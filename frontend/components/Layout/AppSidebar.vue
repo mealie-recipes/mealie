@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer class="d-flex flex-column" :value="value" clipped app width="240px">
+  <v-navigation-drawer class="d-flex flex-column d-print-none" :value="value" clipped app width="240px">
     <!-- User Profile -->
     <template v-if="$auth.user">
       <v-list-item two-line to="/user/profile" exact>
