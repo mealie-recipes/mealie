@@ -79,7 +79,7 @@
             <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" @upload="uploadImage" />
           </div>
           <!-- Recipe Title Section -->
-          <template v-if="!form && !enableLandscape">
+          <template v-if="!form && enableLandscape">
             <v-card-title class="pa-0 ma-0 headline">
               {{ recipe.name }}
             </v-card-title>
@@ -162,7 +162,7 @@
             <v-spacer></v-spacer>
 
             <RecipeRating
-              v-if="!enableLandscape"
+              v-if="enableLandscape"
               :key="recipe.slug"
               :value="recipe.rating"
               :name="recipe.name"
