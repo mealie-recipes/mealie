@@ -43,6 +43,7 @@
 <script>
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
+import { alert } from "~/composables/use-toast";
 export default defineComponent({
   props: {
     menuTop: {
@@ -202,8 +203,12 @@ export default defineComponent({
       navigator.clipboard.writeText(copyText).then(
         () => {
           console.log("Copied to Clipboard", copyText);
+          alert.success("Recipe link copied to clipboard");
         },
-        () => console.log("Copied Failed", copyText)
+        () => {
+          console.log("Copied Failed", copyText);
+          alert.error("Copied Failed");
+        }
       );
     },
   },
