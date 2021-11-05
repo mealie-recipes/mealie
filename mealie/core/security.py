@@ -25,8 +25,13 @@ def create_access_token(data: dict(), expires_delta: timedelta = None) -> str:
     return jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM)
 
 
-def create_file_token(file_path: Path) -> bool:
+def create_file_token(file_path: Path) -> str:
     token_data = {"file": str(file_path)}
+    return create_access_token(token_data, expires_delta=timedelta(minutes=30))
+
+
+def create_recipe_slug_token(file_path: str) -> str:
+    token_data = {"slug": str(file_path)}
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 

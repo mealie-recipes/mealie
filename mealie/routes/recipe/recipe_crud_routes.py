@@ -1,18 +1,14 @@
-from zipfile import ZipFile
-
 from fastapi import Depends, File
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm.session import Session
-from starlette.responses import FileResponse
 
 from mealie.core.dependencies import temporary_zip_path
 from mealie.core.root_logger import get_logger
 from mealie.db.database import get_database
-from mealie.db.db_setup import generate_session
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeImageTypes
+from mealie.schema.recipe import CreateRecipeByUrl, Recipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
 from mealie.schema.server.tasks import ServerTaskNames
 from mealie.services.recipe.recipe_service import RecipeService
@@ -107,23 +103,6 @@ async def create_recipe_from_zip(
 def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existing)):
     """ Takes in a recipe slug, returns all data for a recipe """
     return recipe_service.item
-
-
-@user_router.get("/{slug}/zip")
-async def get_recipe_as_zip(
-    slug: str, session: Session = Depends(generate_session), temp_path=Depends(temporary_zip_path)
-):
-    """ Get a Recipe and It's Original Image as a Zip File """
-    db = get_database(session)
-    recipe: Recipe = db.recipes.get(slug)
-    image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
-    with ZipFile(temp_path, "w") as myzip:
-        myzip.writestr(f"{slug}.json", recipe.json())
-
-        if image_asset.is_file():
-            myzip.write(image_asset, arcname=image_asset.name)
-
-    return FileResponse(temp_path, filename=f"{slug}.zip")
 
 
 @user_router.put("/{slug}")

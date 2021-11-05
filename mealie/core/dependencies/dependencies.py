@@ -115,6 +115,23 @@ def validate_file_token(token: Optional[str] = None) -> Path:
     return file_path
 
 
+def validate_recipe_token(token: Optional[str] = None) -> str:
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="could not validate file token",
+    )
+    if not token:
+        return None
+
+    try:
+        payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
+        slug = payload.get("slug")
+    except JWTError:
+        raise credentials_exception
+
+    return slug
+
+
 async def temporary_zip_path() -> Path:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")

@@ -157,7 +157,7 @@ export default defineComponent({
     },
   },
   methods: {
-    menuAction(action) {
+    async menuAction(action) {
       this.loading = true;
 
       switch (action) {
@@ -186,7 +186,10 @@ export default defineComponent({
           this.$emit("print");
           break;
         case "download":
-          window.open(`/api/recipes/${this.slug}/zip`);
+          // TODO: Refacor this entire component to not suck so much
+          // eslint-disable-next-line
+          const { data } = await this.api.recipes.getZipToken(this.slug);
+          window.open(this.api.recipes.getZipRedirectUrl(this.slug, data.token));
           break;
         default:
           break;
