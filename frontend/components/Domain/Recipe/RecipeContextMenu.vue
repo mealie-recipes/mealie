@@ -43,6 +43,7 @@
 <script>
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { useApiSingleton } from "~/composables/use-api";
+import { alert } from "~/composables/use-toast";
 export default defineComponent({
   props: {
     menuTop: {
@@ -156,7 +157,7 @@ export default defineComponent({
     },
   },
   methods: {
-    menuAction(action) {
+    async menuAction(action) {
       this.loading = true;
 
       switch (action) {
@@ -182,10 +183,13 @@ export default defineComponent({
           this.$router.push(`/recipe/${this.slug}` + "?edit=true");
           break;
         case "print":
-          this.$router.push(`/recipe/${this.slug}` + "?print=true");
+          this.$emit("print");
           break;
         case "download":
-          window.open(`/api/recipes/${this.slug}/zip`);
+          // TODO: Refacor this entire component to not suck so much
+          // eslint-disable-next-line
+          const { data } = await this.api.recipes.getZipToken(this.slug);
+          window.open(this.api.recipes.getZipRedirectUrl(this.slug, data.token));
           break;
         default:
           break;
@@ -194,16 +198,20 @@ export default defineComponent({
       this.loading = false;
     },
     async deleteRecipe() {
-      console.log("Delete Called");
       await this.api.recipes.deleteOne(this.slug);
+      this.$emit("deleted");
     },
     updateClipboard() {
       const copyText = this.recipeURL;
       navigator.clipboard.writeText(copyText).then(
         () => {
           console.log("Copied to Clipboard", copyText);
+          alert.success("Recipe link copied to clipboard");
         },
-        () => console.log("Copied Failed", copyText)
+        () => {
+          console.log("Copied Failed", copyText);
+          alert.error("Copied Failed");
+        }
       );
     },
   },

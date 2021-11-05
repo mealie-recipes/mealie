@@ -7,7 +7,7 @@
     <v-card v-if="skeleton" :color="`white ${false ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else-if="recipe">
+    <v-card v-else-if="recipe" class="d-print-none">
       <!-- Recipe Header -->
       <div class="d-flex justify-end flex-wrap align-stretch">
         <v-card v-if="!enableLandscape" width="50%" flat class="d-flex flex-column justify-center align-center">
@@ -63,6 +63,7 @@
         "
         @save="updateRecipe(recipe.slug, recipe)"
         @delete="deleteRecipe(recipe.slug)"
+        @print="printRecipe"
       />
 
       <!--  Editors  -->
@@ -78,7 +79,7 @@
             <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" @upload="uploadImage" />
           </div>
           <!-- Recipe Title Section -->
-          <template v-if="!form && !enableLandscape">
+          <template v-if="!form && enableLandscape">
             <v-card-title class="pa-0 ma-0 headline">
               {{ recipe.name }}
             </v-card-title>
@@ -161,7 +162,7 @@
             <v-spacer></v-spacer>
 
             <RecipeRating
-              v-if="!enableLandscape"
+              v-if="enableLandscape"
               :key="recipe.slug"
               :value="recipe.rating"
               :name="recipe.name"
@@ -263,6 +264,7 @@
         </v-card-text>
       </div>
     </v-card>
+    <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>
 </template>
 
@@ -298,29 +300,31 @@ import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBt
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeIngredientParserMenu from "~/components/Domain/Recipe/RecipeIngredientParserMenu.vue";
+import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { useStaticRoutes } from "~/composables/api";
 import { uuid4 } from "~/composables/use-uuid";
 
 export default defineComponent({
   components: {
+    draggable,
     RecipeActionMenu,
-    RecipeDialogBulkAdd,
     RecipeAssets,
     RecipeCategoryTagSelector,
     RecipeChips,
+    RecipeDialogBulkAdd,
     RecipeImageUploadBtn,
+    RecipeIngredientEditor,
+    RecipeIngredientParserMenu,
     RecipeIngredients,
     RecipeInstructions,
     RecipeNotes,
     RecipeNutrition,
+    RecipePrintView,
     RecipeRating,
     RecipeSettingsMenu,
-    RecipeIngredientEditor,
     RecipeTimeCard,
-    RecipeIngredientParserMenu,
     VueMarkdown,
-    draggable,
   },
   setup() {
     const route = useRoute();
@@ -519,9 +523,25 @@ export default defineComponent({
       // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
     },
+    // Won't work with Composition API in Vue 2. In Vue 3, this will happen in the setup function.
+    edit: {
+      set(val) {
+        // @ts-ignore
+        this.$router.replace({ query: { ...this.$route.query, val } });
+      },
+      get() {
+        // @ts-ignore
+        return this.$route.query.edit;
+      },
+    },
+  },
+  mounted() {
+    if (this.edit) {
+      this.form = true;
+    }
   },
   methods: {
-    printPage() {
+    printRecipe() {
       window.print();
     },
   },

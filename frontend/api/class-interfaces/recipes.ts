@@ -17,7 +17,8 @@ const routes = {
   recipesParseIngredients: `${prefix}/parser/ingredients`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
-  recipesRecipeSlugZip: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/zip`,
+  recipesRecipeSlugExport: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/exports`,
+  recipesRecipeSlugExportZip: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/exports/zip`,
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
 
@@ -70,6 +71,10 @@ export interface BulkCreateRecipe {
 
 export interface BulkCreatePayload {
   imports: BulkCreateRecipe[];
+}
+
+export interface RecipeZipToken {
+  token: string;
 }
 
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
@@ -150,5 +155,13 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   async parseIngredient(parser: Parser, ingredient: string) {
     parser = parser || "nlp";
     return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
+  }
+
+  async getZipToken(recipeSlug: string) {
+    return await this.requests.post<RecipeZipToken>(routes.recipesRecipeSlugExport(recipeSlug), {});
+  }
+
+  getZipRedirectUrl(recipeSlug: string, token: string) {
+    return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
   }
 }

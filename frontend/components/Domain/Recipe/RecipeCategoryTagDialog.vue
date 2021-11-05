@@ -93,13 +93,15 @@ export default defineComponent({
     async select() {
       const newItem = await (async () => {
         if (this.tagDialog) {
-          const newItem = await this.api.tags.createOne({ name: this.itemName });
-          return newItem;
+          const { data } = await this.api.tags.createOne({ name: this.itemName });
+          return data;
         } else {
-          const newItem = await this.api.categories.createOne({ name: this.itemName });
-          return newItem;
+          const { data } = await this.api.categories.createOne({ name: this.itemName });
+          return data;
         }
       })();
+
+      console.log(newItem);
 
       this.$emit(CREATED_ITEM_EVENT, newItem);
       this.dialog = false;

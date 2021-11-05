@@ -28,7 +28,7 @@
           <RecipeRating :value="rating" :name="name" :slug="slug" :small="true" />
           <v-spacer></v-spacer>
           <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :is-category="false" />
-          <RecipeContextMenu :slug="slug" :name="name" />
+          <RecipeContextMenu :slug="slug" :name="name" @deleted="$emit('deleted', slug)" />
         </v-card-actions>
         <slot></slot>
       </v-card>

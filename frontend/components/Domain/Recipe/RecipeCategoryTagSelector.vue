@@ -98,7 +98,7 @@ export default {
     getAllCategories();
     getAllTags();
 
-    return { api, allTags, allCategories };
+    return { api, allTags, allCategories, getAllCategories, getAllTags };
   },
 
   data() {
@@ -152,6 +152,9 @@ export default {
     },
     pushToItem(createdItem) {
       createdItem = this.returnObject ? createdItem : createdItem.name;
+      // TODO: Remove excessive get calls
+      this.getAllCategories();
+      this.getAllTags();
       this.selected.push(createdItem);
     },
   },

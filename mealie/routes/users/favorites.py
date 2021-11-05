@@ -26,9 +26,7 @@ def add_favorite(
 ):
     """ Adds a Recipe to the users favorites """
 
-    assert_user_change_allowed(id, current_user)
     current_user.favorite_recipes.append(slug)
-
     db = get_database(session)
     db.users.update(current_user.id, current_user)
 

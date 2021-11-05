@@ -3,6 +3,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 from mealie.core.config import get_app_settings
 
 from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_utils import auto_init
 from ..group import Group
 from .user_to_favorite import users_to_favorites
 
@@ -56,41 +57,37 @@ class User(SqlAlchemyBase, BaseMixins):
 
     favorite_recipes = orm.relationship("RecipeModel", secondary=users_to_favorites, back_populates="favorited_by")
 
-    def __init__(
-        self,
-        session,
-        full_name,
-        email,
-        password,
-        favorite_recipes: list[str] = None,
-        group: str = settings.DEFAULT_GROUP,
-        advanced=False,
-        **kwargs
-    ) -> None:
-        group = group or settings.DEFAULT_GROUP
-        favorite_recipes = favorite_recipes or []
+    class Config:
+        exclude = {
+            "password",
+            "admin",
+            "can_manage",
+            "can_invite",
+            "can_organize",
+            "group",
+            "username",
+        }
+
+    @auto_init()
+    def __init__(self, session, full_name, password, group: str = settings.DEFAULT_GROUP, **kwargs) -> None:
         self.group = Group.get_ref(session, group)
 
-        self.full_name = full_name
-        self.email = email
-        self.password = password
-        self.advanced = advanced
-
         self.favorite_recipes = []
+
+        self.password = password
 
         if self.username is None:
             self.username = full_name
 
         self._set_permissions(**kwargs)
 
-    def update(self, full_name, email, group, username, session=None, favorite_recipes=None, advanced=False, **kwargs):
-        favorite_recipes = favorite_recipes or []
+    @auto_init()
+    def update(self, full_name, email, group, username, session=None, **kwargs):
         self.username = username
         self.full_name = full_name
         self.email = email
 
         self.group = Group.get_ref(session, group)
-        self.advanced = advanced
 
         if self.username is None:
             self.username = full_name
