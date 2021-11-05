@@ -287,12 +287,20 @@
           </v-col>
         </v-row>
         <v-card-actions class="justify-end">
-          <BaseButton delete @click="bulkUrls = []"> Clear </BaseButton>
+          <BaseButton
+            delete
+            @click="
+              bulkUrls = [];
+              lockBulkImport = false;
+            "
+          >
+            Clear
+          </BaseButton>
           <v-spacer></v-spacer>
           <BaseButton color="info" @click="bulkUrls.push({ url: '', categories: [], tags: [] })">
             <template #icon> {{ $globals.icons.createAlt }} </template> New
           </BaseButton>
-          <BaseButton :disabled="bulkUrls.length === 0" @click="bulkCreate">
+          <BaseButton :disabled="bulkUrls.length === 0 || lockBulkImport" @click="bulkCreate">
             <template #icon> {{ $globals.icons.check }} </template> Submit
           </BaseButton>
         </v-card-actions>
@@ -437,6 +445,7 @@ export default defineComponent({
     // Bulk Importer
 
     const bulkUrls = ref([{ url: "", categories: [], tags: [] }]);
+    const lockBulkImport = ref(false);
 
     async function bulkCreate() {
       if (bulkUrls.value.length === 0) {
@@ -447,6 +456,7 @@ export default defineComponent({
 
       if (response?.status === 202) {
         alert.success("Bulk Import process has started");
+        lockBulkImport.value = true;
       } else {
         alert.error("Bulk import process has failed");
       }
@@ -455,6 +465,7 @@ export default defineComponent({
     return {
       bulkCreate,
       bulkUrls,
+      lockBulkImport,
       debugTreeView,
       tabs,
       domCreateByName,
