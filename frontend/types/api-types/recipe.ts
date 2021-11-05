@@ -80,7 +80,7 @@ export interface Recipe {
   comments?: CommentOut[];
 }
 export interface RecipeIngredient {
-  ref: string;
+  referenceId: string;
   title: string;
   note: string;
   unit?: RecipeIngredientUnit | null;
@@ -96,9 +96,13 @@ export interface RecipeIngredientFood {
   name?: string;
   description?: string;
 }
+export interface IngredientToStepRef {
+  referenceId: string;
+}
 export interface RecipeStep {
   title?: string;
   text: string;
+  ingredientReferences: IngredientToStepRef[];
 }
 export interface RecipeSettings {
   public?: boolean;

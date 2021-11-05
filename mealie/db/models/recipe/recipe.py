@@ -92,7 +92,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "notes",
             "nutrition",
             "recipe_ingredient",
-            "recipe_instructions",
             "settings",
             "tools",
         }
@@ -111,7 +110,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         notes: list[dict] = None,
         nutrition: dict = None,
         recipe_ingredient: list[str] = None,
-        recipe_instructions: list[dict] = None,
         settings: dict = None,
         tools: list[str] = None,
         **_,
@@ -120,10 +118,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.tools = [Tool(tool=x) for x in tools] if tools else []
         self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
         self.assets = [RecipeAsset(**a) for a in assets]
-        self.recipe_instructions = [
-            RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))
-            for instruc in recipe_instructions
-        ]
+        # self.recipe_instructions = [
+        #     RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))
+        #     for instruc in recipe_instructions
+        # ]
 
         # Mealie Specific
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()

@@ -133,11 +133,6 @@ export default defineComponent({
         title: i18n.t("about.support"),
         href: "https://github.com/sponsors/hay-kot",
       },
-      {
-        icon: $globals.icons.information,
-        title: i18n.t("about.about"),
-        to: "/admin/about",
-      },
     ];
 
     return {

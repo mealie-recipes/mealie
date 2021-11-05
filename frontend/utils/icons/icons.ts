@@ -100,6 +100,7 @@ import {
   mdiArrowRightBoldOutline,
   mdiTimerSand,
   mdiRefresh,
+  mdiArrowRightBold,
 } from "@mdi/js";
 
 export const icons = {
@@ -113,6 +114,7 @@ export const icons = {
   alertCircle: mdiAlertCircle,
   api: mdiApi,
   arrowLeftBold: mdiArrowLeftBold,
+  arrowRightBold: mdiArrowRightBold,
   arrowUpDown: mdiDrag,
   backupRestore: mdiBackupRestore,
   bellAlert: mdiBellAlert,

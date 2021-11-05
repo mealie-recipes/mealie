@@ -69,14 +69,42 @@
         </template>
       </v-card>
     </section>
+    <section class="mt-4">
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="General About"> </BaseCardSectionTitle>
+      <v-card class="mb-4">
+        <v-list-item v-for="property in appInfo" :key="property.name">
+          <v-list-item-icon>
+            <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <div>{{ property.name }}</div>
+            </v-list-item-title>
+            <v-list-item-subtitle class="text-end">
+              {{ property.value }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-card>
+    </section>
   </v-container>
 </template>
     
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, toRefs, ref } from "@nuxtjs/composition-api";
+import {
+  computed,
+  onMounted,
+  reactive,
+  toRefs,
+  ref,
+  defineComponent,
+  useAsync,
+  useContext,
+} from "@nuxtjs/composition-api";
 import { CheckAppConfig } from "~/api/admin/admin-about";
 import { useAdminApi, useApiSingleton } from "~/composables/use-api";
 import { validators } from "~/composables/use-validators";
+import { useAsyncKey } from "~/composables/use-utils";
 
 interface SimpleCheck {
   status: boolean;
@@ -104,9 +132,9 @@ export default defineComponent({
 
     const api = useApiSingleton();
 
-    const adminAPI = useAdminApi();
+    const adminApi = useAdminApi();
     onMounted(async () => {
-      const { data } = await adminAPI.about.checkApp();
+      const { data } = await adminApi.about.checkApp();
 
       if (data) {
         appConfig.value = data;
@@ -173,6 +201,70 @@ export default defineComponent({
       return booly ? "success" : "error";
     }
 
+    // ============================================================
+    // General About Info
+    // @ts-ignore
+    const { $globals, i18n } = useContext();
+
+    function getAppInfo() {
+      const statistics = useAsync(async () => {
+        const { data } = await adminApi.about.about();
+
+        if (data) {
+          const prettyInfo = [
+            {
+              name: i18n.t("about.version"),
+              icon: $globals.icons.information,
+              value: data.version,
+            },
+            {
+              name: i18n.t("about.application-mode"),
+              icon: $globals.icons.devTo,
+              value: data.production ? i18n.t("about.production") : i18n.t("about.development"),
+            },
+            {
+              name: i18n.t("about.demo-status"),
+              icon: $globals.icons.testTube,
+              value: data.demoStatus ? i18n.t("about.demo") : i18n.t("about.not-demo"),
+            },
+            {
+              name: i18n.t("about.api-port"),
+              icon: $globals.icons.api,
+              value: data.apiPort,
+            },
+            {
+              name: i18n.t("about.api-docs"),
+              icon: $globals.icons.file,
+              value: data.apiDocs ? i18n.t("general.enabled") : i18n.t("general.disabled"),
+            },
+            {
+              name: i18n.t("about.database-type"),
+              icon: $globals.icons.database,
+              value: data.dbType,
+            },
+            {
+              name: i18n.t("about.database-url"),
+              icon: $globals.icons.database,
+              value: data.dbUrl,
+            },
+            {
+              name: i18n.t("about.default-group"),
+              icon: $globals.icons.group,
+              value: data.defaultGroup,
+            },
+          ];
+
+          return prettyInfo;
+        }
+
+        return data;
+      }, useAsyncKey());
+
+      return statistics;
+    }
+
+    const appInfo = getAppInfo();
+
     return {
       simpleChecks,
       getColor,
@@ -182,6 +274,7 @@ export default defineComponent({
       validators,
       ...toRefs(state),
       testEmail,
+      appInfo,
     };
   },
   head() {

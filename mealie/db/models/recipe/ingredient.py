@@ -3,6 +3,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
 from .._model_utils import auto_init
+from .._model_utils.guid import GUID
 
 
 class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
@@ -47,6 +48,8 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     food_id = Column(Integer, ForeignKey("ingredient_foods.id"))
     food = orm.relationship(IngredientFoodModel, uselist=False)
     quantity = Column(Integer)
+
+    reference_id = Column(GUID())  # Reference Links
 
     # Extras
 

@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="600">
+    <v-dialog v-model="dialog" width="800">
       <template #activator="{ on, attrs }">
         <BaseButton v-bind="attrs" v-on="on" @click="inputText = ''">
           {{ $t("new-recipe.bulk-add") }}
@@ -20,7 +20,7 @@
           <v-textarea
             v-model="inputText"
             outlined
-            rows="10"
+            rows="12"
             :placeholder="$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')"
           >
           </v-textarea>
@@ -40,6 +40,14 @@
               </v-btn>
             </template>
             <span> Trim first character from each line </span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template #activator="{ on, attrs }">
+              <v-btn class="ml-1" outlined color="info" small v-bind="attrs" @click="splitByNumberedLine" v-on="on">
+                Split By Numbered Line
+              </v-btn>
+            </template>
+            <span> Attempts to split a paragraph by matching 1) or 1. patterns </span>
           </v-tooltip>
         </v-card-text>
 
@@ -74,6 +82,18 @@ export default defineComponent({
         .join("\n");
     }
 
+    const numberedLineRegex = /\d[.):] /gm;
+
+    function splitByNumberedLine() {
+      // Split inputText by numberedLineRegex
+      const matches = state.inputText.match(numberedLineRegex);
+
+      matches?.forEach((match, idx) => {
+        const replaceText = idx === 0 ? "" : "\n";
+        state.inputText = state.inputText.replace(match, replaceText);
+      });
+    }
+
     function trimAllLines() {
       const splitLines = splitText();
 
@@ -93,6 +113,7 @@ export default defineComponent({
       splitText,
       trimAllLines,
       removeFirstCharacter,
+      splitByNumberedLine,
       save,
       ...toRefs(state),
     };

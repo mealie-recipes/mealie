@@ -9,7 +9,7 @@
         Select one of the various ways to create a recipe
         <template #content>
           <div class="ml-auto">
-            <BaseOverflowButton v-model="tab" rounded outlined :items="tabs"> </BaseOverflowButton>
+            <BaseOverflowButton v-model="tab" rounded :items="tabs"> </BaseOverflowButton>
           </div>
         </template>
       </BasePageTitle>
