@@ -523,6 +523,22 @@ export default defineComponent({
       // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
     },
+    // Won't work with Composition API in Vue 2. In Vue 3, this will happen in the setup function.
+    edit: {
+      set(val) {
+        // @ts-ignore
+        this.$router.replace({ query: { ...this.$route.query, val } });
+      },
+      get() {
+        // @ts-ignore
+        return this.$route.query.edit;
+      },
+    },
+  },
+  mounted() {
+    if (this.edit) {
+      this.form = true;
+    }
   },
   methods: {
     printRecipe() {

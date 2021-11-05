@@ -352,13 +352,13 @@ export default defineComponent({
     const api = useApiSingleton();
     const router = useRouter();
 
-    function handleResponse(response: any) {
+    function handleResponse(response: any, edit: Boolean = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
         return;
       }
-      router.push(`/recipe/${response.data}`);
+      router.push(`/recipe/${response.data}?edit=${edit}`);
     }
 
     // ===================================================
@@ -408,7 +408,7 @@ export default defineComponent({
         return;
       }
       const { response } = await api.recipes.createOne({ name });
-      handleResponse(response);
+      handleResponse(response, true);
     }
 
     // ===================================================
