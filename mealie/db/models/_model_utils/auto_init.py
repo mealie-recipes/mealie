@@ -92,7 +92,7 @@ def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elemen
 
         updated_elems.append(existing_elem)
 
-    new_elems = [safe_call(relation_cls, elem) for elem in elems_to_create]
+    new_elems = [safe_call(relation_cls, elem, session=session) for elem in elems_to_create]
     return new_elems + updated_elems
 
 
@@ -159,7 +159,7 @@ def auto_init():  # sourcery no-metrics
                         setattr(self, key, instances)
 
                     elif relation_dir == ONETOMANY:
-                        instance = safe_call(relation_cls, val)
+                        instance = safe_call(relation_cls, val, session=session)
                         setattr(self, key, instance)
 
                     elif relation_dir == MANYTOONE and not use_list:
