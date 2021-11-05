@@ -38,6 +38,10 @@ const state = {
       value: "pl-PL",
     },
     {
+      name: "Slovenčina (Slovak)",
+      value: "sk-SK",
+    },
+    {
       name: "Svenska (Swedish)",
       value: "sv-SE",
     },

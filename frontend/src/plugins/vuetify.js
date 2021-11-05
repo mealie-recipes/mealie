@@ -11,6 +11,7 @@ import hu from "vuetify/es5/locale/hu";
 import it from "vuetify/es5/locale/it";
 import nl from "vuetify/es5/locale/nl";
 import pl from "vuetify/es5/locale/pl";
+import sk from "vuetify/es5/locale/sk";
 import sv from "vuetify/es5/locale/sv";
 import zhHans from "vuetify/es5/locale/zh-Hans";
 import zhHant from "vuetify/es5/locale/zh-Hant";
@@ -52,6 +53,7 @@ const vuetify = new Vuetify({
       "it-IT": it,
       "nl-NL": nl,
       "pl-PL": pl,
+      "sk-SK": sk,
       "sv-SE": sv,
       "zh-CN": zhHans,
       "zh-TW": zhHant,
