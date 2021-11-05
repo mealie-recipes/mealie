@@ -66,6 +66,7 @@
               :rating="recipe.rating"
               :image="recipe.image"
               :tags="recipe.tags"
+              @deleted="$emit('deleted', $event)"
             />
           </v-lazy>
         </v-col>

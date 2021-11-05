@@ -4,6 +4,7 @@
       :icon="$globals.icons.primary"
       :title="$t('page.all-recipes')"
       :recipes="recipes"
+      @deleted="removeRecipe"
     ></RecipeCardSection>
     <v-card v-intersect="infiniteScroll"></v-card>
     <v-fade-transition>
@@ -45,7 +46,18 @@ export default defineComponent({
       loading.value = false;
     }, 500);
 
-    return { recipes, infiniteScroll, loading };
+    function removeRecipe(slug: string) {
+      // @ts-ignore
+      for (let i = 0; i < recipes?.value?.length; i++) {
+        // @ts-ignore
+        if (recipes?.value[i].slug === slug) {
+          recipes?.value.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    return { recipes, infiniteScroll, loading, removeRecipe };
   },
   head() {
     return {

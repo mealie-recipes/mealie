@@ -198,8 +198,8 @@ export default defineComponent({
       this.loading = false;
     },
     async deleteRecipe() {
-      console.log("Delete Called");
       await this.api.recipes.deleteOne(this.slug);
+      this.$emit("deleted");
     },
     updateClipboard() {
       const copyText = this.recipeURL;
