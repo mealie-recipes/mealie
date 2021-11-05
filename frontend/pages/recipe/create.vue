@@ -385,6 +385,7 @@ export default defineComponent({
 
     async function createByUrl(url: string) {
       if (!domUrlForm.value.validate() || url === "") {
+        console.log("Invalid URL", url);
         return;
       }
       state.loading = true;
