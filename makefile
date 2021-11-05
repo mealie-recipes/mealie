@@ -76,13 +76,17 @@ setup: ## 🏗  Setup Development Instance
 	yarn install && \
 	cd ..
 
-	echo "Be sure to copy the template.env files"
+	@echo Be sure to copy the template.env files
+	@echo Testing the Natural Languuage Processor? Try `make setup-model` to get the most recent model
+
+setup-model:
+	@echo Fetching NLP Model - CRF++ is still Required
+	curl -L0 https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel --output ./mealie/services/parser_services/crfpp/model.crfmodel
 
 backend: ## 🎬 Start Mealie Backend Development Server
 	poetry run python mealie/db/init_db.py && \
 	poetry run python mealie/services/image/minify.py && \
 	poetry run python mealie/app.py
-
 
 .PHONY: frontend
 frontend: ## 🎬 Start Mealie Frontend Development Server
