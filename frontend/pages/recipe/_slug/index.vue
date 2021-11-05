@@ -112,7 +112,7 @@
             <draggable v-model="recipe.recipeIngredient" handle=".handle">
               <RecipeIngredientEditor
                 v-for="(ingredient, index) in recipe.recipeIngredient"
-                :key="ingredient.ref"
+                :key="ingredient.referenceId"
                 v-model="recipe.recipeIngredient[index]"
                 :disable-amount="recipe.settings.disableAmount"
                 @delete="recipe.recipeIngredient.splice(index, 1)"
@@ -229,7 +229,11 @@
             <v-divider v-if="$vuetify.breakpoint.mdAndUp" class="my-divider" :vertical="true"></v-divider>
 
             <v-col cols="12" sm="12" md="8" lg="8">
-              <RecipeInstructions v-model="recipe.recipeInstructions" :edit="form" />
+              <RecipeInstructions
+                v-model="recipe.recipeInstructions"
+                :ingredients="recipe.recipeIngredient"
+                :edit="form"
+              />
               <div v-if="form" class="d-flex">
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
                 <BaseButton class="my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
@@ -431,12 +435,12 @@ export default defineComponent({
 
       if (steps) {
         const cleanedSteps = steps.map((step) => {
-          return { text: step, title: "" };
+          return { text: step, title: "", ingredientReferences: [] };
         });
 
         recipe.value.recipeInstructions.push(...cleanedSteps);
       } else {
-        recipe.value.recipeInstructions.push({ text: "", title: "" });
+        recipe.value.recipeInstructions.push({ text: "", title: "", ingredientReferences: [] });
       }
     }
 
@@ -444,7 +448,7 @@ export default defineComponent({
       if (ingredients?.length) {
         const newIngredients = ingredients.map((x) => {
           return {
-            ref: uuid4(),
+            referenceId: uuid4(),
             title: "",
             note: x,
             unit: null,
@@ -459,7 +463,7 @@ export default defineComponent({
         }
       } else {
         recipe?.value?.recipeIngredient?.push({
-          ref: uuid4(),
+          referenceId: uuid4(),
           title: "",
           note: "",
           unit: null,

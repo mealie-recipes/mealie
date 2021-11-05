@@ -12,7 +12,7 @@
     v-on="$listeners"
     @click="download ? downloadFile() : undefined"
   >
-    <v-icon left>
+    <v-icon v-if="!iconRight" left>
       <slot name="icon">
         {{ btnAttrs.icon }}
       </slot>
@@ -20,6 +20,11 @@
     <slot name="default">
       {{ btnAttrs.text }}
     </slot>
+    <v-icon v-if="iconRight" right>
+      <slot name="icon">
+        {{ btnAttrs.icon }}
+      </slot>
+    </v-icon>
   </v-btn>
 </template>
 
@@ -95,6 +100,10 @@ export default {
     color: {
       type: String,
       default: null,
+    },
+    iconRight: {
+      type: Boolean,
+      default: false,
     },
   },
   setup() {
