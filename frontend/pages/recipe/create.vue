@@ -391,7 +391,11 @@ export default defineComponent({
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url);
       if (response?.status !== 201) {
-        state.error = true;
+        // @ts-ignore
+        if (!response?.error?.response?.data?.detail?.message) {
+          state.error = true;
+        }
+
         state.loading = false;
         return;
       }

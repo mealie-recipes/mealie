@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-snackbar v-model="toastAlert.open" top :color="toastAlert.color" timeout="1500" @input="toastAlert.open = false">
+    <v-snackbar v-model="toastAlert.open" top :color="toastAlert.color" timeout="2000" @input="toastAlert.open = false">
       <v-icon dark left>
         {{ icon }}
       </v-icon>
