@@ -121,14 +121,6 @@ export default defineComponent({
         },
         { divider: true },
         {
-          icon: this.$globals.icons.zip,
-          title: "Recipe from zip",
-          subtitle: "Restore from a exported recipe",
-          to: "/recipe/create?tab=zip",
-          restricted: true,
-        },
-        { divider: true },
-        {
           icon: this.$globals.icons.pages,
           title: "Cookbook",
           subtitle: "Create a new cookbook",
