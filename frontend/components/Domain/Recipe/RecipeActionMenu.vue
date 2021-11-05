@@ -6,7 +6,6 @@
     color="rgb(255, 0, 0, 0.0)"
     flat
     style="z-index: 2; position: sticky"
-    :class="{ 'fixed-bar-mobile': $vuetify.breakpoint.xs }"
   >
     <BaseDialog
       ref="deleteRecipieConfirm"

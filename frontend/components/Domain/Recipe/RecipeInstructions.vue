@@ -170,8 +170,9 @@ export default defineComponent({
     const state = reactive({
       dialog: false,
       disabledSteps: [] as number[],
-      showTitleEditor: [] as boolean[],
     });
+
+    const showTitleEditor = ref<boolean[]>([]);
 
     const actionEvents = [
       {
@@ -196,12 +197,12 @@ export default defineComponent({
 
     watch(props.value, (v) => {
       state.disabledSteps = [];
-      state.showTitleEditor = v.map((x) => validateTitle(x.title));
+      showTitleEditor.value = v.map((x) => validateTitle(x.title));
     });
 
     // Eliminate state with an eager call to watcher?
     onMounted(() => {
-      state.showTitleEditor = props.value.map((x) => validateTitle(x.title));
+      showTitleEditor.value = props.value.map((x) => validateTitle(x.title));
     });
 
     function toggleDisabled(stepIndex: number) {
@@ -223,11 +224,15 @@ export default defineComponent({
       }
     }
     function toggleShowTitle(index: number) {
-      const newVal = !state.showTitleEditor[index];
+      const newVal = !showTitleEditor.value[index];
       if (!newVal) {
         props.value[index].title = "";
       }
-      state.showTitleEditor[index] = newVal;
+
+      // Must create a new temporary list due to vue-composition-api backport limitations (I think...)
+      const tempList = [...showTitleEditor.value];
+      tempList[index] = newVal;
+      showTitleEditor.value = tempList;
     }
     function updateIndex(data: RecipeStep) {
       context.emit("input", data);
@@ -290,10 +295,10 @@ export default defineComponent({
 
         props.ingredients.forEach((ingredient) => {
           if (
-            ingredient.note.toLowerCase().includes(" " + word + " ") &&
+            ingredient.note.toLowerCase().includes(" " + word) &&
             !activeRefs.value.includes(ingredient.referenceId)
           ) {
-            console.log("Word Matched", `'${word}'`, ingredient.note);
+            console.info("Word Matched", `'${word}'`, ingredient.note);
             activeRefs.value.push(ingredient.referenceId);
           }
         });
@@ -350,6 +355,7 @@ export default defineComponent({
       activeRefs,
       activeText,
       getIngredientByRefId,
+      showTitleEditor,
       mergeAbove,
       openDialog,
       setIngredientIds,
