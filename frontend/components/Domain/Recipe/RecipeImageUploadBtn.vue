@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-menu offset-y top nudge-top="6" :close-on-content-click="false">
+    <v-menu v-model="menu" offset-y top nudge-top="6" :close-on-content-click="false">
       <template #activator="{ on, attrs }">
         <v-btn color="accent" dark v-bind="attrs" v-on="on">
           <v-icon left>
@@ -59,10 +59,12 @@ export default defineComponent({
   data: () => ({
     url: "",
     loading: false,
+    menu: false,
   }),
   methods: {
     uploadImage(fileObject) {
       this.$emit(UPLOAD_EVENT, fileObject);
+      this.menu = false;
     },
     async getImageFromURL() {
       this.loading = true;
@@ -70,6 +72,7 @@ export default defineComponent({
         this.$emit(REFRESH_EVENT);
       }
       this.loading = false;
+      this.menu = false;
     },
     getMessages() {
       return this.slug ? [""] : [this.$i18n.t("recipe.save-recipe-before-use")];
