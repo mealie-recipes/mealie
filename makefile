@@ -79,7 +79,7 @@ setup: ## 🏗  Setup Development Instance
 	@echo Be sure to copy the template.env files
 	@echo Testing the Natural Languuage Processor? Try `make setup-model` to get the most recent model
 
-setup-model:
+setup-model: ## 🤖 Get the latest NLP CRF++ Model
 	@echo Fetching NLP Model - CRF++ is still Required
 	curl -L0 https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel --output ./mealie/services/parser_services/crfpp/model.crfmodel
 
