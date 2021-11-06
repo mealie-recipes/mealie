@@ -171,14 +171,20 @@ export default defineComponent({
 
     const errors = ref<Error[]>([]);
 
-    function checkForUnit(unit: RecipeIngredientUnit) {
+    function checkForUnit(unit: RecipeIngredientUnit | null) {
+      if (!unit) {
+        return false;
+      }
       if (units.value && unit?.name) {
         return units.value.some((u) => u.name === unit.name);
       }
       return false;
     }
 
-    function checkForFood(food: Food) {
+    function checkForFood(food: Food | null) {
+      if (!food) {
+        return false;
+      }
       if (foods.value && food?.name) {
         return foods.value.some((f) => f.name === food.name);
       }
@@ -205,11 +211,11 @@ export default defineComponent({
           return ing;
         }
         // Get food from foods
-        const food = foods.value.find((f) => f.name === ing.food.name);
+        const food = foods.value.find((f) => f.name === ing.food?.name);
         ing.food = food || null;
 
         // Get unit from units
-        const unit = units.value.find((u) => u.name === ing.unit.name);
+        const unit = units.value.find((u) => u.name === ing.unit?.name);
         ing.unit = unit || null;
         return ing;
       });
