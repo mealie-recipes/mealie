@@ -46,14 +46,15 @@ export interface Unit {
 
 export interface Food {
   name: string;
-  description: string;
+  description?: string;
 }
 
 export interface Ingredient {
+  referenceId: string;
   title: string;
   note: string;
-  unit: Unit;
-  food: Food;
+  unit: Unit | null;
+  food: Food | null;
   disableAmount: boolean;
   quantity: number;
 }

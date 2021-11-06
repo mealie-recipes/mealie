@@ -38,7 +38,11 @@
           item-text="name"
           class="mx-1"
           placeholder="Choose Unit"
+          @keyup.enter="handleUnitEnter"
         >
+          <template #no-data>
+            <div class="caption text-center pb-2">Press Enter to Create</div>
+          </template>
           <template #append-item>
             <div class="px-2">
               <BaseButton block small @click="createAssignUnit()"></BaseButton>
@@ -60,7 +64,11 @@
           item-text="name"
           class="mx-1 py-0"
           placeholder="Choose Food"
+          @keyup.enter="handleFoodEnter"
         >
+          <template #no-data>
+            <div class="caption text-center pb-2">Press Enter to Create</div>
+          </template>
           <template #append-item>
             <div class="px-2">
               <BaseButton block small @click="createAssignFood()"></BaseButton>
@@ -132,7 +140,6 @@ export default defineComponent({
       workingUnitData.name = unitSearch.value;
       await unitActions.createOne();
       value.unit = units.value?.find((unit) => unit.name === unitSearch.value);
-      console.log(value.unit);
     }
 
     const state = reactive({
@@ -149,7 +156,23 @@ export default defineComponent({
       }
     }
 
+    function handleUnitEnter() {
+      if (value.unit === null || !value.unit.name.includes(unitSearch.value)) {
+        console.log("Creating");
+        createAssignUnit();
+      }
+    }
+
+    function handleFoodEnter() {
+      if (value.food === null || !value.food.name.includes(foodSearch.value)) {
+        console.log("Creating");
+        createAssignFood();
+      }
+    }
+
     return {
+      handleUnitEnter,
+      handleFoodEnter,
       ...toRefs(state),
       createAssignFood,
       createAssignUnit,

@@ -111,6 +111,7 @@ class User(SqlAlchemyBase, BaseMixins):
             self.can_manage = True
             self.can_invite = True
             self.can_organize = True
+            self.advanced = True
         else:
             self.can_manage = can_manage
             self.can_invite = can_invite

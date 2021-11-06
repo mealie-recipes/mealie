@@ -120,7 +120,26 @@
               />
             </draggable>
             <div class="d-flex justify-end mt-2">
-              <RecipeIngredientParserMenu :slug="recipe.slug" :ingredients="recipe.recipeIngredient" />
+              <v-tooltip top color="accent">
+                <template #activator="{ on, attrs }">
+                  <span v-on="on">
+                    <BaseButton
+                      :disabled="recipe.settings.disableAmount"
+                      color="accent"
+                      :to="`${recipe.slug}/ingredient-parser`"
+                      v-bind="attrs"
+                    >
+                      <template #icon>
+                        {{ $globals.icons.foods }}
+                      </template>
+                      Parse
+                    </BaseButton>
+                  </span>
+                </template>
+                <span>{{
+                  recipe.settings.disableAmount ? "Enable ingredient amounts to use this feature" : "Parse ingredients"
+                }}</span>
+              </v-tooltip>
               <RecipeDialogBulkAdd class="ml-1 mr-1" @bulk-data="addIngredient" />
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
@@ -279,6 +298,7 @@ import {
   computed,
   defineComponent,
   reactive,
+  ref,
   toRefs,
   useContext,
   useMeta,
@@ -288,6 +308,7 @@ import {
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
+import { invoke, until } from "@vueuse/core";
 import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
@@ -305,10 +326,9 @@ import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
-import RecipeIngredientParserMenu from "~/components/Domain/Recipe/RecipeIngredientParserMenu.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { Recipe } from "~/types/api-types/recipe";
-import { uuid4 } from "~/composables/use-utils";
+import { uuid4, deepCopy } from "~/composables/use-utils";
 
 export default defineComponent({
   components: {
@@ -320,7 +340,6 @@ export default defineComponent({
     RecipeDialogBulkAdd,
     RecipeImageUploadBtn,
     RecipeIngredientEditor,
-    RecipeIngredientParserMenu,
     RecipeIngredients,
     RecipeInstructions,
     RecipeNotes,
@@ -331,11 +350,30 @@ export default defineComponent({
     RecipeTimeCard,
     VueMarkdown,
   },
+  async beforeRouteLeave(_to, _from, next) {
+    const isSame = JSON.stringify(this.recipe) === JSON.stringify(this.originalRecipe);
+
+    console.log({ working: this.recipe, saved: this.originalRecipe });
+
+    if (this.form && !isSame) {
+      if (window.confirm("You have unsaved changes. Do you want to save before leaving?")) {
+        // @ts-ignore
+        await this.api.recipes.updateOne(this.recipe.slug, this.recipe);
+      }
+    }
+    next();
+  },
+
   setup() {
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useUserApi();
+
+    // ===============================================================
+    // Check Before Leaving
+
+    const domSaveChangesDialog = ref(null);
 
     const state = reactive({
       form: false,
@@ -353,6 +391,16 @@ export default defineComponent({
     });
 
     const { recipe, loading, fetchRecipe } = useRecipe(slug);
+
+    // Manage a deep copy of the recipe so we can detect if changes have occured and inform
+    // the user if they try to navigate away from the page without saving.
+    const originalRecipe = ref<Recipe | null>(null);
+
+    invoke(async () => {
+      await until(recipe).not.toBeNull();
+
+      originalRecipe.value = deepCopy(recipe.value);
+    });
 
     const { recipeImage } = useStaticRoutes();
 
@@ -504,6 +552,8 @@ export default defineComponent({
     });
 
     return {
+      originalRecipe,
+      domSaveChangesDialog,
       enableLandscape,
       scaledYield,
       toggleJson,

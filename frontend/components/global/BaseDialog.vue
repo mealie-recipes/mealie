@@ -26,7 +26,14 @@
 
         <v-card-actions>
           <slot name="card-actions">
-            <v-btn text color="grey" @click="dialog = false">
+            <v-btn
+              text
+              color="grey"
+              @click="
+                dialog = false;
+                $emit('cancel');
+              "
+            >
               {{ $t("general.cancel") }}
             </v-btn>
             <v-spacer></v-spacer>

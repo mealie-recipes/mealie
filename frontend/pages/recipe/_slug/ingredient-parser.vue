@@ -1,6 +1,15 @@
 <template>
   <v-container v-if="recipe">
     <v-container>
+      <v-alert dismissible border="left" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
+        <b>Experimental Feature</b>
+        <div>
+          Mealie can use natural language processing to attempt to parse and create units, and foods for your Recipe
+          ingredients. This is experimental and may not work as expected. If you choose to not use the parsed results
+          you can seleect cancel and your changes will not be saved.
+        </div>
+      </v-alert>
+
       <BaseCardSectionTitle title="Ingredients Processor">
         To use the ingredient parser, click the "Parse All" button and the process will start. When the processed
         ingredients are available, you can look through the items and verify that they were parsed correctly. The models
@@ -30,13 +39,14 @@
         </div>
       </BaseCardSectionTitle>
 
-      <v-card-actions class="justify-end">
+      <div class="d-flex mt-n3 mb-4 justify-end" style="gap: 5px">
+        <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
         <BaseButton color="info" @click="fetchParsed">
           <template #icon> {{ $globals.icons.foods }}</template>
           Parse All
         </BaseButton>
         <BaseButton save @click="saveAll"> Save All </BaseButton>
-      </v-card-actions>
+      </div>
 
       <v-expansion-panels v-model="panels" multiple>
         <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
@@ -73,12 +83,12 @@
   
 <script lang="ts">
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { until, invoke } from "@vueuse/core";
 import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipe, useFoods, useUnits } from "~/composables/recipes";
 import { RecipeIngredientUnit } from "~/types/api-types/recipe";
-
 interface Error {
   ingredientIndex: number;
   unitError: Boolean;
@@ -101,27 +111,28 @@ export default defineComponent({
 
     const { recipe, loading } = useRecipe(slug);
 
+    invoke(async () => {
+      await until(recipe).not.toBeNull();
+
+      fetchParsed();
+    });
+
     const ingredients = ref<any[]>([]);
 
     // =========================================================
     // Parser Logic
-
     const parser = ref<Parser>("nlp");
-
-    const parsedIng = ref<any[]>([]);
+    const parsedIng = ref<ParsedIngredient[]>([]);
 
     async function fetchParsed() {
       if (!recipe.value) {
         return;
       }
       const raw = recipe.value.recipeIngredient.map((ing) => ing.note);
-      const { response, data } = await api.recipes.parseIngredients(parser.value, raw);
-      console.log({ response });
+      const { data } = await api.recipes.parseIngredients(parser.value, raw);
 
       if (data) {
         parsedIng.value = data;
-
-        console.log(data);
 
         // @ts-ignore
         errors.value = data.map((ing, index: number) => {
@@ -142,9 +153,9 @@ export default defineComponent({
               if (ing?.ingredient?.food?.name) {
                 foodErrorMessage = `Create missing food '${ing.ingredient.food.name || "No food"}'?`;
               }
-              panels.value.push(index);
             }
           }
+          panels.value.push(index);
 
           return {
             ingredientIndex: index,
@@ -176,14 +187,20 @@ export default defineComponent({
 
     const errors = ref<Error[]>([]);
 
-    function checkForUnit(unit: RecipeIngredientUnit) {
+    function checkForUnit(unit: RecipeIngredientUnit | null) {
+      if (!unit) {
+        return false;
+      }
       if (units.value && unit?.name) {
         return units.value.some((u) => u.name === unit.name);
       }
       return false;
     }
 
-    function checkForFood(food: Food) {
+    function checkForFood(food: Food | null) {
+      if (!food) {
+        return false;
+      }
       if (foods.value && food?.name) {
         return foods.value.some((f) => f.name === food.name);
       }
@@ -205,21 +222,17 @@ export default defineComponent({
         };
       });
 
-      console.log(ingredients);
-
       ingredients = ingredients.map((ing) => {
         if (!foods.value || !units.value) {
           return ing;
         }
         // Get food from foods
-        const food = foods.value.find((f) => f.name === ing.food.name);
+        const food = foods.value.find((f) => f.name === ing.food?.name);
         ing.food = food || null;
 
         // Get unit from units
-        const unit = units.value.find((u) => u.name === ing.unit.name);
+        const unit = units.value.find((u) => u.name === ing.unit?.name);
         ing.unit = unit || null;
-        console.log(ing);
-
         return ing;
       });
 
