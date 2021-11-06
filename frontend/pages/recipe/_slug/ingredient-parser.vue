@@ -76,9 +76,7 @@ import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-a
 import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
-import { useRecipeContext } from "~/composables/use-recipe-context";
-import { useFoods } from "~/composables/use-recipe-foods";
-import { useUnits } from "~/composables/use-recipe-units";
+import { useRecipeContext, useFoods, useUnits } from "~/composables/recipes";
 import { RecipeIngredientUnit } from "~/types/api-types/recipe";
 
 interface Error {

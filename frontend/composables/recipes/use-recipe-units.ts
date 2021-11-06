@@ -1,5 +1,5 @@
 import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
-import { useAsyncKey } from "./use-utils";
+import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import { Unit } from "~/api/class-interfaces/recipe-units";
 

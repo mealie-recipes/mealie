@@ -66,7 +66,7 @@
     
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, computed } from "@nuxtjs/composition-api";
-import { useUnits } from "~/composables/use-recipe-units";
+import { useUnits } from "~/composables/recipes";
 import { validators } from "~/composables/use-validators";
 export default defineComponent({
   layout: "admin",

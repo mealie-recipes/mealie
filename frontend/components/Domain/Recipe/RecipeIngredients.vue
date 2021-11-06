@@ -23,7 +23,7 @@
 <script>
 import { computed, defineComponent } from "@nuxtjs/composition-api";
 import VueMarkdown from "@adapttive/vue-markdown";
-import { useFraction } from "@/composables/use-fraction";
+import { useFraction } from "~/composables/recipes";
 export default defineComponent({
   components: {
     VueMarkdown,

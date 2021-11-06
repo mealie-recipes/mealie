@@ -152,7 +152,7 @@ import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
 import { SortableEvent } from "sortablejs"; // eslint-disable-line
 import draggable from "vuedraggable";
 import { useMealplans } from "~/composables/use-group-mealplan";
-import { useRecipes, allRecipes } from "~/composables/use-recipes";
+import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 
 export default defineComponent({

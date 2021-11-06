@@ -55,7 +55,7 @@ import { defineComponent, useRoute, ref } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import { useStaticRoutes } from "~/composables/api";
-import { useRecipeContext } from "~/composables/use-recipe-context";
+import { useRecipeContext } from "~/composables/recipes";
 export default defineComponent({
   components: { VueMarkdown },
   setup() {

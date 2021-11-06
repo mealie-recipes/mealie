@@ -1,6 +1,6 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { set } from "@vueuse/core";
-import { useAsyncKey } from "./use-utils";
+import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
 

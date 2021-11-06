@@ -97,7 +97,7 @@ import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import { useUserApi } from "~/composables/api";
-import { useRecipes, allRecipes } from "~/composables/use-recipes";
+import { useRecipes, allRecipes } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
 
 const MODES = {

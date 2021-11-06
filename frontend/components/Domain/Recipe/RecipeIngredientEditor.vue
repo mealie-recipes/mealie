@@ -95,8 +95,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
-import { useFoods } from "~/composables/use-recipe-foods";
-import { useUnits } from "~/composables/use-recipe-units";
+import { useFoods, useUnits } from "~/composables/recipes";
 import { validators } from "~/composables/use-validators";
 
 export default defineComponent({

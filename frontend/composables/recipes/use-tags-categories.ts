@@ -1,6 +1,6 @@
 import { Ref, ref, useAsync } from "@nuxtjs/composition-api";
-import { useUserApi } from "./api";
-import { useAsyncKey } from "./use-utils";
+import { useUserApi } from "../api";
+import { useAsyncKey } from "../use-utils";
 import { CategoriesAPI, Category } from "~/api/class-interfaces/categories";
 import { Tag, TagsAPI } from "~/api/class-interfaces/tags";
 
