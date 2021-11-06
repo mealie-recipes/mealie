@@ -246,8 +246,7 @@ export default defineComponent({
 
     const { share, isSupported: shareIsSupported } = useShare();
 
-    const source = ref("");
-    const { copy } = useClipboard({ source });
+    const { copy } = useClipboard();
 
     async function handleShareEvent() {
       if (shareIsSupported) {

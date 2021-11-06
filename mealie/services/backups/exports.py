@@ -106,7 +106,7 @@ def backup_all(
     tag=None,
     templates=None,
     export_recipes=True,
-    export_settings=True,
+    export_settings=False,
     export_users=True,
     export_groups=True,
     export_notifications=True,

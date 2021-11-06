@@ -100,6 +100,7 @@ export const useRecipes = (all = false, fetchRecipes = true) => {
   async function refreshRecipes() {
     const { data } = await api.recipes.getAll(start, end);
     if (data) {
+      // @ts-ignore
       set(recipes, data);
     }
   }

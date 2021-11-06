@@ -11,6 +11,7 @@ const backups = ref<AllBackups>({
 
 function setBackups(newBackups: AllBackups | null) {
   if (newBackups) {
+    // @ts-ignore
     set(backups, newBackups);
   }
 }

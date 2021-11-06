@@ -48,7 +48,6 @@ def export_database(
             tag=data.tag,
             templates=data.templates,
             export_recipes=data.options.recipes,
-            export_settings=data.options.settings,
             export_users=data.options.users,
             export_groups=data.options.groups,
             export_notifications=data.options.notifications,

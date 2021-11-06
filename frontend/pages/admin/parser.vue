@@ -147,8 +147,8 @@ export default defineComponent({
         // for the parser. For now we'll leave it like this
         properties.comment.value = data.ingredient.note || "";
         properties.quantity.value = data.ingredient.quantity || "";
-        properties.unit.value = data.ingredient.unit.name || "";
-        properties.food.value = data.ingredient.food.name || "";
+        properties.unit.value = data.ingredient?.unit?.name || "";
+        properties.food.value = data.ingredient?.food?.name || "";
 
         for (const property in properties) {
           const color = getColor(property);
