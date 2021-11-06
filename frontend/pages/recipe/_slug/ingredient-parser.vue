@@ -1,6 +1,15 @@
 <template>
   <v-container v-if="recipe">
     <v-container>
+      <v-alert dismissible border="left" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
+        <b>Experimental Feature</b>
+        <div>
+          Mealie can use natural language processing to attempt to parse and create units, and foods for your Recipe
+          ingredients. This is experimental and may not work as expected. If you choose to not use the parsed results
+          you can seleect cancel and your changes will not be saved.
+        </div>
+      </v-alert>
+
       <BaseCardSectionTitle title="Ingredients Processor">
         To use the ingredient parser, click the "Parse All" button and the process will start. When the processed
         ingredients are available, you can look through the items and verify that they were parsed correctly. The models
