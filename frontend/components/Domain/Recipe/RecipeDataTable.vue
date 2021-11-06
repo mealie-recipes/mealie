@@ -39,7 +39,7 @@
 import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import RecipeChip from "./RecipeChips.vue";
 import { Recipe } from "~/types/api-types/recipe";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { UserOut } from "~/types/api-types/user";
 
 const INPUT_EVENT = "input";
@@ -114,7 +114,7 @@ export default defineComponent({
 
     // ============
     // Group Members
-    const api = useApiSingleton();
+    const api = useUserApi();
     const members = ref<UserOut[] | null[]>([]);
 
     async function refreshMembers() {

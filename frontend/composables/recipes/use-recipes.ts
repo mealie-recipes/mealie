@@ -1,7 +1,7 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { set } from "@vueuse/core";
-import { useAsyncKey } from "./use-utils";
-import { useApiSingleton } from "~/composables/use-api";
+import { useAsyncKey } from "../use-utils";
+import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
 
 export const allRecipes = ref<Recipe[] | null>([]);
@@ -58,7 +58,7 @@ export const useSorter = () => {
 };
 
 export const useLazyRecipes = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
 
   const recipes = ref<Recipe[] | null>([]);
 
@@ -78,7 +78,7 @@ export const useLazyRecipes = function () {
 };
 
 export const useRecipes = (all = false, fetchRecipes = true) => {
-  const api = useApiSingleton();
+  const api = useUserApi();
 
   // recipes is non-reactive!!
   const { recipes, start, end } = (() => {

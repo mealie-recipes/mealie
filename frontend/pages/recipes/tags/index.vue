@@ -28,12 +28,12 @@
   
 <script lang="ts">
 import { defineComponent, useAsync, computed } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const tags = useAsync(async () => {
       const { data } = await api.tags.getAll();

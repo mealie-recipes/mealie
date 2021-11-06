@@ -82,7 +82,7 @@ export default defineComponent({
         .join("\n");
     }
 
-    const numberedLineRegex = /\d[.):] /gm;
+    const numberedLineRegex = /\d+[.):] /gm;
 
     function splitByNumberedLine() {
       // Split inputText by numberedLineRegex

@@ -11,7 +11,7 @@
   <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { useRecipes, recentRecipes } from "~/composables/use-recipes";
+import { useRecipes, recentRecipes } from "~/composables/recipes";
 import { useStaticRoutes } from "~/composables/api";
 
 export default defineComponent({

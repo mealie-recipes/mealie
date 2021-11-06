@@ -2,7 +2,7 @@ import { useAsync, ref, reactive } from "@nuxtjs/composition-api";
 import { set } from "@vueuse/core";
 import { toastLoading, loader } from "./use-toast";
 import { AllBackups, ImportBackup } from "~/api/class-interfaces/backups";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 
 const backups = ref<AllBackups>({
   imports: [],
@@ -32,7 +32,7 @@ function optionsFactory() {
 }
 
 export const useBackups = function (fetch = true) {
-  const api = useApiSingleton();
+  const api = useUserApi();
 
   const backupOptions = reactive(optionsFactory());
   const deleteTarget = ref("");

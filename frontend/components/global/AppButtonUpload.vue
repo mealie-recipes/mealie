@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 const UPLOAD_EVENT = "uploaded";
 export default {
   props: {
@@ -45,7 +45,7 @@ export default {
     },
   },
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     return { api };
   },

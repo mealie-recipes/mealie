@@ -1,10 +1,10 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { GroupWebhook } from "~/api/class-interfaces/group-webhooks";
 
 export const useGroupWebhooks = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
   const validForm = ref(true);
 

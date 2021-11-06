@@ -1,11 +1,11 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { addDays, subDays, format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { CreateMealPlan, UpdateMealPlan } from "~/api/class-interfaces/group-mealplan";
 
 export const useMealplans = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
   const validForm = ref(true);
 

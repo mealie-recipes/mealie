@@ -102,7 +102,7 @@ import {
   useContext,
 } from "@nuxtjs/composition-api";
 import { CheckAppConfig } from "~/api/admin/admin-about";
-import { useAdminApi, useApiSingleton } from "~/composables/use-api";
+import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
 
@@ -130,7 +130,7 @@ export default defineComponent({
       isSiteSecure: false,
     });
 
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const adminApi = useAdminApi();
     onMounted(async () => {

@@ -91,6 +91,7 @@ export interface RecipeIngredient {
 export interface RecipeIngredientUnit {
   name?: string;
   description?: string;
+  fraction?: boolean;
 }
 export interface RecipeIngredientFood {
   name?: string;

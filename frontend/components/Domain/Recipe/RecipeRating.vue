@@ -18,7 +18,7 @@
 
 <script>
 import { defineComponent } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 export default defineComponent({
   props: {
     emitOnly: {
@@ -43,7 +43,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     return { api };
   },

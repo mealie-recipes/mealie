@@ -75,10 +75,8 @@
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
-import { useApiSingleton } from "~/composables/use-api";
-import { useRecipeContext } from "~/composables/use-recipe-context";
-import { useFoods } from "~/composables/use-recipe-foods";
-import { useUnits } from "~/composables/use-recipe-units";
+import { useUserApi } from "~/composables/api";
+import { useRecipe, useFoods, useUnits } from "~/composables/recipes";
 import { RecipeIngredientUnit } from "~/types/api-types/recipe";
 
 interface Error {
@@ -99,11 +97,9 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
-    const api = useApiSingleton();
+    const api = useUserApi();
 
-    const { getBySlug, loading } = useRecipeContext();
-
-    const recipe = getBySlug(slug);
+    const { recipe, loading } = useRecipe(slug);
 
     const ingredients = ref<any[]>([]);
 

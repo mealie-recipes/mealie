@@ -36,7 +36,7 @@
 
 <script>
 import { defineComponent } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 const CREATED_ITEM_EVENT = "created-item";
 export default defineComponent({
   props: {
@@ -58,7 +58,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     return { api };
   },

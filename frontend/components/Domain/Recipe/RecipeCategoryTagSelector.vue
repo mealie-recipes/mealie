@@ -44,8 +44,8 @@
 
 <script>
 import RecipeCategoryTagDialog from "./RecipeCategoryTagDialog";
-import { useApiSingleton } from "~/composables/use-api";
-import { useTags, useCategories } from "~/composables/use-tags-categories";
+import { useUserApi } from "~/composables/api";
+import { useTags, useCategories } from "~/composables/recipes";
 const MOUNTED_EVENT = "mounted";
 export default {
   components: {
@@ -91,7 +91,7 @@ export default {
   },
 
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const { allTags, useAsyncGetAll: getAllTags } = useTags();
     const { allCategories, useAsyncGetAll: getAllCategories } = useCategories();

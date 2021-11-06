@@ -101,14 +101,14 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, ref, useRouter, watch } from "@nuxtjs/composition-api";
 import { validators } from "@/composables/use-validators";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useRouterQuery } from "@/composables/use-router";
 
 export default defineComponent({
   layout: "basic",
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
     const state = reactive({
       joinGroup: false,
       loggingIn: false,

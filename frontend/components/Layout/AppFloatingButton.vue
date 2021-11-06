@@ -140,7 +140,7 @@
 // import AppButtonUpload from "@/components/UI/Buttons/AppButtonUpload.vue";
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 
 export default defineComponent({
@@ -160,7 +160,7 @@ export default defineComponent({
     const domImportFromUrlDialog = ref(null);
     const domImportFromUrlForm = ref<VForm | null>(null);
 
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     return {
       domCreateDialog,

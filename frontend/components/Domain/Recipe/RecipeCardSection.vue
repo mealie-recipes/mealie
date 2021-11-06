@@ -103,7 +103,7 @@
 <script>
 import RecipeCard from "./RecipeCard";
 import RecipeCardMobile from "./RecipeCardMobile";
-import { useSorter } from "~/composables/use-recipes";
+import { useSorter } from "~/composables/recipes";
 const SORT_EVENT = "sort";
 
 export default {

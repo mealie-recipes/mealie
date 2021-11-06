@@ -70,7 +70,7 @@ import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchFilterSelector.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { useRecipes, allRecipes } from "~/composables/use-recipes";
+import { useRecipes, allRecipes } from "~/composables/recipes";
 
 export default defineComponent({
   components: {

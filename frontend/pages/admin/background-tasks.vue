@@ -42,7 +42,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { ServerTask } from "~/api/types/server-task";
-import { useAdminApi } from "~/composables/use-api";
+import { useAdminApi } from "~/composables/api";
 
 export default defineComponent({
   layout: "admin",

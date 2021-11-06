@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 export default {
   name: "BaseButton",
   props: {
@@ -107,7 +107,7 @@ export default {
     },
   },
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     return { api };
   },

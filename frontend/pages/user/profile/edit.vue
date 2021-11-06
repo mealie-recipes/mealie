@@ -104,7 +104,7 @@
     
 <script lang="ts">
 import { ref, reactive, defineComponent, computed, useContext, watch } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 
 export default defineComponent({
   setup() {
@@ -117,7 +117,7 @@ export default defineComponent({
 
     const userCopy = ref({ ...user.value });
 
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const domUpdatePassword = ref<VForm | null>(null);
     const password = reactive({

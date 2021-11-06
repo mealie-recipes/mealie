@@ -17,7 +17,7 @@
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { useLazyRecipes } from "~/composables/use-recipes";
+import { useLazyRecipes } from "~/composables/recipes";
 
 export default defineComponent({
   components: { RecipeCardSection },

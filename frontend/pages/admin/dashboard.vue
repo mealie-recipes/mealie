@@ -92,14 +92,14 @@
 <script lang="ts">
 import { defineComponent, useAsync } from "@nuxtjs/composition-api";
 import AdminEventViewer from "@/components/Domain/Admin/AdminEventViewer.vue";
-import { useAdminApi, useApiSingleton } from "~/composables/use-api";
+import { useAdminApi, useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
   components: { AdminEventViewer },
   layout: "admin",
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const adminApi = useAdminApi();
 

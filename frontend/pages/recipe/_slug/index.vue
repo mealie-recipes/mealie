@@ -233,6 +233,7 @@
               <RecipeInstructions
                 v-model="recipe.recipeInstructions"
                 :ingredients="recipe.recipeIngredient"
+                :disable-amount="recipe.settings.disableAmount"
                 :edit="form"
               />
               <div v-if="form" class="d-flex">
@@ -289,9 +290,9 @@ import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
 import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import { useRecipeContext } from "~/composables/use-recipe-context";
+import { useRecipe } from "~/composables/recipes";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
@@ -307,8 +308,7 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipeIngredientParserMenu from "~/components/Domain/Recipe/RecipeIngredientParserMenu.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { Recipe } from "~/types/api-types/recipe";
-import { useStaticRoutes } from "~/composables/api";
-import { uuid4 } from "~/composables/use-uuid";
+import { uuid4 } from "~/composables/use-utils";
 
 export default defineComponent({
   components: {
@@ -335,7 +335,7 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const state = reactive({
       form: false,
@@ -352,14 +352,12 @@ export default defineComponent({
       },
     });
 
-    const { getBySlug, loading, fetchRecipe } = useRecipeContext();
+    const { recipe, loading, fetchRecipe } = useRecipe(slug);
 
     const { recipeImage } = useStaticRoutes();
 
     // @ts-ignore
     const { $vuetify } = useContext();
-
-    const recipe = getBySlug(slug);
 
     // ===========================================================================
     // Layout Helpers
@@ -399,7 +397,7 @@ export default defineComponent({
     async function closeEditor() {
       state.form = false;
       state.jsonEditor = false;
-      recipe.value = await fetchRecipe(slug);
+      await fetchRecipe();
     }
 
     function toggleJson() {

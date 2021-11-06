@@ -64,12 +64,12 @@
     
 <script lang="ts">
 import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { UserOut } from "~/types/api-types/user";
 
 export default defineComponent({
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const { i18n } = useContext();
 
