@@ -28,18 +28,20 @@
             </template>
           </v-checkbox>
 
-          <h4 class="py-3 ml-1">Linked to other step</h4>
-          <v-checkbox
-            v-for="ing in usedIngredients"
-            :key="ing.referenceId"
-            v-model="activeRefs"
-            :value="ing.referenceId"
-            class="mb-n2 mt-n2"
-          >
-            <template #label>
-              <div v-html="parseIngredientText(ing, disableAmount)"></div>
-            </template>
-          </v-checkbox>
+          <template v-if="usedIngredients.length > 0">
+            <h4 class="py-3 ml-1">Linked to other step</h4>
+            <v-checkbox
+              v-for="ing in usedIngredients"
+              :key="ing.referenceId"
+              v-model="activeRefs"
+              :value="ing.referenceId"
+              class="mb-n2 mt-n2"
+            >
+              <template #label>
+                <div v-html="parseIngredientText(ing, disableAmount)"></div>
+              </template>
+            </v-checkbox>
+          </template>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -292,8 +294,6 @@ export default defineComponent({
           usedRefs[ref.referenceId] = true;
         });
       });
-
-      console.log(usedRefs);
 
       state.usedIngredients = props.ingredients.filter((ing) => {
         return ing.referenceId in usedRefs;

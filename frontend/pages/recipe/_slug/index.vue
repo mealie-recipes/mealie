@@ -233,6 +233,7 @@
               <RecipeInstructions
                 v-model="recipe.recipeInstructions"
                 :ingredients="recipe.recipeIngredient"
+                :disable-amount="recipe.settings.disableAmount"
                 :edit="form"
               />
               <div v-if="form" class="d-flex">
