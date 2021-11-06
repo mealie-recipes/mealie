@@ -1,5 +1,11 @@
 <template>
-  <VJsoneditor v-model="value" height="1500px" :options="options" :attrs="$attrs"></VJsoneditor>
+  <VJsoneditor
+    :value="value"
+    height="1500px"
+    :options="options"
+    :attrs="$attrs"
+    @input="$emit('input', $event)"
+  ></VJsoneditor>
 </template>
 
 <script>

@@ -48,6 +48,15 @@
         fab
         color="info"
         :card-menu="false"
+        :recipe-id="recipeId"
+        :use-items="{
+          delete: false,
+          edit: false,
+          download: true,
+          mealplanner: true,
+          print: true,
+          share: true,
+        }"
         @print="$emit('print')"
       />
     </div>
@@ -95,6 +104,10 @@ export default {
     loggedIn: {
       type: Boolean,
       default: false,
+    },
+    recipeId: {
+      required: true,
+      type: Number,
     },
   },
   data() {

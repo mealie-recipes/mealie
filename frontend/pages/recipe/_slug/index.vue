@@ -54,6 +54,7 @@
         :name="recipe.name"
         :logged-in="$auth.loggedIn"
         :open="form"
+        :recipe-id="recipe.id"
         class="ml-auto"
         @close="closeEditor"
         @json="toggleJson"
@@ -382,6 +383,7 @@ export default defineComponent({
     async function updateRecipe(slug: string, recipe: Recipe) {
       const { data } = await api.recipes.updateOne(slug, recipe);
       state.form = false;
+      state.jsonEditor = false;
       if (data?.slug) {
         router.push("/recipe/" + data.slug);
       }

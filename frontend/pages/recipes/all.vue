@@ -4,7 +4,7 @@
       :icon="$globals.icons.primary"
       :title="$t('page.all-recipes')"
       :recipes="recipes"
-      @deleted="removeRecipe"
+      @delete="removeRecipe"
     ></RecipeCardSection>
     <v-card v-intersect="infiniteScroll"></v-card>
     <v-fade-transition>
