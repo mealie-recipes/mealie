@@ -68,8 +68,8 @@ export default {
       this.show = true;
       const copyText = this.copyText;
       navigator.clipboard.writeText(copyText).then(
-        () => console.log("Copied", copyText),
-        () => console.log("Copied Failed", copyText)
+        () => console.log(`Copied\n${copyText}`),
+        () => console.log(`Copied Failed\n${copyText}`)
       );
       setTimeout(() => {
         this.toggleBlur();

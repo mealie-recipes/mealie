@@ -17,13 +17,29 @@
           </p>
           <v-divider class="mb-4"></v-divider>
           <v-checkbox
-            v-for="ing in ingredients"
+            v-for="ing in unusedIngredients"
             :key="ing.referenceId"
             v-model="activeRefs"
-            :label="ing.note"
             :value="ing.referenceId"
             class="mb-n2 mt-n2"
-          ></v-checkbox>
+          >
+            <template #label>
+              <div v-html="parseIngredientText(ing, disableAmount)"></div>
+            </template>
+          </v-checkbox>
+
+          <h4 class="py-3 ml-1">Linked to other step</h4>
+          <v-checkbox
+            v-for="ing in usedIngredients"
+            :key="ing.referenceId"
+            v-model="activeRefs"
+            :value="ing.referenceId"
+            class="mb-n2 mt-n2"
+          >
+            <template #label>
+              <div v-html="parseIngredientText(ing, disableAmount)"></div>
+            </template>
+          </v-checkbox>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -111,17 +127,16 @@
             <v-card-text v-if="edit">
               <v-textarea :key="'instructions' + index" v-model="value[index]['text']" auto-grow dense rows="4">
               </v-textarea>
-              <div v-for="ing in step.ingredientReferences" :key="ing.referenceId">
-                {{ getIngredientByRefId(ing.referenceId).note }}
-              </div>
+              <div
+                v-for="ing in step.ingredientReferences"
+                :key="ing.referenceId"
+                v-html="getIngredientByRefId(ing.referenceId)"
+              />
             </v-card-text>
             <v-expand-transition>
               <div v-show="!isChecked(index) && !edit" class="m-0 p-0">
                 <v-card-text>
                   <VueMarkdown :source="step.text"> </VueMarkdown>
-                  <div v-for="ing in step.ingredientReferences" :key="ing.referenceId">
-                    {{ getIngredientByRefId(ing.referenceId).note }}
-                  </div>
                 </v-card-text>
               </div>
             </v-expand-transition>
@@ -138,6 +153,7 @@ import draggable from "vuedraggable";
 import VueMarkdown from "@adapttive/vue-markdown";
 import { ref, toRefs, reactive, defineComponent, watch, onMounted } from "@nuxtjs/composition-api";
 import { RecipeStep, IngredientToStepRef, RecipeIngredient } from "~/types/api-types/recipe";
+import { parseIngredientText } from "~/composables/recipes";
 
 interface MergerHistory {
   target: number;
@@ -164,12 +180,18 @@ export default defineComponent({
       type: Array as () => RecipeIngredient[],
       default: () => [],
     },
+    disableAmount: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props, context) {
     const state = reactive({
       dialog: false,
       disabledSteps: [] as number[],
+      unusedIngredients: [] as RecipeIngredient[],
+      usedIngredients: [] as RecipeIngredient[],
     });
 
     const showTitleEditor = ref<boolean[]>([]);
@@ -245,6 +267,7 @@ export default defineComponent({
     const activeText = ref("");
 
     function openDialog(idx: number, refs: IngredientToStepRef[], text: string) {
+      setUsedIngredients();
       activeText.value = text;
       activeIndex.value = idx;
       state.dialog = true;
@@ -259,6 +282,26 @@ export default defineComponent({
         };
       });
       state.dialog = false;
+    }
+
+    function setUsedIngredients() {
+      const usedRefs: { [key: string]: boolean } = {};
+
+      props.value.forEach((element) => {
+        element.ingredientReferences.forEach((ref) => {
+          usedRefs[ref.referenceId] = true;
+        });
+      });
+
+      console.log(usedRefs);
+
+      state.usedIngredients = props.ingredients.filter((ing) => {
+        return ing.referenceId in usedRefs;
+      });
+
+      state.unusedIngredients = props.ingredients.filter((ing) => {
+        return !(ing.referenceId in usedRefs);
+      });
     }
 
     function autoSetReferences() {
@@ -294,10 +337,9 @@ export default defineComponent({
         }
 
         props.ingredients.forEach((ingredient) => {
-          if (
-            ingredient.note.toLowerCase().includes(" " + word) &&
-            !activeRefs.value.includes(ingredient.referenceId)
-          ) {
+          const searchText = parseIngredientText(ingredient, props.disableAmount);
+
+          if (searchText.toLowerCase().includes(" " + word) && !activeRefs.value.includes(ingredient.referenceId)) {
             console.info("Word Matched", `'${word}'`, ingredient.note);
             activeRefs.value.push(ingredient.referenceId);
           }
@@ -306,7 +348,11 @@ export default defineComponent({
     }
 
     function getIngredientByRefId(refId: String) {
-      return props.ingredients.find((ing) => ing.referenceId === refId) || "";
+      const ing = props.ingredients.find((ing) => ing.referenceId === refId) || "";
+      if (ing === "") {
+        return "";
+      }
+      return parseIngredientText(ing, props.disableAmount);
     }
 
     // ===============================================================
@@ -365,6 +411,7 @@ export default defineComponent({
       toggleShowTitle,
       updateIndex,
       autoSetReferences,
+      parseIngredientText,
     };
   },
 });

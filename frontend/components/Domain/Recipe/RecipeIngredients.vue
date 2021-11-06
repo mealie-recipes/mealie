@@ -2,7 +2,7 @@
   <div v-if="value && value.length > 0">
     <div class="d-flex justify-start">
       <h2 class="mb-4 mt-1">{{ $t("recipe.ingredients") }}</h2>
-      <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
+    <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
     </div>
     <div>
       <div v-for="(ingredient, index) in value" :key="'ingredient' + index">
@@ -11,7 +11,10 @@
         <v-list-item dense @click="toggleChecked(index)">
           <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary"> </v-checkbox>
           <v-list-item-content>
-            <VueMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="parseIngredientText(ingredient)">
+            <VueMarkdown
+              class="ma-0 pa-0 text-subtitle-1 dense-markdown"
+              :source="parseIngredientText(ingredient, disableAmount, scale)"
+            >
             </VueMarkdown>
           </v-list-item-content>
         </v-list-item>
@@ -23,7 +26,7 @@
 <script>
 import { computed, defineComponent } from "@nuxtjs/composition-api";
 import VueMarkdown from "@adapttive/vue-markdown";
-import { useFraction } from "~/composables/recipes";
+import { parseIngredientText } from "~/composables/recipes";
 export default defineComponent({
   components: {
     VueMarkdown,
@@ -43,37 +46,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { frac } = useFraction();
-
-    function parseIngredientText(ingredient) {
-      if (props.disableAmount) {
-        return ingredient.note;
-      }
-
-      const { quantity, food, unit, note } = ingredient;
-
-      let return_qty = "";
-      if (unit?.fraction) {
-        const fraction = frac(quantity * props.scale, 10, true);
-        if (fraction[0] !== undefined && fraction[0] > 0) {
-          return_qty += fraction[0];
-        }
-
-        if (fraction[1] > 0) {
-          return_qty += ` <sup>${fraction[1]}</sup>&frasl;<sub>${fraction[2]}</sub>`;
-        }
-      } else {
-        return_qty = quantity * props.scale;
-      }
-
-      return `${return_qty} ${unit?.name || " "}  ${food?.name || " "} ${note}`;
-    }
-
     const ingredientCopyText = computed(() => {
-      // Returns a string of all ingredients in markdown list format -[ ]
       return props.value
         .map((ingredient) => {
-          return `- [ ] ${parseIngredientText(ingredient)}`;
+          return `- [ ] ${parseIngredientText(ingredient, props.disableAmount, props.scale)}`;
         })
         .join("\n");
     });
