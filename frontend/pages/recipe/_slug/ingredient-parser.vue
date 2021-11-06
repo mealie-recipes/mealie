@@ -73,12 +73,12 @@
   
 <script lang="ts">
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { until, invoke } from "@vueuse/core";
 import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipe, useFoods, useUnits } from "~/composables/recipes";
 import { RecipeIngredientUnit } from "~/types/api-types/recipe";
-
 interface Error {
   ingredientIndex: number;
   unitError: Boolean;
@@ -100,6 +100,12 @@ export default defineComponent({
     const api = useUserApi();
 
     const { recipe, loading } = useRecipe(slug);
+
+    invoke(async () => {
+      await until(recipe).not.toBeNull();
+
+      fetchParsed();
+    });
 
     const ingredients = ref<any[]>([]);
 
