@@ -120,12 +120,26 @@
               />
             </draggable>
             <div class="d-flex justify-end mt-2">
-              <BaseButton color="accent" :to="`${recipe.slug}/ingredient-parser`">
-                <template #icon>
-                  {{ $globals.icons.foods }}
+              <v-tooltip top color="accent">
+                <template #activator="{ on, attrs }">
+                  <span v-on="on">
+                    <BaseButton
+                      :disabled="recipe.settings.disableAmount"
+                      color="accent"
+                      :to="`${recipe.slug}/ingredient-parser`"
+                      v-bind="attrs"
+                    >
+                      <template #icon>
+                        {{ $globals.icons.foods }}
+                      </template>
+                      Parse
+                    </BaseButton>
+                  </span>
                 </template>
-                Parse
-              </BaseButton>
+                <span>{{
+                  recipe.settings.disableAmount ? "Enable ingredient amounts to use this feature" : "Parse ingredients"
+                }}</span>
+              </v-tooltip>
               <RecipeDialogBulkAdd class="ml-1 mr-1" @bulk-data="addIngredient" />
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
