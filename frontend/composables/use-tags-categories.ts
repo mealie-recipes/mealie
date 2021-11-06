@@ -1,5 +1,5 @@
 import { Ref, ref, useAsync } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "./use-api";
+import { useUserApi } from "./api";
 import { useAsyncKey } from "./use-utils";
 import { CategoriesAPI, Category } from "~/api/class-interfaces/categories";
 import { Tag, TagsAPI } from "~/api/class-interfaces/tags";
@@ -45,14 +45,14 @@ function baseTagsCategories(reference: Ref<Category[] | null> | Ref<Tag[] | null
 }
 
 export const useTags = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   return {
     allTags,
     ...baseTagsCategories(allTags, api.tags),
   };
 };
 export const useCategories = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   return {
     allCategories,
     ...baseTagsCategories(allCategories, api.categories),

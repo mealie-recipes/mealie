@@ -313,7 +313,7 @@
 import { defineComponent, reactive, toRefs, ref, useRouter, useContext } from "@nuxtjs/composition-api";
 // @ts-ignore No Types for v-jsoneditor
 import VJsoneditor from "v-jsoneditor";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import { validators } from "~/composables/use-validators";
 import { Recipe } from "~/types/api-types/recipe";
@@ -357,7 +357,7 @@ export default defineComponent({
       },
     ];
 
-    const api = useApiSingleton();
+    const api = useUserApi();
     const router = useRouter();
 
     function handleResponse(response: any, edit: Boolean = false) {

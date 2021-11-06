@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 export default defineComponent({
   layout: "basic",
@@ -47,7 +47,7 @@ export default defineComponent({
       error: false,
     });
 
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     async function requestLink() {
       state.loading = true;

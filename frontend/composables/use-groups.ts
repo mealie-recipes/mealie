@@ -1,10 +1,10 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { CreateGroup } from "~/api/class-interfaces/groups";
 
 export const useGroupSelf = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
 
   const actions = {
     get() {
@@ -35,7 +35,7 @@ export const useGroupSelf = function () {
 };
 
 export const useGroupCategories = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
 
   const actions = {
     getAll() {
@@ -61,7 +61,7 @@ export const useGroupCategories = function () {
 };
 
 export const useGroups = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
 
   function getAllGroups() {

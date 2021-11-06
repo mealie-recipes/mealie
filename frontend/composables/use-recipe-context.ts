@@ -1,9 +1,9 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
 
 export const useRecipeContext = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
 
   function getBySlug(slug: string) {

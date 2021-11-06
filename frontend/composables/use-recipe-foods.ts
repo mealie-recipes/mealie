@@ -1,12 +1,12 @@
 import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { Food } from "~/api/class-interfaces/recipe-foods";
 
 let foodStore: Ref<Food[] | null> | null = null;
 
 export const useFoods = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
   const deleteTargetId = ref(0);
   const validForm = ref(true);

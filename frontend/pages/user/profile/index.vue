@@ -125,7 +125,7 @@
 <script lang="ts">
 import { computed, defineComponent, useContext, ref, toRefs, reactive } from "@nuxtjs/composition-api";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { alert } from "~/composables/use-toast";
 
@@ -141,7 +141,7 @@ export default defineComponent({
 
     const generatedLink = ref("");
     const token = ref("");
-    const api = useApiSingleton();
+    const api = useUserApi();
     async function getSignupLink() {
       const { data } = await api.groups.createInvitation({ uses: 1 });
       if (data) {

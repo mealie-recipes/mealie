@@ -75,7 +75,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { useClipboard, useShare } from "@vueuse/core";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 
 export interface ContextMenuIncludes {
@@ -147,7 +147,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const state = reactive({
       loading: false,

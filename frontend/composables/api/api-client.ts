@@ -59,7 +59,7 @@ export const useAdminApi = function (): AdminAPI {
   return new AdminAPI(requests);
 };
 
-export const useApiSingleton = function (): Api {
+export const useUserApi = function (): Api {
   const { $axios } = useContext();
   const requests = getRequests($axios);
 

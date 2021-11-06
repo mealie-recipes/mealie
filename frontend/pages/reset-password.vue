@@ -68,7 +68,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
 import { useRouteQuery } from "~/composables/use-router";
@@ -92,7 +92,7 @@ export default defineComponent({
 
     // ===================
     // API
-    const api = useApiSingleton();
+    const api = useUserApi();
     async function requestLink() {
       state.loading = true;
       // TODO: Fix Response to send meaningful error

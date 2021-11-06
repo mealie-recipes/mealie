@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import { useStaticRoutes } from "~/composables/api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useStaticRoutes, useUserApi } from "~/composables/api";
 export default {
   props: {
     tiny: {
@@ -52,7 +51,7 @@ export default {
     },
   },
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const { recipeImage, recipeSmallImage, recipeTinyImage } = useStaticRoutes();
 

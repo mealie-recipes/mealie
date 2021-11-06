@@ -1,5 +1,5 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { UserIn, UserOut } from "~/types/api-types/user";
 
 /*
@@ -9,7 +9,7 @@ to control whether the object is substantiated... but some of the others rely on
 */
 
 export const useAllUsers = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
 
   function getAllUsers() {
@@ -37,7 +37,7 @@ export const useAllUsers = function () {
 };
 
 export const useUser = function (refreshFunc: CallableFunction | null = null) {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
 
   function getUser(id: string) {

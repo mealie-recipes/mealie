@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 const NEW_COMMENT_EVENT = "new-comment";
 const UPDATE_COMMENT_EVENT = "update-comment";
 export default {
@@ -65,7 +65,7 @@ export default {
     },
   },
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     return { api };
   },

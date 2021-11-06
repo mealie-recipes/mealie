@@ -72,14 +72,14 @@
 <script lang="ts">
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useUser, useAllUsers } from "~/composables/use-user";
 
 export default defineComponent({
   layout: "admin",
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
     const refUserDialog = ref();
 
     const { groups } = useGroups();

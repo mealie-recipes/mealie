@@ -1,13 +1,12 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
-import { CreateEventNotification } from "@/api/class-interfaces/event-notifications";
 import { useAsyncKey } from "./use-utils";
-import { useApiSingleton } from "~/composables/use-api";
+import { CreateEventNotification } from "@/api/class-interfaces/event-notifications";
+import { useUserApi } from "~/composables/api";
 
 const notificationTypes = ["General", "Discord", "Gotify", "Pushover", "Home Assistant"];
 
-
 export const useNotifications = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
 
   const createNotificationData = ref<CreateEventNotification>({
@@ -23,7 +22,7 @@ export const useNotifications = function () {
     notificationUrl: "",
   });
 
-  const deleteTarget = ref(0)
+  const deleteTarget = ref(0);
 
   function getNotifications() {
     loading.value = true;
@@ -63,13 +62,13 @@ export const useNotifications = function () {
   }
 
   async function testById(id: number) {
-    const {data} = await api.notifications.testNotification(id, null)
-    console.log(data)
+    const { data } = await api.notifications.testNotification(id, null);
+    console.log(data);
   }
 
   async function testByUrl(testUrl: string) {
-    const {data} = await api.notifications.testNotification(null, testUrl)
-    console.log(data)
+    const { data } = await api.notifications.testNotification(null, testUrl);
+    console.log(data);
   }
 
   const notifications = getNotifications();

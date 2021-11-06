@@ -67,7 +67,7 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge";
 import RecipeContextMenu from "./RecipeContextMenu";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 export default defineComponent({
   components: {
     RecipeFavoriteBadge,
@@ -104,7 +104,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     return { api };
   },

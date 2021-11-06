@@ -96,7 +96,7 @@
 import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/use-recipes";
 import { Recipe } from "~/types/api-types/recipe";
 
@@ -169,7 +169,7 @@ export default defineComponent({
       },
     ];
 
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     function exportSelected() {
       console.log("Export Selected");

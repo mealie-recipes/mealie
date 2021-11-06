@@ -1,13 +1,13 @@
 import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 import { CookBook } from "~/api/class-interfaces/group-cookbooks";
 
 let cookbookStore: Ref<CookBook[] | null> | null = null;
 
 export const useCookbook = function () {
   function getOne(id: string | number) {
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const units = useAsync(async () => {
       const { data } = await api.cookbooks.getOne(id);
@@ -22,7 +22,7 @@ export const useCookbook = function () {
 };
 
 export const useCookbooks = function () {
-  const api = useApiSingleton();
+  const api = useUserApi();
   const loading = ref(false);
   const deleteTargetId = ref(0);
   const validForm = ref(true);

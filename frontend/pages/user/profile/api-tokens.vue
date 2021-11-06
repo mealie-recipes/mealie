@@ -65,7 +65,7 @@
     
 <script lang="ts">
 import { computed, defineComponent, useContext, ref } from "@nuxtjs/composition-api";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi } from "~/composables/api";
 
 export default defineComponent({
   setup() {
@@ -75,7 +75,7 @@ export default defineComponent({
       return nuxtContext.$auth.user;
     });
 
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const domNewTokenForm = ref<VForm | null>(null);
 

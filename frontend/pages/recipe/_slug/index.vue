@@ -289,7 +289,7 @@ import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
 import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
-import { useApiSingleton } from "~/composables/use-api";
+import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useRecipeContext } from "~/composables/use-recipe-context";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
@@ -307,7 +307,6 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipeIngredientParserMenu from "~/components/Domain/Recipe/RecipeIngredientParserMenu.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { Recipe } from "~/types/api-types/recipe";
-import { useStaticRoutes } from "~/composables/api";
 import { uuid4 } from "~/composables/use-uuid";
 
 export default defineComponent({
@@ -335,7 +334,7 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
-    const api = useApiSingleton();
+    const api = useUserApi();
 
     const state = reactive({
       form: false,
