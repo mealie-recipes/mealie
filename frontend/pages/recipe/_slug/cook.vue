@@ -55,7 +55,7 @@ import { defineComponent, useRoute, ref } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import { useStaticRoutes } from "~/composables/api";
-import { useRecipeContext } from "~/composables/recipes";
+import { useRecipe } from "~/composables/recipes";
 export default defineComponent({
   components: { VueMarkdown },
   setup() {
@@ -63,11 +63,9 @@ export default defineComponent({
     const slug = route.value.params.slug;
     const activeStep = ref(1);
 
-    const { getBySlug } = useRecipeContext();
+    const { recipe } = useRecipe(slug);
 
     const { recipeImage } = useStaticRoutes();
-
-    const recipe = getBySlug(slug);
 
     function getIngredientByRefId(refId: String) {
       return recipe.value?.recipeIngredient.find((ing) => ing.referenceId === refId) || "";

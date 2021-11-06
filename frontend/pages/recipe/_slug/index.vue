@@ -291,7 +291,7 @@ import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategory
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import { useRecipeContext } from "~/composables/recipes";
+import { useRecipe } from "~/composables/recipes";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
@@ -351,14 +351,12 @@ export default defineComponent({
       },
     });
 
-    const { getBySlug, loading, fetchRecipe } = useRecipeContext();
+    const { recipe, loading, fetchRecipe } = useRecipe(slug);
 
     const { recipeImage } = useStaticRoutes();
 
     // @ts-ignore
     const { $vuetify } = useContext();
-
-    const recipe = getBySlug(slug);
 
     // ===========================================================================
     // Layout Helpers
@@ -398,7 +396,7 @@ export default defineComponent({
     async function closeEditor() {
       state.form = false;
       state.jsonEditor = false;
-      recipe.value = await fetchRecipe(slug);
+      await fetchRecipe();
     }
 
     function toggleJson() {

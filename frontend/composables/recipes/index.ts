@@ -1,5 +1,5 @@
 export { useFraction } from "./use-fraction";
-export { useRecipeContext } from "./use-recipe-context";
+export { useRecipe } from "./use-recipe";
 export { useFoods } from "./use-recipe-foods";
 export { useUnits } from "./use-recipe-units";
 export { useRecipes, recentRecipes, allRecipes, useLazyRecipes, useSorter } from "./use-recipes";
