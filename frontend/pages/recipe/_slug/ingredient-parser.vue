@@ -105,23 +105,18 @@ export default defineComponent({
 
     // =========================================================
     // Parser Logic
-
     const parser = ref<Parser>("nlp");
-
-    const parsedIng = ref<any[]>([]);
+    const parsedIng = ref<ParsedIngredient[]>([]);
 
     async function fetchParsed() {
       if (!recipe.value) {
         return;
       }
       const raw = recipe.value.recipeIngredient.map((ing) => ing.note);
-      const { response, data } = await api.recipes.parseIngredients(parser.value, raw);
-      console.log({ response });
+      const { data } = await api.recipes.parseIngredients(parser.value, raw);
 
       if (data) {
         parsedIng.value = data;
-
-        console.log(data);
 
         // @ts-ignore
         errors.value = data.map((ing, index: number) => {
@@ -205,8 +200,6 @@ export default defineComponent({
         };
       });
 
-      console.log(ingredients);
-
       ingredients = ingredients.map((ing) => {
         if (!foods.value || !units.value) {
           return ing;
@@ -218,8 +211,6 @@ export default defineComponent({
         // Get unit from units
         const unit = units.value.find((u) => u.name === ing.unit.name);
         ing.unit = unit || null;
-        console.log(ing);
-
         return ing;
       });
 
