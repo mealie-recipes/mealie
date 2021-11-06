@@ -137,9 +137,9 @@ export default defineComponent({
               if (ing?.ingredient?.food?.name) {
                 foodErrorMessage = `Create missing food '${ing.ingredient.food.name || "No food"}'?`;
               }
-              panels.value.push(index);
             }
           }
+          panels.value.push(index);
 
           return {
             ingredientIndex: index,
