@@ -30,13 +30,14 @@
         </div>
       </BaseCardSectionTitle>
 
-      <v-card-actions class="justify-end">
+      <div class="d-flex mt-n3 mb-4 justify-end" style="gap: 5px">
+        <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
         <BaseButton color="info" @click="fetchParsed">
           <template #icon> {{ $globals.icons.foods }}</template>
           Parse All
         </BaseButton>
         <BaseButton save @click="saveAll"> Save All </BaseButton>
-      </v-card-actions>
+      </div>
 
       <v-expansion-panels v-model="panels" multiple>
         <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">

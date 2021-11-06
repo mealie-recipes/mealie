@@ -279,6 +279,7 @@ import {
   computed,
   defineComponent,
   reactive,
+  ref,
   toRefs,
   useContext,
   useMeta,
@@ -331,11 +332,26 @@ export default defineComponent({
     RecipeTimeCard,
     VueMarkdown,
   },
+  async beforeRouteLeave(_to, _from, next) {
+    if (this.form) {
+      if (window.confirm("You have unsaved changes. Do you want to save before leaving?")) {
+        // @ts-ignore
+        await this.api.recipes.updateOne(this.recipe.slug, this.recipe);
+      }
+    }
+    next();
+  },
+
   setup() {
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useUserApi();
+
+    // ===============================================================
+    // Check Before Leaving
+
+    const domSaveChangesDialog = ref(null);
 
     const state = reactive({
       form: false,
@@ -504,6 +520,7 @@ export default defineComponent({
     });
 
     return {
+      domSaveChangesDialog,
       enableLandscape,
       scaledYield,
       toggleJson,
