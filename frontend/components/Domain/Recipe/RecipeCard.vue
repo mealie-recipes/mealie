@@ -28,7 +28,20 @@
           <RecipeRating :value="rating" :name="name" :slug="slug" :small="true" />
           <v-spacer></v-spacer>
           <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :is-category="false" />
-          <RecipeContextMenu :slug="slug" :name="name" @deleted="$emit('deleted', slug)" />
+          <RecipeContextMenu
+            :slug="slug"
+            :name="name"
+            :recipe-id="recipeId"
+            :use-items="{
+              delete: true,
+              edit: true,
+              download: true,
+              mealplanner: true,
+              print: false,
+              share: true,
+            }"
+            @delete="$emit('delete', slug)"
+          />
         </v-card-actions>
         <slot></slot>
       </v-card>
@@ -74,6 +87,10 @@ export default {
     tags: {
       type: Array,
       default: () => [],
+    },
+    recipeId: {
+      required: true,
+      type: Number,
     },
   },
   data() {

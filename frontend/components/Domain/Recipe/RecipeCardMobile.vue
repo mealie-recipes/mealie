@@ -38,7 +38,21 @@
                   :value="rating"
                 ></v-rating>
                 <v-spacer></v-spacer>
-                <RecipeContextMenu :slug="slug" :menu-icon="$globals.icons.dotsHorizontal" :name="name" />
+                <RecipeContextMenu
+                  :slug="slug"
+                  :menu-icon="$globals.icons.dotsHorizontal"
+                  :name="name"
+                  :recipe-id="recipeId"
+                  :use-items="{
+                    delete: true,
+                    edit: true,
+                    download: true,
+                    mealplanner: true,
+                    print: false,
+                    share: true,
+                  }"
+                  @deleted="$emit('delete', slug)"
+                />
               </slot>
             </div>
           </v-list-item-content>
@@ -74,19 +88,19 @@ export default defineComponent({
     },
     rating: {
       type: Number,
-      required: true,
+      default: 0,
     },
     image: {
-      type: String,
-      required: true,
+      type: [String, null],
+      default: "",
     },
     route: {
       type: Boolean,
       default: true,
     },
-    tags: {
-      type: Boolean,
-      default: true,
+    recipeId: {
+      type: Number,
+      required: true,
     },
   },
   setup() {
