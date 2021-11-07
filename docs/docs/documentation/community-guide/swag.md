@@ -4,13 +4,14 @@
 	This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
 
 
-
 To make the setup of a Reverse Proxy much easier, Linuxserver.io developed [SWAG](https://github.com/linuxserver/docker-swag)  
-SWAG - Secure Web Application Gateway (formerly known as letsencrypt, no relation to Let's Encrypt™) sets up an Nginx web server and reverse proxy with PHP support and a built-in certbot client that automates free SSL server certificate generation and renewal processes (Let's Encrypt and ZeroSSL). It also contains fail2ban for intrusion prevention.
+SWAG - Secure Web Application Gateway (formerly known as letsencrypt, no relation to Let's Encrypt™) sets up an Nginx web server and reverse proxy with PHP support and a built-in certbot client that automates free TLS server certificate generation and renewal processes (Let's Encrypt and ZeroSSL). It also contains fail2ban for intrusion prevention.
 
 ## Step 1: Get a domain
 
 The first step is to grab a dynamic DNS if you don't have your own subdomain already. You can get this from for example [DuckDNS](https://www.duckdns.org).
+If you already own a domain, you'll need to create an <code>A</code> record that points to the machine that SWAG is running on. See 
+the [SWAG documentation](https://docs.linuxserver.io/general/swag#create-container-via-http-validation) for more details.
 
 ## Step 2: Set-up SWAG
 
@@ -21,34 +22,39 @@ This is an example of how to set it up using duckdns and docker-compose.
 ```yaml
 version: "2.1"
 services:
-swag:
-image: ghcr.io/linuxserver/swag
-container_name: swag
-cap_add:
-- NET_ADMIN
-environment:
-- PUID=1000
-- PGID=1000
-- TZ=Europe/Brussels
-- URL=<mydomain.duckdns>
-- SUBDOMAINS=wildcard
-- VALIDATION=duckdns
-- CERTPROVIDER= #optional
-- DNSPLUGIN= #optional
-- DUCKDNSTOKEN=<duckdnstoken>
-- EMAIL=<e-mail> #optional
-- ONLY_SUBDOMAINS=false #optional
-- EXTRA_DOMAINS=<extradomains> #optional
-- STAGING=false #optional
-volumes:
-- /etc/config/swag:/config
-ports:
-- 443:443
-restart: unless-stopped
+    swag:
+        image: ghcr.io/linuxserver/swag
+        container_name: swag
+        cap_add:
+            - NET_ADMIN
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Brussels # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for other time zones
+            - URL=<mydomain.duckdns>
+            - SUBDOMAINS=wildcard
+            - VALIDATION=duckdns
+            - CERTPROVIDER= #optional
+            - DNSPLUGIN= #optional
+            - DUCKDNSTOKEN=<duckdnstoken>
+            - EMAIL=<e-mail> #optional
+            - ONLY_SUBDOMAINS=false #optional
+            - EXTRA_DOMAINS=<extradomains> #optional
+            - STAGING=false #optional
+        volumes:
+            - /etc/config/swag:/config
+        ports:
+            - 443:443
+	    - 80:80 # this is required if you are using SWAG's http authorization to get a TLS cert
+        restart: unless-stopped
 
 ```
 
 Don't forget to change the <code>mydomain.duckns</code> into your personal domain and the <code>duckdnstoken</code> into your token and remove the brackets.
+
+You can also include the contents of the [mealie docker-compose](mealie/documentation/getting-started/install/#docker-compose-with-sqlite) in the SWAG
+docker-compose, without the <code>ports</code> section under mealie. This allows SWAG and mealie to communicate on the same docker network, without
+making mealie visible to other applications on your machine.
 
 ## Step 3: Change the config files
 
@@ -84,7 +90,7 @@ Alternatively, you can create a new file <code>mealie.subdomain.conf</code> in p
 
 ## Step 4: Port-forward port 443
 
-Since SWAG allows you to set up a secure connection, you will need to open port 443 on your router for encrypted traffic. This is way more secure than port 80 for http.
+Since SWAG allows you to set up a secure connection, you will need to open port 443 on your router for encrypted traffic. This is way more secure than port 80 for http. For more information about using TLS on port 443, see [SWAG's documentation](https://docs.linuxserver.io/general/swag#cert-provider-lets-encrypt-vs-zerossl) on cert providers and port forwarding.
 
 ## Step 5: Restart SWAG
 
