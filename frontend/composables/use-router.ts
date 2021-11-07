@@ -24,16 +24,14 @@ export function useRouteQuery<T extends string | string[]>(name: string, default
 
   return computed<any>({
     get() {
-      console.log("Getter");
       const data = route.value.query[name];
       if (data == null) return defaultValue ?? null;
       return data;
     },
     set(v) {
       nextTick(() => {
-        console.log("Setter");
         // @ts-ignore
-        router.value.replace({ query: { ...route.value.query, [name]: v } });
+        router.replace({ query: { ...route.value.query, [name]: v } });
       });
     },
   });

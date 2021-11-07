@@ -65,7 +65,6 @@
                 class="mx-1 py-0 mb-8"
                 :prepend-inner-icon="$globals.icons.foods"
                 label="Choose Food"
-                @blur="foodBlur"
               >
                 <template #selection="data">
                   <v-chip
@@ -99,12 +98,20 @@
 
 <script lang="ts">
 import Fuse from "fuse.js";
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, toRefs, computed } from "@nuxtjs/composition-api";
+import { reactive } from "vue-demi";
 import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchFilterSelector.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useRecipes, allRecipes, useFoods } from "~/composables/recipes";
 import { RecipeSummary } from "~/types/api-types/recipe";
+import { Tag } from "~/api/class-interfaces/tags";
+import { useRouteQuery } from "~/composables/use-router";
+
+interface GenericFilter {
+  exclude: boolean;
+  matchAny: boolean;
+}
 
 export default defineComponent({
   components: {
@@ -115,30 +122,36 @@ export default defineComponent({
   setup() {
     const { assignSorted } = useRecipes(true);
 
-    const { foods } = useFoods();
+    // ================================================================
+    // Global State
 
-    return { assignSorted, allRecipes, foods };
-  },
-  data() {
-    return {
+    const state = reactive({
       maxResults: 21,
-      searchResults: [],
+
+      // Filters
+      includeCategories: [] as string[],
       catFilter: {
         exclude: false,
         matchAny: false,
-      },
+      } as GenericFilter,
+
+      includeTags: [] as string[],
       tagFilter: {
         exclude: false,
         matchAny: false,
-      },
-      foodFilters: {
+      } as GenericFilter,
+
+      includeFoods: [] as string[],
+      foodFilter: {
         exclude: false,
         matchAny: false,
-      },
-      sortedResults: [],
-      includeCategories: [],
-      includeTags: [],
-      includeFoods: [],
+      } as GenericFilter,
+
+      // Recipes Holders
+      searchResults: [] as RecipeSummary[],
+      sortedResults: [] as RecipeSummary[],
+
+      // Search Options
       options: {
         shouldSort: true,
         threshold: 0.6,
@@ -149,76 +162,73 @@ export default defineComponent({
         minMatchCharLength: 2,
         keys: ["name", "description"],
       },
-    };
-  },
-  // head() {
-  //   return {
-  //     title: this.$t("search.search"),
-  //   };
-  // },
-  computed: {
-    searchString: {
-      set(q) {
-        this.$router.replace({ query: { ...this.$route.query, q } });
-      },
-      get() {
-        return this.$route.query.q || "";
-      },
-    },
-    filteredRecipes() {
-      return this.allRecipes.filter((recipe: RecipeSummary) => {
-        const includesTags = this.check(
-          this.includeTags,
-          recipe.tags.map((x) => x.name),
-          this.tagFilter.matchAny,
-          this.tagFilter.exclude
+    });
+
+    // ================================================================
+    // Search Functions
+
+    const searchString = useRouteQuery("q", "");
+
+    const filteredRecipes = computed(() => {
+      if (!allRecipes.value) {
+        return [];
+      }
+      // TODO: Fix Type Declarations for RecipeSummary
+      return allRecipes.value.filter((recipe: RecipeSummary) => {
+        const includesTags = check(
+          state.includeTags,
+
+          // @ts-ignore
+          recipe.tags.map((x: Tag) => x.name),
+          state.tagFilter.matchAny,
+          state.tagFilter.exclude
         );
-        const includesCats = this.check(
-          this.includeCategories,
+        const includesCats = check(
+          state.includeCategories,
+
+          // @ts-ignore
+
           recipe.recipeCategory.map((x) => x.name),
-          this.catFilter.matchAny,
-          this.catFilter.exclude
+          state.catFilter.matchAny,
+          state.catFilter.exclude
         );
+        const includesFoods = check(
+          state.includeFoods,
 
-        console.log();
-
-        const includesFoods = this.check(
-          this.includeFoods,
+          // @ts-ignore
           recipe.recipeIngredient.map((x) => x?.food?.name || ""),
-          this.foodFilters.matchAny,
-          this.foodFilters.exclude
+          state.foodFilter.matchAny,
+          state.foodFilter.exclude
         );
         return [includesTags, includesCats, includesFoods].every((x) => x === true);
       });
-    },
-    fuse() {
-      return new Fuse(this.filteredRecipes, this.options);
-    },
-    fuzzyRecipes() {
-      if (this.searchString.trim() === "") {
-        return this.filteredRecipes;
+    });
+
+    const fuse = computed(() => {
+      return new Fuse(filteredRecipes.value, state.options);
+    });
+
+    const fuzzyRecipes = computed(() => {
+      if (searchString.value.trim() === "") {
+        return filteredRecipes.value;
       }
-      const result = this.fuse.search(this.searchString.trim());
+      const result = fuse.value.search(searchString.value.trim());
       return result.map((x) => x.item);
-    },
-    isSearching() {
-      return this.searchString && this.searchString.length > 0;
-    },
-    showRecipes() {
-      if (this.sortedResults.length > 0) {
-        return this.sortedResults;
+    });
+
+    const showRecipes = computed(() => {
+      if (state.sortedResults.length > 0) {
+        return state.sortedResults;
       } else {
-        return this.fuzzyRecipes;
+        return fuzzyRecipes.value;
       }
-    },
-  },
-  methods: {
-    assignFuzzy(val) {
-      this.sortedResults = val;
-    },
-    check(filterBy, recipeList, matchAny, exclude) {
+    });
+
+    // ================================================================
+    // Utility Functions
+
+    function check(filterBy: string[], recipeList: string[], matchAny: boolean, exclude: boolean) {
       let isMatch = true;
-      console.log({ filterBy, recipeList, matchAny, exclude });
       if (filterBy.length === 0) return isMatch;
 
       if (recipeList) {
@@ -230,20 +240,41 @@ export default defineComponent({
         return exclude ? !isMatch : isMatch;
       } else;
       return false;
-    },
+    }
 
-    updateTagParams(params) {
-      this.tagFilter = params;
-    },
-    updateCatParams(params) {
-      this.catFilter = params;
-    },
-    updateFoodParams(params) {
-      this.foodFilter = params;
-    },
-    foodBlur() {
-      console.log("Food Blur");
-    },
+    function assignFuzzy(val: RecipeSummary[]) {
+      state.sortedResults = val;
+    }
+    function updateTagParams(params: GenericFilter) {
+      state.tagFilter = params;
+    }
+    function updateCatParams(params: GenericFilter) {
+      state.catFilter = params;
+    }
+    function updateFoodParams(params: GenericFilter) {
+      state.foodFilter = params;
+    }
+
+    const { foods } = useFoods();
+
+    return {
+      ...toRefs(state),
+      allRecipes,
+      assignFuzzy,
+      assignSorted,
+      check,
+      foods,
+      searchString,
+      showRecipes,
+      updateCatParams,
+      updateFoodParams,
+      updateTagParams,
+    };
+  },
+  head() {
+    return {
+      title: this.$t("search.search") as string,
+    };
   },
 });
 </script>

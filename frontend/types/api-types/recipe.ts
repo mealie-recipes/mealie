@@ -131,8 +131,8 @@ export interface RecipeSummary {
   slug?: string;
   image?: unknown;
   description?: string;
-  recipeCategory?: string[];
-  tags?: string[];
+  recipeCategory: string[];
+  tags: string[];
   rating?: number;
   dateAdded?: string;
   dateUpdated?: string;
