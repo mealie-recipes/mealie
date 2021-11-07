@@ -10,6 +10,14 @@ const state = {
       value: "en-GB",
     },
     {
+      name: "Català (Catalan)",
+      value: "ca-ES",
+    },
+    {
+      name: "Dansk (Danish)",
+      value: "da-DK",
+    },
+    {
       name: "Deutsch (German)",
       value: "de-DE",
     },
@@ -30,12 +38,24 @@ const state = {
       value: "it-IT",
     },
     {
+      name: "Norsk (Norwegian)",
+      value: "no-NO",
+    },
+    {
       name: "Nederlands (Dutch)",
       value: "nl-NL",
     },
     {
       name: "Polski (Polish)",
       value: "pl-PL",
+    },
+    {
+      name: "Pусский (Russian)",
+      value: "ru-RU",
+    },
+    {
+      name: "Slovenčina (Slovak)",
+      value: "sk-SK",
     },
     {
       name: "Svenska (Swedish)",
