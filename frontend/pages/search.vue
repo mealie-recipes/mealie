@@ -50,6 +50,39 @@
                 :tag-selector="true"
               />
             </v-col>
+            <v-col>
+              <h3 class="pl-2 text-center headline">Food Filter</h3>
+              <RecipeSearchFilterSelector class="mb-1" @update="updateFoodParams" />
+              <v-autocomplete
+                v-model="includeFoods"
+                hide-details
+                chips
+                deletable-chips
+                solo
+                multiple
+                :items="foods || []"
+                item-text="name"
+                class="mx-1 py-0 mb-8"
+                :prepend-inner-icon="$globals.icons.foods"
+                label="Choose Food"
+                @blur="foodBlur"
+              >
+                <template #selection="data">
+                  <v-chip
+                    :key="data.index"
+                    class="ma-1"
+                    :input-value="data.selected"
+                    close
+                    label
+                    color="accent"
+                    dark
+                    @click:close="includeFoods.splice(data.index, 1)"
+                  >
+                    {{ data.item.name || data.item }}
+                  </v-chip>
+                </template>
+              </v-autocomplete>
+            </v-col>
           </v-row>
         </v-expand-transition>
       </template>
@@ -64,13 +97,14 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import Fuse from "fuse.js";
 import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchFilterSelector.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { useRecipes, allRecipes } from "~/composables/recipes";
+import { useRecipes, allRecipes, useFoods } from "~/composables/recipes";
+import { RecipeSummary } from "~/types/api-types/recipe";
 
 export default defineComponent({
   components: {
@@ -81,7 +115,9 @@ export default defineComponent({
   setup() {
     const { assignSorted } = useRecipes(true);
 
-    return { assignSorted, allRecipes };
+    const { foods } = useFoods();
+
+    return { assignSorted, allRecipes, foods };
   },
   data() {
     return {
@@ -95,9 +131,14 @@ export default defineComponent({
         exclude: false,
         matchAny: false,
       },
+      foodFilters: {
+        exclude: false,
+        matchAny: false,
+      },
       sortedResults: [],
       includeCategories: [],
       includeTags: [],
+      includeFoods: [],
       options: {
         shouldSort: true,
         threshold: 0.6,
@@ -110,11 +151,11 @@ export default defineComponent({
       },
     };
   },
-  head() {
-    return {
-      title: this.$t("search.search"),
-    };
-  },
+  // head() {
+  //   return {
+  //     title: this.$t("search.search"),
+  //   };
+  // },
   computed: {
     searchString: {
       set(q) {
@@ -125,7 +166,7 @@ export default defineComponent({
       },
     },
     filteredRecipes() {
-      return this.allRecipes.filter((recipe) => {
+      return this.allRecipes.filter((recipe: RecipeSummary) => {
         const includesTags = this.check(
           this.includeTags,
           recipe.tags.map((x) => x.name),
@@ -138,7 +179,16 @@ export default defineComponent({
           this.catFilter.matchAny,
           this.catFilter.exclude
         );
-        return [includesTags, includesCats].every((x) => x === true);
+
+        console.log();
+
+        const includesFoods = this.check(
+          this.includeFoods,
+          recipe.recipeIngredient.map((x) => x?.food?.name || ""),
+          this.foodFilters.matchAny,
+          this.foodFilters.exclude
+        );
+        return [includesTags, includesCats, includesFoods].every((x) => x === true);
       });
     },
     fuse() {
@@ -168,6 +218,7 @@ export default defineComponent({
     },
     check(filterBy, recipeList, matchAny, exclude) {
       let isMatch = true;
+      console.log({ filterBy, recipeList, matchAny, exclude });
       if (filterBy.length === 0) return isMatch;
 
       if (recipeList) {
@@ -186,6 +237,12 @@ export default defineComponent({
     },
     updateCatParams(params) {
       this.catFilter = params;
+    },
+    updateFoodParams(params) {
+      this.foodFilter = params;
+    },
+    foodBlur() {
+      console.log("Food Blur");
     },
   },
 });
