@@ -16,7 +16,7 @@ the [SWAG documentation](https://docs.linuxserver.io/general/swag#create-contain
 ## Step 2: Set-up SWAG
 
 Then you will need to set up SWAG, the variables of the docker-compose are explained on the Github page of [SWAG](https://github.com/linuxserver/docker-swag).
-This is an example of how to set it up using duckdns and docker-compose.
+This is an example of how to set it up using DuckDNS and docker-compose.
 
 !!! example "docker-compose.yml"
 ```yaml
