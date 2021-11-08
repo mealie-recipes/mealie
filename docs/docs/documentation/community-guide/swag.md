@@ -30,7 +30,8 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/Brussels # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for other time zones
+            # valid TZs at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+            - TZ=Europe/Brussels 
             - URL=<mydomain.duckdns>
             - SUBDOMAINS=wildcard
             - VALIDATION=duckdns
@@ -45,7 +46,8 @@ services:
             - /etc/config/swag:/config
         ports:
             - 443:443
-	    - 80:80 # this is required if you are using SWAG's http authorization to get a TLS cert
+            # required if VALIDATION=http above, if you aren't using DuckDNS
+            - 80:80 
         restart: unless-stopped
 
 ```
@@ -65,27 +67,26 @@ To use the bundled configuration file, simply rename `mealie.subdomain.conf.samp
 Alternatively, you can create a new file `mealie.subdomain.conf` in proxy-confs with the following configuration:
 
 !!! example "mealie.subdomain.conf"
-```yaml
-    server {
+```nginx
+server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    	server_name mealie.*;
+    server_name mealie.*;
 
-    	include /config/nginx/ssl.conf;
+    include /config/nginx/ssl.conf;
 
-    	client_max_body_size 0;
+    client_max_body_size 0;
 
-    	location / {
-        	include /config/nginx/proxy.conf;
-        	include /config/nginx/resolver.conf;
-        	set $upstream_app mealie;
-        	set $upstream_port 80;
-        	set $upstream_proto http;
-        	proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    		}
-
-	}	
+    location / {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app mealie;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+}	
 ```
 
 ## Step 4: Port-forward port 443
