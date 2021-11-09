@@ -68,9 +68,7 @@ class RecipeDataAccessModel(AccessModel[Recipe, RecipeModel]):
             .options(
                 joinedload(RecipeModel.recipe_category),
                 joinedload(RecipeModel.tags),
-                joinedload(RecipeModel.recipe_ingredient).options(
-                    joinedload(RecipeIngredient.food)
-                ),
+                joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)),
             )
             .filter(RecipeModel.group_id == group_id)
             .offset(start)
