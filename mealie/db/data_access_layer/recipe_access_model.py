@@ -3,6 +3,7 @@ from typing import Any
 
 from sqlalchemy.orm import joinedload
 
+from mealie.db.models.recipe.ingredient import RecipeIngredient
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.schema.recipe import Recipe
@@ -64,7 +65,11 @@ class RecipeDataAccessModel(AccessModel[Recipe, RecipeModel]):
     def summary(self, group_id, start=0, limit=99999) -> Any:
         return (
             self.session.query(RecipeModel)
-            .options(joinedload(RecipeModel.recipe_category), joinedload(RecipeModel.tags))
+            .options(
+                joinedload(RecipeModel.recipe_category),
+                joinedload(RecipeModel.tags),
+                joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)),
+            )
             .filter(RecipeModel.group_id == group_id)
             .offset(start)
             .limit(limit)

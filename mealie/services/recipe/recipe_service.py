@@ -60,7 +60,15 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
 
     def get_all(self, start=0, limit=None):
         items = self.db.recipes.summary(self.user.group_id, start=start, limit=limit)
-        return [RecipeSummary.construct(**x.__dict__) for x in items]
+
+        new_items = []
+        for item in items:
+            # Pydantic/FastAPI can't seem to serialize the ingredient field on thier own.
+            new_item = item.__dict__
+            new_item["recipe_ingredient"] = [x.__dict__ for x in item.recipe_ingredient]
+            new_items.append(new_item)
+
+        return [RecipeSummary.construct(**x) for x in new_items]
 
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
         create_data = recipe_creation_factory(self.user, name=create_data.name, additional_attrs=create_data.dict())

@@ -76,6 +76,8 @@ class RecipeSummary(CamelModel):
     rating: Optional[int]
     org_url: Optional[str] = Field(None, alias="orgURL")
 
+    recipe_ingredient: Optional[list[RecipeIngredient]] = []
+
     date_added: Optional[datetime.date]
     date_updated: Optional[datetime.datetime]
 

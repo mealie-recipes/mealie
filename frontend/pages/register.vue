@@ -120,7 +120,6 @@ export default defineComponent({
 
     watch(token, (newToken) => {
       if (newToken) {
-        console.log(token);
         form.groupToken = newToken;
       }
     });
