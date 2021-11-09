@@ -146,23 +146,10 @@ export default defineComponent({
       ],
       topLinks: [
         {
-          icon: this.$globals.icons.calendar,
-          restricted: true,
+          icon: this.$globals.icons.calendarMultiselect,
           title: this.$t("meal-plan.meal-planner"),
-          children: [
-            {
-              icon: this.$globals.icons.calendarMultiselect,
-              title: this.$t("meal-plan.planner"),
-              to: "/meal-plan/planner",
-              restricted: true,
-            },
-            {
-              icon: this.$globals.icons.calendarWeek,
-              title: this.$t("meal-plan.dinner-this-week"),
-              to: "/meal-plan/this-week",
-              restricted: true,
-            },
-          ],
+          to: "/meal-plan/planner",
+          restricted: true,
         },
         {
           icon: this.$globals.icons.formatListCheck,
