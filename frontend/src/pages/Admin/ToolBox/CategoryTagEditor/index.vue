@@ -14,6 +14,7 @@
             :placeholder="$t('settings.toolbox.new-name')"
             :rules="[existsRule]"
             v-model="renameTarget.newName"
+            autofocus
           ></v-text-field>
         </v-card-text>
       </v-form>
