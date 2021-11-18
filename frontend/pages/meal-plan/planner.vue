@@ -194,7 +194,8 @@
             </template>
           </RecipeCard>
         </template>
-        <v-skeleton-loader v-else elevation="2" v-bind="attrs" type="image, list-item-two-line"></v-skeleton-loader>
+
+        <v-skeleton-loader v-else elevation="2" type="image, list-item-two-line"></v-skeleton-loader>
       </v-col>
     </v-row>
   </v-container>
@@ -205,7 +206,7 @@ import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
 import { SortableEvent } from "sortablejs"; // eslint-disable-line
 import draggable from "vuedraggable";
-import { useMealplans } from "~/composables/use-group-mealplan";
+import { useMealplans, planTypeOptions } from "~/composables/use-group-mealplan";
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
@@ -299,13 +300,6 @@ export default defineComponent({
     // =====================================================
     // New Meal Dialog
 
-    const planTypeOptions = [
-      { text: "Breakfast", value: "breakfast" },
-      { text: "Lunch", value: "lunch" },
-      { text: "Dinner", value: "dinner" },
-      { text: "Snack", value: "snack" },
-    ];
-
     const domMealDialog = ref(null);
     const dialog = reactive({
       loading: false,
@@ -320,11 +314,12 @@ export default defineComponent({
       newMeal.title = "";
       newMeal.text = "";
     });
+
     const newMeal = reactive({
       date: "",
       title: "",
       text: "",
-      recipeId: null,
+      recipeId: null as Number | null,
       entryType: "dinner",
     });
 
@@ -338,42 +333,45 @@ export default defineComponent({
       newMeal.date = "";
       newMeal.title = "";
       newMeal.text = "";
+      newMeal.entryType = "dinner";
       newMeal.recipeId = null;
     }
 
-    function randomMeal(date: Date) {
+    async function randomMeal(date: Date) {
       // TODO: Refactor to use API call to get random recipe
       // @ts-ignore
       const randomRecipe = allRecipes.value[Math.floor(Math.random() * allRecipes.value.length)];
 
       newMeal.date = format(date, "yyyy-MM-dd");
-      // @ts-ignore
-      newMeal.recipeId = randomRecipe.id;
+
+      newMeal.recipeId = randomRecipe.id || null;
+
+      console.log(newMeal.recipeId, randomRecipe.id);
 
       // @ts-ignore
-      actions.createOne(newMeal);
+      await actions.createOne({ ...newMeal });
       resetDialog();
     }
 
     return {
-      resetDialog,
-      randomMeal,
+      ...toRefs(state),
+      actions,
+      allRecipes,
+      backOneWeek,
+      days,
       dialog,
       domMealDialog,
-      openDialog,
-      mealplans,
-      actions,
-      newMeal,
-      allRecipes,
-      ...toRefs(state),
-      mealsByDate,
-      onMoveCallback,
-      backOneWeek,
       forwardOneWeek,
-      weekRange,
-      days,
-      planTypeOptions,
       loading,
+      mealplans,
+      mealsByDate,
+      newMeal,
+      onMoveCallback,
+      openDialog,
+      planTypeOptions,
+      randomMeal,
+      resetDialog,
+      weekRange,
     };
   },
   head() {
