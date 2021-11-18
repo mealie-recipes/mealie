@@ -35,6 +35,9 @@
           <v-date-picker v-model="newMeal.date" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
         <v-card-text>
+          <v-select v-model="newMeal.entryType" :return-object="false" :items="planTypeOptions" label="Entry Type">
+          </v-select>
+
           <v-autocomplete
             v-if="!dialog.note"
             v-model="newMeal.recipeId"
@@ -68,7 +71,7 @@
       </div>
     </div>
     <v-switch v-model="edit" label="Editor"></v-switch>
-    <v-row class="mt-2">
+    <v-row class="">
       <v-col
         v-for="(plan, index) in mealsByDate"
         :key="index"
@@ -79,68 +82,119 @@
         xl="2"
         class="col-borders my-1 d-flex flex-column"
       >
-        <p class="h5 text-center">
-          {{ $d(plan.date, "short") }}
-        </p>
-        <draggable
-          tag="div"
-          :value="plan.meals"
-          group="meals"
-          :data-index="index"
-          :data-box="plan.date"
-          style="min-height: 150px"
-          @end="onMoveCallback"
-        >
-          <v-card v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" class="my-1">
-            <v-list-item :to="edit ? null : `/recipe/${mealplan.recipe.slug}`">
-              <v-list-item-avatar :rounded="false">
-                <RecipeCardImage v-if="mealplan.recipe" tiny icon-size="25" :slug="mealplan.recipe.slug" />
-                <v-icon v-else>
-                  {{ $globals.icons.primary }}
-                </v-icon>
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title class="mb-1">
-                  {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ mealplan.recipe ? mealplan.recipe.description : mealplan.text }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider v-if="edit" class="mx-2"></v-divider>
-            <v-card-actions v-if="edit">
-              <v-btn color="error" icon @click="actions.deleteOne(mealplan.id)">
-                <v-icon>{{ $globals.icons.delete }}</v-icon>
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-btn
-                v-if="mealplan.recipe"
-                color="info"
-                icon
-                nuxt
-                target="_blank"
-                :to="`/recipe/${mealplan.recipe.slug}`"
-              >
-                <v-icon>{{ $globals.icons.openInNew }}</v-icon>
-              </v-btn>
+        <v-sheet class="mb-2 bottom-color-border">
+          <p class="headline text-center mb-1">
+            {{ $d(plan.date, "short") }}
+          </p>
+        </v-sheet>
+
+        <!-- Day Column Recipes -->
+        <template v-if="edit">
+          <draggable
+            tag="div"
+            :value="plan.meals"
+            group="meals"
+            :data-index="index"
+            :data-box="plan.date"
+            style="min-height: 150px"
+            @end="onMoveCallback"
+          >
+            <v-card v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" class="my-1">
+              <v-list-item :to="edit || !mealplan.recipe ? null : `/recipe/${mealplan.recipe.slug}`">
+                <v-list-item-avatar :rounded="false">
+                  <RecipeCardImage
+                    v-if="mealplan.recipe"
+                    tiny
+                    icon-size="25"
+                    :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
+                  />
+                  <v-icon v-else>
+                    {{ $globals.icons.primary }}
+                  </v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title class="mb-1">
+                    {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle style="min-height: 16px">
+                    {{ mealplan.recipe ? mealplan.recipe.description + " " : mealplan.text }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider class="mx-2"></v-divider>
+              <div class="py-2 px-2 d-flex">
+                <v-menu offset-y>
+                  <template #activator="{ on, attrs }">
+                    <v-chip v-bind="attrs" label small color="accent" v-on="on" @click.prevent>
+                      <v-icon left>
+                        {{ $globals.icons.tags }}
+                      </v-icon>
+                      {{ mealplan.entryType }}
+                    </v-chip>
+                  </template>
+                  <v-list>
+                    <v-list-item
+                      v-for="mealType in planTypeOptions"
+                      :key="mealType.value"
+                      @click="actions.setType(mealplan, mealType.value)"
+                    >
+                      <v-list-item-title> {{ mealType.text }} </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+                <v-spacer></v-spacer>
+                <v-btn color="info" class="mr-2" small icon>
+                  <v-icon>{{ $globals.icons.cartCheck }}</v-icon>
+                </v-btn>
+                <v-btn color="error" small icon @click="actions.deleteOne(mealplan.id)">
+                  <v-icon>{{ $globals.icons.delete }}</v-icon>
+                </v-btn>
+              </div>
+            </v-card>
+          </draggable>
+
+          <!-- Day Column Actions -->
+          <v-card outlined class="mt-auto">
+            <v-card-actions class="d-flex">
+              <div style="width: 50%">
+                <v-btn block text @click="randomMeal(plan.date)">
+                  <v-icon large>{{ $globals.icons.diceMultiple }}</v-icon>
+                </v-btn>
+              </div>
+              <div style="width: 50%">
+                <v-btn block text @click="openDialog(plan.date)">
+                  <v-icon large>{{ $globals.icons.createAlt }}</v-icon>
+                </v-btn>
+              </div>
             </v-card-actions>
           </v-card>
-        </draggable>
-        <v-card v-if="edit" outlined class="mt-auto">
-          <v-card-actions class="d-flex">
-            <div style="width: 50%">
-              <v-btn block text @click="randomMeal(plan.date)">
-                <v-icon large>{{ $globals.icons.diceMultiple }}</v-icon>
-              </v-btn>
-            </div>
-            <div style="width: 50%">
-              <v-btn block text @click="openDialog(plan.date)">
-                <v-icon large>{{ $globals.icons.createAlt }}</v-icon>
-              </v-btn>
-            </div>
-          </v-card-actions>
-        </v-card>
+        </template>
+        <template v-else-if="plan.meals">
+          <RecipeCard
+            v-for="mealplan in plan.meals"
+            :key="mealplan.id"
+            :recipe-id="0"
+            :image-height="125"
+            class="mb-2"
+            :route="mealplan.recipe ? true : false"
+            :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
+            :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
+            :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
+          >
+            <template #actions>
+              <v-divider class="mb-0 mt-2 mx-2"></v-divider>
+              <v-card-actions class="justify-end mt-1">
+                <v-chip label small color="accent">
+                  <v-icon left>
+                    {{ $globals.icons.tags }}
+                  </v-icon>
+                  {{ mealplan.entryType }}
+                </v-chip>
+              </v-card-actions>
+            </template>
+          </RecipeCard>
+        </template>
+        <v-skeleton-loader v-else elevation="2" v-bind="attrs" type="image, list-item-two-line"></v-skeleton-loader>
       </v-col>
     </v-row>
   </v-container>
@@ -154,14 +208,16 @@ import draggable from "vuedraggable";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
+import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
 
 export default defineComponent({
   components: {
     draggable,
     RecipeCardImage,
+    RecipeCard,
   },
   setup() {
-    const { mealplans, actions } = useMealplans();
+    const { mealplans, actions, loading } = useMealplans();
 
     useRecipes(true, true);
     const state = reactive({
@@ -242,6 +298,14 @@ export default defineComponent({
 
     // =====================================================
     // New Meal Dialog
+
+    const planTypeOptions = [
+      { text: "Breakfast", value: "breakfast" },
+      { text: "Lunch", value: "lunch" },
+      { text: "Dinner", value: "dinner" },
+      { text: "Snack", value: "snack" },
+    ];
+
     const domMealDialog = ref(null);
     const dialog = reactive({
       loading: false,
@@ -261,6 +325,7 @@ export default defineComponent({
       title: "",
       text: "",
       recipeId: null,
+      entryType: "dinner",
     });
 
     function openDialog(date: Date) {
@@ -307,6 +372,8 @@ export default defineComponent({
       forwardOneWeek,
       weekRange,
       days,
+      planTypeOptions,
+      loading,
     };
   },
   head() {
@@ -318,8 +385,16 @@ export default defineComponent({
 </script>
 
 <style lang="css">
-.col-borders {
+/* .col-borders {
   border-top: 1px solid #e0e0e0;
+} */
+
+.left-color-border {
+  border-left: 5px solid var(--v-primary-base) !important;
+}
+
+.bottom-color-border {
+  border-bottom: 2px solid var(--v-primary-base) !important;
 }
 </style>
   
