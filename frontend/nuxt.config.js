@@ -223,7 +223,7 @@ export default {
         background: "#202021",
       },
       light: {
-        primary: process.env.THEME_LIGHT_PRIMARY || "#007A99",
+        primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
         accent: process.env.THEME_LIGHT_ACCENT || "#007A99",
         secondary: process.env.THEME_DARK_SECONDARY || "#973542",
         success: process.env.THEME_DARK_SUCCESS || "#43A047",
@@ -237,7 +237,6 @@ export default {
   privateRuntimeConfig: {},
 
   proxy: {
-    // "http://localhost:9000/*/api",
     // See Proxy section
     [`${process.env.SUB_PATH || ""}api`]: {
       pathRewrite: {
