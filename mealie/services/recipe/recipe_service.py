@@ -13,6 +13,7 @@ from mealie.core.dependencies.grouped import PublicDeps, UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.db.data_access_layer.recipe_access_model import RecipeDataAccessModel
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeSummary
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_recipe_event
@@ -71,8 +72,25 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         return [RecipeSummary.construct(**x) for x in new_items]
 
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
-        create_data = recipe_creation_factory(self.user, name=create_data.name, additional_attrs=create_data.dict())
+        group = self.db.groups.get(self.group_id, "id")
+
+        create_data = recipe_creation_factory(
+            self.user,
+            name=create_data.name,
+            additional_attrs=create_data.dict(),
+        )
+
+        create_data.settings = RecipeSettings(
+            public=group.preferences.recipe_public,
+            show_nutrition=group.preferences.recipe_show_nutrition,
+            show_assets=group.preferences.recipe_show_assets,
+            landscape_view=group.preferences.recipe_landscape_view,
+            disable_comments=group.preferences.recipe_disable_comments,
+            disable_amount=group.preferences.recipe_disable_amount,
+        )
+
         self._create_one(create_data, self.t("generic.server-error"), self.exception_key)
+
         self._create_event(
             "Recipe Created",
             f"'{self.item.name}' by {self.user.username} \n {self.settings.BASE_URL}/recipe/{self.item.slug}",
