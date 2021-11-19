@@ -126,7 +126,7 @@ export default defineComponent({
 
     const headers = reactive({
       id: false,
-      owner: true,
+      owner: false,
       tags: true,
       categories: true,
       recipeYield: false,
