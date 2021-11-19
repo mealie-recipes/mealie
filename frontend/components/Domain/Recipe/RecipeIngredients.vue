@@ -2,7 +2,7 @@
   <div v-if="value && value.length > 0">
     <div class="d-flex justify-start">
       <h2 class="mb-4 mt-1">{{ $t("recipe.ingredients") }}</h2>
-    <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
+      <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
     </div>
     <div>
       <div v-for="(ingredient, index) in value" :key="'ingredient' + index">
