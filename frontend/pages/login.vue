@@ -193,6 +193,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
+import { alert } from "~/composables/use-toast";
 export default defineComponent({
   layout: "basic",
 
@@ -215,7 +216,16 @@ export default defineComponent({
       formData.append("username", form.email);
       formData.append("password", form.password);
 
-      await $auth.loginWith("local", { data: formData });
+      try {
+        await $auth.loginWith("local", { data: formData });
+      } catch (error) {
+        if (error.response.status === 401) {
+          alert.error("Invalid Credentials");
+        }
+        else {
+          alert.error("Something Went Wrong!")
+        }
+      }
       loggingIn.value = false;
     }
 
