@@ -31,10 +31,12 @@ def recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict
     additional_attrs["user_id"] = user.id
     additional_attrs["group_id"] = user.group_id
 
-    if not additional_attrs.get("recipeIngredient"):
-        additional_attrs["recipeIngredient"] = [RecipeIngredient(note=ingredient_note)]
+    print(additional_attrs)
 
-    if not additional_attrs.get("recipeInstructions"):
-        additional_attrs["recipeInstructions"] = [RecipeStep(text=step_text)]
+    if not additional_attrs.get("recipe_ingredient"):
+        additional_attrs["recipe_ingredient"] = [RecipeIngredient(note=ingredient_note)]
+
+    if not additional_attrs.get("recipe_instructions"):
+        additional_attrs["recipe_instructions"] = [RecipeStep(text=step_text)]
 
     return Recipe(**additional_attrs)
