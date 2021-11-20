@@ -31,8 +31,6 @@ def recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict
     additional_attrs["user_id"] = user.id
     additional_attrs["group_id"] = user.group_id
 
-    print(additional_attrs)
-
     if not additional_attrs.get("recipe_ingredient"):
         additional_attrs["recipe_ingredient"] = [RecipeIngredient(note=ingredient_note)]
 
