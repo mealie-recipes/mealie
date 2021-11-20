@@ -34,7 +34,7 @@ async def get_recipe_formats_and_templates(_: RecipeService = Depends(RecipeServ
 
 @user_router.post("/{slug}/exports")
 async def get_recipe_zip_token(slug: str):
-    """ Generates a recipe zip token to be used to download a recipe as a zip file """
+    """Generates a recipe zip token to be used to download a recipe as a zip file"""
     return {"token": create_recipe_slug_token(slug)}
 
 
@@ -62,7 +62,7 @@ async def get_recipe_as_zip(
     session: Session = Depends(generate_session),
     temp_path=Depends(temporary_zip_path),
 ):
-    """ Get a Recipe and It's Original Image as a Zip File """
+    """Get a Recipe and It's Original Image as a Zip File"""
     slug = validate_recipe_token(token)
 
     if slug != slug:

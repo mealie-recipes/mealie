@@ -25,7 +25,7 @@ class EmailTest(CamelModel):
 
 @router.get("", response_model=EmailReady)
 async def check_email_config():
-    """ Get general application information """
+    """Get general application information"""
     settings = get_app_settings()
 
     return EmailReady(ready=settings.SMTP_ENABLE)

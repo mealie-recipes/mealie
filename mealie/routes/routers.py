@@ -6,7 +6,7 @@ from mealie.core.dependencies import get_admin_user, get_current_user
 
 
 class AdminAPIRouter(APIRouter):
-    """ Router for functions to be protected behind admin authentication """
+    """Router for functions to be protected behind admin authentication"""
 
     def __init__(
         self,
@@ -17,7 +17,7 @@ class AdminAPIRouter(APIRouter):
 
 
 class UserAPIRouter(APIRouter):
-    """ Router for functions to be protected behind user authentication """
+    """Router for functions to be protected behind user authentication"""
 
     def __init__(
         self,

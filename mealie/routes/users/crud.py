@@ -51,7 +51,7 @@ def delete_user(
     session: Session = Depends(generate_session),
     current_user: PrivateUser = Depends(get_current_user),
 ):
-    """ Removes a user from the database. Must be the current user or a super user"""
+    """Removes a user from the database. Must be the current user or a super user"""
 
     assert_user_change_allowed(id, current_user)
 

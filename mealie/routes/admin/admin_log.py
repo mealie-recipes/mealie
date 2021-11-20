@@ -8,7 +8,7 @@ router = APIRouter(prefix="/logs")
 
 @router.get("/{num}")
 async def get_log(num: int):
-    """ Doc Str """
+    """Doc Str"""
     with open(LOGGER_FILE, "rb") as f:
         log_text = tail(f, num)
     return log_text
@@ -16,7 +16,7 @@ async def get_log(num: int):
 
 @router.get("")
 async def get_log_file():
-    """ Returns a token to download a file """
+    """Returns a token to download a file"""
     return {"fileToken": create_file_token(LOGGER_FILE)}
 
 

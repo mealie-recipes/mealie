@@ -110,7 +110,7 @@
           <!-- Advanced Editor -->
           <div v-if="form">
             <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
-            <draggable v-model="recipe.recipeIngredient" handle=".handle">
+            <draggable v-if="recipe.recipeIngredient.length > 0" v-model="recipe.recipeIngredient" handle=".handle">
               <RecipeIngredientEditor
                 v-for="(ingredient, index) in recipe.recipeIngredient"
                 :key="ingredient.referenceId"
@@ -119,6 +119,7 @@
                 @delete="recipe.recipeIngredient.splice(index, 1)"
               />
             </draggable>
+            <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
             <div class="d-flex justify-end mt-2">
               <v-tooltip top color="accent">
                 <template #activator="{ on, attrs }">

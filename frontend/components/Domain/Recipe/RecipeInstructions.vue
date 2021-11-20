@@ -2,7 +2,7 @@
   <section @keyup.ctrl.90="undoMerge">
     <!-- Ingredient Link Editor -->
     <v-dialog v-model="dialog" width="600">
-      <v-card>
+      <v-card :ripple="false">
         <v-app-bar dark color="primary" class="mt-n1 mb-3">
           <v-icon large left>
             {{ $globals.icons.link }}
@@ -127,8 +127,7 @@
               </v-fade-transition>
             </v-card-title>
             <v-card-text v-if="edit">
-              <v-textarea :key="'instructions' + index" v-model="value[index]['text']" auto-grow dense rows="4">
-              </v-textarea>
+              <MarkdownEditor v-model="value[index]['text']" />
               <div
                 v-for="ing in step.ingredientReferences"
                 :key="ing.referenceId"
@@ -417,4 +416,9 @@ export default defineComponent({
 });
 </script>
 
+<style scoped>
+.v-card--link:before {
+  background: none;
+}
+</style>
 

@@ -20,7 +20,7 @@ async def create_comment(
     session: Session = Depends(generate_session),
     current_user: PrivateUser = Depends(get_current_user),
 ):
-    """ Create comment in the Database """
+    """Create comment in the Database"""
     db = get_database(session)
 
     new_comment = SaveComment(user=current_user.id, text=new_comment.text, recipe_slug=slug)
@@ -34,7 +34,7 @@ async def update_comment(
     session: Session = Depends(generate_session),
     current_user: PrivateUser = Depends(get_current_user),
 ):
-    """ Update comment in the Database """
+    """Update comment in the Database"""
     db = get_database(session)
     old_comment: CommentOut = db.comments.get(id)
 
@@ -48,7 +48,7 @@ async def update_comment(
 async def delete_comment(
     id: int, session: Session = Depends(generate_session), current_user: PrivateUser = Depends(get_current_user)
 ):
-    """ Delete comment from the Database """
+    """Delete comment from the Database"""
     db = get_database(session)
     comment: CommentOut = db.comments.get(id)
     if current_user.id == comment.user.id or current_user.admin:

@@ -5,10 +5,10 @@
         :class="{ 'on-hover': hover }"
         :elevation="hover ? 12 : 2"
         :to="route ? `/recipe/${slug}` : ''"
-        min-height="275"
+        :min-height="imageHeight + 75"
         @click="$emit('click')"
       >
-        <RecipeCardImage icon-size="200" :slug="slug" small :image-version="image">
+        <RecipeCardImage :icon-size="imageHeight" :height="imageHeight" :slug="slug" small :image-version="image">
           <v-expand-transition v-if="description">
             <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
               <v-card-text class="v-card--text-show white--text">
@@ -23,26 +23,28 @@
           </div>
         </v-card-title>
 
-        <v-card-actions>
-          <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
-          <RecipeRating :value="rating" :name="name" :slug="slug" :small="true" />
-          <v-spacer></v-spacer>
-          <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :is-category="false" />
-          <RecipeContextMenu
-            :slug="slug"
-            :name="name"
-            :recipe-id="recipeId"
-            :use-items="{
-              delete: true,
-              edit: true,
-              download: true,
-              mealplanner: true,
-              print: false,
-              share: true,
-            }"
-            @delete="$emit('delete', slug)"
-          />
-        </v-card-actions>
+        <slot name="actions">
+          <v-card-actions>
+            <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
+            <RecipeRating :value="rating" :name="name" :slug="slug" :small="true" />
+            <v-spacer></v-spacer>
+            <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :is-category="false" />
+            <RecipeContextMenu
+              :slug="slug"
+              :name="name"
+              :recipe-id="recipeId"
+              :use-items="{
+                delete: true,
+                edit: true,
+                download: true,
+                mealplanner: true,
+                print: false,
+                share: true,
+              }"
+              @delete="$emit('delete', slug)"
+            />
+          </v-card-actions>
+        </slot>
         <slot></slot>
       </v-card>
     </v-hover>
@@ -91,6 +93,10 @@ export default {
     recipeId: {
       required: true,
       type: Number,
+    },
+    imageHeight: {
+      type: Number,
+      default: 200,
     },
   },
   data() {

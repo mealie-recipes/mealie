@@ -20,7 +20,7 @@ async def create_api_token(
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
-    """ Create api_token in the Database """
+    """Create api_token in the Database"""
 
     token_data = {"long_token": True, "id": current_user.id}
 
@@ -47,7 +47,7 @@ async def delete_api_token(
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
-    """ Delete api_token from the Database """
+    """Delete api_token from the Database"""
     db = get_database(session)
     token: LongLiveTokenInDB = db.api_tokens.get(token_id)
 

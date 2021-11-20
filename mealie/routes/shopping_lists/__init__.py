@@ -17,7 +17,7 @@ async def create_shopping_list(
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
-    """ Create Shopping List in the Database """
+    """Create Shopping List in the Database"""
     db = get_database(session)
     list_in.group = current_user.group
 
@@ -26,20 +26,20 @@ async def create_shopping_list(
 
 @router.get("/{id}", response_model=ShoppingListOut)
 async def get_shopping_list(id: int, session: Session = Depends(generate_session)):
-    """ Get Shopping List from the Database """
+    """Get Shopping List from the Database"""
     db = get_database(session)
     return db.shopping_lists.get(id)
 
 
 @router.put("/{id}", response_model=ShoppingListOut)
 async def update_shopping_list(id: int, new_data: ShoppingListIn, session: Session = Depends(generate_session)):
-    """ Update Shopping List in the Database """
+    """Update Shopping List in the Database"""
     db = get_database(session)
     return db.shopping_lists.update(id, new_data)
 
 
 @router.delete("/{id}")
 async def delete_shopping_list(id: int, session: Session = Depends(generate_session)):
-    """ Delete Shopping List from the Database """
+    """Delete Shopping List from the Database"""
     db = get_database(session)
     return db.shopping_lists.delete(id)

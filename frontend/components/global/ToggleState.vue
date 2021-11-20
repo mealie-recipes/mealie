@@ -8,16 +8,26 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { useToggle } from "@vueuse/shared";
+import { watch } from "vue-demi";
 
 export default defineComponent({
   props: {
+    value: {
+      type: Boolean,
+      default: false,
+    },
     tag: {
       type: String,
       default: "div",
     },
   },
-  setup() {
+  setup(_, context) {
     const [state, toggle] = useToggle();
+
+    watch(state, () => {
+      context.emit("input", state);
+    });
+
     return {
       state,
       toggle,

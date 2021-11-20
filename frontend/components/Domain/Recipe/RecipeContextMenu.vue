@@ -41,6 +41,7 @@
           </template>
           <v-date-picker v-model="newMealdate" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
+        <v-select v-model="newMealType" :return-object="false" :items="planTypeOptions" label="Entry Type"></v-select>
       </v-card-text>
     </BaseDialog>
     <v-menu
@@ -77,6 +78,7 @@ import { defineComponent, reactive, ref, toRefs, useContext, useRouter } from "@
 import { useClipboard, useShare } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { MealType, planTypeOptions } from "~/composables/use-group-mealplan";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -153,6 +155,7 @@ export default defineComponent({
       loading: false,
       menuItems: [] as ContextMenuItem[],
       newMealdate: "",
+      newMealType: "dinner" as MealType,
       pickerMenu: false,
     });
 
@@ -265,7 +268,7 @@ export default defineComponent({
     async function addRecipeToPlan() {
       const { response } = await api.mealplans.createOne({
         date: state.newMealdate,
-        entryType: "dinner",
+        entryType: state.newMealType,
         title: "",
         text: "",
         recipeId: props.recipeId,
@@ -310,6 +313,7 @@ export default defineComponent({
       domConfirmDelete,
       domMealplanDialog,
       icon,
+      planTypeOptions,
     };
   },
 });

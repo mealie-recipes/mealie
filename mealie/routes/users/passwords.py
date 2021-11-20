@@ -26,19 +26,19 @@ async def reset_user_password(id: int, session: Session = Depends(generate_sessi
 
 @user_router.put("/{item_id}/password")
 def update_password(password_change: ChangePassword, user_service: UserService = Depends(UserService.write_existing)):
-    """ Resets the User Password"""
+    """Resets the User Password"""
     return user_service.change_password(password_change)
 
 
 @public_router.post("/forgot-password")
 def forgot_password(email: ForgotPassword, session: Session = Depends(generate_session)):
-    """ Sends an email with a reset link to the user"""
+    """Sends an email with a reset link to the user"""
     f_service = PasswordResetService(session)
     return f_service.send_reset_email(email.email)
 
 
 @public_router.post("/reset-password")
 def reset_password(reset_password: ResetPassword, session: Session = Depends(generate_session)):
-    """ Resets the user password"""
+    """Resets the user password"""
     f_service = PasswordResetService(session)
     return f_service.reset_password(reset_password.token, reset_password.password)

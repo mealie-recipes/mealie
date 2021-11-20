@@ -13,7 +13,7 @@ router = AdminAPIRouter(prefix="/groups")
 
 @router.get("", response_model=list[GroupInDB])
 async def get_all_groups(session: Session = Depends(generate_session)):
-    """ Returns a list of all groups in the database """
+    """Returns a list of all groups in the database"""
     db = get_database(session)
 
     return db.groups.get_all()
@@ -25,7 +25,7 @@ async def create_group(
     group_data: GroupBase,
     session: Session = Depends(generate_session),
 ):
-    """ Creates a Group in the Database """
+    """Creates a Group in the Database"""
     db = get_database(session)
 
     try:
@@ -38,7 +38,7 @@ async def create_group(
 
 @router.put("/{id}")
 async def update_group_data(id: int, group_data: UpdateGroup, session: Session = Depends(generate_session)):
-    """ Updates a User Group """
+    """Updates a User Group"""
     db = get_database(session)
     db.groups.update(id, group_data.dict())
 
@@ -50,7 +50,7 @@ async def delete_user_group(
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
-    """ Removes a user group from the database """
+    """Removes a user group from the database"""
     db = get_database(session)
 
     if id == 1:

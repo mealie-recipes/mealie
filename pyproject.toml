@@ -40,7 +40,6 @@ python-i18n = "^0.3.9"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
-black = "^20.8b1"
 pytest = "^6.2.1"
 pytest-cov = "^2.11.0"
 mkdocs-material = "^7.0.2"
@@ -51,6 +50,7 @@ rich = "^10.7.0"
 isort = "^5.9.3"
 regex = "2021.9.30" # TODO: Remove during Upgrade -> https://github.com/psf/black/issues/2524
 flake8-print = "^4.0.0"
+black = "^21.11b1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

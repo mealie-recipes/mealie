@@ -4,6 +4,15 @@ import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
 import { CreateMealPlan, UpdateMealPlan } from "~/api/class-interfaces/group-mealplan";
 
+export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
+
+export const planTypeOptions = [
+  { text: "Breakfast", value: "breakfast" },
+  { text: "Lunch", value: "lunch" },
+  { text: "Dinner", value: "dinner" },
+  { text: "Snack", value: "snack" },
+];
+
 export const useMealplans = function () {
   const api = useUserApi();
   const loading = ref(false);
@@ -72,9 +81,14 @@ export const useMealplans = function () {
         this.refreshAll();
       }
     },
+
+    async setType(payload: UpdateMealPlan, typ: MealType) {
+      payload.entryType = typ;
+      await this.updateOne(payload);
+    },
   };
 
   const mealplans = actions.getAll();
 
-  return { mealplans, actions, validForm };
+  return { mealplans, actions, validForm, loading };
 };

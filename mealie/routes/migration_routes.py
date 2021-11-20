@@ -20,7 +20,7 @@ router = AdminAPIRouter(prefix="/api/migrations", tags=["Migration"])
 
 @router.get("", response_model=List[Migrations])
 def get_all_migration_options():
-    """ Returns a list of avaiable directories that can be imported into Mealie """
+    """Returns a list of avaiable directories that can be imported into Mealie"""
     response_data = []
     migration_dirs = [
         app_dirs.MIGRATION_DIR.joinpath("nextcloud"),
@@ -46,14 +46,14 @@ def import_migration(
     session: Session = Depends(generate_session),
     user: PrivateUser = Depends(get_logged_in_user),
 ):
-    """ Imports all the recipes in a given directory """
+    """Imports all the recipes in a given directory"""
     file_path = app_dirs.MIGRATION_DIR.joinpath(import_type.value, file_name)
     return migration.migrate(user, import_type, file_path, session)
 
 
 @router.delete("/{import_type}/{file_name}/delete", status_code=status.HTTP_200_OK)
 def delete_migration_data(import_type: migration.Migration, file_name: str):
-    """ Removes migration data from the file system """
+    """Removes migration data from the file system"""
 
     remove_path = app_dirs.MIGRATION_DIR.joinpath(import_type.value, file_name)
 
@@ -67,7 +67,7 @@ def delete_migration_data(import_type: migration.Migration, file_name: str):
 
 @router.post("/{import_type}/upload", status_code=status.HTTP_200_OK)
 def upload_nextcloud_zipfile(import_type: migration.Migration, archive: UploadFile = File(...)):
-    """ Upload a .zip File to later be imported into Mealie """
+    """Upload a .zip File to later be imported into Mealie"""
     dir = app_dirs.MIGRATION_DIR.joinpath(import_type.value)
     dir.mkdir(parents=True, exist_ok=True)
     dest = dir.joinpath(archive.filename)
