@@ -16,7 +16,7 @@ user_router = UserAPIRouter()
 
 @user_router.post("/{slug}/image")
 def scrape_image_url(slug: str, url: CreateRecipeByUrl):
-    """ Removes an existing image and replaces it with the incoming file. """
+    """Removes an existing image and replaces it with the incoming file."""
 
     scrape_image(url.url, slug)
 
@@ -28,7 +28,7 @@ def update_recipe_image(
     extension: str = Form(...),
     session: Session = Depends(generate_session),
 ):
-    """ Removes an existing image and replaces it with the incoming file. """
+    """Removes an existing image and replaces it with the incoming file."""
     db = get_database(session)
     write_image(slug, image, extension)
     new_version = db.recipes.update_image(slug, extension)
@@ -45,7 +45,7 @@ def upload_recipe_asset(
     file: UploadFile = File(...),
     session: Session = Depends(generate_session),
 ):
-    """ Upload a file to store as a recipe asset """
+    """Upload a file to store as a recipe asset"""
     file_name = slugify(name) + "." + extension
     asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
     dest = Recipe(slug=slug).asset_dir.joinpath(file_name)

@@ -8,7 +8,7 @@ from jinja2 import Template
 
 
 def render_python_template(template_file: Path, dest: Path, data: dict) -> str:
-    """ Render and Format a Jinja2 Template for Python Code"""
+    """Render and Format a Jinja2 Template for Python Code"""
     tplt = Template(template_file.read_text())
     text = tplt.render(data)
     text = format_str(text, mode=FileMode())

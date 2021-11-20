@@ -33,7 +33,7 @@ async def get_recipe_img(slug: str, file_name: ImageType = ImageType.original):
 
 @router.get("/{slug}/assets/{file_name}")
 async def get_recipe_asset(slug: str, file_name: str):
-    """ Returns a recipe asset """
+    """Returns a recipe asset"""
     file = Recipe(slug=slug).asset_dir.joinpath(file_name)
 
     try:

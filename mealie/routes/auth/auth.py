@@ -43,6 +43,6 @@ def get_token(
 
 @user_router.get("/refresh")
 async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
-    """ Use a valid token to get another token"""
+    """Use a valid token to get another token"""
     access_token = security.create_access_token(data=dict(sub=current_user.email))
     return {"access_token": access_token, "token_type": "bearer"}

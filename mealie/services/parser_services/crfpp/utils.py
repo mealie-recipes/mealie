@@ -297,7 +297,7 @@ def import_data(lines):
 
 
 def export_data(lines):
-    """ Parse "raw" ingredient lines into CRF-ready output """
+    """Parse "raw" ingredient lines into CRF-ready output"""
     output = []
     for line in lines:
         line_clean = re.sub("<[^<]+?>", "", line)

@@ -18,7 +18,7 @@ class CodeDest:
 
 
 class CodeKeys:
-    """ Hard coded comment IDs that are used to generate code"""
+    """Hard coded comment IDs that are used to generate code"""
 
     nuxt_local_messages = "MESSAGE_LOCALES"
     nuxt_local_dates = "DATE_LOCALES"

@@ -66,7 +66,7 @@ class OpenAPIParser:
         self.modules = {}
 
     def dump(self, out_path: Path) -> Path:
-        """ Writes the Open API as JSON to a json file"""
+        """Writes the Open API as JSON to a json file"""
         OPEN_API_FILE = out_path or Directories.out_dir / "openapi.json"
 
         with open(OPEN_API_FILE, "w") as f:

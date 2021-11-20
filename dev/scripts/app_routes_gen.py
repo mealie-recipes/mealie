@@ -126,7 +126,7 @@ def get_path_objects(app: FastAPI):
 
 
 def dump_open_api(app: FastAPI):
-    """ Writes the Open API as JSON to a json file"""
+    """Writes the Open API as JSON to a json file"""
     OPEN_API_FILE = CWD / "openapi.json"
 
     with open(OPEN_API_FILE, "w") as f:

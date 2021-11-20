@@ -18,7 +18,7 @@ user_router = UserAPIRouter(prefix="", tags=["Users: Images"])
 
 @public_router.get("/{id}/image")
 async def get_user_image(id: str):
-    """ Returns a users profile picture """
+    """Returns a users profile picture"""
     user_dir = app_dirs.USER_DIR.joinpath(id)
     for recipe_image in user_dir.glob("profile_image.*"):
         return FileResponse(recipe_image)
@@ -32,7 +32,7 @@ def update_user_image(
     profile_image: UploadFile = File(...),
     current_user: PrivateUser = Depends(get_current_user),
 ):
-    """ Updates a User Image """
+    """Updates a User Image"""
 
     assert_user_change_allowed(id, current_user)
 

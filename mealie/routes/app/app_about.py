@@ -8,7 +8,7 @@ router = APIRouter(prefix="/about")
 
 @router.get("", response_model=AppInfo)
 async def get_app_info():
-    """ Get general application information """
+    """Get general application information"""
     settings = get_app_settings()
 
     return AppInfo(

@@ -14,7 +14,7 @@ admin_router = AdminAPIRouter(prefix="/api/site-settings", tags=["Settings"])
 
 @public_router.get("")
 def get_main_settings(session: Session = Depends(generate_session)):
-    """ Returns basic site settings """
+    """Returns basic site settings"""
     db = get_database(session)
 
     return db.settings.get(1)
@@ -25,7 +25,7 @@ def test_webhooks(
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
-    """ Run the function to test your webhooks """
+    """Run the function to test your webhooks"""
     db = get_database(session)
     group_entry: GroupInDB = db.groups.get(current_user.group, "name")
 

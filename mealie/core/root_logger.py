@@ -65,7 +65,7 @@ logging.basicConfig(
 
 
 def logger_init() -> logging.Logger:
-    """ Returns the Root Loggin Object for Mealie """
+    """Returns the Root Loggin Object for Mealie"""
     return logging.getLogger("mealie")
 
 
@@ -74,7 +74,7 @@ root_logger.info("Testing Root Logger")
 
 
 def get_logger(module=None) -> logging.Logger:
-    """ Returns a child logger for mealie """
+    """Returns a child logger for mealie"""
     global root_logger
 
     if module is None:

@@ -13,7 +13,7 @@ user_router = UserAPIRouter()
 
 @user_router.get("/{id}/favorites", response_model=UserFavorites)
 async def get_favorites(id: str, session: Session = Depends(generate_session)):
-    """ Get user's favorite recipes """
+    """Get user's favorite recipes"""
     db = get_database(session)
     return db.users.get(id, override_schema=UserFavorites)
 
@@ -24,7 +24,7 @@ def add_favorite(
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
-    """ Adds a Recipe to the users favorites """
+    """Adds a Recipe to the users favorites"""
 
     current_user.favorite_recipes.append(slug)
     db = get_database(session)
@@ -37,7 +37,7 @@ def remove_favorite(
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
-    """ Adds a Recipe to the users favorites """
+    """Adds a Recipe to the users favorites"""
 
     assert_user_change_allowed(id, current_user)
     current_user.favorite_recipes = [x for x in current_user.favorite_recipes if x != slug]

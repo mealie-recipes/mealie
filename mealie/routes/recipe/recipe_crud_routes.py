@@ -27,13 +27,13 @@ async def get_all(start=0, limit=None, service: RecipeService = Depends(RecipeSe
 
 @user_router.post("", status_code=201, response_model=str)
 def create_from_name(data: CreateRecipe, recipe_service: RecipeService = Depends(RecipeService.private)) -> str:
-    """ Takes in a JSON string and loads data into the database as a new entry"""
+    """Takes in a JSON string and loads data into the database as a new entry"""
     return recipe_service.create_one(data).slug
 
 
 @user_router.post("/create-url", status_code=201, response_model=str)
 def parse_recipe_url(url: CreateRecipeByUrl, recipe_service: RecipeService = Depends(RecipeService.private)):
-    """ Takes in a URL and attempts to scrape data and load it into the database """
+    """Takes in a URL and attempts to scrape data and load it into the database"""
     recipe = create_from_url(url.url)
     return recipe_service.create_one(recipe).slug
 
@@ -44,7 +44,7 @@ def parse_recipe_url_bulk(
     recipe_service: RecipeService = Depends(RecipeService.private),
     bg_service: BackgroundExecutor = Depends(BackgroundExecutor.private),
 ):
-    """ Takes in a URL and attempts to scrape data and load it into the database """
+    """Takes in a URL and attempts to scrape data and load it into the database"""
 
     def bulk_import_func(task_id: int, session: Session) -> None:
         database = get_database(session)
@@ -94,30 +94,30 @@ async def create_recipe_from_zip(
     temp_path=Depends(temporary_zip_path),
     archive: UploadFile = File(...),
 ):
-    """ Create recipe from archive """
+    """Create recipe from archive"""
     recipe = recipe_service.create_from_zip(archive, temp_path)
     return recipe.slug
 
 
 @user_router.get("/{slug}", response_model=Recipe)
 def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existing)):
-    """ Takes in a recipe slug, returns all data for a recipe """
+    """Takes in a recipe slug, returns all data for a recipe"""
     return recipe_service.item
 
 
 @user_router.put("/{slug}")
 def update_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
-    """ Updates a recipe by existing slug and data. """
+    """Updates a recipe by existing slug and data."""
     return recipe_service.update_one(data)
 
 
 @user_router.patch("/{slug}")
 def patch_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
-    """ Updates a recipe by existing slug and data. """
+    """Updates a recipe by existing slug and data."""
     return recipe_service.patch_one(data)
 
 
 @user_router.delete("/{slug}")
 def delete_recipe(recipe_service: RecipeService = Depends(RecipeService.write_existing)):
-    """ Deletes a recipe by slug """
+    """Deletes a recipe by slug"""
     return recipe_service.delete_one()

@@ -63,7 +63,7 @@ def export_database(
 
 @router.post("/upload", status_code=status.HTTP_200_OK)
 def upload_backup_file(archive: UploadFile = File(...)):
-    """ Upload a .zip File to later be imported into Mealie """
+    """Upload a .zip File to later be imported into Mealie"""
     dest = app_dirs.BACKUP_DIR.joinpath(archive.filename)
 
     with dest.open("wb") as buffer:
@@ -75,7 +75,7 @@ def upload_backup_file(archive: UploadFile = File(...)):
 
 @router.get("/{file_name}/download")
 async def download_backup_file(file_name: str):
-    """ Returns a token to download a file """
+    """Returns a token to download a file"""
     file = app_dirs.BACKUP_DIR.joinpath(file_name)
 
     return {"fileToken": create_file_token(file)}
@@ -89,7 +89,7 @@ def import_database(
     session: Session = Depends(generate_session),
     user: PrivateUser = Depends(get_current_user),
 ):
-    """ Import a database backup file generated from Mealie. """
+    """Import a database backup file generated from Mealie."""
 
     db_import = imports.import_database(
         user=user,
@@ -109,7 +109,7 @@ def import_database(
 
 @router.delete("/{file_name}/delete", status_code=status.HTTP_200_OK)
 def delete_backup(file_name: str):
-    """ Removes a database backup from the file system """
+    """Removes a database backup from the file system"""
     file_path = app_dirs.BACKUP_DIR.joinpath(file_name)
 
     if not file_path.is_file():

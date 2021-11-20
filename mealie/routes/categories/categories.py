@@ -14,14 +14,14 @@ admin_router = AdminAPIRouter()
 
 @public_router.get("")
 async def get_all_recipe_categories(session: Session = Depends(generate_session)):
-    """ Returns a list of available categories in the database """
+    """Returns a list of available categories in the database"""
     db = get_database(session)
     return db.categories.get_all_limit_columns(fields=["slug", "name"])
 
 
 @public_router.get("/empty")
 def get_empty_categories(session: Session = Depends(generate_session)):
-    """ Returns a list of categories that do not contain any recipes"""
+    """Returns a list of categories that do not contain any recipes"""
     db = get_database(session)
     return db.categories.get_empty()
 
@@ -30,7 +30,7 @@ def get_empty_categories(session: Session = Depends(generate_session)):
 def get_all_recipes_by_category(
     category: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)
 ):
-    """ Returns a list of recipes associated with the provided category. """
+    """Returns a list of recipes associated with the provided category."""
     db = get_database(session)
 
     category_obj = db.categories.get(category)
@@ -44,7 +44,7 @@ def get_all_recipes_by_category(
 
 @user_router.post("")
 async def create_recipe_category(category: CategoryIn, session: Session = Depends(generate_session)):
-    """ Creates a Category in the database """
+    """Creates a Category in the database"""
     db = get_database(session)
 
     try:
@@ -55,7 +55,7 @@ async def create_recipe_category(category: CategoryIn, session: Session = Depend
 
 @admin_router.put("/{category}", response_model=RecipeCategoryResponse)
 async def update_recipe_category(category: str, new_category: CategoryIn, session: Session = Depends(generate_session)):
-    """ Updates an existing Tag in the database """
+    """Updates an existing Tag in the database"""
     db = get_database(session)
 
     try:
