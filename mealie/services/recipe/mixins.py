@@ -1,6 +1,5 @@
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
-from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.user.user import PrivateUser
 
@@ -20,8 +19,6 @@ Number Lists
 
 ingredient_note = "1 Cup Flour"
 
-note_text = "You can also add notes to recipes for additional helpful tips."
-
 
 def recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict = None) -> Recipe:
     """
@@ -34,10 +31,10 @@ def recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict
     additional_attrs["user_id"] = user.id
     additional_attrs["group_id"] = user.group_id
 
-    recipe_ingredients = [RecipeIngredient(note=ingredient_note)]
-    recipe_instructions = [RecipeStep(text=step_text)]
-    notes = [RecipeNote(title="Helpful Tip", text=note_text)]
+    if not additional_attrs.get("recipeIngredient"):
+        additional_attrs["recipeIngredient"] = [RecipeIngredient(note=ingredient_note)]
 
-    return Recipe(
-        recipe_ingredient=recipe_ingredients, notes=notes, recipe_instructions=recipe_instructions, **additional_attrs
-    )
+    if not additional_attrs.get("recipeInstructions"):
+        additional_attrs["recipeInstructions"] = [RecipeStep(text=step_text)]
+
+    return Recipe(**additional_attrs)
