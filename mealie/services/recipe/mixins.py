@@ -5,16 +5,16 @@ from mealie.schema.user.user import PrivateUser
 
 step_text = """Recipe steps as well as other fields in the recipe page support markdown syntax.
 
-Add a link [My Link](https://beta.mealie.io)
-Imbed an image [My Image Text](https://myimagelink.com)
+**Add a link**
 
-Bullet Points
-- First
-- Second
+[My Link](https://beta.mealie.io)
 
-Number Lists
-1. Number 1
-2. Number 2
+**Imbed an image**
+
+Use the `height="100"` or `width="100"` attributes to set the size of the image.
+
+<img height="100" src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=960&q=80"></img>
+
 """
 
 ingredient_note = "1 Cup Flour"
