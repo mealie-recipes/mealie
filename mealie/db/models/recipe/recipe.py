@@ -21,6 +21,21 @@ from .tag import Tag, recipes2tags
 from .tool import Tool
 
 
+# Decorator function to unpack the extras into a dict
+def recipe_extras(func):
+    def wrapper(*args, **kwargs):
+        extras = kwargs.pop("extras")
+
+        if extras is None:
+            extras = []
+
+        extras = [{"key": key, "value": value} for key, value in extras.items()]
+
+        return func(*args, extras=extras, **kwargs)
+
+    return wrapper
+
+
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
@@ -88,7 +103,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         get_attr = "slug"
         exclude = {
             "assets",
-            "extras",
             "notes",
             "nutrition",
             "recipe_ingredient",
@@ -97,16 +111,16 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         }
 
     @validates("name")
-    def validate_name(self, key, name):
+    def validate_name(self, _, name):
         assert name != ""
         return name
 
+    @recipe_extras
     @auto_init()
     def __init__(
         self,
         session,
         assets: list = None,
-        extras: dict = None,
         notes: list[dict] = None,
         nutrition: dict = None,
         recipe_ingredient: list[str] = None,
@@ -118,15 +132,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.tools = [Tool(tool=x) for x in tools] if tools else []
         self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
         self.assets = [RecipeAsset(**a) for a in assets]
-        # self.recipe_instructions = [
-        #     RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))
-        #     for instruc in recipe_instructions
-        # ]
 
         # Mealie Specific
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
         self.notes = [Note(**note) for note in notes]
-        self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
 
         # Time Stampes
         self.date_updated = datetime.datetime.now()
