@@ -204,7 +204,14 @@
               <div v-if="!form">
                 <h2 class="mb-2 mt-4">Required Tools</h2>
                 <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
-                  <v-checkbox hide-details class="pt-0 my-auto py-auto" color="secondary"> </v-checkbox>
+                  <v-checkbox
+                    v-model="recipe.tools[index].onHand"
+                    hide-details
+                    class="pt-0 my-auto py-auto"
+                    color="secondary"
+                    @change="updateTool(recipe.tools[index])"
+                  >
+                  </v-checkbox>
                   <v-list-item-content>
                     {{ tool.name }}
                   </v-list-item-content>
@@ -212,15 +219,6 @@
               </div>
 
               <div v-if="$vuetify.breakpoint.mdAndUp" class="mt-5">
-                <!-- Recipe Tools Edit -->
-                <v-card v-if="form">
-                  <v-card-title class="py-2"> Required Tools</v-card-title>
-                  <v-divider class="mx-2"></v-divider>
-                  <v-card-text class="pt-0">
-                    <RecipeTools v-model="recipe.tools" :edit="form" />
-                  </v-card-text>
-                </v-card>
-
                 <!-- Recipe Categories -->
                 <v-card v-if="recipe.recipeCategory.length > 0 || form" class="mt-2">
                   <v-card-title class="py-2">
@@ -255,6 +253,15 @@
                       :show-label="false"
                     />
                     <RecipeChips v-else :items="recipe.tags" :is-category="false" />
+                  </v-card-text>
+                </v-card>
+
+                <!-- Recipe Tools Edit -->
+                <v-card v-if="form">
+                  <v-card-title class="py-2"> Required Tools </v-card-title>
+                  <v-divider class="mx-2"></v-divider>
+                  <v-card-text class="pt-0">
+                    <RecipeTools v-model="recipe.tools" :edit="form" />
                   </v-card-text>
                 </v-card>
 
@@ -445,6 +452,7 @@ import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import RecipeTools from "~/components/Domain/Recipe/RecipeTools.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
+import { Tool } from "~/api/class-interfaces/tools";
 
 export default defineComponent({
   components: {
@@ -640,6 +648,17 @@ export default defineComponent({
     }
 
     // ===============================================================
+    // Recipe Tools
+
+    async function updateTool(tool: Tool) {
+      const { response } = await api.tools.updateOne(tool.id, tool);
+
+      if (response?.status === 200) {
+        console.log("Update Successful");
+      }
+    }
+
+    // ===============================================================
     // Recipe API Extras
 
     const apiNewKey = ref("");
@@ -720,6 +739,7 @@ export default defineComponent({
       addStep,
       deleteRecipe,
       closeEditor,
+      updateTool,
       updateRecipe,
       uploadImage,
       validators,

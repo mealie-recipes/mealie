@@ -36,6 +36,7 @@
             </template>
             <v-card-text>
               <v-text-field v-model="workingToolData.name" label="Tool Name"></v-text-field>
+              <v-checkbox v-model="workingToolData.onHand" label="Show as On Hand (Checked)"></v-checkbox>
             </v-card-text>
           </BaseDialog>
         </template>

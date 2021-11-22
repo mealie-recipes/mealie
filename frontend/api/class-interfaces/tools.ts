@@ -4,6 +4,7 @@ const prefix = "/api";
 
 export interface CreateTool {
   name: string;
+  onHand: boolean;
 }
 
 export interface Tool extends CreateTool {

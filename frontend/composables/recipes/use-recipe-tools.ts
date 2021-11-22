@@ -2,10 +2,11 @@ import { reactive, ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 
-export const useTools = function () {
+export const useTools = function (eager = true) {
   const workingToolData = reactive({
     id: 0,
     name: "",
+    onHand: false,
   });
 
   const api = useUserApi();
@@ -75,7 +76,13 @@ export const useTools = function () {
     },
   };
 
-  const tools = actions.getAll();
+  const tools = (() => {
+    if (eager) {
+      return actions.getAll();
+    } else {
+      return ref([]);
+    }
+  })();
 
   return {
     tools,
