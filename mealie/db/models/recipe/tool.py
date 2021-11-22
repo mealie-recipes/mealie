@@ -1,13 +1,21 @@
-import sqlalchemy as sa
+from sqlalchemy import Column, ForeignKey, Integer, String, Table, orm
 
-from mealie.db.models._model_base import SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models._model_utils import auto_init
+
+recipes_to_tools = Table(
+    "recipes_to_tools",
+    SqlAlchemyBase.metadata,
+    Column("recipe_id", Integer, ForeignKey("recipes.id")),
+    Column("tool_id", Integer, ForeignKey("tools.id")),
+)
 
 
-class Tool(SqlAlchemyBase):
+class Tool(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tools"
-    id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.Integer, sa.ForeignKey("recipes.id"))
-    tool = sa.Column(sa.String)
+    name = Column(String, index=True, unique=True, nullable=False)
+    recipes = orm.relationship("RecipeModel", secondary=recipes_to_tools, back_populates="tools")
 
-    def __init__(self, tool) -> None:
-        self.tool = tool
+    @auto_init()
+    def __init__(self, name, **_) -> None:
+        self.name = name

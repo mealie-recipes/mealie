@@ -17,6 +17,7 @@ from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
 from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
+from .recipe_tool import RecipeTool
 
 app_dirs = get_app_dirs()
 
@@ -101,7 +102,7 @@ class Recipe(RecipeSummary):
     recipe_ingredient: Optional[list[RecipeIngredient]] = []
     recipe_instructions: Optional[list[RecipeStep]] = []
     nutrition: Optional[Nutrition]
-    tools: Optional[list[str]] = []
+    tools: list[RecipeTool] = []
 
     # Mealie Specific
     settings: Optional[RecipeSettings] = RecipeSettings()
@@ -143,7 +144,6 @@ class Recipe(RecipeSummary):
                 # "recipe_ingredient": [x.note for x in name_orm.recipe_ingredient],
                 # "recipe_category": [x.name for x in name_orm.recipe_category],
                 # "tags": [x.name for x in name_orm.tags],
-                "tools": [x.tool for x in name_orm.tools],
                 "extras": {x.key_name: x.value for x in name_orm.extras},
             }
 

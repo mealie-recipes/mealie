@@ -13,6 +13,7 @@ from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.server.task import ServerTaskModel
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
@@ -26,6 +27,7 @@ from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.recipe import CommentOut, Recipe, RecipeCategoryResponse, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.recipe.recipe_tool import RecipeTool
 from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
@@ -76,6 +78,10 @@ class Database:
     @cached_property
     def ingredient_units(self) -> AccessModel[IngredientUnit, IngredientUnitModel]:
         return AccessModel(self.session, pk_id, IngredientUnitModel, IngredientUnit)
+
+    @cached_property
+    def tools(self) -> AccessModel[RecipeTool, Tool]:
+        return AccessModel(self.session, pk_id, Tool, RecipeTool)
 
     @cached_property
     def comments(self) -> AccessModel[CommentOut, RecipeComment]:

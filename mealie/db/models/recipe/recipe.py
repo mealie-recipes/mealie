@@ -18,7 +18,7 @@ from .note import Note
 from .nutrition import Nutrition
 from .settings import RecipeSettings
 from .tag import Tag, recipes2tags
-from .tool import Tool
+from .tool import recipes_to_tools
 
 
 # Decorator function to unpack the extras into a dict
@@ -67,10 +67,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     recipe_yield = sa.Column(sa.String)
     recipeCuisine = sa.Column(sa.String)
 
-    tools: list[Tool] = orm.relationship("Tool", cascade="all, delete-orphan")
-    assets: list[RecipeAsset] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
+    assets = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
     recipe_category: list = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
+    tools = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
 
     recipe_ingredient: list[RecipeIngredient] = orm.relationship(
         "RecipeIngredient",
@@ -107,7 +107,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "nutrition",
             "recipe_ingredient",
             "settings",
-            "tools",
         }
 
     @validates("name")
@@ -125,11 +124,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         nutrition: dict = None,
         recipe_ingredient: list[str] = None,
         settings: dict = None,
-        tools: list[str] = None,
         **_,
     ) -> None:
         self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
-        self.tools = [Tool(tool=x) for x in tools] if tools else []
         self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
         self.assets = [RecipeAsset(**a) for a in assets]
 
