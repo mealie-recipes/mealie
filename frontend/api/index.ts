@@ -18,6 +18,7 @@ import { EmailAPI } from "./class-interfaces/email";
 import { BulkActionsAPI } from "./class-interfaces/recipe-bulk-actions";
 import { GroupServerTaskAPI } from "./class-interfaces/group-tasks";
 import { AdminAPI } from "./admin-api";
+import { ToolsApi } from "./class-interfaces/tools";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -40,7 +41,7 @@ class Api {
   public email: EmailAPI;
   public bulk: BulkActionsAPI;
   public grouperServerTasks: GroupServerTaskAPI;
-
+  public tools: ToolsApi;
   // Utils
   public upload: UploadFile;
 
@@ -55,6 +56,7 @@ class Api {
     this.tags = new TagsAPI(requests);
     this.units = new UnitAPI(requests);
     this.foods = new FoodAPI(requests);
+    this.tools = new ToolsApi(requests);
 
     // Users
     this.users = new UserApi(requests);
