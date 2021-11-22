@@ -238,9 +238,9 @@
                   </v-card-text>
                 </v-card>
 
-                <RecipeNutrition v-if="true || form" v-model="recipe.nutrition" class="mt-10" :edit="form" />
+                <RecipeNutrition v-if="recipe.settings.showNutrition" v-model="recipe.nutrition" class="mt-10" :edit="form" />
                 <RecipeAssets
-                  v-if="recipe.settings.showAssets || form"
+                  v-if="recipe.settings.showAssets"
                   v-model="recipe.assets"
                   :edit="form"
                   :slug="recipe.slug"
@@ -289,6 +289,32 @@
           </v-card-actions>
         </v-card-text>
       </div>
+      <v-card v-if="form && $auth.user.advanced" flat class="ma-2 mb-2">
+        <v-card-title> API Extras </v-card-title>
+        <v-divider class="mx-2"></v-divider>
+        <v-card-text>
+          Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs
+          within a recipe to reference from 3rd part applications. You can use these keys to contain information to
+          trigger automation or custom messages to relay to your desired device.
+          <v-row v-for="(value, key) in recipe.extras" :key="key" class="mt-1">
+            <v-col cols="8">
+              <v-text-field v-model="recipe.extras[key]" dense :label="key">
+                <template #prepend>
+                  <v-btn color="error" icon class="mt-n4" @click="removeApiExtra(key)">
+                    <v-icon> {{ $globals.icons.delete }} </v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions class="d-flex">
+          <div style="max-width: 200px">
+            <v-text-field v-model="apiNewKey" label="Message Key"></v-text-field>
+          </div>
+          <BaseButton create small class="ml-5" @click="createApiExtra" />
+        </v-card-actions>
+      </v-card>
     </v-card>
     <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>
@@ -524,6 +550,43 @@ export default defineComponent({
     }
 
     // ===============================================================
+    // Recipe API Extras
+
+    const apiNewKey = ref("");
+
+    function createApiExtra() {
+      if (!recipe.value) {
+        return;
+      }
+
+      if (!recipe.value.extras) {
+        recipe.value.extras = {};
+      }
+
+      // check for duplicate keys
+      if (Object.keys(recipe.value.extras).includes(apiNewKey.value)) {
+        return;
+      }
+
+      recipe.value.extras[apiNewKey.value] = "";
+
+      apiNewKey.value = "";
+    }
+
+    function removeApiExtra(key: string) {
+      if (!recipe.value) {
+        return;
+      }
+
+      if (!recipe.value.extras) {
+        return;
+      }
+
+      delete recipe.value.extras[key];
+      recipe.value.extras = { ...recipe.value.extras };
+    }
+
+    // ===============================================================
     // Metadata
 
     const structuredData = computed(() => {
@@ -553,6 +616,8 @@ export default defineComponent({
     });
 
     return {
+      createApiExtra,
+      apiNewKey,
       originalRecipe,
       domSaveChangesDialog,
       enableLandscape,
@@ -570,6 +635,7 @@ export default defineComponent({
       validators,
       recipeImage,
       addIngredient,
+      removeApiExtra,
     };
   },
   head: {},

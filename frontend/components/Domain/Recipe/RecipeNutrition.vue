@@ -1,10 +1,10 @@
 <template>
   <div v-if="valueNotNull || edit">
     <v-card class="mt-2">
-      <v-card-title class="py-2">
+      <v-card-title class="pt-2 pb-0">
         {{ $t("recipe.nutrition") }}
       </v-card-title>
-      <v-divider class="mx-2"></v-divider>
+      <v-divider class="mx-2 my-1"></v-divider>
       <v-card-text v-if="edit">
         <div v-for="(item, key, index) in value" :key="index">
           <v-text-field
@@ -19,9 +19,9 @@
         </div>
       </v-card-text>
       <v-list v-if="showViewer" dense class="mt-0 pt-0">
-        <v-list-item v-for="(item, key, index) in labels" :key="index">
+        <v-list-item v-for="(item, key, index) in labels" :key="index" style="min-height: 25px" dense>
           <v-list-item-content>
-            <v-list-item-title class="pl-4 text-subtitle-1 flex row">
+            <v-list-item-title class="pl-4 caption flex row">
               <div>{{ item.label }}</div>
               <div class="ml-auto mr-1">{{ value[key] }}</div>
               <div>{{ item.suffix }}</div>

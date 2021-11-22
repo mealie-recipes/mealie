@@ -78,6 +78,13 @@ export interface RecipeZipToken {
   token: string;
 }
 
+export interface CreateAsset {
+  name: string;
+  icon: string;
+  extension: string;
+  file?: File;
+}
+
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
@@ -86,6 +93,17 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     return await this.requests.get<Recipe[]>(routes.recipesCategory, {
       categories,
     });
+  }
+
+  async createAsset(recipeSlug: string, payload: CreateAsset) {
+    const formData = new FormData();
+    // @ts-ignore
+    formData.append("file", payload.file);
+    formData.append("name", payload.name);
+    formData.append("extension", payload.extension);
+    formData.append("icon", payload.icon);
+
+    return await this.requests.post(routes.recipesRecipeSlugAssets(recipeSlug), formData);
   }
 
   updateImage(slug: string, fileObject: File) {
