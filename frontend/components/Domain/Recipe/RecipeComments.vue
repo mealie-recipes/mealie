@@ -85,7 +85,9 @@ export default defineComponent({
     onMounted(async () => {
       const { data } = await api.recipes.comments.byRecipe(props.slug);
 
-      comments.value = data;
+      if (data) {
+        comments.value = data;
+      }
     });
 
     async function submitComment() {
@@ -94,7 +96,9 @@ export default defineComponent({
         text: state.comment,
       });
 
-      comments.value.push(data);
+      if (data) {
+        comments.value.push(data);
+      }
 
       state.comment = "";
     }
@@ -102,7 +106,7 @@ export default defineComponent({
     async function deleteComment(id: string) {
       const { response } = await api.recipes.comments.deleteOne(id);
 
-      if (response.status === 200) {
+      if (response?.status === 200) {
         comments.value = comments.value.filter((comment) => comment.id !== id);
       }
     }

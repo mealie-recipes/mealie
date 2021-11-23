@@ -14,6 +14,6 @@ export class CommentsApi extends BaseCRUDAPI<RecipeComment, RecipeCommentCreate>
   itemRoute = routes.commentsId;
 
   async byRecipe(slug: string) {
-    return await this.requests.get(routes.byRecipe(slug));
+    return await this.requests.get<RecipeComment[]>(routes.byRecipe(slug));
   }
 }

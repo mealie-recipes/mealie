@@ -61,6 +61,7 @@ export interface CreateAsset {
 }
 
 export interface RecipeCommentCreate {
+  recipeId: number;
   text: string;
 }
 
@@ -77,7 +78,6 @@ interface RecipeCommentUser {
 export interface RecipeComment extends RecipeCommentUpdate {
   createdAt: any;
   updatedAt: any;
-  recipe_id: number;
-  user_id: number;
+  userId: number;
   user: RecipeCommentUser;
 }
