@@ -8,14 +8,14 @@ from pydantic.main import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs
-
-app_dirs = get_app_dirs()
 from mealie.db.database import get_database
 from mealie.schema.admin import CommentImport, GroupImport, NotificationImport, RecipeImport, UserImport
 from mealie.schema.events import EventNotificationIn
-from mealie.schema.recipe import CommentOut, Recipe
+from mealie.schema.recipe import Recipe, RecipeCommentOut
 from mealie.schema.user import PrivateUser, UpdateGroup
 from mealie.services.image import minify
+
+app_dirs = get_app_dirs()
 
 
 class ImportDatabase:
@@ -57,7 +57,10 @@ class ImportDatabase:
         successful_imports = {}
 
         recipes = ImportDatabase.read_models_file(
-            file_path=recipe_dir, model=Recipe, single_file=False, migrate=ImportDatabase._recipe_migration
+            file_path=recipe_dir,
+            model=Recipe,
+            single_file=False,
+            migrate=ImportDatabase._recipe_migration,
         )
 
         for recipe in recipes:
@@ -76,7 +79,7 @@ class ImportDatabase:
             )
 
             if import_status.status:
-                successful_imports.update({recipe.slug: recipe})
+                successful_imports[recipe.slug] = recipe
 
             imports.append(import_status)
 
@@ -90,10 +93,10 @@ class ImportDatabase:
         if not comment_dir.exists():
             return
 
-        comments = ImportDatabase.read_models_file(file_path=comment_dir, model=CommentOut)
+        comments = ImportDatabase.read_models_file(file_path=comment_dir, model=RecipeCommentOut)
 
         for comment in comments:
-            comment: CommentOut
+            comment: RecipeCommentOut
 
             self.import_model(
                 db_table=self.db.comments,
@@ -129,6 +132,8 @@ class ImportDatabase:
 
         if type(recipe_dict["extras"]) == list:
             recipe_dict["extras"] = {}
+
+        recipe_dict["comments"] = []
 
         return recipe_dict
 
@@ -328,8 +333,8 @@ def import_database(
     if import_notifications:
         notification_report = import_session.import_notifications()
 
-    if import_recipes:
-        import_session.import_comments()
+    # if import_recipes:
+    #     import_session.import_comments()
 
     import_session.clean_up()
 

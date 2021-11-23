@@ -18,7 +18,22 @@ from .note import Note
 from .nutrition import Nutrition
 from .settings import RecipeSettings
 from .tag import Tag, recipes2tags
-from .tool import Tool
+from .tool import recipes_to_tools
+
+
+# Decorator function to unpack the extras into a dict
+def recipe_extras(func):
+    def wrapper(*args, **kwargs):
+        extras = kwargs.pop("extras")
+
+        if extras is None:
+            extras = []
+
+        extras = [{"key": key, "value": value} for key, value in extras.items()]
+
+        return func(*args, extras=extras, **kwargs)
+
+    return wrapper
 
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
@@ -52,10 +67,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     recipe_yield = sa.Column(sa.String)
     recipeCuisine = sa.Column(sa.String)
 
-    tools: list[Tool] = orm.relationship("Tool", cascade="all, delete-orphan")
-    assets: list[RecipeAsset] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
+    assets = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
     recipe_category: list = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
+    tools = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
 
     recipe_ingredient: list[RecipeIngredient] = orm.relationship(
         "RecipeIngredient",
@@ -88,45 +103,36 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         get_attr = "slug"
         exclude = {
             "assets",
-            "extras",
             "notes",
             "nutrition",
             "recipe_ingredient",
             "settings",
-            "tools",
         }
 
     @validates("name")
-    def validate_name(self, key, name):
+    def validate_name(self, _, name):
         assert name != ""
         return name
 
+    @recipe_extras
     @auto_init()
     def __init__(
         self,
         session,
         assets: list = None,
-        extras: dict = None,
         notes: list[dict] = None,
         nutrition: dict = None,
         recipe_ingredient: list[str] = None,
         settings: dict = None,
-        tools: list[str] = None,
         **_,
     ) -> None:
         self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
-        self.tools = [Tool(tool=x) for x in tools] if tools else []
         self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
         self.assets = [RecipeAsset(**a) for a in assets]
-        # self.recipe_instructions = [
-        #     RecipeInstruction(text=instruc.get("text"), title=instruc.get("title"), type=instruc.get("@type", None))
-        #     for instruc in recipe_instructions
-        # ]
 
         # Mealie Specific
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
         self.notes = [Note(**note) for note in notes]
-        self.extras = [ApiExtras(key=key, value=value) for key, value in extras.items()]
 
         # Time Stampes
         self.date_updated = datetime.datetime.now()

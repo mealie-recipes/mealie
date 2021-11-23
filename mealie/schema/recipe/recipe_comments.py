@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import Optional
+from uuid import UUID
 
 from fastapi_camelcase import CamelModel
-from pydantic.utils import GetterDict
 
 
 class UserBase(CamelModel):
@@ -14,31 +14,27 @@ class UserBase(CamelModel):
         orm_mode = True
 
 
-class CreateComment(CamelModel):
+class RecipeCommentCreate(CamelModel):
+    recipe_id: int
     text: str
 
 
-class SaveComment(CreateComment):
-    recipe_slug: str
-    user: int
-
-    class Config:
-        orm_mode = True
+class RecipeCommentSave(RecipeCommentCreate):
+    user_id: int
 
 
-class CommentOut(CreateComment):
-    id: int
-    uuid: str
-    recipe_slug: str
-    date_added: datetime
+class RecipeCommentUpdate(CamelModel):
+    id: UUID
+    text: str
+
+
+class RecipeCommentOut(RecipeCommentCreate):
+    id: UUID
+    recipe_id: int
+    created_at: datetime
+    update_at: datetime
+    user_id: int
     user: UserBase
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(_cls, name_orm):
-            return {
-                **GetterDict(name_orm),
-                "recipe_slug": name_orm.recipe.slug,
-            }

@@ -43,7 +43,7 @@ export default {
     },
     color: {
       type: String,
-      default: "primary",
+      default: "",
     },
     icon: {
       type: Boolean,

@@ -23,10 +23,10 @@
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
             <div v-else>
-              <v-btn color="error" icon top @click="deleteAsset(i)">
+              <v-btn color="error" icon top @click="value.splice(i, 1)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <AppCopyButton :copy-text="copyLink(item.fileName)" />
+              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName)" />
             </div>
           </v-list-item-action>
         </v-list-item>
@@ -35,12 +35,10 @@
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
       <BaseDialog :title="$t('asset.new-asset')" :icon="getIconDefinition(newAsset.icon).icon" @submit="addAsset">
-        <template #open="{ open }">
-          <v-btn v-if="edit" color="secondary" dark @click="open">
-            <v-icon>{{ $globals.icons.create }}</v-icon>
-          </v-btn>
+        <template #activator="{ open }">
+          <BaseButton v-if="edit" small create @click="open" />
         </template>
-        <v-card-text class="pt-2">
+        <v-card-text class="pt-4">
           <v-text-field v-model="newAsset.name" dense :label="$t('general.name')"></v-text-field>
           <div class="d-flex justify-space-between">
             <v-select
@@ -70,9 +68,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-export default {
+import { alert } from "~/composables/use-toast";
+
+const BASE_URL = window.location.origin;
+
+export default defineComponent({
   props: {
     slug: {
       type: String,
@@ -87,82 +90,95 @@ export default {
       default: true,
     },
   },
-  setup() {
+  setup(props, context) {
     const api = useUserApi();
 
-    return { api };
-  },
-  data() {
-    return {
-      fileObject: {},
+    const state = reactive({
+      fileObject: {} as File,
       newAsset: {
         name: "",
         icon: "mdi-file",
       },
+    });
+
+    // @ts-ignore
+    const { $globals, i18n } = useContext();
+
+    const iconOptions = [
+      {
+        name: "mdi-file",
+        title: i18n.t("asset.file"),
+        icon: $globals.icons.file,
+      },
+      {
+        name: "mdi-file-pdf-box",
+        title: i18n.t("asset.pdf"),
+        icon: $globals.icons.filePDF,
+      },
+      {
+        name: "mdi-file-image",
+        title: i18n.t("asset.image"),
+        icon: $globals.icons.fileImage,
+      },
+      {
+        name: "mdi-code-json",
+        title: i18n.t("asset.code"),
+        icon: $globals.icons.codeJson,
+      },
+      {
+        name: "mdi-silverware-fork-knife",
+        title: i18n.t("asset.recipe"),
+        icon: $globals.icons.primary,
+      },
+    ];
+
+    function getIconDefinition(icon: string) {
+      return iconOptions.find((item) => item.name === icon) || iconOptions[0];
+    }
+
+    function assetURL(assetName: string) {
+      return api.recipes.recipeAssetPath(props.slug, assetName);
+    }
+
+    function assetEmbed(name: string) {
+      return `<img src="${BASE_URL}${assetURL(name)}" height="100%" width="100%"> </img>`;
+    }
+
+    function setFileObject(fileObject: any) {
+      state.fileObject = fileObject;
+    }
+
+    function validFields() {
+      return state.newAsset.name.length > 0 && state.fileObject.name.length > 0;
+    }
+
+    async function addAsset() {
+      if (!validFields()) {
+        alert.error("Error Submitting Form");
+        return;
+      }
+
+      const { data } = await api.recipes.createAsset(props.slug, {
+        name: state.newAsset.name,
+        icon: state.newAsset.icon,
+        file: state.fileObject,
+        extension: state.fileObject.name.split(".").pop() || "",
+      });
+
+      context.emit("input", [...props.value, data]);
+      state.newAsset = { name: "", icon: "mdi-file" };
+      state.fileObject = {} as File;
+    }
+
+    return {
+      ...toRefs(state),
+      addAsset,
+      assetURL,
+      assetEmbed,
+      getIconDefinition,
+      iconOptions,
+      setFileObject,
     };
   },
-  computed: {
-    baseURL() {
-      return window.location.origin;
-    },
-    iconOptions() {
-      return [
-        {
-          name: "mdi-file",
-          title: this.$i18n.t("asset.file"),
-          icon: this.$globals.icons.file,
-        },
-        {
-          name: "mdi-file-pdf-box",
-          title: this.$i18n.t("asset.pdf"),
-          icon: this.$globals.icons.filePDF,
-        },
-        {
-          name: "mdi-file-image",
-          title: this.$i18n.t("asset.image"),
-          icon: this.$globals.icons.fileImage,
-        },
-        {
-          name: "mdi-code-json",
-          title: this.$i18n.t("asset.code"),
-          icon: this.$globals.icons.codeJson,
-        },
-        {
-          name: "mdi-silverware-fork-knife",
-          title: this.$i18n.t("asset.recipe"),
-          icon: this.$globals.icons.primary,
-        },
-      ];
-    },
-  },
-  methods: {
-    getIconDefinition(val) {
-      return this.iconOptions.find(({ name }) => name === val);
-    },
-    assetURL(assetName) {
-      return api.recipes.recipeAssetPath(this.slug, assetName);
-    },
-    setFileObject(obj) {
-      this.fileObject = obj;
-    },
-    async addAsset() {
-      const serverAsset = await api.recipes.createAsset(
-        this.slug,
-        this.fileObject,
-        this.newAsset.name,
-        this.newAsset.icon
-      );
-      this.value.push(serverAsset.data);
-      this.newAsset = { name: "", icon: "mdi-file" };
-    },
-    deleteAsset(index) {
-      this.value.splice(index, 1);
-    },
-    copyLink(fileName) {
-      const assetLink = api.recipes.recipeAssetPath(this.slug, fileName);
-      return `<img src="${this.baseURL}${assetLink}" height="100%" width="100%"> </img>`;
-    },
-  },
-};
+});
 </script>
-

@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import RecipeCategoryTagDialog from "./RecipeCategoryTagDialog";
+import RecipeCategoryTagDialog from "./RecipeCategoryTagDialog.vue";
 import { useUserApi } from "~/composables/api";
 import { useTags, useCategories } from "~/composables/recipes";
 const MOUNTED_EVENT = "mounted";

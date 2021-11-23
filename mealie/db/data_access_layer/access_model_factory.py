@@ -13,6 +13,7 @@ from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.server.task import ServerTaskModel
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
@@ -24,8 +25,9 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
-from mealie.schema.recipe import CommentOut, Recipe, RecipeCategoryResponse, RecipeTagResponse
+from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.recipe.recipe_tool import RecipeTool
 from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
@@ -78,8 +80,12 @@ class Database:
         return AccessModel(self.session, pk_id, IngredientUnitModel, IngredientUnit)
 
     @cached_property
-    def comments(self) -> AccessModel[CommentOut, RecipeComment]:
-        return AccessModel(self.session, pk_id, RecipeComment, CommentOut)
+    def tools(self) -> AccessModel[RecipeTool, Tool]:
+        return AccessModel(self.session, pk_id, Tool, RecipeTool)
+
+    @cached_property
+    def comments(self) -> AccessModel[RecipeCommentOut, RecipeComment]:
+        return AccessModel(self.session, pk_id, RecipeComment, RecipeCommentOut)
 
     @cached_property
     def categories(self) -> CategoryDataAccessModel:

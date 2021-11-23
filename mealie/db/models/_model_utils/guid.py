@@ -11,6 +11,7 @@ class GUID(TypeDecorator):
     """
 
     impl = CHAR
+    cache_ok = True
 
     def load_dialect_impl(self, dialect):
         if dialect.name == "postgresql":
@@ -31,9 +32,6 @@ class GUID(TypeDecorator):
                 return "%.32x" % value.int
 
     def process_result_value(self, value, dialect):
-        if value is None:
-            return value
-        else:
-            if not isinstance(value, uuid.UUID):
-                value = uuid.UUID(value)
-            return value
+        if value is not None and not isinstance(value, uuid.UUID):
+            value = uuid.UUID(value)
+        return value

@@ -39,7 +39,6 @@ def test_read_update(
     ]
 
     recipe["notes"] = test_notes
-    recipe["tools"] = ["one tool", "two tool"]
 
     test_categories = [
         {"name": "one", "slug": "one"},

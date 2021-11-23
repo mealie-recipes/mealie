@@ -200,8 +200,26 @@
                 :disable-amount="recipe.settings.disableAmount"
               />
 
-              <!-- Recipe Categories -->
+              <!-- Recipe Tools Display -->
+              <div v-if="!form && recipe.tools && recipe.tools.length > 0">
+                <h2 class="mb-2 mt-4">Required Tools</h2>
+                <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
+                  <v-checkbox
+                    v-model="recipe.tools[index].onHand"
+                    hide-details
+                    class="pt-0 my-auto py-auto"
+                    color="secondary"
+                    @change="updateTool(recipe.tools[index])"
+                  >
+                  </v-checkbox>
+                  <v-list-item-content>
+                    {{ tool.name }}
+                  </v-list-item-content>
+                </v-list-item>
+              </div>
+
               <div v-if="$vuetify.breakpoint.mdAndUp" class="mt-5">
+                <!-- Recipe Categories -->
                 <v-card v-if="recipe.recipeCategory.length > 0 || form" class="mt-2">
                   <v-card-title class="py-2">
                     {{ $t("recipe.categories") }}
@@ -238,9 +256,23 @@
                   </v-card-text>
                 </v-card>
 
-                <RecipeNutrition v-if="true || form" v-model="recipe.nutrition" class="mt-10" :edit="form" />
+                <!-- Recipe Tools Edit -->
+                <v-card v-if="form" class="mt-2">
+                  <v-card-title class="py-2"> Required Tools </v-card-title>
+                  <v-divider class="mx-2"></v-divider>
+                  <v-card-text class="pt-0">
+                    <RecipeTools v-model="recipe.tools" :edit="form" />
+                  </v-card-text>
+                </v-card>
+
+                <RecipeNutrition
+                  v-if="recipe.settings.showNutrition"
+                  v-model="recipe.nutrition"
+                  class="mt-10"
+                  :edit="form"
+                />
                 <RecipeAssets
-                  v-if="recipe.settings.showAssets || form"
+                  v-if="recipe.settings.showAssets"
                   v-model="recipe.assets"
                   :edit="form"
                   :slug="recipe.slug"
@@ -260,6 +292,69 @@
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
                 <BaseButton class="my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
               </div>
+
+              <!-- TODO: Somehow fix duplicate code for mobile/desktop -->
+              <div v-if="!$vuetify.breakpoint.mdAndUp" class="mt-5">
+                <!-- Recipe Tools Edit -->
+                <v-card v-if="form">
+                  <v-card-title class="py-2"> Required Tools</v-card-title>
+                  <v-divider class="mx-2"></v-divider>
+                  <v-card-text class="pt-0">
+                    <RecipeTools v-model="recipe.tools" :edit="form" />
+                  </v-card-text>
+                </v-card>
+
+                <!-- Recipe Categories -->
+                <v-card v-if="recipe.recipeCategory.length > 0 || form" class="mt-2">
+                  <v-card-title class="py-2">
+                    {{ $t("recipe.categories") }}
+                  </v-card-title>
+                  <v-divider class="mx-2"></v-divider>
+                  <v-card-text>
+                    <RecipeCategoryTagSelector
+                      v-if="form"
+                      v-model="recipe.recipeCategory"
+                      :return-object="true"
+                      :show-add="true"
+                      :show-label="false"
+                    />
+                    <RecipeChips v-else :items="recipe.recipeCategory" />
+                  </v-card-text>
+                </v-card>
+
+                <!-- Recipe Tags -->
+                <v-card v-if="recipe.tags.length > 0 || form" class="mt-2">
+                  <v-card-title class="py-2">
+                    {{ $t("tag.tags") }}
+                  </v-card-title>
+                  <v-divider class="mx-2"></v-divider>
+                  <v-card-text>
+                    <RecipeCategoryTagSelector
+                      v-if="form"
+                      v-model="recipe.tags"
+                      :return-object="true"
+                      :show-add="true"
+                      :tag-selector="true"
+                      :show-label="false"
+                    />
+                    <RecipeChips v-else :items="recipe.tags" :is-category="false" />
+                  </v-card-text>
+                </v-card>
+
+                <RecipeNutrition
+                  v-if="recipe.settings.showNutrition"
+                  v-model="recipe.nutrition"
+                  class="mt-10"
+                  :edit="form"
+                />
+                <RecipeAssets
+                  v-if="recipe.settings.showAssets"
+                  v-model="recipe.assets"
+                  :edit="form"
+                  :slug="recipe.slug"
+                />
+              </div>
+
               <RecipeNotes v-model="recipe.notes" :edit="form" />
             </v-col>
           </v-row>
@@ -289,7 +384,40 @@
           </v-card-actions>
         </v-card-text>
       </div>
+      <v-card v-if="form && $auth.user.advanced" flat class="ma-2 mb-2">
+        <v-card-title> API Extras </v-card-title>
+        <v-divider class="mx-2"></v-divider>
+        <v-card-text>
+          Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs
+          within a recipe to reference from 3rd part applications. You can use these keys to contain information to
+          trigger automation or custom messages to relay to your desired device.
+          <v-row v-for="(value, key) in recipe.extras" :key="key" class="mt-1">
+            <v-col cols="8">
+              <v-text-field v-model="recipe.extras[key]" dense :label="key">
+                <template #prepend>
+                  <v-btn color="error" icon class="mt-n4" @click="removeApiExtra(key)">
+                    <v-icon> {{ $globals.icons.delete }} </v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions class="d-flex">
+          <div style="max-width: 200px">
+            <v-text-field v-model="apiNewKey" label="Message Key"></v-text-field>
+          </div>
+          <BaseButton create small class="ml-5" @click="createApiExtra" />
+        </v-card-actions>
+      </v-card>
     </v-card>
+    <RecipeComments
+      v-if="recipe && !recipe.settings.disableComments && !form"
+      v-model="recipe.comments"
+      :slug="recipe.slug"
+      :recipe-id="recipe.id"
+      class="mt-4"
+    />
     <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>
 </template>
@@ -328,8 +456,11 @@ import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBt
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
+import RecipeTools from "~/components/Domain/Recipe/RecipeTools.vue";
+import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
+import { Tool } from "~/api/class-interfaces/tools";
 
 export default defineComponent({
   components: {
@@ -338,6 +469,7 @@ export default defineComponent({
     RecipeAssets,
     RecipeCategoryTagSelector,
     RecipeChips,
+    RecipeComments,
     RecipeDialogBulkAdd,
     RecipeImageUploadBtn,
     RecipeIngredientEditor,
@@ -349,6 +481,7 @@ export default defineComponent({
     RecipeRating,
     RecipeSettingsMenu,
     RecipeTimeCard,
+    RecipeTools,
     VueMarkdown,
   },
   async beforeRouteLeave(_to, _from, next) {
@@ -484,12 +617,12 @@ export default defineComponent({
 
       if (steps) {
         const cleanedSteps = steps.map((step) => {
-          return { text: step, title: "", ingredientReferences: [] };
+          return { id: uuid4(), text: step, title: "", ingredientReferences: [] };
         });
 
         recipe.value.recipeInstructions.push(...cleanedSteps);
       } else {
-        recipe.value.recipeInstructions.push({ text: "", title: "", ingredientReferences: [] });
+        recipe.value.recipeInstructions.push({ id: uuid4(), text: "", title: "", ingredientReferences: [] });
       }
     }
 
@@ -524,6 +657,54 @@ export default defineComponent({
     }
 
     // ===============================================================
+    // Recipe Tools
+
+    async function updateTool(tool: Tool) {
+      const { response } = await api.tools.updateOne(tool.id, tool);
+
+      if (response?.status === 200) {
+        console.log("Update Successful");
+      }
+    }
+
+    // ===============================================================
+    // Recipe API Extras
+
+    const apiNewKey = ref("");
+
+    function createApiExtra() {
+      if (!recipe.value) {
+        return;
+      }
+
+      if (!recipe.value.extras) {
+        recipe.value.extras = {};
+      }
+
+      // check for duplicate keys
+      if (Object.keys(recipe.value.extras).includes(apiNewKey.value)) {
+        return;
+      }
+
+      recipe.value.extras[apiNewKey.value] = "";
+
+      apiNewKey.value = "";
+    }
+
+    function removeApiExtra(key: string) {
+      if (!recipe.value) {
+        return;
+      }
+
+      if (!recipe.value.extras) {
+        return;
+      }
+
+      delete recipe.value.extras[key];
+      recipe.value.extras = { ...recipe.value.extras };
+    }
+
+    // ===============================================================
     // Metadata
 
     const structuredData = computed(() => {
@@ -553,6 +734,8 @@ export default defineComponent({
     });
 
     return {
+      createApiExtra,
+      apiNewKey,
       originalRecipe,
       domSaveChangesDialog,
       enableLandscape,
@@ -565,11 +748,13 @@ export default defineComponent({
       addStep,
       deleteRecipe,
       closeEditor,
+      updateTool,
       updateRecipe,
       uploadImage,
       validators,
       recipeImage,
       addIngredient,
+      removeApiExtra,
     };
   },
   head: {},
