@@ -25,7 +25,7 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
-from mealie.schema.recipe import CommentOut, Recipe, RecipeCategoryResponse, RecipeTagResponse
+from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_tool import RecipeTool
 from mealie.schema.server import ServerTask
@@ -84,8 +84,8 @@ class Database:
         return AccessModel(self.session, pk_id, Tool, RecipeTool)
 
     @cached_property
-    def comments(self) -> AccessModel[CommentOut, RecipeComment]:
-        return AccessModel(self.session, pk_id, RecipeComment, CommentOut)
+    def comments(self) -> AccessModel[RecipeCommentOut, RecipeComment]:
+        return AccessModel(self.session, pk_id, RecipeComment, RecipeCommentOut)
 
     @cached_property
     def categories(self) -> CategoryDataAccessModel:

@@ -13,7 +13,7 @@ app_dirs = get_app_dirs()
 from mealie.db.database import get_database
 from mealie.schema.admin import CommentImport, GroupImport, NotificationImport, RecipeImport, UserImport
 from mealie.schema.events import EventNotificationIn
-from mealie.schema.recipe import CommentOut, Recipe
+from mealie.schema.recipe import Recipe, RecipeCommentOut
 from mealie.schema.user import PrivateUser, UpdateGroup
 from mealie.services.image import minify
 
@@ -90,10 +90,10 @@ class ImportDatabase:
         if not comment_dir.exists():
             return
 
-        comments = ImportDatabase.read_models_file(file_path=comment_dir, model=CommentOut)
+        comments = ImportDatabase.read_models_file(file_path=comment_dir, model=RecipeCommentOut)
 
         for comment in comments:
-            comment: CommentOut
+            comment: RecipeCommentOut
 
             self.import_model(
                 db_table=self.db.comments,

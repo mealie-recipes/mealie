@@ -11,7 +11,7 @@ from mealie.core.config import get_app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
 
 from .recipe_asset import RecipeAsset
-from .recipe_comments import CommentOut
+from .recipe_comments import RecipeCommentOut
 from .recipe_ingredient import RecipeIngredient
 from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
@@ -110,7 +110,7 @@ class Recipe(RecipeSummary):
     notes: Optional[list[RecipeNote]] = []
     extras: Optional[dict] = {}
 
-    comments: Optional[list[CommentOut]] = []
+    comments: Optional[list[RecipeCommentOut]] = []
 
     @staticmethod
     def directory_from_slug(slug) -> Path:
