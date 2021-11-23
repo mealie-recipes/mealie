@@ -84,7 +84,7 @@
 <script lang="ts">
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { until, invoke } from "@vueuse/core";
-import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes";
+import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes/types";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipe, useFoods, useUnits } from "~/composables/recipes";

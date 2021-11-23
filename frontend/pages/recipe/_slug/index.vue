@@ -257,7 +257,7 @@
                 </v-card>
 
                 <!-- Recipe Tools Edit -->
-                <v-card v-if="form">
+                <v-card v-if="form" class="mt-2">
                   <v-card-title class="py-2"> Required Tools </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text class="pt-0">
@@ -411,6 +411,13 @@
         </v-card-actions>
       </v-card>
     </v-card>
+    <RecipeComments
+      v-if="recipe && !recipe.settings.disableComments && !form"
+      v-model="recipe.comments"
+      :slug="recipe.slug"
+      :recipe-id="recipe.id"
+      class="mt-4"
+    />
     <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>
 </template>
@@ -450,6 +457,7 @@ import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vu
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import RecipeTools from "~/components/Domain/Recipe/RecipeTools.vue";
+import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import { Tool } from "~/api/class-interfaces/tools";
@@ -461,6 +469,7 @@ export default defineComponent({
     RecipeAssets,
     RecipeCategoryTagSelector,
     RecipeChips,
+    RecipeComments,
     RecipeDialogBulkAdd,
     RecipeImageUploadBtn,
     RecipeIngredientEditor,

@@ -1,7 +1,9 @@
-import { BaseCRUDAPI } from "../_base";
-import { Category } from "./categories";
-import { Tag } from "./tags";
+import { CreateAsset, ParsedIngredient, Parser, RecipeZipToken, BulkCreatePayload } from "./types";
+import { CommentsApi } from "./recipe-comments";
+import { BaseCRUDAPI } from "~/api/_base";
+
 import { Recipe, CreateRecipe } from "~/types/api-types/recipe";
+import { ApiRequestInstance } from "~/types/api";
 
 const prefix = "/api";
 
@@ -26,68 +28,17 @@ const routes = {
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
 };
 
-export type Parser = "nlp" | "brute";
-
-export interface Confidence {
-  average?: number;
-  comment?: number;
-  name?: number;
-  unit?: number;
-  quantity?: number;
-  food?: number;
-}
-
-export interface Unit {
-  name: string;
-  description: string;
-  fraction: boolean;
-  abbreviation: string;
-}
-
-export interface Food {
-  name: string;
-  description?: string;
-}
-
-export interface Ingredient {
-  referenceId: string;
-  title: string;
-  note: string;
-  unit: Unit | null;
-  food: Food | null;
-  disableAmount: boolean;
-  quantity: number;
-}
-
-export interface ParsedIngredient {
-  confidence: Confidence;
-  ingredient: Ingredient;
-}
-
-export interface BulkCreateRecipe {
-  url: string;
-  categories: Category[];
-  tags: Tag[];
-}
-
-export interface BulkCreatePayload {
-  imports: BulkCreateRecipe[];
-}
-
-export interface RecipeZipToken {
-  token: string;
-}
-
-export interface CreateAsset {
-  name: string;
-  icon: string;
-  extension: string;
-  file?: File;
-}
-
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
+
+  public comments: CommentsApi;
+
+  constructor(requests: ApiRequestInstance) {
+    super(requests);
+
+    this.comments = new CommentsApi(requests);
+  }
 
   async getAllByCategory(categories: string[]) {
     return await this.requests.get<Recipe[]>(routes.recipesCategory, {
@@ -131,8 +82,6 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     return await this.requests.post(routes.recipesCreateUrlBulk, payload);
   }
 
-  // Recipe Comments
-
   // Methods to Generate reference urls for assets/images *
   recipeImage(recipeSlug: string, version = null, key = null) {
     return `/api/media/recipes/${recipeSlug}/images/original.webp?&rnd=${key}&version=${version}`;
@@ -148,22 +97,6 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
 
   recipeAssetPath(recipeSlug: string, assetName: string) {
     return `/api/media/recipes/${recipeSlug}/assets/${assetName}`;
-  }
-
-  async createComment(slug: string, payload: Object) {
-    return await this.requests.post(routes.recipesSlugComments(slug), payload);
-  }
-
-  /** Update comment in the Database
-   */
-  async updateComment(slug: string, id: number, payload: Object) {
-    return await this.requests.put(routes.recipesSlugCommentsId(slug, id), payload);
-  }
-
-  /** Delete comment from the Database
-   */
-  async deleteComment(slug: string, id: number) {
-    return await this.requests.delete(routes.recipesSlugCommentsId(slug, id));
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {

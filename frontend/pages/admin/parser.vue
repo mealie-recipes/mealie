@@ -68,7 +68,7 @@
     
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
-import { Confidence, Parser } from "~/api/class-interfaces/recipes";
+import { Confidence, Parser } from "~/api/class-interfaces/recipes/types";
 import { useUserApi } from "~/composables/api";
 
 export default defineComponent({
