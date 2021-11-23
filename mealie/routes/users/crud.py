@@ -35,6 +35,10 @@ async def create_user(
     current_user: UserInDB = Depends(get_current_user),
     session: Session = Depends(generate_session),
 ):
+    if db.users.get_user(session, "email", new_user.email) is not None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="EMAIL_ALREADY_EXISTS")
+    if db.users.get_user(session, "username", new_user.full_name) is not None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="USERNAME_ALREADY_EXISTS")
 
     new_user.password = get_password_hash(new_user.password)
     background_tasks.add_task(

@@ -471,6 +471,8 @@
     "user": "User",
     "user-created": "User created",
     "user-creation-failed": "User creation failed",
+    "user-creation-failed-email-already-exists": "User creation failed: Email already exists",
+    "user-creation-failed-username-already-exists": "User creation failed: Username already exists",
     "user-deleted": "User deleted",
     "user-id": "User ID",
     "user-id-with-value": "User ID: {id}",

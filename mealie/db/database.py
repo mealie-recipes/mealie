@@ -27,6 +27,7 @@ from mealie.schema.sign_up import SignUpOut
 from mealie.schema.theme import SiteTheme
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, UserInDB
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
 
 logger = getLogger()
 
@@ -148,6 +149,12 @@ class _Users(BaseDocument):
         self.primary_key = "id"
         self.sql_model = User
         self.schema = UserInDB
+
+    def get_user(self, session: Session, match_key, match_value) -> User:
+        try:
+            return self._query_one(session, match_key=match_key, match_value=match_value)
+        except NoResultFound:           
+            return None
 
     def update_password(self, session, id, password: str):
         entry = self._query_one(session=session, match_value=id)

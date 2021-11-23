@@ -20,7 +20,15 @@ export const userAPI = {
     return apiReq.post(
       API_ROUTES.users,
       user,
-      () => i18n.t("user.user-creation-failed"),
+      (response) => {
+        if (response.data && response.data.detail == "EMAIL_ALREADY_EXISTS") {
+          return i18n.t("user.user-creation-failed-email-already-exists");  
+        } else if (response.data && response.data.detail == "USERNAME_ALREADY_EXISTS") {
+          return i18n.t("user.user-creation-failed-username-already-exists");
+        } else {
+          return i18n.t("user.user-creation-failed");
+        }
+      },
       () => i18n.t("user.user-created")
     );
   },
