@@ -79,7 +79,6 @@ export const useBackups = function (fetch = true) {
 
   async function deleteBackup() {
     const { response } = await api.backups.deleteOne(deleteTarget.value);
-
     if (response && response.status === 200) {
       refreshBackups();
     }

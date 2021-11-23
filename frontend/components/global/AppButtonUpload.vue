@@ -1,8 +1,8 @@
 <template>
   <v-form ref="file">
-    <input ref="uploader" class="d-none" type="file" @change="onFileChanged" />
+    <input ref="uploader" class="d-none" type="file" :accept="accept" @change="onFileChanged" />
     <slot v-bind="{ isSelecting, onButtonClick }">
-      <v-btn :loading="isSelecting" :small="small" color="accent" :text="textBtn" @click="onButtonClick">
+      <v-btn :loading="isSelecting" :small="small" color="info" :text="textBtn" @click="onButtonClick">
         <v-icon left> {{ effIcon }}</v-icon>
         {{ text ? text : defaultText }}
       </v-btn>
@@ -42,6 +42,10 @@ export default {
     textBtn: {
       type: Boolean,
       default: true,
+    },
+    accept: {
+      type: String,
+      default: "",
     },
   },
   setup() {
