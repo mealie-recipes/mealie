@@ -1,125 +1,113 @@
 <template>
-  <v-card>
-    <v-card-title class="headline">
-      <v-icon large class="mr-2">
+  <div>
+    <v-card-title class="headline pb-3">
+      <v-icon class="mr-2">
         {{ $globals.icons.commentTextMultipleOutline }}
       </v-icon>
       {{ $t("recipe.comments") }}
     </v-card-title>
     <v-divider class="mx-2"></v-divider>
-    <v-card v-for="(comment, index) in comments" :key="comment.id" class="ma-2">
-      <v-list-item two-line>
-        <v-list-item-avatar color="accent" class="white--text">
-          <img :src="getProfileImage(comment.user.id)" />
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title> {{ comment.user.username }}</v-list-item-title>
-          <v-list-item-subtitle> {{ $d(new Date(comment.dateAdded), "short") }} </v-list-item-subtitle>
-        </v-list-item-content>
-        <v-card-actions v-if="loggedIn">
-          <TheButton
-            v-if="!editKeys[comment.id] && (user.admin || comment.user.id === user.id)"
-            small
-            minor
-            delete
-            @click="deleteComment(comment.id)"
-          />
-          <TheButton
-            v-if="!editKeys[comment.id] && comment.user.id === user.id"
-            small
-            edit
-            @click="editComment(comment.id)"
-          />
-          <TheButton v-else-if="editKeys[comment.id]" small update @click="updateComment(comment.id, index)" />
-        </v-card-actions>
-      </v-list-item>
-      <div>
-        <v-card-text>
-          {{ !editKeys[comment.id] ? comment.text : null }}
-          <v-textarea v-if="editKeys[comment.id]" v-model="comment.text"> </v-textarea>
+    <div class="d-flex flex-column">
+      <div class="d-flex mt-3" style="gap: 10px">
+        <v-avatar size="40">
+          <img alt="user" src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg" />
+        </v-avatar>
+        <v-textarea
+          v-model="comment"
+          hide-details=""
+          dense
+          single-line
+          outlined
+          auto-grow
+          rows="2"
+          placeholder="Join the Conversation"
+        >
+        </v-textarea>
+      </div>
+      <div class="ml-auto mt-1">
+        <BaseButton small :disabled="!comment" @click="submitComment">
+          <template #icon>{{ $globals.icons.check }}</template>
+          {{ $t("general.submit") }}
+        </BaseButton>
+      </div>
+    </div>
+    <div v-for="comment in comments" :key="comment.id" class="d-flex my-2" style="gap: 10px">
+      <v-avatar size="40">
+        <img alt="user" src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg" />
+      </v-avatar>
+      <v-card outlined class="flex-grow-1">
+        <v-card-text class="pa-3 pb-0">
+          <p class="">{{ comment.user.username }} • {{ $d(Date.parse(comment.createdAt), "medium") }}</p>
+          {{ comment.text }}
         </v-card-text>
-      </div>
-    </v-card>
-    <v-card-text v-if="loggedIn">
-      <v-textarea v-model="newComment" auto-grow row-height="1" outlined> </v-textarea>
-      <div class="d-flex">
-        <TheButton class="ml-auto" create @click="createNewComment"> {{ $t("recipe.comment-action") }} </TheButton>
-      </div>
-    </v-card-text>
-  </v-card>
+        <v-card-actions class="justify-end mt-0 pt-0">
+          <v-btn
+            v-if="$auth.user.id == comment.user.id || $auth.user.admin"
+            color="error"
+            text
+            x-small
+            @click="deleteComment(comment.id)"
+          >
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </div>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, toRefs } from "@nuxtjs/composition-api";
+import { onMounted, reactive } from "vue-demi";
 import { useUserApi } from "~/composables/api";
-const NEW_COMMENT_EVENT = "new-comment";
-const UPDATE_COMMENT_EVENT = "update-comment";
-export default {
+import { RecipeComment } from "~/api/class-interfaces/recipes/types";
+
+export default defineComponent({
   props: {
-    comments: {
-      type: Array,
-      default: () => [],
-    },
     slug: {
       type: String,
       required: true,
     },
+    recipeId: {
+      type: Number,
+      required: true,
+    },
   },
-  setup() {
+  setup(props) {
     const api = useUserApi();
 
-    return { api };
-  },
-  data() {
-    return {
-      newComment: "",
-      editKeys: {},
-    };
-  },
-  computed: {
-    user() {
-      return this.$store.getters.getUserData;
-    },
-    loggedIn() {
-      return this.$store.getters.getIsLoggedIn;
-    },
-  },
-  watch: {
-    comments() {
-      for (const comment of this.comments) {
-        this.$set(this.editKeys, comment.id, false);
+    const comments = ref<RecipeComment[]>([]);
+
+    const state = reactive({
+      comment: "",
+    });
+
+    onMounted(async () => {
+      const { data } = await api.recipes.comments.byRecipe(props.slug);
+
+      comments.value = data;
+    });
+
+    async function submitComment() {
+      const { data } = await api.recipes.comments.createOne({
+        recipeId: props.recipeId,
+        text: state.comment,
+      });
+
+      comments.value.push(data);
+
+      state.comment = "";
+    }
+
+    async function deleteComment(id: string) {
+      const { response } = await api.recipes.comments.deleteOne(id);
+
+      if (response.status === 200) {
+        comments.value = comments.value.filter((comment) => comment.id !== id);
       }
-    },
-  },
-  methods: {
-    resetImage() {
-      this.hideImage = false;
-    },
-    getProfileImage() {
-      // TODO Actually get Profile Image
-      return null;
-    },
-    editComment(id) {
-      this.$set(this.editKeys, id, true);
-    },
-    async updateComment(id, index) {
-      this.$set(this.editKeys, id, false);
+    }
 
-      await this.api.recipes.updateComment(this.slug, id, this.comments[index]);
-      this.$emit(UPDATE_COMMENT_EVENT);
-    },
-    async createNewComment() {
-      await this.api.recipes.createComment(this.slug, { text: this.newComment });
-      this.$emit(NEW_COMMENT_EVENT);
-
-      this.newComment = "";
-    },
-    async deleteComment(id) {
-      await this.api.recipes.deleteComment(this.slug, id);
-      this.$emit(UPDATE_COMMENT_EVENT);
-    },
+    return { api, comments, ...toRefs(state), submitComment, deleteComment };
   },
-};
+});
 </script>
-
-<style lang="scss" scoped>
-</style>
