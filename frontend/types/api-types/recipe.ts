@@ -101,6 +101,7 @@ export interface IngredientToStepRef {
   referenceId: string;
 }
 export interface RecipeStep {
+  id: string;
   title?: string;
   text: string;
   ingredientReferences: IngredientToStepRef[];

@@ -201,7 +201,7 @@
               />
 
               <!-- Recipe Tools Display -->
-              <div v-if="!form">
+              <div v-if="!form && recipe.tools && recipe.tools.length > 0">
                 <h2 class="mb-2 mt-4">Required Tools</h2>
                 <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
                   <v-checkbox
@@ -617,12 +617,12 @@ export default defineComponent({
 
       if (steps) {
         const cleanedSteps = steps.map((step) => {
-          return { text: step, title: "", ingredientReferences: [] };
+          return { id: uuid4(), text: step, title: "", ingredientReferences: [] };
         });
 
         recipe.value.recipeInstructions.push(...cleanedSteps);
       } else {
-        recipe.value.recipeInstructions.push({ text: "", title: "", ingredientReferences: [] });
+        recipe.value.recipeInstructions.push({ id: uuid4(), text: "", title: "", ingredientReferences: [] });
       }
     }
 

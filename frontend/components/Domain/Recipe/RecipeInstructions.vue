@@ -75,8 +75,8 @@
       @start="drag = true"
       @end="drag = false"
     >
-      <div v-for="(step, index) in value" :key="index">
-        <v-app-bar v-if="showTitleEditor[index]" class="primary mx-1 mt-6" dark dense rounded>
+      <div v-for="(step, index) in value" :key="step.id">
+        <v-app-bar v-if="showTitleEditor[step.id]" class="primary mx-1 mt-6" dark dense rounded>
           <v-toolbar-title v-if="!edit" class="headline">
             <v-app-bar-title v-text="step.title"> </v-app-bar-title>
           </v-toolbar-title>
@@ -114,7 +114,7 @@
                   mode="event"
                   :items="actionEvents || []"
                   @merge-above="mergeAbove(index - 1, index)"
-                  @toggle-section="toggleShowTitle(index)"
+                  @toggle-section="toggleShowTitle(step.id)"
                   @link-ingredients="openDialog(index, step.ingredientReferences, step.text)"
                 >
                 </BaseOverflowButton>
@@ -155,6 +155,7 @@ import VueMarkdown from "@adapttive/vue-markdown";
 import { ref, toRefs, reactive, defineComponent, watch, onMounted } from "@nuxtjs/composition-api";
 import { RecipeStep, IngredientToStepRef, RecipeIngredient } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
+import { uuid4 } from "~/composables/use-utils";
 
 interface MergerHistory {
   target: number;
@@ -195,7 +196,7 @@ export default defineComponent({
       usedIngredients: [] as RecipeIngredient[],
     });
 
-    const showTitleEditor = ref<boolean[]>([]);
+    const showTitleEditor = ref<{ [key: string]: boolean }>({});
 
     const actionEvents = [
       {
@@ -220,12 +221,17 @@ export default defineComponent({
 
     watch(props.value, (v) => {
       state.disabledSteps = [];
-      showTitleEditor.value = v.map((x) => validateTitle(x.title));
+
+      v.forEach((element) => {
+        showTitleEditor.value[element.id] = validateTitle(element.title);
+      });
     });
 
     // Eliminate state with an eager call to watcher?
     onMounted(() => {
-      showTitleEditor.value = props.value.map((x) => validateTitle(x.title));
+      props.value.forEach((element) => {
+        showTitleEditor.value[element.id] = validateTitle(element.title);
+      });
     });
 
     function toggleDisabled(stepIndex: number) {
@@ -246,16 +252,11 @@ export default defineComponent({
         return "disabled-card";
       }
     }
-    function toggleShowTitle(index: number) {
-      const newVal = !showTitleEditor.value[index];
-      if (!newVal) {
-        props.value[index].title = "";
-      }
+    function toggleShowTitle(id: string) {
+      showTitleEditor.value[id] = !showTitleEditor.value[id];
 
-      // Must create a new temporary list due to vue-composition-api backport limitations (I think...)
-      const tempList = [...showTitleEditor.value];
-      tempList[index] = newVal;
-      showTitleEditor.value = tempList;
+      const temp = { ...showTitleEditor.value };
+      showTitleEditor.value = temp;
     }
     function updateIndex(data: RecipeStep) {
       context.emit("input", data);
@@ -387,6 +388,7 @@ export default defineComponent({
 
         props.value[lastMerge.target].text = lastMerge.targetText;
         props.value.splice(lastMerge.source, 0, {
+          id: uuid4(),
           title: "",
           text: lastMerge.sourceText,
           ingredientReferences: [],
