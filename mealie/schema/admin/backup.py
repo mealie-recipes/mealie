@@ -60,6 +60,7 @@ class CreateBackup(BaseModel):
 class BackupFile(BaseModel):
     name: str
     date: datetime
+    size: str
 
 
 class AllBackups(BaseModel):

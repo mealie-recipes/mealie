@@ -6,8 +6,6 @@ from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, s
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs
-
-app_dirs = get_app_dirs()
 from mealie.core.dependencies import get_current_user
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
@@ -18,9 +16,11 @@ from mealie.schema.user.user import PrivateUser
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
 from mealie.services.events import create_backup_event
+from mealie.utils.fs_stats import pretty_size
 
 router = AdminAPIRouter(prefix="/api/backups", tags=["Backups"])
 logger = get_logger()
+app_dirs = get_app_dirs()
 
 
 @router.get("/available", response_model=AllBackups)
@@ -28,7 +28,7 @@ def available_imports():
     """Returns a list of avaiable .zip files for import into Mealie."""
     imports = []
     for archive in app_dirs.BACKUP_DIR.glob("*.zip"):
-        backup = BackupFile(name=archive.name, date=archive.stat().st_ctime)
+        backup = BackupFile(name=archive.name, date=archive.stat().st_ctime, size=pretty_size(archive.stat().st_size))
         imports.append(backup)
 
     templates = [template.name for template in app_dirs.TEMPLATE_DIR.glob("*.*")]
@@ -118,3 +118,5 @@ def delete_backup(file_name: str):
         file_path.unlink()
     except Exception:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    return {"message": f"{file_name} has been deleted."}
