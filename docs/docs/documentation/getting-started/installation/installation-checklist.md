@@ -2,7 +2,7 @@
 
 To install Mealie on your server there are a few steps for proper configuration. Let's go through them.
 
-## Step 0: Pre-work
+## Pre-work
 
 To deploy mealie on your local network it is highly recommended to use docker to deploy the image straight from dockerhub. Using the docker-compose templates provided, you should be able to get a stack up and running easily by changing a few default values and deploying. You can deploy with either SQLite (default) or Postgres. SQLite is sufficient for most use cases. Additionally, with Mealie's automated backup and restore functionality, you can easily move between SQLite and Postgres as you wish.
 

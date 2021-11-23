@@ -55,7 +55,9 @@ nav:
   - Getting Started:
       - Introduction: "documentation/getting-started/introduction.md"
       - Updating: "documentation/getting-started/updating.md"
+      - FAQ: "documentation/getting-started/faq.md"
       - API: "documentation/getting-started/api-usage.md"
+
       - Installation:
           - Installation Checklist: "documentation/getting-started/installation/installation-checklist.md"
           - SQLite (Recommended): "documentation/getting-started/installation/sqlite.md"
@@ -63,6 +65,7 @@ nav:
           - Frontend Configuration: "documentation/getting-started/installation/frontend-config.md"
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
           - Advanced: "documentation/getting-started/installation/advanced.md"
+
       - Recipes:
           - Working With Recipes: "documentation/recipes/recipes.md"
           - Organizing Recipes: "documentation/recipes/organizing-recipes.md"
@@ -88,7 +91,9 @@ nav:
           - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
           - Home Assistant: "documentation/community-guide/home-assistant.md"
           - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
+
   - API Reference: "api/redoc.md"
+
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"
       - Translating: "contributors/translating.md"
@@ -99,7 +104,9 @@ nav:
           - Style Guide: "contributors/developers-guide/style-guide.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
+
   - Development Road Map: "roadmap.md"
+
   - Change Log:
       - v1.0.0 A Whole New App: "changelog/v1.0.0.md"
       - v0.5.2 Misc Updates: "changelog/v0.5.2.md"
