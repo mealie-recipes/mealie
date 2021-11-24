@@ -43,10 +43,10 @@
     "uncategorized-count": "{count} non catégorisée|{count} non catégorisées"
   },
   "events": {
-    "apprise-url": "URL Apprise",
+    "apprise-url": "URL apprise",
     "database": "Base de données",
     "delete-event": "Supprimer l’évènement",
-    "new-notification-form-description": "Mealie utilise la bibliothèque Apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
+    "new-notification-form-description": "Mealie utilise la bibliothèque apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
     "new-version": "Nouvelle version disponible !",
     "notification": "Notification",
     "refresh": "Rafraîchir",
@@ -113,7 +113,7 @@
     "sort": "Trier",
     "sort-alphabetically": "Alphabétique",
     "status": "Statut",
-    "submit": "Envoyer",
+    "submit": "Importer",
     "success-count": "Succès : {count}",
     "sunday": "Dimanche",
     "templates": "Modèles :",
@@ -127,7 +127,7 @@
     "updated": "Mis à jour",
     "upload": "Importer",
     "url": "URL",
-    "view": "Voir",
+    "view": "Afficher",
     "wednesday": "Mercredi",
     "yes": "Oui"
   },
@@ -147,13 +147,13 @@
     "group-with-value": "Groupe : {groupID}",
     "groups": "Groupes",
     "manage-groups": "Gérer les groupes",
-    "user-group": "Groupe utilisateur",
+    "user-group": "Groupe d'utilisateurs",
     "user-group-created": "Groupe d'utilisateurs créé",
     "user-group-creation-failed": "La création du groupe d'utilisateur a échoué"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Créer un nouveau menu",
-    "dinner-this-week": "Au menu cette semaine",
+    "dinner-this-week": "Menu de la semaine",
     "dinner-today": "Menu du jour",
     "dinner-tonight": "AU MENU CE SOIR",
     "edit-meal-plan": "Modifier le menu",
@@ -234,7 +234,7 @@
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
-    "disable-amount": "Désactiver les quantités des ingrédients",
+    "disable-amount": "Désactiver les quantités d'ingrédients",
     "disable-comments": "Désactiver les commentaires",
     "fat-content": "Matières grasses",
     "fiber-content": "Fibres",
@@ -288,7 +288,7 @@
     "and": "et",
     "exclude": "Exclure",
     "include": "Inclure",
-    "max-results": "Résultats max",
+    "max-results": "Nombre de résultats maximum",
     "or": "Ou",
     "results": "Résultats",
     "search": "Rechercher",
@@ -341,7 +341,7 @@
     "set-new-time": "Indiquer une nouvelle heure",
     "settings-update-failed": "La mise à jour des paramètres a échoué",
     "settings-updated": "Paramètres mis à jour",
-    "site-settings": "Paramètres site",
+    "site-settings": "Paramètres du site",
     "theme": {
       "accent": "Accentué",
       "dark": "Sombre",
@@ -381,7 +381,7 @@
       "remove-unused": "Supprimer orphelins",
       "title-case-all": "Majuscules partout",
       "toolbox": "Boîte à outils",
-      "unorganized": "Non organisé"
+      "unorganized": "Non organisé(s)"
     },
     "webhooks": {
       "test-webhooks": "Tester les webhooks",
@@ -392,13 +392,13 @@
   },
   "shopping-list": {
     "all-lists": "Toutes les listes",
-    "create-shopping-list": "Créer une liste de courses",
+    "create-shopping-list": "Créer une liste d'épicerie",
     "from-recipe": "À partir d'une recette",
     "list-name": "Nom de la liste",
     "new-list": "Nouvelle liste",
     "quantity": "Quantité : {0}",
-    "shopping-list": "Liste de courses",
-    "shopping-lists": "Listes de courses"
+    "shopping-list": "Liste d'épicerie",
+    "shopping-lists": "Listes d'épicerie"
   },
   "sidebar": {
     "all-recipes": "Les recettes",
@@ -434,9 +434,9 @@
     "untagged-count": "{count} sans mot-clés"
   },
   "user": {
-    "admin": "Admin",
-    "are-you-sure-you-want-to-delete-the-link": "Êtes-vous sûr de vouloir supprimer le lien <b>{link}<b/> ?",
-    "are-you-sure-you-want-to-delete-the-user": "Êtes-vous sûr de vouloir supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
+    "admin": "Administrateur",
+    "are-you-sure-you-want-to-delete-the-link": "Voulez-vous réellement supprimer le lien <b>{link}<b/> ?",
+    "are-you-sure-you-want-to-delete-the-user": "Voulez-vous réellement supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
     "confirm-link-deletion": "Confirmer la suppression du lien",
     "confirm-password": "Confirmer mot de passe",
     "confirm-user-deletion": "Confirmer la suppression",
@@ -444,9 +444,9 @@
     "create-link": "Créer un lien",
     "create-user": "Créer utilisateur",
     "current-password": "Mot de passe actuel",
-    "e-mail-must-be-valid": "L'e-mail doit être valide",
+    "e-mail-must-be-valid": "Le courriel doit être valide",
     "edit-user": "Modifier l'utilisateur",
-    "email": "E-mail",
+    "email": "Courriel",
     "error-cannot-delete-super-user": "Erreur ! Impossible de supprimer le super utilisateur",
     "existing-password-does-not-match": "Le mot de passe actuel ne correspond pas",
     "full-name": "Nom",
@@ -467,7 +467,7 @@
     "total-mealplans": "Nombre de menus",
     "total-users": "Nombre d'utilisateurs",
     "upload-photo": "Importer une photo",
-    "use-8-characters-or-more-for-your-password": "Utiliser au moins 8 caractères pour votre mot de passe",
+    "use-8-characters-or-more-for-your-password": "Utilisez au moins 8 caractères pour votre mot de passe",
     "user": "Utilisateur",
     "user-created": "Utilisateur créé",
     "user-creation-failed": "La création de l'utilisateur a échoué",
