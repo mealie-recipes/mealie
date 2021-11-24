@@ -54,6 +54,8 @@ def scrape_image(image_url: str, slug: str) -> Path:
 
         all_image_requests = []
         for url in image_url:
+            if isinstance(url, dict):
+                url = url.get('url', "")
             try:
                 r = requests.get(url, stream=True, headers={"User-Agent": _FIREFOX_UA})
             except Exception:
