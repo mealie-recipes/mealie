@@ -5,13 +5,14 @@
     <section>
       <v-toolbar flat color="background" class="justify-between">
         <BaseDialog
-          ref="refUserDialog"
+          v-model="createDialog"
           top
           :title="$t('group.create-group')"
+          :icon="$globals.icons.group"
           @submit="createGroup(createUserForm.data)"
         >
-          <template #activator="{ open }">
-            <BaseButton @click="open"> {{ $t("group.create-group") }} </BaseButton>
+          <template #activator>
+            <BaseButton @click="createDialog = true"> {{ $t("general.create") }} </BaseButton>
           </template>
           <v-card-text>
             <AutoForm v-model="createUserForm.data" :update-mode="updateMode" :items="createUserForm.items" />
@@ -27,9 +28,6 @@
         disable-pagination
         :search="search"
       >
-        <template #item.mealplans="{ item }">
-          {{ item.mealplans.length }}
-        </template>
         <template #item.shoppingLists="{ item }">
           {{ item.shoppingLists.length }}
         </template>
@@ -37,22 +35,26 @@
           {{ item.users.length }}
         </template>
         <template #item.webhookEnable="{ item }">
-          {{ item.webhookEnabled ? $t("general.yes") : $t("general.no") }}
+          {{ item.webhooks.length > 0 ? $t("general.yes") : $t("general.no") }}
         </template>
         <template #item.actions="{ item }">
-          <BaseDialog :title="$t('general.confirm')" color="error" @confirm="deleteGroup(item.id)">
-            <template #activator="{ open }">
-              <v-btn :disabled="item && item.users.length > 0" class="mr-1" small color="error" @click="open">
-                <v-icon small left>
+          <BaseDialog
+            v-model="confirmDialog"
+            :title="$t('general.confirm')"
+            color="error"
+            @confirm="deleteGroup(item.id)"
+          >
+            <template #activator>
+              <v-btn
+                :disabled="item && item.users.length > 0"
+                class="mr-1"
+                icon
+                color="error"
+                @click="confirmDialog = true"
+              >
+                <v-icon>
                   {{ $globals.icons.delete }}
                 </v-icon>
-                {{ $t("general.delete") }}
-              </v-btn>
-              <v-btn small color="success" @click="updateUser(item)">
-                <v-icon small left class="mr-2">
-                  {{ $globals.icons.edit }}
-                </v-icon>
-                {{ $t("general.edit") }}
               </v-btn>
             </template>
             <v-card-text>
@@ -78,6 +80,8 @@ export default defineComponent({
     const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
 
     const state = reactive({
+      createDialog: false,
+      confirmDialog: false,
       search: "",
       headers: [
         {
@@ -89,9 +93,8 @@ export default defineComponent({
         { text: i18n.t("general.name"), value: "name" },
         { text: i18n.t("user.total-users"), value: "users" },
         { text: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
-        { text: i18n.t("user.total-mealplans"), value: "mealplans" },
         { text: i18n.t("shopping-list.shopping-lists"), value: "shoppingLists" },
-        { value: "actions" },
+        { text: i18n.t("general.delete"), value: "actions" },
       ],
       updateMode: false,
       createUserForm: {

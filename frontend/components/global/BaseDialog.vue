@@ -69,9 +69,14 @@
 
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
+import { computed } from "vue-demi";
 export default defineComponent({
   name: "BaseDialog",
   props: {
+    value: {
+      type: Boolean,
+      default: false,
+    },
     color: {
       type: String,
       default: "primary",
@@ -105,9 +110,22 @@ export default defineComponent({
       type: Boolean,
     },
   },
+  setup(props, context) {
+    const dialog = computed<Boolean>({
+      get() {
+        return props.value;
+      },
+      set(val) {
+        context.emit("input", val);
+      },
+    });
+
+    return {
+      dialog,
+    };
+  },
   data() {
     return {
-      dialog: false,
       submitted: false,
     };
   },
@@ -122,6 +140,8 @@ export default defineComponent({
   watch: {
     determineClose() {
       this.submitted = false;
+
+      // @ts-ignore
       this.dialog = false;
     },
     dialog(val) {
@@ -139,10 +159,19 @@ export default defineComponent({
       this.submitted = true;
     },
     open() {
+      // @ts-ignore
       this.dialog = true;
+      this.logDeprecatedProp("open");
     },
     close() {
+      // @ts-ignore
       this.dialog = false;
+      this.logDeprecatedProp("close");
+    },
+    logDeprecatedProp(val: string) {
+      console.warn(
+        `[BaseDialog] The method '${val}' is deprecated. Please use v-model="value" to manage state instead.`
+      );
     },
   },
 });

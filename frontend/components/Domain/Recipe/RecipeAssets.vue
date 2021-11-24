@@ -34,9 +34,14 @@
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
-      <BaseDialog :title="$t('asset.new-asset')" :icon="getIconDefinition(newAsset.icon).icon" @submit="addAsset">
-        <template #activator="{ open }">
-          <BaseButton v-if="edit" small create @click="open" />
+      <BaseDialog
+        v-model="newAssetDialog"
+        :title="$t('asset.new-asset')"
+        :icon="getIconDefinition(newAsset.icon).icon"
+        @submit="addAsset"
+      >
+        <template #activator>
+          <BaseButton v-if="edit" small create @click="newAssetDialog = true" />
         </template>
         <v-card-text class="pt-4">
           <v-text-field v-model="newAsset.name" dense :label="$t('general.name')"></v-text-field>
@@ -94,6 +99,7 @@ export default defineComponent({
     const api = useUserApi();
 
     const state = reactive({
+      newAssetDialog: false,
       fileObject: {} as File,
       newAsset: {
         name: "",

@@ -28,9 +28,9 @@
           </v-chip>
         </template>
         <template #append-outer="">
-          <BaseDialog title="Create New Tool" @submit="actions.createOne()">
-            <template #activator="{ open }">
-              <v-btn icon @click="open">
+          <BaseDialog v-model="createDialog" title="Create New Tool" @submit="actions.createOne()">
+            <template #activator>
+              <v-btn icon @click="createDialog = true">
                 <v-icon> {{ $globals.icons.create }}</v-icon>
               </v-btn>
             </template>
@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { computed } from "vue-demi";
 import { Tool } from "~/api/class-interfaces/tools";
 import { useTools } from "~/composables/recipes";
@@ -65,6 +65,8 @@ export default defineComponent({
   setup(props, context) {
     const { tools, actions, workingToolData } = useTools();
 
+    const createDialog = ref(false);
+
     const recipeTools = computed({
       get: () => {
         return props.value;
@@ -75,10 +77,11 @@ export default defineComponent({
     });
 
     return {
-      workingToolData,
       actions,
-      tools,
+      createDialog,
       recipeTools,
+      tools,
+      workingToolData,
     };
   },
 });
