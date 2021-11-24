@@ -1,25 +1,27 @@
 ---
-name: v1.0.0b Task 
+name: v1.0.0b Task
 description: "CONTRIBUTORS ONLY: Submit a Task that needs to be completed"
 title: "[v1.0.0b] [Task] - TASK DESCRIPTION"
+labels:
+  - tasks
+  - v1
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for your interest in Mealie! 🚀
-        
+
         This is a place for Mealie contributors to find tasks that need to get done around the repository. Tasks are different than issues as they are generally related to providing a new feature or improve an existing feature. They are _generally_ not related to an issue.
-        
+
         **DO NOT** create a task unless
-          - You are a contributors who has prior approval via discord/discussions
-          - You have otherwise been given approval to post the tasks
-          
-       Otherwise, your post will be closed/deleted. 
-       
-       **Interested in Taking This?**
-       
-       If you're interested in completing this tasks and it hasn't already been taken, comment below and to let others know you're working on it. As you work through the task, I ask that you submit a draft pull request as soon as possible, and tag this issue so we can all collaborate as best as possible. 
-       
+        - You are a contributors who has prior approval via discord/discussions
+        - You have otherwise been given approval to post the tasks
+
+        Otherwise, your post will be closed/deleted. 
+
+        **Interested in Taking This?**
+
+        If you're interested in completing this tasks and it hasn't already been taken, comment below and to let others know you're working on it. As you work through the task, I ask that you submit a draft pull request as soon as possible, and tag this issue so we can all collaborate as best as possible.
   - type: textarea
     id: problem
     attributes:
