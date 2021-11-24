@@ -55,6 +55,7 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         run: |
+          sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
           poetry install
           poetry add "psycopg2-binary==2.8.6"
         # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
