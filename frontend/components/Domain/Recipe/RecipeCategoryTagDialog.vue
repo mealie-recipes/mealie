@@ -21,7 +21,13 @@
         <v-card-title> </v-card-title>
         <v-form @submit.prevent="select">
           <v-card-text>
-            <v-text-field v-model="itemName" dense :label="inputLabel" :rules="[rules.required]"></v-text-field>
+            <v-text-field
+              v-model="itemName"
+              dense
+              :label="inputLabel"
+              :rules="[rules.required]"
+              autofocus
+            ></v-text-field>
           </v-card-text>
           <v-card-actions>
             <BaseButton cancel @click="dialog = false" />

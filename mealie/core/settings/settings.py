@@ -83,6 +83,25 @@ class AppSettings(BaseSettings):
 
         return "" not in required and None not in required
 
+    # ===============================================
+    # LDAP Configuration
+
+    LDAP_AUTH_ENABLED: bool = False
+    LDAP_SERVER_URL: str = None
+    LDAP_BIND_TEMPLATE: str = None
+    LDAP_ADMIN_FILTER: str = None
+
+    @property
+    def LDAP_ENABLED(self) -> bool:
+        """Validates LDAP settings are all set"""
+        required = {
+            self.LDAP_SERVER_URL,
+            self.LDAP_BIND_TEMPLATE,
+            self.LDAP_ADMIN_FILTER,
+        }
+
+        return "" not in required and None not in required and self.LDAP_AUTH_ENABLED
+
     class Config:
         arbitrary_types_allowed = True
 

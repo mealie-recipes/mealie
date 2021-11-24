@@ -17,6 +17,8 @@
 | TZ            |          UTC          | Must be set to get correct date/time on the server                                  |
 
 
+
+
 ### Database
 
 | Variables         | Default  | Description                      |
@@ -49,3 +51,13 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | WORKERS_PER_CORE |    1    | Set the number of workers to the number of CPU cores multiplied by this value (Value \* CPUs). More info [here][workers_per_core] |
 | MAX_WORKERS      |    1    | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
 | WEB_CONCURRENCY  |    1    | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
+
+
+### LDAP
+
+| Variables          | Default | Description                                                                                                        |
+| ------------------ | :-----: | ------------------------------------------------------------------------------------------------------------------ |
+| LDAP_AUTH_ENABLED  |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                       |
+| LDAP_SERVER_URL    |  None   | LDAP server URL (e.g. ldap://ldap.example.com)                                                                     |
+| LDAP_BIND_TEMPLATE |  None   | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`)                   |
+| LDAP_ADMIN_FILTER  |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`) |

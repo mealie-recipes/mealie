@@ -43,6 +43,8 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
 
 def scrape_image(image_url: str, slug: str) -> Path:
     logger.info(f"Image URL: {image_url}")
+    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
     if isinstance(image_url, str):  # Handles String Types
         pass
 
@@ -54,7 +56,7 @@ def scrape_image(image_url: str, slug: str) -> Path:
         all_image_requests = []
         for url in image_url:
             try:
-                r = requests.get(url, stream=True, headers={"User-Agent": ""})
+                r = requests.get(url, stream=True, headers={"User-Agent": _FIREFOX_UA})
             except Exception:
                 logger.exception("Image {url} could not be requested")
                 continue
@@ -72,7 +74,7 @@ def scrape_image(image_url: str, slug: str) -> Path:
     filename = Recipe(slug=slug).image_dir.joinpath(filename)
 
     try:
-        r = requests.get(image_url, stream=True)
+        r = requests.get(image_url, stream=True, headers={"User-Agent": _FIREFOX_UA})
     except Exception:
         logger.exception("Fatal Image Request Exception")
         return None
