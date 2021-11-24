@@ -1,0 +1,19 @@
+---
+name: v1.0.0b Task 
+description: "CONTRIBUTORS ONLY: Submit a Task that needs to be completed"
+title: "[v1.0.0b] [Task] - TASK DESCRIPTION"
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem this task addresses?
+      placeholder: A clear and concise description of what the problem this task will address.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Proposed/Possible Solution(s)?
+      placeholder: Provide as much context around the idea as possible with potential files and roadblocks that may come up
+    validations:
+      required: true
