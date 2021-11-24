@@ -76,39 +76,17 @@ export default defineComponent({
             to: "/admin/toolbox/units",
             title: "Manage Units",
           },
-          {
-            icon: $globals.icons.tags,
-            to: "/admin/toolbox/categories",
-            title: i18n.t("sidebar.tags"),
-          },
-          {
-            icon: $globals.icons.tags,
-            to: "/admin/toolbox/tags",
-            title: i18n.t("sidebar.categories"),
-          },
         ],
+      },
+      {
+        icon: $globals.icons.user,
+        to: "/admin/manage/users",
+        title: i18n.t("user.users"),
       },
       {
         icon: $globals.icons.group,
-        to: "/admin/manage-users",
-        title: i18n.t("sidebar.manage-users"),
-        children: [
-          {
-            icon: $globals.icons.user,
-            to: "/admin/manage-users/all-users",
-            title: i18n.t("user.users"),
-          },
-          {
-            icon: $globals.icons.group,
-            to: "/admin/manage-users/all-groups",
-            title: i18n.t("group.groups"),
-          },
-        ],
-      },
-      {
-        icon: $globals.icons.import,
-        to: "/admin/migrations",
-        title: i18n.t("sidebar.migrations"),
+        to: "/admin/manage/groups",
+        title: i18n.t("group.groups"),
       },
       {
         icon: $globals.icons.database,

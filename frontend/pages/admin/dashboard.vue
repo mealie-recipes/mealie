@@ -42,7 +42,7 @@
           </template>
           <template #actions>
             <div class="ml-auto">
-              <v-btn color="primary" small to="/admin/manage-users/all-users">
+              <v-btn color="primary" small to="/admin/manage/users">
                 <v-icon left>{{ $globals.icons.user }}</v-icon>
                 {{ $t("user.manage-users") }}
               </v-btn>
@@ -65,7 +65,7 @@
           </template>
           <template #actions>
             <div class="ml-auto">
-              <v-btn color="primary" small to="/admin/manage-users/all-groups">
+              <v-btn color="primary" small to="/admin/manage/groups">
                 <v-icon left>{{ $globals.icons.group }}</v-icon>
                 {{ $t("group.manage-groups") }}
               </v-btn>

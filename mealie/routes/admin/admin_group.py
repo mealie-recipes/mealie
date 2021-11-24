@@ -15,7 +15,6 @@ router = AdminAPIRouter(prefix="/groups")
 async def get_all_groups(session: Session = Depends(generate_session)):
     """Returns a list of all groups in the database"""
     db = get_database(session)
-
     return db.groups.get_all()
 
 

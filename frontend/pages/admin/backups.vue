@@ -90,6 +90,16 @@
         </template>
       </v-data-table>
       <v-divider></v-divider>
+      <div class="mt-4 d-flex justify-end">
+        <AppButtonUpload
+          :text-btn="false"
+          class="mr-4"
+          url="/api/backups/upload"
+          accept=".zip"
+          color="info"
+          @uploaded="refreshBackups()"
+        />
+      </div>
     </section>
   </v-container>
 </template>
@@ -115,6 +125,7 @@ export default defineComponent({
       headers: [
         { text: i18n.t("general.name"), value: "name" },
         { text: i18n.t("general.created"), value: "date" },
+        { text: "Size", value: "size" },
         { text: "", value: "actions", align: "right" },
       ],
     });
