@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, onMounted, ref, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
