@@ -3,7 +3,7 @@ name: v1.0.0b Task
 description: "CONTRIBUTORS ONLY: Submit a Task that needs to be completed"
 title: "[v1.0.0b] [Task] - TASK DESCRIPTION"
 labels:
-  - tasks
+  - task
   - v1
 body:
   - type: markdown
