@@ -18,23 +18,25 @@
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
-          :disabled="updateMode && inputField.fixed"
+          :disabled="updateMode && inputField.disableUpdate"
           @change="emitBlur"
         />
 
         <!-- Text Field -->
         <v-text-field
-          v-else-if="inputField.type === fieldTypes.TEXT"
+          v-else-if="inputField.type === fieldTypes.TEXT || inputField.type === fieldTypes.PASSWORD"
           v-model="value[inputField.varName]"
-          :readonly="inputField.fixed && updateMode"
+          :readonly="inputField.disableUpdate && updateMode"
+          :disabled="inputField.disableUpdate && updateMode"
           filled
+          :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
           rounded
           class="rounded-lg"
           dense
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
-          :rules="[...rulesByKey(inputField.rules), ...defaultRules]"
+          :rules="!(inputField.disableUpdate && updateMode) ? [...rulesByKey(inputField.rules), ...defaultRules] : []"
           lazy-validation
           @blur="emitBlur"
         />
@@ -43,7 +45,8 @@
         <v-textarea
           v-else-if="inputField.type === fieldTypes.TEXT_AREA"
           v-model="value[inputField.varName]"
-          :readonly="inputField.fixed && updateMode"
+          :readonly="inputField.disableUpdate && updateMode"
+          :disabled="inputField.disableUpdate && updateMode"
           filled
           rounded
           class="rounded-lg"
@@ -62,7 +65,7 @@
         <v-select
           v-else-if="inputField.type === fieldTypes.SELECT"
           v-model="value[inputField.varName]"
-          :readonly="inputField.fixed && updateMode"
+          :readonly="inputField.disableUpdate && updateMode"
           filled
           rounded
           class="rounded-lg"

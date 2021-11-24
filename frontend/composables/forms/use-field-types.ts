@@ -6,6 +6,5 @@ export const fieldTypes = {
   OBJECT: "object",
   BOOLEAN: "boolean",
   COLOR: "color",
-};
-
-
+  PASSWORD: "password",
+} as const;

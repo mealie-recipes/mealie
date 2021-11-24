@@ -77,9 +77,9 @@ export const useUser = function (refreshFunc: CallableFunction | null = null) {
     return data;
   }
 
-  async function updateUser(slug: string, user: UserOut) {
+  async function updateUser(itemId: string, user: UserOut) {
     loading.value = true;
-    const { data } = await api.users.updateOne(slug, user);
+    const { data } = await api.users.updateOne(itemId, user);
     loading.value = false;
 
     if (refreshFunc) {
