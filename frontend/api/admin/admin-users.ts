@@ -2,7 +2,7 @@ import { BaseCRUDAPI } from "../_base";
 
 const prefix = "/api";
 
-interface UserCreate {
+export interface UserCreate {
   username: string;
   fullName: string;
   email: string;
@@ -21,7 +21,7 @@ export interface UserToken {
   createdAt: Date;
 }
 
-interface UserRead extends UserToken {
+export interface UserRead extends UserToken {
   id: number;
   groupId: number;
   favoriteRecipes: any[];

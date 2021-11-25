@@ -4,7 +4,7 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-members.svg')"></v-img>
       </template>
-      <template #title> Manage Memebers </template>
+      <template #title> Manage Members </template>
       Manage the permissions of the members in your groups. <b> Manage </b> allows the user to access the
       data-management page <b> Invite </b> allows the user to generate invitation links for other users. Group owners
       cannot change their own permissions.

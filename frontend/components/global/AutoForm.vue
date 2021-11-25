@@ -32,6 +32,7 @@
           :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
           rounded
           class="rounded-lg"
+          :autofocus="index === 0"
           dense
           :label="inputField.label"
           :name="inputField.varName"

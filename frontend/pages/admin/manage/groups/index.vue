@@ -1,24 +1,36 @@
 // TODO: Edit Group
 <template>
   <v-container fluid>
+    <BaseDialog
+      v-model="createDialog"
+      :title="$t('group.create-group')"
+      :icon="$globals.icons.group"
+      @submit="createGroup(createUserForm.data)"
+    >
+      <template #activator> </template>
+      <v-card-text>
+        <AutoForm v-model="createUserForm.data" :update-mode="updateMode" :items="createUserForm.items" />
+      </v-card-text>
+    </BaseDialog>
+
+    <BaseDialog
+      v-model="confirmDialog"
+      :title="$t('general.confirm')"
+      color="error"
+      @confirm="deleteGroup(deleteTarget)"
+    >
+      <template #activator> </template>
+      <v-card-text>
+        {{ $t("general.confirm-delete-generic") }}
+      </v-card-text>
+    </BaseDialog>
+
     <BaseCardSectionTitle title="Group Management"> </BaseCardSectionTitle>
     <section>
       <v-toolbar flat color="background" class="justify-between">
-        <BaseDialog
-          v-model="createDialog"
-          top
-          :title="$t('group.create-group')"
-          :icon="$globals.icons.group"
-          @submit="createGroup(createUserForm.data)"
-        >
-          <template #activator>
-            <BaseButton @click="createDialog = true"> {{ $t("general.create") }} </BaseButton>
-          </template>
-          <v-card-text>
-            <AutoForm v-model="createUserForm.data" :update-mode="updateMode" :items="createUserForm.items" />
-          </v-card-text>
-        </BaseDialog>
+        <BaseButton @click="openDialog"> {{ $t("general.create") }} </BaseButton>
       </v-toolbar>
+
       <v-data-table
         :headers="headers"
         :items="groups || []"
@@ -27,6 +39,7 @@
         hide-default-footer
         disable-pagination
         :search="search"
+        @click:row="handleRowClick"
       >
         <template #item.shoppingLists="{ item }">
           {{ item.shoppingLists.length }}
@@ -38,29 +51,20 @@
           {{ item.webhooks.length > 0 ? $t("general.yes") : $t("general.no") }}
         </template>
         <template #item.actions="{ item }">
-          <BaseDialog
-            v-model="confirmDialog"
-            :title="$t('general.confirm')"
+          <v-btn
+            :disabled="item && item.users.length > 0"
+            class="mr-1"
+            icon
             color="error"
-            @confirm="deleteGroup(item.id)"
+            @click.stop="
+              confirmDialog = true;
+              deleteTarget = item.id;
+            "
           >
-            <template #activator>
-              <v-btn
-                :disabled="item && item.users.length > 0"
-                class="mr-1"
-                icon
-                color="error"
-                @click="confirmDialog = true"
-              >
-                <v-icon>
-                  {{ $globals.icons.delete }}
-                </v-icon>
-              </v-btn>
-            </template>
-            <v-card-text>
-              {{ $t("general.confirm-delete-generic") }}
-            </v-card-text>
-          </BaseDialog>
+            <v-icon>
+              {{ $globals.icons.delete }}
+            </v-icon>
+          </v-btn>
         </template>
       </v-data-table>
       <v-divider></v-divider>
@@ -69,7 +73,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import { Group } from "~/api/class-interfaces/groups";
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 
@@ -82,6 +87,7 @@ export default defineComponent({
     const state = reactive({
       createDialog: false,
       confirmDialog: false,
+      deleteTarget: 0,
       search: "",
       headers: [
         {
@@ -112,7 +118,18 @@ export default defineComponent({
       },
     });
 
-    return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup };
+    function openDialog() {
+      state.createDialog = true;
+      state.createUserForm.data.name = "";
+    }
+
+    const router = useRouter();
+
+    function handleRowClick(item: Group) {
+      router.push("/admin/manage/groups/" + item.id);
+    }
+
+    return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup, openDialog, handleRowClick };
   },
   head() {
     return {
