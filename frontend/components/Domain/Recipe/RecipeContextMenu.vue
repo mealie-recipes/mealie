@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <BaseDialog
-      ref="domConfirmDelete"
+      v-model="recipeDeleteDialog"
       :title="$t('recipe.delete-recipe')"
       color="error"
       :icon="$globals.icons.alertCircle"
@@ -12,7 +12,7 @@
       </v-card-text>
     </BaseDialog>
     <BaseDialog
-      ref="domMealplanDialog"
+      v-model="mealplannerDialog"
       title="Add Recipe to Mealplan"
       color="primary"
       :icon="$globals.icons.calendar"
@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { useClipboard, useShare } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
@@ -152,6 +152,8 @@ export default defineComponent({
     const api = useUserApi();
 
     const state = reactive({
+      recipeDeleteDialog: false,
+      mealplannerDialog: false,
       loading: false,
       menuItems: [] as ContextMenuItem[],
       newMealdate: "",
@@ -232,8 +234,6 @@ export default defineComponent({
 
     const router = useRouter();
 
-    const domConfirmDelete = ref(null);
-
     async function deleteRecipe() {
       await api.recipes.deleteOne(props.slug);
       context.emit("delete", props.slug);
@@ -264,7 +264,6 @@ export default defineComponent({
       }
     }
 
-    const domMealplanDialog = ref(null);
     async function addRecipeToPlan() {
       const { response } = await api.mealplans.createOne({
         date: state.newMealdate,
@@ -284,11 +283,15 @@ export default defineComponent({
     // Note: Print is handled as an event in the parent component
     const eventHandlers: { [key: string]: Function } = {
       // @ts-ignore - Doens't know about open()
-      delete: () => domConfirmDelete?.value?.open(),
+      delete: () => {
+        state.recipeDeleteDialog = true;
+      },
       edit: () => router.push(`/recipe/${props.slug}` + "?edit=true"),
       download: handleDownloadEvent,
       // @ts-ignore - Doens't know about open()
-      mealplanner: () => domMealplanDialog?.value?.open(),
+      mealplanner: () => {
+        state.mealplannerDialog = true;
+      },
       share: handleShareEvent,
     };
 
@@ -310,8 +313,6 @@ export default defineComponent({
       contextMenuEventHandler,
       deleteRecipe,
       addRecipeToPlan,
-      domConfirmDelete,
-      domMealplanDialog,
       icon,
       planTypeOptions,
     };

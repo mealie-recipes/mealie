@@ -2,7 +2,7 @@
   <v-container>
     <!-- Create Meal Dialog -->
     <BaseDialog
-      ref="domMealDialog"
+      v-model="createMealDialog"
       :title="$t('meal-plan.create-a-new-meal-plan')"
       color="primary"
       :icon="$globals.icons.foods"
@@ -202,7 +202,7 @@
 </template>
   
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
 import { SortableEvent } from "sortablejs"; // eslint-disable-line
 import draggable from "vuedraggable";
@@ -222,6 +222,7 @@ export default defineComponent({
 
     useRecipes(true, true);
     const state = reactive({
+      createMealDialog: false,
       edit: false,
       hover: {},
       pickerMenu: null,
@@ -300,7 +301,6 @@ export default defineComponent({
     // =====================================================
     // New Meal Dialog
 
-    const domMealDialog = ref(null);
     const dialog = reactive({
       loading: false,
       error: false,
@@ -326,7 +326,7 @@ export default defineComponent({
     function openDialog(date: Date) {
       newMeal.date = format(date, "yyyy-MM-dd");
       // @ts-ignore
-      domMealDialog.value.open();
+      state.createMealDialog = true;
     }
 
     function resetDialog() {
@@ -360,7 +360,6 @@ export default defineComponent({
       backOneWeek,
       days,
       dialog,
-      domMealDialog,
       forwardOneWeek,
       loading,
       mealplans,

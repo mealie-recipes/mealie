@@ -8,7 +8,7 @@
     style="z-index: 2; position: sticky"
   >
     <BaseDialog
-      ref="deleteRecipieConfirm"
+      v-model="deleteDialog"
       :title="$t('recipe.delete-recipe')"
       color="error"
       :icon="$globals.icons.alertCircle"
@@ -112,6 +112,7 @@ export default {
   },
   data() {
     return {
+      deleteDialog: false,
       edit: false,
     };
   },
@@ -160,7 +161,7 @@ export default {
           this.$emit(JSON_EVENT);
           break;
         case DELETE_EVENT:
-          this.$refs.deleteRecipieConfirm.open();
+          this.deleteDialog = true;
           break;
         default:
           break;

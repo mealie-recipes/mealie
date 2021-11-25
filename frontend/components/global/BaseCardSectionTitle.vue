@@ -1,17 +1,18 @@
+
 <template>
   <v-card color="background" flat class="pb-2">
-    <v-card-title class="headline py-0">
+    <v-card-title class="headline pl-0 py-0">
       <v-icon v-if="icon !== ''" left>
         {{ icon }}
       </v-icon>
       {{ title }}
     </v-card-title>
-    <v-card-text v-if="$slots.default" class="pt-2">
+    <v-card-text v-if="$slots.default" class="pt-2 pl-0">
       <p class="pb-0 mb-0">
         <slot />
       </p>
     </v-card-text>
-    <v-divider class="my-4"></v-divider>
+    <v-divider class="my-3"></v-divider>
   </v-card>
 </template>
 

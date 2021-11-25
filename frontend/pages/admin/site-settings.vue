@@ -128,6 +128,7 @@ export default defineComponent({
       emailReady: false,
       baseUrlSet: false,
       isSiteSecure: false,
+      ldapReady: false,
     });
 
     const api = useUserApi();
@@ -140,10 +141,10 @@ export default defineComponent({
         appConfig.value = data;
       }
 
-      appConfig.value.isSiteSecure = isLocalhostorHttps();
+      appConfig.value.isSiteSecure = isLocalHostOrHttps();
     });
 
-    function isLocalhostorHttps() {
+    function isLocalHostOrHttps() {
       return window.location.hostname === "localhost" || window.location.protocol === "https:";
     }
 
@@ -152,14 +153,20 @@ export default defineComponent({
         {
           status: appConfig.value.baseUrlSet,
           text: "Server Side Base URL",
-          errorText: "Error - `BASE_URL` still default on API Server",
+          errorText: "`BASE_URL` still default on API Server",
           successText: "Server Side URL does not match the default",
         },
         {
           status: appConfig.value.isSiteSecure,
           text: "Secure Site",
-          errorText: "Error - Serve via localhost or secure with https.",
+          errorText: "Serve via localhost or secure with https.",
           successText: "Site is accessed by localhost or https",
+        },
+        {
+          status: appConfig.value.ldapReady,
+          text: "LDAP Ready",
+          errorText: "Not all LDAP Values are configured",
+          successText: "Required LDAP variables are all set.",
         },
       ];
     });

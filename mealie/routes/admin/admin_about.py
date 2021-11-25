@@ -47,5 +47,6 @@ async def check_app_config():
 
     return CheckAppConfig(
         email_ready=settings.SMTP_ENABLE,
+        ldap_ready=settings.LDAP_ENABLED,
         base_url_set=url_set,
     )

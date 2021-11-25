@@ -1,8 +1,9 @@
 <template>
   <v-container fluid>
-    <!-- Dialog Object -->
+    <!-- Base Dialog Object -->
     <BaseDialog
       ref="domDialog"
+      v-model="dialog.state"
       width="650px"
       :icon="dialog.icon"
       :title="dialog.title"
@@ -23,6 +24,7 @@
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.export"> TODO: Export Stuff Here </v-card-text>
     </BaseDialog>
+
     <BasePageTitle divider>
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-recipes.svg')"></v-img>
@@ -207,9 +209,8 @@ export default defineComponent({
     // ============================================================
     // Dialog Management
 
-    const domDialog = ref(null);
-
     const dialog = reactive({
+      state: false,
       title: "Tag Recipes",
       mode: MODES.tag,
       tag: "",
@@ -243,15 +244,13 @@ export default defineComponent({
       dialog.title = titles[mode];
       dialog.callback = callbacks[mode];
       dialog.icon = icons[mode];
-      // @ts-ignore
-      domDialog.value.open();
+      dialog.state = true;
     }
 
     return {
       toSetTags,
       toSetCategories,
       openDialog,
-      domDialog,
       dialog,
       MODES,
       headers,

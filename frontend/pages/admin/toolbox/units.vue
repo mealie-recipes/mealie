@@ -1,30 +1,42 @@
 <template>
   <v-container fluid>
+    <!-- Create/Edit Unit Dialog -->
+    <BaseDialog
+      v-model="createUnitDialog"
+      :title="dialog.title"
+      :icon="$globals.icons.units"
+      :submit-text="dialog.text"
+      :keep-open="!validForm"
+      @submit="create ? actions.createOne(domCreateUnitForm) : actions.updateOne()"
+    >
+      <v-card-text>
+        <v-form ref="domCreateUnitForm">
+          <v-text-field v-model="workingUnitData.name" label="Name" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="workingUnitData.abbreviation" label="Abbreviation"></v-text-field>
+          <v-text-field v-model="workingUnitData.description" label="Description"></v-text-field>
+        </v-form>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Delete Unit Dialog -->
+    <BaseDialog
+      v-model="deleteUnitDialog"
+      :title="$t('general.confirm')"
+      color="error"
+      @confirm="actions.deleteOne(item.id)"
+    >
+      <v-card-text>
+        {{ $t("general.confirm-delete-generic") }}
+      </v-card-text>
+    </BaseDialog>
     <BaseCardSectionTitle title="Manage Units"> </BaseCardSectionTitle>
     <v-toolbar flat color="background">
-      <BaseDialog
-        ref="domUnitDialog"
-        :title="dialog.title"
-        :icon="$globals.icons.units"
-        :submit-text="dialog.text"
-        :keep-open="!validForm"
-        @submit="create ? actions.createOne(domCreateUnitForm) : actions.updateOne()"
-      >
-        <v-card-text>
-          <v-form ref="domCreateUnitForm">
-            <v-text-field v-model="workingUnitData.name" label="Name" :rules="[validators.required]"></v-text-field>
-            <v-text-field v-model="workingUnitData.abbreviation" label="Abbreviation"></v-text-field>
-            <v-text-field v-model="workingUnitData.description" label="Description"></v-text-field>
-          </v-form>
-        </v-card-text>
-      </BaseDialog>
-
       <BaseButton
         class="mr-1"
         @click="
           create = true;
           actions.resetWorking();
-          domUnitDialog.open();
+          createUnitDialog = true;
         "
       ></BaseButton>
       <BaseButton secondary @click="filter = !filter"> Filter </BaseButton>
@@ -46,17 +58,17 @@
             @click="
               create = false;
               actions.setWorking(item);
-              domUnitDialog.open();
+              createUnitDialog = true;
             "
           ></BaseButton>
-          <BaseDialog :title="$t('general.confirm')" color="error" @confirm="actions.deleteOne(item.id)">
-            <template #activator="{ open }">
-              <BaseButton delete small @click="open"></BaseButton>
-            </template>
-            <v-card-text>
-              {{ $t("general.confirm-delete-generic") }}
-            </v-card-text>
-          </BaseDialog>
+          <BaseButton
+            delete
+            small
+            @click="
+              deleteUnitDialog = true;
+              deleteUnitTarget = item.id;
+            "
+          ></BaseButton>
         </div>
       </template>
     </v-data-table>
@@ -91,6 +103,9 @@ export default defineComponent({
     });
 
     const state = reactive({
+      createUnitDialog: false,
+      deleteUnitDialog: false,
+      deleteUnitTarget: 0,
       headers: [
         { text: "Id", value: "id" },
         { text: "Name", value: "name" },

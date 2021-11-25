@@ -1,6 +1,12 @@
-// TODO: Edit User 
 <template>
   <v-container fluid>
+    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error" @confirm="deleteUser(deleteTarget)">
+      <template #activator> </template>
+      <v-card-text>
+        {{ $t("general.confirm-delete-generic") }}
+      </v-card-text>
+    </BaseDialog>
+
     <BaseCardSectionTitle title="User Management"> </BaseCardSectionTitle>
     <section>
       <v-toolbar color="background" flat class="justify-between">
@@ -25,18 +31,19 @@
           </v-icon>
         </template>
         <template #item.actions="{ item }">
-          <BaseDialog :title="$t('general.confirm')" color="error" @confirm="deleteUser(item.id)">
-            <template #activator="{ open }">
-              <v-btn icon :disabled="item.id == 1" color="error" @click.stop="open">
-                <v-icon>
-                  {{ $globals.icons.delete }}
-                </v-icon>
-              </v-btn>
-            </template>
-            <v-card-text>
-              {{ $t("general.confirm-delete-generic") }}
-            </v-card-text>
-          </BaseDialog>
+          <v-btn
+            icon
+            :disabled="item.id == 1"
+            color="error"
+            @click.stop="
+              deleteDialog = true;
+              deleteTarget = item.id;
+            "
+          >
+            <v-icon>
+              {{ $globals.icons.delete }}
+            </v-icon>
+          </v-btn>
         </template>
       </v-data-table>
       <v-divider></v-divider>
@@ -61,6 +68,8 @@ export default defineComponent({
     const router = useRouter();
 
     const state = reactive({
+      deleteDialog: false,
+      deleteTarget: 0,
       search: "",
     });
 

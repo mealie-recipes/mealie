@@ -6,7 +6,7 @@
 
       <!-- Delete Dialog -->
       <BaseDialog
-        ref="domDeleteConfirmation"
+        v-model="deleteDialog"
         :title="$t('settings.backup.delete-backup')"
         color="error"
         :icon="$globals.icons.alertCircle"
@@ -19,7 +19,7 @@
 
       <!-- Import Dialog -->
       <BaseDialog
-        ref="domImportDialog"
+        v-model="importDialog"
         :title="selected.name"
         :icon="$globals.icons.database"
         :submit-text="$t('general.import')"
@@ -38,6 +38,7 @@
         <BaseButton class="mr-2" @click="createBackup(null)" />
         <!-- Backup Creation Dialog -->
         <BaseDialog
+          v-model="createDialog"
           :title="$t('settings.backup.create-heading')"
           :icon="$globals.icons.database"
           :submit-text="$t('general.create')"
@@ -82,7 +83,7 @@
             class="mx-1"
             delete
             @click.stop="
-              domDeleteConfirmation.open();
+              deleteDialog = true;
               deleteTarget = item.name;
             "
           />
@@ -105,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, ref } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
 import AdminBackupImportOptions from "@/components/Domain/Admin/AdminBackupImportOptions.vue";
 import { useBackups } from "~/composables/use-backups";
 
@@ -118,9 +119,10 @@ export default defineComponent({
     const { selected, backups, backupOptions, deleteTarget, refreshBackups, importBackup, createBackup, deleteBackup } =
       useBackups();
 
-    const domDeleteConfirmation = ref(null);
-    const domImportDialog = ref(null);
     const state = reactive({
+      deleteDialog: false,
+      createDialog: false,
+      importDialog: false,
       search: "",
       headers: [
         { text: i18n.t("general.name"), value: "name" },
@@ -135,8 +137,7 @@ export default defineComponent({
         return;
       }
       selected.value.name = data.name;
-      // @ts-ignore - Calling Child Method
-      domImportDialog.value.open();
+      state.importDialog = true;
     }
 
     const backupsFileNameDownload = (fileName: string) => `api/backups/${fileName}/download`;
@@ -150,8 +151,6 @@ export default defineComponent({
       deleteBackup,
       setSelected,
       deleteTarget,
-      domDeleteConfirmation,
-      domImportDialog,
       importBackup,
       refreshBackups,
       backupsFileNameDownload,

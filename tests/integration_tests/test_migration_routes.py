@@ -8,8 +8,8 @@ from fastapi.testclient import TestClient
 from mealie.core.config import get_app_dirs
 
 app_dirs = get_app_dirs()
-from tests.app_routes import AppRoutes
 from tests.test_config import TEST_CHOWDOWN_DIR, TEST_NEXTCLOUD_DIR
+from tests.utils.app_routes import AppRoutes
 
 
 @pytest.fixture(scope="session")

@@ -5,14 +5,14 @@ from functools import cached_property
 from mealie.schema.user.user import UserIn, UserOut
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import AdminHttpService
-from mealie.services.events import create_recipe_event
+from mealie.services.events import create_user_event
 
 
 class AdminUserService(
     CrudHttpMixins[UserOut, UserIn, UserIn],
     AdminHttpService[int, UserOut],
 ):
-    event_func = create_recipe_event
+    event_func = create_user_event
     _schema = UserOut
 
     @cached_property

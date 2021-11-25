@@ -2,8 +2,9 @@
   <v-container fluid>
     <BaseCardSectionTitle title="Manage Units"> </BaseCardSectionTitle>
     <v-toolbar flat color="background">
+      <!-- New/Edit Food Dialog -->
       <BaseDialog
-        ref="domFoodDialog"
+        v-model="newFoodDialog"
         :title="dialog.title"
         :icon="$globals.icons.units"
         :submit-text="dialog.text"
@@ -18,12 +19,25 @@
         </v-card-text>
       </BaseDialog>
 
+      <!-- Delete Food Dialog -->
+      <BaseDialog
+        v-model="deleteFoodDialog"
+        :title="$t('general.confirm')"
+        color="error"
+        @confirm="actions.deleteOne(deleteTarget)"
+      >
+        <template #activator> </template>
+        <v-card-text>
+          {{ $t("general.confirm-delete-generic") }}
+        </v-card-text>
+      </BaseDialog>
+
       <BaseButton
         class="mr-1"
         @click="
           create = true;
           actions.resetWorking();
-          domFoodDialog.open();
+          newFoodDialog = true;
         "
       ></BaseButton>
       <BaseButton secondary @click="filter = !filter"> Filter </BaseButton>
@@ -45,17 +59,17 @@
             @click="
               create = false;
               actions.setWorking(item);
-              domFoodDialog.open();
+              newFoodDialog = true;
             "
           ></BaseButton>
-          <BaseDialog :title="$t('general.confirm')" color="error" @confirm="actions.deleteOne(item.id)">
-            <template #activator="{ open }">
-              <BaseButton delete small @click="open"></BaseButton>
-            </template>
-            <v-card-text>
-              {{ $t("general.confirm-delete-generic") }}
-            </v-card-text>
-          </BaseDialog>
+          <BaseButton
+            delete
+            small
+            @click="
+              deleteFoodDialog = true;
+              deleteTarget = item.id;
+            "
+          ></BaseButton>
         </div>
       </template>
     </v-data-table>
@@ -90,6 +104,9 @@ export default defineComponent({
     });
 
     const state = reactive({
+      deleteFoodDialog: false,
+      newFoodDialog: false,
+      deleteTarget: 0,
       headers: [
         { text: "Id", value: "id" },
         { text: "Name", value: "name" },
