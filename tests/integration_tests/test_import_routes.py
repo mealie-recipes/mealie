@@ -3,7 +3,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-from tests.app_routes import AppRoutes
+from tests.utils.app_routes import AppRoutes
 
 
 @pytest.fixture

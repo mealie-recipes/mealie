@@ -2,7 +2,7 @@ import json
 
 from fastapi.testclient import TestClient
 
-from tests.app_routes import AppRoutes
+from tests.utils.app_routes import AppRoutes
 from tests.utils.fixture_schemas import TestUser
 
 
