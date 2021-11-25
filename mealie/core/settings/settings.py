@@ -99,8 +99,8 @@ class AppSettings(BaseSettings):
             self.LDAP_BIND_TEMPLATE,
             self.LDAP_ADMIN_FILTER,
         }
-
-        return "" not in required and None not in required and self.LDAP_AUTH_ENABLED
+        not_none = None not in required
+        return self.LDAP_AUTH_ENABLED and not_none
 
     class Config:
         arbitrary_types_allowed = True

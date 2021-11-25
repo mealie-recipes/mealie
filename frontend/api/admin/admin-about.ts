@@ -31,6 +31,7 @@ export interface CheckAppConfig {
   emailReady: boolean;
   baseUrlSet: boolean;
   isSiteSecure: boolean;
+  ldapReady: boolean;
 }
 
 export class AdminAboutAPI extends BaseAPI {
