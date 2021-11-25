@@ -5,11 +5,10 @@ from fastapi.responses import JSONResponse
 from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 
-logger = get_logger(__name__)
+logger = get_logger()
 
 
 def log_wrapper(request: Request, e):
-
     logger.error("Start 422 Error".center(60, "-"))
     logger.error(f"{request.method} {request.url}")
     logger.error(f"error is {e}")
