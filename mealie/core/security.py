@@ -16,7 +16,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"
 
 
-def create_access_token(data: dict(), expires_delta: timedelta = None) -> str:
+def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
     settings = get_app_settings()
 
     to_encode = data.copy()
@@ -78,7 +78,7 @@ def user_from_ldap(db: Database, session, username: str, password: str) -> Priva
     return user
 
 
-def authenticate_user(session, email: str, password: str) -> PrivateUser | False:
+def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
     settings = get_app_settings()
 
     db = get_database(session)
