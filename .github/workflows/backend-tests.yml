@@ -10,9 +10,17 @@ on:
 
 jobs:
   tests:
+    runs-on: ubuntu-latest
+
     env:
       PRODUCTION: false
-    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        Database: [sqlite, postgres]
+
+    # Services
     services:
       postgres:
         image: postgres
@@ -23,6 +31,8 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         ports:
           - 5432:5432
+
+    # Steps
     steps:
       #----------------------------------------------
       #       check-out repo and set-up python
@@ -63,14 +73,8 @@ jobs:
       #              run test suite
       #----------------------------------------------
       - name: Run Test Suite
-        run: |
-          make test-all
-      #----------------------------------------------
-      #              run test suite
-      #----------------------------------------------
-      - name: Run Test Suite Postgres
         env:
-          DB_ENGINE: postgres
+          DB_ENGINE: ${{ matrix.Database }}
           POSTGRES_SERVER: localhost
         run: |
           make test-all
