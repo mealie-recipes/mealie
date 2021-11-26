@@ -1,9 +1,17 @@
 import json
+from pathlib import Path
+from typing import Optional, Tuple, Union
 
 import pytest
+from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
+from pytest import MonkeyPatch
+from recipe_scrapers._abstract import AbstractScraper
+from recipe_scrapers._schemaorg import SchemaOrg
 from slugify import slugify
 
+from mealie.services.scraper import scraper
+from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
 from tests.utils.app_routes import AppRoutes
 from tests.utils.fixture_schemas import TestUser
 from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
@@ -11,10 +19,65 @@ from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
 recipe_test_data = get_recipe_test_cases()
 
 
+def get_init(html_path: Path):
+    """
+    Override the init method of the abstract scraper to return a bootstrapped init function that
+    serves the html from the given path instead of calling the url.
+    """
+
+    def init_override(
+        self,
+        url,
+        proxies: Optional[str] = None,
+        timeout: Optional[Union[float, Tuple, None]] = None,
+        wild_mode: Optional[bool] = False,
+        **_,
+    ):
+        page_data = html_path.read_bytes()
+        url = "https://test.example.com/"
+
+        self.wild_mode = wild_mode
+        self.soup = BeautifulSoup(page_data, "html.parser")
+        self.url = url
+        self.schema = SchemaOrg(page_data)
+
+    return init_override
+
+
+def open_graph_override(html: str):
+    def get_html(self) -> str:
+        return html
+
+    return get_html
+
+
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_create_by_url(
-    api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, unique_user: TestUser
+    api_client: TestClient,
+    api_routes: AppRoutes,
+    recipe_data: RecipeSiteTestCase,
+    unique_user: TestUser,
+    monkeypatch: MonkeyPatch,
 ):
+    # Override init function for AbstractScraper to use the test html instead of calling the url
+    monkeypatch.setattr(
+        AbstractScraper,
+        "__init__",
+        get_init(recipe_data.html_file),
+    )
+    # Override the get_html method of the RecipeScraperOpenGraph to return the test html
+    monkeypatch.setattr(
+        RecipeScraperOpenGraph,
+        "get_html",
+        open_graph_override(recipe_data.html_file.read_text()),
+    )
+    # Skip image downloader
+    monkeypatch.setattr(
+        scraper,
+        "download_image_for_recipe",
+        lambda *_: "TEST_IMAGE",
+    )
+
     api_client.delete(api_routes.recipes_recipe_slug(recipe_data.expected_slug), headers=unique_user.token)
 
     response = api_client.post(api_routes.recipes_create_url, json={"url": recipe_data.url}, headers=unique_user.token)

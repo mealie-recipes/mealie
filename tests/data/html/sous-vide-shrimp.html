@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en">
+<head>
+    <title>Sous Vide Shrimp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Shrimp cooked by traditional methods can be fantastic, but nailing the perfect temperature requires precision. Let them cook just a few seconds too long—whether poaching, searing, or grilling—and they go from tender and plump to rubbery and tough. With a sous vide cooker, you don't have this issue because that short window of time between perfect and overcooked stretches out to a good half hour or so.">
+    <meta name="Keywords" content=" Sous vide, Sousvide, water bath, immersion circulator"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <link rel="canonical" href='https://recipes.anovaculinary.com/recipe/sous-vide-shrimp'>
+    <link ref="canonical" href="https://recipes.anovaculinary.com/recipe/sous-vide-shrimp">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <!-- preload css -->
+    
+    <link rel="preload" href="https://recipes.anovaculinary.com/css/index.css"
+          as="style" />
+    <link rel="preload" href="https://recipes.anovaculinary.com/css/recipe.css"
+          as="style" />
+    <link rel="preload" href="https://recipes.anovaculinary.com/css/main.css"
+          as="style" />
+    <link rel="preload" as="style"
+          href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    <!-- These dependecies are imported by the index.css script -->
+    <link rel="preload" href="https://recipes.anovaculinary.com/js/lib/x-editable-master/dist/bootstrap3-editable/css/bootstrap-editable.css"
+          as="style" />
+    <link rel="preload" href="https://recipes.anovaculinary.com/css/node/star-rating.min.css"
+          as="style" />
+    <link rel="preload" href="https://recipes.anovaculinary.com/css/node/theme.min.css"
+          as="style" />
+
+	<script type="text/javascript">
+	window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var i=n[t]={exports:{}};e[t][0].call(i.exports,function(n){var i=e[t][1][n];return r(i||n)},i,i.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<t.length;i++)r(t[i]);return r}({1:[function(e,n,t){function r(){}function i(e,n,t){return function(){return o(e,[u.now()].concat(f(arguments)),n?null:this,t),n?void 0:this}}var o=e("handle"),a=e(4),f=e(5),c=e("ee").get("tracer"),u=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",d=l+"ixn-";a(p,function(e,n){s[n]=i(l+n,!0,"api")}),s.addPageAction=i(l+"addPageAction",!0),s.setCurrentRouteName=i(l+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,i="function"==typeof n;return o(d+"tracer",[u.now(),e,t],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],t),i)try{return n.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],t),e}finally{c.emit("fn-end",[u.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=i(d+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),o("err",[e,u.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){var t=e.getEntries();t.forEach(function(e){"first-paint"===e.name?c("timing",["fp",Math.floor(e.startTime)]):"first-contentful-paint"===e.name&&c("timing",["fcp",Math.floor(e.startTime)])})}function i(e,n){var t=e.getEntries();t.length>0&&c("lcp",[t[t.length-1]])}function o(e){if(e instanceof s&&!l){var n,t=Math.round(e.timeStamp);n=t>1e12?Date.now()-t:u.now()-t,l=!0,c("timing",["fi",t,{type:e.type,fid:n}])}}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var a,f,c=e("handle"),u=e("loader"),s=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){a=new PerformanceObserver(r),f=new PerformanceObserver(i);try{a.observe({entryTypes:["paint"]}),f.observe({entryTypes:["largest-contentful-paint"]})}catch(p){}}if("addEventListener"in document){var l=!1,d=["click","keydown","mousedown","pointerdown","touchstart"];d.forEach(function(e){document.addEventListener(e,o,!1)})}}},{}],3:[function(e,n,t){function r(e,n){if(!i)return!1;if(e!==i)return!1;if(!n)return!0;if(!o)return!1;for(var t=o.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}n.exports={agent:i,version:o,match:r}},{}],4:[function(e,n,t){function r(e,n){var t=[],r="",o=0;for(r in e)i.call(e,r)&&(t[o]=n(r,e[r]),o+=1);return t}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],5:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,i=t-n||0,o=Array(i<0?0:i);++r<i;)o[r]=e[n+r];return o}n.exports=r},{}],6:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function i(e){function n(e){return e&&e instanceof r?e:e?c(e,f,o):o()}function t(t,r,i,o){if(!l.aborted||o){e&&e(t,r,i);for(var a=n(i),f=v(t),c=f.length,u=0;u<c;u++)f[u].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function d(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||i(t)}function w(e,n){u(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:d,addEventListener:d,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function o(){return new r}function a(){(s.api||s.feature)&&(l.aborted=!0,s=l.backlog={})}var f="nr@context",c=e("gos"),u=e(4),s={},p={},l=n.exports=i();l.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(i.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return e[n]=r,r}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){i.buffer([e],r),i.emit(e,n,t)}var i=e("ee").get("handle");n.exports=r,r.ee=i},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,o,function(){return i++})}var i=1,o="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=E.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();u(y,function(n,t){e[n]||(e[n]=t)}),c("mark",["onload",a()+E.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function i(){"complete"===d.readyState&&o()}function o(){c("mark",["domContent",a()+E.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(f=Math.max((new Date).getTime(),f))-E.offset}var f=(new Date).getTime(),c=e("handle"),u=e(4),s=e("ee"),p=e(3),l=window,d=l.document,m="addEventListener",v="attachEvent",g=l.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:l.setImmediate,CT:clearTimeout,XHR:g,REQ:l.Request,EV:l.Event,PR:l.Promise,MO:l.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1167.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),E=n.exports={offset:f,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),e(2),d[m]?(d[m]("DOMContentLoaded",o,!1),l[m]("load",r,!1)):(d[v]("onreadystatechange",i),l[v]("onload",r)),c("mark",["firstbyte",f],null,"api");var x=0,O=e(6)},{}],"wrap-function":[function(e,n,t){function r(e){return!(e&&e instanceof Function&&e.apply&&!e[a])}var i=e("ee"),o=e(5),a="nr@original",f=Object.prototype.hasOwnProperty,c=!1;n.exports=function(e,n){function t(e,n,t,i){function nrWrapper(){var r,a,f,c;try{a=this,r=o(arguments),f="function"==typeof t?t(r,a):t||{}}catch(u){l([u,"",[r,a,i],f])}s(n+"start",[r,a,i],f);try{return c=e.apply(a,r)}catch(p){throw s(n+"err",[r,a,p],f),p}finally{s(n+"end",[r,a,c],f)}}return r(e)?e:(n||(n=""),nrWrapper[a]=e,p(e,nrWrapper),nrWrapper)}function u(e,n,i,o){i||(i="");var a,f,c,u="-"===i.charAt(0);for(c=0;c<n.length;c++)f=n[c],a=e[f],r(a)||(e[f]=t(a,u?f+i:i,o,f))}function s(t,r,i){if(!c||n){var o=c;c=!0;try{e.emit(t,r,i,n)}catch(a){l([a,t,r,i])}c=o}}function p(e,n){if(Object.defineProperty&&Object.keys)try{var t=Object.keys(e);return t.forEach(function(t){Object.defineProperty(n,t,{get:function(){return e[t]},set:function(n){return e[t]=n,n}})}),n}catch(r){l([r])}for(var i in e)f.call(e,i)&&(n[i]=e[i]);return n}function l(n){try{e.emit("internal-error",n)}catch(t){}}return e||(e=i),t.inPlace=u,t.flag=a,t}},{}]},{},["loader"]);
+	;NREUM.loader_config={accountID:"1689559",trustKey:"1689559",agentID:"434112079",licenseKey:"2bba10f7d4",applicationID:"434095722"}
+	;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"2bba10f7d4",applicationID:"434095722",sa:1}
+	</script>
+	    
+<meta property="og:title" content="Sous Vide Shrimp"/><meta property="og:url" content="https://recipes.anovaculinary.com/recipe/sous-vide-shrimp"/><meta property="og:type" content="website"/><meta property="og:image" content="https://images.anovaculinary.com/sous-vide-shrimp/header/sous-vide-shrimp-header-og.jpg"/><meta property="og:description" content="Shrimp cooked by traditional methods can be fantastic, but nailing the perfect temperature requires precision. Let them cook just a few seconds too long—whether poaching, searing, or grilling—and they go from tender and plump to rubbery and tough. With a sous vide cooker, you don&#039;t have this issue because that short window of time between perfect and overcooked stretches out to a good half hour or so."/>    <script>
+        /* SEGMENT */
+        //DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function () {
+            !function () {
+                var analytics = window.analytics = window.analytics || [];
+                if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
+                    analytics.invoked = !0;
+                    analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"];
+                    analytics.factory = function (t) {
+                        return function () {
+                            var e = Array.prototype.slice.call(arguments);
+                            e.unshift(t);
+                            analytics.push(e);
+                            return analytics
+                        }
+                    };
+                    for (var t = 0; t < analytics.methods.length; t++) {
+                        var e = analytics.methods[t];
+                        analytics[e] = analytics.factory(e)
+                    }
+                    analytics.load = function (t, e) {
+                        var n = document.createElement("script");
+                        n.type = "text/javascript";
+                        n.async = !0;
+                        n.src = "https://cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js";
+                        var a = document.getElementsByTagName("script")[0];
+                        a.parentNode.insertBefore(n, a);
+                        analytics._loadOptions = e
+                    };
+                    analytics.SNIPPET_VERSION = "4.1.0";
+                    analytics.load("rYmvQNpx1P4onofzitkhRuX9HeGMoA7m");
+                    document.dispatchEvent(new Event('SegmentReady'));
+                }
+            }();
+        });
+        /* Outbrain Pixel Code START */
+        document.addEventListener('DOMContentLoaded', function () {
+            /** DO NOT MODIFY THIS CODE**/
+            !function (_window, _document) {
+                var OB_ADV_ID = '0084891eeaf47099a03101e1272fe91124';
+                if (_window.obApi) {
+                    var toArray = function (object) {
+                        return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
+                    };
+                    _window.obApi.marketerId = toArray(_window.obApi.marketerId).concat(toArray(OB_ADV_ID));
+                    return;
+                }
+                var api = _window.obApi = function () {
+                    api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
+                };
+                api.version = '1.1';
+                api.loaded = true;
+                api.marketerId = OB_ADV_ID;
+                api.queue = [];
+                var tag = _document.createElement('script');
+                tag.async = true;
+                tag.src = '//amplify.outbrain.com/cp/obtp.js';
+                tag.type = 'text/javascript';
+                var script = _document.getElementsByTagName('script')[0];
+                script.parentNode.insertBefore(tag, script);
+            }(window, document);
+            document.dispatchEvent(new Event('OutbrainReady'));
+    });
+        /* Outbrain Pixel Code END */
+        /* Taboola Pixel Code START */
+        document.addEventListener('DOMContentLoaded', function () {
+            window._tfa = window._tfa || [];
+            window._tfa.push({notify: 'event', name: 'page_view', id: 1113554});
+            !function (t, f, a, x) {
+                if (!document.getElementById(x)) {
+                    t.async = 1;
+                    t.src = a;
+                    t.id = x;
+                    f.parentNode.insertBefore(t, f);
+                }
+            }(
+                document.createElement('script'),
+                document.getElementsByTagName('script')[0],
+                '//cdn.taboola.com/libtrc/unip/1113554/tfa.js',
+                'tb_tfa_script'
+            );
+            document.dispatchEvent(new Event('TaboolaReady'));
+        });
+        /* Taboola Pixel Code END */
+        document.addEventListener('SegmentReady', function() {
+            analytics.page("");
+        });
+        document.addEventListener('OutbrainReady', function () {
+            // Outbrain
+            obApi('track', 'PAGE_VIEW');
+        });
+        /** END GFM **/
+        /** Facebook init **/
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId            : '463719370408355', // in a global but not used
+                autoLogAppEvents : false,
+                xfbml            : true, // This is what's rendering comments
+                version          : 'v5.0' //v2.7 used in
+            });
+        };
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/><link rel="stylesheet" type="text/css" href="/css/recipe.css"/><link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" async="async"/></head>
+<body class="index recipe-view antialiased">
+<div id="fb-root"></div>
+
+<div id="main" class="wrapper">
+    <style>body,html{-webkit-overflow-scrolling:touch!important;height:100%!important}#header ul.dropdown li a:hover{color:#ff8b01!important}body .modal .modal-dialog.modal-recipe{width:fit-content;padding:17px}.modal .modal-dialog{width:fit-content}</style>
+<div id="header">
+    <div class="container">
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="row">
+                    <nav class="top-bar" data-topbar="">
+                        <ul class="title-area">
+                            <li class="name">
+                                <a id="home-link" href="https://anovaculinary.com"><img
+                                            style="width: 130px;"
+                                            src="/images/svg/anova_logo.svg"
+                                            alt="Anova Culinary"></a>
+                            </li>
+                            <li class="toggle-topbar menu-icon"><a href="#" aria-label="expand_menu"></a></li>
+                        </ul>
+                        <section class="top-bar-section">
+                            <ul class="right">
+                                <li><a href="https://anovaculinary.com/recipes/" class="current">Recipes</a></li>
+                                <li><a href="https://community.anovaculinary.com">Community</a></li>
+                                <li><a href="https://support.anovaculinary.com/hc/en-us">Support</a></li>
+                                                                    <li>
+                                        <a href="https://anovaculinary.io/ali/?redirect_uri=https://recipes.anovaculinary.com/login">Login</a>
+                                    </li>
+                                                            </ul>
+                        </section>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="flash-message">
+            </div>
+    <div id="content-wrapper" class="content-wrapper">
+        
+<!-- comment: SCHEMA.ORG -->
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org/",
+    "@type": "Recipe",
+    "name": "Sous Vide Shrimp",
+    "image": "https://images.anovaculinary.com/sous-vide-shrimp/header/sous-vide-shrimp-header-centered.jpg",
+    "author": {
+        "@type": "Person",
+        "name": "J. Kenji López-Alt",
+        "image": "https://s3.amazonaws.com/anovarecipes/images/users/kenji-portrait.jpg"
+    },
+    "description": "Shrimp cooked by traditional methods can be fantastic, but nailing the perfect temperature requires precision. Let them cook just a few seconds too long—whether poaching, searing, or grilling—and they go from tender and plump to rubbery and tough. With a sous vide cooker, you don't have this issue because that short window of time between perfect and overcooked stretches out to a good half hour or so.",
+    "prepTime": "PT00H20M",
+    "totalTime": "PT00H30M",
+    "recipeYield": "Ingredients for 4",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "3.74",
+        "reviewCount": "1083"
+    },
+    "recipeIngredient": [
+        "1 1/2 pounds large peeled shrimp (about 700g)",
+        "Kosher salt",
+        "1/2 teaspoon baking soda",
+        "Extra virgin olive oil or butter (optional)",
+        "Aromatics such as garlic, shallots, tarragon, or parsley (optional)"
+    ]
+}</script><input type="hidden" id="recipe_id" value="1107" />
+<div class="single-recipe">
+    <div class="recipe-title">
+        <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+                "@id": "/recipes/fish-and-seafood",
+                "name": "Fish & Seafood"
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+                "@id": "/recipes/shrimp",
+                "name": "Shrimp"
+            }
+        }
+    ]
+}</script><div class="row">
+    <div class="small-12 medium-12 large-12 columns">
+        <ul class="breadcrumbs" style="padding-top: 20px">
+            <li><a href="/">Recipes</a></li>
+                    <li>
+                <a href="/recipes/fish-and-seafood">
+                    Fish & Seafood                </a>
+            </li>
+                    <li>
+                <a href="/recipes/shrimp">
+                    Shrimp                </a>
+            </li>
+                </ul>
+        <div class="title-wrapper">
+            <h1 class="editable-field"
+                data-type="textarea"
+                data-name="name"
+                data-pk="1107"
+                data-title="Title"
+                data-placement="bottom">
+            Sous Vide Shrimp            </h1>
+            <div id="recipeRating" class="rate-wrapper summary-rate">
+                <input type="number"
+                        class="rating" value="3.74"
+                        data-theme="krajee-uni"
+                        min="0" max="5" step="1"
+                        data-size="xs"
+                        data-disabled="true"
+                        data-url="https://recipes-api.anovaculinary.com/v1/recipes/1107/ratings"/>
+                <span class="star-count">(1083)</span>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <div class="row poster-recipe">
+        <div class="poster-column small-12 medium-7 large-8 columns" style="overflow:hidden; max-height:320px;">
+    <div id="poster-img-responsive" class="img-responsive lazy" style="background-image: url('https://images.anovaculinary.com/sous-vide-shrimp/header/sous-vide-shrimp-header-og.jpg');"></div>
+</div>
+        
+<div class="small-12 medium-5 large-4 columns biography-wrapper">
+    <div class="bg-poster"></div>
+    <div class="inner-dat">
+        <div class="author clearfix">
+            <a href="/user/j-kenji-lopez-alt">
+                <div class="avatar"
+                    style="background-image: url('https://s3.amazonaws.com/anovarecipes/images/users/kenji-portrait-resize-250x298-555a58e1657ba-s.jpg');">
+                </div>
+                <div class="author-data ">
+                    <h4>J. Kenji López-Alt                    </h4>
+                    <h6>San Francisco</h6>
+                </div>
+            </a>            <div style="padding-top:25px;  float: right;cursor: pointer;line-height:21px"
+                    onClick="$('#user_bio').toggle();$(this).toggleClass('dropup')"
+                    class="hide-for-medium-up">
+                <a class="caret" style="margin:10px"></a>
+            </div>        </div>
+        <p class="show-for-medium-up">J. Kenji López-Alt is the Managing Culinary Director of Serious Eats, author of the James Beard Award-nominated column The Food Lab, and a columnist for Cooking Light. He lives in San Francisco. A New York native, Kenji cut his cooking chops the old-fashioned way by wo <a href="/user/j-kenji-lopez-alt">...</a></p>
+        <div class="hide-for-medium-up">
+            <div style="display:none" id="user_bio">
+                <p>J. Kenji López-Alt is the Managing Culinary Director of Serious Eats, author of the James Beard Award-nominated column The Food Lab, and a columnist for Cooking Light. He lives in San Francisco. A New York native, Kenji cut his cooking chops the old-fashioned way by wo <a href="/user/j-kenji-lopez-alt">...</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <div class="row recipe-data">
+        <div class="small-12 medium-12 large-8 columns">
+            <div class="data-block recipe-toolbar">
+    <ul class="recipe-toolbar-rating recipe-toolbar-element">
+        <li class="recipe-toolbar-rating-rate">
+            <span>
+                <span>Rate This</span>
+            </span>
+            <input
+    type="number"
+    class="rating rating-action"
+    data-theme="krajee-uni"
+    value="0"
+    min="0" max="5" step="1"
+    data-min="0" data-max="5" data-step="1" data-size="xs"
+    data-disabled="false"
+    data-url="https://recipes-api.anovaculinary.com/v1/recipes/1107/ratings"
+/>
+        </li>
+    </ul>
+    <ul class="recipe-toolbar-action recipe-toolbar-element">
+        <li class="recipe-toolbar-action-save">
+            <span>
+                <span>Save</span>
+                <i class="fa recipe-toolbar-action-icon fa-heart-o"></i>
+            </span>
+        </li>
+        <li class="recipe-toolbar-action-share dropdown-container">
+            <a class="recipe-toolbar-action-share-dropdown"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <span>Share</span>
+                <i class="fa fa-share-square-o recipe-toolbar-action-icon"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li class="dropdown-item facebook-share">
+                    <i class="fa fa-facebook-square"></i>
+                </li>
+                <li class="dropdown-item twitter-share">
+                    <i class="fa fa-twitter-square"></i>
+                </li>
+                <li class="dropdown-item pinterest-share">
+                    <i class="fa fa-pinterest"></i>
+                </li>
+                <li class="dropdown-item envelope-share">
+                    <i class="fa fa-envelope-square"></i>
+                </li>
+            </ul>
+        </li>
+        <li class="recipe-toolbar-action-print">
+            <a target="_blank" href="/recipe/print/sous-vide-shrimp">
+                <span>Print</span>
+                <i class="fa fa-print recipe-toolbar-action-icon"></i>
+            </a>
+        </li>
+        <li class="recipe-toolbar-action-flag dropdown-container">
+            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span>Flag</span>
+                <i class="fa fa-flag-o recipe-toolbar-action-icon"></i>
+            </a>
+            <div class="flag-dropdown dropdown-menu">
+                <p>If this recipe is inappropriate or has problems, please flag it for review.</p>
+                                    <a id="flag-recipe" data-id="1107">Flag for Review</a>
+                            </div>
+        </li>
+    </ul>
+    <div style="clear: both;"></div>
+</div>
+            <div class="data-block">
+                <div class="recipe-data-item" style="margin-bottom: 0px">
+    <div class="description" style="margin-bottom: 0px">
+        <div class="data-block toggle-view" style="padding: 0px">
+            <div class="description-text"><span style="color: rgb(61, 65, 74); font-family: effra, Avenir, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 18px;">Shrimp cooked by traditional methods can be fantastic, but nailing the perfect temperature requires precision. Let them cook just a few seconds too long—whether poaching, searing, or grilling—and they go from tender and plump to rubbery and tough. With a sous vide cooker, you don't have this issue because that short window of time between perfect and overcooked stretches out to a good half hour or so.</span></div>
+            <div class="toggle-view-btn">Read More</div>
+        </div>
+    </div>
+</div>
+                <br style="clear:both">
+                <div class="recipe-data-item">        <h4>
+            Ingredients for <span class="small">4</span>
+        </h4>        <ul class='steps double'>            <li><p>1 1/2 pounds large peeled shrimp (about 700g)</p></li>            <li><p>Kosher salt</p></li>            <li><p>1/2 teaspoon baking soda</p></li>        </ul>        <ul class='steps double'>            <li><p>Extra virgin olive oil or butter (optional)</p></li>            <li><p>Aromatics such as garlic, shallots, tarragon, or parsley (optional)</p></li>        </ul></div>
+                                <div class="recipe-data-item">    <h4>Directions</h4>
+    <ul class="steps with-img">        <li class="clearfix">
+                            <img class="img-responsive" loading="lazy" src='https://images.anovaculinary.com/sous-vide-shrimp/directions/sous-vide-shrimp-directions-image-small-0.jpg' />
+                        <div class="info ">
+                <h5>Step 1</h5>
+                <p class="editable-field" data-type="subModel" data-name="Direction"
+                    data-pk="1107"
+                    data-title="Direction 1"
+                    data-value="{&quot;text&quot;:&quot;Set Anova Sous Vide Precision Cooker to desired temp. Multiple options available to choose from in drop down menu.&quot;,&quot;id&quot;:&quot;6934&quot;}">
+                    Set Anova Sous Vide Precision Cooker to desired temp. Multiple options available to choose from in drop down menu.                </p>
+            </div>
+        </li>
+            <li class="clearfix">
+                            <img class="img-responsive" loading="lazy" src='https://images.anovaculinary.com/sous-vide-shrimp/directions/sous-vide-shrimp-directions-image-small-1.jpg' />
+                        <div class="info ">
+                <h5>Step 2</h5>
+                <p class="editable-field" data-type="subModel" data-name="Direction"
+                    data-pk="1107"
+                    data-title="Direction 2"
+                    data-value="{&quot;text&quot;:&quot;In a large bowl, toss shrimp with 1\/2 teaspoon kosher salt and the baking soda. Place shrimp in a heavy duty zipper-lock bag or a vacuum bag. If desired, add 1 to 2 tablespoons (15 to 30ml) olive oil or butter and aromatics. Remove all air from bag using the water displacement method or a vacuum sealer. Press shrimp into a single layer.&quot;,&quot;id&quot;:&quot;6935&quot;}">
+                    In a large bowl, toss shrimp with 1/2 teaspoon kosher salt and the baking soda. Place shrimp in a heavy duty zipper-lock bag or a vacuum bag. If desired, add 1 to 2 tablespoons (15 to 30ml) olive oil or butter and aromatics. Remove all air from bag using the water displacement method or a vacuum sealer. Press shrimp into a single layer.                </p>
+            </div>
+        </li>
+            <li class="clearfix">
+                            <img class="img-responsive" loading="lazy" src='https://images.anovaculinary.com/sous-vide-shrimp/directions/sous-vide-shrimp-directions-image-small-2.jpg' />
+                        <div class="info ">
+                <h5>Step 3</h5>
+                <p class="editable-field" data-type="subModel" data-name="Direction"
+                    data-pk="1107"
+                    data-title="Direction 3"
+                    data-value="{&quot;text&quot;:&quot;Add bagged shrimp to preheated water bath and cook for at least 15 minutes and up to 1 hour (the texture should show very little variation within this time frame). &quot;,&quot;id&quot;:&quot;6936&quot;}">
+                    Add bagged shrimp to preheated water bath and cook for at least 15 minutes and up to 1 hour (the texture should show very little variation within this time frame).                 </p>
+            </div>
+        </li>
+        </ul>
+</div>
+                <div class="recipe-data-item">    <ul class="steps with-img" >        <ul>
+            <li>
+                <h4 class="editable-field" data-type="subModel"
+                    data-pk="1107"
+                    data-name="FinishingStepTitle"
+                    data-title="Finishings Step Title"
+                    data-value="{&quot;text&quot;:&quot;Finishing Steps&quot;,&quot;id&quot;:&quot;1098&quot;}">
+                        Finishing Steps                </h4>
+                            </li>        <li class="clearfix">
+                            <img class="img-responsive" loading="lazy" src='https://images.anovaculinary.com/sous-vide-shrimp/finishing-steps/sous-vide-shrimp-finishing-steps-image-small-0.jpg' />
+                        <div class="info ">
+                <h5>Step 0</h5>
+                <p class="editable-field" data-type="subModel" data-name="FinishingStep"
+                    data-pk="1107"
+                    data-title="Finishing Step 0"
+                    data-value="{&quot;text&quot;:&quot;Remove shrimp from bag to a paper towel-lined plates. Serve hot, or chill and serve cold.&quot;,&quot;id&quot;:&quot;4183&quot;}">
+                    Remove shrimp from bag to a paper towel-lined plates. Serve hot, or chill and serve cold.                </p>
+            </div>
+        </li>
+                </ul>
+        </ul>
+</div>
+                <div class="recipe-data-item social">
+                    <h3>Did you like this recipe?</h3>
+                    <h5>Rate it</h5>
+                    <input
+    type="number"
+    class="rating rating-action"
+    data-theme="krajee-uni"
+    value="0"
+    min="0" max="5" step="1"
+    data-min="0" data-max="5" data-step="1" data-size="xs"
+    data-disabled="false"
+    data-url="https://recipes-api.anovaculinary.com/v1/recipes/1107/ratings"
+/>
+                </div>
+                <div class="recipe-data-item">
+    <h3>Latest Comments</h3>
+    <div class="fb-comments"
+            data-href="https://recipes.anovaculinary.com/recipe/sous-vide-shrimp"
+            data-width="100%" data-numposts="5" data-colorscheme="light">
+    </div>
+</div>
+            </div>
+        </div>
+        <div class="medium-12 large-4 columns hide-for-medium-down recipe-details">
+    <div class="variations-widget data-block" style="padding-bottom:0px" data-pk="1107">
+        <div class="recipe-data">
+            <div class="variations-values row">
+                <div class="variation-temp small-6 medium-6 large-6 columns" style="padding:0px" >
+                    <span class="data">
+                        130 F / 54.4 C                    </span>
+                    <span class="title">Recipe Temp</span>
+                </div>
+                <div class="variation-time small-6 medium-6 large-6 columns">
+                        <time class="data">
+                            00:30                        </time>
+                        <span class="title">Recipe Time</span>
+                    </div>
+                    <div class="small-12 medium-12 large-12 columns" style="padding-top:15px">
+                        <time class="data">
+                            00:20                        </time>
+                        <span class="title">Prep Time</span>
+                    </div>
+                </div>
+                <select style='margin-bottom: 25px;'><option data-option="91" >Translucent and semi-raw with a soft, buttery texture.</option><option data-option="92"selected="selected" >Nearly opaque and very tender with a hint of firmness.</option><option data-option="93" >Barely opaque, moist, juicy, and tender.</option><option data-option="94" >Traditional poached texture with good bounce and a snappy, juicy bite.</option></select>            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+    </div>
+</div>
+
+<footer id="footer">
+  <div id="main-footer">
+    <div id="main-footer-border" class="container">
+      <div id="main-footer-row" class="row">
+        <div class="col-xs-12 col-md-4 mobile-center">
+        <div class="klaviyo-form-MfMgZL"></div>
+          <div class="social-icons mobile-center">
+            <a href="https://www.facebook.com/AnovaSousVideCooking" aria-label="facebook">
+              <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/anovaculinary/" aria-label="instagram">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://twitter.com/anovaculinary" aria-label="twitter">
+              <i class="fa fa-twitter-square" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.pinterest.com/anovaculinary/" aria-label="pinterest">
+              <i class="fa fa-pinterest" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/company/3809887" aria-label="linkedin">
+              <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-2 footer-links mobile-center">
+          <aside>
+            <h3>About</h3>
+            <div>
+              <ul>
+                  <li><a href="https://anovaculinary.com/about-us/">About Us</a></li>
+                  <li><a href="https://anovaculinary.com/careers/">Careers</a></li>
+                  <li><a href="https://anovaculinary.com/affiliate-program/">Affiliate Program</a></li>
+                  <li><a href="https://anovaculinary.com/press/">Press</a></li>
+                  <li><a href="https://anovaculinary.com/blog/">Blog</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+
+        <div class="col-xs-12 col-md-2 footer-links mobile-center">
+          <aside>
+            <h3>Get Help</h3>
+            <div>
+              <ul>
+                  <li><a href="https://support.anovaculinary.com/hc/en-us">Support</a></li>
+                  <li><a href="https://community.anovaculinary.com/">Community</a></li>
+                  <li><a href="https://anovaculinary.com/contact/">Contact</a></li>
+                  <li><a href="https://anovaculinary.com/pages/order-lookup/">Order Lookup</a></li>
+                  <li><a href="https://anovaculinary.com/do-not-sell">Do Not Sell My Information</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+        <div class="col-xs-12 col-md-2 footer-links mobile-center">
+          <aside>
+            <h3>Shop</h3>
+            <div>
+              <ul>
+                  <li><a href="https://anovaculinary.com/anova-precision-cooker/">Precision® Cookers</a></li>
+                  <li><a href="https://anovaculinary.com/anova-precision-oven/">Anova Precision® Oven</a></li>
+                  <li><a href="https://anovaculinary.com/sous-vide-accessories/">Sous Vide Accessories</a></li>
+                  <li><a href="https://support.anovaculinary.com/hc/en-us/articles/204269040-Warranty-Provision">Warranty Policy</a></li>
+                  <li><a href="https://support.anovaculinary.com/hc/en-us/articles/201710434-What-is-your-Returns-Refunds-and-Warranty-Policies-">Return Policy</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+        <div class="col-xs-12 col-md-2 footer-links mobile-center">
+          <aside>
+            <h3>Resources</h3>
+            <div>
+              <ul>
+                  <li><a href="https://anovaculinary.com/recipes/">Recipes</a></li>
+                  <li><a href="https://anovaculinary.com/what-is-sous-vide/">What is Sous Vide</a></li>
+                  <li><a href="https://anovaculinary.com/anova-precision-oven/what-is-a-combi-oven/">What is a Combi Oven</a></li>
+                  <li><a href="https://anovaculinary.com/app/">Anova App</a></li>
+                  <li><a href="https://anovaculinary.com/corporate-responsibility/">Social Impact</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+
+      </div>    <!-- ROW -->
+    </div>      <!-- CONTAINER -->
+  </div>        <!-- MAIN FOOTER -->
+  <div id="subfooter">
+    <div class="container" id="subfooter-border">
+      <div class="row" >
+        <div id="footer-legal" class="col-md-12 text-center">
+          <ul class="list-inline">
+            <li style="margin-right: 0px !important;"><span id="copyright"> © 2013 - 2021 Anova Applied Electronics, Inc.</span></li>
+            <li><a href="https://anovaculinary.com/privacy/">Privacy Policy</a></li>
+            <li><a href="https://anovaculinary.com/terms/">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>        <!--<script>-->
+        <!--    window.lazyLoadOptions = {-->
+        <!--        elements_selector: ".lazy"-->
+        <!--    };-->
+        <!--    // Listen to the initialization event and get the instance of LazyLoad-->
+        <!--    window.addEventListener('LazyLoad::Initialized', function (event) {-->
+        <!--        window.lazyLoadInstance = event.detail.instance;-->
+        <!--    }, false);-->
+        <!--</script>-->
+        <noscript>
+            <!-- Pinterest Fallback -->
+            <img height="1" width="1" style="display:none;" alt=""
+                 src="https://ct.pinterest.com/v3/?tid=2616467133356&noscript=1"/>
+            <!-- LinkedIn Fallback -->
+            <img height="1" width="1" style="display:none;" alt=""
+                 src="https://dc.ads.linkedin.com/collect/?pid=52091&fmt=gif"/>
+            <!-- Taboola Fallback -->
+            <img src='https://trc.taboola.com/1113554/log/3/unip?en=page_view'
+                 width='0' height='0' style='display:none'/>
+        </noscript>
+        <script type="text/javascript" src="/js/source-min.js"></script>
+        <script defer="defer" type="text/javascript">
+//<![CDATA[
+    function defer(method, delay=1000) {
+        delay = delay*2;
+        if (typeof $ == 'undefined') {
+            setTimeout(defer(method, delay), delay);
+            return;
+        }
+        window.requestAnimationFrame(method);
+    }
+    defer(function (timestamp) {
+        if(document.querySelectorAll('.recipe-toolbar-action-share').length) {
+            document.querySelector('.facebook-share').addEventListener('click', function() {
+                FB.ui({
+                    method: 'share',
+                    href: `${window.location.href}`,
+                });
+            });
+            document.querySelector('.twitter-share').addEventListener('click', function() {
+                var tweet = 'Cook ' +  'Sous+Vide+Shrimp' + 'from @AnovaCulinary';
+                window.open('https://twitter.com/intent/tweet?text=' + tweet + '&url=' + window.location.href + '&hashtags=AnovaFoodNerd', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=500,width=600,height=400');
+            });
+            document.querySelector('.pinterest-share').addEventListener('click', function() {
+                window.open('https://www.pinterest.com/pin/create/button/?url=' + window.location.href + '&media=' + '' + '&description=' + 'Sous+Vide+Shrimp', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=500,width=600,height=400');
+            });
+            document.querySelector('.envelope-share').addEventListener('click', function() {
+                var emailSubject =  'Sous Vide Shrimp' + ' from Anova Culinary';
+                var emailBody = 'This recipe for ' + 'Sous Vide Shrimp' + ' from Anova Culinary looks delicious! Try it out: ' + window.location.href;
+                var emailLink = 'mailto:?subject=' + emailSubject + '&body=' + emailBody;
+                window.location.href = emailLink;
+            });
+        }
+        /**
+         * Favorite/unfavorite toggle logic
+         */
+        if(document.querySelectorAll('.recipe-toolbar-action-save').length) {
+            var $actionSave = document.querySelector('.recipe-toolbar-action-save');
+            var userLogged = '0';
+            $actionSave.addEventListener('click', function(event) {
+                // TODO: Look into what event.currentTarget is here
+                //var $actionSave = event.currentTarget;
+                if(!!userLogged || !event.currentTarget) {
+                    var recipeId = '1107';
+                    var $actionSaveIcon = event.currentTarget.querySelector('i');
+                    var action = "/recipe/unfavorite/";
+                    if ($actionSaveIcon.classList.contains('fa-heart-o')) {
+                        action = "/recipe/favorite/";
+                    }
+                    var posting = $.post(action + recipeId, { id: recipeId } );
+                    posting.done(function() {
+                        $actionSaveIcon.classList.toggle('fa-heart');
+                        $actionSaveIcon.classList.toggle('fa-heart-o');
+                    });
+
+                }
+            });
+        }
+
+        function coverImageResize() {
+            // .width() is a jQuery function. This is used in the edit forms.
+            let poster = $('#poster__main');
+            let posterImage = document.querySelectorAll('.img-responsive')[0].getAttribute('data-url');
+            let posterWidth = (poster) ? poster.width(): 0;
+            let posterInput = document.querySelector('#poster__main .poster__input');
+            let posterInputStyle = '';
+
+            if(posterImage) {
+                // TODO: The Ternary check should match the if check.
+                let posterImg = posterImage ? 'background-image: url(' + posterImage + ');' : '';
+                let posterStyle = posterImg + 'height: 320px !important;';
+                posterInputStyle = 'margin: 95px 0 !important;';
+                if (posterWidth < 480) {
+                    let calHeight = getHeight(posterWidth, 1.5);
+                    posterStyle = posterImg + 'height: ' + calHeight + 'px !important;';
+                    posterInputStyle = 'margin: ' + (calHeight / 2 - 65) + 'px 0 !important;';
+                }
+
+                document.querySelector('body form#poster__main')
+                    .setAttribute('style', posterStyle);
+                let posterMainImage = document.querySelector('body #poster__main-image');
+                    posterMainImage.setAttribute('style', posterStyle);
+                    posterMainImage.removeAttribute('data-url');
+                posterInput.setAttribute('style', posterInputStyle);
+            }
+
+            function getHeight(length, ratio) {
+                let height = ((length)/(Math.sqrt((Math.pow(ratio, 2)+1))));
+                return Math.round(height);
+            }
+        }
+        // TODO: descriptionResize is a function set it in global scope for recipeManager. Change that.
+        function descriptionResize() {
+            if(document.querySelectorAll('.profile__description').length) {
+                var profileDescription = $('.profile__description');
+                var profileDescriptionContent = document.querySelectorAll('.profile__description')[0].textContent;
+            }
+            let profileDescriptionHeight = parseInt(profileDescription.width());
+            let divider = 1.2;
+            // :visible is a complex conditional, there are options to replace it but none that are clean.
+            if($('.profile__details').is(':visible')) {
+                divider = 2;
+            }
+
+            if(profileDescriptionContent.length > 0) {
+                let suffix = (profileDescriptionContent.length) < profileDescriptionHeight ? '' : '...';
+                profileDescription.text((profileDescriptionContent).substr(0, (profileDescriptionHeight / divider)) + suffix);
+            }
+        };
+        function sizeToScreen() {
+            coverImageResize();
+            if(document.querySelectorAll('.profile__description').length) {
+                descriptionResize()
+            }
+        }
+        window.addEventListener('resize', function() {
+            sizeToScreen();
+        });
+        window.addEventListener('load', function() {
+            sizeToScreen();
+        });
+    });
+
+//]]>
+</script><script type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=Kxfd42" defer="defer"></script><script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js" async="async" defer="defer"></script>
+    </body>
+</html>

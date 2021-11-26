@@ -14,7 +14,4 @@ TEST_RAW_RECIPES = TEST_DATA.joinpath("scraper", "recipes-raw")
 TEST_CHOWDOWN_DIR = TEST_DATA.joinpath("migrations", "chowdown")
 TEST_NEXTCLOUD_DIR = TEST_DATA.joinpath("migrations", "nextcloud")
 
-# Routes
-
-if __name__ == "__main__":
-    pass
+TEST_HTML_DIR = TEST_DATA.joinpath("html")

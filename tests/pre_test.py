@@ -1,5 +1,9 @@
+import os
+
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.core.settings.db_providers import SQLiteProvider
+
+os.environ["PRODUCTION"] = "True"
 
 settings = get_app_settings()
 app_dirs = get_app_dirs()
