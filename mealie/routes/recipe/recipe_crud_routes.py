@@ -12,7 +12,8 @@ from mealie.schema.recipe import CreateRecipeByUrl, Recipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
 from mealie.schema.server.tasks import ServerTaskNames
 from mealie.services.recipe.recipe_service import RecipeService
-from mealie.services.scraper.scraper import create_from_url, scrape_from_url
+from mealie.services.scraper.scraper import create_from_url
+from mealie.services.scraper.scraper_strategies import RecipeScraperPackage
 from mealie.services.server_tasks.background_executory import BackgroundExecutor
 
 user_router = UserAPIRouter()
@@ -82,7 +83,8 @@ def parse_recipe_url_bulk(
 @user_router.post("/test-scrape-url")
 def test_parse_recipe_url(url: CreateRecipeByUrl):
     # Debugger should produce the same result as the scraper sees before cleaning
-    scraped_data = scrape_from_url(url.url)
+    scraped_data = RecipeScraperPackage(url.url).scrape_url()
+
     if scraped_data:
         return scraped_data.schema.data
     return "recipe_scrapers was unable to scrape this URL"

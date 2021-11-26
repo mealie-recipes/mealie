@@ -172,6 +172,13 @@ def instructions(instructions) -> List[dict]:
 
 
 def _instruction(line) -> str:
+    if isinstance(line, dict):
+        # Some Recipes dotnot adhear to schema
+        try:
+            line = line["text"]
+        except Exception:
+            line = ""
+
     clean_line = clean_string(line.strip())
     # Some sites erroneously escape their strings on multiple levels
     while not clean_line == (clean_line := clean_string(clean_line)):

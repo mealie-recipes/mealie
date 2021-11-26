@@ -1,16 +1,17 @@
+from __future__ import annotations
+
 from enum import Enum
-from typing import Any, Callable, Optional
 from uuid import uuid4
 
-import requests
 from fastapi import HTTPException, status
-from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, WebsiteNotImplementedError, scrape_me
+from recipe_scrapers import NoSchemaFoundInWildMode, WebsiteNotImplementedError, scrape_me
 from slugify import slugify
 
 from mealie.core.root_logger import get_logger
-from mealie.schema.recipe import Recipe, RecipeStep
+from mealie.schema.recipe import Recipe
 from mealie.services.image.image import scrape_image
-from mealie.services.scraper import cleaner, open_graph
+
+from .recipe_scraper import RecipeScraper
 
 logger = get_logger()
 
@@ -25,19 +26,17 @@ def create_from_url(url: str) -> Recipe:
     Returns:
         Recipe: Recipe Object
     """
-    # Try the different scrapers in order.
-    if scraped_data := scrape_from_url(url):
-        new_recipe = clean_scraper(scraped_data, url)
-    elif og_dict := extract_open_graph_values(url):
-        new_recipe = Recipe(**og_dict)
-    else:
+    scraper = RecipeScraper()
+    new_recipe = scraper.scrape(url)
+
+    if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
 
     logger.info(f"Image {new_recipe.image}")
     new_recipe.image = download_image_for_recipe(new_recipe.slug, new_recipe.image)
 
     if new_recipe.name is None or new_recipe.name == "":
-        new_recipe.name = "No Recipe Found" + uuid4().hex
+        new_recipe.name = "No Recipe Found - " + uuid4().hex
         new_recipe.slug = slugify(new_recipe.name)
 
     return new_recipe
@@ -47,14 +46,6 @@ class ParserErrors(str, Enum):
     BAD_RECIPE_DATA = "BAD_RECIPE_DATA"
     NO_RECIPE_DATA = "NO_RECIPE_DATA"
     CONNECTION_ERROR = "CONNECTION_ERROR"
-
-
-def extract_open_graph_values(url) -> Optional[dict]:
-    r = requests.get(url)
-    recipe = open_graph.basic_recipe_from_opengraph(r.text, url)
-    if recipe.get("name", "") == "":
-        return None
-    return recipe
 
 
 def scrape_from_url(url: str):
@@ -77,7 +68,7 @@ def scrape_from_url(url: str):
         try:
             scraped_schema = scrape_me(url, wild_mode=True)
         except (NoSchemaFoundInWildMode, AttributeError):
-            # Recipe_scraper was unable to extract a recipe.
+            logger.error("Recipe Scraper was unable to extract a recipe.")
             return None
 
     except ConnectionError:
@@ -99,62 +90,7 @@ def scrape_from_url(url: str):
     return None
 
 
-def clean_scraper(scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> Recipe:
-    def try_get_default(func_call: Callable, get_attr: str, default: Any, clean_func=None):
-        value = default
-        try:
-            value = func_call()
-        except Exception:
-            logger.error(f"Error parsing recipe func_call for '{get_attr}'")
-
-        if value == default:
-            try:
-                value = scraped_data.schema.data.get(get_attr)
-            except Exception:
-                logger.error(f"Error parsing recipe attribute '{get_attr}'")
-
-        if clean_func:
-            value = clean_func(value)
-
-        return value
-
-    def get_instructions() -> list[dict]:
-        instruction_as_text = try_get_default(
-            scraped_data.instructions, "recipeInstructions", ["No Instructions Found"]
-        )
-
-        logger.info(f"Scraped Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
-
-        instruction_as_text = cleaner.instructions(instruction_as_text)
-
-        logger.info(f"Cleaned Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
-
-        try:
-            return [RecipeStep(title="", text=x.get("text")) for x in instruction_as_text]
-        except TypeError:
-            return []
-
-    cook_time = try_get_default(None, "performTime", None, cleaner.clean_time) or try_get_default(
-        None, "cookTime", None, cleaner.clean_time
-    )
-
-    return Recipe(
-        name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
-        slug="",
-        image=try_get_default(None, "image", None),
-        description=try_get_default(None, "description", "", cleaner.clean_string),
-        nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
-        recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
-        recipe_ingredient=try_get_default(scraped_data.ingredients, "recipeIngredient", [""], cleaner.ingredient),
-        recipe_instructions=get_instructions(),
-        total_time=try_get_default(None, "totalTime", None, cleaner.clean_time),
-        prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time),
-        perform_time=cook_time,
-        org_url=url,
-    )
-
-
-def download_image_for_recipe(slug, image_url) -> dict:
+def download_image_for_recipe(slug, image_url) -> str | None:
     img_name = None
     try:
         img_path = scrape_image(image_url, slug)
