@@ -314,7 +314,7 @@ requests = "*"
 
 [[package]]
 name = "extruct"
-version = "0.12.0"
+version = "0.13.0"
 description = "Extract embedded metadata from HTML markup"
 category = "main"
 optional = false
@@ -1446,7 +1446,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "cd88ddf0b5bd0a771a2931c82acc8923fab2a743269e7ac0ae323eab9f1b38d5"
+content-hash = "b2f08a33545224a00a1a3db706d5dea723f64ef04365f6e1929d3b3875e76932"
 
 [metadata.files]
 aiofiles = [
@@ -1671,8 +1671,8 @@ emails = [
     {file = "emails-0.6.tar.gz", hash = "sha256:a4c2d67ea8b8831967a750d8edc6e77040d7693143fe280e6d2a367d9c36ff88"},
 ]
 extruct = [
-    {file = "extruct-0.12.0-py2.py3-none-any.whl", hash = "sha256:42c6c9f50b00aa6c17b5c26b5f1b3a337ebc27b427fafc3714f34ce3bbb16c2f"},
-    {file = "extruct-0.12.0.tar.gz", hash = "sha256:d4a68bb79d1b85ff36d603a42c2666888bb480191a399a659d9daaf735358276"},
+    {file = "extruct-0.13.0-py2.py3-none-any.whl", hash = "sha256:fe19b9aefdb4dfbf828c2b082b81a363a03a44c7591c2d6b62ca225cb8f8c0be"},
+    {file = "extruct-0.13.0.tar.gz", hash = "sha256:50a5b5bac4c5e19ecf682bf63a28fde0b1bb57433df7057371f60b58c94a2c64"},
 ]
 fastapi = [
     {file = "fastapi-0.63.0-py3-none-any.whl", hash = "sha256:98d8ea9591d8512fdadf255d2a8fa56515cdd8624dca4af369da73727409508e"},
