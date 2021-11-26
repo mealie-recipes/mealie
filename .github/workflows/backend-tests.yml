@@ -18,6 +18,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
+        # Database ENV Variablse as Specified by Mealie
         Database: [sqlite, postgres]
 
     # Services
