@@ -38,13 +38,18 @@ class Group(SqlAlchemyBase, BaseMixins):
     recipes = orm.relationship("RecipeModel", back_populates="group", uselist=True)
 
     # CRUD From Others
-    mealplans = orm.relationship(
-        GroupMealPlan, back_populates="group", single_parent=True, order_by="GroupMealPlan.date"
-    )
-    webhooks = orm.relationship(GroupWebhooksModel, uselist=True, cascade="all, delete-orphan")
-    cookbooks = orm.relationship(CookBook, back_populates="group", single_parent=True)
-    server_tasks = orm.relationship(ServerTaskModel, back_populates="group", single_parent=True)
-    shopping_lists = orm.relationship("ShoppingList", back_populates="group", single_parent=True)
+    common_args = {
+        "back_populates": "group",
+        "cascade": "all, delete-orphan",
+        "single_parent": True,
+    }
+
+    mealplans = orm.relationship(GroupMealPlan, order_by="GroupMealPlan.date", **common_args)
+    webhooks = orm.relationship(GroupWebhooksModel, **common_args)
+    cookbooks = orm.relationship(CookBook, **common_args)
+    server_tasks = orm.relationship(ServerTaskModel, **common_args)
+    shopping_lists = orm.relationship("ShoppingList", **common_args)
+    group_reports = orm.relationship("ReportModel", **common_args)
 
     class Config:
         exclude = {"users", "webhooks", "shopping_lists", "cookbooks", "preferences", "invite_tokens", "mealplans"}

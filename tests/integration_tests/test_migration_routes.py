@@ -1,105 +1,49 @@
-import json
-import shutil
 from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.core.config import get_app_dirs
-
-app_dirs = get_app_dirs()
 from tests.test_config import TEST_CHOWDOWN_DIR, TEST_NEXTCLOUD_DIR
-from tests.utils.app_routes import AppRoutes
+from tests.utils.fixture_schemas import TestUser
 
 
-@pytest.fixture(scope="session")
-def chowdown_zip():
-    zip = TEST_CHOWDOWN_DIR.joinpath("test_chowdown-gh-pages.zip")
+class Routes:
+    base = "/api/groups/migrations"
 
-    zip_copy = TEST_CHOWDOWN_DIR.joinpath("chowdown-gh-pages.zip")
-
-    shutil.copy(zip, zip_copy)
-
-    yield zip_copy
-
-    zip_copy.unlink()
+    @staticmethod
+    def report(item_id: str) -> str:
+        return f"/api/groups/reports/{item_id}"
 
 
-def test_upload_chowdown_zip(api_client: TestClient, api_routes: AppRoutes, chowdown_zip: Path, admin_token):
-    upload_url = api_routes.migrations_import_type_upload("chowdown")
-    response = api_client.post(upload_url, files={"archive": chowdown_zip.open("rb")}, headers=admin_token)
+@pytest.mark.parametrize(
+    "m_type, zip_path",
+    [
+        ("nextcloud", TEST_NEXTCLOUD_DIR.joinpath("nextcloud.zip")),
+        ("chowdown", TEST_CHOWDOWN_DIR.joinpath("test_chowdown-gh-pages.zip")),
+    ],
+)
+def test_migration_nextcloud(api_client: TestClient, zip_path: Path, m_type: str, unique_user: TestUser):
+    payload = {
+        "archive": zip_path.read_bytes(),
+    }
 
-    assert response.status_code == 200
+    data = {
+        "migration_type": m_type,
+    }
 
-    assert app_dirs.MIGRATION_DIR.joinpath("chowdown", chowdown_zip.name).is_file()
-
-
-def test_import_chowdown_directory(api_client: TestClient, api_routes: AppRoutes, chowdown_zip: Path, admin_token):
-    delete_url = api_routes.recipes_recipe_slug("roasted-okra")
-    api_client.delete(delete_url, headers=admin_token)  # TODO: Manage Test Data better
-    selection = chowdown_zip.name
-
-    import_url = api_routes.migrations_import_type_file_name_import("chowdown", selection)
-    response = api_client.post(import_url, headers=admin_token)
+    response = api_client.post(Routes.base, data=data, files=payload, headers=unique_user.token)
 
     assert response.status_code == 200
 
-    reports = json.loads(response.content)
+    id = response.json()["id"]
 
-    for report in reports:
-        assert report.get("status") is True
-
-
-def test_delete_chowdown_migration_data(api_client: TestClient, api_routes: AppRoutes, chowdown_zip: Path, admin_token):
-    selection = chowdown_zip.name
-    delete_url = api_routes.migrations_import_type_file_name_delete("chowdown", selection)
-    response = api_client.delete(delete_url, headers=admin_token)
-
-    assert response.status_code == 200
-    assert not app_dirs.MIGRATION_DIR.joinpath(chowdown_zip.name).is_file()
-
-
-# Nextcloud
-@pytest.fixture(scope="session")
-def nextcloud_zip():
-    zip = TEST_NEXTCLOUD_DIR.joinpath("nextcloud.zip")
-
-    zip_copy = TEST_NEXTCLOUD_DIR.joinpath("new_nextcloud.zip")
-
-    shutil.copy(zip, zip_copy)
-
-    yield zip_copy
-
-    zip_copy.unlink()
-
-
-def test_upload_nextcloud_zip(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip, admin_token):
-    upload_url = api_routes.migrations_import_type_upload("nextcloud")
-    response = api_client.post(upload_url, files={"archive": nextcloud_zip.open("rb")}, headers=admin_token)
+    response = api_client.get(Routes.report(id), headers=unique_user.token)
 
     assert response.status_code == 200
 
-    assert app_dirs.MIGRATION_DIR.joinpath("nextcloud", nextcloud_zip.name).is_file()
+    report = response.json()
 
+    assert report.get("status") == "success"
 
-def test_import_nextcloud_directory(api_client: TestClient, api_routes: AppRoutes, nextcloud_zip, admin_token):
-    selection = nextcloud_zip.name
-    import_url = api_routes.migrations_import_type_file_name_import("nextcloud", selection)
-    response = api_client.post(import_url, headers=admin_token)
-
-    assert response.status_code == 200
-
-    reports = json.loads(response.content)
-    for report in reports:
-        assert report.get("status") is True
-
-
-def test_delete__nextcloud_migration_data(
-    api_client: TestClient, api_routes: AppRoutes, nextcloud_zip: Path, admin_token
-):
-    selection = nextcloud_zip.name
-    delete_url = api_routes.migrations_import_type_file_name_delete("nextcloud", selection)
-    response = api_client.delete(delete_url, headers=admin_token)
-
-    assert response.status_code == 200
-    assert not app_dirs.MIGRATION_DIR.joinpath(nextcloud_zip.name).is_file()
+    for entry in report.get("entries"):
+        assert entry.get("success") is True

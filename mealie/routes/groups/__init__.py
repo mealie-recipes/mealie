@@ -2,11 +2,13 @@ from datetime import date, timedelta
 
 from fastapi import APIRouter, Depends
 
+from mealie.schema.reports.reports import ReportCategory
 from mealie.services._base_http_service import RouterFactory
 from mealie.services.group_services import CookbookService, WebhookService
 from mealie.services.group_services.meal_service import MealService
+from mealie.services.group_services.reports_service import GroupReportService
 
-from . import categories, invitations, preferences, self_service
+from . import categories, invitations, migrations, preferences, self_service
 
 router = APIRouter()
 
@@ -38,3 +40,16 @@ router.include_router(categories.user_router)
 router.include_router(webhook_router)
 router.include_router(invitations.router, prefix="/groups/invitations", tags=["Groups: Invitations"])
 router.include_router(preferences.router, prefix="/groups/preferences", tags=["Group: Preferences"])
+router.include_router(migrations.router, prefix="/groups/migrations", tags=["Group: Migrations"])
+
+report_router = RouterFactory(service=GroupReportService, prefix="/groups/reports", tags=["Groups: Reports"])
+
+
+@report_router.get("")
+def get_all_reports(
+    report_type: ReportCategory = None, gm_service: GroupReportService = Depends(GroupReportService.private)
+):
+    return gm_service._get_all(report_type)
+
+
+router.include_router(report_router)

@@ -3,7 +3,7 @@ from functools import cached_property
 from sqlalchemy.orm import Session
 
 from mealie.db.models.event import Event, EventNotification
-from mealie.db.models.group import Group, GroupMealPlan
+from mealie.db.models.group import Group, GroupMealPlan, ReportEntryModel, ReportModel
 from mealie.db.models.group.cookbook import CookBook
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.preferences import GroupPreferencesModel
@@ -28,6 +28,7 @@ from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_tool import RecipeTool
+from mealie.schema.reports.reports import ReportEntryOut, ReportOut
 from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
@@ -155,3 +156,11 @@ class Database:
     @cached_property
     def webhooks(self) -> AccessModel[ReadWebhook, GroupWebhooksModel]:
         return AccessModel(self.session, pk_id, GroupWebhooksModel, ReadWebhook)
+
+    @cached_property
+    def group_reports(self) -> AccessModel[ReportOut, ReportModel]:
+        return AccessModel(self.session, pk_id, ReportModel, ReportOut)
+
+    @cached_property
+    def group_report_entries(self) -> AccessModel[ReportEntryOut, ReportEntryModel]:
+        return AccessModel(self.session, pk_id, ReportEntryModel, ReportEntryOut)

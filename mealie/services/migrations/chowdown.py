@@ -1,50 +1,50 @@
+import tempfile
+import zipfile
 from pathlib import Path
-from typing import Optional
 
-from sqlalchemy.orm.session import Session
+from mealie.db.database import Database
 
-from mealie.core.config import get_app_dirs
-
-app_dirs = get_app_dirs()
-from mealie.schema.admin import MigrationImport
-from mealie.schema.user.user import PrivateUser
-from mealie.services.migrations import helpers
-from mealie.services.migrations._migration_base import MigrationAlias, MigrationBase
+from ._migration_base import BaseMigrator
+from .utils.migration_alias import MigrationAlias
+from .utils.migration_helpers import MigrationReaders, import_image, split_by_comma
 
 
-class ChowdownMigration(MigrationBase):
-    key_aliases: Optional[list[MigrationAlias]] = [
-        MigrationAlias(key="name", alias="title", func=None),
-        MigrationAlias(key="recipeIngredient", alias="ingredients", func=None),
-        MigrationAlias(key="recipeInstructions", alias="directions", func=None),
-        MigrationAlias(key="tags", alias="tags", func=helpers.split_by_comma),
-    ]
+class ChowdownMigrator(BaseMigrator):
+    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: int):
+        super().__init__(archive, db, session, user_id, group_id)
 
+        self.key_aliases = [
+            MigrationAlias(key="name", alias="title", func=None),
+            MigrationAlias(key="recipeIngredient", alias="ingredients", func=None),
+            MigrationAlias(key="recipeInstructions", alias="directions", func=None),
+            MigrationAlias(key="tags", alias="tags", func=split_by_comma),
+        ]
 
-def migrate(user: PrivateUser, session: Session, zip_path: Path) -> list[MigrationImport]:
-    cd_migration = ChowdownMigration(user=user, migration_file=zip_path, session=session)
+    def _migrate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with zipfile.ZipFile(self.archive) as zip_file:
+                zip_file.extractall(tmpdir)
 
-    with cd_migration.temp_dir as dir:
-        chow_dir = next(Path(dir).iterdir())
-        image_dir = app_dirs.TEMP_DIR.joinpath(chow_dir, "images")
-        recipe_dir = app_dirs.TEMP_DIR.joinpath(chow_dir, "_recipes")
+            temp_path = Path(tmpdir)
 
-        recipes_as_dicts = [y for x in recipe_dir.glob("*.md") if (y := ChowdownMigration.yaml_reader(x)) is not None]
+            chow_dir = next(temp_path.iterdir())
+            image_dir = temp_path.joinpath(chow_dir, "images")
+            recipe_dir = temp_path.joinpath(chow_dir, "_recipes")
 
-        recipes = [cd_migration.clean_recipe_dictionary(x) for x in recipes_as_dicts]
+            recipes_as_dicts = [y for x in recipe_dir.glob("*.md") if (y := MigrationReaders.yaml(x)) is not None]
 
-        cd_migration.import_recipes_to_database(recipes)
+            recipes = [self.clean_recipe_dictionary(x) for x in recipes_as_dicts]
 
-        recipe_lookup = {r.slug: r for r in recipes}
+            results = self.import_recipes_to_database(recipes)
 
-        for report in cd_migration.migration_report:
-            if report.status:
-                try:
-                    original_image = recipe_lookup.get(report.slug).image
-                    cd_image = image_dir.joinpath(original_image)
-                except StopIteration:
-                    continue
-                if cd_image:
-                    ChowdownMigration.import_image(cd_image, report.slug)
+            recipe_lookup = {r.slug: r for r in recipes}
 
-    return cd_migration.migration_report
+            for slug, status in results:
+                if status:
+                    try:
+                        original_image = recipe_lookup.get(slug).image
+                        cd_image = image_dir.joinpath(original_image)
+                    except StopIteration:
+                        continue
+                    if cd_image:
+                        import_image(cd_image, slug)
