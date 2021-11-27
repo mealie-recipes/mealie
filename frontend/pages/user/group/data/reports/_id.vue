@@ -32,7 +32,6 @@
 
 <script>
 import { defineComponent, useRoute, reactive, toRefs, onMounted } from "@nuxtjs/composition-api";
-import {} from "vue-demi";
 import { useUserApi } from "~/composables/api";
 
 export default defineComponent({

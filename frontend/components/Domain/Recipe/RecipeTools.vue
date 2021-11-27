@@ -46,8 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import { computed } from "vue-demi";
+import { defineComponent, ref, computed } from "@nuxtjs/composition-api";
 import { Tool } from "~/api/class-interfaces/tools";
 import { useTools } from "~/composables/recipes";
 

@@ -57,8 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from "@nuxtjs/composition-api";
-import { onMounted, reactive } from "vue-demi";
+import { defineComponent, ref, toRefs, onMounted, reactive } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { RecipeComment } from "~/api/class-interfaces/recipes/types";
 

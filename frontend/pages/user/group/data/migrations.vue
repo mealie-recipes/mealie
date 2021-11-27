@@ -57,8 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, computed } from "@nuxtjs/composition-api";
-import { onMounted } from "vue-demi";
+import { defineComponent, reactive, toRefs, useContext, computed, onMounted } from "@nuxtjs/composition-api";
 import { SupportedMigration } from "~/api/class-interfaces/group-migrations";
 import { ReportSummary } from "~/api/class-interfaces/group-reports";
 import { useUserApi } from "~/composables/api";
@@ -72,7 +71,6 @@ export default defineComponent({
   setup() {
     // @ts-ignore
     const { $globals } = useContext();
-
 
     const api = useUserApi();
 
