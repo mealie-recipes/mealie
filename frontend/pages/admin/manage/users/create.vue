@@ -34,8 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from "@nuxtjs/composition-api";
-import { reactive, ref, toRefs } from "vue-demi";
+import { defineComponent, useRouter, reactive, ref, toRefs } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useUserForm } from "~/composables/use-users";

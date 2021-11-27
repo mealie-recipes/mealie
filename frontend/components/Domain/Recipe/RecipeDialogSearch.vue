@@ -54,8 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, ref } from "@nuxtjs/composition-api";
-import { watch } from "vue-demi";
+import { defineComponent, toRefs, reactive, ref, watch } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useRecipes, allRecipes, useRecipeSearch } from "~/composables/recipes";
 import { RecipeSummary } from "~/types/api-types/recipe";

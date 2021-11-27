@@ -109,8 +109,7 @@
 
 <script lang="ts">
 import Fuse from "fuse.js";
-import { defineComponent, toRefs, computed } from "@nuxtjs/composition-api";
-import { reactive } from "vue-demi";
+import { defineComponent, toRefs, computed, reactive } from "@nuxtjs/composition-api";
 import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchFilterSelector.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";

@@ -19,6 +19,8 @@ import { BulkActionsAPI } from "./class-interfaces/recipe-bulk-actions";
 import { GroupServerTaskAPI } from "./class-interfaces/group-tasks";
 import { AdminAPI } from "./admin-api";
 import { ToolsApi } from "./class-interfaces/tools";
+import { GroupMigrationApi } from "./class-interfaces/group-migrations";
+import { GroupReportsApi } from "./class-interfaces/group-reports";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -40,6 +42,8 @@ class Api {
   public mealplans: MealPlanAPI;
   public email: EmailAPI;
   public bulk: BulkActionsAPI;
+  public groupMigration: GroupMigrationApi;
+  public groupReports: GroupReportsApi;
   public grouperServerTasks: GroupServerTaskAPI;
   public tools: ToolsApi;
   // Utils
@@ -66,6 +70,10 @@ class Api {
     this.register = new RegisterAPI(requests);
     this.mealplans = new MealPlanAPI(requests);
     this.grouperServerTasks = new GroupServerTaskAPI(requests);
+
+    // Group
+    this.groupMigration = new GroupMigrationApi(requests);
+    this.groupReports = new GroupReportsApi(requests);
 
     // Admin
     this.events = new EventsAPI(requests);

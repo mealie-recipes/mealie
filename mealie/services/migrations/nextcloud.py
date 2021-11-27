@@ -1,14 +1,16 @@
+import tempfile
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
 from slugify import slugify
-from sqlalchemy.orm.session import Session
 
-from mealie.schema.admin import MigrationImport
-from mealie.schema.user.user import PrivateUser
-from mealie.services.migrations import helpers
-from mealie.services.migrations._migration_base import MigrationAlias, MigrationBase
+from mealie.db.database import Database
+
+from ._migration_base import BaseMigrator
+from .utils.migration_alias import MigrationAlias
+from .utils.migration_helpers import MigrationReaders, glob_walker, import_image, split_by_comma
 
 
 @dataclass
@@ -33,39 +35,38 @@ class NextcloudDir:
         except StopIteration:
             image_file = None
 
-        return cls(name=dir.name, recipe=NextcloudMigration.json_reader(json_file), image=image_file)
+        return cls(name=dir.name, recipe=MigrationReaders.json(json_file), image=image_file)
 
 
-class NextcloudMigration(MigrationBase):
-    key_aliases: Optional[list[MigrationAlias]] = [
-        MigrationAlias(key="tags", alias="keywords", func=helpers.split_by_comma),
-        MigrationAlias(key="org_url", alias="url", func=None),
-    ]
+class NextcloudMigrator(BaseMigrator):
+    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: int):
+        super().__init__(archive, db, session, user_id, group_id)
 
+        self.key_aliases = [
+            MigrationAlias(key="tags", alias="keywords", func=split_by_comma),
+            MigrationAlias(key="org_url", alias="url", func=None),
+        ]
 
-def migrate(user: PrivateUser, session: Session, zip_path: Path) -> list[MigrationImport]:
+    def _migrate(self) -> None:
+        # Unzip File into temp directory
 
-    nc_migration = NextcloudMigration(user=user, migration_file=zip_path, session=session)
+        # get potential recipe dirs
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with zipfile.ZipFile(self.archive) as zip_file:
+                zip_file.extractall(tmpdir)
 
-    with nc_migration.temp_dir as dir:
-        potential_recipe_dirs = NextcloudMigration.glob_walker(dir, glob_str="**/[!.]*.json", return_parent=True)
+            potential_recipe_dirs = glob_walker(Path(tmpdir), glob_str="**/[!.]*.json", return_parent=True)
+            nextcloud_dirs = {y.slug: y for x in potential_recipe_dirs if (y := NextcloudDir.from_dir(x))}
 
-        # nextcloud_dirs = [NextcloudDir.from_dir(x) for x in potential_recipe_dirs]
-        nextcloud_dirs = {y.slug: y for x in potential_recipe_dirs if (y := NextcloudDir.from_dir(x))}
-        # nextcloud_dirs = {x.slug: x for x in nextcloud_dirs}
+            all_recipes = []
+            for _, nc_dir in nextcloud_dirs.items():
+                recipe = self.clean_recipe_dictionary(nc_dir.recipe)
+                all_recipes.append(recipe)
 
-        all_recipes = []
-        for _, nc_dir in nextcloud_dirs.items():
-            recipe = nc_migration.clean_recipe_dictionary(nc_dir.recipe)
-            all_recipes.append(recipe)
+            all_statuses = self.import_recipes_to_database(all_recipes)
 
-        nc_migration.import_recipes_to_database(all_recipes)
-
-        for report in nc_migration.migration_report:
-
-            if report.status:
-                nc_dir: NextcloudDir = nextcloud_dirs[report.slug]
-                if nc_dir.image:
-                    NextcloudMigration.import_image(nc_dir.image, nc_dir.slug)
-
-    return nc_migration.migration_report
+            for slug, status in all_statuses:
+                if status:
+                    nc_dir: NextcloudDir = nextcloud_dirs[slug]
+                    if nc_dir.image:
+                        import_image(nc_dir.image, nc_dir.slug)
