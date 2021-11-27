@@ -117,6 +117,15 @@
             Manage your recipe data and make bulk changes
           </UserProfileLinkCard>
         </v-col>
+        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: 'Manage Data Migrations', to: '/user/group/data/migrations' }"
+            :image="require('~/static/svgs/manage-data-migrations.svg')"
+          >
+            <template #title> Data Migrations </template>
+            Migrate your existing data from other applications like Nextcloud Recipes and Chowdown
+          </UserProfileLinkCard>
+        </v-col>
       </v-row>
     </section>
   </v-container>
