@@ -1,5 +1,6 @@
 import datetime
 import enum
+from uuid import UUID
 
 from fastapi_camelcase import CamelModel
 from pydantic import Field
@@ -18,7 +19,7 @@ class ServerTaskStatus(str, enum.Enum):
 
 
 class ServerTaskCreate(CamelModel):
-    group_id: int
+    group_id: UUID
     name: ServerTaskNames = ServerTaskNames.default
     created_at: datetime.datetime = Field(default_factory=datetime.datetime.now)
     status: ServerTaskStatus = ServerTaskStatus.running

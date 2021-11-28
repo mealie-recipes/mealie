@@ -31,7 +31,7 @@ def admin_user(api_client: TestClient, api_routes: utils.AppRoutes):
 
     try:
         yield utils.TestUser(
-            group_id=user_data.get("groupId"),
+            _group_id=user_data.get("groupId"),
             user_id=user_data.get("id"),
             email=user_data.get("email"),
             token=token,

@@ -1,6 +1,7 @@
 from datetime import date
 from enum import Enum
 from typing import Optional
+from uuid import UUID
 
 from fastapi_camelcase import CamelModel
 from pydantic import validator
@@ -33,11 +34,11 @@ class CreatePlanEntry(CamelModel):
 
 class UpdatePlanEntry(CreatePlanEntry):
     id: int
-    group_id: int
+    group_id: UUID
 
 
 class SavePlanEntry(CreatePlanEntry):
-    group_id: int
+    group_id: UUID
 
     class Config:
         orm_mode = True

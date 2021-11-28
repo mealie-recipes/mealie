@@ -1,6 +1,7 @@
 import datetime
 from pathlib import Path
 from typing import Any, Optional
+from uuid import UUID, uuid4
 
 from fastapi_camelcase import CamelModel
 from pydantic import BaseModel, Field, validator
@@ -59,7 +60,7 @@ class RecipeSummary(CamelModel):
     id: Optional[int]
 
     user_id: int = 0
-    group_id: int = 0
+    group_id: UUID = Field(default_factory=uuid4)
 
     name: Optional[str]
     slug: str = ""
@@ -74,6 +75,7 @@ class RecipeSummary(CamelModel):
     description: Optional[str] = ""
     recipe_category: Optional[list[RecipeTag]] = []
     tags: Optional[list[RecipeTag]] = []
+    tools: list[RecipeTool] = []
     rating: Optional[int]
     org_url: Optional[str] = Field(None, alias="orgURL")
 
@@ -86,23 +88,28 @@ class RecipeSummary(CamelModel):
         orm_mode = True
 
     @validator("tags", always=True, pre=True)
-    def validate_tags(cats: list[Any], values):
+    def validate_tags(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeTag(name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("recipe_category", always=True, pre=True)
-    def validate_categories(cats: list[Any], values):
+    def validate_categories(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeCategory(name=c, slug=slugify(c)) for c in cats]
         return cats
+
+    @validator("group_id", always=True, pre=True)
+    def validate_group_id(group_id: list[Any]):
+        if isinstance(group_id, int):
+            return uuid4()
+        return group_id
 
 
 class Recipe(RecipeSummary):
     recipe_ingredient: Optional[list[RecipeIngredient]] = []
     recipe_instructions: Optional[list[RecipeStep]] = []
     nutrition: Optional[Nutrition]
-    tools: list[RecipeTool] = []
 
     # Mealie Specific
     settings: Optional[RecipeSettings] = RecipeSettings()

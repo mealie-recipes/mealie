@@ -9,7 +9,7 @@ from mealie.db.models._model_utils.guid import GUID
 
 class RecipeComment(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_comments"
-    id = Column(GUID(), primary_key=True, default=uuid4)
+    id = Column(GUID, primary_key=True, default=uuid4)
     text = Column(String)
 
     # Recipe Link

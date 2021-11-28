@@ -7,6 +7,7 @@ from mealie.schema.recipe import CategoryBase, Recipe
 from mealie.schema.recipe.recipe_category import TagBase
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_recipe_event
+from mealie.services.exporter import Exporter, RecipeExporter
 
 logger = get_logger(__name__)
 
@@ -18,8 +19,11 @@ class RecipeBulkActions(UserHttpService[int, Recipe]):
     def populate_item(self, _: int) -> Recipe:
         return
 
-    def export_recipes(self, temp_path: Path, recipes: list[str]) -> None:
-        return
+    def export_recipes(self, temp_path: Path, slugs: list[str]) -> None:
+        recipe_exporter = RecipeExporter(self.db, self.group_id, slugs)
+        exporter = Exporter(self.group_id, temp_path, [recipe_exporter])
+
+        exporter.run()
 
     def assign_tags(self, recipes: list[str], tags: list[TagBase]) -> None:
         for slug in recipes:

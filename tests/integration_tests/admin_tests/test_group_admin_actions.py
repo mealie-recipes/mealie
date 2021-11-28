@@ -16,21 +16,21 @@ class Routes:
 
 
 def test_home_group_not_deletable(api_client: TestClient, admin_user: TestUser):
-    response = api_client.delete(Routes.item(1), headers=admin_user.token)
+    response = api_client.delete(Routes.item(admin_user.group_id), headers=admin_user.token)
     assert response.status_code == 400
 
 
-def test_admin_group_routes_are_restricted(api_client: TestClient, unique_user: TestUser):
+def test_admin_group_routes_are_restricted(api_client: TestClient, unique_user: TestUser, admin_user: TestUser):
     response = api_client.get(Routes.base, headers=unique_user.token)
     assert response.status_code == 403
 
     response = api_client.post(Routes.base, json={}, headers=unique_user.token)
     assert response.status_code == 403
 
-    response = api_client.get(Routes.item(1), headers=unique_user.token)
+    response = api_client.get(Routes.item(admin_user.group_id), headers=unique_user.token)
     assert response.status_code == 403
 
-    response = api_client.get(Routes.user(1), headers=unique_user.token)
+    response = api_client.get(Routes.user(admin_user.group_id), headers=unique_user.token)
     assert response.status_code == 403
 
 
@@ -75,5 +75,5 @@ def test_admin_delete_group(api_client: TestClient, admin_user: TestUser, unique
     assert response.status_code == 200
 
     # Ensure Group is Deleted
-    response = api_client.get(Routes.item(unique_user.user_id), headers=admin_user.token)
+    response = api_client.get(Routes.item(unique_user.group_id), headers=admin_user.token)
     assert response.status_code == 404

@@ -62,14 +62,19 @@ class RecipeDataAccessModel(AccessModel[Recipe, RecipeModel]):
             override_schema=override_schema,
         )
 
-    def summary(self, group_id, start=0, limit=99999) -> Any:
+    def summary(self, group_id, start=0, limit=99999, load_foods=False) -> Any:
+        args = [
+            joinedload(RecipeModel.recipe_category),
+            joinedload(RecipeModel.tags),
+            joinedload(RecipeModel.tools),
+        ]
+
+        if load_foods:
+            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
+
         return (
             self.session.query(RecipeModel)
-            .options(
-                joinedload(RecipeModel.recipe_category),
-                joinedload(RecipeModel.tags),
-                joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)),
-            )
+            .options(*args)
             .filter(RecipeModel.group_id == group_id)
             .offset(start)
             .limit(limit)

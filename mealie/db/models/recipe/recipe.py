@@ -6,6 +6,8 @@ import sqlalchemy.orm as orm
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import validates
 
+from mealie.db.models._model_utils.guid import GUID
+
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from ..users import users_to_favorites
@@ -43,7 +45,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     slug = sa.Column(sa.String, index=True)
 
     # ID Relationships
-    group_id = sa.Column(sa.Integer, sa.ForeignKey("groups.id"))
+    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
     user_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))

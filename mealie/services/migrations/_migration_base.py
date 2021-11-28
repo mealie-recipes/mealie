@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Tuple
+from uuid import UUID
 
 from mealie.core import root_logger
 from mealie.db.database import Database
@@ -25,7 +26,7 @@ class BaseMigrator(BaseService):
     report_id: int
     report: ReportOut
 
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: int):
+    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID):
         self.archive = archive
         self.db = db
         self.session = session

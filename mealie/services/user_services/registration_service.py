@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from fastapi import HTTPException, status
 
 from mealie.core.root_logger import get_logger
@@ -69,7 +71,7 @@ class RegistrationService(PublicHttpService[int, str]):
         group_data = GroupBase(name=self.registration.group)
 
         group_preferences = CreateGroupPreferences(
-            group_id=0,
+            group_id=uuid4(),
             private_group=self.registration.private,
             first_day_of_week=0,
             recipe_public=not self.registration.private,

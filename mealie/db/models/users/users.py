@@ -1,6 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 from mealie.core.config import get_app_settings
+from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
@@ -32,7 +33,7 @@ class User(SqlAlchemyBase, BaseMixins):
     admin = Column(Boolean, default=False)
     advanced = Column(Boolean, default=False)
 
-    group_id = Column(Integer, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
 
     # Group Permissions

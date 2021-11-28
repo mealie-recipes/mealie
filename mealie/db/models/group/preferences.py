@@ -1,13 +1,15 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
+from mealie.db.models._model_utils.guid import GUID
+
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 
 
 class GroupPreferencesModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_preferences"
-    group_id = sa.Column(sa.Integer, sa.ForeignKey("groups.id"))
+    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="preferences")
 
     private_group: bool = sa.Column(sa.Boolean, default=True)

@@ -3,6 +3,7 @@ import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
+from uuid import UUID
 
 from slugify import slugify
 
@@ -39,7 +40,7 @@ class NextcloudDir:
 
 
 class NextcloudMigrator(BaseMigrator):
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: int):
+    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID):
         super().__init__(archive, db, session, user_id, group_id)
 
         self.key_aliases = [

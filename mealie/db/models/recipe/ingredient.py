@@ -49,7 +49,7 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     food = orm.relationship(IngredientFoodModel, uselist=False)
     quantity = Column(Integer)
 
-    reference_id = Column(GUID())  # Reference Links
+    reference_id = Column(GUID)  # Reference Links
 
     # Extras
 

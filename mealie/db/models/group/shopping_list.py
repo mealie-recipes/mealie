@@ -4,6 +4,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.ext.orderinglist import ordering_list
 
 from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_utils.guid import GUID
 from .group import Group
 
 
@@ -29,7 +30,7 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists"
     id = Column(Integer, primary_key=True)
 
-    group_id = Column(Integer, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="shopping_lists")
 
     name = Column(String)
