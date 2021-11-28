@@ -99,6 +99,9 @@ def sizeof_fmt(file_path: Path, decimal_places=2):
 
 
 def move_all_images():
+    if not app_dirs.IMG_DIR.exists():
+        return
+
     for image_file in app_dirs.IMG_DIR.iterdir():
         if image_file.is_file():
             if image_file.name == ".DS_Store":

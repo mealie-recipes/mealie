@@ -15,7 +15,7 @@ CWD = Path(__file__).parent
 
 app_dirs = get_app_dirs()
 TEMP_DATA = app_dirs.DATA_DIR / ".temp"
-SCHEDULER_DB = TEMP_DATA / "scheduler.db"
+SCHEDULER_DB = CWD / ".scheduler.db"
 SCHEDULER_DATABASE = f"sqlite:///{SCHEDULER_DB}"
 
 MINUTES_DAY = 1440
