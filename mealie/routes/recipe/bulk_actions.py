@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends
-from fastapi.responses import FileResponse
 
 from mealie.core.dependencies.dependencies import temporary_zip_path
 from mealie.schema.recipe.recipe_bulk_actions import (
@@ -38,7 +37,7 @@ def bulk_delete_recipes(
     bulk_service.delete_recipes(delete_recipes.recipes)
 
 
-@router.post("/export", response_class=FileResponse)
+@router.post("/export")
 def bulk_export_recipes(
     export_recipes: ExportRecipes,
     temp_path=Depends(temporary_zip_path),
@@ -46,4 +45,4 @@ def bulk_export_recipes(
 ):
     bulk_service.export_recipes(temp_path, export_recipes.recipes)
 
-    return FileResponse(temp_path, filename="recipes.zip")
+    # return FileResponse(temp_path, filename="recipes.zip")
