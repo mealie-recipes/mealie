@@ -18,7 +18,7 @@ def log_wrapper(request: Request, e):
 def register_debug_handler(app: FastAPI):
     settings = get_app_settings()
 
-    if settings.PRODUCTION:
+    if settings.PRODUCTION and not settings.TESTING:
         return
 
     @app.exception_handler(RequestValidationError)
