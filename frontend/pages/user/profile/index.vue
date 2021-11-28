@@ -110,7 +110,7 @@
         </v-col>
         <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Recipe Data', to: '/user/group/recipe-data' }"
+            :link="{ text: 'Manage Recipe Data', to: '/user/group/data/recipes' }"
             :image="require('~/static/svgs/manage-recipes.svg')"
           >
             <template #title> Recipe Data </template>

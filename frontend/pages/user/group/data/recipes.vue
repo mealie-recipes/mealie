@@ -17,12 +17,33 @@
         <RecipeCategoryTagSelector v-model="toSetCategories" />
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.delete">
-        Are you sure you want to delete the following recipes?
-        <ul class="pt-5">
-          <li v-for="recipe in selected" :key="recipe.slug">{{ recipe.name }}</li>
-        </ul>
+        <p class="h4">Are you sure you want to delete the following recipes? This action cannot be undone.</p>
+        <v-card outlined>
+          <v-virtual-scroll height="400" item-height="25" :items="selected">
+            <template #default="{ item }">
+              <v-list-item class="pb-2">
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+        </v-card>
       </v-card-text>
-      <v-card-text v-else-if="dialog.mode == MODES.export"> TODO: Export Stuff Here </v-card-text>
+      <v-card-text v-else-if="dialog.mode == MODES.export">
+        <p class="h4">The following recipes ({{ selected.length }}) will be exported.</p>
+        <v-card outlined>
+          <v-virtual-scroll height="400" item-height="25" :items="selected">
+            <template #default="{ item }">
+              <v-list-item class="pb-2">
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+        </v-card>
+      </v-card-text>
     </BaseDialog>
 
     <BasePageTitle divider>
@@ -76,7 +97,7 @@
 
       <p v-if="selected.length > 0" class="text-caption my-auto ml-5">Selected: {{ selected.length }}</p>
     </v-card-actions>
-    <RecipeDataTable v-model="selected" :recipes="allRecipes" :show-headers="headers" />
+    <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
     <v-card-actions class="justify-end">
       <BaseButton color="info">
         <template #icon>
@@ -84,7 +105,13 @@
         </template>
         Import
       </BaseButton>
-      <BaseButton color="info">
+      <BaseButton
+        color="info"
+        @click="
+          selectAll();
+          openDialog(MODES.export);
+        "
+      >
         <template #icon>
           {{ $globals.icons.database }}
         </template>
@@ -118,18 +145,20 @@ export default defineComponent({
     // @ts-ignore
     const { $globals } = useContext();
 
-    const selected = ref([]);
+    const selected = ref<Recipe[]>([]);
 
     function resetAll() {
       selected.value = [];
       toSetTags.value = [];
       toSetCategories.value = [];
+      loading.value = false;
     }
 
     const headers = reactive({
       id: false,
       owner: false,
       tags: true,
+      tools: "Tools",
       categories: true,
       recipeYield: false,
       dateAdded: false,
@@ -140,6 +169,7 @@ export default defineComponent({
       owner: "Owner",
       tags: "Tags",
       categories: "Categories",
+      tools: "Tools",
       recipeYield: "Recipe Yield",
       dateAdded: "Date Added",
     };
@@ -172,14 +202,32 @@ export default defineComponent({
     ];
 
     const api = useUserApi();
+    const loading = ref(false);
 
-    function exportSelected() {
-      console.log("Export Selected");
+    function selectAll() {
+      // @ts-ignore
+      selected.value = allRecipes.value;
+    }
+
+    async function exportSelected() {
+      loading.value = true;
+      const { data } = await api.bulk.bulkExport({
+        recipes: selected.value.map((x: Recipe) => x.slug),
+        exportType: "json",
+      });
+
+      if (data) {
+        console.log(data);
+      }
+
+      resetAll();
     }
 
     const toSetTags = ref([]);
 
     async function tagSelected() {
+      loading.value = true;
+
       const recipes = selected.value.map((x: Recipe) => x.slug);
       await api.bulk.bulkTag({ recipes, tags: toSetTags.value });
       await refreshRecipes();
@@ -189,6 +237,8 @@ export default defineComponent({
     const toSetCategories = ref([]);
 
     async function categorizeSelected() {
+      loading.value = true;
+
       const recipes = selected.value.map((x: Recipe) => x.slug);
       await api.bulk.bulkCategorize({ recipes, categories: toSetCategories.value });
       await refreshRecipes();
@@ -196,6 +246,8 @@ export default defineComponent({
     }
 
     async function deleteSelected() {
+      loading.value = true;
+
       const recipes = selected.value.map((x: Recipe) => x.slug);
 
       const { response, data } = await api.bulk.bulkDelete({ recipes });
@@ -248,21 +300,23 @@ export default defineComponent({
     }
 
     return {
-      toSetTags,
-      toSetCategories,
-      openDialog,
-      dialog,
-      MODES,
-      headers,
-      headerLabels,
-      exportSelected,
-      tagSelected,
+      selectAll,
+      loading,
+      actions,
+      allRecipes,
       categorizeSelected,
       deleteSelected,
-      actions,
-      selected,
-      allRecipes,
+      dialog,
+      exportSelected,
       getAllRecipes,
+      headerLabels,
+      headers,
+      MODES,
+      openDialog,
+      selected,
+      tagSelected,
+      toSetCategories,
+      toSetTags,
     };
   },
   head() {
