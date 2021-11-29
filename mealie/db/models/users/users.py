@@ -8,8 +8,6 @@ from .._model_utils import auto_init
 from ..group import Group
 from .user_to_favorite import users_to_favorites
 
-settings = get_app_settings()
-
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "long_live_tokens"
@@ -41,17 +39,15 @@ class User(SqlAlchemyBase, BaseMixins):
     can_invite = Column(Boolean, default=False)
     can_organize = Column(Boolean, default=False)
 
-    tokens: list[LongLiveToken] = orm.relationship(
-        LongLiveToken, back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
-    )
+    sp_args = {
+        "back_populates": "user",
+        "cascade": "all, delete, delete-orphan",
+        "single_parent": True,
+    }
 
-    comments: list = orm.relationship(
-        "RecipeComment", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
-    )
-
-    password_reset_tokens = orm.relationship(
-        "PasswordResetModel", back_populates="user", cascade="all, delete, delete-orphan", single_parent=True
-    )
+    tokens = orm.relationship(LongLiveToken, **sp_args)
+    comments = orm.relationship("RecipeComment", **sp_args)
+    password_reset_tokens = orm.relationship("PasswordResetModel", **sp_args)
 
     owned_recipes_id = Column(Integer, ForeignKey("recipes.id"))
     owned_recipes = orm.relationship("RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id])
@@ -69,7 +65,11 @@ class User(SqlAlchemyBase, BaseMixins):
         }
 
     @auto_init()
-    def __init__(self, session, full_name, password, group: str = settings.DEFAULT_GROUP, **kwargs) -> None:
+    def __init__(self, session, full_name, password, group: str = None, **kwargs) -> None:
+        if group is None:
+            settings = get_app_settings()
+            group = settings.DEFAULT_GROUP
+
         self.group = Group.get_ref(session, group)
 
         self.favorite_recipes = []
