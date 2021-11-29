@@ -5,7 +5,6 @@
     :items="exports"
     :items-per-page="15"
     class="elevation-0"
-    hide-default-footer
     @click:row="downloadData"
   >
     <template #item.expires="{ item }">
