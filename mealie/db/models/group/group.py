@@ -51,11 +51,21 @@ class Group(SqlAlchemyBase, BaseMixins):
     webhooks = orm.relationship(GroupWebhooksModel, **common_args)
     cookbooks = orm.relationship(CookBook, **common_args)
     server_tasks = orm.relationship(ServerTaskModel, **common_args)
+    data_exports = orm.relationship("GroupDataExportsModel", **common_args)
     shopping_lists = orm.relationship("ShoppingList", **common_args)
     group_reports = orm.relationship("ReportModel", **common_args)
 
     class Config:
-        exclude = {"users", "webhooks", "shopping_lists", "cookbooks", "preferences", "invite_tokens", "mealplans"}
+        exclude = {
+            "users",
+            "webhooks",
+            "shopping_lists",
+            "cookbooks",
+            "preferences",
+            "invite_tokens",
+            "mealplans",
+            "data_exports",
+        }
 
     @auto_init()
     def __init__(self, **_) -> None:

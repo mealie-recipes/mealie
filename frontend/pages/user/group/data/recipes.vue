@@ -45,89 +45,103 @@
         </v-card>
       </v-card-text>
     </BaseDialog>
-
     <BasePageTitle divider>
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-recipes.svg')"></v-img>
       </template>
       <template #title> Recipe Data Management </template>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe quidem repudiandae consequatur laboriosam maxime
-      perferendis nemo asperiores ipsum est, tenetur ratione dolorum sapiente recusandae
+      Use this page to manage the data associated with your recipes. You can perform several bulk actions on your
+      recipes including exporting, deleting, tagging, and assigning categories. This page also provides links to
+      available exports that are ready to download. These exports do expire, so be sure to grab them while they're still
+      available.
     </BasePageTitle>
-    <v-card-actions>
-      <v-menu offset-y bottom nudge-bottom="6" :close-on-content-click="false">
-        <template #activator="{ on, attrs }">
-          <v-btn color="accent" class="mr-1" dark v-bind="attrs" v-on="on">
-            <v-icon left>
-              {{ $globals.icons.cog }}
-            </v-icon>
-            Columns
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-title class="py-2">
-            <div>Recipe Columns</div>
-          </v-card-title>
-          <v-divider class="mx-2"></v-divider>
-          <v-card-text class="mt-n5">
-            <v-checkbox
-              v-for="(itemValue, key) in headers"
-              :key="key"
-              v-model="headers[key]"
-              dense
-              flat
-              inset
-              :label="headerLabels[key]"
-              hide-details
-            ></v-checkbox>
-          </v-card-text>
-        </v-card>
-      </v-menu>
-      <BaseOverflowButton
-        :disabled="selected.length < 1"
-        mode="event"
-        color="info"
-        :items="actions"
-        @export-selected="openDialog(MODES.export)"
-        @tag-selected="openDialog(MODES.tag)"
-        @categorize-selected="openDialog(MODES.category)"
-        @delete-selected="openDialog(MODES.delete)"
-      >
-      </BaseOverflowButton>
 
-      <p v-if="selected.length > 0" class="text-caption my-auto ml-5">Selected: {{ selected.length }}</p>
-    </v-card-actions>
-    <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
-    <v-card-actions class="justify-end">
-      <BaseButton color="info">
-        <template #icon>
-          {{ $globals.icons.database }}
-        </template>
-        Import
-      </BaseButton>
-      <BaseButton
-        color="info"
-        @click="
-          selectAll();
-          openDialog(MODES.export);
-        "
-      >
-        <template #icon>
-          {{ $globals.icons.database }}
-        </template>
-        Export All
-      </BaseButton>
-    </v-card-actions>
+    <!-- Recipe Data Table -->
+    <section>
+      <v-card-actions>
+        <v-menu offset-y bottom nudge-bottom="6" :close-on-content-click="false">
+          <template #activator="{ on, attrs }">
+            <v-btn color="accent" class="mr-1" dark v-bind="attrs" v-on="on">
+              <v-icon left>
+                {{ $globals.icons.cog }}
+              </v-icon>
+              Columns
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title class="py-2">
+              <div>Recipe Columns</div>
+            </v-card-title>
+            <v-divider class="mx-2"></v-divider>
+            <v-card-text class="mt-n5">
+              <v-checkbox
+                v-for="(itemValue, key) in headers"
+                :key="key"
+                v-model="headers[key]"
+                dense
+                flat
+                inset
+                :label="headerLabels[key]"
+                hide-details
+              ></v-checkbox>
+            </v-card-text>
+          </v-card>
+        </v-menu>
+        <BaseOverflowButton
+          :disabled="selected.length < 1"
+          mode="event"
+          color="info"
+          :items="actions"
+          @export-selected="openDialog(MODES.export)"
+          @tag-selected="openDialog(MODES.tag)"
+          @categorize-selected="openDialog(MODES.category)"
+          @delete-selected="openDialog(MODES.delete)"
+        >
+        </BaseOverflowButton>
+
+        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">Selected: {{ selected.length }}</p>
+      </v-card-actions>
+      <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
+      <v-card-actions class="justify-end">
+        <BaseButton color="info">
+          <template #icon>
+            {{ $globals.icons.database }}
+          </template>
+          Import
+        </BaseButton>
+        <BaseButton
+          color="info"
+          @click="
+            selectAll();
+            openDialog(MODES.export);
+          "
+        >
+          <template #icon>
+            {{ $globals.icons.database }}
+          </template>
+          Export All
+        </BaseButton>
+      </v-card-actions>
+    </section>
+
+    <!-- Downloads Data Table -->
+    <section>
+      <BaseCardSectionTitle :icon="$globals.icons.database" section title="Data Exports"></BaseCardSectionTitle>
+
+      <GroupExportData :exports="groupExports" />
+    </section>
   </v-container>
 </template>
     
 <script lang="ts">
-import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
+import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
+import { GroupDataExport } from "~/api/class-interfaces/recipe-bulk-actions";
 
 const MODES = {
   tag: "tag",
@@ -137,7 +151,7 @@ const MODES = {
 };
 
 export default defineComponent({
-  components: { RecipeDataTable, RecipeCategoryTagSelector },
+  components: { RecipeDataTable, RecipeCategoryTagSelector, GroupExportData },
   scrollToTop: true,
   setup() {
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true);
@@ -204,6 +218,25 @@ export default defineComponent({
     const api = useUserApi();
     const loading = ref(false);
 
+    // ===============================================================
+    // Group Exports
+
+    const groupExports = ref<GroupDataExport[]>([]);
+
+    async function refreshExports() {
+      const { data } = await api.bulk.fetchExports();
+
+      if (data) {
+        groupExports.value = data;
+      }
+    }
+
+    onMounted(async () => {
+      await refreshExports();
+    });
+    // ===============================================================
+    // All Recipes
+
     function selectAll() {
       // @ts-ignore
       selected.value = allRecipes.value;
@@ -221,6 +254,7 @@ export default defineComponent({
       }
 
       resetAll();
+      refreshExports();
     }
 
     const toSetTags = ref([]);
@@ -317,6 +351,7 @@ export default defineComponent({
       tagSelected,
       toSetCategories,
       toSetTags,
+      groupExports,
     };
   },
   head() {

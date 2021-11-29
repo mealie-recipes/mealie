@@ -31,6 +31,16 @@ interface BulkActionResponse {
   errors: BulkActionError[];
 }
 
+export interface GroupDataExport {
+  id: string;
+  groupId: string;
+  name: string;
+  filename: string;
+  path: string;
+  size: string;
+  expires: Date;
+}
+
 const prefix = "/api";
 
 const routes = {
@@ -55,5 +65,9 @@ export class BulkActionsAPI extends BaseAPI {
 
   async bulkDelete(payload: RecipeBulkDelete) {
     return await this.requests.post<BulkActionResponse>(routes.bulkDelete, payload);
+  }
+
+  async fetchExports() {
+    return await this.requests.get<GroupDataExport[]>(routes.bulkExport);
   }
 }

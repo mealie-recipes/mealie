@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from mealie.core.root_logger import get_logger
+from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe import CategoryBase, Recipe
 from mealie.schema.recipe.recipe_category import TagBase
 from mealie.services._base_http_service.http_services import UserHttpService
@@ -23,7 +24,10 @@ class RecipeBulkActions(UserHttpService[int, Recipe]):
         recipe_exporter = RecipeExporter(self.db, self.group_id, slugs)
         exporter = Exporter(self.group_id, temp_path, [recipe_exporter])
 
-        exporter.run()
+        exporter.run(self.db)
+
+    def get_exports(self) -> list[GroupDataExport]:
+        return self.db.group_exports.multi_query({"group_id": self.group_id})
 
     def assign_tags(self, recipes: list[str], tags: list[TagBase]) -> None:
         for slug in recipes:

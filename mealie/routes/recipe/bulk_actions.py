@@ -1,6 +1,10 @@
+from pathlib import Path
+
 from fastapi import APIRouter, Depends
 
 from mealie.core.dependencies.dependencies import temporary_zip_path
+from mealie.core.security import create_file_token
+from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe.recipe_bulk_actions import (
     AssignCategories,
     AssignTags,
@@ -46,3 +50,18 @@ def bulk_export_recipes(
     bulk_service.export_recipes(temp_path, export_recipes.recipes)
 
     # return FileResponse(temp_path, filename="recipes.zip")
+
+
+@router.get("/export", response_model=list[GroupDataExport])
+def get_exported_data(bulk_service: RecipeBulkActions = Depends(RecipeBulkActions.private)):
+    return bulk_service.get_exports()
+
+    # return FileResponse(temp_path, filename="recipes.zip")
+
+
+@router.get("/export/download")
+def get_exported_data_token(path: Path, _: RecipeBulkActions = Depends(RecipeBulkActions.private)):
+    # return FileResponse(temp_path, filename="recipes.zip")
+    """Returns a token to download a file"""
+
+    return {"fileToken": create_file_token(path)}
