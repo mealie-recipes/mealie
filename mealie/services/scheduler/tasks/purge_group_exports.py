@@ -38,7 +38,7 @@ def purge_excess_files() -> None:
 
     limit = datetime.datetime.now() - datetime.timedelta(minutes=ONE_DAY_AS_MINUTES * 2)
 
-    for file in directories.GROUPS_DIR.glob("*.zip"):
+    for file in directories.GROUPS_DIR.glob("**/export/*.zip"):
         if file.stat().st_mtime < limit:
             file.unlink()
             logger.info(f"excess group file removed '{file}'")
