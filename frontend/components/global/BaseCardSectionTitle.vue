@@ -19,7 +19,7 @@
         <slot />
       </p>
     </v-card-text>
-    <v-divider class="my-3"></v-divider>
+    <v-divider class="mb-3"></v-divider>
   </v-card>
 </template>
 

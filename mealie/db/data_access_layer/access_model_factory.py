@@ -150,7 +150,7 @@ class Database:
 
     @cached_property
     def group_exports(self) -> AccessModel[GroupDataExport, GroupDataExportsModel]:
-        return AccessModel(self.session, pk_group_id, GroupDataExportsModel, GroupDataExport)
+        return AccessModel(self.session, pk_id, GroupDataExportsModel, GroupDataExport)
 
     @cached_property
     def meals(self) -> MealDataAccessModel:

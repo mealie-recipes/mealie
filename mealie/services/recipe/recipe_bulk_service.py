@@ -29,6 +29,28 @@ class RecipeBulkActions(UserHttpService[int, Recipe]):
     def get_exports(self) -> list[GroupDataExport]:
         return self.db.group_exports.multi_query({"group_id": self.group_id})
 
+    def purge_exports(self) -> int:
+        all_exports = self.get_exports()
+
+        exports_deleted = 0
+        for export in all_exports:
+            try:
+                Path(export.path).unlink(missing_ok=True)
+                self.db.group_exports.delete(export.id)
+                exports_deleted += 1
+            except Exception as e:
+                logger.error(f"Failed to delete export {export.id}")
+                logger.error(e)
+
+        group = self.db.groups.get_one(self.group_id)
+
+        for match in group.directory.glob("**/export/*zip"):
+            if match.is_file():
+                match.unlink()
+                exports_deleted += 1
+
+        return exports_deleted
+
     def assign_tags(self, recipes: list[str], tags: list[TagBase]) -> None:
         for slug in recipes:
             recipe = self.db.recipes.get_one(slug)

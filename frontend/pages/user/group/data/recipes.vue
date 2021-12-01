@@ -1,5 +1,16 @@
 <template>
   <v-container fluid>
+    <!-- Export Purge Confirmation Dialog -->
+    <BaseDialog
+      v-model="purgeExportsDialog"
+      title="Purge Exports"
+      color="error"
+      :icon="$globals.icons.alertCircle"
+      @confirm="purgeExports()"
+    >
+      <v-card-text> Are you sure you want to delete all export data? </v-card-text>
+    </BaseDialog>
+
     <!-- Base Dialog Object -->
     <BaseDialog
       ref="domDialog"
@@ -49,16 +60,16 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-recipes.svg')"></v-img>
       </template>
-      <template #title> Recipe Data Management </template>
-      Use this page to manage the data associated with your recipes. You can perform several bulk actions on your
-      recipes including exporting, deleting, tagging, and assigning categories. This page also provides links to
-      available exports that are ready to download. These exports do expire, so be sure to grab them while they're still
-      available.
+      <template #title> Data Management </template>
     </BasePageTitle>
 
-    <!-- Recipe Data Table -->
     <section>
-      <v-card-actions>
+      <!-- Recipe Data Table -->
+      <BaseCardSectionTitle :icon="$globals.icons.primary" section title="Recipe Data">
+        Use this section to manage the data associated with your recipes. You can perform several bulk actions on your
+        recipes including exporting, deleting, tagging, and assigning categories.
+      </BaseCardSectionTitle>
+      <v-card-actions class="mt-n5 mb-1">
         <v-menu offset-y bottom nudge-bottom="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-btn color="accent" class="mr-1" dark v-bind="attrs" v-on="on">
@@ -101,34 +112,43 @@
 
         <p v-if="selected.length > 0" class="text-caption my-auto ml-5">Selected: {{ selected.length }}</p>
       </v-card-actions>
-      <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
-      <v-card-actions class="justify-end">
-        <BaseButton color="info">
-          <template #icon>
-            {{ $globals.icons.database }}
-          </template>
-          Import
-        </BaseButton>
-        <BaseButton
-          color="info"
-          @click="
-            selectAll();
-            openDialog(MODES.export);
-          "
-        >
-          <template #icon>
-            {{ $globals.icons.database }}
-          </template>
-          Export All
-        </BaseButton>
-      </v-card-actions>
+      <v-card>
+        <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
+        <v-card-actions class="justify-end">
+          <BaseButton color="info">
+            <template #icon>
+              {{ $globals.icons.database }}
+            </template>
+            Import
+          </BaseButton>
+          <BaseButton
+            color="info"
+            @click="
+              selectAll();
+              openDialog(MODES.export);
+            "
+          >
+            <template #icon>
+              {{ $globals.icons.database }}
+            </template>
+            Export All
+          </BaseButton>
+        </v-card-actions>
+      </v-card>
     </section>
 
-    <!-- Downloads Data Table -->
-    <section>
-      <BaseCardSectionTitle :icon="$globals.icons.database" section title="Data Exports"></BaseCardSectionTitle>
-
-      <GroupExportData :exports="groupExports" />
+    <section class="mt-10">
+      <!-- Downloads Data Table -->
+      <BaseCardSectionTitle :icon="$globals.icons.database" section title="Data Exports">
+        This section provides links to available exports that are ready to download. These exports do expire, so be sure
+        to grab them while they're still available.
+      </BaseCardSectionTitle>
+      <v-card-actions class="mt-n5 mb-1">
+        <BaseButton delete @click="purgeExportsDialog = true"> </BaseButton>
+      </v-card-actions>
+      <v-card>
+        <GroupExportData :exports="groupExports" />
+      </v-card>
     </section>
   </v-container>
 </template>
@@ -220,6 +240,13 @@ export default defineComponent({
 
     // ===============================================================
     // Group Exports
+
+    const purgeExportsDialog = ref(false);
+
+    async function purgeExports() {
+      await api.bulk.purgeExports();
+      refreshExports();
+    }
 
     const groupExports = ref<GroupDataExport[]>([]);
 
@@ -352,6 +379,8 @@ export default defineComponent({
       toSetCategories,
       toSetTags,
       groupExports,
+      purgeExportsDialog,
+      purgeExports,
     };
   },
   head() {

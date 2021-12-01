@@ -13,3 +13,4 @@ router.include_router(recipe_crud_routes.user_router, prefix=prefix, tags=["Reci
 router.include_router(image_and_assets.user_router, prefix=prefix, tags=["Recipe: Images and Assets"])
 router.include_router(comments.router, prefix=prefix, tags=["Recipe: Comments"])
 router.include_router(bulk_actions.router, prefix=prefix, tags=["Recipe: Bulk Actions"])
+router.include_router(bulk_actions.export_router, prefix=prefix, tags=["Recipe: Bulk Exports"])

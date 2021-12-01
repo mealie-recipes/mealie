@@ -45,6 +45,7 @@ const prefix = "/api";
 
 const routes = {
   bulkExport: prefix + "/recipes/bulk-actions/export",
+  purgeExports: prefix + "/recipes/bulk-actions/export/purge",
   bulkCategorize: prefix + "/recipes/bulk-actions/categorize",
   bulkTag: prefix + "/recipes/bulk-actions/tag",
   bulkDelete: prefix + "/recipes/bulk-actions/delete",
@@ -69,5 +70,9 @@ export class BulkActionsAPI extends BaseAPI {
 
   async fetchExports() {
     return await this.requests.get<GroupDataExport[]>(routes.bulkExport);
+  }
+
+  async purgeExports() {
+    return await this.requests.delete(routes.purgeExports);
   }
 }
