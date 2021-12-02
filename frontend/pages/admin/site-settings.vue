@@ -10,64 +10,49 @@
     <section>
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="General Configuration">
       </BaseCardSectionTitle>
-      <v-card v-for="(check, idx) in simpleChecks" :key="idx" class="mb-4">
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-icon :color="getColor(check.status)">
-              {{ check.status ? $globals.icons.checkboxMarkedCircle : $globals.icons.close }}
-            </v-icon>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title :class="getTextClass(check.status)"> {{ check.text }} </v-list-item-title>
-            <v-list-item-subtitle :class="getTextClass(check.status)">
-              {{ check.status ? check.successText : check.errorText }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-card>
+
+      <v-alert
+        v-for="(check, idx) in simpleChecks"
+        :key="idx"
+        border="left"
+        colored-border
+        :type="getColor(check.status, check.warning)"
+        elevation="2"
+      >
+        <div class="font-weight-medium">{{ check.text }}</div>
+        <div>
+          {{ check.status ? check.successText : check.errorText }}
+        </div>
+      </v-alert>
     </section>
     <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" title="Email Configuration">
-      </BaseCardSectionTitle>
-      <v-card>
-        <v-card-text>
-          <v-list-item>
-            <v-list-item-avatar>
-              <v-icon :color="getColor(appConfig.emailReady)">
-                {{ appConfig.emailReady ? $globals.icons.checkboxMarkedCircle : $globals.icons.close }}
-              </v-icon>
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title :class="getTextClass(appConfig.emailReady)">
-                Email Configuration Status
-              </v-list-item-title>
-              <v-list-item-subtitle :class="getTextClass(appConfig.emailReady)">
-                {{ appConfig.emailReady ? "Ready" : "Not Ready - Check Env Variables" }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-card-actions>
-            <v-text-field v-model="address" class="mr-4" :label="$t('user.email')" :rules="[validators.email]">
-            </v-text-field>
-            <BaseButton
-              color="info"
-              :disabled="!appConfig.emailReady || !validEmail"
-              :loading="loading"
-              @click="testEmail"
-            >
-              <template #icon> {{ $globals.icons.email }} </template>
-              {{ $t("general.test") }}
-            </BaseButton>
-          </v-card-actions>
-        </v-card-text>
-        <template v-if="tested">
-          <v-divider class="my-x"></v-divider>
-          <v-card-text>
-            Email Test Result: {{ success ? "Succeeded" : "Failed" }}
-            <div>Errors: {{ error }}</div>
-          </v-card-text>
-        </template>
-      </v-card>
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" title="Email Configuration" />
+      <v-alert :key="idx" border="left" colored-border :type="getColor(appConfig.emailReady)" elevation="2">
+        <div class="font-weight-medium">Email Configuration Status</div>
+        <div>
+          {{ appConfig.emailReady ? "Ready" : "Not Ready - Check Environmental Variables" }}
+        </div>
+        <div>
+          <v-text-field v-model="address" class="mr-4" :label="$t('user.email')" :rules="[validators.email]">
+          </v-text-field>
+          <BaseButton
+            color="info"
+            :disabled="!appConfig.emailReady || !validEmail"
+            :loading="loading"
+            @click="testEmail"
+          >
+            <template #icon> {{ $globals.icons.email }} </template>
+            {{ $t("general.test") }}
+          </BaseButton>
+          <template v-if="tested">
+            <v-divider class="my-x"></v-divider>
+            <v-card-text>
+              Email Test Result: {{ success ? "Succeeded" : "Failed" }}
+              <div>Errors: {{ error }}</div>
+            </v-card-text>
+          </template>
+        </div>
+      </v-alert>
     </section>
     <section class="mt-4">
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="General About"> </BaseCardSectionTitle>
@@ -151,22 +136,27 @@ export default defineComponent({
     const simpleChecks = computed<SimpleCheck[]>(() => {
       return [
         {
-          status: appConfig.value.baseUrlSet,
-          text: "Server Side Base URL",
-          errorText: "`BASE_URL` still default on API Server",
-          successText: "Server Side URL does not match the default",
-        },
-        {
           status: appConfig.value.isSiteSecure,
           text: "Secure Site",
-          errorText: "Serve via localhost or secure with https.",
+          errorText: "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
           successText: "Site is accessed by localhost or https",
+          warning: false,
+        },
+        {
+          status: appConfig.value.baseUrlSet,
+          text: "Server Side Base URL",
+          errorText:
+            "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
+          successText: "Server Side URL does not match the default",
+          warning: false,
         },
         {
           status: appConfig.value.ldapReady,
           text: "LDAP Ready",
-          errorText: "Not all LDAP Values are configured",
+          errorText:
+            "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
           successText: "Required LDAP variables are all set.",
+          warning: true,
         },
       ];
     });
@@ -201,11 +191,9 @@ export default defineComponent({
       return false;
     });
 
-    function getTextClass(booly: boolean | any) {
-      return booly ? "success--text" : "error--text";
-    }
-    function getColor(booly: boolean | any) {
-      return booly ? "success" : "error";
+    function getColor(booly: boolean | any, warning = false) {
+      const falsey = warning ? "warning" : "error";
+      return booly ? "success" : falsey;
     }
 
     // ============================================================
@@ -275,7 +263,6 @@ export default defineComponent({
     return {
       simpleChecks,
       getColor,
-      getTextClass,
       appConfig,
       validEmail,
       validators,
