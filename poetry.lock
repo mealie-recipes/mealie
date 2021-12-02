@@ -246,7 +246,7 @@ gmpy2 = ["gmpy2"]
 
 [[package]]
 name = "extruct"
-version = "0.12.0"
+version = "0.13.0"
 description = "Extract embedded metadata from HTML markup"
 category = "main"
 optional = false
@@ -1009,7 +1009,7 @@ rdflib = ">=5.0.0"
 
 [[package]]
 name = "recipe-scrapers"
-version = "13.5.0"
+version = "13.7.0"
 description = "Python package, scraping recipes from all over the internet"
 category = "main"
 optional = false
@@ -1308,7 +1308,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "938e8edc83d1059c87ed6af1f3943e444de7dc29fa91420c0d9c873d97459d46"
+content-hash = "02b04e1af3f21f406605bbfef3b22990c0bec735439ae00f36867e83d5c5fa1c"
 
 [metadata.files]
 aiofiles = [
@@ -1508,8 +1508,8 @@ ecdsa = [
     {file = "ecdsa-0.17.0.tar.gz", hash = "sha256:b9f500bb439e4153d0330610f5d26baaf18d17b8ced1bc54410d189385ea68aa"},
 ]
 extruct = [
-    {file = "extruct-0.12.0-py2.py3-none-any.whl", hash = "sha256:42c6c9f50b00aa6c17b5c26b5f1b3a337ebc27b427fafc3714f34ce3bbb16c2f"},
-    {file = "extruct-0.12.0.tar.gz", hash = "sha256:d4a68bb79d1b85ff36d603a42c2666888bb480191a399a659d9daaf735358276"},
+    {file = "extruct-0.13.0-py2.py3-none-any.whl", hash = "sha256:fe19b9aefdb4dfbf828c2b082b81a363a03a44c7591c2d6b62ca225cb8f8c0be"},
+    {file = "extruct-0.13.0.tar.gz", hash = "sha256:50a5b5bac4c5e19ecf682bf63a28fde0b1bb57433df7057371f60b58c94a2c64"},
 ]
 fastapi = [
     {file = "fastapi-0.63.0-py3-none-any.whl", hash = "sha256:98d8ea9591d8512fdadf255d2a8fa56515cdd8624dca4af369da73727409508e"},
@@ -2087,8 +2087,8 @@ rdflib-jsonld = [
     {file = "rdflib_jsonld-0.6.2-py2.py3-none-any.whl", hash = "sha256:011afe67672353ca9978ab9a4bee964dff91f14042f2d8a28c22a573779d2f8b"},
 ]
 recipe-scrapers = [
-    {file = "recipe_scrapers-13.5.0-py3-none-any.whl", hash = "sha256:37d311c01aaac5903d08cf6771512231fc3e908eb363acbca7a401a6dbdbcfb9"},
-    {file = "recipe_scrapers-13.5.0.tar.gz", hash = "sha256:84d3c57b84e7ffe08bd3488fe7fba50b66819bb818d8451bfc47a84656099a14"},
+    {file = "recipe_scrapers-13.7.0-py3-none-any.whl", hash = "sha256:97c1a4b7c0866a384a26efb201e538f292a9cdd2bd1d75a6aeba5de86c152d07"},
+    {file = "recipe_scrapers-13.7.0.tar.gz", hash = "sha256:b416fab1020c64eb74a58e5b83580f9732153b9c64e93b5221ebdbfdc3c7716e"},
 ]
 regex = [
     {file = "regex-2021.11.10-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:9345b6f7ee578bad8e475129ed40123d265464c4cfead6c261fd60fc9de00bcf"},

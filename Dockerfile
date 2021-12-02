@@ -44,6 +44,8 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     libwebp-dev \
+    # LDAP Dependencies
+    libsasl2-dev libldap2-dev libssl-dev \ 
     gnupg gnupg2 gnupg1 \
     debian-keyring \
     debian-archive-keyring \
