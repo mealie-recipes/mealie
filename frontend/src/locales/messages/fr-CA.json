@@ -47,11 +47,11 @@
     "database": "Base de données",
     "delete-event": "Supprimer l’évènement",
     "new-notification-form-description": "Mealie utilise la bibliothèque apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
-    "new-version": "Nouvelle version disponible !",
+    "new-version": "Nouvelle version disponible!",
     "notification": "Notification",
     "refresh": "Rafraîchir",
     "scheduled": "Planifié",
-    "something-went-wrong": "Une erreur s'est produite !",
+    "something-went-wrong": "Une erreur s'est produite!",
     "subscribed-events": "Évènements suivis",
     "test-message-sent": "Message de test envoyé"
   },
@@ -60,7 +60,7 @@
     "clear": "Effacer",
     "close": "Fermer",
     "confirm": "Confirmer",
-    "confirm-delete-generic": "Voulez-vous vraiment supprimer ceci ?",
+    "confirm-delete-generic": "Voulez-vous vraiment supprimer ceci?",
     "copied": "Copié",
     "create": "Créer",
     "created": "Créé",
@@ -132,7 +132,7 @@
     "yes": "Oui"
   },
   "group": {
-    "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/> ?",
+    "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/>?",
     "cannot-delete-default-group": "Vous ne pouvez pas supprimer le groupe par défaut",
     "cannot-delete-group-with-users": "Impossible de supprimer un groupe avec des utilisateurs",
     "confirm-group-deletion": "Confirmer la suppression du groupe",
@@ -194,9 +194,9 @@
   },
   "new-recipe": {
     "bulk-add": "Ajouter en masse",
-    "error-details": "Seuls les sites web contenant ld+json ou des microdonnées peuvent être importés par Mealie. La plupart des grands sites web de recettes sont compatibles avec cette structure de données. Si votre site ne peut pas être importé mais qu'il y a des données json dans le journal, veuillez soumettre un problème GitHub avec l'URL et les données.",
+    "error-details": "Seuls les sites Web contenant ld+json ou des microdonnées peuvent être importés par Mealie. La plupart des grands sites web de recettes sont compatibles avec cette structure de données. Si votre site ne peut pas être importé mais qu'il y a des données JSON dans le journal, veuillez soumettre un problème GitHub avec l'URL et les données.",
     "error-title": "On dirait qu'on n'a pas pu trouver quoi que ce soit",
-    "from-url": "Depuis une adresse web",
+    "from-url": "Depuis une adresse Web",
     "github-issues": "Anomalies GitHub",
     "google-ld-json-info": "Infos Json-Ld Google",
     "must-be-a-valid-url": "Doit être une URL valide",
@@ -231,7 +231,7 @@
     "categories": "Catégories",
     "comment-action": "Commenter",
     "comments": "Commentaires",
-    "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette ?",
+    "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
     "disable-amount": "Désactiver les quantités d'ingrédients",
@@ -421,7 +421,7 @@
     "sign-up-links": "Liens d'inscription",
     "sign-up-token-deleted": "Jeton d'inscription supprimé",
     "sign-up-token-deletion-failed": "La suppression du jeton d'inscription a échoué",
-    "welcome-to-mealie": "Bienvenue sur Mealie ! Pour devenir un utilisateur de cette instance, vous devez avoir un lien d'invitation valide. Si vous n'avez pas reçu d'invitation, vous ne pouvez pas vous inscrire. Pour recevoir un lien, contactez l'administrateur du site."
+    "welcome-to-mealie": "Bienvenue sur Mealie! Pour devenir un utilisateur de cette instance, vous devez avoir un lien d'invitation valide. Si vous n'avez pas reçu d'invitation, vous ne pouvez pas vous inscrire. Pour recevoir un lien, contactez l'administrateur du site."
   },
   "tag": {
     "tag-created": "Mot-clé créé",
@@ -435,8 +435,8 @@
   },
   "user": {
     "admin": "Administrateur",
-    "are-you-sure-you-want-to-delete-the-link": "Voulez-vous réellement supprimer le lien <b>{link}<b/> ?",
-    "are-you-sure-you-want-to-delete-the-user": "Voulez-vous réellement supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/> ?",
+    "are-you-sure-you-want-to-delete-the-link": "Voulez-vous réellement supprimer le lien <b>{link}<b/>?",
+    "are-you-sure-you-want-to-delete-the-user": "Voulez-vous réellement supprimer l'utilisateur <b>{activeName} ID : {activeId}<b/>?",
     "confirm-link-deletion": "Confirmer la suppression du lien",
     "confirm-password": "Confirmer mot de passe",
     "confirm-user-deletion": "Confirmer la suppression",
@@ -447,7 +447,7 @@
     "e-mail-must-be-valid": "Le courriel doit être valide",
     "edit-user": "Modifier l'utilisateur",
     "email": "Courriel",
-    "error-cannot-delete-super-user": "Erreur ! Impossible de supprimer le super utilisateur",
+    "error-cannot-delete-super-user": "Erreur! Impossible de supprimer le super utilisateur",
     "existing-password-does-not-match": "Le mot de passe actuel ne correspond pas",
     "full-name": "Nom",
     "link-id": "ID du lien",
