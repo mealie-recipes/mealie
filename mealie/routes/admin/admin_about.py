@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
+from mealie.core.release_checker import get_latest_version
 from mealie.core.settings.static import APP_VERSION
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
@@ -18,6 +19,7 @@ async def get_app_info():
     return AdminAboutInfo(
         production=settings.PRODUCTION,
         version=APP_VERSION,
+        versionLatest=get_latest_version(),
         demo_status=settings.IS_DEMO,
         api_port=settings.API_PORT,
         api_docs=settings.API_DOCS,
@@ -49,4 +51,5 @@ async def check_app_config():
         email_ready=settings.SMTP_ENABLE,
         ldap_ready=settings.LDAP_ENABLED,
         base_url_set=url_set,
+        is_up_to_date=get_latest_version() == APP_VERSION,
     )

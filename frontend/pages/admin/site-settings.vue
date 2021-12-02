@@ -86,7 +86,7 @@ import {
   useAsync,
   useContext,
 } from "@nuxtjs/composition-api";
-import { CheckAppConfig } from "~/api/admin/admin-about";
+import { AdminAboutInfo, CheckAppConfig } from "~/api/admin/admin-about";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -113,6 +113,7 @@ export default defineComponent({
       emailReady: false,
       baseUrlSet: false,
       isSiteSecure: false,
+      isUpToDate: false,
       ldapReady: false,
     });
 
@@ -135,6 +136,13 @@ export default defineComponent({
 
     const simpleChecks = computed<SimpleCheck[]>(() => {
       return [
+        {
+          status: appConfig.value.isUpToDate,
+          text: "Application Version",
+          errorText: `Your current version (${rawAppInfo.value.version}) does not match the latest release. Considering updating to the latest version (${rawAppInfo.value.versionLatest}).`,
+          successText: "Mealie is up to date",
+          warning: true,
+        },
         {
           status: appConfig.value.isSiteSecure,
           text: "Secure Site",
@@ -198,14 +206,23 @@ export default defineComponent({
 
     // ============================================================
     // General About Info
+
     // @ts-ignore
     const { $globals, i18n } = useContext();
+
+    // @ts-ignore
+    const rawAppInfo = ref<AdminAboutInfo>({
+      version: "null",
+      versionLatest: "null",
+    });
 
     function getAppInfo() {
       const statistics = useAsync(async () => {
         const { data } = await adminApi.about.about();
 
         if (data) {
+          rawAppInfo.value = data;
+
           const prettyInfo = [
             {
               name: i18n.t("about.version"),
