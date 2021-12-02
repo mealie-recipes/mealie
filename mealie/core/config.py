@@ -172,6 +172,8 @@ class AppSettings(BaseSettings):
     RECIPE_DISABLE_COMMENTS: bool = False
     RECIPE_DISABLE_AMOUNT: bool = False
 
+    AUTO_BACKUP_ENABLED: bool = False
+
     class Config:
         env_file = BASE_DIR.joinpath(".env")
         env_file_encoding = "utf-8"

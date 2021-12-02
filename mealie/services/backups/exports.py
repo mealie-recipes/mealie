@@ -6,7 +6,7 @@ from typing import Union
 
 from jinja2 import Template
 from mealie.core import root_logger
-from mealie.core.config import app_dirs
+from mealie.core.config import app_dirs, settings
 from mealie.db.database import db
 from mealie.db.db_setup import create_session
 from mealie.services.events import create_backup_event
@@ -153,6 +153,9 @@ def backup_all(
 
 
 def auto_backup_job():
+    if not settings.AUTO_BACKUP_ENABLED:
+        return
+
     for backup in app_dirs.BACKUP_DIR.glob("Auto*.zip"):
         backup.unlink()
 
