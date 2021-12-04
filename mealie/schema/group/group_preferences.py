@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi_camelcase import CamelModel
 
 
@@ -15,7 +17,7 @@ class UpdateGroupPreferences(CamelModel):
 
 
 class CreateGroupPreferences(UpdateGroupPreferences):
-    group_id: int
+    group_id: UUID
 
 
 class ReadGroupPreferences(CreateGroupPreferences):

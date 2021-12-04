@@ -21,8 +21,13 @@ logger = get_logger()
 
 
 @user_router.get("", response_model=list[RecipeSummary])
-async def get_all(start=0, limit=None, service: RecipeService = Depends(RecipeService.private)):
-    json_compatible_item_data = jsonable_encoder(service.get_all(start, limit))
+async def get_all(
+    start: int = 0,
+    limit: int = None,
+    load_foods: bool = False,
+    service: RecipeService = Depends(RecipeService.private),
+):
+    json_compatible_item_data = jsonable_encoder(service.get_all(start, limit, load_foods))
     return JSONResponse(content=json_compatible_item_data)
 
 

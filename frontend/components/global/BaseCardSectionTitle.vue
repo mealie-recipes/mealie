@@ -1,6 +1,13 @@
 
 <template>
-  <v-card color="background" flat class="pb-2">
+  <v-card
+    color="background"
+    flat
+    class="pb-2"
+    :class="{
+      'mt-8': section,
+    }"
+  >
     <v-card-title class="headline pl-0 py-0">
       <v-icon v-if="icon !== ''" left>
         {{ icon }}
@@ -12,7 +19,7 @@
         <slot />
       </p>
     </v-card-text>
-    <v-divider class="my-3"></v-divider>
+    <v-divider class="mb-3"></v-divider>
   </v-card>
 </template>
 
@@ -26,6 +33,10 @@ export default {
     icon: {
       type: String,
       default: "",
+    },
+    section: {
+      type: Boolean,
+      default: false,
     },
   },
 };

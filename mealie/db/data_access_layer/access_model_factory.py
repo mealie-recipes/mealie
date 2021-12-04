@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from mealie.db.models.event import Event, EventNotification
 from mealie.db.models.group import Group, GroupMealPlan, ReportEntryModel, ReportModel
 from mealie.db.models.group.cookbook import CookBook
+from mealie.db.models.group.exports import GroupDataExportsModel
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.preferences import GroupPreferencesModel
 from mealie.db.models.group.webhooks import GroupWebhooksModel
@@ -21,6 +22,7 @@ from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
+from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
@@ -42,6 +44,7 @@ from .user_access_model import UserDataAccessModel
 pk_id = "id"
 pk_slug = "slug"
 pk_token = "token"
+pk_group_id = "group_id"
 
 
 class CategoryDataAccessModel(AccessModel):
@@ -143,7 +146,11 @@ class Database:
 
     @cached_property
     def group_preferences(self) -> AccessModel[ReadGroupPreferences, GroupPreferencesModel]:
-        return AccessModel(self.session, "group_id", GroupPreferencesModel, ReadGroupPreferences)
+        return AccessModel(self.session, pk_group_id, GroupPreferencesModel, ReadGroupPreferences)
+
+    @cached_property
+    def group_exports(self) -> AccessModel[GroupDataExport, GroupDataExportsModel]:
+        return AccessModel(self.session, pk_id, GroupDataExportsModel, GroupDataExport)
 
     @cached_property
     def meals(self) -> MealDataAccessModel:

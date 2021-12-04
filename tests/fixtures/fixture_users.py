@@ -38,7 +38,7 @@ def g2_user(admin_token, api_client: requests, api_routes: utils.AppRoutes):
     group_id = json.loads(self_response.text).get("groupId")
 
     try:
-        yield utils.TestUser(user_id=user_id, group_id=group_id, token=token, email=create_data["email"])
+        yield utils.TestUser(user_id=user_id, _group_id=group_id, token=token, email=create_data["email"])
     finally:
         # TODO: Delete User after test
         pass
@@ -59,7 +59,7 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
 
     try:
         yield utils.TestUser(
-            group_id=user_data.get("groupId"),
+            _group_id=user_data.get("groupId"),
             user_id=user_data.get("id"),
             email=user_data.get("email"),
             token=token,

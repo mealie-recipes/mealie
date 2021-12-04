@@ -4,7 +4,9 @@ from slugify import slugify
 from sqlalchemy.orm import validates
 
 from mealie.core import root_logger
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
+
+from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_utils.guid import GUID
 
 logger = root_logger.get_logger()
 
@@ -12,7 +14,7 @@ logger = root_logger.get_logger()
 group2categories = sa.Table(
     "group2categories",
     SqlAlchemyBase.metadata,
-    sa.Column("group_id", sa.Integer, sa.ForeignKey("groups.id")),
+    sa.Column("group_id", GUID, sa.ForeignKey("groups.id")),
     sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
 )
 

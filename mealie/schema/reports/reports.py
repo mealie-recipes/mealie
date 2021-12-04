@@ -37,7 +37,7 @@ class ReportEntryOut(ReportEntryCreate):
 class ReportCreate(CamelModel):
     timestamp: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
     category: ReportCategory
-    group_id: int
+    group_id: UUID4
     name: str
     status: ReportSummaryStatus = ReportSummaryStatus.in_progress
 

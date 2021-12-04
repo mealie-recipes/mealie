@@ -1,11 +1,14 @@
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Optional
+from uuid import UUID
 
 from fastapi_camelcase import CamelModel
+from pydantic import UUID4
 from pydantic.types import constr
 from pydantic.utils import GetterDict
 
-from mealie.core.config import get_app_settings
+from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.models.users import User
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
@@ -87,7 +90,7 @@ class UserIn(UserBase):
 class UserOut(UserBase):
     id: int
     group: str
-    group_id: int
+    group_id: UUID4
     tokens: Optional[list[LongLiveTokenOut]]
     favorite_recipes: Optional[list[str]] = []
 
@@ -119,14 +122,14 @@ class UserFavorites(UserBase):
 
 class PrivateUser(UserOut):
     password: str
-    group_id: int
+    group_id: UUID4
 
     class Config:
         orm_mode = True
 
 
 class UpdateGroup(GroupBase):
-    id: int
+    id: UUID4
     name: str
     categories: Optional[list[CategoryBase]] = []
 
@@ -140,6 +143,26 @@ class GroupInDB(UpdateGroup):
 
     class Config:
         orm_mode = True
+
+    @staticmethod
+    def get_directory(id: UUID4) -> Path:
+        dir = get_app_dirs().GROUPS_DIR / str(id)
+        dir.mkdir(parents=True, exist_ok=True)
+        return dir
+
+    @staticmethod
+    def get_export_directory(id: UUID) -> Path:
+        dir = GroupInDB.get_directory(id) / "export"
+        dir.mkdir(parents=True, exist_ok=True)
+        return dir
+
+    @property
+    def directory(self) -> Path:
+        return GroupInDB.get_directory(self.id)
+
+    @property
+    def exports(self) -> Path:
+        return GroupInDB.get_export_directory(self.id)
 
 
 class LongLiveTokenInDB(CreateToken):

@@ -18,6 +18,7 @@ class AppInfo(CamelModel):
 
 
 class AdminAboutInfo(AppInfo):
+    versionLatest: str
     api_port: int
     api_docs: bool
     db_type: str

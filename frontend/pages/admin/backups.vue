@@ -2,7 +2,7 @@
 <template>
   <v-container fluid>
     <section>
-      <BaseCardSectionTitle title="Mealie Backups"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle title="Site Backups"> </BaseCardSectionTitle>
 
       <!-- Delete Dialog -->
       <BaseDialog
@@ -25,7 +25,6 @@
         :submit-text="$t('general.import')"
         @submit="importBackup()"
       >
-        <!-- <v-card-subtitle v-if="date" class="mb-n3 mt-3"> {{ $d(new Date(date), "medium") }} </v-card-subtitle> -->
         <v-divider></v-divider>
         <v-card-text>
           <AdminBackupImportOptions v-model="selected.options" class="mt-5 mb-2" :import-backup="true" />
@@ -34,73 +33,74 @@
         <v-divider></v-divider>
       </BaseDialog>
 
-      <v-toolbar flat color="background" class="justify-between">
-        <BaseButton class="mr-2" @click="createBackup(null)" />
-        <!-- Backup Creation Dialog -->
-        <BaseDialog
-          v-model="createDialog"
-          :title="$t('settings.backup.create-heading')"
-          :icon="$globals.icons.database"
-          :submit-text="$t('general.create')"
-          @submit="createBackup"
-        >
-          <template #activator="{ open }">
-            <BaseButton secondary @click="open"> {{ $t("general.custom") }}</BaseButton>
-          </template>
-
-          <v-divider></v-divider>
+      <v-card outlined>
+        <v-card-title class="py-2"> {{ $t("settings.backup.create-heading") }} </v-card-title>
+        <v-divider class="mx-2"></v-divider>
+        <v-form @submit.prevent="createBackup()">
           <v-card-text>
-            <v-text-field v-model="backupOptions.tag" :label="$t('settings.backup.backup-tag')"> </v-text-field>
-            <AdminBackupImportOptions v-model="backupOptions.options" class="mt-5 mb-2" />
-            <v-divider class="my-3"></v-divider>
-            <p class="text-uppercase">Templates</p>
-            <v-checkbox
-              v-for="(template, index) in backups.templates"
-              :key="index"
-              v-model="backupOptions.templates"
-              :value="template"
-              :label="template"
-            ></v-checkbox>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores molestiae alias incidunt fugiat!
+            Recusandae natus numquam iusto voluptates deserunt quia? Sed voluptate rem facilis tempora, perspiciatis
+            corrupti dolore obcaecati laudantium!
+            <div style="max-width: 300px">
+              <v-text-field
+                v-model="backupOptions.tag"
+                class="mt-4"
+                :label="$t('settings.backup.backup-tag') + ' (optional)'"
+              >
+              </v-text-field>
+              <AdminBackupImportOptions v-model="backupOptions.options" class="mt-5 mb-2" />
+              <v-divider class="my-3"></v-divider>
+            </div>
+            <v-card-actions>
+              <BaseButton type="submit"> </BaseButton>
+            </v-card-actions>
           </v-card-text>
-        </BaseDialog>
-      </v-toolbar>
+        </v-form>
+      </v-card>
 
-      <v-data-table
-        :headers="headers"
-        :items="backups.imports || []"
-        class="elevation-0"
-        hide-default-footer
-        disable-pagination
-        :search="search"
-        @click:row="setSelected"
-      >
-        <template #item.date="{ item }">
-          {{ $d(Date.parse(item.date), "medium") }}
-        </template>
-        <template #item.actions="{ item }">
-          <BaseButton
-            small
-            class="mx-1"
-            delete
-            @click.stop="
-              deleteDialog = true;
-              deleteTarget = item.name;
-            "
-          />
-          <BaseButton small download :download-url="backupsFileNameDownload(item.name)" @click.stop />
-        </template>
-      </v-data-table>
-      <v-divider></v-divider>
-      <div class="mt-4 d-flex justify-end">
-        <AppButtonUpload
-          :text-btn="false"
-          class="mr-4"
-          url="/api/backups/upload"
-          accept=".zip"
-          color="info"
-          @uploaded="refreshBackups()"
-        />
-      </div>
+      <section class="mt-5">
+        <BaseCardSectionTitle title="Backups"></BaseCardSectionTitle>
+        <v-data-table
+          :headers="headers"
+          :items="backups.imports || []"
+          class="elevation-0"
+          hide-default-footer
+          disable-pagination
+          :search="search"
+          @click:row="setSelected"
+        >
+          <template #item.date="{ item }">
+            {{ $d(Date.parse(item.date), "medium") }}
+          </template>
+          <template #item.actions="{ item }">
+            <v-btn
+              icon
+              class="mx-1"
+              color="error"
+              @click.stop="
+                deleteDialog = true;
+                deleteTarget = item.name;
+              "
+            >
+              <v-icon> {{ $globals.icons.delete }} </v-icon>
+            </v-btn>
+            <BaseButton small download :download-url="backupsFileNameDownload(item.name)" @click.stop />
+          </template>
+        </v-data-table>
+        <v-divider></v-divider>
+        <div class="d-flex justify-end mt-6">
+          <div>
+            <AppButtonUpload
+              :text-btn="false"
+              class="mr-4"
+              url="/api/backups/upload"
+              accept=".zip"
+              color="info"
+              @uploaded="refreshBackups()"
+            />
+          </div>
+        </div>
+      </section>
     </section>
   </v-container>
 </template>

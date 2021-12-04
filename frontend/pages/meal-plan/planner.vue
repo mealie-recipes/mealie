@@ -382,10 +382,6 @@ export default defineComponent({
 </script>
 
 <style lang="css">
-/* .col-borders {
-  border-top: 1px solid #e0e0e0;
-} */
-
 .left-color-border {
   border-left: 5px solid var(--v-primary-base) !important;
 }

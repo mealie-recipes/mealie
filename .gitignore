@@ -16,6 +16,7 @@ dev/data/debug/*
 dev/data/img/*
 dev/data/migration/*
 dev/data/users/*
+dev/data/groups/*
 
 .DS_Store
 node_modules

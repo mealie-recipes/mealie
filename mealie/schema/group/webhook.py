@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi_camelcase import CamelModel
 
 
@@ -9,7 +11,7 @@ class CreateWebhook(CamelModel):
 
 
 class SaveWebhook(CreateWebhook):
-    group_id: int
+    group_id: UUID
 
 
 class ReadWebhook(SaveWebhook):

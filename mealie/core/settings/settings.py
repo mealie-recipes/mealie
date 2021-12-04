@@ -102,6 +102,11 @@ class AppSettings(BaseSettings):
         not_none = None not in required
         return self.LDAP_AUTH_ENABLED and not_none
 
+    # ===============================================
+    # Testing Config
+
+    TESTING: bool = False
+
     class Config:
         arbitrary_types_allowed = True
 

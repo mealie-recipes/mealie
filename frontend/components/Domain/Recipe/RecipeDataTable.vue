@@ -7,6 +7,7 @@
     :items="recipes"
     :items-per-page="15"
     class="elevation-0"
+    :loading="loading"
     @input="setValue(selected)"
   >
     <template #body.preappend>
@@ -21,6 +22,9 @@
     </template>
     <template #item.recipeCategory="{ item }">
       <RecipeChip small :items="item.recipeCategory" />
+    </template>
+    <template #item.tools="{ item }">
+      <RecipeChip small :items="item.tools" />
     </template>
     <template #item.userId="{ item }">
       <v-list-item class="justify-start">
@@ -49,6 +53,7 @@ interface ShowHeaders {
   owner: Boolean;
   tags: Boolean;
   categories: Boolean;
+  tools: Boolean;
   recipeYield: Boolean;
   dateAdded: Boolean;
 }
@@ -60,6 +65,11 @@ export default defineComponent({
       type: Array,
       required: false,
       default: () => [],
+    },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     recipes: {
       type: Array as () => Recipe[],
@@ -103,12 +113,16 @@ export default defineComponent({
       if (show.tags) {
         hdrs.push({ text: "Tags", value: "tags" });
       }
+      if (show.tools) {
+        hdrs.push({ text: "Tools", value: "tools" });
+      }
       if (show.recipeYield) {
         hdrs.push({ text: "Yield", value: "recipeYield" });
       }
       if (show.dateAdded) {
         hdrs.push({ text: "Date Added", value: "dateAdded" });
       }
+
       return hdrs;
     });
 

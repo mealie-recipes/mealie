@@ -9,20 +9,15 @@ class Routes:
     user = "/api/users/self"
 
 
-GROUP_ID = 1
-ADMIN_ID = 1
-USER_ID = 2
-
-
-def test_ownership_on_new_with_admin(api_client: TestClient, admin_token):
+def test_ownership_on_new_with_admin(api_client: TestClient, admin_user: TestUser):
     recipe_name = random_string()
-    response = api_client.post(Routes.base, json={"name": recipe_name}, headers=admin_token)
+    response = api_client.post(Routes.base, json={"name": recipe_name}, headers=admin_user.token)
     assert response.status_code == 201
 
-    recipe = api_client.get(Routes.base + f"/{recipe_name}", headers=admin_token).json()
+    recipe = api_client.get(Routes.base + f"/{recipe_name}", headers=admin_user.token).json()
 
-    assert recipe["userId"] == ADMIN_ID
-    assert recipe["groupId"] == GROUP_ID
+    assert recipe["userId"] == admin_user.user_id
+    assert recipe["groupId"] == admin_user.group_id
 
 
 def test_ownership_on_new_with_user(api_client: TestClient, g2_user: TestUser):

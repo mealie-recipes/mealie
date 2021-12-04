@@ -17,6 +17,7 @@ export interface AdminAboutInfo {
   dbType: string;
   dbUrl: string;
   defaultGroup: string;
+  versionLatest: string;
 }
 
 export interface AdminStatistics {
@@ -31,6 +32,7 @@ export interface CheckAppConfig {
   emailReady: boolean;
   baseUrlSet: boolean;
   isSiteSecure: boolean;
+  isUpToDate: boolean;
   ldapReady: boolean;
 }
 
