@@ -1,5 +1,6 @@
 import { CreateAsset, ParsedIngredient, Parser, RecipeZipToken, BulkCreatePayload } from "./types";
 import { CommentsApi } from "./recipe-comments";
+import { RecipeShareApi } from "./recipe-share";
 import { BaseCRUDAPI } from "~/api/_base";
 
 import { Recipe, CreateRecipe } from "~/types/api-types/recipe";
@@ -32,12 +33,14 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
-  public comments: CommentsApi;
+  comments: CommentsApi;
+  share: RecipeShareApi;
 
   constructor(requests: ApiRequestInstance) {
     super(requests);
 
     this.comments = new CommentsApi(requests);
+    this.share = new RecipeShareApi(requests);
   }
 
   async getAllByCategory(categories: string[]) {

@@ -1,5 +1,7 @@
 <template>
   <div class="text-center">
+    <!-- Recipe Share Dialog -->
+    <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
     <BaseDialog
       v-model="recipeDeleteDialog"
       :title="$t('recipe.delete-recipe')"
@@ -76,6 +78,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { useClipboard, useShare } from "@vueuse/core";
+import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { MealType, planTypeOptions } from "~/composables/use-group-mealplan";
@@ -97,6 +100,9 @@ export interface ContextMenuItem {
 }
 
 export default defineComponent({
+  components: {
+    RecipeDialogShare,
+  },
   props: {
     useItems: {
       type: Object as () => ContextMenuIncludes,
@@ -152,6 +158,7 @@ export default defineComponent({
     const api = useUserApi();
 
     const state = reactive({
+      shareDialog: false,
       recipeDeleteDialog: false,
       mealplannerDialog: false,
       loading: false,
@@ -252,16 +259,18 @@ export default defineComponent({
     const { copy } = useClipboard();
 
     async function handleShareEvent() {
-      if (shareIsSupported) {
-        share({
-          title: props.name,
-          url: getRecipeUrl(),
-          text: getRecipeText() as string,
-        });
-      } else {
-        await copy(getRecipeUrl());
-        alert.success("Recipe link copied to clipboard");
-      }
+      state.shareDialog = true;
+
+      // if (shareIsSupported) {
+      //   share({
+      //     title: props.name,
+      //     url: getRecipeUrl(),
+      //     text: getRecipeText() as string,
+      //   });
+      // } else {
+      //   await copy(getRecipeUrl());
+      //   alert.success("Recipe link copied to clipboard");
+      // }
     }
 
     async function addRecipeToPlan() {

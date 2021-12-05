@@ -32,7 +32,7 @@ export abstract class BaseCRUDAPI<T, U> extends BaseAPI implements CrudAPIInterf
   abstract baseRoute: string;
   abstract itemRoute(itemId: string | number): string;
 
-  async getAll(start = 0, limit = 9999, params = {}) {
+  async getAll(start = 0, limit = 9999, params = {} as any) {
     return await this.requests.get<T[]>(this.baseRoute, {
       params: { start, limit, ...params },
     });

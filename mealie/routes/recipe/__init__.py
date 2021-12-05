@@ -1,6 +1,14 @@
 from fastapi import APIRouter
 
-from . import all_recipe_routes, bulk_actions, comments, image_and_assets, recipe_crud_routes, recipe_export
+from . import (
+    all_recipe_routes,
+    bulk_actions,
+    comments,
+    image_and_assets,
+    recipe_crud_routes,
+    recipe_export,
+    shared_routes,
+)
 
 prefix = "/recipes"
 
@@ -14,3 +22,4 @@ router.include_router(image_and_assets.user_router, prefix=prefix, tags=["Recipe
 router.include_router(comments.router, prefix=prefix, tags=["Recipe: Comments"])
 router.include_router(bulk_actions.router, prefix=prefix, tags=["Recipe: Bulk Actions"])
 router.include_router(bulk_actions.export_router, prefix=prefix, tags=["Recipe: Bulk Exports"])
+router.include_router(shared_routes.router, prefix=prefix, tags=["Recipe: Shared"])
