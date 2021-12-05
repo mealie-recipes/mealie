@@ -433,6 +433,7 @@ import {
   useMeta,
   useRoute,
   useRouter,
+  onMounted,
 } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
@@ -461,6 +462,7 @@ import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import { Tool } from "~/api/class-interfaces/tools";
+import { useRouteQuery } from "~/composables/use-router";
 
 export default defineComponent({
   components: {
@@ -503,6 +505,22 @@ export default defineComponent({
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useUserApi();
+
+    // ===============================================================
+    // Edit on Navigate
+
+    const edit = useRouteQuery("edit", "");
+
+    onMounted(() => {
+      console.log("edit", edit.value);
+      if (edit.value) {
+        console.log("edit", edit.value);
+        state.form = edit.value === "true";
+      }
+    });
+
+    // ===============================================================
+    // Guest Mode
 
     // ===============================================================
     // Check Before Leaving
@@ -763,22 +781,6 @@ export default defineComponent({
       // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
     },
-    // Won't work with Composition API in Vue 2. In Vue 3, this will happen in the setup function.
-    edit: {
-      set(val) {
-        // @ts-ignore
-        this.$router.replace({ query: { ...this.$route.query, val } });
-      },
-      get() {
-        // @ts-ignore
-        return this.$route.query.edit;
-      },
-    },
-  },
-  mounted() {
-    if (this.edit) {
-      this.form = true;
-    }
   },
   methods: {
     printRecipe() {
