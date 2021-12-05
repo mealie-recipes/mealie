@@ -3,6 +3,7 @@ from pathlib import Path
 
 from mealie.core.root_logger import get_logger
 from mealie.db.data_access_layer.access_model_factory import Database
+from mealie.schema.recipe import CreateIngredientFood, CreateIngredientUnit
 
 CWD = Path(__file__).parent
 logger = get_logger(__name__)
@@ -14,21 +15,26 @@ def get_default_foods():
     return foods
 
 
-def get_default_units():
+def get_default_units() -> dict[str, str]:
     with open(CWD.joinpath("resources", "units", "en-us.json"), "r") as f:
         units = json.loads(f.read())
     return units
 
 
 def default_recipe_unit_init(db: Database) -> None:
-    for unit in get_default_units():
+    for unit in get_default_units().values():
         try:
-            db.ingredient_units.create(unit)
+            db.ingredient_units.create(
+                CreateIngredientUnit(
+                    name=unit["name"], description=unit["description"], abbreviation=unit["abbreviation"]
+                )
+            )
         except Exception as e:
             logger.error(e)
 
     for food in get_default_foods():
         try:
-            db.ingredient_foods.create(food)
+
+            db.ingredient_foods.create(CreateIngredientFood(name=food, description=""))
         except Exception as e:
             logger.error(e)

@@ -1,122 +1,102 @@
-[
-    {
+{
+    "teaspoon": {
         "name": "teaspoon",
         "description": "",
-        "fraction": true,
         "abbreviation": "tsp"
     },
-    {
+    "tablespoon": {
         "name": "tablespoon",
         "description": "",
-        "fraction": true,
         "abbreviation": "tbsp"
     },
-    {
+    "cup": {
         "name": "cup",
         "description": "",
-        "fraction": true,
         "abbreviation": "cup"
     },
-    {
+    "fluid-ounce": {
         "name": "fluid ounce",
         "description": "",
-        "fraction": true,
         "abbreviation": "fl oz"
     },
-    {
+    "pint": {
         "name": "pint",
         "description": "",
-        "fraction": true,
         "abbreviation": "pt"
     },
-    {
+    "quart": {
         "name": "quart",
         "description": "",
-        "fraction": true,
         "abbreviation": "qt"
     },
-    {
+    "gallon": {
         "name": "gallon",
         "description": "",
-        "fraction": true,
         "abbreviation": "gal"
     },
-    {
+    "milliliter": {
         "name": "milliliter",
         "description": "",
-        "fraction": true,
         "abbreviation": "ml"
     },
-    {
+    "liter": {
         "name": "liter",
         "description": "",
-        "fraction": true,
         "abbreviation": "l"
     },
-    {
+    "pound": {
         "name": "pound",
         "description": "",
-        "fraction": true,
         "abbreviation": "lb"
     },
-    {
+    "ounce": {
         "name": "ounce",
         "description": "",
-        "fraction": true,
         "abbreviation": "oz"
     },
-    {
+    "gram": {
         "name": "gram",
         "description": "",
-        "fraction": true,
         "abbreviation": "g"
     },
-    {
+    "kilogram": {
         "name": "kilogram",
         "description": "",
-        "fraction": true,
         "abbreviation": "kg"
     },
-    {
+    "milligram": {
         "name": "milligram",
         "description": "",
-        "fraction": true,
         "abbreviation": "mg"
     },
-    {
+    "splash": {
         "name": "splash",
         "description": "",
-        "fraction": true,
         "abbreviation": ""
     },
-    {
+    "dash": {
         "name": "dash",
         "description": "",
-        "fraction": true,
         "abbreviation": ""
     },
-    {
+    "serving": {
         "name": "serving",
         "description": "",
-        "fraction": true,
         "abbreviation": ""
     },
-    {
+    "head": {
         "name": "head",
         "description": "",
-        "fraction": true,
         "abbreviation": ""
     },
-    {
+    "clove": {
         "name": "clove",
         "description": "",
-        "fraction": true,
         "abbreviation": ""
     },
-    {
+    "can": {
         "name": "can",
         "description": "",
-        "fraction": true,
         "abbreviation": ""
     }
-]
+}
