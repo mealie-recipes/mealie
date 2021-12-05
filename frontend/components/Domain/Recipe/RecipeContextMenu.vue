@@ -92,7 +92,7 @@ export interface ContextMenuIncludes {
 export interface ContextMenuItem {
   title: string;
   icon: string;
-  color: string;
+  color: string | undefined;
   event: string;
 }
 
@@ -171,7 +171,7 @@ export default defineComponent({
       edit: {
         title: i18n.t("general.edit") as string,
         icon: $globals.icons.edit,
-        color: "primary",
+        color: undefined,
         event: "edit",
       },
       delete: {
@@ -183,25 +183,25 @@ export default defineComponent({
       download: {
         title: i18n.t("general.download") as string,
         icon: $globals.icons.download,
-        color: "primary",
+        color: undefined,
         event: "download",
       },
       mealplanner: {
         title: "Add to Plan",
         icon: $globals.icons.calendar,
-        color: "primary",
+        color: undefined,
         event: "mealplanner",
       },
       print: {
         title: i18n.t("general.print") as string,
         icon: $globals.icons.printer,
-        color: "primary",
+        color: undefined,
         event: "print",
       },
       share: {
         title: i18n.t("general.share") as string,
         icon: $globals.icons.shareVariant,
-        color: "primary",
+        color: undefined,
         event: "share",
       },
     };
