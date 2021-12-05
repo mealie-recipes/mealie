@@ -27,6 +27,8 @@ const routes = {
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
+
+  recipeShareToken: (token: string) => `${prefix}/recipes/shared/${token}`,
 };
 
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
@@ -118,5 +120,9 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
 
   getZipRedirectUrl(recipeSlug: string, token: string) {
     return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
+  }
+
+  async getShared(item_id: string) {
+    return await this.requests.get<Recipe>(routes.recipeShareToken(item_id));
   }
 }

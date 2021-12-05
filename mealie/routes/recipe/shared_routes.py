@@ -9,7 +9,13 @@ from mealie.schema.recipe import Recipe
 router = APIRouter()
 
 
-@router.get("/shared/{recipe_slug}", response_model=Recipe)
-def get_shared_recipe(share_key: UUID4, session: Session = Depends(generate_session)):
-    _ = get_database(session)
-    print("Shared Recipe -> ", share_key)
+@router.get("/shared/{token_id}", response_model=Recipe)
+def get_shared_recipe(token_id: UUID4, session: Session = Depends(generate_session)):
+    db = get_database(session)
+
+    token_summary = db.recipe_share_tokens.get_one(token_id)
+
+    if token_summary is None:
+        return None
+
+    return token_summary.recipe

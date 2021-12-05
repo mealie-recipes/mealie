@@ -77,7 +77,6 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
-import { useClipboard, useShare } from "@vueuse/core";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
@@ -228,14 +227,6 @@ export default defineComponent({
 
     const icon = props.menuIcon || $globals.icons.dotsVertical;
 
-    function getRecipeUrl() {
-      return `${window.location.origin}/recipe/${props.slug}`;
-    }
-
-    function getRecipeText() {
-      return i18n.t("recipe.share-recipe-message", [props.name]);
-    }
-
     // ===========================================================================
     // Context Menu Event Handler
 
@@ -252,25 +243,6 @@ export default defineComponent({
       if (data) {
         window.open(api.recipes.getZipRedirectUrl(props.slug, data.token));
       }
-    }
-
-    const { share, isSupported: shareIsSupported } = useShare();
-
-    const { copy } = useClipboard();
-
-    async function handleShareEvent() {
-      state.shareDialog = true;
-
-      // if (shareIsSupported) {
-      //   share({
-      //     title: props.name,
-      //     url: getRecipeUrl(),
-      //     text: getRecipeText() as string,
-      //   });
-      // } else {
-      //   await copy(getRecipeUrl());
-      //   alert.success("Recipe link copied to clipboard");
-      // }
     }
 
     async function addRecipeToPlan() {
@@ -301,7 +273,9 @@ export default defineComponent({
       mealplanner: () => {
         state.mealplannerDialog = true;
       },
-      share: handleShareEvent,
+      share: () => {
+        state.shareDialog = true;
+      },
     };
 
     function contextMenuEventHandler(eventKey: string) {

@@ -443,7 +443,7 @@ import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategory
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import { useRecipe } from "~/composables/recipes";
+import { useRecipe, useRecipeMeta } from "~/composables/recipes";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
@@ -725,31 +725,10 @@ export default defineComponent({
     // ===============================================================
     // Metadata
 
-    const structuredData = computed(() => {
-      // TODO: Get this working with other scrapers, unsure why it isn't properly being delivered to clients.
-      return {
-        "@context": "http://schema.org",
-        "@type": "Recipe",
-        ...recipe.value,
-      };
-    });
+    // @ts-ignore
+    const metaData = useRecipeMeta(recipe);
 
-    useMeta(() => {
-      return {
-        title: recipe?.value?.name || "Recipe",
-        // @ts-ignore
-        mainImage: recipeImage(recipe?.value?.image),
-        meta: [
-          {
-            hid: "description",
-            name: "description",
-            content: recipe?.value?.description || "",
-          },
-        ],
-        __dangerouslyDisableSanitizers: ["script"],
-        script: [{ innerHTML: JSON.stringify(structuredData), type: "application/ld+json" }],
-      };
-    });
+    useMeta(metaData);
 
     return {
       createApiExtra,
