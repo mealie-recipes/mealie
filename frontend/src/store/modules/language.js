@@ -30,6 +30,10 @@ const state = {
       value: "fr-FR",
     },
     {
+      name: "Français Canadien (Canadian French)",
+      value: "fr-CA",
+    },
+    {
       name: "Magyar (Hungarian)",
       value: "hu-HU",
     },

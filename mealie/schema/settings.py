@@ -29,6 +29,7 @@ langs = {
     "ca-ES",
     "sr-SP",
     "cs-CZ",
+    "fr-CA",
     "fr-FR",
     "zh-TW",
     "af-ZA",
