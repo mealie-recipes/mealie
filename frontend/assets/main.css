@@ -19,12 +19,6 @@
   background-color: var(--v-background-base, #121212) !important;
 }
 
-/* 1E1E1E */
-
 .theme--dark.v-card {
   background-color: #2b2b2b !important;
-}
-
-.theme--light.v-application {
-  background-color: var(--v-background-base, white) !important;
 }
