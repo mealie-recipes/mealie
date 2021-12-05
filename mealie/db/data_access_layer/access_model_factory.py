@@ -13,6 +13,7 @@ from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.server.task import ServerTaskModel
@@ -29,6 +30,7 @@ from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.recipe.recipe_tool import RecipeTool
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
 from mealie.schema.server import ServerTask
@@ -98,6 +100,10 @@ class Database:
     @cached_property
     def tags(self) -> TagsDataAccessModel:
         return TagsDataAccessModel(self.session, pk_slug, Tag, RecipeTagResponse)
+
+    @cached_property
+    def recipe_share_tokens(self) -> AccessModel[RecipeShareToken, RecipeShareTokenModel]:
+        return AccessModel(self.session, pk_id, RecipeShareTokenModel, RecipeShareToken)
 
     # ================================================================
     # Site Items

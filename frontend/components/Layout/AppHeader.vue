@@ -14,28 +14,27 @@
 
     <v-spacer></v-spacer>
 
-    <div v-if="!$vuetify.breakpoint.xs" style="max-width: 500px" @click="activateSearch">
-      <v-text-field
-        readonly
-        class="mt-6 rounded-xl"
-        rounded
-        dark
-        solo
-        dense
-        flat
-        :prepend-inner-icon="$globals.icons.search"
-        background-color="primary lighten-1"
-        color="white"
-        placeholder="Press '/'"
-      >
-      </v-text-field>
-    </div>
-    <v-btn v-else icon @click="activateSearch">
-      <v-icon> {{ $globals.icons.search }}</v-icon>
-    </v-btn>
-
     <!-- Navigation Menu -->
     <template v-if="menu">
+      <div v-if="!$vuetify.breakpoint.xs" style="max-width: 500px" @click="activateSearch">
+        <v-text-field
+          readonly
+          class="mt-6 rounded-xl"
+          rounded
+          dark
+          solo
+          dense
+          flat
+          :prepend-inner-icon="$globals.icons.search"
+          background-color="primary lighten-1"
+          color="white"
+          placeholder="Press '/'"
+        >
+        </v-text-field>
+      </div>
+      <v-btn v-else icon @click="activateSearch">
+        <v-icon> {{ $globals.icons.search }}</v-icon>
+      </v-btn>
       <v-btn v-if="$auth.loggedIn" text @click="$auth.logout()">
         <v-icon left>{{ $globals.icons.logout }}</v-icon>
         {{ $t("user.logout") }}

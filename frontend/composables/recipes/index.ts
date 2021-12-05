@@ -7,3 +7,4 @@ export { useTags, useCategories, allCategories, allTags } from "./use-tags-categ
 export { parseIngredientText } from "./use-recipe-ingredients";
 export { useRecipeSearch } from "./use-recipe-search";
 export { useTools } from "./use-recipe-tools";
+export { useRecipeMeta } from "./use-recipe-meta";

@@ -1,5 +1,7 @@
 <template>
   <div class="text-center">
+    <!-- Recipe Share Dialog -->
+    <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
     <BaseDialog
       v-model="recipeDeleteDialog"
       :title="$t('recipe.delete-recipe')"
@@ -75,7 +77,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
-import { useClipboard, useShare } from "@vueuse/core";
+import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { MealType, planTypeOptions } from "~/composables/use-group-mealplan";
@@ -92,11 +94,14 @@ export interface ContextMenuIncludes {
 export interface ContextMenuItem {
   title: string;
   icon: string;
-  color: string;
+  color: string | undefined;
   event: string;
 }
 
 export default defineComponent({
+  components: {
+    RecipeDialogShare,
+  },
   props: {
     useItems: {
       type: Object as () => ContextMenuIncludes,
@@ -152,6 +157,7 @@ export default defineComponent({
     const api = useUserApi();
 
     const state = reactive({
+      shareDialog: false,
       recipeDeleteDialog: false,
       mealplannerDialog: false,
       loading: false,
@@ -171,7 +177,7 @@ export default defineComponent({
       edit: {
         title: i18n.t("general.edit") as string,
         icon: $globals.icons.edit,
-        color: "primary",
+        color: undefined,
         event: "edit",
       },
       delete: {
@@ -183,25 +189,25 @@ export default defineComponent({
       download: {
         title: i18n.t("general.download") as string,
         icon: $globals.icons.download,
-        color: "primary",
+        color: undefined,
         event: "download",
       },
       mealplanner: {
         title: "Add to Plan",
         icon: $globals.icons.calendar,
-        color: "primary",
+        color: undefined,
         event: "mealplanner",
       },
       print: {
         title: i18n.t("general.print") as string,
         icon: $globals.icons.printer,
-        color: "primary",
+        color: undefined,
         event: "print",
       },
       share: {
         title: i18n.t("general.share") as string,
         icon: $globals.icons.shareVariant,
-        color: "primary",
+        color: undefined,
         event: "share",
       },
     };
@@ -221,14 +227,6 @@ export default defineComponent({
 
     const icon = props.menuIcon || $globals.icons.dotsVertical;
 
-    function getRecipeUrl() {
-      return `${window.location.origin}/recipe/${props.slug}`;
-    }
-
-    function getRecipeText() {
-      return i18n.t("recipe.share-recipe-message", [props.name]);
-    }
-
     // ===========================================================================
     // Context Menu Event Handler
 
@@ -244,23 +242,6 @@ export default defineComponent({
 
       if (data) {
         window.open(api.recipes.getZipRedirectUrl(props.slug, data.token));
-      }
-    }
-
-    const { share, isSupported: shareIsSupported } = useShare();
-
-    const { copy } = useClipboard();
-
-    async function handleShareEvent() {
-      if (shareIsSupported) {
-        share({
-          title: props.name,
-          url: getRecipeUrl(),
-          text: getRecipeText() as string,
-        });
-      } else {
-        await copy(getRecipeUrl());
-        alert.success("Recipe link copied to clipboard");
       }
     }
 
@@ -292,7 +273,9 @@ export default defineComponent({
       mealplanner: () => {
         state.mealplannerDialog = true;
       },
-      share: handleShareEvent,
+      share: () => {
+        state.shareDialog = true;
+      },
     };
 
     function contextMenuEventHandler(eventKey: string) {

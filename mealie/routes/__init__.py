@@ -9,6 +9,7 @@ from . import (
     groups,
     parser,
     recipe,
+    shared,
     shopping_lists,
     tags,
     tools,
@@ -23,6 +24,7 @@ router.include_router(auth.router)
 router.include_router(users.router)
 router.include_router(groups.router)
 router.include_router(recipe.router)
+router.include_router(shared.router)
 router.include_router(comments.router)
 router.include_router(parser.router)
 router.include_router(unit_and_foods.router)

@@ -1,5 +1,6 @@
 import { CreateAsset, ParsedIngredient, Parser, RecipeZipToken, BulkCreatePayload } from "./types";
 import { CommentsApi } from "./recipe-comments";
+import { RecipeShareApi } from "./recipe-share";
 import { BaseCRUDAPI } from "~/api/_base";
 
 import { Recipe, CreateRecipe } from "~/types/api-types/recipe";
@@ -26,18 +27,22 @@ const routes = {
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
+
+  recipeShareToken: (token: string) => `${prefix}/recipes/shared/${token}`,
 };
 
 export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
-  public comments: CommentsApi;
+  comments: CommentsApi;
+  share: RecipeShareApi;
 
   constructor(requests: ApiRequestInstance) {
     super(requests);
 
     this.comments = new CommentsApi(requests);
+    this.share = new RecipeShareApi(requests);
   }
 
   async getAllByCategory(categories: string[]) {
@@ -115,5 +120,9 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
 
   getZipRedirectUrl(recipeSlug: string, token: string) {
     return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
+  }
+
+  async getShared(item_id: string) {
+    return await this.requests.get<Recipe>(routes.recipeShareToken(item_id));
   }
 }

@@ -433,6 +433,7 @@ import {
   useMeta,
   useRoute,
   useRouter,
+  onMounted,
 } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
@@ -442,7 +443,7 @@ import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategory
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import { useRecipe } from "~/composables/recipes";
+import { useRecipe, useRecipeMeta } from "~/composables/recipes";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
@@ -461,6 +462,7 @@ import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import { Tool } from "~/api/class-interfaces/tools";
+import { useRouteQuery } from "~/composables/use-router";
 
 export default defineComponent({
   components: {
@@ -503,6 +505,22 @@ export default defineComponent({
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useUserApi();
+
+    // ===============================================================
+    // Edit on Navigate
+
+    const edit = useRouteQuery("edit", "");
+
+    onMounted(() => {
+      console.log("edit", edit.value);
+      if (edit.value) {
+        console.log("edit", edit.value);
+        state.form = edit.value === "true";
+      }
+    });
+
+    // ===============================================================
+    // Guest Mode
 
     // ===============================================================
     // Check Before Leaving
@@ -707,31 +725,10 @@ export default defineComponent({
     // ===============================================================
     // Metadata
 
-    const structuredData = computed(() => {
-      // TODO: Get this working with other scrapers, unsure why it isn't properly being delivered to clients.
-      return {
-        "@context": "http://schema.org",
-        "@type": "Recipe",
-        ...recipe.value,
-      };
-    });
+    // @ts-ignore
+    const metaData = useRecipeMeta(recipe);
 
-    useMeta(() => {
-      return {
-        title: recipe?.value?.name || "Recipe",
-        // @ts-ignore
-        mainImage: recipeImage(recipe?.value?.image),
-        meta: [
-          {
-            hid: "description",
-            name: "description",
-            content: recipe?.value?.description || "",
-          },
-        ],
-        __dangerouslyDisableSanitizers: ["script"],
-        script: [{ innerHTML: JSON.stringify(structuredData), type: "application/ld+json" }],
-      };
-    });
+    useMeta(metaData);
 
     return {
       createApiExtra,
@@ -763,22 +760,6 @@ export default defineComponent({
       // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
     },
-    // Won't work with Composition API in Vue 2. In Vue 3, this will happen in the setup function.
-    edit: {
-      set(val) {
-        // @ts-ignore
-        this.$router.replace({ query: { ...this.$route.query, val } });
-      },
-      get() {
-        // @ts-ignore
-        return this.$route.query.edit;
-      },
-    },
-  },
-  mounted() {
-    if (this.edit) {
-      this.form = true;
-    }
   },
   methods: {
     printRecipe() {

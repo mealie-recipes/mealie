@@ -19,6 +19,7 @@ from .instruction import RecipeInstruction
 from .note import Note
 from .nutrition import Nutrition
 from .settings import RecipeSettings
+from .shared import RecipeShareTokenModel
 from .tag import Tag, recipes2tags
 from .tool import recipes_to_tools
 
@@ -86,6 +87,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         order_by="RecipeInstruction.position",
         collection_class=ordering_list("position"),
     )
+
+    share_tokens = orm.relationship(RecipeShareTokenModel, back_populates="recipe")
 
     comments: list = orm.relationship("RecipeComment", back_populates="recipe", cascade="all, delete, delete-orphan")
 

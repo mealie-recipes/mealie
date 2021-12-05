@@ -60,7 +60,7 @@
 
     <div class="d-flex justify-space-between justify-start">
       <h2 class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
-      <BaseButton minor :to="$router.currentRoute.path + '/cook'" cancel color="primary">
+      <BaseButton v-if="!public" minor :to="$router.currentRoute.path + '/cook'" cancel color="primary">
         <template #icon>
           {{ $globals.icons.primary }}
         </template>
@@ -183,6 +183,10 @@ export default defineComponent({
       default: () => [],
     },
     disableAmount: {
+      type: Boolean,
+      default: false,
+    },
+    public: {
       type: Boolean,
       default: false,
     },
