@@ -172,7 +172,7 @@
             label="Password"
             type="password"
           />
-          <v-checkbox class="ml-2 mt-n4" label="Remember Me"></v-checkbox>
+          <v-checkbox v-model="form.remember" class="ml-2 mt-n4" label="Remember Me"></v-checkbox>
           <v-card-actions class="justify-center">
             <div class="max-button">
               <v-btn :loading="loggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
@@ -204,6 +204,7 @@ export default defineComponent({
     const form = reactive({
       email: "changeme@email.com",
       password: "MyPassword",
+      remember: false,
     });
 
     const loggingIn = ref(false);
@@ -215,15 +216,15 @@ export default defineComponent({
       const formData = new FormData();
       formData.append("username", form.email);
       formData.append("password", form.password);
+      formData.append("remember_me", String(form.remember));
 
       try {
         await $auth.loginWith("local", { data: formData });
       } catch (error) {
         if (error.response.status === 401) {
           alert.error("Invalid Credentials");
-        }
-        else {
-          alert.error("Something Went Wrong!")
+        } else {
+          alert.error("Something Went Wrong!");
         }
       }
       loggingIn.value = false;
