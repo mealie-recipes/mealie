@@ -10,20 +10,10 @@ services:
     ports:
       - 9091:3000
     environment:
-      - GLOBAL_MIDDLEWARE=auth
+      # - GLOBAL_MIDDLEWARE=auth
       # - SUB_PATH=/mealie/
       - ALLOW_SIGNUP=true
       - API_URL=http://mealie-api:80
-
-      # =====================================
-      # Email Configuration
-      # - SMTP_HOST=
-      # - SMTP_PORT=587
-      # - SMTP_FROM_NAME=Mealie
-      # - SMTP_TLS=true
-      # - SMTP_FROM_EMAIL=
-      # - SMTP_USER=
-      # - SMTP_PASSWORD=
 
       # =====================================
       # Light Mode Config
@@ -53,19 +43,34 @@ services:
     ports:
       - 9092:80
     environment:
-      DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
+      DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
+      # =====================================
+      # Postgres Config
       POSTGRES_USER: mealie
       POSTGRES_PASSWORD: mealie
       POSTGRES_SERVER: postgres
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
+
+      # =====================================
+      # Web Concurrency
       WORKERS_PER_CORE: 0.5
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
-  postgres:
-    container_name: postgres
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: mealie
-      POSTGRES_USER: mealie
+
+      # =====================================
+      # Email Configuration
+      # - SMTP_HOST=
+      # - SMTP_PORT=587
+      # - SMTP_FROM_NAME=Mealie
+      # - SMTP_TLS=true
+      # - SMTP_FROM_EMAIL=
+      # - SMTP_USER=
+      # - SMTP_PASSWORD=
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_PASSWORD: mealie
+  #     POSTGRES_USER: mealie

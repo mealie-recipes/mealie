@@ -50,8 +50,7 @@
       <v-divider></v-divider>
 
       <!--  Editors  -->
-      <LazyRecipeJsonEditor v-if="jsonEditor" v-model="recipe" class="mt-10" :options="jsonEditorOptions" />
-      <div v-else>
+      <div>
         <v-card-text
           :class="{
             'px-2': $vuetify.breakpoint.smAndDown,
@@ -187,12 +186,6 @@
                   class="mt-10"
                   :edit="form"
                 />
-                <RecipeAssets
-                  v-if="recipe.settings.showAssets"
-                  v-model="recipe.assets"
-                  :edit="form"
-                  :slug="recipe.slug"
-                />
               </div>
             </v-col>
             <v-divider v-if="$vuetify.breakpoint.mdAndUp" class="my-divider" :vertical="true"></v-divider>
@@ -291,7 +284,6 @@ import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import RecipeAssets from "~/components/Domain/Recipe/RecipeAssets.vue";
 import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
@@ -299,7 +291,6 @@ import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 
 export default defineComponent({
   components: {
-    RecipeAssets,
     RecipeChips,
     RecipeIngredients,
     RecipeInstructions,
@@ -388,11 +379,6 @@ export default defineComponent({
     imageHeight() {
       // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
-    },
-  },
-  methods: {
-    printRecipe() {
-      window.print();
     },
   },
 });
