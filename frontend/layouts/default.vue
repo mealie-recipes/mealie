@@ -184,8 +184,5 @@ export default defineComponent({
       ],
     };
   },
-  head: {
-    title: "Home",
-  },
 });
 </script>
