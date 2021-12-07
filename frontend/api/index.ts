@@ -24,7 +24,7 @@ import { GroupReportsApi } from "./class-interfaces/group-reports";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
-  private static instance: Api;
+  // private static instance: Api;
   public recipes: RecipeAPI;
   public users: UserApi;
   public groups: GroupAPI;
@@ -50,9 +50,9 @@ class Api {
   public upload: UploadFile;
 
   constructor(requests: ApiRequestInstance) {
-    if (Api.instance instanceof Api) {
-      return Api.instance;
-    }
+    // if (Api.instance instanceof Api) {
+    //   return Api.instance;
+    // }
 
     // Recipes
     this.recipes = new RecipeAPI(requests);
@@ -88,7 +88,7 @@ class Api {
     this.bulk = new BulkActionsAPI(requests);
 
     Object.freeze(this);
-    Api.instance = this;
+    // Api.instance = this;
   }
 }
 

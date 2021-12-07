@@ -2,6 +2,24 @@ export const useAsyncKey = function () {
   return String(Date.now());
 };
 
+export function detectServerBaseUrl(req: any) {
+  if (!req || req === undefined) {
+    return "";
+  }
+  if (req.headers.referer) {
+    const url = new URL(req.headers.referer);
+    return `${url.protocol}//${url.host}`;
+  } else if (req.headers.host) {
+    const protocol = req.connection.encrypted ? "https" : "http:";
+    return `${protocol}//${req.headers.host}`;
+  } else if (req.connection.remoteAddress) {
+    const protocol = req.connection.encrypted ? "https" : "http:";
+    return `${protocol}//${req.connection.localAddress}:${req.connection.localPort}`;
+  }
+
+  return "";
+}
+
 export function uuid4() {
   // @ts-ignore
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>

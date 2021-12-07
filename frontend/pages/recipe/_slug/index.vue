@@ -271,12 +271,14 @@
                   class="mt-10"
                   :edit="form"
                 />
-                <RecipeAssets
-                  v-if="recipe.settings.showAssets"
-                  v-model="recipe.assets"
-                  :edit="form"
-                  :slug="recipe.slug"
-                />
+                <client-only>
+                  <RecipeAssets
+                    v-if="recipe.settings.showAssets"
+                    v-model="recipe.assets"
+                    :edit="form"
+                    :slug="recipe.slug"
+                  />
+                </client-only>
               </div>
             </v-col>
             <v-divider v-if="$vuetify.breakpoint.mdAndUp" class="my-divider" :vertical="true"></v-divider>
@@ -347,12 +349,14 @@
                   class="mt-10"
                   :edit="form"
                 />
-                <RecipeAssets
-                  v-if="recipe.settings.showAssets"
-                  v-model="recipe.assets"
-                  :edit="form"
-                  :slug="recipe.slug"
-                />
+                <client-only>
+                  <RecipeAssets
+                    v-if="recipe.settings.showAssets"
+                    v-model="recipe.assets"
+                    :edit="form"
+                    :slug="recipe.slug"
+                  />
+                </client-only>
               </div>
 
               <RecipeNotes v-model="recipe.notes" :edit="form" />
@@ -449,7 +453,6 @@ import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import RecipeAssets from "~/components/Domain/Recipe/RecipeAssets.vue";
 import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
@@ -468,7 +471,11 @@ export default defineComponent({
   components: {
     draggable,
     RecipeActionMenu,
-    RecipeAssets,
+    RecipeAssets: () => {
+      if (process.client) {
+        return import(/* webpackChunkName: "RecipeAssets" */ "~/components/Domain/Recipe/RecipeAssets.vue");
+      }
+    },
     RecipeCategoryTagSelector,
     RecipeChips,
     RecipeComments,
@@ -520,9 +527,6 @@ export default defineComponent({
     });
 
     // ===============================================================
-    // Guest Mode
-
-    // ===============================================================
     // Check Before Leaving
 
     const domSaveChangesDialog = ref(null);
@@ -544,7 +548,7 @@ export default defineComponent({
 
     const { recipe, loading, fetchRecipe } = useRecipe(slug);
 
-    // Manage a deep copy of the recipe so we can detect if changes have occured and inform
+    // Manage a deep copy of the recipe so we can detect if changes have occurred and inform
     // the user if they try to navigate away from the page without saving.
     const originalRecipe = ref<Recipe | null>(null);
 
@@ -769,4 +773,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>

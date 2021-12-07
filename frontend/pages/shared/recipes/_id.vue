@@ -229,12 +229,6 @@
                   class="mt-10"
                   :edit="form"
                 />
-                <RecipeAssets
-                  v-if="recipe.settings.showAssets"
-                  v-model="recipe.assets"
-                  :edit="form"
-                  :slug="recipe.slug"
-                />
               </div>
 
               <RecipeNotes v-model="recipe.notes" :edit="form" />
@@ -278,7 +272,7 @@ import {
 } from "@nuxtjs/composition-api";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
-import { useRecipeMeta } from "~/composables/recipes";
+// import { useRecipeMeta } from "~/composables/recipes";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
@@ -322,26 +316,55 @@ export default defineComponent({
       },
     });
 
+    // @ts-ignore
     const { recipeImage } = useStaticRoutes();
+    const { meta, title } = useMeta();
 
     const recipe = useAsync(async () => {
       const { data } = await api.recipes.getShared(id);
-
       if (data) {
+        if (data && data !== undefined) {
+          console.log("Computed Meta. RefKey=");
+          const imageURL = recipeImage(data.slug);
+          title.value = data.name;
+
+          meta.value = [
+            { hid: "og:title", property: "og:title", content: data.name },
+            // @ts-ignore
+            {
+              hid: "og:desc",
+              property: "og:description",
+              content: data.description,
+            },
+            {
+              hid: "og-image",
+              property: "og:image",
+              content: imageURL,
+            },
+            // @ts-ignore
+            {
+              hid: "twitter:title",
+              property: "twitter:title",
+              content: data.name,
+            },
+            // @ts-ignore
+            {
+              hid: "twitter:desc",
+              property: "twitter:description",
+              content: data.description,
+            },
+            { hid: "t-type", name: "twitter:card", content: "summary_large_image" },
+          ];
+        }
         return data;
       }
     });
 
     // @ts-ignore
-    const recipeMeta = useRecipeMeta(recipe);
-
-    useMeta(recipeMeta);
-
-    // @ts-ignore
     const { $vuetify } = useContext();
 
     const enableLandscape = computed(() => {
-      const preferLandscape = recipe?.value?.settings?.landscapeView;
+      const preferLandscape = recipe.value?.settings?.landscapeView;
       const smallScreen = !$vuetify.breakpoint.smAndUp;
 
       if (preferLandscape) {

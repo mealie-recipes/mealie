@@ -26,7 +26,7 @@
     "core-js": "^3.15.1",
     "date-fns": "^2.23.0",
     "fuse.js": "^6.4.6",
-    "nuxt": "^2.15.7",
+    "nuxt": "^2.15.8",
     "v-jsoneditor": "^1.4.5",
     "vuedraggable": "^2.24.3",
     "vuetify": "^2.5.5"
@@ -35,7 +35,7 @@
     "@babel/eslint-parser": "^7.14.7",
     "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/composition-api": "^0.30.0",
+    "@nuxtjs/composition-api": "^0.31.0",
     "@nuxtjs/eslint-config-typescript": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/vuetify": "^1.12.1",
