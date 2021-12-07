@@ -6,7 +6,15 @@
     "code-generation"
   ],
   "cSpell.enableFiletypes": ["!javascript", "!python", "!yaml"],
-  "cSpell.words": ["compression", "hkotel", "performant", "postgres", "webp"],
+  "cSpell.words": [
+    "chowdown",
+    "compression",
+    "hkotel",
+    "nextcloud",
+    "performant",
+    "postgres",
+    "webp"
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.organizeImports": false

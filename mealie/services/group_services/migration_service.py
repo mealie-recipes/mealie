@@ -11,6 +11,7 @@ from mealie.schema.reports.reports import ReportOut, ReportSummary
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 from mealie.services.migrations import ChowdownMigrator, NextcloudMigrator
+from mealie.services.migrations.paprika import PaprikaMigrator
 
 logger = get_logger(module=__name__)
 
@@ -24,7 +25,7 @@ class GroupMigrationService(UserHttpService[int, ReportOut]):
     def dal(self):
         raise NotImplementedError
 
-    def populate_item(self, id: UUID4) -> ReportOut:
+    def populate_item(self, _: UUID4) -> ReportOut:
         return None
 
     def migrate(self, migration: SupportedMigrations, archive: Path) -> ReportSummary:
@@ -33,5 +34,8 @@ class GroupMigrationService(UserHttpService[int, ReportOut]):
 
         if migration == SupportedMigrations.chowdown:
             self.migration_type = ChowdownMigrator(archive, self.db, self.session, self.user.id, self.group_id)
+
+        if migration == SupportedMigrations.paprika:
+            self.migration_type = PaprikaMigrator(archive, self.db, self.session, self.user.id, self.group_id)
 
         return self.migration_type.migrate(f"{migration.value.title()} Migration")

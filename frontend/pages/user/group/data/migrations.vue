@@ -65,6 +65,7 @@ import { useUserApi } from "~/composables/api";
 const MIGRATIONS = {
   nextcloud: "nextcloud",
   chowdown: "chowdown",
+  paprika: "paprika",
 };
 
 export default defineComponent({
@@ -90,6 +91,10 @@ export default defineComponent({
       {
         text: "Chowdown",
         value: MIGRATIONS.chowdown,
+      },
+      {
+        text: "Paprika",
+        value: MIGRATIONS.paprika,
       },
     ];
 
@@ -128,6 +133,10 @@ export default defineComponent({
       },
       [MIGRATIONS.chowdown]: {
         text: "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
+        tree: false,
+      },
+      [MIGRATIONS.paprika]: {
+        text: "Mealie can import recipes from the Paprika application. Export your recipes from paprika and upload the `.paprikaexprot` file below",
         tree: false,
       },
     };
