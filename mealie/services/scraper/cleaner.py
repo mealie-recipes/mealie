@@ -56,10 +56,20 @@ def clean_string(text: str) -> str:
 
 
 def category(category: str):
+    if isinstance(category, list) and len(category) > 0 and isinstance(category[0], dict):
+        # If the category is a list of dicts, it's probably from a migration
+        # validate that the required fields are present
+        valid = []
+        for cat in category:
+            if "name" in cat and "slug" in cat:
+                valid.append(cat)
+
+        return valid
+
     if isinstance(category, str) and category != "":
         return [category]
-    else:
-        return []
+
+    return []
 
 
 def clean_html(raw_html):
@@ -201,7 +211,7 @@ def yield_amount(yld) -> str:
 
 
 def clean_time(time_entry):
-    if time_entry is None:
+    if time_entry is None or time_entry == "" or time_entry == " ":
         return None
     elif isinstance(time_entry, timedelta):
         return pretty_print_timedelta(time_entry)
@@ -214,11 +224,9 @@ def clean_time(time_entry):
             return pretty_print_timedelta(time_delta_object)
         except ValueError:
             logger.error(f"Could not parse time_entry `{time_entry}`")
+            return str(time_entry)
     else:
         return str(time_entry)
-
-
-# ! TODO: Cleanup Code Below
 
 
 def parse_duration(iso_duration):
@@ -253,8 +261,9 @@ def parse_duration(iso_duration):
 def pretty_print_timedelta(t: timedelta, max_components=None, max_decimal_places=2):
     """
     Print a pretty string for a timedelta.
-    For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days 4 Hours 48 Minutes'. Setting max_components to e.g. 1 will change this to '2.2 days', where the
-    number of decimal points can also be set.
+    For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days 4 Hours 48 Minutes'.
+    Setting max_components to e.g. 1 will change this to '2.2 days', where the number of decimal
+    points can also be set.
     """
     time_scale_names_dict = {
         timedelta(days=365): "year",

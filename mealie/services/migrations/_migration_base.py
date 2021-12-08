@@ -16,6 +16,7 @@ from mealie.schema.reports.reports import (
 from mealie.services.scraper import cleaner
 
 from .._base_service import BaseService
+from .utils.database_helpers import DatabaseMigrationHelpers
 from .utils.migration_alias import MigrationAlias
 
 
@@ -36,6 +37,8 @@ class BaseMigrator(BaseService):
         self.report_entries = []
 
         self.logger = root_logger.get_logger()
+
+        self.helpers = DatabaseMigrationHelpers(self.db, self.session, self.group_id, self.user_id)
 
         super().__init__()
 
@@ -165,6 +168,17 @@ class BaseMigrator(BaseService):
         dictionary and returns the result unpacked into a Recipe object
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
+
+        # Temporary hold out of recipe_dict
+        # temp_categories = recipe_dict["recipeCategory"]
+        # temp_tools = recipe_dict["tools"]
+        # temp_tasg = recipe_dict["tags"]
+
         recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
+
+        # Reassign after cleaning
+        # recipe_dict["recipeCategory"] = temp_categories
+        # recipe_dict["tools"] = temp_tools
+        # recipe_dict["tags"] = temp_tasg
 
         return Recipe(**recipe_dict)
