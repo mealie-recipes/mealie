@@ -278,7 +278,8 @@
     "sugar-content": "Sugar",
     "title": "Title",
     "total-time": "Total Time",
-    "unable-to-delete-recipe": "Unable to Delete Recipe"
+    "unable-to-delete-recipe": "Unable to Delete Recipe",
+    "copy-selected": "Copy selected"
   },
   "reicpe": {
     "no-recipe": "No Recipe"

@@ -66,6 +66,22 @@
           </v-list-item-content>
         </v-list-item>
       </div>
+      <v-row class="mt-2 mb-1">
+        <v-col></v-col>
+      <v-btn
+        dense
+        small
+        :hover="false"
+        type="label"
+        :ripple="false"
+        elevation="0"
+        color="secondary darken-1"
+        class="rounded-sm mr-4"
+        @click="copySelected()"
+      >
+        {{ $t("recipe.copy-selected") }}
+      </v-btn>
+      </v-row>
     </div>
   </div>
 </template>
@@ -143,6 +159,17 @@ export default {
     toggleChecked(index) {
       this.$set(this.checked, index, !this.checked[index]);
     },
+    copySelected() {
+      let indexes = this.getAllIndexes(this.checked, true);
+      var copyStr = "";
+      for (const [i, index] of indexes.entries()) {
+        copyStr += this.value[index].note;
+        if (i !== indexes.length - 1) {
+          copyStr += "\n";
+        }
+      }
+      utils.copyToClipboard(copyStr);
+    },
     removeByIndex(list, index) {
       list.splice(index, 1);
     },
@@ -155,6 +182,12 @@ export default {
         this.value[index].title = "";
       }
       this.$set(this.showTitleEditor, index, newVal);
+    },
+    getAllIndexes(arr, val) {
+      var indexes = [],
+        i;
+      for (i = 0; i < arr.length; i++) if (arr[i] === val) indexes.push(i);
+      return indexes;
     },
   },
 };
