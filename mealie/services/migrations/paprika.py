@@ -5,7 +5,6 @@ import tempfile
 import zipfile
 from gzip import GzipFile
 from pathlib import Path
-from pprint import pprint
 from uuid import UUID
 
 import regex as re
@@ -77,8 +76,6 @@ class PaprikaMigrator(BaseMigrator):
 
             recipes.append(recipe_model)
 
-        pprint(recipe_image_urls)
-
         results = self.import_recipes_to_database(recipes)
 
         for slug, status in results:
@@ -86,6 +83,7 @@ class PaprikaMigrator(BaseMigrator):
                 continue
 
             try:
+                # Images are stored as base64 encoded strings, so we need to decode them before importing.
                 image = io.BytesIO(base64.b64decode(recipe_image_urls[slug]))
                 with tempfile.NamedTemporaryFile(suffix=".jpeg") as temp_file:
                     temp_file.write(image.read())
