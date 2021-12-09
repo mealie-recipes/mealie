@@ -11,6 +11,7 @@ from mealie.schema.reports.reports import ReportOut, ReportSummary
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 from mealie.services.migrations import ChowdownMigrator, NextcloudMigrator
+from mealie.services.migrations.mealie_alpha import MealieAlphaMigrator
 from mealie.services.migrations.paprika import PaprikaMigrator
 
 logger = get_logger(module=__name__)
@@ -28,14 +29,26 @@ class GroupMigrationService(UserHttpService[int, ReportOut]):
     def populate_item(self, _: UUID4) -> ReportOut:
         return None
 
-    def migrate(self, migration: SupportedMigrations, archive: Path) -> ReportSummary:
+    def migrate(self, migration: SupportedMigrations, add_migration_tag: bool, archive: Path) -> ReportSummary:
+        args = {
+            "archive": archive,
+            "db": self.db,
+            "session": self.session,
+            "user_id": self.user.id,
+            "group_id": self.group_id,
+            "add_migration_tag": add_migration_tag,
+        }
+
         if migration == SupportedMigrations.nextcloud:
-            self.migration_type = NextcloudMigrator(archive, self.db, self.session, self.user.id, self.group_id)
+            self.migration_type = NextcloudMigrator(**args)
 
         if migration == SupportedMigrations.chowdown:
-            self.migration_type = ChowdownMigrator(archive, self.db, self.session, self.user.id, self.group_id)
+            self.migration_type = ChowdownMigrator(**args)
 
         if migration == SupportedMigrations.paprika:
-            self.migration_type = PaprikaMigrator(archive, self.db, self.session, self.user.id, self.group_id)
+            self.migration_type = PaprikaMigrator(**args)
+
+        if migration == SupportedMigrations.mealie_alpha:
+            self.migration_type = MealieAlphaMigrator(**args)
 
         return self.migration_type.migrate(f"{migration.value.title()} Migration")

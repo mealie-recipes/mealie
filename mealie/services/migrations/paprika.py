@@ -5,17 +5,15 @@ import tempfile
 import zipfile
 from gzip import GzipFile
 from pathlib import Path
-from uuid import UUID
 
 import regex as re
 from slugify import slugify
 
-from mealie.db.database import Database
 from mealie.schema.recipe import RecipeNote
-from mealie.services.migrations.utils.migration_alias import MigrationAlias
-from mealie.services.migrations.utils.migration_helpers import import_image
 
 from ._migration_base import BaseMigrator
+from .utils.migration_alias import MigrationAlias
+from .utils.migration_helpers import import_image
 
 
 def paprika_recipes(file: Path):
@@ -32,8 +30,10 @@ def paprika_recipes(file: Path):
 
 
 class PaprikaMigrator(BaseMigrator):
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID):
-        super().__init__(archive, db, session, user_id, group_id)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.name = "paprika"
 
         re_num_list = re.compile(r"^\d+\.\s")
 

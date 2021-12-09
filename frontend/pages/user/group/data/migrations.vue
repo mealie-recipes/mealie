@@ -42,6 +42,14 @@
           {{ fileObject.name || "No file selected" }}
         </v-card-text>
 
+        <v-card-text>
+          <v-checkbox v-model="addMigrationTag">
+            <template #label>
+              Tag all recipes with <b class="mx-1"> {{ migrationType }} </b> tag
+            </template>
+          </v-checkbox>
+        </v-card-text>
+
         <v-card-actions class="justify-end">
           <BaseButton :disabled="!fileObject.name" submit @click="startMigration">
             {{ $t("general.submit") }}</BaseButton
@@ -66,6 +74,7 @@ const MIGRATIONS = {
   nextcloud: "nextcloud",
   chowdown: "chowdown",
   paprika: "paprika",
+  mealie: "mealie_alpha",
 };
 
 export default defineComponent({
@@ -76,6 +85,7 @@ export default defineComponent({
     const api = useUserApi();
 
     const state = reactive({
+      addMigrationTag: false,
       loading: false,
       treeState: true,
       migrationType: MIGRATIONS.nextcloud as SupportedMigration,
@@ -95,6 +105,10 @@ export default defineComponent({
       {
         text: "Paprika",
         value: MIGRATIONS.paprika,
+      },
+      {
+        text: "Mealie",
+        value: MIGRATIONS.mealie,
       },
     ];
 
@@ -133,11 +147,94 @@ export default defineComponent({
       },
       [MIGRATIONS.chowdown]: {
         text: "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
-        tree: false,
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "nextcloud.zip",
+            children: [
+              {
+                id: 2,
+                name: "Recipe 1",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
+                  { id: 4, name: "full.jpg", icon: $globals.icons.fileImage },
+                  { id: 5, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                ],
+              },
+              {
+                id: 6,
+                name: "Recipe 2",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
+                  { id: 8, name: "full.jpg", icon: $globals.icons.fileImage },
+                  { id: 9, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                ],
+              },
+            ],
+          },
+        ],
       },
       [MIGRATIONS.paprika]: {
-        text: "Mealie can import recipes from the Paprika application. Export your recipes from paprika and upload the `.paprikaexprot` file below",
+        text: "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
         tree: false,
+      },
+      [MIGRATIONS.mealie]: {
+        text: "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "mealie.zip",
+            children: [
+              {
+                id: 2,
+                name: "recipes",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  {
+                    id: 3,
+                    name: "recipe-name",
+                    icon: $globals.icons.folderOutline,
+                    children: [
+                      { id: 4, name: "recipe-name.json", icon: $globals.icons.codeJson },
+                      {
+                        id: 5,
+                        name: "images",
+                        icon: $globals.icons.folderOutline,
+                        children: [
+                          { id: 6, name: "original.webp", icon: $globals.icons.codeJson },
+                          { id: 7, name: "full.jpg", icon: $globals.icons.fileImage },
+                          { id: 8, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    id: 9,
+                    name: "recipe-name-1",
+                    icon: $globals.icons.folderOutline,
+                    children: [
+                      { id: 10, name: "recipe-name-1.json", icon: $globals.icons.codeJson },
+                      {
+                        id: 11,
+                        name: "images",
+                        icon: $globals.icons.folderOutline,
+                        children: [
+                          { id: 12, name: "original.webp", icon: $globals.icons.codeJson },
+                          { id: 13, name: "full.jpg", icon: $globals.icons.fileImage },
+                          { id: 14, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     };
 
@@ -148,6 +245,7 @@ export default defineComponent({
     async function startMigration() {
       state.loading = true;
       const payload = {
+        addMigrationTag: state.addMigrationTag,
         migrationType: state.migrationType,
         archive: state.fileObject,
       };

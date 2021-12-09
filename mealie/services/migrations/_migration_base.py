@@ -27,12 +27,15 @@ class BaseMigrator(BaseService):
     report_id: int
     report: ReportOut
 
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID):
+    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID, add_migration_tag: bool):
         self.archive = archive
         self.db = db
         self.session = session
         self.user_id = user_id
         self.group_id = group_id
+        self.add_migration_tag = add_migration_tag
+
+        self.name = "migration"
 
         self.report_entries = []
 
@@ -97,6 +100,8 @@ class BaseMigrator(BaseService):
         Args:
             validated_recipes (list[Recipe]):
         """
+        if self.add_migration_tag:
+            migration_tag = self.helpers.get_or_set_tags([self.name])[0]
 
         return_vars = []
 
@@ -105,6 +110,9 @@ class BaseMigrator(BaseService):
             recipe.user_id = self.user_id
             recipe.group_id = self.group_id
 
+            if self.add_migration_tag:
+                recipe.tags.append(migration_tag)
+
             exception = ""
             status = False
             try:
@@ -112,7 +120,7 @@ class BaseMigrator(BaseService):
                 status = True
 
             except Exception as inst:
-                exception = inst
+                exception = str(inst)
                 self.logger.exception(inst)
                 self.session.rollback()
 
