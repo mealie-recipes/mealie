@@ -7,6 +7,8 @@ migrations_paprika = CWD / "migrations/paprika.zip"
 
 migrations_chowdown = CWD / "migrations/chowdown.zip"
 
+migrations_mealie = CWD / "migrations/mealie.zip"
+
 migrations_nextcloud = CWD / "migrations/nextcloud.zip"
 
 images_test_image_1 = CWD / "images/test-image-1.jpg"

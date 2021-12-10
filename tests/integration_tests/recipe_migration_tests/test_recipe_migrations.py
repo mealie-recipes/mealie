@@ -26,6 +26,7 @@ test_cases = [
     MigrationTestData(typ=SupportedMigrations.nextcloud, archive=test_data.migrations_nextcloud),
     MigrationTestData(typ=SupportedMigrations.paprika, archive=test_data.migrations_paprika),
     MigrationTestData(typ=SupportedMigrations.chowdown, archive=test_data.migrations_chowdown),
+    MigrationTestData(typ=SupportedMigrations.mealie_alpha, archive=test_data.migrations_mealie),
 ]
 
 

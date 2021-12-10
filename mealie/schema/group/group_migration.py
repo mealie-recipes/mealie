@@ -7,6 +7,7 @@ class SupportedMigrations(str, enum.Enum):
     nextcloud = "nextcloud"
     chowdown = "chowdown"
     paprika = "paprika"
+    mealie_alpha = "mealie_alpha"
 
 
 class DataMigrationCreate(CamelModel):
