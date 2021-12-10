@@ -16,6 +16,7 @@ from mealie.schema.reports.reports import (
 from mealie.services.scraper import cleaner
 
 from .._base_service import BaseService
+from .utils.database_helpers import DatabaseMigrationHelpers
 from .utils.migration_alias import MigrationAlias
 
 
@@ -26,16 +27,21 @@ class BaseMigrator(BaseService):
     report_id: int
     report: ReportOut
 
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID):
+    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID, add_migration_tag: bool):
         self.archive = archive
         self.db = db
         self.session = session
         self.user_id = user_id
         self.group_id = group_id
+        self.add_migration_tag = add_migration_tag
+
+        self.name = "migration"
 
         self.report_entries = []
 
         self.logger = root_logger.get_logger()
+
+        self.helpers = DatabaseMigrationHelpers(self.db, self.session, self.group_id, self.user_id)
 
         super().__init__()
 
@@ -94,6 +100,8 @@ class BaseMigrator(BaseService):
         Args:
             validated_recipes (list[Recipe]):
         """
+        if self.add_migration_tag:
+            migration_tag = self.helpers.get_or_set_tags([self.name])[0]
 
         return_vars = []
 
@@ -102,6 +110,9 @@ class BaseMigrator(BaseService):
             recipe.user_id = self.user_id
             recipe.group_id = self.group_id
 
+            if self.add_migration_tag:
+                recipe.tags.append(migration_tag)
+
             exception = ""
             status = False
             try:
@@ -109,7 +120,7 @@ class BaseMigrator(BaseService):
                 status = True
 
             except Exception as inst:
-                exception = inst
+                exception = str(inst)
                 self.logger.exception(inst)
                 self.session.rollback()
 
@@ -165,6 +176,17 @@ class BaseMigrator(BaseService):
         dictionary and returns the result unpacked into a Recipe object
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
+
+        # Temporary hold out of recipe_dict
+        # temp_categories = recipe_dict["recipeCategory"]
+        # temp_tools = recipe_dict["tools"]
+        # temp_tasg = recipe_dict["tags"]
+
         recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
+
+        # Reassign after cleaning
+        # recipe_dict["recipeCategory"] = temp_categories
+        # recipe_dict["tools"] = temp_tools
+        # recipe_dict["tags"] = temp_tasg
 
         return Recipe(**recipe_dict)

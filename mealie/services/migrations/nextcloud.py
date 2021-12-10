@@ -3,11 +3,8 @@ import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
-from uuid import UUID
 
 from slugify import slugify
-
-from mealie.db.database import Database
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
@@ -40,8 +37,10 @@ class NextcloudDir:
 
 
 class NextcloudMigrator(BaseMigrator):
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID):
-        super().__init__(archive, db, session, user_id, group_id)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.name = "nextcloud"
 
         self.key_aliases = [
             MigrationAlias(key="tags", alias="keywords", func=split_by_comma),

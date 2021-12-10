@@ -1,9 +1,6 @@
 import tempfile
 import zipfile
 from pathlib import Path
-from uuid import UUID
-
-from mealie.db.database import Database
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
@@ -11,8 +8,10 @@ from .utils.migration_helpers import MigrationReaders, import_image, split_by_co
 
 
 class ChowdownMigrator(BaseMigrator):
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID):
-        super().__init__(archive, db, session, user_id, group_id)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.name = "chowdown"
 
         self.key_aliases = [
             MigrationAlias(key="name", alias="title", func=None),

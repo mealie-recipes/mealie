@@ -6,8 +6,8 @@ from pytest import fixture
 from mealie.app import app
 from mealie.db.db_setup import SessionLocal, generate_session
 from mealie.db.init_db import main
+from tests import data as test_data
 from tests.fixtures import *  # noqa: F403 F401
-from tests.test_config import TEST_DATA
 
 main()
 
@@ -35,9 +35,9 @@ def api_client():
 
 @fixture(scope="session")
 def test_image_jpg():
-    return TEST_DATA.joinpath("images", "test_image.jpg")
+    return test_data.images_test_image_1
 
 
 @fixture(scope="session")
 def test_image_png():
-    return TEST_DATA.joinpath("images", "test_image.png")
+    return test_data.images_test_image_2

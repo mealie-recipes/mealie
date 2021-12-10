@@ -11,6 +11,7 @@ docs/site/
 .secret
 frontend/dist/
 
+dev/code-generation/generated/*
 dev/data/backups/*
 dev/data/debug/*
 dev/data/img/*

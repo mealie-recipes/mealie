@@ -306,6 +306,10 @@
         </v-card-actions>
       </section>
     </v-container>
+
+    <v-container v-if="$auth.user.advanced" class="narrow-container d-flex justify-end">
+      <v-btn outlined rounded to="/user/group/data/migrations"> Looking For Migrations? </v-btn>
+    </v-container>
   </div>
 </template>
 

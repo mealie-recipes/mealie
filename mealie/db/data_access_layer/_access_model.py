@@ -229,8 +229,12 @@ class AccessModel(Generic[T, D]):
         result = self.session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()
         results_as_model = self.schema.from_orm(result)
 
-        self.session.delete(result)
-        self.session.commit()
+        try:
+            self.session.delete(result)
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
 
         if self.observers:
             self.update_observers()

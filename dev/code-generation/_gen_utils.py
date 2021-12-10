@@ -3,15 +3,15 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Tuple
 
-from black import FileMode, format_str
+import black
 from jinja2 import Template
 
 
 def render_python_template(template_file: Path, dest: Path, data: dict) -> str:
     """Render and Format a Jinja2 Template for Python Code"""
     tplt = Template(template_file.read_text())
-    text = tplt.render(data)
-    text = format_str(text, mode=FileMode())
+    text = tplt.render(data=data)
+    text = black.format_str(text, mode=black.FileMode())
     dest.write_text(text)
 
 

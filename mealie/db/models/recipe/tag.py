@@ -31,7 +31,7 @@ class Tag(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    def __init__(self, name, session=None) -> None:
+    def __init__(self, name, **_) -> None:
         self.name = name.strip()
         self.slug = slugify(self.name)
 

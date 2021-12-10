@@ -14,6 +14,7 @@ router = UserAPIRouter()
 
 @router.post("", response_model=ReportSummary)
 def start_data_migration(
+    add_migration_tag: bool = Form(False),
     migration_type: SupportedMigrations = Form(...),
     archive: UploadFile = File(...),
     temp_path: str = Depends(temporary_zip_path),
@@ -23,4 +24,4 @@ def start_data_migration(
     with temp_path.open("wb") as buffer:
         shutil.copyfileobj(archive.file, buffer)
 
-    return gm_service.migrate(migration_type, temp_path)
+    return gm_service.migrate(migration_type, add_migration_tag, temp_path)

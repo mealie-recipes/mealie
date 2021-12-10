@@ -1,12 +1,13 @@
 import json
 import re
 from datetime import timedelta
+from pathlib import Path
 
 import pytest
 
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
-from tests.test_config import TEST_RAW_HTML, TEST_RAW_RECIPES
+from tests import data as test_data
 
 # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
 url_validation_regex = re.compile(
@@ -19,29 +20,28 @@ url_validation_regex = re.compile(
     re.IGNORECASE,
 )
 
+test_cleaner_data = [
+    (test_data.json_best_homemade_salsa_recipe, 2),
+    (test_data.json_blue_cheese_stuffed_turkey_meatballs_with_raspberry_balsamic_glaze_2, 3),
+    (test_data.json_bon_appetit, 8),
+    (test_data.json_chunky_apple_cake, 4),
+    (test_data.json_dairy_free_impossible_pumpkin_pie, 7),
+    (test_data.json_how_to_make_instant_pot_spaghetti, 8),
+    (test_data.json_instant_pot_chicken_and_potatoes, 4),
+    (test_data.json_instant_pot_kerala_vegetable_stew, 13),
+    (test_data.json_jalapeno_popper_dip, 4),
+    (test_data.json_microwave_sweet_potatoes_04783, 4),
+    (test_data.json_moroccan_skirt_steak_with_roasted_pepper_couscous, 4),
+    (test_data.json_pizza_knoblauch_champignon_paprika_vegan_html, 3),
+]
+
 
 @pytest.mark.parametrize(
     "json_file,num_steps",
-    [
-        ("best-homemade-salsa-recipe.json", 2),
-        (
-            "blue-cheese-stuffed-turkey-meatballs-with-raspberry-balsamic-glaze-2.json",
-            3,
-        ),
-        ("bon_appetit.json", 8),
-        ("chunky-apple-cake.json", 4),
-        ("dairy-free-impossible-pumpkin-pie.json", 7),
-        ("how-to-make-instant-pot-spaghetti.json", 8),
-        ("instant-pot-chicken-and-potatoes.json", 4),
-        ("instant-pot-kerala-vegetable-stew.json", 13),
-        ("jalapeno-popper-dip.json", 4),
-        ("microwave_sweet_potatoes_04783.json", 4),
-        ("moroccan-skirt-steak-with-roasted-pepper-couscous.json", 4),
-        ("Pizza-Knoblauch-Champignon-Paprika-vegan.html.json", 3),
-    ],
+    test_cleaner_data,
 )
-def test_cleaner_clean(json_file, num_steps):
-    recipe_data = cleaner.clean(json.load(open(TEST_RAW_RECIPES.joinpath(json_file))))
+def test_cleaner_clean(json_file: Path, num_steps):
+    recipe_data = cleaner.clean(json.loads(json_file.read_text()))
     assert len(recipe_data["recipeInstructions"]) == num_steps
 
 
@@ -98,7 +98,7 @@ def test_cleaner_instructions(instructions):
 
 
 def test_html_with_recipe_data():
-    path = TEST_RAW_HTML.joinpath("healthy_pasta_bake_60759.html")
+    path = test_data.html_healthy_pasta_bake_60759
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
 
     open_graph_strategy = RecipeScraperOpenGraph(url)
@@ -120,7 +120,7 @@ def test_html_with_recipe_data():
         ("PT3H", "3 Hours"),
         ("P1DT1H1M1S", "1 day 1 Hour 1 Minute 1 Second"),
         ("P1DT1H1M1.53S", "1 day 1 Hour 1 Minute 1 Second"),
-        ("PT-3H", None),
+        ("PT-3H", "PT-3H"),
         ("PT", "none"),
     ],
 )
