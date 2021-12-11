@@ -27,7 +27,7 @@
     </section>
     <section>
       <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" title="Email Configuration" />
-      <v-alert :key="idx" border="left" colored-border :type="getColor(appConfig.emailReady)" elevation="2">
+      <v-alert border="left" colored-border :type="getColor(appConfig.emailReady)" elevation="2">
         <div class="font-weight-medium">Email Configuration Status</div>
         <div>
           {{ appConfig.emailReady ? "Ready" : "Not Ready - Check Environmental Variables" }}
