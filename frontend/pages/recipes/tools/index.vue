@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <RecipeCategoryTagToolPage v-if="tools" :items="tools" item-type="tags" />
+    <RecipeCategoryTagToolPage v-if="tools" :items="tools" item-type="tools" />
   </v-container>
 </template>
 
@@ -16,7 +16,7 @@ export default defineComponent({
   setup() {
     const userApi = useUserApi();
     const tools = useAsync(async () => {
-      const { data } = await userApi.tags.getAll();
+      const { data } = await userApi.tools.getAll();
 
       if (data) {
         return data;
@@ -26,9 +26,8 @@ export default defineComponent({
       tools,
     };
   },
-  // head: {
-  //   // @ts-ignore
-  //   title: this.$t("sidebar.tags") as string,
-  // },
+  head: {
+    title: "Tools",
+  },
 });
 </script>

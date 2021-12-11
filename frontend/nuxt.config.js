@@ -317,7 +317,10 @@ export default {
     // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-build
     analyze: process.env.NODE_ENV !== "production",
     babel: {
-      plugins: [["@babel/plugin-proposal-private-property-in-object", { loose: true }]],
+      plugins: [
+        ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
+        ["@nuxtjs/composition-api/dist/babel-plugin"],
+      ],
     },
     transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : null,
   },

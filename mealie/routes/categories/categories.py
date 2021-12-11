@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.dependencies import is_logged_in
+from mealie.core.root_logger import get_logger
 from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
@@ -10,6 +11,7 @@ from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 public_router = APIRouter()
 user_router = UserAPIRouter()
 admin_router = AdminAPIRouter()
+logger = get_logger()
 
 
 @public_router.get("")
@@ -61,6 +63,7 @@ async def update_recipe_category(category: str, new_category: CategoryIn, sessio
     try:
         return db.categories.update(category, new_category.dict())
     except Exception:
+        logger.exception("Failed to update category")
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
 
