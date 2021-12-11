@@ -22,6 +22,9 @@ class Routes:
 class TestRecipeTool:
     id: int
     name: str
+    slug: str
+    on_hand: bool
+    recipes: list
 
 
 @pytest.fixture(scope="function")
@@ -32,7 +35,15 @@ def tool(api_client: TestClient, unique_user: TestUser) -> TestRecipeTool:
 
     assert response.status_code == 201
 
-    yield TestRecipeTool(id=response.json()["id"], name=data["name"])
+    as_json = response.json()
+
+    yield TestRecipeTool(
+        id=as_json["id"],
+        name=data["name"],
+        slug=as_json["slug"],
+        on_hand=as_json["onHand"],
+        recipes=[],
+    )
 
     try:
         response = api_client.delete(Routes.item(response.json()["id"]), headers=unique_user.token)
@@ -58,7 +69,12 @@ def test_read_tool(api_client: TestClient, tool: TestRecipeTool, unique_user: Te
 
 
 def test_update_tool(api_client: TestClient, tool: TestRecipeTool, unique_user: TestUser):
-    update_data = {"id": tool.id, "name": random_string(10)}
+    update_data = {
+        "id": tool.id,
+        "name": random_string(10),
+        "slug": tool.slug,
+        "on_hand": True,
+    }
 
     response = api_client.put(Routes.item(tool.id), json=update_data, headers=unique_user.token)
     assert response.status_code == 200
@@ -89,7 +105,7 @@ def test_recipe_tool_association(api_client: TestClient, tool: TestRecipeTool, u
 
     as_json = response.json()
 
-    as_json["tools"] = [{"id": tool.id, "name": tool.name}]
+    as_json["tools"] = [{"id": tool.id, "name": tool.name, "slug": tool.slug}]
 
     # Update Recipe
     response = api_client.put(Routes.recipe(slug), json=as_json, headers=unique_user.token)

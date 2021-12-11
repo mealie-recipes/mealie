@@ -1,12 +1,12 @@
 import base64
 import io
 import json
+import re
 import tempfile
 import zipfile
 from gzip import GzipFile
 from pathlib import Path
 
-import regex as re
 from slugify import slugify
 
 from mealie.schema.recipe import RecipeNote

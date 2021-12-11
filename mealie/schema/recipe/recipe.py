@@ -18,7 +18,6 @@ from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
 from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
-from .recipe_tool import RecipeTool
 
 app_dirs = get_app_dirs()
 
@@ -33,6 +32,11 @@ class RecipeTag(CamelModel):
 
 class RecipeCategory(RecipeTag):
     pass
+
+
+class RecipeTool(RecipeTag):
+    id: int = 0
+    on_hand: bool = False
 
 
 class CreateRecipeByUrl(BaseModel):

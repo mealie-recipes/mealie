@@ -1,31 +1,25 @@
 <template>
   <v-container>
-    <RecipeCardSection
-      v-if="tags"
-      :icon="$globals.icons.tags"
-      :title="tags.name"
-      :recipes="tags.recipes"
-      @sort="assignSorted"
-    >
+    <RecipeCardSection v-if="tools" :title="tools.name" :recipes="tools.recipes" @sort="assignSorted">
       <template #title>
         <v-btn icon class="mr-1">
           <v-icon dark large @click="reset">
-            {{ $globals.icons.tags }}
+            {{ $globals.icons.potSteam }}
           </v-icon>
         </v-btn>
 
         <template v-if="edit">
           <v-text-field
-            v-model="tags.name"
+            v-model="tools.name"
             autofocus
             single-line
             dense
             hide-details
             class="headline"
-            @keyup.enter="updateTags"
+            @keyup.enter="updateTools"
           >
           </v-text-field>
-          <v-btn icon @click="updateTags">
+          <v-btn icon @click="updateTools">
             <v-icon size="28">
               {{ $globals.icons.save }}
             </v-icon>
@@ -41,7 +35,7 @@
           <v-tooltip top>
             <template #activator="{ on, attrs }">
               <v-toolbar-title v-bind="attrs" style="cursor: pointer" class="headline" v-on="on" @click="edit = true">
-                {{ tags.name }}
+                {{ tools.name }}
               </v-toolbar-title>
             </template>
             <span> Click to Edit </span>
@@ -71,8 +65,8 @@ export default defineComponent({
       edit: false,
     });
 
-    const tags = useAsync(async () => {
-      const { data } = await api.tags.getOne(slug);
+    const tools = useAsync(async () => {
+      const { data } = await api.tools.byslug(slug);
       if (data) {
         state.initialValue = data.name;
       }
@@ -82,29 +76,29 @@ export default defineComponent({
     function reset() {
       state.edit = false;
 
-      if (tags.value) {
-        tags.value.name = state.initialValue;
+      if (tools.value) {
+        tools.value.name = state.initialValue;
       }
     }
 
-    async function updateTags() {
+    async function updateTools() {
       state.edit = false;
 
-      if (!tags.value) {
+      if (!tools.value) {
         return;
       }
-      const { data } = await api.tags.updateOne(tags.value.slug, tags.value);
+      const { data } = await api.tools.updateOne(tools.value.id, tools.value);
 
       if (data) {
-        router.push("/recipes/tags/" + data.slug);
+        router.push("/recipes/tools/" + data.slug);
       }
     }
 
     return {
-      tags,
+      tools,
       reset,
       ...toRefs(state),
-      updateTags,
+      updateTools,
     };
   },
   head() {
@@ -114,9 +108,9 @@ export default defineComponent({
   },
   methods: {
     assignSorted(val: Array<Recipe>) {
-      if (this.tags) {
+      if (this.tools) {
         // @ts-ignore
-        this.tags.recipes = val;
+        this.tools.recipes = val;
       }
     },
   },

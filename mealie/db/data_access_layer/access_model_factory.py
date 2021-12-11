@@ -28,10 +28,9 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
-from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse
+from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse, RecipeTool
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
-from mealie.schema.recipe.recipe_tool import RecipeTool
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
 from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut

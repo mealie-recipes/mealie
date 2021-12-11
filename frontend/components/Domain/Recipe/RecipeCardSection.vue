@@ -1,10 +1,12 @@
 <template>
   <div>
     <v-app-bar v-if="!disableToolbar" color="transparent" flat class="mt-n1 flex-sm-wrap rounded">
-      <v-icon v-if="title" large left>
-        {{ displayTitleIcon }}
-      </v-icon>
-      <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
+      <slot name="title">
+        <v-icon v-if="title" large left>
+          {{ displayTitleIcon }}
+        </v-icon>
+        <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
+      </slot>
       <v-spacer></v-spacer>
       <v-btn :icon="$vuetify.breakpoint.xsOnly" text :disabled="recipes.length === 0" @click="navigateRandom">
         <v-icon :left="!$vuetify.breakpoint.xsOnly">

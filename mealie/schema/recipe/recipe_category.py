@@ -42,7 +42,7 @@ class RecipeTagResponse(RecipeCategoryResponse):
     pass
 
 
-from .recipe import Recipe
+from . import Recipe
 
 RecipeCategoryResponse.update_forward_refs()
 RecipeTagResponse.update_forward_refs()

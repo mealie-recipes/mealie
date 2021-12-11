@@ -181,6 +181,11 @@ export default defineComponent({
           to: "/recipes/tags",
           title: this.$t("sidebar.tags"),
         },
+        {
+          icon: this.$globals.icons.potSteam,
+          to: "/recipes/tools",
+          title: "Tools",
+        },
       ],
     };
   },
