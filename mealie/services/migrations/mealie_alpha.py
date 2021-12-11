@@ -63,7 +63,7 @@ class MealieAlphaMigrator(BaseMigrator):
             recipe_lookup: dict[str, Path] = {}
             recipes_as_dicts = []
 
-            for x in temp_path.rglob("**/[!.]*.json"):
+            for x in temp_path.rglob("**/recipes/**/[!.]*.json"):
                 if (y := MigrationReaders.json(x)) is not None:
                     recipes_as_dicts.append(y)
                     slug = y["slug"]
@@ -76,12 +76,16 @@ class MealieAlphaMigrator(BaseMigrator):
             recipe_model_lookup = {x.slug: x for x in recipes}
 
             for slug, status in results:
-                if status:
-                    model = recipe_model_lookup.get(slug)
-                    dest_dir = model.directory
-                    source_dir = recipe_lookup.get(slug)
+                if not status:
+                    continue
 
-                    if dest_dir.exists():
-                        shutil.rmtree(dest_dir)
+                model = recipe_model_lookup.get(slug)
+                dest_dir = model.directory
+                source_dir = recipe_lookup.get(slug)
 
-                    shutil.copytree(source_dir, dest_dir)
+                if dest_dir.exists():
+                    shutil.rmtree(dest_dir)
+
+                for dir in source_dir.iterdir():
+                    if dir.is_dir():
+                        shutil.copytree(dir, dest_dir / dir.name)

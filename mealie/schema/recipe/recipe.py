@@ -23,7 +23,6 @@ app_dirs = get_app_dirs()
 
 
 class RecipeTag(CamelModel):
-    id: int
     name: str
     slug: str
 
@@ -36,6 +35,7 @@ class RecipeCategory(RecipeTag):
 
 
 class RecipeTool(RecipeTag):
+    id: int = 0
     on_hand: bool = False
 
 
