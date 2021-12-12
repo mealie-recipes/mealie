@@ -13,6 +13,7 @@ class RecipeSettings(SqlAlchemyBase):
     landscape_view = sa.Column(sa.Boolean)
     disable_amount = sa.Column(sa.Boolean, default=False)
     disable_comments = sa.Column(sa.Boolean, default=False)
+    locked = sa.Column(sa.Boolean, default=False)
 
     def __init__(
         self,
@@ -22,7 +23,9 @@ class RecipeSettings(SqlAlchemyBase):
         landscape_view=True,
         disable_amount=True,
         disable_comments=False,
+        locked=False,
     ) -> None:
+        self.locked = locked
         self.public = public
         self.show_nutrition = show_nutrition
         self.show_assets = show_assets

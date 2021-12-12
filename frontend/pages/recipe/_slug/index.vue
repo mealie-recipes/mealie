@@ -51,6 +51,7 @@
       <RecipeActionMenu
         v-model="form"
         :slug="recipe.slug"
+        :locked="$auth.user.id !== recipe.userId && recipe.settings.locked"
         :name="recipe.name"
         :logged-in="$auth.loggedIn"
         :open="form"

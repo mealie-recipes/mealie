@@ -52,6 +52,7 @@ export default {
         landscapeView: this.$t("recipe.landscape-view-coming-soon"),
         disableComments: this.$t("recipe.disable-comments"),
         disableAmount: this.$t("recipe.disable-amount"),
+        locked: "Locked",
       };
     },
   },
