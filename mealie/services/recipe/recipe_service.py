@@ -9,7 +9,7 @@ from zipfile import ZipFile
 from fastapi import Depends, HTTPException, UploadFile, status
 from sqlalchemy import exc
 
-from mealie.core.dependencies.grouped import PublicDeps, UserDeps
+from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.db.data_access_layer.recipe_access_model import RecipeDataAccessModel
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeSummary
@@ -41,14 +41,14 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
 
     @cached_property
     def dal(self) -> RecipeDataAccessModel:
-        return self.db.recipes
+        return self.db.recipes.by_group(self.group_id)
 
     @classmethod
     def write_existing(cls, slug: str, deps: UserDeps = Depends()):
         return super().write_existing(slug, deps)
 
     @classmethod
-    def read_existing(cls, slug: str, deps: PublicDeps = Depends()):
+    def read_existing(cls, slug: str, deps: UserDeps = Depends()):
         return super().write_existing(slug, deps)
 
     def assert_existing(self, slug: str):
