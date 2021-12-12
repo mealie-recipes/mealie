@@ -6,6 +6,7 @@ export const useTools = function (eager = true) {
   const workingToolData = reactive({
     id: 0,
     name: "",
+    slug: "",
     onHand: false,
   });
 

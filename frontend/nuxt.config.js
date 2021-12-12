@@ -319,7 +319,7 @@ export default {
     babel: {
       plugins: [
         ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
-        ["@nuxtjs/composition-api/dist/babel-plugin"],
+        // ["@nuxtjs/composition-api/dist/babel-plugin"],
       ],
     },
     transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : null,
