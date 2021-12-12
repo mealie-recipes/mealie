@@ -22,9 +22,7 @@ def test_ownership_on_new_with_admin(api_client: TestClient, admin_user: TestUse
 
 def test_ownership_on_new_with_user(api_client: TestClient, g2_user: TestUser):
     recipe_name = random_string()
-
     response = api_client.post(Routes.base, json={"name": recipe_name}, headers=g2_user.token)
-
     assert response.status_code == 201
 
     response = api_client.get(Routes.base + f"/{recipe_name}", headers=g2_user.token)
@@ -67,3 +65,25 @@ def test_unique_slug_by_group(api_client: TestClient, unique_user: TestUser, g2_
     # Try to create a recipe again with the same name
     response = api_client.post(Routes.base, json=create_data, headers=g2_user.token)
     assert response.status_code == 400
+
+
+def test_user_locked_recipe(api_client: TestClient, user_tuple: list[TestUser]) -> None:
+    usr_1, usr_2 = user_tuple
+
+    # Setup Recipe
+    recipe_name = random_string()
+    response = api_client.post(Routes.base, json={"name": recipe_name}, headers=usr_1.token)
+    assert response.status_code == 201
+
+    # Get Recipe
+    response = api_client.get(Routes.base + f"/{recipe_name}", headers=usr_2.token)
+    assert response.status_code == 200
+    recipe = response.json()
+
+    # Lock Recipe
+    recipe["settings"]["locked"] = True
+    response = api_client.put(Routes.base + f"/{recipe_name}", json=recipe, headers=usr_1.token)
+
+    # Try To Update Recipe with User 2
+    response = api_client.put(Routes.base + f"/{recipe_name}", json=recipe, headers=usr_2.token)
+    assert response.status_code == 403
