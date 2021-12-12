@@ -59,6 +59,12 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         if not self.item.settings.public and not self.user:
             raise HTTPException(status.HTTP_403_FORBIDDEN)
 
+    def can_update(self) -> bool:
+        if self.user.id == self.item.user_id:
+            return True
+
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
+
     def get_all(self, start=0, limit=None, load_foods=False) -> list[RecipeSummary]:
         items = self.db.recipes.summary(self.user.group_id, start=start, limit=limit, load_foods=load_foods)
 
@@ -78,7 +84,7 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
         group = self.db.groups.get(self.group_id, "id")
 
-        create_data = recipe_creation_factory(
+        create_data: Recipe = recipe_creation_factory(
             self.user,
             name=create_data.name,
             additional_attrs=create_data.dict(),
@@ -129,18 +135,25 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         return self.item
 
     def update_one(self, update_data: Recipe) -> Recipe:
+        self.can_update()
+
         original_slug = self.item.slug
         self._update_one(update_data, original_slug)
+
         self.check_assets(original_slug)
         return self.item
 
     def patch_one(self, patch_data: Recipe) -> Recipe:
+        self.can_update()
+
         original_slug = self.item.slug
         self._patch_one(patch_data, original_slug)
+
         self.check_assets(original_slug)
         return self.item
 
     def delete_one(self) -> Recipe:
+        self.can_update()
         self._delete_one(self.item.slug)
         self.delete_assets()
         self._create_event("Recipe Delete", f"'{self.item.name}' deleted by {self.user.full_name}")
