@@ -11,19 +11,21 @@ from .user_to_favorite import users_to_favorites
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "long_live_tokens"
-    parent_id = Column(Integer, ForeignKey("users.id"))
     name = Column(String, nullable=False)
     token = Column(String, nullable=False)
+
+    user_id = Column(GUID, ForeignKey("users.id"))
     user = orm.relationship("User")
 
-    def __init__(self, session, name, token, parent_id) -> None:
+    def __init__(self, name, token, user_id, **_) -> None:
         self.name = name
         self.token = token
-        self.user = User.get_ref(session, parent_id)
+        self.user_id = user_id
 
 
 class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"
+    id = Column(GUID, primary_key=True, default=GUID.generate)
     full_name = Column(String, index=True)
     username = Column(String, index=True, unique=True)
     email = Column(String, unique=True, index=True)

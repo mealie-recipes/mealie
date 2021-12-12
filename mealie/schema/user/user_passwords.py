@@ -1,4 +1,5 @@
 from fastapi_camelcase import CamelModel
+from pydantic import UUID4
 
 from .user import PrivateUser
 
@@ -18,7 +19,7 @@ class ResetPassword(ValidateResetToken):
 
 
 class SavePasswordResetToken(CamelModel):
-    user_id: int
+    user_id: UUID4
     token: str
 
 

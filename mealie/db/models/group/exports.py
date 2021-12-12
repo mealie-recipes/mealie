@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 from sqlalchemy import Column, ForeignKey, String, orm
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -8,7 +6,7 @@ from .._model_utils import GUID, auto_init
 
 class GroupDataExportsModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_data_exports"
-    id = Column(GUID, primary_key=True, default=uuid4)
+    id = Column(GUID, primary_key=True, default=GUID.generate)
 
     group = orm.relationship("Group", back_populates="data_exports", single_parent=True)
     group_id = Column(GUID, ForeignKey("groups.id"), index=True)

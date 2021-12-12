@@ -6,7 +6,7 @@ from uuid import UUID
 @dataclass
 class TestUser:
     email: str
-    user_id: int
+    user_id: UUID
     _group_id: UUID
     token: Any
 

@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 from sqlalchemy import Column, ForeignKey, Integer, String, orm
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -19,7 +17,7 @@ class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):
 
 class RecipeInstruction(SqlAlchemyBase):
     __tablename__ = "recipe_instructions"
-    id = Column(GUID, primary_key=True, default=uuid4)
+    id = Column(GUID, primary_key=True, default=GUID.generate)
     parent_id = Column(Integer, ForeignKey("recipes.id"))
     position = Column(Integer)
     type = Column(String, default="")

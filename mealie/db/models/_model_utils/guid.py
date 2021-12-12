@@ -13,6 +13,10 @@ class GUID(TypeDecorator):
     impl = CHAR
     cache_ok = True
 
+    @staticmethod
+    def generate():
+        return uuid.uuid4()
+
     def load_dialect_impl(self, dialect):
         if dialect.name == "postgresql":
             return dialect.type_descriptor(UUID())

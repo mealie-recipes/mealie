@@ -1,10 +1,10 @@
 import datetime
 from pathlib import Path
 from typing import Any, Optional
-from uuid import UUID, uuid4
+from uuid import uuid4
 
 from fastapi_camelcase import CamelModel
-from pydantic import BaseModel, Field, validator
+from pydantic import UUID4, BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
 
@@ -63,8 +63,8 @@ class CreateRecipe(CamelModel):
 class RecipeSummary(CamelModel):
     id: Optional[int]
 
-    user_id: int = 0
-    group_id: UUID = Field(default_factory=uuid4)
+    user_id: UUID4 = Field(default_factory=uuid4)
+    group_id: UUID4 = Field(default_factory=uuid4)
 
     name: Optional[str]
     slug: str = ""

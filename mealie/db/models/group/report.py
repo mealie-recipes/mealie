@@ -1,5 +1,4 @@
 from datetime import datetime
-from uuid import uuid4
 
 from sqlalchemy import Column, ForeignKey, orm
 from sqlalchemy.sql.sqltypes import Boolean, DateTime, String
@@ -12,7 +11,7 @@ from .._model_utils.guid import GUID
 
 class ReportEntryModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "report_entries"
-    id = Column(GUID, primary_key=True, default=uuid4)
+    id = Column(GUID, primary_key=True, default=GUID.generate)
 
     success = Column(Boolean, default=False)
     message = Column(String, nullable=True)
@@ -29,7 +28,7 @@ class ReportEntryModel(SqlAlchemyBase, BaseMixins):
 
 class ReportModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_reports"
-    id = Column(GUID, primary_key=True, default=uuid4)
+    id = Column(GUID, primary_key=True, default=GUID.generate)
 
     name = Column(String, nullable=False)
     status = Column(String, nullable=False)

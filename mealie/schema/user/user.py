@@ -32,7 +32,7 @@ class LongLiveTokenOut(LoingLiveTokenIn):
 
 
 class CreateToken(LoingLiveTokenIn):
-    parent_id: int
+    user_id: UUID4
     token: str
 
     class Config:
@@ -88,7 +88,7 @@ class UserIn(UserBase):
 
 
 class UserOut(UserBase):
-    id: int
+    id: UUID4
     group: str
     group_id: UUID4
     tokens: Optional[list[LongLiveTokenOut]]
@@ -126,6 +126,15 @@ class PrivateUser(UserOut):
 
     class Config:
         orm_mode = True
+
+    @staticmethod
+    def _directory(user_id: UUID4) -> Path:
+        user_dir = get_app_dirs().USER_DIR / str(user_id)
+        user_dir.mkdir(parents=True, exist_ok=True)
+        return user_dir
+
+    def directory(self) -> Path:
+        return PrivateUser._directory(self.id)
 
 
 class UpdateGroup(GroupBase):

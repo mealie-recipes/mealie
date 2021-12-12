@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import HTTPException, status
 
 from mealie.core.root_logger import get_logger
@@ -43,3 +45,6 @@ class UserService(UserHttpService[int, str]):
         self.target_user.password = hash_password(password_change.new_password)
 
         return self.db.users.update_password(self.target_user.id, self.target_user.password)
+
+    def set_profile_picture(self, file_path: Path) -> PrivateUser:
+        pass

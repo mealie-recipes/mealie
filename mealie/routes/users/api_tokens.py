@@ -22,7 +22,7 @@ async def create_api_token(
 ):
     """Create api_token in the Database"""
 
-    token_data = {"long_token": True, "id": current_user.id}
+    token_data = {"long_token": True, "id": str(current_user.id)}
 
     five_years = timedelta(1825)
     token = create_access_token(token_data, five_years)
@@ -30,7 +30,7 @@ async def create_api_token(
     token_model = CreateToken(
         name=token_name.name,
         token=token,
-        parent_id=current_user.id,
+        user_id=current_user.id,
     )
 
     db = get_database(session)

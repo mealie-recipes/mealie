@@ -90,7 +90,7 @@ async def get_admin_user(current_user=Depends(get_current_user)) -> PrivateUser:
 def validate_long_live_token(session: Session, client_token: str, id: int) -> PrivateUser:
     db = get_database(session)
 
-    tokens: list[LongLiveTokenInDB] = db.api_tokens.get(id, "parent_id", limit=9999)
+    tokens: list[LongLiveTokenInDB] = db.api_tokens.get(id, "user_id", limit=9999)
 
     for token in tokens:
         token: LongLiveTokenInDB

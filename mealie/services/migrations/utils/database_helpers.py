@@ -1,6 +1,6 @@
 from typing import TypeVar
 
-from pydantic import BaseModel
+from pydantic import UUID4, BaseModel
 from slugify import slugify
 from sqlalchemy.orm import Session
 
@@ -13,7 +13,7 @@ T = TypeVar("T", bound=BaseModel)
 
 
 class DatabaseMigrationHelpers:
-    def __init__(self, db: Database, session: Session, group_id: int, user_id: int) -> None:
+    def __init__(self, db: Database, session: Session, group_id: int, user_id: UUID4) -> None:
         self.group_id = group_id
         self.user_id = user_id
         self.session = session
