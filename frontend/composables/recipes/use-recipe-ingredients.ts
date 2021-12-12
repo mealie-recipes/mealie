@@ -10,6 +10,8 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
 
   const { quantity, food, unit, note } = ingredient;
 
+  const validQuantity = quantity !== null && quantity !== undefined && quantity !== 0;
+
   let returnQty = "";
   if (unit?.fraction) {
     const fraction = frac(quantity * scale, 10, true);
@@ -20,8 +22,10 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
     if (fraction[1] > 0) {
       returnQty += ` <sup>${fraction[1]}</sup>&frasl;<sub>${fraction[2]}</sub>`;
     }
-  } else {
+  } else if (validQuantity) {
     returnQty = (quantity * scale).toString();
+  } else {
+    returnQty = "";
   }
 
   return `${returnQty} ${unit?.name || " "}  ${food?.name || " "} ${note}`.replace(/ {2,}/g, " ");

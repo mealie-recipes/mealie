@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Callable, Generic, TypeVar, Union
+from typing import Any, Callable, Generic, TypeVar, Union
+from uuid import UUID
 
 from sqlalchemy import func
 from sqlalchemy.orm import load_only
@@ -29,8 +30,35 @@ class AccessModel(Generic[T, D]):
         self.schema = schema
         self.observers: list = []
 
+        self.limit_by_group = False
+        self.user_id = None
+
+        self.limit_by_user = False
+        self.group_id = None
+
     def subscribe(self, func: Callable) -> None:
         self.observers.append(func)
+
+    def by_user(self, user_id: int) -> AccessModel:
+        self.limit_by_user = True
+        self.user_id = user_id
+        return self
+
+    def by_group(self, group_id: UUID) -> AccessModel:
+        self.limit_by_group = True
+        self.group_id = group_id
+        return self
+
+    def _filter_builder(self, **kwargs) -> dict[str, Any]:
+        dct = {}
+
+        if self.limit_by_user:
+            dct["user_id"] = self.user_id
+
+        if self.limit_by_group:
+            dct["group_id"] = self.group_id
+
+        return {**dct, **kwargs}
 
     # TODO: Run Observer in Async Background Task
     def update_observers(self) -> None:
@@ -114,16 +142,21 @@ class AccessModel(Generic[T, D]):
         if match_key is None:
             match_key = self.primary_key
 
-        return self.session.query(self.sql_model).filter_by(**{match_key: match_value}).one()
+        filter = self._filter_builder(**{match_key: match_value})
+        return self.session.query(self.sql_model).filter_by(**filter).one()
 
     def get_one(self, value: str | int, key: str = None, any_case=False, override_schema=None) -> T:
         key = key or self.primary_key
 
+        q = self.session.query(self.sql_model)
+
         if any_case:
             search_attr = getattr(self.sql_model, key)
-            result = self.session.query(self.sql_model).filter(func.lower(search_attr) == key.lower()).one_or_none()
+            q = q.filter(func.lower(search_attr) == key.lower()).filter_by(**self._filter_builder())
         else:
-            result = self.session.query(self.sql_model).filter_by(**{key: value}).one_or_none()
+            q = self.session.query(self.sql_model).filter_by(**self._filter_builder(**{key: value}))
+
+        result = q.one_or_none()
 
         if not result:
             return
@@ -255,7 +288,11 @@ class AccessModel(Generic[T, D]):
             return self.session.query(self.sql_model).filter_by(**{match_key: match_value}).count()
 
     def _count_attribute(
-        self, attribute_name: str, attr_match: str = None, count=True, override_schema=None
+        self,
+        attribute_name: str,
+        attr_match: str = None,
+        count=True,
+        override_schema=None,
     ) -> Union[int, T]:
         eff_schema = override_schema or self.schema
         # attr_filter = getattr(self.sql_model, attribute_name)

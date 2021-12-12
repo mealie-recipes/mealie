@@ -109,7 +109,7 @@ class BaseHttpService(Generic[T, D], ABC):
     def group_id(self):
         # TODO: Populate Group in Private User Call WARNING: May require significant refactoring
         if not self._group_id_cache:
-            group = self.db.groups.get(self.user.group, "name")
+            group = self.db.groups.get_one(self.user.group, "name")
             self._group_id_cache = group.id
         return self._group_id_cache
 

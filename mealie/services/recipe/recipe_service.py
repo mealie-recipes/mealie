@@ -9,7 +9,7 @@ from zipfile import ZipFile
 from fastapi import Depends, HTTPException, UploadFile, status
 from sqlalchemy import exc
 
-from mealie.core.dependencies.grouped import PublicDeps, UserDeps
+from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
 from mealie.db.data_access_layer.recipe_access_model import RecipeDataAccessModel
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeSummary
@@ -41,14 +41,14 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
 
     @cached_property
     def dal(self) -> RecipeDataAccessModel:
-        return self.db.recipes
+        return self.db.recipes.by_group(self.group_id)
 
     @classmethod
     def write_existing(cls, slug: str, deps: UserDeps = Depends()):
         return super().write_existing(slug, deps)
 
     @classmethod
-    def read_existing(cls, slug: str, deps: PublicDeps = Depends()):
+    def read_existing(cls, slug: str, deps: UserDeps = Depends()):
         return super().write_existing(slug, deps)
 
     def assert_existing(self, slug: str):
@@ -58,6 +58,12 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
 
         if not self.item.settings.public and not self.user:
             raise HTTPException(status.HTTP_403_FORBIDDEN)
+
+    def can_update(self) -> bool:
+        if self.user.id == self.item.user_id:
+            return True
+
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     def get_all(self, start=0, limit=None, load_foods=False) -> list[RecipeSummary]:
         items = self.db.recipes.summary(self.user.group_id, start=start, limit=limit, load_foods=load_foods)
@@ -78,7 +84,7 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
         group = self.db.groups.get(self.group_id, "id")
 
-        create_data = recipe_creation_factory(
+        create_data: Recipe = recipe_creation_factory(
             self.user,
             name=create_data.name,
             additional_attrs=create_data.dict(),
@@ -129,18 +135,28 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         return self.item
 
     def update_one(self, update_data: Recipe) -> Recipe:
+        self.can_update()
+
+        if self.item.settings.locked != update_data.settings.locked and self.item.user_id != self.user.id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN)
+
         original_slug = self.item.slug
         self._update_one(update_data, original_slug)
+
         self.check_assets(original_slug)
         return self.item
 
     def patch_one(self, patch_data: Recipe) -> Recipe:
+        self.can_update()
+
         original_slug = self.item.slug
         self._patch_one(patch_data, original_slug)
+
         self.check_assets(original_slug)
         return self.item
 
     def delete_one(self) -> Recipe:
+        self.can_update()
         self._delete_one(self.item.slug)
         self.delete_assets()
         self._create_event("Recipe Delete", f"'{self.item.name}' deleted by {self.user.full_name}")

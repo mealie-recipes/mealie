@@ -51,6 +51,7 @@
       <RecipeActionMenu
         v-model="form"
         :slug="recipe.slug"
+        :locked="$auth.user.id !== recipe.userId && recipe.settings.locked"
         :name="recipe.name"
         :logged-in="$auth.loggedIn"
         :open="form"
@@ -77,7 +78,7 @@
         >
           <div v-if="form" class="d-flex justify-start align-center">
             <RecipeImageUploadBtn class="my-1" :slug="recipe.slug" @upload="uploadImage" @refresh="imageKey++" />
-            <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" @upload="uploadImage" />
+            <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" :is-owner="recipe.userId == $auth.user.id" @upload="uploadImage" />
           </div>
           <!-- Recipe Title Section -->
           <template v-if="!form && enableLandscape">

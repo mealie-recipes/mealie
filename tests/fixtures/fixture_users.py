@@ -1,4 +1,5 @@
 import json
+from typing import Tuple
 
 import requests
 from pytest import fixture
@@ -38,7 +39,12 @@ def g2_user(admin_token, api_client: requests, api_routes: utils.AppRoutes):
     group_id = json.loads(self_response.text).get("groupId")
 
     try:
-        yield utils.TestUser(user_id=user_id, _group_id=group_id, token=token, email=create_data["email"])
+        yield utils.TestUser(
+            user_id=user_id,
+            _group_id=group_id,
+            token=token,
+            email=create_data["email"],
+        )
     finally:
         # TODO: Delete User after test
         pass
@@ -66,6 +72,59 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
         )
     finally:
         # TODO: Delete User after test
+        pass
+
+
+@fixture(scope="module")
+def user_tuple(admin_token, api_client: requests, api_routes: utils.AppRoutes) -> Tuple[utils.TestUser]:
+    group_name = utils.random_string()
+    # Create the user
+    create_data_1 = {
+        "fullName": utils.random_string(),
+        "username": utils.random_string(),
+        "email": utils.random_email(),
+        "password": "useruser",
+        "group": group_name,
+        "admin": False,
+        "tokens": [],
+    }
+
+    create_data_2 = {
+        "fullName": utils.random_string(),
+        "username": utils.random_string(),
+        "email": utils.random_email(),
+        "password": "useruser",
+        "group": group_name,
+        "admin": False,
+        "tokens": [],
+    }
+
+    users_out = []
+
+    for usr in [create_data_1, create_data_2]:
+        response = api_client.post(api_routes.groups, json={"name": "New Group"}, headers=admin_token)
+        response = api_client.post(api_routes.users, json=usr, headers=admin_token)
+        assert response.status_code == 201
+
+        # Log in as this user
+        form_data = {"username": usr["email"], "password": "useruser"}
+        token = utils.login(form_data, api_client, api_routes)
+        response = api_client.get(api_routes.users_self, headers=token)
+        assert response.status_code == 200
+        user_data = json.loads(response.text)
+
+        users_out.append(
+            utils.TestUser(
+                _group_id=user_data.get("groupId"),
+                user_id=user_data.get("id"),
+                email=user_data.get("email"),
+                token=token,
+            )
+        )
+
+    try:
+        yield users_out
+    finally:
         pass
 
 

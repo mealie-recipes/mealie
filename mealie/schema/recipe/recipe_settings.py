@@ -1,9 +1,5 @@
 from fastapi_camelcase import CamelModel
 
-from mealie.core.config import get_app_settings
-
-settings = get_app_settings()
-
 
 class RecipeSettings(CamelModel):
     public: bool = False
@@ -12,6 +8,7 @@ class RecipeSettings(CamelModel):
     landscape_view: bool = False
     disable_comments: bool = True
     disable_amount: bool = True
+    locked: bool = False
 
     class Config:
         orm_mode = True

@@ -22,10 +22,9 @@
     <v-spacer></v-spacer>
     <div v-if="!value" class="custom-btn-group ma-1">
       <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="slug" show-always />
-      <v-tooltip bottom color="info">
+      <v-tooltip v-if="!locked" bottom color="info">
         <template #activator="{ on, attrs }">
           <v-btn
-            v-if="loggedIn"
             fab
             small
             class="mx-1"
@@ -39,6 +38,22 @@
         </template>
         <span>{{ $t("general.edit") }}</span>
       </v-tooltip>
+      <v-tooltip v-else bottom color="info">
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            small
+            class="mx-1"
+            color="info"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon> {{ $globals.icons.lock }} </v-icon>
+          </v-btn>
+        </template>
+        <span> Locked by Owner </span>
+      </v-tooltip>
+
       <RecipeContextMenu
         show-print
         :menu-top="false"
@@ -108,6 +123,10 @@ export default {
     recipeId: {
       required: true,
       type: Number,
+    },
+    locked: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

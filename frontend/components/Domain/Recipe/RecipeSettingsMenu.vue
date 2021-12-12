@@ -23,6 +23,7 @@
             v-model="value[key]"
             xs
             dense
+            :disabled="key == 'locked' && !isOwner"
             class="my-1"
             :label="labels[key]"
             hide-details
@@ -41,6 +42,10 @@ export default {
       type: Object,
       required: true,
     },
+    isOwner: {
+      type: Boolean,
+      required: false,
+    },
   },
 
   computed: {
@@ -52,6 +57,7 @@ export default {
         landscapeView: this.$t("recipe.landscape-view-coming-soon"),
         disableComments: this.$t("recipe.disable-comments"),
         disableAmount: this.$t("recipe.disable-amount"),
+        locked: "Locked",
       };
     },
   },
