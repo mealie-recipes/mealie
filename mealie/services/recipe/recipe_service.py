@@ -137,6 +137,9 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
     def update_one(self, update_data: Recipe) -> Recipe:
         self.can_update()
 
+        if self.item.settings.locked != update_data.settings.locked and self.item.user_id != self.user.id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN)
+
         original_slug = self.item.slug
         self._update_one(update_data, original_slug)
 

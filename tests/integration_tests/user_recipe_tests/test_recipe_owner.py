@@ -76,7 +76,7 @@ def test_user_locked_recipe(api_client: TestClient, user_tuple: list[TestUser]) 
     assert response.status_code == 201
 
     # Get Recipe
-    response = api_client.get(Routes.base + f"/{recipe_name}", headers=usr_2.token)
+    response = api_client.get(Routes.base + f"/{recipe_name}", headers=usr_1.token)
     assert response.status_code == 200
     recipe = response.json()
 
@@ -85,5 +85,24 @@ def test_user_locked_recipe(api_client: TestClient, user_tuple: list[TestUser]) 
     response = api_client.put(Routes.base + f"/{recipe_name}", json=recipe, headers=usr_1.token)
 
     # Try To Update Recipe with User 2
+    response = api_client.put(Routes.base + f"/{recipe_name}", json=recipe, headers=usr_2.token)
+    assert response.status_code == 403
+
+
+def test_other_user_cant_lock_recipe(api_client: TestClient, user_tuple: list[TestUser]) -> None:
+    usr_1, usr_2 = user_tuple
+
+    # Setup Recipe
+    recipe_name = random_string()
+    response = api_client.post(Routes.base, json={"name": recipe_name}, headers=usr_1.token)
+    assert response.status_code == 201
+
+    # Get Recipe
+    response = api_client.get(Routes.base + f"/{recipe_name}", headers=usr_2.token)
+    assert response.status_code == 200
+    recipe = response.json()
+
+    # Lock Recipe
+    recipe["settings"]["locked"] = True
     response = api_client.put(Routes.base + f"/{recipe_name}", json=recipe, headers=usr_2.token)
     assert response.status_code == 403
