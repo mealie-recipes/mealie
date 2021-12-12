@@ -23,6 +23,7 @@
             v-model="value[key]"
             xs
             dense
+            :disabled="key == 'locked' && !isOwner"
             class="my-1"
             :label="labels[key]"
             hide-details
@@ -40,6 +41,10 @@ export default {
     value: {
       type: Object,
       required: true,
+    },
+    isOwner: {
+      type: Boolean,
+      required: false,
     },
   },
 
