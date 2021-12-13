@@ -23,8 +23,8 @@ export default defineComponent({
       default: false,
     },
     size: {
-      type: Number,
-      default: 42,
+      type: String,
+      default: "42",
     },
   },
   setup() {

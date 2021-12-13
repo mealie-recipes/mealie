@@ -6,8 +6,12 @@
       </template>
       <template #title> Your Profile Settings </template>
     </BasePageTitle>
+    <v-card class="d-flex align-center" tag="section" outlined>
+      <UserAvatar size="96" :user-id="$auth.user.id" />
+      <AppButtonUpload file-name="profile" accept="image/*" :url="`/api/users/${$auth.user.id}/image`" />
+    </v-card>
 
-    <section>
+    <section class="mt-8">
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
           <v-btn v-if="!state" color="info" class="mt-2 mb-n3" @click="toggle">
@@ -105,8 +109,12 @@
 <script lang="ts">
 import { ref, reactive, defineComponent, computed, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
+  components: {
+    UserAvatar,
+  },
   setup() {
     const nuxtContext = useContext();
     const user = computed(() => nuxtContext.$auth.user);

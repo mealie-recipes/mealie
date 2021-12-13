@@ -1,4 +1,5 @@
 import shutil
+import tempfile
 from pathlib import Path
 from typing import Optional
 from uuid import uuid4
@@ -150,3 +151,21 @@ async def temporary_dir() -> Path:
         yield temp_path
     finally:
         shutil.rmtree(temp_path)
+
+
+def temporary_file(ext: str = "") -> Path:
+    """
+    Returns a temporary file with the specified extension
+    """
+
+    def func() -> Path:
+        temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex + ext)
+        temp_path.touch()
+
+        with tempfile.NamedTemporaryFile(mode="w+b", suffix=ext) as f:
+            try:
+                yield f
+            finally:
+                temp_path.unlink(missing_ok=True)
+
+    return func
