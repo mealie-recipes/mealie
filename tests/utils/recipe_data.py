@@ -24,12 +24,6 @@ def get_recipe_test_cases():
             num_steps=1,  # Malformed JSON Data, can't parse steps just get one string
         ),
         RecipeSiteTestCase(
-            url="https://cookpad.com/us/recipes/5544853-sous-vide-smoked-beef-ribs",
-            expected_slug="sous-vide-smoked-beef-ribs",
-            num_ingredients=7,
-            num_steps=12,
-        ),
-        RecipeSiteTestCase(
             url="https://www.greatbritishchefs.com/recipes/jam-roly-poly-recipe",
             expected_slug="jam-roly-poly-with-custard",
             num_ingredients=13,
