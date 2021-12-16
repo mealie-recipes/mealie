@@ -36,6 +36,8 @@ class User(SqlAlchemyBase, BaseMixins):
     group_id = Column(GUID, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="users")
 
+    cache_key = Column(String, default="1234")
+
     # Group Permissions
     can_manage = Column(Boolean, default=False)
     can_invite = Column(Boolean, default=False)

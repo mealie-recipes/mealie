@@ -2,16 +2,21 @@
   <v-container class="narrow-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="200" max-width="200" class="mb-2" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
+        <div class="d-flex flex-column align-center justify-center">
+          <UserAvatar size="96" :user-id="$auth.user.id" />
+          <AppButtonUpload
+            class="my-1"
+            file-name="profile"
+            accept="image/*"
+            :url="`/api/users/${$auth.user.id}/image`"
+            @uploaded="$auth.fetchUser()"
+          />
+        </div>
       </template>
       <template #title> Your Profile Settings </template>
     </BasePageTitle>
-    <v-card class="d-flex align-center" tag="section" outlined>
-      <UserAvatar size="96" :user-id="$auth.user.id" />
-      <AppButtonUpload file-name="profile" accept="image/*" :url="`/api/users/${$auth.user.id}/image`" />
-    </v-card>
 
-    <section class="mt-8">
+    <section class="mt-5">
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
           <v-btn v-if="!state" color="info" class="mt-2 mb-n3" @click="toggle">

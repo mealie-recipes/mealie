@@ -92,6 +92,7 @@ class UserOut(UserBase):
     group: str
     group_id: UUID4
     tokens: Optional[list[LongLiveTokenOut]]
+    cache_key: str
     favorite_recipes: Optional[list[str]] = []
 
     class Config:
