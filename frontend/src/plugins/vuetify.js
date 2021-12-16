@@ -54,6 +54,7 @@ const vuetify = new Vuetify({
       "en-GB": en,
       "es-ES": es,
       "fr-FR": fr,
+      "fr-CA": fr,
       "hu-HU": hu,
       "it-IT": it,
       "nl-NL": nl,
