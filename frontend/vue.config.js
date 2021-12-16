@@ -36,10 +36,18 @@ module.exports = {
   pwa: {
     name: manifestJSON.short_name,
     themeColor: manifestJSON.theme_color,
-    msTileColor: manifestJSON.background_color,
+    msTileColor: manifestJSON.theme_color,
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black",
     manifestCrossorigin: "use-credentials",
+
+    iconPaths: {
+      maskicon: "img/icons/safari-pinned-tab.svg",
+      favicon32: "img/icons/favicon-32x32.png",
+      favicon16: "img/icons/favicon-16x16.png",
+      appleTouchIcon: "img/icons/apple-touch-icon.png",
+      msTileImage: "img/icons/mstile-150x150.png",
+    },
 
     workboxPluginMode: "InjectManifest",
     workboxOptions: {
