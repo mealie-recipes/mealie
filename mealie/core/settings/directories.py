@@ -1,4 +1,7 @@
+import shutil
 from pathlib import Path
+
+from mealie.assets import templates
 
 
 class AppDirectories:
@@ -35,3 +38,9 @@ class AppDirectories:
 
         for dir in required_dirs:
             dir.mkdir(parents=True, exist_ok=True)
+
+        # Boostrap Templates
+        markdown_template = self.TEMPLATE_DIR.joinpath("recipes.md")
+
+        if not markdown_template.exists():
+            shutil.copyfile(templates.recipes_markdown, markdown_template)

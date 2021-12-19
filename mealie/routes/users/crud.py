@@ -1,4 +1,5 @@
 from fastapi import BackgroundTasks, Depends, HTTPException, status
+from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
 from mealie.core import security
@@ -39,15 +40,15 @@ async def create_user(
 
 
 @admin_router.get("/{id}", response_model=UserOut)
-async def get_user(id: int, session: Session = Depends(generate_session)):
+async def get_user(id: UUID4, session: Session = Depends(generate_session)):
     db = get_database(session)
     return db.users.get(id)
 
 
 @admin_router.delete("/{id}")
 def delete_user(
+    id: UUID4,
     background_tasks: BackgroundTasks,
-    id: int,
     session: Session = Depends(generate_session),
     current_user: PrivateUser = Depends(get_current_user),
 ):
@@ -55,7 +56,7 @@ def delete_user(
 
     assert_user_change_allowed(id, current_user)
 
-    if id == 1:
+    if id == 1:  # TODO: identify super_user
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
 
     try:
@@ -75,7 +76,7 @@ async def get_logged_in_user(
 
 @user_router.put("/{id}")
 async def update_user(
-    id: int,
+    id: UUID4,
     new_data: UserBase,
     current_user: PrivateUser = Depends(get_current_user),
     session: Session = Depends(generate_session),

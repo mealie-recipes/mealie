@@ -57,9 +57,9 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
 
 def db_provider_factory(provider_name: str, data_dir: Path, env_file: Path, env_encoding="utf-8") -> AbstractDBProvider:
-    if provider_name == "sqlite":
-        return SQLiteProvider(data_dir=data_dir)
-    elif provider_name == "postgres":
+    if provider_name == "postgres":
         return PostgresProvider(_env_file=env_file, _env_file_encoding=env_encoding)
+    elif provider_name == "sqlite":
+        return SQLiteProvider(data_dir=data_dir)
     else:
         return

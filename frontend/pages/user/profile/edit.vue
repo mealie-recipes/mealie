@@ -2,12 +2,21 @@
   <v-container class="narrow-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="200" max-width="200" class="mb-2" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
+        <div class="d-flex flex-column align-center justify-center">
+          <UserAvatar size="96" :user-id="$auth.user.id" />
+          <AppButtonUpload
+            class="my-1"
+            file-name="profile"
+            accept="image/*"
+            :url="`/api/users/${$auth.user.id}/image`"
+            @uploaded="$auth.fetchUser()"
+          />
+        </div>
       </template>
       <template #title> Your Profile Settings </template>
     </BasePageTitle>
 
-    <section>
+    <section class="mt-5">
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
           <v-btn v-if="!state" color="info" class="mt-2 mb-n3" @click="toggle">
@@ -105,8 +114,12 @@
 <script lang="ts">
 import { ref, reactive, defineComponent, computed, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
+  components: {
+    UserAvatar,
+  },
   setup() {
     const nuxtContext = useContext();
     const user = computed(() => nuxtContext.$auth.user);

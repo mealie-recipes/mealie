@@ -2,6 +2,8 @@ from pathlib import Path
 from typing import Tuple
 from uuid import UUID
 
+from pydantic import UUID4
+
 from mealie.core import root_logger
 from mealie.db.database import Database
 from mealie.schema.recipe import Recipe
@@ -27,7 +29,7 @@ class BaseMigrator(BaseService):
     report_id: int
     report: ReportOut
 
-    def __init__(self, archive: Path, db: Database, session, user_id: int, group_id: UUID, add_migration_tag: bool):
+    def __init__(self, archive: Path, db: Database, session, user_id: UUID4, group_id: UUID, add_migration_tag: bool):
         self.archive = archive
         self.db = db
         self.session = session

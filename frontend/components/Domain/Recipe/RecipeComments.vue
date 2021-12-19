@@ -9,9 +9,8 @@
     <v-divider class="mx-2"></v-divider>
     <div class="d-flex flex-column">
       <div class="d-flex mt-3" style="gap: 10px">
-        <v-avatar size="40">
-          <img alt="user" src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg" />
-        </v-avatar>
+        <UserAvatar size="40" :user-id="$auth.user.id" />
+
         <v-textarea
           v-model="comment"
           hide-details=""
@@ -32,9 +31,7 @@
       </div>
     </div>
     <div v-for="comment in comments" :key="comment.id" class="d-flex my-2" style="gap: 10px">
-      <v-avatar size="40">
-        <img alt="user" src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg" />
-      </v-avatar>
+      <UserAvatar size="40" :user-id="comment.userId" />
       <v-card outlined class="flex-grow-1">
         <v-card-text class="pa-3 pb-0">
           <p class="">{{ comment.user.username }} • {{ $d(Date.parse(comment.createdAt), "medium") }}</p>
@@ -60,8 +57,12 @@
 import { defineComponent, ref, toRefs, onMounted, reactive } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { RecipeComment } from "~/api/class-interfaces/recipes/types";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
+  components: {
+    UserAvatar,
+  },
   props: {
     slug: {
       type: String,

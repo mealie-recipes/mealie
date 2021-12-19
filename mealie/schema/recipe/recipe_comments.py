@@ -3,6 +3,7 @@ from typing import Optional
 from uuid import UUID
 
 from fastapi_camelcase import CamelModel
+from pydantic import UUID4
 
 
 class UserBase(CamelModel):
@@ -20,7 +21,7 @@ class RecipeCommentCreate(CamelModel):
 
 
 class RecipeCommentSave(RecipeCommentCreate):
-    user_id: int
+    user_id: UUID4
 
 
 class RecipeCommentUpdate(CamelModel):
@@ -33,7 +34,7 @@ class RecipeCommentOut(RecipeCommentCreate):
     recipe_id: int
     created_at: datetime
     update_at: datetime
-    user_id: int
+    user_id: UUID4
     user: UserBase
 
     class Config:

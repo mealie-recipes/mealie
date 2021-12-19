@@ -1,4 +1,5 @@
 import shutil
+import tempfile
 from pathlib import Path
 from typing import Optional
 from uuid import uuid4
@@ -90,7 +91,7 @@ async def get_admin_user(current_user=Depends(get_current_user)) -> PrivateUser:
 def validate_long_live_token(session: Session, client_token: str, id: int) -> PrivateUser:
     db = get_database(session)
 
-    tokens: list[LongLiveTokenInDB] = db.api_tokens.get(id, "parent_id", limit=9999)
+    tokens: list[LongLiveTokenInDB] = db.api_tokens.get(id, "user_id", limit=9999)
 
     for token in tokens:
         token: LongLiveTokenInDB
@@ -150,3 +151,21 @@ async def temporary_dir() -> Path:
         yield temp_path
     finally:
         shutil.rmtree(temp_path)
+
+
+def temporary_file(ext: str = "") -> Path:
+    """
+    Returns a temporary file with the specified extension
+    """
+
+    def func() -> Path:
+        temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex + ext)
+        temp_path.touch()
+
+        with tempfile.NamedTemporaryFile(mode="w+b", suffix=ext) as f:
+            try:
+                yield f
+            finally:
+                temp_path.unlink(missing_ok=True)
+
+    return func

@@ -48,7 +48,7 @@ def test_default_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "sqlite")
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
-    assert re.match(r"sqlite:////.*mealie/dev/data/*mealie*.db", app_settings.DB_URL)
+    assert re.match(r"sqlite:////.*mealie*.db", app_settings.DB_URL)
 
 
 def test_pg_connection_args(monkeypatch):

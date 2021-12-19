@@ -3,9 +3,7 @@
     <!-- User Profile -->
     <template v-if="$auth.user">
       <v-list-item two-line to="/user/profile" exact>
-        <v-list-item-avatar color="accent" class="white--text">
-          <v-img :src="require(`~/static/account.png`)" />
-        </v-list-item-avatar>
+        <UserAvatar list :user-id="$auth.user.id" />
 
         <v-list-item-content>
           <v-list-item-title> {{ $auth.user.fullName }}</v-list-item-title>
@@ -130,8 +128,12 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { SidebarLinks } from "~/types/application-types";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
+  components: {
+    UserAvatar,
+  },
   props: {
     value: {
       type: Boolean,

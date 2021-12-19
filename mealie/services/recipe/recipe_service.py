@@ -60,10 +60,10 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
             raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     def can_update(self) -> bool:
-        if self.user.id == self.item.user_id:
-            return True
+        if self.item.settings.locked and self.user.id != self.item.user_id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-        raise HTTPException(status.HTTP_403_FORBIDDEN)
+        return True
 
     def get_all(self, start=0, limit=None, load_foods=False) -> list[RecipeSummary]:
         items = self.db.recipes.summary(self.user.group_id, start=start, limit=limit, load_foods=load_foods)

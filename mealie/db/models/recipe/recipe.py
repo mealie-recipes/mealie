@@ -49,7 +49,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     group_id = sa.Column(GUID, sa.ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
-    user_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
+    user_id = sa.Column(GUID, sa.ForeignKey("users.id"))
     user = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
     meal_entries = orm.relationship("GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan")

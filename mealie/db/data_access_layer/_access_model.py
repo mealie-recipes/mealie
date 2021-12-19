@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, Callable, Generic, TypeVar, Union
 from uuid import UUID
 
+from pydantic import UUID4
 from sqlalchemy import func
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
@@ -39,7 +40,7 @@ class AccessModel(Generic[T, D]):
     def subscribe(self, func: Callable) -> None:
         self.observers.append(func)
 
-    def by_user(self, user_id: int) -> AccessModel:
+    def by_user(self, user_id: UUID4) -> AccessModel:
         self.limit_by_user = True
         self.user_id = user_id
         return self

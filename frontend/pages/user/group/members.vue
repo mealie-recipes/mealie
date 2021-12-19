@@ -17,10 +17,8 @@
       hide-default-footer
       disable-pagination
     >
-      <template #item.avatar="">
-        <v-avatar>
-          <img src="https://i.pravatar.cc/300" alt="John" />
-        </v-avatar>
+      <template #item.avatar="{ item }">
+        <UserAvatar :user-id="item.id" />
       </template>
       <template #item.admin="{ item }">
         {{ item.admin ? "Admin" : "User" }}
@@ -66,8 +64,12 @@
 import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { UserOut } from "~/types/api-types/user";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
+  components: {
+    UserAvatar,
+  },
   setup() {
     const api = useUserApi();
 

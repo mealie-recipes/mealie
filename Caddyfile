@@ -20,6 +20,13 @@
 		file_server
 	}
 
+	# Handles User Images 
+	handle_path /api/media/users/* {
+		header @static Cache-Control max-age=31536000
+		root * /app/data/users/
+		file_server
+	}
+
 	handle @proxied {
 		uri strip_suffix /
 		reverse_proxy http://127.0.0.1:9000

@@ -6,8 +6,8 @@ from tests.utils.app_routes import AppRoutes
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_init_superuser(api_client: TestClient, api_routes: AppRoutes, admin_token, admin_user: TestUser):
-    response = api_client.get(api_routes.users_id(1), headers=admin_token)
+def test_init_superuser(api_client: TestClient, api_routes: AppRoutes, admin_user: TestUser):
+    response = api_client.get(api_routes.users_id(admin_user.user_id), headers=admin_user.token)
     assert response.status_code == 200
 
     admin_data = response.json()
@@ -56,36 +56,56 @@ def test_create_user_as_non_admin(api_client: TestClient, api_routes: AppRoutes,
     assert response.status_code == 403
 
 
-def test_update_user(api_client: TestClient, api_routes: AppRoutes, admin_token):
-    update_data = {"id": 1, "fullName": "Updated Name", "email": "changeme@email.com", "group": "Home", "admin": True}
-    response = api_client.put(api_routes.users_id(1), headers=admin_token, json=update_data)
+def test_update_user(api_client: TestClient, api_routes: AppRoutes, admin_user: TestUser):
+    update_data = {
+        "id": admin_user.user_id,
+        "fullName": "Updated Name",
+        "email": "changeme@email.com",
+        "group": "Home",
+        "admin": True,
+    }
+    response = api_client.put(api_routes.users_id(admin_user.user_id), headers=admin_user.token, json=update_data)
 
     assert response.status_code == 200
     assert json.loads(response.text).get("access_token")
 
 
-def test_update_other_user_as_not_admin(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
-    update_data = {"id": 1, "fullName": "Updated Name", "email": "changeme@email.com", "group": "Home", "admin": True}
-    response = api_client.put(api_routes.users_id(1), headers=unique_user.token, json=update_data)
+def test_update_other_user_as_not_admin(
+    api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser, g2_user: TestUser
+):
+    update_data = {
+        "id": unique_user.user_id,
+        "fullName": "Updated Name",
+        "email": "changeme@email.com",
+        "group": "Home",
+        "admin": True,
+    }
+    response = api_client.put(api_routes.users_id(g2_user.user_id), headers=unique_user.token, json=update_data)
 
     assert response.status_code == 403
 
 
-def test_self_demote_admin(api_client: TestClient, api_routes: AppRoutes, admin_token):
+def test_self_demote_admin(api_client: TestClient, api_routes: AppRoutes, admin_user: TestUser):
     update_data = {"fullName": "Updated Name", "email": "changeme@email.com", "group": "Home", "admin": False}
-    response = api_client.put(api_routes.users_id(1), headers=admin_token, json=update_data)
+    response = api_client.put(api_routes.users_id(admin_user.user_id), headers=admin_user.token, json=update_data)
 
     assert response.status_code == 403
 
 
-def test_self_promote_admin(api_client: TestClient, api_routes: AppRoutes, user_token):
-    update_data = {"id": 3, "fullName": "Updated Name", "email": "user@email.com", "group": "Home", "admin": True}
-    response = api_client.put(api_routes.users_id(2), headers=user_token, json=update_data)
+def test_self_promote_admin(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+    update_data = {
+        "id": unique_user.user_id,
+        "fullName": "Updated Name",
+        "email": "user@email.com",
+        "group": "Home",
+        "admin": True,
+    }
+    response = api_client.put(api_routes.users_id(unique_user.user_id), headers=unique_user.token, json=update_data)
 
     assert response.status_code == 403
 
 
-def test_delete_user(api_client: TestClient, api_routes: AppRoutes, admin_token):
-    response = api_client.delete(api_routes.users_id(2), headers=admin_token)
+def test_delete_user(api_client: TestClient, api_routes: AppRoutes, admin_token, unique_user: TestUser):
+    response = api_client.delete(api_routes.users_id(unique_user.user_id), headers=admin_token)
 
     assert response.status_code == 200

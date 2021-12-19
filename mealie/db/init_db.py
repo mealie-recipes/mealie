@@ -39,7 +39,9 @@ def main():
     db = get_database(session)
 
     try:
-        init_user = db.users.get("1", "id")
+        init_user = db.users.get_all()
+        if not init_user:
+            raise Exception("No users found in database")
     except Exception:
         init_db(db)
         return

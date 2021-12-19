@@ -1,9 +1,8 @@
 <template>
   <v-container v-if="user">
     <section class="d-flex flex-column align-center">
-      <v-avatar color="primary" size="75" class="mb-2">
-        <v-img :src="require(`~/static/account.png`)" />
-      </v-avatar>
+      <UserAvatar size="84" :user-id="$auth.user.id" />
+
       <h2 class="headline">👋 Welcome, {{ user.fullName }}</h2>
       <p class="subtitle-1 mb-0">
         Manage your profile, recipes, and group settings.
@@ -137,10 +136,13 @@ import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vu
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { alert } from "~/composables/use-toast";
+import UserAvatar from "@/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
+  name: "UserProfile",
   components: {
     UserProfileLinkCard,
+    UserAvatar,
   },
   scrollToTop: true,
   setup() {

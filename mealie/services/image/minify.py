@@ -23,6 +23,22 @@ def get_image_sizes(org_img: Path, min_img: Path, tiny_img: Path) -> ImageSizes:
     return ImageSizes(org=sizeof_fmt(org_img), min=sizeof_fmt(min_img), tiny=sizeof_fmt(tiny_img))
 
 
+def to_webp(image_file: Path, quality: int = 100) -> Path:
+    """
+    Converts an image to the webp format in-place. The original image is not
+    removed By default, the quality is set to 100.
+    """
+    if image_file.suffix == ".webp":
+        return image_file
+
+    img = Image.open(image_file)
+
+    dest = image_file.with_suffix(".webp")
+    img.save(dest, "WEBP", quality=quality)
+
+    return dest
+
+
 def minify_image(image_file: Path, force=False) -> ImageSizes:
     """Minifies an image in it's original file format. Quality is lost
 
