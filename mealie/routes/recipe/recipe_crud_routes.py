@@ -6,7 +6,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.dependencies import temporary_zip_path
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByUrl, Recipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
@@ -53,7 +53,7 @@ def parse_recipe_url_bulk(
     """Takes in a URL and attempts to scrape data and load it into the database"""
 
     def bulk_import_func(task_id: int, session: Session) -> None:
-        database = get_database(session)
+        database = get_repositories(session)
         task = database.server_tasks.get_one(task_id)
 
         task.append_log("test task has started")

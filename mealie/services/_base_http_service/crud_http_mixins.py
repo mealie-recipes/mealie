@@ -9,13 +9,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer._access_model import AccessModel
+from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.response import ErrorResponse
 
 C = TypeVar("C", bound=BaseModel)
 R = TypeVar("R", bound=BaseModel)
 U = TypeVar("U", bound=BaseModel)
-DAL = TypeVar("DAL", bound=AccessModel)
+DAL = TypeVar("DAL", bound=RepositoryGeneric)
 logger = get_logger()
 
 

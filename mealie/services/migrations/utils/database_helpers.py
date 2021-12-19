@@ -4,8 +4,8 @@ from pydantic import UUID4, BaseModel
 from slugify import slugify
 from sqlalchemy.orm import Session
 
-from mealie.db.data_access_layer.access_model_factory import AccessModel
-from mealie.db.database import Database
+from mealie.repos.all_repositories import AllRepositories
+from mealie.repos.repository_factory import RepositoryGeneric
 from mealie.schema.recipe import RecipeCategory
 from mealie.schema.recipe.recipe import RecipeTag
 
@@ -13,13 +13,13 @@ T = TypeVar("T", bound=BaseModel)
 
 
 class DatabaseMigrationHelpers:
-    def __init__(self, db: Database, session: Session, group_id: int, user_id: UUID4) -> None:
+    def __init__(self, db: AllRepositories, session: Session, group_id: int, user_id: UUID4) -> None:
         self.group_id = group_id
         self.user_id = user_id
         self.session = session
         self.db = db
 
-    def _get_or_set_generic(self, accessor: AccessModel, items: list[str], out_model: T) -> list[T]:
+    def _get_or_set_generic(self, accessor: RepositoryGeneric, items: list[str], out_model: T) -> list[T]:
         """
         Utility model for getting or setting categories or tags. This will only work for those two cases.
 

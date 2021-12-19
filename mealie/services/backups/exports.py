@@ -12,7 +12,7 @@ from mealie.core import root_logger
 from mealie.core.config import get_app_dirs
 
 app_dirs = get_app_dirs()
-from mealie.db.database import get_database
+from mealie.repos.all_repositories import get_repositories
 
 logger = root_logger.get_logger()
 
@@ -113,7 +113,7 @@ def backup_all(
 ):
     db_export = ExportDatabase(tag=tag, templates=templates)
 
-    db = get_database(session)
+    db = get_repositories(session)
 
     if export_users:
         all_users = db.users.get_all()

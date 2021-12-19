@@ -4,10 +4,10 @@ from mealie.db.models.group import Group
 from mealie.schema.meal_plan.meal import MealPlanOut
 from mealie.schema.user.user import GroupInDB
 
-from ._access_model import AccessModel
+from .repository_generic import RepositoryGeneric
 
 
-class GroupDataAccessModel(AccessModel[GroupInDB, Group]):
+class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
     def get_meals(self, session: Session, match_value: str, match_key: str = "name") -> list[MealPlanOut]:
         """A Helper function to get the group from the database and return a sorted list of
 

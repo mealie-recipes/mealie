@@ -1,8 +1,8 @@
 import apprise
 from sqlalchemy.orm.session import Session
 
-from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.events import Event, EventCategory
 
 
@@ -37,7 +37,7 @@ def post_notifications(event: Event, notification_urls=list[str], hard_fail=Fals
 def save_event(title, text, category, session: Session, attachment=None):
     event = Event(title=title, text=text, category=category)
     session = session or create_session()
-    db = get_database(session)
+    db = get_repositories(session)
     db.events.create(event.dict())
 
     notification_objects = db.event_notifications.get(match_value=True, match_key=category, limit=9999)

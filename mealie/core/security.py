@@ -8,8 +8,8 @@ from jose import jwt
 from passlib.context import CryptContext
 
 from mealie.core.config import get_app_settings
-from mealie.db.data_access_layer.access_model_factory import Database
-from mealie.db.database import get_database
+from mealie.repos.all_repositories import get_repositories
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.user import PrivateUser
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -38,7 +38,7 @@ def create_recipe_slug_token(file_path: str) -> str:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def user_from_ldap(db: Database, session, username: str, password: str) -> PrivateUser:
+def user_from_ldap(db: AllRepositories, session, username: str, password: str) -> PrivateUser:
     """Given a username and password, tries to authenticate by BINDing to an
     LDAP server
 
@@ -81,7 +81,7 @@ def user_from_ldap(db: Database, session, username: str, password: str) -> Priva
 def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
     settings = get_app_settings()
 
-    db = get_database(session)
+    db = get_repositories(session)
     user: PrivateUser = db.users.get(email, "email", any_case=True)
 
     if not user:

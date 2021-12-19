@@ -1,14 +1,14 @@
 import pytest
 
-from mealie.db.database import Database, get_database
 from mealie.db.db_setup import SessionLocal
+from mealie.repos.all_repositories import AllRepositories, get_repositories
 
 
 @pytest.fixture()
-def database() -> Database:
+def database() -> AllRepositories:
     try:
         db = SessionLocal()
-        yield get_database(db)
+        yield get_repositories(db)
 
     finally:
         db.close()

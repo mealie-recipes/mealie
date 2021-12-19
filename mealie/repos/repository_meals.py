@@ -4,10 +4,10 @@ from uuid import UUID
 from mealie.db.models.group import GroupMealPlan
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 
-from ._access_model import AccessModel
+from .repository_generic import RepositoryGeneric
 
 
-class MealDataAccessModel(AccessModel[ReadPlanEntry, GroupMealPlan]):
+class RepositoryMeals(RepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
     def get_slice(self, start: date, end: date, group_id: UUID) -> list[ReadPlanEntry]:
         start = start.strftime("%Y-%m-%d")
         end = end.strftime("%Y-%m-%d")

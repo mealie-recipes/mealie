@@ -10,8 +10,8 @@ from jose import JWTError, jwt
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import LongLiveTokenInDB, PrivateUser, TokenData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
@@ -74,7 +74,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
     except JWTError:
         raise credentials_exception
 
-    db = get_database(session)
+    db = get_repositories(session)
 
     user = db.users.get(token_data.username, "email", any_case=True)
     if user is None:
@@ -89,7 +89,7 @@ async def get_admin_user(current_user=Depends(get_current_user)) -> PrivateUser:
 
 
 def validate_long_live_token(session: Session, client_token: str, id: int) -> PrivateUser:
-    db = get_database(session)
+    db = get_repositories(session)
 
     tokens: list[LongLiveTokenInDB] = db.api_tokens.get(id, "user_id", limit=9999)
 

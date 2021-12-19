@@ -1,11 +1,11 @@
 from uuid import uuid4
 
-from mealie.db.data_access_layer.access_model_factory import Database
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
 from mealie.schema.user.user import GroupBase, GroupInDB
 
 
-def create_new_group(db: Database, g_base: GroupBase, g_preferences: CreateGroupPreferences = None) -> GroupInDB:
+def create_new_group(db: AllRepositories, g_base: GroupBase, g_preferences: CreateGroupPreferences = None) -> GroupInDB:
     created_group = db.groups.create(g_base)
 
     # Assign Temporary ID before group is created

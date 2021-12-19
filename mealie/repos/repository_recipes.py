@@ -8,10 +8,10 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.schema.recipe import Recipe
 
-from ._access_model import AccessModel
+from .repository_generic import RepositoryGeneric
 
 
-class RecipeDataAccessModel(AccessModel[Recipe, RecipeModel]):
+class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
     def get_all_public(self, limit: int = None, order_by: str = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema
 

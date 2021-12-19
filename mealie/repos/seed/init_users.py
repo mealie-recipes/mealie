@@ -1,7 +1,7 @@
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.core.security import hash_password
-from mealie.db.data_access_layer.access_model_factory import Database
+from mealie.repos.repository_factory import AllRepositories
 
 logger = root_logger.get_logger("init_users")
 settings = get_app_settings()
@@ -44,7 +44,7 @@ def dev_users() -> list[dict]:
     ]
 
 
-def default_user_init(db: Database):
+def default_user_init(db: AllRepositories):
     default_user = {
         "full_name": "Change Me",
         "username": "admin",

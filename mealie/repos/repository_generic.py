@@ -16,7 +16,7 @@ T = TypeVar("T")
 D = TypeVar("D")
 
 
-class AccessModel(Generic[T, D]):
+class RepositoryGeneric(Generic[T, D]):
     """A Generic BaseAccess Model method to perform common operations on the database
 
     Args:
@@ -40,12 +40,12 @@ class AccessModel(Generic[T, D]):
     def subscribe(self, func: Callable) -> None:
         self.observers.append(func)
 
-    def by_user(self, user_id: UUID4) -> AccessModel:
+    def by_user(self, user_id: UUID4) -> RepositoryGeneric:
         self.limit_by_user = True
         self.user_id = user_id
         return self
 
-    def by_group(self, group_id: UUID) -> AccessModel:
+    def by_group(self, group_id: UUID) -> RepositoryGeneric:
         self.limit_by_group = True
         self.group_id = group_id
         return self

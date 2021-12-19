@@ -4,7 +4,7 @@ from typing import Any, Callable
 
 from sqlalchemy.orm import Session
 
-from mealie.db.database import get_database
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.server.tasks import ServerTask, ServerTaskCreate, ServerTaskNames
 
 from .._base_http_service.http_services import UserHttpService
@@ -32,7 +32,7 @@ class BackgroundExecutor(UserHttpService):
 
 
 def test_executor_func(task_id: int, session: Session) -> None:
-    database = get_database(session)
+    database = get_repositories(session)
     task = database.server_tasks.get_one(task_id)
 
     task.append_log("test task has started")

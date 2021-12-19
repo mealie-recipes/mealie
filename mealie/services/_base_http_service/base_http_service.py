@@ -7,9 +7,9 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
 from mealie.db.db_setup import SessionLocal
 from mealie.lang import get_locale_provider
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user import PrivateUser
 
 logger = get_logger()
@@ -62,7 +62,7 @@ class BaseHttpService(Generic[T, D], ABC):
         self.background_tasks = background_tasks
 
         # Static Globals Dependency Injection
-        self.db = get_database(session)
+        self.db = get_repositories(session)
         self.app_dirs = get_app_dirs()
         self.settings = get_app_settings()
         self.t = get_locale_provider().t

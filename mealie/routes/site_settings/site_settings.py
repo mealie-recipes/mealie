@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.dependencies import get_current_user
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.user import GroupInDB, PrivateUser
 from mealie.utils.post_webhooks import post_webhooks
@@ -15,7 +15,7 @@ admin_router = AdminAPIRouter(prefix="/api/site-settings", tags=["Settings"])
 @public_router.get("")
 def get_main_settings(session: Session = Depends(generate_session)):
     """Returns basic site settings"""
-    db = get_database(session)
+    db = get_repositories(session)
 
     return db.settings.get(1)
 
@@ -26,7 +26,7 @@ def test_webhooks(
     session: Session = Depends(generate_session),
 ):
     """Run the function to test your webhooks"""
-    db = get_database(session)
+    db = get_repositories(session)
     group_entry: GroupInDB = db.groups.get(current_user.group, "name")
 
     try:

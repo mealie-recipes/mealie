@@ -4,8 +4,8 @@ from sqlalchemy.orm.session import Session
 from mealie.core.config import get_app_settings
 from mealie.core.release_checker import get_latest_version
 from mealie.core.settings.static import APP_VERSION
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.admin.about import AdminAboutInfo, AppStatistics, CheckAppConfig
 
 router = APIRouter(prefix="/about")
@@ -31,7 +31,7 @@ async def get_app_info():
 
 @router.get("/statistics", response_model=AppStatistics)
 async def get_app_statistics(session: Session = Depends(generate_session)):
-    db = get_database(session)
+    db = get_repositories(session)
     return AppStatistics(
         total_recipes=db.recipes.count_all(),
         uncategorized_recipes=db.recipes.count_uncategorized(),
