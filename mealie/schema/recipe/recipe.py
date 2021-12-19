@@ -109,6 +109,12 @@ class RecipeSummary(CamelModel):
             return uuid4()
         return group_id
 
+    @validator("user_id", always=True, pre=True)
+    def validate_user_id(user_id: list[Any]):
+        if isinstance(user_id, int):
+            return uuid4()
+        return user_id
+
 
 class Recipe(RecipeSummary):
     recipe_ingredient: Optional[list[RecipeIngredient]] = []
