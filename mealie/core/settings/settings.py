@@ -16,6 +16,7 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
         with open(secrets_file, "r") as f:
             return f.read()
     else:
+        data_dir.mkdir(parents=True, exist_ok=True)
         with open(secrets_file, "w") as f:
             new_secret = secrets.token_hex(32)
             f.write(new_secret)
