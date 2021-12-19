@@ -1,30 +1,33 @@
-from pathlib import Path
-
 from fastapi.testclient import TestClient
 
-from mealie.core.config import get_app_dirs
-
-app_dirs = get_app_dirs()
-from tests.utils.app_routes import AppRoutes
+from tests import data as test_data
+from tests.utils.fixture_schemas import TestUser
 
 
-def test_update_user_image(
-    api_client: TestClient, api_routes: AppRoutes, test_image_jpg: Path, test_image_png: Path, admin_token
-):
-    response = api_client.post(
-        api_routes.users_id_image(2), files={"profile_image": test_image_jpg.open("rb")}, headers=admin_token
-    )
+class Routes:
+    def get_user_image(user_id: str, file_name: str = "profile.webp") -> str:
+        return f"/api/media/users/{user_id}/{file_name}"
 
+    def user_image(user_id: str) -> str:
+        return f"/api/users/{user_id}/image"
+
+
+def test_user_get_image(api_client: TestClient, unique_user: TestUser):
+    # Get the user's image
+    response = api_client.get(Routes.get_user_image(str(unique_user.user_id)))
     assert response.status_code == 200
 
-    response = api_client.post(
-        api_routes.users_id_image(2), files={"profile_image": test_image_png.open("rb")}, headers=admin_token
-    )
+    # Ensure that the returned value is a valid image
+    assert response.headers["Content-Type"] == "image/webp"
 
+
+def test_user_update_image(api_client: TestClient, unique_user: TestUser):
+    image = {"profile": test_data.images_test_image_1.read_bytes()}
+
+    # Update the user's image
+    response = api_client.post(Routes.user_image(str(unique_user.user_id)), files=image, headers=unique_user.token)
     assert response.status_code == 200
 
-    directory = app_dirs.USER_DIR.joinpath("2")
-    assert directory.joinpath("profile_image.png").is_file()
-
-    # Old profile images are removed
-    assert 1 == len([file for file in directory.glob("profile_image.*") if file.is_file()])
+    # Request the image again
+    response = api_client.get(Routes.get_user_image(str(unique_user.user_id)))
+    assert response.status_code == 200
