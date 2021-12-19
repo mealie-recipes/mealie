@@ -7,7 +7,7 @@ from .._model_utils.guid import GUID
 
 class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_ingredient_ref_link"
-    instruction_id = Column(Integer, ForeignKey("recipe_instructions.id"))
+    instruction_id = Column(GUID, ForeignKey("recipe_instructions.id"))
     reference_id = Column(GUID)
 
     @auto_init()
