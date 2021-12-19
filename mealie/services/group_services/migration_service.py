@@ -23,7 +23,7 @@ class GroupMigrationService(UserHttpService[int, ReportOut]):
     _schema = ReportOut
 
     @cached_property
-    def dal(self):
+    def repo(self):
         raise NotImplementedError
 
     def populate_item(self, _: UUID4) -> ReportOut:

@@ -16,15 +16,15 @@ class AdminUserService(
     _schema = UserOut
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.users
 
     def populate_item(self, id: int) -> UserOut:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[UserOut]:
-        return self.dal.get_all()
+        return self.repo.get_all()
 
     def create_one(self, data: UserIn) -> UserOut:
         return self._create_one(data)

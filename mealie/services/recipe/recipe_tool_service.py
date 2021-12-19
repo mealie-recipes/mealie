@@ -17,15 +17,15 @@ class RecipeToolService(
     _schema = RecipeTool
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.tools
 
     def populate_item(self, id: int) -> RecipeTool:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[RecipeTool]:
-        return self.dal.get_all()
+        return self.repo.get_all()
 
     def create_one(self, data: RecipeToolCreate) -> RecipeTool:
         return self._create_one(data)

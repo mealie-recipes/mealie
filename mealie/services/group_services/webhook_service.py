@@ -18,15 +18,15 @@ class WebhookService(CrudHttpMixins[ReadWebhook, CreateWebhook, CreateWebhook], 
     _schema = ReadWebhook
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.webhooks
 
     def populate_item(self, id: int) -> ReadWebhook:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[ReadWebhook]:
-        return self.dal.get(self.group_id, match_key="group_id", limit=9999)
+        return self.repo.get(self.group_id, match_key="group_id", limit=9999)
 
     def create_one(self, data: CreateWebhook) -> ReadWebhook:
         data = self.cast(data, SaveWebhook)

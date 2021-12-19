@@ -9,15 +9,15 @@ class ServerTasksHttpService(UserHttpService[int, ServerTask]):
     _schema = ServerTask
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.server_tasks
 
     def populate_item(self, id: int) -> ServerTask:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[ServerTask]:
-        return self.dal.multi_query(query_by={"group_id": self.group_id}, order_by="created_at")
+        return self.repo.multi_query(query_by={"group_id": self.group_id}, order_by="created_at")
 
 
 class AdminServerTasks(AdminHttpService[int, ServerTask]):
@@ -25,12 +25,12 @@ class AdminServerTasks(AdminHttpService[int, ServerTask]):
     _schema = ServerTask
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.server_tasks
 
     def populate_item(self, id: int) -> ServerTask:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[ServerTask]:
-        return self.dal.get_all(order_by="created_at")
+        return self.repo.get_all(order_by="created_at")

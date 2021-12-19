@@ -40,7 +40,7 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         return {exc.IntegrityError: self.t("recipe.unique-name-error")}
 
     @cached_property
-    def dal(self) -> RepositoryRecipes:
+    def repo(self) -> RepositoryRecipes:
         return self.db.recipes.by_group(self.group_id)
 
     @classmethod

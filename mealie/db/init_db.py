@@ -1,11 +1,11 @@
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.repos.seed.init_units_foods import default_recipe_unit_init
-from mealie.repos.seed.init_users import default_user_init
 from mealie.db.db_setup import create_session, engine
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.repos.seed.init_units_foods import default_recipe_unit_init
+from mealie.repos.seed.init_users import default_user_init
 from mealie.schema.user.user import GroupBase
 from mealie.services.events import create_general_event
 from mealie.services.group_services.group_utils import create_new_group

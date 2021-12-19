@@ -22,11 +22,11 @@ class SharedRecipeService(
     _schema = RecipeShareToken
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.recipe_share_tokens
 
     def populate_item(self, id: UUID4) -> RecipeShareToken:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self, recipe_id=None) -> list[RecipeShareTokenSummary]:
@@ -48,4 +48,4 @@ class SharedRecipeService(
     def delete_one(self, item_id: UUID4 = None) -> None:
         item_id = item_id or self.item.id
 
-        return self.dal.delete(item_id)
+        return self.repo.delete(item_id)
