@@ -2,8 +2,7 @@ import random
 import shutil
 
 from mealie.assets import users as users_assets
-from mealie.db.models.users import User
-from mealie.schema.user.user import PrivateUser
+from mealie.schema.user.user import PrivateUser, User
 
 from ._access_model import AccessModel
 
@@ -29,3 +28,9 @@ class UserDataAccessModel(AccessModel[PrivateUser, User]):
         shutil.copy(random_image, new_user.directory() / "profile.webp")
 
         return new_user
+
+    def delete(self, id: str) -> User:
+        entry = super().delete(id)
+        # Delete the user's directory
+        shutil.rmtree(PrivateUser.get_directory(id))
+        return entry
