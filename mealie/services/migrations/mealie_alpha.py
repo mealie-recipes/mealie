@@ -51,6 +51,9 @@ class MealieAlphaMigrator(BaseMigrator):
 
         recipe["comments"] = []
 
+        # Reset ID on migration
+        recipe["id"] = None
+
         return Recipe(**recipe)
 
     def _migrate(self) -> None:
