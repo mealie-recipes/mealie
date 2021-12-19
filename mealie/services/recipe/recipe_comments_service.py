@@ -25,7 +25,7 @@ class RecipeCommentsService(
     _schema = RecipeCommentOut
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.comments
 
     def _check_comment_belongs_to_user(self) -> None:
@@ -33,11 +33,11 @@ class RecipeCommentsService(
             raise HTTPException(detail="Comment does not belong to user")
 
     def populate_item(self, id: UUID) -> RecipeCommentOut:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[RecipeCommentOut]:
-        return self.dal.get_all()
+        return self.repo.get_all()
 
     def create_one(self, data: RecipeCommentCreate) -> RecipeCommentOut:
         save_data = RecipeCommentSave(text=data.text, user_id=self.user.id, recipe_id=data.recipe_id)

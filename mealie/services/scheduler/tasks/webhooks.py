@@ -4,8 +4,8 @@ import requests
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
-from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.group.webhook import ReadWebhook
 
 from ..scheduled_func import Cron, ScheduledFunc
@@ -16,7 +16,7 @@ logger = root_logger.get_logger()
 
 def post_webhooks(webhook_id: int, session: Session = None):
     session = session or create_session()
-    db = get_database(session)
+    db = get_repositories(session)
     webhook: ReadWebhook = db.webhooks.get_one(webhook_id)
 
     if not webhook.enabled:
@@ -39,7 +39,7 @@ def post_webhooks(webhook_id: int, session: Session = None):
 
 def update_group_webhooks():
     session = create_session()
-    db = get_database(session)
+    db = get_repositories(session)
 
     webhooks: list[ReadWebhook] = db.webhooks.get_all()
 

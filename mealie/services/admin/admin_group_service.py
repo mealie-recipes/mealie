@@ -23,15 +23,15 @@ class AdminGroupService(
     _schema = GroupInDB
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.groups
 
     def populate_item(self, id: UUID4) -> GroupInDB:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[GroupInDB]:
-        return self.dal.get_all()
+        return self.repo.get_all()
 
     def create_one(self, data: GroupBase) -> GroupInDB:
         return create_new_group(self.db, data)
@@ -46,7 +46,7 @@ class AdminGroupService(
 
         if data.name not in ["", self.item.name]:
             self.item.name = data.name
-            self.item = self.dal.update(target_id, self.item)
+            self.item = self.repo.update(target_id, self.item)
 
         return self.item
 

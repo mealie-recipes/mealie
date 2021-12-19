@@ -3,7 +3,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.root_logger import get_logger
 from mealie.core.security import hash_password, url_safe_token
-from mealie.db.database import get_database
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user_passwords import SavePasswordResetToken
 from mealie.services._base_service import BaseService
 from mealie.services.email import EmailService
@@ -13,7 +13,7 @@ logger = get_logger(__name__)
 
 class PasswordResetService(BaseService):
     def __init__(self, session: Session) -> None:
-        self.db = get_database(session)
+        self.db = get_repositories(session)
         super().__init__()
 
     def generate_reset_token(self, email: str) -> SavePasswordResetToken:

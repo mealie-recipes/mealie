@@ -5,7 +5,7 @@ from uuid import UUID
 from pydantic import UUID4
 
 from mealie.core import root_logger
-from mealie.db.database import Database
+from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.recipe import Recipe
 from mealie.schema.reports.reports import (
     ReportCategory,
@@ -29,7 +29,9 @@ class BaseMigrator(BaseService):
     report_id: int
     report: ReportOut
 
-    def __init__(self, archive: Path, db: Database, session, user_id: UUID4, group_id: UUID, add_migration_tag: bool):
+    def __init__(
+        self, archive: Path, db: AllRepositories, session, user_id: UUID4, group_id: UUID, add_migration_tag: bool
+    ):
         self.archive = archive
         self.db = db
         self.session = session

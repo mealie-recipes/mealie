@@ -3,8 +3,8 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.dependencies import is_logged_in
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 
@@ -17,14 +17,14 @@ logger = get_logger()
 @public_router.get("")
 async def get_all_recipe_categories(session: Session = Depends(generate_session)):
     """Returns a list of available categories in the database"""
-    db = get_database(session)
+    db = get_repositories(session)
     return db.categories.get_all_limit_columns(fields=["slug", "name"])
 
 
 @public_router.get("/empty")
 def get_empty_categories(session: Session = Depends(generate_session)):
     """Returns a list of categories that do not contain any recipes"""
-    db = get_database(session)
+    db = get_repositories(session)
     return db.categories.get_empty()
 
 
@@ -33,7 +33,7 @@ def get_all_recipes_by_category(
     category: str, session: Session = Depends(generate_session), is_user: bool = Depends(is_logged_in)
 ):
     """Returns a list of recipes associated with the provided category."""
-    db = get_database(session)
+    db = get_repositories(session)
 
     category_obj = db.categories.get(category)
     category_obj = RecipeCategoryResponse.from_orm(category_obj)
@@ -47,7 +47,7 @@ def get_all_recipes_by_category(
 @user_router.post("")
 async def create_recipe_category(category: CategoryIn, session: Session = Depends(generate_session)):
     """Creates a Category in the database"""
-    db = get_database(session)
+    db = get_repositories(session)
 
     try:
         return db.categories.create(category.dict())
@@ -58,7 +58,7 @@ async def create_recipe_category(category: CategoryIn, session: Session = Depend
 @admin_router.put("/{category}", response_model=RecipeCategoryResponse)
 async def update_recipe_category(category: str, new_category: CategoryIn, session: Session = Depends(generate_session)):
     """Updates an existing Tag in the database"""
-    db = get_database(session)
+    db = get_repositories(session)
 
     try:
         return db.categories.update(category, new_category.dict())
@@ -74,7 +74,7 @@ async def delete_recipe_category(category: str, session: Session = Depends(gener
     category does not impact a recipe. The category will be removed
     from any recipes that contain it
     """
-    db = get_database(session)
+    db = get_repositories(session)
 
     try:
         db.categories.delete(category)

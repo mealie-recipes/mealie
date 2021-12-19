@@ -4,8 +4,8 @@ from fastapi import Depends, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.root_logger import get_logger
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.events import EventNotificationIn, EventNotificationOut, TestEvent
 from mealie.services.events import test_notification
@@ -21,7 +21,7 @@ async def create_event_notification(
     session: Session = Depends(generate_session),
 ):
     """Create event_notification in the Database"""
-    db = get_database(session)
+    db = get_repositories(session)
 
     return db.event_notifications.create(event_data)
 
@@ -32,7 +32,7 @@ async def test_notification_route(
     session: Session = Depends(generate_session),
 ):
     """Create event_notification in the Database"""
-    db = get_database(session)
+    db = get_repositories(session)
 
     if test_data.id:
         event_obj: EventNotificationIn = db.event_notifications.get(test_data.id)
@@ -48,7 +48,7 @@ async def test_notification_route(
 @router.get("/notifications", response_model=list[EventNotificationOut])
 async def get_all_event_notification(session: Session = Depends(generate_session)):
     """Get all event_notification from the Database"""
-    db = get_database(session)
+    db = get_repositories(session)
     return db.event_notifications.get_all(override_schema=EventNotificationOut)
 
 
@@ -63,5 +63,5 @@ async def update_event_notification(id: int, session: Session = Depends(generate
 async def delete_event_notification(id: int, session: Session = Depends(generate_session)):
     """Delete event_notification from the Database"""
     # Delete Item
-    db = get_database(session)
+    db = get_repositories(session)
     return db.event_notifications.delete(id)

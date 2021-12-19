@@ -8,7 +8,7 @@ from pydantic.main import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs
-from mealie.db.database import get_database
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.admin import CommentImport, GroupImport, NotificationImport, RecipeImport, UserImport
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.recipe import Recipe, RecipeCommentOut
@@ -38,7 +38,7 @@ class ImportDatabase:
         """
         self.user = user
         self.session = session
-        self.db = get_database(session)
+        self.db = get_repositories(session)
         self.archive = app_dirs.BACKUP_DIR.joinpath(zip_archive)
         self.force_imports = force_import
 

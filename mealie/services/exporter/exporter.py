@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 from uuid import UUID, uuid4
 
-from mealie.db.database import Database
+from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.user import GroupInDB
 from mealie.utils.fs_stats import pretty_size
@@ -21,7 +21,7 @@ class Exporter(BaseService):
         self.temp_path = temp_zip
         self.exporters = exporters
 
-    def run(self, db: Database) -> GroupDataExport:
+    def run(self, db: AllRepositories) -> GroupDataExport:
         # Create Zip File
         self.temp_path.touch()
 

@@ -5,8 +5,8 @@ from fastapi.datastructures import UploadFile
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeAsset
 from mealie.services.image.image import scrape_image, write_image
@@ -29,7 +29,7 @@ def update_recipe_image(
     session: Session = Depends(generate_session),
 ):
     """Removes an existing image and replaces it with the incoming file."""
-    db = get_database(session)
+    db = get_repositories(session)
     write_image(slug, image, extension)
     new_version = db.recipes.update_image(slug, extension)
 
@@ -56,7 +56,7 @@ def upload_recipe_asset(
     if not dest.is_file():
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    db = get_database(session)
+    db = get_repositories(session)
 
     recipe: Recipe = db.recipes.get(slug)
     recipe.assets.append(asset_in)

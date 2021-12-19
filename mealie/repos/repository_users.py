@@ -4,10 +4,10 @@ import shutil
 from mealie.assets import users as users_assets
 from mealie.schema.user.user import PrivateUser, User
 
-from ._access_model import AccessModel
+from .repository_generic import RepositoryGeneric
 
 
-class UserDataAccessModel(AccessModel[PrivateUser, User]):
+class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
     def update_password(self, id, password: str):
         entry = self._query_one(match_value=id)
         entry.update_password(password)

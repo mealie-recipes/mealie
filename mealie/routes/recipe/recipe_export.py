@@ -9,8 +9,8 @@ from mealie.core.dependencies import temporary_zip_path
 from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_recipe_slug_token
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeImageTypes
 from mealie.services.recipe.recipe_service import RecipeService
@@ -68,7 +68,7 @@ async def get_recipe_as_zip(
     if slug != slug:
         raise HTTPException(status_code=400, detail="Invalid Slug")
 
-    db = get_database(session)
+    db = get_repositories(session)
     recipe: Recipe = db.recipes.get(slug)
     image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
     with ZipFile(temp_path, "w") as myzip:

@@ -17,15 +17,15 @@ class RecipeFoodService(
     _schema = IngredientFood
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.ingredient_foods
 
     def populate_item(self, id: int) -> IngredientFood:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def get_all(self) -> list[IngredientFood]:
-        return self.dal.get_all()
+        return self.repo.get_all()
 
     def create_one(self, data: CreateIngredientFood) -> IngredientFood:
         return self._create_one(data)

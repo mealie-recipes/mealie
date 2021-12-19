@@ -5,8 +5,8 @@ from sqlalchemy.orm.session import Session
 from mealie.core import security
 from mealie.core.dependencies import get_current_user
 from mealie.core.security import hash_password
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.user import PrivateUser, UserBase, UserIn, UserOut
@@ -18,7 +18,7 @@ admin_router = AdminAPIRouter(prefix="")
 
 @admin_router.get("", response_model=list[UserOut])
 async def get_all_users(session: Session = Depends(generate_session)):
-    db = get_database(session)
+    db = get_repositories(session)
     return db.users.get_all()
 
 
@@ -35,13 +35,13 @@ async def create_user(
         create_user_event, "User Created", f"Created by {current_user.full_name}", session=session
     )
 
-    db = get_database(session)
+    db = get_repositories(session)
     return db.users.create(new_user.dict())
 
 
 @admin_router.get("/{id}", response_model=UserOut)
 async def get_user(id: UUID4, session: Session = Depends(generate_session)):
-    db = get_database(session)
+    db = get_repositories(session)
     return db.users.get(id)
 
 
@@ -60,7 +60,7 @@ def delete_user(
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
 
     try:
-        db = get_database(session)
+        db = get_repositories(session)
         db.users.delete(id)
         background_tasks.add_task(create_user_event, "User Deleted", f"User ID: {id}", session=session)
     except Exception:
@@ -92,7 +92,7 @@ async def update_user(
         # prevent an admin from demoting themself
         raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    db = get_database(session)
+    db = get_repositories(session)
     db.users.update(id, new_data.dict())
 
     if current_user.id == id:

@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer.access_model_factory import Database
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe import CreateIngredientFood, CreateIngredientUnit
 
 CWD = Path(__file__).parent
@@ -21,7 +21,7 @@ def get_default_units() -> dict[str, str]:
     return units
 
 
-def default_recipe_unit_init(db: Database) -> None:
+def default_recipe_unit_init(db: AllRepositories) -> None:
     for unit in get_default_units().values():
         try:
             db.ingredient_units.create(

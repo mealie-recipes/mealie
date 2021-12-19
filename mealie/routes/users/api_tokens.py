@@ -6,8 +6,8 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.dependencies import get_current_user
 from mealie.core.security import create_access_token
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, PrivateUser
 
@@ -33,7 +33,7 @@ async def create_api_token(
         user_id=current_user.id,
     )
 
-    db = get_database(session)
+    db = get_repositories(session)
 
     new_token_in_db = db.api_tokens.create(token_model)
 
@@ -48,7 +48,7 @@ async def delete_api_token(
     session: Session = Depends(generate_session),
 ):
     """Delete api_token from the Database"""
-    db = get_database(session)
+    db = get_repositories(session)
     token: LongLiveTokenInDB = db.api_tokens.get(token_id)
 
     if not token:

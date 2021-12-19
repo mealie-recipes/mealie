@@ -21,7 +21,7 @@ class CookbookService(
     _schema = ReadCookBook
 
     @cached_property
-    def dal(self):
+    def repo(self):
         return self.db.cookbooks
 
     def populate_item(self, item_id: int) -> RecipeCookBook:
@@ -31,13 +31,13 @@ class CookbookService(
             pass
 
         if isinstance(item_id, int):
-            self.item = self.dal.get_one(item_id, override_schema=RecipeCookBook)
+            self.item = self.repo.get_one(item_id, override_schema=RecipeCookBook)
 
         else:
-            self.item = self.dal.get_one(item_id, key="slug", override_schema=RecipeCookBook)
+            self.item = self.repo.get_one(item_id, key="slug", override_schema=RecipeCookBook)
 
     def get_all(self) -> list[ReadCookBook]:
-        items = self.dal.get(self.group_id, "group_id", limit=999)
+        items = self.repo.get(self.group_id, "group_id", limit=999)
         items.sort(key=lambda x: x.position)
         return items
 
@@ -52,7 +52,7 @@ class CookbookService(
         updated = []
 
         for cookbook in data:
-            cb = self.dal.update(cookbook.id, cookbook)
+            cb = self.repo.update(cookbook.id, cookbook)
             updated.append(cb)
 
         return updated

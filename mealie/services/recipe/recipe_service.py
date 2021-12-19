@@ -11,7 +11,7 @@ from sqlalchemy import exc
 
 from mealie.core.dependencies.grouped import UserDeps
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer.recipe_access_model import RecipeDataAccessModel
+from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeSummary
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
@@ -40,7 +40,7 @@ class RecipeService(CrudHttpMixins[CreateRecipe, Recipe, Recipe], UserHttpServic
         return {exc.IntegrityError: self.t("recipe.unique-name-error")}
 
     @cached_property
-    def dal(self) -> RecipeDataAccessModel:
+    def repo(self) -> RepositoryRecipes:
         return self.db.recipes.by_group(self.group_id)
 
     @classmethod

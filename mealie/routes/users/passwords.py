@@ -3,8 +3,8 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.core.security import hash_password
-from mealie.db.database import get_database
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes.routers import UserAPIRouter
 from mealie.schema.user import ChangePassword
 from mealie.schema.user.user_passwords import ForgotPassword, ResetPassword
@@ -20,7 +20,7 @@ settings = get_app_settings()
 async def reset_user_password(id: int, session: Session = Depends(generate_session)):
     new_password = hash_password(settings.DEFAULT_PASSWORD)
 
-    db = get_database(session)
+    db = get_repositories(session)
     db.users.update_password(id, new_password)
 
 

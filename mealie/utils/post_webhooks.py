@@ -3,15 +3,15 @@ import json
 import requests
 from sqlalchemy.orm.session import Session
 
-from mealie.db.database import get_database
 from mealie.db.db_setup import create_session
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import GroupInDB
 from mealie.services.events import create_scheduled_event
 
 
 def post_webhooks(group: int, session: Session = None, force=True):
     session = session or create_session()
-    db = get_database(session)
+    db = get_repositories(session)
     group_settings: GroupInDB = db.groups.get(group)
 
     if not group_settings.webhook_enable and not force:

@@ -8,7 +8,7 @@ from uuid import UUID
 from pydantic import BaseModel
 
 from mealie.core.root_logger import get_logger
-from mealie.db.database import Database
+from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.reports.reports import ReportEntryCreate
 
 from .._base_service import BaseService
@@ -29,7 +29,7 @@ class ExportedItem:
 class ABCExporter(BaseService):
     write_dir_to_zip: Callable[[Path, str, Optional[list[str]]], None]
 
-    def __init__(self, db: Database, group_id: UUID) -> None:
+    def __init__(self, db: AllRepositories, group_id: UUID) -> None:
         self.logger = get_logger()
         self.db = db
         self.group_id = group_id

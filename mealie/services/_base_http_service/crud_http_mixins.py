@@ -9,13 +9,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
-from mealie.db.data_access_layer._access_model import AccessModel
+from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.response import ErrorResponse
 
 C = TypeVar("C", bound=BaseModel)
 R = TypeVar("R", bound=BaseModel)
 U = TypeVar("U", bound=BaseModel)
-DAL = TypeVar("DAL", bound=AccessModel)
+DAL = TypeVar("DAL", bound=RepositoryGeneric)
 logger = get_logger()
 
 
@@ -25,16 +25,16 @@ class CrudHttpMixins(Generic[C, R, U], ABC):
 
     @property
     @abstractmethod
-    def dal(self) -> DAL:
+    def repo(self) -> DAL:
         ...
 
     def populate_item(self, id: int) -> R:
-        self.item = self.dal.get_one(id)
+        self.item = self.repo.get_one(id)
         return self.item
 
     def _create_one(self, data: C, default_msg="generic-create-error", exception_msgs: dict | None = None) -> R:
         try:
-            self.item = self.dal.create(data)
+            self.item = self.repo.create(data)
         except Exception as ex:
             logger.exception(ex)
             self.session.rollback()
@@ -58,13 +58,13 @@ class CrudHttpMixins(Generic[C, R, U], ABC):
             return
 
         target_id = item_id or self.item.id
-        self.item = self.dal.update(target_id, data)
+        self.item = self.repo.update(target_id, data)
 
         return self.item
 
     def _patch_one(self, data: U, item_id: int) -> None:
         try:
-            self.item = self.dal.patch(item_id, data.dict(exclude_unset=True, exclude_defaults=True))
+            self.item = self.repo.patch(item_id, data.dict(exclude_unset=True, exclude_defaults=True))
         except IntegrityError:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail={"message": "generic-patch-error"})
 
@@ -73,7 +73,7 @@ class CrudHttpMixins(Generic[C, R, U], ABC):
         logger.info(f"Deleting item with id {target_id}")
 
         try:
-            self.item = self.dal.delete(target_id)
+            self.item = self.repo.delete(target_id)
         except Exception as ex:
             logger.exception(ex)
             raise HTTPException(
