@@ -2,13 +2,11 @@ import shutil
 from pathlib import Path
 
 from fastapi import Depends, File, HTTPException, UploadFile, status
-from fastapi.responses import FileResponse
 from fastapi.routing import APIRouter
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
 from mealie import utils
-from mealie.core.config import get_app_dirs
 from mealie.core.dependencies import get_current_user
 from mealie.core.dependencies.dependencies import temporary_dir
 from mealie.db.database import get_database
@@ -20,17 +18,6 @@ from mealie.services.image import minify
 
 public_router = APIRouter(prefix="", tags=["Users: Images"])
 user_router = UserAPIRouter(prefix="", tags=["Users: Images"])
-
-
-@public_router.get("/{id}/image")
-async def get_user_image(id: str):
-    """Returns a users profile picture"""
-    app_dirs = get_app_dirs()
-
-    user_dir = app_dirs.USER_DIR.joinpath(id)
-    for recipe_image in user_dir.glob("profile_image.*"):
-        return FileResponse(recipe_image)
-    raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
 @user_router.post("/{id}/image")
