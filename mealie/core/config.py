@@ -4,7 +4,7 @@ from pathlib import Path
 
 import dotenv
 
-from mealie.core.settings.settings import app_settings_constructor
+from mealie.core.settings import app_settings_constructor
 
 from .settings import AppDirectories, AppSettings
 from .settings.static import APP_VERSION, DB_VERSION
@@ -18,11 +18,15 @@ ENV = BASE_DIR.joinpath(".env")
 
 dotenv.load_dotenv(ENV)
 PRODUCTION = os.getenv("PRODUCTION", "True").lower() in ["true", "1"]
+TESTING = os.getenv("TESTING", "True").lower() in ["true", "1"]
 
 
 def determine_data_dir() -> Path:
-    global PRODUCTION
-    global BASE_DIR
+    global PRODUCTION, TESTING, BASE_DIR
+
+    if TESTING:
+        return BASE_DIR.joinpath("tests/.temp")
+
     if PRODUCTION:
         return Path("/app/data")
 
