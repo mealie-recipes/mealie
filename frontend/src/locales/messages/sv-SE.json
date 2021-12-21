@@ -201,7 +201,7 @@
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Måste vara en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
-    "recipe-markup-specification": "Recipe Markup Specification",
+    "recipe-markup-specification": "Specifikation för receptmärkning",
     "recipe-url": "Recept URL",
     "upload-a-recipe": "Ladda upp ett recept",
     "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
@@ -385,7 +385,7 @@
     },
     "webhooks": {
       "test-webhooks": "Testa Webhooks",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Följande URLer kommer att mottaga webhooks med receptdata för dagens planerade måltid. Datan kommer att skickas klockan <strong>{ time }</strong>",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Följande webbadresser kommer att mottaga webhooks med receptdata för dagens planerade måltid. För närvarande körs webhooks klockan",
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS"
     }
