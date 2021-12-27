@@ -200,7 +200,7 @@
     </v-row>
   </v-container>
 </template>
-  
+
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
@@ -218,18 +218,24 @@ export default defineComponent({
     RecipeCard,
   },
   setup() {
-    const { mealplans, actions, loading } = useMealplans();
-
-    useRecipes(true, true);
     const state = reactive({
       createMealDialog: false,
       edit: false,
       hover: {},
       pickerMenu: null,
-      start: null as Date | null,
       today: new Date(),
-      end: null as Date | null,
     });
+
+    const weekRange = computed(() => {
+      return {
+        start: subDays(state.today, 1),
+        end: addDays(state.today, 6),
+      };
+    });
+
+    const { mealplans, actions, loading } = useMealplans(weekRange);
+
+    useRecipes(true, true);
 
     function filterMealByDate(date: Date) {
       if (!mealplans.value) return;
@@ -241,13 +247,11 @@ export default defineComponent({
 
     function forwardOneWeek() {
       if (!state.today) return;
-      // @ts-ignore
       state.today = addDays(state.today, +5);
     }
 
     function backOneWeek() {
       if (!state.today) return;
-      // @ts-ignore
       state.today = addDays(state.today, -5);
     }
 
@@ -282,16 +286,7 @@ export default defineComponent({
       });
     });
 
-    const weekRange = computed(() => {
-      // @ts-ignore - Not Sure Why This is not working
-      const end = addDays(state.today, 6);
-      // @ts-ignore - Not sure why the type is invalid
-      const start = subDays(state.today, 1);
-      return { start, end, today: state.today };
-    });
-
     const days = computed(() => {
-      if (weekRange.value?.start === null) return [];
       return Array.from(Array(8).keys()).map(
         // @ts-ignore
         (i) => new Date(weekRange.value.start.getTime() + i * 24 * 60 * 60 * 1000)
@@ -390,4 +385,3 @@ export default defineComponent({
   border-bottom: 2px solid var(--v-primary-base) !important;
 }
 </style>
-  

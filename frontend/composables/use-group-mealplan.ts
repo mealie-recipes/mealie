@@ -1,5 +1,5 @@
-import { useAsync, ref } from "@nuxtjs/composition-api";
-import { addDays, subDays, format } from "date-fns";
+import { useAsync, ref, Ref, watch } from "@nuxtjs/composition-api";
+import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
 import { CreateMealPlan, UpdateMealPlan } from "~/api/class-interfaces/group-mealplan";
@@ -13,7 +13,12 @@ export const planTypeOptions = [
   { text: "Snack", value: "snack" },
 ];
 
-export const useMealplans = function () {
+export interface DateRange {
+  start: Date;
+  end: Date;
+}
+
+export const useMealplans = function (range: Ref<DateRange>) {
   const api = useUserApi();
   const loading = ref(false);
   const validForm = ref(true);
@@ -23,8 +28,8 @@ export const useMealplans = function () {
       loading.value = true;
       const units = useAsync(async () => {
         const query = {
-          start: format(subDays(new Date(), 30), "yyyy-MM-dd"),
-          limit: format(addDays(new Date(), 30), "yyyy-MM-dd"),
+          start: format(range.value.start, "yyyy-MM-dd"),
+          limit: format(range.value.end, "yyyy-MM-dd"),
         };
         // @ts-ignore
         const { data } = await api.mealplans.getAll(query.start, query.limit);
@@ -38,8 +43,8 @@ export const useMealplans = function () {
     async refreshAll() {
       loading.value = true;
       const query = {
-        start: format(subDays(new Date(), 30), "yyyy-MM-dd"),
-        limit: format(addDays(new Date(), 30), "yyyy-MM-dd"),
+        start: format(range.value.start, "yyyy-MM-dd"),
+        limit: format(range.value.end, "yyyy-MM-dd"),
       };
       // @ts-ignore
       const { data } = await api.mealplans.getAll(query.start, query.limit);
@@ -89,6 +94,8 @@ export const useMealplans = function () {
   };
 
   const mealplans = actions.getAll();
+
+  watch(range, actions.refreshAll);
 
   return { mealplans, actions, validForm, loading };
 };
