@@ -26,9 +26,5 @@ export default defineComponent({
       tools,
     };
   },
-  // head: {
-  //   // @ts-ignore
-  //   title: this.$t("sidebar.tags") as string,
-  // },
 });
 </script>

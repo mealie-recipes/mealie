@@ -51,7 +51,7 @@
     </RecipeCardSection>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, useAsync, useRoute, reactive, toRefs, useRouter } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
@@ -109,7 +109,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: this.$t("sidebar.categories") as string,
+      title: this.$t("tag.tags") as string,
     };
   },
   methods: {
@@ -122,4 +122,3 @@ export default defineComponent({
   },
 });
 </script>
-    

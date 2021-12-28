@@ -27,9 +27,5 @@ export default defineComponent({
       categories,
     };
   },
-  // head: {
-  //   // @ts-ignore
-  //   title: this.$t("sidebar.categories") as string,
-  // },
 });
 </script>
