@@ -8,15 +8,12 @@ interface Globals {
 
 declare module "vue/types/vue" {
   interface Vue {
-    $globals: any;
+    $globals: Globals;
   }
 }
 
 declare module "vue/types/options" {
   interface ComponentOptions<V extends Vue> {
-    $globals?: Globals;
-  }
-  interface ComponentOptions<V extends UseContextReturn> {
     $globals?: Globals;
   }
 }

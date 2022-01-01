@@ -1,4 +1,4 @@
-import { TranslateResult } from "vue-i18n";
+import { TranslateResult } from "vue-i18n/types";
 
 export interface SideBarLink {
   icon: string;

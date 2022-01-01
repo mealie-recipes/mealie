@@ -10,16 +10,6 @@ export interface CrudAPIInterface {
   // Methods
 }
 
-export interface CrudAPIMethodsInterface {
-  // CRUD Methods
-  getAll(): any;
-  createOne(): any;
-  getOne(): any;
-  updateOne(): any;
-  patchOne(): any;
-  deleteOne(): any;
-}
-
 export abstract class BaseAPI {
   requests: ApiRequestInstance;
 

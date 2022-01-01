@@ -15,6 +15,6 @@ export class UtilsAPI extends BaseAPI {
 
     const tokenURL = prefix + "/utils/download?token=" + token;
     window.open(tokenURL, "_blank");
-    return await response;
+    return response;
   }
 }

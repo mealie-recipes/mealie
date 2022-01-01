@@ -152,7 +152,7 @@
     </section>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, reactive, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
@@ -327,6 +327,7 @@ export default defineComponent({
       title: "Tag Recipes",
       mode: MODES.tag,
       tag: "",
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       callback: () => {},
       icon: $globals.icons.tags,
     });

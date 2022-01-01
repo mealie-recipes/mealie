@@ -1,4 +1,4 @@
-import Auth from "@nuxtjs/auth-next/dist/core/auth";
+import { Auth } from "@nuxtjs/auth-next";
 
 declare module "vue/types/vue" {
   interface Vue {
