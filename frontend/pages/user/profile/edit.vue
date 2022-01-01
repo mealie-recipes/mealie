@@ -115,7 +115,7 @@
 import { ref, reactive, defineComponent, computed, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
-import { VForm } from "~/types/v-form";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   components: {

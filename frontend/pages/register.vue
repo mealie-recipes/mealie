@@ -104,7 +104,7 @@ import { validators } from "@/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useRouterQuery } from "@/composables/use-router";
-import { VForm} from "~/types/v-form";
+import { VForm} from "~/types/vuetify";
 
 export default defineComponent({
   layout: "basic",

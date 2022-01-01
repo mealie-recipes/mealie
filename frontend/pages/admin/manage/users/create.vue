@@ -39,7 +39,7 @@ import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
-import { VForm } from "~/types/v-form";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   layout: "admin",
