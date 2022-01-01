@@ -110,11 +110,12 @@
     </section>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { ref, reactive, defineComponent, computed, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import { VForm } from "~/types/v-form";
 
 export default defineComponent({
   components: {
@@ -179,4 +180,4 @@ export default defineComponent({
   },
 });
 </script>
-    
+

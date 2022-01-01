@@ -322,6 +322,8 @@ import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategory
 import { validators } from "~/composables/use-validators";
 import { Recipe } from "~/types/api-types/recipe";
 import { alert } from "~/composables/use-toast";
+import { VForm} from "~/types/v-form";
+
 export default defineComponent({
   components: { VJsoneditor, RecipeCategoryTagSelector },
   setup() {
