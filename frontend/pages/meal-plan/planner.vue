@@ -200,7 +200,7 @@
     </v-row>
   </v-container>
 </template>
-  
+
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
@@ -319,7 +319,7 @@ export default defineComponent({
       date: "",
       title: "",
       text: "",
-      recipeId: null as Number | null,
+      recipeId: null as number | null,
       entryType: "dinner",
     });
 
@@ -390,4 +390,3 @@ export default defineComponent({
   border-bottom: 2px solid var(--v-primary-base) !important;
 }
 </style>
-  

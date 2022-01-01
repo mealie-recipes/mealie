@@ -80,7 +80,7 @@
     </v-container>
   </v-container>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { until, invoke } from "@vueuse/core";
@@ -91,9 +91,9 @@ import { useRecipe, useFoods, useUnits } from "~/composables/recipes";
 import { RecipeIngredientUnit } from "~/types/api-types/recipe";
 interface Error {
   ingredientIndex: number;
-  unitError: Boolean;
+  unitError: boolean;
   unitErrorMessage: string;
-  foodError: Boolean;
+  foodError: boolean;
   foodErrorMessage: string;
 }
 
@@ -272,4 +272,4 @@ export default defineComponent({
   },
 });
 </script>
-  
+

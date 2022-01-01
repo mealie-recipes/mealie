@@ -268,7 +268,7 @@ export default defineComponent({
 
     // ===============================================================
     // Ingredient Linker
-    const activeRefs = ref<String[]>([]);
+    const activeRefs = ref<string[]>([]);
     const activeIndex = ref(0);
     const activeText = ref("");
 
@@ -284,7 +284,7 @@ export default defineComponent({
       const instruction = props.value[activeIndex.value];
       instruction.ingredientReferences = activeRefs.value.map((ref) => {
         return {
-          referenceId: ref as string,
+          referenceId: ref,
         };
       });
       state.dialog = false;
@@ -351,7 +351,7 @@ export default defineComponent({
       });
     }
 
-    function getIngredientByRefId(refId: String) {
+    function getIngredientByRefId(refId: string) {
       const ing = props.ingredients.find((ing) => ing.referenceId === refId) || "";
       if (ing === "") {
         return "";

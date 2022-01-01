@@ -3,7 +3,7 @@ import { RecipeIngredient } from "~/types/api-types/recipe";
 
 const { frac } = useFraction();
 
-export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale: number = 1): string {
+export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1): string {
   if (disableAmount) {
     return ingredient.note;
   }

@@ -366,7 +366,7 @@ export default defineComponent({
     const api = useUserApi();
     const router = useRouter();
 
-    function handleResponse(response: any, edit: Boolean = false) {
+    function handleResponse(response: any, edit = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;

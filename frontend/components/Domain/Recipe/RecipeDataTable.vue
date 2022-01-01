@@ -38,7 +38,7 @@
     </template>
   </v-data-table>
 </template>
-    
+
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import RecipeChip from "./RecipeChips.vue";
@@ -49,13 +49,13 @@ import { UserOut } from "~/types/api-types/user";
 const INPUT_EVENT = "input";
 
 interface ShowHeaders {
-  id: Boolean;
-  owner: Boolean;
-  tags: Boolean;
-  categories: Boolean;
-  tools: Boolean;
-  recipeYield: Boolean;
-  dateAdded: Boolean;
+  id: boolean;
+  owner: boolean;
+  tags: boolean;
+  categories: boolean;
+  tools: boolean;
+  recipeYield: boolean;
+  dateAdded: boolean;
 }
 
 export default defineComponent({

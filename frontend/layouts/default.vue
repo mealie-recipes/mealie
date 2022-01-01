@@ -58,7 +58,7 @@
     </v-main>
   </v-app>
 </template>
-  
+
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
@@ -87,7 +87,7 @@ export default defineComponent({
       console.log("toggleDark");
     }
 
-    const sidebar = ref<Boolean | null>(null);
+    const sidebar = ref<boolean | null>(null);
 
     onMounted(() => {
       sidebar.value = !$vuetify.breakpoint.md;
