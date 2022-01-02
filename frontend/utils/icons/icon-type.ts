@@ -65,6 +65,7 @@ export interface Icon {
   openInNew: string;
   orderAlphabeticalAscending: string;
   pageLayoutBody: string;
+  potSteam: string;
   printer: string;
   refreshCircle: string;
   robot: string;

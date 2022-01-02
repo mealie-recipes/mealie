@@ -10,15 +10,15 @@ export const useStaticRoutes = () => {
   const fullBase = serverBase + prefix;
 
   // Methods to Generate reference urls for assets/images *
-  function recipeImage(recipeSlug: string, version = null, key = null) {
+  function recipeImage(recipeSlug: string, version: string | null = null, key: number | null = null) {
     return `${fullBase}/media/recipes/${recipeSlug}/images/original.webp?&rnd=${key}&version=${version}`;
   }
 
-  function recipeSmallImage(recipeSlug: string, version = null, key = null) {
+  function recipeSmallImage(recipeSlug: string, version: string | null = null, key: number | null = null) {
     return `${fullBase}/media/recipes/${recipeSlug}/images/min-original.webp?&rnd=${key}&version=${version}`;
   }
 
-  function recipeTinyImage(recipeSlug: string, version = null, key = null) {
+  function recipeTinyImage(recipeSlug: string, version: string | null = null, key: number | null = null) {
     return `${fullBase}/media/recipes/${recipeSlug}/images/tiny-original.webp?&rnd=${key}&version=${version}`;
   }
 
