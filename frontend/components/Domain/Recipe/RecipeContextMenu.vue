@@ -167,7 +167,6 @@ export default defineComponent({
       pickerMenu: false,
     });
 
-    // @ts-ignore
     const { i18n, $globals } = useContext();
 
     // ===========================================================================

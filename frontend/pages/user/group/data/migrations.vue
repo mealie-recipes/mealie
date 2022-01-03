@@ -79,7 +79,6 @@ const MIGRATIONS = {
 
 export default defineComponent({
   setup() {
-    // @ts-ignore
     const { $globals } = useContext();
 
     const api = useUserApi();

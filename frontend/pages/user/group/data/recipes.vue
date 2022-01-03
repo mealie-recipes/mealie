@@ -176,7 +176,6 @@ export default defineComponent({
   setup() {
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true);
 
-    // @ts-ignore
     const { $globals } = useContext();
 
     const selected = ref<Recipe[]>([]);

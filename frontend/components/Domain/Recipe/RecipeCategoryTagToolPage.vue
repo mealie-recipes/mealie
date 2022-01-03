@@ -54,7 +54,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // @ts-ignore
     const { i18n, $globals } = useContext();
 
     const state = reactive({

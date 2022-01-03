@@ -332,7 +332,6 @@ export default defineComponent({
       loading: false,
     });
 
-    // @ts-ignore - $globals not found in type definition
     const { $globals } = useContext();
 
     const tabs = [

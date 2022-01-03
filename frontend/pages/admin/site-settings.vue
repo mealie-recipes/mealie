@@ -74,7 +74,7 @@
     </section>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import {
   computed,
@@ -207,7 +207,6 @@ export default defineComponent({
     // ============================================================
     // General About Info
 
-    // @ts-ignore
     const { $globals, i18n } = useContext();
 
     // @ts-ignore
@@ -295,6 +294,6 @@ export default defineComponent({
   },
 });
 </script>
-    
+
 <style scoped>
 </style>

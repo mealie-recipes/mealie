@@ -24,7 +24,7 @@
     </v-main>
   </v-app>
 </template>
-  
+
 
 <script lang="ts">
 import { defineComponent, ref, useContext, onMounted } from "@nuxtjs/composition-api";
@@ -37,7 +37,7 @@ export default defineComponent({
   middleware: "auth",
   auth: true,
   setup() {
-    // @ts-ignore - $globals not found in type definition
+    // @ts-ignore - $vuetify not found in type definition
     const { $globals, i18n, $vuetify } = useContext();
 
     const sidebar = ref<boolean | null>(null);
@@ -124,4 +124,3 @@ export default defineComponent({
 
 
 
-    

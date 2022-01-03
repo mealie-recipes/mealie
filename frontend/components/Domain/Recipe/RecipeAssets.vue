@@ -107,7 +107,6 @@ export default defineComponent({
       },
     });
 
-    // @ts-ignore
     const { $globals, i18n } = useContext();
 
     const iconOptions = [
