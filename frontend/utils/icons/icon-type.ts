@@ -109,4 +109,6 @@ export interface Icon {
 
   forward: string;
   back: string;
+  slotMachine: string;
+  chevronDown: string;
 }
