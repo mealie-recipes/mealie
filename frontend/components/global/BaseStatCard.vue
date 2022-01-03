@@ -73,7 +73,6 @@ export default defineComponent({
     },
   },
   setup() {
-    // @ts-ignore
     const { $vuetify } = useContext();
 
     const hasHeading = computed(() => false);

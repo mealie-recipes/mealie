@@ -144,14 +144,13 @@
     </v-data-table>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, reactive, useContext, toRefs, ref } from "@nuxtjs/composition-api";
 import { useNotifications } from "@/composables/use-notifications";
 export default defineComponent({
   layout: "admin",
   setup() {
-    // @ts-ignore -> Ignore missing $globals
     const { i18n } = useContext();
 
     const state = reactive({
@@ -222,6 +221,6 @@ export default defineComponent({
   },
 });
 </script>
-    
+
 <style scoped>
 </style>

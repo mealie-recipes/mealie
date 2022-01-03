@@ -16,7 +16,7 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node", "@nuxtjs/i18n", "@nuxtjs/auth-next", "@types/sortablejs"]
+    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node", "@nuxtjs/i18n", "@nuxtjs/auth-next", "@types/sortablejs", "vuetify"]
   },
   "include": ["**/*", ".eslintrc.js"],
   "exclude": ["node_modules", ".nuxt", "dist"],

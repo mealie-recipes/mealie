@@ -37,7 +37,6 @@ export default defineComponent({
   middleware: "auth",
   auth: true,
   setup() {
-    // @ts-ignore - $vuetify not found in type definition
     const { $globals, i18n, $vuetify } = useContext();
 
     const sidebar = ref<boolean | null>(null);

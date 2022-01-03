@@ -561,7 +561,6 @@ export default defineComponent({
 
     const { recipeImage } = useStaticRoutes();
 
-    // @ts-ignore
     const { $vuetify } = useContext();
 
     // ===========================================================================
@@ -762,7 +761,6 @@ export default defineComponent({
   head: {},
   computed: {
     imageHeight() {
-      // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
     },
   },

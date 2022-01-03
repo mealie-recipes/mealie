@@ -74,7 +74,6 @@ export default defineComponent({
   middleware: "auth",
   setup() {
     const { cookbooks } = useCookbooks();
-    // @ts-ignore
     const { $globals, $auth, $vuetify } = useContext();
 
     const isAdmin = computed(() => $auth.user?.admin);

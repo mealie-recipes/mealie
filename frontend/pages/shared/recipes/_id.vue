@@ -360,7 +360,6 @@ export default defineComponent({
       }
     });
 
-    // @ts-ignore
     const { $vuetify } = useContext();
 
     const enableLandscape = computed(() => {
@@ -400,7 +399,6 @@ export default defineComponent({
   head: {},
   computed: {
     imageHeight() {
-      // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
     },
   },
