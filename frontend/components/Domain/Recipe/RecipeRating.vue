@@ -16,8 +16,8 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 export default defineComponent({
   props: {
@@ -25,6 +25,7 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    // TODO Remove name prop?
     name: {
       type: String,
       default: "",
@@ -42,36 +43,26 @@ export default defineComponent({
       default: false,
     },
   },
-  setup() {
-    const api = useUserApi();
+  setup(props, context) {
+    const { $auth } = useContext();
+    const loggedIn = computed(() => {
+      return $auth.loggedIn;
+    });
 
-    return { api };
-  },
-  data() {
-    return {
-      rating: 0,
-    };
-  },
-  computed: {
-    loggedIn() {
-      return this.$auth.loggedIn;
-    },
-  },
-  mounted() {
-    this.rating = this.value;
-  },
-  methods: {
-    updateRating(val) {
-      if (this.emitOnly) {
-        this.$emit("input", val);
+    const rating = ref(props.value);
+
+    const api = useUserApi();
+    function updateRating(val: number) {
+      if (props.emitOnly) {
+        context.emit("input", val);
         return;
       }
-      this.api.recipes.patchOne(this.slug, {
-        name: this.name,
-        slug: this.slug,
+      api.recipes.patchOne(props.slug, {
         rating: val,
       });
-    },
+    }
+
+    return { loggedIn, rating, updateRating };
   },
 });
 </script>
