@@ -33,8 +33,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   props: {
     value: {
       type: Object,
@@ -45,59 +47,60 @@ export default {
       default: true,
     },
   },
-  data() {
-    return {
-      labels: {
-        calories: {
-          label: this.$t("recipe.calories"),
-          suffix: this.$t("recipe.calories-suffix"),
-        },
-        fatContent: {
-          label: this.$t("recipe.fat-content"),
-          suffix: this.$t("recipe.grams"),
-        },
-        fiberContent: {
-          label: this.$t("recipe.fiber-content"),
-          suffix: this.$t("recipe.grams"),
-        },
-        proteinContent: {
-          label: this.$t("recipe.protein-content"),
-          suffix: this.$t("recipe.grams"),
-        },
-        sodiumContent: {
-          label: this.$t("recipe.sodium-content"),
-          suffix: this.$t("recipe.milligrams"),
-        },
-        sugarContent: {
-          label: this.$t("recipe.sugar-content"),
-          suffix: this.$t("recipe.grams"),
-        },
-        carbohydrateContent: {
-          label: this.$t("recipe.carbohydrate-content"),
-          suffix: this.$t("recipe.grams"),
-        },
+  setup(props, context) {
+    const { i18n } = useContext();
+    const labels = {
+      calories: {
+        label: i18n.t("recipe.calories"),
+        suffix: i18n.t("recipe.calories-suffix"),
+      },
+      fatContent: {
+        label: i18n.t("recipe.fat-content"),
+        suffix: i18n.t("recipe.grams"),
+      },
+      fiberContent: {
+        label: i18n.t("recipe.fiber-content"),
+        suffix: i18n.t("recipe.grams"),
+      },
+      proteinContent: {
+        label: i18n.t("recipe.protein-content"),
+        suffix: i18n.t("recipe.grams"),
+      },
+      sodiumContent: {
+        label: i18n.t("recipe.sodium-content"),
+        suffix: i18n.t("recipe.milligrams"),
+      },
+      sugarContent: {
+        label: i18n.t("recipe.sugar-content"),
+        suffix: i18n.t("recipe.grams"),
+      },
+      carbohydrateContent: {
+        label: i18n.t("recipe.carbohydrate-content"),
+        suffix: i18n.t("recipe.grams"),
       },
     };
-  },
-  computed: {
-    showViewer() {
-      return !this.edit && this.valueNotNull;
-    },
-    valueNotNull() {
-      for (const property in this.value) {
-        const valueProperty = this.value[property];
+    const valueNotNull = computed(() => {
+      for (const property in props.value) {
+        const valueProperty = props.value[property];
         if (valueProperty && valueProperty !== "") return true;
       }
       return false;
-    },
-  },
+    });
 
-  methods: {
-    updateValue(key, value) {
-      this.$emit("input", { ...this.value, [key]: value });
-    },
+    const showViewer = computed(() => !props.edit && valueNotNull.value);
+
+    function updateValue(key: number | string, event: Event) {
+      context.emit("input", { ...props.value, [key]: event });
+    }
+
+    return {
+      labels,
+      valueNotNull,
+      showViewer,
+      updateValue
+    }
   },
-};
+});
 </script>
 
 <style lang="scss" scoped></style>
