@@ -31,9 +31,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
-export default {
+import { defineComponent } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   components: {
     VueMarkdown,
   },
@@ -48,15 +51,21 @@ export default {
       default: true,
     },
   },
-  methods: {
-    addNote() {
-      this.value.push({ title: "", text: "" });
-    },
-    removeByIndex(list, index) {
+  setup(props) {
+    function addNote() {
+      props.value.push({ title: "", text: "" });
+    }
+
+    function removeByIndex(list: any[], index: number) {
       list.splice(index, 1);
-    },
+    }
+
+    return {
+      addNote,
+      removeByIndex,
+    };
   },
-};
+});
 </script>
 
 <style></style>

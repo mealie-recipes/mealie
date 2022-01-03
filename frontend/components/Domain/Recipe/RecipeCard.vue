@@ -51,13 +51,15 @@
   </v-lazy>
 </template>
 
-<script>
-import RecipeFavoriteBadge from "./RecipeFavoriteBadge";
-import RecipeChips from "./RecipeChips";
-import RecipeContextMenu from "./RecipeContextMenu";
-import RecipeCardImage from "./RecipeCardImage";
-import RecipeRating from "./RecipeRating";
-export default {
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import RecipeChips from "./RecipeChips.vue";
+import RecipeContextMenu from "./RecipeContextMenu.vue";
+import RecipeCardImage from "./RecipeCardImage.vue";
+import RecipeRating from "./RecipeRating.vue";
+
+export default defineComponent({
   components: { RecipeFavoriteBadge, RecipeChips, RecipeContextMenu, RecipeRating, RecipeCardImage },
   props: {
     name: {
@@ -99,17 +101,17 @@ export default {
       default: 200,
     },
   },
-  data() {
+  setup() {
+    const { $auth } = useContext();
+    const loggedIn = computed(() => {
+      return $auth.loggedIn;
+    });
+
     return {
-      fallBackImage: false,
+      loggedIn,
     };
   },
-  computed: {
-    loggedIn() {
-      return this.$store.getters.getIsLoggedIn;
-    },
-  },
-};
+});
 </script>
 
 <style>

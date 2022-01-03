@@ -8,10 +8,12 @@
   ></VJsoneditor>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-ignore
 import VJsoneditor from "v-jsoneditor";
+import { defineComponent } from "@nuxtjs/composition-api";
 
-export default {
+export default defineComponent({
   components: { VJsoneditor },
   props: {
     value: {
@@ -23,6 +25,6 @@ export default {
       default: () => ({}),
     },
   },
-};
+});
 </script>
 

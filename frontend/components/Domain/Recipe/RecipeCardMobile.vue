@@ -10,15 +10,7 @@
       <v-list-item three-line>
         <slot name="avatar">
           <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0 ml-n4">
-            <v-img
-              v-if="!fallBackImage"
-              :src="getImage(slug)"
-              @load="fallBackImage = false"
-              @error="fallBackImage = true"
-            ></v-img>
-            <v-icon v-else color="primary" class="icon-position" size="100">
-              {{ $globals.icons.primary }}
-            </v-icon>
+            <RecipeCardImage :icon-size="100" :height="125" :slug="slug" small :image-version="image"></RecipeCardImage>
           </v-list-item-avatar>
         </slot>
         <v-list-item-content>
@@ -61,15 +53,17 @@
   </v-expand-transition>
 </template>
 
-<script>
-import { defineComponent } from "@nuxtjs/composition-api";
-import RecipeFavoriteBadge from "./RecipeFavoriteBadge";
-import RecipeContextMenu from "./RecipeContextMenu";
-import { useUserApi } from "~/composables/api";
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import RecipeContextMenu from "./RecipeContextMenu.vue";
+import RecipeCardImage from "./RecipeCardImage.vue";
+
 export default defineComponent({
   components: {
     RecipeFavoriteBadge,
     RecipeContextMenu,
+    RecipeCardImage,
   },
   props: {
     name: {
@@ -89,8 +83,9 @@ export default defineComponent({
       default: 0,
     },
     image: {
-      type: [String, null],
-      default: "",
+      type: String,
+      required: false,
+      default: "abc123",
     },
     route: {
       type: Boolean,
@@ -102,24 +97,14 @@ export default defineComponent({
     },
   },
   setup() {
-    const api = useUserApi();
+    const { $auth } = useContext();
+    const loggedIn = computed(() => {
+      return $auth.loggedIn;
+    });
 
-    return { api };
-  },
-  data() {
     return {
-      fallBackImage: false,
-    };
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.getters.getIsLoggedIn;
-    },
-  },
-  methods: {
-    getImage(slug) {
-      return this.api.recipes.recipeSmallImage(slug, this.image);
-    },
+      loggedIn,
+    }
   },
 });
 </script>
