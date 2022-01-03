@@ -22,50 +22,58 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, onMounted, useContext } from "@nuxtjs/composition-api";
+
 const UPDATE_EVENT = "input";
-export default {
+export default defineComponent({
   props: {
     importBackup: {
       type: Boolean,
       default: false,
     },
   },
-  data() {
-    return {
-      options: {
-        recipes: {
-          value: true,
-          text: this.$t("general.recipes"),
-        },
-        users: {
-          value: true,
-          text: this.$t("user.users"),
-        },
-        groups: {
-          value: true,
-          text: this.$t("group.groups"),
-        },
+  setup(_, context) {
+    const { i18n } = useContext();
+
+    const options = {
+      recipes: {
+        value: true,
+        text: i18n.t("general.recipes"),
       },
-      forceImport: false,
-    };
-  },
-  mounted() {
-    this.emitValue();
-  },
-  methods: {
-    emitValue() {
-      this.$emit(UPDATE_EVENT, {
-        recipes: this.options.recipes.value,
+      users: {
+        value: true,
+        text: i18n.t("user.users"),
+      },
+      groups: {
+        value: true,
+        text: i18n.t("group.groups"),
+      },
+    }
+    const forceImport = false;
+
+    function emitValue() {
+      context.emit(UPDATE_EVENT, {
+        recipes: options.recipes.value,
         settings: false,
         themes: false,
         pages: false,
-        users: this.options.users.value,
-        groups: this.options.groups.value,
+        users: options.users.value,
+        groups: options.groups.value,
         notifications: false,
-        forceImport: this.forceImport,
+        forceImport,
       });
-    },
+    }
+
+    onMounted(() => {
+      emitValue();
+    });
+
+    return {
+      options,
+      forceImport,
+      emitValue,
+    };
   },
-};
+});
 </script>
