@@ -314,7 +314,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, useRouter, useContext } from "@nuxtjs/composition-api";
+import {
+  defineComponent,
+  reactive,
+  toRefs,
+  ref,
+  useRouter,
+  useContext,
+  computed,
+  useRoute
+} from "@nuxtjs/composition-api";
+import { AxiosResponse } from "axios";
 // @ts-ignore No Types for v-jsoneditor
 import VJsoneditor from "v-jsoneditor";
 import { useUserApi } from "~/composables/api";
@@ -363,20 +373,38 @@ export default defineComponent({
     ];
 
     const api = useUserApi();
+    const route = useRoute();
     const router = useRouter();
 
-    function handleResponse(response: any, edit = false) {
+    function handleResponse(response: AxiosResponse<string> | null, edit = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
         return;
       }
-      router.push(`/recipe/${response.data}?edit=${edit}`);
+      router.push(`/recipe/${response.data}?edit=${edit.toString()}`);
     }
+
+    const tab = computed({
+      set(tab: string) {
+        router.replace({ query: { ...route.value.query, tab } });
+      },
+      get() {
+        return route.value.query.tab as string;
+      },
+    });
+
+    const recipeUrl = computed({
+      set(recipe_import_url: string) {
+        router.replace({ query: { ...route.value.query, recipe_import_url } });
+      },
+      get() {
+        return route.value.query.recipe_import_url as string;
+      },
+    });
 
     // ===================================================
     // Recipe Debug URL Scraper
-    // @ts-ignore
 
     const debugTreeView = ref(false);
 
@@ -426,6 +454,8 @@ export default defineComponent({
         return;
       }
       const { response } = await api.recipes.createOne({ name });
+      // TODO createOne claims to return a Recipe, but actually the API only returns a string
+      // @ts-ignore
       handleResponse(response, true);
     }
 
@@ -468,6 +498,8 @@ export default defineComponent({
     }
 
     return {
+      tab,
+      recipeUrl,
       bulkCreate,
       bulkUrls,
       lockBulkImport,
@@ -490,29 +522,6 @@ export default defineComponent({
     return {
       title: this.$t("general.create") as string,
     };
-  },
-  // Computed State is used because of the limitation of vue-composition-api in v2.0
-  computed: {
-    tab: {
-      set(tab) {
-        // @ts-ignore
-        this.$router.replace({ query: { ...this.$route.query, tab } });
-      },
-      get() {
-        // @ts-ignore
-        return this.$route.query.tab;
-      },
-    },
-    recipeUrl: {
-      set(recipe_import_url) {
-        // @ts-ignore
-        this.$router.replace({ query: { ...this.$route.query, recipe_import_url } });
-      },
-      get() {
-        // @ts-ignore
-        return this.$route.query.recipe_import_url;
-      },
-    },
   },
 });
 </script>
