@@ -23,17 +23,20 @@
   </div>
 </template>
 
-<script>
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
+// @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import { parseIngredientText } from "~/composables/recipes";
+import { RecipeIngredient } from "~/types/api-types/recipe";
+
 export default defineComponent({
   components: {
     VueMarkdown,
   },
   props: {
     value: {
-      type: Array,
+      type: Array as () => RecipeIngredient[],
       default: () => [],
     },
     disableAmount: {
@@ -46,6 +49,15 @@ export default defineComponent({
     },
   },
   setup(props) {
+    function validateTitle(title: string | null) {
+      return !(title === null || title === "");
+    }
+
+    const state = reactive({
+      checked: props.value.map(() => false),
+      showTitleEditor: computed(() => props.value.map((x) => validateTitle(x.title))),
+    });
+
     const ingredientCopyText = computed(() => {
       return props.value
         .map((ingredient) => {
@@ -54,41 +66,18 @@ export default defineComponent({
         .join("\n");
     });
 
-    return { parseIngredientText, ingredientCopyText };
-  },
-  data() {
-    return {
-      drag: false,
-      checked: [],
-      showTitleEditor: [],
-    };
-  },
-  watch: {
-    value: {
-      handler() {
-        this.showTitleEditor = this.value.map((x) => this.validateTitle(x.title));
-      },
-    },
-  },
-  mounted() {
-    this.checked = this.value.map(() => false);
-    this.showTitleEditor = this.value.map((x) => this.validateTitle(x.title));
-  },
-  methods: {
-    toggleChecked(index) {
-      this.$set(this.checked, index, !this.checked[index]);
-    },
+    function toggleChecked(index: number) {
+      // TODO Find a better way to do this - $set is not available, and
+      // direct array modifications are not propagated for some reason
+      state.checked.splice(index, 1, !state.checked[index]);
+    }
 
-    validateTitle(title) {
-      return !(title === null || title === "");
-    },
-    toggleShowTitle(index) {
-      const newVal = !this.showTitleEditor[index];
-      if (!newVal) {
-        this.value[index].title = "";
-      }
-      this.$set(this.showTitleEditor, index, newVal);
-    },
+    return {
+      ...toRefs(state),
+      parseIngredientText,
+      ingredientCopyText,
+      toggleChecked,
+    };
   },
 });
 </script>
