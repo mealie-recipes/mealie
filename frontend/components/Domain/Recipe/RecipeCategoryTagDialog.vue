@@ -40,16 +40,14 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+
 const CREATED_ITEM_EVENT = "created-item";
+
 export default defineComponent({
   props: {
-    buttonText: {
-      type: String,
-      default: "Add",
-    },
     value: {
       type: String,
       default: "",
@@ -63,55 +61,49 @@ export default defineComponent({
       default: true,
     },
   },
-  setup() {
-    const api = useUserApi();
+  setup(props, context) {
+    const title = computed(() => props.tagDialog ? "Create a Tag" : "Create a Category");
+    const inputLabel = computed(() => props.tagDialog ? "Tag Name" : "Category Name");
 
-    return { api };
-  },
-  data() {
-    return {
+    const rules = {
+        required: (val: string) => !!val || "A Name is Required",
+      };
+
+    const state = reactive({
       dialog: false,
       itemName: "",
-      rules: {
-        required: (val) => !!val || "A Name is Required",
-      },
-    };
-  },
+    });
 
-  computed: {
-    title() {
-      return this.tagDialog ? "Create a Tag" : "Create a Category";
-    },
-    inputLabel() {
-      return this.tagDialog ? "Tag Name" : "Category Name";
-    },
-  },
-  watch: {
-    dialog(val) {
-      if (!val) this.itemName = "";
-    },
-  },
+    watch(() => state.dialog, (val: boolean) => {
+      if (!val) state.itemName = "";
+    });
 
-  methods: {
-    open() {
-      this.dialog = true;
-    },
-    async select() {
+    const api = useUserApi();
+    async function select() {
       const newItem = await (async () => {
-        if (this.tagDialog) {
-          const { data } = await this.api.tags.createOne({ name: this.itemName });
+        if (props.tagDialog) {
+          const { data } = await api.tags.createOne({ name: state.itemName });
           return data;
         } else {
-          const { data } = await this.api.categories.createOne({ name: this.itemName });
+          const { data } = await api.categories.createOne({ name: state.itemName });
           return data;
         }
       })();
 
       console.log(newItem);
 
-      this.$emit(CREATED_ITEM_EVENT, newItem);
-      this.dialog = false;
-    },
+      context.emit(CREATED_ITEM_EVENT, newItem);
+      state.dialog = false;
+    }
+
+
+    return {
+      ...toRefs(state),
+      title,
+      inputLabel,
+      rules,
+      select,
+    };
   },
 });
 </script>
