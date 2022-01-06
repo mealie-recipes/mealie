@@ -5,7 +5,7 @@ from pydantic2ts import generate_typescript_defs
 CWD = Path(__file__).parent
 
 PROJECT_DIR = Path(__file__).parent.parent.parent
-SCHEMA_PATH = Path("/Users/hayden/Projects/Vue/mealie/mealie/schema/")
+SCHEMA_PATH = PROJECT_DIR / "mealie" / "schema"
 
 TYPES_DIR = CWD / "output" / "types" / "api-types"
 

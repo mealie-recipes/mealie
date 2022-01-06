@@ -99,7 +99,7 @@ export default defineComponent({
         return;
       }
 
-      const ing = recipe?.value.recipeIngredient.find((ing) => ing.referenceId === refId) || "";
+      const ing = recipe?.value.recipeIngredient?.find((ing) => ing.referenceId === refId) || "";
       if (ing === "") {
         return "";
       }

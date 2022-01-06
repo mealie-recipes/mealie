@@ -271,7 +271,7 @@ export default defineComponent({
     async function exportSelected() {
       loading.value = true;
       const { data } = await api.bulk.bulkExport({
-        recipes: selected.value.map((x: Recipe) => x.slug),
+        recipes: selected.value.map((x: Recipe) => x.slug ?? ""),
         exportType: "json",
       });
 
@@ -288,7 +288,7 @@ export default defineComponent({
     async function tagSelected() {
       loading.value = true;
 
-      const recipes = selected.value.map((x: Recipe) => x.slug);
+      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
       await api.bulk.bulkTag({ recipes, tags: toSetTags.value });
       await refreshRecipes();
       resetAll();
@@ -299,7 +299,7 @@ export default defineComponent({
     async function categorizeSelected() {
       loading.value = true;
 
-      const recipes = selected.value.map((x: Recipe) => x.slug);
+      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
       await api.bulk.bulkCategorize({ recipes, categories: toSetCategories.value });
       await refreshRecipes();
       resetAll();
@@ -308,7 +308,7 @@ export default defineComponent({
     async function deleteSelected() {
       loading.value = true;
 
-      const recipes = selected.value.map((x: Recipe) => x.slug);
+      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
 
       const { response, data } = await api.bulk.bulkDelete({ recipes });
 

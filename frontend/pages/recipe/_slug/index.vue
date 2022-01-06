@@ -622,7 +622,7 @@ export default defineComponent({
     });
 
     async function uploadImage(fileObject: File) {
-      if (!recipe.value) {
+      if (!recipe.value || !recipe.value.slug) {
         return;
       }
       const newVersion = await api.recipes.updateImage(recipe.value.slug, fileObject);
@@ -655,8 +655,8 @@ export default defineComponent({
             referenceId: uuid4(),
             title: "",
             note: x,
-            unit: null,
-            food: null,
+            unit: undefined,
+            food: undefined,
             disableAmount: true,
             quantity: 1,
           };
@@ -670,8 +670,8 @@ export default defineComponent({
           referenceId: uuid4(),
           title: "",
           note: "",
-          unit: null,
-          food: null,
+          unit: undefined,
+          food: undefined,
           disableAmount: true,
           quantity: 1,
         });

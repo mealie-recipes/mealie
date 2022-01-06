@@ -19,19 +19,19 @@ function swap(t: Array<any>, i: number, j: number) {
 export const useSorter = () => {
   function sortAToZ(list: Array<Recipe>) {
     list.sort((a, b) => {
-      const textA = a.name.toUpperCase();
-      const textB = b.name.toUpperCase();
+      const textA = a.name?.toUpperCase() ?? "";
+      const textB = b.name?.toUpperCase() ?? "";
       return textA < textB ? -1 : textA > textB ? 1 : 0;
     });
   }
   function sortByCreated(list: Array<Recipe>) {
-    list.sort((a, b) => (a.dateAdded > b.dateAdded ? -1 : 1));
+    list.sort((a, b) => ((a.dateAdded ?? "") > (b.dateAdded ?? "") ? -1 : 1));
   }
   function sortByUpdated(list: Array<Recipe>) {
-    list.sort((a, b) => (a.dateUpdated > b.dateUpdated ? -1 : 1));
+    list.sort((a, b) => ((a.dateUpdated ?? "") > (b.dateUpdated ?? "") ? -1 : 1));
   }
   function sortByRating(list: Array<Recipe>) {
-    list.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+    list.sort((a, b) => ((a.rating ?? 0) > (b.rating ?? 0) ? -1 : 1));
   }
 
   function randomRecipe(list: Array<Recipe>): Recipe {

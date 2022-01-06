@@ -5,69 +5,26 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export interface AdminAboutInfo {
-  production: boolean;
-  version: string;
-  demoStatus: boolean;
-  versionLatest: string;
-  apiPort: number;
-  apiDocs: boolean;
-  dbType: string;
-  dbUrl: string;
-  defaultGroup: string;
-}
-export interface AllBackups {
-  imports: BackupFile[];
-  templates: string[];
-}
-export interface BackupFile {
+export interface CategoryBase {
   name: string;
-  date: string;
-  size: string;
+  id: number;
+  slug: string;
 }
-export interface AppInfo {
-  production: boolean;
-  version: string;
-  demoStatus: boolean;
-}
-export interface AppStatistics {
-  totalRecipes: number;
-  totalUsers: number;
-  totalGroups: number;
-  uncategorizedRecipes: number;
-  untaggedRecipes: number;
-}
-export interface BackupOptions {
-  recipes?: boolean;
-  settings?: boolean;
-  themes?: boolean;
-  groups?: boolean;
-  users?: boolean;
-  notifications?: boolean;
-}
-export interface CheckAppConfig {
-  emailReady?: boolean;
-  ldapReady?: boolean;
-  baseUrlSet?: boolean;
-}
-export interface ChowdownURL {
-  url: string;
-}
-export interface CommentImport {
+export interface CreateCookBook {
   name: string;
-  status: boolean;
-  exception?: string;
-}
-export interface CreateBackup {
-  tag?: string;
-  options: BackupOptions;
-  templates?: string[];
-}
-export interface CustomPageBase {
-  name: string;
+  description?: string;
   slug?: string;
-  position: number;
-  categories?: RecipeCategoryResponse[];
+  position?: number;
+  categories?: CategoryBase[];
+}
+export interface ReadCookBook {
+  name: string;
+  description?: string;
+  slug?: string;
+  position?: number;
+  categories?: CategoryBase[];
+  id: number;
+  groupId: string;
 }
 export interface RecipeCategoryResponse {
   name: string;
@@ -200,71 +157,28 @@ export interface UserBase {
   username?: string;
   admin: boolean;
 }
-export interface CustomPageImport {
+export interface RecipeCookBook {
   name: string;
-  status: boolean;
-  exception?: string;
-}
-export interface CustomPageOut {
-  name: string;
+  description?: string;
   slug?: string;
-  position: number;
-  categories?: RecipeCategoryResponse[];
+  position?: number;
+  categories: RecipeCategoryResponse[];
   id: number;
+  groupId: string;
 }
-export interface GroupImport {
+export interface SaveCookBook {
   name: string;
-  status: boolean;
-  exception?: string;
-}
-export interface ImportBase {
-  name: string;
-  status: boolean;
-  exception?: string;
-}
-export interface ImportJob {
-  recipes?: boolean;
-  settings?: boolean;
-  themes?: boolean;
-  groups?: boolean;
-  users?: boolean;
-  notifications?: boolean;
-  name: string;
-  force?: boolean;
-  rebase?: boolean;
-}
-export interface MigrationFile {
-  name: string;
-  date: string;
-}
-export interface MigrationImport {
-  name: string;
-  status: boolean;
-  exception?: string;
+  description?: string;
   slug?: string;
+  position?: number;
+  categories?: CategoryBase[];
+  groupId: string;
 }
-export interface Migrations {
-  type: string;
-  files?: MigrationFile[];
-}
-export interface NotificationImport {
+export interface UpdateCookBook {
   name: string;
-  status: boolean;
-  exception?: string;
-}
-export interface RecipeImport {
-  name: string;
-  status: boolean;
-  exception?: string;
+  description?: string;
   slug?: string;
-}
-export interface SettingsImport {
-  name: string;
-  status: boolean;
-  exception?: string;
-}
-export interface UserImport {
-  name: string;
-  status: boolean;
-  exception?: string;
+  position?: number;
+  categories?: CategoryBase[];
+  id: number;
 }

@@ -59,10 +59,10 @@ export interface Invitation {
 }
 
 export interface SetPermissions {
-  userId: number;
-  canInvite: boolean;
-  canManage: boolean;
-  canOrganize: boolean;
+  userId: string;
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
 }
 
 export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {

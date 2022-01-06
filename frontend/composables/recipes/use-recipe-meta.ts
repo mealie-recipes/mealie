@@ -15,7 +15,7 @@ export const useRecipeMeta = (recipe: Ref<Recipe>) => {
         {
           hid: "og:desc",
           property: "og:description",
-          content: recipe?.value?.description,
+          content: recipe?.value?.description ?? "",
         },
         {
           hid: "og-image",
@@ -25,12 +25,12 @@ export const useRecipeMeta = (recipe: Ref<Recipe>) => {
         {
           hid: "twitter:title",
           property: "twitter:title",
-          content: recipe?.value?.name,
+          content: recipe?.value?.name ?? "",
         },
         {
           hid: "twitter:desc",
           property: "twitter:description",
-          content: recipe?.value?.description,
+          content: recipe?.value?.description ?? "",
         },
         { hid: "t-type", name: "twitter:card", content: "summary_large_image" },
       ],

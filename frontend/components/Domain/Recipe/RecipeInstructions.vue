@@ -153,7 +153,7 @@ import draggable from "vuedraggable";
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 import { ref, toRefs, reactive, defineComponent, watch, onMounted } from "@nuxtjs/composition-api";
-import { RecipeStep, IngredientToStepRef, RecipeIngredient } from "~/types/api-types/recipe";
+import { RecipeStep, IngredientReferences, RecipeIngredient } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4 } from "~/composables/use-utils";
 
@@ -227,14 +227,18 @@ export default defineComponent({
       state.disabledSteps = [];
 
       v.forEach((element) => {
-        showTitleEditor.value[element.id] = validateTitle(element.title);
+        if (element.id !== undefined) {
+          showTitleEditor.value[element.id] = validateTitle(element.title);
+        }
       });
     });
 
     // Eliminate state with an eager call to watcher?
     onMounted(() => {
       props.value.forEach((element) => {
-        showTitleEditor.value[element.id] = validateTitle(element.title);
+        if (element.id !== undefined) {
+          showTitleEditor.value[element.id] = validateTitle(element.title);
+        }
       });
     });
 
@@ -272,12 +276,12 @@ export default defineComponent({
     const activeIndex = ref(0);
     const activeText = ref("");
 
-    function openDialog(idx: number, refs: IngredientToStepRef[], text: string) {
+    function openDialog(idx: number, refs: IngredientReferences[], text: string) {
       setUsedIngredients();
       activeText.value = text;
       activeIndex.value = idx;
       state.dialog = true;
-      activeRefs.value = refs.map((ref) => ref.referenceId);
+      activeRefs.value = refs.map((ref) => ref.referenceId ?? "");
     }
 
     function setIngredientIds() {
@@ -294,17 +298,19 @@ export default defineComponent({
       const usedRefs: { [key: string]: boolean } = {};
 
       props.value.forEach((element) => {
-        element.ingredientReferences.forEach((ref) => {
-          usedRefs[ref.referenceId] = true;
+        element.ingredientReferences?.forEach((ref) => {
+          if (ref.referenceId !== undefined) {
+            usedRefs[ref.referenceId] = true;
+          }
         });
       });
 
       state.usedIngredients = props.ingredients.filter((ing) => {
-        return ing.referenceId in usedRefs;
+        return ing.referenceId !== undefined && ing.referenceId in usedRefs;
       });
 
       state.unusedIngredients = props.ingredients.filter((ing) => {
-        return !(ing.referenceId in usedRefs);
+        return !(ing.referenceId !== undefined && ing.referenceId in usedRefs);
       });
     }
 
@@ -342,6 +348,10 @@ export default defineComponent({
 
         props.ingredients.forEach((ingredient) => {
           const searchText = parseIngredientText(ingredient, props.disableAmount);
+
+          if (ingredient.referenceId === undefined) {
+            return;
+          }
 
           if (searchText.toLowerCase().includes(" " + word) && !activeRefs.value.includes(ingredient.referenceId)) {
             console.info("Word Matched", `'${word}'`, ingredient.note);
