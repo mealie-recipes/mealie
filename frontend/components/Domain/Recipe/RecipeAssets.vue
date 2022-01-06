@@ -75,7 +75,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
-import { useUserApi } from "~/composables/api";
+import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 
 const BASE_URL = window.location.origin;
@@ -141,8 +141,9 @@ export default defineComponent({
       return iconOptions.find((item) => item.name === icon) || iconOptions[0];
     }
 
+    const { recipeAssetPath } = useStaticRoutes();
     function assetURL(assetName: string) {
-      return api.recipes.recipeAssetPath(props.slug, assetName);
+      return recipeAssetPath(props.slug, assetName);
     }
 
     function assetEmbed(name: string) {
