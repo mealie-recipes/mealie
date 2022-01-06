@@ -150,7 +150,7 @@ export default defineComponent({
       return `<img src="${BASE_URL}${assetURL(name)}" height="100%" width="100%"> </img>`;
     }
 
-    function setFileObject(fileObject: any) {
+    function setFileObject(fileObject: File) {
       state.fileObject = fileObject;
     }
 

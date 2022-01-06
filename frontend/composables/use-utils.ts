@@ -1,8 +1,10 @@
+import { IncomingMessage } from "connect";
+
 export const useAsyncKey = function () {
   return String(Date.now());
 };
 
-export function detectServerBaseUrl(req: any) {
+export function detectServerBaseUrl(req?: IncomingMessage | null) {
   if (!req || req === undefined) {
     return "";
   }
@@ -10,11 +12,14 @@ export function detectServerBaseUrl(req: any) {
     const url = new URL(req.headers.referer);
     return `${url.protocol}//${url.host}`;
   } else if (req.headers.host) {
-    const protocol = req.connection.encrypted ? "https" : "http:";
+    // TODO Socket.encrypted doesn't exist. What is needed here?
+    // @ts-ignore
+    const protocol = req.socket.encrypted ? "https:" : "http:";
     return `${protocol}//${req.headers.host}`;
-  } else if (req.connection.remoteAddress) {
-    const protocol = req.connection.encrypted ? "https" : "http:";
-    return `${protocol}//${req.connection.localAddress}:${req.connection.localPort}`;
+  } else if (req.socket.remoteAddress) {
+    // @ts-ignore
+    const protocol = req.socket.encrypted ? "https:" : "http:";
+    return `${protocol}//${req.socket.localAddress}:${req.socket.localPort}`;
   }
 
   return "";
