@@ -137,14 +137,15 @@
   </v-card>
 </template>
 
-<script>
-import { ref } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { validators } from "@/composables/use-validators";
 import { fieldTypes } from "@/composables/forms";
+import { AutoFormItems } from "~/types/auto-forms";
 
 const BLUR_EVENT = "blur";
 
-export default {
+export default defineComponent({
   name: "AutoForm",
   props: {
     value: {
@@ -157,7 +158,7 @@ export default {
     },
     items: {
       default: null,
-      type: Array,
+      type: Array as () => AutoFormItems,
     },
     width: {
       type: [Number, String],
@@ -165,7 +166,7 @@ export default {
     },
     globalRules: {
       default: null,
-      type: Array,
+      type: Array as () => string[],
     },
     color: {
       default: null,
@@ -176,94 +177,53 @@ export default {
       type: Boolean,
     },
   },
-  setup() {
-    const menu = ref({});
+  setup(props, context) {
+    function rulesByKey(keys?: string[] | null) {
+      if (keys === undefined || keys === null) {
+        return [];
+      }
 
-    return {
-      menu,
-      fieldTypes,
-      validators,
-    };
-  },
-  computed: {
-    defaultRules() {
-      return this.rulesByKey(this.globalRules);
-    },
-  },
-  watch: {
-    items: {
-      immediate: true,
-      handler(val) {
-        // Initialize Value Object to Obtain all keys
-        if (!val) {
-          return;
+      const list = [] as ((v: string) => (boolean | string))[];
+      keys.forEach((key) => {
+        if (key in validators) {
+          list.push(validators[key]);
         }
-        for (let i = 0; i < val.length; i++) {
-          try {
-            if (this.value[val[i].varName]) {
-              continue;
-            }
-          } catch {}
+      });
+      return list;
+    }
 
-          if (val[i].type === "text" || val[i].type === "textarea") {
-            this.$set(this.value, val[i].varName, "");
-          } else if (val[i].type === "select") {
-            if (!val[i].options[0]) {
-              continue;
-            }
+    const defaultRules = computed(() => rulesByKey(props.globalRules));
 
-            this.$set(this.value, val[i].varName, val[i].options[0].value);
-          } else if (val[i].type === "list") {
-            this.$set(this.value, val[i].varName, []);
-          } else if (val[i].type === "object") {
-            this.$set(this.value, val[i].varName, {});
-          } else if (val[i].type === "color") {
-            this.$set(this.value, val[i].varName, "");
-            this.$set(this.menu, val[i].varName, false);
-          }
-        }
-      },
-    },
-  },
-  methods: {
-    removeByIndex(list, index) {
+    function removeByIndex(list: never[], index: number) {
       // Removes the item at the index
       list.splice(index, 1);
-    },
-    getTemplate(item) {
-      const obj = {};
+    }
+
+    function getTemplate(item: AutoFormItems) {
+      const obj = {} as { [key: string]: string };
 
       item.forEach((field) => {
         obj[field.varName] = "";
       });
 
       return obj;
-    },
-    rulesByKey(keys) {
-      const list = [];
+    }
 
-      if (keys === undefined) {
-        return list;
-      }
-      if (keys === null) {
-        return list;
-      }
-      if (keys === list) {
-        return list;
-      }
+    function emitBlur() {
+      context.emit(BLUR_EVENT, props.value);
+    }
 
-      keys.forEach((key) => {
-        if (key in this.validators) {
-          list.push(this.validators[key]);
-        }
-      });
-      return list;
-    },
-    emitBlur() {
-      this.$emit(BLUR_EVENT, this.value);
-    },
+    return {
+      rulesByKey,
+      defaultRules,
+      removeByIndex,
+      getTemplate,
+      emitBlur,
+      fieldTypes,
+      validators,
+    };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped></style>
