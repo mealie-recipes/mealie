@@ -8,6 +8,7 @@ from mealie.db.models.group.cookbook import CookBook
 from mealie.db.models.group.exports import GroupDataExportsModel
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.preferences import GroupPreferencesModel
+from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
 from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
@@ -25,6 +26,7 @@ from mealie.schema.events import Event as EventSchema
 from mealie.schema.events import EventNotificationIn
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
+from mealie.schema.group.group_shopping_list import ShoppingListItemOut, ShoppingListOut
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
@@ -40,6 +42,7 @@ from .repository_generic import RepositoryGeneric
 from .repository_group import RepositoryGroup
 from .repository_meals import RepositoryMeals
 from .repository_recipes import RepositoryRecipes
+from .repository_shopping_list import RepositoryShoppingList
 from .repository_users import RepositoryUsers
 
 pk_id = "id"
@@ -176,3 +179,11 @@ class AllRepositories:
     @cached_property
     def group_report_entries(self) -> RepositoryGeneric[ReportEntryOut, ReportEntryModel]:
         return RepositoryGeneric(self.session, pk_id, ReportEntryModel, ReportEntryOut)
+
+    @cached_property
+    def group_shopping_lists(self) -> RepositoryShoppingList:
+        return RepositoryShoppingList(self.session, pk_id, ShoppingList, ShoppingListOut)
+
+    @cached_property
+    def group_shopping_list_item(self) -> RepositoryGeneric[ShoppingListItemOut, ShoppingListItem]:
+        return RepositoryGeneric(self.session, pk_id, ShoppingListItem, ShoppingListItemOut)

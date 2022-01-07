@@ -21,6 +21,7 @@ import { AdminAPI } from "./admin-api";
 import { ToolsApi } from "./class-interfaces/tools";
 import { GroupMigrationApi } from "./class-interfaces/group-migrations";
 import { GroupReportsApi } from "./class-interfaces/group-reports";
+import { ShoppingApi } from "./class-interfaces/group-shopping-lists";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -46,6 +47,7 @@ class Api {
   public groupReports: GroupReportsApi;
   public grouperServerTasks: GroupServerTaskAPI;
   public tools: ToolsApi;
+  public shopping: ShoppingApi;
   // Utils
   public upload: UploadFile;
 
@@ -74,6 +76,7 @@ class Api {
     // Group
     this.groupMigration = new GroupMigrationApi(requests);
     this.groupReports = new GroupReportsApi(requests);
+    this.shopping = new ShoppingApi(requests);
 
     // Admin
     this.events = new EventsAPI(requests);

@@ -1,21 +1,6 @@
 from fastapi import APIRouter
 
-from . import (
-    admin,
-    app,
-    auth,
-    categories,
-    comments,
-    groups,
-    parser,
-    recipe,
-    shared,
-    shopping_lists,
-    tags,
-    tools,
-    unit_and_foods,
-    users,
-)
+from . import admin, app, auth, categories, comments, groups, parser, recipe, shared, tags, tools, unit_and_foods, users
 
 router = APIRouter(prefix="/api")
 
@@ -31,5 +16,4 @@ router.include_router(unit_and_foods.router)
 router.include_router(tools.router)
 router.include_router(categories.router)
 router.include_router(tags.router)
-router.include_router(shopping_lists.router)
 router.include_router(admin.router)

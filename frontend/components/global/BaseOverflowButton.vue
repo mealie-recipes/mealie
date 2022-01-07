@@ -22,7 +22,7 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <!--  Event -->
+    <!--  Links -->
     <v-list v-else-if="mode === MODES.link" dense>
       <v-list-item-group v-model="itemGroup">
         <v-list-item v-for="(item, index) in items" :key="index" :to="item.to">
@@ -58,6 +58,13 @@ const MODES = {
   event: "event",
 };
 
+export interface MenuItem {
+  text: string;
+  icon: string;
+  to?: string;
+  event: string;
+}
+
 export default defineComponent({
   props: {
     mode: {
@@ -65,7 +72,7 @@ export default defineComponent({
       default: "model",
     },
     items: {
-      type: Array,
+      type: Array as () => MenuItem[],
       required: true,
     },
     disabled: {
@@ -92,6 +99,8 @@ export default defineComponent({
     const activeObj = ref({
       text: "DEFAULT",
       value: "",
+      icon: undefined,
+      event: undefined,
     });
 
     let startIndex = 0;

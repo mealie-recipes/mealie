@@ -7,6 +7,7 @@
       absolute
       :top-link="topLinks"
       secondary-header="Cookbooks"
+      secondary-header-link="/user/group/cookbooks"
       :secondary-links="cookbookLinks || []"
       :bottom-links="isAdmin ? bottomLink : []"
     >
@@ -136,7 +137,7 @@ export default defineComponent({
           icon: this.$globals.icons.cartCheck,
           title: "Shopping List",
           subtitle: "Create a new shopping list",
-          to: "/user/group/shopping-list/create",
+          to: "/user/group/shopping-lists/create",
           restricted: true,
         },
       ],
@@ -158,7 +159,7 @@ export default defineComponent({
         {
           icon: this.$globals.icons.formatListCheck,
           title: this.$t("shopping-list.shopping-lists"),
-          to: "/shopping-list",
+          to: "/shopping-lists",
           restricted: true,
         },
         {

@@ -46,6 +46,21 @@
         <v-select v-model="newMealType" :return-object="false" :items="planTypeOptions" label="Entry Type"></v-select>
       </v-card-text>
     </BaseDialog>
+    <BaseDialog v-model="shoppingListDialog" title="Add to List" :icon="$globals.icons.cartCheck">
+      <v-card-text>
+        <v-card
+          v-for="list in shoppingLists"
+          :key="list.id"
+          hover
+          class="my-2 left-border"
+          @click="addRecipeToList(list.id)"
+        >
+          <v-card-title class="py-2">
+            {{ list.name }}
+          </v-card-title>
+        </v-card>
+      </v-card-text>
+    </BaseDialog>
     <v-menu
       offset-y
       left
@@ -76,17 +91,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { MealType, planTypeOptions } from "~/composables/use-group-mealplan";
+import { ShoppingListSummary } from "~/api/class-interfaces/group-shopping-lists";
 
 export interface ContextMenuIncludes {
   delete: boolean;
   edit: boolean;
   download: boolean;
   mealplanner: boolean;
+  shoppingList: boolean;
   print: boolean;
   share: boolean;
 }
@@ -110,6 +127,7 @@ export default defineComponent({
         edit: true,
         download: true,
         mealplanner: true,
+        shoppingList: true,
         print: true,
         share: true,
       }),
@@ -160,6 +178,7 @@ export default defineComponent({
       shareDialog: false,
       recipeDeleteDialog: false,
       mealplannerDialog: false,
+      shoppingListDialog: false,
       loading: false,
       menuItems: [] as ContextMenuItem[],
       newMealdate: "",
@@ -198,6 +217,12 @@ export default defineComponent({
         color: undefined,
         event: "mealplanner",
       },
+      shoppingList: {
+        title: "Add to List",
+        icon: $globals.icons.cartCheck,
+        color: undefined,
+        event: "shoppingList",
+      },
       print: {
         title: i18n.t("general.print") as string,
         icon: $globals.icons.printer,
@@ -229,6 +254,23 @@ export default defineComponent({
 
     // ===========================================================================
     // Context Menu Event Handler
+
+    const shoppingLists = ref<ShoppingListSummary[]>();
+
+    async function getShoppingLists() {
+      const { data } = await api.shopping.lists.getAll();
+      if (data) {
+        shoppingLists.value = data;
+      }
+    }
+
+    async function addRecipeToList(listId: string) {
+      const { data } = await api.shopping.lists.addRecipe(listId, props.recipeId);
+      if (data) {
+        alert.success("Recipe added to list");
+        state.shoppingListDialog = false;
+      }
+    }
 
     const router = useRouter();
 
@@ -273,6 +315,10 @@ export default defineComponent({
       mealplanner: () => {
         state.mealplannerDialog = true;
       },
+      shoppingList: () => {
+        getShoppingLists();
+        state.shoppingListDialog = true;
+      },
       share: () => {
         state.shareDialog = true;
       },
@@ -292,6 +338,8 @@ export default defineComponent({
     }
 
     return {
+      shoppingLists,
+      addRecipeToList,
       ...toRefs(state),
       contextMenuEventHandler,
       deleteRecipe,

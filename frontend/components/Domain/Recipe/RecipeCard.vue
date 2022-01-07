@@ -38,6 +38,7 @@
                 edit: true,
                 download: true,
                 mealplanner: true,
+                shoppingList: true,
                 print: false,
                 share: true,
               }"

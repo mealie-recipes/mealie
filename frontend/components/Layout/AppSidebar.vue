@@ -60,7 +60,9 @@
 
     <!-- Secondary Links -->
     <template v-if="secondaryLinks">
-      <v-subheader v-if="secondaryHeader" class="pb-0">{{ secondaryHeader }}</v-subheader>
+      <v-subheader v-if="secondaryHeader" :to="secondaryHeaderLink" class="pb-0">
+        {{ secondaryHeader }}
+      </v-subheader>
       <v-divider></v-divider>
       <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">
@@ -158,6 +160,10 @@ export default defineComponent({
       default: null,
     },
     secondaryHeader: {
+      type: String,
+      default: null,
+    },
+    secondaryHeaderLink: {
       type: String,
       default: null,
     },
