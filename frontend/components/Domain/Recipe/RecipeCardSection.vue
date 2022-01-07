@@ -168,8 +168,12 @@ export default defineComponent({
 
     const router = useRouter();
     function navigateRandom() {
-      const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
-      router.push(`/recipe/${recipe.slug}`);
+      if (props.recipes.length > 0) {
+        const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
+        if (recipe.slug !== undefined) {
+          router.push(`/recipe/${recipe.slug}`);
+        }
+      }
     }
 
     function sortRecipes(sortType: string) {

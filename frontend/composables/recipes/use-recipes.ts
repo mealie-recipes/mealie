@@ -9,7 +9,7 @@ export const recentRecipes = ref<Recipe[] | null>([]);
 
 const rand = (n: number) => Math.floor(Math.random() * n);
 
-function swap(t: Array<any>, i: number, j: number) {
+function swap(t: Array<unknown>, i: number, j: number) {
   const q = t[i];
   t[i] = t[j];
   t[j] = q;

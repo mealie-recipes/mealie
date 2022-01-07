@@ -209,7 +209,7 @@ export default defineComponent({
 
     const loggingIn = ref(false);
 
-    const allowSignup = computed(() => context.env.ALLOW_SIGNUP);
+    const allowSignup = computed(() => context.env.ALLOW_SIGNUP as boolean);
 
     async function authenticate() {
       loggingIn.value = true;
@@ -221,7 +221,11 @@ export default defineComponent({
       try {
         await $auth.loginWith("local", { data: formData });
       } catch (error) {
-        if (error.response.status === 401) {
+        // TODO Check if error is an AxiosError, but isAxiosError is not working right now
+        // See https://github.com/nuxt-community/axios-module/issues/550
+        // Import $axios from useContext()
+        // if ($axios.isAxiosError(error) && error.response?.status === 401) {
+        if (error.response?.status === 401) {
           alert.error("Invalid Credentials");
         } else {
           alert.error("Something Went Wrong!");

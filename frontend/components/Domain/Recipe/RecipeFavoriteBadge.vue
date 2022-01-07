@@ -23,6 +23,7 @@
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+import {UserOut} from "~/types/api-types/user";
 export default defineComponent({
   props: {
     slug: {
@@ -44,17 +45,14 @@ export default defineComponent({
 
     // TODO Setup the correct type for $auth.user
     // See https://github.com/nuxt-community/auth-module/issues/1097
-    const user = computed(() => $auth.user);
-    // @ts-ignore See above
+    const user = computed(() => $auth.user as unknown as UserOut);
     const isFavorite = computed(() => user.value?.favoriteRecipes?.includes(props.slug));
 
     async function toggleFavorite() {
       console.log("Favorited?");
       if (!isFavorite.value) {
-        // @ts-ignore See above
         await api.users.addFavorite(user.value?.id, props.slug);
       } else {
-        // @ts-ignore See above
         await api.users.removeFavorite(user.value?.id, props.slug);
       }
       $auth.fetchUser();

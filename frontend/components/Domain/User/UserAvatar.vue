@@ -9,6 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive, useContext, computed } from "@nuxtjs/composition-api";
+import { UserOut } from "~/types/api-types/user";
 
 export default defineComponent({
   props: {
@@ -33,7 +34,9 @@ export default defineComponent({
     const { $auth } = useContext();
 
     const imageURL = computed(() => {
-      const key = $auth?.user?.cacheKey || "";
+      // TODO Setup correct user type for $auth.user
+      const user = $auth.user as unknown as (UserOut | null);
+      const key = user?.cacheKey ?? "";
       return `/api/media/users/${props.userId}/profile.webp?cacheKey=${key}`;
     });
 
