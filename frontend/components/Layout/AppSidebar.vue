@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer class="d-flex flex-column d-print-none" :value="value" clipped app width="240px">
+  <v-navigation-drawer v-model="drawer" class="d-flex flex-column d-print-none" clipped app width="240px">
     <!-- User Profile -->
     <template v-if="$auth.user">
       <v-list-item two-line to="/user/profile" exact>
@@ -124,9 +124,9 @@
     </template>
   </v-navigation-drawer>
 </template>
-  
+
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
@@ -162,20 +162,32 @@ export default defineComponent({
       default: null,
     },
   },
-  setup() {
-    return {};
-  },
-  data() {
-    return {
+  setup(props, context) {
+    // V-Model Support
+    const drawer = computed({
+      get: () => {
+        return props.value;
+      },
+      set: (val) => {
+        context.emit("input", val);
+      },
+    });
+
+    const state = reactive({
       dropDowns: {},
-      topSelected: null,
-      secondarySelected: null,
-      bottomSelected: null,
-    };
+      topSelected: null as string[] | null,
+      secondarySelected: null as string[] | null,
+      bottomSelected: null as string[] | null,
+    });
+
+    return {
+      ...toRefs(state),
+      drawer,
+    }
   },
 });
 </script>
-  
+
 <style>
 @media print {
   .no-print {
