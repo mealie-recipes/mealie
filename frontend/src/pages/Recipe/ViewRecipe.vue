@@ -7,7 +7,7 @@
     <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
     <a :href="getImage(recipeDetails.slug)">
       <v-img
-        :height="hideImage ? '50' : imageHeight"
+        :min-height="hideImage ? '50' : imageHeight"
         @error="hideImage = true"
         :src="getImage(recipeDetails.slug)"
         class="d-print-none"
