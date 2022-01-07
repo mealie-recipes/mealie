@@ -505,6 +505,7 @@ export default defineComponent({
     recipeUrl: {
       set(recipe_import_url) {
         // @ts-ignore
+        recipe_import_url = recipe_import_url.trim()
         this.$router.replace({ query: { ...this.$route.query, recipe_import_url } });
       },
       get() {
