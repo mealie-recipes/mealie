@@ -87,7 +87,8 @@ export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
   }
 
   async setPreferences(payload: UpdatePreferences) {
-    return await this.requests.put<Preferences>(routes.preferences, payload);
+    // TODO: This should probably be a patch request, which isn't offered by the API currently
+    return await this.requests.put<Preferences, UpdatePreferences>(routes.preferences, payload);
   }
 
   async createInvitation(payload: CreateInvitation) {
@@ -99,6 +100,7 @@ export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
   }
 
   async setMemberPermissions(payload: SetPermissions) {
-    return await this.requests.put<UserOut>(routes.permissions, payload);
+    // TODO: This should probably be a patch request, which isn't offered by the API currently
+    return await this.requests.put<Permissions, SetPermissions>(routes.permissions, payload);
   }
 }

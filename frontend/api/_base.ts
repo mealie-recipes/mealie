@@ -41,7 +41,7 @@ export abstract class BaseCRUDAPI<T, U> extends BaseAPI implements CrudAPIInterf
   }
 
   async patchOne(itemId: string, payload: Partial<T>) {
-    return await this.requests.patch(this.itemRoute(itemId), payload);
+    return await this.requests.patch<T>(this.itemRoute(itemId), payload);
   }
 
   async deleteOne(itemId: string | number) {
