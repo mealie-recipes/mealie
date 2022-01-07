@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 from pathlib import Path
 
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.schedulers.background import BackgroundScheduler
 
 from mealie.core import root_logger
-from mealie.core.config import get_app_dirs
 
 from .scheduled_func import ScheduledFunc
 from .scheduler_registry import SchedulerRegistry
@@ -13,8 +14,6 @@ logger = root_logger.get_logger()
 
 CWD = Path(__file__).parent
 
-app_dirs = get_app_dirs()
-TEMP_DATA = app_dirs.DATA_DIR / ".temp"
 SCHEDULER_DB = CWD / ".scheduler.db"
 SCHEDULER_DATABASE = f"sqlite:///{SCHEDULER_DB}"
 
@@ -31,16 +30,12 @@ class SchedulerService:
     SchedulerRegistry. See app.py for examples.
     """
 
-    _scheduler: BackgroundScheduler = None
-    # Not Sure if this is still needed?
-    # _job_store: dict[str, ScheduledFunc] = {}
+    _scheduler: BackgroundScheduler
 
+    @staticmethod
     def start():
         # Preclean
         SCHEDULER_DB.unlink(missing_ok=True)
-
-        # Scaffold
-        TEMP_DATA.mkdir(parents=True, exist_ok=True)
 
         # Register Interval Jobs and Start Scheduler
         SchedulerService._scheduler = BackgroundScheduler(jobstores={"default": SQLAlchemyJobStore(SCHEDULER_DATABASE)})
@@ -54,6 +49,7 @@ class SchedulerService:
     def scheduler(cls) -> BackgroundScheduler:
         return SchedulerService._scheduler
 
+    @staticmethod
     def add_cron_job(job_func: ScheduledFunc):
         SchedulerService.scheduler.add_job(
             job_func.callback,
@@ -68,6 +64,7 @@ class SchedulerService:
 
         # SchedulerService._job_store[job_func.id] = job_func
 
+    @staticmethod
     def update_cron_job(job_func: ScheduledFunc):
         SchedulerService.scheduler.reschedule_job(
             job_func.id,
