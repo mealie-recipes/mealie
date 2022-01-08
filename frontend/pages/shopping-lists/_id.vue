@@ -30,21 +30,34 @@
           </div>
         </draggable>
       </div>
+
       <div v-if="listItems.checked && listItems.checked.length > 0" class="mt-6">
+        <button @click="toggleShowChecked()">
+          <span>
+            <v-icon>
+              {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
+            </v-icon>
+          </span>
+          {{ listItems.checked ? listItems.checked.length : 0 }} items checked
+        </button>
         <v-divider class="my-4"></v-divider>
-        <div v-for="item in listItems.checked" :key="item.id" class="d-flex justify-space-between align-center">
-          <v-checkbox v-model="item.checked" color="gray" class="my-n2" :label="item.note" @change="saveList">
-            <template #label>
-              <div style="text-decoration: line-through">
-                {{ item.quantity }} x
-                {{ item.note }}
-              </div>
-            </template>
-          </v-checkbox>
-        </div>
-        <div class="d-flex">
-          <BaseButton small delete class="ml-auto" @click="deleteChecked"> Delete Checked </BaseButton>
-        </div>
+        <v-expand-transition>
+          <div v-show="showChecked">
+            <div v-for="item in listItems.checked" :key="item.id" class="d-flex justify-space-between align-center">
+              <v-checkbox v-model="item.checked" color="gray" class="my-n2" :label="item.note" @change="saveList">
+                <template #label>
+                  <div style="text-decoration: line-through">
+                    {{ item.quantity }} x
+                    {{ item.note }}
+                  </div>
+                </template>
+              </v-checkbox>
+            </div>
+            <div class="d-flex">
+              <BaseButton small delete class="ml-auto" @click="deleteChecked"> Delete Checked </BaseButton>
+            </div>
+          </div>
+        </v-expand-transition>
       </div>
     </section>
 
@@ -101,6 +114,7 @@
 import draggable from "vuedraggable";
 
 import { defineComponent, reactive, useAsync, useRoute, toRefs, computed, ref } from "@nuxtjs/composition-api";
+import { useToggle } from "@vueuse/core";
 import { ShoppingListItemCreate } from "~/api/class-interfaces/group-shopping-lists";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey, uuid4 } from "~/composables/use-utils";
@@ -190,6 +204,8 @@ export default defineComponent({
       }
     }
 
+    const [showChecked, toggleShowChecked] = useToggle(false);
+
     async function deleteChecked() {
       const unchecked = shoppingList.value?.listItems.filter((item) => !item.checked);
 
@@ -228,6 +244,8 @@ export default defineComponent({
     }
 
     return {
+      showChecked,
+      toggleShowChecked,
       createIngredient,
       contextMenuAction,
       contextMenu,
@@ -249,9 +267,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .number-input-container {
   max-width: 50px;
 }
-
 </style>
