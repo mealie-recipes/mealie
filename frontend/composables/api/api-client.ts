@@ -18,7 +18,7 @@ const request = {
 };
 
 function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
-  const requests = {
+  return {
     async get<T>(url: string, params = {}): Promise<RequestResponse<T>> {
       let error = null;
       const response = await axiosInstance.get<T>(url, params).catch((e) => {
@@ -31,22 +31,25 @@ function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
     },
 
     async post<T, U>(url: string, data: U) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       return await request.safe<T, U>(axiosInstance.post, url, data);
     },
 
     async put<T, U = T>(url: string, data: U) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       return await request.safe<T, U>(axiosInstance.put, url, data);
     },
 
     async patch<T, U = Partial<T>>(url: string, data: U) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       return await request.safe<T, U>(axiosInstance.patch, url, data);
     },
 
     async delete<T>(url: string) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       return await request.safe<T, undefined>(axiosInstance.delete, url, undefined);
     },
   };
-  return requests;
 }
 
 export const useAdminApi = function (): AdminAPI {

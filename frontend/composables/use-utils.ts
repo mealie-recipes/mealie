@@ -32,8 +32,7 @@ export function uuid4() {
 }
 
 // https://stackoverflow.com/questions/28876300/deep-copying-array-of-nested-objects-in-javascript
-const toString = Object.prototype.toString;
-export function deepCopy(obj: any) {
+export function deepCopy<T>(obj: T): T {
   let rv;
 
   switch (typeof obj) {
@@ -42,19 +41,19 @@ export function deepCopy(obj: any) {
         // null => null
         rv = null;
       } else {
-        switch (toString.call(obj)) {
+        switch (Object.prototype.toString.call(obj)) {
           case "[object Array]":
             // It's an array, create a new array with
             // deep copies of the entries
-            rv = obj.map(deepCopy);
+            rv = (obj as unknown as Array<unknown>).map(deepCopy);
             break;
           case "[object Date]":
             // Clone the date
-            rv = new Date(obj);
+            rv = new Date(obj as unknown as Date);
             break;
           case "[object RegExp]":
             // Clone the RegExp
-            rv = new RegExp(obj);
+            rv = new RegExp(obj as unknown as RegExp);
             break;
           // ...probably a few others
           default:
@@ -74,5 +73,5 @@ export function deepCopy(obj: any) {
       rv = obj;
       break;
   }
-  return rv;
+  return rv as T;
 }
