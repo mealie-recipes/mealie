@@ -53,4 +53,4 @@ class ShoppingListService(
             )
 
         shopping_list.list_items.extend(to_create)
-        return self.update_one(shopping_list, shopping_list.id)
+        return self.repo.update(shopping_list.id, shopping_list)

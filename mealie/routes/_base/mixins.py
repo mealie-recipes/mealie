@@ -68,38 +68,42 @@ class CrudMixins:
         )
 
     def create_one(self, data):
+        item = None
         try:
-            self.item = self.repo.create(data)
+            item = self.repo.create(data)
         except Exception as ex:
             self.handle_exception(ex)
 
-        return self.item
+        return item
 
     def update_one(self, data, item_id):
-        try:
-            if not self.item:
-                return
+        item = self.repo.get(item_id)
 
-            target_id = item_id or self.item.id
-            self.item = self.repo.update(target_id, data)
+        if not item:
+            return
+
+        try:
+            item = self.repo.update(item.id, data)  # type: ignore
         except Exception as ex:
             self.handle_exception(ex)
 
-        return self.item
+        return item
 
     def patch_one(self, data, item_id) -> None:
+        self.repo.get(item_id)
+
         try:
-            self.item = self.repo.patch(item_id, data.dict(exclude_unset=True, exclude_defaults=True))
+            self.repo.patch(item_id, data.dict(exclude_unset=True, exclude_defaults=True))
         except Exception as ex:
             self.handle_exception(ex)
 
-    def delete_one(self, item_id: int = None):
-        target_id = item_id or self.item.id
-        self.logger.info(f"Deleting item with id {target_id}")
+    def delete_one(self, item_id):
+        item = self.repo.get(item_id)
+        self.logger.info(f"Deleting item with id {item}")
 
         try:
-            self.item = self.repo.delete(target_id)
+            item = self.repo.delete(item)
         except Exception as ex:
             self.handle_exception(ex)
 
-        return self.item
+        return item

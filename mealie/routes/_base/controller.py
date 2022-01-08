@@ -127,7 +127,15 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
 
     cbv_router.routes = [route for _, route in routes_to_append]
 
-    router.include_router(cbv_router)
+    # In order to use a "" as a router and utilize the prefix in the original router
+    # we need to create an intermediate prefix variable to hold the prefix and pass it
+    # into the original router when using "include_router" after we reeset the original
+    # prefix. This limits the original routers usability to only the controller.
+    #
+    # This is sort of a hack and causes unexpected behavior. I'm unsure of a better solution.
+    cbv_prefix = router.prefix
+    router.prefix = ""
+    router.include_router(cbv_router, prefix=cbv_prefix)
 
 
 def _allocate_routes_by_method_name(router: APIRouter, url: str, function_members: List[Tuple[str, Any]]) -> None:

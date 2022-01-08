@@ -47,17 +47,17 @@ class ShoppingListRoutes:
     def mixins(self) -> CrudMixins:
         return CrudMixins(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
-    @router.get("/", response_model=list[ShoppingListSummary])
+    @router.get("", response_model=list[ShoppingListSummary])
     def get_all(self, q: GetAll = Depends(GetAll)):
         return self.repo.get_all(start=q.start, limit=q.limit, override_schema=ShoppingListSummary)
 
-    @router.post("/", response_model=ShoppingListOut)
+    @router.post("", response_model=ShoppingListOut)
     def create_one(self, data: ShoppingListCreate):
         return self.mixins.create_one(data)
 
     @router.get("/{item_id}", response_model=ShoppingListOut)
-    def get_one(self, id: UUID4):
-        return self.repo.get_one(id)
+    def get_one(self, item_id: UUID4):
+        return self.repo.get_one(item_id)
 
     @router.put("/{item_id}", response_model=ShoppingListOut)
     def update_one(self, item_id: UUID4, data: ShoppingListUpdate):
@@ -70,6 +70,6 @@ class ShoppingListRoutes:
     # =======================================================================
     # Other Operations
 
-    @router.post("/{item_id}/recipe_id/{recipe_id}", response_model=ShoppingListOut)
+    @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
     def add_recipe_ingredients_to_list(self, item_id: UUID4, recipe_id: int):
         return self.service.add_recipe_ingredients_to_list(item_id, recipe_id)
