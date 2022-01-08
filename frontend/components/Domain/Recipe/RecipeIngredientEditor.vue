@@ -105,11 +105,12 @@
 import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
 import { useFoods, useUnits } from "~/composables/recipes";
 import { validators } from "~/composables/use-validators";
+import { RecipeIngredient } from "~/types/api-types/recipe";
 
 export default defineComponent({
   props: {
     value: {
-      type: Object,
+      type: Object as () => RecipeIngredient,
       required: true,
     },
     disableAmount: {
@@ -157,14 +158,14 @@ export default defineComponent({
     }
 
     function handleUnitEnter() {
-      if (value.unit === null || !value.unit.name.includes(unitSearch.value)) {
+      if (value.unit === undefined || !value.unit.name.includes(unitSearch.value)) {
         console.log("Creating");
         createAssignUnit();
       }
     }
 
     function handleFoodEnter() {
-      if (value.food === null || !value.food.name.includes(foodSearch.value)) {
+      if (value.food === undefined || !value.food.name.includes(foodSearch.value)) {
         console.log("Creating");
         createAssignFood();
       }

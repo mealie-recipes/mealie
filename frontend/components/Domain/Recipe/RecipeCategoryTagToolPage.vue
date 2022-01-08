@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, computed } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, useContext, computed, useMeta } from "@nuxtjs/composition-api";
 
 type ItemType = "tags" | "categories" | "tools";
 
@@ -76,8 +76,12 @@ export default defineComponent({
         break;
     }
 
+    useMeta(() => ({
+      title: state.headline,
+    }));
+
     const itemsSorted = computed(() => {
-      const byLetter: { [key: string]: Array<any> } = {};
+      const byLetter: { [key: string]: Array<GenericItem> } = {};
 
       if (!props.items) return byLetter;
 
@@ -98,10 +102,7 @@ export default defineComponent({
       itemsSorted,
     };
   },
-  head() {
-    return {
-      title: this.headline as string,
-    }
-  },
+  // Needed for useMeta
+  head: {},
 });
 </script>

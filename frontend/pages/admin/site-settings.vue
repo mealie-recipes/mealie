@@ -199,7 +199,7 @@ export default defineComponent({
       return false;
     });
 
-    function getColor(booly: boolean | any, warning = false) {
+    function getColor(booly: unknown, warning = false) {
       const falsey = warning ? "warning" : "error";
       return booly ? "success" : falsey;
     }

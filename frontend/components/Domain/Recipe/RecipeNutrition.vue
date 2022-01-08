@@ -35,11 +35,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { Nutrition } from "~/types/api-types/recipe";
 
 export default defineComponent({
   props: {
     value: {
-      type: Object,
+      type: Object as () => Nutrition,
       required: true,
     },
     edit: {
@@ -80,10 +81,9 @@ export default defineComponent({
       },
     };
     const valueNotNull = computed(() => {
-      for (const property in props.value) {
-        const valueProperty = props.value[property];
+      Object.values(props.value).forEach((valueProperty) => {
         if (valueProperty && valueProperty !== "") return true;
-      }
+      });
       return false;
     });
 

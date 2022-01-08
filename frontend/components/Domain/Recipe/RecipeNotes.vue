@@ -56,7 +56,7 @@ export default defineComponent({
       props.value.push({ title: "", text: "" });
     }
 
-    function removeByIndex(list: any[], index: number) {
+    function removeByIndex(list: unknown[], index: number) {
       list.splice(index, 1);
     }
 

@@ -210,6 +210,7 @@ import { useMealplans, planTypeOptions } from "~/composables/use-group-mealplan"
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
+import { PlanEntryType } from "~/types/api-types/meal-plan";
 
 export default defineComponent({
   components: {
@@ -238,7 +239,7 @@ export default defineComponent({
     useRecipes(true, true);
 
     function filterMealByDate(date: Date) {
-      if (!mealplans.value) return;
+      if (!mealplans.value) return [];
       return mealplans.value.filter((meal) => {
         const mealDate = parseISO(meal.date);
         return isSameDay(mealDate, date);
@@ -263,14 +264,12 @@ export default defineComponent({
         // The drop was cancelled, unsure if anything needs to be done?
         console.log("Cancel Move Event");
       } else {
-        // A Meal was moved, set the new date value and make a update request and refresh the meals
-        const fromMealsByIndex = evt.from.getAttribute("data-index");
-        const toMealsByIndex = evt.to.getAttribute("data-index");
+        // A Meal was moved, set the new date value and make an update request and refresh the meals
+        const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
+        const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
-        if (fromMealsByIndex) {
-          // @ts-ignore
+        if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
           const mealData = mealsByDate.value[fromMealsByIndex].meals[evt.oldIndex as number];
-          // @ts-ignore
           const destDate = mealsByDate.value[toMealsByIndex].date;
 
           mealData.date = format(destDate, "yyyy-MM-dd");
@@ -282,13 +281,12 @@ export default defineComponent({
 
     const mealsByDate = computed(() => {
       return days.value.map((day) => {
-        return { date: day, meals: filterMealByDate(day as any) };
+        return { date: day, meals: filterMealByDate(day) };
       });
     });
 
     const days = computed(() => {
       return Array.from(Array(8).keys()).map(
-        // @ts-ignore
         (i) => new Date(weekRange.value.start.getTime() + i * 24 * 60 * 60 * 1000)
       );
     });
@@ -304,7 +302,7 @@ export default defineComponent({
 
     watch(dialog, () => {
       if (dialog.note) {
-        newMeal.recipeId = null;
+        newMeal.recipeId = undefined;
       }
       newMeal.title = "";
       newMeal.text = "";
@@ -314,13 +312,12 @@ export default defineComponent({
       date: "",
       title: "",
       text: "",
-      recipeId: null as number | null,
-      entryType: "dinner",
+      recipeId: undefined as number | undefined,
+      entryType: "dinner" as PlanEntryType,
     });
 
     function openDialog(date: Date) {
       newMeal.date = format(date, "yyyy-MM-dd");
-      // @ts-ignore
       state.createMealDialog = true;
     }
 
@@ -329,21 +326,20 @@ export default defineComponent({
       newMeal.title = "";
       newMeal.text = "";
       newMeal.entryType = "dinner";
-      newMeal.recipeId = null;
+      newMeal.recipeId = undefined;
     }
 
     async function randomMeal(date: Date) {
       // TODO: Refactor to use API call to get random recipe
-      // @ts-ignore
-      const randomRecipe = allRecipes.value[Math.floor(Math.random() * allRecipes.value.length)];
+      const randomRecipe = allRecipes.value?.[Math.floor(Math.random() * allRecipes.value.length)];
+      if (!randomRecipe) return;
 
       newMeal.date = format(date, "yyyy-MM-dd");
 
-      newMeal.recipeId = randomRecipe.id || null;
+      newMeal.recipeId = randomRecipe.id;
 
       console.log(newMeal.recipeId, randomRecipe.id);
 
-      // @ts-ignore
       await actions.createOne({ ...newMeal });
       resetDialog();
     }
