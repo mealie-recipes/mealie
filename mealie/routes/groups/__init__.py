@@ -1,9 +1,7 @@
 from datetime import date, timedelta
 
 from fastapi import APIRouter, Depends
-from pydantic import UUID4
 
-from mealie.schema.group.group_shopping_list import ShoppingListOut
 from mealie.schema.reports.reports import ReportCategory
 from mealie.services._base_http_service import RouterFactory
 from mealie.services.group_services import CookbookService, WebhookService
@@ -11,7 +9,7 @@ from mealie.services.group_services.meal_service import MealService
 from mealie.services.group_services.reports_service import GroupReportService
 from mealie.services.group_services.shopping_lists import ShoppingListService
 
-from . import categories, invitations, migrations, preferences, self_service
+from . import categories, invitations, migrations, preferences, self_service, shopping_lists
 
 router = APIRouter()
 
@@ -57,17 +55,4 @@ def get_all_reports(
 
 
 router.include_router(report_router)
-
-shopping_list_router = RouterFactory(
-    ShoppingListService, prefix="/groups/shopping/lists", tags=["Group: Shopping Lists"]
-)
-
-
-@shopping_list_router.post("/{item_id}/recipe/{recipe_id}")
-def add_recipe_ingredients_to_list(
-    item_id: UUID4, recipe_id: int, sls: ShoppingListService = Depends(ShoppingListService.write_existing)
-):
-    return sls.add_recipe_ingredients_to_list(item_id, recipe_id)
-
-
-router.include_router(shopping_list_router)
+router.include_router(shopping_lists.router)

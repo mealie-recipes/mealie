@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 from pydantic import BaseModel
 
@@ -6,7 +6,7 @@ T = TypeVar("T", bound=BaseModel)
 U = TypeVar("U", bound=BaseModel)
 
 
-def mapper(source: U, dest: T, **kwargs) -> Generic[T]:
+def mapper(source: U, dest: T, **_) -> T:
     """
     Map a source model to a destination model. Only top-level fields are mapped.
     """

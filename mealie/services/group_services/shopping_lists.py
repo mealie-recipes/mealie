@@ -3,20 +3,11 @@ from __future__ import annotations
 from functools import cached_property
 from uuid import UUID
 
-from mealie.core.root_logger import get_logger
-from mealie.schema.group import (
-    ShoppingListCreate,
-    ShoppingListOut,
-    ShoppingListSave,
-    ShoppingListSummary,
-    ShoppingListUpdate,
-)
+from mealie.schema.group import ShoppingListCreate, ShoppingListOut, ShoppingListSummary
 from mealie.schema.group.group_shopping_list import ShoppingListItemCreate
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
-
-logger = get_logger(module=__name__)
 
 
 class ShoppingListService(
@@ -30,23 +21,6 @@ class ShoppingListService(
     @cached_property
     def repo(self):
         return self.db.group_shopping_lists
-
-    def populate_item(self, id: int) -> ShoppingListOut:
-        self.item = self.repo.get_one(id)
-        return self.item
-
-    def get_all(self) -> list[ShoppingListSummary]:
-        return self.repo.get(self.group_id, match_key="group_id", limit=9999)
-
-    def create_one(self, data: ShoppingListCreate) -> ShoppingListOut:
-        data = self.cast(data, ShoppingListSave)
-        return self._create_one(data)
-
-    def update_one(self, data: ShoppingListUpdate, item_id: int = None) -> ShoppingListOut:
-        return self._update_one(data, item_id)
-
-    def delete_one(self, id: int = None) -> ShoppingListOut:
-        return self._delete_one(id)
 
     def add_recipe_ingredients_to_list(self, list_id: UUID, recipe_id: int) -> ShoppingListOut:
         recipe = self.db.recipes.get_one(recipe_id, "id")
@@ -63,7 +37,7 @@ class ShoppingListService(
 
             unit_id = None
             try:
-                unit_id = ingredient.food.id
+                unit_id = ingredient.unit.id
             except AttributeError:
                 pass
 

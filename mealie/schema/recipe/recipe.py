@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 from pathlib import Path
 from typing import Any, Optional
@@ -92,32 +94,32 @@ class RecipeSummary(CamelModel):
         orm_mode = True
 
     @validator("tags", always=True, pre=True)
-    def validate_tags(cats: list[Any]):
+    def validate_tags(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeTag(name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("recipe_category", always=True, pre=True)
-    def validate_categories(cats: list[Any]):
+    def validate_categories(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeCategory(name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("group_id", always=True, pre=True)
-    def validate_group_id(group_id: list[Any]):
+    def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
 
     @validator("user_id", always=True, pre=True)
-    def validate_user_id(user_id: list[Any]):
+    def validate_user_id(user_id: Any):
         if isinstance(user_id, int):
             return uuid4()
         return user_id
 
 
 class Recipe(RecipeSummary):
-    recipe_ingredient: Optional[list[RecipeIngredient]] = []
+    recipe_ingredient: list[RecipeIngredient] = []
     recipe_instructions: Optional[list[RecipeStep]] = []
     nutrition: Optional[Nutrition]
 
@@ -155,7 +157,7 @@ class Recipe(RecipeSummary):
         orm_mode = True
 
         @classmethod
-        def getter_dict(_cls, name_orm: RecipeModel):
+        def getter_dict(cls, name_orm: RecipeModel):
             return {
                 **GetterDict(name_orm),
                 # "recipe_ingredient": [x.note for x in name_orm.recipe_ingredient],
