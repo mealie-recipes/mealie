@@ -66,10 +66,10 @@ export default defineComponent({
         state.headline = i18n.t("tag.tags") as string;
         break;
       case ItemTypes.category:
-        state.headline = i18n.t("recipe.categories") as string;
+        state.headline = i18n.t("category.categories") as string;
         break;
       case ItemTypes.tool:
-        state.headline = "Tools";
+        state.headline = i18n.t("tool.tools") as string;
         state.icon = $globals.icons.potSteam;
         break;
       default:
@@ -98,8 +98,10 @@ export default defineComponent({
       itemsSorted,
     };
   },
-  head: {
-    title: "vbase-nuxt",
+  head() {
+    return {
+      title: this.headline as string,
+    }
   },
 });
 </script>

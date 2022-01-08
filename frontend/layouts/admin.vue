@@ -7,7 +7,6 @@
       :bottom-links="bottomLinks"
       :user="{ data: true }"
       :secondary-header="$t('user.admin')"
-      @input="sidebar = !sidebar"
     />
 
     <TheSnackbar />
@@ -31,6 +30,7 @@ import { defineComponent, ref, useContext, onMounted } from "@nuxtjs/composition
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
 import TheSnackbar from "~/components/Layout/TheSnackbar.vue";
+import { SidebarLinks } from "~/types/application-types";
 
 export default defineComponent({
   components: { AppHeader, AppSidebar, TheSnackbar },
@@ -44,7 +44,7 @@ export default defineComponent({
       sidebar.value = !$vuetify.breakpoint.md;
     });
 
-    const topLinks = [
+    const topLinks: SidebarLinks = [
       {
         icon: $globals.icons.viewDashboard,
         to: "/admin/dashboard",
@@ -104,7 +104,7 @@ export default defineComponent({
       },
     ];
 
-    const bottomLinks = [
+    const bottomLinks: SidebarLinks = [
       {
         icon: $globals.icons.heart,
         title: i18n.t("about.support"),

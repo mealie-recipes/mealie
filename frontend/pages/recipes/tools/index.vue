@@ -26,8 +26,5 @@ export default defineComponent({
       tools,
     };
   },
-  head: {
-    title: "Tools",
-  },
 });
 </script>

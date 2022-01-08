@@ -33,7 +33,7 @@
         <v-img
           :key="imageKey"
           :max-width="enableLandscape ? null : '50%'"
-          :height="hideImage ? '50' : imageHeight"
+          :min-height="hideImage ? '50' : imageHeight"
           :src="recipeImage(recipe.slug, '', imageKey)"
           class="d-print-none"
           @error="hideImage = true"

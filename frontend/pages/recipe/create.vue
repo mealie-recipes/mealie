@@ -396,6 +396,7 @@ export default defineComponent({
 
     const recipeUrl = computed({
       set(recipe_import_url: string) {
+        recipe_import_url = recipe_import_url.trim()
         router.replace({ query: { ...route.value.query, recipe_import_url } });
       },
       get() {
