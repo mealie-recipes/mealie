@@ -25,7 +25,7 @@
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
-            <v-text-field v-model="url" :label="$t('general.url')" class="pt-5" clearable :messages="getMessages()">
+            <v-text-field v-model="url" :label="$t('general.url')" class="pt-5" clearable :messages="messages">
               <template #append-outer>
                 <v-btn class="ml-2" color="primary" :loading="loading" :disabled="!slug" @click="getImageFromURL">
                   {{ $t("general.get") }}
@@ -39,11 +39,13 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
+
 export default defineComponent({
   props: {
     slug: {
@@ -51,32 +53,37 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    const api = useUserApi();
+  setup(props, context) {
+    const state = reactive({
+      url: "",
+      loading: false,
+      menu: false,
+    })
 
-    return { api };
-  },
-  data: () => ({
-    url: "",
-    loading: false,
-    menu: false,
-  }),
-  methods: {
-    uploadImage(fileObject) {
-      this.$emit(UPLOAD_EVENT, fileObject);
-      this.menu = false;
-    },
-    async getImageFromURL() {
-      this.loading = true;
-      if (await this.api.recipes.updateImagebyURL(this.slug, this.url)) {
-        this.$emit(REFRESH_EVENT);
+    function uploadImage(fileObject: File) {
+      context.emit(UPLOAD_EVENT, fileObject);
+      state.menu = false;
+    }
+
+    const api = useUserApi();
+    async function getImageFromURL() {
+      state.loading = true;
+      if (await api.recipes.updateImagebyURL(props.slug, state.url)) {
+        context.emit(REFRESH_EVENT);
       }
-      this.loading = false;
-      this.menu = false;
-    },
-    getMessages() {
-      return this.slug ? [""] : [this.$i18n.t("recipe.save-recipe-before-use")];
-    },
+      state.loading = false;
+      state.menu = false;
+    }
+
+    const { i18n } = useContext();
+    const messages = props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")];
+
+    return {
+      ...toRefs(state),
+      uploadImage,
+      getImageFromURL,
+      messages,
+    };
   },
 });
 </script>

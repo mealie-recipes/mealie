@@ -4,11 +4,26 @@ module.exports = {
     browser: true,
     node: true,
   },
+  parser: "vue-eslint-parser",
   parserOptions: {
     parser: "@typescript-eslint/parser",
     requireConfigFile: false,
+    tsConfigRootDir: __dirname,
+    project: ["./tsconfig.json"],
+    extraFileExtensions: [".vue"],
   },
-  extends: ["@nuxtjs/eslint-config-typescript", "plugin:nuxt/recommended", "prettier"],
+  extends: [
+    "@nuxtjs/eslint-config-typescript",
+    "plugin:nuxt/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    // "plugin:prettier/recommended",
+    "prettier",
+  ],
+  // Re-add once we use nuxt bridge
+  // See https://v3.nuxtjs.org/getting-started/bridge#update-nuxtconfig
+  ignorePatterns: ["nuxt.config.js"],
   plugins: ["prettier"],
   // add your custom rules here
   rules: {
@@ -27,5 +42,13 @@ module.exports = {
         allowModifiers: true,
       },
     ],
+    // TODO Gradually activate all rules
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };

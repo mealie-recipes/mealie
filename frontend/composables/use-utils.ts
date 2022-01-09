@@ -1,8 +1,10 @@
+import { IncomingMessage } from "connect";
+
 export const useAsyncKey = function () {
   return String(Date.now());
 };
 
-export function detectServerBaseUrl(req: any) {
+export function detectServerBaseUrl(req?: IncomingMessage | null) {
   if (!req || req === undefined) {
     return "";
   }
@@ -10,26 +12,27 @@ export function detectServerBaseUrl(req: any) {
     const url = new URL(req.headers.referer);
     return `${url.protocol}//${url.host}`;
   } else if (req.headers.host) {
-    const protocol = req.connection.encrypted ? "https" : "http:";
+    // TODO Socket.encrypted doesn't exist. What is needed here?
+    // @ts-ignore
+    const protocol = req.socket.encrypted ? "https:" : "http:";
     return `${protocol}//${req.headers.host}`;
-  } else if (req.connection.remoteAddress) {
-    const protocol = req.connection.encrypted ? "https" : "http:";
-    return `${protocol}//${req.connection.localAddress}:${req.connection.localPort}`;
+  } else if (req.socket.remoteAddress) {
+    // @ts-ignore
+    const protocol = req.socket.encrypted ? "https:" : "http:";
+    return `${protocol}//${req.socket.localAddress}:${req.socket.localPort}`;
   }
 
   return "";
 }
 
 export function uuid4() {
-  // @ts-ignore
-  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-    (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
+  return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
+    (parseInt(c) ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (parseInt(c) / 4)))).toString(16)
   );
 }
 
 // https://stackoverflow.com/questions/28876300/deep-copying-array-of-nested-objects-in-javascript
-const toString = Object.prototype.toString;
-export function deepCopy(obj: any) {
+export function deepCopy<T>(obj: T): T {
   let rv;
 
   switch (typeof obj) {
@@ -38,19 +41,19 @@ export function deepCopy(obj: any) {
         // null => null
         rv = null;
       } else {
-        switch (toString.call(obj)) {
+        switch (Object.prototype.toString.call(obj)) {
           case "[object Array]":
             // It's an array, create a new array with
             // deep copies of the entries
-            rv = obj.map(deepCopy);
+            rv = (obj as unknown as Array<unknown>).map(deepCopy);
             break;
           case "[object Date]":
             // Clone the date
-            rv = new Date(obj);
+            rv = new Date(obj as unknown as Date);
             break;
           case "[object RegExp]":
             // Clone the RegExp
-            rv = new RegExp(obj);
+            rv = new RegExp(obj as unknown as RegExp);
             break;
           // ...probably a few others
           default:
@@ -70,5 +73,5 @@ export function deepCopy(obj: any) {
       rv = obj;
       break;
   }
-  return rv;
+  return rv as T;
 }

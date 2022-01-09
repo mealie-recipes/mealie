@@ -2,7 +2,7 @@ import { ref, onMounted } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
 
-export const useRecipe = function (slug: string, eager: boolean = true) {
+export const useRecipe = function (slug: string, eager = true) {
   const api = useUserApi();
   const loading = ref(false);
 

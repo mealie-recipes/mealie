@@ -5,20 +5,20 @@ export const useStaticRoutes = () => {
   const { $config, req } = useContext();
   const serverBase = detectServerBaseUrl(req);
 
-  const prefix = `${$config.SUB_PATH}/api`.replace("//", "/");
+  const prefix = `${$config.SUB_PATH as string}/api`.replace("//", "/");
 
   const fullBase = serverBase + prefix;
 
   // Methods to Generate reference urls for assets/images *
-  function recipeImage(recipeSlug: string, version = null, key = null) {
+  function recipeImage(recipeSlug: string, version = "", key = 1) {
     return `${fullBase}/media/recipes/${recipeSlug}/images/original.webp?&rnd=${key}&version=${version}`;
   }
 
-  function recipeSmallImage(recipeSlug: string, version = null, key = null) {
+  function recipeSmallImage(recipeSlug: string, version = "", key = 1) {
     return `${fullBase}/media/recipes/${recipeSlug}/images/min-original.webp?&rnd=${key}&version=${version}`;
   }
 
-  function recipeTinyImage(recipeSlug: string, version = null, key = null) {
+  function recipeTinyImage(recipeSlug: string, version = "", key = 1) {
     return `${fullBase}/media/recipes/${recipeSlug}/images/tiny-original.webp?&rnd=${key}&version=${version}`;
   }
 

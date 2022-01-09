@@ -7,11 +7,11 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:js": "eslint --ext \".ts,.js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js"
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint"
+    "*.{ts,js,vue}": "eslint"
   },
   "dependencies": {
     "@adapttive/vue-markdown": "^4.0.1",

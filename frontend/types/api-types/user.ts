@@ -16,7 +16,7 @@ export interface ChangePassword {
 }
 export interface CreateToken {
   name: string;
-  parentId: number;
+  userId: string;
   token: string;
 }
 export interface GroupBase {
@@ -24,48 +24,33 @@ export interface GroupBase {
 }
 export interface GroupInDB {
   name: string;
-  id: number;
+  id: string;
   categories?: CategoryBase[];
-  webhookUrls?: string[];
-  webhookTime?: string;
-  webhookEnable: boolean;
+  webhooks?: unknown[];
   users?: UserOut[];
-  mealplans?: MealPlanOut[];
   shoppingLists?: ShoppingListOut[];
+  preferences?: ReadGroupPreferences;
 }
 export interface UserOut {
-  canOrganize: boolean;
-  canManage: boolean;
-  canInvite: boolean;
   username?: string;
   fullName?: string;
   email: string;
-  admin: boolean;
+  admin?: boolean;
   group: string;
+  advanced?: boolean;
   favoriteRecipes?: string[];
-  id: number;
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
+  id: string;
+  groupId: string;
   tokens?: LongLiveTokenOut[];
+  cacheKey: string;
 }
 export interface LongLiveTokenOut {
   name: string;
   id: number;
-}
-export interface MealPlanOut {
-  group: string;
-  startDate: string;
-  endDate: string;
-  planDays: MealDayIn[];
-  uid: number;
-  shoppingList?: number;
-}
-export interface MealDayIn {
-  date?: string;
-  meals: MealIn[];
-}
-export interface MealIn {
-  slug?: string;
-  name?: string;
-  description?: string;
+  createdAt: string;
 }
 export interface ShoppingListOut {
   name: string;
@@ -79,38 +64,107 @@ export interface ListItem {
   quantity?: number;
   checked?: boolean;
 }
+export interface ReadGroupPreferences {
+  privateGroup?: boolean;
+  firstDayOfWeek?: number;
+  recipePublic?: boolean;
+  recipeShowNutrition?: boolean;
+  recipeShowAssets?: boolean;
+  recipeLandscapeView?: boolean;
+  recipeDisableComments?: boolean;
+  recipeDisableAmount?: boolean;
+  groupId: string;
+  id: number;
+}
 export interface LoingLiveTokenIn {
   name: string;
 }
 export interface LongLiveTokenInDB {
   name: string;
-  parentId: number;
+  userId: string;
   token: string;
   id: number;
-  user: UserInDB;
+  user: PrivateUser;
 }
-export interface UserInDB {
+export interface PrivateUser {
   username?: string;
   fullName?: string;
   email: string;
-  admin: boolean;
+  admin?: boolean;
   group: string;
+  advanced?: boolean;
   favoriteRecipes?: string[];
-  id: number;
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
+  id: string;
+  groupId: string;
   tokens?: LongLiveTokenOut[];
+  cacheKey: string;
   password: string;
 }
 export interface RecipeSummary {
   id?: number;
+  userId?: string;
+  groupId?: string;
   name?: string;
   slug?: string;
   image?: unknown;
+  recipeYield?: string;
+  totalTime?: string;
+  prepTime?: string;
+  cookTime?: string;
+  performTime?: string;
   description?: string;
-  recipeCategory?: string[];
-  tags?: string[];
+  recipeCategory?: RecipeTag[];
+  tags?: RecipeTag[];
+  tools?: RecipeTool[];
   rating?: number;
+  orgURL?: string;
+  recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
+}
+export interface RecipeTag {
+  name: string;
+  slug: string;
+}
+export interface RecipeTool {
+  name: string;
+  slug: string;
+  id?: number;
+  onHand?: boolean;
+}
+export interface RecipeIngredient {
+  title?: string;
+  note?: string;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  disableAmount?: boolean;
+  quantity?: number;
+  referenceId?: string;
+}
+export interface IngredientUnit {
+  name: string;
+  description?: string;
+  fraction?: boolean;
+  abbreviation?: string;
+  id: number;
+}
+export interface CreateIngredientUnit {
+  name: string;
+  description?: string;
+  fraction?: boolean;
+  abbreviation?: string;
+}
+export interface IngredientFood {
+  name: string;
+  description?: string;
+  id: number;
+}
+export interface CreateIngredientFood {
+  name: string;
+  description?: string;
 }
 export interface SignUpIn {
   name: string;
@@ -136,34 +190,44 @@ export interface TokenData {
 }
 export interface UpdateGroup {
   name: string;
-  id: number;
+  id: string;
   categories?: CategoryBase[];
-  webhookUrls?: string[];
-  webhookTime?: string;
-  webhookEnable: boolean;
+  webhooks?: unknown[];
 }
 export interface UserBase {
   username?: string;
   fullName?: string;
   email: string;
-  admin: boolean;
+  admin?: boolean;
   group?: string;
+  advanced?: boolean;
   favoriteRecipes?: string[];
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
 }
 export interface UserFavorites {
   username?: string;
   fullName?: string;
   email: string;
-  admin: boolean;
+  admin?: boolean;
   group?: string;
+  advanced?: boolean;
   favoriteRecipes?: RecipeSummary[];
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
 }
 export interface UserIn {
   username?: string;
   fullName?: string;
   email: string;
-  admin: boolean;
+  admin?: boolean;
   group?: string;
+  advanced?: boolean;
   favoriteRecipes?: string[];
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
   password: string;
 }

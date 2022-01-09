@@ -167,7 +167,6 @@ export default defineComponent({
       pickerMenu: false,
     });
 
-    // @ts-ignore
     const { i18n, $globals } = useContext();
 
     // ===========================================================================
@@ -262,14 +261,12 @@ export default defineComponent({
     }
 
     // Note: Print is handled as an event in the parent component
-    const eventHandlers: { [key: string]: Function } = {
-      // @ts-ignore - Doens't know about open()
+    const eventHandlers: { [key: string]: () => void } = {
       delete: () => {
         state.recipeDeleteDialog = true;
       },
       edit: () => router.push(`/recipe/${props.slug}` + "?edit=true"),
       download: handleDownloadEvent,
-      // @ts-ignore - Doens't know about open()
       mealplanner: () => {
         state.mealplannerDialog = true;
       },

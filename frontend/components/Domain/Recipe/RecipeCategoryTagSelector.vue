@@ -42,18 +42,22 @@
   </v-autocomplete>
 </template>
 
-<script>
+<script lang="ts">
+import { computed, defineComponent, onMounted, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
 import RecipeCategoryTagDialog from "./RecipeCategoryTagDialog.vue";
-import { useUserApi } from "~/composables/api";
 import { useTags, useCategories } from "~/composables/recipes";
+import { Category } from "~/api/class-interfaces/categories";
+import { Tag } from "~/api/class-interfaces/tags";
+
 const MOUNTED_EVENT = "mounted";
-export default {
+
+export default defineComponent({
   components: {
     RecipeCategoryTagDialog,
   },
   props: {
     value: {
-      type: Array,
+      type: Array as () => (Category | Tag | string)[],
       required: true,
     },
     solo: {
@@ -90,74 +94,74 @@ export default {
     },
   },
 
-  setup() {
-    const api = useUserApi();
-
+  setup(props, context) {
     const { allTags, useAsyncGetAll: getAllTags } = useTags();
     const { allCategories, useAsyncGetAll: getAllCategories } = useCategories();
     getAllCategories();
     getAllTags();
 
-    return { api, allTags, allCategories, getAllCategories, getAllTags };
-  },
+    const state = reactive({
+      selected: props.value,
+    });
+    watch(() => props.value, (val) => {
+      state.selected = val;
+    });
 
-  data() {
-    return {
-      selected: [],
-    };
-  },
+    const { i18n } = useContext();
+    const inputLabel = computed(() => {
+      if (!props.showLabel) return null;
+      return props.tagSelector ? i18n.t("tag.tags") : i18n.t("recipe.categories");
+    });
 
-  computed: {
-    inputLabel() {
-      if (!this.showLabel) return null;
-      return this.tagSelector ? this.$t("tag.tags") : this.$t("recipe.categories");
-    },
-    activeItems() {
-      let ItemObjects = [];
-      if (this.tagSelector) ItemObjects = this.allTags;
+    const activeItems = computed(() => {
+      let itemObjects: Tag[] | Category[] | null;
+      if (props.tagSelector) itemObjects = allTags.value;
       else {
-        ItemObjects = this.allCategories;
+        itemObjects = allCategories.value;
       }
-      if (this.returnObject) return ItemObjects;
+      if (props.returnObject) return itemObjects;
       else {
-        return ItemObjects.map((x) => x.name);
+        return itemObjects?.map((x: Tag | Category) => x.name);
       }
-    },
-    flat() {
-      if (this.selected) {
-        return this.selected.length > 0 && this.solo;
+    });
+
+    const flat = computed(() => {
+      if (state.selected) {
+        return state.selected.length > 0 && props.solo;
       }
       return false;
-    },
-  },
+    });
 
-  watch: {
-    value(val) {
-      this.selected = val;
-    },
-  },
-  mounted() {
-    this.$emit(MOUNTED_EVENT);
-    this.setInit(this.value);
-  },
-  methods: {
-    emitChange() {
-      this.$emit("input", this.selected);
-    },
-    setInit(val) {
-      this.selected = val;
-    },
-    removeByIndex(index) {
-      this.selected.splice(index, 1);
-    },
-    pushToItem(createdItem) {
-      createdItem = this.returnObject ? createdItem : createdItem.name;
+    function emitChange() {
+      context.emit("input", state.selected);
+    }
+
+    // TODO Is this needed?
+    onMounted(() => {
+      context.emit(MOUNTED_EVENT);
+    });
+
+    function removeByIndex(index: number) {
+      state.selected.splice(index, 1);
+    }
+
+    function pushToItem(createdItem: Tag | Category) {
       // TODO: Remove excessive get calls
-      this.getAllCategories();
-      this.getAllTags();
-      this.selected.push(createdItem);
-    },
+      getAllCategories();
+      getAllTags();
+      state.selected.push(createdItem);
+    }
+
+    return {
+      ...toRefs(state),
+      inputLabel,
+      activeItems,
+      flat,
+      emitChange,
+      removeByIndex,
+      pushToItem,
+    };
   },
-};
+});
 </script>
 

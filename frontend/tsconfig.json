@@ -16,8 +16,9 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node", "@nuxtjs/i18n", "@nuxtjs/auth-next", "@types/sortablejs"]
+    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node", "@nuxtjs/i18n", "@nuxtjs/auth-next", "@nuxtjs/vuetify", "@types/sortablejs"]
   },
+  "include": ["**/*", ".eslintrc.js"],
   "exclude": ["node_modules", ".nuxt", "dist"],
   "vueCompilerOptions": {
     "experimentalCompatMode": 2

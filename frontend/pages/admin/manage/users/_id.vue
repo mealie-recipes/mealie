@@ -44,6 +44,7 @@ import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   layout: "admin",

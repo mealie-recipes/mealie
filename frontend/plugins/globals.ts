@@ -1,7 +1,27 @@
+import { Plugin } from "@nuxt/types"
 import { icons } from "~/utils/icons";
+import { Icon } from "~/utils/icons/icon-type";
 
-// eslint-disable-next-line no-empty-pattern
-export default ({}, inject: any) => {
-  // Inject $hello(msg) in Vue, context and store.
-  inject("globals", { icons });
+interface Globals {
+  icons: Icon;
+}
+
+declare module "vue/types/vue" {
+  interface Vue {
+    $globals: Globals;
+  }
+}
+
+declare module "@nuxt/types" {
+  interface Context {
+    $globals: Globals;
+  }
+}
+
+const globalsPlugin: Plugin = (_, inject) => {
+  inject("globals", {
+    icons
+  });
 };
+
+export default globalsPlugin

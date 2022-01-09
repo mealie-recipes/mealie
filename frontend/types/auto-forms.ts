@@ -4,6 +4,7 @@ export interface FormField {
   section?: string;
   sectionDetails?: string;
   label?: string;
+  hint?: string;
   varName: string;
   type: FormFieldType;
   rules?: string[];

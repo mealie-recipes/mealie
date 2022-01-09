@@ -6,6 +6,7 @@ interface BasePayload {
 
 type exportType = "json";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RecipeBulkDelete extends BasePayload {}
 
 interface RecipeBulkExport extends BasePayload {

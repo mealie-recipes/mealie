@@ -1,7 +1,7 @@
 /* frac.js (C) 2012-present SheetJS -- http://sheetjs.com */
 /* https://developer.aliyun.com/mirror/npm/package/frac/v/0.3.0 Apache license */
 
-function frac(x: number, D: number, mixed: Boolean) {
+function frac(x: number, D: number, mixed: boolean) {
   let n1 = Math.floor(x);
   let d1 = 1;
   let n2 = n1 + 1;
@@ -33,7 +33,7 @@ function frac(x: number, D: number, mixed: Boolean) {
   const q = Math.floor(n1 / d1);
   return [q, n1 - q * d1, d1];
 }
-function cont(x: number, D: number, mixed: Boolean) {
+function cont(x: number, D: number, mixed: boolean) {
   const sgn = x < 0 ? -1 : 1;
   let B = x * sgn;
   let P_2 = 0;

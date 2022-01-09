@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, ref, watch } from "@nuxtjs/composition-api";
+import { defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useRecipes, allRecipes, useRecipeSearch } from "~/composables/recipes";
 import { RecipeSummary } from "~/types/api-types/recipe";
@@ -74,7 +74,7 @@ export default defineComponent({
     });
 
     // ===========================================================================
-    // Dialong State Management
+    // Dialog State Management
     const dialog = ref(false);
 
     // Reset or Grab Recipes on Change
@@ -88,6 +88,53 @@ export default defineComponent({
         state.loading = false;
       }
     });
+
+    // ===========================================================================
+    // Event Handlers
+
+    function selectRecipe() {
+      const recipeCards = document.getElementsByClassName("arrow-nav");
+      if (recipeCards) {
+        if (state.selectedIndex < 0) {
+          state.selectedIndex = -1;
+          document.getElementById("arrow-search")?.focus();
+          return;
+        }
+
+        if (state.selectedIndex >= recipeCards.length) {
+          state.selectedIndex = recipeCards.length - 1;
+        }
+
+        (recipeCards[state.selectedIndex] as HTMLElement).focus();
+      }
+    }
+
+    function onUpDown(e: KeyboardEvent) {
+      if (e.key === "Enter") {
+        console.log(document.activeElement);
+        // (document.activeElement as HTMLElement).click();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        state.selectedIndex--;
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        state.selectedIndex++;
+      } else {
+        return;
+      }
+      selectRecipe();
+    }
+
+    watch(dialog, (val) => {
+      if (!val) {
+        document.removeEventListener("keyup", onUpDown);
+      } else {
+        document.addEventListener("keyup", onUpDown);
+      }
+    });
+
+    const route = useRoute();
+    watch(route, close);
 
     function open() {
       dialog.value = true;
@@ -109,56 +156,6 @@ export default defineComponent({
     }
 
     return { allRecipes, refreshRecipes, ...toRefs(state), dialog, open, close, handleSelect, search, results };
-  },
-  data() {
-    return {};
-  },
-
-  computed: {},
-  watch: {
-    $route() {
-      this.dialog = false;
-    },
-    dialog() {
-      if (!this.dialog) {
-        document.removeEventListener("keyup", this.onUpDown);
-      } else {
-        document.addEventListener("keyup", this.onUpDown);
-      }
-    },
-  },
-  methods: {
-    onUpDown(e: KeyboardEvent) {
-      if (e.key === "Enter") {
-        console.log(document.activeElement);
-        // (document.activeElement as HTMLElement).click();
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        this.selectedIndex--;
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        this.selectedIndex++;
-      } else {
-        return;
-      }
-      this.selectRecipe();
-    },
-    selectRecipe() {
-      const recipeCards = document.getElementsByClassName("arrow-nav");
-      if (recipeCards) {
-        if (this.selectedIndex < 0) {
-          this.selectedIndex = -1;
-          document.getElementById("arrow-search")?.focus();
-          return;
-        }
-
-        if (this.selectedIndex >= recipeCards.length) {
-          this.selectedIndex = recipeCards.length - 1;
-        }
-
-        (recipeCards[this.selectedIndex] as HTMLElement).focus();
-      }
-    },
   },
 });
 </script>

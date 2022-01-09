@@ -110,7 +110,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const dialog = computed<Boolean>({
+    const dialog = computed<boolean>({
       get() {
         return props.value;
       },
@@ -129,11 +129,8 @@ export default defineComponent({
     };
   },
   computed: {
-    determineClose(): Boolean {
+    determineClose(): boolean {
       return this.submitted && !this.loading && !this.keepOpen;
-    },
-    displayicon(): Boolean {
-      return this.icon || this.$globals.icons.user;
     },
   },
   watch: {

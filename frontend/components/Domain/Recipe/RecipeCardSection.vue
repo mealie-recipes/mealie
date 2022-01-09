@@ -102,13 +102,16 @@
   </div>
 </template>
 
-<script>
-import RecipeCard from "./RecipeCard";
-import RecipeCardMobile from "./RecipeCardMobile";
+<script lang="ts">
+import { computed, defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import RecipeCard from "./RecipeCard.vue";
+import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useSorter } from "~/composables/recipes";
+import {Recipe} from "~/types/api-types/recipe";
+
 const SORT_EVENT = "sort";
 
-export default {
+export default defineComponent({
   components: {
     RecipeCard,
     RecipeCardMobile,
@@ -126,100 +129,90 @@ export default {
       type: String,
       default: null,
     },
-    hardLimit: {
-      type: [String, Number],
-      default: 99999,
-    },
     mobileCards: {
       type: Boolean,
       default: false,
     },
     singleColumn: {
       type: Boolean,
-      defualt: false,
+      default: false,
     },
     recipes: {
-      type: Array,
+      type: Array as () => Recipe[],
       default: () => [],
     },
   },
-  setup() {
+  setup(props, context) {
     const utils = useSorter();
 
-    return { utils };
-  },
-  data() {
-    return {
-      sortLoading: false,
-      loading: false,
-      EVENTS: {
-        az: "az",
-        rating: "rating",
-        created: "created",
-        updated: "updated",
-        shuffle: "shuffle",
-      },
+    const EVENTS = {
+      az: "az",
+      rating: "rating",
+      created: "created",
+      updated: "updated",
+      shuffle: "shuffle",
     };
-  },
-  computed: {
-    viewScale() {
-      if (this.mobileCards) return true;
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return true;
-        case "sm":
-          return true;
-        default:
-          return false;
-      }
-    },
-    effectiveHardLimit() {
-      return Math.min(this.hardLimit, this.recipes.length);
-    },
-    displayTitleIcon() {
-      return this.icon || this.$globals.icons.tags;
-    },
-  },
 
-  methods: {
-    async setLoader() {
-      this.loading = true;
-      // eslint-disable-next-line promise/param-names
-      await new Promise((r) => setTimeout(r, 1000));
-      this.loading = false;
-    },
-    navigateRandom() {
-      const recipe = this.recipes[Math.floor(Math.random() * this.recipes.length)];
-      this.$router.push(`/recipe/${recipe.slug}`);
-    },
-    sortRecipes(sortType) {
-      this.sortLoading = true;
-      const sortTarget = [...this.recipes];
+    const { $globals, $vuetify } = useContext();
+    const viewScale = computed(() => {
+      return props.mobileCards || $vuetify.breakpoint.smAndDown;
+    });
+
+    const displayTitleIcon = computed(() => {
+      return props.icon || $globals.icons.tags;
+    });
+
+    const state = reactive({
+      sortLoading: false,
+    })
+
+    const router = useRouter();
+    function navigateRandom() {
+      if (props.recipes.length > 0) {
+        const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
+        if (recipe.slug !== undefined) {
+          router.push(`/recipe/${recipe.slug}`);
+        }
+      }
+    }
+
+    function sortRecipes(sortType: string) {
+      state.sortLoading = true;
+      const sortTarget = [...props.recipes];
       switch (sortType) {
-        case this.EVENTS.az:
-          this.utils.sortAToZ(sortTarget);
+        case EVENTS.az:
+          utils.sortAToZ(sortTarget);
           break;
-        case this.EVENTS.rating:
-          this.utils.sortByRating(sortTarget);
+        case EVENTS.rating:
+          utils.sortByRating(sortTarget);
           break;
-        case this.EVENTS.created:
-          this.utils.sortByCreated(sortTarget);
+        case EVENTS.created:
+          utils.sortByCreated(sortTarget);
           break;
-        case this.EVENTS.updated:
-          this.utils.sortByUpdated(sortTarget);
+        case EVENTS.updated:
+          utils.sortByUpdated(sortTarget);
           break;
-        case this.EVENTS.shuffle:
-          this.utils.shuffle(sortTarget);
+        case EVENTS.shuffle:
+          utils.shuffle(sortTarget);
           break;
         default:
           console.log("Unknown Event", sortType);
           return;
       }
-      this.$emit(SORT_EVENT, sortTarget);
-      this.sortLoading = false;
-    },
+      context.emit(SORT_EVENT, sortTarget);
+      state.sortLoading = false;
+    }
+
+    return {
+      ...toRefs(state),
+      EVENTS,
+      viewScale,
+      displayTitleIcon,
+      navigateRandom,
+      sortRecipes,
+    };
   },
-};
+});
 </script>
 
 <style>

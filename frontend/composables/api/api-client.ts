@@ -2,30 +2,26 @@ import { AxiosResponse } from "axios";
 import { useContext } from "@nuxtjs/composition-api";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { AdminAPI, Api } from "~/api";
-import { ApiRequestInstance } from "~/types/api";
-
-interface RequestResponse<T> {
-  response: AxiosResponse<T> | null;
-  data: T | null;
-  error: any;
-}
+import { ApiRequestInstance, RequestResponse } from "~/types/api";
 
 const request = {
-  async safe<T>(funcCall: any, url: string, data: object = {}): Promise<RequestResponse<T>> {
-    const response = await funcCall(url, data).catch(function (error: object) {
-      console.log(error);
+  async safe<T, U>(funcCall: (url: string, data: U) => Promise<AxiosResponse<T>>, url: string, data: U): Promise<RequestResponse<T>> {
+    let error = null;
+    const response = await funcCall(url, data).catch(function (e) {
+      console.log(e);
       // Insert Generic Error Handling Here
-      return { response: null, error, data: null };
+      error = e;
+      return null;
     });
-    return { response, error: null, data: response.data };
+    return { response, error, data: response?.data ?? null };
   },
 };
 
-function getRequests(axoisInstance: NuxtAxiosInstance): ApiRequestInstance {
-  const requests = {
+function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
+  return {
     async get<T>(url: string, params = {}): Promise<RequestResponse<T>> {
       let error = null;
-      const response = await axoisInstance.get<T>(url, params).catch((e) => {
+      const response = await axiosInstance.get<T>(url, params).catch((e) => {
         error = e;
       });
       if (response != null) {
@@ -34,23 +30,26 @@ function getRequests(axoisInstance: NuxtAxiosInstance): ApiRequestInstance {
       return { response: null, error, data: null };
     },
 
-    async post<T>(url: string, data: object) {
-      return await request.safe<T>(axoisInstance.post, url, data);
+    async post<T, U>(url: string, data: U) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      return await request.safe<T, U>(axiosInstance.post, url, data);
     },
 
-    async put<T>(url: string, data: object) {
-      return await request.safe<T>(axoisInstance.put, url, data);
+    async put<T, U = T>(url: string, data: U) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      return await request.safe<T, U>(axiosInstance.put, url, data);
     },
 
-    async patch<T>(url: string, data: object) {
-      return await request.safe<T>(axoisInstance.patch, url, data);
+    async patch<T, U = Partial<T>>(url: string, data: U) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      return await request.safe<T, U>(axiosInstance.patch, url, data);
     },
 
     async delete<T>(url: string) {
-      return await request.safe<T>(axoisInstance.delete, url);
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      return await request.safe<T, undefined>(axiosInstance.delete, url, undefined);
     },
   };
-  return requests;
 }
 
 export const useAdminApi = function (): AdminAPI {

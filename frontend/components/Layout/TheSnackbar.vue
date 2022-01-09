@@ -32,16 +32,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { toastAlert, toastLoading } from "~/composables/use-toast";
 
-export default {
+export default defineComponent({
   setup() {
-    return { toastAlert, toastLoading };
-  },
-  computed: {
-    icon() {
-      switch (this.toastAlert.color) {
+    const icon = computed(() => {
+      switch (toastAlert.color) {
         case "error":
           return "mdi-alert";
         case "success":
@@ -51,7 +49,9 @@ export default {
         default:
           return "mdi-alert";
       }
-    },
+    });
+
+    return { icon, toastAlert, toastLoading };
   },
-};
+});
 </script>

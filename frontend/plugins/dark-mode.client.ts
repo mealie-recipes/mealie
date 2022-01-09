@@ -1,11 +1,10 @@
+import { Plugin } from "@nuxt/types"
 import { useDark } from "@vueuse/core";
 
-export default ({ $vuetify }: any) => {
+const darkModePlugin: Plugin = ({ $vuetify }, _) => {
   const isDark = useDark();
 
-  if (isDark.value) {
-    $vuetify.theme.dark = true;
-  } else {
-    $vuetify.theme.dark = false;
-  }
+  $vuetify.theme.dark = isDark.value;
 };
+
+export default darkModePlugin;

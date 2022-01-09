@@ -38,7 +38,7 @@
     </template>
   </v-data-table>
 </template>
-    
+
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import RecipeChip from "./RecipeChips.vue";
@@ -49,13 +49,13 @@ import { UserOut } from "~/types/api-types/user";
 const INPUT_EVENT = "input";
 
 interface ShowHeaders {
-  id: Boolean;
-  owner: Boolean;
-  tags: Boolean;
-  categories: Boolean;
-  tools: Boolean;
-  recipeYield: Boolean;
-  dateAdded: Boolean;
+  id: boolean;
+  owner: boolean;
+  tags: boolean;
+  categories: boolean;
+  tools: boolean;
+  recipeYield: boolean;
+  dateAdded: boolean;
 }
 
 export default defineComponent({
@@ -129,7 +129,7 @@ export default defineComponent({
     // ============
     // Group Members
     const api = useUserApi();
-    const members = ref<UserOut[] | null[]>([]);
+    const members = ref<UserOut[]>([]);
 
     async function refreshMembers() {
       const { data } = await api.groups.fetchMembers();
@@ -142,10 +142,9 @@ export default defineComponent({
       refreshMembers();
     });
 
-    function getMember(id: number) {
+    function getMember(id: string) {
       if (members.value[0]) {
-        // @ts-ignore
-        return members.value.find((m) => m.id === id).username;
+        return members.value.find((m) => m.id === id)?.username;
       }
 
       return "None";
