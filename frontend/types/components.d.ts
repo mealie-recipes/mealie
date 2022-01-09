@@ -5,7 +5,9 @@
  import BaseOverflowButton from "@/components/global/BaseOverflowButton.vue";
  import ReportTable from "@/components/global/ReportTable.vue";
  import AppToolbar from "@/components/global/AppToolbar.vue";
+ import BaseButtonGroup from "@/components/global/BaseButtonGroup.vue";
  import BaseButton from "@/components/global/BaseButton.vue";
+ import BannerExperimental from "@/components/global/BannerExperimental.vue";
  import BaseDialog from "@/components/global/BaseDialog.vue";
  import RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
  import BaseStatCard from "@/components/global/BaseStatCard.vue";
@@ -31,7 +33,9 @@ declare module "vue" {
      BaseOverflowButton: typeof BaseOverflowButton;
      ReportTable: typeof ReportTable;
      AppToolbar: typeof AppToolbar;
+     BaseButtonGroup: typeof BaseButtonGroup;
      BaseButton: typeof BaseButton;
+     BannerExperimental: typeof BannerExperimental;
      BaseDialog: typeof BaseDialog;
      RecipeJsonEditor: typeof RecipeJsonEditor;
      BaseStatCard: typeof BaseStatCard;
