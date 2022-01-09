@@ -23,10 +23,10 @@ import { GroupMigrationApi } from "./class-interfaces/group-migrations";
 import { GroupReportsApi } from "./class-interfaces/group-reports";
 import { ShoppingApi } from "./class-interfaces/group-shopping-lists";
 import { MultiPurposeLabelsApi } from "./class-interfaces/group-multiple-purpose-labels";
+import { GroupEventNotifierApi } from "./class-interfaces/group-event-notifier";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
-  // private static instance: Api;
   public recipes: RecipeAPI;
   public users: UserApi;
   public groups: GroupAPI;
@@ -50,14 +50,10 @@ class Api {
   public tools: ToolsApi;
   public shopping: ShoppingApi;
   public multiPurposeLabels: MultiPurposeLabelsApi;
-  // Utils
+  public groupEventNotifier: GroupEventNotifierApi;
   public upload: UploadFile;
 
   constructor(requests: ApiRequestInstance) {
-    // if (Api.instance instanceof Api) {
-    //   return Api.instance;
-    // }
-
     // Recipes
     this.recipes = new RecipeAPI(requests);
     this.categories = new CategoriesAPI(requests);
@@ -92,9 +88,9 @@ class Api {
 
     this.email = new EmailAPI(requests);
     this.bulk = new BulkActionsAPI(requests);
+    this.groupEventNotifier = new GroupEventNotifierApi(requests);
 
     Object.freeze(this);
-    // Api.instance = this;
   }
 }
 

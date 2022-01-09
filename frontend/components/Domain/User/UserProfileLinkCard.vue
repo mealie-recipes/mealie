@@ -1,9 +1,9 @@
 <template>
   <v-card outlined nuxt :to="link.to" height="100%" class="d-flex flex-column">
     <div v-if="$vuetify.breakpoint.smAndDown" class="pa-2 mx-auto">
-      <v-img max-width="150px" max-height="125" :src="image"></v-img>
+      <v-img max-width="150px" max-height="125" :src="image" />
     </div>
-    <div class="d-flex align-center justify-space-between">
+    <div class="d-flex justify-space-between">
       <div>
         <v-card-title class="headline pb-0">
           <slot name="title"> </slot>
@@ -14,7 +14,7 @@
           </v-card-text>
         </div>
       </div>
-      <div v-if="$vuetify.breakpoint.mdAndUp" class="px-10">
+      <div v-if="$vuetify.breakpoint.mdAndUp" class="py-2 px-10 my-auto">
         <v-img max-width="150px" max-height="125" :src="image"></v-img>
       </div>
     </div>

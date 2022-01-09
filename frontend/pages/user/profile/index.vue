@@ -98,6 +98,15 @@
             Setup webhooks that trigger on days that you have have mealplan scheduled.
           </UserProfileLinkCard>
         </v-col>
+        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: 'Manage Notifiers', to: '/user/group/notifiers' }"
+            :image="require('~/static/svgs/manage-notifiers.svg')"
+          >
+            <template #title> Notifiers </template>
+            Setup email and push notifications that trigger on specific events.
+          </UserProfileLinkCard>
+        </v-col>
         <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: 'Manage Members', to: '/user/group/members' }"
@@ -129,7 +138,7 @@
     </section>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { computed, defineComponent, useContext, ref, toRefs, reactive } from "@nuxtjs/composition-api";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
@@ -218,4 +227,3 @@ export default defineComponent({
   },
 });
 </script>
-    
