@@ -80,28 +80,11 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   }
 
   async createOneByUrl(url: string) {
-    return await this.requests.post(routes.recipesCreateUrl, { url });
+    return await this.requests.post<string>(routes.recipesCreateUrl, { url });
   }
 
   async createManyByUrl(payload: BulkCreatePayload) {
     return await this.requests.post(routes.recipesCreateUrlBulk, payload);
-  }
-
-  // Methods to Generate reference urls for assets/images *
-  recipeImage(recipeSlug: string, version = null, key = null) {
-    return `/api/media/recipes/${recipeSlug}/images/original.webp?&rnd=${key}&version=${version}`;
-  }
-
-  recipeSmallImage(recipeSlug: string, version = null, key = null) {
-    return `/api/media/recipes/${recipeSlug}/images/min-original.webp?&rnd=${key}&version=${version}`;
-  }
-
-  recipeTinyImage(recipeSlug: string, version = null, key = null) {
-    return `/api/media/recipes/${recipeSlug}/images/tiny-original.webp?&rnd=${key}&version=${version}`;
-  }
-
-  recipeAssetPath(recipeSlug: string, assetName: string) {
-    return `/api/media/recipes/${recipeSlug}/assets/${assetName}`;
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {

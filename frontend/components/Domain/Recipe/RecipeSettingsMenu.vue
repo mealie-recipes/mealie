@@ -34,9 +34,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  components: {},
+<script lang="ts">
+import { defineComponent, useContext } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   props: {
     value: {
       type: Object,
@@ -47,23 +48,23 @@ export default {
       required: false,
     },
   },
+  setup() {
+    const { i18n } = useContext();
+    const labels = {
+      public: i18n.t("recipe.public-recipe"),
+      showNutrition: i18n.t("recipe.show-nutrition-values"),
+      showAssets: i18n.t("asset.show-assets"),
+      landscapeView: i18n.t("recipe.landscape-view-coming-soon"),
+      disableComments: i18n.t("recipe.disable-comments"),
+      disableAmount: i18n.t("recipe.disable-amount"),
+      locked: "Locked",
+    };
 
-  computed: {
-    labels() {
-      return {
-        public: this.$t("recipe.public-recipe"),
-        showNutrition: this.$t("recipe.show-nutrition-values"),
-        showAssets: this.$t("asset.show-assets"),
-        landscapeView: this.$t("recipe.landscape-view-coming-soon"),
-        disableComments: this.$t("recipe.disable-comments"),
-        disableAmount: this.$t("recipe.disable-amount"),
-        locked: "Locked",
-      };
-    },
+    return {
+      labels,
+    }
   },
-
-  methods: {},
-};
+});
 </script>
 
 <style lang="scss" scoped></style>

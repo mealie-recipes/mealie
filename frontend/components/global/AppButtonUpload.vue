@@ -10,10 +10,13 @@
   </v-form>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+
 const UPLOAD_EVENT = "uploaded";
-export default {
+
+export default defineComponent({
   props: {
     small: {
       type: Boolean,
@@ -48,65 +51,70 @@ export default {
       default: "",
     },
   },
-  setup() {
+  setup(props, context) {
+    const file = ref<File | null>(null);
+    const uploader = ref<HTMLInputElement | null>(null);
+    const isSelecting = ref(false);
+
+    const { i18n, $globals } = useContext();
+    const effIcon = props.icon ? props.icon : $globals.icons.upload;
+
+    const defaultText = i18n.t("general.upload");
+
     const api = useUserApi();
+    async function upload() {
+      if (file.value != null) {
+        isSelecting.value = true;
 
-    return { api };
-  },
-  data: () => ({
-    file: null,
-    isSelecting: false,
-  }),
-
-  computed: {
-    effIcon() {
-      return this.icon ? this.icon : this.$globals.icons.upload;
-    },
-    defaultText() {
-      return this.$t("general.upload");
-    },
-  },
-
-  methods: {
-    async upload() {
-      if (this.file != null) {
-        this.isSelecting = true;
-
-        if (!this.post) {
-          this.$emit(UPLOAD_EVENT, this.file);
-          this.isSelecting = false;
+        if (!props.post) {
+          context.emit(UPLOAD_EVENT, file.value);
+          isSelecting.value = false;
           return;
         }
 
         const formData = new FormData();
-        formData.append(this.fileName, this.file);
+        formData.append(props.fileName, file.value);
 
-        const response = await this.api.upload.file(this.url, formData);
+        const response = await api.upload.file(props.url, formData);
 
         if (response) {
-          this.$emit(UPLOAD_EVENT, response);
+          context.emit(UPLOAD_EVENT, response);
         }
-        this.isSelecting = false;
+        isSelecting.value = false;
       }
-    },
-    onButtonClick() {
-      this.isSelecting = true;
+    }
+
+    function onFileChanged(e: Event) {
+      const target = e.target as HTMLInputElement;
+      if (target.files !== null && target.files.length > 0 && file.value !== null) {
+        file.value = target.files[0];
+        upload();
+      }
+    }
+
+    function onButtonClick() {
+      isSelecting.value = true;
       window.addEventListener(
         "focus",
         () => {
-          this.isSelecting = false;
+          isSelecting.value = false;
         },
         { once: true }
       );
+      uploader.value?.click();
+    }
 
-      this.$refs.uploader.click();
-    },
-    onFileChanged(e) {
-      this.file = e.target.files[0];
-      this.upload();
-    },
+    return {
+      file,
+      uploader,
+      isSelecting,
+      effIcon,
+      defaultText,
+      onFileChanged,
+      onButtonClick,
+    };
   },
-};
+});
 </script>
 
 <style></style>

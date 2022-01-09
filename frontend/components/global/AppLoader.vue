@@ -20,8 +20,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   props: {
     loading: {
       type: Boolean,
@@ -40,15 +42,15 @@ export default {
       default: false,
     },
   },
-  computed: {
-    size() {
-      if (this.small) {
+  setup(props) {
+    const size = computed(() => {
+      if (props.small) {
         return {
           width: 2,
           icon: 30,
           size: 50,
         };
-      } else if (this.large) {
+      } else if (props.large) {
         return {
           width: 4,
           icon: 120,
@@ -60,10 +62,15 @@ export default {
         icon: 75,
         size: 125,
       };
-    },
-    waitingText() {
-      return this.$t("general.loading-recipes");
-    },
+    });
+
+    const { i18n } = useContext();
+    const waitingText = i18n.t("general.loading-recipes");
+
+    return {
+      size,
+      waitingText,
+    };
   },
-};
+});
 </script>

@@ -28,9 +28,11 @@
   </v-btn>
 </template>
 
-<script>
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-export default {
+
+export default defineComponent({
   name: "BaseButton",
   props: {
     // Types
@@ -106,103 +108,99 @@ export default {
       default: false,
     },
   },
-  setup() {
-    const api = useUserApi();
-
-    return { api };
-  },
-  data() {
-    return {
-      buttonOptions: {
-        create: {
-          text: "Create",
-          icon: this.$globals.icons.createAlt,
-          color: "success",
-        },
-        update: {
-          text: "Update",
-          icon: this.$globals.icons.edit,
-          color: "success",
-        },
-        save: {
-          text: "Save",
-          icon: this.$globals.icons.save,
-          color: "success",
-        },
-        edit: {
-          text: "Edit",
-          icon: this.$globals.icons.edit,
-          color: "info",
-        },
-        delete: {
-          text: "Delete",
-          icon: this.$globals.icons.delete,
-          color: "error",
-        },
-        cancel: {
-          text: "Cancel",
-          icon: this.$globals.icons.close,
-          color: "grey",
-        },
-        download: {
-          text: "Download",
-          icon: this.$globals.icons.download,
-          color: "info",
-        },
+  setup(props) {
+    const { $globals } = useContext();
+    const buttonOptions = {
+      create: {
+        text: "Create",
+        icon: $globals.icons.createAlt,
+        color: "success",
       },
-      buttonStyles: {
-        defaults: {
-          text: false,
-          outlined: false,
-        },
-        secondary: {
-          text: false,
-          outlined: true,
-        },
-        minor: {
-          outlined: false,
-          text: true,
-        },
+      update: {
+        text: "Update",
+        icon: $globals.icons.edit,
+        color: "success",
+      },
+      save: {
+        text: "Save",
+        icon: $globals.icons.save,
+        color: "success",
+      },
+      edit: {
+        text: "Edit",
+        icon: $globals.icons.edit,
+        color: "info",
+      },
+      delete: {
+        text: "Delete",
+        icon: $globals.icons.delete,
+        color: "error",
+      },
+      cancel: {
+        text: "Cancel",
+        icon: $globals.icons.close,
+        color: "grey",
+      },
+      download: {
+        text: "Download",
+        icon: $globals.icons.download,
+        color: "info",
       },
     };
-  },
-  computed: {
-    btnAttrs() {
-      if (this.delete) {
-        return this.buttonOptions.delete;
-      } else if (this.update) {
-        return this.buttonOptions.update;
-      } else if (this.edit) {
-        return this.buttonOptions.edit;
-      } else if (this.cancel) {
-        this.setMinor();
-        return this.buttonOptions.cancel;
-      } else if (this.save) {
-        return this.buttonOptions.save;
-      } else if (this.download) {
-        return this.buttonOptions.download;
+
+    const btnAttrs = computed(() => {
+      if (props.delete) {
+        return buttonOptions.delete;
+      } else if (props.update) {
+        return buttonOptions.update;
+      } else if (props.edit) {
+        return buttonOptions.edit;
+      } else if (props.cancel) {
+        return buttonOptions.cancel;
+      } else if (props.save) {
+        return buttonOptions.save;
+      } else if (props.download) {
+        return buttonOptions.download;
       }
-      return this.buttonOptions.create;
-    },
-    btnStyle() {
-      if (this.secondary) {
-        return this.buttonStyles.secondary;
-      } else if (this.minor) {
-        return this.buttonStyles.minor;
+      return buttonOptions.create;
+    });
+
+    const buttonStyles = {
+      defaults: {
+        text: false,
+        outlined: false,
+      },
+      secondary: {
+        text: false,
+        outlined: true,
+      },
+      minor: {
+        text: true,
+        outlined: false,
+      },
+    };
+
+    const btnStyle = computed(() => {
+      if (props.secondary) {
+        return buttonStyles.secondary;
+      } else if (props.minor || props.cancel) {
+        return buttonStyles.minor;
       }
-      return this.buttonStyles.defaults;
-    },
+      return buttonStyles.defaults;
+    });
+
+
+    const api = useUserApi();
+    function downloadFile() {
+      api.utils.download(props.downloadUrl);
+    }
+
+
+    return {
+      btnAttrs,
+      btnStyle,
+      downloadFile,
+    };
   },
-  methods: {
-    setMinor() {
-      this.buttonStyles.defaults = this.buttonStyles.minor;
-    },
-    setSecondary() {
-      this.buttonStyles.defaults = this.buttonStyles.secondary;
-    },
-    downloadFile() {
-      this.api.utils.download(this.downloadUrl);
-    },
-  },
-};
+});
 </script>

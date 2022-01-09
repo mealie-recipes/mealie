@@ -17,13 +17,15 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   props: {
     divider: {
       type: Boolean,
       default: false,
     },
   },
-};
+});
 </script>

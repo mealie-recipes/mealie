@@ -46,10 +46,11 @@
     </template>
   </v-app-bar>
 </template>
-    
+
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+import { defineComponent, onBeforeUnmount, onMounted, ref } from "@nuxtjs/composition-api";
 import RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
+
 export default defineComponent({
   components: { RecipeDialogSearch },
   props: {
@@ -59,36 +60,32 @@ export default defineComponent({
     },
   },
   setup() {
-    const domSearchDialog = ref(null);
+    const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
 
     function activateSearch() {
-      // @ts-ignore
-      domSearchDialog?.value?.open();
+      domSearchDialog.value?.open();
     }
+
+    function handleKeyEvent(e: KeyboardEvent) {
+      const activeTag = document.activeElement?.tagName;
+      if (e.key === "/" && activeTag !== "INPUT" && activeTag !== "TEXTAREA") {
+        e.preventDefault();
+        activateSearch();
+      }
+    }
+
+    onMounted(() => {
+      document.addEventListener("keydown", handleKeyEvent);
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener("keydown", handleKeyEvent);
+    });
 
     return {
       activateSearch,
       domSearchDialog,
     };
   },
-  mounted() {
-    document.addEventListener("keyup", this.handleKeyEvent);
-  },
-  beforeUnmount() {
-    document.removeEventListener("keyup", this.handleKeyEvent);
-  },
-  methods: {
-    handleKeyEvent(e: any) {
-      if (
-        e.key === "/" &&
-        // @ts-ignore
-        !document.activeElement.id.startsWith("input")
-      ) {
-        e.preventDefault();
-        this.activateSearch();
-      }
-    },
-  },
 });
 </script>
-    

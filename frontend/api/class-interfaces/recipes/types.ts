@@ -1,5 +1,6 @@
 import { Category } from "../categories";
 import { Tag } from "../tags";
+import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
 
 export type Parser = "nlp" | "brute";
 
@@ -12,26 +13,14 @@ export interface Confidence {
   food?: number;
 }
 
-export interface Unit {
-  name: string;
-  description: string;
-  fraction: boolean;
-  abbreviation: string;
-}
-
-export interface Food {
-  name: string;
-  description?: string;
-}
-
 export interface Ingredient {
-  referenceId: string;
-  title: string;
-  note: string;
-  unit: Unit | null;
-  food: Food | null;
-  disableAmount: boolean;
-  quantity: number;
+  title?: string;
+  note?: string;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  disableAmount?: boolean;
+  quantity?: number;
+  referenceId?: string;
 }
 
 export interface ParsedIngredient {

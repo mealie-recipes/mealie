@@ -27,8 +27,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, useContext, useMeta } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   layout: "basic",
   props: {
     error: {
@@ -36,28 +38,23 @@ export default {
       default: null,
     },
   },
-  data() {
+  setup(props) {
+    useMeta({ title: props.error.statusCode === 404 ? "404 Not Found" : "An error occurred" });
+
+    const { $globals, i18n } = useContext();
+    const buttons = [
+      { icon: $globals.icons.home, to: "/", text: i18n.t("general.home") },
+      { icon: $globals.icons.primary, to: "/recipes/all", text: i18n.t("page.all-recipes") },
+      { icon: $globals.icons.search, to: "/search", text: i18n.t("search.search") },
+    ];
+
     return {
-      pageNotFound: "404 Not Found",
-      otherError: "An error occurred",
-    };
+      buttons,
+    }
   },
-  head() {
-    const title = this.error.statusCode === 404 ? this.pageNotFound : this.otherError;
-    return {
-      title,
-    };
-  },
-  computed: {
-    buttons() {
-      return [
-        { icon: this.$globals.icons.home, to: "/", text: this.$t("general.home") },
-        { icon: this.$globals.icons.primary, to: "/recipes/all", text: this.$t("page.all-recipes") },
-        { icon: this.$globals.icons.search, to: "/search", text: this.$t("search.search") },
-      ];
-    },
-  },
-};
+  // Needed for useMeta
+  head: {},
+});
 </script>
 
 <style scoped>

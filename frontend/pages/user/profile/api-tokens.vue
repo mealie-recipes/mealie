@@ -62,10 +62,11 @@
     </section>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { computed, defineComponent, useContext, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   setup() {
@@ -125,4 +126,4 @@ export default defineComponent({
   },
 });
 </script>
-    
+

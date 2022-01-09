@@ -47,7 +47,7 @@ export default defineComponent({
       { text: "Delete", value: "actions" },
     ];
 
-    function handleRowClick(item: any) {
+    function handleRowClick(item: ReportSummary) {
       router.push("/user/group/data/reports/" + item.id);
     }
 

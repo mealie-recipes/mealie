@@ -30,7 +30,7 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, useRoute, reactive, toRefs, onMounted } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 

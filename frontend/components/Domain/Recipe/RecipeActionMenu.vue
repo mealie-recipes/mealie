@@ -92,7 +92,8 @@
   </v-toolbar>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent, ref, useContext} from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 
@@ -101,7 +102,7 @@ const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
-export default {
+export default defineComponent({
   components: { RecipeContextMenu, RecipeFavoriteBadge },
   props: {
     slug: {
@@ -129,69 +130,70 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      deleteDialog: false,
-      edit: false,
-    };
-  },
+  setup(_, context) {
+    const deleteDialog = ref(false);
 
-  computed: {
-    editorButtons() {
-      return [
-        {
-          text: this.$t("general.delete"),
-          icon: this.$globals.icons.delete,
-          event: DELETE_EVENT,
-          color: "error",
-        },
-        {
-          text: this.$t("general.json"),
-          icon: this.$globals.icons.codeBraces,
-          event: JSON_EVENT,
-          color: "accent",
-        },
-        {
-          text: this.$t("general.close"),
-          icon: this.$globals.icons.close,
-          event: CLOSE_EVENT,
-          color: "",
-        },
-        {
-          text: this.$t("general.save"),
-          icon: this.$globals.icons.save,
-          event: SAVE_EVENT,
-          color: "success",
-        },
-      ];
-    },
-  },
-  methods: {
-    emitHandler(event) {
+    const { i18n, $globals } = useContext();
+    const editorButtons = [
+      {
+        text: i18n.t("general.delete"),
+        icon: $globals.icons.delete,
+        event: DELETE_EVENT,
+        color: "error",
+      },
+      {
+        text: i18n.t("general.json"),
+        icon: $globals.icons.codeBraces,
+        event: JSON_EVENT,
+        color: "accent",
+      },
+      {
+        text: i18n.t("general.close"),
+        icon: $globals.icons.close,
+        event: CLOSE_EVENT,
+        color: "",
+      },
+      {
+        text: i18n.t("general.save"),
+        icon: $globals.icons.save,
+        event: SAVE_EVENT,
+        color: "success",
+      },
+    ];
+
+    function emitHandler(event: string) {
       switch (event) {
         case CLOSE_EVENT:
-          this.$emit(CLOSE_EVENT);
-          this.$emit("input", false);
+          context.emit(CLOSE_EVENT);
+          context.emit("input", false);
           break;
         case SAVE_EVENT:
-          this.$emit(SAVE_EVENT);
+          context.emit(SAVE_EVENT);
           break;
         case JSON_EVENT:
-          this.$emit(JSON_EVENT);
+          context.emit(JSON_EVENT);
           break;
         case DELETE_EVENT:
-          this.deleteDialog = true;
+          deleteDialog.value = true;
           break;
         default:
           break;
       }
-    },
-    emitDelete() {
-      this.$emit(DELETE_EVENT);
-      this.$emit("input", false);
-    },
+    }
+
+    function emitDelete() {
+      context.emit(DELETE_EVENT);
+      context.emit("input", false);
+    }
+
+    return {
+      deleteDialog,
+      editorButtons,
+      emitHandler,
+      emitDelete,
+    }
   },
-};
+});
 </script>
 
 <style scoped>

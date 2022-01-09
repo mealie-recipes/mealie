@@ -10,16 +10,6 @@ export interface CrudAPIInterface {
   // Methods
 }
 
-export interface CrudAPIMethodsInterface {
-  // CRUD Methods
-  getAll(): any;
-  createOne(): any;
-  getOne(): any;
-  updateOne(): any;
-  patchOne(): any;
-  deleteOne(): any;
-}
-
 export abstract class BaseAPI {
   requests: ApiRequestInstance;
 
@@ -50,8 +40,8 @@ export abstract class BaseCRUDAPI<T, U> extends BaseAPI implements CrudAPIInterf
     return await this.requests.put<T>(this.itemRoute(itemId), payload);
   }
 
-  async patchOne(itemId: string, payload: T) {
-    return await this.requests.patch(this.itemRoute(itemId), payload);
+  async patchOne(itemId: string, payload: Partial<T>) {
+    return await this.requests.patch<T>(this.itemRoute(itemId), payload);
   }
 
   async deleteOne(itemId: string | number) {

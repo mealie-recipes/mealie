@@ -34,8 +34,11 @@
   </v-tooltip>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, ref } from "@nuxtjs/composition-api";
+import { VTooltip } from "~/types/vuetify";
+
+export default defineComponent({
   props: {
     copyText: {
       type: String,
@@ -54,29 +57,33 @@ export default {
       default: "",
     },
   },
-  data() {
-    return {
-      show: false,
-    };
-  },
+  setup(props) {
+    const show = ref(false);
+    const copyToolTip = ref<VTooltip | null>(null);
 
-  methods: {
-    toggleBlur() {
-      this.$refs.copyToolTip.deactivate();
-    },
-    textToClipboard() {
-      this.show = true;
-      const copyText = this.copyText;
+    function toggleBlur() {
+      copyToolTip.value?.deactivate();
+    }
+
+    function textToClipboard() {
+      show.value = true;
+      const copyText = props.copyText;
       navigator.clipboard.writeText(copyText).then(
         () => console.log(`Copied\n${copyText}`),
         () => console.log(`Copied Failed\n${copyText}`)
       );
       setTimeout(() => {
-        this.toggleBlur();
+        toggleBlur();
       }, 500);
-    },
+    }
+
+    return {
+      show,
+      copyToolTip,
+      textToClipboard,
+    }
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

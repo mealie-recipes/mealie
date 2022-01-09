@@ -20,9 +20,10 @@
   </v-tooltip>
 </template>
 
-<script>
-import { defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+import {UserOut} from "~/types/api-types/user";
 export default defineComponent({
   props: {
     slug: {
@@ -38,28 +39,26 @@ export default defineComponent({
       default: false,
     },
   },
-  setup() {
+  setup(props) {
     const api = useUserApi();
+    const { $auth } = useContext();
 
-    return { api };
-  },
-  computed: {
-    user() {
-      return this.$auth.user;
-    },
-    isFavorite() {
-      return this.$auth.user.favoriteRecipes.includes(this.slug);
-    },
-  },
-  methods: {
-    async toggleFavorite() {
-      if (!this.isFavorite) {
-        await this.api.users.addFavorite(this.$auth.user.id, this.slug);
+    // TODO Setup the correct type for $auth.user
+    // See https://github.com/nuxt-community/auth-module/issues/1097
+    const user = computed(() => $auth.user as unknown as UserOut);
+    const isFavorite = computed(() => user.value?.favoriteRecipes?.includes(props.slug));
+
+    async function toggleFavorite() {
+      console.log("Favorited?");
+      if (!isFavorite.value) {
+        await api.users.addFavorite(user.value?.id, props.slug);
       } else {
-        await this.api.users.removeFavorite(this.$auth.user.id, this.slug);
+        await api.users.removeFavorite(user.value?.id, props.slug);
       }
-      this.$auth.fetchUser();
-    },
+      $auth.fetchUser();
+    };
+
+    return { isFavorite, toggleFavorite };
   },
 });
 </script>

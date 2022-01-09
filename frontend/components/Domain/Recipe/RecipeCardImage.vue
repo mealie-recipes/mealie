@@ -17,9 +17,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {computed, defineComponent, ref, watch} from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
-export default {
+
+export default defineComponent({
   props: {
     tiny: {
       type: Boolean,
@@ -50,44 +52,42 @@ export default {
       default: 200,
     },
   },
-  setup() {
+  setup(props) {
     const api = useUserApi();
 
     const { recipeImage, recipeSmallImage, recipeTinyImage } = useStaticRoutes();
 
-    return { api, recipeImage, recipeSmallImage, recipeTinyImage };
-  },
-  data() {
+    const fallBackImage = ref(false);
+    const imageSize = computed(() => {
+      if (props.tiny) return "tiny";
+      if (props.small) return "small";
+      if (props.large) return "large";
+      return "large";
+    })
+
+    watch(() => props.slug, () => {
+      fallBackImage.value = false;
+    });
+
+    function getImage(slug: string) {
+      switch (imageSize.value) {
+        case "tiny":
+          return recipeTinyImage(slug, props.imageVersion);
+        case "small":
+          return recipeSmallImage(slug, props.imageVersion);
+        case "large":
+          return recipeImage(slug, props.imageVersion);
+      }
+    }
+
     return {
-      fallBackImage: false,
+      api,
+      fallBackImage,
+      imageSize,
+      getImage,
     };
   },
-  computed: {
-    imageSize() {
-      if (this.tiny) return "tiny";
-      if (this.small) return "small";
-      if (this.large) return "large";
-      return "large";
-    },
-  },
-  watch: {
-    slug() {
-      this.fallBackImage = false;
-    },
-  },
-  methods: {
-    getImage(slug) {
-      switch (this.imageSize) {
-        case "tiny":
-          return this.recipeTinyImage(slug, this.imageVersion);
-        case "small":
-          return this.recipeSmallImage(slug, this.imageVersion);
-        case "large":
-          return this.recipeImage(slug, this.imageVersion);
-      }
-    },
-  },
-};
+});
 </script>
 
 <style scoped>

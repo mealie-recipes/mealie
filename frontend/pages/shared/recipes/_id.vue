@@ -325,11 +325,11 @@ export default defineComponent({
       if (data) {
         if (data && data !== undefined) {
           console.log("Computed Meta. RefKey=");
-          const imageURL = recipeImage(data.slug);
+          const imageURL = data.slug ? recipeImage(data.slug) : undefined;
           title.value = data.name;
 
           meta.value = [
-            { hid: "og:title", property: "og:title", content: data.name },
+            { hid: "og:title", property: "og:title", content: data.name ?? "" },
             // @ts-ignore
             {
               hid: "og:desc",
@@ -339,7 +339,7 @@ export default defineComponent({
             {
               hid: "og-image",
               property: "og:image",
-              content: imageURL,
+              content: imageURL ?? "",
             },
             // @ts-ignore
             {
@@ -360,7 +360,6 @@ export default defineComponent({
       }
     });
 
-    // @ts-ignore
     const { $vuetify } = useContext();
 
     const enableLandscape = computed(() => {
@@ -400,7 +399,6 @@ export default defineComponent({
   head: {},
   computed: {
     imageHeight() {
-      // @ts-ignore
       return this.$vuetify.breakpoint.xs ? "200" : "400";
     },
   },

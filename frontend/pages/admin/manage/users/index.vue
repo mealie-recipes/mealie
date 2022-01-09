@@ -77,7 +77,7 @@ export default defineComponent({
     const { loading, deleteUser } = useUser(refreshAllUsers);
 
     function handleRowClick(item: UserOut) {
-      router.push("/admin/manage/users/" + item.id);
+      router.push(`/admin/manage/users/${item.id}`);
     }
 
     // ==========================================================

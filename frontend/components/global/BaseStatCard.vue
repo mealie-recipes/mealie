@@ -1,4 +1,4 @@
-w<template>
+<template>
   <v-card v-bind="$attrs" :class="classes" class="v-card--material pa-3">
     <div class="d-flex grow flex-wrap">
       <slot name="avatar">
@@ -40,8 +40,10 @@ w<template>
   </v-card>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   name: "MaterialCard",
 
   props: {
@@ -70,22 +72,25 @@ export default {
       default: "",
     },
   },
+  setup() {
+    const { $vuetify } = useContext();
 
-  computed: {
-    classes() {
+    const hasHeading = computed(() => false);
+    const hasAltHeading = computed(() => false);
+    const classes = computed(() => {
       return {
-        "v-card--material--has-heading": this.hasHeading,
-        "mt-3": this.$vuetify.breakpoint.name === "xs" || this.$vuetify.breakpoint.name === "sm",
+        "v-card--material--has-heading": hasHeading,
+        "mt-3": $vuetify.breakpoint.name === "xs" || $vuetify.breakpoint.name === "sm",
       };
-    },
-    hasHeading() {
-      return false;
-    },
-    hasAltHeading() {
-      return false;
-    },
+    });
+
+    return {
+      hasHeading,
+      hasAltHeading,
+      classes,
+    };
   },
-};
+});
 </script>
 
 <style lang="sass">

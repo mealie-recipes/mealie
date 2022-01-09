@@ -80,20 +80,21 @@
     </v-container>
   </v-container>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
-import { until, invoke } from "@vueuse/core";
-import { Food, ParsedIngredient, Parser } from "~/api/class-interfaces/recipes/types";
+import { invoke, until } from "@vueuse/core";
+import { ParsedIngredient, Parser } from "~/api/class-interfaces/recipes/types";
+import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
-import { useRecipe, useFoods, useUnits } from "~/composables/recipes";
-import { RecipeIngredientUnit } from "~/types/api-types/recipe";
+import { useFoods, useRecipe, useUnits } from "~/composables/recipes";
+
 interface Error {
   ingredientIndex: number;
-  unitError: Boolean;
+  unitError: boolean;
   unitErrorMessage: string;
-  foodError: Boolean;
+  foodError: boolean;
   foodErrorMessage: string;
 }
 
@@ -125,10 +126,10 @@ export default defineComponent({
     const parsedIng = ref<ParsedIngredient[]>([]);
 
     async function fetchParsed() {
-      if (!recipe.value) {
+      if (!recipe.value || !recipe.value.recipeIngredient) {
         return;
       }
-      const raw = recipe.value.recipeIngredient.map((ing) => ing.note);
+      const raw = recipe.value.recipeIngredient.map((ing) => ing.note ?? "");
       const { data } = await api.recipes.parseIngredients(parser.value, raw);
 
       if (data) {
@@ -187,7 +188,7 @@ export default defineComponent({
 
     const errors = ref<Error[]>([]);
 
-    function checkForUnit(unit: RecipeIngredientUnit | null) {
+    function checkForUnit(unit?: IngredientUnit | CreateIngredientUnit) {
       if (!unit) {
         return false;
       }
@@ -197,7 +198,7 @@ export default defineComponent({
       return false;
     }
 
-    function checkForFood(food: Food | null) {
+    function checkForFood(food?: IngredientFood | CreateIngredientFood) {
       if (!food) {
         return false;
       }
@@ -207,7 +208,7 @@ export default defineComponent({
       return false;
     }
 
-    async function createFood(food: Food, index: number) {
+    async function createFood(food: CreateIngredientFood, index: number) {
       workingFoodData.name = food.name;
       await actions.createOne();
       errors.value[index].foodError = false;
@@ -227,16 +228,14 @@ export default defineComponent({
           return ing;
         }
         // Get food from foods
-        const food = foods.value.find((f) => f.name === ing.food?.name);
-        ing.food = food || null;
+        ing.food = foods.value.find((f) => f.name === ing.food?.name);
 
         // Get unit from units
-        const unit = units.value.find((u) => u.name === ing.unit?.name);
-        ing.unit = unit || null;
+        ing.unit = units.value.find((u) => u.name === ing.unit?.name);
         return ing;
       });
 
-      if (!recipe.value) {
+      if (!recipe.value || !recipe.value.slug) {
         return;
       }
 
@@ -272,4 +271,4 @@ export default defineComponent({
   },
 });
 </script>
-  
+

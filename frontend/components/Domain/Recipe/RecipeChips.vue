@@ -16,8 +16,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {computed, defineComponent} from "@nuxtjs/composition-api";
+
+export default defineComponent({
   props: {
     truncate: {
       type: Boolean,
@@ -48,39 +50,23 @@ export default {
       default: null,
     },
   },
-  computed: {
-    allCategories() {
-      return this.$store.getters.getAllCategories || [];
-    },
-    allTags() {
-      return this.$store.getters.getAllTags || [];
-    },
-    urlParam() {
-      return this.isCategory ? "categories" : "tags";
-    },
-  },
-  methods: {
-    getSlug(name) {
-      if (!name) return;
+  setup(props) {
+    const urlParam = computed(() => props.isCategory ? "categories" : "tags");
 
-      if (this.isCategory) {
-        const matches = this.allCategories.filter((x) => x.name === name);
-        if (matches.length > 0) return matches[0].slug;
-      } else {
-        const matches = this.allTags.filter((x) => x.name === name);
-        if (matches.length > 0) return matches[0].slug;
-      }
-    },
-    truncateText(text, length = 20, clamp) {
-      if (!this.truncate) return text;
-      clamp = clamp || "...";
+    function truncateText(text: string, length = 20, clamp = "...") {
+      if (!props.truncate) return text;
       const node = document.createElement("div");
       node.innerHTML = text;
-      const content = node.textContent;
+      const content = node.textContent || "";
       return content.length > length ? content.slice(0, length) + clamp : content;
-    },
+    }
+
+    return {
+      urlParam,
+      truncateText,
+    }
   },
-};
+});
 </script>
 
 <style></style>

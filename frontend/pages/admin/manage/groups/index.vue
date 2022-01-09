@@ -126,7 +126,7 @@ export default defineComponent({
     const router = useRouter();
 
     function handleRowClick(item: Group) {
-      router.push("/admin/manage/groups/" + item.id);
+      router.push(`/admin/manage/groups/${item.id}`);
     }
 
     return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup, openDialog, handleRowClick };

@@ -11,10 +11,10 @@ export class UtilsAPI extends BaseAPI {
     }
 
     // @ts-ignore
-    const token: String = response.data.fileToken;
+    const token: string = response.data.fileToken;
 
     const tokenURL = prefix + "/utils/download?token=" + token;
     window.open(tokenURL, "_blank");
-    return await response;
+    return response;
   }
 }

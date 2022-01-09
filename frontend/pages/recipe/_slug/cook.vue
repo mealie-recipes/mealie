@@ -94,12 +94,12 @@ export default defineComponent({
 
     const { recipeImage } = useStaticRoutes();
 
-    function getIngredientByRefId(refId: String) {
+    function getIngredientByRefId(refId: string) {
       if (!recipe.value) {
         return;
       }
 
-      const ing = recipe?.value.recipeIngredient.find((ing) => ing.referenceId === refId) || "";
+      const ing = recipe?.value.recipeIngredient?.find((ing) => ing.referenceId === refId) || "";
       if (ing === "") {
         return "";
       }

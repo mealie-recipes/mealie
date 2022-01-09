@@ -2,6 +2,7 @@ import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import { Food } from "~/api/class-interfaces/recipe-foods";
+import { VForm} from "~/types/vuetify";
 
 let foodStore: Ref<Food[] | null> | null = null;
 
