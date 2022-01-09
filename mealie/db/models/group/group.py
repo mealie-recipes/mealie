@@ -1,5 +1,3 @@
-import uuid
-
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm.session import Session
@@ -22,7 +20,7 @@ settings = get_app_settings()
 
 class Group(SqlAlchemyBase, BaseMixins):
     __tablename__ = "groups"
-    id = sa.Column(GUID, primary_key=True, default=uuid.uuid4)
+    id = sa.Column(GUID, primary_key=True, default=GUID.generate)
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
     categories = orm.relationship(Category, secondary=group2categories, single_parent=True, uselist=True)
@@ -57,6 +55,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     data_exports = orm.relationship("GroupDataExportsModel", **common_args)
     shopping_lists = orm.relationship("ShoppingList", **common_args)
     group_reports = orm.relationship("ReportModel", **common_args)
+    group_event_notifiers = orm.relationship("GroupEventNotifierModel", **common_args)
 
     class Config:
         exclude = {
