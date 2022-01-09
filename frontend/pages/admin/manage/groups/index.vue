@@ -41,9 +41,6 @@
         :search="search"
         @click:row="handleRowClick"
       >
-        <template #item.shoppingLists="{ item }">
-          {{ item.shoppingLists.length }}
-        </template>
         <template #item.users="{ item }">
           {{ item.users.length }}
         </template>
@@ -99,7 +96,6 @@ export default defineComponent({
         { text: i18n.t("general.name"), value: "name" },
         { text: i18n.t("user.total-users"), value: "users" },
         { text: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
-        { text: i18n.t("shopping-list.shopping-lists"), value: "shoppingLists" },
         { text: i18n.t("general.delete"), value: "actions" },
       ],
       updateMode: false,
