@@ -2,7 +2,7 @@ import enum
 
 from fastapi_camelcase import CamelModel
 
-from . import CategoryBase, TagBase
+from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 
 
 class ExportTypes(str, enum.Enum):

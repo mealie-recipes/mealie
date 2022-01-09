@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi_camelcase import CamelModel
 from pydantic.utils import GetterDict
 
@@ -23,7 +21,7 @@ class CategoryBase(CategoryIn):
 
 
 class RecipeCategoryResponse(CategoryBase):
-    recipes: List["Recipe"] = []
+    recipes: "list[Recipe]" = []
 
     class Config:
         orm_mode = True
@@ -42,7 +40,7 @@ class RecipeTagResponse(RecipeCategoryResponse):
     pass
 
 
-from . import Recipe
+from mealie.schema.recipe.recipe import Recipe
 
 RecipeCategoryResponse.update_forward_refs()
 RecipeTagResponse.update_forward_refs()
