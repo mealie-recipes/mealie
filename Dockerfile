@@ -135,7 +135,6 @@ WORKDIR /
 
 # copy frontend
 # COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
-COPY ./dev/data/templates $MEALIE_HOME/data/templates
 COPY ./Caddyfile $MEALIE_HOME
 
 # Grab CRF++ Model Release
