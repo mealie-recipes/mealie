@@ -229,8 +229,8 @@ export default defineComponent({
 
     const weekRange = computed(() => {
       return {
-        start: subDays(state.today, 1),
-        end: addDays(state.today, 6),
+        start: subDays(state.today as Date, 1),
+        end: addDays(state.today as Date, 6),
       };
     });
 
@@ -248,12 +248,12 @@ export default defineComponent({
 
     function forwardOneWeek() {
       if (!state.today) return;
-      state.today = addDays(state.today, +5);
+      state.today = addDays(state.today as Date, +5);
     }
 
     function backOneWeek() {
       if (!state.today) return;
-      state.today = addDays(state.today, -5);
+      state.today = addDays(state.today as Date, -5);
     }
 
     function onMoveCallback(evt: SortableEvent) {

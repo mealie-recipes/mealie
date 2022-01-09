@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Produce"
+    },
+    {
+        "name": "Grains"
+    },
+    {
+        "name": "Fruits"
+    },
+    {
+        "name": "Vegetables"
+    },
+    {
+        "name": "Meat"
+    },
+    {
+        "name": "Seafood"
+    },
+    {
+        "name": "Beverages"
+    },
+    {
+        "name": "Baked Goods"
+    },
+    {
+        "name": "Canned Goods"
+    },
+    {
+        "name": "Condiments"
+    },
+    {
+        "name": "Confectionary"
+    },
+    {
+        "name": "Dairy Products"
+    },
+    {
+        "name": "Frozen Foods"
+    },
+    {
+        "name": "Health Foods"
+    },
+    {
+        "name": "Household"
+    },
+    {
+        "name": "Meat Products"
+    },
+    {
+        "name": "Snacks"
+    },
+    {
+        "name": "Spices"
+    },
+    {
+        "name": "Sweets"
+    },
+    {
+        "name": "Alcohol"
+    },
+    {
+        "name": "Other"
+    }
+]

@@ -22,3 +22,20 @@
 .theme--dark.v-card {
   background-color: #2b2b2b !important;
 }
+
+.left-border {
+  border-left: 5px solid var(--v-primary-base) !important;
+}
+
+.handle {
+  cursor: grab;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.v-card__text,
+.v-card__title {
+  word-break: normal !important;
+}

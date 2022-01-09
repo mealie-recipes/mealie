@@ -8,7 +8,7 @@ from mealie.services.group_services import CookbookService, WebhookService
 from mealie.services.group_services.meal_service import MealService
 from mealie.services.group_services.reports_service import GroupReportService
 
-from . import categories, invitations, migrations, preferences, self_service
+from . import categories, invitations, labels, migrations, preferences, self_service, shopping_lists
 
 router = APIRouter()
 
@@ -20,18 +20,18 @@ cookbook_router = RouterFactory(service=CookbookService, prefix="/groups/cookboo
 
 
 @router.get("/groups/mealplans/today", tags=["Groups: Mealplans"])
-def get_todays_meals(m_service: MealService = Depends(MealService.private)):
-    return m_service.get_today()
+def get_todays_meals(ms: MealService = Depends(MealService.private)):
+    return ms.get_today()
 
 
 meal_plan_router = RouterFactory(service=MealService, prefix="/groups/mealplans", tags=["Groups: Mealplans"])
 
 
 @meal_plan_router.get("")
-def get_all(start: date = None, limit: date = None, m_service: MealService = Depends(MealService.private)):
+def get_all(start: date = None, limit: date = None, ms: MealService = Depends(MealService.private)):
     start = start or date.today() - timedelta(days=999)
     limit = limit or date.today() + timedelta(days=999)
-    return m_service.get_slice(start, limit)
+    return ms.get_slice(start, limit)
 
 
 router.include_router(cookbook_router)
@@ -47,9 +47,12 @@ report_router = RouterFactory(service=GroupReportService, prefix="/groups/report
 
 @report_router.get("")
 def get_all_reports(
-    report_type: ReportCategory = None, gm_service: GroupReportService = Depends(GroupReportService.private)
+    report_type: ReportCategory = None,
+    gs: GroupReportService = Depends(GroupReportService.private),
 ):
-    return gm_service._get_all(report_type)
+    return gs._get_all(report_type)
 
 
 router.include_router(report_router)
+router.include_router(shopping_lists.router)
+router.include_router(labels.router)

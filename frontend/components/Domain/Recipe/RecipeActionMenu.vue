@@ -58,7 +58,6 @@
         show-print
         :menu-top="false"
         :slug="slug"
-        :name="name"
         :menu-icon="$globals.icons.mdiDotsHorizontal"
         fab
         color="info"
@@ -69,6 +68,7 @@
           edit: false,
           download: true,
           mealplanner: true,
+          shoppingList: true,
           print: true,
           share: true,
         }"

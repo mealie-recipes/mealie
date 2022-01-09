@@ -78,6 +78,8 @@ def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elemen
     elems_to_create: list[dict] = []
     updated_elems: list[dict] = []
 
+    cfg = _get_config(relation_cls)
+
     for elem in all_elements:
         elem_id = elem.get(get_attr, None) if isinstance(elem, dict) else elem
         existing_elem = session.query(relation_cls).filter_by(**{get_attr: elem_id}).one_or_none()
@@ -88,7 +90,8 @@ def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elemen
 
         elif isinstance(elem, dict):
             for key, value in elem.items():
-                setattr(existing_elem, key, value)
+                if key not in cfg.exclude:
+                    setattr(existing_elem, key, value)
 
         updated_elems.append(existing_elem)
 

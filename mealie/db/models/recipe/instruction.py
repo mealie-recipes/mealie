@@ -26,6 +26,12 @@ class RecipeInstruction(SqlAlchemyBase):
 
     ingredient_references = orm.relationship("RecipeIngredientRefLink", cascade="all, delete-orphan")
 
+    class Config:
+        exclude = {
+            "id",
+            "ingredient_references",
+        }
+
     @auto_init()
-    def __init__(self, **_) -> None:
-        pass
+    def __init__(self, ingredient_references, **_) -> None:
+        self.ingredient_references = [RecipeIngredientRefLink(**ref) for ref in ingredient_references]

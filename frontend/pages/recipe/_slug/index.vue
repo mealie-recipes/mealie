@@ -33,8 +33,9 @@
         <v-img
           :key="imageKey"
           :max-width="enableLandscape ? null : '50%'"
-          :min-height="hideImage ? '50' : imageHeight"
-          :src="recipeImage(recipe.slug, '', imageKey)"
+          min-height="50"
+          :height="hideImage ? undefined : imageHeight"
+          :src="recipeImage(recipe.slug, imageKey)"
           class="d-print-none"
           @error="hideImage = true"
         >
@@ -78,7 +79,12 @@
         >
           <div v-if="form" class="d-flex justify-start align-center">
             <RecipeImageUploadBtn class="my-1" :slug="recipe.slug" @upload="uploadImage" @refresh="imageKey++" />
-            <RecipeSettingsMenu class="my-1 mx-1" :value="recipe.settings" :is-owner="recipe.userId == $auth.user.id" @upload="uploadImage" />
+            <RecipeSettingsMenu
+              class="my-1 mx-1"
+              :value="recipe.settings"
+              :is-owner="recipe.userId == $auth.user.id"
+              @upload="uploadImage"
+            />
           </div>
           <!-- Recipe Title Section -->
           <template v-if="!form && enableLandscape">
@@ -771,4 +777,3 @@ export default defineComponent({
   },
 });
 </script>
-

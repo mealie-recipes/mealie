@@ -146,7 +146,7 @@ class RepositoryGeneric(Generic[T, D]):
         filter = self._filter_builder(**{match_key: match_value})
         return self.session.query(self.sql_model).filter_by(**filter).one()
 
-    def get_one(self, value: str | int, key: str = None, any_case=False, override_schema=None) -> T:
+    def get_one(self, value: str | int | UUID4, key: str = None, any_case=False, override_schema=None) -> T:
         key = key or self.primary_key
 
         q = self.session.query(self.sql_model)

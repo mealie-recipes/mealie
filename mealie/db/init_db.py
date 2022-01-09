@@ -4,15 +4,13 @@ from mealie.db.db_setup import create_session, engine
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
-from mealie.repos.seed.init_units_foods import default_recipe_unit_init
 from mealie.repos.seed.init_users import default_user_init
+from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder, MultiPurposeLabelSeeder
 from mealie.schema.user.user import GroupBase
 from mealie.services.events import create_general_event
 from mealie.services.group_services.group_utils import create_new_group
 
 logger = root_logger.get_logger("init_db")
-
-settings = get_app_settings()
 
 
 def create_all_models():
@@ -22,12 +20,25 @@ def create_all_models():
 
 
 def init_db(db: AllRepositories) -> None:
+    # TODO: Port other seed data to use abstract seeder class
     default_group_init(db)
     default_user_init(db)
-    default_recipe_unit_init(db)
+
+    group_id = db.groups.get_all()[0].id
+
+    seeders = [
+        MultiPurposeLabelSeeder(db, group_id=group_id),
+        IngredientFoodsSeeder(db, group_id=group_id),
+        IngredientUnitsSeeder(db, group_id=group_id),
+    ]
+
+    for seeder in seeders:
+        seeder.seed()
 
 
 def default_group_init(db: AllRepositories):
+    settings = get_app_settings()
+
     logger.info("Generating Default Group")
     create_new_group(db, GroupBase(name=settings.DEFAULT_GROUP))
 

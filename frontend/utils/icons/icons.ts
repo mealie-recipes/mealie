@@ -103,6 +103,7 @@ import {
   mdiTimerSand,
   mdiRefresh,
   mdiArrowRightBold,
+  mdiChevronRight,
 } from "@mdi/js";
 
 export const icons = {
@@ -222,4 +223,5 @@ export const icons = {
   back: mdiArrowLeftBoldOutline,
   slotMachine: mdiSlotMachine,
   chevronDown: mdiChevronDown,
+  chevronRight: mdiChevronRight,
 };
