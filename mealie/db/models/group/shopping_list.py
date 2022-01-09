@@ -1,6 +1,8 @@
 from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 
+from mealie.db.models.labels import MultiPurposeLabel
+
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
@@ -30,6 +32,12 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     food_id = Column(Integer, ForeignKey("ingredient_foods.id"))
     food = orm.relationship(IngredientFoodModel, uselist=False)
+
+    label_id = Column(GUID, ForeignKey("multi_purpose_labels.id"))
+    label = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="shopping_list_items")
+
+    class Config:
+        exclude = {"id", "label"}
 
     @auto_init()
     def __init__(self, **_) -> None:

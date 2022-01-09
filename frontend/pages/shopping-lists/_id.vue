@@ -6,17 +6,33 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
-    <div class="d-flex justify-end my-4">
-      <BaseButton v-if="!edit" edit @click="edit = true" />
-      <BaseButton v-else save @click="saveList" />
-    </div>
 
     <!-- Viewer -->
-    <section v-if="!edit">
-      <div>
+    <section v-if="!edit" class="py-2">
+      <div v-if="!byLabel">
         <draggable :value="shoppingList.listItems" handle=".handle" @input="updateIndex">
-          <div v-for="item in listItems.unchecked" :key="item.id" class="d-flex justify-space-between align-center">
-            <v-checkbox v-model="item.checked" class="my-n2" :label="item.note" @change="saveList">
+          <ShoppingListItem
+            v-for="item, index in listItems.unchecked"
+            :key="item.id"
+            v-model="listItems.unchecked[index]"
+            :labels="allLabels"
+            @checked="saveList"
+            @save="saveList"
+          />
+        </draggable>
+      </div>
+      <div v-else>
+        <div v-for="value, key in itemsByLabel" :key="key" class="mb-6">
+          <div @click="toggleShowChecked()">
+            <span>
+              <v-icon>
+                {{ $globals.icons.tags }}
+              </v-icon>
+            </span>
+            {{ key  }}
+          </div>
+          <div v-for="item in value" :key="item.id" class="small-checkboxes d-flex justify-space-between align-center">
+            <v-checkbox v-model="item.checked" hide-details dense :label="item.note" @change="saveList">
               <template #label>
                 <div>
                   {{ item.quantity }} <v-icon size="16" class="mx-1"> {{ $globals.icons.close }} </v-icon>
@@ -24,11 +40,8 @@
                 </div>
               </template>
             </v-checkbox>
-            <v-icon class="handle">
-              {{ $globals.icons.arrowUpDown }}
-            </v-icon>
           </div>
-        </draggable>
+        </div>
       </div>
 
       <div v-if="listItems.checked && listItems.checked.length > 0" class="mt-6">
@@ -52,9 +65,6 @@
                   </div>
                 </template>
               </v-checkbox>
-            </div>
-            <div class="d-flex">
-              <BaseButton small delete class="ml-auto" @click="deleteChecked"> Delete Checked </BaseButton>
             </div>
           </div>
         </v-expand-transition>
@@ -92,9 +102,10 @@
       </draggable>
 
       <v-divider class="my-2" />
+
+      <!-- Create Form -->
       <v-form @submit.prevent="ingredientCreate()">
         <v-checkbox v-model="createIngredient.isFood" label="Treat list item as a recipe ingredient" />
-
         <div class="d-flex">
           <div class="number-input-container">
             <v-text-field v-model="createIngredient.quantity" class="mx-1" type="number" label="Qty" />
@@ -102,33 +113,107 @@
           <v-text-field v-model="createIngredient.note" :label="$t('recipe.note')"> </v-text-field>
         </div>
         <div v-if="createIngredient.isFood">Is Food</div>
+        <v-autocomplete
+          v-model="createIngredient.labelId"
+          clearable
+          name=""
+          :items="allLabels"
+          item-value="id"
+          item-text="name"
+        >
+        </v-autocomplete>
         <div class="d-flex justify-end">
           <BaseButton type="submit" create> </BaseButton>
         </div>
       </v-form>
     </section>
+    <div class="d-flex justify-end my-4">
+      <BaseButtonGroup
+        v-if="!edit"
+        :buttons="[
+          {
+            icon: $globals.icons.contentCopy,
+            text: '',
+            event: 'edit',
+            children: [
+              {
+                icon: $globals.icons.contentCopy,
+                text: 'Copy as Text',
+                event: 'copy-plain',
+              },
+              {
+                icon: $globals.icons.contentCopy,
+                text: 'Copy as Markdown',
+                event: 'copy-markdown',
+              },
+            ],
+          },
+          {
+            icon: $globals.icons.delete,
+            text: 'Delete Checked',
+            event: 'delete',
+          },
+          {
+            icon: $globals.icons.tags,
+            text: 'Toggle Label Sort',
+            event: 'sort-by-labels',
+          },
+          {
+            icon: $globals.icons.checkboxBlankOutline,
+            text: 'Uncheck All Items',
+            event: 'uncheck',
+          },
+          {
+            icon: $globals.icons.primary,
+            text: 'Add Recipe',
+            event: 'recipe',
+          },
+          {
+            icon: $globals.icons.edit,
+            text: 'Edit List',
+            event: 'edit',
+          },
+        ]"
+        @edit="edit = true"
+        @delete="deleteChecked"
+        @uncheck="uncheckAll"
+        @sort-by-labels="sortByLabels"
+        @copy-plain="copyListItems('plain')"
+        @copy-markdown="copyListItems('markdown')"
+      />
+      <BaseButton v-else save @click="saveList" />
+    </div>
   </v-container>
 </template>
 
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, reactive, useAsync, useRoute, toRefs, computed, ref } from "@nuxtjs/composition-api";
-import { useToggle } from "@vueuse/core";
+import { defineComponent, useAsync, useRoute, computed, ref } from "@nuxtjs/composition-api";
+import { useClipboard, useToggle } from "@vueuse/core";
 import { ShoppingListItemCreate } from "~/api/class-interfaces/group-shopping-lists";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey, uuid4 } from "~/composables/use-utils";
+import { alert } from "~/composables/use-toast";
+import { Label } from "~/api/class-interfaces/group-multiple-purpose-labels";
+import ShoppingListItem  from "~/components/Domain/ShoppingList/ShoppingListItem.vue"
+type CopyTypes = "plain" | "markdown";
+
+interface PresentLabel {
+  id: string;
+  name: string;
+}
 
 export default defineComponent({
   components: {
     draggable,
+    ShoppingListItem,
   },
   setup() {
     const userApi = useUserApi();
 
-    const state = reactive({
-      edit: false,
-    });
+    const edit = ref(false);
+    const byLabel = ref(false);
 
     const route = useRoute();
     const id = route.value.params.id;
@@ -159,7 +244,7 @@ export default defineComponent({
 
       await userApi.shopping.lists.updateOne(id, shoppingList.value);
       refresh();
-      state.edit = false;
+      edit.value = false;
     }
 
     // =====================================
@@ -185,6 +270,7 @@ export default defineComponent({
         note: "",
         unit: null,
         food: null,
+        labelId: null,
       };
     }
 
@@ -199,22 +285,102 @@ export default defineComponent({
         shoppingList.value.listItems = data;
       }
 
-      if (!state.edit) {
+      if (!edit.value) {
         saveList();
       }
     }
 
     const [showChecked, toggleShowChecked] = useToggle(false);
 
-    async function deleteChecked() {
+
+    // =====================================
+    // Copy List Items
+
+    const { copy, copied, isSupported } = useClipboard();
+
+    function getItemsAsPlain(items: ShoppingListItemCreate[]) {
+      return items
+        .map((item) => {
+          return `${item.quantity} x ${item.unit?.name || ""} ${item.food?.name || ""} ${item.note || ""}`.replace(
+            /\s+/g,
+            " "
+          );
+        })
+        .join("\n");
+    }
+
+    function getItemsAsMarkdown(items: ShoppingListItemCreate[]) {
+      return items
+        .map((item) => {
+          return `- [ ] ${item.quantity} x ${item.unit?.name || ""} ${item.food?.name || ""} ${
+            item.note || ""
+          }`.replace(/\s+/g, " ");
+        })
+        .join("\n");
+    }
+
+    async function copyListItems(copyType: CopyTypes) {
+      if (!isSupported) {
+        alert.error("Copy to clipboard is not supported in your browser or environment.");
+      }
+
+      console.log("copyListItems", copyType);
+      const items = shoppingList.value?.listItems.filter((item) => !item.checked);
+
+      if (!items) {
+        return;
+      }
+
+      let text = "";
+
+      switch (copyType) {
+        case "markdown":
+          text = getItemsAsMarkdown(items);
+          break;
+        default:
+          text = getItemsAsPlain(items);
+          break;
+      }
+
+      await copy(text);
+
+      if (copied) {
+        alert.success(`Copied ${items.length} items to clipboard`);
+      }
+    } 
+
+    // =====================================
+    // Check / Uncheck All
+
+    function uncheckAll() {
+      let hasChanged = false;
+      shoppingList.value?.listItems.forEach((item) => {
+        if (item.checked) {
+          hasChanged = true;
+          item.checked = false;
+        }
+      });
+      if (hasChanged) {
+        saveList();
+      }
+    }
+
+    function deleteChecked() {
       const unchecked = shoppingList.value?.listItems.filter((item) => !item.checked);
+
+      if (unchecked?.length === shoppingList.value?.listItems.length) {
+        return;
+      }
 
       if (shoppingList.value?.listItems) {
         shoppingList.value.listItems = unchecked || [];
       }
 
-      await saveList();
+      saveList();
     }
+
+    // =====================================
+    // List Item Context Menu
 
     const contextActions = {
       delete: "delete",
@@ -243,7 +409,74 @@ export default defineComponent({
       }
     }
 
+    // =====================================
+    // Labels
+
+    const allLabels = ref([] as Label[]);
+
+    function sortByLabels() {
+      byLabel.value = !byLabel.value;
+    }
+
+    const presentLabels = computed(() => {
+      const labels: PresentLabel[] = [];
+
+      shoppingList.value?.listItems.forEach((item) => {
+        if (item.labelId) {
+          labels.push({
+            // @ts-ignore
+            name: item.label.name,
+            id: item.labelId,
+          });
+        }
+      });
+
+      return labels;
+    });
+
+    const itemsByLabel = computed(() => {
+      const items: any = {
+      };
+
+      const noLabel = {
+        "No Label": []
+      }
+
+      shoppingList.value?.listItems.forEach((item) => {
+        if (item.labelId) {
+          if (item.label && (item.label.name in items)) {
+            items[item.label.name].push(item);
+          } else if (item.label) {
+            items[item.label.name] = [item];
+          }
+        } else {
+          // @ts-ignore
+          noLabel["No Label"].push(item);
+        }
+      });
+
+      if (noLabel["No Label"].length > 0) {
+        items["No Label"] = noLabel["No Label"];
+      }
+
+      return items
+    })
+
+    async function refreshLabels() {
+      const { data } = await userApi.multiPurposeLabels.getAll();
+      allLabels.value = data ?? [];
+    }
+
+    refreshLabels();
+
     return {
+      itemsByLabel,
+      byLabel,
+      presentLabels,
+      allLabels,
+      copyListItems,
+      sortByLabels,
+      uncheckAll,
       showChecked,
       toggleShowChecked,
       createIngredient,
@@ -253,7 +486,7 @@ export default defineComponent({
       listItems,
       updateIndex,
       saveList,
-      ...toRefs(state),
+      edit,
       shoppingList,
       ingredientCreate,
     };

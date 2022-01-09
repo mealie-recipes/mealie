@@ -30,3 +30,7 @@
 .handle {
   cursor: grab;
 }
+
+.hidden {
+  visibility: hidden !important;
+}

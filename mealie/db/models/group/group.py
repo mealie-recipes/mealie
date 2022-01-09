@@ -5,6 +5,7 @@ import sqlalchemy.orm as orm
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
+from mealie.db.models.labels import MultiPurposeLabel
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
@@ -46,6 +47,8 @@ class Group(SqlAlchemyBase, BaseMixins):
         "cascade": "all, delete-orphan",
         "single_parent": True,
     }
+
+    labels = orm.relationship(MultiPurposeLabel, **common_args)
 
     mealplans = orm.relationship(GroupMealPlan, order_by="GroupMealPlan.date", **common_args)
     webhooks = orm.relationship(GroupWebhooksModel, **common_args)

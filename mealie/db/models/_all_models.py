@@ -1,3 +1,4 @@
+from .labels import *
 from .event import *
 from .group import *
 from .recipe.recipe import *

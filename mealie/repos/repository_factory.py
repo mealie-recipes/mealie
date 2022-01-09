@@ -10,6 +10,7 @@ from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.preferences import GroupPreferencesModel
 from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
 from mealie.db.models.group.webhooks import GroupWebhooksModel
+from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
@@ -29,6 +30,7 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.group_shopping_list import ShoppingListItemOut, ShoppingListOut
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
+from mealie.schema.labels import MultiPurposeLabelOut
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse, RecipeTool
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
@@ -187,3 +189,7 @@ class AllRepositories:
     @cached_property
     def group_shopping_list_item(self) -> RepositoryGeneric[ShoppingListItemOut, ShoppingListItem]:
         return RepositoryGeneric(self.session, pk_id, ShoppingListItem, ShoppingListItemOut)
+
+    @cached_property
+    def group_multi_purpose_labels(self) -> RepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]:
+        return RepositoryGeneric(self.session, pk_id, MultiPurposeLabel, MultiPurposeLabelOut)

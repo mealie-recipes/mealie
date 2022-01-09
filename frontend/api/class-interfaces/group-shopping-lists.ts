@@ -21,6 +21,12 @@ export interface ShoppingListItemCreate {
   isFood: boolean;
   unit: RecipeIngredientUnit | null;
   food: RecipeIngredientFood | null;
+
+  labelId: string | null;
+  label?: {
+    id: string;
+    name: string;
+  };
 }
 
 export interface ShoppingListCreate {

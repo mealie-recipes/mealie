@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from functools import cached_property
-from uuid import UUID
+
+from pydantic import UUID4
 
 from mealie.schema.group import ShoppingListCreate, ShoppingListOut, ShoppingListSummary
 from mealie.schema.group.group_shopping_list import ShoppingListItemCreate
@@ -22,7 +23,7 @@ class ShoppingListService(
     def repo(self):
         return self.db.group_shopping_lists
 
-    def add_recipe_ingredients_to_list(self, list_id: UUID, recipe_id: int) -> ShoppingListOut:
+    def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
         recipe = self.db.recipes.get_one(recipe_id, "id")
         shopping_list = self.repo.get_one(list_id)
 
@@ -49,8 +50,14 @@ class ShoppingListService(
                     unit_id=unit_id,
                     quantity=ingredient.quantity,
                     note=ingredient.note,
+                    recipe_id=recipe_id,
                 )
             )
 
         shopping_list.list_items.extend(to_create)
+        return self.repo.update(shopping_list.id, shopping_list)
+
+    def remove_recipe_ingredients_from_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
+        shopping_list = self.repo.get_one(list_id)
+        shopping_list.list_items = [x for x in shopping_list.list_items if x.recipe_id != recipe_id]
         return self.repo.update(shopping_list.id, shopping_list)

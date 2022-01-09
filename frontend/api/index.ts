@@ -22,6 +22,7 @@ import { ToolsApi } from "./class-interfaces/tools";
 import { GroupMigrationApi } from "./class-interfaces/group-migrations";
 import { GroupReportsApi } from "./class-interfaces/group-reports";
 import { ShoppingApi } from "./class-interfaces/group-shopping-lists";
+import { MultiPurposeLabelsApi } from "./class-interfaces/group-multiple-purpose-labels";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -48,6 +49,7 @@ class Api {
   public grouperServerTasks: GroupServerTaskAPI;
   public tools: ToolsApi;
   public shopping: ShoppingApi;
+  public multiPurposeLabels: MultiPurposeLabelsApi;
   // Utils
   public upload: UploadFile;
 
@@ -77,6 +79,7 @@ class Api {
     this.groupMigration = new GroupMigrationApi(requests);
     this.groupReports = new GroupReportsApi(requests);
     this.shopping = new ShoppingApi(requests);
+    this.multiPurposeLabels = new MultiPurposeLabelsApi(requests);
 
     // Admin
     this.events = new EventsAPI(requests);

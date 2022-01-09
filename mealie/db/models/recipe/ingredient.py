@@ -1,6 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models.labels import MultiPurposeLabel
 
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
@@ -27,6 +28,9 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     description = Column(String)
     ingredients = orm.relationship("RecipeIngredient", back_populates="food")
 
+    label_id = Column(GUID, ForeignKey("multi_purpose_labels.id"))
+    label = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="foods")
+
     @auto_init()
     def __init__(self, **_) -> None:
         pass
@@ -50,8 +54,6 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     quantity = Column(Integer)
 
     reference_id = Column(GUID)  # Reference Links
-
-    # Extras
 
     @auto_init()
     def __init__(self, **_) -> None:

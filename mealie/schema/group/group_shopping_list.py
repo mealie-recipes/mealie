@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
-from ..recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 
 
 class ShoppingListItemCreate(CamelModel):
@@ -19,10 +19,14 @@ class ShoppingListItemCreate(CamelModel):
     unit: IngredientUnit = None
     food_id: int = None
     food: IngredientFood = None
+    recipe_id: Optional[int] = None
+
+    label_id: Optional[UUID4] = None
 
 
 class ShoppingListItemOut(ShoppingListItemCreate):
     id: UUID4
+    label: "Optional[MultiPurposeLabelSummary]" = None
 
     class Config:
         orm_mode = True
@@ -54,3 +58,8 @@ class ShoppingListUpdate(ShoppingListSummary):
 class ShoppingListOut(ShoppingListUpdate):
     class Config:
         orm_mode = True
+
+
+from mealie.schema.labels import MultiPurposeLabelSummary
+
+ShoppingListItemOut.update_forward_refs()
