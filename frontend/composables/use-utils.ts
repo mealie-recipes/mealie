@@ -19,7 +19,7 @@ export function detectServerBaseUrl(req?: IncomingMessage | null) {
   } else if (req.socket.remoteAddress) {
     // @ts-ignore
     const protocol = req.socket.encrypted ? "https:" : "http:";
-    return `${protocol}//${req.socket.localAddress}:${req.socket.localPort}`;
+    return `${protocol}//${req.socket.localAddress || ""}:${req.socket.localPort || ""}`;
   }
 
   return "";
