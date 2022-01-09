@@ -436,7 +436,7 @@ export default defineComponent({
     });
 
     const itemsByLabel = computed(() => {
-      const items: any = {};
+      const items: { [prop: string]: ShoppingListItemCreate[] } = {};
 
       const noLabel = {
         "No Label": [],

@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../_base";
 import { ApiRequestInstance } from "~/types/api";
-import { RecipeIngredientFood, RecipeIngredientUnit } from "~/types/api-types/recipe";
+import { IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
 
 const prefix = "/api";
 
@@ -19,8 +19,8 @@ export interface ShoppingListItemCreate {
   quantity: number;
 
   isFood: boolean;
-  unit: RecipeIngredientUnit | null;
-  food: RecipeIngredientFood | null;
+  unit: IngredientUnit | null;
+  food: IngredientFood | null;
 
   labelId: string | null;
   label?: {
