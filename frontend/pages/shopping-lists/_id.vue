@@ -6,13 +6,13 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
-
+    <BannerExperimental />
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
         <draggable :value="shoppingList.listItems" handle=".handle" @input="updateIndex">
           <ShoppingListItem
-            v-for="item, index in listItems.unchecked"
+            v-for="(item, index) in listItems.unchecked"
             :key="item.id"
             v-model="listItems.unchecked[index]"
             :labels="allLabels"
@@ -22,14 +22,14 @@
         </draggable>
       </div>
       <div v-else>
-        <div v-for="value, key in itemsByLabel" :key="key" class="mb-6">
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
             <span>
               <v-icon>
                 {{ $globals.icons.tags }}
               </v-icon>
             </span>
-            {{ key  }}
+            {{ key }}
           </div>
           <div v-for="item in value" :key="item.id" class="small-checkboxes d-flex justify-space-between align-center">
             <v-checkbox v-model="item.checked" hide-details dense :label="item.note" @change="saveList">
@@ -196,7 +196,8 @@ import { useUserApi } from "~/composables/api";
 import { useAsyncKey, uuid4 } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { Label } from "~/api/class-interfaces/group-multiple-purpose-labels";
-import ShoppingListItem  from "~/components/Domain/ShoppingList/ShoppingListItem.vue"
+import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
+import BannerExperimental from "~/components/global/BannerExperimental.vue";
 type CopyTypes = "plain" | "markdown";
 
 interface PresentLabel {
@@ -208,6 +209,7 @@ export default defineComponent({
   components: {
     draggable,
     ShoppingListItem,
+    BannerExperimental,
   },
   setup() {
     const userApi = useUserApi();
@@ -292,7 +294,6 @@ export default defineComponent({
 
     const [showChecked, toggleShowChecked] = useToggle(false);
 
-
     // =====================================
     // Copy List Items
 
@@ -347,7 +348,7 @@ export default defineComponent({
       if (copied) {
         alert.success(`Copied ${items.length} items to clipboard`);
       }
-    } 
+    }
 
     // =====================================
     // Check / Uncheck All
@@ -435,16 +436,15 @@ export default defineComponent({
     });
 
     const itemsByLabel = computed(() => {
-      const items: any = {
-      };
+      const items: any = {};
 
       const noLabel = {
-        "No Label": []
-      }
+        "No Label": [],
+      };
 
       shoppingList.value?.listItems.forEach((item) => {
         if (item.labelId) {
-          if (item.label && (item.label.name in items)) {
+          if (item.label && item.label.name in items) {
             items[item.label.name].push(item);
           } else if (item.label) {
             items[item.label.name] = [item];
@@ -459,8 +459,8 @@ export default defineComponent({
         items["No Label"] = noLabel["No Label"];
       }
 
-      return items
-    })
+      return items;
+    });
 
     async function refreshLabels() {
       const { data } = await userApi.multiPurposeLabels.getAll();
