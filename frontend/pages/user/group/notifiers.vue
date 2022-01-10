@@ -163,6 +163,10 @@ export default defineComponent({
       refreshNotifiers();
     }
 
+    async function testNotifier(notifier: GroupEventNotifierOut) {
+      await api.groupEventNotifier.test(notifier.id);
+    }
+
     // ===============================================================
     // Options Definitions
     const { i18n } = useContext();
@@ -174,15 +178,15 @@ export default defineComponent({
       },
       {
         text: i18n.t("general.create") as string,
-        key: "recipeCreate",
+        key: "recipeCreated",
       },
       {
         text: i18n.t("general.update") as string,
-        key: "recipeUpdate",
+        key: "recipeUpdated",
       },
       {
         text: i18n.t("general.delete") as string,
-        key: "recipeDelete",
+        key: "recipeDeleted",
       },
       {
         divider: true,
@@ -214,7 +218,7 @@ export default defineComponent({
       },
       {
         text: "When a user in your group creates a new mealplan",
-        key: "newMealplanEntry",
+        key: "mealplanEntryCreated",
       },
       {
         divider: true,
@@ -222,15 +226,15 @@ export default defineComponent({
       },
       {
         text: i18n.t("general.create") as string,
-        key: "shoppingListCreate",
+        key: "shoppingListCreated",
       },
       {
         text: i18n.t("general.update") as string,
-        key: "shoppingListUpdate",
+        key: "shoppingListUpdated",
       },
       {
         text: i18n.t("general.delete") as string,
-        key: "shoppingListDelete",
+        key: "shoppingListDeleted",
       },
       {
         divider: true,
@@ -238,15 +242,15 @@ export default defineComponent({
       },
       {
         text: i18n.t("general.create") as string,
-        key: "cookbookCreate",
+        key: "cookbookCreated",
       },
       {
         text: i18n.t("general.update") as string,
-        key: "cookbookUpdate",
+        key: "cookbookUpdated",
       },
       {
         text: i18n.t("general.delete") as string,
-        key: "cookbookDelete",
+        key: "cookbookDeleted",
       },
       {
         divider: true,
@@ -254,15 +258,15 @@ export default defineComponent({
       },
       {
         text: i18n.t("general.create") as string,
-        key: "tagCreate",
+        key: "tagCreated",
       },
       {
         text: i18n.t("general.update") as string,
-        key: "tagUpdate",
+        key: "tagUpdated",
       },
       {
         text: i18n.t("general.delete") as string,
-        key: "tagDelete",
+        key: "tagDeleted",
       },
       {
         divider: true,
@@ -270,15 +274,15 @@ export default defineComponent({
       },
       {
         text: i18n.t("general.create") as string,
-        key: "categoryCreate",
+        key: "categoryCreated",
       },
       {
         text: i18n.t("general.update") as string,
-        key: "categoryUpdate",
+        key: "categoryUpdated",
       },
       {
         text: i18n.t("general.delete") as string,
-        key: "categoryDelete",
+        key: "categoryDeleted",
       },
     ];
 
@@ -289,6 +293,7 @@ export default defineComponent({
       notifiers,
       createNotifierData,
       deleteNotifier,
+      testNotifier,
       saveNotifier,
       createNewNotifier,
     };

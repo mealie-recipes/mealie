@@ -11,4 +11,8 @@ const routes = {
 export class GroupEventNotifierApi extends BaseCRUDAPI<GroupEventNotifierOut, GroupEventNotifierCreate> {
   baseRoute = routes.eventNotifier;
   itemRoute = routes.eventNotifierId;
+
+  async test(itemId: string) {
+    return await this.requests.post(`${this.baseRoute}/${itemId}/test`, {});
+  }
 }
