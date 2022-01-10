@@ -66,72 +66,84 @@ export interface GroupEventNotifierCreate {
   name: string;
   appriseUrl: string;
 }
+/**
+ * These events are in-sync with the EventTypes found in the EventBusService.
+ * If you modify this, make sure to update the EventBusService as well.
+ */
 export interface GroupEventNotifierOptions {
-  recipeCreate?: boolean;
-  recipeUpdate?: boolean;
-  recipeDelete?: boolean;
+  recipeCreated?: boolean;
+  recipeUpdated?: boolean;
+  recipeDeleted?: boolean;
   userSignup?: boolean;
   dataMigrations?: boolean;
   dataExport?: boolean;
   dataImport?: boolean;
-  newMealplanEntry?: boolean;
-  shoppingListCreate?: boolean;
-  shoppingListUpdate?: boolean;
-  shoppingListDelete?: boolean;
-  cookbookCreate?: boolean;
-  cookbookUpdate?: boolean;
-  cookbookDelete?: boolean;
-  tagCreate?: boolean;
-  tagUpdate?: boolean;
-  tagDelete?: boolean;
-  categoryCreate?: boolean;
-  categoryUpdate?: boolean;
-  categoryDelete?: boolean;
+  mealplanEntryCreated?: boolean;
+  shoppingListCreated?: boolean;
+  shoppingListUpdated?: boolean;
+  shoppingListDeleted?: boolean;
+  cookbookCreated?: boolean;
+  cookbookUpdated?: boolean;
+  cookbookDeleted?: boolean;
+  tagCreated?: boolean;
+  tagUpdated?: boolean;
+  tagDeleted?: boolean;
+  categoryCreated?: boolean;
+  categoryUpdated?: boolean;
+  categoryDeleted?: boolean;
 }
+/**
+ * These events are in-sync with the EventTypes found in the EventBusService.
+ * If you modify this, make sure to update the EventBusService as well.
+ */
 export interface GroupEventNotifierOptionsOut {
-  recipeCreate?: boolean;
-  recipeUpdate?: boolean;
-  recipeDelete?: boolean;
+  recipeCreated?: boolean;
+  recipeUpdated?: boolean;
+  recipeDeleted?: boolean;
   userSignup?: boolean;
   dataMigrations?: boolean;
   dataExport?: boolean;
   dataImport?: boolean;
-  newMealplanEntry?: boolean;
-  shoppingListCreate?: boolean;
-  shoppingListUpdate?: boolean;
-  shoppingListDelete?: boolean;
-  cookbookCreate?: boolean;
-  cookbookUpdate?: boolean;
-  cookbookDelete?: boolean;
-  tagCreate?: boolean;
-  tagUpdate?: boolean;
-  tagDelete?: boolean;
-  categoryCreate?: boolean;
-  categoryUpdate?: boolean;
-  categoryDelete?: boolean;
+  mealplanEntryCreated?: boolean;
+  shoppingListCreated?: boolean;
+  shoppingListUpdated?: boolean;
+  shoppingListDeleted?: boolean;
+  cookbookCreated?: boolean;
+  cookbookUpdated?: boolean;
+  cookbookDeleted?: boolean;
+  tagCreated?: boolean;
+  tagUpdated?: boolean;
+  tagDeleted?: boolean;
+  categoryCreated?: boolean;
+  categoryUpdated?: boolean;
+  categoryDeleted?: boolean;
   id: string;
 }
+/**
+ * These events are in-sync with the EventTypes found in the EventBusService.
+ * If you modify this, make sure to update the EventBusService as well.
+ */
 export interface GroupEventNotifierOptionsSave {
-  recipeCreate?: boolean;
-  recipeUpdate?: boolean;
-  recipeDelete?: boolean;
+  recipeCreated?: boolean;
+  recipeUpdated?: boolean;
+  recipeDeleted?: boolean;
   userSignup?: boolean;
   dataMigrations?: boolean;
   dataExport?: boolean;
   dataImport?: boolean;
-  newMealplanEntry?: boolean;
-  shoppingListCreate?: boolean;
-  shoppingListUpdate?: boolean;
-  shoppingListDelete?: boolean;
-  cookbookCreate?: boolean;
-  cookbookUpdate?: boolean;
-  cookbookDelete?: boolean;
-  tagCreate?: boolean;
-  tagUpdate?: boolean;
-  tagDelete?: boolean;
-  categoryCreate?: boolean;
-  categoryUpdate?: boolean;
-  categoryDelete?: boolean;
+  mealplanEntryCreated?: boolean;
+  shoppingListCreated?: boolean;
+  shoppingListUpdated?: boolean;
+  shoppingListDeleted?: boolean;
+  cookbookCreated?: boolean;
+  cookbookUpdated?: boolean;
+  cookbookDeleted?: boolean;
+  tagCreated?: boolean;
+  tagUpdated?: boolean;
+  tagDeleted?: boolean;
+  categoryCreated?: boolean;
+  categoryUpdated?: boolean;
+  categoryDeleted?: boolean;
   notifierId: string;
 }
 export interface GroupEventNotifierOut {

@@ -10,9 +10,9 @@ class GroupEventNotifierOptionsModel(SqlAlchemyBase, BaseMixins):
     id = Column(GUID, primary_key=True, default=GUID.generate)
     event_notifier_id = Column(GUID, ForeignKey("group_events_notifiers.id"), nullable=False)
 
-    recipe_create = Column(Boolean, default=False, nullable=False)
-    recipe_update = Column(Boolean, default=False, nullable=False)
-    recipe_delete = Column(Boolean, default=False, nullable=False)
+    recipe_created = Column(Boolean, default=False, nullable=False)
+    recipe_updated = Column(Boolean, default=False, nullable=False)
+    recipe_deleted = Column(Boolean, default=False, nullable=False)
 
     user_signup = Column(Boolean, default=False, nullable=False)
 
@@ -20,23 +20,23 @@ class GroupEventNotifierOptionsModel(SqlAlchemyBase, BaseMixins):
     data_export = Column(Boolean, default=False, nullable=False)
     data_import = Column(Boolean, default=False, nullable=False)
 
-    new_mealplan_entry = Column(Boolean, default=False, nullable=False)
+    mealplan_entry_created = Column(Boolean, default=False, nullable=False)
 
-    shopping_list_create = Column(Boolean, default=False, nullable=False)
-    shopping_list_update = Column(Boolean, default=False, nullable=False)
-    shopping_list_delete = Column(Boolean, default=False, nullable=False)
+    shopping_list_created = Column(Boolean, default=False, nullable=False)
+    shopping_list_updated = Column(Boolean, default=False, nullable=False)
+    shopping_list_deleted = Column(Boolean, default=False, nullable=False)
 
-    cookbook_create = Column(Boolean, default=False, nullable=False)
-    cookbook_update = Column(Boolean, default=False, nullable=False)
-    cookbook_delete = Column(Boolean, default=False, nullable=False)
+    cookbook_created = Column(Boolean, default=False, nullable=False)
+    cookbook_updated = Column(Boolean, default=False, nullable=False)
+    cookbook_deleted = Column(Boolean, default=False, nullable=False)
 
-    tag_create = Column(Boolean, default=False, nullable=False)
-    tag_update = Column(Boolean, default=False, nullable=False)
-    tag_delete = Column(Boolean, default=False, nullable=False)
+    tag_created = Column(Boolean, default=False, nullable=False)
+    tag_updated = Column(Boolean, default=False, nullable=False)
+    tag_deleted = Column(Boolean, default=False, nullable=False)
 
-    category_create = Column(Boolean, default=False, nullable=False)
-    category_update = Column(Boolean, default=False, nullable=False)
-    category_delete = Column(Boolean, default=False, nullable=False)
+    category_created = Column(Boolean, default=False, nullable=False)
+    category_updated = Column(Boolean, default=False, nullable=False)
+    category_deleted = Column(Boolean, default=False, nullable=False)
 
     @auto_init()
     def __init__(self, **_) -> None:

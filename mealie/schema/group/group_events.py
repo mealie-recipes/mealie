@@ -6,9 +6,14 @@ from pydantic import UUID4
 
 
 class GroupEventNotifierOptions(CamelModel):
-    recipe_create: bool = False
-    recipe_update: bool = False
-    recipe_delete: bool = False
+    """
+    These events are in-sync with the EventTypes found in the EventBusService.
+    If you modify this, make sure to update the EventBusService as well.
+    """
+
+    recipe_created: bool = False
+    recipe_updated: bool = False
+    recipe_deleted: bool = False
 
     user_signup: bool = False
 
@@ -16,23 +21,23 @@ class GroupEventNotifierOptions(CamelModel):
     data_export: bool = False
     data_import: bool = False
 
-    new_mealplan_entry: bool = False
+    mealplan_entry_created: bool = False
 
-    shopping_list_create: bool = False
-    shopping_list_update: bool = False
-    shopping_list_delete: bool = False
+    shopping_list_created: bool = False
+    shopping_list_updated: bool = False
+    shopping_list_deleted: bool = False
 
-    cookbook_create: bool = False
-    cookbook_update: bool = False
-    cookbook_delete: bool = False
+    cookbook_created: bool = False
+    cookbook_updated: bool = False
+    cookbook_deleted: bool = False
 
-    tag_create: bool = False
-    tag_update: bool = False
-    tag_delete: bool = False
+    tag_created: bool = False
+    tag_updated: bool = False
+    tag_deleted: bool = False
 
-    category_create: bool = False
-    category_update: bool = False
-    category_delete: bool = False
+    category_created: bool = False
+    category_updated: bool = False
+    category_deleted: bool = False
 
 
 class GroupEventNotifierOptionsSave(GroupEventNotifierOptions):
