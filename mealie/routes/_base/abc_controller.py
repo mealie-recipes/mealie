@@ -7,6 +7,16 @@ from mealie.repos.all_repositories import AllRepositories
 from mealie.routes._base.dependencies import SharedDependencies
 
 
+class BasePublicController(ABC):
+    """
+    This is a public class for all User restricted controllers in the API.
+    It includes the common SharedDependencies and some common methods used
+    by all Admin controllers.
+    """
+
+    deps: SharedDependencies = Depends(SharedDependencies.public)
+
+
 class BaseUserController(ABC):
     """
     This is a base class for all User restricted controllers in the API.
