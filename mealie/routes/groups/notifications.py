@@ -17,6 +17,7 @@ from mealie.schema.group.group_events import (
 )
 from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
+from mealie.services.event_bus_service.event_bus_service import EventBusService
 
 router = APIRouter(prefix="/groups/events/notifications", tags=["Group: Event Notifications"])
 
@@ -24,6 +25,7 @@ router = APIRouter(prefix="/groups/events/notifications", tags=["Group: Event No
 @controller(router)
 class GroupEventsNotifierController:
     deps: SharedDependencies = Depends(SharedDependencies.user)
+    event_bus: EventBusService = Depends(EventBusService)
 
     @cached_property
     def repo(self):
@@ -73,3 +75,11 @@ class GroupEventsNotifierController:
     @router.delete("/{item_id}", status_code=204)
     def delete_one(self, item_id: UUID4):
         self.mixins.delete_one(item_id)  # type: ignore
+
+    # =======================================================================
+    # Test Event Notifications
+
+    @router.post("/{item_id}/test", status_code=204)
+    def test_notification(self, item_id: UUID4):
+        item: GroupEventNotifierPrivate = self.repo.get_one(item_id, override_schema=GroupEventNotifierPrivate)
+        self.event_bus.test_publisher(item.apprise_url)

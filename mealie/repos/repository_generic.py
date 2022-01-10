@@ -70,6 +70,8 @@ class RepositoryGeneric(Generic[T, D]):
     def get_all(self, limit: int = None, order_by: str = None, start=0, override_schema=None) -> list[T]:
         eff_schema = override_schema or self.schema
 
+        filter = self._filter_builder()
+
         order_attr = None
         if order_by:
             order_attr = getattr(self.sql_model, str(order_by))
@@ -77,10 +79,18 @@ class RepositoryGeneric(Generic[T, D]):
 
             return [
                 eff_schema.from_orm(x)
-                for x in self.session.query(self.sql_model).order_by(order_attr).offset(start).limit(limit).all()
+                for x in self.session.query(self.sql_model)
+                .order_by(order_attr)
+                .filter_by(**filter)
+                .offset(start)
+                .limit(limit)
+                .all()
             ]
 
-        return [eff_schema.from_orm(x) for x in self.session.query(self.sql_model).offset(start).limit(limit).all()]
+        return [
+            eff_schema.from_orm(x)
+            for x in self.session.query(self.sql_model).filter_by(**filter).offset(start).limit(limit).all()
+        ]
 
     def multi_query(
         self,
@@ -92,6 +102,8 @@ class RepositoryGeneric(Generic[T, D]):
     ) -> list[T]:
         eff_schema = override_schema or self.schema
 
+        filer = self._filter_builder(**query_by)
+
         order_attr = None
         if order_by:
             order_attr = getattr(self.sql_model, str(order_by))
@@ -100,7 +112,7 @@ class RepositoryGeneric(Generic[T, D]):
         return [
             eff_schema.from_orm(x)
             for x in self.session.query(self.sql_model)
-            .filter_by(**query_by)
+            .filter_by(**filer)
             .order_by(order_attr)
             .offset(start)
             .limit(limit)
