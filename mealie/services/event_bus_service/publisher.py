@@ -12,7 +12,10 @@ class PublisherLike(Protocol):
 
 class ApprisePublisher:
     def __init__(self, hard_fail=False) -> None:
-        asset = apprise.AppriseAsset(async_mode=True)
+        asset = apprise.AppriseAsset(
+            async_mode=True,
+            image_url_mask="https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-maskable-512x512.png",
+        )
         self.apprise = apprise.Apprise(asset=asset)
         self.hard_fail = hard_fail
 
