@@ -1,17 +1,19 @@
 <template>
   <div>
-    <v-tabs v-model="tab" height="30px" class="my-1">
-      <v-tab>
-        <v-icon small left> {{ $globals.icons.edit }}</v-icon>
-        Edit
-      </v-tab>
-      <v-tab>
-        <v-icon small left> {{ $globals.icons.eye }}</v-icon>
-        Preview
-      </v-tab>
-    </v-tabs>
+    <div v-if="displayPreview" class="d-flex justify-end">
+      <BaseButtonGroup
+        :buttons="[
+          {
+            icon: previewState ? $globals.icons.edit : $globals.icons.eye,
+            text: previewState ? $t('general.edit') : 'Preview Markdown',
+            event: 'toggle',
+          },
+        ]"
+        @toggle="previewState = !previewState"
+      />
+    </div>
     <v-textarea
-      v-if="tab == 0"
+      v-if="!previewState"
       v-model="inputVal"
       :class="label == '' ? '' : 'mt-5'"
       :label="label"
@@ -27,7 +29,7 @@
 // @ts-ignore
 import VueMarkdown from "@adapttive/vue-markdown";
 
-import { defineComponent, reactive, toRefs, computed } from "@nuxtjs/composition-api";
+import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   name: "MarkdownEditor",
@@ -43,10 +45,28 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    preview: {
+      type: Boolean,
+      default: undefined,
+    },
+    displayPreview: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, context) {
-    const state = reactive({
-      tab: 0,
+    const fallbackPreview = ref(false);
+    const previewState = computed({
+      get: () => {
+        return props.preview ?? fallbackPreview.value;
+      },
+      set: (val) => {
+        if (props.preview) {
+          context.emit("input:preview", val);
+        } else {
+          fallbackPreview.value = val;
+        }
+      },
     });
 
     const inputVal = computed({
@@ -58,10 +78,11 @@ export default defineComponent({
       },
     });
     return {
+      previewState,
       inputVal,
-      ...toRefs(state),
     };
   },
 });
 </script>
+
 

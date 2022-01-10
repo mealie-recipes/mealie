@@ -107,19 +107,43 @@
 
               {{ $t("recipe.step-index", { step: index + 1 }) }}
 
-              <div class="ml-auto">
-                <BaseOverflowButton
-                  v-if="edit"
-                  small
-                  mode="event"
-                  :items="actionEvents || []"
-                  @merge-above="mergeAbove(index - 1, index)"
-                  @toggle-section="toggleShowTitle(step.id)"
-                  @link-ingredients="openDialog(index, step.ingredientReferences, step.text)"
-                >
-                </BaseOverflowButton>
-              </div>
-              <v-icon v-if="edit" class="handle">{{ $globals.icons.arrowUpDown }}</v-icon>
+              <template v-if="edit">
+                <v-icon class="handle ml-auto mr-2">{{ $globals.icons.arrowUpDown }}</v-icon>
+                <div>
+                  <BaseButtonGroup
+                    :buttons="[
+                      {
+                        icon: $globals.icons.dotsVertical,
+                        text: $t('general.delete'),
+                        children: [
+                          {
+                            text: 'Toggle Section',
+                            event: 'toggle-section',
+                          },
+                          {
+                            text: 'Link Ingredients',
+                            event: 'link-ingredients',
+                          },
+                          {
+                            text: 'Merge Above',
+                            event: 'merge-above',
+                          },
+                        ],
+                      },
+                      {
+                        icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
+                        text: previewStates[index] ? $t('general.edit') : 'Preview Markdown',
+                        event: 'preview-step',
+                      },
+                    ]"
+                    @merge-above="mergeAbove(index - 1, index)"
+                    @toggle-section="toggleShowTitle(step.id)"
+                    @link-ingredients="openDialog(index, step.ingredientReferences, step.text)"
+                    @preview-step="togglePreviewState(index)"
+                  />
+                </div>
+              </template>
+
               <v-fade-transition>
                 <v-icon v-show="isChecked(index)" size="24" class="ml-auto" color="success">
                   {{ $globals.icons.checkboxMarkedCircle }}
@@ -127,7 +151,11 @@
               </v-fade-transition>
             </v-card-title>
             <v-card-text v-if="edit">
-              <MarkdownEditor v-model="value[index]['text']" />
+              <MarkdownEditor
+                v-model="value[index]['text']"
+                :preview.sync="previewStates[index]"
+                :display-preview="false"
+              />
               <div
                 v-for="ing in step.ingredientReferences"
                 :key="ing.referenceId"
@@ -410,7 +438,17 @@ export default defineComponent({
       }
     }
 
+    const previewStates = ref<boolean[]>([]);
+
+    function togglePreviewState(index: number) {
+      const temp = [...previewStates.value];
+      temp[index] = !temp[index];
+      previewStates.value = temp;
+    }
+
     return {
+      togglePreviewState,
+      previewStates,
       ...toRefs(state),
       actionEvents,
       activeRefs,

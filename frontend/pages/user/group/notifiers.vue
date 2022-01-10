@@ -76,17 +76,17 @@
               :buttons="[
                 {
                   icon: $globals.icons.delete,
-                  text: 'Delete Notifier',
+                  text: $t('general.delete'),
                   event: 'delete',
                 },
                 {
                   icon: $globals.icons.testTube,
-                  text: 'Test Notification',
+                  text: $t('general.test'),
                   event: 'test',
                 },
                 {
                   icon: $globals.icons.save,
-                  text: 'Save Changes',
+                  text: $t('general.save'),
                   event: 'save',
                 },
               ]"

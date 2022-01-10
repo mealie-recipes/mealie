@@ -11,7 +11,7 @@
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
       <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
-        <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 my-border rounded">
+        <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 left-border rounded">
           <v-expansion-panel-header disable-icon-rotate class="headline">
             <div class="d-flex align-center">
               <v-icon large left>
@@ -23,8 +23,8 @@
               <v-icon class="handle">
                 {{ $globals.icons.arrowUpDown }}
               </v-icon>
-              <v-btn color="info" fab small class="ml-2">
-                <v-icon color="white">
+              <v-btn icon small class="ml-2">
+                <v-icon>
                   {{ $globals.icons.edit }}
                 </v-icon>
               </v-btn>
@@ -38,8 +38,22 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <BaseButton delete @click="actions.deleteOne(cookbook.id)" />
-              <BaseButton save @click="actions.updateOne(cookbook)"> </BaseButton>
+              <BaseButtonGroup
+                :buttons="[
+                  {
+                    icon: $globals.icons.delete,
+                    text: $t('general.delete'),
+                    event: 'delete',
+                  },
+                  {
+                    icon: $globals.icons.save,
+                    text: $t('general.save'),
+                    event: 'save',
+                  },
+                ]"
+                @delete="actions.deleteOne(webhook.id)"
+                @save="actions.updateOne(webhook)"
+              />
             </v-card-actions>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -70,9 +84,3 @@ export default defineComponent({
   },
 });
 </script>
-    
-<style>
-.my-border {
-  border-left: 5px solid var(--v-primary-base) !important;
-}
-</style>
