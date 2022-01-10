@@ -15,6 +15,6 @@ class AdminServerTasksController(BaseAdminController):
     def get_all_tasks(self, tasks_service: AdminServerTasks = Depends(AdminServerTasks.private)):
         return tasks_service.get_all()
 
-    @router.post("/server-tasks", response_model=ServerTask)
+    @router.post("/server-tasks", response_model=ServerTask, status_code=201)
     def create_test_tasks(self, bg_executor: BackgroundExecutor = Depends(BackgroundExecutor.private)):
         return bg_executor.dispatch(ServerTaskNames.default, test_executor_func)

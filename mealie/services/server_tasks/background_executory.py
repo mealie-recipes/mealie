@@ -11,6 +11,8 @@ from .._base_http_service.http_services import UserHttpService
 
 
 class BackgroundExecutor(UserHttpService):
+    sleep_time = 60
+
     def populate_item(self, _: int) -> ServerTask:
         pass
 
@@ -38,7 +40,7 @@ def test_executor_func(task_id: int, session: Session) -> None:
     task.append_log("test task has started")
     task.append_log("test task sleeping for 60 seconds")
 
-    sleep(60)
+    sleep(BackgroundExecutor.sleep_time)
 
     task.append_log("test task has finished sleep")
 
