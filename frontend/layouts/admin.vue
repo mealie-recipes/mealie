@@ -61,11 +61,6 @@ export default defineComponent({
         title: i18n.t("sidebar.toolbox"),
         children: [
           {
-            icon: $globals.icons.bellAlert,
-            to: "/admin/toolbox/notifications",
-            title: i18n.t("events.notification"),
-          },
-          {
             icon: $globals.icons.foods,
             to: "/admin/toolbox/foods",
             title: "Manage Foods",
