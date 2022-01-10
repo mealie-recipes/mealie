@@ -40,12 +40,12 @@ class CustomOAuth2Form(OAuth2PasswordRequestForm):
 
 
 class MealieAuthToken(BaseModel):
-    auth_token: str
+    access_token: str
     token_type: str = "bearer"
 
     @classmethod
     def respond(cls, token: str, token_type: str = "bearer") -> dict:
-        return cls(auth_token=token, token_type=token_type).dict()
+        return cls(access_token=token, token_type=token_type).dict()
 
 
 @public_router.post("/token")
