@@ -2,7 +2,7 @@ from functools import cached_property
 
 from sqlalchemy.orm import Session
 
-from mealie.db.models.event import Event, EventNotification
+from mealie.db.models.event import Event
 from mealie.db.models.group import Group, GroupMealPlan, ReportEntryModel, ReportModel
 from mealie.db.models.group.cookbook import CookBook
 from mealie.db.models.group.events import GroupEventNotifierModel
@@ -25,7 +25,6 @@ from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
-from mealie.schema.events import EventNotificationIn
 from mealie.schema.group.group_events import GroupEventNotifierOut
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
@@ -117,10 +116,6 @@ class AllRepositories:
     @cached_property
     def sign_up(self) -> RepositoryGeneric[SignUpOut, SignUp]:
         return RepositoryGeneric(self.session, pk_id, SignUp, SignUpOut)
-
-    @cached_property
-    def event_notifications(self) -> RepositoryGeneric[EventNotificationIn, EventNotification]:
-        return RepositoryGeneric(self.session, pk_id, EventNotification, EventNotificationIn)
 
     @cached_property
     def events(self) -> RepositoryGeneric[EventSchema, Event]:
