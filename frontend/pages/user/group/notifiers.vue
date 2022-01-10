@@ -11,7 +11,7 @@
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="createDialog" @submit="createNewNotifier">
+    <BaseDialog v-model="createDialog" title="New Notification" @submit="createNewNotifier">
       <v-card-text>
         <v-text-field v-model="createNotifierData.name" :label="$t('general.name')"></v-text-field>
         <v-text-field v-model="createNotifierData.appriseUrl" :label="$t('events.apprise-url')"></v-text-field>
