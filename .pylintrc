@@ -476,7 +476,6 @@ ignore-comments=yes
 
 # Ignore docstrings when computing similarities.
 ignore-docstrings=yes
-w54
 # Ignore imports when computing similarities.
 ignore-imports=no
 

@@ -9,8 +9,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.admin import CommentImport, GroupImport, NotificationImport, RecipeImport, UserImport
-from mealie.schema.events import EventNotificationIn
+from mealie.schema.admin import CommentImport, GroupImport, RecipeImport, UserImport
 from mealie.schema.recipe import Recipe, RecipeCommentOut
 from mealie.schema.user import PrivateUser, UpdateGroup
 from mealie.services.image import minify
@@ -158,24 +157,6 @@ class ImportDatabase:
             shutil.copytree(recipe_dir, app_dirs.RECIPE_DATA_DIR, dirs_exist_ok=True)
 
         minify.migrate_images()
-
-    def import_notifications(self):
-        notify_file = self.import_dir.joinpath("notifications", "notifications.json")
-        notifications = ImportDatabase.read_models_file(notify_file, EventNotificationIn)
-        import_notifications = []
-
-        for notify in notifications:
-            import_status = self.import_model(
-                db_table=self.db.event_notifications,
-                model=notify,
-                return_model=NotificationImport,
-                name_attr="name",
-                search_key="notification_url",
-            )
-
-            import_notifications.append(import_status)
-
-        return import_notifications
 
     def import_settings(self):
         return []
@@ -330,11 +311,6 @@ def import_database(
         user_report = import_session.import_users()
 
     notification_report = []
-    if import_notifications:
-        notification_report = import_session.import_notifications()
-
-    # if import_recipes:
-    #     import_session.import_comments()
 
     import_session.clean_up()
 

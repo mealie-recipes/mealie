@@ -5,12 +5,35 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type ExportTypes = "json";
 export type RegisteredParser = "nlp" | "brute";
 
+export interface AssignCategories {
+  recipes: string[];
+  categories: CategoryBase[];
+}
 export interface CategoryBase {
   name: string;
   id: number;
   slug: string;
+}
+export interface AssignTags {
+  recipes: string[];
+  tags: TagBase[];
+}
+export interface TagBase {
+  name: string;
+  id: number;
+  slug: string;
+}
+export interface BulkActionError {
+  recipe: string;
+  error: string;
+}
+export interface BulkActionsResponse {
+  success: boolean;
+  message: string;
+  errors?: BulkActionError[];
 }
 export interface CategoryIn {
   name: string;
@@ -47,6 +70,13 @@ export interface CreateRecipeByUrl {
 export interface CreateRecipeByUrlBulk {
   imports: CreateRecipeBulk[];
 }
+export interface DeleteRecipes {
+  recipes: string[];
+}
+export interface ExportRecipes {
+  recipes: string[];
+  exportType?: ExportTypes & string;
+}
 export interface IngredientConfidence {
   average?: number;
   comment?: number;
@@ -59,6 +89,12 @@ export interface IngredientFood {
   name: string;
   description?: string;
   id: number;
+}
+/**
+ * A list of ingredient references.
+ */
+export interface IngredientReferences {
+  referenceId?: string;
 }
 export interface IngredientRequest {
   parser?: RegisteredParser & string;
@@ -141,12 +177,6 @@ export interface RecipeStep {
   text: string;
   ingredientReferences?: IngredientReferences[];
 }
-/**
- * A list of ingredient references.
- */
-export interface IngredientReferences {
-  referenceId?: string;
-}
 export interface RecipeSettings {
   public?: boolean;
   showNutrition?: boolean;
@@ -198,6 +228,30 @@ export interface RecipeCommentUpdate {
   id: string;
   text: string;
 }
+export interface RecipeShareToken {
+  recipeId: number;
+  expiresAt?: string;
+  groupId: string;
+  id: string;
+  createdAt: string;
+  recipe: Recipe;
+}
+export interface RecipeShareTokenCreate {
+  recipeId: number;
+  expiresAt?: string;
+}
+export interface RecipeShareTokenSave {
+  recipeId: number;
+  expiresAt?: string;
+  groupId: string;
+}
+export interface RecipeShareTokenSummary {
+  recipeId: number;
+  expiresAt?: string;
+  groupId: string;
+  id: string;
+  createdAt: string;
+}
 export interface RecipeSlug {
   slug: string;
 }
@@ -247,11 +301,6 @@ export interface RecipeToolResponse {
   recipes?: Recipe[];
 }
 export interface SlugResponse {}
-export interface TagBase {
-  name: string;
-  id: number;
-  slug: string;
-}
 export interface TagIn {
   name: string;
 }

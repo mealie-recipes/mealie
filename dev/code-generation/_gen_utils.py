@@ -1,18 +1,26 @@
+from __future__ import annotations
+
 import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Tuple
 
 import black
+import isort
 from jinja2 import Template
 
 
-def render_python_template(template_file: Path, dest: Path, data: dict) -> str:
+def render_python_template(template_file: Path | str, dest: Path, data: dict) -> str:
     """Render and Format a Jinja2 Template for Python Code"""
-    tplt = Template(template_file.read_text())
+    if isinstance(template_file, Path):
+        tplt = Template(template_file.read_text())
+    else:
+        tplt = Template(template_file)
+
     text = tplt.render(data=data)
     text = black.format_str(text, mode=black.FileMode())
     dest.write_text(text)
+    isort.file(dest)
 
 
 @dataclass

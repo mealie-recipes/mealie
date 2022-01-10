@@ -8,7 +8,7 @@ from mealie.services.group_services import CookbookService, WebhookService
 from mealie.services.group_services.meal_service import MealService
 from mealie.services.group_services.reports_service import GroupReportService
 
-from . import categories, invitations, labels, migrations, preferences, self_service, shopping_lists
+from . import categories, invitations, labels, migrations, notifications, preferences, self_service, shopping_lists
 
 router = APIRouter()
 
@@ -56,3 +56,4 @@ def get_all_reports(
 router.include_router(report_router)
 router.include_router(shopping_lists.router)
 router.include_router(labels.router)
+router.include_router(notifications.router)

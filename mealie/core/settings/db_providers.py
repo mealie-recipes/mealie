@@ -62,4 +62,4 @@ def db_provider_factory(provider_name: str, data_dir: Path, env_file: Path, env_
     elif provider_name == "sqlite":
         return SQLiteProvider(data_dir=data_dir)
     else:
-        return
+        return SQLiteProvider(data_dir=data_dir)

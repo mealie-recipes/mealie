@@ -9,13 +9,13 @@ license = "MIT"
 start = "mealie.app:main"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 aiofiles = "0.5.0"
 aniso8601 = "7.0.0"
 appdirs = "1.4.4"
 fastapi = "^0.71.0"
 uvicorn = {extras = ["standard"], version = "^0.13.0"}
-APScheduler = "^3.6.3"
+APScheduler = "^3.8.1"
 SQLAlchemy = "^1.4.29"
 Jinja2 = "^2.11.2"
 python-dotenv = "^0.15.0"
@@ -28,10 +28,10 @@ fastapi-camelcase = "^1.0.2"
 bcrypt = "^3.2.0"
 python-jose = "^3.3.0"
 passlib = "^1.7.4"
-lxml = "4.6.2"
+lxml = "^4.7.1"
 Pillow = "^8.2.0"
 pathvalidate = "^2.4.1"
-apprise = "0.9.3"
+apprise = "^0.9.6"
 recipe-scrapers = "^13.5.0"
 psycopg2-binary = {version = "^2.9.1", optional = true}
 gunicorn = "^20.1.0"
@@ -39,20 +39,20 @@ emails = "^0.6"
 python-i18n = "^0.3.9"
 python-ldap = "^3.3.1"
 pydantic = "^1.9.0"
+tzdata = "^2021.5"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
 pytest = "^6.2.1"
 pytest-cov = "^2.11.0"
 mkdocs-material = "^7.0.2"
-flake8 = "^3.9.0"
+flake8 = "^4.0.1"
 coverage = "^5.5"
 pydantic-to-typescript = "^1.0.7"
 rich = "^10.7.0"
 isort = "^5.9.3"
-regex = "2021.9.30" # TODO: Remove during Upgrade -> https://github.com/psf/black/issues/2524
 flake8-print = "^4.0.0"
-black = "^21.11b1"
+black = "^21.12b0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

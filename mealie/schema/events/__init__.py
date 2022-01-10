@@ -1,2 +1,2 @@
-from .event_notifications import *
+# GENERATED CODE - DO NOT MODIFY BY HAND
 from .events import *

@@ -19,6 +19,19 @@ export interface CreateToken {
   userId: string;
   token: string;
 }
+export interface CreateUserRegistration {
+  group?: string;
+  groupToken?: string;
+  email: string;
+  username: string;
+  password: string;
+  passwordConfirm: string;
+  advanced?: boolean;
+  private?: boolean;
+}
+export interface ForgotPassword {
+  email: string;
+}
 export interface GroupBase {
   name: string;
 }
@@ -28,7 +41,6 @@ export interface GroupInDB {
   categories?: CategoryBase[];
   webhooks?: unknown[];
   users?: UserOut[];
-  shoppingLists?: ShoppingListOut[];
   preferences?: ReadGroupPreferences;
 }
 export interface UserOut {
@@ -51,18 +63,6 @@ export interface LongLiveTokenOut {
   name: string;
   id: number;
   createdAt: string;
-}
-export interface ShoppingListOut {
-  name: string;
-  group?: string;
-  items: ListItem[];
-  id: number;
-}
-export interface ListItem {
-  title?: string;
-  text?: string;
-  quantity?: number;
-  checked?: boolean;
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
@@ -102,6 +102,11 @@ export interface PrivateUser {
   tokens?: LongLiveTokenOut[];
   cacheKey: string;
   password: string;
+}
+export interface PrivatePasswordResetToken {
+  userId: string;
+  token: string;
+  user: PrivateUser;
 }
 export interface RecipeSummary {
   id?: number;
@@ -165,6 +170,16 @@ export interface IngredientFood {
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+}
+export interface ResetPassword {
+  token: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+export interface SavePasswordResetToken {
+  userId: string;
+  token: string;
 }
 export interface SignUpIn {
   name: string;
@@ -230,4 +245,7 @@ export interface UserIn {
   canManage?: boolean;
   canOrganize?: boolean;
   password: string;
+}
+export interface ValidateResetToken {
+  token: string;
 }

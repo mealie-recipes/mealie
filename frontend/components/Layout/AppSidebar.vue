@@ -189,7 +189,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       drawer,
-    }
+    };
   },
 });
 </script>

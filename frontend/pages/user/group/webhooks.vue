@@ -11,7 +11,7 @@
 
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
-      <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 my-border rounded">
+      <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 left-border rounded">
         <v-expansion-panel-header disable-icon-rotate class="headline">
           <div class="d-flex align-center">
             <v-icon large left :color="webhook.enabled ? 'info' : null">
@@ -20,8 +20,8 @@
             {{ webhook.name }} - {{ webhook.time }}
           </div>
           <template #actions>
-            <v-btn color="info" fab small class="ml-2">
-              <v-icon color="white">
+            <v-btn small icon class="ml-2">
+              <v-icon>
                 {{ $globals.icons.edit }}
               </v-icon>
             </v-btn>
@@ -34,16 +34,28 @@
             <v-text-field v-model="webhook.url" label="Webhook Url"></v-text-field>
             <v-time-picker v-model="webhook.time" class="elevation-2" ampm-in-title format="ampm"></v-time-picker>
           </v-card-text>
-          <v-card-actions>
-            <BaseButton secondary color="info">
-              <template #icon>
-                {{ $globals.icons.testTube }}
-              </template>
-              Test
-            </BaseButton>
-            <v-spacer></v-spacer>
-            <BaseButton delete @click="actions.deleteOne(webhook.id)" />
-            <BaseButton save @click="actions.updateOne(webhook)" />
+          <v-card-actions class="py-0 justify-end">
+            <BaseButtonGroup
+              :buttons="[
+                {
+                  icon: $globals.icons.delete,
+                  text: $t('general.delete'),
+                  event: 'delete',
+                },
+                {
+                  icon: $globals.icons.testTube,
+                  text: $t('general.test'),
+                  event: 'test',
+                },
+                {
+                  icon: $globals.icons.save,
+                  text: $t('general.save'),
+                  event: 'save',
+                },
+              ]"
+              @delete="actions.deleteOne(webhook.id)"
+              @save="actions.updateOne(webhook)"
+            />
           </v-card-actions>
         </v-expansion-panel-content>
       </v-expansion-panel>

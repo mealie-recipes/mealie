@@ -1,6 +1,7 @@
 from pathlib import Path
 
 CWD = Path(__file__).parent
+PROJECT_DIR = Path(__file__).parent.parent.parent
 
 
 class Directories:

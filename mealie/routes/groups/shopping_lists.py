@@ -17,6 +17,8 @@ from mealie.schema.group.group_shopping_list import (
 )
 from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.group_services.shopping_lists import ShoppingListService
 
 router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists"])
@@ -26,6 +28,7 @@ router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists
 class ShoppingListRoutes:
     deps: SharedDependencies = Depends(SharedDependencies.user)
     service: ShoppingListService = Depends(ShoppingListService.private)
+    event_bus: EventBusService = Depends(EventBusService)
 
     @cached_property
     def repo(self):
@@ -56,7 +59,16 @@ class ShoppingListRoutes:
     @router.post("", response_model=ShoppingListOut)
     def create_one(self, data: ShoppingListCreate):
         save_data = cast(data, ShoppingListSave, group_id=self.deps.acting_user.group_id)
-        return self.mixins.create_one(save_data)
+        val = self.mixins.create_one(save_data)
+
+        if val:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.shopping_list_created,
+                msg="A new shopping list has been created.",
+            )
+
+        return val
 
     @router.get("/{item_id}", response_model=ShoppingListOut)
     def get_one(self, item_id: UUID4):

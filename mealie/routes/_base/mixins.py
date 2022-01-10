@@ -76,6 +76,17 @@ class CrudMixins:
 
         return item
 
+    def get_one(self, item_id):
+        item = self.repo.get(item_id)
+
+        if not item:
+            raise HTTPException(
+                status.HTTP_404_NOT_FOUND,
+                detail=ErrorResponse.respond(message="Not found."),
+            )
+
+        return item
+
     def update_one(self, data, item_id):
         item = self.repo.get(item_id)
 
@@ -98,11 +109,11 @@ class CrudMixins:
             self.handle_exception(ex)
 
     def delete_one(self, item_id):
-        item = self.repo.get(item_id)
-        self.logger.info(f"Deleting item with id {item}")
+        self.logger.info(f"Deleting item with id {item_id}")
 
         try:
-            item = self.repo.delete(item)
+            item = self.repo.delete(item_id)
+            self.logger.info(item)
         except Exception as ex:
             self.handle_exception(ex)
 

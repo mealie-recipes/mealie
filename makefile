@@ -60,8 +60,6 @@ lint: ## 🧺 Format, Check and Flake8
 	poetry run flake8 mealie tests
 
 
-lint-frontend: ## 🧺 Run yarn lint
-	cd frontend && yarn lint
 
 coverage: ## ☂️  Check code coverage quickly with the default Python
 	poetry run pytest
@@ -94,6 +92,12 @@ frontend: ## 🎬 Start Mealie Frontend Development Server
 
 frontend-build: ## 🏗  Build Frontend in frontend/dist
 	cd frontend && yarn run build
+
+frontend-generate: ## 🏗  Generate Code for Frontend
+	poetry run python dev/code-generation/gen_frontend_types.py
+
+frontend-lint: ## 🧺 Run yarn lint
+	cd frontend && yarn lint
 
 .PHONY: docs
 docs: ## 📄 Start Mkdocs Development Server
