@@ -3,17 +3,15 @@ from __future__ import annotations
 from typing import Any, Callable, Generic, TypeVar, Union
 from uuid import UUID
 
-from pydantic import UUID4
+from pydantic import UUID4, BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
-from mealie.core.root_logger import get_logger
-
-logger = get_logger()
-
-T = TypeVar("T")
+T = TypeVar("T", bound=BaseModel)
 D = TypeVar("D")
+
+PydanticSchema = TypeVar("PydanticSchema", bound=BaseModel)
 
 
 class RepositoryGeneric(Generic[T, D]):
@@ -40,12 +38,12 @@ class RepositoryGeneric(Generic[T, D]):
     def subscribe(self, func: Callable) -> None:
         self.observers.append(func)
 
-    def by_user(self, user_id: UUID4) -> RepositoryGeneric:
+    def by_user(self, user_id: UUID4) -> RepositoryGeneric[T, D]:
         self.limit_by_user = True
         self.user_id = user_id
         return self
 
-    def by_group(self, group_id: UUID) -> RepositoryGeneric:
+    def by_group(self, group_id: UUID) -> RepositoryGeneric[T, D]:
         self.limit_by_group = True
         self.group_id = group_id
         return self
@@ -147,7 +145,7 @@ class RepositoryGeneric(Generic[T, D]):
         results_as_dict = [x.dict() for x in results]
         return [x.get(self.primary_key) for x in results_as_dict]
 
-    def _query_one(self, match_value: str, match_key: str = None) -> D:
+    def _query_one(self, match_value: str | int | UUID4, match_key: str = None) -> D:
         """
         Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
@@ -178,7 +176,7 @@ class RepositoryGeneric(Generic[T, D]):
         return eff_schema.from_orm(result)
 
     def get(
-        self, match_value: str, match_key: str = None, limit=1, any_case=False, override_schema=None
+        self, match_value: str | int | UUID4, match_key: str = None, limit=1, any_case=False, override_schema=None
     ) -> T | list[T]:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
@@ -237,7 +235,7 @@ class RepositoryGeneric(Generic[T, D]):
 
         return self.schema.from_orm(new_document)
 
-    def update(self, match_value: str, new_data: dict) -> T:
+    def update(self, match_value: str | int | UUID4, new_data: dict) -> T:
         """Update a database entry.
         Args:
             session (Session): Database Session
@@ -258,7 +256,7 @@ class RepositoryGeneric(Generic[T, D]):
         self.session.commit()
         return self.schema.from_orm(entry)
 
-    def patch(self, match_value: str, new_data: dict) -> T:
+    def patch(self, match_value: str | int | UUID4, new_data: dict) -> T:
         new_data = new_data if isinstance(new_data, dict) else new_data.dict()
 
         entry = self._query_one(match_value=match_value)

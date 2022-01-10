@@ -1,15 +1,21 @@
 from __future__ import annotations
 
 from logging import Logger
-from typing import Callable, Type
+from typing import Callable, Generic, Type, TypeVar
 
 from fastapi import HTTPException, status
+from pydantic import UUID4, BaseModel
 
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.response import ErrorResponse
 
+T_PrimayKey = int | str | UUID4
+C = TypeVar("C", bound=BaseModel)
+R = TypeVar("R", bound=BaseModel)
+U = TypeVar("U", bound=BaseModel)
 
-class CrudMixins:
+
+class CrudMixins(Generic[C, R, U]):
     repo: RepositoryGeneric
     exception_msgs: Callable[[Type[Exception]], str] | None
     default_message: str = "An unexpected error occurred."
@@ -39,16 +45,6 @@ class CrudMixins:
         if default_message:
             self.default_message = default_message
 
-    def set_default_message(self, default_msg: str) -> "CrudMixins":
-        """
-        Use this method to set a lookup function for exception messages. When an exception is raised, and
-        no custom message is set, the default message will be used.
-
-        IMPORTANT! The function returns the same instance of the CrudMixins class, so you can chain calls.
-        """
-        self.default_msg = default_msg
-        return self
-
     def get_exception_message(self, ext: Exception) -> str:
         if self.exception_msgs:
             return self.exception_msgs(type(ext))
@@ -67,8 +63,8 @@ class CrudMixins:
             detail=ErrorResponse.respond(message=msg, exception=str(ex)),
         )
 
-    def create_one(self, data):
-        item = None
+    def create_one(self, data: C) -> R | None:
+        item: R | None = None
         try:
             item = self.repo.create(data)
         except Exception as ex:
@@ -76,8 +72,8 @@ class CrudMixins:
 
         return item
 
-    def get_one(self, item_id):
-        item = self.repo.get(item_id)
+    def get_one(self, item_id: int | str | UUID4) -> R:
+        item = self.repo.get_one(item_id)
 
         if not item:
             raise HTTPException(
@@ -87,11 +83,14 @@ class CrudMixins:
 
         return item
 
-    def update_one(self, data, item_id):
-        item = self.repo.get(item_id)
+    def update_one(self, data: U, item_id: int | str | UUID4) -> R:
+        item: R = self.repo.get_one(item_id)
 
         if not item:
-            return
+            raise HTTPException(
+                status.HTTP_404_NOT_FOUND,
+                detail=ErrorResponse.respond(message="Not found."),
+            )
 
         try:
             item = self.repo.update(item.id, data)  # type: ignore
@@ -100,20 +99,19 @@ class CrudMixins:
 
         return item
 
-    def patch_one(self, data, item_id) -> None:
-        self.repo.get(item_id)
+    def patch_one(self, data: U, item_id: int | str | UUID4) -> None:
+        self.repo.get_one(item_id)
 
         try:
             self.repo.patch(item_id, data.dict(exclude_unset=True, exclude_defaults=True))
         except Exception as ex:
             self.handle_exception(ex)
 
-    def delete_one(self, item_id):
-        self.logger.info(f"Deleting item with id {item_id}")
-
+    def delete_one(self, item_id: int | str | UUID4) -> R | None:
+        item: R | None = None
         try:
             item = self.repo.delete(item_id)
-            self.logger.info(item)
+            self.logger.info(f"Deleting item with id {item_id}")
         except Exception as ex:
             self.handle_exception(ex)
 
