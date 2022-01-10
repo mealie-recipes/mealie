@@ -35,6 +35,8 @@
       </div>
     </BasePageTitle>
 
+    <BannerExperimental issue="https://github.com/hay-kot/mealie/issues/833" />
+
     <BaseButton create @click="createDialog = true" />
     <v-expansion-panels v-if="notifiers" class="mt-2">
       <v-expansion-panel v-for="(notifier, index) in notifiers" :key="index" class="my-2 left-border rounded">

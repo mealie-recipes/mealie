@@ -6,7 +6,7 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
-    <BannerExperimental />
+    <BannerExperimental issue="https://github.com/hay-kot/mealie/issues/916" />
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
