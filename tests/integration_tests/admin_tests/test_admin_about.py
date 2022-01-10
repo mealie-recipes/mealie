@@ -44,7 +44,6 @@ def test_admin_about_check_app_config(api_client: TestClient, admin_user: TestUs
     response = api_client.get(Routes.check, headers=admin_user.token)
 
     as_dict = response.json()
-    print(as_dict)
 
     # Smoke Test - Test the endpoint returns something thats a the expected shape
     assert as_dict["emailReady"] in [True, False]
