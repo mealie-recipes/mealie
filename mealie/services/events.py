@@ -17,9 +17,8 @@ def create_general_event(title, text, session=None):
     save_event(title=title, text=text, category=category, session=session)
 
 
-def create_recipe_event(title, text, session=None, attachment=None):  # noqa
+def create_recipe_event(title, text, session=None, attachment=None):
     category = EventCategory.recipe
-
     save_event(title=title, text=text, category=category, session=session)
 
 

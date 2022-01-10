@@ -31,7 +31,7 @@ passlib = "^1.7.4"
 lxml = "^4.7.1"
 Pillow = "^8.2.0"
 pathvalidate = "^2.4.1"
-apprise = "0.9.3"
+apprise = "^0.9.6"
 recipe-scrapers = "^13.5.0"
 psycopg2-binary = {version = "^2.9.1", optional = true}
 gunicorn = "^20.1.0"

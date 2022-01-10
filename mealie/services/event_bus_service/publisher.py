@@ -12,7 +12,7 @@ class PublisherLike(Protocol):
 
 class ApprisePublisher:
     def __init__(self, hard_fail=False) -> None:
-        asset = apprise.AppriseAsset(async_mode=False)
+        asset = apprise.AppriseAsset(async_mode=True)
         self.apprise = apprise.Apprise(asset=asset)
         self.hard_fail = hard_fail
 
