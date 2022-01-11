@@ -59,11 +59,10 @@ lint: ## 🧺 Format, Check and Flake8
 	poetry run black .
 	poetry run flake8 mealie tests
 
-
-
 coverage: ## ☂️  Check code coverage quickly with the default Python
-	poetry run pytest
+	poetry run pytest 
 	poetry run coverage report -m
+	poetry run coveragepy-lcov
 	poetry run coverage html
 	$(BROWSER) htmlcov/index.html
 

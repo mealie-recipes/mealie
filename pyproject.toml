@@ -53,6 +53,7 @@ rich = "^10.7.0"
 isort = "^5.9.3"
 flake8-print = "^4.0.0"
 black = "^21.12b0"
+coveragepy-lcov = "^0.1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
