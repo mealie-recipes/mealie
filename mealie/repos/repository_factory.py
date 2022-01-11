@@ -100,6 +100,7 @@ class AllRepositories:
 
     @cached_property
     def categories(self) -> RepositoryCategories:
+        # TODO: Fix Typing for Category Repository
         return RepositoryCategories(self.session, pk_slug, Category, RecipeCategoryResponse)
 
     @cached_property
