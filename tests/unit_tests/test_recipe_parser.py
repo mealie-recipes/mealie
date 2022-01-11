@@ -14,7 +14,7 @@ and then use this test case by removing the `@pytest.mark.skip` and than testing
 """
 
 
-@pytest.mark.skip
+@pytest.mark.skipif(True, reason="Long Running API Test - manually run when updating the parser")
 @pytest.mark.parametrize("recipe_test_data", test_cases)
 def test_recipe_parser(recipe_test_data: RecipeSiteTestCase):
     recipe = scraper.create_from_url(recipe_test_data.url)
