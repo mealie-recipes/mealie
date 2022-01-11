@@ -36,6 +36,14 @@
         </v-list>
       </v-menu>
       <template #bottom>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>{{ $globals.icons.translate }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <LanguageSelector />
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item @click="toggleDark">
           <v-list-item-icon>
             <v-icon>
@@ -64,12 +72,13 @@
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
+import LanguageSelector from "~/components/global/LanguageSelector.vue";
 import TheSnackbar from "@/components/Layout/TheSnackbar.vue";
 import { useCookbooks } from "~/composables/use-group-cookbooks";
 import { useToggleDarkMode } from "~/composables/use-utils";
 
 export default defineComponent({
-  components: { AppHeader, AppSidebar, TheSnackbar },
+  components: { AppHeader, AppSidebar, LanguageSelector, TheSnackbar },
   middleware: "auth",
   setup() {
     const { cookbooks } = useCookbooks();
