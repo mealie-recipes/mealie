@@ -37,7 +37,7 @@
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.pylintEnabled": false,
-  "python.pythonPath": ".venv/bin/python3.9",
+  "python.linting.pylintArgs": ["--rcfile=${workspaceFolder}/.pylintrc"],
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
   "python.testing.pytestArgs": ["tests"],
   "python.testing.pytestEnabled": true,
@@ -45,5 +45,6 @@
   "python.analysis.typeCheckingMode": "off",
   "search.mode": "reuseEditor",
   "vetur.validation.template": false,
-  "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort"
+  "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
+  "coverage-gutters.lcovname": "${workspaceFolder}/.coverage"
 }
