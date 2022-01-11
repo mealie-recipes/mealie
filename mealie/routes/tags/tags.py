@@ -41,21 +41,21 @@ def get_all_recipes_by_tag(
     return tag_obj
 
 
-@user_router.post("")
+@user_router.post("", status_code=201)
 async def create_recipe_tag(tag: TagIn, session: Session = Depends(generate_session)):
     """Creates a Tag in the database"""
     db = get_repositories(session)
     return db.tags.create(tag.dict())
 
 
-@admin_router.put("/{tag}", response_model=RecipeTagResponse)
+@user_router.put("/{tag}", response_model=RecipeTagResponse)
 async def update_recipe_tag(tag: str, new_tag: TagIn, session: Session = Depends(generate_session)):
     """Updates an existing Tag in the database"""
     db = get_repositories(session)
     return db.tags.update(tag, new_tag.dict())
 
 
-@admin_router.delete("/{tag}")
+@user_router.delete("/{tag}")
 async def delete_recipe_tag(tag: str, session: Session = Depends(generate_session)):
     """Removes a recipe tag from the database. Deleting a
     tag does not impact a recipe. The tag will be removed

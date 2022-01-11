@@ -5,14 +5,15 @@ from typing import Type
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
-from mealie.routes._base import BaseAdminController, controller
-from mealie.routes._base.dependencies import SharedDependencies
-from mealie.routes._base.mixins import CrudMixins
 from mealie.schema.group.group import GroupAdminUpdate
 from mealie.schema.mapper import mapper
 from mealie.schema.query import GetAll
-from mealie.schema.response.error_response import ErrorResponse
+from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import GroupBase, GroupInDB
+
+from .._base import BaseAdminController, controller
+from .._base.dependencies import SharedDependencies
+from .._base.mixins import CrudMixins
 
 router = APIRouter(prefix="/groups", tags=["Admin: Groups"])
 
@@ -28,7 +29,8 @@ class AdminUserManagementRoutes(BaseAdminController):
 
         return self.deps.repos.groups
 
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
+    @staticmethod
+    def registered_exceptions(ex: Type[Exception]) -> str:
         registered = {
             Exception: "An unexpected error occurred.",
             IntegrityError: "An unexpected error occurred.",

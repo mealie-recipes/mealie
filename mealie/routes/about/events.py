@@ -1,6 +1,7 @@
-from mealie.routes._base import BaseAdminController, controller
 from mealie.routes.routers import AdminAPIRouter
 from mealie.schema.events import EventsOut
+
+from .._base import BaseAdminController, controller
 
 router = AdminAPIRouter(prefix="/events")
 
@@ -18,7 +19,7 @@ class EventsController(BaseAdminController):
         self.repos.events.delete_all()
         return {"message": "All events deleted"}
 
-    @router.delete("/{id}")
-    async def delete_event(self, id: int):
+    @router.delete("/{item_id}")
+    async def delete_event(self, item_id: int):
         """Delete event from the Database"""
-        return self.repos.events.delete(id)
+        return self.repos.events.delete(item_id)

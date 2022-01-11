@@ -93,7 +93,7 @@ class CrudMixins(Generic[C, R, U]):
             )
 
         try:
-            item = self.repo.update(item.id, data)  # type: ignore
+            item = self.repo.update(item_id, data)  # type: ignore
         except Exception as ex:
             self.handle_exception(ex)
 
