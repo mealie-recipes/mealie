@@ -30,8 +30,20 @@ class BaseUserController(ABC):
     def repos(self):
         return AllRepositories(self.deps.session)
 
+    @property
+    def group_id(self):
+        return self.deps.acting_user.group_id
 
-class BaseAdminController(ABC):
+    @property
+    def user(self):
+        return self.deps.acting_user
+
+    @property
+    def group(self):
+        return self.deps.repos.groups.get_one(self.group_id)
+
+
+class BaseAdminController(BaseUserController):
     """
     This is a base class for all Admin restricted controllers in the API.
     It includes the common Shared Dependencies and some common methods used
@@ -39,7 +51,3 @@ class BaseAdminController(ABC):
     """
 
     deps: SharedDependencies = Depends(SharedDependencies.admin)
-
-    @cached_property
-    def repos(self):
-        return AllRepositories(self.deps.session)

@@ -16,6 +16,18 @@ U = TypeVar("U", bound=BaseModel)
 
 
 class CrudMixins(Generic[C, R, U]):
+    """
+    The CrudMixins[C, R, U] class is a mixin class that provides a common set of methods for CRUD operations.
+    This class is inteded to be used in a composition pattern where a class has a mixin property. For example:
+
+    ```
+    class MyClass:
+        def __init(self repo, logger):
+            self.mixins = CrudMixins(repo, logger)
+    ```
+
+    """
+
     repo: RepositoryGeneric
     exception_msgs: Callable[[Type[Exception]], str] | None
     default_message: str = "An unexpected error occurred."
@@ -27,17 +39,7 @@ class CrudMixins(Generic[C, R, U]):
         exception_msgs: Callable[[Type[Exception]], str] = None,
         default_message: str = None,
     ) -> None:
-        """
-        The CrudMixins class is a mixin class that provides a common set of methods for CRUD operations.
-        This class is inteded to be used in a composition pattern where a class has a mixin property. For example:
 
-        ```
-        class MyClass:
-            def __init(self repo, logger):
-                self.mixins = CrudMixins(repo, logger)
-        ```
-
-        """
         self.repo = repo
         self.logger = logger
         self.exception_msgs = exception_msgs
