@@ -41,10 +41,6 @@ class ABCScraperStrategy(ABC):
 
 
 class RecipeScraperPackage(ABCScraperStrategy):
-    """
-    Abstract class for all recipe parsers.
-    """
-
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> Recipe:
         def try_get_default(func_call: Callable, get_attr: str, default: Any, clean_func=None):
             value = default

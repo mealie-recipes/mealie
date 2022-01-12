@@ -1,130 +1,248 @@
-from fastapi import Depends, File
+from functools import cached_property
+from zipfile import ZipFile
+
+import sqlalchemy
+from fastapi import Depends, File, HTTPException
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field
 from sqlalchemy.orm.session import Session
+from starlette.responses import FileResponse
 
+from mealie.core import exceptions
 from mealie.core.dependencies import temporary_zip_path
-from mealie.core.root_logger import get_logger
+from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
+from mealie.core.security import create_recipe_slug_token
 from mealie.repos.all_repositories import get_repositories
+from mealie.repos.repository_recipes import RepositoryRecipes
+from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.mixins import CrudMixins
 from mealie.routes.routers import UserAPIRouter
-from mealie.schema.recipe import CreateRecipeByUrl, Recipe
+from mealie.schema.query import GetAll
+from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeImageTypes
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
+from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.server.tasks import ServerTaskNames
 from mealie.services.recipe.recipe_service import RecipeService
+from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.scraper import create_from_url
 from mealie.services.scraper.scraper_strategies import RecipeScraperPackage
 from mealie.services.server_tasks.background_executory import BackgroundExecutor
 
-user_router = UserAPIRouter()
-logger = get_logger()
+
+class BaseRecipeController(BaseUserController):
+    @cached_property
+    def repo(self) -> RepositoryRecipes:
+        return self.repos.recipes.by_group(self.group_id)
+
+    @cached_property
+    def service(self) -> RecipeService:
+        return RecipeService(self.repos, self.user, self.group)
+
+    @cached_property
+    def mixins(self):
+        return CrudMixins[CreateRecipe, Recipe, Recipe](self.repo, self.deps.logger)
 
 
-@user_router.get("", response_model=list[RecipeSummary])
-async def get_all(
-    start: int = 0,
-    limit: int = None,
-    load_foods: bool = False,
-    service: RecipeService = Depends(RecipeService.private),
-):
-    json_compatible_item_data = jsonable_encoder(service.get_all(start, limit, load_foods))
-    return JSONResponse(content=json_compatible_item_data)
+class RecipeGetAll(GetAll):
+    load_food: bool = False
 
 
-@user_router.post("", status_code=201, response_model=str)
-def create_from_name(data: CreateRecipe, recipe_service: RecipeService = Depends(RecipeService.private)) -> str:
-    """Takes in a JSON string and loads data into the database as a new entry"""
-    return recipe_service.create_one(data).slug
+class FormatResponse(BaseModel):
+    jjson: list[str] = Field(..., alias="json")
+    zip: list[str]
+    jinja2: list[str]
 
 
-@user_router.post("/create-url", status_code=201, response_model=str)
-def parse_recipe_url(url: CreateRecipeByUrl, recipe_service: RecipeService = Depends(RecipeService.private)):
-    """Takes in a URL and attempts to scrape data and load it into the database"""
-    recipe = create_from_url(url.url)
-    return recipe_service.create_one(recipe).slug
+router_exports = UserAPIRouter(prefix="/recipes", tags=["Recipe: Exports"])
 
 
-@user_router.post("/create-url/bulk", status_code=202)
-def parse_recipe_url_bulk(
-    bulk: CreateRecipeByUrlBulk,
-    recipe_service: RecipeService = Depends(RecipeService.private),
-    bg_service: BackgroundExecutor = Depends(BackgroundExecutor.private),
-):
-    """Takes in a URL and attempts to scrape data and load it into the database"""
+@controller(router_exports)
+class RecipeExportController(BaseRecipeController):
+    # ==================================================================================================================
+    # Export Operations
 
-    def bulk_import_func(task_id: int, session: Session) -> None:
-        database = get_repositories(session)
-        task = database.server_tasks.get_one(task_id)
+    @router_exports.get("/exports", response_model=FormatResponse)
+    def get_recipe_formats_and_templates(self):
+        return TemplateService().templates
 
-        task.append_log("test task has started")
+    @router_exports.post("/{slug}/exports")
+    def get_recipe_zip_token(self, slug: str):
+        """Generates a recipe zip token to be used to download a recipe as a zip file"""
+        return {"token": create_recipe_slug_token(slug)}
 
-        for b in bulk.imports:
-            try:
-                recipe = create_from_url(b.url)
+    @router_exports.get("/{slug}/exports", response_class=FileResponse)
+    def get_recipe_as_format(self, slug: str, template_name: str, temp_dir=Depends(temporary_dir)):
+        """
+        ## Parameters
+        `template_name`: The name of the template to use to use in the exports listed. Template type will automatically
+        be set on the backend. Because of this, it's important that your templates have unique names. See available
+        names and formats in the /api/recipes/exports endpoint.
 
-                if b.tags:
-                    recipe.tags = b.tags
+        """
+        recipe = self.mixins.get_one(slug)
+        file = self.service.render_template(recipe, temp_dir, template_name)
+        return FileResponse(file)
 
-                if b.categories:
-                    recipe.recipe_category = b.categories
+    @router_exports.get("/{slug}/exports/zip")
+    def get_recipe_as_zip(self, slug: str, token: str, temp_path=Depends(temporary_zip_path)):
+        """Get a Recipe and It's Original Image as a Zip File"""
+        slug = validate_recipe_token(token)
 
-                recipe_service.create_one(recipe)
-                task.append_log(f"INFO: Created recipe from url: {b.url}")
-            except Exception as e:
-                task.append_log(f"Error: Failed to create recipe from url: {b.url}")
-                task.append_log(f"Error: {e}")
-                logger.error(f"Failed to create recipe from url: {b.url}")
-                logger.error(e)
+        if slug != slug:
+            raise HTTPException(status_code=400, detail="Invalid Slug")
+
+        recipe: Recipe = self.mixins.get_one(slug)
+        image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
+        with ZipFile(temp_path, "w") as myzip:
+            myzip.writestr(f"{slug}.json", recipe.json())
+
+            if image_asset.is_file():
+                myzip.write(image_asset, arcname=image_asset.name)
+
+        return FileResponse(temp_path, filename=f"{slug}.zip")
+
+
+router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"])
+
+
+@controller(router)
+class RecipeController(BaseRecipeController):
+    # =======================================================================
+    # URL Scraping Operations
+
+    @router.post("/create-url", status_code=201, response_model=str)
+    def parse_recipe_url(self, url: CreateRecipeByUrl):
+        """Takes in a URL and attempts to scrape data and load it into the database"""
+        recipe = create_from_url(url.url)
+        return self.service.create_one(recipe).slug
+
+    @router.post("/create-url/bulk", status_code=202)
+    def parse_recipe_url_bulk(
+        self,
+        bulk: CreateRecipeByUrlBulk,
+        bg_service: BackgroundExecutor = Depends(BackgroundExecutor.private),
+    ):
+        """Takes in a URL and attempts to scrape data and load it into the database"""
+
+        def bulk_import_func(task_id: int, session: Session) -> None:
+            database = get_repositories(session)
+            task = database.server_tasks.get_one(task_id)
+
+            task.append_log("test task has started")
+
+            for b in bulk.imports:
+                try:
+                    recipe = create_from_url(b.url)
+
+                    if b.tags:
+                        recipe.tags = b.tags
+
+                    if b.categories:
+                        recipe.recipe_category = b.categories
+
+                    self.service.create_one(recipe)
+                    task.append_log(f"INFO: Created recipe from url: {b.url}")
+                except Exception as e:
+                    task.append_log(f"Error: Failed to create recipe from url: {b.url}")
+                    task.append_log(f"Error: {e}")
+                    self.deps.logger.error(f"Failed to create recipe from url: {b.url}")
+                    self.deps.error(e)
+                database.server_tasks.update(task.id, task)
+
+            task.set_finished()
             database.server_tasks.update(task.id, task)
 
-        task.set_finished()
-        database.server_tasks.update(task.id, task)
+        bg_service.dispatch(ServerTaskNames.bulk_recipe_import, bulk_import_func)
 
-    bg_service.dispatch(ServerTaskNames.bulk_recipe_import, bulk_import_func)
+        return {"details": "task has been started"}
 
-    return {"details": "task has been started"}
+    @router.post("/test-scrape-url")
+    def test_parse_recipe_url(self, url: CreateRecipeByUrl):
+        # Debugger should produce the same result as the scraper sees before cleaning
+        scraped_data = RecipeScraperPackage(url.url).scrape_url()
 
+        if scraped_data:
+            return scraped_data.schema.data
+        return "recipe_scrapers was unable to scrape this URL"
 
-@user_router.post("/test-scrape-url")
-def test_parse_recipe_url(url: CreateRecipeByUrl):
-    # Debugger should produce the same result as the scraper sees before cleaning
-    scraped_data = RecipeScraperPackage(url.url).scrape_url()
+    @router.post("/create-from-zip", status_code=201)
+    def create_recipe_from_zip(self, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)):
+        """Create recipe from archive"""
+        recipe = self.service.create_from_zip(archive, temp_path)
+        return recipe.slug
 
-    if scraped_data:
-        return scraped_data.schema.data
-    return "recipe_scrapers was unable to scrape this URL"
+    # ==================================================================================================================
+    # CRUD Operations
 
+    @router.get("", response_model=list[RecipeSummary])
+    def get_all(self, q: RecipeGetAll = Depends(RecipeGetAll)):
+        items = self.repo.summary(self.user.group_id, start=q.start, limit=q.limit, load_foods=q.load_food)
 
-@user_router.post("/create-from-zip", status_code=201)
-async def create_recipe_from_zip(
-    recipe_service: RecipeService = Depends(RecipeService.private),
-    temp_path=Depends(temporary_zip_path),
-    archive: UploadFile = File(...),
-):
-    """Create recipe from archive"""
-    recipe = recipe_service.create_from_zip(archive, temp_path)
-    return recipe.slug
+        new_items = []
+        for item in items:
+            # Pydantic/FastAPI can't seem to serialize the ingredient field on thier own.
+            new_item = item.__dict__
 
+            if q.load_food:
+                new_item["recipe_ingredient"] = [x.__dict__ for x in item.recipe_ingredient]
 
-@user_router.get("/{slug}", response_model=Recipe)
-def get_recipe(recipe_service: RecipeService = Depends(RecipeService.read_existing)):
-    """Takes in a recipe slug, returns all data for a recipe"""
-    return recipe_service.item
+            new_items.append(new_item)
 
+        json_compatible_item_data = jsonable_encoder(RecipeSummary.construct(**x) for x in new_items)
 
-@user_router.put("/{slug}")
-def update_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
-    """Updates a recipe by existing slug and data."""
-    return recipe_service.update_one(data)
+        # Response is returned directly, to avoid validation and improve performance
+        return JSONResponse(content=json_compatible_item_data)
 
+    @router.get("/{slug}", response_model=Recipe)
+    def get_one(self, slug: str):
+        """Takes in a recipe slug, returns all data for a recipe"""
+        return self.mixins.get_one(slug)
 
-@user_router.patch("/{slug}")
-def patch_recipe(data: Recipe, recipe_service: RecipeService = Depends(RecipeService.write_existing)):
-    """Updates a recipe by existing slug and data."""
-    return recipe_service.patch_one(data)
+    @router.post("", status_code=201, response_model=str)
+    def create_one(self, data: CreateRecipe) -> str:
+        """Takes in a JSON string and loads data into the database as a new entry"""
+        try:
+            return self.service.create_one(data).slug
+        except Exception as e:
+            self.handle_exceptions(e)
 
+    def handle_exceptions(self, ex: Exception) -> None:
+        match type(ex):
+            case exceptions.PermissionDenied:
+                self.deps.logger.error("Permission Denied on recipe controller action")
+                raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
+            case exceptions.NoEntryFound:
+                self.deps.logger.error("No Entry Found on recipe controller action")
+                raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
+            case sqlalchemy.exc.IntegrityError:
+                self.deps.logger.error("SQL Integrity Error on recipe controller action")
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
 
-@user_router.delete("/{slug}")
-def delete_recipe(recipe_service: RecipeService = Depends(RecipeService.write_existing)):
-    """Deletes a recipe by slug"""
-    return recipe_service.delete_one()
+    @router.put("/{slug}")
+    def update_one(self, slug: str, data: Recipe):
+        """Updates a recipe by existing slug and data."""
+        try:
+            data = self.service.update_one(slug, data)
+        except Exception as e:
+            self.handle_exceptions(e)
+
+        return data
+
+    @router.patch("/{slug}")
+    def patch_one(self, slug: str, data: Recipe):
+        """Updates a recipe by existing slug and data."""
+        try:
+            data = self.service.patch_one(slug, data)
+        except Exception as e:
+            self.handle_exceptions(e)
+        return data
+
+    @router.delete("/{slug}")
+    def delete_one(self, slug: str):
+        """Deletes a recipe by slug"""
+        try:
+            return self.service.delete_one(slug)
+        except Exception as e:
+            self.handle_exceptions(e)

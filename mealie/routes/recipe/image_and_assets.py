@@ -2,6 +2,7 @@ from shutil import copyfileobj
 
 from fastapi import Depends, File, Form, HTTPException, status
 from fastapi.datastructures import UploadFile
+from pydantic import BaseModel
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
@@ -11,17 +12,20 @@ from mealie.routes.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeAsset
 from mealie.services.image.image import scrape_image, write_image
 
-user_router = UserAPIRouter()
+router = UserAPIRouter()
 
 
-@user_router.post("/{slug}/image")
+class UpdateImageResponse(BaseModel):
+    image: str
+
+
+@router.post("/{slug}/image")
 def scrape_image_url(slug: str, url: CreateRecipeByUrl):
     """Removes an existing image and replaces it with the incoming file."""
-
     scrape_image(url.url, slug)
 
 
-@user_router.put("/{slug}/image")
+@router.put("/{slug}/image", response_class=UpdateImageResponse)
 def update_recipe_image(
     slug: str,
     image: bytes = File(...),
@@ -33,10 +37,10 @@ def update_recipe_image(
     write_image(slug, image, extension)
     new_version = db.recipes.update_image(slug, extension)
 
-    return {"image": new_version}
+    return UpdateImageResponse(image=new_version)
 
 
-@user_router.post("/{slug}/assets", response_model=RecipeAsset)
+@router.post("/{slug}/assets", response_model=RecipeAsset)
 def upload_recipe_asset(
     slug: str,
     name: str = Form(...),

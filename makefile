@@ -50,13 +50,13 @@ test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
 lint-test:
-	poetry run black . --check --target-version py310
+	poetry run black . --check
 	poetry run isort . --check-only
 	poetry run flake8 mealie tests
 
 lint: ## 🧺 Format, Check and Flake8 
 	poetry run isort .
-	poetry run black . --target-version py310
+	poetry run black .
 	poetry run flake8 mealie tests
 
 coverage: ## ☂️  Check code coverage quickly with the default Python

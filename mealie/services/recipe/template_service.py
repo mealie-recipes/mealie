@@ -32,7 +32,7 @@ class TemplateService(BaseService):
         Returns a list of all templates available to render.
         """
         return {
-            TemplateType.jinja2.value: [x.name for x in self.app_dirs.TEMPLATE_DIR.iterdir() if x.is_file()],
+            TemplateType.jinja2.value: [x.name for x in self.directories.TEMPLATE_DIR.iterdir() if x.is_file()],
             TemplateType.json.value: ["raw"],
             TemplateType.zip.value: ["zip"],
         }
@@ -98,7 +98,7 @@ class TemplateService(BaseService):
         """
         self.__check_temp(self._render_jinja2)
 
-        j2_template: Path = self.app_dirs.TEMPLATE_DIR / j2_template
+        j2_template: Path = self.directories.TEMPLATE_DIR / j2_template
 
         if not j2_template.is_file():
             raise FileNotFoundError(f"Template '{j2_template}' not found.")
