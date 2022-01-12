@@ -12,11 +12,6 @@ router = UserAPIRouter(prefix="/groups", tags=["Groups: Self Service"])
 
 @controller(router)
 class GroupSelfServiceController(BaseUserController):
-    def can_manage(self):
-        """Override parent method to remove `item_id` from arguments"""
-        if not self.user.can_manage:
-            raise HTTPException(status.HTTP_403_FORBIDDEN)
-
     @router.get("/preferences", response_model=ReadGroupPreferences)
     def get_group_preferences(self):
         return self.group.preferences
@@ -37,7 +32,7 @@ class GroupSelfServiceController(BaseUserController):
 
     @router.put("/permissions", response_model=UserOut)
     async def set_member_permissions(self, permissions: SetPermissions):
-        self.can_manage()
+        self.checks.can_manage()
 
         target_user = self.repos.users.get(permissions.user_id)
 

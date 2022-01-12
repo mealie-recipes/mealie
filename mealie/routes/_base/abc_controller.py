@@ -4,6 +4,7 @@ from functools import cached_property
 from fastapi import Depends
 
 from mealie.repos.all_repositories import AllRepositories
+from mealie.routes._base.checks import OperationChecks
 from mealie.routes._base.dependencies import SharedDependencies
 
 
@@ -41,6 +42,10 @@ class BaseUserController(ABC):
     @property
     def group(self):
         return self.deps.repos.groups.get_one(self.group_id)
+
+    @cached_property
+    def checks(self) -> OperationChecks:
+        return OperationChecks(self.deps.acting_user)
 
 
 class BaseAdminController(BaseUserController):
