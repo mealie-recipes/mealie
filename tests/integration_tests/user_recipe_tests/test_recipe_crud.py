@@ -163,6 +163,6 @@ def test_recipe_crud_404(api_client: TestClient, api_routes: AppRoutes, unique_u
 
     response = api_client.delete(api_routes.recipes_recipe_slug("test"), headers=unique_user.token)
     assert response.status_code == 404
-    
+
     response = api_client.patch(api_routes.recipes_create_url, json={"test": "stest"}, headers=unique_user.token)
     assert response.status_code == 404

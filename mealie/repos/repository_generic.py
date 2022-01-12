@@ -11,8 +11,6 @@ from sqlalchemy.orm.session import Session
 T = TypeVar("T", bound=BaseModel)
 D = TypeVar("D")
 
-PydanticSchema = TypeVar("PydanticSchema", bound=BaseModel)
-
 
 class RepositoryGeneric(Generic[T, D]):
     """A Generic BaseAccess Model method to perform common operations on the database

@@ -72,11 +72,6 @@ def category(category: str):
     return []
 
 
-def clean_html(raw_html):
-    cleanr = re.compile("<.*?>")
-    return re.sub(cleanr, "", raw_html)
-
-
 def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
     # Assumes that all units are supplied in grams, except sodium which may be in mg.
 

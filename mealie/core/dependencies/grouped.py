@@ -6,18 +6,6 @@ from mealie.schema.user.user import PrivateUser
 from .dependencies import generate_session, get_admin_user, get_current_user, is_logged_in
 
 
-class RequestContext:
-    def __init__(
-        self,
-        background_tasks: BackgroundTasks,
-        session: Session = Depends(generate_session),
-        user=Depends(get_current_user),
-    ):
-        self.session: Session = session
-        self.bg_task: BackgroundTasks = background_tasks
-        self.user: bool = user
-
-
 class PublicDeps:
     """
     PublicDeps contains the common dependencies for all read operations through the API.

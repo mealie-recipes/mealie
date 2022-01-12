@@ -21,8 +21,9 @@ class ABCIngredientParser(ABC):
     Abstract class for ingredient parsers.
     """
 
+    @abstractmethod
     def parse_one(self, ingredient_string: str) -> ParsedIngredient:
-        pass
+        ...
 
     @abstractmethod
     def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
@@ -96,6 +97,10 @@ class NLPParser(ABCIngredientParser):
     def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         crf_models = crfpp.convert_list_to_crf_model(ingredients)
         return [self._crf_to_ingredient(crf_model) for crf_model in crf_models]
+
+    def parse_one(self, ingredient: str) -> ParsedIngredient:
+        items = self.parse_one([ingredient])
+        return items[0]
 
 
 __registrar = {

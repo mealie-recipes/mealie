@@ -11,7 +11,6 @@ tools_router = RouterFactory(RecipeToolService, prefix="/tools", tags=["Recipes:
 
 @tools_router.get("/slug/{slug}")
 async def Func(slug: str, tools_service: RecipeToolService = Depends(RecipeToolService.private)):
-    """Returns a recipe by slug."""
     return tools_service.db.tools.get_one(slug, "slug", override_schema=RecipeToolResponse)
 
 

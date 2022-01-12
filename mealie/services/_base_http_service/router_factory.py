@@ -18,10 +18,6 @@ S = TypeVar("S", bound=BaseHttpService)
 DEPENDENCIES = Optional[Sequence[Depends]]
 
 
-def get_return(func: Callable, default) -> Type:
-    return get_type_hints(func).get("return", default)
-
-
 def get_func_args(func: Callable) -> Sequence[str]:
     for _, value in get_type_hints(func).items():
         if value:

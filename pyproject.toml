@@ -63,6 +63,14 @@ build-backend = "poetry.core.masonry.api"
 line-length = 120
 target-version = ["py310"]
 
+[tool.vulture]
+exclude = ["**/models/**/*.py", "dir/"]
+ignore_decorators = ["@*router.*", "@app.on_event", "@validator", "@controller"]
+make_whitelist = true
+min_confidence = 60
+paths = ["mealie"]
+sort_by_size = true
+
 [tool.isort]
 profile = "black"
 line_length = 120

@@ -1,2 +1,0 @@
-class Exporter:
-    pass

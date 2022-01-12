@@ -7,7 +7,6 @@ from mealie.schema.cookbook.cookbook import CreateCookBook, ReadCookBook, Recipe
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
-from mealie.utils.error_messages import ErrorMessages
 
 logger = get_logger(module=__name__)
 
@@ -43,7 +42,7 @@ class CookbookService(
 
     def create_one(self, data: CreateCookBook) -> ReadCookBook:
         data = self.cast(data, SaveCookBook)
-        return self._create_one(data, ErrorMessages.cookbook_create_failure)
+        return self._create_one(data)
 
     def update_one(self, data: UpdateCookBook, id: int = None) -> ReadCookBook:
         return self._update_one(data, id)

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from logging import Logger
 from typing import Callable, Generic, Type, TypeVar
 
@@ -9,7 +7,6 @@ from pydantic import UUID4, BaseModel
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.response import ErrorResponse
 
-T_PrimayKey = int | str | UUID4
 C = TypeVar("C", bound=BaseModel)
 R = TypeVar("R", bound=BaseModel)
 U = TypeVar("U", bound=BaseModel)
