@@ -25,7 +25,7 @@ def scrape_image_url(slug: str, url: CreateRecipeByUrl):
     scrape_image(url.url, slug)
 
 
-@router.put("/{slug}/image", response_class=UpdateImageResponse)
+@router.put("/{slug}/image", response_model=UpdateImageResponse)
 def update_recipe_image(
     slug: str,
     image: bytes = File(...),
