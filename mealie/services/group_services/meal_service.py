@@ -3,14 +3,11 @@ from __future__ import annotations
 from datetime import date
 from functools import cached_property
 
-from mealie.core.root_logger import get_logger
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 
 from .._base_http_service.crud_http_mixins import CrudHttpMixins
 from .._base_http_service.http_services import UserHttpService
 from ..events import create_group_event
-
-logger = get_logger(module=__name__)
 
 
 class MealService(CrudHttpMixins[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry], UserHttpService[int, ReadPlanEntry]):

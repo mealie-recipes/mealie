@@ -1,10 +1,10 @@
 from functools import cached_property
-from sqlite3 import IntegrityError
 from typing import Type
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
+from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.schema.group.group import GroupAdminUpdate
 from mealie.schema.mapper import mapper
 from mealie.schema.query import GetAll
@@ -29,11 +29,10 @@ class AdminUserManagementRoutes(BaseAdminController):
 
         return self.deps.repos.groups
 
-    @staticmethod
-    def registered_exceptions(ex: Type[Exception]) -> str:
+    def registered_exceptions(self, ex: Type[Exception]) -> str:
+
         registered = {
-            Exception: "An unexpected error occurred.",
-            IntegrityError: "An unexpected error occurred.",
+            **mealie_registered_exceptions(self.deps.t),
         }
 
         return registered.get(ex, "An unexpected error occurred.")

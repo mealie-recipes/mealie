@@ -1,15 +1,10 @@
-from __future__ import annotations
-
 from functools import cached_property
 
-from mealie.core.root_logger import get_logger
 from mealie.schema.group import ReadWebhook
 from mealie.schema.group.webhook import CreateWebhook, SaveWebhook
 from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
-
-logger = get_logger(module=__name__)
 
 
 class WebhookService(CrudHttpMixins[ReadWebhook, CreateWebhook, CreateWebhook], UserHttpService[int, ReadWebhook]):

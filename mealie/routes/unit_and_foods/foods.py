@@ -1,9 +1,9 @@
 from functools import cached_property
-from sqlite3 import IntegrityError
 from typing import Type
 
 from fastapi import APIRouter, Depends
 
+from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import CrudMixins
@@ -20,14 +20,12 @@ class IngredientFoodsController(BaseUserController):
         return self.deps.repos.ingredient_foods
 
     def registered_exceptions(self, ex: Type[Exception]) -> str:
-        default = "An unexpected error occurred."
 
         registered = {
-            Exception: default,
-            IntegrityError: default,
+            **mealie_registered_exceptions(self.deps.t),
         }
 
-        return registered.get(ex, default)
+        return registered.get(ex, "An unexpected error occurred.")
 
     @cached_property
     def mixins(self):

@@ -1,10 +1,10 @@
 from functools import cached_property
-from sqlite3 import IntegrityError
 from typing import Type
 
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
+from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base.controller import controller
 from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import CrudMixins
@@ -35,9 +35,9 @@ class GroupEventsNotifierController:
         return self.deps.repos.group_event_notifier.by_group(self.deps.acting_user.group_id)
 
     def registered_exceptions(self, ex: Type[Exception]) -> str:
+
         registered = {
-            Exception: "An unexpected error occurred.",
-            IntegrityError: "An unexpected error occurred.",
+            **mealie_registered_exceptions(self.deps.t),
         }
 
         return registered.get(ex, "An unexpected error occurred.")
