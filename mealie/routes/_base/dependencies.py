@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from functools import cached_property
 from logging import Logger
 
@@ -17,33 +15,39 @@ from mealie.repos import AllRepositories
 from mealie.schema.user.user import PrivateUser
 
 
-def _get_logger() -> Logger:
-    return get_logger()
-
-
 class SharedDependencies:
     session: Session
     t: AbstractLocaleProvider
-    logger: Logger
     acting_user: PrivateUser | None
 
     def __init__(self, session: Session, acting_user: PrivateUser | None) -> None:
         self.t = get_locale_provider()
-        self.logger = _get_logger()
         self.session = session
         self.acting_user = acting_user
 
     @classmethod
+    def public(cls, session: Session = Depends(generate_session)) -> "SharedDependencies":
+        return cls(session, None)
+
+    @classmethod
     def user(
-        cls, session: Session = Depends(generate_session), user: PrivateUser = Depends(get_current_user)
+        cls,
+        session: Session = Depends(generate_session),
+        user: PrivateUser = Depends(get_current_user),
     ) -> "SharedDependencies":
         return cls(session, user)
 
     @classmethod
     def admin(
-        cls, session: Session = Depends(generate_session), admin: PrivateUser = Depends(get_admin_user)
+        cls,
+        session: Session = Depends(generate_session),
+        admin: PrivateUser = Depends(get_admin_user),
     ) -> "SharedDependencies":
         return cls(session, admin)
+
+    @cached_property
+    def logger(self) -> Logger:
+        return get_logger()
 
     @cached_property
     def settings(self) -> AppSettings:

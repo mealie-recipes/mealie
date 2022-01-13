@@ -288,28 +288,15 @@ def import_database(
     import_settings=True,
     import_users=True,
     import_groups=True,
-    import_notifications=True,
     force_import: bool = False,
-    rebase: bool = False,
+    **_,
 ):
     import_session = ImportDatabase(user, session, archive, force_import)
 
-    recipe_report = []
-    if import_recipes:
-        recipe_report = import_session.import_recipes()
-
-    settings_report = []
-    if import_settings:
-        settings_report = import_session.import_settings()
-
-    group_report = []
-    if import_groups:
-        group_report = import_session.import_groups()
-
-    user_report = []
-    if import_users:
-        user_report = import_session.import_users()
-
+    recipe_report = import_session.import_recipes() if import_recipes else []
+    settings_report = import_session.import_settings() if import_settings else []
+    group_report = import_session.import_groups() if import_groups else []
+    user_report = import_session.import_users() if import_users else []
     notification_report = []
 
     import_session.clean_up()

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import Callable, Iterable
 
 from mealie.core import root_logger

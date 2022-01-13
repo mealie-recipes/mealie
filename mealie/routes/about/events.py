@@ -1,35 +1,25 @@
-from fastapi import Depends
-from sqlalchemy.orm.session import Session
-
-from mealie.core.root_logger import get_logger
-from mealie.db.db_setup import generate_session
-from mealie.repos.all_repositories import get_repositories
-from mealie.routes.routers import AdminAPIRouter
+from mealie.routes._base.routers import AdminAPIRouter
 from mealie.schema.events import EventsOut
+
+from .._base import BaseAdminController, controller
 
 router = AdminAPIRouter(prefix="/events")
 
-logger = get_logger()
 
+@controller(router)
+class EventsController(BaseAdminController):
+    @router.get("", response_model=EventsOut)
+    async def get_events(self):
+        """Get event from the Database"""
+        return EventsOut(total=self.repos.events.count_all(), events=self.repos.events.get_all(order_by="time_stamp"))
 
-@router.get("", response_model=EventsOut)
-async def get_events(session: Session = Depends(generate_session)):
-    """Get event from the Database"""
-    db = get_repositories(session)
+    @router.delete("")
+    async def delete_events(self):
+        """Get event from the Database"""
+        self.repos.events.delete_all()
+        return {"message": "All events deleted"}
 
-    return EventsOut(total=db.events.count_all(), events=db.events.get_all(order_by="time_stamp"))
-
-
-@router.delete("")
-async def delete_events(session: Session = Depends(generate_session)):
-    """Get event from the Database"""
-    db = get_repositories(session)
-    db.events.delete_all()
-    return {"message": "All events deleted"}
-
-
-@router.delete("/{id}")
-async def delete_event(id: int, session: Session = Depends(generate_session)):
-    """Delete event from the Database"""
-    db = get_repositories(session)
-    return db.events.delete(id)
+    @router.delete("/{item_id}")
+    async def delete_event(self, item_id: int):
+        """Delete event from the Database"""
+        return self.repos.events.delete(item_id)

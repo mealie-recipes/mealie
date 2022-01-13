@@ -8,10 +8,12 @@ from ..recipe.category import Category, cookbooks_to_categories
 class CookBook(SqlAlchemyBase, BaseMixins):
     __tablename__ = "cookbooks"
     id = Column(Integer, primary_key=True)
-    position = Column(Integer, nullable=False)
+    position = Column(Integer, nullable=False, default=1)
+
     name = Column(String, nullable=False)
-    description = Column(String, default="")
     slug = Column(String, nullable=False)
+    description = Column(String, default="")
+
     categories = orm.relationship(Category, secondary=cookbooks_to_categories, single_parent=True)
 
     group_id = Column(guid.GUID, ForeignKey("groups.id"))

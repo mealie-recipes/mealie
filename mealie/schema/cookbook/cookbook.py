@@ -1,7 +1,5 @@
-from uuid import UUID
-
 from fastapi_camelcase import CamelModel
-from pydantic import validator
+from pydantic import UUID4, validator
 from slugify import slugify
 
 from ..recipe.recipe_category import CategoryBase, RecipeCategoryResponse
@@ -25,16 +23,16 @@ class CreateCookBook(CamelModel):
         return slug
 
 
-class UpdateCookBook(CreateCookBook):
+class SaveCookBook(CreateCookBook):
+    group_id: UUID4
+
+
+class UpdateCookBook(SaveCookBook):
     id: int
 
 
-class SaveCookBook(CreateCookBook):
-    group_id: UUID
-
-
 class ReadCookBook(UpdateCookBook):
-    group_id: UUID
+    group_id: UUID4
     categories: list[CategoryBase] = []
 
     class Config:
@@ -42,7 +40,7 @@ class ReadCookBook(UpdateCookBook):
 
 
 class RecipeCookBook(ReadCookBook):
-    group_id: UUID
+    group_id: UUID4
     categories: list[RecipeCategoryResponse]
 
     class Config:

@@ -88,7 +88,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         collection_class=ordering_list("position"),
     )
 
-    share_tokens = orm.relationship(RecipeShareTokenModel, back_populates="recipe")
+    share_tokens = orm.relationship(
+        RecipeShareTokenModel, back_populates="recipe", cascade="all, delete, delete-orphan"
+    )
 
     comments: list = orm.relationship("RecipeComment", back_populates="recipe", cascade="all, delete, delete-orphan")
 

@@ -9,13 +9,6 @@ from .restore import RecipeImport
 class ChowdownURL(BaseModel):
     url: str
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "url": "https://chowdownrepo.com/repo",
-            }
-        }
-
 
 class MigrationFile(BaseModel):
     name: str

@@ -1,3 +1,4 @@
+import shutil
 from dataclasses import dataclass
 from fractions import Fraction
 
@@ -17,7 +18,6 @@ class TestIngredient:
 
 
 def crf_exists() -> bool:
-    import shutil
 
     return shutil.which("crf_test") is not None
 

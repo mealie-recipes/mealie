@@ -4,13 +4,14 @@ from typing import Optional
 from fastapi import APIRouter, BackgroundTasks, Depends, Form, Request, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
+from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core import security
 from mealie.core.dependencies import get_current_user
 from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.services.events import create_user_event
 
@@ -38,6 +39,15 @@ class CustomOAuth2Form(OAuth2PasswordRequestForm):
         self.client_secret = client_secret
 
 
+class MealieAuthToken(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+    @classmethod
+    def respond(cls, token: str, token_type: str = "bearer") -> dict:
+        return cls(access_token=token, token_type=token_type).dict()
+
+
 @public_router.post("/token")
 def get_token(
     background_tasks: BackgroundTasks,
@@ -61,11 +71,11 @@ def get_token(
 
     duration = timedelta(days=14) if data.remember_me else None
     access_token = security.create_access_token(dict(sub=user.email), duration)
-    return {"access_token": access_token, "token_type": "bearer"}
+    return MealieAuthToken.respond(access_token)
 
 
 @user_router.get("/refresh")
 async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
     """Use a valid token to get another token"""
     access_token = security.create_access_token(data=dict(sub=current_user.email))
-    return {"access_token": access_token, "token_type": "bearer"}
+    return MealieAuthToken.respond(access_token)

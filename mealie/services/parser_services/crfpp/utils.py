@@ -8,52 +8,11 @@ def joinLine(columns):
     return "\t".join(columns)
 
 
-def cleanUnicodeFractions(s):
-    """
-    Replace unicode fractions with ascii representation, preceded by a
-    space.
-
-    "1\x215e" => "1 7/8"
-    """
-
-    fractions = {
-        "\x215b": "1/8",
-        "\x215c": "3/8",
-        "\x215d": "5/8",
-        "\x215e": "7/8",
-        "\x2159": "1/6",
-        "\x215a": "5/6",
-        "\x2155": "1/5",
-        "\x2156": "2/5",
-        "\x2157": "3/5",
-        "\x2158": "4/5",
-        "\xbc": " 1/4",
-        "\xbe": "3/4",
-        "\x2153": "1/3",
-        "\x2154": "2/3",
-        "\xbd": "1/2",
-    }
-
-    for f_unicode, f_ascii in fractions.items():
-        s = s.replace(f_unicode, " " + f_ascii)
-
-    return s
-
-
 def unclump(s):
     """
     Replacess $'s with spaces. The reverse of clumpFractions.
     """
     return re.sub(r"\$", " ", s)
-
-
-def normalizeToken(s):
-    """
-    ToDo: FIX THIS. We used to use the pattern.en package to singularize words, but
-    in the name of simple deployments, we took it out. We should fix this at some
-    point.
-    """
-    return singularize(s)
 
 
 def getFeatures(token, index, tokens):

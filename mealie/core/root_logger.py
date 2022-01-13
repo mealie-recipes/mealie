@@ -14,7 +14,6 @@ settings = get_app_settings()
 LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 DATE_FORMAT = "%d-%b-%y %H:%M:%S"
 LOGGER_FORMAT = "%(levelname)s: %(asctime)s \t%(message)s"
-LOGGER_HANDLER = None
 
 
 @dataclass

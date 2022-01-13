@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from dataclasses import dataclass
 from typing import Callable, Tuple
 
@@ -12,7 +10,7 @@ class Cron:
     minutes: int
 
     @classmethod
-    def parse(cls, time_str: str) -> Cron:
+    def parse(cls, time_str: str) -> "Cron":
         time = time_str.split(":")
         return Cron(hours=int(time[0]), minutes=int(time[1]))
 

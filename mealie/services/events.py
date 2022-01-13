@@ -17,23 +17,13 @@ def create_general_event(title, text, session=None):
     save_event(title=title, text=text, category=category, session=session)
 
 
-def create_recipe_event(title, text, session=None, attachment=None):
+def create_recipe_event(title, text, session=None, **_):
     category = EventCategory.recipe
     save_event(title=title, text=text, category=category, session=session)
 
 
 def create_backup_event(title, text, session=None):
     category = EventCategory.backup
-    save_event(title=title, text=text, category=category, session=session)
-
-
-def create_scheduled_event(title, text, session=None):
-    category = EventCategory.scheduled
-    save_event(title=title, text=text, category=category, session=session)
-
-
-def create_migration_event(title, text, session=None):
-    category = EventCategory.migration
     save_event(title=title, text=text, category=category, session=session)
 
 

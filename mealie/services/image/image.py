@@ -1,5 +1,4 @@
 import shutil
-from dataclasses import dataclass
 from pathlib import Path
 
 import requests
@@ -7,18 +6,6 @@ import requests
 from mealie.core import root_logger
 from mealie.schema.recipe import Recipe
 from mealie.services.image import minify
-
-logger = root_logger.get_logger()
-
-
-@dataclass
-class ImageOptions:
-    ORIGINAL_IMAGE: str = "original.webp"
-    MINIFIED_IMAGE: str = "min-original.webp"
-    TINY_IMAGE: str = "tiny-original.webp"
-
-
-IMG_OPTIONS = ImageOptions()
 
 
 def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
@@ -42,6 +29,7 @@ def write_image(recipe_slug: str, file_data: bytes, extension: str) -> Path:
 
 
 def scrape_image(image_url: str, slug: str) -> Path:
+    logger = root_logger.get_logger()
     logger.info(f"Image URL: {image_url}")
     _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
 

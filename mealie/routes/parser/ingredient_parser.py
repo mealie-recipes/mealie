@@ -1,25 +1,21 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
+from mealie.routes._base import BaseUserController, controller
 from mealie.schema.recipe import ParsedIngredient
 from mealie.schema.recipe.recipe_ingredient import IngredientRequest, IngredientsRequest
-from mealie.services.parser_services import IngredientParserService
+from mealie.services.parser_services import get_parser
 
-public_router = APIRouter(prefix="/parser")
-
-
-@public_router.post("/ingredients", response_model=list[ParsedIngredient])
-def parse_ingredients(
-    ingredients: IngredientsRequest,
-    p_service: IngredientParserService = Depends(IngredientParserService.private),
-):
-    p_service.set_parser(parser=ingredients.parser)
-    return p_service.parse_ingredients(ingredients.ingredients)
+router = APIRouter(prefix="/parser")
 
 
-@public_router.post("/ingredient", response_model=ParsedIngredient)
-def parse_ingredient(
-    ingredient: IngredientRequest,
-    p_service: IngredientParserService = Depends(IngredientParserService.private),
-):
-    p_service.set_parser(parser=ingredient.parser)
-    return p_service.parse_ingredient(ingredient.ingredient)
+@controller(router)
+class IngredientParserController(BaseUserController):
+    @router.post("/ingredients", response_model=list[ParsedIngredient])
+    def parse_ingredients(self, ingredients: IngredientsRequest):
+        parser = get_parser(ingredients.parser)
+        return parser.parse(ingredients.ingredients)
+
+    @router.post("/ingredient", response_model=ParsedIngredient)
+    def parse_ingredient(self, ingredient: IngredientRequest):
+        parser = get_parser(ingredient.parser)
+        return parser.parse([ingredient.ingredient])[0]

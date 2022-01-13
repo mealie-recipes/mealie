@@ -30,3 +30,4 @@ class CheckAppConfig(CamelModel):
     email_ready: bool = False
     ldap_ready: bool = False
     base_url_set: bool = False
+    is_up_to_date: bool = False
