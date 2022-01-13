@@ -19,11 +19,9 @@ class GroupCookbookController(BaseUserController):
         return self.deps.repos.cookbooks.by_group(self.group_id)
 
     def registered_exceptions(self, ex: Type[Exception]) -> str:
-
         registered = {
             **mealie_registered_exceptions(self.deps.t),
         }
-
         return registered.get(ex, "An unexpected error occurred.")
 
     @cached_property
