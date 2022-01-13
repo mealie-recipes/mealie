@@ -6,13 +6,10 @@ from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.core.root_logger import get_logger
 from mealie.db.db_setup import SessionLocal
 from mealie.lang import get_locale_provider
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user import PrivateUser
-
-logger = get_logger()
 
 T = TypeVar("T")
 D = TypeVar("D")
