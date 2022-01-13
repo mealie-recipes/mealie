@@ -9,7 +9,6 @@ from mealie.routes import backup_routes, router, utility_routes
 from mealie.routes.about import about_router
 from mealie.routes.handlers import register_debug_handler
 from mealie.routes.media import media_router
-from mealie.routes.site_settings import settings_router
 from mealie.services.events import create_general_event
 from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
 
@@ -50,7 +49,6 @@ def api_routers():
     app.include_router(router)
     app.include_router(media_router)
     app.include_router(about_router)
-    app.include_router(settings_router)
     app.include_router(backup_routes.router)
     app.include_router(utility_routes.router)
 
