@@ -4,5 +4,10 @@
     },
     "recipe": {
         "unique-name-error": "Recipe names must be unique"
+    },
+    "exceptions": {
+        "permission_denied": "You do not have permission to perform this action",
+        "no-entry-found": "The requested resource was not found",
+        "integrity-error": "Database integrity error"
     }
 }
