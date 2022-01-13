@@ -1,100 +1,79 @@
-from fastapi import BackgroundTasks, Depends, HTTPException, status
+from fastapi import HTTPException, status
 from pydantic import UUID4
-from sqlalchemy.orm.session import Session
 
 from mealie.core import security
-from mealie.core.dependencies import get_current_user
-from mealie.core.security import hash_password
-from mealie.db.db_setup import generate_session
-from mealie.repos.all_repositories import get_repositories
+from mealie.core.security import hash_password, verify_password
+from mealie.routes._base import BaseAdminController, controller
+from mealie.routes._base.abc_controller import BaseUserController
+from mealie.routes._base.mixins import CrudMixins
 from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user import PrivateUser, UserBase, UserIn, UserOut
-from mealie.services.events import create_user_event
+from mealie.schema.user import ChangePassword, UserBase, UserIn, UserOut
 
-user_router = UserAPIRouter(prefix="")
-admin_router = AdminAPIRouter(prefix="")
-
-
-@admin_router.get("", response_model=list[UserOut])
-async def get_all_users(session: Session = Depends(generate_session)):
-    db = get_repositories(session)
-    return db.users.get_all()
+user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
+admin_router = AdminAPIRouter(prefix="/users", tags=["Users: Admin CRUD"])
 
 
-@admin_router.post("", response_model=UserOut, status_code=201)
-async def create_user(
-    background_tasks: BackgroundTasks,
-    new_user: UserIn,
-    current_user: PrivateUser = Depends(get_current_user),
-    session: Session = Depends(generate_session),
-):
+@controller(admin_router)
+class AdminUserController(BaseAdminController):
+    @property
+    def mixins(self) -> CrudMixins:
+        return CrudMixins[UserIn, UserOut, UserBase](self.repos.users, self.deps.logger)
 
-    new_user.password = hash_password(new_user.password)
-    background_tasks.add_task(
-        create_user_event, "User Created", f"Created by {current_user.full_name}", session=session
-    )
+    @admin_router.get("", response_model=list[UserOut])
+    def get_all_users(self):
+        return self.repos.users.get_all()
 
-    db = get_repositories(session)
-    return db.users.create(new_user.dict())
+    @admin_router.post("", response_model=UserOut, status_code=201)
+    def create_user(self, new_user: UserIn):
+        new_user.password = hash_password(new_user.password)
+        return self.mixins.create_one(new_user)
 
+    @admin_router.get("/{item_id}", response_model=UserOut)
+    def get_user(self, item_id: UUID4):
+        return self.mixins.get_one(item_id)
 
-@admin_router.get("/{id}", response_model=UserOut)
-async def get_user(id: UUID4, session: Session = Depends(generate_session)):
-    db = get_repositories(session)
-    return db.users.get(id)
+    @admin_router.delete("/{item_id}")
+    def delete_user(self, item_id: UUID4):
+        """Removes a user from the database. Must be the current user or a super user"""
 
+        assert_user_change_allowed(item_id, self.user)
 
-@admin_router.delete("/{id}")
-def delete_user(
-    id: UUID4,
-    background_tasks: BackgroundTasks,
-    session: Session = Depends(generate_session),
-    current_user: PrivateUser = Depends(get_current_user),
-):
-    """Removes a user from the database. Must be the current user or a super user"""
+        if item_id == 1:  # TODO: identify super_user
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
 
-    assert_user_change_allowed(id, current_user)
-
-    if id == 1:  # TODO: identify super_user
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
-
-    try:
-        db = get_repositories(session)
-        db.users.delete(id)
-        background_tasks.add_task(create_user_event, "User Deleted", f"User ID: {id}", session=session)
-    except Exception:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST)
+        self.mixins.delete_one(item_id)
 
 
-@user_router.get("/self", response_model=UserOut)
-async def get_logged_in_user(
-    current_user: PrivateUser = Depends(get_current_user),
-):
-    return current_user.dict()
+@controller(user_router)
+class UserController(BaseUserController):
+    @user_router.get("/self", response_model=UserOut)
+    def get_logged_in_user(self):
+        return self.user
 
+    @user_router.put("/{item_id}")
+    def update_user(self, item_id: UUID4, new_data: UserBase):
+        assert_user_change_allowed(item_id, self.user)
 
-@user_router.put("/{id}")
-async def update_user(
-    id: UUID4,
-    new_data: UserBase,
-    current_user: PrivateUser = Depends(get_current_user),
-    session: Session = Depends(generate_session),
-):
+        if not self.user.admin and (new_data.admin or self.user.group != new_data.group):
+            # prevent a regular user from doing admin tasks on themself
+            raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    assert_user_change_allowed(id, current_user)
+        if self.user.id == item_id and self.user.admin and not new_data.admin:
+            # prevent an admin from demoting themself
+            raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    if not current_user.admin and (new_data.admin or current_user.group != new_data.group):
-        # prevent a regular user from doing admin tasks on themself
-        raise HTTPException(status.HTTP_403_FORBIDDEN)
+        self.repos.users.update(item_id, new_data.dict())
 
-    if current_user.id == id and current_user.admin and not new_data.admin:
-        # prevent an admin from demoting themself
-        raise HTTPException(status.HTTP_403_FORBIDDEN)
+        if self.user.id == item_id:
+            access_token = security.create_access_token(data=dict(sub=new_data.email))
+            return {"access_token": access_token, "token_type": "bearer"}
 
-    db = get_repositories(session)
-    db.users.update(id, new_data.dict())
+    @user_router.put("/{item_id}/password")
+    def update_password(self, password_change: ChangePassword):
+        """Resets the User Password"""
+        if not verify_password(password_change.current_password, self.user.password):
+            raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
-    if current_user.id == id:
-        access_token = security.create_access_token(data=dict(sub=new_data.email))
-        return {"access_token": access_token, "token_type": "bearer"}
+        self.user.password = hash_password(password_change.new_password)
+        return self.repos.users.update_password(self.user.id, self.user.password)
