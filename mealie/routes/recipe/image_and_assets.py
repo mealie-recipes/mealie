@@ -8,7 +8,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeAsset
 from mealie.services.image.image import scrape_image, write_image
 

@@ -1,7 +1,7 @@
 from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import CrudMixins
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.recipe.recipe_category import CategoryBase
 from mealie.schema.user.user import GroupInDB
 

@@ -5,7 +5,7 @@ from fastapi.datastructures import UploadFile
 
 from mealie.core.dependencies import temporary_zip_path
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_migration import SupportedMigrations
 from mealie.schema.reports.reports import ReportSummary
 from mealie.services.migrations import ChowdownMigrator, MealieAlphaMigrator, NextcloudMigrator, PaprikaMigrator

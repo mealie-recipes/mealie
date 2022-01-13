@@ -1,4 +1,4 @@
-from mealie.routes.routers import AdminAPIRouter
+from mealie.routes._base.routers import AdminAPIRouter
 from mealie.schema.events import EventsOut
 
 from .._base import BaseAdminController, controller

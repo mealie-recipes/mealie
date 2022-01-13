@@ -11,7 +11,7 @@ from mealie.core import security
 from mealie.core.dependencies import get_current_user
 from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.services.events import create_user_event
 

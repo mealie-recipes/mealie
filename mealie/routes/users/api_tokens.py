@@ -8,7 +8,7 @@ from mealie.core.dependencies import get_current_user
 from mealie.core.security import create_access_token
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import CreateToken, LoingLiveTokenIn, LongLiveTokenInDB, PrivateUser
 
 router = UserAPIRouter()

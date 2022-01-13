@@ -7,7 +7,7 @@ from mealie.core.dependencies import get_current_user
 from mealie.core.security import hash_password
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
-from mealie.routes.routers import AdminAPIRouter, UserAPIRouter
+from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.user import PrivateUser, UserBase, UserIn, UserOut
 from mealie.services.events import create_user_event

@@ -5,7 +5,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.security import hash_password
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import ChangePassword
 from mealie.schema.user.user_passwords import ForgotPassword, ResetPassword
 from mealie.services.user_services import UserService

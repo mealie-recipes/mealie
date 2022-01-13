@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core.dependencies import get_current_user
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.user import PrivateUser, UserFavorites
 

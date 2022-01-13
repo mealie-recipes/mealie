@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 
 from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes.routers import UserAPIRouter
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_permissions import SetPermissions
 from mealie.schema.group.group_preferences import ReadGroupPreferences, UpdateGroupPreferences
 from mealie.schema.user.user import GroupInDB, UserOut

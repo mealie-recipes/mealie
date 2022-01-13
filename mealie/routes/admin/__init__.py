@@ -1,4 +1,4 @@
-from mealie.routes.routers import AdminAPIRouter
+from mealie.routes._base.routers import AdminAPIRouter
 
 from . import admin_about, admin_email, admin_log, admin_management_groups, admin_management_users, admin_server_tasks
 
