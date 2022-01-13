@@ -72,10 +72,7 @@ class CrudMixins(Generic[C, R, U]):
         return item
 
     def get_one(self, item_id: int | str | UUID4, key: str = None) -> R:
-        if key is None:
-            item = self.repo.get_one(item_id)
-        else:
-            item = self.repo.get_one(item_id, key)
+        item = self.repo.get_one(item_id, key)
 
         if not item:
             raise HTTPException(

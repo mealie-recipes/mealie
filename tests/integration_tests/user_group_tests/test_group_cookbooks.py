@@ -110,5 +110,5 @@ def test_delete_cookbook(api_client: TestClient, unique_user: TestUser, cookbook
 
     assert response.status_code == 200
 
-    response = api_client.get(Routes.item(sample.id), headers=unique_user.token)
+    response = api_client.get(Routes.item(sample.slug), headers=unique_user.token)
     assert response.status_code == 404
