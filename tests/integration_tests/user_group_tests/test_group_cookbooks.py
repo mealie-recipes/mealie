@@ -16,7 +16,6 @@ class Routes:
     base = "/api/groups/cookbooks"
 
     def item(item_id: int) -> str:
-        print(f"{Routes.base}/{item_id}")
         return f"{Routes.base}/{item_id}"
 
 
@@ -67,9 +66,6 @@ def test_create_cookbook(api_client: TestClient, unique_user: TestUser):
 
 def test_read_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
     sample = random.choice(cookbooks)
-
-    print(sample.data["group_id"])
-    print(unique_user.group_id)
 
     response = api_client.get(Routes.item(sample.id), headers=unique_user.token)
     assert response.status_code == 200

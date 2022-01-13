@@ -1,5 +1,4 @@
 from functools import cached_property
-from pprint import pprint
 from typing import Type
 
 from fastapi import APIRouter
@@ -48,7 +47,6 @@ class GroupCookbookController(BaseUserController):
 
     @router.put("", response_model=list[ReadCookBook])
     def update_many(self, data: list[UpdateCookBook]):
-        pprint(data)
         updated = []
 
         for cookbook in data:
