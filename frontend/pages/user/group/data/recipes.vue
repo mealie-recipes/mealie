@@ -162,6 +162,7 @@ import { useRecipes, allRecipes } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
 import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
 import { GroupDataExport } from "~/api/class-interfaces/recipe-bulk-actions";
+import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 
 const MODES = {
   tag: "tag",
@@ -207,29 +208,25 @@ export default defineComponent({
       dateAdded: "Date Added",
     };
 
-    const actions = [
+    const actions: MenuItem[] = [
       {
         icon: $globals.icons.database,
         text: "Export",
-        value: 0,
         event: "export-selected",
       },
       {
         icon: $globals.icons.tags,
         text: "Tag",
-        value: 1,
         event: "tag-selected",
       },
       {
         icon: $globals.icons.tags,
         text: "Categorize",
-        value: 2,
         event: "categorize-selected",
       },
       {
         icon: $globals.icons.delete,
         text: "Delete",
-        value: 3,
         event: "delete-selected",
       },
     ];

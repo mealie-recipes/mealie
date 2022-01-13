@@ -332,7 +332,8 @@ import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategory
 import { validators } from "~/composables/use-validators";
 import { Recipe } from "~/types/api-types/recipe";
 import { alert } from "~/composables/use-toast";
-import { VForm} from "~/types/vuetify";
+import { VForm } from "~/types/vuetify";
+import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 
 export default defineComponent({
   components: { VJsoneditor, RecipeCategoryTagSelector },
@@ -344,7 +345,7 @@ export default defineComponent({
 
     const { $globals } = useContext();
 
-    const tabs = [
+    const tabs: MenuItem[] = [
       {
         icon: $globals.icons.link,
         text: "Import with URL",

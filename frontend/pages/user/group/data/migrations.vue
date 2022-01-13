@@ -68,6 +68,7 @@
 import { defineComponent, reactive, toRefs, useContext, computed, onMounted } from "@nuxtjs/composition-api";
 import { SupportedMigration } from "~/api/class-interfaces/group-migrations";
 import { ReportSummary } from "~/api/class-interfaces/group-reports";
+import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import { useUserApi } from "~/composables/api";
 
 const MIGRATIONS = {
@@ -92,7 +93,7 @@ export default defineComponent({
       reports: [] as ReportSummary[],
     });
 
-    const items = [
+    const items: MenuItem[] = [
       {
         text: "Nextcloud",
         value: MIGRATIONS.nextcloud,
