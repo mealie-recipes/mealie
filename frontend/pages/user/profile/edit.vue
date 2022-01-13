@@ -116,6 +116,7 @@ import { ref, reactive, defineComponent, computed, useContext, watch } from "@nu
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { VForm } from "~/types/vuetify";
+import { UserOut } from "~/types/api-types/user";
 
 export default defineComponent({
   components: {
@@ -123,7 +124,7 @@ export default defineComponent({
   },
   setup() {
     const nuxtContext = useContext();
-    const user = computed(() => nuxtContext.$auth.user);
+    const user = computed(() => nuxtContext.$auth.user as unknown as UserOut);
 
     watch(user, () => {
       userCopy.value = { ...user.value };
@@ -141,7 +142,6 @@ export default defineComponent({
     });
 
     async function updateUser() {
-      // @ts-ignore
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
         nuxtContext.$auth.fetchUser();
@@ -152,7 +152,6 @@ export default defineComponent({
       if (!userCopy.value?.id) {
         return;
       }
-      // @ts-ignore
       const { response } = await api.users.changePassword(userCopy.value.id, {
         currentPassword: password.current,
         newPassword: password.newOne,

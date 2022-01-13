@@ -456,7 +456,7 @@ export default defineComponent({
       }
       const { response } = await api.recipes.createOne({ name });
       // TODO createOne claims to return a Recipe, but actually the API only returns a string
-      // @ts-ignore
+      // @ts-ignore See above
       handleResponse(response, true);
     }
 

@@ -1,5 +1,4 @@
 import { useAsync, ref, reactive } from "@nuxtjs/composition-api";
-import { set } from "@vueuse/core";
 import { toastLoading, loader } from "./use-toast";
 import { AllBackups, ImportBackup } from "~/api/class-interfaces/backups";
 import { useUserApi } from "~/composables/api";
@@ -11,8 +10,7 @@ const backups = ref<AllBackups>({
 
 function setBackups(newBackups: AllBackups | null) {
   if (newBackups) {
-    // @ts-ignore
-    set(backups, newBackups);
+    backups.value = newBackups;
   }
 }
 

@@ -32,9 +32,10 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
+// @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import { defineComponent } from "@nuxtjs/composition-api";
+import { RecipeNote } from "~/types/api-types/recipe";
 
 export default defineComponent({
   components: {
@@ -42,7 +43,7 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: Array,
+      type: Array as () => RecipeNote[],
       required: true,
     },
 

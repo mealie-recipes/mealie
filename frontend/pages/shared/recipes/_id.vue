@@ -316,7 +316,6 @@ export default defineComponent({
       },
     });
 
-    // @ts-ignore
     const { recipeImage } = useStaticRoutes();
     const { meta, title } = useMeta();
 

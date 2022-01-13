@@ -46,7 +46,7 @@ export interface CreateAsset {
   name: string;
   icon: string;
   extension: string;
-  file?: File;
+  file: File;
 }
 
 export interface RecipeCommentCreate {

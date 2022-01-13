@@ -8,7 +8,6 @@ export const useRecipeMeta = (recipe: Ref<Recipe>) => {
     const imageURL = "";
     return {
       title: recipe?.value?.name,
-      // @ts-ignore
       mainImage: imageURL,
       meta: [
         { hid: "og:title", property: "og:title", content: recipe?.value?.name || "Recipe" },

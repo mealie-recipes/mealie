@@ -13,11 +13,11 @@ export function detectServerBaseUrl(req?: IncomingMessage | null) {
     return `${url.protocol}//${url.host}`;
   } else if (req.headers.host) {
     // TODO Socket.encrypted doesn't exist. What is needed here?
-    // @ts-ignore
+    // @ts-ignore See above
     const protocol = req.socket.encrypted ? "https:" : "http:";
     return `${protocol}//${req.headers.host}`;
   } else if (req.socket.remoteAddress) {
-    // @ts-ignore
+    // @ts-ignore See above
     const protocol = req.socket.encrypted ? "https:" : "http:";
     return `${protocol}//${req.socket.localAddress || ""}:${req.socket.localPort || ""}`;
   }
@@ -60,7 +60,7 @@ export function deepCopy<T>(obj: T): T {
             // Some other kind of object, deep-copy its
             // properties into a new object
             rv = Object.keys(obj).reduce(function (prev, key) {
-              // @ts-ignore
+              // @ts-ignore This is hard to make type-safe
               prev[key] = deepCopy(obj[key]);
               return prev;
             }, {});

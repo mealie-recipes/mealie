@@ -129,8 +129,7 @@ export default defineComponent({
       state.joinGroup = true;
     }
 
-    // @ts-ignore
-    const domRegisterForm = ref<VForm>(null);
+    const domRegisterForm = ref<VForm | null>(null);
 
     const form = reactive({
       group: "",

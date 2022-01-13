@@ -53,7 +53,6 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
 
   async createAsset(recipeSlug: string, payload: CreateAsset) {
     const formData = new FormData();
-    // @ts-ignore
     formData.append("file", payload.file);
     formData.append("name", payload.name);
     formData.append("extension", payload.extension);
@@ -65,8 +64,7 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   updateImage(slug: string, fileObject: File) {
     const formData = new FormData();
     formData.append("image", fileObject);
-    // @ts-ignore
-    formData.append("extension", fileObject.name.split(".").pop());
+    formData.append("extension", fileObject.name.split(".").pop() ?? "");
 
     return this.requests.put<any>(routes.recipesRecipeSlugImage(slug), formData);
   }

@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
+// @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 
 import { defineComponent, computed, ref } from "@nuxtjs/composition-api";

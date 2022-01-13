@@ -191,7 +191,7 @@ export default defineComponent({
       id: false,
       owner: false,
       tags: true,
-      tools: "Tools",
+      tools: true,
       categories: true,
       recipeYield: false,
       dateAdded: false,
