@@ -47,10 +47,7 @@ def ten_slugs(api_client: TestClient, unique_user: TestUser, database: AllReposi
 
 
 def test_bulk_tag_recipes(
-    api_client: TestClient,
-    unique_user: TestUser,
-    database: AllRepositories,
-    ten_slugs: list[str]
+    api_client: TestClient, unique_user: TestUser, database: AllRepositories, ten_slugs: list[str]
 ):
     # Setup Tags
     tags = []
