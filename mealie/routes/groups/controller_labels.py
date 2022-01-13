@@ -17,15 +17,13 @@ from mealie.schema.labels import (
 )
 from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
-from mealie.services.group_services.shopping_lists import ShoppingListService
 
 router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"])
 
 
 @controller(router)
-class ShoppingListRoutes:
+class MultiPurposeLabelsController:
     deps: SharedDependencies = Depends(SharedDependencies.user)
-    service: ShoppingListService = Depends(ShoppingListService.private)
 
     @cached_property
     def repo(self):

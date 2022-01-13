@@ -2,7 +2,7 @@ from functools import cached_property
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import Depends, File, HTTPException
+from fastapi import BackgroundTasks, Depends, File, HTTPException
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -119,12 +119,9 @@ class RecipeController(BaseRecipeController):
         return self.service.create_one(recipe).slug
 
     @router.post("/create-url/bulk", status_code=202)
-    def parse_recipe_url_bulk(
-        self,
-        bulk: CreateRecipeByUrlBulk,
-        bg_service: BackgroundExecutor = Depends(BackgroundExecutor.private),
-    ):
+    def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
+        bg_executor = BackgroundExecutor(self.group.id, self.repos, bg_tasks)
 
         def bulk_import_func(task_id: int, session: Session) -> None:
             database = get_repositories(session)
@@ -154,7 +151,7 @@ class RecipeController(BaseRecipeController):
             task.set_finished()
             database.server_tasks.update(task.id, task)
 
-        bg_service.dispatch(ServerTaskNames.bulk_recipe_import, bulk_import_func)
+        bg_executor.dispatch(ServerTaskNames.bulk_recipe_import, bulk_import_func)
 
         return {"details": "task has been started"}
 

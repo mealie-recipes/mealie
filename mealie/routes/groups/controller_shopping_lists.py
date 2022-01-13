@@ -5,8 +5,8 @@ from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema.group.group_shopping_list import (
     ShoppingListCreate,
@@ -25,10 +25,12 @@ router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists
 
 
 @controller(router)
-class ShoppingListRoutes:
-    deps: SharedDependencies = Depends(SharedDependencies.user)
-    service: ShoppingListService = Depends(ShoppingListService.private)
+class ShoppingListController(BaseUserController):
     event_bus: EventBusService = Depends(EventBusService)
+
+    @cached_property
+    def service(self):
+        return ShoppingListService(self.repos)
 
     @cached_property
     def repo(self):

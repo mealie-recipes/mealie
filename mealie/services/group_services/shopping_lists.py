@@ -1,24 +1,17 @@
-from functools import cached_property
-
 from pydantic import UUID4
 
-from mealie.schema.group import ShoppingListOut, ShoppingListSummary
+from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.group import ShoppingListOut
 from mealie.schema.group.group_shopping_list import ShoppingListItemCreate
-from mealie.services._base_http_service.http_services import UserHttpService
-from mealie.services.events import create_group_event
 
 
-class ShoppingListService(UserHttpService[int, ShoppingListOut]):
-    event_func = create_group_event
-    _restrict_by_group = True
-    _schema = ShoppingListSummary
-
-    @cached_property
-    def repo(self):
-        return self.db.group_shopping_lists
+class ShoppingListService:
+    def __init__(self, repos: AllRepositories):
+        self.repos = repos
+        self.repo = repos.group_shopping_lists
 
     def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
-        recipe = self.db.recipes.get_one(recipe_id, "id")
+        recipe = self.repos.recipes.get_one(recipe_id, "id")
         shopping_list = self.repo.get_one(list_id)
 
         to_create = []
