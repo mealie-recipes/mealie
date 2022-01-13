@@ -14,8 +14,6 @@ router = APIRouter(prefix="/tools", tags=["Recipes: Tools"])
 
 @controller(router)
 class RecipeToolController(BaseUserController):
-    # =======================================================================
-    # CRUD Operations
     @cached_property
     def repo(self):
         return self.repos.tools
@@ -34,7 +32,7 @@ class RecipeToolController(BaseUserController):
 
     @router.get("/{item_id}", response_model=RecipeTool)
     def get_one(self, item_id: int):
-        return self.repo.get_one(item_id)
+        return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=RecipeTool)
     def update_one(self, item_id: int, data: RecipeToolCreate):

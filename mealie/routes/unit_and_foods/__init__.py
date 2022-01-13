@@ -1,10 +1,8 @@
 from fastapi import APIRouter
 
-from mealie.services._base_http_service.router_factory import RouterFactory
-from mealie.services.recipe.recipe_food_service import RecipeFoodService
-from mealie.services.recipe.recipe_unit_service import RecipeUnitService
+from . import foods, units
 
 router = APIRouter()
 
-router.include_router(RouterFactory(RecipeFoodService, prefix="/foods", tags=["Recipes: Foods"]))
-router.include_router(RouterFactory(RecipeUnitService, prefix="/units", tags=["Recipes: Units"]))
+router.include_router(foods.router)
+router.include_router(units.router)
