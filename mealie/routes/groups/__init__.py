@@ -1,49 +1,29 @@
-from fastapi import APIRouter, Depends
-
-from mealie.schema.reports.reports import ReportCategory
-from mealie.services._base_http_service import RouterFactory
-from mealie.services.group_services import WebhookService
-from mealie.services.group_services.reports_service import GroupReportService
+from fastapi import APIRouter
 
 from . import (
-    categories,
     controller_cookbooks,
+    controller_group_notifications,
+    controller_group_reports,
+    controller_group_self_service,
+    controller_invitations,
+    controller_labels,
     controller_mealplan,
-    invitations,
-    labels,
-    migrations,
-    notifications,
-    self_service,
-    shopping_lists,
+    controller_meaplan_config,
+    controller_migrations,
+    controller_shopping_lists,
+    controller_webhooks,
 )
 
 router = APIRouter()
 
-router.include_router(self_service.router)
-
-
-webhook_router = RouterFactory(service=WebhookService, prefix="/groups/webhooks", tags=["Groups: Webhooks"])
-
-
+router.include_router(controller_group_self_service.router)
 router.include_router(controller_mealplan.router)
 router.include_router(controller_cookbooks.router)
-router.include_router(categories.router)
-router.include_router(webhook_router)
-router.include_router(invitations.router)
-router.include_router(migrations.router)
-
-report_router = RouterFactory(service=GroupReportService, prefix="/groups/reports", tags=["Groups: Reports"])
-
-
-@report_router.get("")
-def get_all_reports(
-    report_type: ReportCategory = None,
-    gs: GroupReportService = Depends(GroupReportService.private),
-):
-    return gs._get_all(report_type)
-
-
-router.include_router(report_router)
-router.include_router(shopping_lists.router)
-router.include_router(labels.router)
-router.include_router(notifications.router)
+router.include_router(controller_meaplan_config.router)
+router.include_router(controller_webhooks.router)
+router.include_router(controller_invitations.router)
+router.include_router(controller_migrations.router)
+router.include_router(controller_group_reports.router)
+router.include_router(controller_shopping_lists.router)
+router.include_router(controller_labels.router)
+router.include_router(controller_group_notifications.router)
