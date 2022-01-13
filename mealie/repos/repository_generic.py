@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import Any, Callable, Generic, TypeVar, Union
 from uuid import UUID
 
@@ -36,12 +34,12 @@ class RepositoryGeneric(Generic[T, D]):
     def subscribe(self, func: Callable) -> None:
         self.observers.append(func)
 
-    def by_user(self, user_id: UUID4) -> RepositoryGeneric[T, D]:
+    def by_user(self, user_id: UUID4) -> "RepositoryGeneric[T, D]":
         self.limit_by_user = True
         self.user_id = user_id
         return self
 
-    def by_group(self, group_id: UUID) -> RepositoryGeneric[T, D]:
+    def by_group(self, group_id: UUID) -> "RepositoryGeneric[T, D]":
         self.limit_by_group = True
         self.group_id = group_id
         return self

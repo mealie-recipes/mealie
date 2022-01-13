@@ -2,17 +2,13 @@ from functools import cached_property
 
 from pydantic import UUID4
 
-from mealie.schema.group import ShoppingListCreate, ShoppingListOut, ShoppingListSummary
+from mealie.schema.group import ShoppingListOut, ShoppingListSummary
 from mealie.schema.group.group_shopping_list import ShoppingListItemCreate
-from mealie.services._base_http_service.crud_http_mixins import CrudHttpMixins
 from mealie.services._base_http_service.http_services import UserHttpService
 from mealie.services.events import create_group_event
 
 
-class ShoppingListService(
-    CrudHttpMixins[ShoppingListOut, ShoppingListCreate, ShoppingListCreate],
-    UserHttpService[int, ShoppingListOut],
-):
+class ShoppingListService(UserHttpService[int, ShoppingListOut]):
     event_func = create_group_event
     _restrict_by_group = True
     _schema = ShoppingListSummary

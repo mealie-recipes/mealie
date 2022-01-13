@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from pathlib import Path
 
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore

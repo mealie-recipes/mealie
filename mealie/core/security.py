@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import secrets
 from datetime import datetime, timedelta
 from pathlib import Path

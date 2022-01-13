@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import Type
 
 from mealie.schema.recipe.recipe import Recipe
