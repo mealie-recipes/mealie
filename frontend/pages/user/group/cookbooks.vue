@@ -51,8 +51,8 @@
                     event: 'save',
                   },
                 ]"
-                @delete="actions.deleteOne(webhook.id)"
-                @save="actions.updateOne(webhook)"
+                @delete="actions.deleteOne(cookbook.id)"
+                @save="actions.updateOne(cookbook)"
               />
             </v-card-actions>
           </v-expansion-panel-content>
