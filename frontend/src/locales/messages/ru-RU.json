@@ -5,7 +5,7 @@
     "api-docs": "Документация API",
     "api-port": "Порт API",
     "application-mode": "Статус приложения",
-    "database-type": "Тип БД",
+    "database-type": "Тип базы данных",
     "database-url": "URL базы данных",
     "default-group": "Группа по умолчанию",
     "demo": "Демо",
@@ -204,7 +204,7 @@
     "recipe-markup-specification": "Спецификация разметки рецепта",
     "recipe-url": "URL-адрес рецепта",
     "upload-a-recipe": "Загрузить рецепт",
-    "upload-individual-zip-file": "Загрузить отдельный .zip файл, экспортированный из другой инстанции Mealie.",
+    "upload-individual-zip-file": "Загрузить отдельный .zip файл, экспортированный из другой Mealie.",
     "url-form-hint": "Скопируйте и вставьте ссылку из вашего любимого сайта рецептов",
     "view-scraped-data": "Просмотр собранных данных"
   },
