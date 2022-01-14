@@ -3,14 +3,15 @@ from typing import Optional, Union
 from uuid import UUID, uuid4
 
 from fastapi_camelcase import CamelModel
-from pydantic import Field
-
-uuid4()
+from pydantic import UUID4, Field
 
 
 class CreateIngredientFood(CamelModel):
     name: str
     description: str = ""
+
+    label_id: Optional[UUID4] = None
+    label: "Optional[MultiPurposeLabelSummary]" = None
 
 
 class CreateIngredientUnit(CreateIngredientFood):
@@ -77,3 +78,8 @@ class IngredientsRequest(CamelModel):
 class IngredientRequest(CamelModel):
     parser: RegisteredParser = RegisteredParser.nlp
     ingredient: str
+
+
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+
+IngredientFood.update_forward_refs()

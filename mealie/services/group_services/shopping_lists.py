@@ -1,14 +1,16 @@
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group import ShoppingListOut
-from mealie.schema.group.group_shopping_list import ShoppingListItemCreate
+from mealie.schema.group import ShoppingListItemCreate, ShoppingListOut
 
 
 class ShoppingListService:
     def __init__(self, repos: AllRepositories):
         self.repos = repos
         self.repo = repos.group_shopping_lists
+
+    # =======================================================================
+    # Methods
 
     def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
         recipe = self.repos.recipes.get_one(recipe_id, "id")
@@ -23,6 +25,12 @@ class ShoppingListService:
             except AttributeError:
                 pass
 
+            label_id = None
+            try:
+                label_id = ingredient.food.label.id
+            except AttributeError:
+                pass
+
             unit_id = None
             try:
                 unit_id = ingredient.unit.id
@@ -32,11 +40,12 @@ class ShoppingListService:
             to_create.append(
                 ShoppingListItemCreate(
                     shopping_list_id=list_id,
-                    is_food=True,
+                    is_food=not recipe.settings.disable_amount,
                     food_id=food_id,
                     unit_id=unit_id,
                     quantity=ingredient.quantity,
                     note=ingredient.note,
+                    label_id=label_id,
                     recipe_id=recipe_id,
                 )
             )

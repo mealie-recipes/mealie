@@ -37,7 +37,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     label = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="shopping_list_items")
 
     class Config:
-        exclude = {"id", "label"}
+        exclude = {"id", "label", "food", "unit"}
 
     @auto_init()
     def __init__(self, **_) -> None:

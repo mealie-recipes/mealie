@@ -2,7 +2,7 @@ import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import { Food } from "~/api/class-interfaces/recipe-foods";
-import { VForm} from "~/types/vuetify";
+import { VForm } from "~/types/vuetify";
 
 let foodStore: Ref<Food[] | null> | null = null;
 
@@ -16,6 +16,7 @@ export const useFoods = function () {
     id: 0,
     name: "",
     description: "",
+    labelId: "",
   });
 
   const actions = {
@@ -64,6 +65,7 @@ export const useFoods = function () {
       }
 
       loading.value = true;
+      console.log(workingFoodData);
       const { data } = await api.foods.updateOne(workingFoodData.id, workingFoodData);
       if (data && foodStore?.value) {
         this.refreshAll();
@@ -81,11 +83,13 @@ export const useFoods = function () {
       workingFoodData.id = 0;
       workingFoodData.name = "";
       workingFoodData.description = "";
+      workingFoodData.labelId = "";
     },
     setWorking(item: Food) {
       workingFoodData.id = item.id;
       workingFoodData.name = item.name;
       workingFoodData.description = item.description;
+      workingFoodData.labelId = item.labelId || "";
     },
     flushStore() {
       foodStore = null;

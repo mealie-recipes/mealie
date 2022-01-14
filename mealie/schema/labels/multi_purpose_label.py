@@ -1,8 +1,6 @@
 from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
-from mealie.schema.recipe import IngredientFood
-
 
 class MultiPurposeLabelCreate(CamelModel):
     name: str
@@ -26,12 +24,13 @@ class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
     shopping_list_items: "list[ShoppingListItemOut]" = []
-    foods: list[IngredientFood] = []
+    foods: "list[IngredientFood] " = []
 
     class Config:
         orm_mode = True
 
 
 from mealie.schema.group.group_shopping_list import ShoppingListItemOut
+from mealie.schema.recipe.recipe_ingredient import IngredientFood
 
 MultiPurposeLabelOut.update_forward_refs()

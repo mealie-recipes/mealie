@@ -60,6 +60,6 @@ class ShoppingListOut(ShoppingListUpdate):
         orm_mode = True
 
 
-from mealie.schema.labels import MultiPurposeLabelSummary
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 
 ShoppingListItemOut.update_forward_refs()
