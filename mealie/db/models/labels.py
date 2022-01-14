@@ -10,6 +10,7 @@ class MultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "multi_purpose_labels"
     id = Column(GUID, default=GUID.generate, primary_key=True)
     name = Column(String(255), nullable=False)
+    color = Column(String(10), nullable=False, default="")
 
     group_id = Column(GUID, ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="labels")

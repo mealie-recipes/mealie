@@ -6,6 +6,7 @@ from mealie.schema.recipe import IngredientFood
 
 class MultiPurposeLabelCreate(CamelModel):
     name: str
+    color: str = ""
 
 
 class MultiPurposeLabelSave(MultiPurposeLabelCreate):
