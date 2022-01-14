@@ -1,10 +1,10 @@
 import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
-import { Food } from "~/api/class-interfaces/recipe-foods";
 import { VForm } from "~/types/vuetify";
+import { IngredientFood } from "~/types/api-types/recipe";
 
-let foodStore: Ref<Food[] | null> | null = null;
+let foodStore: Ref<IngredientFood[] | null> | null = null;
 
 export const useFoods = function () {
   const api = useUserApi();
@@ -85,10 +85,10 @@ export const useFoods = function () {
       workingFoodData.description = "";
       workingFoodData.labelId = "";
     },
-    setWorking(item: Food) {
+    setWorking(item: IngredientFood) {
       workingFoodData.id = item.id;
       workingFoodData.name = item.name;
-      workingFoodData.description = item.description;
+      workingFoodData.description = item.description || "";
       workingFoodData.labelId = item.labelId || "";
     },
     flushStore() {
