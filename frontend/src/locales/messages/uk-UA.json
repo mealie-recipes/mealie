@@ -157,7 +157,7 @@
     "dinner-today": "Обід сьогодні",
     "dinner-tonight": "Вечеря сьогодні",
     "edit-meal-plan": "Edit Meal Plan",
-    "end-date": "Кінцева дата",
+    "end-date": "Дата завершення",
     "group": "Група (бета)",
     "main": "Основне",
     "meal-planner": "Meal Planner",
@@ -177,7 +177,7 @@
     "quick-week": "Швидкий тиждень",
     "side": "Side",
     "sides": "Sides",
-    "start-date": "Start Date"
+    "start-date": "Дата початку"
   },
   "migration": {
     "chowdown": {
@@ -190,13 +190,13 @@
       "title": "Nextcloud Cookbook"
     },
     "no-migration-data-available": "No Migration Data Available",
-    "recipe-migration": "Recipe Migration"
+    "recipe-migration": "Міграція рецептів"
   },
   "new-recipe": {
-    "bulk-add": "Bulk Add",
+    "bulk-add": "Масове додавання",
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
-    "from-url": "Import a Recipe",
+    "from-url": "Імпорт рецепту",
     "github-issues": "GitHub Issues",
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Must be a Valid URL",
@@ -271,13 +271,13 @@
     "save-recipe-before-use": "Save recipe before use",
     "section-title": "Назва розділу",
     "servings": "Servings",
-    "share-recipe-message": "I wanted to share my {0} recipe with you.",
+    "share-recipe-message": "Я хотів би поділитися з тобою своїм рецептом {0}.",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sodium",
     "step-index": "Step: {step}",
-    "sugar-content": "Sugar",
-    "title": "Title",
-    "total-time": "Total Time",
+    "sugar-content": "Цукор",
+    "title": "Назва",
+    "total-time": "Загальний час",
     "unable-to-delete-recipe": "Unable to Delete Recipe"
   },
   "reicpe": {
@@ -289,11 +289,11 @@
     "exclude": "Exclude",
     "include": "Include",
     "max-results": "Max Results",
-    "or": "Or",
-    "results": "Results",
-    "search": "Search",
-    "search-mealie": "Search Mealie (press /)",
-    "search-placeholder": "Search...",
+    "or": "Або",
+    "results": "Результати",
+    "search": "Пошук",
+    "search-mealie": "Пошук по Mealie (натисніть /)",
+    "search-placeholder": "Пошук...",
     "tag-filter": "Tag Filter"
   },
   "settings": {
@@ -321,9 +321,9 @@
     "group-settings-updated": "Group Settings Updated",
     "homepage": {
       "all-categories": "All Categories",
-      "card-per-section": "Card Per Section",
+      "card-per-section": "Карток в розділі",
       "home-page": "Home Page",
-      "home-page-sections": "Home Page Sections",
+      "home-page-sections": "Розділи на головній сторінці",
       "show-recent": "Show Recent"
     },
     "language": "Language",
