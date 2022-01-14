@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
@@ -23,8 +25,8 @@ class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
-    shopping_list_items: "list[ShoppingListItemOut]" = []
-    foods: "list[IngredientFood] " = []
+    shopping_list_items: list[ShoppingListItemOut] = []
+    foods: list[IngredientFood] = []
 
     class Config:
         orm_mode = True

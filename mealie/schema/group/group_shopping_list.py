@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
@@ -26,17 +28,13 @@ class ShoppingListItemCreate(CamelModel):
 
 class ShoppingListItemOut(ShoppingListItemCreate):
     id: UUID4
-    label: "Optional[MultiPurposeLabelSummary]" = None
+    label: Optional[MultiPurposeLabelSummary]
 
     class Config:
         orm_mode = True
 
 
 class ShoppingListCreate(CamelModel):
-    """
-    Create Shopping List
-    """
-
     name: str = None
 
 
