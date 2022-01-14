@@ -44,6 +44,19 @@
         </div>
       </div>
 
+      <div class="mt-6">
+        <v-list-item class="rounded" dense @click="pushNew">
+          <v-list-item-icon>
+            <v-icon color="info">
+              {{ $globals.icons.create }}
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title> {{ $t("general.create") }} </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </div>
+
       <div v-if="listItems.checked && listItems.checked.length > 0" class="mt-6">
         <button @click="toggleShowChecked()">
           <span>
@@ -127,7 +140,7 @@
         </div>
       </v-form>
     </section>
-    <div class="d-flex justify-end my-4">
+    <div class="d-flex justify-end mb-4">
       <BaseButtonGroup
         v-if="!edit"
         :buttons="[
@@ -168,11 +181,6 @@
             text: 'Add Recipe',
             event: 'recipe',
           },
-          {
-            icon: $globals.icons.edit,
-            text: 'Edit List',
-            event: 'edit',
-          },
         ]"
         @edit="edit = true"
         @delete="deleteChecked"
@@ -182,6 +190,9 @@
         @copy-markdown="copyListItems('markdown')"
       />
       <BaseButton v-else save @click="saveList" />
+    </div>
+    <div class="d-flex justify-end mt-10">
+      <ButtonLink to="/shopping-lists/labels" text="Manage Labels" :icon="$globals.icons.tags" />
     </div>
   </v-container>
 </template>
@@ -469,7 +480,12 @@ export default defineComponent({
 
     refreshLabels();
 
+    function pushNew() {
+      shoppingList.value?.listItems.push(ingredientResetFactory());
+    }
+
     return {
+      pushNew,
       itemsByLabel,
       byLabel,
       presentLabels,
