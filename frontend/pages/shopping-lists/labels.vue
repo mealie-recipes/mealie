@@ -44,7 +44,7 @@
                 {{ $globals.icons.delete }}
               </v-icon>
             </v-btn>
-            <v-btn v-if="!isOpen[label.id]" class="mx-1" icon @click="toggleIsOpen(label.id)">
+            <v-btn v-if="!isOpen[label.id]" class="mx-1" icon @click="toggleIsOpen(label)">
               <v-icon>
                 {{ $globals.icons.edit }}
               </v-icon>
@@ -92,7 +92,7 @@
                   event: 'save',
                 },
               ]"
-              @cancel="toggleIsOpen(label.id)"
+              @cancel="resetToLastGoodValue(label, index)"
               @save="updateLabel(label)"
               @delete="deleteLabel(label.id)"
             />
@@ -109,7 +109,7 @@ import { defineComponent, ref, useAsync, computed } from "@nuxtjs/composition-ap
 import Fuse from "fuse.js";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
-import { MultiPurposeLabelOut } from "~/types/api-types/labels";
+import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
 export default defineComponent({
   setup() {
     // ==========================================================
@@ -146,11 +146,11 @@ export default defineComponent({
       }
     }
 
-    async function updateLabel(label: MultiPurposeLabelOut) {
+    async function updateLabel(label: MultiPurposeLabelSummary) {
       const { data } = await api.multiPurposeLabels.updateOne(label.id, label);
       if (data) {
         refreshLabels();
-        toggleIsOpen(label.id);
+        toggleIsOpen(label);
       }
     }
 
@@ -167,10 +167,32 @@ export default defineComponent({
     // ==========================================================
     // Component Helpers
 
+    const lastGoodValue = ref<{ [key: string]: MultiPurposeLabelSummary }>({});
+
+    function saveLastGoodValue(label: MultiPurposeLabelSummary) {
+      lastGoodValue.value[label.id] = { ...label };
+    }
+
+    function resetToLastGoodValue(label: MultiPurposeLabelSummary, index: number) {
+      const lgv = lastGoodValue.value[label.id];
+
+      if (lgv && labels.value) {
+        labels.value[index] = lgv;
+        labels.value = [...labels.value];
+      }
+
+      toggleIsOpen(label);
+    }
+
     const isOpen = ref<{ [key: string]: boolean }>({});
 
-    function toggleIsOpen(id: string) {
-      isOpen.value[id] = !isOpen.value[id];
+    function toggleIsOpen(label: MultiPurposeLabelSummary) {
+      isOpen.value[label.id] = !isOpen.value[label.id];
+
+      if (isOpen.value[label.id]) {
+        saveLastGoodValue(label);
+      }
+
       isOpen.value = { ...isOpen.value };
     }
 
@@ -230,6 +252,8 @@ export default defineComponent({
     });
 
     return {
+      saveLastGoodValue,
+      resetToLastGoodValue,
       deleteDialog,
       deleteTargetId,
       confirmDelete,
