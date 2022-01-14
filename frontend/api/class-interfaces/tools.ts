@@ -1,21 +1,7 @@
 import { BaseCRUDAPI } from "../_base";
-import { Recipe } from "~/types/api-types/recipe";
+import { RecipeTool, RecipeToolCreate, RecipeToolResponse } from "~/types/api-types/recipe";
 
 const prefix = "/api";
-
-export interface CreateTool {
-  name: string;
-  onHand: boolean;
-}
-
-export interface Tool extends CreateTool {
-  id: number;
-  slug: string;
-}
-
-export interface RecipeToolResponse extends Tool {
-  recipes: Recipe[];
-}
 
 const routes = {
   tools: `${prefix}/tools`,
@@ -23,11 +9,11 @@ const routes = {
   toolsSlug: (id: string) => `${prefix}/tools/slug/${id}`,
 };
 
-export class ToolsApi extends BaseCRUDAPI<Tool, CreateTool> {
+export class ToolsApi extends BaseCRUDAPI<RecipeTool, RecipeToolCreate> {
   baseRoute: string = routes.tools;
   itemRoute = routes.toolsId;
 
   async byslug(slug: string) {
-    return await this.requests.get<Tool>(routes.toolsSlug(slug));
+    return await this.requests.get<RecipeToolResponse>(routes.toolsSlug(slug));
   }
 }

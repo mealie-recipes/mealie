@@ -71,6 +71,8 @@ import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api"
 import { Confidence, Parser } from "~/api/class-interfaces/recipes/types";
 import { useUserApi } from "~/composables/api";
 
+type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
+
 export default defineComponent({
   layout: "admin",
   setup() {
@@ -85,11 +87,12 @@ export default defineComponent({
 
     const confidence = ref<Confidence>({});
 
-    function getColor(attribute: string) {
+    function getColor(attribute: ConfidenceAttribute) {
       const percentage = getConfidence(attribute);
+      if (percentage === undefined)
+        return;
 
-      // @ts-ignore
-      const p_as_num = parseFloat(percentage?.replace("%", ""));
+      const p_as_num = parseFloat(percentage.replace("%", ""));
 
       // Set color based off range
       if (p_as_num > 75) {
@@ -101,18 +104,16 @@ export default defineComponent({
       }
     }
 
-    function getConfidence(attribute: string) {
-      attribute = attribute.toLowerCase();
+    function getConfidence(attribute: ConfidenceAttribute) {
       if (!confidence.value) {
         return;
       }
 
-      // @ts-ignore
-      const property: number = confidence.value[attribute];
-      if (property) {
+      const property = confidence.value[attribute];
+      if (property !== undefined) {
         return `${(property * 100).toFixed(0)}%`;
       }
-      return null;
+      return undefined;
     }
 
     const tryText = [
@@ -150,18 +151,18 @@ export default defineComponent({
         properties.unit.value = data.ingredient?.unit?.name || "";
         properties.food.value = data.ingredient?.food?.name || "";
 
-        for (const property in properties) {
+        (["comment", "quantity", "unit", "food"] as ConfidenceAttribute[]).forEach(property => {
           const color = getColor(property);
           const confidence = getConfidence(property);
           if (color) {
-            // @ts-ignore
+            // @ts-ignore See above
             properties[property].color = color;
           }
           if (confidence) {
-            // @ts-ignore
+            // @ts-ignore See above
             properties[property].confidence = confidence;
           }
-        }
+        });
       }
       state.loading = false;
     }
@@ -169,7 +170,7 @@ export default defineComponent({
     const properties = reactive({
       quantity: {
         subtitle: "Quantity",
-        value: "" as any,
+        value: "" as string | number,
         color: null,
         confidence: null,
       },

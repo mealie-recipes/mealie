@@ -261,7 +261,6 @@ export default defineComponent({
     // All Recipes
 
     function selectAll() {
-      // @ts-ignore
       selected.value = allRecipes.value;
     }
 

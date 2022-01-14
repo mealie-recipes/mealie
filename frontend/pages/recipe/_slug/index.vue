@@ -469,9 +469,8 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import RecipeTools from "~/components/Domain/Recipe/RecipeTools.vue";
 import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe, RecipeTool } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
-import { Tool } from "~/api/class-interfaces/tools";
 import { useRouteQuery } from "~/composables/use-router";
 
 export default defineComponent({
@@ -505,9 +504,8 @@ export default defineComponent({
 
     console.log({ working: this.recipe, saved: this.originalRecipe });
 
-    if (this.form && !isSame) {
+    if (this.form && !isSame && this.recipe?.slug !== undefined) {
       if (window.confirm("You have unsaved changes. Do you want to save before leaving?")) {
-        // @ts-ignore
         await this.api.recipes.updateOne(this.recipe.slug, this.recipe);
       }
     }
@@ -536,14 +534,11 @@ export default defineComponent({
     // ===============================================================
     // Check Before Leaving
 
-    const domSaveChangesDialog = ref(null);
-
     const state = reactive({
       form: false,
       scale: 1,
       hideImage: false,
       imageKey: 1,
-      loadFailed: false,
       skeleton: false,
       jsonEditor: false,
       jsonEditorOptions: {
@@ -567,11 +562,11 @@ export default defineComponent({
 
     const { recipeImage } = useStaticRoutes();
 
-    const { $vuetify } = useContext();
 
     // ===========================================================================
     // Layout Helpers
 
+    const { $vuetify } = useContext();
     const enableLandscape = computed(() => {
       const preferLandscape = recipe?.value?.settings?.landscapeView;
       const smallScreen = !$vuetify.breakpoint.smAndUp;
@@ -583,6 +578,10 @@ export default defineComponent({
       }
 
       return false;
+    });
+
+    const imageHeight = computed(() => {
+      return $vuetify.breakpoint.xs ? "200" : "400";
     });
 
     // ===========================================================================
@@ -602,6 +601,10 @@ export default defineComponent({
       if (data?.slug) {
         router.push("/");
       }
+    }
+
+    function printRecipe() {
+      window.print();
     }
 
     async function closeEditor() {
@@ -687,7 +690,10 @@ export default defineComponent({
     // ===============================================================
     // Recipe Tools
 
-    async function updateTool(tool: Tool) {
+    async function updateTool(tool: RecipeTool) {
+      if (tool.id === undefined)
+        return;
+      
       const { response } = await api.tools.updateOne(tool.id, tool);
 
       if (response?.status === 200) {
@@ -735,7 +741,6 @@ export default defineComponent({
     // ===============================================================
     // Metadata
 
-    // @ts-ignore
     const metaData = useRecipeMeta(recipe);
 
     useMeta(metaData);
@@ -743,9 +748,8 @@ export default defineComponent({
     return {
       createApiExtra,
       apiNewKey,
-      originalRecipe,
-      domSaveChangesDialog,
       enableLandscape,
+      imageHeight,
       scaledYield,
       toggleJson,
       ...toRefs(state),
@@ -754,6 +758,7 @@ export default defineComponent({
       loading,
       addStep,
       deleteRecipe,
+      printRecipe,
       closeEditor,
       updateTool,
       updateRecipe,
@@ -765,15 +770,5 @@ export default defineComponent({
     };
   },
   head: {},
-  computed: {
-    imageHeight() {
-      return this.$vuetify.breakpoint.xs ? "200" : "400";
-    },
-  },
-  methods: {
-    printRecipe() {
-      window.print();
-    },
-  },
 });
 </script>

@@ -1,39 +1,14 @@
 import { BaseCRUDAPI } from "../_base";
+import { UserIn, UserOut } from "~/types/api-types/user";
 
 const prefix = "/api";
-
-export interface UserCreate {
-  username: string;
-  fullName: string;
-  email: string;
-  admin: boolean;
-  group: string;
-  advanced: boolean;
-  canInvite: boolean;
-  canManage: boolean;
-  canOrganize: boolean;
-  password: string;
-}
-
-export interface UserToken {
-  name: string;
-  id: number;
-  createdAt: Date;
-}
-
-export interface UserRead extends UserToken {
-  id: number;
-  groupId: number;
-  favoriteRecipes: any[];
-  tokens: UserToken[];
-}
 
 const routes = {
   adminUsers: `${prefix}/admin/users`,
   adminUsersId: (tag: string) => `${prefix}/admin/users/${tag}`,
 };
 
-export class AdminUsersApi extends BaseCRUDAPI<UserRead, UserCreate> {
+export class AdminUsersApi extends BaseCRUDAPI<UserOut, UserIn> {
   baseRoute: string = routes.adminUsers;
   itemRoute = routes.adminUsersId;
 }

@@ -423,36 +423,25 @@ export default defineComponent({
 
     // ===================================================
     // Recipe URL Import
-    // @ts-ignore
-    const domUrlForm = ref<VForm>(null);
+    const domUrlForm = ref<VForm | null>(null);
 
     async function createByUrl(url: string) {
-      if (!domUrlForm.value.validate() || url === "") {
+      if (!domUrlForm.value?.validate() || url === "") {
         console.log("Invalid URL", url);
         return;
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url);
-      if (response?.status !== 201) {
-        // @ts-ignore
-        if (!response?.error?.response?.data?.detail?.message) {
-          state.error = true;
-        }
-
-        state.loading = false;
-        return;
-      }
       handleResponse(response);
     }
 
     // ===================================================
     // Recipe Create By Name
     const newRecipeName = ref("");
-    // @ts-ignore
-    const domCreateByName = ref<VForm>(null);
+    const domCreateByName = ref<VForm | null>(null);
 
     async function createByName(name: string) {
-      if (!domCreateByName.value.validate() || name === "") {
+      if (!domCreateByName.value?.validate() || name === "") {
         return;
       }
       const { response } = await api.recipes.createOne({ name });
@@ -463,8 +452,7 @@ export default defineComponent({
 
     // ===================================================
     // Recipe Import From Zip File
-    // @ts-ignore
-    const newRecipeZip = ref<File>(null);
+    const newRecipeZip = ref<File | null>(null);
     const newRecipeZipFileName = "archive";
 
     async function createByZip() {

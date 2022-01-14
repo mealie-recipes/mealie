@@ -425,7 +425,7 @@ export default defineComponent({
       shoppingList.value?.listItems.forEach((item) => {
         if (item.labelId) {
           labels.push({
-            // @ts-ignore
+            // @ts-ignore TODO
             name: item.label.name,
             id: item.labelId,
           });

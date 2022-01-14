@@ -86,7 +86,7 @@ import {
   useAsync,
   useContext,
 } from "@nuxtjs/composition-api";
-import { AdminAboutInfo, CheckAppConfig } from "~/api/admin/admin-about";
+import { CheckAppConfig } from "~/api/admin/admin-about";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -96,6 +96,7 @@ interface SimpleCheck {
   text: string;
   successText: string;
   errorText: string;
+  warning: boolean;
 }
 
 export default defineComponent({
@@ -209,8 +210,7 @@ export default defineComponent({
 
     const { $globals, i18n } = useContext();
 
-    // @ts-ignore
-    const rawAppInfo = ref<AdminAboutInfo>({
+    const rawAppInfo = ref({
       version: "null",
       versionLatest: "null",
     });
@@ -220,7 +220,8 @@ export default defineComponent({
         const { data } = await adminApi.about.about();
 
         if (data) {
-          rawAppInfo.value = data;
+          rawAppInfo.value.version = data.version;
+          rawAppInfo.value.versionLatest = data.versionLatest;
 
           const prettyInfo = [
             {

@@ -109,7 +109,6 @@ export default defineComponent({
   methods: {
     assignSorted(val: Array<Recipe>) {
       if (this.tools) {
-        // @ts-ignore
         this.tools.recipes = val;
       }
     },

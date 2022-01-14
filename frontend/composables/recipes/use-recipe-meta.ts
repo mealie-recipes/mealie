@@ -2,7 +2,7 @@ import { Ref } from "@nuxtjs/composition-api";
 // import { useStaticRoutes } from "../api";
 import { Recipe } from "~/types/api-types/recipe";
 
-export const useRecipeMeta = (recipe: Ref<Recipe>) => {
+export const useRecipeMeta = (recipe: Ref<Recipe | null>) => {
   // const { recipeImage } = useStaticRoutes();
   return () => {
     const imageURL = "";
