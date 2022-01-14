@@ -11,20 +11,27 @@
     <v-chip v-if="listItem.label" class="ml-auto mt-2" small label>
       {{ listItem.label.name }}
     </v-chip>
-    <v-menu offset-x left>
-      <template #activator="{ on, attrs }">
-        <v-btn small class="ml-2 mt-2 handle" icon v-bind="attrs" v-on="on">
-          <v-icon>
-            {{ $globals.icons.arrowUpDown }}
-          </v-icon>
-        </v-btn>
-      </template>
-      <v-list dense>
-        <v-list-item v-for="action in contextMenu" :key="action.event" dense @click="contextHandler(action.event)">
-          <v-list-item-title>{{ action.text }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+    <div>
+      <v-menu offset-x left min-width="125px">
+        <template #activator="{ on, attrs }">
+          <v-btn small class="ml-2 mt-2 handle" icon v-bind="attrs" v-on="on">
+            <v-icon>
+              {{ $globals.icons.arrowUpDown }}
+            </v-icon>
+          </v-btn>
+        </template>
+        <v-list dense>
+          <v-list-item v-for="action in contextMenu" :key="action.event" dense @click="contextHandler(action.event)">
+            <v-list-item-title>{{ action.text }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-btn small class="ml-2 mt-2 handle" icon @click="edit = true">
+        <v-icon>
+          {{ $globals.icons.edit }}
+        </v-icon>
+      </v-btn>
+    </div>
   </div>
   <div v-else class="my-1">
     <v-card outlined>
@@ -42,17 +49,39 @@
             :prepend-inner-icon="$globals.icons.tags"
           >
           </v-autocomplete>
-        <v-checkbox  v-model="listItem.isFood" hide-details label="Treat list item as a recipe ingredient" />
         </div>
       </v-card-text>
-      <v-card-actions class="ma-0 pt-0 pb-1 justify-end">
-        <v-btn icon @click="save">
-          <v-icon>
-            {{ $globals.icons.save }}
-          </v-icon>
-        </v-btn>
-      </v-card-actions>
     </v-card>
+    <v-card-actions class="ma-0 pt-0 pb-1 justify-end">
+      <BaseButtonGroup
+        :buttons="[
+          {
+            icon: $globals.icons.delete,
+            text: $t('general.delete'),
+            event: 'delete',
+          },
+          {
+            icon: $globals.icons.close,
+            text: $t('general.cancel'),
+            event: 'cancel',
+          },
+          {
+            icon: $globals.icons.foods,
+            text: 'Toggle Food',
+            event: 'toggle-foods',
+          },
+          {
+            icon: $globals.icons.save,
+            text: $t('general.save'),
+            event: 'save',
+          },
+        ]"
+        @save="save"
+        @cancel="edit = !edit"
+        @delete="$emit('general.delete')"
+        @toggle-foods="listItem.isFood = !listItem.isFood"
+      />
+    </v-card-actions>
   </div>
 </template>
 
@@ -71,14 +100,14 @@ const contextMenu: actions[] = [
     text: "Edit",
     event: "edit",
   },
-//   {
-//     text: "Delete",
-//     event: "delete",
-//   },
-//   {
-//     text: "Move",
-//     event: "move",
-//   },
+  {
+    text: "Delete",
+    event: "delete",
+  },
+  {
+    text: "Transfer",
+    event: "transfer",
+  },
 ];
 
 export default defineComponent({
