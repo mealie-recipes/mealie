@@ -1,8 +1,20 @@
 <template>
   <v-container class="narrow-container">
-    <BaseDialog v-model="createDialog" @submit="createLabel">
+    <BaseDialog v-model="createDialog" title="New Label" :icon="$globals.icons.tags" @submit="createLabel">
       <v-card-text>
         <v-text-field v-model="createLabelData.name" :label="$t('general.name')"> </v-text-field>
+      </v-card-text>
+    </BaseDialog>
+
+    <BaseDialog
+      v-model="deleteDialog"
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.alert"
+      color="error"
+      @confirm="confirmDelete"
+    >
+      <v-card-text>
+        {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
 
@@ -94,14 +106,53 @@
 
 <script lang="ts">
 import { defineComponent, ref, useAsync, computed } from "@nuxtjs/composition-api";
-import { useFuse } from "@vueuse/integrations/useFuse";
 import Fuse from "fuse.js";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { MultiPurposeLabelOut } from "~/types/api-types/labels";
 export default defineComponent({
   setup() {
+    // ==========================================================
+    // API Operations
+
     const api = useUserApi();
+
+    const deleteDialog = ref(false);
+    const deleteTargetId = ref("");
+
+    async function confirmDelete() {
+      await api.multiPurposeLabels.deleteOne(deleteTargetId.value);
+      refreshLabels();
+      deleteTargetId.value = "";
+    }
+
+    function deleteLabel(itemId: string) {
+      deleteTargetId.value = itemId;
+      deleteDialog.value = true;
+    }
+
+    const createDialog = ref(false);
+
+    const createLabelData = ref({
+      name: "",
+      color: "",
+    });
+
+    async function createLabel() {
+      createLabelData.value.color = getRandomHex();
+      const { data } = await api.multiPurposeLabels.createOne(createLabelData.value);
+      if (data) {
+        refreshLabels();
+      }
+    }
+
+    async function updateLabel(label: MultiPurposeLabelOut) {
+      const { data } = await api.multiPurposeLabels.updateOne(label.id, label);
+      if (data) {
+        refreshLabels();
+        toggleIsOpen(label.id);
+      }
+    }
 
     const labels = useAsync(async () => {
       const { data } = await api.multiPurposeLabels.getAll();
@@ -113,12 +164,18 @@ export default defineComponent({
       labels.value = data ?? [];
     }
 
+    // ==========================================================
+    // Component Helpers
+
     const isOpen = ref<{ [key: string]: boolean }>({});
 
     function toggleIsOpen(id: string) {
       isOpen.value[id] = !isOpen.value[id];
       isOpen.value = { ...isOpen.value };
     }
+
+    // ==========================================================
+    // Color Generators
 
     function getRandomHex() {
       const letters = "BCDEF".split("");
@@ -138,15 +195,8 @@ export default defineComponent({
       labels.value = [...labels.value];
     }
 
-    async function updateLabel(label: MultiPurposeLabelOut) {
-      const { data } = await api.multiPurposeLabels.updateOne(label.id, label);
-
-      if (data) {
-        refreshLabels();
-      }
-
-      toggleIsOpen(label.id);
-    }
+    // ==========================================================
+    // Search / Filter
 
     const searchInput = ref("");
 
@@ -179,27 +229,10 @@ export default defineComponent({
       return labels.value?.filter((label) => foundName.includes(label.name)) ?? [];
     });
 
-    async function deleteLabel(itemId: string) {
-      await api.multiPurposeLabels.deleteOne(itemId);
-      refreshLabels();
-    }
-
-    const createDialog = ref(false);
-
-    const createLabelData = ref({
-      name: "",
-      color: "",
-    });
-
-    async function createLabel() {
-      createLabelData.value.color = getRandomHex();
-      const { data } = await api.multiPurposeLabels.createOne(createLabelData.value);
-      if (data) {
-        refreshLabels();
-      }
-    }
-
     return {
+      deleteDialog,
+      deleteTargetId,
+      confirmDelete,
       createLabelData,
       createLabel,
       createDialog,
