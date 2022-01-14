@@ -23,8 +23,8 @@ export interface ReadCookBook {
   slug?: string;
   position?: number;
   categories?: CategoryBase[];
-  id: number;
   groupId: string;
+  id: number;
 }
 export interface RecipeCategoryResponse {
   name: string;
@@ -163,8 +163,8 @@ export interface RecipeCookBook {
   slug?: string;
   position?: number;
   categories: RecipeCategoryResponse[];
-  id: number;
   groupId: string;
+  id: number;
 }
 export interface SaveCookBook {
   name: string;
@@ -180,5 +180,6 @@ export interface UpdateCookBook {
   slug?: string;
   position?: number;
   categories?: CategoryBase[];
+  groupId: string;
   id: number;
 }

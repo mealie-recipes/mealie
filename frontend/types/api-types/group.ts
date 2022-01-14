@@ -190,6 +190,7 @@ export interface IngredientUnit {
 }
 export interface MultiPurposeLabelSummary {
   name: string;
+  color?: string;
   groupId: string;
   id: string;
 }

@@ -49,6 +49,7 @@ export interface CheckAppConfig {
   emailReady?: boolean;
   ldapReady?: boolean;
   baseUrlSet?: boolean;
+  isUpToDate?: boolean;
 }
 export interface ChowdownURL {
   url: string;

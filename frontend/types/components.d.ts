@@ -17,6 +17,7 @@
  import AutoForm from "@/components/global/AutoForm.vue";
  import AppButtonUpload from "@/components/global/AppButtonUpload.vue";
  import BasePageTitle from "@/components/global/BasePageTitle.vue";
+ import ButtonLink from "@/components/global/ButtonLink.vue";
 
  import TheSnackbar from "@/components/layout/TheSnackbar.vue";
  import AppHeader from "@/components/layout/AppHeader.vue";
@@ -45,6 +46,7 @@ declare module "vue" {
      AutoForm: typeof AutoForm;
      AppButtonUpload: typeof AppButtonUpload;
      BasePageTitle: typeof BasePageTitle;
+     ButtonLink: typeof ButtonLink;
      // Layout Components
      TheSnackbar: typeof TheSnackbar;
      AppHeader: typeof AppHeader;
