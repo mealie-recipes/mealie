@@ -8,7 +8,15 @@
 export interface IngredientFood {
   name: string;
   description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
   id: number;
+}
+export interface MultiPurposeLabelSummary {
+  name: string;
+  color?: string;
+  groupId: string;
+  id: string;
 }
 export interface MultiPurposeLabelCreate {
   name: string;
@@ -33,8 +41,8 @@ export interface ShoppingListItemOut {
   unit?: IngredientUnit;
   foodId?: number;
   food?: IngredientFood;
-  recipeId?: number;
   labelId?: string;
+  recipeReferences?: ShoppingListItemRecipeRefOut[];
   id: string;
   label?: MultiPurposeLabelSummary;
 }
@@ -45,11 +53,11 @@ export interface IngredientUnit {
   abbreviation?: string;
   id: number;
 }
-export interface MultiPurposeLabelSummary {
-  name: string;
-  color?: string;
-  groupId: string;
+export interface ShoppingListItemRecipeRefOut {
+  recipeId: number;
+  recipeQuantity: number;
   id: string;
+  shoppingListItemId: string;
 }
 export interface MultiPurposeLabelSave {
   name: string;

@@ -41,6 +41,14 @@ export interface CategoryIn {
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
+}
+export interface MultiPurposeLabelSummary {
+  name: string;
+  color?: string;
+  groupId: string;
+  id: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -88,6 +96,8 @@ export interface IngredientConfidence {
 export interface IngredientFood {
   name: string;
   description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
   id: number;
 }
 /**
@@ -303,4 +313,8 @@ export interface RecipeToolResponse {
 export interface SlugResponse {}
 export interface TagIn {
   name: string;
+}
+export interface UnitFoodBase {
+  name: string;
+  description?: string;
 }
