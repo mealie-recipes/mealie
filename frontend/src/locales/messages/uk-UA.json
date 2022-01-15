@@ -13,12 +13,12 @@
     "development": "Розробка",
     "docs": "Документація",
     "download-log": "Завантажити лог",
-    "download-recipe-json": "Last Scraped JSON",
+    "download-recipe-json": "Останній зібраний JSON",
     "github": "Github",
     "log-lines": "Журнал рядків",
     "not-demo": "Не демо",
     "portfolio": "Портфоліо",
-    "production": "Production",
+    "production": "Користувацький",
     "support": "Підтримка",
     "version": "Версія"
   },
@@ -64,7 +64,7 @@
     "copied": "Скопійовано",
     "create": "Створити",
     "created": "Створено",
-    "custom": "Custom",
+    "custom": "Власний",
     "dashboard": "Панель керування",
     "delete": "Видалити",
     "disabled": "Вимкнено",
@@ -206,7 +206,7 @@
     "upload-a-recipe": "Відвантажити рецепт",
     "upload-individual-zip-file": "Відвантажити окремий .zip файл, експортований з іншого Mealie.",
     "url-form-hint": "Скопіюйте та вставте посилання з вашого улюбленого кулінарного веб-сайту",
-    "view-scraped-data": "View Scraped Data"
+    "view-scraped-data": "Переглянути зібрані дані"
   },
   "page": {
     "404-page-not-found": "404 - Сторінка не знайдена",
@@ -224,7 +224,7 @@
   "recipe": {
     "add-key": "Додати ключ",
     "add-to-favorites": "Додати в улюблені",
-    "api-extras": "Додатки API",
+    "api-extras": "Додаткове API",
     "calories": "Калорії",
     "calories-suffix": "калорії",
     "carbohydrate-content": "Вуглеводи",
@@ -307,7 +307,7 @@
       "delete-backup": "Видалити резервну копію",
       "error-creating-backup-see-log-file": "Помилка створення резервної копії. Перегляньте файл журналу",
       "full-backup": "Повна резервна копія",
-      "import-summary": "Import Summary",
+      "import-summary": "Резюме імпорту",
       "partial-backup": "Часткова резервна копія",
       "unable-to-delete-backup": "Не вдалося видалити резервну копію."
     },
@@ -380,7 +380,7 @@
       "recipes-affected": "Жоден рецепт не змінено|Один рецепт змінено|{count} рецептів змінено",
       "remove-unused": "Видалити невикористані",
       "title-case-all": "Все З Великих Літер",
-      "toolbox": "Toolbox",
+      "toolbox": "Інструменти",
       "unorganized": "Неорганізовані"
     },
     "webhooks": {
