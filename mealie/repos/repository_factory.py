@@ -35,7 +35,6 @@ from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.group_shopping_list import (
     ShoppingListItemOut,
-    ShoppingListItemRecipeRef,
     ShoppingListItemRecipeRefOut,
     ShoppingListOut,
     ShoppingListRecipeRefOut,
