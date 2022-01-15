@@ -8,6 +8,19 @@ from pydantic import UUID4
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 
 
+class ShoppingListItemRecipeRef(CamelModel):
+    recipe_id: int
+    recipe_quantity: float
+
+
+class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRef):
+    id: UUID4
+    shopping_list_item_id: UUID4
+
+    class Config:
+        orm_mode = True
+
+
 class ShoppingListItemCreate(CamelModel):
     shopping_list_id: UUID4
     checked: bool = False
@@ -21,9 +34,9 @@ class ShoppingListItemCreate(CamelModel):
     unit: Optional[IngredientUnit] = None
     food_id: int = None
     food: Optional[IngredientFood] = None
-    recipe_id: Optional[int] = None
 
     label_id: Optional[UUID4] = None
+    recipe_references: list[ShoppingListItemRecipeRef] = []
 
 
 class ShoppingListItemUpdate(ShoppingListItemCreate):
@@ -32,6 +45,7 @@ class ShoppingListItemUpdate(ShoppingListItemCreate):
 
 class ShoppingListItemOut(ShoppingListItemUpdate):
     label: Optional[MultiPurposeLabelSummary]
+    recipe_references: list[ShoppingListItemRecipeRefOut] = []
 
     class Config:
         orm_mode = True
@@ -39,6 +53,16 @@ class ShoppingListItemOut(ShoppingListItemUpdate):
 
 class ShoppingListCreate(CamelModel):
     name: str = None
+
+
+class ShoppingListRecipeRefOut(CamelModel):
+    id: UUID4
+    shopping_list_id: UUID4
+    recipe_id: int
+    recipe_quantity: float
+
+    class Config:
+        orm_mode = True
 
 
 class ShoppingListSave(ShoppingListCreate):
@@ -57,6 +81,8 @@ class ShoppingListUpdate(ShoppingListSummary):
 
 
 class ShoppingListOut(ShoppingListUpdate):
+    recipe_references: list[ShoppingListRecipeRefOut]
+
     class Config:
         orm_mode = True
 

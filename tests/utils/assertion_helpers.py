@@ -1,3 +1,6 @@
+from requests import Response
+
+
 def assert_ignore_keys(dict1: dict, dict2: dict, ignore_keys: list = None) -> None:
     """
     Itterates through a list of keys and checks if they are in the the provided ignore_keys list,
@@ -15,3 +18,8 @@ def assert_ignore_keys(dict1: dict, dict2: dict, ignore_keys: list = None) -> No
             continue
         else:
             assert value == dict2[key]
+
+
+def assert_derserialize(response: Response, expected_status_code=200) -> dict:
+    assert response.status_code == expected_status_code
+    return response.json()

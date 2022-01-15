@@ -8,6 +8,19 @@ from .._model_utils import GUID, auto_init
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
 
+class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
+    __tablename__ = "shopping_list_item_recipe_reference"
+    id = Column(GUID, primary_key=True, default=GUID.generate)
+
+    shopping_list_item_id = Column(GUID, ForeignKey("shopping_list_items.id"), primary_key=True)
+    recipe_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe_quantity = Column(Float, nullable=False)
+
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
 class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_list_items"
 
@@ -16,7 +29,6 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     shopping_list_id = Column(GUID, ForeignKey("shopping_lists.id"))
 
     # Meta
-    recipe_id = Column(Integer, nullable=True)
     is_ingredient = Column(Boolean, default=True)
     position = Column(Integer, nullable=False, default=0)
     checked = Column(Boolean, default=False)
@@ -36,8 +48,26 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     label_id = Column(GUID, ForeignKey("multi_purpose_labels.id"))
     label = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="shopping_list_items")
 
+    # Recipe Reference
+    recipe_references = orm.relationship(ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan")
+
     class Config:
         exclude = {"id", "label", "food", "unit"}
+
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
+class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
+    __tablename__ = "shopping_list_recipe_reference"
+    id = Column(GUID, primary_key=True, default=GUID.generate)
+
+    shopping_list_id = Column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
+
+    recipe_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe = orm.relationship("RecipeModel", uselist=False)
+    recipe_quantity = Column(Float, nullable=False)
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -58,6 +88,11 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
         order_by="ShoppingListItem.position",
         collection_class=ordering_list("position"),
     )
+
+    recipe_references = orm.relationship(ShoppingListRecipeReference, cascade="all, delete, delete-orphan")
+
+    class Config:
+        exclude = {"id", "list_items"}
 
     @auto_init()
     def __init__(self, **_) -> None:

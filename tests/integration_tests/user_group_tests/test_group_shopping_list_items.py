@@ -1,20 +1,24 @@
 import random
 from uuid import uuid4
 
-import pytest
-import sqlalchemy
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
-from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_shopping_list import (
-    ShoppingListItemCreate,
-    ShoppingListItemOut,
-    ShoppingListOut,
-    ShoppingListSave,
-)
+from mealie.schema.group.group_shopping_list import ShoppingListItemOut, ShoppingListOut
+from tests import utils
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+class Routes:
+    shopping = "/api/groups/shopping"
+    items = shopping + "/items"
+
+    def item(item_id: str) -> str:
+        return f"{Routes.items}/{item_id}"
+
+    def shopping_list(list_id: str) -> str:
+        return f"{Routes.shopping}/lists/{list_id}"
 
 
 def create_item(list_id: UUID4) -> dict:
@@ -45,81 +49,29 @@ def serialize_list_items(list_items: list[ShoppingListItemOut]) -> list:
     return as_dict
 
 
-class Routes:
-    shopping = "/api/groups/shopping"
-    items = shopping + "/items"
-
-    def item(item_id: str) -> str:
-        return f"{Routes.items}/{item_id}"
-
-    def shopping_list(list_id: str) -> str:
-        return f"{Routes.shopping}/lists/{list_id}"
-
-
-@pytest.fixture(scope="function")
-def shopping_list(database: AllRepositories, unique_user: TestUser):
-
-    model = database.group_shopping_lists.create(
-        ShoppingListSave(name=random_string(10), group_id=unique_user.group_id),
-    )
-
-    yield model
-
-    try:
-        database.group_shopping_lists.delete(model.id)
-    except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
-        pass
-
-
-@pytest.fixture(scope="function")
-def list_with_items(database: AllRepositories, unique_user: TestUser):
-    list_model = database.group_shopping_lists.create(
-        ShoppingListSave(name=random_string(10), group_id=unique_user.group_id),
-    )
-
-    for _ in range(10):
-        database.group_shopping_list_item.create(
-            ShoppingListItemCreate(
-                **create_item(list_model.id),
-            )
-        )
-
-    # refresh model
-    list_model = database.group_shopping_lists.get(list_model.id)
-
-    yield list_model
-
-    try:
-        database.group_shopping_lists.delete(list_model.id)
-    except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
-        pass
-
-
 def test_shopping_list_items_create_one(
     api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut
 ) -> None:
     item = create_item(shopping_list.id)
 
     response = api_client.post(Routes.items, json=item, headers=unique_user.token)
-    assert response.status_code == 201
+    as_json = utils.assert_derserialize(response, 201)
 
     # Test Item is Getable
-    created_item_id = response.json()["id"]
+    created_item_id = as_json["id"]
     response = api_client.get(Routes.item(created_item_id), headers=unique_user.token)
-    assert response.status_code == 200
+    as_json = utils.assert_derserialize(response, 200)
 
     # Ensure List Id is Set
-    assert response.json()["shoppingListId"] == str(shopping_list.id)
+    assert as_json["shoppingListId"] == str(shopping_list.id)
 
     # Test Item In List
     response = api_client.get(Routes.shopping_list(shopping_list.id), headers=unique_user.token)
-    assert response.status_code == 200
+    response_list = utils.assert_derserialize(response, 200)
 
-    response_list = response.json()
     assert len(response_list["listItems"]) == 1
 
     # Check Item Id's
-    print(response_list["listItems"])
     assert response_list["listItems"][0]["id"] == created_item_id
 
 
@@ -155,10 +107,7 @@ def test_shopping_list_items_update_one(
         update_data["id"] = str(item.id)
 
         response = api_client.put(Routes.item(item.id), json=update_data, headers=unique_user.token)
-        assert response.status_code == 200
-
-        # Test Item is Getable
-        item_json = response.json()
+        item_json = utils.assert_derserialize(response, 200)
         assert item_json["note"] == update_data["note"]
 
 
@@ -169,6 +118,7 @@ def test_shopping_list_items_delete_one(
 ) -> None:
     item = random.choice(list_with_items.list_items)
 
+    # Delete Item
     response = api_client.delete(Routes.item(item.id), headers=unique_user.token)
     assert response.status_code == 200
 
@@ -206,9 +156,7 @@ def test_shopping_list_items_update_many_reorder(
 
     # retrieve list and check positions against list
     response = api_client.get(Routes.shopping_list(list_with_items.id), headers=unique_user.token)
-    assert response.status_code == 200
-
-    response_list = response.json()
+    response_list = utils.assert_derserialize(response, 200)
 
     for i, item in enumerate(response_list["listItems"]):
         assert item["position"] == i
@@ -235,10 +183,7 @@ def test_shopping_list_items_update_many_consolidates_common_items(
 
     # retrieve list and check positions against list
     response = api_client.get(Routes.shopping_list(list_with_items.id), headers=unique_user.token)
-    assert response.status_code == 200
-
-    # list items should be consolidated into 1 item with quantity 20
-    response_list = response.json()
+    response_list = utils.assert_derserialize(response, 200)
 
     assert len(response_list["listItems"]) == 1
     assert response_list["listItems"][0]["quantity"] == len(list_items)

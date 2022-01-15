@@ -47,7 +47,6 @@ class ShoppingListItemController(BaseUserController):
         # TODO: Convert to update many with single call
 
         all_updates = []
-
         keep_ids = []
 
         for item in self.service.consolidate_list_items(data):
