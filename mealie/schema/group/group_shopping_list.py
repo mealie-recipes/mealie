@@ -18,16 +18,19 @@ class ShoppingListItemCreate(CamelModel):
     note: Optional[str] = ""
     quantity: float = 1
     unit_id: int = None
-    unit: IngredientUnit = None
+    unit: Optional[IngredientUnit] = None
     food_id: int = None
-    food: IngredientFood = None
+    food: Optional[IngredientFood] = None
     recipe_id: Optional[int] = None
 
     label_id: Optional[UUID4] = None
 
 
-class ShoppingListItemOut(ShoppingListItemCreate):
+class ShoppingListItemUpdate(ShoppingListItemCreate):
     id: UUID4
+
+
+class ShoppingListItemOut(ShoppingListItemUpdate):
     label: Optional[MultiPurposeLabelSummary]
 
     class Config:

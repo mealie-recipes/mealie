@@ -3,8 +3,8 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
+from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema.group.group_events import (
     GroupEventNotifierCreate,
@@ -21,8 +21,7 @@ router = APIRouter(prefix="/groups/events/notifications", tags=["Group: Event No
 
 
 @controller(router)
-class GroupEventsNotifierController:
-    deps: SharedDependencies = Depends(SharedDependencies.user)
+class GroupEventsNotifierController(BaseUserController):
     event_bus: EventBusService = Depends(EventBusService)
 
     @cached_property
