@@ -188,3 +188,12 @@ def test_shopping_list_items_update_many_consolidates_common_items(
     assert len(response_list["listItems"]) == 1
     assert response_list["listItems"][0]["quantity"] == len(list_items)
     assert response_list["listItems"][0]["note"] == master_note
+
+
+def test_shopping_list_items_update_many_remove_recipe_with_other_items(
+    api_client: TestClient,
+    unique_user: TestUser,
+    list_with_items: ShoppingListOut,
+) -> None:
+    # list_items = list_with_items.list_items
+    pass

@@ -42,7 +42,7 @@ def shopping_lists(database: AllRepositories, unique_user: TestUser):
     for model in models:
         try:
             database.group_shopping_lists.delete(model.id)
-        except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
+        except Exception:  # Entry Deleted in Test
             pass
 
 
@@ -57,7 +57,7 @@ def shopping_list(database: AllRepositories, unique_user: TestUser):
 
     try:
         database.group_shopping_lists.delete(model.id)
-    except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
+    except Exception:  # Entry Deleted in Test
         pass
 
 
