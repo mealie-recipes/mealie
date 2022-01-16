@@ -92,25 +92,25 @@ class RecipeSummary(CamelModel):
     class Config:
         orm_mode = True
 
-    @validator("tags", always=True, pre=True)
+    @validator("tags", always=True, pre=True, allow_reuse=True)
     def validate_tags(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeTag(name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    @validator("recipe_category", always=True, pre=True)
+    @validator("recipe_category", always=True, pre=True, allow_reuse=True)
     def validate_categories(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeCategory(name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    @validator("group_id", always=True, pre=True)
+    @validator("group_id", always=True, pre=True, allow_reuse=True)
     def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
 
-    @validator("user_id", always=True, pre=True)
+    @validator("user_id", always=True, pre=True, allow_reuse=True)
     def validate_user_id(user_id: Any):
         if isinstance(user_id, int):
             return uuid4()
@@ -165,14 +165,14 @@ class Recipe(RecipeSummary):
                 "extras": {x.key_name: x.value for x in name_orm.extras},
             }
 
-    @validator("slug", always=True, pre=True)
+    @validator("slug", always=True, pre=True, allow_reuse=True)
     def validate_slug(slug: str, values):
         if not values.get("name"):
             return slug
 
         return slugify(values["name"])
 
-    @validator("recipe_ingredient", always=True, pre=True)
+    @validator("recipe_ingredient", always=True, pre=True, allow_reuse=True)
     def validate_ingredients(recipe_ingredient, values):
         if not recipe_ingredient or not isinstance(recipe_ingredient, list):
             return recipe_ingredient

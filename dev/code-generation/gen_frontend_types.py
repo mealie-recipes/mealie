@@ -2,6 +2,7 @@ from pathlib import Path
 
 from jinja2 import Template
 from pydantic2ts import generate_typescript_defs
+from rich import print
 
 # ============================================================
 # Global Compoenents Generator
@@ -73,22 +74,44 @@ def generate_typescript_types() -> None:
     schema_path = PROJECT_DIR / "mealie" / "schema"
     types_dir = PROJECT_DIR / "frontend" / "types" / "api-types"
 
+    ignore_dirs = ["__pycache__", "static"]
+
+    skipped_files: list[Path] = []
+    skipped_dirs: list[Path] = []
+    failed_modules: list[Path] = []
+
     for module in schema_path.iterdir():
+        if module.is_dir() and module.stem in ignore_dirs:
+            skipped_dirs.append(module)
+            continue
 
         if not module.is_dir() or not module.joinpath("__init__.py").is_file():
+            skipped_files.append(module)
             continue
 
         ts_out_name = module.name.replace("_", "-") + ".ts"
-
         out_path = types_dir.joinpath(ts_out_name)
 
-        print(module)  # noqa
         try:
             path_as_module = path_to_module(module)
             generate_typescript_defs(path_as_module, str(out_path), exclude=("CamelModel"))
         except Exception as e:
-            print(f"Failed to generate {module}")  # noqa
+            failed_modules.append(module)
+            print("\nModule Errors:", module, "-----------------")
             print(e)  # noqa
+            print("Finished Module Errors:", module, "-----------------\n")
+
+    print("\n📁 Skipped Directories:")  # noqa
+    for skipped_dir in skipped_dirs:
+        print("   📁", skipped_dir.name)  # noqa
+
+    print("📄 Skipped Files:")  # noqa
+    for f in skipped_files:
+        print("   📄", f.name)  # noqa
+
+    print("❌ Failed Modules:")  # noqa
+    for f in failed_modules:
+        print("   ❌", f.name)  # noqa
 
 
 if __name__ == "__main__":

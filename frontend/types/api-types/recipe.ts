@@ -81,6 +81,9 @@ export interface CreateRecipeByUrlBulk {
 export interface DeleteRecipes {
   recipes: string[];
 }
+export interface ExportBase {
+  recipes: string[];
+}
 export interface ExportRecipes {
   recipes: string[];
   exportType?: ExportTypes & string;

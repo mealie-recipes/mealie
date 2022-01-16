@@ -409,8 +409,7 @@ export default defineComponent({
     // Add/Remove Recipe References
 
     const listRecipes = computed<Array<any>>(() => {
-      // @ts-ignore // TODO: Error with Type Generation for recipeReference - eslint bug as well
-      return shoppingList.value?.recipeReferences?.map((ref) => ref.recipe) ?? []; // eslint-disable-line
+      return shoppingList.value?.recipeReferences?.map((ref) => ref.recipe) ?? [];
     });
 
     async function addRecipeReferenceToList(recipeId: number) {

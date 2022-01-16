@@ -179,13 +179,8 @@ export interface GroupEventNotifierUpdate {
 export interface IngredientFood {
   name: string;
   description?: string;
-  id: number;
-}
-export interface IngredientUnit {
-  name: string;
-  description?: string;
-  fraction?: boolean;
-  abbreviation?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
   id: number;
 }
 export interface MultiPurposeLabelSummary {
@@ -193,6 +188,13 @@ export interface MultiPurposeLabelSummary {
   color?: string;
   groupId: string;
   id: string;
+}
+export interface IngredientUnit {
+  name: string;
+  description?: string;
+  fraction?: boolean;
+  abbreviation?: string;
+  id: number;
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
@@ -219,6 +221,59 @@ export interface ReadWebhook {
   groupId: string;
   id: number;
 }
+export interface RecipeSummary {
+  id?: number;
+  userId?: string;
+  groupId?: string;
+  name?: string;
+  slug?: string;
+  image?: unknown;
+  recipeYield?: string;
+  totalTime?: string;
+  prepTime?: string;
+  cookTime?: string;
+  performTime?: string;
+  description?: string;
+  recipeCategory?: RecipeTag[];
+  tags?: RecipeTag[];
+  tools?: RecipeTool[];
+  rating?: number;
+  orgURL?: string;
+  recipeIngredient?: RecipeIngredient[];
+  dateAdded?: string;
+  dateUpdated?: string;
+}
+export interface RecipeTag {
+  name: string;
+  slug: string;
+}
+export interface RecipeTool {
+  name: string;
+  slug: string;
+  id?: number;
+  onHand?: boolean;
+}
+export interface RecipeIngredient {
+  title?: string;
+  note?: string;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  disableAmount?: boolean;
+  quantity?: number;
+  referenceId?: string;
+}
+export interface CreateIngredientUnit {
+  name: string;
+  description?: string;
+  fraction?: boolean;
+  abbreviation?: string;
+}
+export interface CreateIngredientFood {
+  name: string;
+  description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
+}
 export interface SaveInviteToken {
   usesLeft: number;
   groupId: string;
@@ -237,9 +292,6 @@ export interface SetPermissions {
   canInvite?: boolean;
   canOrganize?: boolean;
 }
-/**
- * Create Shopping List
- */
 export interface ShoppingListCreate {
   name?: string;
 }
@@ -254,8 +306,12 @@ export interface ShoppingListItemCreate {
   unit?: IngredientUnit;
   foodId?: number;
   food?: IngredientFood;
-  recipeId?: number;
   labelId?: string;
+  recipeReferences?: ShoppingListItemRecipeRef[];
+}
+export interface ShoppingListItemRecipeRef {
+  recipeId: number;
+  recipeQuantity: number;
 }
 export interface ShoppingListItemOut {
   shoppingListId: string;
@@ -268,38 +324,55 @@ export interface ShoppingListItemOut {
   unit?: IngredientUnit;
   foodId?: number;
   food?: IngredientFood;
-  recipeId?: number;
   labelId?: string;
+  recipeReferences?: ShoppingListItemRecipeRefOut[];
   id: string;
   label?: MultiPurposeLabelSummary;
 }
-/**
- * Create Shopping List
- */
+export interface ShoppingListItemRecipeRefOut {
+  recipeId: number;
+  recipeQuantity: number;
+  id: string;
+  shoppingListItemId: string;
+}
+export interface ShoppingListItemUpdate {
+  shoppingListId: string;
+  checked?: boolean;
+  position?: number;
+  isFood?: boolean;
+  note?: string;
+  quantity?: number;
+  unitId?: number;
+  unit?: IngredientUnit;
+  foodId?: number;
+  food?: IngredientFood;
+  labelId?: string;
+  recipeReferences?: ShoppingListItemRecipeRef[];
+  id: string;
+}
 export interface ShoppingListOut {
   name?: string;
   groupId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
+  recipeReferences: ShoppingListRecipeRefOut[];
 }
-/**
- * Create Shopping List
- */
+export interface ShoppingListRecipeRefOut {
+  id: string;
+  shoppingListId: string;
+  recipeId: number;
+  recipeQuantity: number;
+  recipe: RecipeSummary;
+}
 export interface ShoppingListSave {
   name?: string;
   groupId: string;
 }
-/**
- * Create Shopping List
- */
 export interface ShoppingListSummary {
   name?: string;
   groupId: string;
   id: string;
 }
-/**
- * Create Shopping List
- */
 export interface ShoppingListUpdate {
   name?: string;
   groupId: string;

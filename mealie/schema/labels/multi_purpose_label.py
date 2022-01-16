@@ -25,14 +25,14 @@ class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
-    shopping_list_items: list[ShoppingListItemOut] = []
-    foods: list[IngredientFood] = []
+    # shopping_list_items: list[ShoppingListItemOut] = []
+    # foods: list[IngredientFood] = []
 
     class Config:
         orm_mode = True
 
 
-from mealie.schema.group.group_shopping_list import ShoppingListItemOut
-from mealie.schema.recipe.recipe_ingredient import IngredientFood
+# from mealie.schema.recipe.recipe_ingredient import IngredientFood
+# from mealie.schema.group.group_shopping_list import ShoppingListItemOut
 
-MultiPurposeLabelOut.update_forward_refs()
+# MultiPurposeLabelOut.update_forward_refs()

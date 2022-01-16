@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn outlined class="rounded-xl my-1 mx-1" :to="to">
-      <v-icon left v-if="icon != ''">
+      <v-icon v-if="icon != ''" left>
         {{ icon }}
       </v-icon>
       {{ text }}
