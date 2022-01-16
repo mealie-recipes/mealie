@@ -60,6 +60,7 @@ class ShoppingListRecipeRefOut(CamelModel):
     shopping_list_id: UUID4
     recipe_id: int
     recipe_quantity: float
+    recipe: RecipeSummary
 
     class Config:
         orm_mode = True
@@ -88,5 +89,7 @@ class ShoppingListOut(ShoppingListUpdate):
 
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+from mealie.schema.recipe.recipe import RecipeSummary
 
+ShoppingListRecipeRefOut.update_forward_refs()
 ShoppingListItemOut.update_forward_refs()

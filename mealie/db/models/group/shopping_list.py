@@ -69,6 +69,9 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     recipe = orm.relationship("RecipeModel", uselist=False)
     recipe_quantity = Column(Float, nullable=False)
 
+    class Config:
+        exclude = {"id", "recipe"}
+
     @auto_init()
     def __init__(self, **_) -> None:
         pass

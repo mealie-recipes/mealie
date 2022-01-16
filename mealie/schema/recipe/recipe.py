@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 from pathlib import Path
 from typing import Any, Optional
@@ -13,7 +15,6 @@ from mealie.db.models.recipe.recipe import RecipeModel
 
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
-from .recipe_ingredient import RecipeIngredient
 from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
 from .recipe_settings import RecipeSettings
@@ -180,3 +181,9 @@ class Recipe(RecipeSummary):
             return [RecipeIngredient(note=x) for x in recipe_ingredient]
 
         return recipe_ingredient
+
+
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+
+RecipeSummary.update_forward_refs()
+Recipe.update_forward_refs()

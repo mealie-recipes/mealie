@@ -154,12 +154,14 @@ class ShoppingListService:
         shopping_list = self.shopping_lists.get_one(list_id)
 
         for item in shopping_list.list_items:
+            found = False
+
             for ref in item.recipe_references:
-                found = False
                 remove_qty = 0
 
                 if ref.recipe_id == recipe_id:
                     self.list_item_refs.delete(ref.id)
+                    item.recipe_references.remove(ref)
                     found = True
                     remove_qty = ref.recipe_quantity
                     break  # only remove one instance of the recipe for each item
@@ -180,6 +182,9 @@ class ShoppingListService:
 
                 if ref.recipe_quantity <= 0:
                     self.list_refs.delete(ref.id)
+
+                else:
+                    self.list_refs.update(ref.id, ref)
                 break
 
         # Save Changes
