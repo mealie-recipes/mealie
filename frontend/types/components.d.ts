@@ -12,8 +12,10 @@
  import RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
  import BaseStatCard from "@/components/global/BaseStatCard.vue";
  import DevDumpJson from "@/components/global/DevDumpJson.vue";
+ import InputQuantity from "@/components/global/InputQuantity.vue";
  import ToggleState from "@/components/global/ToggleState.vue";
  import AppButtonCopy from "@/components/global/AppButtonCopy.vue";
+ import InputColor from "@/components/global/InputColor.vue";
  import BaseDivider from "@/components/global/BaseDivider.vue";
  import AutoForm from "@/components/global/AutoForm.vue";
  import AppButtonUpload from "@/components/global/AppButtonUpload.vue";
@@ -42,8 +44,10 @@ declare module "vue" {
      RecipeJsonEditor: typeof RecipeJsonEditor;
      BaseStatCard: typeof BaseStatCard;
      DevDumpJson: typeof DevDumpJson;
+     InputQuantity: typeof InputQuantity;
      ToggleState: typeof ToggleState;
      AppButtonCopy: typeof AppButtonCopy;
+     InputColor: typeof InputColor;
      BaseDivider: typeof BaseDivider;
      AutoForm: typeof AutoForm;
      AppButtonUpload: typeof AppButtonUpload;
