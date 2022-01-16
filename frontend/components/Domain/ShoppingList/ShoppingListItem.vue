@@ -17,9 +17,7 @@
         </div>
       </template>
     </v-checkbox>
-    <v-chip v-if="listItem.label" class="ml-auto mt-2" small label>
-      {{ listItem.label.name }}
-    </v-chip>
+    <MultiPurposeLabel v-if="listItem.label" :label="listItem.label" class="ml-auto mt-2" small />
     <div style="min-width: 72px">
       <v-menu offset-x left min-width="125px">
         <template #activator="{ on, attrs }">
@@ -57,6 +55,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
+import MultiPurposeLabel from "./MultiPurposeLabel.vue";
 import { ShoppingListItemCreate } from "~/types/api-types/group";
 import { MultiPurposeLabelOut } from "~/types/api-types/labels";
 
@@ -81,7 +80,7 @@ const contextMenu: actions[] = [
 ];
 
 export default defineComponent({
-  components: { ShoppingListItemEditor },
+  components: { ShoppingListItemEditor, MultiPurposeLabel },
   props: {
     value: {
       type: Object as () => ShoppingListItemCreate,

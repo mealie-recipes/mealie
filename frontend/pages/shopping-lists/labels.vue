@@ -35,9 +35,8 @@
 
       <v-sheet v-for="(label, index) in results" :key="label.id">
         <div class="d-flex px-2 py-2 pt-3">
-          <v-chip label :color="labels[index].color || undefined">
-            {{ label.name }}
-          </v-chip>
+          <MultiPurposeLabel :label="label" />
+
           <div class="ml-auto">
             <v-btn v-if="!isOpen[label.id]" class="mx-1" icon @click.prevent="deleteLabel(label.id)">
               <v-icon>
@@ -55,22 +54,7 @@
           <div class="d-md-flex" style="gap: 30px">
             <v-text-field v-model="labels[index].name" :label="$t('general.name')"> </v-text-field>
             <div style="max-width: 300px">
-              <v-text-field v-model="labels[index].color" label="Color">
-                <template #prepend>
-                  <v-btn
-                    class="elevation-0"
-                    small
-                    height="30px"
-                    width="30px"
-                    :color="labels[index].color || 'grey'"
-                    @click="setRandomHex(index)"
-                  >
-                    <v-icon color="white">
-                      {{ $globals.icons.refreshCircle }}
-                    </v-icon>
-                  </v-btn>
-                </template>
-              </v-text-field>
+              <InputColor v-model="labels[index].color" />
             </div>
           </div>
           <div class="d-flex justify-end">
@@ -107,10 +91,12 @@
 <script lang="ts">
 import { defineComponent, ref, useAsync, computed } from "@nuxtjs/composition-api";
 import Fuse from "fuse.js";
+import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
 export default defineComponent({
+  components: { MultiPurposeLabel },
   setup() {
     // ==========================================================
     // API Operations

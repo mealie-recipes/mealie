@@ -7,7 +7,7 @@
         </div>
         <div class="d-flex align-end" style="gap: 20px">
           <div>
-            <QuantityInput v-model="listItem.quantity" />
+            <InputQuantity v-model="listItem.quantity" />
           </div>
           <div style="max-width: 300px" class="mt-3 mr-auto">
             <v-autocomplete
