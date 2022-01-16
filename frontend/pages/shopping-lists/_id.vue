@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="shoppingList" class="narrow-container">
+  <v-container v-if="shoppingList" class="md-container">
     <BasePageTitle divider>
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
@@ -11,16 +11,19 @@
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
         <draggable :value="shoppingList.listItems" handle=".handle" @input="updateIndex">
-          <ShoppingListItem
-            v-for="(item, index) in listItems.unchecked"
-            :key="item.id"
-            v-model="listItems.unchecked[index]"
-            :labels="allLabels"
-            @checked="saveList"
-            @save="saveList"
-          />
+          <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id">
+            <ShoppingListItem
+              v-model="listItems.unchecked[index]"
+              :labels="allLabels"
+              @checked="saveListItem(item)"
+              @save="saveListItem(item)"
+              @delete="deleteListItem(item)"
+            />
+          </v-lazy>
         </draggable>
       </div>
+
+      <!-- View By Label -->
       <div v-else>
         <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
@@ -31,32 +34,34 @@
             </span>
             {{ key }}
           </div>
-          <div v-for="item in value" :key="item.id" class="small-checkboxes d-flex justify-space-between align-center">
-            <v-checkbox v-model="item.checked" hide-details dense :label="item.note" @change="saveList">
-              <template #label>
-                <div>
-                  {{ item.quantity }} <v-icon size="16" class="mx-1"> {{ $globals.icons.close }} </v-icon>
-                  {{ item.note }}
-                </div>
-              </template>
-            </v-checkbox>
-          </div>
+          <v-lazy v-for="(item, index) in value" :key="item.id">
+            <ShoppingListItem
+              v-model="value[index]"
+              :labels="allLabels"
+              @checked="saveListItem(item)"
+              @save="saveListItem(item)"
+              @delete="deleteListItem(item)"
+            />
+          </v-lazy>
         </div>
       </div>
 
-      <div class="mt-6">
-        <v-list-item class="rounded" dense @click="pushNew">
-          <v-list-item-icon>
-            <v-icon color="info">
-              {{ $globals.icons.create }}
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title> {{ $t("general.create") }} </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+      <!-- Create Item -->
+      <div v-if="createEditorOpen">
+        <ShoppingListItemEditor
+          v-model="createListItemData"
+          class="my-4"
+          :labels="allLabels"
+          @delete="createEditorOpen = false"
+          @cancel="createEditorOpen = false"
+          @save="createListItem"
+        />
+      </div>
+      <div v-else class="mt-4 d-flex justify-end">
+        <BaseButton create @click="createEditorOpen = true" />
       </div>
 
+      <!-- Checked Items -->
       <div v-if="listItems.checked && listItems.checked.length > 0" class="mt-6">
         <button @click="toggleShowChecked()">
           <span>
@@ -69,77 +74,22 @@
         <v-divider class="my-4"></v-divider>
         <v-expand-transition>
           <div v-show="showChecked">
-            <div v-for="item in listItems.checked" :key="item.id" class="d-flex justify-space-between align-center">
-              <v-checkbox v-model="item.checked" color="gray" class="my-n2" :label="item.note" @change="saveList">
-                <template #label>
-                  <div style="text-decoration: line-through">
-                    {{ item.quantity }} x
-                    {{ item.note }}
-                  </div>
-                </template>
-              </v-checkbox>
+            <div v-for="(item, idx) in listItems.checked" :key="item.id">
+              <ShoppingListItem
+                v-model="listItems.checked[idx]"
+                class="strike-through-note"
+                :labels="allLabels"
+                @checked="saveListItem(item)"
+                @save="saveListItem(item)"
+                @delete="deleteListItem(item)"
+              />
             </div>
           </div>
         </v-expand-transition>
       </div>
     </section>
 
-    <!-- Editor -->
-    <section v-else>
-      <draggable :value="shoppingList.listItems" handle=".handle" @input="updateIndex">
-        <div v-for="(item, index) in shoppingList.listItems" :key="index" class="d-flex">
-          <div class="number-input-container">
-            <v-text-field v-model="shoppingList.listItems[index].quantity" class="mx-1" type="number" label="Qty" />
-          </div>
-          <v-text-field v-model="item.note" :label="$t('general.name')"> </v-text-field>
-          <v-menu offset-x left>
-            <template #activator="{ on, attrs }">
-              <v-btn icon class="mt-3" v-bind="attrs" v-on="on">
-                <v-icon class="handle">
-                  {{ $globals.icons.arrowUpDown }}
-                </v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(itm, idx) in contextMenu"
-                :key="idx"
-                @click="contextMenuAction(itm.action, item, index)"
-              >
-                <v-list-item-title>{{ itm.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-          <div v-if="item.isFood">Is Food</div>
-        </div>
-      </draggable>
-
-      <v-divider class="my-2" />
-
-      <!-- Create Form -->
-      <v-form @submit.prevent="ingredientCreate()">
-        <v-checkbox v-model="createIngredient.isFood" label="Treat list item as a recipe ingredient" />
-        <div class="d-flex">
-          <div class="number-input-container">
-            <v-text-field v-model="createIngredient.quantity" class="mx-1" type="number" label="Qty" />
-          </div>
-          <v-text-field v-model="createIngredient.note" :label="$t('recipe.note')"> </v-text-field>
-        </div>
-        <div v-if="createIngredient.isFood">Is Food</div>
-        <v-autocomplete
-          v-model="createIngredient.labelId"
-          clearable
-          name=""
-          :items="allLabels"
-          item-value="id"
-          item-text="name"
-        >
-        </v-autocomplete>
-        <div class="d-flex justify-end">
-          <BaseButton type="submit" create> </BaseButton>
-        </div>
-      </v-form>
-    </section>
+    <!-- Action Bar -->
     <div class="d-flex justify-end mb-4">
       <BaseButtonGroup
         v-if="!edit"
@@ -191,9 +141,44 @@
       />
       <BaseButton v-else save @click="saveList" />
     </div>
-    <div class="d-flex justify-end mt-10">
-      <ButtonLink to="/shopping-lists/labels" text="Manage Labels" :icon="$globals.icons.tags" />
-    </div>
+
+    <!-- Recipe References -->
+    <v-lazy>
+      <section>
+        <div>
+          <span>
+            <v-icon left class="mb-1">
+              {{ $globals.icons.primary }}
+            </v-icon>
+          </span>
+          {{ shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0 }} Linked Recipes
+        </div>
+        <v-divider class="my-4"></v-divider>
+        <RecipeList :recipes="listRecipes">
+          <template v-for="(recipe, index) in listRecipes" #[`actions-${recipe.id}`]>
+            <v-list-item-action :key="'item-actions-decrease' + recipe.id">
+              <v-btn icon @click.prevent="removeRecipeReferenceToList(recipe.id)">
+                <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
+              </v-btn>
+            </v-list-item-action>
+            <div :key="'item-actions-quantity' + recipe.id" class="pl-3">
+              {{ shoppingList.recipeReferences[index].recipeQuantity }}
+            </div>
+            <v-list-item-action :key="'item-actions-increase' + recipe.id">
+              <v-btn icon @click.prevent="addRecipeReferenceToList(recipe.id)">
+                <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </template>
+        </RecipeList>
+      </section>
+    </v-lazy>
+
+    <v-lazy>
+      <div class="d-flex justify-end mt-10">
+        <ButtonLink to="/shopping-lists/labels" text="Manage Labels" :icon="$globals.icons.tags" />
+      </div>
+    </v-lazy>
   </v-container>
 </template>
 
@@ -202,13 +187,15 @@ import draggable from "vuedraggable";
 
 import { defineComponent, useAsync, useRoute, computed, ref } from "@nuxtjs/composition-api";
 import { useClipboard, useToggle } from "@vueuse/core";
-import { ShoppingListItemCreate } from "~/api/class-interfaces/group-shopping-lists";
 import { useUserApi } from "~/composables/api";
-import { useAsyncKey, uuid4 } from "~/composables/use-utils";
+import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
-import { Label } from "~/api/class-interfaces/group-multiple-purpose-labels";
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import BannerExperimental from "~/components/global/BannerExperimental.vue";
+import { MultiPurposeLabelOut } from "~/types/api-types/labels";
+import { ShoppingListItemCreate, ShoppingListItemOut } from "~/types/api-types/group";
+import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
+import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 type CopyTypes = "plain" | "markdown";
 
 interface PresentLabel {
@@ -221,6 +208,8 @@ export default defineComponent({
     draggable,
     ShoppingListItem,
     BannerExperimental,
+    RecipeList,
+    ShoppingListItemEditor,
   },
   setup() {
     const userApi = useUserApi();
@@ -230,6 +219,9 @@ export default defineComponent({
 
     const route = useRoute();
     const id = route.value.params.id;
+
+    // ===============================================================
+    // Shopping List Actions
 
     const shoppingList = useAsync(async () => {
       return await fetchShoppingList();
@@ -244,64 +236,15 @@ export default defineComponent({
       shoppingList.value = await fetchShoppingList();
     }
 
-    async function saveList() {
-      if (!shoppingList.value) {
-        return;
-      }
-
-      // Set Position
-      shoppingList.value.listItems = shoppingList.value.listItems.map((itm: ShoppingListItemCreate, idx: number) => {
-        itm.position = idx;
-        return itm;
-      });
-
-      await userApi.shopping.lists.updateOne(id, shoppingList.value);
-      refresh();
-      edit.value = false;
-    }
-
     // =====================================
-    // Ingredient CRUD
+    // List Item CRUD
 
     const listItems = computed(() => {
       return {
-        checked: shoppingList.value?.listItems.filter((item) => item.checked),
-        unchecked: shoppingList.value?.listItems.filter((item) => !item.checked),
+        checked: shoppingList.value?.listItems?.filter((item) => item.checked) ?? [],
+        unchecked: shoppingList.value?.listItems?.filter((item) => !item.checked) ?? [],
       };
     });
-
-    const createIngredient = ref(ingredientResetFactory());
-
-    function ingredientResetFactory() {
-      return {
-        id: null,
-        shoppingListId: id,
-        checked: false,
-        position: shoppingList.value?.listItems.length || 1,
-        isFood: false,
-        quantity: 1,
-        note: "",
-        unit: null,
-        food: null,
-        labelId: null,
-      };
-    }
-
-    function ingredientCreate() {
-      const item = { ...createIngredient.value, id: uuid4() };
-      shoppingList.value?.listItems.push(item);
-      createIngredient.value = ingredientResetFactory();
-    }
-
-    function updateIndex(data: ShoppingListItemCreate[]) {
-      if (shoppingList.value?.listItems) {
-        shoppingList.value.listItems = data;
-      }
-
-      if (!edit.value) {
-        saveList();
-      }
-    }
 
     const [showChecked, toggleShowChecked] = useToggle(false);
 
@@ -313,10 +256,9 @@ export default defineComponent({
     function getItemsAsPlain(items: ShoppingListItemCreate[]) {
       return items
         .map((item) => {
-          return `${item.quantity} x ${item.unit?.name || ""} ${item.food?.name || ""} ${item.note || ""}`.replace(
-            /\s+/g,
-            " "
-          );
+          return `${item.quantity || ""} x ${item.unit?.name || ""} ${item.food?.name || ""} ${
+            item.note || ""
+          }`.replace(/\s+/g, " ");
         })
         .join("\n");
     }
@@ -324,7 +266,7 @@ export default defineComponent({
     function getItemsAsMarkdown(items: ShoppingListItemCreate[]) {
       return items
         .map((item) => {
-          return `- [ ] ${item.quantity} x ${item.unit?.name || ""} ${item.food?.name || ""} ${
+          return `- [ ] ${item.quantity || ""} x ${item.unit?.name || ""} ${item.food?.name || ""} ${
             item.note || ""
           }`.replace(/\s+/g, " ");
         })
@@ -337,7 +279,7 @@ export default defineComponent({
       }
 
       console.log("copyListItems", copyType);
-      const items = shoppingList.value?.listItems.filter((item) => !item.checked);
+      const items = shoppingList.value?.listItems?.filter((item) => !item.checked);
 
       if (!items) {
         return;
@@ -366,7 +308,7 @@ export default defineComponent({
 
     function uncheckAll() {
       let hasChanged = false;
-      shoppingList.value?.listItems.forEach((item) => {
+      shoppingList.value?.listItems?.forEach((item) => {
         if (item.checked) {
           hasChanged = true;
           item.checked = false;
@@ -378,9 +320,9 @@ export default defineComponent({
     }
 
     function deleteChecked() {
-      const unchecked = shoppingList.value?.listItems.filter((item) => !item.checked);
+      const unchecked = shoppingList.value?.listItems?.filter((item) => !item.checked);
 
-      if (unchecked?.length === shoppingList.value?.listItems.length) {
+      if (unchecked?.length === shoppingList.value?.listItems?.length) {
         return;
       }
 
@@ -404,7 +346,7 @@ export default defineComponent({
       { title: "Ingredient", action: contextActions.setIngredient },
     ];
 
-    function contextMenuAction(action: string, item: ShoppingListItemCreate, idx: number) {
+    function contextMenuAction(action: string, item: ShoppingListItemOut, idx: number) {
       if (!shoppingList.value?.listItems) {
         return;
       }
@@ -423,8 +365,9 @@ export default defineComponent({
 
     // =====================================
     // Labels
+    // TODO: Extract to Composable
 
-    const allLabels = ref([] as Label[]);
+    const allLabels = ref([] as MultiPurposeLabelOut[]);
 
     function sortByLabels() {
       byLabel.value = !byLabel.value;
@@ -433,10 +376,9 @@ export default defineComponent({
     const presentLabels = computed(() => {
       const labels: PresentLabel[] = [];
 
-      shoppingList.value?.listItems.forEach((item) => {
-        if (item.labelId) {
+      shoppingList.value?.listItems?.forEach((item) => {
+        if (item.labelId && item.label) {
           labels.push({
-            // @ts-ignore
             name: item.label.name,
             id: item.labelId,
           });
@@ -453,7 +395,11 @@ export default defineComponent({
         "No Label": [],
       };
 
-      shoppingList.value?.listItems.forEach((item) => {
+      shoppingList.value?.listItems?.forEach((item) => {
+        if (item.checked) {
+          return;
+        }
+
         if (item.labelId) {
           if (item.label && item.label.name in items) {
             items[item.label.name].push(item);
@@ -480,31 +426,153 @@ export default defineComponent({
 
     refreshLabels();
 
-    function pushNew() {
-      shoppingList.value?.listItems.push(ingredientResetFactory());
+    // =====================================
+    // Add/Remove Recipe References
+
+    const listRecipes = computed<Array<any>>(() => {
+      // @ts-ignore // TODO: Error with Type Generation for recipeReference - eslint bug as well
+      return shoppingList.value?.recipeReferences?.map((ref) => ref.recipe) ?? []; // eslint-disable-line
+    });
+
+    async function addRecipeReferenceToList(recipeId: number) {
+      if (!shoppingList.value) {
+        return;
+      }
+
+      const { data } = await userApi.shopping.lists.addRecipe(shoppingList.value.id, recipeId);
+      console.log(data);
+
+      if (data) {
+        refresh();
+      }
+    }
+
+    async function removeRecipeReferenceToList(recipeId: number) {
+      if (!shoppingList.value) {
+        return;
+      }
+
+      const { data } = await userApi.shopping.lists.removeRecipe(shoppingList.value.id, recipeId);
+      console.log(data);
+
+      if (data) {
+        refresh();
+      }
+    }
+
+    // =====================================
+    // List Item CRUD
+
+    async function saveListItem(item: ShoppingListItemOut) {
+      if (!shoppingList.value) {
+        return;
+      }
+
+      const { data } = await userApi.shopping.items.updateOne(item.id, item);
+
+      if (data) {
+        refresh();
+      }
+    }
+
+    async function deleteListItem(item: ShoppingListItemOut) {
+      if (!shoppingList.value) {
+        return;
+      }
+
+      const { data } = await userApi.shopping.items.deleteOne(item.id);
+
+      if (data) {
+        refresh();
+      }
+    }
+
+    async function saveList() {
+      if (!shoppingList.value?.listItems) {
+        return;
+      }
+
+      // Set Position
+      shoppingList.value.listItems = shoppingList.value.listItems.map((itm: ShoppingListItemOut, idx: number) => {
+        itm.position = idx;
+        return itm;
+      });
+
+      await userApi.shopping.lists.updateOne(id, shoppingList.value);
+      refresh();
+      edit.value = false;
+    }
+
+    function updateIndex(data: ShoppingListItemOut[]) {
+      if (shoppingList.value?.listItems) {
+        shoppingList.value.listItems = data;
+      }
+
+      if (!edit.value) {
+        saveList();
+      }
+    }
+
+    // =====================================
+    // Create New Item
+
+    const createEditorOpen = ref(false);
+    const createListItemData = ref<ShoppingListItemCreate>(ingredientResetFactory());
+
+    function ingredientResetFactory(): ShoppingListItemCreate {
+      return {
+        shoppingListId: id,
+        checked: false,
+        position: shoppingList.value?.listItems?.length || 1,
+        isFood: false,
+        quantity: 1,
+        note: "",
+        unit: undefined,
+        food: undefined,
+        labelId: undefined,
+      };
+    }
+
+    async function createListItem() {
+      if (!shoppingList.value) {
+        return;
+      }
+
+      const { data } = await userApi.shopping.items.createOne(createListItemData.value);
+
+      if (data) {
+        createListItemData.value = ingredientResetFactory();
+        createEditorOpen.value = false;
+        refresh();
+      }
     }
 
     return {
-      pushNew,
-      itemsByLabel,
-      byLabel,
-      presentLabels,
+      addRecipeReferenceToList,
       allLabels,
-      copyListItems,
-      sortByLabels,
-      uncheckAll,
-      showChecked,
-      toggleShowChecked,
-      createIngredient,
-      contextMenuAction,
+      byLabel,
       contextMenu,
+      contextMenuAction,
+      copyListItems,
+      createEditorOpen,
+      createListItem,
+      createListItemData,
       deleteChecked,
-      listItems,
-      updateIndex,
-      saveList,
+      deleteListItem,
       edit,
+      itemsByLabel,
+      listItems,
+      listRecipes,
+      presentLabels,
+      removeRecipeReferenceToList,
+      saveList,
+      saveListItem,
       shoppingList,
-      ingredientCreate,
+      showChecked,
+      sortByLabels,
+      toggleShowChecked,
+      uncheckAll,
+      updateIndex,
     };
   },
   head() {
