@@ -71,7 +71,6 @@ import { useCookbooks } from "~/composables/use-group-cookbooks";
 
 export default defineComponent({
   components: { AppHeader, AppSidebar, TheSnackbar },
-  // @ts-ignore
   middleware: "auth",
   setup() {
     const { cookbooks } = useCookbooks();

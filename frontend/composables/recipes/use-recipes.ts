@@ -1,11 +1,10 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
-import { set } from "@vueuse/core";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
 
-export const allRecipes = ref<Recipe[] | null>([]);
-export const recentRecipes = ref<Recipe[] | null>([]);
+export const allRecipes = ref<Recipe[]>([]);
+export const recentRecipes = ref<Recipe[]>([]);
 
 const rand = (n: number) => Math.floor(Math.random() * n);
 
@@ -60,7 +59,7 @@ export const useSorter = () => {
 export const useLazyRecipes = function () {
   const api = useUserApi();
 
-  const recipes = ref<Recipe[] | null>([]);
+  const recipes = ref<Recipe[]>([]);
 
   async function fetchMore(start: number, limit: number) {
     const { data } = await api.recipes.getAll(start, limit);
@@ -100,8 +99,7 @@ export const useRecipes = (all = false, fetchRecipes = true) => {
   async function refreshRecipes() {
     const { data } = await api.recipes.getAll(start, end);
     if (data) {
-      // @ts-ignore
-      set(recipes, data);
+      recipes.value = data;
     }
   }
 

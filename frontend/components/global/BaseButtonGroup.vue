@@ -42,7 +42,7 @@ export interface ButtonOption {
   icon: string;
   text: string;
   event: string;
-  children: ButtonOption[];
+  children?: ButtonOption[];
 }
 
 export default defineComponent({

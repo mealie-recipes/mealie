@@ -425,7 +425,7 @@ export default defineComponent({
       shoppingList.value?.listItems.forEach((item) => {
         if (item.labelId) {
           labels.push({
-            // @ts-ignore
+            // @ts-ignore TODO
             name: item.label.name,
             id: item.labelId,
           });
@@ -439,7 +439,7 @@ export default defineComponent({
       const items: { [prop: string]: ShoppingListItemCreate[] } = {};
 
       const noLabel = {
-        "No Label": [],
+        "No Label": [] as ShoppingListItemCreate[],
       };
 
       shoppingList.value?.listItems.forEach((item) => {
@@ -450,7 +450,6 @@ export default defineComponent({
             items[item.label.name] = [item];
           }
         } else {
-          // @ts-ignore
           noLabel["No Label"].push(item);
         }
       });

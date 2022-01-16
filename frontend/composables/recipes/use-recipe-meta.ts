@@ -2,13 +2,12 @@ import { Ref } from "@nuxtjs/composition-api";
 // import { useStaticRoutes } from "../api";
 import { Recipe } from "~/types/api-types/recipe";
 
-export const useRecipeMeta = (recipe: Ref<Recipe>) => {
+export const useRecipeMeta = (recipe: Ref<Recipe | null>) => {
   // const { recipeImage } = useStaticRoutes();
   return () => {
     const imageURL = "";
     return {
       title: recipe?.value?.name,
-      // @ts-ignore
       mainImage: imageURL,
       meta: [
         { hid: "og:title", property: "og:title", content: recipe?.value?.name || "Recipe" },

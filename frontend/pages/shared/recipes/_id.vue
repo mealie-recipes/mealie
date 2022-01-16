@@ -270,7 +270,7 @@ import {
   useMeta,
   useRoute,
 } from "@nuxtjs/composition-api";
-// @ts-ignore
+// @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 // import { useRecipeMeta } from "~/composables/recipes";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
@@ -316,7 +316,6 @@ export default defineComponent({
       },
     });
 
-    // @ts-ignore
     const { recipeImage } = useStaticRoutes();
     const { meta, title } = useMeta();
 
@@ -330,28 +329,25 @@ export default defineComponent({
 
           meta.value = [
             { hid: "og:title", property: "og:title", content: data.name ?? "" },
-            // @ts-ignore
             {
               hid: "og:desc",
               property: "og:description",
-              content: data.description,
+              content: data.description ?? "",
             },
             {
               hid: "og-image",
               property: "og:image",
               content: imageURL ?? "",
             },
-            // @ts-ignore
             {
               hid: "twitter:title",
               property: "twitter:title",
-              content: data.name,
+              content: data.name ?? "",
             },
-            // @ts-ignore
             {
               hid: "twitter:desc",
               property: "twitter:description",
-              content: data.description,
+              content: data.description ?? "",
             },
             { hid: "t-type", name: "twitter:card", content: "summary_large_image" },
           ];

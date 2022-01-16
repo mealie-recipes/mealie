@@ -77,7 +77,7 @@
 
 <script lang="ts">
 import { defineComponent, useRoute, ref } from "@nuxtjs/composition-api";
-// @ts-ignore
+// @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import { useStaticRoutes } from "~/composables/api";
 import { parseIngredientText, useRecipe } from "~/composables/recipes";

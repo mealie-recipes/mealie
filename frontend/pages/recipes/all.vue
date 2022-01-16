@@ -47,9 +47,7 @@ export default defineComponent({
     }, 500);
 
     function removeRecipe(slug: string) {
-      // @ts-ignore
       for (let i = 0; i < recipes?.value?.length; i++) {
-        // @ts-ignore
         if (recipes?.value[i].slug === slug) {
           recipes?.value.splice(i, 1);
           break;

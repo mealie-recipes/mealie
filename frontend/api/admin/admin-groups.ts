@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../_base";
-import { UserRead } from "./admin-users";
+import { UserOut } from "~/types/api-types/user";
 const prefix = "/api";
 
 export interface Token {
@@ -29,7 +29,7 @@ export interface GroupRead extends GroupCreate {
   id: number;
   categories: any[];
   webhooks: any[];
-  users: UserRead[];
+  users: UserOut[];
   preferences: Preferences;
 }
 

@@ -135,7 +135,6 @@ export default defineComponent({
       if (data) {
         parsedIng.value = data;
 
-        // @ts-ignore
         errors.value = data.map((ing, index: number) => {
           const unitError = !checkForUnit(ing.ingredient.unit);
           const foodError = !checkForFood(ing.ingredient.food);

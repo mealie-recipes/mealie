@@ -136,8 +136,6 @@ export default defineComponent({
   watch: {
     determineClose() {
       this.submitted = false;
-
-      // @ts-ignore
       this.dialog = false;
     },
     dialog(val) {
@@ -155,12 +153,10 @@ export default defineComponent({
       this.submitted = true;
     },
     open() {
-      // @ts-ignore
       this.dialog = true;
       this.logDeprecatedProp("open");
     },
     close() {
-      // @ts-ignore
       this.dialog = false;
       this.logDeprecatedProp("close");
     },

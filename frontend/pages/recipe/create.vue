@@ -332,7 +332,8 @@ import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategory
 import { validators } from "~/composables/use-validators";
 import { Recipe } from "~/types/api-types/recipe";
 import { alert } from "~/composables/use-toast";
-import { VForm} from "~/types/vuetify";
+import { VForm } from "~/types/vuetify";
+import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 
 export default defineComponent({
   components: { VJsoneditor, RecipeCategoryTagSelector },
@@ -344,7 +345,7 @@ export default defineComponent({
 
     const { $globals } = useContext();
 
-    const tabs = [
+    const tabs: MenuItem[] = [
       {
         icon: $globals.icons.link,
         text: "Import with URL",
@@ -422,48 +423,36 @@ export default defineComponent({
 
     // ===================================================
     // Recipe URL Import
-    // @ts-ignore
-    const domUrlForm = ref<VForm>(null);
+    const domUrlForm = ref<VForm | null>(null);
 
     async function createByUrl(url: string) {
-      if (!domUrlForm.value.validate() || url === "") {
+      if (!domUrlForm.value?.validate() || url === "") {
         console.log("Invalid URL", url);
         return;
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url);
-      if (response?.status !== 201) {
-        // @ts-ignore
-        if (!response?.error?.response?.data?.detail?.message) {
-          state.error = true;
-        }
-
-        state.loading = false;
-        return;
-      }
       handleResponse(response);
     }
 
     // ===================================================
     // Recipe Create By Name
     const newRecipeName = ref("");
-    // @ts-ignore
-    const domCreateByName = ref<VForm>(null);
+    const domCreateByName = ref<VForm | null>(null);
 
     async function createByName(name: string) {
-      if (!domCreateByName.value.validate() || name === "") {
+      if (!domCreateByName.value?.validate() || name === "") {
         return;
       }
       const { response } = await api.recipes.createOne({ name });
       // TODO createOne claims to return a Recipe, but actually the API only returns a string
-      // @ts-ignore
+      // @ts-ignore See above
       handleResponse(response, true);
     }
 
     // ===================================================
     // Recipe Import From Zip File
-    // @ts-ignore
-    const newRecipeZip = ref<File>(null);
+    const newRecipeZip = ref<File | null>(null);
     const newRecipeZipFileName = "archive";
 
     async function createByZip() {
