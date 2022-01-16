@@ -22,7 +22,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="expirationDate" no-title @input="pickerMenu = false"></v-date-picker>
+          <v-date-picker v-model="expirationDate" no-title @input="datePickerMenu = false"></v-date-picker>
         </v-menu>
       </v-card-text>
       <v-card-actions class="justify-end">

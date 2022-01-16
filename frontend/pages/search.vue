@@ -188,7 +188,7 @@ export default defineComponent({
         const includesTags = check(
           state.includeTags,
 
-          // @ts-ignore
+          // @ts-ignore See above
           recipe.tags.map((x: Tag) => x.name),
           state.tagFilter.matchAny,
           state.tagFilter.exclude
@@ -196,8 +196,7 @@ export default defineComponent({
         const includesCats = check(
           state.includeCategories,
 
-          // @ts-ignore
-
+          // @ts-ignore See above
           recipe.recipeCategory.map((x) => x.name),
           state.catFilter.matchAny,
           state.catFilter.exclude
@@ -205,7 +204,7 @@ export default defineComponent({
         const includesFoods = check(
           state.includeFoods,
 
-          // @ts-ignore
+          // @ts-ignore See above
           recipe.recipeIngredient.map((x) => x?.food?.name || ""),
           state.foodFilter.matchAny,
           state.foodFilter.exclude

@@ -60,9 +60,10 @@ const MODES = {
 
 export interface MenuItem {
   text: string;
-  icon: string;
+  icon?: string;
   to?: string;
-  event: string;
+  value?: string;
+  event?: string;
 }
 
 export default defineComponent({
@@ -78,6 +79,7 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       required: false,
+      default: false,
     },
     value: {
       type: String,
@@ -96,28 +98,24 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const activeObj = ref({
+    const activeObj = ref<MenuItem>({
       text: "DEFAULT",
       value: "",
-      icon: undefined,
-      event: undefined,
     });
 
     let startIndex = 0;
     props.items.forEach((item, index) => {
-      // @ts-ignore
       if (item.value === props.value) {
         startIndex = index;
 
-        // @ts-ignore
         activeObj.value = item;
       }
     });
     const itemGroup = ref(startIndex);
 
-    function setValue(v: any) {
+    function setValue(v: MenuItem) {
       context.emit(INPUT_EVENT, v.value);
-      activeObj.value = v;
+      activeObj.value = v; 
     }
 
     return {

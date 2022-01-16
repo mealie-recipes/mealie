@@ -7,7 +7,7 @@ export function useRouterQuery(query: string) {
   const param: WritableComputedRef<string> = computed({
     get(): string {
       console.log("Get Query Change");
-      // @ts-ignore
+      // @ts-ignore For some reason, this could also return an array
       return router.value?.query[query] || "";
     },
     set(v: string): void {
@@ -30,7 +30,6 @@ export function useRouteQuery<T extends string | string[]>(name: string, default
     },
     set(v) {
       nextTick(() => {
-        // @ts-ignore
         router.replace({ query: { ...route.value.query, [name]: v } });
       });
     },

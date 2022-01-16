@@ -371,7 +371,7 @@ export default defineComponent({
       const items: { [prop: string]: ShoppingListItemCreate[] } = {};
 
       const noLabel = {
-        "No Label": [],
+        "No Label": [] as ShoppingListItemCreate[],
       };
 
       shoppingList.value?.listItems?.forEach((item) => {
@@ -386,7 +386,6 @@ export default defineComponent({
             items[item.label.name] = [item];
           }
         } else {
-          // @ts-ignore
           noLabel["No Label"].push(item);
         }
       });

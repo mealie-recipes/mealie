@@ -1,4 +1,4 @@
-import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
+import { useAsync, ref, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
 import { CookBook } from "~/api/class-interfaces/group-cookbooks";
@@ -24,16 +24,6 @@ export const useCookbook = function () {
 export const useCookbooks = function () {
   const api = useUserApi();
   const loading = ref(false);
-  const deleteTargetId = ref(0);
-  const validForm = ref(true);
-
-  //  @ts-ignore
-  const workingCookbookData: CookBook = reactive({
-    id: 0,
-    name: "",
-    position: 1,
-    categories: [],
-  });
 
   const actions = {
     getAll() {
@@ -68,7 +58,6 @@ export const useCookbooks = function () {
         this.refreshAll();
       }
 
-      this.resetWorking();
       loading.value = false;
     },
     async updateOne(updateData: CookBook) {
@@ -110,18 +99,6 @@ export const useCookbooks = function () {
         this.refreshAll();
       }
     },
-    resetWorking() {
-      workingCookbookData.id = 0;
-      workingCookbookData.name = "";
-      workingCookbookData.position = 0;
-      workingCookbookData.categories = [];
-    },
-    setWorking(item: CookBook) {
-      workingCookbookData.id = item.id;
-      workingCookbookData.name = item.name;
-      workingCookbookData.position = item.position;
-      workingCookbookData.categories = item.categories;
-    },
     flushStore() {
       cookbookStore = null;
     },
@@ -131,5 +108,5 @@ export const useCookbooks = function () {
     cookbookStore = actions.getAll();
   }
 
-  return { cookbooks: cookbookStore, workingCookbookData, deleteTargetId, actions, validForm };
+  return { cookbooks: cookbookStore, actions };
 };

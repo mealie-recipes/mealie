@@ -178,7 +178,7 @@
 
 <script lang="ts">
 import draggable from "vuedraggable";
-// @ts-ignore
+// @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import { ref, toRefs, reactive, defineComponent, watch, onMounted } from "@nuxtjs/composition-api";
 import { RecipeStep, IngredientReferences, RecipeIngredient } from "~/types/api-types/recipe";

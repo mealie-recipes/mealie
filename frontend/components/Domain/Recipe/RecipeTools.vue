@@ -47,13 +47,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "@nuxtjs/composition-api";
-import { Tool } from "~/api/class-interfaces/tools";
+import { RecipeTool } from "~/types/api-types/recipe";
 import { useTools } from "~/composables/recipes";
 
 export default defineComponent({
   props: {
     value: {
-      type: Array as () => Tool[],
+      type: Array as () => RecipeTool[],
       required: true,
     },
     edit: {

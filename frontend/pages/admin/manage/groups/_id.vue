@@ -27,11 +27,9 @@
 import { defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-api";
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import { useAdminApi } from "~/composables/api";
-import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
-import { useUserForm } from "~/composables/use-users";
-import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
+import { GroupRead } from "~/api/admin/admin-groups";
 
 export default defineComponent({
   components: {
@@ -39,8 +37,6 @@ export default defineComponent({
   },
   layout: "admin",
   setup() {
-    const { userForm } = useUserForm();
-    const { groups } = useGroups();
     const route = useRoute();
 
     const groupId = route.value.params.id;
@@ -52,7 +48,7 @@ export default defineComponent({
 
     const adminApi = useAdminApi();
 
-    const group = ref({});
+    const group = ref<GroupRead | null>(null);
 
     const userError = ref(false);
 
@@ -65,20 +61,17 @@ export default defineComponent({
       }
 
       if (data) {
-        // @ts-ignore
         group.value = data;
       }
     });
 
     async function handleSubmit() {
-      if (!refGroupEditForm.value?.validate()) {
+      if (!refGroupEditForm.value?.validate() || group.value === null) {
         return;
       }
 
-      // @ts-ignore
       const { response, data } = await adminApi.groups.updateOne(group.value.id, group.value);
       if (response?.status === 200 && data) {
-        // @ts-ignore
         group.value = data;
       }
     }
@@ -86,11 +79,8 @@ export default defineComponent({
     return {
       group,
       userError,
-      userForm,
       refGroupEditForm,
       handleSubmit,
-      groups,
-      validators,
     };
   },
 });

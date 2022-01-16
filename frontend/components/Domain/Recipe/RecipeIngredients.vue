@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
-// @ts-ignore
+// @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import { parseIngredientText } from "~/composables/recipes";
 import { RecipeIngredient } from "~/types/api-types/recipe";

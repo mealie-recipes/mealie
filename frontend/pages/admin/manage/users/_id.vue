@@ -45,6 +45,7 @@ import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
+import { UserOut } from "~/types/api-types/user";
 
 export default defineComponent({
   layout: "admin",
@@ -62,19 +63,7 @@ export default defineComponent({
 
     const adminApi = useAdminApi();
 
-    const user = ref({
-      username: "",
-      fullName: "",
-      email: "",
-      admin: false,
-      group: "",
-      advanced: false,
-      canInvite: false,
-      canManage: false,
-      canOrganize: false,
-      id: 0,
-      groupId: 0,
-    });
+    const user = ref<UserOut | null>(null);
 
     const userError = ref(false);
 
@@ -87,19 +76,16 @@ export default defineComponent({
       }
 
       if (data) {
-        // @ts-ignore
         user.value = data;
       }
     });
 
     async function handleSubmit() {
-      if (!refNewUserForm.value?.validate()) return;
+      if (!refNewUserForm.value?.validate() || user.value === null) return;
 
-      // @ts-ignore
       const { response, data } = await adminApi.users.updateOne(user.value.id, user.value);
 
       if (response?.status === 200 && data) {
-        // @ts-ignore
         user.value = data;
       }
     }

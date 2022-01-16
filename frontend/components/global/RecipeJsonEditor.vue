@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
+// @ts-ignore v-jsoneditor has no types
 import VJsoneditor from "v-jsoneditor";
 import { defineComponent } from "@nuxtjs/composition-api";
 

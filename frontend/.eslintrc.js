@@ -42,8 +42,13 @@ module.exports = {
         allowModifiers: true,
       },
     ],
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-ignore": "allow-with-description",
+      },
+    ],
     // TODO Gradually activate all rules
-    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",

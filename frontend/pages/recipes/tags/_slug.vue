@@ -115,7 +115,6 @@ export default defineComponent({
   methods: {
     assignSorted(val: Array<Recipe>) {
       if (this.tags) {
-        // @ts-ignore
         this.tags.recipes = val;
       }
     },
