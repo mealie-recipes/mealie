@@ -2,6 +2,22 @@
   <div>
     <v-card outlined>
       <v-card-text class="pb-3 pt-1">
+        <div v-if="listItem.isFood" class="d-md-flex align-center mb-2" style="gap: 20px">
+          <InputLabelType
+            v-model="listItem.food"
+            :items="foods"
+            :item-id.sync="listItem.foodId"
+            label="Food"
+            :icon="$globals.icons.foods"
+          />
+          <InputLabelType
+            v-model="listItem.unit"
+            :items="units"
+            :item-id.sync="listItem.unitId"
+            label="Units"
+            :icon="$globals.icons.units"
+          />
+        </div>
         <div class="d-md-flex align-center" style="gap: 20px">
           <v-textarea v-model="listItem.note" hide-details label="Note" rows="1" auto-grow></v-textarea>
         </div>
@@ -10,19 +26,9 @@
             <InputQuantity v-model="listItem.quantity" />
           </div>
           <div style="max-width: 300px" class="mt-3 mr-auto">
-            <v-autocomplete
-              v-model="listItem.labelId"
-              name=""
-              :items="labels"
-              item-value="id"
-              label="Label"
-              hide-details
-              item-text="name"
-              clearable
-              :prepend-inner-icon="$globals.icons.tags"
-            >
-            </v-autocomplete>
+            <InputLabelType v-model="listItem.label" :items="labels" :item-id.sync="listItem.labelId" label="Label" />
           </div>
+
           <v-menu
             v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
             open-on-hover
@@ -82,6 +88,7 @@
 import { defineComponent, computed } from "@nuxtjs/composition-api";
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/types/api-types/group";
 import { MultiPurposeLabelOut } from "~/types/api-types/labels";
+import { IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
 
 export default defineComponent({
   props: {
@@ -91,6 +98,14 @@ export default defineComponent({
     },
     labels: {
       type: Array as () => MultiPurposeLabelOut[],
+      required: true,
+    },
+    units: {
+      type: Array as () => IngredientUnit[],
+      required: true,
+    },
+    foods: {
+      type: Array as () => IngredientFood[],
       required: true,
     },
   },

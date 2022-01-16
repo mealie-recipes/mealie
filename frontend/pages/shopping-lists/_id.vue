@@ -6,7 +6,7 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
-    <BannerExperimental issue="https://github.com/hay-kot/mealie/issues/916" />
+
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
@@ -14,7 +14,10 @@
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id">
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
+              class="my-2 my-sm-0"
               :labels="allLabels"
+              :units="allUnits || []"
+              :foods="allFoods || []"
               @checked="saveListItem(item)"
               @save="saveListItem(item)"
               @delete="deleteListItem(item)"
@@ -38,6 +41,8 @@
             <ShoppingListItem
               v-model="value[index]"
               :labels="allLabels"
+              :units="allUnits || []"
+              :foods="allFoods || []"
               @checked="saveListItem(item)"
               @save="saveListItem(item)"
               @delete="deleteListItem(item)"
@@ -52,6 +57,8 @@
           v-model="createListItemData"
           class="my-4"
           :labels="allLabels"
+          :units="allUnits || []"
+          :foods="allFoods || []"
           @delete="createEditorOpen = false"
           @cancel="createEditorOpen = false"
           @save="createListItem"
@@ -59,6 +66,52 @@
       </div>
       <div v-else class="mt-4 d-flex justify-end">
         <BaseButton create @click="createEditorOpen = true" />
+      </div>
+
+      <!-- Action Bar -->
+      <div class="d-flex justify-end mb-4 mt-2">
+        <BaseButtonGroup
+          :buttons="[
+            {
+              icon: $globals.icons.contentCopy,
+              text: '',
+              event: 'edit',
+              children: [
+                {
+                  icon: $globals.icons.contentCopy,
+                  text: 'Copy as Text',
+                  event: 'copy-plain',
+                },
+                {
+                  icon: $globals.icons.contentCopy,
+                  text: 'Copy as Markdown',
+                  event: 'copy-markdown',
+                },
+              ],
+            },
+            {
+              icon: $globals.icons.delete,
+              text: 'Delete Checked',
+              event: 'delete',
+            },
+            {
+              icon: $globals.icons.tags,
+              text: 'Toggle Label Sort',
+              event: 'sort-by-labels',
+            },
+            {
+              icon: $globals.icons.checkboxBlankOutline,
+              text: 'Uncheck All Items',
+              event: 'uncheck',
+            },
+          ]"
+          @edit="edit = true"
+          @delete="deleteChecked"
+          @uncheck="uncheckAll"
+          @sort-by-labels="sortByLabels"
+          @copy-plain="copyListItems('plain')"
+          @copy-markdown="copyListItems('markdown')"
+        />
       </div>
 
       <!-- Checked Items -->
@@ -79,6 +132,8 @@
                 v-model="listItems.checked[idx]"
                 class="strike-through-note"
                 :labels="allLabels"
+                :units="allUnits || []"
+                :foods="allFoods || []"
                 @checked="saveListItem(item)"
                 @save="saveListItem(item)"
                 @delete="deleteListItem(item)"
@@ -89,61 +144,8 @@
       </div>
     </section>
 
-    <!-- Action Bar -->
-    <div class="d-flex justify-end mb-4">
-      <BaseButtonGroup
-        v-if="!edit"
-        :buttons="[
-          {
-            icon: $globals.icons.contentCopy,
-            text: '',
-            event: 'edit',
-            children: [
-              {
-                icon: $globals.icons.contentCopy,
-                text: 'Copy as Text',
-                event: 'copy-plain',
-              },
-              {
-                icon: $globals.icons.contentCopy,
-                text: 'Copy as Markdown',
-                event: 'copy-markdown',
-              },
-            ],
-          },
-          {
-            icon: $globals.icons.delete,
-            text: 'Delete Checked',
-            event: 'delete',
-          },
-          {
-            icon: $globals.icons.tags,
-            text: 'Toggle Label Sort',
-            event: 'sort-by-labels',
-          },
-          {
-            icon: $globals.icons.checkboxBlankOutline,
-            text: 'Uncheck All Items',
-            event: 'uncheck',
-          },
-          {
-            icon: $globals.icons.primary,
-            text: 'Add Recipe',
-            event: 'recipe',
-          },
-        ]"
-        @edit="edit = true"
-        @delete="deleteChecked"
-        @uncheck="uncheckAll"
-        @sort-by-labels="sortByLabels"
-        @copy-plain="copyListItems('plain')"
-        @copy-markdown="copyListItems('markdown')"
-      />
-      <BaseButton v-else save @click="saveList" />
-    </div>
-
     <!-- Recipe References -->
-    <v-lazy>
+    <v-lazy v-if="shoppingList.recipeReferences && shoppingList.recipeReferences.length > 0">
       <section>
         <div>
           <span>
@@ -186,16 +188,17 @@
 import draggable from "vuedraggable";
 
 import { defineComponent, useAsync, useRoute, computed, ref } from "@nuxtjs/composition-api";
-import { useClipboard, useToggle } from "@vueuse/core";
+import { useToggle } from "@vueuse/core";
+import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
-import { alert } from "~/composables/use-toast";
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import BannerExperimental from "~/components/global/BannerExperimental.vue";
 import { MultiPurposeLabelOut } from "~/types/api-types/labels";
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/types/api-types/group";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
+import { getDisplayText } from "~/composables/use-display-text";
+
 type CopyTypes = "plain" | "markdown";
 
 interface PresentLabel {
@@ -207,7 +210,6 @@ export default defineComponent({
   components: {
     draggable,
     ShoppingListItem,
-    BannerExperimental,
     RecipeList,
     ShoppingListItemEditor,
   },
@@ -251,55 +253,24 @@ export default defineComponent({
     // =====================================
     // Copy List Items
 
-    const { copy, copied, isSupported } = useClipboard();
+    const copy = useCopyList();
 
-    function getItemsAsPlain(items: ShoppingListItemCreate[]) {
-      return items
-        .map((item) => {
-          return `${item.quantity || ""} x ${item.unit?.name || ""} ${item.food?.name || ""} ${
-            item.note || ""
-          }`.replace(/\s+/g, " ");
-        })
-        .join("\n");
-    }
-
-    function getItemsAsMarkdown(items: ShoppingListItemCreate[]) {
-      return items
-        .map((item) => {
-          return `- [ ] ${item.quantity || ""} x ${item.unit?.name || ""} ${item.food?.name || ""} ${
-            item.note || ""
-          }`.replace(/\s+/g, " ");
-        })
-        .join("\n");
-    }
-
-    async function copyListItems(copyType: CopyTypes) {
-      if (!isSupported) {
-        alert.error("Copy to clipboard is not supported in your browser or environment.");
-      }
-
-      console.log("copyListItems", copyType);
+    function copyListItems(copyType: CopyTypes) {
       const items = shoppingList.value?.listItems?.filter((item) => !item.checked);
 
       if (!items) {
         return;
       }
 
-      let text = "";
+      const text = items.map((itm) => getDisplayText(itm.note, itm.quantity, itm.food, itm.unit));
 
       switch (copyType) {
         case "markdown":
-          text = getItemsAsMarkdown(items);
+          copy.copyMarkdownCheckList(text);
           break;
         default:
-          text = getItemsAsPlain(items);
+          copy.copyPlain(text);
           break;
-      }
-
-      await copy(text);
-
-      if (copied) {
-        alert.success(`Copied ${items.length} items to clipboard`);
       }
     }
 
@@ -362,10 +333,20 @@ export default defineComponent({
     }
 
     // =====================================
-    // Labels
+    // Labels, Units, Foods
     // TODO: Extract to Composable
 
     const allLabels = ref([] as MultiPurposeLabelOut[]);
+
+    const allUnits = useAsync(async () => {
+      const { data } = await userApi.units.getAll();
+      return data ?? [];
+    }, useAsyncKey());
+
+    const allFoods = useAsync(async () => {
+      const { data } = await userApi.foods.getAll();
+      return data ?? [];
+    }, useAsyncKey());
 
     function sortByLabels() {
       byLabel.value = !byLabel.value;
@@ -583,6 +564,8 @@ export default defineComponent({
       toggleShowChecked,
       uncheckAll,
       updateIndex,
+      allUnits,
+      allFoods,
     };
   },
   head() {
@@ -598,3 +581,4 @@ export default defineComponent({
   max-width: 50px;
 }
 </style>
+

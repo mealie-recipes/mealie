@@ -9,11 +9,8 @@
       @change="$emit('checked')"
     >
       <template #label>
-        <div>
-          {{ listItem.quantity }} <v-icon size="16" class="mx-1"> {{ $globals.icons.close }} </v-icon>
-          <span :class="listItem.checked ? 'strike-through' : ''">
-            {{ listItem.note }}
-          </span>
+        <div :class="listItem.checked ? 'strike-through' : ''">
+          {{ displayText }}
         </div>
       </template>
     </v-checkbox>
@@ -44,6 +41,8 @@
     <ShoppingListItemEditor
       v-model="listItem"
       :labels="labels"
+      :units="units"
+      :foods="foods"
       @save="save"
       @cancel="edit = !edit"
       @delete="$emit('delete')"
@@ -58,6 +57,8 @@ import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
 import { ShoppingListItemCreate } from "~/types/api-types/group";
 import { MultiPurposeLabelOut } from "~/types/api-types/labels";
+import { IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
+import { getDisplayText } from "~/composables/use-display-text";
 
 interface actions {
   text: string;
@@ -88,6 +89,14 @@ export default defineComponent({
     },
     labels: {
       type: Array as () => MultiPurposeLabelOut[],
+      required: true,
+    },
+    units: {
+      type: Array as () => IngredientUnit[],
+      required: true,
+    },
+    foods: {
+      type: Array as () => IngredientFood[],
       required: true,
     },
   },
@@ -126,7 +135,12 @@ export default defineComponent({
       });
     });
 
+    const displayText = computed(() =>
+      getDisplayText(listItem.value.note, listItem.value.quantity, listItem.value.food, listItem.value.unit)
+    );
+
     return {
+      displayText,
       updatedLabels,
       handle,
       save,
