@@ -315,22 +315,20 @@ export default defineComponent({
         }
       });
       if (hasChanged) {
-        saveList();
+        updateListItems();
       }
     }
 
     function deleteChecked() {
-      const unchecked = shoppingList.value?.listItems?.filter((item) => !item.checked);
+      const checked = shoppingList.value?.listItems?.filter((item) => item.checked);
 
-      if (unchecked?.length === shoppingList.value?.listItems?.length) {
+      if (!checked || checked?.length === 0) {
         return;
       }
 
-      if (shoppingList.value?.listItems) {
-        shoppingList.value.listItems = unchecked || [];
-      }
+      deleteListItems(checked);
 
-      saveList();
+      refresh();
     }
 
     // =====================================
@@ -487,32 +485,6 @@ export default defineComponent({
       }
     }
 
-    async function saveList() {
-      if (!shoppingList.value?.listItems) {
-        return;
-      }
-
-      // Set Position
-      shoppingList.value.listItems = shoppingList.value.listItems.map((itm: ShoppingListItemOut, idx: number) => {
-        itm.position = idx;
-        return itm;
-      });
-
-      await userApi.shopping.lists.updateOne(id, shoppingList.value);
-      refresh();
-      edit.value = false;
-    }
-
-    function updateIndex(data: ShoppingListItemOut[]) {
-      if (shoppingList.value?.listItems) {
-        shoppingList.value.listItems = data;
-      }
-
-      if (!edit.value) {
-        saveList();
-      }
-    }
-
     // =====================================
     // Create New Item
 
@@ -547,8 +519,47 @@ export default defineComponent({
       }
     }
 
+    function updateIndex(data: ShoppingListItemOut[]) {
+      if (shoppingList.value?.listItems) {
+        shoppingList.value.listItems = data;
+      }
+
+      updateListItems();
+    }
+
+    async function deleteListItems(items: ShoppingListItemOut[]) {
+      if (!shoppingList.value) {
+        return;
+      }
+
+      const { data } = await userApi.shopping.items.deleteMany(items);
+
+      if (data) {
+        refresh();
+      }
+    }
+
+    async function updateListItems() {
+      if (!shoppingList.value?.listItems) {
+        return;
+      }
+
+      // Set Position
+      shoppingList.value.listItems = shoppingList.value.listItems.map((itm: ShoppingListItemOut, idx: number) => {
+        itm.position = idx;
+        return itm;
+      });
+
+      const { data } = await userApi.shopping.items.updateMany(shoppingList.value.listItems);
+
+      if (data) {
+        refresh();
+      }
+    }
+
     return {
       addRecipeReferenceToList,
+      updateListItems,
       allLabels,
       byLabel,
       contextMenu,
@@ -565,7 +576,6 @@ export default defineComponent({
       listRecipes,
       presentLabels,
       removeRecipeReferenceToList,
-      saveList,
       saveListItem,
       shoppingList,
       showChecked,

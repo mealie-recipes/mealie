@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from pydantic import UUID4
 
 from mealie.routes._base.abc_controller import BaseUserController
@@ -18,6 +18,7 @@ from mealie.schema.group.group_shopping_list import (
 )
 from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
+from mealie.schema.response.responses import SuccessResponse
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.group_services.shopping_lists import ShoppingListService
@@ -59,6 +60,15 @@ class ShoppingListItemController(BaseUserController):
                 self.mixins.delete_one(item.id)
 
         return all_updates
+
+    @item_router.delete("", response_model=SuccessResponse)
+    def delete_many(self, ids: list[UUID4] = Query(None)):
+        x = 0
+        for item_id in ids:
+            self.mixins.delete_one(item_id)
+            x += 1
+
+        return SuccessResponse.respond(message=f"Successfully deleted {x} items")
 
     @item_router.post("", response_model=ShoppingListItemOut, status_code=201)
     def create_one(self, data: ShoppingListItemCreate):

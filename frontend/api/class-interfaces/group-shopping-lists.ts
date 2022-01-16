@@ -34,6 +34,20 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListOut, ShoppingListC
 export class ShoppingListItemsApi extends BaseCRUDAPI<ShoppingListItemOut, ShoppingListItemCreate> {
   baseRoute = routes.shoppingListItems;
   itemRoute = routes.shoppingListItemsId;
+
+  async updateMany(items: ShoppingListItemOut[]) {
+    return await this.requests.put(routes.shoppingListItems, items);
+  }
+
+  async deleteMany(items: ShoppingListItemOut[]) {
+    let query = "?";
+
+    items.forEach((item) => {
+      query += `ids=${item.id}&`;
+    });
+
+    return await this.requests.delete(routes.shoppingListItems + query);
+  }
 }
 
 export class ShoppingApi {
