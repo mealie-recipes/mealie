@@ -11,6 +11,7 @@
  import BaseDialog from "@/components/global/BaseDialog.vue";
  import RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
  import BaseStatCard from "@/components/global/BaseStatCard.vue";
+ import DevDumpJson from "@/components/global/DevDumpJson.vue";
  import ToggleState from "@/components/global/ToggleState.vue";
  import AppButtonCopy from "@/components/global/AppButtonCopy.vue";
  import BaseDivider from "@/components/global/BaseDivider.vue";
@@ -40,6 +41,7 @@ declare module "vue" {
      BaseDialog: typeof BaseDialog;
      RecipeJsonEditor: typeof RecipeJsonEditor;
      BaseStatCard: typeof BaseStatCard;
+     DevDumpJson: typeof DevDumpJson;
      ToggleState: typeof ToggleState;
      AppButtonCopy: typeof AppButtonCopy;
      BaseDivider: typeof BaseDivider;
