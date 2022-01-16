@@ -5,6 +5,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from tests.utils.factories import random_string
+from tests.utils.fixture_schemas import TestUser
 from tests.utils.recipe_data import get_raw_no_image, get_raw_recipe, get_recipe_test_cases
 
 
@@ -24,9 +25,11 @@ def recipe_store():
 
 
 @fixture(scope="function")
-def recipe_ingredient_only(database: AllRepositories):
+def recipe_ingredient_only(database: AllRepositories, unique_user: TestUser):
     # Create a recipe
     recipe = Recipe(
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
         name=random_string(10),
         recipe_ingredient=[
             RecipeIngredient(note="Ingredient 1"),
