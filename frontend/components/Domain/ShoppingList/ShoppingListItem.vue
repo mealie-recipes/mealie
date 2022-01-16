@@ -122,10 +122,6 @@ export default defineComponent({
       edit.value = false;
     }
 
-    function handle(event: string) {
-      console.log(event);
-    }
-
     const updatedLabels = computed(() => {
       return props.labels.map((label) => {
         return {
@@ -142,7 +138,6 @@ export default defineComponent({
     return {
       displayText,
       updatedLabels,
-      handle,
       save,
       contextHandler,
       edit,

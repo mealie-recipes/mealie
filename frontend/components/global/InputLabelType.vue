@@ -64,7 +64,6 @@ export default defineComponent({
         return props.itemId || undefined;
       },
       set: (val) => {
-        console.log(val);
         context.emit("update:item-id", val);
       },
     });

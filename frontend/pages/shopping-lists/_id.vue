@@ -419,7 +419,6 @@ export default defineComponent({
       }
 
       const { data } = await userApi.shopping.lists.addRecipe(shoppingList.value.id, recipeId);
-      console.log(data);
 
       if (data) {
         refresh();
@@ -432,7 +431,6 @@ export default defineComponent({
       }
 
       const { data } = await userApi.shopping.lists.removeRecipe(shoppingList.value.id, recipeId);
-      console.log(data);
 
       if (data) {
         refresh();
