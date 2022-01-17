@@ -96,7 +96,7 @@ import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { MealType, planTypeOptions } from "~/composables/use-group-mealplan";
-import { ShoppingListSummary } from "~/api/class-interfaces/group-shopping-lists";
+import { ShoppingListSummary } from "~/types/api-types/group";
 
 export interface ContextMenuIncludes {
   delete: boolean;
