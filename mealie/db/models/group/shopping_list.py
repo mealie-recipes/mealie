@@ -14,6 +14,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
 
     shopping_list_item_id = Column(GUID, ForeignKey("shopping_list_items.id"), primary_key=True)
     recipe_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity = Column(Float, nullable=False)
 
     @auto_init()
@@ -66,7 +67,8 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     shopping_list_id = Column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
 
     recipe_id = Column(Integer, ForeignKey("recipes.id"))
-    recipe = orm.relationship("RecipeModel", uselist=False)
+    recipe = orm.relationship("RecipeModel", uselist=False, back_populates="shopping_list_refs")
+
     recipe_quantity = Column(Float, nullable=False)
 
     class Config:
