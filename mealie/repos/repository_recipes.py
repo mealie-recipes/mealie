@@ -3,10 +3,12 @@ from typing import Any
 
 from sqlalchemy.orm import joinedload
 
+from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredient
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.schema.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeCategory
 
 from .repository_generic import RepositoryGeneric
 
@@ -80,3 +82,18 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .limit(limit)
             .all()
         )
+
+    def get_by_categories(self, categories: list[RecipeCategory]) -> list[Recipe]:
+        """
+        get_by_categories returns all the Recipes that contain every category provided in the list
+        """
+
+        ids = [x.id for x in categories]
+
+        return [
+            self.schema.from_orm(x)
+            for x in self.session.query(RecipeModel)
+            .join(RecipeModel.recipe_category)
+            .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
+            .all()
+        ]
