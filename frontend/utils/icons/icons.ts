@@ -104,6 +104,7 @@ import {
   mdiRefresh,
   mdiArrowRightBold,
   mdiChevronRight,
+  mdiBowlMixOutline,
 } from "@mdi/js";
 
 export const icons = {
@@ -111,6 +112,7 @@ export const icons = {
   primary: mdiSilverwareVariant,
 
   // General
+  bolwMixOutline: mdiBowlMixOutline,
   foods: mdiFoodApple,
   units: mdiBeakerOutline,
   alert: mdiAlert,

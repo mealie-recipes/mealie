@@ -70,7 +70,10 @@
         </v-btn>
       </div>
     </div>
-    <v-switch v-model="edit" label="Editor"></v-switch>
+    <div class="d-flex align-center justify-space-between">
+      <v-switch v-model="edit" label="Editor"></v-switch>
+      <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" text="Settings" />
+    </div>
     <v-row class="">
       <v-col
         v-for="(plan, index) in mealsByDate"
@@ -143,9 +146,6 @@
                   </v-list>
                 </v-menu>
                 <v-spacer></v-spacer>
-                <v-btn color="info" class="mr-2" small icon>
-                  <v-icon>{{ $globals.icons.cartCheck }}</v-icon>
-                </v-btn>
                 <v-btn color="error" small icon @click="actions.deleteOne(mealplan.id)">
                   <v-icon>{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
@@ -154,20 +154,29 @@
           </draggable>
 
           <!-- Day Column Actions -->
-          <v-card outlined class="mt-auto">
-            <v-card-actions class="d-flex">
-              <div style="width: 50%">
-                <v-btn block text @click="randomMeal(plan.date)">
-                  <v-icon large>{{ $globals.icons.diceMultiple }}</v-icon>
-                </v-btn>
-              </div>
-              <div style="width: 50%">
-                <v-btn block text @click="openDialog(plan.date)">
-                  <v-icon large>{{ $globals.icons.createAlt }}</v-icon>
-                </v-btn>
-              </div>
-            </v-card-actions>
-          </v-card>
+          <div class="d-flex justify-end">
+            <BaseButtonGroup
+              :buttons="[
+                {
+                  icon: $globals.icons.potSteam,
+                  text: 'Random Meal',
+                  event: 'random',
+                },
+                {
+                  icon: $globals.icons.bolwMixOutline,
+                  text: 'Random Side',
+                  event: 'random',
+                },
+                {
+                  icon: $globals.icons.createAlt,
+                  text: $t('general.new'),
+                  event: 'create',
+                },
+              ]"
+              @random="randomMeal(plan.date)"
+              @create="openDialog(plan.date)"
+            />
+          </div>
         </template>
         <template v-else-if="plan.meals">
           <RecipeCard
