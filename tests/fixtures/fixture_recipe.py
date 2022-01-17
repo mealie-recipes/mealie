@@ -46,6 +46,6 @@ def recipe_ingredient_only(database: AllRepositories, unique_user: TestUser):
     yield model
 
     try:
-        database.recipes.delete(model.id)
+        database.recipes.delete(model.slug)
     except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
         pass
