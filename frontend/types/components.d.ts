@@ -10,13 +10,18 @@
  import BannerExperimental from "@/components/global/BannerExperimental.vue";
  import BaseDialog from "@/components/global/BaseDialog.vue";
  import RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
+ import InputLabelType from "@/components/global/InputLabelType.vue";
  import BaseStatCard from "@/components/global/BaseStatCard.vue";
+ import DevDumpJson from "@/components/global/DevDumpJson.vue";
+ import InputQuantity from "@/components/global/InputQuantity.vue";
  import ToggleState from "@/components/global/ToggleState.vue";
  import AppButtonCopy from "@/components/global/AppButtonCopy.vue";
+ import InputColor from "@/components/global/InputColor.vue";
  import BaseDivider from "@/components/global/BaseDivider.vue";
  import AutoForm from "@/components/global/AutoForm.vue";
  import AppButtonUpload from "@/components/global/AppButtonUpload.vue";
  import BasePageTitle from "@/components/global/BasePageTitle.vue";
+ import ButtonLink from "@/components/global/ButtonLink.vue";
 
  import TheSnackbar from "@/components/layout/TheSnackbar.vue";
  import AppHeader from "@/components/layout/AppHeader.vue";
@@ -38,13 +43,18 @@ declare module "vue" {
      BannerExperimental: typeof BannerExperimental;
      BaseDialog: typeof BaseDialog;
      RecipeJsonEditor: typeof RecipeJsonEditor;
+     InputLabelType: typeof InputLabelType;
      BaseStatCard: typeof BaseStatCard;
+     DevDumpJson: typeof DevDumpJson;
+     InputQuantity: typeof InputQuantity;
      ToggleState: typeof ToggleState;
      AppButtonCopy: typeof AppButtonCopy;
+     InputColor: typeof InputColor;
      BaseDivider: typeof BaseDivider;
      AutoForm: typeof AutoForm;
      AppButtonUpload: typeof AppButtonUpload;
      BasePageTitle: typeof BasePageTitle;
+     ButtonLink: typeof ButtonLink;
      // Layout Components
      TheSnackbar: typeof TheSnackbar;
      AppHeader: typeof AppHeader;

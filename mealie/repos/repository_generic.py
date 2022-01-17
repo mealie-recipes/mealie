@@ -311,3 +311,16 @@ class RepositoryGeneric(Generic[T, D]):
                 eff_schema.from_orm(x)
                 for x in self.session.query(self.sql_model).filter(attribute_name == attr_match).all()  # noqa: 711
             ]
+
+    def create_many(self, documents: list[T]) -> list[T]:
+        new_documents = []
+        for document in documents:
+            document = document if isinstance(document, dict) else document.dict()
+            new_document = self.sql_model(session=self.session, **document)
+            new_documents.append(new_document)
+
+        self.session.add_all(new_documents)
+        self.session.commit()
+        self.session.refresh(new_documents)
+
+        return [self.schema.from_orm(x) for x in new_documents]

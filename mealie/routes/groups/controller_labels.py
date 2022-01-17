@@ -1,12 +1,10 @@
 from functools import cached_property
-from typing import Type
 
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
-from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
@@ -22,23 +20,13 @@ router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"]
 
 
 @controller(router)
-class MultiPurposeLabelsController:
-    deps: SharedDependencies = Depends(SharedDependencies.user)
-
+class MultiPurposeLabelsController(BaseUserController):
     @cached_property
     def repo(self):
         if not self.deps.acting_user:
             raise Exception("No user is logged in.")
 
         return self.deps.repos.group_multi_purpose_labels.by_group(self.deps.acting_user.group_id)
-
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
-
-        registered = {
-            **mealie_registered_exceptions(self.deps.t),
-        }
-
-        return registered.get(ex, "An unexpected error occurred.")
 
     # =======================================================================
     # CRUD Operations

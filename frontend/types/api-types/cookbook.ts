@@ -23,8 +23,8 @@ export interface ReadCookBook {
   slug?: string;
   position?: number;
   categories?: CategoryBase[];
-  id: number;
   groupId: string;
+  id: number;
 }
 export interface RecipeCategoryResponse {
   name: string;
@@ -98,11 +98,21 @@ export interface CreateIngredientUnit {
 export interface IngredientFood {
   name: string;
   description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
   id: number;
+}
+export interface MultiPurposeLabelSummary {
+  name: string;
+  color?: string;
+  groupId: string;
+  id: string;
 }
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
 }
 export interface RecipeStep {
   id?: string;
@@ -163,8 +173,8 @@ export interface RecipeCookBook {
   slug?: string;
   position?: number;
   categories: RecipeCategoryResponse[];
-  id: number;
   groupId: string;
+  id: number;
 }
 export interface SaveCookBook {
   name: string;
@@ -180,5 +190,6 @@ export interface UpdateCookBook {
   slug?: string;
   position?: number;
   categories?: CategoryBase[];
+  groupId: string;
   id: number;
 }

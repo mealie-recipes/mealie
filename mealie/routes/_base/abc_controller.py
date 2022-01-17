@@ -1,8 +1,10 @@
 from abc import ABC
 from functools import cached_property
+from typing import Type
 
 from fastapi import Depends
 
+from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.all_repositories import AllRepositories
 from mealie.routes._base.checks import OperationChecks
 from mealie.routes._base.dependencies import SharedDependencies
@@ -26,6 +28,12 @@ class BaseUserController(ABC):
     """
 
     deps: SharedDependencies = Depends(SharedDependencies.user)
+
+    def registered_exceptions(self, ex: Type[Exception]) -> str:
+        registered = {
+            **mealie_registered_exceptions(self.deps.t),
+        }
+        return registered.get(ex, "An unexpected error occurred.")
 
     @cached_property
     def repos(self):

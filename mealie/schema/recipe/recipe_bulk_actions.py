@@ -9,23 +9,23 @@ class ExportTypes(str, enum.Enum):
     JSON = "json"
 
 
-class _ExportBase(CamelModel):
+class ExportBase(CamelModel):
     recipes: list[str]
 
 
-class ExportRecipes(_ExportBase):
+class ExportRecipes(ExportBase):
     export_type: ExportTypes = ExportTypes.JSON
 
 
-class AssignCategories(_ExportBase):
+class AssignCategories(ExportBase):
     categories: list[CategoryBase]
 
 
-class AssignTags(_ExportBase):
+class AssignTags(ExportBase):
     tags: list[TagBase]
 
 
-class DeleteRecipes(_ExportBase):
+class DeleteRecipes(ExportBase):
     pass
 
 

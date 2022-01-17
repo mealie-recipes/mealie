@@ -26,14 +26,6 @@ class RecipeCommentRoutes(BaseUserController):
     def repo(self):
         return self.deps.repos.comments
 
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
-
-        registered = {
-            **mealie_registered_exceptions(self.deps.t),
-        }
-
-        return registered.get(ex, "An unexpected error occurred.")
-
     # =======================================================================
     # CRUD Operations
 

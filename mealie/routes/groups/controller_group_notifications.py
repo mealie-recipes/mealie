@@ -1,12 +1,10 @@
 from functools import cached_property
-from typing import Type
 
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
-from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema.group.group_events import (
     GroupEventNotifierCreate,
@@ -23,8 +21,7 @@ router = APIRouter(prefix="/groups/events/notifications", tags=["Group: Event No
 
 
 @controller(router)
-class GroupEventsNotifierController:
-    deps: SharedDependencies = Depends(SharedDependencies.user)
+class GroupEventsNotifierController(BaseUserController):
     event_bus: EventBusService = Depends(EventBusService)
 
     @cached_property
@@ -33,14 +30,6 @@ class GroupEventsNotifierController:
             raise Exception("No user is logged in.")
 
         return self.deps.repos.group_event_notifier.by_group(self.deps.acting_user.group_id)
-
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
-
-        registered = {
-            **mealie_registered_exceptions(self.deps.t),
-        }
-
-        return registered.get(ex, "An unexpected error occurred.")
 
     # =======================================================================
     # CRUD Operations

@@ -32,6 +32,9 @@
         </v-card-title>
       </v-card>
     </section>
+    <div class="d-flex justify-end mt-10">
+      <ButtonLink to="/shopping-lists/labels" text="Manage Labels" :icon="$globals.icons.tags" />
+    </div>
   </v-container>
 </template>
   

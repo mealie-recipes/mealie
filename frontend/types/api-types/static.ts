@@ -5,12 +5,4 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export interface ErrorResponse {
-  message: string;
-  error?: boolean;
-  exception?: string;
-}
-export interface SuccessResponse {
-  message: string;
-  error?: boolean;
-}
+export interface _Master_ {}

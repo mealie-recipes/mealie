@@ -1,21 +1,21 @@
+from __future__ import annotations
+
 import enum
 from typing import Optional, Union
 from uuid import UUID, uuid4
 
 from fastapi_camelcase import CamelModel
-from pydantic import Field
-
-uuid4()
+from pydantic import UUID4, Field
 
 
-class CreateIngredientFood(CamelModel):
+class UnitFoodBase(CamelModel):
     name: str
     description: str = ""
 
 
-class CreateIngredientUnit(CreateIngredientFood):
-    fraction: bool = True
-    abbreviation: str = ""
+class CreateIngredientFood(UnitFoodBase):
+    label_id: UUID4 = None
+    label: MultiPurposeLabelSummary = None
 
 
 class IngredientFood(CreateIngredientFood):
@@ -23,6 +23,11 @@ class IngredientFood(CreateIngredientFood):
 
     class Config:
         orm_mode = True
+
+
+class CreateIngredientUnit(UnitFoodBase):
+    fraction: bool = True
+    abbreviation: str = ""
 
 
 class IngredientUnit(CreateIngredientUnit):
@@ -77,3 +82,9 @@ class IngredientsRequest(CamelModel):
 class IngredientRequest(CamelModel):
     parser: RegisteredParser = RegisteredParser.nlp
     ingredient: str
+
+
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+
+CreateIngredientFood.update_forward_refs()
+IngredientFood.update_forward_refs()

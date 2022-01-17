@@ -15,6 +15,14 @@
           <v-form ref="domCreateFoodForm">
             <v-text-field v-model="workingFoodData.name" label="Name" :rules="[validators.required]"></v-text-field>
             <v-text-field v-model="workingFoodData.description" label="Description"></v-text-field>
+            <v-autocomplete
+              v-model="workingFoodData.labelId"
+              clearable
+              :items="allLabels"
+              item-value="id"
+              item-text="name"
+            >
+            </v-autocomplete>
           </v-form>
         </v-card-text>
       </BaseDialog>
@@ -50,6 +58,11 @@
     </v-expand-transition>
 
     <v-data-table :headers="headers" :items="foods || []" item-key="id" class="elevation-0" :search="search">
+      <template #item.label="{ item }">
+        <v-chip v-if="item.label" label>
+          {{ item.label.name }}
+        </v-chip>
+      </template>
       <template #item.actions="{ item }">
         <div class="d-flex justify-end">
           <BaseButton
@@ -79,8 +92,10 @@
     
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, computed } from "@nuxtjs/composition-api";
+import { useUserApi } from "~/composables/api";
 import { useFoods } from "~/composables/recipes";
 import { validators } from "~/composables/use-validators";
+import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
 export default defineComponent({
   layout: "admin",
   setup() {
@@ -111,6 +126,7 @@ export default defineComponent({
         { text: "Id", value: "id" },
         { text: "Name", value: "name" },
         { text: "Description", value: "description" },
+        { text: "Label", value: "label" },
         { text: "", value: "actions", sortable: false },
       ],
       filter: false,
@@ -118,7 +134,20 @@ export default defineComponent({
       search: "",
     });
 
+    const userApi = useUserApi();
+
+    const allLabels = ref([] as MultiPurposeLabelSummary[]);
+
+    async function refreshLabels() {
+      const { data } = await userApi.multiPurposeLabels.getAll();
+      allLabels.value = data ?? [];
+    }
+
+    refreshLabels();
+
     return {
+      allLabels,
+      refreshLabels,
       ...toRefs(state),
       actions,
       dialog,

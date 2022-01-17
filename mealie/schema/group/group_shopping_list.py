@@ -1,9 +1,24 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+
+
+class ShoppingListItemRecipeRef(CamelModel):
+    recipe_id: int
+    recipe_quantity: float
+
+
+class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRef):
+    id: UUID4
+    shopping_list_item_id: UUID4
+
+    class Config:
+        orm_mode = True
 
 
 class ShoppingListItemCreate(CamelModel):
@@ -16,28 +31,39 @@ class ShoppingListItemCreate(CamelModel):
     note: Optional[str] = ""
     quantity: float = 1
     unit_id: int = None
-    unit: IngredientUnit = None
+    unit: Optional[IngredientUnit]
     food_id: int = None
-    food: IngredientFood = None
-    recipe_id: Optional[int] = None
+    food: Optional[IngredientFood]
 
     label_id: Optional[UUID4] = None
+    recipe_references: list[ShoppingListItemRecipeRef] = []
 
 
-class ShoppingListItemOut(ShoppingListItemCreate):
+class ShoppingListItemUpdate(ShoppingListItemCreate):
     id: UUID4
-    label: "Optional[MultiPurposeLabelSummary]" = None
+
+
+class ShoppingListItemOut(ShoppingListItemUpdate):
+    label: Optional[MultiPurposeLabelSummary]
+    recipe_references: list[ShoppingListItemRecipeRefOut] = []
 
     class Config:
         orm_mode = True
 
 
 class ShoppingListCreate(CamelModel):
-    """
-    Create Shopping List
-    """
-
     name: str = None
+
+
+class ShoppingListRecipeRefOut(CamelModel):
+    id: UUID4
+    shopping_list_id: UUID4
+    recipe_id: int
+    recipe_quantity: float
+    recipe: RecipeSummary
+
+    class Config:
+        orm_mode = True
 
 
 class ShoppingListSave(ShoppingListCreate):
@@ -56,10 +82,14 @@ class ShoppingListUpdate(ShoppingListSummary):
 
 
 class ShoppingListOut(ShoppingListUpdate):
+    recipe_references: list[ShoppingListRecipeRefOut]
+
     class Config:
         orm_mode = True
 
 
-from mealie.schema.labels import MultiPurposeLabelSummary
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+from mealie.schema.recipe.recipe import RecipeSummary
 
+ShoppingListRecipeRefOut.update_forward_refs()
 ShoppingListItemOut.update_forward_refs()

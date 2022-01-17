@@ -9,7 +9,12 @@ from mealie.db.models.group.events import GroupEventNotifierModel
 from mealie.db.models.group.exports import GroupDataExportsModel
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.preferences import GroupPreferencesModel
-from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
+from mealie.db.models.group.shopping_list import (
+    ShoppingList,
+    ShoppingListItem,
+    ShoppingListItemRecipeReference,
+    ShoppingListRecipeReference,
+)
 from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.category import Category
@@ -28,7 +33,12 @@ from mealie.schema.events import Event as EventSchema
 from mealie.schema.group.group_events import GroupEventNotifierOut
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
-from mealie.schema.group.group_shopping_list import ShoppingListItemOut, ShoppingListOut
+from mealie.schema.group.group_shopping_list import (
+    ShoppingListItemOut,
+    ShoppingListItemRecipeRefOut,
+    ShoppingListOut,
+    ShoppingListRecipeRefOut,
+)
 from mealie.schema.group.invite_token import ReadInviteToken
 from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
@@ -187,6 +197,18 @@ class AllRepositories:
     @cached_property
     def group_shopping_list_item(self) -> RepositoryGeneric[ShoppingListItemOut, ShoppingListItem]:
         return RepositoryGeneric(self.session, pk_id, ShoppingListItem, ShoppingListItemOut)
+
+    @cached_property
+    def group_shopping_list_item_references(
+        self,
+    ) -> RepositoryGeneric[ShoppingListItemRecipeRefOut, ShoppingListItemRecipeReference]:
+        return RepositoryGeneric(self.session, pk_id, ShoppingListItemRecipeReference, ShoppingListItemRecipeRefOut)
+
+    @cached_property
+    def group_shopping_list_recipe_refs(
+        self,
+    ) -> RepositoryGeneric[ShoppingListRecipeRefOut, ShoppingListRecipeReference]:
+        return RepositoryGeneric(self.session, pk_id, ShoppingListRecipeReference, ShoppingListRecipeRefOut)
 
     @cached_property
     def group_multi_purpose_labels(self) -> RepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]:

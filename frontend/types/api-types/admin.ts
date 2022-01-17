@@ -49,6 +49,7 @@ export interface CheckAppConfig {
   emailReady?: boolean;
   ldapReady?: boolean;
   baseUrlSet?: boolean;
+  isUpToDate?: boolean;
 }
 export interface ChowdownURL {
   url: string;
@@ -141,11 +142,21 @@ export interface CreateIngredientUnit {
 export interface IngredientFood {
   name: string;
   description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
   id: number;
+}
+export interface MultiPurposeLabelSummary {
+  name: string;
+  color?: string;
+  groupId: string;
+  id: string;
 }
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+  labelId?: string;
+  label?: MultiPurposeLabelSummary;
 }
 export interface RecipeStep {
   id?: string;

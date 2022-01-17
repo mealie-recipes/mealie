@@ -1,10 +1,8 @@
 from functools import cached_property
-from typing import Type
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
-from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.schema.group.group import GroupAdminUpdate
 from mealie.schema.mapper import mapper
 from mealie.schema.query import GetAll
@@ -28,14 +26,6 @@ class AdminUserManagementRoutes(BaseAdminController):
             raise Exception("No user is logged in.")
 
         return self.deps.repos.groups
-
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
-
-        registered = {
-            **mealie_registered_exceptions(self.deps.t),
-        }
-
-        return registered.get(ex, "An unexpected error occurred.")
 
     # =======================================================================
     # CRUD Operations

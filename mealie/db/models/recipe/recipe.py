@@ -106,6 +106,18 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     date_added = sa.Column(sa.Date, default=date.today)
     date_updated = sa.Column(sa.DateTime)
 
+    # Shopping List Refs
+    shopping_list_refs = orm.relationship(
+        "ShoppingListRecipeReference",
+        back_populates="recipe",
+        cascade="all, delete-orphan",
+    )
+    shopping_list_item_refs = orm.relationship(
+        "ShoppingListItemRecipeReference",
+        back_populates="recipe",
+        cascade="all, delete-orphan",
+    )
+
     class Config:
         get_attr = "slug"
         exclude = {

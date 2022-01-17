@@ -48,7 +48,7 @@ class GroupEventNotifierModel(SqlAlchemyBase, BaseMixins):
 
     id = Column(GUID, primary_key=True, default=GUID.generate)
     name = Column(String, nullable=False)
-    enabled = Column(String, default=True, nullable=False)
+    enabled = Column(Boolean, default=True, nullable=False)
     apprise_url = Column(String, nullable=False)
 
     group = orm.relationship("Group", back_populates="group_event_notifiers", single_parent=True)
