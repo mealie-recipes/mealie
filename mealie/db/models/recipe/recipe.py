@@ -108,12 +108,12 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Shopping List Refs
     shopping_list_refs = orm.relationship(
-        "ShoppingListItemRecipeReference",
+        "ShoppingListRecipeReference",
         back_populates="recipe",
         cascade="all, delete-orphan",
     )
     shopping_list_item_refs = orm.relationship(
-        "ShoppingListRecipeReference",
+        "ShoppingListItemRecipeReference",
         back_populates="recipe",
         cascade="all, delete-orphan",
     )
