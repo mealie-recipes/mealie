@@ -10,10 +10,11 @@ from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
-from ..users import users_to_favorites
+from ..users.user_to_favorite import users_to_favorites
 from .api_extras import ApiExtras
 from .assets import RecipeAsset
 from .category import recipes2categories
+from .comment import RecipeComment
 from .ingredient import RecipeIngredient
 from .instruction import RecipeInstruction
 from .note import Note
@@ -49,7 +50,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     group_id = sa.Column(GUID, sa.ForeignKey("groups.id"))
     group = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
-    user_id = sa.Column(GUID, sa.ForeignKey("users.id"))
+    user_id = sa.Column(GUID, sa.ForeignKey("users.id", use_alter=True))
     user = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
     meal_entries = orm.relationship("GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan")
@@ -92,7 +93,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         RecipeShareTokenModel, back_populates="recipe", cascade="all, delete, delete-orphan"
     )
 
-    comments: list = orm.relationship("RecipeComment", back_populates="recipe", cascade="all, delete, delete-orphan")
+    comments: list[RecipeComment] = orm.relationship(
+        "RecipeComment", back_populates="recipe", cascade="all, delete, delete-orphan"
+    )
 
     # Mealie Specific
     settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")

@@ -5,7 +5,6 @@ from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
-from ..group import Group
 from .user_to_favorite import users_to_favorites
 
 
@@ -74,6 +73,8 @@ class User(SqlAlchemyBase, BaseMixins):
             settings = get_app_settings()
             group = settings.DEFAULT_GROUP
 
+        from mealie.db.models.group import Group
+
         self.group = Group.get_ref(session, group)
 
         self.favorite_recipes = []
@@ -90,6 +91,8 @@ class User(SqlAlchemyBase, BaseMixins):
         self.username = username
         self.full_name = full_name
         self.email = email
+
+        from mealie.db.models.group import Group
 
         self.group = Group.get_ref(session, group)
 
