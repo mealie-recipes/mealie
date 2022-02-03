@@ -10,6 +10,8 @@ Prerequisites
 
 You can easily start the development stack by running `make docker-dev` in the root of the project directory. This will run and build the docker-compose.dev.yml file.
 
+On Windows, the `mealie/run.sh` file must have LF line endings, or the mealie-api container will fail to start with the error: `/app/mealie/run.sh: not found`.
+
 ## Without Docker
 Prerequisites
 
