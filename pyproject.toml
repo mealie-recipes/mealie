@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mealie"
-version = "0.5.2"
+version = "0.5.5"
 description = "A Recipe Manager"
 authors = ["Hayden <hay-kot@pm.me>"]
 license = "MIT"
@@ -9,7 +9,7 @@ license = "MIT"
 start = "mealie.app:main"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.9.9"
 aiofiles = "0.5.0"
 aniso8601 = "7.0.0"
 appdirs = "1.4.4"
