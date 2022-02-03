@@ -46,7 +46,7 @@ export default {
         }
       });
 
-      return split;
+      return split.map((element) => element.trim());
     },
     save() {
       this.$emit("bulk-data", this.splitText());
