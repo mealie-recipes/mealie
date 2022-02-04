@@ -1,0 +1,1304 @@
+<!-- Custom HTML site displayed as the Home chapter -->
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hay-kot.github.io/mealie/api/redoc/">
+      
+      <link rel="icon" href="../../assets/img/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
+    
+    
+      
+        <title>API - Mealie</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2b4465f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script
+  async
+  defer
+  data-domain="hay-kot.github.io/mealie"
+  src="https://plausible.io/js/plausible.js"
+></script>
+
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="mealie" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mealie" class="md-header__button md-logo" aria-label="Mealie" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.1 13.34 3.91 9.16a4.008 4.008 0 0 1 0-5.66l7.02 7-2.83 2.84m5.31-.34 6.88 6.88-1.41 1.41L12 14.41l-6.88 6.88-1.41-1.41 9.65-9.66-.2-.22a1.98 1.98 0 0 1 0-2.81l4.34-4.37.93.92L15.19 7l.96.94 3.24-3.25.92.92-3.25 3.24.94.96 3.26-3.25.92.94-4.37 4.34c-.78.78-2.04.78-2.81 0l-.22-.2L13.41 13z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mealie
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="mealie" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hay-kot/mealie/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hay-kot/mealie
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../documentation/getting-started/introduction/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      API Reference
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contributors/non-coders/" class="md-tabs__link">
+        Contributors Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../roadmap/" class="md-tabs__link">
+      Development Road Map
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/v0.5.6/" class="md-tabs__link">
+        Change Log
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+
+        
+      
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+
+<div id="redoc-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/redoc/bundles/redoc.standalone.js"> </script>
+<script>
+    var spec = {"openapi": "3.0.2", "info": {"title": "Mealie", "description": "A place for all your recipes", "version": "v0.5.1"}, "paths": {"/api/auth/token": {"post": {"tags": ["Authentication"], "summary": "Get Token", "operationId": "get_token_api_auth_token_post", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"$ref": "#/components/schemas/Body_get_token_api_auth_token_post"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/auth/token/long": {"post": {"tags": ["Authentication"], "summary": "Get Token", "operationId": "get_token_api_auth_token_long_post", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"$ref": "#/components/schemas/Body_get_token_api_auth_token_long_post"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/auth/refresh": {"get": {"tags": ["Authentication"], "summary": "Refresh Token", "description": "Use a valid token to get another token", "operationId": "refresh_token_api_auth_refresh_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/sign-ups/{token}": {"post": {"tags": ["User Signup"], "summary": "Create User With Token", "description": "Creates a user with a valid sign up token ", "operationId": "create_user_with_token_api_users_sign_ups__token__post", "parameters": [{"required": true, "schema": {"title": "Token", "type": "string"}, "name": "token", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/UserIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}, "delete": {"tags": ["User Signup"], "summary": "Delete Token", "description": "Removed a token from the database ", "operationId": "delete_token_api_users_sign_ups__token__delete", "parameters": [{"required": true, "schema": {"title": "Token", "type": "string"}, "name": "token", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/sign-ups": {"get": {"tags": ["User Signup"], "summary": "Get All Open Sign Ups", "description": "Returns a list of open sign up links ", "operationId": "get_all_open_sign_ups_api_users_sign_ups_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get All Open Sign Ups Api Users Sign Ups Get", "type": "array", "items": {"$ref": "#/components/schemas/SignUpOut"}}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "post": {"tags": ["User Signup"], "summary": "Create User Sign Up Key", "description": "Generates a Random Token that a new user can sign up with ", "operationId": "create_user_sign_up_key_api_users_sign_ups_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/SignUpIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SignUpToken"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/{id}/image": {"get": {"tags": ["Users"], "summary": "Get User Image", "description": "Returns a users profile picture ", "operationId": "get_user_image_api_users__id__image_get", "parameters": [{"required": true, "schema": {"title": "Id", "type": "string"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}, "post": {"tags": ["Users"], "summary": "Update User Image", "description": "Updates a User Image ", "operationId": "update_user_image_api_users__id__image_post", "parameters": [{"required": true, "schema": {"title": "Id", "type": "string"}, "name": "id", "in": "path"}], "requestBody": {"content": {"multipart/form-data": {"schema": {"$ref": "#/components/schemas/Body_update_user_image_api_users__id__image_post"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/self": {"get": {"tags": ["Users"], "summary": "Get Logged In User", "operationId": "get_logged_in_user_api_users_self_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/UserOut"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/{id}/reset-password": {"put": {"tags": ["Users"], "summary": "Reset User Password", "operationId": "reset_user_password_api_users__id__reset_password_put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/{id}": {"get": {"tags": ["Users"], "summary": "Get User By Id", "operationId": "get_user_by_id_api_users__id__get", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/UserOut"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "put": {"tags": ["Users"], "summary": "Update User", "operationId": "update_user_api_users__id__put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/mealie__schema__user__UserBase"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Users"], "summary": "Delete User", "description": "Removes a user from the database. Must be the current user or a super user", "operationId": "delete_user_api_users__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/{id}/password": {"put": {"tags": ["Users"], "summary": "Update Password", "description": "Resets the User Password", "operationId": "update_password_api_users__id__password_put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ChangePassword"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/{id}/favorites": {"get": {"tags": ["Users"], "summary": "Get Favorites", "description": "Get user's favorite recipes ", "operationId": "get_favorites_api_users__id__favorites_get", "parameters": [{"required": true, "schema": {"title": "Id", "type": "string"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/UserFavorites"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/{id}/favorites/{slug}": {"post": {"tags": ["Users"], "summary": "Add Favorite", "description": "Adds a Recipe to the users favorites ", "operationId": "add_favorite_api_users__id__favorites__slug__post", "parameters": [{"required": true, "schema": {"title": "Slug", "type": "string"}, "name": "slug", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Users"], "summary": "Remove Favorite", "description": "Adds a Recipe to the users favorites ", "operationId": "remove_favorite_api_users__id__favorites__slug__delete", "parameters": [{"required": true, "schema": {"title": "Slug", "type": "string"}, "name": "slug", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users": {"get": {"tags": ["Users"], "summary": "Get All Users", "operationId": "get_all_users_api_users_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get All Users Api Users Get", "type": "array", "items": {"$ref": "#/components/schemas/UserOut"}}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "post": {"tags": ["Users"], "summary": "Create User", "operationId": "create_user_api_users_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/UserIn"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/UserOut"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/api-tokens": {"post": {"tags": ["User API Tokens"], "summary": "Create Api Token", "description": "Create api_token in the Database ", "operationId": "create_api_token_api_users_api_tokens_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/LoingLiveTokenIn"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/users/api-tokens/{token_id}": {"delete": {"tags": ["User API Tokens"], "summary": "Delete Api Token", "description": "Delete api_token from the Database ", "operationId": "delete_api_token_api_users_api_tokens__token_id__delete", "parameters": [{"required": true, "schema": {"title": "Token Id", "type": "integer"}, "name": "token_id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/groups": {"get": {"tags": ["Groups administration"], "summary": "Get All Groups", "description": "Returns a list of all groups in the database ", "operationId": "get_all_groups_api_groups_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get All Groups Api Groups Get", "type": "array", "items": {"$ref": "#/components/schemas/GroupInDB"}}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "post": {"tags": ["Groups administration"], "summary": "Create Group", "description": "Creates a Group in the Database ", "operationId": "create_group_api_groups_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/GroupBase"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/groups/{id}": {"put": {"tags": ["Groups administration"], "summary": "Update Group Data", "description": "Updates a User Group ", "operationId": "update_group_data_api_groups__id__put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/UpdateGroup"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Groups administration"], "summary": "Delete User Group", "description": "Removes a user group from the database ", "operationId": "delete_user_group_api_groups__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/groups/self": {"get": {"tags": ["Groups"], "summary": "Get Current User Group", "description": "Returns the Group Data for the Current User ", "operationId": "get_current_user_group_api_groups_self_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/GroupInDB"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/shopping-lists": {"post": {"tags": ["Shopping Lists"], "summary": "Create Shopping List", "description": "Create Shopping List in the Database ", "operationId": "create_shopping_list_api_shopping_lists_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ShoppingListIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ShoppingListOut"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/shopping-lists/{id}": {"get": {"tags": ["Shopping Lists"], "summary": "Get Shopping List", "description": "Get Shopping List from the Database ", "operationId": "get_shopping_list_api_shopping_lists__id__get", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ShoppingListOut"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "put": {"tags": ["Shopping Lists"], "summary": "Update Shopping List", "description": "Update Shopping List in the Database ", "operationId": "update_shopping_list_api_shopping_lists__id__put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ShoppingListIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ShoppingListOut"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Shopping Lists"], "summary": "Delete Shopping List", "description": "Delete Shopping List from the Database ", "operationId": "delete_shopping_list_api_shopping_lists__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/summary": {"get": {"tags": ["Query All Recipes"], "summary": "Get Recipe Summary", "description": "Returns key the recipe summary data for recipes in the database. You can perform\nslice operations to set the skip/end amounts for recipes. All recipes are sorted by the added date.\n\n**Query Parameters**\n- skip: The database entry to start at. (0 Indexed)\n- end: The number of entries to return.\n\nskip=2, end=10 will return entries", "operationId": "get_recipe_summary_api_recipes_summary_get", "parameters": [{"required": false, "schema": {"title": "Start", "default": 0}, "name": "start", "in": "query"}, {"required": false, "schema": {"title": "Limit", "default": 9999}, "name": "limit", "in": "query"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get Recipe Summary Api Recipes Summary Get", "type": "array", "items": {"$ref": "#/components/schemas/RecipeSummary"}}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/summary/untagged": {"get": {"tags": ["Query All Recipes"], "summary": "Get Untagged Recipes", "operationId": "get_untagged_recipes_api_recipes_summary_untagged_get", "parameters": [{"required": false, "schema": {"title": "Count", "type": "boolean", "default": false}, "name": "count", "in": "query"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get Untagged Recipes Api Recipes Summary Untagged Get", "type": "array", "items": {"$ref": "#/components/schemas/RecipeSummary"}}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/recipes/summary/uncategorized": {"get": {"tags": ["Query All Recipes"], "summary": "Get Uncategorized Recipes", "operationId": "get_uncategorized_recipes_api_recipes_summary_uncategorized_get", "parameters": [{"required": false, "schema": {"title": "Count", "type": "boolean", "default": false}, "name": "count", "in": "query"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get Uncategorized Recipes Api Recipes Summary Uncategorized Get", "type": "array", "items": {"$ref": "#/components/schemas/RecipeSummary"}}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/recipes/category": {"post": {"tags": ["Query All Recipes"], "summary": "Filter By Category", "description": "pass a list of categories and get a list of recipes associated with those categories ", "operationId": "filter_by_category_api_recipes_category_post", "requestBody": {"content": {"application/json": {"schema": {"title": "Categories", "type": "array", "items": {}}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "deprecated": true}}, "/api/recipes/tag": {"post": {"tags": ["Query All Recipes"], "summary": "Filter By Tags", "description": "pass a list of tags and get a list of recipes associated with those tags", "operationId": "filter_by_tags_api_recipes_tag_post", "requestBody": {"content": {"application/json": {"schema": {"title": "Tags", "type": "array", "items": {}}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "deprecated": true}}, "/api/recipes/{recipe_slug}": {"get": {"tags": ["Recipe CRUD"], "summary": "Get Recipe", "description": "Takes in a recipe slug, returns all data for a recipe ", "operationId": "get_recipe_api_recipes__recipe_slug__get", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Recipe"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "put": {"tags": ["Recipe CRUD"], "summary": "Update Recipe", "description": "Updates a recipe by existing slug and data. ", "operationId": "update_recipe_api_recipes__recipe_slug__put", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Recipe"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Recipe CRUD"], "summary": "Delete Recipe", "description": "Deletes a recipe by slug ", "operationId": "delete_recipe_api_recipes__recipe_slug__delete", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "patch": {"tags": ["Recipe CRUD"], "summary": "Patch Recipe", "description": "Updates a recipe by existing slug and data. ", "operationId": "patch_recipe_api_recipes__recipe_slug__patch", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Recipe"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/{recipe_slug}/zip": {"get": {"tags": ["Recipe CRUD"], "summary": "Get Recipe As Zip", "description": "Get a Recipe and It's Original Image as a Zip File ", "operationId": "get_recipe_as_zip_api_recipes__recipe_slug__zip_get", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/recipes/create": {"post": {"tags": ["Recipe CRUD"], "summary": "Create From Json", "description": "Takes in a JSON string and loads data into the database as a new entry", "operationId": "create_from_json_api_recipes_create_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Recipe"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Create From Json Api Recipes Create Post", "type": "string"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/test-scrape-url": {"post": {"tags": ["Recipe CRUD"], "summary": "Test Parse Recipe Url", "operationId": "test_parse_recipe_url_api_recipes_test_scrape_url_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeURLIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/create-url": {"post": {"tags": ["Recipe CRUD"], "summary": "Parse Recipe Url", "description": "Takes in a URL and attempts to scrape data and load it into the database ", "operationId": "parse_recipe_url_api_recipes_create_url_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeURLIn"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Parse Recipe Url Api Recipes Create Url Post", "type": "string"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/create-from-zip": {"post": {"tags": ["Recipe CRUD"], "summary": "Create Recipe From Zip", "description": "Create recipe from archive ", "operationId": "create_recipe_from_zip_api_recipes_create_from_zip_post", "requestBody": {"content": {"multipart/form-data": {"schema": {"$ref": "#/components/schemas/Body_create_recipe_from_zip_api_recipes_create_from_zip_post"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/{recipe_slug}/image": {"put": {"tags": ["Recipe CRUD"], "summary": "Update Recipe Image", "description": "Removes an existing image and replaces it with the incoming file. ", "operationId": "update_recipe_image_api_recipes__recipe_slug__image_put", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "requestBody": {"content": {"multipart/form-data": {"schema": {"$ref": "#/components/schemas/Body_update_recipe_image_api_recipes__recipe_slug__image_put"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "post": {"tags": ["Recipe CRUD"], "summary": "Scrape Image Url", "description": "Removes an existing image and replaces it with the incoming file. ", "operationId": "scrape_image_url_api_recipes__recipe_slug__image_post", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeURLIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/{recipe_slug}/assets": {"post": {"tags": ["Recipe CRUD"], "summary": "Upload Recipe Asset", "description": "Upload a file to store as a recipe asset ", "operationId": "upload_recipe_asset_api_recipes__recipe_slug__assets_post", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}], "requestBody": {"content": {"multipart/form-data": {"schema": {"$ref": "#/components/schemas/Body_upload_recipe_asset_api_recipes__recipe_slug__assets_post"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeAsset"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/categories": {"get": {"tags": ["Recipe Categories"], "summary": "Get All Recipe Categories", "description": "Returns a list of available categories in the database ", "operationId": "get_all_recipe_categories_api_categories_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}, "post": {"tags": ["Recipe Categories"], "summary": "Create Recipe Category", "description": "Creates a Category in the database ", "operationId": "create_recipe_category_api_categories_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/CategoryIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/categories/empty": {"get": {"tags": ["Recipe Categories"], "summary": "Get Empty Categories", "description": "Returns a list of categories that do not contain any recipes", "operationId": "get_empty_categories_api_categories_empty_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}}, "/api/categories/{category}": {"get": {"tags": ["Recipe Categories"], "summary": "Get All Recipes By Category", "description": "Returns a list of recipes associated with the provided category. ", "operationId": "get_all_recipes_by_category_api_categories__category__get", "parameters": [{"required": true, "schema": {"title": "Category", "type": "string"}, "name": "category", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeCategoryResponse"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "put": {"tags": ["Recipe Categories"], "summary": "Update Recipe Category", "description": "Updates an existing Tag in the database ", "operationId": "update_recipe_category_api_categories__category__put", "parameters": [{"required": true, "schema": {"title": "Category", "type": "string"}, "name": "category", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/CategoryIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeCategoryResponse"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Recipe Categories"], "summary": "Delete Recipe Category", "description": "Removes a recipe category from the database. Deleting a\ncategory does not impact a recipe. The category will be removed\nfrom any recipes that contain it", "operationId": "delete_recipe_category_api_categories__category__delete", "parameters": [{"required": true, "schema": {"title": "Category", "type": "string"}, "name": "category", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/tags/{tag}": {"get": {"tags": ["Recipe Tags"], "summary": "Get All Recipes By Tag", "description": "Returns a list of recipes associated with the provided tag. ", "operationId": "get_all_recipes_by_tag_api_tags__tag__get", "parameters": [{"required": true, "schema": {"title": "Tag", "type": "string"}, "name": "tag", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeTagResponse"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "put": {"tags": ["Recipe Tags"], "summary": "Update Recipe Tag", "description": "Updates an existing Tag in the database ", "operationId": "update_recipe_tag_api_tags__tag__put", "parameters": [{"required": true, "schema": {"title": "Tag", "type": "string"}, "name": "tag", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/TagIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/RecipeTagResponse"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Recipe Tags"], "summary": "Delete Recipe Tag", "description": "Removes a recipe tag from the database. Deleting a\ntag does not impact a recipe. The tag will be removed\nfrom any recipes that contain it", "operationId": "delete_recipe_tag_api_tags__tag__delete", "parameters": [{"required": true, "schema": {"title": "Tag", "type": "string"}, "name": "tag", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/tags": {"get": {"tags": ["Recipe Tags"], "summary": "Get All Recipe Tags", "description": "Returns a list of available tags in the database ", "operationId": "get_all_recipe_tags_api_tags_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}, "post": {"tags": ["Recipe Tags"], "summary": "Create Recipe Tag", "description": "Creates a Tag in the database ", "operationId": "create_recipe_tag_api_tags_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/TagIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/tags/empty": {"get": {"tags": ["Recipe Tags"], "summary": "Get Empty Tags", "description": "Returns a list of tags that do not contain any recipes", "operationId": "get_empty_tags_api_tags_empty_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}}, "/api/recipes/{slug}/comments": {"post": {"tags": ["Recipe Comments"], "summary": "Create Comment", "description": "Create comment in the Database ", "operationId": "create_comment_api_recipes__slug__comments_post", "parameters": [{"required": true, "schema": {"title": "Slug", "type": "string"}, "name": "slug", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/CommentIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/recipes/{slug}/comments/{id}": {"put": {"tags": ["Recipe Comments"], "summary": "Update Comment", "description": "Update comment in the Database ", "operationId": "update_comment_api_recipes__slug__comments__id__put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/CommentIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Recipe Comments"], "summary": "Delete Comment", "description": "Delete comment from the Database ", "operationId": "delete_comment_api_recipes__slug__comments__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/media/recipes/{recipe_slug}/images/{file_name}": {"get": {"tags": ["Site Media"], "summary": "Get Recipe Img", "description": "Takes in a recipe slug, returns the static image. This route is proxied in the docker image\nand should not hit the API in production", "operationId": "get_recipe_img_api_media_recipes__recipe_slug__images__file_name__get", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}, {"required": true, "schema": {"$ref": "#/components/schemas/ImageType"}, "name": "file_name", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/media/recipes/{recipe_slug}/assets/{file_name}": {"get": {"tags": ["Site Media"], "summary": "Get Recipe Asset", "description": "Returns a recipe asset ", "operationId": "get_recipe_asset_api_media_recipes__recipe_slug__assets__file_name__get", "parameters": [{"required": true, "schema": {"title": "Recipe Slug", "type": "string"}, "name": "recipe_slug", "in": "path"}, {"required": true, "schema": {"title": "File Name", "type": "string"}, "name": "file_name", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/about/events": {"get": {"tags": ["App Events"], "summary": "Get Events", "description": "Get event from the Database ", "operationId": "get_events_api_about_events_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EventsOut"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["App Events"], "summary": "Delete Events", "description": "Get event from the Database ", "operationId": "delete_events_api_about_events_delete", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/about/events/{id}": {"delete": {"tags": ["App Events"], "summary": "Delete Event", "description": "Delete event from the Database ", "operationId": "delete_event_api_about_events__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/about/events/notifications": {"get": {"tags": ["App Events"], "summary": "Get All Event Notification", "description": "Get all event_notification from the Database ", "operationId": "get_all_event_notification_api_about_events_notifications_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get All Event Notification Api About Events Notifications Get", "type": "array", "items": {"$ref": "#/components/schemas/EventNotificationOut"}}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "post": {"tags": ["App Events"], "summary": "Create Event Notification", "description": "Create event_notification in the Database ", "operationId": "create_event_notification_api_about_events_notifications_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/EventNotificationIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/about/events/notifications/test": {"post": {"tags": ["App Events"], "summary": "Test Notification Route", "description": "Create event_notification in the Database ", "operationId": "test_notification_route_api_about_events_notifications_test_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/TestEvent"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/about/events/notifications/{id}": {"put": {"tags": ["App Events"], "summary": "Update Event Notification", "description": "Update event_notification in the Database ", "operationId": "update_event_notification_api_about_events_notifications__id__put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["App Events"], "summary": "Delete Event Notification", "description": "Delete event_notification from the Database ", "operationId": "delete_event_notification_api_about_events_notifications__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/about/recipes/defaults": {"get": {"tags": ["About Recipes"], "summary": "Get Recipe Settings Defaults", "description": "Returns the Default Settings for Recieps as set by ENV variables ", "operationId": "get_recipe_settings_defaults_api_about_recipes_defaults_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}}, "/api/meal-plans/all": {"get": {"tags": ["Meal Plan"], "summary": "Get All Meals", "description": "Returns a list of all available Meal Plan ", "operationId": "get_all_meals_api_meal_plans_all_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get All Meals Api Meal Plans All Get", "type": "array", "items": {"$ref": "#/components/schemas/MealPlanOut"}}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/meal-plans/this-week": {"get": {"tags": ["Meal Plan"], "summary": "Get This Week", "description": "Returns the meal plan data for this week ", "operationId": "get_this_week_api_meal_plans_this_week_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MealPlanOut"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/meal-plans/today": {"get": {"tags": ["Meal Plan", "Meal Plan"], "summary": "Get Today", "description": "Returns the recipe slug for the meal scheduled for today.\nIf no meal is scheduled nothing is returned", "operationId": "get_today_api_meal_plans_today_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/meal-plans/{id}": {"get": {"tags": ["Meal Plan"], "summary": "Get Meal Plan", "description": "Returns a single Meal Plan from the Database ", "operationId": "get_meal_plan_api_meal_plans__id__get", "parameters": [{"required": true, "schema": {"title": "Id"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MealPlanOut"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/meal-plans/create": {"post": {"tags": ["Meal Plan"], "summary": "Create Meal Plan", "description": "Creates a meal plan database entry ", "operationId": "create_meal_plan_api_meal_plans_create_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/MealPlanIn"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/meal-plans/{plan_id}": {"put": {"tags": ["Meal Plan"], "summary": "Update Meal Plan", "description": "Updates a meal plan based off ID ", "operationId": "update_meal_plan_api_meal_plans__plan_id__put", "parameters": [{"required": true, "schema": {"title": "Plan Id", "type": "string"}, "name": "plan_id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/MealPlanIn"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Meal Plan"], "summary": "Delete Meal Plan", "description": "Removes a meal plan from the database ", "operationId": "delete_meal_plan_api_meal_plans__plan_id__delete", "parameters": [{"required": true, "schema": {"title": "Plan Id"}, "name": "plan_id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/meal-plans/today/image": {"get": {"tags": ["Meal Plan", "Meal Plan"], "summary": "Get Todays Image", "description": "Returns the image for todays meal-plan.", "operationId": "get_todays_image_api_meal_plans_today_image_get", "parameters": [{"required": false, "schema": {"title": "Group Name", "type": "string", "default": "Home"}, "name": "group_name", "in": "query"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/api/meal-plans/{id}/shopping-list": {"get": {"tags": ["Meal Plan"], "summary": "Get Shopping List", "operationId": "get_shopping_list_api_meal_plans__id__shopping_list_get", "parameters": [{"required": true, "schema": {"title": "Id", "type": "string"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/site-settings/custom-pages": {"get": {"tags": ["Settings"], "summary": "Get Custom Pages", "description": "Returns the sites custom pages ", "operationId": "get_custom_pages_api_site_settings_custom_pages_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}, "put": {"tags": ["Settings"], "summary": "Update Multiple Pages", "description": "Update multiple custom pages ", "operationId": "update_multiple_pages_api_site_settings_custom_pages_put", "requestBody": {"content": {"application/json": {"schema": {"title": "Pages", "type": "array", "items": {"$ref": "#/components/schemas/CustomPageOut"}}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "post": {"tags": ["Settings"], "summary": "Create New Page", "description": "Creates a new Custom Page ", "operationId": "create_new_page_api_site_settings_custom_pages_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/CustomPageBase"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/site-settings/custom-pages/{id}": {"get": {"tags": ["Settings"], "summary": "Get Single Page", "description": "Removes a custom page from the database ", "operationId": "get_single_page_api_site_settings_custom_pages__id__get", "parameters": [{"required": true, "schema": {"title": "Id", "anyOf": [{"type": "integer"}, {"type": "string"}]}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}, "put": {"tags": ["Settings"], "summary": "Update Single Page", "description": "Removes a custom page from the database ", "operationId": "update_single_page_api_site_settings_custom_pages__id__put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/CustomPageOut"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Settings"], "summary": "Delete Custom Page", "description": "Removes a custom page from the database ", "operationId": "delete_custom_page_api_site_settings_custom_pages__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/site-settings": {"get": {"tags": ["Settings"], "summary": "Get Main Settings", "description": "Returns basic site settings ", "operationId": "get_main_settings_api_site_settings_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}, "put": {"tags": ["Settings"], "summary": "Update Settings", "description": "Returns Site Settings ", "operationId": "update_settings_api_site_settings_put", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/SiteSettings"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/site-settings/webhooks/test": {"post": {"tags": ["Settings"], "summary": "Test Webhooks", "description": "Run the function to test your webhooks ", "operationId": "test_webhooks_api_site_settings_webhooks_test_post", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/themes": {"get": {"tags": ["Themes"], "summary": "Get All Themes", "description": "Returns all site themes ", "operationId": "get_all_themes_api_themes_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}}, "/api/themes/{id}": {"get": {"tags": ["Themes"], "summary": "Get Single Theme", "description": "Returns a named theme ", "operationId": "get_single_theme_api_themes__id__get", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}, "put": {"tags": ["Themes"], "summary": "Update Theme", "description": "Update a theme database entry ", "operationId": "update_theme_api_themes__id__put", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/SiteTheme"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}, "delete": {"tags": ["Themes"], "summary": "Delete Theme", "description": "Deletes theme from the database ", "operationId": "delete_theme_api_themes__id__delete", "parameters": [{"required": true, "schema": {"title": "Id", "type": "integer"}, "name": "id", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/themes/create": {"post": {"tags": ["Themes"], "summary": "Create Theme", "description": "Creates a site color theme database entry ", "operationId": "create_theme_api_themes_create_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/SiteTheme"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/backups/available": {"get": {"tags": ["Backups"], "summary": "Available Imports", "description": "Returns a list of avaiable .zip files for import into Mealie.", "operationId": "available_imports_api_backups_available_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Imports"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/backups/export/database": {"post": {"tags": ["Backups"], "summary": "Export Database", "description": "Generates a backup of the recipe database in json format.", "operationId": "export_database_api_backups_export_database_post", "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/BackupJob"}}}, "required": true}, "responses": {"201": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/backups/upload": {"post": {"tags": ["Backups"], "summary": "Upload Backup File", "description": "Upload a .zip File to later be imported into Mealie ", "operationId": "upload_backup_file_api_backups_upload_post", "requestBody": {"content": {"multipart/form-data": {"schema": {"$ref": "#/components/schemas/Body_upload_backup_file_api_backups_upload_post"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/backups/{file_name}/download": {"get": {"tags": ["Backups"], "summary": "Download Backup File", "description": "Returns a token to download a file ", "operationId": "download_backup_file_api_backups__file_name__download_get", "parameters": [{"required": true, "schema": {"title": "File Name", "type": "string"}, "name": "file_name", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/backups/{file_name}/import": {"post": {"tags": ["Backups"], "summary": "Import Database", "description": "Import a database backup file generated from Mealie. ", "operationId": "import_database_api_backups__file_name__import_post", "parameters": [{"required": true, "schema": {"title": "File Name", "type": "string"}, "name": "file_name", "in": "path"}], "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ImportJob"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/backups/{file_name}/delete": {"delete": {"tags": ["Backups"], "summary": "Delete Backup", "description": "Removes a database backup from the file system ", "operationId": "delete_backup_api_backups__file_name__delete_delete", "parameters": [{"required": true, "schema": {"title": "File Name", "type": "string"}, "name": "file_name", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/migrations": {"get": {"tags": ["Migration"], "summary": "Get All Migration Options", "description": "Returns a list of avaiable directories that can be imported into Mealie ", "operationId": "get_all_migration_options_api_migrations_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"title": "Response Get All Migration Options Api Migrations Get", "type": "array", "items": {"$ref": "#/components/schemas/Migrations"}}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/migrations/{import_type}/{file_name}/import": {"post": {"tags": ["Migration"], "summary": "Import Migration", "description": "Imports all the recipes in a given directory ", "operationId": "import_migration_api_migrations__import_type___file_name__import_post", "parameters": [{"required": true, "schema": {"$ref": "#/components/schemas/Migration"}, "name": "import_type", "in": "path"}, {"required": true, "schema": {"title": "File Name", "type": "string"}, "name": "file_name", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/migrations/{import_type}/{file_name}/delete": {"delete": {"tags": ["Migration"], "summary": "Delete Migration Data", "description": "Removes migration data from the file system ", "operationId": "delete_migration_data_api_migrations__import_type___file_name__delete_delete", "parameters": [{"required": true, "schema": {"$ref": "#/components/schemas/Migration"}, "name": "import_type", "in": "path"}, {"required": true, "schema": {"title": "File Name", "type": "string"}, "name": "file_name", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/migrations/{import_type}/upload": {"post": {"tags": ["Migration"], "summary": "Upload Nextcloud Zipfile", "description": "Upload a .zip File to later be imported into Mealie ", "operationId": "upload_nextcloud_zipfile_api_migrations__import_type__upload_post", "parameters": [{"required": true, "schema": {"$ref": "#/components/schemas/Migration"}, "name": "import_type", "in": "path"}], "requestBody": {"content": {"multipart/form-data": {"schema": {"$ref": "#/components/schemas/Body_upload_nextcloud_zipfile_api_migrations__import_type__upload_post"}}}, "required": true}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/debug/version": {"get": {"tags": ["Debug"], "summary": "Get Mealie Version", "description": "Returns the current version of mealie", "operationId": "get_mealie_version_api_debug_version_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}}}, "/api/debug": {"get": {"tags": ["Debug"], "summary": "Get Debug Info", "description": "Returns general information about the application for debugging ", "operationId": "get_debug_info_api_debug_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/debug/statistics": {"get": {"tags": ["Debug"], "summary": "Get App Statistics", "operationId": "get_app_statistics_api_debug_statistics_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/debug/last-recipe-json": {"get": {"tags": ["Debug"], "summary": "Get Last Recipe Json", "description": "Returns a token to download a file ", "operationId": "get_last_recipe_json_api_debug_last_recipe_json_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/debug/log/{num}": {"get": {"tags": ["Debug"], "summary": "Get Log", "description": "Doc Str ", "operationId": "get_log_api_debug_log__num__get", "parameters": [{"required": true, "schema": {"title": "Num", "type": "integer"}, "name": "num", "in": "path"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/debug/log": {"get": {"tags": ["Debug"], "summary": "Get Log File", "description": "Returns a token to download a file ", "operationId": "get_log_file_api_debug_log_get", "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}}, "security": [{"OAuth2PasswordBearer": []}]}}, "/api/utils/download": {"get": {"tags": ["Utils"], "summary": "Download File", "description": "Uses a file token obtained by an active user to retrieve a file from the operating\nsystem.", "operationId": "download_file_api_utils_download_get", "parameters": [{"required": false, "schema": {"title": "Token", "type": "string"}, "name": "token", "in": "query"}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}}, "components": {"schemas": {"BackupJob": {"title": "BackupJob", "required": ["options"], "type": "object", "properties": {"tag": {"title": "Tag", "type": "string"}, "options": {"$ref": "#/components/schemas/BackupOptions"}, "templates": {"title": "Templates", "type": "array", "items": {"type": "string"}}}, "example": {"tag": "July 23rd 2021", "options": {"recipes": true, "settings": true, "pages": true, "themes": true, "groups": true, "users": true, "notifications": true}, "template": ["recipes.md"]}}, "BackupOptions": {"title": "BackupOptions", "type": "object", "properties": {"recipes": {"title": "Recipes", "type": "boolean", "default": true}, "settings": {"title": "Settings", "type": "boolean", "default": true}, "pages": {"title": "Pages", "type": "boolean", "default": true}, "themes": {"title": "Themes", "type": "boolean", "default": true}, "groups": {"title": "Groups", "type": "boolean", "default": true}, "users": {"title": "Users", "type": "boolean", "default": true}, "notifications": {"title": "Notifications", "type": "boolean", "default": true}}, "example": {"recipes": true, "settings": true, "themes": true, "groups": true, "users": true}}, "Body_create_recipe_from_zip_api_recipes_create_from_zip_post": {"title": "Body_create_recipe_from_zip_api_recipes_create_from_zip_post", "required": ["archive"], "type": "object", "properties": {"archive": {"title": "Archive", "type": "string", "format": "binary"}}}, "Body_get_token_api_auth_token_long_post": {"title": "Body_get_token_api_auth_token_long_post", "required": ["username", "password"], "type": "object", "properties": {"grant_type": {"title": "Grant Type", "pattern": "password", "type": "string"}, "username": {"title": "Username", "type": "string"}, "password": {"title": "Password", "type": "string"}, "scope": {"title": "Scope", "type": "string", "default": ""}, "client_id": {"title": "Client Id", "type": "string"}, "client_secret": {"title": "Client Secret", "type": "string"}}}, "Body_get_token_api_auth_token_post": {"title": "Body_get_token_api_auth_token_post", "required": ["username", "password"], "type": "object", "properties": {"grant_type": {"title": "Grant Type", "pattern": "password", "type": "string"}, "username": {"title": "Username", "type": "string"}, "password": {"title": "Password", "type": "string"}, "scope": {"title": "Scope", "type": "string", "default": ""}, "client_id": {"title": "Client Id", "type": "string"}, "client_secret": {"title": "Client Secret", "type": "string"}}}, "Body_update_recipe_image_api_recipes__recipe_slug__image_put": {"title": "Body_update_recipe_image_api_recipes__recipe_slug__image_put", "required": ["image", "extension"], "type": "object", "properties": {"image": {"title": "Image", "type": "string", "format": "binary"}, "extension": {"title": "Extension", "type": "string"}}}, "Body_update_user_image_api_users__id__image_post": {"title": "Body_update_user_image_api_users__id__image_post", "required": ["profile_image"], "type": "object", "properties": {"profile_image": {"title": "Profile Image", "type": "string", "format": "binary"}}}, "Body_upload_backup_file_api_backups_upload_post": {"title": "Body_upload_backup_file_api_backups_upload_post", "required": ["archive"], "type": "object", "properties": {"archive": {"title": "Archive", "type": "string", "format": "binary"}}}, "Body_upload_nextcloud_zipfile_api_migrations__import_type__upload_post": {"title": "Body_upload_nextcloud_zipfile_api_migrations__import_type__upload_post", "required": ["archive"], "type": "object", "properties": {"archive": {"title": "Archive", "type": "string", "format": "binary"}}}, "Body_upload_recipe_asset_api_recipes__recipe_slug__assets_post": {"title": "Body_upload_recipe_asset_api_recipes__recipe_slug__assets_post", "required": ["name", "icon", "extension", "file"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "icon": {"title": "Icon", "type": "string"}, "extension": {"title": "Extension", "type": "string"}, "file": {"title": "File", "type": "string", "format": "binary"}}}, "CategoryBase": {"title": "CategoryBase", "required": ["name", "id", "slug"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "id": {"title": "Id", "type": "integer"}, "slug": {"title": "Slug", "type": "string"}}}, "CategoryIn": {"title": "CategoryIn", "required": ["name"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}}}, "ChangePassword": {"title": "ChangePassword", "required": ["currentPassword", "newPassword"], "type": "object", "properties": {"currentPassword": {"title": "Currentpassword", "type": "string"}, "newPassword": {"title": "Newpassword", "type": "string"}}}, "Colors": {"title": "Colors", "type": "object", "properties": {"primary": {"title": "Primary", "type": "string", "default": "#E58325"}, "accent": {"title": "Accent", "type": "string", "default": "#00457A"}, "secondary": {"title": "Secondary", "type": "string", "default": "#973542"}, "success": {"title": "Success", "type": "string", "default": "#43A047"}, "info": {"title": "Info", "type": "string", "default": "#1976D2"}, "warning": {"title": "Warning", "type": "string", "default": "#FF6F00"}, "error": {"title": "Error", "type": "string", "default": "#EF5350"}}}, "CommentIn": {"title": "CommentIn", "required": ["text"], "type": "object", "properties": {"text": {"title": "Text", "type": "string"}}}, "CommentOut": {"title": "CommentOut", "required": ["text", "id", "uuid", "recipeSlug", "dateAdded", "user"], "type": "object", "properties": {"text": {"title": "Text", "type": "string"}, "id": {"title": "Id", "type": "integer"}, "uuid": {"title": "Uuid", "type": "string"}, "recipeSlug": {"title": "Recipeslug", "type": "string"}, "dateAdded": {"title": "Dateadded", "type": "string", "format": "date-time"}, "user": {"$ref": "#/components/schemas/mealie__schema__comments__UserBase"}}}, "CustomPageBase": {"title": "CustomPageBase", "required": ["name", "position"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "slug": {"title": "Slug", "type": "string"}, "position": {"title": "Position", "type": "integer"}, "categories": {"title": "Categories", "type": "array", "items": {"$ref": "#/components/schemas/RecipeCategoryResponse"}, "default": []}}}, "CustomPageOut": {"title": "CustomPageOut", "required": ["name", "position", "id"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "slug": {"title": "Slug", "type": "string"}, "position": {"title": "Position", "type": "integer"}, "categories": {"title": "Categories", "type": "array", "items": {"$ref": "#/components/schemas/RecipeCategoryResponse"}, "default": []}, "id": {"title": "Id", "type": "integer"}}}, "DeclaredTypes": {"title": "DeclaredTypes", "enum": ["General", "Discord", "Gotify", "Pushover", "Home Assistant"], "type": "string", "description": "An enumeration."}, "Event": {"title": "Event", "required": ["title", "text"], "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "title": {"title": "Title", "type": "string"}, "text": {"title": "Text", "type": "string"}, "timeStamp": {"title": "Timestamp", "type": "string", "format": "date-time"}, "category": {"allOf": [{"$ref": "#/components/schemas/EventCategory"}], "default": "general"}}}, "EventCategory": {"title": "EventCategory", "enum": ["general", "recipe", "backup", "scheduled", "migration", "group", "user"], "type": "string", "description": "An enumeration."}, "EventNotificationIn": {"title": "EventNotificationIn", "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "name": {"title": "Name", "type": "string", "default": ""}, "type": {"allOf": [{"$ref": "#/components/schemas/DeclaredTypes"}], "default": "General"}, "general": {"title": "General", "type": "boolean", "default": true}, "recipe": {"title": "Recipe", "type": "boolean", "default": true}, "backup": {"title": "Backup", "type": "boolean", "default": true}, "scheduled": {"title": "Scheduled", "type": "boolean", "default": true}, "migration": {"title": "Migration", "type": "boolean", "default": true}, "group": {"title": "Group", "type": "boolean", "default": true}, "user": {"title": "User", "type": "boolean", "default": true}, "notificationUrl": {"title": "Notificationurl", "type": "string", "default": ""}}}, "EventNotificationOut": {"title": "EventNotificationOut", "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "name": {"title": "Name", "type": "string", "default": ""}, "type": {"allOf": [{"$ref": "#/components/schemas/DeclaredTypes"}], "default": "General"}, "general": {"title": "General", "type": "boolean", "default": true}, "recipe": {"title": "Recipe", "type": "boolean", "default": true}, "backup": {"title": "Backup", "type": "boolean", "default": true}, "scheduled": {"title": "Scheduled", "type": "boolean", "default": true}, "migration": {"title": "Migration", "type": "boolean", "default": true}, "group": {"title": "Group", "type": "boolean", "default": true}, "user": {"title": "User", "type": "boolean", "default": true}}}, "EventsOut": {"title": "EventsOut", "required": ["total", "events"], "type": "object", "properties": {"total": {"title": "Total", "type": "integer"}, "events": {"title": "Events", "type": "array", "items": {"$ref": "#/components/schemas/Event"}}}}, "GroupBase": {"title": "GroupBase", "required": ["name"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}}}, "GroupInDB": {"title": "GroupInDB", "required": ["name", "id", "webhookEnable"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "id": {"title": "Id", "type": "integer"}, "categories": {"title": "Categories", "type": "array", "items": {"$ref": "#/components/schemas/CategoryBase"}, "default": []}, "webhookUrls": {"title": "Webhookurls", "type": "array", "items": {"type": "string"}, "default": []}, "webhookTime": {"title": "Webhooktime", "type": "string", "default": "00:00"}, "webhookEnable": {"title": "Webhookenable", "type": "boolean"}, "users": {"title": "Users", "type": "array", "items": {"$ref": "#/components/schemas/UserOut"}}, "mealplans": {"title": "Mealplans", "type": "array", "items": {"$ref": "#/components/schemas/MealPlanOut"}}, "shoppingLists": {"title": "Shoppinglists", "type": "array", "items": {"$ref": "#/components/schemas/ShoppingListOut"}}}}, "HTTPValidationError": {"title": "HTTPValidationError", "type": "object", "properties": {"detail": {"title": "Detail", "type": "array", "items": {"$ref": "#/components/schemas/ValidationError"}}}}, "ImageType": {"title": "ImageType", "enum": ["original.webp", "min-original.webp", "tiny-original.webp"], "type": "string", "description": "An enumeration."}, "ImportJob": {"title": "ImportJob", "required": ["name"], "type": "object", "properties": {"recipes": {"title": "Recipes", "type": "boolean", "default": true}, "settings": {"title": "Settings", "type": "boolean", "default": true}, "pages": {"title": "Pages", "type": "boolean", "default": true}, "themes": {"title": "Themes", "type": "boolean", "default": true}, "groups": {"title": "Groups", "type": "boolean", "default": true}, "users": {"title": "Users", "type": "boolean", "default": true}, "notifications": {"title": "Notifications", "type": "boolean", "default": true}, "name": {"title": "Name", "type": "string"}, "force": {"title": "Force", "type": "boolean", "default": false}, "rebase": {"title": "Rebase", "type": "boolean", "default": false}}, "example": {"name": "my_local_backup.zip", "recipes": true, "settings": true, "themes": true, "groups": true, "users": true}}, "Imports": {"title": "Imports", "required": ["imports", "templates"], "type": "object", "properties": {"imports": {"title": "Imports", "type": "array", "items": {"$ref": "#/components/schemas/LocalBackup"}}, "templates": {"title": "Templates", "type": "array", "items": {"type": "string"}}}, "example": {"imports": [{"name": "AutoBackup_12-1-2020.zip", "date": "2021-07-24T11:26:03.969627"}], "templates": ["recipes.md", "custom_template.md"]}}, "ListItem": {"title": "ListItem", "type": "object", "properties": {"title": {"title": "Title", "type": "string"}, "text": {"title": "Text", "type": "string", "default": ""}, "quantity": {"title": "Quantity", "type": "integer", "default": 1}, "checked": {"title": "Checked", "type": "boolean", "default": false}}}, "LocalBackup": {"title": "LocalBackup", "required": ["name", "date"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "date": {"title": "Date", "type": "string", "format": "date-time"}}}, "LoingLiveTokenIn": {"title": "LoingLiveTokenIn", "required": ["name"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}}}, "LongLiveTokenOut": {"title": "LongLiveTokenOut", "required": ["name", "id"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "id": {"title": "Id", "type": "integer"}}}, "MealDayIn": {"title": "MealDayIn", "required": ["meals"], "type": "object", "properties": {"date": {"title": "Date", "type": "string", "format": "date"}, "meals": {"title": "Meals", "type": "array", "items": {"$ref": "#/components/schemas/MealIn"}}}}, "MealIn": {"title": "MealIn", "type": "object", "properties": {"slug": {"title": "Slug", "type": "string"}, "name": {"title": "Name", "type": "string"}, "description": {"title": "Description", "type": "string"}}}, "MealPlanIn": {"title": "MealPlanIn", "required": ["group", "startDate", "endDate", "planDays"], "type": "object", "properties": {"group": {"title": "Group", "type": "string"}, "startDate": {"title": "Startdate", "type": "string", "format": "date"}, "endDate": {"title": "Enddate", "type": "string", "format": "date"}, "planDays": {"title": "Plandays", "type": "array", "items": {"$ref": "#/components/schemas/MealDayIn"}}}}, "MealPlanOut": {"title": "MealPlanOut", "required": ["group", "startDate", "endDate", "planDays", "uid"], "type": "object", "properties": {"group": {"title": "Group", "type": "string"}, "startDate": {"title": "Startdate", "type": "string", "format": "date"}, "endDate": {"title": "Enddate", "type": "string", "format": "date"}, "planDays": {"title": "Plandays", "type": "array", "items": {"$ref": "#/components/schemas/MealDayIn"}}, "uid": {"title": "Uid", "type": "integer"}, "shoppingList": {"title": "Shoppinglist", "type": "integer"}}}, "Migration": {"title": "Migration", "enum": ["nextcloud", "chowdown"], "type": "string", "description": "The class defining the supported types of migrations for Mealie. Pass the\nclass attribute of the class instead of the string when using."}, "MigrationFile": {"title": "MigrationFile", "required": ["name", "date"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "date": {"title": "Date", "type": "string", "format": "date-time"}}}, "Migrations": {"title": "Migrations", "required": ["type"], "type": "object", "properties": {"type": {"title": "Type", "type": "string"}, "files": {"title": "Files", "type": "array", "items": {"$ref": "#/components/schemas/MigrationFile"}, "default": []}}}, "Nutrition": {"title": "Nutrition", "type": "object", "properties": {"calories": {"title": "Calories", "type": "string"}, "fatContent": {"title": "Fatcontent", "type": "string"}, "proteinContent": {"title": "Proteincontent", "type": "string"}, "carbohydrateContent": {"title": "Carbohydratecontent", "type": "string"}, "fiberContent": {"title": "Fibercontent", "type": "string"}, "sodiumContent": {"title": "Sodiumcontent", "type": "string"}, "sugarContent": {"title": "Sugarcontent", "type": "string"}}}, "Recipe": {"title": "Recipe", "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "name": {"title": "Name", "type": "string"}, "slug": {"title": "Slug", "type": "string", "default": ""}, "image": {"title": "Image"}, "description": {"title": "Description", "type": "string"}, "recipeCategory": {"title": "Recipecategory", "type": "array", "items": {"type": "string"}, "default": []}, "tags": {"title": "Tags", "type": "array", "items": {"type": "string"}, "default": []}, "rating": {"title": "Rating", "type": "integer"}, "dateAdded": {"title": "Dateadded", "type": "string", "format": "date"}, "dateUpdated": {"title": "Dateupdated", "type": "string", "format": "date-time"}, "recipeYield": {"title": "Recipeyield", "type": "string"}, "recipeIngredient": {"title": "Recipeingredient", "type": "array", "items": {"$ref": "#/components/schemas/RecipeIngredient"}}, "recipeInstructions": {"title": "Recipeinstructions", "type": "array", "items": {"$ref": "#/components/schemas/RecipeStep"}}, "nutrition": {"$ref": "#/components/schemas/Nutrition"}, "tools": {"title": "Tools", "type": "array", "items": {"type": "string"}, "default": []}, "totalTime": {"title": "Totaltime", "type": "string"}, "prepTime": {"title": "Preptime", "type": "string"}, "performTime": {"title": "Performtime", "type": "string"}, "settings": {"title": "Settings", "allOf": [{"$ref": "#/components/schemas/RecipeSettings"}], "default": {"public": false, "show_nutrition": false, "show_assets": false, "landscape_view": false, "disable_comments": false, "disable_amount": false}}, "assets": {"title": "Assets", "type": "array", "items": {"$ref": "#/components/schemas/RecipeAsset"}, "default": []}, "notes": {"title": "Notes", "type": "array", "items": {"$ref": "#/components/schemas/RecipeNote"}, "default": []}, "orgURL": {"title": "Orgurl", "type": "string"}, "extras": {"title": "Extras", "type": "object", "default": {}}, "comments": {"title": "Comments", "type": "array", "items": {"$ref": "#/components/schemas/CommentOut"}, "default": []}}, "example": {"name": "Chicken and Rice With Leeks and Salsa Verde", "description": "This one-skillet dinner gets deep oniony flavor from lots of leeks cooked down to jammy tenderness.", "image": "chicken-and-rice-with-leeks-and-salsa-verde.jpg", "recipe_yield": "4 Servings", "recipe_ingredient": ["1 1/2 lb. skinless, boneless chicken thighs (4-8 depending on size)", "Kosher salt, freshly ground pepper", "3 Tbsp. unsalted butter, divided"], "recipe_instructions": [{"text": "Season chicken with salt and pepper."}], "slug": "chicken-and-rice-with-leeks-and-salsa-verde", "tags": ["favorite", "yummy!"], "recipe_category": ["Dinner", "Pasta"], "notes": [{"title": "Watch Out!", "text": "Prep the day before!"}], "org_url": "https://www.bonappetit.com/recipe/chicken-and-rice-with-leeks-and-salsa-verde", "rating": 3, "extras": {"message": "Don't forget to defrost the chicken!"}}}, "RecipeAsset": {"title": "RecipeAsset", "required": ["name", "icon"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "icon": {"title": "Icon", "type": "string"}, "fileName": {"title": "Filename", "type": "string"}}}, "RecipeCategoryResponse": {"title": "RecipeCategoryResponse", "required": ["name", "id", "slug"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "id": {"title": "Id", "type": "integer"}, "slug": {"title": "Slug", "type": "string"}, "recipes": {"title": "Recipes", "type": "array", "items": {"$ref": "#/components/schemas/Recipe"}}}, "example": {"id": 1, "name": "dinner", "recipes": [{}]}}, "RecipeIngredient": {"title": "RecipeIngredient", "type": "object", "properties": {"title": {"title": "Title", "type": "string"}, "note": {"title": "Note", "type": "string"}, "unit": {"$ref": "#/components/schemas/RecipeIngredientUnit"}, "food": {"$ref": "#/components/schemas/RecipeIngredientFood"}, "disableAmount": {"title": "Disableamount", "type": "boolean", "default": true}, "quantity": {"title": "Quantity", "type": "integer", "default": 1}}}, "RecipeIngredientFood": {"title": "RecipeIngredientFood", "type": "object", "properties": {"name": {"title": "Name", "type": "string", "default": ""}, "description": {"title": "Description", "type": "string", "default": ""}}}, "RecipeIngredientUnit": {"title": "RecipeIngredientUnit", "type": "object", "properties": {"name": {"title": "Name", "type": "string", "default": ""}, "description": {"title": "Description", "type": "string", "default": ""}}}, "RecipeNote": {"title": "RecipeNote", "required": ["title", "text"], "type": "object", "properties": {"title": {"title": "Title", "type": "string"}, "text": {"title": "Text", "type": "string"}}}, "RecipeSettings": {"title": "RecipeSettings", "type": "object", "properties": {"public": {"title": "Public", "type": "boolean", "default": false}, "showNutrition": {"title": "Shownutrition", "type": "boolean", "default": false}, "showAssets": {"title": "Showassets", "type": "boolean", "default": false}, "landscapeView": {"title": "Landscapeview", "type": "boolean", "default": false}, "disableComments": {"title": "Disablecomments", "type": "boolean", "default": false}, "disableAmount": {"title": "Disableamount", "type": "boolean", "default": false}}}, "RecipeStep": {"title": "RecipeStep", "required": ["text"], "type": "object", "properties": {"title": {"title": "Title", "type": "string", "default": ""}, "text": {"title": "Text", "type": "string"}}}, "RecipeSummary": {"title": "RecipeSummary", "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "name": {"title": "Name", "type": "string"}, "slug": {"title": "Slug", "type": "string", "default": ""}, "image": {"title": "Image"}, "description": {"title": "Description", "type": "string"}, "recipeCategory": {"title": "Recipecategory", "type": "array", "items": {"type": "string"}, "default": []}, "tags": {"title": "Tags", "type": "array", "items": {"type": "string"}, "default": []}, "rating": {"title": "Rating", "type": "integer"}, "dateAdded": {"title": "Dateadded", "type": "string", "format": "date"}, "dateUpdated": {"title": "Dateupdated", "type": "string", "format": "date-time"}}}, "RecipeTagResponse": {"title": "RecipeTagResponse", "required": ["name", "id", "slug"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "id": {"title": "Id", "type": "integer"}, "slug": {"title": "Slug", "type": "string"}, "recipes": {"title": "Recipes", "type": "array", "items": {"$ref": "#/components/schemas/Recipe"}}}, "example": {"id": 1, "name": "dinner", "recipes": [{}]}}, "RecipeURLIn": {"title": "RecipeURLIn", "required": ["url"], "type": "object", "properties": {"url": {"title": "Url", "type": "string"}}, "example": {"url": "https://myfavoriterecipes.com/recipes"}}, "ShoppingListIn": {"title": "ShoppingListIn", "required": ["name", "items"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "group": {"title": "Group", "type": "string"}, "items": {"title": "Items", "type": "array", "items": {"$ref": "#/components/schemas/ListItem"}}}}, "ShoppingListOut": {"title": "ShoppingListOut", "required": ["name", "items", "id"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "group": {"title": "Group", "type": "string"}, "items": {"title": "Items", "type": "array", "items": {"$ref": "#/components/schemas/ListItem"}}, "id": {"title": "Id", "type": "integer"}}}, "SignUpIn": {"title": "SignUpIn", "required": ["name", "admin"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}}}, "SignUpOut": {"title": "SignUpOut", "required": ["name", "admin", "token", "id"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}, "token": {"title": "Token", "type": "string"}, "id": {"title": "Id", "type": "integer"}}}, "SignUpToken": {"title": "SignUpToken", "required": ["name", "admin", "token"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}, "token": {"title": "Token", "type": "string"}}}, "SiteSettings": {"title": "SiteSettings", "type": "object", "properties": {"language": {"title": "Language", "type": "string", "default": "en-US"}, "firstDayOfWeek": {"title": "Firstdayofweek", "type": "integer", "default": 0}, "showRecent": {"title": "Showrecent", "type": "boolean", "default": true}, "cardsPerSection": {"title": "Cardspersection", "type": "integer", "default": 9}, "categories": {"title": "Categories", "type": "array", "items": {"$ref": "#/components/schemas/CategoryBase"}, "default": []}}, "example": {"language": "en", "firstDayOfWeek": 0, "showRecent": true, "categories": [{"id": 1, "name": "thanksgiving", "slug": "thanksgiving"}, {"id": 2, "name": "homechef", "slug": "homechef"}, {"id": 3, "name": "potatoes", "slug": "potatoes"}]}}, "SiteTheme": {"title": "SiteTheme", "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "name": {"title": "Name", "type": "string", "default": "default"}, "colors": {"title": "Colors", "allOf": [{"$ref": "#/components/schemas/Colors"}], "default": {"primary": "#E58325", "accent": "#00457A", "secondary": "#973542", "success": "#43A047", "info": "#1976D2", "warning": "#FF6F00", "error": "#EF5350"}}}, "example": {"name": "default", "colors": {"primary": "#E58325", "accent": "#00457A", "secondary": "#973542", "success": "#5AB1BB", "info": "#4990BA", "warning": "#FF4081", "error": "#EF5350"}}}, "TagIn": {"title": "TagIn", "required": ["name"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}}}, "TestEvent": {"title": "TestEvent", "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "testUrl": {"title": "Testurl", "type": "string"}}}, "UpdateGroup": {"title": "UpdateGroup", "required": ["name", "id", "webhookEnable"], "type": "object", "properties": {"name": {"title": "Name", "type": "string"}, "id": {"title": "Id", "type": "integer"}, "categories": {"title": "Categories", "type": "array", "items": {"$ref": "#/components/schemas/CategoryBase"}, "default": []}, "webhookUrls": {"title": "Webhookurls", "type": "array", "items": {"type": "string"}, "default": []}, "webhookTime": {"title": "Webhooktime", "type": "string", "default": "00:00"}, "webhookEnable": {"title": "Webhookenable", "type": "boolean"}}}, "UserFavorites": {"title": "UserFavorites", "required": ["email", "admin"], "type": "object", "properties": {"username": {"title": "Username", "type": "string"}, "fullName": {"title": "Fullname", "type": "string"}, "email": {"title": "Email", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}, "group": {"title": "Group", "type": "string"}, "favoriteRecipes": {"title": "Favoriterecipes", "type": "array", "items": {"$ref": "#/components/schemas/RecipeSummary"}, "default": []}}}, "UserIn": {"title": "UserIn", "required": ["email", "admin", "password"], "type": "object", "properties": {"username": {"title": "Username", "type": "string"}, "fullName": {"title": "Fullname", "type": "string"}, "email": {"title": "Email", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}, "group": {"title": "Group", "type": "string"}, "favoriteRecipes": {"title": "Favoriterecipes", "type": "array", "items": {"type": "string"}, "default": []}, "password": {"title": "Password", "type": "string"}}}, "UserOut": {"title": "UserOut", "required": ["email", "admin", "group", "id"], "type": "object", "properties": {"username": {"title": "Username", "type": "string"}, "fullName": {"title": "Fullname", "type": "string"}, "email": {"title": "Email", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}, "group": {"title": "Group", "type": "string"}, "favoriteRecipes": {"title": "Favoriterecipes", "type": "array", "items": {"type": "string"}, "default": []}, "id": {"title": "Id", "type": "integer"}, "tokens": {"title": "Tokens", "type": "array", "items": {"$ref": "#/components/schemas/LongLiveTokenOut"}}}}, "ValidationError": {"title": "ValidationError", "required": ["loc", "msg", "type"], "type": "object", "properties": {"loc": {"title": "Location", "type": "array", "items": {"type": "string"}}, "msg": {"title": "Message", "type": "string"}, "type": {"title": "Error Type", "type": "string"}}}, "mealie__schema__comments__UserBase": {"title": "UserBase", "required": ["id", "admin"], "type": "object", "properties": {"id": {"title": "Id", "type": "integer"}, "username": {"title": "Username", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}}}, "mealie__schema__user__UserBase": {"title": "UserBase", "required": ["email", "admin"], "type": "object", "properties": {"username": {"title": "Username", "type": "string"}, "fullName": {"title": "Fullname", "type": "string"}, "email": {"title": "Email", "type": "string"}, "admin": {"title": "Admin", "type": "boolean"}, "group": {"title": "Group", "type": "string"}, "favoriteRecipes": {"title": "Favoriterecipes", "type": "array", "items": {"type": "string"}, "default": []}}}}, "securitySchemes": {"OAuth2PasswordBearer": {"type": "oauth2", "flows": {"password": {"scopes": {}, "tokenUrl": "/api/auth/token"}}}}}};
+    Redoc.init(spec, {}, document.getElementById("redoc-container"));
+</script>
+
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mealie" class="md-nav__button md-logo" aria-label="Mealie" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.1 13.34 3.91 9.16a4.008 4.008 0 0 1 0-5.66l7.02 7-2.83 2.84m5.31-.34 6.88 6.88-1.41 1.41L12 14.41l-6.88 6.88-1.41-1.41 9.65-9.66-.2-.22a1.98 1.98 0 0 1 0-2.81l4.34-4.37.93.92L15.19 7l.96.94 3.24-3.25.92.92-3.25 3.24.94.96 3.26-3.25.92.94-4.37 4.34c-.78.78-2.04.78-2.81 0l-.22-.2L13.41 13z"/></svg>
+
+    </a>
+    Mealie
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hay-kot/mealie/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hay-kot/mealie
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/getting-started/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/getting-started/install/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/getting-started/updating/" class="md-nav__link">
+        Updating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/getting-started/api-usage/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" data-md-state="indeterminate" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Recipes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Recipes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Recipes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/recipes/recipes/" class="md-nav__link">
+        Working With Recipes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/recipes/organizing-recipes/" class="md-nav__link">
+        Organizing Recipes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" data-md-state="indeterminate" type="checkbox" id="__nav_2_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          Users & Groups
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users & Groups" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Users & Groups
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/users-groups/user-settings/" class="md-nav__link">
+        User Settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/users-groups/meal-planner/" class="md-nav__link">
+        Planning Meals
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" data-md-state="indeterminate" type="checkbox" id="__nav_2_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Admin
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Admin" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Admin
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/admin/dashboard/" class="md-nav__link">
+        Dashboard
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/admin/site-settings/" class="md-nav__link">
+        Site Settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/admin/building-pages/" class="md-nav__link">
+        Building Pages
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/admin/user-management/" class="md-nav__link">
+        User Management
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/admin/backups-and-exports/" class="md-nav__link">
+        Backups and Restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/admin/migration-imports/" class="md-nav__link">
+        Recipe Migration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" data-md-state="indeterminate" type="checkbox" id="__nav_2_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Toolbox
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Toolbox" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Toolbox
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/toolbox/notifications/" class="md-nav__link">
+        External Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/toolbox/organize-tools/" class="md-nav__link">
+        Organization Tools
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" data-md-state="indeterminate" type="checkbox" id="__nav_2_9" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Community Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community Guides" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Community Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/community-guide/ios/" class="md-nav__link">
+        iOS Shortcuts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/community-guide/swag/" class="md-nav__link">
+        Reverse Proxy (SWAG)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/community-guide/home-assistant/" class="md-nav__link">
+        Home Assistant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documentation/community-guide/bulk-url-import/" class="md-nav__link">
+        Bulk Url Import
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        API Reference
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Contributors Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Contributors Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Contributors Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors/non-coders/" class="md-nav__link">
+        Non-Code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors/translating/" class="md-nav__link">
+        Translating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" data-md-state="indeterminate" type="checkbox" id="__nav_4_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Developers Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Developers Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors/developers-guide/code-contributions/" class="md-nav__link">
+        Code Contributions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors/developers-guide/starting-dev-server/" class="md-nav__link">
+        Dev Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors/developers-guide/general-guidelines/" class="md-nav__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors/developers-guide/style-guide/" class="md-nav__link">
+        Style Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        Development Road Map
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Change Log
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Change Log" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Change Log
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.5.6/" class="md-nav__link">
+        v0.5.6 Bug Fixes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.5.5/" class="md-nav__link">
+        v0.5.5 Bug Fixes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.5.4/" class="md-nav__link">
+        v0.5.4 Bug Fixes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.5.3/" class="md-nav__link">
+        v0.5.3 Bug Fixes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.5.2/" class="md-nav__link">
+        v0.5.2 Misc Updates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.5.1/" class="md-nav__link">
+        v0.5.1 Bug Fixes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.5.0/" class="md-nav__link">
+        v0.5.0 General Upgrades
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.4.3/" class="md-nav__link">
+        v0.4.3 Hot Fix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.4.2/" class="md-nav__link">
+        v0.4.2 Backend/Migrations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.4.1/" class="md-nav__link">
+        v0.4.1 Frontend/UI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.4.0/" class="md-nav__link">
+        v0.4.0 Authentication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.3.0/" class="md-nav__link">
+        v0.3.0 Improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.2.0/" class="md-nav__link">
+        v0.2.0 Now With Tests!
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.1.0/" class="md-nav__link">
+        v0.1.0 Beta
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.expand", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      
+        <script src="../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>
