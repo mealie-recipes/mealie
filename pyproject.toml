@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mealie"
-version = "0.5.5"
+version = "0.5.6"
 description = "A Recipe Manager"
 authors = ["Hayden <hay-kot@pm.me>"]
 license = "MIT"
