@@ -5,22 +5,24 @@
     </v-card>
     <NoRecipe v-else-if="loadFailed" />
     <v-card v-else-if="!loadFailed" id="myRecipe" class="d-print-none">
-    <a :href="getImage(recipeDetails.slug)">
-      <v-img
-        :min-height="hideImage ? '50' : imageHeight"
-        @error="hideImage = true"
-        :src="getImage(recipeDetails.slug)"
-        class="d-print-none"
-        :key="imageKey"
-      >
-        <RecipeTimeCard
-          :class="isMobile ? undefined : 'force-bottom'"
-          :prepTime="recipeDetails.prepTime"
-          :totalTime="recipeDetails.totalTime"
-          :performTime="recipeDetails.performTime"
-        />
-      </v-img>
-    </a>
+      <a :href="getImage(recipeDetails.slug)">
+        <v-img
+          :max-width="enableLandscape ? null : '50%'"
+          min-height="50"
+          :height="hideImage ? undefined : imageHeight"
+          @error="hideImage = true"
+          :src="getImage(recipeDetails.slug)"
+          class="d-print-none"
+          :key="imageKey"
+        >
+          <RecipeTimeCard
+            :class="isMobile ? undefined : 'force-bottom'"
+            :prepTime="recipeDetails.prepTime"
+            :totalTime="recipeDetails.totalTime"
+            :performTime="recipeDetails.performTime"
+          />
+        </v-img>
+      </a>
       <RecipePageActionMenu
         :slug="recipeDetails.slug"
         :name="recipeDetails.name"
