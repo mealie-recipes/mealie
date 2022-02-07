@@ -7,10 +7,12 @@ from tests.utils.fixture_schemas import TestUser
 
 def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_user: TestUser):
     # Bootstrap the database with categories
+    slug1, slug2, slug3 = [random_string(10) for _ in range(3)]
+
     categories = [
-        RecipeCategory(name="Breakfast", slug="breakfast"),
-        RecipeCategory(name="Lunch", slug="lunch"),
-        RecipeCategory(name="Dinner", slug="dinner"),
+        RecipeCategory(name=slug1, slug=slug1),
+        RecipeCategory(name=slug2, slug=slug2),
+        RecipeCategory(name=slug3, slug=slug3),
     ]
 
     created_categories = []
@@ -49,7 +51,6 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
 
     for category in created_categories:
         repo: RepositoryRecipes = database.recipes.by_group(unique_user.group_id)
-        print(category)
         recipes = repo.get_by_categories([category])
 
         assert len(recipes) == 5
@@ -63,9 +64,11 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
 
 
 def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_user: TestUser):
+    slug1, slug2 = [random_string(10) for _ in range(2)]
+
     categories = [
-        RecipeCategory(name="Side Dish", slug="side-dish"),
-        # RecipeCategory(name="Bread", slug="b"),
+        RecipeCategory(name=slug1, slug=slug1),
+        RecipeCategory(name=slug2, slug=slug2),
     ]
 
     created_categories = []
