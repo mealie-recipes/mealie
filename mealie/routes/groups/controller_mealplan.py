@@ -2,7 +2,7 @@ from datetime import date, timedelta
 from functools import cached_property
 from typing import Type
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.repository_meals import RepositoryMeals
@@ -10,6 +10,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
+from mealie.schema.meal_plan.new_meal import CreatRandomEntry
 
 router = APIRouter(prefix="/groups/mealplans", tags=["Groups: Mealplans"])
 
@@ -34,9 +35,29 @@ class GroupMealplanController(BaseUserController):
             self.registered_exceptions,
         )
 
-    @router.get("/today", tags=["Groups: Mealplans"])
+    @router.get("/today")
     def get_todays_meals(self):
         return self.repo.get_today(group_id=self.group_id)
+
+    @router.post("/random", response_model=ReadPlanEntry)
+    def create_random_meal(self, data: CreatRandomEntry):
+        """
+        create_random_meal is a route that provides the randomized funcitonality for mealplaners.
+        It operates by following the rules setout in the Groups mealplan settings. If not settings
+        are set, it will default return any random meal.
+
+        Refer to the mealplan settings routes for more information on how rules can be applied
+        to the random meal selector.
+        """
+        # Get relavent group settings
+
+        # Make DB Query
+
+        # Assign Meal to day
+
+        # Return meal
+
+        raise HTTPException("Not implemented")
 
     @router.get("", response_model=list[ReadPlanEntry])
     def get_all(self, start: date = None, limit: date = None):
