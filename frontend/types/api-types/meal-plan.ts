@@ -7,6 +7,10 @@
 
 export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "snack";
 
+export interface CreatRandomEntry {
+  date: string;
+  entryType?: PlanEntryType & string;
+}
 export interface CreatePlanEntry {
   date: string;
   entryType?: PlanEntryType & string;
@@ -71,7 +75,7 @@ export interface RecipeSummary {
   cookTime?: string;
   performTime?: string;
   description?: string;
-  recipeCategory?: RecipeTag[];
+  recipeCategory?: RecipeCategory[];
   tags?: RecipeTag[];
   tools?: RecipeTool[];
   rating?: number;
@@ -80,14 +84,20 @@ export interface RecipeSummary {
   dateAdded?: string;
   dateUpdated?: string;
 }
+export interface RecipeCategory {
+  id?: number;
+  name: string;
+  slug: string;
+}
 export interface RecipeTag {
+  id?: number;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
+  id?: number;
   name: string;
   slug: string;
-  id?: number;
   onHand?: boolean;
 }
 export interface RecipeIngredient {
@@ -116,8 +126,8 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  label?: MultiPurposeLabelSummary;
   id: number;
+  label?: MultiPurposeLabelSummary;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -129,7 +139,6 @@ export interface CreateIngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  label?: MultiPurposeLabelSummary;
 }
 export interface SavePlanEntry {
   date: string;
