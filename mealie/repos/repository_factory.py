@@ -88,7 +88,7 @@ class AllRepositories:
         self.session = session
 
     # ================================================================
-    # Recipe 
+    # Recipe
 
     @cached_property
     def recipes(self) -> RepositoryRecipes:
