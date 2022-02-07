@@ -15,8 +15,6 @@ from .cookbook import CookBook
 from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
 
-settings = get_app_settings()
-
 
 class Group(SqlAlchemyBase, BaseMixins):
     __tablename__ = "groups"
@@ -75,6 +73,8 @@ class Group(SqlAlchemyBase, BaseMixins):
 
     @staticmethod
     def get_ref(session: Session, name: str):
+        settings = get_app_settings()
+
         item = session.query(Group).filter(Group.name == name).one_or_none()
         if item is None:
             item = session.query(Group).filter(Group.name == settings.DEFAULT_GROUP).one()
