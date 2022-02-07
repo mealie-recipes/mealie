@@ -23,6 +23,7 @@ import { GroupReportsApi } from "./class-interfaces/group-reports";
 import { ShoppingApi } from "./class-interfaces/group-shopping-lists";
 import { MultiPurposeLabelsApi } from "./class-interfaces/group-multiple-purpose-labels";
 import { GroupEventNotifierApi } from "./class-interfaces/group-event-notifier";
+import { MealPlanRulesApi } from "./class-interfaces/group-mealplan-rules";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -40,6 +41,7 @@ class Api {
   public groupWebhooks: WebhooksAPI;
   public register: RegisterAPI;
   public mealplans: MealPlanAPI;
+  public mealplanRules: MealPlanRulesApi;
   public email: EmailAPI;
   public bulk: BulkActionsAPI;
   public groupMigration: GroupMigrationApi;
@@ -67,6 +69,7 @@ class Api {
     this.groupWebhooks = new WebhooksAPI(requests);
     this.register = new RegisterAPI(requests);
     this.mealplans = new MealPlanAPI(requests);
+    this.mealplanRules = new MealPlanRulesApi(requests);
     this.grouperServerTasks = new GroupServerTaskAPI(requests);
 
     // Group
