@@ -195,6 +195,7 @@ class AllRepositories:
     def group_meal_plan_rules(self) -> RepositoryGeneric[PlanRulesOut, GroupMealPlanRules]:
         return RepositoryGeneric(self.session, PK_ID, GroupMealPlanRules, PlanRulesOut)
 
+    @cached_property
     def webhooks(self) -> RepositoryGeneric[ReadWebhook, GroupWebhooksModel]:
         return RepositoryGeneric(self.session, PK_ID, GroupWebhooksModel, ReadWebhook)
 
