@@ -6,7 +6,13 @@
 */
 
 export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "snack";
+export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
+export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "unset";
 
+export interface Category {
+  id: number;
+  slug: string;
+}
 export interface CreatRandomEntry {
   date: string;
   entryType?: PlanEntryType & string;
@@ -51,6 +57,24 @@ export interface MealPlanOut {
   planDays: MealDayIn[];
   id: number;
   shoppingList?: number;
+}
+export interface PlanRulesCreate {
+  day?: PlanRulesDay & string;
+  entryType?: PlanRulesType & string;
+  categories?: Category[];
+}
+export interface PlanRulesOut {
+  day?: PlanRulesDay & string;
+  entryType?: PlanRulesType & string;
+  categories?: Category[];
+  groupId: string;
+  id: string;
+}
+export interface PlanRulesSave {
+  day?: PlanRulesDay & string;
+  entryType?: PlanRulesType & string;
+  categories?: Category[];
+  groupId: string;
 }
 export interface ReadPlanEntry {
   date: string;
