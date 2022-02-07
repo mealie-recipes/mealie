@@ -8,7 +8,8 @@ from . import (
     controller_invitations,
     controller_labels,
     controller_mealplan,
-    controller_meaplan_config,
+    controller_mealplan_config,
+    controller_mealplan_rules,
     controller_migrations,
     controller_shopping_lists,
     controller_webhooks,
@@ -17,9 +18,10 @@ from . import (
 router = APIRouter()
 
 router.include_router(controller_group_self_service.router)
+router.include_router(controller_mealplan_rules.router)
+router.include_router(controller_mealplan_config.router)
 router.include_router(controller_mealplan.router)
 router.include_router(controller_cookbooks.router)
-router.include_router(controller_meaplan_config.router)
 router.include_router(controller_webhooks.router)
 router.include_router(controller_invitations.router)
 router.include_router(controller_migrations.router)
