@@ -2,7 +2,7 @@ from random import randint
 from typing import Any
 from uuid import UUID
 
-from sqlalchemy import func
+from sqlalchemy import and_, func
 from sqlalchemy.orm import joinedload
 
 from mealie.db.models.recipe.category import Category
@@ -104,27 +104,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .all()
         ]
 
-    def get_random_by_categories(self, categories: list[RecipeCategory]) -> Recipe:
-        """
-        get_random_by_categories returns a single random Recipe that contains every category provided
-        in the list. This uses a function built in to Postgres and SQLite to get a random row limited
-        to 1 entry.
-        """
-
-        # See Also:
-        # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
-
-        ids = [x.id for x in categories]
-
-        return [
-            self.schema.from_orm(x)
-            for x in self.session.query(RecipeModel)
-            .join(RecipeModel.recipe_category)
-            .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
-            .order_by(func.random())  # Postgres and SQLite specific
-            .limit(1)
-        ]
-
     def get_random_by_categories_and_tags(self, categories: list[RecipeCategory], tags: list[RecipeTag]) -> Recipe:
         """
         get_random_by_categories returns a single random Recipe that contains every category provided
@@ -135,20 +114,24 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # See Also:
         # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
-        filter = []
+        filters = [
+            RecipeModel.group_id == self.group_id,
+        ]
 
         if categories:
             cat_ids = [x.id for x in categories]
-            filter.append(RecipeModel.recipe_category.any(Category.id.in_(cat_ids)))
+            for cat_id in cat_ids:
+                filters.append(RecipeModel.recipe_category.any(Category.id.is_(cat_id)))
 
         if tags:
             tag_ids = [x.id for x in tags]
-            filter.append(RecipeModel.tags.any(Tag.id.in_(tag_ids)))
+            for tag_id in tag_ids:
+                filters.append(RecipeModel.tags.any(Tag.id.is_(tag_id)))
 
         return [
             self.schema.from_orm(x)
             for x in self.session.query(RecipeModel)
-            .filter(*filter)
+            .filter(and_(*filters))
             .order_by(func.random())  # Postgres and SQLite specific
             .limit(1)
         ]
@@ -157,6 +140,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         return [
             self.schema.from_orm(x)
             for x in self.session.query(RecipeModel)
+            .filter(RecipeModel.group_id == self.group_id)
             .order_by(func.random())  # Postgres and SQLite specific
             .limit(limit)
         ]
