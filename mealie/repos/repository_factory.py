@@ -29,6 +29,7 @@ from mealie.db.models.server.task import ServerTaskModel
 from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
+from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.events import Event as EventSchema
 from mealie.schema.group.group_events import GroupEventNotifierOut
@@ -192,8 +193,8 @@ class AllRepositories:
         return RepositoryMeals(self.session, PK_ID, GroupMealPlan, ReadPlanEntry)
 
     @cached_property
-    def group_meal_plan_rules(self) -> RepositoryGeneric[PlanRulesOut, GroupMealPlanRules]:
-        return RepositoryGeneric(self.session, PK_ID, GroupMealPlanRules, PlanRulesOut)
+    def group_meal_plan_rules(self) -> RepositoryMealPlanRules:
+        return RepositoryMealPlanRules(self.session, PK_ID, GroupMealPlanRules, PlanRulesOut)
 
     @cached_property
     def webhooks(self) -> RepositoryGeneric[ReadWebhook, GroupWebhooksModel]:
