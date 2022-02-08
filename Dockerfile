@@ -96,7 +96,7 @@ RUN echo "crfpp-container"
 ###############################################
 FROM python-base as production
 ENV PRODUCTION=true
-ENV TESTING = false
+ENV TESTING=false
 
 # curl for used by healthcheck
 RUN apt-get update \
