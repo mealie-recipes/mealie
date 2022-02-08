@@ -7,6 +7,7 @@ from pydantic import UUID4
 
 class Category(CamelModel):
     id: int
+    name: str
     slug: str
 
     class Config:
