@@ -24,6 +24,7 @@
           :day.sync="createData.day"
           :entry-type.sync="createData.entryType"
           :categories.sync="createData.categories"
+          :tags.sync="createData.tags"
         />
       </v-card-text>
       <v-card-actions class="justify-end">
@@ -59,13 +60,15 @@
             </v-card-title>
             <v-card-text>
               <template v-if="!editState[rule.id]">
-                Categories: {{ rule.categories.map((c) => c.name).join(", ") }}
+                <div>Categories: {{ rule.categories.map((c) => c.name).join(", ") }}</div>
+                <div>Tags: {{ rule.tags.map((t) => t.name).join(", ") }}</div>
               </template>
               <template v-else>
                 <GroupMealPlanRuleForm
                   :day.sync="allRules[idx].day"
                   :entry-type.sync="allRules[idx].entryType"
                   :categories.sync="allRules[idx].categories"
+                  :tags.sync="allRules[idx].tags"
                 />
                 <div class="d-flex justify-end">
                   <BaseButton update @click="updateRule(rule)" />
@@ -128,6 +131,7 @@ export default defineComponent({
       entryType: "unset",
       day: "unset",
       categories: [],
+      tags: [],
     });
 
     async function createRule() {
@@ -138,6 +142,7 @@ export default defineComponent({
           entryType: "unset",
           day: "unset",
           categories: [],
+          tags: [],
         };
       }
     }

@@ -11,6 +11,7 @@ export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "unset";
 
 export interface Category {
   id: number;
+  name: string;
   slug: string;
 }
 export interface CreatRandomEntry {
@@ -62,11 +63,18 @@ export interface PlanRulesCreate {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
   categories?: Category[];
+  tags?: Tag[];
+}
+export interface Tag {
+  id: number;
+  name: string;
+  slug: string;
 }
 export interface PlanRulesOut {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
   categories?: Category[];
+  tags?: Tag[];
   groupId: string;
   id: string;
 }
@@ -74,6 +82,7 @@ export interface PlanRulesSave {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
   categories?: Category[];
+  tags?: Tag[];
   groupId: string;
 }
 export interface ReadPlanEntry {

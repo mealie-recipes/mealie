@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Date, ForeignKey, String, orm
 from sqlalchemy.sql.sqltypes import Integer
 
+from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags
+
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
 from ..recipe.category import Category, plan_rules_to_categories
@@ -16,6 +18,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     entry_type = Column(String, nullable=False, default="")  # "breakfast", "lunch", "dinner", "snack"
 
     categories = orm.relationship(Category, secondary=plan_rules_to_categories, uselist=True)
+    tags = orm.relationship(Tag, secondary=plan_rules_to_tags, uselist=True)
 
     @auto_init()
     def __init__(self, **_) -> None:

@@ -6,6 +6,7 @@
     </div>
 
     <RecipeCategoryTagSelector v-model="inputCategories" />
+    <RecipeCategoryTagSelector v-model="inputTags" :tag-selector="true" />
 
     {{ inputDay === "unset" ? "This rule will apply to all days" : `This rule applies on ${inputDay}s` }}
     {{ inputEntryType === "unset" ? "for all meal types" : ` and for ${inputEntryType} meal types` }}
@@ -52,6 +53,10 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
+    tags: {
+      type: Array,
+      default: () => [],
+    },
     showHelp: {
       type: Boolean,
       default: false,
@@ -85,12 +90,22 @@ export default defineComponent({
       },
     });
 
+    const inputTags = computed({
+      get: () => {
+        return props.tags;
+      },
+      set: (val) => {
+        context.emit("update:tags", val);
+      },
+    });
+
     return {
       MEAL_TYPE_OPTIONS,
       MEAL_DAY_OPTIONS,
       inputDay,
       inputEntryType,
       inputCategories,
+      inputTags,
     };
   },
 });
