@@ -1,5 +1,3 @@
-from collections import Counter
-
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory
@@ -115,54 +113,3 @@ def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_u
     for recipe in by_category:
         for category in recipe.recipe_category:
             assert category.id in known_category_ids
-
-
-def test_recipe_repo_get_random_by_categories(database: AllRepositories, unique_user: TestUser):
-    # Setup Category
-    category_slug = random_string(10)
-    test_category = RecipeCategory(name=category_slug, slug=category_slug)
-    category_model = database.categories.create(test_category)
-
-    # Create 30 Recipes
-    recipes = []
-
-    for idx in range(30):
-        category = [category_model] if idx % 2 == 0 else []
-
-        recipe_model = database.recipes.create(
-            Recipe(
-                user_id=unique_user.user_id,
-                group_id=unique_user.group_id,
-                name=random_string(),
-                recipe_category=category,
-            ),
-        )
-
-        recipes.append(recipe_model)
-
-    # Peform Random Recipe Query Multiple Times for Sudo Random Testing
-
-    random_recipes = []
-
-    for _ in range(10):
-        repo: RepositoryRecipes = database.recipes.by_group(unique_user.group_id)
-        recipe = repo.get_random_by_categories([category_model])[0]
-
-        ids = [cat.id for cat in recipe.recipe_category]
-
-        assert category_model.id in ids
-
-        random_recipes.append(recipe)
-
-    # Ensure that each recipe is unique within reason
-    counts = Counter(x.id for x in random_recipes)
-
-    for key, value in counts.items():
-        assert value < 5
-
-    # Cleanup
-
-    for recipe in recipes:
-        database.recipes.delete(recipe.slug)
-
-    database.categories.delete(category_model.slug)
