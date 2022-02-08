@@ -109,9 +109,16 @@ If you are not a coder, you can still contribute financially. financial contribu
 Distributed under the MIT License. See `LICENSE` for more information.
 
 
-<!-- CONTACT -->
-## Contact
-Project Link: [https://github.com/hay-kot/mealie](https://github.com/hay-kot/mealie)
+## Sponsors
+
+Huge thanks to all the sponsors of this project on [Github Sponsors](https://github.com/sponsors/hay-kot) and Buy Me a Coffee. Without you this project would surely not be possible.
+
+Thanks to Linode for providing Hosting for the Demo, Beta, and Documentation sites! Another big thanks to JetBrains for providing their IDEs for development.
+
+<div align='center'>
+  <img height="200" src="docs/docs/assets/img/sponsors-linode.svg" />
+  <img height="200" src="docs/docs/assets/img/sponsors-jetbrains.png" />
+</div>
 
 
 
