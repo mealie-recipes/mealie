@@ -34,32 +34,6 @@ export const useGroupSelf = function () {
   return { actions, group };
 };
 
-export const useGroupCategories = function () {
-  const api = useUserApi();
-
-  const actions = {
-    getAll() {
-      const units = useAsync(async () => {
-        const { data } = await api.groups.getCategories();
-        return data;
-      }, useAsyncKey());
-
-      return units;
-    },
-    async updateAll() {
-      if (!categories.value) {
-        return;
-      }
-      const { data } = await api.groups.setCategories(categories.value);
-      categories.value = data;
-    },
-  };
-
-  const categories = actions.getAll();
-
-  return { actions, categories };
-};
-
 export const useGroups = function () {
   const api = useUserApi();
   const loading = ref(false);

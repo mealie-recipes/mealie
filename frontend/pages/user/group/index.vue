@@ -7,16 +7,6 @@
       <template #title> Group Settings </template>
       These items are shared within your group. Editing one of them will change it for the whole group!
     </BasePageTitle>
-    <section>
-      <BaseCardSectionTitle title="Mealplan Categories">
-        Set the categories below for the ones that you want to be included in your mealplan random generation.
-      </BaseCardSectionTitle>
-      <DomainRecipeCategoryTagSelector v-if="categories" v-model="categories" />
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <BaseButton save @click="actions.updateAll()" />
-      </v-card-actions>
-    </section>
 
     <section v-if="group">
       <BaseCardSectionTitle class="mt-10" title="Group Preferences"></BaseCardSectionTitle>
@@ -82,14 +72,13 @@
     </section>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, useContext } from "@nuxtjs/composition-api";
-import { useGroupCategories, useGroupSelf } from "~/composables/use-groups";
+import { useGroupSelf } from "~/composables/use-groups";
 
 export default defineComponent({
   setup() {
-    const { categories, actions } = useGroupCategories();
     const { group, actions: groupActions } = useGroupSelf();
 
     const { i18n } = useContext();
@@ -126,8 +115,6 @@ export default defineComponent({
     ];
 
     return {
-      categories,
-      actions,
       group,
       groupActions,
       allDays,
@@ -140,5 +127,3 @@ export default defineComponent({
   },
 });
 </script>
-    
-
