@@ -5,7 +5,7 @@ const prefix = "/api";
 
 const routes = {
   rule: `${prefix}/groups/mealplans/rules`,
-  ruleId: (id: string | number) => `${prefix}/api/groups/mealplans/rules${id}`,
+  ruleId: (id: string | number) => `${prefix}/groups/mealplans/rules/${id}`,
 };
 
 export class MealPlanRulesApi extends BaseCRUDAPI<PlanRulesOut, PlanRulesCreate> {
