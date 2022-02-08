@@ -55,6 +55,10 @@ class Group(SqlAlchemyBase, BaseMixins):
     group_reports = orm.relationship("ReportModel", **common_args)
     group_event_notifiers = orm.relationship("GroupEventNotifierModel", **common_args)
 
+    # Owned Models
+    ingredient_units = orm.relationship("IngredientUnitModel", **common_args)
+    ingredient_foods = orm.relationship("IngredientFoodModel", **common_args)
+
     class Config:
         exclude = {
             "users",

@@ -6,22 +6,47 @@ from pytest import fixture
 from starlette.testclient import TestClient
 
 from tests import utils
+from tests.utils.factories import random_string
+
+
+def build_unique_user(group: str, api_client: requests) -> utils.TestUser:
+    api_routes = utils.AppRoutes()
+    group = group or random_string(12)
+
+    registration = utils.user_registration_factory()
+    response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
+    assert response.status_code == 201
+
+    form_data = {"username": registration.username, "password": registration.password}
+
+    token = utils.login(form_data, api_client, api_routes)
+
+    user_data = api_client.get(api_routes.users_self, headers=token).json()
+    assert token is not None
+
+    return utils.TestUser(
+        _group_id=user_data.get("groupId"),
+        user_id=user_data.get("id"),
+        email=user_data.get("email"),
+        token=token,
+    )
 
 
 @fixture(scope="module")
-def g2_user(admin_token, api_client: requests, api_routes: utils.AppRoutes):
+def g2_user(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
+    group = random_string(12)
     # Create the user
     create_data = {
         "fullName": utils.random_string(),
         "username": utils.random_string(),
         "email": utils.random_email(),
         "password": "useruser",
-        "group": "New Group",
+        "group": group,
         "admin": False,
         "tokens": [],
     }
 
-    response = api_client.post(api_routes.groups, json={"name": "New Group"}, headers=admin_token)
+    response = api_client.post(api_routes.groups, json={"name": group}, headers=admin_token)
     response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
 
     assert response.status_code == 201

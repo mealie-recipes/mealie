@@ -9,6 +9,11 @@ from .._model_utils.guid import GUID
 
 class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units"
+
+    # ID Relationships
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
+    group = orm.relationship("Group", back_populates="ingredient_units", foreign_keys=[group_id])
+
     id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
@@ -23,6 +28,11 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
 
 class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_foods"
+
+    # ID Relationships
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
+    group = orm.relationship("Group", back_populates="ingredient_foods", foreign_keys=[group_id])
+
     id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)

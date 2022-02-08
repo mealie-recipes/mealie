@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends
 from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import CrudMixins
+from mealie.schema import mapper
 from mealie.schema.query import GetAll
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, IngredientFood
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, IngredientFood, SaveIngredientFood
 
 router = APIRouter(prefix="/foods", tags=["Recipes: Foods"])
 
@@ -15,11 +16,11 @@ router = APIRouter(prefix="/foods", tags=["Recipes: Foods"])
 class IngredientFoodsController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.deps.repos.ingredient_foods
+        return self.deps.repos.ingredient_foods.by_group(self.group_id)
 
     @cached_property
     def mixins(self):
-        return CrudMixins[CreateIngredientFood, IngredientFood, CreateIngredientFood](
+        return CrudMixins[SaveIngredientFood, IngredientFood, CreateIngredientFood](
             self.repo,
             self.deps.logger,
             self.registered_exceptions,
@@ -31,7 +32,8 @@ class IngredientFoodsController(BaseUserController):
 
     @router.post("", response_model=IngredientFood, status_code=201)
     def create_one(self, data: CreateIngredientFood):
-        return self.mixins.create_one(data)
+        save_data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
+        return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=IngredientFood)
     def get_one(self, item_id: int):

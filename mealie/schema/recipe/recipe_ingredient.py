@@ -17,6 +17,10 @@ class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 = None
 
 
+class SaveIngredientFood(CreateIngredientFood):
+    group_id: UUID4
+
+
 class IngredientFood(CreateIngredientFood):
     id: int
     label: MultiPurposeLabelSummary = None
@@ -28,6 +32,10 @@ class IngredientFood(CreateIngredientFood):
 class CreateIngredientUnit(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
+
+
+class SaveIngredientUnit(CreateIngredientUnit):
+    group_id: UUID4
 
 
 class IngredientUnit(CreateIngredientUnit):
