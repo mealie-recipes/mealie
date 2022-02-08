@@ -14,6 +14,11 @@ class Category(CamelModel):
         orm_mode = True
 
 
+class Tag(Category):
+    class Config:
+        orm_mode = True
+
+
 class PlanRulesDay(str, Enum):
     monday = "monday"
     tuesday = "tuesday"
@@ -44,6 +49,7 @@ class PlanRulesCreate(CamelModel):
     day: PlanRulesDay = PlanRulesDay.unset
     entry_type: PlanRulesType = PlanRulesType.unset
     categories: list[Category] = []
+    tags: list[Tag] = []
 
 
 class PlanRulesSave(PlanRulesCreate):

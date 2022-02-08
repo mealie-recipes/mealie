@@ -9,7 +9,7 @@ from mealie.db.models.recipe.ingredient import RecipeIngredient
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory
+from mealie.schema.recipe.recipe import RecipeCategory, RecipeTag
 
 from .repository_generic import RepositoryGeneric
 
@@ -116,6 +116,31 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             for x in self.session.query(RecipeModel)
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
+            .order_by(func.random())  # Postgres and SQLite specific
+            .limit(1)
+        ]
+
+    def get_random_by_categories_and_tags(self, categories: list[RecipeCategory], tags: list[RecipeTag]) -> Recipe:
+        """
+        get_random_by_categories returns a single random Recipe that contains every category provided
+        in the list. This uses a function built in to Postgres and SQLite to get a random row limited
+        to 1 entry.
+        """
+
+        # See Also:
+        # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
+
+        cat_ids = [x.id for x in categories]
+        tag_ids = [x.id for x in tags]
+
+        return [
+            self.schema.from_orm(x)
+            for x in self.session.query(RecipeModel)
+            .join(RecipeModel.recipe_category)
+            .filter(
+                RecipeModel.recipe_category.any(Category.id.in_(cat_ids)),
+                RecipeModel.tags.any(RecipeTag.id.in_(tag_ids)),
+            )
             .order_by(func.random())  # Postgres and SQLite specific
             .limit(1)
         ]
