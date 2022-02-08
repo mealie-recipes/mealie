@@ -15,7 +15,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
 
     day = Column(String, nullable=False, default="unset")  # "MONDAY", "TUESDAY", "WEDNESDAY", etc...
-    entry_type = Column(String, nullable=False, default="")  # "breakfast", "lunch", "dinner", "snack"
+    entry_type = Column(String, nullable=False, default="")  # "breakfast", "lunch", "dinner", "side"
 
     categories = orm.relationship(Category, secondary=plan_rules_to_categories, uselist=True)
     tags = orm.relationship(Tag, secondary=plan_rules_to_tags, uselist=True)

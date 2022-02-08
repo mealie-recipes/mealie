@@ -21,7 +21,7 @@ const MEAL_TYPE_OPTIONS = [
   { text: "Breakfast", value: "breakfast" },
   { text: "Lunch", value: "lunch" },
   { text: "Dinner", value: "dinner" },
-  { text: "Snack", value: "snack" },
+  { text: "Side", value: "side" },
   { text: "Any", value: "unset" },
 ];
 

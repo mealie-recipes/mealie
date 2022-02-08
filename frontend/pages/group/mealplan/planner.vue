@@ -195,7 +195,7 @@
               @randomBreakfast="randomMeal(plan.date, 'breakfast')"
               @randomLunch="randomMeal(plan.date, 'lunch')"
               @randomDinner="randomMeal(plan.date, 'dinner')"
-              @randomSide="randomMeal(plan.date, 'snack')"
+              @randomSide="randomMeal(plan.date, 'side')"
             />
           </div>
         </template>

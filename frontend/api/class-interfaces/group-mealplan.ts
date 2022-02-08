@@ -9,7 +9,7 @@ const routes = {
   mealplanId: (id: string | number) => `${prefix}/groups/mealplans/${id}`,
 };
 
-type PlanEntryType = "breakfast" | "lunch" | "dinner" | "snack";
+type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
 
 export interface CreateMealPlan {
   date: string;
