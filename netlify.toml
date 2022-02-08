@@ -1,0 +1,7 @@
+[build]
+publish = "docs/site/"
+command = """
+pip3 install mkdocs-material &&
+cd docs &&
+mkdocs build 
+"""
