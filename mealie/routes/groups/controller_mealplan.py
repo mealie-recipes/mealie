@@ -53,11 +53,8 @@ class GroupMealplanController(BaseUserController):
         to the random meal selector.
         """
         # Get relavent group rules
-        rules = self.repos.group_meal_plan_rules.by_group(self.group_id).multi_query(
-            {
-                "day": PlanRulesDay.from_date(data.date),
-                "entry_type": data.entry_type,
-            }
+        rules = self.repos.group_meal_plan_rules.by_group(self.group_id).get_rules(
+            PlanRulesDay.from_date(data.date), data.entry_type.value
         )
 
         recipe_repo = self.repos.recipes.by_group(self.group_id)
