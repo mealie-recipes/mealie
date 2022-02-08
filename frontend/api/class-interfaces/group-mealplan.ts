@@ -1,9 +1,11 @@
 import { BaseCRUDAPI } from "../_base";
+import { CreatRandomEntry } from "~/types/api-types/meal-plan";
 
 const prefix = "/api";
 
 const routes = {
   mealplan: `${prefix}/groups/mealplans`,
+  random: `${prefix}/groups/mealplans/random`,
   mealplanId: (id: string | number) => `${prefix}/groups/mealplans/${id}`,
 };
 
@@ -29,4 +31,9 @@ export interface MealPlan extends UpdateMealPlan {
 export class MealPlanAPI extends BaseCRUDAPI<MealPlan, CreateMealPlan> {
   baseRoute = routes.mealplan;
   itemRoute = routes.mealplanId;
+
+  async setRandom(payload: CreatRandomEntry) {
+    console.log(payload);
+    return await this.requests.post<MealPlan>(routes.random, payload);
+  }
 }

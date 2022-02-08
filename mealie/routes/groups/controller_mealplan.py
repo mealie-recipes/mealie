@@ -11,6 +11,9 @@ from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 from mealie.schema.meal_plan.new_meal import CreatRandomEntry
+from mealie.schema.meal_plan.plan_rules import PlanRulesDay
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.response.responses import ErrorResponse
 
 router = APIRouter(prefix="/groups/mealplans", tags=["Groups: Mealplans"])
 
@@ -49,15 +52,42 @@ class GroupMealplanController(BaseUserController):
         Refer to the mealplan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
-        # Get relavent group settings
+        # Get relavent group rules
+        rules = self.repos.group_meal_plan_rules.by_group(self.group_id).multi_query(
+            {
+                "day": PlanRulesDay.from_date(data.date),
+                "entry_type": data.entry_type,
+            }
+        )
 
-        # Make DB Query
+        recipe_repo = self.repos.recipes.by_group(self.group_id)
+        random_recipes: Recipe = []
 
-        # Assign Meal to day
+        if not rules:  # If no rules are set, return any random recipe from the group
+            random_recipes = recipe_repo.get_random()
+        else:  # otherwise construct a query based on the rules
+            tags = []
+            categories = []
+            for rule in rules:
+                if rule.tags:
+                    tags.extend(rule.tags)
+                if rule.categories:
+                    categories.extend(rule.categories)
 
-        # Return meal
+            if tags or categories:
+                random_recipes = self.repos.recipes.by_group(self.group_id).get_random_by_categories_and_tags(
+                    categories, tags
+                )
+            else:
+                random_recipes = recipe_repo.get_random()
 
-        raise HTTPException("Not implemented")
+        try:
+            recipe = random_recipes[0]
+            return self.mixins.create_one(
+                SavePlanEntry(date=data.date, entry_type=data.entry_type, recipe_id=recipe.id, group_id=self.group_id)
+            )
+        except IndexError:
+            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No recipes match your rules"))
 
     @router.get("", response_model=list[ReadPlanEntry])
     def get_all(self, start: date = None, limit: date = None):

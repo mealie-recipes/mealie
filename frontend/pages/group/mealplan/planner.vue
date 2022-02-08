@@ -158,14 +158,32 @@
             <BaseButtonGroup
               :buttons="[
                 {
-                  icon: $globals.icons.potSteam,
+                  icon: $globals.icons.diceMultiple,
                   text: 'Random Meal',
                   event: 'random',
+                  children: [
+                    {
+                      icon: $globals.icons.dice,
+                      text: 'Breakfast',
+                      event: 'randomBreakfast',
+                    },
+
+                    {
+                      icon: $globals.icons.dice,
+                      text: 'Lunch',
+                      event: 'randomLunch',
+                    },
+                  ],
+                },
+                {
+                  icon: $globals.icons.potSteam,
+                  text: 'Random Dinner',
+                  event: 'randomDinner',
                 },
                 {
                   icon: $globals.icons.bolwMixOutline,
                   text: 'Random Side',
-                  event: 'random',
+                  event: 'randomSide',
                 },
                 {
                   icon: $globals.icons.createAlt,
@@ -173,8 +191,11 @@
                   event: 'create',
                 },
               ]"
-              @random="randomMeal(plan.date)"
               @create="openDialog(plan.date)"
+              @randomBreakfast="randomMeal(plan.date, 'breakfast')"
+              @randomLunch="randomMeal(plan.date, 'lunch')"
+              @randomDinner="randomMeal(plan.date, 'dinner')"
+              @randomSide="randomMeal(plan.date, 'snack')"
             />
           </div>
         </template>
@@ -220,6 +241,7 @@ import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
 import { PlanEntryType } from "~/types/api-types/meal-plan";
+import { useUserApi } from "~/composables/api";
 
 export default defineComponent({
   components: {
@@ -242,6 +264,8 @@ export default defineComponent({
         end: addDays(state.today as Date, 6),
       };
     });
+
+    const api = useUserApi();
 
     const { mealplans, actions, loading } = useMealplans(weekRange);
 
@@ -338,19 +362,15 @@ export default defineComponent({
       newMeal.recipeId = undefined;
     }
 
-    async function randomMeal(date: Date) {
-      // TODO: Refactor to use API call to get random recipe
-      const randomRecipe = allRecipes.value?.[Math.floor(Math.random() * allRecipes.value.length)];
-      if (!randomRecipe) return;
+    async function randomMeal(date: Date, type: PlanEntryType) {
+      const { data } = await api.mealplans.setRandom({
+        date: format(date, "yyyy-MM-dd"),
+        entryType: type,
+      });
 
-      newMeal.date = format(date, "yyyy-MM-dd");
-
-      newMeal.recipeId = randomRecipe.id;
-
-      console.log(newMeal.recipeId, randomRecipe.id);
-
-      await actions.createOne({ ...newMeal });
-      resetDialog();
+      if (data) {
+        actions.refreshAll();
+      }
     }
 
     return {
