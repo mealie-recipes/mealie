@@ -60,7 +60,6 @@
   </v-app>
 </template>
 
-
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import { useDark } from "@vueuse/core";
@@ -151,7 +150,7 @@ export default defineComponent({
         {
           icon: this.$globals.icons.calendarMultiselect,
           title: this.$t("meal-plan.meal-planner"),
-          to: "/meal-plan/planner",
+          to: "/group/mealplan/planner",
           restricted: true,
         },
         {

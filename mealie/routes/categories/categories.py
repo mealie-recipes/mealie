@@ -12,6 +12,7 @@ router = APIRouter(prefix="/categories", tags=["Categories: CRUD"])
 
 
 class CategorySummary(BaseModel):
+    id: int
     slug: str
     name: str
 

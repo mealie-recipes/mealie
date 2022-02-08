@@ -70,7 +70,10 @@
         </v-btn>
       </div>
     </div>
-    <v-switch v-model="edit" label="Editor"></v-switch>
+    <div class="d-flex align-center justify-space-between">
+      <v-switch v-model="edit" label="Editor"></v-switch>
+      <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" text="Settings" />
+    </div>
     <v-row class="">
       <v-col
         v-for="(plan, index) in mealsByDate"
@@ -143,9 +146,6 @@
                   </v-list>
                 </v-menu>
                 <v-spacer></v-spacer>
-                <v-btn color="info" class="mr-2" small icon>
-                  <v-icon>{{ $globals.icons.cartCheck }}</v-icon>
-                </v-btn>
                 <v-btn color="error" small icon @click="actions.deleteOne(mealplan.id)">
                   <v-icon>{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
@@ -154,20 +154,50 @@
           </draggable>
 
           <!-- Day Column Actions -->
-          <v-card outlined class="mt-auto">
-            <v-card-actions class="d-flex">
-              <div style="width: 50%">
-                <v-btn block text @click="randomMeal(plan.date)">
-                  <v-icon large>{{ $globals.icons.diceMultiple }}</v-icon>
-                </v-btn>
-              </div>
-              <div style="width: 50%">
-                <v-btn block text @click="openDialog(plan.date)">
-                  <v-icon large>{{ $globals.icons.createAlt }}</v-icon>
-                </v-btn>
-              </div>
-            </v-card-actions>
-          </v-card>
+          <div class="d-flex justify-end">
+            <BaseButtonGroup
+              :buttons="[
+                {
+                  icon: $globals.icons.diceMultiple,
+                  text: 'Random Meal',
+                  event: 'random',
+                  children: [
+                    {
+                      icon: $globals.icons.dice,
+                      text: 'Breakfast',
+                      event: 'randomBreakfast',
+                    },
+
+                    {
+                      icon: $globals.icons.dice,
+                      text: 'Lunch',
+                      event: 'randomLunch',
+                    },
+                  ],
+                },
+                {
+                  icon: $globals.icons.potSteam,
+                  text: 'Random Dinner',
+                  event: 'randomDinner',
+                },
+                {
+                  icon: $globals.icons.bolwMixOutline,
+                  text: 'Random Side',
+                  event: 'randomSide',
+                },
+                {
+                  icon: $globals.icons.createAlt,
+                  text: $t('general.new'),
+                  event: 'create',
+                },
+              ]"
+              @create="openDialog(plan.date)"
+              @randomBreakfast="randomMeal(plan.date, 'breakfast')"
+              @randomLunch="randomMeal(plan.date, 'lunch')"
+              @randomDinner="randomMeal(plan.date, 'dinner')"
+              @randomSide="randomMeal(plan.date, 'side')"
+            />
+          </div>
         </template>
         <template v-else-if="plan.meals">
           <RecipeCard
@@ -211,6 +241,7 @@ import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
 import { PlanEntryType } from "~/types/api-types/meal-plan";
+import { useUserApi } from "~/composables/api";
 
 export default defineComponent({
   components: {
@@ -233,6 +264,8 @@ export default defineComponent({
         end: addDays(state.today as Date, 6),
       };
     });
+
+    const api = useUserApi();
 
     const { mealplans, actions, loading } = useMealplans(weekRange);
 
@@ -329,19 +362,15 @@ export default defineComponent({
       newMeal.recipeId = undefined;
     }
 
-    async function randomMeal(date: Date) {
-      // TODO: Refactor to use API call to get random recipe
-      const randomRecipe = allRecipes.value?.[Math.floor(Math.random() * allRecipes.value.length)];
-      if (!randomRecipe) return;
+    async function randomMeal(date: Date, type: PlanEntryType) {
+      const { data } = await api.mealplans.setRandom({
+        date: format(date, "yyyy-MM-dd"),
+        entryType: type,
+      });
 
-      newMeal.date = format(date, "yyyy-MM-dd");
-
-      newMeal.recipeId = randomRecipe.id;
-
-      console.log(newMeal.recipeId, randomRecipe.id);
-
-      await actions.createOne({ ...newMeal });
-      resetDialog();
+      if (data) {
+        actions.refreshAll();
+      }
     }
 
     return {

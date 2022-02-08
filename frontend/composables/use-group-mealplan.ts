@@ -4,13 +4,13 @@ import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
 import { CreateMealPlan, UpdateMealPlan } from "~/api/class-interfaces/group-mealplan";
 
-export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
+export type MealType = "breakfast" | "lunch" | "dinner" | "side";
 
 export const planTypeOptions = [
   { text: "Breakfast", value: "breakfast" },
   { text: "Lunch", value: "lunch" },
   { text: "Dinner", value: "dinner" },
-  { text: "Snack", value: "snack" },
+  { text: "Side", value: "side" },
 ];
 
 export interface DateRange {

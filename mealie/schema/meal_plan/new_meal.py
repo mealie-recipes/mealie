@@ -13,7 +13,12 @@ class PlanEntryType(str, Enum):
     breakfast = "breakfast"
     lunch = "lunch"
     dinner = "dinner"
-    snack = "snack"
+    side = "side"
+
+
+class CreatRandomEntry(CamelModel):
+    date: date
+    entry_type: PlanEntryType = PlanEntryType.dinner
 
 
 class CreatePlanEntry(CamelModel):

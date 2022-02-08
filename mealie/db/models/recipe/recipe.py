@@ -72,7 +72,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     assets = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
-    recipe_category: list = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
+    recipe_category = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
     tools = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
 
     recipe_ingredient: list[RecipeIngredient] = orm.relationship(

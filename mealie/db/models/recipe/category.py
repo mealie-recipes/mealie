@@ -18,6 +18,13 @@ group2categories = sa.Table(
     sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
 )
 
+plan_rules_to_categories = sa.Table(
+    "plan_rules_to_categories",
+    SqlAlchemyBase.metadata,
+    sa.Column("group_plan_rule_id", GUID, sa.ForeignKey("group_meal_plan_rules.id")),
+    sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
+)
+
 recipes2categories = sa.Table(
     "recipes2categories",
     SqlAlchemyBase.metadata,

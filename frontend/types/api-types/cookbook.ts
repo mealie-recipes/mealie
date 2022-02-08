@@ -45,7 +45,7 @@ export interface Recipe {
   cookTime?: string;
   performTime?: string;
   description?: string;
-  recipeCategory?: RecipeTag[];
+  recipeCategory?: RecipeCategory[];
   tags?: RecipeTag[];
   tools?: RecipeTool[];
   rating?: number;
@@ -63,14 +63,20 @@ export interface Recipe {
   };
   comments?: RecipeCommentOut[];
 }
+export interface RecipeCategory {
+  id?: number;
+  name: string;
+  slug: string;
+}
 export interface RecipeTag {
+  id?: number;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
+  id?: number;
   name: string;
   slug: string;
-  id?: number;
   onHand?: boolean;
 }
 export interface RecipeIngredient {
@@ -99,8 +105,8 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  label?: MultiPurposeLabelSummary;
   id: number;
+  label?: MultiPurposeLabelSummary;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -112,7 +118,6 @@ export interface CreateIngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  label?: MultiPurposeLabelSummary;
 }
 export interface RecipeStep {
   id?: string;

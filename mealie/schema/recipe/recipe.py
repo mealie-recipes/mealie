@@ -24,6 +24,7 @@ app_dirs = get_app_dirs()
 
 
 class RecipeTag(CamelModel):
+    id: int = 0
     name: str
     slug: str
 
@@ -78,7 +79,7 @@ class RecipeSummary(CamelModel):
     perform_time: Optional[str] = None
 
     description: Optional[str] = ""
-    recipe_category: Optional[list[RecipeTag]] = []
+    recipe_category: Optional[list[RecipeCategory]] = []
     tags: Optional[list[RecipeTag]] = []
     tools: list[RecipeTool] = []
     rating: Optional[int]
