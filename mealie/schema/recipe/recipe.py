@@ -63,7 +63,7 @@ class CreateRecipe(CamelModel):
 
 
 class RecipeSummary(CamelModel):
-    id: Optional[int]
+    id: Optional[UUID4]
 
     user_id: UUID4 = Field(default_factory=uuid4)
     group_id: UUID4 = Field(default_factory=uuid4)

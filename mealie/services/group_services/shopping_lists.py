@@ -100,7 +100,7 @@ class ShoppingListService:
     # =======================================================================
     # Methods
 
-    def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
+    def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: UUID4) -> ShoppingListOut:
         recipe = self.repos.recipes.get_one(recipe_id, "id")
         to_create = []
 
@@ -161,7 +161,7 @@ class ShoppingListService:
 
         return updated_list
 
-    def remove_recipe_ingredients_from_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
+    def remove_recipe_ingredients_from_list(self, list_id: UUID4, recipe_id: UUID4) -> ShoppingListOut:
         shopping_list = self.shopping_lists.get_one(list_id)
 
         for item in shopping_list.list_items:

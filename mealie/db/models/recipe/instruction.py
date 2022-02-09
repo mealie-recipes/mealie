@@ -18,7 +18,7 @@ class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):
 class RecipeInstruction(SqlAlchemyBase):
     __tablename__ = "recipe_instructions"
     id = Column(GUID, primary_key=True, default=GUID.generate)
-    parent_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe_id = Column(GUID, ForeignKey("recipes.id"))
     position = Column(Integer)
     type = Column(String, default="")
     title = Column(String)

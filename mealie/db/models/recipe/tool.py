@@ -8,7 +8,7 @@ from mealie.db.models._model_utils.guid import GUID
 recipes_to_tools = Table(
     "recipes_to_tools",
     SqlAlchemyBase.metadata,
-    Column("recipe_id", Integer, ForeignKey("recipes.id")),
+    Column("recipe_id", GUID, ForeignKey("recipes.id")),
     Column("tool_id", Integer, ForeignKey("tools.id")),
 )
 

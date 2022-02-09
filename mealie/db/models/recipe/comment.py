@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, orm
+from sqlalchemy import Column, ForeignKey, String, orm
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models._model_utils import auto_init
@@ -11,7 +11,7 @@ class RecipeComment(SqlAlchemyBase, BaseMixins):
     text = Column(String)
 
     # Recipe Link
-    recipe_id = Column(Integer, ForeignKey("recipes.id"), nullable=False)
+    recipe_id = Column(GUID, ForeignKey("recipes.id"), nullable=False)
     recipe = orm.relationship("RecipeModel", back_populates="comments")
 
     # User Link

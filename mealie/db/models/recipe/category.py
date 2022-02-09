@@ -25,10 +25,10 @@ plan_rules_to_categories = sa.Table(
     sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
 )
 
-recipes2categories = sa.Table(
-    "recipes2categories",
+recipes_to_categories = sa.Table(
+    "recipes_to_categories",
     SqlAlchemyBase.metadata,
-    sa.Column("recipe_id", sa.Integer, sa.ForeignKey("recipes.id")),
+    sa.Column("recipe_id", GUID, sa.ForeignKey("recipes.id")),
     sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
 )
 
@@ -51,7 +51,7 @@ class Category(SqlAlchemyBase, BaseMixins):
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, nullable=False)
-    recipes = orm.relationship("RecipeModel", secondary=recipes2categories, back_populates="recipe_category")
+    recipes = orm.relationship("RecipeModel", secondary=recipes_to_categories, back_populates="recipe_category")
 
     class Config:
         get_attr = "slug"

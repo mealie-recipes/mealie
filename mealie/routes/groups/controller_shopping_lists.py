@@ -143,9 +143,9 @@ class ShoppingListController(BaseUserController):
     # Other Operations
 
     @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def add_recipe_ingredients_to_list(self, item_id: UUID4, recipe_id: int):
+    def add_recipe_ingredients_to_list(self, item_id: UUID4, recipe_id: UUID4):
         return self.service.add_recipe_ingredients_to_list(item_id, recipe_id)
 
     @router.delete("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def remove_recipe_ingredients_from_list(self, item_id: UUID4, recipe_id: int):
+    def remove_recipe_ingredients_from_list(self, item_id: UUID4, recipe_id: UUID4):
         return self.service.remove_recipe_ingredients_from_list(item_id, recipe_id)

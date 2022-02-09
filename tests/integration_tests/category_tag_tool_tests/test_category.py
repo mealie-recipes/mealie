@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 import pytest
 from fastapi.testclient import TestClient
+from pydantic import UUID4
 
 from mealie.schema.static import recipe_keys
 from tests.utils.factories import random_string
@@ -15,7 +16,7 @@ class Routes:
     def item(item_id: int) -> str:
         return f"{Routes.base}/{item_id}"
 
-    def recipe(recipe_id: int) -> str:
+    def recipe(recipe_id: UUID4) -> str:
         return f"{Routes.recipes}/{recipe_id}"
 
 

@@ -9,7 +9,7 @@ from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUni
 
 
 class ShoppingListItemRecipeRef(CamelModel):
-    recipe_id: int
+    recipe_id: UUID4
     recipe_quantity: float
 
 
@@ -58,7 +58,7 @@ class ShoppingListCreate(CamelModel):
 class ShoppingListRecipeRefOut(CamelModel):
     id: UUID4
     shopping_list_id: UUID4
-    recipe_id: int
+    recipe_id: UUID4
     recipe_quantity: float
     recipe: RecipeSummary
 

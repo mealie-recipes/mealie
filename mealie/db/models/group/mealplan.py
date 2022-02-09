@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Date, ForeignKey, String, orm
-from sqlalchemy.sql.sqltypes import Integer
 
 from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags
 
@@ -36,7 +35,7 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     group_id = Column(GUID, ForeignKey("groups.id"), index=True)
     group = orm.relationship("Group", back_populates="mealplans")
 
-    recipe_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
     recipe = orm.relationship("RecipeModel", back_populates="meal_entries", uselist=False)
 
     @auto_init()

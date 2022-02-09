@@ -1,5 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
+from pydantic import UUID4
 
 from mealie.schema.recipe.recipe import Recipe
 from tests.utils.factories import random_string
@@ -32,11 +33,11 @@ def unique_recipe(api_client: TestClient, unique_user: TestUser):
     return Recipe(**recipe_response.json())
 
 
-def random_comment(recipe_id: int) -> dict:
+def random_comment(recipe_id: UUID4) -> dict:
     if recipe_id is None:
         raise ValueError("recipe_id is required")
     return {
-        "recipeId": recipe_id,
+        "recipeId": str(recipe_id),
         "text": random_string(length=50),
     }
 
@@ -49,7 +50,7 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
 
     response_data = response.json()
 
-    assert response_data["recipeId"] == unique_recipe.id
+    assert response_data["recipeId"] == str(unique_recipe.id)
     assert response_data["text"] == create_data["text"]
     assert response_data["userId"] == unique_user.user_id
 
@@ -60,7 +61,7 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
     response_data = response.json()
 
     assert len(response_data) == 1
-    assert response_data[0]["recipeId"] == unique_recipe.id
+    assert response_data[0]["recipeId"] == str(unique_recipe.id)
     assert response_data[0]["text"] == create_data["text"]
     assert response_data[0]["userId"] == unique_user.user_id
 
@@ -83,7 +84,7 @@ def test_update_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
 
     response_data = response.json()
 
-    assert response_data["recipeId"] == unique_recipe.id
+    assert response_data["recipeId"] == str(unique_recipe.id)
     assert response_data["text"] == update_data["text"]
     assert response_data["userId"] == unique_user.user_id
 

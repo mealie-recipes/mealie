@@ -1,4 +1,5 @@
 from datetime import date
+from uuid import uuid4
 
 import pytest
 
@@ -13,9 +14,10 @@ def test_create_plan_with_title():
 
 
 def test_create_plan_with_slug():
-    entry = CreatePlanEntry(date=date.today(), recipe_id=123)
+    uuid = uuid4()
+    entry = CreatePlanEntry(date=date.today(), recipe_id=uuid)
 
-    assert entry.recipe_id == 123
+    assert entry.recipe_id == uuid
     assert entry.title == ""
 
 

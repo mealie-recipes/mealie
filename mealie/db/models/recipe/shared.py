@@ -17,7 +17,7 @@ class RecipeShareTokenModel(SqlAlchemyBase, BaseMixins):
 
     group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
 
-    recipe_id = sa.Column(sa.Integer, sa.ForeignKey("recipes.id"), nullable=False)
+    recipe_id = sa.Column(GUID, sa.ForeignKey("recipes.id"), nullable=False)
     recipe = sa.orm.relationship("RecipeModel", back_populates="share_tokens", uselist=False)
 
     expires_at = sa.Column(sa.DateTime, nullable=False)

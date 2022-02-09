@@ -11,7 +11,7 @@ def defaut_expires_at_time() -> datetime:
 
 
 class RecipeShareTokenCreate(CamelModel):
-    recipe_id: int
+    recipe_id: UUID4
     expires_at: datetime = Field(default_factory=defaut_expires_at_time)
 
 

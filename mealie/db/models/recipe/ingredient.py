@@ -50,7 +50,7 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id = Column(Integer, primary_key=True)
     position = Column(Integer)
-    parent_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe_id = Column(GUID, ForeignKey("recipes.id"))
 
     title = Column(String)  # Section Header - Shows if Present
     note = Column(String)  # Force Show Text - Overrides Concat

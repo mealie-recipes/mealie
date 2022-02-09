@@ -189,6 +189,11 @@ class BaseMigrator(BaseService):
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
 
+        try:
+            del recipe_dict["id"]
+        except KeyError:
+            pass
+
         recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
 
         return Recipe(**recipe_dict)
