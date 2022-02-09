@@ -5,9 +5,10 @@ from fastapi import APIRouter, Depends
 from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import CrudMixins
+from mealie.schema import mapper
 from mealie.schema.query import GetAll
 from mealie.schema.recipe.recipe import RecipeTool
-from mealie.schema.recipe.recipe_tool import RecipeToolCreate, RecipeToolResponse
+from mealie.schema.recipe.recipe_tool import RecipeToolCreate, RecipeToolResponse, RecipeToolSave
 
 router = APIRouter(prefix="/tools", tags=["Recipes: Tools"])
 
@@ -28,7 +29,8 @@ class RecipeToolController(BaseUserController):
 
     @router.post("", response_model=RecipeTool, status_code=201)
     def create_one(self, data: RecipeToolCreate):
-        return self.mixins.create_one(data)
+        save_data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
+        return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=RecipeTool)
     def get_one(self, item_id: int):
