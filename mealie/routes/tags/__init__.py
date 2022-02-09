@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException, status
 from mealie.routes._base import BaseUserController, controller
 from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
+from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import TagSave
 
 router = APIRouter(prefix="/tags", tags=["Tags: CRUD"])
@@ -19,7 +20,7 @@ class TagController(BaseUserController):
     @router.get("")
     async def get_all(self):
         """Returns a list of available tags in the database"""
-        return self.repo.get_all()
+        return self.repo.get_all(override_schema=RecipeTag)
 
     @router.get("/empty")
     def get_empty_tags(self):
