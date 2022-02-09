@@ -2,11 +2,11 @@ from requests import Response
 
 from mealie.schema.recipe.recipe_category import TagSave
 from tests import utils
-from tests.multitenant_tests.case_abc import ABCMultiTenanatTestCase
+from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
 from tests.utils import routes
 
 
-class TagsTestCase(ABCMultiTenanatTestCase):
+class TagsTestCase(ABCMultiTenantTestCase):
     def seed_action(self, group_id: str) -> set[int]:
         tag_ids: set[int] = set()
         for _ in range(10):

@@ -2,11 +2,11 @@ from requests import Response
 
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
 from tests import utils
-from tests.multitenant_tests.case_abc import ABCMultiTenanatTestCase
+from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
 from tests.utils import routes
 
 
-class FoodsTestCase(ABCMultiTenanatTestCase):
+class FoodsTestCase(ABCMultiTenantTestCase):
     def seed_action(self, group_id: str) -> set[int]:
         food_ids: set[int] = set()
         for _ in range(10):

@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from mealie.repos.repository_factory import AllRepositories
 
 
-class ABCMultiTenanatTestCase(ABC):
+class ABCMultiTenantTestCase(ABC):
     def __init__(self, database: AllRepositories, client: TestClient) -> None:
         self.database = database
         self.client = client
