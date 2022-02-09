@@ -217,6 +217,12 @@ class RecipeController(BaseRecipeController):
                 self.deps.logger.error("SQL Integrity Error on recipe controller action")
                 raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
 
+            case _:
+                self.deps.logger.error("Unknown Error on recipe controller action")
+                raise HTTPException(
+                    status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=ex)
+                )
+
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
