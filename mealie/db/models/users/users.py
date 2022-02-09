@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, Column, ForeignKey, String, orm
 
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_utils.guid import GUID
