@@ -7,7 +7,7 @@ from uuid import UUID, uuid4
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.user import GroupInDB
-from mealie.utils.fs_stats import pretty_size
+from mealie.pkgs.stats.fs_stats import pretty_size
 
 from .._base_service import BaseService
 from ._abc_exporter import ABCExporter

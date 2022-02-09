@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from slugify import slugify
 
 from mealie.core.root_logger import get_logger
+from mealie.pkgs import cache
 from mealie.schema.recipe import Recipe
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
@@ -42,7 +43,7 @@ def create_from_url(url: str) -> Recipe:
     try:
         recipe_data_service.scrape_image(new_recipe.image)
         new_recipe.name = slugify(new_recipe.name)
-        new_recipe.image = "original.webp"
+        new_recipe.image = cache.new_key(4)
     except Exception as e:
         recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
         new_recipe.image = "no image"

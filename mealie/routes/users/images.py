@@ -36,7 +36,7 @@ class UserImageController(BaseUserController):
 
         shutil.copyfile(image, dest)
 
-        self.repos.users.patch(id, {"cache_key": utils.new_cache_key()})
+        self.repos.users.patch(id, {"cache_key": utils.new_key()})
 
         if not dest.is_file:
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
