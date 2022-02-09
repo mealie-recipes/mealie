@@ -4,10 +4,10 @@ import zipfile
 from pathlib import Path
 from uuid import UUID, uuid4
 
+from mealie.pkgs.stats.fs_stats import pretty_size
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.user import GroupInDB
-from mealie.pkgs.stats.fs_stats import pretty_size
 
 from .._base_service import BaseService
 from ._abc_exporter import ABCExporter
