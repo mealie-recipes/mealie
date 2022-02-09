@@ -2,7 +2,8 @@ import sqlalchemy
 from pytest import fixture
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeCategory
+from mealie.schema.recipe.recipe_category import CategorySave
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -49,3 +50,23 @@ def recipe_ingredient_only(database: AllRepositories, unique_user: TestUser):
         database.recipes.delete(model.slug)
     except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
         pass
+
+
+@fixture(scope="function")
+def recipe_categories(database: AllRepositories, unique_user: TestUser) -> list[RecipeCategory]:
+    models: list[RecipeCategory] = []
+    for _ in range(3):
+        category = CategorySave(
+            group_id=unique_user.group_id,
+            name=random_string(10),
+        )
+        model = database.categories.create(category)
+        models.append(model)
+
+    yield models
+
+    for model in models:
+        try:
+            database.categories.delete(model.slug)
+        except sqlalchemy.exc.NoResultFound:
+            pass

@@ -10,6 +10,7 @@ from recipe_scrapers._abstract import AbstractScraper
 from recipe_scrapers._schemaorg import SchemaOrg
 from slugify import slugify
 
+from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.services.scraper import scraper
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
 from tests.utils.app_routes import AppRoutes
@@ -88,7 +89,11 @@ def test_create_by_url(
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_read_update(
-    api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, unique_user: TestUser
+    api_client: TestClient,
+    api_routes: AppRoutes,
+    recipe_data: RecipeSiteTestCase,
+    unique_user: TestUser,
+    recipe_categories: list[RecipeCategory],
 ):
     recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
@@ -103,12 +108,7 @@ def test_read_update(
 
     recipe["notes"] = test_notes
 
-    test_categories = [
-        {"name": "one", "slug": "one"},
-        {"name": "two", "slug": "two"},
-        {"name": "three", "slug": "three"},
-    ]
-    recipe["recipeCategory"] = test_categories
+    recipe["recipeCategory"] = [x.dict() for x in recipe_categories]
 
     response = api_client.put(recipe_url, json=recipe, headers=unique_user.token)
 
@@ -121,10 +121,10 @@ def test_read_update(
 
     assert recipe["notes"] == test_notes
 
-    assert len(recipe["recipeCategory"]) == len(test_categories)
+    assert len(recipe["recipeCategory"]) == len(recipe_categories)
 
-    test_name = [x["name"] for x in test_categories]
-    for cats in zip(recipe["recipeCategory"], test_categories):
+    test_name = [x.name for x in recipe_categories]
+    for cats in zip(recipe["recipeCategory"], recipe_categories):
         assert cats[0]["name"] in test_name
 
 
