@@ -1,9 +1,14 @@
 from fastapi_camelcase import CamelModel
+from pydantic import UUID4
 from pydantic.utils import GetterDict
 
 
 class CategoryIn(CamelModel):
     name: str
+
+
+class CategorySave(CategoryIn):
+    group_id: UUID4
 
 
 class CategoryBase(CategoryIn):
@@ -20,6 +25,14 @@ class CategoryBase(CategoryIn):
             }
 
 
+class CategoryOut(CategoryBase):
+    id: int
+    slug: str
+
+    class Config:
+        orm_mode = True
+
+
 class RecipeCategoryResponse(CategoryBase):
     recipes: "list[Recipe]" = []
 
@@ -32,8 +45,20 @@ class TagIn(CategoryIn):
     pass
 
 
+class TagSave(TagIn):
+    group_id: UUID4
+
+
 class TagBase(CategoryBase):
     pass
+
+
+class TagOut(TagSave):
+    id: int
+    slug: str
+
+    class Config:
+        orm_mode = True
 
 
 class RecipeTagResponse(RecipeCategoryResponse):

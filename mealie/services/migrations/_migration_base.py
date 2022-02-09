@@ -29,6 +29,8 @@ class BaseMigrator(BaseService):
     report_id: int
     report: ReportOut
 
+    helpers: DatabaseMigrationHelpers
+
     def __init__(
         self, archive: Path, db: AllRepositories, session, user_id: UUID4, group_id: UUID, add_migration_tag: bool
     ):
@@ -114,6 +116,12 @@ class BaseMigrator(BaseService):
             recipe.user_id = self.user_id
             recipe.group_id = self.group_id
 
+            if recipe.tags:
+                recipe.tags = self.helpers.get_or_set_tags(x.name for x in recipe.tags)
+
+            if recipe.recipe_category:
+                recipe.recipe_category = self.helpers.get_or_set_category(x.name for x in recipe.recipe_category)
+
             if self.add_migration_tag:
                 recipe.tags.append(migration_tag)
 
@@ -181,16 +189,6 @@ class BaseMigrator(BaseService):
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
 
-        # Temporary hold out of recipe_dict
-        # temp_categories = recipe_dict["recipeCategory"]
-        # temp_tools = recipe_dict["tools"]
-        # temp_tasg = recipe_dict["tags"]
-
         recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
-
-        # Reassign after cleaning
-        # recipe_dict["recipeCategory"] = temp_categories
-        # recipe_dict["tools"] = temp_tools
-        # recipe_dict["tags"] = temp_tasg
 
         return Recipe(**recipe_dict)

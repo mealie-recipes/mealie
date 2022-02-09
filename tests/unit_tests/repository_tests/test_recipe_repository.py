@@ -1,6 +1,7 @@
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.schema.recipe.recipe import Recipe, RecipeCategory
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_category import CategorySave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -10,9 +11,9 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
     slug1, slug2, slug3 = [random_string(10) for _ in range(3)]
 
     categories = [
-        RecipeCategory(name=slug1, slug=slug1),
-        RecipeCategory(name=slug2, slug=slug2),
-        RecipeCategory(name=slug3, slug=slug3),
+        CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        CategorySave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+        CategorySave(group_id=unique_user.group_id, name=slug3, slug=slug3),
     ]
 
     created_categories = []
@@ -67,8 +68,8 @@ def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_u
     slug1, slug2 = [random_string(10) for _ in range(2)]
 
     categories = [
-        RecipeCategory(name=slug1, slug=slug1),
-        RecipeCategory(name=slug2, slug=slug2),
+        CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        CategorySave(group_id=unique_user.group_id, name=slug2, slug=slug2),
     ]
 
     created_categories = []

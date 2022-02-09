@@ -6,7 +6,9 @@ from fastapi.testclient import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from tests.fixtures.fixture_multitenant import MultiTenant
 from tests.multitenant_tests.case_abc import ABCMultiTenanatTestCase
+from tests.multitenant_tests.case_categories import CategoryTestCase
 from tests.multitenant_tests.case_foods import FoodsTestCase
+from tests.multitenant_tests.case_tags import TagsTestCase
 from tests.multitenant_tests.case_tools import ToolsTestCase
 from tests.multitenant_tests.case_units import UnitsTestCase
 
@@ -14,6 +16,8 @@ all_cases = [
     UnitsTestCase,
     FoodsTestCase,
     ToolsTestCase,
+    TagsTestCase,
+    CategoryTestCase,
 ]
 
 

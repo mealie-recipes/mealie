@@ -26,8 +26,7 @@ class MigrationReaders:
         with open(yaml_file, "r") as f:
             contents = f.read().split("---")
             recipe_data = {}
-            for _, document in enumerate(contents):
-
+            for document in contents:
                 # Check if None or Empty String
                 if document is None or document == "":
                     continue

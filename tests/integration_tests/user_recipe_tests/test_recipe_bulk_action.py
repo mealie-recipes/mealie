@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 from mealie.core.dependencies.dependencies import validate_file_token
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_bulk_actions import ExportTypes
-from mealie.schema.recipe.recipe_category import TagIn
+from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -53,7 +53,7 @@ def test_bulk_tag_recipes(
     tags = []
     for _ in range(3):
         tag_name = random_string()
-        tag = database.tags.create(TagIn(name=tag_name))
+        tag = database.tags.create(TagSave(group_id=unique_user.group_id, name=tag_name))
         tags.append(tag.dict())
 
     payload = {"recipes": ten_slugs, "tags": tags}
@@ -79,7 +79,7 @@ def test_bulk_categorize_recipes(
     categories = []
     for _ in range(3):
         cat_name = random_string()
-        cat = database.tags.create(TagIn(name=cat_name))
+        cat = database.categories.create(CategorySave(group_id=unique_user.group_id, name=cat_name))
         categories.append(cat.dict())
 
     payload = {"recipes": ten_slugs, "categories": categories}

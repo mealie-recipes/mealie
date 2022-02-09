@@ -3,7 +3,9 @@ from functools import cached_property
 from fastapi import APIRouter, HTTPException, status
 
 from mealie.routes._base import BaseUserController, controller
+from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
+from mealie.schema.recipe.recipe_category import TagSave
 
 router = APIRouter(prefix="/tags", tags=["Tags: CRUD"])
 
@@ -12,12 +14,12 @@ router = APIRouter(prefix="/tags", tags=["Tags: CRUD"])
 class TagController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.repos.tags
+        return self.repos.tags.by_group(self.group_id)
 
     @router.get("")
-    async def get_all_recipe_tags(self):
+    async def get_all(self):
         """Returns a list of available tags in the database"""
-        return self.repo.get_all_limit_columns(["slug", "name"])
+        return self.repo.get_all()
 
     @router.get("/empty")
     def get_empty_tags(self):
@@ -32,12 +34,14 @@ class TagController(BaseUserController):
     @router.post("", status_code=201)
     def create_recipe_tag(self, tag: TagIn):
         """Creates a Tag in the database"""
-        return self.repo.create(tag)
+        save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
+        return self.repo.create(save_data)
 
     @router.put("/{tag_slug}", response_model=RecipeTagResponse)
     def update_recipe_tag(self, tag_slug: str, new_tag: TagIn):
         """Updates an existing Tag in the database"""
-        return self.repo.update(tag_slug, new_tag)
+        save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
+        return self.repo.update(tag_slug, save_data)
 
     @router.delete("/{tag_slug}")
     def delete_recipe_tag(self, tag_slug: str):

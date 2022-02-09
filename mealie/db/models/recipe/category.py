@@ -42,9 +42,15 @@ cookbooks_to_categories = sa.Table(
 
 class Category(SqlAlchemyBase, BaseMixins):
     __tablename__ = "categories"
+    __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="category_slug_group_id_key"),)
+
+    # ID Relationships
+    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False)
+    group = orm.relationship("Group", back_populates="categories", foreign_keys=[group_id])
+
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False)
-    slug = sa.Column(sa.String, index=True, unique=True, nullable=False)
+    slug = sa.Column(sa.String, index=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes2categories, back_populates="recipe_category")
 
     class Config:
@@ -55,7 +61,8 @@ class Category(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    def __init__(self, name, **_) -> None:
+    def __init__(self, name, group_id, **_) -> None:
+        self.group_id = group_id
         self.name = name.strip()
         self.slug = slugify(name)
 

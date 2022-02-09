@@ -23,3 +23,11 @@ class RoutesUnits(_RoutesBase):
 
 class RoutesTools(_RoutesBase):
     base = "/api/tools"
+
+
+class RoutesTags(_RoutesBase):
+    base = "/api/tags"
+
+
+class RoutesCategory(_RoutesBase):
+    base = "/api/categories"

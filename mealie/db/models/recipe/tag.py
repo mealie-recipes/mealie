@@ -26,9 +26,15 @@ plan_rules_to_tags = sa.Table(
 
 class Tag(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tags"
+    __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="tags_slug_group_id_key"),)
+
+    # ID Relationships
+    group_id = sa.Column(guid.GUID, sa.ForeignKey("groups.id"), nullable=False)
+    group = orm.relationship("Group", back_populates="tags", foreign_keys=[group_id])
+
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String, index=True, nullable=False)
-    slug = sa.Column(sa.String, index=True, unique=True, nullable=False)
+    slug = sa.Column(sa.String, index=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes2tags, back_populates="tags")
 
     class Config:
@@ -39,7 +45,8 @@ class Tag(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    def __init__(self, name, **_) -> None:
+    def __init__(self, name, group_id, **_) -> None:
+        self.group_id = group_id
         self.name = name.strip()
         self.slug = slugify(self.name)
 
