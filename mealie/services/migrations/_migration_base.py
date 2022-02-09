@@ -96,7 +96,7 @@ class BaseMigrator(BaseService):
         self._save_all_entries()
         return self.db.group_reports.get(self.report_id)
 
-    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[Tuple[str, bool]]:
+    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[Tuple[str, UUID4, bool]]:
         """
         Used as a single access point to process a list of Recipe objects into the
         database in a predictable way. If an error occurs the session is rolled back
@@ -141,7 +141,7 @@ class BaseMigrator(BaseService):
             else:
                 message = f"Failed to import {recipe.name}"
 
-            return_vars.append((recipe.slug, status))
+            return_vars.append((recipe.slug, recipe.id, status))
 
             self.report_entries.append(
                 ReportEntryCreate(

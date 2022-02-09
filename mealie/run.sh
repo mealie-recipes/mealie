@@ -28,7 +28,6 @@ init() {
 
     # Initialize Database Prerun
     poetry run python /app/mealie/db/init_db.py
-    poetry run python /app/mealie/services/image/minify.py
 }
 
 # Migrations

@@ -132,12 +132,15 @@ class Recipe(RecipeSummary):
     comments: Optional[list[RecipeCommentOut]] = []
 
     @staticmethod
-    def directory_from_slug(slug) -> Path:
-        return app_dirs.RECIPE_DATA_DIR.joinpath(slug)
+    def directory_from_id(recipe_id: UUID4 | str) -> Path:
+        return app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id))
 
     @property
     def directory(self) -> Path:
-        dir = app_dirs.RECIPE_DATA_DIR.joinpath(self.slug)
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        dir = app_dirs.RECIPE_DATA_DIR.joinpath(str(self.id))
         dir.mkdir(exist_ok=True, parents=True)
         return dir
 

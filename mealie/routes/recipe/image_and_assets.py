@@ -10,7 +10,7 @@ from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeAsset
-from mealie.services.image.image import scrape_image, write_image
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 router = UserAPIRouter()
 
@@ -22,6 +22,7 @@ class UpdateImageResponse(BaseModel):
 @router.post("/{slug}/image")
 def scrape_image_url(slug: str, url: CreateRecipeByUrl):
     """Removes an existing image and replaces it with the incoming file."""
+
     scrape_image(url.url, slug)
 
 

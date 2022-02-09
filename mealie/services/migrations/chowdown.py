@@ -39,7 +39,7 @@ class ChowdownMigrator(BaseMigrator):
 
             recipe_lookup = {r.slug: r for r in recipes}
 
-            for slug, status in results:
+            for slug, recipe_id, status in results:
                 if status:
                     try:
                         original_image = recipe_lookup.get(slug).image
@@ -47,4 +47,4 @@ class ChowdownMigrator(BaseMigrator):
                     except StopIteration:
                         continue
                     if cd_image:
-                        import_image(cd_image, slug)
+                        import_image(cd_image, recipe_id)

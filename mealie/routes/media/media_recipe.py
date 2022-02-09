@@ -1,6 +1,7 @@
 from enum import Enum
 
 from fastapi import APIRouter, HTTPException, status
+from pydantic import UUID4
 from starlette.responses import FileResponse
 
 from mealie.schema.recipe import Recipe
@@ -19,11 +20,13 @@ class ImageType(str, Enum):
     tiny = "tiny-original.webp"
 
 
-@router.get("/{slug}/images/{file_name}")
-async def get_recipe_img(slug: str, file_name: ImageType = ImageType.original):
-    """Takes in a recipe slug, returns the static image. This route is proxied in the docker image
-    and should not hit the API in production"""
-    recipe_image = Recipe(slug=slug).image_dir.joinpath(file_name.value)
+@router.get("/{recipe_id}/images/{file_name}")
+async def get_recipe_img(recipe_id: str, file_name: ImageType = ImageType.original):
+    """
+    Takes in a recipe recipe_id, returns the static image. This route is proxied in the docker image
+    and should not hit the API in production
+    """
+    recipe_image = Recipe.directory_from_id(recipe_id).joinpath("images", file_name.value)
 
     if recipe_image.exists():
         return FileResponse(recipe_image)
@@ -31,10 +34,10 @@ async def get_recipe_img(slug: str, file_name: ImageType = ImageType.original):
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
-@router.get("/{slug}/assets/{file_name}")
-async def get_recipe_asset(slug: str, file_name: str):
+@router.get("/{recipe_id}/assets/{file_name}")
+async def get_recipe_asset(recipe_id: UUID4, file_name: str):
     """Returns a recipe asset"""
-    file = Recipe(slug=slug).asset_dir.joinpath(file_name)
+    file = Recipe.directory_from_id(recipe_id).joinpath("assets", file_name)
 
     try:
         return FileResponse(file)

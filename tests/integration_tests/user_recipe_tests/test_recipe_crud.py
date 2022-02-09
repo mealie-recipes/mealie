@@ -11,7 +11,7 @@ from recipe_scrapers._schemaorg import SchemaOrg
 from slugify import slugify
 
 from mealie.schema.recipe.recipe import RecipeCategory
-from mealie.services.scraper import scraper
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
 from tests.utils.app_routes import AppRoutes
 from tests.utils.fixture_schemas import TestUser
@@ -74,8 +74,8 @@ def test_create_by_url(
     )
     # Skip image downloader
     monkeypatch.setattr(
-        scraper,
-        "download_image_for_recipe",
+        RecipeDataService,
+        "scrape_image",
         lambda *_: "TEST_IMAGE",
     )
 
