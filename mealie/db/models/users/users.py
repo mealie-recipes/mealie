@@ -33,7 +33,7 @@ class User(SqlAlchemyBase, BaseMixins):
     admin = Column(Boolean, default=False)
     advanced = Column(Boolean, default=False)
 
-    group_id = Column(GUID, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="users")
 
     cache_key = Column(String, default="1234")

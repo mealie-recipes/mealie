@@ -45,7 +45,7 @@ class Category(SqlAlchemyBase, BaseMixins):
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="category_slug_group_id_key"),)
 
     # ID Relationships
-    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False)
+    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="categories", foreign_keys=[group_id])
 
     id = sa.Column(sa.Integer, primary_key=True)

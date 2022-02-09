@@ -29,7 +29,7 @@ class Tag(SqlAlchemyBase, BaseMixins):
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="tags_slug_group_id_key"),)
 
     # ID Relationships
-    group_id = sa.Column(guid.GUID, sa.ForeignKey("groups.id"), nullable=False)
+    group_id = sa.Column(guid.GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="tags", foreign_keys=[group_id])
 
     id = sa.Column(sa.Integer, primary_key=True)

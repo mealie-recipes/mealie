@@ -46,7 +46,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     slug = sa.Column(sa.String, index=True)
 
     # ID Relationships
-    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"))
+    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
     user_id = sa.Column(GUID, sa.ForeignKey("users.id"))
