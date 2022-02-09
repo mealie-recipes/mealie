@@ -19,3 +19,7 @@ class RoutesFoods(_RoutesBase):
 
 class RoutesUnits(_RoutesBase):
     base = "/api/units"
+
+
+class RoutesTools(_RoutesBase):
+    base = "/api/tools"
