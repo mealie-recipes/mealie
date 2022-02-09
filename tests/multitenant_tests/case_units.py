@@ -6,7 +6,7 @@ from tests.multitenant_tests.case_abc import ABCMultiTenanatTestCase
 from tests.utils import routes
 
 
-class MultiTenantUnitTestCase(ABCMultiTenanatTestCase):
+class UnitsTestCase(ABCMultiTenanatTestCase):
     def seed_action(self, group_id: str) -> set[int]:
         unit_ids: set[int] = set()
         for _ in range(10):
