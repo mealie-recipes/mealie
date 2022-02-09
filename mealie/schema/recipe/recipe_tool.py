@@ -1,11 +1,16 @@
 from typing import List
 
 from fastapi_camelcase import CamelModel
+from pydantic import UUID4
 
 
 class RecipeToolCreate(CamelModel):
     name: str
     on_hand: bool = False
+
+
+class RecipeToolSave(RecipeToolCreate):
+    group_id: UUID4
 
 
 class RecipeTool(RecipeToolCreate):

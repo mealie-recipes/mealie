@@ -3,6 +3,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table, orm
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models._model_utils import auto_init
+from mealie.db.models._model_utils.guid import GUID
 
 recipes_to_tools = Table(
     "recipes_to_tools",
@@ -14,6 +15,11 @@ recipes_to_tools = Table(
 
 class Tool(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tools"
+
+    # ID Relationships
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
+    group = orm.relationship("Group", back_populates="tools", foreign_keys=[group_id])
+
     name = Column(String, index=True, unique=True, nullable=False)
     slug = Column(String, index=True, unique=True, nullable=False)
     on_hand = Column(Boolean, default=False)
