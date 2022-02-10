@@ -128,7 +128,7 @@ class BaseMigrator(BaseService):
             exception = ""
             status = False
             try:
-                self.db.recipes.create(recipe)
+                recipe = self.db.recipes.create(recipe)
                 status = True
 
             except Exception as inst:

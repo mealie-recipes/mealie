@@ -76,11 +76,11 @@ class MealieAlphaMigrator(BaseMigrator):
 
             results = self.import_recipes_to_database(recipes)
 
-            for slug, id, status in results:
+            for slug, recipe_id, status in results:
                 if not status:
                     continue
 
-                dest_dir = Recipe.directory_from_id(id)
+                dest_dir = Recipe.directory_from_id(recipe_id)
                 source_dir = recipe_lookup.get(slug)
 
                 if dest_dir.exists():
