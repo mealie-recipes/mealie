@@ -222,7 +222,7 @@ export interface ReadWebhook {
   id: number;
 }
 export interface RecipeSummary {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -315,7 +315,7 @@ export interface ShoppingListItemCreate {
   recipeReferences?: ShoppingListItemRecipeRef[];
 }
 export interface ShoppingListItemRecipeRef {
-  recipeId: number;
+  recipeId: string;
   recipeQuantity: number;
 }
 export interface ShoppingListItemOut {
@@ -335,7 +335,7 @@ export interface ShoppingListItemOut {
   label?: MultiPurposeLabelSummary;
 }
 export interface ShoppingListItemRecipeRefOut {
-  recipeId: number;
+  recipeId: string;
   recipeQuantity: number;
   id: string;
   shoppingListItemId: string;
@@ -365,7 +365,7 @@ export interface ShoppingListOut {
 export interface ShoppingListRecipeRefOut {
   id: string;
   shoppingListId: string;
-  recipeId: number;
+  recipeId: string;
   recipeQuantity: number;
   recipe: RecipeSummary;
 }

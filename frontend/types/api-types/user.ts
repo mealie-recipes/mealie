@@ -109,7 +109,7 @@ export interface PrivatePasswordResetToken {
   user: PrivateUser;
 }
 export interface RecipeSummary {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;

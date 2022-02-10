@@ -8,6 +8,13 @@ from PIL import Image
 WEBP = ".webp"
 FORMAT = "WEBP"
 
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+
+
+def get_format(image: Path) -> str:
+    img = Image.open(image)
+    return img.format
+
 
 def sizeof_fmt(file_path: Path, decimal_places=2):
     if not file_path.exists():
@@ -39,7 +46,7 @@ class ABCMinifier(ABC):
         )
 
     @abstractmethod
-    def minify(self, image: Path, force=False):
+    def minify(self, image: Path, force=True):
         ...
 
     def purge(self, image: Path):
@@ -80,7 +87,7 @@ class PillowMinifier(ABCMinifier):
             )
         )
 
-    def minify(self, image_file: Path, force=False):
+    def minify(self, image_file: Path, force=True):
         if not image_file.exists():
             raise FileNotFoundError(f"{image_file.name} does not exist")
 
@@ -88,7 +95,7 @@ class PillowMinifier(ABCMinifier):
         min_dest = image_file.parent.joinpath("min-original.webp")
         tiny_dest = image_file.parent.joinpath("tiny-original.webp")
 
-        if force and min_dest.exists() and tiny_dest.exists() and org_dest.exists():
+        if not force and min_dest.exists() and tiny_dest.exists() and org_dest.exists():
             self._logger.info(f"{image_file.name} already minified")
             return
 
@@ -106,6 +113,7 @@ class PillowMinifier(ABCMinifier):
                 self._logger.info(f"{image_file.name} already minified")
             else:
                 PillowMinifier.to_webp(image_file, min_dest, quality=70)
+                self._logger.info(f"{image_file.name} minified")
                 success = True
 
         if self._opts.tiny:
@@ -115,6 +123,7 @@ class PillowMinifier(ABCMinifier):
                 img = Image.open(image_file)
                 tiny_image = PillowMinifier.crop_center(img)
                 tiny_image.save(tiny_dest, FORMAT, quality=70)
+                self._logger.info("Tiny image saved")
                 success = True
 
         if self._purge and success:

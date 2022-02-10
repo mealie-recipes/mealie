@@ -287,7 +287,10 @@ class RecipeController(BaseRecipeController):
         """Upload a file to store as a recipe asset"""
         file_name = slugify(name) + "." + extension
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
-        dest = Recipe(slug=slug).asset_dir.joinpath(file_name)
+
+        recipe = self.mixins.get_one(slug)
+
+        dest = Recipe.directory_from_id(recipe.id).joinpath("assets", file_name)
 
         with dest.open("wb") as buffer:
             copyfileobj(file.file, buffer)

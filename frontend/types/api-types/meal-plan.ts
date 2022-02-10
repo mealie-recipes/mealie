@@ -23,7 +23,7 @@ export interface CreatePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
 }
 export interface ListItem {
   title?: string;
@@ -90,13 +90,13 @@ export interface ReadPlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   id: number;
   groupId: string;
   recipe?: RecipeSummary;
 }
 export interface RecipeSummary {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -178,7 +178,7 @@ export interface SavePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   groupId: string;
 }
 export interface ShoppingListIn {
@@ -197,7 +197,7 @@ export interface UpdatePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   id: number;
   groupId: string;
 }

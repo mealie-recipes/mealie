@@ -10,7 +10,14 @@
       <v-list-item three-line>
         <slot name="avatar">
           <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0 ml-n4">
-            <RecipeCardImage :icon-size="100" :height="125" :slug="slug" small :image-version="image"></RecipeCardImage>
+            <RecipeCardImage
+              :icon-size="100"
+              :height="125"
+              :slug="slug"
+              :recipe-id="recipeId"
+              small
+              :image-version="image"
+            ></RecipeCardImage>
           </v-list-item-avatar>
         </slot>
         <v-list-item-content>
@@ -93,7 +100,7 @@ export default defineComponent({
       default: true,
     },
     recipeId: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
@@ -105,7 +112,7 @@ export default defineComponent({
 
     return {
       loggedIn,
-    }
+    };
   },
 });
 </script>

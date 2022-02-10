@@ -10,20 +10,20 @@ export const useStaticRoutes = () => {
   const fullBase = serverBase + prefix;
 
   // Methods to Generate reference urls for assets/images *
-  function recipeImage(recipeSlug: string, version = "", key = 1) {
-    return `${fullBase}/media/recipes/${recipeSlug}/images/original.webp?&rnd=${key}&version=${version}`;
+  function recipeImage(recipeId: string, version = "", key = 1) {
+    return `${fullBase}/media/recipes/${recipeId}/images/original.webp?&rnd=${key}&version=${version}`;
   }
 
-  function recipeSmallImage(recipeSlug: string, version = "", key = 1) {
-    return `${fullBase}/media/recipes/${recipeSlug}/images/min-original.webp?&rnd=${key}&version=${version}`;
+  function recipeSmallImage(recipeId: string, version = "", key = 1) {
+    return `${fullBase}/media/recipes/${recipeId}/images/min-original.webp?&rnd=${key}&version=${version}`;
   }
 
-  function recipeTinyImage(recipeSlug: string, version = "", key = 1) {
-    return `${fullBase}/media/recipes/${recipeSlug}/images/tiny-original.webp?&rnd=${key}&version=${version}`;
+  function recipeTinyImage(recipeId: string, version = "", key = 1) {
+    return `${fullBase}/media/recipes/${recipeId}/images/tiny-original.webp?&rnd=${key}&version=${version}`;
   }
 
-  function recipeAssetPath(recipeSlug: string, assetName: string) {
-    return `${fullBase}/media/recipes/${recipeSlug}/assets/${assetName}`;
+  function recipeAssetPath(recipeId: string, assetName: string) {
+    return `${fullBase}/media/recipes/${recipeId}/assets/${assetName}`;
   }
 
   return {

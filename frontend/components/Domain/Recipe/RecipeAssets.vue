@@ -86,6 +86,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    recipeId: {
+      type: String,
+      required: true,
+    },
     value: {
       type: Array,
       required: true,
@@ -143,7 +147,7 @@ export default defineComponent({
 
     const { recipeAssetPath } = useStaticRoutes();
     function assetURL(assetName: string) {
-      return recipeAssetPath(props.slug, assetName);
+      return recipeAssetPath(props.recipeId, assetName);
     }
 
     function assetEmbed(name: string) {

@@ -24,15 +24,7 @@
       <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="slug" show-always />
       <v-tooltip v-if="!locked" bottom color="info">
         <template #activator="{ on, attrs }">
-          <v-btn
-            fab
-            small
-            class="mx-1"
-            color="info"
-            v-bind="attrs"
-            v-on="on"
-            @click="$emit('input', true)"
-          >
+          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('input', true)">
             <v-icon> {{ $globals.icons.edit }} </v-icon>
           </v-btn>
         </template>
@@ -40,14 +32,7 @@
       </v-tooltip>
       <v-tooltip v-else bottom color="info">
         <template #activator="{ on, attrs }">
-          <v-btn
-            fab
-            small
-            class="mx-1"
-            color="info"
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on">
             <v-icon> {{ $globals.icons.lock }} </v-icon>
           </v-btn>
         </template>
@@ -93,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, useContext} from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 
@@ -123,7 +108,7 @@ export default defineComponent({
     },
     recipeId: {
       required: true,
-      type: Number,
+      type: String,
     },
     locked: {
       type: Boolean,
@@ -191,7 +176,7 @@ export default defineComponent({
       editorButtons,
       emitHandler,
       emitDelete,
-    }
+    };
   },
 });
 </script>

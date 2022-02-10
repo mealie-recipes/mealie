@@ -16,7 +16,7 @@ export interface CreateMealPlan {
   entryType: PlanEntryType;
   title: string;
   text: string;
-  recipeId?: number;
+  recipeId?: string;
 }
 
 export interface UpdateMealPlan extends CreateMealPlan {

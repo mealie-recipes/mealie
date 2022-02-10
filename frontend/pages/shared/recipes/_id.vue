@@ -324,7 +324,7 @@ export default defineComponent({
       if (data) {
         if (data && data !== undefined) {
           console.log("Computed Meta. RefKey=");
-          const imageURL = data.slug ? recipeImage(data.slug) : undefined;
+          const imageURL = data.id ? recipeImage(data.id) : undefined;
           title.value = data.name;
 
           meta.value = [

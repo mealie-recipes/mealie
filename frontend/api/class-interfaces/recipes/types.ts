@@ -50,7 +50,7 @@ export interface CreateAsset {
 }
 
 export interface RecipeCommentCreate {
-  recipeId: number;
+  recipeId: string;
   text: string;
 }
 

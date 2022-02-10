@@ -33,7 +33,7 @@ export interface RecipeCategoryResponse {
   recipes?: Recipe[];
 }
 export interface Recipe {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -159,7 +159,7 @@ export interface RecipeNote {
   text: string;
 }
 export interface RecipeCommentOut {
-  recipeId: number;
+  recipeId: string;
   text: string;
   id: string;
   createdAt: string;

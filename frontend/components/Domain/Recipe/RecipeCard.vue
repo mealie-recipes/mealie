@@ -8,7 +8,14 @@
         :min-height="imageHeight + 75"
         @click="$emit('click')"
       >
-        <RecipeCardImage :icon-size="imageHeight" :height="imageHeight" :slug="slug" small :image-version="image">
+        <RecipeCardImage
+          :icon-size="imageHeight"
+          :height="imageHeight"
+          :slug="slug"
+          :recipe-id="recipeId"
+          small
+          :image-version="image"
+        >
           <v-expand-transition v-if="description">
             <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
               <v-card-text class="v-card--text-show white--text">
@@ -95,7 +102,7 @@ export default defineComponent({
     },
     recipeId: {
       required: true,
-      type: Number,
+      type: String,
     },
     imageHeight: {
       type: Number,

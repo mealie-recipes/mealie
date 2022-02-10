@@ -52,7 +52,7 @@ class RecipeDataService(BaseService):
             with open(image_path, "ab") as f:
                 shutil.copyfileobj(file_data, f)
 
-        self.minifier.minify(image_path, force=True)
+        self.minifier.minify(image_path)
 
         return image_path
 
@@ -86,7 +86,12 @@ class RecipeDataService(BaseService):
                 if key == "url":
                     image_url = image_url.get("url")
 
-        filename = str(self.recipe_id) + "." + image_url.split(".")[-1]
+        ext = image_url.split(".")[-1]
+
+        if ext not in img.IMAGE_EXTENSIONS:
+            ext = "jpg"  # Guess the extension
+
+        filename = str(self.recipe_id) + "." + ext
         filename = Recipe.directory_from_id(self.recipe_id).joinpath("images", filename)
 
         try:
