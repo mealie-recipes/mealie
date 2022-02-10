@@ -5,7 +5,6 @@ import requests
 from pydantic import UUID4
 
 from mealie.pkgs import img
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
 
@@ -15,7 +14,7 @@ _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101
 class RecipeDataService(BaseService):
     minifier: img.ABCMinifier
 
-    def __init__(self, recipe_id: UUID4, group_id: str = None, repos: AllRepositories = None) -> None:
+    def __init__(self, recipe_id: UUID4, group_id: UUID4 = None) -> None:
         """
         RecipeDataService is a service that consolidates the reading/writing actions related
         to assets, and images for a recipe.
@@ -24,7 +23,6 @@ class RecipeDataService(BaseService):
 
         self.recipe_id = recipe_id
         self.slug = group_id
-        self.repos = repos
         self.minifier = img.PillowMinifier(purge=True, logger=self.logger)
 
         self.dir_data = Recipe.directory_from_id(self.recipe_id)

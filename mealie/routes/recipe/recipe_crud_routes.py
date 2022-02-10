@@ -1,12 +1,14 @@
 from functools import cached_property
+from shutil import copyfileobj
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, HTTPException
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, status
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
+from slugify import slugify
 from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
@@ -22,8 +24,10 @@ from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.query import GetAll
 from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeImageTypes
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
+from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.server.tasks import ServerTaskNames
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.scraper import create_from_url
@@ -47,6 +51,10 @@ class BaseRecipeController(BaseUserController):
 
 class RecipeGetAll(GetAll):
     load_food: bool = False
+
+
+class UpdateImageResponse(BaseModel):
+    image: str
 
 
 class FormatResponse(BaseModel):
@@ -158,10 +166,9 @@ class RecipeController(BaseRecipeController):
     @router.post("/test-scrape-url")
     def test_parse_recipe_url(self, url: CreateRecipeByUrl):
         # Debugger should produce the same result as the scraper sees before cleaning
-        scraped_data = RecipeScraperPackage(url.url).scrape_url()
-
-        if scraped_data:
+        if scraped_data := RecipeScraperPackage(url.url).scrape_url():
             return scraped_data.schema.data
+
         return "recipe_scrapers was unable to scrape this URL"
 
     @router.post("/create-from-zip", status_code=201)
@@ -249,3 +256,48 @@ class RecipeController(BaseRecipeController):
             return self.service.delete_one(slug)
         except Exception as e:
             self.handle_exceptions(e)
+
+    # ==================================================================================================================
+    # Image and Assets
+
+    @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
+    def scrape_image_url(self, slug: str, url: CreateRecipeByUrl) -> str:
+        recipe = self.mixins.get_one(slug)
+        data_service = RecipeDataService(recipe.id)
+        data_service.scrape_image(url.url)
+
+    @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
+    def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
+        recipe = self.mixins.get_one(slug)
+        data_service = RecipeDataService(recipe.id)
+        data_service.write_image(image, extension)
+
+        new_version = self.repo.update_image(slug, extension)
+        return UpdateImageResponse(image=new_version)
+
+    @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
+    def upload_recipe_asset(
+        self,
+        slug: str,
+        name: str = Form(...),
+        icon: str = Form(...),
+        extension: str = Form(...),
+        file: UploadFile = File(...),
+    ):
+        """Upload a file to store as a recipe asset"""
+        file_name = slugify(name) + "." + extension
+        asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
+        dest = Recipe(slug=slug).asset_dir.joinpath(file_name)
+
+        with dest.open("wb") as buffer:
+            copyfileobj(file.file, buffer)
+
+        if not dest.is_file():
+            raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        recipe: Recipe = self.mixins.get_one(slug)
+        recipe.assets.append(asset_in)
+
+        self.mixins.update_one(recipe, slug)
+
+        return asset_in
