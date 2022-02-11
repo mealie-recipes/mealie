@@ -290,7 +290,7 @@ class RecipeController(BaseRecipeController):
 
         recipe = self.mixins.get_one(slug)
 
-        dest = Recipe.directory_from_id(recipe.id).joinpath("assets", file_name)
+        dest = recipe.asset_dir / file_name
 
         with dest.open("wb") as buffer:
             copyfileobj(file.file, buffer)
