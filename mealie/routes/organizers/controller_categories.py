@@ -10,7 +10,7 @@ from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
 
-router = APIRouter(prefix="/categories", tags=["Categories: CRUD"])
+router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
 
 
 class CategorySummary(BaseModel):

@@ -10,7 +10,7 @@ from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import TagSave
 
-router = APIRouter(prefix="/tags", tags=["Tags: CRUD"])
+router = APIRouter(prefix="/tags", tags=["Organizer: Tags"])
 
 
 @controller(router)

@@ -28,15 +28,15 @@ class RoutesOrganizerBase(RoutesBase):
 
 
 class RoutesTools(RoutesOrganizerBase):
-    base = "/api/tools"
+    base = "/api/organizers/tools"
 
 
 class RoutesTags(RoutesOrganizerBase):
-    base = "/api/tags"
+    base = "/api/organizers/tags"
 
 
 class RoutesCategory(RoutesOrganizerBase):
-    base = "/api/categories"
+    base = "/api/organizers/categories"
 
 
 class RoutesRecipe(RoutesBase):

@@ -9,8 +9,6 @@ DATA_DIR = determine_data_dir()
 
 from .config import get_app_settings
 
-settings = get_app_settings()
-
 LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 DATE_FORMAT = "%d-%b-%y %H:%M:%S"
 LOGGER_FORMAT = "%(levelname)s: %(asctime)s \t%(message)s"
@@ -27,6 +25,8 @@ class LoggerConfig:
 
 @lru_cache
 def get_logger_config():
+    settings = get_app_settings()
+
     if not settings.PRODUCTION:
         from rich.logging import RichHandler
 
@@ -69,7 +69,6 @@ def logger_init() -> logging.Logger:
 
 
 root_logger = logger_init()
-root_logger.info("Testing Root Logger")
 
 
 def get_logger(module=None) -> logging.Logger:

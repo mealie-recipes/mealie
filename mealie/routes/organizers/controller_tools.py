@@ -11,7 +11,7 @@ from mealie.schema.query import GetAll
 from mealie.schema.recipe.recipe import RecipeTool
 from mealie.schema.recipe.recipe_tool import RecipeToolCreate, RecipeToolResponse, RecipeToolSave
 
-router = APIRouter(prefix="/tools", tags=["Recipes: Tools"])
+router = APIRouter(prefix="/tools", tags=["Organizer: Tools"])
 
 
 @controller(router)
