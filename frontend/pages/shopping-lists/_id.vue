@@ -411,7 +411,7 @@ export default defineComponent({
       return shoppingList.value?.recipeReferences?.map((ref) => ref.recipe) ?? [];
     });
 
-    async function addRecipeReferenceToList(recipeId: number) {
+    async function addRecipeReferenceToList(recipeId: string) {
       if (!shoppingList.value) {
         return;
       }
@@ -423,7 +423,7 @@ export default defineComponent({
       }
     }
 
-    async function removeRecipeReferenceToList(recipeId: number) {
+    async function removeRecipeReferenceToList(recipeId: string) {
       if (!shoppingList.value) {
         return;
       }
@@ -577,4 +577,3 @@ export default defineComponent({
   max-width: 50px;
 }
 </style>
-

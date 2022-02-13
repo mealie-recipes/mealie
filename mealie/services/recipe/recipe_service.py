@@ -15,7 +15,7 @@ from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services._base_service import BaseService
-from mealie.services.image.image import write_image
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
 
@@ -142,7 +142,8 @@ class RecipeService(BaseService):
         recipe = self.create_one(Recipe(**recipe_dict))
 
         if recipe:
-            write_image(recipe.slug, recipe_image, "webp")
+            data_service = RecipeDataService(recipe.id)
+            data_service.write_image(recipe_image, "webp")
 
         return recipe
 

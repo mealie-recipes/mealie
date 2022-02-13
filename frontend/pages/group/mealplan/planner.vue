@@ -107,6 +107,7 @@
                 <v-list-item-avatar :rounded="false">
                   <RecipeCardImage
                     v-if="mealplan.recipe"
+                    :recipe-id="mealplan.recipe.id"
                     tiny
                     icon-size="25"
                     :slug="mealplan.recipe ? mealplan.recipe.slug : ''"

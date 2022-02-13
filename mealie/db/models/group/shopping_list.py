@@ -13,7 +13,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     id = Column(GUID, primary_key=True, default=GUID.generate)
 
     shopping_list_item_id = Column(GUID, ForeignKey("shopping_list_items.id"), primary_key=True)
-    recipe_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
     recipe = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity = Column(Float, nullable=False)
 
@@ -40,10 +40,10 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     is_food = Column(Boolean, default=False)
 
     # Scaling Items
-    unit_id = Column(Integer, ForeignKey("ingredient_units.id"))
+    unit_id = Column(GUID, ForeignKey("ingredient_units.id"))
     unit = orm.relationship(IngredientUnitModel, uselist=False)
 
-    food_id = Column(Integer, ForeignKey("ingredient_foods.id"))
+    food_id = Column(GUID, ForeignKey("ingredient_foods.id"))
     food = orm.relationship(IngredientFoodModel, uselist=False)
 
     label_id = Column(GUID, ForeignKey("multi_purpose_labels.id"))
@@ -66,7 +66,7 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
 
     shopping_list_id = Column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
 
-    recipe_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
     recipe = orm.relationship("RecipeModel", uselist=False, back_populates="shopping_list_refs")
 
     recipe_quantity = Column(Float, nullable=False)
@@ -83,7 +83,7 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists"
     id = Column(GUID, primary_key=True, default=GUID.generate)
 
-    group_id = Column(GUID, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="shopping_lists")
 
     name = Column(String)

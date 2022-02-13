@@ -58,6 +58,9 @@ class Group(SqlAlchemyBase, BaseMixins):
     # Owned Models
     ingredient_units = orm.relationship("IngredientUnitModel", **common_args)
     ingredient_foods = orm.relationship("IngredientFoodModel", **common_args)
+    tools = orm.relationship("Tool", **common_args)
+    tags = orm.relationship("Tag", **common_args)
+    categories = orm.relationship("Category", **common_args)
 
     class Config:
         exclude = {

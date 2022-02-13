@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../_base";
-import { Category } from "./categories";
 import { CategoryBase } from "~/types/api-types/recipe";
+import { RecipeCategory } from "~/types/api-types/user";
 
 const prefix = "/api";
 
@@ -14,7 +14,7 @@ export interface CookBook extends CreateCookBook {
   description: string;
   position: number;
   group_id: number;
-  categories: Category[] | CategoryBase[];
+  categories: RecipeCategory[] | CategoryBase[];
 }
 
 const routes = {

@@ -5,8 +5,9 @@ from fastapi import HTTPException, status
 from slugify import slugify
 
 from mealie.core.root_logger import get_logger
+from mealie.pkgs import cache
 from mealie.schema.recipe import Recipe
-from mealie.services.image.image import scrape_image
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .recipe_scraper import RecipeScraper
 
@@ -29,29 +30,26 @@ def create_from_url(url: str) -> Recipe:
     """
     scraper = RecipeScraper()
     new_recipe = scraper.scrape(url)
+    new_recipe.id = uuid4()
 
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
 
     logger = get_logger()
     logger.info(f"Image {new_recipe.image}")
-    new_recipe.image = download_image_for_recipe(new_recipe.slug, new_recipe.image)
+
+    recipe_data_service = RecipeDataService(new_recipe.id)
+
+    try:
+        recipe_data_service.scrape_image(new_recipe.image)
+        new_recipe.name = slugify(new_recipe.name)
+        new_recipe.image = cache.new_key(4)
+    except Exception as e:
+        recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
+        new_recipe.image = "no image"
 
     if new_recipe.name is None or new_recipe.name == "":
-        new_recipe.name = "No Recipe Found - " + uuid4().hex
+        new_recipe.name = "No Recipe Name Found - " + str(uuid4())
         new_recipe.slug = slugify(new_recipe.name)
 
     return new_recipe
-
-
-def download_image_for_recipe(slug, image_url) -> str | None:
-    img_name = None
-    try:
-        img_path = scrape_image(image_url, slug)
-        img_name = img_path.name
-    except Exception as e:
-        logger = get_logger()
-        logger.error(f"Error Scraping Image: {e}")
-        img_name = None
-
-    return img_name or "no image"

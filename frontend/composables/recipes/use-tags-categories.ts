@@ -1,13 +1,17 @@
 import { Ref, ref, useAsync } from "@nuxtjs/composition-api";
 import { useUserApi } from "../api";
 import { useAsyncKey } from "../use-utils";
-import { CategoriesAPI, Category } from "~/api/class-interfaces/categories";
-import { Tag, TagsAPI } from "~/api/class-interfaces/tags";
+import { CategoriesAPI } from "~/api/class-interfaces/organizer-categories";
+import { TagsAPI } from "~/api/class-interfaces/organizer-tags";
+import { RecipeTag, RecipeCategory } from "~/types/api-types/recipe";
 
-export const allCategories = ref<Category[] | null>([]);
-export const allTags = ref<Tag[] | null>([]);
+export const allCategories = ref<RecipeCategory[] | null>([]);
+export const allTags = ref<RecipeTag[] | null>([]);
 
-function baseTagsCategories(reference: Ref<Category[] | null> | Ref<Tag[] | null>, api: TagsAPI | CategoriesAPI) {
+function baseTagsCategories(
+  reference: Ref<RecipeCategory[] | null> | Ref<RecipeTag[] | null>,
+  api: TagsAPI | CategoriesAPI
+) {
   function useAsyncGetAll() {
     useAsync(async () => {
       await refreshItems();

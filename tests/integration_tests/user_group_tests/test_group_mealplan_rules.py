@@ -7,6 +7,7 @@ from pydantic import UUID4
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut, PlanRulesSave
 from mealie.schema.recipe.recipe import RecipeCategory
+from mealie.schema.recipe.recipe_category import CategorySave
 from tests import utils
 from tests.utils.fixture_schemas import TestUser
 
@@ -20,9 +21,12 @@ class Routes:
 
 
 @pytest.fixture(scope="function")
-def category(database: AllRepositories):
+def category(
+    database: AllRepositories,
+    unique_user: TestUser,
+):
     slug = utils.random_string(length=10)
-    model = database.categories.create(RecipeCategory(slug=slug, name=slug))
+    model = database.categories.create(CategorySave(group_id=unique_user.group_id, slug=slug, name=slug))
 
     yield model
 
@@ -61,7 +65,7 @@ def test_group_mealplan_rules_create(
         "categories": [category.dict()],
     }
 
-    response = api_client.post(Routes.base, json=payload, headers=unique_user.token)
+    response = api_client.post(Routes.base, json=utils.jsonify(payload), headers=unique_user.token)
     assert response.status_code == 201
 
     # Validate the response data

@@ -26,7 +26,7 @@ class CreatePlanEntry(CamelModel):
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
-    recipe_id: Optional[int]
+    recipe_id: Optional[UUID]
 
     @validator("recipe_id", always=True)
     @classmethod

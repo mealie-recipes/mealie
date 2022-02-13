@@ -7,7 +7,8 @@ from fastapi.testclient import TestClient
 from mealie.core.dependencies.dependencies import validate_file_token
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_bulk_actions import ExportTypes
-from mealie.schema.recipe.recipe_category import TagIn
+from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from tests import utils
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -20,8 +21,8 @@ class Routes:
     bulk_delete = "api/recipes/bulk-actions/delete"
 
     bulk_export = "api/recipes/bulk-actions/export"
-    bulk_export_download = bulk_export + "/download"
-    bulk_export_purge = bulk_export + "/purge"
+    bulk_export_download = f"{bulk_export}/download"
+    bulk_export_purge = f"{bulk_export}/purge"
 
 
 @pytest.fixture(scope="function")
@@ -53,12 +54,12 @@ def test_bulk_tag_recipes(
     tags = []
     for _ in range(3):
         tag_name = random_string()
-        tag = database.tags.create(TagIn(name=tag_name))
+        tag = database.tags.create(TagSave(group_id=unique_user.group_id, name=tag_name))
         tags.append(tag.dict())
 
     payload = {"recipes": ten_slugs, "tags": tags}
 
-    response = api_client.post(Routes.bulk_tag, json=payload, headers=unique_user.token)
+    response = api_client.post(Routes.bulk_tag, json=utils.jsonify(payload), headers=unique_user.token)
     assert response.status_code == 200
 
     # Validate Recipes are Tagged
@@ -79,12 +80,12 @@ def test_bulk_categorize_recipes(
     categories = []
     for _ in range(3):
         cat_name = random_string()
-        cat = database.tags.create(TagIn(name=cat_name))
+        cat = database.categories.create(CategorySave(group_id=unique_user.group_id, name=cat_name))
         categories.append(cat.dict())
 
     payload = {"recipes": ten_slugs, "categories": categories}
 
-    response = api_client.post(Routes.bulk_categorize, json=payload, headers=unique_user.token)
+    response = api_client.post(Routes.bulk_categorize, json=utils.jsonify(payload), headers=unique_user.token)
     assert response.status_code == 200
 
     # Validate Recipes are Categorized
@@ -140,7 +141,7 @@ def test_bulk_export_recipes(api_client: TestClient, unique_user: TestUser, ten_
     assert validate_file_token(response_data["fileToken"]) == Path(export_path)
 
     # Use Export Token to donwload export
-    response = api_client.get("/api/utils/download?token=" + response_data["fileToken"])
+    response = api_client.get(f'/api/utils/download?token={response_data["fileToken"]}')
 
     assert response.status_code == 200
 

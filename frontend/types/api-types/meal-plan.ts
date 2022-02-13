@@ -10,7 +10,7 @@ export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "fr
 export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "unset";
 
 export interface Category {
-  id: number;
+  id: string;
   name: string;
   slug: string;
 }
@@ -23,7 +23,7 @@ export interface CreatePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
 }
 export interface ListItem {
   title?: string;
@@ -66,7 +66,7 @@ export interface PlanRulesCreate {
   tags?: Tag[];
 }
 export interface Tag {
-  id: number;
+  id: string;
   name: string;
   slug: string;
 }
@@ -90,13 +90,13 @@ export interface ReadPlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   id: number;
   groupId: string;
   recipe?: RecipeSummary;
 }
 export interface RecipeSummary {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -118,17 +118,17 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
   onHand?: boolean;
@@ -147,7 +147,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -159,7 +159,7 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  id: number;
+  id: string;
   label?: MultiPurposeLabelSummary;
 }
 export interface MultiPurposeLabelSummary {
@@ -178,7 +178,7 @@ export interface SavePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   groupId: string;
 }
 export interface ShoppingListIn {
@@ -197,7 +197,7 @@ export interface UpdatePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   id: number;
   groupId: string;
 }

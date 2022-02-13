@@ -78,7 +78,7 @@ class PaprikaMigrator(BaseMigrator):
 
         results = self.import_recipes_to_database(recipes)
 
-        for slug, status in results:
+        for slug, recipe_id, status in results:
             if not status:
                 continue
 
@@ -88,6 +88,6 @@ class PaprikaMigrator(BaseMigrator):
                 with tempfile.NamedTemporaryFile(suffix=".jpeg") as temp_file:
                     temp_file.write(image.read())
                     path = Path(temp_file.name)
-                    import_image(path, slug)
+                    import_image(path, recipe_id)
             except Exception as e:
                 self.logger.error(f"Failed to download image for {slug}: {e}")

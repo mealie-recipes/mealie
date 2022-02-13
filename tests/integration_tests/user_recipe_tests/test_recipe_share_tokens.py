@@ -89,7 +89,7 @@ def test_recipe_share_tokens_create_and_get_one(
     recipe = database.recipes.get_one(slug)
 
     payload = {
-        "recipe_id": recipe.id,
+        "recipeId": str(recipe.id),
     }
 
     response = api_client.post(Routes.base, json=payload, headers=unique_user.token)
@@ -99,7 +99,7 @@ def test_recipe_share_tokens_create_and_get_one(
     assert response.status_code == 200
 
     response_data = response.json()
-    assert response_data["recipe"]["id"] == recipe.id
+    assert response_data["recipe"]["id"] == str(recipe.id)
 
 
 def test_recipe_share_tokens_delete_one(

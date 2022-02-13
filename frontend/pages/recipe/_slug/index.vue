@@ -35,7 +35,7 @@
           :max-width="enableLandscape ? null : '50%'"
           min-height="50"
           :height="hideImage ? undefined : imageHeight"
-          :src="recipeImage(recipe.slug, imageKey)"
+          :src="recipeImage(recipe.id, imageKey)"
           class="d-print-none"
           @error="hideImage = true"
         >
@@ -284,6 +284,7 @@
                     v-model="recipe.assets"
                     :edit="form"
                     :slug="recipe.slug"
+                    :recipe-id="recipe.id"
                   />
                 </client-only>
               </div>
@@ -362,6 +363,7 @@
                     v-model="recipe.assets"
                     :edit="form"
                     :slug="recipe.slug"
+                    :recipe-id="recipe.id"
                   />
                 </client-only>
               </div>
@@ -562,7 +564,6 @@ export default defineComponent({
 
     const { recipeImage } = useStaticRoutes();
 
-
     // ===========================================================================
     // Layout Helpers
 
@@ -691,9 +692,8 @@ export default defineComponent({
     // Recipe Tools
 
     async function updateTool(tool: RecipeTool) {
-      if (tool.id === undefined)
-        return;
-      
+      if (tool.id === undefined) return;
+
       const { response } = await api.tools.updateOne(tool.id, tool);
 
       if (response?.status === 200) {

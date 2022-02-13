@@ -14,7 +14,7 @@ export interface AssignCategories {
 }
 export interface CategoryBase {
   name: string;
-  id: number;
+  id: string;
   slug: string;
 }
 export interface AssignTags {
@@ -23,7 +23,7 @@ export interface AssignTags {
 }
 export interface TagBase {
   name: string;
-  id: number;
+  id: string;
   slug: string;
 }
 export interface BulkActionError {
@@ -37,6 +37,15 @@ export interface BulkActionsResponse {
 }
 export interface CategoryIn {
   name: string;
+}
+export interface CategoryOut {
+  name: string;
+  id: string;
+  slug: string;
+}
+export interface CategorySave {
+  name: string;
+  groupId: string;
 }
 export interface CreateIngredientFood {
   name: string;
@@ -58,12 +67,12 @@ export interface CreateRecipeBulk {
   tags?: RecipeTag[];
 }
 export interface RecipeCategory {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
@@ -95,7 +104,7 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  id: number;
+  id: string;
   label?: MultiPurposeLabelSummary;
 }
 export interface MultiPurposeLabelSummary {
@@ -119,7 +128,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface IngredientsRequest {
   parser?: RegisteredParser & string;
@@ -149,7 +158,7 @@ export interface RecipeIngredient {
   referenceId?: string;
 }
 export interface Recipe {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -180,7 +189,7 @@ export interface Recipe {
   comments?: RecipeCommentOut[];
 }
 export interface RecipeTool {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
   onHand?: boolean;
@@ -210,7 +219,7 @@ export interface RecipeNote {
   text: string;
 }
 export interface RecipeCommentOut {
-  recipeId: number;
+  recipeId: string;
   text: string;
   id: string;
   createdAt: string;
@@ -225,52 +234,12 @@ export interface UserBase {
 }
 export interface RecipeCategoryResponse {
   name: string;
-  id: number;
+  id: string;
   slug: string;
-  recipes?: Recipe[];
-}
-export interface RecipeCommentCreate {
-  recipeId: number;
-  text: string;
-}
-export interface RecipeCommentSave {
-  recipeId: number;
-  text: string;
-  userId: string;
-}
-export interface RecipeCommentUpdate {
-  id: string;
-  text: string;
-}
-export interface RecipeShareToken {
-  recipeId: number;
-  expiresAt?: string;
-  groupId: string;
-  id: string;
-  createdAt: string;
-  recipe: Recipe;
-}
-export interface RecipeShareTokenCreate {
-  recipeId: number;
-  expiresAt?: string;
-}
-export interface RecipeShareTokenSave {
-  recipeId: number;
-  expiresAt?: string;
-  groupId: string;
-}
-export interface RecipeShareTokenSummary {
-  recipeId: number;
-  expiresAt?: string;
-  groupId: string;
-  id: string;
-  createdAt: string;
-}
-export interface RecipeSlug {
-  slug: string;
+  recipes?: RecipeSummary[];
 }
 export interface RecipeSummary {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -291,16 +260,56 @@ export interface RecipeSummary {
   dateAdded?: string;
   dateUpdated?: string;
 }
+export interface RecipeCommentCreate {
+  recipeId: string;
+  text: string;
+}
+export interface RecipeCommentSave {
+  recipeId: string;
+  text: string;
+  userId: string;
+}
+export interface RecipeCommentUpdate {
+  id: string;
+  text: string;
+}
+export interface RecipeShareToken {
+  recipeId: string;
+  expiresAt?: string;
+  groupId: string;
+  id: string;
+  createdAt: string;
+  recipe: Recipe;
+}
+export interface RecipeShareTokenCreate {
+  recipeId: string;
+  expiresAt?: string;
+}
+export interface RecipeShareTokenSave {
+  recipeId: string;
+  expiresAt?: string;
+  groupId: string;
+}
+export interface RecipeShareTokenSummary {
+  recipeId: string;
+  expiresAt?: string;
+  groupId: string;
+  id: string;
+  createdAt: string;
+}
+export interface RecipeSlug {
+  slug: string;
+}
 export interface RecipeTagResponse {
   name: string;
-  id: number;
+  id: string;
   slug: string;
-  recipes?: Recipe[];
+  recipes?: RecipeSummary[];
 }
 export interface RecipeTool1 {
   name: string;
   onHand?: boolean;
-  id: number;
+  id: string;
   slug: string;
 }
 export interface RecipeToolCreate {
@@ -310,13 +319,41 @@ export interface RecipeToolCreate {
 export interface RecipeToolResponse {
   name: string;
   onHand?: boolean;
-  id: number;
+  id: string;
   slug: string;
   recipes?: Recipe[];
+}
+export interface RecipeToolSave {
+  name: string;
+  onHand?: boolean;
+  groupId: string;
+}
+export interface SaveIngredientFood {
+  name: string;
+  description?: string;
+  labelId?: string;
+  groupId: string;
+}
+export interface SaveIngredientUnit {
+  name: string;
+  description?: string;
+  fraction?: boolean;
+  abbreviation?: string;
+  groupId: string;
 }
 export interface SlugResponse {}
 export interface TagIn {
   name: string;
+}
+export interface TagOut {
+  name: string;
+  groupId: string;
+  id: string;
+  slug: string;
+}
+export interface TagSave {
+  name: string;
+  groupId: string;
 }
 export interface UnitFoodBase {
   name: string;

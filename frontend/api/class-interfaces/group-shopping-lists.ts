@@ -12,7 +12,7 @@ const prefix = "/api";
 const routes = {
   shoppingLists: `${prefix}/groups/shopping/lists`,
   shoppingListsId: (id: string) => `${prefix}/groups/shopping/lists/${id}`,
-  shoppingListIdAddRecipe: (id: string, recipeId: number) => `${prefix}/groups/shopping/lists/${id}/recipe/${recipeId}`,
+  shoppingListIdAddRecipe: (id: string, recipeId: string) => `${prefix}/groups/shopping/lists/${id}/recipe/${recipeId}`,
 
   shoppingListItems: `${prefix}/groups/shopping/items`,
   shoppingListItemsId: (id: string) => `${prefix}/groups/shopping/items/${id}`,
@@ -22,11 +22,11 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListOut, ShoppingListC
   baseRoute = routes.shoppingLists;
   itemRoute = routes.shoppingListsId;
 
-  async addRecipe(itemId: string, recipeId: number) {
+  async addRecipe(itemId: string, recipeId: string) {
     return await this.requests.post(routes.shoppingListIdAddRecipe(itemId, recipeId), {});
   }
 
-  async removeRecipe(itemId: string, recipeId: number) {
+  async removeRecipe(itemId: string, recipeId: string) {
     return await this.requests.delete(routes.shoppingListIdAddRecipe(itemId, recipeId));
   }
 }

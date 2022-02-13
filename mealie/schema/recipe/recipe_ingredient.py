@@ -14,7 +14,7 @@ class UnitFoodBase(CamelModel):
 
 
 class CreateIngredientFood(UnitFoodBase):
-    label_id: UUID4 = None
+    label_id: Optional[UUID4] = None
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -22,7 +22,7 @@ class SaveIngredientFood(CreateIngredientFood):
 
 
 class IngredientFood(CreateIngredientFood):
-    id: int
+    id: UUID4
     label: MultiPurposeLabelSummary = None
 
     class Config:
@@ -39,7 +39,7 @@ class SaveIngredientUnit(CreateIngredientUnit):
 
 
 class IngredientUnit(CreateIngredientUnit):
-    id: int
+    id: UUID4
 
     class Config:
         orm_mode = True

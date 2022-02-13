@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, Column, ForeignKey, String, orm
 
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_utils.guid import GUID
@@ -33,7 +33,7 @@ class User(SqlAlchemyBase, BaseMixins):
     admin = Column(Boolean, default=False)
     advanced = Column(Boolean, default=False)
 
-    group_id = Column(GUID, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="users")
 
     cache_key = Column(String, default="1234")
@@ -53,7 +53,7 @@ class User(SqlAlchemyBase, BaseMixins):
     comments = orm.relationship("RecipeComment", **sp_args)
     password_reset_tokens = orm.relationship("PasswordResetModel", **sp_args)
 
-    owned_recipes_id = Column(Integer, ForeignKey("recipes.id"))
+    owned_recipes_id = Column(GUID, ForeignKey("recipes.id"))
     owned_recipes = orm.relationship("RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id])
 
     favorite_recipes = orm.relationship("RecipeModel", secondary=users_to_favorites, back_populates="favorited_by")

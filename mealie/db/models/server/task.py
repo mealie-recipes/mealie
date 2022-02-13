@@ -13,7 +13,7 @@ class ServerTaskModel(SqlAlchemyBase, BaseMixins):
     status = Column(String, nullable=False)
     log = Column(String, nullable=True)
 
-    group_id = Column(GUID, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="server_tasks")
 
     @auto_init()

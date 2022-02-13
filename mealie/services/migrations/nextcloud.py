@@ -65,8 +65,8 @@ class NextcloudMigrator(BaseMigrator):
 
             all_statuses = self.import_recipes_to_database(all_recipes)
 
-            for slug, status in all_statuses:
+            for slug, recipe_id, status in all_statuses:
                 if status:
                     nc_dir: NextcloudDir = nextcloud_dirs[slug]
                     if nc_dir.image:
-                        import_image(nc_dir.image, nc_dir.slug)
+                        import_image(nc_dir.image, recipe_id)

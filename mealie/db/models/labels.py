@@ -12,7 +12,7 @@ class MultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     name = Column(String(255), nullable=False)
     color = Column(String(10), nullable=False, default="")
 
-    group_id = Column(GUID, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="labels")
 
     shopping_list_items = orm.relationship("ShoppingListItem", back_populates="label")

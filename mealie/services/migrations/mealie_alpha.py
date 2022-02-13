@@ -32,6 +32,7 @@ class MealieAlphaMigrator(BaseMigrator):
             del recipe["date_added"]
         except Exception:
             pass
+
         # Migration from list to Object Type Data
         try:
             if "" in recipe["tags"]:
@@ -42,7 +43,6 @@ class MealieAlphaMigrator(BaseMigrator):
         try:
             if "" in recipe["categories"]:
                 recipe["categories"] = [cat for cat in recipe["categories"] if cat != ""]
-
         except Exception:
             pass
 
@@ -76,14 +76,11 @@ class MealieAlphaMigrator(BaseMigrator):
 
             results = self.import_recipes_to_database(recipes)
 
-            recipe_model_lookup = {x.slug: x for x in recipes}
-
-            for slug, status in results:
+            for slug, recipe_id, status in results:
                 if not status:
                     continue
 
-                model = recipe_model_lookup.get(slug)
-                dest_dir = model.directory
+                dest_dir = Recipe.directory_from_id(recipe_id)
                 source_dir = recipe_lookup.get(slug)
 
                 if dest_dir.exists():

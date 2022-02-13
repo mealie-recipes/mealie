@@ -66,7 +66,7 @@ export default defineComponent({
     });
 
     const tools = useAsync(async () => {
-      const { data } = await api.tools.byslug(slug);
+      const { data } = await api.tools.bySlug(slug);
       if (data) {
         state.initialValue = data.name;
       }

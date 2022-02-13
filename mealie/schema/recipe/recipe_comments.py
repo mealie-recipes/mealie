@@ -16,7 +16,7 @@ class UserBase(CamelModel):
 
 
 class RecipeCommentCreate(CamelModel):
-    recipe_id: int
+    recipe_id: UUID4
     text: str
 
 
@@ -31,7 +31,7 @@ class RecipeCommentUpdate(CamelModel):
 
 class RecipeCommentOut(RecipeCommentCreate):
     id: UUID
-    recipe_id: int
+    recipe_id: UUID4
     created_at: datetime
     update_at: datetime
     user_id: UUID4

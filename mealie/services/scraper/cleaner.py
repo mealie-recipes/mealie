@@ -43,6 +43,9 @@ def clean_string(text: str) -> str:
     if isinstance(text, list):
         text = text[0]
 
+    if isinstance(text, int):
+        text = str(text)
+
     if text == "" or text is None:
         return ""
 

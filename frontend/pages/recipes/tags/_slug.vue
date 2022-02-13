@@ -72,7 +72,7 @@ export default defineComponent({
     });
 
     const tags = useAsync(async () => {
-      const { data } = await api.tags.getOne(slug);
+      const { data } = await api.tags.bySlug(slug);
       if (data) {
         state.initialValue = data.name;
       }
@@ -93,7 +93,7 @@ export default defineComponent({
       if (!tags.value) {
         return;
       }
-      const { data } = await api.tags.updateOne(tags.value.slug, tags.value);
+      const { data } = await api.tags.updateOne(tags.value.id, tags.value);
 
       if (data) {
         router.push("/recipes/tags/" + data.slug);

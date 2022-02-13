@@ -1,12 +1,13 @@
 import sqlalchemy as sa
 
 from mealie.db.models._model_base import SqlAlchemyBase
+from mealie.db.models._model_utils.guid import GUID
 
 
 class RecipeSettings(SqlAlchemyBase):
     __tablename__ = "recipe_settings"
     id = sa.Column(sa.Integer, primary_key=True)
-    parent_id = sa.Column(sa.Integer, sa.ForeignKey("recipes.id"))
+    recipe_id = sa.Column(GUID, sa.ForeignKey("recipes.id"))
     public = sa.Column(sa.Boolean)
     show_nutrition = sa.Column(sa.Boolean)
     show_assets = sa.Column(sa.Boolean)

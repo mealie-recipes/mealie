@@ -12,7 +12,6 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.schema.admin import CommentImport, GroupImport, RecipeImport, UserImport
 from mealie.schema.recipe import Recipe, RecipeCommentOut
 from mealie.schema.user import PrivateUser, UpdateGroup
-from mealie.services.image import minify
 
 app_dirs = get_app_dirs()
 
@@ -155,8 +154,6 @@ class ImportDatabase:
         else:
             recipe_dir = self.import_dir.joinpath("recipes")
             shutil.copytree(recipe_dir, app_dirs.RECIPE_DATA_DIR, dirs_exist_ok=True)
-
-        minify.migrate_images()
 
     def import_settings(self):
         return []

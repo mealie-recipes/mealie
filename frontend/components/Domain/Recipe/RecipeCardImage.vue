@@ -2,7 +2,7 @@
   <v-img
     v-if="!fallBackImage"
     :height="height"
-    :src="getImage(slug)"
+    :src="getImage(recipeId)"
     @click="$emit('click')"
     @load="fallBackImage = false"
     @error="fallBackImage = true"
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref, watch} from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, watch } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 
 export default defineComponent({
@@ -43,6 +43,10 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    recipeId: {
+      type: String,
+      required: true,
+    },
     imageVersion: {
       type: String,
       default: null,
@@ -63,20 +67,23 @@ export default defineComponent({
       if (props.small) return "small";
       if (props.large) return "large";
       return "large";
-    })
-
-    watch(() => props.slug, () => {
-      fallBackImage.value = false;
     });
 
-    function getImage(slug: string) {
+    watch(
+      () => props.recipeId,
+      () => {
+        fallBackImage.value = false;
+      }
+    );
+
+    function getImage(recipeId: string) {
       switch (imageSize.value) {
         case "tiny":
-          return recipeTinyImage(slug, props.imageVersion);
+          return recipeTinyImage(recipeId, props.imageVersion);
         case "small":
-          return recipeSmallImage(slug, props.imageVersion);
+          return recipeSmallImage(recipeId, props.imageVersion);
         case "large":
-          return recipeImage(slug, props.imageVersion);
+          return recipeImage(recipeId, props.imageVersion);
       }
     }
 
