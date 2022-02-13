@@ -7,7 +7,7 @@
 
 export interface CategoryBase {
   name: string;
-  id: number;
+  id: string;
   slug: string;
 }
 export interface CreateCookBook {
@@ -28,11 +28,11 @@ export interface ReadCookBook {
 }
 export interface RecipeCategoryResponse {
   name: string;
-  id: number;
+  id: string;
   slug: string;
-  recipes?: Recipe[];
+  recipes?: RecipeSummary[];
 }
-export interface Recipe {
+export interface RecipeSummary {
   id?: string;
   userId?: string;
   groupId?: string;
@@ -53,28 +53,19 @@ export interface Recipe {
   recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
-  recipeInstructions?: RecipeStep[];
-  nutrition?: Nutrition;
-  settings?: RecipeSettings;
-  assets?: RecipeAsset[];
-  notes?: RecipeNote[];
-  extras?: {
-    [k: string]: unknown;
-  };
-  comments?: RecipeCommentOut[];
 }
 export interface RecipeCategory {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
   onHand?: boolean;
@@ -93,7 +84,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -105,7 +96,7 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  id: number;
+  id: string;
   label?: MultiPurposeLabelSummary;
 }
 export interface MultiPurposeLabelSummary {
@@ -118,59 +109,6 @@ export interface CreateIngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-}
-export interface RecipeStep {
-  id?: string;
-  title?: string;
-  text: string;
-  ingredientReferences?: IngredientReferences[];
-}
-/**
- * A list of ingredient references.
- */
-export interface IngredientReferences {
-  referenceId?: string;
-}
-export interface Nutrition {
-  calories?: string;
-  fatContent?: string;
-  proteinContent?: string;
-  carbohydrateContent?: string;
-  fiberContent?: string;
-  sodiumContent?: string;
-  sugarContent?: string;
-}
-export interface RecipeSettings {
-  public?: boolean;
-  showNutrition?: boolean;
-  showAssets?: boolean;
-  landscapeView?: boolean;
-  disableComments?: boolean;
-  disableAmount?: boolean;
-  locked?: boolean;
-}
-export interface RecipeAsset {
-  name: string;
-  icon: string;
-  fileName?: string;
-}
-export interface RecipeNote {
-  title: string;
-  text: string;
-}
-export interface RecipeCommentOut {
-  recipeId: string;
-  text: string;
-  id: string;
-  createdAt: string;
-  updateAt: string;
-  userId: string;
-  user: UserBase;
-}
-export interface UserBase {
-  id: number;
-  username?: string;
-  admin: boolean;
 }
 export interface RecipeCookBook {
   name: string;

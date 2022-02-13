@@ -7,7 +7,7 @@
 
 export interface CategoryBase {
   name: string;
-  id: number;
+  id: string;
   slug: string;
 }
 export interface ChangePassword {
@@ -131,17 +131,17 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
   onHand?: boolean;
@@ -160,7 +160,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -172,7 +172,7 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  id: number;
+  id: string;
   label?: MultiPurposeLabelSummary;
 }
 export interface MultiPurposeLabelSummary {

@@ -180,7 +180,7 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  id: number;
+  id: string;
   label?: MultiPurposeLabelSummary;
 }
 export interface MultiPurposeLabelSummary {
@@ -194,7 +194,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
@@ -244,17 +244,17 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
-  id?: number;
+  id: string;
   name: string;
   slug: string;
   onHand?: boolean;
@@ -307,9 +307,9 @@ export interface ShoppingListItemCreate {
   isFood?: boolean;
   note?: string;
   quantity?: number;
-  unitId?: number;
+  unitId?: string;
   unit?: IngredientUnit;
-  foodId?: number;
+  foodId?: string;
   food?: IngredientFood;
   labelId?: string;
   recipeReferences?: ShoppingListItemRecipeRef[];
@@ -325,9 +325,9 @@ export interface ShoppingListItemOut {
   isFood?: boolean;
   note?: string;
   quantity?: number;
-  unitId?: number;
+  unitId?: string;
   unit?: IngredientUnit;
-  foodId?: number;
+  foodId?: string;
   food?: IngredientFood;
   labelId?: string;
   recipeReferences?: ShoppingListItemRecipeRefOut[];
@@ -347,9 +347,9 @@ export interface ShoppingListItemUpdate {
   isFood?: boolean;
   note?: string;
   quantity?: number;
-  unitId?: number;
+  unitId?: string;
   unit?: IngredientUnit;
-  foodId?: number;
+  foodId?: string;
   food?: IngredientFood;
   labelId?: string;
   recipeReferences?: ShoppingListItemRecipeRef[];
