@@ -11,7 +11,7 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipeTag
+from mealie.schema.recipe.recipe import RecipeCategory, RecipeSummary, RecipeTag
 
 from .repository_generic import RepositoryGeneric
 
@@ -89,7 +89,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .all()
         )
 
-    def get_by_categories(self, categories: list[RecipeCategory]) -> list[Recipe]:
+    def get_by_categories(self, categories: list[RecipeCategory]) -> list[RecipeSummary]:
         """
         get_by_categories returns all the Recipes that contain every category provided in the list
         """
@@ -97,7 +97,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         ids = [x.id for x in categories]
 
         return [
-            self.schema.from_orm(x)
+            RecipeSummary.from_orm(x)
             for x in self.session.query(RecipeModel)
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
@@ -120,13 +120,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if categories:
             cat_ids = [x.id for x in categories]
-            for cat_id in cat_ids:
-                filters.append(RecipeModel.recipe_category.any(Category.id.is_(cat_id)))
+            filters.extend(RecipeModel.recipe_category.any(Category.id.is_(cat_id)) for cat_id in cat_ids)
 
         if tags:
             tag_ids = [x.id for x in tags]
-            for tag_id in tag_ids:
-                filters.append(RecipeModel.tags.any(Tag.id.is_(tag_id)))
+            filters.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tag_ids)
 
         return [
             self.schema.from_orm(x)

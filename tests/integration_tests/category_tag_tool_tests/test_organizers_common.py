@@ -147,3 +147,52 @@ def test_organizer_association(
 
     response = api_client.delete(route.item(item["id"]), headers=unique_user.token)
     assert response.status_code == 200
+
+
+@pytest.mark.parametrize("route, recipe_key", association_data, ids=test_ids)
+def test_organizer_get_by_slug(
+    api_client: TestClient,
+    unique_user: TestUser,
+    route: routes.RoutesOrganizerBase,
+    recipe_key: str,
+):
+    # Create Organizer
+    data = {"name": random_string(10)}
+    response = api_client.post(route.base, json=data, headers=unique_user.token)
+    assert response.status_code == 201
+    item = response.json()
+
+    # Create 10 Recipes
+    recipe_slugs = []
+
+    for _ in range(10):
+        # Setup Recipe
+        recipe_data = {"name": random_string(10)}
+        response = api_client.post(routes.RoutesRecipe.base, json=recipe_data, headers=unique_user.token)
+        assert response.status_code == 201
+        slug = response.json()
+        recipe_slugs.append(slug)
+
+    # Associate 10 Recipes to Organizer
+    for slug in recipe_slugs:
+        response = api_client.get(routes.RoutesRecipe.item(slug), headers=unique_user.token)
+        as_json = response.json()
+        as_json[recipe_key] = [{"id": item["id"], "name": item["name"], "slug": item["slug"]}]
+
+        response = api_client.put(routes.RoutesRecipe.item(slug), json=as_json, headers=unique_user.token)
+        assert response.status_code == 200
+
+    # Get Organizer by Slug
+    response = api_client.get(route.slug(item["slug"]), headers=unique_user.token)
+    assert response.status_code == 200
+
+    as_json = response.json()
+    assert as_json["slug"] == item["slug"]
+
+    recipes = as_json["recipes"]
+
+    # Check if Organizer is returned with 10 RecipeSummary
+    assert len(recipes) == len(recipe_slugs)
+
+    for recipe in recipes:
+        assert recipe["slug"] in recipe_slugs

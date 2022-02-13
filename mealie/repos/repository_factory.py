@@ -46,7 +46,8 @@ from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
-from mealie.schema.recipe import Recipe, RecipeCategoryResponse, RecipeCommentOut, RecipeTagResponse, RecipeTool
+from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeTool
+from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
@@ -67,12 +68,12 @@ PK_TOKEN = "token"
 PK_GROUP_ID = "group_id"
 
 
-class RepositoryCategories(RepositoryGeneric):
+class RepositoryCategories(RepositoryGeneric[CategoryOut, Category]):
     def get_empty(self):
         return self.session.query(Category).filter(~Category.recipes.any()).all()
 
 
-class RepositoryTags(RepositoryGeneric):
+class RepositoryTags(RepositoryGeneric[TagOut, Tag]):
     def get_empty(self):
         return self.session.query(Tag).filter(~Tag.recipes.any()).all()
 
@@ -114,11 +115,11 @@ class AllRepositories:
     @cached_property
     def categories(self) -> RepositoryCategories:
         # TODO: Fix Typing for Category Repository
-        return RepositoryCategories(self.session, PK_ID, Category, RecipeCategoryResponse)
+        return RepositoryCategories(self.session, PK_ID, Category, CategoryOut)
 
     @cached_property
     def tags(self) -> RepositoryTags:
-        return RepositoryTags(self.session, PK_ID, Tag, RecipeTagResponse)
+        return RepositoryTags(self.session, PK_ID, Tag, TagOut)
 
     @cached_property
     def recipe_share_tokens(self) -> RepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:

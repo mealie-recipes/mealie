@@ -7,6 +7,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
+from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
 
 router = APIRouter(prefix="/categories", tags=["Categories: CRUD"])
@@ -74,6 +75,13 @@ class RecipeCategoryController(BaseUserController):
         """Returns a list of categories that do not contain any recipes"""
         return self.repos.categories.get_empty()
 
-    @router.get("/slug/{tool_slug}", response_model=RecipeCategoryResponse)
-    async def get_one_by_slug(self, tool_slug: str):
-        return self.repo.get_one(tool_slug, "slug", override_schema=RecipeCategoryResponse)
+    @router.get("/slug/{category_slug}")
+    def get_one_by_slug(self, category_slug: str):
+        """Returns a category object with the associated recieps relating to the category"""
+        category: RecipeCategory = self.mixins.get_one(category_slug, "slug")
+        return RecipeCategoryResponse.construct(
+            id=category.id,
+            slug=category.slug,
+            name=category.name,
+            recipes=self.repos.recipes.by_group(self.group_id).get_by_categories([category]),
+        )

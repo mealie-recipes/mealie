@@ -34,11 +34,10 @@ class CategoryOut(CategoryBase):
 
 
 class RecipeCategoryResponse(CategoryBase):
-    recipes: "list[Recipe]" = []
+    recipes: "list[RecipeSummary]" = []
 
     class Config:
         orm_mode = True
-        schema_extra = {"example": {"id": 1, "name": "dinner", "recipes": [{}]}}
 
 
 class TagIn(CategoryIn):
@@ -65,7 +64,7 @@ class RecipeTagResponse(RecipeCategoryResponse):
     pass
 
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeSummary
 
 RecipeCategoryResponse.update_forward_refs()
 RecipeTagResponse.update_forward_refs()
