@@ -16,7 +16,7 @@ recipes_to_tools = Table(
 class Tool(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tools"
     id = Column(GUID, primary_key=True, default=GUID.generate)
-    __table_args__ = (UniqueConstraint("slug", "group_id", name="tags_slug_group_id_key"),)
+    __table_args__ = (UniqueConstraint("slug", "group_id", name="tools_slug_group_id_key"),)
 
     # ID Relationships
     group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
