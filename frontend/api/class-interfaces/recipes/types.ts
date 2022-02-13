@@ -1,6 +1,5 @@
-import { Category } from "../organizer-categories";
-import { Tag } from "../organizer-tags";
 import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
+import { RecipeCategory, RecipeTag } from "~/types/api-types/user";
 
 export type Parser = "nlp" | "brute";
 
@@ -30,8 +29,8 @@ export interface ParsedIngredient {
 
 export interface BulkCreateRecipe {
   url: string;
-  categories: Category[];
-  tags: Tag[];
+  categories: RecipeCategory[];
+  tags: RecipeTag[];
 }
 
 export interface BulkCreatePayload {
