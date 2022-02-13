@@ -67,6 +67,6 @@ def recipe_categories(database: AllRepositories, unique_user: TestUser) -> list[
 
     for model in models:
         try:
-            database.categories.delete(model.slug)
+            database.categories.delete(model.id)
         except sqlalchemy.exc.NoResultFound:
             pass
