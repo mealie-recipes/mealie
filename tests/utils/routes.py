@@ -21,15 +21,21 @@ class RoutesUnits(RoutesBase):
     base = "/api/units"
 
 
-class RoutesTools(RoutesBase):
+class RoutesOrganizerBase(RoutesBase):
+    @classmethod
+    def slug(cls, slug: str) -> str:
+        return f"{cls.base}/slug/{slug}"
+
+
+class RoutesTools(RoutesOrganizerBase):
     base = "/api/tools"
 
 
-class RoutesTags(RoutesBase):
+class RoutesTags(RoutesOrganizerBase):
     base = "/api/tags"
 
 
-class RoutesCategory(RoutesBase):
+class RoutesCategory(RoutesOrganizerBase):
     base = "/api/categories"
 
 
