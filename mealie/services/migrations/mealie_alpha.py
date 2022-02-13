@@ -32,6 +32,7 @@ class MealieAlphaMigrator(BaseMigrator):
             del recipe["date_added"]
         except Exception:
             pass
+
         # Migration from list to Object Type Data
         try:
             if "" in recipe["tags"]:
@@ -42,7 +43,6 @@ class MealieAlphaMigrator(BaseMigrator):
         try:
             if "" in recipe["categories"]:
                 recipe["categories"] = [cat for cat in recipe["categories"] if cat != ""]
-
         except Exception:
             pass
 

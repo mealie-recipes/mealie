@@ -14,7 +14,7 @@ class UnitFoodBase(CamelModel):
 
 
 class CreateIngredientFood(UnitFoodBase):
-    label_id: UUID4 = None
+    label_id: Optional[UUID4] = None
 
 
 class SaveIngredientFood(CreateIngredientFood):

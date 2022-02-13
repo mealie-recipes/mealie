@@ -24,7 +24,7 @@ app_dirs = get_app_dirs()
 
 
 class RecipeTag(CamelModel):
-    id: UUID4
+    id: UUID4 = None
     name: str
     slug: str
 
