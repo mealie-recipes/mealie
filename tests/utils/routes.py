@@ -1,7 +1,7 @@
 from pydantic import UUID4
 
 
-class _RoutesBase:
+class RoutesBase:
     prefix = "/api"
     base = f"{prefix}/"
 
@@ -13,21 +13,25 @@ class _RoutesBase:
         return f"{cls.base}/{item_id}"
 
 
-class RoutesFoods(_RoutesBase):
+class RoutesFoods(RoutesBase):
     base = "/api/foods"
 
 
-class RoutesUnits(_RoutesBase):
+class RoutesUnits(RoutesBase):
     base = "/api/units"
 
 
-class RoutesTools(_RoutesBase):
+class RoutesTools(RoutesBase):
     base = "/api/tools"
 
 
-class RoutesTags(_RoutesBase):
+class RoutesTags(RoutesBase):
     base = "/api/tags"
 
 
-class RoutesCategory(_RoutesBase):
+class RoutesCategory(RoutesBase):
     base = "/api/categories"
+
+
+class RoutesRecipe(RoutesBase):
+    base = "/api/recipes"
