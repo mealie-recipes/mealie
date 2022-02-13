@@ -114,11 +114,11 @@ class AllRepositories:
     @cached_property
     def categories(self) -> RepositoryCategories:
         # TODO: Fix Typing for Category Repository
-        return RepositoryCategories(self.session, PK_SLUG, Category, RecipeCategoryResponse)
+        return RepositoryCategories(self.session, PK_ID, Category, RecipeCategoryResponse)
 
     @cached_property
     def tags(self) -> RepositoryTags:
-        return RepositoryTags(self.session, PK_SLUG, Tag, RecipeTagResponse)
+        return RepositoryTags(self.session, PK_ID, Tag, RecipeTagResponse)
 
     @cached_property
     def recipe_share_tokens(self) -> RepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:

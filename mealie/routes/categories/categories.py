@@ -44,27 +44,27 @@ class RecipeCategoryController(BaseUserController):
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
-    @router.get("/{slug}", response_model=RecipeCategoryResponse)
-    def get_all_recipes_by_category(self, slug: str):
+    @router.get("/{item_id}", response_model=CategorySummary)
+    def get_one(self, item_id: int):
         """Returns a list of recipes associated with the provided category."""
-        category_obj = self.repo.get(slug)
-        category_obj = RecipeCategoryResponse.from_orm(category_obj)
+        category_obj = self.mixins.get_one(item_id)
+        category_obj = CategorySummary.from_orm(category_obj)
         return category_obj
 
-    @router.put("/{slug}", response_model=RecipeCategoryResponse)
-    def update_one(self, slug: str, update_data: CategoryIn):
+    @router.put("/{item_id}", response_model=CategorySummary)
+    def update_one(self, item_id: int, update_data: CategoryIn):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
-        return self.mixins.update_one(save_data, slug)
+        return self.mixins.update_one(save_data, item_id)
 
-    @router.delete("/{slug}")
-    def delete_one(self, slug: str):
+    @router.delete("/{item_id}")
+    def delete_one(self, item_id: int):
         """
         Removes a recipe category from the database. Deleting a
         category does not impact a recipe. The category will be removed
         from any recipes that contain it
         """
-        self.mixins.delete_one(slug)
+        self.mixins.delete_one(item_id)
 
     # =========================================================================
     # Read All Operations
@@ -73,3 +73,7 @@ class RecipeCategoryController(BaseUserController):
     def get_all_empty(self):
         """Returns a list of categories that do not contain any recipes"""
         return self.repos.categories.get_empty()
+
+    @router.get("/slug/{tool_slug}", response_model=RecipeCategoryResponse)
+    async def get_one_by_slug(self, tool_slug: str):
+        return self.repo.get_one(tool_slug, "slug", override_schema=RecipeCategoryResponse)

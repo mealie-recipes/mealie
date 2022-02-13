@@ -50,4 +50,4 @@ class TagsTestCase(ABCMultiTenantTestCase):
 
     def cleanup(self) -> None:
         for item in self.items:
-            self.database.tags.delete(item.slug)
+            self.database.tags.delete(item.id)

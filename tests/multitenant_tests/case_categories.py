@@ -50,4 +50,4 @@ class CategoryTestCase(ABCMultiTenantTestCase):
 
     def cleanup(self) -> None:
         for item in self.items:
-            self.database.categories.delete(item.slug)
+            self.database.categories.delete(item.id)
