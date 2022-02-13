@@ -2,7 +2,10 @@ import json
 
 from fastapi.testclient import TestClient
 
+from tests import utils
+from tests.utils import routes
 from tests.utils.app_routes import AppRoutes
+from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -21,17 +24,23 @@ def test_init_superuser(api_client: TestClient, api_routes: AppRoutes, admin_use
 
 def test_create_user(api_client: TestClient, api_routes: AppRoutes, admin_token):
     create_data = {
-        "fullName": "My New User",
-        "email": "newuser@email.com",
-        "password": "MyStrongPassword",
+        "fullName": random_string(),
+        "email": random_email(),
+        "password": random_string(),
         "group": "Home",
         "admin": False,
         "tokens": [],
     }
 
-    response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
+    response = api_client.post(routes.RoutesAdminUsers.base, json=create_data, headers=admin_token)
 
     assert response.status_code == 201
+
+    form_data = {"username": create_data["email"], "password": create_data["password"]}
+    header = utils.login(form_data=form_data, api_client=api_client, api_routes=api_routes)
+
+    response = api_client.get(api_routes.users_self, headers=header)
+    assert response.status_code == 200
 
     user_data = response.json()
 
@@ -43,9 +52,9 @@ def test_create_user(api_client: TestClient, api_routes: AppRoutes, admin_token)
 
 def test_create_user_as_non_admin(api_client: TestClient, api_routes: AppRoutes, user_token):
     create_data = {
-        "fullName": "My New User",
-        "email": "newuser@email.com",
-        "password": "MyStrongPassword",
+        "fullName": random_string(),
+        "email": random_email(),
+        "password": random_string(),
         "group": "Home",
         "admin": False,
         "tokens": [],

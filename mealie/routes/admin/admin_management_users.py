@@ -3,6 +3,7 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
+from mealie.core import security
 from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import CrudMixins
@@ -34,8 +35,9 @@ class AdminUserManagementRoutes(BaseAdminController):
     def get_all(self, q: GetAll = Depends(GetAll)):
         return self.repo.get_all(start=q.start, limit=q.limit, override_schema=UserOut)
 
-    @router.post("", response_model=UserOut)
+    @router.post("", response_model=UserOut, status_code=201)
     def create_one(self, data: UserIn):
+        data.password = security.hash_password(data.password)
         return self.mixins.create_one(data)
 
     @router.get("/{item_id}", response_model=UserOut)

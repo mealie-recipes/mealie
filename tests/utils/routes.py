@@ -41,3 +41,7 @@ class RoutesCategory(RoutesOrganizerBase):
 
 class RoutesRecipe(RoutesBase):
     base = "/api/recipes"
+
+
+class RoutesAdminUsers(RoutesBase):
+    base = "/api/admin/users"
