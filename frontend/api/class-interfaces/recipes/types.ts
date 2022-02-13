@@ -1,5 +1,5 @@
-import { Category } from "../categories";
-import { Tag } from "../tags";
+import { Category } from "../organizer-categories";
+import { Tag } from "../organizer-tags";
 import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
 
 export type Parser = "nlp" | "brute";

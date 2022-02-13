@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../_base";
-import { Category } from "./categories";
+import { Category } from "./organizer-categories";
 import { CategoryBase } from "~/types/api-types/recipe";
 
 const prefix = "/api";

@@ -1,8 +1,8 @@
 import { Ref, ref, useAsync } from "@nuxtjs/composition-api";
 import { useUserApi } from "../api";
 import { useAsyncKey } from "../use-utils";
-import { CategoriesAPI, Category } from "~/api/class-interfaces/categories";
-import { Tag, TagsAPI } from "~/api/class-interfaces/tags";
+import { CategoriesAPI, Category } from "~/api/class-interfaces/organizer-categories";
+import { Tag, TagsAPI } from "~/api/class-interfaces/organizer-tags";
 
 export const allCategories = ref<Category[] | null>([]);
 export const allTags = ref<Tag[] | null>([]);

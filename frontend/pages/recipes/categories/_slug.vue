@@ -72,7 +72,7 @@ export default defineComponent({
     });
 
     const category = useAsync(async () => {
-      const { data } = await api.categories.getOne(slug);
+      const { data } = await api.categories.bySlug(slug);
       if (data) {
         state.initialValue = data.name;
       }
@@ -93,7 +93,7 @@ export default defineComponent({
       if (!category.value) {
         return;
       }
-      const { data } = await api.categories.updateOne(category.value.slug, category.value);
+      const { data } = await api.categories.updateOne(category.value.id, category.value);
 
       if (data) {
         router.push("/recipes/categories/" + data.slug);

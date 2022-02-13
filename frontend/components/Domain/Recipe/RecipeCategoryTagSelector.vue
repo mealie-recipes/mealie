@@ -46,8 +46,7 @@
 import { computed, defineComponent, onMounted, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
 import RecipeCategoryTagDialog from "./RecipeCategoryTagDialog.vue";
 import { useTags, useCategories } from "~/composables/recipes";
-import { Category } from "~/api/class-interfaces/categories";
-import { Tag } from "~/api/class-interfaces/tags";
+import { RecipeCategory, RecipeTag } from "~/types/api-types/user";
 
 const MOUNTED_EVENT = "mounted";
 
@@ -57,7 +56,7 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: Array as () => (Category | Tag | string)[],
+      type: Array as () => (RecipeTag | RecipeCategory | string)[],
       required: true,
     },
     solo: {
@@ -103,9 +102,12 @@ export default defineComponent({
     const state = reactive({
       selected: props.value,
     });
-    watch(() => props.value, (val) => {
-      state.selected = val;
-    });
+    watch(
+      () => props.value,
+      (val) => {
+        state.selected = val;
+      }
+    );
 
     const { i18n } = useContext();
     const inputLabel = computed(() => {
@@ -114,14 +116,14 @@ export default defineComponent({
     });
 
     const activeItems = computed(() => {
-      let itemObjects: Tag[] | Category[] | null;
+      let itemObjects: RecipeTag[] | RecipeCategory[] | null;
       if (props.tagSelector) itemObjects = allTags.value;
       else {
         itemObjects = allCategories.value;
       }
       if (props.returnObject) return itemObjects;
       else {
-        return itemObjects?.map((x: Tag | Category) => x.name);
+        return itemObjects?.map((x: RecipeTag | RecipeCategory) => x.name);
       }
     });
 
@@ -145,7 +147,7 @@ export default defineComponent({
       state.selected.splice(index, 1);
     }
 
-    function pushToItem(createdItem: Tag | Category) {
+    function pushToItem(createdItem: RecipeTag | RecipeCategory) {
       // TODO: Remove excessive get calls
       getAllCategories();
       getAllTags();
@@ -164,4 +166,3 @@ export default defineComponent({
   },
 });
 </script>
-

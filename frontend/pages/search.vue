@@ -115,8 +115,8 @@ import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategory
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useRecipes, allRecipes, useFoods } from "~/composables/recipes";
 import { RecipeSummary } from "~/types/api-types/recipe";
-import { Tag } from "~/api/class-interfaces/tags";
 import { useRouteQuery } from "~/composables/use-router";
+import { RecipeTag } from "~/types/api-types/user";
 
 interface GenericFilter {
   exclude: boolean;
@@ -189,7 +189,7 @@ export default defineComponent({
           state.includeTags,
 
           // @ts-ignore See above
-          recipe.tags.map((x: Tag) => x.name),
+          recipe.tags.map((x: RecipeTag) => x.name),
           state.tagFilter.matchAny,
           state.tagFilter.exclude
         );

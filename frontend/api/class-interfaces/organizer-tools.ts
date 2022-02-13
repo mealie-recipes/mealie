@@ -1,7 +1,9 @@
 import { BaseCRUDAPI } from "../_base";
 import { RecipeTool, RecipeToolCreate, RecipeToolResponse } from "~/types/api-types/recipe";
 
-const prefix = "/api";
+import { config } from "~/api/config";
+
+const prefix = config.PREFIX + "/organizers";
 
 const routes = {
   tools: `${prefix}/tools`,
@@ -13,7 +15,7 @@ export class ToolsApi extends BaseCRUDAPI<RecipeTool, RecipeToolCreate> {
   baseRoute: string = routes.tools;
   itemRoute = routes.toolsId;
 
-  async byslug(slug: string) {
+  async bySlug(slug: string) {
     return await this.requests.get<RecipeToolResponse>(routes.toolsSlug(slug));
   }
 }
