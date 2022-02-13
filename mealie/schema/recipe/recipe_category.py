@@ -12,7 +12,7 @@ class CategorySave(CategoryIn):
 
 
 class CategoryBase(CategoryIn):
-    id: int
+    id: UUID4
     slug: str
 
     class Config:
@@ -26,7 +26,6 @@ class CategoryBase(CategoryIn):
 
 
 class CategoryOut(CategoryBase):
-    id: int
     slug: str
 
     class Config:
@@ -53,7 +52,7 @@ class TagBase(CategoryBase):
 
 
 class TagOut(TagSave):
-    id: int
+    id: UUID4
     slug: str
 
     class Config:

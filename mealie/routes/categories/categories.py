@@ -1,7 +1,7 @@
 from functools import cached_property
 
 from fastapi import APIRouter
-from pydantic import BaseModel
+from pydantic import UUID4, BaseModel
 
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import CrudMixins
@@ -14,7 +14,7 @@ router = APIRouter(prefix="/categories", tags=["Categories: CRUD"])
 
 
 class CategorySummary(BaseModel):
-    id: int
+    id: UUID4
     slug: str
     name: str
 
@@ -46,20 +46,20 @@ class RecipeCategoryController(BaseUserController):
         return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=CategorySummary)
-    def get_one(self, item_id: int):
+    def get_one(self, item_id: UUID4):
         """Returns a list of recipes associated with the provided category."""
         category_obj = self.mixins.get_one(item_id)
         category_obj = CategorySummary.from_orm(category_obj)
         return category_obj
 
     @router.put("/{item_id}", response_model=CategorySummary)
-    def update_one(self, item_id: int, update_data: CategoryIn):
+    def update_one(self, item_id: UUID4, update_data: CategoryIn):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
         return self.mixins.update_one(save_data, item_id)
 
     @router.delete("/{item_id}")
-    def delete_one(self, item_id: int):
+    def delete_one(self, item_id: UUID4):
         """
         Removes a recipe category from the database. Deleting a
         category does not impact a recipe. The category will be removed

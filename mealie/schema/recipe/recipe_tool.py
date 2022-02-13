@@ -14,7 +14,7 @@ class RecipeToolSave(RecipeToolCreate):
 
 
 class RecipeTool(RecipeToolCreate):
-    id: int
+    id: UUID4
     slug: str
 
     class Config:

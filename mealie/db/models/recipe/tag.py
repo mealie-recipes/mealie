@@ -13,14 +13,14 @@ recipes_to_tags = sa.Table(
     "recipes_to_tags",
     SqlAlchemyBase.metadata,
     sa.Column("recipe_id", guid.GUID, sa.ForeignKey("recipes.id")),
-    sa.Column("tag_id", sa.Integer, sa.ForeignKey("tags.id")),
+    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id")),
 )
 
 plan_rules_to_tags = sa.Table(
     "plan_rules_to_tags",
     SqlAlchemyBase.metadata,
     sa.Column("plan_rule_id", guid.GUID, sa.ForeignKey("group_meal_plan_rules.id")),
-    sa.Column("tag_id", sa.Integer, sa.ForeignKey("tags.id")),
+    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id")),
 )
 
 
@@ -32,7 +32,7 @@ class Tag(SqlAlchemyBase, BaseMixins):
     group_id = sa.Column(guid.GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="tags", foreign_keys=[group_id])
 
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(guid.GUID, primary_key=True, default=guid.GUID.generate)
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes_to_tags, back_populates="tags")

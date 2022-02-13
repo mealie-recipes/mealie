@@ -21,7 +21,7 @@ class UnitsTestCase(ABCMultiTenantTestCase):
                 )
             )
 
-            unit_ids.add(unit.id)
+            unit_ids.add(str(unit.id))
             self.items.append(unit)
 
         return unit_ids
@@ -39,7 +39,7 @@ class UnitsTestCase(ABCMultiTenantTestCase):
                         name=name,
                     )
                 )
-                item_ids.add(food.id)
+                item_ids.add(str(food.id))
                 self.items.append(food)
 
         return g1_item_ids, g2_item_ids

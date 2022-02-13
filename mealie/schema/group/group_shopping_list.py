@@ -30,9 +30,9 @@ class ShoppingListItemCreate(CamelModel):
 
     note: Optional[str] = ""
     quantity: float = 1
-    unit_id: int = None
+    unit_id: UUID4 = None
     unit: Optional[IngredientUnit]
-    food_id: int = None
+    food_id: UUID4 = None
     food: Optional[IngredientFood]
 
     label_id: Optional[UUID4] = None

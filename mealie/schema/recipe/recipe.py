@@ -24,7 +24,7 @@ app_dirs = get_app_dirs()
 
 
 class RecipeTag(CamelModel):
-    id: int = 0
+    id: UUID4
     name: str
     slug: str
 
@@ -37,7 +37,7 @@ class RecipeCategory(RecipeTag):
 
 
 class RecipeTool(RecipeTag):
-    id: int = 0
+    id: UUID4
     on_hand: bool = False
 
 
@@ -96,13 +96,13 @@ class RecipeSummary(CamelModel):
     @validator("tags", always=True, pre=True, allow_reuse=True)
     def validate_tags(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeTag(name=c, slug=slugify(c)) for c in cats]
+            return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("recipe_category", always=True, pre=True, allow_reuse=True)
     def validate_categories(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeCategory(name=c, slug=slugify(c)) for c in cats]
+            return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("group_id", always=True, pre=True, allow_reuse=True)

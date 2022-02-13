@@ -85,7 +85,7 @@ def test_bulk_categorize_recipes(
 
     payload = {"recipes": ten_slugs, "categories": categories}
 
-    response = api_client.post(Routes.bulk_categorize, json=payload, headers=unique_user.token)
+    response = api_client.post(Routes.bulk_categorize, json=utils.jsonify(payload), headers=unique_user.token)
     assert response.status_code == 200
 
     # Validate Recipes are Categorized

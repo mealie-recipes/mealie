@@ -1,6 +1,7 @@
 from functools import cached_property
 
 from fastapi import APIRouter, HTTPException, status
+from pydantic import UUID4
 
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import CrudMixins
@@ -33,7 +34,7 @@ class TagController(BaseUserController):
         return self.repo.get_empty()
 
     @router.get("/{item_id}", response_model=RecipeTagResponse)
-    def get_one(self, item_id: int):
+    def get_one(self, item_id: UUID4):
         """Returns a list of recipes associated with the provided tag."""
         return self.mixins.get_one(item_id)
 
@@ -44,13 +45,13 @@ class TagController(BaseUserController):
         return self.repo.create(save_data)
 
     @router.put("/{item_id}", response_model=RecipeTagResponse)
-    def update_one(self, item_id: int, new_tag: TagIn):
+    def update_one(self, item_id: UUID4, new_tag: TagIn):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
         return self.repo.update(item_id, save_data)
 
     @router.delete("/{item_id}")
-    def delete_recipe_tag(self, item_id: int):
+    def delete_recipe_tag(self, item_id: UUID4):
         """Removes a recipe tag from the database. Deleting a
         tag does not impact a recipe. The tag will be removed
         from any recipes that contain it"""

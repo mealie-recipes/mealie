@@ -23,7 +23,7 @@ class CategoryTestCase(ABCMultiTenantTestCase):
             )
 
             self.items.append(category)
-            category_ids.add(category.id)
+            category_ids.add(str(category.id))
 
         return category_ids
 
@@ -40,7 +40,7 @@ class CategoryTestCase(ABCMultiTenantTestCase):
                         name=name,
                     )
                 )
-                item_ids.add(category.id)
+                item_ids.add(str(category.id))
                 self.items.append(category)
 
         return g1_item_ids, g2_item_ids

@@ -22,7 +22,7 @@ class ToolsTestCase(ABCMultiTenantTestCase):
                 )
             )
 
-            tool_ids.add(tool.id)
+            tool_ids.add(str(tool.id))
             self.items.append(tool)
 
         return tool_ids
@@ -40,7 +40,7 @@ class ToolsTestCase(ABCMultiTenantTestCase):
                         name=name,
                     )
                 )
-                item_ids.add(tool.id)
+                item_ids.add(str(tool.id))
                 self.items.append(tool)
 
         return g1_item_ids, g2_item_ids

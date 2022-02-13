@@ -22,7 +22,7 @@ class TagsTestCase(ABCMultiTenantTestCase):
                 )
             )
 
-            tag_ids.add(tag.id)
+            tag_ids.add(str(tag.id))
             self.items.append(tag)
 
         return tag_ids
@@ -40,7 +40,7 @@ class TagsTestCase(ABCMultiTenantTestCase):
                         name=name,
                     )
                 )
-                item_ids.add(category.id)
+                item_ids.add(str(category.id))
                 self.items.append(category)
 
         return g1_item_ids, g2_item_ids

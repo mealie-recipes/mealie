@@ -13,6 +13,7 @@ from slugify import slugify
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
+from tests import utils
 from tests.utils.app_routes import AppRoutes
 from tests.utils.fixture_schemas import TestUser
 from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
@@ -110,7 +111,7 @@ def test_read_update(
 
     recipe["recipeCategory"] = [x.dict() for x in recipe_categories]
 
-    response = api_client.put(recipe_url, json=recipe, headers=unique_user.token)
+    response = api_client.put(recipe_url, json=utils.jsonify(recipe), headers=unique_user.token)
 
     assert response.status_code == 200
     assert json.loads(response.text).get("slug") == recipe_data.expected_slug

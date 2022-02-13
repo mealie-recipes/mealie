@@ -9,12 +9,12 @@ from .._model_utils.guid import GUID
 
 class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units"
+    id = Column(GUID, primary_key=True, default=GUID.generate)
 
     # ID Relationships
     group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
     group = orm.relationship("Group", back_populates="ingredient_units", foreign_keys=[group_id])
 
-    id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
     abbreviation = Column(String)
@@ -28,12 +28,12 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
 
 class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_foods"
+    id = Column(GUID, primary_key=True, default=GUID.generate)
 
     # ID Relationships
     group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
     group = orm.relationship("Group", back_populates="ingredient_foods", foreign_keys=[group_id])
 
-    id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
     ingredients = orm.relationship("RecipeIngredient", back_populates="food")
@@ -56,10 +56,10 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     note = Column(String)  # Force Show Text - Overrides Concat
 
     # Scaling Items
-    unit_id = Column(Integer, ForeignKey("ingredient_units.id"))
+    unit_id = Column(GUID, ForeignKey("ingredient_units.id"))
     unit = orm.relationship(IngredientUnitModel, uselist=False)
 
-    food_id = Column(Integer, ForeignKey("ingredient_foods.id"))
+    food_id = Column(GUID, ForeignKey("ingredient_foods.id"))
     food = orm.relationship(IngredientFoodModel, uselist=False)
     quantity = Column(Integer)
 

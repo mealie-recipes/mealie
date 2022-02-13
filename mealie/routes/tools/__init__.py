@@ -1,6 +1,7 @@
 from functools import cached_property
 
 from fastapi import APIRouter, Depends
+from pydantic import UUID4
 
 from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.controller import controller
@@ -33,15 +34,15 @@ class RecipeToolController(BaseUserController):
         return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=RecipeTool)
-    def get_one(self, item_id: int):
+    def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=RecipeTool)
-    def update_one(self, item_id: int, data: RecipeToolCreate):
+    def update_one(self, item_id: UUID4, data: RecipeToolCreate):
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=RecipeTool)
-    def delete_one(self, item_id: int):
+    def delete_one(self, item_id: UUID4):
         return self.mixins.delete_one(item_id)  # type: ignore
 
     @router.get("/slug/{tool_slug}", response_model=RecipeToolResponse)

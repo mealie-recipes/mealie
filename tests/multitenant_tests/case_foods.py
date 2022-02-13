@@ -21,7 +21,7 @@ class FoodsTestCase(ABCMultiTenantTestCase):
                 )
             )
 
-            food_ids.add(food.id)
+            food_ids.add(str(food.id))
             self.items.append(food)
 
         return food_ids
@@ -39,7 +39,7 @@ class FoodsTestCase(ABCMultiTenantTestCase):
                         name=name,
                     )
                 )
-                item_ids.add(food.id)
+                item_ids.add(str(food.id))
                 self.items.append(food)
 
         return g1_item_ids, g2_item_ids
