@@ -14,6 +14,7 @@ import nl from "vuetify/es5/locale/nl";
 import no from "vuetify/es5/locale/no";
 import pl from "vuetify/es5/locale/pl";
 import ru from "vuetify/es5/locale/ru";
+import uk from "vuetify/es5/locale/uk";
 import sk from "vuetify/es5/locale/sk";
 import sv from "vuetify/es5/locale/sv";
 import zhHans from "vuetify/es5/locale/zh-Hans";
@@ -61,6 +62,7 @@ const vuetify = new Vuetify({
       "no-NO": no,
       "pl-PL": pl,
       "ru-RU": ru,
+      "uk-UA": uk,
       "sk-SK": sk,
       "sv-SE": sv,
       "zh-CN": zhHans,

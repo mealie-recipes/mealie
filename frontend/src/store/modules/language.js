@@ -58,6 +58,10 @@ const state = {
       value: "ru-RU",
     },
     {
+      name: "Українська (Ukrainian)",
+      value: "uk-UA",
+    },
+    {
       name: "Slovenčina (Slovak)",
       value: "sk-SK",
     },
