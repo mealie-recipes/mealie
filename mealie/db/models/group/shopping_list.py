@@ -40,10 +40,10 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     is_food = Column(Boolean, default=False)
 
     # Scaling Items
-    unit_id = Column(Integer, ForeignKey("ingredient_units.id"))
+    unit_id = Column(GUID, ForeignKey("ingredient_units.id"))
     unit = orm.relationship(IngredientUnitModel, uselist=False)
 
-    food_id = Column(Integer, ForeignKey("ingredient_foods.id"))
+    food_id = Column(GUID, ForeignKey("ingredient_foods.id"))
     food = orm.relationship(IngredientFoodModel, uselist=False)
 
     label_id = Column(GUID, ForeignKey("multi_purpose_labels.id"))
