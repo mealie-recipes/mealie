@@ -29,8 +29,15 @@ test_cases = [
     MigrationTestData(typ=SupportedMigrations.mealie_alpha, archive=test_data.migrations_mealie),
 ]
 
+test_ids = [
+    "nextcloud_archive",
+    "paprika_archive",
+    "chowdown_archive",
+    "mealie_alpha_archive",
+]
 
-@pytest.mark.parametrize("mig", test_cases)
+
+@pytest.mark.parametrize("mig", test_cases, ids=test_ids)
 def test_recipe_migration(api_client: TestClient, unique_user: TestUser, mig: MigrationTestData) -> None:
     payload = {
         "migration_type": mig.typ.value,

@@ -45,3 +45,8 @@ class RoutesRecipe(RoutesBase):
 
 class RoutesAdminUsers(RoutesBase):
     base = "/api/admin/users"
+
+
+class RoutesUsers(RoutesBase):
+    base = "/api/users"
+    self = f"{base}/self"
