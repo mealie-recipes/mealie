@@ -63,6 +63,7 @@ RUN poetry install -E pgsql --no-dev
 ###############################################
 FROM python-base as development
 ENV PRODUCTION=false
+ENV TESTING=false
 
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
@@ -95,6 +96,7 @@ RUN echo "crfpp-container"
 ###############################################
 FROM python-base as production
 ENV PRODUCTION=true
+ENV TESTING=false
 
 # curl for used by healthcheck
 RUN apt-get update \

@@ -29,6 +29,8 @@ class BaseMigrator(BaseService):
     report_id: int
     report: ReportOut
 
+    helpers: DatabaseMigrationHelpers
+
     def __init__(
         self, archive: Path, db: AllRepositories, session, user_id: UUID4, group_id: UUID, add_migration_tag: bool
     ):
@@ -94,7 +96,7 @@ class BaseMigrator(BaseService):
         self._save_all_entries()
         return self.db.group_reports.get(self.report_id)
 
-    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[Tuple[str, bool]]:
+    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[Tuple[str, UUID4, bool]]:
         """
         Used as a single access point to process a list of Recipe objects into the
         database in a predictable way. If an error occurs the session is rolled back
@@ -114,13 +116,19 @@ class BaseMigrator(BaseService):
             recipe.user_id = self.user_id
             recipe.group_id = self.group_id
 
+            if recipe.tags:
+                recipe.tags = self.helpers.get_or_set_tags(x.name for x in recipe.tags)
+
+            if recipe.recipe_category:
+                recipe.recipe_category = self.helpers.get_or_set_category(x.name for x in recipe.recipe_category)
+
             if self.add_migration_tag:
                 recipe.tags.append(migration_tag)
 
             exception = ""
             status = False
             try:
-                self.db.recipes.create(recipe)
+                recipe = self.db.recipes.create(recipe)
                 status = True
 
             except Exception as inst:
@@ -133,7 +141,7 @@ class BaseMigrator(BaseService):
             else:
                 message = f"Failed to import {recipe.name}"
 
-            return_vars.append((recipe.slug, status))
+            return_vars.append((recipe.slug, recipe.id, status))
 
             self.report_entries.append(
                 ReportEntryCreate(
@@ -181,16 +189,11 @@ class BaseMigrator(BaseService):
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
 
-        # Temporary hold out of recipe_dict
-        # temp_categories = recipe_dict["recipeCategory"]
-        # temp_tools = recipe_dict["tools"]
-        # temp_tasg = recipe_dict["tags"]
+        try:
+            del recipe_dict["id"]
+        except KeyError:
+            pass
 
         recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
-
-        # Reassign after cleaning
-        # recipe_dict["recipeCategory"] = temp_categories
-        # recipe_dict["tools"] = temp_tools
-        # recipe_dict["tags"] = temp_tasg
 
         return Recipe(**recipe_dict)

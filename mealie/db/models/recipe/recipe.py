@@ -13,7 +13,7 @@ from .._model_utils import auto_init
 from ..users.user_to_favorite import users_to_favorites
 from .api_extras import ApiExtras
 from .assets import RecipeAsset
-from .category import recipes2categories
+from .category import recipes_to_categories
 from .comment import RecipeComment
 from .ingredient import RecipeIngredient
 from .instruction import RecipeInstruction
@@ -21,7 +21,7 @@ from .note import Note
 from .nutrition import Nutrition
 from .settings import RecipeSettings
 from .shared import RecipeShareTokenModel
-from .tag import Tag, recipes2tags
+from .tag import Tag, recipes_to_tags
 from .tool import recipes_to_tools
 
 
@@ -44,13 +44,14 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
 
+    id = sa.Column(GUID, primary_key=True, default=GUID.generate)
     slug = sa.Column(sa.String, index=True)
 
     # ID Relationships
-    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"))
+    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
-    user_id = sa.Column(GUID, sa.ForeignKey("users.id", use_alter=True))
+    user_id = sa.Column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
     meal_entries = orm.relationship("GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan")
@@ -73,7 +74,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     assets = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Nutrition = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
-    recipe_category: list = orm.relationship("Category", secondary=recipes2categories, back_populates="recipes")
+    recipe_category = orm.relationship("Category", secondary=recipes_to_categories, back_populates="recipes")
     tools = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
 
     recipe_ingredient: list[RecipeIngredient] = orm.relationship(
@@ -99,7 +100,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Mealie Specific
     settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")
-    tags: list[Tag] = orm.relationship("Tag", secondary=recipes2tags, back_populates="recipes")
+    tags: list[Tag] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
     notes: list[Note] = orm.relationship("Note", cascade="all, delete-orphan")
     rating = sa.Column(sa.Integer)
     org_url = sa.Column(sa.String)

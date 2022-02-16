@@ -1,6 +1,7 @@
 from typing import List
 
 from fastapi_camelcase import CamelModel
+from pydantic import UUID4
 
 
 class RecipeToolCreate(CamelModel):
@@ -8,8 +9,12 @@ class RecipeToolCreate(CamelModel):
     on_hand: bool = False
 
 
+class RecipeToolSave(RecipeToolCreate):
+    group_id: UUID4
+
+
 class RecipeTool(RecipeToolCreate):
-    id: int
+    id: UUID4
     slug: str
 
     class Config:

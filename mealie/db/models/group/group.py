@@ -15,8 +15,6 @@ from .cookbook import CookBook
 from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
 
-settings = get_app_settings()
-
 
 class Group(SqlAlchemyBase, BaseMixins):
     __tablename__ = "groups"
@@ -57,6 +55,13 @@ class Group(SqlAlchemyBase, BaseMixins):
     group_reports = orm.relationship("ReportModel", **common_args)
     group_event_notifiers = orm.relationship("GroupEventNotifierModel", **common_args)
 
+    # Owned Models
+    ingredient_units = orm.relationship("IngredientUnitModel", **common_args)
+    ingredient_foods = orm.relationship("IngredientFoodModel", **common_args)
+    tools = orm.relationship("Tool", **common_args)
+    tags = orm.relationship("Tag", **common_args)
+    categories = orm.relationship("Category", **common_args)
+
     class Config:
         exclude = {
             "users",
@@ -75,6 +80,8 @@ class Group(SqlAlchemyBase, BaseMixins):
 
     @staticmethod
     def get_ref(session: Session, name: str):
+        settings = get_app_settings()
+
         item = session.query(Group).filter(Group.name == name).one_or_none()
         if item is None:
             item = session.query(Group).filter(Group.name == settings.DEFAULT_GROUP).one()

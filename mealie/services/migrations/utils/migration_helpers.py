@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 
 import yaml
+from pydantic import UUID4
 
-from mealie.services.image import image
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 
 class MigrationReaders:
@@ -26,8 +27,7 @@ class MigrationReaders:
         with open(yaml_file, "r") as f:
             contents = f.read().split("---")
             recipe_data = {}
-            for _, document in enumerate(contents):
-
+            for document in contents:
                 # Check if None or Empty String
                 if document is None or document == "":
                     continue
@@ -81,9 +81,10 @@ def glob_walker(directory: Path, glob_str: str, return_parent=True) -> list[Path
     return matches
 
 
-def import_image(src: Path, dest_slug: str):
+def import_image(src: Path, recipe_id: UUID4):
     """Read the successful migrations attribute and for each import the image
     appropriately into the image directory. Minification is done in mass
     after the migration occurs.
     """
-    image.write_image(dest_slug, src, extension=src.suffix)
+    data_service = RecipeDataService(recipe_id=recipe_id)
+    data_service.write_image(src, src.suffix)

@@ -10,13 +10,13 @@ from mealie.core.dependencies import get_current_user
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
 from mealie.db.db_setup import generate_session
+from mealie.pkgs.stats.fs_stats import pretty_size
 from mealie.routes._base.routers import AdminAPIRouter
 from mealie.schema.admin import AllBackups, BackupFile, CreateBackup, ImportJob
 from mealie.schema.user.user import PrivateUser
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
 from mealie.services.events import create_backup_event
-from mealie.utils.fs_stats import pretty_size
 
 router = AdminAPIRouter(prefix="/api/backups", tags=["Backups"])
 logger = get_logger()

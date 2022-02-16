@@ -12,11 +12,11 @@ export const useFoods = function () {
   const deleteTargetId = ref(0);
   const validForm = ref(true);
 
-  const workingFoodData = reactive({
-    id: 0,
+  const workingFoodData = reactive<IngredientFood>({
+    id: "",
     name: "",
     description: "",
-    labelId: "",
+    labelId: undefined,
   });
 
   const actions = {
@@ -80,16 +80,16 @@ export const useFoods = function () {
       }
     },
     resetWorking() {
-      workingFoodData.id = 0;
+      workingFoodData.id = "";
       workingFoodData.name = "";
       workingFoodData.description = "";
-      workingFoodData.labelId = "";
+      workingFoodData.labelId = undefined;
     },
     setWorking(item: IngredientFood) {
       workingFoodData.id = item.id;
       workingFoodData.name = item.name;
       workingFoodData.description = item.description || "";
-      workingFoodData.labelId = item.labelId || "";
+      workingFoodData.labelId = item.labelId;
     },
     flushStore() {
       foodStore = null;

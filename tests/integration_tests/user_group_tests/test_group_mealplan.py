@@ -48,6 +48,7 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
 
     new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).dict(by_alias=True)
     new_plan["date"] = date.today().strftime("%Y-%m-%d")
+    new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(Routes.base, json=new_plan, headers=unique_user.token)
     response_json = response.json()

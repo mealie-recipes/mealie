@@ -158,14 +158,15 @@ export default defineComponent({
     }
 
     function handleUnitEnter() {
-      if (value.unit === undefined || !value.unit.name.includes(unitSearch.value)) {
+      if (value.unit === undefined || value.unit === null || !value.unit.name.includes(unitSearch.value)) {
         console.log("Creating");
         createAssignUnit();
       }
     }
 
     function handleFoodEnter() {
-      if (value.food === undefined || !value.food.name.includes(foodSearch.value)) {
+      console.log(value.food);
+      if (value.food === undefined || value.food === null || !value.food.name.includes(foodSearch.value)) {
         console.log("Creating");
         createAssignFood();
       }
@@ -190,7 +191,7 @@ export default defineComponent({
 });
 </script>
 
-<style >
+<style>
 .v-input__append-outer {
   margin: 0 !important;
   padding: 0 !important;

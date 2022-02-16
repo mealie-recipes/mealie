@@ -69,7 +69,7 @@ export default defineComponent({
       required: true,
     },
     recipeId: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

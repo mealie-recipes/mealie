@@ -3,6 +3,7 @@ export interface Icon {
   primary: string;
 
   // General
+  bolwMixOutline: string;
   foods: string;
   units: string;
   alert: string;

@@ -2,7 +2,7 @@ import json
 from typing import Generator
 
 from mealie.schema.labels import MultiPurposeLabelSave
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, CreateIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood, SaveIngredientUnit
 
 from ._abstract_seeder import AbstractSeeder
 
@@ -27,10 +27,11 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
 
 
 class IngredientUnitsSeeder(AbstractSeeder):
-    def load_data(self) -> Generator[CreateIngredientUnit, None, None]:
+    def load_data(self) -> Generator[SaveIngredientUnit, None, None]:
         file = self.resources / "units" / "en-us.json"
         for unit in json.loads(file.read_text()).values():
-            yield CreateIngredientUnit(
+            yield SaveIngredientUnit(
+                group_id=self.group_id,
                 name=unit["name"],
                 description=unit["description"],
                 abbreviation=unit["abbreviation"],
@@ -46,10 +47,14 @@ class IngredientUnitsSeeder(AbstractSeeder):
 
 
 class IngredientFoodsSeeder(AbstractSeeder):
-    def load_data(self) -> Generator[CreateIngredientFood, None, None]:
+    def load_data(self) -> Generator[SaveIngredientFood, None, None]:
         file = self.resources / "foods" / "en-us.json"
         for food in json.loads(file.read_text()):
-            yield CreateIngredientFood(name=food, description="")
+            yield SaveIngredientFood(
+                group_id=self.group_id,
+                name=food,
+                description="",
+            )
 
     def seed(self) -> None:
         self.logger.info("Seeding Ingredient Foods")

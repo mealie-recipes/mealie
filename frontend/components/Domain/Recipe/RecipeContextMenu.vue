@@ -168,7 +168,7 @@ export default defineComponent({
     },
     recipeId: {
       required: true,
-      type: Number,
+      type: String,
     },
   },
   setup(props, context) {

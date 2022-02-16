@@ -121,7 +121,7 @@ def test_shopping_lists_add_recipe(
 
     assert len(refs) == 1
 
-    assert refs[0]["recipeId"] == recipe.id
+    assert refs[0]["recipeId"] == str(recipe.id)
 
 
 def test_shopping_lists_remove_recipe(
@@ -198,4 +198,4 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
 
     refs = as_json["recipeReferences"]
     assert len(refs) == 1
-    assert refs[0]["recipeId"] == recipe.id
+    assert refs[0]["recipeId"] == str(recipe.id)

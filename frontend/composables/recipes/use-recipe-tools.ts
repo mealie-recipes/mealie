@@ -2,10 +2,11 @@ import { reactive, ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import { VForm } from "~/types/vuetify";
+import { RecipeTool } from "~/types/api-types/user";
 
 export const useTools = function (eager = true) {
-  const workingToolData = reactive({
-    id: 0,
+  const workingToolData = reactive<RecipeTool>({
+    id: "",
     name: "",
     slug: "",
     onHand: false,
@@ -72,7 +73,7 @@ export const useTools = function (eager = true) {
 
     reset() {
       workingToolData.name = "";
-      workingToolData.id = 0;
+      workingToolData.id = "";
       loading.value = false;
       validForm.value = true;
     },

@@ -5,14 +5,25 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "snack";
+export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
+export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
+export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "unset";
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+}
+export interface CreatRandomEntry {
+  date: string;
+  entryType?: PlanEntryType & string;
+}
 export interface CreatePlanEntry {
   date: string;
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
 }
 export interface ListItem {
   title?: string;
@@ -48,18 +59,44 @@ export interface MealPlanOut {
   id: number;
   shoppingList?: number;
 }
+export interface PlanRulesCreate {
+  day?: PlanRulesDay & string;
+  entryType?: PlanRulesType & string;
+  categories?: Category[];
+  tags?: Tag[];
+}
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+}
+export interface PlanRulesOut {
+  day?: PlanRulesDay & string;
+  entryType?: PlanRulesType & string;
+  categories?: Category[];
+  tags?: Tag[];
+  groupId: string;
+  id: string;
+}
+export interface PlanRulesSave {
+  day?: PlanRulesDay & string;
+  entryType?: PlanRulesType & string;
+  categories?: Category[];
+  tags?: Tag[];
+  groupId: string;
+}
 export interface ReadPlanEntry {
   date: string;
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   id: number;
   groupId: string;
   recipe?: RecipeSummary;
 }
 export interface RecipeSummary {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -71,7 +108,7 @@ export interface RecipeSummary {
   cookTime?: string;
   performTime?: string;
   description?: string;
-  recipeCategory?: RecipeTag[];
+  recipeCategory?: RecipeCategory[];
   tags?: RecipeTag[];
   tools?: RecipeTool[];
   rating?: number;
@@ -80,14 +117,20 @@ export interface RecipeSummary {
   dateAdded?: string;
   dateUpdated?: string;
 }
+export interface RecipeCategory {
+  id: string;
+  name: string;
+  slug: string;
+}
 export interface RecipeTag {
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
+  id: string;
   name: string;
   slug: string;
-  id?: number;
   onHand?: boolean;
 }
 export interface RecipeIngredient {
@@ -104,7 +147,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -116,8 +159,8 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
+  id: string;
   label?: MultiPurposeLabelSummary;
-  id: number;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -129,14 +172,13 @@ export interface CreateIngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  label?: MultiPurposeLabelSummary;
 }
 export interface SavePlanEntry {
   date: string;
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   groupId: string;
 }
 export interface ShoppingListIn {
@@ -155,7 +197,7 @@ export interface UpdatePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: number;
+  recipeId?: string;
   id: number;
   groupId: string;
 }

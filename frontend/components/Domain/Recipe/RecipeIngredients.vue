@@ -50,7 +50,7 @@ export default defineComponent({
   },
   setup(props) {
     function validateTitle(title?: string) {
-      return !(title === undefined || title === "");
+      return !(title === undefined || title === "" || title === null);
     }
 
     const state = reactive({

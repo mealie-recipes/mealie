@@ -7,8 +7,8 @@
     ></RecipeCardSection>
   </v-container>
 </template>
-  
-  <script lang="ts">
+
+<script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useRecipes, recentRecipes } from "~/composables/recipes";
@@ -23,4 +23,3 @@ export default defineComponent({
   },
 });
 </script>
-  

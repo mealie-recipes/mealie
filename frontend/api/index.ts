@@ -4,8 +4,8 @@ import { GroupAPI } from "./class-interfaces/groups";
 import { EventsAPI } from "./class-interfaces/events";
 import { BackupAPI } from "./class-interfaces/backups";
 import { UploadFile } from "./class-interfaces/upload";
-import { CategoriesAPI } from "./class-interfaces/categories";
-import { TagsAPI } from "./class-interfaces/tags";
+import { CategoriesAPI } from "./class-interfaces/organizer-categories";
+import { TagsAPI } from "./class-interfaces/organizer-tags";
 import { UtilsAPI } from "./class-interfaces/utils";
 import { FoodAPI } from "./class-interfaces/recipe-foods";
 import { UnitAPI } from "./class-interfaces/recipe-units";
@@ -17,12 +17,13 @@ import { EmailAPI } from "./class-interfaces/email";
 import { BulkActionsAPI } from "./class-interfaces/recipe-bulk-actions";
 import { GroupServerTaskAPI } from "./class-interfaces/group-tasks";
 import { AdminAPI } from "./admin-api";
-import { ToolsApi } from "./class-interfaces/tools";
+import { ToolsApi } from "./class-interfaces/organizer-tools";
 import { GroupMigrationApi } from "./class-interfaces/group-migrations";
 import { GroupReportsApi } from "./class-interfaces/group-reports";
 import { ShoppingApi } from "./class-interfaces/group-shopping-lists";
 import { MultiPurposeLabelsApi } from "./class-interfaces/group-multiple-purpose-labels";
 import { GroupEventNotifierApi } from "./class-interfaces/group-event-notifier";
+import { MealPlanRulesApi } from "./class-interfaces/group-mealplan-rules";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -40,6 +41,7 @@ class Api {
   public groupWebhooks: WebhooksAPI;
   public register: RegisterAPI;
   public mealplans: MealPlanAPI;
+  public mealplanRules: MealPlanRulesApi;
   public email: EmailAPI;
   public bulk: BulkActionsAPI;
   public groupMigration: GroupMigrationApi;
@@ -67,6 +69,7 @@ class Api {
     this.groupWebhooks = new WebhooksAPI(requests);
     this.register = new RegisterAPI(requests);
     this.mealplans = new MealPlanAPI(requests);
+    this.mealplanRules = new MealPlanRulesApi(requests);
     this.grouperServerTasks = new GroupServerTaskAPI(requests);
 
     // Group

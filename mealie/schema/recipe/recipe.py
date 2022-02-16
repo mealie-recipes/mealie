@@ -24,6 +24,7 @@ app_dirs = get_app_dirs()
 
 
 class RecipeTag(CamelModel):
+    id: UUID4 = None
     name: str
     slug: str
 
@@ -36,7 +37,7 @@ class RecipeCategory(RecipeTag):
 
 
 class RecipeTool(RecipeTag):
-    id: int = 0
+    id: UUID4
     on_hand: bool = False
 
 
@@ -62,7 +63,7 @@ class CreateRecipe(CamelModel):
 
 
 class RecipeSummary(CamelModel):
-    id: Optional[int]
+    id: Optional[UUID4]
 
     user_id: UUID4 = Field(default_factory=uuid4)
     group_id: UUID4 = Field(default_factory=uuid4)
@@ -78,7 +79,7 @@ class RecipeSummary(CamelModel):
     perform_time: Optional[str] = None
 
     description: Optional[str] = ""
-    recipe_category: Optional[list[RecipeTag]] = []
+    recipe_category: Optional[list[RecipeCategory]] = []
     tags: Optional[list[RecipeTag]] = []
     tools: list[RecipeTool] = []
     rating: Optional[int]
@@ -95,13 +96,13 @@ class RecipeSummary(CamelModel):
     @validator("tags", always=True, pre=True, allow_reuse=True)
     def validate_tags(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeTag(name=c, slug=slugify(c)) for c in cats]
+            return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("recipe_category", always=True, pre=True, allow_reuse=True)
     def validate_categories(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeCategory(name=c, slug=slugify(c)) for c in cats]
+            return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("group_id", always=True, pre=True, allow_reuse=True)
@@ -131,12 +132,15 @@ class Recipe(RecipeSummary):
     comments: Optional[list[RecipeCommentOut]] = []
 
     @staticmethod
-    def directory_from_slug(slug) -> Path:
-        return app_dirs.RECIPE_DATA_DIR.joinpath(slug)
+    def directory_from_id(recipe_id: UUID4 | str) -> Path:
+        return app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id))
 
     @property
     def directory(self) -> Path:
-        dir = app_dirs.RECIPE_DATA_DIR.joinpath(self.slug)
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        dir = app_dirs.RECIPE_DATA_DIR.joinpath(str(self.id))
         dir.mkdir(exist_ok=True, parents=True)
         return dir
 

@@ -72,12 +72,12 @@ export interface CustomPageBase {
 }
 export interface RecipeCategoryResponse {
   name: string;
-  id: number;
+  id: string;
   slug: string;
-  recipes?: Recipe[];
+  recipes?: RecipeSummary[];
 }
-export interface Recipe {
-  id?: number;
+export interface RecipeSummary {
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -89,7 +89,7 @@ export interface Recipe {
   cookTime?: string;
   performTime?: string;
   description?: string;
-  recipeCategory?: RecipeTag[];
+  recipeCategory?: RecipeCategory[];
   tags?: RecipeTag[];
   tools?: RecipeTool[];
   rating?: number;
@@ -97,24 +97,21 @@ export interface Recipe {
   recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
-  recipeInstructions?: RecipeStep[];
-  nutrition?: Nutrition;
-  settings?: RecipeSettings;
-  assets?: RecipeAsset[];
-  notes?: RecipeNote[];
-  extras?: {
-    [k: string]: unknown;
-  };
-  comments?: RecipeCommentOut[];
+}
+export interface RecipeCategory {
+  id: string;
+  name: string;
+  slug: string;
 }
 export interface RecipeTag {
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
+  id: string;
   name: string;
   slug: string;
-  id?: number;
   onHand?: boolean;
 }
 export interface RecipeIngredient {
@@ -131,7 +128,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -143,8 +140,8 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
+  id: string;
   label?: MultiPurposeLabelSummary;
-  id: number;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -156,60 +153,6 @@ export interface CreateIngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  label?: MultiPurposeLabelSummary;
-}
-export interface RecipeStep {
-  id?: string;
-  title?: string;
-  text: string;
-  ingredientReferences?: IngredientReferences[];
-}
-/**
- * A list of ingredient references.
- */
-export interface IngredientReferences {
-  referenceId?: string;
-}
-export interface Nutrition {
-  calories?: string;
-  fatContent?: string;
-  proteinContent?: string;
-  carbohydrateContent?: string;
-  fiberContent?: string;
-  sodiumContent?: string;
-  sugarContent?: string;
-}
-export interface RecipeSettings {
-  public?: boolean;
-  showNutrition?: boolean;
-  showAssets?: boolean;
-  landscapeView?: boolean;
-  disableComments?: boolean;
-  disableAmount?: boolean;
-  locked?: boolean;
-}
-export interface RecipeAsset {
-  name: string;
-  icon: string;
-  fileName?: string;
-}
-export interface RecipeNote {
-  title: string;
-  text: string;
-}
-export interface RecipeCommentOut {
-  recipeId: number;
-  text: string;
-  id: string;
-  createdAt: string;
-  updateAt: string;
-  userId: string;
-  user: UserBase;
-}
-export interface UserBase {
-  id: number;
-  username?: string;
-  admin: boolean;
 }
 export interface CustomPageImport {
   name: string;

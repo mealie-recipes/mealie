@@ -13,7 +13,12 @@ class PlanEntryType(str, Enum):
     breakfast = "breakfast"
     lunch = "lunch"
     dinner = "dinner"
-    snack = "snack"
+    side = "side"
+
+
+class CreatRandomEntry(CamelModel):
+    date: date
+    entry_type: PlanEntryType = PlanEntryType.dinner
 
 
 class CreatePlanEntry(CamelModel):
@@ -21,7 +26,7 @@ class CreatePlanEntry(CamelModel):
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
-    recipe_id: Optional[int]
+    recipe_id: Optional[UUID]
 
     @validator("recipe_id", always=True)
     @classmethod

@@ -14,12 +14,16 @@ class UnitFoodBase(CamelModel):
 
 
 class CreateIngredientFood(UnitFoodBase):
-    label_id: UUID4 = None
-    label: MultiPurposeLabelSummary = None
+    label_id: Optional[UUID4] = None
+
+
+class SaveIngredientFood(CreateIngredientFood):
+    group_id: UUID4
 
 
 class IngredientFood(CreateIngredientFood):
-    id: int
+    id: UUID4
+    label: MultiPurposeLabelSummary = None
 
     class Config:
         orm_mode = True
@@ -30,8 +34,12 @@ class CreateIngredientUnit(UnitFoodBase):
     abbreviation: str = ""
 
 
+class SaveIngredientUnit(CreateIngredientUnit):
+    group_id: UUID4
+
+
 class IngredientUnit(CreateIngredientUnit):
-    id: int
+    id: UUID4
 
     class Config:
         orm_mode = True
@@ -86,5 +94,4 @@ class IngredientRequest(CamelModel):
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 
-CreateIngredientFood.update_forward_refs()
 IngredientFood.update_forward_refs()

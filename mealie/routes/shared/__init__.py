@@ -22,7 +22,7 @@ class RecipeSharedController(BaseUserController):
         return CrudMixins[RecipeShareTokenSave, RecipeShareToken, RecipeShareTokenCreate](self.repo, self.deps.logger)
 
     @router.get("", response_model=list[RecipeShareTokenSummary])
-    def get_all(self, recipe_id: int = None):
+    def get_all(self, recipe_id: UUID4 = None):
         if recipe_id:
             return self.repo.multi_query({"recipe_id": recipe_id}, override_schema=RecipeShareTokenSummary)
         else:

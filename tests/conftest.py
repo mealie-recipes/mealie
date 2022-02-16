@@ -1,12 +1,13 @@
-import os
+from pytest import MonkeyPatch, fixture
 
-os.environ["PRODUCTION"] = "True"
-os.environ["TESTING"] = "True"
+mp = MonkeyPatch()
+mp.setenv("PRODUCTION", "True")
+mp.setenv("TESTING", "True")
+
 
 from pathlib import Path
 
 from fastapi.testclient import TestClient
-from pytest import fixture
 
 from mealie.app import app
 from mealie.core import config

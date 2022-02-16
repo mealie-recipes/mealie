@@ -23,15 +23,26 @@ class ShoppingListService:
         can_merge checks if the two items can be merged together.
         """
 
-        # If no food or units are present check against the notes field.
-        if not all([item1.food, item1.unit, item2.food, item2.unit]):
+        # Check if foods are equal
+        foods_is_none = item1.food_id is None and item2.food_id is None
+        foods_not_none = not foods_is_none
+        foods_equal = item1.food_id == item2.food_id
+
+        # Check if units are equal
+        units_is_none = item1.unit_id is None and item2.unit_id is None
+        units_not_none = not units_is_none
+        units_equal = item1.unit_id == item2.unit_id
+
+        # Check if Notes are equal
+        if foods_is_none and units_is_none:
             return item1.note == item2.note
 
-        # If the items have the same food and unit they can be merged.
-        if item1.unit == item2.unit and item1.food == item2.food:
-            return True
+        if foods_not_none and units_not_none:
+            return foods_equal and units_equal
 
-        # Otherwise Assume They Can't Be Merged
+        if foods_not_none:
+            return foods_equal
+
         return False
 
     def consolidate_list_items(self, item_list: list[ShoppingListItemOut]) -> list[ShoppingListItemOut]:
@@ -89,7 +100,7 @@ class ShoppingListService:
     # =======================================================================
     # Methods
 
-    def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
+    def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: UUID4) -> ShoppingListOut:
         recipe = self.repos.recipes.get_one(recipe_id, "id")
         to_create = []
 
@@ -150,7 +161,7 @@ class ShoppingListService:
 
         return updated_list
 
-    def remove_recipe_ingredients_from_list(self, list_id: UUID4, recipe_id: int) -> ShoppingListOut:
+    def remove_recipe_ingredients_from_list(self, list_id: UUID4, recipe_id: UUID4) -> ShoppingListOut:
         shopping_list = self.shopping_lists.get_one(list_id)
 
         for item in shopping_list.list_items:

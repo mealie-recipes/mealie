@@ -38,7 +38,7 @@ class ReportModel(SqlAlchemyBase, BaseMixins):
     entries = orm.relationship(ReportEntryModel, back_populates="report", cascade="all, delete-orphan")
 
     # Relationships
-    group_id = Column(GUID, ForeignKey("groups.id"))
+    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="group_reports", single_parent=True)
 
     class Config:

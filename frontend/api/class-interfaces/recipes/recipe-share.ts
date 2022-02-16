@@ -8,12 +8,12 @@ const routes = {
 };
 
 export interface RecipeShareTokenCreate {
-  recipeId: number;
+  recipeId: string;
   expiresAt?: Date;
 }
 
 export interface RecipeShareToken {
-  recipeId: number;
+  recipeId: string;
   id: string;
   groupId: number;
   expiresAt: string;

@@ -1,6 +1,6 @@
 import pytest
 
-from mealie.utils.fs_stats import pretty_size
+from mealie.pkgs.stats.fs_stats import pretty_size
 
 
 @pytest.mark.parametrize(

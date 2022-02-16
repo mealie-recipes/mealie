@@ -7,7 +7,7 @@
 
 export interface CategoryBase {
   name: string;
-  id: number;
+  id: string;
   slug: string;
 }
 export interface ChangePassword {
@@ -109,7 +109,7 @@ export interface PrivatePasswordResetToken {
   user: PrivateUser;
 }
 export interface RecipeSummary {
-  id?: number;
+  id?: string;
   userId?: string;
   groupId?: string;
   name?: string;
@@ -121,7 +121,7 @@ export interface RecipeSummary {
   cookTime?: string;
   performTime?: string;
   description?: string;
-  recipeCategory?: RecipeTag[];
+  recipeCategory?: RecipeCategory[];
   tags?: RecipeTag[];
   tools?: RecipeTool[];
   rating?: number;
@@ -130,14 +130,20 @@ export interface RecipeSummary {
   dateAdded?: string;
   dateUpdated?: string;
 }
+export interface RecipeCategory {
+  id: string;
+  name: string;
+  slug: string;
+}
 export interface RecipeTag {
+  id: string;
   name: string;
   slug: string;
 }
 export interface RecipeTool {
+  id: string;
   name: string;
   slug: string;
-  id?: number;
   onHand?: boolean;
 }
 export interface RecipeIngredient {
@@ -154,7 +160,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
-  id: number;
+  id: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -166,8 +172,8 @@ export interface IngredientFood {
   name: string;
   description?: string;
   labelId?: string;
+  id: string;
   label?: MultiPurposeLabelSummary;
-  id: number;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -179,7 +185,6 @@ export interface CreateIngredientFood {
   name: string;
   description?: string;
   labelId?: string;
-  label?: MultiPurposeLabelSummary;
 }
 export interface ResetPassword {
   token: string;
