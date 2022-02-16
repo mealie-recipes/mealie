@@ -2,6 +2,7 @@ from functools import cached_property
 from typing import Type
 
 from fastapi import APIRouter
+from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base import BaseUserController, controller
@@ -54,17 +55,16 @@ class GroupCookbookController(BaseUserController):
         return updated
 
     @router.get("/{item_id}", response_model=RecipeCookBook)
-    def get_one(self, item_id: str):
-        try:
-            item_id = int(item_id)
-            return self.mixins.get_one(item_id)
-        except Exception:
+    def get_one(self, item_id: UUID4 | str):
+        if isinstance(item_id, str):
             self.mixins.get_one(item_id, key="slug")
+        else:
+            return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=RecipeCookBook)
-    def update_one(self, item_id: int, data: CreateCookBook):
+    def update_one(self, item_id: str, data: CreateCookBook):
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=RecipeCookBook)
-    def delete_one(self, item_id: int):
+    def delete_one(self, item_id: str):
         return self.mixins.delete_one(item_id)

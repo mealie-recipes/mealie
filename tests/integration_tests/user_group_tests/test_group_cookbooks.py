@@ -4,9 +4,11 @@ from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
+from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
+from tests import utils
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -33,7 +35,7 @@ def get_page_data(group_id: UUID):
 
 @dataclass
 class TestCookbook:
-    id: int
+    id: UUID4
     slug: str
     name: str
     data: dict
@@ -41,7 +43,6 @@ class TestCookbook:
 
 @pytest.fixture(scope="function")
 def cookbooks(database: AllRepositories, unique_user: TestUser) -> list[TestCookbook]:
-
     data: list[ReadCookBook] = []
     yield_data: list[TestCookbook] = []
     for _ in range(3):
@@ -66,20 +67,27 @@ def test_create_cookbook(api_client: TestClient, unique_user: TestUser):
 
 def test_read_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
     sample = random.choice(cookbooks)
-
     response = api_client.get(Routes.item(sample.id), headers=unique_user.token)
     assert response.status_code == 200
     assert_ignore_keys(response.json(), sample.data)
 
 
-def test_update_cookbook(api_client: TestClient, unique_user: TestUser):
-    page_data = get_page_data(unique_user.group_id)
+def test_update_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
+    cookbook = random.choice(cookbooks)
 
-    page_data["id"] = 1
-    page_data["name"] = "My New Name"
+    update_data = get_page_data(unique_user.group_id)
 
-    response = api_client.put(Routes.item(1), json=page_data, headers=unique_user.token)
+    update_data["name"] = random_string(10)
+
+    response = api_client.put(Routes.item(cookbook.id), json=update_data, headers=unique_user.token)
     assert response.status_code == 200
+
+    response = api_client.get(Routes.item(cookbook.id), headers=unique_user.token)
+    assert response.status_code == 200
+
+    page_data = response.json()
+    assert page_data["name"] == update_data["name"]
+    assert page_data["slug"] == update_data["name"]
 
 
 def test_update_cookbooks_many(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
@@ -90,7 +98,7 @@ def test_update_cookbooks_many(api_client: TestClient, unique_user: TestUser, co
         page["position"] = x
         page["group_id"] = str(unique_user.group_id)
 
-    response = api_client.put(Routes.base, json=reverse_order, headers=unique_user.token)
+    response = api_client.put(Routes.base, json=utils.jsonify(reverse_order), headers=unique_user.token)
     assert response.status_code == 200
 
     response = api_client.get(Routes.base, headers=unique_user.token)
@@ -101,7 +109,7 @@ def test_update_cookbooks_many(api_client: TestClient, unique_user: TestUser, co
     server_ids = [x["id"] for x in response.json()]
 
     for know in known_ids:  # Hacky check, because other tests don't cleanup after themselves :(
-        assert know in server_ids
+        assert str(know) in server_ids
 
 
 def test_delete_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):

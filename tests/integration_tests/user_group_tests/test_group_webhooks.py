@@ -36,7 +36,6 @@ def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_dat
 
 
 def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
-    webhook_data["id"] = 1
     webhook_data["name"] = "My New Name"
     webhook_data["url"] = "https://my-new-fake-url.com"
     webhook_data["time"] = "01:00"

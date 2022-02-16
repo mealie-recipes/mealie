@@ -32,13 +32,13 @@ class ReadWebhookController(BaseUserController):
         return self.mixins.create_one(save)
 
     @router.get("/{item_id}", response_model=ReadWebhook)
-    def get_one(self, item_id: int):
+    def get_one(self, item_id: str):
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=ReadWebhook)
-    def update_one(self, item_id: int, data: CreateWebhook):
+    def update_one(self, item_id: str, data: CreateWebhook):
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=ReadWebhook)
-    def delete_one(self, item_id: int):
+    def delete_one(self, item_id: str):
         return self.mixins.delete_one(item_id)  # type: ignore
