@@ -35,7 +35,7 @@ recipes_to_categories = sa.Table(
 cookbooks_to_categories = sa.Table(
     "cookbooks_to_categories",
     SqlAlchemyBase.metadata,
-    sa.Column("cookbook_id", sa.Integer, sa.ForeignKey("cookbooks.id")),
+    sa.Column("cookbook_id", GUID, sa.ForeignKey("cookbooks.id")),
     sa.Column("category_id", GUID, sa.ForeignKey("categories.id")),
 )
 
