@@ -5,9 +5,10 @@ Revises: ${down_revision | comma,n}
 Create Date: ${create_date}
 
 """
-from alembic import op
 import sqlalchemy as sa
+
 import mealie.db.migration_types
+from alembic import op
 ${imports if imports else ""}
 
 # revision identifiers, used by Alembic.

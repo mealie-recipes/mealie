@@ -2,13 +2,13 @@
 
 Revision ID: 6b0f5f32d602
 Revises: 
-Create Date: 2022-02-16 21:34:50.570777
+Create Date: 2022-02-16 21:49:36.858699
 
 """
-from alembic import op
 import sqlalchemy as sa
-import mealie.db.migration_types
 
+import mealie.db.migration_types
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "6b0f5f32d602"
