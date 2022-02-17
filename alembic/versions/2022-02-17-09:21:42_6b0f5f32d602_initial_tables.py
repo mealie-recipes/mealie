@@ -7,7 +7,6 @@ Create Date: 2022-02-17 09:21:42.766038
 """
 import sqlalchemy as sa
 from sqlalchemy import engine_from_config
-from sqlalchemy.engine import reflection
 
 import mealie.db.migration_types
 from alembic import op
@@ -23,7 +22,7 @@ depends_on = None
 def table_exists(table, schema=None):
     config = op.get_context().config
     engine = engine_from_config(config.get_section(config.config_ini_section), prefix="sqlalchemy.")
-    insp = reflection.Inspector.from_engine(engine)
+    insp = sa.inspect(engine)
     return insp.has_table(table, schema)
 
 
