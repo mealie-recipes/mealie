@@ -1,7 +1,10 @@
 from pathlib import Path
 
-from alembic import command
+from sqlalchemy import engine
+
+from alembic import command, config, script
 from alembic.config import Config
+from alembic.runtime import migration
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import create_session
@@ -42,10 +45,24 @@ def default_group_init(db: AllRepositories):
     create_new_group(db, GroupBase(name=settings.DEFAULT_GROUP))
 
 
+# Adapted from https://alembic.sqlalchemy.org/en/latest/cookbook.html#test-current-database-revision-is-at-head-s
+def db_is_at_head(alembic_cfg: config.Config) -> bool:
+    settings = get_app_settings()
+    url = settings.DB_URL
+    connectable = engine.create_engine(url)
+    directory = script.ScriptDirectory.from_config(alembic_cfg)
+    with connectable.begin() as connection:
+        context = migration.MigrationContext.configure(connection)
+        return set(context.get_current_heads()) == set(directory.get_heads())
+
+
 def main():
-    # TODO Only run migrations if needed?
     alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
-    command.upgrade(alembic_cfg, "head")
+    if db_is_at_head(alembic_cfg):
+        logger.info("Migration not needed.")
+    else:
+        logger.info("Migration needed. Performing migration...")
+        command.upgrade(alembic_cfg, "head")
 
     session = create_session()
     db = get_repositories(session)
