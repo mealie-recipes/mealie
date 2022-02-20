@@ -27,12 +27,12 @@ plan_rules_to_tags = sa.Table(
 class Tag(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tags"
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="tags_slug_group_id_key"),)
+    id = sa.Column(guid.GUID, primary_key=True, default=guid.GUID.generate)
 
     # ID Relationships
     group_id = sa.Column(guid.GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="tags", foreign_keys=[group_id])
 
-    id = sa.Column(guid.GUID, primary_key=True, default=guid.GUID.generate)
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes_to_tags, back_populates="tags")

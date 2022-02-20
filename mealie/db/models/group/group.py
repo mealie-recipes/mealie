@@ -9,7 +9,7 @@ from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
 from ..group.invite_tokens import GroupInviteToken
 from ..group.webhooks import GroupWebhooksModel
-from ..recipe.category import Category, group2categories
+from ..recipe.category import Category, group_to_categories
 from ..server.task import ServerTaskModel
 from .cookbook import CookBook
 from .mealplan import GroupMealPlan
@@ -21,7 +21,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     id = sa.Column(GUID, primary_key=True, default=GUID.generate)
     name = sa.Column(sa.String, index=True, nullable=False, unique=True)
     users = orm.relationship("User", back_populates="group")
-    categories = orm.relationship(Category, secondary=group2categories, single_parent=True, uselist=True)
+    categories = orm.relationship(Category, secondary=group_to_categories, single_parent=True, uselist=True)
 
     invite_tokens = orm.relationship(
         GroupInviteToken, back_populates="group", cascade="all, delete-orphan", uselist=True
