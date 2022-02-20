@@ -14,6 +14,8 @@ services:
   mealie-frontend:
     image: hkotel/mealie:frontend-nightly
     container_name: mealie-frontend
+    depends_on:
+      - mealie-api
     environment:
     # Set Frontend ENV Variables Here
       - ALLOW_SIGNUP=true
@@ -24,6 +26,8 @@ services:
   mealie-api:
     image: hkotel/mealie:api-nightly
     container_name: mealie-api
+    depends_on:
+      - postgres
     volumes:
       - ./data/:/app/data
     environment:
