@@ -203,9 +203,8 @@
         <template v-else-if="plan.meals">
           <RecipeCard
             v-for="mealplan in plan.meals"
-            :id="mealplan.recipe ? mealplan.recipe.id : null"
             :key="mealplan.id"
-            :recipe-id="0"
+            :recipe-id="mealplan.recipe ? mealplan.recipe.id : null"
             :image-height="125"
             class="mb-2"
             :route="mealplan.recipe ? true : false"
