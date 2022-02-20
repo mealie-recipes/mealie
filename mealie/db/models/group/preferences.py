@@ -9,6 +9,8 @@ from .._model_utils import auto_init
 
 class GroupPreferencesModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_preferences"
+    id = sa.Column(GUID, primary_key=True, default=GUID.generate)
+
     group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group = orm.relationship("Group", back_populates="preferences")
 

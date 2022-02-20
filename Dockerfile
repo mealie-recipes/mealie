@@ -37,14 +37,6 @@ RUN apt-get update \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \ 
     gnupg gnupg2 gnupg1 \
-    debian-keyring \
-    debian-archive-keyring \
-    apt-transport-https \
-    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
-    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list \
-    && apt-get update \
-    && apt-get install --no-install-recommends -y \
-    caddy \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
@@ -117,11 +109,6 @@ COPY --from=crfpp /usr/local/lib/ /usr/local/lib
 COPY --from=crfpp /usr/local/bin/crf_learn /usr/local/bin/crf_learn
 COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
 
-
-
-# copying caddy into image
-COPY --from=builder-base /usr/bin/caddy /usr/bin/caddy
-
 # copy backend
 COPY ./mealie $MEALIE_HOME/mealie
 COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
@@ -135,15 +122,11 @@ WORKDIR $MEALIE_HOME
 RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
 WORKDIR /
 
-# copy frontend
-# COPY --from=frontend-build /app/dist $MEALIE_HOME/dist
-COPY ./Caddyfile $MEALIE_HOME
-
 # Grab CRF++ Model Release
 RUN curl -L0 $CRF_MODEL_URL --output $MEALIE_HOME/mealie/services/parser_services/crfpp/model.crfmodel
 
 VOLUME [ "$MEALIE_HOME/data/" ]
-ENV APP_PORT=80
+ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 

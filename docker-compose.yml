@@ -7,13 +7,13 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: always
+    volumes:
+      - mealie-data:/app/data/
     ports:
       - 9091:3000
     environment:
-      # - GLOBAL_MIDDLEWARE=auth
-      # - SUB_PATH=/mealie/
       - ALLOW_SIGNUP=true
-      - API_URL=http://mealie-api:80
+      - API_URL=http://mealie-api:9000
 
       # =====================================
       # Light Mode Config
@@ -25,7 +25,7 @@ services:
       - THEME_LIGHT_WARNING=#FF6D00
       - THEME_LIGHT_ERROR=#EF5350
       # =====================================
-      # Light Mode Config
+      # Dark Mode Config
       - THEME_DARK_PRIMARY=#E58325
       - THEME_DARK_ACCENT=#007A99
       - THEME_DARK_SECONDARY=#973542
@@ -40,8 +40,10 @@ services:
       target: production
       dockerfile: Dockerfile
     restart: always
+    volumes:
+      - mealie-data:/app/data/
     ports:
-      - 9092:80
+      - 9092:9000
     environment:
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
@@ -74,3 +76,7 @@ services:
   #   environment:
   #     POSTGRES_PASSWORD: mealie
   #     POSTGRES_USER: mealie
+
+volumes:
+  mealie-data:
+    driver: local

@@ -1,14 +1,18 @@
 # About The Project
 
+!!! warning "Mealie v1 Beta Release"
+    This documentation if for the Mealie v1 Beta release and is not final. As such, it may contain incomplete or incorrect information. You should understand that installing Mealie v1 Beta is a work in progress and while we've committed to maintaining the database schema and provided migrations, we are still in the process of adding new features, and robust testing to ensure the application works as expected.
+
+    You should likely find bugs, errors, and unfinished pages within the application. To find the current status of the release you can checkout the [project on github](https://github.com/hay-kot/mealie/projects/7) or reach out on discord.
+
+    You should also be aware that Mealie v1 Beta does not have the backup/export feature available. This is the next priority for Mealie v1
+    and is currently being worked out. 
+
 Mealie is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and Mealie will automatically import the relevant data or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications. 
 
 [Remember to join the Discord](https://discord.gg/QuStdQGSGK)
 
-!!! note
-    In some of the demo gifs the styling may be different than the finale application. demos were done during development prior to finale styling.
 
-!!! warning
-    This is a **BETA** release and that means things may break and or change down the line. I'll do my best to make sure that any API changes are thoughtful and necessary in order not to break things. Additionally, I'll do my best to provide a migration path if the database schema ever changes. Do not use programs like watchtower to auto update your container. You **WILL** run into issues if you do this!
 
 
 ## Key Features

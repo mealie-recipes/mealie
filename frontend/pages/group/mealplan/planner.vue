@@ -204,7 +204,7 @@
           <RecipeCard
             v-for="mealplan in plan.meals"
             :key="mealplan.id"
-            :recipe-id="0"
+            :recipe-id="mealplan.recipe ? mealplan.recipe.id : null"
             :image-height="125"
             class="mb-2"
             :route="mealplan.recipe ? true : false"

@@ -6,10 +6,8 @@ from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.static import APP_VERSION
 from mealie.routes import backup_routes, router, utility_routes
-from mealie.routes.about import about_router
 from mealie.routes.handlers import register_debug_handler
 from mealie.routes.media import media_router
-from mealie.services.events import create_general_event
 from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
 
 logger = get_logger()
@@ -56,7 +54,6 @@ def start_scheduler():
     SchedulerService.start()
 
     SchedulerRegistry.register_daily(
-        tasks.purge_events_database,
         tasks.purge_group_registration,
         tasks.auto_backup,
         tasks.purge_password_reset_tokens,
@@ -72,7 +69,6 @@ def start_scheduler():
 def api_routers():
     app.include_router(router)
     app.include_router(media_router)
-    app.include_router(about_router)
     app.include_router(backup_routes.router)
     app.include_router(utility_routes.router)
 
@@ -102,8 +98,6 @@ def system_startup():
             },
         )
     )
-
-    create_general_event("Application Startup", f"Mealie API started on port {settings.API_PORT}")
 
 
 def main():
