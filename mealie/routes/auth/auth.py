@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Form, Request, status
+from fastapi import APIRouter, Depends, Form, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
@@ -13,7 +13,6 @@ from mealie.core.security import authenticate_user
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
-from mealie.services.events import create_user_event
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
@@ -50,8 +49,6 @@ class MealieAuthToken(BaseModel):
 
 @public_router.post("/token")
 def get_token(
-    background_tasks: BackgroundTasks,
-    request: Request,
     data: CustomOAuth2Form = Depends(),
     session: Session = Depends(generate_session),
 ):
@@ -61,9 +58,6 @@ def get_token(
     user: PrivateUser = authenticate_user(session, email, password)
 
     if not user:
-        background_tasks.add_task(
-            create_user_event, "Failed Login", f"Username: {email}, Source IP: '{request.client.host}'"
-        )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             headers={"WWW-Authenticate": "Bearer"},

@@ -1,8 +1,7 @@
 import operator
 import shutil
-from pathlib import Path
 
-from fastapi import BackgroundTasks, Depends, File, HTTPException, UploadFile, status
+from fastapi import Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_dirs
@@ -16,7 +15,6 @@ from mealie.schema.admin import AllBackups, BackupFile, CreateBackup, ImportJob
 from mealie.schema.user.user import PrivateUser
 from mealie.services.backups import imports
 from mealie.services.backups.exports import backup_all
-from mealie.services.events import create_backup_event
 
 router = AdminAPIRouter(prefix="/api/backups", tags=["Backups"])
 logger = get_logger()
@@ -38,9 +36,7 @@ def available_imports():
 
 
 @router.post("/export/database", status_code=status.HTTP_201_CREATED)
-def export_database(
-    background_tasks: BackgroundTasks, data: CreateBackup, session: Session = Depends(generate_session)
-):
+def export_database(data: CreateBackup, session: Session = Depends(generate_session)):
     """Generates a backup of the recipe database in json format."""
     try:
         export_path = backup_all(
@@ -52,9 +48,7 @@ def export_database(
             export_groups=data.options.groups,
             export_notifications=data.options.notifications,
         )
-        background_tasks.add_task(
-            create_backup_event, "Database Backup", f"Manual Backup Created '{Path(export_path).name}'", session
-        )
+
         return {"export_path": export_path}
     except Exception as e:
         logger.error(e)
@@ -83,15 +77,13 @@ async def download_backup_file(file_name: str):
 
 @router.post("/{file_name}/import", status_code=status.HTTP_200_OK)
 def import_database(
-    background_tasks: BackgroundTasks,
-    file_name: str,
     import_data: ImportJob,
     session: Session = Depends(generate_session),
     user: PrivateUser = Depends(get_current_user),
 ):
     """Import a database backup file generated from Mealie."""
 
-    db_import = imports.import_database(
+    return imports.import_database(
         user=user,
         session=session,
         archive=import_data.name,
@@ -102,9 +94,6 @@ def import_database(
         force_import=import_data.force,
         rebase=import_data.rebase,
     )
-
-    background_tasks.add_task(create_backup_event, "Database Restore", f"Restore File: {file_name}", session)
-    return db_import
 
 
 @router.delete("/{file_name}/delete", status_code=status.HTTP_200_OK)
