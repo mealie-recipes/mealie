@@ -12,7 +12,7 @@ class GunicornConfig:
 
         # Env Variables
         self.host = os.getenv("HOST", "127.0.0.1")
-        self.port = os.getenv("PORT", "80")
+        self.port = os.getenv("PORT", "9000")
         self.log_level: str = os.getenv("LOG_LEVEL", "info")
         self.bind: str = os.getenv("BIND", None)
         self.errorlog: str = os.getenv("ERROR_LOG", "-") or None
