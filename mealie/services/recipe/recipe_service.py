@@ -25,7 +25,7 @@ step_text = """Recipe steps as well as other fields in the recipe page support m
 
 [My Link](https://beta.mealie.io)
 
-**Imbed an image**
+**Embed an image**
 
 Use the `height="100"` or `width="100"` attributes to set the size of the image.
 
@@ -158,6 +158,7 @@ class RecipeService(BaseService):
 
     def update_one(self, slug: str, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug, update_data)
+
         new_data = self.repos.recipes.update(slug, update_data)
         self.check_assets(new_data, recipe.slug)
         return new_data
@@ -165,6 +166,7 @@ class RecipeService(BaseService):
     def patch_one(self, slug: str, patch_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug, patch_data)
         recipe = self.repos.recipes.by_group(self.group.id).get_one(slug)
+
         new_data = self.repos.recipes.patch(recipe.slug, patch_data)
 
         self.check_assets(new_data, recipe.slug)
