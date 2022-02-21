@@ -142,7 +142,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         assets: list = None,
         notes: list[dict] = None,
         nutrition: dict = None,
-        recipe_ingredient: list[str] = None,
+        recipe_ingredient: list[dict] = None,
         settings: dict = None,
         **_,
     ) -> None:

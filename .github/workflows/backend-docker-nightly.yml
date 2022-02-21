@@ -47,3 +47,12 @@ jobs:
           docker build --push --no-cache \
             --tag hkotel/mealie:api-nightly \
             --platform linux/amd64,linux/arm64 .
+      #
+      # Build Discord Notification
+      #
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_NIGHTLY_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: "🚀  A New Nighlty Build of Mealie is ready"
