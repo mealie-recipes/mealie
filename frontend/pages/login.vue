@@ -195,15 +195,15 @@
 import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
 import { alert } from "~/composables/use-toast";
 export default defineComponent({
-  layout: "basic",
+  layout: "blank",
 
   setup() {
     const { $auth } = useContext();
     const context = useContext();
 
     const form = reactive({
-      email: "changeme@email.com",
-      password: "MyPassword",
+      email: "",
+      password: "",
       remember: false,
     });
 
@@ -212,6 +212,11 @@ export default defineComponent({
     const allowSignup = computed(() => context.env.ALLOW_SIGNUP as boolean);
 
     async function authenticate() {
+      if (form.email.length === 0 || form.password.length === 0) {
+        alert.error("Please enter your email and password");
+        return;
+      }
+
       loggingIn.value = true;
       const formData = new FormData();
       formData.append("username", form.email);
