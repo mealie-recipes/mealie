@@ -131,8 +131,9 @@ class RecipeController(BaseRecipeController):
 
             case _:
                 self.deps.logger.error("Unknown Error on recipe controller action")
+                self.deps.logger.exception(ex)
                 raise HTTPException(
-                    status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=ex)
+                    status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=str(ex))
                 )
 
     # =======================================================================
