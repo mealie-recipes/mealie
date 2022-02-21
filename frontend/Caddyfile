@@ -3,8 +3,8 @@
 	admin off
 }
 
-:80 {
-	@proxied path /api/* /docs /openapi.json
+:3000 {
+	@apidocs path /docs /openapi.json
 
 	@static {
 		file
@@ -20,15 +20,21 @@
 		file_server
 	}
 
-	handle @proxied {
+	# Handles User Images 
+	handle_path /api/media/users/* {
+		header @static Cache-Control max-age=31536000
+		root * /app/data/users/
+		file_server
+	}
+
+
+	handle @apidocs {
 		uri strip_suffix /
-		reverse_proxy http://mealie-api
+		reverse_proxy http://mealie-api:9000
 	}
 
 	handle {
-		header @static Cache-Control max-age=31536000
-		root * /app/dist
-		try_files {path}.html {path} /
-		file_server
+		uri strip_suffix /
+		reverse_proxy http://127.0.0.1:3001
 	}
 }

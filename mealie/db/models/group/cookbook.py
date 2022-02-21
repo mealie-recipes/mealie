@@ -7,7 +7,7 @@ from ..recipe.category import Category, cookbooks_to_categories
 
 class CookBook(SqlAlchemyBase, BaseMixins):
     __tablename__ = "cookbooks"
-    id = Column(Integer, primary_key=True)
+    id = Column(guid.GUID, primary_key=True, default=guid.GUID.generate)
     position = Column(Integer, nullable=False, default=1)
 
     name = Column(String, nullable=False)

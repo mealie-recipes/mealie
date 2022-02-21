@@ -24,7 +24,6 @@
   </v-app>
 </template>
 
-
 <script lang="ts">
 import { defineComponent, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
@@ -45,11 +44,11 @@ export default defineComponent({
     });
 
     const topLinks: SidebarLinks = [
-      {
-        icon: $globals.icons.viewDashboard,
-        to: "/admin/dashboard",
-        title: i18n.t("sidebar.dashboard"),
-      },
+      // {
+      //   icon: $globals.icons.viewDashboard,
+      //   to: "/admin/dashboard",
+      //   title: i18n.t("sidebar.dashboard"),
+      // },
       {
         icon: $globals.icons.cog,
         to: "/admin/site-settings",
@@ -115,6 +114,3 @@ export default defineComponent({
   },
 });
 </script>
-
-
-

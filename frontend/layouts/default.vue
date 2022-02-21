@@ -142,7 +142,7 @@ export default defineComponent({
         {
           icon: this.$globals.icons.cog,
           title: this.$t("general.settings"),
-          to: "/admin/dashboard",
+          to: "/admin/site-settings",
           restricted: true,
         },
       ],

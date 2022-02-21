@@ -1,7 +1,6 @@
 import { RecipeAPI } from "./class-interfaces/recipes";
 import { UserApi } from "./class-interfaces/users";
 import { GroupAPI } from "./class-interfaces/groups";
-import { EventsAPI } from "./class-interfaces/events";
 import { BackupAPI } from "./class-interfaces/backups";
 import { UploadFile } from "./class-interfaces/upload";
 import { CategoriesAPI } from "./class-interfaces/organizer-categories";
@@ -30,7 +29,6 @@ class Api {
   public recipes: RecipeAPI;
   public users: UserApi;
   public groups: GroupAPI;
-  public events: EventsAPI;
   public backups: BackupAPI;
   public categories: CategoriesAPI;
   public tags: TagsAPI;
@@ -79,7 +77,6 @@ class Api {
     this.multiPurposeLabels = new MultiPurposeLabelsApi(requests);
 
     // Admin
-    this.events = new EventsAPI(requests);
     this.backups = new BackupAPI(requests);
 
     // Utils

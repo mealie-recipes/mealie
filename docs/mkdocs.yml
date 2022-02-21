@@ -55,8 +55,10 @@ nav:
   - Getting Started:
       - Introduction: "documentation/getting-started/introduction.md"
       - Updating: "documentation/getting-started/updating.md"
+      - Version 1 Migration: "documentation/getting-started/migrating-to-mealie-v1.md"
       - FAQ: "documentation/getting-started/faq.md"
       - API: "documentation/getting-started/api-usage.md"
+      - Road Map: "documentation/getting-started/roadmap.md"
 
       - Installation:
           - Installation Checklist: "documentation/getting-started/installation/installation-checklist.md"
@@ -64,27 +66,6 @@ nav:
           - PostgreSQL: "documentation/getting-started/installation/postgres.md"
           - Frontend Configuration: "documentation/getting-started/installation/frontend-config.md"
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
-          - Advanced: "documentation/getting-started/installation/advanced.md"
-
-      - Recipes:
-          - Working With Recipes: "documentation/recipes/recipes.md"
-          - Organizing Recipes: "documentation/recipes/organizing-recipes.md"
-
-      - Users & Groups:
-          - User Settings: "documentation/users-groups/user-settings.md"
-          - Planning Meals: "documentation/users-groups/meal-planner.md"
-
-      - Admin:
-          - Dashboard: "documentation/admin/dashboard.md"
-          - Site Settings: "documentation/admin/site-settings.md"
-          - Building Pages: "documentation/admin/building-pages.md"
-          - User Management: "documentation/admin/user-management.md"
-          - Backups and Restore: "documentation/admin/backups-and-exports.md"
-          - Recipe Migration: "documentation/admin/migration-imports.md"
-
-      - Toolbox:
-          - External Notifications: "documentation/toolbox/notifications.md"
-          - Organization Tools: "documentation/toolbox/organize-tools.md"
 
       - Community Guides:
           - iOS Shortcuts: "documentation/community-guide/ios.md"
@@ -104,8 +85,6 @@ nav:
           - Style Guide: "contributors/developers-guide/style-guide.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
-
-  - Development Road Map: "roadmap.md"
 
   - Change Log:
       - v1.0.0 A Whole New App: "changelog/v1.0.0.md"

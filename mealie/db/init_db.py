@@ -13,7 +13,6 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
 from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder, MultiPurposeLabelSeeder
 from mealie.schema.user.user import GroupBase
-from mealie.services.events import create_general_event
 from mealie.services.group_services.group_utils import create_new_group
 
 PROJECT_DIR = Path(__file__).parent.parent.parent
@@ -73,7 +72,6 @@ def main():
     else:
         logger.info("Database contains no users, initializing...")
         init_db(db)
-        create_general_event("Initialize Database", "Initialize database with default values", session)
 
 
 if __name__ == "__main__":

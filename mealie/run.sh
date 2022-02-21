@@ -48,9 +48,6 @@ else
     add_user
     init
 
-    # Web Server
-    caddy start --config /app/Caddyfile
-
     # Start API
     # uvicorn mealie.app:app --host 0.0.0.0 --port 9000
     gunicorn mealie.app:app -b 0.0.0.0:9000 -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload

@@ -11,8 +11,8 @@ from .._model_utils.guid import GUID
 logger = root_logger.get_logger()
 
 
-group2categories = sa.Table(
-    "group2categories",
+group_to_categories = sa.Table(
+    "group_to_categories",
     SqlAlchemyBase.metadata,
     sa.Column("group_id", GUID, sa.ForeignKey("groups.id")),
     sa.Column("category_id", GUID, sa.ForeignKey("categories.id")),
@@ -35,7 +35,7 @@ recipes_to_categories = sa.Table(
 cookbooks_to_categories = sa.Table(
     "cookbooks_to_categories",
     SqlAlchemyBase.metadata,
-    sa.Column("cookbook_id", sa.Integer, sa.ForeignKey("cookbooks.id")),
+    sa.Column("cookbook_id", GUID, sa.ForeignKey("cookbooks.id")),
     sa.Column("category_id", GUID, sa.ForeignKey("categories.id")),
 )
 

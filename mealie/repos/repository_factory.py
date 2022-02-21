@@ -2,7 +2,6 @@ from functools import cached_property
 
 from sqlalchemy.orm import Session
 
-from mealie.db.models.event import Event
 from mealie.db.models.group import Group, GroupMealPlan, ReportEntryModel, ReportModel
 from mealie.db.models.group.cookbook import CookBook
 from mealie.db.models.group.events import GroupEventNotifierModel
@@ -26,12 +25,10 @@ from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.server.task import ServerTaskModel
-from mealie.db.models.sign_up import SignUp
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
 from mealie.schema.cookbook.cookbook import ReadCookBook
-from mealie.schema.events import Event as EventSchema
 from mealie.schema.group.group_events import GroupEventNotifierOut
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
@@ -52,7 +49,7 @@ from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUni
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
 from mealie.schema.server import ServerTask
-from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser, SignUpOut
+from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
 
 from .repository_generic import RepositoryGeneric
@@ -114,7 +111,6 @@ class AllRepositories:
 
     @cached_property
     def categories(self) -> RepositoryCategories:
-        # TODO: Fix Typing for Category Repository
         return RepositoryCategories(self.session, PK_ID, Category, CategoryOut)
 
     @cached_property
@@ -124,17 +120,6 @@ class AllRepositories:
     @cached_property
     def recipe_share_tokens(self) -> RepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:
         return RepositoryGeneric(self.session, PK_ID, RecipeShareTokenModel, RecipeShareToken)
-
-    # ================================================================
-    # Site
-
-    @cached_property
-    def sign_up(self) -> RepositoryGeneric[SignUpOut, SignUp]:
-        return RepositoryGeneric(self.session, PK_ID, SignUp, SignUpOut)
-
-    @cached_property
-    def events(self) -> RepositoryGeneric[EventSchema, Event]:
-        return RepositoryGeneric(self.session, PK_ID, Event, EventSchema)
 
     # ================================================================
     # User

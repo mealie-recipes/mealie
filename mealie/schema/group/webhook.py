@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from fastapi_camelcase import CamelModel
+from pydantic import UUID4
 
 
 class CreateWebhook(CamelModel):
@@ -15,7 +16,7 @@ class SaveWebhook(CreateWebhook):
 
 
 class ReadWebhook(SaveWebhook):
-    id: int
+    id: UUID4
 
     class Config:
         orm_mode = True

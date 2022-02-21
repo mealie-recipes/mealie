@@ -14,6 +14,8 @@ services:
   mealie-frontend:
     image: hkotel/mealie:frontend-nightly
     container_name: mealie-frontend
+    depends_on:
+      - mealie-api
     environment:
     # Set Frontend ENV Variables Here
       - ALLOW_SIGNUP=true
@@ -21,11 +23,15 @@ services:
     restart: always
     ports:
       - "9925:3000"
+    volumes:
+      - mealie-data:/app/data/      
   mealie-api:
     image: hkotel/mealie:api-nightly
     container_name: mealie-api
+    depends_on:
+      - postgres
     volumes:
-      - ./data/:/app/data
+      - mealie-data:/app/data/
     environment:
     # Set Backend ENV Variables Here
       - PUID=1000
@@ -33,7 +39,7 @@ services:
       - TZ=America/Anchorage
       - MAX_WORKERS=1
       - WEB_CONCURRENCY=1
-      - BASE_URL=https://beta.mealie.io
+      - BASE_URL=https://mealie.yourdomain.com
 
     # Database Settings
       - DB_ENGINE=postgres
@@ -50,5 +56,9 @@ services:
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie
+
+volumes:
+  mealie-data:
+    driver: local
 ```
 

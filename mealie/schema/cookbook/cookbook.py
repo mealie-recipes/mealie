@@ -28,7 +28,7 @@ class SaveCookBook(CreateCookBook):
 
 
 class UpdateCookBook(SaveCookBook):
-    id: int
+    id: UUID4
 
 
 class ReadCookBook(UpdateCookBook):

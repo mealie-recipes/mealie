@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, Column, ForeignKey, String, orm
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
@@ -6,7 +6,7 @@ from .._model_utils import GUID, auto_init
 
 class GroupWebhooksModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "webhook_urls"
-    id = Column(Integer, primary_key=True)
+    id = Column(GUID, primary_key=True, default=GUID.generate)
 
     group = orm.relationship("Group", back_populates="webhooks", single_parent=True)
     group_id = Column(GUID, ForeignKey("groups.id"), index=True)

@@ -21,11 +21,13 @@ services:
     restart: always
     ports:
       - "9925:3000"
+    volumes:
+      - mealie-data:/app/data/
   mealie-api:
     image: hkotel/mealie:api-nightly
     container_name: mealie-api
     volumes:
-      - ./data/:/app/data
+      - mealie-data:/app/data/
     environment:
     # Set Backend ENV Variables Here
       - PUID=1000
@@ -33,6 +35,10 @@ services:
       - TZ=America/Anchorage
       - MAX_WORKERS=1
       - WEB_CONCURRENCY=1
-      - BASE_URL=https://beta.mealie.io
+      - BASE_URL=https://mealie.yourdomain.com
     restart: always
+
+volumes:
+  mealie-data:
+    driver: local
 ```

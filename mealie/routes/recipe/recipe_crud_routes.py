@@ -117,6 +117,25 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"])
 
 @controller(router)
 class RecipeController(BaseRecipeController):
+    def handle_exceptions(self, ex: Exception) -> None:
+        match type(ex):
+            case exceptions.PermissionDenied:
+                self.deps.logger.error("Permission Denied on recipe controller action")
+                raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
+            case exceptions.NoEntryFound:
+                self.deps.logger.error("No Entry Found on recipe controller action")
+                raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
+            case sqlalchemy.exc.IntegrityError:
+                self.deps.logger.error("SQL Integrity Error on recipe controller action")
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
+
+            case _:
+                self.deps.logger.error("Unknown Error on recipe controller action")
+                self.deps.logger.exception(ex)
+                raise HTTPException(
+                    status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=str(ex))
+                )
+
     # =======================================================================
     # URL Scraping Operations
 
@@ -211,24 +230,6 @@ class RecipeController(BaseRecipeController):
             return self.service.create_one(data).slug
         except Exception as e:
             self.handle_exceptions(e)
-
-    def handle_exceptions(self, ex: Exception) -> None:
-        match type(ex):
-            case exceptions.PermissionDenied:
-                self.deps.logger.error("Permission Denied on recipe controller action")
-                raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
-            case exceptions.NoEntryFound:
-                self.deps.logger.error("No Entry Found on recipe controller action")
-                raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
-            case sqlalchemy.exc.IntegrityError:
-                self.deps.logger.error("SQL Integrity Error on recipe controller action")
-                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
-
-            case _:
-                self.deps.logger.error("Unknown Error on recipe controller action")
-                raise HTTPException(
-                    status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=ex)
-                )
 
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):

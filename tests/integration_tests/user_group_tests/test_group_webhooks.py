@@ -24,7 +24,9 @@ def test_create_webhook(api_client: TestClient, unique_user: TestUser, webhook_d
 
 def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_data):
     response = api_client.post(Routes.base, json=webhook_data, headers=unique_user.token)
-    response = api_client.get(Routes.item(1), headers=unique_user.token)
+    id = response.json()["id"]
+
+    response = api_client.get(Routes.item(id), headers=unique_user.token)
 
     webhook = response.json()
 
@@ -36,13 +38,15 @@ def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_dat
 
 
 def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
-    webhook_data["id"] = 1
+    response = api_client.post(Routes.base, json=webhook_data, headers=unique_user.token)
+    id = response.json()["id"]
+
     webhook_data["name"] = "My New Name"
     webhook_data["url"] = "https://my-new-fake-url.com"
     webhook_data["time"] = "01:00"
     webhook_data["enabled"] = False
 
-    response = api_client.put(Routes.item(1), json=webhook_data, headers=unique_user.token)
+    response = api_client.put(Routes.item(id), json=webhook_data, headers=unique_user.token)
 
     assert response.status_code == 200
 
@@ -55,10 +59,13 @@ def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestU
     assert response.status_code == 200
 
 
-def test_delete_webhook(api_client: TestClient, unique_user: TestUser):
-    response = api_client.delete(Routes.item(1), headers=unique_user.token)
+def test_delete_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
+    response = api_client.post(Routes.base, json=webhook_data, headers=unique_user.token)
+    id = response.json()["id"]
+
+    response = api_client.delete(Routes.item(id), headers=unique_user.token)
 
     assert response.status_code == 200
 
-    response = api_client.get(Routes.item(1), headers=unique_user.token)
+    response = api_client.get(Routes.item(id), headers=unique_user.token)
     assert response.status_code == 404

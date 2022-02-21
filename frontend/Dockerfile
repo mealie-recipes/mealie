@@ -23,12 +23,16 @@ RUN rm -rf node_modules && \
 
 FROM node:16-alpine
 
+RUN apk add caddy
+
 WORKDIR /app
 
 # copying caddy into image
 COPY --from=builder /app  .
+COPY ./Caddyfile /app/
 
 ENV HOST 0.0.0.0
 EXPOSE 3000
 
-CMD [ "yarn", "start" ]
+RUN chmod +x /app/run.sh
+ENTRYPOINT /app/run.sh
