@@ -108,7 +108,7 @@ def auto_init():  # sourcery no-metrics
 
     def decorator(init):
         @wraps(init)
-        def wrapper(self: DeclarativeMeta, *args, **kwargs):    # sourcery no-metrics
+        def wrapper(self: DeclarativeMeta, *args, **kwargs):  # sourcery no-metrics
             """
             Custom initializer that allows nested children initialization.
             Only keys that are present as instance's class attributes are allowed.
@@ -171,11 +171,13 @@ def auto_init():  # sourcery no-metrics
                             if val is None:
                                 raise ValueError(f"Expected 'id' to be provided for {key}")
 
-                        if not isinstance(val, (str, int, UUID)):
-                            raise TypeError(f"Expected {key} to be a string or integer or UUID")
-
-                        instance = session.query(relation_cls).filter_by(**{get_attr: val}).one_or_none()
-                        setattr(self, key, instance)
+                        if isinstance(val, (str, int, UUID)):
+                            instance = session.query(relation_cls).filter_by(**{get_attr: val}).one_or_none()
+                            setattr(self, key, instance)
+                        else:
+                            # If the value is not of the type defined above we assume that it isn't a valid id
+                            # and try a different approach.
+                            pass
 
                     elif relation_dir == MANYTOMANY:
                         instances = handle_many_to_many(session, get_attr, relation_cls, val)
