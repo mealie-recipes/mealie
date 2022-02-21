@@ -18,7 +18,7 @@ ENV = BASE_DIR.joinpath(".env")
 
 dotenv.load_dotenv(ENV)
 PRODUCTION = os.getenv("PRODUCTION", "True").lower() in ["true", "1"]
-TESTING = os.getenv("TESTING", "True").lower() in ["true", "1"]
+TESTING = os.getenv("TESTING", "False").lower() in ["true", "1"]
 
 
 def determine_data_dir() -> Path:
