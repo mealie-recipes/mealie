@@ -48,10 +48,7 @@ class MealieAuthToken(BaseModel):
 
 
 @public_router.post("/token")
-def get_token(
-    data: CustomOAuth2Form = Depends(),
-    session: Session = Depends(generate_session),
-):
+def get_token(data: CustomOAuth2Form = Depends(), session: Session = Depends(generate_session)):
     email = data.username
     password = data.password
 
@@ -64,12 +61,12 @@ def get_token(
         )
 
     duration = timedelta(days=14) if data.remember_me else None
-    access_token = security.create_access_token(dict(sub=user.email), duration)
+    access_token = security.create_access_token(dict(sub=str(user.id)), duration)
     return MealieAuthToken.respond(access_token)
 
 
 @user_router.get("/refresh")
 async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
     """Use a valid token to get another token"""
-    access_token = security.create_access_token(data=dict(sub=current_user.email))
+    access_token = security.create_access_token(data=dict(sub=str(current_user.id)))
     return MealieAuthToken.respond(access_token)

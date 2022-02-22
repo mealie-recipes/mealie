@@ -66,7 +66,7 @@ class UserController(BaseUserController):
         self.repos.users.update(item_id, new_data.dict())
 
         if self.user.id == item_id:
-            access_token = security.create_access_token(data=dict(sub=new_data.email))
+            access_token = security.create_access_token(data=dict(sub=str(self.user.id)))
             return {"access_token": access_token, "token_type": "bearer"}
 
     @user_router.put("/{item_id}/password")

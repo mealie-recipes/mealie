@@ -36,18 +36,17 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
     """
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
+        user_id: str = payload.get("sub")
         long_token: str = payload.get("long_token")
 
         if long_token is not None:
             try:
-                user = validate_long_live_token(session, token, payload.get("id"))
-                if user:
+                if validate_long_live_token(session, token, payload.get("id")):
                     return True
             except Exception:
                 return False
 
-        return username is not None
+        return user_id is not None
 
     except Exception:
         return False
@@ -61,37 +60,38 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
     )
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
+        user_id: str = payload.get("sub")
         long_token: str = payload.get("long_token")
 
         if long_token is not None:
             return validate_long_live_token(session, token, payload.get("id"))
 
-        if username is None:
+        if user_id is None:
             raise credentials_exception
 
-        token_data = TokenData(username=username)
-    except JWTError:
-        raise credentials_exception
+        token_data = TokenData(user_id=user_id)
+    except JWTError as e:
+        raise credentials_exception from e
 
-    db = get_repositories(session)
+    repos = get_repositories(session)
 
-    user = db.users.get(token_data.username, "email", any_case=True)
+    user = repos.users.get(token_data.user_id, "id", any_case=False)
+
     if user is None:
         raise credentials_exception
     return user
 
 
-async def get_admin_user(current_user=Depends(get_current_user)) -> PrivateUser:
+async def get_admin_user(current_user: PrivateUser = Depends(get_current_user)) -> PrivateUser:
     if not current_user.admin:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
     return current_user
 
 
 def validate_long_live_token(session: Session, client_token: str, id: int) -> PrivateUser:
-    db = get_repositories(session)
+    repos = get_repositories(session)
 
-    tokens: list[LongLiveTokenInDB] = db.api_tokens.get(id, "user_id", limit=9999)
+    tokens: list[LongLiveTokenInDB] = repos.api_tokens.get(id, "user_id", limit=9999)
 
     for token in tokens:
         token: LongLiveTokenInDB
@@ -110,8 +110,8 @@ def validate_file_token(token: Optional[str] = None) -> Path:
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         file_path = Path(payload.get("file"))
-    except JWTError:
-        raise credentials_exception
+    except JWTError as e:
+        raise credentials_exception from e
 
     return file_path
 
@@ -127,8 +127,8 @@ def validate_recipe_token(token: Optional[str] = None) -> str:
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         slug = payload.get("slug")
-    except JWTError:
-        raise credentials_exception
+    except JWTError as e:
+        raise credentials_exception from e
 
     return slug
 
