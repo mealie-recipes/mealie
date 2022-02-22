@@ -84,6 +84,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             self.session.query(RecipeModel)
             .options(*args)
             .filter(RecipeModel.group_id == group_id)
+            .order_by(RecipeModel.date_added.desc())
             .offset(start)
             .limit(limit)
             .all()
