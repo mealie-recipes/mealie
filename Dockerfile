@@ -115,7 +115,8 @@ COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 COPY ./gunicorn_conf.py $MEALIE_HOME
 
 #! Future
-# COPY ./alembic ./alembic.ini $MEALIE_HOME/
+COPY ./alembic $MEALIE_HOME/alembic
+COPY ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
