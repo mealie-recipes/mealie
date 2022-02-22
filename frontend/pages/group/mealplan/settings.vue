@@ -5,7 +5,7 @@
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
       </template>
       <template #title> Meal Plan Rules </template>
-      Here you can set rules for auto selecting recipes for you meal plans. These rules are used by the server to
+      You can create rules for auto selecting recipes for you meal plans. These rules are used by the server to
       determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same
       day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create
       duplicate rules, but it's possible to do so.
@@ -36,9 +36,10 @@
       <BaseCardSectionTitle class="mt-10" title="Recipe Rules" />
       <div>
         <div v-for="(rule, idx) in allRules" :key="rule.id">
-          <v-card class="my-2">
-            <v-card-title>
-              {{ rule.day }} - {{ rule.entryType }}
+          <v-card class="my-2 left-border">
+            <v-card-title class="headline pb-1">
+              {{ rule.day === "unset" ? "Applies to all days" : `Applies on ${rule.day}s` }}
+              {{ rule.entryType === "unset" ? "for all meal types" : ` for ${rule.entryType} meal types` }}
               <span class="ml-auto">
                 <BaseButtonGroup
                   :buttons="[
@@ -60,8 +61,15 @@
             </v-card-title>
             <v-card-text>
               <template v-if="!editState[rule.id]">
-                <div>Categories: {{ rule.categories.map((c) => c.name).join(", ") }}</div>
-                <div>Tags: {{ rule.tags.map((t) => t.name).join(", ") }}</div>
+                <div v-if="rule.categories">
+                  <h4 class="py-1">{{ $t("category.categories") }}:</h4>
+                  <RecipeChips :items="rule.categories" is-category small />
+                </div>
+
+                <div v-if="rule.tags">
+                  <h4 class="py-1">{{ $t("tag.tags") }}:</h4>
+                  <RecipeChips :items="rule.tags" :is-category="false" small />
+                </div>
               </template>
               <template v-else>
                 <GroupMealPlanRuleForm
@@ -88,10 +96,12 @@ import { useUserApi } from "~/composables/api";
 import { PlanRulesCreate, PlanRulesOut } from "~/types/api-types/meal-plan";
 import GroupMealPlanRuleForm from "~/components/Domain/Group/GroupMealPlanRuleForm.vue";
 import { useAsyncKey } from "~/composables/use-utils";
+import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 
 export default defineComponent({
   components: {
     GroupMealPlanRuleForm,
+    RecipeChips,
   },
   props: {
     value: {
