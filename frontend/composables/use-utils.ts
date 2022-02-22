@@ -4,6 +4,13 @@ export const useAsyncKey = function () {
   return String(Date.now());
 };
 
+export const titleCase = function (str: string) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 export function detectServerBaseUrl(req?: IncomingMessage | null) {
   if (!req || req === undefined) {
     return "";
