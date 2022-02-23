@@ -247,7 +247,6 @@ class RecipeController(BaseRecipeController):
         try:
             data = self.service.patch_one(slug, data)
         except Exception as e:
-            self.deps.logger.exception(e)
             self.handle_exceptions(e)
         return data
 
