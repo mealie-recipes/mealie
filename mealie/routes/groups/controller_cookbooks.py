@@ -1,7 +1,7 @@
 from functools import cached_property
 from typing import Type
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
@@ -9,8 +9,13 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
+from mealie.schema.recipe.recipe_category import RecipeCategoryResponse
 
 router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"])
+
+
+class CookBookRecipeResponse(RecipeCookBook):
+    categories: list[RecipeCategoryResponse]
 
 
 @controller(router)
@@ -54,12 +59,15 @@ class GroupCookbookController(BaseUserController):
 
         return updated
 
-    @router.get("/{item_id}", response_model=RecipeCookBook)
+    @router.get("/{item_id}", response_model=CookBookRecipeResponse)
     def get_one(self, item_id: UUID4 | str):
-        if isinstance(item_id, str):
-            self.mixins.get_one(item_id, key="slug")
-        else:
-            return self.mixins.get_one(item_id)
+        match_attr = "slug" if isinstance(item_id, str) else "id"
+        book = self.repo.get_one(item_id, match_attr, override_schema=CookBookRecipeResponse)
+
+        if book is None:
+            raise HTTPException(status_code=404)
+
+        return book
 
     @router.put("/{item_id}", response_model=RecipeCookBook)
     def update_one(self, item_id: str, data: CreateCookBook):
