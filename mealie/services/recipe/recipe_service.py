@@ -167,7 +167,7 @@ class RecipeService(BaseService):
         recipe = self._pre_update_check(slug, patch_data)
         recipe = self.repos.recipes.by_group(self.group.id).get_one(slug)
 
-        new_data = self.repos.recipes.patch(recipe.slug, patch_data)
+        new_data = self.repos.recipes.by_group(self.group.id).patch(recipe.slug, patch_data.dict(exclude_unset=True))
 
         self.check_assets(new_data, recipe.slug)
         return new_data
