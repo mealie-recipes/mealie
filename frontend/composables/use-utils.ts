@@ -1,4 +1,18 @@
 import { IncomingMessage } from "connect";
+import { useDark } from "@vueuse/core";
+import { useContext } from "@nuxtjs/composition-api";
+
+export const useToggleDarkMode = () => {
+  const isDark = useDark();
+  const { $vuetify } = useContext();
+
+  function toggleDark() {
+    isDark.value = !$vuetify.theme.dark;
+    $vuetify.theme.dark = !$vuetify.theme.dark;
+  }
+
+  return toggleDark;
+};
 
 export const useAsyncKey = function () {
   return String(Date.now());
