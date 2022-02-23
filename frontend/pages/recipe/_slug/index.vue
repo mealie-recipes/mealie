@@ -504,10 +504,12 @@ export default defineComponent({
   async beforeRouteLeave(_to, _from, next) {
     const isSame = JSON.stringify(this.recipe) === JSON.stringify(this.originalRecipe);
 
-    console.log({ working: this.recipe, saved: this.originalRecipe });
-
     if (this.form && !isSame && this.recipe?.slug !== undefined) {
-      if (window.confirm("You have unsaved changes. Do you want to save before leaving?")) {
+      if (
+        window.confirm(
+          "You have unsaved changes. Do you want to save before leaving?\n\nOkay to save, Cancel to discard changes."
+        )
+      ) {
         await this.api.recipes.updateOne(this.recipe.slug, this.recipe);
       }
     }
@@ -558,7 +560,6 @@ export default defineComponent({
 
     invoke(async () => {
       await until(recipe).not.toBeNull();
-
       originalRecipe.value = deepCopy(recipe.value);
     });
 
@@ -746,6 +747,7 @@ export default defineComponent({
     useMeta(metaData);
 
     return {
+      originalRecipe,
       createApiExtra,
       apiNewKey,
       enableLandscape,
