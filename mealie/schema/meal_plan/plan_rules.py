@@ -42,6 +42,7 @@ class PlanRulesType(str, Enum):
     breakfast = "breakfast"
     lunch = "lunch"
     dinner = "dinner"
+    side = "side"
     unset = "unset"
 
 
