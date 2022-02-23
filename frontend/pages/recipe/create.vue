@@ -217,7 +217,7 @@
       <!--  Debug Extras -->
       <section v-if="debugData && tab === 'debug'">
         <v-checkbox v-model="debugTreeView" label="Tree View"></v-checkbox>
-        <VJsoneditor
+        <LazyRecipeJsonEditor
           v-model="debugData"
           class="primary"
           :options="{
@@ -322,11 +322,9 @@ import {
   useRouter,
   useContext,
   computed,
-  useRoute
+  useRoute,
 } from "@nuxtjs/composition-api";
 import { AxiosResponse } from "axios";
-// @ts-ignore No Types for v-jsoneditor
-import VJsoneditor from "v-jsoneditor";
 import { useUserApi } from "~/composables/api";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import { validators } from "~/composables/use-validators";
@@ -336,7 +334,7 @@ import { VForm } from "~/types/vuetify";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 
 export default defineComponent({
-  components: { VJsoneditor, RecipeCategoryTagSelector },
+  components: { RecipeCategoryTagSelector },
   setup() {
     const state = reactive({
       error: false,
@@ -397,7 +395,7 @@ export default defineComponent({
 
     const recipeUrl = computed({
       set(recipe_import_url: string) {
-        recipe_import_url = recipe_import_url.trim()
+        recipe_import_url = recipe_import_url.trim();
         router.replace({ query: { ...route.value.query, recipe_import_url } });
       },
       get() {
@@ -515,7 +513,6 @@ export default defineComponent({
   },
 });
 </script>
-
 
 <style>
 .force-white > a {
