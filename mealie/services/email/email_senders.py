@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 import emails
+from emails.backend.response import SMTPResponse
 
 from mealie.core.root_logger import get_logger
 from mealie.services._base_service import BaseService
@@ -29,7 +30,10 @@ class DefaultEmailSender(ABCEmailSender, BaseService):
             smtp_options["user"] = self.settings.SMTP_USER
         if self.settings.SMTP_PASSWORD:
             smtp_options["password"] = self.settings.SMTP_PASSWORD
-        response = message.send(to=email_to, smtp=smtp_options)
+        response: SMTPResponse = message.send(to=email_to, smtp=smtp_options)
         logger.info(f"send email result: {response}")
+
+        if not response.success:
+            logger.error(f"send email error: {response.error}")
 
         return response.status_code in [250]

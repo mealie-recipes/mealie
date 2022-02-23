@@ -45,10 +45,19 @@
             {{ $t("general.test") }}
           </BaseButton>
           <template v-if="tested">
-            <v-divider class="my-x"></v-divider>
-            <v-card-text>
-              Email Test Result: {{ success ? "Succeeded" : "Failed" }}
-              <div>Errors: {{ error }}</div>
+            <v-divider class="my-x mt-6"></v-divider>
+            <v-card-text class="px-0">
+              <h4>Email Test Results</h4>
+              <span class="pl-4">
+                {{ success ? "Succeeded" : "Failed" }}
+              </span>
+
+              <!-- <template v-if="errors">
+                <h4>Errors:</h4>
+                <span class="pl-4">
+                  {{ errors }}
+                </span>
+              </template> -->
             </v-card-text>
           </template>
         </div>
@@ -296,5 +305,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
