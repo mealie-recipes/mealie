@@ -62,11 +62,11 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
-import { useDark } from "@vueuse/core";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
 import TheSnackbar from "@/components/Layout/TheSnackbar.vue";
 import { useCookbooks } from "~/composables/use-group-cookbooks";
+import { useToggleDarkMode } from "~/composables/use-utils";
 
 export default defineComponent({
   components: { AppHeader, AppSidebar, TheSnackbar },
@@ -77,13 +77,7 @@ export default defineComponent({
 
     const isAdmin = computed(() => $auth.user?.admin);
 
-    const isDark = useDark();
-
-    function toggleDark() {
-      isDark.value = !$vuetify.theme.dark;
-      $vuetify.theme.dark = !$vuetify.theme.dark;
-      console.log("toggleDark");
-    }
+    const toggleDark = useToggleDarkMode();
 
     const sidebar = ref<boolean | null>(null);
 

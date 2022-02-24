@@ -23,7 +23,7 @@
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import {UserOut} from "~/types/api-types/user";
+import { UserOut } from "~/types/api-types/user";
 export default defineComponent({
   props: {
     slug: {
@@ -49,19 +49,15 @@ export default defineComponent({
     const isFavorite = computed(() => user.value?.favoriteRecipes?.includes(props.slug));
 
     async function toggleFavorite() {
-      console.log("Favorited?");
       if (!isFavorite.value) {
         await api.users.addFavorite(user.value?.id, props.slug);
       } else {
         await api.users.removeFavorite(user.value?.id, props.slug);
       }
       $auth.fetchUser();
-    };
+    }
 
     return { isFavorite, toggleFavorite };
   },
 });
 </script>
-
-<style lang="scss" scoped>
-</style>

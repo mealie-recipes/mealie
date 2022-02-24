@@ -39,26 +39,29 @@
         <span> Locked by Owner </span>
       </v-tooltip>
 
-      <RecipeContextMenu
-        show-print
-        :menu-top="false"
-        :slug="slug"
-        :menu-icon="$globals.icons.mdiDotsHorizontal"
-        fab
-        color="info"
-        :card-menu="false"
-        :recipe-id="recipeId"
-        :use-items="{
-          delete: false,
-          edit: false,
-          download: true,
-          mealplanner: true,
-          shoppingList: true,
-          print: true,
-          share: true,
-        }"
-        @print="$emit('print')"
-      />
+      <ClientOnly>
+        <RecipeContextMenu
+          show-print
+          :menu-top="false"
+          :name="name"
+          :slug="slug"
+          :menu-icon="$globals.icons.mdiDotsHorizontal"
+          fab
+          color="info"
+          :card-menu="false"
+          :recipe-id="recipeId"
+          :use-items="{
+            delete: false,
+            edit: false,
+            download: true,
+            mealplanner: true,
+            shoppingList: true,
+            print: true,
+            share: true,
+          }"
+          @print="$emit('print')"
+        />
+      </ClientOnly>
     </div>
     <div v-if="value" class="custom-btn-group mb-">
       <v-btn
