@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Home",
+    title: "Mealie",
     meta: [
       { hid: "og:type", property: "og:type", content: "website" },
       { hid: "og:title", property: "og:title", content: "Mealie" },
@@ -60,6 +60,8 @@ export default {
     "nuxt-vite",
     // https://github.com/antfu/vue2-script-setup-transform
     "vue2-script-setup-transform/nuxt",
+    // https://google-fonts.nuxtjs.org/setup
+    "@nuxtjs/google-fonts",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -91,6 +93,12 @@ export default {
       },
     ],
   ],
+
+  googleFonts: {
+    families: {
+      Roboto: [100, 300, 400, 500, 700, 900],
+    },
+  },
 
   auth: {
     redirect: {
@@ -268,6 +276,50 @@ export default {
     manifest: {
       lang: "en",
     },
+    meta: {
+      /* meta options */
+      name: "Mealie",
+      description: "Mealie is a recipe management and meal planning app",
+      theme_color: "#E58325",
+      ogSiteName: "Mealie",
+    },
+    manifest: {
+      background_color: "#FFFFFF",
+      share_target: {
+        action: "/",
+        method: "GET",
+        params: {
+          title: "title",
+          text: "recipe_import_url",
+        },
+      },
+    },
+    icons: [
+      {
+        src: "[srcDir]/[staticDir]/icons/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "[srcDir]/[staticDir]/icons/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "[srcDir]/[staticDir]/icons/android-chrome-maskable-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "maskable",
+      },
+      {
+        src: "[srcDir]/[staticDir]/icons/android-chrome-maskable-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+    ],
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -276,12 +328,7 @@ export default {
     icons: {
       iconfont: "mdiSvg", // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
     },
-    defaultAssets: {
-      font: {
-        family: "Roboto",
-      },
-      icons: false,
-    },
+    defaultAssets: false,
     theme: {
       options: {
         customProperties: true,
