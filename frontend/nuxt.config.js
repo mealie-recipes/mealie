@@ -284,6 +284,8 @@ export default {
       ogSiteName: "Mealie",
     },
     manifest: {
+      name: "Mealie",
+      title: "Mealie",
       background_color: "#FFFFFF",
       share_target: {
         action: "/",
