@@ -1,6 +1,13 @@
 <template>
   <div>
-    <v-chip v-for="(time, index) in allTimes" :key="index" label color="accent custom-transparent" class="ma-1">
+    <v-chip
+      v-for="(time, index) in allTimes"
+      :key="index"
+      :small="$vuetify.breakpoint.smAndDown"
+      label
+      color="accent custom-transparent"
+      class="ma-1"
+    >
       <v-icon left>
         {{ $globals.icons.clockOutline }}
       </v-icon>
@@ -58,7 +65,7 @@ export default defineComponent({
     return {
       showCards,
       allTimes,
-    }
+    };
   },
 });
 </script>

@@ -245,7 +245,7 @@
     "insert-section": "Insert Section",
     "instructions": "Instructions",
     "key-name-required": "Key Name Required",
-    "landscape-view-coming-soon": "Landscape View (Coming Soon)",
+    "landscape-view-coming-soon": "Landscape View",
     "milligrams": "milligrams",
     "new-key-name": "New Key Name",
     "no-white-space-allowed": "No White Space Allowed",
@@ -437,7 +437,7 @@
     "tags": "Tags",
     "untagged-count": "Untagged {count}"
   },
-  "tool":{
+  "tool": {
     "tools": "Tools"
   },
   "user": {
