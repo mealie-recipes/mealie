@@ -7,7 +7,7 @@
     <v-card v-if="skeleton" :color="`white ${false ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else-if="recipe" :flat="$vuetify.breakpoint.mobile" class="d-print-none">
+    <v-card v-else-if="recipe" :flat="$vuetify.breakpoint.smAndDown" class="d-print-none">
       <!-- Recipe Header -->
       <div class="d-flex justify-end flex-wrap align-stretch">
         <v-card v-if="!enableLandscape" width="50%" flat class="d-flex flex-column justify-center align-center">
@@ -39,13 +39,6 @@
           class="d-print-none"
           @error="hideImage = true"
         >
-          <RecipeTimeCard
-            v-if="enableLandscape"
-            :class="true ? undefined : 'force-bottom'"
-            :prep-time="recipe.prepTime"
-            :total-time="recipe.totalTime"
-            :perform-time="recipe.performTime"
-          />
         </v-img>
       </div>
       <v-divider></v-divider>
@@ -57,7 +50,7 @@
         :logged-in="$auth.loggedIn"
         :open="form"
         :recipe-id="recipe.id"
-        class="ml-auto"
+        class="ml-auto mt-n8 pb-4"
         @close="closeEditor"
         @json="toggleJson"
         @edit="
@@ -88,10 +81,27 @@
           </div>
           <!-- Recipe Title Section -->
           <template v-if="!form && enableLandscape">
-            <v-card-title class="pa-0 ma-0 headline">
+            <v-card-title class="px-0 py-2 ma-0 headline">
               {{ recipe.name }}
             </v-card-title>
             <VueMarkdown :source="recipe.description"> </VueMarkdown>
+
+            <div class="pb-2 d-flex justify-center flex-wrap">
+              <RecipeTimeCard
+                class="d-flex justify-center flex-wrap"
+                :prep-time="recipe.prepTime"
+                :total-time="recipe.totalTime"
+                :perform-time="recipe.performTime"
+              />
+              <RecipeRating
+                v-if="enableLandscape && $vuetify.breakpoint.smAndDown"
+                :key="recipe.slug"
+                :value="recipe.rating"
+                :name="recipe.name"
+                :slug="recipe.slug"
+              />
+            </div>
+            <v-divider></v-divider>
           </template>
 
           <template v-else-if="form">
@@ -152,7 +162,7 @@
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
           </div>
-          <div class="d-flex justify-space-between align-center pb-3">
+          <div class="d-flex justify-space-between align-center pt-2 pb-3">
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
                 <v-btn
@@ -190,7 +200,7 @@
             <v-spacer></v-spacer>
 
             <RecipeRating
-              v-if="enableLandscape"
+              v-if="enableLandscape && $vuetify.breakpoint.smAndUp"
               :key="recipe.slug"
               :value="recipe.rating"
               :name="recipe.name"
@@ -425,9 +435,9 @@
       </v-card>
     </v-card>
     <div
-      v-if="recipe"
+      v-if="recipe && wakeIsSupported"
       class="d-print-none d-flex px-2"
-      :class="$vuetify.breakpoint.mobile ? 'justify-center' : 'justify-end'"
+      :class="$vuetify.breakpoint.smAndDown ? 'justify-center' : 'justify-end'"
     >
       <v-switch v-model="wakeLock" small label="Keep Screen Awake" />
     </div>
@@ -533,7 +543,7 @@ export default defineComponent({
     // ===============================================================
     // Screen Lock
 
-    const { isSupported, isActive, request, release } = useWakeLock();
+    const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
 
     const wakeLock = computed({
       get: () => isActive,
@@ -547,14 +557,14 @@ export default defineComponent({
     });
 
     async function lockScreen() {
-      if (isSupported) {
+      if (wakeIsSupported) {
         console.log("Wake Lock Requested");
         await request("screen");
       }
     }
 
     async function unlockScreen() {
-      if (isSupported || isActive) {
+      if (wakeIsSupported || isActive) {
         console.log("Wake Lock Released");
         await release();
       }
@@ -790,6 +800,7 @@ export default defineComponent({
 
     return {
       // Wake Lock
+      wakeIsSupported,
       isActive,
       lockScreen,
       unlockScreen,

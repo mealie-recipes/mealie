@@ -36,8 +36,8 @@
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
       <v-btn v-if="$auth.loggedIn" text @click="$auth.logout()">
-        <v-icon left>{{ $globals.icons.logout }}</v-icon>
-        {{ $t("user.logout") }}
+        <v-icon :left="$vuetify.breakpoint.smAndUp">{{ $globals.icons.logout }}</v-icon>
+        {{ $vuetify.breakpoint.smAndUp ? $t("user.logout") : "" }}
       </v-btn>
       <v-btn v-else text nuxt to="/login">
         <v-icon left>{{ $globals.icons.user }}</v-icon>
