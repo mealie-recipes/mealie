@@ -7,7 +7,7 @@
     <v-card v-if="skeleton" :color="`white ${false ? 'darken-2' : 'lighten-4'}`" class="pa-3">
       <v-skeleton-loader class="mx-auto" height="700px" type="card"></v-skeleton-loader>
     </v-card>
-    <v-card v-else-if="recipe" class="d-print-none">
+    <v-card v-else-if="recipe" :flat="$vuetify.breakpoint.mobile" class="d-print-none">
       <!-- Recipe Header -->
       <div class="d-flex justify-end flex-wrap align-stretch">
         <v-card v-if="!enableLandscape" width="50%" flat class="d-flex flex-column justify-center align-center">
@@ -424,12 +424,19 @@
         </v-card-actions>
       </v-card>
     </v-card>
+    <div
+      v-if="recipe"
+      class="d-print-none d-flex px-2"
+      :class="$vuetify.breakpoint.mobile ? 'justify-center' : 'justify-end'"
+    >
+      <v-switch v-model="wakeLock" small label="Keep Screen Awake" />
+    </div>
     <RecipeComments
       v-if="recipe && !recipe.settings.disableComments && !form"
       v-model="recipe.comments"
       :slug="recipe.slug"
       :recipe-id="recipe.id"
-      class="mt-4"
+      class="px-1 my-4"
     />
     <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>
@@ -451,7 +458,8 @@ import {
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
-import { invoke, until } from "@vueuse/core";
+import { invoke, until, useWakeLock } from "@vueuse/core";
+import { onUnmounted } from "vue-demi";
 import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
@@ -523,16 +531,50 @@ export default defineComponent({
     const api = useUserApi();
 
     // ===============================================================
+    // Screen Lock
+
+    const { isSupported, isActive, request, release } = useWakeLock();
+
+    const wakeLock = computed({
+      get: () => isActive,
+      set: () => {
+        if (isActive.value) {
+          unlockScreen();
+        } else {
+          lockScreen();
+        }
+      },
+    });
+
+    async function lockScreen() {
+      if (isSupported) {
+        console.log("Wake Lock Requested");
+        await request("screen");
+      }
+    }
+
+    async function unlockScreen() {
+      if (isSupported || isActive) {
+        console.log("Wake Lock Released");
+        await release();
+      }
+    }
+
+    // ===============================================================
     // Edit on Navigate
 
     const edit = useRouteQuery("edit", "");
 
     onMounted(() => {
-      console.log("edit", edit.value);
+      lockScreen();
+
       if (edit.value) {
-        console.log("edit", edit.value);
         state.form = edit.value === "true";
       }
+    });
+
+    onUnmounted(() => {
+      unlockScreen();
     });
 
     // ===============================================================
@@ -747,6 +789,12 @@ export default defineComponent({
     useMeta(metaData);
 
     return {
+      // Wake Lock
+      isActive,
+      lockScreen,
+      unlockScreen,
+      wakeLock,
+      //
       originalRecipe,
       createApiExtra,
       apiNewKey,
