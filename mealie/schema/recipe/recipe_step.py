@@ -2,7 +2,7 @@ from typing import Optional
 from uuid import UUID, uuid4
 
 from fastapi_camelcase import CamelModel
-from pydantic import Field
+from pydantic import UUID4, Field
 
 
 class IngredientReferences(CamelModel):
@@ -10,7 +10,7 @@ class IngredientReferences(CamelModel):
     A list of ingredient references.
     """
 
-    reference_id: UUID = None
+    reference_id: Optional[UUID4]
 
     class Config:
         orm_mode = True
