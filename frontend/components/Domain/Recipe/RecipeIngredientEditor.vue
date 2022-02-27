@@ -21,7 +21,13 @@
           type="number"
           placeholder="Quantity"
         >
-          <v-icon slot="prepend" class="mr-n1" color="error" @click="$emit('delete')">
+          <v-icon
+            v-if="$listeners && $listeners.delete"
+            slot="prepend"
+            class="mr-n1"
+            color="error"
+            @click="$emit('delete')"
+          >
             {{ $globals.icons.delete }}
           </v-icon>
         </v-text-field>

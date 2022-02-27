@@ -60,13 +60,13 @@
       <v-checkbox
         v-model="group.preferences.recipeDisableComments"
         class="mt-n4"
-        label="Allow recipe comments from users in your group"
+        label="Disable users from commenting on recipes"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
       <v-checkbox
         v-model="group.preferences.recipeDisableAmount"
         class="mt-n4"
-        label="Enable organizing recipe ingredients by units and food"
+        label="Disable organizing recipe ingredients by units and food"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
     </section>

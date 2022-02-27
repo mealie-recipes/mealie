@@ -5,6 +5,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory
 from mealie.schema.recipe.recipe_category import CategorySave
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_step import RecipeStep
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 from tests.utils.recipe_data import get_raw_no_image, get_raw_recipe, get_recipe_test_cases
@@ -70,3 +71,31 @@ def recipe_categories(database: AllRepositories, unique_user: TestUser) -> list[
             database.categories.delete(model.id)
         except sqlalchemy.exc.NoResultFound:
             pass
+
+
+@fixture(scope="function")
+def random_recipe(database: AllRepositories, unique_user: TestUser) -> Recipe:
+    recipe = Recipe(
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
+        name=random_string(10),
+        recipe_ingredient=[
+            RecipeIngredient(note="Ingredient 1"),
+            RecipeIngredient(note="Ingredient 2"),
+            RecipeIngredient(note="Ingredient 3"),
+        ],
+        recipe_instructions=[
+            RecipeStep(text="Step 1"),
+            RecipeStep(text="Step 2"),
+            RecipeStep(text="Step 3"),
+        ],
+    )
+
+    model = database.recipes.create(recipe)
+
+    yield model
+
+    try:
+        database.recipes.delete(model.slug)
+    except sqlalchemy.exc.NoResultFound:
+        pass

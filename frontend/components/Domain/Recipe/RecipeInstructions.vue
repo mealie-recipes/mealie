@@ -180,7 +180,7 @@
 import draggable from "vuedraggable";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
-import { ref, toRefs, reactive, defineComponent, watch, onMounted } from "@nuxtjs/composition-api";
+import { ref, toRefs, reactive, defineComponent, watch, onMounted, watchEffect } from "@nuxtjs/composition-api";
 import { RecipeStep, IngredientReferences, RecipeIngredient } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4 } from "~/composables/use-utils";
@@ -247,8 +247,9 @@ export default defineComponent({
 
     // ===============================================================
     // UI State Helpers
+
     function validateTitle(title: string | undefined) {
-      return !(title === null || title === "");
+      return !(title === null || title === "" || title === undefined);
     }
 
     watch(props.value, (v) => {
@@ -267,6 +268,8 @@ export default defineComponent({
         if (element.id !== undefined) {
           showTitleEditor.value[element.id] = validateTitle(element.title);
         }
+
+        showTitleEditor.value = { ...showTitleEditor.value };
       });
     });
 
@@ -283,17 +286,20 @@ export default defineComponent({
         state.disabledSteps.push(stepIndex);
       }
     }
+
     function isChecked(stepIndex: number) {
       if (state.disabledSteps.includes(stepIndex) && !props.edit) {
         return "disabled-card";
       }
     }
+
     function toggleShowTitle(id: string) {
       showTitleEditor.value[id] = !showTitleEditor.value[id];
 
       const temp = { ...showTitleEditor.value };
       showTitleEditor.value = temp;
     }
+
     function updateIndex(data: RecipeStep) {
       context.emit("input", data);
     }
@@ -475,4 +481,3 @@ export default defineComponent({
   background: none;
 }
 </style>
-
