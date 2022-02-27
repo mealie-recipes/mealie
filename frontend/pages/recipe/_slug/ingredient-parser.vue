@@ -16,15 +16,14 @@
         confidence score is displayed on the right of the title item. This is an average of all scores and may not be
         wholey accurate.
 
-        <div class="mt-6">
+        <div class="my-4">
           Alerts will be displayed if a matching foods or unit is found but does not exists in the database.
         </div>
-        <v-divider class="my-4"> </v-divider>
-        <div class="mb-n4">
-          Select Parser
+        <div class="d-flex align-center mb-n4">
+          <div class="mb-4">Select Parser</div>
           <BaseOverflowButton
             v-model="parser"
-            btn-class="mx-2"
+            btn-class="mx-2 mb-4"
             :items="[
               {
                 text: 'Natural Language Processor ',
@@ -270,4 +269,3 @@ export default defineComponent({
   },
 });
 </script>
-
