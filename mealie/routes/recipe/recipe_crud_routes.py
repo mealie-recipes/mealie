@@ -16,6 +16,7 @@ from mealie.core import exceptions
 from mealie.core.dependencies import temporary_zip_path
 from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
 from mealie.core.security import create_recipe_slug_token
+from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseUserController, controller
@@ -267,6 +268,9 @@ class RecipeController(BaseRecipeController):
         data_service = RecipeDataService(recipe.id)
         data_service.scrape_image(url.url)
 
+        recipe.image = cache.cache_key.new_key()
+        self.service.update_one(recipe.slug, recipe)
+
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
         recipe = self.mixins.get_one(slug)
@@ -286,7 +290,7 @@ class RecipeController(BaseRecipeController):
         file: UploadFile = File(...),
     ):
         """Upload a file to store as a recipe asset"""
-        file_name = slugify(name) + "." + extension
+        file_name = f"{slugify(name)}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         recipe = self.mixins.get_one(slug)
