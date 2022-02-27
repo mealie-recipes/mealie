@@ -46,7 +46,4 @@ def test_associate_ingredient_with_step(api_client: TestClient, unique_user: Tes
 
         assert len(all_refs) == 2
 
-        print(steps)
-        print(f"Step {idx}: {all_refs}")
-
         assert all(ref in steps[idx] for ref in all_refs)
