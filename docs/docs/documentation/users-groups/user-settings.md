@@ -24,7 +24,7 @@ In the meal planner section a user can select categories to be used as a part of
 Meal planner webhooks are post requests sent from Mealie to an external endpoint. The body of the message is the Recipe JSON of the scheduled meal. If no meal is schedule, no request is sent. The webhook functionality can be enabled or disabled as well as scheduled. Note that you must "Save" prior to any changes taking affect server side. 
 
 ## API Key Generation
-Users can quickly and easily generate API keys with the user interface. Provide a name for your token and then you are shown 1 time the generated API key. If you ever loose the API key you are not able to identify or retrieve it from the UI. 
+Users can quickly and easily generate API keys with the user interface. Provide a name for your token and click create. The generated API key will then be shown, but only once. If you ever lose the API key, you will not able to identify or retrieve it from the UI. 
 
 ![API Key Image](../../assets/img/api-key-image-v1.webp)
 
