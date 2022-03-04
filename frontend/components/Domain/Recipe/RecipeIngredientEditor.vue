@@ -167,15 +167,12 @@ export default defineComponent({
 
     function handleUnitEnter() {
       if (value.unit === undefined || value.unit === null || !value.unit.name.includes(unitSearch.value)) {
-        console.log("Creating");
         createAssignUnit();
       }
     }
 
     function handleFoodEnter() {
-      console.log(value.food);
       if (value.food === undefined || value.food === null || !value.food.name.includes(foodSearch.value)) {
-        console.log("Creating");
         createAssignFood();
       }
     }

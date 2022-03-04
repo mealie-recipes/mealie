@@ -461,8 +461,6 @@ export default defineComponent({
     }
 
     function toggleCollapseSection(index: number) {
-      console.log("Collapse", index);
-
       const sectionSteps: number[] = [index];
 
       for (let i = index + 1; i < props.value.length; i++) {
