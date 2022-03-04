@@ -76,7 +76,15 @@
       @end="drag = false"
     >
       <div v-for="(step, index) in value" :key="step.id">
-        <v-app-bar v-if="showTitleEditor[step.id]" class="primary mx-1 mt-6" dark dense rounded>
+        <v-app-bar
+          v-if="showTitleEditor[step.id]"
+          class="primary mx-1 mt-6"
+          style="cursor: pointer"
+          dark
+          dense
+          rounded
+          @click="toggleCollapseSection(index)"
+        >
           <v-toolbar-title v-if="!edit" class="headline">
             <v-app-bar-title v-text="step.title"> </v-app-bar-title>
           </v-toolbar-title>
@@ -452,8 +460,31 @@ export default defineComponent({
       previewStates.value = temp;
     }
 
+    function toggleCollapseSection(index: number) {
+      console.log("Collapse", index);
+
+      const sectionSteps: number[] = [index];
+
+      for (let i = index + 1; i < props.value.length; i++) {
+        if (validateTitle(props.value[i].title)) {
+          break;
+        } else {
+          sectionSteps.push(i);
+        }
+      }
+
+      const allCollapsed = sectionSteps.every((idx) => state.disabledSteps.indexOf(idx) > -1);
+
+      if (allCollapsed) {
+        state.disabledSteps = state.disabledSteps.filter((idx) => sectionSteps.indexOf(idx) === -1);
+      } else {
+        state.disabledSteps = [...state.disabledSteps, ...sectionSteps];
+      }
+    }
+
     return {
       togglePreviewState,
+      toggleCollapseSection,
       previewStates,
       ...toRefs(state),
       actionEvents,
