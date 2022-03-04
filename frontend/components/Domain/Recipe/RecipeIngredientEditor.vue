@@ -44,6 +44,7 @@
           item-text="name"
           class="mx-1"
           placeholder="Choose Unit"
+          clearable
           @keyup.enter="handleUnitEnter"
         >
           <template #no-data>
@@ -70,6 +71,7 @@
           item-text="name"
           class="mx-1 py-0"
           placeholder="Choose Food"
+          clearable
           @keyup.enter="handleFoodEnter"
         >
           <template #no-data>
@@ -165,15 +167,12 @@ export default defineComponent({
 
     function handleUnitEnter() {
       if (value.unit === undefined || value.unit === null || !value.unit.name.includes(unitSearch.value)) {
-        console.log("Creating");
         createAssignUnit();
       }
     }
 
     function handleFoodEnter() {
-      console.log(value.food);
       if (value.food === undefined || value.food === null || !value.food.name.includes(foodSearch.value)) {
-        console.log("Creating");
         createAssignFood();
       }
     }

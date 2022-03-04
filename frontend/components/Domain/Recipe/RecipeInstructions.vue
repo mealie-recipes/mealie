@@ -76,7 +76,15 @@
       @end="drag = false"
     >
       <div v-for="(step, index) in value" :key="step.id">
-        <v-app-bar v-if="showTitleEditor[step.id]" class="primary mx-1 mt-6" dark dense rounded>
+        <v-app-bar
+          v-if="showTitleEditor[step.id]"
+          class="primary mx-1 mt-6"
+          style="cursor: pointer"
+          dark
+          dense
+          rounded
+          @click="toggleCollapseSection(index)"
+        >
           <v-toolbar-title v-if="!edit" class="headline">
             <v-app-bar-title v-text="step.title"> </v-app-bar-title>
           </v-toolbar-title>
@@ -180,7 +188,7 @@
 import draggable from "vuedraggable";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
-import { ref, toRefs, reactive, defineComponent, watch, onMounted, watchEffect } from "@nuxtjs/composition-api";
+import { ref, toRefs, reactive, defineComponent, watch, onMounted } from "@nuxtjs/composition-api";
 import { RecipeStep, IngredientReferences, RecipeIngredient } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4 } from "~/composables/use-utils";
@@ -452,8 +460,29 @@ export default defineComponent({
       previewStates.value = temp;
     }
 
+    function toggleCollapseSection(index: number) {
+      const sectionSteps: number[] = [];
+
+      for (let i = index; i < props.value.length; i++) {
+        if (!(i === index) && validateTitle(props.value[i].title)) {
+          break;
+        } else {
+          sectionSteps.push(i);
+        }
+      }
+
+      const allCollapsed = sectionSteps.every((idx) => state.disabledSteps.includes(idx));
+
+      if (allCollapsed) {
+        state.disabledSteps = state.disabledSteps.filter((idx) => !sectionSteps.includes(idx));
+      } else {
+        state.disabledSteps = [...state.disabledSteps, ...sectionSteps];
+      }
+    }
+
     return {
       togglePreviewState,
+      toggleCollapseSection,
       previewStates,
       ...toRefs(state),
       actionEvents,

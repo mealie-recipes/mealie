@@ -142,7 +142,7 @@
                 <template #activator="{ on, attrs }">
                   <span v-on="on">
                     <BaseButton
-                      :disabled="recipe.settings.disableAmount"
+                      :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
                       color="accent"
                       :to="`${recipe.slug}/ingredient-parser`"
                       v-bind="attrs"
@@ -154,9 +154,7 @@
                     </BaseButton>
                   </span>
                 </template>
-                <span>{{
-                  recipe.settings.disableAmount ? "Enable ingredient amounts to use this feature" : "Parse ingredients"
-                }}</span>
+                <span>{{ paserToolTip }}</span>
               </v-tooltip>
               <RecipeDialogBulkAdd class="ml-1 mr-1" @bulk-data="addIngredient" />
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
@@ -798,6 +796,30 @@ export default defineComponent({
 
     useMeta(metaData);
 
+    const hasFoodOrUnit = computed(() => {
+      if (!recipe.value) {
+        return false;
+      }
+      if (recipe.value.recipeIngredient) {
+        for (const ingredient of recipe.value.recipeIngredient) {
+          if (ingredient.food || ingredient.unit) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    });
+
+    const paserToolTip = computed(() => {
+      if (recipe.value?.settings?.disableAmount) {
+        return "Enable ingredient amounts to use this feature";
+      } else if (hasFoodOrUnit.value) {
+        return "Recipes with units or foods defined cannot be parsed.";
+      }
+      return "Parse ingredients";
+    });
+
     return {
       // Wake Lock
       wakeIsSupported,
@@ -806,6 +828,8 @@ export default defineComponent({
       unlockScreen,
       wakeLock,
       //
+      hasFoodOrUnit,
+      paserToolTip,
       originalRecipe,
       createApiExtra,
       apiNewKey,
