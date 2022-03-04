@@ -461,20 +461,20 @@ export default defineComponent({
     }
 
     function toggleCollapseSection(index: number) {
-      const sectionSteps: number[] = [index];
+      const sectionSteps: number[] = [];
 
-      for (let i = index + 1; i < props.value.length; i++) {
-        if (validateTitle(props.value[i].title)) {
+      for (let i = index; i < props.value.length; i++) {
+        if (!(i === index) && validateTitle(props.value[i].title)) {
           break;
         } else {
           sectionSteps.push(i);
         }
       }
 
-      const allCollapsed = sectionSteps.every((idx) => state.disabledSteps.indexOf(idx) > -1);
+      const allCollapsed = sectionSteps.every((idx) => state.disabledSteps.includes(idx));
 
       if (allCollapsed) {
-        state.disabledSteps = state.disabledSteps.filter((idx) => sectionSteps.indexOf(idx) === -1);
+        state.disabledSteps = state.disabledSteps.filter((idx) => !sectionSteps.includes(idx));
       } else {
         state.disabledSteps = [...state.disabledSteps, ...sectionSteps];
       }
