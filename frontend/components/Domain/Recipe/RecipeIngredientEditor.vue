@@ -45,6 +45,7 @@
           class="mx-1"
           placeholder="Choose Unit"
           @keyup.enter="handleUnitEnter"
+          clearable
         >
           <template #no-data>
             <div class="caption text-center pb-2">Press Enter to Create</div>
@@ -71,6 +72,7 @@
           class="mx-1 py-0"
           placeholder="Choose Food"
           @keyup.enter="handleFoodEnter"
+          clearable
         >
           <template #no-data>
             <div class="caption text-center pb-2">Press Enter to Create</div>
