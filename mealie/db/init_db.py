@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Callable
 
 from sqlalchemy import engine
 
@@ -56,6 +57,13 @@ def db_is_at_head(alembic_cfg: config.Config) -> bool:
         return set(context.get_current_heads()) == set(directory.get_heads())
 
 
+def safe_try(name: str, func: Callable):
+    try:
+        func()
+    except Exception as e:
+        logger.error(f"Error calling '{name}': {e}")
+
+
 def main():
     alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
     if db_is_at_head(alembic_cfg):
@@ -74,7 +82,7 @@ def main():
         logger.info("Database contains no users, initializing...")
         init_db(db)
 
-    fix_slug_food_names(db)
+    safe_try("fix slug food names", lambda: fix_slug_food_names(db))
 
 
 if __name__ == "__main__":
