@@ -42,14 +42,14 @@ def create_from_url(url: str) -> Recipe:
 
     try:
         recipe_data_service.scrape_image(new_recipe.image)
-        new_recipe.name = slugify(new_recipe.name)
+        new_recipe.slug = slugify(new_recipe.name)
         new_recipe.image = cache.new_key(4)
     except Exception as e:
         recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
         new_recipe.image = "no image"
 
     if new_recipe.name is None or new_recipe.name == "":
-        new_recipe.name = "No Recipe Name Found - " + str(uuid4())
+        new_recipe.name = f"No Recipe Name Found - {str(uuid4())}"
         new_recipe.slug = slugify(new_recipe.name)
 
     return new_recipe

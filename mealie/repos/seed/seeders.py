@@ -49,7 +49,8 @@ class IngredientUnitsSeeder(AbstractSeeder):
 class IngredientFoodsSeeder(AbstractSeeder):
     def load_data(self) -> Generator[SaveIngredientFood, None, None]:
         file = self.resources / "foods" / "en-us.json"
-        for food in json.loads(file.read_text()):
+        foods: dict[str, str] = json.loads(file.read_text())
+        for food in foods.values():
             yield SaveIngredientFood(
                 group_id=self.group_id,
                 name=food,

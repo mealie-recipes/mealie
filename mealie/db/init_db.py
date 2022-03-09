@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Callable
 
 from sqlalchemy import engine
 
@@ -8,6 +9,7 @@ from alembic.runtime import migration
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import create_session
+from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
@@ -55,6 +57,13 @@ def db_is_at_head(alembic_cfg: config.Config) -> bool:
         return set(context.get_current_heads()) == set(directory.get_heads())
 
 
+def safe_try(name: str, func: Callable):
+    try:
+        func()
+    except Exception as e:
+        logger.error(f"Error calling '{name}': {e}")
+
+
 def main():
     alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
     if db_is_at_head(alembic_cfg):
@@ -72,6 +81,8 @@ def main():
     else:
         logger.info("Database contains no users, initializing...")
         init_db(db)
+
+    safe_try("fix slug food names", lambda: fix_slug_food_names(db))
 
 
 if __name__ == "__main__":
