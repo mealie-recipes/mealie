@@ -42,7 +42,7 @@
     </a>
 </p>
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]]
 
 # About The Project
 
