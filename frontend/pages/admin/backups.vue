@@ -1,9 +1,7 @@
-// TODO: Create a new datatable below to display the import summary json files saved on server (Need to do as well).
 <template>
   <v-container fluid>
+    <BannerExperimental issue="https://github.com/hay-kot/mealie/issues/871"></BannerExperimental>
     <section>
-      <BaseCardSectionTitle title="Site Backups"> </BaseCardSectionTitle>
-
       <!-- Delete Dialog -->
       <BaseDialog
         v-model="deleteDialog"
@@ -18,48 +16,44 @@
       </BaseDialog>
 
       <!-- Import Dialog -->
-      <BaseDialog
-        v-model="importDialog"
-        :title="selected.name"
-        :icon="$globals.icons.database"
-        :submit-text="$t('general.import')"
-        @submit="importBackup()"
-      >
+      <BaseDialog v-model="importDialog" color="error" title="Backup Restore" :icon="$globals.icons.database">
         <v-divider></v-divider>
         <v-card-text>
-          <AdminBackupImportOptions v-model="selected.options" class="mt-5 mb-2" :import-backup="true" />
-        </v-card-text>
+          Restoring this backup will overwrite all the current data in your database and in the data directory and
+          replace them with the contents of this backup. <b> This action cannot be undone - use with caution. </b> If
+          the restoration is successful, you will be logged out.
 
-        <v-divider></v-divider>
+          <v-checkbox
+            v-model="confirmImport"
+            class="checkbox-top"
+            color="error"
+            hide-details
+            label="I understand that this action is irreversible, destructive and may cause data loss"
+          ></v-checkbox>
+        </v-card-text>
+        <v-card-actions class="justify-center pt-0">
+          <BaseButton delete :disabled="!confirmImport" @click="restoreBackup(selected)">
+            <template #icon> {{ $globals.icons.database }} </template>
+            Restore Backup
+          </BaseButton>
+        </v-card-actions>
+        <p class="caption pb-0 mb-1 text-center">
+          {{ selected.name }}
+        </p>
       </BaseDialog>
 
-      <v-card outlined>
-        <v-card-title class="py-2"> {{ $t("settings.backup.create-heading") }} </v-card-title>
-        <v-divider class="mx-2"></v-divider>
-        <v-form @submit.prevent="createBackup()">
-          <v-card-text>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores molestiae alias incidunt fugiat!
-            Recusandae natus numquam iusto voluptates deserunt quia? Sed voluptate rem facilis tempora, perspiciatis
-            corrupti dolore obcaecati laudantium!
-            <div style="max-width: 300px">
-              <v-text-field
-                v-model="backupOptions.tag"
-                class="mt-4"
-                :label="$t('settings.backup.backup-tag') + ' (optional)'"
-              >
-              </v-text-field>
-              <AdminBackupImportOptions v-model="backupOptions.options" class="mt-5 mb-2" />
-              <v-divider class="my-3"></v-divider>
-            </div>
-            <v-card-actions>
-              <BaseButton type="submit"> </BaseButton>
-            </v-card-actions>
+      <section>
+        <BaseCardSectionTitle title="Backups">
+          <v-card-text class="py-0 px-1">
+            Backups a total snapshots of the database and data directory of the site. This includes all data and cannot
+            be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time.
+            Currently, this backup mechanism is not cross-version and therefore cannot be used to migrate data between
+            versions (data migrations are not done automatically). These serve as a database agnostic way to export and
+            import data or backup the site to an external location.
           </v-card-text>
-        </v-form>
-      </v-card>
+        </BaseCardSectionTitle>
+        <BaseButton @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
 
-      <section class="mt-5">
-        <BaseCardSectionTitle title="Backups"></BaseCardSectionTitle>
         <v-data-table
           :headers="headers"
           :items="backups.imports || []"
@@ -93,7 +87,7 @@
             <AppButtonUpload
               :text-btn="false"
               class="mr-4"
-              url="/api/backups/upload"
+              url="/api/admin/backups/upload"
               accept=".zip"
               color="info"
               @uploaded="refreshBackups()"
@@ -102,24 +96,66 @@
         </div>
       </section>
     </section>
+    <v-container class="mt-4 d-flex justify-end">
+      <v-btn outlined rounded to="/user/group/data/migrations"> Looking For Migrations? </v-btn>
+    </v-container>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
-import AdminBackupImportOptions from "@/components/Domain/Admin/AdminBackupImportOptions.vue";
-import { useBackups } from "~/composables/use-backups";
+import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+import { onMounted } from "vue-demi";
+import { useAdminApi } from "~/composables/api";
+import { AllBackups } from "~/types/api-types/admin";
 
 export default defineComponent({
-  components: { AdminBackupImportOptions },
   layout: "admin",
   setup() {
-    const { i18n } = useContext();
+    const { i18n, $auth } = useContext();
 
-    const { selected, backups, backupOptions, deleteTarget, refreshBackups, importBackup, createBackup, deleteBackup } =
-      useBackups();
+    const adminApi = useAdminApi();
+    const selected = ref("");
+
+    const backups = ref<AllBackups>({
+      imports: [],
+      templates: [],
+    });
+
+    async function refreshBackups() {
+      const { data } = await adminApi.backups.getAll();
+      if (data) {
+        backups.value = data;
+      }
+    }
+
+    async function createBackup() {
+      const { data } = await adminApi.backups.create();
+
+      if (!data?.error) {
+        refreshBackups();
+      }
+    }
+
+    async function restoreBackup(fileName: string) {
+      const { data } = await adminApi.backups.restore(fileName);
+
+      if (!data?.error) {
+        $auth.logout();
+      }
+    }
+
+    const deleteTarget = ref("");
+
+    async function deleteBackup() {
+      const { data } = await adminApi.backups.delete(deleteTarget.value);
+
+      if (!data?.error) {
+        refreshBackups();
+      }
+    }
 
     const state = reactive({
+      confirmImport: false,
       deleteDialog: false,
       createDialog: false,
       importDialog: false,
@@ -136,22 +172,23 @@ export default defineComponent({
       if (selected.value === null || selected.value === undefined) {
         return;
       }
-      selected.value.name = data.name;
+      selected.value = data.name;
       state.importDialog = true;
     }
 
-    const backupsFileNameDownload = (fileName: string) => `api/backups/${fileName}/download`;
+    const backupsFileNameDownload = (fileName: string) => `api/admin/backups/${fileName}`;
+
+    onMounted(refreshBackups);
 
     return {
+      restoreBackup,
       selected,
       ...toRefs(state),
-      backupOptions,
       backups,
       createBackup,
       deleteBackup,
-      setSelected,
       deleteTarget,
-      importBackup,
+      setSelected,
       refreshBackups,
       backupsFileNameDownload,
     };
@@ -163,6 +200,9 @@ export default defineComponent({
   },
 });
 </script>
-    
-<style scoped>
+
+<style>
+.v-input--selection-controls__input {
+  margin-bottom: auto;
+}
 </style>
