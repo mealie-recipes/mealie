@@ -6,6 +6,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.engine import base
+from sqlalchemy.orm import Session, sessionmaker
 
 from mealie.services._base_service import BaseService
 
@@ -28,6 +29,7 @@ class AlchemyExporter(BaseService):
         self.connection_str = connection_str
         self.engine = create_engine(connection_str)
         self.meta = MetaData()
+        self.session_maker = sessionmaker(bind=self.engine)
 
     @staticmethod
     def convert_to_datetime(data: dict) -> dict:
@@ -108,16 +110,25 @@ class AlchemyExporter(BaseService):
         data = AlchemyExporter.convert_to_datetime(db_dump)
 
         self.meta.reflect(bind=self.engine)
-        for table_name, rows in data.items():
-            if not rows:
-                continue
 
-            table = self.meta.tables[table_name]
-            self.engine.execute(table.delete())
-            self.engine.execute(table.insert(), rows)
+        with self.session_maker() as session:
+            for table_name, rows in data.items():
+                if not rows:
+                    continue
+
+                table = self.meta.tables[table_name]
+                session.execute(table.insert(), rows)
+
+            session.commit()
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
         self.meta.reflect(bind=self.engine)
-        for table in self.meta.sorted_tables:
-            self.engine.execute(table.delete().where())
+
+        with self.session_maker() as session:
+            session: Session
+
+            for table in self.meta.sorted_tables:
+                session.execute(f"DELETE FROM {table.name}")
+
+            session.commit()
