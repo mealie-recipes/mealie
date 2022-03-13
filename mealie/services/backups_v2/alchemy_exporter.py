@@ -93,7 +93,7 @@ class AlchemyExporter(BaseService):
 
         return jsonable_encoder(results)
 
-    def dump(self) -> dict:
+    def dump(self) -> dict[str, list[dict]]:
         """
         Returns the entire SQLAlchemy database as a python dictionary. This dictionary is wrapped by
         jsonable_encoder to ensure that the object can be converted to a json string.
@@ -117,24 +117,6 @@ class AlchemyExporter(BaseService):
             table = self.meta.tables[table_name]
             self.engine.execute(table.delete())
             self.engine.execute(table.insert(), rows)
-        # data = AlchemyExporter.convert_to_datetime(db_dump)
-
-        # self.meta.reflect(bind=self.engine)
-
-        # with self.session_maker() as session:
-        #     session: Session
-
-        #     for table_name, rows in data.items():
-        #         if not rows:
-        #             continue
-
-        #         if table_name == "alembic_version":
-        #             return
-
-        #         table = self.meta.tables[table_name]
-        #         session.execute(table.insert(), rows)
-
-        #     session.commit()
 
     def drop_all(self) -> None:
         """Drops all data from the database"""

@@ -1,10 +1,17 @@
 import filecmp
 from pathlib import Path
+from typing import Any
 
 from mealie.core.config import get_app_settings
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
 from mealie.services.backups_v2.backup_v2 import BackupV2
+
+
+def dict_sorter(d: dict) -> Any:
+    possible_keys = {"created_at", "id"}
+
+    return next((d[key] for key in possible_keys if key in d), 1)
 
 
 # For Future Use
@@ -47,4 +54,5 @@ def test_database_restore():
     new_exporter = AlchemyExporter(settings.DB_URL)
     snapshop_2 = new_exporter.dump()
 
-    assert snapshop_1 == snapshop_2
+    for s1, s2 in zip(snapshop_1, snapshop_2):
+        assert snapshop_1[s1].sort(key=dict_sorter) == snapshop_2[s2].sort(key=dict_sorter)
