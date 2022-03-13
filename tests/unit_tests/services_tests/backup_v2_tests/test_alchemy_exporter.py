@@ -1,7 +1,7 @@
 import json
 
 from mealie.core.config import get_app_settings
-from mealie.services.backups_v2.alchemy_dumper import AlchemyExporter
+from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 
 
 def test_alchemy_exporter():

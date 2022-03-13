@@ -103,7 +103,7 @@ class AlchemyExporter(BaseService):
 
         return jsonable_encoder(result)
 
-    def dump_restore(self, db_dump: dict) -> None:
+    def restore(self, db_dump: dict) -> None:
         """Restores all data from dictionary into the database"""
         data = AlchemyExporter.convert_to_datetime(db_dump)
 
