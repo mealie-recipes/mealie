@@ -24,7 +24,7 @@ class SQLiteProvider(AbstractDBProvider, BaseModel):
 
     @property
     def db_url(self) -> str:
-        return "sqlite:///" + str(self.db_path.absolute())
+        return f"sqlite:///{str(self.db_path.absolute())}"
 
     @property
     def db_url_public(self) -> str:
@@ -59,7 +59,5 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 def db_provider_factory(provider_name: str, data_dir: Path, env_file: Path, env_encoding="utf-8") -> AbstractDBProvider:
     if provider_name == "postgres":
         return PostgresProvider(_env_file=env_file, _env_file_encoding=env_encoding)
-    elif provider_name == "sqlite":
-        return SQLiteProvider(data_dir=data_dir)
     else:
         return SQLiteProvider(data_dir=data_dir)
