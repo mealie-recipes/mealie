@@ -27,10 +27,14 @@ class BackupV2(BaseService):
         pass
 
     def backup(self) -> Path:
+        # sourcery skip: merge-nested-ifs, reintroduce-else, remove-redundant-continue
         exclude = {"mealie.db", "mealie.log", ".secret"}
         exclude_ext = {".zip"}
+        exclude_dirs = {"backups"}
 
-        backup_name = f"mealie_{datetime.datetime.now().strftime('%Y.%m.%d')}.zip"
+        timestamp = datetime.datetime.now().strftime("%Y.%m.%d.%H.%M.%S")
+
+        backup_name = f"mealie_{timestamp}.zip"
         backup_file = self.directories.BACKUP_DIR / backup_name
 
         database_json = self.db_exporter.dump()
@@ -43,6 +47,9 @@ class BackupV2(BaseService):
                     continue
 
                 if data_file.is_file() and data_file.suffix not in exclude_ext:
+                    if data_file.parent.name in exclude_dirs:
+                        continue
+
                     zip_file.write(data_file, f"data/{data_file.relative_to(self.directories.DATA_DIR)}")
 
         return backup_file
