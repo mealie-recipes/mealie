@@ -116,6 +116,9 @@ class AlchemyExporter(BaseService):
                 if not rows:
                     continue
 
+                if table_name == "alembic_version":
+                    return
+
                 table = self.meta.tables[table_name]
                 session.execute(table.insert(), rows)
 
@@ -124,11 +127,11 @@ class AlchemyExporter(BaseService):
     def drop_all(self) -> None:
         """Drops all data from the database"""
         self.meta.reflect(bind=self.engine)
-
         with self.session_maker() as session:
+            session.execute("SET session_replication_role = 'replica'")
             session: Session
 
             for table in self.meta.sorted_tables:
                 session.execute(f"DELETE FROM {table.name}")
 
-            session.commit()
+            session.execute("SET session_replication_role = 'origin'")
