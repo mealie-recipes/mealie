@@ -81,6 +81,7 @@ class BackupV2(BaseService):
 
             self.logger.info("importing database tables")
             self.db_exporter.restore(database_json)
+
             self.logger.info("database tables imported successfully")
 
             self.logger.info("restoring data directory")

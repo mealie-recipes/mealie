@@ -1,5 +1,6 @@
 import filecmp
 from pathlib import Path
+from pprint import pprint
 
 from mealie.core.config import get_app_settings
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
@@ -47,4 +48,8 @@ def test_database_restore():
     new_exporter = AlchemyExporter(settings.DB_URL)
     snapshop_2 = new_exporter.dump()
 
+    # print("--- Original ---")
+    # pprint(snapshop_1)
+    # print("--- New ---")
+    # pprint(snapshop_2)
     assert snapshop_1 == snapshop_2

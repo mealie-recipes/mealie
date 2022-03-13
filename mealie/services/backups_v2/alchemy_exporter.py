@@ -110,32 +110,47 @@ class AlchemyExporter(BaseService):
         data = AlchemyExporter.convert_to_datetime(db_dump)
 
         self.meta.reflect(bind=self.engine)
+        for table_name, rows in data.items():
+            if not rows:
+                continue
 
-        with self.session_maker() as session:
-            for table_name, rows in data.items():
-                if not rows:
-                    continue
+            table = self.meta.tables[table_name]
+            self.engine.execute(table.delete())
+            self.engine.execute(table.insert(), rows)
+        # data = AlchemyExporter.convert_to_datetime(db_dump)
 
-                if table_name == "alembic_version":
-                    return
+        # self.meta.reflect(bind=self.engine)
 
-                table = self.meta.tables[table_name]
-                session.execute(table.insert(), rows)
+        # with self.session_maker() as session:
+        #     session: Session
 
-            session.commit()
+        #     for table_name, rows in data.items():
+        #         if not rows:
+        #             continue
+
+        #         if table_name == "alembic_version":
+        #             return
+
+        #         table = self.meta.tables[table_name]
+        #         session.execute(table.insert(), rows)
+
+        #     session.commit()
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
         self.meta.reflect(bind=self.engine)
         with self.session_maker() as session:
+            session: Session
+
+            is_postgres = self.settings.DB_ENGINE == "postgres"
+
             try:
-                if self.settings.DB_ENGINE == "postgres":
+                if is_postgres:
                     session.execute("SET session_replication_role = 'replica'")
-                session: Session
 
                 for table in self.meta.sorted_tables:
                     session.execute(f"DELETE FROM {table.name}")
             finally:
-                if self.settings.DB_ENGINE == "postgres":
+                if is_postgres:
                     session.execute("SET session_replication_role = 'origin'")
                 session.commit()
