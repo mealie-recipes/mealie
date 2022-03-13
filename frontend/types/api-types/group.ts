@@ -206,7 +206,7 @@ export interface ReadGroupPreferences {
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
   groupId: string;
-  id: number;
+  id: string;
 }
 export interface ReadInviteToken {
   token: string;
@@ -219,7 +219,7 @@ export interface ReadWebhook {
   url?: string;
   time?: string;
   groupId: string;
-  id: number;
+  id: string;
 }
 export interface RecipeSummary {
   id?: string;
@@ -244,12 +244,12 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }

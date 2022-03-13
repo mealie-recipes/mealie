@@ -24,7 +24,7 @@ export interface ReadCookBook {
   position?: number;
   categories?: CategoryBase[];
   groupId: string;
-  id: number;
+  id: string;
 }
 export interface RecipeCategoryResponse {
   name: string;
@@ -55,12 +55,12 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
@@ -117,7 +117,7 @@ export interface RecipeCookBook {
   position?: number;
   categories: RecipeCategoryResponse[];
   groupId: string;
-  id: number;
+  id: string;
 }
 export interface SaveCookBook {
   name: string;
@@ -134,5 +134,5 @@ export interface UpdateCookBook {
   position?: number;
   categories?: CategoryBase[];
   groupId: string;
-  id: number;
+  id: string;
 }

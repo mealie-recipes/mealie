@@ -74,7 +74,7 @@ export interface ReadGroupPreferences {
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
   groupId: string;
-  id: number;
+  id: string;
 }
 export interface LoingLiveTokenIn {
   name: string;
@@ -131,12 +131,12 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
@@ -196,26 +196,12 @@ export interface SavePasswordResetToken {
   userId: string;
   token: string;
 }
-export interface SignUpIn {
-  name: string;
-  admin: boolean;
-}
-export interface SignUpOut {
-  name: string;
-  admin: boolean;
-  token: string;
-  id: number;
-}
-export interface SignUpToken {
-  name: string;
-  admin: boolean;
-  token: string;
-}
 export interface Token {
   access_token: string;
   token_type: string;
 }
 export interface TokenData {
+  user_id?: string;
   username?: string;
 }
 export interface UpdateGroup {
