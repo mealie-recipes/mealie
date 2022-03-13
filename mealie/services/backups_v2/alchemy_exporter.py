@@ -128,10 +128,14 @@ class AlchemyExporter(BaseService):
         """Drops all data from the database"""
         self.meta.reflect(bind=self.engine)
         with self.session_maker() as session:
-            session.execute("SET session_replication_role = 'replica'")
-            session: Session
+            try:
+                if self.settings.DB_ENGINE == "postgres":
+                    session.execute("SET session_replication_role = 'replica'")
+                session: Session
 
-            for table in self.meta.sorted_tables:
-                session.execute(f"DELETE FROM {table.name}")
-
-            session.execute("SET session_replication_role = 'origin'")
+                for table in self.meta.sorted_tables:
+                    session.execute(f"DELETE FROM {table.name}")
+            finally:
+                if self.settings.DB_ENGINE == "postgres":
+                    session.execute("SET session_replication_role = 'origin'")
+                session.commit()
