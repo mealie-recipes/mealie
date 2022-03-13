@@ -18,6 +18,7 @@ theme:
         name: Switch to light mode
   custom_dir: docs/overrides
   features:
+    - content.code.annotate
     - navigation.top
     # - navigation.instant
     - navigation.expand

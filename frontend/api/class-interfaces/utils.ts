@@ -3,7 +3,7 @@ import { BaseAPI } from "../_base";
 const prefix = "/api";
 
 interface DownloadData {
-  fileToken: string,
+  fileToken: string;
 }
 
 export class UtilsAPI extends BaseAPI {

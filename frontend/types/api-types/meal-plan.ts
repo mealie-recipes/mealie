@@ -7,7 +7,7 @@
 
 export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
 export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
-export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "unset";
+export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "side" | "unset";
 
 export interface Category {
   id: string;
@@ -118,12 +118,12 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }

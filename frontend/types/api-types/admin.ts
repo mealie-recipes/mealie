@@ -99,12 +99,12 @@ export interface RecipeSummary {
   dateUpdated?: string;
 }
 export interface RecipeCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }

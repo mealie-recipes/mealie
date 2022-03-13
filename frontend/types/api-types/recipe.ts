@@ -67,12 +67,12 @@ export interface CreateRecipeBulk {
   tags?: RecipeTag[];
 }
 export interface RecipeCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
 }

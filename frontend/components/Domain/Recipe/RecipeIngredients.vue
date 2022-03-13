@@ -9,13 +9,12 @@
         <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
         <v-divider v-if="showTitleEditor[index]"></v-divider>
         <v-list-item dense @click="toggleChecked(index)">
-          <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary"> </v-checkbox>
+          <v-checkbox hide-details :value="checked[index]" color="secondary" />
           <v-list-item-content>
             <VueMarkdown
               class="ma-0 pa-0 text-subtitle-1 dense-markdown"
               :source="parseIngredientText(ingredient, disableAmount, scale)"
-            >
-            </VueMarkdown>
+            />
           </v-list-item-content>
         </v-list-item>
       </div>
@@ -85,5 +84,14 @@ export default defineComponent({
 <style>
 .dense-markdown p {
   margin: auto !important;
+}
+
+.v-input--selection-controls {
+  margin-top: 0.5rem;
+  margin-bottom: auto !important;
+}
+
+.v-input--selection-controls__input {
+  margin-bottom: auto !important;
 }
 </style>

@@ -10,6 +10,9 @@ export interface ErrorResponse {
   error?: boolean;
   exception?: string;
 }
+export interface FileTokenResponse {
+  file_token: string;
+}
 export interface SuccessResponse {
   message: string;
   error?: boolean;
