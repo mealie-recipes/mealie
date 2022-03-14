@@ -22,5 +22,5 @@ class RecipeComment(SqlAlchemyBase, BaseMixins):
     def __init__(self, **_) -> None:
         pass
 
-    def update(self, text, **_) -> None:
+    def update(self, text, **_) -> None:  # type: ignore
         self.text = text

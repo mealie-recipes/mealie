@@ -15,7 +15,7 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
 
         return self.schema.from_orm(entry)
 
-    def create(self, user: PrivateUser):
+    def create(self, user: PrivateUser | dict):
         new_user = super().create(user)
 
         # Select Random Image

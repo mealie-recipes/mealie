@@ -1,5 +1,5 @@
-from typing import Any, Callable, Generic, TypeVar, Union
-from uuid import UUID
+from collections.abc import Callable
+from typing import Any, Generic, TypeVar, Union
 
 from pydantic import UUID4, BaseModel
 from sqlalchemy import func
@@ -18,7 +18,7 @@ class RepositoryGeneric(Generic[T, D]):
         Generic ([D]): Represents the SqlAlchemyModel Model
     """
 
-    def __init__(self, session: Session, primary_key: Union[str, int], sql_model: D, schema: T) -> None:
+    def __init__(self, session: Session, primary_key: str, sql_model: type[D], schema: type[T]) -> None:
         self.session = session
         self.primary_key = primary_key
         self.sql_model = sql_model
@@ -26,10 +26,10 @@ class RepositoryGeneric(Generic[T, D]):
         self.observers: list = []
 
         self.limit_by_group = False
-        self.user_id = None
+        self.user_id: UUID4 = None
 
         self.limit_by_user = False
-        self.group_id = None
+        self.group_id: UUID4 = None
 
     def subscribe(self, func: Callable) -> None:
         self.observers.append(func)
@@ -39,7 +39,7 @@ class RepositoryGeneric(Generic[T, D]):
         self.user_id = user_id
         return self
 
-    def by_group(self, group_id: UUID) -> "RepositoryGeneric[T, D]":
+    def by_group(self, group_id: UUID4) -> "RepositoryGeneric[T, D]":
         self.limit_by_group = True
         self.group_id = group_id
         return self
@@ -88,7 +88,7 @@ class RepositoryGeneric(Generic[T, D]):
 
     def multi_query(
         self,
-        query_by: dict[str, str],
+        query_by: dict[str, str | bool | int | UUID4],
         start=0,
         limit: int = None,
         override_schema=None,
@@ -152,7 +152,7 @@ class RepositoryGeneric(Generic[T, D]):
         filter = self._filter_builder(**{match_key: match_value})
         return self.session.query(self.sql_model).filter_by(**filter).one()
 
-    def get_one(self, value: str | int | UUID4, key: str = None, any_case=False, override_schema=None) -> T:
+    def get_one(self, value: str | int | UUID4, key: str = None, any_case=False, override_schema=None) -> T | None:
         key = key or self.primary_key
 
         q = self.session.query(self.sql_model)
@@ -166,14 +166,14 @@ class RepositoryGeneric(Generic[T, D]):
         result = q.one_or_none()
 
         if not result:
-            return
+            return None
 
         eff_schema = override_schema or self.schema
         return eff_schema.from_orm(result)
 
     def get(
         self, match_value: str | int | UUID4, match_key: str = None, limit=1, any_case=False, override_schema=None
-    ) -> T | list[T]:
+    ) -> T | list[T] | None:
         """Retrieves an entry from the database by matching a key/value pair. If no
         key is provided the class objects primary key will be used to match against.
 
@@ -193,7 +193,7 @@ class RepositoryGeneric(Generic[T, D]):
             search_attr = getattr(self.sql_model, match_key)
             result = (
                 self.session.query(self.sql_model)
-                .filter(func.lower(search_attr) == match_value.lower())
+                .filter(func.lower(search_attr) == match_value.lower())  # type: ignore
                 .limit(limit)
                 .all()
             )
@@ -210,7 +210,7 @@ class RepositoryGeneric(Generic[T, D]):
 
         return [eff_schema.from_orm(x) for x in result]
 
-    def create(self, document: T) -> T:
+    def create(self, document: T | BaseModel) -> T:
         """Creates a new database entry for the given SQL Alchemy Model.
 
         Args:
@@ -221,7 +221,7 @@ class RepositoryGeneric(Generic[T, D]):
             dict: A dictionary representation of the database entry
         """
         document = document if isinstance(document, dict) else document.dict()
-        new_document = self.sql_model(session=self.session, **document)
+        new_document = self.sql_model(session=self.session, **document)  # type: ignore
         self.session.add(new_document)
         self.session.commit()
         self.session.refresh(new_document)
@@ -231,7 +231,7 @@ class RepositoryGeneric(Generic[T, D]):
 
         return self.schema.from_orm(new_document)
 
-    def update(self, match_value: str | int | UUID4, new_data: dict) -> T:
+    def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> T:
         """Update a database entry.
         Args:
             session (Session): Database Session
@@ -244,7 +244,7 @@ class RepositoryGeneric(Generic[T, D]):
         new_data = new_data if isinstance(new_data, dict) else new_data.dict()
 
         entry = self._query_one(match_value=match_value)
-        entry.update(session=self.session, **new_data)
+        entry.update(session=self.session, **new_data)  # type: ignore
 
         if self.observers:
             self.update_observers()
@@ -252,13 +252,14 @@ class RepositoryGeneric(Generic[T, D]):
         self.session.commit()
         return self.schema.from_orm(entry)
 
-    def patch(self, match_value: str | int | UUID4, new_data: dict) -> T:
+    def patch(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> T | None:
         new_data = new_data if isinstance(new_data, dict) else new_data.dict()
 
         entry = self._query_one(match_value=match_value)
 
         if not entry:
-            return
+            # TODO: Should raise exception
+            return None
 
         entry_as_dict = self.schema.from_orm(entry).dict()
         entry_as_dict.update(new_data)
@@ -300,7 +301,7 @@ class RepositoryGeneric(Generic[T, D]):
         attr_match: str = None,
         count=True,
         override_schema=None,
-    ) -> Union[int, T]:
+    ) -> Union[int, list[T]]:
         eff_schema = override_schema or self.schema
         # attr_filter = getattr(self.sql_model, attribute_name)
 
@@ -316,7 +317,7 @@ class RepositoryGeneric(Generic[T, D]):
         new_documents = []
         for document in documents:
             document = document if isinstance(document, dict) else document.dict()
-            new_document = self.sql_model(session=self.session, **document)
+            new_document = self.sql_model(session=self.session, **document)  # type: ignore
             new_documents.append(new_document)
 
         self.session.add_all(new_documents)

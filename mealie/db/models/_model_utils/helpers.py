@@ -1,5 +1,6 @@
 import inspect
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 
 def get_valid_call(func: Callable, args_dict) -> dict:
@@ -8,7 +9,7 @@ def get_valid_call(func: Callable, args_dict) -> dict:
     the original dictionary will be returned.
     """
 
-    def get_valid_args(func: Callable) -> tuple:
+    def get_valid_args(func: Callable) -> list[str]:
         """
         Returns a tuple of valid arguemnts for the supplied function.
         """

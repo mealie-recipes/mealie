@@ -2,7 +2,7 @@ import html
 import json
 import re
 from datetime import datetime, timedelta
-from typing import List, Optional
+from typing import Optional
 
 from slugify import slugify
 
@@ -33,7 +33,7 @@ def clean(recipe_data: dict, url=None) -> dict:
     recipe_data["recipeIngredient"] = ingredient(recipe_data.get("recipeIngredient"))
     recipe_data["recipeInstructions"] = instructions(recipe_data.get("recipeInstructions"))
     recipe_data["image"] = image(recipe_data.get("image"))
-    recipe_data["slug"] = slugify(recipe_data.get("name"))
+    recipe_data["slug"] = slugify(recipe_data.get("name"))  # type: ignore
     recipe_data["orgURL"] = url
 
     return recipe_data
@@ -122,7 +122,7 @@ def image(image=None) -> str:
         raise Exception(f"Unrecognised image URL format: {image}")
 
 
-def instructions(instructions) -> List[dict]:
+def instructions(instructions) -> list[dict]:
     try:
         instructions = json.loads(instructions)
     except Exception:
@@ -157,7 +157,8 @@ def instructions(instructions) -> List[dict]:
             sectionSteps = []
             for step in instructions:
                 if step["@type"] == "HowToSection":
-                    [sectionSteps.append(item) for item in step["itemListElement"]]
+                    for sectionStep in step["itemListElement"]:
+                        sectionSteps.append(sectionStep)
 
             if len(sectionSteps) > 0:
                 return [{"text": _instruction(step["text"])} for step in sectionSteps if step["@type"] == "HowToStep"]
@@ -178,6 +179,8 @@ def instructions(instructions) -> List[dict]:
     else:
         raise Exception(f"Unrecognised instruction format: {instructions}")
 
+    return []
+
 
 def _instruction(line) -> str:
     if isinstance(line, dict):
@@ -194,7 +197,7 @@ def _instruction(line) -> str:
     return clean_line
 
 
-def ingredient(ingredients: list) -> str:
+def ingredient(ingredients: list | None) -> list[str]:
     if ingredients:
         return [clean_string(ing) for ing in ingredients]
     else:

@@ -50,8 +50,8 @@ class Tag(SqlAlchemyBase, BaseMixins):
         self.name = name.strip()
         self.slug = slugify(self.name)
 
-    @classmethod
-    def get_ref(cls, match_value: str, session=None):
+    @classmethod  # TODO: Remove this
+    def get_ref(cls, match_value: str, session=None):  # type: ignore
         if not session or not match_value:
             return None
 
@@ -62,4 +62,4 @@ class Tag(SqlAlchemyBase, BaseMixins):
             return result
         else:
             logger.debug("Category doesn't exists, creating Category")
-            return Tag(name=match_value)
+            return Tag(name=match_value)  # type: ignore

@@ -23,7 +23,7 @@ class DefaultEmailSender(ABCEmailSender, BaseService):
             mail_from=(self.settings.SMTP_FROM_NAME, self.settings.SMTP_FROM_EMAIL),
         )
 
-        smtp_options = {"host": self.settings.SMTP_HOST, "port": self.settings.SMTP_PORT}
+        smtp_options: dict[str, str | bool] = {"host": self.settings.SMTP_HOST, "port": self.settings.SMTP_PORT}
         if self.settings.SMTP_TLS:
             smtp_options["tls"] = True
         if self.settings.SMTP_USER:

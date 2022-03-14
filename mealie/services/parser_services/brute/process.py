@@ -1,6 +1,5 @@
 import string
 import unicodedata
-from typing import Tuple
 
 from pydantic import BaseModel
 
@@ -10,7 +9,7 @@ from .._helpers import check_char, move_parens_to_end
 class BruteParsedIngredient(BaseModel):
     food: str = ""
     note: str = ""
-    amount: float = ""
+    amount: float = 1.0
     unit: str = ""
 
     class Config:
@@ -31,7 +30,7 @@ def parse_fraction(x):
             raise ValueError
 
 
-def parse_amount(ing_str) -> Tuple[float, str, str]:
+def parse_amount(ing_str) -> tuple[float, str, str]:
     def keep_looping(ing_str, end) -> bool:
         """
         Checks if:
@@ -48,7 +47,9 @@ def parse_amount(ing_str) -> Tuple[float, str, str]:
         if check_char(ing_str[end], ".", ",", "/") and end + 1 < len(ing_str) and ing_str[end + 1] in string.digits:
             return True
 
-    amount = 0
+        return False
+
+    amount = 0.0
     unit = ""
     note = ""
 
@@ -87,7 +88,7 @@ def parse_amount(ing_str) -> Tuple[float, str, str]:
     return amount, unit, note
 
 
-def parse_ingredient_with_comma(tokens) -> Tuple[str, str]:
+def parse_ingredient_with_comma(tokens) -> tuple[str, str]:
     ingredient = ""
     note = ""
     start = 0
@@ -105,7 +106,7 @@ def parse_ingredient_with_comma(tokens) -> Tuple[str, str]:
     return ingredient, note
 
 
-def parse_ingredient(tokens) -> Tuple[str, str]:
+def parse_ingredient(tokens) -> tuple[str, str]:
     ingredient = ""
     note = ""
     if tokens[-1].endswith(")"):
@@ -132,7 +133,7 @@ def parse_ingredient(tokens) -> Tuple[str, str]:
 
 
 def parse(ing_str) -> BruteParsedIngredient:
-    amount = 0
+    amount = 0.0
     unit = ""
     ingredient = ""
     note = ""

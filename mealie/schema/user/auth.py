@@ -11,4 +11,4 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     user_id: Optional[UUID4]
-    username: Optional[constr(to_lower=True, strip_whitespace=True)] = None
+    username: Optional[constr(to_lower=True, strip_whitespace=True)] = None  # type: ignore

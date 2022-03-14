@@ -2,7 +2,7 @@ import secrets
 from pathlib import Path
 from typing import Optional
 
-from pydantic import BaseSettings
+from pydantic import BaseSettings, NoneStr
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 
@@ -33,26 +33,26 @@ class AppSettings(BaseSettings):
     SECRET: str
 
     @property
-    def DOCS_URL(self) -> str:
+    def DOCS_URL(self) -> str | None:
         return "/docs" if self.API_DOCS else None
 
     @property
-    def REDOC_URL(self) -> str:
+    def REDOC_URL(self) -> str | None:
         return "/redoc" if self.API_DOCS else None
 
     # ===============================================
     # Database Configuration
 
     DB_ENGINE: str = "sqlite"  # Options: 'sqlite', 'postgres'
-    DB_PROVIDER: AbstractDBProvider = None
+    DB_PROVIDER: Optional[AbstractDBProvider] = None
 
     @property
-    def DB_URL(self) -> str:
-        return self.DB_PROVIDER.db_url
+    def DB_URL(self) -> str | None:
+        return self.DB_PROVIDER.db_url if self.DB_PROVIDER else None
 
     @property
-    def DB_URL_PUBLIC(self) -> str:
-        return self.DB_PROVIDER.db_url_public
+    def DB_URL_PUBLIC(self) -> str | None:
+        return self.DB_PROVIDER.db_url_public if self.DB_PROVIDER else None
 
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
@@ -88,9 +88,9 @@ class AppSettings(BaseSettings):
     # LDAP Configuration
 
     LDAP_AUTH_ENABLED: bool = False
-    LDAP_SERVER_URL: str = None
-    LDAP_BIND_TEMPLATE: str = None
-    LDAP_ADMIN_FILTER: str = None
+    LDAP_SERVER_URL: NoneStr = None
+    LDAP_BIND_TEMPLATE: NoneStr = None
+    LDAP_ADMIN_FILTER: NoneStr = None
 
     @property
     def LDAP_ENABLED(self) -> bool:

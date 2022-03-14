@@ -1,5 +1,6 @@
+from collections.abc import Callable
 from logging import Logger
-from typing import Callable, Generic, Type, TypeVar
+from typing import Generic, TypeVar
 
 from fastapi import HTTPException, status
 from pydantic import UUID4, BaseModel
@@ -26,14 +27,14 @@ class CrudMixins(Generic[C, R, U]):
     """
 
     repo: RepositoryGeneric
-    exception_msgs: Callable[[Type[Exception]], str] | None
+    exception_msgs: Callable[[type[Exception]], str] | None
     default_message: str = "An unexpected error occurred."
 
     def __init__(
         self,
         repo: RepositoryGeneric,
         logger: Logger,
-        exception_msgs: Callable[[Type[Exception]], str] = None,
+        exception_msgs: Callable[[type[Exception]], str] = None,
         default_message: str = None,
     ) -> None:
 
@@ -83,7 +84,7 @@ class CrudMixins(Generic[C, R, U]):
         return item
 
     def update_one(self, data: U, item_id: int | str | UUID4) -> R:
-        item: R = self.repo.get_one(item_id)
+        item = self.repo.get_one(item_id)
 
         if not item:
             raise HTTPException(

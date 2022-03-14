@@ -38,7 +38,7 @@ class RecipeDataService(BaseService):
         except Exception as e:
             self.logger.exception(f"Failed to delete recipe data: {e}")
 
-    def write_image(self, file_data: bytes, extension: str) -> Path:
+    def write_image(self, file_data: bytes | Path, extension: str) -> Path:
         extension = extension.replace(".", "")
         image_path = self.dir_image.joinpath(f"original.{extension}")
         image_path.unlink(missing_ok=True)
@@ -91,8 +91,8 @@ class RecipeDataService(BaseService):
         if ext not in img.IMAGE_EXTENSIONS:
             ext = "jpg"  # Guess the extension
 
-        filename = str(self.recipe_id) + "." + ext
-        filename = Recipe.directory_from_id(self.recipe_id).joinpath("images", filename)
+        file_name = f"{str(self.recipe_id)}.{ext}"
+        file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
 
         try:
             r = requests.get(image_url, stream=True, headers={"User-Agent": _FIREFOX_UA})
@@ -102,7 +102,7 @@ class RecipeDataService(BaseService):
 
         if r.status_code == 200:
             r.raw.decode_content = True
-            self.logger.info(f"File Name Suffix {filename.suffix}")
-            self.write_image(r.raw, filename.suffix)
+            self.logger.info(f"File Name Suffix {file_path.suffix}")
+            self.write_image(r.raw, file_path.suffix)
 
-            filename.unlink(missing_ok=True)
+            file_path.unlink(missing_ok=True)

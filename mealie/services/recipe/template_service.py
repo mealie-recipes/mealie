@@ -27,7 +27,7 @@ class TemplateService(BaseService):
         super().__init__()
 
     @property
-    def templates(self) -> list:
+    def templates(self) -> dict[str, list[str]]:
         """
         Returns a list of all templates available to render.
         """
@@ -78,6 +78,8 @@ class TemplateService(BaseService):
         if t_type == TemplateType.zip:
             return self._render_zip(recipe)
 
+        raise ValueError(f"Template Type '{t_type}' not found.")
+
     def _render_json(self, recipe: Recipe) -> Path:
         """
         Renders a JSON file in a temporary directory and returns
@@ -98,18 +100,18 @@ class TemplateService(BaseService):
         """
         self.__check_temp(self._render_jinja2)
 
-        j2_template: Path = self.directories.TEMPLATE_DIR / j2_template
+        j2_path: Path = self.directories.TEMPLATE_DIR / j2_template
 
-        if not j2_template.is_file():
-            raise FileNotFoundError(f"Template '{j2_template}' not found.")
+        if not j2_path.is_file():
+            raise FileNotFoundError(f"Template '{j2_path}' not found.")
 
-        with open(j2_template, "r") as f:
+        with open(j2_path, "r") as f:
             template_text = f.read()
 
         template = Template(template_text)
         rendered_text = template.render(recipe=recipe.dict(by_alias=True))
 
-        save_name = f"{recipe.slug}{j2_template.suffix}"
+        save_name = f"{recipe.slug}{j2_path.suffix}"
 
         save_path = self.temp.joinpath(save_name)
 

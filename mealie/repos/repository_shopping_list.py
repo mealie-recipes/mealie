@@ -7,5 +7,5 @@ from .repository_generic import RepositoryGeneric
 
 
 class RepositoryShoppingList(RepositoryGeneric[ShoppingListOut, ShoppingList]):
-    def update(self, item_id: UUID4, data: ShoppingListUpdate) -> ShoppingListOut:
+    def update(self, item_id: UUID4, data: ShoppingListUpdate) -> ShoppingListOut:  # type: ignore
         return super().update(item_id, data)

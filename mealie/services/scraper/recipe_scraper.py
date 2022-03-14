@@ -1,5 +1,3 @@
-from typing import Type
-
 from mealie.schema.recipe.recipe import Recipe
 
 from .scraper_strategies import ABCScraperStrategy, RecipeScraperOpenGraph, RecipeScraperPackage
@@ -11,9 +9,9 @@ class RecipeScraper:
     """
 
     # List of recipe scrapers. Note that order matters
-    scrapers: list[Type[ABCScraperStrategy]]
+    scrapers: list[type[ABCScraperStrategy]]
 
-    def __init__(self, scrapers: list[Type[ABCScraperStrategy]] = None) -> None:
+    def __init__(self, scrapers: list[type[ABCScraperStrategy]] = None) -> None:
         if scrapers is None:
             scrapers = [
                 RecipeScraperPackage,
@@ -27,8 +25,8 @@ class RecipeScraper:
         Scrapes a recipe from the web.
         """
 
-        for scraper in self.scrapers:
-            scraper = scraper(url)
+        for scraper_type in self.scrapers:
+            scraper = scraper_type(url)
             recipe = scraper.parse()
 
             if recipe is not None:

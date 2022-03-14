@@ -7,6 +7,8 @@ from uuid import UUID, uuid4
 from fastapi_camelcase import CamelModel
 from pydantic import UUID4, Field
 
+from mealie.schema._mealie.types import NoneFloat
+
 
 class UnitFoodBase(CamelModel):
     name: str
@@ -23,7 +25,7 @@ class SaveIngredientFood(CreateIngredientFood):
 
 class IngredientFood(CreateIngredientFood):
     id: UUID4
-    label: MultiPurposeLabelSummary = None
+    label: Optional[MultiPurposeLabelSummary] = None
 
     class Config:
         orm_mode = True
@@ -63,12 +65,12 @@ class RecipeIngredient(CamelModel):
 
 
 class IngredientConfidence(CamelModel):
-    average: float = None
-    comment: float = None
-    name: float = None
-    unit: float = None
-    quantity: float = None
-    food: float = None
+    average: NoneFloat = None
+    comment: NoneFloat = None
+    name: NoneFloat = None
+    unit: NoneFloat = None
+    quantity: NoneFloat = None
+    food: NoneFloat = None
 
 
 class ParsedIngredient(CamelModel):

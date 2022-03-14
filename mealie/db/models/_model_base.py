@@ -24,7 +24,7 @@ class BaseMixins:
 
     @classmethod
     def get_ref(cls, match_value: str, match_attr: str = None, session: Session = None):
-        match_attr = match_attr = cls.Config.get_attr
+        match_attr = match_attr or cls.Config.get_attr  # type: ignore
 
         if match_value is None or session is None:
             return None
