@@ -3,8 +3,14 @@ repos:
     rev: v2.3.0
     hooks:
       - id: check-yaml
+      - id: check-json
+      - id: check-toml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/sondrelg/pep585-upgrade
+    rev: "v1.0.1" # Use the sha / tag you want to point at
+    hooks:
+      - id: upgrade-type-hints
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
     hooks:
