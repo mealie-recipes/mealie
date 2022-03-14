@@ -1,5 +1,4 @@
 import json
-from typing import Tuple
 
 import requests
 from pytest import fixture
@@ -101,7 +100,7 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
 
 
 @fixture(scope="module")
-def user_tuple(admin_token, api_client: requests, api_routes: utils.AppRoutes) -> Tuple[utils.TestUser]:
+def user_tuple(admin_token, api_client: requests, api_routes: utils.AppRoutes) -> tuple[utils.TestUser]:
     group_name = utils.random_string()
     # Create the user
     create_data_1 = {

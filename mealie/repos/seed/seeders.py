@@ -1,5 +1,5 @@
 import json
-from typing import Generator
+from collections.abc import Generator
 
 from mealie.schema.labels import MultiPurposeLabelSave
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood, SaveIngredientUnit

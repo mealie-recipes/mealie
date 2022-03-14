@@ -1,6 +1,7 @@
+from collections.abc import Callable
 from random import getrandbits
 from time import sleep
-from typing import Any, Callable
+from typing import Any
 
 from fastapi import BackgroundTasks
 from pydantic import UUID4
