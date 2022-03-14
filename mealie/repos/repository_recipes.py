@@ -1,5 +1,5 @@
 from random import randint
-from typing import Any
+from typing import Any, Optional
 from uuid import UUID
 
 from sqlalchemy import and_, func
@@ -143,3 +143,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .order_by(func.random())  # Postgres and SQLite specific
             .limit(limit)
         ]
+
+
+    def get_by_slug(self, slug: str, limit=1) -> Optional[Recipe]:
+        dbrecipe = self.session.query(RecipeModel).filter(RecipeModel.slug == slug).one_or_none()
+        if dbrecipe is None:
+            return None
+        return self.schema.from_orm(dbrecipe)

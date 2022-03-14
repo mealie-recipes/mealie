@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from . import admin, app, auth, comments, groups, organizers, parser, recipe, shared, unit_and_foods, users
+from . import admin, app, auth, comments, groups, organizers, parser, recipe, shared, unit_and_foods, users, validators
 
 router = APIRouter(prefix="/api")
 
@@ -15,3 +15,4 @@ router.include_router(comments.router)
 router.include_router(parser.router)
 router.include_router(unit_and_foods.router)
 router.include_router(admin.router)
+router.include_router(validators.router)

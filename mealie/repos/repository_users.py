@@ -1,5 +1,6 @@
 import random
 import shutil
+from typing import Optional
 
 from mealie.assets import users as users_assets
 from mealie.schema.user.user import PrivateUser, User
@@ -34,3 +35,10 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         # Delete the user's directory
         shutil.rmtree(PrivateUser.get_directory(id))
         return entry
+
+    def get_by_username(self, username: str, limit=1) -> Optional[User]:
+        dbuser = self.session.query(User).filter(User.username == username).one_or_none()
+        if dbuser is None:
+            return None
+        return self.schema.from_orm(dbuser)
+        

@@ -28,6 +28,7 @@ def build_unique_user(group: str, api_client: requests) -> utils.TestUser:
         _group_id=user_data.get("groupId"),
         user_id=user_data.get("id"),
         email=user_data.get("email"),
+        username=user_data.get("username"),
         token=token,
     )
 
@@ -93,6 +94,7 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
             _group_id=user_data.get("groupId"),
             user_id=user_data.get("id"),
             email=user_data.get("email"),
+            username=user_data.get("username"),
             token=token,
         )
     finally:

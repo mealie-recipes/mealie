@@ -7,6 +7,7 @@ from uuid import UUID
 class TestUser:
     email: str
     user_id: UUID
+    username: str
     _group_id: UUID
     token: Any
 
