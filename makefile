@@ -44,6 +44,9 @@ clean-test: ## 🧹 Remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
+typecheck:
+	poetry run mypy mealie
+
 test-all: lint-test test ## 🧪 Check Lint Format and Testing
 
 test: ## 🧪 Run tests quickly with the default Python
@@ -54,13 +57,13 @@ lint-test:
 	poetry run isort . --check-only
 	poetry run flake8 mealie tests
 
-lint: ## 🧺 Format, Check and Flake8 
+lint: ## 🧺 Format, Check and Flake8
 	poetry run isort .
 	poetry run black .
 	poetry run flake8 mealie tests
 
 coverage: ## ☂️  Check code coverage quickly with the default Python
-	poetry run pytest 
+	poetry run pytest
 	poetry run coverage report -m
 	poetry run coveragepy-lcov
 	poetry run coverage html
@@ -111,4 +114,3 @@ docker-prod: ## 🐳 Build and Start Docker Production Stack
 
 code-gen: ## 🤖 Run Code-Gen Scripts
 	poetry run python dev/scripts/app_routes_gen.py
-
