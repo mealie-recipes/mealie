@@ -56,6 +56,10 @@ flake8-print = "^4.0.0"
 black = "^21.12b0"
 coveragepy-lcov = "^0.1.1"
 mypy = "^0.940"
+types-python-slugify = "^5.0.3"
+types-PyYAML = "^6.0.4"
+types-requests = "^2.27.12"
+types-urllib3 = "^1.26.11"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
