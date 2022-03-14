@@ -43,8 +43,11 @@ setup: ## 🏗  Setup Development Instance
 
 	poetry run pre-commit install
 
-	@echo Be sure to copy the template.env files
-	@echo Testing the Natural Languuage Processor? Try `make setup-model` to get the most recent model
+	cp -n template.env .env || true
+
+	@echo "🏗  Development Setup Complete "
+	@echo "❗️ Tips"
+	@echo "    1. Testing the Natural Language Processor? Try 'make setup-model' to get the most recent model"
 
 setup-model: ## 🤖 Get the latest NLP CRF++ Model
 	@echo Fetching NLP Model - CRF++ is still Required
