@@ -47,7 +47,9 @@ setup: ## 🏗  Setup Development Instance
 
 	@echo "🏗  Development Setup Complete "
 	@echo "❗️ Tips"
-	@echo "    1. Testing the Natural Language Processor? Try 'make setup-model' to get the most recent model"
+	@echo "    1. run 'make backend' to start the API server"
+	@echo "    2. run 'make frontend' to start the Node Server"
+	@echo "    3. Testing the Natural Language Processor? Try 'make setup-model' to get the most recent model"
 
 setup-model: ## 🤖 Get the latest NLP CRF++ Model
 	@echo Fetching NLP Model - CRF++ is still Required
