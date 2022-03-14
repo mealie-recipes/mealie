@@ -5,11 +5,16 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
   - repo: https://github.com/psf/black
     rev: 21.12b0
     hooks:
       - id: black
   - repo: https://github.com/pycqa/flake8
-    rev: "4.0.1" # pick a git hash / tag to point to
+    rev: "4.0.1"
     hooks:
       - id: flake8
