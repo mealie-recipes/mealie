@@ -25,7 +25,7 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
         return group.mealplans
 
     def get_by_name(self, name: str, limit=1) -> Union[GroupInDB, Group, None]:
-        dbgroup = self.session.query(self.sql_model).filter_by(**{'name': name}).one_or_none()
+        dbgroup = self.session.query(self.sql_model).filter_by(**{"name": name}).one_or_none()
         if dbgroup is None:
             return None
         return self.schema.from_orm(dbgroup)

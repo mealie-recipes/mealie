@@ -144,7 +144,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .limit(limit)
         ]
 
-
     def get_by_slug(self, slug: str, limit=1) -> Optional[Recipe]:
         dbrecipe = self.session.query(RecipeModel).filter(RecipeModel.slug == slug).one_or_none()
         if dbrecipe is None:

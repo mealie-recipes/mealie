@@ -41,4 +41,3 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         if dbuser is None:
             return None
         return self.schema.from_orm(dbuser)
-        
