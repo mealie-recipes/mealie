@@ -168,7 +168,7 @@ class ShoppingListService:
             found = False
 
             for ref in item.recipe_references:
-                remove_qty = 0
+                remove_qty = 0.0
 
                 if ref.recipe_id == recipe_id:
                     self.list_item_refs.delete(ref.id)
@@ -199,4 +199,4 @@ class ShoppingListService:
                 break
 
         # Save Changes
-        return self.shopping_lists.get(shopping_list.id)
+        return self.shopping_lists.get_one(shopping_list.id)

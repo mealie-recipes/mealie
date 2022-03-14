@@ -66,7 +66,7 @@ class RegistrationService:
             token_entry = self.repos.group_invite_tokens.get_one(registration.group_token)
             if not token_entry:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
-            group = self.repos.groups.get(token_entry.group_id)
+            group = self.repos.groups.get_one(token_entry.group_id)
         else:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 

@@ -173,7 +173,7 @@ class RecipeController(BaseRecipeController):
                     task.append_log(f"Error: Failed to create recipe from url: {b.url}")
                     task.append_log(f"Error: {e}")
                     self.deps.logger.error(f"Failed to create recipe from url: {b.url}")
-                    self.deps.error(e)
+                    self.deps.logger.error(e)
                 database.server_tasks.update(task.id, task)
 
             task.set_finished()
@@ -225,12 +225,13 @@ class RecipeController(BaseRecipeController):
         return self.mixins.get_one(slug)
 
     @router.post("", status_code=201, response_model=str)
-    def create_one(self, data: CreateRecipe) -> str:
+    def create_one(self, data: CreateRecipe) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
         try:
             return self.service.create_one(data).slug
         except Exception as e:
             self.handle_exceptions(e)
+            return None
 
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):
@@ -263,7 +264,7 @@ class RecipeController(BaseRecipeController):
     # Image and Assets
 
     @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
-    def scrape_image_url(self, slug: str, url: CreateRecipeByUrl) -> str:
+    def scrape_image_url(self, slug: str, url: CreateRecipeByUrl):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
         data_service.scrape_image(url.url)
@@ -303,7 +304,7 @@ class RecipeController(BaseRecipeController):
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        recipe: Recipe = self.mixins.get_one(slug)
+        recipe = self.mixins.get_one(slug)
         recipe.assets.append(asset_in)
 
         self.mixins.update_one(recipe, slug)

@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Tuple
 from uuid import UUID
 
 from pydantic import UUID4
@@ -94,9 +93,10 @@ class BaseMigrator(BaseService):
         self._create_report(report_name)
         self._migrate()
         self._save_all_entries()
-        return self.db.group_reports.get(self.report_id)
 
-    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[Tuple[str, UUID4, bool]]:
+        return self.db.group_reports.get_one(self.report_id)
+
+    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[tuple[str, UUID4, bool]]:
         """
         Used as a single access point to process a list of Recipe objects into the
         database in a predictable way. If an error occurs the session is rolled back

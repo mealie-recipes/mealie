@@ -9,10 +9,10 @@ from .repository_generic import RepositoryGeneric
 
 class RepositoryMeals(RepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
     def get_slice(self, start: date, end: date, group_id: UUID) -> list[ReadPlanEntry]:
-        start = start.strftime("%Y-%m-%d")
-        end = end.strftime("%Y-%m-%d")
+        start_str = start.strftime("%Y-%m-%d")
+        end_str = end.strftime("%Y-%m-%d")
         qry = self.session.query(GroupMealPlan).filter(
-            GroupMealPlan.date.between(start, end),
+            GroupMealPlan.date.between(start_str, end_str),
             GroupMealPlan.group_id == group_id,
         )
 

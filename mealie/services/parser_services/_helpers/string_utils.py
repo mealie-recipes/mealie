@@ -10,10 +10,10 @@ def move_parens_to_end(ing_str) -> str:
     If no parentheses are found, the string is returned unchanged.
     """
     if re.match(compiled_match, ing_str):
-        match = re.search(compiled_search, ing_str)
-        start = match.start()
-        end = match.end()
-        ing_str = ing_str[:start] + ing_str[end:] + " " + ing_str[start:end]
+        if match := re.search(compiled_search, ing_str):
+            start = match.start()
+            end = match.end()
+            ing_str = ing_str[:start] + ing_str[end:] + " " + ing_str[start:end]
 
     return ing_str
 

@@ -1,8 +1,9 @@
 import zipfile
 from abc import abstractmethod, abstractproperty
+from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Iterator, Optional
+from typing import Callable, Optional
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -27,7 +28,7 @@ class ExportedItem:
 
 
 class ABCExporter(BaseService):
-    write_dir_to_zip: Callable[[Path, str, Optional[list[str]]], None]
+    write_dir_to_zip: Callable[[Path, str, Optional[set[str]]], None] | None
 
     def __init__(self, db: AllRepositories, group_id: UUID) -> None:
         self.logger = get_logger()
@@ -47,8 +48,7 @@ class ABCExporter(BaseService):
     def _post_export_hook(self, _: BaseModel) -> None:
         pass
 
-    @abstractmethod
-    def export(self, zip: zipfile.ZipFile) -> list[ReportEntryCreate]:
+    def export(self, zip: zipfile.ZipFile) -> list[ReportEntryCreate]:  # type: ignore
         """
         Export takes in a zip file and exports the recipes to it. Note that the zip
         file open/close is NOT handled by this method. You must handle it yourself.
@@ -57,7 +57,7 @@ class ABCExporter(BaseService):
             zip (zipfile.ZipFile): Zip file destination
 
         Returns:
-            list[ReportEntryCreate]: [description] ???!?!
+            list[ReportEntryCreate]:
         """
         self.write_dir_to_zip = self.write_dir_to_zip_func(zip)
 

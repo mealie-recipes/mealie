@@ -1,5 +1,6 @@
 import shutil
 import tempfile
+from collections.abc import AsyncGenerator, Callable, Generator
 from pathlib import Path
 from typing import Optional
 from uuid import uuid4
@@ -94,9 +95,10 @@ def validate_long_live_token(session: Session, client_token: str, id: int) -> Pr
     tokens: list[LongLiveTokenInDB] = repos.api_tokens.get(id, "user_id", limit=9999)
 
     for token in tokens:
-        token: LongLiveTokenInDB
         if token.token == client_token:
             return token.user
+
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
 
 
 def validate_file_token(token: Optional[str] = None) -> Path:
@@ -133,7 +135,7 @@ def validate_recipe_token(token: Optional[str] = None) -> str:
     return slug
 
 
-async def temporary_zip_path() -> Path:
+async def temporary_zip_path() -> AsyncGenerator[Path, None]:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
 
@@ -143,7 +145,7 @@ async def temporary_zip_path() -> Path:
         temp_path.unlink(missing_ok=True)
 
 
-async def temporary_dir() -> Path:
+async def temporary_dir() -> AsyncGenerator[Path, None]:
     temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
     temp_path.mkdir(exist_ok=True, parents=True)
 
@@ -153,12 +155,12 @@ async def temporary_dir() -> Path:
         shutil.rmtree(temp_path)
 
 
-def temporary_file(ext: str = "") -> Path:
+def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper[bytes], None, None]]:
     """
     Returns a temporary file with the specified extension
     """
 
-    def func() -> Path:
+    def func():
         temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex + ext)
         temp_path.touch()
 

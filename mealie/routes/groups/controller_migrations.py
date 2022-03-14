@@ -1,4 +1,5 @@
 import shutil
+from pathlib import Path
 
 from fastapi import Depends, File, Form
 from fastapi.datastructures import UploadFile
@@ -8,7 +9,13 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_migration import SupportedMigrations
 from mealie.schema.reports.reports import ReportSummary
-from mealie.services.migrations import ChowdownMigrator, MealieAlphaMigrator, NextcloudMigrator, PaprikaMigrator
+from mealie.services.migrations import (
+    BaseMigrator,
+    ChowdownMigrator,
+    MealieAlphaMigrator,
+    NextcloudMigrator,
+    PaprikaMigrator,
+)
 
 router = UserAPIRouter(prefix="/groups/migrations", tags=["Group: Migrations"])
 
@@ -21,7 +28,7 @@ class GroupMigrationController(BaseUserController):
         add_migration_tag: bool = Form(False),
         migration_type: SupportedMigrations = Form(...),
         archive: UploadFile = File(...),
-        temp_path: str = Depends(temporary_zip_path),
+        temp_path: Path = Depends(temporary_zip_path),
     ):
         # Save archive to temp_path
         with temp_path.open("wb") as buffer:
@@ -35,6 +42,8 @@ class GroupMigrationController(BaseUserController):
             "group_id": self.group_id,
             "add_migration_tag": add_migration_tag,
         }
+
+        migrator: BaseMigrator
 
         match migration_type:
             case SupportedMigrations.chowdown:

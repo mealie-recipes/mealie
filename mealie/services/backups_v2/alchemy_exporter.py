@@ -6,7 +6,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.engine import base
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
 from mealie.services._base_service import BaseService
 
@@ -122,8 +122,6 @@ class AlchemyExporter(BaseService):
         """Drops all data from the database"""
         self.meta.reflect(bind=self.engine)
         with self.session_maker() as session:
-            session: Session
-
             is_postgres = self.settings.DB_ENGINE == "postgres"
 
             try:

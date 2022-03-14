@@ -124,6 +124,6 @@ class User(SqlAlchemyBase, BaseMixins):
             self.can_invite = can_invite
             self.can_organize = can_organize
 
-    @staticmethod
-    def get_ref(session, id: str):
+    @staticmethod  # TODO: Remove This
+    def get_ref(session, id: str):  # type: ignore
         return session.query(User).filter(User.id == id).one()

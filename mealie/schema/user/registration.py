@@ -1,13 +1,13 @@
 from fastapi_camelcase import CamelModel
 from pydantic import validator
-from pydantic.types import constr
+from pydantic.types import NoneStr, constr
 
 
 class CreateUserRegistration(CamelModel):
-    group: str = None
-    group_token: str = None
-    email: constr(to_lower=True, strip_whitespace=True)
-    username: constr(to_lower=True, strip_whitespace=True)
+    group: NoneStr = None
+    group_token: NoneStr = None
+    email: constr(to_lower=True, strip_whitespace=True)  # type: ignore
+    username: constr(to_lower=True, strip_whitespace=True)  # type: ignore
     password: str
     password_confirm: str
     advanced: bool = False

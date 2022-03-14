@@ -99,7 +99,7 @@ class NLPParser(ABCIngredientParser):
         return [self._crf_to_ingredient(crf_model) for crf_model in crf_models]
 
     def parse_one(self, ingredient: str) -> ParsedIngredient:
-        items = self.parse_one([ingredient])
+        items = self.parse([ingredient])
         return items[0]
 
 

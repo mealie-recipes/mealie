@@ -1,7 +1,7 @@
 from functools import wraps
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, NoneStr
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY, Session
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.mapper import Mapper
@@ -21,7 +21,7 @@ class AutoInitConfig(BaseModel):
     Config class for `auto_init` decorator.
     """
 
-    get_attr: str = None
+    get_attr: NoneStr = None
     exclude: set = Field(default_factory=_default_exclusion)
     # auto_create: bool = False
 
@@ -83,12 +83,14 @@ def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elemen
         elem_id = elem.get(get_attr, None) if isinstance(elem, dict) else elem
         existing_elem = session.query(relation_cls).filter_by(**{get_attr: elem_id}).one_or_none()
 
-        if existing_elem is None:
-            elems_to_create.append(elem)
+        is_dict = isinstance(elem, dict)
+
+        if existing_elem is None and is_dict:
+            elems_to_create.append(elem)  # type: ignore
             continue
 
-        elif isinstance(elem, dict):
-            for key, value in elem.items():
+        elif is_dict:
+            for key, value in elem.items():  # type: ignore
                 if key not in cfg.exclude:
                     setattr(existing_elem, key, value)
 

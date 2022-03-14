@@ -49,7 +49,7 @@ class SchedulerService:
 
     @staticmethod
     def add_cron_job(job_func: ScheduledFunc):
-        SchedulerService.scheduler.add_job(
+        SchedulerService.scheduler.add_job(  # type: ignore
             job_func.callback,
             trigger="cron",
             name=job_func.id,
@@ -64,7 +64,7 @@ class SchedulerService:
 
     @staticmethod
     def update_cron_job(job_func: ScheduledFunc):
-        SchedulerService.scheduler.reschedule_job(
+        SchedulerService.scheduler.reschedule_job(  # type: ignore
             job_func.id,
             trigger="cron",
             hour=job_func.hour,
