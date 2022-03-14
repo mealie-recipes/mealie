@@ -1,4 +1,4 @@
-from typing import Callable, Iterable
+from collections.abc import Callable, Iterable
 
 from mealie.core import root_logger
 

@@ -155,7 +155,7 @@ async def temporary_dir() -> AsyncGenerator[Path, None]:
         shutil.rmtree(temp_path)
 
 
-def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper[bytes], None, None]]:
+def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper, None, None]]:
     """
     Returns a temporary file with the specified extension
     """

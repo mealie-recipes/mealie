@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import Optional, Union
 
 import pytest
 from bs4 import BeautifulSoup
@@ -31,7 +31,7 @@ def get_init(html_path: Path):
         self,
         url,
         proxies: Optional[str] = None,
-        timeout: Optional[Union[float, Tuple, None]] = None,
+        timeout: Optional[Union[float, tuple, None]] = None,
         wild_mode: Optional[bool] = False,
         **_,
     ):

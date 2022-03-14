@@ -1,5 +1,3 @@
-from typing import Type
-
 import pytest
 from fastapi.testclient import TestClient
 
@@ -26,7 +24,7 @@ def test_multitenant_cases_get_all(
     api_client: TestClient,
     multitenants: MultiTenant,
     database: AllRepositories,
-    test_case: Type[ABCMultiTenantTestCase],
+    test_case: type[ABCMultiTenantTestCase],
 ):
     """
     This test will run all the multitenant test cases and validate that they return only the data for their group.
@@ -63,7 +61,7 @@ def test_multitenant_cases_same_named_resources(
     api_client: TestClient,
     multitenants: MultiTenant,
     database: AllRepositories,
-    test_case: Type[ABCMultiTenantTestCase],
+    test_case: type[ABCMultiTenantTestCase],
 ):
     """
     This test is used to ensure that the same resource can be created with the same values in different tenants.

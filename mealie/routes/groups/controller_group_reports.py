@@ -1,5 +1,4 @@
 from functools import cached_property
-from typing import Type
 
 from fastapi import APIRouter
 from pydantic import UUID4
@@ -19,7 +18,7 @@ class GroupReportsController(BaseUserController):
     def repo(self):
         return self.deps.repos.group_reports.by_group(self.deps.acting_user.group_id)
 
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
+    def registered_exceptions(self, ex: type[Exception]) -> str:
         return {
             **mealie_registered_exceptions(self.deps.t),
         }.get(ex, "An unexpected error occurred.")

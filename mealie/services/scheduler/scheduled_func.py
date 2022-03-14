@@ -1,5 +1,5 @@
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable, Tuple
 
 from pydantic import BaseModel
 
@@ -17,7 +17,7 @@ class Cron:
 
 @dataclass
 class ScheduledFunc(BaseModel):
-    id: Tuple[str, int]
+    id: tuple[str, int]
     name: str
     hour: int
     minutes: int

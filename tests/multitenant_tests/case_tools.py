@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from requests import Response
 
 from mealie.schema.recipe.recipe import RecipeTool
@@ -27,7 +25,7 @@ class ToolsTestCase(ABCMultiTenantTestCase):
 
         return tool_ids
 
-    def seed_multi(self, group1_id: str, group2_id: str) -> Tuple[set[int], set[int]]:
+    def seed_multi(self, group1_id: str, group2_id: str) -> tuple[set[int], set[int]]:
         g1_item_ids = set()
         g2_item_ids = set()
 

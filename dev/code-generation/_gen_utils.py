@@ -1,7 +1,6 @@
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Tuple
 
 import black
 import isort
@@ -47,7 +46,7 @@ def get_indentation_of_string(line: str, comment_char: str = "//") -> str:
     return re.sub(rf"{comment_char}.*", "", line).removesuffix("\n")
 
 
-def find_start_end(file_text: list[str], gen_id: str) -> Tuple[int, int]:
+def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int]:
     start = None
     end = None
     indentation = None
