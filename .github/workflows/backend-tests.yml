@@ -79,7 +79,7 @@ jobs:
           poetry run isort . --check-only
       - name: Lint (Flake8)
         run: |
-          poetry run flake8 .
+          poetry run flake8 mealie tests
       - name: Mypy Typecheck
         run: |
           make typecheck
