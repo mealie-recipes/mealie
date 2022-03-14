@@ -41,6 +41,8 @@ setup: ## 🏗  Setup Development Instance
 	yarn install && \
 	cd ..
 
+	poetry run pre-commit install
+
 	@echo Be sure to copy the template.env files
 	@echo Testing the Natural Languuage Processor? Try `make setup-model` to get the most recent model
 
