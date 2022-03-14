@@ -1,4 +1,4 @@
-from typing import List
+import typing
 
 from fastapi_camelcase import CamelModel
 from pydantic import UUID4
@@ -22,7 +22,7 @@ class RecipeTool(RecipeToolCreate):
 
 
 class RecipeToolResponse(RecipeTool):
-    recipes: List["Recipe"] = []
+    recipes: typing.List["Recipe"] = []
 
     class Config:
         orm_mode = True
