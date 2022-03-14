@@ -69,13 +69,23 @@ jobs:
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
           poetry install
           poetry add "psycopg2-binary==2.8.6"
-        # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      - name: Run Test Suite
+      - name: Formatting (Black & isort)
+        run: |
+          poetry run black . --check
+          poetry run isort . --check-only
+      - name: Lint (Flake8)
+        run: |
+          poetry run flake8 .
+      - name: Mypy Typecheck
+        run: |
+          make typecheck
+      - name: Pytest
         env:
           DB_ENGINE: ${{ matrix.Database }}
           POSTGRES_SERVER: localhost
         run: |
-          make test-all
+          make test
