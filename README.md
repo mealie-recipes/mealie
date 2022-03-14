@@ -9,9 +9,9 @@
 [![Project Tests Production](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
 [![Docker Build Dev](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml)
 [![Project Tests Dev](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
-  
 
-  
+
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -32,13 +32,13 @@
     <br />
     <a href="https://mealie-demo.hay-kot.dev/">View Demo</a>
     ·
-    <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>    
+    <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>
     ·
     <a href="https://hay-kot.github.io/mealie/api/redoc/">API</a>
     ·
     <a href="https://github.com/hay-kot/mealie/issues">
     Request Feature
-    </a>    
+    </a>
     ·
     <a href="https://hub.docker.com/r/hkotel/mealie"> Docker Hub
     </a>
@@ -47,60 +47,25 @@
 
 
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://docs.mealie.io)
 
 # About The Project
 
-Mealie is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and Mealie will automatically import the relevant data or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications. 
+Mealie is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the url and Mealie will automatically import the relevant data or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications.
 
-[Remember to join the Discord](https://discord.gg/QuStdQGSGK)! 
-
-
-
-## Key Features
-- 🔍 Fuzzy search
-- 🏷️ Tag recipes with categories or tags for flexible sorting
-- 🕸 Import recipes from around the web by URL
-- 💪 Powerful bulk Category/Tag assignment
-- 📱 Beautiful Mobile Views
-- 📆 Create Meal Plans
-- 🛒 Generate shopping lists
-- 🐳 Easy setup with Docker
-- 🎨 Customize your interface with color themes 
-- 💾 Export all your data in any format with Jinja2 Templates
-- 🔒 Keep your data safe with automated backup and easy restore options
-- 🌍 localized in many languages
-- ➕ Plus tons more!
-    - Flexible API
-        - Custom key/value pairs for recipes
-        - Webhook support
-        - Interactive API Documentation thanks to [FastAPI](https://fastapi.tiangolo.com/) and [Swagger](https://petstore.swagger.io/)
-    - Raw JSON Recipe Editor
-    - Migration from other platforms
-        - Chowdown
-        - Nextcloud Cookbook
-    - Random meal plan generation
-
-## FAQ
-
-### Why An API?
-An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access nearly any backend service via the API giving you total control to extend the application. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation. 
-
-### Why a Database?
-Some users of static-site generator applications like ChowDown have expressed concerns about their data being stuck in a database. Considering this is a new project it is a valid concern to be worried about your data. Mealie specifically addresses this concern by provided automatic daily backups that export your data in json, plain-text markdown files, and/or custom Jinja2 templates. **This puts you in controls of how your data is represented** when exported from Mealie, which means you can easily migrate to any other service provided Mealie doesn't work for you. 
-
-As to why we need a database?
-
-- **Developer Experience:** Without a database a lot of the work to maintain your data is taken on by the developer instead of a battle tested platform for storing data. 
-- **Multi User Support:** With a solid database as backend storage for your data Mealie can better support multi-user sites and avoid read/write access errors when multiple actions are taken at the same time. 
+- [Remember to join the Discord](https://discord.gg/QuStdQGSGK)!
+- [Documentation](https://docs.mealie.io)
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Especially test. Literally any tests. See the [Contributors Guide](https://hay-kot.github.io/mealie/contributors/non-coders/) for help getting started.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. If you're going to be working on the code-base you'll want to use the nightly documentation to ensure you get the latest information.
 
-If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development. 
+- See the [Contributors Guide](https://nightly.mealie.io/contributors/developers-guide/code-contributions/) for help getting started.
+- We use VSCode Dev Contains to make it easy for contributors to get started!
+
+If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development.
 
 <a href="https://www.buymeacoffee.com/haykot" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 107px !important;" ></a>
 
@@ -116,8 +81,8 @@ Huge thanks to all the sponsors of this project on [Github Sponsors](https://git
 Thanks to Linode for providing Hosting for the Demo, Beta, and Documentation sites! Another big thanks to JetBrains for providing their IDEs for development.
 
 <div align='center'>
-  <img height="200" src="docs/docs/assets/img/sponsors-linode.svg" />
-  <img height="200" src="docs/docs/assets/img/sponsors-jetbrains.png" />
+  <img height="100" src="docs/docs/assets/img/sponsors-linode.svg" />
+  <img height="100" src="docs/docs/assets/img/sponsors-jetbrains.png" />
 </div>
 
 

@@ -1,24 +1,21 @@
 # Development: Getting Started
 
 !!! warning
-    Be sure to use the [Nightly version](https://nightly.mealie.io/) of the docs to ensure you're up to date with 
+    Be sure to use the [Nightly version](https://nightly.mealie.io/) of the docs to ensure you're up to date with
     the latest changes.
 
 After reading through the [Code Contributions Guide](../developers-guide/code-contributions.md) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
 
-## With Docker
-
-!!! error "Broken"
-    Developing with Docker is currently broken. Please use the "Without Docker" instructions until this is resolved, or better yet help us fix it!
-
-    - [PR #756 - add frontend developer dockerfile](https://github.com/hay-kot/mealie/pull/756)  
+## With VS Code Dev Containers
 
 Prerequisites
 
 - Docker
-- docker-compose
+- Visual Studio Code
 
-You can easily start the development stack by running `make docker-dev` in the root of the project directory. This will run and build the docker-compose.dev.yml file.
+First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
+
+You should be able to perform all the required steps for development within the pre-configured development container. This includes both servers as well as testing the API. Checkout the makefile for all of the available commands.
 
 ## Without Docker
 ### Prerequisites
@@ -30,7 +27,7 @@ You can easily start the development stack by running `make docker-dev` in the r
 
 ### Installing Dependencies
 
-Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies. 
+Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies.
 
 === "Linux / MacOs"
 
@@ -65,8 +62,8 @@ Once that is complete you're ready to start the servers. You'll need two shells 
 === "Linux / MacOs"
 
     ```bash
-    # Terminal #1 
-    make backend 
+    # Terminal #1
+    make backend
 
     # Terminal #2
     make frontend
@@ -84,35 +81,29 @@ Once that is complete you're ready to start the servers. You'll need two shells 
     yarn run dev
     ```
 
-## Make File Reference 
+## Make File Reference
 
 Run `make help` for reference. If you're on a system that doesn't support makefiles in most cases you can use the commands directly in your terminal by copy/pasting them from the Makefile.
 
 ```
-purge                ⚠️  Removes All Developer Data for a fresh server start
-clean                🧹 Remove all build, test, coverage and Python artifacts
-clean-pyc            🧹 Remove Python file artifacts
-clean-test           🧹 Remove test and coverage artifacts
-test-all             🧪 Check Lint Format and Testing
-test                 🧪 Run tests quickly with the default Python
-lint                 🧺 Format, Check and Flake8 
-coverage             ☂️  Check code coverage quickly with the default Python
+docs                 📄 Start Mkdocs Development Server
+code-gen             🤖 Run Code-Gen Scripts
 setup                🏗  Setup Development Instance
 setup-model          🤖 Get the latest NLP CRF++ Model
+clean-data           ⚠️  Removes All Developer Data for a fresh server start
+clean-pyc            🧹 Remove Python file artifacts
+clean-test           🧹 Remove test and coverage artifacts
+backend-clean        🧹 Remove all build, test, coverage and Python artifacts
+backend-test         🧪 Run tests quickly with the default Python
+backend-format       🧺 Format, Check and Flake8
+backend-all          🧪 Runs all the backend checks and tests
+backend-coverage     ☂️  Check code coverage quickly with the default Python
 backend              🎬 Start Mealie Backend Development Server
 frontend             🎬 Start Mealie Frontend Development Server
 frontend-build       🏗  Build Frontend in frontend/dist
 frontend-generate    🏗  Generate Code for Frontend
 frontend-lint        🧺 Run yarn lint
-docs                 📄 Start Mkdocs Development Server
 docker-dev           🐳 Build and Start Docker Development Stack
 docker-prod          🐳 Build and Start Docker Production Stack
-code-gen             🤖 Run Code-Gen Scripts
 
 ```
-
-## Before you Commit! 
-
-Before you commit any changes on the backend/python side you'll want to run `make format` to format all the code with black. `make lint` to check with flake8, and `make test` to run pytests. You can also use `make test-all` to run both `lint` and `test`. 
-
-Run into another issue? [Ask for help on discord](https://discord.gg/QuStdQGSGK)
