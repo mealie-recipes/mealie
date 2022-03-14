@@ -98,4 +98,4 @@ pgsql = ["psycopg2-binary"]
 python_version = "3.10"
 ignore_missing_imports = true
 follow_imports = "skip"
-strict_optional = true
+strict_optional = false # TODO: Fix none type checks - temporary stop-gap to implement mypy
