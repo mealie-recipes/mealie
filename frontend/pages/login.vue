@@ -127,7 +127,7 @@ export default defineComponent({
 
     const loggingIn = ref(false);
 
-    const allowSignup = computed(() => context.env.ALLOW_SIGNUP as boolean);
+    const allowSignup = computed(() => context.env.ALLOW_SIGNUP === "true");
 
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
