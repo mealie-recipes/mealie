@@ -93,7 +93,12 @@ def clean_nutrition(nutrition: Optional[dict]) -> dict[str, str]:
 
     output_nutrition = {key: val.replace(",", ".") for key, val in output_nutrition.items()}
 
-    if "sodiumContent" in nutrition and "m" not in nutrition["sodiumContent"] and "g" in nutrition["sodiumContent"]:
+    if (
+        "sodiumContent" in nutrition
+        and type(nutrition["sodiumContent"]) == str
+        and "m" not in nutrition["sodiumContent"]
+        and "g" in nutrition["sodiumContent"]
+    ):
         # Sodium is in grams. Parse its value, multiple by 1k and return to string.
         try:
             output_nutrition["sodiumContent"] = str(float(output_nutrition["sodiumContent"]) * 1000)

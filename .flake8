@@ -1,5 +1,5 @@
 [flake8]
-ignore = [
+extend-ignore = [
     E501 # Line Length - See Black Config in pyproject.toml
     E402 # Import Not at Top of File
 ]
