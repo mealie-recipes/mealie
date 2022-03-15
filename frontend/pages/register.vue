@@ -6,8 +6,8 @@
         <v-form ref="domRegisterForm" @submit.prevent="register()">
           <div class="d-flex justify-center my-2">
             <v-btn-toggle v-model="joinGroup" mandatory tile group color="primary">
-              <v-btn :value="false" small @click="joinGroup = false"> Create a Group </v-btn>
-              <v-btn :value="true" small @click="joinGroup = true"> Join a Group </v-btn>
+              <v-btn :value="false" small @click="toggleJoinGroup"> Create a Group </v-btn>
+              <v-btn :value="true" small @click="toggleJoinGroup"> Join a Group </v-btn>
             </v-btn-toggle>
           </div>
           <v-text-field
@@ -99,12 +99,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, ref, useRouter, watch } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, ref, useRouter } from "@nuxtjs/composition-api";
 import { validators } from "@/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { useRouterQuery } from "@/composables/use-router";
-import { VForm} from "~/types/vuetify";
+import { useRouteQuery } from "@/composables/use-router";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   layout: "basic",
@@ -117,16 +117,20 @@ export default defineComponent({
     });
     const allowSignup = computed(() => process.env.AllOW_SIGNUP);
 
-    const token = useRouterQuery("token");
-
-    watch(token, (newToken) => {
-      if (newToken) {
-        form.groupToken = newToken;
-      }
-    });
+    const token = useRouteQuery("token");
 
     if (token) {
       state.joinGroup = true;
+    }
+
+    function toggleJoinGroup() {
+      if (state.joinGroup) {
+        state.joinGroup = false;
+        form.group = "";
+      } else {
+        state.joinGroup = true;
+        token.value = null;
+      }
     }
 
     const domRegisterForm = ref<VForm | null>(null);
@@ -163,6 +167,7 @@ export default defineComponent({
 
     return {
       token,
+      toggleJoinGroup,
       domRegisterForm,
       validators,
       allowSignup,
