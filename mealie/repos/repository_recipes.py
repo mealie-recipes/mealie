@@ -144,8 +144,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .limit(limit)
         ]
 
-    def get_by_slug(self, slug: str, limit=1) -> Optional[Recipe]:
-        dbrecipe = self.session.query(RecipeModel).filter(RecipeModel.slug == slug).one_or_none()
+    def get_by_slug(self, group_id: UUID, slug: str, limit=1) -> Optional[Recipe]:
+        dbrecipe = (
+            self.session.query(RecipeModel)
+            .filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
+            .one_or_none()
+        )
         if dbrecipe is None:
             return None
         return self.schema.from_orm(dbrecipe)

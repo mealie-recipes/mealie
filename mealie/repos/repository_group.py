@@ -1,5 +1,6 @@
+from typing import Optional, Union
+
 from sqlalchemy.orm.session import Session
-from typing import Union, Optional
 
 from mealie.db.models.group import Group
 from mealie.schema.meal_plan.meal import MealPlanOut
