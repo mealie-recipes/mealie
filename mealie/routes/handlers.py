@@ -23,7 +23,6 @@ def register_debug_handler(app: FastAPI):
 
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(request: Request, exc: RequestValidationError):
-
         exc_str = f"{exc}".replace("\n", " ").replace("   ", " ")
         log_wrapper(request, exc)
         content = {"status_code": status.HTTP_422_UNPROCESSABLE_ENTITY, "message": exc_str, "data": None}
