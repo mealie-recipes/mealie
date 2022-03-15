@@ -15,9 +15,16 @@ Prerequisites
 
 First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
 
-You should be able to perform all the required steps for development within the pre-configured development container. This includes both servers as well as testing the API. Checkout the makefile for all of the available commands.
+Checkout the makefile for all of the available commands.
 
-## Without Docker
+!!! tip
+    For slow terminal checkout the solution in this [GitHub Issue](https://github.com/microsoft/vscode/issues/133215)
+
+    ```bash
+    git config oh-my-zsh.hide-info 1
+    ```
+
+## Without Dev Containers
 ### Prerequisites
 
 - [Python 3.10](https://www.python.org/downloads/)
