@@ -1,3 +1,5 @@
+from typing import Union
+
 from sqlalchemy.orm.session import Session
 
 from mealie.db.models.group import Group
@@ -22,3 +24,9 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
         group: GroupInDB = session.query(self.sql_model).filter_by(**{match_key: match_value}).one_or_none()
 
         return group.mealplans
+
+    def get_by_name(self, name: str, limit=1) -> Union[GroupInDB, Group, None]:
+        dbgroup = self.session.query(self.sql_model).filter_by(**{"name": name}).one_or_none()
+        if dbgroup is None:
+            return None
+        return self.schema.from_orm(dbgroup)

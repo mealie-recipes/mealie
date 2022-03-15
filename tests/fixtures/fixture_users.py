@@ -28,6 +28,7 @@ def build_unique_user(group: str, api_client: requests) -> utils.TestUser:
         _group_id=user_data.get("groupId"),
         user_id=user_data.get("id"),
         email=user_data.get("email"),
+        username=user_data.get("username"),
         token=token,
     )
 
@@ -69,6 +70,7 @@ def g2_user(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
             _group_id=group_id,
             token=token,
             email=create_data["email"],
+            username=create_data.get("username"),
         )
     finally:
         # TODO: Delete User after test
@@ -93,6 +95,7 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
             _group_id=user_data.get("groupId"),
             user_id=user_data.get("id"),
             email=user_data.get("email"),
+            username=user_data.get("username"),
             token=token,
         )
     finally:
@@ -142,6 +145,7 @@ def user_tuple(admin_token, api_client: requests, api_routes: utils.AppRoutes) -
             utils.TestUser(
                 _group_id=user_data.get("groupId"),
                 user_id=user_data.get("id"),
+                username=user_data.get("username"),
                 email=user_data.get("email"),
                 token=token,
             )
