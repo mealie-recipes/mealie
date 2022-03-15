@@ -24,7 +24,7 @@ def sql_global_init(db_url: str):
     return SessionLocal, engine
 
 
-SessionLocal, engine = sql_global_init(settings.DB_URL)
+SessionLocal, engine = sql_global_init(settings.DB_URL)  # type: ignore
 
 
 def create_session() -> Session:

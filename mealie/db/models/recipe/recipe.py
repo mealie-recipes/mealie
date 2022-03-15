@@ -1,5 +1,4 @@
 import datetime
-from datetime import date
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
@@ -107,7 +106,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     extras: list[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
 
     # Time Stamp Properties
-    date_added = sa.Column(sa.Date, default=date.today)
+    date_added = sa.Column(sa.Date, default=datetime.date.today)
     date_updated = sa.Column(sa.DateTime)
 
     # Shopping List Refs

@@ -28,7 +28,7 @@ def post_webhooks(webhook_id: int, session: Session = None):
     if not todays_recipe:
         return
 
-    payload = json.loads([x.json(by_alias=True) for x in todays_recipe])
+    payload = json.loads([x.json(by_alias=True) for x in todays_recipe])  # type: ignore
     response = requests.post(webhook.url, json=payload)
 
     if response.status_code != 200:

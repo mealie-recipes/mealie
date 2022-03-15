@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from typing import TypeVar
 
 from pydantic import UUID4, BaseModel
@@ -14,14 +15,14 @@ T = TypeVar("T", bound=BaseModel)
 
 
 class DatabaseMigrationHelpers:
-    def __init__(self, db: AllRepositories, session: Session, group_id: int, user_id: UUID4) -> None:
+    def __init__(self, db: AllRepositories, session: Session, group_id: UUID4, user_id: UUID4) -> None:
         self.group_id = group_id
         self.user_id = user_id
         self.session = session
         self.db = db
 
     def _get_or_set_generic(
-        self, accessor: RepositoryGeneric, items: list[str], create_model: T, out_model: T
+        self, accessor: RepositoryGeneric, items: Iterable[str], create_model: type[T], out_model: type[T]
     ) -> list[T]:
         """
         Utility model for getting or setting categories or tags. This will only work for those two cases.
@@ -47,7 +48,7 @@ class DatabaseMigrationHelpers:
             items_out.append(item_model.dict())
         return items_out
 
-    def get_or_set_category(self, categories: list[str]) -> list[RecipeCategory]:
+    def get_or_set_category(self, categories: Iterable[str]) -> list[RecipeCategory]:
         return self._get_or_set_generic(
             self.db.categories.by_group(self.group_id),
             categories,
@@ -55,7 +56,7 @@ class DatabaseMigrationHelpers:
             CategoryOut,
         )
 
-    def get_or_set_tags(self, tags: list[str]) -> list[RecipeTag]:
+    def get_or_set_tags(self, tags: Iterable[str]) -> list[RecipeTag]:
         return self._get_or_set_generic(
             self.db.tags.by_group(self.group_id),
             tags,

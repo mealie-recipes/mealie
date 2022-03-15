@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -22,7 +22,7 @@ class ImportJob(BackupOptions):
 class CreateBackup(BaseModel):
     tag: Optional[str]
     options: BackupOptions
-    templates: Optional[List[str]]
+    templates: Optional[list[str]]
 
 
 class BackupFile(BaseModel):
@@ -32,5 +32,5 @@ class BackupFile(BaseModel):
 
 
 class AllBackups(BaseModel):
-    imports: List[BackupFile]
-    templates: List[str]
+    imports: list[BackupFile]
+    templates: list[str]

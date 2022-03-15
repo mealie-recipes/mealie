@@ -52,16 +52,15 @@ def get_token(data: CustomOAuth2Form = Depends(), session: Session = Depends(gen
     email = data.username
     password = data.password
 
-    user: PrivateUser = authenticate_user(session, email, password)
+    user = authenticate_user(session, email, password)  # type: ignore
 
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            headers={"WWW-Authenticate": "Bearer"},
         )
 
     duration = timedelta(days=14) if data.remember_me else None
-    access_token = security.create_access_token(dict(sub=str(user.id)), duration)
+    access_token = security.create_access_token(dict(sub=str(user.id)), duration)  # type: ignore
     return MealieAuthToken.respond(access_token)
 
 

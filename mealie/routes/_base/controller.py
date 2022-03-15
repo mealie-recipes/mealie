@@ -4,7 +4,8 @@ This file contains code taken from fastapi-utils project. The code is licensed u
 See their repository for details -> https://github.com/dmontagu/fastapi-utils
 """
 import inspect
-from typing import Any, Callable, List, Tuple, Type, TypeVar, Union, cast, get_type_hints
+from collections.abc import Callable
+from typing import Any, TypeVar, Union, cast, get_type_hints
 
 from fastapi import APIRouter, Depends
 from fastapi.routing import APIRoute
@@ -18,7 +19,7 @@ INCLUDE_INIT_PARAMS_KEY = "__include_init_params__"
 RETURN_TYPES_FUNC_KEY = "__return_types_func__"
 
 
-def controller(router: APIRouter, *urls: str) -> Callable[[Type[T]], Type[T]]:
+def controller(router: APIRouter, *urls: str) -> Callable[[type[T]], type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
     Any methods of the decorated class that are decorated as endpoints using the router provided to this function
@@ -28,14 +29,14 @@ def controller(router: APIRouter, *urls: str) -> Callable[[Type[T]], Type[T]]:
     https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/#the-cbv-decorator
     """
 
-    def decorator(cls: Type[T]) -> Type[T]:
+    def decorator(cls: type[T]) -> type[T]:
         # Define cls as cbv class exclusively when using the decorator
         return _cbv(router, cls, *urls)
 
     return decorator
 
 
-def _cbv(router: APIRouter, cls: Type[T], *urls: str, instance: Any = None) -> Type[T]:
+def _cbv(router: APIRouter, cls: type[T], *urls: str, instance: Any = None) -> type[T]:
     """
     Replaces any methods of the provided class `cls` that are endpoints of routes in `router` with updated
     function calls that will properly inject an instance of `cls`.
@@ -45,7 +46,7 @@ def _cbv(router: APIRouter, cls: Type[T], *urls: str, instance: Any = None) -> T
     return cls
 
 
-def _init_cbv(cls: Type[Any], instance: Any = None) -> None:
+def _init_cbv(cls: type[Any], instance: Any = None) -> None:
     """
     Idempotently modifies the provided `cls`, performing the following modifications:
     * The `__init__` function is updated to set any class-annotated dependencies as instance attributes
@@ -60,7 +61,7 @@ def _init_cbv(cls: Type[Any], instance: Any = None) -> None:
         x for x in old_parameters if x.kind not in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD)
     ]
 
-    dependency_names: List[str] = []
+    dependency_names: list[str] = []
     for name, hint in get_type_hints(cls).items():
         if is_classvar(hint):
             continue
@@ -88,7 +89,7 @@ def _init_cbv(cls: Type[Any], instance: Any = None) -> None:
     setattr(cls, CBV_CLASS_KEY, True)
 
 
-def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
+def _register_endpoints(router: APIRouter, cls: type[Any], *urls: str) -> None:
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
     for url in urls:
@@ -97,7 +98,7 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
     for route in router.routes:
         assert isinstance(route, APIRoute)
         route_methods: Any = route.methods
-        cast(Tuple[Any], route_methods)
+        cast(tuple[Any], route_methods)
         router_roles.append((route.path, tuple(route_methods)))
 
     if len(set(router_roles)) != len(router_roles):
@@ -110,7 +111,7 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
     }
 
     prefix_length = len(router.prefix)
-    routes_to_append: List[Tuple[int, Union[Route, WebSocketRoute]]] = []
+    routes_to_append: list[tuple[int, Union[Route, WebSocketRoute]]] = []
     for _, func in function_members:
         index_route = numbered_routes_by_endpoint.get(func)
 
@@ -138,9 +139,9 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
     router.include_router(cbv_router, prefix=cbv_prefix)
 
 
-def _allocate_routes_by_method_name(router: APIRouter, url: str, function_members: List[Tuple[str, Any]]) -> None:
+def _allocate_routes_by_method_name(router: APIRouter, url: str, function_members: list[tuple[str, Any]]) -> None:
     # sourcery skip: merge-nested-ifs
-    existing_routes_endpoints: List[Tuple[Any, str]] = [
+    existing_routes_endpoints: list[tuple[Any, str]] = [
         (route.endpoint, route.path) for route in router.routes if isinstance(route, APIRoute)
     ]
     for name, func in function_members:
@@ -165,13 +166,13 @@ def _allocate_routes_by_method_name(router: APIRouter, url: str, function_member
                 api_resource(func)
 
 
-def _update_cbv_route_endpoint_signature(cls: Type[Any], route: Union[Route, WebSocketRoute]) -> None:
+def _update_cbv_route_endpoint_signature(cls: type[Any], route: Union[Route, WebSocketRoute]) -> None:
     """
     Fixes the endpoint signature for a cbv route to ensure FastAPI performs dependency injection properly.
     """
     old_endpoint = route.endpoint
     old_signature = inspect.signature(old_endpoint)
-    old_parameters: List[inspect.Parameter] = list(old_signature.parameters.values())
+    old_parameters: list[inspect.Parameter] = list(old_signature.parameters.values())
     old_first_parameter = old_parameters[0]
     new_first_parameter = old_first_parameter.replace(default=Depends(cls))
     new_parameters = [new_first_parameter] + [

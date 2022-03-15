@@ -23,14 +23,44 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-purge: clean ## ⚠️  Removes All Developer Data for a fresh server start
+.PHONY: docs
+docs: ## 📄 Start Mkdocs Development Server
+	poetry run python dev/scripts/api_docs_gen.py && \
+	cd docs && poetry run python -m mkdocs serve
+
+code-gen: ## 🤖 Run Code-Gen Scripts
+	poetry run python dev/scripts/app_routes_gen.py
+
+# -----------------------------------------------------------------------------
+# Backend makefile
+
+.PHONY: setup
+setup: ## 🏗  Setup Development Instance
+	poetry install && \
+	cd frontend && \
+	yarn install && \
+	cd ..
+
+	poetry run pre-commit install
+
+	cp -n template.env .env || true
+
+	@echo "🏗  Development Setup Complete "
+	@echo "❗️ Tips"
+	@echo "    1. run 'make backend' to start the API server"
+	@echo "    2. run 'make frontend' to start the Node Server"
+	@echo "    3. Testing the Natural Language Processor? Try 'make setup-model' to get the most recent model"
+
+setup-model: ## 🤖 Get the latest NLP CRF++ Model
+	@echo Fetching NLP Model - CRF++ is still Required
+	curl -L0 https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel --output ./mealie/services/parser_services/crfpp/model.crfmodel
+
+clean-data: clean ## ⚠️  Removes All Developer Data for a fresh server start
 	rm -r ./dev/data/recipes/
 	rm -r ./dev/data/users/
 	rm -f ./dev/data/mealie*.db
 	rm -f ./dev/data/mealie.log
 	rm -f ./dev/data/.secret
-
-clean: clean-pyc clean-test ## 🧹 Remove all build, test, coverage and Python artifacts
 
 clean-pyc: ## 🧹 Remove Python file artifacts
 	find ./mealie -name '*.pyc' -exec rm -f {} +
@@ -44,45 +74,37 @@ clean-test: ## 🧹 Remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-test-all: lint-test test ## 🧪 Check Lint Format and Testing
+backend-clean: clean-pyc clean-test ## 🧹 Remove all build, test, coverage and Python artifacts
+	rm -fr .mypy_cache
 
-test: ## 🧪 Run tests quickly with the default Python
+backend-typecheck:
+	poetry run mypy mealie
+
+backend-test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
-lint-test:
-	poetry run black . --check
-	poetry run isort . --check-only
-	poetry run flake8 mealie tests
-
-lint: ## 🧺 Format, Check and Flake8 
+backend-format: ## 🧺 Format, Check and Flake8
 	poetry run isort .
 	poetry run black .
+
+backend-lint:
 	poetry run flake8 mealie tests
 
-coverage: ## ☂️  Check code coverage quickly with the default Python
-	poetry run pytest 
+backend-all: backend-format backend-lint backend-typecheck backend-test ## 🧪 Runs all the backend checks and tests
+
+backend-coverage: ## ☂️  Check code coverage quickly with the default Python
+	poetry run pytest
 	poetry run coverage report -m
 	poetry run coveragepy-lcov
 	poetry run coverage html
 	$(BROWSER) htmlcov/index.html
 
-.PHONY: setup
-setup: ## 🏗  Setup Development Instance
-	poetry install && \
-	cd frontend && \
-	yarn install && \
-	cd ..
-
-	@echo Be sure to copy the template.env files
-	@echo Testing the Natural Languuage Processor? Try `make setup-model` to get the most recent model
-
-setup-model: ## 🤖 Get the latest NLP CRF++ Model
-	@echo Fetching NLP Model - CRF++ is still Required
-	curl -L0 https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel --output ./mealie/services/parser_services/crfpp/model.crfmodel
-
 backend: ## 🎬 Start Mealie Backend Development Server
 	poetry run python mealie/db/init_db.py && \
 	poetry run python mealie/app.py
+
+# -----------------------------------------------------------------------------
+# Frontend makefile
 
 .PHONY: frontend
 frontend: ## 🎬 Start Mealie Frontend Development Server
@@ -97,10 +119,8 @@ frontend-generate: ## 🏗  Generate Code for Frontend
 frontend-lint: ## 🧺 Run yarn lint
 	cd frontend && yarn lint
 
-.PHONY: docs
-docs: ## 📄 Start Mkdocs Development Server
-	poetry run python dev/scripts/api_docs_gen.py && \
-	cd docs && poetry run python -m mkdocs serve
+# -----------------------------------------------------------------------------
+# Docker makefile
 
 docker-dev: ## 🐳 Build and Start Docker Development Stack
 	docker-compose -f docker-compose.dev.yml -p dev-mealie down && \
@@ -108,7 +128,3 @@ docker-dev: ## 🐳 Build and Start Docker Development Stack
 
 docker-prod: ## 🐳 Build and Start Docker Production Stack
 	docker-compose -f docker-compose.yml -p mealie up --build
-
-code-gen: ## 🤖 Run Code-Gen Scripts
-	poetry run python dev/scripts/app_routes_gen.py
-

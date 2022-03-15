@@ -1,4 +1,4 @@
-from typing import Iterator
+from collections.abc import Iterator
 from uuid import UUID
 
 from mealie.repos.all_repositories import AllRepositories
@@ -37,5 +37,5 @@ class RecipeExporter(ABCExporter):
         """Copy recipe directory contents into the zip folder"""
         recipe_dir = item.directory
 
-        if recipe_dir.exists():
+        if recipe_dir.exists() and self.write_dir_to_zip:
             self.write_dir_to_zip(recipe_dir, f"{self.destination_dir}/{item.slug}", {".json"})

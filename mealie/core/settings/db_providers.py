@@ -35,7 +35,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     POSTGRES_USER: str = "mealie"
     POSTGRES_PASSWORD: str = "mealie"
     POSTGRES_SERVER: str = "postgres"
-    POSTGRES_PORT: str = 5432
+    POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "mealie"
 
     @property

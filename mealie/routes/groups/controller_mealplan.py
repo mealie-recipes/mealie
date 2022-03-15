@@ -1,6 +1,5 @@
 from datetime import date, timedelta
 from functools import cached_property
-from typing import Type
 
 from fastapi import APIRouter, HTTPException
 
@@ -24,7 +23,7 @@ class GroupMealplanController(BaseUserController):
     def repo(self) -> RepositoryMeals:
         return self.repos.meals.by_group(self.group_id)
 
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
+    def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
             **mealie_registered_exceptions(self.deps.t),
         }
@@ -58,7 +57,7 @@ class GroupMealplanController(BaseUserController):
         )
 
         recipe_repo = self.repos.recipes.by_group(self.group_id)
-        random_recipes: Recipe = []
+        random_recipes: list[Recipe] = []
 
         if not rules:  # If no rules are set, return any random recipe from the group
             random_recipes = recipe_repo.get_random()

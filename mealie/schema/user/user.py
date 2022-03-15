@@ -53,7 +53,7 @@ class GroupBase(CamelModel):
 class UserBase(CamelModel):
     username: Optional[str]
     full_name: Optional[str] = None
-    email: constr(to_lower=True, strip_whitespace=True)
+    email: constr(to_lower=True, strip_whitespace=True)  # type: ignore
     admin: bool = False
     group: Optional[str]
     advanced: bool = False
@@ -107,7 +107,7 @@ class UserOut(UserBase):
 
 
 class UserFavorites(UserBase):
-    favorite_recipes: list[RecipeSummary] = []
+    favorite_recipes: list[RecipeSummary] = []  # type: ignore
 
     class Config:
         orm_mode = True

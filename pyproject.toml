@@ -55,6 +55,12 @@ isort = "^5.9.3"
 flake8-print = "^4.0.0"
 black = "^21.12b0"
 coveragepy-lcov = "^0.1.1"
+mypy = "^0.940"
+types-python-slugify = "^5.0.3"
+types-PyYAML = "^6.0.4"
+types-requests = "^2.27.12"
+types-urllib3 = "^1.26.11"
+pre-commit = "^2.17.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -76,7 +82,7 @@ sort_by_size = true
 profile = "black"
 line_length = 120
 multi_line_output = 3
- 
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q --cov=mealie"
@@ -92,3 +98,9 @@ skip_empty = true
 
 [tool.poetry.extras]
 pgsql = ["psycopg2-binary"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+follow_imports = "skip"
+strict_optional = false # TODO: Fix none type checks - temporary stop-gap to implement mypy

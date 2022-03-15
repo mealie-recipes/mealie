@@ -49,29 +49,25 @@ class SchedulerService:
 
     @staticmethod
     def add_cron_job(job_func: ScheduledFunc):
-        SchedulerService.scheduler.add_job(
+        SchedulerService.scheduler.add_job(  # type: ignore
             job_func.callback,
             trigger="cron",
             name=job_func.id,
             hour=job_func.hour,
             minute=job_func.minutes,
-            max_instances=job_func.max_instances,
+            max_instances=job_func.max_instances,  # type: ignore
             replace_existing=job_func.replace_existing,
             args=job_func.args,
         )
 
-        # SchedulerService._job_store[job_func.id] = job_func
-
     @staticmethod
     def update_cron_job(job_func: ScheduledFunc):
-        SchedulerService.scheduler.reschedule_job(
+        SchedulerService.scheduler.reschedule_job(  # type: ignore
             job_func.id,
             trigger="cron",
             hour=job_func.hour,
             minute=job_func.minutes,
         )
-
-        # SchedulerService._job_store[job_func.id] = job_func
 
 
 def _scheduled_task_wrapper(callable):

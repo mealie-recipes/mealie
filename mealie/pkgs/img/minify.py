@@ -19,11 +19,11 @@ def get_format(image: Path) -> str:
 def sizeof_fmt(file_path: Path, decimal_places=2):
     if not file_path.exists():
         return "(File Not Found)"
-    size = file_path.stat().st_size
+    size: int | float = file_path.stat().st_size
     for unit in ["B", "kB", "MB", "GB", "TB", "PB"]:
-        if size < 1024.0 or unit == "PiB":
+        if size < 1024 or unit == "PiB":
             break
-        size /= 1024.0
+        size /= 1024
     return f"{size:.{decimal_places}f} {unit}"
 
 

@@ -69,7 +69,6 @@ class RecipeService(BaseService):
         all_asset_files = [x.file_name for x in recipe.assets]
 
         for file in recipe.asset_dir.iterdir():
-            file: Path
             if file.is_dir():
                 continue
             if file.name not in all_asset_files:
@@ -102,13 +101,13 @@ class RecipeService(BaseService):
 
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
 
-        create_data: Recipe = self._recipe_creation_factory(
+        data: Recipe = self._recipe_creation_factory(
             self.user,
             name=create_data.name,
             additional_attrs=create_data.dict(),
         )
 
-        create_data.settings = RecipeSettings(
+        data.settings = RecipeSettings(
             public=self.group.preferences.recipe_public,
             show_nutrition=self.group.preferences.recipe_show_nutrition,
             show_assets=self.group.preferences.recipe_show_assets,
@@ -117,7 +116,7 @@ class RecipeService(BaseService):
             disable_amount=self.group.preferences.recipe_disable_amount,
         )
 
-        return self.repos.recipes.create(create_data)
+        return self.repos.recipes.create(data)
 
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """

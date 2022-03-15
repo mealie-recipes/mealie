@@ -1,5 +1,5 @@
 from fastapi_camelcase import CamelModel
-from pydantic import UUID4
+from pydantic import UUID4, NoneStr
 
 # =============================================================================
 # Group Events Notifier Options
@@ -68,7 +68,7 @@ class GroupEventNotifierSave(GroupEventNotifierCreate):
 
 class GroupEventNotifierUpdate(GroupEventNotifierSave):
     id: UUID4
-    apprise_url: str = None
+    apprise_url: NoneStr = None
 
 
 class GroupEventNotifierOut(CamelModel):

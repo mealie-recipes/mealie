@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-yaml
+        exclude: "mkdocs.yml"
+      - id: check-json
+        exclude: "devcontainer.json"
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/sondrelg/pep585-upgrade
+    rev: "v1.0.1" # Use the sha / tag you want to point at
+    hooks:
+      - id: upgrade-type-hints
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
+  - repo: https://github.com/psf/black
+    rev: 21.12b0
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/flake8
+    rev: "4.0.1"
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - "flake8-print==4.0.0"

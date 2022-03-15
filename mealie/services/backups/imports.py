@@ -1,8 +1,8 @@
 import json
 import shutil
 import zipfile
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 from pydantic.main import BaseModel
 from sqlalchemy.orm.session import Session
@@ -140,7 +140,7 @@ class ImportDatabase:
 
         if image_dir.exists():  # Migrate from before v0.5.0
             for image in image_dir.iterdir():
-                item: Recipe = successful_imports.get(image.stem)
+                item: Recipe = successful_imports.get(image.stem)  # type: ignore
 
                 if item:
                     dest_dir = item.image_dir
@@ -294,7 +294,7 @@ def import_database(
     settings_report = import_session.import_settings() if import_settings else []
     group_report = import_session.import_groups() if import_groups else []
     user_report = import_session.import_users() if import_users else []
-    notification_report = []
+    notification_report: list = []
 
     import_session.clean_up()
 

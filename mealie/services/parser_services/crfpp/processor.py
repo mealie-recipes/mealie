@@ -5,6 +5,8 @@ from pathlib import Path
 
 from pydantic import BaseModel, validator
 
+from mealie.schema._mealie.types import NoneFloat
+
 from . import utils
 from .pre_processor import pre_process_string
 
@@ -14,10 +16,10 @@ MODEL_PATH = CWD / "model.crfmodel"
 
 class CRFConfidence(BaseModel):
     average: float = 0.0
-    comment: float = None
-    name: float = None
-    unit: float = None
-    qty: float = None
+    comment: NoneFloat = None
+    name: NoneFloat = None
+    unit: NoneFloat = None
+    qty: NoneFloat = None
 
 
 class CRFIngredient(BaseModel):

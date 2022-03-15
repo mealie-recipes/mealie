@@ -42,9 +42,10 @@
   "python.testing.pytestArgs": ["tests"],
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
-  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.linting.mypyEnabled": true,
+  "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
   "search.mode": "reuseEditor",
   "vetur.validation.template": false,
-  "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
   "coverage-gutters.lcovname": "${workspaceFolder}/.coverage"
 }

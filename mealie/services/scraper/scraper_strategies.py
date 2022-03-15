@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Tuple
+from typing import Any, Callable
 
 import extruct
 import requests
@@ -26,7 +26,7 @@ class ABCScraperStrategy(ABC):
         self.url = url
 
     @abstractmethod
-    def parse(self, recipe_url: str) -> Recipe | None:
+    def parse(self) -> Recipe | None:
         """Parse a recipe from a web URL.
 
         Args:
@@ -40,7 +40,7 @@ class ABCScraperStrategy(ABC):
 
 class RecipeScraperPackage(ABCScraperStrategy):
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> Recipe:
-        def try_get_default(func_call: Callable, get_attr: str, default: Any, clean_func=None):
+        def try_get_default(func_call: Callable | None, get_attr: str, default: Any, clean_func=None):
             value = default
             try:
                 value = func_call()
@@ -143,7 +143,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
     def get_html(self) -> str:
         return requests.get(self.url).text
 
-    def get_recipe_fields(self, html) -> dict:
+    def get_recipe_fields(self, html) -> dict | None:
         """
         Get the recipe fields from the Open Graph data.
         """
@@ -151,7 +151,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         def og_field(properties: dict, field_name: str) -> str:
             return next((val for name, val in properties if name == field_name), None)
 
-        def og_fields(properties: list[Tuple[str, str]], field_name: str) -> list[str]:
+        def og_fields(properties: list[tuple[str, str]], field_name: str) -> list[str]:
             return list({val for name, val in properties if name == field_name})
 
         base_url = get_base_url(html, self.url)
@@ -159,7 +159,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         try:
             properties = data["opengraph"][0]["properties"]
         except Exception:
-            return
+            return None
 
         return {
             "name": og_field(properties, "og:title"),

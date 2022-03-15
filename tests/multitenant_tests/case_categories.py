@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from requests import Response
 
 from mealie.schema.recipe.recipe import RecipeCategory
@@ -27,7 +25,7 @@ class CategoryTestCase(ABCMultiTenantTestCase):
 
         return category_ids
 
-    def seed_multi(self, group1_id: str, group2_id: str) -> Tuple[set[str], set[str]]:
+    def seed_multi(self, group1_id: str, group2_id: str) -> tuple[set[str], set[str]]:
         g1_item_ids = set()
         g2_item_ids = set()
 

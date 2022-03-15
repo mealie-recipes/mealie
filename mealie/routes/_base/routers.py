@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import APIRouter, Depends
 
@@ -10,7 +10,7 @@ class AdminAPIRouter(APIRouter):
 
     def __init__(
         self,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         prefix: str = "",
     ):
         super().__init__(tags=tags, prefix=prefix, dependencies=[Depends(get_admin_user)])
@@ -21,7 +21,7 @@ class UserAPIRouter(APIRouter):
 
     def __init__(
         self,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         prefix: str = "",
     ):
         super().__init__(tags=tags, prefix=prefix, dependencies=[Depends(get_current_user)])

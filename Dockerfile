@@ -35,7 +35,7 @@ RUN apt-get update \
     libpq-dev \
     libwebp-dev \
     # LDAP Dependencies
-    libsasl2-dev libldap2-dev libssl-dev \ 
+    libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
     && pip install -U --no-cache-dir pip
 
@@ -65,8 +65,9 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 COPY ./mealie $MEALIE_HOME/mealie
 COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 
-#! Future
-# COPY ./alembic ./alembic.ini $MEALIE_HOME/
+# Alembic
+COPY ./alembic $MEALIE_HOME/alembic
+COPY ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
@@ -81,7 +82,7 @@ ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
 ###############################################
 FROM hkotel/crfpp as crfpp
 
-RUN echo "crfpp-container" 
+RUN echo "crfpp-container"
 
 ###############################################
 # Production Image
@@ -114,7 +115,7 @@ COPY ./mealie $MEALIE_HOME/mealie
 COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 COPY ./gunicorn_conf.py $MEALIE_HOME
 
-#! Future
+# Alembic
 COPY ./alembic $MEALIE_HOME/alembic
 COPY ./alembic.ini $MEALIE_HOME/
 

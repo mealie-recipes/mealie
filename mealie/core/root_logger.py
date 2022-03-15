@@ -20,7 +20,7 @@ class LoggerConfig:
     format: str
     date_format: str
     logger_file: str
-    level: str = logging.INFO
+    level: int = logging.INFO
 
 
 @lru_cache

@@ -16,13 +16,13 @@ class PasswordResetService(BaseService):
         self.db = get_repositories(session)
         super().__init__()
 
-    def generate_reset_token(self, email: str) -> SavePasswordResetToken:
+    def generate_reset_token(self, email: str) -> SavePasswordResetToken | None:
         user = self.db.users.get_one(email, "email")
 
         if user is None:
             logger.error(f"failed to create password reset for {email=}: user doesn't exists")
             # Do not raise exception here as we don't want to confirm to the client that the Email doens't exists
-            return
+            return None
 
         # Create Reset Token
         token = url_safe_token()

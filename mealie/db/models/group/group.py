@@ -78,8 +78,8 @@ class Group(SqlAlchemyBase, BaseMixins):
     def __init__(self, **_) -> None:
         pass
 
-    @staticmethod
-    def get_ref(session: Session, name: str):
+    @staticmethod  # TODO: Remove this
+    def get_ref(session: Session, name: str):  # type: ignore
         settings = get_app_settings()
 
         item = session.query(Group).filter(Group.name == name).one_or_none()

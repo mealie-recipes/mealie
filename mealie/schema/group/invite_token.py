@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from fastapi_camelcase import CamelModel
+from pydantic import NoneStr
 
 
 class CreateInviteToken(CamelModel):
@@ -29,4 +30,4 @@ class EmailInvitation(CamelModel):
 
 class EmailInitationResponse(CamelModel):
     success: bool
-    error: str = None
+    error: NoneStr = None

@@ -1,5 +1,4 @@
 from functools import cached_property
-from typing import Type
 
 from fastapi import APIRouter, HTTPException
 from pydantic import UUID4
@@ -24,7 +23,7 @@ class GroupCookbookController(BaseUserController):
     def repo(self):
         return self.deps.repos.cookbooks.by_group(self.group_id)
 
-    def registered_exceptions(self, ex: Type[Exception]) -> str:
+    def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
             **mealie_registered_exceptions(self.deps.t),
         }
