@@ -75,6 +75,7 @@ clean-test: ## 🧹 Remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 backend-clean: clean-pyc clean-test ## 🧹 Remove all build, test, coverage and Python artifacts
+	rm -fr .mypy_cache
 
 backend-typecheck:
 	poetry run mypy mealie
