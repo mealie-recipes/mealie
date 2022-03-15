@@ -17,13 +17,13 @@ def test_validators_user(api_client: TestClient, unique_user: TestUser):
     response = api_client.get(Routes.user + f"/{unique_user.username}")
     assert response.status_code == 200
     response_data = response.json()
-    assert response_data["valid"] == False
+    assert not response_data["valid"]
 
     # Test non-existing user
     response = api_client.get(Routes.user + f"/{unique_user.username}2")
     assert response.status_code == 200
     response_data = response.json()
-    assert response_data["valid"] == True
+    assert response_data["valid"]
 
     session.close()
 
@@ -35,12 +35,12 @@ def test_validators_recipe(api_client: TestClient, random_recipe: Recipe):
     response = api_client.get(Routes.recipe + f"/{random_recipe.group_id}/{random_recipe.slug}")
     assert response.status_code == 200
     response_data = response.json()
-    assert response_data["valid"] == False
+    assert not response_data["valid"]
 
     # Test non-existing user
     response = api_client.get(Routes.recipe + f"/{random_recipe.group_id}/{random_recipe.slug}-test")
     assert response.status_code == 200
     response_data = response.json()
-    assert response_data["valid"] == True
+    assert response_data["valid"]
 
     session.close()

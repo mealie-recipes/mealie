@@ -1,16 +1,11 @@
-from typing import Union
 from uuid import UUID
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import generate_session
-from mealie.db.models.group import Group
-from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.db.models.users import User
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.response import ValidationResponse
-from mealie.schema.user import UserBase
 
 router = APIRouter()
 
