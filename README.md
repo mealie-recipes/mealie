@@ -42,7 +42,7 @@
     </a>
 </p>
 
-[![Product Name Screen Shot][product-screenshot]]
+![Product Name Screen Shot][product-screenshot]
 
 # About The Project
 
@@ -83,7 +83,7 @@ An API allows integration into applications like [Home Assistant](https://www.ho
 
 ### Why a Database?
 
-Some users of static-site generator applications like ChowDown have expressed concerns about their data being stuck in a database. Considering this is a new project it is a valid concern to be worried about your data. Mealie specifically addresses this concern by provided automatic daily backups that export your data in json, plain-text markdown files, and/or custom Jinja2 templates. **This puts you in controls of how your data is represented** when exported from Mealie, which means you can easily migrate to any other service provided Mealie doesn't work for you.
+Some users of static-site generator applications like ChowDown have expressed concerns about their data being stuck in a database. Considering this is a new project it is a valid concern to be worried about your data. Mealie specifically addresses this concern by provided automatic daily backups that export your data in json, plain-text markdown files, and/or custom Jinja2 templates. **This puts you in control of how your data is represented** when exported from Mealie, which means you can easily migrate to any other service provided Mealie doesn't work for you.
 
 As to why we need a database?
 
