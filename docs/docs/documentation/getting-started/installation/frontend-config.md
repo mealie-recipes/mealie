@@ -4,12 +4,11 @@
 
 ### General
 
-| Variables    |        Default         | Description                         |
-| ------------ | :--------------------: | ----------------------------------- |
-| ALLOW_SIGNUP |          true          | Allows anyone to sign-up for Mealie |
-| API_URL      | http://mealie-api:9000 | URL to proxy API requests           |
+| Variables |        Default         | Description               |
+| --------- | :--------------------: | ------------------------- |
+| API_URL   | http://mealie-api:9000 | URL to proxy API requests |
 
-### Themeing 
+### Themeing
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
 
 | Variables             | Default | Description                 |

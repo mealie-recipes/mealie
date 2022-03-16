@@ -4,7 +4,7 @@
     fluid
     class="d-flex justify-center align-center"
     :class="{
-      'bg-off-white': !$vuetify.theme.dark,
+      'bg-off-white': !$vuetify.theme.dark && !isDark,
     }"
   >
     <v-card tag="section" class="d-flex flex-column align-center" width="600px">
@@ -108,6 +108,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
+import { useDark } from "@vueuse/core";
+import { useAppInfo } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useToggleDarkMode } from "~/composables/use-utils";
 export default defineComponent({
@@ -115,9 +117,9 @@ export default defineComponent({
 
   setup() {
     const toggleDark = useToggleDarkMode();
+    const isDark = useDark();
 
     const { $auth } = useContext();
-    const context = useContext();
 
     const form = reactive({
       email: "",
@@ -127,7 +129,9 @@ export default defineComponent({
 
     const loggingIn = ref(false);
 
-    const allowSignup = computed(() => context.env.ALLOW_SIGNUP as boolean);
+    const appInfo = useAppInfo();
+
+    const allowSignup = computed(() => appInfo.value?.allowSignup || false);
 
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
@@ -148,6 +152,7 @@ export default defineComponent({
         // See https://github.com/nuxt-community/axios-module/issues/550
         // Import $axios from useContext()
         // if ($axios.isAxiosError(error) && error.response?.status === 401) {
+        // @ts-ignore - see above
         if (error.response?.status === 401) {
           alert.error("Invalid Credentials");
         } else {
@@ -158,6 +163,7 @@ export default defineComponent({
     }
 
     return {
+      isDark,
       form,
       loggingIn,
       allowSignup,

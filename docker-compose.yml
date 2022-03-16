@@ -12,7 +12,6 @@ services:
     ports:
       - 9091:3000
     environment:
-      - ALLOW_SIGNUP=true
       - API_URL=http://mealie-api:9000
 
       # =====================================
@@ -45,6 +44,8 @@ services:
     ports:
       - 9092:9000
     environment:
+      ALLOW_SIGNUP: "false"
+
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
       # Postgres Config

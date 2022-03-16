@@ -15,4 +15,5 @@ async def get_app_info():
         version=APP_VERSION,
         demo_status=settings.IS_DEMO,
         production=settings.PRODUCTION,
+        allow_signup=settings.ALLOW_SIGNUP,
     )

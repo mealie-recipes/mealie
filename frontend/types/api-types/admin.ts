@@ -9,6 +9,7 @@ export interface AdminAboutInfo {
   production: boolean;
   version: string;
   demoStatus: boolean;
+  allowSignup: boolean;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -29,6 +30,7 @@ export interface AppInfo {
   production: boolean;
   version: string;
   demoStatus: boolean;
+  allowSignup: boolean;
 }
 export interface AppStatistics {
   totalRecipes: number;

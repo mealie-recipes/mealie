@@ -32,6 +32,8 @@ class AppSettings(BaseSettings):
     TOKEN_TIME: int = 48  # Time in Hours
     SECRET: str
 
+    ALLOW_SIGNUP: bool = True
+
     @property
     def DOCS_URL(self) -> str | None:
         return "/docs" if self.API_DOCS else None
@@ -119,8 +121,8 @@ def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, e
     directly, but rather through this factory function.
     """
     app_settings = AppSettings(
-        _env_file=env_file,
-        _env_file_encoding=env_encoding,
+        _env_file=env_file,  # type: ignore
+        _env_file_encoding=env_encoding,  # type: ignore
         **{"SECRET": determine_secrets(data_dir, production)},
     )
 

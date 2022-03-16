@@ -16,13 +16,13 @@ def random_bool() -> bool:
     return bool(random.getrandbits(1))
 
 
-def user_registration_factory() -> CreateUserRegistration:
+def user_registration_factory(advanced=None, private=None) -> CreateUserRegistration:
     return CreateUserRegistration(
         group=random_string(),
         email=random_email(),
         username=random_string(),
         password="fake-password",
         password_confirm="fake-password",
-        advanced=False,
-        private=False,
+        advanced=advanced or random_bool(),
+        private=private or random_bool(),
     )

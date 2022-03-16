@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from fastapi_camelcase import CamelModel
 
 
@@ -15,6 +13,7 @@ class AppInfo(CamelModel):
     production: bool
     version: str
     demo_status: bool
+    allow_signup: bool
 
 
 class AdminAboutInfo(AppInfo):
@@ -22,7 +21,7 @@ class AdminAboutInfo(AppInfo):
     api_port: int
     api_docs: bool
     db_type: str
-    db_url: Path
+    db_url: str | None
     default_group: str
 
 
