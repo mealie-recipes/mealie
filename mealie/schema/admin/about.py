@@ -15,6 +15,7 @@ class AppInfo(CamelModel):
     production: bool
     version: str
     demo_status: bool
+    allow_signup: bool
 
 
 class AdminAboutInfo(AppInfo):
