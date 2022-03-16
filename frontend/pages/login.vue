@@ -4,7 +4,7 @@
     fluid
     class="d-flex justify-center align-center"
     :class="{
-      'bg-off-white': !$vuetify.theme.dark,
+      'bg-off-white': !$vuetify.theme.dark && !isDark,
     }"
   >
     <v-card tag="section" class="d-flex flex-column align-center" width="600px">
@@ -108,6 +108,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
+import { useDark } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useToggleDarkMode } from "~/composables/use-utils";
@@ -116,6 +117,7 @@ export default defineComponent({
 
   setup() {
     const toggleDark = useToggleDarkMode();
+    const isDark = useDark();
 
     const { $auth } = useContext();
 
@@ -161,6 +163,7 @@ export default defineComponent({
     }
 
     return {
+      isDark,
       form,
       loggingIn,
       allowSignup,
