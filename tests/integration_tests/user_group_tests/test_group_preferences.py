@@ -16,9 +16,8 @@ def test_get_preferences(api_client: TestClient, unique_user: TestUser) -> None:
 
     preferences = response.json()
 
-    # Spot Check Defaults
-    assert preferences["recipePublic"] is True
-    assert preferences["recipeShowNutrition"] is False
+    assert preferences["recipePublic"] in {True, False}
+    assert preferences["recipeShowNutrition"] in {True, False}
 
 
 def test_preferences_in_group(api_client: TestClient, unique_user: TestUser) -> None:
@@ -31,8 +30,8 @@ def test_preferences_in_group(api_client: TestClient, unique_user: TestUser) -> 
     assert group["preferences"] is not None
 
     # Spot Check
-    assert group["preferences"]["recipePublic"] is True
-    assert group["preferences"]["recipeShowNutrition"] is False
+    assert group["preferences"]["recipePublic"] in {True, False}
+    assert group["preferences"]["recipeShowNutrition"] in {True, False}
 
 
 def test_update_preferences(api_client: TestClient, unique_user: TestUser) -> None:
