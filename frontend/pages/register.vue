@@ -126,10 +126,10 @@ export default defineComponent({
     function toggleJoinGroup() {
       if (state.joinGroup) {
         state.joinGroup = false;
-        form.group = "";
+        token.value = "";
       } else {
         state.joinGroup = true;
-        token.value = null;
+        form.group = "";
       }
     }
 
