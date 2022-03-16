@@ -119,7 +119,7 @@ export default defineComponent({
 
     const token = useRouteQuery("token");
 
-    if (token) {
+    if (token.value) {
       state.joinGroup = true;
     }
 
