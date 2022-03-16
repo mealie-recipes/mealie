@@ -11,9 +11,12 @@ export interface ErrorResponse {
   exception?: string;
 }
 export interface FileTokenResponse {
-  file_token: string;
+  fileToken: string;
 }
 export interface SuccessResponse {
   message: string;
   error?: boolean;
+}
+export interface ValidationResponse {
+  valid?: boolean;
 }

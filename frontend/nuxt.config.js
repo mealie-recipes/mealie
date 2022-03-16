@@ -26,7 +26,6 @@ export default {
 
   env: {
     GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
-    ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
   },
 
   router: {
@@ -220,10 +219,6 @@ export default {
 
   publicRuntimeConfig: {
     GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
-    ALLOW_SIGNUP: process.env.ALLOW_SIGNUP || true,
-    envProps: {
-      allowSignup: process.env.ALLOW_SIGNUP || true,
-    },
     SUB_PATH: process.env.SUB_PATH || "",
     axios: {
       browserBaseURL: process.env.SUB_PATH || "",

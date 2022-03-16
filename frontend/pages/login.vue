@@ -108,6 +108,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
+import { useAppInfo } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useToggleDarkMode } from "~/composables/use-utils";
 export default defineComponent({
@@ -117,7 +118,6 @@ export default defineComponent({
     const toggleDark = useToggleDarkMode();
 
     const { $auth } = useContext();
-    const context = useContext();
 
     const form = reactive({
       email: "",
@@ -127,7 +127,9 @@ export default defineComponent({
 
     const loggingIn = ref(false);
 
-    const allowSignup = computed(() => context.env.ALLOW_SIGNUP === "true");
+    const appInfo = useAppInfo();
+
+    const allowSignup = computed(() => appInfo.value?.allowSignup || false);
 
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
@@ -148,6 +150,7 @@ export default defineComponent({
         // See https://github.com/nuxt-community/axios-module/issues/550
         // Import $axios from useContext()
         // if ($axios.isAxiosError(error) && error.response?.status === 401) {
+        // @ts-ignore - see above
         if (error.response?.status === 401) {
           alert.error("Invalid Credentials");
         } else {
