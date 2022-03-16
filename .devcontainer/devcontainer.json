@@ -14,7 +14,10 @@
       "NODE_VERSION": "16"
     }
   },
-
+  "mounts": [
+    "source=mealie-devcontainer-workspace,target=/workspaces/mealie/frontend/node_modules,type=volume",
+    "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume"
+  ],
   // Set *default* container specific settings.json values on container create.
   "settings": {
     "python.defaultInterpreterPath": "/usr/local/bin/python",
@@ -30,19 +33,21 @@
     "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
     "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
   },
-
   // Add the IDs of extensions you want installed when the container is created.
-  "extensions": ["ms-python.python", "ms-python.vscode-pylance"],
-
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance"
+  ],
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000, 9000],
-
+  "forwardPorts": [
+    3000,
+    9000
+  ],
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "make setup",
-
+  "postCreateCommand": "sudo chown -R vscode:vscode /workspaces/mealie/frontend/node_modules && make setup",
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
-  "features": {
-    "git": "latest"
-  }
+  // "features": {
+  //   "git": "latest"
+  // }
 }

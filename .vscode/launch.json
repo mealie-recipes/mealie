@@ -5,29 +5,21 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: FastAPI",
+      "name": "Mealie Backend",
       "type": "python",
       "request": "launch",
       "module": "uvicorn",
-      "args": ["mealie.app:app"],
+      "args": [
+        "mealie.app:app",
+        "--port",
+        "9000"
+      ],
+      "env": {
+        "PRODUCTION": "False",
+      },
       "justMyCode": false,
-      "jinja": true
-    },
-    {
-      "name": "Python: Current File",
-      "type": "python",
-      "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal",
-      "justMyCode": false
-    },
-    {
-      "name": "Debug Tests",
-      "type": "python",
-      "request": "test",
-      "console": "integratedTerminal",
-      "justMyCode": false,
-      "env": { "PYTEST_ADDOPTS": "--no-cov" }
+      "jinja": true,
+      "preLaunchTask": "Init Database"
     }
   ]
 }
