@@ -5,7 +5,7 @@ repos:
       - id: check-yaml
         exclude: "mkdocs.yml"
       - id: check-json
-        exclude: "devcontainer.json"
+        exclude: (.vscode|.devcontainer)
       - id: check-toml
       - id: end-of-file-fixer
       - id: trailing-whitespace

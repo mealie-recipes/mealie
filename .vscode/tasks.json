@@ -6,7 +6,9 @@
       "command": "make docker-dev",
       "type": "shell",
       "args": [],
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "presentation": {
         "reveal": "always"
       },
@@ -17,7 +19,9 @@
       "command": "make docker-prod",
       "type": "shell",
       "args": [],
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "presentation": {
         "reveal": "always"
       },
@@ -26,6 +30,16 @@
     {
       "label": "Dev: Start Backend",
       "command": "make backend",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Init Database",
+      "command": "poetry run python mealie/db/init_db.py",
       "type": "shell",
       "presentation": {
         "reveal": "always",

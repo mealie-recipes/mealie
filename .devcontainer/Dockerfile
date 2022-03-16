@@ -10,21 +10,24 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
 
+RUN echo "export PROMPT_COMMAND='history -a'" >> /home/vscode/.bashrc \
+    && echo "export HISTFILE=~/commandhistory/.bash_history" >> /home/vscode/.bashrc \
+    && chown vscode:vscode -R /home/vscode/
+
+
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
     POETRY_HOME="/opt/poetry" \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1 \
-    PYSETUP_PATH="/opt/pysetup" \
-    VENV_PATH="/opt/pysetup/.venv"
+    POETRY_VIRTUALENVS_CREATE=false
 
 # prepend poetry and venv to path
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+ENV PATH="$POETRY_HOME/bin:$PATH"
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+# RUN poetry config virtualenvs.create false
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
@@ -32,7 +35,6 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     libwebp-dev \
-    # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
-    gnupg gnupg2 gnupg1 \
-    && pip install -U --no-cache-dir pip
+    gnupg gnupg2 gnupg1
+#     && pip install -U --no-cache-dir pip
