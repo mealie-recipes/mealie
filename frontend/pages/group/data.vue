@@ -36,7 +36,9 @@
       </template>
     </BasePageTitle>
     <section>
-      <NuxtChild />
+      <v-scroll-x-transition>
+        <NuxtChild />
+      </v-scroll-x-transition>
     </section>
   </v-container>
 </template>
