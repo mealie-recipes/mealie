@@ -127,6 +127,15 @@
         </v-col>
         <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
+            :link="{ text: 'Manage Data', to: '/group/data/foods' }"
+            :image="require('~/static/svgs/manage-recipes.svg')"
+          >
+            <template #title> Manage Data </template>
+            Manage your Food and Units (more options coming soon)
+          </UserProfileLinkCard>
+        </v-col>
+        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
+          <UserProfileLinkCard
             :link="{ text: 'Manage Data Migrations', to: '/user/group/data/migrations' }"
             :image="require('~/static/svgs/manage-data-migrations.svg')"
           >
