@@ -1,10 +1,10 @@
 import { useAsync, ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
-import { Unit } from "~/api/class-interfaces/recipe-units";
 import { VForm } from "~/types/vuetify";
+import { IngredientUnit } from "~/types/api-types/recipe";
 
-let unitStore: Ref<Unit[] | null> | null = null;
+let unitStore: Ref<IngredientUnit[] | null> | null = null;
 
 export const useUnits = function () {
   const api = useUserApi();
@@ -12,8 +12,8 @@ export const useUnits = function () {
   const deleteTargetId = ref(0);
   const validForm = ref(true);
 
-  const workingUnitData = reactive({
-    id: 0,
+  const workingUnitData: IngredientUnit = reactive({
+    id: "",
     name: "",
     fraction: true,
     abbreviation: "",
@@ -79,12 +79,12 @@ export const useUnits = function () {
       }
     },
     resetWorking() {
-      workingUnitData.id = 0;
+      workingUnitData.id = "";
       workingUnitData.name = "";
       workingUnitData.abbreviation = "";
       workingUnitData.description = "";
     },
-    setWorking(item: Unit) {
+    setWorking(item: IngredientUnit) {
       workingUnitData.id = item.id;
       workingUnitData.name = item.name;
       workingUnitData.fraction = item.fraction;
