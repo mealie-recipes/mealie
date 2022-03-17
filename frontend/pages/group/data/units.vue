@@ -12,10 +12,11 @@
         <v-form ref="domCreateFoodForm">
           <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="editTarget.abbreviation" label="Abbreviation"></v-text-field>
-
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
-        </v-form> </v-card-text
-    ></BaseDialog>
+          <v-checkbox v-model="editTarget.fraction" hide-details label="Display as Fraction"></v-checkbox>
+        </v-form>
+      </v-card-text>
+    </BaseDialog>
 
     <!-- Delete Dialog -->
     <BaseDialog
@@ -40,6 +41,11 @@
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
     >
+      <template #item.fraction="{ item }">
+        <v-icon :color="item.fraction ? 'success' : undefined">
+          {{ item.fraction ? $globals.icons.check : $globals.icons.close }}
+        </v-icon>
+      </template>
     </CrudTable>
   </div>
 </template>
@@ -56,6 +62,7 @@ export default defineComponent({
     const userApi = useUserApi();
     const tableConfig = {
       hideColumns: true,
+      canExport: true,
     };
     const tableHeaders = [
       {
@@ -76,6 +83,11 @@ export default defineComponent({
       {
         text: "Description",
         value: "description",
+        show: true,
+      },
+      {
+        text: "Fraction",
+        value: "fraction",
         show: true,
       },
     ];
