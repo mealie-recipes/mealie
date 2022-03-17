@@ -47,7 +47,7 @@
       :items="data || []"
       :items-per-page="15"
       :search="search"
-      class="elevation-0"
+      class="elevation-2"
     >
       <template v-for="header in activeHeaders" #[`item.${header.value}`]="{ item }">
         <slot :name="'item.' + header.value" v-bind="{ item }"> {{ item[header.value] }}</slot>
@@ -71,14 +71,25 @@
         />
       </template>
     </v-data-table>
+    <v-card-actions class="justify-end">
+      <slot name="button-bottom"> </slot>
+      <BaseButton color="info" @click="downloadAsJson(data, 'export.json')">
+        <template #icon>
+          {{ $globals.icons.download }}
+        </template>
+        {{ $tc("general.download") }}
+      </BaseButton>
+    </v-card-actions>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
+import { downloadAsJson } from "~/composables/use-utils";
 
 export interface TableConfig {
   hideColumns: boolean;
+  canExport: boolean;
 }
 
 export interface TableHeaders {
@@ -100,6 +111,7 @@ export default defineComponent({
       type: Object as () => TableConfig,
       default: () => ({
         hideColumns: false,
+        canExport: false,
       }),
     },
     headers: {
@@ -162,6 +174,7 @@ export default defineComponent({
       activeHeaders,
       bulkActionListener,
       search,
+      downloadAsJson,
     };
   },
 });
