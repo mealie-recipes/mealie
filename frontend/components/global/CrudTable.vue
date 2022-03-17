@@ -36,6 +36,9 @@
       </BaseOverflowButton>
       <slot name="button-row"> </slot>
     </v-card-actions>
+    <div class="mx-2 clip-width">
+      <v-text-field v-model="search" :label="$tc('search.search')"></v-text-field>
+    </div>
     <v-data-table
       v-model="selected"
       item-key="id"
@@ -43,6 +46,7 @@
       :headers="activeHeaders"
       :items="data || []"
       :items-per-page="15"
+      :search="search"
       class="elevation-0"
     >
       <template v-for="header in activeHeaders" #[`item.${header.value}`]="{ item }">
@@ -150,12 +154,21 @@ export default defineComponent({
       return handlers;
     });
 
+    const search = ref("");
+
     return {
       selected,
       filteredHeaders,
       activeHeaders,
       bulkActionListener,
+      search,
     };
   },
 });
 </script>
+
+<style>
+.clip-width {
+  max-width: 400px;
+}
+</style>
