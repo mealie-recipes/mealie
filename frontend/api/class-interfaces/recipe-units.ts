@@ -1,24 +1,14 @@
 import { BaseCRUDAPI } from "../_base";
+import { CreateIngredientUnit, IngredientUnit } from "~/types/api-types/recipe";
 
 const prefix = "/api";
-
-export interface CreateUnit {
-  name: string;
-  abbreviation: string;
-  fraction: boolean;
-  description: string;
-}
-
-export interface Unit extends CreateUnit {
-  id: number;
-}
 
 const routes = {
   unit: `${prefix}/units`,
   unitsUnit: (tag: string) => `${prefix}/units/${tag}`,
 };
 
-export class UnitAPI extends BaseCRUDAPI<Unit, CreateUnit> {
+export class UnitAPI extends BaseCRUDAPI<IngredientUnit, CreateIngredientUnit> {
   baseRoute: string = routes.unit;
   itemRoute = routes.unitsUnit;
 }

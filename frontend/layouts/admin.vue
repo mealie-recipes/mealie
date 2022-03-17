@@ -55,23 +55,6 @@ export default defineComponent({
         title: i18n.t("sidebar.site-settings"),
       },
       {
-        icon: $globals.icons.tools,
-        to: "/admin/toolbox",
-        title: i18n.t("sidebar.toolbox"),
-        children: [
-          {
-            icon: $globals.icons.foods,
-            to: "/admin/toolbox/foods",
-            title: "Manage Foods",
-          },
-          {
-            icon: $globals.icons.units,
-            to: "/admin/toolbox/units",
-            title: "Manage Units",
-          },
-        ],
-      },
-      {
         icon: $globals.icons.user,
         to: "/admin/manage/users",
         title: i18n.t("user.users"),

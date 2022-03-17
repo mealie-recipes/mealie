@@ -16,6 +16,7 @@
  import InputQuantity from "@/components/global/InputQuantity.vue";
  import ToggleState from "@/components/global/ToggleState.vue";
  import AppButtonCopy from "@/components/global/AppButtonCopy.vue";
+ import CrudTable from "@/components/global/CrudTable.vue";
  import InputColor from "@/components/global/InputColor.vue";
  import BaseDivider from "@/components/global/BaseDivider.vue";
  import AutoForm from "@/components/global/AutoForm.vue";
@@ -49,6 +50,7 @@ declare module "vue" {
      InputQuantity: typeof InputQuantity;
      ToggleState: typeof ToggleState;
      AppButtonCopy: typeof AppButtonCopy;
+     CrudTable: typeof CrudTable;
      InputColor: typeof InputColor;
      BaseDivider: typeof BaseDivider;
      AutoForm: typeof AutoForm;
@@ -60,7 +62,7 @@ declare module "vue" {
      AppHeader: typeof AppHeader;
      AppSidebar: typeof AppSidebar;
      AppFooter: typeof AppFooter;
-    
+
   }
 }
 

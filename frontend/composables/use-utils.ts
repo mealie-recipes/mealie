@@ -96,3 +96,14 @@ export function deepCopy<T>(obj: T): T {
   }
   return rv as T;
 }
+
+export function downloadAsJson(data: any, filename: string) {
+  const content = JSON.stringify(data);
+  const blob = new Blob([content], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.download = filename;
+  a.href = url;
+  a.click();
+  URL.revokeObjectURL(url);
+}

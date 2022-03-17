@@ -14,7 +14,7 @@ export interface AdminAboutInfo {
   apiPort: number;
   apiDocs: boolean;
   dbType: string;
-  dbUrl: string;
+  dbUrl?: string;
   defaultGroup: string;
 }
 export interface AllBackups {

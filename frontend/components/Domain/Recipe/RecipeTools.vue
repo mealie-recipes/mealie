@@ -27,7 +27,7 @@
             {{ data.item.name || data.item }}
           </v-chip>
         </template>
-        <template #append-outer="">
+        <template #append-outer>
           <BaseDialog v-model="createDialog" title="Create New Tool" @submit="actions.createOne()">
             <template #activator>
               <v-btn icon @click="createDialog = true">
@@ -86,5 +86,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

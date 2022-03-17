@@ -45,12 +45,12 @@
                   :buttons="[
                     {
                       icon: $globals.icons.edit,
-                      text: $t('general.edit'),
+                      text: $tc('general.edit'),
                       event: 'edit',
                     },
                     {
                       icon: $globals.icons.delete,
-                      text: $t('general.delete'),
+                      text: $tc('general.delete'),
                       event: 'delete',
                     },
                   ]"
