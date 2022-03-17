@@ -69,6 +69,7 @@ export default defineComponent({
     const userApi = useUserApi();
     const tableConfig = {
       hideColumns: true,
+      canExport: true,
     };
     const tableHeaders = [
       {
