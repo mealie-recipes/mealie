@@ -123,14 +123,6 @@ export default defineComponent({
           to: "/user/group/cookbooks",
           restricted: true,
         },
-        { divider: true },
-        {
-          icon: this.$globals.icons.cartCheck,
-          title: "Shopping List",
-          subtitle: "Create a new shopping list",
-          to: "/user/group/shopping-lists/create",
-          restricted: true,
-        },
       ],
       bottomLink: [
         {
