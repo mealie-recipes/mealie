@@ -12,7 +12,14 @@
         <v-form ref="domCreateFoodForm">
           <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
-          <v-autocomplete v-model="editTarget.labelId" clearable :items="allLabels" item-value="id" item-text="name">
+          <v-autocomplete
+            v-model="editTarget.labelId"
+            clearable
+            :items="allLabels"
+            item-value="id"
+            item-text="name"
+            label="Food Label"
+          >
           </v-autocomplete>
         </v-form> </v-card-text
     ></BaseDialog>
