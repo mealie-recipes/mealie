@@ -42,7 +42,7 @@
     <v-data-table
       v-model="selected"
       item-key="id"
-      show-select
+      :show-select="bulkActions.length > 0"
       :headers="activeHeaders"
       :items="data || []"
       :items-per-page="15"
