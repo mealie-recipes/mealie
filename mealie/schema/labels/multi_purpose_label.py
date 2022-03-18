@@ -6,7 +6,7 @@ from pydantic import UUID4
 
 class MultiPurposeLabelCreate(CamelModel):
     name: str
-    color: str = ""
+    color: str = "#E0E0E0"
 
 
 class MultiPurposeLabelSave(MultiPurposeLabelCreate):
