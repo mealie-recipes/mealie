@@ -29,7 +29,6 @@ export default defineComponent({
 
     Based on -> https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
     */
-
     const ACCESSIBILITY_THRESHOLD = 0.179;
 
     function pickTextColorBasedOnBgColorAdvanced(bgColor: string, lightColor: string, darkColor: string) {

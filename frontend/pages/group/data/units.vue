@@ -21,7 +21,7 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="deleteDialog"
-      :title="$tc('general.delete')"
+      :title="$tc('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteFood"

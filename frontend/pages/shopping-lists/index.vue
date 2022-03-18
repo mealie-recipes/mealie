@@ -1,12 +1,12 @@
 <template>
   <v-container v-if="shoppingLists" class="narrow-container">
-    <BaseDialog v-model="createDialog" :title="$t('shopping-list.create-shopping-list')" @submit="createOne">
+    <BaseDialog v-model="createDialog" :title="$tc('shopping-list.create-shopping-list')" @submit="createOne">
       <v-card-text>
         <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
       </v-card-text>
     </BaseDialog>
 
-    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error" @confirm="deleteOne">
+    <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" color="error" @confirm="deleteOne">
       <v-card-text> Are you sure you want to delete this item?</v-card-text>
     </BaseDialog>
     <BasePageTitle divider>
@@ -33,11 +33,11 @@
       </v-card>
     </section>
     <div class="d-flex justify-end mt-10">
-      <ButtonLink to="/shopping-lists/labels" text="Manage Labels" :icon="$globals.icons.tags" />
+      <ButtonLink to="/group/data/labels" text="Manage Labels" :icon="$globals.icons.tags" />
     </div>
   </v-container>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, useAsync, reactive, toRefs } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";

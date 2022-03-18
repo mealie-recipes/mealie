@@ -178,7 +178,7 @@
 
     <v-lazy>
       <div class="d-flex justify-end mt-10">
-        <ButtonLink to="/shopping-lists/labels" text="Manage Labels" :icon="$globals.icons.tags" />
+        <ButtonLink to="/group/data/labels" text="Manage Labels" :icon="$globals.icons.tags" />
       </div>
     </v-lazy>
   </v-container>
