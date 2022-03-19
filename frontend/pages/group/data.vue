@@ -24,11 +24,11 @@
                 value: 'new',
                 to: '/group/data/units',
               },
-              // {
-              //   text: 'Labels',
-              //   value: 'new',
-              //   to: '/group/data/labels',
-              // },
+              {
+                text: 'Labels',
+                value: 'new',
+                to: '/group/data/labels',
+              },
             ]"
           >
           </BaseOverflowButton>
