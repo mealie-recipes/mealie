@@ -170,7 +170,12 @@ export default {
       // END: MESSAGE_LOCALES
     ],
     lazy: true,
+    strategy: "no_prefix",
     langDir: "lang/messages",
+    detectBrowserLanguage: {
+      useCookie: true,
+      alwaysRedirect: true,
+    },
     defaultLocale: "en-US",
     vueI18n: {
       dateTimeFormats: {
@@ -208,8 +213,8 @@ export default {
         "vi-VN": require("./lang/dateTimeFormats/vi-VN.json"),
         // END: DATE_LOCALES
       },
+      fallbackLocale: "en-US",
     },
-    fallbackLocale: "es",
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

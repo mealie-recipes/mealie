@@ -36,6 +36,15 @@
         </v-list>
       </v-menu>
       <template #bottom>
+        <v-list-item @click.stop="languageDialog = true">
+          <v-list-item-icon>
+            <v-icon>{{ $globals.icons.translate }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('sidebar.language') }}</v-list-item-title>
+            <LanguageDialog v-model="languageDialog" />
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item @click="toggleDark">
           <v-list-item-icon>
             <v-icon>
@@ -64,12 +73,13 @@
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import AppHeader from "@/components/Layout/AppHeader.vue";
 import AppSidebar from "@/components/Layout/AppSidebar.vue";
+import LanguageDialog from "~/components/global/LanguageDialog.vue";
 import TheSnackbar from "@/components/Layout/TheSnackbar.vue";
 import { useCookbooks } from "~/composables/use-group-cookbooks";
 import { useToggleDarkMode } from "~/composables/use-utils";
 
 export default defineComponent({
-  components: { AppHeader, AppSidebar, TheSnackbar },
+  components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
   middleware: "auth",
   setup() {
     const { cookbooks } = useCookbooks();
@@ -78,6 +88,8 @@ export default defineComponent({
     const isAdmin = computed(() => $auth.user?.admin);
 
     const toggleDark = useToggleDarkMode();
+
+    const languageDialog = ref<boolean>(false);
 
     const sidebar = ref<boolean | null>(null);
 
@@ -95,7 +107,7 @@ export default defineComponent({
         };
       });
     });
-    return { cookbookLinks, isAdmin, toggleDark, sidebar };
+    return { cookbookLinks, isAdmin, languageDialog, toggleDark, sidebar };
   },
   data() {
     return {
