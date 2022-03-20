@@ -1,7 +1,8 @@
 from collections.abc import Callable
 from pathlib import Path
+from time import sleep
 
-from sqlalchemy import engine
+from sqlalchemy import engine, orm
 
 from alembic import command, config, script
 from alembic.config import Config
@@ -50,6 +51,10 @@ def default_group_init(db: AllRepositories):
 def db_is_at_head(alembic_cfg: config.Config) -> bool:
     settings = get_app_settings()
     url = settings.DB_URL
+
+    if not url:
+        raise ValueError("No database url found")
+
     connectable = engine.create_engine(url)
     directory = script.ScriptDirectory.from_config(alembic_cfg)
     with connectable.begin() as connection:
@@ -64,7 +69,35 @@ def safe_try(name: str, func: Callable):
         logger.error(f"Error calling '{name}': {e}")
 
 
+def connect(session: orm.Session) -> bool:
+    try:
+        session.execute("SELECT 1")
+        return True
+    except Exception as e:
+        logger.error(f"Error connecting to database: {e}")
+        return False
+
+
 def main():
+    session = create_session()
+
+    # Wait for database to connect
+    max_retry = 10
+    wait_seconds = 1
+
+    while True:
+        if connect(session):
+            logger.info("Database connection established.")
+            break
+
+        logger.error(f"Database connection failed. Retrying in {wait_seconds} seconds...")
+        max_retry -= 1
+
+        sleep(wait_seconds)
+
+        if max_retry == 0:
+            raise ConnectionError("Database connection failed - exiting application.")
+
     alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
     if db_is_at_head(alembic_cfg):
         logger.info("Migration not needed.")
@@ -72,7 +105,6 @@ def main():
         logger.info("Migration needed. Performing migration...")
         command.upgrade(alembic_cfg, "head")
 
-    session = create_session()
     db = get_repositories(session)
 
     init_user = db.users.get_all()
