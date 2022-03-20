@@ -497,7 +497,8 @@
     "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user"
   },
   "language-dialog": {
-    "choose-language": "Choose language",
+    "translated": "translated",
+    "choose-language": "Choose Language",
     "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
