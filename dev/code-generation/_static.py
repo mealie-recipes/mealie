@@ -16,6 +16,7 @@ class CodeTemplates:
 class CodeDest:
     interface = CWD / "generated" / "interface.js"
     pytest_routes = CWD / "generated" / "test_routes.py"
+    use_locales = PROJECT_DIR / "frontend" / "composables" / "use-locales" / "available-locales.ts"
 
 
 class CodeKeys:

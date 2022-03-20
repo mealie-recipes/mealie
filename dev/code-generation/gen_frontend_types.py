@@ -38,9 +38,9 @@ def generate_global_components_types() -> None:
         "layout": PROJECT_DIR / "frontend" / "components" / "Layout",
     }
 
-    def render_template(template: str, data: dict) -> None:
-        template = Template(template)
-        return template.render(**data)
+    def render_template(template: str, data: dict) -> str | None:
+        tmpl = Template(template)
+        return tmpl.render(**data)
 
     def build_data() -> dict:
         data = {}
@@ -54,7 +54,9 @@ def generate_global_components_types() -> None:
         destination_file.write_text(text)
 
     text = render_template(template, build_data())
-    write_template(text)
+
+    if text:
+        write_template(text)
 
 
 # ============================================================
@@ -63,13 +65,13 @@ def generate_global_components_types() -> None:
 
 def generate_typescript_types() -> None:
     def path_to_module(path: Path):
-        path: str = str(path)
+        str_path: str = str(path)
 
-        path = path.removeprefix(str(PROJECT_DIR))
-        path = path.removeprefix("/")
-        path = path.replace("/", ".")
+        str_path = str_path.removeprefix(str(PROJECT_DIR))
+        str_path = str_path.removeprefix("/")
+        str_path = str_path.replace("/", ".")
 
-        return path
+        return str_path
 
     schema_path = PROJECT_DIR / "mealie" / "schema"
     types_dir = PROJECT_DIR / "frontend" / "types" / "api-types"
@@ -94,12 +96,12 @@ def generate_typescript_types() -> None:
 
         try:
             path_as_module = path_to_module(module)
-            generate_typescript_defs(path_as_module, str(out_path), exclude=("CamelModel"))
+            generate_typescript_defs(path_as_module, str(out_path), exclude=("CamelModel"))  # type: ignore
         except Exception as e:
             failed_modules.append(module)
-            print("\nModule Errors:", module, "-----------------")
+            print("\nModule Errors:", module, "-----------------")  # noqa
             print(e)  # noqa
-            print("Finished Module Errors:", module, "-----------------\n")
+            print("Finished Module Errors:", module, "-----------------\n")  # noqa
 
     print("\n📁 Skipped Directories:")  # noqa
     for skipped_dir in skipped_dirs:
