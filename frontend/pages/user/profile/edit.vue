@@ -50,7 +50,7 @@
               </v-card>
             </div>
             <div v-if="state" key="change-password">
-              <BaseCardSectionTitle class="mt-10" :title="$t('settings.change-password')"> </BaseCardSectionTitle>
+              <BaseCardSectionTitle class="mt-10" :title="$tc('settings.change-password')"> </BaseCardSectionTitle>
               <v-card outlined>
                 <v-card-text class="pb-0">
                   <v-form ref="passChange">
@@ -60,14 +60,16 @@
                       :label="$t('user.current-password')"
                       validate-on-blur
                       :type="showPassword ? 'text' : 'password'"
-                      @click:append="showPassword.current = !showPassword.current"
+                      :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+                      @click:append="showPassword = !showPassword"
                     ></v-text-field>
                     <v-text-field
                       v-model="password.newOne"
                       :prepend-icon="$globals.icons.lock"
                       :label="$t('user.new-password')"
                       :type="showPassword ? 'text' : 'password'"
-                      @click:append="showPassword.newOne = !showPassword.newOne"
+                      :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+                      @click:append="showPassword = !showPassword"
                     ></v-text-field>
                     <v-text-field
                       v-model="password.newTwo"
@@ -76,13 +78,18 @@
                       :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]"
                       validate-on-blur
                       :type="showPassword ? 'text' : 'password'"
-                      @click:append="showPassword.newTwo = !showPassword.newTwo"
+                      :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+                      @click:append="showPassword = !showPassword"
                     ></v-text-field>
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <BaseButton update @click="updatePassword" />
+                  <BaseButton
+                    update
+                    :disabled="!passwordsMatch || password.current.length < 0"
+                    @click="updatePassword"
+                  />
                 </v-card-actions>
               </v-card>
             </div>
@@ -112,7 +119,7 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, defineComponent, computed, useContext, watch } from "@nuxtjs/composition-api";
+import { ref, reactive, defineComponent, computed, useContext, watch, toRefs } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { VForm } from "~/types/vuetify";
@@ -141,6 +148,8 @@ export default defineComponent({
       newTwo: "",
     });
 
+    const passwordsMatch = computed(() => password.newOne === password.newTwo && password.newOne.length > 0);
+
     async function updateUser() {
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
@@ -162,15 +171,14 @@ export default defineComponent({
       }
     }
 
-    return { updateUser, updatePassword, userCopy, password, domUpdatePassword };
-  },
-  data() {
-    return {
+    const state = reactive({
       hideImage: false,
       passwordLoading: false,
       showPassword: false,
       loading: false,
-    };
+    });
+
+    return { ...toRefs(state), updateUser, updatePassword, userCopy, password, domUpdatePassword, passwordsMatch };
   },
   head() {
     return {
@@ -179,4 +187,3 @@ export default defineComponent({
   },
 });
 </script>
-

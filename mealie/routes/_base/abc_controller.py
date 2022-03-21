@@ -2,11 +2,13 @@ from abc import ABC
 from functools import cached_property
 
 from fastapi import Depends
+from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.all_repositories import AllRepositories
 from mealie.routes._base.checks import OperationChecks
 from mealie.routes._base.dependencies import SharedDependencies
+from mealie.schema.user.user import GroupInDB, PrivateUser
 
 
 class BasePublicController(ABC):
@@ -39,15 +41,15 @@ class BaseUserController(ABC):
         return AllRepositories(self.deps.session)
 
     @property
-    def group_id(self):
+    def group_id(self) -> UUID4:
         return self.deps.acting_user.group_id
 
     @property
-    def user(self):
+    def user(self) -> PrivateUser:
         return self.deps.acting_user
 
     @property
-    def group(self):
+    def group(self) -> GroupInDB:
         return self.deps.repos.groups.get_one(self.group_id)
 
     @cached_property
