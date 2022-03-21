@@ -112,7 +112,7 @@
           </v-icon>
           Back to Profile
         </v-btn>
-        <v-btn outlined class="rounded-xl my-1 mx-1" to="/user/group"> Looking for Privacy Settings? </v-btn>
+        <v-btn outlined class="rounded-xl my-1 mx-1" to="/group"> Looking for Privacy Settings? </v-btn>
       </div>
     </section>
   </v-container>

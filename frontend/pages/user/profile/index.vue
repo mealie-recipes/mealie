@@ -73,7 +73,7 @@
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Group Settings', to: '/user/group' }"
+            :link="{ text: 'Group Settings', to: '/group' }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
           >
             <template #title> Group Settings </template>
@@ -82,7 +82,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Cookbooks', to: '/user/group/cookbooks' }"
+            :link="{ text: 'Manage Cookbooks', to: '/group/cookbooks' }"
             :image="require('~/static/svgs/manage-cookbooks.svg')"
           >
             <template #title> Cookbooks </template>
@@ -91,7 +91,7 @@
         </v-col>
         <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Webhooks', to: '/user/group/webhooks' }"
+            :link="{ text: 'Manage Webhooks', to: '/group/webhooks' }"
             :image="require('~/static/svgs/manage-webhooks.svg')"
           >
             <template #title> Webhooks </template>
@@ -100,7 +100,7 @@
         </v-col>
         <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Notifiers', to: '/user/group/notifiers' }"
+            :link="{ text: 'Manage Notifiers', to: '/group/notifiers' }"
             :image="require('~/static/svgs/manage-notifiers.svg')"
           >
             <template #title> Notifiers </template>
@@ -109,7 +109,7 @@
         </v-col>
         <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Members', to: '/user/group/members' }"
+            :link="{ text: 'Manage Members', to: '/group/members' }"
             :image="require('~/static/svgs/manage-members.svg')"
           >
             <template #title> Members </template>
@@ -118,7 +118,7 @@
         </v-col>
         <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Recipe Data', to: '/user/group/data/recipes' }"
+            :link="{ text: 'Manage Recipe Data', to: '/group/data/recipes' }"
             :image="require('~/static/svgs/manage-recipes.svg')"
           >
             <template #title> Recipe Data </template>
@@ -136,7 +136,7 @@
         </v-col>
         <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Data Migrations', to: '/user/group/data/migrations' }"
+            :link="{ text: 'Manage Data Migrations', to: '/group/data/migrations' }"
             :image="require('~/static/svgs/manage-data-migrations.svg')"
           >
             <template #title> Data Migrations </template>
