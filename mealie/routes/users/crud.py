@@ -1,13 +1,13 @@
 from fastapi import HTTPException, status
 from pydantic import UUID4
 
-from mealie.core import security
 from mealie.core.security import hash_password, verify_password
 from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.abc_controller import BaseUserController
 from mealie.routes._base.mixins import CrudMixins
 from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
+from mealie.schema.response import ErrorResponse, SuccessResponse
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserOut
 
 user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
@@ -57,23 +57,39 @@ class UserController(BaseUserController):
 
         if not self.user.admin and (new_data.admin or self.user.group != new_data.group):
             # prevent a regular user from doing admin tasks on themself
-            raise HTTPException(status.HTTP_403_FORBIDDEN)
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN, ErrorResponse.respond("User doesn't have permission to change group")
+            )
 
         if self.user.id == item_id and self.user.admin and not new_data.admin:
             # prevent an admin from demoting themself
-            raise HTTPException(status.HTTP_403_FORBIDDEN)
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN, ErrorResponse.respond("User doesn't have permission to change group")
+            )
 
-        self.repos.users.update(item_id, new_data.dict())
+        try:
+            self.repos.users.update(item_id, new_data.dict())
+        except Exception as e:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                ErrorResponse.respond("Failed to update user"),
+            ) from e
 
-        if self.user.id == item_id:
-            access_token = security.create_access_token(data=dict(sub=str(self.user.id)))
-            return {"access_token": access_token, "token_type": "bearer"}
+        return SuccessResponse.respond("User updated")
 
     @user_router.put("/{item_id}/password")
     def update_password(self, password_change: ChangePassword):
         """Resets the User Password"""
         if not verify_password(password_change.current_password, self.user.password):
-            raise HTTPException(status.HTTP_400_BAD_REQUEST)
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, ErrorResponse.respond("Invalid current password"))
 
         self.user.password = hash_password(password_change.new_password)
-        return self.repos.users.update_password(self.user.id, self.user.password)
+        try:
+            self.repos.users.update_password(self.user.id, self.user.password)
+        except Exception as e:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                ErrorResponse.respond("Failed to update password"),
+            ) from e
+
+        return SuccessResponse.respond("Password updated")
