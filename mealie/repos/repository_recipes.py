@@ -2,6 +2,7 @@ from random import randint
 from typing import Any, Optional
 from uuid import UUID
 
+from slugify import slugify
 from sqlalchemy import and_, func
 from sqlalchemy.orm import joinedload
 
@@ -17,6 +18,17 @@ from .repository_generic import RepositoryGeneric
 
 
 class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
+    def create(self, document: Recipe) -> Recipe:  # type: ignore
+        def valid_name(slug: str) -> bool:
+            return self.get_one(slug) is None
+
+        loop = 1
+        while not valid_name(document.slug):
+            document.name = f"{document.name} ({loop})"
+            document.slug = slugify(document.name)
+
+        return super().create(document)
+
     def by_group(self, group_id: UUID) -> "RepositoryRecipes":
         return super().by_group(group_id)  # type: ignore
 
