@@ -6,7 +6,7 @@ export function usePasswordField() {
   const { $globals } = useContext();
 
   const passwordIcon = computed(() => {
-    return show ? $globals.icons.eyeOff : $globals.icons.eye;
+    return show.value ? $globals.icons.eyeOff : $globals.icons.eye;
   });
   const inputType = computed(() => (show.value ? "text" : "password"));
 
