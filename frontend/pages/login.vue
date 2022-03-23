@@ -25,7 +25,7 @@
 
       <v-card-title class="headline justify-center pb-1"> Sign In </v-card-title>
       <v-card-text>
-        <v-form @submit.prevent="authenticate()">
+        <v-form @submit.prevent="authenticate">
           <v-text-field
             v-model="form.email"
             :prepend-inner-icon="$globals.icons.email"
@@ -41,12 +41,14 @@
             id="password"
             v-model="form.password"
             :prepend-inner-icon="$globals.icons.lock"
+            :append-icon="passwordIcon"
             filled
             rounded
             class="rounded-lg"
             name="password"
             label="Password"
-            type="password"
+            :type="inputType"
+            @click:append="togglePasswordShow"
           />
           <v-checkbox v-model="form.remember" class="ml-2 mt-n2" label="Remember Me"></v-checkbox>
           <v-card-actions class="justify-center pt-0">
@@ -110,6 +112,7 @@
 import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
 import { useDark } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
+import { usePasswordField } from "~/composables/use-password-field";
 import { alert } from "~/composables/use-toast";
 import { useToggleDarkMode } from "~/composables/use-utils";
 export default defineComponent({
@@ -130,6 +133,8 @@ export default defineComponent({
     const loggingIn = ref(false);
 
     const appInfo = useAppInfo();
+
+    const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
 
@@ -169,6 +174,9 @@ export default defineComponent({
       allowSignup,
       authenticate,
       toggleDark,
+      passwordIcon,
+      inputType,
+      togglePasswordShow,
     };
   },
 
