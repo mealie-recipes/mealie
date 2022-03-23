@@ -60,6 +60,7 @@ export default defineComponent({
   },
   setup() {
     const buttonLookup: { [key: string]: string } = {
+      recipes: "Recipes",
       foods: "Foods",
       units: "Units",
       labels: "Labels",
