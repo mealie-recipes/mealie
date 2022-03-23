@@ -18,13 +18,13 @@
       </tr>
     </template>
     <template #item.tags="{ item }">
-      <RecipeChip small :items="item.tags" />
+      <RecipeChip small :items="item.tags" :is-category="false" url-prefix="tags" />
     </template>
     <template #item.recipeCategory="{ item }">
       <RecipeChip small :items="item.recipeCategory" />
     </template>
     <template #item.tools="{ item }">
-      <RecipeChip small :items="item.tools" />
+      <RecipeChip small :items="item.tools" url-prefix="tools" />
     </template>
     <template #item.userId="{ item }">
       <v-list-item class="justify-start">

@@ -63,12 +63,12 @@
               <template v-if="!editState[rule.id]">
                 <div v-if="rule.categories">
                   <h4 class="py-1">{{ $t("category.categories") }}:</h4>
-                  <RecipeChips :items="rule.categories" is-category small />
+                  <RecipeChips :items="rule.categories" small />
                 </div>
 
                 <div v-if="rule.tags">
                   <h4 class="py-1">{{ $t("tag.tags") }}:</h4>
-                  <RecipeChips :items="rule.tags" :is-category="false" small />
+                  <RecipeChips :items="rule.tags" url-prefix="tags" small />
                 </div>
               </template>
               <template v-else>

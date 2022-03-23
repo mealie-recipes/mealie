@@ -35,7 +35,7 @@
             <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
             <RecipeRating :value="rating" :name="name" :slug="slug" :small="true" />
             <v-spacer></v-spacer>
-            <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" :is-category="false" />
+            <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
             <RecipeContextMenu
               :slug="slug"
               :name="name"
