@@ -97,7 +97,7 @@
       </section>
     </section>
     <v-container class="mt-4 d-flex justify-end">
-      <v-btn outlined rounded to="/user/group/data/migrations"> Looking For Migrations? </v-btn>
+      <v-btn outlined rounded to="/group/data/migrations"> Looking For Migrations? </v-btn>
     </v-container>
   </v-container>
 </template>

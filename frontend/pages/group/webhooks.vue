@@ -62,7 +62,7 @@
     </v-expansion-panels>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { useGroupWebhooks } from "~/composables/use-group-webhooks";

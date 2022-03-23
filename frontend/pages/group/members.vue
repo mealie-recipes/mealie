@@ -59,7 +59,7 @@
     </v-data-table>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";

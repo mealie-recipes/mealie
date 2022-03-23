@@ -7,7 +7,7 @@
       absolute
       :top-link="topLinks"
       secondary-header="Cookbooks"
-      secondary-header-link="/user/group/cookbooks"
+      secondary-header-link="/group/cookbooks"
       :secondary-links="cookbookLinks || []"
       :bottom-links="isAdmin ? bottomLink : []"
     >
@@ -132,7 +132,7 @@ export default defineComponent({
           icon: this.$globals.icons.pages,
           title: "Cookbook",
           subtitle: "Create a new cookbook",
-          to: "/user/group/cookbooks",
+          to: "/group/cookbooks",
           restricted: true,
         },
       ],
