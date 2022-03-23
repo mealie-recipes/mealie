@@ -180,3 +180,14 @@ def test_create_recipe_same_name(api_client: TestClient, api_routes: AppRoutes, 
     response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
     assert response.status_code == 201
     assert json.loads(response.text) == f"{slug}-1"
+
+
+def test_create_recipe_too_many_time(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+    slug = random_string(10)
+
+    for _ in range(10):
+        response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+        assert response.status_code == 201
+
+    response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+    assert response.status_code == 400

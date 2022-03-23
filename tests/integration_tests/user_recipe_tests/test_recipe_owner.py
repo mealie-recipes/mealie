@@ -62,9 +62,10 @@ def test_unique_slug_by_group(api_client: TestClient, unique_user: TestUser, g2_
     response = api_client.post(Routes.base, json=create_data, headers=g2_user.token)
     assert response.status_code == 201
 
-    # Try to create a recipe again with the same name
+    # Try to create a recipe again with the same name and check that the name was incremented
     response = api_client.post(Routes.base, json=create_data, headers=g2_user.token)
-    assert response.status_code == 400
+    assert response.status_code == 201
+    assert response.json() == create_data["name"] + "-1"
 
 
 def test_user_locked_recipe(api_client: TestClient, user_tuple: list[TestUser]) -> None:
