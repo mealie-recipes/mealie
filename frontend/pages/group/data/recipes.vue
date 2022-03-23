@@ -56,16 +56,9 @@
         </v-card>
       </v-card-text>
     </BaseDialog>
-    <BasePageTitle divider>
-      <template #header>
-        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-recipes.svg')"></v-img>
-      </template>
-      <template #title> Data Management </template>
-    </BasePageTitle>
-
     <section>
       <!-- Recipe Data Table -->
-      <BaseCardSectionTitle :icon="$globals.icons.primary" section title="Recipe Data">
+      <BaseCardSectionTitle :icon="$globals.icons.primary" title="Recipe Data">
         Use this section to manage the data associated with your recipes. You can perform several bulk actions on your
         recipes including exporting, deleting, tagging, and assigning categories.
       </BaseCardSectionTitle>
@@ -86,7 +79,7 @@
             <v-divider class="mx-2"></v-divider>
             <v-card-text class="mt-n5">
               <v-checkbox
-                v-for="(itemValue, key) in headers"
+                v-for="(_, key) in headers"
                 :key="key"
                 v-model="headers[key]"
                 dense

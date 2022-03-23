@@ -176,7 +176,7 @@
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeChips :items="recipe.tags" :is-category="false" />
+                    <RecipeChips :items="recipe.tags" url-prefix="tags" />
                   </v-card-text>
                 </v-card>
 
@@ -219,7 +219,7 @@
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeChips :items="recipe.tags" :is-category="false" />
+                    <RecipeChips :items="recipe.tags" url-prefix="tags" />
                   </v-card-text>
                 </v-card>
 

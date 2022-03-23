@@ -15,6 +15,11 @@
             rounded
             :items="[
               {
+                text: 'Recipes',
+                value: 'new',
+                to: '/group/data/recipes',
+              },
+              {
                 text: 'Foods',
                 value: 'url',
                 to: '/group/data/foods',
@@ -55,6 +60,7 @@ export default defineComponent({
   },
   setup() {
     const buttonLookup: { [key: string]: string } = {
+      recipes: "Recipes",
       foods: "Foods",
       units: "Units",
       labels: "Labels",

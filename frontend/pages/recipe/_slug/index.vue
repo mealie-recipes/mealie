@@ -267,7 +267,7 @@
                       :tag-selector="true"
                       :show-label="false"
                     />
-                    <RecipeChips v-else :items="recipe.tags" :is-category="false" />
+                    <RecipeChips v-else :items="recipe.tags" url-prefix="tags" />
                   </v-card-text>
                 </v-card>
 
@@ -355,7 +355,7 @@
                       :tag-selector="true"
                       :show-label="false"
                     />
-                    <RecipeChips v-else :items="recipe.tags" :is-category="false" />
+                    <RecipeChips v-else :items="recipe.tags" url-prefix="tags"/>
                   </v-card-text>
                 </v-card>
 

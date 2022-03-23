@@ -9,7 +9,7 @@
       color="accent"
       :small="small"
       dark
-      :to="`/recipes/${urlParam}/${category.slug}`"
+      :to="`/recipes/${urlPrefix}/${category.slug}`"
     >
       {{ truncateText(category.name) }}
     </v-chip>
@@ -17,7 +17,10 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "@nuxtjs/composition-api";
+import { defineComponent } from "@nuxtjs/composition-api";
+import { RecipeCategory, RecipeTag, RecipeTool } from "~/types/api-types/user";
+
+export type UrlPrefixParam = "tags" | "categories" | "tools";
 
 export default defineComponent({
   props: {
@@ -26,16 +29,16 @@ export default defineComponent({
       default: false,
     },
     items: {
-      type: Array,
+      type: Array as () => RecipeCategory[] | RecipeTag[] | RecipeTool[],
       default: () => [],
     },
     title: {
       type: Boolean,
       default: false,
     },
-    isCategory: {
-      type: Boolean,
-      default: true,
+    urlPrefix: {
+      type: String as () => UrlPrefixParam,
+      default: "categories",
     },
     limit: {
       type: Number,
@@ -51,8 +54,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const urlParam = computed(() => props.isCategory ? "categories" : "tags");
-
     function truncateText(text: string, length = 20, clamp = "...") {
       if (!props.truncate) return text;
       const node = document.createElement("div");
@@ -62,9 +63,8 @@ export default defineComponent({
     }
 
     return {
-      urlParam,
       truncateText,
-    }
+    };
   },
 });
 </script>
