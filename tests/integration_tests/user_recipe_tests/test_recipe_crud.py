@@ -15,6 +15,7 @@ from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
 from tests import utils
 from tests.utils.app_routes import AppRoutes
+from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
 
@@ -167,3 +168,26 @@ def test_recipe_crud_404(api_client: TestClient, api_routes: AppRoutes, unique_u
 
     response = api_client.patch(api_routes.recipes_create_url, json={"test": "stest"}, headers=unique_user.token)
     assert response.status_code == 404
+
+
+def test_create_recipe_same_name(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+    slug = random_string(10)
+
+    response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+    assert response.status_code == 201
+    assert json.loads(response.text) == slug
+
+    response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+    assert response.status_code == 201
+    assert json.loads(response.text) == f"{slug}-1"
+
+
+def test_create_recipe_too_many_time(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+    slug = random_string(10)
+
+    for _ in range(10):
+        response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+        assert response.status_code == 201
+
+    response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+    assert response.status_code == 400

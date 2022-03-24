@@ -2,7 +2,9 @@ from random import randint
 from typing import Any, Optional
 from uuid import UUID
 
+from slugify import slugify
 from sqlalchemy import and_, func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
 from mealie.db.models.recipe.category import Category
@@ -17,6 +19,21 @@ from .repository_generic import RepositoryGeneric
 
 
 class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
+    def create(self, document: Recipe) -> Recipe:  # type: ignore
+        max_retries = 10
+        original_name: str = document.name  # type: ignore
+
+        for i in range(1, 11):
+            try:
+                return super().create(document)
+            except IntegrityError:
+                self.session.rollback()
+                document.name = f"{original_name} ({i})"
+                document.slug = slugify(document.name)
+
+                if i >= max_retries:
+                    raise
+
     def by_group(self, group_id: UUID) -> "RepositoryRecipes":
         return super().by_group(group_id)  # type: ignore
 
