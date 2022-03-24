@@ -30,7 +30,7 @@ class BackupV2(BaseService):
         # sourcery skip: merge-nested-ifs, reintroduce-else, remove-redundant-continue
         exclude = {"mealie.db", "mealie.log", ".secret"}
         exclude_ext = {".zip"}
-        exclude_dirs = {"backups"}
+        exclude_dirs = {"backups", ".temp"}
 
         timestamp = datetime.datetime.now().strftime("%Y.%m.%d.%H.%M.%S")
 
