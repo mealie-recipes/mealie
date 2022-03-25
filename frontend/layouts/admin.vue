@@ -55,6 +55,11 @@ export default defineComponent({
         title: i18n.t("sidebar.site-settings"),
       },
       {
+        icon: $globals.icons.cog,
+        to: "/admin/maintenance",
+        title: "Maintenance",
+      },
+      {
         icon: $globals.icons.user,
         to: "/admin/manage/users",
         title: i18n.t("user.users"),
