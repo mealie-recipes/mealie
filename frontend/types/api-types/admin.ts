@@ -190,6 +190,12 @@ export interface ImportJob {
   force?: boolean;
   rebase?: boolean;
 }
+export interface MaintenanceSummary {
+  dataDirSize: string;
+  logFileSize: string;
+  cleanableImages: number;
+  cleanableDirs: number;
+}
 export interface MigrationFile {
   name: string;
   date: string;
