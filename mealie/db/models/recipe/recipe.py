@@ -31,8 +31,8 @@ def recipe_extras(func):
 
         if extras is None:
             extras = []
-
-        extras = [{"key": key, "value": value} for key, value in extras.items()]
+        else:
+            extras = [{"key": key, "value": value} for key, value in extras.items()]
 
         return func(*args, extras=extras, **kwargs)
 

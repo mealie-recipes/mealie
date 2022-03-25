@@ -23,6 +23,7 @@ class AdminAboutInfo(AppInfo):
     db_type: str
     db_url: str | None
     default_group: str
+    build_id: str
 
 
 class CheckAppConfig(CamelModel):

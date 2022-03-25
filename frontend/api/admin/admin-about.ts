@@ -1,4 +1,5 @@
 import { BaseAPI } from "../_base";
+import { AdminAboutInfo } from "~/types/api-types/admin";
 
 const prefix = "/api";
 
@@ -8,17 +9,6 @@ const routes = {
   check: `${prefix}/admin/about/check`,
 };
 
-export interface AdminAboutInfo {
-  production: boolean;
-  version: string;
-  demoStatus: boolean;
-  apiPort: number;
-  apiDocs: boolean;
-  dbType: string;
-  dbUrl: string;
-  defaultGroup: string;
-  versionLatest: string;
-}
 
 export interface AdminStatistics {
   totalRecipes: number;

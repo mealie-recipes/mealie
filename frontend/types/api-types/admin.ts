@@ -16,6 +16,7 @@ export interface AdminAboutInfo {
   dbType: string;
   dbUrl?: string;
   defaultGroup: string;
+  buildId: string;
 }
 export interface AllBackups {
   imports: BackupFile[];

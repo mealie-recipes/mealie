@@ -26,6 +26,7 @@ class AdminAboutController(BaseAdminController):
             db_url=settings.DB_URL_PUBLIC,
             default_group=settings.DEFAULT_GROUP,
             allow_signup=settings.ALLOW_SIGNUP,
+            build_id=settings.GIT_COMMIT_HASH,
         )
 
     @router.get("/statistics", response_model=AppStatistics)
