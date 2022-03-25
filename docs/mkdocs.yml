@@ -86,7 +86,7 @@ nav:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
 
   - Change Log:
-      - v1.0.0 A Whole New App: "changelog/v1.0.0.md"
+      - v1.0.0 Beta: "changelog/v1.0.0.md"
       - v0.5.2 Misc Updates: "changelog/v0.5.2.md"
       - v0.5.1 Bug Fixes: "changelog/v0.5.1.md"
       - v0.5.0 General Upgrades: "changelog/v0.5.0.md"
