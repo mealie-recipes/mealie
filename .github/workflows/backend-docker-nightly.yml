@@ -47,7 +47,7 @@ jobs:
           docker build --push --no-cache \
             --tag hkotel/mealie:api-nightly \
             --platform linux/amd64,linux/arm64 .
-            --build-arg COMMIT=$(git rev-parse HEAD) \
+            --build-args COMMIT=$(git rev-parse HEAD) \
       #
       # Build Discord Notification
       #
