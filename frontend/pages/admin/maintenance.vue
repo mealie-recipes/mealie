@@ -29,7 +29,7 @@
     <section>
       <BaseCardSectionTitle class="pb-0 mt-8" :icon="$globals.icons.cog" title="Actions">
         Maintenance actions are <b> destructive </b> and should be used with caution. Performing any of these actions is
-        <b> irreversible </b> use with caution.
+        <b> irreversible </b>.
       </BaseCardSectionTitle>
       <v-card class="ma-2" :loading="state.actionLoading">
         <template v-for="(action, idx) in actions">
