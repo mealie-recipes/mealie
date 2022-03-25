@@ -239,6 +239,11 @@ export default defineComponent({
               value: data.version,
             },
             {
+              name: "Build",
+              icon: $globals.icons.information,
+              value: data.buildId,
+            },
+            {
               name: i18n.t("about.application-mode"),
               icon: $globals.icons.devTo,
               value: data.production ? i18n.t("about.production") : i18n.t("about.development"),
