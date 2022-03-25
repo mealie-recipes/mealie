@@ -55,7 +55,8 @@ setup-model: ## 🤖 Get the latest NLP CRF++ Model
 	@echo Fetching NLP Model - CRF++ is still Required
 	curl -L0 https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel --output ./mealie/services/parser_services/crfpp/model.crfmodel
 
-clean-data: clean ## ⚠️  Removes All Developer Data for a fresh server start
+
+clean-data: ## ⚠️  Removes All Developer Data for a fresh server start
 	rm -r ./dev/data/recipes/
 	rm -r ./dev/data/users/
 	rm -f ./dev/data/mealie*.db
