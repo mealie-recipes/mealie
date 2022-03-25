@@ -1,11 +1,12 @@
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4, NoneStr
+
+from mealie.schema._mealie import MealieModel
 
 # =============================================================================
 # Group Events Notifier Options
 
 
-class GroupEventNotifierOptions(CamelModel):
+class GroupEventNotifierOptions(MealieModel):
     """
     These events are in-sync with the EventTypes found in the EventBusService.
     If you modify this, make sure to update the EventBusService as well.
@@ -55,7 +56,7 @@ class GroupEventNotifierOptionsOut(GroupEventNotifierOptions):
 # Notifiers
 
 
-class GroupEventNotifierCreate(CamelModel):
+class GroupEventNotifierCreate(MealieModel):
     name: str
     apprise_url: str
 
@@ -71,7 +72,7 @@ class GroupEventNotifierUpdate(GroupEventNotifierSave):
     apprise_url: NoneStr = None
 
 
-class GroupEventNotifierOut(CamelModel):
+class GroupEventNotifierOut(MealieModel):
     id: UUID4
     name: str
     enabled: bool

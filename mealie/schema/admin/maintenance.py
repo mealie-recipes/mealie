@@ -1,7 +1,7 @@
-from fastapi_camelcase import CamelModel
+from mealie.schema._mealie import MealieModel
 
 
-class MaintenanceSummary(CamelModel):
+class MaintenanceSummary(MealieModel):
     data_dir_size: str
     log_file_size: str
     cleanable_images: int

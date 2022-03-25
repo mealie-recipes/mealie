@@ -1,9 +1,10 @@
 import datetime
 import enum
 
-from fastapi_camelcase import CamelModel
 from pydantic import Field
 from pydantic.types import UUID4
+
+from mealie.schema._mealie import MealieModel
 
 
 class ReportCategory(str, enum.Enum):
@@ -19,7 +20,7 @@ class ReportSummaryStatus(str, enum.Enum):
     partial = "partial"
 
 
-class ReportEntryCreate(CamelModel):
+class ReportEntryCreate(MealieModel):
     report_id: UUID4
     timestamp: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
     success: bool = True
@@ -34,7 +35,7 @@ class ReportEntryOut(ReportEntryCreate):
         orm_mode = True
 
 
-class ReportCreate(CamelModel):
+class ReportCreate(MealieModel):
     timestamp: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
     category: ReportCategory
     group_id: UUID4

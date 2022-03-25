@@ -1,9 +1,10 @@
-from fastapi_camelcase import CamelModel
 from pydantic import validator
 from pydantic.types import NoneStr, constr
 
+from mealie.schema._mealie import MealieModel
 
-class CreateUserRegistration(CamelModel):
+
+class CreateUserRegistration(MealieModel):
     group: NoneStr = None
     group_token: NoneStr = None
     email: constr(to_lower=True, strip_whitespace=True)  # type: ignore

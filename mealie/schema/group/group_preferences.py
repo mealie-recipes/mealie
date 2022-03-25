@@ -1,10 +1,11 @@
 from uuid import UUID
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
+from mealie.schema._mealie import MealieModel
 
-class UpdateGroupPreferences(CamelModel):
+
+class UpdateGroupPreferences(MealieModel):
     private_group: bool = False
     first_day_of_week: int = 0
 

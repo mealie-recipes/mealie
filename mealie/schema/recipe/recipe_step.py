@@ -1,11 +1,12 @@
 from typing import Optional
 from uuid import UUID, uuid4
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4, Field
 
+from mealie.schema._mealie import MealieModel
 
-class IngredientReferences(CamelModel):
+
+class IngredientReferences(MealieModel):
     """
     A list of ingredient references.
     """
@@ -16,7 +17,7 @@ class IngredientReferences(CamelModel):
         orm_mode = True
 
 
-class RecipeStep(CamelModel):
+class RecipeStep(MealieModel):
     id: Optional[UUID] = Field(default_factory=uuid4)
     title: Optional[str] = ""
     text: str

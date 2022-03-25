@@ -96,7 +96,7 @@ def generate_typescript_types() -> None:
 
         try:
             path_as_module = path_to_module(module)
-            generate_typescript_defs(path_as_module, str(out_path), exclude=("CamelModel"))  # type: ignore
+            generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
         except Exception as e:
             failed_modules.append(module)
             print("\nModule Errors:", module, "-----------------")  # noqa

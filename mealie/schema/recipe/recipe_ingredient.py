@@ -4,13 +4,13 @@ import enum
 from typing import Optional, Union
 from uuid import UUID, uuid4
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4, Field
 
+from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
 
 
-class UnitFoodBase(CamelModel):
+class UnitFoodBase(MealieModel):
     name: str
     description: str = ""
 
@@ -47,7 +47,7 @@ class IngredientUnit(CreateIngredientUnit):
         orm_mode = True
 
 
-class RecipeIngredient(CamelModel):
+class RecipeIngredient(MealieModel):
     title: Optional[str]
     note: Optional[str]
     unit: Optional[Union[IngredientUnit, CreateIngredientUnit]]
@@ -64,7 +64,7 @@ class RecipeIngredient(CamelModel):
         orm_mode = True
 
 
-class IngredientConfidence(CamelModel):
+class IngredientConfidence(MealieModel):
     average: NoneFloat = None
     comment: NoneFloat = None
     name: NoneFloat = None
@@ -73,7 +73,7 @@ class IngredientConfidence(CamelModel):
     food: NoneFloat = None
 
 
-class ParsedIngredient(CamelModel):
+class ParsedIngredient(MealieModel):
     input: Optional[str]
     confidence: IngredientConfidence = IngredientConfidence()
     ingredient: RecipeIngredient
@@ -84,12 +84,12 @@ class RegisteredParser(str, enum.Enum):
     brute = "brute"
 
 
-class IngredientsRequest(CamelModel):
+class IngredientsRequest(MealieModel):
     parser: RegisteredParser = RegisteredParser.nlp
     ingredients: list[str]
 
 
-class IngredientRequest(CamelModel):
+class IngredientRequest(MealieModel):
     parser: RegisteredParser = RegisteredParser.nlp
     ingredient: str
 

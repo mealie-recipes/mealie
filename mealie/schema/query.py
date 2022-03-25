@@ -1,6 +1,6 @@
-from fastapi_camelcase import CamelModel
+from mealie.schema._mealie import MealieModel
 
 
-class GetAll(CamelModel):
+class GetAll(MealieModel):
     start: int = 0
     limit: int = 999

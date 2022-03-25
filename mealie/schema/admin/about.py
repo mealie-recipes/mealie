@@ -1,7 +1,7 @@
-from fastapi_camelcase import CamelModel
+from mealie.schema._mealie import MealieModel
 
 
-class AppStatistics(CamelModel):
+class AppStatistics(MealieModel):
     total_recipes: int
     total_users: int
     total_groups: int
@@ -9,7 +9,7 @@ class AppStatistics(CamelModel):
     untagged_recipes: int
 
 
-class AppInfo(CamelModel):
+class AppInfo(MealieModel):
     production: bool
     version: str
     demo_status: bool
@@ -26,7 +26,7 @@ class AdminAboutInfo(AppInfo):
     build_id: str
 
 
-class CheckAppConfig(CamelModel):
+class CheckAppConfig(MealieModel):
     email_ready: bool = False
     ldap_ready: bool = False
     base_url_set: bool = False

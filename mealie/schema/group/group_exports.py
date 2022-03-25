@@ -1,10 +1,11 @@
 from datetime import datetime
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
+from mealie.schema._mealie import MealieModel
 
-class GroupDataExport(CamelModel):
+
+class GroupDataExport(MealieModel):
     id: UUID4
     group_id: UUID4
     name: str

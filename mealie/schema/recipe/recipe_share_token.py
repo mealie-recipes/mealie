@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4, Field
+
+from mealie.schema._mealie import MealieModel
 
 from .recipe import Recipe
 
@@ -10,7 +11,7 @@ def defaut_expires_at_time() -> datetime:
     return datetime.utcnow() + timedelta(days=30)
 
 
-class RecipeShareTokenCreate(CamelModel):
+class RecipeShareTokenCreate(MealieModel):
     recipe_id: UUID4
     expires_at: datetime = Field(default_factory=defaut_expires_at_time)
 

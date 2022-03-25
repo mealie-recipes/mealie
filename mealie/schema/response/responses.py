@@ -1,7 +1,8 @@
 from typing import Optional
 
-from fastapi_camelcase import CamelModel
 from pydantic import BaseModel
+
+from mealie.schema._mealie import MealieModel
 
 
 class ErrorResponse(BaseModel):
@@ -31,7 +32,7 @@ class SuccessResponse(BaseModel):
         return cls(message=message).dict()
 
 
-class FileTokenResponse(CamelModel):
+class FileTokenResponse(MealieModel):
     file_token: str
 
     @classmethod

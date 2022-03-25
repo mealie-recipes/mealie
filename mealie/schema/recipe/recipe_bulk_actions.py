@@ -1,7 +1,6 @@
 import enum
 
-from fastapi_camelcase import CamelModel
-
+from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 
 
@@ -9,7 +8,7 @@ class ExportTypes(str, enum.Enum):
     JSON = "json"
 
 
-class ExportBase(CamelModel):
+class ExportBase(MealieModel):
     recipes: list[str]
 
 
@@ -29,12 +28,12 @@ class DeleteRecipes(ExportBase):
     pass
 
 
-class BulkActionError(CamelModel):
+class BulkActionError(MealieModel):
     recipe: str
     error: str
 
 
-class BulkActionsResponse(CamelModel):
+class BulkActionsResponse(MealieModel):
     success: bool
     message: str
     errors: list[BulkActionError] = []

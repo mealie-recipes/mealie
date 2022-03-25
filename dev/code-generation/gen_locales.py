@@ -3,10 +3,11 @@ import pathlib
 import _static
 import dotenv
 import requests
-from fastapi_camelcase import CamelModel
 from jinja2 import Template
 from requests import Response
 from rich import print
+
+from mealie.schema._mealie import MealieModel
 
 BASE = pathlib.Path(__file__).parent.parent.parent
 
@@ -57,7 +58,7 @@ export const LOCALES = [{% for locale in locales %}
 """
 
 
-class TargetLanguage(CamelModel):
+class TargetLanguage(MealieModel):
     id: str
     name: str
     locale: str

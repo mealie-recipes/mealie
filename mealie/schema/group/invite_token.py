@@ -1,20 +1,21 @@
 from uuid import UUID
 
-from fastapi_camelcase import CamelModel
 from pydantic import NoneStr
 
+from mealie.schema._mealie import MealieModel
 
-class CreateInviteToken(CamelModel):
+
+class CreateInviteToken(MealieModel):
     uses: int
 
 
-class SaveInviteToken(CamelModel):
+class SaveInviteToken(MealieModel):
     uses_left: int
     group_id: UUID
     token: str
 
 
-class ReadInviteToken(CamelModel):
+class ReadInviteToken(MealieModel):
     token: str
     uses_left: int
     group_id: UUID
@@ -23,11 +24,11 @@ class ReadInviteToken(CamelModel):
         orm_mode = True
 
 
-class EmailInvitation(CamelModel):
+class EmailInvitation(MealieModel):
     email: str
     token: str
 
 
-class EmailInitationResponse(CamelModel):
+class EmailInitationResponse(MealieModel):
     success: bool
     error: NoneStr = None

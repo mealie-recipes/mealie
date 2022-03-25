@@ -1,9 +1,10 @@
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 from pydantic.utils import GetterDict
 
+from mealie.schema._mealie import MealieModel
 
-class CategoryIn(CamelModel):
+
+class CategoryIn(MealieModel):
     name: str
 
 

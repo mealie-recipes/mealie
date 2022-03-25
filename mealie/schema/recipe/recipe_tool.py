@@ -1,10 +1,11 @@
 import typing
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
+from mealie.schema._mealie import MealieModel
 
-class RecipeToolCreate(CamelModel):
+
+class RecipeToolCreate(MealieModel):
     name: str
     on_hand: bool = False
 

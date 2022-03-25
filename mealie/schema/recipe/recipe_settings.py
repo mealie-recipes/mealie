@@ -1,7 +1,7 @@
-from fastapi_camelcase import CamelModel
+from mealie.schema._mealie import MealieModel
 
 
-class RecipeSettings(CamelModel):
+class RecipeSettings(MealieModel):
     public: bool = False
     show_nutrition: bool = False
     show_assets: bool = False

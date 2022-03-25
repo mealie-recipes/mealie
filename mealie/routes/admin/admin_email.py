@@ -1,22 +1,22 @@
 from fastapi import APIRouter
-from fastapi_camelcase import CamelModel
 
 from mealie.routes._base import BaseAdminController, controller
+from mealie.schema._mealie import MealieModel
 from mealie.services.email import EmailService
 
 router = APIRouter(prefix="/email")
 
 
-class EmailReady(CamelModel):
+class EmailReady(MealieModel):
     ready: bool
 
 
-class EmailSuccess(CamelModel):
+class EmailSuccess(MealieModel):
     success: bool
     error: str = None
 
 
-class EmailTest(CamelModel):
+class EmailTest(MealieModel):
     email: str
 
 
