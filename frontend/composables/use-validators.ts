@@ -1,6 +1,6 @@
 import { ref, Ref } from "@nuxtjs/composition-api";
 import { RequestResponse } from "~/types/api";
-import { Validation } from "~/api/public/validators";
+import { ValidationResponse } from "~/types/api-types/response";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -23,7 +23,7 @@ export const validators = {
  */
 export const useAsyncValidator = (
   value: Ref<string>,
-  validatorFunc: (v: string) => Promise<RequestResponse<Validation>>,
+  validatorFunc: (v: string) => Promise<RequestResponse<ValidationResponse>>,
   validatorMessage: string,
   errorMessages: Ref<string[]>
 ) => {

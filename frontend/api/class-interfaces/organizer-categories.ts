@@ -10,7 +10,7 @@ const routes = {
   categoriesSlug: (category: string) => `${prefix}/categories/slug/${category}`,
 };
 
-export class CategoriesAPI extends BaseCRUDAPI<RecipeCategoryResponse, CategoryIn> {
+export class CategoriesAPI extends BaseCRUDAPI<CategoryIn, RecipeCategoryResponse> {
   baseRoute: string = routes.categories;
   itemRoute = routes.categoriesId;
 

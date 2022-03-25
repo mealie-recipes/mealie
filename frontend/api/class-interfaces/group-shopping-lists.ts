@@ -4,7 +4,9 @@ import {
   ShoppingListCreate,
   ShoppingListItemCreate,
   ShoppingListItemOut,
+  ShoppingListItemUpdate,
   ShoppingListOut,
+  ShoppingListUpdate,
 } from "~/types/api-types/group";
 
 const prefix = "/api";
@@ -18,7 +20,7 @@ const routes = {
   shoppingListItemsId: (id: string) => `${prefix}/groups/shopping/items/${id}`,
 };
 
-export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListOut, ShoppingListCreate> {
+export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingListOut, ShoppingListUpdate> {
   baseRoute = routes.shoppingLists;
   itemRoute = routes.shoppingListsId;
 
@@ -31,7 +33,7 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListOut, ShoppingListC
   }
 }
 
-export class ShoppingListItemsApi extends BaseCRUDAPI<ShoppingListItemOut, ShoppingListItemCreate> {
+export class ShoppingListItemsApi extends BaseCRUDAPI<ShoppingListItemCreate, ShoppingListItemOut, ShoppingListItemUpdate> {
   baseRoute = routes.shoppingListItems;
   itemRoute = routes.shoppingListItemsId;
 

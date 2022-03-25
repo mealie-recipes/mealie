@@ -1,4 +1,3 @@
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 from uuid import UUID
@@ -18,21 +17,27 @@ from ..recipe import CategoryBase
 settings = get_app_settings()
 
 
-class LoingLiveTokenIn(MealieModel):
+class LongLiveTokenIn(MealieModel):
     name: str
 
 
-class LongLiveTokenOut(LoingLiveTokenIn):
-    id: int
-    created_at: datetime
+class LongLiveTokenOut(MealieModel):
+    token: str
 
     class Config:
         orm_mode = True
 
 
-class CreateToken(LoingLiveTokenIn):
+class CreateToken(LongLiveTokenIn):
     user_id: UUID4
     token: str
+
+    class Config:
+        orm_mode = True
+
+
+class DeleteTokenResponse(MealieModel):
+    token_delete: str
 
     class Config:
         orm_mode = True

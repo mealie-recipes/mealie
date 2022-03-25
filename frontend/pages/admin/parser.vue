@@ -65,10 +65,11 @@
     </v-container>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
-import { Confidence, Parser } from "~/api/class-interfaces/recipes/types";
+import { Parser } from "~/api/class-interfaces/recipes/recipe";
+import { IngredientConfidence } from "~/types/api-types/recipe";
 import { useUserApi } from "~/composables/api";
 
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
@@ -85,7 +86,7 @@ export default defineComponent({
       parser: "nlp" as Parser,
     });
 
-    const confidence = ref<Confidence>({});
+    const confidence = ref<IngredientConfidence>({});
 
     function getColor(attribute: ConfidenceAttribute) {
       const percentage = getConfidence(attribute);
@@ -141,7 +142,8 @@ export default defineComponent({
       if (data) {
         state.results = true;
 
-        confidence.value = data.confidence;
+        if (data.confidence)
+          confidence.value = data.confidence;
 
         // TODO: Remove ts-ignore
         // ts-ignore because data will likely change significantly once I figure out how to return results
@@ -215,6 +217,6 @@ export default defineComponent({
   },
 });
 </script>
-    
+
 <style scoped>
 </style>

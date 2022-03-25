@@ -1,4 +1,5 @@
 import { BaseCRUDAPI } from "../_base";
+import { CreateWebhook, ReadWebhook } from "~/types/api-types/group";
 
 const prefix = "/api";
 
@@ -7,19 +8,7 @@ const routes = {
   webhooksId: (id: string | number) => `${prefix}/groups/webhooks/${id}`,
 };
 
-export interface CreateGroupWebhook {
-  enabled: boolean;
-  name: string;
-  url: string;
-  time: string;
-}
-
-export interface GroupWebhook extends CreateGroupWebhook {
-  id: string;
-  groupId: string;
-}
-
-export class WebhooksAPI extends BaseCRUDAPI<GroupWebhook, CreateGroupWebhook> {
+export class WebhooksAPI extends BaseCRUDAPI<CreateWebhook, ReadWebhook> {
   baseRoute = routes.webhooks;
   itemRoute = routes.webhooksId;
 }

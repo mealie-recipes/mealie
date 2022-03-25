@@ -41,7 +41,7 @@ export interface EmailInvitation {
 export interface GroupAdminUpdate {
   id: string;
   name: string;
-  preferences: UpdateGroupPreferences;
+  preferences?: UpdateGroupPreferences;
 }
 export interface UpdateGroupPreferences {
   privateGroup?: boolean;

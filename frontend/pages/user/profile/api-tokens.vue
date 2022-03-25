@@ -111,7 +111,7 @@ export default defineComponent({
       }
     }
 
-    async function deleteToken(id: string | number) {
+    async function deleteToken(id: number) {
       const { data } = await api.users.deleteAPIToken(id);
       nuxtContext.$auth.fetchUser();
       return data;
@@ -126,4 +126,3 @@ export default defineComponent({
   },
 });
 </script>
-

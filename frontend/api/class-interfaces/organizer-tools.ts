@@ -11,7 +11,7 @@ const routes = {
   toolsSlug: (id: string) => `${prefix}/tools/slug/${id}`,
 };
 
-export class ToolsApi extends BaseCRUDAPI<RecipeTool, RecipeToolCreate> {
+export class ToolsApi extends BaseCRUDAPI<RecipeToolCreate, RecipeTool> {
   baseRoute: string = routes.tools;
   itemRoute = routes.toolsId;
 

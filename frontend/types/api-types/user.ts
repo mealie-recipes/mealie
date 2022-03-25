@@ -31,6 +31,9 @@ export interface CreateUserRegistration {
   seedData?: boolean;
   locale?: string;
 }
+export interface DeleteTokenResponse {
+  tokenDelete: string;
+}
 export interface ForgotPassword {
   email: string;
 }
@@ -62,9 +65,7 @@ export interface UserOut {
   cacheKey: string;
 }
 export interface LongLiveTokenOut {
-  name: string;
-  id: number;
-  createdAt: string;
+  token: string;
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
@@ -78,7 +79,7 @@ export interface ReadGroupPreferences {
   groupId: string;
   id: string;
 }
-export interface LoingLiveTokenIn {
+export interface LongLiveTokenIn {
   name: string;
 }
 export interface LongLiveTokenInDB {

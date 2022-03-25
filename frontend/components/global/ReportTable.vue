@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, useRouter } from "@nuxtjs/composition-api";
-import { ReportSummary } from "~/api/class-interfaces/group-reports";
+import { ReportSummary } from "~/types/api-types/reports";
 
 export default defineComponent({
   props: {

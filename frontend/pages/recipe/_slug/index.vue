@@ -702,8 +702,8 @@ export default defineComponent({
         return;
       }
       const newVersion = await api.recipes.updateImage(recipe.value.slug, fileObject);
-      if (newVersion?.data?.version) {
-        recipe.value.image = newVersion.data.version;
+      if (newVersion?.data?.image) {
+        recipe.value.image = newVersion.data.image;
       }
       state.imageKey++;
     }

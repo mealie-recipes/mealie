@@ -1,5 +1,5 @@
 import { BaseAPI } from "../_base";
-import { ServerTask } from "~/api/types/server-task";
+import { ServerTask } from "~/types/api-types/server";
 const prefix = "/api";
 
 const routes = {

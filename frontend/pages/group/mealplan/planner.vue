@@ -346,7 +346,7 @@ export default defineComponent({
       date: "",
       title: "",
       text: "",
-      recipeId: undefined as number | undefined,
+      recipeId: undefined as string | undefined,
       entryType: "dinner" as PlanEntryType,
     });
 

@@ -18,5 +18,5 @@ export interface SuccessResponse {
   error?: boolean;
 }
 export interface ValidationResponse {
-  valid?: boolean;
+  valid: boolean;
 }
