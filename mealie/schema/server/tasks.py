@@ -2,8 +2,9 @@ import datetime
 import enum
 from uuid import UUID
 
-from fastapi_camelcase import CamelModel
 from pydantic import Field
+
+from mealie.schema._mealie import MealieModel
 
 
 class ServerTaskNames(str, enum.Enum):
@@ -18,7 +19,7 @@ class ServerTaskStatus(str, enum.Enum):
     failed = "failed"
 
 
-class ServerTaskCreate(CamelModel):
+class ServerTaskCreate(MealieModel):
     group_id: UUID
     name: ServerTaskNames = ServerTaskNames.default
     created_at: datetime.datetime = Field(default_factory=datetime.datetime.now)

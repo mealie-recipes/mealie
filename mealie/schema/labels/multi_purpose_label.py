@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
+from mealie.schema._mealie import MealieModel
 
-class MultiPurposeLabelCreate(CamelModel):
+
+class MultiPurposeLabelCreate(MealieModel):
     name: str
     color: str = "#E0E0E0"
 

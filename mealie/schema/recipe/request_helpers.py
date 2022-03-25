@@ -1,10 +1,11 @@
-from fastapi_camelcase import CamelModel
 from pydantic import BaseModel
+
+from mealie.schema._mealie import MealieModel
 
 # TODO: Should these exist?!?!?!?!?
 
 
-class RecipeSlug(CamelModel):
+class RecipeSlug(MealieModel):
     slug: str
 
 

@@ -1,11 +1,12 @@
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4, validator
 from slugify import slugify
+
+from mealie.schema._mealie import MealieModel
 
 from ..recipe.recipe_category import CategoryBase, RecipeCategoryResponse
 
 
-class CreateCookBook(CamelModel):
+class CreateCookBook(MealieModel):
     name: str
     description: str = ""
     slug: str = None

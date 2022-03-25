@@ -1,9 +1,9 @@
 from typing import Optional
 
-from fastapi_camelcase import CamelModel
+from mealie.schema._mealie import MealieModel
 
 
-class Nutrition(CamelModel):
+class Nutrition(MealieModel):
     calories: Optional[str]
     fat_content: Optional[str]
     protein_content: Optional[str]

@@ -1,6 +1,6 @@
 import enum
 
-from fastapi_camelcase import CamelModel
+from mealie.schema._mealie import MealieModel
 
 
 class SupportedMigrations(str, enum.Enum):
@@ -10,5 +10,5 @@ class SupportedMigrations(str, enum.Enum):
     mealie_alpha = "mealie_alpha"
 
 
-class DataMigrationCreate(CamelModel):
+class DataMigrationCreate(MealieModel):
     source_type: SupportedMigrations

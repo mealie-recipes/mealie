@@ -1,11 +1,12 @@
 from datetime import date
 from typing import Optional
 
-from fastapi_camelcase import CamelModel
 from pydantic import validator
 
+from mealie.schema._mealie import MealieModel
 
-class MealIn(CamelModel):
+
+class MealIn(MealieModel):
     slug: Optional[str]
     name: Optional[str]
     description: Optional[str]
@@ -14,7 +15,7 @@ class MealIn(CamelModel):
         orm_mode = True
 
 
-class MealDayIn(CamelModel):
+class MealDayIn(MealieModel):
     date: Optional[date]
     meals: list[MealIn]
 
@@ -29,7 +30,7 @@ class MealDayOut(MealDayIn):
         orm_mode = True
 
 
-class MealPlanIn(CamelModel):
+class MealPlanIn(MealieModel):
     group: str
     start_date: date
     end_date: date

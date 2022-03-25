@@ -1,11 +1,12 @@
 import datetime
 from enum import Enum
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
+from mealie.schema._mealie import MealieModel
 
-class Category(CamelModel):
+
+class Category(MealieModel):
     id: UUID4
     name: str
     slug: str
@@ -46,7 +47,7 @@ class PlanRulesType(str, Enum):
     unset = "unset"
 
 
-class PlanRulesCreate(CamelModel):
+class PlanRulesCreate(MealieModel):
     day: PlanRulesDay = PlanRulesDay.unset
     entry_type: PlanRulesType = PlanRulesType.unset
     categories: list[Category] = []

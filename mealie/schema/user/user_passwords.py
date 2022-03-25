@@ -1,14 +1,15 @@
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
+
+from mealie.schema._mealie import MealieModel
 
 from .user import PrivateUser
 
 
-class ForgotPassword(CamelModel):
+class ForgotPassword(MealieModel):
     email: str
 
 
-class ValidateResetToken(CamelModel):
+class ValidateResetToken(MealieModel):
     token: str
 
 
@@ -18,7 +19,7 @@ class ResetPassword(ValidateResetToken):
     passwordConfirm: str
 
 
-class SavePasswordResetToken(CamelModel):
+class SavePasswordResetToken(MealieModel):
     user_id: UUID4
     token: str
 

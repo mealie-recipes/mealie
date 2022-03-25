@@ -3,13 +3,13 @@ from pathlib import Path
 from typing import Any, Optional
 from uuid import UUID
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 from pydantic.types import constr
 from pydantic.utils import GetterDict
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.models.users import User
+from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
 
@@ -18,7 +18,7 @@ from ..recipe import CategoryBase
 settings = get_app_settings()
 
 
-class LoingLiveTokenIn(CamelModel):
+class LoingLiveTokenIn(MealieModel):
     name: str
 
 
@@ -38,19 +38,19 @@ class CreateToken(LoingLiveTokenIn):
         orm_mode = True
 
 
-class ChangePassword(CamelModel):
+class ChangePassword(MealieModel):
     current_password: str
     new_password: str
 
 
-class GroupBase(CamelModel):
+class GroupBase(MealieModel):
     name: str
 
     class Config:
         orm_mode = True
 
 
-class UserBase(CamelModel):
+class UserBase(MealieModel):
     username: Optional[str]
     full_name: Optional[str] = None
     email: constr(to_lower=True, strip_whitespace=True)  # type: ignore

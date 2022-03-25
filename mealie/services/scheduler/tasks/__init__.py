@@ -1,4 +1,3 @@
-from .auto_backup import *
 from .purge_group_exports import *
 from .purge_password_reset import *
 from .purge_registration import *

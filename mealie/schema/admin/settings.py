@@ -1,13 +1,14 @@
 from typing import Optional
 
-from fastapi_camelcase import CamelModel
 from pydantic import validator
 from slugify import slugify
+
+from mealie.schema._mealie import MealieModel
 
 from ..recipe.recipe_category import RecipeCategoryResponse
 
 
-class CustomPageBase(CamelModel):
+class CustomPageBase(MealieModel):
     name: str
     slug: Optional[str]
     position: int

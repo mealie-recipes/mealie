@@ -3,9 +3,9 @@ from enum import Enum
 from typing import Optional
 from uuid import UUID
 
-from fastapi_camelcase import CamelModel
 from pydantic import validator
 
+from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe import RecipeSummary
 
 
@@ -16,12 +16,12 @@ class PlanEntryType(str, Enum):
     side = "side"
 
 
-class CreatRandomEntry(CamelModel):
+class CreatRandomEntry(MealieModel):
     date: date
     entry_type: PlanEntryType = PlanEntryType.dinner
 
 
-class CreatePlanEntry(CamelModel):
+class CreatePlanEntry(MealieModel):
     date: date
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""

@@ -5,13 +5,13 @@ from pathlib import Path
 from typing import Any, Optional
 from uuid import uuid4
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4, BaseModel, Field, validator
 from pydantic.utils import GetterDict
 from slugify import slugify
 
 from mealie.core.config import get_app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.schema._mealie import MealieModel
 
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
@@ -23,7 +23,7 @@ from .recipe_step import RecipeStep
 app_dirs = get_app_dirs()
 
 
-class RecipeTag(CamelModel):
+class RecipeTag(MealieModel):
     id: UUID4 = None
     name: str
     slug: str
@@ -58,11 +58,11 @@ class CreateRecipeByUrlBulk(BaseModel):
     imports: list[CreateRecipeBulk]
 
 
-class CreateRecipe(CamelModel):
+class CreateRecipe(MealieModel):
     name: str
 
 
-class RecipeSummary(CamelModel):
+class RecipeSummary(MealieModel):
     id: Optional[UUID4]
 
     user_id: UUID4 = Field(default_factory=uuid4)

@@ -2,11 +2,12 @@ from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
+from mealie.schema._mealie import MealieModel
 
-class UserBase(CamelModel):
+
+class UserBase(MealieModel):
     id: int
     username: Optional[str]
     admin: bool
@@ -15,7 +16,7 @@ class UserBase(CamelModel):
         orm_mode = True
 
 
-class RecipeCommentCreate(CamelModel):
+class RecipeCommentCreate(MealieModel):
     recipe_id: UUID4
     text: str
 
@@ -24,7 +25,7 @@ class RecipeCommentSave(RecipeCommentCreate):
     user_id: UUID4
 
 
-class RecipeCommentUpdate(CamelModel):
+class RecipeCommentUpdate(MealieModel):
     id: UUID
     text: str
 

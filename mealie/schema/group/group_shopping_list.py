@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import Optional
 
-from fastapi_camelcase import CamelModel
 from pydantic import UUID4
 
+from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 
 
-class ShoppingListItemRecipeRef(CamelModel):
+class ShoppingListItemRecipeRef(MealieModel):
     recipe_id: UUID4
     recipe_quantity: float
 
@@ -21,7 +21,7 @@ class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRef):
         orm_mode = True
 
 
-class ShoppingListItemCreate(CamelModel):
+class ShoppingListItemCreate(MealieModel):
     shopping_list_id: UUID4
     checked: bool = False
     position: int = 0
@@ -51,11 +51,11 @@ class ShoppingListItemOut(ShoppingListItemUpdate):
         orm_mode = True
 
 
-class ShoppingListCreate(CamelModel):
+class ShoppingListCreate(MealieModel):
     name: str = None
 
 
-class ShoppingListRecipeRefOut(CamelModel):
+class ShoppingListRecipeRefOut(MealieModel):
     id: UUID4
     shopping_list_id: UUID4
     recipe_id: UUID4
