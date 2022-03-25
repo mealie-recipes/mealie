@@ -32,6 +32,8 @@ class AppSettings(BaseSettings):
     TOKEN_TIME: int = 48  # Time in Hours
     SECRET: str
 
+    GIT_COMMIT_HASH: str = "unknown"
+
     ALLOW_SIGNUP: bool = True
 
     @property

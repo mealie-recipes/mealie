@@ -91,6 +91,9 @@ FROM python-base as production
 ENV PRODUCTION=true
 ENV TESTING=false
 
+ARG COMMIT
+ENV GIT_COMMIT_HASH=$COMMIT
+
 # curl for used by healthcheck
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
