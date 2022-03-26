@@ -55,7 +55,6 @@ def start_scheduler():
 
     SchedulerRegistry.register_daily(
         tasks.purge_group_registration,
-        tasks.auto_backup,
         tasks.purge_password_reset_tokens,
         tasks.purge_group_data_exports,
     )
