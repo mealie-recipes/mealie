@@ -2,6 +2,7 @@ from random import randint
 from typing import Any, Optional
 from uuid import UUID
 
+from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy import and_, func
 from sqlalchemy.exc import IntegrityError
@@ -163,7 +164,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .limit(limit)
         ]
 
-    def get_by_slug(self, group_id: UUID, slug: str, limit=1) -> Optional[Recipe]:
+    def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Optional[Recipe]:
         dbrecipe = (
             self.session.query(RecipeModel)
             .filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
@@ -172,3 +173,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if dbrecipe is None:
             return None
         return self.schema.from_orm(dbrecipe)
+
+    def all_ids(self, group_id: UUID4) -> list[UUID4]:
+        return [tpl[0] for tpl in self.session.query(RecipeModel.id).filter(RecipeModel.group_id == group_id).all()]

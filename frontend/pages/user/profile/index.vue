@@ -38,6 +38,51 @@
         </div>
       </v-card>
     </section>
+    <section class="my-3">
+      <div>
+        <h3 class="headline">Account Summary</h3>
+        <p>Here's a summary of your group's information</p>
+      </div>
+      <v-row tag="section">
+        <v-col cols="12" sm="12" md="6">
+          <v-card outlined>
+            <v-card-title class="headline pb-0"> Group Statistics </v-card-title>
+            <v-card-text class="py-0">
+              Your Group Statistics provide some insight how you're using Mealie.
+            </v-card-text>
+            <v-card-text class="d-flex flex-wrap justify-center align-center" style="gap: 0.8rem">
+              <StatsCards
+                v-for="(value, key) in stats"
+                :key="`${key}-${value}`"
+                :min-width="$vuetify.breakpoint.xs ? '100%' : '158'"
+                :icon="getStatsIcon(key)"
+                :to="getStatsTo(key)"
+              >
+                <template #title> {{ getStatsTitle(key) }}</template>
+                <template #value> {{ value }}</template>
+              </StatsCards>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="12" md="6" class="d-flex align-strart">
+          <v-card outlined>
+            <v-card-title class="headline pb-0"> Storage Capacity </v-card-title>
+            <v-card-text class="py-0">
+              Your storage capacity is a calculation of the images and assets you have uploaded.
+              <strong> This feature is currently inactive</strong>
+            </v-card-text>
+            <v-card-text>
+              <v-progress-linear :value="storageUsedPercentage" color="accent" class="rounded" height="30">
+                <template #default>
+                  <strong> {{ storageText }} </strong>
+                </template>
+              </v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </section>
+    <v-divider class="my-7"></v-divider>
     <section>
       <div>
         <h3 class="headline">Personal</h3>
@@ -149,18 +194,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, ref, toRefs, reactive } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, ref, toRefs, reactive, useAsync } from "@nuxtjs/composition-api";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { alert } from "~/composables/use-toast";
 import UserAvatar from "@/components/Domain/User/UserAvatar.vue";
+import { useAsyncKey } from "~/composables/use-utils";
+import StatsCards from "~/components/global/StatsCards.vue";
 
 export default defineComponent({
   name: "UserProfile",
   components: {
     UserProfileLinkCard,
     UserAvatar,
+    StatsCards,
   },
   scrollToTop: true,
   setup() {
@@ -218,7 +266,81 @@ export default defineComponent({
       return false;
     });
 
+    const stats = useAsync(async () => {
+      const { data } = await api.groups.statistics();
+
+      if (data) {
+        return data;
+      }
+    }, useAsyncKey());
+
+    const statsText: { [key: string]: string } = {
+      totalRecipes: "Recipes",
+      totalUsers: "Users",
+      totalCategories: "Categories",
+      totalTags: "Tags",
+      totalTools: "Tools",
+    };
+
+    function getStatsTitle(key: string) {
+      return statsText[key] ?? "unknown";
+    }
+
+    const { $globals } = useContext();
+
+    const iconText: { [key: string]: string } = {
+      totalUsers: $globals.icons.user,
+      totalCategories: $globals.icons.tags,
+      totalTags: $globals.icons.tags,
+      totalTools: $globals.icons.potSteam,
+    };
+
+    function getStatsIcon(key: string) {
+      return iconText[key] ?? $globals.icons.primary;
+    }
+
+    const statsTo: { [key: string]: string } = {
+      totalRecipes: "/recipes/all",
+      totalUsers: "/group/members",
+      totalCategories: "/recipes/categories",
+      totalTags: "/recipes/tags",
+      totalTools: "/recipes/tools",
+    };
+
+    function getStatsTo(key: string) {
+      return statsTo[key] ?? "unknown";
+    }
+
+    const storage = useAsync(async () => {
+      const { data } = await api.groups.storage();
+
+      if (data) {
+        return data;
+      }
+    }, useAsyncKey());
+
+    const storageUsedPercentage = computed(() => {
+      if (!storage.value) {
+        return 0;
+      }
+
+      return (storage.value?.usedStorageBytes / storage.value?.totalStorageBytes) * 100 ?? 0;
+    });
+
+    const storageText = computed(() => {
+      if (!storage.value) {
+        return "Loading...";
+      }
+      return `${storage.value.usedStorageStr} / ${storage.value.totalStorageStr}`;
+    });
+
     return {
+      storageText,
+      storageUsedPercentage,
+      getStatsTitle,
+      getStatsIcon,
+      getStatsTo,
+      stats,
       user,
       constructLink,
       generatedLink,

@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 
+megabyte = 1_048_576
+gigabyte = 1_073_741_824
+
 
 def pretty_size(size: int) -> str:
     """
@@ -23,7 +26,11 @@ def get_dir_size(path: Path | str) -> int:
     """
     Get the size of a directory
     """
-    total_size = os.path.getsize(path)
+    try:
+        total_size = os.path.getsize(path)
+    except FileNotFoundError:
+        return 0
+
     for item in os.listdir(path):
         itempath = os.path.join(path, item)
         if os.path.isfile(itempath):

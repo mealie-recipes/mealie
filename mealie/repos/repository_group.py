@@ -1,32 +1,31 @@
 from typing import Union
 
-from sqlalchemy.orm.session import Session
+from pydantic import UUID4
 
 from mealie.db.models.group import Group
-from mealie.schema.meal_plan.meal import MealPlanOut
+from mealie.db.models.recipe.category import Category
+from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.recipe.tool import Tool
+from mealie.db.models.users.users import User
+from mealie.schema.group.group_statistics import GroupStatistics
 from mealie.schema.user.user import GroupInDB
 
 from .repository_generic import RepositoryGeneric
 
 
 class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
-    def get_meals(self, session: Session, match_value: str, match_key: str = "name") -> list[MealPlanOut]:
-        """A Helper function to get the group from the database and return a sorted list of
-
-        Args:
-            session (Session): SqlAlchemy Session
-            match_value (str): Match Value
-            match_key (str, optional): Match Key. Defaults to "name".
-
-        Returns:
-            list[MealPlanOut]: [description]
-        """
-        group: GroupInDB = session.query(self.sql_model).filter_by(**{match_key: match_value}).one_or_none()
-
-        return group.mealplans
-
     def get_by_name(self, name: str, limit=1) -> Union[GroupInDB, Group, None]:
         dbgroup = self.session.query(self.sql_model).filter_by(**{"name": name}).one_or_none()
         if dbgroup is None:
             return None
         return self.schema.from_orm(dbgroup)
+
+    def statistics(self, group_id: UUID4) -> GroupStatistics:
+        return GroupStatistics(
+            total_recipes=self.session.query(RecipeModel).filter_by(group_id=group_id).count(),
+            total_users=self.session.query(User).filter_by(group_id=group_id).count(),
+            total_categories=self.session.query(Category).filter_by(group_id=group_id).count(),
+            total_tags=self.session.query(Tag).filter_by(group_id=group_id).count(),
+            total_tools=self.session.query(Tool).filter_by(group_id=group_id).count(),
+        )
