@@ -54,6 +54,7 @@ class RecipeIngredient(MealieModel):
     food: Optional[Union[IngredientFood, CreateIngredientFood]]
     disable_amount: bool = True
     quantity: float = 1
+    original_text: Optional[str]
 
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
     # It is required for the reorder and section titles to function properly because of how

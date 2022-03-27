@@ -23,6 +23,7 @@ export interface Ingredient {
 }
 
 export interface ParsedIngredient {
+  input: string
   confidence: Confidence;
   ingredient: Ingredient;
 }
