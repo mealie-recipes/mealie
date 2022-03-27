@@ -97,7 +97,7 @@ export const useRecipes = (all = false, fetchRecipes = true) => {
   })();
 
   async function refreshRecipes() {
-    const { data } = await api.recipes.getAll(start, end);
+    const { data } = await api.recipes.getAll(start, end, { loadFood: true });
     if (data) {
       recipes.value = data;
     }
