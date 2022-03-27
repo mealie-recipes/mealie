@@ -43,42 +43,44 @@
         <h3 class="headline">Account Summary</h3>
         <p>Here's a summary of your group's information</p>
       </div>
-      <v-card outlined>
-        <v-card-title class="headline pb-0"> Group Statistics </v-card-title>
-        <v-card-text class="py-0"> Your Group Statistics provide some insight how you're using Mealie. </v-card-text>
-        <v-card-text class="d-flex flex-wrap justify-center align-center" style="gap: 0.8rem">
-          <StatsCards
-            v-for="(value, key) in stats"
-            :key="`${key}-${value}`"
-            :min-width="$vuetify.breakpoint.xs ? '100%' : '158'"
-            :icon="getStatsIcon(key)"
-            :to="getStatsTo(key)"
-          >
-            <template #title> {{ getStatsTitle(key) }}</template>
-            <template #value> {{ value }}</template>
-          </StatsCards>
-        </v-card-text>
-      </v-card>
-      <v-card outlined class="my-4">
-        <v-card-title class="headline pb-0"> Storage Capacity </v-card-title>
-        <v-card-text class="py-0">
-          Your storage capacity is a calculation of the images and assets you have uploaded.
-          <strong> This feature is currently inactive</strong>
-        </v-card-text>
-        <v-card-text>
-          <v-progress-linear
-            :value="storageUsedPercentage"
-            color="accent"
-            class="rounded"
-            height="30"
-            style="max-width: 500px"
-          >
-            <template #default>
-              <strong> {{ storageText }} </strong>
-            </template>
-          </v-progress-linear>
-        </v-card-text>
-      </v-card>
+      <v-row tag="section">
+        <v-col cols="12" sm="12" md="6">
+          <v-card outlined>
+            <v-card-title class="headline pb-0"> Group Statistics </v-card-title>
+            <v-card-text class="py-0">
+              Your Group Statistics provide some insight how you're using Mealie.
+            </v-card-text>
+            <v-card-text class="d-flex flex-wrap justify-center align-center" style="gap: 0.8rem">
+              <StatsCards
+                v-for="(value, key) in stats"
+                :key="`${key}-${value}`"
+                :min-width="$vuetify.breakpoint.xs ? '100%' : '158'"
+                :icon="getStatsIcon(key)"
+                :to="getStatsTo(key)"
+              >
+                <template #title> {{ getStatsTitle(key) }}</template>
+                <template #value> {{ value }}</template>
+              </StatsCards>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="12" md="6" class="d-flex align-strart">
+          <v-card outlined>
+            <v-card-title class="headline pb-0"> Storage Capacity </v-card-title>
+            <v-card-text class="py-0">
+              Your storage capacity is a calculation of the images and assets you have uploaded.
+              <strong> This feature is currently inactive</strong>
+            </v-card-text>
+            <v-card-text>
+              <v-progress-linear :value="storageUsedPercentage" color="accent" class="rounded" height="30">
+                <template #default>
+                  <strong> {{ storageText }} </strong>
+                </template>
+              </v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
     </section>
     <v-divider class="my-7"></v-divider>
     <section>
