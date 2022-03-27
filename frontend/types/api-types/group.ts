@@ -176,6 +176,19 @@ export interface GroupEventNotifierUpdate {
   options?: GroupEventNotifierOptions;
   id: string;
 }
+export interface GroupStatistics {
+  totalRecipes: number;
+  totalUsers: number;
+  totalCategories: number;
+  totalTags: number;
+  totalTools: number;
+}
+export interface GroupStorage {
+  usedStorageBytes: number;
+  usedStorageStr: string;
+  totalStorageBytes: number;
+  totalStorageStr: string;
+}
 export interface IngredientFood {
   name: string;
   description?: string;

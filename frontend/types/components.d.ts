@@ -10,6 +10,7 @@
  import BannerExperimental from "@/components/global/BannerExperimental.vue";
  import BaseDialog from "@/components/global/BaseDialog.vue";
  import RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
+ import StatsCards from "@/components/global/StatsCards.vue";
  import InputLabelType from "@/components/global/InputLabelType.vue";
  import BaseStatCard from "@/components/global/BaseStatCard.vue";
  import DevDumpJson from "@/components/global/DevDumpJson.vue";
@@ -45,6 +46,7 @@ declare module "vue" {
      BannerExperimental: typeof BannerExperimental;
      BaseDialog: typeof BaseDialog;
      RecipeJsonEditor: typeof RecipeJsonEditor;
+     StatsCards: typeof StatsCards;
      InputLabelType: typeof InputLabelType;
      BaseStatCard: typeof BaseStatCard;
      DevDumpJson: typeof DevDumpJson;
