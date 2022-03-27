@@ -1,5 +1,6 @@
 import { BaseCRUDAPI } from "../_base";
 import { GroupInDB, UserOut } from "~/types/api-types/user";
+import { GroupStatistics, GroupStorage } from "~/types/api-types/group";
 
 const prefix = "/api";
 
@@ -11,6 +12,8 @@ const routes = {
   permissions: `${prefix}/groups/permissions`,
 
   preferences: `${prefix}/groups/preferences`,
+  statistics: `${prefix}/groups/statistics`,
+  storage: `${prefix}/groups/storage`,
 
   invitation: `${prefix}/groups/invitations`,
 
@@ -102,5 +105,13 @@ export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
   async setMemberPermissions(payload: SetPermissions) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
     return await this.requests.put<Permissions, SetPermissions>(routes.permissions, payload);
+  }
+
+  async statistics() {
+    return await this.requests.get<GroupStatistics>(routes.statistics);
+  }
+
+  async storage() {
+    return await this.requests.get<GroupStorage>(routes.storage);
   }
 }
