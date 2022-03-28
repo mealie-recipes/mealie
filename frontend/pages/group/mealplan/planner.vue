@@ -182,7 +182,7 @@
                   event: 'randomDinner',
                 },
                 {
-                  icon: $globals.icons.bolwMixOutline,
+                  icon: $globals.icons.bowlMixOutline,
                   text: 'Random Side',
                   event: 'randomSide',
                 },

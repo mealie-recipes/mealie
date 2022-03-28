@@ -105,14 +105,19 @@ import {
   mdiArrowRightBold,
   mdiChevronRight,
   mdiBowlMixOutline,
+  mdiWrench,
+  mdiChartLine,
 } from "@mdi/js";
 
 export const icons = {
   // Primary
   primary: mdiSilverwareVariant,
 
+  wrench: mdiWrench,
+  chart: mdiChartLine,
+
   // General
-  bolwMixOutline: mdiBowlMixOutline,
+  bowlMixOutline: mdiBowlMixOutline,
   foods: mdiFoodApple,
   units: mdiBeakerOutline,
   alert: mdiAlert,
