@@ -18,7 +18,6 @@
       <template #title> Site Maintenance </template>
     </BasePageTitle>
 
-    <BannerExperimental />
     <div class="d-flex justify-end">
       <ButtonLink to="/admin/maintenance/logs" text="Logs" :icon="$globals.icons.file" />
     </div>
