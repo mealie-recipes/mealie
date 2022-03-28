@@ -24,7 +24,7 @@
     </div>
 
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="Summary"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" title="Summary"> </BaseCardSectionTitle>
       <div class="mb-6 ml-2 d-flex" style="gap: 0.3rem">
         <BaseButton color="info" @click="getSummary">
           <template #icon> {{ $globals.icons.tools }} </template>
@@ -38,35 +38,33 @@
       <v-card class="ma-2" :loading="state.fetchingInfo">
         <template v-for="(value, idx) in info">
           <v-list-item :key="`item-${idx}`">
-            <v-list-item-title>
+            <v-list-item-title class="py-2">
               <div>{{ value.name }}</div>
+              <v-list-item-subtitle class="text-end"> {{ value.value }} </v-list-item-subtitle>
             </v-list-item-title>
-            <v-list-item-subtitle class="text-end"> {{ value.value }} </v-list-item-subtitle>
           </v-list-item>
           <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
         </template>
       </v-card>
     </section>
     <section>
-      <BaseCardSectionTitle class="pb-0 mt-8" :icon="$globals.icons.cog" title="Actions">
+      <BaseCardSectionTitle class="pb-0 mt-8" :icon="$globals.icons.wrench" title="Actions">
         Maintenance actions are <b> destructive </b> and should be used with caution. Performing any of these actions is
         <b> irreversible </b>.
       </BaseCardSectionTitle>
       <v-card class="ma-2" :loading="state.actionLoading">
         <template v-for="(action, idx) in actions">
-          <v-list-item :key="`item-${idx}`">
+          <v-list-item :key="`item-${idx}`" class="py-1">
             <v-list-item-title>
               <div>{{ action.name }}</div>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle class="wrap-word">
                 {{ action.subtitle }}
               </v-list-item-subtitle>
             </v-list-item-title>
-            <v-list-item-action>
-              <BaseButton color="info" @click="action.handler">
-                <template #icon> {{ $globals.icons.robot }}</template>
-                Run
-              </BaseButton>
-            </v-list-item-action>
+            <BaseButton color="info" @click="action.handler">
+              <template #icon> {{ $globals.icons.robot }}</template>
+              Run
+            </BaseButton>
           </v-list-item>
           <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
         </template>
@@ -224,4 +222,9 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.wrap-word {
+  white-space: normal;
+  word-wrap: break-word;
+}
+</style>
