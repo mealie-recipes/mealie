@@ -190,6 +190,9 @@ export interface ImportJob {
   force?: boolean;
   rebase?: boolean;
 }
+export interface MaintenanceLogs {
+  logs: string[];
+}
 export interface MaintenanceSummary {
   dataDirSize: string;
   logFileSize: string;

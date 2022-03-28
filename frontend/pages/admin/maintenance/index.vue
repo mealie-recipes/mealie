@@ -5,6 +5,9 @@
     </BasePageTitle>
 
     <BannerExperimental />
+    <div class="d-flex justify-end">
+      <ButtonLink to="/admin/maintenance/logs" text="Logs" :icon="$globals.icons.file" />
+    </div>
 
     <section>
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="Summary"> </BaseCardSectionTitle>
