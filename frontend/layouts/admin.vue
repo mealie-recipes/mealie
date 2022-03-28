@@ -44,20 +44,20 @@ export default defineComponent({
     });
 
     const topLinks: SidebarLinks = [
-      // {
-      //   icon: $globals.icons.viewDashboard,
-      //   to: "/admin/dashboard",
-      //   title: i18n.t("sidebar.dashboard"),
-      // },
       {
         icon: $globals.icons.cog,
         to: "/admin/site-settings",
         title: i18n.t("sidebar.site-settings"),
       },
       {
-        icon: $globals.icons.cog,
+        icon: $globals.icons.wrench,
         to: "/admin/maintenance",
         title: "Maintenance",
+      },
+      {
+        icon: $globals.icons.chart,
+        to: "/admin/analytics",
+        title: "Analytics",
       },
       {
         icon: $globals.icons.user,
