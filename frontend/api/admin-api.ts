@@ -4,6 +4,7 @@ import { AdminUsersApi } from "./admin/admin-users";
 import { AdminGroupsApi } from "./admin/admin-groups";
 import { AdminBackupsApi } from "./admin/admin-backups";
 import { AdminMaintenanceApi } from "./admin/admin-maintenance";
+import { AdminAnalyticsApi } from "./admin/admin-analytics";
 import { ApiRequestInstance } from "~/types/api";
 
 export class AdminAPI {
@@ -13,6 +14,7 @@ export class AdminAPI {
   public groups: AdminGroupsApi;
   public backups: AdminBackupsApi;
   public maintenance: AdminMaintenanceApi;
+  public analytics: AdminAnalyticsApi;
 
   constructor(requests: ApiRequestInstance) {
     this.about = new AdminAboutAPI(requests);
@@ -21,6 +23,7 @@ export class AdminAPI {
     this.groups = new AdminGroupsApi(requests);
     this.backups = new AdminBackupsApi(requests);
     this.maintenance = new AdminMaintenanceApi(requests);
+    this.analytics = new AdminAnalyticsApi(requests);
 
     Object.freeze(this);
   }
