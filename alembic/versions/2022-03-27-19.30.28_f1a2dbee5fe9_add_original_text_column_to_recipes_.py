@@ -1,7 +1,7 @@
 """Add original_text column to recipes_ingredients
 
 Revision ID: f1a2dbee5fe9
-Revises: 6b0f5f32d602
+Revises: 263dd6707191
 Create Date: 2022-03-27 19:30:28.545846
 
 """
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "f1a2dbee5fe9"
-down_revision = "6b0f5f32d602"
+down_revision = "263dd6707191"
 branch_labels = None
 depends_on = None
 
