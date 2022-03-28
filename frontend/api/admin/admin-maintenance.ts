@@ -8,6 +8,7 @@ const routes = {
   base: `${prefix}/admin/maintenance`,
   storage: `${prefix}/admin/maintenance/storage`,
   logs: (lines: number) => `${prefix}/admin/maintenance/logs?lines=${lines}`,
+  cleanTemp: `${prefix}/admin/maintenance/clean/temp`,
   cleanImages: `${prefix}/admin/maintenance/clean/images`,
   cleanRecipeFolders: `${prefix}/admin/maintenance/clean/recipe-folders`,
   cleanLogFile: `${prefix}/admin/maintenance/clean/logs`,
@@ -20,6 +21,10 @@ export class AdminMaintenanceApi extends BaseAPI {
 
   async getStorageDetails() {
     return await this.requests.get<MaintenanceStorageDetails>(routes.storage);
+  }
+
+  async cleanTemp() {
+    return await this.requests.post<SuccessResponse>(routes.cleanTemp, {});
   }
 
   async cleanImages() {

@@ -109,6 +109,16 @@ class AdminMaintenanceController(BaseAdminController):
         except Exception as e:
             raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean images")) from e
 
+    @router.post("/clean/temp", response_model=SuccessResponse)
+    def clean_temp(self):
+        try:
+            shutil.rmtree(self.deps.folders.TEMP_DIR)
+            self.deps.folders.TEMP_DIR.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean temp")) from e
+
+        return SuccessResponse.respond("'.temp' directory cleaned")
+
     @router.post("/clean/recipe-folders", response_model=SuccessResponse)
     def clean_recipe_folders(self):
         """

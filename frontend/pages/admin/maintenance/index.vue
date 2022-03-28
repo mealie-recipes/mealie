@@ -186,6 +186,12 @@ export default defineComponent({
       state.actionLoading = false;
     }
 
+    async function handleCleanTemp() {
+      state.actionLoading = true;
+      await adminApi.maintenance.cleanTemp();
+      state.actionLoading = false;
+    }
+
     const actions = [
       {
         name: "Delete Log Files",
@@ -196,6 +202,11 @@ export default defineComponent({
         name: "Clean Directories",
         handler: handleCleanDirectories,
         subtitle: "Removes all the recipe folders that are not valid UUIDs",
+      },
+      {
+        name: "Clean Temporary Files",
+        handler: handleCleanTemp,
+        subtitle: "Removes all files and folders in the .temp directory",
       },
       {
         name: "Clean Images",
