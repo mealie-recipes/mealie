@@ -76,7 +76,7 @@ def generate_typescript_types() -> None:
     schema_path = PROJECT_DIR / "mealie" / "schema"
     types_dir = PROJECT_DIR / "frontend" / "types" / "api-types"
 
-    ignore_dirs = ["__pycache__", "static"]
+    ignore_dirs = ["__pycache__", "static", "_mealie"]
 
     skipped_files: list[Path] = []
     skipped_dirs: list[Path] = []
