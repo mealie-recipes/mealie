@@ -8,5 +8,13 @@ class MaintenanceSummary(MealieModel):
     cleanable_dirs: int
 
 
+class MaintenanceStorageDetails(MealieModel):
+    temp_dir_size: str
+    backups_dir_size: str
+    groups_dir_size: str
+    recipes_dir_size: str
+    user_dir_size: str
+
+
 class MaintenanceLogs(MealieModel):
     logs: list[str]

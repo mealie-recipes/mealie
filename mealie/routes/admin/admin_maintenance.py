@@ -10,7 +10,7 @@ from mealie.core.root_logger import LOGGER_FILE
 from mealie.pkgs.stats import fs_stats
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin import MaintenanceSummary
-from mealie.schema.admin.maintenance import MaintenanceLogs
+from mealie.schema.admin.maintenance import MaintenanceLogs, MaintenanceStorageDetails
 from mealie.schema.response import ErrorResponse, SuccessResponse
 
 router = APIRouter(prefix="/maintenance")
@@ -81,6 +81,16 @@ class AdminMaintenanceController(BaseAdminController):
             log_file_size=fs_stats.pretty_size(log_file_size),
             cleanable_images=clean_images(self.deps.folders.RECIPE_DATA_DIR, dry_run=True),
             cleanable_dirs=clean_recipe_folders(self.deps.folders.RECIPE_DATA_DIR, dry_run=True),
+        )
+
+    @router.get("/storage", response_model=MaintenanceStorageDetails)
+    def get_storage_details(self):
+        return MaintenanceStorageDetails(
+            temp_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.TEMP_DIR)),
+            backups_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.BACKUP_DIR)),
+            groups_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.GROUPS_DIR)),
+            recipes_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.RECIPE_DATA_DIR)),
+            user_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.USER_DIR)),
         )
 
     @router.post("/clean/images", response_model=SuccessResponse)
