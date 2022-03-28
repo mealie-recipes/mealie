@@ -98,15 +98,15 @@ export default defineComponent({
         valueKey: "apiTokens",
       },
       {
-        text: "Total Users",
+        text: "Users",
         valueKey: "users",
       },
       {
-        text: "Total Recipes",
+        text: "Recipes",
         valueKey: "recipes",
       },
       {
-        text: "Total Groups",
+        text: "Groups",
         valueKey: "groups",
       },
       {
