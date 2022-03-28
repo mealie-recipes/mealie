@@ -10,6 +10,7 @@ from mealie.core.root_logger import LOGGER_FILE
 from mealie.pkgs.stats import fs_stats
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin import MaintenanceSummary
+from mealie.schema.admin.maintenance import MaintenanceLogs
 from mealie.schema.response import ErrorResponse, SuccessResponse
 
 router = APIRouter(prefix="/maintenance")
@@ -52,6 +53,16 @@ def clean_recipe_folders(root_dir: Path, dry_run: bool) -> int:
                 cleaned_dirs += 1
 
     return cleaned_dirs
+
+
+def tail_log(log_file: Path, n: int) -> list[str]:
+    try:
+        with open(log_file, "r") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        return ["no log file found"]
+
+    return lines[-n:]
 
 
 @controller(router)
@@ -106,3 +117,8 @@ class AdminMaintenanceController(BaseAdminController):
             return SuccessResponse.respond("Logs cleaned")
         except Exception as e:
             raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean logs")) from e
+
+    @router.get("/logs", response_model=MaintenanceLogs)
+    def get_logs(self, lines: int = 200):
+
+        return MaintenanceLogs(logs=tail_log(LOGGER_FILE, lines))
