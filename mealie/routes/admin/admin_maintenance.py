@@ -83,6 +83,11 @@ class AdminMaintenanceController(BaseAdminController):
             cleanable_dirs=clean_recipe_folders(self.deps.folders.RECIPE_DATA_DIR, dry_run=True),
         )
 
+    @router.get("/logs", response_model=MaintenanceLogs)
+    def get_logs(self, lines: int = 200):
+
+        return MaintenanceLogs(logs=tail_log(LOGGER_FILE, lines))
+
     @router.get("/storage", response_model=MaintenanceStorageDetails)
     def get_storage_details(self):
         return MaintenanceStorageDetails(
@@ -127,8 +132,3 @@ class AdminMaintenanceController(BaseAdminController):
             return SuccessResponse.respond("Logs cleaned")
         except Exception as e:
             raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean logs")) from e
-
-    @router.get("/logs", response_model=MaintenanceLogs)
-    def get_logs(self, lines: int = 200):
-
-        return MaintenanceLogs(logs=tail_log(LOGGER_FILE, lines))
