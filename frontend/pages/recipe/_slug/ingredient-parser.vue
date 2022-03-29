@@ -88,6 +88,7 @@ import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientU
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useFoods, useRecipe, useUnits } from "~/composables/recipes";
+import { RecipeIngredient } from "~/types/api-types/admin";
 
 interface Error {
   ingredientIndex: number;
@@ -218,7 +219,8 @@ export default defineComponent({
       let ingredients = parsedIng.value.map((ing) => {
         return {
           ...ing.ingredient,
-        };
+          originalText: ing.input
+        } as RecipeIngredient;
       });
 
       ingredients = ingredients.map((ing) => {

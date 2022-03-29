@@ -63,6 +63,8 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     food = orm.relationship(IngredientFoodModel, uselist=False)
     quantity = Column(Float)
 
+    original_text = Column(String)
+
     reference_id = Column(GUID)  # Reference Links
 
     @auto_init()
