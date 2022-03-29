@@ -12,11 +12,11 @@
     item-text="name"
     persistent-hint
     multiple
+    :hide-details="hideDetails"
     :hint="hint"
     :solo="solo"
     :return-object="returnObject"
     :prepend-inner-icon="$globals.icons.tags"
-    :flat="flat"
     v-bind="$attrs"
     @input="emitChange"
   >
@@ -36,7 +36,7 @@
         {{ data.item.name || data.item }}
       </v-chip>
     </template>
-    <template #append-outer="">
+    <template #append-outer>
       <RecipeCategoryTagDialog v-if="showAdd" :tag-dialog="tagSelector" @created-item="pushToItem" />
     </template>
   </v-autocomplete>
@@ -91,6 +91,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    hideDetails: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props, context) {
@@ -127,13 +131,6 @@ export default defineComponent({
       }
     });
 
-    const flat = computed(() => {
-      if (state.selected) {
-        return state.selected.length > 0 && props.solo;
-      }
-      return false;
-    });
-
     function emitChange() {
       context.emit("input", state.selected);
     }
@@ -158,7 +155,6 @@ export default defineComponent({
       ...toRefs(state),
       inputLabel,
       activeItems,
-      flat,
       emitChange,
       removeByIndex,
       pushToItem,
