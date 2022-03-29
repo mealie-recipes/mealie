@@ -3,7 +3,9 @@ export interface Icon {
   primary: string;
 
   // General
-  bolwMixOutline: string;
+  chart: string;
+  wrench: string;
+  bowlMixOutline: string;
   foods: string;
   units: string;
   alert: string;

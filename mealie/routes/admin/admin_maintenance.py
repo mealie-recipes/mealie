@@ -10,6 +10,7 @@ from mealie.core.root_logger import LOGGER_FILE
 from mealie.pkgs.stats import fs_stats
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin import MaintenanceSummary
+from mealie.schema.admin.maintenance import MaintenanceLogs, MaintenanceStorageDetails
 from mealie.schema.response import ErrorResponse, SuccessResponse
 
 router = APIRouter(prefix="/maintenance")
@@ -54,6 +55,16 @@ def clean_recipe_folders(root_dir: Path, dry_run: bool) -> int:
     return cleaned_dirs
 
 
+def tail_log(log_file: Path, n: int) -> list[str]:
+    try:
+        with open(log_file, "r") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        return ["no log file found"]
+
+    return lines[-n:]
+
+
 @controller(router)
 class AdminMaintenanceController(BaseAdminController):
     @router.get("", response_model=MaintenanceSummary)
@@ -72,6 +83,21 @@ class AdminMaintenanceController(BaseAdminController):
             cleanable_dirs=clean_recipe_folders(self.deps.folders.RECIPE_DATA_DIR, dry_run=True),
         )
 
+    @router.get("/logs", response_model=MaintenanceLogs)
+    def get_logs(self, lines: int = 200):
+
+        return MaintenanceLogs(logs=tail_log(LOGGER_FILE, lines))
+
+    @router.get("/storage", response_model=MaintenanceStorageDetails)
+    def get_storage_details(self):
+        return MaintenanceStorageDetails(
+            temp_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.TEMP_DIR)),
+            backups_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.BACKUP_DIR)),
+            groups_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.GROUPS_DIR)),
+            recipes_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.RECIPE_DATA_DIR)),
+            user_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.deps.folders.USER_DIR)),
+        )
+
     @router.post("/clean/images", response_model=SuccessResponse)
     def clean_images(self):
         """
@@ -82,6 +108,16 @@ class AdminMaintenanceController(BaseAdminController):
             return SuccessResponse.respond(f"{cleaned_images} Images cleaned")
         except Exception as e:
             raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean images")) from e
+
+    @router.post("/clean/temp", response_model=SuccessResponse)
+    def clean_temp(self):
+        try:
+            shutil.rmtree(self.deps.folders.TEMP_DIR)
+            self.deps.folders.TEMP_DIR.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean temp")) from e
+
+        return SuccessResponse.respond("'.temp' directory cleaned")
 
     @router.post("/clean/recipe-folders", response_model=SuccessResponse)
     def clean_recipe_folders(self):

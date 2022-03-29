@@ -190,6 +190,16 @@ export interface ImportJob {
   force?: boolean;
   rebase?: boolean;
 }
+export interface MaintenanceLogs {
+  logs: string[];
+}
+export interface MaintenanceStorageDetails {
+  tempDirSize: string;
+  backupsDirSize: string;
+  groupsDirSize: string;
+  recipesDirSize: string;
+  userDirSize: string;
+}
 export interface MaintenanceSummary {
   dataDirSize: string;
   logFileSize: string;
