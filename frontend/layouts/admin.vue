@@ -54,11 +54,11 @@ export default defineComponent({
         to: "/admin/maintenance",
         title: "Maintenance",
       },
-      {
-        icon: $globals.icons.chart,
-        to: "/admin/analytics",
-        title: "Analytics",
-      },
+      // {
+      //   icon: $globals.icons.chart,
+      //   to: "/admin/analytics",
+      //   title: "Analytics",
+      // },
       {
         icon: $globals.icons.user,
         to: "/admin/manage/users",
