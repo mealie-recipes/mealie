@@ -90,7 +90,7 @@
         </template>
       </ToggleState>
     </v-container>
-    <v-container class="px-0">
+    <v-container class="px-0 mt-6">
       <RecipeCardSection
         class="mt-n5"
         :icon="$globals.icons.search"
