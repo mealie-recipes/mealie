@@ -122,7 +122,8 @@
                     :buttons="[
                       {
                         icon: $globals.icons.dotsVertical,
-                        text: $t('general.delete'),
+                        text: '',
+                        event: 'open',
                         children: [
                           {
                             text: 'Toggle Section',
@@ -140,7 +141,7 @@
                       },
                       {
                         icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                        text: previewStates[index] ? $t('general.edit') : 'Preview Markdown',
+                        text: previewStates[index] ? $tc('general.edit') : 'Preview Markdown',
                         event: 'preview-step',
                       },
                     ]"

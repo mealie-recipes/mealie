@@ -89,28 +89,34 @@
           <v-icon v-if="disableAmount" slot="prepend" class="mr-n1" color="error" @click="$emit('delete')">
             {{ $globals.icons.delete }}
           </v-icon>
-          <template slot="append">
-            <v-tooltip top nudge-right="10">
-              <template #activator="{ on, attrs }">
-                <v-btn icon small class="mt-n1" v-bind="attrs" v-on="on" @click="toggleTitle()">
-                  <v-icon>{{ showTitle || value.title ? $globals.icons.minus : $globals.icons.createAlt }}</v-icon>
-                </v-btn>
-              </template>
-              <span>{{ showTitle ? $t("recipe.remove-section") : $t("recipe.insert-section") }}</span>
-            </v-tooltip>
-          </template>
+
           <template slot="append-outer">
-            <v-icon class="handle mt-1">{{ $globals.icons.arrowUpDown }}</v-icon>
+            <BaseButtonGroup
+              :large="false"
+              class="handle my-auto"
+              :buttons="[
+                {
+                  icon: $globals.icons.arrowUpDown,
+                  text: '',
+                  event: 'open',
+                  children: contextMenuOptions,
+                },
+              ]"
+              @toggle-section="toggleTitle"
+              @toggle-original="toggleOriginalText"
+            />
           </template>
         </v-text-field>
       </v-col>
     </v-row>
+    <p v-if="showOriginalText" class="text-caption">Original Text: {{ value.originalText }}</p>
+
     <v-divider v-if="!$vuetify.breakpoint.mdAndUp" class="my-4"></v-divider>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
 import { useFoods, useUnits } from "~/composables/recipes";
 import { validators } from "~/composables/use-validators";
 import { RecipeIngredient } from "~/types/api-types/recipe";
@@ -153,6 +159,7 @@ export default defineComponent({
 
     const state = reactive({
       showTitle: false,
+      showOriginalText: false,
     });
 
     function toggleTitle() {
@@ -163,6 +170,10 @@ export default defineComponent({
         state.showTitle = true;
         value.title = "Section Title";
       }
+    }
+
+    function toggleOriginalText() {
+      state.showOriginalText = !state.showOriginalText;
     }
 
     function handleUnitEnter() {
@@ -177,7 +188,35 @@ export default defineComponent({
       }
     }
 
+    const contextMenuOptions = computed(() => {
+      const options = [
+        {
+          text: "Toggle Section",
+          event: "toggle-section",
+        },
+      ];
+
+      // FUTURE: add option to parse a single ingredient
+      // if (!value.food && !value.unit && value.note) {
+      //   options.push({
+      //     text: "Parse Ingredient",
+      //     event: "parse-ingredient",
+      //   });
+      // }
+
+      if (value.originalText) {
+        options.push({
+          text: "See Original Text",
+          event: "toggle-original",
+        });
+      }
+
+      return options;
+    });
+
     return {
+      toggleOriginalText,
+      contextMenuOptions,
       handleUnitEnter,
       handleFoodEnter,
       ...toRefs(state),
