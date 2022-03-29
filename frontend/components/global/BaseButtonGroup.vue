@@ -3,7 +3,7 @@
     <template v-for="btn in buttons">
       <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-x left>
         <template #activator="{ on, attrs }">
-          <v-btn tile large icon v-bind="attrs" v-on="on">
+          <v-btn tile :large="large" icon v-bind="attrs" v-on="on">
             <v-icon>
               {{ btn.icon }}
             </v-icon>
@@ -25,7 +25,7 @@
         content-class="text-caption"
       >
         <template #activator="{ on, attrs }">
-          <v-btn tile large icon v-bind="attrs" @click="$emit(btn.event)" v-on="on">
+          <v-btn tile :large="large" icon v-bind="attrs" @click="$emit(btn.event)" v-on="on">
             <v-icon> {{ btn.icon }} </v-icon>
           </v-btn>
         </template>
@@ -39,7 +39,7 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 
 export interface ButtonOption {
-  icon: string;
+  icon?: string;
   text: string;
   event: string;
   children?: ButtonOption[];
@@ -50,6 +50,10 @@ export default defineComponent({
     buttons: {
       type: Array as () => ButtonOption[],
       required: true,
+    },
+    large: {
+      type: Boolean,
+      default: true,
     },
   },
 });

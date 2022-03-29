@@ -34,46 +34,39 @@
         <template #default="{ state }">
           <v-expand-transition>
             <v-row v-show="state" dense class="my-0 dense flex-row align-center justify-space-around">
-              <v-col>
-                <h3 class="pl-2 text-center headline">
-                  {{ $t("category.category-filter") }}
-                </h3>
-                <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
+              <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
                 <RecipeCategoryTagSelector
                   v-model="includeCategories"
+                  hide-details
                   :solo="true"
                   :dense="false"
                   :return-object="false"
                 />
+                <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
               </v-col>
-              <v-col>
-                <h3 class="pl-2 text-center headline">
-                  {{ $t("search.tag-filter") }}
-                </h3>
-                <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
+              <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
                 <RecipeCategoryTagSelector
                   v-model="includeTags"
+                  hide-details
                   :solo="true"
                   :dense="false"
                   :return-object="false"
                   :tag-selector="true"
                 />
+                <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
               </v-col>
-              <v-col>
-                <h3 class="pl-2 text-center headline">Food Filter</h3>
-                <RecipeSearchFilterSelector class="mb-1" @update="updateFoodParams" />
+              <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
                 <v-autocomplete
                   v-model="includeFoods"
-                  hide-details
                   chips
+                  hide-details
                   deletable-chips
                   solo
                   multiple
                   :items="foods || []"
                   item-text="name"
-                  class="mx-1 py-0 mb-8"
                   :prepend-inner-icon="$globals.icons.foods"
-                  label="Choose Food"
+                  label="Foods"
                 >
                   <template #selection="data">
                     <v-chip
@@ -90,16 +83,18 @@
                     </v-chip>
                   </template>
                 </v-autocomplete>
+                <RecipeSearchFilterSelector class="mb-1" @update="updateFoodParams" />
               </v-col>
             </v-row>
           </v-expand-transition>
         </template>
       </ToggleState>
     </v-container>
-    <v-container>
+    <v-container class="px-0 mt-6">
       <RecipeCardSection
         class="mt-n5"
-        :title-icon="$globals.icons.magnify"
+        :icon="$globals.icons.search"
+        title="Results"
         :recipes="showRecipes.slice(0, maxResults)"
         @sort="assignFuzzy"
       />
