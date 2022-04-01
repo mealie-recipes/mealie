@@ -9,16 +9,10 @@
         {{ book.description }}
       </v-card-text>
     </v-card>
-    <v-tabs v-model="tab" show-arrows>
-      <v-tab v-for="(cat, index) in book.categories" :key="index">
-        {{ cat.name }}
-      </v-tab>
-    </v-tabs>
-    <v-tabs-items v-model="tab">
-      <v-tab-item v-for="(cat, idx) in book.categories" :key="`tabs` + idx">
-        <RecipeCardSection class="mb-5 mx-1" :recipes="cat.recipes" />
-      </v-tab-item>
-    </v-tabs-items>
+
+    <v-container class="pa-0">
+      <RecipeCardSection class="mb-5 mx-1" :recipes="book.recipes" />
+    </v-container>
   </v-container>
 </template>
 
@@ -26,6 +20,7 @@
 import { defineComponent, useRoute, ref, useMeta } from "@nuxtjs/composition-api";
 import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
 import { useCookbook } from "~/composables/use-group-cookbooks";
+
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
@@ -51,6 +46,3 @@ export default defineComponent({
   head: {}, // Must include for useMeta
 });
 </script>
-
-<style scoped>
-</style>
