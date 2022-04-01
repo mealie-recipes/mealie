@@ -23,6 +23,13 @@ plan_rules_to_tags = sa.Table(
     sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id")),
 )
 
+cookbooks_to_tags = sa.Table(
+    "cookbooks_to_tags",
+    SqlAlchemyBase.metadata,
+    sa.Column("cookbook_id", guid.GUID, sa.ForeignKey("cookbooks.id")),
+    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id")),
+)
+
 
 class Tag(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tags"

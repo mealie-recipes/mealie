@@ -2,19 +2,23 @@ from pydantic import UUID4, validator
 from slugify import slugify
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.recipe.recipe import RecipeSummary, RecipeTool
 
-from ..recipe.recipe_category import CategoryBase, RecipeCategoryResponse
+from ..recipe.recipe_category import CategoryBase, TagBase
 
 
 class CreateCookBook(MealieModel):
     name: str
     description: str = ""
-    slug: str = None
+    slug: str | None = None
     position: int = 1
+    public: bool = False
     categories: list[CategoryBase] = []
+    tags: list[TagBase] = []
+    tools: list[RecipeTool] = []
 
     @validator("slug", always=True, pre=True)
-    def validate_slug(slug: str, values):
+    def validate_slug(slug: str, values):  # type: ignore
         name: str = values["name"]
         calc_slug: str = slugify(name)
 
@@ -42,7 +46,7 @@ class ReadCookBook(UpdateCookBook):
 
 class RecipeCookBook(ReadCookBook):
     group_id: UUID4
-    categories: list[RecipeCategoryResponse]
+    recipes: list[RecipeSummary]
 
     class Config:
         orm_mode = True

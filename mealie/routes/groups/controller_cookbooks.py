@@ -8,13 +8,8 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
-from mealie.schema.recipe.recipe_category import RecipeCategoryResponse
 
 router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"])
-
-
-class CookBookRecipeResponse(RecipeCookBook):
-    categories: list[RecipeCategoryResponse]
 
 
 @controller(router)
@@ -37,13 +32,13 @@ class GroupCookbookController(BaseUserController):
             self.registered_exceptions,
         )
 
-    @router.get("", response_model=list[RecipeCookBook])
+    @router.get("", response_model=list[ReadCookBook])
     def get_all(self):
         items = self.repo.get_all()
         items.sort(key=lambda x: x.position)
         return items
 
-    @router.post("", response_model=RecipeCookBook, status_code=201)
+    @router.post("", response_model=ReadCookBook, status_code=201)
     def create_one(self, data: CreateCookBook):
         data = mapper.cast(data, SaveCookBook, group_id=self.group_id)
         return self.mixins.create_one(data)
@@ -58,20 +53,25 @@ class GroupCookbookController(BaseUserController):
 
         return updated
 
-    @router.get("/{item_id}", response_model=CookBookRecipeResponse)
+    @router.get("/{item_id}", response_model=RecipeCookBook)
     def get_one(self, item_id: UUID4 | str):
         match_attr = "slug" if isinstance(item_id, str) else "id"
-        book = self.repo.get_one(item_id, match_attr, override_schema=CookBookRecipeResponse)
+        cookbook = self.repo.get_one(item_id, match_attr)
 
-        if book is None:
+        if cookbook is None:
             raise HTTPException(status_code=404)
 
-        return book
+        return cookbook.cast(
+            RecipeCookBook,
+            recipes=self.repos.recipes.by_group(self.group_id).by_category_and_tags(
+                cookbook.categories, cookbook.tags, cookbook.tools
+            ),
+        )
 
-    @router.put("/{item_id}", response_model=RecipeCookBook)
+    @router.put("/{item_id}", response_model=ReadCookBook)
     def update_one(self, item_id: str, data: CreateCookBook):
-        return self.mixins.update_one(data, item_id)
+        return self.mixins.update_one(data, item_id)  # type: ignore
 
-    @router.delete("/{item_id}", response_model=RecipeCookBook)
+    @router.delete("/{item_id}", response_model=ReadCookBook)
     def delete_one(self, item_id: str):
         return self.mixins.delete_one(item_id)
