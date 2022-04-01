@@ -257,33 +257,36 @@
             </v-text-field>
           </v-col>
           <v-col cols="12" xs="12" sm="6">
-            <RecipeCategoryTagSelector
+            <RecipeOrganizerSelector
               v-model="bulkUrls[idx].categories"
-              validate-on-blur
-              autofocus
-              single-line
-              filled
-              hide-details
-              dense
-              clearable
-              rounded
-              class="rounded-lg"
-            ></RecipeCategoryTagSelector>
+              :items="allCategories || []"
+              selector-type="category"
+              :input-attrs="{
+                filled: true,
+                singleLine: true,
+                dense: true,
+                rounded: true,
+                class: 'rounded-lg',
+                hideDetails: true,
+                clearable: true,
+              }"
+            />
           </v-col>
           <v-col cols="12" xs="12" sm="6">
-            <RecipeCategoryTagSelector
+            <RecipeOrganizerSelector
               v-model="bulkUrls[idx].tags"
-              validate-on-blur
-              autofocus
-              tag-selector
-              hide-details
-              filled
-              dense
-              single-line
-              clearable
-              rounded
-              class="rounded-lg"
-            ></RecipeCategoryTagSelector>
+              :items="allTags || []"
+              selector-type="tag"
+              :input-attrs="{
+                filled: true,
+                singleLine: true,
+                dense: true,
+                rounded: true,
+                class: 'rounded-lg',
+                hideDetails: true,
+                clearable: true,
+              }"
+            />
           </v-col>
         </v-row>
         <v-card-actions class="justify-end">
@@ -307,9 +310,11 @@
       </section>
     </v-container>
 
-    <v-container v-if="$auth.user.advanced" class="narrow-container d-flex justify-end">
-      <v-btn outlined rounded to="/group/data/migrations"> Looking For Migrations? </v-btn>
-    </v-container>
+    <AdvancedOnly>
+      <v-container class="narrow-container d-flex justify-end">
+        <v-btn outlined rounded to="/group/data/migrations"> Looking For Migrations? </v-btn>
+      </v-container>
+    </AdvancedOnly>
   </div>
 </template>
 
@@ -325,16 +330,19 @@ import {
   useRoute,
 } from "@nuxtjs/composition-api";
 import { AxiosResponse } from "axios";
+import { onMounted } from "vue-demi";
 import { useUserApi } from "~/composables/api";
-import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import { validators } from "~/composables/use-validators";
 import { Recipe } from "~/types/api-types/recipe";
 import { alert } from "~/composables/use-toast";
 import { VForm } from "~/types/vuetify";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
+import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
+import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
+import { useCategories, useTags } from "~/composables/recipes";
 
 export default defineComponent({
-  components: { RecipeCategoryTagSelector },
+  components: { AdvancedOnly, RecipeOrganizerSelector },
   setup() {
     const state = reactive({
       error: false,
@@ -405,6 +413,16 @@ export default defineComponent({
       },
     });
 
+    onMounted(() => {
+      if (!recipeUrl.value) {
+        return;
+      }
+
+      if (recipeUrl.value.includes("https")) {
+        createByUrl(recipeUrl.value);
+      }
+    });
+
     // ===================================================
     // Recipe Debug URL Scraper
 
@@ -412,7 +430,11 @@ export default defineComponent({
 
     const debugData = ref<Recipe | null>(null);
 
-    async function debugUrl(url: string) {
+    async function debugUrl(url: string | null) {
+      if (url === null) {
+        return;
+      }
+
       state.loading = true;
 
       const { data } = await api.recipes.testCreateOneUrl(url);
@@ -425,7 +447,10 @@ export default defineComponent({
     // Recipe URL Import
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string) {
+    async function createByUrl(url: string | null) {
+      if (url === null) {
+        return;
+      }
       if (!domUrlForm.value?.validate() || url === "") {
         console.log("Invalid URL", url);
         return;
@@ -487,7 +512,15 @@ export default defineComponent({
       }
     }
 
+    const { allTags, useAsyncGetAll: getAllTags } = useTags();
+    const { allCategories, useAsyncGetAll: getAllCategories } = useCategories();
+
+    getAllTags();
+    getAllCategories();
+
     return {
+      allTags,
+      allCategories,
       tab,
       recipeUrl,
       bulkCreate,
