@@ -11,6 +11,7 @@
  import BaseDialog from "@/components/global/BaseDialog.vue";
  import RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
  import StatsCards from "@/components/global/StatsCards.vue";
+ import HelpIcon from "@/components/global/HelpIcon.vue";
  import InputLabelType from "@/components/global/InputLabelType.vue";
  import BaseStatCard from "@/components/global/BaseStatCard.vue";
  import DevDumpJson from "@/components/global/DevDumpJson.vue";
@@ -23,6 +24,7 @@
  import BaseDivider from "@/components/global/BaseDivider.vue";
  import AutoForm from "@/components/global/AutoForm.vue";
  import AppButtonUpload from "@/components/global/AppButtonUpload.vue";
+ import AdvancedOnly from "@/components/global/AdvancedOnly.vue";
  import BasePageTitle from "@/components/global/BasePageTitle.vue";
  import ButtonLink from "@/components/global/ButtonLink.vue";
 
@@ -47,6 +49,7 @@ declare module "vue" {
      BaseDialog: typeof BaseDialog;
      RecipeJsonEditor: typeof RecipeJsonEditor;
      StatsCards: typeof StatsCards;
+     HelpIcon: typeof HelpIcon;
      InputLabelType: typeof InputLabelType;
      BaseStatCard: typeof BaseStatCard;
      DevDumpJson: typeof DevDumpJson;
@@ -59,6 +62,7 @@ declare module "vue" {
      BaseDivider: typeof BaseDivider;
      AutoForm: typeof AutoForm;
      AppButtonUpload: typeof AppButtonUpload;
+     AdvancedOnly: typeof AdvancedOnly;
      BasePageTitle: typeof BasePageTitle;
      ButtonLink: typeof ButtonLink;
      // Layout Components
