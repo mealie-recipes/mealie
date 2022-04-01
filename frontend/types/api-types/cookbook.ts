@@ -15,22 +15,46 @@ export interface CreateCookBook {
   description?: string;
   slug?: string;
   position?: number;
+  public?: boolean;
   categories?: CategoryBase[];
+  tags?: TagBase[];
+  tools?: RecipeTool[];
+}
+export interface TagBase {
+  name: string;
+  id: string;
+  slug: string;
+}
+export interface RecipeTool {
+  id: string;
+  name: string;
+  slug: string;
+  onHand?: boolean;
 }
 export interface ReadCookBook {
   name: string;
   description?: string;
   slug?: string;
   position?: number;
+  public?: boolean;
   categories?: CategoryBase[];
+  tags?: TagBase[];
+  tools?: RecipeTool[];
   groupId: string;
   id: string;
 }
-export interface RecipeCategoryResponse {
+export interface RecipeCookBook {
   name: string;
+  description?: string;
+  slug?: string;
+  position?: number;
+  public?: boolean;
+  categories?: CategoryBase[];
+  tags?: TagBase[];
+  tools?: RecipeTool[];
+  groupId: string;
   id: string;
-  slug: string;
-  recipes?: RecipeSummary[];
+  recipes: RecipeSummary[];
 }
 export interface RecipeSummary {
   id?: string;
@@ -64,12 +88,6 @@ export interface RecipeTag {
   name: string;
   slug: string;
 }
-export interface RecipeTool {
-  id: string;
-  name: string;
-  slug: string;
-  onHand?: boolean;
-}
 export interface RecipeIngredient {
   title?: string;
   note?: string;
@@ -77,6 +95,7 @@ export interface RecipeIngredient {
   food?: IngredientFood | CreateIngredientFood;
   disableAmount?: boolean;
   quantity?: number;
+  originalText?: string;
   referenceId?: string;
 }
 export interface IngredientUnit {
@@ -110,21 +129,15 @@ export interface CreateIngredientFood {
   description?: string;
   labelId?: string;
 }
-export interface RecipeCookBook {
-  name: string;
-  description?: string;
-  slug?: string;
-  position?: number;
-  categories: RecipeCategoryResponse[];
-  groupId: string;
-  id: string;
-}
 export interface SaveCookBook {
   name: string;
   description?: string;
   slug?: string;
   position?: number;
+  public?: boolean;
   categories?: CategoryBase[];
+  tags?: TagBase[];
+  tools?: RecipeTool[];
   groupId: string;
 }
 export interface UpdateCookBook {
@@ -132,7 +145,10 @@ export interface UpdateCookBook {
   description?: string;
   slug?: string;
   position?: number;
+  public?: boolean;
   categories?: CategoryBase[];
+  tags?: TagBase[];
+  tools?: RecipeTool[];
   groupId: string;
   id: string;
 }
