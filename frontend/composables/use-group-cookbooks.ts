@@ -1,9 +1,9 @@
 import { useAsync, ref, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { CookBook } from "~/api/class-interfaces/group-cookbooks";
+import { ReadCookBook, RecipeCookBook, UpdateCookBook } from "~/types/api-types/cookbook";
 
-let cookbookStore: Ref<CookBook[] | null> | null = null;
+let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
 
 export const useCookbook = function () {
   function getOne(id: string | number) {
@@ -60,13 +60,13 @@ export const useCookbooks = function () {
 
       loading.value = false;
     },
-    async updateOne(updateData: CookBook) {
+    async updateOne(updateData: UpdateCookBook) {
       if (!updateData.id) {
         return;
       }
 
       loading.value = true;
-      const { data } = await api.cookbooks.updateOne(updateData.id, updateData);
+      const { data } = await api.cookbooks.updateOne(updateData.id, updateData as RecipeCookBook);
       if (data && cookbookStore?.value) {
         this.refreshAll();
       }
