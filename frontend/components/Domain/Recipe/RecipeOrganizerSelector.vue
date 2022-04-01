@@ -87,6 +87,8 @@ export default defineComponent({
           return i18n.t("category.categories");
         case "tool":
           return "Tools";
+        default:
+          return "Organizer";
       }
     });
 
