@@ -43,6 +43,9 @@ import_from_file $input $token $mealie_url
 
 ```
 
+#### Go
+See <a href="https://github.com/Jleagle/mealie-importer" target="_blank">Jleagle/mealie-importer</a>.
+
 #### Python
 ```python
 import requests
