@@ -5,7 +5,9 @@
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
       </template>
       <template #title> Cookbooks </template>
-      Arrange and edit your cookbooks here.
+      Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook
+      will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the
+      cookbook.
     </BasePageTitle>
 
     <BaseButton create @click="actions.createOne()" />
@@ -31,10 +33,24 @@
             </template>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-card-text>
+            <v-card-text v-if="cookbooks">
               <v-text-field v-model="cookbooks[index].name" label="Cookbook Name"></v-text-field>
               <v-textarea v-model="cookbooks[index].description" auto-grow :rows="2" label="Description"></v-textarea>
-              <DomainRecipeCategoryTagSelector v-model="cookbooks[index].categories" />
+              <RecipeOrganizerSelector
+                v-model="cookbooks[index].categories"
+                :items="allCategories || []"
+                selector-type="category"
+              />
+              <RecipeOrganizerSelector v-model="cookbooks[index].tags" :items="allTags || []" selector-type="tag" />
+              <RecipeOrganizerSelector v-model="cookbooks[index].tools" :items="tools || []" selector-type="tool" />
+              <v-switch v-model="cookbooks[index].public">
+                <template #label>
+                  Public Cookbook
+                  <HelpIcon class="ml-4">
+                    Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.
+                  </HelpIcon>
+                </template>
+              </v-switch>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -42,12 +58,12 @@
                 :buttons="[
                   {
                     icon: $globals.icons.delete,
-                    text: $t('general.delete'),
+                    text: $tc('general.delete'),
                     event: 'delete',
                   },
                   {
                     icon: $globals.icons.save,
-                    text: $t('general.save'),
+                    text: $tc('general.save'),
                     event: 'save',
                   },
                 ]"
@@ -66,15 +82,27 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
+import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
+import { useCategories, useTags, useTools } from "~/composables/recipes";
 
 export default defineComponent({
-  components: { draggable },
+  components: { draggable, RecipeOrganizerSelector },
   setup() {
     const { cookbooks, actions } = useCookbooks();
 
+    const { tools } = useTools();
+    const { allCategories, useAsyncGetAll: getAllCategories } = useCategories();
+    const { allTags, useAsyncGetAll: getAllTags } = useTags();
+
+    getAllCategories();
+    getAllTags();
+
     return {
+      allCategories,
+      allTags,
       cookbooks,
       actions,
+      tools,
     };
   },
   head() {

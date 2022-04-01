@@ -13,8 +13,10 @@ from mealie.db.models.recipe.ingredient import RecipeIngredient
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.recipe.tool import Tool
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipeSummary, RecipeTag
+from mealie.schema.recipe.recipe import RecipeCategory, RecipeSummary, RecipeTag, RecipeTool
+from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 
 from .repository_generic import RepositoryGeneric
 
@@ -123,6 +125,40 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .all()
         ]
 
+    def _category_tag_filters(
+        self,
+        categories: list[CategoryBase] | None = None,
+        tags: list[TagBase] | None = None,
+        tools: list[RecipeTool] | None = None,
+    ) -> list:
+        fltr = [
+            RecipeModel.group_id == self.group_id,
+        ]
+
+        if categories:
+            cat_ids = [x.id for x in categories]
+            fltr.extend(RecipeModel.recipe_category.any(Category.id.is_(cat_id)) for cat_id in cat_ids)
+
+        if tags:
+            tag_ids = [x.id for x in tags]
+            fltr.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tag_ids)  # type:ignore
+
+        if tools:
+            tool_ids = [x.id for x in tools]
+            fltr.extend(RecipeModel.tools.any(Tool.id.is_(tool_id)) for tool_id in tool_ids)
+
+        return fltr
+
+    def by_category_and_tags(
+        self,
+        categories: list[CategoryBase] | None = None,
+        tags: list[TagBase] | None = None,
+        tools: list[RecipeTool] | None = None,
+    ) -> list[Recipe]:
+        fltr = self._category_tag_filters(categories, tags, tools)
+
+        return [self.schema.from_orm(x) for x in self.session.query(RecipeModel).filter(*fltr).all()]
+
     def get_random_by_categories_and_tags(
         self, categories: list[RecipeCategory], tags: list[RecipeTag]
     ) -> list[Recipe]:
@@ -135,17 +171,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # See Also:
         # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
-        filters = [
-            RecipeModel.group_id == self.group_id,
-        ]
-
-        if categories:
-            cat_ids = [x.id for x in categories]
-            filters.extend(RecipeModel.recipe_category.any(Category.id.is_(cat_id)) for cat_id in cat_ids)
-
-        if tags:
-            tag_ids = [x.id for x in tags]
-            filters.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tag_ids)
+        filters = self._category_tag_filters(categories, tags)  # type: ignore
 
         return [
             self.schema.from_orm(x)

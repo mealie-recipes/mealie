@@ -12,6 +12,13 @@ recipes_to_tools = Table(
     Column("tool_id", GUID, ForeignKey("tools.id")),
 )
 
+cookbooks_to_tools = Table(
+    "cookbooks_to_tools",
+    SqlAlchemyBase.metadata,
+    Column("cookbook_id", GUID, ForeignKey("cookbooks.id")),
+    Column("tool_id", GUID, ForeignKey("tools.id")),
+)
+
 
 class Tool(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tools"

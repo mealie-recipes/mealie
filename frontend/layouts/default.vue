@@ -41,7 +41,7 @@
             <v-icon>{{ $globals.icons.translate }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{ $t('sidebar.language') }}</v-list-item-title>
+            <v-list-item-title>{{ $t("sidebar.language") }}</v-list-item-title>
             <LanguageDialog v-model="languageDialog" />
           </v-list-item-content>
         </v-list-item>
@@ -103,7 +103,7 @@ export default defineComponent({
         return {
           icon: $globals.icons.pages,
           title: cookbook.name,
-          to: `/cookbooks/${cookbook.slug}`,
+          to: `/cookbooks/${cookbook.slug as string}`,
         };
       });
     });

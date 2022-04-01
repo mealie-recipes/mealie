@@ -5,6 +5,7 @@ export interface Icon {
   // General
   chart: string;
   wrench: string;
+  help: string;
   bowlMixOutline: string;
   foods: string;
   units: string;

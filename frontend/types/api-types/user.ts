@@ -153,6 +153,7 @@ export interface RecipeIngredient {
   food?: IngredientFood | CreateIngredientFood;
   disableAmount?: boolean;
   quantity?: number;
+  originalText?: string;
   referenceId?: string;
 }
 export interface IngredientUnit {
