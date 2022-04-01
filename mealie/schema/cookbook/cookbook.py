@@ -17,6 +17,10 @@ class CreateCookBook(MealieModel):
     tags: list[TagBase] = []
     tools: list[RecipeTool] = []
 
+    @validator("public", always=True, pre=True)
+    def validate_public(public: bool | None, values: dict) -> bool:  # type: ignore
+        return False if public is None else public
+
     @validator("slug", always=True, pre=True)
     def validate_slug(slug: str, values):  # type: ignore
         name: str = values["name"]
