@@ -1,5 +1,5 @@
 import { BaseAPI } from "../_base";
-import { AdminAboutInfo } from "~/types/api-types/admin";
+import { AdminAboutInfo, DockerVolumeText, CheckAppConfig } from "~/types/api-types/admin";
 
 const prefix = "/api";
 
@@ -7,24 +7,9 @@ const routes = {
   about: `${prefix}/admin/about`,
   aboutStatistics: `${prefix}/admin/about/statistics`,
   check: `${prefix}/admin/about/check`,
+  docker: `${prefix}/admin/about/docker/validate`,
+  validationFile: `${prefix}/media/docker/validate.txt`,
 };
-
-
-export interface AdminStatistics {
-  totalRecipes: number;
-  totalUsers: number;
-  totalGroups: number;
-  uncategorizedRecipes: number;
-  untaggedRecipes: number;
-}
-
-export interface CheckAppConfig {
-  emailReady: boolean;
-  baseUrlSet: boolean;
-  isSiteSecure: boolean;
-  isUpToDate: boolean;
-  ldapReady: boolean;
-}
 
 export class AdminAboutAPI extends BaseAPI {
   async about() {
@@ -37,5 +22,13 @@ export class AdminAboutAPI extends BaseAPI {
 
   async checkApp() {
     return await this.requests.get<CheckAppConfig>(routes.check);
+  }
+
+  async checkDocker() {
+    return await this.requests.get<DockerVolumeText>(routes.docker);
+  }
+
+  async getDockerValidateFileContents() {
+    return await this.requests.get<string>(routes.validationFile);
   }
 }
