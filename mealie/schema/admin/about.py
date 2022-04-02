@@ -31,3 +31,7 @@ class CheckAppConfig(MealieModel):
     ldap_ready: bool = False
     base_url_set: bool = False
     is_up_to_date: bool = False
+
+
+class DockerVolumeText(MealieModel):
+    text: str
