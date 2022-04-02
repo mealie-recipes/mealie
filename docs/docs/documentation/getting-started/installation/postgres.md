@@ -1,7 +1,5 @@
 # Installing with PostgreSQL
 
-Postgres support was introduced in v0.5.0. At this point it should be used with caution and frequent backups.
-
 **For Environmental Variable Configuration See:**
 
 - [Frontend Configuration](/mealie/documentation/getting-started/installation/frontend-config/)
