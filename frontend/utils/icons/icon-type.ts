@@ -3,6 +3,7 @@ export interface Icon {
   primary: string;
 
   // General
+  docker: string;
   chart: string;
   wrench: string;
   help: string;
