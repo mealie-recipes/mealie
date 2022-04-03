@@ -21,8 +21,13 @@ class CookBook(SqlAlchemyBase, BaseMixins):
     public = Column(Boolean, default=False)
 
     categories = orm.relationship(Category, secondary=cookbooks_to_categories, single_parent=True)
+    require_all_categories = Column(Boolean, default=True)
+
     tags = orm.relationship(Tag, secondary=cookbooks_to_tags, single_parent=True)
+    require_all_tags = Column(Boolean, default=True)
+
     tools = orm.relationship(Tool, secondary=cookbooks_to_tools, single_parent=True)
+    require_all_tools = Column(Boolean, default=True)
 
     @auto_init()
     def __init__(self, **_) -> None:
