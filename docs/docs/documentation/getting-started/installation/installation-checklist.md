@@ -87,7 +87,7 @@ These backups are just plain .zip files that you can download from the UI or acc
 
 ### Docker Diagram
 
-While the docker-compose file should work without modification, some users want to taylor it to their installation. This diagram shows network and volume architecture for the default setup. You can use this to help you customize your configuration.
+While the docker-compose file should work without modification, some users want to tailor it to their installation. This diagram shows network and volume architecture for the default setup. You can use this to help you customize your configuration.
 
 ![Docker Diagram](../../../assets/img/docker-diagram.drawio.svg)
 
