@@ -130,6 +130,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         categories: list[CategoryBase] | None = None,
         tags: list[TagBase] | None = None,
         tools: list[RecipeTool] | None = None,
+        require_all_categories: bool = True,
+        require_all_tags: bool = True,
+        require_all_tools: bool = True,
     ) -> list:
         fltr = [
             RecipeModel.group_id == self.group_id,
@@ -137,15 +140,25 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if categories:
             cat_ids = [x.id for x in categories]
-            fltr.extend(RecipeModel.recipe_category.any(Category.id.is_(cat_id)) for cat_id in cat_ids)
+            if require_all_categories:
+                fltr.extend(RecipeModel.recipe_category.any(Category.id.is_(cat_id)) for cat_id in cat_ids)
+            else:
+                fltr.append(RecipeModel.recipe_category.any(Category.id.in_(cat_ids)))
 
         if tags:
             tag_ids = [x.id for x in tags]
-            fltr.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tag_ids)  # type:ignore
+            if require_all_tags:
+                fltr.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tag_ids)
+            else:
+                fltr.append(RecipeModel.tags.any(Tag.id.in_(tag_ids)))
 
         if tools:
             tool_ids = [x.id for x in tools]
-            fltr.extend(RecipeModel.tools.any(Tool.id.is_(tool_id)) for tool_id in tool_ids)
+
+            if require_all_tools:
+                fltr.extend(RecipeModel.tools.any(Tool.id.is_(tool_id)) for tool_id in tool_ids)
+            else:
+                fltr.append(RecipeModel.tools.any(Tool.id.in_(tool_ids)))
 
         return fltr
 
@@ -154,8 +167,13 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         categories: list[CategoryBase] | None = None,
         tags: list[TagBase] | None = None,
         tools: list[RecipeTool] | None = None,
+        require_all_categories: bool = True,
+        require_all_tags: bool = True,
+        require_all_tools: bool = True,
     ) -> list[Recipe]:
-        fltr = self._category_tag_filters(categories, tags, tools)
+        fltr = self._category_tag_filters(
+            categories, tags, tools, require_all_categories, require_all_tags, require_all_tools
+        )
 
         return [self.schema.from_orm(x) for x in self.session.query(RecipeModel).filter(*fltr).all()]
 
