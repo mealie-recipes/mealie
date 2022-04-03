@@ -64,7 +64,12 @@ class GroupCookbookController(BaseUserController):
         return cookbook.cast(
             RecipeCookBook,
             recipes=self.repos.recipes.by_group(self.group_id).by_category_and_tags(
-                cookbook.categories, cookbook.tags, cookbook.tools
+                cookbook.categories,
+                cookbook.tags,
+                cookbook.tools,
+                cookbook.require_all_categories,
+                cookbook.require_all_tags,
+                cookbook.require_all_tools,
             ),
         )
 

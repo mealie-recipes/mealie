@@ -16,6 +16,9 @@ class CreateCookBook(MealieModel):
     categories: list[CategoryBase] = []
     tags: list[TagBase] = []
     tools: list[RecipeTool] = []
+    require_all_categories: bool = True
+    require_all_tags: bool = True
+    require_all_tools: bool = True
 
     @validator("public", always=True, pre=True)
     def validate_public(public: bool | None, values: dict) -> bool:  # type: ignore
