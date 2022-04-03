@@ -19,7 +19,7 @@ This is an example of how to set it up using duckdns and docker-compose.
 
 !!! example "docker-compose.yml"
 ```yaml
-version: "2.1"
+version: "3.1"
 services:
 swag:
 image: ghcr.io/linuxserver/swag
@@ -44,6 +44,7 @@ volumes:
 - /etc/config/swag:/config
 ports:
 - 443:443
+- 80:80 #optional
 restart: unless-stopped
 
 ```
@@ -55,7 +56,7 @@ Don't forget to change the <code>mydomain.duckns</code> into your personal domai
 Navigate to the config folder of SWAG and head to <code>proxy-confs</code>. If you used the example above, you should navigate to: <code>/etc/config/swag/nginx/proxy-confs/</code>.
 There are a lot of preconfigured files to use for different apps such as radarr, sonarr, overseerr, ...
 
-To use the bundled configuration file, simply rename <code>mealie.subdomain.conf.sample</code> in the proxy-confs folder to <code>mealie.subdomain.conf</code>.
+To use the bundled configuration file, simply rename <code>mealie.subdomain.conf.sample</code> in the proxy-confs folder to <code>mealie.subdomain.conf</code>. Currently, you will have to change the $upstream_app and $upstream_port to mealie-frontend and port 3000. This will be added to the bundled config files once the beta is released.
 Alternatively, you can create a new file <code>mealie.subdomain.conf</code> in proxy-confs with the following configuration:
 
 !!! example "mealie.subdomain.conf"
@@ -73,8 +74,8 @@ Alternatively, you can create a new file <code>mealie.subdomain.conf</code> in p
     	location / {
         	include /config/nginx/proxy.conf;
         	include /config/nginx/resolver.conf;
-        	set $upstream_app mealie;
-        	set $upstream_port 80;
+        	set $upstream_app mealie-frontend;
+        	set $upstream_port 3000;
         	set $upstream_proto http;
         	proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     		}
@@ -84,7 +85,7 @@ Alternatively, you can create a new file <code>mealie.subdomain.conf</code> in p
 
 ## Step 4: Port-forward port 443
 
-Since SWAG allows you to set up a secure connection, you will need to open port 443 on your router for encrypted traffic. This is way more secure than port 80 for http.
+Since SWAG allows you to set up a secure connection, you will need to open port 443 on your router for encrypted traffic. Port 80 can be used as well if you want to have the http to https redirect working. This is however optional and not recommended, only if you have a specific usage for it.
 
 ## Step 5: Restart SWAG
 
