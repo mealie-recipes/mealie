@@ -1,16 +1,15 @@
 import secrets
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from jose import jwt
-from passlib.context import CryptContext
 
 from mealie.core.config import get_app_settings
+from mealie.core.security.hasher import get_hasher
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.user import PrivateUser
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"
 
 
@@ -20,7 +19,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
     to_encode = data.copy()
     expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
 
-    expire = datetime.utcnow() + expires_delta
+    expire = datetime.now(timezone.utc) + expires_delta
 
     to_encode["exp"] = expire
     return jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM)
@@ -31,7 +30,7 @@ def create_file_token(file_path: Path) -> str:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def create_recipe_slug_token(file_path: str) -> str:
+def create_recipe_slug_token(file_path: str | Path) -> str:
     token_data = {"slug": str(file_path)}
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
@@ -96,12 +95,12 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Compares a plain string to a hashed password"""
-    return pwd_context.verify(plain_password, hashed_password)
+    return get_hasher().verify(plain_password, hashed_password)
 
 
 def hash_password(password: str) -> str:
     """Takes in a raw password and hashes it. Used prior to saving a new password to the database."""
-    return pwd_context.hash(password)
+    return get_hasher().hash(password)
 
 
 def url_safe_token() -> str:
