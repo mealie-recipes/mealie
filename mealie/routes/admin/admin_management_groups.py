@@ -8,6 +8,7 @@ from mealie.schema.mapper import mapper
 from mealie.schema.query import GetAll
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import GroupBase, GroupInDB
+from mealie.services.group_services.group_service import GroupService
 
 from .._base import BaseAdminController, controller
 from .._base.dependencies import SharedDependencies
@@ -44,7 +45,7 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @router.post("", response_model=GroupInDB, status_code=status.HTTP_201_CREATED)
     def create_one(self, data: GroupBase):
-        return self.mixins.create_one(data)
+        return GroupService.create_group(self.deps.repos, data)
 
     @router.get("/{item_id}", response_model=GroupInDB)
     def get_one(self, item_id: UUID4):
@@ -69,7 +70,7 @@ class AdminUserManagementRoutes(BaseAdminController):
     def delete_one(self, item_id: UUID4):
         item = self.repo.get_one(item_id)
 
-        if len(item.users) > 0:
+        if item and len(item.users) > 0:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ErrorResponse.respond(message="Cannot delete group with users"),

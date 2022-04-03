@@ -62,6 +62,15 @@ def test_pg_connection_args(monkeypatch):
 def test_smtp_enable(monkeypatch):
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
+
+    monkeypatch.setenv("SMTP_HOST", "")
+    monkeypatch.setenv("SMTP_PORT", "")
+    monkeypatch.setenv("SMTP_TLS", "")
+    monkeypatch.setenv("SMTP_FROM_NAME", "")
+    monkeypatch.setenv("SMTP_FROM_EMAIL", "")
+    monkeypatch.setenv("SMTP_USER", "")
+    monkeypatch.setenv("SMTP_PASSWORD", "")
+
     assert app_settings.SMTP_ENABLE is False
 
     monkeypatch.setenv("SMTP_HOST", "email.mealie.io")

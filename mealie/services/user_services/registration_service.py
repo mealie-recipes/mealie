@@ -8,7 +8,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
 from mealie.schema.user.registration import CreateUserRegistration
 from mealie.schema.user.user import GroupBase, GroupInDB, PrivateUser, UserIn
-from mealie.services.group_services.group_utils import create_new_group
+from mealie.services.group_services.group_service import GroupService
 
 
 class RegistrationService:
@@ -19,7 +19,7 @@ class RegistrationService:
         self.logger = logger
         self.repos = db
 
-    def _create_new_user(self, group: GroupInDB, new_group=bool) -> PrivateUser:
+    def _create_new_user(self, group: GroupInDB, new_group: bool) -> PrivateUser:
         new_user = UserIn(
             email=self.registration.email,
             username=self.registration.username,
@@ -49,7 +49,7 @@ class RegistrationService:
             recipe_disable_amount=self.registration.advanced,
         )
 
-        return create_new_group(self.repos, group_data, group_preferences)
+        return GroupService.create_group(self.repos, group_data, group_preferences)
 
     def register_user(self, registration: CreateUserRegistration) -> PrivateUser:
         self.registration = registration

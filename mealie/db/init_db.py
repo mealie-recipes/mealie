@@ -16,7 +16,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
 from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder, MultiPurposeLabelSeeder
 from mealie.schema.user.user import GroupBase
-from mealie.services.group_services.group_utils import create_new_group
+from mealie.services.group_services.group_service import GroupService
 
 PROJECT_DIR = Path(__file__).parent.parent.parent
 
@@ -44,7 +44,8 @@ def default_group_init(db: AllRepositories):
     settings = get_app_settings()
 
     logger.info("Generating Default Group")
-    create_new_group(db, GroupBase(name=settings.DEFAULT_GROUP))
+
+    GroupService.create_group(db, GroupBase(name=settings.DEFAULT_GROUP))
 
 
 # Adapted from https://alembic.sqlalchemy.org/en/latest/cookbook.html#test-current-database-revision-is-at-head-s

@@ -44,8 +44,11 @@ def email_service(monkeypatch) -> EmailService:
     return email_service
 
 
-def test_email_disabled():
+def test_email_disabled(monkeypatch):
     email_service = EmailService(TestEmailSender())
+
+    monkeypatch.setenv("SMTP_HOST", "")  # disable email
+
     get_app_settings.cache_clear()
     email_service.settings = get_app_settings()
     success = email_service.send_test_email(FAKE_ADDRESS)
