@@ -2,8 +2,8 @@
   <div class="text-center">
     <v-menu top offset-y left open-on-hover>
       <template #activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" @click.stop>
-          <v-icon> {{ $globals.icons.help }} </v-icon>
+        <v-btn :small="small" icon v-bind="attrs" v-on="on" @click.stop>
+          <v-icon :small="small"> {{ $globals.icons.help }} </v-icon>
         </v-btn>
       </template>
       <v-card max-width="300px">
@@ -19,8 +19,11 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 
 export default defineComponent({
-  setup() {
-    return {};
+  props: {
+    small: {
+      type: Boolean,
+      default: false,
+    },
   },
 });
 </script>

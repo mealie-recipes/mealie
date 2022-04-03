@@ -1,6 +1,5 @@
 from datetime import datetime
 from typing import Optional
-from uuid import UUID
 
 from pydantic import UUID4
 
@@ -8,7 +7,7 @@ from mealie.schema._mealie import MealieModel
 
 
 class UserBase(MealieModel):
-    id: int
+    id: UUID4
     username: Optional[str]
     admin: bool
 
@@ -26,12 +25,12 @@ class RecipeCommentSave(RecipeCommentCreate):
 
 
 class RecipeCommentUpdate(MealieModel):
-    id: UUID
+    id: UUID4
     text: str
 
 
 class RecipeCommentOut(RecipeCommentCreate):
-    id: UUID
+    id: UUID4
     recipe_id: UUID4
     created_at: datetime
     update_at: datetime

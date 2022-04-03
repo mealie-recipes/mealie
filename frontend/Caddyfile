@@ -20,10 +20,16 @@
 		file_server
 	}
 
-	# Handles User Images 
+	# Handles User Images
 	handle_path /api/media/users/* {
 		header @static Cache-Control max-age=31536000
 		root * /app/data/users/
+		file_server
+	}
+
+	# Handle Docker Volume Validation File
+	handle_path /api/media/docker/* {
+		root * /app/data/docker-validation/
 		file_server
 	}
 

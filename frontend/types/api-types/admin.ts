@@ -170,6 +170,9 @@ export interface CustomPageOut {
   categories?: RecipeCategoryResponse[];
   id: number;
 }
+export interface DockerVolumeText {
+  text: string;
+}
 export interface GroupImport {
   name: string;
   status: boolean;

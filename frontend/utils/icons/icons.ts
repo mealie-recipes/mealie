@@ -108,6 +108,7 @@ import {
   mdiWrench,
   mdiChartLine,
   mdiHelpCircleOutline,
+  mdiDocker,
 } from "@mdi/js";
 
 export const icons = {
@@ -116,6 +117,7 @@ export const icons = {
 
   wrench: mdiWrench,
   chart: mdiChartLine,
+  docker: mdiDocker,
 
   // General
   bowlMixOutline: mdiBowlMixOutline,

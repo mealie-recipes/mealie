@@ -8,26 +8,67 @@
     </BasePageTitle>
 
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="General Configuration">
-      </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="Configuration"> </BaseCardSectionTitle>
+      <v-card class="mb-4">
+        <template v-for="(check, idx) in simpleChecks">
+          <v-list-item :key="`list-item-${idx}`">
+            <v-list-item-icon>
+              <v-icon :color="check.color">
+                {{ check.icon }}
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ check.text }}
+              </v-list-item-title>
+              <v-list-item-subtitle class="wrap-word">
+                {{ check.status ? check.successText : check.errorText }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider :key="`divider-${idx}`"></v-divider>
+        </template>
+      </v-card>
+    </section>
 
+    <section>
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" title="Docker Volume" />
       <v-alert
-        v-for="(check, idx) in simpleChecks"
-        :key="idx"
         border="left"
         colored-border
-        :type="getColor(check.status, check.warning)"
+        :type="docker.state === DockerVolumeState.Error ? 'error' : 'info'"
+        :icon="$globals.icons.docker"
         elevation="2"
+        :loading="docker.loading"
       >
-        <div class="font-weight-medium">{{ check.text }}</div>
+        <div class="d-flex align-center font-weight-medium">
+          Docker Volume
+          <HelpIcon small class="my-n3">
+            Mealie requires that the frontend container and the backend share the same docker volume or storage. This
+            ensures that the frontend container can properly access the images and assets stored on disk.
+          </HelpIcon>
+        </div>
         <div>
-          {{ check.status ? check.successText : check.errorText }}
+          <template v-if="docker.state === DockerVolumeState.Error"> Volumes are misconfigured. </template>
+          <template v-else-if="docker.state === DockerVolumeState.Success">
+            Volumes are configured correctly.
+          </template>
+          <template v-else-if="docker.state === DockerVolumeState.Unknown">
+            Status Unknown. Try running a validation.
+          </template>
+        </div>
+        <div class="mt-4">
+          <BaseButton color="info" :loading="docker.loading" @click="dockerValidate">
+            <template #icon> {{ $globals.icons.checkboxMarkedCircle }} </template>
+            Validate
+          </BaseButton>
         </div>
       </v-alert>
     </section>
+
     <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" title="Email Configuration" />
-      <v-alert border="left" colored-border :type="getColor(appConfig.emailReady)" elevation="2">
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" title="Email" />
+      <v-alert border="left" colored-border :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
         <div class="font-weight-medium">Email Configuration Status</div>
         <div>
           {{ appConfig.emailReady ? "Ready" : "Not Ready - Check Environmental Variables" }}
@@ -51,13 +92,6 @@
               <span class="pl-4">
                 {{ success ? "Succeeded" : "Failed" }}
               </span>
-
-              <!-- <template v-if="errors">
-                <h4>Errors:</h4>
-                <span class="pl-4">
-                  {{ errors }}
-                </span>
-              </template> -->
             </v-card-text>
           </template>
         </div>
@@ -95,22 +129,62 @@ import {
   useAsync,
   useContext,
 } from "@nuxtjs/composition-api";
-import { CheckAppConfig } from "~/api/admin/admin-about";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
+import { CheckAppConfig } from "~/types/api-types/admin";
+
+enum DockerVolumeState {
+  Unknown = "unknown",
+  Success = "success",
+  Error = "error",
+}
 
 interface SimpleCheck {
-  status: boolean;
   text: string;
+  status: boolean | undefined;
   successText: string;
   errorText: string;
-  warning: boolean;
+  color: string;
+  icon: string;
+}
+
+interface CheckApp extends CheckAppConfig {
+  isSiteSecure?: boolean;
 }
 
 export default defineComponent({
   layout: "admin",
   setup() {
+    // ==========================================================
+    // Docker Volume Validation
+    const docker = reactive({
+      loading: false,
+      state: DockerVolumeState.Unknown,
+    });
+
+    async function dockerValidate() {
+      docker.loading = true;
+
+      // Do API Check
+      const { data } = await adminApi.about.checkDocker();
+      if (data == null) {
+        docker.state = DockerVolumeState.Error;
+        return;
+      }
+
+      // Get File Contents
+      const { data: fileContents } = await adminApi.about.getDockerValidateFileContents();
+
+      if (data.text === fileContents) {
+        docker.state = DockerVolumeState.Success;
+      } else {
+        docker.state = DockerVolumeState.Error;
+      }
+
+      docker.loading = false;
+    }
+
     const state = reactive({
       loading: false,
       address: "",
@@ -119,17 +193,21 @@ export default defineComponent({
       tested: false,
     });
 
-    const appConfig = ref<CheckAppConfig>({
-      emailReady: false,
-      baseUrlSet: false,
-      isSiteSecure: false,
+    const appConfig = ref<CheckApp>({
+      emailReady: true,
+      baseUrlSet: true,
+      isSiteSecure: true,
       isUpToDate: false,
       ldapReady: false,
     });
 
-    const api = useUserApi();
+    function isLocalHostOrHttps() {
+      return window.location.hostname === "localhost" || window.location.protocol === "https:";
+    }
 
+    const api = useUserApi();
     const adminApi = useAdminApi();
+
     onMounted(async () => {
       const { data } = await adminApi.about.checkApp();
 
@@ -140,43 +218,53 @@ export default defineComponent({
       appConfig.value.isSiteSecure = isLocalHostOrHttps();
     });
 
-    function isLocalHostOrHttps() {
-      return window.location.hostname === "localhost" || window.location.protocol === "https:";
-    }
-
     const simpleChecks = computed<SimpleCheck[]>(() => {
-      return [
+      const goodIcon = $globals.icons.checkboxMarkedCircle;
+      const badIcon = $globals.icons.alert;
+      const warningIcon = $globals.icons.alertCircle;
+
+      const goodColor = "success";
+      const badColor = "error";
+      const warningColor = "warning";
+
+      const data: SimpleCheck[] = [
         {
-          status: appConfig.value.isUpToDate,
           text: "Application Version",
+          status: appConfig.value.isUpToDate,
           errorText: `Your current version (${rawAppInfo.value.version}) does not match the latest release. Considering updating to the latest version (${rawAppInfo.value.versionLatest}).`,
           successText: "Mealie is up to date",
-          warning: true,
+          color: appConfig.value.isUpToDate ? goodColor : warningColor,
+          icon: appConfig.value.isUpToDate ? goodIcon : warningIcon,
         },
         {
-          status: appConfig.value.isSiteSecure,
           text: "Secure Site",
+          status: appConfig.value.isSiteSecure,
           errorText: "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
           successText: "Site is accessed by localhost or https",
-          warning: false,
+          color: appConfig.value.isSiteSecure ? goodColor : badColor,
+          icon: appConfig.value.isSiteSecure ? goodIcon : badIcon,
         },
         {
-          status: appConfig.value.baseUrlSet,
           text: "Server Side Base URL",
+          status: appConfig.value.baseUrlSet,
           errorText:
             "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
           successText: "Server Side URL does not match the default",
-          warning: false,
+          color: appConfig.value.baseUrlSet ? goodColor : badColor,
+          icon: appConfig.value.baseUrlSet ? goodIcon : badIcon,
         },
         {
-          status: appConfig.value.ldapReady,
           text: "LDAP Ready",
+          status: appConfig.value.ldapReady,
           errorText:
             "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
           successText: "Required LDAP variables are all set.",
-          warning: true,
+          color: appConfig.value.ldapReady ? goodColor : warningColor,
+          icon: appConfig.value.ldapReady ? goodIcon : warningIcon,
         },
       ];
+
+      return data;
     });
 
     async function testEmail() {
@@ -208,11 +296,6 @@ export default defineComponent({
       }
       return false;
     });
-
-    function getColor(booly: unknown, warning = false) {
-      const falsey = warning ? "warning" : "error";
-      return booly ? "success" : falsey;
-    }
 
     // ============================================================
     // General About Info
@@ -292,8 +375,10 @@ export default defineComponent({
     const appInfo = getAppInfo();
 
     return {
+      DockerVolumeState,
+      docker,
+      dockerValidate,
       simpleChecks,
-      getColor,
       appConfig,
       validEmail,
       validators,
@@ -310,4 +395,9 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.wrap-word {
+  white-space: normal;
+  word-wrap: break-word;
+}
+</style>
