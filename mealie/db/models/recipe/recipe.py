@@ -130,6 +130,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "recipe_ingredient",
             "recipe_instructions",
             "settings",
+            "comments",
         }
 
     @validates("name")
