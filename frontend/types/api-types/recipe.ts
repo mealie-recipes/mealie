@@ -229,7 +229,7 @@ export interface RecipeCommentOut {
   user: UserBase;
 }
 export interface UserBase {
-  id: number;
+  id: string;
   username?: string;
   admin: boolean;
 }

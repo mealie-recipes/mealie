@@ -19,6 +19,9 @@ export interface CreateCookBook {
   categories?: CategoryBase[];
   tags?: TagBase[];
   tools?: RecipeTool[];
+  requireAllCategories?: boolean;
+  requireAllTags?: boolean;
+  requireAllTools?: boolean;
 }
 export interface TagBase {
   name: string;
@@ -40,6 +43,9 @@ export interface ReadCookBook {
   categories?: CategoryBase[];
   tags?: TagBase[];
   tools?: RecipeTool[];
+  requireAllCategories?: boolean;
+  requireAllTags?: boolean;
+  requireAllTools?: boolean;
   groupId: string;
   id: string;
 }
@@ -52,6 +58,9 @@ export interface RecipeCookBook {
   categories?: CategoryBase[];
   tags?: TagBase[];
   tools?: RecipeTool[];
+  requireAllCategories?: boolean;
+  requireAllTags?: boolean;
+  requireAllTools?: boolean;
   groupId: string;
   id: string;
   recipes: RecipeSummary[];
@@ -138,6 +147,9 @@ export interface SaveCookBook {
   categories?: CategoryBase[];
   tags?: TagBase[];
   tools?: RecipeTool[];
+  requireAllCategories?: boolean;
+  requireAllTags?: boolean;
+  requireAllTools?: boolean;
   groupId: string;
 }
 export interface UpdateCookBook {
@@ -149,6 +161,9 @@ export interface UpdateCookBook {
   categories?: CategoryBase[];
   tags?: TagBase[];
   tools?: RecipeTool[];
+  requireAllCategories?: boolean;
+  requireAllTags?: boolean;
+  requireAllTools?: boolean;
   groupId: string;
   id: string;
 }
