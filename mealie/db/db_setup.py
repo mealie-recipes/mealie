@@ -1,3 +1,5 @@
+from collections.abc import Generator
+
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
@@ -32,7 +34,7 @@ def create_session() -> Session:
     return SessionLocal()
 
 
-def generate_session() -> Session:
+def generate_session() -> Generator[Session, None, None]:
     global SessionLocal
     db = SessionLocal()
     try:
