@@ -41,16 +41,35 @@
                 :items="allCategories || []"
                 selector-type="category"
               />
+
               <RecipeOrganizerSelector v-model="cookbooks[index].tags" :items="allTags || []" selector-type="tag" />
               <RecipeOrganizerSelector v-model="cookbooks[index].tools" :items="tools || []" selector-type="tool" />
-              <v-switch v-model="cookbooks[index].public">
+              <v-switch v-model="cookbooks[index].public" hide-details single-line>
                 <template #label>
                   Public Cookbook
-                  <HelpIcon class="ml-4">
+                  <HelpIcon small right class="ml-2">
                     Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.
                   </HelpIcon>
                 </template>
               </v-switch>
+              <div class="mt-4">
+                <h3 class="text-subtitle-1 d-flex align-center mb-0 pb-0">
+                  Filter Options
+                  <HelpIcon right small class="ml-2">
+                    When require all is selected the cookbook will only include recipes that have all of the items
+                    selected. This applies to each subset of selectors and not a cross section of the selected items.
+                  </HelpIcon>
+                </h3>
+                <v-switch v-model="cookbooks[index].requireAllCategories" class="mt-0" hide-details single-line>
+                  <template #label> Require All Categories </template>
+                </v-switch>
+                <v-switch v-model="cookbooks[index].requireAllTags" hide-details single-line>
+                  <template #label> Require All Tags </template>
+                </v-switch>
+                <v-switch v-model="cookbooks[index].requireAllTools" hide-details single-line>
+                  <template #label> Require All Tools </template>
+                </v-switch>
+              </div>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
