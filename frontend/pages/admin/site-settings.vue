@@ -13,8 +13,8 @@
         <template v-for="(check, idx) in simpleChecks">
           <v-list-item :key="`list-item-${idx}`">
             <v-list-item-icon>
-              <v-icon :color="getColor(check.status, check.warning)">
-                {{ getIcon(check.status, check.warning) }}
+              <v-icon :color="check.color">
+                {{ check.icon }}
               </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
@@ -32,7 +32,7 @@
     </section>
 
     <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" title="Docker Volumes" />
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" title="Docker Volume" />
       <v-alert
         border="left"
         colored-border
@@ -42,16 +42,16 @@
         :loading="docker.loading"
       >
         <div class="d-flex align-center font-weight-medium">
-          Docker Volume Tests
+          Docker Volume
           <HelpIcon small class="my-n3">
             Mealie requires that the frontend container and the backend share the same docker volume or storage. This
             ensures that the frontend container can properly access the images and assets stored on disk.
           </HelpIcon>
         </div>
         <div>
-          <template v-if="docker.state === DockerVolumeState.Error"> Volumes are misconfigured </template>
+          <template v-if="docker.state === DockerVolumeState.Error"> Volumes are misconfigured. </template>
           <template v-else-if="docker.state === DockerVolumeState.Success">
-            Volume status was successfully validated
+            Volumes are configured correctly.
           </template>
           <template v-else-if="docker.state === DockerVolumeState.Unknown">
             Status Unknown. Try running a validation.
@@ -68,7 +68,7 @@
 
     <section>
       <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" title="Email" />
-      <v-alert border="left" colored-border :type="getColor(appConfig.emailReady)" elevation="2">
+      <v-alert border="left" colored-border :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
         <div class="font-weight-medium">Email Configuration Status</div>
         <div>
           {{ appConfig.emailReady ? "Ready" : "Not Ready - Check Environmental Variables" }}
@@ -141,11 +141,12 @@ enum DockerVolumeState {
 }
 
 interface SimpleCheck {
-  status: boolean;
   text: string;
+  status: boolean | undefined;
   successText: string;
   errorText: string;
-  warning: boolean;
+  color: string;
+  icon: string;
 }
 
 interface CheckApp extends CheckAppConfig {
@@ -200,6 +201,10 @@ export default defineComponent({
       ldapReady: false,
     });
 
+    function isLocalHostOrHttps() {
+      return window.location.hostname === "localhost" || window.location.protocol === "https:";
+    }
+
     const api = useUserApi();
     const adminApi = useAdminApi();
 
@@ -213,58 +218,53 @@ export default defineComponent({
       appConfig.value.isSiteSecure = isLocalHostOrHttps();
     });
 
-    function isLocalHostOrHttps() {
-      return window.location.hostname === "localhost" || window.location.protocol === "https:";
-    }
-
-    function getColor(booly: unknown, warning = false) {
-      const falsey = warning ? "warning" : "error";
-      return booly ? "success" : falsey;
-    }
-
-    function getIcon(booly: unknown, warning = false) {
-      if (booly === true) {
-        return $globals.icons.checkboxMarkedCircle;
-      } else if (warning === false) {
-        return $globals.icons.alert;
-      }
-      return $globals.icons.alertCircle;
-    }
-
-    // @ts-ignore adfadsf
     const simpleChecks = computed<SimpleCheck[]>(() => {
-      return [
+      const goodIcon = $globals.icons.checkboxMarkedCircle;
+      const badIcon = $globals.icons.alert;
+      const warningIcon = $globals.icons.alertCircle;
+
+      const goodColor = "success";
+      const badColor = "error";
+      const warningColor = "warning";
+
+      const data: SimpleCheck[] = [
         {
-          status: appConfig.value.isUpToDate,
           text: "Application Version",
+          status: appConfig.value.isUpToDate,
           errorText: `Your current version (${rawAppInfo.value.version}) does not match the latest release. Considering updating to the latest version (${rawAppInfo.value.versionLatest}).`,
           successText: "Mealie is up to date",
-          warning: true,
+          color: appConfig.value.isUpToDate ? goodColor : warningColor,
+          icon: appConfig.value.isUpToDate ? goodIcon : warningIcon,
         },
         {
-          status: appConfig.value.isSiteSecure,
           text: "Secure Site",
+          status: appConfig.value.isSiteSecure,
           errorText: "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
           successText: "Site is accessed by localhost or https",
-          warning: false,
+          color: appConfig.value.isSiteSecure ? goodColor : badColor,
+          icon: appConfig.value.isSiteSecure ? goodIcon : badIcon,
         },
         {
-          status: appConfig.value.baseUrlSet,
           text: "Server Side Base URL",
+          status: appConfig.value.baseUrlSet,
           errorText:
             "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
           successText: "Server Side URL does not match the default",
-          warning: false,
+          color: appConfig.value.baseUrlSet ? goodColor : badColor,
+          icon: appConfig.value.baseUrlSet ? goodIcon : badIcon,
         },
         {
-          status: appConfig.value.ldapReady,
           text: "LDAP Ready",
+          status: appConfig.value.ldapReady,
           errorText:
             "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
           successText: "Required LDAP variables are all set.",
-          warning: true,
+          color: appConfig.value.ldapReady ? goodColor : warningColor,
+          icon: appConfig.value.ldapReady ? goodIcon : warningIcon,
         },
       ];
+
+      return data;
     });
 
     async function testEmail() {
@@ -379,8 +379,6 @@ export default defineComponent({
       docker,
       dockerValidate,
       simpleChecks,
-      getColor,
-      getIcon,
       appConfig,
       validEmail,
       validators,
