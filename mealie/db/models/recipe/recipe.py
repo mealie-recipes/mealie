@@ -20,7 +20,7 @@ from .note import Note
 from .nutrition import Nutrition
 from .settings import RecipeSettings
 from .shared import RecipeShareTokenModel
-from .tag import Tag, recipes_to_tags
+from .tag import recipes_to_tags
 from .tool import recipes_to_tools
 
 
@@ -99,7 +99,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Mealie Specific
     settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")
-    tags: list[Tag] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
+    tags = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
     notes: list[Note] = orm.relationship("Note", cascade="all, delete-orphan")
     rating = sa.Column(sa.Integer)
     org_url = sa.Column(sa.String)
