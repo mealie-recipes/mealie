@@ -297,3 +297,18 @@ def pretty_print_timedelta(t: timedelta, max_components=None, max_decimal_places
     if out_list == []:
         return "none"
     return " ".join(out_list)
+
+
+def clean_tags(text: str):
+    """
+    Gets keywords in a list, assuming they are separated by commas, capitalizes them and gets rid of extra spaces
+    """
+    if text is None:
+        return []
+
+    tag_list = text.split(",")
+
+    for i in range(0, len(tag_list)):
+        tag_list[i] = tag_list[i].strip().capitalize()
+
+    return tag_list

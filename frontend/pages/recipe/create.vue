@@ -18,7 +18,7 @@
         <v-tabs-items v-model="tab" class="mt-2">
           <!-- Create From URL -->
           <v-tab-item value="url" eager>
-            <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl)">
+            <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)">
               <v-card flat>
                 <v-card-title class="headline"> Scrape Recipe </v-card-title>
                 <v-card-text>
@@ -38,6 +38,8 @@
                     :hint="$t('new-recipe.url-form-hint')"
                     persistent-hint
                   ></v-text-field>
+                  <v-checkbox v-model="importKeywordsAsTags" label="Import original keywords as tags">
+                  </v-checkbox>
                 </v-card-text>
                 <v-card-actions class="justify-center">
                   <div style="width: 250px">
@@ -409,8 +411,21 @@ export default defineComponent({
         }
       },
       get() {
-        return route.value.query.recipe_import_url as string;
+        return route.value.query.recipe_import_url as string | null;
       },
+    });
+
+    const importKeywordsAsTags = computed({
+      get() {
+        return route.value.query.import_keywords_as_tags === "1";
+      },
+      set(keywordsAsTags: boolean) {
+        let import_keywords_as_tags = "0"
+        if (keywordsAsTags) {
+          import_keywords_as_tags = "1"
+        }
+        router.replace({query: {...route.value.query, import_keywords_as_tags}})
+      }
     });
 
     onMounted(() => {
@@ -419,9 +434,12 @@ export default defineComponent({
       }
 
       if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
+
       }
     });
+
+
 
     // ===================================================
     // Recipe Debug URL Scraper
@@ -447,16 +465,18 @@ export default defineComponent({
     // Recipe URL Import
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string | null) {
+    async function createByUrl(url: string, importKeywordsAsTags: boolean) {
+
       if (url === null) {
         return;
       }
+
       if (!domUrlForm.value?.validate() || url === "") {
         console.log("Invalid URL", url);
         return;
       }
       state.loading = true;
-      const { response } = await api.recipes.createOneByUrl(url);
+      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
       handleResponse(response);
     }
 
@@ -523,6 +543,7 @@ export default defineComponent({
       allCategories,
       tab,
       recipeUrl,
+      importKeywordsAsTags,
       bulkCreate,
       bulkUrls,
       lockBulkImport,
