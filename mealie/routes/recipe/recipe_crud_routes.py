@@ -141,9 +141,13 @@ class RecipeController(BaseRecipeController):
     # URL Scraping Operations
 
     @router.post("/create-url", status_code=201, response_model=str)
-    def parse_recipe_url(self, url: CreateRecipeByUrl):
+    def parse_recipe_url(self, req: CreateRecipeByUrl):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        recipe = create_from_url(url.url)
+        recipe = create_from_url(req.url)
+
+        if not req.include_tags:
+            recipe.tags = []
+
         return self.service.create_one(recipe).slug
 
     @router.post("/create-url/bulk", status_code=202)

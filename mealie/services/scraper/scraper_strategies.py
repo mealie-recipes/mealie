@@ -42,10 +42,12 @@ class RecipeScraperPackage(ABCScraperStrategy):
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> Recipe:
         def try_get_default(func_call: Callable | None, get_attr: str, default: Any, clean_func=None):
             value = default
-            try:
-                value = func_call()
-            except Exception:
-                self.logger.error(f"Error parsing recipe func_call for '{get_attr}'")
+
+            if func_call:
+                try:
+                    value = func_call()
+                except Exception:
+                    self.logger.error(f"Error parsing recipe func_call for '{get_attr}'")
 
             if value == default:
                 try:
@@ -78,6 +80,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
             None, "cookTime", None, cleaner.clean_time
         )
 
+        self.logger.info(try_get_default(None, "keywords", "", cleaner.clean_string))
+
         return Recipe(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
             slug="",
@@ -91,6 +95,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
             prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time),
             perform_time=cook_time,
             org_url=url,
+            tags=try_get_default(None, "keywords", "", cleaner.clean_tags),
         )
 
     def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
