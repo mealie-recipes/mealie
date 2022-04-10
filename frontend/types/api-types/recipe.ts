@@ -113,6 +113,10 @@ export interface MultiPurposeLabelSummary {
   groupId: string;
   id: string;
 }
+export interface IngredientMerge {
+  fromFood: string;
+  toFood: string;
+}
 /**
  * A list of ingredient references.
  */
