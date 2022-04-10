@@ -151,8 +151,8 @@ def _allocate_routes_by_method_name(router: APIRouter, url: str, function_member
                 responses = None
                 kwargs = {}
                 status_code = 200
-                return_types_func = getattr(func, RETURN_TYPES_FUNC_KEY, None)
-                if return_types_func:
+
+                if return_types_func := getattr(func, RETURN_TYPES_FUNC_KEY, None):
                     response_model, status_code, responses, kwargs = return_types_func()
 
                 api_resource = router.api_route(

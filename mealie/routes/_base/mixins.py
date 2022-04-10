@@ -20,7 +20,7 @@ class HttpRepo(Generic[C, R, U]):
 
     ```
     class MyClass:
-        def __init(self repo, logger):
+        def __init__(self, repo, logger):
             self.mixins = HttpRepo(repo, logger)
     ```
 
