@@ -3,9 +3,9 @@
     <!-- Merge Dialog -->
     <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" title="Combine Food" @confirm="mergeFoods">
       <v-card-text>
-        Combining the selected foods will merge the "Source Food" and Target Food into a single food. The
-        <strong> Source Food will be deleted </strong> and all of the references to the Target Food will be updated to
-        point to the "Source Food".
+        Combining the selected foods will merge the Source Food and Target Food into a single food. The
+        <strong> Source Food will be deleted </strong> and all of the references to the Source Food will be updated to
+        point to the Target Food.
         <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name" label="Source Food" />
         <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name" label="Target Food" />
 
