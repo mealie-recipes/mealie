@@ -3,7 +3,7 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
-from mealie.routes._base.abc_controller import BaseUserController
+from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper

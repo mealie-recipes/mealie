@@ -3,7 +3,7 @@ from pydantic import UUID4
 
 from mealie.core.security import hash_password, verify_password
 from mealie.routes._base import BaseAdminController, controller
-from mealie.routes._base.abc_controller import BaseUserController
+from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.mixins import CrudMixins
 from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed

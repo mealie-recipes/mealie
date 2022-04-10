@@ -2,7 +2,7 @@ from functools import cached_property
 
 from fastapi import HTTPException, status
 
-from mealie.routes._base.abc_controller import BaseUserController
+from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_permissions import SetPermissions
