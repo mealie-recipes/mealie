@@ -181,7 +181,7 @@
         </v-col>
         <v-col v-if="user.advanced" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: 'Manage Data Migrations', to: '/group/data/migrations' }"
+            :link="{ text: 'Manage Data Migrations', to: '/group/migrations' }"
             :image="require('~/static/svgs/manage-data-migrations.svg')"
           >
             <template #title> Data Migrations </template>

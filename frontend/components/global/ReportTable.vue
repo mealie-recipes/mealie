@@ -48,7 +48,7 @@ export default defineComponent({
     ];
 
     function handleRowClick(item: ReportSummary) {
-      router.push("/group/data/reports/" + item.id);
+      router.push("/group/reports/" + item.id);
     }
 
     function capitalize(str: string) {
@@ -69,5 +69,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
