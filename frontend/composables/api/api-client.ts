@@ -53,13 +53,18 @@ function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
 }
 
 export const useAdminApi = function (): AdminAPI {
-  const { $axios } = useContext();
+  const { $axios, i18n } = useContext();
+
+  $axios.setHeader("Accept-Language", i18n.locale);
+
   const requests = getRequests($axios);
   return new AdminAPI(requests);
 };
 
 export const useUserApi = function (): Api {
-  const { $axios } = useContext();
+  const { $axios, i18n } = useContext();
+  $axios.setHeader("Accept-Language", i18n.locale);
+
   const requests = getRequests($axios);
 
   return new Api(requests);
