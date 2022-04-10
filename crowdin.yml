@@ -4,3 +4,5 @@ files:
     translation: /frontend/src/locales/messages/%locale%.json
   - source: /frontend/src/locales/dateTimeFormats/en-US.json
     translation: /frontend/src/locales/dateTimeFormats/%locale%.json
+  - source: /mealie/lang/messages/en-US.json
+    translation: /mealie/lang/messages/%locale%.json
