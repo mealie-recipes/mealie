@@ -98,15 +98,17 @@
             Manage your preferences, change your password, and update your email
           </UserProfileLinkCard>
         </v-col>
-        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: 'Manage Your API Tokens', to: '/user/profile/api-tokens' }"
-            :image="require('~/static/svgs/manage-api-tokens.svg')"
-          >
-            <template #title> API Tokens </template>
-            Manage your API Tokens for access from external applications
-          </UserProfileLinkCard>
-        </v-col>
+        <AdvancedOnly>
+          <v-col cols="12" sm="12" md="6">
+            <UserProfileLinkCard
+              :link="{ text: 'Manage Your API Tokens', to: '/user/profile/api-tokens' }"
+              :image="require('~/static/svgs/manage-api-tokens.svg')"
+            >
+              <template #title> API Tokens </template>
+              Manage your API Tokens for access from external applications
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
       </v-row>
     </section>
     <v-divider class="my-7"></v-divider>
@@ -134,24 +136,6 @@
             Manage a collection of recipe categories and generate pages for them.
           </UserProfileLinkCard>
         </v-col>
-        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: 'Manage Webhooks', to: '/group/webhooks' }"
-            :image="require('~/static/svgs/manage-webhooks.svg')"
-          >
-            <template #title> Webhooks </template>
-            Setup webhooks that trigger on days that you have have mealplan scheduled.
-          </UserProfileLinkCard>
-        </v-col>
-        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: 'Manage Notifiers', to: '/group/notifiers' }"
-            :image="require('~/static/svgs/manage-notifiers.svg')"
-          >
-            <template #title> Notifiers </template>
-            Setup email and push notifications that trigger on specific events.
-          </UserProfileLinkCard>
-        </v-col>
         <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: 'Manage Members', to: '/group/members' }"
@@ -161,33 +145,50 @@
             See who's in your group and manage their permissions.
           </UserProfileLinkCard>
         </v-col>
-        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: 'Manage Recipe Data', to: '/group/data/recipes' }"
-            :image="require('~/static/svgs/manage-recipes.svg')"
-          >
-            <template #title> Recipe Data </template>
-            Manage your recipe data and make bulk changes
-          </UserProfileLinkCard>
-        </v-col>
-        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: 'Manage Data', to: '/group/data/foods' }"
-            :image="require('~/static/svgs/manage-recipes.svg')"
-          >
-            <template #title> Manage Data </template>
-            Manage your Food and Units (more options coming soon)
-          </UserProfileLinkCard>
-        </v-col>
-        <v-col v-if="user.advanced" cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: 'Manage Data Migrations', to: '/group/migrations' }"
-            :image="require('~/static/svgs/manage-data-migrations.svg')"
-          >
-            <template #title> Data Migrations </template>
-            Migrate your existing data from other applications like Nextcloud Recipes and Chowdown
-          </UserProfileLinkCard>
-        </v-col>
+        <AdvancedOnly>
+          <v-col v-if="user.advanced" cols="12" sm="12" md="6">
+            <UserProfileLinkCard
+              :link="{ text: 'Manage Webhooks', to: '/group/webhooks' }"
+              :image="require('~/static/svgs/manage-webhooks.svg')"
+            >
+              <template #title> Webhooks </template>
+              Setup webhooks that trigger on days that you have have mealplan scheduled.
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
+        <AdvancedOnly>
+          <v-col cols="12" sm="12" md="6">
+            <UserProfileLinkCard
+              :link="{ text: 'Manage Notifiers', to: '/group/notifiers' }"
+              :image="require('~/static/svgs/manage-notifiers.svg')"
+            >
+              <template #title> Notifiers </template>
+              Setup email and push notifications that trigger on specific events.
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
+        <AdvancedOnly>
+          <v-col cols="12" sm="12" md="6">
+            <UserProfileLinkCard
+              :link="{ text: 'Manage Data', to: '/group/data/foods' }"
+              :image="require('~/static/svgs/manage-recipes.svg')"
+            >
+              <template #title> Manage Data </template>
+              Manage your Food and Units (more options coming soon)
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
+        <AdvancedOnly>
+          <v-col cols="12" sm="12" md="6">
+            <UserProfileLinkCard
+              :link="{ text: 'Manage Data Migrations', to: '/group/migrations' }"
+              :image="require('~/static/svgs/manage-data-migrations.svg')"
+            >
+              <template #title> Data Migrations </template>
+              Migrate your existing data from other applications like Nextcloud Recipes and Chowdown
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
       </v-row>
     </section>
   </v-container>
