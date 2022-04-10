@@ -1,15 +1,30 @@
 <template>
   <div>
+    <!-- Merge Dialog -->
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.units" title="Combine Unit" @confirm="mergeUnits">
+      <v-card-text>
+        Combining the selected units will merge the Source Unit and Target Unit into a single unit. The
+        <strong> Source Unit will be deleted </strong> and all of the references to the Source Unit will be updated to
+        point to the Target Unit.
+        <v-autocomplete v-model="fromUnit" return-object :items="units" item-text="name" label="Source Unit" />
+        <v-autocomplete v-model="toUnit" return-object :items="units" item-text="name" label="Target Unit" />
+
+        <template v-if="canMerge && fromUnit && toUnit">
+          <div class="text-center">Merging {{ fromUnit.name }} into {{ toUnit.name }}</div>
+        </template>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.units"
-      title="Edit Food"
+      title="Edit Unit"
       :submit-text="$tc('general.save')"
-      @submit="editSaveFood"
+      @submit="editSaveUnit"
     >
       <v-card-text v-if="editTarget">
-        <v-form ref="domCreateFoodForm">
+        <v-form ref="domCreateUnitForm">
           <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="editTarget.abbreviation" label="Abbreviation"></v-text-field>
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
@@ -24,7 +39,7 @@
       :title="$tc('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
-      @confirm="deleteFood"
+      @confirm="deleteUnit"
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
@@ -41,6 +56,12 @@
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
     >
+      <template #button-row>
+        <BaseButton @click="mergeDialog = true">
+          <template #icon> {{ $globals.icons.units }} </template>
+          Combine
+        </BaseButton>
+      </template>
       <template #item.fraction="{ item }">
         <v-icon :color="item.fraction ? 'success' : undefined">
           {{ item.fraction ? $globals.icons.check : $globals.icons.close }}
@@ -51,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { IngredientUnit } from "~/types/api-types/recipe";
@@ -92,12 +113,12 @@ export default defineComponent({
       },
     ];
     const units = ref<IngredientUnit[]>([]);
-    async function refreshFoods() {
+    async function refreshUnits() {
       const { data } = await userApi.units.getAll();
       units.value = data ?? [];
     }
     onMounted(() => {
-      refreshFoods();
+      refreshUnits();
     });
     const editDialog = ref(false);
     const editTarget = ref<IngredientUnit | null>(null);
@@ -105,14 +126,14 @@ export default defineComponent({
       editTarget.value = item;
       editDialog.value = true;
     }
-    async function editSaveFood() {
+    async function editSaveUnit() {
       if (!editTarget.value) {
         return;
       }
 
       const { data } = await userApi.units.updateOne(editTarget.value.id, editTarget.value);
       if (data) {
-        refreshFoods();
+        refreshUnits();
       }
 
       editDialog.value = false;
@@ -123,16 +144,39 @@ export default defineComponent({
       deleteTarget.value = item;
       deleteDialog.value = true;
     }
-    async function deleteFood() {
+    async function deleteUnit() {
       if (!deleteTarget.value) {
         return;
       }
 
       const { data } = await userApi.units.deleteOne(deleteTarget.value.id);
       if (data) {
-        refreshFoods();
+        refreshUnits();
       }
       deleteDialog.value = false;
+    }
+
+    // ============================================================
+    // Merge Units
+
+    const mergeDialog = ref(false);
+    const fromUnit = ref<IngredientUnit | null>(null);
+    const toUnit = ref<IngredientUnit | null>(null);
+
+    const canMerge = computed(() => {
+      return fromUnit.value && toUnit.value && fromUnit.value.id !== toUnit.value.id;
+    });
+
+    async function mergeUnits() {
+      if (!canMerge.value || !fromUnit.value || !toUnit.value) {
+        return;
+      }
+
+      const { data } = await userApi.units.merge(fromUnit.value.id, toUnit.value.id);
+
+      if (data) {
+        refreshUnits();
+      }
     }
 
     // ============================================================
@@ -155,12 +199,18 @@ export default defineComponent({
       // Edit
       editDialog,
       editEventHandler,
-      editSaveFood,
+      editSaveUnit,
       editTarget,
       // Delete
       deleteEventHandler,
       deleteDialog,
-      deleteFood,
+      deleteUnit,
+      // Merge
+      canMerge,
+      mergeUnits,
+      mergeDialog,
+      fromUnit,
+      toUnit,
     };
   },
 });
