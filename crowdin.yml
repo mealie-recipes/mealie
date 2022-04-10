@@ -10,9 +10,9 @@ files:
     translation: /mealie/lang/messages/%locale%.json
 
   # Resource Files
-  - source: /mealie/repos/seed/resources/foods/en-US.json
-    translation: /mealie/repos/seed/resources/foods/%locale%.json
-  - source: /mealie/repos/seed/resources/units/en-US.json
-    translation: /mealie/repos/seed/resources/units/%locale%.json
-  - source: /mealie/repos/seed/resources/labels/en-US.json
-    translation: /mealie/repos/seed/resources/labels/%locale%.json
+  - source: /mealie/repos/seed/resources/foods/locales/en-US.json
+    translation: /mealie/repos/seed/resources/foods/locales/%locale%.json
+  - source: /mealie/repos/seed/resources/units/locales/en-US.json
+    translation: /mealie/repos/seed/resources/units/locales/%locale%.json
+  - source: /mealie/repos/seed/resources/labels/locales/en-US.json
+    translation: /mealie/repos/seed/resources/labels/locales/%locale%.json
