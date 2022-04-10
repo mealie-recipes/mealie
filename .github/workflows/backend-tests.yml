@@ -9,31 +9,9 @@ on:
     types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
-  tests:
+  install:
+    name: install python dependencies
     runs-on: ubuntu-latest
-
-    env:
-      PRODUCTION: false
-
-    strategy:
-      fail-fast: true
-      matrix:
-        # Database ENV Variablse as Specified by Mealie
-        Database: [sqlite, postgres]
-
-    # Services
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: mealie
-          POSTGRES_PASSWORD: mealie
-          POSTGRES_DB: mealie
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        ports:
-          - 5432:5432
-
-    # Steps
     steps:
       #----------------------------------------------
       #       check-out repo and set-up python
@@ -70,6 +48,33 @@ jobs:
           poetry install
           poetry add "psycopg2-binary==2.8.6"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+
+  tests:
+    needs: [install]
+    runs-on: ubuntu-latest
+
+    env:
+      PRODUCTION: false
+
+    strategy:
+      fail-fast: true
+      matrix:
+        # Database ENV Variablse as Specified by Mealie
+        Database: [sqlite, postgres]
+
+    # Services
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: mealie
+          POSTGRES_PASSWORD: mealie
+          POSTGRES_DB: mealie
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+    # Steps
+    steps:
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
