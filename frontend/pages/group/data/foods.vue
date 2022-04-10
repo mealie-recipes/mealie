@@ -1,5 +1,20 @@
 <template>
   <div>
+    <!-- Merge Dialog -->
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" title="Combine Food" @confirm="mergeFoods">
+      <v-card-text>
+        Combining the selected foods will merge the Source Food and Target Food into a single food. The
+        <strong> Source Food will be deleted </strong> and all of the references to the Source Food will be updated to
+        point to the Target Food.
+        <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name" label="Source Food" />
+        <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name" label="Target Food" />
+
+        <template v-if="canMerge && fromFood && toFood">
+          <div class="text-center">Merging {{ fromFood.name }} into {{ toFood.name }}</div>
+        </template>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
@@ -48,7 +63,7 @@
       @edit-one="editEventHandler"
     >
       <template #button-row>
-        <BaseButton :disabled="true">
+        <BaseButton @click="mergeDialog = true">
           <template #icon> {{ $globals.icons.foods }} </template>
           Combine
         </BaseButton>
@@ -64,6 +79,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed } from "vue-demi";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { IngredientFood } from "~/types/api-types/recipe";
@@ -145,6 +161,29 @@ export default defineComponent({
     }
 
     // ============================================================
+    // Merge Foods
+
+    const mergeDialog = ref(false);
+    const fromFood = ref<IngredientFood | null>(null);
+    const toFood = ref<IngredientFood | null>(null);
+
+    const canMerge = computed(() => {
+      return fromFood.value && toFood.value && fromFood.value.id !== toFood.value.id;
+    });
+
+    async function mergeFoods() {
+      if (!canMerge.value || !fromFood.value || !toFood.value) {
+        return;
+      }
+
+      const { data } = await userApi.foods.merge(fromFood.value.id, toFood.value.id);
+
+      if (data) {
+        refreshFoods();
+      }
+    }
+
+    // ============================================================
     // Labels
 
     const allLabels = ref([] as MultiPurposeLabelSummary[]);
@@ -170,6 +209,12 @@ export default defineComponent({
       deleteEventHandler,
       deleteDialog,
       deleteFood,
+      // Merge
+      canMerge,
+      mergeFoods,
+      mergeDialog,
+      fromFood,
+      toFood,
     };
   },
 });

@@ -32,7 +32,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         ports:
           - 5432:5432
-
     # Steps
     steps:
       #----------------------------------------------
@@ -70,6 +69,7 @@ jobs:
           poetry install
           poetry add "psycopg2-binary==2.8.6"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------

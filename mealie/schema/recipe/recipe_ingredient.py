@@ -95,6 +95,11 @@ class IngredientRequest(MealieModel):
     ingredient: str
 
 
+class IngredientMerge(MealieModel):
+    from_food: UUID4
+    to_food: UUID4
+
+
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 
 IngredientFood.update_forward_refs()

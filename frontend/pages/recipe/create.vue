@@ -312,7 +312,7 @@
 
     <AdvancedOnly>
       <v-container class="narrow-container d-flex justify-end">
-        <v-btn outlined rounded to="/group/data/migrations"> Looking For Migrations? </v-btn>
+        <v-btn outlined rounded to="/group/migrations"> Looking For Migrations? </v-btn>
       </v-container>
     </AdvancedOnly>
   </div>
