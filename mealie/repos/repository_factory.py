@@ -29,6 +29,7 @@ from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.repos.repository_foods import RepositoryFood
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
+from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.group.group_events import GroupEventNotifierOut
 from mealie.schema.group.group_exports import GroupDataExport
@@ -99,8 +100,8 @@ class AllRepositories:
         return RepositoryFood(self.session, PK_ID, IngredientFoodModel, IngredientFood)
 
     @cached_property
-    def ingredient_units(self) -> RepositoryGeneric[IngredientUnit, IngredientUnitModel]:
-        return RepositoryGeneric(self.session, PK_ID, IngredientUnitModel, IngredientUnit)
+    def ingredient_units(self) -> RepositoryUnit:
+        return RepositoryUnit(self.session, PK_ID, IngredientUnitModel, IngredientUnit)
 
     @cached_property
     def tools(self) -> RepositoryGeneric[RecipeTool, Tool]:

@@ -8,12 +8,7 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper
 from mealie.schema.query import GetAll
-from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    IngredientFood,
-    IngredientMerge,
-    SaveIngredientFood,
-)
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, IngredientFood, MergeFood, SaveIngredientFood
 from mealie.schema.response.responses import SuccessResponse
 
 router = APIRouter(prefix="/foods", tags=["Recipes: Foods"])
@@ -34,7 +29,7 @@ class IngredientFoodsController(BaseUserController):
         )
 
     @router.put("/merge", response_model=SuccessResponse)
-    def merge_one(self, data: IngredientMerge):
+    def merge_one(self, data: MergeFood):
         try:
             self.repo.merge(data.from_food, data.to_food)
             return SuccessResponse.respond("Successfully merged foods")

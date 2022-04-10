@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
 from mealie.routes._base.abc_controller import BaseUserController
@@ -8,7 +8,8 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import CrudMixins
 from mealie.schema import mapper
 from mealie.schema.query import GetAll
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit, IngredientUnit, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit, IngredientUnit, MergeUnit, SaveIngredientUnit
+from mealie.schema.response.responses import SuccessResponse
 
 router = APIRouter(prefix="/units", tags=["Recipes: Units"])
 
@@ -26,6 +27,15 @@ class IngredientUnitsController(BaseUserController):
             self.deps.logger,
             self.registered_exceptions,
         )
+
+    @router.put("/merge", response_model=SuccessResponse)
+    def merge_one(self, data: MergeUnit):
+        try:
+            self.repo.merge(data.from_unit, data.to_unit)
+            return SuccessResponse.respond("Successfully merged units")
+        except Exception as e:
+            self.deps.logger.error(e)
+            raise HTTPException(500, "Failed to merge units") from e
 
     @router.get("", response_model=list[IngredientUnit])
     def get_all(self, q: GetAll = Depends(GetAll)):
