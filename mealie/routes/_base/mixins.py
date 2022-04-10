@@ -13,15 +13,15 @@ R = TypeVar("R", bound=BaseModel)
 U = TypeVar("U", bound=BaseModel)
 
 
-class CrudMixins(Generic[C, R, U]):
+class HttpRepo(Generic[C, R, U]):
     """
-    The CrudMixins[C, R, U] class is a mixin class that provides a common set of methods for CRUD operations.
+    The HttpRepo[C, R, U] class is a mixin class that provides a common set of methods for CRUD operations.
     This class is inteded to be used in a composition pattern where a class has a mixin property. For example:
 
     ```
     class MyClass:
         def __init(self repo, logger):
-            self.mixins = CrudMixins(repo, logger)
+            self.mixins = HttpRepo(repo, logger)
     ```
 
     """

@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.query import GetAll
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, IngredientFood, MergeFood, SaveIngredientFood
@@ -22,7 +22,7 @@ class IngredientFoodsController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins[SaveIngredientFood, IngredientFood, CreateIngredientFood](
+        return HttpRepo[SaveIngredientFood, IngredientFood, CreateIngredientFood](
             self.repo,
             self.deps.logger,
             self.registered_exceptions,

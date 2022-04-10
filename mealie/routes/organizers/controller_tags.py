@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
 
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag
@@ -21,7 +21,7 @@ class TagController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins(self.repo, self.deps.logger)
+        return HttpRepo(self.repo, self.deps.logger)
 
     @router.get("")
     async def get_all(self):

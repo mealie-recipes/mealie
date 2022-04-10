@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.group.group_shopping_list import (
     ShoppingListCreate,
     ShoppingListItemCreate,
@@ -38,7 +38,7 @@ class ShoppingListItemController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins[ShoppingListItemCreate, ShoppingListItemOut, ShoppingListItemCreate](
+        return HttpRepo[ShoppingListItemCreate, ShoppingListItemOut, ShoppingListItemCreate](
             self.repo,
             self.deps.logger,
         )
@@ -106,8 +106,8 @@ class ShoppingListController(BaseUserController):
     # CRUD Operations
 
     @cached_property
-    def mixins(self) -> CrudMixins:
-        return CrudMixins(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+    def mixins(self) -> HttpRepo:
+        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=list[ShoppingListSummary])
     def get_all(self, q: GetAll = Depends(GetAll)):

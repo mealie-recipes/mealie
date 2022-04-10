@@ -12,7 +12,7 @@ from mealie.services.group_services.group_service import GroupService
 
 from .._base import BaseAdminController, controller
 from .._base.dependencies import SharedDependencies
-from .._base.mixins import CrudMixins
+from .._base.mixins import HttpRepo
 
 router = APIRouter(prefix="/groups", tags=["Admin: Groups"])
 
@@ -33,7 +33,7 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @property
     def mixins(self):
-        return CrudMixins[GroupBase, GroupInDB, GroupAdminUpdate](
+        return HttpRepo[GroupBase, GroupInDB, GroupAdminUpdate](
             self.repo,
             self.deps.logger,
             self.registered_exceptions,

@@ -7,7 +7,7 @@ from pydantic import UUID4
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.query import GetAll
 from mealie.schema.recipe.recipe_comments import (
     RecipeCommentCreate,
@@ -30,8 +30,8 @@ class RecipeCommentRoutes(BaseUserController):
     # CRUD Operations
 
     @property
-    def mixins(self) -> CrudMixins:
-        return CrudMixins(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+    def mixins(self) -> HttpRepo:
+        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     def _check_comment_belongs_to_user(self, item_id: UUID4) -> None:
         comment = self.repo.get_one(item_id)

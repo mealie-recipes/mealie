@@ -3,7 +3,7 @@ from functools import cached_property
 from pydantic import UUID4
 
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.recipe import RecipeShareTokenSummary
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken, RecipeShareTokenCreate, RecipeShareTokenSave
@@ -19,7 +19,7 @@ class RecipeSharedController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins[RecipeShareTokenSave, RecipeShareToken, RecipeShareTokenCreate](self.repo, self.deps.logger)
+        return HttpRepo[RecipeShareTokenSave, RecipeShareToken, RecipeShareTokenCreate](self.repo, self.deps.logger)
 
     @router.get("", response_model=list[RecipeShareTokenSummary])
     def get_all(self, recipe_id: UUID4 = None):

@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.group.group_events import (
     GroupEventNotifierCreate,
     GroupEventNotifierOut,
@@ -35,8 +35,8 @@ class GroupEventsNotifierController(BaseUserController):
     # CRUD Operations
 
     @property
-    def mixins(self) -> CrudMixins:
-        return CrudMixins(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+    def mixins(self) -> HttpRepo:
+        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=list[GroupEventNotifierOut])
     def get_all(self, q: GetAll = Depends(GetAll)):

@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 from mealie.schema.meal_plan.new_meal import CreatRandomEntry
@@ -31,7 +31,7 @@ class GroupMealplanController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry](
+        return HttpRepo[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry](
             self.repo,
             self.deps.logger,
             self.registered_exceptions,

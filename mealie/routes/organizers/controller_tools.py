@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.query import GetAll
 from mealie.schema.recipe.recipe import RecipeTool
@@ -21,8 +21,8 @@ class RecipeToolController(BaseUserController):
         return self.repos.tools.by_group(self.group_id)
 
     @property
-    def mixins(self) -> CrudMixins:
-        return CrudMixins[RecipeToolCreate, RecipeTool, RecipeToolCreate](self.repo, self.deps.logger)
+    def mixins(self) -> HttpRepo:
+        return HttpRepo[RecipeToolCreate, RecipeTool, RecipeToolCreate](self.repo, self.deps.logger)
 
     @router.get("", response_model=list[RecipeTool])
     def get_all(self, q: GetAll = Depends(GetAll)):

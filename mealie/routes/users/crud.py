@@ -4,7 +4,7 @@ from pydantic import UUID4
 from mealie.core.security import hash_password, verify_password
 from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.base_controllers import BaseUserController
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
@@ -17,8 +17,8 @@ admin_router = AdminAPIRouter(prefix="/users", tags=["Users: Admin CRUD"])
 @controller(admin_router)
 class AdminUserController(BaseAdminController):
     @property
-    def mixins(self) -> CrudMixins:
-        return CrudMixins[UserIn, UserOut, UserBase](self.repos.users, self.deps.logger)
+    def mixins(self) -> HttpRepo:
+        return HttpRepo[UserIn, UserOut, UserBase](self.repos.users, self.deps.logger)
 
     @admin_router.get("", response_model=list[UserOut])
     def get_all_users(self):

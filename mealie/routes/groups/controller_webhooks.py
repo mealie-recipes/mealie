@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.group.webhook import CreateWebhook, ReadWebhook, SaveWebhook
 from mealie.schema.query import GetAll
@@ -20,8 +20,8 @@ class ReadWebhookController(BaseUserController):
         return self.repos.webhooks.by_group(self.group_id)
 
     @property
-    def mixins(self) -> CrudMixins:
-        return CrudMixins[CreateWebhook, SaveWebhook, CreateWebhook](self.repo, self.deps.logger)
+    def mixins(self) -> HttpRepo:
+        return HttpRepo[CreateWebhook, SaveWebhook, CreateWebhook](self.repo, self.deps.logger)
 
     @router.get("", response_model=list[ReadWebhook])
     def get_all(self, q: GetAll = Depends(GetAll)):

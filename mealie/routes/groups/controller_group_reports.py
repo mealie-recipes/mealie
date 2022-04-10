@@ -6,7 +6,7 @@ from pydantic import UUID4
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.reports.reports import ReportCategory, ReportCreate, ReportOut, ReportSummary
 
 router = APIRouter(prefix="/groups/reports", tags=["Groups: Reports"])
@@ -25,7 +25,7 @@ class GroupReportsController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins[ReportCreate, ReportOut, ReportCreate](
+        return HttpRepo[ReportCreate, ReportOut, ReportCreate](
             self.repo,
             self.deps.logger,
             self.registered_exceptions,
