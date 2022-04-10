@@ -18,6 +18,7 @@ class AdminAboutController(BaseAdminController):
     @router.get("", response_model=AdminAboutInfo)
     def get_app_info(self):
         """Get general application information"""
+
         settings = self.deps.settings
 
         return AdminAboutInfo(

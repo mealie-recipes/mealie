@@ -2,6 +2,7 @@ from pathlib import Path
 
 CWD = Path(__file__).parent
 
+locale_dir = CWD / "locale"
 
 migrations_paprika = CWD / "migrations/paprika.zip"
 

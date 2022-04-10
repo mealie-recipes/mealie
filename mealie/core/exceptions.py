@@ -1,6 +1,6 @@
 from sqlite3 import IntegrityError
 
-from mealie.lang.providers import AbstractLocaleProvider
+from mealie.lang.providers import Translator
 
 
 class PermissionDenied(Exception):
@@ -19,7 +19,7 @@ class NoEntryFound(Exception):
     pass
 
 
-def mealie_registered_exceptions(t: AbstractLocaleProvider) -> dict:
+def mealie_registered_exceptions(t: Translator) -> dict:
     """
     This function returns a dictionary of all the globally registered exceptions in the Mealie application.
     """
