@@ -6,7 +6,7 @@ from pydantic import UUID4
 from mealie.core import security
 from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.dependencies import SharedDependencies
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.query import GetAll
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import UserIn, UserOut
@@ -30,7 +30,7 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @property
     def mixins(self):
-        return CrudMixins[UserIn, UserOut, UserOut](self.repo, self.deps.logger, self.registered_exceptions)
+        return HttpRepo[UserIn, UserOut, UserOut](self.repo, self.deps.logger, self.registered_exceptions)
 
     @router.get("", response_model=list[UserOut])
     def get_all(self, q: GetAll = Depends(GetAll)):

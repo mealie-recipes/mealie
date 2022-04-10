@@ -18,7 +18,7 @@ def fix_slug_food_names(db: AllRepositories):
 
     all_foods = db.ingredient_foods.get_all()
 
-    seed_foods: dict[str, str] = json.loads(food_resources.en_us.read_text())
+    seed_foods: dict[str, str] = json.loads(food_resources.en_US.read_text())
 
     for food in all_foods:
         if food.name in seed_foods:

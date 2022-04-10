@@ -18,6 +18,7 @@ class AdminAboutController(BaseAdminController):
     @router.get("", response_model=AdminAboutInfo)
     def get_app_info(self):
         """Get general application information"""
+
         settings = self.deps.settings
 
         return AdminAboutInfo(
@@ -48,12 +49,11 @@ class AdminAboutController(BaseAdminController):
     @router.get("/check", response_model=CheckAppConfig)
     def check_app_config(self):
         settings = self.deps.settings
-        url_set = settings.BASE_URL != "http://localhost:8080"
 
         return CheckAppConfig(
             email_ready=settings.SMTP_ENABLE,
             ldap_ready=settings.LDAP_ENABLED,
-            base_url_set=url_set,
+            base_url_set=settings.BASE_URL != "http://localhost:8080",
             is_up_to_date=get_latest_version() == APP_VERSION,
         )
 

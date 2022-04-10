@@ -1,0 +1,8 @@
+{
+    "language": "en-US",
+    "t1": "test2",
+    "t2": {
+        "1": "value1",
+        "2": "value2"
+    }
+}

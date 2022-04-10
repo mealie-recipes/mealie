@@ -4,3 +4,15 @@ files:
     translation: /frontend/src/locales/messages/%locale%.json
   - source: /frontend/src/locales/dateTimeFormats/en-US.json
     translation: /frontend/src/locales/dateTimeFormats/%locale%.json
+
+  # Backend General Messages
+  - source: /mealie/lang/messages/en-US.json
+    translation: /mealie/lang/messages/%locale%.json
+
+  # Resource Files
+  - source: /mealie/repos/seed/resources/foods/en-US.json
+    translation: /mealie/repos/seed/resources/foods/%locale%.json
+  - source: /mealie/repos/seed/resources/units/en-US.json
+    translation: /mealie/repos/seed/resources/units/%locale%.json
+  - source: /mealie/repos/seed/resources/labels/en-US.json
+    translation: /mealie/repos/seed/resources/labels/%locale%.json

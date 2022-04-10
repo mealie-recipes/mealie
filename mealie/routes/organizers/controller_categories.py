@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from pydantic import UUID4, BaseModel
 
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory
@@ -32,7 +32,7 @@ class RecipeCategoryController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins(self.repo, self.deps.logger)
+        return HttpRepo(self.repo, self.deps.logger)
 
     @router.get("", response_model=list[CategorySummary])
     def get_all(self):

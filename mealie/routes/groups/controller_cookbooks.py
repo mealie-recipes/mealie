@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
 
@@ -26,7 +26,7 @@ class GroupCookbookController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins[CreateCookBook, ReadCookBook, UpdateCookBook](
+        return HttpRepo[CreateCookBook, ReadCookBook, UpdateCookBook](
             self.repo,
             self.deps.logger,
             self.registered_exceptions,

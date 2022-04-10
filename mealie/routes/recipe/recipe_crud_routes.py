@@ -20,7 +20,7 @@ from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.query import GetAll
 from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeImageTypes
@@ -47,7 +47,7 @@ class BaseRecipeController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return CrudMixins[CreateRecipe, Recipe, Recipe](self.repo, self.deps.logger)
+        return HttpRepo[CreateRecipe, Recipe, Recipe](self.repo, self.deps.logger)
 
 
 class RecipeGetAll(GetAll):

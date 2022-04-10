@@ -8,7 +8,7 @@
     "database-type": "Database Type",
     "database-url": "Database URL",
     "default-group": "Default Group",
-    "demo": "Demo",
+    "demo": "Demonstração",
     "demo-status": "Demo Status",
     "development": "Development",
     "docs": "Docs",
@@ -128,8 +128,8 @@
     "upload": "Enviar",
     "url": "URL",
     "view": "View",
-    "wednesday": "Wednesday",
-    "yes": "Yes"
+    "wednesday": "Quarta-feira",
+    "yes": "Sim"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",

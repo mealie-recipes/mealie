@@ -3,9 +3,9 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
-from mealie.routes._base.abc_controller import BaseUserController
+from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.mixins import CrudMixins
+from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
     MultiPurposeLabelOut,
@@ -32,8 +32,8 @@ class MultiPurposeLabelsController(BaseUserController):
     # CRUD Operations
 
     @property
-    def mixins(self) -> CrudMixins:
-        return CrudMixins(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+    def mixins(self) -> HttpRepo:
+        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=list[MultiPurposeLabelSummary])
     def get_all(self, q: GetAll = Depends(GetAll)):

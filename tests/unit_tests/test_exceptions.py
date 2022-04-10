@@ -1,9 +1,9 @@
 from mealie.core import exceptions
-from mealie.lang import get_locale_provider
+from mealie.lang import local_provider
 
 
 def test_mealie_registered_exceptions() -> None:
-    provider = get_locale_provider()
+    provider = local_provider()
 
     lookup = exceptions.mealie_registered_exceptions(provider)
 
