@@ -6,7 +6,8 @@
       :top-link="topLinks"
       :bottom-links="bottomLinks"
       :user="{ data: true }"
-      :secondary-header="$t('user.admin')"
+      secondary-header="Developer"
+      :secondary-links="developerLinks"
     />
 
     <TheSnackbar />
@@ -49,11 +50,7 @@ export default defineComponent({
         to: "/admin/site-settings",
         title: i18n.t("sidebar.site-settings"),
       },
-      {
-        icon: $globals.icons.wrench,
-        to: "/admin/maintenance",
-        title: "Maintenance",
-      },
+
       // {
       //   icon: $globals.icons.chart,
       //   to: "/admin/analytics",
@@ -73,6 +70,14 @@ export default defineComponent({
         icon: $globals.icons.database,
         to: "/admin/backups",
         title: i18n.t("sidebar.backups"),
+      },
+    ];
+
+    const developerLinks: SidebarLinks = [
+      {
+        icon: $globals.icons.wrench,
+        to: "/admin/maintenance",
+        title: "Maintenance",
       },
       {
         icon: $globals.icons.check,
@@ -98,6 +103,7 @@ export default defineComponent({
       sidebar,
       topLinks,
       bottomLinks,
+      developerLinks,
     };
   },
 });
