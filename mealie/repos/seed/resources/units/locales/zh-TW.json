@@ -1,0 +1,102 @@
+{
+    "teaspoon": {
+        "name": "茶匙",
+        "description": "",
+        "abbreviation": "茶匙"
+    },
+    "tablespoon": {
+        "name": "湯匙",
+        "description": "",
+        "abbreviation": "湯匙"
+    },
+    "cup": {
+        "name": "杯",
+        "description": "",
+        "abbreviation": "杯"
+    },
+    "fluid-ounce": {
+        "name": "液體盎司",
+        "description": "",
+        "abbreviation": "液體盎司"
+    },
+    "pint": {
+        "name": "品脫",
+        "description": "",
+        "abbreviation": "品脫"
+    },
+    "quart": {
+        "name": "夸脫",
+        "description": "",
+        "abbreviation": "夸脫"
+    },
+    "gallon": {
+        "name": "加侖",
+        "description": "",
+        "abbreviation": "加侖"
+    },
+    "milliliter": {
+        "name": "毫升",
+        "description": "",
+        "abbreviation": "毫升"
+    },
+    "liter": {
+        "name": "公升",
+        "description": "",
+        "abbreviation": "公升"
+    },
+    "pound": {
+        "name": "磅",
+        "description": "",
+        "abbreviation": "磅"
+    },
+    "ounce": {
+        "name": "盎司",
+        "description": "",
+        "abbreviation": "盎司"
+    },
+    "gram": {
+        "name": "克",
+        "description": "",
+        "abbreviation": "克"
+    },
+    "kilogram": {
+        "name": "公斤",
+        "description": "",
+        "abbreviation": "公斤"
+    },
+    "milligram": {
+        "name": "毫克",
+        "description": "",
+        "abbreviation": "毫克"
+    },
+    "splash": {
+        "name": "少許",
+        "description": "",
+        "abbreviation": ""
+    },
+    "dash": {
+        "name": "少許",
+        "description": "",
+        "abbreviation": ""
+    },
+    "serving": {
+        "name": "份量",
+        "description": "",
+        "abbreviation": ""
+    },
+    "head": {
+        "name": "頭",
+        "description": "",
+        "abbreviation": ""
+    },
+    "clove": {
+        "name": "瓣",
+        "description": "",
+        "abbreviation": ""
+    },
+    "can": {
+        "name": "罐",
+        "description": "",
+        "abbreviation": ""
+    }
+}
