@@ -15,7 +15,6 @@ aniso8601 = "7.0.0"
 appdirs = "1.4.4"
 fastapi = "^0.75.1"
 uvicorn = {extras = ["standard"], version = "^0.13.0"}
-APScheduler = "^3.8.1"
 SQLAlchemy = "^1.4.29"
 alembic = "^1.7.5"
 Jinja2 = "^2.11.2"

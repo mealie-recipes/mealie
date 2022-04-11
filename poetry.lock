@@ -71,32 +71,6 @@ requests-oauthlib = "*"
 six = "*"
 
 [[package]]
-name = "apscheduler"
-version = "3.8.1"
-description = "In-process task scheduler with Cron-like capabilities"
-category = "main"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
-
-[package.dependencies]
-pytz = "*"
-six = ">=1.4.0"
-tzlocal = ">=2.0,<3.0.0 || >=4.0.0"
-
-[package.extras]
-asyncio = ["trollius"]
-doc = ["sphinx", "sphinx-rtd-theme"]
-gevent = ["gevent"]
-mongodb = ["pymongo (>=3.0)"]
-redis = ["redis (>=3.0)"]
-rethinkdb = ["rethinkdb (>=2.4.0)"]
-sqlalchemy = ["sqlalchemy (>=0.8)"]
-testing = ["pytest (<6)", "pytest-cov", "pytest-tornado5", "mock", "pytest-asyncio (<0.6)", "pytest-asyncio"]
-tornado = ["tornado (>=4.3)"]
-twisted = ["twisted"]
-zookeeper = ["kazoo"]
-
-[[package]]
 name = "astroid"
 version = "2.9.3"
 description = "An abstract syntax tree for Python with inference support."
@@ -1151,25 +1125,6 @@ text-unidecode = ">=1.3"
 unidecode = ["Unidecode (>=1.1.1)"]
 
 [[package]]
-name = "pytz"
-version = "2021.3"
-description = "World timezone definitions, modern and historical"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "pytz-deprecation-shim"
-version = "0.1.0.post0"
-description = "Shims to make deprecation of pytz easier"
-category = "main"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
-
-[package.dependencies]
-tzdata = {version = "*", markers = "python_version >= \"3.6\""}
-
-[[package]]
 name = "pyyaml"
 version = "5.4.1"
 description = "YAML parser and emitter for Python"
@@ -1435,22 +1390,6 @@ optional = false
 python-versions = ">=2"
 
 [[package]]
-name = "tzlocal"
-version = "4.1"
-description = "tzinfo object for the local timezone"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-pytz-deprecation-shim = "*"
-tzdata = {version = "*", markers = "platform_system == \"Windows\""}
-
-[package.extras]
-devenv = ["black", "pyroma", "pytest-cov", "zest.releaser"]
-test = ["pytest-mock (>=3.3)", "pytest (>=4.3)"]
-
-[[package]]
 name = "urllib3"
 version = "1.26.8"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1588,7 +1527,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "576653c13d9b6220769f2a166cb65ac7bc9cd5d5298e03b45002cd68eef66ede"
+content-hash = "0de62ed339982506e2402f40eb604fc152ed4689c1e07fe835d46312e0dfa5f2"
 
 [metadata.files]
 aiofiles = [
@@ -1614,10 +1553,6 @@ appdirs = [
 apprise = [
     {file = "apprise-0.9.6-py2.py3-none-any.whl", hash = "sha256:c8fe142102e3d6410c5b04b4a10c4c99b267f8e946126c0105954ba84aca39ac"},
     {file = "apprise-0.9.6.tar.gz", hash = "sha256:15ed06208197c9d28fd83cd69e727b48280879a4c611afd6b5aea5d0def397f8"},
-]
-apscheduler = [
-    {file = "APScheduler-3.8.1-py2.py3-none-any.whl", hash = "sha256:c22cb14b411a31435eb2c530dfbbec948ac63015b517087c7978adb61b574865"},
-    {file = "APScheduler-3.8.1.tar.gz", hash = "sha256:5cf344ebcfbdaa48ae178c029c055cec7bc7a4a47c21e315e4d1f08bd35f2355"},
 ]
 astroid = [
     {file = "astroid-2.9.3-py3-none-any.whl", hash = "sha256:506daabe5edffb7e696ad82483ad0228245a9742ed7d2d8c9cdb31537decf9f6"},
@@ -2460,14 +2395,6 @@ python-multipart = [
 python-slugify = [
     {file = "python-slugify-4.0.1.tar.gz", hash = "sha256:69a517766e00c1268e5bbfc0d010a0a8508de0b18d30ad5a1ff357f8ae724270"},
 ]
-pytz = [
-    {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
-    {file = "pytz-2021.3.tar.gz", hash = "sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326"},
-]
-pytz-deprecation-shim = [
-    {file = "pytz_deprecation_shim-0.1.0.post0-py2.py3-none-any.whl", hash = "sha256:8314c9692a636c8eb3bda879b9f119e350e93223ae83e70e80c31675a0fdc1a6"},
-    {file = "pytz_deprecation_shim-0.1.0.post0.tar.gz", hash = "sha256:af097bae1b616dde5c5744441e2ddc69e74dfdcb0c263129610d85b87445a59d"},
-]
 pyyaml = [
     {file = "PyYAML-5.4.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:3b2b1824fe7112845700f815ff6a489360226a5609b96ec2190a45e62a9fc922"},
     {file = "PyYAML-5.4.1-cp27-cp27m-win32.whl", hash = "sha256:129def1b7c1bf22faffd67b8f3724645203b79d8f4cc81f674654d9902cb4393"},
@@ -2621,10 +2548,6 @@ typing-extensions = [
 tzdata = [
     {file = "tzdata-2021.5-py2.py3-none-any.whl", hash = "sha256:3eee491e22ebfe1e5cfcc97a4137cd70f092ce59144d81f8924a844de05ba8f5"},
     {file = "tzdata-2021.5.tar.gz", hash = "sha256:68dbe41afd01b867894bbdfd54fa03f468cfa4f0086bfb4adcd8de8f24f3ee21"},
-]
-tzlocal = [
-    {file = "tzlocal-4.1-py3-none-any.whl", hash = "sha256:28ba8d9fcb6c9a782d6e0078b4f6627af1ea26aeaa32b4eab5324abc7df4149f"},
-    {file = "tzlocal-4.1.tar.gz", hash = "sha256:0f28015ac68a5c067210400a9197fc5d36ba9bc3f8eaf1da3cbd59acdfed9e09"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},
