@@ -1,6 +1,6 @@
 [
     {
-        "name": "Produce"
+        "name": "Termény"
     },
     {
         "name": "Gabonafélék"
@@ -21,31 +21,31 @@
         "name": "Italok"
     },
     {
-        "name": "Baked Goods"
+        "name": "Péksütemény"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konzervek"
     },
     {
-        "name": "Fűszerek"
+        "name": "Ételízesítők"
     },
     {
-        "name": "Confectionary"
+        "name": "Cukrászat"
     },
     {
         "name": "Tejtermékek"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Fagyasztott Ételek"
     },
     {
-        "name": "Health Foods"
+        "name": "Egészséges Ételek"
     },
     {
         "name": "Háztartás"
     },
     {
-        "name": "Meat Products"
+        "name": "Hús és Hentesárú"
     },
     {
         "name": "Nassolnivalók"
