@@ -1,6 +1,5 @@
 import json
 
-import requests
 from pytest import fixture
 from starlette.testclient import TestClient
 
@@ -8,7 +7,7 @@ from tests import utils
 from tests.utils.factories import random_string
 
 
-def build_unique_user(group: str, api_client: requests) -> utils.TestUser:
+def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
     api_routes = utils.AppRoutes()
     group = group or random_string(12)
 
@@ -103,7 +102,7 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
 
 
 @fixture(scope="module")
-def user_tuple(admin_token, api_client: requests, api_routes: utils.AppRoutes) -> tuple[utils.TestUser]:
+def user_tuple(admin_token, api_client: TestClient, api_routes: utils.AppRoutes) -> tuple[utils.TestUser]:
     group_name = utils.random_string()
     # Create the user
     create_data_1 = {
@@ -157,7 +156,7 @@ def user_tuple(admin_token, api_client: requests, api_routes: utils.AppRoutes) -
 
 
 @fixture(scope="session")
-def user_token(admin_token, api_client: requests, api_routes: utils.AppRoutes):
+def user_token(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
     # Create the user
     create_data = {
         "fullName": utils.random_string(),

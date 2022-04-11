@@ -50,19 +50,18 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 register_debug_handler(app)
 
 
-def start_scheduler():
-    SchedulerService.start()
-
+async def start_scheduler():
     SchedulerRegistry.register_daily(
         tasks.purge_group_registration,
         tasks.purge_password_reset_tokens,
         tasks.purge_group_data_exports,
     )
 
-    SchedulerRegistry.register_hourly()
-    SchedulerRegistry.register_minutely(tasks.update_group_webhooks)
+    SchedulerRegistry.register_minutely(lambda: logger.info("Scheduler tick"))
 
-    logger.info(SchedulerService.scheduler.print_jobs())
+    SchedulerRegistry.print_jobs()
+
+    await SchedulerService.start()
 
 
 def api_routers():
@@ -75,8 +74,8 @@ api_routers()
 
 
 @app.on_event("startup")
-def system_startup():
-    start_scheduler()
+async def system_startup():
+    await start_scheduler()
 
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")

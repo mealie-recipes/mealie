@@ -1,21 +1,10 @@
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from pydantic import BaseModel
 
 
-@dataclass
-class Cron:
-    hours: int
-    minutes: int
-
-    @classmethod
-    def parse(cls, time_str: str) -> "Cron":
-        time = time_str.split(":")
-        return Cron(hours=int(time[0]), minutes=int(time[1]))
-
-
-@dataclass
+@dataclass(slots=True)
 class ScheduledFunc(BaseModel):
     id: tuple[str, int]
     name: str
@@ -25,4 +14,4 @@ class ScheduledFunc(BaseModel):
 
     max_instances: int = 1
     replace_existing: bool = True
-    args: list = []
+    args: list = field(default_factory=list)
