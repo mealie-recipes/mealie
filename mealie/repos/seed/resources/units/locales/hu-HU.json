@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "teáskanál",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tk"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "evőkanál",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "ek"
     },
     "cup": {
-        "name": "cup",
+        "name": "csésze",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "csésze"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "konzerv",
         "description": "",
         "abbreviation": ""
     }
