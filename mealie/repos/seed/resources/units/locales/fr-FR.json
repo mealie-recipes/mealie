@@ -20,7 +20,7 @@
         "abbreviation": "cL"
     },
     "pint": {
-        "name": "pint",
+        "name": "pinte",
         "description": "",
         "abbreviation": "pt"
     },
@@ -35,37 +35,37 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitre",
         "description": "",
-        "abbreviation": "ml"
+        "abbreviation": "mL"
     },
     "liter": {
-        "name": "liter",
+        "name": "litre",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "L"
     },
     "pound": {
-        "name": "pound",
+        "name": "livre",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "once",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "gramme",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilogramme",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "milligramme",
         "description": "",
         "abbreviation": "mg"
     },
@@ -75,27 +75,27 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "trait",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "part",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "tête",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "gousse",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "boîte",
         "description": "",
         "abbreviation": ""
     }
