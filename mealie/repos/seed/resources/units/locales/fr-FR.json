@@ -1,23 +1,23 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "cuillère à café",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "càc"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "cuillère à soupe",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "càS"
     },
     "cup": {
-        "name": "cup",
+        "name": "tasse",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "tasse"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "centilitre",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "cL"
     },
     "pint": {
         "name": "pint",
