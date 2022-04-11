@@ -46,3 +46,14 @@ class SchedulerRegistry:
     def remove_minutely(callback: Callable):
         logger.info(f"Removing minutely callback: {callback.__name__}")
         SchedulerRegistry._minutely.remove(callback)
+
+    @staticmethod
+    def print_jobs():
+        for job in SchedulerRegistry._daily:
+            logger.info(f"Daily job: {job.__name__}")
+
+        for job in SchedulerRegistry._hourly:
+            logger.info(f"Hourly job: {job.__name__}")
+
+        for job in SchedulerRegistry._minutely:
+            logger.info(f"Minutely job: {job.__name__}")
