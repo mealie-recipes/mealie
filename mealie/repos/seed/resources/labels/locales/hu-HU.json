@@ -3,22 +3,22 @@
         "name": "Produce"
     },
     {
-        "name": "Grains"
+        "name": "Gabonafélék"
     },
     {
-        "name": "Fruits"
+        "name": "Gyümölcsök"
     },
     {
-        "name": "Vegetables"
+        "name": "Zöldségek"
     },
     {
-        "name": "Meat"
+        "name": "Hús"
     },
     {
-        "name": "Seafood"
+        "name": "Tenger gyümölcsei"
     },
     {
-        "name": "Beverages"
+        "name": "Italok"
     },
     {
         "name": "Baked Goods"
@@ -33,7 +33,7 @@
         "name": "Confectionary"
     },
     {
-        "name": "Dairy Products"
+        "name": "Tejtermékek"
     },
     {
         "name": "Frozen Foods"
@@ -42,24 +42,24 @@
         "name": "Health Foods"
     },
     {
-        "name": "Household"
+        "name": "Háztartás"
     },
     {
         "name": "Meat Products"
     },
     {
-        "name": "Snacks"
+        "name": "Nassolnivalók"
     },
     {
-        "name": "Spices"
+        "name": "Fűszerek"
     },
     {
-        "name": "Sweets"
+        "name": "Édességek"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Egyéb"
     }
 ]
