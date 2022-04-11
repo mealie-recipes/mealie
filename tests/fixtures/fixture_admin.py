@@ -1,4 +1,3 @@
-import requests
 from pytest import fixture
 from starlette.testclient import TestClient
 
@@ -7,7 +6,7 @@ from tests import utils
 
 
 @fixture(scope="session")
-def admin_token(api_client: requests, api_routes: utils.AppRoutes):
+def admin_token(api_client: TestClient, api_routes: utils.AppRoutes):
     settings = get_app_settings()
 
     form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
