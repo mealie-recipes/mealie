@@ -43,7 +43,7 @@ from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
-from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeTool
+from mealie.schema.recipe import Recipe, RecipeCategory, RecipeCommentOut, RecipeTool
 from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
@@ -111,7 +111,7 @@ class AllRepositories:
 
     @cached_property
     def categories(self) -> RepositoryCategories:
-        return RepositoryCategories(self.session, PK_ID, Category, CategoryOut)
+        return RepositoryCategories(self.session, PK_ID, Category, RecipeCategory)
 
     @cached_property
     def tags(self) -> RepositoryTags:
