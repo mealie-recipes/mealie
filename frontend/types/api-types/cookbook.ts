@@ -89,11 +89,13 @@ export interface RecipeSummary {
 }
 export interface RecipeCategory {
   id?: string;
+  groupId: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
   id?: string;
+  groupId: string;
   name: string;
   slug: string;
 }
