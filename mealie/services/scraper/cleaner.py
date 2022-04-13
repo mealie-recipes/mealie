@@ -306,12 +306,12 @@ def clean_tags(text: str | list[str]) -> list[str]:
     if text is None:
         return []
 
-    if type(text) == list:
+    if isinstance(text, list):
         return text
 
     tag_list = text.split(",")
 
-    for i in range(0, len(tag_list)):
+    for i in range(len(tag_list)):
         tag_list[i] = tag_list[i].strip().capitalize()
 
     return tag_list
