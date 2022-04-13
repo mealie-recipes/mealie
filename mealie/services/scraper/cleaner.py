@@ -299,12 +299,15 @@ def pretty_print_timedelta(t: timedelta, max_components=None, max_decimal_places
     return " ".join(out_list)
 
 
-def clean_tags(text: str):
+def clean_tags(text: str | list[str]) -> list[str]:
     """
     Gets keywords in a list, assuming they are separated by commas, capitalizes them and gets rid of extra spaces
     """
     if text is None:
         return []
+
+    if type(text) == list:
+        return text
 
     tag_list = text.split(",")
 
