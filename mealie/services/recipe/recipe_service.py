@@ -91,8 +91,8 @@ class RecipeService(BaseService):
         additional_attrs["user_id"] = user.id
         additional_attrs["group_id"] = user.group_id
 
-        if additional_attrs["tags"]:
-            for i in range(0, len(additional_attrs["tags"])):
+        if additional_attrs.get("tags"):
+            for i in range(0, len(additional_attrs.get("tags"))):
                 additional_attrs["tags"][i]["group_id"] = user.group_id
 
         if not additional_attrs.get("recipe_ingredient"):
