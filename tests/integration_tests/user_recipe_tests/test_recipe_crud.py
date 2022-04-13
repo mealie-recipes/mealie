@@ -83,7 +83,9 @@ def test_create_by_url(
 
     api_client.delete(api_routes.recipes_recipe_slug(recipe_data.expected_slug), headers=unique_user.token)
 
-    response = api_client.post(api_routes.recipes_create_url, json={"url": recipe_data.url}, headers=unique_user.token)
+    response = api_client.post(
+        api_routes.recipes_create_url, json={"url": recipe_data.url, "include_tags": False}, headers=unique_user.token
+    )
 
     assert response.status_code == 201
     assert json.loads(response.text) == recipe_data.expected_slug
