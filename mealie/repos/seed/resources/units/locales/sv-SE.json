@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "tesked",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tsk"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "matsked",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "msk"
     },
     "cup": {
-        "name": "cup",
+        "name": "kopp",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "kopp"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -45,7 +45,7 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "pund",
         "description": "",
         "abbreviation": "lb"
     },
@@ -70,32 +70,32 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "skvätt",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "stänk",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "portion",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "huvud",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "klyfta",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "burk",
         "description": "",
         "abbreviation": ""
     }

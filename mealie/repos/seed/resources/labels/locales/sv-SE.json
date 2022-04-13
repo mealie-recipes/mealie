@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Jordbruksprodukter"
     },
     {
-        "name": "Grains"
+        "name": "Spannmål"
     },
     {
-        "name": "Fruits"
+        "name": "Frukter"
     },
     {
-        "name": "Vegetables"
+        "name": "Grönsaker"
     },
     {
-        "name": "Meat"
+        "name": "Kött"
     },
     {
-        "name": "Seafood"
+        "name": "Fisk- och skaldjur"
     },
     {
-        "name": "Beverages"
+        "name": "Drycker"
     },
     {
-        "name": "Baked Goods"
+        "name": "Bakade varor"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konserverade varor"
     },
     {
-        "name": "Condiments"
+        "name": "Smaktillsatser"
     },
     {
-        "name": "Confectionary"
+        "name": "Konfektyr"
     },
     {
-        "name": "Dairy Products"
+        "name": "Mejeriprodukter"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Frysta livsmedel"
     },
     {
-        "name": "Health Foods"
+        "name": "Hälsolivsmedel"
     },
     {
-        "name": "Household"
+        "name": "Hushåll"
     },
     {
-        "name": "Meat Products"
+        "name": "Köttprodukter"
     },
     {
-        "name": "Snacks"
+        "name": "Tilltugg"
     },
     {
-        "name": "Spices"
+        "name": "Kryddor"
     },
     {
-        "name": "Sweets"
+        "name": "Sötsaker"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Övrigt"
     }
 ]

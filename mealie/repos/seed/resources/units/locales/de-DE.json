@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "Teelöffel",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "TL"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "Esslöffel",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "EL"
     },
     "cup": {
-        "name": "cup",
+        "name": "Tasse",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "Tasse"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -35,17 +35,17 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "Milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "Liter",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "Pfund",
         "description": "",
         "abbreviation": "lb"
     },
@@ -55,47 +55,47 @@
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "Gramm",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "Kilogramm",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "Milligramm",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "Spritzer",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "Prise",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "Portion",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "Kopf",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "Zehe",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "Dose",
         "description": "",
         "abbreviation": ""
     }

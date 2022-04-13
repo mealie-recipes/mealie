@@ -1,38 +1,38 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "teáskanál",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tk"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "evőkanál",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "ek"
     },
     "cup": {
-        "name": "cup",
+        "name": "csésze",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "csésze"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "uncia",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "uncia"
     },
     "pint": {
         "name": "pint",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "pint"
     },
     "quart": {
         "name": "quart",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "quart"
     },
     "gallon": {
         "name": "gallon",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "gallon"
     },
     "milliliter": {
         "name": "milliliter",
@@ -45,57 +45,57 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "font",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "font"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "uncia",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "uncia"
     },
     "gram": {
-        "name": "gram",
+        "name": "gramm",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilógramm",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligramm",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "fröccsintés",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "csipetnyi",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "adag",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "fej",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "gerezd",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "konzerv",
         "description": "",
         "abbreviation": ""
     }

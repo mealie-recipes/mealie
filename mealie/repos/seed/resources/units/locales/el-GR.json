@@ -32,42 +32,42 @@
     "gallon": {
         "name": "gallon",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "γαλ"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "χιλιοστόλιτρο",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "λίτρο",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "λ"
     },
     "pound": {
         "name": "pound",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "λβρ"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "ουγγιά",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "οζ"
     },
     "gram": {
-        "name": "gram",
+        "name": "γραμ",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "γ"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "κιλό",
         "description": "",
-        "abbreviation": "kg"
+        "abbreviation": "κιλ"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "χιλιοστόγραμμο",
         "description": "",
-        "abbreviation": "mg"
+        "abbreviation": "μιλιγκράμ"
     },
     "splash": {
         "name": "splash",
@@ -75,17 +75,17 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "παύλα",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "μερίδα",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "κεφάλι",
         "description": "",
         "abbreviation": ""
     },

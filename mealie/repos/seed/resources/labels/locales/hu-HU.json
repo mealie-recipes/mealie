@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Termény"
     },
     {
-        "name": "Grains"
+        "name": "Gabonafélék"
     },
     {
-        "name": "Fruits"
+        "name": "Gyümölcsök"
     },
     {
-        "name": "Vegetables"
+        "name": "Zöldségek"
     },
     {
-        "name": "Meat"
+        "name": "Hús"
     },
     {
-        "name": "Seafood"
+        "name": "Tenger gyümölcsei"
     },
     {
-        "name": "Beverages"
+        "name": "Italok"
     },
     {
-        "name": "Baked Goods"
+        "name": "Péksütemény"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konzervek"
     },
     {
-        "name": "Condiments"
+        "name": "Ételízesítők"
     },
     {
-        "name": "Confectionary"
+        "name": "Cukrászat"
     },
     {
-        "name": "Dairy Products"
+        "name": "Tejtermékek"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Fagyasztott Ételek"
     },
     {
-        "name": "Health Foods"
+        "name": "Egészséges Ételek"
     },
     {
-        "name": "Household"
+        "name": "Háztartás"
     },
     {
-        "name": "Meat Products"
+        "name": "Hús és Hentesárú"
     },
     {
-        "name": "Snacks"
+        "name": "Nassolnivalók"
     },
     {
-        "name": "Spices"
+        "name": "Fűszerek"
     },
     {
-        "name": "Sweets"
+        "name": "Édességek"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Egyéb"
     }
 ]
