@@ -130,7 +130,9 @@ def test_organizer_association(
     # Get Recipe Data
     response = api_client.get(routes.RoutesRecipe.item(slug), headers=unique_user.token)
     as_json = response.json()
-    as_json[recipe_key] = [{"id": item["id"], "name": item["name"], "slug": item["slug"]}]
+    as_json[recipe_key] = [
+        {"id": item["id"], "group_id": unique_user.group_id, "name": item["name"], "slug": item["slug"]}
+    ]
 
     # Update Recipe
     response = api_client.put(routes.RoutesRecipe.item(slug), json=as_json, headers=unique_user.token)
@@ -177,7 +179,9 @@ def test_organizer_get_by_slug(
     for slug in recipe_slugs:
         response = api_client.get(routes.RoutesRecipe.item(slug), headers=unique_user.token)
         as_json = response.json()
-        as_json[recipe_key] = [{"id": item["id"], "name": item["name"], "slug": item["slug"]}]
+        as_json[recipe_key] = [
+            {"id": item["id"], "group_id": unique_user.group_id, "name": item["name"], "slug": item["slug"]}
+        ]
 
         response = api_client.put(routes.RoutesRecipe.item(slug), json=as_json, headers=unique_user.token)
         assert response.status_code == 200
