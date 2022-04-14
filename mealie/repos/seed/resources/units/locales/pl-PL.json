@@ -25,7 +25,7 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "kwarta",
         "description": "",
         "abbreviation": "qt"
     },
@@ -35,7 +35,7 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitr",
         "description": "",
         "abbreviation": "ml"
     },
@@ -85,7 +85,7 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "główka",
         "description": "",
         "abbreviation": ""
     },
