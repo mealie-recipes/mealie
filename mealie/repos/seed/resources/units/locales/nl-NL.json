@@ -1,13 +1,13 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "theelepel",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tl"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "eetlepel",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "el"
     },
     "cup": {
         "name": "cup",
@@ -45,7 +45,7 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "pond",
         "description": "",
         "abbreviation": "lb"
     },
@@ -57,7 +57,7 @@
     "gram": {
         "name": "gram",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "gr"
     },
     "kilogram": {
         "name": "kilogram",
@@ -80,22 +80,22 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "portie",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "hoofd",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "teen",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "blik",
         "description": "",
         "abbreviation": ""
     }
