@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "ч. ложка",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "ч. ложка"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "ст. ложка",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "ст. ложка"
     },
     "cup": {
-        "name": "cup",
+        "name": "чашка",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "чашка"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -20,9 +20,9 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "пінта",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "пінта"
     },
     "quart": {
         "name": "quart",
