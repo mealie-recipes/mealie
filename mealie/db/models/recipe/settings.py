@@ -12,7 +12,7 @@ class RecipeSettings(SqlAlchemyBase):
     show_nutrition = sa.Column(sa.Boolean)
     show_assets = sa.Column(sa.Boolean)
     landscape_view = sa.Column(sa.Boolean)
-    disable_amount = sa.Column(sa.Boolean, default=False)
+    disable_amount = sa.Column(sa.Boolean, default=True)
     disable_comments = sa.Column(sa.Boolean, default=False)
     locked = sa.Column(sa.Boolean, default=False)
 
