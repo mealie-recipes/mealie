@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Продукти"
     },
     {
-        "name": "Grains"
+        "name": "Зерна"
     },
     {
-        "name": "Fruits"
+        "name": "Фрукти"
     },
     {
-        "name": "Vegetables"
+        "name": "Овочі"
     },
     {
-        "name": "Meat"
+        "name": "М’ясо"
     },
     {
-        "name": "Seafood"
+        "name": "Морепродукти"
     },
     {
-        "name": "Beverages"
+        "name": "Напої"
     },
     {
-        "name": "Baked Goods"
+        "name": "Печені страви"
     },
     {
-        "name": "Canned Goods"
+        "name": "Консерви"
     },
     {
-        "name": "Condiments"
+        "name": "Приправи"
     },
     {
-        "name": "Confectionary"
+        "name": "Солодощі"
     },
     {
-        "name": "Dairy Products"
+        "name": "Молочні продукти"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Заморожені продукти"
     },
     {
-        "name": "Health Foods"
+        "name": "Здорова їжа"
     },
     {
-        "name": "Household"
+        "name": "Господарство"
     },
     {
-        "name": "Meat Products"
+        "name": "М'ясні Продукти"
     },
     {
-        "name": "Snacks"
+        "name": "Закуски"
     },
     {
-        "name": "Spices"
+        "name": "Спеції"
     },
     {
-        "name": "Sweets"
+        "name": "Cолодощі"
     },
     {
-        "name": "Alcohol"
+        "name": "Алкоголь"
     },
     {
-        "name": "Other"
+        "name": "Інше"
     }
 ]

@@ -15,27 +15,27 @@
         "abbreviation": "szklanka"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "uncja",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "uncja"
     },
     "pint": {
         "name": "pinta",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "pinta"
     },
     "quart": {
-        "name": "quart",
+        "name": "kwarta",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "kwarta"
     },
     "gallon": {
         "name": "galon",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "galon"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitr",
         "description": "",
         "abbreviation": "ml"
     },
@@ -47,12 +47,12 @@
     "pound": {
         "name": "funt",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "funt"
     },
     "ounce": {
         "name": "uncja",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "uncja"
     },
     "gram": {
         "name": "gram",
@@ -70,12 +70,12 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "kapka",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "domieszka",
         "description": "",
         "abbreviation": ""
     },
@@ -85,12 +85,12 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "główka",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "ząbek",
         "description": "",
         "abbreviation": ""
     },

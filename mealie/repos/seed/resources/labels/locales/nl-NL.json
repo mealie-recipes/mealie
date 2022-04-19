@@ -3,63 +3,63 @@
         "name": "Produce"
     },
     {
-        "name": "Grains"
+        "name": "Granen"
     },
     {
-        "name": "Fruits"
+        "name": "Fruit"
     },
     {
-        "name": "Vegetables"
+        "name": "Groenten"
     },
     {
-        "name": "Meat"
+        "name": "Vlees"
     },
     {
-        "name": "Seafood"
+        "name": "Zeevruchten"
     },
     {
-        "name": "Beverages"
+        "name": "Dranken"
     },
     {
-        "name": "Baked Goods"
+        "name": "Gebakken goederen"
     },
     {
-        "name": "Canned Goods"
+        "name": "Ingeblikte goederen"
     },
     {
-        "name": "Condiments"
+        "name": "Specerijen"
     },
     {
-        "name": "Confectionary"
+        "name": "Zoetigheden"
     },
     {
-        "name": "Dairy Products"
+        "name": "Zuivelproducten"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Bevroren Voedsel"
     },
     {
         "name": "Health Foods"
     },
     {
-        "name": "Household"
+        "name": "Huishouden"
     },
     {
-        "name": "Meat Products"
+        "name": "Vlees producten"
     },
     {
         "name": "Snacks"
     },
     {
-        "name": "Spices"
+        "name": "Kruiden"
     },
     {
-        "name": "Sweets"
+        "name": "Snoepgoed"
     },
     {
         "name": "Alcohol"
     },
     {
-        "name": "Other"
+        "name": "Andere"
     }
 ]

@@ -1,101 +1,101 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "ч. ложка",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "ч. ложка"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "ст. ложка",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "ст. ложка"
     },
     "cup": {
-        "name": "cup",
+        "name": "чашка",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "чашка"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "рідка унція",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "р. унц"
     },
     "pint": {
-        "name": "pint",
+        "name": "пінта",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "пт"
     },
     "quart": {
-        "name": "quart",
+        "name": "кварта",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "кв"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "галон",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "гл"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "мілілітр",
         "description": "",
-        "abbreviation": "ml"
+        "abbreviation": "мл"
     },
     "liter": {
-        "name": "liter",
+        "name": "літр",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "л"
     },
     "pound": {
-        "name": "pound",
+        "name": "фунт",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "фт"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "унція",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "унц"
     },
     "gram": {
-        "name": "gram",
+        "name": "грам",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "г"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "кілограм",
         "description": "",
-        "abbreviation": "kg"
+        "abbreviation": "кг"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "міліграм",
         "description": "",
-        "abbreviation": "mg"
+        "abbreviation": "мг"
     },
     "splash": {
-        "name": "splash",
+        "name": "трохи",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "трохи",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "порція",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "голівка",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "зубчик",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "банка",
         "description": "",
         "abbreviation": ""
     }
