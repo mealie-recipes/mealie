@@ -130,7 +130,7 @@ Thanks to Linode for providing Hosting for the Demo, Beta, and Documentation sit
 [issues-shield]: https://img.shields.io/github/issues/hay-kot/mealie.svg?style=flat-square
 [issues-url]: https://github.com/hay-kot/mealie/issues
 [license-shield]: https://img.shields.io/github/license/hay-kot/mealie.svg?style=flat-square
-[license-url]: https://github.com/hay-kot/mealie/blob/master/LICENSE.txt
+[license-url]: https://github.com/hay-kot/mealie/blob/dev/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/hay-kot
 [product-screenshot]: docs/docs/assets/img/home_screenshot.png
