@@ -20,7 +20,7 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "Pint",
         "description": "",
         "abbreviation": "pt"
     },
@@ -30,7 +30,7 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "Gallone",
         "description": "",
         "abbreviation": "gal"
     },
