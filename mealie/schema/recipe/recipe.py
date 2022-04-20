@@ -42,12 +42,12 @@ class RecipeTool(RecipeTag):
     on_hand: bool = False
 
 
-class CreateRecipeByUrl(BaseModel):
+class CreateRecipeByUrl(MealieModel):
     url: str
-    include_tags: int
+    include_tags: bool = False
 
     class Config:
-        schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes", "include_tags": True}}
+        schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes", "includeTags": True}}
 
 
 class CreateRecipeBulk(BaseModel):
@@ -104,7 +104,7 @@ class RecipeSummary(MealieModel):
     @validator("recipe_category", always=True, pre=True, allow_reuse=True)
     def validate_categories(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c), group_id=uuid4()) for c in cats]
+            return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @validator("group_id", always=True, pre=True, allow_reuse=True)
