@@ -76,7 +76,7 @@ class UserBase(MealieModel):
         schema_extra = {
             "username": "ChangeMe",
             "fullName": "Change Me",
-            "email": settings.DEFAULT_EMAIL,
+            "email": "changeme@email.com",
             "group": settings.DEFAULT_GROUP,
             "admin": "false",
         }
