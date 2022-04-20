@@ -16,8 +16,20 @@
               <v-icon>
                 {{ icon }}
               </v-icon>
-              <v-card-title class="py-1">{{ item.name }}</v-card-title>
+              <v-card-title class="py-1">
+                {{ item.name }}
+              </v-card-title>
               <v-spacer></v-spacer>
+              <RecipeCategoryTagToolContextMenu
+                :id="item.id"
+                :item-type="itemType"
+                :slug="item.slug"
+                :name="item.name"
+                :use-items="{
+                  delete: true,
+                }"
+                @delete="$emit('delete', item.id)"
+              />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -28,6 +40,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, computed, useMeta } from "@nuxtjs/composition-api";
+import RecipeCategoryTagToolContextMenu from "./RecipeCategoryTagToolContextMenu.vue";
 
 type ItemType = "tags" | "categories" | "tools";
 
@@ -38,11 +51,13 @@ const ItemTypes = {
 };
 
 interface GenericItem {
+  id: string;
   name: string;
   slug: string;
 }
 
 export default defineComponent({
+  components: { RecipeCategoryTagToolContextMenu },
   props: {
     itemType: {
       type: String as () => ItemType,

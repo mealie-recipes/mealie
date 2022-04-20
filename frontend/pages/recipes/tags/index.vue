@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <RecipeCategoryTagToolPage v-if="tools" :items="tools" item-type="tags" />
+    <RecipeCategoryTagToolPage v-if="tools" :items="tools" item-type="tags" @delete="removeTag" />
   </v-container>
 </template>
 
@@ -8,6 +8,7 @@
 import { defineComponent, useAsync } from "@nuxtjs/composition-api";
 import RecipeCategoryTagToolPage from "~/components/Domain/Recipe/RecipeCategoryTagToolPage.vue";
 import { useUserApi } from "~/composables/api";
+import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
   components: {
@@ -21,9 +22,22 @@ export default defineComponent({
       if (data) {
         return data;
       }
-    });
+    }, useAsyncKey());
+
+    function removeTag(id: string) {
+      if (tools.value) {
+        for (let i = 0; i < tools.value.length; i++) {
+          if (tools.value[i].id === id) {
+            tools.value.splice(i, 1);
+            break;
+          }
+        }
+      }
+    }
+
     return {
       tools,
+      removeTag,
     };
   },
 });
