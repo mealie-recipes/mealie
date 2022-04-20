@@ -148,7 +148,7 @@ export default defineComponent({
       delete: {
         title: i18n.t("general.delete") as string,
         icon: $globals.icons.delete,
-        color: "error",
+        color: undefined,
         event: "delete",
       },
     };
