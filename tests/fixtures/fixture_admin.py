@@ -9,7 +9,7 @@ from tests import utils
 def admin_token(api_client: TestClient, api_routes: utils.AppRoutes):
     settings = get_app_settings()
 
-    form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
+    form_data = {"username": settings.DEFAULT_EMAIL, "password": settings.DEFAULT_PASSWORD}
     return utils.login(form_data, api_client, api_routes)
 
 
@@ -17,7 +17,7 @@ def admin_token(api_client: TestClient, api_routes: utils.AppRoutes):
 def admin_user(api_client: TestClient, api_routes: utils.AppRoutes):
     settings = get_app_settings()
 
-    form_data = {"username": "changeme@email.com", "password": settings.DEFAULT_PASSWORD}
+    form_data = {"username": settings.DEFAULT_EMAIL, "password": settings.DEFAULT_PASSWORD}
 
     token = utils.login(form_data, api_client, api_routes)
 

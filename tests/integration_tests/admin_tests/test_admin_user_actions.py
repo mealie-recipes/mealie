@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 
+from mealie.core.config import get_app_settings
 from tests import utils
 from tests.utils import routes
 from tests.utils.app_routes import AppRoutes
@@ -24,6 +25,8 @@ def generate_create_data() -> dict:
 
 
 def test_init_superuser(api_client: TestClient, admin_user: TestUser):
+    settings = get_app_settings()
+
     response = api_client.get(routes.RoutesAdminUsers.item(admin_user.user_id), headers=admin_user.token)
     assert response.status_code == 200
 
@@ -33,7 +36,7 @@ def test_init_superuser(api_client: TestClient, admin_user: TestUser):
     assert admin_data["groupId"] == admin_user.group_id
 
     assert admin_data["fullName"] == "Change Me"
-    assert admin_data["email"] == "changeme@email.com"
+    assert admin_data["email"] == settings.DEFAULT_EMAIL
 
 
 def test_create_user(api_client: TestClient, api_routes: AppRoutes, admin_token):
@@ -80,10 +83,12 @@ def test_update_user(api_client: TestClient, admin_user: TestUser):
 
 
 def test_update_other_user_as_not_admin(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
+    settings = get_app_settings()
+
     update_data = {
         "id": unique_user.user_id,
         "fullName": "Updated Name",
-        "email": "changeme@email.com",
+        "email": settings.DEFAULT_EMAIL,
         "group": "Home",
         "admin": True,
     }
