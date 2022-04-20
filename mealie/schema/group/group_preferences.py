@@ -15,7 +15,7 @@ class UpdateGroupPreferences(MealieModel):
     recipe_show_assets: bool = False
     recipe_landscape_view: bool = False
     recipe_disable_comments: bool = False
-    recipe_disable_amount: bool = False
+    recipe_disable_amount: bool = True
 
 
 class CreateGroupPreferences(UpdateGroupPreferences):

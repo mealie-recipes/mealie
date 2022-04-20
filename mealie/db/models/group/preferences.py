@@ -23,7 +23,7 @@ class GroupPreferencesModel(SqlAlchemyBase, BaseMixins):
     recipe_show_assets: bool = sa.Column(sa.Boolean, default=False)
     recipe_landscape_view: bool = sa.Column(sa.Boolean, default=False)
     recipe_disable_comments: bool = sa.Column(sa.Boolean, default=False)
-    recipe_disable_amount: bool = sa.Column(sa.Boolean, default=False)
+    recipe_disable_amount: bool = sa.Column(sa.Boolean, default=True)
 
     @auto_init()
     def __init__(self, **_) -> None:
