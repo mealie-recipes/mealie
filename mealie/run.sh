@@ -10,14 +10,23 @@ PUID=${PUID:-911}
 PGID=${PGID:-911}
 
 add_user() {
-    groupmod -o -g "$PGID" abc
-    usermod -o -u "$PUID" abc
+    local chown=false
+    if [ "$PGID" != "$(id -g abc || true)" ]; then
+        groupmod -o -g "$PGID" abc
+        chown=true
+    fi
+    if [ "$PUID" != "$(id -u abc || true)" ]; then
+        usermod -o -u "$PUID" abc
+        chown=true
+    fi
 
     echo "
     User uid:    $(id -u abc)
     User gid:    $(id -g abc)
     "
-    chown -R abc:abc /app
+    if $chown; then
+        chown -R abc:abc /app
+    fi
 }
 
 init() {

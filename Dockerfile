@@ -30,7 +30,8 @@ ENV PYTHONUNBUFFERED=1 \
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 # create user account
-RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
+RUN groupadd  -g 911 abc \
+    && useradd -u 911 -g 911 -d $MEALIE_HOME -s /bin/bash abc \
     && usermod -G users abc \
     && mkdir $MEALIE_HOME
 
