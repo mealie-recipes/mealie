@@ -54,6 +54,11 @@ class RegistrationService:
     def register_user(self, registration: CreateUserRegistration) -> PrivateUser:
         self.registration = registration
 
+        if self.repos.users.get_by_username(registration.username):
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "A user with this username already exists"})
+        elif self.repos.users.get(registration.email, "email"):
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "A user with this email already exists"})
+
         self.logger.info(f"Registering user {registration.username}")
         token_entry = None
         new_group = False
@@ -69,6 +74,8 @@ class RegistrationService:
             group = self.repos.groups.get_one(token_entry.group_id)
         else:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
+
+        self.logger.info(self.repos.users.get_by_username(registration.username))
 
         user = self._create_new_user(group, new_group)
 
