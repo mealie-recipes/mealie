@@ -60,7 +60,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             return value
 
-        def get_instructions() -> list[dict]:
+        def get_instructions() -> list[RecipeStep]:
             instruction_as_text = try_get_default(
                 scraped_data.instructions, "recipeInstructions", ["No Instructions Found"]
             )
@@ -108,8 +108,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 self.logger.error("Recipe Scraper was unable to extract a recipe.")
                 return None
 
-        except ConnectionError:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": "CONNECTION_ERROR"})
+        except ConnectionError as e:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": "CONNECTION_ERROR"}) from e
 
         # Check to see if the recipe is valid
         try:
