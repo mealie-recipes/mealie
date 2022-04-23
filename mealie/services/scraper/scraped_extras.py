@@ -39,7 +39,7 @@ class ScrapedExtras:
             # Check if tag exists
             if db_tag := repo.get_one(slugify_tag, "slug"):
                 tags.append(db_tag)
-                break
+                continue
 
             save_data = TagSave(name=tag, group_id=ctx.group_id)
             db_tag = repo.create(save_data)
