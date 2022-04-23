@@ -27,7 +27,6 @@ class RecipeTag(MealieModel):
     id: UUID4 = None
     name: str
     slug: str
-    group_id: UUID4 = None
 
     class Config:
         orm_mode = True
@@ -40,14 +39,6 @@ class RecipeCategory(RecipeTag):
 class RecipeTool(RecipeTag):
     id: UUID4
     on_hand: bool = False
-
-
-class CreateRecipeByUrl(MealieModel):
-    url: str
-    include_tags: bool = False
-
-    class Config:
-        schema_extra = {"example": {"url": "https://myfavoriterecipes.com/recipes", "includeTags": True}}
 
 
 class CreateRecipeBulk(BaseModel):

@@ -10,6 +10,7 @@ from w3lib.html import get_base_url
 
 from mealie.core.root_logger import get_logger
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
+from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
 
@@ -26,7 +27,7 @@ class ABCScraperStrategy(ABC):
         self.url = url
 
     @abstractmethod
-    def parse(self) -> Recipe | None:
+    def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """Parse a recipe from a web URL.
 
         Args:
@@ -39,7 +40,7 @@ class ABCScraperStrategy(ABC):
 
 
 class RecipeScraperPackage(ABCScraperStrategy):
-    def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> Recipe:
+    def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
         def try_get_default(func_call: Callable | None, get_attr: str, default: Any, clean_func=None):
             value = default
 
@@ -80,9 +81,11 @@ class RecipeScraperPackage(ABCScraperStrategy):
             None, "cookTime", None, cleaner.clean_time
         )
 
-        self.logger.info(try_get_default(None, "keywords", "", cleaner.clean_string))
+        extras = ScrapedExtras()
 
-        return Recipe(
+        extras.set_tags(try_get_default(None, "keywords", "", cleaner.clean_tags))
+
+        recipe = Recipe(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
             slug="",
             image=try_get_default(None, "image", None),
@@ -95,8 +98,9 @@ class RecipeScraperPackage(ABCScraperStrategy):
             prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time),
             perform_time=cook_time,
             org_url=url,
-            tags=try_get_default(None, "keywords", "", cleaner.clean_tags),
         )
+
+        return recipe, extras
 
     def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
         try:
@@ -128,7 +132,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         self.logger.debug(f"Recipe Scraper [Package] was unable to extract a recipe from {self.url}")
         return None
 
-    def parse(self) -> Recipe | None:
+    def parse(self):
         """
         Parse a recipe from a given url.
         """
@@ -182,7 +186,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
             "extras": [],
         }
 
-    def parse(self) -> Recipe | None:
+    def parse(self):
         """
         Parse a recipe from a given url.
         """
@@ -193,4 +197,4 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         if og_data is None:
             return None
 
-        return Recipe(**og_data)
+        return Recipe(**og_data), ScrapedExtras()

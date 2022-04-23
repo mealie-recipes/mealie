@@ -1,4 +1,5 @@
 from mealie.schema.recipe.recipe import Recipe
+from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from .scraper_strategies import ABCScraperStrategy, RecipeScraperOpenGraph, RecipeScraperPackage
 
@@ -20,16 +21,16 @@ class RecipeScraper:
 
         self.scrapers = scrapers
 
-    def scrape(self, url: str) -> Recipe | None:
+    def scrape(self, url: str) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
         """
 
         for scraper_type in self.scrapers:
             scraper = scraper_type(url)
-            recipe = scraper.parse()
+            recipe, extras = scraper.parse()
 
             if recipe is not None:
-                return recipe
+                return recipe, extras
 
-        return None
+        return None, None

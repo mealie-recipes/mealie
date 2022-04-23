@@ -28,6 +28,7 @@ class CategoryBase(CategoryIn):
 
 class CategoryOut(CategoryBase):
     slug: str
+    group_id: UUID4
 
     class Config:
         orm_mode = True
