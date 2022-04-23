@@ -142,21 +142,21 @@ class Recipe(RecipeSummary):
         if not self.id:
             raise ValueError("Recipe has no ID")
 
-        dir = app_dirs.RECIPE_DATA_DIR.joinpath(str(self.id))
-        dir.mkdir(exist_ok=True, parents=True)
-        return dir
+        folder = app_dirs.RECIPE_DATA_DIR.joinpath(str(self.id))
+        folder.mkdir(exist_ok=True, parents=True)
+        return folder
 
     @property
     def asset_dir(self) -> Path:
-        dir = self.directory.joinpath("assets")
-        dir.mkdir(exist_ok=True, parents=True)
-        return dir
+        folder = self.directory.joinpath("assets")
+        folder.mkdir(exist_ok=True, parents=True)
+        return folder
 
     @property
     def image_dir(self) -> Path:
-        dir = self.directory.joinpath("images")
-        dir.mkdir(exist_ok=True, parents=True)
-        return dir
+        folder = self.directory.joinpath("images")
+        folder.mkdir(exist_ok=True, parents=True)
+        return folder
 
     class Config:
         orm_mode = True
