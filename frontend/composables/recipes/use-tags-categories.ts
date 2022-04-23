@@ -20,6 +20,7 @@ function baseTagsCategories(
 
   async function refreshItems() {
     const { data } = await api.getAll();
+    // @ts-ignore hotfix
     reference.value = data;
   }
 
