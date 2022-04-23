@@ -8,6 +8,7 @@ from mealie.core.root_logger import get_logger
 from mealie.pkgs import cache
 from mealie.schema.recipe import Recipe
 from mealie.services.recipe.recipe_data_service import RecipeDataService
+from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from .recipe_scraper import RecipeScraper
 
@@ -18,7 +19,7 @@ class ParserErrors(str, Enum):
     CONNECTION_ERROR = "CONNECTION_ERROR"
 
 
-def create_from_url(url: str) -> Recipe:
+def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
     a Recipe object will be returned if successful.
 
@@ -29,12 +30,12 @@ def create_from_url(url: str) -> Recipe:
         Recipe: Recipe Object
     """
     scraper = RecipeScraper()
-    new_recipe = scraper.scrape(url)
-    new_recipe.id = uuid4()
+    new_recipe, extras = scraper.scrape(url)
 
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
 
+    new_recipe.id = uuid4()
     logger = get_logger()
     logger.info(f"Image {new_recipe.image}")
 
@@ -52,4 +53,4 @@ def create_from_url(url: str) -> Recipe:
         new_recipe.name = f"No Recipe Name Found - {str(uuid4())}"
         new_recipe.slug = slugify(new_recipe.name)
 
-    return new_recipe
+    return new_recipe, extras

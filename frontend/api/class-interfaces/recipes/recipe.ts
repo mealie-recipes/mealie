@@ -77,8 +77,8 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url });
   }
 
-  async createOneByUrl(url: string) {
-    return await this.requests.post<string>(routes.recipesCreateUrl, { url });
+  async createOneByUrl(url: string, includeTags: boolean) {
+    return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags });
   }
 
   async createManyByUrl(payload: BulkCreatePayload) {

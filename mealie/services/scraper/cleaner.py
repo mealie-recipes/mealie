@@ -297,3 +297,32 @@ def pretty_print_timedelta(t: timedelta, max_components=None, max_decimal_places
     if out_list == []:
         return "none"
     return " ".join(out_list)
+
+
+def clean_tags(data: str | list[str]) -> list[str]:
+    """
+    Gets keywords as a list or natural language list and returns them into a list of strings of individual tags
+    """
+    if data is None:
+        return []
+
+    if isinstance(data, list):
+        all_str = True
+        i = 0
+        while all_str and i < len(data):
+            all_str = isinstance(data[i], str)
+            i = i + 1
+
+        if all_str:
+            return data
+        return []
+
+    if isinstance(data, str):
+        tag_list = data.split(",")
+
+        for i in range(len(tag_list)):
+            tag_list[i] = tag_list[i].strip().capitalize()
+
+        return tag_list
+
+    return []

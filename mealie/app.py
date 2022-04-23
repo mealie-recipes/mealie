@@ -57,8 +57,6 @@ async def start_scheduler():
         tasks.purge_group_data_exports,
     )
 
-    SchedulerRegistry.register_minutely(lambda: logger.info("Scheduler tick"))
-
     SchedulerRegistry.print_jobs()
 
     await SchedulerService.start()

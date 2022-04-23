@@ -23,14 +23,16 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.query import GetAll
-from mealie.schema.recipe import CreateRecipeByUrl, Recipe, RecipeImageTypes
+from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.server.tasks import ServerTaskNames
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
+from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_url
 from mealie.services.scraper.scraper_strategies import RecipeScraperPackage
 from mealie.services.server_tasks.background_executory import BackgroundExecutor
@@ -141,9 +143,15 @@ class RecipeController(BaseRecipeController):
     # URL Scraping Operations
 
     @router.post("/create-url", status_code=201, response_model=str)
-    def parse_recipe_url(self, url: CreateRecipeByUrl):
+    def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        recipe = create_from_url(url.url)
+        recipe, extras = create_from_url(req.url)
+
+        if req.include_tags:
+            ctx = ScraperContext(self.user.id, self.group_id, self.repos)
+
+            recipe.tags = extras.use_tags(ctx)  # type: ignore
+
         return self.service.create_one(recipe).slug
 
     @router.post("/create-url/bulk", status_code=202)
@@ -159,7 +167,7 @@ class RecipeController(BaseRecipeController):
 
             for b in bulk.imports:
                 try:
-                    recipe = create_from_url(b.url)
+                    recipe, _ = create_from_url(b.url)
 
                     if b.tags:
                         recipe.tags = b.tags
@@ -184,7 +192,7 @@ class RecipeController(BaseRecipeController):
         return {"details": "task has been started"}
 
     @router.post("/test-scrape-url")
-    def test_parse_recipe_url(self, url: CreateRecipeByUrl):
+    def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
         if scraped_data := RecipeScraperPackage(url.url).scrape_url():
             return scraped_data.schema.data
@@ -264,7 +272,7 @@ class RecipeController(BaseRecipeController):
     # Image and Assets
 
     @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
-    def scrape_image_url(self, slug: str, url: CreateRecipeByUrl):
+    def scrape_image_url(self, slug: str, url: ScrapeRecipe):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
         data_service.scrape_image(url.url)

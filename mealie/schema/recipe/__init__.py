@@ -8,6 +8,7 @@ from .recipe_image_types import *
 from .recipe_ingredient import *
 from .recipe_notes import *
 from .recipe_nutrition import *
+from .recipe_scraper import *
 from .recipe_settings import *
 from .recipe_share_token import *  # type: ignore
 from .recipe_step import *
