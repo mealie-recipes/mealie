@@ -1,16 +1,17 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 from tests import data as test_data
 
 
-@dataclass
+@dataclass(slots=True)
 class RecipeSiteTestCase:
     url: str
     html: str
     expected_slug: str
     num_ingredients: int
     num_steps: int
-    html_file: str
+    html_file: Path
 
 
 def get_recipe_test_cases():

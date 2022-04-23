@@ -22,6 +22,10 @@ html_sous_vide_shrimp = CWD / "html/sous-vide-shrimp.html"
 
 html_jam_roly_poly_with_custard = CWD / "html/jam-roly-poly-with-custard.html"
 
+html_nutty_umami_noodles_with_scallion_brown_butter_and_snow_peas_recipe = (
+    CWD / "html/nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas-recipe.html"
+)
+
 html_taiwanese_three_cup_chicken_san_bei_gi_recipe = CWD / "html/taiwanese-three-cup-chicken-san-bei-gi-recipe.html"
 
 html_detroit_style_pepperoni_pizza = CWD / "html/detroit-style-pepperoni-pizza.html"
