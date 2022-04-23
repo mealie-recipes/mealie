@@ -38,4 +38,11 @@ def get_latest_version() -> str:
         _LAST_RESET = now
         get_latest_github_release.cache_clear()
 
-    return get_latest_github_release()
+    try:
+        return get_latest_github_release()
+    except requests.RequestException:
+        return "error fetching version"
+    except KeyError:
+        return "error parsing response"
+    except Exception:
+        return "unknown error"
