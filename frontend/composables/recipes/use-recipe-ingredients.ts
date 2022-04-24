@@ -1,7 +1,15 @@
+// @ts-ignore DOMPurify has no types
+import DOMPurify from "dompurify";
 import { useFraction } from "./use-fraction";
 import { RecipeIngredient } from "~/types/api-types/recipe";
-
 const { frac } = useFraction();
+
+function sanitizeIngredientHTML(rawHtml: string) {
+  return DOMPurify.sanitize(rawHtml, {
+    "USE_PROFILES": {html: true},
+    "ALLOWED_TAGS": ["b", "q", "i", "strong", "sup"]
+  }) as string
+}
 
 export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1): string {
   if (disableAmount) {
@@ -26,5 +34,6 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
     }
   }
 
-  return `${returnQty} ${unit?.name || " "}  ${food?.name || " "} ${note || " "}`.replace(/ {2,}/g, " ");
+  const text = `${returnQty} ${unit?.name || " "}  ${food?.name || " "} ${note || " "}`.replace(/ {2,}/g, " ");
+  return sanitizeIngredientHTML(text);
 }
