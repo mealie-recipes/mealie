@@ -173,8 +173,8 @@
             </v-card-text>
             <v-expand-transition>
               <div v-show="!isChecked(index) && !edit" class="m-0 p-0">
-                <v-card-text>
-                  <VueMarkdown :source="step.text"> </VueMarkdown>
+                <v-card-text class="markdown">
+                  <VueMarkdown class="markdown" :source="step.text"> </VueMarkdown>
                 </v-card-text>
               </div>
             </v-expand-transition>
@@ -506,8 +506,19 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .v-card--link:before {
   background: none;
+}
+
+/** Select all li under .markdown class */
+.markdown >>> ul > li {
+  display: list-item;
+  list-style-type: disc !important;
+}
+
+/** Select all li under .markdown class */
+.markdown >>> ol > li {
+  display: list-item;
 }
 </style>
