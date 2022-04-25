@@ -4,6 +4,7 @@ from uuid import uuid4
 from fastapi import HTTPException, status
 
 from mealie.core.security import hash_password
+from mealie.lang import local_provider
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
 from mealie.schema.user.registration import CreateUserRegistration
@@ -18,6 +19,7 @@ class RegistrationService:
     def __init__(self, logger: Logger, db: AllRepositories):
         self.logger = logger
         self.repos = db
+        self.t = local_provider()
 
     def _create_new_user(self, group: GroupInDB, new_group: bool) -> PrivateUser:
         new_user = UserIn(
@@ -55,9 +57,9 @@ class RegistrationService:
         self.registration = registration
 
         if self.repos.users.get_by_username(registration.username):
-            raise HTTPException(status.HTTP_409_CONFLICT, {"message": "A user with this username already exists"})
+            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t.t("exceptions.username-conflict-error")})
         elif self.repos.users.get(registration.email, "email"):
-            raise HTTPException(status.HTTP_409_CONFLICT, {"message": "A user with this email already exists"})
+            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t.t(key="exceptions.email-conflict-error")})
 
         self.logger.info(f"Registering user {registration.username}")
         token_entry = None
