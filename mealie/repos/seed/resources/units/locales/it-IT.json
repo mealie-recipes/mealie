@@ -1,71 +1,71 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "cucchiaino",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "cucchiaino"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "cucchiaio",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "cucch.o"
     },
     "cup": {
-        "name": "cup",
+        "name": "tazza",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "tazza"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "oncia liquida",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "pinta",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "quarto di pinta",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "gallone",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "millilitro",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litro",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "libbra",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "oncia",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "grammo",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "chilogrammo",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "milligrammo",
         "description": "",
         "abbreviation": "mg"
     },
@@ -75,27 +75,27 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "pizzico",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porzione",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "testa",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "spicchio",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "lattina",
         "description": "",
         "abbreviation": ""
     }
