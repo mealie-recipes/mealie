@@ -28,9 +28,9 @@ class RecipeScraper:
 
         for scraper_type in self.scrapers:
             scraper = scraper_type(url)
-            recipe, extras = scraper.parse()
+            result = scraper.parse()
 
-            if recipe is not None:
-                return recipe, extras
+            if result is not None:
+                return result
 
         return None, None
