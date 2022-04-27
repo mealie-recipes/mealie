@@ -15,6 +15,36 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Seed Dialog-->
+    <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" title="Seed Data" @confirm="seedDatabase">
+      <v-card-text>
+        Seed the database with foods based on your local language. This will create 200+ common foods that can be used
+        to organize your database. Foods and translated via a community effort. If you're not a native english speaker,
+        it is recommended that you check your languages translation status before using this feature as not all of the
+        foods may have been translated
+
+        <v-autocomplete
+          v-model="locale"
+          :items="locales"
+          item-text="name"
+          label="Select Language"
+          class="my-3"
+          hide-details
+          outlined
+          offset
+        >
+          <template #item="{ item }">
+            <v-list-item-content>
+              <v-list-item-title v-text="item.name"></v-list-item-title>
+              <v-list-item-subtitle>
+                {{ item.progress }}% {{ $tc("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+        </v-autocomplete>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
@@ -73,18 +103,26 @@
           {{ item.label.name }}
         </MultiPurposeLabel>
       </template>
+      <template #button-bottom>
+        <BaseButton @click="seedDialog = true">
+          <template #icon> {{ $globals.icons.database }} </template>
+          Seed
+        </BaseButton>
+      </template>
     </CrudTable>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref, watch } from "@nuxtjs/composition-api";
 import { computed } from "vue-demi";
+import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { IngredientFood } from "~/types/api-types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
+import { useLocales } from "~/composables/use-locales";
 
 export default defineComponent({
   components: { MultiPurposeLabel },
@@ -193,6 +231,26 @@ export default defineComponent({
       allLabels.value = data ?? [];
     }
 
+    // ============================================================
+    // Seed
+
+    const seedDialog = ref(false);
+    const locale = ref("");
+
+    const { locales: LOCALES, locale: currentLocale, i18n } = useLocales();
+
+    onMounted(() => {
+      locale.value = currentLocale.value;
+    });
+
+    const locales = LOCALES.filter((locale) =>
+      (i18n.locales as LocaleObject[]).map((i18nLocale) => i18nLocale.code).includes(locale.value)
+    );
+
+    function seedDatabase() {
+      console.log(locale);
+    }
+
     refreshLabels();
     return {
       tableConfig,
@@ -215,6 +273,11 @@ export default defineComponent({
       mergeDialog,
       fromFood,
       toFood,
+      // Seed Data
+      locale,
+      locales,
+      seedDialog,
+      seedDatabase,
     };
   },
 });
