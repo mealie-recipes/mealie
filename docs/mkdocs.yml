@@ -1,5 +1,5 @@
 site_name: Mealie
-demo_url: https://mealie-demo.hay-kot.dev/
+#demo_url: https://mealie-demo.hay-kot.dev/
 site_url: https://hay-kot.github.io/mealie/
 use_directory_urls: true
 theme:
@@ -20,7 +20,7 @@ theme:
   features:
     - content.code.annotate
     - navigation.top
-    # - navigation.instant
+    - navigation.instant
     - navigation.expand
     - navigation.sections
     - navigation.tabs
@@ -48,8 +48,9 @@ extra_css:
   - assets/stylesheets/custom.css
 extra_javascript:
   - assets/js/extra.js
-repo_url: https://github.com/hay-kot/mealie
+repo_url: https://github.com/hay-kot/mealie/
 repo_name: hay-kot/mealie
+edit_uri: edit/mealie-next/docs/docs/
 
 nav:
   - Home: "index.md"
