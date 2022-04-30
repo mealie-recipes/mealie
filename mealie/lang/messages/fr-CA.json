@@ -8,6 +8,8 @@
     "exceptions": {
         "permission_denied": "You do not have permission to perform this action",
         "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error"
+        "integrity-error": "Database integrity error",
+        "username-conflict-error": "Ce nom d'utilisateur est déjà pris",
+        "email-conflict-error": "Cet email existe déjà"
     }
 }
