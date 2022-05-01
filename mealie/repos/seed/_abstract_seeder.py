@@ -25,5 +25,5 @@ class AbstractSeeder(ABC):
         self.resources = Path(__file__).parent / "resources"
 
     @abstractmethod
-    def seed(self):
+    def seed(self, locale: str | None = None) -> None:
         ...

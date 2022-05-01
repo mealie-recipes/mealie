@@ -9,7 +9,7 @@
       :fullscreen="$vuetify.breakpoint.xsOnly"
     >
       <v-card height="100%">
-        <v-app-bar dark :color="color" class="mt-n1">
+        <v-app-bar dark dense :color="color" class="">
           <v-icon large left>
             {{ icon }}
           </v-icon>
