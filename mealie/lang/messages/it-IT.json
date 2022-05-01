@@ -1,15 +1,15 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Si è verificato un errore inaspettato"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "I nomi delle ricette devono essere unici"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Non hai i permessi per eseguire quest'azione",
+        "no-entry-found": "La risorsa richiesta non è stata trovata",
+        "integrity-error": "Errore di integrità del database",
+        "username-conflict-error": "Questo nome utente è già in uso",
+        "email-conflict-error": "Questo indirizzo email è già utilizzato"
     }
 }
