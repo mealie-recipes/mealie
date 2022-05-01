@@ -7,9 +7,9 @@
     },
     "exceptions": {
         "permission_denied": "У вас немає дозволу на виконання цієї дії",
-        "no-entry-found": "The requested resource was not found",
+        "no-entry-found": "Ресурс не знайдено",
         "integrity-error": "Помилка цілісності бази даних",
-        "username-conflict-error": "This username is already taken",
+        "username-conflict-error": "Це ім'я користувача вже використовується",
         "email-conflict-error": "Ця електронна адреса вже використовується"
     }
 }
