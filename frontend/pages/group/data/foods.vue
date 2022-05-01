@@ -3,24 +3,30 @@
     <!-- Merge Dialog -->
     <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" title="Combine Food" @confirm="mergeFoods">
       <v-card-text>
-        Combining the selected foods will merge the Source Food and Target Food into a single food. The
-        <strong> Source Food will be deleted </strong> and all of the references to the Source Food will be updated to
-        point to the Target Food.
+        <div>
+          {{ $t("data-pages.foods.merge-dialog-text") }}
+        </div>
         <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name" label="Source Food" />
         <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name" label="Target Food" />
 
         <template v-if="canMerge && fromFood && toFood">
-          <div class="text-center">Merging {{ fromFood.name }} into {{ toFood.name }}</div>
+          <div class="text-center">
+            {{ $t("data-pages.foods.merge-food-example", { food1: fromFood.name, food2: toFood.name }) }}
+          </div>
         </template>
       </v-card-text>
     </BaseDialog>
 
     <!-- Seed Dialog-->
-    <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" title="Seed Data" @confirm="seedDatabase">
+    <BaseDialog
+      v-model="seedDialog"
+      :icon="$globals.icons.foods"
+      :title="$tc('data-pages.seed-data')"
+      @confirm="seedDatabase"
+    >
       <v-card-text>
         <div class="pb-2">
-          Seed the database with foods based on your local language. This will create 200+ common foods that can be used
-          to organize your database. Foods and translated via a community effort.
+          {{ $t("data-pages.foods.seed-dialog-text") }}
         </div>
         <v-autocomplete
           v-model="locale"
@@ -43,8 +49,7 @@
         </v-autocomplete>
 
         <v-alert v-if="foods.length > 0" type="error" class="mb-0 text-body-2">
-          You have already have some items in your database. This action will not reconcile duplicates, you will have to
-          manage them manually.
+          {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
     </BaseDialog>
@@ -118,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { computed } from "vue-demi";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
