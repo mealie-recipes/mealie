@@ -18,11 +18,10 @@
     <!-- Seed Dialog-->
     <BaseDialog v-model="seedDialog" :icon="$globals.icons.foods" title="Seed Data" @confirm="seedDatabase">
       <v-card-text>
-        Seed the database with foods based on your local language. This will create 200+ common foods that can be used
-        to organize your database. Foods and translated via a community effort. If you're not a native english speaker,
-        it is recommended that you check your languages translation status before using this feature as not all of the
-        foods may have been translated
-
+        <div class="pb-2">
+          Seed the database with foods based on your local language. This will create 200+ common foods that can be used
+          to organize your database. Foods and translated via a community effort.
+        </div>
         <v-autocomplete
           v-model="locale"
           :items="locales"
@@ -42,6 +41,11 @@
             </v-list-item-content>
           </template>
         </v-autocomplete>
+
+        <v-alert v-if="foods.length > 0" type="error" class="mb-0 text-body-2">
+          You have already have some items in your database. This action will not reconcile duplicates, you will have to
+          manage them manually.
+        </v-alert>
       </v-card-text>
     </BaseDialog>
 
@@ -247,8 +251,12 @@ export default defineComponent({
       (i18n.locales as LocaleObject[]).map((i18nLocale) => i18nLocale.code).includes(locale.value)
     );
 
-    function seedDatabase() {
-      console.log(locale);
+    async function seedDatabase() {
+      const { data } = await userApi.seeders.foods({ locale: locale.value });
+
+      if (data) {
+        refreshFoods();
+      }
     }
 
     refreshLabels();

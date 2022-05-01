@@ -14,7 +14,7 @@ from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
-from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder, MultiPurposeLabelSeeder
+from mealie.repos.seed.seeders import IngredientUnitsSeeder, MultiPurposeLabelSeeder
 from mealie.schema.user.user import GroupBase
 from mealie.services.group_services.group_service import GroupService
 
@@ -32,7 +32,6 @@ def init_db(db: AllRepositories) -> None:
 
     seeders = [
         MultiPurposeLabelSeeder(db, group_id=group_id),
-        IngredientFoodsSeeder(db, group_id=group_id),
         IngredientUnitsSeeder(db, group_id=group_id),
     ]
 
