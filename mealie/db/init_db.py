@@ -63,11 +63,11 @@ def db_is_at_head(alembic_cfg: config.Config) -> bool:
         return set(context.get_current_heads()) == set(directory.get_heads())
 
 
-def safe_try(name: str, func: Callable):
+def safe_try(func: Callable):
     try:
         func()
     except Exception as e:
-        logger.error(f"Error calling '{name}': {e}")
+        logger.error(f"Error calling '{func.__name__}': {e}")
 
 
 def connect(session: orm.Session) -> bool:
@@ -108,14 +108,13 @@ def main():
 
     db = get_repositories(session)
 
-    init_user = db.users.get_all()
-    if init_user:
+    if db.users.get_all():
         logger.info("Database exists")
     else:
         logger.info("Database contains no users, initializing...")
         init_db(db)
 
-    safe_try("fix slug food names", lambda: fix_slug_food_names(db))
+    safe_try(lambda: fix_slug_food_names(db))
 
 
 if __name__ == "__main__":

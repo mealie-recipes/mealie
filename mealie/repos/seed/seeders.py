@@ -1,4 +1,5 @@
 import json
+import pathlib
 from collections.abc import Generator
 
 from mealie.schema.labels import MultiPurposeLabelSave
@@ -9,8 +10,12 @@ from .resources import foods, labels, units
 
 
 class MultiPurposeLabelSeeder(AbstractSeeder):
-    def load_data(self) -> Generator[MultiPurposeLabelSave, None, None]:
-        file = labels.en_US
+    def get_file(self, locale: str | None = None) -> pathlib.Path:
+        locale_path = self.resources / "labels" / "locales" / f"{locale}.json"
+        return locale_path if locale_path.exists() else labels.en_US
+
+    def load_data(self, locale: str | None = None) -> Generator[MultiPurposeLabelSave, None, None]:
+        file = self.get_file(locale)
 
         for label in json.loads(file.read_text()):
             yield MultiPurposeLabelSave(
@@ -18,9 +23,9 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
                 group_id=self.group_id,
             )
 
-    def seed(self) -> None:
+    def seed(self, locale: str | None = None) -> None:
         self.logger.info("Seeding MultiPurposeLabel")
-        for label in self.load_data():
+        for label in self.load_data(locale):
             try:
                 self.repos.group_multi_purpose_labels.create(label)
             except Exception as e:
@@ -28,8 +33,13 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
 
 
 class IngredientUnitsSeeder(AbstractSeeder):
-    def load_data(self) -> Generator[SaveIngredientUnit, None, None]:
-        file = units.en_US
+    def get_file(self, locale: str | None = None) -> pathlib.Path:
+        locale_path = self.resources / "units" / "locales" / f"{locale}.json"
+        return locale_path if locale_path.exists() else units.en_US
+
+    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit, None, None]:
+        file = self.get_file(locale)
+
         for unit in json.loads(file.read_text()).values():
             yield SaveIngredientUnit(
                 group_id=self.group_id,
@@ -38,9 +48,9 @@ class IngredientUnitsSeeder(AbstractSeeder):
                 abbreviation=unit["abbreviation"],
             )
 
-    def seed(self) -> None:
+    def seed(self, locale: str | None = None) -> None:
         self.logger.info("Seeding Ingredient Units")
-        for unit in self.load_data():
+        for unit in self.load_data(locale):
             try:
                 self.repos.ingredient_units.create(unit)
             except Exception as e:
@@ -48,8 +58,13 @@ class IngredientUnitsSeeder(AbstractSeeder):
 
 
 class IngredientFoodsSeeder(AbstractSeeder):
-    def load_data(self) -> Generator[SaveIngredientFood, None, None]:
-        file = foods.en_US
+    def get_file(self, locale: str | None = None) -> pathlib.Path:
+        locale_path = self.resources / "foods" / "locales" / f"{locale}.json"
+        return locale_path if locale_path.exists() else foods.en_US
+
+    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
+        file = self.get_file(locale)
+
         seed_foods: dict[str, str] = json.loads(file.read_text())
         for food in seed_foods.values():
             yield SaveIngredientFood(
@@ -58,9 +73,9 @@ class IngredientFoodsSeeder(AbstractSeeder):
                 description="",
             )
 
-    def seed(self) -> None:
+    def seed(self, locale: str | None = None) -> None:
         self.logger.info("Seeding Ingredient Foods")
-        for food in self.load_data():
+        for food in self.load_data(locale):
             try:
                 self.repos.ingredient_foods.create(food)
             except Exception as e:

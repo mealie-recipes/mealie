@@ -11,6 +11,7 @@ from . import (
     controller_mealplan_config,
     controller_mealplan_rules,
     controller_migrations,
+    controller_seeder,
     controller_shopping_lists,
     controller_webhooks,
 )
@@ -30,3 +31,4 @@ router.include_router(controller_shopping_lists.router)
 router.include_router(controller_shopping_lists.item_router)
 router.include_router(controller_labels.router)
 router.include_router(controller_group_notifications.router)
+router.include_router(controller_seeder.router)
