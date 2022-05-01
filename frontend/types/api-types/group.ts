@@ -258,13 +258,11 @@ export interface RecipeSummary {
 }
 export interface RecipeCategory {
   id?: string;
-  groupId: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
   id?: string;
-  groupId: string;
   name: string;
   slug: string;
 }
@@ -306,6 +304,9 @@ export interface SaveWebhook {
   url?: string;
   time?: string;
   groupId: string;
+}
+export interface SeederConfig {
+  locale: string;
 }
 export interface SetPermissions {
   userId: string;

@@ -42,6 +42,7 @@ export interface CategoryOut {
   name: string;
   id: string;
   slug: string;
+  groupId: string;
 }
 export interface CategorySave {
   name: string;
@@ -68,18 +69,13 @@ export interface CreateRecipeBulk {
 }
 export interface RecipeCategory {
   id?: string;
-  groupId: string;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
   id?: string;
-  groupId: string;
   name: string;
   slug: string;
-}
-export interface CreateRecipeByUrl {
-  url: string;
 }
 export interface CreateRecipeByUrlBulk {
   imports: CreateRecipeBulk[];
@@ -115,10 +111,6 @@ export interface MultiPurposeLabelSummary {
   groupId: string;
   id: string;
 }
-export interface IngredientMerge {
-  fromFood: string;
-  toFood: string;
-}
 /**
  * A list of ingredient references.
  */
@@ -139,6 +131,14 @@ export interface IngredientUnit {
 export interface IngredientsRequest {
   parser?: RegisteredParser & string;
   ingredients: string[];
+}
+export interface MergeFood {
+  fromFood: string;
+  toFood: string;
+}
+export interface MergeUnit {
+  fromUnit: string;
+  toUnit: string;
 }
 export interface Nutrition {
   calories?: string;
@@ -347,6 +347,13 @@ export interface SaveIngredientUnit {
   fraction?: boolean;
   abbreviation?: string;
   groupId: string;
+}
+export interface ScrapeRecipe {
+  url: string;
+  includeTags?: boolean;
+}
+export interface ScrapeRecipeTest {
+  url: string;
 }
 export interface SlugResponse {}
 export interface TagIn {
