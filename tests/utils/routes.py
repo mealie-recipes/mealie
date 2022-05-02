@@ -50,3 +50,11 @@ class RoutesAdminUsers(RoutesBase):
 class RoutesUsers(RoutesBase):
     base = "/api/users"
     self = f"{base}/self"
+
+
+class RoutesSeeders(RoutesBase):
+    base = "/api/groups/seeders"
+
+    foods = f"{base}/foods"
+    units = f"{base}/units"
+    labels = f"{base}/labels"

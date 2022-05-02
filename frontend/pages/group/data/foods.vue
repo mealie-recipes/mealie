@@ -3,15 +3,54 @@
     <!-- Merge Dialog -->
     <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" title="Combine Food" @confirm="mergeFoods">
       <v-card-text>
-        Combining the selected foods will merge the Source Food and Target Food into a single food. The
-        <strong> Source Food will be deleted </strong> and all of the references to the Source Food will be updated to
-        point to the Target Food.
+        <div>
+          {{ $t("data-pages.foods.merge-dialog-text") }}
+        </div>
         <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name" label="Source Food" />
         <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name" label="Target Food" />
 
         <template v-if="canMerge && fromFood && toFood">
-          <div class="text-center">Merging {{ fromFood.name }} into {{ toFood.name }}</div>
+          <div class="text-center">
+            {{ $t("data-pages.foods.merge-food-example", { food1: fromFood.name, food2: toFood.name }) }}
+          </div>
         </template>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Seed Dialog-->
+    <BaseDialog
+      v-model="seedDialog"
+      :icon="$globals.icons.foods"
+      :title="$tc('data-pages.seed-data')"
+      @confirm="seedDatabase"
+    >
+      <v-card-text>
+        <div class="pb-2">
+          {{ $t("data-pages.foods.seed-dialog-text") }}
+        </div>
+        <v-autocomplete
+          v-model="locale"
+          :items="locales"
+          item-text="name"
+          label="Select Language"
+          class="my-3"
+          hide-details
+          outlined
+          offset
+        >
+          <template #item="{ item }">
+            <v-list-item-content>
+              <v-list-item-title v-text="item.name"></v-list-item-title>
+              <v-list-item-subtitle>
+                {{ item.progress }}% {{ $tc("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+        </v-autocomplete>
+
+        <v-alert v-if="foods.length > 0" type="error" class="mb-0 text-body-2">
+          {{ $t("data-pages.foods.seed-dialog-warning") }}
+        </v-alert>
       </v-card-text>
     </BaseDialog>
 
@@ -73,6 +112,12 @@
           {{ item.label.name }}
         </MultiPurposeLabel>
       </template>
+      <template #button-bottom>
+        <BaseButton @click="seedDialog = true">
+          <template #icon> {{ $globals.icons.database }} </template>
+          Seed
+        </BaseButton>
+      </template>
     </CrudTable>
   </div>
 </template>
@@ -80,11 +125,13 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { computed } from "vue-demi";
+import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { IngredientFood } from "~/types/api-types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
+import { useLocales } from "~/composables/use-locales";
 
 export default defineComponent({
   components: { MultiPurposeLabel },
@@ -193,6 +240,30 @@ export default defineComponent({
       allLabels.value = data ?? [];
     }
 
+    // ============================================================
+    // Seed
+
+    const seedDialog = ref(false);
+    const locale = ref("");
+
+    const { locales: LOCALES, locale: currentLocale, i18n } = useLocales();
+
+    onMounted(() => {
+      locale.value = currentLocale.value;
+    });
+
+    const locales = LOCALES.filter((locale) =>
+      (i18n.locales as LocaleObject[]).map((i18nLocale) => i18nLocale.code).includes(locale.value)
+    );
+
+    async function seedDatabase() {
+      const { data } = await userApi.seeders.foods({ locale: locale.value });
+
+      if (data) {
+        refreshFoods();
+      }
+    }
+
     refreshLabels();
     return {
       tableConfig,
@@ -215,6 +286,11 @@ export default defineComponent({
       mergeDialog,
       fromFood,
       toFood,
+      // Seed Data
+      locale,
+      locales,
+      seedDialog,
+      seedDatabase,
     };
   },
 });

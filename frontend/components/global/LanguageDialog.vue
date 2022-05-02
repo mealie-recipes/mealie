@@ -6,7 +6,6 @@
         v-model="locale"
         :items="locales"
         item-text="name"
-        menu-props="auto"
         class="my-3"
         hide-details
         outlined
