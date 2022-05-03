@@ -7,7 +7,7 @@ services:
     image: mealie-frontend:dev
     build:
       context: ./frontend
-      dockerfile: Dockerfile.frontend
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 9920:8080
