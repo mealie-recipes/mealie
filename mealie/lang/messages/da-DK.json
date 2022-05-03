@@ -1,15 +1,15 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Der opstod en uventet fejl"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Opskriftsnavnet er allerede i brug"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Du har ikke tilladelse til at udføre denne handling",
+        "no-entry-found": "Siden kunne ikke findes",
+        "integrity-error": "Databaseintegritetsfejl",
+        "username-conflict-error": "Dette brugernavn er allerede i brug",
+        "email-conflict-error": "Denne e-mail er allerede i brug"
     }
 }

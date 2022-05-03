@@ -1,15 +1,15 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Сталася неочікувана помилка"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Назва рецепту повинна бути унікальною"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "У вас немає дозволу на виконання цієї дії",
+        "no-entry-found": "Ресурс не знайдено",
+        "integrity-error": "Помилка цілісності бази даних",
+        "username-conflict-error": "Це ім'я користувача вже використовується",
+        "email-conflict-error": "Ця електронна адреса вже використовується"
     }
 }
