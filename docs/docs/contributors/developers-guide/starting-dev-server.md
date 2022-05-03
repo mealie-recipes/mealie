@@ -6,7 +6,7 @@
 
 After reading through the [Code Contributions Guide](../developers-guide/code-contributions.md) and forking the repo you can start working. This project is developed with :whale: docker and as such you will be greatly aided by using docker for development. It's not necessary but it is helpful.
 
-## With VS Code Dev Containers
+## With [VSCode Dev Containers](https://code.visualstudio.com/docs/remote/containers)
 
 Prerequisites
 
