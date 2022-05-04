@@ -29,6 +29,8 @@ from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.server.tasks import ServerTaskNames
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
@@ -120,6 +122,8 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"])
 
 @controller(router)
 class RecipeController(BaseRecipeController):
+    event_bus: EventBusService = Depends(EventBusService)
+
     def handle_exceptions(self, ex: Exception) -> None:
         match type(ex):
             case exceptions.PermissionDenied:
@@ -248,6 +252,13 @@ class RecipeController(BaseRecipeController):
             data = self.service.update_one(slug, data)
         except Exception as e:
             self.handle_exceptions(e)
+
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.recipe_updated,
+                msg="A recipe has been updated.",
+                )
 
         return data
 
