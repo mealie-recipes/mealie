@@ -11,5 +11,9 @@
         "integrity-error": "Database integrity error",
         "username-conflict-error": "This username is already taken",
         "email-conflict-error": "This email is already in use"
+    },
+    "notifications": {
+      "recipe-updated": "The recipe {{name}} has been updated: {{url}}",
+      "recipe-deleted": "The recipe {{name}} has been deleted"
     }
 }

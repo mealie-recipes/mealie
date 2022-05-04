@@ -257,7 +257,7 @@ class RecipeController(BaseRecipeController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.recipe_updated,
-                msg="A recipe has been updated.",
+                msg=self.t.t("notifications.recipe-updated", name=data.name, url=data.org_url),
             )
 
         return data
@@ -283,7 +283,7 @@ class RecipeController(BaseRecipeController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.recipe_deleted,
-                msg="A recipe has been deleted.",
+                msg=self.t.t("notifications.recipe-deleted"),
             )
 
         return data
