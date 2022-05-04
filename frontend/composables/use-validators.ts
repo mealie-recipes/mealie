@@ -1,4 +1,6 @@
-import { computed, Ref } from "@nuxtjs/composition-api";
+import { ref, Ref } from "@nuxtjs/composition-api";
+import { RequestResponse } from "~/types/api";
+import { Validation } from "~/api/public/validators";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -14,74 +16,31 @@ export const validators = {
   maxLength: (max: number) => (v: string) => !v || v.length <= max || `Must Be At Most ${max} Characters`,
 };
 
-function scorePassword(pass: string): number {
-  let score = 0;
-  if (!pass) return score;
+/**
+ * useAsyncValidator us a factory function that returns an async function that
+ * when called will validate the input against the backend database and set the
+ * error messages when applicable to the ref.
+ */
+export const useAsyncValidator = (
+  value: Ref<string>,
+  validatorFunc: (v: string) => Promise<RequestResponse<Validation>>,
+  validatorMessage: string,
+  errorMessages: Ref<string[]>
+) => {
+  const valid = ref(false);
 
-  const flaggedWords = ["password", "mealie", "admin", "qwerty", "login"];
+  const validate = async () => {
+    errorMessages.value = [];
+    const { data } = await validatorFunc(value.value);
 
-  if (pass.length < 6) return score;
-
-  // Check for flagged words
-  for (const word of flaggedWords) {
-    if (pass.toLowerCase().includes(word)) {
-      score -= 100;
+    if (!data?.valid) {
+      valid.value = false;
+      errorMessages.value.push(validatorMessage);
+      return;
     }
-  }
 
-  // award every unique letter until 5 repetitions
-  const letters: { [key: string]: number } = {};
-
-  for (let i = 0; i < pass.length; i++) {
-    letters[pass[i]] = (letters[pass[i]] || 0) + 1;
-    score += 5.0 / letters[pass[i]];
-  }
-
-  // bonus points for mixing it up
-  const variations: { [key: string]: boolean } = {
-    digits: /\d/.test(pass),
-    lower: /[a-z]/.test(pass),
-    upper: /[A-Z]/.test(pass),
-    nonWords: /\W/.test(pass),
+    valid.value = true;
   };
 
-  let variationCount = 0;
-  for (const check in variations) {
-    variationCount += variations[check] === true ? 1 : 0;
-  }
-  score += (variationCount - 1) * 10;
-
-  return score;
-}
-
-export const usePasswordStrength = (password: Ref<string>) => {
-  const score = computed(() => {
-    return scorePassword(password.value);
-  });
-
-  const strength = computed(() => {
-    if (score.value < 50) {
-      return "Weak";
-    } else if (score.value < 80) {
-      return "Good";
-    } else if (score.value < 100) {
-      return "Strong";
-    } else {
-      return "Very Strong";
-    }
-  });
-
-  const color = computed(() => {
-    if (score.value < 50) {
-      return "error";
-    } else if (score.value < 80) {
-      return "warning";
-    } else if (score.value < 100) {
-      return "info";
-    } else {
-      return "success";
-    }
-  });
-
-  return { score, strength, color };
+  return { validate, valid };
 };

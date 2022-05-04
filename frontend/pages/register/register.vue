@@ -94,6 +94,8 @@
                   v-bind="inputAttrs"
                   label="Group Name"
                   :rules="[validators.required]"
+                  :error-messages="groupErrorMessages"
+                  @blur="validGroupName"
                 />
                 <div class="mt-n4 px-2">
                   <v-checkbox v-model="groupDetails.groupPrivate.value" label="Keep My Recipes Private"></v-checkbox>
@@ -139,6 +141,8 @@
                   label="Username"
                   :prepend-icon="$globals.icons.user"
                   :rules="[validators.required]"
+                  :error-messages="usernameErrorMessages"
+                  @blur="validateUsername"
                 />
                 <v-text-field
                   v-model="accountDetails.email.value"
@@ -146,6 +150,8 @@
                   :prepend-icon="$globals.icons.email"
                   label="Email"
                   :rules="[validators.required, validators.email]"
+                  :error-messages="emailErrorMessages"
+                  @blur="validateEmail"
                 />
                 <v-text-field
                   v-model="credentials.password1.value"
@@ -298,12 +304,13 @@ import { defineComponent, onMounted, ref, useRouter, Ref } from "@nuxtjs/composi
 import { useDark } from "@vueuse/core";
 import { States, RegistrationType, useRegistration } from "./states";
 import { useRouteQuery } from "~/composables/use-router";
-import { validators, usePasswordStrength } from "~/composables/use-validators";
+import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { CreateUserRegistration } from "~/types/api-types/user";
 import { VForm } from "~/types/vuetify";
-import { usePasswordField } from "~/composables/use-password-field";
+import { usePasswordField, usePasswordStrength } from "~/composables/use-passwords";
+import { usePublicApi } from "~/composables/api/api-client";
 
 const inputAttrs = {
   filled: true,
@@ -398,18 +405,28 @@ export default defineComponent({
     // ================================================================
     // Provide Group Details
 
+    const publicApi = usePublicApi();
+
     const domGroupForm = ref<VForm | null>(null);
 
     const groupName = ref("");
     const groupSeed = ref(false);
     const groupPrivate = ref(false);
+    const groupErrorMessages = ref<string[]>([]);
+
+    const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
+      groupName,
+      (v: string) => publicApi.validators.group(v),
+      "Group name is taken",
+      groupErrorMessages
+    );
 
     const groupDetails = {
       groupName,
       groupSeed,
       groupPrivate,
       next: () => {
-        if (!safeValidate(domGroupForm as Ref<VForm>)) {
+        if (!safeValidate(domGroupForm as Ref<VForm>) || !groupNameValid.value) {
           return;
         }
 
@@ -425,13 +442,29 @@ export default defineComponent({
     const username = ref("");
     const email = ref("");
     const advancedOptions = ref(false);
+    const usernameErrorMessages = ref<string[]>([]);
+
+    const { validate: validateUsername, valid: validUsername } = useAsyncValidator(
+      username,
+      (v: string) => publicApi.validators.username(v),
+      "Username is taken",
+      usernameErrorMessages
+    );
+
+    const emailErrorMessages = ref<string[]>([]);
+    const { validate: validateEmail, valid: validEmail } = useAsyncValidator(
+      email,
+      (v: string) => publicApi.validators.email(v),
+      "Email is taken",
+      emailErrorMessages
+    );
 
     const accountDetails = {
       username,
       email,
       advancedOptions,
       next: () => {
-        if (!safeValidate(domAccountForm as Ref<VForm>)) {
+        if (!safeValidate(domAccountForm as Ref<VForm>) || !validUsername.value || !validEmail.value) {
           return;
         }
 
@@ -490,6 +523,8 @@ export default defineComponent({
     const langDialog = ref(false);
 
     return {
+      validGroupName,
+      validateUsername,
       pwStrength,
       pwFields,
       langDialog,
@@ -506,6 +541,10 @@ export default defineComponent({
       groupDetails,
       token,
       submitRegistration,
+      groupErrorMessages,
+      usernameErrorMessages,
+      emailErrorMessages,
+      validateEmail,
 
       // Dom Refs
       domAccountForm,
