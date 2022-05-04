@@ -150,52 +150,35 @@
                 <v-text-field
                   v-model="credentials.password1.value"
                   v-bind="inputAttrs"
+                  :type="pwFields.inputType.value"
+                  :append-icon="pwFields.passwordIcon.value"
                   :prepend-icon="$globals.icons.lock"
-                  type="password"
                   label="Password"
-                  :rules="[validators.required, ...pwValidators.passwordValidators]"
+                  :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
+                  @click:append="pwFields.togglePasswordShow"
                 />
+                <div class="d-flex justify-center pb-6 mt-n1">
+                  <div style="width: 500px">
+                    <strong>Password is {{ pwStrength.strength.value }}</strong>
+                    <v-progress-linear
+                      :value="pwStrength.score.value"
+                      class="rounded-lg"
+                      :color="pwStrength.color.value"
+                      height="15"
+                    >
+                    </v-progress-linear>
+                  </div>
+                </div>
                 <v-text-field
                   v-model="credentials.password2.value"
                   v-bind="inputAttrs"
+                  :type="pwFields.inputType.value"
+                  :append-icon="pwFields.passwordIcon.value"
                   :prepend-icon="$globals.icons.lock"
-                  type="password"
                   label="Confirm Password"
                   :rules="[validators.required, credentials.passwordMatch]"
+                  @click:append="pwFields.togglePasswordShow"
                 />
-                <v-expand-transition>
-                  <v-card v-show="credentials.password1.value" class="pt-2" flat outlined>
-                    <template v-if="!pwValidators.isValid.value">
-                      <strong class="pl-2 pb-1"> Password Requirements </strong>
-                      <ul class="px-2">
-                        <li
-                          v-for="(vd, i) in [
-                            pwValidators.validateNumber,
-                            pwValidators.validateSpecialCharacter,
-                            pwValidators.validatorLength,
-                            pwValidators.validatorLowerCase,
-                            pwValidators.validatorUpperCase,
-                          ]"
-                          :key="i"
-                          class="d-flex align-center"
-                        >
-                          <v-icon class="mt-0" :color="vd.met.value ? 'success' : 'error'">
-                            {{ vd.met.value ? $globals.icons.check : $globals.icons.close }}
-                          </v-icon>
-                          {{ vd.label }}
-                        </li>
-                      </ul>
-                    </template>
-                    <template v-else>
-                      <ul class="px-2">
-                        <li class="d-flex align-center">
-                          <v-icon class="mt-0" color="success"> {{ $globals.icons.check }}</v-icon>
-                          Password meets all requirements
-                        </li>
-                      </ul>
-                    </template>
-                  </v-card>
-                </v-expand-transition>
                 <div class="px-2">
                   <v-checkbox
                     v-model="accountDetails.advancedOptions.value"
@@ -315,11 +298,12 @@ import { defineComponent, onMounted, ref, useRouter, Ref } from "@nuxtjs/composi
 import { useDark } from "@vueuse/core";
 import { States, RegistrationType, useRegistration } from "./states";
 import { useRouteQuery } from "~/composables/use-router";
-import { validators, usePasswordValidator } from "~/composables/use-validators";
+import { validators, usePasswordValidator, usePasswordStrength } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { CreateUserRegistration } from "~/types/api-types/user";
 import { VForm } from "~/types/vuetify";
+import { usePasswordField } from "~/composables/use-password-field";
 
 const inputAttrs = {
   filled: true,
@@ -379,7 +363,10 @@ export default defineComponent({
       createGroup: () => {
         state.setState(States.ProvideGroupDetails);
         state.setType(RegistrationType.CreateGroup);
-        token.value = null;
+
+        if (token.value != null) {
+          token.value = null;
+        }
       },
       joinGroup: () => {
         state.setState(States.ProvideToken);
@@ -458,7 +445,8 @@ export default defineComponent({
     const password1 = ref("");
     const password2 = ref("");
 
-    const pwValidators = usePasswordValidator(password1);
+    const pwStrength = usePasswordStrength(password1);
+    const pwFields = usePasswordField();
 
     const passwordMatch = () => password1.value === password2.value || "Passwords do not match";
 
@@ -502,7 +490,8 @@ export default defineComponent({
     const langDialog = ref(false);
 
     return {
-      pwValidators,
+      pwStrength,
+      pwFields,
       langDialog,
       isDark,
       States,
