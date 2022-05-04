@@ -183,9 +183,10 @@ export default defineComponent({
         return [];
       }
 
-      const list = [] as ((v: string) => (boolean | string))[];
+      const list = [] as ((v: string) => boolean | string)[];
       keys.forEach((key) => {
         if (key in validators) {
+          // @ts-ignore TODO: fix this
           list.push(validators[key]);
         }
       });
