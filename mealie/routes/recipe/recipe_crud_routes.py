@@ -258,7 +258,7 @@ class RecipeController(BaseRecipeController):
                 self.deps.acting_user.group_id,
                 EventTypes.recipe_updated,
                 msg="A recipe has been updated.",
-                )
+            )
 
         return data
 
@@ -275,9 +275,18 @@ class RecipeController(BaseRecipeController):
     def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
         try:
-            return self.service.delete_one(slug)
+            data = self.service.delete_one(slug)
         except Exception as e:
             self.handle_exceptions(e)
+
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.recipe_deleted,
+                msg="A recipe has been deleted.",
+            )
+
+        return data
 
     # ==================================================================================================================
     # Image and Assets
