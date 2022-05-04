@@ -298,7 +298,7 @@ import { defineComponent, onMounted, ref, useRouter, Ref } from "@nuxtjs/composi
 import { useDark } from "@vueuse/core";
 import { States, RegistrationType, useRegistration } from "./states";
 import { useRouteQuery } from "~/composables/use-router";
-import { validators, usePasswordValidator, usePasswordStrength } from "~/composables/use-validators";
+import { validators, usePasswordStrength } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { CreateUserRegistration } from "~/types/api-types/user";
