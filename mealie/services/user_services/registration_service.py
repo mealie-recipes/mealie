@@ -4,22 +4,23 @@ from uuid import uuid4
 from fastapi import HTTPException, status
 
 from mealie.core.security import hash_password
-from mealie.lang import local_provider
+from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
 from mealie.schema.user.registration import CreateUserRegistration
 from mealie.schema.user.user import GroupBase, GroupInDB, PrivateUser, UserIn
 from mealie.services.group_services.group_service import GroupService
+from mealie.services.seeder.seeder_service import SeederService
 
 
 class RegistrationService:
     logger: Logger
     repos: AllRepositories
 
-    def __init__(self, logger: Logger, db: AllRepositories):
+    def __init__(self, logger: Logger, db: AllRepositories, t: Translator):
         self.logger = logger
         self.repos = db
-        self.t = local_provider()
+        self.t = t
 
     def _create_new_user(self, group: GroupInDB, new_group: bool) -> PrivateUser:
         new_user = UserIn(
@@ -78,6 +79,14 @@ class RegistrationService:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 
         user = self._create_new_user(group, new_group)
+
+        if new_group and registration.seed_data:
+
+            seeder_service = SeederService(self.repos, user, group)
+
+            seeder_service.seed_foods(registration.locale)
+            seeder_service.seed_labels(registration.locale)
+            seeder_service.seed_units(registration.locale)
 
         if token_entry and user:
             token_entry.uses_left = token_entry.uses_left - 1

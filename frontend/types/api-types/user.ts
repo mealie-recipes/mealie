@@ -28,6 +28,8 @@ export interface CreateUserRegistration {
   passwordConfirm: string;
   advanced?: boolean;
   private?: boolean;
+  seedData?: boolean;
+  locale?: string;
 }
 export interface ForgotPassword {
   email: string;

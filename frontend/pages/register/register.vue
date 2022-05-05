@@ -58,7 +58,7 @@
               <v-icon large class="mr-3"> {{ $globals.icons.group }}</v-icon>
               <span class="headline">Join a Group</span>
             </v-card-title>
-            <v-divider></v-divider>
+            <v-divider />
             <v-card-text>
               Please provide the registration token associated with the group that you'd like to join. You'll need to
               obtain this from an existing group member.
@@ -66,7 +66,7 @@
                 <v-text-field v-model="token" v-bind="inputAttrs" label="Group Token" :rules="[validators.required]" />
               </v-form>
             </v-card-text>
-            <v-divider></v-divider>
+            <v-divider />
             <v-card-actions class="mt-auto justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
@@ -86,7 +86,12 @@
               <v-icon large class="mr-3"> {{ $globals.icons.group }}</v-icon>
               <span class="headline">Group Details</span>
             </v-card-title>
-            <v-divider></v-divider>
+            <v-card-text>
+              Before you create an account you'll need to create a group. Your group will only contain you, but You'll
+              be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and
+              more!
+            </v-card-text>
+            <v-divider />
             <v-card-text>
               <v-form ref="domGroupForm" @submit.prevent>
                 <v-text-field
@@ -98,20 +103,19 @@
                   @blur="validGroupName"
                 />
                 <div class="mt-n4 px-2">
-                  <v-checkbox v-model="groupDetails.groupPrivate.value" label="Keep My Recipes Private"></v-checkbox>
-                  <p class="text-caption mt-n4">
+                  <v-checkbox v-model="groupDetails.groupPrivate.value" hide-details label="Keep My Recipes Private" />
+                  <p class="text-caption mt-1">
                     Sets your group and all recipes defaults to private. You can always change this later.
                   </p>
-
-                  <v-checkbox v-model="groupDetails.groupSeed.value" label="Use Seed Data"></v-checkbox>
-                  <p class="text-caption mt-n4">
+                  <v-checkbox v-model="groupDetails.groupSeed.value" hide-details label="Use Seed Data" />
+                  <p class="text-caption mt-1">
                     Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group
                     with helpful data for organizing your recipes.
                   </p>
                 </div>
               </v-form>
             </v-card-text>
-            <v-divider></v-divider>
+            <v-divider />
             <v-card-actions class="justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
@@ -131,7 +135,7 @@
               <v-icon large class="mr-3"> {{ $globals.icons.user }}</v-icon>
               <span class="headline"> Account Details</span>
             </v-card-title>
-            <v-divider></v-divider>
+            <v-divider />
             <v-card-text>
               <v-form ref="domAccountForm" @submit.prevent>
                 <v-text-field
@@ -171,8 +175,7 @@
                       class="rounded-lg"
                       :color="pwStrength.color.value"
                       height="15"
-                    >
-                    </v-progress-linear>
+                    />
                   </div>
                 </div>
                 <v-text-field
@@ -186,10 +189,7 @@
                   @click:append="pwFields.togglePasswordShow"
                 />
                 <div class="px-2">
-                  <v-checkbox
-                    v-model="accountDetails.advancedOptions.value"
-                    label="Enable Advanced Content"
-                  ></v-checkbox>
+                  <v-checkbox v-model="accountDetails.advancedOptions.value" label="Enable Advanced Content" />
                   <p class="text-caption mt-n4">
                     Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry,
                     you can always change this later
@@ -197,7 +197,7 @@
                 </div>
               </v-form>
             </v-card-text>
-            <v-divider></v-divider>
+            <v-divider />
             <v-card-actions class="justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
@@ -218,64 +218,18 @@
               <span class="headline">Confirmation</span>
             </v-card-title>
             <v-list>
-              <v-list-item v-if="state.ctx.type === RegistrationType.JoinGroup">
-                <v-list-item-content>
-                  <v-list-item-title> Joining Group </v-list-item-title>
-                  <v-list-item-subtitle> {{ groupDetails.groupName.value }} </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <template v-else-if="state.ctx.type === RegistrationType.CreateGroup">
-                <v-divider></v-divider>
-
-                <v-list-item>
+              <template v-for="(item, idx) in confirmationData.value">
+                <v-list-item v-if="item.display" :key="idx">
                   <v-list-item-content>
-                    <v-list-item-title> Creating Group </v-list-item-title>
-                    <v-list-item-subtitle> {{ groupDetails.groupName.value }} </v-list-item-subtitle>
+                    <v-list-item-title> {{ item.text }} </v-list-item-title>
+                    <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-                <v-divider></v-divider>
-
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title> Seed Group Data </v-list-item-title>
-                    <v-list-item-subtitle> {{ groupDetails.groupSeed.value ? "Yes" : "No" }} </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-divider></v-divider>
-
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title> Private Group </v-list-item-title>
-                    <v-list-item-subtitle> {{ groupDetails.groupPrivate.value ? "Yes" : "No" }} </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+                <v-divider v-if="idx !== confirmationData.value.length - 1" :key="`divider-${idx}`" />
               </template>
-              <v-divider></v-divider>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title> Username </v-list-item-title>
-                  <v-list-item-subtitle> {{ accountDetails.username.value }} </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-divider></v-divider>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title> Email </v-list-item-title>
-                  <v-list-item-subtitle> {{ accountDetails.email.value }} </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-divider></v-divider>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title> Advanced User Options </v-list-item-title>
-                  <v-list-item-subtitle>
-                    {{ accountDetails.advancedOptions.value ? "Yes" : "No" }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
             </v-list>
 
-            <v-divider></v-divider>
+            <v-divider />
             <v-card-actions class="justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
@@ -302,6 +256,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, useRouter, Ref } from "@nuxtjs/composition-api";
 import { useDark } from "@vueuse/core";
+import { computed } from "@vue/reactivity";
 import { States, RegistrationType, useRegistration } from "./states";
 import { useRouteQuery } from "~/composables/use-router";
 import { validators, useAsyncValidator } from "~/composables/use-validators";
@@ -311,6 +266,7 @@ import { CreateUserRegistration } from "~/types/api-types/user";
 import { VForm } from "~/types/vuetify";
 import { usePasswordField, usePasswordStrength } from "~/composables/use-passwords";
 import { usePublicApi } from "~/composables/api/api-client";
+import { useLocales } from "~/composables/use-locales";
 
 const inputAttrs = {
   filled: true,
@@ -490,7 +446,48 @@ export default defineComponent({
     };
 
     // ================================================================
+    // Locale
+
+    const { locale } = useLocales();
+    const langDialog = ref(false);
+
+    // ================================================================
     // Confirmation
+
+    const confirmationData = computed(() => {
+      return [
+        {
+          display: state.ctx.type === RegistrationType.CreateGroup,
+          text: "Creating Group",
+          value: groupName.value,
+        },
+        {
+          display: state.ctx.type === RegistrationType.CreateGroup,
+          text: "Seed Data",
+          value: groupSeed.value ? "Yes" : "No",
+        },
+        {
+          display: state.ctx.type === RegistrationType.CreateGroup,
+          text: "Private Group",
+          value: groupPrivate.value ? "Yes" : "No",
+        },
+        {
+          display: true,
+          text: "Email",
+          value: email.value,
+        },
+        {
+          display: true,
+          text: "Username",
+          value: username.value,
+        },
+        {
+          display: true,
+          text: "Advanced Options",
+          value: advancedOptions.value ? "Yes" : "No",
+        },
+      ];
+    });
 
     const api = useUserApi();
     const router = useRouter();
@@ -501,7 +498,8 @@ export default defineComponent({
         username: username.value,
         password: password1.value,
         passwordConfirm: password2.value,
-        // groupSeed: groupSeed.value, // Future!
+        locale: locale.value,
+        seedData: groupSeed.value,
       };
 
       if (state.ctx.type === RegistrationType.CreateGroup) {
@@ -519,8 +517,6 @@ export default defineComponent({
         router.push("/login");
       }
     }
-
-    const langDialog = ref(false);
 
     return {
       validGroupName,
@@ -545,6 +541,7 @@ export default defineComponent({
       usernameErrorMessages,
       emailErrorMessages,
       validateEmail,
+      confirmationData,
 
       // Dom Refs
       domAccountForm,
