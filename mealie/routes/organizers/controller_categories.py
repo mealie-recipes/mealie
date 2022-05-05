@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import UUID4, BaseModel
 
 from mealie.routes._base import BaseUserController, controller
@@ -9,6 +9,7 @@ from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
+from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
@@ -25,6 +26,9 @@ class CategorySummary(BaseModel):
 
 @controller(router)
 class RecipeCategoryController(BaseUserController):
+
+    event_bus: EventBusService = Depends(EventBusService)
+
     # =========================================================================
     # CRUD Operations
     @cached_property

@@ -20,6 +20,9 @@
       "shopping-list-deleted": "The shopping list {{name}} has been deleted",
       "category-created": "The category {{name}} has been created",
       "category-updated": "The category {{name}} has been updated",
-      "category-deleted": "The category {{name}} has been deleted"
+      "category-deleted": "The category {{name}} has been deleted",
+      "tag-created": "The tag {{name}} has been created",
+      "tag-updated": "The tag {{name}} has been updated",
+      "tag-deleted": "The tag {{name}} has been deleted"
     }
 }
