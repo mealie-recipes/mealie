@@ -17,6 +17,9 @@
       "recipe-deleted": "The recipe {{name}} has been deleted",
       "shopping-list-created": "The shopping list {{name}} has been created",
       "shopping-list-updated": "The shopping list {{name}} has been updated",
-      "shopping-list-deleted": "The shopping list {{name}} has been deleted"
+      "shopping-list-deleted": "The shopping list {{name}} has been deleted",
+      "category-created": "The category {{name}} has been created",
+      "category-updated": "The category {{name}} has been updated",
+      "category-deleted": "The category {{name}} has been deleted"
     }
 }

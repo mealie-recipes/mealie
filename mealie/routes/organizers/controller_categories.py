@@ -9,6 +9,7 @@ from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
+from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
 
@@ -43,7 +44,14 @@ class RecipeCategoryController(BaseUserController):
     def create_one(self, category: CategoryIn):
         """Creates a Category in the database"""
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
-        return self.mixins.create_one(save_data)
+        data = self.mixins.create_one(save_data)
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.category_created,
+                msg=self.t.t("notifications.category-created", name=data.name),
+            )
+        return data
 
     @router.get("/{item_id}", response_model=CategorySummary)
     def get_one(self, item_id: UUID4):
@@ -56,7 +64,15 @@ class RecipeCategoryController(BaseUserController):
     def update_one(self, item_id: UUID4, update_data: CategoryIn):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
-        return self.mixins.update_one(save_data, item_id)
+        data = self.mixins.update_one(save_data, item_id)
+
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.category_updated,
+                msg=self.t.t("notifications.category-updated", name=data.name),
+            )
+        return data
 
     @router.delete("/{item_id}")
     def delete_one(self, item_id: UUID4):
@@ -65,7 +81,13 @@ class RecipeCategoryController(BaseUserController):
         category does not impact a recipe. The category will be removed
         from any recipes that contain it
         """
-        self.mixins.delete_one(item_id)
+        data = self.mixins.delete_one(item_id)
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.category_deleted,
+                msg=self.t.t("notifications.category-deleted", name=data.name),
+            )
 
     # =========================================================================
     # Read All Operations
