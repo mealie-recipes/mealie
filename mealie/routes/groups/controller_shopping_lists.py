@@ -80,7 +80,17 @@ class ShoppingListItemController(BaseUserController):
 
     @item_router.put("/{item_id}", response_model=ShoppingListItemOut)
     def update_one(self, item_id: UUID4, data: ShoppingListItemUpdate):
-        return self.mixins.update_one(data, item_id)
+
+        data = self.mixins.update_one(data, item_id)
+
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.shopping_list_updated,
+                msg=self.t.t("notifications.shopping-list-updated", name=data.label.name),
+            )
+
+        return data
 
     @item_router.delete("/{item_id}", response_model=ShoppingListItemOut)
     def delete_one(self, item_id: UUID4):
@@ -122,7 +132,7 @@ class ShoppingListController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_created,
-                msg="A new shopping list has been created.",
+                msg=self.t.t("notifications.shopping-list-created", name=val.name),
             )
 
         return val
@@ -133,11 +143,25 @@ class ShoppingListController(BaseUserController):
 
     @router.put("/{item_id}", response_model=ShoppingListOut)
     def update_one(self, item_id: UUID4, data: ShoppingListUpdate):
-        return self.mixins.update_one(data, item_id)
+        data = self.mixins.update_one(item_id)  # type: ignore
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.shopping_list_updated,
+                msg=self.t.t("notifications.shopping-list-updated", name=data.name),
+            )
+        return data
 
     @router.delete("/{item_id}", response_model=ShoppingListOut)
     def delete_one(self, item_id: UUID4):
-        return self.mixins.delete_one(item_id)  # type: ignore
+        data = self.mixins.delete_one(item_id)  # type: ignore
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.shopping_list_updated,
+                msg=self.t.t("notifications.shopping-list-deleted", name=data.name),
+            )
+        return data
 
     # =======================================================================
     # Other Operations
