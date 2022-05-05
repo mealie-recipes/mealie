@@ -28,6 +28,9 @@ item_router = APIRouter(prefix="/groups/shopping/items", tags=["Group: Shopping 
 
 @controller(item_router)
 class ShoppingListItemController(BaseUserController):
+
+    event_bus: EventBusService = Depends(EventBusService)
+
     @cached_property
     def service(self):
         return ShoppingListService(self.repos)
@@ -80,17 +83,7 @@ class ShoppingListItemController(BaseUserController):
 
     @item_router.put("/{item_id}", response_model=ShoppingListItemOut)
     def update_one(self, item_id: UUID4, data: ShoppingListItemUpdate):
-
-        data = self.mixins.update_one(data, item_id)
-
-        if data:
-            self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
-                EventTypes.shopping_list_updated,
-                msg=self.t.t("notifications.shopping-list-updated", name=data.label.name),
-            )
-
-        return data
+        return self.mixins.update_one(data, item_id)
 
     @item_router.delete("/{item_id}", response_model=ShoppingListItemOut)
     def delete_one(self, item_id: UUID4):
@@ -143,7 +136,7 @@ class ShoppingListController(BaseUserController):
 
     @router.put("/{item_id}", response_model=ShoppingListOut)
     def update_one(self, item_id: UUID4, data: ShoppingListUpdate):
-        data = self.mixins.update_one(item_id)  # type: ignore
+        data = self.mixins.update_one(data, item_id)  # type: ignore
         if data:
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
