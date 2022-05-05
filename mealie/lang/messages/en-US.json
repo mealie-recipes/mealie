@@ -14,6 +14,9 @@
     },
     "notifications": {
       "recipe-updated": "The recipe {{name}} has been updated: {{url}}",
-      "recipe-deleted": "The recipe {{name}} has been deleted"
+      "recipe-deleted": "The recipe {{name}} has been deleted",
+      "shopping-list-created": "The shopping list {{name}} has been created",
+      "shopping-list-updated": "The shopping list {{name}} has been updated",
+      "shopping-list-deleted": "The shopping list {{name}} has been deleted"
     }
 }
