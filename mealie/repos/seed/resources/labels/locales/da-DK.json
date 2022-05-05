@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Landbrugsprodukt"
     },
     {
-        "name": "Grains"
+        "name": "Gryn"
     },
     {
-        "name": "Fruits"
+        "name": "Frugter"
     },
     {
-        "name": "Vegetables"
+        "name": "Grøntsager"
     },
     {
-        "name": "Meat"
+        "name": "Kød"
     },
     {
-        "name": "Seafood"
+        "name": "Fisk og skaldyr"
     },
     {
-        "name": "Beverages"
+        "name": "Drikkevarer"
     },
     {
-        "name": "Baked Goods"
+        "name": "Bagværk"
     },
     {
-        "name": "Canned Goods"
+        "name": "Dåsemad"
     },
     {
-        "name": "Condiments"
+        "name": "Tilbehør"
     },
     {
-        "name": "Confectionary"
+        "name": "Konfekt"
     },
     {
-        "name": "Dairy Products"
+        "name": "Mejeriprodukter"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Frostvarer"
     },
     {
-        "name": "Health Foods"
+        "name": "Helseprodukter"
     },
     {
-        "name": "Household"
+        "name": "Husholdning"
     },
     {
-        "name": "Meat Products"
+        "name": "Kødprodukter"
     },
     {
         "name": "Snacks"
     },
     {
-        "name": "Spices"
+        "name": "Krydderier"
     },
     {
-        "name": "Sweets"
+        "name": "Søde sager"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Andet"
     }
 ]
