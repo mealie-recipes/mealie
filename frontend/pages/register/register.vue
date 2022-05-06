@@ -18,7 +18,7 @@
         <div class="icon-container">
           <v-divider class="icon-divider"></v-divider>
           <v-avatar class="pa-2 icon-avatar" color="primary" size="75">
-            <svg class="icon-white" style="width: 75; height: 17500px" viewBox="0 0 24 24">
+            <svg class="icon-white" style="width: 75;" viewBox="0 0 24 24">
               <path
                 d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z"
               />
@@ -81,7 +81,7 @@
         </template>
 
         <template v-else-if="state.ctx.state === States.ProvideGroupDetails">
-          <div>
+          <div class="preferred-width">
             <v-card-title>
               <v-icon large class="mr-3"> {{ $globals.icons.group }}</v-icon>
               <span class="headline"> {{ $t("user-registration.group-details") }}</span>
@@ -219,7 +219,7 @@
         </template>
 
         <template v-else-if="state.ctx.state === States.Confirmation">
-          <div style="width: 830px">
+          <div class="preferred-width">
             <v-card-title class="mb-0 pb-0">
               <v-icon large class="mr-3"> {{ $globals.icons.user }}</v-icon>
               <span class="headline">{{ $t("general.confirm") }}</span>
@@ -250,7 +250,9 @@
           </div>
         </template>
       </div>
-      <v-card-actions class="justify-center py-8">
+
+      <v-card-actions class="justify-center flex-column py-8">
+        <v-btn text class="mb-2" to="/login"> Login </v-btn>
         <BaseButton large color="primary" @click="langDialog = true">
           <template #icon> {{ $globals.icons.translate }}</template>
           {{ $t("language-dialog.choose-language") }}
@@ -563,7 +565,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .icon-primary {
   fill: var(--v-primary-base);
 }
@@ -593,5 +595,9 @@ export default defineComponent({
 
 .bg-off-white {
   background: #f5f8fa;
+}
+
+.preferred-width {
+  width: 840px;
 }
 </style>
