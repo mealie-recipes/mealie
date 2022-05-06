@@ -235,7 +235,7 @@ def test_recipe_crud_404(api_client: TestClient, api_routes: AppRoutes, unique_u
     assert response.status_code == 404
 
 
-def test_create_recipe_same_name(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+def test_create_recipe_same_name(api_client: TestClient, unique_user: TestUser):
     slug = random_string(10)
 
     response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
@@ -247,7 +247,7 @@ def test_create_recipe_same_name(api_client: TestClient, api_routes: AppRoutes, 
     assert json.loads(response.text) == f"{slug}-1"
 
 
-def test_create_recipe_too_many_time(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+def test_create_recipe_too_many_time(api_client: TestClient, unique_user: TestUser):
     slug = random_string(10)
 
     for _ in range(10):
@@ -256,3 +256,25 @@ def test_create_recipe_too_many_time(api_client: TestClient, api_routes: AppRout
 
     response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
     assert response.status_code == 400
+
+
+def test_delete_recipe_same_name(api_client: TestClient, unique_user: utils.TestUser, g2_user: utils.TestUser):
+    slug = random_string(10)
+
+    # Create recipe for both users
+    for user in (unique_user, g2_user):
+        response = api_client.post("/api/recipes", json={"name": slug}, headers=user.token)
+        assert response.status_code == 201
+        assert json.loads(response.text) == slug
+
+    # Delete recipe for user 1
+    response = api_client.delete(f"/api/recipes/{slug}", headers=unique_user.token)
+    assert response.status_code == 200
+
+    # Ensure recipe for user 2 still exists
+    response = api_client.get(f"/api/recipes/{slug}", headers=g2_user.token)
+    assert response.status_code == 200
+
+    # Make sure recipe for user 1 doesn't exist
+    response = api_client.get(f"/api/recipes/{slug}", headers=unique_user.token)
+    assert response.status_code == 404
