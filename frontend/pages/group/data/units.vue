@@ -46,6 +46,43 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Seed Dialog-->
+    <BaseDialog
+      v-model="seedDialog"
+      :icon="$globals.icons.foods"
+      :title="$tc('data-pages.seed-data')"
+      @confirm="seedDatabase"
+    >
+      <v-card-text>
+        <div class="pb-2">
+          {{ $t("data-pages.units.seed-dialog-text") }}
+        </div>
+        <v-autocomplete
+          v-model="locale"
+          :items="locales"
+          item-text="name"
+          label="Select Language"
+          class="my-3"
+          hide-details
+          outlined
+          offset
+        >
+          <template #item="{ item }">
+            <v-list-item-content>
+              <v-list-item-title v-text="item.name"></v-list-item-title>
+              <v-list-item-subtitle>
+                {{ item.progress }}% {{ $tc("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+        </v-autocomplete>
+
+        <v-alert v-if="units.length > 0" type="error" class="mb-0 text-body-2">
+          {{ $t("data-pages.foods.seed-dialog-warning") }}
+        </v-alert>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Recipe Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.units" section title="Unit Data"> </BaseCardSectionTitle>
     <CrudTable
@@ -67,16 +104,24 @@
           {{ item.fraction ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
       </template>
+      <template #button-bottom>
+        <BaseButton @click="seedDialog = true">
+          <template #icon> {{ $globals.icons.database }} </template>
+          Seed
+        </BaseButton>
+      </template>
     </CrudTable>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { IngredientUnit } from "~/types/api-types/recipe";
 import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
+import { useLocales } from "~/composables/use-locales";
 
 export default defineComponent({
   setup() {
@@ -190,6 +235,31 @@ export default defineComponent({
     }
 
     refreshLabels();
+
+    // ============================================================
+    // Seed
+
+    const seedDialog = ref(false);
+    const locale = ref("");
+
+    const { locales: LOCALES, locale: currentLocale, i18n } = useLocales();
+
+    onMounted(() => {
+      locale.value = currentLocale.value;
+    });
+
+    const locales = LOCALES.filter((locale) =>
+      (i18n.locales as LocaleObject[]).map((i18nLocale) => i18nLocale.code).includes(locale.value)
+    );
+
+    async function seedDatabase() {
+      const { data } = await userApi.seeders.units({ locale: locale.value });
+
+      if (data) {
+        refreshUnits();
+      }
+    }
+
     return {
       tableConfig,
       tableHeaders,
@@ -211,6 +281,12 @@ export default defineComponent({
       mergeDialog,
       fromUnit,
       toUnit,
+
+      // Seed
+      seedDatabase,
+      locales,
+      locale,
+      seedDialog,
     };
   },
 });
