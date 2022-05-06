@@ -2,6 +2,7 @@ from pydantic import validator
 from pydantic.types import NoneStr, constr
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.validators import validate_locale
 
 
 class CreateUserRegistration(MealieModel):
@@ -14,6 +15,15 @@ class CreateUserRegistration(MealieModel):
     advanced: bool = False
     private: bool = False
 
+    seed_data: bool = False
+    locale: str = "en-US"
+
+    @validator("locale")
+    def valid_locale(cls, v, values, **kwargs):
+        if not validate_locale(v):
+            raise ValueError("invalid locale")
+        return v
+
     @validator("password_confirm")
     @classmethod
     def passwords_match(cls, value, values):
@@ -24,7 +34,7 @@ class CreateUserRegistration(MealieModel):
     @validator("group_token", always=True)
     @classmethod
     def group_or_token(cls, value, values):
-        if bool(value) is False and bool(values["group"]) is False:
+        if not bool(value) and not bool(values["group"]):
             raise ValueError("group or group_token must be provided")
 
         return value

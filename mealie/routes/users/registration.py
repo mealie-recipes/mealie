@@ -22,5 +22,5 @@ class RegistrationController(BasePublicController):
                 status_code=status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond("User Registration is Disabled")
             )
 
-        registration_service = RegistrationService(self.deps.logger, get_repositories(self.deps.session))
+        registration_service = RegistrationService(self.deps.logger, get_repositories(self.deps.session), self.deps.t)
         return registration_service.register_user(data)

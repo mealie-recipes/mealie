@@ -112,7 +112,7 @@
 import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
 import { useDark } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
-import { usePasswordField } from "~/composables/use-password-field";
+import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useToggleDarkMode } from "~/composables/use-utils";
 export default defineComponent({

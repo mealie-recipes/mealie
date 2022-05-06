@@ -3,9 +3,14 @@ import { useContext } from "@nuxtjs/composition-api";
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { AdminAPI, Api } from "~/api";
 import { ApiRequestInstance, RequestResponse } from "~/types/api";
+import { PublicApi } from "~/api/public-api";
 
 const request = {
-  async safe<T, U>(funcCall: (url: string, data: U) => Promise<AxiosResponse<T>>, url: string, data: U): Promise<RequestResponse<T>> {
+  async safe<T, U>(
+    funcCall: (url: string, data: U) => Promise<AxiosResponse<T>>,
+    url: string,
+    data: U
+  ): Promise<RequestResponse<T>> {
     let error = null;
     const response = await funcCall(url, data).catch(function (e) {
       console.log(e);
@@ -66,6 +71,13 @@ export const useUserApi = function (): Api {
   $axios.setHeader("Accept-Language", i18n.locale);
 
   const requests = getRequests($axios);
-
   return new Api(requests);
+};
+
+export const usePublicApi = function (): PublicApi {
+  const { $axios, i18n } = useContext();
+  $axios.setHeader("Accept-Language", i18n.locale);
+
+  const requests = getRequests($axios);
+  return new PublicApi(requests);
 };

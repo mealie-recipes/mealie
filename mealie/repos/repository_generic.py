@@ -159,7 +159,7 @@ class RepositoryGeneric(Generic[T, D]):
 
         if any_case:
             search_attr = getattr(self.sql_model, key)
-            q = q.filter(func.lower(search_attr) == key.lower()).filter_by(**self._filter_builder())
+            q = q.filter(func.lower(search_attr) == str(value).lower()).filter_by(**self._filter_builder())
         else:
             q = self.session.query(self.sql_model).filter_by(**self._filter_builder(**{key: value}))
 

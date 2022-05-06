@@ -1,14 +1,5 @@
 import { BaseAPI } from "../_base";
-
-export interface RegisterPayload {
-  group: string;
-  groupToken: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  advanced: boolean;
-  private: boolean;
-}
+import { CreateUserRegistration } from "~/types/api-types/user";
 
 const prefix = "/api";
 
@@ -19,7 +10,7 @@ const routes = {
 export class RegisterAPI extends BaseAPI {
   /** Returns a list of avaiable .zip files for import into Mealie.
    */
-  async register(payload: RegisterPayload) {
+  async register(payload: CreateUserRegistration) {
     return await this.requests.post<any>(routes.register, payload);
   }
 }
