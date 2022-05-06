@@ -23,6 +23,9 @@
       "category-deleted": "The category {{name}} has been deleted",
       "tag-created": "The tag {{name}} has been created",
       "tag-updated": "The tag {{name}} has been updated",
-      "tag-deleted": "The tag {{name}} has been deleted"
+      "tag-deleted": "The tag {{name}} has been deleted",
+      "cookbook-created": "The cookbook {{name}} has been created",
+      "cookbook-updated": "The cookbook {{name}} has been updated",
+      "cookbook-deleted": "The cookbook {{name}} has been deleted"
     }
 }
