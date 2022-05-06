@@ -9,8 +9,8 @@ from tests.utils import routes
 class UnitsTestCase(ABCMultiTenantTestCase):
     items: list[IngredientUnit]
 
-    def seed_action(self, group_id: str) -> set[int]:
-        unit_ids: set[int] = set()
+    def seed_action(self, group_id: str) -> set[str]:
+        unit_ids: set[str] = set()
         for _ in range(10):
             unit = self.database.ingredient_units.create(
                 SaveIngredientUnit(
@@ -25,8 +25,8 @@ class UnitsTestCase(ABCMultiTenantTestCase):
         return unit_ids
 
     def seed_multi(self, group1_id: str, group2_id: str) -> tuple[set[str], set[str]]:
-        g1_item_ids = set()
-        g2_item_ids = set()
+        g1_item_ids: set[str] = set()
+        g2_item_ids: set[str] = set()
 
         for group_id, item_ids in [(group1_id, g1_item_ids), (group2_id, g2_item_ids)]:
             for _ in range(10):
@@ -43,7 +43,7 @@ class UnitsTestCase(ABCMultiTenantTestCase):
         return g1_item_ids, g2_item_ids
 
     def get_all(self, token: str) -> Response:
-        return self.client.get(routes.RoutesUnits.base, headers=token)
+        return self.client.get(routes.recipes.Units.base, headers=token)
 
     def cleanup(self) -> None:
         for item in self.items:

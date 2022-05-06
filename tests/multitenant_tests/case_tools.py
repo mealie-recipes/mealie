@@ -44,7 +44,7 @@ class ToolsTestCase(ABCMultiTenantTestCase):
         return g1_item_ids, g2_item_ids
 
     def get_all(self, token: str) -> Response:
-        return self.client.get(routes.RoutesTools.base, headers=token)
+        return self.client.get(routes.organizers.Tools.base, headers=token)
 
     def cleanup(self) -> None:
         for item in self.items:
