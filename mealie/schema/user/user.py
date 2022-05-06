@@ -128,7 +128,7 @@ class PrivateUser(UserOut):
         orm_mode = True
 
     @staticmethod
-    def get_directory(user_id: UUID4) -> Path:
+    def get_directory(user_id: UUID4 | str) -> Path:
         user_dir = get_app_dirs().USER_DIR / str(user_id)
         user_dir.mkdir(parents=True, exist_ok=True)
         return user_dir

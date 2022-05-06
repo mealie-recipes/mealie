@@ -2,6 +2,8 @@ import random
 import shutil
 from typing import Optional
 
+from pydantic import UUID4
+
 from mealie.assets import users as users_assets
 from mealie.schema.user.user import PrivateUser, User
 
@@ -30,11 +32,11 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
 
         return new_user
 
-    def delete(self, id: str) -> User:
-        entry = super().delete(id)
+    def delete(self, value: str | UUID4, match_key: str | None = None) -> User:
+        entry = super().delete(value, match_key)
         # Delete the user's directory
-        shutil.rmtree(PrivateUser.get_directory(id))
-        return entry
+        shutil.rmtree(PrivateUser.get_directory(value))
+        return entry  # type: ignore
 
     def get_by_username(self, username: str, limit=1) -> Optional[User]:
         dbuser = self.session.query(User).filter(User.username == username).one_or_none()
