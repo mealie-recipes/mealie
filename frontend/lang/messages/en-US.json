@@ -132,7 +132,9 @@
     "wednesday": "Wednesday",
     "yes": "Yes",
     "foods": "Foods",
-    "units": "Units"
+    "units": "Units",
+    "back": "Back",
+    "next": "Next"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -152,7 +154,11 @@
     "manage-groups": "Manage Groups",
     "user-group": "User Group",
     "user-group-created": "User Group Created",
-    "user-group-creation-failed": "User Group Creation Failed"
+    "user-group-creation-failed": "User Group Creation Failed",
+    "settings": {
+      "keep-my-recipes-private": "Keep My Recipes Private",
+      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Create a New Meal Plan",
@@ -281,9 +287,7 @@
     "sugar-content": "Sugar",
     "title": "Title",
     "total-time": "Total Time",
-    "unable-to-delete-recipe": "Unable to Delete Recipe"
-  },
-  "reicpe": {
+    "unable-to-delete-recipe": "Unable to Delete Recipe",
     "no-recipe": "No Recipe"
   },
   "search": {
@@ -473,6 +477,7 @@
     "password-reset-failed": "Password reset failed",
     "password-updated": "Password updated",
     "password": "Password",
+    "password-strength": "Password is {strength}",
     "register": "Register",
     "reset-password": "Reset Password",
     "sign-in": "Sign in",
@@ -496,7 +501,9 @@
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
-    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user"
+    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user",
+    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
   },
   "language-dialog": {
     "translated": "translated",
@@ -513,5 +520,21 @@
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
     }
+  },
+  "user-registration": {
+    "user-registration": "User Registration",
+    "join-a-group": "Join a Group",
+    "create-a-new-group": "Create a New Group",
+    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "group-details": "Group Details",
+    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "use-seed-data": "Use Seed Data",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "account-details": "Account Details"
+  },
+  "validation": {
+    "group-name-is-taken": "Group name is taken",
+    "username-is-taken": "Username is taken",
+    "email-is-taken": "Email is taken"
   }
 }

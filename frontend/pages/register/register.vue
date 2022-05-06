@@ -31,21 +31,22 @@
       <div class="d-flex justify-center grow items-center my-4">
         <template v-if="state.ctx.state === States.Initial">
           <div width="600px">
-            <v-card-title class="headline justify-center my-4 mb-5 pb-0"> User Registration </v-card-title>
+            <v-card-title class="headline justify-center my-4 mb-5 pb-0">
+              {{ $t("user-registration.user-registration") }}
+            </v-card-title>
 
             <div class="d-flex flex-wrap justify-center flex-md-nowrap pa-4" style="gap: 1em">
               <v-card color="primary" dark hover width="300px" outlined @click="initial.joinGroup">
                 <v-card-title class="justify-center">
                   <v-icon large left> {{ $globals.icons.group }}</v-icon>
-
-                  Join Existing Group
+                  {{ $t("user-registration.join-a-group") }}
                 </v-card-title>
               </v-card>
               <v-card color="primary" dark hover width="300px" outlined @click="initial.createGroup">
                 <v-card-title class="justify-center">
                   <v-icon large left> {{ $globals.icons.user }}</v-icon>
 
-                  Create A New Group
+                  {{ $t("user-registration.create-a-new-group") }}
                 </v-card-title>
               </v-card>
             </div>
@@ -56,12 +57,11 @@
           <div>
             <v-card-title>
               <v-icon large class="mr-3"> {{ $globals.icons.group }}</v-icon>
-              <span class="headline">Join a Group</span>
+              <span class="headline"> {{ $t("user-registration.join-a-group") }} </span>
             </v-card-title>
             <v-divider />
             <v-card-text>
-              Please provide the registration token associated with the group that you'd like to join. You'll need to
-              obtain this from an existing group member.
+              {{ $t("user-registration.provide-registration-token-description") }}
               <v-form ref="domTokenForm" class="mt-4" @submit.prevent>
                 <v-text-field v-model="token" v-bind="inputAttrs" label="Group Token" :rules="[validators.required]" />
               </v-form>
@@ -70,11 +70,11 @@
             <v-card-actions class="mt-auto justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
-                Back
+                {{ $t("general.back") }}
               </BaseButton>
               <BaseButton icon-right @click="provideToken.next">
                 <template #icon> {{ $globals.icons.forward }}</template>
-                Next
+                {{ $t("general.next") }}
               </BaseButton>
             </v-card-actions>
           </div>
@@ -84,12 +84,10 @@
           <div>
             <v-card-title>
               <v-icon large class="mr-3"> {{ $globals.icons.group }}</v-icon>
-              <span class="headline">Group Details</span>
+              <span class="headline"> {{ $t("user-registration.group-details") }}</span>
             </v-card-title>
             <v-card-text>
-              Before you create an account you'll need to create a group. Your group will only contain you, but You'll
-              be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and
-              more!
+              {{ $t("user-registration.group-details-description") }}
             </v-card-text>
             <v-divider />
             <v-card-text>
@@ -97,20 +95,27 @@
                 <v-text-field
                   v-model="groupDetails.groupName.value"
                   v-bind="inputAttrs"
-                  label="Group Name"
+                  :label="$t('group.group-name')"
                   :rules="[validators.required]"
                   :error-messages="groupErrorMessages"
                   @blur="validGroupName"
                 />
                 <div class="mt-n4 px-2">
-                  <v-checkbox v-model="groupDetails.groupPrivate.value" hide-details label="Keep My Recipes Private" />
+                  <v-checkbox
+                    v-model="groupDetails.groupPrivate.value"
+                    hide-details
+                    :label="$tc('group.settings.keep-my-recipes-private')"
+                  />
                   <p class="text-caption mt-1">
-                    Sets your group and all recipes defaults to private. You can always change this later.
+                    {{ $t("group.settings.keep-my-recipes-private-description") }}
                   </p>
-                  <v-checkbox v-model="groupDetails.groupSeed.value" hide-details label="Use Seed Data" />
+                  <v-checkbox
+                    v-model="groupDetails.groupSeed.value"
+                    hide-details
+                    :label="$tc('data-pages.seed-data')"
+                  />
                   <p class="text-caption mt-1">
-                    Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group
-                    with helpful data for organizing your recipes.
+                    {{ $t("user-registration.use-seed-data-description") }}
                   </p>
                 </div>
               </v-form>
@@ -119,11 +124,11 @@
             <v-card-actions class="justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
-                Back
+                {{ $t("general.back") }}
               </BaseButton>
               <BaseButton icon-right @click="groupDetails.next">
                 <template #icon> {{ $globals.icons.forward }}</template>
-                Next
+                {{ $t("general.next") }}
               </BaseButton>
             </v-card-actions>
           </div>
@@ -133,7 +138,7 @@
           <div>
             <v-card-title>
               <v-icon large class="mr-3"> {{ $globals.icons.user }}</v-icon>
-              <span class="headline"> Account Details</span>
+              <span class="headline"> {{ $t("user-registration.account-details") }}</span>
             </v-card-title>
             <v-divider />
             <v-card-text>
@@ -142,7 +147,7 @@
                   v-model="accountDetails.username.value"
                   autofocus
                   v-bind="inputAttrs"
-                  label="Username"
+                  :label="$tc('user.username')"
                   :prepend-icon="$globals.icons.user"
                   :rules="[validators.required]"
                   :error-messages="usernameErrorMessages"
@@ -152,7 +157,7 @@
                   v-model="accountDetails.email.value"
                   v-bind="inputAttrs"
                   :prepend-icon="$globals.icons.email"
-                  label="Email"
+                  :label="$tc('user.email')"
                   :rules="[validators.required, validators.email]"
                   :error-messages="emailErrorMessages"
                   @blur="validateEmail"
@@ -163,13 +168,13 @@
                   :type="pwFields.inputType.value"
                   :append-icon="pwFields.passwordIcon.value"
                   :prepend-icon="$globals.icons.lock"
-                  label="Password"
+                  :label="$tc('user.password')"
                   :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
                   @click:append="pwFields.togglePasswordShow"
                 />
                 <div class="d-flex justify-center pb-6 mt-n1">
                   <div style="width: 500px">
-                    <strong>Password is {{ pwStrength.strength.value }}</strong>
+                    <strong> {{ $t("user.password-strength", { strength: pwStrength.strength.value }) }}</strong>
                     <v-progress-linear
                       :value="pwStrength.score.value"
                       class="rounded-lg"
@@ -184,15 +189,17 @@
                   :type="pwFields.inputType.value"
                   :append-icon="pwFields.passwordIcon.value"
                   :prepend-icon="$globals.icons.lock"
-                  label="Confirm Password"
+                  :label="$tc('user.confirm-password')"
                   :rules="[validators.required, credentials.passwordMatch]"
                   @click:append="pwFields.togglePasswordShow"
                 />
                 <div class="px-2">
-                  <v-checkbox v-model="accountDetails.advancedOptions.value" label="Enable Advanced Content" />
+                  <v-checkbox
+                    v-model="accountDetails.advancedOptions.value"
+                    :label="$tc('user.enable-advanced-content')"
+                  />
                   <p class="text-caption mt-n4">
-                    Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry,
-                    you can always change this later
+                    {{ $tc("user.enable-advanced-content-description") }}
                   </p>
                 </div>
               </v-form>
@@ -201,11 +208,11 @@
             <v-card-actions class="justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
-                Back
+                {{ $t("general.back") }}
               </BaseButton>
               <BaseButton icon-right @click="accountDetails.next">
                 <template #icon> {{ $globals.icons.forward }}</template>
-                Next
+                {{ $t("general.next") }}
               </BaseButton>
             </v-card-actions>
           </div>
@@ -215,7 +222,7 @@
           <div style="width: 830px">
             <v-card-title class="mb-0 pb-0">
               <v-icon large class="mr-3"> {{ $globals.icons.user }}</v-icon>
-              <span class="headline">Confirmation</span>
+              <span class="headline">{{ $t("general.confirm") }}</span>
             </v-card-title>
             <v-list>
               <template v-for="(item, idx) in confirmationData.value">
@@ -233,11 +240,11 @@
             <v-card-actions class="justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
-                Back
+                {{ $t("general.back") }}
               </BaseButton>
               <BaseButton @click="submitRegistration">
                 <template #icon> {{ $globals.icons.check }}</template>
-                Submit
+                {{ $t("general.submit") }}
               </BaseButton>
             </v-card-actions>
           </div>
@@ -246,7 +253,7 @@
       <v-card-actions class="justify-center py-8">
         <BaseButton large color="primary" @click="langDialog = true">
           <template #icon> {{ $globals.icons.translate }}</template>
-          Select Language
+          {{ $t("language-dialog.choose-language") }}
         </BaseButton>
       </v-card-actions>
     </v-card>
@@ -254,7 +261,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, useRouter, Ref } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref, useRouter, Ref, useContext } from "@nuxtjs/composition-api";
 import { useDark } from "@vueuse/core";
 import { computed } from "@vue/reactivity";
 import { States, RegistrationType, useRegistration } from "./states";
@@ -278,6 +285,8 @@ const inputAttrs = {
 export default defineComponent({
   layout: "basic",
   setup() {
+    const { i18n } = useContext();
+
     const isDark = useDark();
 
     function safeValidate(form: Ref<VForm | null>) {
@@ -373,7 +382,7 @@ export default defineComponent({
     const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
       groupName,
       (v: string) => publicApi.validators.group(v),
-      "Group name is taken",
+      i18n.tc("validation.group-name-is-taken"),
       groupErrorMessages
     );
 
@@ -403,7 +412,7 @@ export default defineComponent({
     const { validate: validateUsername, valid: validUsername } = useAsyncValidator(
       username,
       (v: string) => publicApi.validators.username(v),
-      "Username is taken",
+      i18n.tc("validation.username-is-taken"),
       usernameErrorMessages
     );
 
@@ -411,7 +420,7 @@ export default defineComponent({
     const { validate: validateEmail, valid: validEmail } = useAsyncValidator(
       email,
       (v: string) => publicApi.validators.email(v),
-      "Email is taken",
+      i18n.tc("validation.email-is-taken"),
       emailErrorMessages
     );
 
@@ -437,7 +446,7 @@ export default defineComponent({
     const pwStrength = usePasswordStrength(password1);
     const pwFields = usePasswordField();
 
-    const passwordMatch = () => password1.value === password2.value || "Passwords do not match";
+    const passwordMatch = () => password1.value === password2.value || i18n.tc("user.password-must-match");
 
     const credentials = {
       password1,
@@ -458,33 +467,33 @@ export default defineComponent({
       return [
         {
           display: state.ctx.type === RegistrationType.CreateGroup,
-          text: "Creating Group",
+          text: i18n.tc("group.group"),
           value: groupName.value,
         },
         {
           display: state.ctx.type === RegistrationType.CreateGroup,
-          text: "Seed Data",
-          value: groupSeed.value ? "Yes" : "No",
+          text: i18n.tc("data-pages.seed-data"),
+          value: groupSeed.value ? i18n.tc("general.yes") : i18n.tc("general.no"),
         },
         {
           display: state.ctx.type === RegistrationType.CreateGroup,
-          text: "Private Group",
-          value: groupPrivate.value ? "Yes" : "No",
+          text: i18n.tc("group.settings.keep-my-recipes-private"),
+          value: groupPrivate.value ? i18n.tc("general.yes") : i18n.tc("general.no"),
         },
         {
           display: true,
-          text: "Email",
+          text: i18n.tc("user.email"),
           value: email.value,
         },
         {
           display: true,
-          text: "Username",
+          text: i18n.tc("user.username"),
           value: username.value,
         },
         {
           display: true,
-          text: "Advanced Options",
-          value: advancedOptions.value ? "Yes" : "No",
+          text: i18n.tc("user.enable-advanced-content"),
+          value: advancedOptions.value ? i18n.tc("general.yes") : i18n.tc("general.no"),
         },
       ];
     });
@@ -519,29 +528,31 @@ export default defineComponent({
     }
 
     return {
-      validGroupName,
-      validateUsername,
-      pwStrength,
-      pwFields,
-      langDialog,
+      accountDetails,
+      confirmationData,
+      credentials,
+      emailErrorMessages,
+      groupDetails,
+      groupErrorMessages,
+      initial,
+      inputAttrs,
       isDark,
-      States,
+      langDialog,
+      provideToken,
+      pwFields,
+      pwStrength,
       RegistrationType,
       state,
-      inputAttrs,
-      validators,
-      initial,
-      provideToken,
-      accountDetails,
-      credentials,
-      groupDetails,
+      States,
       token,
-      submitRegistration,
-      groupErrorMessages,
       usernameErrorMessages,
-      emailErrorMessages,
+      validators,
+      submitRegistration,
+
+      // Validators
+      validGroupName,
+      validateUsername,
       validateEmail,
-      confirmationData,
 
       // Dom Refs
       domAccountForm,
