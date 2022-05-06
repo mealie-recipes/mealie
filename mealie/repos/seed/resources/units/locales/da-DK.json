@@ -1,21 +1,21 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "teske",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tsk."
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "spiseske",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "spsk."
     },
     "cup": {
-        "name": "cup",
+        "name": "kop",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "kop"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "flydende ounce",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -45,7 +45,7 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "pund",
         "description": "",
         "abbreviation": "lb"
     },
@@ -60,7 +60,7 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilogam",
         "description": "",
         "abbreviation": "kg"
     },
@@ -70,32 +70,32 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "sprøjt",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "strejf",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "servering",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "hoved",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "fed",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "dåse",
         "description": "",
         "abbreviation": ""
     }
