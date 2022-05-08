@@ -3,29 +3,6 @@ import re
 from mealie.core.config import get_app_settings
 
 
-def test_default_settings(monkeypatch):
-    monkeypatch.delenv("DEFAULT_GROUP", raising=False)
-    monkeypatch.delenv("DEFAULT_PASSWORD", raising=False)
-    monkeypatch.delenv("POSTGRES_USER", raising=False)
-    monkeypatch.delenv("POSTGRES_PASSWORD", raising=False)
-    monkeypatch.delenv("DEFAULT_PASSWORD", raising=False)
-    monkeypatch.delenv("API_PORT", raising=False)
-    monkeypatch.delenv("API_DOCS", raising=False)
-    monkeypatch.delenv("IS_DEMO", raising=False)
-
-    get_app_settings.cache_clear()
-    app_settings = get_app_settings()
-
-    assert app_settings.DEFAULT_GROUP == "Home"
-    assert app_settings.DEFAULT_PASSWORD == "MyPassword"
-    assert app_settings.API_PORT == 9000
-    assert app_settings.API_DOCS is True
-    assert app_settings.IS_DEMO is False
-
-    assert app_settings.REDOC_URL == "/redoc"
-    assert app_settings.DOCS_URL == "/docs"
-
-
 def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("DEFAULT_GROUP", "Test Group")
     monkeypatch.setenv("DEFAULT_PASSWORD", "Test Password")
