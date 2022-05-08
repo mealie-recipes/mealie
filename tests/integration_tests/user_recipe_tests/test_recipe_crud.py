@@ -14,6 +14,7 @@ from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
 from tests import data, utils
+from tests.utils import routes
 from tests.utils.app_routes import AppRoutes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -157,12 +158,11 @@ def test_create_by_url_with_tags(
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_read_update(
     api_client: TestClient,
-    api_routes: AppRoutes,
     recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
     recipe_categories: list[RecipeCategory],
 ):
-    recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
+    recipe_url = routes.recipes.Recipe.item(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
 
@@ -196,8 +196,8 @@ def test_read_update(
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
-    recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
+def test_rename(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+    recipe_url = routes.recipes.Recipe.item(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
 
@@ -215,44 +215,66 @@ def test_rename(api_client: TestClient, api_routes: AppRoutes, recipe_data: Reci
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_delete(api_client: TestClient, api_routes: AppRoutes, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
-    recipe_url = api_routes.recipes_recipe_slug(recipe_data.expected_slug)
-    response = api_client.delete(recipe_url, headers=unique_user.token)
+def test_delete(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+    response = api_client.delete(routes.recipes.Recipe.item(recipe_data.expected_slug), headers=unique_user.token)
     assert response.status_code == 200
 
 
 def test_recipe_crud_404(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
-    response = api_client.put(api_routes.recipes_recipe_slug("test"), json={"test": "stest"}, headers=unique_user.token)
+    response = api_client.put(routes.recipes.Recipe.item("test"), json={"test": "stest"}, headers=unique_user.token)
     assert response.status_code == 404
 
-    response = api_client.get(api_routes.recipes_recipe_slug("test"), headers=unique_user.token)
+    response = api_client.get(routes.recipes.Recipe.item("test"), headers=unique_user.token)
     assert response.status_code == 404
 
-    response = api_client.delete(api_routes.recipes_recipe_slug("test"), headers=unique_user.token)
+    response = api_client.delete(routes.recipes.Recipe.item("test"), headers=unique_user.token)
     assert response.status_code == 404
 
     response = api_client.patch(api_routes.recipes_create_url, json={"test": "stest"}, headers=unique_user.token)
     assert response.status_code == 404
 
 
-def test_create_recipe_same_name(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+def test_create_recipe_same_name(api_client: TestClient, unique_user: TestUser):
     slug = random_string(10)
 
-    response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+    response = api_client.post(routes.recipes.Recipe.base, json={"name": slug}, headers=unique_user.token)
     assert response.status_code == 201
     assert json.loads(response.text) == slug
 
-    response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+    response = api_client.post(routes.recipes.Recipe.base, json={"name": slug}, headers=unique_user.token)
     assert response.status_code == 201
     assert json.loads(response.text) == f"{slug}-1"
 
 
-def test_create_recipe_too_many_time(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+def test_create_recipe_too_many_time(api_client: TestClient, unique_user: TestUser):
     slug = random_string(10)
 
     for _ in range(10):
-        response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+        response = api_client.post(routes.recipes.Recipe.base, json={"name": slug}, headers=unique_user.token)
         assert response.status_code == 201
 
-    response = api_client.post("/api/recipes", json={"name": slug}, headers=unique_user.token)
+    response = api_client.post(routes.recipes.Recipe.base, json={"name": slug}, headers=unique_user.token)
     assert response.status_code == 400
+
+
+def test_delete_recipe_same_name(api_client: TestClient, unique_user: utils.TestUser, g2_user: utils.TestUser):
+    slug = random_string(10)
+
+    # Create recipe for both users
+    for user in (unique_user, g2_user):
+        response = api_client.post(routes.recipes.Recipe.base, json={"name": slug}, headers=user.token)
+        assert response.status_code == 201
+        assert json.loads(response.text) == slug
+
+    # Delete recipe for user 1
+    response = api_client.delete(routes.recipes.Recipe.item(slug), headers=unique_user.token)
+    assert response.status_code == 200
+
+    # Ensure recipe for user 2 still exists
+    response = api_client.get(routes.recipes.Recipe.item(slug), headers=g2_user.token)
+    assert response.status_code == 200
+
+    # Make sure recipe for user 1 doesn't exist
+    response = api_client.get(routes.recipes.Recipe.item(slug), headers=unique_user.token)
+    response = api_client.get(routes.recipes.Recipe.item(slug), headers=unique_user.token)
+    assert response.status_code == 404

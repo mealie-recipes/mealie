@@ -14,9 +14,9 @@ test_ids = [
 ]
 
 organizer_routes = [
-    (routes.RoutesCategory),
-    (routes.RoutesTags),
-    (routes.RoutesTools),
+    (routes.organizers.Categories),
+    (routes.organizers.Tags),
+    (routes.organizers.Tools),
 ]
 
 
@@ -43,9 +43,9 @@ def test_organizers_create_read(api_client: TestClient, unique_user: TestUser, r
 
 
 update_data = [
-    (routes.RoutesCategory, {"name": random_string(10)}),
-    (routes.RoutesTags, {"name": random_string(10)}),
-    (routes.RoutesTools, {"name": random_string(10), "onHand": random_bool()}),
+    (routes.organizers.Categories, {"name": random_string(10)}),
+    (routes.organizers.Tags, {"name": random_string(10)}),
+    (routes.organizers.Tools, {"name": random_string(10), "onHand": random_bool()}),
 ]
 
 
@@ -101,9 +101,9 @@ def test_organizer_delete(
 
 
 association_data = [
-    (routes.RoutesCategory, recipe_keys.recipe_category),
-    (routes.RoutesTags, "tags"),
-    (routes.RoutesTools, "tools"),
+    (routes.organizers.Categories, recipe_keys.recipe_category),
+    (routes.organizers.Tags, "tags"),
+    (routes.organizers.Tools, "tools"),
 ]
 
 
@@ -123,28 +123,28 @@ def test_organizer_association(
 
     # Setup Recipe
     recipe_data = {"name": random_string(10)}
-    response = api_client.post(routes.RoutesRecipe.base, json=recipe_data, headers=unique_user.token)
+    response = api_client.post(routes.recipes.Recipe.base, json=recipe_data, headers=unique_user.token)
     slug = response.json()
     assert response.status_code == 201
 
     # Get Recipe Data
-    response = api_client.get(routes.RoutesRecipe.item(slug), headers=unique_user.token)
+    response = api_client.get(routes.recipes.Recipe.item(slug), headers=unique_user.token)
     as_json = response.json()
     as_json[recipe_key] = [
         {"id": item["id"], "group_id": unique_user.group_id, "name": item["name"], "slug": item["slug"]}
     ]
 
     # Update Recipe
-    response = api_client.put(routes.RoutesRecipe.item(slug), json=as_json, headers=unique_user.token)
+    response = api_client.put(routes.recipes.Recipe.item(slug), json=as_json, headers=unique_user.token)
     assert response.status_code == 200
 
     # Get Recipe Data
-    response = api_client.get(routes.RoutesRecipe.item(slug), headers=unique_user.token)
+    response = api_client.get(routes.recipes.Recipe.item(slug), headers=unique_user.token)
     as_json = response.json()
     assert as_json[recipe_key][0]["slug"] == item["slug"]
 
     # Cleanup
-    response = api_client.delete(routes.RoutesRecipe.item(slug), headers=unique_user.token)
+    response = api_client.delete(routes.recipes.Recipe.item(slug), headers=unique_user.token)
     assert response.status_code == 200
 
     response = api_client.delete(route.item(item["id"]), headers=unique_user.token)
@@ -155,7 +155,7 @@ def test_organizer_association(
 def test_organizer_get_by_slug(
     api_client: TestClient,
     unique_user: TestUser,
-    route: routes.RoutesOrganizerBase,
+    route: routes.organizers.RoutesOrganizerBase,
     recipe_key: str,
 ):
     # Create Organizer
@@ -170,20 +170,20 @@ def test_organizer_get_by_slug(
     for _ in range(10):
         # Setup Recipe
         recipe_data = {"name": random_string(10)}
-        response = api_client.post(routes.RoutesRecipe.base, json=recipe_data, headers=unique_user.token)
+        response = api_client.post(routes.recipes.Recipe.base, json=recipe_data, headers=unique_user.token)
         assert response.status_code == 201
         slug = response.json()
         recipe_slugs.append(slug)
 
     # Associate 10 Recipes to Organizer
     for slug in recipe_slugs:
-        response = api_client.get(routes.RoutesRecipe.item(slug), headers=unique_user.token)
+        response = api_client.get(routes.recipes.Recipe.item(slug), headers=unique_user.token)
         as_json = response.json()
         as_json[recipe_key] = [
             {"id": item["id"], "group_id": unique_user.group_id, "name": item["name"], "slug": item["slug"]}
         ]
 
-        response = api_client.put(routes.RoutesRecipe.item(slug), json=as_json, headers=unique_user.token)
+        response = api_client.put(routes.recipes.Recipe.item(slug), json=as_json, headers=unique_user.token)
         assert response.status_code == 200
 
     # Get Organizer by Slug

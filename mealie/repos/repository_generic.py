@@ -149,8 +149,8 @@ class RepositoryGeneric(Generic[T, D]):
         if match_key is None:
             match_key = self.primary_key
 
-        filter = self._filter_builder(**{match_key: match_value})
-        return self.session.query(self.sql_model).filter_by(**filter).one()
+        fltr = self._filter_builder(**{match_key: match_value})
+        return self.session.query(self.sql_model).filter_by(**fltr).one()
 
     def get_one(self, value: str | int | UUID4, key: str = None, any_case=False, override_schema=None) -> T | None:
         key = key or self.primary_key
@@ -210,7 +210,7 @@ class RepositoryGeneric(Generic[T, D]):
 
         return [eff_schema.from_orm(x) for x in result]
 
-    def create(self, document: T | BaseModel) -> T:
+    def create(self, document: T | BaseModel | dict) -> T:
         """Creates a new database entry for the given SQL Alchemy Model.
 
         Args:
@@ -266,8 +266,10 @@ class RepositoryGeneric(Generic[T, D]):
 
         return self.update(match_value, entry_as_dict)
 
-    def delete(self, primary_key_value) -> D:
-        result = self.session.query(self.sql_model).filter_by(**{self.primary_key: primary_key_value}).one()
+    def delete(self, value, match_key: str | None = None) -> T:
+        match_key = match_key or self.primary_key
+
+        result = self.session.query(self.sql_model).filter_by(**{match_key: value}).one()
         results_as_model = self.schema.from_orm(result)
 
         try:
@@ -313,7 +315,7 @@ class RepositoryGeneric(Generic[T, D]):
                 for x in self.session.query(self.sql_model).filter(attribute_name == attr_match).all()  # noqa: 711
             ]
 
-    def create_many(self, documents: list[T]) -> list[T]:
+    def create_many(self, documents: list[T | dict]) -> list[T]:
         new_documents = []
         for document in documents:
             document = document if isinstance(document, dict) else document.dict()

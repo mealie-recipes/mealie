@@ -26,7 +26,7 @@ def test_associate_ingredient_with_step(api_client: TestClient, unique_user: Tes
         steps[idx] = [str(ingredient.reference_id) for ingredient in ingredients]
 
     response = api_client.put(
-        routes.RoutesRecipe.item(recipe.slug),
+        routes.recipes.Recipe.item(recipe.slug),
         json=jsonify(recipe.dict()),
         headers=unique_user.token,
     )
@@ -35,14 +35,14 @@ def test_associate_ingredient_with_step(api_client: TestClient, unique_user: Tes
 
     # Get Recipe and check that the ingredient is associated with the step
 
-    response = api_client.get(routes.RoutesRecipe.item(recipe.slug), headers=unique_user.token)
+    response = api_client.get(routes.recipes.Recipe.item(recipe.slug), headers=unique_user.token)
 
     assert response.status_code == 200
 
-    recipe = json.loads(response.text)
+    data: dict = json.loads(response.text)
 
-    for idx, step in enumerate(recipe.get("recipeInstructions")):
-        all_refs = [ref["referenceId"] for ref in step.get("ingredientReferences")]
+    for idx, stp in enumerate(data.get("recipeInstructions")):
+        all_refs = [ref["referenceId"] for ref in stp.get("ingredientReferences")]
 
         assert len(all_refs) == 2
 

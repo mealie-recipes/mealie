@@ -178,7 +178,7 @@ class RecipeService(BaseService):
     def delete_one(self, slug) -> Recipe:
         recipe = self._get_recipe(slug)
         self.can_update(recipe)
-        data = self.repos.recipes.delete(slug)
+        data = self.repos.recipes.delete(recipe.id, "id")
         self.delete_assets(data)
         return data
 

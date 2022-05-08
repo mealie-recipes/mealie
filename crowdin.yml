@@ -1,9 +1,9 @@
 preserve_hierarchy: false
 files:
-  - source: /frontend/src/locales/messages/en-US.json
-    translation: /frontend/src/locales/messages/%locale%.json
-  - source: /frontend/src/locales/dateTimeFormats/en-US.json
-    translation: /frontend/src/locales/dateTimeFormats/%locale%.json
+  - source: /frontend/lang/messages/en-US.json
+    translation: /frontend/lang/messages/%locale%.json
+  - source: /frontend/lang/dateTimeFormats/en-US.json
+    translation: /frontend/lang/dateTimeFormats/%locale%.json
 
   # Backend General Messages
   - source: /mealie/lang/messages/en-US.json
