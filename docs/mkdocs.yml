@@ -56,6 +56,7 @@ nav:
   - Home: "index.md"
   - Getting Started:
       - Introduction: "documentation/getting-started/introduction.md"
+      - Features: "documentation/getting-started/features.md"
       - Updating: "documentation/getting-started/updating.md"
       - Version 1 Migration: "documentation/getting-started/migrating-to-mealie-v1.md"
       - FAQ: "documentation/getting-started/faq.md"
