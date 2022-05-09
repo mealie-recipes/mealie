@@ -7,6 +7,36 @@
       <template #title> {{ $t("settings.site-settings") }} </template>
     </BasePageTitle>
 
+    <BaseDialog v-model="bugReportDialog" title="Bug Report" :width="800" :icon="$globals.icons.github">
+      <v-card-text>
+        <div class="pb-4">
+          Use this information to report a bug. Providing details of your instance to developers is the best way to get
+          your issues resolved quickly.
+        </div>
+        <v-textarea v-model="bugReportText" outlined rows="18" readonly> </v-textarea>
+        <div class="d-flex justify-end" style="gap: 5px">
+          <BaseButton color="gray" secondary target="_blank" href="https://github.com/hay-kot/mealie/issues/new/choose">
+            <template #icon> {{ $globals.icons.github }}</template>
+            Tracker
+          </BaseButton>
+          <AppButtonCopy :copy-text="bugReportText" color="info" :icon="false" />
+        </div>
+      </v-card-text>
+    </BaseDialog>
+
+    <div class="d-flex justify-end">
+      <BaseButton
+        color="info"
+        @click="
+          dockerValidate();
+          bugReportDialog = true;
+        "
+      >
+        <template #icon> {{ $globals.icons.github }}</template>
+        Bug Report
+      </BaseButton>
+    </div>
+
     <section>
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="Configuration"> </BaseCardSectionTitle>
       <v-card class="mb-4">
@@ -97,22 +127,39 @@
         </div>
       </v-alert>
     </section>
+
+    <!-- General App Info -->
     <section class="mt-4">
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="General About"> </BaseCardSectionTitle>
       <v-card class="mb-4">
-        <v-list-item v-for="property in appInfo" :key="property.name">
-          <v-list-item-icon>
-            <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>
-              <div>{{ property.name }}</div>
-            </v-list-item-title>
-            <v-list-item-subtitle class="text-end">
-              {{ property.value }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+        <template v-for="(property, idx) in appInfo">
+          <v-list-item :key="property.name">
+            <v-list-item-icon>
+              <v-icon> {{ property.icon || $globals.icons.user }} </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>
+                <div>{{ property.name }}</div>
+              </v-list-item-title>
+              <template v-if="property.slot === 'recipe-scraper'">
+                <v-list-item-subtitle>
+                  <a
+                    target="_blank"
+                    :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`"
+                  >
+                    {{ property.value }}
+                  </a>
+                </v-list-item-subtitle>
+              </template>
+              <template v-else>
+                <v-list-item-subtitle>
+                  {{ property.value }}
+                </v-list-item-subtitle>
+              </template>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider v-if="appInfo && idx !== appInfo.length - 1" :key="`divider-${property.name}`"></v-divider>
+        </template>
       </v-card>
     </section>
   </v-container>
@@ -361,6 +408,12 @@ export default defineComponent({
               icon: $globals.icons.group,
               value: data.defaultGroup,
             },
+            {
+              slot: "recipe-scraper",
+              name: "Recipe Scraper Version",
+              icon: $globals.icons.primary,
+              value: data.recipeScraperVersion,
+            },
           ];
 
           return prettyInfo;
@@ -374,7 +427,45 @@ export default defineComponent({
 
     const appInfo = getAppInfo();
 
+    const bugReportDialog = ref(false);
+
+    const bugReportText = computed(() => {
+      const ignore = {
+        [i18n.tc("about.database-url")]: true,
+        [i18n.tc("about.default-group")]: true,
+      };
+      let text = "**Details**\n";
+
+      appInfo.value?.forEach((item) => {
+        if (ignore[item.name as string]) {
+          return;
+        }
+        text += `${item.name as string}: ${item.value as string}\n`;
+      });
+
+      const ignoreChecks: { [key: string]: boolean } = {
+        "Application Version": true,
+      };
+
+      text += "\n**Checks**\n";
+
+      simpleChecks.value.forEach((item) => {
+        if (ignoreChecks[item.text]) {
+          return;
+        }
+        const status = item.status ? "Yes" : "No";
+        text += `${item.text}: ${status}\n`;
+      });
+
+      text += `Email Configured: ${appConfig.value.emailReady ? "Yes" : "No"}\n`;
+      text += `Docker Volumes: ${docker.state}`;
+
+      return text;
+    });
+
     return {
+      bugReportDialog,
+      bugReportText,
       DockerVolumeState,
       docker,
       dockerValidate,

@@ -4,6 +4,7 @@ import shutil
 import string
 
 from fastapi import APIRouter, BackgroundTasks
+from recipe_scrapers import __version__ as recipe_scraper_version
 
 from mealie.core.release_checker import get_latest_version
 from mealie.core.settings.static import APP_VERSION
@@ -33,6 +34,7 @@ class AdminAboutController(BaseAdminController):
             default_group=settings.DEFAULT_GROUP,
             allow_signup=settings.ALLOW_SIGNUP,
             build_id=settings.GIT_COMMIT_HASH,
+            recipe_scraper_version=recipe_scraper_version.__version__,
         )
 
     @router.get("/statistics", response_model=AppStatistics)

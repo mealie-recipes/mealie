@@ -17,6 +17,7 @@ export interface AdminAboutInfo {
   dbUrl?: string;
   defaultGroup: string;
   buildId: string;
+  recipeScraperVersion: string;
 }
 export interface AllBackups {
   imports: BackupFile[];

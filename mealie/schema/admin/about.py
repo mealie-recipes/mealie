@@ -24,6 +24,7 @@ class AdminAboutInfo(AppInfo):
     db_url: str | None
     default_group: str
     build_id: str
+    recipe_scraper_version: str
 
 
 class CheckAppConfig(MealieModel):

@@ -97,6 +97,7 @@ import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { MealType, planTypeOptions } from "~/composables/use-group-mealplan";
 import { ShoppingListSummary } from "~/types/api-types/group";
+import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -278,11 +279,13 @@ export default defineComponent({
       context.emit("delete", props.slug);
     }
 
+    const download = useAxiosDownloader();
+
     async function handleDownloadEvent() {
       const { data } = await api.recipes.getZipToken(props.slug);
 
       if (data) {
-        window.open(api.recipes.getZipRedirectUrl(props.slug, data.token));
+        download(api.recipes.getZipRedirectUrl(props.slug, data.token), `${props.slug}.zip`);
       }
     }
 
