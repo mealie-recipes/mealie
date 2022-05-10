@@ -4,12 +4,8 @@ files:
     translation: /frontend/lang/messages/%locale%.json
   - source: /frontend/lang/dateTimeFormats/en-US.json
     translation: /frontend/lang/dateTimeFormats/%locale%.json
-
-  # Backend General Messages
   - source: /mealie/lang/messages/en-US.json
     translation: /mealie/lang/messages/%locale%.json
-
-  # Resource Files
   - source: /mealie/repos/seed/resources/foods/locales/en-US.json
     translation: /mealie/repos/seed/resources/foods/locales/%locale%.json
   - source: /mealie/repos/seed/resources/units/locales/en-US.json
