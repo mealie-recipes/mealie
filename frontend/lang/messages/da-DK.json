@@ -33,6 +33,7 @@
     "show-assets": "Vis ekstramateriale"
   },
   "category": {
+    "categories": "Categories",
     "category-created": "Kategori oprettet",
     "category-creation-failed": "Oprettelse af kategorien fejlede",
     "category-deleted": "Kategori slettet",
@@ -129,7 +130,11 @@
     "url": "URL",
     "view": "Se",
     "wednesday": "Onsdag",
-    "yes": "Ja"
+    "yes": "Ja",
+    "foods": "Foods",
+    "units": "Units",
+    "back": "Back",
+    "next": "Next"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -149,7 +154,11 @@
     "manage-groups": "Administrer grupper",
     "user-group": "Brugergruppe",
     "user-group-created": "Brugergruppe oprettet",
-    "user-group-creation-failed": "Oprettelse af brugergruppe fejlede"
+    "user-group-creation-failed": "Oprettelse af brugergruppe fejlede",
+    "settings": {
+      "keep-my-recipes-private": "Keep My Recipes Private",
+      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Opret en ny madplan",
@@ -278,10 +287,8 @@
     "sugar-content": "Sukker",
     "title": "Titel",
     "total-time": "Total tid",
-    "unable-to-delete-recipe": "Kunne ikke slette opskrift"
-  },
-  "reicpe": {
-    "no-recipe": "Ingen opskrift"
+    "unable-to-delete-recipe": "Kunne ikke slette opskrift",
+    "no-recipe": "No Recipe"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -387,7 +394,8 @@
       "test-webhooks": "Test Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Webadresserne, der er anført nedenfor, modtager webhooks, der indeholder opskriftsdataene for måltidsplanen på den planlagte dag. \nWebhooks udføres i øjeblikket på <strong> {time} </strong>",
       "webhook-url": "Webhook adresse",
-      "webhooks-caps": "WEBHOOKS"
+      "webhooks-caps": "WEBHOOKS",
+      "webhooks": "Webhooks"
     }
   },
   "shopping-list": {
@@ -402,7 +410,9 @@
   },
   "sidebar": {
     "all-recipes": "Alle opskr.",
+    "backups": "Backups",
     "categories": "Kategorier",
+    "cookbooks": "Cookbooks",
     "dashboard": "Instrumentbræt",
     "home-page": "Forside",
     "manage-users": "Adm. brugere",
@@ -411,7 +421,8 @@
     "search": "Søg",
     "site-settings": "Sideindstil.",
     "tags": "Tags",
-    "toolbox": "Værktøjskasse"
+    "toolbox": "Værktøjskasse",
+    "language": "Language"
   },
   "signup": {
     "error-signing-up": "Fejl i forbindelse med oprettelse af bruger",
@@ -433,6 +444,9 @@
     "tags": "Tags",
     "untagged-count": "Ikke-tagget: {count}"
   },
+  "tool": {
+    "tools": "Tools"
+  },
   "user": {
     "admin": "Administrator",
     "are-you-sure-you-want-to-delete-the-link": "Er du sikker på, at du vil slette linket \"<b>{link}<b/>\"?",
@@ -450,6 +464,7 @@
     "error-cannot-delete-super-user": "Fejl! Kan ikke slette super-brugeren",
     "existing-password-does-not-match": "Nuværende adgangskode matcher ikke",
     "full-name": "Fulde navn",
+    "invite-only": "Invite Only",
     "link-id": "Link ID",
     "link-name": "Linknavn",
     "login": "Log på",
@@ -457,33 +472,75 @@
     "manage-users": "Administrer brugere",
     "new-password": "Ny adgangskode",
     "new-user": "Ny bruger",
-    "password": "Adgangskode",
     "password-has-been-reset-to-the-default-password": "Adgangskode er blevet nulstillet til systemstandarden",
     "password-must-match": "Adgangskode skal matche",
     "password-reset-failed": "Nulstilling af adgangskode fejlede",
     "password-updated": "Adgangskoden blev opdateret",
+    "password": "Adgangskode",
+    "password-strength": "Password is {strength}",
+    "register": "Register",
     "reset-password": "Nulstil adgangskoden",
     "sign-in": "Log ind",
     "total-mealplans": "Antal Madplaner",
     "total-users": "Antal brugere",
     "upload-photo": "Upload billede",
     "use-8-characters-or-more-for-your-password": "Adgangskode skal indeholde 8 tegn eller flere",
-    "user": "Bruger",
     "user-created": "Brugeren blev oprettet",
     "user-creation-failed": "Oprettelsen af brugeren fejlede",
     "user-deleted": "Brugeren blev slettet",
-    "user-id": "Bruger ID",
     "user-id-with-value": "Bruger ID: {id}",
+    "user-id": "Bruger ID",
     "user-password": "Adgangskode",
     "user-successfully-logged-in": "Brugeren blev succesfuld logget ind",
     "user-update-failed": "Opdatering af bruger fejlede",
     "user-updated": "Bruger opdateret",
+    "user": "Bruger",
     "username": "Brugernavn",
-    "users": "Brugere",
     "users-header": "BRUGERE",
+    "users": "Brugere",
     "webhook-time": "Webhook Tid",
     "webhooks-enabled": "Webhooks Aktiveret",
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheder til at oprette en ny bruger",
-    "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheder til at slette denne bruger"
+    "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheder til at slette denne bruger",
+    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+  },
+  "language-dialog": {
+    "translated": "translated",
+    "choose-language": "Choose Language",
+    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
+    "read-the-docs": "Read the docs"
+  },
+  "data-pages": {
+    "seed-data": "Seed Data",
+    "foods": {
+      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-food-example": "Merging {food1} into {food2}",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+    },
+    "units": {
+      "seed-dialog-text": "Seed the database with common units based on your local language."
+    },
+    "labels": {
+      "seed-dialog-text": "Seed the database with common labels based on your local language."
+    }
+  },
+  "user-registration": {
+    "user-registration": "User Registration",
+    "join-a-group": "Join a Group",
+    "create-a-new-group": "Create a New Group",
+    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "group-details": "Group Details",
+    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "use-seed-data": "Use Seed Data",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "account-details": "Account Details"
+  },
+  "validation": {
+    "group-name-is-taken": "Group name is taken",
+    "username-is-taken": "Username is taken",
+    "email-is-taken": "Email is taken"
   }
 }
