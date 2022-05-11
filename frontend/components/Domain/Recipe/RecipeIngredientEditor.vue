@@ -26,7 +26,7 @@
           </v-icon>
         </v-text-field>
       </v-col>
-      <v-col v-if="!disableAmount && units" sm="12" md="3" cols="12">
+      <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
         <v-autocomplete
           v-model="value.unit"
           :search-input.sync="unitSearch"
@@ -34,7 +34,7 @@
           dense
           solo
           return-object
-          :items="units"
+          :items="units || []"
           item-text="name"
           class="mx-1"
           placeholder="Choose Unit"
@@ -53,7 +53,7 @@
       </v-col>
 
       <!-- Foods Input -->
-      <v-col v-if="!disableAmount && foods" m="12" md="3" cols="12" class="">
+      <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
         <v-autocomplete
           v-model="value.food"
           :search-input.sync="foodSearch"
@@ -61,7 +61,7 @@
           dense
           solo
           return-object
-          :items="foods"
+          :items="foods || []"
           item-text="name"
           class="mx-1 py-0"
           placeholder="Choose Food"
