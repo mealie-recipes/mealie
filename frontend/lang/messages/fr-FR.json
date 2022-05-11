@@ -33,7 +33,7 @@
     "show-assets": "Afficher les ressources"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Catégories",
     "category-created": "Catégorie créée",
     "category-creation-failed": "La création de la catégorie a échoué",
     "category-deleted": "Catégorie supprimée",
@@ -131,8 +131,8 @@
     "view": "Voir",
     "wednesday": "Mercredi",
     "yes": "Oui",
-    "foods": "Foods",
-    "units": "Units",
+    "foods": "Aliments",
+    "units": "Unités",
     "back": "Back",
     "next": "Next"
   },
