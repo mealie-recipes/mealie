@@ -14,7 +14,7 @@
     "docs": "Documentazione",
     "download-log": "Scarica Log",
     "download-recipe-json": "Ultimo JSON",
-    "github": "Github",
+    "github": "GitHub",
     "log-lines": "Log Linee",
     "not-demo": "Non Demo",
     "portfolio": "Portfolio",
@@ -33,7 +33,7 @@
     "show-assets": "Mostra Risorse"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Categorie",
     "category-created": "Categoria creata",
     "category-creation-failed": "Creazione categoria fallita",
     "category-deleted": "Categoria Eliminata",
@@ -83,7 +83,7 @@
     "friday": "Venerdì",
     "general": "Generale",
     "get": "Ottieni",
-    "home": "Home",
+    "home": "Pagina iniziale",
     "image": "Immagine",
     "image-upload-failed": "Caricamento immagine fallito",
     "import": "Importa",
@@ -131,10 +131,10 @@
     "view": "Visualizza",
     "wednesday": "Mercoledì",
     "yes": "Sì",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Cibi",
+    "units": "Unità",
+    "back": "Indietro",
+    "next": "Avanti"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -156,8 +156,8 @@
     "user-group-created": "Gruppo Utente Creato",
     "user-group-creation-failed": "Creazione Gruppo Utente Fallita",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Mantieni Le Mie Ricette Private",
+      "keep-my-recipes-private-description": "Imposta il tuo gruppo e tutte le ricette privati di default. Puoi sempre cambiare questa impostazione più tardi."
     }
   },
   "meal-plan": {
@@ -210,12 +210,12 @@
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Deve essere un URL valido",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Inserisci i dati della tua ricetta. Ogni riga sarà trattata come uno step della ricetta.",
-    "recipe-markup-specification": "Recipe Markup Specification",
+    "recipe-markup-specification": "Specifiche Markup Ricetta",
     "recipe-url": "URL Ricetta",
     "upload-a-recipe": "Carica una Ricetta",
     "upload-individual-zip-file": "Carica un singolo file .zip esportato da un'altra istanza di Mealie.",
     "url-form-hint": "Copia e incolla un link dal tuo sito di ricette preferito",
-    "view-scraped-data": "View Scraped Data"
+    "view-scraped-data": "Visualizza Dati Ottenuti dallo Scraping"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -233,7 +233,7 @@
   "recipe": {
     "add-key": "Aggiungi Chiave",
     "add-to-favorites": "Aggiungi ai Preferiti",
-    "api-extras": "API Extras",
+    "api-extras": "API Extra",
     "calories": "Calorie",
     "calories-suffix": "calorie",
     "carbohydrate-content": "Carboidrati",
@@ -288,7 +288,7 @@
     "title": "Titolo",
     "total-time": "Tempo Totale",
     "unable-to-delete-recipe": "Impossibile eliminare ricetta",
-    "no-recipe": "No Recipe"
+    "no-recipe": "Nessuna Ricetta"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -318,7 +318,7 @@
       "partial-backup": "Backup Parziale",
       "unable-to-delete-backup": "Impossibile rimuovere backup."
     },
-    "backup-and-exports": "Backups",
+    "backup-and-exports": "Backup",
     "change-password": "Modifica Password",
     "current": "Versione:",
     "custom-pages": "Pagine Personalizzate",
@@ -329,7 +329,7 @@
     "homepage": {
       "all-categories": "Tutte le Categorie",
       "card-per-section": "Scheda Per Sezione",
-      "home-page": "Home Page",
+      "home-page": "Pagina iniziale",
       "home-page-sections": "Sezioni Home Page",
       "show-recent": "Mostra Recenti"
     },
@@ -410,19 +410,19 @@
   },
   "sidebar": {
     "all-recipes": "Ricette",
-    "backups": "Backups",
+    "backups": "Backup",
     "categories": "Categorie",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Llibro di Ricette",
     "dashboard": "Dashboard",
-    "home-page": "Home Page",
+    "home-page": "Pagina iniziale",
     "manage-users": "Gestire Utenti",
     "migrations": "Migrazioni",
     "profile": "Profilo",
     "search": "Cerca",
     "site-settings": "Impostazioni",
-    "tags": "Tags",
+    "tags": "Tag",
     "toolbox": "Strumenti",
-    "language": "Language"
+    "language": "Lingua"
   },
   "signup": {
     "error-signing-up": "Errore Registrazione",
@@ -441,11 +441,11 @@
     "tag-deletion-failed": "Eliminazione tag fallita",
     "tag-update-failed": "Aggiornamento tag fallito",
     "tag-updated": "Tag aggiornato",
-    "tags": "Tags",
+    "tags": "Tag",
     "untagged-count": "Senza Tag {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Strumenti"
   },
   "user": {
     "admin": "Amministratore",
@@ -464,7 +464,7 @@
     "error-cannot-delete-super-user": "Errore! Impossibile Eliminare Super User",
     "existing-password-does-not-match": "La nuova password non corrisponde",
     "full-name": "Nome",
-    "invite-only": "Invite Only",
+    "invite-only": "Solo su invito",
     "link-id": "Link ID",
     "link-name": "Link Nome",
     "login": "Login",
@@ -477,7 +477,7 @@
     "password-reset-failed": "Reimpostazione della password fallita",
     "password-updated": "Password aggiornata",
     "password": "Password",
-    "password-strength": "Password is {strength}",
+    "password-strength": "La password è {strength}",
     "register": "Register",
     "reset-password": "Reimposta Password",
     "sign-in": "Accedi",
