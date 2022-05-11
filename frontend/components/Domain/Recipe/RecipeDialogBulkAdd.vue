@@ -8,7 +8,7 @@
       </template>
 
       <v-card>
-        <v-app-bar dark color="primary" class="mt-n1 mb-3">
+        <v-app-bar dense dark color="primary" class="mb-2">
           <v-icon large left>
             {{ $globals.icons.createAlt }}
           </v-icon>
@@ -21,34 +21,26 @@
             v-model="inputText"
             outlined
             rows="12"
+            hide-details
             :placeholder="$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')"
           >
           </v-textarea>
-          <v-tooltip top>
-            <template #activator="{ on, attrs }">
-              <v-btn outlined color="info" small v-bind="attrs" @click="trimAllLines" v-on="on">
-                Trim Whitespace
-              </v-btn>
-            </template>
-            <span> Trim leading and trailing whitespace as well as blank lines </span>
-          </v-tooltip>
 
-          <v-tooltip top>
-            <template #activator="{ on, attrs }">
-              <v-btn class="ml-1" outlined color="info" small v-bind="attrs" @click="removeFirstCharacter" v-on="on">
-                Trim Prefix
-              </v-btn>
-            </template>
-            <span> Trim first character from each line </span>
-          </v-tooltip>
-          <v-tooltip top>
-            <template #activator="{ on, attrs }">
-              <v-btn class="ml-1" outlined color="info" small v-bind="attrs" @click="splitByNumberedLine" v-on="on">
-                Split By Numbered Line
-              </v-btn>
-            </template>
-            <span> Attempts to split a paragraph by matching 1) or 1. patterns </span>
-          </v-tooltip>
+          <v-divider></v-divider>
+          <template v-for="(util, idx) in utilities">
+            <v-list-item :key="util.id" dense class="py-1">
+              <v-list-item-title>
+                <v-list-item-subtitle class="wrap-word">
+                  {{ util.description }}
+                </v-list-item-subtitle>
+              </v-list-item-title>
+              <BaseButton small color="info" @click="util.action">
+                <template #icon> {{ $globals.icons.robot }}</template>
+                Run
+              </BaseButton>
+            </v-list-item>
+            <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
+          </template>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -64,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, defineComponent } from "@nuxtjs/composition-api";
+import { reactive, toRefs, defineComponent, useContext } from "@nuxtjs/composition-api";
 export default defineComponent({
   setup(_, context) {
     const state = reactive({
@@ -78,7 +70,7 @@ export default defineComponent({
 
     function removeFirstCharacter() {
       state.inputText = splitText()
-        .map((line) => line.substr(1))
+        .map((line) => line.substring(1))
         .join("\n");
     }
 
@@ -109,7 +101,28 @@ export default defineComponent({
       state.dialog = false;
     }
 
+    const { i18n } = useContext();
+
+    const utilities = [
+      {
+        id: "trim-whitespace",
+        description: i18n.tc("new-recipe.trim-whitespace-description"),
+        action: trimAllLines,
+      },
+      {
+        id: "trim-prefix",
+        description: i18n.tc("new-recipe.trim-prefix-description"),
+        action: removeFirstCharacter,
+      },
+      {
+        id: "split-by-numbered-line",
+        description: i18n.tc("new-recipe.split-by-numbered-line-description"),
+        action: splitByNumberedLine,
+      },
+    ];
+
     return {
+      utilities,
       splitText,
       trimAllLines,
       removeFirstCharacter,

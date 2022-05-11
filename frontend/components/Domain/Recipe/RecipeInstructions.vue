@@ -109,17 +109,22 @@
             @click="toggleDisabled(index)"
           >
             <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-              <v-btn v-if="edit" fab x-small color="white" class="mr-2" elevation="0" @click="value.splice(index, 1)">
-                <v-icon size="24" color="error">{{ $globals.icons.delete }}</v-icon>
-              </v-btn>
+              <span class="handle">
+                <v-icon v-if="edit" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
 
-              {{ $t("recipe.step-index", { step: index + 1 }) }}
+                {{ $t("recipe.step-index", { step: index + 1 }) }}
+              </span>
 
               <template v-if="edit">
-                <v-icon class="handle ml-auto mr-2">{{ $globals.icons.arrowUpDown }}</v-icon>
-                <div>
+                <div class="ml-auto">
                   <BaseButtonGroup
+                    :large="false"
                     :buttons="[
+                      {
+                        icon: $globals.icons.delete,
+                        text: $tc('general.delete'),
+                        event: 'delete',
+                      },
                       {
                         icon: $globals.icons.dotsVertical,
                         text: '',
@@ -137,18 +142,19 @@
                             text: 'Merge Above',
                             event: 'merge-above',
                           },
+                          {
+                            icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
+                            text: previewStates[index] ? 'Edit Markdown' : 'Preview Markdown',
+                            event: 'preview-step',
+                          },
                         ],
-                      },
-                      {
-                        icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                        text: previewStates[index] ? $tc('general.edit') : 'Preview Markdown',
-                        event: 'preview-step',
                       },
                     ]"
                     @merge-above="mergeAbove(index - 1, index)"
                     @toggle-section="toggleShowTitle(step.id)"
                     @link-ingredients="openDialog(index, step.ingredientReferences, step.text)"
                     @preview-step="togglePreviewState(index)"
+                    @delete="value.splice(index, 1)"
                   />
                 </div>
               </template>
