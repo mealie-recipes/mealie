@@ -127,14 +127,29 @@
           <!-- Advanced Editor -->
           <div v-if="form">
             <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
-            <draggable v-if="recipe.recipeIngredient.length > 0" v-model="recipe.recipeIngredient" handle=".handle">
-              <RecipeIngredientEditor
-                v-for="(ingredient, index) in recipe.recipeIngredient"
-                :key="ingredient.referenceId"
-                v-model="recipe.recipeIngredient[index]"
-                :disable-amount="recipe.settings.disableAmount"
-                @delete="recipe.recipeIngredient.splice(index, 1)"
-              />
+            <draggable
+              v-if="recipe.recipeIngredient.length > 0"
+              v-model="recipe.recipeIngredient"
+              handle=".handle"
+              v-bind="{
+                animation: 200,
+                group: 'description',
+                disabled: false,
+                ghostClass: 'ghost',
+              }"
+              @start="drag = true"
+              @end="drag = false"
+            >
+              <TransitionGroup type="transition" :name="!drag ? 'flip-list' : ''">
+                <RecipeIngredientEditor
+                  v-for="(ingredient, index) in recipe.recipeIngredient"
+                  :key="ingredient.referenceId"
+                  v-model="recipe.recipeIngredient[index]"
+                  class="list-group-item"
+                  :disable-amount="recipe.settings.disableAmount"
+                  @delete="recipe.recipeIngredient.splice(index, 1)"
+                />
+              </TransitionGroup>
             </draggable>
             <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
             <div class="d-flex justify-end mt-2">
@@ -355,7 +370,7 @@
                       :tag-selector="true"
                       :show-label="false"
                     />
-                    <RecipeChips v-else :items="recipe.tags" url-prefix="tags"/>
+                    <RecipeChips v-else :items="recipe.tags" url-prefix="tags" />
                   </v-card-text>
                 </v-card>
 
@@ -820,8 +835,11 @@ export default defineComponent({
       return "Parse ingredients";
     });
 
+    const drag = ref(false);
+
     return {
       // Wake Lock
+      drag,
       wakeIsSupported,
       isActive,
       lockScreen,
@@ -857,3 +875,24 @@ export default defineComponent({
   head: {},
 });
 </script>
+
+<style lang="css">
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+.ghost {
+  opacity: 0.5;
+}
+.list-group {
+  min-height: 38px;
+}
+.list-group-item {
+  cursor: move;
+}
+.list-group-item i {
+  cursor: pointer;
+}
+</style>

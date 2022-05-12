@@ -71,116 +71,126 @@
       :disabled="!edit"
       :value="value"
       handle=".handle"
+      v-bind="{
+        animation: 200,
+        group: 'description',
+        ghostClass: 'ghost',
+      }"
       @input="updateIndex"
       @start="drag = true"
       @end="drag = false"
     >
-      <div v-for="(step, index) in value" :key="step.id">
-        <v-app-bar
-          v-if="showTitleEditor[step.id]"
-          class="primary mx-1 mt-6"
-          style="cursor: pointer"
-          dark
-          dense
-          rounded
-          @click="toggleCollapseSection(index)"
-        >
-          <v-toolbar-title v-if="!edit" class="headline">
-            <v-app-bar-title v-text="step.title"> </v-app-bar-title>
-          </v-toolbar-title>
-          <v-text-field
-            v-if="edit"
-            v-model="step.title"
-            class="headline pa-0 mt-5"
+      <TransitionGroup type="transition" :name="!drag ? 'flip-list' : ''">
+        <div v-for="(step, index) in value" :key="step.id" class="list-group-item">
+          <v-app-bar
+            v-if="showTitleEditor[step.id]"
+            class="primary mx-1 mt-6"
+            style="cursor: pointer"
+            dark
             dense
-            solo
-            flat
-            :placeholder="$t('recipe.section-title')"
-            background-color="primary"
+            rounded
+            @click="toggleCollapseSection(index)"
           >
-          </v-text-field>
-        </v-app-bar>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            class="ma-1"
-            :class="[{ 'on-hover': hover }, isChecked(index)]"
-            :elevation="hover ? 12 : 2"
-            :ripple="false"
-            @click="toggleDisabled(index)"
-          >
-            <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-              <v-btn v-if="edit" fab x-small color="white" class="mr-2" elevation="0" @click="value.splice(index, 1)">
-                <v-icon size="24" color="error">{{ $globals.icons.delete }}</v-icon>
-              </v-btn>
-
-              {{ $t("recipe.step-index", { step: index + 1 }) }}
-
-              <template v-if="edit">
-                <v-icon class="handle ml-auto mr-2">{{ $globals.icons.arrowUpDown }}</v-icon>
-                <div>
-                  <BaseButtonGroup
-                    :buttons="[
-                      {
-                        icon: $globals.icons.dotsVertical,
-                        text: '',
-                        event: 'open',
-                        children: [
-                          {
-                            text: 'Toggle Section',
-                            event: 'toggle-section',
-                          },
-                          {
-                            text: 'Link Ingredients',
-                            event: 'link-ingredients',
-                          },
-                          {
-                            text: 'Merge Above',
-                            event: 'merge-above',
-                          },
-                        ],
-                      },
-                      {
-                        icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                        text: previewStates[index] ? $tc('general.edit') : 'Preview Markdown',
-                        event: 'preview-step',
-                      },
-                    ]"
-                    @merge-above="mergeAbove(index - 1, index)"
-                    @toggle-section="toggleShowTitle(step.id)"
-                    @link-ingredients="openDialog(index, step.ingredientReferences, step.text)"
-                    @preview-step="togglePreviewState(index)"
-                  />
+            <v-toolbar-title v-if="!edit" class="headline">
+              <v-app-bar-title v-text="step.title"> </v-app-bar-title>
+            </v-toolbar-title>
+            <v-text-field
+              v-if="edit"
+              v-model="step.title"
+              class="headline pa-0 mt-5"
+              dense
+              solo
+              flat
+              :placeholder="$t('recipe.section-title')"
+              background-color="primary"
+            >
+            </v-text-field>
+          </v-app-bar>
+          <v-hover v-slot="{ hover }">
+            <v-card
+              class="ma-1"
+              :class="[{ 'on-hover': hover }, isChecked(index)]"
+              :elevation="hover ? 12 : 2"
+              :ripple="false"
+              @click="toggleDisabled(index)"
+            >
+              <v-card-title :class="{ 'pb-0': !isChecked(index) }">
+                <span class="handle">
+                  <v-icon v-if="edit" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
+                  {{ $t("recipe.step-index", { step: index + 1 }) }}
+                </span>
+                <template v-if="edit">
+                  <div class="ml-auto">
+                    <BaseButtonGroup
+                      :large="false"
+                      :buttons="[
+                        {
+                          icon: $globals.icons.delete,
+                          text: $tc('general.delete'),
+                          event: 'delete',
+                        },
+                        {
+                          icon: $globals.icons.dotsVertical,
+                          text: '',
+                          event: 'open',
+                          children: [
+                            {
+                              text: 'Toggle Section',
+                              event: 'toggle-section',
+                            },
+                            {
+                              text: 'Link Ingredients',
+                              event: 'link-ingredients',
+                            },
+                            {
+                              text: 'Merge Above',
+                              event: 'merge-above',
+                            },
+                            {
+                              icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
+                              text: previewStates[index] ? 'Edit Markdown' : 'Preview Markdown',
+                              event: 'preview-step',
+                            },
+                          ],
+                        },
+                      ]"
+                      @merge-above="mergeAbove(index - 1, index)"
+                      @toggle-section="toggleShowTitle(step.id)"
+                      @link-ingredients="openDialog(index, step.ingredientReferences, step.text)"
+                      @preview-step="togglePreviewState(index)"
+                      @delete="value.splice(index, 1)"
+                    />
+                  </div>
+                </template>
+                <v-fade-transition>
+                  <v-icon v-show="isChecked(index)" size="24" class="ml-auto" color="success">
+                    {{ $globals.icons.checkboxMarkedCircle }}
+                  </v-icon>
+                </v-fade-transition>
+              </v-card-title>
+              <v-card-text v-if="edit">
+                <MarkdownEditor
+                  v-model="value[index]['text']"
+                  :preview.sync="previewStates[index]"
+                  :display-preview="false"
+                />
+                <div
+                  v-for="ing in step.ingredientReferences"
+                  :key="ing.referenceId"
+                  v-html="getIngredientByRefId(ing.referenceId)"
+                />
+              </v-card-text>
+              <v-expand-transition>
+                <div v-show="!isChecked(index) && !edit" class="m-0 p-0">
+                  <v-card-text class="markdown">
+                    <VueMarkdown class="markdown" :source="step.text"> </VueMarkdown>
+                  </v-card-text>
                 </div>
-              </template>
-
-              <v-fade-transition>
-                <v-icon v-show="isChecked(index)" size="24" class="ml-auto" color="success">
-                  {{ $globals.icons.checkboxMarkedCircle }}
-                </v-icon>
-              </v-fade-transition>
-            </v-card-title>
-            <v-card-text v-if="edit">
-              <MarkdownEditor
-                v-model="value[index]['text']"
-                :preview.sync="previewStates[index]"
-                :display-preview="false"
-              />
-              <div
-                v-for="ing in step.ingredientReferences"
-                :key="ing.referenceId"
-                v-html="getIngredientByRefId(ing.referenceId)"
-              />
-            </v-card-text>
-            <v-expand-transition>
-              <div v-show="!isChecked(index) && !edit" class="m-0 p-0">
-                <v-card-text class="markdown">
-                  <VueMarkdown class="markdown" :source="step.text"> </VueMarkdown>
-                </v-card-text>
-              </div>
-            </v-expand-transition>
-          </v-card>
-        </v-hover>
-      </div>
+              </v-expand-transition>
+            </v-card>
+          </v-hover>
+        </div>
+      </TransitionGroup>
     </draggable>
   </section>
 </template>
@@ -481,7 +491,10 @@ export default defineComponent({
       }
     }
 
+    const drag = ref(false);
+
     return {
+      drag,
       togglePreviewState,
       toggleCollapseSection,
       previewStates,
@@ -520,5 +533,24 @@ export default defineComponent({
 /** Select all li under .markdown class */
 .markdown >>> ol > li {
   display: list-item;
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+.ghost {
+  opacity: 0.5;
+}
+.list-group {
+  min-height: 38px;
+}
+.list-group-item {
+  cursor: move;
+}
+.list-group-item i {
+  cursor: pointer;
 }
 </style>

@@ -24,19 +24,21 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="my-n3 mb-n6">
+        <v-card-title class="my-n3 px-2 mb-n6">
           <div class="headerClass">
             {{ name }}
           </div>
         </v-card-title>
 
         <slot name="actions">
-          <v-card-actions>
-            <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
-            <RecipeRating :value="rating" :name="name" :slug="slug" :small="true" />
+          <v-card-actions class="px-1">
+            <RecipeFavoriteBadge v-if="loggedIn" class="absolute" :slug="slug" show-always />
+
+            <RecipeRating class="pb-1" :value="rating" :name="name" :slug="slug" :small="true" />
             <v-spacer></v-spacer>
             <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
             <RecipeContextMenu
+              color="grey darken-2"
               :slug="slug"
               :name="name"
               :recipe-id="recipeId"

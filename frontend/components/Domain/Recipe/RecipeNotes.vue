@@ -1,29 +1,27 @@
 <template>
-  <div v-if="value.length > 0 || edit">
+  <div v-if="value.length > 0 || edit" class="mt-8">
     <h2 class="my-4">{{ $t("recipe.note") }}</h2>
-    <v-card v-for="(note, index) in value" :key="'note' + index" class="mt-1">
-      <div v-if="edit">
+    <div v-for="(note, index) in value" :key="'note' + index" class="mt-1">
+      <v-card v-if="edit">
         <v-card-text>
-          <v-row align="center">
-            <v-btn fab x-small color="white" class="mr-2" elevation="0" @click="removeByIndex(value, index)">
-              <v-icon color="error">{{ $globals.icons.delete }}</v-icon>
+          <div class="d-flex align-center">
+            <v-text-field v-model="value[index]['title']" :label="$t('recipe.title')" />
+            <v-btn icon class="mr-2" elevation="0" @click="removeByIndex(value, index)">
+              <v-icon>{{ $globals.icons.delete }}</v-icon>
             </v-btn>
-            <v-text-field v-model="value[index]['title']" :label="$t('recipe.title')"></v-text-field>
-          </v-row>
-
-          <v-textarea v-model="value[index]['text']" auto-grow :placeholder="$t('recipe.note')"> </v-textarea>
+          </div>
+          <v-textarea v-model="value[index]['text']" auto-grow :placeholder="$t('recipe.note')" />
         </v-card-text>
-      </div>
+      </v-card>
       <div v-else>
-        <v-card-title class="py-2">
+        <v-card-title class="text-subtitle-1 font-weight-medium py-1">
           {{ note.title }}
         </v-card-title>
-        <v-divider class="mx-2"></v-divider>
         <v-card-text>
           <VueMarkdown :source="note.text"> </VueMarkdown>
         </v-card-text>
       </div>
-    </v-card>
+    </div>
 
     <div v-if="edit" class="d-flex justify-end">
       <BaseButton class="ml-auto my-2" @click="addNote"> {{ $t("general.new") }}</BaseButton>

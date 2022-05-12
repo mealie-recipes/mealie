@@ -1,7 +1,7 @@
 <template>
   <v-item-group>
     <template v-for="btn in buttons">
-      <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-x left>
+      <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-y top left>
         <template #activator="{ on, attrs }">
           <v-btn tile :large="large" icon v-bind="attrs" v-on="on">
             <v-icon>

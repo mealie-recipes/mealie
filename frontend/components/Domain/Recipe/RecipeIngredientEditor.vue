@@ -21,18 +21,12 @@
           type="number"
           placeholder="Quantity"
         >
-          <v-icon
-            v-if="$listeners && $listeners.delete"
-            slot="prepend"
-            class="mr-n1"
-            color="error"
-            @click="$emit('delete')"
-          >
-            {{ $globals.icons.delete }}
+          <v-icon v-if="$listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
+            {{ $globals.icons.arrowUpDown }}
           </v-icon>
         </v-text-field>
       </v-col>
-      <v-col v-if="!disableAmount && units" sm="12" md="3" cols="12">
+      <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
         <v-autocomplete
           v-model="value.unit"
           :search-input.sync="unitSearch"
@@ -40,7 +34,7 @@
           dense
           solo
           return-object
-          :items="units"
+          :items="units || []"
           item-text="name"
           class="mx-1"
           placeholder="Choose Unit"
@@ -59,7 +53,7 @@
       </v-col>
 
       <!-- Foods Input -->
-      <v-col v-if="!disableAmount && foods" m="12" md="3" cols="12" class="">
+      <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
         <v-autocomplete
           v-model="value.food"
           :search-input.sync="foodSearch"
@@ -67,7 +61,7 @@
           dense
           solo
           return-object
-          :items="foods"
+          :items="foods || []"
           item-text="name"
           class="mx-1 py-0"
           placeholder="Choose Food"
@@ -85,28 +79,34 @@
         </v-autocomplete>
       </v-col>
       <v-col sm="12" md="" cols="12">
-        <v-text-field v-model="value.note" hide-details dense solo class="mx-1" placeholder="Notes">
-          <v-icon v-if="disableAmount" slot="prepend" class="mr-n1" color="error" @click="$emit('delete')">
-            {{ $globals.icons.delete }}
-          </v-icon>
-
-          <template slot="append-outer">
-            <BaseButtonGroup
-              :large="false"
-              class="handle my-auto"
-              :buttons="[
-                {
-                  icon: $globals.icons.arrowUpDown,
-                  text: '',
-                  event: 'open',
-                  children: contextMenuOptions,
-                },
-              ]"
-              @toggle-section="toggleTitle"
-              @toggle-original="toggleOriginalText"
-            />
-          </template>
-        </v-text-field>
+        <div class="d-flex">
+          <v-text-field v-model="value.note" hide-details dense solo class="mx-1" placeholder="Notes">
+            <v-icon v-if="disableAmount && $listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
+              {{ $globals.icons.arrowUpDown }}
+            </v-icon>
+          </v-text-field>
+          <BaseButtonGroup
+            hover
+            :large="false"
+            class="my-auto"
+            :buttons="[
+              {
+                icon: $globals.icons.delete,
+                text: 'Delete',
+                event: 'delete',
+              },
+              {
+                icon: $globals.icons.dotsVertical,
+                text: 'Menu',
+                event: 'open',
+                children: contextMenuOptions,
+              },
+            ]"
+            @toggle-section="toggleTitle"
+            @toggle-original="toggleOriginalText"
+            @delete="$emit('delete')"
+          />
+        </div>
       </v-col>
     </v-row>
     <p v-if="showOriginalText" class="text-caption">Original Text: {{ value.originalText }}</p>

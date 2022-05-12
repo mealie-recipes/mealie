@@ -40,6 +40,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+import colors from "vuetify/lib/util/colors";
 import { useUserApi } from "~/composables/api";
 
 export interface ContextMenuIncludes {
@@ -91,7 +92,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "primary",
+      default: colors.grey.darken2,
     },
     slug: {
       type: String,
