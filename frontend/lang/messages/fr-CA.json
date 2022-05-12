@@ -33,7 +33,7 @@
     "show-assets": "Afficher les ressources"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Catégories",
     "category-created": "Catégorie créée",
     "category-creation-failed": "La création de la catégorie a échoué",
     "category-deleted": "Catégorie supprimée",
@@ -131,10 +131,10 @@
     "view": "Afficher",
     "wednesday": "Mercredi",
     "yes": "Oui",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Aliments",
+    "units": "Unités",
+    "back": "Précédent",
+    "next": "Suivant"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/>?",
@@ -156,8 +156,8 @@
     "user-group-created": "Groupe d'utilisateurs créé",
     "user-group-creation-failed": "La création du groupe d'utilisateur a échoué",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Garder mes recettes privées",
+      "keep-my-recipes-private-description": "Définit votre groupe et toutes les recettes par défaut sur privé. Vous pouvez toujours changer cela plus tard."
     }
   },
   "meal-plan": {
@@ -215,7 +215,10 @@
     "upload-a-recipe": "Télécharger une recette",
     "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
-    "view-scraped-data": "Voir les données récupérées"
+    "view-scraped-data": "Voir les données récupérées",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
@@ -288,7 +291,7 @@
     "title": "Titre",
     "total-time": "Temps total",
     "unable-to-delete-recipe": "Impossible de supprimer la recette",
-    "no-recipe": "No Recipe"
+    "no-recipe": "Pas de recette"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -410,7 +413,7 @@
   },
   "sidebar": {
     "all-recipes": "Les recettes",
-    "backups": "Backups",
+    "backups": "Sauvegardes",
     "categories": "Catégories",
     "cookbooks": "Cookbooks",
     "dashboard": "Console",
@@ -422,7 +425,7 @@
     "site-settings": "Paramètres",
     "tags": "Mots-clés",
     "toolbox": "Boîte à outils",
-    "language": "Language"
+    "language": "Langue"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",
@@ -445,7 +448,7 @@
     "untagged-count": "{count} sans mot-clés"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Outils"
   },
   "user": {
     "admin": "Administrateur",
@@ -478,7 +481,7 @@
     "password-updated": "Mot de passe mis à jour",
     "password": "Mot de passe",
     "password-strength": "Password is {strength}",
-    "register": "Register",
+    "register": "S'inscrire",
     "reset-password": "Réinitialiser le mot de passe",
     "sign-in": "Se connecter",
     "total-mealplans": "Nombre de menus",
