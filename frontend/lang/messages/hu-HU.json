@@ -33,7 +33,7 @@
     "show-assets": "Eszközök megjelenítése"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Kategóriák",
     "category-created": "Kategória létrehozva",
     "category-creation-failed": "Kategória létrehozása sikertelen",
     "category-deleted": "Kategória törölve",
@@ -82,7 +82,7 @@
     "filter": "Szűrő",
     "friday": "Péntek",
     "general": "Általános",
-    "get": "Get",
+    "get": "Letöltés",
     "home": "Kezdőlap",
     "image": "Kép",
     "image-upload-failed": "Képfeltöltés sikertelen",
@@ -131,10 +131,10 @@
     "view": "Nézet",
     "wednesday": "Szerda",
     "yes": "Igen",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Élelmiszerek",
+    "units": "Mértékegységek",
+    "back": "Vissza",
+    "next": "Következő"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -288,7 +288,7 @@
     "title": "Cím",
     "total-time": "Teljes idő",
     "unable-to-delete-recipe": "Nem lehet törölni a receptet",
-    "no-recipe": "No Recipe"
+    "no-recipe": "Nincs recept"
   },
   "search": {
     "advanced-search": "Részletes keresés",
@@ -395,7 +395,7 @@
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "A lenti URL egy webhook hivást fog kapni, az étkezési tervhez tartozó recept adataival a megadott napon. Jelenleg a Webook az alábbi időpontban hajtódik végre",
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKOK",
-      "webhooks": "Webhooks"
+      "webhooks": "Webhook-ok"
     }
   },
   "shopping-list": {
@@ -410,9 +410,9 @@
   },
   "sidebar": {
     "all-recipes": "Minden recept",
-    "backups": "Backups",
+    "backups": "Biztonsági mentések",
     "categories": "Kategóriák",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Receptkönyvek",
     "dashboard": "Vezérlőpult",
     "home-page": "Főoldal",
     "manage-users": "Felhasználók",
@@ -422,7 +422,7 @@
     "site-settings": "Beállítások",
     "tags": "Címkék",
     "toolbox": "Eszközök",
-    "language": "Language"
+    "language": "Nyelv"
   },
   "signup": {
     "error-signing-up": "Regisztráció hiba",
@@ -445,7 +445,7 @@
     "untagged-count": "Címkézetlen {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Eszközök"
   },
   "user": {
     "admin": "Adminisztrátor",
@@ -464,7 +464,7 @@
     "error-cannot-delete-super-user": "Hiba! Adminsztrátor felhasználó nem törölhető",
     "existing-password-does-not-match": "A jelszavak nem egyeznek",
     "full-name": "Teljes név",
-    "invite-only": "Invite Only",
+    "invite-only": "Csak meghívóval",
     "link-id": "Hivatkozás ID",
     "link-name": "Hivatkozás neve",
     "login": "Bejelentkezés",
@@ -477,8 +477,8 @@
     "password-reset-failed": "Jelszó visszállítása nem sikerült",
     "password-updated": "Jelszó megváltoztatva",
     "password": "Jelszó",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Jelszó erőssége: {strength}",
+    "register": "Regisztráció",
     "reset-password": "Jelszó visszaállítása",
     "sign-in": "Bejelentkezés",
     "total-mealplans": "Összes étkezési terv",
@@ -502,15 +502,15 @@
     "webhooks-enabled": "Webhookok engedélyezve",
     "you-are-not-allowed-to-create-a-user": "Nem hozhatsz létre új felhasználót",
     "you-are-not-allowed-to-delete-this-user": "Nem törölheted ezt a felhasználót",
-    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content": "Haladó beállítások engedélyezése",
     "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
   },
   "language-dialog": {
     "translated": "translated",
-    "choose-language": "Choose Language",
+    "choose-language": "Nyelv kiválasztása",
     "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "read-the-docs": "Olvasd el a dokumentációt"
   },
   "data-pages": {
     "seed-data": "Seed Data",
