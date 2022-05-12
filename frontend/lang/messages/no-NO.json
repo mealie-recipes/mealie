@@ -215,7 +215,10 @@
     "upload-a-recipe": "Last opp oppskrift",
     "upload-individual-zip-file": "Last opp en individuell .zip-fil eksportert fra en annen Mealie-instans.",
     "url-form-hint": "Kopier og lim inn en lenke fra ditt favoritt-oppskriftsnettsted",
-    "view-scraped-data": "Vis skrapte data"
+    "view-scraped-data": "Vis skrapte data",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 Siden ble ikke funnet",
