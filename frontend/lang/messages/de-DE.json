@@ -215,7 +215,10 @@
     "upload-a-recipe": "Rezept hochladen",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
-    "view-scraped-data": "Gesammelte Daten anzeigen"
+    "view-scraped-data": "Gesammelte Daten anzeigen",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
