@@ -215,7 +215,10 @@
     "upload-a-recipe": "Recept feltöltése",
     "upload-individual-zip-file": "Tölts fel egy .zíp archívumot, ami egy másik Mealie példányból lett exportálva.",
     "url-form-hint": "Másold be a linket a kedvenc recept weboldaladról",
-    "view-scraped-data": "Letöltött adat megtekintése"
+    "view-scraped-data": "Letöltött adat megtekintése",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404. Az oldal nem található",
