@@ -215,7 +215,10 @@
     "upload-a-recipe": "Загрузить рецепт",
     "upload-individual-zip-file": "Загрузить отдельный .zip файл, экспортированный из другой Mealie.",
     "url-form-hint": "Скопируйте и вставьте ссылку из вашего любимого сайта рецептов",
-    "view-scraped-data": "Просмотр собранных данных"
+    "view-scraped-data": "Просмотр собранных данных",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 - страница не найдена",
