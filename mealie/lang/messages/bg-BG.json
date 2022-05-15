@@ -8,8 +8,8 @@
     "exceptions": {
         "permission_denied": "You do not have permission to perform this action",
         "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Adatbázis integritás hiba",
-        "username-conflict-error": "A felhasználónév már foglalt",
-        "email-conflict-error": "Ez az e-mail cím már használatban van"
+        "integrity-error": "Database integrity error",
+        "username-conflict-error": "This username is already taken",
+        "email-conflict-error": "This email is already in use"
     }
 }

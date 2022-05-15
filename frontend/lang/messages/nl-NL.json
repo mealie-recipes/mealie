@@ -33,6 +33,7 @@
     "show-assets": "Toon Bijlagen"
   },
   "category": {
+    "categories": "Categories",
     "category-created": "Categorie aangemaakt",
     "category-creation-failed": "Categorie aanmaken mislukt",
     "category-deleted": "Categorie Verwijderd",
@@ -129,7 +130,11 @@
     "url": "URL",
     "view": "Weergave",
     "wednesday": "Woensdag",
-    "yes": "Ja"
+    "yes": "Ja",
+    "foods": "Foods",
+    "units": "Units",
+    "back": "Back",
+    "next": "Next"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wilt verwijderen?",
@@ -149,7 +154,11 @@
     "manage-groups": "Groepen beheren",
     "user-group": "Gebruikersgroep",
     "user-group-created": "Gebruikersgroep aangemaakt",
-    "user-group-creation-failed": "Aanmaken gebruikersgroep is mislukt"
+    "user-group-creation-failed": "Aanmaken gebruikersgroep is mislukt",
+    "settings": {
+      "keep-my-recipes-private": "Keep My Recipes Private",
+      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Maak een nieuw Maaltijdplan",
@@ -206,7 +215,10 @@
     "upload-a-recipe": "Upload een Recept",
     "upload-individual-zip-file": "Upload een individueel .zip-bestand geëxporteerd vanuit een andere Mealie-instantie.",
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite",
-    "view-scraped-data": "Bekijk Opgehaalde Data"
+    "view-scraped-data": "Bekijk Opgehaalde Data",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -278,10 +290,8 @@
     "sugar-content": "Suiker",
     "title": "Titel",
     "total-time": "Totale Tijd",
-    "unable-to-delete-recipe": "Kan recept niet verwijderen"
-  },
-  "reicpe": {
-    "no-recipe": "Geen Recept"
+    "unable-to-delete-recipe": "Kan recept niet verwijderen",
+    "no-recipe": "No Recipe"
   },
   "search": {
     "advanced-search": "Geavanceerd Zoeken",
@@ -387,7 +397,8 @@
       "test-webhooks": "Webhooks testen",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "De onderstaande URL's ontvangen webhooks met receptgegevens voor het maaltijdplan op de geplande dag. Momenteel zullen Webhooks uitvoeren op",
       "webhook-url": "Webhook URL",
-      "webhooks-caps": "WEBHOOKS"
+      "webhooks-caps": "WEBHOOKS",
+      "webhooks": "Webhooks"
     }
   },
   "shopping-list": {
@@ -402,7 +413,9 @@
   },
   "sidebar": {
     "all-recipes": "Recepten",
+    "backups": "Backups",
     "categories": "Categorieën",
+    "cookbooks": "Cookbooks",
     "dashboard": "Dashboard",
     "home-page": "Home Pagina",
     "manage-users": "Gebruikers",
@@ -411,7 +424,8 @@
     "search": "Zoeken",
     "site-settings": "Instellingen",
     "tags": "Labels",
-    "toolbox": "Toolbox"
+    "toolbox": "Toolbox",
+    "language": "Language"
   },
   "signup": {
     "error-signing-up": "Fout bij registreren",
@@ -433,6 +447,9 @@
     "tags": "Labels",
     "untagged-count": "Niet gelabeld {count}"
   },
+  "tool": {
+    "tools": "Tools"
+  },
   "user": {
     "admin": "Beheerder",
     "are-you-sure-you-want-to-delete-the-link": "Weet je zeker dat je <b>{link}<b/> wilt verwijderen?",
@@ -450,6 +467,7 @@
     "error-cannot-delete-super-user": "Fout! Kan supergebruiker niet verwijderen",
     "existing-password-does-not-match": "Bestaande wachtwoord komt niet overeen",
     "full-name": "Voor- en achternaam",
+    "invite-only": "Invite Only",
     "link-id": "Koppeling ID",
     "link-name": "Koppeling Naam",
     "login": "Inloggen",
@@ -457,33 +475,75 @@
     "manage-users": "Beheer gebruikers",
     "new-password": "Nieuw Wachtwoord",
     "new-user": "Nieuwe Gebruiker",
-    "password": "Wachtwoord",
     "password-has-been-reset-to-the-default-password": "Wachtwoord is gereset naar het standaard wachtwoord",
     "password-must-match": "Wachtwoorden moeten overeenkomen",
     "password-reset-failed": "Wachtwoord resetten is mislukt",
     "password-updated": "Wachtwoord bijgewerkt",
+    "password": "Wachtwoord",
+    "password-strength": "Password is {strength}",
+    "register": "Register",
     "reset-password": "Wachtwoord Herstellen",
     "sign-in": "Inloggen",
     "total-mealplans": "Totaal maaltijdplannen",
     "total-users": "Totaal Gebruikers",
     "upload-photo": "Foto uploaden",
     "use-8-characters-or-more-for-your-password": "Gebruik 8 tekens of meer voor jouw wachtwoord",
-    "user": "Gebruiker",
     "user-created": "Gebruiker aangemaakt",
     "user-creation-failed": "Aanmaken van gebruiker mislukt",
     "user-deleted": "Gebruiker verwijderd",
-    "user-id": "GebruikersID",
     "user-id-with-value": "Gebruikers-ID: {id}",
+    "user-id": "GebruikersID",
     "user-password": "Gebruikerswachtwoord",
     "user-successfully-logged-in": "Gebruiker succesvol ingelogd",
     "user-update-failed": "Bijwerken van gebruiker mislukt",
     "user-updated": "Gebruiker is geüpdate",
+    "user": "Gebruiker",
     "username": "Gebruikersnaam",
-    "users": "Gebruikers",
     "users-header": "GEBRUIKERS",
+    "users": "Gebruikers",
     "webhook-time": "Webhook Tijd",
     "webhooks-enabled": "Webhooks ingeschakeld",
     "you-are-not-allowed-to-create-a-user": "Je hebt geen toestemming om een gebruiker aan te maken",
-    "you-are-not-allowed-to-delete-this-user": "Je hebt geen toestemming om deze gebruiker te verwijderen"
+    "you-are-not-allowed-to-delete-this-user": "Je hebt geen toestemming om deze gebruiker te verwijderen",
+    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+  },
+  "language-dialog": {
+    "translated": "translated",
+    "choose-language": "Choose Language",
+    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
+    "read-the-docs": "Read the docs"
+  },
+  "data-pages": {
+    "seed-data": "Seed Data",
+    "foods": {
+      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-food-example": "Merging {food1} into {food2}",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+    },
+    "units": {
+      "seed-dialog-text": "Seed the database with common units based on your local language."
+    },
+    "labels": {
+      "seed-dialog-text": "Seed the database with common labels based on your local language."
+    }
+  },
+  "user-registration": {
+    "user-registration": "User Registration",
+    "join-a-group": "Join a Group",
+    "create-a-new-group": "Create a New Group",
+    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "group-details": "Group Details",
+    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "use-seed-data": "Use Seed Data",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "account-details": "Account Details"
+  },
+  "validation": {
+    "group-name-is-taken": "Group name is taken",
+    "username-is-taken": "Username is taken",
+    "email-is-taken": "Email is taken"
   }
 }

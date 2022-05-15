@@ -33,6 +33,7 @@
     "show-assets": "顯示資源"
   },
   "category": {
+    "categories": "Categories",
     "category-created": "類別已新增",
     "category-creation-failed": "新增類別失敗",
     "category-deleted": "類別已刪除",
@@ -129,7 +130,11 @@
     "url": "網址",
     "view": "檢視",
     "wednesday": "星期三",
-    "yes": "是"
+    "yes": "是",
+    "foods": "Foods",
+    "units": "Units",
+    "back": "Back",
+    "next": "Next"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "確定要刪除<b>{groupName}<b/>？",
@@ -149,7 +154,11 @@
     "manage-groups": "管理群組",
     "user-group": "用户群组",
     "user-group-created": "用戶群組已建立",
-    "user-group-creation-failed": "用戶群組建立失敗"
+    "user-group-creation-failed": "用戶群組建立失敗",
+    "settings": {
+      "keep-my-recipes-private": "Keep My Recipes Private",
+      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "創建一個新的用餐計劃",
@@ -206,7 +215,10 @@
     "upload-a-recipe": "上傳食譜",
     "upload-individual-zip-file": "上傳從另一個Mealie匯出的zip壓縮檔",
     "url-form-hint": "複製您最喜歡的食譜網站的網址並在此貼上",
-    "view-scraped-data": "查看網頁擷取資料"
+    "view-scraped-data": "查看網頁擷取資料",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 找不到頁面",
@@ -278,10 +290,8 @@
     "sugar-content": "糖",
     "title": "標題",
     "total-time": "總時間",
-    "unable-to-delete-recipe": "無法刪除食譜"
-  },
-  "reicpe": {
-    "no-recipe": "無食譜"
+    "unable-to-delete-recipe": "無法刪除食譜",
+    "no-recipe": "No Recipe"
   },
   "search": {
     "advanced-search": "進階搜尋",
@@ -387,7 +397,8 @@
       "test-webhooks": "測試Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "下方列出的網址將在預定日期接收到有關用餐計劃的食譜資料。Webhooks將在<strong>{ time }</strong>執行",
       "webhook-url": "Webhook網址",
-      "webhooks-caps": "WEBHOOKS"
+      "webhooks-caps": "WEBHOOKS",
+      "webhooks": "Webhooks"
     }
   },
   "shopping-list": {
@@ -402,7 +413,9 @@
   },
   "sidebar": {
     "all-recipes": "所有食譜",
+    "backups": "Backups",
     "categories": "類別",
+    "cookbooks": "Cookbooks",
     "dashboard": "控制面板",
     "home-page": "首頁",
     "manage-users": "管理使用者",
@@ -411,7 +424,8 @@
     "search": "搜尋",
     "site-settings": "網站設置",
     "tags": "標籤",
-    "toolbox": "工具箱"
+    "toolbox": "工具箱",
+    "language": "Language"
   },
   "signup": {
     "error-signing-up": "註冊失敗",
@@ -433,6 +447,9 @@
     "tags": "標籤",
     "untagged-count": "為標記的 {count}"
   },
+  "tool": {
+    "tools": "Tools"
+  },
   "user": {
     "admin": "管理員",
     "are-you-sure-you-want-to-delete-the-link": "確定要刪除連結<b>{link}<b/>？",
@@ -450,6 +467,7 @@
     "error-cannot-delete-super-user": "錯誤！無法刪除管理員帳戶",
     "existing-password-does-not-match": "舊密碼不正確",
     "full-name": "全名",
+    "invite-only": "Invite Only",
     "link-id": "連結ID",
     "link-name": "連結名稱",
     "login": "登入",
@@ -457,33 +475,75 @@
     "manage-users": "管理使用者",
     "new-password": "新密碼",
     "new-user": "新用戶",
-    "password": "密碼",
     "password-has-been-reset-to-the-default-password": "密碼重設為預設密碼",
     "password-must-match": "輸入的密碼必須完全相同",
     "password-reset-failed": "密碼重設失敗",
     "password-updated": "密碼已更新",
+    "password": "密碼",
+    "password-strength": "Password is {strength}",
+    "register": "Register",
     "reset-password": "重設密碼",
     "sign-in": "登入",
     "total-mealplans": "用餐計畫總數",
     "total-users": "用戶總數",
     "upload-photo": "上傳照片",
     "use-8-characters-or-more-for-your-password": "請使用8個字母以上的密碼",
-    "user": "用戶",
     "user-created": "用戶已建立",
     "user-creation-failed": "新增用戶失敗",
     "user-deleted": "用戶已刪除",
-    "user-id": "用戶 ID",
     "user-id-with-value": "用戶 ID: {id}",
+    "user-id": "用戶 ID",
     "user-password": "用戶密碼",
     "user-successfully-logged-in": "成功登入",
     "user-update-failed": "用戶更新失敗",
     "user-updated": "用戶已更新",
+    "user": "用戶",
     "username": "用戶名",
-    "users": "用戶",
     "users-header": "用戶",
+    "users": "用戶",
     "webhook-time": "Webhook時間",
     "webhooks-enabled": "Webhooks 啟用",
     "you-are-not-allowed-to-create-a-user": "您沒有權限新增用戶",
-    "you-are-not-allowed-to-delete-this-user": "您沒有權限刪除此用戶"
+    "you-are-not-allowed-to-delete-this-user": "您沒有權限刪除此用戶",
+    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+  },
+  "language-dialog": {
+    "translated": "translated",
+    "choose-language": "Choose Language",
+    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
+    "read-the-docs": "Read the docs"
+  },
+  "data-pages": {
+    "seed-data": "Seed Data",
+    "foods": {
+      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-food-example": "Merging {food1} into {food2}",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+    },
+    "units": {
+      "seed-dialog-text": "Seed the database with common units based on your local language."
+    },
+    "labels": {
+      "seed-dialog-text": "Seed the database with common labels based on your local language."
+    }
+  },
+  "user-registration": {
+    "user-registration": "User Registration",
+    "join-a-group": "Join a Group",
+    "create-a-new-group": "Create a New Group",
+    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "group-details": "Group Details",
+    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "use-seed-data": "Use Seed Data",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "account-details": "Account Details"
+  },
+  "validation": {
+    "group-name-is-taken": "Group name is taken",
+    "username-is-taken": "Username is taken",
+    "email-is-taken": "Email is taken"
   }
 }

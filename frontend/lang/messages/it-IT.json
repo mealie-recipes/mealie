@@ -14,7 +14,7 @@
     "docs": "Documentazione",
     "download-log": "Scarica Log",
     "download-recipe-json": "Ultimo JSON",
-    "github": "Github",
+    "github": "GitHub",
     "log-lines": "Log Linee",
     "not-demo": "Non Demo",
     "portfolio": "Portfolio",
@@ -33,6 +33,7 @@
     "show-assets": "Mostra Risorse"
   },
   "category": {
+    "categories": "Categorie",
     "category-created": "Categoria creata",
     "category-creation-failed": "Creazione categoria fallita",
     "category-deleted": "Categoria Eliminata",
@@ -82,7 +83,7 @@
     "friday": "Venerdì",
     "general": "Generale",
     "get": "Ottieni",
-    "home": "Home",
+    "home": "Pagina iniziale",
     "image": "Immagine",
     "image-upload-failed": "Caricamento immagine fallito",
     "import": "Importa",
@@ -129,7 +130,11 @@
     "url": "URL",
     "view": "Visualizza",
     "wednesday": "Mercoledì",
-    "yes": "Sì"
+    "yes": "Sì",
+    "foods": "Cibi",
+    "units": "Unità",
+    "back": "Indietro",
+    "next": "Avanti"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -149,7 +154,11 @@
     "manage-groups": "Gestisci Gruppi",
     "user-group": "Gruppo Utente",
     "user-group-created": "Gruppo Utente Creato",
-    "user-group-creation-failed": "Creazione Gruppo Utente Fallita"
+    "user-group-creation-failed": "Creazione Gruppo Utente Fallita",
+    "settings": {
+      "keep-my-recipes-private": "Mantieni Le Mie Ricette Private",
+      "keep-my-recipes-private-description": "Imposta il tuo gruppo e tutte le ricette privati di default. Puoi sempre cambiare questa impostazione più tardi."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Crea un Nuovo Piano Alimentare",
@@ -201,12 +210,15 @@
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Deve essere un URL valido",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Inserisci i dati della tua ricetta. Ogni riga sarà trattata come uno step della ricetta.",
-    "recipe-markup-specification": "Recipe Markup Specification",
+    "recipe-markup-specification": "Specifiche Markup Ricetta",
     "recipe-url": "URL Ricetta",
     "upload-a-recipe": "Carica una Ricetta",
     "upload-individual-zip-file": "Carica un singolo file .zip esportato da un'altra istanza di Mealie.",
     "url-form-hint": "Copia e incolla un link dal tuo sito di ricette preferito",
-    "view-scraped-data": "View Scraped Data"
+    "view-scraped-data": "Visualizza Dati Ottenuti dallo Scraping",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -224,7 +236,7 @@
   "recipe": {
     "add-key": "Aggiungi Chiave",
     "add-to-favorites": "Aggiungi ai Preferiti",
-    "api-extras": "API Extras",
+    "api-extras": "API Extra",
     "calories": "Calorie",
     "calories-suffix": "calorie",
     "carbohydrate-content": "Carboidrati",
@@ -278,9 +290,7 @@
     "sugar-content": "Zuccheri",
     "title": "Titolo",
     "total-time": "Tempo Totale",
-    "unable-to-delete-recipe": "Impossibile eliminare ricetta"
-  },
-  "reicpe": {
+    "unable-to-delete-recipe": "Impossibile eliminare ricetta",
     "no-recipe": "Nessuna Ricetta"
   },
   "search": {
@@ -311,7 +321,7 @@
       "partial-backup": "Backup Parziale",
       "unable-to-delete-backup": "Impossibile rimuovere backup."
     },
-    "backup-and-exports": "Backups",
+    "backup-and-exports": "Backup",
     "change-password": "Modifica Password",
     "current": "Versione:",
     "custom-pages": "Pagine Personalizzate",
@@ -322,7 +332,7 @@
     "homepage": {
       "all-categories": "Tutte le Categorie",
       "card-per-section": "Scheda Per Sezione",
-      "home-page": "Home Page",
+      "home-page": "Pagina iniziale",
       "home-page-sections": "Sezioni Home Page",
       "show-recent": "Mostra Recenti"
     },
@@ -387,7 +397,8 @@
       "test-webhooks": "Testa Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Gli URL elencati sotto riceveranno dei webhooks contenenti i dati delle ricette per il piano alimentare nel giorno programmato. I Webhooks correnti verrano eseguiti alle",
       "webhook-url": "URL Webhook",
-      "webhooks-caps": "WEBHOOKS"
+      "webhooks-caps": "WEBHOOKS",
+      "webhooks": "Webhooks"
     }
   },
   "shopping-list": {
@@ -402,16 +413,19 @@
   },
   "sidebar": {
     "all-recipes": "Ricette",
+    "backups": "Backup",
     "categories": "Categorie",
+    "cookbooks": "Llibro di Ricette",
     "dashboard": "Dashboard",
-    "home-page": "Home Page",
+    "home-page": "Pagina iniziale",
     "manage-users": "Gestire Utenti",
     "migrations": "Migrazioni",
     "profile": "Profilo",
     "search": "Cerca",
     "site-settings": "Impostazioni",
-    "tags": "Tags",
-    "toolbox": "Strumenti"
+    "tags": "Tag",
+    "toolbox": "Strumenti",
+    "language": "Lingua"
   },
   "signup": {
     "error-signing-up": "Errore Registrazione",
@@ -430,8 +444,11 @@
     "tag-deletion-failed": "Eliminazione tag fallita",
     "tag-update-failed": "Aggiornamento tag fallito",
     "tag-updated": "Tag aggiornato",
-    "tags": "Tags",
+    "tags": "Tag",
     "untagged-count": "Senza Tag {count}"
+  },
+  "tool": {
+    "tools": "Strumenti"
   },
   "user": {
     "admin": "Amministratore",
@@ -450,6 +467,7 @@
     "error-cannot-delete-super-user": "Errore! Impossibile Eliminare Super User",
     "existing-password-does-not-match": "La nuova password non corrisponde",
     "full-name": "Nome",
+    "invite-only": "Solo su invito",
     "link-id": "Link ID",
     "link-name": "Link Nome",
     "login": "Login",
@@ -457,33 +475,75 @@
     "manage-users": "Gestisci Utenti",
     "new-password": "Nuova Password",
     "new-user": "Nuovo Utente",
-    "password": "Password",
     "password-has-been-reset-to-the-default-password": "La password è stata reimpostata a quella di default",
     "password-must-match": "Le password devono essere uguali",
     "password-reset-failed": "Reimpostazione della password fallita",
     "password-updated": "Password aggiornata",
+    "password": "Password",
+    "password-strength": "La password è {strength}",
+    "register": "Registrati",
     "reset-password": "Reimposta Password",
     "sign-in": "Accedi",
     "total-mealplans": "Totale Piani Alimentari",
     "total-users": "Totale Utenti",
     "upload-photo": "Carica Foto",
     "use-8-characters-or-more-for-your-password": "Usa 8 caratteri o piú per la password",
-    "user": "Utente",
     "user-created": "Utente creato",
     "user-creation-failed": "Creazione utente fallita",
     "user-deleted": "Utente eliminato",
-    "user-id": "ID Utente",
     "user-id-with-value": "ID Utente:{id}",
+    "user-id": "ID Utente",
     "user-password": "Password Utente",
     "user-successfully-logged-in": "Autenticato Con Successo",
     "user-update-failed": "Aggiornamento Utenete Fallito",
     "user-updated": "Utente Aggiornato",
+    "user": "Utente",
     "username": "Nome Utente",
-    "users": "Utenti",
     "users-header": "UTENTI",
+    "users": "Utenti",
     "webhook-time": "Ora Webhook",
     "webhooks-enabled": "Webhooks Abilitati",
     "you-are-not-allowed-to-create-a-user": "Non sei autorizzato per la creazione di utenti",
-    "you-are-not-allowed-to-delete-this-user": "Non sei autorizzato per la eliminazione di utenti"
+    "you-are-not-allowed-to-delete-this-user": "Non sei autorizzato per la eliminazione di utenti",
+    "enable-advanced-content": "Abilita Contenuto Avanzato",
+    "enable-advanced-content-description": "Abilita funzionalità avanzate come Scraping Ricette, Chiavi API, Webhooks e Gestione dei Dati. Non ti preoccupare, puoi sempre cambiare questa configurazione in seguito"
+  },
+  "language-dialog": {
+    "translated": "tradotto",
+    "choose-language": "Seleziona la Lingua",
+    "select-description": "Scegli la lingua per l'interfaccia utente Mealie. L'impostazione si applica solo a te, non ad altri utenti.",
+    "how-to-contribute-description": "Qualcosa non è ancora tradotto, tradotto male o la tua lingua mancante dalla lista? {read-the-docs-link} su come contribuire!",
+    "read-the-docs": "Consulta la documentazione"
+  },
+  "data-pages": {
+    "seed-data": "Dati Predefiniti",
+    "foods": {
+      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-food-example": "Unione di {food1} in {food2}",
+      "seed-dialog-text": "Inizializza il database con alimenti in base alla tua lingua locale. Questo creerà oltre 200 alimenti comuni che possono essere utilizzati per organizzare il tuo database. Gli alimenti sono tradotti grazie al contributo della comunità di utenti.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+    },
+    "units": {
+      "seed-dialog-text": "Seed the database with common units based on your local language."
+    },
+    "labels": {
+      "seed-dialog-text": "Seed the database with common labels based on your local language."
+    }
+  },
+  "user-registration": {
+    "user-registration": "Registrazione Utente",
+    "join-a-group": "Unisciti a un Gruppo",
+    "create-a-new-group": "Crea un Nuovo Gruppo",
+    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "group-details": "Dettagli del Guppo",
+    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "use-seed-data": "Use Seed Data",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "account-details": "Dettagli dell'Account"
+  },
+  "validation": {
+    "group-name-is-taken": "Il nome del gruppo non è disponibile",
+    "username-is-taken": "Username non disponibile",
+    "email-is-taken": "Email già in uso"
   }
 }

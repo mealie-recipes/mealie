@@ -33,6 +33,7 @@
     "show-assets": "Eszközök megjelenítése"
   },
   "category": {
+    "categories": "Kategóriák",
     "category-created": "Kategória létrehozva",
     "category-creation-failed": "Kategória létrehozása sikertelen",
     "category-deleted": "Kategória törölve",
@@ -81,7 +82,7 @@
     "filter": "Szűrő",
     "friday": "Péntek",
     "general": "Általános",
-    "get": "Get",
+    "get": "Letöltés",
     "home": "Kezdőlap",
     "image": "Kép",
     "image-upload-failed": "Képfeltöltés sikertelen",
@@ -129,7 +130,11 @@
     "url": "URL",
     "view": "Nézet",
     "wednesday": "Szerda",
-    "yes": "Igen"
+    "yes": "Igen",
+    "foods": "Élelmiszerek",
+    "units": "Mértékegységek",
+    "back": "Vissza",
+    "next": "Következő"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -149,7 +154,11 @@
     "manage-groups": "Csoportok kezelése",
     "user-group": "Felhasználói csoportok",
     "user-group-created": "Felhasználói csoport létrehozva",
-    "user-group-creation-failed": "Csoport létrehozása sikertelen"
+    "user-group-creation-failed": "Csoport létrehozása sikertelen",
+    "settings": {
+      "keep-my-recipes-private": "Keep My Recipes Private",
+      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Étkezési terv létrehozása",
@@ -206,7 +215,10 @@
     "upload-a-recipe": "Recept feltöltése",
     "upload-individual-zip-file": "Tölts fel egy .zíp archívumot, ami egy másik Mealie példányból lett exportálva.",
     "url-form-hint": "Másold be a linket a kedvenc recept weboldaladról",
-    "view-scraped-data": "Letöltött adat megtekintése"
+    "view-scraped-data": "Letöltött adat megtekintése",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404. Az oldal nem található",
@@ -278,9 +290,7 @@
     "sugar-content": "Cukor",
     "title": "Cím",
     "total-time": "Teljes idő",
-    "unable-to-delete-recipe": "Nem lehet törölni a receptet"
-  },
-  "reicpe": {
+    "unable-to-delete-recipe": "Nem lehet törölni a receptet",
     "no-recipe": "Nincs recept"
   },
   "search": {
@@ -387,7 +397,8 @@
       "test-webhooks": "Webhook tesztelése",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "A lenti URL egy webhook hivást fog kapni, az étkezési tervhez tartozó recept adataival a megadott napon. Jelenleg a Webook az alábbi időpontban hajtódik végre",
       "webhook-url": "Webhook URL",
-      "webhooks-caps": "WEBHOOKOK"
+      "webhooks-caps": "WEBHOOKOK",
+      "webhooks": "Webhook-ok"
     }
   },
   "shopping-list": {
@@ -402,7 +413,9 @@
   },
   "sidebar": {
     "all-recipes": "Minden recept",
+    "backups": "Biztonsági mentések",
     "categories": "Kategóriák",
+    "cookbooks": "Receptkönyvek",
     "dashboard": "Vezérlőpult",
     "home-page": "Főoldal",
     "manage-users": "Felhasználók",
@@ -411,7 +424,8 @@
     "search": "Keresés",
     "site-settings": "Beállítások",
     "tags": "Címkék",
-    "toolbox": "Eszközök"
+    "toolbox": "Eszközök",
+    "language": "Nyelv"
   },
   "signup": {
     "error-signing-up": "Regisztráció hiba",
@@ -433,6 +447,9 @@
     "tags": "Címkék",
     "untagged-count": "Címkézetlen {count}"
   },
+  "tool": {
+    "tools": "Eszközök"
+  },
   "user": {
     "admin": "Adminisztrátor",
     "are-you-sure-you-want-to-delete-the-link": "Biztos hogy törölni akarod a következő hivatkozást: <b>{link}<b/>?",
@@ -450,6 +467,7 @@
     "error-cannot-delete-super-user": "Hiba! Adminsztrátor felhasználó nem törölhető",
     "existing-password-does-not-match": "A jelszavak nem egyeznek",
     "full-name": "Teljes név",
+    "invite-only": "Csak meghívóval",
     "link-id": "Hivatkozás ID",
     "link-name": "Hivatkozás neve",
     "login": "Bejelentkezés",
@@ -457,33 +475,75 @@
     "manage-users": "Felhasználók kezelése",
     "new-password": "Új jelszó",
     "new-user": "Új felhasználó",
-    "password": "Jelszó",
     "password-has-been-reset-to-the-default-password": "Jelsző vissza lett állítva az alapértelmezett jelszóra",
     "password-must-match": "A jelszavaknak egyezniük kell",
     "password-reset-failed": "Jelszó visszállítása nem sikerült",
     "password-updated": "Jelszó megváltoztatva",
+    "password": "Jelszó",
+    "password-strength": "Jelszó erőssége: {strength}",
+    "register": "Regisztráció",
     "reset-password": "Jelszó visszaállítása",
     "sign-in": "Bejelentkezés",
     "total-mealplans": "Összes étkezési terv",
     "total-users": "Összes Felhasználó",
     "upload-photo": "Fotó feltöltése",
     "use-8-characters-or-more-for-your-password": "Használj 8 vagy több karaktert a jelszóhoz",
-    "user": "Felhasználó",
     "user-created": "Felhasználó létrehozva",
     "user-creation-failed": "A felhasználó létrehozása nem sikerült",
     "user-deleted": "Felhasználó törölve",
-    "user-id": "Felhasználó azonosító",
     "user-id-with-value": "Felhasználó azonosító: {id}",
+    "user-id": "Felhasználó azonosító",
     "user-password": "Felhasználó jelszava",
     "user-successfully-logged-in": "Sikeres bejelentkezés",
     "user-update-failed": "Felhasználó módosítása sikertelen",
     "user-updated": "Felhasználó frissítve",
+    "user": "Felhasználó",
     "username": "Felhasználónév",
-    "users": "Felhasználók",
     "users-header": "FELHASZNÁLÓK",
+    "users": "Felhasználók",
     "webhook-time": "Webhook ideje",
     "webhooks-enabled": "Webhookok engedélyezve",
     "you-are-not-allowed-to-create-a-user": "Nem hozhatsz létre új felhasználót",
-    "you-are-not-allowed-to-delete-this-user": "Nem törölheted ezt a felhasználót"
+    "you-are-not-allowed-to-delete-this-user": "Nem törölheted ezt a felhasználót",
+    "enable-advanced-content": "Haladó beállítások engedélyezése",
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+  },
+  "language-dialog": {
+    "translated": "translated",
+    "choose-language": "Nyelv kiválasztása",
+    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
+    "read-the-docs": "Olvasd el a dokumentációt"
+  },
+  "data-pages": {
+    "seed-data": "Seed Data",
+    "foods": {
+      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-food-example": "Merging {food1} into {food2}",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+    },
+    "units": {
+      "seed-dialog-text": "Seed the database with common units based on your local language."
+    },
+    "labels": {
+      "seed-dialog-text": "Seed the database with common labels based on your local language."
+    }
+  },
+  "user-registration": {
+    "user-registration": "User Registration",
+    "join-a-group": "Join a Group",
+    "create-a-new-group": "Create a New Group",
+    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "group-details": "Group Details",
+    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "use-seed-data": "Use Seed Data",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "account-details": "Account Details"
+  },
+  "validation": {
+    "group-name-is-taken": "Group name is taken",
+    "username-is-taken": "Username is taken",
+    "email-is-taken": "Email is taken"
   }
 }

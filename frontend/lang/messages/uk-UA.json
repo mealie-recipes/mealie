@@ -33,6 +33,7 @@
     "show-assets": "Показати медіа-ресурси"
   },
   "category": {
+    "categories": "Категорії",
     "category-created": "Категорія створена",
     "category-creation-failed": "Не вдалося створити категорію",
     "category-deleted": "Категорію видалено",
@@ -129,7 +130,11 @@
     "url": "URL-адреса",
     "view": "Перегляд",
     "wednesday": "Середа",
-    "yes": "Так"
+    "yes": "Так",
+    "foods": "Страви",
+    "units": "Одиниці виміру",
+    "back": "Назад",
+    "next": "Далі"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -149,7 +154,11 @@
     "manage-groups": "Керування групами",
     "user-group": "Група користувача",
     "user-group-created": "Групу користувача створено",
-    "user-group-creation-failed": "Не вдалося створити групу користувача"
+    "user-group-creation-failed": "Не вдалося створити групу користувача",
+    "settings": {
+      "keep-my-recipes-private": "Тримайте мої рецепти приватними",
+      "keep-my-recipes-private-description": "Встановлює \"приватне\" налаштуванням по замовчування для групи та всіх рецептів. Це завжди можна змінити потім."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Створити новий план харчування",
@@ -206,7 +215,10 @@
     "upload-a-recipe": "Відвантажити рецепт",
     "upload-individual-zip-file": "Відвантажити окремий .zip файл, експортований з іншого Mealie.",
     "url-form-hint": "Скопіюйте та вставте посилання з вашого улюбленого кулінарного веб-сайту",
-    "view-scraped-data": "Переглянути зібрані дані"
+    "view-scraped-data": "Переглянути зібрані дані",
+    "trim-whitespace-description": "Обрізати початкові та кінцеву пробілів і порожні лінії",
+    "trim-prefix-description": "Обрізати перший символ з кожного рядка",
+    "split-by-numbered-line-description": "Пробує розділити абзац по '1)' або '1.' шаблону"
   },
   "page": {
     "404-page-not-found": "404 - Сторінка не знайдена",
@@ -278,9 +290,7 @@
     "sugar-content": "Цукор",
     "title": "Назва",
     "total-time": "Загальний час",
-    "unable-to-delete-recipe": "Не вдалося видалити рецепт"
-  },
-  "reicpe": {
+    "unable-to-delete-recipe": "Не вдалося видалити рецепт",
     "no-recipe": "Немає рецепту"
   },
   "search": {
@@ -387,7 +397,8 @@
       "test-webhooks": "Тестування вебхуків",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "URL-адреси, перераховані нижче, будуть отримувати вебхуки, що містять дані рецепта для плану харчування на запланований день. В даний час Вебхуки будуть виконуватися о",
       "webhook-url": "URL-адреса вебхука",
-      "webhooks-caps": "ВЕБХУКИ"
+      "webhooks-caps": "ВЕБХУКИ",
+      "webhooks": "Вебхуки"
     }
   },
   "shopping-list": {
@@ -402,7 +413,9 @@
   },
   "sidebar": {
     "all-recipes": "Всі рецепти",
+    "backups": "Резервні копії",
     "categories": "Категорії",
+    "cookbooks": "Кулінарні книги",
     "dashboard": "Панель",
     "home-page": "Головна",
     "manage-users": "Користувачі",
@@ -411,7 +424,8 @@
     "search": "Пошук",
     "site-settings": "Налаштування",
     "tags": "Мітки",
-    "toolbox": "Інструменти"
+    "toolbox": "Інструменти",
+    "language": "Мова"
   },
   "signup": {
     "error-signing-up": "Помилка реєстрації",
@@ -433,6 +447,9 @@
     "tags": "Мітки",
     "untagged-count": "Без мітки {count}"
   },
+  "tool": {
+    "tools": "Інструменти"
+  },
   "user": {
     "admin": "Адміністратор",
     "are-you-sure-you-want-to-delete-the-link": "Ви впевнені, що хочете видалити посилання <b>{link}<b/>?",
@@ -450,6 +467,7 @@
     "error-cannot-delete-super-user": "Помилка! Неможливо видалити суперкористувача",
     "existing-password-does-not-match": "Існуючий пароль не збігається",
     "full-name": "Повне Ім'я",
+    "invite-only": "Лише за запрошенням",
     "link-id": "ID посилання",
     "link-name": "Назва посилання",
     "login": "Увійти",
@@ -457,33 +475,75 @@
     "manage-users": "Керування користувачами",
     "new-password": "Новий пароль",
     "new-user": "Новий користувач",
-    "password": "Пароль",
     "password-has-been-reset-to-the-default-password": "Пароль було скинуто до стандартного",
     "password-must-match": "Паролі повинні збігатися",
     "password-reset-failed": "Не вдалося скинути пароль",
     "password-updated": "Пароль оновлено",
+    "password": "Пароль",
+    "password-strength": "Надійність пароля {strength}",
+    "register": "Зареєструватися",
     "reset-password": "Скинути пароль",
     "sign-in": "Увійти",
     "total-mealplans": "Всього планів харчування",
     "total-users": "Всього користувачів",
     "upload-photo": "Відвантажити світлину",
     "use-8-characters-or-more-for-your-password": "Пароль повинен містити 8 або більше символів",
-    "user": "Користувач",
     "user-created": "Користувача створено",
     "user-creation-failed": "Не вдалося створити користувача",
     "user-deleted": "Користувача видалено",
-    "user-id": "ID Користувача",
     "user-id-with-value": "ID користувача: {id}",
+    "user-id": "ID Користувача",
     "user-password": "Пароль користувача",
     "user-successfully-logged-in": "Користувач успішно увійшов",
     "user-update-failed": "Не вдалося оновити користувача",
     "user-updated": "Користувача оновлено",
+    "user": "Користувач",
     "username": "Ім'я користувача",
-    "users": "Користувачі",
     "users-header": "КОРИСТУВАЧІ",
+    "users": "Користувачі",
     "webhook-time": "Час вебхука",
     "webhooks-enabled": "Веб-хуки увімкнено",
     "you-are-not-allowed-to-create-a-user": "Вам не дозволено створювати користувача",
-    "you-are-not-allowed-to-delete-this-user": "Вам не дозволено видаляти користувача"
+    "you-are-not-allowed-to-delete-this-user": "Вам не дозволено видаляти користувача",
+    "enable-advanced-content": "Увімкнути розширений контент",
+    "enable-advanced-content-description": "Вмикає розширені функції, такі як масштабування рецептів, ключі API, вебхуки та керування даними. Не хвилюйтесь, завжди можна змінити це пізніше"
+  },
+  "language-dialog": {
+    "translated": "перекладено",
+    "choose-language": "Змінити мову",
+    "select-description": "Виберіть мову для інтерфейсу Mealie. Це налаштування змінить мову тільки для вас, а не для інших користувачів.",
+    "how-to-contribute-description": "Щось не перекладене, перекладено помилкова або ж ваша мова відсутня зі списку? {read-the-docs-link} про те, як зробити свій внесок!",
+    "read-the-docs": "Документація"
+  },
+  "data-pages": {
+    "seed-data": "Seed Data",
+    "foods": {
+      "merge-dialog-text": "Об'єднання вибраних страв об'єднає вихідну страву та цільову страву до однієї страви. Вихідна страва буде видалена і всі посилання на вихідну страву будуть посилатися на цільову страву.",
+      "merge-food-example": "Об'єднання {food1} в {food2}",
+      "seed-dialog-text": "Заповнити базу даних інгредієнтами що відповідають мові. Це додасть 200+ розповсюджених інгредієнтів що можуть бути використані для організації бази даних. Назви перекладені громадськими зусиллями.",
+      "seed-dialog-warning": "У вас вже є деякі елементи в базі даних. Ця дія не зможе об'єднати повторення, вам доведеться зробити це вручну."
+    },
+    "units": {
+      "seed-dialog-text": "Заповнити базу даних розповсюдженими одиницями виміру що відповідають мові."
+    },
+    "labels": {
+      "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові."
+    }
+  },
+  "user-registration": {
+    "user-registration": "Реєстрація користувачів",
+    "join-a-group": "Долучитись до групи",
+    "create-a-new-group": "Створити нову групу",
+    "provide-registration-token-description": "Будь ласка, вкажіть реєстраційний ключ, пов'язаний з групою, до якої ви хочете приєднатися. Цей токен потрібно буде отримати від існуючого члена групи.",
+    "group-details": "Деталі групи",
+    "group-details-description": "Перед створенням облікового запису вам потрібно створити групу. Спочатку ваша група буде містити тільки вас, але ви зможете запрошувати інших пізніше. Учасники вашої групи можуть обмінюватися планами харчування, списками покупок, рецептами і багато чим іншим!",
+    "use-seed-data": "Використати початкові дані",
+    "use-seed-data-description": "Mealie має вбудований набір їжі, одиниць виміру, та категорій що можуть бути додані до вашої групи для допомоги в організації рецептів.",
+    "account-details": "Деталі акаунта"
+  },
+  "validation": {
+    "group-name-is-taken": "Ім'я групи зайнято",
+    "username-is-taken": "Логін зайнятий",
+    "email-is-taken": "Електронна пошта зайнята"
   }
 }

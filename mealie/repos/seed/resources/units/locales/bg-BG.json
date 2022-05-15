@@ -1,26 +1,26 @@
 {
     "teaspoon": {
-        "name": "cuillère à thé",
+        "name": "teaspoon",
         "description": "",
-        "abbreviation": "càc"
+        "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "cuillère à soupe",
+        "name": "tablespoon",
         "description": "",
-        "abbreviation": "càS"
+        "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "tasse",
+        "name": "cup",
         "description": "",
-        "abbreviation": "tasse"
+        "abbreviation": "cup"
     },
     "fluid-ounce": {
-        "name": "centilitre",
+        "name": "fluid ounce",
         "description": "",
-        "abbreviation": "cL"
+        "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pinte",
+        "name": "pint",
         "description": "",
         "abbreviation": "pt"
     },
@@ -35,37 +35,37 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "mililitre",
+        "name": "milliliter",
         "description": "",
-        "abbreviation": "mL"
+        "abbreviation": "ml"
     },
     "liter": {
-        "name": "litre",
+        "name": "liter",
         "description": "",
-        "abbreviation": "L"
+        "abbreviation": "l"
     },
     "pound": {
-        "name": "livre",
+        "name": "pound",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "once",
+        "name": "ounce",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gramme",
+        "name": "gram",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogramme",
+        "name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligramme",
+        "name": "milligram",
         "description": "",
         "abbreviation": "mg"
     },
@@ -75,27 +75,27 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "trait",
+        "name": "dash",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "part",
+        "name": "serving",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "tête",
+        "name": "head",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "gousse",
+        "name": "clove",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "boîte",
+        "name": "can",
         "description": "",
         "abbreviation": ""
     }

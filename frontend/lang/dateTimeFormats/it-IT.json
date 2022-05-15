@@ -1,21 +1,21 @@
 {
   "short": {
-    "month": "short",
-    "day": "numeric",
-    "weekday": "long"
+    "month": "breve",
+    "day": "numerico",
+    "weekday": "lungo"
   },
   "medium": {
-    "month": "long",
-    "day": "numeric",
-    "weekday": "long",
-    "year": "numeric"
+    "month": "lungo",
+    "day": "numerico",
+    "weekday": "lungo",
+    "year": "numerico"
   },
   "long": {
     "year": "numeric",
-    "month": "long",
-    "day": "numeric",
-    "weekday": "long",
-    "hour": "numeric",
-    "minute": "numeric"
+    "month": "lungo",
+    "day": "numerico",
+    "weekday": "lungo",
+    "hour": "numerico",
+    "minute": "numerico"
   }
 }

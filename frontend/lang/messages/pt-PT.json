@@ -33,6 +33,7 @@
     "show-assets": "Show Assets"
   },
   "category": {
+    "categories": "Categories",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
@@ -129,7 +130,11 @@
     "url": "URL",
     "view": "View",
     "wednesday": "Quarta-feira",
-    "yes": "Sim"
+    "yes": "Sim",
+    "foods": "Foods",
+    "units": "Units",
+    "back": "Back",
+    "next": "Next"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -149,7 +154,11 @@
     "manage-groups": "Manage Groups",
     "user-group": "User Group",
     "user-group-created": "User Group Created",
-    "user-group-creation-failed": "User Group Creation Failed"
+    "user-group-creation-failed": "User Group Creation Failed",
+    "settings": {
+      "keep-my-recipes-private": "Keep My Recipes Private",
+      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+    }
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Criar novo Plano de Refeições",
@@ -206,7 +215,10 @@
     "upload-a-recipe": "Upload a Recipe",
     "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "Copy and paste a link from your favorite recipe website",
-    "view-scraped-data": "View Scraped Data"
+    "view-scraped-data": "View Scraped Data",
+    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-prefix-description": "Trim first character from each line",
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
     "404-page-not-found": "404 Page not found",
@@ -278,9 +290,7 @@
     "sugar-content": "Sugar",
     "title": "Título",
     "total-time": "Tempo Total",
-    "unable-to-delete-recipe": "Unable to Delete Recipe"
-  },
-  "reicpe": {
+    "unable-to-delete-recipe": "Unable to Delete Recipe",
     "no-recipe": "No Recipe"
   },
   "search": {
@@ -387,7 +397,8 @@
       "test-webhooks": "Webhooks de Teste",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Os URLs apresentados abaixo receberão webhooks que contêm os dados da receita para o plano de refeições no dia marcado. Atualmente, os webhooks serão executados a ",
       "webhook-url": "Webhook URL",
-      "webhooks-caps": "WEBHOOKS"
+      "webhooks-caps": "WEBHOOKS",
+      "webhooks": "Webhooks"
     }
   },
   "shopping-list": {
@@ -402,7 +413,9 @@
   },
   "sidebar": {
     "all-recipes": "All Recipes",
+    "backups": "Backups",
     "categories": "Categories",
+    "cookbooks": "Cookbooks",
     "dashboard": "Dashboard",
     "home-page": "Home Page",
     "manage-users": "Manage Users",
@@ -411,7 +424,8 @@
     "search": "Search",
     "site-settings": "Site Settings",
     "tags": "Tags",
-    "toolbox": "Toolbox"
+    "toolbox": "Toolbox",
+    "language": "Language"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",
@@ -433,6 +447,9 @@
     "tags": "Tags",
     "untagged-count": "Untagged {count}"
   },
+  "tool": {
+    "tools": "Tools"
+  },
   "user": {
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
@@ -450,6 +467,7 @@
     "error-cannot-delete-super-user": "Error! Cannot Delete Super User",
     "existing-password-does-not-match": "Existing password does not match",
     "full-name": "Full Name",
+    "invite-only": "Invite Only",
     "link-id": "Link ID",
     "link-name": "Link Name",
     "login": "Login",
@@ -457,33 +475,75 @@
     "manage-users": "Manage Users",
     "new-password": "New Password",
     "new-user": "New User",
-    "password": "Password",
     "password-has-been-reset-to-the-default-password": "Password has been reset to the default password",
     "password-must-match": "Password must match",
     "password-reset-failed": "Password reset failed",
     "password-updated": "Password updated",
+    "password": "Password",
+    "password-strength": "Password is {strength}",
+    "register": "Register",
     "reset-password": "Reset Password",
     "sign-in": "Sign in",
     "total-mealplans": "Total MealPlans",
     "total-users": "Total Users",
     "upload-photo": "Upload Photo",
     "use-8-characters-or-more-for-your-password": "Use 8 characters or more for your password",
-    "user": "User",
     "user-created": "User created",
     "user-creation-failed": "User creation failed",
     "user-deleted": "User deleted",
-    "user-id": "User ID",
     "user-id-with-value": "User ID: {id}",
+    "user-id": "User ID",
     "user-password": "User Password",
     "user-successfully-logged-in": "User Successfully Logged In",
     "user-update-failed": "User update failed",
     "user-updated": "User updated",
+    "user": "User",
     "username": "Username",
-    "users": "Users",
     "users-header": "USERS",
+    "users": "Users",
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
-    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user"
+    "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user",
+    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+  },
+  "language-dialog": {
+    "translated": "translated",
+    "choose-language": "Choose Language",
+    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
+    "read-the-docs": "Read the docs"
+  },
+  "data-pages": {
+    "seed-data": "Seed Data",
+    "foods": {
+      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-food-example": "Merging {food1} into {food2}",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+    },
+    "units": {
+      "seed-dialog-text": "Seed the database with common units based on your local language."
+    },
+    "labels": {
+      "seed-dialog-text": "Seed the database with common labels based on your local language."
+    }
+  },
+  "user-registration": {
+    "user-registration": "User Registration",
+    "join-a-group": "Join a Group",
+    "create-a-new-group": "Create a New Group",
+    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "group-details": "Group Details",
+    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "use-seed-data": "Use Seed Data",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "account-details": "Account Details"
+  },
+  "validation": {
+    "group-name-is-taken": "Group name is taken",
+    "username-is-taken": "Username is taken",
+    "email-is-taken": "Email is taken"
   }
 }

@@ -1,21 +1,21 @@
 {
   "short": {
     "month": "short",
-    "day": "numeric",
+    "day": "числовий",
     "weekday": "long"
   },
   "medium": {
     "month": "long",
-    "day": "numeric",
+    "day": "числовий",
     "weekday": "long",
-    "year": "numeric"
+    "year": "числовий"
   },
   "long": {
-    "year": "numeric",
+    "year": "числовий",
     "month": "long",
-    "day": "numeric",
+    "day": "числовий",
     "weekday": "long",
-    "hour": "numeric",
-    "minute": "numeric"
+    "hour": "числовий",
+    "minute": "числовий"
   }
 }
