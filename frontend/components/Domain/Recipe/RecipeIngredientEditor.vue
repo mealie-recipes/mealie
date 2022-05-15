@@ -163,13 +163,10 @@ export default defineComponent({
     });
 
     function toggleTitle() {
-      if (value.title) {
-        state.showTitle = false;
+      if (state.showTitle) {
         value.title = "";
-      } else {
-        state.showTitle = true;
-        value.title = "Section Title";
       }
+      state.showTitle = !state.showTitle
     }
 
     function toggleOriginalText() {
