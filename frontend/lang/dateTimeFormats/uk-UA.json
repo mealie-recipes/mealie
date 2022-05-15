@@ -15,7 +15,7 @@
     "month": "long",
     "day": "numeric",
     "weekday": "long",
-    "hour": "numeric",
-    "minute": "numeric"
+    "hour": "числовий",
+    "minute": "числовий"
   }
 }
