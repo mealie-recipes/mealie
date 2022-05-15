@@ -216,9 +216,9 @@
     "upload-individual-zip-file": "Opload en individuel .zip-fil, eksporteret fra en anden Mealie-instans.",
     "url-form-hint": "Kopiér og indsæt et link fra din foretrukne opskrifts hjemmeside",
     "view-scraped-data": "Vis skrabet data",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-whitespace-description": "Fjern indledende og efterfølgende mellemrum samt blanke linjer",
     "trim-prefix-description": "Beskær første tegn fra hver linje",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -506,13 +506,13 @@
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheder til at oprette en ny bruger",
     "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheder til at slette denne bruger",
     "enable-advanced-content": "Tillad avanceret indhold",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+    "enable-advanced-content-description": "Aktiverer avancerede funktioner som skalering af opskrifter, API-nøgler, Webhooks og data håndtering. Du kan altid ændre dit valgt senere"
   },
   "language-dialog": {
     "translated": "oversat",
     "choose-language": "Vælg sprog",
     "select-description": "Vælg sprog for Mealie UI. Indstillingen gælder kun for dig, ikke for andre brugere.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
+    "how-to-contribute-description": "Er noget endnu ikke oversat, forkert oversat, eller mangler dit sprog fra listen? {read-the-docs-link} om, hvordan du bidrager til oversættelser!",
     "read-the-docs": "Læs dokumentationen"
   },
   "data-pages": {
@@ -536,8 +536,8 @@
     "create-a-new-group": "Opret en ny gruppe",
     "provide-registration-token-description": "Angiv venligst det registreringstoken, der er knyttet til den gruppe, du gerne vil deltage i. Du skal indhente dette fra et eksisterende gruppemedlem.",
     "group-details": "Gruppeoplysninger",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
+    "group-details-description": "Før du opretter en konto, skal du oprette en gruppe. Din gruppe vil kun indeholde dig, men du vil kunne invitere andre senere. Medlemmer i din gruppe kan dele madplaner, indkøbslister, opskrifter og meget mere!",
+    "use-seed-data": "Anved standard data",
     "use-seed-data-description": "Mealie indeholder som standard en samling af fødevarer, enheder og etiketter, som du kan bruge til at oprette og organisere dine opskrifter.",
     "account-details": "Kontodetaljer"
   },
