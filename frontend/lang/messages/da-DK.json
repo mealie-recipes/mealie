@@ -17,7 +17,7 @@
     "github": "Github",
     "log-lines": "Log linjer",
     "not-demo": "Ikke demo",
-    "portfolio": "Portfolio",
+    "portfolio": "Portefølje",
     "production": "Produktion",
     "support": "Hjælp",
     "version": "Version"
@@ -33,7 +33,7 @@
     "show-assets": "Vis ekstramateriale"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Kategorier",
     "category-created": "Kategori oprettet",
     "category-creation-failed": "Oprettelse af kategorien fejlede",
     "category-deleted": "Kategori slettet",
@@ -98,7 +98,7 @@
     "no-recipe-found": "Ingen opskrift fundet",
     "ok": "Ok",
     "options": "Valgmuligheder:",
-    "print": "Print",
+    "print": "Udskriv",
     "random": "Tilfældig",
     "rating": "Bedømmelse",
     "recent": "Seneste",
@@ -131,10 +131,10 @@
     "view": "Se",
     "wednesday": "Onsdag",
     "yes": "Ja",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Fødevarer",
+    "units": "Enheder",
+    "back": "Tilbage",
+    "next": "Næste"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -156,8 +156,8 @@
     "user-group-created": "Brugergruppe oprettet",
     "user-group-creation-failed": "Oprettelse af brugergruppe fejlede",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Bevar mine opskrifter private",
+      "keep-my-recipes-private-description": "Ændrer din gruppe og alle opskrifter til private. Du kan altid ændre dette senere."
     }
   },
   "meal-plan": {
@@ -217,7 +217,7 @@
     "url-form-hint": "Kopiér og indsæt et link fra din foretrukne opskrifts hjemmeside",
     "view-scraped-data": "Vis skrabet data",
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
+    "trim-prefix-description": "Beskær første tegn fra hver linje",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
@@ -249,7 +249,7 @@
     "disable-amount": "Slå ingrediensmængder fra",
     "disable-comments": "Slå kommentarer fra",
     "fat-content": "Fedt",
-    "fiber-content": "Fiber",
+    "fiber-content": "Kostfibre",
     "grams": "gram",
     "ingredient": "Ingrediens",
     "ingredients": "Ingredienser",
@@ -291,7 +291,7 @@
     "title": "Titel",
     "total-time": "Total tid",
     "unable-to-delete-recipe": "Kunne ikke slette opskrift",
-    "no-recipe": "No Recipe"
+    "no-recipe": "Ingen opskrift"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -353,7 +353,7 @@
     "settings-updated": "Indstillinger ændret",
     "site-settings": "Sideindstillinger",
     "theme": {
-      "accent": "Accent",
+      "accent": "Nuance",
       "dark": "Mørkt",
       "default-to-system": "Systemstandard",
       "error": "Fejl",
@@ -413,9 +413,9 @@
   },
   "sidebar": {
     "all-recipes": "Alle opskr.",
-    "backups": "Backups",
+    "backups": "Sikkerhedskopier",
     "categories": "Kategorier",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Kogebøger",
     "dashboard": "Instrumentbræt",
     "home-page": "Forside",
     "manage-users": "Adm. brugere",
@@ -425,7 +425,7 @@
     "site-settings": "Sideindstil.",
     "tags": "Tags",
     "toolbox": "Værktøjskasse",
-    "language": "Language"
+    "language": "Sprog"
   },
   "signup": {
     "error-signing-up": "Fejl i forbindelse med oprettelse af bruger",
@@ -448,7 +448,7 @@
     "untagged-count": "Ikke-tagget: {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Værktøjer"
   },
   "user": {
     "admin": "Administrator",
@@ -467,7 +467,7 @@
     "error-cannot-delete-super-user": "Fejl! Kan ikke slette super-brugeren",
     "existing-password-does-not-match": "Nuværende adgangskode matcher ikke",
     "full-name": "Fulde navn",
-    "invite-only": "Invite Only",
+    "invite-only": "Kun inviterede",
     "link-id": "Link ID",
     "link-name": "Linknavn",
     "login": "Log på",
@@ -480,8 +480,8 @@
     "password-reset-failed": "Nulstilling af adgangskode fejlede",
     "password-updated": "Adgangskoden blev opdateret",
     "password": "Adgangskode",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Adgangskodestyrken er {strength}",
+    "register": "Registrér",
     "reset-password": "Nulstil adgangskoden",
     "sign-in": "Log ind",
     "total-mealplans": "Antal Madplaner",
@@ -505,45 +505,45 @@
     "webhooks-enabled": "Webhooks Aktiveret",
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheder til at oprette en ny bruger",
     "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheder til at slette denne bruger",
-    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content": "Tillad avanceret indhold",
     "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "translated": "oversat",
+    "choose-language": "Vælg sprog",
+    "select-description": "Vælg sprog for Mealie UI. Indstillingen gælder kun for dig, ikke for andre brugere.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "read-the-docs": "Læs dokumentationen"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Opret standard data",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
-      "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "merge-dialog-text": "Ved at kombinere de udvalgte fødevarer vil de to valgte fødevarer blive til en enkelt fødevare. Kildefødevaren vil blive slettet, og alle henvisninger til kildefødevaren vil blive opdateret til at pege på målfødevaren.",
+      "merge-food-example": "Samler {food1} med {food2}",
+      "seed-dialog-text": "Opret fødevarer i dit sprog. Dette vil oprette 200 + almindelige fødevarer, der kan bruges til i dine opskrifter. Fødevarer er oversat via en fællesskabsindsats.",
+      "seed-dialog-warning": "Du har allerede nogle elementer i din database. Denne handling vil ikke samle dubletter, så du må håndtere dem manuelt efterfølgende."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Opret standard enheder i dit sprog."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Opret standard etiketter på dit sprog."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
-    "group-details": "Group Details",
+    "user-registration": "Brugerregistrering",
+    "join-a-group": "Deltag i en gruppe",
+    "create-a-new-group": "Opret en ny gruppe",
+    "provide-registration-token-description": "Angiv venligst det registreringstoken, der er knyttet til den gruppe, du gerne vil deltage i. Du skal indhente dette fra et eksisterende gruppemedlem.",
+    "group-details": "Gruppeoplysninger",
     "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "use-seed-data-description": "Mealie indeholder som standard en samling af fødevarer, enheder og etiketter, som du kan bruge til at oprette og organisere dine opskrifter.",
+    "account-details": "Kontodetaljer"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Gruppenavn er allerede anvendt",
+    "username-is-taken": "Brugernavnet er allerede anvendt",
+    "email-is-taken": "E-mail er allerede anvendt"
   }
 }
