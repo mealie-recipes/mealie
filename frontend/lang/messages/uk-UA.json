@@ -537,8 +537,8 @@
     "provide-registration-token-description": "Будь ласка, вкажіть реєстраційний ключ, пов'язаний з групою, до якої ви хочете приєднатися. Цей токен потрібно буде отримати від існуючого члена групи.",
     "group-details": "Деталі групи",
     "group-details-description": "Перед створенням облікового запису вам потрібно створити групу. Спочатку ваша група буде містити тільки вас, але ви зможете запрошувати інших пізніше. Учасники вашої групи можуть обмінюватися планами харчування, списками покупок, рецептами і багато чим іншим!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "use-seed-data": "Використати початкові дані",
+    "use-seed-data-description": "Mealie має вбудований набір їжі, одиниць виміру, та категорій що можуть бути додані до вашої групи для допомоги в організації рецептів.",
     "account-details": "Деталі акаунта"
   },
   "validation": {
