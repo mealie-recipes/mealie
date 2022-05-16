@@ -9,6 +9,7 @@ from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
+from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.message_types import EventTypes
 
@@ -53,7 +54,11 @@ class RecipeCategoryController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.category_created,
-                msg=self.t.t("notifications.category-created", name=data.name),
+                msg=self.t(
+                    "notifications.generic-created-with-url",
+                    name=data.name,
+                    url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
+                ),
             )
         return data
 
@@ -74,7 +79,11 @@ class RecipeCategoryController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.category_updated,
-                msg=self.t.t("notifications.category-updated", name=data.name),
+                msg=self.t(
+                    "notifications.generic-updated-with-url",
+                    name=data.name,
+                    url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
+                ),
             )
         return data
 
@@ -85,12 +94,11 @@ class RecipeCategoryController(BaseUserController):
         category does not impact a recipe. The category will be removed
         from any recipes that contain it
         """
-        data = self.mixins.delete_one(item_id)
-        if data:
+        if data := self.mixins.delete_one(item_id):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.category_deleted,
-                msg=self.t.t("notifications.category-deleted", name=data.name),
+                msg=self.t("notifications.generic-deleted", name=data.name),
             )
 
     # =========================================================================

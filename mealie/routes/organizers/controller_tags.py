@@ -9,6 +9,7 @@ from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import TagSave
+from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.message_types import EventTypes
 
@@ -52,7 +53,11 @@ class TagController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.tag_created,
-                msg=self.t.t("notifications.tag-created", name=data.name),
+                msg=self.t(
+                    "notifications.generic-created-with-url",
+                    name=data.name,
+                    url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
+                ),
             )
         return data
 
@@ -65,7 +70,11 @@ class TagController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.tag_updated,
-                msg=self.t.t("notifications.tag-updated", name=data.name),
+                msg=self.t(
+                    "notifications.generic-updated-with-url",
+                    name=data.name,
+                    url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
+                ),
             )
         return data
 
@@ -84,7 +93,7 @@ class TagController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.tag_deleted,
-                msg=self.t.t("notifications.tag-deleted", name=data.name),
+                msg=self.t("notifications.generic-deleted", name=data.name),
             )
 
     @router.get("/slug/{tag_slug}", response_model=RecipeTagResponse)

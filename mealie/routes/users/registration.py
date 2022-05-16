@@ -19,8 +19,14 @@ class RegistrationController(BasePublicController):
 
         if not settings.ALLOW_SIGNUP and data.group_token is None or data.group_token == "":
             raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond("User Registration is Disabled")
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=ErrorResponse.respond("User Registration is Disabled"),
             )
 
-        registration_service = RegistrationService(self.deps.logger, get_repositories(self.deps.session), self.deps.t)
+        registration_service = RegistrationService(
+            self.deps.logger,
+            get_repositories(self.deps.session),
+            self.translator,
+        )
+
         return registration_service.register_user(data)

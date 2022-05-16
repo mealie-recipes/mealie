@@ -109,7 +109,7 @@ class ShoppingListController(BaseUserController):
     # CRUD Operations
 
     @cached_property
-    def mixins(self) -> HttpRepo:
+    def mixins(self) -> HttpRepo[ShoppingListCreate, ShoppingListOut, ShoppingListSave]:
         return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=list[ShoppingListSummary])
@@ -125,7 +125,7 @@ class ShoppingListController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_created,
-                msg=self.t.t("notifications.shopping-list-created", name=val.name),
+                msg=self.t("notifications.generic-created", name=val.name),
             )
 
         return val
@@ -141,7 +141,7 @@ class ShoppingListController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_updated,
-                msg=self.t.t("notifications.shopping-list-updated", name=data.name),
+                msg=self.t("notifications.generic-updated", name=data.name),
             )
         return data
 
@@ -152,7 +152,7 @@ class ShoppingListController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_updated,
-                msg=self.t.t("notifications.shopping-list-deleted", name=data.name),
+                msg=self.t("notifications.generic-deleted", name=data.name),
             )
         return data
 

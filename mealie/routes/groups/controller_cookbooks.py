@@ -52,7 +52,7 @@ class GroupCookbookController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_created,
-                msg=self.t.t("notifications.cookbook-created", name=val.name),
+                msg=self.t("notifications.generic-created", name=val.name),
             )
         return val
 
@@ -93,7 +93,7 @@ class GroupCookbookController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_updated,
-                msg=self.t.t("notifications.cookbook-updated", name=val.name),
+                msg=self.t("notifications.generic-updated", name=val.name),
             )
 
         return val
@@ -105,6 +105,6 @@ class GroupCookbookController(BaseUserController):
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_deleted,
-                msg=self.t.t("notifications.cookbook-deleted", name=val.name),
+                msg=self.t("notifications.generic-deleted", name=val.name),
             )
         return val
