@@ -36,7 +36,7 @@ def test_pg_connection_args(monkeypatch):
     assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
 
 
-def test_smtp_enable(monkeypatch):
+def test_smtp_tls_backfill(monkeypatch):
     monkeypatch.setenv("SMTP_HOST", "")
     monkeypatch.setenv("SMTP_PORT", "")
     monkeypatch.setenv("SMTP_TLS", "true")
@@ -48,11 +48,85 @@ def test_smtp_enable(monkeypatch):
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
 
+    assert app_settings.SMTP_AUTH_STRATEGY == "TLS"
+
+    monkeypatch.setenv("SMTP_HOST", "")
+    monkeypatch.setenv("SMTP_PORT", "")
+    monkeypatch.setenv("SMTP_TLS", "false")
+    monkeypatch.setenv("SMTP_FROM_NAME", "")
+    monkeypatch.setenv("SMTP_FROM_EMAIL", "")
+    monkeypatch.setenv("SMTP_USER", "")
+    monkeypatch.setenv("SMTP_PASSWORD", "")
+    monkeypatch.setenv("SMTP_AUTH_STRATEGY", "NONE")
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.SMTP_AUTH_STRATEGY == "NONE"
+
+
+def test_smtp_enable_with_bad_data_tls(monkeypatch):
+    monkeypatch.setenv("SMTP_HOST", "")
+    monkeypatch.setenv("SMTP_PORT", "")
+    monkeypatch.setenv("SMTP_AUTH_STRATEGY", "tls")
+    monkeypatch.setenv("SMTP_FROM_NAME", "")
+    monkeypatch.setenv("SMTP_FROM_EMAIL", "")
+    monkeypatch.setenv("SMTP_USER", "")
+    monkeypatch.setenv("SMTP_PASSWORD", "")
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
     assert app_settings.SMTP_ENABLE is False
 
+
+def test_smtp_enable_with_bad_data_ssl(monkeypatch):
+    monkeypatch.setenv("SMTP_HOST", "")
+    monkeypatch.setenv("SMTP_PORT", "")
+    monkeypatch.setenv("SMTP_AUTH_STRATEGY", "ssl")
+    monkeypatch.setenv("SMTP_FROM_NAME", "")
+    monkeypatch.setenv("SMTP_FROM_EMAIL", "")
+    monkeypatch.setenv("SMTP_USER", "")
+    monkeypatch.setenv("SMTP_PASSWORD", "")
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.SMTP_ENABLE is False
+
+
+def test_smtp_enable_with_no_auth(monkeypatch):
+    monkeypatch.setenv("SMTP_HOST", "email.mealie.io")
+    monkeypatch.setenv("SMTP_PORT", "25")
+    monkeypatch.setenv("SMTP_AUTH_STRATEGY", "none")
+    monkeypatch.setenv("SMTP_FROM_NAME", "Mealie")
+    monkeypatch.setenv("SMTP_FROM_EMAIL", "mealie@mealie.io")
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.SMTP_ENABLE is True
+
+
+def test_smtp_enable_with_tls(monkeypatch):
     monkeypatch.setenv("SMTP_HOST", "email.mealie.io")
     monkeypatch.setenv("SMTP_PORT", "587")
-    monkeypatch.setenv("SMTP_TLS", "true")
+    monkeypatch.setenv("SMTP_AUTH_STRATEGY", "tls")
+    monkeypatch.setenv("SMTP_FROM_NAME", "Mealie")
+    monkeypatch.setenv("SMTP_FROM_EMAIL", "mealie@mealie.io")
+    monkeypatch.setenv("SMTP_USER", "mealie@mealie.io")
+    monkeypatch.setenv("SMTP_PASSWORD", "mealie-password")
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.SMTP_ENABLE is True
+
+
+def test_smtp_enable_with_ssl(monkeypatch):
+    monkeypatch.setenv("SMTP_HOST", "email.mealie.io")
+    monkeypatch.setenv("SMTP_PORT", "465")
+    monkeypatch.setenv("SMTP_AUTH_STRATEGY", "ssl")
     monkeypatch.setenv("SMTP_FROM_NAME", "Mealie")
     monkeypatch.setenv("SMTP_FROM_EMAIL", "mealie@mealie.io")
     monkeypatch.setenv("SMTP_USER", "mealie@mealie.io")
