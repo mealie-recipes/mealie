@@ -34,15 +34,15 @@
 
 ### Email
 
-| Variables       | Default | Description        |
-| --------------- | :-----: | ------------------ |
-| SMTP_HOST       |  None   | Required For email |
-| SMTP_PORT       |   587   | Required For email |
-| SMTP_FROM_NAME  | Mealie  | Required For email |
-| SMTP_TLS        |  true   | Required For email |
-| SMTP_FROM_EMAIL |  None   | Required For email |
-| SMTP_USER       |  None   | Required For email |
-| SMTP_PASSWORD   |  None   | Required For email |
+| Variables          | Default | Description                                       |
+| ------------------ | :-----: | ------------------------------------------------- |
+| SMTP_HOST          |  None   | Required For email                                |
+| SMTP_PORT          |   587   | Required For email                                |
+| SMTP_FROM_NAME     | Mealie  | Required For email                                |
+| SMTP_AUTH_STRATEGY |  TLS    | Required For email, Options: 'TLS', 'SSL', 'NONE' |
+| SMTP_FROM_EMAIL    |  None   | Required For email                                |
+| SMTP_USER          |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
+| SMTP_PASSWORD      |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
 
 ### Webworker
 Changing the webworker settings may cause unforeseen memory leak issues with Mealie. It's best to leave these at the defaults unless you begin to experience issues with multiple users. Exercise caution when changing these settings
