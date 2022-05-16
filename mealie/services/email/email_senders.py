@@ -24,8 +24,10 @@ class DefaultEmailSender(ABCEmailSender, BaseService):
         )
 
         smtp_options: dict[str, str | bool] = {"host": self.settings.SMTP_HOST, "port": self.settings.SMTP_PORT}
-        if self.settings.SMTP_TLS:
+        if self.settings.SMTP_AUTH_STRATEGY.upper() == "TLS":
             smtp_options["tls"] = True
+        if self.settings.SMTP_AUTH_STRATEGY.upper() == "SSL":
+            smtp_options["ssl"] = True
         if self.settings.SMTP_USER:
             smtp_options["user"] = self.settings.SMTP_USER
         if self.settings.SMTP_PASSWORD:

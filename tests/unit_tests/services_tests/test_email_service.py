@@ -28,7 +28,7 @@ class TestEmailSender(ABCEmailSender):
 def patch_env(monkeypatch):
     monkeypatch.setenv("SMTP_HOST", "email.mealie.io")
     monkeypatch.setenv("SMTP_PORT", "587")
-    monkeypatch.setenv("SMTP_TLS", "True")
+    monkeypatch.setenv("SMTP_AUTH_STRATEGY", "TLS")
     monkeypatch.setenv("SMTP_FROM_NAME", "Mealie")
     monkeypatch.setenv("SMTP_FROM_EMAIL", "mealie@mealie.io")
     monkeypatch.setenv("SMTP_USER", "mealie@mealie.io")
