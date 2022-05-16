@@ -13,19 +13,10 @@
         "email-conflict-error": "This email is already in use"
     },
     "notifications": {
-      "recipe-updated": "The recipe {{name}} has been updated: {{url}}",
-      "recipe-deleted": "The recipe {{name}} has been deleted",
-      "shopping-list-created": "The shopping list {{name}} has been created",
-      "shopping-list-updated": "The shopping list {{name}} has been updated",
-      "shopping-list-deleted": "The shopping list {{name}} has been deleted",
-      "category-created": "The category {{name}} has been created",
-      "category-updated": "The category {{name}} has been updated",
-      "category-deleted": "The category {{name}} has been deleted",
-      "tag-created": "The tag {{name}} has been created",
-      "tag-updated": "The tag {{name}} has been updated",
-      "tag-deleted": "The tag {{name}} has been deleted",
-      "cookbook-created": "The cookbook {{name}} has been created",
-      "cookbook-updated": "The cookbook {{name}} has been updated",
-      "cookbook-deleted": "The cookbook {{name}} has been deleted"
+        "generic-created": "{name} was created",
+        "generic-updated": "{name} was updated",
+        "generic-created-with-url": "{name} has been created, {url}",
+        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-deleted": "{name} has been created"
     }
 }
