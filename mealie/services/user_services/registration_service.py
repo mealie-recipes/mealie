@@ -17,10 +17,10 @@ class RegistrationService:
     logger: Logger
     repos: AllRepositories
 
-    def __init__(self, logger: Logger, db: AllRepositories, t: Translator):
+    def __init__(self, logger: Logger, db: AllRepositories, translator: Translator):
         self.logger = logger
         self.repos = db
-        self.t = t
+        self.t = translator.t
 
     def _create_new_user(self, group: GroupInDB, new_group: bool) -> PrivateUser:
         new_user = UserIn(
@@ -58,9 +58,9 @@ class RegistrationService:
         self.registration = registration
 
         if self.repos.users.get_by_username(registration.username):
-            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t.t("exceptions.username-conflict-error")})
+            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.username-conflict-error")})
         elif self.repos.users.get(registration.email, "email"):
-            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t.t("exceptions.email-conflict-error")})
+            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.email-conflict-error")})
 
         self.logger.info(f"Registering user {registration.username}")
         token_entry = None

@@ -6,6 +6,7 @@ from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.lang import local_provider
+from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import AllRepositories
 from mealie.routes._base.checks import OperationChecks
 from mealie.routes._base.dependencies import SharedDependencies
@@ -20,6 +21,10 @@ class BasePublicController(ABC):
     """
 
     deps: SharedDependencies = Depends(SharedDependencies.public)
+    translator: Translator = Depends(local_provider)
+
+    def __init__(self):
+        self.t = local_provider().t
 
 
 class BaseUserController(ABC):
@@ -30,9 +35,10 @@ class BaseUserController(ABC):
     """
 
     deps: SharedDependencies = Depends(SharedDependencies.user)
+    translator: Translator = Depends(local_provider)
 
     def __init__(self):
-        self.t = local_provider()
+        self.t = self.translator.t
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
