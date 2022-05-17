@@ -44,6 +44,7 @@ from mealie.services.event_bus_service.event_types import (
     EventTypes,
 )
 from mealie.services.recipe.recipe_data_service import InvalidDomainError, NotAnImageError, RecipeDataService
+from mealie.services.ocr.pytesseract import OCR
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
@@ -435,3 +436,18 @@ class RecipeController(BaseRecipeController):
         self.mixins.update_one(recipe, slug)
 
         return asset_in
+
+    # ==================================================================================================================
+    # OCR
+    @router.post("/create-ocr", status_code=201, response_model=str)
+    def create_recipe_ocr(self, extension: str = Form(...), file: UploadFile = File(...)):
+        """Takes an image and creates a recipe based on the image"""
+        slug = self.service.create_one(CreateRecipe(name="New OCR Recipe")).slug
+        RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)
+        description = OCR.image_to_string(file.file)
+        recipe = self.mixins.get_one(slug)
+        recipe.description = description
+        recipe.settings.show_assets = True
+        self.mixins.update_one(recipe, slug)
+
+        return slug
