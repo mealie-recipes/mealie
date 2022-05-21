@@ -1,3 +1,4 @@
+import contextlib
 import shutil
 import tempfile
 import zipfile
@@ -27,25 +28,17 @@ class MealieAlphaMigrator(BaseMigrator):
         if recipe.get("categories", False):
             recipe["recipeCategory"] = recipe.get("categories")
             del recipe["categories"]
-        try:
+
+        with contextlib.suppress(KeyError):
             del recipe["_id"]
             del recipe["date_added"]
-        except Exception:
-            pass
-
         # Migration from list to Object Type Data
-        try:
+        with contextlib.suppress(KeyError):
             if "" in recipe["tags"]:
                 recipe["tags"] = [tag for tag in recipe["tags"] if tag != ""]
-        except Exception:
-            pass
-
-        try:
+        with contextlib.suppress(KeyError):
             if "" in recipe["categories"]:
                 recipe["categories"] = [cat for cat in recipe["categories"] if cat != ""]
-        except Exception:
-            pass
-
         if type(recipe["extras"]) == list:
             recipe["extras"] = {}
 
@@ -85,6 +78,9 @@ class MealieAlphaMigrator(BaseMigrator):
 
                 if dest_dir.exists():
                     shutil.rmtree(dest_dir)
+
+                if source_dir is None:
+                    continue
 
                 for dir in source_dir.iterdir():
                     if dir.is_dir():
