@@ -13,10 +13,10 @@
         "email-conflict-error": "Denne e-mail er allerede i brug"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been created"
+        "generic-created": "{name} blev oprettet",
+        "generic-updated": "{name} blev opdateret",
+        "generic-created-with-url": "{name} er oprettet, {url}",
+        "generic-updated-with-url": "{name} er blevet opdateret, {url}",
+        "generic-deleted": "{name} er oprettet"
     }
 }
