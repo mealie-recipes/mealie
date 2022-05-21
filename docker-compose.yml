@@ -63,13 +63,14 @@ services:
 
       # =====================================
       # Email Configuration
-      # - SMTP_HOST=
-      # - SMTP_PORT=587
-      # - SMTP_FROM_NAME=Mealie
-      # - SMTP_TLS=true
-      # - SMTP_FROM_EMAIL=
-      # - SMTP_USER=
-      # - SMTP_PASSWORD=
+      # SMTP_HOST=
+      # SMTP_PORT=587
+      # SMTP_FROM_NAME=Mealie
+      # SMTP_AUTH_STRATEGY=TLS # Options: 'TLS', 'SSL', 'NONE'
+      # SMTP_FROM_EMAIL=
+      # SMTP_USER=
+      # SMTP_PASSWORD=
+
   # postgres:
   #   container_name: postgres
   #   image: postgres

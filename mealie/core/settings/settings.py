@@ -68,23 +68,39 @@ class AppSettings(BaseSettings):
     SMTP_HOST: Optional[str]
     SMTP_PORT: Optional[str] = "587"
     SMTP_FROM_NAME: Optional[str] = "Mealie"
-    SMTP_TLS: Optional[bool] = True
     SMTP_FROM_EMAIL: Optional[str]
     SMTP_USER: Optional[str]
     SMTP_PASSWORD: Optional[str]
+    SMTP_AUTH_STRATEGY: Optional[str] = "TLS"  # Options: 'TLS', 'SSL', 'NONE'
 
     @property
     def SMTP_ENABLE(self) -> bool:
-        """Validates all SMTP variables are set"""
-        required = {
+        return AppSettings.validate_smtp(
             self.SMTP_HOST,
             self.SMTP_PORT,
             self.SMTP_FROM_NAME,
-            self.SMTP_TLS,
             self.SMTP_FROM_EMAIL,
+            self.SMTP_AUTH_STRATEGY,
             self.SMTP_USER,
             self.SMTP_PASSWORD,
-        }
+        )
+
+    @staticmethod
+    def validate_smtp(
+        host: str,
+        port: str,
+        from_name: str,
+        from_email: str,
+        strategy: str,
+        user: str | None = None,
+        password: str | None = None,
+    ) -> bool:
+        """Validates all SMTP variables are set"""
+        required = {host, port, from_name, from_email, strategy}
+
+        if strategy.upper() in {"TLS", "SSL"}:
+            required.add(user)
+            required.add(password)
 
         return "" not in required and None not in required
 
