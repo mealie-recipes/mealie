@@ -24,7 +24,7 @@ class BasePublicController(ABC):
     translator: Translator = Depends(local_provider)
 
     def __init__(self):
-        self.t = local_provider().t
+        self.t = self.translator.t if self.translator else local_provider().t
 
 
 class BaseUserController(ABC):
@@ -38,7 +38,7 @@ class BaseUserController(ABC):
     translator: Translator = Depends(local_provider)
 
     def __init__(self):
-        self.t = self.translator.t
+        self.t = self.translator.t if self.translator else local_provider().t
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
@@ -75,3 +75,7 @@ class BaseAdminController(BaseUserController):
     """
 
     deps: SharedDependencies = Depends(SharedDependencies.admin)
+    translator: Translator = Depends(local_provider)
+
+    def __init__(self):
+        self.t = self.translator.t if self.translator else local_provider().t
