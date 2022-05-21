@@ -1,10 +1,18 @@
-import { CreateAsset, ParsedIngredient, Parser, RecipeZipToken, BulkCreatePayload } from "./types";
 import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import { BaseCRUDAPI } from "~/api/_base";
 
-import { Recipe, CreateRecipe } from "~/types/api-types/recipe";
+import { Recipe, CreateRecipe, RecipeAsset, CreateRecipeByUrlBulk, ParsedIngredient, UpdateImageResponse, RecipeZipTokenResponse } from "~/types/api-types/recipe";
 import { ApiRequestInstance } from "~/types/api";
+
+export type Parser = "nlp" | "brute";
+
+export interface CreateAsset {
+  name: string;
+  icon: string;
+  extension: string;
+  file: File;
+}
 
 const prefix = "/api";
 
@@ -31,7 +39,7 @@ const routes = {
   recipeShareToken: (token: string) => `${prefix}/recipes/shared/${token}`,
 };
 
-export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
+export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
@@ -58,7 +66,7 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     formData.append("extension", payload.extension);
     formData.append("icon", payload.icon);
 
-    return await this.requests.post(routes.recipesRecipeSlugAssets(recipeSlug), formData);
+    return await this.requests.post<RecipeAsset>(routes.recipesRecipeSlugAssets(recipeSlug), formData);
   }
 
   updateImage(slug: string, fileObject: File) {
@@ -66,11 +74,11 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     formData.append("image", fileObject);
     formData.append("extension", fileObject.name.split(".").pop() ?? "");
 
-    return this.requests.put<any>(routes.recipesRecipeSlugImage(slug), formData);
+    return this.requests.put<UpdateImageResponse, FormData>(routes.recipesRecipeSlugImage(slug), formData);
   }
 
   updateImagebyURL(slug: string, url: string) {
-    return this.requests.post(routes.recipesRecipeSlugImage(slug), { url });
+    return this.requests.post<UpdateImageResponse>(routes.recipesRecipeSlugImage(slug), { url });
   }
 
   async testCreateOneUrl(url: string) {
@@ -81,8 +89,8 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
     return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags });
   }
 
-  async createManyByUrl(payload: BulkCreatePayload) {
-    return await this.requests.post(routes.recipesCreateUrlBulk, payload);
+  async createManyByUrl(payload: CreateRecipeByUrlBulk) {
+    return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {
@@ -96,7 +104,7 @@ export class RecipeAPI extends BaseCRUDAPI<Recipe, CreateRecipe> {
   }
 
   async getZipToken(recipeSlug: string) {
-    return await this.requests.post<RecipeZipToken>(routes.recipesRecipeSlugExport(recipeSlug), {});
+    return await this.requests.post<RecipeZipTokenResponse>(routes.recipesRecipeSlugExport(recipeSlug), {});
   }
 
   getZipRedirectUrl(recipeSlug: string, token: string) {

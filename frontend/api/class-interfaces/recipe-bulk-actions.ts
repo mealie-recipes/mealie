@@ -1,45 +1,10 @@
 import { BaseAPI } from "../_base";
+import { AssignCategories, AssignTags, DeleteRecipes, ExportRecipes } from "~/types/api-types/recipe";
+import { GroupDataExport } from "~/types/api-types/group";
 
-interface BasePayload {
-  recipes: string[];
-}
-
-type exportType = "json";
-
+// Many bulk actions return nothing
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface RecipeBulkDelete extends BasePayload {}
-
-interface RecipeBulkExport extends BasePayload {
-  exportType: exportType;
-}
-
-interface RecipeBulkCategorize extends BasePayload {
-  categories: string[];
-}
-
-interface RecipeBulkTag extends BasePayload {
-  tags: string[];
-}
-
-interface BulkActionError {
-  recipe: string;
-  error: string;
-}
-
 interface BulkActionResponse {
-  success: boolean;
-  message: string;
-  errors: BulkActionError[];
-}
-
-export interface GroupDataExport {
-  id: string;
-  groupId: string;
-  name: string;
-  filename: string;
-  path: string;
-  size: string;
-  expires: Date;
 }
 
 const prefix = "/api";
@@ -53,19 +18,19 @@ const routes = {
 };
 
 export class BulkActionsAPI extends BaseAPI {
-  async bulkExport(payload: RecipeBulkExport) {
+  async bulkExport(payload: ExportRecipes) {
     return await this.requests.post<BulkActionResponse>(routes.bulkExport, payload);
   }
 
-  async bulkCategorize(payload: RecipeBulkCategorize) {
+  async bulkCategorize(payload: AssignCategories) {
     return await this.requests.post<BulkActionResponse>(routes.bulkCategorize, payload);
   }
 
-  async bulkTag(payload: RecipeBulkTag) {
+  async bulkTag(payload: AssignTags) {
     return await this.requests.post<BulkActionResponse>(routes.bulkTag, payload);
   }
 
-  async bulkDelete(payload: RecipeBulkDelete) {
+  async bulkDelete(payload: DeleteRecipes) {
     return await this.requests.post<BulkActionResponse>(routes.bulkDelete, payload);
   }
 
@@ -74,6 +39,6 @@ export class BulkActionsAPI extends BaseAPI {
   }
 
   async purgeExports() {
-    return await this.requests.delete(routes.purgeExports);
+    return await this.requests.delete<BulkActionResponse>(routes.purgeExports);
   }
 }

@@ -16,7 +16,7 @@ class PlanEntryType(str, Enum):
     side = "side"
 
 
-class CreatRandomEntry(MealieModel):
+class CreateRandomEntry(MealieModel):
     date: date
     entry_type: PlanEntryType = PlanEntryType.dinner
 

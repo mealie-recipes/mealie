@@ -1,13 +1,11 @@
 import { BaseAPI } from "../_base";
-import { ReportSummary } from "./group-reports";
+import { ReportSummary } from "~/types/api-types/reports";
+import { SupportedMigrations } from "~/types/api-types/group";
 
 const prefix = "/api";
-
-export type SupportedMigration = "nextcloud" | "chowdown" | "mealie_alpha" | "paprika";
-
 export interface MigrationPayload {
   addMigrationTag: boolean;
-  migrationType: SupportedMigration;
+  migrationType: SupportedMigrations;
   archive: File;
 }
 

@@ -259,7 +259,7 @@ export default defineComponent({
       const { data } = await adminApi.about.checkApp();
 
       if (data) {
-        appConfig.value = data;
+        appConfig.value = { ...data, isSiteSecure: false};
       }
 
       appConfig.value.isSiteSecure = isLocalHostOrHttps();
@@ -323,7 +323,7 @@ export default defineComponent({
         if (data.success) {
           state.success = true;
         } else {
-          state.error = data.error;
+          state.error = data.error ?? "";
           state.success = false;
         }
       }

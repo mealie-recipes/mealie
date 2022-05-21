@@ -8,7 +8,7 @@ const routes = {
   ruleId: (id: string | number) => `${prefix}/groups/mealplans/rules/${id}`,
 };
 
-export class MealPlanRulesApi extends BaseCRUDAPI<PlanRulesOut, PlanRulesCreate> {
+export class MealPlanRulesApi extends BaseCRUDAPI<PlanRulesCreate, PlanRulesOut> {
   baseRoute = routes.rule;
   itemRoute = routes.ruleId;
 }

@@ -1,4 +1,7 @@
 import { BaseAPI } from "../_base";
+import { EmailInitationResponse, EmailInvitation } from "~/types/api-types/group";
+import { ForgotPassword } from "~/types/api-types/user";
+import { EmailTest } from "~/types/api-types/admin";
 
 const routes = {
   base: "/api/admin/email",
@@ -7,30 +10,16 @@ const routes = {
   invitation: "/api/groups/invitations/email",
 };
 
-export interface EmailResponse {
-  success: boolean;
-  error: string;
-}
-
-export interface EmailPayload {
-  email: string;
-}
-
-export interface InvitationEmail {
-  email: string;
-  token: string;
-}
-
 export class EmailAPI extends BaseAPI {
-  test(payload: EmailPayload) {
-    return this.requests.post<EmailResponse>(routes.base, payload);
+  test(payload: EmailTest) {
+    return this.requests.post<EmailInitationResponse>(routes.base, payload);
   }
 
-  sendInvitation(payload: InvitationEmail) {
-    return this.requests.post<EmailResponse>(routes.invitation, payload);
+  sendInvitation(payload: EmailInvitation) {
+    return this.requests.post<EmailInitationResponse>(routes.invitation, payload);
   }
 
-  sendForgotPassword(payload: EmailPayload) {
-    return this.requests.post<EmailResponse>(routes.forgotPassword, payload);
+  sendForgotPassword(payload: ForgotPassword) {
+    return this.requests.post<EmailInitationResponse>(routes.forgotPassword, payload);
   }
 }

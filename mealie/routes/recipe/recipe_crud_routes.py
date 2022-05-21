@@ -27,6 +27,7 @@ from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
+from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.server.tasks import ServerTaskNames
 from mealie.services import urls
@@ -59,10 +60,6 @@ class RecipeGetAll(GetAll):
     load_food: bool = False
 
 
-class UpdateImageResponse(BaseModel):
-    image: str
-
-
 class FormatResponse(BaseModel):
     jjson: list[str] = Field(..., alias="json")
     zip: list[str]
@@ -81,10 +78,10 @@ class RecipeExportController(BaseRecipeController):
     def get_recipe_formats_and_templates(self):
         return TemplateService().templates
 
-    @router_exports.post("/{slug}/exports")
+    @router_exports.post("/{slug}/exports", response_model=RecipeZipTokenResponse)
     def get_recipe_zip_token(self, slug: str):
         """Generates a recipe zip token to be used to download a recipe as a zip file"""
-        return {"token": create_recipe_slug_token(slug)}
+        return RecipeZipTokenResponse(token=create_recipe_slug_token(slug))
 
     @router_exports.get("/{slug}/exports", response_class=FileResponse)
     def get_recipe_as_format(self, slug: str, template_name: str, temp_dir=Depends(temporary_dir)):

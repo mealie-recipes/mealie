@@ -1,7 +1,7 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { CreateGroup } from "~/api/class-interfaces/groups";
+import { GroupBase } from "~/types/api-types/user";
 
 export const useGroupSelf = function () {
   const api = useUserApi();
@@ -17,7 +17,7 @@ export const useGroupSelf = function () {
       return group;
     },
     async updatePreferences() {
-      if (!group.value) {
+      if (!group.value?.preferences) {
         return;
       }
 
@@ -65,7 +65,7 @@ export const useGroups = function () {
     return data;
   }
 
-  async function createGroup(payload: CreateGroup) {
+  async function createGroup(payload: GroupBase) {
     loading.value = true;
     const { data } = await api.groups.createOne(payload);
 

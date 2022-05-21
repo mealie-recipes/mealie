@@ -26,14 +26,3 @@ class AssignTags(ExportBase):
 
 class DeleteRecipes(ExportBase):
     pass
-
-
-class BulkActionError(MealieModel):
-    recipe: str
-    error: str
-
-
-class BulkActionsResponse(MealieModel):
-    success: bool
-    message: str
-    errors: list[BulkActionError] = []

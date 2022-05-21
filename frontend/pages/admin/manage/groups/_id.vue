@@ -28,8 +28,8 @@ import { defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-a
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { GroupInDB } from "~/types/api-types/user";
 import { VForm } from "~/types/vuetify";
-import { GroupRead } from "~/api/admin/admin-groups";
 
 export default defineComponent({
   components: {
@@ -48,7 +48,7 @@ export default defineComponent({
 
     const adminApi = useAdminApi();
 
-    const group = ref<GroupRead | null>(null);
+    const group = ref<GroupInDB | null>(null);
 
     const userError = ref(false);
 

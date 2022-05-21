@@ -28,10 +28,10 @@ class AdminAboutInfo(AppInfo):
 
 
 class CheckAppConfig(MealieModel):
-    email_ready: bool = False
-    ldap_ready: bool = False
-    base_url_set: bool = False
-    is_up_to_date: bool = False
+    email_ready: bool
+    ldap_ready: bool
+    base_url_set: bool
+    is_up_to_date: bool
 
 
 class DockerVolumeText(MealieModel):

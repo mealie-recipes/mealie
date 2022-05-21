@@ -38,10 +38,10 @@
     </v-expansion-panels>
   </v-container>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
-import { ServerTask } from "~/api/types/server-task";
+import { ServerTask } from "~/types/api-types/server";
 import { useAdminApi } from "~/composables/api";
 
 export default defineComponent({

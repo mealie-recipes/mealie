@@ -7,13 +7,7 @@ from mealie.core.dependencies.dependencies import temporary_zip_path
 from mealie.core.security import create_file_token
 from mealie.routes._base import BaseUserController, controller
 from mealie.schema.group.group_exports import GroupDataExport
-from mealie.schema.recipe.recipe_bulk_actions import (
-    AssignCategories,
-    AssignTags,
-    BulkActionsResponse,
-    DeleteRecipes,
-    ExportRecipes,
-)
+from mealie.schema.recipe.recipe_bulk_actions import AssignCategories, AssignTags, DeleteRecipes, ExportRecipes
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
 
@@ -26,15 +20,16 @@ class RecipeBulkActionsController(BaseUserController):
     def service(self) -> RecipeBulkActionsService:
         return RecipeBulkActionsService(self.repos, self.user, self.group)
 
-    @router.post("/tag", response_model=BulkActionsResponse)
+    # TODO Should these actions return some success response?
+    @router.post("/tag")
     def bulk_tag_recipes(self, tag_data: AssignTags):
         self.service.assign_tags(tag_data.recipes, tag_data.tags)
 
-    @router.post("/categorize", response_model=BulkActionsResponse)
+    @router.post("/categorize")
     def bulk_categorize_recipes(self, assign_cats: AssignCategories):
         self.service.assign_categories(assign_cats.recipes, assign_cats.categories)
 
-    @router.post("/delete", response_model=BulkActionsResponse)
+    @router.post("/delete")
     def bulk_delete_recipes(self, delete_recipes: DeleteRecipes):
         self.service.delete_recipes(delete_recipes.recipes)
 

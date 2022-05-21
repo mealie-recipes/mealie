@@ -154,7 +154,7 @@ import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
 import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
-import { GroupDataExport } from "~/api/class-interfaces/recipe-bulk-actions";
+import { GroupDataExport } from "~/types/api-types/group";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 
 const MODES = {

@@ -10,7 +10,7 @@ const routes = {
   tagsSlug: (tag: string) => `${prefix}/tags/slug/${tag}`,
 };
 
-export class TagsAPI extends BaseCRUDAPI<RecipeTagResponse, TagIn> {
+export class TagsAPI extends BaseCRUDAPI<TagIn, RecipeTagResponse> {
   baseRoute: string = routes.tags;
   itemRoute = routes.tagsId;
 

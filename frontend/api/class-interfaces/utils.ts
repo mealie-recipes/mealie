@@ -1,14 +1,11 @@
 import { BaseAPI } from "../_base";
+import { FileTokenResponse } from "~/types/api-types/response";
 
 const prefix = "/api";
 
-interface DownloadData {
-  fileToken: string;
-}
-
 export class UtilsAPI extends BaseAPI {
   async download(url: string) {
-    const { response } = await this.requests.get<DownloadData>(url);
+    const { response } = await this.requests.get<FileTokenResponse>(url);
 
     if (!response) {
       return;

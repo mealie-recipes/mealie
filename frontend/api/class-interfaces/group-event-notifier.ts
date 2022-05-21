@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../_base";
-import { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/types/api-types/group";
+import { GroupEventNotifierCreate, GroupEventNotifierOut, GroupEventNotifierUpdate } from "~/types/api-types/group";
 
 const prefix = "/api";
 
@@ -8,7 +8,7 @@ const routes = {
   eventNotifierId: (id: string | number) => `${prefix}/groups/events/notifications/${id}`,
 };
 
-export class GroupEventNotifierApi extends BaseCRUDAPI<GroupEventNotifierOut, GroupEventNotifierCreate> {
+export class GroupEventNotifierApi extends BaseCRUDAPI<GroupEventNotifierCreate, GroupEventNotifierOut, GroupEventNotifierUpdate> {
   baseRoute = routes.eventNotifier;
   itemRoute = routes.eventNotifierId;
 

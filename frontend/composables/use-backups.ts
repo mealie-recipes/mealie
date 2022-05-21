@@ -1,7 +1,12 @@
 import { useAsync, ref, reactive } from "@nuxtjs/composition-api";
 import { toastLoading, loader } from "./use-toast";
-import { AllBackups, ImportBackup } from "~/api/class-interfaces/backups";
+import { AllBackups, BackupOptions } from "~/types/api-types/admin";
 import { useUserApi } from "~/composables/api";
+
+interface ImportBackup {
+  name: string;
+  options: BackupOptions;
+}
 
 const backups = ref<AllBackups>({
   imports: [],
@@ -41,7 +46,6 @@ export const useBackups = function (fetch = true) {
     options: {
       recipes: true,
       settings: true,
-      pages: true,
       themes: true,
       groups: true,
       users: true,

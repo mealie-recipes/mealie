@@ -83,8 +83,8 @@
 <script lang="ts">
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
-import { ParsedIngredient, Parser } from "~/api/class-interfaces/recipes/types";
-import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
+import { Parser } from "~/api/class-interfaces/recipes/recipe";
+import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, ParsedIngredient } from "~/types/api-types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useFoods, useRecipe, useUnits } from "~/composables/recipes";

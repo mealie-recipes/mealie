@@ -9,7 +9,7 @@ const routes = {
   merge: `${prefix}/units/merge`,
 };
 
-export class UnitAPI extends BaseCRUDAPI<IngredientUnit, CreateIngredientUnit> {
+export class UnitAPI extends BaseCRUDAPI<CreateIngredientUnit, IngredientUnit> {
   baseRoute: string = routes.unit;
   itemRoute = routes.unitsUnit;
 

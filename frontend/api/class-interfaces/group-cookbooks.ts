@@ -8,7 +8,7 @@ const routes = {
   cookbooksId: (id: number) => `${prefix}/groups/cookbooks/${id}`,
 };
 
-export class CookbookAPI extends BaseCRUDAPI<RecipeCookBook, CreateCookBook> {
+export class CookbookAPI extends BaseCRUDAPI<CreateCookBook, RecipeCookBook, UpdateCookBook> {
   baseRoute: string = routes.cookbooks;
   itemRoute = routes.cookbooksId;
 

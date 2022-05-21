@@ -56,7 +56,7 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs, onMounted, reactive } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { RecipeComment } from "~/api/class-interfaces/recipes/types";
+import { RecipeCommentOut } from "~/types/api-types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
@@ -76,7 +76,7 @@ export default defineComponent({
   setup(props) {
     const api = useUserApi();
 
-    const comments = ref<RecipeComment[]>([]);
+    const comments = ref<RecipeCommentOut[]>([]);
 
     const state = reactive({
       comment: "",

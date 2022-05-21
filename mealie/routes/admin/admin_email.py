@@ -1,23 +1,10 @@
 from fastapi import APIRouter
 
 from mealie.routes._base import BaseAdminController, controller
-from mealie.schema._mealie import MealieModel
+from mealie.schema.admin.email import EmailReady, EmailSuccess, EmailTest
 from mealie.services.email import EmailService
 
 router = APIRouter(prefix="/email")
-
-
-class EmailReady(MealieModel):
-    ready: bool
-
-
-class EmailSuccess(MealieModel):
-    success: bool
-    error: str = None
-
-
-class EmailTest(MealieModel):
-    email: str
 
 
 @controller(router)

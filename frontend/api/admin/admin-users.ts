@@ -8,7 +8,7 @@ const routes = {
   adminUsersId: (tag: string) => `${prefix}/admin/users/${tag}`,
 };
 
-export class AdminUsersApi extends BaseCRUDAPI<UserOut, UserIn> {
+export class AdminUsersApi extends BaseCRUDAPI<UserIn, UserOut, UserOut> {
   baseRoute: string = routes.adminUsers;
   itemRoute = routes.adminUsersId;
 }

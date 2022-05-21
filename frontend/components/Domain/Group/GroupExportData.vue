@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { parseISO, formatDistanceToNow } from "date-fns";
-import { GroupDataExport } from "~/api/class-interfaces/recipe-bulk-actions";
+import { GroupDataExport } from "~/types/api-types/group";
 export default defineComponent({
   props: {
     exports: {
@@ -57,4 +57,3 @@ export default defineComponent({
   },
 });
 </script>
-

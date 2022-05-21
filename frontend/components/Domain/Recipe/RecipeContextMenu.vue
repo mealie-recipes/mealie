@@ -95,8 +95,9 @@ import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { MealType, planTypeOptions } from "~/composables/use-group-mealplan";
+import { planTypeOptions } from "~/composables/use-group-mealplan";
 import { ShoppingListSummary } from "~/types/api-types/group";
+import { PlanEntryType } from "~/types/api-types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 
 export interface ContextMenuIncludes {
@@ -183,7 +184,7 @@ export default defineComponent({
       loading: false,
       menuItems: [] as ContextMenuItem[],
       newMealdate: "",
-      newMealType: "dinner" as MealType,
+      newMealType: "dinner" as PlanEntryType,
       pickerMenu: false,
     });
 

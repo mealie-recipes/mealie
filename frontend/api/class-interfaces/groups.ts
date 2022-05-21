@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../_base";
-import { GroupInDB, UserOut } from "~/types/api-types/user";
-import { GroupStatistics, GroupStorage } from "~/types/api-types/group";
+import { CategoryBase, GroupBase, GroupInDB, UserOut } from "~/types/api-types/user";
+import { CreateInviteToken, GroupAdminUpdate, GroupStatistics, GroupStorage, ReadGroupPreferences, ReadInviteToken, SetPermissions, UpdateGroupPreferences } from "~/types/api-types/group";
 
 const prefix = "/api";
 
@@ -20,82 +20,34 @@ const routes = {
   groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,
 };
 
-interface Category {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-export interface CreateGroup {
-  name: string;
-}
-
-export interface UpdatePreferences {
-  privateGroup: boolean;
-  firstDayOfWeek: number;
-  recipePublic: boolean;
-  recipeShowNutrition: boolean;
-  recipeShowAssets: boolean;
-  recipeLandscapeView: boolean;
-  recipeDisableComments: boolean;
-  recipeDisableAmount: boolean;
-}
-
-export interface Preferences extends UpdatePreferences {
-  id: number;
-  group_id: number;
-}
-
-export interface Group extends CreateGroup {
-  id: number;
-  preferences: Preferences;
-}
-
-export interface CreateInvitation {
-  uses: number;
-}
-
-export interface Invitation {
-  group_id: number;
-  token: string;
-  uses_left: number;
-}
-
-export interface SetPermissions {
-  userId: string;
-  canInvite?: boolean;
-  canManage?: boolean;
-  canOrganize?: boolean;
-}
-
-export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
+export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate> {
   baseRoute = routes.groups;
   itemRoute = routes.groupsId;
   /** Returns the Group Data for the Current User
    */
   async getCurrentUserGroup() {
-    return await this.requests.get<Group>(routes.groupsSelf);
+    return await this.requests.get<GroupInDB>(routes.groupsSelf);
   }
 
   async getCategories() {
-    return await this.requests.get<Category[]>(routes.categories);
+    return await this.requests.get<CategoryBase[]>(routes.categories);
   }
 
-  async setCategories(payload: Category[]) {
-    return await this.requests.put<Category[]>(routes.categories, payload);
+  async setCategories(payload: CategoryBase[]) {
+    return await this.requests.put<CategoryBase[]>(routes.categories, payload);
   }
 
   async getPreferences() {
-    return await this.requests.get<Preferences>(routes.preferences);
+    return await this.requests.get<ReadGroupPreferences>(routes.preferences);
   }
 
-  async setPreferences(payload: UpdatePreferences) {
+  async setPreferences(payload: UpdateGroupPreferences) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
-    return await this.requests.put<Preferences, UpdatePreferences>(routes.preferences, payload);
+    return await this.requests.put<ReadGroupPreferences, UpdateGroupPreferences>(routes.preferences, payload);
   }
 
-  async createInvitation(payload: CreateInvitation) {
-    return await this.requests.post<Invitation>(routes.invitation, payload);
+  async createInvitation(payload: CreateInviteToken) {
+    return await this.requests.post<ReadInviteToken>(routes.invitation, payload);
   }
 
   async fetchMembers() {
@@ -104,7 +56,7 @@ export class GroupAPI extends BaseCRUDAPI<GroupInDB, CreateGroup> {
 
   async setMemberPermissions(payload: SetPermissions) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
-    return await this.requests.put<Permissions, SetPermissions>(routes.permissions, payload);
+    return await this.requests.put<UserOut, SetPermissions>(routes.permissions, payload);
   }
 
   async statistics() {

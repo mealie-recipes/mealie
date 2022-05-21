@@ -1,8 +1,5 @@
 import { BaseAPI } from "../_base";
-
-export type Validation = {
-  valid: boolean;
-};
+import { ValidationResponse } from "~/types/api-types/response";
 
 const prefix = "/api";
 
@@ -15,18 +12,18 @@ const routes = {
 
 export class ValidatorsApi extends BaseAPI {
   async group(name: string) {
-    return await this.requests.get<Validation>(routes.group(name));
+    return await this.requests.get<ValidationResponse>(routes.group(name));
   }
 
   async username(name: string) {
-    return await this.requests.get<Validation>(routes.user(name));
+    return await this.requests.get<ValidationResponse>(routes.user(name));
   }
 
   async email(email: string) {
-    return await this.requests.get<Validation>(routes.email(email));
+    return await this.requests.get<ValidationResponse>(routes.email(email));
   }
 
   async recipe(groupId: string, name: string) {
-    return await this.requests.get<Validation>(routes.recipe(groupId, name));
+    return await this.requests.get<ValidationResponse>(routes.recipe(groupId, name));
   }
 }

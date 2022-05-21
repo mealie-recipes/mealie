@@ -1,35 +1,5 @@
 import { BaseAPI } from "../_base";
-
-export interface BackupOptions {
-  recipes?: boolean;
-  settings?: boolean;
-  pages?: boolean;
-  themes?: boolean;
-  groups?: boolean;
-  users?: boolean;
-  notifications?: boolean;
-}
-
-export interface ImportBackup {
-  name: string;
-  options: BackupOptions;
-}
-
-export interface BackupJob {
-  tag?: string;
-  options: BackupOptions;
-  templates?: string[];
-}
-
-export interface BackupFile {
-  name: string;
-  date: string;
-}
-
-export interface AllBackups {
-  imports: BackupFile[];
-  templates: string[];
-}
+import { AllBackups, BackupOptions, CreateBackup } from "~/types/api-types/admin";
 
 const prefix = "/api";
 
@@ -52,7 +22,7 @@ export class BackupAPI extends BaseAPI {
 
   /** Generates a backup of the recipe database in json format.
    */
-  async createOne(payload: BackupJob) {
+  async createOne(payload: CreateBackup) {
     return await this.requests.post(routes.backupsExportDatabase, payload);
   }
 

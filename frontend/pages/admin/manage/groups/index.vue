@@ -71,9 +71,9 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
-import { Group } from "~/api/class-interfaces/groups";
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
+import { GroupInDB } from "~/types/api-types/user";
 
 export default defineComponent({
   layout: "admin",
@@ -121,7 +121,7 @@ export default defineComponent({
 
     const router = useRouter();
 
-    function handleRowClick(item: Group) {
+    function handleRowClick(item: GroupInDB) {
       router.push(`/admin/manage/groups/${item.id}`);
     }
 

@@ -59,7 +59,7 @@
 import { defineComponent, computed, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/shared";
 import { useClipboard, useShare } from "@vueuse/core";
-import { RecipeShareToken } from "~/api/class-interfaces/recipes/recipe-share";
+import { RecipeShareToken } from "~/types/api-types/recipe";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 
@@ -118,7 +118,7 @@ export default defineComponent({
 
       const { data } = await userApi.recipes.share.createOne({
         recipeId: props.recipeId,
-        expiresAt: expirationDate,
+        expiresAt: expirationDate.toISOString(),
       });
 
       if (data) {

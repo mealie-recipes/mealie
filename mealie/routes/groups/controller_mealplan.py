@@ -9,7 +9,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
-from mealie.schema.meal_plan.new_meal import CreatRandomEntry
+from mealie.schema.meal_plan.new_meal import CreateRandomEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.responses import ErrorResponse
@@ -42,7 +42,7 @@ class GroupMealplanController(BaseUserController):
         return self.repo.get_today(group_id=self.group_id)
 
     @router.post("/random", response_model=ReadPlanEntry)
-    def create_random_meal(self, data: CreatRandomEntry):
+    def create_random_meal(self, data: CreateRandomEntry):
         """
         create_random_meal is a route that provides the randomized funcitonality for mealplaners.
         It operates by following the rules setout in the Groups mealplan settings. If not settings
