@@ -11,5 +11,12 @@
         "integrity-error": "Errore di integrità del database",
         "username-conflict-error": "Questo nome utente è già in uso",
         "email-conflict-error": "Questo indirizzo email è già utilizzato"
+    },
+    "notifications": {
+        "generic-created": "{name} was created",
+        "generic-updated": "{name} was updated",
+        "generic-created-with-url": "{name} has been created, {url}",
+        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-deleted": "{name} has been created"
     }
 }

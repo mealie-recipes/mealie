@@ -11,5 +11,12 @@
         "integrity-error": "Помилка цілісності бази даних",
         "username-conflict-error": "Це ім'я користувача вже використовується",
         "email-conflict-error": "Ця електронна адреса вже використовується"
+    },
+    "notifications": {
+        "generic-created": "{name} was created",
+        "generic-updated": "{name} was updated",
+        "generic-created-with-url": "{name} has been created, {url}",
+        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-deleted": "{name} has been created"
     }
 }

@@ -11,5 +11,12 @@
         "integrity-error": "Databaseintegritetsfejl",
         "username-conflict-error": "Dette brugernavn er allerede i brug",
         "email-conflict-error": "Denne e-mail er allerede i brug"
+    },
+    "notifications": {
+        "generic-created": "{name} was created",
+        "generic-updated": "{name} was updated",
+        "generic-created-with-url": "{name} has been created, {url}",
+        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-deleted": "{name} has been created"
     }
 }

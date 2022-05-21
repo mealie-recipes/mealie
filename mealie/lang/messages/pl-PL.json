@@ -1,15 +1,22 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Wystąpił nieoczekiwany błąd"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Nazwy przepisów muszą być unikalne"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Nie masz uprawnień do wykonania tej akcji",
+        "no-entry-found": "Wskazany zasób jest niedostępny",
+        "integrity-error": "Błąd integralności bazy danych",
+        "username-conflict-error": "Ta nazwa użytkownika jest już zajęta",
+        "email-conflict-error": "Ten adres email już jest zajęty"
+    },
+    "notifications": {
+        "generic-created": "{name} was created",
+        "generic-updated": "{name} was updated",
+        "generic-created-with-url": "{name} has been created, {url}",
+        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-deleted": "{name} has been created"
     }
 }

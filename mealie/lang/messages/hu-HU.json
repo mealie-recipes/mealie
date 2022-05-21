@@ -11,5 +11,12 @@
         "integrity-error": "Adatbázis integritás hiba",
         "username-conflict-error": "A felhasználónév már foglalt",
         "email-conflict-error": "Ez az e-mail cím már használatban van"
+    },
+    "notifications": {
+        "generic-created": "{name} was created",
+        "generic-updated": "{name} was updated",
+        "generic-created-with-url": "{name} has been created, {url}",
+        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-deleted": "{name} has been created"
     }
 }
