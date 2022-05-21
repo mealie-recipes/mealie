@@ -29,6 +29,10 @@ class JsonProvider:
                 break
 
             if i == last:
+                for key, value in kwargs.items():
+                    if not value:
+                        value = ""
+                    translation_value = translation_value.replace("{" + key + "}", value)
                 return translation_value
 
         return default or key

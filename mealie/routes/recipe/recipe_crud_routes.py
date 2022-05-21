@@ -29,6 +29,9 @@ from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.server.tasks import ServerTaskNames
+from mealie.services import urls
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
@@ -120,6 +123,8 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"])
 
 @controller(router)
 class RecipeController(BaseRecipeController):
+    event_bus: EventBusService = Depends(EventBusService)
+
     def handle_exceptions(self, ex: Exception) -> None:
         match type(ex):
             case exceptions.PermissionDenied:
@@ -152,7 +157,20 @@ class RecipeController(BaseRecipeController):
 
             recipe.tags = extras.use_tags(ctx)  # type: ignore
 
-        return self.service.create_one(recipe).slug
+        new_recipe = self.service.create_one(recipe)
+
+        if new_recipe:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.recipe_created,
+                msg=self.t(
+                    "notifications.generic-created-with-url",
+                    name=new_recipe.name,
+                    url=urls.recipe_url(new_recipe.slug, self.deps.settings.BASE_URL),
+                ),
+            )
+
+        return new_recipe.slug
 
     @router.post("/create-url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
@@ -249,6 +267,17 @@ class RecipeController(BaseRecipeController):
         except Exception as e:
             self.handle_exceptions(e)
 
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.recipe_updated,
+                msg=self.t(
+                    "notifications.generic-updated-with-url",
+                    name=data.name,
+                    url=urls.recipe_url(data.slug, self.deps.settings.BASE_URL),
+                ),
+            )
+
         return data
 
     @router.patch("/{slug}")
@@ -264,9 +293,18 @@ class RecipeController(BaseRecipeController):
     def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
         try:
-            return self.service.delete_one(slug)
+            data = self.service.delete_one(slug)
         except Exception as e:
             self.handle_exceptions(e)
+
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.recipe_deleted,
+                msg=self.t("notifications.generic-deleted", name=data.name),
+            )
+
+        return data
 
     # ==================================================================================================================
     # Image and Assets

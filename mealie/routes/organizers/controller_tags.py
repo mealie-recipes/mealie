@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
 from mealie.routes._base import BaseUserController, controller
@@ -9,12 +9,18 @@ from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import TagSave
+from mealie.services import urls
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/tags", tags=["Organizer: Tags"])
 
 
 @controller(router)
 class TagController(BaseUserController):
+
+    event_bus: EventBusService = Depends(EventBusService)
+
     @cached_property
     def repo(self):
         return self.repos.tags.by_group(self.group_id)
@@ -42,13 +48,35 @@ class TagController(BaseUserController):
     def create_one(self, tag: TagIn):
         """Creates a Tag in the database"""
         save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
-        return self.repo.create(save_data)
+        data = self.repo.create(save_data)
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.tag_created,
+                msg=self.t(
+                    "notifications.generic-created-with-url",
+                    name=data.name,
+                    url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
+                ),
+            )
+        return data
 
     @router.put("/{item_id}", response_model=RecipeTagResponse)
     def update_one(self, item_id: UUID4, new_tag: TagIn):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
-        return self.repo.update(item_id, save_data)
+        data = self.repo.update(item_id, save_data)
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.tag_updated,
+                msg=self.t(
+                    "notifications.generic-updated-with-url",
+                    name=data.name,
+                    url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
+                ),
+            )
+        return data
 
     @router.delete("/{item_id}")
     def delete_recipe_tag(self, item_id: UUID4):
@@ -57,9 +85,16 @@ class TagController(BaseUserController):
         from any recipes that contain it"""
 
         try:
-            self.repo.delete(item_id)
+            data = self.repo.delete(item_id)
         except Exception as e:
             raise HTTPException(status.HTTP_400_BAD_REQUEST) from e
+
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.tag_deleted,
+                msg=self.t("notifications.generic-deleted", name=data.name),
+            )
 
     @router.get("/slug/{tag_slug}", response_model=RecipeTagResponse)
     async def get_one_by_slug(self, tag_slug: str):
