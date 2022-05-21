@@ -13,19 +13,19 @@
       <RecipePageActionMenu
         logged-in
         :value="true"
-        @json="jsonEditor = true"
-        @edit="jsonEditor = false"
+        @json="jsonEditor = !jsonEditor"
+        @edit="jsonEditor = !jsonEditor"
         @save="createRecipe"
       />
 
-      <div v-if="jsonEditor">
+      <div v-show="jsonEditor">
         <!-- Probably not the best way, but it works! -->
         <br />
         <br />
         <VJsoneditor v-model="recipeDetails" height="1500px" :options="jsonEditorOptions" />
       </div>
 
-      <RecipeEditor ref="recipeEditor" v-else v-model="recipeDetails" @upload="getImage" />
+      <RecipeEditor ref="recipeEditor" v-show="!jsonEditor" v-model="recipeDetails" @upload="getImage" />
     </v-card>
   </v-container>
 </template>
