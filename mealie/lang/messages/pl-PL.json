@@ -11,5 +11,12 @@
         "integrity-error": "Błąd integralności bazy danych",
         "username-conflict-error": "Ta nazwa użytkownika jest już zajęta",
         "email-conflict-error": "Ten adres email już jest zajęty"
+    },
+    "notifications": {
+        "generic-created": "{name} was created",
+        "generic-updated": "{name} was updated",
+        "generic-created-with-url": "{name} has been created, {url}",
+        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-deleted": "{name} has been created"
     }
 }
