@@ -5,8 +5,8 @@ const { frac } = useFraction();
 
 function sanitizeIngredientHTML(rawHtml: string) {
   return DOMPurify.sanitize(rawHtml, {
-    "USE_PROFILES": {html: true},
-    "ALLOWED_TAGS": ["b", "q", "i", "strong", "sup"]
+    USE_PROFILES: { html: true },
+    ALLOWED_TAGS: ["b", "q", "i", "strong", "sup"],
   });
 }
 
@@ -18,7 +18,10 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
   const { quantity, food, unit, note } = ingredient;
 
   let returnQty = "";
-  if (quantity !== undefined && quantity !== 0) {
+
+  // casting to number is required as sometimes quantity is a string
+  if (quantity && Number(quantity) !== 0) {
+    console.log("Using Quantity", quantity, typeof quantity);
     if (unit?.fraction) {
       const fraction = frac(quantity * scale, 10, true);
       if (fraction[0] !== undefined && fraction[0] > 0) {
