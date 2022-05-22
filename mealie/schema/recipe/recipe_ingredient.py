@@ -4,7 +4,7 @@ import enum
 from typing import Optional, Union
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, Field
+from pydantic import UUID4, Field, validator
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
@@ -53,7 +53,7 @@ class RecipeIngredient(MealieModel):
     unit: Optional[Union[IngredientUnit, CreateIngredientUnit]]
     food: Optional[Union[IngredientFood, CreateIngredientFood]]
     disable_amount: bool = True
-    quantity: float = 1
+    quantity: NoneFloat = 1
     original_text: Optional[str]
 
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
@@ -63,6 +63,20 @@ class RecipeIngredient(MealieModel):
 
     class Config:
         orm_mode = True
+
+    @validator("quantity", pre=True)
+    @classmethod
+    def validate_quantity(cls, value, values) -> NoneFloat:
+        """
+        Sometimes the frontend UI will provide an emptry string as a "null" value because of the default
+        bindings in Vue. This validator will ensure that the quantity is set to None if the value is an
+        empty string.
+        """
+        if isinstance(value, float):
+            return value
+        if value is None or value == "":
+            return None
+        return value
 
 
 class IngredientConfidence(MealieModel):
