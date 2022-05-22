@@ -274,7 +274,7 @@ export default defineComponent({
     watch(props.value, (v) => {
       state.disabledSteps = [];
 
-      v.forEach((element) => {
+      v.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
           showTitleEditor.value[element.id] = validateTitle(element.title);
         }
