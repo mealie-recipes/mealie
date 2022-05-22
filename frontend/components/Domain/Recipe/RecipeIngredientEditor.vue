@@ -20,6 +20,7 @@
           class="mx-1"
           type="number"
           placeholder="Quantity"
+          @keypress="quantityFilter"
         >
           <v-icon v-if="$listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
             {{ $globals.icons.arrowUpDown }}
@@ -166,7 +167,7 @@ export default defineComponent({
       if (state.showTitle) {
         value.title = "";
       }
-      state.showTitle = !state.showTitle
+      state.showTitle = !state.showTitle;
     }
 
     function toggleOriginalText() {
@@ -211,7 +212,15 @@ export default defineComponent({
       return options;
     });
 
+    function quantityFilter(e: KeyboardEvent) {
+      // if digit is pressed, add to quantity
+      if (e.key === "-" || e.key === "+" || e.key === "e") {
+        e.preventDefault();
+      }
+    }
+
     return {
+      quantityFilter,
       toggleOriginalText,
       contextMenuOptions,
       handleUnitEnter,
