@@ -13,6 +13,24 @@ The version 1 release of Mealie should be seen as an entirely different applicat
     - [ ] Meal Plans
     - [ ] Cookbooks / Pages
 
+
+## Migration Considerations
+
+Before you migrate to v1.0.0-beta-x please consider the following:
+
+**API Integration Will Break**
+
+Several of the endpoints in the API have changed. This means that you will need to update your code to use the new endpoints.
+
+**Meal Plan Notifications Are Not Yet Implemented**
+
+If you're using the Meal Plan webhook feature it has yet to be implemented in v1. This feature is being significantly improved in v1 and has yet to be fully fleshed out. If you were a heavy user, you may want to wait until v1 to use this feature.
+
+**Recipes are Now Private**
+
+This can be a plus or a minus depending on your use case. If you relied on the old implementation that allowed viewing of recipes without logging in, you will loose that access. We are planning on implementing a public facing interface for groups/tenants to allow unauthenticated users to view public recipes.
+
+
 ## Step 1: Setting Up The New Application
 
 Given the nature of the upgrade, it is highly recommended that you standup a new instance of mealie along side your current instance. This will allow you to migrate your data safely and quickly without any issues. Follow the instructions in the [Installation Checklist](../getting-started/installation/installation-checklist.md) to get started. Once that's complete and you can login, continue here with step 2.
