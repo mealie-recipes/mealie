@@ -1,3 +1,4 @@
+import contextlib
 from pathlib import Path
 from uuid import UUID
 
@@ -6,6 +7,7 @@ from pydantic import UUID4
 from mealie.core import root_logger
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.recipe import Recipe
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.reports.reports import (
     ReportCategory,
     ReportCreate,
@@ -25,7 +27,7 @@ class BaseMigrator(BaseService):
     key_aliases: list[MigrationAlias]
 
     report_entries: list[ReportEntryCreate]
-    report_id: int
+    report_id: UUID4
     report: ReportOut
 
     helpers: DatabaseMigrationHelpers
@@ -111,7 +113,19 @@ class BaseMigrator(BaseService):
 
         return_vars = []
 
+        group = self.db.groups.get_one(self.group_id)
+
+        default_settings = RecipeSettings(
+            public=group.preferences.recipe_public,
+            show_nutrition=group.preferences.recipe_show_nutrition,
+            show_assets=group.preferences.recipe_show_assets,
+            landscape_view=group.preferences.recipe_landscape_view,
+            disable_comments=group.preferences.recipe_disable_comments,
+            disable_amount=group.preferences.recipe_disable_amount,
+        )
+
         for recipe in validated_recipes:
+            recipe.settings = default_settings
 
             recipe.user_id = self.user_id
             recipe.group_id = self.group_id
@@ -125,7 +139,7 @@ class BaseMigrator(BaseService):
             if self.add_migration_tag:
                 recipe.tags.append(migration_tag)
 
-            exception = ""
+            exception: str | Exception = ""
             status = False
             try:
                 recipe = self.db.recipes.create(recipe)
@@ -189,10 +203,8 @@ class BaseMigrator(BaseService):
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
 
-        try:
+        with contextlib.suppress(KeyError):
             del recipe_dict["id"]
-        except KeyError:
-            pass
 
         recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
 
