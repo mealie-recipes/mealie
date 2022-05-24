@@ -5,12 +5,6 @@
 [![MIT License][license-shield]][license-url]
 [![Docker Pulls][docker-pull]][docker-pull]
 [![CodeFactor](https://www.codefactor.io/repository/github/hay-kot/mealie/badge)](https://www.codefactor.io/repository/github/hay-kot/mealie)
-[![Docker Build Production](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.release.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.release.yml)
-[![Project Tests Production](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
-[![Docker Build Dev](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/dockerbuild.dev.yml)
-[![Project Tests Dev](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml/badge.svg?branch=dev)](https://github.com/hay-kot/mealie/actions/workflows/test-all.yml)
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -26,19 +20,13 @@
   <p align="center">
     A Place for All Your Recipes
     <br />
-    <a href="https://hay-kot.github.io/mealie/"><strong>Explore the docs »</strong></a>
+    <a href="https://nightly.mealie.io"><strong>Explore the docs »</strong></a>
   <a href="https://github.com/hay-kot/mealie">
   </a>
     <br />
-    <a href="https://mealie-demo.hay-kot.dev/">View Demo</a>
+    <a href="https://demo.mealie.io/">View Demo</a>
     ·
     <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>
-    ·
-    <a href="https://hay-kot.github.io/mealie/api/redoc/">API</a>
-    ·
-    <a href="https://github.com/hay-kot/mealie/issues">
-    Request Feature
-    </a>
     ·
     <a href="https://hub.docker.com/r/hkotel/mealie"> Docker Hub
     </a>
