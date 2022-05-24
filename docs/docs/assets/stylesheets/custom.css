@@ -51,3 +51,7 @@ a[target="_blank"]:not([class*="md-"]):after {
 th {
   font-weight: bold;
 }
+
+.md-button {
+  padding: 0.2rem 0.75rem !important;
+}
