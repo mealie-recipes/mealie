@@ -8,7 +8,7 @@
 
 Mealie offers two main ways to create recipes. You can use the integrated recipe-scraper to create recipes from hundreds of websites, or you can create recipes manually using the recipe editor.
 
-[Demo](https://beta.mealie.io/recipe/create?tab=url){ .md-button .md-button--primary .align-right }
+[Demo](https://beta.mealie.io/recipe/create/url){ .md-button .md-button--primary .align-right }
 
 ### Importing Recipes
 
