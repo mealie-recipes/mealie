@@ -32,7 +32,9 @@
           <img src="https://i.pravatar.cc/300" alt="John" />
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title v-text="getMember(item.userId)"></v-list-item-title>
+          <v-list-item-title>
+            {{ getMember(item.userId) }}
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -95,31 +97,30 @@ export default defineComponent({
       context.emit(INPUT_EVENT, value);
     }
 
-    const show = props.showHeaders;
     const headers = computed(() => {
       const hdrs = [];
 
-      if (show.id) {
+      if (props.showHeaders.id) {
         hdrs.push({ text: "Id", value: "id" });
       }
-      if (show.owner) {
+      if (props.showHeaders.owner) {
         hdrs.push({ text: "Owner", value: "userId", align: "center" });
       }
       hdrs.push({ text: "Name", value: "name" });
-      if (show.categories) {
+      if (props.showHeaders.categories) {
         hdrs.push({ text: "Categories", value: "recipeCategory" });
       }
 
-      if (show.tags) {
+      if (props.showHeaders.tags) {
         hdrs.push({ text: "Tags", value: "tags" });
       }
-      if (show.tools) {
+      if (props.showHeaders.tools) {
         hdrs.push({ text: "Tools", value: "tools" });
       }
-      if (show.recipeYield) {
+      if (props.showHeaders.recipeYield) {
         hdrs.push({ text: "Yield", value: "recipeYield" });
       }
-      if (show.dateAdded) {
+      if (props.showHeaders.dateAdded) {
         hdrs.push({ text: "Date Added", value: "dateAdded" });
       }
 

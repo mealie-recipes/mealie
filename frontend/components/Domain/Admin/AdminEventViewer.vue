@@ -28,9 +28,13 @@
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-text="item.title"></v-list-item-title>
+                <v-list-item-title>
+                  {{ item.title }}
+                </v-list-item-title>
 
-                <v-list-item-subtitle v-text="item.text"></v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ item.text }}
+                </v-list-item-subtitle>
                 <v-list-item-subtitle>
                   {{ $d(Date.parse(item.timeStamp), "long") }}
                 </v-list-item-subtitle>
@@ -103,5 +107,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

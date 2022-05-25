@@ -29,7 +29,9 @@
       <v-list dense>
         <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
           <v-list-item-icon>
-            <v-icon :color="item.color" v-text="item.icon"></v-icon>
+            <v-icon :color="item.color">
+              {{ item.icon }}
+            </v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>

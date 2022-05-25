@@ -134,8 +134,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { value } = props;
-
     // ==================================================
     // Foods
     const { foods, workingFoodData, actions: foodActions } = useFoods();
@@ -144,7 +142,7 @@ export default defineComponent({
     async function createAssignFood() {
       workingFoodData.name = foodSearch.value;
       await foodActions.createOne();
-      value.food = foods.value?.find((food) => food.name === foodSearch.value);
+      props.value.food = foods.value?.find((food) => food.name === foodSearch.value);
     }
 
     // ==================================================
@@ -155,7 +153,7 @@ export default defineComponent({
     async function createAssignUnit() {
       workingUnitData.name = unitSearch.value;
       await unitActions.createOne();
-      value.unit = units.value?.find((unit) => unit.name === unitSearch.value);
+      props.value.unit = units.value?.find((unit) => unit.name === unitSearch.value);
     }
 
     const state = reactive({
@@ -165,7 +163,7 @@ export default defineComponent({
 
     function toggleTitle() {
       if (state.showTitle) {
-        value.title = "";
+        props.value.title = "";
       }
       state.showTitle = !state.showTitle;
     }
@@ -175,13 +173,21 @@ export default defineComponent({
     }
 
     function handleUnitEnter() {
-      if (value.unit === undefined || value.unit === null || !value.unit.name.includes(unitSearch.value)) {
+      if (
+        props.value.unit === undefined ||
+        props.value.unit === null ||
+        !props.value.unit.name.includes(unitSearch.value)
+      ) {
         createAssignUnit();
       }
     }
 
     function handleFoodEnter() {
-      if (value.food === undefined || value.food === null || !value.food.name.includes(foodSearch.value)) {
+      if (
+        props.value.food === undefined ||
+        props.value.food === null ||
+        !props.value.food.name.includes(foodSearch.value)
+      ) {
         createAssignFood();
       }
     }
@@ -202,7 +208,7 @@ export default defineComponent({
       //   });
       // }
 
-      if (value.originalText) {
+      if (props.value.originalText) {
         options.push({
           text: "See Original Text",
           event: "toggle-original",

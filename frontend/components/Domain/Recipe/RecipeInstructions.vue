@@ -92,7 +92,7 @@
             @click="toggleCollapseSection(index)"
           >
             <v-toolbar-title v-if="!edit" class="headline">
-              <v-app-bar-title v-text="step.title"> </v-app-bar-title>
+              <v-app-bar-title> {{ step.title }} </v-app-bar-title>
             </v-toolbar-title>
             <v-text-field
               v-if="edit"

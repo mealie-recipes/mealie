@@ -216,7 +216,7 @@ export default defineComponent({
       if (searchString.value.trim() === "") {
         return filteredRecipes.value;
       }
-      const result = fuse.value.search(searchString.value.trim());
+      const result = fuse.value.search(searchString.value.trim() as string);
       return result.map((x) => x.item);
     });
 

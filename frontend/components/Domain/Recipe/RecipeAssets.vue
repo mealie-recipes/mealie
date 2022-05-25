@@ -10,23 +10,27 @@
           <v-list-item-icon class="ma-auto">
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on" v-text="getIconDefinition(item.icon).icon"></v-icon>
+                <v-icon v-bind="attrs" v-on="on">
+                  {{ getIconDefinition(item.icon).icon }}
+                </v-icon>
               </template>
               <span>{{ getIconDefinition(item.icon).title }}</span>
             </v-tooltip>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="pl-2" v-text="item.name"></v-list-item-title>
+            <v-list-item-title class="pl-2">
+              {{ item.name }}
+            </v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName)" target="_blank" top>
+            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName as string)" target="_blank" top>
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
             <div v-else>
               <v-btn color="error" icon top @click="value.splice(i, 1)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName)" />
+              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName as string)" />
             </div>
           </v-list-item-action>
         </v-list-item>
@@ -36,7 +40,7 @@
       <v-spacer></v-spacer>
       <BaseDialog
         v-model="newAssetDialog"
-        :title="$t('asset.new-asset')"
+        :title="$tc('asset.new-asset')"
         :icon="getIconDefinition(newAsset.icon).icon"
         @submit="addAsset"
       >
@@ -77,6 +81,7 @@
 import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { RecipeAsset } from "~/types/api-types/recipe";
 
 const BASE_URL = window.location.origin;
 
@@ -91,7 +96,7 @@ export default defineComponent({
       required: true,
     },
     value: {
-      type: Array,
+      type: Array as () => RecipeAsset[],
       required: true,
     },
     edit: {
