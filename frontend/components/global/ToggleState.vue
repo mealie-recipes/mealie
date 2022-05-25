@@ -4,10 +4,10 @@
     <slot v-bind="{ state, toggle }"></slot>
   </component>
 </template>
-    
+
 <script lang="ts">
 import { defineComponent, watch } from "@nuxtjs/composition-api";
-import { useToggle } from "@vueuse/shared";
+import { useToggle } from "@vueuse/core";
 
 export default defineComponent({
   props: {
@@ -34,4 +34,3 @@ export default defineComponent({
   },
 });
 </script>
-    

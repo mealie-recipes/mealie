@@ -1,5 +1,8 @@
 module.exports = {
   root: true,
+  settings: {
+    "import/ignore": ["@vueuse*"],
+  },
   env: {
     browser: true,
     node: true,
