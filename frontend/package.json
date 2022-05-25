@@ -51,7 +51,7 @@
     "lint-staged": "^10.5.4",
     "nuxt-vite": "^0.3.5",
     "prettier": "^2.3.2",
-    "vue2-script-setup-transform": "^0.2.0"
+    "vue2-script-setup-transform": "^0.3.5"
   },
   "resolutions": {
     "vite": "2.3.8"

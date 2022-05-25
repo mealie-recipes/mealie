@@ -10349,10 +10349,10 @@ unplugin-vue2-script-setup@^0.7.3:
     magic-string "^0.25.7"
     unplugin "^0.2.21"
 
-unplugin@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.0.6.tgz#f5b07162b3e2de66e7553fe72079241ae375d1bb"
-  integrity sha512-ZqRcCVRS5/cmYwx36ms/jJ0CLXMIjxjvk4iU2ahzn81kO0dzex9t8YzjM9IuH8vyqXTSLLBnoNm+mz5Gt5aI/g==
+unplugin@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.0.8.tgz#7b27f7f7349d10282cc2da3cff1d80ac52239774"
+  integrity sha512-eN+JfXcV8Dq9FmnXiU8PHTsBjhyUazlztLh8L2eMLHnh4Gq1oXGkfcKdEQa8FBho5Be6IW2CsDFXwJISK1MiyQ==
   dependencies:
     webpack-virtual-modules "^0.4.3"
 
@@ -10668,10 +10668,10 @@ vue-template-es2015-compiler@^1.9.0, vue-template-es2015-compiler@^1.9.1:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue2-script-setup-transform@^0.2.0:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/vue2-script-setup-transform/-/vue2-script-setup-transform-0.2.6.tgz#7abf052814357ea0af283d057e930b89ed5f79f4"
-  integrity sha512-go9eElKsz2LIITlwo1EqrYsclgsfVoHEPCQX4LYVKVpo0BIa7tQOUO5w30Je9toIWUgiXD/oci4x3zwZZ5m4Xg==
+vue2-script-setup-transform@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/vue2-script-setup-transform/-/vue2-script-setup-transform-0.3.5.tgz#9bc5a25b3194e080fc1ef75cfcdfc63b783d8f34"
+  integrity sha512-OYlzz7ovNncHqnibNUtWeG+WyJtoiu1GM0XtfRZ8g7OvAG/wQ2OBjoy0aApFFMUqOCpgCLt7e6Xgj/3rKrVOhQ==
   dependencies:
     "@babel/core" "^7.15.0"
     "@babel/generator" "^7.15.0"
@@ -10681,7 +10681,7 @@ vue2-script-setup-transform@^0.2.0:
     "@vue/shared" "^3.2.4"
     htmlparser2 "^6.1.0"
     magic-string "^0.25.7"
-    unplugin "^0.0.6"
+    unplugin "^0.0.8"
 
 vue@^2.6.12:
   version "2.6.14"
