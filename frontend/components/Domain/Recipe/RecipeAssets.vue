@@ -23,14 +23,14 @@
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName as string)" target="_blank" top>
+            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName)" target="_blank" top>
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
             <div v-else>
               <v-btn color="error" icon top @click="value.splice(i, 1)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName as string)" />
+              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName)" />
             </div>
           </v-list-item-action>
         </v-list-item>
@@ -39,21 +39,21 @@
     <div class="d-flex ml-auto mt-2">
       <v-spacer></v-spacer>
       <BaseDialog
-        v-model="newAssetDialog"
+        v-model="state.newAssetDialog"
         :title="$tc('asset.new-asset')"
-        :icon="getIconDefinition(newAsset.icon).icon"
+        :icon="getIconDefinition(state.newAsset.icon).icon"
         @submit="addAsset"
       >
         <template #activator>
           <BaseButton v-if="edit" small create @click="newAssetDialog = true" />
         </template>
         <v-card-text class="pt-4">
-          <v-text-field v-model="newAsset.name" dense :label="$t('general.name')"></v-text-field>
+          <v-text-field v-model="state.newAsset.name" dense :label="$t('general.name')"></v-text-field>
           <div class="d-flex justify-space-between">
             <v-select
-              v-model="newAsset.icon"
+              v-model="state.newAsset.icon"
               dense
-              :prepend-icon="getIconDefinition(newAsset.icon).icon"
+              :prepend-icon="getIconDefinition(state.newAsset.icon).icon"
               :items="iconOptions"
               item-text="title"
               item-value="name"
@@ -70,7 +70,7 @@
             </v-select>
             <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="setFileObject" />
           </div>
-          {{ fileObject.name }}
+          {{ state.fileObject.name }}
         </v-card-text>
       </BaseDialog>
     </div>
@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { RecipeAsset } from "~/types/api-types/recipe";
@@ -186,7 +186,7 @@ export default defineComponent({
     }
 
     return {
-      ...toRefs(state),
+      state,
       addAsset,
       assetURL,
       assetEmbed,
