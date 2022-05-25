@@ -6,7 +6,7 @@ on:
       - mealie-next
 
 concurrency:
-  group: ${{ github.ref }}
+  group: backend-nightly-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
