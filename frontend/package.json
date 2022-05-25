@@ -16,7 +16,7 @@
   "dependencies": {
     "@adapttive/vue-markdown": "^4.0.1",
     "@mdi/js": "^5.9.55",
-    "@nuxtjs/auth-next": "5.0.0-1648802546.c9880dc",
+    "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "^7.0.3",
     "@nuxtjs/proxy": "^2.1.0",
@@ -25,12 +25,12 @@
     "@vueuse/core": "^6.8.0",
     "core-js": "^3.15.1",
     "date-fns": "^2.23.0",
-    "isomorphic-dompurify": "^0.19.0",
     "fuse.js": "^6.5.3",
+    "isomorphic-dompurify": "^0.19.0",
     "nuxt": "^2.15.8",
     "v-jsoneditor": "^1.4.5",
     "vuedraggable": "^2.24.3",
-    "vuetify": "^2.5.5"
+    "vuetify": "^2.6.6"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
@@ -49,11 +49,8 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.12.1",
     "lint-staged": "^10.5.4",
-    "nuxt-vite": "^0.3.5",
+    "nuxt-vite": "0.2.3",
     "prettier": "^2.3.2",
     "vue2-script-setup-transform": "^0.3.5"
-  },
-  "resolutions": {
-    "vite": "2.3.8"
   }
 }
