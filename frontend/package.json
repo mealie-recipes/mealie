@@ -22,7 +22,7 @@
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@vue/composition-api": "^1.0.5",
-    "@vueuse/core": "^6.8.0",
+    "@vueuse/core": "^8.5.0",
     "core-js": "^3.15.1",
     "date-fns": "^2.23.0",
     "fuse.js": "^6.5.3",
@@ -51,6 +51,7 @@
     "lint-staged": "^12.4.2",
     "nuxt-vite": "0.2.3",
     "prettier": "^2.3.2",
+    "typescript": "^4.7.2",
     "vue2-script-setup-transform": "^0.3.5"
   }
 }
