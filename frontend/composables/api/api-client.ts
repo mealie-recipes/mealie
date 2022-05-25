@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { useContext } from "@nuxtjs/composition-api";
-import { NuxtAxiosInstance } from "@nuxtjs/axios";
+import type { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { AdminAPI, Api } from "~/api";
 import { ApiRequestInstance, RequestResponse } from "~/types/api";
 import { PublicApi } from "~/api/public-api";

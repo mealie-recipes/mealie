@@ -315,8 +315,10 @@ export default defineComponent({
       title: "Tag Recipes",
       mode: MODES.tag,
       tag: "",
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      callback: () => {},
+      callback: () => {
+        // Stub function to be overwritten
+        return Promise.resolve();
+      },
       icon: $globals.icons.tags,
     });
 

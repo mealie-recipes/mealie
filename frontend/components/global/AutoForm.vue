@@ -145,6 +145,8 @@ import { AutoFormItems } from "~/types/auto-forms";
 
 const BLUR_EVENT = "blur";
 
+type ValidatorKey = keyof typeof validators;
+
 export default defineComponent({
   name: "AutoForm",
   props: {
@@ -178,7 +180,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    function rulesByKey(keys?: string[] | null) {
+    function rulesByKey(keys?: ValidatorKey[] | null) {
       if (keys === undefined || keys === null) {
         return [];
       }
@@ -193,7 +195,7 @@ export default defineComponent({
       return list;
     }
 
-    const defaultRules = computed(() => rulesByKey(props.globalRules));
+    const defaultRules = computed(() => rulesByKey(props.globalRules as ValidatorKey[]));
 
     function removeByIndex(list: never[], index: number) {
       // Removes the item at the index

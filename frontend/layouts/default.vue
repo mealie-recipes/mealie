@@ -25,11 +25,17 @@
             <v-divider v-if="item.divider" :key="index" class="mx-2"></v-divider>
             <v-list-item v-else :key="item.title" :to="item.to" exact>
               <v-list-item-avatar>
-                <v-icon v-text="item.icon"></v-icon>
+                <v-icon>
+                  {{ item.icon }}
+                </v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title v-text="item.title"></v-list-item-title>
-                <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+                <v-list-item-title>
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ item.subtitle }}
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </template>

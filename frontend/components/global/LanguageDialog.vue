@@ -2,18 +2,10 @@
   <BaseDialog v-model="dialog" :icon="$globals.icons.translate" :title="$tc('language-dialog.choose-language')">
     <v-card-text>
       {{ $t("language-dialog.select-description") }}
-      <v-autocomplete
-        v-model="locale"
-        :items="locales"
-        item-text="name"
-        class="my-3"
-        hide-details
-        outlined
-        offset
-      >
+      <v-autocomplete v-model="locale" :items="locales" item-text="name" class="my-3" hide-details outlined offset>
         <template #item="{ item }">
           <v-list-item-content>
-            <v-list-item-title v-text="item.name"></v-list-item-title>
+            <v-list-item-title> {{ item.name }} </v-list-item-title>
             <v-list-item-subtitle> {{ item.progress }}% {{ $tc("language-dialog.translated") }} </v-list-item-subtitle>
           </v-list-item-content>
         </template>
