@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <v-card>
+    <v-card flat>
       <v-card-title class="headline"> Import from Zip </v-card-title>
       <v-card-text>
         Import a single recipe that was exported from another Mealie instance.
