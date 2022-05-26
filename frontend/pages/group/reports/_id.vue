@@ -4,9 +4,7 @@
       <template #header>
         <v-img max-height="200" max-width="200" class="mb-2" :src="require('~/static/svgs/data-reports.svg')"></v-img>
       </template>
-      <template #title> Recipe Data Migrations</template>
-      Recipes can be migrated from another supported application to Mealie. This is a great way to get started with
-      Mealie.
+      <template #title> Report </template>
     </BasePageTitle>
     <v-container v-if="report">
       <BaseCardSectionTitle :title="report.name"> </BaseCardSectionTitle>
@@ -31,8 +29,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, reactive, toRefs, onMounted } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, ref, onMounted } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
+import { ReportOut } from "~/types/api-types/reports";
 
 export default defineComponent({
   setup() {
@@ -41,16 +40,11 @@ export default defineComponent({
 
     const api = useUserApi();
 
-    const state = reactive({
-      report: {},
-    });
+    const report = ref<ReportOut | null>(null);
 
     async function getReport() {
       const { data } = await api.groupReports.getOne(id);
-
-      if (data) {
-        state.report = data;
-      }
+      report.value = data ?? null;
     }
 
     onMounted(async () => {
@@ -64,7 +58,7 @@ export default defineComponent({
     ];
 
     return {
-      ...toRefs(state),
+      report,
       id,
       itemHeaders,
     };
@@ -72,5 +66,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

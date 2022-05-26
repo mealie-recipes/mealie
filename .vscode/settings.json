@@ -46,5 +46,12 @@
   "python.linting.mypyEnabled": true,
   "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
   "search.mode": "reuseEditor",
-  "python.testing.unittestArgs": ["-v", "-s", "./tests", "-p", "test_*.py"]
+  "python.testing.unittestArgs": ["-v", "-s", "./tests", "-p", "test_*.py"],
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, yarn.lock, .eslintrc.js, tsconfig.json, .prettierrc, .editorconfig",
+    "pyproject.toml": "poetry.lock, alembic.ini, .pylintrc, .flake8",
+    "netlify.toml": "runtime.txt",
+    "docker-compose.yml": "Dockerfile, .dockerignore, docker-compose.dev.yml, docker-compose.yml"
+  }
 }

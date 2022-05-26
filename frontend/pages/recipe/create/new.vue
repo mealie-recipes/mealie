@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <div>
     <v-card-title class="headline"> Create Recipe </v-card-title>
     <v-card-text>
       Create a recipe by providing the name. All recipes must have unique names.
@@ -31,7 +31,7 @@
         />
       </div>
     </v-card-actions>
-  </v-card>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, useRouter } from "@nuxtjs/composition-api";

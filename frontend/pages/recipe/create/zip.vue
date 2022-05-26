@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <v-card flat>
+    <div>
       <v-card-title class="headline"> Import from Zip </v-card-title>
       <v-card-text>
         Import a single recipe that was exported from another Mealie instance.
@@ -25,7 +25,7 @@
           <BaseButton :disabled="newRecipeZip === null" large rounded block :loading="loading" @click="createByZip" />
         </div>
       </v-card-actions>
-    </v-card>
+    </div>
   </v-form>
 </template>
 

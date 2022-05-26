@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form ref="domUrlForm" @submit.prevent="debugUrl(recipeUrl)">
-      <v-card flat>
+      <div>
         <v-card-title class="headline"> Recipe Debugger </v-card-title>
         <v-card-text>
           Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper
@@ -32,7 +32,7 @@
             </BaseButton>
           </div>
         </v-card-actions>
-      </v-card>
+      </div>
     </v-form>
     <section v-if="debugData">
       <v-checkbox v-model="debugTreeView" label="Tree View"></v-checkbox>

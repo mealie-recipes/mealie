@@ -5,7 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export type ReportCategory = "backup" | "restore" | "migration";
+export type ReportCategory = "backup" | "restore" | "migration" | "bulk_import";
 export type ReportSummaryStatus = "in-progress" | "success" | "failure" | "partial";
 
 export interface ReportCreate {

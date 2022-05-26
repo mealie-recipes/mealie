@@ -9,7 +9,6 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 from slugify import slugify
-from sqlalchemy.orm.session import Session
 from starlette.responses import FileResponse
 
 from mealie.core import exceptions
@@ -17,7 +16,6 @@ from mealie.core.dependencies import temporary_zip_path
 from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
 from mealie.core.security import create_recipe_slug_token
 from mealie.pkgs import cache
-from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
@@ -29,17 +27,16 @@ from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
-from mealie.schema.server.tasks import ServerTaskNames
 from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
+from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_url
 from mealie.services.scraper.scraper_strategies import RecipeScraperPackage
-from mealie.services.server_tasks.background_executory import BackgroundExecutor
 
 
 class BaseRecipeController(BaseUserController):
@@ -172,39 +169,11 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        bg_executor = BackgroundExecutor(self.group.id, self.repos, bg_tasks)
+        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group)
+        report_id = bulk_scraper.get_report_id()
+        bg_tasks.add_task(bulk_scraper.scrape, bulk)
 
-        def bulk_import_func(task_id: int, session: Session) -> None:
-            database = get_repositories(session)
-            task = database.server_tasks.get_one(task_id)
-
-            task.append_log("test task has started")
-
-            for b in bulk.imports:
-                try:
-                    recipe, _ = create_from_url(b.url)
-
-                    if b.tags:
-                        recipe.tags = b.tags
-
-                    if b.categories:
-                        recipe.recipe_category = b.categories
-
-                    self.service.create_one(recipe)
-                    task.append_log(f"INFO: Created recipe from url: {b.url}")
-                except Exception as e:
-                    task.append_log(f"Error: Failed to create recipe from url: {b.url}")
-                    task.append_log(f"Error: {e}")
-                    self.deps.logger.error(f"Failed to create recipe from url: {b.url}")
-                    self.deps.logger.error(e)
-                database.server_tasks.update(task.id, task)
-
-            task.set_finished()
-            database.server_tasks.update(task.id, task)
-
-        bg_executor.dispatch(ServerTaskNames.bulk_recipe_import, bulk_import_func)
-
-        return {"details": "task has been started"}
+        return {"reportId": report_id}
 
     @router.post("/test-scrape-url")
     def test_parse_recipe_url(self, url: ScrapeRecipeTest):
