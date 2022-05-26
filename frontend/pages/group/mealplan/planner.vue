@@ -147,7 +147,7 @@
                   </v-list>
                 </v-menu>
                 <v-spacer></v-spacer>
-                <v-btn color="error" small icon @click="actions.deleteOne(mealplan.id)">
+                <v-btn small icon @touchstart.stop @click="actions.deleteOne(mealplan.id)">
                   <v-icon>{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </div>
@@ -291,10 +291,12 @@ export default defineComponent({
     }
 
     function onMoveCallback(evt: SortableEvent) {
+      const supportedEvents = ["drop", "touchend"];
+
       // Adapted From https://github.com/SortableJS/Vue.Draggable/issues/1029
       const ogEvent: DragEvent = (evt as any).originalEvent;
 
-      if (ogEvent && ogEvent.type !== "drop") {
+      if (ogEvent && ogEvent.type in supportedEvents) {
         // The drop was cancelled, unsure if anything needs to be done?
         console.log("Cancel Move Event");
       } else {
