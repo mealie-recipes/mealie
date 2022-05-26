@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)">
-      <v-card flat>
+      <div>
         <v-card-title class="headline"> Scrape Recipe </v-card-title>
         <v-card-text>
           Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the
@@ -27,7 +27,7 @@
             <BaseButton :disabled="recipeUrl === null" rounded block type="submit" :loading="loading" />
           </div>
         </v-card-actions>
-      </v-card>
+      </div>
     </v-form>
     <v-expand-transition>
       <v-alert v-show="error" color="error" class="mt-6 white--text">
