@@ -52,6 +52,6 @@
     "package.json": "package-lock.json, yarn.lock, .eslintrc.js, tsconfig.json, .prettierrc, .editorconfig",
     "pyproject.toml": "poetry.lock, alembic.ini, .pylintrc, .flake8",
     "netlify.toml": "runtime.txt",
-    "Dockerfile": ".dockerignore, docker-compose.dev.yml, docker-compose.yml"
+    "docker-compose.yml": "Dockerfile, .dockerignore, docker-compose.dev.yml, docker-compose.yml"
   }
 }
