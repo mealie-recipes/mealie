@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
@@ -8,6 +8,7 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.reports.reports import ReportCategory, ReportCreate, ReportOut, ReportSummary
+from mealie.schema.response.responses import ErrorResponse, SuccessResponse
 
 router = APIRouter(prefix="/groups/reports", tags=["Groups: Reports"])
 
@@ -39,6 +40,10 @@ class GroupReportsController(BaseUserController):
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.delete("/{item_id}", status_code=204)
+    @router.delete("/{item_id}", status_code=200)
     def delete_one(self, item_id: UUID4):
-        self.mixins.delete_one(item_id)  # type: ignore
+        try:
+            self.mixins.delete_one(item_id)  # type: ignore
+            return SuccessResponse.respond("Report deleted.")
+        except Exception as ex:
+            raise HTTPException(500, ErrorResponse.respond("Failed to delete report")) from ex

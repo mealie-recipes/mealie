@@ -11,6 +11,7 @@ class ReportCategory(str, enum.Enum):
     backup = "backup"
     restore = "restore"
     migration = "migration"
+    bulk_import = "bulk_import"
 
 
 class ReportSummaryStatus(str, enum.Enum):
