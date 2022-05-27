@@ -148,7 +148,7 @@
                   </v-list>
                 </v-menu>
                 <v-spacer></v-spacer>
-                <v-btn small icon @click.stop @click="actions.deleteOne(mealplan.id)">
+                <v-btn small icon @click="actions.deleteOne(mealplan.id)">
                   <v-icon>{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </div>
