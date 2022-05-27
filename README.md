@@ -51,7 +51,7 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. If you're going to be working on the code-base you'll want to use the nightly documentation to ensure you get the latest information.
 
 - See the [Contributors Guide](https://nightly.mealie.io/contributors/developers-guide/code-contributions/) for help getting started.
-- We use VSCode Dev Contains to make it easy for contributors to get started!
+- We use [VSCode Dev Containers](https://code.visualstudio.com/docs/remote/containers) to make it easy for contributors to get started!
 
 If you are not a coder, you can still contribute financially. financial contributions help me prioritize working on this project over others and helps me know that there is a real demand for project development.
 
