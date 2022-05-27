@@ -110,7 +110,7 @@ frontend             🎬 Start Mealie Frontend Development Server
 frontend-build       🏗  Build Frontend in frontend/dist
 frontend-generate    🏗  Generate Code for Frontend
 frontend-lint        🧺 Run yarn lint
-docker-dev           🐳 Build and Start Docker Development Stack
+docker-dev           🐳 Build and Start Docker Development Stack (currently not functional, see #756, #1072)
 docker-prod          🐳 Build and Start Docker Production Stack
 
 ```
