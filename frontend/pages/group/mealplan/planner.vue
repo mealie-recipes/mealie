@@ -95,6 +95,7 @@
         <template v-if="edit">
           <draggable
             tag="div"
+            handle=".handle"
             :value="plan.meals"
             group="meals"
             :data-index="index"
@@ -102,7 +103,7 @@
             style="min-height: 150px"
             @end="onMoveCallback"
           >
-            <v-card v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" class="my-1">
+            <v-card v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" class="my-1 handle">
               <v-list-item :to="edit || !mealplan.recipe ? null : `/recipe/${mealplan.recipe.slug}`">
                 <v-list-item-avatar :rounded="false">
                   <RecipeCardImage
@@ -147,7 +148,7 @@
                   </v-list>
                 </v-menu>
                 <v-spacer></v-spacer>
-                <v-btn small icon @touchstart.stop @click="actions.deleteOne(mealplan.id)">
+                <v-btn small icon @click="actions.deleteOne(mealplan.id)">
                   <v-icon>{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </div>
