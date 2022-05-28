@@ -42,7 +42,7 @@
     "liter": {
         "name": "Liter",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "L"
     },
     "pound": {
         "name": "Pfund",
