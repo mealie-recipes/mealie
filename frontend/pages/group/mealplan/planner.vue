@@ -103,7 +103,13 @@
             style="min-height: 150px"
             @end="onMoveCallback"
           >
-            <v-card v-for="mealplan in plan.meals" :key="mealplan.id" v-model="hover[mealplan.id]" class="my-1 handle">
+            <v-card
+              v-for="mealplan in plan.meals"
+              :key="mealplan.id"
+              v-model="hover[mealplan.id]"
+              class="my-1"
+              :class="{ handle: $vuetify.breakpoint.smAndUp }"
+            >
               <v-list-item :to="edit || !mealplan.recipe ? null : `/recipe/${mealplan.recipe.slug}`">
                 <v-list-item-avatar :rounded="false">
                   <RecipeCardImage
@@ -127,7 +133,13 @@
                 </v-list-item-content>
               </v-list-item>
               <v-divider class="mx-2"></v-divider>
-              <div class="py-2 px-2 d-flex">
+              <div class="py-2 px-2 d-flex" style="align-items: center">
+                <v-btn small icon :class="{ handle: !$vuetify.breakpoint.smAndUp }">
+                  <v-icon>
+                    {{ $globals.icons.arrowUpDown }}
+                  </v-icon>
+                </v-btn>
+
                 <v-menu offset-y>
                   <template #activator="{ on, attrs }">
                     <v-chip v-bind="attrs" label small color="accent" v-on="on" @click.prevent>
@@ -147,8 +159,8 @@
                     </v-list-item>
                   </v-list>
                 </v-menu>
-                <v-spacer></v-spacer>
-                <v-btn small icon @click="actions.deleteOne(mealplan.id)">
+
+                <v-btn class="ml-auto" small icon @click="actions.deleteOne(mealplan.id)">
                   <v-icon>{{ $globals.icons.delete }}</v-icon>
                 </v-btn>
               </div>
