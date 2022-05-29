@@ -534,7 +534,7 @@
     "user-registration": "Registrazione Utente",
     "join-a-group": "Unisciti a un Gruppo",
     "create-a-new-group": "Crea un Nuovo Gruppo",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "provide-registration-token-description": "Fornisci il token di registrazione associato al gruppo a cui desideri partecipare. Dovrai ottenerlo da un membro di gruppo esistente.",
     "group-details": "Dettagli del Guppo",
     "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
     "use-seed-data": "Use Seed Data",
