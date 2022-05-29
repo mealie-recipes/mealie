@@ -19,14 +19,14 @@
       <div class="ingredient-grid">
         <div class="ingredient-col-1">
           <ul>
-            <li v-for="(text, index) in splitIngredients.value.firstHalf" :key="index">
+            <li v-for="(text, index) in splitIngredients.firstHalf" :key="index">
               {{ text }}
             </li>
           </ul>
         </div>
         <div class="ingredient-col-2">
           <ul>
-            <li v-for="(text, index) in splitIngredients.value.secondHalf" :key="index">
+            <li v-for="(text, index) in splitIngredients.secondHalf" :key="index">
               {{ text }}
             </li>
           </ul>
