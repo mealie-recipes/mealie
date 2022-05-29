@@ -13,10 +13,10 @@
         "email-conflict-error": "Diese E-Mail-Adresse wird bereits verwendet"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been created"
+        "generic-created": "{name} wurde erstellt",
+        "generic-updated": "{name} wurde aktualisiert",
+        "generic-created-with-url": "{name} wurde erstellt, {url}",
+        "generic-updated-with-url": "{name} wurde aktualisiert, {url}",
+        "generic-deleted": "{name} wurde erstellt"
     }
 }
