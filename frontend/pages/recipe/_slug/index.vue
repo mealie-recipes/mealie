@@ -454,12 +454,13 @@
     >
       <v-switch v-model="wakeLock" small label="Keep Screen Awake" />
     </div>
+
     <RecipeComments
       v-if="recipe && !recipe.settings.disableComments && !form"
       v-model="recipe.comments"
       :slug="recipe.slug"
       :recipe-id="recipe.id"
-      class="px-1 my-4"
+      class="px-1 my-4 d-print-none"
     />
     <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>

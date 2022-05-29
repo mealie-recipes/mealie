@@ -1,68 +1,58 @@
 <template>
-  <div>
-    <div v-if="recipe" class="container print">
-      <div>
-        <h1>
-          <svg class="icon" viewBox="0 0 24 24">
-            <path
-              fill="#E58325"
-              d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z"
-            />
-          </svg>
-          {{ recipe.name }}
-        </h1>
-      </div>
-      <div class="time-container">
-        <RecipeTimeCard
-          :prep-time="recipe.prepTime"
-          :total-time="recipe.totalTime"
-          :perform-time="recipe.performTime"
-        />
-      </div>
-      <v-btn
-        v-if="recipe.recipeYield"
-        dense
-        small
-        :hover="false"
-        type="label"
-        :ripple="false"
-        elevation="0"
-        color="secondary darken-1"
-        class="rounded-sm static"
-      >
-        {{ recipe.recipeYield }}
-      </v-btn>
-      <div>
-        <VueMarkdown :source="recipe.description"> </VueMarkdown>
-        <h2>{{ $t("recipe.ingredients") }}</h2>
-        <ul>
-          <li v-for="(ingredient, index) in recipe.recipeIngredient" :key="index">
-            <v-icon>
-              {{ $globals.icons.checkboxBlankOutline }}
-            </v-icon>
-            <p>{{ ingredient.note }}</p>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2>{{ $t("recipe.instructions") }}</h2>
-        <div v-for="(step, index) in recipe.recipeInstructions" :key="index">
-          <h2 v-if="step.title">{{ step.title }}</h2>
-          <div class="ml-5">
-            <h3>{{ $t("recipe.step-index", { step: index + 1 }) }}</h3>
-            <VueMarkdown :source="step.text"> </VueMarkdown>
-          </div>
+  <div class="print-container">
+    <section>
+      <v-card-title class="headline pl-0">
+        <v-icon left color="primary">
+          {{ $globals.icons.primary }}
+        </v-icon>
+        {{ recipe.name }}
+      </v-card-title>
+      <RecipeTimeCard :prep-time="recipe.prepTime" :total-time="recipe.totalTime" :perform-time="recipe.performTime" />
+    </section>
+
+    <v-card-text class="px-0">
+      <VueMarkdown :source="recipe.description" />
+    </v-card-text>
+
+    <section>
+      <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
+      <div class="ingredient-grid">
+        <div class="ingredient-col-1">
+          <ul>
+            <li v-for="(text, index) in splitIngredients.value.firstHalf" :key="index">
+              {{ text }}
+            </li>
+          </ul>
         </div>
-
-        <br />
-        <v-divider v-if="recipe.notes.length > 0" class="mb-5 mt-0"></v-divider>
-
-        <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
-          <h3>{{ note.title }}</h3>
-          <VueMarkdown :source="note.text"> </VueMarkdown>
+        <div class="ingredient-col-2">
+          <ul>
+            <li v-for="(text, index) in splitIngredients.value.secondHalf" :key="index">
+              {{ text }}
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </section>
+
+    <section>
+      <v-card-title class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
+      <div v-for="(step, index) in recipe.recipeInstructions" :key="index">
+        <h3 v-if="step.title" class="mb-2">{{ step.title }}</h3>
+        <div class="ml-5">
+          <h4>{{ $t("recipe.step-index", { step: index + 1 }) }}</h4>
+          <VueMarkdown :source="step.text" />
+        </div>
+      </div>
+    </section>
+
+    <v-divider v-if="hasNotes" class="grey my-4"></v-divider>
+
+    <section>
+      <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
+        <h4>{{ note.title }}</h4>
+        <VueMarkdown :source="note.text" />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -70,8 +60,16 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
+import { computed } from "@vue/reactivity";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { Recipe } from "~/types/api-types/recipe";
+import { parseIngredientText } from "~/composables/recipes";
+
+type SplitIngredients = {
+  firstHalf: string[];
+  secondHalf: string[];
+};
+
 export default defineComponent({
   components: {
     RecipeTimeCard,
@@ -83,6 +81,36 @@ export default defineComponent({
       required: true,
     },
   },
+  setup(props) {
+    const splitIngredients = computed<SplitIngredients>(() => {
+      const firstHalf = props.recipe.recipeIngredient
+        ?.slice(0, Math.ceil(props.recipe.recipeIngredient.length / 2))
+        .map((ingredient) => {
+          return parseIngredientText(ingredient, props.recipe?.settings?.disableAmount || false);
+        });
+
+      const secondHalf = props.recipe.recipeIngredient
+        ?.slice(Math.ceil(props.recipe.recipeIngredient.length / 2))
+        .map((ingredient) => {
+          return parseIngredientText(ingredient, props.recipe?.settings?.disableAmount || false);
+        });
+
+      return {
+        firstHalf: firstHalf || [],
+        secondHalf: secondHalf || [],
+      };
+    });
+
+    const hasNotes = computed(() => {
+      return props.recipe.notes && props.recipe.notes.length > 0;
+    });
+
+    return {
+      hasNotes,
+      splitIngredients,
+      parseIngredientText,
+    };
+  },
 });
 </script>
 
@@ -90,26 +118,46 @@ export default defineComponent({
 @media print {
   body,
   html {
-    margin-top: -40px !important;
+    margin-top: 0 !important;
+  }
+
+  .print-container {
+    display: block !important;
+  }
+
+  .v-main {
+    display: block;
+  }
+
+  .v-main__wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
+</style>
 
-h1 {
-  margin-top: 0 !important;
-  display: -webkit-box;
-  display: flex;
-  font-size: 2rem;
-  letter-spacing: -0.015625em;
-  font-weight: 300;
-  padding: 0;
+<style scoped>
+.print-container {
+  display: none;
+  background-color: white;
+  color: black !important;
 }
 
-h2 {
-  margin-bottom: 0.25rem;
+p {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-h3 {
-  margin-bottom: 0.25rem;
+.v-card__text {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.ingredient-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
 }
 
 ul {
@@ -117,51 +165,7 @@ ul {
 }
 
 li {
-  display: -webkit-box;
-  display: -webkit-flex;
-  margin-left: 0;
-  margin-bottom: 0.5rem;
-}
-
-li p {
-  margin-left: 0.25rem;
-  margin-bottom: 0 !important;
-}
-
-p {
-  margin: 0;
-  font-size: 1rem;
-  letter-spacing: 0.03125em;
-  font-weight: 400;
-}
-
-.icon {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: 0.5rem;
-  height: 3rem;
-  width: 3rem;
-}
-
-.time-container {
-  display: flex;
-  justify-content: left;
-}
-
-.time-chip {
-  border-radius: 0.25rem;
-  border-color: black;
-  border: 1px;
-  border-top: 1px;
-}
-
-.print {
-  display: none;
-}
-
-@media print {
-  .print {
-    display: initial;
-  }
+  list-style-type: none;
+  margin-bottom: 0.25rem;
 }
 </style>
