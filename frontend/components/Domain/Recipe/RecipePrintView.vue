@@ -57,10 +57,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, computed } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
-import { computed } from "@vue/reactivity";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
