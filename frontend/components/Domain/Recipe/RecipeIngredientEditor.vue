@@ -118,7 +118,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
-import { useFoods, useUnits } from "~/composables/recipes";
+import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { validators } from "~/composables/use-validators";
 import { RecipeIngredient } from "~/types/api-types/recipe";
 
@@ -136,24 +136,28 @@ export default defineComponent({
   setup(props) {
     // ==================================================
     // Foods
-    const { foods, workingFoodData, actions: foodActions } = useFoods();
+    const foodStore = useFoodStore();
+    const foodData = useFoodData();
     const foodSearch = ref("");
 
     async function createAssignFood() {
-      workingFoodData.name = foodSearch.value;
-      await foodActions.createOne();
-      props.value.food = foods.value?.find((food) => food.name === foodSearch.value);
+      foodData.data.name = foodSearch.value;
+      await foodStore.actions.createOne(foodData.data);
+      props.value.food = foodStore.foods.value?.find((food) => food.name === foodSearch.value);
+      foodData.reset();
     }
 
     // ==================================================
     // Units
-    const { units, workingUnitData, actions: unitActions } = useUnits();
+    const unitStore = useUnitStore();
+    const unitsData = useUnitData();
     const unitSearch = ref("");
 
     async function createAssignUnit() {
-      workingUnitData.name = unitSearch.value;
-      await unitActions.createOne();
-      props.value.unit = units.value?.find((unit) => unit.name === unitSearch.value);
+      unitsData.data.name = unitSearch.value;
+      await unitStore.actions.createOne(unitsData.data);
+      props.value.unit = unitStore.units.value?.find((unit) => unit.name === unitSearch.value);
+      unitsData.reset();
     }
 
     const state = reactive({
@@ -226,22 +230,22 @@ export default defineComponent({
     }
 
     return {
+      ...toRefs(state),
       quantityFilter,
       toggleOriginalText,
       contextMenuOptions,
       handleUnitEnter,
       handleFoodEnter,
-      ...toRefs(state),
       createAssignFood,
       createAssignUnit,
-      foods,
+      foods: foodStore.foods,
       foodSearch,
       toggleTitle,
-      unitActions,
-      units,
+      unitActions: unitStore.actions,
+      units: unitStore.units,
       unitSearch,
       validators,
-      workingUnitData,
+      workingUnitData: unitsData.data,
     };
   },
 });

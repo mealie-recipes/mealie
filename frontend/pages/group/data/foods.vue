@@ -48,7 +48,7 @@
           </template>
         </v-autocomplete>
 
-        <v-alert v-if="foods.length > 0" type="error" class="mb-0 text-body-2">
+        <v-alert v-if="foods && foods.length > 0" type="error" class="mb-0 text-body-2">
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
@@ -96,7 +96,7 @@
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
-      :data="foods"
+      :data="foods || []"
       :bulk-actions="[]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
@@ -132,6 +132,7 @@ import { IngredientFood } from "~/types/api-types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
 import { useLocales } from "~/composables/use-locales";
+import { useFoodStore, useLabelStore } from "~/composables/store";
 
 export default defineComponent({
   components: { MultiPurposeLabel },
@@ -163,32 +164,32 @@ export default defineComponent({
         show: true,
       },
     ];
-    const foods = ref<IngredientFood[]>([]);
-    async function refreshFoods() {
-      const { data } = await userApi.foods.getAll();
-      foods.value = data ?? [];
-    }
-    onMounted(() => {
-      refreshFoods();
-    });
+
+    const foodStore = useFoodStore();
+
+    // ===============================================================
+    // Food Editor
+
     const editDialog = ref(false);
     const editTarget = ref<IngredientFood | null>(null);
+
     function editEventHandler(item: IngredientFood) {
       editTarget.value = item;
       editDialog.value = true;
     }
+
     async function editSaveFood() {
       if (!editTarget.value) {
         return;
       }
 
-      const { data } = await userApi.foods.updateOne(editTarget.value.id, editTarget.value);
-      if (data) {
-        refreshFoods();
-      }
-
+      await foodStore.actions.updateOne(editTarget.value);
       editDialog.value = false;
     }
+
+    // ===============================================================
+    // Food Delete
+
     const deleteDialog = ref(false);
     const deleteTarget = ref<IngredientFood | null>(null);
     function deleteEventHandler(item: IngredientFood) {
@@ -200,10 +201,7 @@ export default defineComponent({
         return;
       }
 
-      const { data } = await userApi.foods.deleteOne(deleteTarget.value.id);
-      if (data) {
-        refreshFoods();
-      }
+      await foodStore.actions.deleteOne(deleteTarget.value.id);
       deleteDialog.value = false;
     }
 
@@ -226,19 +224,14 @@ export default defineComponent({
       const { data } = await userApi.foods.merge(fromFood.value.id, toFood.value.id);
 
       if (data) {
-        refreshFoods();
+        foodStore.actions.refresh();
       }
     }
 
     // ============================================================
     // Labels
 
-    const allLabels = ref([] as MultiPurposeLabelSummary[]);
-
-    async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll();
-      allLabels.value = data ?? [];
-    }
+    const { labels: allLabels } = useLabelStore();
 
     // ============================================================
     // Seed
@@ -260,15 +253,14 @@ export default defineComponent({
       const { data } = await userApi.seeders.foods({ locale: locale.value });
 
       if (data) {
-        refreshFoods();
+        foodStore.actions.refresh();
       }
     }
 
-    refreshLabels();
     return {
       tableConfig,
       tableHeaders,
-      foods,
+      foods: foodStore.foods,
       allLabels,
       validators,
       // Edit
