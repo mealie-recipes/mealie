@@ -73,7 +73,7 @@
           </template>
         </v-autocomplete>
 
-        <v-alert v-if="labels.length > 0" type="error" class="mb-0 text-body-2">
+        <v-alert v-if="labels && labels.length > 0" type="error" class="mb-0 text-body-2">
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
@@ -84,7 +84,7 @@
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
-      :data="labels"
+      :data="labels || []"
       :bulk-actions="[]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
@@ -118,6 +118,7 @@ import { useUserApi } from "~/composables/api";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
 import { useLocales } from "~/composables/use-locales";
+import { useLabelData, useLabelStore } from "~/composables/store";
 
 export default defineComponent({
   components: { MultiPurposeLabel },
@@ -149,31 +150,14 @@ export default defineComponent({
     // ============================================================
     // Labels
 
-    const labels = ref([] as MultiPurposeLabelSummary[]);
-
-    async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll();
-      labels.value = data ?? [];
-    }
+    const labelData = useLabelData();
+    const labelStore = useLabelStore();
 
     // Create
 
-    const createLabelData = ref({
-      groupId: "",
-      id: "",
-      name: "",
-      color: "",
-    });
-
     async function createLabel() {
-      await userApi.multiPurposeLabels.createOne(createLabelData.value);
-      createLabelData.value = {
-        groupId: "",
-        id: "",
-        name: "",
-        color: "",
-      };
-      refreshLabels();
+      await labelStore.actions.createOne(labelData.data);
+      labelData.reset();
       state.createDialog = false;
     }
 
@@ -190,10 +174,7 @@ export default defineComponent({
       if (!deleteTarget.value) {
         return;
       }
-      const { data } = await userApi.multiPurposeLabels.deleteOne(deleteTarget.value.id);
-      if (data) {
-        refreshLabels();
-      }
+      await labelStore.actions.deleteOne(deleteTarget.value.id);
       state.deleteDialog = false;
     }
 
@@ -214,14 +195,9 @@ export default defineComponent({
       if (!editLabel.value) {
         return;
       }
-      const { data } = await userApi.multiPurposeLabels.updateOne(editLabel.value.id, editLabel.value);
-      if (data) {
-        refreshLabels();
-      }
+      await labelStore.actions.updateOne(editLabel.value);
       state.editDialog = false;
     }
-
-    refreshLabels();
 
     // ============================================================
     // Seed
@@ -243,7 +219,7 @@ export default defineComponent({
       const { data } = await userApi.seeders.labels({ locale: locale.value });
 
       if (data) {
-        refreshLabels();
+        labelStore.actions.refresh();
       }
     }
 
@@ -251,7 +227,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      labels,
+      labels: labelStore.labels,
       validators,
 
       deleteEventHandler,
@@ -260,7 +236,7 @@ export default defineComponent({
       editEventHandler,
       editSaveLabel,
       createLabel,
-      createLabelData,
+      createLabelData: labelData.data,
 
       // Seed
       seedDatabase,

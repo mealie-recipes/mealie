@@ -6,8 +6,15 @@
         Combining the selected units will merge the Source Unit and Target Unit into a single unit. The
         <strong> Source Unit will be deleted </strong> and all of the references to the Source Unit will be updated to
         point to the Target Unit.
-        <v-autocomplete v-model="fromUnit" return-object :items="units" item-text="name" label="Source Unit" />
-        <v-autocomplete v-model="toUnit" return-object :items="units" item-text="name" label="Target Unit" />
+
+        <v-autocomplete v-model="fromUnit" return-object :items="units" item-text="id" label="Source Unit">
+          <template #selection="{ item }"> {{ item.name }}</template>
+          <template #item="{ item }"> {{ item.name }} </template>
+        </v-autocomplete>
+        <v-autocomplete v-model="toUnit" return-object :items="units" item-text="id" label="Target Unit">
+          <template #selection="{ item }"> {{ item.name }}</template>
+          <template #item="{ item }"> {{ item.name }} </template>
+        </v-autocomplete>
 
         <template v-if="canMerge && fromUnit && toUnit">
           <div class="text-center">Merging {{ fromUnit.name }} into {{ toUnit.name }}</div>
@@ -77,7 +84,7 @@
           </template>
         </v-autocomplete>
 
-        <v-alert v-if="units.length > 0" type="error" class="mb-0 text-body-2">
+        <v-alert v-if="units && units.length > 0" type="error" class="mb-0 text-body-2">
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
@@ -88,7 +95,7 @@
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
-      :data="units"
+      :data="units || []"
       :bulk-actions="[]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
@@ -120,8 +127,8 @@ import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { IngredientUnit } from "~/types/api-types/recipe";
-import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
 import { useLocales } from "~/composables/use-locales";
+import { useUnitStore } from "~/composables/store";
 
 export default defineComponent({
   setup() {
@@ -157,47 +164,39 @@ export default defineComponent({
         show: true,
       },
     ];
-    const units = ref<IngredientUnit[]>([]);
-    async function refreshUnits() {
-      const { data } = await userApi.units.getAll();
-      units.value = data ?? [];
-    }
-    onMounted(() => {
-      refreshUnits();
-    });
+
+    const { units, actions: unitActions } = useUnitStore();
+
+    // Edit Units
     const editDialog = ref(false);
     const editTarget = ref<IngredientUnit | null>(null);
     function editEventHandler(item: IngredientUnit) {
       editTarget.value = item;
       editDialog.value = true;
     }
+
     async function editSaveUnit() {
       if (!editTarget.value) {
         return;
       }
 
-      const { data } = await userApi.units.updateOne(editTarget.value.id, editTarget.value);
-      if (data) {
-        refreshUnits();
-      }
-
+      await unitActions.updateOne(editTarget.value);
       editDialog.value = false;
     }
+
+    // Delete Units
     const deleteDialog = ref(false);
     const deleteTarget = ref<IngredientUnit | null>(null);
     function deleteEventHandler(item: IngredientUnit) {
       deleteTarget.value = item;
       deleteDialog.value = true;
     }
+
     async function deleteUnit() {
       if (!deleteTarget.value) {
         return;
       }
-
-      const { data } = await userApi.units.deleteOne(deleteTarget.value.id);
-      if (data) {
-        refreshUnits();
-      }
+      await unitActions.deleteOne(deleteTarget.value.id);
       deleteDialog.value = false;
     }
 
@@ -220,21 +219,9 @@ export default defineComponent({
       const { data } = await userApi.units.merge(fromUnit.value.id, toUnit.value.id);
 
       if (data) {
-        refreshUnits();
+        unitActions.refresh();
       }
     }
-
-    // ============================================================
-    // Labels
-
-    const allLabels = ref([] as MultiPurposeLabelSummary[]);
-
-    async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll();
-      allLabels.value = data ?? [];
-    }
-
-    refreshLabels();
 
     // ============================================================
     // Seed
@@ -256,7 +243,7 @@ export default defineComponent({
       const { data } = await userApi.seeders.units({ locale: locale.value });
 
       if (data) {
-        refreshUnits();
+        unitActions.refresh();
       }
     }
 
@@ -264,7 +251,6 @@ export default defineComponent({
       tableConfig,
       tableHeaders,
       units,
-      allLabels,
       validators,
       // Edit
       editDialog,

@@ -6,7 +6,7 @@
         <div>
           Mealie can use natural language processing to attempt to parse and create units, and foods for your Recipe
           ingredients. This is experimental and may not work as expected. If you choose to not use the parsed results
-          you can seleect cancel and your changes will not be saved.
+          you can select cancel and your changes will not be saved.
         </div>
       </v-alert>
 
@@ -14,7 +14,7 @@
         To use the ingredient parser, click the "Parse All" button and the process will start. When the processed
         ingredients are available, you can look through the items and verify that they were parsed correctly. The models
         confidence score is displayed on the right of the title item. This is an average of all scores and may not be
-        wholey accurate.
+        wholely accurate.
 
         <div class="my-4">
           Alerts will be displayed if a matching foods or unit is found but does not exists in the database.
@@ -84,11 +84,18 @@
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
 import { Parser } from "~/api/class-interfaces/recipes/recipe";
-import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, ParsedIngredient } from "~/types/api-types/recipe";
+import {
+  CreateIngredientFood,
+  CreateIngredientUnit,
+  IngredientFood,
+  IngredientUnit,
+  ParsedIngredient,
+} from "~/types/api-types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
-import { useFoods, useRecipe, useUnits } from "~/composables/recipes";
+import { useRecipe } from "~/composables/recipes";
 import { RecipeIngredient } from "~/types/api-types/admin";
+import { useFoodData, useFoodStore, useUnitStore } from "~/composables/store";
 
 interface Error {
   ingredientIndex: number;
@@ -182,8 +189,9 @@ export default defineComponent({
     // =========================================================
     // Food and Ingredient Logic
 
-    const { foods, workingFoodData, actions } = useFoods();
-    const { units } = useUnits();
+    const foodStore = useFoodStore();
+    const foodData = useFoodData();
+    const { units } = useUnitStore();
 
     const errors = ref<Error[]>([]);
 
@@ -201,16 +209,17 @@ export default defineComponent({
       if (!food) {
         return false;
       }
-      if (foods.value && food?.name) {
-        return foods.value.some((f) => f.name === food.name);
+      if (foodStore.foods.value && food?.name) {
+        return foodStore.foods.value.some((f) => f.name === food.name);
       }
       return false;
     }
 
     async function createFood(food: CreateIngredientFood, index: number) {
-      workingFoodData.name = food.name;
-      await actions.createOne();
+      foodData.data.name = food.name;
+      await foodStore.actions.createOne(foodData.data);
       errors.value[index].foodError = false;
+      foodData.reset();
     }
 
     // =========================================================
@@ -219,16 +228,16 @@ export default defineComponent({
       let ingredients = parsedIng.value.map((ing) => {
         return {
           ...ing.ingredient,
-          originalText: ing.input
+          originalText: ing.input,
         } as RecipeIngredient;
       });
 
       ingredients = ingredients.map((ing) => {
-        if (!foods.value || !units.value) {
+        if (!foodStore.foods.value || !units.value) {
           return ing;
         }
         // Get food from foods
-        ing.food = foods.value.find((f) => f.name === ing.food?.name);
+        ing.food = foodStore.foods.value.find((f) => f.name === ing.food?.name);
 
         // Get unit from units
         ing.unit = units.value.find((u) => u.name === ing.unit?.name);
@@ -252,8 +261,8 @@ export default defineComponent({
       saveAll,
       createFood,
       errors,
-      actions,
-      workingFoodData,
+      actions: foodStore.actions,
+      workingFoodData: foodData,
       isError,
       panels,
       asPercentage,

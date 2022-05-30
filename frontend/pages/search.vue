@@ -108,10 +108,11 @@ import { defineComponent, toRefs, computed, reactive } from "@nuxtjs/composition
 import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchFilterSelector.vue";
 import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { useRecipes, allRecipes, useFoods } from "~/composables/recipes";
+import { useRecipes, allRecipes } from "~/composables/recipes";
 import { RecipeSummary } from "~/types/api-types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { RecipeTag } from "~/types/api-types/user";
+import { useFoodStore } from "~/composables/store";
 
 interface GenericFilter {
   exclude: boolean;
@@ -259,7 +260,7 @@ export default defineComponent({
       state.foodFilter = params;
     }
 
-    const { foods } = useFoods();
+    const { foods } = useFoodStore();
 
     return {
       ...toRefs(state),
