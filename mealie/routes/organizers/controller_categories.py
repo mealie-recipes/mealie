@@ -43,7 +43,7 @@ class RecipeCategoryController(BaseUserController):
     @router.get("", response_model=list[RecipeCategory])
     def get_all(self):
         """Returns a list of available categories in the database"""
-        return self.repo.get_all(override_schema=RecipeCategory)
+        return self.repo.get_all(override=RecipeCategory)
 
     @router.post("", status_code=201)
     def create_one(self, category: CategoryIn):

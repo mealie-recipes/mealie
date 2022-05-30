@@ -41,7 +41,7 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @router.get("", response_model=list[GroupInDB])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override_schema=GroupInDB)
+        return self.repo.get_all(start=q.start, limit=q.limit, override=GroupInDB)
 
     @router.post("", response_model=GroupInDB, status_code=status.HTTP_201_CREATED)
     def create_one(self, data: GroupBase):

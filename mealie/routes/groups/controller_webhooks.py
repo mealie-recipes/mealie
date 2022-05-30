@@ -25,7 +25,7 @@ class ReadWebhookController(BaseUserController):
 
     @router.get("", response_model=list[ReadWebhook])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override_schema=ReadWebhook)
+        return self.repo.get_all(start=q.start, limit=q.limit, override=ReadWebhook)
 
     @router.post("", response_model=ReadWebhook, status_code=201)
     def create_one(self, data: CreateWebhook):

@@ -10,11 +10,11 @@ class RepositoryUnit(RepositoryGeneric[IngredientUnit, IngredientUnitModel]):
     def merge(self, from_unit: UUID4, to_unit: UUID4) -> IngredientUnit | None:
 
         from_model: IngredientUnitModel = (
-            self.session.query(self.sql_model).filter_by(**self._filter_builder(**{"id": from_unit})).one()
+            self.session.query(self.model).filter_by(**self._filter_builder(**{"id": from_unit})).one()
         )
 
         to_model: IngredientUnitModel = (
-            self.session.query(self.sql_model).filter_by(**self._filter_builder(**{"id": to_unit})).one()
+            self.session.query(self.model).filter_by(**self._filter_builder(**{"id": to_unit})).one()
         )
 
         to_model.ingredients += from_model.ingredients

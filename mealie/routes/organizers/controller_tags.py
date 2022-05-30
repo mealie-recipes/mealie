@@ -32,7 +32,7 @@ class TagController(BaseUserController):
     @router.get("")
     async def get_all(self):
         """Returns a list of available tags in the database"""
-        return self.repo.get_all(override_schema=RecipeTag)
+        return self.repo.get_all(override=RecipeTag)
 
     @router.get("/empty")
     def get_empty_tags(self):

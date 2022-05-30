@@ -10,11 +10,11 @@ class RepositoryFood(RepositoryGeneric[IngredientFood, IngredientFoodModel]):
     def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
 
         from_model: IngredientFoodModel = (
-            self.session.query(self.sql_model).filter_by(**self._filter_builder(**{"id": from_food})).one()
+            self.session.query(self.model).filter_by(**self._filter_builder(**{"id": from_food})).one()
         )
 
         to_model: IngredientFoodModel = (
-            self.session.query(self.sql_model).filter_by(**self._filter_builder(**{"id": to_food})).one()
+            self.session.query(self.model).filter_by(**self._filter_builder(**{"id": to_food})).one()
         )
 
         to_model.ingredients += from_model.ingredients

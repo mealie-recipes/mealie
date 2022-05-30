@@ -18,7 +18,7 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
 
         return self.schema.from_orm(entry)
 
-    def create(self, user: PrivateUser | dict):
+    def create(self, user: PrivateUser | dict):  # type: ignore
         new_user = super().create(user)
 
         # Select Random Image
@@ -42,4 +42,4 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         dbuser = self.session.query(User).filter(User.username == username).one_or_none()
         if dbuser is None:
             return None
-        return self.schema.from_orm(dbuser)
+        return self.schema.from_orm(dbuser)  # type: ignore

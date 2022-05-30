@@ -26,7 +26,7 @@ class RecipeSharedController(BaseUserController):
         if recipe_id:
             return self.repo.multi_query({"recipe_id": recipe_id}, override_schema=RecipeShareTokenSummary)
         else:
-            return self.repo.get_all(override_schema=RecipeShareTokenSummary)
+            return self.repo.get_all(override=RecipeShareTokenSummary)
 
     @router.post("", response_model=RecipeShareToken, status_code=201)
     def create_one(self, data: RecipeShareTokenCreate) -> RecipeShareToken:

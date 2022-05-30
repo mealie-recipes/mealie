@@ -44,11 +44,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         eff_schema = override_schema or self.schema
 
         if order_by:
-            order_attr = getattr(self.sql_model, str(order_by))
+            order_attr = getattr(self.model, str(order_by))
 
             return [
                 eff_schema.from_orm(x)
-                for x in self.session.query(self.sql_model)
+                for x in self.session.query(self.model)
                 .join(RecipeSettings)
                 .filter(RecipeSettings.public == True)  # noqa: 711
                 .order_by(order_attr.desc())
@@ -59,7 +59,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         return [
             eff_schema.from_orm(x)
-            for x in self.session.query(self.sql_model)
+            for x in self.session.query(self.model)
             .join(RecipeSettings)
             .filter(RecipeSettings.public == True)  # noqa: 711
             .offset(start)

@@ -34,7 +34,7 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @router.get("", response_model=list[UserOut])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override_schema=UserOut)
+        return self.repo.get_all(start=q.start, limit=q.limit, override=UserOut)
 
     @router.post("", response_model=UserOut, status_code=201)
     def create_one(self, data: UserIn):
