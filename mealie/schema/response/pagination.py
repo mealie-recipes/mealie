@@ -25,9 +25,3 @@ class PaginationBase(GenericModel, Generic[DataT]):
     total: int = 0
     total_pages: int = 0
     data: list[DataT]
-
-
-class AllQuery(BaseModel):
-    start: int = None
-    limit: int = None
-    order_by: str = "created_at"
