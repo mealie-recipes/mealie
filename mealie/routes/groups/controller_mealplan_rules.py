@@ -24,7 +24,7 @@ class GroupMealplanConfigController(BaseUserController):
 
     @router.get("", response_model=list[PlanRulesOut])
     def get_all(self):
-        return self.repo.get_all(override_schema=PlanRulesOut)
+        return self.repo.get_all(override=PlanRulesOut)
 
     @router.post("", response_model=PlanRulesOut, status_code=201)
     def create_one(self, data: PlanRulesCreate):

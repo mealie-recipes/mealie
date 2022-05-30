@@ -114,7 +114,7 @@ class ShoppingListController(BaseUserController):
 
     @router.get("", response_model=list[ShoppingListSummary])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override_schema=ShoppingListSummary)
+        return self.repo.get_all(start=q.start, limit=q.limit, override=ShoppingListSummary)
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):

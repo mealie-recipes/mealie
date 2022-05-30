@@ -37,7 +37,7 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @router.get("", response_model=list[MultiPurposeLabelSummary])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override_schema=MultiPurposeLabelSummary)
+        return self.repo.get_all(start=q.start, limit=q.limit, override=MultiPurposeLabelSummary)
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):

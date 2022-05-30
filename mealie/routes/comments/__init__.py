@@ -43,7 +43,7 @@ class RecipeCommentRoutes(BaseUserController):
 
     @router.get("", response_model=list[RecipeCommentOut])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override_schema=RecipeCommentOut)
+        return self.repo.get_all(start=q.start, limit=q.limit, override=RecipeCommentOut)
 
     @router.post("", response_model=RecipeCommentOut, status_code=201)
     def create_one(self, data: RecipeCommentCreate):

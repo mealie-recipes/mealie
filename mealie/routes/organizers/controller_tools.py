@@ -26,7 +26,7 @@ class RecipeToolController(BaseUserController):
 
     @router.get("", response_model=list[RecipeTool])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override_schema=RecipeTool)
+        return self.repo.get_all(start=q.start, limit=q.limit, override=RecipeTool)
 
     @router.post("", response_model=RecipeTool, status_code=201)
     def create_one(self, data: RecipeToolCreate):
