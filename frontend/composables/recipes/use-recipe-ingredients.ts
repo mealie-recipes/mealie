@@ -19,6 +19,8 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
 
   let returnQty = "";
 
+  let unitDisplay = unit?.name;
+
   // casting to number is required as sometimes quantity is a string
   if (quantity && Number(quantity) !== 0) {
     console.log("Using Quantity", quantity, typeof quantity);
@@ -34,8 +36,12 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
     } else {
       returnQty = (quantity * scale).toString();
     }
+
+    if (unit?.useAbbreviation && unit.abbreviation) {
+      unitDisplay = unit.abbreviation;
+    }
   }
 
-  const text = `${returnQty} ${unit?.name || " "}  ${food?.name || " "} ${note || " "}`.replace(/ {2,}/g, " ");
+  const text = `${returnQty} ${unitDisplay || " "}  ${food?.name || " "} ${note || " "}`.replace(/ {2,}/g, " ");
   return sanitizeIngredientHTML(text);
 }
