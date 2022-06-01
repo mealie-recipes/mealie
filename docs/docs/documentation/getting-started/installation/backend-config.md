@@ -56,9 +56,10 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 ### LDAP
 
-| Variables          | Default | Description                                                                                                        |
-| ------------------ | :-----: | ------------------------------------------------------------------------------------------------------------------ |
-| LDAP_AUTH_ENABLED  |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                       |
-| LDAP_SERVER_URL    |  None   | LDAP server URL (e.g. ldap://ldap.example.com)                                                                     |
-| LDAP_BIND_TEMPLATE |  None   | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`)                   |
-| LDAP_ADMIN_FILTER  |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`) |
+| Variables          | Default | Description                                                                                                                       |
+| ------------------ | :-----: | --------------------------------------------------------------------------------------------------------------------------------- |
+| LDAP_AUTH_ENABLED  |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                                      |
+| LDAP_SERVER_URL    |  None   | LDAP server URL (e.g. ldap://ldap.example.com)                                                                                    |
+| LDAP_BIND_TEMPLATE |  None   | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`)                                  |
+| LDAP_ADMIN_FILTER  |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`)                |
+| LDAP_BASE_DN       |  None   | Optional BASE DN; needed in case you want to use an AD and use the userPrincipalName to login (e.g. `CN=Users,DC=xx,DC=yy,DC=de`) | 
