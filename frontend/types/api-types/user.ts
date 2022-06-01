@@ -164,6 +164,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
+  useAbbreviation?: boolean;
   id: string;
 }
 export interface CreateIngredientUnit {
@@ -171,6 +172,7 @@ export interface CreateIngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
+  useAbbreviation?: boolean;
 }
 export interface IngredientFood {
   name: string;

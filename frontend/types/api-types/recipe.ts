@@ -49,6 +49,7 @@ export interface CreateIngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
+  useAbbreviation?: boolean;
 }
 export interface CreateRecipe {
   name: string;
@@ -117,6 +118,7 @@ export interface IngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
+  useAbbreviation?: boolean;
   id: string;
 }
 export interface IngredientsRequest {
@@ -340,6 +342,7 @@ export interface SaveIngredientUnit {
   description?: string;
   fraction?: boolean;
   abbreviation?: string;
+  useAbbreviation?: boolean;
   groupId: string;
 }
 export interface ScrapeRecipe {
