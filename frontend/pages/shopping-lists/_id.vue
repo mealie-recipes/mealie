@@ -187,7 +187,7 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useAsync, useRoute, computed, ref } from "@nuxtjs/composition-api";
+import { defineComponent, useAsync, useRoute, computed, ref, watch } from "@nuxtjs/composition-api";
 import { useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
@@ -367,11 +367,13 @@ export default defineComponent({
       return labels;
     });
 
-    const itemsByLabel = computed(() => {
-      const items: { [prop: string]: ShoppingListItemCreate[] } = {};
+    const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
+
+    function updateItemsByLabel() {
+      const items: { [prop: string]: ShoppingListItemOut[] } = {};
 
       const noLabel = {
-        "No Label": [] as ShoppingListItemCreate[],
+        "No Label": [] as ShoppingListItemOut[],
       };
 
       shoppingList.value?.listItems?.forEach((item) => {
@@ -394,7 +396,11 @@ export default defineComponent({
         items["No Label"] = noLabel["No Label"];
       }
 
-      return items;
+      itemsByLabel.value = items;
+    }
+
+    watch(shoppingList, () => {
+      updateItemsByLabel();
     });
 
     async function refreshLabels() {
