@@ -34,6 +34,7 @@ class IngredientFood(CreateIngredientFood):
 class CreateIngredientUnit(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
+    use_abbreviation: bool = False
 
 
 class SaveIngredientUnit(CreateIngredientUnit):
