@@ -130,7 +130,6 @@ import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { IngredientFood } from "~/types/api-types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
-import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 
