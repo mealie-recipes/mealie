@@ -38,7 +38,6 @@
           <v-col cols="12" xs="12" sm="6">
             <RecipeOrganizerSelector
               v-model="bulkUrls[idx].categories"
-              :items="allCategories || []"
               selector-type="categories"
               :input-attrs="{
                 filled: true,
@@ -54,7 +53,6 @@
           <v-col cols="12" xs="12" sm="6">
             <RecipeOrganizerSelector
               v-model="bulkUrls[idx].tags"
-              :items="allTags || []"
               selector-type="tags"
               :input-attrs="{
                 filled: true,
@@ -109,7 +107,6 @@ import { whenever } from "@vueuse/shared";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-import { useCategories, useTags } from "~/composables/recipes";
 import { ReportSummary } from "~/types/api-types/reports";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 
@@ -152,12 +149,6 @@ export default defineComponent({
       fetchReports();
     }
 
-    const { allTags, useAsyncGetAll: getAllTags } = useTags();
-    const { allCategories, useAsyncGetAll: getAllCategories } = useCategories();
-
-    getAllTags();
-    getAllCategories();
-
     // =========================================================
     // Reports
 
@@ -189,8 +180,6 @@ export default defineComponent({
       assignUrls,
       reports,
       deleteReport,
-      allTags,
-      allCategories,
       bulkCreate,
       bulkUrls,
       lockBulkImport,
