@@ -1,6 +1,4 @@
-import time
 from datetime import timedelta
-from random import randrange
 from typing import Optional
 
 from fastapi import APIRouter, Depends, Form, status
@@ -18,17 +16,6 @@ from mealie.schema.user import PrivateUser
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
-
-
-def current_time():
-    return int(round(time.time() * 1000))
-
-
-def wait(start_time):
-    minimum_respond_time = randrange(300, 400)
-
-    while current_time() - start_time <= minimum_respond_time:
-        time.sleep(0.11)
 
 
 class CustomOAuth2Form(OAuth2PasswordRequestForm):
@@ -62,7 +49,6 @@ class MealieAuthToken(BaseModel):
 
 @public_router.post("/token")
 def get_token(data: CustomOAuth2Form = Depends(), session: Session = Depends(generate_session)):
-    start_time = current_time()
 
     email = data.username
     password = data.password
@@ -70,7 +56,6 @@ def get_token(data: CustomOAuth2Form = Depends(), session: Session = Depends(gen
     user = authenticate_user(session, email, password)  # type: ignore
 
     if not user:
-        wait(start_time)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
