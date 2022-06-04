@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div flat>
+    <div>
       <v-card-title class="headline"> Recipe Bulk Importer </v-card-title>
       <v-card-text>
         The Bulk recipe importer allows you to import multiple recipes at once by queing the sites on the backend and
@@ -39,7 +39,7 @@
             <RecipeOrganizerSelector
               v-model="bulkUrls[idx].categories"
               :items="allCategories || []"
-              selector-type="category"
+              selector-type="categories"
               :input-attrs="{
                 filled: true,
                 singleLine: true,
@@ -55,7 +55,7 @@
             <RecipeOrganizerSelector
               v-model="bulkUrls[idx].tags"
               :items="allTags || []"
-              selector-type="tag"
+              selector-type="tags"
               :input-attrs="{
                 filled: true,
                 singleLine: true,

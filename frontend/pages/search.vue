@@ -35,23 +35,30 @@
           <v-expand-transition>
             <v-row v-show="state" dense class="my-0 dense flex-row align-center justify-space-around">
               <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-                <RecipeCategoryTagSelector
+                <RecipeOrganizerSelector
                   v-model="includeCategories"
-                  hide-details
-                  :solo="true"
-                  :dense="false"
+                  :input-attrs="{
+                    solo: true,
+                    hideDetails: true,
+                    dense: false,
+                  }"
+                  :show-add="false"
                   :return-object="false"
+                  selector-type="categories"
                 />
                 <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
               </v-col>
               <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-                <RecipeCategoryTagSelector
+                <RecipeOrganizerSelector
                   v-model="includeTags"
-                  hide-details
-                  :solo="true"
-                  :dense="false"
+                  :input-attrs="{
+                    solo: true,
+                    hideDetails: true,
+                    dense: false,
+                  }"
+                  :show-add="false"
                   :return-object="false"
-                  :tag-selector="true"
+                  selector-type="tags"
                 />
                 <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
               </v-col>
@@ -106,7 +113,7 @@
 import Fuse from "fuse.js";
 import { defineComponent, toRefs, computed, reactive } from "@nuxtjs/composition-api";
 import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchFilterSelector.vue";
-import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
+import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import { RecipeSummary } from "~/types/api-types/recipe";
@@ -121,7 +128,7 @@ interface GenericFilter {
 
 export default defineComponent({
   components: {
-    RecipeCategoryTagSelector,
+    RecipeOrganizerSelector,
     RecipeSearchFilterSelector,
     RecipeCardSection,
   },
