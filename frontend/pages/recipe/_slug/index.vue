@@ -177,7 +177,7 @@
           </div>
 
           <!-- Edit Scale Dialog -->
-          <BaseDialog v-model="scaleDialog" :icon="$globals.icons.units" title="Edit Scale"
+          <BaseDialog v-model="scaleDialog" :icon="$globals.icons.units" :title="$t('recipe.edit-scale').toString()"
             :submit-text="$tc('general.save')" @submit="editSaveScale">
             <v-card-text>
               <div class="mt-4 d-flex align-center">
@@ -212,7 +212,7 @@
                   </span>
                 </v-btn>
               </template>
-              <span> Edit Scale </span>
+              <span> {{ $t('recipe.edit-scale') }} </span>
             </v-tooltip>
 
             <template v-if="!recipe.settings.disableAmount && !form">
