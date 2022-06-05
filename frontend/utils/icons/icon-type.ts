@@ -90,6 +90,7 @@ export interface Icon {
   webhook: string;
   windowClose: string;
   zip: string;
+  undo: string;
 
   // Crud
   backArrow: string;

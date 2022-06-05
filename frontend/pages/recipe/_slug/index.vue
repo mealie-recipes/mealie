@@ -175,72 +175,80 @@
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
           </div>
+
+          <!-- Edit Scale Dialog -->
+          <BaseDialog v-model="scaleDialog" :icon="$globals.icons.units" title="Edit Scale"
+            :submit-text="$tc('general.save')" @submit="editSaveScale">
+            <v-card-text>
+              <div class="mt-4 d-flex align-center">
+                <v-text-field type="number" v-model="scaleTemp" :label="$t('recipe.edit-scale')" />
+                <v-tooltip right color="secondary darken-1">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon class="mx-1" v-on="on" small @click="scaleTemp = 1">
+                      <v-icon>
+                        {{ $globals.icons.undo }}
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span> Reset Scale </span>
+                </v-tooltip>
+              </div>
+            </v-card-text>
+          </BaseDialog>
+
           <div class="d-flex justify-space-between align-center pt-2 pb-3">
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
-                <v-btn
-                  v-if="recipe.recipeYield"
-                  dense
-                  small
-                  :hover="false"
-                  type="label"
-                  :ripple="false"
-                  elevation="0"
-                  color="secondary darken-1"
-                  class="rounded-sm static"
-                  v-bind="attrs"
-                  @click="scale = 1"
-                  v-on="on"
-                >
-                  {{ scaledYield }}
+                <v-btn v-if="!recipe.settings.disableAmount && recipe.recipeYield" dense small :hover="false"
+                  type="label" :ripple="false" elevation="0" color="secondary darken-1" class="rounded-sm static"
+                  v-bind="attrs" @click="scaleTemp = scale; scaleDialog = true" v-on="on">
+                  <span v-if="scale == 1">{{ scaledYield }} {{ $tc('recipe.servings') }}</span>
+                  <span v-if="scale != 1"> {{ basicYield }} x {{ scale }} = {{ scaledYield }}
+                    {{ $tc('recipe.servings') }}</span>
                 </v-btn>
               </template>
-              <span> Reset Scale </span>
+              <span> Edit Scale </span>
             </v-tooltip>
 
             <template v-if="!recipe.settings.disableAmount && !form">
-              <v-btn color="secondary darken-1" class="mx-1" small @click="scale > 1 ? scale-- : null">
-                <v-icon>
-                  {{ $globals.icons.minus }}
-                </v-icon>
-              </v-btn>
-              <v-btn color="secondary darken-1" small @click="scale++">
-                <v-icon>
-                  {{ $globals.icons.createAlt }}
-                </v-icon>
-              </v-btn>
+              <v-tooltip top color="secondary darken-1">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn color="secondary darken-1" class="mx-1" small v-on="on" @click="scale > 1 ? scale-- : null">
+                    <v-icon>
+                      {{ $globals.icons.minus }}
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span> Decrease Scale by 1 </span>
+              </v-tooltip>
+              <v-tooltip top color="secondary darken-1">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn color="secondary darken-1" small v-on="on" @click="scale++">
+                    <v-icon>
+                      {{ $globals.icons.createAlt }}
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span> Increase Scale by 1 </span>
+              </v-tooltip>
             </template>
             <v-spacer></v-spacer>
 
-            <RecipeRating
-              v-if="enableLandscape && $vuetify.breakpoint.smAndUp"
-              :key="recipe.slug"
-              :value="recipe.rating"
-              :name="recipe.name"
-              :slug="recipe.slug"
-            />
+            <RecipeRating v-if="enableLandscape && $vuetify.breakpoint.smAndUp" :key="recipe.slug"
+              :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
           </div>
 
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <RecipeIngredients
-                v-if="!form"
-                :value="recipe.recipeIngredient"
-                :scale="scale"
-                :disable-amount="recipe.settings.disableAmount"
-              />
+              <RecipeIngredients v-if="!form" :value="recipe.recipeIngredient" :scale="scale"
+                :disable-amount="recipe.settings.disableAmount" />
 
               <!-- Recipe Tools Display -->
               <div v-if="!form && recipe.tools && recipe.tools.length > 0">
                 <h2 class="mb-2 mt-4">Required Tools</h2>
                 <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
-                  <v-checkbox
-                    v-model="recipe.tools[index].onHand"
-                    hide-details
-                    class="pt-0 my-auto py-auto"
-                    color="secondary"
-                    @change="updateTool(recipe.tools[index])"
-                  >
+                  <v-checkbox v-model="recipe.tools[index].onHand" hide-details class="pt-0 my-auto py-auto"
+                    color="secondary" @change="updateTool(recipe.tools[index])">
                   </v-checkbox>
                   <v-list-item-content>
                     {{ tool.name }}
@@ -607,6 +615,8 @@ export default defineComponent({
     const state = reactive({
       form: false,
       scale: 1,
+      scaleTemp: 1,
+      scaleDialog: false,
       hideImage: false,
       imageKey: 1,
       skeleton: false,
@@ -693,6 +703,19 @@ export default defineComponent({
       if (num && num?.length > 0) {
         const yieldAsInt = parseInt(num[0]);
         return yieldString?.replace(num[0], String(yieldAsInt * state.scale));
+      }
+
+      return recipe.value?.recipeYield;
+    });
+
+    const basicYield = computed(() => {
+      const regMatchNum = /\d+/;
+      const yieldString = recipe.value?.recipeYield;
+      const num = yieldString?.match(regMatchNum);
+
+      if (num && num?.length > 0) {
+        const yieldAsInt = parseInt(num[0]);
+        return yieldString?.replace(num[0], String(yieldAsInt));
       }
 
       return recipe.value?.recipeYield;
@@ -838,6 +861,13 @@ export default defineComponent({
 
     const drag = ref(false);
 
+    // ===============================================================
+    // Scale
+
+    const editSaveScale = () => {
+      state.scale = state.scaleTemp;
+    }
+
     return {
       // Wake Lock
       drag,
@@ -855,12 +885,14 @@ export default defineComponent({
       enableLandscape,
       imageHeight,
       scaledYield,
+      basicYield,
       toggleJson,
       ...toRefs(state),
       recipe,
       api,
       loading,
       addStep,
+      editSaveScale,
       deleteRecipe,
       printRecipe,
       closeEditor,
