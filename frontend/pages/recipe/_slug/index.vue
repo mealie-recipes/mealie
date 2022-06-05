@@ -199,12 +199,17 @@
           <div class="d-flex justify-space-between align-center pt-2 pb-3">
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
-                <v-btn v-if="!recipe.settings.disableAmount && recipe.recipeYield" dense small :hover="false"
-                  type="label" :ripple="false" elevation="0" color="secondary darken-1" class="rounded-sm static"
-                  v-bind="attrs" @click="scaleTemp = scale; scaleDialog = true" v-on="on">
-                  <span v-if="scale == 1">{{ scaledYield }} {{ $tc('recipe.servings') }}</span>
-                  <span v-if="scale != 1"> {{ basicYield }} x {{ scale }} = {{ scaledYield }}
-                    {{ $tc('recipe.servings') }}</span>
+                <v-btn v-if="!recipe.settings.disableAmount" dense small :hover="false" type="label" :ripple="false"
+                  elevation="0" color="secondary darken-1" class="rounded-sm static" v-bind="attrs"
+                  @click="scaleTemp = scale; scaleDialog = true" v-on="on">
+                  <span v-if="recipe.recipeYield">
+                    <span v-if="scale == 1">{{ scaledYield }} {{ $tc('recipe.servings') }}</span>
+                    <span v-if="scale != 1"> {{ basicYield }} x {{ scale }} = {{ scaledYield }}
+                      {{ $tc('recipe.servings') }}</span>
+                  </span>
+                  <span v-if="!recipe.recipeYield">
+                    <span> x {{ scale }}</span>
+                  </span>
                 </v-btn>
               </template>
               <span> Edit Scale </span>
