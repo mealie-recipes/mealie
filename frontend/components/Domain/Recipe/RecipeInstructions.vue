@@ -179,9 +179,15 @@
               >
                 <MarkdownEditor
                   v-model="value[index]['text']"
+                  class="mb-2"
                   :preview.sync="previewStates[index]"
                   :display-preview="false"
+                  :textarea="{
+                    hint: 'Attach images by dragging & dropping them into the editor',
+                    persistentHint: true,
+                  }"
                 />
+
                 <div
                   v-for="ing in step.ingredientReferences"
                   :key="ing.referenceId"
