@@ -85,6 +85,17 @@ These backups are just plain .zip files that you can download from the UI or acc
 
 ## Appendix
 
+### Docker Tags
+
+`mealie:frontend-v1.0.0beta-x` **and** `mealie:api-v1.0.0beta-x`
+
+These are the tags for the latest beta release of the frontend docker-container. These are currently considered the latest and most stable releases and the recommended way of using Mealie.
+
+`mealie:frontend-nightly`**and** `mealie:api-nightly`
+
+The nightly build are the latest and greatest builds that are built directly off of every commit to the `mealie-next` branch and as such may contain bugs. These are great to help the community catch bugs before they hit the stable release or if you like living on the edge.
+
+
 ### Docker Diagram
 
 While the docker-compose file should work without modification, some users want to tailor it to their installation. This diagram shows network and volume architecture for the default setup. You can use this to help you customize your configuration.
