@@ -168,12 +168,26 @@
                   </v-icon>
                 </v-fade-transition>
               </v-card-title>
-              <v-card-text v-if="edit">
+
+              <!-- Content -->
+              <v-card-text
+                v-if="edit"
+                :class="{
+                  blur: imageUploadMode,
+                }"
+                @drop.stop.prevent="handleImageDrop(index, $event)"
+              >
                 <MarkdownEditor
                   v-model="value[index]['text']"
+                  class="mb-2"
                   :preview.sync="previewStates[index]"
                   :display-preview="false"
+                  :textarea="{
+                    hint: 'Attach images by dragging & dropping them into the editor',
+                    persistentHint: true,
+                  }"
                 />
+
                 <div
                   v-for="ing in step.ingredientReferences"
                   :key="ing.referenceId"
@@ -199,10 +213,11 @@
 import draggable from "vuedraggable";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
-import { ref, toRefs, reactive, defineComponent, watch, onMounted } from "@nuxtjs/composition-api";
-import { RecipeStep, IngredientReferences, RecipeIngredient } from "~/types/api-types/recipe";
+import { ref, toRefs, reactive, defineComponent, watch, onMounted, useContext } from "@nuxtjs/composition-api";
+import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
-import { uuid4 } from "~/composables/use-utils";
+import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
+import { useUserApi, useStaticRoutes } from "~/composables/api";
 
 interface MergerHistory {
   target: number;
@@ -237,9 +252,26 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    recipeId: {
+      type: String,
+      default: "",
+    },
+    recipeSlug: {
+      type: String,
+      default: "",
+    },
+    assets: {
+      type: Array as () => RecipeAsset[],
+      required: true,
+    },
   },
 
   setup(props, context) {
+    const { req } = useContext();
+    const BASE_URL = detectServerBaseUrl(req);
+
+    console.log("Base URL", BASE_URL);
+
     const state = reactive({
       dialog: false,
       disabledSteps: [] as number[],
@@ -368,7 +400,7 @@ export default defineComponent({
     }
 
     function autoSetReferences() {
-      // Ingore matching blacklisted words when auto-linking - This is kind of a cludgey implementation. We're blacklisting common words but
+      // Ignore matching blacklisted words when auto-linking - This is kind of a cludgey implementation. We're blacklisting common words but
       // other common phrases trigger false positives and I'm not sure how else to approach this. In the future I maybe look at looking directly
       // at the food variable and seeing if the food is in the instructions, but I still need to support those who don't want to provide the value
       // and only use the "notes" feature.
@@ -493,7 +525,59 @@ export default defineComponent({
 
     const drag = ref(false);
 
+    // ===============================================================
+    // Image Uploader
+    const api = useUserApi();
+    const { recipeAssetPath } = useStaticRoutes();
+
+    const imageUploadMode = ref(false);
+
+    function toggleDragMode() {
+      console.log("Toggling Drag Mode");
+      imageUploadMode.value = !imageUploadMode.value;
+    }
+
+    onMounted(() => {
+      if (props.assets === undefined) {
+        context.emit("update:assets", []);
+      }
+    });
+
+    async function handleImageDrop(index: number, e: DragEvent) {
+      if (!e.dataTransfer) {
+        return;
+      }
+
+      // Check if the file is an image
+      const file = e.dataTransfer.files[0];
+      if (!file || !file.type.startsWith("image/")) {
+        return;
+      }
+
+      const { data } = await api.recipes.createAsset(props.recipeSlug, {
+        name: file.name,
+        icon: "mdi-file-image",
+        file,
+        extension: file.name.split(".").pop() || "",
+      });
+
+      if (!data) {
+        return; // TODO: Handle error
+      }
+
+      context.emit("update:assets", [...props.assets, data]);
+      const assetUrl = BASE_URL + recipeAssetPath(props.recipeId, data.fileName as string);
+      const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
+      props.value[index].text += text;
+    }
+
     return {
+      // Image Uploader
+      toggleDragMode,
+      handleImageDrop,
+      imageUploadMode,
+
+      // Rest
       drag,
       togglePreviewState,
       toggleCollapseSection,
@@ -552,5 +636,22 @@ export default defineComponent({
 }
 .list-group-item i {
   cursor: pointer;
+}
+
+.blur {
+  filter: blur(2px);
+}
+
+.upload-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 </style>

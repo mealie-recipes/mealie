@@ -319,6 +319,9 @@
                 :ingredients="recipe.recipeIngredient"
                 :disable-amount="recipe.settings.disableAmount"
                 :edit="form"
+                :recipe-id="recipe.id"
+                :recipe-slug="recipe.slug"
+                :assets.sync="recipe.assets"
               />
               <div v-if="form" class="d-flex">
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
