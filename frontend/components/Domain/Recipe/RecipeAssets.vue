@@ -45,7 +45,7 @@
         @submit="addAsset"
       >
         <template #activator>
-          <BaseButton v-if="edit" small create @click="newAssetDialog = true" />
+          <BaseButton v-if="edit" small create @click="state.newAssetDialog = true" />
         </template>
         <v-card-text class="pt-4">
           <v-text-field v-model="state.newAsset.name" dense :label="$t('general.name')"></v-text-field>
