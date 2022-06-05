@@ -36,14 +36,9 @@
             <v-card-text v-if="cookbooks">
               <v-text-field v-model="cookbooks[index].name" label="Cookbook Name"></v-text-field>
               <v-textarea v-model="cookbooks[index].description" auto-grow :rows="2" label="Description"></v-textarea>
-              <RecipeOrganizerSelector
-                v-model="cookbooks[index].categories"
-                :items="allCategories || []"
-                selector-type="category"
-              />
-
-              <RecipeOrganizerSelector v-model="cookbooks[index].tags" :items="allTags || []" selector-type="tag" />
-              <RecipeOrganizerSelector v-model="cookbooks[index].tools" :items="tools || []" selector-type="tool" />
+              <RecipeOrganizerSelector v-model="cookbooks[index].categories" selector-type="categories" />
+              <RecipeOrganizerSelector v-model="cookbooks[index].tags" selector-type="tags" />
+              <RecipeOrganizerSelector v-model="cookbooks[index].tools" selector-type="tools" />
               <v-switch v-model="cookbooks[index].public" hide-details single-line>
                 <template #label>
                   Public Cookbook
@@ -102,26 +97,15 @@ import { defineComponent } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-import { useCategories, useTags, useTools } from "~/composables/recipes";
 
 export default defineComponent({
   components: { draggable, RecipeOrganizerSelector },
   setup() {
     const { cookbooks, actions } = useCookbooks();
 
-    const { tools } = useTools();
-    const { allCategories, useAsyncGetAll: getAllCategories } = useCategories();
-    const { allTags, useAsyncGetAll: getAllTags } = useTags();
-
-    getAllCategories();
-    getAllTags();
-
     return {
-      allCategories,
-      allTags,
       cookbooks,
       actions,
-      tools,
     };
   },
   head() {

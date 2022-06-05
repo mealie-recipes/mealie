@@ -5,8 +5,8 @@
       <v-select v-model="inputEntryType" :items="MEAL_TYPE_OPTIONS" label="Meal Type"></v-select>
     </div>
 
-    <RecipeCategoryTagSelector v-model="inputCategories" />
-    <RecipeCategoryTagSelector v-model="inputTags" :tag-selector="true" />
+    <RecipeOrganizerSelector v-model="inputCategories" selector-type="categories" />
+    <RecipeOrganizerSelector v-model="inputTags" selector-type="tags" />
 
     {{ inputDay === "unset" ? "This rule will apply to all days" : `This rule applies on ${inputDay}s` }}
     {{ inputEntryType === "unset" ? "for all meal types" : ` and for ${inputEntryType} meal types` }}
@@ -15,7 +15,8 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "@nuxtjs/composition-api";
-import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
+import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
+import { RecipeTag, RecipeCategory } from "~/types/api-types/group";
 
 const MEAL_TYPE_OPTIONS = [
   { text: "Breakfast", value: "breakfast" },
@@ -38,7 +39,7 @@ const MEAL_DAY_OPTIONS = [
 
 export default defineComponent({
   components: {
-    RecipeCategoryTagSelector,
+    RecipeOrganizerSelector,
   },
   props: {
     day: {
@@ -50,11 +51,11 @@ export default defineComponent({
       default: "unset",
     },
     categories: {
-      type: Array,
+      type: Array as () => RecipeCategory[],
       default: () => [],
     },
     tags: {
-      type: Array,
+      type: Array as () => RecipeTag[],
       default: () => [],
     },
     showHelp: {

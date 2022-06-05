@@ -247,8 +247,18 @@
               <div v-if="!form && recipe.tools && recipe.tools.length > 0">
                 <h2 class="mb-2 mt-4">Required Tools</h2>
                 <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
+<<<<<<< HEAD
                   <v-checkbox v-model="recipe.tools[index].onHand" hide-details class="pt-0 my-auto py-auto"
                     color="secondary" @change="updateTool(recipe.tools[index])">
+=======
+                  <v-checkbox
+                    v-model="recipe.tools[index].onHand"
+                    hide-details
+                    class="pt-0 my-auto py-auto"
+                    color="secondary"
+                    @change="toolStore.actions.updateOne(recipe.tools[index])"
+                  >
+>>>>>>> abb114c375c79f8f2ca70e68e34aae1a24387430
                   </v-checkbox>
                   <v-list-item-content>
                     {{ tool.name }}
@@ -264,12 +274,12 @@
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeCategoryTagSelector
+                    <RecipeOrganizerSelector
                       v-if="form"
                       v-model="recipe.recipeCategory"
                       :return-object="true"
                       :show-add="true"
-                      :show-label="false"
+                      selector-type="categories"
                     />
                     <RecipeChips v-else :items="recipe.recipeCategory" />
                   </v-card-text>
@@ -282,13 +292,12 @@
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeCategoryTagSelector
+                    <RecipeOrganizerSelector
                       v-if="form"
                       v-model="recipe.tags"
                       :return-object="true"
                       :show-add="true"
-                      :tag-selector="true"
-                      :show-label="false"
+                      selector-type="tags"
                     />
                     <RecipeChips v-else :items="recipe.tags" url-prefix="tags" />
                   </v-card-text>
@@ -299,7 +308,7 @@
                   <v-card-title class="py-2"> Required Tools </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text class="pt-0">
-                    <RecipeTools v-model="recipe.tools" :edit="form" />
+                    <RecipeOrganizerSelector v-model="recipe.tools" selector-type="tools" />
                   </v-card-text>
                 </v-card>
 
@@ -352,12 +361,12 @@
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeCategoryTagSelector
+                    <RecipeOrganizerSelector
                       v-if="form"
                       v-model="recipe.recipeCategory"
                       :return-object="true"
                       :show-add="true"
-                      :show-label="false"
+                      selector-type="categories"
                     />
                     <RecipeChips v-else :items="recipe.recipeCategory" />
                   </v-card-text>
@@ -370,14 +379,14 @@
                   </v-card-title>
                   <v-divider class="mx-2"></v-divider>
                   <v-card-text>
-                    <RecipeCategoryTagSelector
+                    <RecipeOrganizerSelector
                       v-if="form"
                       v-model="recipe.tags"
                       :return-object="true"
                       :show-add="true"
-                      :tag-selector="true"
-                      :show-label="false"
+                      selector-type="tags"
                     />
+
                     <RecipeChips v-else :items="recipe.tags" url-prefix="tags" />
                   </v-card-text>
                 </v-card>
@@ -492,7 +501,7 @@ import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
 import { invoke, until, useWakeLock } from "@vueuse/core";
 import { onUnmounted } from "vue-demi";
-import RecipeCategoryTagSelector from "@/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
+import RecipeOrganizerSelector from "@/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import RecipeDialogBulkAdd from "@/components/Domain/Recipe//RecipeDialogBulkAdd.vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
@@ -511,9 +520,10 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import RecipeTools from "~/components/Domain/Recipe/RecipeTools.vue";
 import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
-import { Recipe, RecipeTool } from "~/types/api-types/recipe";
+import { Recipe } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import { useRouteQuery } from "~/composables/use-router";
+import { useToolStore } from "~/composables/store";
 
 export default defineComponent({
   components: {
@@ -524,7 +534,7 @@ export default defineComponent({
         return import(/* webpackChunkName: "RecipeAssets" */ "~/components/Domain/Recipe/RecipeAssets.vue");
       }
     },
-    RecipeCategoryTagSelector,
+    RecipeOrganizerSelector,
     RecipeChips,
     RecipeComments,
     RecipeDialogBulkAdd,
@@ -781,18 +791,7 @@ export default defineComponent({
     // ===============================================================
     // Recipe Tools
 
-    async function updateTool(tool: RecipeTool) {
-      if (tool.id === undefined) return;
-
-      const { response } = await api.tools.updateOne(tool.id, tool);
-
-      if (response?.status === 200) {
-        console.log("Update Successful");
-      }
-    }
-
-    // ===============================================================
-    // Recipe API Extras
+    const toolStore = useToolStore();
 
     const apiNewKey = ref("");
 
@@ -896,13 +895,13 @@ export default defineComponent({
       deleteRecipe,
       printRecipe,
       closeEditor,
-      updateTool,
       updateRecipe,
       uploadImage,
       validators,
       recipeImage,
       addIngredient,
       removeApiExtra,
+      toolStore,
     };
   },
   head: {},

@@ -3,7 +3,7 @@ import { useAsyncKey } from "../use-utils";
 import { BaseCRUDAPI } from "~/api/_base";
 
 type BoundT = {
-  id: string | number;
+  id?: string | number;
 };
 
 interface StoreActions<T extends BoundT> {
@@ -29,7 +29,12 @@ export function useStoreActions<T extends BoundT>(
     loading.value = true;
     const allItems = useAsync(async () => {
       const { data } = await api.getAll();
-      return data;
+
+      if (allRef) {
+        allRef.value = data;
+      }
+
+      return data ?? [];
     }, useAsyncKey());
 
     loading.value = false;
@@ -73,8 +78,8 @@ export function useStoreActions<T extends BoundT>(
 
   async function deleteOne(id: string | number) {
     loading.value = true;
-    const { data } = await api.deleteOne(id);
-    if (data && allRef?.value) {
+    const { response } = await api.deleteOne(id);
+    if (response && allRef?.value) {
       refresh();
     }
     loading.value = false;
