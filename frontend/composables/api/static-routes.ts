@@ -11,15 +11,15 @@ export const useStaticRoutes = () => {
 
   // Methods to Generate reference urls for assets/images *
   function recipeImage(recipeId: string, version = "", key = 1) {
-    return `${fullBase}/media/recipes/${recipeId}/images/original.webp?&rnd=${key}&version=${version}`;
+    return `${fullBase}/media/recipes/${recipeId}/images/original.webp?rnd=${key}&version=${version}`;
   }
 
   function recipeSmallImage(recipeId: string, version = "", key = 1) {
-    return `${fullBase}/media/recipes/${recipeId}/images/min-original.webp?&rnd=${key}&version=${version}`;
+    return `${fullBase}/media/recipes/${recipeId}/images/min-original.webp?rnd=${key}&version=${version}`;
   }
 
   function recipeTinyImage(recipeId: string, version = "", key = 1) {
-    return `${fullBase}/media/recipes/${recipeId}/images/tiny-original.webp?&rnd=${key}&version=${version}`;
+    return `${fullBase}/media/recipes/${recipeId}/images/tiny-original.webp?rnd=${key}&version=${version}`;
   }
 
   function recipeAssetPath(recipeId: string, assetName: string) {
