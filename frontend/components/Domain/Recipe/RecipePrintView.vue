@@ -75,8 +75,7 @@ import { defineComponent, computed } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { Recipe } from "~/types/api-types/recipe";
-import { RecipeIngredient } from "~/types/api-types/recipe";
+import { Recipe, RecipeIngredient} from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 
 type IngredientSection = {
@@ -99,8 +98,8 @@ export default defineComponent({
   },
   setup(props) {
     const ingredientSections = computed<IngredientSection[]>(() => {
-      let ingredientSections:IngredientSection[] = [];
-      let sectionIndexes:number[] = [];
+      const ingredientSections:IngredientSection[] = [];
+      const sectionIndexes:number[] = [];
 
       // Store indexes of each new section
       for (let i = 0; i < props.recipe.recipeIngredient.length; i++) {
@@ -120,7 +119,7 @@ export default defineComponent({
         const startIndex:number = sectionIndexes[i];
         const endIndex:number = sectionIndexes[i + 1];
 
-        let ingredientSection:IngredientSection = {
+        const ingredientSection:IngredientSection = {
           sectionName: props.recipe.recipeIngredient[startIndex].title,
           ingredients: props.recipe.recipeIngredient.slice(startIndex, endIndex)
         };
