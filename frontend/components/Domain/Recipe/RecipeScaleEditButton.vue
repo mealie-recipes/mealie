@@ -62,7 +62,7 @@ export default defineComponent({
             required: true,
         },
     },
-    setup(props, context) {
+    setup(_props, context) {
         const state = reactive({
             tempScale: 1,
             menu: false,
@@ -82,7 +82,7 @@ export default defineComponent({
         };
     },
     watch: {
-        scale: function (newVal, oldVal) {
+        scale: function (newVal, _oldVal) {
             this.tempScale = newVal;
         }
     }
