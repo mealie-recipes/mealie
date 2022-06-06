@@ -175,49 +175,18 @@
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
           </div>
-
-          <!-- Edit Scale Dialog -->
-          <BaseDialog v-model="scaleDialog" :icon="$globals.icons.units" :title="$t('recipe.edit-scale').toString()"
-            :submit-text="$tc('general.save')" @submit="editSaveScale">
-            <v-card-text>
-              <div class="mt-4 d-flex align-center">
-                <v-text-field type="number" v-model="scaleTemp" :label="$t('recipe.edit-scale')" />
-                <v-tooltip right color="secondary darken-1">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn icon class="mx-1" v-on="on" small @click="scaleTemp = 1">
-                      <v-icon>
-                        {{ $globals.icons.undo }}
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                  <span> Reset Scale </span>
-                </v-tooltip>
-              </div>
-            </v-card-text>
-          </BaseDialog>
-
           <div class="d-flex justify-space-between align-center pt-2 pb-3">
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
-                <v-btn v-if="!recipe.settings.disableAmount" dense small :hover="false" type="label" :ripple="false"
-                  elevation="0" color="secondary darken-1" class="rounded-sm static" v-bind="attrs"
-                  @click="scaleTemp = scale; scaleDialog = true" v-on="on">
-                  <span v-if="recipe.recipeYield">
-                    <span v-if="scale == 1">{{ scaledYield }} {{ $tc('recipe.servings') }}</span>
-                    <span v-if="scale != 1"> {{ basicYield }} x {{ scale }} = {{ scaledYield }}
-                      {{ $tc('recipe.servings') }}</span>
-                  </span>
-                  <span v-if="!recipe.recipeYield">
-                    <span> x {{ scale }}</span>
-                  </span>
-                </v-btn>
+                <RecipeScaleEditButton :recipe-yield="recipe.recipeYield" :basic-yield="basicYield" :scale="scale"
+                  :scaled-yield="scaledYield" @updateScale="setScale" v-on="on" />
               </template>
               <span> {{ $t('recipe.edit-scale') }} </span>
             </v-tooltip>
 
             <template v-if="!recipe.settings.disableAmount && !form">
               <v-tooltip top color="secondary darken-1">
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn color="secondary darken-1" class="mx-1" small v-on="on" @click="scale > 1 ? scale-- : null">
                     <v-icon>
                       {{ $globals.icons.minus }}
@@ -510,6 +479,7 @@ import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
+import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
@@ -544,6 +514,7 @@ export default defineComponent({
     RecipeSettingsMenu,
     RecipeTimeCard,
     RecipeTools,
+    RecipeScaleEditButton,
     VueMarkdown,
   },
   async beforeRouteLeave(_to, _from, next) {
@@ -858,8 +829,8 @@ export default defineComponent({
     // ===============================================================
     // Scale
 
-    const editSaveScale = () => {
-      state.scale = state.scaleTemp;
+    const setScale = (newScale: number) => {
+      state.scale = newScale;
     }
 
     return {
@@ -886,7 +857,7 @@ export default defineComponent({
       api,
       loading,
       addStep,
-      editSaveScale,
+      setScale,
       deleteRecipe,
       printRecipe,
       closeEditor,
