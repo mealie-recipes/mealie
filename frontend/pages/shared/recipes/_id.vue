@@ -34,7 +34,7 @@
           :key="imageKey"
           :max-width="enableLandscape ? null : '50%'"
           :height="hideImage ? '50' : imageHeight"
-          :src="recipeImage(recipe.slug, imageKey)"
+          :src="recipeImage(recipe.id, imageKey)"
           class="d-print-none"
           @error="hideImage = true"
         >
@@ -197,6 +197,9 @@
                 :disable-amount="recipe.settings.disableAmount"
                 :edit="form"
                 public
+                :assets="recipe.assets"
+                :recipe-id="recipe.id"
+                :recipe-slug="recipe.slug"
               />
 
               <!-- TODO: Somehow fix duplicate code for mobile/desktop -->
@@ -323,7 +326,6 @@ export default defineComponent({
       const { data } = await api.recipes.getShared(id);
       if (data) {
         if (data && data !== undefined) {
-          console.log("Computed Meta. RefKey=");
           const imageURL = data.id ? recipeImage(data.id) : undefined;
           title.value = data.name;
 

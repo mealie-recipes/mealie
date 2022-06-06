@@ -122,8 +122,5 @@ export default defineComponent({
       listItem,
     };
   },
-  head: {
-    title: "vbase-nuxt",
-  },
 });
 </script>

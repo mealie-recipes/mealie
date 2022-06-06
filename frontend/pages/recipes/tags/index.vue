@@ -1,44 +1,36 @@
 <template>
   <v-container>
-    <RecipeCategoryTagToolPage v-if="tools" :items="tools" item-type="tags" @delete="removeTag" />
+    <RecipeOrganizerPage
+      v-if="items"
+      :items="items"
+      :icon="$globals.icons.tags"
+      item-type="tags"
+      @delete="actions.deleteOne"
+    >
+      <template #title> Tags </template>
+    </RecipeOrganizerPage>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync } from "@nuxtjs/composition-api";
-import RecipeCategoryTagToolPage from "~/components/Domain/Recipe/RecipeCategoryTagToolPage.vue";
-import { useUserApi } from "~/composables/api";
-import { useAsyncKey } from "~/composables/use-utils";
+import { defineComponent } from "@nuxtjs/composition-api";
+import RecipeOrganizerPage from "~/components/Domain/Recipe/RecipeOrganizerPage.vue";
+import { useTagStore } from "~/composables/store";
 
 export default defineComponent({
   components: {
-    RecipeCategoryTagToolPage,
+    RecipeOrganizerPage,
   },
   setup() {
-    const userApi = useUserApi();
-    const tools = useAsync(async () => {
-      const { data } = await userApi.tags.getAll();
-
-      if (data) {
-        return data;
-      }
-    }, useAsyncKey());
-
-    function removeTag(id: string) {
-      if (tools.value) {
-        for (let i = 0; i < tools.value.length; i++) {
-          if (tools.value[i].id === id) {
-            tools.value.splice(i, 1);
-            break;
-          }
-        }
-      }
-    }
+    const { items, actions } = useTagStore();
 
     return {
-      tools,
-      removeTag,
+      items,
+      actions,
     };
+  },
+  head: {
+    title: "Tags",
   },
 });
 </script>

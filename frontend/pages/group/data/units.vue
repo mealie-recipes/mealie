@@ -36,6 +36,7 @@
           <v-text-field v-model="editTarget.abbreviation" label="Abbreviation"></v-text-field>
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
           <v-checkbox v-model="editTarget.fraction" hide-details label="Display as Fraction"></v-checkbox>
+          <v-checkbox v-model="editTarget.useAbbreviation" hide-details label="Use Abbreviation"></v-checkbox>
         </v-form>
       </v-card-text>
     </BaseDialog>
@@ -106,6 +107,11 @@
           Combine
         </BaseButton>
       </template>
+      <template #item.useAbbreviation="{ item }">
+        <v-icon :color="item.useAbbreviation ? 'success' : undefined">
+          {{ item.useAbbreviation ? $globals.icons.check : $globals.icons.close }}
+        </v-icon>
+      </template>
       <template #item.fraction="{ item }">
         <v-icon :color="item.fraction ? 'success' : undefined">
           {{ item.fraction ? $globals.icons.check : $globals.icons.close }}
@@ -154,9 +160,14 @@ export default defineComponent({
         show: true,
       },
       {
+        text: "Use Abbv.",
+        value: "useAbbreviation",
+        show: true,
+      },
+      {
         text: "Description",
         value: "description",
-        show: true,
+        show: false,
       },
       {
         text: "Fraction",

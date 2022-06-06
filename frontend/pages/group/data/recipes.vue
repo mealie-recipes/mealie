@@ -22,10 +22,10 @@
       @submit="dialog.callback"
     >
       <v-card-text v-if="dialog.mode == MODES.tag">
-        <RecipeCategoryTagSelector v-model="toSetTags" :tag-selector="true" />
+        <RecipeOrganizerSelector v-model="toSetTags" selector-type="tags" />
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.category">
-        <RecipeCategoryTagSelector v-model="toSetCategories" />
+        <RecipeOrganizerSelector v-model="toSetCategories" selector-type="categories" />
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.delete">
         <p class="h4">Are you sure you want to delete the following recipes? This action cannot be undone.</p>
@@ -149,7 +149,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
-import RecipeCategoryTagSelector from "~/components/Domain/Recipe/RecipeCategoryTagSelector.vue";
+import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
@@ -165,7 +165,7 @@ const MODES = {
 };
 
 export default defineComponent({
-  components: { RecipeDataTable, RecipeCategoryTagSelector, GroupExportData },
+  components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData },
   scrollToTop: true,
   setup() {
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true);

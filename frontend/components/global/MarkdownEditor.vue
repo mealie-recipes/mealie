@@ -5,7 +5,7 @@
         :buttons="[
           {
             icon: previewState ? $globals.icons.edit : $globals.icons.eye,
-            text: previewState ? $t('general.edit') : 'Preview Markdown',
+            text: previewState ? $tc('general.edit') : 'Preview Markdown',
             event: 'toggle',
           },
         ]"
@@ -14,14 +14,15 @@
     </div>
     <v-textarea
       v-if="!previewState"
+      v-bind="textarea"
       v-model="inputVal"
       :class="label == '' ? '' : 'mt-5'"
       :label="label"
       auto-grow
       dense
       rows="4"
-    ></v-textarea>
-    <VueMarkdown v-else :source="value"> </VueMarkdown>
+    />
+    <VueMarkdown v-else :source="value" />
   </div>
 </template>
 
@@ -52,6 +53,10 @@ export default defineComponent({
     displayPreview: {
       type: Boolean,
       default: true,
+    },
+    textarea: {
+      type: Object,
+      default: () => ({}),
     },
   },
   setup(props, context) {
@@ -84,5 +89,3 @@ export default defineComponent({
   },
 });
 </script>
-
-
