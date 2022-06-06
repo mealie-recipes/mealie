@@ -196,7 +196,7 @@
                 <span> Decrease Scale by 1 </span>
               </v-tooltip>
               <v-tooltip top color="secondary darken-1">
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn color="secondary darken-1" small v-on="on" @click="scale++">
                     <v-icon>
                       {{ $globals.icons.createAlt }}
