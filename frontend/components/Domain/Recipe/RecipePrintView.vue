@@ -26,8 +26,8 @@
           <!-- First Half of Ingredients -->
           <div class="ingredient-col-1">
             <ul>
-              <div v-for="(ingredientText, ingredientIndex) in ingredientSection.firstHalf">
-                <li key="ingredientIndex" v-html="ingredientText" />
+              <div v-for="(ingredientText, ingredientIndex) in ingredientSection.firstHalf" :key="ingredientIndex">
+                <li v-html="ingredientText" />
               </div>
             </ul>
           </div>
@@ -35,8 +35,8 @@
           <!-- Second Half of Ingredients -->
           <div class="ingredient-col-2">
             <ul>
-              <div v-for="(ingredientText, ingredientIndex) in ingredientSection.secondHalf">
-                <li key="ingredientIndex" v-html="ingredientText" />
+              <div v-for="(ingredientText, ingredientIndex) in ingredientSection.secondHalf" :key="ingredientIndex">
+                <li v-html="ingredientText" />
               </div>
             </ul>
           </div>
@@ -99,8 +99,8 @@ export default defineComponent({
   },
   setup(props) {
     const ingredientSections = computed<IngredientSection[]>(() => {
-      var ingredientSections:IngredientSection[] = [];
-      var sectionIndexes:number[] = [];
+      let ingredientSections:IngredientSection[] = [];
+      let sectionIndexes:number[] = [];
 
       // Store indexes of each new section
       for (let i = 0; i < props.recipe.recipeIngredient.length; i++) {
@@ -117,10 +117,10 @@ export default defineComponent({
 
       // Create sections by slicing between section indexes
       for (let i = 0; i < sectionIndexes.length - 1; i++) {
-        var startIndex:number = sectionIndexes[i];
-        let endIndex:number = sectionIndexes[i + 1];
+        const startIndex:number = sectionIndexes[i];
+        const endIndex:number = sectionIndexes[i + 1];
 
-        var ingredientSection:IngredientSection = {
+        let ingredientSection:IngredientSection = {
           sectionName: props.recipe.recipeIngredient[startIndex].title,
           ingredients: props.recipe.recipeIngredient.slice(startIndex, endIndex)
         };
