@@ -252,18 +252,8 @@
               <div v-if="!form && recipe.tools && recipe.tools.length > 0">
                 <h2 class="mb-2 mt-4">Required Tools</h2>
                 <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
-<<<<<<< HEAD
                   <v-checkbox v-model="recipe.tools[index].onHand" hide-details class="pt-0 my-auto py-auto"
-                    color="secondary" @change="updateTool(recipe.tools[index])">
-=======
-                  <v-checkbox
-                    v-model="recipe.tools[index].onHand"
-                    hide-details
-                    class="pt-0 my-auto py-auto"
-                    color="secondary"
-                    @change="toolStore.actions.updateOne(recipe.tools[index])"
-                  >
->>>>>>> abb114c375c79f8f2ca70e68e34aae1a24387430
+                    color="secondary" @change="toolStore.actions.updateOne(recipe.tools[index])">
                   </v-checkbox>
                   <v-list-item-content>
                     {{ tool.name }}
