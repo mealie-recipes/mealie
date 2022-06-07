@@ -17,6 +17,6 @@
         "generic-updated": "{name} was updated",
         "generic-created-with-url": "{name} has been created, {url}",
         "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been created"
+        "generic-deleted": "{name} has been deleted"
     }
 }
