@@ -1,3 +1,4 @@
+import json
 from functools import cached_property
 from shutil import copyfileobj
 from zipfile import ZipFile
@@ -162,6 +163,14 @@ class RecipeController(BaseRecipeController):
                     name=new_recipe.name,
                     url=urls.recipe_url(new_recipe.slug, self.deps.settings.BASE_URL),
                 ),
+                event_source=json.dumps(
+                    {
+                        "event_type": "create",
+                        "item_type": "recipe",
+                        "item_id": str(new_recipe.id),
+                        "slug": new_recipe.slug,
+                    }
+                ),
             )
 
         return new_recipe.slug
@@ -220,10 +229,31 @@ class RecipeController(BaseRecipeController):
     def create_one(self, data: CreateRecipe) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
         try:
-            return self.service.create_one(data).slug
+            new_recipe = self.service.create_one(data)
         except Exception as e:
             self.handle_exceptions(e)
             return None
+
+        if new_recipe:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.recipe_created,
+                msg=self.t(
+                    "notifications.generic-created-with-url",
+                    name=new_recipe.name,
+                    url=urls.recipe_url(new_recipe.slug, self.deps.settings.BASE_URL),
+                ),
+                event_source=json.dumps(
+                    {
+                        "event_type": "create",
+                        "item_type": "recipe",
+                        "item_id": str(new_recipe.id),
+                        "slug": new_recipe.slug,
+                    }
+                ),
+            )
+
+        return new_recipe.slug
 
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):
@@ -242,6 +272,9 @@ class RecipeController(BaseRecipeController):
                     name=data.name,
                     url=urls.recipe_url(data.slug, self.deps.settings.BASE_URL),
                 ),
+                event_source=json.dumps(
+                    {"event_type": "update", "item_type": "recipe", "item_id": str(data.id), "slug": data.slug}
+                ),
             )
 
         return data
@@ -253,6 +286,21 @@ class RecipeController(BaseRecipeController):
             data = self.service.patch_one(slug, data)
         except Exception as e:
             self.handle_exceptions(e)
+
+        if data:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.recipe_updated,
+                msg=self.t(
+                    "notifications.generic-updated-with-url",
+                    name=data.name,
+                    url=urls.recipe_url(data.slug, self.deps.settings.BASE_URL),
+                ),
+                event_source=json.dumps(
+                    {"event_type": "update", "item_type": "recipe", "item_id": str(data.id), "slug": data.slug}
+                ),
+            )
+
         return data
 
     @router.delete("/{slug}")
@@ -268,6 +316,9 @@ class RecipeController(BaseRecipeController):
                 self.deps.acting_user.group_id,
                 EventTypes.recipe_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
+                event_source=json.dumps(
+                    {"event_type": "delete", "item_type": "recipe", "item_id": str(data.id), "slug": data.slug}
+                ),
             )
 
         return data

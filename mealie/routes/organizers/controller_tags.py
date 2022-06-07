@@ -1,3 +1,4 @@
+import json
 from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -58,6 +59,9 @@ class TagController(BaseUserController):
                     name=data.name,
                     url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
                 ),
+                event_source=json.dumps(
+                    {"event_type": "create", "item_type": "tag", "item_id": str(data.id), "slug": data.slug}
+                ),
             )
         return data
 
@@ -74,6 +78,9 @@ class TagController(BaseUserController):
                     "notifications.generic-updated-with-url",
                     name=data.name,
                     url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
+                ),
+                event_source=json.dumps(
+                    {"event_type": "update", "item_type": "tag", "item_id": str(data.id), "slug": data.slug}
                 ),
             )
         return data
@@ -94,6 +101,9 @@ class TagController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.tag_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
+                event_source=json.dumps(
+                    {"event_type": "delete", "item_type": "tag", "item_id": str(data.id), "slug": data.slug}
+                ),
             )
 
     @router.get("/slug/{tag_slug}", response_model=RecipeTagResponse)

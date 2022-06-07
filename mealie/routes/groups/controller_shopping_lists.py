@@ -1,3 +1,4 @@
+import json
 from functools import cached_property
 
 from fastapi import APIRouter, Depends, Query
@@ -126,6 +127,13 @@ class ShoppingListController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_created,
                 msg=self.t("notifications.generic-created", name=val.name),
+                event_source=json.dumps(
+                    {
+                        "event_type": "create",
+                        "item_type": "shopping-list",
+                        "item_id": str(val.id),
+                    }
+                ),
             )
 
         return val
@@ -142,6 +150,13 @@ class ShoppingListController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t("notifications.generic-updated", name=data.name),
+                event_source=json.dumps(
+                    {
+                        "event_type": "update",
+                        "item_type": "shopping-list",
+                        "item_id": str(data.id),
+                    }
+                ),
             )
         return data
 
@@ -151,8 +166,15 @@ class ShoppingListController(BaseUserController):
         if data:
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
-                EventTypes.shopping_list_updated,
+                EventTypes.shopping_list_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
+                event_source=json.dumps(
+                    {
+                        "event_type": "delete",
+                        "item_type": "shopping-list",
+                        "item_id": str(data.id),
+                    }
+                ),
             )
         return data
 
