@@ -178,52 +178,70 @@
           <div class="d-flex justify-space-between align-center pt-2 pb-3">
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
-                <RecipeScaleEditButton v-bind="attrs" :recipe-yield="recipe.recipeYield" :basic-yield="basicYield"
-                  :scale="scale" :scaled-yield="scaledYield" @updateScale="setScale" v-on="on" />
+                <RecipeScaleEditButton
+                  v-bind="attrs"
+                  :recipe-yield="recipe.recipeYield"
+                  :basic-yield="basicYield"
+                  :scale="scale"
+                  :scaled-yield="scaledYield"
+                  @updateScale="setScale"
+                  v-on="on"
+                />
               </template>
-              <span> {{ $t('recipe.edit-scale') }} </span>
+              <span> {{ $t("recipe.edit-scale") }} </span>
             </v-tooltip>
 
             <template v-if="!recipe.settings.disableAmount && !form">
-              <v-tooltip top color="secondary darken-1">
-                <template #activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" color="secondary darken-1" class="mx-1" small v-on="on"
-                    @click="scale > 1 ? scale-- : null">
-                    <v-icon>
-                      {{ $globals.icons.minus }}
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <span> Decrease Scale by 1 </span>
-              </v-tooltip>
-              <v-tooltip top color="secondary darken-1">
-                <template #activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" color="secondary darken-1" small v-on="on" @click="scale++">
-                    <v-icon>
-                      {{ $globals.icons.createAlt }}
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <span> Increase Scale by 1 </span>
-              </v-tooltip>
+              <BaseButtonGroup
+                class="pl-2"
+                :large="false"
+                :buttons="[
+                  {
+                    icon: $globals.icons.minus,
+                    text: 'Decrease Scale by 1',
+                    event: 'decrement',
+                  },
+                  {
+                    icon: $globals.icons.createAlt,
+                    text: 'Increase Scale by 1',
+                    event: 'increment',
+                  },
+                ]"
+                @decrement="scale > 1 ? scale-- : null"
+                @increment="scale++"
+              />
             </template>
             <v-spacer></v-spacer>
 
-            <RecipeRating v-if="enableLandscape && $vuetify.breakpoint.smAndUp" :key="recipe.slug"
-              :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
+            <RecipeRating
+              v-if="enableLandscape && $vuetify.breakpoint.smAndUp"
+              :key="recipe.slug"
+              :value="recipe.rating"
+              :name="recipe.name"
+              :slug="recipe.slug"
+            />
           </div>
 
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <RecipeIngredients v-if="!form" :value="recipe.recipeIngredient" :scale="scale"
-                :disable-amount="recipe.settings.disableAmount" />
+              <RecipeIngredients
+                v-if="!form"
+                :value="recipe.recipeIngredient"
+                :scale="scale"
+                :disable-amount="recipe.settings.disableAmount"
+              />
 
               <!-- Recipe Tools Display -->
               <div v-if="!form && recipe.tools && recipe.tools.length > 0">
                 <h2 class="mb-2 mt-4">Required Tools</h2>
                 <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
-                  <v-checkbox v-model="recipe.tools[index].onHand" hide-details class="pt-0 my-auto py-auto"
-                    color="secondary" @change="toolStore.actions.updateOne(recipe.tools[index])">
+                  <v-checkbox
+                    v-model="recipe.tools[index].onHand"
+                    hide-details
+                    class="pt-0 my-auto py-auto"
+                    color="secondary"
+                    @change="toolStore.actions.updateOne(recipe.tools[index])"
+                  >
                   </v-checkbox>
                   <v-list-item-content>
                     {{ tool.name }}
@@ -832,7 +850,7 @@ export default defineComponent({
 
     const setScale = (newScale: number) => {
       state.scale = newScale;
-    }
+    };
 
     return {
       // Wake Lock
