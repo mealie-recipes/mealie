@@ -39,7 +39,7 @@ class IngredientFoodsController(BaseUserController):
 
     @router.get("", response_model=list[IngredientFood])
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit)
+        return self.repo.get_all(start=q.start, limit=q.limit, order_by=q.order_by, order_descending=q.order_descending)
 
     @router.post("", response_model=IngredientFood, status_code=201)
     def create_one(self, data: CreateIngredientFood):

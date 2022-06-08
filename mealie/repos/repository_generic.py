@@ -56,7 +56,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         return {**dct, **kwargs}
 
-    def get_all(self, limit: int = None, order_by: str = None, start=0, override=None) -> list[Schema]:
+    def get_all(
+        self, limit: int = None, order_by: str = None, order_descending: bool = True, start=0, override=None
+    ) -> list[Schema]:
         # sourcery skip: remove-unnecessary-cast
         eff_schema = override or self.schema
 
@@ -66,7 +68,12 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         if order_by:
             if order_attr := getattr(self.model, str(order_by)):
-                order_attr = order_attr.desc()
+                if order_descending:
+                    order_attr = order_attr.desc()
+
+                else:
+                    order_attr = order_attr.asc()
+
                 q = q.order_by(order_attr)
 
         return [eff_schema.from_orm(x) for x in q.offset(start).limit(limit).all()]
