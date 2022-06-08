@@ -178,8 +178,8 @@
           <div class="d-flex justify-space-between align-center pt-2 pb-3">
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
-                <RecipeScaleEditButton :recipe-yield="recipe.recipeYield" :basic-yield="basicYield" :scale="scale"
-                  :scaled-yield="scaledYield" @updateScale="setScale" v-on="on" />
+                <RecipeScaleEditButton v-bind="attrs" :recipe-yield="recipe.recipeYield" :basic-yield="basicYield"
+                  :scale="scale" :scaled-yield="scaledYield" @updateScale="setScale" v-on="on" />
               </template>
               <span> {{ $t('recipe.edit-scale') }} </span>
             </v-tooltip>
@@ -187,7 +187,8 @@
             <template v-if="!recipe.settings.disableAmount && !form">
               <v-tooltip top color="secondary darken-1">
                 <template #activator="{ on, attrs }">
-                  <v-btn color="secondary darken-1" class="mx-1" small v-on="on" @click="scale > 1 ? scale-- : null">
+                  <v-btn v-bind="attrs" color="secondary darken-1" class="mx-1" small v-on="on"
+                    @click="scale > 1 ? scale-- : null">
                     <v-icon>
                       {{ $globals.icons.minus }}
                     </v-icon>
@@ -197,7 +198,7 @@
               </v-tooltip>
               <v-tooltip top color="secondary darken-1">
                 <template #activator="{ on, attrs }">
-                  <v-btn color="secondary darken-1" small v-on="on" @click="scale++">
+                  <v-btn v-bind="attrs" color="secondary darken-1" small v-on="on" @click="scale++">
                     <v-icon>
                       {{ $globals.icons.createAlt }}
                     </v-icon>
