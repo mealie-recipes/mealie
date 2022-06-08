@@ -17,7 +17,7 @@ class EventBusService:
         self._publisher = ApprisePublisher
         self.session = session
         self.group_id = None
-        self.event_source = None
+        self.event_source = ""
 
     @property
     def publisher(self) -> PublisherLike:
@@ -26,14 +26,14 @@ class EventBusService:
     def get_urls(self, event_type: EventTypes) -> list[str]:
         repos = AllRepositories(self.session)
 
-        notifiers: list[GroupEventNotifierPrivate] = repos.group_event_notifier.by_group(self.group_id).multi_query(
-            {"enabled": True}, override_schema=GroupEventNotifierPrivate
-        )
+        notifiers: list[GroupEventNotifierPrivate] = repos.group_event_notifier.by_group(  # type: ignore
+            self.group_id
+        ).multi_query({"enabled": True}, override_schema=GroupEventNotifierPrivate)
 
         return [notifier.apprise_url for notifier in notifiers if getattr(notifier.options, event_type.name)]
 
     def dispatch(self, group_id: UUID4, event_type: EventTypes, msg: str = "", event_source: str = "") -> None:
-        self.group_id = group_id
+        self.group_id = group_id  # type: ignore
         self.event_source = event_source
 
         def _dispatch():
