@@ -109,10 +109,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             order_attr = RecipeModel.date_added
 
         if order_descending:
-            order_attr = order_by.desc()
+            order_attr = order_attr.desc()
 
         else:
-            order_attr = order_by.asc()
+            order_attr = order_attr.asc()
 
         return (
             self.session.query(RecipeModel)
