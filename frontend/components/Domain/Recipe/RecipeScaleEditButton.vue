@@ -23,7 +23,8 @@
                             @input="emitScale" />
                         <v-tooltip right color="secondary darken-1">
                             <template #activator="{ on, attrs }">
-                                <v-btn icon class="mx-1" small v-on="on" @click="tempScale = 1; emitScale()">
+                                <v-btn v-bind="attrs" icon class="mx-1" small v-on="on"
+                                    @click="tempScale = 1; emitScale()">
                                     <v-icon>
                                         {{ $globals.icons.undo }}
                                     </v-icon>
