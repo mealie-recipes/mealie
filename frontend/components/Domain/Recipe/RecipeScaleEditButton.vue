@@ -5,7 +5,7 @@
         <v-menu v-model="menu" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <span v-if="recipeYield"> {{ scaledYield }} {{ $tc("recipe.servings") }} </span>
+              <span v-if="recipeYield"> {{ scaledYield }} </span>
               <span v-if="!recipeYield"> x {{ scale }} </span>
             </v-card>
           </template>
