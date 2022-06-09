@@ -179,38 +179,17 @@
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
                 <RecipeScaleEditButton
+                  v-model.number="scale"
                   v-bind="attrs"
                   :recipe-yield="recipe.recipeYield"
                   :basic-yield="basicYield"
-                  :scale="scale"
                   :scaled-yield="scaledYield"
-                  @updateScale="setScale"
+                  :edit-scale="!recipe.settings.disableAmount && !form"
                   v-on="on"
                 />
               </template>
               <span> {{ $t("recipe.edit-scale") }} </span>
             </v-tooltip>
-
-            <template v-if="!recipe.settings.disableAmount && !form">
-              <BaseButtonGroup
-                class="pl-2"
-                :large="false"
-                :buttons="[
-                  {
-                    icon: $globals.icons.minus,
-                    text: 'Decrease Scale by 1',
-                    event: 'decrement',
-                  },
-                  {
-                    icon: $globals.icons.createAlt,
-                    text: 'Increase Scale by 1',
-                    event: 'increment',
-                  },
-                ]"
-                @decrement="scale > 1 ? scale-- : null"
-                @increment="scale++"
-              />
-            </template>
             <v-spacer></v-spacer>
 
             <RecipeRating
