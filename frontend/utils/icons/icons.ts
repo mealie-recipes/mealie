@@ -109,6 +109,7 @@ import {
   mdiChartLine,
   mdiHelpCircleOutline,
   mdiDocker,
+  mdiUndo,
 } from "@mdi/js";
 
 export const icons = {
@@ -206,6 +207,7 @@ export const icons = {
   webhook: mdiWebhook,
   windowClose: mdiWindowClose,
   zip: mdiFolderZipOutline,
+  undo: mdiUndo,
 
   // Crud
   backArrow: mdiArrowLeftBoldOutline,

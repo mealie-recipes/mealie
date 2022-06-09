@@ -178,38 +178,18 @@
           <div class="d-flex justify-space-between align-center pt-2 pb-3">
             <v-tooltip v-if="!form" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
-                <v-btn
-                  v-if="recipe.recipeYield"
-                  dense
-                  small
-                  :hover="false"
-                  type="label"
-                  :ripple="false"
-                  elevation="0"
-                  color="secondary darken-1"
-                  class="rounded-sm static"
+                <RecipeScaleEditButton
+                  v-model.number="scale"
                   v-bind="attrs"
-                  @click="scale = 1"
+                  :recipe-yield="recipe.recipeYield"
+                  :basic-yield="basicYield"
+                  :scaled-yield="scaledYield"
+                  :edit-scale="!recipe.settings.disableAmount && !form"
                   v-on="on"
-                >
-                  {{ scaledYield }}
-                </v-btn>
+                />
               </template>
-              <span> Reset Scale </span>
+              <span> {{ $t("recipe.edit-scale") }} </span>
             </v-tooltip>
-
-            <template v-if="!recipe.settings.disableAmount && !form">
-              <v-btn color="secondary darken-1" class="mx-1" small @click="scale > 1 ? scale-- : null">
-                <v-icon>
-                  {{ $globals.icons.minus }}
-                </v-icon>
-              </v-btn>
-              <v-btn color="secondary darken-1" small @click="scale++">
-                <v-icon>
-                  {{ $globals.icons.createAlt }}
-                </v-icon>
-              </v-btn>
-            </template>
             <v-spacer></v-spacer>
 
             <RecipeRating
@@ -500,6 +480,7 @@ import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
+import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
@@ -534,6 +515,7 @@ export default defineComponent({
     RecipeSettingsMenu,
     RecipeTimeCard,
     RecipeTools,
+    RecipeScaleEditButton,
     VueMarkdown,
   },
   async beforeRouteLeave(_to, _from, next) {
@@ -610,6 +592,8 @@ export default defineComponent({
     const state = reactive({
       form: false,
       scale: 1,
+      scaleTemp: 1,
+      scaleDialog: false,
       hideImage: false,
       imageKey: 1,
       skeleton: false,
@@ -696,6 +680,19 @@ export default defineComponent({
       if (num && num?.length > 0) {
         const yieldAsInt = parseInt(num[0]);
         return yieldString?.replace(num[0], String(yieldAsInt * state.scale));
+      }
+
+      return recipe.value?.recipeYield;
+    });
+
+    const basicYield = computed(() => {
+      const regMatchNum = /\d+/;
+      const yieldString = recipe.value?.recipeYield;
+      const num = yieldString?.match(regMatchNum);
+
+      if (num && num?.length > 0) {
+        const yieldAsInt = parseInt(num[0]);
+        return yieldString?.replace(num[0], String(yieldAsInt));
       }
 
       return recipe.value?.recipeYield;
@@ -830,6 +827,13 @@ export default defineComponent({
 
     const drag = ref(false);
 
+    // ===============================================================
+    // Scale
+
+    const setScale = (newScale: number) => {
+      state.scale = newScale;
+    };
+
     return {
       // Wake Lock
       drag,
@@ -847,12 +851,14 @@ export default defineComponent({
       enableLandscape,
       imageHeight,
       scaledYield,
+      basicYield,
       toggleJson,
       ...toRefs(state),
       recipe,
       api,
       loading,
       addStep,
+      setScale,
       deleteRecipe,
       printRecipe,
       closeEditor,
