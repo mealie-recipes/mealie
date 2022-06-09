@@ -67,7 +67,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         q = self._query().filter_by(**fltr)
 
         if order_by:
-            if order_attr := getattr(self.model, str(order_by)):
+            try:
+                order_attr = getattr(self.model, str(order_by))
                 if order_descending:
                     order_attr = order_attr.desc()
 
@@ -75,6 +76,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
                     order_attr = order_attr.asc()
 
                 q = q.order_by(order_attr)
+
+            except AttributeError:
+                self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
 
         return [eff_schema.from_orm(x) for x in q.offset(start).limit(limit).all()]
 

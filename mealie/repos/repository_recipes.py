@@ -103,9 +103,13 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
 
         try:
-            order_attr = getattr(RecipeModel, order_by)
+            if order_by:
+                order_attr = getattr(RecipeModel, order_by)
+            else:
+                order_attr = RecipeModel.date_added
+
         except AttributeError:
-            self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"')
+            self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
             order_attr = RecipeModel.date_added
 
         if order_descending:
