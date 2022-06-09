@@ -248,6 +248,7 @@
     "description": "描述",
     "disable-amount": "关闭显示成分数量",
     "disable-comments": "禁用评论",
+    "edit-scale": "Edit Scale",
     "fat-content": "脂肪",
     "fiber-content": "纤维",
     "grams": "克",

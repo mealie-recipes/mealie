@@ -248,6 +248,7 @@
     "description": "Description",
     "disable-amount": "Désactiver les quantités des ingrédients",
     "disable-comments": "Désactiver les commentaires",
+    "edit-scale": "Edit Scale",
     "fat-content": "Matières grasses",
     "fiber-content": "Fibres",
     "grams": "grammes",
