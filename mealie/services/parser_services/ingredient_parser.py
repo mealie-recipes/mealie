@@ -74,7 +74,7 @@ class NLPParser(ABCIngredientParser):
                 unit=CreateIngredientUnit(name=crf_model.unit),
                 food=CreateIngredientFood(name=crf_model.name),
                 disable_amount=False,
-                quantity=float(sum(Fraction(s) for s in crf_model.qty.split())),
+                quantity=float(sum(Fraction(s).limit_denominator(32) for s in crf_model.qty.split())),
             )
         except Exception as e:
             logger.error(f"Failed to parse ingredient: {crf_model}: {e}")
