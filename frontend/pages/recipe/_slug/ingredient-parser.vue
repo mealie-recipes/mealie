@@ -140,6 +140,12 @@ export default defineComponent({
       const { data } = await api.recipes.parseIngredients(parser.value, raw);
 
       if (data) {
+        // When we send the recipe ingredient text to be parsed, we lose the reference to the original unparsed ingredient.
+        // Generally this is fine, but if the unparsed ingredient had a title, we lose it; we add back the title for each ingredient here.
+        for (let i = 0; i < recipe.value.recipeIngredient.length; i++) {
+          data[i].ingredient.title = recipe.value.recipeIngredient[i].title;
+        }
+
         parsedIng.value = data;
 
         errors.value = data.map((ing, index: number) => {
