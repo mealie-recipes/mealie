@@ -150,7 +150,6 @@ export default defineComponent({
           console.error("Index Mismatch Error during recipe ingredient parsing; did the number of ingredients change?")
         }
 
-
         parsedIng.value = data;
 
         errors.value = data.map((ing, index: number) => {
