@@ -248,7 +248,7 @@
     "description": "Description",
     "disable-amount": "Désactiver les quantités des ingrédients",
     "disable-comments": "Désactiver les commentaires",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Modifier l'échelle",
     "fat-content": "Matières grasses",
     "fiber-content": "Fibres",
     "grams": "grammes",
@@ -506,7 +506,7 @@
     "webhooks-enabled": "Webhooks activés",
     "you-are-not-allowed-to-create-a-user": "Vous n'avez pas le droit de créer un utilisateur",
     "you-are-not-allowed-to-delete-this-user": "Vous n'avez pas le droit de supprimer cet utilisateur",
-    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content": "Activer le contenu avancé",
     "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
   },
   "language-dialog": {
@@ -514,7 +514,7 @@
     "choose-language": "Choisir la langue",
     "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "read-the-docs": "Lire la documentation"
   },
   "data-pages": {
     "seed-data": "Seed Data",
@@ -532,7 +532,7 @@
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
+    "user-registration": "Inscription d'utilisateur",
     "join-a-group": "Rejoindre un groupe",
     "create-a-new-group": "Créer un nouveau groupe",
     "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
@@ -543,8 +543,8 @@
     "account-details": "Détails du compte"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
+    "group-name-is-taken": "Le nom du groupe est déjà pris",
     "username-is-taken": "Nom d'utilisateur déjà utilisé",
-    "email-is-taken": "Email is taken"
+    "email-is-taken": "Cet e-mail est déjà pris"
   }
 }
