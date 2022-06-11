@@ -26,8 +26,12 @@ def crf_exists() -> bool:
 test_ingredients = [
     TestIngredient("½ cup all-purpose flour", 0.5, "cup", "all-purpose flour", ""),
     TestIngredient("1 ½ teaspoons ground black pepper", 1.5, "teaspoon", "black pepper", "ground"),
-    TestIngredient("⅔ cup unsweetened flaked coconut", 0.7, "cup", "coconut", "unsweetened flaked"),
-    TestIngredient("⅓ cup panko bread crumbs", 0.3, "cup", "panko bread crumbs", ""),
+    TestIngredient("⅔ cup unsweetened flaked coconut", 0.667, "cup", "coconut", "unsweetened flaked"),
+    TestIngredient("⅓ cup panko bread crumbs", 0.333, "cup", "panko bread crumbs", ""),
+    # Small Fraction Tests - PR #1369
+    # Reported error is was for 1/8 - new lowest expected threshold is 1/32
+    TestIngredient("1/8 cup all-purpose flour", 0.125, "cup", "all-purpose flour", ""),
+    TestIngredient("1/32 cup all-purpose flour", 0.03125, "cup", "all-purpose flour", ""),
 ]
 
 
