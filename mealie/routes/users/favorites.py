@@ -13,7 +13,7 @@ class UserFavoritesController(BaseUserController):
     @router.get("/{id}/favorites", response_model=UserFavorites)
     async def get_favorites(self, id: UUID4):
         """Get user's favorite recipes"""
-        return self.repos.users.get(id, override_schema=UserFavorites)
+        return self.repos.users.get_one(id, override_schema=UserFavorites)
 
     @router.post("/{id}/favorites/{slug}")
     def add_favorite(self, id: UUID4, slug: str):

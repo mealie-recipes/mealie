@@ -84,19 +84,13 @@ export default defineComponent({
 
       if (!props.items) return byLetter;
 
-      props.items.forEach((item) => {
+      props.items.sort((a, b) => a.name.localeCompare(b.name)).forEach((item) => {
         const letter = item.name[0].toUpperCase();
         if (!byLetter[letter]) {
           byLetter[letter] = [];
         }
         byLetter[letter].push(item);
       });
-
-      for (const key in byLetter) {
-        byLetter[key] = byLetter[key].sort((a, b) => {
-          return a.name.localeCompare(b.name);
-        });
-      }
 
       return byLetter;
     });

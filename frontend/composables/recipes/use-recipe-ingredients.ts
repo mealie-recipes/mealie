@@ -23,7 +23,6 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
 
   // casting to number is required as sometimes quantity is a string
   if (quantity && Number(quantity) !== 0) {
-    console.log("Using Quantity", quantity, typeof quantity);
     if (unit?.fraction) {
       const fraction = frac(quantity * scale, 10, true);
       if (fraction[0] !== undefined && fraction[0] > 0) {

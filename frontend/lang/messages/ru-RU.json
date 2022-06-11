@@ -248,6 +248,7 @@
     "description": "Описание",
     "disable-amount": "Не показывать кол-во ингредиентов",
     "disable-comments": "Отключить комментарии",
+    "edit-scale": "Edit Scale",
     "fat-content": "Жиры",
     "fiber-content": "Клетчатка",
     "grams": "гр.",

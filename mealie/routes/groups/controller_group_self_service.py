@@ -42,7 +42,7 @@ class GroupSelfServiceController(BaseUserController):
     def set_member_permissions(self, permissions: SetPermissions):
         self.checks.can_manage()
 
-        target_user = self.repos.users.get(permissions.user_id)
+        target_user = self.repos.users.get_one(permissions.user_id)
 
         if not target_user:
             raise HTTPException(status.HTTP_404_NOT_FOUND, detail="User not found")

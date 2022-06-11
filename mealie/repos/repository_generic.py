@@ -56,7 +56,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         return {**dct, **kwargs}
 
-    def get_all(self, limit: int = None, order_by: str = None, start=0, override=None) -> list[Schema]:
+    def get_all(
+        self, limit: int = None, order_by: str = None, order_descending: bool = True, start=0, override=None
+    ) -> list[Schema]:
         # sourcery skip: remove-unnecessary-cast
         eff_schema = override or self.schema
 
@@ -65,9 +67,18 @@ class RepositoryGeneric(Generic[Schema, Model]):
         q = self._query().filter_by(**fltr)
 
         if order_by:
-            if order_attr := getattr(self.model, str(order_by)):
-                order_attr = order_attr.desc()
+            try:
+                order_attr = getattr(self.model, str(order_by))
+                if order_descending:
+                    order_attr = order_attr.desc()
+
+                else:
+                    order_attr = order_attr.asc()
+
                 q = q.order_by(order_attr)
+
+            except AttributeError:
+                self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
 
         return [eff_schema.from_orm(x) for x in q.offset(start).limit(limit).all()]
 
@@ -121,33 +132,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         eff_schema = override_schema or self.schema
         return eff_schema.from_orm(result)
-
-    def get(
-        self, match_value: str | int | UUID4, match_key: str = None, limit=1, any_case=False, override_schema=None
-    ) -> Schema | list[Schema] | None:
-        self.logger.info("DEPRECATED: use get_one or get_all instead")
-        match_key = match_key or self.primary_key
-
-        if any_case:
-            search_attr = getattr(self.model, match_key)
-            result = (
-                self.session.query(self.model)
-                .filter(func.lower(search_attr) == match_value.lower())  # type: ignore
-                .limit(limit)
-                .all()
-            )
-        else:
-            result = self.session.query(self.model).filter_by(**{match_key: match_value}).limit(limit).all()
-
-        eff_schema = override_schema or self.schema
-
-        if limit == 1:
-            try:
-                return eff_schema.from_orm(result[0])
-            except IndexError:
-                return None
-
-        return [eff_schema.from_orm(x) for x in result]
 
     def create(self, data: Schema | BaseModel | dict) -> Schema:
         data = data if isinstance(data, dict) else data.dict()

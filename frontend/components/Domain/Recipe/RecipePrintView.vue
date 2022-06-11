@@ -14,19 +14,14 @@
       <VueMarkdown :source="recipe.description" />
     </v-card-text>
 
+    <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
       <div class="ingredient-grid">
-        <div class="ingredient-col-1">
-          <ul>
-            <li v-for="(text, index) in splitIngredients.firstHalf" :key="index" v-html="text" />
-          </ul>
-        </div>
-        <div class="ingredient-col-2">
-          <ul>
-            <li v-for="(text, index) in splitIngredients.secondHalf" :key="index" v-html="text" />
-          </ul>
-        </div>
+        <template v-for="(ingredient, index) in recipe.recipeIngredient">
+          <h4 v-if="ingredient.title" :key="`title-${index}`" class="ingredient-title mt-2">{{ ingredient.title }}</h4>
+          <p :key="`ingredient-${index}`" v-html="parseText(ingredient)" />
+        </template>
       </div>
     </section>
 
@@ -57,13 +52,8 @@ import { defineComponent, computed } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe, RecipeIngredient } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
-
-type SplitIngredients = {
-  firstHalf: string[];
-  secondHalf: string[];
-};
 
 export default defineComponent({
   components: {
@@ -77,32 +67,17 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const splitIngredients = computed<SplitIngredients>(() => {
-      const firstHalf = props.recipe.recipeIngredient
-        ?.slice(0, Math.ceil(props.recipe.recipeIngredient.length / 2))
-        .map((ingredient) => {
-          return parseIngredientText(ingredient, props.recipe?.settings?.disableAmount || false);
-        });
-
-      const secondHalf = props.recipe.recipeIngredient
-        ?.slice(Math.ceil(props.recipe.recipeIngredient.length / 2))
-        .map((ingredient) => {
-          return parseIngredientText(ingredient, props.recipe?.settings?.disableAmount || false);
-        });
-
-      return {
-        firstHalf: firstHalf || [],
-        secondHalf: secondHalf || [],
-      };
-    });
-
     const hasNotes = computed(() => {
       return props.recipe.notes && props.recipe.notes.length > 0;
     });
 
+    function parseText(ingredient: RecipeIngredient) {
+      return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false);
+    }
+
     return {
       hasNotes,
-      splitIngredients,
+      parseText,
       parseIngredientText,
     };
   },
@@ -136,6 +111,12 @@ export default defineComponent({
 .print-container {
   display: none;
   background-color: white;
+}
+
+/* Makes all text solid black */
+.print-container,
+.print-container >>> * {
+  opacity: 1 !important;
   color: black !important;
 }
 
@@ -152,7 +133,11 @@ p {
 .ingredient-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
+}
+
+.ingredient-title {
+  grid-column: 1 / span 2;
 }
 
 ul {
