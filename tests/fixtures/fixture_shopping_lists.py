@@ -75,7 +75,7 @@ def list_with_items(database: AllRepositories, unique_user: TestUser):
         )
 
     # refresh model
-    list_model = database.group_shopping_lists.get(list_model.id)
+    list_model = database.group_shopping_lists.get_one(list_model.id)
 
     yield list_model
 

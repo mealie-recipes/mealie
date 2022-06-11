@@ -122,33 +122,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
         eff_schema = override_schema or self.schema
         return eff_schema.from_orm(result)
 
-    def get(
-        self, match_value: str | int | UUID4, match_key: str = None, limit=1, any_case=False, override_schema=None
-    ) -> Schema | list[Schema] | None:
-        self.logger.info("DEPRECATED: use get_one or get_all instead")
-        match_key = match_key or self.primary_key
-
-        if any_case:
-            search_attr = getattr(self.model, match_key)
-            result = (
-                self.session.query(self.model)
-                .filter(func.lower(search_attr) == match_value.lower())  # type: ignore
-                .limit(limit)
-                .all()
-            )
-        else:
-            result = self.session.query(self.model).filter_by(**{match_key: match_value}).limit(limit).all()
-
-        eff_schema = override_schema or self.schema
-
-        if limit == 1:
-            try:
-                return eff_schema.from_orm(result[0])
-            except IndexError:
-                return None
-
-        return [eff_schema.from_orm(x) for x in result]
-
     def create(self, data: Schema | BaseModel | dict) -> Schema:
         data = data if isinstance(data, dict) else data.dict()
         new_document = self.model(session=self.session, **data)  # type: ignore

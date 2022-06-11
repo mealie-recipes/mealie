@@ -38,7 +38,7 @@ class UserApiTokensController(BaseUserController):
     @router.delete("/api-tokens/{token_id}", response_model=DeleteTokenResponse)
     def delete_api_token(self, token_id: int):
         """Delete api_token from the Database"""
-        token: LongLiveTokenInDB = self.repos.api_tokens.get(token_id)
+        token: LongLiveTokenInDB = self.repos.api_tokens.get_one(token_id)
 
         if not token:
             raise HTTPException(status.HTTP_404_NOT_FOUND, f"Could not locate token with id '{token_id}' in database")

@@ -31,7 +31,7 @@ test_ingredients = [
     # Small Fraction Tests - PR #1369
     # Reported error is was for 1/8 - new lowest expected threshold is 1/32
     TestIngredient("1/8 cup all-purpose flour", 0.125, "cup", "all-purpose flour", ""),
-    TestIngredient("1/32 cup all-purpose flour", 0.03125, "cup", "all-purpose flour", ""),
+    TestIngredient("1/32 cup all-purpose flour", 0.031, "cup", "all-purpose flour", ""),
 ]
 
 
@@ -41,7 +41,7 @@ def test_nlp_parser():
 
     # Itterate over mdoels and test_ingreidnets to gether
     for model, test_ingredient in zip(models, test_ingredients):
-        assert float(sum(Fraction(s) for s in model.qty.split())) == test_ingredient.quantity
+        assert round(float(sum(Fraction(s) for s in model.qty.split())), 3) == pytest.approx(test_ingredient.quantity)
 
         assert model.comment == test_ingredient.comments
         assert model.name == test_ingredient.food
