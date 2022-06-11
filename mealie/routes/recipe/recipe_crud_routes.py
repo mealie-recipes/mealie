@@ -194,7 +194,14 @@ class RecipeController(BaseRecipeController):
 
     @router.get("", response_model=list[RecipeSummary])
     def get_all(self, q: RecipeGetAll = Depends(RecipeGetAll)):
-        items = self.repo.summary(self.user.group_id, start=q.start, limit=q.limit, load_foods=q.load_food)
+        items = self.repo.summary(
+            self.user.group_id,
+            start=q.start,
+            limit=q.limit,
+            load_foods=q.load_food,
+            order_by=q.order_by,
+            order_descending=q.order_descending,
+        )
 
         new_items = []
         for item in items:

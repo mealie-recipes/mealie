@@ -90,7 +90,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             override_schema=override_schema,
         )
 
-    def summary(self, group_id, start=0, limit=99999, load_foods=False) -> Any:
+    def summary(
+        self, group_id, start=0, limit=99999, load_foods=False, order_by="date_added", order_descending=True
+    ) -> Any:
         args = [
             joinedload(RecipeModel.recipe_category),
             joinedload(RecipeModel.tags),
@@ -100,11 +102,27 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if load_foods:
             args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
 
+        try:
+            if order_by:
+                order_attr = getattr(RecipeModel, order_by)
+            else:
+                order_attr = RecipeModel.date_added
+
+        except AttributeError:
+            self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
+            order_attr = RecipeModel.date_added
+
+        if order_descending:
+            order_attr = order_attr.desc()
+
+        else:
+            order_attr = order_attr.asc()
+
         return (
             self.session.query(RecipeModel)
             .options(*args)
             .filter(RecipeModel.group_id == group_id)
-            .order_by(RecipeModel.date_added.desc())
+            .order_by(order_attr)
             .offset(start)
             .limit(limit)
             .all()
