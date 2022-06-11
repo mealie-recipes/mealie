@@ -17,34 +17,11 @@
     <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
-
-      <div v-for="(ingredientSection, sectionIndex) in ingredientSections" :key="sectionIndex">
-
-        <h4 v-if="ingredientSection.sectionName" class="mb-2">{{ ingredientSection.sectionName }}</h4>
-        <div class="ingredient-grid">
-
-          <!-- First Half of Ingredients -->
-          <div class="ingredient-col-1">
-            <ul>
-              <div v-for="(ingredientText, ingredientIndex) in ingredientSection.firstHalf" :key="ingredientIndex">
-                <li v-html="ingredientText" />
-              </div>
-            </ul>
-          </div>
-
-          <!-- Second Half of Ingredients -->
-          <div class="ingredient-col-2">
-            <ul>
-              <div v-for="(ingredientText, ingredientIndex) in ingredientSection.secondHalf" :key="ingredientIndex">
-                <li v-html="ingredientText" />
-              </div>
-            </ul>
-          </div>
-
-        </div>
-
-        <br v-if="sectionIndex != ingredientSections.length - 1" />
-
+      <div class="ingredient-grid">
+        <template v-for="(ingredient, index) in recipe.recipeIngredient">
+          <h4 v-if="ingredient.title" :key="`title-${index}`" class="ingredient-title mt-2">{{ ingredient.title }}</h4>
+          <p :key="`ingredient-${index}`" v-html="parseText(ingredient)" />
+        </template>
       </div>
     </section>
 
@@ -75,15 +52,8 @@ import { defineComponent, computed } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { Recipe, RecipeIngredient} from "~/types/api-types/recipe";
+import { Recipe, RecipeIngredient } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
-
-type IngredientSection = {
-  sectionName: string;
-  ingredients: RecipeIngredient[];
-  firstHalf: string[];
-  secondHalf: string[];
-}
 
 export default defineComponent({
   components: {
@@ -97,61 +67,17 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const ingredientSections = computed<IngredientSection[]>(() => {
-      const ingredientSections:IngredientSection[] = [];
-      const sectionIndexes:number[] = [];
-
-      // Store indexes of each new section
-      for (let i = 0; i < props.recipe.recipeIngredient.length; i++) {
-        if (props.recipe.recipeIngredient[i].title) {
-          sectionIndexes.push(i);
-        }
-      }
-      sectionIndexes.push(props.recipe.recipeIngredient.length);
-
-      // Make sure the first element is 0
-      if (sectionIndexes[0] !== 0) {
-        sectionIndexes.unshift(0);
-      }
-
-      // Create sections by slicing between section indexes
-      for (let i = 0; i < sectionIndexes.length - 1; i++) {
-        const startIndex:number = sectionIndexes[i];
-        const endIndex:number = sectionIndexes[i + 1];
-
-        const ingredientSection:IngredientSection = {
-          sectionName: props.recipe.recipeIngredient[startIndex].title,
-          ingredients: props.recipe.recipeIngredient.slice(startIndex, endIndex)
-        };
-
-        ingredientSections.push(ingredientSection);
-      }
-
-      // Split each section's ingredients in half
-      for (let i = 0; i < ingredientSections.length; i++) {
-        ingredientSections[i].firstHalf = ingredientSections[i].ingredients
-          ?.slice(0, Math.ceil(ingredientSections[i].ingredients.length / 2))
-          .map((ingredient) => {
-            return parseIngredientText(ingredient, props.recipe?.settings?.disableAmount || false);
-          });
-
-        ingredientSections[i].secondHalf = ingredientSections[i].ingredients
-          ?.slice(Math.ceil(ingredientSections[i].ingredients.length / 2))
-          .map((ingredient) => {
-            return parseIngredientText(ingredient, props.recipe?.settings?.disableAmount || false);
-          });
-      }
-
-      return ingredientSections;
-    });
-
     const hasNotes = computed(() => {
       return props.recipe.notes && props.recipe.notes.length > 0;
     });
 
+    function parseText(ingredient: RecipeIngredient) {
+      return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false);
+    }
+
     return {
       hasNotes,
-      ingredientSections,
+      parseText,
       parseIngredientText,
     };
   },
@@ -188,8 +114,9 @@ export default defineComponent({
 }
 
 /* Makes all text solid black */
-.print-container, .print-container >>> * {
-  opacity: 1.0 !important;
+.print-container,
+.print-container >>> * {
+  opacity: 1 !important;
   color: black !important;
 }
 
@@ -206,7 +133,11 @@ p {
 .ingredient-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
+}
+
+.ingredient-title {
+  grid-column: 1 / span 2;
 }
 
 ul {
