@@ -88,6 +88,15 @@ class IngredientConfidence(MealieModel):
     quantity: NoneFloat = None
     food: NoneFloat = None
 
+    @validator("quantity", pre=True)
+    @classmethod
+    def validate_quantity(cls, value, values) -> NoneFloat:
+        if isinstance(value, float):
+            return round(value, 3)
+        if value is None or value == "":
+            return None
+        return value
+
 
 class ParsedIngredient(MealieModel):
     input: Optional[str]

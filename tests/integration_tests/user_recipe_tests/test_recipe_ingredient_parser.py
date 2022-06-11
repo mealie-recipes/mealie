@@ -12,7 +12,7 @@ class Routes:
 
 
 def assert_ingredient(api_response: dict, test_ingredient: TestIngredient):
-    assert api_response["ingredient"]["quantity"] == test_ingredient.quantity
+    assert api_response["ingredient"]["quantity"] == pytest.approx(test_ingredient.quantity)
     assert api_response["ingredient"]["unit"]["name"] == test_ingredient.unit
     assert api_response["ingredient"]["food"]["name"] == test_ingredient.food
     assert api_response["ingredient"]["note"] == test_ingredient.comments
