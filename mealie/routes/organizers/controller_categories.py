@@ -1,4 +1,3 @@
-import json
 from functools import cached_property
 
 from fastapi import APIRouter, Depends
@@ -60,9 +59,12 @@ class RecipeCategoryController(BaseUserController):
                     name=data.name,
                     url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
                 ),
-                event_source=json.dumps(
-                    {"event_type": "create", "item_type": "category", "item_id": str(data.id), "slug": data.slug}
-                ),
+                event_source={
+                    "event_type": "create",
+                    "item_type": "category",
+                    "item_id": str(data.id),
+                    "slug": data.slug,
+                },
             )
         return data
 
@@ -88,9 +90,12 @@ class RecipeCategoryController(BaseUserController):
                     name=data.name,
                     url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
                 ),
-                event_source=json.dumps(
-                    {"event_type": "update", "item_type": "category", "item_id": str(data.id), "slug": data.slug}
-                ),
+                event_source={
+                    "event_type": "update",
+                    "item_type": "category",
+                    "item_id": str(data.id),
+                    "slug": data.slug,
+                },
             )
         return data
 
@@ -106,9 +111,12 @@ class RecipeCategoryController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.category_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source=json.dumps(
-                    {"event_type": "delete", "item_type": "category", "item_id": str(data.id), "slug": data.slug}
-                ),
+                event_source={
+                    "event_type": "delete",
+                    "item_type": "category",
+                    "item_id": str(data.id),
+                    "slug": data.slug,
+                },
             )
 
     # =========================================================================

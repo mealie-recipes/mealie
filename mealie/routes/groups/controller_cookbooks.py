@@ -1,4 +1,3 @@
-import json
 from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -54,9 +53,12 @@ class GroupCookbookController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_created,
                 msg=self.t("notifications.generic-created", name=val.name),
-                event_source=json.dumps(
-                    {"event_type": "create", "item_type": "cookbook", "item_id": str(val.id), "slug": val.slug}
-                ),
+                event_source={
+                    "event_type": "create",
+                    "item_type": "cookbook",
+                    "item_id": str(val.id),
+                    "slug": val.slug,
+                },
             )
         return val
 
@@ -98,9 +100,12 @@ class GroupCookbookController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_updated,
                 msg=self.t("notifications.generic-updated", name=val.name),
-                event_source=json.dumps(
-                    {"event_type": "update", "item_type": "cookbook", "item_id": str(val.id), "slug": val.slug}
-                ),
+                event_source={
+                    "event_type": "update",
+                    "item_type": "cookbook",
+                    "item_id": str(val.id),
+                    "slug": val.slug,
+                },
             )
 
         return val
@@ -113,8 +118,11 @@ class GroupCookbookController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_deleted,
                 msg=self.t("notifications.generic-deleted", name=val.name),
-                event_source=json.dumps(
-                    {"event_type": "delete", "item_type": "cookbook", "item_id": str(val.id), "slug": val.slug}
-                ),
+                event_source={
+                    "event_type": "delete",
+                    "item_type": "cookbook",
+                    "item_id": str(val.id),
+                    "slug": val.slug,
+                },
             )
         return val
