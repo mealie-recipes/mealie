@@ -74,7 +74,7 @@ class RecipeIngredient(MealieModel):
         empty string.
         """
         if isinstance(value, float):
-            return value
+            return round(value, 3)
         if value is None or value == "":
             return None
         return value
