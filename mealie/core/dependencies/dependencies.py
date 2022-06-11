@@ -13,7 +13,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.user import LongLiveTokenInDB, PrivateUser, TokenData
+from mealie.schema.user import PrivateUser, TokenData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
@@ -76,7 +76,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
 
     repos = get_repositories(session)
 
-    user = repos.users.get(token_data.user_id, "id", any_case=False)
+    user = repos.users.get_one(token_data.user_id, "id", any_case=False)
 
     if user is None:
         raise credentials_exception
@@ -89,16 +89,15 @@ async def get_admin_user(current_user: PrivateUser = Depends(get_current_user)) 
     return current_user
 
 
-def validate_long_live_token(session: Session, client_token: str, id: int) -> PrivateUser:
+def validate_long_live_token(session: Session, client_token: str, user_id: str) -> PrivateUser:
     repos = get_repositories(session)
 
-    tokens: list[LongLiveTokenInDB] = repos.api_tokens.get(id, "user_id", limit=9999)
+    token = repos.api_tokens.multi_query({"token": client_token, "user_id": user_id})
 
-    for token in tokens:
-        if token.token == client_token:
-            return token.user
-
-    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
+    try:
+        return token[0].user
+    except IndexError as e:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED) from e
 
 
 def validate_file_token(token: Optional[str] = None) -> Path:

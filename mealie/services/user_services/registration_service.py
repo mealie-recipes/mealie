@@ -59,7 +59,7 @@ class RegistrationService:
 
         if self.repos.users.get_by_username(registration.username):
             raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.username-conflict-error")})
-        elif self.repos.users.get(registration.email, "email"):
+        elif self.repos.users.get_one(registration.email, "email"):
             raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.email-conflict-error")})
 
         self.logger.info(f"Registering user {registration.username}")
