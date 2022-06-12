@@ -235,11 +235,6 @@ p {
   text-underline-offset: 4px;
 }
 
- {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 .ingredient-body, .recipe-step-body, .note-body {
   font-size: 14px;
 }
