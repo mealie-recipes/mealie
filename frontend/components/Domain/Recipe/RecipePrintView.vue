@@ -18,15 +18,15 @@
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
       <div v-for="(ingredientSection, sectionIndex) in ingredientSections" :key="`ingredient-section-${sectionIndex}`" class="print-section">
-      <div class="ingredient-grid">
+        <div class="ingredient-grid">
           <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
             <div v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
               <h4>{{ ingredient.title }}</h4>
               <hr />
             </div>
             <p :key="`ingredient-${ingredientIndex}`" v-html="parseText(ingredient)" class="ingredient-body" />
-        </template>
-      </div>
+          </template>
+        </div>
       </div>
     </section>
 
@@ -53,7 +53,7 @@
     <section>
       <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
         <div class="print-section">
-        <h4>{{ note.title }}</h4>
+          <h4>{{ note.title }}</h4>
           <VueMarkdown :source="note.text" class="note-body" />
         </div>
       </div>
@@ -201,16 +201,21 @@ export default defineComponent({
 </style>
 
 <style scoped>
+/* Makes all text solid black */
 .print-container {
   display: none;
   background-color: white;
 }
 
-/* Makes all text solid black */
 .print-container,
 .print-container >>> * {
   opacity: 1 !important;
   color: black !important;
+}
+
+/* Prevents sections from being broken up between pages */
+.print-section {
+  page-break-inside: avoid;
 }
 
 p {
@@ -232,6 +237,10 @@ p {
 .ingredient-title,
 .ingredient-title >>> * {
   grid-column: 1 / span 2;
+}
+
+.ingredient-body, .recipe-step-body, .note-body {
+  font-size: 14px;
 }
 
 ul {
