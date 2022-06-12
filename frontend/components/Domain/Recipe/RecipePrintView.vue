@@ -20,10 +20,7 @@
       <div v-for="(ingredientSection, sectionIndex) in ingredientSections" :key="`ingredient-section-${sectionIndex}`" class="print-section">
         <div class="ingredient-grid">
           <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
-            <div v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
-              <h4>{{ ingredient.title }}</h4>
-              <hr />
-            </div>
+            <h4 v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">{{ ingredient.title }}</h4>
             <p :key="`ingredient-${ingredientIndex}`" v-html="parseText(ingredient)" class="ingredient-body" />
           </template>
         </div>
@@ -36,11 +33,8 @@
       <div v-for="(instructionSection, sectionIndex) in instructionSections" :key="`instruction-section-${sectionIndex}`" :class="{ 'print-section': instructionSection.sectionName }">
         <div v-for="(step, stepIndex) in instructionSection.instructions" :key="`instruction-${stepIndex}`">
           <div class="print-section">
-            <div v-if="step.title" :key="`instruction-title-${stepIndex}`" class="mb-2">
-              <h3>{{ step.title }}</h3>
-              <hr />
-            </div>
-            <h4>{{ $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h4>
+            <h4 v-if="step.title" :key="`instruction-title-${stepIndex}`" class="instruction-title mb-2">{{ step.title }}</h4>
+            <h5>{{ $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h5>
             <VueMarkdown :source="step.text" class="recipe-step-body" />
           </div>
         </div>
@@ -235,8 +229,15 @@ p {
 }
 
 .ingredient-title,
-.ingredient-title >>> * {
+.instruction-title {
   grid-column: 1 / span 2;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+ {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .ingredient-body, .recipe-step-body, .note-body {
