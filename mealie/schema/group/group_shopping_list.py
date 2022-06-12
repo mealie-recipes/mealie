@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Union
 
 from pydantic import UUID4
 
@@ -45,7 +45,7 @@ class ShoppingListItemUpdate(ShoppingListItemCreate):
 
 class ShoppingListItemOut(ShoppingListItemUpdate):
     label: Optional[MultiPurposeLabelSummary]
-    recipe_references: list[ShoppingListItemRecipeRefOut] = []
+    recipe_references: list[Union[ShoppingListItemRecipeRef, ShoppingListItemRecipeRefOut]] = []
 
     class Config:
         orm_mode = True
