@@ -17,31 +17,45 @@
     <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
+      <div v-for="(ingredientSection, sectionIndex) in ingredientSections" :key="`ingredient-section-${sectionIndex}`" class="print-section">
       <div class="ingredient-grid">
-        <template v-for="(ingredient, index) in recipe.recipeIngredient">
-          <h4 v-if="ingredient.title" :key="`title-${index}`" class="ingredient-title mt-2">{{ ingredient.title }}</h4>
-          <p :key="`ingredient-${index}`" v-html="parseText(ingredient)" />
+          <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
+            <div v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
+              <h4>{{ ingredient.title }}</h4>
+              <hr />
+            </div>
+            <p :key="`ingredient-${ingredientIndex}`" v-html="parseText(ingredient)" class="ingredient-body" />
         </template>
+      </div>
       </div>
     </section>
 
+    <!-- Instructions -->
     <section>
       <v-card-title class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
-      <div v-for="(step, index) in recipe.recipeInstructions" :key="index">
-        <h3 v-if="step.title" class="mb-2">{{ step.title }}</h3>
-        <div class="ml-5">
-          <h4>{{ $t("recipe.step-index", { step: index + 1 }) }}</h4>
-          <VueMarkdown :source="step.text" />
+      <div v-for="(instructionSection, sectionIndex) in instructionSections" :key="`instruction-section-${sectionIndex}`" :class="{ 'print-section': instructionSection.sectionName }">
+        <div v-for="(step, stepIndex) in instructionSection.instructions" :key="`instruction-${stepIndex}`">
+          <div class="print-section">
+            <div v-if="step.title" :key="`instruction-title-${stepIndex}`" class="mb-2">
+              <h3>{{ step.title }}</h3>
+              <hr />
+            </div>
+            <h4>{{ $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h4>
+            <VueMarkdown :source="step.text" class="recipe-step-body" />
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Notes -->
     <v-divider v-if="hasNotes" class="grey my-4"></v-divider>
 
     <section>
       <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
+        <div class="print-section">
         <h4>{{ note.title }}</h4>
-        <VueMarkdown :source="note.text" />
+          <VueMarkdown :source="note.text" class="note-body" />
+        </div>
       </div>
     </section>
   </div>
@@ -215,7 +229,8 @@ p {
   grid-gap: 0.5rem;
 }
 
-.ingredient-title {
+.ingredient-title,
+.ingredient-title >>> * {
   grid-column: 1 / span 2;
 }
 
