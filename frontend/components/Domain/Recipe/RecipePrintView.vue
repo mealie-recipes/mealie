@@ -55,6 +55,17 @@ import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { Recipe, RecipeIngredient } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 
+type IngredientSection = {
+  sectionName: string;
+  ingredients: RecipeIngredient[];
+};
+
+type InstructionSection = {
+  sectionName: string;
+  stepOffset: number;
+  instructions: RecipeStep[];
+};
+
 export default defineComponent({
   components: {
     RecipeTimeCard,
@@ -67,6 +78,72 @@ export default defineComponent({
     },
   },
   setup(props) {
+
+    // Group ingredients by section so we can style them independently
+    const ingredientSections = computed<IngredientSection[]>(() => {
+      const ingredientSections:IngredientSection[] = [];
+      const sectionIndexes:number[] = [];
+
+      // Store indexes of each new section
+      for (let i = 0; i < props.recipe.recipeIngredient.length; i++) {
+        if (props.recipe.recipeIngredient[i].title) {
+          sectionIndexes.push(i);
+        }
+      }
+      sectionIndexes.push(props.recipe.recipeIngredient.length);
+
+      // Make sure the first element is 0, otherwise we lose the first section of ingredients
+      if (sectionIndexes[0] !== 0) {
+        sectionIndexes.unshift(0);
+      }
+
+      // Create sections by slicing between section indexes
+      for (let i = 0; i < sectionIndexes.length - 1; i++) {
+        const startIndex:number = sectionIndexes[i];
+        const endIndex:number = sectionIndexes[i + 1];
+        const ingredientSection:IngredientSection = {
+          sectionName: props.recipe.recipeIngredient[startIndex].title,
+          ingredients: props.recipe.recipeIngredient.slice(startIndex, endIndex)
+        };
+        ingredientSections.push(ingredientSection);
+      }
+
+      return ingredientSections;
+    });
+
+    // Group instructions by section so we can style them independently
+    const instructionSections = computed<InstructionSection[]>(() => {
+      const instructionSections:InstructionSection[] = [];
+      const sectionIndexes:number[] = [];
+
+      // Store indexes of each new section
+      for (let i = 0; i < props.recipe.recipeInstructions.length; i++) {
+        if (props.recipe.recipeInstructions[i].title) {
+          sectionIndexes.push(i);
+        }
+      }
+      sectionIndexes.push(props.recipe.recipeInstructions.length);
+
+      // Make sure the first element is 0, otherwise we lose the first section of instructions
+      if (sectionIndexes[0] !== 0) {
+        sectionIndexes.unshift(0);
+      }
+
+      // Create sections by slicing between section indexes
+      for (let i = 0; i < sectionIndexes.length - 1; i++) {
+        const startIndex:number = sectionIndexes[i];
+        const endIndex:number = sectionIndexes[i + 1];
+        const instructionSection:InstructionSection = {
+          sectionName: props.recipe.recipeInstructions[startIndex].title,
+          stepOffset: startIndex,
+          instructions: props.recipe.recipeInstructions.slice(startIndex, endIndex)
+        };
+        instructionSections.push(instructionSection);
+      }
+
+      return instructionSections;
+    });
+
     const hasNotes = computed(() => {
       return props.recipe.notes && props.recipe.notes.length > 0;
     });
@@ -79,6 +156,8 @@ export default defineComponent({
       hasNotes,
       parseText,
       parseIngredientText,
+      ingredientSections,
+      instructionSections,
     };
   },
 });
