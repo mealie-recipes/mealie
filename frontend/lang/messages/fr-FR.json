@@ -216,8 +216,8 @@
     "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
     "view-scraped-data": "Voir les données récupérées",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
+    "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
+    "trim-prefix-description": "Couper le premier caractère de chaque ligne",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
   },
   "page": {
