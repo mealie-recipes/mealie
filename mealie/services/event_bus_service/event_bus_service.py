@@ -72,7 +72,8 @@ class EventBusService:
 
                 self.publisher.publish(EventBusMessage.from_type(event_type, body=msg), urls)
 
-        self.bg.add_task(_dispatch(event_source=event_source))
+        if dispatch_task := _dispatch(event_source=event_source):
+            self.bg.add_task(dispatch_task)
 
     def test_publisher(self, url: str) -> None:
         self.bg.add_task(
