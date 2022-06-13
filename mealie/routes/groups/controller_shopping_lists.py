@@ -19,7 +19,7 @@ from mealie.schema.group.group_shopping_list import (
 from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
 from mealie.schema.response.responses import SuccessResponse
-from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.group_services.shopping_lists import ShoppingListService
 
@@ -85,12 +85,12 @@ class ShoppingListItemController(BaseUserController):
                     "notifications.generic-created",
                     name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
                 ),
-                event_source={
-                    "event_type": "create",
-                    "item_type": "shopping-list-item",
-                    "shopping_list_id": str(shopping_list_item.shopping_list_id),
-                    "shopping_list_item_ids": [str(shopping_list_item.id)],
-                },
+                event_source=EventSource(
+                    event_type="create",
+                    item_type="shopping-list-item",
+                    item_id=shopping_list_item.id,
+                    shopping_list_id=shopping_list_item.shopping_list_id,
+                ),
             )
 
         return shopping_list_item
@@ -111,12 +111,12 @@ class ShoppingListItemController(BaseUserController):
                     "notifications.generic-updated",
                     name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
                 ),
-                event_source={
-                    "event_type": "update",
-                    "item_type": "shopping-list-item",
-                    "shopping_list_id": str(shopping_list_item.shopping_list_id),
-                    "shopping_list_item_ids": [str(shopping_list_item.id)],
-                },
+                event_source=EventSource(
+                    event_type="update",
+                    item_type="shopping-list-item",
+                    item_id=shopping_list_item.id,
+                    shopping_list_id=shopping_list_item.shopping_list_id,
+                ),
             )
 
         return shopping_list_item
@@ -133,12 +133,12 @@ class ShoppingListItemController(BaseUserController):
                     "notifications.generic-deleted",
                     name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
                 ),
-                event_source={
-                    "event_type": "delete",
-                    "item_type": "shopping-list-item",
-                    "shopping_list_id": str(shopping_list_item.shopping_list_id),
-                    "shopping_list_item_ids": [str(shopping_list_item.id)],
-                },
+                event_source=EventSource(
+                    event_type="delete",
+                    item_type="shopping-list-item",
+                    item_id=shopping_list_item.id,
+                    shopping_list_id=shopping_list_item.shopping_list_id,
+                ),
             )
 
         return shopping_list_item
@@ -180,11 +180,11 @@ class ShoppingListController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_created,
                 msg=self.t("notifications.generic-created", name=val.name),
-                event_source={
-                    "event_type": "create",
-                    "item_type": "shopping-list",
-                    "item_id": str(val.id),
-                },
+                event_source=EventSource(
+                    event_type="create",
+                    item_type="shopping-list",
+                    item_id=val.id,
+                ),
             )
 
         return val
@@ -201,11 +201,11 @@ class ShoppingListController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t("notifications.generic-updated", name=data.name),
-                event_source={
-                    "event_type": "update",
-                    "item_type": "shopping-list",
-                    "item_id": str(data.id),
-                },
+                event_source=EventSource(
+                    event_type="update",
+                    item_type="shopping-list",
+                    item_id=data.id,
+                ),
             )
         return data
 
@@ -217,11 +217,11 @@ class ShoppingListController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source={
-                    "event_type": "delete",
-                    "item_type": "shopping-list",
-                    "item_id": str(data.id),
-                },
+                event_source=EventSource(
+                    event_type="delete",
+                    item_type="shopping-list",
+                    item_id=data.id,
+                ),
             )
         return data
 
@@ -240,12 +240,12 @@ class ShoppingListController(BaseUserController):
                     "notifications.generic-updated",
                     name=shopping_list.name,
                 ),
-                event_source={
-                    "event_type": "create-and-update",
-                    "item_type": "shopping-list-item",
-                    "shopping_list_id": str(shopping_list.id),
-                    "shopping_list_item_ids": shopping_list_ids,
-                },
+                event_source=EventSource(
+                    event_type="bulk-updated-items",
+                    item_type="shopping-list",
+                    item_id=shopping_list.id,
+                    shopping_list_item_ids=shopping_list_ids,
+                ),
             )
 
         return shopping_list
@@ -262,12 +262,12 @@ class ShoppingListController(BaseUserController):
                     "notifications.generic-updated",
                     name=shopping_list.name,
                 ),
-                event_source={
-                    "event_type": "delete-and-update",
-                    "item_type": "shopping-list-item",
-                    "shopping_list_id": str(shopping_list.id),
-                    "shopping_list_item_ids": shopping_list_ids,
-                },
+                event_source=EventSource(
+                    event_type="bulk-updated-items",
+                    item_type="shopping-list",
+                    item_id=shopping_list.id,
+                    shopping_list_item_ids=shopping_list_ids,
+                ),
             )
 
         return shopping_list

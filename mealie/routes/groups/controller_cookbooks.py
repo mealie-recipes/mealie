@@ -8,7 +8,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
-from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"])
@@ -53,12 +53,7 @@ class GroupCookbookController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_created,
                 msg=self.t("notifications.generic-created", name=val.name),
-                event_source={
-                    "event_type": "create",
-                    "item_type": "cookbook",
-                    "item_id": str(val.id),
-                    "slug": val.slug,
-                },
+                event_source=EventSource(event_type="create", item_type="cookbook", item_id=val.id, slug=val.slug),
             )
         return val
 
@@ -100,12 +95,7 @@ class GroupCookbookController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_updated,
                 msg=self.t("notifications.generic-updated", name=val.name),
-                event_source={
-                    "event_type": "update",
-                    "item_type": "cookbook",
-                    "item_id": str(val.id),
-                    "slug": val.slug,
-                },
+                event_source=EventSource(event_type="update", item_type="cookbook", item_id=val.id, slug=val.slug),
             )
 
         return val
@@ -118,11 +108,6 @@ class GroupCookbookController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_deleted,
                 msg=self.t("notifications.generic-deleted", name=val.name),
-                event_source={
-                    "event_type": "delete",
-                    "item_type": "cookbook",
-                    "item_id": str(val.id),
-                    "slug": val.slug,
-                },
+                event_source=EventSource(event_type="delete", item_type="cookbook", item_id=val.id, slug=val.slug),
             )
         return val

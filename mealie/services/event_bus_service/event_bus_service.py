@@ -11,13 +11,33 @@ from .message_types import EventBusMessage, EventTypes
 from .publisher import ApprisePublisher, PublisherLike
 
 
+class EventSource:
+    event_type: str
+    item_type: str
+    item_id: UUID4 | int
+    kwargs: dict
+
+    def __init__(self, event_type: str, item_type: str, item_id: UUID4 | int, **kwargs) -> None:
+        self.event_type = event_type
+        self.item_type = item_type
+        self.item_id = item_id
+        self.kwargs = kwargs
+
+    def dict(self) -> dict:
+        return {
+            "event_type": self.event_type,
+            "item_type": self.item_type,
+            "item_id": str(self.item_id),
+            **self.kwargs,
+        }
+
+
 class EventBusService:
     def __init__(self, bg: BackgroundTasks, session=Depends(generate_session)) -> None:
         self.bg = bg
         self._publisher = ApprisePublisher
         self.session = session
         self.group_id = None
-        self.event_source: dict = {}
 
     @property
     def publisher(self) -> PublisherLike:
@@ -32,20 +52,19 @@ class EventBusService:
 
         return [notifier.apprise_url for notifier in notifiers if getattr(notifier.options, event_type.name)]
 
-    def dispatch(self, group_id: UUID4, event_type: EventTypes, msg: str = "", event_source: dict = None) -> None:
+    def dispatch(
+        self, group_id: UUID4, event_type: EventTypes, msg: str = "", event_source: EventSource = None
+    ) -> None:
         self.group_id = group_id  # type: ignore
 
-        if event_source is None:
-            event_source = {}
-
-        self.event_source = event_source
-
-        def _dispatch():
+        def _dispatch(event_source: EventSource = None):
             if urls := self.get_urls(event_type):
-                if self.event_source:
+                if event_source:
                     urls = [
                         # We use query params to add custom key: value pairs to the Apprise payload by prepending the key with ":".
-                        EventBusService.merge_query_parameters(url, {f":{k}": v for k, v in event_source.items()})
+                        EventBusService.merge_query_parameters(
+                            url, {f":{k}": v for k, v in event_source.dict().items()}
+                        )
                         # only JSON, XML, and HTTP Form endpoints support the custom key: value pairs, so we only apply them to those endpoints
                         if EventBusService.is_custom_url(url) else url
                         for url in urls
@@ -53,7 +72,7 @@ class EventBusService:
 
                 self.publisher.publish(EventBusMessage.from_type(event_type, body=msg), urls)
 
-        self.bg.add_task(_dispatch)
+        self.bg.add_task(_dispatch(event_source=event_source))
 
     def test_publisher(self, url: str) -> None:
         self.bg.add_task(
