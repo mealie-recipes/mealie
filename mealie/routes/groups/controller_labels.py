@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
     MultiPurposeLabelOut,
@@ -16,7 +17,7 @@ from mealie.schema.labels import (
 from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
 
-router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"])
+router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"], route_class=MealieCrudRoute)
 
 
 @controller(router)

@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema.group.group_shopping_list import (
     ShoppingListCreate,
     ShoppingListItemCreate,
@@ -23,7 +24,9 @@ from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.group_services.shopping_lists import ShoppingListService
 
-item_router = APIRouter(prefix="/groups/shopping/items", tags=["Group: Shopping List Items"])
+item_router = APIRouter(
+    prefix="/groups/shopping/items", tags=["Group: Shopping List Items"], route_class=MealieCrudRoute
+)
 
 
 @controller(item_router)
@@ -90,7 +93,7 @@ class ShoppingListItemController(BaseUserController):
         return self.mixins.delete_one(item_id)  # type: ignore
 
 
-router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists"])
+router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists"], route_class=MealieCrudRoute)
 
 
 @controller(router)

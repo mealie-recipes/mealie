@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema.group.group_events import (
     GroupEventNotifierCreate,
     GroupEventNotifierOut,
@@ -17,7 +18,9 @@ from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 
-router = APIRouter(prefix="/groups/events/notifications", tags=["Group: Event Notifications"])
+router = APIRouter(
+    prefix="/groups/events/notifications", tags=["Group: Event Notifications"], route_class=MealieCrudRoute
+)
 
 
 @controller(router)
