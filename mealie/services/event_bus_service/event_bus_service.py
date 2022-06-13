@@ -45,11 +45,10 @@ class EventBusService:
                 if self.event_source:
                     urls = [
                         # We use query params to add custom key: value pairs to the Apprise payload by prepending the key with ":".
-                        # As of 2022-11-06 this is undocumented, but discussed in this pull request:
-                        # https://github.com/caronc/apprise/pull/547
-                        EventBusService.merge_query_parameters(url, {f":{k}": v for k, v in self.event_source.items()})
+                        EventBusService.merge_query_parameters(url, {f":{k}": v for k, v in event_source.items()})
+                        # only JSON, XML, and HTTP Form endpoints support the custom key: value pairs, so we only apply them to those endpoints
+                        if EventBusService.is_custom_url(url) else url
                         for url in urls
-                        if EventBusService.is_json_url(url)
                     ]
 
                 self.publisher.publish(EventBusMessage.from_type(event_type, body=msg), urls)
@@ -75,5 +74,5 @@ class EventBusService:
         return urlunsplit((scheme, netloc, path, new_query_string, fragment))
 
     @staticmethod
-    def is_json_url(url: str):
-        return url.split(":", 1)[0].lower() in ["json", "jsons"]
+    def is_custom_url(url: str):
+        return url.split(":", 1)[0].lower() in ["form", "forms", "json", "jsons", "xml", "xmls"]
