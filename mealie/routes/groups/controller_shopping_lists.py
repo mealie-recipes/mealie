@@ -232,7 +232,6 @@ class ShoppingListController(BaseUserController):
     def add_recipe_ingredients_to_list(self, item_id: UUID4, recipe_id: UUID4):
         shopping_list = self.service.add_recipe_ingredients_to_list(item_id, recipe_id)
         if shopping_list:
-            shopping_list_ids = [str(shopping_list_item.id) for shopping_list_item in shopping_list.list_items]
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_updated,
@@ -244,7 +243,6 @@ class ShoppingListController(BaseUserController):
                     event_type="bulk-updated-items",
                     item_type="shopping-list",
                     item_id=shopping_list.id,
-                    shopping_list_item_ids=shopping_list_ids,
                 ),
             )
 
@@ -254,7 +252,6 @@ class ShoppingListController(BaseUserController):
     def remove_recipe_ingredients_from_list(self, item_id: UUID4, recipe_id: UUID4):
         shopping_list = self.service.remove_recipe_ingredients_from_list(item_id, recipe_id)
         if shopping_list:
-            shopping_list_ids = [str(shopping_list_item.id) for shopping_list_item in shopping_list.list_items]
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.shopping_list_updated,
@@ -266,7 +263,6 @@ class ShoppingListController(BaseUserController):
                     event_type="bulk-updated-items",
                     item_type="shopping-list",
                     item_id=shopping_list.id,
-                    shopping_list_item_ids=shopping_list_ids,
                 ),
             )
 
