@@ -17,11 +17,17 @@
     <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
-      <div v-for="(ingredientSection, sectionIndex) in ingredientSections" :key="`ingredient-section-${sectionIndex}`" class="print-section">
+      <div
+        v-for="(ingredientSection, sectionIndex) in ingredientSections"
+        :key="`ingredient-section-${sectionIndex}`"
+        class="print-section"
+      >
         <div class="ingredient-grid">
           <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
-            <h4 v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">{{ ingredient.title }}</h4>
-            <p :key="`ingredient-${ingredientIndex}`" v-html="parseText(ingredient)" class="ingredient-body" />
+            <h4 v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
+              {{ ingredient.title }}
+            </h4>
+            <p :key="`ingredient-${ingredientIndex}`" class="ingredient-body" v-html="parseText(ingredient)" />
           </template>
         </div>
       </div>
@@ -30,10 +36,16 @@
     <!-- Instructions -->
     <section>
       <v-card-title class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
-      <div v-for="(instructionSection, sectionIndex) in instructionSections" :key="`instruction-section-${sectionIndex}`" :class="{ 'print-section': instructionSection.sectionName }">
+      <div
+        v-for="(instructionSection, sectionIndex) in instructionSections"
+        :key="`instruction-section-${sectionIndex}`"
+        :class="{ 'print-section': instructionSection.sectionName }"
+      >
         <div v-for="(step, stepIndex) in instructionSection.instructions" :key="`instruction-${stepIndex}`">
           <div class="print-section">
-            <h4 v-if="step.title" :key="`instruction-title-${stepIndex}`" class="instruction-title mb-2">{{ step.title }}</h4>
+            <h4 v-if="step.title" :key="`instruction-title-${stepIndex}`" class="instruction-title mb-2">
+              {{ step.title }}
+            </h4>
             <h5>{{ $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h5>
             <VueMarkdown :source="step.text" class="recipe-step-body" />
           </div>
@@ -86,70 +98,82 @@ export default defineComponent({
     },
   },
   setup(props) {
-
     // Group ingredients by section so we can style them independently
     const ingredientSections = computed<IngredientSection[]>(() => {
-      const ingredientSections:IngredientSection[] = [];
-      const sectionIndexes:number[] = [];
+      if (!props.recipe.recipeIngredient) {
+        return [];
+      }
 
-      // Store indexes of each new section
-      for (let i = 0; i < props.recipe.recipeIngredient.length; i++) {
-        if (props.recipe.recipeIngredient[i].title) {
-          sectionIndexes.push(i);
+      return props.recipe.recipeIngredient.reduce((sections, ingredient) => {
+        // if title append new section to the end of the array
+        if (ingredient.title) {
+          sections.push({
+            sectionName: ingredient.title,
+            ingredients: [ingredient],
+          });
+
+          return sections;
         }
-      }
-      sectionIndexes.push(props.recipe.recipeIngredient.length);
 
-      // Make sure the first element is 0, otherwise we lose the first section of ingredients
-      if (sectionIndexes[0] !== 0) {
-        sectionIndexes.unshift(0);
-      }
+        // append new section if first
+        if (sections.length === 0) {
+          sections.push({
+            sectionName: "",
+            ingredients: [ingredient],
+          });
 
-      // Create sections by slicing between section indexes
-      for (let i = 0; i < sectionIndexes.length - 1; i++) {
-        const startIndex:number = sectionIndexes[i];
-        const endIndex:number = sectionIndexes[i + 1];
-        const ingredientSection:IngredientSection = {
-          sectionName: props.recipe.recipeIngredient[startIndex].title,
-          ingredients: props.recipe.recipeIngredient.slice(startIndex, endIndex)
-        };
-        ingredientSections.push(ingredientSection);
-      }
+          return sections;
+        }
 
-      return ingredientSections;
+        // otherwise add ingredient to last section in the array
+        sections[sections.length - 1].ingredients.push(ingredient);
+        return sections;
+      }, [] as IngredientSection[]);
     });
 
     // Group instructions by section so we can style them independently
     const instructionSections = computed<InstructionSection[]>(() => {
-      const instructionSections:InstructionSection[] = [];
-      const sectionIndexes:number[] = [];
+      if (!props.recipe.recipeInstructions) {
+        return [];
+      }
 
-      // Store indexes of each new section
-      for (let i = 0; i < props.recipe.recipeInstructions.length; i++) {
-        if (props.recipe.recipeInstructions[i].title) {
-          sectionIndexes.push(i);
+      return props.recipe.recipeInstructions.reduce((sections, step) => {
+        const offset = (() => {
+          if (sections.length === 0) {
+            return 0;
+          }
+
+          const lastOffset = sections[sections.length - 1].stepOffset;
+          const lastNumSteps = sections[sections.length - 1].instructions.length;
+          return lastOffset + lastNumSteps;
+        })();
+
+        // if title append new section to the end of the array
+        if (step.title) {
+          sections.push({
+            sectionName: step.title,
+            stepOffset: offset,
+            instructions: [step],
+          });
+
+          return sections;
         }
-      }
-      sectionIndexes.push(props.recipe.recipeInstructions.length);
 
-      // Make sure the first element is 0, otherwise we lose the first section of instructions
-      if (sectionIndexes[0] !== 0) {
-        sectionIndexes.unshift(0);
-      }
+        // append if first element
+        if (sections.length === 0) {
+          sections.push({
+            sectionName: "",
+            stepOffset: offset,
+            instructions: [step],
+          });
 
-      // Create sections by slicing between section indexes
-      for (let i = 0; i < sectionIndexes.length - 1; i++) {
-        const startIndex:number = sectionIndexes[i];
-        const endIndex:number = sectionIndexes[i + 1];
-        const instructionSection:InstructionSection = {
-          sectionName: props.recipe.recipeInstructions[startIndex].title,
-          stepOffset: startIndex,
-          instructions: props.recipe.recipeInstructions.slice(startIndex, endIndex)
-        };
-        instructionSections.push(instructionSection);
-      }
+          return sections;
+        }
 
-      return instructionSections;
+        // otherwise add step to last section in the array
+        sections[sections.length - 1].instructions.push(step);
+        return sections;
+      }, [] as InstructionSection[]);
     });
 
     const hasNotes = computed(() => {
@@ -235,7 +259,9 @@ p {
   text-underline-offset: 4px;
 }
 
-.ingredient-body, .recipe-step-body, .note-body {
+.ingredient-body,
+.recipe-step-body,
+.note-body {
   font-size: 14px;
 }
 
