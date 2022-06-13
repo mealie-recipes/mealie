@@ -1,13 +1,32 @@
 <template>
-  <div></div>
+  <v-container>
+    <RecipeCardSection v-if="user" :icon="$globals.icons.heart" title="User Favorites" :recipes="user.favoriteRecipes">
+    </RecipeCardSection>
+  </v-container>
 </template>
-  
-  <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+
+<script lang="ts">
+import { defineComponent, useAsync, useRoute } from "@nuxtjs/composition-api";
+import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
+import { useUserApi } from "~/composables/api";
+import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
+  components: { RecipeCardSection },
   setup() {
-    return {};
+    const api = useUserApi();
+    const route = useRoute();
+
+    const userId = route.value.params.id;
+
+    const user = useAsync(async () => {
+      const { data } = await api.users.getFavorites(userId);
+      return data;
+    }, useAsyncKey());
+
+    return {
+      user,
+    };
   },
   head() {
     return {
@@ -16,6 +35,5 @@ export default defineComponent({
   },
 });
 </script>
-  
-  <style scoped>
-</style>
+
+<style scoped></style>

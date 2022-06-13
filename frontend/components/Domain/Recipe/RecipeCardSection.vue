@@ -14,6 +14,17 @@
         </v-icon>
         {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
+      <ContextMenu
+        v-if="!$vuetify.breakpoint.xsOnly"
+        :items="[
+          {
+            title: 'Toggle View',
+            icon: $globals.icons.eye,
+            event: 'toggle-dense-view',
+          },
+        ]"
+        @toggle-dense-view="mobileCards = !mobileCards"
+      />
       <v-menu v-if="$listeners.sort" offset-y left>
         <template #activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
@@ -103,11 +114,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useSorter } from "~/composables/recipes";
-import {Recipe} from "~/types/api-types/recipe";
+import { Recipe } from "~/types/api-types/recipe";
 
 const SORT_EVENT = "sort";
 
@@ -129,10 +140,6 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    mobileCards: {
-      type: Boolean,
-      default: false,
-    },
     singleColumn: {
       type: Boolean,
       default: false,
@@ -143,6 +150,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const mobileCards = ref(false);
     const utils = useSorter();
 
     const EVENTS = {
@@ -155,7 +163,7 @@ export default defineComponent({
 
     const { $globals, $vuetify } = useContext();
     const viewScale = computed(() => {
-      return props.mobileCards || $vuetify.breakpoint.smAndDown;
+      return mobileCards.value || $vuetify.breakpoint.smAndDown;
     });
 
     const displayTitleIcon = computed(() => {
@@ -164,7 +172,7 @@ export default defineComponent({
 
     const state = reactive({
       sortLoading: false,
-    })
+    });
 
     const router = useRouter();
     function navigateRandom() {
@@ -204,6 +212,7 @@ export default defineComponent({
     }
 
     return {
+      mobileCards,
       ...toRefs(state),
       EVENTS,
       viewScale,

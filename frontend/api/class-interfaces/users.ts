@@ -1,5 +1,15 @@
 import { BaseCRUDAPI } from "../_base";
-import { ChangePassword, DeleteTokenResponse, LongLiveTokenIn, LongLiveTokenOut, ResetPassword, UserBase, UserIn, UserOut } from "~/types/api-types/user";
+import {
+  ChangePassword,
+  DeleteTokenResponse,
+  LongLiveTokenIn,
+  LongLiveTokenOut,
+  ResetPassword,
+  UserBase,
+  UserFavorites,
+  UserIn,
+  UserOut,
+} from "~/types/api-types/user";
 
 const prefix = "/api";
 
@@ -32,7 +42,7 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   }
 
   async getFavorites(id: string) {
-    await this.requests.get(routes.usersIdFavorites(id));
+    return await this.requests.get<UserFavorites>(routes.usersIdFavorites(id));
   }
 
   async changePassword(id: string, changePassword: ChangePassword) {
