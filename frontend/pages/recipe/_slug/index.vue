@@ -230,7 +230,7 @@
 
               <div v-if="$vuetify.breakpoint.mdAndUp" class="mt-5">
                 <!-- Recipe Categories -->
-                <v-card v-if="recipe.recipeCategory.length > 0 || form" class="mt-2">
+                <v-card v-if="(recipe.recipeCategory.length > 0 && !cookModeToggle) || form" class="mt-2">
                   <v-card-title class="py-2">
                     {{ $t("recipe.categories") }}
                   </v-card-title>
@@ -248,7 +248,7 @@
                 </v-card>
 
                 <!-- Recipe Tags -->
-                <v-card v-if="recipe.tags.length > 0 || form" class="mt-2">
+                <v-card v-if="(recipe.tags.length > 0 && !cookModeToggle) || form" class="mt-2">
                   <v-card-title class="py-2">
                     {{ $t("tag.tags") }}
                   </v-card-title>
@@ -302,6 +302,8 @@
                 :recipe-id="recipe.id"
                 :recipe-slug="recipe.slug"
                 :assets.sync="recipe.assets"
+                :cook-mode="cookModeToggle"
+                @cookModeToggle="cookModeToggle = !cookModeToggle"
               />
               <div v-if="form" class="d-flex">
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
@@ -357,14 +359,14 @@
                 </v-card>
 
                 <RecipeNutrition
-                  v-if="recipe.settings.showNutrition"
+                  v-if="recipe.settings.showNutrition && !cookModeToggle"
                   v-model="recipe.nutrition"
                   class="mt-10"
                   :edit="form"
                 />
                 <client-only>
                   <RecipeAssets
-                    v-if="recipe.settings.showAssets"
+                    v-if="recipe.settings.showAssets && !cookModeToggle"
                     v-model="recipe.assets"
                     :edit="form"
                     :slug="recipe.slug"
@@ -438,7 +440,7 @@
     </div>
 
     <RecipeComments
-      v-if="recipe && !recipe.settings.disableComments && !form"
+      v-if="recipe && !recipe.settings.disableComments && !form && !cookModeToggle"
       v-model="recipe.comments"
       :slug="recipe.slug"
       :recipe-id="recipe.id"
@@ -833,6 +835,7 @@ export default defineComponent({
     const setScale = (newScale: number) => {
       state.scale = newScale;
     };
+    const cookModeToggle = ref(false);
 
     return {
       // Wake Lock
@@ -869,6 +872,7 @@ export default defineComponent({
       addIngredient,
       removeApiExtra,
       toolStore,
+      cookModeToggle,
     };
   },
   head: {},
