@@ -17,31 +17,51 @@
     <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
-      <div class="ingredient-grid">
-        <template v-for="(ingredient, index) in recipe.recipeIngredient">
-          <h4 v-if="ingredient.title" :key="`title-${index}`" class="ingredient-title mt-2">{{ ingredient.title }}</h4>
-          <p :key="`ingredient-${index}`" v-html="parseText(ingredient)" />
-        </template>
-      </div>
-    </section>
-
-    <section>
-      <v-card-title class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
-      <div v-for="(step, index) in recipe.recipeInstructions" :key="index">
-        <h3 v-if="step.title" class="mb-2">{{ step.title }}</h3>
-        <div class="ml-5">
-          <h4>{{ $t("recipe.step-index", { step: index + 1 }) }}</h4>
-          <VueMarkdown :source="step.text" />
+      <div
+        v-for="(ingredientSection, sectionIndex) in ingredientSections"
+        :key="`ingredient-section-${sectionIndex}`"
+        class="print-section"
+      >
+        <div class="ingredient-grid">
+          <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
+            <h4 v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
+              {{ ingredient.title }}
+            </h4>
+            <p :key="`ingredient-${ingredientIndex}`" class="ingredient-body" v-html="parseText(ingredient)" />
+          </template>
         </div>
       </div>
     </section>
 
+    <!-- Instructions -->
+    <section>
+      <v-card-title class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
+      <div
+        v-for="(instructionSection, sectionIndex) in instructionSections"
+        :key="`instruction-section-${sectionIndex}`"
+        :class="{ 'print-section': instructionSection.sectionName }"
+      >
+        <div v-for="(step, stepIndex) in instructionSection.instructions" :key="`instruction-${stepIndex}`">
+          <div class="print-section">
+            <h4 v-if="step.title" :key="`instruction-title-${stepIndex}`" class="instruction-title mb-2">
+              {{ step.title }}
+            </h4>
+            <h5>{{ $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h5>
+            <VueMarkdown :source="step.text" class="recipe-step-body" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes -->
     <v-divider v-if="hasNotes" class="grey my-4"></v-divider>
 
     <section>
       <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
-        <h4>{{ note.title }}</h4>
-        <VueMarkdown :source="note.text" />
+        <div class="print-section">
+          <h4>{{ note.title }}</h4>
+          <VueMarkdown :source="note.text" class="note-body" />
+        </div>
       </div>
     </section>
   </div>
@@ -52,8 +72,19 @@ import { defineComponent, computed } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { Recipe, RecipeIngredient } from "~/types/api-types/recipe";
+import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
+
+type IngredientSection = {
+  sectionName: string;
+  ingredients: RecipeIngredient[];
+};
+
+type InstructionSection = {
+  sectionName: string;
+  stepOffset: number;
+  instructions: RecipeStep[];
+};
 
 export default defineComponent({
   components: {
@@ -67,6 +98,84 @@ export default defineComponent({
     },
   },
   setup(props) {
+    // Group ingredients by section so we can style them independently
+    const ingredientSections = computed<IngredientSection[]>(() => {
+      if (!props.recipe.recipeIngredient) {
+        return [];
+      }
+
+      return props.recipe.recipeIngredient.reduce((sections, ingredient) => {
+        // if title append new section to the end of the array
+        if (ingredient.title) {
+          sections.push({
+            sectionName: ingredient.title,
+            ingredients: [ingredient],
+          });
+
+          return sections;
+        }
+
+        // append new section if first
+        if (sections.length === 0) {
+          sections.push({
+            sectionName: "",
+            ingredients: [ingredient],
+          });
+
+          return sections;
+        }
+
+        // otherwise add ingredient to last section in the array
+        sections[sections.length - 1].ingredients.push(ingredient);
+        return sections;
+      }, [] as IngredientSection[]);
+    });
+
+    // Group instructions by section so we can style them independently
+    const instructionSections = computed<InstructionSection[]>(() => {
+      if (!props.recipe.recipeInstructions) {
+        return [];
+      }
+
+      return props.recipe.recipeInstructions.reduce((sections, step) => {
+        const offset = (() => {
+          if (sections.length === 0) {
+            return 0;
+          }
+
+          const lastOffset = sections[sections.length - 1].stepOffset;
+          const lastNumSteps = sections[sections.length - 1].instructions.length;
+          return lastOffset + lastNumSteps;
+        })();
+
+        // if title append new section to the end of the array
+        if (step.title) {
+          sections.push({
+            sectionName: step.title,
+            stepOffset: offset,
+            instructions: [step],
+          });
+
+          return sections;
+        }
+
+        // append if first element
+        if (sections.length === 0) {
+          sections.push({
+            sectionName: "",
+            stepOffset: offset,
+            instructions: [step],
+          });
+
+          return sections;
+        }
+
+        // otherwise add step to last section in the array
+        sections[sections.length - 1].instructions.push(step);
+        return sections;
+      }, [] as InstructionSection[]);
+    });
+
     const hasNotes = computed(() => {
       return props.recipe.notes && props.recipe.notes.length > 0;
     });
@@ -79,6 +188,8 @@ export default defineComponent({
       hasNotes,
       parseText,
       parseIngredientText,
+      ingredientSections,
+      instructionSections,
     };
   },
 });
@@ -108,16 +219,21 @@ export default defineComponent({
 </style>
 
 <style scoped>
+/* Makes all text solid black */
 .print-container {
   display: none;
   background-color: white;
 }
 
-/* Makes all text solid black */
 .print-container,
 .print-container >>> * {
   opacity: 1 !important;
   color: black !important;
+}
+
+/* Prevents sections from being broken up between pages */
+.print-section {
+  page-break-inside: avoid;
 }
 
 p {
@@ -136,8 +252,17 @@ p {
   grid-gap: 0.5rem;
 }
 
-.ingredient-title {
+.ingredient-title,
+.instruction-title {
   grid-column: 1 / span 2;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ingredient-body,
+.recipe-step-body,
+.note-body {
+  font-size: 14px;
 }
 
 ul {
