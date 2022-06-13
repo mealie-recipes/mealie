@@ -60,15 +60,7 @@ class EventBusService:
         def _dispatch(event_source: EventSource = None):
             if urls := self.get_urls(event_type):
                 if event_source:
-                    urls = [
-                        # We use query params to add custom key: value pairs to the Apprise payload by prepending the key with ":".
-                        EventBusService.merge_query_parameters(
-                            url, {f":{k}": v for k, v in event_source.dict().items()}
-                        )
-                        # only JSON, XML, and HTTP Form endpoints support the custom key: value pairs, so we only apply them to those endpoints
-                        if EventBusService.is_custom_url(url) else url
-                        for url in urls
-                    ]
+                    urls = EventBusService.update_urls_with_event_source(urls, event_source)
 
                 self.publisher.publish(EventBusMessage.from_type(event_type, body=msg), urls)
 
@@ -81,6 +73,16 @@ class EventBusService:
             event=EventBusMessage.from_type(EventTypes.test_message, body="This is a test event."),
             notification_urls=[url],
         )
+
+    @staticmethod
+    def update_urls_with_event_source(urls: list[str], event_source: EventSource):
+        return [
+            # We use query params to add custom key: value pairs to the Apprise payload by prepending the key with ":".
+            EventBusService.merge_query_parameters(url, {f":{k}": v for k, v in event_source.dict().items()})
+            # only certain endpoints support the custom key: value pairs, so we only apply them to those endpoints
+            if EventBusService.is_custom_url(url) else url
+            for url in urls
+        ]
 
     @staticmethod
     def merge_query_parameters(url: str, params: dict):
