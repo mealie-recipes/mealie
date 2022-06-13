@@ -80,6 +80,7 @@ class ShoppingListItemController(BaseUserController):
     def create_one(self, data: ShoppingListItemCreate):
         return self.mixins.create_one(data)
 
+    @item_router.head("/{item_id}", response_model=ShoppingListItemOut)
     @item_router.get("/{item_id}", response_model=ShoppingListItemOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
@@ -133,6 +134,7 @@ class ShoppingListController(BaseUserController):
 
         return val
 
+    @router.head("/{item_id}", response_model=ShoppingListOut)
     @router.get("/{item_id}", response_model=ShoppingListOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
