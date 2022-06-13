@@ -1,14 +1,16 @@
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_events import GroupEventNotifierCreate, GroupEventNotifierOptions
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from tests.utils.assertion_helpers import assert_ignore_keys
-from tests.utils.factories import random_bool, random_string
+from tests.utils.factories import random_bool, random_email, random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
 class Routes:
     base = "/api/groups/events/notifications"
 
+    @staticmethod
     def item(item_id: int) -> str:
         return f"{Routes.base}/{item_id}"
 
@@ -43,6 +45,10 @@ def notifier_generator():
         name=random_string(),
         apprise_url=random_string(),
     ).dict(by_alias=True)
+
+
+def event_source_generator():
+    return EventSource(event_type=random_string, item_type=random_string(), item_id=random_int())
 
 
 def test_create_notification(api_client: TestClient, unique_user: TestUser):
@@ -116,3 +122,37 @@ def test_delete_notification(api_client: TestClient, unique_user: TestUser):
 
     response = api_client.get(Routes.item(payload_as_dict["id"]), headers=unique_user.token)
     assert response.status_code == 404
+
+
+def test_event_bus_functions():
+    test_event_source = event_source_generator()
+
+    test_standard_urls = [
+        "a" + random_string(),
+        f"ses://{random_email()}/{random_string()}/{random_string()}/us-east-1/",
+        f"pBUL://{random_string()}/{random_email()}",
+    ]
+
+    test_custom_urls = [
+        "JSON://" + random_string(),
+        f"jsons://{random_string()}:my/pass/word@{random_string()}.com/{random_string()}",
+        "form://" + random_string(),
+        "fORMS://" + str(random_int()),
+        "xml:" + str(random_int()),
+        "xmls://" + random_string(),
+    ]
+
+    # Validate all standard urls are not considered custom
+    responses = [EventBusService.is_custom_url(url) for url in test_standard_urls]
+    assert not any(responses)
+
+    # Validate all custom urls are actually considered custom
+    responses = [EventBusService.is_custom_url(url) for url in test_custom_urls]
+    assert all(responses)
+
+    updated_standard_urls = EventBusService.update_urls_with_event_source(test_standard_urls, test_event_source)
+    updated_custom_urls = EventBusService.update_urls_with_event_source(test_custom_urls, test_event_source)
+
+    # Validate that no URLs are lost when updating them
+    assert len(updated_standard_urls) == len(test_standard_urls)
+    assert len(updated_custom_urls) == len(updated_custom_urls)
