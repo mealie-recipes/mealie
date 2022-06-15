@@ -24,6 +24,7 @@ export default defineComponent({
   components: { RecipeCardSection },
   setup() {
     const start = ref(0);
+    const offset = ref(30);
     const limit = ref(30);
     const increment = ref(30);
     const ready = ref(false);
@@ -41,8 +42,8 @@ export default defineComponent({
         return;
       }
       loading.value = true;
-      start.value = limit.value + 1;
-      limit.value = limit.value + increment.value;
+      start.value = offset.value + 1;
+      offset.value = offset.value + increment.value;
       fetchMore(start.value, limit.value);
       loading.value = false;
     }, 500);
