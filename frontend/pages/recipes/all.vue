@@ -24,9 +24,9 @@ export default defineComponent({
   components: { RecipeCardSection },
   setup() {
     const start = ref(0);
-    const offset = ref(30);
-    const limit = ref(30);
     const increment = ref(30);
+    const offset = ref(increment.value);
+    const limit = ref(increment.value);
     const ready = ref(false);
     const loading = ref(false);
 
