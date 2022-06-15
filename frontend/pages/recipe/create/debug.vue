@@ -6,7 +6,7 @@
         <v-card-text>
           Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper
           and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is
-          not supported by Mealie or it's scraper library.
+          not supported by Mealie or its scraper library.
           <v-text-field
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
