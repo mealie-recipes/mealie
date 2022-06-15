@@ -12,7 +12,7 @@
     </v-fade-transition>
   </v-container>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
@@ -23,8 +23,9 @@ export default defineComponent({
   components: { RecipeCardSection },
   setup() {
     const start = ref(0);
-    const limit = ref(30);
     const increment = ref(30);
+    const offset = ref(increment.value);
+    const limit = ref(increment.value);
     const ready = ref(false);
     const loading = ref(false);
 
@@ -40,8 +41,8 @@ export default defineComponent({
         return;
       }
       loading.value = true;
-      start.value = limit.value + 1;
-      limit.value = limit.value + increment.value;
+      start.value = offset.value + 1;
+      offset.value = offset.value + increment.value;
       fetchMore(start.value, limit.value);
       loading.value = false;
     }, 500);
@@ -64,4 +65,3 @@ export default defineComponent({
   },
 });
 </script>
-  
