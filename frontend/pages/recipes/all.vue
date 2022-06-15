@@ -4,6 +4,7 @@
       :icon="$globals.icons.primary"
       :title="$t('page.all-recipes')"
       :recipes="recipes"
+      @sort="assignSorted"
       @delete="removeRecipe"
     ></RecipeCardSection>
     <v-card v-intersect="infiniteScroll"></v-card>
@@ -12,7 +13,7 @@
     </v-fade-transition>
   </v-container>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
@@ -62,6 +63,10 @@ export default defineComponent({
       title: this.$t("page.all-recipes") as string,
     };
   },
+  methods: {
+    assignSorted(val: Array<Recipe>) {
+      this.recipes = val;
+    },
+  },
 });
 </script>
-  
