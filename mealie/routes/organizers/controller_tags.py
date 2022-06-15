@@ -10,7 +10,7 @@ from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import TagSave
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/tags", tags=["Organizer: Tags"])
@@ -58,6 +58,7 @@ class TagController(BaseUserController):
                     name=data.name,
                     url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
                 ),
+                event_source=EventSource(event_type="create", item_type="tag", item_id=data.id, slug=data.slug),
             )
         return data
 
@@ -75,6 +76,7 @@ class TagController(BaseUserController):
                     name=data.name,
                     url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
                 ),
+                event_source=EventSource(event_type="update", item_type="tag", item_id=data.id, slug=data.slug),
             )
         return data
 
@@ -94,6 +96,7 @@ class TagController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.tag_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
+                event_source=EventSource(event_type="delete", item_type="tag", item_id=data.id, slug=data.slug),
             )
 
     @router.get("/slug/{tag_slug}", response_model=RecipeTagResponse)

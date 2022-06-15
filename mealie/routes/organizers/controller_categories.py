@@ -10,7 +10,7 @@ from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
@@ -59,6 +59,7 @@ class RecipeCategoryController(BaseUserController):
                     name=data.name,
                     url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
                 ),
+                event_source=EventSource(event_type="create", item_type="category", item_id=data.id, slug=data.slug),
             )
         return data
 
@@ -84,6 +85,7 @@ class RecipeCategoryController(BaseUserController):
                     name=data.name,
                     url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
                 ),
+                event_source=EventSource(event_type="update", item_type="category", item_id=data.id, slug=data.slug),
             )
         return data
 
@@ -99,6 +101,7 @@ class RecipeCategoryController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.category_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
+                event_source=EventSource(event_type="delete", item_type="category", item_id=data.id, slug=data.slug),
             )
 
     # =========================================================================

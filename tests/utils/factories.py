@@ -16,6 +16,10 @@ def random_bool() -> bool:
     return bool(random.getrandbits(1))
 
 
+def random_int(min=-4294967296, max=4294967296) -> int:
+    return random.randint(min, max)
+
+
 def user_registration_factory(advanced=None, private=None) -> CreateUserRegistration:
     return CreateUserRegistration(
         group=random_string(),
