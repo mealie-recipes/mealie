@@ -77,7 +77,7 @@ class RecipeBulkScraperService(BaseService):
                 self.service.logger.error(f"failed to scrape url during bulk url import {b.url}")
                 self.service.logger.exception(e)
                 self._add_error_entry(f"failed to scrape url {b.url}", str(e))
-                break
+                continue
 
             if b.tags:
                 recipe.tags = b.tags
@@ -91,6 +91,7 @@ class RecipeBulkScraperService(BaseService):
                 self.service.logger.error(f"Failed to save recipe to database during bulk url import {b.url}")
                 self.service.logger.exception(e)
                 self._add_error_entry("Failed to save recipe to database during bulk url import", str(e))
+                continue
 
             self.report_entries.append(
                 ReportEntryCreate(
