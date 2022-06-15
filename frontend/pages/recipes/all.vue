@@ -4,6 +4,7 @@
       :icon="$globals.icons.primary"
       :title="$t('page.all-recipes')"
       :recipes="recipes"
+      @sort="assignSorted"
       @delete="removeRecipe"
     ></RecipeCardSection>
     <v-card v-intersect="infiniteScroll"></v-card>
@@ -18,6 +19,7 @@ import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useLazyRecipes } from "~/composables/recipes";
+import { Recipe } from "~/types/api-types/recipe";
 
 export default defineComponent({
   components: { RecipeCardSection },
@@ -62,6 +64,11 @@ export default defineComponent({
     return {
       title: this.$t("page.all-recipes") as string,
     };
+  },
+  methods: {
+    assignSorted(val: Array<Recipe>) {
+      this.recipes = val;
+    },
   },
 });
 </script>
