@@ -90,7 +90,8 @@ class RecipeBulkScraperService(BaseService):
             except Exception as e:
                 self.service.logger.error(f"Failed to save recipe to database during bulk url import {b.url}")
                 self.service.logger.exception(e)
-                self._add_error_entry("Failed to save recipe to database during bulk url import", str(e))
+                self._add_error_entry(f"Failed to save recipe to database during bulk url import {b.url}", str(e))
+                continue
 
             self.report_entries.append(
                 ReportEntryCreate(
