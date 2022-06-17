@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 
 import requests
 from fastapi.encoders import jsonable_encoder
@@ -8,7 +8,7 @@ from mealie.core import root_logger
 from mealie.db.db_setup import create_session
 from mealie.db.models.group.webhooks import GroupWebhooksModel
 
-last_ran = datetime.now()
+last_ran = datetime.now(timezone.utc)
 
 
 def get_scheduled_webhooks(session: Session, bottom: datetime, top: datetime) -> list[GroupWebhooksModel]:
@@ -21,21 +21,22 @@ def get_scheduled_webhooks(session: Session, bottom: datetime, top: datetime) ->
         session.query(GroupWebhooksModel)
         .where(
             GroupWebhooksModel.enabled == True,  # noqa: E712 - required for SQLAlchemy comparison
-            GroupWebhooksModel.scheduled_time >= bottom.time(),
-            GroupWebhooksModel.scheduled_time <= top.time(),
+            GroupWebhooksModel.scheduled_time > bottom.astimezone(timezone.utc).time(),
+            GroupWebhooksModel.scheduled_time <= top.astimezone(timezone.utc).time(),
         )
         .all()
     )
 
 
-def post_webhooks() -> None:
+def post_group_webhooks() -> None:
     global last_ran
     session = create_session()
 
     logger = root_logger.get_logger()
-    results = get_scheduled_webhooks(session, last_ran, datetime.now() + timedelta(minutes=5))
-    last_ran = datetime.now()
+    results = get_scheduled_webhooks(session, last_ran, datetime.now())
+
+    last_ran = datetime.now(timezone.utc)
 
     for result in results:
         logger.debug(f"posting webhooks for entry {result}")
-        requests.post(result.url, jsonable_encoder({}))  # TODO: add data to webhook
+        requests.post(result.url, json=jsonable_encoder({"Hello": "World"}))  # TODO: add data to webhook
