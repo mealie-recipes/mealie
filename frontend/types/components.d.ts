@@ -18,6 +18,7 @@ import DevDumpJson from "@/components/global/DevDumpJson.vue";
 import LanguageDialog from "@/components/global/LanguageDialog.vue";
 import InputQuantity from "@/components/global/InputQuantity.vue";
 import ToggleState from "@/components/global/ToggleState.vue";
+import ContextMenu from "@/components/global/ContextMenu.vue";
 import AppButtonCopy from "@/components/global/AppButtonCopy.vue";
 import CrudTable from "@/components/global/CrudTable.vue";
 import InputColor from "@/components/global/InputColor.vue";
@@ -55,6 +56,7 @@ declare module "vue" {
     LanguageDialog: typeof LanguageDialog;
     InputQuantity: typeof InputQuantity;
     ToggleState: typeof ToggleState;
+    ContextMenu: typeof ContextMenu;
     AppButtonCopy: typeof AppButtonCopy;
     CrudTable: typeof CrudTable;
     InputColor: typeof InputColor;

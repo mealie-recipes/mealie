@@ -57,6 +57,10 @@ async def start_scheduler():
         tasks.purge_group_data_exports,
     )
 
+    SchedulerRegistry.register_minutely(
+        tasks.post_group_webhooks,
+    )
+
     SchedulerRegistry.print_jobs()
 
     await SchedulerService.start()
