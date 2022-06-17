@@ -2516,39 +2516,39 @@
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
 
-"@vue/reactivity@3.2.36":
-  version "3.2.36"
-  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.36.tgz#026b14e716febffe80cd284fd8a2b33378968646"
-  integrity sha512-c2qvopo0crh9A4GXi2/2kfGYMxsJW4tVILrqRPydVGZHhq0fnzy6qmclWOhBFckEhmyxmpHpdJtIRYGeKcuhnA==
+"@vue/reactivity@3.2.37":
+  version "3.2.37"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.37.tgz#5bc3847ac58828e2b78526e08219e0a1089f8848"
+  integrity sha512-/7WRafBOshOc6m3F7plwzPeCu/RCVv9uMpOwa/5PiY1Zz+WLVRWiy0MYKwmg19KBdGtFWsmZ4cD+LOdVPcs52A==
   dependencies:
-    "@vue/shared" "3.2.36"
+    "@vue/shared" "3.2.37"
 
-"@vue/runtime-core@3.2.36":
-  version "3.2.36"
-  resolved "https://registry.yarnpkg.com/@vue/runtime-core/-/runtime-core-3.2.36.tgz#be5115e665679c26bf3807d2326675dc1d847134"
-  integrity sha512-PTWBD+Lub+1U3/KhbCExrfxyS14hstLX+cBboxVHaz+kXoiDLNDEYAovPtxeTutbqtClIXtft+wcGdC+FUQ9qQ==
+"@vue/runtime-core@3.2.37":
+  version "3.2.37"
+  resolved "https://registry.yarnpkg.com/@vue/runtime-core/-/runtime-core-3.2.37.tgz#7ba7c54bb56e5d70edfc2f05766e1ca8519966e3"
+  integrity sha512-JPcd9kFyEdXLl/i0ClS7lwgcs0QpUAWj+SKX2ZC3ANKi1U4DOtiEr6cRqFXsPwY5u1L9fAjkinIdB8Rz3FoYNQ==
   dependencies:
-    "@vue/reactivity" "3.2.36"
-    "@vue/shared" "3.2.36"
+    "@vue/reactivity" "3.2.37"
+    "@vue/shared" "3.2.37"
 
-"@vue/runtime-dom@^3.2.36":
-  version "3.2.36"
-  resolved "https://registry.yarnpkg.com/@vue/runtime-dom/-/runtime-dom-3.2.36.tgz#cd5d403ea23c18ee7c17767103a1b2f8263c54bb"
-  integrity sha512-gYPYblm7QXHVuBohqNRRT7Wez0f2Mx2D40rb4fleehrJU9CnkjG0phhcGEZFfGwCmHZRqBCRgbFWE98bPULqkg==
+"@vue/runtime-dom@^3.2.37":
+  version "3.2.37"
+  resolved "https://registry.yarnpkg.com/@vue/runtime-dom/-/runtime-dom-3.2.37.tgz#002bdc8228fa63949317756fb1e92cdd3f9f4bbd"
+  integrity sha512-HimKdh9BepShW6YozwRKAYjYQWg9mQn63RGEiSswMbW+ssIht1MILYlVGkAGGQbkhSh31PCdoUcfiu4apXJoPw==
   dependencies:
-    "@vue/runtime-core" "3.2.36"
-    "@vue/shared" "3.2.36"
+    "@vue/runtime-core" "3.2.37"
+    "@vue/shared" "3.2.37"
     csstype "^2.6.8"
 
-"@vue/shared@3.2.36", "@vue/shared@^3.2.26":
+"@vue/shared@3.2.36":
   version "3.2.36"
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.36.tgz#35e11200542cf29068ba787dad57da9bdb82f644"
   integrity sha512-JtB41wXl7Au3+Nl3gD16Cfpj7k/6aCroZ6BbOiCMFCMvrOpkg/qQUXTso2XowaNqBbnkuGHurLAqkLBxNGc1hQ==
 
-"@vue/shared@^3.2.4":
-  version "3.2.8"
-  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.8.tgz#2f918e330aeb3f56ab1031ca60a5b30672512457"
-  integrity sha512-E2DQQnG7Qr4GwTs3GlfPPlHliGVADoufTnhpwfoViw7JlyLMmYtjfnTwM6nXAwvSJWiF7D+7AxpnWBBT3VWo6Q==
+"@vue/shared@3.2.37", "@vue/shared@^3.2.26", "@vue/shared@^3.2.4":
+  version "3.2.37"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.37.tgz#8e6adc3f2759af52f0e85863dfb0b711ecc5c702"
+  integrity sha512-4rSJemR2NQIo9Klm1vabqWjD8rs/ZaJSzMxkMNeJS6lHiUjjUeYFbooN19NgFjztubEKh3WlZUeOLVdbbUWHsw==
 
 "@vueuse/core@^8.5.0":
   version "8.5.0"
