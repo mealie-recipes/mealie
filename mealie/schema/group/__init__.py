@@ -9,4 +9,4 @@ from .group_seeder import *
 from .group_shopping_list import *
 from .group_statistics import *
 from .invite_token import *
-from .webhook import *
+from .webhook import *  # type: ignore

@@ -5,6 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type WebhookType = "mealplan";
 export type SupportedMigrations = "nextcloud" | "chowdown" | "paprika" | "mealie_alpha";
 
 export interface CreateGroupPreferences {
@@ -25,7 +26,8 @@ export interface CreateWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  time?: string;
+  webhookType?: WebhookType & string;
+  scheduledTime: string;
 }
 export interface DataMigrationCreate {
   sourceType: SupportedMigrations;
@@ -231,7 +233,8 @@ export interface ReadWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  time?: string;
+  webhookType?: WebhookType & string;
+  scheduledTime: string;
   groupId: string;
   id: string;
 }
@@ -304,7 +307,8 @@ export interface SaveWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  time?: string;
+  webhookType?: WebhookType & string;
+  scheduledTime: string;
   groupId: string;
 }
 export interface SeederConfig {
