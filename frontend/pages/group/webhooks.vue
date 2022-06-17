@@ -5,9 +5,15 @@
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-webhooks.svg')"></v-img>
       </template>
       <template #title> Webhooks </template>
-      The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks
-      will be sent with the data from the recipe that is scheduled for the day
+      <v-card-text class="pb-0">
+        The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the
+        webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution
+        is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/-
+        minutes of the scheduled.
+      </v-card-text>
     </BasePageTitle>
+
+    <BannerExperimental />
 
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
@@ -17,7 +23,7 @@
             <v-icon large left :color="webhook.enabled ? 'info' : null">
               {{ $globals.icons.webhook }}
             </v-icon>
-            {{ webhook.name }} - {{ webhook.time }}
+            {{ webhook.name }} - {{ timeDisplay(timeUTCToLocal(webhook.scheduledTime)) }}
           </div>
           <template #actions>
             <v-btn small icon class="ml-2">
@@ -28,35 +34,12 @@
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-card-text>
-            <v-switch v-model="webhook.enabled" label="Enabled"></v-switch>
-            <v-text-field v-model="webhook.name" label="Webhook Name"></v-text-field>
-            <v-text-field v-model="webhook.url" label="Webhook Url"></v-text-field>
-            <v-time-picker v-model="webhook.time" class="elevation-2" ampm-in-title format="ampm"></v-time-picker>
-          </v-card-text>
-          <v-card-actions class="py-0 justify-end">
-            <BaseButtonGroup
-              :buttons="[
-                {
-                  icon: $globals.icons.delete,
-                  text: $t('general.delete'),
-                  event: 'delete',
-                },
-                {
-                  icon: $globals.icons.testTube,
-                  text: $t('general.test'),
-                  event: 'test',
-                },
-                {
-                  icon: $globals.icons.save,
-                  text: $t('general.save'),
-                  event: 'save',
-                },
-              ]"
-              @delete="actions.deleteOne(webhook.id)"
-              @save="actions.updateOne(webhook)"
-            />
-          </v-card-actions>
+          <GroupWebhookEditor
+            :key="webhook.id"
+            :webhook="webhook"
+            @save="actions.updateOne($event)"
+            @delete="actions.deleteOne($event)"
+          />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -65,15 +48,28 @@
 
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
-import { useGroupWebhooks } from "~/composables/use-group-webhooks";
+import { useGroupWebhooks, timeLocalToUTC, timeUTCToLocal } from "~/composables/use-group-webhooks";
+import GroupWebhookEditor from "~/components/Domain/Group/GroupWebhookEditor.vue";
 
 export default defineComponent({
+  components: { GroupWebhookEditor },
   setup() {
     const { actions, webhooks } = useGroupWebhooks();
+    function timeDisplay(time: string): string {
+      // returns the time in the format HH:MM AM/PM
+      const [hours, minutes] = time.split(":");
+      const ampm = Number(hours) < 12 ? "AM" : "PM";
+      const hour = Number(hours) % 12 || 12;
+      const minute = minutes.padStart(2, "0");
+      return `${hour}:${minute} ${ampm}`;
+    }
 
     return {
       webhooks,
       actions,
+      timeLocalToUTC,
+      timeUTCToLocal,
+      timeDisplay,
     };
   },
   head() {

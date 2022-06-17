@@ -37,7 +37,7 @@ class EventBusService:
         self.bg = bg
         self._publisher = ApprisePublisher
         self.session = session
-        self.group_id = None
+        self.group_id: UUID4 | None = None
 
     @property
     def publisher(self) -> PublisherLike:
@@ -55,7 +55,7 @@ class EventBusService:
     def dispatch(
         self, group_id: UUID4, event_type: EventTypes, msg: str = "", event_source: EventSource = None
     ) -> None:
-        self.group_id = group_id  # type: ignore
+        self.group_id = group_id
 
         def _dispatch(event_source: EventSource = None):
             if urls := self.get_urls(event_type):
