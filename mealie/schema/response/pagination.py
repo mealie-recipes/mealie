@@ -1,5 +1,5 @@
 import enum
-from typing import Generic, TypeVar
+from typing import Generic, Optional, TypeVar
 
 from pydantic import BaseModel
 from pydantic.generics import GenericModel
@@ -14,9 +14,9 @@ class OrderDirection(str, enum.Enum):
 
 class PaginationQuery(BaseModel):
     page: int = 1
+    per_page: int = 50
     order_by: str = "created_at"
     order_direction: OrderDirection = OrderDirection.desc
-    per_page: int = 50
 
 
 class PaginationBase(GenericModel, Generic[DataT]):
@@ -25,3 +25,5 @@ class PaginationBase(GenericModel, Generic[DataT]):
     total: int = 0
     total_pages: int = 0
     data: list[DataT]
+    next: Optional[str]
+    previous: Optional[str]
