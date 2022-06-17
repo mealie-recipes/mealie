@@ -236,6 +236,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
 
+        # failsafe for user input error
+        if pagination.page < 1:
+            pagination.page = 1
+
         q = self.session.query(self.model)
 
         fltr = self._filter_builder()
@@ -244,13 +248,18 @@ class RepositoryGeneric(Generic[Schema, Model]):
         count = q.count()
 
         if pagination.order_by:
-            if order_attr := getattr(self.model, pagination.order_by, None):
-                if pagination.order_direction == OrderDirection.asc:
-                    order_attr = order_attr.asc()
-                elif pagination.order_direction == OrderDirection.desc:
-                    order_attr = order_attr.desc()
+            try:
+                if order_attr := getattr(self.model, pagination.order_by, None):
+                    if pagination.order_direction == OrderDirection.asc:
+                        order_attr = order_attr.asc()
+                    elif pagination.order_direction == OrderDirection.desc:
+                        order_attr = order_attr.desc()
 
-                q = q.order_by(order_attr)
+                    q = q.order_by(order_attr)
+
+            except AttributeError:
+                self.logger.warning(f'Attempted to order by unknown attribute "{pagination.order_by}"; ignoring')
+                pagination.order_by = ""
 
         q = q.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page)
 
