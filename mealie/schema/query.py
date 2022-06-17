@@ -1,10 +1,6 @@
-from typing import Optional
-
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationQuery
 
 
-class GetAll(MealieModel):
-    start: int = 0
-    limit: int = 999
-    order_by: Optional[str]
-    order_descending: Optional[bool] = True
+class GetAll(MealieModel, PaginationQuery):
+    ...
