@@ -44,13 +44,13 @@
     "@types/sortablejs": "^1.13.0",
     "@vue/runtime-dom": "^3.2.36",
     "eslint": "^8.16.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^9.0.1",
-    "lint-staged": "^12.4.2",
+    "lint-staged": "^13.0.2",
     "nuxt-vite": "0.2.3",
-    "prettier": "^2.3.2",
+    "prettier": "^2.7.1",
     "vue2-script-setup-transform": "^0.3.5"
   }
 }
