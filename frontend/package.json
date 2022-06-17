@@ -18,7 +18,7 @@
     "@mdi/js": "^6.7.96",
     "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
     "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/i18n": "^7.2.2",
+    "@nuxtjs/i18n": "7.0.3",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@vue/composition-api": "^1.6.2",
