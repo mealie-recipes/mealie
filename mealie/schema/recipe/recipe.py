@@ -83,6 +83,9 @@ class RecipeSummary(MealieModel):
     date_added: Optional[datetime.date]
     date_updated: Optional[datetime.datetime]
 
+    created_at: Optional[datetime.datetime]
+    update_at: Optional[datetime.datetime]
+
     class Config:
         orm_mode = True
 
