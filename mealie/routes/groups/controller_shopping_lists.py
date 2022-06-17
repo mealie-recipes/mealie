@@ -12,6 +12,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListItemOut,
     ShoppingListItemUpdate,
     ShoppingListOut,
+    ShoppingListPagination,
     ShoppingListSave,
     ShoppingListSummary,
     ShoppingListUpdate,
@@ -166,9 +167,12 @@ class ShoppingListController(BaseUserController):
     def mixins(self) -> HttpRepo[ShoppingListCreate, ShoppingListOut, ShoppingListSave]:
         return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
-    @router.get("", response_model=list[ShoppingListSummary])
+    @router.get("", response_model=ShoppingListPagination)
     def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override=ShoppingListSummary)
+        return self.repo.pagination(
+            pagination=q,
+            override=ShoppingListSummary,
+        )
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):
