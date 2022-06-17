@@ -13,6 +13,8 @@
       </v-card-text>
     </BasePageTitle>
 
+    <BannerExperimental />
+
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
       <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 left-border rounded">
