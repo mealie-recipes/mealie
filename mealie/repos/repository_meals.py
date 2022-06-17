@@ -8,6 +8,9 @@ from .repository_generic import RepositoryGeneric
 
 
 class RepositoryMeals(RepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
+    def by_group(self, group_id: UUID) -> "RepositoryMeals":
+        return super().by_group(group_id)  # type: ignore
+
     def get_slice(self, start: date, end: date, group_id: UUID) -> list[ReadPlanEntry]:
         start_str = start.strftime("%Y-%m-%d")
         end_str = end.strftime("%Y-%m-%d")
