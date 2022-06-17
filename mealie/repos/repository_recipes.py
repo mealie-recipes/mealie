@@ -91,7 +91,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         )
 
     def summary(
-        self, group_id, start=0, limit=99999, load_foods=False, order_by="date_added", order_descending=True
+        self, group_id, start=0, limit=99999, load_foods=False, order_by="created_at", order_descending=True
     ) -> Any:
         args = [
             joinedload(RecipeModel.recipe_category),
@@ -106,11 +106,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             if order_by:
                 order_attr = getattr(RecipeModel, order_by)
             else:
-                order_attr = RecipeModel.date_added
+                order_attr = RecipeModel.created_at
 
         except AttributeError:
             self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
-            order_attr = RecipeModel.date_added
+            order_attr = RecipeModel.created_at
 
         if order_descending:
             order_attr = order_attr.desc()
