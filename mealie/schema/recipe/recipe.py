@@ -162,6 +162,7 @@ class Recipe(RecipeSummary):
                 "extras": {x.key_name: x.value for x in name_orm.extras},
             }
 
+    @staticmethod
     @validator("slug", always=True, pre=True, allow_reuse=True)
     def validate_slug(slug: str, values):
         if not values.get("name"):
@@ -169,6 +170,7 @@ class Recipe(RecipeSummary):
 
         return slugify(values["name"])
 
+    @staticmethod
     @validator("recipe_ingredient", always=True, pre=True, allow_reuse=True)
     def validate_ingredients(recipe_ingredient, values):
         if not recipe_ingredient or not isinstance(recipe_ingredient, list):
