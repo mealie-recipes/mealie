@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Union
 
 from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.response.pagination import PaginationBase
 
 
 class ShoppingListItemRecipeRef(MealieModel):
@@ -45,7 +46,7 @@ class ShoppingListItemUpdate(ShoppingListItemCreate):
 
 class ShoppingListItemOut(ShoppingListItemUpdate):
     label: Optional[MultiPurposeLabelSummary]
-    recipe_references: list[ShoppingListItemRecipeRefOut] = []
+    recipe_references: list[Union[ShoppingListItemRecipeRef, ShoppingListItemRecipeRefOut]] = []
 
     class Config:
         orm_mode = True
@@ -75,6 +76,10 @@ class ShoppingListSummary(ShoppingListSave):
 
     class Config:
         orm_mode = True
+
+
+class ShoppingListPagination(PaginationBase):
+    data: list[ShoppingListSummary]
 
 
 class ShoppingListUpdate(ShoppingListSummary):
