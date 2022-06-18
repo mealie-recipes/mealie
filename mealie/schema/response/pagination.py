@@ -47,7 +47,7 @@ class PaginationBase(GenericModel, Generic[DataT]):
 
         # combine params with base route
         query_params.update({"page": self.page - 1})
-        self.next = PaginationBase.merge_query_parameters(route, query_params)
+        self.previous = PaginationBase.merge_query_parameters(route, query_params)
 
     def set_pagination_guides(self, route: str, query_params: Optional[dict[str, Any]]) -> None:
         if not query_params:
