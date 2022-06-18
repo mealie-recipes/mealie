@@ -21,7 +21,7 @@ def test_repository_pagination(database: AllRepositories, unique_user: TestUser)
     seen = []
 
     for _ in range(10):
-        results = foods_repo.pagination(query)
+        results = foods_repo.page_all(query)
 
         assert len(results.data) == 10
 
@@ -32,7 +32,7 @@ def test_repository_pagination(database: AllRepositories, unique_user: TestUser)
 
         query.page += 1
 
-    results = foods_repo.pagination(query)
+    results = foods_repo.page_all(query)
 
     for result in results.data:
         assert result.id not in seen
