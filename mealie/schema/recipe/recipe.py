@@ -12,6 +12,7 @@ from slugify import slugify
 from mealie.core.config import get_app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
@@ -32,13 +33,25 @@ class RecipeTag(MealieModel):
         orm_mode = True
 
 
+class RecipeTagPagination(PaginationBase):
+    data: list[RecipeTag]
+
+
 class RecipeCategory(RecipeTag):
     pass
+
+
+class RecipeCategoryPagination(PaginationBase):
+    data: list[RecipeCategory]
 
 
 class RecipeTool(RecipeTag):
     id: UUID4
     on_hand: bool = False
+
+
+class RecipeToolPagination(PaginationBase):
+    data: list[RecipeTool]
 
 
 class CreateRecipeBulk(BaseModel):
@@ -163,7 +176,7 @@ class Recipe(RecipeSummary):
             }
 
     @validator("slug", always=True, pre=True, allow_reuse=True)
-    def validate_slug(slug: str, values):
+    def validate_slug(slug: str, values):  # type: ignore
         if not values.get("name"):
             return slug
 

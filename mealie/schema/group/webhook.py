@@ -3,6 +3,7 @@ from uuid import UUID
 from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 
 class CreateWebhook(MealieModel):
@@ -21,3 +22,7 @@ class ReadWebhook(SaveWebhook):
 
     class Config:
         orm_mode = True
+
+
+class WebhookPagination(PaginationBase):
+    data: list[ReadWebhook]
