@@ -169,10 +169,13 @@ class ShoppingListController(BaseUserController):
 
     @router.get("", response_model=ShoppingListPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
-        return self.repo.pagination(
+        response = self.repo.pagination(
             pagination=q,
             override=ShoppingListSummary,
         )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):
