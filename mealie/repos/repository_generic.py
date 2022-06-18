@@ -60,6 +60,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def get_all(
         self, limit: int = None, order_by: str = None, order_descending: bool = True, start=0, override=None
     ) -> list[Schema]:
+        self.logger.warning('"get_all" method is depreciated; use "page_all" instead')
+
         # sourcery skip: remove-unnecessary-cast
         eff_schema = override or self.schema
 
