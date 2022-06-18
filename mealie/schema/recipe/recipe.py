@@ -12,7 +12,7 @@ from slugify import slugify
 from mealie.core.config import get_app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
-from mealie.schema.response.pagination import PaginationBase
+from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
@@ -122,6 +122,14 @@ class RecipeSummary(MealieModel):
         if isinstance(user_id, int):
             return uuid4()
         return user_id
+
+
+class RecipePaginationQuery(PaginationQuery):
+    load_food: bool = False
+
+
+class RecipePagination(PaginationBase):
+    data: list[RecipeSummary]
 
 
 class Recipe(RecipeSummary):
