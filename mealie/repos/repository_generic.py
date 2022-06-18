@@ -237,16 +237,21 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
 
-        # failsafe for user input error
-        if pagination.page < 1:
-            pagination.page = 1
-
         q = self.session.query(self.model)
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
 
         count = q.count()
+        total_pages = ceil(count / pagination.per_page)
+
+        # interpret -1 as "last page"
+        if pagination.page == -1:
+            pagination.page = total_pages
+
+        # failsafe for user input error
+        if pagination.page < 1:
+            pagination.page = 1
 
         if pagination.order_by:
             try:
@@ -275,6 +280,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
             page=pagination.page,
             per_page=pagination.per_page,
             total=count,
-            total_pages=ceil(count / pagination.per_page),
+            total_pages=total_pages,
             data=[eff_schema.from_orm(s) for s in data],
         )
