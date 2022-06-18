@@ -257,6 +257,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         if pagination.order_by:
             if order_attr := getattr(self.model, pagination.order_by, None):
+                # queries handle uppercase and lowercase differently, which is undesirable
+                order_attr = func.lower(order_attr)
+
                 if pagination.order_direction == OrderDirection.asc:
                     order_attr = order_attr.asc()
                 elif pagination.order_direction == OrderDirection.desc:
