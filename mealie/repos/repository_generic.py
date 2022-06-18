@@ -256,18 +256,13 @@ class RepositoryGeneric(Generic[Schema, Model]):
             pagination.page = 1
 
         if pagination.order_by:
-            try:
-                if order_attr := getattr(self.model, pagination.order_by, None):
-                    if pagination.order_direction == OrderDirection.asc:
-                        order_attr = order_attr.asc()
-                    elif pagination.order_direction == OrderDirection.desc:
-                        order_attr = order_attr.desc()
+            if order_attr := getattr(self.model, pagination.order_by, None):
+                if pagination.order_direction == OrderDirection.asc:
+                    order_attr = order_attr.asc()
+                elif pagination.order_direction == OrderDirection.desc:
+                    order_attr = order_attr.desc()
 
-                    q = q.order_by(order_attr)
-
-            except AttributeError:
-                self.logger.warning(f'Attempted to order by unknown attribute "{pagination.order_by}"; ignoring')
-                pagination.order_by = ""
+                q = q.order_by(order_attr)
 
         q = q.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page)
 
