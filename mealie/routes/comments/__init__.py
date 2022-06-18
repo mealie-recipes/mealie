@@ -38,7 +38,7 @@ class RecipeCommentRoutes(BaseUserController):
         if comment.user_id != self.deps.acting_user.id and not self.deps.acting_user.admin:
             raise HTTPException(
                 status_code=403,
-                detail=ErrorResponse.response(message="Comment does not belong to user"),
+                detail=ErrorResponse(message="Comment does not belong to user"),
             )
 
     @router.get("", response_model=list[RecipeCommentOut])
