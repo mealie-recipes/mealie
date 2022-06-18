@@ -225,7 +225,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         else:
             return [eff_schema.from_orm(x) for x in q.all()]
 
-    def pagination(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
+    def page_all(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
         """
         pagination is a method to interact with the filtered database table and return a paginated result
         using the PaginationBase that provides several data points that are needed to manage pagination

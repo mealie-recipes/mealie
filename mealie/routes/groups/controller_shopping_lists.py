@@ -169,7 +169,7 @@ class ShoppingListController(BaseUserController):
 
     @router.get("", response_model=ShoppingListPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
-        response = self.repo.pagination(
+        response = self.repo.page_all(
             pagination=q,
             override=ShoppingListSummary,
         )
