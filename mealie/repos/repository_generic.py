@@ -1,3 +1,4 @@
+from math import ceil
 from typing import Any, Generic, TypeVar, Union
 
 from pydantic import UUID4, BaseModel
@@ -274,6 +275,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
             page=pagination.page,
             per_page=pagination.per_page,
             total=count,
-            total_pages=int(count / pagination.per_page) + 1,
+            total_pages=ceil(count / pagination.per_page),
             data=[eff_schema.from_orm(s) for s in data],
         )
