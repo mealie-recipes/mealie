@@ -4,6 +4,8 @@ from typing import Generic, Optional, TypeVar
 from pydantic import BaseModel
 from pydantic.generics import GenericModel
 
+from mealie.schema._mealie import MealieModel
+
 DataT = TypeVar("DataT", bound=BaseModel)
 
 
@@ -12,7 +14,7 @@ class OrderDirection(str, enum.Enum):
     desc = "desc"
 
 
-class PaginationQuery(BaseModel):
+class PaginationQuery(MealieModel):
     page: int = 1
     per_page: int = 50
     order_by: str = "created_at"

@@ -18,7 +18,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListUpdate,
 )
 from mealie.schema.mapper import cast
-from mealie.schema.query import GetAll
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
@@ -168,7 +168,7 @@ class ShoppingListController(BaseUserController):
         return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=ShoppingListPagination)
-    def get_all(self, q: GetAll = Depends(GetAll)):
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         return self.repo.pagination(
             pagination=q,
             override=ShoppingListSummary,
