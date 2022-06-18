@@ -8,7 +8,6 @@ from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.schema.query import GetAll
 from mealie.schema.recipe.recipe_comments import (
     RecipeCommentCreate,
     RecipeCommentOut,
