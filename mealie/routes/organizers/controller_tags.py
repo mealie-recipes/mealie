@@ -7,8 +7,9 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
-from mealie.schema.recipe.recipe import RecipeTag
+from mealie.schema.recipe.recipe import RecipeTag, RecipeTagPagination
 from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
@@ -29,10 +30,16 @@ class TagController(BaseUserController):
     def mixins(self):
         return HttpRepo(self.repo, self.deps.logger)
 
-    @router.get("")
-    async def get_all(self):
+    @router.get("", response_model=RecipeTagPagination)
+    async def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         """Returns a list of available tags in the database"""
-        return self.repo.get_all(override=RecipeTag)
+        response = self.repo.page_all(
+            pagination=q,
+            override=RecipeTag,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.get("/empty")
     def get_empty_tags(self):

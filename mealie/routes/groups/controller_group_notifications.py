@@ -12,9 +12,10 @@ from mealie.schema.group.group_events import (
     GroupEventNotifierPrivate,
     GroupEventNotifierSave,
     GroupEventNotifierUpdate,
+    GroupEventPagination,
 )
 from mealie.schema.mapper import cast
-from mealie.schema.query import GetAll
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 
 router = APIRouter(prefix="/groups/events/notifications", tags=["Group: Event Notifications"])
@@ -38,9 +39,15 @@ class GroupEventsNotifierController(BaseUserController):
     def mixins(self) -> HttpRepo:
         return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
-    @router.get("", response_model=list[GroupEventNotifierOut])
-    def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit)
+    @router.get("", response_model=GroupEventPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=GroupEventNotifierOut,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=GroupEventNotifierOut, status_code=201)
     def create_one(self, data: GroupEventNotifierCreate):

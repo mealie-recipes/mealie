@@ -7,9 +7,9 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
-from mealie.schema.query import GetAll
-from mealie.schema.recipe.recipe import RecipeTool
+from mealie.schema.recipe.recipe import RecipeTool, RecipeToolPagination
 from mealie.schema.recipe.recipe_tool import RecipeToolCreate, RecipeToolResponse, RecipeToolSave
+from mealie.schema.response.pagination import PaginationQuery
 
 router = APIRouter(prefix="/tools", tags=["Organizer: Tools"])
 
@@ -24,9 +24,15 @@ class RecipeToolController(BaseUserController):
     def mixins(self) -> HttpRepo:
         return HttpRepo[RecipeToolCreate, RecipeTool, RecipeToolCreate](self.repo, self.deps.logger)
 
-    @router.get("", response_model=list[RecipeTool])
-    def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override=RecipeTool)
+    @router.get("", response_model=RecipeToolPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=RecipeTool,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=RecipeTool, status_code=201)
     def create_one(self, data: RecipeToolCreate):
