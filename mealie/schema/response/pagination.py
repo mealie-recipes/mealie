@@ -2,6 +2,7 @@ import enum
 from typing import Any, Generic, Optional, TypeVar
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
+from humps import camelize
 from pydantic import BaseModel
 from pydantic.generics import GenericModel
 
@@ -52,6 +53,8 @@ class PaginationBase(GenericModel, Generic[DataT]):
     def set_pagination_guides(self, route: str, query_params: Optional[dict[str, Any]]) -> None:
         if not query_params:
             query_params = {}
+
+        query_params = camelize(query_params)
 
         # sanitize user input
         if self.page < 1:
