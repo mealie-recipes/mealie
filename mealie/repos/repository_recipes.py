@@ -146,8 +146,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
-
         count = q.count()
+
+        # interpret -1 as "get_all"
+        if pagination.per_page == -1:
+            pagination.per_page = count
+
         total_pages = ceil(count / pagination.per_page)
 
         # interpret -1 as "last page"
