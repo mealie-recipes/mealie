@@ -47,8 +47,8 @@ export default defineComponent({
   },
   emits: ["delete", "save", "test"],
   setup(props, { emit }) {
-    const itemUTC = ref(props.webhook.scheduledTime);
-    const itemLocal = ref(timeUTCToLocal(props.webhook.scheduledTime));
+    const itemUTC = ref<string>(props.webhook.scheduledTime);
+    const itemLocal = ref<string>(timeUTCToLocal(props.webhook.scheduledTime));
 
     const scheduledTime = computed({
       get() {
