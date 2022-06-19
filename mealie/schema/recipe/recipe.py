@@ -83,6 +83,9 @@ class RecipeSummary(MealieModel):
     date_added: Optional[datetime.date]
     date_updated: Optional[datetime.datetime]
 
+    created_at: Optional[datetime.datetime]
+    update_at: Optional[datetime.datetime]
+
     class Config:
         orm_mode = True
 
@@ -163,7 +166,7 @@ class Recipe(RecipeSummary):
             }
 
     @validator("slug", always=True, pre=True, allow_reuse=True)
-    def validate_slug(slug: str, values):
+    def validate_slug(slug: str, values):  # type: ignore
         if not values.get("name"):
             return slug
 
