@@ -2,7 +2,7 @@
   <div>
     <div class="text-center d-flex align-center">
       <div>
-        <v-menu v-model="menu" offset-y top nudge-top="6" :close-on-content-click="false">
+        <v-menu v-model="menu" :disabled="!editScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
               <span v-if="recipeYield"> {{ scaledYield }} </span>
@@ -32,6 +32,7 @@
         </v-menu>
       </div>
       <BaseButtonGroup
+        v-if="editScale"
         class="pl-2"
         :large="false"
         :buttons="[
