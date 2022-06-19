@@ -23,17 +23,17 @@ export default defineComponent({
   components: { RecipeCardSection },
   setup() {
     const page = ref(1);
-    const perPage = ref(30);    
+    const perPage = ref(30);
     const orderBy = "name";
     const orderDirection = "asc";
-    
+
     const ready = ref(false);
     const loading = ref(false);
 
     const { recipes, fetchMore } = useLazyRecipes();
 
     onMounted(async () => {
-      await fetchMore(page.value, perPage.value, orderBy, orderDescending);
+      await fetchMore(page.value, perPage.value, orderBy, orderDirection);
       ready.value = true;
     });
 
@@ -43,7 +43,7 @@ export default defineComponent({
       }
       loading.value = true;
       page.value = page.value + 1;
-      fetchMore(page.value, perPage.value, orderBy, orderDescending);
+      fetchMore(page.value, perPage.value, orderBy, orderDirection);
       loading.value = false;
     }, 500);
 
