@@ -18,8 +18,8 @@ function swap(t: Array<unknown>, i: number, j: number) {
 export const useSorter = () => {
   function sortAToZ(list: Array<Recipe>) {
     list.sort((a, b) => {
-      const textA = a.name?.toUpperCase() ?? "";
-      const textB = b.name?.toUpperCase() ?? "";
+      const textA: string = a.name?.toUpperCase() ?? "";
+      const textB: string = b.name?.toUpperCase() ?? "";
       return textA < textB ? -1 : textA > textB ? 1 : 0;
     });
   }
@@ -61,10 +61,10 @@ export const useLazyRecipes = function () {
 
   const recipes = ref<Recipe[]>([]);
 
-  async function fetchMore(start: number, limit: number) {
-    const { data } = await api.recipes.getAll(start, limit);
+  async function fetchMore(page: number, perPage: number) {
+    const { data } = await api.recipes.getAll(page, perPage);
     if (data) {
-      data.forEach((recipe) => {
+      data.data.forEach((recipe) => {
         recipes.value?.push(recipe);
       });
     }
@@ -80,26 +80,26 @@ export const useRecipes = (all = false, fetchRecipes = true) => {
   const api = useUserApi();
 
   // recipes is non-reactive!!
-  const { recipes, start, end } = (() => {
+  const { recipes, page, perPage } = (() => {
     if (all) {
       return {
         recipes: allRecipes,
-        start: 0,
-        end: 9999,
+        page: 1,
+        perPage: -1,
       };
     } else {
       return {
         recipes: recentRecipes,
-        start: 0,
-        end: 30,
+        page: 1,
+        perPage: 30,
       };
     }
   })();
 
   async function refreshRecipes() {
-    const { data } = await api.recipes.getAll(start, end, { loadFood: true });
+    const { data } = await api.recipes.getAll(page, perPage, { loadFood: true });
     if (data) {
-      recipes.value = data;
+      recipes.value = data.data;
     }
   }
 

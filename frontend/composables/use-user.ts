@@ -17,7 +17,13 @@ export const useAllUsers = function () {
     const asyncKey = String(Date.now());
     const allUsers = useAsync(async () => {
       const { data } = await api.users.getAll();
-      return data;
+      if (data) {
+        return data.data;
+      }
+
+      else {
+        return null;
+      }
     }, asyncKey);
 
     loading.value = false;
@@ -27,7 +33,15 @@ export const useAllUsers = function () {
   async function refreshAllUsers() {
     loading.value = true;
     const { data } = await api.users.getAll();
-    users.value = data;
+
+    if (data) {
+      users.value = data.data;
+    }
+
+    else {
+      users.value = null;
+    }
+
     loading.value = false;
   }
 

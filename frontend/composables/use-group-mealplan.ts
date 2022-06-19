@@ -30,9 +30,15 @@ export const useMealplans = function (range: Ref<DateRange>) {
           limit: format(range.value.end, "yyyy-MM-dd"),
         };
         // @ts-ignore TODO Modify typing to allow for string start+limit for mealplans
-        const { data } = await api.mealplans.getAll(query.start, query.limit);
+        const { data } = await api.mealplans.getAll(1, -1, { start: query.start, limit: query.limit });
 
-        return data;
+        if (data) {
+          return data.data;
+        }
+
+        else {
+          return null;
+        }
       }, useAsyncKey());
 
       loading.value = false;
@@ -45,10 +51,10 @@ export const useMealplans = function (range: Ref<DateRange>) {
         limit: format(range.value.end, "yyyy-MM-dd"),
       };
       // @ts-ignore TODO Modify typing to allow for string start+limit for mealplans
-      const { data } = await api.mealplans.getAll(query.start, query.limit);
+      const { data } = await api.mealplans.getAll(1, -1, { start: query.start, limit: query.limit });
 
-      if (data) {
-        mealplans.value = data;
+      if (data && data.data) {
+        mealplans.value = data.data;
       }
 
       loading.value = false;

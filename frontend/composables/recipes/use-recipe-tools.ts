@@ -21,7 +21,14 @@ export const useTools = function (eager = true) {
       loading.value = true;
       const units = useAsync(async () => {
         const { data } = await api.tools.getAll();
-        return data;
+
+        if (data) {
+          return data.data;
+        }
+
+        else {
+          return null;
+        };
       }, useAsyncKey());
 
       loading.value = false;
@@ -33,7 +40,7 @@ export const useTools = function (eager = true) {
       const { data } = await api.tools.getAll();
 
       if (data) {
-        tools.value = data;
+        tools.value = data.data;
       }
 
       loading.value = false;

@@ -14,7 +14,13 @@ export const useGroupWebhooks = function () {
       const units = useAsync(async () => {
         const { data } = await api.groupWebhooks.getAll();
 
-        return data;
+        if (data) {
+          return data.data;
+        }
+
+        else {
+          return null;
+        }
       }, useAsyncKey());
 
       loading.value = false;
@@ -24,8 +30,8 @@ export const useGroupWebhooks = function () {
       loading.value = true;
       const { data } = await api.groupWebhooks.getAll();
 
-      if (data) {
-        webhooks.value = data;
+      if (data && data.data) {
+        webhooks.value = data.data;
       }
 
       loading.value = false;
