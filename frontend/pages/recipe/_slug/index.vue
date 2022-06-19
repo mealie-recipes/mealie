@@ -176,7 +176,7 @@
             </div>
           </div>
           <div class="d-flex justify-space-between align-center pt-2 pb-3">
-            <v-tooltip v-if="!form" small top color="secondary darken-1">
+            <v-tooltip v-if="!form && recipe.recipeYield" small top color="secondary darken-1">
               <template #activator="{ on, attrs }">
                 <RecipeScaleEditButton
                   v-model.number="scale"
