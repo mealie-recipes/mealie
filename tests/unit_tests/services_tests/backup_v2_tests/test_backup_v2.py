@@ -22,7 +22,7 @@ def match_file_tree(path_a: Path, path_b: Path):
             assert b_file.exists()
             match_file_tree(a_file, b_file)
     else:
-        assert filecmp(path_a, path_b)
+        assert filecmp.cmp(path_a, path_b)
 
 
 def test_database_backup():

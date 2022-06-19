@@ -37,7 +37,7 @@ export const useGroupWebhooks = function () {
         enabled: false,
         name: "New Webhook",
         url: "",
-        time: "00:00",
+        scheduledTime: "00:00",
       };
 
       const { data } = await api.groupWebhooks.createOne(payload);
@@ -52,8 +52,23 @@ export const useGroupWebhooks = function () {
         return;
       }
 
+      // Convert to UTC time
+      const [hours, minutes] = updateData.scheduledTime.split(":");
+
+      const newDt = new Date();
+      newDt.setHours(Number(hours));
+      newDt.setMinutes(Number(minutes));
+
+      updateData.scheduledTime = `${pad(newDt.getUTCHours(), 2)}:${pad(newDt.getUTCMinutes(), 2)}`;
+      console.log(updateData.scheduledTime);
+
+      const payload = {
+        ...updateData,
+        scheduledTime: updateData.scheduledTime,
+      };
+
       loading.value = true;
-      const { data } = await api.groupWebhooks.updateOne(updateData.id, updateData);
+      const { data } = await api.groupWebhooks.updateOne(updateData.id, payload);
       if (data) {
         this.refreshAll();
       }
@@ -73,3 +88,25 @@ export const useGroupWebhooks = function () {
 
   return { webhooks, actions, validForm };
 };
+
+function pad(num: number, size: number) {
+  let numStr = num.toString();
+  while (numStr.length < size) numStr = "0" + numStr;
+  return numStr;
+}
+
+export function timeUTCToLocal(time: string): string {
+  const [hours, minutes] = time.split(":");
+  const dt = new Date();
+  dt.setUTCMinutes(Number(minutes));
+  dt.setUTCHours(Number(hours));
+  return `${pad(dt.getHours(), 2)}:${pad(dt.getMinutes(), 2)}`;
+}
+
+export function timeLocalToUTC(time: string) {
+  const [hours, minutes] = time.split(":");
+  const dt = new Date();
+  dt.setHours(Number(hours));
+  dt.setMinutes(Number(minutes));
+  return `${pad(dt.getUTCHours(), 2)}:${pad(dt.getUTCMinutes(), 2)}`;
+}

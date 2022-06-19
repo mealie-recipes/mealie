@@ -18,10 +18,12 @@ class AlchemyExporter(BaseService):
 
     look_for_datetime = {"created_at", "update_at", "date_updated", "timestamp", "expires_at"}
     look_for_date = {"date_added", "date"}
+    look_for_time = {"scheduled_time"}
 
     class DateTimeParser(BaseModel):
         date: datetime.date = None
-        time: datetime.datetime = None
+        dt: datetime.datetime = None
+        time: datetime.time = None
 
     def __init__(self, connection_str: str) -> None:
         super().__init__()
@@ -44,10 +46,11 @@ class AlchemyExporter(BaseService):
                 data[key] = [AlchemyExporter.convert_to_datetime(item) for item in value]
             elif isinstance(value, str):
                 if key in AlchemyExporter.look_for_datetime:
-                    data[key] = AlchemyExporter.DateTimeParser(time=value).time
+                    data[key] = AlchemyExporter.DateTimeParser(dt=value).dt
                 if key in AlchemyExporter.look_for_date:
                     data[key] = AlchemyExporter.DateTimeParser(date=value).date
-
+                if key in AlchemyExporter.look_for_time:
+                    data[key] = AlchemyExporter.DateTimeParser(time=value).time
         return data
 
     @staticmethod
