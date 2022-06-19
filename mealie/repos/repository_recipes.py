@@ -152,7 +152,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if pagination.per_page == -1:
             pagination.per_page = count
 
-        total_pages = ceil(count / pagination.per_page)
+        try:
+            total_pages = ceil(count / pagination.per_page)
+
+        except ZeroDivisionError:
+            total_pages = 0
 
         # interpret -1 as "last page"
         if pagination.page == -1:
