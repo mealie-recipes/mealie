@@ -248,7 +248,7 @@
     "description": "Opis",
     "disable-amount": "Wyłącz ilości składników",
     "disable-comments": "Wyłącz komentarze",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Edytuj skalę",
     "fat-content": "Tłuszcz",
     "fiber-content": "Błonnik",
     "grams": "gram",
@@ -517,18 +517,18 @@
     "read-the-docs": "Przeczytaj dokumentację"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Dane przykładowe",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-dialog-text": "Połączenie wybranej żywności połączy źródło żywności i żywność docelową w pojedynczą żywność. Źródło żywności zostanie usunięte, a wszystkie odniesienia do źródłowej żywności zostaną zaktualizowane tak, aby wskazywały na docelową żywność.",
       "merge-food-example": "Scalanie {food1} do {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "seed-dialog-text": "Wypełnij bazę daniami na podstawie wybranego lokalnego języka. Akcja ta stworzy ponad 200 zwyczajowych potraw które mogą zostać użyte do organizacji Twojej bazy. Potrawy tłumaczone są przez wysiłek społeczeństwa.",
+      "seed-dialog-warning": "Posiadasz już wartości w bazie. Rozwiązanie problemu z duplikatami leżeć będzie w gestii użytkownika."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Wypełnij bazę zwyczajowymi jednostkami dla wybranego języka."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Wypełnij bazę zwyczajowymi etytkietami dla wybranego języka."
     }
   },
   "user-registration": {
@@ -538,7 +538,7 @@
     "provide-registration-token-description": "Podaj kod rejestracyjny powiązany z grupą do której chcesz dołączyć. Taki kod uzyskać możesz od użytkownika który przynależy już do owej grupy.",
     "group-details": "Szczegóły grupy",
     "group-details-description": "Zanim utworzysz konto musisz stworzyć grupę. Twoja grupa zawierać będzie tylko Ciebie, ale będziesz istniała możlwiość zaproszenia do niej innych. Użytkownicy Twojej grupy mogą współdzielić plany posiłków, listy zakupów, przepisy i więcej!",
-    "use-seed-data": "Use Seed Data",
+    "use-seed-data": "Użyj przykładowych danych",
     "use-seed-data-description": "Mealie dostarcza zestaw posiłków, jednostek i opisów które mogą zostać użyte do zapełnienia Twojej grupy przydatnymi danymi do ogranizacji Twoich przepisów.",
     "account-details": "Szczegóły konta"
   },

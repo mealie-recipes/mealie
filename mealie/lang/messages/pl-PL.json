@@ -13,10 +13,10 @@
         "email-conflict-error": "Ten adres email już jest zajęty"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} został utworzony",
+        "generic-updated": "{name} został zaktualizowany",
+        "generic-created-with-url": "{name} został utworzony. {url}",
+        "generic-updated-with-url": "{name} został zaktualizowany. {url}",
+        "generic-deleted": "{name} został usunięty"
     }
 }
