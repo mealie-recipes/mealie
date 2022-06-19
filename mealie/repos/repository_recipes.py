@@ -8,6 +8,7 @@ from slugify import slugify
 from sqlalchemy import and_, func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
+from sqlalchemy.sql import sqltypes
 
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredient
@@ -169,7 +170,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if pagination.order_by:
             if order_attr := getattr(self.model, pagination.order_by, None):
                 # queries handle uppercase and lowercase differently, which is undesirable
-                order_attr = func.lower(order_attr)
+                if isinstance(order_attr.type, sqltypes.String):
+                    order_attr = func.lower(order_attr)
 
                 if pagination.order_direction == OrderDirection.asc:
                     order_attr = order_attr.asc()

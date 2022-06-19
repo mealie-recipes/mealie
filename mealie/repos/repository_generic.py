@@ -4,6 +4,7 @@ from typing import Any, Generic, TypeVar, Union
 from pydantic import UUID4, BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm.session import Session
+from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
 from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
@@ -266,7 +267,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.order_by:
             if order_attr := getattr(self.model, pagination.order_by, None):
                 # queries handle uppercase and lowercase differently, which is undesirable
-                order_attr = func.lower(order_attr)
+                if isinstance(order_attr.type, sqltypes.String):
+                    order_attr = func.lower(order_attr)
 
                 if pagination.order_direction == OrderDirection.asc:
                     order_attr = order_attr.asc()
