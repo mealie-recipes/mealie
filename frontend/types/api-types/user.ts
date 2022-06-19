@@ -66,6 +66,8 @@ export interface UserOut {
 }
 export interface LongLiveTokenOut {
   token: string;
+  name: string;
+  id: number;
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;

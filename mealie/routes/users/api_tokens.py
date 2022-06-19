@@ -33,7 +33,7 @@ class UserApiTokensController(BaseUserController):
         new_token_in_db = self.repos.api_tokens.create(token_model)
 
         if new_token_in_db:
-            return LongLiveTokenOut(token=token)
+            return new_token_in_db
 
     @router.delete("/api-tokens/{token_id}", response_model=DeleteTokenResponse)
     def delete_api_token(self, token_id: int):
