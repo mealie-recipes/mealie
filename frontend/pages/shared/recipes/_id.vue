@@ -34,7 +34,7 @@
           :key="imageKey"
           :max-width="enableLandscape ? null : '50%'"
           :height="hideImage ? '50' : imageHeight"
-          :src="recipeImage(recipe.id, imageKey)"
+          :src="recipeImage(recipe.id, recipe.image, imageKey)"
           class="d-print-none"
           @error="hideImage = true"
         >
