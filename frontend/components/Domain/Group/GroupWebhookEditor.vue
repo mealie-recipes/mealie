@@ -54,7 +54,7 @@ export default defineComponent({
       get() {
         return itemLocal.value;
       },
-      set(v) {
+      set(v: string) {
         itemUTC.value = timeLocalToUTC(v);
         itemLocal.value = v;
       },
