@@ -50,7 +50,11 @@
       <v-expansion-panels v-model="panels" multiple>
         <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
           <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
-            {{ ing.input }}
+            <template #default="{ open }">
+              <v-fade-transition>
+                <span v-if="!open" key="0"> {{ ing.input }} </span>
+              </v-fade-transition>
+            </template>
             <template #actions>
               <v-icon left :color="isError(ing) ? 'error' : 'success'">
                 {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
@@ -62,6 +66,7 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pb-0 mb-0">
             <RecipeIngredientEditor v-model="parsedIng[index].ingredient" />
+            {{ ing.input }}
             <v-card-actions>
               <v-spacer></v-spacer>
               <BaseButton
@@ -147,7 +152,7 @@ export default defineComponent({
             data[i].ingredient.title = recipe.value.recipeIngredient[i].title;
           }
         } catch (TypeError) {
-          console.error("Index Mismatch Error during recipe ingredient parsing; did the number of ingredients change?")
+          console.error("Index Mismatch Error during recipe ingredient parsing; did the number of ingredients change?");
         }
 
         parsedIng.value = data;
