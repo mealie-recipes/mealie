@@ -46,6 +46,8 @@ def serialize_list_items(list_items: list[ShoppingListItemOut]) -> list:
         item_dict["id"] = str(item.id)
         as_dict.append(item_dict)
 
+    # the default serializer fails on certain complex objects, so we use FastAPI's serliazer first
+    as_dict = utils.jsonify(as_dict)
     return as_dict
 
 
@@ -151,6 +153,8 @@ def test_shopping_list_items_update_many_reorder(
         as_dict.append(item_dict)
 
     # update list
+    # the default serializer fails on certain complex objects, so we use FastAPI's serliazer first
+    as_dict = utils.jsonify(as_dict)
     response = api_client.put(Routes.items, json=as_dict, headers=unique_user.token)
     assert response.status_code == 200
 
