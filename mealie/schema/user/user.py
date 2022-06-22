@@ -24,6 +24,8 @@ class LongLiveTokenIn(MealieModel):
 
 class LongLiveTokenOut(MealieModel):
     token: str
+    name: str
+    id: int
 
     class Config:
         orm_mode = True

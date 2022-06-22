@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
 from mealie.schema.cookbook.cookbook import CookBookPagination
@@ -13,7 +14,7 @@ from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
 
-router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"])
+router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"], route_class=MealieCrudRoute)
 
 
 @controller(router)

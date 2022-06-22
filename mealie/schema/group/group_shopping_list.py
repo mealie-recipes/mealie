@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Optional, Union
 
 from pydantic import UUID4
@@ -39,6 +40,9 @@ class ShoppingListItemCreate(MealieModel):
     label_id: Optional[UUID4] = None
     recipe_references: list[ShoppingListItemRecipeRef] = []
 
+    created_at: Optional[datetime]
+    update_at: Optional[datetime]
+
 
 class ShoppingListItemUpdate(ShoppingListItemCreate):
     id: UUID4
@@ -54,6 +58,9 @@ class ShoppingListItemOut(ShoppingListItemUpdate):
 
 class ShoppingListCreate(MealieModel):
     name: str = None
+
+    created_at: Optional[datetime]
+    update_at: Optional[datetime]
 
 
 class ShoppingListRecipeRefOut(MealieModel):

@@ -107,7 +107,7 @@ class RecipeExportController(BaseRecipeController):
         return FileResponse(temp_path, filename=f"{slug}.zip")
 
 
-router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"])
+router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=MealieCrudRoute)
 
 
 @controller(router)
