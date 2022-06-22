@@ -19,7 +19,7 @@ from mealie.pkgs import cache
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.routes._base.routers import UserAPIRouter
+from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePaginationQuery, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
