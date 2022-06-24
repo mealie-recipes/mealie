@@ -231,7 +231,7 @@ class ShoppingListController(BaseUserController):
         return data
 
     # =======================================================================
-    # Other Operations
+    # Recipe References
 
     @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
     def add_recipe_ingredients_to_list(self, item_id: UUID4, recipe_id: UUID4):
@@ -256,6 +256,24 @@ class ShoppingListController(BaseUserController):
     @router.delete("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
     def remove_recipe_ingredients_from_list(self, item_id: UUID4, recipe_id: UUID4):
         shopping_list = self.service.remove_recipe_ingredients_from_list(item_id, recipe_id)
+        if shopping_list:
+            self.event_bus.dispatch(
+                self.deps.acting_user.group_id,
+                EventTypes.shopping_list_updated,
+                msg=self.t(
+                    "notifications.generic-updated",
+                    name=shopping_list.name,
+                ),
+                event_source=EventSource(
+                    event_type="bulk-updated-items",
+                    item_type="shopping-list",
+                    item_id=shopping_list.id,
+                ),
+            )
+
+    @router.delete("/{item_id}/recipe-references/{recipe_reference_id}", response_model=ShoppingListOut)
+    def remove_recipe_reference_from_list(self, item_id: UUID4, recipe_reference_id: UUID4):
+        shopping_list = self.service.remove_recipe_reference_from_list(item_id, recipe_reference_id)
         if shopping_list:
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,

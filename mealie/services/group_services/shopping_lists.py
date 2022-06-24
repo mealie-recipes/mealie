@@ -47,9 +47,9 @@ class ShoppingListService:
 
     def consolidate_list_items(self, item_list: list[ShoppingListItemOut]) -> list[ShoppingListItemOut]:
         """
-        itterates through the shopping list provided and returns
+        iterates through the shopping list provided and returns
         a consolidated list where all items that are matched against multiple values are
-        de-duplicated and only the first item is kept where the quantity is updated accoridngly.
+        de-duplicated and only the first item is kept where the quantity is updated accordingly.
         """
 
         consolidated_list: list[ShoppingListItemOut] = []
@@ -197,6 +197,15 @@ class ShoppingListService:
                 else:
                     self.list_refs.update(ref.id, ref)
                 break
+
+        # Save Changes
+        return self.shopping_lists.get_one(shopping_list.id)
+
+    def remove_recipe_reference_from_list(self, list_id: UUID4, recipe_reference_id: UUID4) -> ShoppingListOut:
+        shopping_list = self.shopping_lists.get_one(list_id)
+        for ref in shopping_list.recipe_references:
+            if ref.id == recipe_reference_id:
+                self.list_refs.delete(ref.id)
 
         # Save Changes
         return self.shopping_lists.get_one(shopping_list.id)
