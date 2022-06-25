@@ -43,4 +43,4 @@ class RecipeCommentOut(RecipeCommentCreate):
 
 
 class RecipeCommentPagination(PaginationBase):
-    data: list[RecipeCommentOut]
+    items: list[RecipeCommentOut]

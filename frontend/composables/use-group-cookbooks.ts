@@ -32,10 +32,8 @@ export const useCookbooks = function () {
         const { data } = await api.cookbooks.getAll();
 
         if (data) {
-          return data.data
-        }
-
-        else {
+          return data.items;
+        } else {
           return null;
         }
       }, useAsyncKey());
@@ -47,8 +45,8 @@ export const useCookbooks = function () {
       loading.value = true;
       const { data } = await api.cookbooks.getAll();
 
-      if (data && data.data && cookbookStore) {
-        cookbookStore.value = data.data;
+      if (data && data.items && cookbookStore) {
+        cookbookStore.value = data.items;
       }
 
       loading.value = false;

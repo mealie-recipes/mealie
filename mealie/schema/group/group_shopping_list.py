@@ -86,7 +86,7 @@ class ShoppingListSummary(ShoppingListSave):
 
 
 class ShoppingListPagination(PaginationBase):
-    data: list[ShoppingListSummary]
+    items: list[ShoppingListSummary]
 
 
 class ShoppingListUpdate(ShoppingListSummary):

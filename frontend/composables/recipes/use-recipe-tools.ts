@@ -23,12 +23,10 @@ export const useTools = function (eager = true) {
         const { data } = await api.tools.getAll();
 
         if (data) {
-          return data.data;
-        }
-
-        else {
+          return data.items;
+        } else {
           return null;
-        };
+        }
       }, useAsyncKey());
 
       loading.value = false;
@@ -40,7 +38,7 @@ export const useTools = function (eager = true) {
       const { data } = await api.tools.getAll();
 
       if (data) {
-        tools.value = data.data;
+        tools.value = data.items;
       }
 
       loading.value = false;

@@ -16,7 +16,7 @@ def test_admin_server_tasks_test_and_get(api_client: TestClient, admin_user: Tes
     assert response.status_code == 201
 
     response = api_client.get(Routes.base, headers=admin_user.token)
-    as_dict = response.json()["data"]
+    as_dict = response.json()["items"]
 
     assert len(as_dict) == 1
 

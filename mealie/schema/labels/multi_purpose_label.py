@@ -27,7 +27,7 @@ class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
 
 
 class MultiPurposeLabelPagination(PaginationBase):
-    data: list[MultiPurposeLabelSummary]
+    items: list[MultiPurposeLabelSummary]
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):

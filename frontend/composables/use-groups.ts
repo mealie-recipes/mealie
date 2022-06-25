@@ -45,10 +45,8 @@ export const useGroups = function () {
       const { data } = await api.groups.getAll();
 
       if (data) {
-        return data.data;
-      }
-
-      else {
+        return data.items;
+      } else {
         return null;
       }
     }, asyncKey);
@@ -62,10 +60,8 @@ export const useGroups = function () {
     const { data } = await api.groups.getAll();
 
     if (data) {
-      groups.value = data.data;
-    }
-
-    else {
+      groups.value = data.items;
+    } else {
       groups.value = null;
     }
 

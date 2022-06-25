@@ -34,7 +34,7 @@ class RecipeTag(MealieModel):
 
 
 class RecipeTagPagination(PaginationBase):
-    data: list[RecipeTag]
+    items: list[RecipeTag]
 
 
 class RecipeCategory(RecipeTag):
@@ -42,7 +42,7 @@ class RecipeCategory(RecipeTag):
 
 
 class RecipeCategoryPagination(PaginationBase):
-    data: list[RecipeCategory]
+    items: list[RecipeCategory]
 
 
 class RecipeTool(RecipeTag):
@@ -51,7 +51,7 @@ class RecipeTool(RecipeTag):
 
 
 class RecipeToolPagination(PaginationBase):
-    data: list[RecipeTool]
+    items: list[RecipeTool]
 
 
 class CreateRecipeBulk(BaseModel):
@@ -132,7 +132,7 @@ class RecipePaginationQuery(PaginationQuery):
 
 
 class RecipePagination(PaginationBase):
-    data: list[RecipeSummary]
+    items: list[RecipeSummary]
 
 
 class Recipe(RecipeSummary):

@@ -33,7 +33,7 @@ class IngredientFood(CreateIngredientFood):
 
 
 class IngredientFoodPagination(PaginationBase):
-    data: list[IngredientFood]
+    items: list[IngredientFood]
 
 
 class CreateIngredientUnit(UnitFoodBase):
@@ -54,7 +54,7 @@ class IngredientUnit(CreateIngredientUnit):
 
 
 class IngredientUnitPagination(PaginationBase):
-    data: list[IngredientUnit]
+    items: list[IngredientUnit]
 
 
 class RecipeIngredient(MealieModel):

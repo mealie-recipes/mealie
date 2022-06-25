@@ -85,7 +85,7 @@ class GroupEventNotifierOut(MealieModel):
 
 
 class GroupEventPagination(PaginationBase):
-    data: list[GroupEventNotifierOut]
+    items: list[GroupEventNotifierOut]
 
 
 class GroupEventNotifierPrivate(GroupEventNotifierOut):

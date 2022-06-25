@@ -53,7 +53,7 @@ class ReadCookBook(UpdateCookBook):
 
 
 class CookBookPagination(PaginationBase):
-    data: list[ReadCookBook]
+    items: list[ReadCookBook]
 
 
 class RecipeCookBook(ReadCookBook):

@@ -49,4 +49,4 @@ class ServerTask(ServerTaskCreate):
 
 
 class ServerTaskPagination(PaginationBase):
-    data: list[ServerTask]
+    items: list[ServerTask]

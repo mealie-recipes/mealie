@@ -200,7 +200,7 @@ class RecipeController(BaseRecipeController):
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
 
         new_items = []
-        for item in response.data:
+        for item in response.items:
             # Pydantic/FastAPI can't seem to serialize the ingredient field on thier own.
             new_item = item.__dict__
 
@@ -209,7 +209,7 @@ class RecipeController(BaseRecipeController):
 
             new_items.append(new_item)
 
-        response.data = [RecipeSummary.construct(**x) for x in new_items]
+        response.items = [RecipeSummary.construct(**x) for x in new_items]
         json_compatible_response = jsonable_encoder(response)
 
         # Response is returned directly, to avoid validation and improve performance

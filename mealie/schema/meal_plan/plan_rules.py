@@ -67,4 +67,4 @@ class PlanRulesOut(PlanRulesSave):
 
 
 class PlanRulesPagination(PaginationBase):
-    data: list[PlanRulesOut]
+    items: list[PlanRulesOut]

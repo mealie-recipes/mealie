@@ -115,7 +115,7 @@ class UserOut(UserBase):
 
 
 class UserPagination(PaginationBase):
-    data: list[UserOut]
+    items: list[UserOut]
 
 
 class UserFavorites(UserBase):
@@ -186,7 +186,7 @@ class GroupInDB(UpdateGroup):
 
 
 class GroupPagination(PaginationBase):
-    data: list[GroupInDB]
+    items: list[GroupInDB]
 
 
 class LongLiveTokenInDB(CreateToken):

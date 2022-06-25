@@ -15,10 +15,8 @@ export const useGroupWebhooks = function () {
         const { data } = await api.groupWebhooks.getAll();
 
         if (data) {
-          return data.data;
-        }
-
-        else {
+          return data.items;
+        } else {
           return null;
         }
       }, useAsyncKey());
@@ -30,8 +28,8 @@ export const useGroupWebhooks = function () {
       loading.value = true;
       const { data } = await api.groupWebhooks.getAll();
 
-      if (data && data.data) {
-        webhooks.value = data.data;
+      if (data && data.items) {
+        webhooks.value = data.items;
       }
 
       loading.value = false;

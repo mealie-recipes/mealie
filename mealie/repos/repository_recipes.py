@@ -194,7 +194,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             per_page=pagination.per_page,
             total=count,
             total_pages=total_pages,
-            data=data,
+            items=data,
         )
 
     def get_by_categories(self, categories: list[RecipeCategory]) -> list[RecipeSummary]:

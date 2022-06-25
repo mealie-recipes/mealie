@@ -18,10 +18,8 @@ export const useAllUsers = function () {
     const allUsers = useAsync(async () => {
       const { data } = await api.users.getAll();
       if (data) {
-        return data.data;
-      }
-
-      else {
+        return data.items;
+      } else {
         return null;
       }
     }, asyncKey);
@@ -35,10 +33,8 @@ export const useAllUsers = function () {
     const { data } = await api.users.getAll();
 
     if (data) {
-      users.value = data.data;
-    }
-
-    else {
+      users.value = data.items;
+    } else {
       users.value = null;
     }
 

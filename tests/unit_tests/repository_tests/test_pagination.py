@@ -28,18 +28,18 @@ def test_repository_pagination(database: AllRepositories, unique_user: TestUser)
     for _ in range(10):
         results = foods_repo.page_all(query)
 
-        assert len(results.data) == 10
+        assert len(results.items) == 10
 
-        for result in results.data:
+        for result in results.items:
             assert result.id not in seen
 
-        seen += [result.id for result in results.data]
+        seen += [result.id for result in results.items]
 
         query.page += 1
 
     results = foods_repo.page_all(query)
 
-    for result in results.data:
+    for result in results.items:
         assert result.id not in seen
 
 
@@ -58,7 +58,7 @@ def test_pagination_response_and_metadata(database: AllRepositories, unique_user
     )
 
     all_results = foods_repo.page_all(query)
-    assert all_results.total == len(all_results.data)
+    assert all_results.total == len(all_results.items)
 
     # this should get the last page of results
     query = PaginationQuery(
@@ -68,7 +68,7 @@ def test_pagination_response_and_metadata(database: AllRepositories, unique_user
 
     last_page_of_results = foods_repo.page_all(query)
     assert last_page_of_results.page == last_page_of_results.total_pages
-    assert last_page_of_results.data[-1] == all_results.data[-1]
+    assert last_page_of_results.items[-1] == all_results.items[-1]
 
 
 def test_pagination_guides(database: AllRepositories, unique_user: TestUser):

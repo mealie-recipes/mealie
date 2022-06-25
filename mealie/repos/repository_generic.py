@@ -291,5 +291,5 @@ class RepositoryGeneric(Generic[Schema, Model]):
             per_page=pagination.per_page,
             total=count,
             total_pages=total_pages,
-            data=[eff_schema.from_orm(s) for s in data],
+            items=[eff_schema.from_orm(s) for s in data],
         )

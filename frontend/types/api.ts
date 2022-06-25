@@ -15,9 +15,9 @@ export interface ApiRequestInstance {
 }
 
 export interface PaginationData<T> {
-  page: number,
-  per_page: number,
-  total: number,
-  total_pages: number,
-  data: T[]
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+  items: T[];
 }

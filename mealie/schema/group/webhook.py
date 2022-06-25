@@ -61,4 +61,4 @@ class ReadWebhook(SaveWebhook):
 
 
 class WebhookPagination(PaginationBase):
-    data: list[ReadWebhook]
+    items: list[ReadWebhook]

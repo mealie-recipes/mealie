@@ -28,7 +28,7 @@ class PaginationBase(GenericModel, Generic[DataT]):
     per_page: int = 10
     total: int = 0
     total_pages: int = 0
-    data: list[DataT]
+    items: list[DataT]
     next: Optional[str]
     previous: Optional[str]
 
@@ -38,7 +38,7 @@ class PaginationBase(GenericModel, Generic[DataT]):
             return
 
         # combine params with base route
-        query_params.update({"page": self.page + 1})
+        query_params["page"] = self.page + 1
         self.next = PaginationBase.merge_query_parameters(route, query_params)
 
     def _set_prev(self, route: str, query_params: dict[str, Any]) -> None:
@@ -47,7 +47,7 @@ class PaginationBase(GenericModel, Generic[DataT]):
             return
 
         # combine params with base route
-        query_params.update({"page": self.page - 1})
+        query_params["page"] = self.page - 1
         self.previous = PaginationBase.merge_query_parameters(route, query_params)
 
     def set_pagination_guides(self, route: str, query_params: Optional[dict[str, Any]]) -> None:
@@ -57,9 +57,7 @@ class PaginationBase(GenericModel, Generic[DataT]):
         query_params = camelize(query_params)
 
         # sanitize user input
-        if self.page < 1:
-            self.page = 1
-
+        self.page = max(self.page, 1)
         self._set_next(route, query_params)
         self._set_prev(route, query_params)
 
