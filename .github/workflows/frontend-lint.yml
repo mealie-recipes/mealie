@@ -48,10 +48,6 @@ jobs:
         run: yarn lint
         working-directory: "frontend"
 
-      - name: Run Build 🚚
-        run: yarn build
-        working-directory: "frontend"
-
   build:
     runs-on: ${{ matrix.os }}
 
