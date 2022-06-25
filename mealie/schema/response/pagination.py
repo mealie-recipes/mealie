@@ -1,5 +1,5 @@
 import enum
-from typing import Any, Generic, Optional, TypeVar
+from typing import Any, Generic, TypeVar
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from humps import camelize
@@ -29,8 +29,8 @@ class PaginationBase(GenericModel, Generic[DataT]):
     total: int = 0
     total_pages: int = 0
     items: list[DataT]
-    next: Optional[str]
-    previous: Optional[str]
+    next: str | None
+    previous: str | None
 
     def _set_next(self, route: str, query_params: dict[str, Any]) -> None:
         if self.page >= self.total_pages:
@@ -50,7 +50,7 @@ class PaginationBase(GenericModel, Generic[DataT]):
         query_params["page"] = self.page - 1
         self.previous = PaginationBase.merge_query_parameters(route, query_params)
 
-    def set_pagination_guides(self, route: str, query_params: Optional[dict[str, Any]]) -> None:
+    def set_pagination_guides(self, route: str, query_params: dict[str, Any] | None) -> None:
         if not query_params:
             query_params = {}
 
