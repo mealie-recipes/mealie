@@ -131,10 +131,10 @@ export default defineComponent({
     }
 
     async function refreshTokens() {
-      const { data } = await userApi.recipes.share.getAll(0, 999, { recipe_id: props.recipeId });
+      const { data } = await userApi.recipes.share.getAll(1, -1, { recipe_id: props.recipeId });
 
       if (data) {
-        state.tokens = data;
+        state.tokens = data.items ?? [];
       }
     }
 

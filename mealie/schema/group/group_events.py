@@ -1,6 +1,7 @@
 from pydantic import UUID4, NoneStr
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 # =============================================================================
 # Group Events Notifier Options
@@ -81,6 +82,10 @@ class GroupEventNotifierOut(MealieModel):
 
     class Config:
         orm_mode = True
+
+
+class GroupEventPagination(PaginationBase):
+    items: list[GroupEventNotifierOut]
 
 
 class GroupEventNotifierPrivate(GroupEventNotifierOut):

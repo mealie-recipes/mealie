@@ -22,21 +22,18 @@ import { useLazyRecipes } from "~/composables/recipes";
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
-    // paging and sorting params
+    const page = ref(1);
+    const perPage = ref(30);
     const orderBy = "name";
-    const orderDescending =  false;
-    const increment = ref(30);
+    const orderDirection = "asc";
 
-    const start = ref(0);
-    const offset = ref(increment.value);
-    const limit = ref(increment.value);
     const ready = ref(false);
     const loading = ref(false);
 
     const { recipes, fetchMore } = useLazyRecipes();
 
     onMounted(async () => {
-      await fetchMore(start.value, limit.value, orderBy, orderDescending);
+      await fetchMore(page.value, perPage.value, orderBy, orderDirection);
       ready.value = true;
     });
 
@@ -45,9 +42,8 @@ export default defineComponent({
         return;
       }
       loading.value = true;
-      start.value = offset.value + 1;
-      offset.value = offset.value + increment.value;
-      fetchMore(start.value, limit.value, orderBy, orderDescending);
+      page.value = page.value + 1;
+      fetchMore(page.value, perPage.value, orderBy, orderDirection);
       loading.value = false;
     }, 500);
 

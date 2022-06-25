@@ -1,8 +1,10 @@
+from math import ceil
 from typing import Any, Generic, TypeVar, Union
 
 from pydantic import UUID4, BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm.session import Session
+from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
 from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
@@ -59,6 +61,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def get_all(
         self, limit: int = None, order_by: str = None, order_descending: bool = True, start=0, override=None
     ) -> list[Schema]:
+        self.logger.warning('"get_all" method is deprecated; use "page_all" instead')
+
         # sourcery skip: remove-unnecessary-cast
         eff_schema = override or self.schema
 
@@ -224,7 +228,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         else:
             return [eff_schema.from_orm(x) for x in q.all()]
 
-    def pagination(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
+    def page_all(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
         """
         pagination is a method to interact with the filtered database table and return a paginated result
         using the PaginationBase that provides several data points that are needed to manage pagination
@@ -240,11 +244,32 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
-
         count = q.count()
+
+        # interpret -1 as "get_all"
+        if pagination.per_page == -1:
+            pagination.per_page = count
+
+        try:
+            total_pages = ceil(count / pagination.per_page)
+
+        except ZeroDivisionError:
+            total_pages = 0
+
+        # interpret -1 as "last page"
+        if pagination.page == -1:
+            pagination.page = total_pages
+
+        # failsafe for user input error
+        if pagination.page < 1:
+            pagination.page = 1
 
         if pagination.order_by:
             if order_attr := getattr(self.model, pagination.order_by, None):
+                # queries handle uppercase and lowercase differently, which is undesirable
+                if isinstance(order_attr.type, sqltypes.String):
+                    order_attr = func.lower(order_attr)
+
                 if pagination.order_direction == OrderDirection.asc:
                     order_attr = order_attr.asc()
                 elif pagination.order_direction == OrderDirection.desc:
@@ -265,6 +290,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
             page=pagination.page,
             per_page=pagination.per_page,
             total=count,
-            total_pages=int(count / pagination.per_page) + 1,
-            data=[eff_schema.from_orm(s) for s in data],
+            total_pages=total_pages,
+            items=[eff_schema.from_orm(s) for s in data],
         )

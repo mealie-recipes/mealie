@@ -47,7 +47,7 @@ def test_multitenant_cases_get_all(
             response = test_case.get_all(token)
             assert response.status_code == 200
 
-            data = response.json()
+            data = response.json()["items"]
 
             assert len(data) == len(item_ids)
 
@@ -84,7 +84,7 @@ def test_multitenant_cases_same_named_resources(
             response = test_case.get_all(token)
             assert response.status_code == 200
 
-            data = response.json()
+            data = response.json()["items"]
 
             assert len(data) == len(item_ids)
 

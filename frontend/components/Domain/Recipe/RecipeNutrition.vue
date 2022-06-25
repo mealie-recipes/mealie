@@ -81,9 +81,12 @@ export default defineComponent({
       },
     };
     const valueNotNull = computed(() => {
-      Object.values(props.value).forEach((valueProperty) => {
-        if (valueProperty && valueProperty !== "") return true;
-      });
+      let key: keyof Nutrition;
+      for (key in props.value) {
+        if (props.value[key] !== null) {
+          return true;
+        }
+      }
       return false;
     });
 
@@ -97,8 +100,8 @@ export default defineComponent({
       labels,
       valueNotNull,
       showViewer,
-      updateValue
-    }
+      updateValue,
+    };
   },
 });
 </script>

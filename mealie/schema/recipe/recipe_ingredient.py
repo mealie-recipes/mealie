@@ -8,6 +8,7 @@ from pydantic import UUID4, Field, validator
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
+from mealie.schema.response.pagination import PaginationBase
 
 
 class UnitFoodBase(MealieModel):
@@ -31,6 +32,10 @@ class IngredientFood(CreateIngredientFood):
         orm_mode = True
 
 
+class IngredientFoodPagination(PaginationBase):
+    items: list[IngredientFood]
+
+
 class CreateIngredientUnit(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
@@ -46,6 +51,10 @@ class IngredientUnit(CreateIngredientUnit):
 
     class Config:
         orm_mode = True
+
+
+class IngredientUnitPagination(PaginationBase):
+    items: list[IngredientUnit]
 
 
 class RecipeIngredient(MealieModel):

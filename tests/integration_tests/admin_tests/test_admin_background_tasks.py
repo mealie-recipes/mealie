@@ -10,13 +10,13 @@ class Routes:
 
 def test_admin_server_tasks_test_and_get(api_client: TestClient, admin_user: TestUser):
     # Bootstrap Timer
-    BackgroundExecutor.sleep_time = 0.1
+    BackgroundExecutor.sleep_time = 1
 
     response = api_client.post(Routes.base, headers=admin_user.token)
     assert response.status_code == 201
 
     response = api_client.get(Routes.base, headers=admin_user.token)
-    as_dict = response.json()
+    as_dict = response.json()["items"]
 
     assert len(as_dict) == 1
 

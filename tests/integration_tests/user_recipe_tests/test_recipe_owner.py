@@ -44,7 +44,7 @@ def test_get_all_only_includes_group_recipes(api_client: TestClient, unique_user
 
     assert response.status_code == 200
 
-    recipes = response.json()
+    recipes = response.json()["items"]
 
     assert len(recipes) == 5
 

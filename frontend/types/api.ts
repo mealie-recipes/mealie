@@ -13,3 +13,11 @@ export interface ApiRequestInstance {
   patch<T, U = Partial<T>>(url: string, data: U): Promise<RequestResponse<T>>;
   delete<T>(url: string): Promise<RequestResponse<T>>;
 }
+
+export interface PaginationData<T> {
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+  items: T[];
+}

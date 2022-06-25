@@ -261,7 +261,7 @@ export default defineComponent({
     async function getShoppingLists() {
       const { data } = await api.shopping.lists.getAll();
       if (data) {
-        shoppingLists.value = data;
+        shoppingLists.value = data.items ?? [];
       }
     }
 

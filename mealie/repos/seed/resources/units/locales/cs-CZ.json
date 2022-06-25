@@ -1,26 +1,26 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "čajová lžička",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "čl"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "polévková lžíce",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "pl"
     },
     "cup": {
-        "name": "cup",
+        "name": "šálek",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "šálek"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "dutá unce",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "pinta",
         "description": "",
         "abbreviation": "pt"
     },
@@ -30,27 +30,27 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitr",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litr",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "libra",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unce",
         "description": "",
         "abbreviation": "oz"
     },
@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligram",
         "description": "",
         "abbreviation": "mg"
     },
@@ -75,27 +75,27 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "špetka",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porce",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "hlava",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "stroužek",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "plechovka",
         "description": "",
         "abbreviation": ""
     }
