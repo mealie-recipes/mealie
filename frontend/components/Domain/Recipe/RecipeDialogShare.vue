@@ -134,7 +134,7 @@ export default defineComponent({
       const { data } = await userApi.recipes.share.getAll(1, -1, { recipe_id: props.recipeId });
 
       if (data) {
-        state.tokens = data;
+        state.tokens = data.items ?? [];
       }
     }
 
