@@ -60,7 +60,12 @@ export default defineComponent({
 
     async function fetchShoppingLists() {
       const { data } = await userApi.shopping.lists.getAll();
-      return data;
+
+      if (!data) {
+        return [];
+      }
+
+      return data.items;
     }
 
     async function refresh() {
