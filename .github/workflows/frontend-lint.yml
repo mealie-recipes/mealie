@@ -16,6 +16,11 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [16]
+        tasks:
+          - name: Run Linter
+            cmd: yarn lint
+          - name: Nuxt Build
+            cmd: yarn build
 
     steps:
       - name: Checkout 🛎
@@ -44,6 +49,6 @@ jobs:
         run: yarn
         working-directory: "frontend"
 
-      - name: Run linter 👀
-        run: yarn lint
+      - name: ${{ martix.tasks.name }}
+        run: "${{ matrix.tasks.cmd }}"
         working-directory: "frontend"
