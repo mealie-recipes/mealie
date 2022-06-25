@@ -81,6 +81,8 @@ class ShoppingListItemController(BaseUserController):
         self,
         data: ShoppingListItemCreate,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         shopping_list_item = self.mixins.create_one(data)
 
@@ -95,6 +97,7 @@ class ShoppingListItemController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="create",
                     item_type="shopping-list-item",
                     item_id=shopping_list_item.id,
@@ -115,6 +118,8 @@ class ShoppingListItemController(BaseUserController):
         item_id: UUID4,
         data: ShoppingListItemUpdate,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         shopping_list_item = self.mixins.update_one(data, item_id)
 
@@ -129,6 +134,7 @@ class ShoppingListItemController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="update",
                     item_type="shopping-list-item",
                     item_id=shopping_list_item.id,
@@ -143,6 +149,8 @@ class ShoppingListItemController(BaseUserController):
         self,
         item_id: UUID4,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         shopping_list_item = self.mixins.delete_one(item_id)  # type: ignore
 
@@ -157,6 +165,7 @@ class ShoppingListItemController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="delete",
                     item_type="shopping-list-item",
                     item_id=shopping_list_item.id,
@@ -198,6 +207,8 @@ class ShoppingListController(BaseUserController):
         self,
         data: ShoppingListCreate,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         save_data = cast(data, ShoppingListSave, group_id=self.deps.acting_user.group_id)
         val = self.mixins.create_one(save_data)
@@ -210,6 +221,7 @@ class ShoppingListController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="create",
                     item_type="shopping-list",
                     item_id=val.id,
@@ -229,6 +241,8 @@ class ShoppingListController(BaseUserController):
         item_id: UUID4,
         data: ShoppingListUpdate,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         data = self.mixins.update_one(data, item_id)  # type: ignore
         if data:
@@ -239,6 +253,7 @@ class ShoppingListController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="update",
                     item_type="shopping-list",
                     item_id=data.id,
@@ -251,6 +266,8 @@ class ShoppingListController(BaseUserController):
         self,
         item_id: UUID4,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         data = self.mixins.delete_one(item_id)  # type: ignore
         if data:
@@ -261,6 +278,7 @@ class ShoppingListController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="delete",
                     item_type="shopping-list",
                     item_id=data.id,
@@ -277,6 +295,8 @@ class ShoppingListController(BaseUserController):
         item_id: UUID4,
         recipe_id: UUID4,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         shopping_list = self.service.add_recipe_ingredients_to_list(item_id, recipe_id)
         if shopping_list:
@@ -290,6 +310,7 @@ class ShoppingListController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="bulk-updated-items",
                     item_type="shopping-list",
                     item_id=shopping_list.id,
@@ -304,6 +325,8 @@ class ShoppingListController(BaseUserController):
         item_id: UUID4,
         recipe_id: UUID4,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         shopping_list = self.service.remove_recipe_ingredients_from_list(item_id, recipe_id)
         if shopping_list:
@@ -317,6 +340,7 @@ class ShoppingListController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="bulk-updated-items",
                     item_type="shopping-list",
                     item_id=shopping_list.id,

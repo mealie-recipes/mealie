@@ -49,6 +49,8 @@ class GroupCookbookController(BaseUserController):
         self,
         data: CreateCookBook,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         data = mapper.cast(data, SaveCookBook, group_id=self.group_id)
         val = self.mixins.create_one(data)
@@ -61,6 +63,7 @@ class GroupCookbookController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="create",
                     item_type="cookbook",
                     item_id=val.id,
@@ -105,6 +108,8 @@ class GroupCookbookController(BaseUserController):
         item_id: str,
         data: CreateCookBook,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         val = self.mixins.update_one(data, item_id)  # type: ignore
         if val:
@@ -115,6 +120,7 @@ class GroupCookbookController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="update",
                     item_type="cookbook",
                     item_id=val.id,
@@ -129,6 +135,8 @@ class GroupCookbookController(BaseUserController):
         self,
         item_id: str,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         val = self.mixins.delete_one(item_id)
         if val:
@@ -139,6 +147,7 @@ class GroupCookbookController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="delete",
                     item_type="cookbook",
                     item_id=val.id,

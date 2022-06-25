@@ -51,6 +51,7 @@ def event_source_generator():
     return EventSource(
         actor=random_string(),
         event_trigger=EventTrigger.generic,
+        event_trigger_id=random_string(),
         event_type=random_string(),
         item_type=random_string(),
         item_id=random_int(),

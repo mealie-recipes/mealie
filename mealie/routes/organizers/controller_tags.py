@@ -49,6 +49,8 @@ class TagController(BaseUserController):
         self,
         tag: TagIn,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Creates a Tag in the database"""
         save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
@@ -65,6 +67,7 @@ class TagController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="create",
                     item_type="tag",
                     item_id=data.id,
@@ -79,6 +82,8 @@ class TagController(BaseUserController):
         item_id: UUID4,
         new_tag: TagIn,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
@@ -95,6 +100,7 @@ class TagController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="update",
                     item_type="tag",
                     item_id=data.id,
@@ -108,6 +114,8 @@ class TagController(BaseUserController):
         self,
         item_id: UUID4,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Removes a recipe tag from the database. Deleting a
         tag does not impact a recipe. The tag will be removed
@@ -126,6 +134,7 @@ class TagController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="delete",
                     item_type="tag",
                     item_id=data.id,

@@ -146,6 +146,8 @@ class RecipeController(BaseRecipeController):
         self,
         req: ScrapeRecipe,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         recipe, extras = create_from_url(req.url)
@@ -169,6 +171,7 @@ class RecipeController(BaseRecipeController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="create",
                     item_type="recipe",
                     item_id=new_recipe.id,
@@ -240,6 +243,8 @@ class RecipeController(BaseRecipeController):
         self,
         data: CreateRecipe,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
         try:
@@ -260,6 +265,7 @@ class RecipeController(BaseRecipeController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="create",
                     item_type="recipe",
                     item_id=new_recipe.id,
@@ -275,6 +281,8 @@ class RecipeController(BaseRecipeController):
         slug: str,
         data: Recipe,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Updates a recipe by existing slug and data."""
         try:
@@ -294,6 +302,7 @@ class RecipeController(BaseRecipeController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="update",
                     item_type="recipe",
                     item_id=data.id,
@@ -309,6 +318,8 @@ class RecipeController(BaseRecipeController):
         slug: str,
         data: Recipe,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Updates a recipe by existing slug and data."""
         try:
@@ -328,6 +339,7 @@ class RecipeController(BaseRecipeController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="update",
                     item_type="recipe",
                     item_id=data.id,
@@ -342,6 +354,8 @@ class RecipeController(BaseRecipeController):
         self,
         slug: str,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Deletes a recipe by slug"""
         try:
@@ -357,6 +371,7 @@ class RecipeController(BaseRecipeController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="delete",
                     item_type="recipe",
                     item_id=data.id,

@@ -23,6 +23,7 @@ class EventSource:
     id: UUID4
     actor: str | int | UUID4
     event_trigger: EventTrigger
+    event_trigger_id: str
     event_type: str
     item_type: str
     item_id: UUID4 | int
@@ -35,12 +36,16 @@ class EventSource:
         event_type: str,
         item_type: str,
         item_id: UUID4 | int,
+        event_trigger_id: str | None = None,
         **kwargs,
     ) -> None:
+        if event_trigger_id is None:
+            event_trigger_id = ""
 
         self.id = uuid4()
         self.actor = actor
         self.event_trigger = event_trigger
+        self.event_trigger_id = event_trigger_id
         self.event_type = event_type
         self.item_type = item_type
         self.item_id = item_id
@@ -51,9 +56,10 @@ class EventSource:
             "id": self.id,
             "actor": self.actor,
             "event_trigger": self.event_trigger.value,
+            "event_trigger_id": self.event_trigger_id,
             "event_type": self.event_type,
             "item_type": self.item_type,
-            "item_id": str(self.item_id),
+            "item_id": self.item_id,
             **self.kwargs,
         }
 

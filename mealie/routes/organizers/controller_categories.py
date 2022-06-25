@@ -50,6 +50,8 @@ class RecipeCategoryController(BaseUserController):
         self,
         category: CategoryIn,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Creates a Category in the database"""
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
@@ -66,6 +68,7 @@ class RecipeCategoryController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="create",
                     item_type="category",
                     item_id=data.id,
@@ -87,6 +90,8 @@ class RecipeCategoryController(BaseUserController):
         item_id: UUID4,
         update_data: CategoryIn,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
@@ -104,6 +109,7 @@ class RecipeCategoryController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="update",
                     item_type="category",
                     item_id=data.id,
@@ -117,6 +123,8 @@ class RecipeCategoryController(BaseUserController):
         self,
         item_id: UUID4,
         event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+        event_trigger_id: str
+        | None = Query(None, description="Unique identifier for the service triggering this event"),
     ):
         """
         Removes a recipe category from the database. Deleting a
@@ -131,6 +139,7 @@ class RecipeCategoryController(BaseUserController):
                 event_source=EventSource(
                     actor=self.user.id,
                     event_trigger=event_trigger,
+                    event_trigger_id=event_trigger_id,
                     event_type="delete",
                     item_type="category",
                     item_id=data.id,
