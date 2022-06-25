@@ -1,5 +1,6 @@
 from functools import cached_property
 
+from fastapi import Depends
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
@@ -7,7 +8,8 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema import mapper
-from mealie.schema.meal_plan.plan_rules import PlanRulesCreate, PlanRulesOut, PlanRulesSave
+from mealie.schema.meal_plan.plan_rules import PlanRulesCreate, PlanRulesOut, PlanRulesPagination, PlanRulesSave
+from mealie.schema.response.pagination import PaginationQuery
 
 router = UserAPIRouter(prefix="/groups/mealplans/rules", tags=["Groups: Mealplan Rules"])
 
@@ -22,9 +24,15 @@ class GroupMealplanConfigController(BaseUserController):
     def mixins(self):
         return HttpRepo[PlanRulesCreate, PlanRulesOut, PlanRulesOut](self.repo, self.deps.logger)
 
-    @router.get("", response_model=list[PlanRulesOut])
-    def get_all(self):
-        return self.repo.get_all(override=PlanRulesOut)
+    @router.get("", response_model=PlanRulesPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=PlanRulesOut,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=PlanRulesOut, status_code=201)
     def create_one(self, data: PlanRulesCreate):

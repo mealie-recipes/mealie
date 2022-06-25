@@ -4,6 +4,7 @@ from enum import Enum
 from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 
 class Category(MealieModel):
@@ -63,3 +64,7 @@ class PlanRulesOut(PlanRulesSave):
 
     class Config:
         orm_mode = True
+
+
+class PlanRulesPagination(PaginationBase):
+    items: list[PlanRulesOut]

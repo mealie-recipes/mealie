@@ -3,6 +3,7 @@ from __future__ import annotations
 from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 
 class MultiPurposeLabelCreate(MealieModel):
@@ -23,6 +24,10 @@ class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
 
     class Config:
         orm_mode = True
+
+
+class MultiPurposeLabelPagination(PaginationBase):
+    items: list[MultiPurposeLabelSummary]
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):

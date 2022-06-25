@@ -3,6 +3,7 @@ from slugify import slugify
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe import RecipeSummary, RecipeTool
+from mealie.schema.response.pagination import PaginationBase
 
 from ..recipe.recipe_category import CategoryBase, TagBase
 
@@ -49,6 +50,10 @@ class ReadCookBook(UpdateCookBook):
 
     class Config:
         orm_mode = True
+
+
+class CookBookPagination(PaginationBase):
+    items: list[ReadCookBook]
 
 
 class RecipeCookBook(ReadCookBook):

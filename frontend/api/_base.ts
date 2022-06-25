@@ -1,4 +1,4 @@
-import { ApiRequestInstance } from "~/types/api";
+import { ApiRequestInstance, PaginationData } from "~/types/api";
 
 export interface CrudAPIInterface {
   requests: ApiRequestInstance;
@@ -18,13 +18,13 @@ export abstract class BaseAPI {
   }
 }
 
-export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType=CreateType> extends BaseAPI implements CrudAPIInterface {
+export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType> extends BaseAPI implements CrudAPIInterface {
   abstract baseRoute: string;
   abstract itemRoute(itemId: string | number): string;
 
-  async getAll(start = 0, limit = 9999, params = {} as any) {
-    return await this.requests.get<ReadType[]>(this.baseRoute, {
-      params: { start, limit, ...params },
+  async getAll(page = 1, perPage = -1, params = {} as any) {
+    return await this.requests.get<PaginationData<ReadType>>(this.baseRoute, {
+      params: { page, perPage, ...params },
     });
   }
 

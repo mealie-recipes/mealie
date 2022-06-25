@@ -7,6 +7,7 @@ from pydantic import UUID4, validator
 from pydantic.datetime_parse import parse_datetime
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 
 class WebhookType(str, enum.Enum):
@@ -57,3 +58,7 @@ class ReadWebhook(SaveWebhook):
 
     class Config:
         orm_mode = True
+
+
+class WebhookPagination(PaginationBase):
+    items: list[ReadWebhook]

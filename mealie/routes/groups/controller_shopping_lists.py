@@ -6,27 +6,25 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema.group.group_shopping_list import (
     ShoppingListCreate,
     ShoppingListItemCreate,
     ShoppingListItemOut,
     ShoppingListItemUpdate,
     ShoppingListOut,
+    ShoppingListPagination,
     ShoppingListSave,
     ShoppingListSummary,
     ShoppingListUpdate,
 )
 from mealie.schema.mapper import cast
-from mealie.schema.query import GetAll
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.group_services.shopping_lists import ShoppingListService
 
-item_router = APIRouter(
-    prefix="/groups/shopping/items", tags=["Group: Shopping List Items"], route_class=MealieCrudRoute
-)
+item_router = APIRouter(prefix="/groups/shopping/items", tags=["Group: Shopping List Items"])
 
 
 @controller(item_router)
@@ -98,7 +96,6 @@ class ShoppingListItemController(BaseUserController):
 
         return shopping_list_item
 
-    @item_router.head("/{item_id}", response_model=ShoppingListItemOut)
     @item_router.get("/{item_id}", response_model=ShoppingListItemOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
@@ -148,7 +145,7 @@ class ShoppingListItemController(BaseUserController):
         return shopping_list_item
 
 
-router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists"], route_class=MealieCrudRoute)
+router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists"])
 
 
 @controller(router)
@@ -170,9 +167,15 @@ class ShoppingListController(BaseUserController):
     def mixins(self) -> HttpRepo[ShoppingListCreate, ShoppingListOut, ShoppingListSave]:
         return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
 
-    @router.get("", response_model=list[ShoppingListSummary])
-    def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override=ShoppingListSummary)
+    @router.get("", response_model=ShoppingListPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=ShoppingListSummary,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):
@@ -193,7 +196,6 @@ class ShoppingListController(BaseUserController):
 
         return val
 
-    @router.head("/{item_id}", response_model=ShoppingListOut)
     @router.get("/{item_id}", response_model=ShoppingListOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)

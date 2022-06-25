@@ -4,6 +4,7 @@ from typing import Optional
 from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 
 class UserBase(MealieModel):
@@ -39,3 +40,7 @@ class RecipeCommentOut(RecipeCommentCreate):
 
     class Config:
         orm_mode = True
+
+
+class RecipeCommentPagination(PaginationBase):
+    items: list[RecipeCommentOut]

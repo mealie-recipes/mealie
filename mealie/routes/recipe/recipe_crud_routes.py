@@ -20,9 +20,8 @@ from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
-from mealie.schema.query import GetAll
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
+from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePaginationQuery, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
@@ -51,10 +50,6 @@ class BaseRecipeController(BaseUserController):
     @cached_property
     def mixins(self):
         return HttpRepo[CreateRecipe, Recipe, Recipe](self.repo, self.deps.logger)
-
-
-class RecipeGetAll(GetAll):
-    load_food: bool = False
 
 
 class FormatResponse(BaseModel):
@@ -196,18 +191,16 @@ class RecipeController(BaseRecipeController):
     # CRUD Operations
 
     @router.get("", response_model=list[RecipeSummary])
-    def get_all(self, q: RecipeGetAll = Depends(RecipeGetAll)):
-        items = self.repo.summary(
-            self.user.group_id,
-            start=q.start,
-            limit=q.limit,
-            load_foods=q.load_food,
-            order_by=q.order_by,
-            order_descending=q.order_descending,
+    def get_all(self, q: RecipePaginationQuery = Depends(RecipePaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            load_food=q.load_food,
         )
 
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+
         new_items = []
-        for item in items:
+        for item in response.items:
             # Pydantic/FastAPI can't seem to serialize the ingredient field on thier own.
             new_item = item.__dict__
 
@@ -216,10 +209,11 @@ class RecipeController(BaseRecipeController):
 
             new_items.append(new_item)
 
-        json_compatible_item_data = jsonable_encoder(RecipeSummary.construct(**x) for x in new_items)
+        response.items = [RecipeSummary.construct(**x) for x in new_items]
+        json_compatible_response = jsonable_encoder(response)
 
         # Response is returned directly, to avoid validation and improve performance
-        return JSONResponse(content=json_compatible_item_data)
+        return JSONResponse(content=json_compatible_response)
 
     @router.get("/{slug}", response_model=Recipe)
     def get_one(self, slug: str):

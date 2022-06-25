@@ -111,7 +111,7 @@ def test_update_cookbooks_many(api_client: TestClient, unique_user: TestUser, co
 
     known_ids = [x.id for x in cookbooks]
 
-    server_ids = [x["id"] for x in response.json()]
+    server_ids = [x["id"] for x in response.json()["items"]]
 
     for know in known_ids:  # Hacky check, because other tests don't cleanup after themselves :(
         assert str(know) in server_ids

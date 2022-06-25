@@ -30,11 +30,15 @@ export function useStoreActions<T extends BoundT>(
     const allItems = useAsync(async () => {
       const { data } = await api.getAll();
 
-      if (allRef) {
-        allRef.value = data;
+      if (data && allRef) {
+        allRef.value = data.items;
       }
 
-      return data ?? [];
+      if (data) {
+        return data.items ?? [];
+      } else {
+        return [];
+      }
     }, useAsyncKey());
 
     loading.value = false;
@@ -45,8 +49,8 @@ export function useStoreActions<T extends BoundT>(
     loading.value = true;
     const { data } = await api.getAll();
 
-    if (data && allRef) {
-      allRef.value = data;
+    if (data && data.items && allRef) {
+      allRef.value = data.items;
     }
 
     loading.value = false;

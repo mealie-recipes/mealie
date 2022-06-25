@@ -22,7 +22,7 @@ class Routes:
 def test_shopping_lists_get_all(api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]):
     all_lists = api_client.get(Routes.base, headers=unique_user.token)
     assert all_lists.status_code == 200
-    all_lists = all_lists.json()
+    all_lists = all_lists.json()["items"]
 
     assert len(all_lists) == len(shopping_lists)
 

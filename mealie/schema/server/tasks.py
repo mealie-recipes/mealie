@@ -5,6 +5,7 @@ from uuid import UUID
 from pydantic import Field
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema.response.pagination import PaginationBase
 
 
 class ServerTaskNames(str, enum.Enum):
@@ -45,3 +46,7 @@ class ServerTask(ServerTaskCreate):
 
     class Config:
         orm_mode = True
+
+
+class ServerTaskPagination(PaginationBase):
+    items: list[ServerTask]

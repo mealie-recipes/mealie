@@ -7,9 +7,9 @@ from mealie.core import security
 from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import HttpRepo
-from mealie.schema.query import GetAll
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
-from mealie.schema.user.user import UserIn, UserOut
+from mealie.schema.user.user import UserIn, UserOut, UserPagination
 
 router = APIRouter(prefix="/users", tags=["Admin: Users"])
 
@@ -32,9 +32,15 @@ class AdminUserManagementRoutes(BaseAdminController):
     def mixins(self):
         return HttpRepo[UserIn, UserOut, UserOut](self.repo, self.deps.logger, self.registered_exceptions)
 
-    @router.get("", response_model=list[UserOut])
-    def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override=UserOut)
+    @router.get("", response_model=UserPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=UserOut,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=UserOut, status_code=201)
     def create_one(self, data: UserIn):

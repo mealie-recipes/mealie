@@ -8,13 +8,14 @@ from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.schema.query import GetAll
 from mealie.schema.recipe.recipe_comments import (
     RecipeCommentCreate,
     RecipeCommentOut,
+    RecipeCommentPagination,
     RecipeCommentSave,
     RecipeCommentUpdate,
 )
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse, SuccessResponse
 
 router = APIRouter(prefix="/comments", tags=["Recipe: Comments"])
@@ -38,12 +39,18 @@ class RecipeCommentRoutes(BaseUserController):
         if comment.user_id != self.deps.acting_user.id and not self.deps.acting_user.admin:
             raise HTTPException(
                 status_code=403,
-                detail=ErrorResponse.response(message="Comment does not belong to user"),
+                detail=ErrorResponse(message="Comment does not belong to user"),
             )
 
-    @router.get("", response_model=list[RecipeCommentOut])
-    def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override=RecipeCommentOut)
+    @router.get("", response_model=RecipeCommentPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=RecipeCommentOut,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=RecipeCommentOut, status_code=201)
     def create_one(self, data: RecipeCommentCreate):

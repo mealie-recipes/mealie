@@ -126,7 +126,7 @@ export default defineComponent({
       const { data } = await api.mealplanRules.getAll();
 
       if (data) {
-        allRules.value = data;
+        allRules.value = data.items ?? [];
       }
     }
 

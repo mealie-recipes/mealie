@@ -1,4 +1,4 @@
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.security import hash_password, verify_password
@@ -8,7 +8,9 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserOut
+from mealie.schema.user.user import UserPagination
 
 user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
 admin_router = AdminAPIRouter(prefix="/users", tags=["Users: Admin CRUD"])
@@ -20,9 +22,15 @@ class AdminUserController(BaseAdminController):
     def mixins(self) -> HttpRepo:
         return HttpRepo[UserIn, UserOut, UserBase](self.repos.users, self.deps.logger)
 
-    @admin_router.get("", response_model=list[UserOut])
-    def get_all_users(self):
-        return self.repos.users.get_all()
+    @admin_router.get("", response_model=UserPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repos.users.page_all(
+            pagination=q,
+            override=UserOut,
+        )
+
+        response.set_pagination_guides(admin_router.url_path_for("get_all"), q.dict())
+        return response
 
     @admin_router.post("", response_model=UserOut, status_code=201)
     def create_user(self, new_user: UserIn):

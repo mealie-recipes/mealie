@@ -7,6 +7,7 @@ from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.response.pagination import PaginationBase
 
 
 class ShoppingListItemRecipeRef(MealieModel):
@@ -82,6 +83,10 @@ class ShoppingListSummary(ShoppingListSave):
 
     class Config:
         orm_mode = True
+
+
+class ShoppingListPagination(PaginationBase):
+    items: list[ShoppingListSummary]
 
 
 class ShoppingListUpdate(ShoppingListSummary):

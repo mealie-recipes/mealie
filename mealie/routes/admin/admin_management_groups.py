@@ -5,9 +5,9 @@ from pydantic import UUID4
 
 from mealie.schema.group.group import GroupAdminUpdate
 from mealie.schema.mapper import mapper
-from mealie.schema.query import GetAll
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
-from mealie.schema.user.user import GroupBase, GroupInDB
+from mealie.schema.user.user import GroupBase, GroupInDB, GroupPagination
 from mealie.services.group_services.group_service import GroupService
 
 from .._base import BaseAdminController, controller
@@ -39,9 +39,15 @@ class AdminUserManagementRoutes(BaseAdminController):
             self.registered_exceptions,
         )
 
-    @router.get("", response_model=list[GroupInDB])
-    def get_all(self, q: GetAll = Depends(GetAll)):
-        return self.repo.get_all(start=q.start, limit=q.limit, override=GroupInDB)
+    @router.get("", response_model=GroupPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=GroupInDB,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=GroupInDB, status_code=status.HTTP_201_CREATED)
     def create_one(self, data: GroupBase):

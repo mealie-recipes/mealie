@@ -9,6 +9,8 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
+from mealie.schema.cookbook.cookbook import CookBookPagination
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
 
@@ -38,11 +40,15 @@ class GroupCookbookController(BaseUserController):
             self.registered_exceptions,
         )
 
-    @router.get("", response_model=list[ReadCookBook])
-    def get_all(self):
-        items = self.repo.get_all()
-        items.sort(key=lambda x: x.position)
-        return items
+    @router.get("", response_model=CookBookPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        response = self.repo.page_all(
+            pagination=q,
+            override=ReadCookBook,
+        )
+
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @router.post("", response_model=ReadCookBook, status_code=201)
     def create_one(self, data: CreateCookBook):

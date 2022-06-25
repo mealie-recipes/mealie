@@ -1,3 +1,4 @@
+from math import ceil
 from random import randint
 from typing import Any, Optional
 from uuid import UUID
@@ -7,6 +8,7 @@ from slugify import slugify
 from sqlalchemy import and_, func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
+from sqlalchemy.sql import sqltypes
 
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredient
@@ -15,8 +17,9 @@ from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipeSummary, RecipeTag, RecipeTool
+from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, RecipeTag, RecipeTool
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 
 from .repository_generic import RepositoryGeneric
 
@@ -126,6 +129,72 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .offset(start)
             .limit(limit)
             .all()
+        )
+
+    def page_all(self, pagination: PaginationQuery, override=None, load_food=False) -> RecipePagination:
+        q = self.session.query(self.model)
+
+        args = [
+            joinedload(RecipeModel.recipe_category),
+            joinedload(RecipeModel.tags),
+            joinedload(RecipeModel.tools),
+        ]
+
+        if load_food:
+            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
+
+        q = q.options(*args)
+
+        fltr = self._filter_builder()
+        q = q.filter_by(**fltr)
+        count = q.count()
+
+        # interpret -1 as "get_all"
+        if pagination.per_page == -1:
+            pagination.per_page = count
+
+        try:
+            total_pages = ceil(count / pagination.per_page)
+
+        except ZeroDivisionError:
+            total_pages = 0
+
+        # interpret -1 as "last page"
+        if pagination.page == -1:
+            pagination.page = total_pages
+
+        # failsafe for user input error
+        if pagination.page < 1:
+            pagination.page = 1
+
+        if pagination.order_by:
+            if order_attr := getattr(self.model, pagination.order_by, None):
+                # queries handle uppercase and lowercase differently, which is undesirable
+                if isinstance(order_attr.type, sqltypes.String):
+                    order_attr = func.lower(order_attr)
+
+                if pagination.order_direction == OrderDirection.asc:
+                    order_attr = order_attr.asc()
+                elif pagination.order_direction == OrderDirection.desc:
+                    order_attr = order_attr.desc()
+
+                q = q.order_by(order_attr)
+
+        q = q.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page)
+
+        try:
+            data = q.all()
+        except Exception as e:
+            self._log_exception(e)
+            self.session.rollback()
+            raise e
+
+        return RecipePagination(
+            page=pagination.page,
+            per_page=pagination.per_page,
+            total=count,
+            total_pages=total_pages,
+            items=data,
         )
 
     def get_by_categories(self, categories: list[RecipeCategory]) -> list[RecipeSummary]:
