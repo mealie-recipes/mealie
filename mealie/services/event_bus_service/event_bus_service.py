@@ -1,4 +1,5 @@
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
+from uuid import uuid4
 
 from fastapi import BackgroundTasks, Depends
 from pydantic import UUID4
@@ -12,12 +13,15 @@ from .publisher import ApprisePublisher, PublisherLike
 
 
 class EventSource:
+    id: UUID4
     event_type: str
     item_type: str
     item_id: UUID4 | int
     kwargs: dict
 
     def __init__(self, event_type: str, item_type: str, item_id: UUID4 | int, **kwargs) -> None:
+
+        self.id = uuid4()
         self.event_type = event_type
         self.item_type = item_type
         self.item_id = item_id
@@ -25,6 +29,7 @@ class EventSource:
 
     def dict(self) -> dict:
         return {
+            "id": self.id,
             "event_type": self.event_type,
             "item_type": self.item_type,
             "item_id": str(self.item_id),
