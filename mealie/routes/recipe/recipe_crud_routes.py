@@ -3,7 +3,7 @@ from shutil import copyfileobj
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, status
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, status
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -28,7 +28,7 @@ from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource, EventTrigger
 from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
@@ -142,7 +142,11 @@ class RecipeController(BaseRecipeController):
     # URL Scraping Operations
 
     @router.post("/create-url", status_code=201, response_model=str)
-    def parse_recipe_url(self, req: ScrapeRecipe):
+    def parse_recipe_url(
+        self,
+        req: ScrapeRecipe,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         recipe, extras = create_from_url(req.url)
 
@@ -163,7 +167,12 @@ class RecipeController(BaseRecipeController):
                     url=urls.recipe_url(new_recipe.slug, self.deps.settings.BASE_URL),
                 ),
                 event_source=EventSource(
-                    event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="create",
+                    item_type="recipe",
+                    item_id=new_recipe.id,
+                    slug=new_recipe.slug,
                 ),
             )
 
@@ -227,7 +236,11 @@ class RecipeController(BaseRecipeController):
         return self.mixins.get_one(slug)
 
     @router.post("", status_code=201, response_model=str)
-    def create_one(self, data: CreateRecipe) -> str | None:
+    def create_one(
+        self,
+        data: CreateRecipe,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
         try:
             new_recipe = self.service.create_one(data)
@@ -245,14 +258,24 @@ class RecipeController(BaseRecipeController):
                     url=urls.recipe_url(new_recipe.slug, self.deps.settings.BASE_URL),
                 ),
                 event_source=EventSource(
-                    event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="create",
+                    item_type="recipe",
+                    item_id=new_recipe.id,
+                    slug=new_recipe.slug,
                 ),
             )
 
         return new_recipe.slug
 
     @router.put("/{slug}")
-    def update_one(self, slug: str, data: Recipe):
+    def update_one(
+        self,
+        slug: str,
+        data: Recipe,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         """Updates a recipe by existing slug and data."""
         try:
             data = self.service.update_one(slug, data)
@@ -268,13 +291,25 @@ class RecipeController(BaseRecipeController):
                     name=data.name,
                     url=urls.recipe_url(data.slug, self.deps.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="update",
+                    item_type="recipe",
+                    item_id=data.id,
+                    slug=data.slug,
+                ),
             )
 
         return data
 
     @router.patch("/{slug}")
-    def patch_one(self, slug: str, data: Recipe):
+    def patch_one(
+        self,
+        slug: str,
+        data: Recipe,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         """Updates a recipe by existing slug and data."""
         try:
             data = self.service.patch_one(slug, data)
@@ -290,13 +325,24 @@ class RecipeController(BaseRecipeController):
                     name=data.name,
                     url=urls.recipe_url(data.slug, self.deps.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="update",
+                    item_type="recipe",
+                    item_id=data.id,
+                    slug=data.slug,
+                ),
             )
 
         return data
 
     @router.delete("/{slug}")
-    def delete_one(self, slug: str):
+    def delete_one(
+        self,
+        slug: str,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         """Deletes a recipe by slug"""
         try:
             data = self.service.delete_one(slug)
@@ -308,7 +354,14 @@ class RecipeController(BaseRecipeController):
                 self.deps.acting_user.group_id,
                 EventTypes.recipe_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source=EventSource(event_type="delete", item_type="recipe", item_id=data.id, slug=data.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="delete",
+                    item_type="recipe",
+                    item_id=data.id,
+                    slug=data.slug,
+                ),
             )
 
         return data

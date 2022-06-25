@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_events import GroupEventNotifierCreate, GroupEventNotifierOptions
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource, EventTrigger
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool, random_email, random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -48,7 +48,13 @@ def notifier_generator():
 
 
 def event_source_generator():
-    return EventSource(event_type=random_string, item_type=random_string(), item_id=random_int())
+    return EventSource(
+        actor=random_string(),
+        event_trigger=EventTrigger.generic,
+        event_type=random_string(),
+        item_type=random_string(),
+        item_id=random_int(),
+    )
 
 
 def test_create_notification(api_client: TestClient, unique_user: TestUser):

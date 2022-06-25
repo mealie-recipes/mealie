@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import UUID4
 
 from mealie.routes._base import BaseUserController, controller
@@ -10,7 +10,7 @@ from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import TagSave
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource, EventTrigger
 from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/tags", tags=["Organizer: Tags"])
@@ -45,7 +45,11 @@ class TagController(BaseUserController):
         return self.mixins.get_one(item_id)
 
     @router.post("", status_code=201)
-    def create_one(self, tag: TagIn):
+    def create_one(
+        self,
+        tag: TagIn,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         """Creates a Tag in the database"""
         save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
         data = self.repo.create(save_data)
@@ -58,12 +62,24 @@ class TagController(BaseUserController):
                     name=data.name,
                     url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="create", item_type="tag", item_id=data.id, slug=data.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="create",
+                    item_type="tag",
+                    item_id=data.id,
+                    slug=data.slug,
+                ),
             )
         return data
 
     @router.put("/{item_id}", response_model=RecipeTagResponse)
-    def update_one(self, item_id: UUID4, new_tag: TagIn):
+    def update_one(
+        self,
+        item_id: UUID4,
+        new_tag: TagIn,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
         data = self.repo.update(item_id, save_data)
@@ -76,12 +92,23 @@ class TagController(BaseUserController):
                     name=data.name,
                     url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="tag", item_id=data.id, slug=data.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="update",
+                    item_type="tag",
+                    item_id=data.id,
+                    slug=data.slug,
+                ),
             )
         return data
 
     @router.delete("/{item_id}")
-    def delete_recipe_tag(self, item_id: UUID4):
+    def delete_recipe_tag(
+        self,
+        item_id: UUID4,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         """Removes a recipe tag from the database. Deleting a
         tag does not impact a recipe. The tag will be removed
         from any recipes that contain it"""
@@ -96,7 +123,14 @@ class TagController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.tag_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source=EventSource(event_type="delete", item_type="tag", item_id=data.id, slug=data.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="delete",
+                    item_type="tag",
+                    item_id=data.id,
+                    slug=data.slug,
+                ),
             )
 
     @router.get("/slug/{tag_slug}", response_model=RecipeTagResponse)

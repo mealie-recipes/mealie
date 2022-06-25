@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
@@ -9,7 +9,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource, EventTrigger
 from mealie.services.event_bus_service.message_types import EventTypes
 
 router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"], route_class=MealieCrudRoute)
@@ -45,7 +45,11 @@ class GroupCookbookController(BaseUserController):
         return items
 
     @router.post("", response_model=ReadCookBook, status_code=201)
-    def create_one(self, data: CreateCookBook):
+    def create_one(
+        self,
+        data: CreateCookBook,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         data = mapper.cast(data, SaveCookBook, group_id=self.group_id)
         val = self.mixins.create_one(data)
 
@@ -54,7 +58,14 @@ class GroupCookbookController(BaseUserController):
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_created,
                 msg=self.t("notifications.generic-created", name=val.name),
-                event_source=EventSource(event_type="create", item_type="cookbook", item_id=val.id, slug=val.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="create",
+                    item_type="cookbook",
+                    item_id=val.id,
+                    slug=val.slug,
+                ),
             )
         return val
 
@@ -89,26 +100,49 @@ class GroupCookbookController(BaseUserController):
         )
 
     @router.put("/{item_id}", response_model=ReadCookBook)
-    def update_one(self, item_id: str, data: CreateCookBook):
+    def update_one(
+        self,
+        item_id: str,
+        data: CreateCookBook,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         val = self.mixins.update_one(data, item_id)  # type: ignore
         if val:
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_updated,
                 msg=self.t("notifications.generic-updated", name=val.name),
-                event_source=EventSource(event_type="update", item_type="cookbook", item_id=val.id, slug=val.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="update",
+                    item_type="cookbook",
+                    item_id=val.id,
+                    slug=val.slug,
+                ),
             )
 
         return val
 
     @router.delete("/{item_id}", response_model=ReadCookBook)
-    def delete_one(self, item_id: str):
+    def delete_one(
+        self,
+        item_id: str,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         val = self.mixins.delete_one(item_id)
         if val:
             self.event_bus.dispatch(
                 self.deps.acting_user.group_id,
                 EventTypes.cookbook_deleted,
                 msg=self.t("notifications.generic-deleted", name=val.name),
-                event_source=EventSource(event_type="delete", item_type="cookbook", item_id=val.id, slug=val.slug),
+                event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
+                    event_type="delete",
+                    item_type="cookbook",
+                    item_id=val.id,
+                    slug=val.slug,
+                ),
             )
         return val

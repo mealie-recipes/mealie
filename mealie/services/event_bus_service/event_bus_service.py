@@ -1,3 +1,5 @@
+from enum import Enum
+from typing import Any
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 from uuid import uuid4
 
@@ -12,24 +14,43 @@ from .message_types import EventBusMessage, EventTypes
 from .publisher import ApprisePublisher, PublisherLike
 
 
+class EventTrigger(Enum):
+    generic = "generic"
+    integration = "integration"
+
+
 class EventSource:
     id: UUID4
+    actor: str | int | UUID4
+    event_trigger: EventTrigger
     event_type: str
     item_type: str
     item_id: UUID4 | int
-    kwargs: dict
+    kwargs: dict[str, Any]
 
-    def __init__(self, event_type: str, item_type: str, item_id: UUID4 | int, **kwargs) -> None:
+    def __init__(
+        self,
+        actor: str | int | UUID4,
+        event_trigger: EventTrigger,
+        event_type: str,
+        item_type: str,
+        item_id: UUID4 | int,
+        **kwargs,
+    ) -> None:
 
         self.id = uuid4()
+        self.actor = actor
+        self.event_trigger = event_trigger
         self.event_type = event_type
         self.item_type = item_type
         self.item_id = item_id
         self.kwargs = kwargs
 
-    def dict(self) -> dict:
+    def dict(self) -> dict[str, Any]:
         return {
             "id": self.id,
+            "actor": self.actor,
+            "event_trigger": self.event_trigger.value,
             "event_type": self.event_type,
             "item_type": self.item_type,
             "item_id": str(self.item_id),
@@ -58,7 +79,11 @@ class EventBusService:
         return [notifier.apprise_url for notifier in notifiers if getattr(notifier.options, event_type.name)]
 
     def dispatch(
-        self, group_id: UUID4, event_type: EventTypes, msg: str = "", event_source: EventSource = None
+        self,
+        group_id: UUID4,
+        event_type: EventTypes,
+        msg: str = "",
+        event_source: EventSource | None = None,
     ) -> None:
         self.group_id = group_id
 

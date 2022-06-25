@@ -20,7 +20,7 @@ from mealie.schema.group.group_shopping_list import (
 from mealie.schema.mapper import cast
 from mealie.schema.query import GetAll
 from mealie.schema.response.responses import SuccessResponse
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
+from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource, EventTrigger
 from mealie.services.event_bus_service.message_types import EventTypes
 from mealie.services.group_services.shopping_lists import ShoppingListService
 
@@ -77,7 +77,11 @@ class ShoppingListItemController(BaseUserController):
         return SuccessResponse.respond(message=f"Successfully deleted {x} items")
 
     @item_router.post("", response_model=ShoppingListItemOut, status_code=201)
-    def create_one(self, data: ShoppingListItemCreate):
+    def create_one(
+        self,
+        data: ShoppingListItemCreate,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         shopping_list_item = self.mixins.create_one(data)
 
         if shopping_list_item:
@@ -89,6 +93,8 @@ class ShoppingListItemController(BaseUserController):
                     name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
                 ),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="create",
                     item_type="shopping-list-item",
                     item_id=shopping_list_item.id,
@@ -104,7 +110,12 @@ class ShoppingListItemController(BaseUserController):
         return self.mixins.get_one(item_id)
 
     @item_router.put("/{item_id}", response_model=ShoppingListItemOut)
-    def update_one(self, item_id: UUID4, data: ShoppingListItemUpdate):
+    def update_one(
+        self,
+        item_id: UUID4,
+        data: ShoppingListItemUpdate,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         shopping_list_item = self.mixins.update_one(data, item_id)
 
         if shopping_list_item:
@@ -116,6 +127,8 @@ class ShoppingListItemController(BaseUserController):
                     name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
                 ),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="update",
                     item_type="shopping-list-item",
                     item_id=shopping_list_item.id,
@@ -126,7 +139,11 @@ class ShoppingListItemController(BaseUserController):
         return shopping_list_item
 
     @item_router.delete("/{item_id}", response_model=ShoppingListItemOut)
-    def delete_one(self, item_id: UUID4):
+    def delete_one(
+        self,
+        item_id: UUID4,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         shopping_list_item = self.mixins.delete_one(item_id)  # type: ignore
 
         if shopping_list_item:
@@ -138,6 +155,8 @@ class ShoppingListItemController(BaseUserController):
                     name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
                 ),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="delete",
                     item_type="shopping-list-item",
                     item_id=shopping_list_item.id,
@@ -175,7 +194,11 @@ class ShoppingListController(BaseUserController):
         return self.repo.get_all(start=q.start, limit=q.limit, override=ShoppingListSummary)
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
-    def create_one(self, data: ShoppingListCreate):
+    def create_one(
+        self,
+        data: ShoppingListCreate,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         save_data = cast(data, ShoppingListSave, group_id=self.deps.acting_user.group_id)
         val = self.mixins.create_one(save_data)
 
@@ -185,6 +208,8 @@ class ShoppingListController(BaseUserController):
                 EventTypes.shopping_list_created,
                 msg=self.t("notifications.generic-created", name=val.name),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="create",
                     item_type="shopping-list",
                     item_id=val.id,
@@ -199,7 +224,12 @@ class ShoppingListController(BaseUserController):
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=ShoppingListOut)
-    def update_one(self, item_id: UUID4, data: ShoppingListUpdate):
+    def update_one(
+        self,
+        item_id: UUID4,
+        data: ShoppingListUpdate,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         data = self.mixins.update_one(data, item_id)  # type: ignore
         if data:
             self.event_bus.dispatch(
@@ -207,6 +237,8 @@ class ShoppingListController(BaseUserController):
                 EventTypes.shopping_list_updated,
                 msg=self.t("notifications.generic-updated", name=data.name),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="update",
                     item_type="shopping-list",
                     item_id=data.id,
@@ -215,7 +247,11 @@ class ShoppingListController(BaseUserController):
         return data
 
     @router.delete("/{item_id}", response_model=ShoppingListOut)
-    def delete_one(self, item_id: UUID4):
+    def delete_one(
+        self,
+        item_id: UUID4,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         data = self.mixins.delete_one(item_id)  # type: ignore
         if data:
             self.event_bus.dispatch(
@@ -223,6 +259,8 @@ class ShoppingListController(BaseUserController):
                 EventTypes.shopping_list_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="delete",
                     item_type="shopping-list",
                     item_id=data.id,
@@ -234,7 +272,12 @@ class ShoppingListController(BaseUserController):
     # Other Operations
 
     @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def add_recipe_ingredients_to_list(self, item_id: UUID4, recipe_id: UUID4):
+    def add_recipe_ingredients_to_list(
+        self,
+        item_id: UUID4,
+        recipe_id: UUID4,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         shopping_list = self.service.add_recipe_ingredients_to_list(item_id, recipe_id)
         if shopping_list:
             self.event_bus.dispatch(
@@ -245,6 +288,8 @@ class ShoppingListController(BaseUserController):
                     name=shopping_list.name,
                 ),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="bulk-updated-items",
                     item_type="shopping-list",
                     item_id=shopping_list.id,
@@ -254,7 +299,12 @@ class ShoppingListController(BaseUserController):
         return shopping_list
 
     @router.delete("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def remove_recipe_ingredients_from_list(self, item_id: UUID4, recipe_id: UUID4):
+    def remove_recipe_ingredients_from_list(
+        self,
+        item_id: UUID4,
+        recipe_id: UUID4,
+        event_trigger: EventTrigger = Query(EventTrigger.generic, description="The service triggering this event"),
+    ):
         shopping_list = self.service.remove_recipe_ingredients_from_list(item_id, recipe_id)
         if shopping_list:
             self.event_bus.dispatch(
@@ -265,6 +315,8 @@ class ShoppingListController(BaseUserController):
                     name=shopping_list.name,
                 ),
                 event_source=EventSource(
+                    actor=self.user.id,
+                    event_trigger=event_trigger,
                     event_type="bulk-updated-items",
                     item_type="shopping-list",
                     item_id=shopping_list.id,
