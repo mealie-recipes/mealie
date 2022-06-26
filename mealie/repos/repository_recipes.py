@@ -228,7 +228,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if categories:
             cat_ids = [x.id for x in categories]
             if require_all_categories:
-                fltr.extend(RecipeModel.recipe_category.any(Category.id.is_(cat_id)) for cat_id in cat_ids)
+                fltr.extend(RecipeModel.recipe_category.any(Category.id == cat_id) for cat_id in cat_ids)
             else:
                 fltr.append(RecipeModel.recipe_category.any(Category.id.in_(cat_ids)))
 
@@ -243,7 +243,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             tool_ids = [x.id for x in tools]
 
             if require_all_tools:
-                fltr.extend(RecipeModel.tools.any(Tool.id.is_(tool_id)) for tool_id in tool_ids)
+                fltr.extend(RecipeModel.tags.any(Tag.id == tag_id) for tag_id in tag_ids)
             else:
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tool_ids)))
 

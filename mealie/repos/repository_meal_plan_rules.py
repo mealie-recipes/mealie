@@ -15,14 +15,14 @@ class RepositoryMealPlanRules(RepositoryGeneric[PlanRulesOut, GroupMealPlanRules
     def get_rules(self, day: PlanRulesDay, entry_type: PlanRulesType) -> list[PlanRulesOut]:
         qry = self.session.query(GroupMealPlanRules).filter(
             or_(
-                GroupMealPlanRules.day.is_(day),
+                GroupMealPlanRules.day == day,
                 GroupMealPlanRules.day.is_(None),
-                GroupMealPlanRules.day.is_(PlanRulesDay.unset.value),
+                GroupMealPlanRules.day == PlanRulesDay.unset.value,
             ),
             or_(
-                GroupMealPlanRules.entry_type.is_(entry_type),
+                GroupMealPlanRules.entry_type == entry_type,
                 GroupMealPlanRules.entry_type.is_(None),
-                GroupMealPlanRules.entry_type.is_(PlanRulesType.unset.value),
+                GroupMealPlanRules.entry_type == PlanRulesType.unset.value,
             ),
         )
 
