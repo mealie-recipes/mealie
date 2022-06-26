@@ -517,7 +517,7 @@
     "read-the-docs": "Läs dokumentationen"
   },
   "data-pages": {
-    "seed-data": "Skapa exempeldata",
+    "seed-data": "Exempeldata",
     "foods": {
       "merge-dialog-text": "Kombinera valda livsmedel kommer att slå samman de valda livsmedlen till ett livsmedel. Ursprungslivsmedlet kommer att raderas och alla hänvisningar till detta kommer att uppdateras för att peka på det kombinerade livsmedlet.",
       "merge-food-example": "Slå ihop {food1} till {food2}",
@@ -537,14 +537,14 @@
     "create-a-new-group": "Skapa en ny grupp",
     "provide-registration-token-description": "Ange registreringstoken som är kopplad till den grupp som du vill gå med. Du måste få detta från en befintlig gruppmedlem.",
     "group-details": "Gruppuppgifter",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "group-details-description": "Innan du skapar ett konto måste du skapa en grupp. Din grupp kommer bara att innehålla dig, men du kommer att kunna bjuda in andra senare. Medlemmarna i din grupp kan dela måltidsplaner, inköpslistor, recept och mycket mer!",
+    "use-seed-data": "Använd exempeldata",
+    "use-seed-data-description": "Mealie innehåller en samling av livsmedel, enheter och etiketter som kan användas för att fylla din grupp med användbara data för att organisera dina recept.",
+    "account-details": "Kontouppgifter"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Gruppnamnet är upptaget",
+    "username-is-taken": "Användarnamnet är upptaget",
+    "email-is-taken": "E-postadressen är upptagen"
   }
 }
