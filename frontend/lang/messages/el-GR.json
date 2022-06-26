@@ -133,8 +133,8 @@
     "yes": "Ναι",
     "foods": "Foods",
     "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "back": "Πίσω",
+    "next": "Επόμενο"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό τον ασφαλή σύνδεσμο <b>{groupName}<b/>;",
