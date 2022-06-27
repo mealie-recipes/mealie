@@ -164,66 +164,66 @@
     "create-a-new-meal-plan": "Izdelaj nov načrt obrokov",
     "dinner-this-week": "Večerje tega tedna",
     "dinner-today": "Današnja večerja",
-    "dinner-tonight": "DINNER TONIGHT",
-    "edit-meal-plan": "Edit Meal Plan",
-    "end-date": "End Date",
-    "group": "Group (Beta)",
-    "main": "Main",
-    "meal-planner": "Meal Planner",
-    "meal-plans": "Meal Plans",
-    "mealplan-categories": "MEALPLAN CATEGORIES",
-    "mealplan-created": "Mealplan created",
-    "mealplan-creation-failed": "Mealplan creation failed",
-    "mealplan-deleted": "Mealplan Deleted",
-    "mealplan-deletion-failed": "Mealplan deletion failed",
-    "mealplan-settings": "Mealplan Settings",
-    "mealplan-update-failed": "Mealplan update failed",
-    "mealplan-updated": "Mealplan Updated",
-    "no-meal-plan-defined-yet": "No meal plan defined yet",
-    "no-meal-planned-for-today": "No meal planned for today",
-    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans",
-    "planner": "Planner",
-    "quick-week": "Quick Week",
-    "side": "Side",
-    "sides": "Sides",
-    "start-date": "Start Date"
+    "dinner-tonight": "DANAŠNJA VEČERJA",
+    "edit-meal-plan": "Uredi planer obrokov",
+    "end-date": "Končni datum",
+    "group": "Skupina (beta)",
+    "main": "Glavna jed",
+    "meal-planner": "Načrtovanje obrokov",
+    "meal-plans": "Načrti obrokov",
+    "mealplan-categories": "KATEGORIJE NAČRTA OBROKA",
+    "mealplan-created": "Načrt obroka je ustvarjen",
+    "mealplan-creation-failed": "Napaka pri ustvarjanju načrta obroka",
+    "mealplan-deleted": "Načrt obroka je izbrisan",
+    "mealplan-deletion-failed": "Napaka pri izbrisu načrta obroka",
+    "mealplan-settings": "Nastavitve načrta obroka",
+    "mealplan-update-failed": "Napaka pri posodobitvi načrta obroka",
+    "mealplan-updated": "Načrt obroka je posodobljen",
+    "no-meal-plan-defined-yet": "Za danes ni definiranjega načrta obroka",
+    "no-meal-planned-for-today": "Za danes ni planiranega načrta obroka",
+    "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Samo recepti v teh kategorija bodo uporabljeni v načrtu obroka",
+    "planner": "Načrtovalec",
+    "quick-week": "Hiter pogled tedna",
+    "side": "Priloga",
+    "sides": "Priloge",
+    "start-date": "Datum začetka"
   },
   "migration": {
     "chowdown": {
-      "description": "Migrate data from Chowdown",
+      "description": "Migriraj podatke iz Chowdown-a",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Migration data removed",
+    "migration-data-removed": "Migrirani podatki so odstranjeni",
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
+      "description": "Migriraj podatke iz Nextcloud Cookbook",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "No Migration Data Available",
-    "recipe-migration": "Recipe Migration"
+    "no-migration-data-available": "Na volji ni migracijskih podatkov",
+    "recipe-migration": "Migracija recepta"
   },
   "new-recipe": {
-    "bulk-add": "Bulk Add",
-    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
-    "error-title": "Looks Like We Couldn't Find Anything",
-    "from-url": "Import a Recipe",
-    "github-issues": "GitHub Issues",
-    "google-ld-json-info": "Google ld+json Info",
-    "must-be-a-valid-url": "Must be a Valid URL",
-    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Paste in your recipe data. Each line will be treated as an item in a list",
-    "recipe-markup-specification": "Recipe Markup Specification",
-    "recipe-url": "Recipe URL",
-    "upload-a-recipe": "Upload a Recipe",
-    "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
-    "url-form-hint": "Copy and paste a link from your favorite recipe website",
-    "view-scraped-data": "View Scraped Data",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "bulk-add": "Množično dodajanje",
+    "error-details": "Samo spletne strani, ki vsebujejo Id+json ali mikro podatke, se lahko uvozijo v Mealie. Večina večjih spletnih strani z recepti že podpirajo to podatkovno strukturo. Če se vaša stran ne uvozi, v log datoteki pa so json podatki, prosim odprite težavo na github-u z URL naslovom in podatki.",
+    "error-title": "Kot kaže nisem ničesar našel",
+    "from-url": "Uvozi recept",
+    "github-issues": "GitHub težave",
+    "google-ld-json-info": "Google Id+json podatki",
+    "must-be-a-valid-url": "Mora biti veljaven URL",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Prilepi podatke recepta. Vsaka vrsta bo obravnavana kot element v seznamu",
+    "recipe-markup-specification": "Markup specifikacija recepta",
+    "recipe-url": "URL recepta",
+    "upload-a-recipe": "Naloži recept",
+    "upload-individual-zip-file": "Naloži posamezno .zip datoteko, izvoženo iz druge Mealie namestitve.",
+    "url-form-hint": "Kopiraj in prilepi povezavo iz vaše priljubljene strani z recepti",
+    "view-scraped-data": "Poglej postrgane podatke",
+    "trim-whitespace-description": "Poreži začetne in končne presledke, kot tudi prazne vrstice",
+    "trim-prefix-description": "Poreži prvi znak v vsaki vrstici",
+    "split-by-numbered-line-description": "Poskušaj razdeliti odstavek z ujemanjem '1)' ali '1.' vzorcev"
   },
   "page": {
-    "404-page-not-found": "404 Page not found",
-    "all-recipes": "All Recipes",
-    "new-page-created": "New page created",
+    "404-page-not-found": "404 strani ni mogoče najti",
+    "all-recipes": "Vsi recepti",
+    "new-page-created": "Ustvarjena nova stran",
     "page": "Stran",
     "page-creation-failed": "Ustvarjanje strani ni uspelo",
     "page-deleted": "Stran izbirsana",
@@ -389,71 +389,71 @@
       "new-name": "Novo ime",
       "no-unused-items": "Ni neuporabljeni elementov",
       "recipes-affected": "Ne vpliva na recepte|Vpliva na en recept|Vpliva na {count} recepte",
-      "remove-unused": "Remove Unused",
-      "title-case-all": "Title Case All",
-      "toolbox": "Toolbox",
-      "unorganized": "Unorganized"
+      "remove-unused": "Odstrani neuporabljene",
+      "title-case-all": "Naziv z veliko",
+      "toolbox": "Orodjarna",
+      "unorganized": "Neorganizirano"
     },
     "webhooks": {
-      "test-webhooks": "Test Webhooks",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
+      "test-webhooks": "Test Webhook-ov",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Spodnji URL naslovi bodo prejeli webhook-e s podatki receptov za načrt obrokov na načrtovani dan. Trenutno se bodo webhooki-i izvedli ob",
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS",
-      "webhooks": "Webhooks"
+      "webhooks": "Webbhook-i"
     }
   },
   "shopping-list": {
-    "all-lists": "All Lists",
-    "create-shopping-list": "Create Shopping List",
-    "from-recipe": "From Recipe",
-    "list-name": "List Name",
-    "new-list": "New List",
-    "quantity": "Quantity: {0}",
-    "shopping-list": "Shopping List",
-    "shopping-lists": "Shopping Lists"
+    "all-lists": "Vsi seznami",
+    "create-shopping-list": "Ustvarite nakupovalni seznam",
+    "from-recipe": "Iz recepta",
+    "list-name": "Ime seznama",
+    "new-list": "Nov seznam",
+    "quantity": "Količina: {0}",
+    "shopping-list": "Nakupovalni seznam",
+    "shopping-lists": "Nakupovalni seznami"
   },
   "sidebar": {
-    "all-recipes": "All Recipes",
-    "backups": "Backups",
-    "categories": "Categories",
-    "cookbooks": "Cookbooks",
-    "dashboard": "Dashboard",
-    "home-page": "Home Page",
-    "manage-users": "Manage Users",
-    "migrations": "Migrations",
-    "profile": "Profile",
-    "search": "Search",
-    "site-settings": "Site Settings",
-    "tags": "Tags",
-    "toolbox": "Toolbox",
-    "language": "Language"
+    "all-recipes": "Vsi recepti",
+    "backups": "Varnostne kopije",
+    "categories": "Kategorije",
+    "cookbooks": "Kuharska knjiga",
+    "dashboard": "Nadzorna plošča",
+    "home-page": "Domača stran",
+    "manage-users": "Uporabniki",
+    "migrations": "Migracija",
+    "profile": "Profil",
+    "search": "Iskanje",
+    "site-settings": "Nastavitve strani",
+    "tags": "Značke",
+    "toolbox": "Orodjarna",
+    "language": "Jezik"
   },
   "signup": {
-    "error-signing-up": "Error Signing Up",
-    "sign-up": "Sign Up",
-    "sign-up-link-created": "Sign up link created",
-    "sign-up-link-creation-failed": "Sign up link creation failed",
-    "sign-up-links": "Sign Up Links",
-    "sign-up-token-deleted": "Sign Up Token Deleted",
-    "sign-up-token-deletion-failed": "Sign up token deletion failed",
-    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
+    "error-signing-up": "Napaka pri vpisu",
+    "sign-up": "Vpis",
+    "sign-up-link-created": "Povezava vpisa je ustvarjena",
+    "sign-up-link-creation-failed": "Napaka pri kreiranju povezave vpisa",
+    "sign-up-links": "Vpisne povezave",
+    "sign-up-token-deleted": "Vpisni ključ je izbrisan",
+    "sign-up-token-deletion-failed": "Napaka pri izbrisu vpisnega ključa",
+    "welcome-to-mealie": "Dobrodobšli v Meali! Če želite postati uporabnik te namestitve, potrebujete imeti veljavno povezavo povabila. Če še niste prejeli povabila se ne boste mogli vpisati. Če želite prejeti povabilo, kontaktiraje administratorja strani."
   },
   "tag": {
-    "tag-created": "Tag created",
-    "tag-creation-failed": "Tag creation failed",
-    "tag-deleted": "Tag deleted",
-    "tag-deletion-failed": "Tag deletion failed",
-    "tag-update-failed": "Tag update failed",
-    "tag-updated": "Tag updated",
-    "tags": "Tags",
-    "untagged-count": "Untagged {count}"
+    "tag-created": "Značka kreirana",
+    "tag-creation-failed": "Napaka pri kreiranju značke",
+    "tag-deleted": "Značna izbrisana",
+    "tag-deletion-failed": "Napaka pri izbrisu značke",
+    "tag-update-failed": "Napaka pri posodobitve značke",
+    "tag-updated": "Značka posodobljena",
+    "tags": "Značke",
+    "untagged-count": "Brez značke {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Orodja"
   },
   "user": {
-    "admin": "Admin",
-    "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
+    "admin": "Administrator",
+    "are-you-sure-you-want-to-delete-the-link": "Ste prepričani, da želite izbrisati povezavo <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Ste prepričani, da želite izbrisati uporabnika <b>{activeName}<b/> ID: {activeId}<b/>?",
     "confirm-link-deletion": "Potrdite izbris povezave",
     "confirm-password": "Potrdite geslo",
@@ -517,34 +517,34 @@
     "read-the-docs": "Preberite dokumentacijo"
   },
   "data-pages": {
-    "seed-data": "Posadi podatke",
+    "seed-data": "Napolni podatke",
     "foods": {
-      "merge-dialog-text": "Združitev izbrane hrane bo združila izvorno hrano in ciljno hrano v eno samo hrano. Izvorna hrana bo izbrisana in vse povezave na izvorno hrano, bodo po novem kazale na ciljno hrano.",
+      "merge-dialog-text": "Združitev izbranih jedi bo združila izvorno jed in ciljno jed v eno samo jed. Izvorna jed bo izbrisana in vse povezave na izvorno jed, bodo po novem kazale na ciljno jed.",
       "merge-food-example": "Združujem {food1} v {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "seed-dialog-text": "Napolni podatkovno bazo s jedmi, ki izvirajo iz vašega lokalnega jezika. To bo kreiralo 200+ običajnih jedi, ki se lahko uporabijo za organizacijo vaše podatkovne baze. Jedi so prevedene s pomočjo skupnosti.",
+      "seed-dialog-warning": "Nekatere elemente že imate v podatkovni bazi. To opravilo ne bo upoštevalo dvojnikov in jih boste morali sami ročno upravljati."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Napolni podatkovno bazo z običajnimi enotami, glede na vaš lokalni jezik."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Napolni podatkovno bazi s običajnimi oznakami, glede na vaš lokalni jezik."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
-    "group-details": "Group Details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "user-registration": "Registracija uporabnika",
+    "join-a-group": "Pridruži se skupini",
+    "create-a-new-group": "Ustvarite novo skupino",
+    "provide-registration-token-description": "Prosim pridobite registracijski žeton povezan s skupino, ki se ji želite pridružiti. Pridobiti ga boste morali od obstoječega člana skupine.",
+    "group-details": "Detajli skupine",
+    "group-details-description": "Preden kreirate račun, morate kreirati skupino. V skupini boste sprva samo vi, vendar imate možnost povabiti še ostale člane. Člani v vaši skupini lahko delijo načrte obrokov, nakupovalne sezname, recepte in še več!",
+    "use-seed-data": "Uporabi privzete podatke",
+    "use-seed-data-description": "Meali vključuje zbirko jedi, enot in oznak, ki se lahko uporabno uporabijo v vaši skupini za organizacijo receptov.",
+    "account-details": "Podatki o računu"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Ime skupine je že zasedeno",
+    "username-is-taken": "Uporabniško ime zasedeno",
+    "email-is-taken": "E-mail je zaseden"
   }
 }
