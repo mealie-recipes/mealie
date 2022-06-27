@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "čajna žlička",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "namizna žlica",
         "description": "",
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
+        "name": "skodelica",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "skodelica"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -30,12 +30,12 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililiter",
         "description": "",
         "abbreviation": "ml"
     },
@@ -45,12 +45,12 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "funt",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unča",
         "description": "",
         "abbreviation": "oz"
     },
@@ -70,32 +70,32 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "pljusk",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "potreseno",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porcija",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "glavo",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "nageljnova žbica",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "konzerva",
         "description": "",
         "abbreviation": ""
     }
