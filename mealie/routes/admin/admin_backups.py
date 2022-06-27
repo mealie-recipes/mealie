@@ -26,7 +26,7 @@ class AdminBackupController(BaseAdminController):
         imports = []
         for archive in app_dirs.BACKUP_DIR.glob("*.zip"):
             backup = BackupFile(
-                name=archive.name, date=archive.stat().st_ctime, size=pretty_size(archive.stat().st_size)
+                name=archive.name, date=archive.stat().st_mtime, size=pretty_size(archive.stat().st_size)
             )
             imports.append(backup)
 
