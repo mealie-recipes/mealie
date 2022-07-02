@@ -12,14 +12,17 @@ class Routes:
     recipe = "/api/recipes"
     today = "/api/groups/mealplans/today"
 
-    def all_slice(start: str, end: str):
-        return f"{Routes.base}?start={start}&limit={end}"
+    @staticmethod
+    def all_slice(page: int, perPage: int, start_date: str, end_date: str):
+        return f"{Routes.base}?page={page}&perPage={perPage}&start_date={start_date}&end_date={end_date}"
 
+    @staticmethod
     def item(item_id: int) -> str:
         return f"{Routes.base}/{item_id}"
 
-    def recipe_slug(recipe_id: int) -> str:
-        return f"{Routes.recipe}/{recipe_id}"
+    @staticmethod
+    def recipe_slug(recipe_name: str) -> str:
+        return f"{Routes.recipe}/{recipe_name}"
 
 
 def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser):
@@ -106,10 +109,10 @@ def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
         response = api_client.post(Routes.base, json=new_plan, headers=unique_user.token)
         assert response.status_code == 201
 
-    response = api_client.get(Routes.base, headers=unique_user.token)
+    response = api_client.get(Routes.base, headers=unique_user.token, params={"page": 1, "perPage": -1})
 
     assert response.status_code == 200
-    assert len(response.json()) >= 3
+    assert len(response.json()["items"]) >= 3
 
 
 def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
@@ -132,15 +135,15 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
     slices = [dates, dates[1:2], dates[2:3], dates[3:4], dates[4:5]]
 
     for date_range in slices:
-        start = date_range[0].strftime("%Y-%m-%d")
-        end = date_range[-1].strftime("%Y-%m-%d")
+        start_date = date_range[0].strftime("%Y-%m-%d")
+        end_date = date_range[-1].strftime("%Y-%m-%d")
 
-        response = api_client.get(Routes.all_slice(start, end), headers=unique_user.token)
+        response = api_client.get(Routes.all_slice(1, -1, start_date, end_date), headers=unique_user.token)
 
         assert response.status_code == 200
         response_json = response.json()
 
-        for meal_plan in response_json:
+        for meal_plan in response_json["items"]:
             assert meal_plan["date"] in [date.strftime("%Y-%m-%d") for date in date_range]
 
 
