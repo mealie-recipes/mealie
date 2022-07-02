@@ -26,11 +26,11 @@ export const useMealplans = function (range: Ref<DateRange>) {
       loading.value = true;
       const units = useAsync(async () => {
         const query = {
-          start: format(range.value.start, "yyyy-MM-dd"),
-          limit: format(range.value.end, "yyyy-MM-dd"),
+          start_date: format(range.value.start, "yyyy-MM-dd"),
+          end_date: format(range.value.end, "yyyy-MM-dd"),
         };
         // @ts-ignore TODO Modify typing to allow for string start+limit for mealplans
-        const { data } = await api.mealplans.getAll(1, -1, { start: query.start, limit: query.limit });
+        const { data } = await api.mealplans.getAll(1, -1, { start_date: query.start_date, end_date: query.end_date });
 
         if (data) {
           return data.items;
@@ -45,11 +45,11 @@ export const useMealplans = function (range: Ref<DateRange>) {
     async refreshAll(this: void) {
       loading.value = true;
       const query = {
-        start: format(range.value.start, "yyyy-MM-dd"),
-        limit: format(range.value.end, "yyyy-MM-dd"),
+        start_date: format(range.value.start, "yyyy-MM-dd"),
+        end_date: format(range.value.end, "yyyy-MM-dd"),
       };
       // @ts-ignore TODO Modify typing to allow for string start+limit for mealplans
-      const { data } = await api.mealplans.getAll(1, -1, { start: query.start, limit: query.limit });
+      const { data } = await api.mealplans.getAll(1, -1, { start_date: query.start_date, end_date: query.end_date });
 
       if (data && data.items) {
         mealplans.value = data.items;

@@ -1,7 +1,8 @@
 from datetime import date, timedelta
 from functools import cached_property
+from typing import Optional
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.repository_meals import RepositoryMeals
@@ -9,9 +10,10 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
-from mealie.schema.meal_plan.new_meal import CreateRandomEntry
+from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
 
 router = APIRouter(prefix="/groups/mealplans", tags=["Groups: Mealplans"])
@@ -85,11 +87,17 @@ class GroupMealplanController(BaseUserController):
         except IndexError:
             raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No recipes match your rules"))
 
-    @router.get("", response_model=list[ReadPlanEntry])
-    def get_all(self, start: date = None, limit: date = None):
-        start = start or date.today() - timedelta(days=999)
-        limit = limit or date.today() + timedelta(days=999)
-        return self.repo.get_slice(start, limit, group_id=self.group.id)
+    @router.get("", response_model=PlanEntryPagination)
+    def get_all(
+        self,
+        q: PaginationQuery = Depends(PaginationQuery),
+        start_date: Optional[date] = None,
+        end_date: Optional[date] = None,
+    ):
+        start_date = start_date or date.today() - timedelta(days=999)
+        end_date = end_date or date.today() + timedelta(days=999)
+
+        return self.repo.get_slice(pagination=q, start_date=start_date, end_date=end_date, group_id=self.group.id)
 
     @router.post("", response_model=ReadPlanEntry, status_code=201)
     def create_one(self, data: CreatePlanEntry):
