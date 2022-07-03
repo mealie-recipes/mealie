@@ -58,13 +58,13 @@
       </v-card>
     </v-dialog>
 
-    <div class="d-flex justify-space-between justify-start">
+    <div v-if="showCookMode" class="d-flex justify-space-between justify-start">
       <h2 class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
-      <BaseButton v-if="!public" minor cancel color="primary" @click="toggleCookMode()">
+      <BaseButton v-if="!public && !edit" minor cancel color="primary" @click="toggleCookMode()">
         <template #icon>
           {{ $globals.icons.primary }}
         </template>
-        Cook
+        Cook Mode
       </BaseButton>
     </div>
     <draggable
@@ -198,7 +198,8 @@
                 <div v-show="!isChecked(index) && !edit" class="m-0 p-0">
                   <v-card-text class="markdown">
                     <VueMarkdown class="markdown" :source="step.text"> </VueMarkdown>
-                    <div v-if="cookMode">
+                    <div v-if="cookMode && step.ingredientReferences && step.ingredientReferences.length > 0">
+                      <v-divider></v-divider>
                       <div
                         v-for="ing in step.ingredientReferences"
                         :key="ing.referenceId"
@@ -324,11 +325,18 @@ export default defineComponent({
       });
     });
 
+    const showCookMode = ref(false);
+
     // Eliminate state with an eager call to watcher?
     onMounted(() => {
-      props.value.forEach((element) => {
+      props.value.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
           showTitleEditor.value[element.id] = validateTitle(element.title);
+        }
+
+        // showCookMode.value = false;
+        if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
+          showCookMode.value = true;
         }
 
         showTitleEditor.value = { ...showTitleEditor.value };
@@ -386,6 +394,14 @@ export default defineComponent({
         return {
           referenceId: ref,
         };
+      });
+
+      // Update the visibility of the cook mode button
+      showCookMode.value = false;
+      props.value.forEach((element) => {
+        if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
+          showCookMode.value = true;
+        }
       });
       state.dialog = false;
     }
@@ -614,6 +630,7 @@ export default defineComponent({
       autoSetReferences,
       parseIngredientText,
       toggleCookMode,
+      showCookMode,
     };
   },
 });

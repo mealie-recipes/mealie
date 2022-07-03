@@ -53,10 +53,7 @@
         class="ml-auto mt-n8 pb-4"
         @close="closeEditor"
         @json="toggleJson"
-        @edit="
-          jsonEditor = false;
-          form = true;
-        "
+        @edit="toggleEdit"
         @save="updateRecipe(recipe.slug, recipe)"
         @delete="deleteRecipe(recipe.slug)"
         @print="printRecipe"
@@ -202,7 +199,7 @@
           </div>
 
           <v-row>
-            <v-col cols="12" sm="12" md="4" lg="4">
+            <v-col v-if="!cookModeToggle || form" cols="12" sm="12" md="4" lg="4">
               <RecipeIngredients
                 v-if="!form"
                 :value="recipe.recipeIngredient"
@@ -230,7 +227,7 @@
 
               <div v-if="$vuetify.breakpoint.mdAndUp" class="mt-5">
                 <!-- Recipe Categories -->
-                <v-card v-if="(recipe.recipeCategory.length > 0 && !cookModeToggle) || form" class="mt-2">
+                <v-card v-if="recipe.recipeCategory.length > 0 || form" class="mt-2">
                   <v-card-title class="py-2">
                     {{ $t("recipe.categories") }}
                   </v-card-title>
@@ -248,7 +245,7 @@
                 </v-card>
 
                 <!-- Recipe Tags -->
-                <v-card v-if="(recipe.tags.length > 0 && !cookModeToggle) || form" class="mt-2">
+                <v-card v-if="recipe.tags.length > 0 || form" class="mt-2">
                   <v-card-title class="py-2">
                     {{ $t("tag.tags") }}
                   </v-card-title>
@@ -291,9 +288,13 @@
                 </client-only>
               </div>
             </v-col>
-            <v-divider v-if="$vuetify.breakpoint.mdAndUp" class="my-divider" :vertical="true"></v-divider>
+            <v-divider
+              v-if="$vuetify.breakpoint.mdAndUp && !cookModeToggle"
+              class="my-divider"
+              :vertical="true"
+            ></v-divider>
 
-            <v-col cols="12" sm="12" md="8" lg="8">
+            <v-col cols="12" sm="12" :md="8 + (cookModeToggle ? 1 : 0) * 4" :lg="8 + (cookModeToggle ? 1 : 0) * 4">
               <RecipeInstructions
                 v-model="recipe.recipeInstructions"
                 :ingredients="recipe.recipeIngredient"
@@ -375,7 +376,7 @@
                 </client-only>
               </div>
 
-              <RecipeNotes v-model="recipe.notes" :edit="form" />
+              <RecipeNotes v-if="!cookModeToggle" v-model="recipe.notes" :edit="form" />
             </v-col>
           </v-row>
 
@@ -387,7 +388,7 @@
               :label="$t('recipe.original-url')"
             ></v-text-field>
             <v-btn
-              v-else-if="recipe.orgURL"
+              v-else-if="recipe.orgURL && !cookModeToggle"
               dense
               small
               :hover="false"
@@ -605,6 +606,7 @@ export default defineComponent({
         search: false,
         mainMenuBar: false,
       },
+      cookModeToggle: false,
     });
 
     const { recipe, loading, fetchRecipe } = useRecipe(slug);
@@ -643,6 +645,12 @@ export default defineComponent({
 
     // ===========================================================================
     // Button Click Event Handlers
+
+    function toggleEdit() {
+      state.jsonEditor = false;
+      state.cookModeToggle = false;
+      state.form = true;
+    }
 
     async function updateRecipe(slug: string, recipe: Recipe) {
       const { data } = await api.recipes.updateOne(slug, recipe);
@@ -835,7 +843,6 @@ export default defineComponent({
     const setScale = (newScale: number) => {
       state.scale = newScale;
     };
-    const cookModeToggle = ref(false);
 
     return {
       // Wake Lock
@@ -865,6 +872,7 @@ export default defineComponent({
       deleteRecipe,
       printRecipe,
       closeEditor,
+      toggleEdit,
       updateRecipe,
       uploadImage,
       validators,
@@ -872,7 +880,6 @@ export default defineComponent({
       addIngredient,
       removeApiExtra,
       toolStore,
-      cookModeToggle,
     };
   },
   head: {},
