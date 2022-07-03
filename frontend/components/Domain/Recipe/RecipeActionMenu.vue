@@ -24,7 +24,7 @@
       <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="slug" show-always />
       <v-tooltip v-if="!locked" bottom color="info">
         <template #activator="{ on, attrs }">
-          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('input', true)">
+          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
             <v-icon> {{ $globals.icons.edit }} </v-icon>
           </v-btn>
         </template>
