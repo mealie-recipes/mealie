@@ -3,6 +3,7 @@ from random import randint
 from typing import Any, Optional
 from uuid import UUID
 
+from fastapi import HTTPException
 from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy import and_, func
@@ -20,6 +21,7 @@ from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, RecipeTag, RecipeTool
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
+from mealie.schema.response.query_filter import QueryFilter
 
 from .repository_generic import RepositoryGeneric
 
@@ -147,6 +149,15 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+        if pagination.query_filter:
+            try:
+                qf = QueryFilter(pagination.query_filter)
+                q = qf.filter_query(q, model=self.model)
+
+            except ValueError as e:
+                self.logger.error(e)
+                raise HTTPException(status_code=400, detail=str(e))
+
         count = q.count()
 
         # interpret -1 as "get_all"

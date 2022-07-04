@@ -1,6 +1,7 @@
 from math import ceil
 from typing import Any, Generic, TypeVar, Union
 
+from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm.session import Session
@@ -8,6 +9,7 @@ from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
 from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
+from mealie.schema.response.query_filter import QueryFilter
 
 Schema = TypeVar("Schema", bound=BaseModel)
 Model = TypeVar("Model")
@@ -236,7 +238,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         are filtered by the user and group id when applicable.
 
         NOTE: When you provide an override you'll need to manually type the result of this method
-        as the override, as the type system, is not able to infer the result of this method.
+        as the override, as the type system is not able to infer the result of this method.
         """
         eff_schema = override or self.schema
 
@@ -244,6 +246,15 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+        if pagination.query_filter:
+            try:
+                qf = QueryFilter(pagination.query_filter)
+                q = qf.filter_query(q, model=self.model)
+
+            except ValueError as e:
+                self.logger.error(e)
+                raise HTTPException(status_code=400, detail=str(e))
+
         count = q.count()
 
         # interpret -1 as "get_all"

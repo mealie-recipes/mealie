@@ -21,6 +21,7 @@ class PaginationQuery(MealieModel):
     per_page: int = 50
     order_by: str = "created_at"
     order_direction: OrderDirection = OrderDirection.desc
+    query_filter: str = None
 
 
 class PaginationBase(GenericModel, Generic[DataT]):
