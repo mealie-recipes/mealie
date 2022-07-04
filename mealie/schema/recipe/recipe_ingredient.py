@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime
 import enum
 from typing import Optional, Union
 from uuid import UUID, uuid4
@@ -27,6 +28,8 @@ class SaveIngredientFood(CreateIngredientFood):
 class IngredientFood(CreateIngredientFood):
     id: UUID4
     label: Optional[MultiPurposeLabelSummary] = None
+    created_at: Optional[datetime.datetime]
+    update_at: Optional[datetime.datetime]
 
     class Config:
         orm_mode = True
@@ -48,6 +51,8 @@ class SaveIngredientUnit(CreateIngredientUnit):
 
 class IngredientUnit(CreateIngredientUnit):
     id: UUID4
+    created_at: Optional[datetime.datetime]
+    update_at: Optional[datetime.datetime]
 
     class Config:
         orm_mode = True
