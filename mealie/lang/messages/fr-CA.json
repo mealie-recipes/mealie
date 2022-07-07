@@ -1,22 +1,22 @@
 {
     "generic": {
-        "server-error": "Une erreur inattendue s’est produite"
+        "server-error": "Une erreur inattendue s'est produite"
     },
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques"
     },
     "exceptions": {
-        "permission_denied": "Vous n'avez pas la permission d'effectuer cette action",
-        "no-entry-found": "La ressource demandée est introuvable",
+        "permission_denied": "Vous n'avez pas le droit d'exécuter cette action",
+        "no-entry-found": "La ressource demandée n'a pas été trouvée",
         "integrity-error": "Erreur d'intégrité de la base de données",
         "username-conflict-error": "Ce nom d'utilisateur est déjà pris",
         "email-conflict-error": "Cette adresse e-mail est déjà utilisée"
     },
     "notifications": {
-        "generic-created": "{name} was created",
+        "generic-created": "{name} a été créé",
         "generic-updated": "{name} a été mis à jour",
         "generic-created-with-url": "{name} a été créé, {url}",
         "generic-updated-with-url": "{name} a été mis à jour, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-deleted": "{name} a été supprimé"
     }
 }
