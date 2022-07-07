@@ -216,9 +216,9 @@
     "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
     "view-scraped-data": "Voir les données récupérées",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
+    "trim-prefix-description": "Couper le premier caractère de chaque ligne",
+    "split-by-numbered-line-description": "Tenter de découper un paragraphe par correspondance de motifs : '1) ou '1.'"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
@@ -248,7 +248,7 @@
     "description": "Description",
     "disable-amount": "Désactiver les quantités d'ingrédients",
     "disable-comments": "Désactiver les commentaires",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Modifier l'échelle",
     "fat-content": "Matières grasses",
     "fiber-content": "Fibres",
     "grams": "grammes",
@@ -416,7 +416,7 @@
     "all-recipes": "Les recettes",
     "backups": "Sauvegardes",
     "categories": "Catégories",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Livre de recettes",
     "dashboard": "Console",
     "home-page": "Accueil",
     "manage-users": "Utilisateurs",
@@ -468,7 +468,7 @@
     "error-cannot-delete-super-user": "Erreur! Impossible de supprimer le super utilisateur",
     "existing-password-does-not-match": "Le mot de passe actuel ne correspond pas",
     "full-name": "Nom",
-    "invite-only": "Invite Only",
+    "invite-only": "Invités uniquement",
     "link-id": "ID du lien",
     "link-name": "Nom du lien",
     "login": "Connexion",
@@ -481,7 +481,7 @@
     "password-reset-failed": "Échec de la réinitialisation du mot de passe",
     "password-updated": "Mot de passe mis à jour",
     "password": "Mot de passe",
-    "password-strength": "Password is {strength}",
+    "password-strength": "Robustesse du mot de passe : {strength}",
     "register": "S'inscrire",
     "reset-password": "Réinitialiser le mot de passe",
     "sign-in": "Se connecter",
@@ -506,45 +506,45 @@
     "webhooks-enabled": "Webhooks activés",
     "you-are-not-allowed-to-create-a-user": "Vous n'avez pas le droit de créer un utilisateur",
     "you-are-not-allowed-to-delete-this-user": "Vous n'avez pas le droit de supprimer cet utilisateur",
-    "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+    "enable-advanced-content": "Activer le contenu avancé",
+    "enable-advanced-content-description": "Active les fonctionnalités avancées comme la mise à l'échelle des recettes, les clés API, les Webhooks, et la gestion des données. Ne vous inquiétez pas, vous pouvez toujours modifier cela plus tard"
   },
   "language-dialog": {
     "translated": "traduit",
     "choose-language": "Choisir la langue",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "select-description": "Choisissez la langue de l'interface utilisateur de Mealie. Ce paramètre s'applique uniquement à vous, pas aux autres utilisateurs.",
+    "how-to-contribute-description": "Quelque chose n'est pas encore traduit, mal traduit, ou votre langue est manquante dans la liste ? {read-the-docs-link} sur la façon de contribuer !",
+    "read-the-docs": "Lire la documentation"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Génération de données",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
-      "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "merge-dialog-text": "La combinaison des aliments sélectionnés fusionnera l'aliment source et l'aliment cible en un seul aliment. L'aliment source sera supprimé et toutes les références à l'aliment source seront mises à jour pour pointer vers l'aliment cible.",
+      "merge-food-example": "Fusion de {food1} dans {food2}",
+      "seed-dialog-text": "Ensemencez la base de données avec des aliments basés sur votre langue locale. Cela permettra de créer plus de 200 aliments communs qui pourront être utilisés pour organiser votre base de données. Les aliments sont traduits grâce à un effort communautaire.",
+      "seed-dialog-warning": "Vous avez déjà des éléments dans votre base de données. Cette action ne réconciliera pas les doublons, vous devrez les gérer manuellement."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Introduisez dans la base de données des unités communes basées sur votre langue locale."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Introduisez dans la base de données des unités communes basées sur votre langue locale."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
+    "user-registration": "Inscription d'utilisateur",
     "join-a-group": "Rejoindre un groupe",
     "create-a-new-group": "Créer un nouveau groupe",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "provide-registration-token-description": "Veuillez fournir le jeton d'enregistrement associé au groupe que vous souhaitez rejoindre. Vous devrez l'obtenir auprès d'un membre existant du groupe.",
     "group-details": "Détails du groupe",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "group-details-description": "Avant de créer un compte, vous devrez créer un groupe. Votre groupe ne contiendra que vous, mais vous pourrez inviter d'autres personnes plus tard. Les membres de votre groupe peuvent partager leur planification de repas, leurs listes d'achat, leurs recettes et plus encore !",
+    "use-seed-data": "Utiliser la génération de données",
+    "use-seed-data-description": "Mealie est livré avec une collection d'aliments, d'unités et d'étiquettes qui peuvent être utilisés pour alimenter votre groupe avec des données utiles pour organiser vos recettes.",
     "account-details": "Détails du compte"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
+    "group-name-is-taken": "Le nom du groupe est déjà pris",
     "username-is-taken": "Nom d'utilisateur déjà utilisé",
-    "email-is-taken": "Email is taken"
+    "email-is-taken": "Cet e-mail est déjà pris"
   }
 }
