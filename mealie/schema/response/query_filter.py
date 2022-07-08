@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import re
 from enum import Enum
-from typing import TypeVar, Union
+from typing import Any, TypeVar, Union, cast
 
-from dateutil import parser as date_parser  # type: ignore
-from dateutil.parser._parser import ParserError  # type: ignore
+from dateutil import parser as date_parser
+from dateutil.parser._parser import ParserError
 from humps import decamelize
 from sqlalchemy import bindparam, text
 from sqlalchemy.orm.query import Query
@@ -74,29 +74,34 @@ class QueryFilter:
                 segments.append(component.value)
                 continue
 
-            if not hasattr(model, component.attribute_name):  # type: ignore
-                raise ValueError(f"invalid query string: '{component.attribute_name}' does not exist on this schema")  # type: ignore
+            # for some reason typing doesn't like the lsep and rsep literals, so we explicitly mark this as a filter component instead
+            # cast doesn't actually do anything at runtime
+            component = cast(QueryFilterComponent, component)
+
+            if not hasattr(model, component.attribute_name):
+                raise ValueError(f"invalid query string: '{component.attribute_name}' does not exist on this schema")
 
             # convert values to their proper types
-            attr = getattr(model, component.attribute_name)  # type: ignore
-            value = component.value  # type: ignore
+            attr = getattr(model, component.attribute_name)
+            value: Any = component.value
+
             if isinstance(attr.type, sqltypes.Date) or isinstance(attr.type, sqltypes.DateTime):
                 try:
-                    value = date_parser.parse(value)
+                    value = date_parser.parse(component.value)
 
                 except ParserError:
-                    raise ValueError(f"invalid query string: unknown date or datetime format '{value}'")
+                    raise ValueError(f"invalid query string: unknown date or datetime format '{component.value}'")
 
             if isinstance(attr.type, sqltypes.Boolean):
                 try:
-                    value = value.lower()[0] in ["t", "y"] or value == "1"
+                    value = component.value.lower()[0] in ["t", "y"] or component.value == "1"
 
                 except IndexError:
                     raise ValueError("invalid query string")
 
             paramkey = f"P{i+1}"
-            segments.append(" ".join([component.attribute_name, component.relational_operator.value, f":{paramkey}"]))  # type: ignore
-            params.append(bindparam(paramkey, value, attr.type))  # type: ignore
+            segments.append(" ".join([component.attribute_name, component.relational_operator.value, f":{paramkey}"]))
+            params.append(bindparam(paramkey, value, attr.type))
 
         qs = text(" ".join(segments)).bindparams(*params)
         query = query.filter(qs)
