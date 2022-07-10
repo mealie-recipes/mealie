@@ -297,13 +297,14 @@
             <v-col cols="12" sm="12" :md="8 + (cookModeToggle ? 1 : 0) * 4" :lg="8 + (cookModeToggle ? 1 : 0) * 4">
               <RecipeInstructions
                 v-model="recipe.recipeInstructions"
+                :assets.sync="recipe.assets"
                 :ingredients="recipe.recipeIngredient"
                 :disable-amount="recipe.settings.disableAmount"
                 :edit="form"
                 :recipe-id="recipe.id"
                 :recipe-slug="recipe.slug"
-                :assets.sync="recipe.assets"
                 :cook-mode="cookModeToggle"
+                :scale="scale"
                 @cookModeToggle="cookModeToggle = !cookModeToggle"
               />
               <div v-if="form" class="d-flex">

@@ -199,7 +199,7 @@
                   <v-card-text class="markdown">
                     <VueMarkdown class="markdown" :source="step.text"> </VueMarkdown>
                     <div v-if="cookMode && step.ingredientReferences && step.ingredientReferences.length > 0">
-                      <v-divider></v-divider>
+                      <v-divider class="mb-2"></v-divider>
                       <div
                         v-for="ing in step.ingredientReferences"
                         :key="ing.referenceId"
@@ -221,7 +221,16 @@
 import draggable from "vuedraggable";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
-import { ref, toRefs, reactive, defineComponent, watch, onMounted, useContext } from "@nuxtjs/composition-api";
+import {
+  ref,
+  toRefs,
+  reactive,
+  defineComponent,
+  watch,
+  onMounted,
+  useContext,
+  computed,
+} from "@nuxtjs/composition-api";
 import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
@@ -275,6 +284,10 @@ export default defineComponent({
     cookMode: {
       type: Boolean,
       default: false,
+    },
+    scale: {
+      type: Number,
+      default: 1,
     },
   },
 
@@ -473,12 +486,27 @@ export default defineComponent({
       });
     }
 
-    function getIngredientByRefId(refId: string) {
-      const ing = props.ingredients.find((ing) => ing.referenceId === refId) || "";
+    const ingredientLookup = computed(() => {
+      const results: { [key: string]: RecipeIngredient } = {};
+      return props.ingredients.reduce((prev, ing) => {
+        if (ing.referenceId === undefined) {
+          return prev;
+        }
+        prev[ing.referenceId] = ing;
+        return prev;
+      }, results);
+    });
+
+    function getIngredientByRefId(refId: string | undefined) {
+      if (refId === undefined) {
+        return "";
+      }
+
+      const ing = ingredientLookup.value[refId] ?? "";
       if (ing === "") {
         return "";
       }
-      return parseIngredientText(ing, props.disableAmount);
+      return parseIngredientText(ing, props.disableAmount, props.scale);
     }
 
     // ===============================================================
