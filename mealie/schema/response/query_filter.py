@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Any, TypeVar, Union, cast
 
 from dateutil import parser as date_parser
-from dateutil.parser._parser import ParserError
+from dateutil.parser import ParserError
 from humps import decamelize
 from sqlalchemy import bindparam, text
 from sqlalchemy.orm.query import Query
@@ -49,6 +49,8 @@ class QueryFilter:
     lsep: str = "("
     rsep: str = ")"
 
+    seps: set[str] = {lsep, rsep}
+
     def __init__(self, filter_string: str) -> None:
         # parse filter string
         components = QueryFilter._break_filter_string_into_components(filter_string)
@@ -66,7 +68,7 @@ class QueryFilter:
         segments: list[str] = []
         params: list[BindParameter] = []
         for i, component in enumerate(self.filter_components):
-            if component in [QueryFilter.lsep, QueryFilter.rsep]:
+            if component in QueryFilter.seps:
                 segments.append(component)  # type: ignore
                 continue
 
@@ -85,19 +87,21 @@ class QueryFilter:
             attr = getattr(model, component.attribute_name)
             value: Any = component.value
 
-            if isinstance(attr.type, sqltypes.Date) or isinstance(attr.type, sqltypes.DateTime):
+            if isinstance(attr.type, (sqltypes.Date, sqltypes.DateTime)):
                 try:
                     value = date_parser.parse(component.value)
 
-                except ParserError:
-                    raise ValueError(f"invalid query string: unknown date or datetime format '{component.value}'")
+                except ParserError as e:
+                    raise ValueError(
+                        f"invalid query string: unknown date or datetime format '{component.value}'"
+                    ) from e
 
             if isinstance(attr.type, sqltypes.Boolean):
                 try:
                     value = component.value.lower()[0] in ["t", "y"] or component.value == "1"
 
-                except IndexError:
-                    raise ValueError("invalid query string")
+                except IndexError as e:
+                    raise ValueError("invalid query string") from e
 
             paramkey = f"P{i+1}"
             segments.append(" ".join([component.attribute_name, component.relational_operator.value, f":{paramkey}"]))
@@ -113,10 +117,10 @@ class QueryFilter:
         components = [filter_string]
         in_quotes = False
         while True:
-            subcomponents = list()
+            subcomponents = []
             for component in components:
                 # don't parse components comprised of only a separator
-                if component in [QueryFilter.lsep, QueryFilter.rsep]:
+                if component in QueryFilter.seps:
                     subcomponents.append(component)
                     continue
 
@@ -127,7 +131,7 @@ class QueryFilter:
                     if c == '"':
                         in_quotes = not in_quotes
 
-                    if c in [QueryFilter.lsep, QueryFilter.rsep] and not in_quotes:
+                    if c in QueryFilter.seps and not in_quotes:
                         if new_component:
                             subcomponents.append(new_component)
 
@@ -160,7 +164,7 @@ class QueryFilter:
             subcomponents = component.split('"')
             for i, subcomponent in enumerate(subcomponents):
                 # don't parse components comprised of only a separator
-                if subcomponent in [QueryFilter.lsep, QueryFilter.rsep]:
+                if subcomponent in QueryFilter.seps:
                     offset += 1
                     base_components.append(subcomponent)
                     continue
@@ -213,7 +217,7 @@ class QueryFilter:
         # parse QueryFilterComponents and logical operators
         components: list[Union[str, QueryFilterComponent, LogicalOperator]] = []
         for i, base_component in enumerate(base_components):
-            if base_component in [QueryFilter.lsep, QueryFilter.rsep]:
+            if base_component in QueryFilter.seps:
                 components.append(base_component)
 
             elif base_component in relational_operators:
