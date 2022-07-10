@@ -9,7 +9,7 @@
     "database-url": "Databas URL",
     "default-group": "Standardgrupp",
     "demo": "Demo",
-    "demo-status": "Demo Status",
+    "demo-status": "Status för demo",
     "development": "Utveckling",
     "docs": "Dokumentation",
     "download-log": "Ladda ner logg",
@@ -33,7 +33,7 @@
     "show-assets": "Visa tillgångar"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Kategorier",
     "category-created": "Kategori skapad",
     "category-creation-failed": "Kategori gick inte att skapa",
     "category-deleted": "Kategori raderad",
@@ -66,7 +66,7 @@
     "create": "Skapa",
     "created": "Skapad",
     "custom": "Anpassad",
-    "dashboard": "Dashboard",
+    "dashboard": "Startsida",
     "delete": "Ta bort",
     "disabled": "Inaktiverad",
     "download": "Ladda ner",
@@ -131,10 +131,10 @@
     "view": "Visa",
     "wednesday": "Onsdag",
     "yes": "Ja",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Mat",
+    "units": "Enheter",
+    "back": "Tillbaka",
+    "next": "Nästa"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -156,8 +156,8 @@
     "user-group-created": "Användargrupp skapad",
     "user-group-creation-failed": "Gruppen gick inte att skapa",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Behåll mina recept privata",
+      "keep-my-recipes-private-description": "Sätter din grupp och alla recept till privata som förval. Du kan alltid ändra detta senare."
     }
   },
   "meal-plan": {
@@ -216,9 +216,9 @@
     "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats",
     "view-scraped-data": "Visa skrotade data",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "trim-whitespace-description": "Ta bort inledande och avslutande blanksteg samt tomma rader",
+    "trim-prefix-description": "Ta bort första tecknet från varje rad",
+    "split-by-numbered-line-description": "Försök att dela ett stycke genom att matcha mönstret '1)' eller '1.'"
   },
   "page": {
     "404-page-not-found": "404 sidan hittades inte",
@@ -236,7 +236,7 @@
   "recipe": {
     "add-key": "Lägg till nyckel",
     "add-to-favorites": "Lägg till i favoriter",
-    "api-extras": "API Extras",
+    "api-extras": "API-tillägg",
     "calories": "Kalorier",
     "calories-suffix": "kalorier",
     "carbohydrate-content": "Kolhydrat",
@@ -248,9 +248,9 @@
     "description": "Beskrivning",
     "disable-amount": "Inaktivera ingredienser mängder",
     "disable-comments": "Inaktivera kommentarer",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Ändra skala",
     "fat-content": "Fett",
-    "fiber-content": "Fiber",
+    "fiber-content": "Fibrer",
     "grams": "gram",
     "ingredient": "Ingrediens",
     "ingredients": "Ingredienser",
@@ -292,7 +292,7 @@
     "title": "Titel",
     "total-time": "Total tid",
     "unable-to-delete-recipe": "Gick inte att radera receptet",
-    "no-recipe": "No Recipe"
+    "no-recipe": "Inget recept"
   },
   "search": {
     "advanced-search": "Avancerad sökning",
@@ -361,7 +361,7 @@
       "error-creating-theme-see-log-file": "Fel vid skapande av tema. Se loggfil.",
       "error-deleting-theme": "Fel vid borttagning av tema",
       "error-updating-theme": "Gick inte att uppdatera tema",
-      "info": "Info",
+      "info": "Information",
       "light": "Ljust",
       "primary": "Primär",
       "secondary": "Sekundär",
@@ -397,7 +397,7 @@
     "webhooks": {
       "test-webhooks": "Testa Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Följande webbadresser kommer att mottaga webhooks med receptdata för dagens planerade måltid. För närvarande körs webhooks klockan",
-      "webhook-url": "Webhook URL",
+      "webhook-url": "Webhook-URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks"
     }
@@ -414,9 +414,9 @@
   },
   "sidebar": {
     "all-recipes": "Alla recept",
-    "backups": "Backups",
+    "backups": "Säkerhetskopior",
     "categories": "Kategorier",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Kokböcker",
     "dashboard": "Startsida",
     "home-page": "Startsida",
     "manage-users": "Användare",
@@ -426,7 +426,7 @@
     "site-settings": "Inställningar",
     "tags": "Taggar",
     "toolbox": "Verktygslåda",
-    "language": "Language"
+    "language": "Språk"
   },
   "signup": {
     "error-signing-up": "Fel vid registreringen",
@@ -449,7 +449,7 @@
     "untagged-count": "Otaggad {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Verktyg"
   },
   "user": {
     "admin": "Administratör",
@@ -468,10 +468,10 @@
     "error-cannot-delete-super-user": "Fel! Det går inte att ta bort superanvändare",
     "existing-password-does-not-match": "Befintligt lösenord matchar inte",
     "full-name": "Fullständigt namn",
-    "invite-only": "Invite Only",
+    "invite-only": "Endast inbjudna",
     "link-id": "Länk ID",
     "link-name": "Länk namn",
-    "login": "Login",
+    "login": "Logga in",
     "logout": "Logga ut",
     "manage-users": "Hantera användare",
     "new-password": "Nytt lösenord",
@@ -481,8 +481,8 @@
     "password-reset-failed": "Återställningen av lösenordet misslyckades",
     "password-updated": "Lösenord uppdaterat",
     "password": "Lösenord",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Lösenordsstyrka {strength}",
+    "register": "Registrering",
     "reset-password": "Ändra lösenord",
     "sign-in": "Logga in",
     "total-mealplans": "Antal måltidsplaner",
@@ -506,45 +506,45 @@
     "webhooks-enabled": "Webhooks aktiverat",
     "you-are-not-allowed-to-create-a-user": "Du har inte behörighet att skapa en användare",
     "you-are-not-allowed-to-delete-this-user": "Du har inte behörighet att radera denna användare",
-    "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+    "enable-advanced-content": "Aktivera avancerade funktioner",
+    "enable-advanced-content-description": "Aktiverar avancerade funktioner som receptskalning, API-nycklar, Webhooks och datahantering. Oroa dig inte, du kan alltid ändra detta senare"
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "translated": "översatt",
+    "choose-language": "Välj språk",
+    "select-description": "Välj språk för Mealie användargränssnitt. Inställningen gäller endast för dig, inte andra användare.",
+    "how-to-contribute-description": "Är något inte översatt ännu, felöversatt eller saknas ditt språk i listan? {read-the-docs-link} om hur man bidrar!",
+    "read-the-docs": "Läs dokumentationen"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Exempeldata",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
-      "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "merge-dialog-text": "Kombinera valda livsmedel kommer att slå samman de valda livsmedlen till ett livsmedel. Ursprungslivsmedlet kommer att raderas och alla hänvisningar till detta kommer att uppdateras för att peka på det kombinerade livsmedlet.",
+      "merge-food-example": "Slå ihop {food1} till {food2}",
+      "seed-dialog-text": "Fyll databasen med livsmedel baserade på ditt språk. Detta kommer att skapa 200+ vanliga livsmedel som kan användas för att organisera din databas. Livsmedlen översätts via ett gemenskapsinsats.",
+      "seed-dialog-warning": "Du har redan några objekt i din databas. Denna åtgärd kommer inte att förena dubbletter, du kommer att behöva hantera dem manuellt."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Fyll databasen med vanliga enheter baserade på ditt språk."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
-    "group-details": "Group Details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "user-registration": "Användarregistrering",
+    "join-a-group": "Gå med i en grupp",
+    "create-a-new-group": "Skapa en ny grupp",
+    "provide-registration-token-description": "Ange registreringstoken som är kopplad till den grupp som du vill gå med. Du måste få detta från en befintlig gruppmedlem.",
+    "group-details": "Gruppuppgifter",
+    "group-details-description": "Innan du skapar ett konto måste du skapa en grupp. Din grupp kommer bara att innehålla dig, men du kommer att kunna bjuda in andra senare. Medlemmarna i din grupp kan dela måltidsplaner, inköpslistor, recept och mycket mer!",
+    "use-seed-data": "Använd exempeldata",
+    "use-seed-data-description": "Mealie innehåller en samling av livsmedel, enheter och etiketter som kan användas för att fylla din grupp med användbara data för att organisera dina recept.",
+    "account-details": "Kontouppgifter"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Gruppnamnet är upptaget",
+    "username-is-taken": "Användarnamnet är upptaget",
+    "email-is-taken": "E-postadressen är upptagen"
   }
 }

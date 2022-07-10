@@ -1,22 +1,22 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Ett oväntat fel har uppstått"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Receptnamn måste vara unika"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Du har inte behörighet att utföra denna åtgärd",
+        "no-entry-found": "Den begärda resursen hittades inte",
+        "integrity-error": "Fel i databasens integritet",
+        "username-conflict-error": "Detta användarnamn är upptaget",
+        "email-conflict-error": "E-postadressen används redan"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} skapades",
+        "generic-updated": "{name} uppdaterades",
+        "generic-created-with-url": "{name} har skapats, {url}",
+        "generic-updated-with-url": "{name} har uppdaterats, {url}",
+        "generic-deleted": "{name} har tagits bort"
     }
 }

@@ -1,0 +1,22 @@
+{
+    "generic": {
+        "server-error": "Prišlo je do nepričakovane napake"
+    },
+    "recipe": {
+        "unique-name-error": "Ime recepta mora biti unikatno"
+    },
+    "exceptions": {
+        "permission_denied": "Nimate dovoljenja za izvedbo zahtevanega dejanja",
+        "no-entry-found": "Zahtevanega vira ni moč najti",
+        "integrity-error": "Napaka pri preverjanju integritete baze",
+        "username-conflict-error": "To uporabniško ime je že zasedeno",
+        "email-conflict-error": "Ta e-mail je že v uporabi"
+    },
+    "notifications": {
+        "generic-created": "{name} je bilo kreirano",
+        "generic-updated": "{name} je bil posodobljen",
+        "generic-created-with-url": "{name} je bil narejen, {url}",
+        "generic-updated-with-url": "{name} je bil posodobljen, {url}",
+        "generic-deleted": "{name} je bil izbrisan"
+    }
+}

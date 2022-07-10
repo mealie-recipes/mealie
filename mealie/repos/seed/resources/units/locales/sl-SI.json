@@ -1,21 +1,21 @@
 {
     "teaspoon": {
-        "name": "tesked",
+        "name": "čajna žlička",
         "description": "",
-        "abbreviation": "tsk"
+        "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "matsked",
+        "name": "namizna žlica",
         "description": "",
-        "abbreviation": "msk"
+        "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "kopp",
+        "name": "skodelica",
         "description": "",
-        "abbreviation": "kopp"
+        "abbreviation": "skodelica"
     },
     "fluid-ounce": {
-        "name": "flytande ounce",
+        "name": "fluid ounce",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -30,12 +30,12 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililiter",
         "description": "",
         "abbreviation": "ml"
     },
@@ -45,12 +45,12 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pund",
+        "name": "funt",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unča",
         "description": "",
         "abbreviation": "oz"
     },
@@ -70,32 +70,32 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "skvätt",
+        "name": "pljusk",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "stänk",
+        "name": "potreseno",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "portion",
+        "name": "porcija",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "huvud",
+        "name": "glavo",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "klyfta",
+        "name": "nageljnova žbica",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "burk",
+        "name": "konzerva",
         "description": "",
         "abbreviation": ""
     }
