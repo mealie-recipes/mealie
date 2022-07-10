@@ -58,13 +58,13 @@
       </v-card>
     </v-dialog>
 
-    <div class="d-flex justify-space-between justify-start">
+    <div v-if="showCookMode" class="d-flex justify-space-between justify-start">
       <h2 class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
-      <BaseButton v-if="!public" minor :to="$router.currentRoute.path + '/cook'" cancel color="primary">
+      <BaseButton v-if="!public && !edit" minor cancel color="primary" @click="toggleCookMode()">
         <template #icon>
           {{ $globals.icons.primary }}
         </template>
-        Cook
+        Cook Mode
       </BaseButton>
     </div>
     <draggable
@@ -198,6 +198,14 @@
                 <div v-show="!isChecked(index) && !edit" class="m-0 p-0">
                   <v-card-text class="markdown">
                     <VueMarkdown class="markdown" :source="step.text"> </VueMarkdown>
+                    <div v-if="cookMode && step.ingredientReferences && step.ingredientReferences.length > 0">
+                      <v-divider class="mb-2"></v-divider>
+                      <div
+                        v-for="ing in step.ingredientReferences"
+                        :key="ing.referenceId"
+                        v-html="getIngredientByRefId(ing.referenceId)"
+                      />
+                    </div>
                   </v-card-text>
                 </div>
               </v-expand-transition>
@@ -213,7 +221,16 @@
 import draggable from "vuedraggable";
 // @ts-ignore vue-markdown has no types
 import VueMarkdown from "@adapttive/vue-markdown";
-import { ref, toRefs, reactive, defineComponent, watch, onMounted, useContext } from "@nuxtjs/composition-api";
+import {
+  ref,
+  toRefs,
+  reactive,
+  defineComponent,
+  watch,
+  onMounted,
+  useContext,
+  computed,
+} from "@nuxtjs/composition-api";
 import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
@@ -264,6 +281,14 @@ export default defineComponent({
       type: Array as () => RecipeAsset[],
       required: true,
     },
+    cookMode: {
+      type: Boolean,
+      default: false,
+    },
+    scale: {
+      type: Number,
+      default: 1,
+    },
   },
 
   setup(props, context) {
@@ -313,11 +338,18 @@ export default defineComponent({
       });
     });
 
+    const showCookMode = ref(false);
+
     // Eliminate state with an eager call to watcher?
     onMounted(() => {
-      props.value.forEach((element) => {
+      props.value.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
           showTitleEditor.value[element.id] = validateTitle(element.title);
+        }
+
+        // showCookMode.value = false;
+        if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
+          showCookMode.value = true;
         }
 
         showTitleEditor.value = { ...showTitleEditor.value };
@@ -375,6 +407,14 @@ export default defineComponent({
         return {
           referenceId: ref,
         };
+      });
+
+      // Update the visibility of the cook mode button
+      showCookMode.value = false;
+      props.value.forEach((element) => {
+        if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
+          showCookMode.value = true;
+        }
       });
       state.dialog = false;
     }
@@ -446,12 +486,27 @@ export default defineComponent({
       });
     }
 
-    function getIngredientByRefId(refId: string) {
-      const ing = props.ingredients.find((ing) => ing.referenceId === refId) || "";
+    const ingredientLookup = computed(() => {
+      const results: { [key: string]: RecipeIngredient } = {};
+      return props.ingredients.reduce((prev, ing) => {
+        if (ing.referenceId === undefined) {
+          return prev;
+        }
+        prev[ing.referenceId] = ing;
+        return prev;
+      }, results);
+    });
+
+    function getIngredientByRefId(refId: string | undefined) {
+      if (refId === undefined) {
+        return "";
+      }
+
+      const ing = ingredientLookup.value[refId] ?? "";
       if (ing === "") {
         return "";
       }
-      return parseIngredientText(ing, props.disableAmount);
+      return parseIngredientText(ing, props.disableAmount, props.scale);
     }
 
     // ===============================================================
@@ -571,6 +626,10 @@ export default defineComponent({
       props.value[index].text += text;
     }
 
+    function toggleCookMode() {
+      context.emit("cookModeToggle");
+    }
+
     return {
       // Image Uploader
       toggleDragMode,
@@ -598,6 +657,8 @@ export default defineComponent({
       updateIndex,
       autoSetReferences,
       parseIngredientText,
+      toggleCookMode,
+      showCookMode,
     };
   },
 });

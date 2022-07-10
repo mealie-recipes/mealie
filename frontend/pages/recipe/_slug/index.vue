@@ -53,10 +53,7 @@
         class="ml-auto mt-n8 pb-4"
         @close="closeEditor"
         @json="toggleJson"
-        @edit="
-          jsonEditor = false;
-          form = true;
-        "
+        @edit="toggleEdit"
         @save="updateRecipe(recipe.slug, recipe)"
         @delete="deleteRecipe(recipe.slug)"
         @print="printRecipe"
@@ -202,7 +199,7 @@
           </div>
 
           <v-row>
-            <v-col cols="12" sm="12" md="4" lg="4">
+            <v-col v-if="!cookModeToggle || form" cols="12" sm="12" md="4" lg="4">
               <RecipeIngredients
                 v-if="!form"
                 :value="recipe.recipeIngredient"
@@ -291,17 +288,24 @@
                 </client-only>
               </div>
             </v-col>
-            <v-divider v-if="$vuetify.breakpoint.mdAndUp" class="my-divider" :vertical="true"></v-divider>
+            <v-divider
+              v-if="$vuetify.breakpoint.mdAndUp && !cookModeToggle"
+              class="my-divider"
+              :vertical="true"
+            ></v-divider>
 
-            <v-col cols="12" sm="12" md="8" lg="8">
+            <v-col cols="12" sm="12" :md="8 + (cookModeToggle ? 1 : 0) * 4" :lg="8 + (cookModeToggle ? 1 : 0) * 4">
               <RecipeInstructions
                 v-model="recipe.recipeInstructions"
+                :assets.sync="recipe.assets"
                 :ingredients="recipe.recipeIngredient"
                 :disable-amount="recipe.settings.disableAmount"
                 :edit="form"
                 :recipe-id="recipe.id"
                 :recipe-slug="recipe.slug"
-                :assets.sync="recipe.assets"
+                :cook-mode="cookModeToggle"
+                :scale="scale"
+                @cookModeToggle="cookModeToggle = !cookModeToggle"
               />
               <div v-if="form" class="d-flex">
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
@@ -357,14 +361,14 @@
                 </v-card>
 
                 <RecipeNutrition
-                  v-if="recipe.settings.showNutrition"
+                  v-if="recipe.settings.showNutrition && !cookModeToggle"
                   v-model="recipe.nutrition"
                   class="mt-10"
                   :edit="form"
                 />
                 <client-only>
                   <RecipeAssets
-                    v-if="recipe.settings.showAssets"
+                    v-if="recipe.settings.showAssets && !cookModeToggle"
                     v-model="recipe.assets"
                     :edit="form"
                     :slug="recipe.slug"
@@ -373,7 +377,7 @@
                 </client-only>
               </div>
 
-              <RecipeNotes v-model="recipe.notes" :edit="form" />
+              <RecipeNotes v-if="!cookModeToggle" v-model="recipe.notes" :edit="form" />
             </v-col>
           </v-row>
 
@@ -385,7 +389,7 @@
               :label="$t('recipe.original-url')"
             ></v-text-field>
             <v-btn
-              v-else-if="recipe.orgURL"
+              v-else-if="recipe.orgURL && !cookModeToggle"
               dense
               small
               :hover="false"
@@ -438,7 +442,7 @@
     </div>
 
     <RecipeComments
-      v-if="recipe && !recipe.settings.disableComments && !form"
+      v-if="recipe && !recipe.settings.disableComments && !form && !cookModeToggle"
       v-model="recipe.comments"
       :slug="recipe.slug"
       :recipe-id="recipe.id"
@@ -603,6 +607,7 @@ export default defineComponent({
         search: false,
         mainMenuBar: false,
       },
+      cookModeToggle: false,
     });
 
     const { recipe, loading, fetchRecipe } = useRecipe(slug);
@@ -641,6 +646,12 @@ export default defineComponent({
 
     // ===========================================================================
     // Button Click Event Handlers
+
+    function toggleEdit() {
+      state.jsonEditor = false;
+      state.cookModeToggle = false;
+      state.form = true;
+    }
 
     async function updateRecipe(slug: string, recipe: Recipe) {
       const { data } = await api.recipes.updateOne(slug, recipe);
@@ -862,6 +873,7 @@ export default defineComponent({
       deleteRecipe,
       printRecipe,
       closeEditor,
+      toggleEdit,
       updateRecipe,
       uploadImage,
       validators,
