@@ -2,11 +2,13 @@ import time
 from random import randint
 from urllib.parse import parse_qsl, urlsplit
 
+import pytest
 from fastapi.testclient import TestClient
 from humps import camelize
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientUnit
+from mealie.repos.repository_units import RepositoryUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.seeder.seeder_service import SeederService
 from tests.utils.fixture_schemas import TestUser
@@ -117,7 +119,8 @@ def test_pagination_guides(database: AllRepositories, unique_user: TestUser):
         assert source_param in prev_params
 
 
-def test_pagination_filter(api_client: TestClient, database: AllRepositories, unique_user: TestUser):
+@pytest.fixture(scope="function")
+def query_units(database: AllRepositories, unique_user: TestUser):
     unit_1 = database.ingredient_units.create(
         SaveIngredientUnit(name="test unit 1", group_id=unique_user.group_id, use_abbreviation=True)
     )
@@ -147,26 +150,50 @@ def test_pagination_filter(api_client: TestClient, database: AllRepositories, un
     for unit in all_units:
         assert unit.id in unit_ids
 
-    # check that basic filtering is working
+    yield units_repo, unit_1, unit_2, unit_3
+
+    for unit_id in unit_ids:
+        units_repo.delete(unit_id)
+
+
+def test_pagination_filter_basic(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+    units_repo = query_units[0]
+    unit_2 = query_units[2]
+
     query = PaginationQuery(page=1, per_page=-1, query_filter='name="test unit 2"')
     unit_results = units_repo.page_all(query).items
     assert len(unit_results) == 1
     assert unit_results[0].id == unit_2.id
 
-    # check that datetimes are resolving properly
+
+def test_pagination_filter_datetimes(
+    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]
+):
+    units_repo = query_units[0]
+    unit_1 = query_units[1]
+    unit_2 = query_units[2]
+
     dt = unit_2.created_at.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
     assert len(unit_results) == 2
     assert unit_1.id not in [unit.id for unit in unit_results]
 
-    # check that booleans are resolving properly
+
+def test_pagination_filter_booleans(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+    units_repo = query_units[0]
+    unit_1 = query_units[1]
+
     query = PaginationQuery(page=1, per_page=-1, query_filter="useAbbreviation=true")
     unit_results = units_repo.page_all(query).items
     assert len(unit_results) == 1
     assert unit_results[0].id == unit_1.id
 
-    # check an advanced filter
+
+def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+    units_repo = query_units[0]
+    unit_3 = query_units[3]
+
     dt = unit_3.created_at.isoformat()
     qf = f'name="test unit 1" OR (useAbbreviation=f AND (name="test unit 2" OR createdAt > "{dt}"))'
     query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
@@ -174,20 +201,18 @@ def test_pagination_filter(api_client: TestClient, database: AllRepositories, un
     assert len(unit_results) == 2
     assert unit_3.id not in [unit.id for unit in unit_results]
 
+
+@pytest.mark.parametrize(
+    "qf",
+    [
+        pytest.param('(name="test name" AND useAbbreviation=f))', id="unbalanced parenthesis"),
+        pytest.param('createdAt="this is not a valid datetime format"', id="invalid datetime format"),
+        pytest.param('badAttribute="test value"', id="invalid attribute"),
+    ],
+)
+def test_malformed_query_filters(api_client: TestClient, unique_user: TestUser, qf: str):
     # verify that improper queries throw 400 errors
     route = "/api/units"
 
-    # unbalanced parenthesis
-    qf = '(name="test name" AND useAbbreviation=f))'
-    response = api_client.get(route, params={"queryFilter": qf}, headers=unique_user.token)
-    assert response.status_code == 400
-
-    # invalid datetime format
-    qf = 'createdAt="this is not a valid datetime format"'
-    response = api_client.get(route, params={"queryFilter": qf}, headers=unique_user.token)
-    assert response.status_code == 400
-
-    # invalid attribute
-    qf = 'badAttribute="test value"'
     response = api_client.get(route, params={"queryFilter": qf}, headers=unique_user.token)
     assert response.status_code == 400
