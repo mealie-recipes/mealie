@@ -8,7 +8,7 @@
     "database-type": "Databasetype",
     "database-url": "Database URL",
     "default-group": "Standaardgroep",
-    "demo": "Demo",
+    "demo": "Voorbeeld",
     "demo-status": "Demo status",
     "development": "Versies in ontwikkeling",
     "docs": "Documentatie",
@@ -69,7 +69,7 @@
     "dashboard": "Dashboard",
     "delete": "Verwijderen",
     "disabled": "Uitgeschakeld",
-    "download": "Download",
+    "download": "Downloaden",
     "edit": "Bewerken",
     "enabled": "Ingeschakeld",
     "exception": "Uitzondering",
@@ -83,7 +83,7 @@
     "friday": "Vrijdag",
     "general": "Algemeen",
     "get": "Haal op",
-    "home": "Home",
+    "home": "Startpagina",
     "image": "Afbeelding",
     "image-upload-failed": "Afbeelding uploaden mislukt",
     "import": "Importeren",
@@ -131,10 +131,10 @@
     "view": "Weergave",
     "wednesday": "Woensdag",
     "yes": "Ja",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Voedsel",
+    "units": "Eenheden",
+    "back": "Terug",
+    "next": "Volgende"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wilt verwijderen?",
@@ -156,8 +156,8 @@
     "user-group-created": "Gebruikersgroep aangemaakt",
     "user-group-creation-failed": "Aanmaken gebruikersgroep is mislukt",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Houd mijn recepten privé",
+      "keep-my-recipes-private-description": "Stelt je groep en alle recepten standaard privé in. Je kunt dit later nog wijzigen."
     }
   },
   "meal-plan": {
@@ -217,8 +217,8 @@
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptwebsite",
     "view-scraped-data": "Bekijk Opgehaalde Data",
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "trim-prefix-description": "Knip het eerste teken van elke regel bij",
+    "split-by-numbered-line-description": "Pogingen om een alinea te splitsen door de '1)' of '1.' patronen te gebruiken"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -248,7 +248,7 @@
     "description": "Omschrijving",
     "disable-amount": "Ingrediënt Hoeveelheden Uitschakelen",
     "disable-comments": "Reacties Uitschakelen",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Bewerk Schaal",
     "fat-content": "Vet",
     "fiber-content": "Vezels",
     "grams": "gram",
@@ -292,7 +292,7 @@
     "title": "Titel",
     "total-time": "Totale Tijd",
     "unable-to-delete-recipe": "Kan recept niet verwijderen",
-    "no-recipe": "No Recipe"
+    "no-recipe": "Geen Recept"
   },
   "search": {
     "advanced-search": "Geavanceerd Zoeken",
@@ -416,7 +416,7 @@
     "all-recipes": "Recepten",
     "backups": "Backups",
     "categories": "Categorieën",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Koekboeken",
     "dashboard": "Dashboard",
     "home-page": "Home Pagina",
     "manage-users": "Gebruikers",
@@ -425,8 +425,8 @@
     "search": "Zoeken",
     "site-settings": "Instellingen",
     "tags": "Labels",
-    "toolbox": "Toolbox",
-    "language": "Language"
+    "toolbox": "Gereedschapskist",
+    "language": "Taal"
   },
   "signup": {
     "error-signing-up": "Fout bij registreren",
@@ -449,7 +449,7 @@
     "untagged-count": "Niet gelabeld {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Hulpmiddelen"
   },
   "user": {
     "admin": "Beheerder",
@@ -468,7 +468,7 @@
     "error-cannot-delete-super-user": "Fout! Kan supergebruiker niet verwijderen",
     "existing-password-does-not-match": "Bestaande wachtwoord komt niet overeen",
     "full-name": "Voor- en achternaam",
-    "invite-only": "Invite Only",
+    "invite-only": "Alleen op uitnodiging",
     "link-id": "Koppeling ID",
     "link-name": "Koppeling Naam",
     "login": "Inloggen",
@@ -481,8 +481,8 @@
     "password-reset-failed": "Wachtwoord resetten is mislukt",
     "password-updated": "Wachtwoord bijgewerkt",
     "password": "Wachtwoord",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Wachtwoord is {strength}",
+    "register": "Registreren",
     "reset-password": "Wachtwoord Herstellen",
     "sign-in": "Inloggen",
     "total-mealplans": "Totaal maaltijdplannen",
@@ -506,7 +506,7 @@
     "webhooks-enabled": "Webhooks ingeschakeld",
     "you-are-not-allowed-to-create-a-user": "Je hebt geen toestemming om een gebruiker aan te maken",
     "you-are-not-allowed-to-delete-this-user": "Je hebt geen toestemming om deze gebruiker te verwijderen",
-    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content": "Schakel geavanceerde instellingen in",
     "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
   },
   "language-dialog": {
