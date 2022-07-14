@@ -42,7 +42,7 @@ export default defineComponent({
     async function createByOcr(file: File) {
       console.log("file: ", file);
       const { response } = await api.recipes.createFromOcr(file);
-      // @ts-ignore
+      // @ts-ignore returns a string and not a full Recipe
       handleResponse(response);
     }
 

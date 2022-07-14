@@ -182,13 +182,12 @@ import {
   onMounted,
   reactive,
   toRefs,
-  useContext,
   useRouter,
+  nextTick,
 } from "@nuxtjs/composition-api";
 import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
-import { nextTick } from "vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
 import { OcrTsvResponse } from "~/types/api-types/ocr";
@@ -269,13 +268,11 @@ export default defineComponent({
     RecipeActionMenu,
   },
   setup() {
-    const { $globals } = useContext();
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useUserApi();
 
-    const loadingTsv = ref(true);
     const tsv = ref<OcrTsvResponse[]>([]);
 
     const { recipe, loading, fetchRecipe } = useRecipe(slug);
