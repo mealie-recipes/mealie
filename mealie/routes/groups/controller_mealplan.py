@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 from functools import cached_property
 from typing import Optional
 
@@ -94,10 +94,24 @@ class GroupMealplanController(BaseUserController):
         start_date: Optional[date] = None,
         end_date: Optional[date] = None,
     ):
-        start_date = start_date or date.today() - timedelta(days=999)
-        end_date = end_date or date.today() + timedelta(days=999)
+        # merge start and end dates into pagination query only if either is provided
+        if start_date or end_date:
+            if not start_date:
+                date_filter = f"date <= {end_date}"
 
-        return self.repo.get_slice(pagination=q, start_date=start_date, end_date=end_date, group_id=self.group.id)
+            elif not end_date:
+                date_filter = f"date >= {start_date}"
+
+            else:
+                date_filter = f"date >= {start_date} AND date <= {end_date}"
+
+            if q.query_filter:
+                q.query_filter = f"({q.query_filter}) AND ({date_filter})"
+
+            else:
+                q.query_filter = date_filter
+
+        return self.repo.page_all(pagination=q)
 
     @router.post("", response_model=ReadPlanEntry, status_code=201)
     def create_one(self, data: CreatePlanEntry):
