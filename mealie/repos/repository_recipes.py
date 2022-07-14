@@ -1,15 +1,12 @@
-from math import ceil
 from random import randint
 from typing import Any, Optional
 from uuid import UUID
 
-from fastapi import HTTPException
 from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy import and_, func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
-from sqlalchemy.sql import sqltypes
 
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredient
@@ -20,8 +17,7 @@ from mealie.db.models.recipe.tool import Tool
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, RecipeTag, RecipeTool
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
-from mealie.schema.response.pagination import OrderDirection, PaginationQuery
-from mealie.schema.response.query_filter import QueryFilter
+from mealie.schema.response.pagination import PaginationQuery
 
 from .repository_generic import RepositoryGeneric
 
@@ -149,49 +145,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
-        if pagination.query_filter:
-            try:
-                qf = QueryFilter(pagination.query_filter)
-                q = qf.filter_query(q, model=self.model)
-
-            except ValueError as e:
-                self.logger.error(e)
-                raise HTTPException(status_code=400, detail=str(e))
-
-        count = q.count()
-
-        # interpret -1 as "get_all"
-        if pagination.per_page == -1:
-            pagination.per_page = count
-
-        try:
-            total_pages = ceil(count / pagination.per_page)
-
-        except ZeroDivisionError:
-            total_pages = 0
-
-        # interpret -1 as "last page"
-        if pagination.page == -1:
-            pagination.page = total_pages
-
-        # failsafe for user input error
-        if pagination.page < 1:
-            pagination.page = 1
-
-        if pagination.order_by:
-            if order_attr := getattr(self.model, pagination.order_by, None):
-                # queries handle uppercase and lowercase differently, which is undesirable
-                if isinstance(order_attr.type, sqltypes.String):
-                    order_attr = func.lower(order_attr)
-
-                if pagination.order_direction == OrderDirection.asc:
-                    order_attr = order_attr.asc()
-                elif pagination.order_direction == OrderDirection.desc:
-                    order_attr = order_attr.desc()
-
-                q = q.order_by(order_attr)
-
-        q = q.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
         try:
             data = q.all()
