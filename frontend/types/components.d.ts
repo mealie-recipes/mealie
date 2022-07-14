@@ -30,10 +30,6 @@ import AdvancedOnly from "@/components/global/AdvancedOnly.vue";
 import BasePageTitle from "@/components/global/BasePageTitle.vue";
 import ButtonLink from "@/components/global/ButtonLink.vue";
 
-import TheSnackbar from "@/components/layout/TheSnackbar.vue";
-import AppHeader from "@/components/layout/AppHeader.vue";
-import AppSidebar from "@/components/layout/AppSidebar.vue";
-import AppFooter from "@/components/layout/AppFooter.vue";
 
 declare module "vue" {
   export interface GlobalComponents {

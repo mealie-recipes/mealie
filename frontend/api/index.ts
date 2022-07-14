@@ -24,6 +24,7 @@ import { MultiPurposeLabelsApi } from "./class-interfaces/group-multiple-purpose
 import { GroupEventNotifierApi } from "./class-interfaces/group-event-notifier";
 import { MealPlanRulesApi } from "./class-interfaces/group-mealplan-rules";
 import { GroupDataSeederApi } from "./class-interfaces/group-seeder";
+import {OcrAPI} from "./class-interfaces/ocr";
 import { ApiRequestInstance } from "~/types/api";
 
 class Api {
@@ -52,6 +53,7 @@ class Api {
   public groupEventNotifier: GroupEventNotifierApi;
   public upload: UploadFile;
   public seeders: GroupDataSeederApi;
+  public ocr: OcrAPI;
 
   constructor(requests: ApiRequestInstance) {
     // Recipes
@@ -89,6 +91,9 @@ class Api {
     this.email = new EmailAPI(requests);
     this.bulk = new BulkActionsAPI(requests);
     this.groupEventNotifier = new GroupEventNotifierApi(requests);
+
+    // ocr
+    this.ocr = new OcrAPI(requests);
 
     Object.freeze(this);
   }

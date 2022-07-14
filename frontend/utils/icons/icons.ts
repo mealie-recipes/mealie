@@ -118,6 +118,8 @@ import {
   mdiHelpCircleOutline,
   mdiDocker,
   mdiUndo,
+  mdiSelectionDrag,
+  mdiCursorMove
 } from "@mdi/js";
 
 export const icons = {
@@ -253,4 +255,8 @@ export const icons = {
   slotMachine: mdiSlotMachine,
   chevronDown: mdiChevronDown,
   chevronRight: mdiChevronRight,
+
+  // Ocr toolbar
+  selectMode: mdiSelectionDrag,
+  panAndZoom: mdiCursorMove,
 };

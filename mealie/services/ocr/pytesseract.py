@@ -1,3 +1,5 @@
+from io import BytesIO
+
 import pytesseract
 from PIL import Image
 
@@ -14,3 +16,9 @@ class OCR(BaseService):
         Returns a plain text translation of an image
         """
         return pytesseract.image_to_string(Image.open(image_data))
+
+    def image_to_tsv(image_data):
+        """
+        Returns tsv formatted output
+        """
+        return pytesseract.image_to_data(Image.open(BytesIO(image_data)))
