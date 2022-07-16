@@ -52,23 +52,31 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     settings = get_app_settings()
 
+    ldap.set_option(ldap.OPT_REFERRALS, 0)
+    ldap.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
     conn = ldap.initialize(settings.LDAP_SERVER_URL)
-    user_dn = settings.LDAP_BIND_TEMPLATE.format(username)
+
+    user = db.users.get_one(username, "email", any_case=True)
+    if not user:
+        user_bind = settings.LDAP_BIND_TEMPLATE.format(username)
+        user = db.users.get_one(username, "username", any_case=True)
+    else:
+        user_bind = settings.LDAP_BIND_TEMPLATE.format(user.username)
+
     try:
-        conn.simple_bind_s(user_dn, password)
+        conn.simple_bind_s(user_bind, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
         return False
 
-    user = db.users.get_one(username, "username", any_case=True)
+    user_dn, user_attr = conn.search_s(settings.LDAP_BASE_DN, ldap.SCOPE_SUBTREE, '(&(objectClass=user)(|(cn=%s)(sAMAccountName=%s)(mail=%s)))' % (username, username, username), ['name', 'mail'])[0]
+
     if not user:
         user = db.users.create(
             {
                 "username": username,
                 "password": "LDAP",
-                # Fill the next two values with something unique and vaguely
-                # relevant
-                "full_name": username,
-                "email": username,
+                "full_name": user_attr['name'][0],
+                "email": user_attr['mail'][0],
                 "admin": False,
             },
         )

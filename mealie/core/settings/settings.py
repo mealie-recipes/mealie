@@ -116,6 +116,7 @@ class AppSettings(BaseSettings):
     LDAP_AUTH_ENABLED: bool = False
     LDAP_SERVER_URL: NoneStr = None
     LDAP_BIND_TEMPLATE: NoneStr = None
+    LDAP_BASE_DN: NoneStr = None
     LDAP_ADMIN_FILTER: NoneStr = None
 
     @property
@@ -124,6 +125,7 @@ class AppSettings(BaseSettings):
         required = {
             self.LDAP_SERVER_URL,
             self.LDAP_BIND_TEMPLATE,
+            self.LDAP_BASE_DN,
             self.LDAP_ADMIN_FILTER,
         }
         not_none = None not in required

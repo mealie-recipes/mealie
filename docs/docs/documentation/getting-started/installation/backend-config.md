@@ -65,5 +65,6 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | ------------------ | :-----: | ------------------------------------------------------------------------------------------------------------------ |
 | LDAP_AUTH_ENABLED  |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                       |
 | LDAP_SERVER_URL    |  None   | LDAP server URL (e.g. ldap://ldap.example.com)                                                                     |
-| LDAP_BIND_TEMPLATE |  None   | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`)                   |
+| LDAP_BIND_TEMPLATE |  None   | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`, `{}@example.com`) |
+| LDAP_BASE_DN       |  None   | Starting point when searching for users authentication (e.g. `CN=Users,DC=xx,DC=yy,DC=de`)                         | 
 | LDAP_ADMIN_FILTER  |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`) |
