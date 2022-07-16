@@ -52,9 +52,16 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     settings = get_app_settings()
 
+    if settings.LDAP_TLS_INSECURE:
+        ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
+
     ldap.set_option(ldap.OPT_REFERRALS, 0)
     ldap.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
     conn = ldap.initialize(settings.LDAP_SERVER_URL)
+
+    if settings.LDAP_TLS_CACERTFILE:
+        conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
+        conn.set_option(ldap.OPT_X_TLS_NEWCTX, 0)
 
     user = db.users.get_one(username, "email", any_case=True)
     if not user:

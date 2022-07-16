@@ -115,6 +115,8 @@ class AppSettings(BaseSettings):
 
     LDAP_AUTH_ENABLED: bool = False
     LDAP_SERVER_URL: NoneStr = None
+    LDAP_TLS_INSECURE: bool = False
+    LDAP_TLS_CACERTFILE: NoneStr = None
     LDAP_BIND_TEMPLATE: NoneStr = None
     LDAP_BASE_DN: NoneStr = None
     LDAP_ADMIN_FILTER: NoneStr = None
