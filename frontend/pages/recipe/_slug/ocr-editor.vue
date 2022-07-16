@@ -55,7 +55,7 @@
                   <v-icon
                     :color="selectedTextSplitMode === 'lineNum' ? 'primary' : 'default'"
                     v-bind="attrs"
-                    @click="selectedTextSplitMode = 'lineNum'"
+                    @click="switchSplitTextMode('lineNum')"
                     v-on="on"
                   >
                     {{ $globals.icons.preserveLines }}
@@ -70,7 +70,7 @@
                   <v-icon
                     :color="selectedTextSplitMode === 'blockNum' ? 'primary' : 'default'"
                     v-bind="attrs"
-                    @click="selectedTextSplitMode = 'blockNum'"
+                    @click="switchSplitTextMode('blockNum')"
                     v-on="on"
                   >
                     {{ $globals.icons.preserveBlocks }}
@@ -85,7 +85,7 @@
                   <v-icon
                     :color="selectedTextSplitMode === 'flatten' ? 'primary' : 'default'"
                     v-bind="attrs"
-                    @click="selectedTextSplitMode = 'flatten'"
+                    @click="switchSplitTextMode('flatten')"
                     v-on="on"
                   >
                     {{ $globals.icons.flatten }}
@@ -470,6 +470,11 @@ export default defineComponent({
       }
     }
 
+    function switchSplitTextMode(mode: SelectedTextSplitModes) {
+      state.selectedTextSplitMode = mode;
+      state.selectedText = getWordsInSelection(tsv.value, state.rect);
+    }
+
     function draw() {
       if (state.mouse.down) {
         const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
@@ -632,7 +637,6 @@ export default defineComponent({
         const ndw = state.imagePosition.dWidth + -m * state.imagePosition.dWidth * scrollSensitivity * 2;
         const ndh = state.imagePosition.dHeight + -m * state.imagePosition.dHeight * scrollSensitivity * 2;
 
-        console.log("ndw", ndw, "iwidth", image.width);
         if (ndw < image.width) {
           state.imagePosition.dx = ndx;
           state.imagePosition.dy = ndy;
@@ -773,6 +777,7 @@ export default defineComponent({
       switchCanvasMode,
       setSingleIngredient,
       setSingleStep,
+      switchSplitTextMode,
     };
   },
 });
