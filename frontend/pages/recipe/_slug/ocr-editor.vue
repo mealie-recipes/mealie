@@ -32,7 +32,7 @@
               </template>
               <span>Selection mode</span>
             </v-tooltip>
-            <v-tooltip bottom>
+            <v-tooltip v-if="!isImageSmallerThanCanvas" bottom>
               <template #activator="{ on, attrs }">
                 <v-btn icon>
                   <v-icon
@@ -47,6 +47,54 @@
               </template>
               <span>Pan and zoom picture</span>
             </v-tooltip>
+            <v-divider vertical class="mx-2" />
+            <v-toolbar-title>Split text </v-toolbar-title>
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn icon>
+                  <v-icon
+                    :color="selectedTextSplitMode === 'lineNum' ? 'primary' : 'default'"
+                    v-bind="attrs"
+                    @click="selectedTextSplitMode = 'lineNum'"
+                    v-on="on"
+                  >
+                    {{ $globals.icons.preserveLines }}
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>Preserve original line breaks</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn icon>
+                  <v-icon
+                    :color="selectedTextSplitMode === 'blockNum' ? 'primary' : 'default'"
+                    v-bind="attrs"
+                    @click="selectedTextSplitMode = 'blockNum'"
+                    v-on="on"
+                  >
+                    {{ $globals.icons.preserveBlocks }}
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>Split by text block</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn icon>
+                  <v-icon
+                    :color="selectedTextSplitMode === 'flatten' ? 'primary' : 'default'"
+                    v-bind="attrs"
+                    @click="selectedTextSplitMode = 'flatten'"
+                    v-on="on"
+                  >
+                    {{ $globals.icons.flatten }}
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>Flatten regardless of original formating</span>
+            </v-tooltip>
+
             <v-spacer></v-spacer>
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
@@ -130,6 +178,7 @@
             </v-text-field>
           </v-tab-item>
           <v-tab-item key="ingredients">
+            <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             <RecipeDialogBulkAdd :input-text-prop="selectedText" @bulk-data="addIngredient" />
             <draggable
               v-if="recipe.recipeIngredient.length > 0"
@@ -152,11 +201,13 @@
                   class="list-group-item"
                   :disable-amount="recipe.settings.disableAmount"
                   @delete="recipe.recipeIngredient.splice(index, 1)"
+                  @clickIngredientField="setSingleIngredient($event, index)"
                 />
               </TransitionGroup>
             </draggable>
           </v-tab-item>
           <v-tab-item key="instructions">
+            <BaseButton class="my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
             <RecipeDialogBulkAdd :input-text-prop="selectedText" @bulk-data="addStep" />
             <RecipeInstructions
               v-model="recipe.recipeInstructions"
@@ -166,6 +217,7 @@
               :recipe-id="recipe.id"
               :recipe-slug="recipe.slug"
               :assets.sync="recipe.assets"
+              @clickInstructionField="setSingleStep"
             />
           </v-tab-item>
         </v-tabs-items>
@@ -192,7 +244,7 @@ import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
 import { OcrTsvResponse } from "~/types/api-types/ocr";
 import { validators } from "~/composables/use-validators";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
 import BannerExperimental from "~/components/global/BannerExperimental.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
@@ -258,6 +310,8 @@ type SelectedRecipeLeaves = Leaves<Recipe>;
 
 type CanvasModes = "selection" | "panAndZoom";
 
+type SelectedTextSplitModes = keyof OcrTsvResponse | "flatten";
+
 export default defineComponent({
   components: {
     RecipeIngredientEditor,
@@ -319,6 +373,8 @@ export default defineComponent({
           y: 0,
         },
       } as ImagePosition,
+      isImageSmallerThanCanvas: false,
+      selectedTextSplitMode: "lineNum" as SelectedTextSplitModes,
     });
 
     const setPropertyValueByPath = function <T>(object: T, path: Paths<T>, value: any) {
@@ -338,7 +394,13 @@ export default defineComponent({
     const image = new Image();
 
     function updateImageScale() {
-      state.imagePosition.scale = Math.min(state.imagePosition.dWidth / image.width, 1);
+      state.imagePosition.scale = state.imagePosition.dWidth / image.width;
+
+      // Don't let images bigger than the canvas be zoomed in more than 1:1 scale
+      // Meaning only let images smaller than the canvas to have a scale > 1
+      if (!state.isImageSmallerThanCanvas && state.imagePosition.scale > 1) {
+        state.imagePosition.scale = 1;
+      }
     }
 
     onMounted(() => {
@@ -367,7 +429,12 @@ export default defineComponent({
           const clientCanvasDimensions = c.getBoundingClientRect();
 
           c.width = clientCanvasDimensions.width;
-          state.imagePosition.scale = Math.min(c.width / image.width, 1);
+          if (image.width < c.width) {
+            state.isImageSmallerThanCanvas = true;
+          }
+          state.imagePosition.dWidth = c.width;
+
+          updateImageScale();
           c.height = Math.min(image.height * state.imagePosition.scale, 700); // Max height of 700px
 
           state.imagePosition.sWidth = image.width;
@@ -477,27 +544,33 @@ export default defineComponent({
 
     function keepImageInCanvas() {
       const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-      // Prevent
+
+      // Prevent image from being smaller than the canvas width
       if (state.imagePosition.dWidth - c.width < 0) {
         state.imagePosition.dWidth = c.width;
       }
 
+      // Prevent image from being smaller than the canvas height
       if (state.imagePosition.dHeight - c.height < 0) {
         state.imagePosition.dHeight = image.height * state.imagePosition.scale;
       }
 
+      // Prevent to move the image too much to the left
       if (c.width - state.imagePosition.dx - state.imagePosition.dWidth > 0) {
         state.imagePosition.dx = c.width - state.imagePosition.dWidth;
       }
 
+      // Prevent to move the image too much to the top
       if (c.height - state.imagePosition.dy - state.imagePosition.dHeight > 0) {
         state.imagePosition.dy = c.height - state.imagePosition.dHeight;
       }
 
+      // Prevent to move the image too much to the right
       if (state.imagePosition.dx > 0) {
         state.imagePosition.dx = 0;
       }
 
+      // Prevent to move the image too much to the bottom
       if (state.imagePosition.dy > 0) {
         state.imagePosition.dy = 0;
       }
@@ -542,6 +615,7 @@ export default defineComponent({
     const scrollSensitivity = 0.05;
 
     function handleMouseScroll(event: WheelEvent) {
+      if (state.isImageSmallerThanCanvas) return;
       if (state.canvasMode === "panAndZoom") {
         event.preventDefault();
 
@@ -553,21 +627,21 @@ export default defineComponent({
         };
         const m = Math.sign(event.deltaY);
 
-        const ndx = m * c.width * scrollSensitivity;
-        const ndy = m * c.height * scrollSensitivity;
-        const ndw = -m * c.width * scrollSensitivity * 2;
-        const ndh = -m * c.height * scrollSensitivity * 2;
+        const ndx = state.imagePosition.dx + m * state.imagePosition.dWidth * scrollSensitivity;
+        const ndy = state.imagePosition.dy + m * state.imagePosition.dHeight * scrollSensitivity;
+        const ndw = state.imagePosition.dWidth + -m * state.imagePosition.dWidth * scrollSensitivity * 2;
+        const ndh = state.imagePosition.dHeight + -m * state.imagePosition.dHeight * scrollSensitivity * 2;
 
-        if ((ndw - ndx) / image.width < 1) {
-          state.imagePosition.dx += ndx;
-          state.imagePosition.dy += ndy;
-          state.imagePosition.dWidth += ndw;
-          state.imagePosition.dHeight += ndh;
+        console.log("ndw", ndw, "iwidth", image.width);
+        if (ndw < image.width) {
+          state.imagePosition.dx = ndx;
+          state.imagePosition.dy = ndy;
+          state.imagePosition.dWidth = ndw;
+          state.imagePosition.dHeight = ndh;
         }
 
-        updateImageScale();
-
         keepImageInCanvas();
+        updateImageScale();
 
         const ctx = <CanvasRenderingContext2D>c.getContext("2d");
         ctx.fillStyle = "rgb(255, 255, 255)";
@@ -603,8 +677,16 @@ export default defineComponent({
             correctedRect.startY + correctedRect.h >
               (element.top + element.height) * state.imagePosition.scale + state.imagePosition.dy
         )
-        .map((element) => {
-          return element.text;
+        .map((element, index, array) => {
+          let newLine = "";
+          if (
+            state.selectedTextSplitMode !== "flatten" &&
+            index !== array.length - 1 &&
+            element[state.selectedTextSplitMode] !== array[index + 1][state.selectedTextSplitMode]
+          ) {
+            newLine = "\n";
+          }
+          return element.text + newLine;
         })
         .join(" ");
     }
@@ -662,6 +744,15 @@ export default defineComponent({
       }
     }
 
+    function setSingleIngredient(f: keyof RecipeIngredient, index: number) {
+      state.selectedRecipeField = `recipeIngredient.${index}.${f}`;
+    }
+
+    function setSingleStep(path: Leaves<RecipeStep[]>) {
+      //@ts-ignore Either I am missing something or TS is not looking properly at the type of path
+      state.selectedRecipeField = `recipeInstructions.${path}`;
+    }
+
     return {
       ...toRefs(state),
       addIngredient,
@@ -680,6 +771,8 @@ export default defineComponent({
       tsv,
       validators,
       switchCanvasMode,
+      setSingleIngredient,
+      setSingleStep,
     };
   },
 });

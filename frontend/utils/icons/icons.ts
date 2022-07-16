@@ -119,7 +119,9 @@ import {
   mdiDocker,
   mdiUndo,
   mdiSelectionDrag,
-  mdiCursorMove
+  mdiCursorMove,
+  mdiText,
+  mdiTextBoxOutline,
 } from "@mdi/js";
 
 export const icons = {
@@ -259,4 +261,8 @@ export const icons = {
   // Ocr toolbar
   selectMode: mdiSelectionDrag,
   panAndZoom: mdiCursorMove,
+  preserveLines: mdiText,
+  preserveBlocks: mdiTextBoxOutline,
+  flatten: mdiMinus,
+
 };
