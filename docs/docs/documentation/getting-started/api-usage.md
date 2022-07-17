@@ -35,7 +35,7 @@ Many applications will keep track of the query and adjust the page parameter app
   "previous": "/recipes?page=1&per_page=5&order_by=name&order_direction=asc"
 }
 ```
-Notice that the route does not contain the baseurl (e.g. `https://mymealieapplication.com`).
+Notice that the route does not contain the baseurl (e.g. `https://mymealieapplication.com/api`).
 
 There are a few shorthands available to reduce the number of calls for certain common requests:
 - if you want to return _all_ results, effectively disabling pagination, set `perPage = -1` (and fetch the first page)
