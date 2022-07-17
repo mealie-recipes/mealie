@@ -7,7 +7,7 @@
     </v-card-text>
     <v-card-actions class="justify-center">
       <div style="width: 250px">
-        <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="createByOcr" />
+        <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="createByOcr" accept="image/*" />
       </div>
     </v-card-actions>
   </div>
