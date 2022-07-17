@@ -2,8 +2,8 @@
 
 **For Environmental Variable Configuration See:**
 
-- [Frontend Configuration](/mealie/documentation/getting-started/installation/frontend-config/)
-- [Backend Configuration](/mealie/documentation/getting-started/installation/backend-config/)
+- [Frontend Configuration](./frontend-config.md)
+- [Backend Configuration](./backend-config.md)
 
 ```yaml
 ---
