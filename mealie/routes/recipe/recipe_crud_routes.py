@@ -33,7 +33,9 @@ from mealie.schema.recipe.recipe import (
     RecipeSummary,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
+from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
@@ -441,7 +443,13 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-ocr", status_code=201, response_model=str)
     def create_recipe_ocr(self, extension: str = Form(...), file: UploadFile = File(...)):
         """Takes an image and creates a recipe based on the image"""
-        slug = self.service.create_one(CreateRecipe(name="New OCR Recipe")).slug
+        slug = self.service.create_one(
+            Recipe(
+                name="New OCR Recipe",
+                recipe_ingredient=[RecipeIngredient(note="")],
+                recipe_instructions=[RecipeStep(text="")],
+            )
+        ).slug
         RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)
         recipe = self.mixins.get_one(slug)
         recipe.settings.show_assets = True
