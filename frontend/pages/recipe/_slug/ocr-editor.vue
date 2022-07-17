@@ -753,7 +753,7 @@ export default defineComponent({
     }
 
     function setSingleStep(path: Leaves<RecipeStep[]>) {
-      //@ts-ignore Either I am missing something or TS is not looking properly at the type of path
+      // @ts-ignore Either I am missing something or TS is not looking properly at the type of path
       state.selectedRecipeField = `recipeInstructions.${path}`;
     }
 
