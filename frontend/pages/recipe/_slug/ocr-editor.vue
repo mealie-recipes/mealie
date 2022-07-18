@@ -459,7 +459,7 @@ export default defineComponent({
         tsv.value = res.data as OcrTsvResponse[];
         state.loading = false;
 
-        if (recipe.value.name?.match(/New\sOCR\sRecipe\s\([0-9]+\)/g)) {
+        if (recipe.value.name?.match(/New\sOCR\sRecipe(\s\([0-9]+\))?/g)) {
           recipe.value.name = findRecipeTitle();
         }
 
