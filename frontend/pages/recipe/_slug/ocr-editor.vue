@@ -403,6 +403,43 @@ export default defineComponent({
       }
     }
 
+    function findRecipeTitle() {
+      // This function will find the title of a recipe with the assumption that the title has the biggest ratio of surface area on number of words on the image
+
+      const filtered = tsv.value.filter((element) => element.level === 2 || element.level === 5);
+      const blocks = [[]] as OcrTsvResponse[][];
+      let blockNum = 1;
+      filtered.forEach((element, index, array) => {
+        if (index !== 0 && array[index - 1].blockNum !== element.blockNum) {
+          blocks.push([]);
+          blockNum = element.blockNum;
+        }
+        blocks[blockNum - 1].push(element);
+      });
+
+      let bestScore = 0;
+      let bestBlock = blocks[0];
+      blocks.forEach((element) => {
+        // element[0] is the block declaration line containing the blocks total dimensions
+        // element.lenght is the number of words (+ 2) contained in that block
+        const elementScore = (element[0].height * element[0].width) / element.length; // Prettier is adding useless parenthesis for a mysterious reason
+        const elementText = element.map((element) => element.text).join(""); // Identify empty blocks and don't count them
+        if (elementScore > bestScore && elementText !== "") {
+          bestBlock = element;
+          bestScore = elementScore;
+        }
+      });
+
+      return bestBlock
+        .filter((element) => element.level === 5)
+        .map((element) => {
+          if (element.conf >= 40) {
+            return element.text.trim();
+          }
+        })
+        .join(" ");
+    }
+
     onMounted(() => {
       invoke(async () => {
         await until(recipe).not.toBeNull();
@@ -421,6 +458,10 @@ export default defineComponent({
         const res = await api.ocr.tsv(file);
         tsv.value = res.data as OcrTsvResponse[];
         state.loading = false;
+
+        if (recipe.value.name?.match(/New\sOCR\sRecipe\s\([0-9]+\)/g)) {
+          recipe.value.name = findRecipeTitle();
+        }
 
         nextTick(() => {
           const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
