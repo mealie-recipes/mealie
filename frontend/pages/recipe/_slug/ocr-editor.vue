@@ -431,11 +431,9 @@ export default defineComponent({
       });
 
       return bestBlock
-        .filter((element) => element.level === 5)
+        .filter((element) => element.level === 5 && element.conf >= 40)
         .map((element) => {
-          if (element.conf >= 40) {
-            return element.text.trim();
-          }
+          return element.text.trim();
         })
         .join(" ");
     }
