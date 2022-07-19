@@ -157,10 +157,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive, ref, toRefs, useAsync, useContext, useRouter } from "@nuxtjs/composition-api";
-import { useAsyncKey } from "~/composables/use-utils";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes, useSorter } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
 
@@ -247,7 +247,7 @@ export default defineComponent({
 
     onMounted(async () => {
       if (props.usePagination) {
-        let newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
+        const newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
         ready.value = true;
       }
@@ -262,7 +262,7 @@ export default defineComponent({
         loading.value = true;
         page.value = page.value + 1;
 
-        let newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
+        const newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
         if (!newRecipes.length) {
           hasMore.value = false;
         }
@@ -289,43 +289,43 @@ export default defineComponent({
 
       switch (sortType) {
         case EVENTS.az:
-          if (orderBy.value != "name") {
+          if (orderBy.value !== "name") {
             orderBy.value = "name";
             orderDirection.value = "asc";
           }
 
           else {
-            orderDirection.value = orderDirection.value == "asc" ? "desc" : "asc";
+            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
         case EVENTS.rating:
-          if (orderBy.value != "rating") {
+          if (orderBy.value !== "rating") {
             orderBy.value = "rating";
             orderDirection.value = "desc";
           }
 
           else {
-            orderDirection.value = orderDirection.value == "asc" ? "desc" : "asc";
+            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
         case EVENTS.created:
-          if (orderBy.value != "created_at") {
+          if (orderBy.value !== "created_at") {
             orderBy.value = "created_at";
             orderDirection.value = "desc";
           }
 
           else {
-            orderDirection.value = orderDirection.value == "asc" ? "desc" : "asc";
+            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
         case EVENTS.updated:
-          if (orderBy.value != "update_at") {
+          if (orderBy.value !== "update_at") {
             orderBy.value = "update_at";
             orderDirection.value = "desc";
           }
 
           else {
-            orderDirection.value = orderDirection.value == "asc" ? "desc" : "asc";
+            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
         default:
@@ -342,7 +342,7 @@ export default defineComponent({
         loading.value = true;
 
         // fetch new recipes
-        let newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
+        const newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
         state.sortLoading = false;

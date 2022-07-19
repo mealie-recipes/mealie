@@ -17,6 +17,7 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useLazyRecipes } from "~/composables/recipes";
+import { Recipe } from "~/types/api-types/recipe";
 
 export default defineComponent({
   components: { RecipeCardSection },
