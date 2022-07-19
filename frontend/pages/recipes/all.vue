@@ -26,12 +26,12 @@ export default defineComponent({
 
     function appendRecipes(val: Array<Recipe>) {
       val.forEach((recipe) => {
-        this.recipes.push(recipe);
+        recipes.value.push(recipe);
       });
     };
 
     function assignSorted(val: Array<Recipe>) {
-      this.recipes = val;
+      recipes.value = val;
     };
 
     function removeRecipe(slug: string) {
@@ -44,7 +44,7 @@ export default defineComponent({
     };
 
     function replaceRecipes(val: Array<Recipe>) {
-      this.recipes = val;
+      recipes.value = val;
     };
 
     return { appendRecipes, assignSorted, recipes, removeRecipe, replaceRecipes };
