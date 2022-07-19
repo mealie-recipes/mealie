@@ -67,6 +67,7 @@ export const useLazyRecipes = function () {
   }
 
   return {
+    recipes,
     fetchMore,
   };
 };
