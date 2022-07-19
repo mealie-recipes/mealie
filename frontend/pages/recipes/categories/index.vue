@@ -30,7 +30,7 @@ export default defineComponent({
     };
   },
   head: {
-    title: "Tags",
+    title: "Categories",
   },
 });
 </script>
