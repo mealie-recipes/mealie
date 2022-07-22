@@ -1,8 +1,10 @@
 from fastapi import APIRouter, File
 
 from mealie.routes._base import BaseUserController, controller
-from mealie.schema.ocr.ocr import OcrTsvResponse
+from mealie.schema.ocr.ocr import OcrAssetReq, OcrTsvResponse
 from mealie.services.ocr.pytesseract import OCR
+from mealie.services.recipe.recipe_data_service import RecipeDataService
+from mealie.services.recipe.recipe_service import RecipeService
 
 router = APIRouter()
 
@@ -13,23 +15,17 @@ class OCRController(BaseUserController):
     def image_to_string(self, file: bytes = File(...)):
         return OCR.image_to_string(file)
 
-    @router.post("/tsv", response_model=list[OcrTsvResponse])
-    def image_to_tsv(self, file: bytes = File(...)):
+    @router.post("/file-to-tsv", response_model=list[OcrTsvResponse])
+    def file_to_tsv(self, file: bytes = File(...)):
         tsv = OCR.image_to_tsv(file)
-        lines = tsv.split("\n")
-        titles = [t.strip() for t in lines[0].split("\t")]
-        response = []
-        #  len-1 because the last line is empty
-        for i in range(1, len(lines) - 1):
-            d = {}
-            for key, value in zip(titles, lines[i].split("\t")):
-                if key == "text":
-                    d[key] = value.strip()
-                elif key == "conf":
-                    d[key] = float(value.strip())
-                else:
-                    d[key] = int(value.strip())
+        return OCR.format_tsv_output(tsv)
 
-            response.append(d)
+    @router.post("/asset-to-tsv", response_model=list[OcrTsvResponse])
+    def asset_to_tsv(self, req: OcrAssetReq):
+        recipe = RecipeService._get_recipe(self, req.recipe_slug)
+        data_service = RecipeDataService(recipe.id, recipe.group_id)
+        asset_path = data_service.dir_assets.joinpath(req.asset_name)
+        file = open(asset_path, "rb")
+        tsv = OCR.image_to_tsv(file.read())
 
-        return response
+        return OCR.format_tsv_output(tsv)

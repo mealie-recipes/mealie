@@ -14,3 +14,8 @@ class OcrTsvResponse(MealieModel):
     height: int
     conf: float
     text: str
+
+
+class OcrAssetReq(MealieModel):
+    recipe_slug: str
+    asset_name: str

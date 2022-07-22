@@ -453,7 +453,7 @@ export default defineComponent({
         const file = new File([blob], assetName, { type: blob.type });
         image.src = imagesrc;
 
-        const res = await api.ocr.tsv(file);
+        const res = await api.ocr.asset_to_tsv(recipe.value.slug, assetName);
         tsv.value = res.data as OcrTsvResponse[];
         state.loading = false;
 
