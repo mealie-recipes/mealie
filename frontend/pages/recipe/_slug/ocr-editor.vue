@@ -6,12 +6,7 @@
     }"
   >
     <BannerExperimental />
-    <BaseButton save @click="updateRecipe(recipe.slug, recipe)">
-      {{ $t("general.save") }}
-    </BaseButton>
-    <BaseButton cancel @click="$router.push('/recipe/' + recipe.slug)">
-      {{ $t("general.close") }}
-    </BaseButton>
+
     <v-row v-if="!loading">
       <v-col cols="12" sm="7" md="7" lg="7">
         <v-card flat tile>
@@ -96,6 +91,12 @@
             </v-tooltip>
 
             <v-spacer></v-spacer>
+            <BaseButton class="ml-1 mr-1" save @click="updateRecipe(recipe.slug, recipe)">
+              {{ $t("general.save") }}
+            </BaseButton>
+            <BaseButton cancel @click="$router.push('/recipe/' + recipe.slug)">
+              {{ $t("general.close") }}
+            </BaseButton>
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
                 <v-btn icon>
@@ -178,8 +179,10 @@
             </v-text-field>
           </v-tab-item>
           <v-tab-item key="ingredients">
-            <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
-            <RecipeDialogBulkAdd :input-text-prop="selectedText" @bulk-data="addIngredient" />
+            <div class="d-flex justify-end mt-2">
+              <RecipeDialogBulkAdd class="ml-1 mr-1" :input-text-prop="selectedText" @bulk-data="addIngredient" />
+              <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
+            </div>
             <draggable
               v-if="recipe.recipeIngredient.length > 0"
               v-model="recipe.recipeIngredient"
@@ -207,8 +210,10 @@
             </draggable>
           </v-tab-item>
           <v-tab-item key="instructions">
-            <BaseButton class="my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
-            <RecipeDialogBulkAdd :input-text-prop="selectedText" @bulk-data="addStep" />
+            <div class="d-flex justify-end mt-2">
+              <RecipeDialogBulkAdd class="ml-1 mr-1" :input-text-prop="selectedText" @bulk-data="addStep" />
+              <BaseButton @click="addStep()"> {{ $t("general.new") }}</BaseButton>
+            </div>
             <RecipeInstructions
               v-model="recipe.recipeInstructions"
               :ingredients="recipe.recipeIngredient"
