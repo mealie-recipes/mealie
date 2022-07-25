@@ -6,7 +6,7 @@
       <v-form ref="domCreateByOcr"> </v-form>
     </v-card-text>
     <v-card-actions class="justify-center">
-      <v-checkbox v-model="makeFileRecipeImage" label="Make this the recipe image" />
+      <v-checkbox v-model="makeFileRecipeImage" :label="$t('new-recipe.make-recipe-image')" />
     </v-card-actions>
     <v-card-actions class="justify-center">
       <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="createByOcr" accept="image/*" />
