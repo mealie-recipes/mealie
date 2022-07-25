@@ -6,9 +6,10 @@
       <v-form ref="domCreateByOcr"> </v-form>
     </v-card-text>
     <v-card-actions class="justify-center">
-      <div style="width: 250px">
-        <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="createByOcr" accept="image/*" />
-      </div>
+      <v-checkbox v-model="makeFileRecipeImage" label="Make this the recipe image" />
+    </v-card-actions>
+    <v-card-actions class="justify-center">
+      <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="createByOcr" accept="image/*" />
     </v-card-actions>
   </div>
 </template>
@@ -24,6 +25,7 @@ export default defineComponent({
     const state = reactive({
       error: false,
       loading: false,
+      makeFileRecipeImage: false,
     });
     const api = useUserApi();
     const router = useRouter();
@@ -41,7 +43,7 @@ export default defineComponent({
 
     async function createByOcr(file: File) {
       console.log("file: ", file);
-      const { response } = await api.recipes.createFromOcr(file);
+      const { response } = await api.recipes.createFromOcr(file, state.makeFileRecipeImage);
       // @ts-ignore returns a string and not a full Recipe
       handleResponse(response);
     }

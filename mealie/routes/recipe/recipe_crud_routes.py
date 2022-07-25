@@ -441,7 +441,9 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # OCR
     @router.post("/create-ocr", status_code=201, response_model=str)
-    def create_recipe_ocr(self, extension: str = Form(...), file: UploadFile = File(...)):
+    def create_recipe_ocr(
+        self, extension: str = Form(...), file: UploadFile = File(...), makefilerecipeimage: bool = Form(...)
+    ):
         """Takes an image and creates a recipe based on the image"""
         slug = self.service.create_one(
             Recipe(
@@ -451,6 +453,9 @@ class RecipeController(BaseRecipeController):
             )
         ).slug
         RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)
+        if makefilerecipeimage:
+            file.file.seek(0)  # Get the pointer to the beginning of the file to read it once more
+            self.update_recipe_image(slug, file.file, extension)
         recipe = self.mixins.get_one(slug)
         recipe.settings.show_assets = True
         self.mixins.update_one(recipe, slug)
