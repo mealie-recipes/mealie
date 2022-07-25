@@ -9,7 +9,7 @@
       <v-checkbox v-model="makeFileRecipeImage" :label="$t('new-recipe.make-recipe-image')" />
     </v-card-actions>
     <v-card-actions class="justify-center">
-      <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="createByOcr" accept="image/*" />
+      <AppButtonUpload :post="false" file-name="file" :text-btn="false" accept="image/*" @uploaded="createByOcr" />
     </v-card-actions>
   </div>
 </template>

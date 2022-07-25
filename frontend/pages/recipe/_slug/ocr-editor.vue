@@ -1,6 +1,6 @@
 <template>
   <v-container
-    v-if="recipe"
+    v-if="recipe && recipe.slug && recipe.settings && recipe.recipeIngredient"
     :class="{
       'pa-0': $vuetify.breakpoint.smAndDown,
     }"
@@ -447,15 +447,12 @@ export default defineComponent({
       invoke(async () => {
         await until(recipe).not.toBeNull();
 
-        if (recipe.value === null) {
-          // Throw error
+        if (!recipe.value || !recipe.value.assets || !recipe.value.slug) {
+          return;
         }
 
         const assetName = recipe.value?.assets[0].fileName as string;
         const imagesrc = assetURL(assetName);
-        const response = await fetch(imagesrc);
-        const blob = await response.blob();
-        const file = new File([blob], assetName, { type: blob.type });
         image.src = imagesrc;
 
         const res = await api.ocr.asset_to_tsv(recipe.value.slug, assetName);
@@ -564,7 +561,7 @@ export default defineComponent({
           // Update the right field in the recipe
 
           if (state.selectedRecipeField !== "") {
-            // Just trust me Typescript
+            if (recipe.value === null) return;
             setPropertyValueByPath<Recipe>(recipe.value, state.selectedRecipeField, state.selectedText);
           }
         } else {
@@ -793,7 +790,7 @@ export default defineComponent({
     }
 
     function setSingleIngredient(f: keyof RecipeIngredient, index: number) {
-      state.selectedRecipeField = `recipeIngredient.${index}.${f}`;
+      state.selectedRecipeField = `recipeIngredient.${index}.${f}` as SelectedRecipeLeaves;
     }
 
     function setSingleStep(path: Leaves<RecipeStep[]>) {
