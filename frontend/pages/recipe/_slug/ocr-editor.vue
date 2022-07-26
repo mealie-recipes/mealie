@@ -382,7 +382,7 @@ export default defineComponent({
       selectedTextSplitMode: "lineNum" as SelectedTextSplitModes,
     });
 
-    const setPropertyValueByPath = function <T>(object: T, path: Paths<T>, value: any) {
+    const setPropertyValueByPath = function <T extends Recipe>(object: T, path: Paths<T>, value: any) {
       const a = path.split(".");
       let nextProperty: any = object;
       for (let i = 0, n = a.length - 1; i < n; ++i) {
