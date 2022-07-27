@@ -21,7 +21,13 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePaginationQuery, RecipeSummary
+from mealie.schema.recipe.recipe import (
+    CreateRecipe,
+    CreateRecipeByUrlBulk,
+    RecipePagination,
+    RecipePaginationQuery,
+    RecipeSummary,
+)
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
@@ -190,7 +196,7 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # CRUD Operations
 
-    @router.get("", response_model=list[RecipeSummary])
+    @router.get("", response_model=RecipePagination)
     def get_all(self, q: RecipePaginationQuery = Depends(RecipePaginationQuery)):
         response = self.repo.page_all(
             pagination=q,
