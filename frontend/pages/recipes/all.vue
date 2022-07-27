@@ -4,7 +4,7 @@
       :icon="$globals.icons.primary"
       :title="$t('page.all-recipes')"
       :recipes="recipes"
-      :usePagination="true"
+      :use-pagination="true"
       @sortRecipes="assignSorted"
       @replaceRecipes="replaceRecipes"
       @appendRecipes="appendRecipes"
@@ -28,11 +28,11 @@ export default defineComponent({
       val.forEach((recipe) => {
         recipes.value.push(recipe);
       });
-    };
+    }
 
     function assignSorted(val: Array<Recipe>) {
       recipes.value = val;
-    };
+    }
 
     function removeRecipe(slug: string) {
       for (let i = 0; i < recipes?.value?.length; i++) {
@@ -41,11 +41,11 @@ export default defineComponent({
           break;
         }
       }
-    };
+    }
 
     function replaceRecipes(val: Array<Recipe>) {
       recipes.value = val;
-    };
+    }
 
     return { appendRecipes, assignSorted, recipes, removeRecipe, replaceRecipes };
   },
