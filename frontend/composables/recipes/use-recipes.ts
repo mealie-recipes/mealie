@@ -63,11 +63,7 @@ export const useLazyRecipes = function () {
 
   async function fetchMore(page: number, perPage: number, orderBy: string | null = null, orderDirection = "desc") {
     const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection });
-    if (data) {
-      data.items.forEach((recipe) => {
-        recipes.value?.push(recipe);
-      });
-    }
+    return data ? data.items : [];
   }
 
   return {
