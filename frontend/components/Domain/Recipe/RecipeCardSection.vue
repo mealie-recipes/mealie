@@ -289,6 +289,7 @@ export default defineComponent({
     (without pagination) and does the sorting in the frontend.
 
     TODO: remove sortRecipesFrontend and remove duplicate "sortRecipes" section in the template (above)
+    TODO: use indicator to show asc / desc order
     */
 
     function sortRecipes(sortType: string) {
