@@ -61,7 +61,7 @@
         <template #activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
             <v-icon :left="!$vuetify.breakpoint.xsOnly">
-              {{ $globals.icons.sort }}
+              {{ sortIcon }}
             </v-icon>
             {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
           </v-btn>
@@ -249,6 +249,7 @@ export default defineComponent({
     const perPage = ref(30);
     const orderBy = ref("name");
     const orderDirection = ref("asc");
+    const sortIcon = ref($globals.icons.sortAlphabeticalAscending)
     const hasMore = ref(true);
 
     const ready = ref(false);
@@ -289,7 +290,6 @@ export default defineComponent({
     (without pagination) and does the sorting in the frontend.
 
     TODO: remove sortRecipesFrontend and remove duplicate "sortRecipes" section in the template (above)
-    TODO: use indicator to show asc / desc order
     */
 
     function sortRecipes(sortType: string) {
@@ -305,6 +305,7 @@ export default defineComponent({
           } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
+          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortAlphabeticalAscending : $globals.icons.sortAlphabeticalDescending;
           break;
         case EVENTS.rating:
           if (orderBy.value !== "rating") {
@@ -313,6 +314,7 @@ export default defineComponent({
           } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
+          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending;
           break;
         case EVENTS.created:
           if (orderBy.value !== "created_at") {
@@ -321,6 +323,7 @@ export default defineComponent({
           } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
+          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending;
           break;
         case EVENTS.updated:
           if (orderBy.value !== "update_at") {
@@ -329,6 +332,7 @@ export default defineComponent({
           } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
+          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortClockAscending : $globals.icons.sortClockDescending;
           break;
         default:
           console.log("Unknown Event", sortType);
@@ -388,6 +392,7 @@ export default defineComponent({
       infiniteScroll,
       loading,
       navigateRandom,
+      sortIcon,
       sortRecipes,
       sortRecipesFrontend,
     };
