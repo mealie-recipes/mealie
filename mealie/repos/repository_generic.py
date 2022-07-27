@@ -4,6 +4,7 @@ from typing import Any, Generic, TypeVar, Union
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import func
+from sqlalchemy.orm import Query
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
@@ -246,16 +247,43 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination)
+
+        try:
+            data = q.all()
+        except Exception as e:
+            self._log_exception(e)
+            self.session.rollback()
+            raise e
+
+        return PaginationBase(
+            page=pagination.page,
+            per_page=pagination.per_page,
+            total=count,
+            total_pages=total_pages,
+            items=[eff_schema.from_orm(s) for s in data],
+        )
+
+    def add_pagination_to_query(self, query: Query, pagination: PaginationQuery) -> tuple[Query, int, int]:
+        """
+        Adds pagination data to an existing query.
+
+        :returns:
+            - query - modified query with pagination data
+            - count - total number of records (without pagination)
+            - total_pages - the total number of pages in the query
+        """
+
         if pagination.query_filter:
             try:
-                qf = QueryFilter(pagination.query_filter)
-                q = qf.filter_query(q, model=self.model)
+                query_filter = QueryFilter(pagination.query_filter)
+                query = query_filter.filter_query(query, model=self.model)
 
             except ValueError as e:
                 self.logger.error(e)
                 raise HTTPException(status_code=400, detail=str(e))
 
-        count = q.count()
+        count = query.count()
 
         # interpret -1 as "get_all"
         if pagination.per_page == -1:
@@ -286,21 +314,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 elif pagination.order_direction == OrderDirection.desc:
                     order_attr = order_attr.desc()
 
-                q = q.order_by(order_attr)
+                query = query.order_by(order_attr)
 
-        q = q.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page)
-
-        try:
-            data = q.all()
-        except Exception as e:
-            self._log_exception(e)
-            self.session.rollback()
-            raise e
-
-        return PaginationBase(
-            page=pagination.page,
-            per_page=pagination.per_page,
-            total=count,
-            total_pages=total_pages,
-            items=[eff_schema.from_orm(s) for s in data],
-        )
+        return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
