@@ -14,17 +14,7 @@
         </v-icon>
         {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
-      <ContextMenu
-        v-if="!$vuetify.breakpoint.xsOnly"
-        :items="[
-          {
-            title: 'Toggle View',
-            icon: $globals.icons.eye,
-            event: 'toggle-dense-view',
-          },
-        ]"
-        @toggle-dense-view="mobileCards = !mobileCards"
-      />
+
       <v-menu v-if="$listeners.sort" offset-y left>
         <template #activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
@@ -103,6 +93,17 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <ContextMenu
+        v-if="!$vuetify.breakpoint.xsOnly"
+        :items="[
+          {
+            title: 'Toggle View',
+            icon: $globals.icons.eye,
+            event: 'toggle-dense-view',
+          },
+        ]"
+        @toggle-dense-view="mobileCards = !mobileCards"
+      />
     </v-app-bar>
     <div v-if="recipes" class="mt-2">
       <v-row v-if="!viewScale">
@@ -156,7 +157,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref, toRefs, useAsync, useContext, useRouter } from "@nuxtjs/composition-api";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+  toRefs,
+  useAsync,
+  useContext,
+  useRouter,
+} from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
@@ -197,7 +208,7 @@ export default defineComponent({
     usePagination: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   setup(props, context) {
     const mobileCards = ref(false);
@@ -265,9 +276,7 @@ export default defineComponent({
         const newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
         if (!newRecipes.length) {
           hasMore.value = false;
-        }
-
-        else {
+        } else {
           context.emit(APPEND_RECIPES_EVENT, newRecipes);
         }
 
@@ -292,9 +301,7 @@ export default defineComponent({
           if (orderBy.value !== "name") {
             orderBy.value = "name";
             orderDirection.value = "asc";
-          }
-
-          else {
+          } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
@@ -302,9 +309,7 @@ export default defineComponent({
           if (orderBy.value !== "rating") {
             orderBy.value = "rating";
             orderDirection.value = "desc";
-          }
-
-          else {
+          } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
@@ -312,9 +317,7 @@ export default defineComponent({
           if (orderBy.value !== "created_at") {
             orderBy.value = "created_at";
             orderDirection.value = "desc";
-          }
-
-          else {
+          } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
@@ -322,9 +325,7 @@ export default defineComponent({
           if (orderBy.value !== "update_at") {
             orderBy.value = "update_at";
             orderDirection.value = "desc";
-          }
-
-          else {
+          } else {
             orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
           }
           break;
@@ -348,7 +349,7 @@ export default defineComponent({
         state.sortLoading = false;
         loading.value = false;
       }, useAsyncKey());
-    };
+    }
 
     function sortRecipesFrontend(sortType: string) {
       state.sortLoading = true;
@@ -375,7 +376,7 @@ export default defineComponent({
       }
       context.emit(SORT_EVENT, sortTarget);
       state.sortLoading = false;
-    };
+    }
 
     return {
       mobileCards,
