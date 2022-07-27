@@ -129,6 +129,8 @@ class RecipeSummary(MealieModel):
 
 class RecipePaginationQuery(PaginationQuery):
     load_food: bool = False
+    category: UUID4 | str = None
+    tag: UUID4 | str = None
 
 
 class RecipePagination(PaginationBase):

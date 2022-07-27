@@ -201,6 +201,8 @@ class RecipeController(BaseRecipeController):
         response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
+            category=q.category or None,
+            tag=q.tag or None,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
