@@ -65,7 +65,7 @@
       <v-card-actions class="mt-n5 mb-1">
         <v-menu offset-y bottom nudge-bottom="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
-            <v-btn color="accent" class="mr-1" dark v-bind="attrs" v-on="on">
+            <v-btn color="accent" class="mr-2" dark v-bind="attrs" v-on="on">
               <v-icon left>
                 {{ $globals.icons.cog }}
               </v-icon>
