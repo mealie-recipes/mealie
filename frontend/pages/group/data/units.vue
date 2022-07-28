@@ -209,6 +209,7 @@ export default defineComponent({
 
     // we explicitly set booleans to false since forms don't POST unchecked boxes
     const createTarget = ref<CreateIngredientUnit>({
+        name: "",
         fraction: false,
         useAbbreviation: false
       });
@@ -228,6 +229,7 @@ export default defineComponent({
       // reset form
       this.$refs.domNewUnitForm.reset();
       createTarget.value = {
+        name: "",
         fraction: false,
         useAbbreviation: false
       };

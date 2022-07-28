@@ -199,7 +199,9 @@ export default defineComponent({
     // Food Creator
 
     const createDialog = ref(false);
-    const createTarget = ref<CreateIngredientFood>({});
+    const createTarget = ref<CreateIngredientFood>({
+      name: ""
+    });
 
     function createEventHandler() {
       createTarget.value = {};
@@ -216,7 +218,9 @@ export default defineComponent({
 
       // reset form
       this.$refs.domNewFoodForm.reset();
-      createTarget.value = {};
+      createTarget.value = {
+        name: ""
+      };
     }
 
     // ===============================================================
