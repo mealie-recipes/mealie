@@ -43,7 +43,7 @@ export default defineComponent({
         value: "url",
       },
       {
-        icon: $globals.icons.edit,
+        icon: $globals.icons.fileImage,
         text: "Create recipe from an image",
         value: "ocr",
       },
