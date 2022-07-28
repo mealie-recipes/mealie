@@ -54,6 +54,30 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Create Dialog -->
+    <BaseDialog
+      v-model="createDialog"
+      :icon="$globals.icons.foods"
+      title="Create Food"
+      :submit-text="$tc('general.save')"
+      @submit="createFood"
+    >
+      <v-card-text>
+        <v-form ref="domCreateFoodForm">
+          <v-text-field v-model="createTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
+          <v-autocomplete
+            v-model="createTarget.labelId"
+            clearable
+            :items="allLabels"
+            item-value="id"
+            item-text="name"
+            label="Food Label"
+          >
+          </v-autocomplete>
+        </v-form> </v-card-text
+    ></BaseDialog>
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
@@ -100,8 +124,13 @@
       :bulk-actions="[]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
+      @create-one="createEventHandler"
     >
       <template #button-row>
+        <BaseButton @click="createDialog = true">
+          <template #icon> {{ $globals.icons.create }} </template>
+          Create
+        </BaseButton>
         <BaseButton @click="mergeDialog = true">
           <template #icon> {{ $globals.icons.foods }} </template>
           Combine
@@ -128,7 +157,7 @@ import { computed } from "vue-demi";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { IngredientFood } from "~/types/api-types/recipe";
+import { CreateIngredientFood, IngredientFood } from "~/types/api-types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
@@ -165,6 +194,25 @@ export default defineComponent({
     ];
 
     const foodStore = useFoodStore();
+
+    // ===============================================================
+    // Food Creator
+
+    const createDialog = ref(false);
+    const createTarget = ref<CreateIngredientFood>({});
+
+    function createEventHandler() {
+      createDialog.value = true;
+    }
+
+    async function createFood() {
+      if (!createTarget.value || !createTarget.value.name) {
+        return;
+      }
+
+      await foodStore.actions.createOne(createTarget.value);
+      createDialog.value = false;
+    }
 
     // ===============================================================
     // Food Editor
@@ -262,6 +310,11 @@ export default defineComponent({
       foods: foodStore.foods,
       allLabels,
       validators,
+      // Create
+      createDialog,
+      createEventHandler,
+      createFood,
+      createTarget,
       // Edit
       editDialog,
       editEventHandler,
