@@ -100,7 +100,7 @@
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
                 <v-btn icon>
-                  <v-icon v-bind="attrs" v-on="on"> {{ $globals.icons.help }} </v-icon>
+                  <v-icon v-bind="attrs" v-on="on" @click="showHelp = !showHelp"> {{ $globals.icons.help }} </v-icon>
                 </v-btn>
               </template>
               <span>Click here for help on how to use this feature!</span>
@@ -113,9 +113,9 @@
             @mousemove="handleMouseMove"
             @wheel="handleMouseScroll"
           ></canvas>
-          <p>
+          <span style="white-space: pre-wrap">
             {{ selectedText }}
-          </p>
+          </span>
         </v-card>
       </v-col>
       <v-col cols="12" sm="5" md="5" lg="5">
@@ -228,6 +228,55 @@
         </v-tabs-items>
       </v-col>
     </v-row>
+    <v-dialog v-model="showHelp" width="800px">
+      <v-card>
+        <v-app-bar dense dark color="primary" class="mb-2">
+          <v-icon large left>
+            {{ $globals.icons.help }}
+          </v-icon>
+          <v-toolbar-title class="headline"> Help </v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-card-text>
+          <h1>Mouse modes</h1>
+          <v-divider class="mb-2 mt-1" />
+          <h2 class="my-2">
+            <v-icon> {{ $globals.icons.selectMode }} </v-icon>Selection Mode (default)
+          </h2>
+          <p class="my-1">The selection mode is the main mode that can be used to enter data:</p>
+          <ol>
+            <li>Draw a rectangle on the text you want to select.</li>
+            <li>Click on any field on the right and then click back on the rectangle above the image.</li>
+            <li>The selected text will appear inside the previously selected field.</li>
+          </ol>
+          <h2 class="my-2">
+            <v-icon> {{ $globals.icons.panAndZoom }} </v-icon>Pan and Zoom Mode
+          </h2>
+          Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make
+          using big images easier.
+          <h1 class="mt-5">Split Text modes</h1>
+          <v-divider class="mb-2 mt-1" />
+          <h2 class="my-2">
+            <v-icon> {{ $globals.icons.preserveLines }} </v-icon> Line mode (default)
+          </h2>
+          <p>
+            In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when
+            using bulk add on a list of ingredients where one ingredient is one line.
+          </p>
+          <h2 class="my-2">
+            <v-icon> {{ $globals.icons.preserveBlocks }} </v-icon> Block mode
+          </h2>
+          <p>
+            In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are
+            usually written in paragraphs.
+          </p>
+          <h2 class="my-2">
+            <v-icon> {{ $globals.icons.flatten }} </v-icon> Flat mode
+          </h2>
+          <p>In flat mode, the text will be added to the selected recipe field with no line breaks.</p>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -380,6 +429,7 @@ export default defineComponent({
       } as ImagePosition,
       isImageSmallerThanCanvas: false,
       selectedTextSplitMode: "lineNum" as SelectedTextSplitModes,
+      showHelp: false,
     });
 
     const setPropertyValueByPath = function <T extends Recipe>(object: T, path: Paths<T>, value: any) {
@@ -793,7 +843,10 @@ export default defineComponent({
       state.selectedRecipeField = `recipeIngredient.${index}.${f}` as SelectedRecipeLeaves;
     }
 
-    function setSingleStep(path: Leaves<RecipeStep[]>) {
+    // Leaves<RecipeStep[]> will return some function types making eslint very unhappy
+    type RecipeStepsLeaves = `${number}.${Leaves<RecipeStep>}`
+
+    function setSingleStep(path: RecipeStepsLeaves ) {
       state.selectedRecipeField = `recipeInstructions.${path}` as SelectedRecipeLeaves;
     }
 
