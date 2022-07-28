@@ -31,7 +31,7 @@
       @submit="createUnit"
     >
       <v-card-text>
-        <v-form ref="domCreateUnitForm">
+        <v-form ref="domNewUnitForm">
           <v-text-field v-model="createTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="createTarget.abbreviation" label="Abbreviation"></v-text-field>
           <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
@@ -206,7 +206,12 @@ export default defineComponent({
     // Create Units
 
     const createDialog = ref(false);
-    const createTarget = ref<CreateIngredientUnit>({});
+
+    // we explicitly set booleans to false since forms don't POST unchecked boxes
+    const createTarget = ref<CreateIngredientUnit>({
+        fraction: false,
+        useAbbreviation: false
+      });
 
     function createEventHandler() {
       createDialog.value = true;
@@ -219,6 +224,13 @@ export default defineComponent({
 
       await unitActions.createOne(createTarget.value);
       createDialog.value = false;
+
+      // reset form
+      this.$refs.domNewUnitForm.reset();
+      createTarget.value = {
+        fraction: false,
+        useAbbreviation: false
+      };
     }
 
     // ============================================================
@@ -239,6 +251,7 @@ export default defineComponent({
       editDialog.value = false;
     }
 
+    // ============================================================
     // Delete Units
     const deleteDialog = ref(false);
     const deleteTarget = ref<IngredientUnit | null>(null);

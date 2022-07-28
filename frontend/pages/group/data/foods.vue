@@ -63,7 +63,7 @@
       @submit="createFood"
     >
       <v-card-text>
-        <v-form ref="domCreateFoodForm">
+        <v-form ref="domNewFoodForm">
           <v-text-field v-model="createTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
           <v-autocomplete
@@ -202,6 +202,7 @@ export default defineComponent({
     const createTarget = ref<CreateIngredientFood>({});
 
     function createEventHandler() {
+      createTarget.value = {};
       createDialog.value = true;
     }
 
@@ -212,6 +213,10 @@ export default defineComponent({
 
       await foodStore.actions.createOne(createTarget.value);
       createDialog.value = false;
+
+      // reset form
+      this.$refs.domNewFoodForm.reset();
+      createTarget.value = {};
     }
 
     // ===============================================================
