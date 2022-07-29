@@ -212,7 +212,7 @@ export default defineComponent({
         return;
       }
 
-      // @ts-ignore the createOne function erroneously expects an id because it uses the IngredientUnit type
+      // @ts-ignore the createOne function erroneously expects an id because it uses the IngredientFood type
       await foodStore.actions.createOne(createTarget.value);
       createDialog.value = false;
 
