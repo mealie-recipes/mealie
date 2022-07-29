@@ -212,10 +212,12 @@ export default defineComponent({
         return;
       }
 
+      // @ts-ignore the createOne function erroneously expects an id because it uses the IngredientUnit type
       await foodStore.actions.createOne(createTarget.value);
       createDialog.value = false;
 
       // reset form
+      // @ts-ignore TS doesn't like this.$refs despite it working just fine
       this.$refs.domNewFoodForm.reset();
       createTarget.value = {
         name: ""
