@@ -248,9 +248,9 @@ export default defineComponent({
 
     const page = ref(1);
     const perPage = ref(30);
-    const orderBy = ref(localStorage.recipeCardSectionOrderBy || "name");
-    const orderDirection = ref(localStorage.orderDirection || "asc");
-    const sortIcon = ref(localStorage.recipeCardSectionSortIcon || $globals.icons.sortAlphabeticalAscending)
+    const orderBy = ref(localStorage.recipeCardSectionOrderBy as string || "name");
+    const orderDirection = ref(localStorage.orderDirection as string || "asc");
+    const sortIcon = ref(localStorage.recipeCardSectionSortIcon as string || $globals.icons.sortAlphabeticalAscending)
     const hasMore = ref(true);
 
     const ready = ref(false);
