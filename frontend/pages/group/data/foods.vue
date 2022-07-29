@@ -204,7 +204,6 @@ export default defineComponent({
     });
 
     function createEventHandler() {
-      createTarget.value = {};
       createDialog.value = true;
     }
 
