@@ -211,7 +211,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const mobileCards = ref(localStorage.recipeCardSectionUseMobileCards || false);
+    // local storage saves booleans as strings, so we convert the "true" string back to a boolean
+    const mobileCards = ref(localStorage.recipeCardSectionUseMobileCards === "true" || false);
     const utils = useSorter();
 
     const EVENTS = {
