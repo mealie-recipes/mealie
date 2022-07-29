@@ -102,7 +102,7 @@
             event: 'toggle-dense-view',
           },
         ]"
-        @toggle-dense-view="mobileCards = !mobileCards"
+        @toggle-dense-view="toggleMobileCards()"
       />
     </v-app-bar>
     <div v-if="recipes" class="mt-2">
@@ -211,7 +211,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const mobileCards = ref(false);
+    const mobileCards = ref(localStorage.recipeCardSectionUseMobileCards || false);
     const utils = useSorter();
 
     const EVENTS = {
@@ -247,9 +247,9 @@ export default defineComponent({
 
     const page = ref(1);
     const perPage = ref(30);
-    const orderBy = ref("name");
-    const orderDirection = ref("asc");
-    const sortIcon = ref($globals.icons.sortAlphabeticalAscending)
+    const orderBy = ref(localStorage.recipeCardSectionOrderBy || "name");
+    const orderDirection = ref(localStorage.orderDirection || "asc");
+    const sortIcon = ref(localStorage.recipeCardSectionSortIcon || $globals.icons.sortAlphabeticalAscending)
     const hasMore = ref(true);
 
     const ready = ref(false);
@@ -339,6 +339,10 @@ export default defineComponent({
           return;
       }
 
+      localStorage.recipeCardSectionOrderBy = orderBy.value;
+      localStorage.recipeCardSectionOrderDirection = orderDirection.value;
+      localStorage.recipeCardSectionSortIcon = sortIcon.value;
+
       useAsync(async () => {
         // reset pagination
         page.value = 1;
@@ -383,8 +387,14 @@ export default defineComponent({
       state.sortLoading = false;
     }
 
+    function toggleMobileCards() {
+      mobileCards.value = !mobileCards.value;
+      localStorage.recipeCardSectionUseMobileCards = mobileCards.value;
+    }
+
     return {
       mobileCards,
+      toggleMobileCards,
       ...toRefs(state),
       EVENTS,
       viewScale,
