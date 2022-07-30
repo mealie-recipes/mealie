@@ -20,7 +20,7 @@ class OcrService(BaseService):
 
     def image_to_tsv(self, image_data, lang=None):
         """
-        Returns tsv formatted output
+        Returns the pytesseract default tsv output
         """
         if lang is not None:
             return pytesseract.image_to_data(Image.open(BytesIO(image_data)), lang=lang)
@@ -28,20 +28,29 @@ class OcrService(BaseService):
         return pytesseract.image_to_data(Image.open(BytesIO(image_data)))
 
     def format_tsv_output(self, tsv: str) -> list[OcrTsvResponse]:
+        """
+        Returns a OcrTsvResponse from a default pytesseract tsv output
+        """
         lines = tsv.split("\n")
         titles = [t.strip() for t in lines[0].split("\t")]
         response: list[OcrTsvResponse] = []
-        #  len-1 because the last line is empty
-        for i in range(1, len(lines) - 1):
-            d = {}
+
+        for i in range(1, len(lines)):
+            if lines[i] == "":
+                continue
+
+            line = OcrTsvResponse()
             for key, value in zip(titles, lines[i].split("\t")):
                 if key == "text":
-                    d[key] = value.strip()
+                    setattr(line, key, value.strip())
                 elif key == "conf":
-                    d[key] = float(value.strip())
+                    setattr(line, key, float(value.strip()))
+                elif key in OcrTsvResponse.__fields__:
+                    setattr(line, key, int(value.strip()))
                 else:
-                    d[key] = int(value.strip())
+                    continue
 
-            response.append(d)
+            if isinstance(line, OcrTsvResponse):
+                response.append(line)
 
         return response
