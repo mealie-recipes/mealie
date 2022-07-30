@@ -1190,7 +1190,7 @@ rdflib = ">=5.0.0"
 
 [[package]]
 name = "recipe-scrapers"
-version = "14.7.0"
+version = "14.11.0"
 description = "Python package, scraping recipes from all over the internet"
 category = "main"
 optional = false
@@ -2288,7 +2288,10 @@ rdflib-jsonld = [
     {file = "rdflib-jsonld-0.6.2.tar.gz", hash = "sha256:107cd3019d41354c31687e64af5e3fd3c3e3fa5052ce635f5ce595fd31853a63"},
     {file = "rdflib_jsonld-0.6.2-py2.py3-none-any.whl", hash = "sha256:011afe67672353ca9978ab9a4bee964dff91f14042f2d8a28c22a573779d2f8b"},
 ]
-recipe-scrapers = []
+recipe-scrapers = [
+    {file = "recipe_scrapers-14.11.0-py3-none-any.whl", hash = "sha256:992b37ef2c29d66caaec82b2c5a1f9d901a74d2e267e60e505370c59ceadaeef"},
+    {file = "recipe_scrapers-14.11.0.tar.gz", hash = "sha256:85192e976388eeba9bb314c5cf75ac087ec1cfaf4b4aa1ffe580dae4099e2be9"},
+]
 requests = []
 requests-oauthlib = [
     {file = "requests-oauthlib-1.3.1.tar.gz", hash = "sha256:75beac4a47881eeb94d5ea5d6ad31ef88856affe2332b9aafb52c6452ccf0d7a"},
