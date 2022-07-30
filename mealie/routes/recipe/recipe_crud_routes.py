@@ -338,12 +338,26 @@ class RecipeController(BaseRecipeController):
         file: UploadFile = File(...),
     ):
         """Upload a file to store as a recipe asset"""
-        file_name = f"{slugify(name)}.{extension}"
+        if "." in extension:
+            extension = extension.split(".")[-1]
+
+        file_slug = slugify(name)
+        if not extension or not file_slug:
+            raise HTTPException(status_code=400, detail="Missing required fields")
+
+        file_name = f"{file_slug}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         recipe = self.mixins.get_one(slug)
 
         dest = recipe.asset_dir / file_name
+
+        # Ensure path is relative to the recipe's asset directory
+        if dest.absolute().parent != recipe.asset_dir:
+            raise HTTPException(
+                status_code=400,
+                detail=f"File name {file_name} or extension {extension} not valid",
+            )
 
         with dest.open("wb") as buffer:
             copyfileobj(file.file, buffer)
