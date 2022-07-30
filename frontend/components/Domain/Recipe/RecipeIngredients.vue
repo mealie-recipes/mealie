@@ -11,7 +11,7 @@
         <v-list-item dense @click="toggleChecked(index)">
           <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary" />
           <v-list-item-content :key="ingredient.quantity">
-            <VueMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredientDisplay[index]" />
+            <SafeMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredientDisplay[index]" />
           </v-list-item-content>
         </v-list-item>
       </div>
@@ -22,14 +22,11 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
-import VueMarkdown from "@adapttive/vue-markdown";
 import { parseIngredientText } from "~/composables/recipes";
 import { RecipeIngredient } from "~/types/api-types/recipe";
 
 export default defineComponent({
-  components: {
-    VueMarkdown,
-  },
+  components: {},
   props: {
     value: {
       type: Array as () => RecipeIngredient[],

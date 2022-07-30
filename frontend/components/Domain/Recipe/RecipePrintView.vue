@@ -11,7 +11,7 @@
     </section>
 
     <v-card-text class="px-0">
-      <VueMarkdown :source="recipe.description" />
+      <SafeMarkdown :source="recipe.description" />
     </v-card-text>
 
     <!-- Ingredients -->
@@ -47,7 +47,7 @@
               {{ step.title }}
             </h4>
             <h5>{{ $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h5>
-            <VueMarkdown :source="step.text" class="recipe-step-body" />
+            <SafeMarkdown :source="step.text" class="recipe-step-body" />
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
       <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
         <div class="print-section">
           <h4>{{ note.title }}</h4>
-          <VueMarkdown :source="note.text" class="note-body" />
+          <SafeMarkdown :source="note.text" class="note-body" />
         </div>
       </div>
     </section>
@@ -69,8 +69,6 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "@nuxtjs/composition-api";
-// @ts-ignore vue-markdown has no types
-import VueMarkdown from "@adapttive/vue-markdown";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
@@ -89,7 +87,6 @@ type InstructionSection = {
 export default defineComponent({
   components: {
     RecipeTimeCard,
-    VueMarkdown,
   },
   props: {
     recipe: {

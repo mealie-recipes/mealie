@@ -22,21 +22,15 @@
       dense
       rows="4"
     />
-    <VueMarkdown v-else :source="value" />
+    <SafeMarkdown v-else :source="value" />
   </div>
 </template>
 
 <script lang="ts">
-// @ts-ignore vue-markdown has no types
-import VueMarkdown from "@adapttive/vue-markdown";
-
 import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   name: "MarkdownEditor",
-  components: {
-    VueMarkdown,
-  },
   props: {
     value: {
       type: String,

@@ -17,7 +17,7 @@
               <RecipeRating :key="recipe.slug" :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
             </v-card-title>
             <v-divider class="my-2"></v-divider>
-            <VueMarkdown :source="recipe.description"> </VueMarkdown>
+            <SafeMarkdown :source="recipe.description"> </SafeMarkdown>
             <v-divider></v-divider>
             <div class="d-flex justify-center mt-5">
               <RecipeTimeCard
@@ -61,7 +61,7 @@
             <v-card-title class="pa-0 ma-0 headline">
               {{ recipe.name }}
             </v-card-title>
-            <VueMarkdown :source="recipe.description"> </VueMarkdown>
+            <SafeMarkdown :source="recipe.description"> </SafeMarkdown>
           </template>
 
           <template v-else-if="form">
@@ -273,8 +273,6 @@ import {
   useMeta,
   useRoute,
 } from "@nuxtjs/composition-api";
-// @ts-ignore vue-markdown has no types
-import VueMarkdown from "@adapttive/vue-markdown";
 // import { useRecipeMeta } from "~/composables/recipes";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
@@ -296,7 +294,6 @@ export default defineComponent({
     RecipePrintView,
     RecipeRating,
     RecipeTimeCard,
-    VueMarkdown,
   },
   layout: "basic",
   setup() {
