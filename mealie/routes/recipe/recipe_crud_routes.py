@@ -29,7 +29,7 @@ from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
-from mealie.services.recipe.recipe_data_service import RecipeDataService
+from mealie.services.recipe.recipe_data_service import InvalidDomainError, NotAnImageError, RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
@@ -314,7 +314,19 @@ class RecipeController(BaseRecipeController):
     def scrape_image_url(self, slug: str, url: ScrapeRecipe):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
-        data_service.scrape_image(url.url)
+
+        try:
+            data_service.scrape_image(url.url)
+        except NotAnImageError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not an image"),
+            ) from e
+        except InvalidDomainError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not from an allowed domain"),
+            ) from e
 
         recipe.image = cache.cache_key.new_key()
         self.service.update_one(recipe.slug, recipe)
