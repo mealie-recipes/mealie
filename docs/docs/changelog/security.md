@@ -1,6 +1,15 @@
 As Mealie has become more popular and widely used we've started to receive anonymous reports from white-hats about security issues in the application. These are reported only to the maintainer of the project and remain private until they are fixed. We will try to fix these issues as soon as possible. We will also document security fixes in the changelog and release notes as well as keep track of the security issues that have been resolved on this page.
 
-## [v1.0.0beta-x] Recipe Assets: Remote Code Execution
+## [v1.0.0beta-3 and Under] Recipe Scraper: Server Side Request Forgery Lead To Denial Of Service
+
+!!! error CWE-918: Server-Side Request Forgery (SSRF)
+    In this case if a attacker try to load a huge file then server will try to load the file and eventually server use its all memory which will dos the server
+
+### Mitigation
+
+HTML is now scraped via a Stream and canceled after a 15 second timeout to prevent arbitrary data from being loaded into the server.
+
+## [v1.0.0beta-3 and Under] Recipe Assets: Remote Code Execution
 
 !!! error CWE-1336: Improper Neutralization of Special Elements Used in a Template Engine
     As a low privileged user, Create a new recipe and click on the "+" to add a New Asset.
@@ -27,7 +36,7 @@ We've added proper path sanitization to ensure that the user is not allowed to w
 
 This issues is present on all pages that allow markdown input. This error has been mitigated by wrapping the 3rd Party Markdown component and using the `domPurify` library to strip out the dangerous HTML.
 
-## [v1.0.0beta-x] Image Scraper: Server-Side Request Forgery
+## [v1.0.0beta-3 and Under] Image Scraper: Server-Side Request Forgery
 
 !!! error CWE-918: Server-Side Request Forgery (SSRF)
     In the recipe edit page, is possible to upload an image directly or via an URL provided by the user. The function that handles the fetching and saving of the image via the URL doesn't have any URL verification, which allows to fetch internal services.

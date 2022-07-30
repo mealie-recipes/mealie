@@ -35,7 +35,7 @@ from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_url
-from mealie.services.scraper.scraper_strategies import RecipeScraperPackage
+from mealie.services.scraper.scraper_strategies import ForceTimeoutException, RecipeScraperPackage
 
 
 class BaseRecipeController(BaseUserController):
@@ -139,7 +139,12 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-url", status_code=201, response_model=str)
     def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        recipe, extras = create_from_url(req.url)
+        try:
+            recipe, extras = create_from_url(req.url)
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
 
         if req.include_tags:
             ctx = ScraperContext(self.user.id, self.group_id, self.repos)
@@ -176,8 +181,13 @@ class RecipeController(BaseRecipeController):
     @router.post("/test-scrape-url")
     def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
-        if scraped_data := RecipeScraperPackage(url.url).scrape_url():
-            return scraped_data.schema.data
+        try:
+            if scraped_data := RecipeScraperPackage(url.url).scrape_url():
+                return scraped_data.schema.data
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
 
         return "recipe_scrapers was unable to scrape this URL"
 
