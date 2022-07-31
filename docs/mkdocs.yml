@@ -88,6 +88,7 @@ nav:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
 
   - Change Log:
+      - v1.0.0beta-4: "changelog/v1.0.0beta-4.md"
       - v1.0.0beta-3: "changelog/v1.0.0beta-3.md"
       - v1.0.0beta-2: "changelog/v1.0.0beta-2.md"
       - v1.0.0 Beta: "changelog/v1.0.0.md"

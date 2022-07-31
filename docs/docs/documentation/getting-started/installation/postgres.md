@@ -10,7 +10,7 @@
 version: "3.7"
 services:
   mealie-frontend:
-    image: hkotel/mealie:frontend-v1.0.0beta-3
+    image: hkotel/mealie:frontend-v1.0.0beta-4
     container_name: mealie-frontend
     depends_on:
       - mealie-api
@@ -23,7 +23,7 @@ services:
     volumes:
       - mealie-data:/app/data/ # (3)
   mealie-api:
-    image: hkotel/mealie:api-v1.0.0beta-3
+    image: hkotel/mealie:api-v1.0.0beta-4
     container_name: mealie-api
     depends_on:
       - postgres

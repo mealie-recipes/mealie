@@ -29,13 +29,13 @@ from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
 from mealie.services.event_bus_service.message_types import EventTypes
-from mealie.services.recipe.recipe_data_service import RecipeDataService
+from mealie.services.recipe.recipe_data_service import InvalidDomainError, NotAnImageError, RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_url
-from mealie.services.scraper.scraper_strategies import RecipeScraperPackage
+from mealie.services.scraper.scraper_strategies import ForceTimeoutException, RecipeScraperPackage
 
 
 class BaseRecipeController(BaseUserController):
@@ -139,7 +139,12 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-url", status_code=201, response_model=str)
     def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        recipe, extras = create_from_url(req.url)
+        try:
+            recipe, extras = create_from_url(req.url)
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
 
         if req.include_tags:
             ctx = ScraperContext(self.user.id, self.group_id, self.repos)
@@ -176,8 +181,13 @@ class RecipeController(BaseRecipeController):
     @router.post("/test-scrape-url")
     def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
-        if scraped_data := RecipeScraperPackage(url.url).scrape_url():
-            return scraped_data.schema.data
+        try:
+            if scraped_data := RecipeScraperPackage(url.url).scrape_url():
+                return scraped_data.schema.data
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
 
         return "recipe_scrapers was unable to scrape this URL"
 
@@ -314,7 +324,19 @@ class RecipeController(BaseRecipeController):
     def scrape_image_url(self, slug: str, url: ScrapeRecipe):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
-        data_service.scrape_image(url.url)
+
+        try:
+            data_service.scrape_image(url.url)
+        except NotAnImageError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not an image"),
+            ) from e
+        except InvalidDomainError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not from an allowed domain"),
+            ) from e
 
         recipe.image = cache.cache_key.new_key()
         self.service.update_one(recipe.slug, recipe)
@@ -338,12 +360,26 @@ class RecipeController(BaseRecipeController):
         file: UploadFile = File(...),
     ):
         """Upload a file to store as a recipe asset"""
-        file_name = f"{slugify(name)}.{extension}"
+        if "." in extension:
+            extension = extension.split(".")[-1]
+
+        file_slug = slugify(name)
+        if not extension or not file_slug:
+            raise HTTPException(status_code=400, detail="Missing required fields")
+
+        file_name = f"{file_slug}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         recipe = self.mixins.get_one(slug)
 
         dest = recipe.asset_dir / file_name
+
+        # Ensure path is relative to the recipe's asset directory
+        if dest.absolute().parent != recipe.asset_dir:
+            raise HTTPException(
+                status_code=400,
+                detail=f"File name {file_name} or extension {extension} not valid",
+            )
 
         with dest.open("wb") as buffer:
             copyfileobj(file.file, buffer)

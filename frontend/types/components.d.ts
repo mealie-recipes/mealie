@@ -21,6 +21,7 @@ import ToggleState from "@/components/global/ToggleState.vue";
 import ContextMenu from "@/components/global/ContextMenu.vue";
 import AppButtonCopy from "@/components/global/AppButtonCopy.vue";
 import CrudTable from "@/components/global/CrudTable.vue";
+import SafeMarkdown from "@/components/global/SafeMarkdown.vue";
 import InputColor from "@/components/global/InputColor.vue";
 import BaseDivider from "@/components/global/BaseDivider.vue";
 import AutoForm from "@/components/global/AutoForm.vue";
@@ -59,6 +60,7 @@ declare module "vue" {
     ContextMenu: typeof ContextMenu;
     AppButtonCopy: typeof AppButtonCopy;
     CrudTable: typeof CrudTable;
+    SafeMarkdown: typeof SafeMarkdown;
     InputColor: typeof InputColor;
     BaseDivider: typeof BaseDivider;
     AutoForm: typeof AutoForm;

@@ -18,7 +18,7 @@
           {{ note.title }}
         </v-card-title>
         <v-card-text>
-          <VueMarkdown :source="note.text"> </VueMarkdown>
+          <SafeMarkdown :source="note.text" />
         </v-card-text>
       </div>
     </div>
@@ -30,15 +30,10 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore vue-markdown has no types
-import VueMarkdown from "@adapttive/vue-markdown";
 import { defineComponent } from "@nuxtjs/composition-api";
 import { RecipeNote } from "~/types/api-types/recipe";
 
 export default defineComponent({
-  components: {
-    VueMarkdown,
-  },
   props: {
     value: {
       type: Array as () => RecipeNote[],

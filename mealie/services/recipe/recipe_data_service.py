@@ -11,6 +11,14 @@ from mealie.services._base_service import BaseService
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
 
 
+class NotAnImageError(Exception):
+    pass
+
+
+class InvalidDomainError(Exception):
+    pass
+
+
 class RecipeDataService(BaseService):
     minifier: img.ABCMinifier
 
@@ -56,8 +64,26 @@ class RecipeDataService(BaseService):
 
         return image_path
 
+    @staticmethod
+    def _validate_image_url(url: str) -> bool:
+        # sourcery skip: invert-any-all, use-any
+        """
+        Validates that the URL is of an allowed source and restricts certain sources to prevent
+        malicious images from being downloaded.
+        """
+        invalid_domains = {"127.0.0.1", "localhost"}
+        for domain in invalid_domains:
+            if domain in url:
+                return False
+
+        return True
+
     def scrape_image(self, image_url) -> None:
-        self.logger.info(f"Image URL: {image_url}")
+        self.logger.debug(f"Image URL: {image_url}")
+
+        if not self._validate_image_url(image_url):
+            self.logger.error(f"Invalid image URL: {image_url}")
+            raise InvalidDomainError(f"Invalid domain: {image_url}")
 
         if isinstance(image_url, str):  # Handles String Types
             pass
@@ -74,7 +100,7 @@ class RecipeDataService(BaseService):
                 try:
                     r = requests.get(url, stream=True, headers={"User-Agent": _FIREFOX_UA})
                 except Exception:
-                    self.logger.exception("Image {url} could not be requested")
+                    self.logger.exception(f"Image {url} could not be requested")
                     continue
                 if r.status_code == 200:
                     all_image_requests.append((url, r))
@@ -100,9 +126,19 @@ class RecipeDataService(BaseService):
             self.logger.exception("Fatal Image Request Exception")
             return None
 
-        if r.status_code == 200:
-            r.raw.decode_content = True
-            self.logger.info(f"File Name Suffix {file_path.suffix}")
-            self.write_image(r.raw, file_path.suffix)
+        if r.status_code != 200:
+            # TODO: Probably should throw an exception in this case as well, but before these changes
+            # we were returning None if it failed anyways.
+            return None
 
-            file_path.unlink(missing_ok=True)
+        content_type = r.headers.get("content-type", "")
+
+        if "image" not in content_type:
+            self.logger.error(f"Content-Type: {content_type} is not an image")
+            raise NotAnImageError(f"Content-Type {content_type} is not an image")
+
+        r.raw.decode_content = True
+        self.logger.info(f"File Name Suffix {file_path.suffix}")
+        self.write_image(r.raw, file_path.suffix)
+
+        file_path.unlink(missing_ok=True)
