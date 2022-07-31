@@ -386,17 +386,17 @@ export default defineComponent({
     }
 
     return {
-      toggleMobileCards,
       ...toRefs(state),
-      EVENTS,
-      useMobileCards,
       displayTitleIcon,
+      EVENTS,
       infiniteScroll,
       loading,
       navigateRandom,
       preferences,
       sortRecipes,
       sortRecipesFrontend,
+      toggleMobileCards,
+      useMobileCards,
     };
   },
 });
