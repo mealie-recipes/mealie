@@ -61,7 +61,7 @@
         <template #activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
             <v-icon :left="!$vuetify.breakpoint.xsOnly">
-              {{ sortIcon }}
+              {{ preferences.sortIcon }}
             </v-icon>
             {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
           </v-btn>
@@ -106,7 +106,7 @@
       />
     </v-app-bar>
     <div v-if="recipes" class="mt-2">
-      <v-row v-if="!viewScale">
+      <v-row v-if="!useMobileCards">
         <v-col v-for="(recipe, index) in recipes" :key="recipe.slug + index" :sm="6" :md="6" :lg="4" :xl="3">
           <v-lazy>
             <RecipeCard
@@ -174,6 +174,7 @@ import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes, useSorter } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
+import { useUserSortPreferences } from "~/composables/use-users/preferences";
 
 const SORT_EVENT = "sort";
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
@@ -211,8 +212,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    // local storage saves booleans as strings, so we convert the "true" string back to a boolean
-    const mobileCards = ref(localStorage.recipeCardSectionUseMobileCards === "true" || false);
+    const preferences = useUserSortPreferences();
+
     const utils = useSorter();
 
     const EVENTS = {
@@ -224,8 +225,8 @@ export default defineComponent({
     };
 
     const { $globals, $vuetify } = useContext();
-    const viewScale = computed(() => {
-      return mobileCards.value || $vuetify.breakpoint.smAndDown;
+    const useMobileCards = computed(() => {
+      return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
     });
 
     const displayTitleIcon = computed(() => {
@@ -248,19 +249,20 @@ export default defineComponent({
 
     const page = ref(1);
     const perPage = ref(30);
-    const orderBy = ref(localStorage.recipeCardSectionOrderBy as string || "name");
-    const orderDirection = ref(localStorage.orderDirection as string || "asc");
-    const sortIcon = ref(localStorage.recipeCardSectionSortIcon as string || $globals.icons.sortAlphabeticalAscending)
     const hasMore = ref(true);
-
     const ready = ref(false);
     const loading = ref(false);
 
-    const { recipes, fetchMore } = useLazyRecipes();
+    const { fetchMore } = useLazyRecipes();
 
     onMounted(async () => {
       if (props.usePagination) {
-        const newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
+        const newRecipes = await fetchMore(
+          page.value,
+          perPage.value,
+          preferences.value.orderBy,
+          preferences.value.orderDirection
+        );
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
         ready.value = true;
       }
@@ -275,7 +277,12 @@ export default defineComponent({
         loading.value = true;
         page.value = page.value + 1;
 
-        const newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
+        const newRecipes = await fetchMore(
+          page.value,
+          perPage.value,
+          preferences.value.orderBy,
+          preferences.value.orderDirection
+        );
         if (!newRecipes.length) {
           hasMore.value = false;
         } else {
@@ -286,63 +293,44 @@ export default defineComponent({
       }, useAsyncKey());
     }, 500);
 
-    /*
-    sortRecipes helps filter using the API. This will eventually replace the sortRecipesFrontend function which pulls all recipes
-    (without pagination) and does the sorting in the frontend.
-
-    TODO: remove sortRecipesFrontend and remove duplicate "sortRecipes" section in the template (above)
-    */
-
+    /**
+     * sortRecipes helps filter using the API. This will eventually replace the sortRecipesFrontend function which pulls all recipes
+     * (without pagination) and does the sorting in the frontend.
+     * TODO: remove sortRecipesFrontend and remove duplicate "sortRecipes" section in the template (above)
+     * @param sortType
+     */
     function sortRecipes(sortType: string) {
       if (state.sortLoading || loading.value) {
         return;
       }
 
+      function setter(orderBy: string, ascIcon: string, descIcon: string) {
+        if (preferences.value.orderBy !== orderBy) {
+          preferences.value.orderBy = orderBy;
+          preferences.value.orderDirection = "asc";
+        } else {
+          preferences.value.orderDirection = preferences.value.orderDirection === "asc" ? "desc" : "asc";
+        }
+        preferences.value.sortIcon = preferences.value.orderDirection === "asc" ? ascIcon : descIcon;
+      }
+
       switch (sortType) {
         case EVENTS.az:
-          if (orderBy.value !== "name") {
-            orderBy.value = "name";
-            orderDirection.value = "asc";
-          } else {
-            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
-          }
-          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortAlphabeticalAscending : $globals.icons.sortAlphabeticalDescending;
+          setter("name", $globals.icons.sortAlphabeticalAscending, $globals.icons.sortAlphabeticalDescending);
           break;
         case EVENTS.rating:
-          if (orderBy.value !== "rating") {
-            orderBy.value = "rating";
-            orderDirection.value = "desc";
-          } else {
-            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
-          }
-          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending;
+          setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending);
           break;
         case EVENTS.created:
-          if (orderBy.value !== "created_at") {
-            orderBy.value = "created_at";
-            orderDirection.value = "desc";
-          } else {
-            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
-          }
-          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending;
+          setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending);
           break;
         case EVENTS.updated:
-          if (orderBy.value !== "update_at") {
-            orderBy.value = "update_at";
-            orderDirection.value = "desc";
-          } else {
-            orderDirection.value = orderDirection.value === "asc" ? "desc" : "asc";
-          }
-          sortIcon.value = orderDirection.value === "asc" ? $globals.icons.sortClockAscending : $globals.icons.sortClockDescending;
+          setter("updated_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
           break;
         default:
           console.log("Unknown Event", sortType);
           return;
       }
-
-      localStorage.recipeCardSectionOrderBy = orderBy.value;
-      localStorage.recipeCardSectionOrderDirection = orderDirection.value;
-      localStorage.recipeCardSectionSortIcon = sortIcon.value;
 
       useAsync(async () => {
         // reset pagination
@@ -353,7 +341,12 @@ export default defineComponent({
         loading.value = true;
 
         // fetch new recipes
-        const newRecipes = await fetchMore(page.value, perPage.value, orderBy.value, orderDirection.value);
+        const newRecipes = await fetchMore(
+          page.value,
+          perPage.value,
+          preferences.value.orderBy,
+          preferences.value.orderDirection
+        );
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
         state.sortLoading = false;
@@ -389,21 +382,19 @@ export default defineComponent({
     }
 
     function toggleMobileCards() {
-      mobileCards.value = !mobileCards.value;
-      localStorage.recipeCardSectionUseMobileCards = mobileCards.value;
+      preferences.value.useMobileCards = !preferences.value.useMobileCards;
     }
 
     return {
-      mobileCards,
       toggleMobileCards,
       ...toRefs(state),
       EVENTS,
-      viewScale,
+      useMobileCards,
       displayTitleIcon,
       infiniteScroll,
       loading,
       navigateRandom,
-      sortIcon,
+      preferences,
       sortRecipes,
       sortRecipesFrontend,
     };
