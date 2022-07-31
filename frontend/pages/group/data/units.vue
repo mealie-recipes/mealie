@@ -32,7 +32,12 @@
     >
       <v-card-text>
         <v-form ref="domNewUnitForm">
-          <v-text-field v-model="createTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
+          <v-text-field
+            v-model="createTarget.name"
+            autofocus
+            label="Name"
+            :rules="[validators.required]"
+          ></v-text-field>
           <v-text-field v-model="createTarget.abbreviation" label="Abbreviation"></v-text-field>
           <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
           <v-checkbox v-model="createTarget.fraction" hide-details label="Display as Fraction"></v-checkbox>
@@ -122,10 +127,8 @@
       @create-one="createEventHandler"
     >
       <template #button-row>
-        <BaseButton @click="createDialog = true">
-          <template #icon> {{ $globals.icons.create }} </template>
-          Create
-        </BaseButton>
+        <BaseButton create @click="createDialog = true" />
+
         <BaseButton @click="mergeDialog = true">
           <template #icon> {{ $globals.icons.units }} </template>
           Combine
@@ -159,6 +162,7 @@ import { useUserApi } from "~/composables/api";
 import { CreateIngredientUnit, IngredientUnit } from "~/types/api-types/recipe";
 import { useLocales } from "~/composables/use-locales";
 import { useUnitStore } from "~/composables/store";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   setup() {
@@ -206,13 +210,14 @@ export default defineComponent({
     // Create Units
 
     const createDialog = ref(false);
+    const domNewUnitForm = ref<VForm>();
 
     // we explicitly set booleans to false since forms don't POST unchecked boxes
     const createTarget = ref<CreateIngredientUnit>({
-        name: "",
-        fraction: false,
-        useAbbreviation: false
-      });
+      name: "",
+      fraction: false,
+      useAbbreviation: false,
+    });
 
     function createEventHandler() {
       createDialog.value = true;
@@ -223,17 +228,15 @@ export default defineComponent({
         return;
       }
 
-      // @ts-ignore the createOne function erroneously expects an id because it uses the IngredientUnit type
+      // @ts-expect-error the createOne function erroneously expects an id because it uses the IngredientUnit type
       await unitActions.createOne(createTarget.value);
       createDialog.value = false;
 
-      // reset form
-      // @ts-ignore TS doesn't like this.$refs despite it working just fine
-      this.$refs.domNewUnitForm.reset();
+      domNewUnitForm.value?.reset();
       createTarget.value = {
         name: "",
         fraction: false,
-        useAbbreviation: false
+        useAbbreviation: false,
       };
     }
 

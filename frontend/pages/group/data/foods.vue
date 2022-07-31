@@ -64,7 +64,12 @@
     >
       <v-card-text>
         <v-form ref="domNewFoodForm">
-          <v-text-field v-model="createTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
+          <v-text-field
+            v-model="createTarget.name"
+            autofocus
+            label="Name"
+            :rules="[validators.required]"
+          ></v-text-field>
           <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
           <v-autocomplete
             v-model="createTarget.labelId"
@@ -87,7 +92,7 @@
       @submit="editSaveFood"
     >
       <v-card-text v-if="editTarget">
-        <v-form ref="domCreateFoodForm">
+        <v-form ref="domNewFoodForm">
           <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
           <v-autocomplete
@@ -127,10 +132,7 @@
       @create-one="createEventHandler"
     >
       <template #button-row>
-        <BaseButton @click="createDialog = true">
-          <template #icon> {{ $globals.icons.create }} </template>
-          Create
-        </BaseButton>
+        <BaseButton create @click="createDialog = true" />
         <BaseButton @click="mergeDialog = true">
           <template #icon> {{ $globals.icons.foods }} </template>
           Combine
@@ -161,6 +163,7 @@ import { CreateIngredientFood, IngredientFood } from "~/types/api-types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   components: { MultiPurposeLabel },
@@ -198,9 +201,10 @@ export default defineComponent({
     // ===============================================================
     // Food Creator
 
+    const domNewFoodForm = ref<VForm>();
     const createDialog = ref(false);
     const createTarget = ref<CreateIngredientFood>({
-      name: ""
+      name: "",
     });
 
     function createEventHandler() {
@@ -212,15 +216,13 @@ export default defineComponent({
         return;
       }
 
-      // @ts-ignore the createOne function erroneously expects an id because it uses the IngredientFood type
+      // @ts-expect-error the createOne function erroneously expects an id because it uses the IngredientFood type
       await foodStore.actions.createOne(createTarget.value);
       createDialog.value = false;
 
-      // reset form
-      // @ts-ignore TS doesn't like this.$refs despite it working just fine
-      this.$refs.domNewFoodForm.reset();
+      domNewFoodForm.value?.reset();
       createTarget.value = {
-        name: ""
+        name: "",
       };
     }
 
