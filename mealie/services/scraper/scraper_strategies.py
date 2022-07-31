@@ -40,7 +40,7 @@ def safe_scrape_html(url: str) -> str:
         if time.time() - start_time > SCRAPER_TIMEOUT:
             raise ForceTimeoutException()
 
-    return html_bytes.decode("utf-8")
+    return resp.text
 
 
 class ABCScraperStrategy(ABC):
