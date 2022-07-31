@@ -20,7 +20,9 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
       useMobileCards: false,
     },
     { mergeDefaults: true }
-  );
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as Ref<UserRecipePreferences>;
 
   return fromStorage;
 }
