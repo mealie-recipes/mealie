@@ -40,7 +40,33 @@ def safe_scrape_html(url: str) -> str:
         if time.time() - start_time > SCRAPER_TIMEOUT:
             raise ForceTimeoutException()
 
-    return resp.text
+    # =====================================
+    # Coppied from requests text property
+
+    # Try charset from content-type
+    content = None
+    encoding = resp.encoding
+
+    if not html_bytes:
+        return ""
+
+    # Fallback to auto-detected encoding.
+    if encoding is None:
+        encoding = resp.apparent_encoding
+
+    # Decode unicode from given encoding.
+    try:
+        content = str(html_bytes, encoding, errors="replace")
+    except (LookupError, TypeError):
+        # A LookupError is raised if the encoding was not found which could
+        # indicate a misspelling or similar mistake.
+        #
+        # A TypeError can be raised if encoding is None
+        #
+        # So we try blindly encoding.
+        content = str(html_bytes, errors="replace")
+
+    return content
 
 
 class ABCScraperStrategy(ABC):
