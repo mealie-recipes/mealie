@@ -22,7 +22,7 @@
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@vue/composition-api": "^1.6.2",
-    "@vueuse/core": "^8.5.0",
+    "@vueuse/core": "^9.0.2",
     "core-js": "^3.23.1",
     "date-fns": "^2.28.0",
     "fuse.js": "^6.6.2",
