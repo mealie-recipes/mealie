@@ -395,6 +395,9 @@ export default defineComponent({
 
     const state = reactive({
       loading: true,
+      canvas: null as HTMLCanvasElement | null,
+      ctx: null as CanvasRenderingContext2D | null,
+      canvasRect: null as DOMRect | null,
       tab: null,
       rect: {
         startX: 0,
@@ -514,25 +517,25 @@ export default defineComponent({
         }
 
         nextTick(() => {
-          const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-          const ctx = <CanvasRenderingContext2D>c.getContext("2d");
-          ctx.imageSmoothingEnabled = false;
-          const clientCanvasDimensions = c.getBoundingClientRect();
+          state.canvas = <HTMLCanvasElement>document.getElementById("canvas");
+          state.ctx = <CanvasRenderingContext2D>state.canvas.getContext("2d");
+          state.ctx.imageSmoothingEnabled = false;
+          state.canvasRect = state.canvas.getBoundingClientRect();
 
-          c.width = clientCanvasDimensions.width;
-          if (image.width < c.width) {
+          state.canvas.width = state.canvasRect.width;
+          if (image.width < state.canvas.width) {
             state.isImageSmallerThanCanvas = true;
           }
-          state.imagePosition.dWidth = c.width;
+          state.imagePosition.dWidth = state.canvas.width;
 
           updateImageScale();
-          c.height = Math.min(image.height * state.imagePosition.scale, 700); // Max height of 700px
+          state.canvas.height = Math.min(image.height * state.imagePosition.scale, 700); // Max height of 700px
 
           state.imagePosition.sWidth = image.width;
           state.imagePosition.sHeight = image.height;
-          state.imagePosition.dWidth = c.width;
+          state.imagePosition.dWidth = state.canvas.width;
           state.imagePosition.dHeight = image.height * state.imagePosition.scale;
-          drawImage(ctx);
+          drawImage(state.ctx);
         });
       });
     });
@@ -552,36 +555,37 @@ export default defineComponent({
     }
 
     function switchCanvasMode(mode: CanvasModes) {
+      if (state.canvasRect === null) return;
       state.canvasMode = mode;
-      const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
       if (mode === "panAndZoom") {
-        c.style.cursor = "pointer";
+        state.canvas.style.cursor = "pointer";
       } else {
-        c.style.cursor = "default";
+        state.canvas.style.cursor = "default";
       }
     }
 
     function switchSplitTextMode(mode: SelectedTextSplitModes) {
+      if (state.canvasRect === null) return;
       state.selectedTextSplitMode = mode;
       state.selectedText = getWordsInSelection(tsv.value, state.rect);
     }
 
     function draw() {
+      if (state.canvasRect === null) return;
       if (state.mouse.down) {
-        const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-        const ctx = <CanvasRenderingContext2D>c.getContext("2d");
-        ctx.imageSmoothingEnabled = false;
-        ctx.fillStyle = "rgb(255, 255, 255)";
-        ctx.fillRect(0, 0, c.width, c.height);
-        drawImage(ctx);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
-        ctx.setLineDash([6]);
-        ctx.fillRect(state.rect.startX, state.rect.startY, state.rect.w, state.rect.h);
-        ctx.strokeRect(state.rect.startX, state.rect.startY, state.rect.w, state.rect.h);
+        state.ctx.imageSmoothingEnabled = false;
+        state.ctx.fillStyle = "rgb(255, 255, 255)";
+        state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
+        drawImage(state.ctx);
+        state.ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+        state.ctx.setLineDash([6]);
+        state.ctx.fillRect(state.rect.startX, state.rect.startY, state.rect.w, state.rect.h);
+        state.ctx.strokeRect(state.rect.startX, state.rect.startY, state.rect.w, state.rect.h);
       }
     }
 
     function isMouseInRect(mouse: Mouse, rect: CanvasRect) {
+      if (state.canvasRect === null) return;
       const correctRect = correctRectCoordinates(rect);
 
       return (
@@ -593,18 +597,18 @@ export default defineComponent({
     }
 
     function resetSelection() {
+      if (state.canvasRect === null) return;
       state.rect.w = 0;
       state.rect.h = 0;
       state.selectedText = "";
     }
 
     function handleMouseDown(event: MouseEvent) {
+      if (state.canvasRect === null) return;
       state.mouse.down = true;
-      const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-      const canvasRect = c.getBoundingClientRect();
       state.mouse.current = {
-        x: event.clientX - canvasRect.left,
-        y: event.clientY - canvasRect.top,
+        x: event.clientX - state.canvasRect.left,
+        y: event.clientY - state.canvasRect.top,
       };
       if (state.canvasMode === "selection") {
         if (isMouseInRect(state.mouse, state.rect)) {
@@ -615,11 +619,10 @@ export default defineComponent({
             setPropertyValueByPath<Recipe>(recipe.value, state.selectedRecipeField, state.selectedText);
           }
         } else {
-          const ctx = <CanvasRenderingContext2D>c.getContext("2d");
 
-          ctx.fillStyle = "rgb(255, 255, 255)";
-          ctx.fillRect(0, 0, c.width, c.height);
-          drawImage(ctx);
+          state.ctx.fillStyle = "rgb(255, 255, 255)";
+          state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
+          drawImage(state.ctx);
           state.rect.startX = state.mouse.current.x;
           state.rect.startY = state.mouse.current.y;
           resetSelection();
@@ -634,31 +637,32 @@ export default defineComponent({
     }
 
     function handleMouseUp(_event: MouseEvent) {
+      if (state.canvasRect === null) return;
       state.mouse.down = false;
       state.selectedText = getWordsInSelection(tsv.value, state.rect);
     }
 
     function keepImageInCanvas() {
-      const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
+      if (state.canvasRect === null) return;
 
       // Prevent image from being smaller than the canvas width
-      if (state.imagePosition.dWidth - c.width < 0) {
-        state.imagePosition.dWidth = c.width;
+      if (state.imagePosition.dWidth - state.canvas.width < 0) {
+        state.imagePosition.dWidth = state.canvas.width;
       }
 
       // Prevent image from being smaller than the canvas height
-      if (state.imagePosition.dHeight - c.height < 0) {
+      if (state.imagePosition.dHeight - state.canvas.height < 0) {
         state.imagePosition.dHeight = image.height * state.imagePosition.scale;
       }
 
       // Prevent to move the image too much to the left
-      if (c.width - state.imagePosition.dx - state.imagePosition.dWidth > 0) {
-        state.imagePosition.dx = c.width - state.imagePosition.dWidth;
+      if (state.canvas.width - state.imagePosition.dx - state.imagePosition.dWidth > 0) {
+        state.imagePosition.dx = state.canvas.width - state.imagePosition.dWidth;
       }
 
       // Prevent to move the image too much to the top
-      if (c.height - state.imagePosition.dy - state.imagePosition.dHeight > 0) {
-        state.imagePosition.dy = c.height - state.imagePosition.dHeight;
+      if (state.canvas.height - state.imagePosition.dy - state.imagePosition.dHeight > 0) {
+        state.imagePosition.dy = state.canvas.height - state.imagePosition.dHeight;
       }
 
       // Prevent to move the image too much to the right
@@ -673,11 +677,10 @@ export default defineComponent({
     }
 
     function handleMouseMove(event: MouseEvent) {
-      const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-      const canvasRect = c.getBoundingClientRect();
+      if (state.canvasRect === null) return;
       state.mouse.current = {
-        x: event.clientX - canvasRect.left,
-        y: event.clientY - canvasRect.top,
+        x: event.clientX - state.canvasRect.left,
+        y: event.clientY - state.canvasRect.top,
       };
 
       if (state.mouse.down) {
@@ -689,22 +692,21 @@ export default defineComponent({
         }
 
         if (state.canvasMode === "panAndZoom") {
-          c.style.cursor = "move";
+          state.canvas.style.cursor = "move";
           state.imagePosition.dx = state.mouse.current.x - state.imagePosition.panStartPoint.x;
           state.imagePosition.dy = state.mouse.current.y - state.imagePosition.panStartPoint.y;
           keepImageInCanvas();
-          const ctx = <CanvasRenderingContext2D>c.getContext("2d");
-          ctx.fillStyle = "rgb(255, 255, 255)";
-          ctx.fillRect(0, 0, c.width, c.height);
-          drawImage(ctx);
+          state.ctx.fillStyle = "rgb(255, 255, 255)";
+          state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
+          drawImage(state.ctx);
           return;
         }
       }
 
       if (isMouseInRect(state.mouse, state.rect) && state.canvasMode === "selection") {
-        c.style.cursor = "pointer";
+        state.canvas.style.cursor = "pointer";
       } else {
-        c.style.cursor = "default";
+        state.canvas.style.cursor = "default";
       }
     }
 
@@ -715,11 +717,9 @@ export default defineComponent({
       if (state.canvasMode === "panAndZoom") {
         event.preventDefault();
 
-        const c: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-        const canvasRect = c.getBoundingClientRect();
         state.mouse.current = {
-          x: event.clientX - canvasRect.left,
-          y: event.clientY - canvasRect.top,
+          x: event.clientX - state.canvasRect.left,
+          y: event.clientY - state.canvasRect.top,
         };
         const m = Math.sign(event.deltaY);
 
@@ -738,10 +738,9 @@ export default defineComponent({
         keepImageInCanvas();
         updateImageScale();
 
-        const ctx = <CanvasRenderingContext2D>c.getContext("2d");
-        ctx.fillStyle = "rgb(255, 255, 255)";
-        ctx.fillRect(0, 0, c.width, c.height);
-        drawImage(ctx);
+        state.ctx.fillStyle = "rgb(255, 255, 255)";
+        state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
+        drawImage(state.ctx);
       }
     }
 
