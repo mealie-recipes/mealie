@@ -772,17 +772,17 @@ export default defineComponent({
               (element.top + element.height) * state.imagePosition.scale + state.imagePosition.dy
         )
         .map((element, index, array) => {
-          let newLine = "";
+          let separator = " ";
           if (
             state.selectedTextSplitMode !== "flatten" &&
             index !== array.length - 1 &&
             element[state.selectedTextSplitMode] !== array[index + 1][state.selectedTextSplitMode]
           ) {
-            newLine = "\n";
+            separator = "\n";
           }
-          return element.text + newLine;
+          return element.text + separator;
         })
-        .join(" ");
+        .join("");
     }
 
     function addIngredient(ingredients: Array<string> | null = null) {
