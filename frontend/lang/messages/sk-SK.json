@@ -131,10 +131,10 @@
     "view": "Zobraziť",
     "wednesday": "Streda",
     "yes": "Áno",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Jedlo",
+    "units": "Jednotky",
+    "back": "Späť",
+    "next": "Nasledujúci"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -426,7 +426,7 @@
     "site-settings": "Nastavenia",
     "tags": "Štítky",
     "toolbox": "Nástroje",
-    "language": "Language"
+    "language": "Jazyk"
   },
   "signup": {
     "error-signing-up": "Nastala chyba pri registrácii",
@@ -449,7 +449,7 @@
     "untagged-count": "Neoznačené {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Nástroje"
   },
   "user": {
     "admin": "Administrátor",
@@ -468,7 +468,7 @@
     "error-cannot-delete-super-user": "Chyba! Superužívateľa nie je možné odstrániť",
     "existing-password-does-not-match": "Súčasné heslo sa nezhoduje",
     "full-name": "Celé meno",
-    "invite-only": "Invite Only",
+    "invite-only": "Len na pozvanie",
     "link-id": "ID odkazu",
     "link-name": "Názov odkazu",
     "login": "Prihlásiť sa",
@@ -481,8 +481,8 @@
     "password-reset-failed": "Zresetovanie hesla zlyhalo",
     "password-updated": "Heslo bolo aktualizované",
     "password": "Heslo",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Sila hesla je {strength}",
+    "register": "Registrácia",
     "reset-password": "Resetovať heslo",
     "sign-in": "Prihlásiť sa",
     "total-mealplans": "Počet jedálničkov",
@@ -500,13 +500,13 @@
     "user-updated": "Užívateľ bol aktualizovaný",
     "user": "Užívateľ",
     "username": "Užívateľské meno",
-    "users-header": "USERS",
+    "users-header": "Používatelia",
     "users": "Užívatelia",
     "webhook-time": "Čas webhookov",
     "webhooks-enabled": "Webhooky povolené",
     "you-are-not-allowed-to-create-a-user": "Nie Ste oprávnený vytvoriť nového užívateľa",
     "you-are-not-allowed-to-delete-this-user": "Nie Ste oprávnený odstrániť tohto užívateľa",
-    "enable-advanced-content": "Enable Advanced Content",
+    "enable-advanced-content": "Povoliť pokročilé funkcie",
     "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
   },
   "language-dialog": {
