@@ -3,15 +3,19 @@ import pathlib
 import _static
 import dotenv
 import requests
+from _gen_utils import log
 from jinja2 import Template
 from requests import Response
-from rich import print
 
 from mealie.schema._mealie import MealieModel
 
 BASE = pathlib.Path(__file__).parent.parent.parent
 
 API_KEY = dotenv.get_key(BASE / ".env", "CROWDIN_API_KEY")
+
+if API_KEY is None or API_KEY == "":
+    log.info("CROWDIN_API_KEY is not set")
+    exit(1)
 
 NAMES = {
     "en-US": "American English",
@@ -55,6 +59,7 @@ export const LOCALES = [{% for locale in locales %}
     progress: {{ locale.progress }},
   },{% endfor %}
 ]
+
 """
 
 
@@ -122,22 +127,57 @@ class CrowdinApi:
         return response.json()
 
 
-def main():
-    print("Starting...")  # noqa
+from pathlib import Path
 
-    if API_KEY is None:
-        print("CROWDIN_API_KEY is not set")  # noqa
-        return
+from _gen_utils import inject_inline
+from _static import CodeKeys
 
+PROJECT_DIR = Path(__file__).parent.parent.parent
+
+
+datetime_dir = PROJECT_DIR / "frontend" / "lang" / "dateTimeFormats"
+locales_dir = PROJECT_DIR / "frontend" / "lang" / "messages"
+nuxt_config = PROJECT_DIR / "frontend" / "nuxt.config.js"
+
+"""
+This snippet walks the message and dat locales directories and generates the import information
+for the nuxt.config.js file and automatically injects it into the nuxt.config.js file. Note that
+the code generation ID is hardcoded into the script and required in the nuxt config.
+"""
+
+
+def inject_nuxt_values():
+    all_date_locales = [
+        f'"{match.stem}": require("./lang/dateTimeFormats/{match.name}"),' for match in datetime_dir.glob("*.json")
+    ]
+
+    all_langs = []
+    for match in locales_dir.glob("*.json"):
+        lang_string = f'{{ code: "{match.stem}", file: "{match.name}" }},'
+        all_langs.append(lang_string)
+
+    log.info(f"injecting locales into nuxt config -> {nuxt_config}")
+    inject_inline(nuxt_config, CodeKeys.nuxt_local_messages, all_langs)
+    inject_inline(nuxt_config, CodeKeys.nuxt_local_dates, all_date_locales)
+
+
+def generate_locales_ts_file():
     api = CrowdinApi("")
     models = api.get_languages()
     tmpl = Template(LOCALE_TEMPLATE)
     rendered = tmpl.render(locales=models)
 
+    log.info(f"generating locales ts file -> {_static.CodeDest.use_locales}")
     with open(_static.CodeDest.use_locales, "w") as f:
         f.write(rendered)  # type:ignore
 
-    print("Finished...")  # noqa
+
+def main():
+    generate_locales_ts_file()
+
+    inject_nuxt_values()
+
+    log.info("finished code generation")
 
 
 if __name__ == "__main__":

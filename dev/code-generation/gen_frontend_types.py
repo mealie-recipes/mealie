@@ -1,8 +1,8 @@
 from pathlib import Path
 
+from _gen_utils import log
 from jinja2 import Template
 from pydantic2ts import generate_typescript_defs
-from rich import print
 
 # ============================================================
 # Global Compoenents Generator
@@ -99,26 +99,24 @@ def generate_typescript_types() -> None:
             generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
         except Exception as e:
             failed_modules.append(module)
-            print("\nModule Errors:", module, "-----------------")  # noqa
-            print(e)  # noqa
-            print("Finished Module Errors:", module, "-----------------\n")  # noqa
+            log.error(f"Module Error: {e}")  # noqa
 
-    print("\n📁 Skipped Directories:")  # noqa
+    log.info("\n📁 Skipped Directories:")  # noqa
     for skipped_dir in skipped_dirs:
-        print("   📁", skipped_dir.name)  # noqa
+        log.info("   📁", skipped_dir.name)  # noqa
 
-    print("📄 Skipped Files:")  # noqa
+    log.info("📄 Skipped Files:")  # noqa
     for f in skipped_files:
-        print("   📄", f.name)  # noqa
+        log.info("   📄", f.name)  # noqa
 
-    print("❌ Failed Modules:")  # noqa
+    log.error("❌ Failed Modules:")  # noqa
     for f in failed_modules:
-        print("   ❌", f.name)  # noqa
+        log.error("   ❌", f.name)  # noqa
 
 
 if __name__ == "__main__":
-    print("\n-- Starting Global Components Generator --")  # noqa
+    log.info("\n-- Starting Global Components Generator --")  # noqa
     generate_global_components_types()
 
-    print("\n-- Starting Pydantic To Typescript Generator --")  # noqa
+    log.info("\n-- Starting Pydantic To Typescript Generator --")  # noqa
     generate_typescript_types()

@@ -1,3 +1,4 @@
+import logging
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -5,9 +6,15 @@ from pathlib import Path
 import black
 import isort
 from jinja2 import Template
+from rich.logging import RichHandler
+
+FORMAT = "%(message)s"
+logging.basicConfig(level=logging.INFO, format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
+
+log = logging.getLogger("rich")
 
 
-def render_python_template(template_file: Path | str, dest: Path, data: dict) -> str:
+def render_python_template(template_file: Path | str, dest: Path, data: dict):
     """Render and Format a Jinja2 Template for Python Code"""
     if isinstance(template_file, Path):
         tplt = Template(template_file.read_text())
@@ -37,7 +44,6 @@ class CodeSlicer:
 
     def push_line(self, string: str) -> None:
         self._next_line = self._next_line or self.start + 1
-        print(self.indentation)
         self.text.insert(self._next_line, self.indentation + string + "\n")
         self._next_line += 1
 
