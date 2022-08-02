@@ -72,13 +72,24 @@ class AdminBackupController(BaseAdminController):
     @router.post("/upload", response_model=SuccessResponse)
     def upload_one(self, archive: UploadFile = File(...)):
         """Upload a .zip File to later be imported into Mealie"""
+        if "." not in archive.filename:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+        if archive.filename.split(".")[-1] != "zip":
+            raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+        name = Path(archive.filename).stem
+
         app_dirs = get_app_dirs()
-        dest = app_dirs.BACKUP_DIR.joinpath(archive.filename)
+        dest = app_dirs.BACKUP_DIR.joinpath(f"{name}.zip")
+
+        if dest.absolute().parent != app_dirs.BACKUP_DIR:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
         with dest.open("wb") as buffer:
             shutil.copyfileobj(archive.file, buffer)
 
-        if not dest.is_file:
+        if not dest.is_file():
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     @router.post("/{file_name}/restore", response_model=SuccessResponse)
