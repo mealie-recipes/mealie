@@ -1,15 +1,13 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from _gen_utils import render_python_template
+from _gen_utils import log, render_python_template
 from slugify import slugify
 
 CWD = Path(__file__).parent
 
 TEMPLATE = CWD / "templates" / "test_data.py.j2"
-
 TEST_DATA = CWD.parent.parent / "tests" / "data"
-
 GENERATED = CWD / "generated"
 
 
@@ -99,7 +97,7 @@ def rename_non_compliant_paths():
 
 
 def main():
-    print("Starting Template Generation")
+    log.info("Starting Template Generation")
 
     rename_non_compliant_paths()
 
@@ -117,7 +115,7 @@ def main():
         {"children": all_children},
     )
 
-    print("Finished Template Generation")
+    log.info("Finished Template Generation")
 
 
 if __name__ == "__main__":
