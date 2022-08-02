@@ -59,6 +59,7 @@ types-requests = "^2.27.12"
 types-urllib3 = "^1.26.11"
 pre-commit = "^2.17.0"
 types-python-dateutil = "^2.8.18"
+openapi-spec-validator = "^0.4.0"
 
 
 [build-system]
