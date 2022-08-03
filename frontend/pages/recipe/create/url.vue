@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)">
+    <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, stayInEditMode)">
       <div>
         <v-card-title class="headline"> Scrape Recipe </v-card-title>
         <v-card-text>
@@ -21,6 +21,7 @@
             persistent-hint
           ></v-text-field>
           <v-checkbox v-model="importKeywordsAsTags" label="Import original keywords as tags"> </v-checkbox>
+          <v-checkbox v-model="stayInEditMode" label="Stay in Edit mode" input-value="true"> </v-checkbox>
         </v-card-text>
         <v-card-actions class="justify-center">
           <div style="width: 250px">
@@ -114,19 +115,32 @@ export default defineComponent({
       },
     });
 
+    const stayInEditMode = computed({
+      get() {
+        return route.value.query.stay_in_edit_mode === "1";
+      },
+      set(keepEditMode: boolean) {
+        let stay_in_edit_mode = "0";
+        if (keepEditMode) {
+          stay_in_edit_mode = "1";
+        }
+        router.replace({ query: { ...route.value.query, stay_in_edit_mode } });
+      },
+    });
+
     onMounted(() => {
       if (!recipeUrl.value) {
         return;
       }
 
       if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value);
       }
     });
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string, importKeywordsAsTags: boolean) {
+    async function createByUrl(url: string, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
       if (url === null) {
         return;
       }
@@ -137,7 +151,7 @@ export default defineComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response);
+      handleResponse(response, stayInEditMode);
     }
 
     return {
