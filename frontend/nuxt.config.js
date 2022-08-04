@@ -281,9 +281,6 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
-    manifest: {
-      lang: "en",
-    },
     meta: {
       /* meta options */
       name: "Mealie",
@@ -292,6 +289,7 @@ export default {
       ogSiteName: "Mealie",
     },
     manifest: {
+      lang: "en",
       name: "Mealie",
       title: "Mealie",
       background_color: "#FFFFFF",
@@ -303,6 +301,10 @@ export default {
           text: "recipe_import_url",
         },
       },
+    workbox: {
+      /* workbox options */
+      skipWaiting: "true",
+       }, 
     },
     icons: [
       {
