@@ -42,6 +42,7 @@
       :logged-in="$auth.loggedIn"
       :open="isEditMode"
       :recipe-id="recipe.id"
+      :show-ocr-button="recipe.isOcrRecipe"
       class="ml-auto mt-n8 pb-4"
       @close="setMode(PageMode.VIEW)"
       @json="toggleEditMode()"
@@ -49,12 +50,13 @@
       @save="$emit('save')"
       @delete="$emit('delete')"
       @print="printRecipe"
+      @ocr="goToOcrEditor"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, computed, ref, watch, useRouter } from "@nuxtjs/composition-api";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
@@ -82,6 +84,7 @@ export default defineComponent({
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
+    const router = useRouter();
 
     function printRecipe() {
       window.print();
@@ -97,6 +100,10 @@ export default defineComponent({
     const recipeImageUrl = computed(() => {
       return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
     });
+
+    function goToOcrEditor() {
+      router.push("/recipe/" + props.recipe.slug + "/ocr-editor");
+    }
 
     watch(
       () => recipeImageUrl.value,
@@ -120,6 +127,7 @@ export default defineComponent({
       hideImage,
       isEditMode,
       recipeImageUrl,
+      goToOcrEditor,
     };
   },
 });
