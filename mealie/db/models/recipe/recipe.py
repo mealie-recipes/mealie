@@ -104,6 +104,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     rating = sa.Column(sa.Integer)
     org_url = sa.Column(sa.String)
     extras: list[ApiExtras] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
+    is_ocr_recipe = sa.Column(sa.Boolean, default=False)
 
     # Time Stamp Properties
     date_added = sa.Column(sa.Date, default=datetime.date.today)

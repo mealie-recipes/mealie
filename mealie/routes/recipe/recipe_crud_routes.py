@@ -450,6 +450,7 @@ class RecipeController(BaseRecipeController):
                 name="New OCR Recipe",
                 recipe_ingredient=[RecipeIngredient(note="")],
                 recipe_instructions=[RecipeStep(text="")],
+                is_ocr_recipe=True,
             )
         ).slug
         RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)

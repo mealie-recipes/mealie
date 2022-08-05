@@ -214,6 +214,7 @@ export interface Recipe {
     [k: string]: unknown;
   };
   comments?: RecipeCommentOut[];
+  isOcrRecipe?: boolean;
 }
 export interface RecipeTool {
   id: string;
