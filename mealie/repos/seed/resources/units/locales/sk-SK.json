@@ -80,7 +80,7 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porcia",
         "description": "",
         "abbreviation": ""
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "plechovka",
         "description": "",
         "abbreviation": ""
     }
