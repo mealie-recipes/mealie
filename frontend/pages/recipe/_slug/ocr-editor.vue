@@ -555,7 +555,7 @@ export default defineComponent({
     }
 
     function switchCanvasMode(mode: CanvasModes) {
-      if (state.canvasRect === null) return;
+      if (state.canvasRect === null || state.canvas === null) return;
       state.canvasMode = mode;
       if (mode === "panAndZoom") {
         state.canvas.style.cursor = "pointer";
@@ -571,7 +571,7 @@ export default defineComponent({
     }
 
     function draw() {
-      if (state.canvasRect === null) return;
+      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
       if (state.mouse.down) {
         state.ctx.imageSmoothingEnabled = false;
         state.ctx.fillStyle = "rgb(255, 255, 255)";
@@ -604,7 +604,7 @@ export default defineComponent({
     }
 
     function handleMouseDown(event: MouseEvent) {
-      if (state.canvasRect === null) return;
+      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
       state.mouse.down = true;
       state.mouse.current = {
         x: event.clientX - state.canvasRect.left,
@@ -619,7 +619,6 @@ export default defineComponent({
             setPropertyValueByPath<Recipe>(recipe.value, state.selectedRecipeField, state.selectedText);
           }
         } else {
-
           state.ctx.fillStyle = "rgb(255, 255, 255)";
           state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
           drawImage(state.ctx);
@@ -643,7 +642,7 @@ export default defineComponent({
     }
 
     function keepImageInCanvas() {
-      if (state.canvasRect === null) return;
+      if (state.canvasRect === null || state.canvas === null) return;
 
       // Prevent image from being smaller than the canvas width
       if (state.imagePosition.dWidth - state.canvas.width < 0) {
@@ -677,7 +676,7 @@ export default defineComponent({
     }
 
     function handleMouseMove(event: MouseEvent) {
-      if (state.canvasRect === null) return;
+      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
       state.mouse.current = {
         x: event.clientX - state.canvasRect.left,
         y: event.clientY - state.canvasRect.top,
@@ -714,6 +713,8 @@ export default defineComponent({
 
     function handleMouseScroll(event: WheelEvent) {
       if (state.isImageSmallerThanCanvas) return;
+      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
+
       if (state.canvasMode === "panAndZoom") {
         event.preventDefault();
 
