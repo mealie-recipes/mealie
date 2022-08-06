@@ -5,4 +5,4 @@ from mealie.app import app
 
 def test_validate_open_api_spec():
     open_api = app.openapi()
-    assert validate_v3_spec(open_api) is True
+    validate_v3_spec(open_api)
