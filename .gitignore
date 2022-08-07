@@ -151,6 +151,7 @@ scratch.py
 dev/data/backups/dev_sample_data*.zip
 !dev/data/backups/test*.zip
 dev/data/recipes/*
+dev/scripts/openapi.json
 dev/scripts/output/app_routes.py
 dev/scripts/output/javascriptAPI/*
 mealie/services/scraper/ingredient_nlp/model.crfmodel

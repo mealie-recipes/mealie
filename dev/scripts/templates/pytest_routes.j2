@@ -3,7 +3,7 @@
 
 class AppRoutes:
     def __init__(self) -> None:
-        self.prefix = '{{paths.prefix}}'
+        self.prefix = "{{paths.prefix}}"
 {% for path in paths.static_paths %}
         self.{{ path.router_slug }} = "{{path.prefix}}{{ path.route }}"{% endfor %}
 {% for path in paths.function_paths  %}

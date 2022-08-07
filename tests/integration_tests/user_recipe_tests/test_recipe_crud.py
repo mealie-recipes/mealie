@@ -82,7 +82,7 @@ def test_create_by_url(
         lambda *_: "TEST_IMAGE",
     )
 
-    api_client.delete(api_routes.recipes_recipe_slug(recipe_data.expected_slug), headers=unique_user.token)
+    api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
     response = api_client.post(
         api_routes.recipes_create_url, json={"url": recipe_data.url, "include_tags": False}, headers=unique_user.token
@@ -128,7 +128,7 @@ def test_create_by_url_with_tags(
     slug = "nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas"
 
     # Get the recipe
-    response = api_client.get(api_routes.recipes_recipe_slug(slug), headers=unique_user.token)
+    response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
     assert response.status_code == 200
 
     # Verifiy the tags are present

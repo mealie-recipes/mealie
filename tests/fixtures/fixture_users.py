@@ -45,7 +45,7 @@ def g2_user(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
         "tokens": [],
     }
 
-    response = api_client.post(api_routes.groups, json={"name": group}, headers=admin_token)
+    response = api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
     response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
 
     assert response.status_code == 201
@@ -125,10 +125,11 @@ def user_tuple(admin_token, api_client: TestClient, api_routes: utils.AppRoutes)
         "tokens": [],
     }
 
+    api_client.post(api_routes.admin_groups, json={"name": group_name}, headers=admin_token)
+
     users_out = []
 
     for usr in [create_data_1, create_data_2]:
-        response = api_client.post(api_routes.groups, json={"name": "New Group"}, headers=admin_token)
         response = api_client.post(api_routes.users, json=usr, headers=admin_token)
         assert response.status_code == 201
 

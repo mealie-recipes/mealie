@@ -44,6 +44,7 @@ class RequestType(str, Enum):
 class ParameterIn(str, Enum):
     query = "query"
     path = "path"
+    header = "header"
 
 
 class RouterParameter(BaseModel):
