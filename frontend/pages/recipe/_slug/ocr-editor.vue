@@ -603,13 +603,21 @@ export default defineComponent({
       state.selectedText = "";
     }
 
-    function handleMouseDown(event: MouseEvent) {
-      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-      state.mouse.down = true;
+    function updateMousePos<T extends MouseEvent>(event: T) {
+      if (state.canvas === null) return;
+      state.canvasRect = state.canvas.getBoundingClientRect();
       state.mouse.current = {
         x: event.clientX - state.canvasRect.left,
         y: event.clientY - state.canvasRect.top,
       };
+    }
+
+    function handleMouseDown(event: MouseEvent) {
+      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
+      state.mouse.down = true;
+
+      updateMousePos(event);
+
       if (state.canvasMode === "selection") {
         if (isMouseInRect(state.mouse, state.rect)) {
           // Update the right field in the recipe
@@ -677,10 +685,8 @@ export default defineComponent({
 
     function handleMouseMove(event: MouseEvent) {
       if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-      state.mouse.current = {
-        x: event.clientX - state.canvasRect.left,
-        y: event.clientY - state.canvasRect.top,
-      };
+
+      updateMousePos(event);
 
       if (state.mouse.down) {
         if (state.canvasMode === "selection") {
@@ -718,10 +724,8 @@ export default defineComponent({
       if (state.canvasMode === "panAndZoom") {
         event.preventDefault();
 
-        state.mouse.current = {
-          x: event.clientX - state.canvasRect.left,
-          y: event.clientY - state.canvasRect.top,
-        };
+        updateMousePos(event);
+
         const m = Math.sign(event.deltaY);
 
         const ndx = state.imagePosition.dx + m * state.imagePosition.dWidth * scrollSensitivity;
@@ -844,9 +848,9 @@ export default defineComponent({
     }
 
     // Leaves<RecipeStep[]> will return some function types making eslint very unhappy
-    type RecipeStepsLeaves = `${number}.${Leaves<RecipeStep>}`
+    type RecipeStepsLeaves = `${number}.${Leaves<RecipeStep>}`;
 
-    function setSingleStep(path: RecipeStepsLeaves ) {
+    function setSingleStep(path: RecipeStepsLeaves) {
       state.selectedRecipeField = `recipeInstructions.${path}` as SelectedRecipeLeaves;
     }
 
