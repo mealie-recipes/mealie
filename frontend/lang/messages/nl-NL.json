@@ -510,8 +510,8 @@
     "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
+    "translated": "vertaald",
+    "choose-language": "Taal kiezen",
     "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
