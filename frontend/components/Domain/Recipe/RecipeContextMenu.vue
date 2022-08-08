@@ -15,7 +15,7 @@
     </BaseDialog>
     <BaseDialog
       v-model="mealplannerDialog"
-      title="Add Recipe to Mealplan"
+      :title="$t('recipe.add-recipe-to-mealplan')"
       color="primary"
       :icon="$globals.icons.calendar"
       @confirm="addRecipeToPlan()"
@@ -32,8 +32,8 @@
           <template #activator="{ on, attrs }">
             <v-text-field
               v-model="newMealdate"
-              label="Date"
-              hint="MM/DD/YYYY format"
+              :label="$t('general.date')"
+              :hint="$t('recipe.date-format-hint')"
               persistent-hint
               :prepend-icon="$globals.icons.calendar"
               v-bind="attrs"
@@ -43,10 +43,15 @@
           </template>
           <v-date-picker v-model="newMealdate" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
-        <v-select v-model="newMealType" :return-object="false" :items="planTypeOptions" label="Entry Type"></v-select>
+        <v-select
+          v-model="newMealType"
+          :return-object="false"
+          :items="planTypeOptions"
+          :label="$t('recipe.entry-type')"
+        ></v-select>
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="shoppingListDialog" title="Add to List" :icon="$globals.icons.cartCheck">
+    <BaseDialog v-model="shoppingListDialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
       <v-card-text>
         <v-card
           v-for="list in shoppingLists"
@@ -213,13 +218,13 @@ export default defineComponent({
         event: "download",
       },
       mealplanner: {
-        title: "Add to Plan",
+        title: i18n.t("recipe.add-to-plan") as string,
         icon: $globals.icons.calendar,
         color: undefined,
         event: "mealplanner",
       },
       shoppingList: {
-        title: "Add to List",
+        title: i18n.t("recipe.add-to-list") as string,
         icon: $globals.icons.cartCheck,
         color: undefined,
         event: "shoppingList",
@@ -268,7 +273,7 @@ export default defineComponent({
     async function addRecipeToList(listId: string) {
       const { data } = await api.shopping.lists.addRecipe(listId, props.recipeId);
       if (data) {
-        alert.success("Recipe added to list");
+        alert.success(i18n.t("recipe.recipe-added-to-list") as string);
         state.shoppingListDialog = false;
       }
     }
@@ -300,9 +305,9 @@ export default defineComponent({
       });
 
       if (response?.status === 201) {
-        alert.success("Recipe added to mealplan");
+        alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
       } else {
-        alert.error("Failed to add recipe to mealplan");
+        alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan") as string);
       }
     }
 

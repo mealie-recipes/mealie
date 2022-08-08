@@ -24,7 +24,7 @@
                       </v-icon>
                     </v-btn>
                   </template>
-                  <span> Reset Scale </span>
+                  <span> {{ $t("recipe.reset-scale") }} </span>
                 </v-tooltip>
               </div>
             </v-card-text>
@@ -38,12 +38,12 @@
         :buttons="[
           {
             icon: $globals.icons.minus,
-            text: 'Decrease Scale by 1',
+            text: $t('recipe.decrease-scale-label'),
             event: 'decrement',
           },
           {
             icon: $globals.icons.createAlt,
-            text: 'Increase Scale by 1',
+            text: $t('recipe.increase-scale-label'),
             event: 'increment',
           },
         ]"

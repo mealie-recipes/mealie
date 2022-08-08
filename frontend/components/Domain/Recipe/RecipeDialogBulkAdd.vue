@@ -36,7 +36,7 @@
               </v-list-item-title>
               <BaseButton small color="info" @click="util.action">
                 <template #icon> {{ $globals.icons.robot }}</template>
-                Run
+                {{ $t("general.run") }}
               </BaseButton>
             </v-list-item>
             <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseDialog v-model="dialog" title="Share Recipe" :icon="$globals.icons.link">
+    <BaseDialog v-model="dialog" :title="$t('recipe-share.share-recipe')" :icon="$globals.icons.link">
       <v-card-text>
         <v-menu
           v-model="datePickerMenu"
@@ -13,8 +13,8 @@
           <template #activator="{ on, attrs }">
             <v-text-field
               v-model="expirationDate"
-              label="Expiration Date"
-              hint="Default 30 Days"
+              :label="$t('recipe-share.expiration-date')"
+              :hint="$t('recipe-share.default-30-days')"
               persistent-hint
               :prepend-icon="$globals.icons.calendar"
               v-bind="attrs"
@@ -35,7 +35,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title> Expires At </v-list-item-title>
+          <v-list-item-title> {{ $t("recipe-share.expires-at") }} </v-list-item-title>
 
           <v-list-item-subtitle>{{ $d(new Date(token.expiresAt), "long") }}</v-list-item-subtitle>
         </v-list-item-content>
@@ -152,7 +152,7 @@ export default defineComponent({
 
     async function copyTokenLink(token: string) {
       await copy(getTokenLink(token));
-      alert.success("Recipe link copied to clipboard");
+      alert.success(i18n.t("recipe-share.recipe-link-copied-message") as string);
     }
 
     async function shareRecipe(token: string) {

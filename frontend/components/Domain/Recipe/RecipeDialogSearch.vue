@@ -16,7 +16,7 @@
           class="mx-2 arrow-search"
           hide-details
           single-line
-          placeholder="Search"
+          :placeholder="$t('search.search')"
           :prepend-inner-icon="$globals.icons.search"
         ></v-text-field>
 

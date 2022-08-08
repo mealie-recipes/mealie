@@ -7,7 +7,7 @@
           <v-icon large left>
             {{ $globals.icons.link }}
           </v-icon>
-          <v-toolbar-title class="headline"> Ingredient Linker </v-toolbar-title>
+          <v-toolbar-title class="headline"> {{ $t("recipe.ingredient-linker") }} </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-app-bar>
 
@@ -29,7 +29,7 @@
           </v-checkbox>
 
           <template v-if="usedIngredients.length > 0">
-            <h4 class="py-3 ml-1">Linked to other step</h4>
+            <h4 class="py-3 ml-1">{{ $t("recipe.linked-to-other-step") }}</h4>
             <v-checkbox
               v-for="ing in usedIngredients"
               :key="ing.referenceId"
@@ -51,7 +51,7 @@
           <v-spacer></v-spacer>
           <BaseButton color="info" @click="autoSetReferences">
             <template #icon> {{ $globals.icons.robot }}</template>
-            Auto
+            {{ $t("recipe.auto") }}
           </BaseButton>
           <BaseButton save @click="setIngredientIds"> </BaseButton>
         </v-card-actions>
@@ -64,7 +64,7 @@
         <template #icon>
           {{ $globals.icons.primary }}
         </template>
-        Cook Mode
+        {{ $t("recipe.cook-mode") }}
       </BaseButton>
     </div>
     <draggable
@@ -289,7 +289,7 @@ export default defineComponent({
   },
 
   setup(props, context) {
-    const { req } = useContext();
+    const { i18n, req } = useContext();
     const BASE_URL = detectServerBaseUrl(req);
 
     console.log("Base URL", BASE_URL);
@@ -305,15 +305,15 @@ export default defineComponent({
 
     const actionEvents = [
       {
-        text: "Toggle Section",
+        text: i18n.t("recipe.toggle-section") as string,
         event: "toggle-section",
       },
       {
-        text: "Link Ingredients",
+        text: i18n.t("recipe.link-ingredients") as string,
         event: "link-ingredients",
       },
       {
-        text: "Merge Above",
+        text: i18n.t("recipe.merge-above") as string,
         event: "merge-above",
       },
     ];

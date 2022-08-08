@@ -5,12 +5,12 @@
     <BaseDialog
       v-if="deleteTarget"
       v-model="deleteDialog"
-      :title="`Delete ${deleteTarget.name}`"
+      :title="$t('general.delete-with-name', { name: deleteTarget.name })"
       color="error"
       :icon="$globals.icons.alertCircle"
       @confirm="deleteOne()"
     >
-      <v-card-text> Are you sure you want to delete this {{ deleteTarget.name }}? </v-card-text>
+      <v-card-text> {{ $t("general.confirm-delete-generic-with-name", { name: deleteTarget.name }) }} </v-card-text>
     </BaseDialog>
     <v-app-bar color="transparent" flat class="mt-n1 rounded align-center">
       <v-icon large left>
@@ -84,13 +84,15 @@ export default defineComponent({
 
       if (!props.items) return byLetter;
 
-      props.items.sort((a, b) => a.name.localeCompare(b.name)).forEach((item) => {
-        const letter = item.name[0].toUpperCase();
-        if (!byLetter[letter]) {
-          byLetter[letter] = [];
-        }
-        byLetter[letter].push(item);
-      });
+      props.items
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach((item) => {
+          const letter = item.name[0].toUpperCase();
+          if (!byLetter[letter]) {
+            byLetter[letter] = [];
+          }
+          byLetter[letter].push(item);
+        });
 
       return byLetter;
     });

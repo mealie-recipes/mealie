@@ -7,26 +7,37 @@
             v-model="listItem.food"
             :items="foods"
             :item-id.sync="listItem.foodId"
-            label="Food"
+            :label="$t('shopping-list.food')"
             :icon="$globals.icons.foods"
           />
           <InputLabelType
             v-model="listItem.unit"
             :items="units"
             :item-id.sync="listItem.unitId"
-            label="Units"
+            :label="$t('general.units')"
             :icon="$globals.icons.units"
           />
         </div>
         <div class="d-md-flex align-center" style="gap: 20px">
-          <v-textarea v-model="listItem.note" hide-details label="Note" rows="1" auto-grow></v-textarea>
+          <v-textarea
+            v-model="listItem.note"
+            hide-details
+            :label="$t('shopping-list.note')"
+            rows="1"
+            auto-grow
+          ></v-textarea>
         </div>
         <div class="d-flex align-end" style="gap: 20px">
           <div>
             <InputQuantity v-model="listItem.quantity" />
           </div>
           <div style="max-width: 300px" class="mt-3 mr-auto">
-            <InputLabelType v-model="listItem.label" :items="labels" :item-id.sync="listItem.labelId" label="Label" />
+            <InputLabelType
+              v-model="listItem.label"
+              :items="labels"
+              :item-id.sync="listItem.labelId"
+              :label="$t('shopping-list.label')"
+            />
           </div>
 
           <v-menu
@@ -43,8 +54,7 @@
             </template>
             <v-card max-width="350px" class="left-warning-border">
               <v-card-text>
-                This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results
-                when adding or removing the recipe from this list.
+                {{ $t("shopping-list.linked-item-warning") }}
               </v-card-text>
             </v-card>
           </v-menu>
@@ -66,7 +76,7 @@
           },
           {
             icon: $globals.icons.foods,
-            text: 'Toggle Food',
+            text: $t('shopping-list.toggle-food'),
             event: 'toggle-foods',
           },
           {

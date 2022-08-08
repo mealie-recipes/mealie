@@ -169,7 +169,7 @@ export default defineComponent({
 
     async function addAsset() {
       if (!validFields()) {
-        alert.error("Error Submitting Form");
+        alert.error(i18n.t("asset.error-submitting-form") as string);
         return;
       }
 

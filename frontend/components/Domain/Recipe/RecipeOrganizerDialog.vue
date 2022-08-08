@@ -23,7 +23,7 @@
               :rules="[rules.required]"
               autofocus
             ></v-text-field>
-            <v-checkbox v-if="itemType === Organizer.Tool" v-model="onHand" label="On Hand"></v-checkbox>
+            <v-checkbox v-if="itemType === Organizer.Tool" v-model="onHand" :label="$t('tool.on-hand')"></v-checkbox>
           </v-card-text>
           <v-card-actions>
             <BaseButton cancel @click="dialog = false" />
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useTagStore, useToolStore } from "~/composables/store";
 import { RecipeOrganizer, Organizer } from "~/types/recipe/organizers";
@@ -64,6 +64,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const { i18n } = useContext();
+
     const state = reactive({
       name: "",
       onHand: false,
@@ -102,27 +104,27 @@ export default defineComponent({
       switch (props.itemType) {
         case Organizer.Tag:
           return {
-            title: "Create a Tag",
-            label: "Tag Name",
+            title: i18n.t("tag.create-a-tag"),
+            label: i18n.t("tag.tag-name"),
             api: userApi.tags,
           };
         case Organizer.Tool:
           return {
-            title: "Create a Tool",
-            label: "Tool Name",
+            title: i18n.t("tool.create-a-tool"),
+            label: i18n.t("tool.tool-name"),
             api: userApi.tools,
           };
         default:
           return {
-            title: "Create a Category",
-            label: "Category Name",
+            title: i18n.t("category.create-a-category"),
+            label: i18n.t("category.category-name"),
             api: userApi.categories,
           };
       }
     });
 
     const rules = {
-      required: (val: string) => !!val || "A Name is Required",
+      required: (val: string) => !!val || (i18n.t("general.a-name-is-required") as string),
     };
 
     async function select() {

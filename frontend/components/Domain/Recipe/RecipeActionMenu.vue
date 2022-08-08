@@ -36,7 +36,7 @@
             <v-icon> {{ $globals.icons.lock }} </v-icon>
           </v-btn>
         </template>
-        <span> Locked by Owner </span>
+        <span> {{ $t("recipe.locked-by-owner") }} </span>
       </v-tooltip>
 
       <ClientOnly>
