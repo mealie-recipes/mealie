@@ -35,6 +35,7 @@ from mealie.schema.recipe.recipe import (
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
@@ -448,17 +449,16 @@ class RecipeController(BaseRecipeController):
         slug = self.service.create_one(
             Recipe(
                 name="New OCR Recipe",
-                recipe_ingredient=[RecipeIngredient(note="")],
+                recipe_ingredient=[RecipeIngredient(note="", title=None, unit=None, food=None, original_text=None)],
                 recipe_instructions=[RecipeStep(text="")],
                 is_ocr_recipe=True,
+                settings=RecipeSettings(show_assets=True),
             )
         ).slug
         RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)
         if makefilerecipeimage:
-            file.file.seek(0)  # Get the pointer to the beginning of the file to read it once more
+            # Get the pointer to the beginning of the file to read it once more
+            file.file.seek(0)
             self.update_recipe_image(slug, file.file, extension)
-        recipe = self.mixins.get_one(slug)
-        recipe.settings.show_assets = True
-        self.mixins.update_one(recipe, slug)
 
         return slug
