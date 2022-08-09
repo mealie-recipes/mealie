@@ -1,7 +1,9 @@
+from typing import cast
+
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_category import CategorySave
+from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
+from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -10,20 +12,20 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
     # Bootstrap the database with categories
     slug1, slug2, slug3 = [random_string(10) for _ in range(3)]
 
-    categories = [
+    categories: list[CategoryOut | CategorySave] = [
         CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
         CategorySave(group_id=unique_user.group_id, name=slug2, slug=slug2),
         CategorySave(group_id=unique_user.group_id, name=slug3, slug=slug3),
     ]
 
-    created_categories = []
+    created_categories: list[CategoryOut] = []
 
     for category in categories:
         model = database.categories.create(category)
         created_categories.append(model)
 
     # Bootstrap the database with recipes
-    recipes = []
+    recipes: list[Recipe | RecipeSummary] = []
 
     for idx in range(15):
         if idx % 3 == 0:
@@ -45,14 +47,14 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
     created_recipes = []
 
     for recipe in recipes:
-        models = database.recipes.create(recipe)
+        models = database.recipes.create(cast(Recipe, recipe))
         created_recipes.append(models)
 
     # Get all recipes by category
 
     for category in created_categories:
-        repo: RepositoryRecipes = database.recipes.by_group(unique_user.group_id)
-        recipes = repo.get_by_categories([category])
+        repo: RepositoryRecipes = database.recipes.by_group(unique_user.group_id)  # type: ignore
+        recipes = repo.get_by_categories([cast(RecipeCategory, category)])
 
         assert len(recipes) == 5
 
@@ -106,11 +108,11 @@ def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_u
         database.recipes.create(recipe)
 
     # Get all recipes by both categories
-    repo: RepositoryRecipes = database.recipes.by_group(unique_user.group_id)
-    by_category = repo.get_by_categories(created_categories)
+    repo: RepositoryRecipes = database.recipes.by_group(unique_user.group_id)  # type: ignore
+    by_category = repo.get_by_categories(cast(list[RecipeCategory], created_categories))
 
     assert len(by_category) == 10
 
-    for recipe in by_category:
-        for category in recipe.recipe_category:
-            assert category.id in known_category_ids
+    for recipe_summary in by_category:
+        for recipe_category in recipe_summary.recipe_category:
+            assert recipe_category.id in known_category_ids
