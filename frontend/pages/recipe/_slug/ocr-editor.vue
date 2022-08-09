@@ -303,7 +303,6 @@ import BannerExperimental from "~/components/global/BannerExperimental.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
-import RecipeActionMenu from "~/components/Domain/Recipe/RecipeContextMenu.vue";
 import { uuid4 } from "~/composables/use-utils";
 
 type CanvasRect = {
@@ -373,7 +372,6 @@ export default defineComponent({
     BannerExperimental,
     RecipeDialogBulkAdd,
     RecipeInstructions,
-    RecipeActionMenu,
   },
   setup() {
     const route = useRoute();
