@@ -508,7 +508,7 @@ export default defineComponent({
         const imagesrc = assetURL(assetName);
         image.src = imagesrc;
 
-        const res = await api.ocr.asset_to_tsv(recipe.value.slug, assetName);
+        const res = await api.ocr.assetToTsv(recipe.value.slug, assetName);
         tsv.value = res.data as OcrTsvResponse[];
         state.loading = false;
 
