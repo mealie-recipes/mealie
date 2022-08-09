@@ -1,13 +1,14 @@
 from functools import cached_property
 from shutil import copyfileobj
+from typing import Optional
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, status
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, status
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
+from pydantic import UUID4, BaseModel, Field
 from slugify import slugify
 from starlette.responses import FileResponse
 
@@ -197,12 +198,17 @@ class RecipeController(BaseRecipeController):
     # CRUD Operations
 
     @router.get("", response_model=RecipePagination)
-    def get_all(self, q: RecipePaginationQuery = Depends(RecipePaginationQuery)):
+    def get_all(
+        self,
+        q: RecipePaginationQuery = Depends(RecipePaginationQuery),
+        categories: Optional[list[UUID4 | str]] = Query(None),
+        tags: Optional[list[UUID4 | str]] = Query(None),
+    ):
         response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
-            category=q.category or None,
-            tag=q.tag or None,
+            categories=categories,
+            tags=tags,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
