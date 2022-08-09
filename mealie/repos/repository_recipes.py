@@ -129,7 +129,14 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .all()
         )
 
-    def page_all(self, pagination: PaginationQuery, override=None, load_food=False) -> RecipePagination:
+    def page_all(
+        self,
+        pagination: PaginationQuery,
+        override=None,
+        load_food=False,
+        categories: Optional[list[UUID4 | str]] = None,
+        tags: Optional[list[UUID4 | str]] = None,
+    ) -> RecipePagination:
         q = self.session.query(self.model)
 
         args = [
@@ -145,6 +152,23 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+
+        if categories:
+            for category in categories:
+                if isinstance(category, UUID):
+                    q = q.filter(RecipeModel.recipe_category.any(Category.id == category))
+
+                else:
+                    q = q.filter(RecipeModel.recipe_category.any(Category.slug == category))
+
+        if tags:
+            for tag in tags:
+                if isinstance(tag, UUID):
+                    q = q.filter(RecipeModel.tags.any(Tag.id == tag))
+
+                else:
+                    q = q.filter(RecipeModel.tags.any(Tag.slug == tag))
+
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
         try:

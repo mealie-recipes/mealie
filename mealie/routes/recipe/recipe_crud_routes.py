@@ -1,13 +1,14 @@
 from functools import cached_property
 from shutil import copyfileobj
+from typing import Optional
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, status
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, status
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
+from pydantic import UUID4, BaseModel, Field
 from slugify import slugify
 from starlette.responses import FileResponse
 
@@ -21,7 +22,13 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePaginationQuery, RecipeSummary
+from mealie.schema.recipe.recipe import (
+    CreateRecipe,
+    CreateRecipeByUrlBulk,
+    RecipePagination,
+    RecipePaginationQuery,
+    RecipeSummary,
+)
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
@@ -200,11 +207,18 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # CRUD Operations
 
-    @router.get("", response_model=list[RecipeSummary])
-    def get_all(self, q: RecipePaginationQuery = Depends(RecipePaginationQuery)):
+    @router.get("", response_model=RecipePagination)
+    def get_all(
+        self,
+        q: RecipePaginationQuery = Depends(RecipePaginationQuery),
+        categories: Optional[list[UUID4 | str]] = Query(None),
+        tags: Optional[list[UUID4 | str]] = Query(None),
+    ):
         response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
+            categories=categories,
+            tags=tags,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
