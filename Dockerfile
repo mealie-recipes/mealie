@@ -97,7 +97,7 @@ ENV GIT_COMMIT_HASH=$COMMIT
 # curl for used by healthcheck
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-    curl \
+    curl gosu \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
