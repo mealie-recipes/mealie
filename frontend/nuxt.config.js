@@ -38,7 +38,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [{ src: "~/assets/main.css" }, { src: "~/assets/style-overrides.scss" }],
+  css: [{ src: "~/assets/css/main.css" }, { src: "~/assets/css/main.css" }, { src: "~/assets/style-overrides.scss" }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ["~/plugins/globals.ts", "~/plugins/theme.ts", "~/plugins/toast.client.ts", "~/plugins/dark-mode.client.ts"],
@@ -94,6 +94,8 @@ export default {
   ],
 
   googleFonts: {
+    fontsPath: "/assets/fonts",
+    download: true,
     families: {
       Roboto: [100, 300, 400, 500, 700, 900],
     },
@@ -301,10 +303,10 @@ export default {
           text: "recipe_import_url",
         },
       },
-    workbox: {
-      /* workbox options */
-      skipWaiting: "true",
-       }, 
+      workbox: {
+        /* workbox options */
+        skipWaiting: "true",
+      },
     },
     icons: [
       {
