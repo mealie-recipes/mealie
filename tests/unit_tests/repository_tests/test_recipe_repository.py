@@ -2,8 +2,8 @@ from typing import cast
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
-from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave
+from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipePaginationQuery, RecipeSummary
+from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -116,3 +116,163 @@ def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_u
     for recipe_summary in by_category:
         for recipe_category in recipe_summary.recipe_category:
             assert recipe_category.id in known_category_ids
+
+
+def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_user: TestUser):
+    slug1, slug2 = [random_string(10) for _ in range(2)]
+
+    categories = [
+        CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        CategorySave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+    ]
+
+    created_categories = [database.categories.create(category) for category in categories]
+
+    # Bootstrap the database with recipes
+    recipes = []
+
+    for i in range(10):
+        # None of the categories
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+            )
+        )
+
+        # Only one of the categories
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_category=[created_categories[i % 2]],
+            ),
+        )
+
+        # Both of the categories
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_category=created_categories,
+            )
+        )
+
+    for recipe in recipes:
+        database.recipes.create(recipe)
+
+    pagination_query = RecipePaginationQuery(
+        page=1,
+        per_page=-1,
+    )
+
+    # Get all recipes with only one category by UUID
+    category_id = created_categories[0].id
+    recipes_with_one_category = database.recipes.page_all(pagination_query, categories=[category_id]).items
+    assert len(recipes_with_one_category) == 15
+
+    for recipe_summary in recipes_with_one_category:
+        category_ids = [category.id for category in recipe_summary.recipe_category]
+        assert category_id in category_ids
+
+    # Get all recipes with only one category by slug
+    category_slug = created_categories[1].slug
+    recipes_with_one_category = database.recipes.page_all(pagination_query, categories=[category_slug]).items
+    assert len(recipes_with_one_category) == 15
+
+    for recipe_summary in recipes_with_one_category:
+        category_slugs = [category.slug for category in recipe_summary.recipe_category]
+        assert category_slug in category_slugs
+
+    # Get all recipes with both categories
+    recipes_with_both_categories = database.recipes.page_all(
+        pagination_query, categories=[category.id for category in created_categories]
+    ).items
+    assert len(recipes_with_both_categories) == 10
+
+    for recipe_summary in recipes_with_both_categories:
+        category_ids = [category.id for category in recipe_summary.recipe_category]
+        for category in created_categories:
+            assert category.id in category_ids
+
+
+def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: TestUser):
+    slug1, slug2 = [random_string(10) for _ in range(2)]
+
+    tags = [
+        TagSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        TagSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+    ]
+
+    created_tags = [database.tags.create(tag) for tag in tags]
+
+    # Bootstrap the database with recipes
+    recipes = []
+
+    for i in range(10):
+        # None of the tags
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+            )
+        )
+
+        # Only one of the tags
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                tags=[created_tags[i % 2]],
+            ),
+        )
+
+        # Both of the tags
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                tags=created_tags,
+            )
+        )
+
+    for recipe in recipes:
+        database.recipes.create(recipe)
+
+    pagination_query = RecipePaginationQuery(
+        page=1,
+        per_page=-1,
+    )
+
+    # Get all recipes with only one tag by UUID
+    tag_id = created_tags[0].id
+    recipes_with_one_tag = database.recipes.page_all(pagination_query, tags=[tag_id]).items
+    assert len(recipes_with_one_tag) == 15
+
+    for recipe_summary in recipes_with_one_tag:
+        tag_ids = [tag.id for tag in recipe_summary.tags]
+        assert tag_id in tag_ids
+
+    # Get all recipes with only one tag by slug
+    tag_slug = created_tags[1].slug
+    recipes_with_one_tag = database.recipes.page_all(pagination_query, tags=[tag_slug]).items
+    assert len(recipes_with_one_tag) == 15
+
+    for recipe_summary in recipes_with_one_tag:
+        tag_slugs = [tag.slug for tag in recipe_summary.tags]
+        assert tag_slug in tag_slugs
+
+    # Get all recipes with both tags
+    recipes_with_both_tags = database.recipes.page_all(pagination_query, tags=[tag.id for tag in created_tags]).items
+    assert len(recipes_with_both_tags) == 10
+
+    for recipe_summary in recipes_with_both_tags:
+        tag_ids = [tag.id for tag in recipe_summary.tags]
+        for tag in created_tags:
+            assert tag.id in tag_ids
