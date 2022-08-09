@@ -12,17 +12,28 @@ PGID=${PGID:-911}
 add_user() {
     groupmod -o -g "$PGID" abc
     usermod -o -u "$PUID" abc
+}
 
-    echo "
-    User uid:    $(id -u abc)
-    User gid:    $(id -g abc)
-    "
-    chown -R abc:abc /app
+change_user() {
+    # If container is started as root then create a new user and switch to it
+    if [ "$(id -u)" = "0" ]; then
+        add_user
+        chown -R $PUID:$PGID /app
+
+        echo "Switching to dedicated user"
+        exec gosu $PUID "$BASH_SOURCE" "$@"
+    elif [ "$(id -u)" = $PUID ]; then
+        echo "
+        User uid:    $PUID
+        User gid:    $PGID
+        "
+    fi
 }
 
 init() {
     # $MEALIE_HOME directory
     cd /app
+
     # Activate our virtual environment here
     . /opt/pysetup/.venv/bin/activate
 
@@ -45,7 +56,8 @@ if [ "$ARG1" == "reload" ]; then
 else
     echo "Production"
 
-    add_user
+    change_user
+
     init
 
     # Start API

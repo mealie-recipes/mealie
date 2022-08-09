@@ -1,4 +1,5 @@
-import { Plugin } from "@nuxt/types"
+import { Plugin } from "@nuxt/types";
+import { Framework } from "vuetify";
 import { icons } from "~/utils/icons";
 import { Icon } from "~/utils/icons/icon-type";
 
@@ -15,13 +16,14 @@ declare module "vue/types/vue" {
 declare module "@nuxt/types" {
   interface Context {
     $globals: Globals;
+    $vuetify: Framework;
   }
 }
 
 const globalsPlugin: Plugin = (_, inject) => {
   inject("globals", {
-    icons
+    icons,
   });
 };
 
-export default globalsPlugin
+export default globalsPlugin;

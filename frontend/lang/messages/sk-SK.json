@@ -33,7 +33,7 @@
     "show-assets": "Ukáž prílohy"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Kategórie",
     "category-created": "Kategória vytvorená",
     "category-creation-failed": "Vytvorenie kategórie zlyhalo",
     "category-deleted": "Kategória vymazaná",
@@ -44,7 +44,7 @@
     "uncategorized-count": "Nezaradené {count}"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "URL na oboznámenie",
     "database": "Databáza",
     "delete-event": "Odstrániť akciu",
     "new-notification-form-description": "Mealie používa na generovanie upozornení knižnicu Apprise. Vďaka tomu ponúkajú množstvo možností pre služby využívajúce upozornenia. V prípade, ak chcete vytvoriť URL odkaz na Vašu službu, obráťte sa na ich oficiálnu wiki. Výberom vhodného typu upozornení môžete získať prístup k ďalším užitočným funkciám.",
@@ -131,10 +131,10 @@
     "view": "Zobraziť",
     "wednesday": "Streda",
     "yes": "Áno",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next"
+    "foods": "Jedlo",
+    "units": "Jednotky",
+    "back": "Späť",
+    "next": "Nasledujúci"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -156,8 +156,8 @@
     "user-group-created": "Užívateľská skupina bola vytvorená",
     "user-group-creation-failed": "Vytvorenie užívateľskej skupiny zlyhalo",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Udržiavať moje recepty súkromné",
+      "keep-my-recipes-private-description": "Nastaví vašu skupinu a všetky predvolené nastavenia receptov na súkromné. Neskôr to môžete kedykoľvek zmeniť."
     }
   },
   "meal-plan": {
@@ -196,7 +196,7 @@
     "migration-data-removed": "Prenesené dáta odstránené",
     "nextcloud": {
       "description": "Preniesť dáta z Nextcloud Cookbook",
-      "title": "Nextcloud Cookbook"
+      "title": "Kuchárska kniha Nextcloud"
     },
     "no-migration-data-available": "Dáta na prenos nie sú k dispozícii",
     "recipe-migration": "Prenos receptu"
@@ -216,9 +216,9 @@
     "upload-individual-zip-file": "Nahrať súbor .zip exportovaný z inej Mealie inštalácie.",
     "url-form-hint": "Okopírujte a zložte odkaz z vašej obľúbenej webstránky",
     "view-scraped-data": "Náhľad získaných údajov",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "trim-whitespace-description": "Vymažte medzery a prázdne riadky na začiatku a na konci",
+    "trim-prefix-description": "Vymažte prvé písmeno z každého riadku",
+    "split-by-numbered-line-description": "Pokus rozdeliť odsek pomocou výrazu '1)' alebo '1.'"
   },
   "page": {
     "404-page-not-found": "Chyba 404 - Stránka nenájdená",
@@ -236,7 +236,7 @@
   "recipe": {
     "add-key": "Pridať kľúč",
     "add-to-favorites": "Pridať do obľúbených",
-    "api-extras": "API Extras",
+    "api-extras": "API doplnky",
     "calories": "Kalórie",
     "calories-suffix": "kalórie",
     "carbohydrate-content": "Sacharidy",
@@ -248,7 +248,7 @@
     "description": "Popis",
     "disable-amount": "Vypnúť množstvá surovín",
     "disable-comments": "Vypnúť komentáre",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Upraviť mierku",
     "fat-content": "Tuky",
     "fiber-content": "Vlákniny",
     "grams": "gramov",
@@ -292,7 +292,7 @@
     "title": "Názov",
     "total-time": "Celkový čas",
     "unable-to-delete-recipe": "Recept nie je možné odstrániť",
-    "no-recipe": "No Recipe"
+    "no-recipe": "Bez receptu"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",
@@ -339,7 +339,7 @@
     },
     "language": "Jazyk",
     "latest": "Najnovšie",
-    "local-api": "Local API",
+    "local-api": "Lokálne API",
     "locale-settings": "Miestne nastavenia",
     "migrations": "Migrácie",
     "new-page": "Nová stránka",
@@ -361,9 +361,9 @@
       "error-creating-theme-see-log-file": "Vyskytla sa chyba pri vytváraní motívu. Pozrite súbor záznamu.",
       "error-deleting-theme": "Vyskytla sa chyba pri odstraňovaní motívu",
       "error-updating-theme": "Vysytla sa chyba pri aktualizácii motívu",
-      "info": "Info",
+      "info": "Informácie",
       "light": "Svetlý",
-      "primary": "Primary",
+      "primary": "Primárny",
       "secondary": "Sekundárny",
       "success": "Hotovo",
       "switch-to-dark-mode": "Prepnúť na tmavý motív",
@@ -376,9 +376,9 @@
       "warning": "Upozornenie"
     },
     "token": {
-      "active-tokens": "ACTIVE TOKENS",
-      "api-token": "API Token",
-      "api-tokens": "API Tokens",
+      "active-tokens": "Aktívne kľúče",
+      "api-token": "API Kľuč",
+      "api-tokens": "API Kľúče",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Okopíruj zobrazený token na použitie v externej aplikácii. Tento token už nebude možné v budúcnosti opäť zobraziť.",
       "create-an-api-token": "Vytvoriť API token",
       "token-name": "Názov tokenu"
@@ -399,7 +399,7 @@
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "URL adresy zobrazené nižšie obdržia webhooky obsahujúce údaje z receptov pre jedálniček v naplánovaný deň. Momentálne webhooky zbiehajú v",
       "webhook-url": "URL adresa webhooku",
       "webhooks-caps": "WEBHOOKS",
-      "webhooks": "Webhooks"
+      "webhooks": "Webhooky"
     }
   },
   "shopping-list": {
@@ -414,9 +414,9 @@
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",
-    "backups": "Backups",
+    "backups": "Zálohy",
     "categories": "Kategórie",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Kuchárska kniha",
     "dashboard": "Hlavný panel",
     "home-page": "Úvodná stránka",
     "manage-users": "Užívatelia",
@@ -426,7 +426,7 @@
     "site-settings": "Nastavenia",
     "tags": "Štítky",
     "toolbox": "Nástroje",
-    "language": "Language"
+    "language": "Jazyk"
   },
   "signup": {
     "error-signing-up": "Nastala chyba pri registrácii",
@@ -449,7 +449,7 @@
     "untagged-count": "Neoznačené {count}"
   },
   "tool": {
-    "tools": "Tools"
+    "tools": "Nástroje"
   },
   "user": {
     "admin": "Administrátor",
@@ -468,7 +468,7 @@
     "error-cannot-delete-super-user": "Chyba! Superužívateľa nie je možné odstrániť",
     "existing-password-does-not-match": "Súčasné heslo sa nezhoduje",
     "full-name": "Celé meno",
-    "invite-only": "Invite Only",
+    "invite-only": "Len na pozvanie",
     "link-id": "ID odkazu",
     "link-name": "Názov odkazu",
     "login": "Prihlásiť sa",
@@ -481,8 +481,8 @@
     "password-reset-failed": "Zresetovanie hesla zlyhalo",
     "password-updated": "Heslo bolo aktualizované",
     "password": "Heslo",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Sila hesla je {strength}",
+    "register": "Registrácia",
     "reset-password": "Resetovať heslo",
     "sign-in": "Prihlásiť sa",
     "total-mealplans": "Počet jedálničkov",
@@ -500,51 +500,51 @@
     "user-updated": "Užívateľ bol aktualizovaný",
     "user": "Užívateľ",
     "username": "Užívateľské meno",
-    "users-header": "USERS",
+    "users-header": "Používatelia",
     "users": "Užívatelia",
     "webhook-time": "Čas webhookov",
     "webhooks-enabled": "Webhooky povolené",
     "you-are-not-allowed-to-create-a-user": "Nie Ste oprávnený vytvoriť nového užívateľa",
     "you-are-not-allowed-to-delete-this-user": "Nie Ste oprávnený odstrániť tohto užívateľa",
-    "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+    "enable-advanced-content": "Povoliť pokročilé funkcie",
+    "enable-advanced-content-description": "Povoliť pokročilé funkcie, ako je škálovanie receptov, API kľúče, webhooky a správa údajov. Nebojte sa, neskôr to môžete kedykoľvek zmeniť"
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "translated": "preložené",
+    "choose-language": "Vyberte jazyk",
+    "select-description": "Vyberte jazyk používateľského rozhrania Mealie. Toto nastavenie platí len pre vás, nie pre ostatných používateľov.",
+    "how-to-contribute-description": "Je niečo ešte nepreložené, nesprávne preložené alebo váš jazyk chýba v zozname? {read-the-docs-link} o tom, ako prispieť!",
+    "read-the-docs": "Prečítajte si dokumentáciu"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Naplniť dáta",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
-      "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
+      "merge-food-example": "Zlučujem {food1} do {food2}",
+      "seed-dialog-text": "Naplniť databázu jedlom na základe vášho lokálneho jazyku. Tým sa vytvorí viac ako 200 bežných potravín, ktoré možno použiť na usporiadanie databázy. Jedlá sa prekladajú prostredníctvom úsilia komunity.",
+      "seed-dialog-warning": "V databáze už máte nejaké položky. Táto akcia nezjednotí duplikáty, budete ich musieť spravovať manuálne."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
-    "group-details": "Group Details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "user-registration": "Registrácia",
+    "join-a-group": "Pridať sa do skupiny",
+    "create-a-new-group": "Vytvoriť novú skupinu",
+    "provide-registration-token-description": "Zadajte registračný kľuč priradený ku skupine, ku ktorej sa chcete pripojiť. Budete ho musieť získať od existujúceho člena skupiny.",
+    "group-details": "Podrobnosti o skupine",
+    "group-details-description": "Pred vytvorením účtu musíte vytvoriť skupinu. Vaša skupina bude obsahovať iba vás, ale neskôr budete môcť pozvať ostatných. Členovia vašej skupiny môžu zdieľať stravovacie plány, nákupné zoznamy, recepty a ďalšie!",
+    "use-seed-data": "Použiť predvolené dáta",
+    "use-seed-data-description": "Mealie prichádza so zbierkou potravín, jednotiek a štítkov, ktoré možno použiť na naplnenie vašej skupiny užitočnými údajmi na organizáciu vašich receptov.",
+    "account-details": "Detaily účtu"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Skupina je už obsadená",
+    "username-is-taken": "Užívateľské meno je už obsadené",
+    "email-is-taken": "Email je už obsadený"
   }
 }

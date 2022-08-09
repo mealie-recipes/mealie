@@ -82,11 +82,13 @@ class UserBase(MealieModel):
             }
 
         schema_extra = {
-            "username": "ChangeMe",
-            "fullName": "Change Me",
-            "email": "changeme@email.com",
-            "group": settings.DEFAULT_GROUP,
-            "admin": "false",
+            "example": {
+                "username": "ChangeMe",
+                "fullName": "Change Me",
+                "email": "changeme@email.com",
+                "group": settings.DEFAULT_GROUP,
+                "admin": "false",
+            }
         }
 
 

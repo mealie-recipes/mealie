@@ -1,22 +1,22 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Vyskytla sa neočakávaná chyba"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Názov receptu musí byť unikátny"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Nemáte povolenie na vykonanie tejto akcie",
+        "no-entry-found": "404 - Požadovaná stránka nebola nájdená",
+        "integrity-error": "Chyba integrity databázy",
+        "username-conflict-error": "Toto užívateľské meno je už obsadené",
+        "email-conflict-error": "Tento e-mail sa už používa"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} bol vytvorený",
+        "generic-updated": "{name} bol aktualizovaný",
+        "generic-created-with-url": "{name} bol vytvorený, {url}",
+        "generic-updated-with-url": "{name} bol aktualizovaný, {url}",
+        "generic-deleted": "{name} bol vymazaný"
     }
 }

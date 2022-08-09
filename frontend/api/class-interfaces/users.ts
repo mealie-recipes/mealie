@@ -16,12 +16,12 @@ const prefix = "/api";
 const routes = {
   usersSelf: `${prefix}/users/self`,
   passwordReset: `${prefix}/users/reset-password`,
+  passwordChange: `${prefix}/users/password`,
   users: `${prefix}/users`,
 
   usersIdImage: (id: string) => `${prefix}/users/${id}/image`,
   usersIdResetPassword: (id: string) => `${prefix}/users/${id}/reset-password`,
   usersId: (id: string) => `${prefix}/users/${id}`,
-  usersIdPassword: (id: string) => `${prefix}/users/${id}/password`,
   usersIdFavorites: (id: string) => `${prefix}/users/${id}/favorites`,
   usersIdFavoritesSlug: (id: string, slug: string) => `${prefix}/users/${id}/favorites/${slug}`,
 
@@ -45,8 +45,8 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
     return await this.requests.get<UserFavorites>(routes.usersIdFavorites(id));
   }
 
-  async changePassword(id: string, changePassword: ChangePassword) {
-    return await this.requests.put(routes.usersIdPassword(id), changePassword);
+  async changePassword(changePassword: ChangePassword) {
+    return await this.requests.put(routes.passwordChange, changePassword);
   }
 
   async createAPIToken(tokenName: LongLiveTokenIn) {

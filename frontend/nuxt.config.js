@@ -38,7 +38,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [{ src: "~/assets/main.css" }, { src: "~/assets/style-overrides.scss" }],
+  css: [{ src: "~/assets/css/main.css" }, { src: "~/assets/css/main.css" }, { src: "~/assets/style-overrides.scss" }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ["~/plugins/globals.ts", "~/plugins/theme.ts", "~/plugins/toast.client.ts", "~/plugins/dark-mode.client.ts"],
@@ -94,6 +94,8 @@ export default {
   ],
 
   googleFonts: {
+    fontsPath: "/assets/fonts",
+    download: true,
     families: {
       Roboto: [100, 300, 400, 500, 700, 900],
     },
@@ -141,6 +143,7 @@ export default {
       { code: "ko-KR", file: "ko-KR.json" },
       { code: "es-ES", file: "es-ES.json" },
       { code: "ja-JP", file: "ja-JP.json" },
+      { code: "bg-BG", file: "bg-BG.json" },
       { code: "zh-CN", file: "zh-CN.json" },
       { code: "tr-TR", file: "tr-TR.json" },
       { code: "ar-SA", file: "ar-SA.json" },
@@ -149,7 +152,10 @@ export default {
       { code: "no-NO", file: "no-NO.json" },
       { code: "sv-SE", file: "sv-SE.json" },
       { code: "ro-RO", file: "ro-RO.json" },
+      { code: "sk-SK", file: "sk-SK.json" },
       { code: "uk-UA", file: "uk-UA.json" },
+      { code: "lt-LT", file: "lt-LT.json" },
+      { code: "fr-CA", file: "fr-CA.json" },
       { code: "pl-PL", file: "pl-PL.json" },
       { code: "da-DK", file: "da-DK.json" },
       { code: "pt-BR", file: "pt-BR.json" },
@@ -160,6 +166,7 @@ export default {
       { code: "fr-FR", file: "fr-FR.json" },
       { code: "zh-TW", file: "zh-TW.json" },
       { code: "af-ZA", file: "af-ZA.json" },
+      { code: "sl-SI", file: "sl-SI.json" },
       { code: "ru-RU", file: "ru-RU.json" },
       { code: "he-IL", file: "he-IL.json" },
       { code: "nl-NL", file: "nl-NL.json" },
@@ -185,6 +192,7 @@ export default {
         "ko-KR": require("./lang/dateTimeFormats/ko-KR.json"),
         "es-ES": require("./lang/dateTimeFormats/es-ES.json"),
         "ja-JP": require("./lang/dateTimeFormats/ja-JP.json"),
+        "bg-BG": require("./lang/dateTimeFormats/bg-BG.json"),
         "zh-CN": require("./lang/dateTimeFormats/zh-CN.json"),
         "tr-TR": require("./lang/dateTimeFormats/tr-TR.json"),
         "ar-SA": require("./lang/dateTimeFormats/ar-SA.json"),
@@ -193,7 +201,9 @@ export default {
         "no-NO": require("./lang/dateTimeFormats/no-NO.json"),
         "sv-SE": require("./lang/dateTimeFormats/sv-SE.json"),
         "ro-RO": require("./lang/dateTimeFormats/ro-RO.json"),
+        "sk-SK": require("./lang/dateTimeFormats/sk-SK.json"),
         "uk-UA": require("./lang/dateTimeFormats/uk-UA.json"),
+        "fr-CA": require("./lang/dateTimeFormats/fr-CA.json"),
         "pl-PL": require("./lang/dateTimeFormats/pl-PL.json"),
         "da-DK": require("./lang/dateTimeFormats/da-DK.json"),
         "pt-BR": require("./lang/dateTimeFormats/pt-BR.json"),
@@ -273,9 +283,6 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
-    manifest: {
-      lang: "en",
-    },
     meta: {
       /* meta options */
       name: "Mealie",
@@ -284,6 +291,7 @@ export default {
       ogSiteName: "Mealie",
     },
     manifest: {
+      lang: "en",
       name: "Mealie",
       title: "Mealie",
       background_color: "#FFFFFF",
@@ -294,6 +302,10 @@ export default {
           title: "title",
           text: "recipe_import_url",
         },
+      },
+      workbox: {
+        /* workbox options */
+        skipWaiting: "true",
       },
     },
     icons: [

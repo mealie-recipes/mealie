@@ -54,6 +54,35 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Create Dialog -->
+    <BaseDialog
+      v-model="createDialog"
+      :icon="$globals.icons.foods"
+      title="Create Food"
+      :submit-text="$tc('general.save')"
+      @submit="createFood"
+    >
+      <v-card-text>
+        <v-form ref="domNewFoodForm">
+          <v-text-field
+            v-model="createTarget.name"
+            autofocus
+            label="Name"
+            :rules="[validators.required]"
+          ></v-text-field>
+          <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
+          <v-autocomplete
+            v-model="createTarget.labelId"
+            clearable
+            :items="allLabels"
+            item-value="id"
+            item-text="name"
+            label="Food Label"
+          >
+          </v-autocomplete>
+        </v-form> </v-card-text
+    ></BaseDialog>
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
@@ -63,7 +92,7 @@
       @submit="editSaveFood"
     >
       <v-card-text v-if="editTarget">
-        <v-form ref="domCreateFoodForm">
+        <v-form ref="domNewFoodForm">
           <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
           <v-autocomplete
@@ -100,8 +129,10 @@
       :bulk-actions="[]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
+      @create-one="createEventHandler"
     >
       <template #button-row>
+        <BaseButton create @click="createDialog = true" />
         <BaseButton @click="mergeDialog = true">
           <template #icon> {{ $globals.icons.foods }} </template>
           Combine
@@ -128,10 +159,11 @@ import { computed } from "vue-demi";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { IngredientFood } from "~/types/api-types/recipe";
+import { CreateIngredientFood, IngredientFood } from "~/types/api-types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
+import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   components: { MultiPurposeLabel },
@@ -165,6 +197,34 @@ export default defineComponent({
     ];
 
     const foodStore = useFoodStore();
+
+    // ===============================================================
+    // Food Creator
+
+    const domNewFoodForm = ref<VForm>();
+    const createDialog = ref(false);
+    const createTarget = ref<CreateIngredientFood>({
+      name: "",
+    });
+
+    function createEventHandler() {
+      createDialog.value = true;
+    }
+
+    async function createFood() {
+      if (!createTarget.value || !createTarget.value.name) {
+        return;
+      }
+
+      // @ts-expect-error the createOne function erroneously expects an id because it uses the IngredientFood type
+      await foodStore.actions.createOne(createTarget.value);
+      createDialog.value = false;
+
+      domNewFoodForm.value?.reset();
+      createTarget.value = {
+        name: "",
+      };
+    }
 
     // ===============================================================
     // Food Editor
@@ -262,6 +322,11 @@ export default defineComponent({
       foods: foodStore.foods,
       allLabels,
       validators,
+      // Create
+      createDialog,
+      createEventHandler,
+      createFood,
+      createTarget,
       // Edit
       editDialog,
       editEventHandler,

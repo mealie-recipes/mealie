@@ -85,7 +85,7 @@ class UserController(BaseUserController):
 
         return SuccessResponse.respond("User updated")
 
-    @user_router.put("/{item_id}/password")
+    @user_router.put("/password")
     def update_password(self, password_change: ChangePassword):
         """Resets the User Password"""
         if not verify_password(password_change.current_password, self.user.password):

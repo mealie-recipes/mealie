@@ -161,7 +161,7 @@ export default defineComponent({
       if (!userCopy.value?.id) {
         return;
       }
-      const { response } = await api.users.changePassword(userCopy.value.id, {
+      const { response } = await api.users.changePassword({
         currentPassword: password.current,
         newPassword: password.newOne,
       });

@@ -54,7 +54,7 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-text-field v-model="notifiers[index].name" label="Name"></v-text-field>
-          <v-text-field v-model="notifiers[index].appriseUrl" label="Apprise URL (skipped in blank)"></v-text-field>
+          <v-text-field v-model="notifiers[index].appriseUrl" label="Apprise URL (skipped if blank)"></v-text-field>
           <v-checkbox v-model="notifiers[index].enabled" label="Enable Notifier" dense></v-checkbox>
 
           <v-divider></v-divider>
@@ -130,12 +130,12 @@ export default defineComponent({
 
     const notifiers = useAsync(async () => {
       const { data } = await api.groupEventNotifier.getAll();
-      return data ?? [];
+      return data?.items;
     }, useAsyncKey());
 
     async function refreshNotifiers() {
       const { data } = await api.groupEventNotifier.getAll();
-      notifiers.value = data ?? [];
+      notifiers.value = data?.items;
     }
 
     const createNotifierData: GroupEventNotifierCreate = reactive({

@@ -17,7 +17,7 @@
               <RecipeRating :key="recipe.slug" :value="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
             </v-card-title>
             <v-divider class="my-2"></v-divider>
-            <VueMarkdown :source="recipe.description"> </VueMarkdown>
+            <SafeMarkdown :source="recipe.description" />
             <v-divider></v-divider>
             <div class="d-flex justify-center mt-5">
               <RecipeTimeCard
@@ -81,7 +81,7 @@
             <v-card-title class="px-0 py-2 ma-0 headline">
               {{ recipe.name }}
             </v-card-title>
-            <VueMarkdown :source="recipe.description"> </VueMarkdown>
+            <SafeMarkdown :source="recipe.description" />
 
             <div class="pb-2 d-flex justify-center flex-wrap">
               <RecipeTimeCard
@@ -465,8 +465,6 @@ import {
   useRouter,
   onMounted,
 } from "@nuxtjs/composition-api";
-// @ts-ignore vue-markdown has no types
-import VueMarkdown from "@adapttive/vue-markdown";
 import draggable from "vuedraggable";
 import { invoke, until, useWakeLock } from "@vueuse/core";
 import { onUnmounted } from "vue-demi";
@@ -494,7 +492,6 @@ import { Recipe } from "~/types/api-types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import { useRouteQuery } from "~/composables/use-router";
 import { useToolStore } from "~/composables/store";
-
 export default defineComponent({
   components: {
     draggable,
@@ -520,7 +517,6 @@ export default defineComponent({
     RecipeTimeCard,
     RecipeTools,
     RecipeScaleEditButton,
-    VueMarkdown,
   },
   async beforeRouteLeave(_to, _from, next) {
     const isSame = JSON.stringify(this.recipe) === JSON.stringify(this.originalRecipe);

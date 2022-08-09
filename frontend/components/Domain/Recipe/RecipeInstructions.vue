@@ -197,7 +197,7 @@
               <v-expand-transition>
                 <div v-show="!isChecked(index) && !edit" class="m-0 p-0">
                   <v-card-text class="markdown">
-                    <VueMarkdown class="markdown" :source="step.text"> </VueMarkdown>
+                    <SafeMarkdown class="markdown" :source="step.text" />
                     <div v-if="cookMode && step.ingredientReferences && step.ingredientReferences.length > 0">
                       <v-divider class="mb-2"></v-divider>
                       <div
@@ -219,8 +219,6 @@
 
 <script lang="ts">
 import draggable from "vuedraggable";
-// @ts-ignore vue-markdown has no types
-import VueMarkdown from "@adapttive/vue-markdown";
 import {
   ref,
   toRefs,
@@ -245,7 +243,6 @@ interface MergerHistory {
 
 export default defineComponent({
   components: {
-    VueMarkdown,
     draggable,
   },
   props: {

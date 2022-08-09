@@ -1,10 +1,11 @@
+import time
 from abc import ABC, abstractmethod
 from typing import Any, Callable
 
 import extruct
 import requests
 from fastapi import HTTPException, status
-from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, WebsiteNotImplementedError, scrape_me
+from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
 
@@ -13,6 +14,59 @@ from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
+
+SCRAPER_TIMEOUT = 15
+
+
+class ForceTimeoutException(Exception):
+    pass
+
+
+def safe_scrape_html(url: str) -> str:
+    """
+    Scrapes the html from a url but will cancel the request
+    if the request takes longer than 15 seconds. This is used to mitigate
+    DDOS attacks from users providing a url with arbitrary large content.
+    """
+    resp = requests.get(url, timeout=SCRAPER_TIMEOUT, stream=True)
+
+    html_bytes = b""
+
+    start_time = time.time()
+
+    for chunk in resp.iter_content(chunk_size=1024):
+        html_bytes += chunk
+
+        if time.time() - start_time > SCRAPER_TIMEOUT:
+            raise ForceTimeoutException()
+
+    # =====================================
+    # Coppied from requests text property
+
+    # Try charset from content-type
+    content = None
+    encoding = resp.encoding
+
+    if not html_bytes:
+        return ""
+
+    # Fallback to auto-detected encoding.
+    if encoding is None:
+        encoding = resp.apparent_encoding
+
+    # Decode unicode from given encoding.
+    try:
+        content = str(html_bytes, encoding, errors="replace")
+    except (LookupError, TypeError):
+        # A LookupError is raised if the encoding was not found which could
+        # indicate a misspelling or similar mistake.
+        #
+        # A TypeError can be raised if encoding is None
+        #
+        # So we try blindly encoding.
+        content = str(html_bytes, errors="replace")
+
+    return content
 
 
 class ABCScraperStrategy(ABC):
@@ -103,14 +157,13 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return recipe, extras
 
     def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
+        recipe_html = safe_scrape_html(self.url)
+
         try:
-            scraped_schema = scrape_me(self.url)
-        except (WebsiteNotImplementedError, AttributeError):
-            try:
-                scraped_schema = scrape_me(self.url, wild_mode=True)
-            except (NoSchemaFoundInWildMode, AttributeError):
-                self.logger.error("Recipe Scraper was unable to extract a recipe.")
-                return None
+            scraped_schema = scrape_html(recipe_html, org_url=self.url)
+        except (NoSchemaFoundInWildMode, AttributeError):
+            self.logger.error("Recipe Scraper was unable to extract a recipe.")
+            return None
 
         except ConnectionError as e:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": "CONNECTION_ERROR"}) from e
@@ -150,7 +203,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
     """
 
     def get_html(self) -> str:
-        return requests.get(self.url).text
+        return safe_scrape_html(self.url)
 
     def get_recipe_fields(self, html) -> dict | None:
         """
