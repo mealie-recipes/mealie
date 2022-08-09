@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "čajová lyžička",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "polievková lyžica",
         "description": "",
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
+        "name": "šálka",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "šálka"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -30,7 +30,7 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galón",
         "description": "",
         "abbreviation": "gal"
     },
@@ -45,12 +45,12 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "libra",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unca",
         "description": "",
         "abbreviation": "oz"
     },
@@ -80,7 +80,7 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porcia",
         "description": "",
         "abbreviation": ""
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "plechovka",
         "description": "",
         "abbreviation": ""
     }

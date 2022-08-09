@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Produkovať"
     },
     {
-        "name": "Grains"
+        "name": "Zrná"
     },
     {
-        "name": "Fruits"
+        "name": "Ovocie"
     },
     {
-        "name": "Vegetables"
+        "name": "Zelenina"
     },
     {
-        "name": "Meat"
+        "name": "Mäso"
     },
     {
-        "name": "Seafood"
+        "name": "Morské plody"
     },
     {
-        "name": "Beverages"
+        "name": "Nápoje"
     },
     {
-        "name": "Baked Goods"
+        "name": "Pečivo"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konzervy"
     },
     {
-        "name": "Condiments"
+        "name": "Koreniny"
     },
     {
-        "name": "Confectionary"
+        "name": "Cukrovinky"
     },
     {
-        "name": "Dairy Products"
+        "name": "Mliečne výrobky"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Mrazené jedlá"
     },
     {
-        "name": "Health Foods"
+        "name": "Zdravé jedlá"
     },
     {
-        "name": "Household"
+        "name": "Domácnosť"
     },
     {
-        "name": "Meat Products"
+        "name": "Mäsové výrobky"
     },
     {
-        "name": "Snacks"
+        "name": "Občerstvenie"
     },
     {
-        "name": "Spices"
+        "name": "Korenie"
     },
     {
-        "name": "Sweets"
+        "name": "Sladkosti"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Ostatné"
     }
 ]
