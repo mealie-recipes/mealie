@@ -24,7 +24,7 @@
     "@vue/composition-api": "^1.6.2",
     "@vueuse/core": "^9.0.2",
     "core-js": "^3.23.1",
-    "date-fns": "^2.28.0",
+    "date-fns": "^2.29.1",
     "fuse.js": "^6.6.2",
     "isomorphic-dompurify": "^0.19.0",
     "nuxt": "^2.15.8",
