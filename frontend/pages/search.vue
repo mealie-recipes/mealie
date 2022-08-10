@@ -166,6 +166,7 @@ export default defineComponent({
 
       // Search Options
       options: {
+        ignoreLocation: true,
         shouldSort: true,
         threshold: 0.6,
         location: 0,
