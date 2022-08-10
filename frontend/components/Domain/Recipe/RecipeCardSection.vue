@@ -259,10 +259,16 @@ export default defineComponent({
       if (props.usePagination) {
         const newRecipes = await fetchMore(
           page.value,
-          perPage.value,
+
+          // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
+          perPage.value*2,
           preferences.value.orderBy,
           preferences.value.orderDirection
         );
+
+        // since we doubled the first call, we also need to advance the page
+        page.value = page.value + 1;
+
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
         ready.value = true;
       }
