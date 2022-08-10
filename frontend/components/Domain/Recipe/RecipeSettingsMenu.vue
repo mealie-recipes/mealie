@@ -57,12 +57,12 @@ export default defineComponent({
       landscapeView: i18n.t("recipe.landscape-view-coming-soon"),
       disableComments: i18n.t("recipe.disable-comments"),
       disableAmount: i18n.t("recipe.disable-amount"),
-      locked: "Locked",
+      locked: i18n.t("recipe.locked"),
     };
 
     return {
       labels,
-    }
+    };
   },
 });
 </script>

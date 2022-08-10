@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
+import { defineComponent, computed, ref, useContext } from "@nuxtjs/composition-api";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
 import { ShoppingListItemCreate } from "~/types/api-types/group";
@@ -64,21 +64,6 @@ interface actions {
   text: string;
   event: string;
 }
-
-const contextMenu: actions[] = [
-  {
-    text: "Edit",
-    event: "edit",
-  },
-  {
-    text: "Delete",
-    event: "delete",
-  },
-  {
-    text: "Transfer",
-    event: "transfer",
-  },
-];
 
 export default defineComponent({
   components: { ShoppingListItemEditor, MultiPurposeLabel },
@@ -101,6 +86,23 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const { i18n } = useContext();
+
+    const contextMenu: actions[] = [
+      {
+        text: i18n.t("general.edit") as string,
+        event: "edit",
+      },
+      {
+        text: i18n.t("general.delete") as string,
+        event: "delete",
+      },
+      {
+        text: i18n.t("general.transfer") as string,
+        event: "transfer",
+      },
+    ];
+
     const listItem = computed({
       get: () => {
         return props.value;

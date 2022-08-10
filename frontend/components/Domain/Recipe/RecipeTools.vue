@@ -28,15 +28,15 @@
           </v-chip>
         </template>
         <template #append-outer>
-          <BaseDialog v-model="createDialog" title="Create New Tool" @submit="actions.createOne()">
+          <BaseDialog v-model="createDialog" :title="$t('tool.create-new-tool')" @submit="actions.createOne()">
             <template #activator>
               <v-btn icon @click="createDialog = true">
                 <v-icon> {{ $globals.icons.create }}</v-icon>
               </v-btn>
             </template>
             <v-card-text>
-              <v-text-field v-model="workingToolData.name" label="Tool Name"></v-text-field>
-              <v-checkbox v-model="workingToolData.onHand" label="Show as On Hand (Checked)"></v-checkbox>
+              <v-text-field v-model="workingToolData.name" :label="$t('tool.tool-name')"></v-text-field>
+              <v-checkbox v-model="workingToolData.onHand" :label="$t('tool.on-hand-checkbox-label')"></v-checkbox>
             </v-card-text>
           </BaseDialog>
         </template>

@@ -19,7 +19,7 @@
           outlined
           auto-grow
           rows="2"
-          placeholder="Join the Conversation"
+          :placeholder="$t('recipe.join-the-conversation')"
         >
         </v-textarea>
       </div>
@@ -45,7 +45,7 @@
             x-small
             @click="deleteComment(comment.id)"
           >
-            Delete
+            {{ $t("general.delete") }}
           </v-btn>
         </v-card-actions>
       </v-card>

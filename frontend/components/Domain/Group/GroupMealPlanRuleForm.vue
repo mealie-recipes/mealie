@@ -1,41 +1,23 @@
 <template>
   <div>
     <div class="d-md-flex" style="gap: 10px">
-      <v-select v-model="inputDay" :items="MEAL_DAY_OPTIONS" label="Rule Day"></v-select>
-      <v-select v-model="inputEntryType" :items="MEAL_TYPE_OPTIONS" label="Meal Type"></v-select>
+      <v-select v-model="inputDay" :items="MEAL_DAY_OPTIONS" :label="$t('meal-plan.rule-day')"></v-select>
+      <v-select v-model="inputEntryType" :items="MEAL_TYPE_OPTIONS" :label="$t('meal-plan.meal-type')"></v-select>
     </div>
 
     <RecipeOrganizerSelector v-model="inputCategories" selector-type="categories" />
     <RecipeOrganizerSelector v-model="inputTags" selector-type="tags" />
 
+    <!-- TODO Make this localizable -->
     {{ inputDay === "unset" ? "This rule will apply to all days" : `This rule applies on ${inputDay}s` }}
     {{ inputEntryType === "unset" ? "for all meal types" : ` and for ${inputEntryType} meal types` }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "@nuxtjs/composition-api";
+import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { RecipeTag, RecipeCategory } from "~/types/api-types/group";
-
-const MEAL_TYPE_OPTIONS = [
-  { text: "Breakfast", value: "breakfast" },
-  { text: "Lunch", value: "lunch" },
-  { text: "Dinner", value: "dinner" },
-  { text: "Side", value: "side" },
-  { text: "Any", value: "unset" },
-];
-
-const MEAL_DAY_OPTIONS = [
-  { text: "Monday", value: "monday" },
-  { text: "Tuesday", value: "tuesday" },
-  { text: "Wednesday", value: "wednesday" },
-  { text: "Thursday", value: "thursday" },
-  { text: "Friday", value: "friday" },
-  { text: "Sunday", value: "saturday" },
-  { text: "Sunday", value: "sunday" },
-  { text: "Any", value: "unset" },
-];
 
 export default defineComponent({
   components: {
@@ -64,6 +46,27 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const { i18n } = useContext();
+
+    const MEAL_TYPE_OPTIONS = [
+      { text: i18n.t("meal-plan.breakfast"), value: "breakfast" },
+      { text: i18n.t("meal-plan.lunch"), value: "lunch" },
+      { text: i18n.t("meal-plan.dinner"), value: "dinner" },
+      { text: i18n.t("meal-plan.side"), value: "side" },
+      { text: i18n.t("meal-plan.type-any"), value: "unset" },
+    ];
+
+    const MEAL_DAY_OPTIONS = [
+      { text: i18n.t("general.monday"), value: "monday" },
+      { text: i18n.t("general.tuesday"), value: "tuesday" },
+      { text: i18n.t("general.wednesday"), value: "wednesday" },
+      { text: i18n.t("general.thursday"), value: "thursday" },
+      { text: i18n.t("general.friday"), value: "friday" },
+      { text: i18n.t("general.saturday"), value: "saturday" },
+      { text: i18n.t("general.sunday"), value: "sunday" },
+      { text: i18n.t("meal-plan.day-any"), value: "unset" },
+    ];
+
     const inputDay = computed({
       get: () => {
         return props.day;

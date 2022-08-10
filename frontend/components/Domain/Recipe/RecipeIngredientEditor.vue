@@ -6,7 +6,7 @@
       dense
       hide-details
       class="mx-1 mt-3 mb-4"
-      placeholder="Section Title"
+      :placeholder="$t('recipe.section-title')"
       style="max-width: 500px"
     >
     </v-text-field>
@@ -19,7 +19,7 @@
           dense
           class="mx-1"
           type="number"
-          placeholder="Quantity"
+          :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
           <v-icon v-if="$listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
@@ -38,12 +38,12 @@
           :items="units || []"
           item-text="name"
           class="mx-1"
-          placeholder="Choose Unit"
+          :placeholder="$t('recipe.choose-unit')"
           clearable
           @keyup.enter="handleUnitEnter"
         >
           <template #no-data>
-            <div class="caption text-center pb-2">Press Enter to Create</div>
+            <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
           </template>
           <template #append-item>
             <div class="px-2">
@@ -65,12 +65,12 @@
           :items="foods || []"
           item-text="name"
           class="mx-1 py-0"
-          placeholder="Choose Food"
+          :placeholder="$t('recipe.choose-food')"
           clearable
           @keyup.enter="handleFoodEnter"
         >
           <template #no-data>
-            <div class="caption text-center pb-2">Press Enter to Create</div>
+            <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
           </template>
           <template #append-item>
             <div class="px-2">
@@ -81,7 +81,7 @@
       </v-col>
       <v-col sm="12" md="" cols="12">
         <div class="d-flex">
-          <v-text-field v-model="value.note" hide-details dense solo class="mx-1" placeholder="Notes">
+          <v-text-field v-model="value.note" hide-details dense solo class="mx-1" :placeholder="$t('recipe.notes')">
             <v-icon v-if="disableAmount && $listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
@@ -93,12 +93,12 @@
             :buttons="[
               {
                 icon: $globals.icons.delete,
-                text: 'Delete',
+                text: $t('general.delete'),
                 event: 'delete',
               },
               {
                 icon: $globals.icons.dotsVertical,
-                text: 'Menu',
+                text: $t('general.menu'),
                 event: 'open',
                 children: contextMenuOptions,
               },
@@ -110,14 +110,16 @@
         </div>
       </v-col>
     </v-row>
-    <p v-if="showOriginalText" class="text-caption">Original Text: {{ value.originalText }}</p>
+    <p v-if="showOriginalText" class="text-caption">
+      {{ $t("recipe.original-text-with-value", { originalText: value.originalText }) }}
+    </p>
 
     <v-divider v-if="!$vuetify.breakpoint.mdAndUp" class="my-4"></v-divider>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { validators } from "~/composables/use-validators";
 import { RecipeIngredient } from "~/types/api-types/recipe";
@@ -134,6 +136,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { i18n } = useContext();
+
     // ==================================================
     // Foods
     const foodStore = useFoodStore();
@@ -199,7 +203,7 @@ export default defineComponent({
     const contextMenuOptions = computed(() => {
       const options = [
         {
-          text: "Toggle Section",
+          text: i18n.t("recipe.toggle-section") as string,
           event: "toggle-section",
         },
       ];
@@ -214,7 +218,7 @@ export default defineComponent({
 
       if (props.value.originalText) {
         options.push({
-          text: "See Original Text",
+          text: i18n.t("recipe.see-original-text") as string,
           event: "toggle-original",
         });
       }

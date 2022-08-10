@@ -97,7 +97,7 @@
         v-if="!$vuetify.breakpoint.xsOnly"
         :items="[
           {
-            title: 'Toggle View',
+            title: $t('general.toggle-view'),
             icon: $globals.icons.eye,
             event: 'toggle-dense-view',
           },

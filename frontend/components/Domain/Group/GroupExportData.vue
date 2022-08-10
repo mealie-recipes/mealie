@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, useContext } from "@nuxtjs/composition-api";
 import { parseISO, formatDistanceToNow } from "date-fns";
 import { GroupDataExport } from "~/types/api-types/group";
 export default defineComponent({
@@ -29,11 +29,13 @@ export default defineComponent({
     },
   },
   setup() {
+    const { i18n } = useContext();
+
     const headers = [
-      { text: "Export", value: "name" },
-      { text: "File Name", value: "filename" },
-      { text: "Size", value: "size" },
-      { text: "Link Expires", value: "expires" },
+      { text: i18n.t("export.export"), value: "name" },
+      { text: i18n.t("export.file-name"), value: "filename" },
+      { text: i18n.t("export.size"), value: "size" },
+      { text: i18n.t("export.link-expires"), value: "expires" },
       { text: "", value: "actions" },
     ];
 

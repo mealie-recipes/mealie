@@ -103,7 +103,7 @@ export default defineComponent({
         case Organizer.Tool:
           return i18n.t("tool.tools");
         default:
-          return "Organizer";
+          return i18n.t("general.organizer");
       }
     });
 

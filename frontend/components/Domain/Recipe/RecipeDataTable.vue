@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeChip from "./RecipeChips.vue";
 import { Recipe } from "~/types/api-types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -93,6 +93,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const { i18n } = useContext();
+
     function setValue(value: Recipe[]) {
       context.emit(INPUT_EVENT, value);
     }
@@ -101,27 +103,27 @@ export default defineComponent({
       const hdrs = [];
 
       if (props.showHeaders.id) {
-        hdrs.push({ text: "Id", value: "id" });
+        hdrs.push({ text: i18n.t("general.id"), value: "id" });
       }
       if (props.showHeaders.owner) {
-        hdrs.push({ text: "Owner", value: "userId", align: "center" });
+        hdrs.push({ text: i18n.t("general.owner"), value: "userId", align: "center" });
       }
-      hdrs.push({ text: "Name", value: "name" });
+      hdrs.push({ text: i18n.t("general.name"), value: "name" });
       if (props.showHeaders.categories) {
-        hdrs.push({ text: "Categories", value: "recipeCategory" });
+        hdrs.push({ text: i18n.t("recipe.categories"), value: "recipeCategory" });
       }
 
       if (props.showHeaders.tags) {
-        hdrs.push({ text: "Tags", value: "tags" });
+        hdrs.push({ text: i18n.t("tag.tags"), value: "tags" });
       }
       if (props.showHeaders.tools) {
-        hdrs.push({ text: "Tools", value: "tools" });
+        hdrs.push({ text: i18n.t("tool.tools"), value: "tools" });
       }
       if (props.showHeaders.recipeYield) {
-        hdrs.push({ text: "Yield", value: "recipeYield" });
+        hdrs.push({ text: i18n.t("recipe.yield"), value: "recipeYield" });
       }
       if (props.showHeaders.dateAdded) {
-        hdrs.push({ text: "Date Added", value: "dateAdded" });
+        hdrs.push({ text: i18n.t("general.date-added"), value: "dateAdded" });
       }
 
       return hdrs;
@@ -148,7 +150,7 @@ export default defineComponent({
         return members.value.find((m) => m.id === id)?.username;
       }
 
-      return "None";
+      return i18n.t("general.none");
     }
 
     return { setValue, headers, members, getMember };
