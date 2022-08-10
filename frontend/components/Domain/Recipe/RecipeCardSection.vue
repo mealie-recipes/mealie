@@ -248,7 +248,7 @@ export default defineComponent({
     }
 
     const page = ref(1);
-    const perPage = ref(30);
+    const perPage = ref(32);
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
