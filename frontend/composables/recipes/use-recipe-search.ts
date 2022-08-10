@@ -5,6 +5,7 @@ import { Recipe } from "~/types/api-types/recipe";
 export const useRecipeSearch = (recipes: Ref<Recipe[] | null>) => {
   const localState = reactive({
     options: {
+      ignoreLocation: true,
       shouldSort: true,
       threshold: 0.6,
       location: 0,
