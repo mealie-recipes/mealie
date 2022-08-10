@@ -35,12 +35,12 @@
 
     <!-- Instructions -->
     <section>
-      <v-card-title class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
       <div
         v-for="(instructionSection, sectionIndex) in instructionSections"
         :key="`instruction-section-${sectionIndex}`"
         :class="{ 'print-section': instructionSection.sectionName }"
       >
+        <v-card-title v-if="!sectionIndex" class="headline pl-0">{{ $t("recipe.instructions") }}</v-card-title>
         <div v-for="(step, stepIndex) in instructionSection.instructions" :key="`instruction-${stepIndex}`">
           <div class="print-section">
             <h4 v-if="step.title" :key="`instruction-title-${stepIndex}`" class="instruction-title mb-2">
