@@ -17,7 +17,7 @@ class PasswordResetService(BaseService):
         super().__init__()
 
     def generate_reset_token(self, email: str) -> SavePasswordResetToken | None:
-        user = self.db.users.get_one(email, "email")
+        user = self.db.users.get_one(email, "email", any_case=True)
 
         if user is None:
             logger.error(f"failed to create password reset for {email=}: user doesn't exists")
