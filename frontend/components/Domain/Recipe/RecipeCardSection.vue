@@ -325,7 +325,7 @@ export default defineComponent({
           setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending);
           break;
         case EVENTS.updated:
-          setter("updated_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
+          setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
           break;
         default:
           console.log("Unknown Event", sortType);
