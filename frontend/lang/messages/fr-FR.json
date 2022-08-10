@@ -30,7 +30,8 @@
     "new-asset": "Nouvelle ressource",
     "pdf": "PDF",
     "recipe": "Recette",
-    "show-assets": "Afficher les ressources"
+    "show-assets": "Afficher les ressources",
+    "error-submitting-form": "Error Submitting Form"
   },
   "category": {
     "categories": "Catégories",
@@ -41,7 +42,9 @@
     "category-filter": "Filtre par catégories",
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
-    "uncategorized-count": "{count} non catégorisée|{count} non catégorisées"
+    "uncategorized-count": "{count} non catégorisée|{count} non catégorisées",
+    "create-a-category": "Create a Category",
+    "category-name": "Category Name"
   },
   "events": {
     "apprise-url": "URL Apprise",
@@ -134,7 +137,20 @@
     "foods": "Aliments",
     "units": "Unités",
     "back": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "toggle-view": "Toggle View",
+    "date": "Date",
+    "id": "Id",
+    "owner": "Owner",
+    "date-added": "Date Added",
+    "none": "None",
+    "run": "Run",
+    "menu": "Menu",
+    "a-name-is-required": "A Name is Required",
+    "delete-with-name": "Delete {name}",
+    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
+    "organizer": "Organizer",
+    "transfer": "Transfer"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/> ?",
@@ -186,7 +202,14 @@
     "quick-week": "Semaine rapide",
     "side": "Accompagnement",
     "sides": "Accompagnements",
-    "start-date": "Date de début"
+    "start-date": "Date de début",
+    "rule-day": "Rule Day",
+    "meal-type": "Meal Type",
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "dinner": "Dinner",
+    "type-any": "Any",
+    "day-any": "Any"
   },
   "migration": {
     "chowdown": {
@@ -292,7 +315,36 @@
     "title": "Titre",
     "total-time": "Temps total",
     "unable-to-delete-recipe": "Impossible de supprimer la recette",
-    "no-recipe": "Pas de recette"
+    "no-recipe": "Pas de recette",
+    "locked-by-owner": "Locked by Owner",
+    "join-the-conversation": "Join the Conversation",
+    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
+    "entry-type": "Entry Type",
+    "date-format-hint": "MM/DD/YYYY format",
+    "add-to-list": "Add to List",
+    "add-to-plan": "Add to Plan",
+    "recipe-added-to-list": "Recipe added to list",
+    "recipe-added-to-mealplan": "Recipe added to mealplan",
+    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "yield": "Yield",
+    "quantity": "Quantity",
+    "choose-unit": "Choose Unit",
+    "press-enter-to-create": "Press Enter to Create",
+    "choose-food": "Choose Food",
+    "notes": "Notes",
+    "toggle-section": "Toggle Section",
+    "see-original-text": "See Original Text",
+    "original-text-with-value": "Original Text: {originalText}",
+    "ingredient-linker": "Ingredient Linker",
+    "linked-to-other-step": "Linked to other step",
+    "auto": "Auto",
+    "cook-mode": "Cook Mode",
+    "link-ingredients": "Link Ingredients",
+    "merge-above": "Merge Above",
+    "reset-scale": "Reset Scale",
+    "decrease-scale-label": "Decrease Scale by 1",
+    "increase-scale-label": "Increase Scale by 1",
+    "locked": "Locked"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -399,7 +451,8 @@
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Les liens dans cette liste recevront les webhooks contenant les recettes pour le menu du jour. Actuellement, les webhooks se lancent à",
       "webhook-url": "Lien du webhook",
       "webhooks-caps": "WEBHOOKS",
-      "webhooks": "Webhooks"
+      "webhooks": "Webhooks",
+      "webhook-name": "Webhook Name"
     }
   },
   "shopping-list": {
@@ -410,7 +463,12 @@
     "new-list": "Nouvelle liste",
     "quantity": "Quantité : {0}",
     "shopping-list": "Liste de courses",
-    "shopping-lists": "Listes de courses"
+    "shopping-lists": "Listes de courses",
+    "food": "Food",
+    "note": "Note",
+    "label": "Label",
+    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
+    "toggle-food": "Toggle Food"
   },
   "sidebar": {
     "all-recipes": "Les recettes",
@@ -446,10 +504,17 @@
     "tag-update-failed": "La mise à jour du mot-clé a échoué",
     "tag-updated": "Mot-clé mis à jour",
     "tags": "Mots-clés",
-    "untagged-count": "{count} sans mot-clés"
+    "untagged-count": "{count} sans mot-clés",
+    "create-a-tag": "Create a Tag",
+    "tag-name": "Tag Name"
   },
   "tool": {
-    "tools": "Outils"
+    "tools": "Outils",
+    "on-hand": "On Hand",
+    "create-a-tool": "Create a Tool",
+    "tool-name": "Tool Name",
+    "create-new-tool": "Create New Tool",
+    "on-hand-checkbox-label": "Show as On Hand (Checked)"
   },
   "user": {
     "admin": "Administrateur",
@@ -546,5 +611,18 @@
     "group-name-is-taken": "Le nom du groupe est déjà pris",
     "username-is-taken": "Nom d'utilisateur déjà utilisé",
     "email-is-taken": "Cet e-mail est déjà pris"
+  },
+  "export": {
+    "export": "Export",
+    "file-name": "File Name",
+    "size": "Size",
+    "link-expires": "Link Expires"
+  },
+  "recipe-share": {
+    "expiration-date": "Expiration Date",
+    "share-recipe": "Share Recipe",
+    "default-30-days": "Default 30 Days",
+    "expires-at": "Expires At",
+    "recipe-link-copied-message": "Recipe link copied to clipboard"
   }
 }
