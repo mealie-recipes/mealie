@@ -1,5 +1,6 @@
 import json
 
+import pytest
 from fastapi.testclient import TestClient
 
 from mealie.db.db_setup import create_session
@@ -15,17 +16,31 @@ class Routes:
     self = "/api/users/self"
 
 
-def test_password_reset(api_client: TestClient, unique_user: TestUser):
-    session = create_session()
+@pytest.mark.parametrize("casing", ["lower", "upper", "mixed"])
+def test_password_reset(api_client: TestClient, unique_user: TestUser, casing: str):
+    cased_email = ""
+    if casing == "lower":
+        cased_email = unique_user.email.lower()
+    elif casing == "upper":
+        cased_email = unique_user.email.upper()
+    else:
+        for i, l in enumerate(unique_user.email):
+            if i % 2 == 0:
+                cased_email += l.upper()
+            else:
+                cased_email += l.lower()
+        cased_email
 
+    session = create_session()
     service = PasswordResetService(session)
-    token = service.generate_reset_token(unique_user.email)
+    token = service.generate_reset_token(cased_email)
+    assert token is not None
 
     new_password = random_string(15)
 
     payload = {
         "token": token.token,
-        "email": unique_user.email,
+        "email": cased_email,
         "password": new_password,
         "passwordConfirm": new_password,
     }
@@ -41,8 +56,7 @@ def test_password_reset(api_client: TestClient, unique_user: TestUser):
 
     # Test Token
     new_token = json.loads(response.text).get("access_token")
-    token = {"Authorization": f"Bearer {new_token}"}
-    response = api_client.get(Routes.self, headers=token)
+    response = api_client.get(Routes.self, headers={"Authorization": f"Bearer {new_token}"})
     assert response.status_code == 200
 
     session.close()
