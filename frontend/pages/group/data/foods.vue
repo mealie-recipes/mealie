@@ -92,7 +92,7 @@
       @submit="editSaveFood"
     >
       <v-card-text v-if="editTarget">
-        <v-form ref="domNewFoodForm">
+        <v-form ref="domEditFoodForm">
           <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
           <v-autocomplete
@@ -324,6 +324,7 @@ export default defineComponent({
       validators,
       // Create
       createDialog,
+      domNewFoodForm,
       createEventHandler,
       createFood,
       createTarget,
