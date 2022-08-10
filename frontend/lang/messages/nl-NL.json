@@ -31,7 +31,7 @@
     "pdf": "PDF",
     "recipe": "Recept",
     "show-assets": "Toon Bijlagen",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Fout bij verzenden formulier"
   },
   "category": {
     "categories": "Categorieën",
@@ -43,8 +43,8 @@
     "category-update-failed": "Categorie bijwerken mislukt",
     "category-updated": "Categorie bijgewerkt",
     "uncategorized-count": "Niet gecategoriseerd {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "create-a-category": "Categorie aanmaken",
+    "category-name": "Categorie naam"
   },
   "events": {
     "apprise-url": "Apprise URL",
