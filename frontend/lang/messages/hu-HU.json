@@ -30,7 +30,8 @@
     "new-asset": "Új eszköz",
     "pdf": "PDF",
     "recipe": "Recept",
-    "show-assets": "Eszközök megjelenítése"
+    "show-assets": "Eszközök megjelenítése",
+    "error-submitting-form": "Error Submitting Form"
   },
   "category": {
     "categories": "Kategóriák",
@@ -41,7 +42,9 @@
     "category-filter": "Kategória szűrő",
     "category-update-failed": "Kategória elmentése sikertelen",
     "category-updated": "Kategória frissítve",
-    "uncategorized-count": "Kategórizálatlan {count}"
+    "uncategorized-count": "Kategórizálatlan {count}",
+    "create-a-category": "Create a Category",
+    "category-name": "Category Name"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -134,7 +137,20 @@
     "foods": "Élelmiszerek",
     "units": "Mértékegységek",
     "back": "Vissza",
-    "next": "Következő"
+    "next": "Következő",
+    "toggle-view": "Toggle View",
+    "date": "Date",
+    "id": "Id",
+    "owner": "Owner",
+    "date-added": "Date Added",
+    "none": "None",
+    "run": "Run",
+    "menu": "Menu",
+    "a-name-is-required": "A Name is Required",
+    "delete-with-name": "Delete {name}",
+    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
+    "organizer": "Organizer",
+    "transfer": "Transfer"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -186,7 +202,14 @@
     "quick-week": "Gyors hét",
     "side": "Köret",
     "sides": "Köretek",
-    "start-date": "Kezdő dátum"
+    "start-date": "Kezdő dátum",
+    "rule-day": "Rule Day",
+    "meal-type": "Meal Type",
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "dinner": "Dinner",
+    "type-any": "Any",
+    "day-any": "Any"
   },
   "migration": {
     "chowdown": {
@@ -292,7 +315,36 @@
     "title": "Cím",
     "total-time": "Teljes idő",
     "unable-to-delete-recipe": "Nem lehet törölni a receptet",
-    "no-recipe": "Nincs recept"
+    "no-recipe": "Nincs recept",
+    "locked-by-owner": "Locked by Owner",
+    "join-the-conversation": "Join the Conversation",
+    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
+    "entry-type": "Entry Type",
+    "date-format-hint": "MM/DD/YYYY format",
+    "add-to-list": "Add to List",
+    "add-to-plan": "Add to Plan",
+    "recipe-added-to-list": "Recipe added to list",
+    "recipe-added-to-mealplan": "Recipe added to mealplan",
+    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "yield": "Yield",
+    "quantity": "Quantity",
+    "choose-unit": "Choose Unit",
+    "press-enter-to-create": "Press Enter to Create",
+    "choose-food": "Choose Food",
+    "notes": "Notes",
+    "toggle-section": "Toggle Section",
+    "see-original-text": "See Original Text",
+    "original-text-with-value": "Original Text: {originalText}",
+    "ingredient-linker": "Ingredient Linker",
+    "linked-to-other-step": "Linked to other step",
+    "auto": "Auto",
+    "cook-mode": "Cook Mode",
+    "link-ingredients": "Link Ingredients",
+    "merge-above": "Merge Above",
+    "reset-scale": "Reset Scale",
+    "decrease-scale-label": "Decrease Scale by 1",
+    "increase-scale-label": "Increase Scale by 1",
+    "locked": "Locked"
   },
   "search": {
     "advanced-search": "Részletes keresés",
@@ -399,7 +451,8 @@
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "A lenti URL egy webhook hivást fog kapni, az étkezési tervhez tartozó recept adataival a megadott napon. Jelenleg a Webook az alábbi időpontban hajtódik végre",
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKOK",
-      "webhooks": "Webhook-ok"
+      "webhooks": "Webhook-ok",
+      "webhook-name": "Webhook Name"
     }
   },
   "shopping-list": {
@@ -410,7 +463,12 @@
     "new-list": "Új lista",
     "quantity": "Mennyiség: {0}",
     "shopping-list": "Bevásárlólista",
-    "shopping-lists": "Bevásárlólisták"
+    "shopping-lists": "Bevásárlólisták",
+    "food": "Food",
+    "note": "Note",
+    "label": "Label",
+    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
+    "toggle-food": "Toggle Food"
   },
   "sidebar": {
     "all-recipes": "Minden recept",
@@ -446,10 +504,17 @@
     "tag-update-failed": "Címke módosítása sikertelen",
     "tag-updated": "Címke módosítva",
     "tags": "Címkék",
-    "untagged-count": "Címkézetlen {count}"
+    "untagged-count": "Címkézetlen {count}",
+    "create-a-tag": "Create a Tag",
+    "tag-name": "Tag Name"
   },
   "tool": {
-    "tools": "Eszközök"
+    "tools": "Eszközök",
+    "on-hand": "On Hand",
+    "create-a-tool": "Create a Tool",
+    "tool-name": "Tool Name",
+    "create-new-tool": "Create New Tool",
+    "on-hand-checkbox-label": "Show as On Hand (Checked)"
   },
   "user": {
     "admin": "Adminisztrátor",
@@ -546,5 +611,18 @@
     "group-name-is-taken": "Group name is taken",
     "username-is-taken": "Username is taken",
     "email-is-taken": "Email is taken"
+  },
+  "export": {
+    "export": "Export",
+    "file-name": "File Name",
+    "size": "Size",
+    "link-expires": "Link Expires"
+  },
+  "recipe-share": {
+    "expiration-date": "Expiration Date",
+    "share-recipe": "Share Recipe",
+    "default-30-days": "Default 30 Days",
+    "expires-at": "Expires At",
+    "recipe-link-copied-message": "Recipe link copied to clipboard"
   }
 }
