@@ -56,7 +56,7 @@ class BaseRecipeController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[CreateRecipe, Recipe, Recipe](self.repo, self.deps.logger)
+        return HttpRepo[CreateRecipe, Recipe, Recipe](self.repo, self.logger)
 
 
 class FormatResponse(BaseModel):
@@ -124,18 +124,18 @@ class RecipeController(BaseRecipeController):
     def handle_exceptions(self, ex: Exception) -> None:
         match type(ex):
             case exceptions.PermissionDenied:
-                self.deps.logger.error("Permission Denied on recipe controller action")
+                self.logger.error("Permission Denied on recipe controller action")
                 raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
             case exceptions.NoEntryFound:
-                self.deps.logger.error("No Entry Found on recipe controller action")
+                self.logger.error("No Entry Found on recipe controller action")
                 raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
             case sqlalchemy.exc.IntegrityError:
-                self.deps.logger.error("SQL Integrity Error on recipe controller action")
+                self.logger.error("SQL Integrity Error on recipe controller action")
                 raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
 
             case _:
-                self.deps.logger.error("Unknown Error on recipe controller action")
-                self.deps.logger.exception(ex)
+                self.logger.error("Unknown Error on recipe controller action")
+                self.logger.exception(ex)
                 raise HTTPException(
                     status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=str(ex))
                 )
@@ -162,12 +162,12 @@ class RecipeController(BaseRecipeController):
 
         if new_recipe:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.recipe_created,
                 msg=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
-                    url=urls.recipe_url(new_recipe.slug, self.deps.settings.BASE_URL),
+                    url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(
                     event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
@@ -255,12 +255,12 @@ class RecipeController(BaseRecipeController):
 
         if new_recipe:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.recipe_created,
                 msg=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
-                    url=urls.recipe_url(new_recipe.slug, self.deps.settings.BASE_URL),
+                    url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(
                     event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
@@ -279,12 +279,12 @@ class RecipeController(BaseRecipeController):
 
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.recipe_updated,
                 msg=self.t(
                     "notifications.generic-updated-with-url",
                     name=data.name,
-                    url=urls.recipe_url(data.slug, self.deps.settings.BASE_URL),
+                    url=urls.recipe_url(data.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
             )
@@ -301,12 +301,12 @@ class RecipeController(BaseRecipeController):
 
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.recipe_updated,
                 msg=self.t(
                     "notifications.generic-updated-with-url",
                     name=data.name,
-                    url=urls.recipe_url(data.slug, self.deps.settings.BASE_URL),
+                    url=urls.recipe_url(data.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
             )
@@ -323,7 +323,7 @@ class RecipeController(BaseRecipeController):
 
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.recipe_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
                 event_source=EventSource(event_type="delete", item_type="recipe", item_id=data.id, slug=data.slug),

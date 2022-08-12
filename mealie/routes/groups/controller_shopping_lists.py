@@ -38,13 +38,13 @@ class ShoppingListItemController(BaseUserController):
 
     @cached_property
     def repo(self):
-        return self.deps.repos.group_shopping_list_item
+        return self.repos.group_shopping_list_item
 
     @cached_property
     def mixins(self):
         return HttpRepo[ShoppingListItemCreate, ShoppingListItemOut, ShoppingListItemCreate](
             self.repo,
-            self.deps.logger,
+            self.logger,
         )
 
     @item_router.put("", response_model=list[ShoppingListItemOut])
@@ -80,7 +80,7 @@ class ShoppingListItemController(BaseUserController):
 
         if shopping_list_item:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t(
                     "notifications.generic-created",
@@ -106,7 +106,7 @@ class ShoppingListItemController(BaseUserController):
 
         if shopping_list_item:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t(
                     "notifications.generic-updated",
@@ -128,7 +128,7 @@ class ShoppingListItemController(BaseUserController):
 
         if shopping_list_item:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t(
                     "notifications.generic-deleted",
@@ -158,14 +158,14 @@ class ShoppingListController(BaseUserController):
 
     @cached_property
     def repo(self):
-        return self.deps.repos.group_shopping_lists.by_group(self.deps.acting_user.group_id)
+        return self.repos.group_shopping_lists.by_group(self.user.group_id)
 
     # =======================================================================
     # CRUD Operations
 
     @cached_property
     def mixins(self) -> HttpRepo[ShoppingListCreate, ShoppingListOut, ShoppingListSave]:
-        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+        return HttpRepo(self.repo, self.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=ShoppingListPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
@@ -179,12 +179,12 @@ class ShoppingListController(BaseUserController):
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):
-        save_data = cast(data, ShoppingListSave, group_id=self.deps.acting_user.group_id)
+        save_data = cast(data, ShoppingListSave, group_id=self.user.group_id)
         val = self.mixins.create_one(save_data)
 
         if val:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_created,
                 msg=self.t("notifications.generic-created", name=val.name),
                 event_source=EventSource(
@@ -205,7 +205,7 @@ class ShoppingListController(BaseUserController):
         data = self.mixins.update_one(data, item_id)  # type: ignore
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t("notifications.generic-updated", name=data.name),
                 event_source=EventSource(
@@ -221,7 +221,7 @@ class ShoppingListController(BaseUserController):
         data = self.mixins.delete_one(item_id)  # type: ignore
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
                 event_source=EventSource(
@@ -240,7 +240,7 @@ class ShoppingListController(BaseUserController):
         shopping_list = self.service.add_recipe_ingredients_to_list(item_id, recipe_id)
         if shopping_list:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t(
                     "notifications.generic-updated",
@@ -260,7 +260,7 @@ class ShoppingListController(BaseUserController):
         shopping_list = self.service.remove_recipe_ingredients_from_list(item_id, recipe_id)
         if shopping_list:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.shopping_list_updated,
                 msg=self.t(
                     "notifications.generic-updated",

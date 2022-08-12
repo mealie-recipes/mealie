@@ -11,7 +11,6 @@ from mealie.schema.user.user import GroupBase, GroupInDB, GroupPagination
 from mealie.services.group_services.group_service import GroupService
 
 from .._base import BaseAdminController, controller
-from .._base.dependencies import SharedDependencies
 from .._base.mixins import HttpRepo
 
 router = APIRouter(prefix="/groups", tags=["Admin: Groups"])
@@ -19,14 +18,12 @@ router = APIRouter(prefix="/groups", tags=["Admin: Groups"])
 
 @controller(router)
 class AdminUserManagementRoutes(BaseAdminController):
-    deps: SharedDependencies = Depends(SharedDependencies.user)
-
     @cached_property
     def repo(self):
-        if not self.deps.acting_user:
+        if not self.user:
             raise Exception("No user is logged in.")
 
-        return self.deps.repos.groups
+        return self.repos.groups
 
     # =======================================================================
     # CRUD Operations
@@ -35,7 +32,7 @@ class AdminUserManagementRoutes(BaseAdminController):
     def mixins(self):
         return HttpRepo[GroupBase, GroupInDB, GroupAdminUpdate](
             self.repo,
-            self.deps.logger,
+            self.logger,
             self.registered_exceptions,
         )
 
@@ -51,7 +48,7 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @router.post("", response_model=GroupInDB, status_code=status.HTTP_201_CREATED)
     def create_one(self, data: GroupBase):
-        return GroupService.create_group(self.deps.repos, data)
+        return GroupService.create_group(self.repos, data)
 
     @router.get("/{item_id}", response_model=GroupInDB)
     def get_one(self, item_id: UUID4):

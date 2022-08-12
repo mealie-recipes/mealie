@@ -5,7 +5,6 @@ from pydantic import UUID4
 
 from mealie.core import security
 from mealie.routes._base import BaseAdminController, controller
-from mealie.routes._base.dependencies import SharedDependencies
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
@@ -16,21 +15,19 @@ router = APIRouter(prefix="/users", tags=["Admin: Users"])
 
 @controller(router)
 class AdminUserManagementRoutes(BaseAdminController):
-    deps: SharedDependencies = Depends(SharedDependencies.user)
-
     @cached_property
     def repo(self):
-        if not self.deps.acting_user:
+        if not self.user:
             raise Exception("No user is logged in.")
 
-        return self.deps.repos.users
+        return self.repos.users
 
     # =======================================================================
     # CRUD Operations
 
     @property
     def mixins(self):
-        return HttpRepo[UserIn, UserOut, UserOut](self.repo, self.deps.logger, self.registered_exceptions)
+        return HttpRepo[UserIn, UserOut, UserOut](self.repo, self.logger, self.registered_exceptions)
 
     @router.get("", response_model=UserPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
@@ -54,7 +51,7 @@ class AdminUserManagementRoutes(BaseAdminController):
     @router.put("/{item_id}", response_model=UserOut)
     def update_one(self, item_id: UUID4, data: UserOut):
         # Prevent self demotion
-        if self.deps.acting_user.id == item_id and self.deps.acting_user.admin != data.admin:
+        if self.user.id == item_id and self.user.admin != data.admin:
             raise HTTPException(status_code=403, detail=ErrorResponse.respond("you cannot demote yourself"))
 
         return self.mixins.update_one(data, item_id)

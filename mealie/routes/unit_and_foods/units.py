@@ -25,13 +25,13 @@ router = APIRouter(prefix="/units", tags=["Recipes: Units"], route_class=MealieC
 class IngredientUnitsController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.deps.repos.ingredient_units.by_group(self.group_id)
+        return self.repos.ingredient_units.by_group(self.group_id)
 
     @cached_property
     def mixins(self):
         return HttpRepo[CreateIngredientUnit, IngredientUnit, CreateIngredientUnit](
             self.repo,
-            self.deps.logger,
+            self.logger,
             self.registered_exceptions,
         )
 
@@ -41,7 +41,7 @@ class IngredientUnitsController(BaseUserController):
             self.repo.merge(data.from_unit, data.to_unit)
             return SuccessResponse.respond("Successfully merged units")
         except Exception as e:
-            self.deps.logger.error(e)
+            self.logger.error(e)
             raise HTTPException(500, "Failed to merge units") from e
 
     @router.get("", response_model=IngredientUnitPagination)

@@ -12,7 +12,7 @@ class AdminEmailController(BaseAdminController):
     @router.get("", response_model=EmailReady)
     async def check_email_config(self):
         """Get general application information"""
-        return EmailReady(ready=self.deps.settings.SMTP_ENABLE)
+        return EmailReady(ready=self.settings.SMTP_ENABLE)
 
     @router.post("", response_model=EmailSuccess)
     async def send_test_email(self, data: EmailTest):
@@ -23,7 +23,7 @@ class AdminEmailController(BaseAdminController):
         try:
             status = service.send_test_email(data.email)
         except Exception as e:
-            self.deps.logger.error(e)
+            self.logger.error(e)
             error = str(e)
 
         return EmailSuccess(success=status, error=error)

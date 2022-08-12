@@ -39,7 +39,7 @@ class RecipeCategoryController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo(self.repo, self.deps.logger)
+        return HttpRepo(self.repo, self.logger)
 
     @router.get("", response_model=RecipeCategoryPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
@@ -59,12 +59,12 @@ class RecipeCategoryController(BaseUserController):
         data = self.mixins.create_one(save_data)
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.category_created,
                 msg=self.t(
                     "notifications.generic-created-with-url",
                     name=data.name,
-                    url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
+                    url=urls.category_url(data.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(event_type="create", item_type="category", item_id=data.id, slug=data.slug),
             )
@@ -85,12 +85,12 @@ class RecipeCategoryController(BaseUserController):
 
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.category_updated,
                 msg=self.t(
                     "notifications.generic-updated-with-url",
                     name=data.name,
-                    url=urls.category_url(data.slug, self.deps.settings.BASE_URL),
+                    url=urls.category_url(data.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(event_type="update", item_type="category", item_id=data.id, slug=data.slug),
             )
@@ -105,7 +105,7 @@ class RecipeCategoryController(BaseUserController):
         """
         if data := self.mixins.delete_one(item_id):
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.category_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
                 event_source=EventSource(event_type="delete", item_type="category", item_id=data.id, slug=data.slug),

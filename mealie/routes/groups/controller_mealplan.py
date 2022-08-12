@@ -27,7 +27,7 @@ class GroupMealplanController(BaseUserController):
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
-            **mealie_registered_exceptions(self.deps.t),
+            **mealie_registered_exceptions(self.translator),
         }
         return registered.get(ex, "An unexpected error occurred.")
 
@@ -35,7 +35,7 @@ class GroupMealplanController(BaseUserController):
     def mixins(self):
         return HttpRepo[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry](
             self.repo,
-            self.deps.logger,
+            self.logger,
             self.registered_exceptions,
         )
 

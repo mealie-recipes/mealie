@@ -22,7 +22,7 @@ class GroupInvitationsController(BaseUserController):
 
     @router.post("", response_model=ReadInviteToken, status_code=status.HTTP_201_CREATED)
     def create_invite_token(self, uses: CreateInviteToken):
-        if not self.deps.acting_user.can_invite:
+        if not self.user.can_invite:
             raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not allowed to create invite tokens")
 
         token = SaveInviteToken(uses_left=uses.uses, group_id=self.group_id, token=url_safe_token())
@@ -31,7 +31,7 @@ class GroupInvitationsController(BaseUserController):
     @router.post("/email", response_model=EmailInitationResponse)
     def email_invitation(self, invite: EmailInvitation):
         email_service = EmailService()
-        url = f"{self.deps.settings.BASE_URL}/register?token={invite.token}"
+        url = f"{self.settings.BASE_URL}/register?token={invite.token}"
 
         success = False
         error = None

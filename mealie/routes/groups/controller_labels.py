@@ -25,17 +25,17 @@ router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"]
 class MultiPurposeLabelsController(BaseUserController):
     @cached_property
     def repo(self):
-        if not self.deps.acting_user:
+        if not self.user:
             raise Exception("No user is logged in.")
 
-        return self.deps.repos.group_multi_purpose_labels.by_group(self.deps.acting_user.group_id)
+        return self.repos.group_multi_purpose_labels.by_group(self.user.group_id)
 
     # =======================================================================
     # CRUD Operations
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+        return HttpRepo(self.repo, self.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=MultiPurposeLabelPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
@@ -49,7 +49,7 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):
-        save_data = cast(data, MultiPurposeLabelSave, group_id=self.deps.acting_user.group_id)
+        save_data = cast(data, MultiPurposeLabelSave, group_id=self.user.group_id)
         return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=MultiPurposeLabelOut)

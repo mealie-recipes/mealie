@@ -19,7 +19,7 @@ class RecipeSharedController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[RecipeShareTokenSave, RecipeShareToken, RecipeShareTokenCreate](self.repo, self.deps.logger)
+        return HttpRepo[RecipeShareTokenSave, RecipeShareToken, RecipeShareTokenCreate](self.repo, self.logger)
 
     @router.get("", response_model=list[RecipeShareTokenSummary])
     def get_all(self, recipe_id: UUID4 = None):

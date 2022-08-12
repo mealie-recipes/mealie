@@ -51,6 +51,7 @@ def _init_cbv(cls: type[Any], instance: Any = None) -> None:
     Idempotently modifies the provided `cls`, performing the following modifications:
     * The `__init__` function is updated to set any class-annotated dependencies as instance attributes
     * The `__signature__` attribute is updated to indicate to FastAPI what arguments should be passed to the initializer
+    * Variables starting with `_` are NOT included in the `__signature__` and will be set to None.
     """
     if getattr(cls, CBV_CLASS_KEY, False):  # pragma: no cover
         return  # Already initialized
@@ -61,10 +62,17 @@ def _init_cbv(cls: type[Any], instance: Any = None) -> None:
         x for x in old_parameters if x.kind not in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD)
     ]
 
+    private_attributes = []
+
     dependency_names: list[str] = []
     for name, hint in get_type_hints(cls).items():
         if is_classvar(hint):
             continue
+
+        if name.startswith("_"):
+            private_attributes.append(name)
+            continue
+
         parameter_kwargs = {"default": getattr(cls, name, Ellipsis)}
         dependency_names.append(name)
         new_parameters.append(
@@ -87,6 +95,9 @@ def _init_cbv(cls: type[Any], instance: Any = None) -> None:
     setattr(cls, "__signature__", new_signature)
     setattr(cls, "__init__", new_init)
     setattr(cls, CBV_CLASS_KEY, True)
+
+    for name in private_attributes:
+        setattr(cls, name, None)
 
 
 def _register_endpoints(router: APIRouter, cls: type[Any], *urls: str) -> None:

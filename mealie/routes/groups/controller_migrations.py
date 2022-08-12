@@ -37,7 +37,7 @@ class GroupMigrationController(BaseUserController):
         args = {
             "archive": temp_path,
             "db": self.repos,
-            "session": self.deps.session,
+            "session": self.session,
             "user_id": self.user.id,
             "group_id": self.group_id,
             "add_migration_tag": add_migration_tag,

@@ -30,17 +30,17 @@ class GroupEventsNotifierController(BaseUserController):
 
     @cached_property
     def repo(self):
-        if not self.deps.acting_user:
+        if not self.user:
             raise Exception("No user is logged in.")
 
-        return self.deps.repos.group_event_notifier.by_group(self.deps.acting_user.group_id)
+        return self.repos.group_event_notifier.by_group(self.user.group_id)
 
     # =======================================================================
     # CRUD Operations
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+        return HttpRepo(self.repo, self.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     @router.get("", response_model=GroupEventPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
@@ -54,7 +54,7 @@ class GroupEventsNotifierController(BaseUserController):
 
     @router.post("", response_model=GroupEventNotifierOut, status_code=201)
     def create_one(self, data: GroupEventNotifierCreate):
-        save_data = cast(data, GroupEventNotifierSave, group_id=self.deps.acting_user.group_id)
+        save_data = cast(data, GroupEventNotifierSave, group_id=self.user.group_id)
         return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=GroupEventNotifierOut)

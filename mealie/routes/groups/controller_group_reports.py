@@ -17,18 +17,18 @@ router = APIRouter(prefix="/groups/reports", tags=["Groups: Reports"])
 class GroupReportsController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.deps.repos.group_reports.by_group(self.deps.acting_user.group_id)
+        return self.repos.group_reports.by_group(self.user.group_id)
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         return {
-            **mealie_registered_exceptions(self.deps.t),
+            **mealie_registered_exceptions(self.translator),
         }.get(ex, "An unexpected error occurred.")
 
     @cached_property
     def mixins(self):
         return HttpRepo[ReportCreate, ReportOut, ReportCreate](
             self.repo,
-            self.deps.logger,
+            self.logger,
             self.registered_exceptions,
         )
 
