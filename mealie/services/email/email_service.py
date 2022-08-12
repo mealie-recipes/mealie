@@ -46,7 +46,7 @@ class EmailService(BaseService):
             subject="Mealie Forgot Password",
             header_text="Forgot Password",
             message_top="You have requested to reset your password.",
-            message_bottom="Please click the button below to reset your password.",
+            message_bottom="Please click the button above to reset your password.",
             button_link=reset_password_url,
             button_text="Reset Password",
         )
@@ -55,9 +55,9 @@ class EmailService(BaseService):
     def send_invitation(self, address: str, invitation_url: str) -> bool:
         invitation = EmailTemplate(
             subject="Invitation to join Mealie",
-            header_text="Your Invited!",
+            header_text="You're Invited!",
             message_top="You have been invited to join Mealie.",
-            message_bottom="Please click the button below to accept the invitation.",
+            message_bottom="Please click the button above to accept the invitation.",
             button_link=invitation_url,
             button_text="Accept Invitation",
         )
@@ -68,7 +68,7 @@ class EmailService(BaseService):
             subject="Test Email",
             header_text="Test Email",
             message_top="This is a test email.",
-            message_bottom="Please click the button below to test the email.",
+            message_bottom="Please click the button above to test the email.",
             button_link="https://www.google.com",
             button_text="Test Email",
         )
