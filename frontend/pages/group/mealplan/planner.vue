@@ -237,7 +237,7 @@
                 </v-chip>
                 <RecipeContextMenu
                   :name="mealplan.recipe.name"
-                  :recipeId="mealplan.recipe.id"
+                  :recipe-id="mealplan.recipe.id"
                   :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
                   :use-items="{
                     delete: false,
