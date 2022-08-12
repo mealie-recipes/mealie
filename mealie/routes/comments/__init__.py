@@ -25,18 +25,18 @@ router = APIRouter(prefix="/comments", tags=["Recipe: Comments"])
 class RecipeCommentRoutes(BaseUserController):
     @cached_property
     def repo(self):
-        return self.deps.repos.comments
+        return self.repos.comments
 
     # =======================================================================
     # CRUD Operations
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo(self.repo, self.deps.logger, self.registered_exceptions, "An unexpected error occurred.")
+        return HttpRepo(self.repo, self.logger, self.registered_exceptions, "An unexpected error occurred.")
 
     def _check_comment_belongs_to_user(self, item_id: UUID4) -> None:
         comment = self.repo.get_one(item_id)
-        if comment.user_id != self.deps.acting_user.id and not self.deps.acting_user.admin:
+        if comment.user_id != self.user.id and not self.user.admin:
             raise HTTPException(
                 status_code=403,
                 detail=ErrorResponse(message="Comment does not belong to user"),
@@ -54,7 +54,7 @@ class RecipeCommentRoutes(BaseUserController):
 
     @router.post("", response_model=RecipeCommentOut, status_code=201)
     def create_one(self, data: RecipeCommentCreate):
-        save_data = RecipeCommentSave(text=data.text, user_id=self.deps.acting_user.id, recipe_id=data.recipe_id)
+        save_data = RecipeCommentSave(text=data.text, user_id=self.user.id, recipe_id=data.recipe_id)
         return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=RecipeCommentOut)

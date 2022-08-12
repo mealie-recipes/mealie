@@ -24,8 +24,8 @@ class RegistrationController(BasePublicController):
             )
 
         registration_service = RegistrationService(
-            self.deps.logger,
-            get_repositories(self.deps.session),
+            self.logger,
+            get_repositories(self.session),
             self.translator,
         )
 

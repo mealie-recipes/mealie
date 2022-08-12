@@ -22,7 +22,7 @@ class GroupMealplanConfigController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[PlanRulesCreate, PlanRulesOut, PlanRulesOut](self.repo, self.deps.logger)
+        return HttpRepo[PlanRulesCreate, PlanRulesOut, PlanRulesOut](self.repo, self.logger)
 
     @router.get("", response_model=PlanRulesPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

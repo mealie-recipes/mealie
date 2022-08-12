@@ -21,7 +21,7 @@ class ReadWebhookController(BaseUserController):
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo[CreateWebhook, SaveWebhook, CreateWebhook](self.repo, self.deps.logger)
+        return HttpRepo[CreateWebhook, SaveWebhook, CreateWebhook](self.repo, self.logger)
 
     @router.get("", response_model=WebhookPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

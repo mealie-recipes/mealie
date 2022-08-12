@@ -22,7 +22,7 @@ class RecipeToolController(BaseUserController):
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo[RecipeToolCreate, RecipeTool, RecipeToolCreate](self.repo, self.deps.logger)
+        return HttpRepo[RecipeToolCreate, RecipeTool, RecipeToolCreate](self.repo, self.logger)
 
     @router.get("", response_model=RecipeToolPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

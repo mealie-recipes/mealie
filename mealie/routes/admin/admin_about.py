@@ -20,7 +20,7 @@ class AdminAboutController(BaseAdminController):
     def get_app_info(self):
         """Get general application information"""
 
-        settings = self.deps.settings
+        settings = self.settings
 
         return AdminAboutInfo(
             production=settings.PRODUCTION,
@@ -50,7 +50,7 @@ class AdminAboutController(BaseAdminController):
 
     @router.get("/check", response_model=CheckAppConfig)
     def check_app_config(self):
-        settings = self.deps.settings
+        settings = self.settings
 
         return CheckAppConfig(
             email_ready=settings.SMTP_ENABLE,
@@ -61,7 +61,7 @@ class AdminAboutController(BaseAdminController):
 
     @router.get("/docker/validate", response_model=DockerVolumeText)
     def validate_docker_volume(self, bg: BackgroundTasks):
-        validation_dir = self.deps.folders.DATA_DIR / "docker-validation"
+        validation_dir = self.folders.DATA_DIR / "docker-validation"
         validation_dir.mkdir(exist_ok=True)
 
         random_string = "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(100))
@@ -75,7 +75,7 @@ class AdminAboutController(BaseAdminController):
             try:
                 shutil.rmtree(validation_dir)
             except Exception as e:
-                self.deps.logger.error(f"Failed to remove docker validation directory: {e}")
+                self.logger.error(f"Failed to remove docker validation directory: {e}")
 
         bg.add_task(cleanup)
 

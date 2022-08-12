@@ -24,11 +24,11 @@ class GroupCookbookController(BaseUserController):
 
     @cached_property
     def repo(self):
-        return self.deps.repos.cookbooks.by_group(self.group_id)
+        return self.repos.cookbooks.by_group(self.group_id)
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
-            **mealie_registered_exceptions(self.deps.t),
+            **mealie_registered_exceptions(self.translator),
         }
         return registered.get(ex, "An unexpected error occurred.")
 
@@ -36,7 +36,7 @@ class GroupCookbookController(BaseUserController):
     def mixins(self):
         return HttpRepo[CreateCookBook, ReadCookBook, UpdateCookBook](
             self.repo,
-            self.deps.logger,
+            self.logger,
             self.registered_exceptions,
         )
 
@@ -57,7 +57,7 @@ class GroupCookbookController(BaseUserController):
 
         if val:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.cookbook_created,
                 msg=self.t("notifications.generic-created", name=val.name),
                 event_source=EventSource(event_type="create", item_type="cookbook", item_id=val.id, slug=val.slug),
@@ -99,7 +99,7 @@ class GroupCookbookController(BaseUserController):
         val = self.mixins.update_one(data, item_id)  # type: ignore
         if val:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.cookbook_updated,
                 msg=self.t("notifications.generic-updated", name=val.name),
                 event_source=EventSource(event_type="update", item_type="cookbook", item_id=val.id, slug=val.slug),
@@ -112,7 +112,7 @@ class GroupCookbookController(BaseUserController):
         val = self.mixins.delete_one(item_id)
         if val:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.cookbook_deleted,
                 msg=self.t("notifications.generic-deleted", name=val.name),
                 event_source=EventSource(event_type="delete", item_type="cookbook", item_id=val.id, slug=val.slug),

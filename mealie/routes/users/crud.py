@@ -2,8 +2,7 @@ from fastapi import Depends, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.security import hash_password, verify_password
-from mealie.routes._base import BaseAdminController, controller
-from mealie.routes._base.base_controllers import BaseUserController
+from mealie.routes._base import BaseAdminController, BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
@@ -20,7 +19,7 @@ admin_router = AdminAPIRouter(prefix="/users", tags=["Users: Admin CRUD"])
 class AdminUserController(BaseAdminController):
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo[UserIn, UserOut, UserBase](self.repos.users, self.deps.logger)
+        return HttpRepo[UserIn, UserOut, UserBase](self.repos.users, self.logger)
 
     @admin_router.get("", response_model=UserPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

@@ -28,7 +28,7 @@ class TagController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo(self.repo, self.deps.logger)
+        return HttpRepo(self.repo, self.logger)
 
     @router.get("", response_model=RecipeTagPagination)
     async def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
@@ -58,12 +58,12 @@ class TagController(BaseUserController):
         data = self.repo.create(save_data)
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.tag_created,
                 msg=self.t(
                     "notifications.generic-created-with-url",
                     name=data.name,
-                    url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
+                    url=urls.tag_url(data.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(event_type="create", item_type="tag", item_id=data.id, slug=data.slug),
             )
@@ -76,12 +76,12 @@ class TagController(BaseUserController):
         data = self.repo.update(item_id, save_data)
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.tag_updated,
                 msg=self.t(
                     "notifications.generic-updated-with-url",
                     name=data.name,
-                    url=urls.tag_url(data.slug, self.deps.settings.BASE_URL),
+                    url=urls.tag_url(data.slug, self.settings.BASE_URL),
                 ),
                 event_source=EventSource(event_type="update", item_type="tag", item_id=data.id, slug=data.slug),
             )
@@ -100,7 +100,7 @@ class TagController(BaseUserController):
 
         if data:
             self.event_bus.dispatch(
-                self.deps.acting_user.group_id,
+                self.user.group_id,
                 EventTypes.tag_deleted,
                 msg=self.t("notifications.generic-deleted", name=data.name),
                 event_source=EventSource(event_type="delete", item_type="tag", item_id=data.id, slug=data.slug),
