@@ -161,7 +161,7 @@ export default defineComponent({
 
     if (props.showOcrButton) {
       editorButtons.splice(2, 0, {
-        text: "OCR editor",
+        text: i18n.t("ocr-editor.ocr-editor"),
         icon: $globals.icons.eye,
         event: OCR_EVENT,
         color: "accent",

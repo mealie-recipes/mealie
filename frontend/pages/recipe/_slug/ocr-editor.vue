@@ -25,7 +25,7 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>Selection mode</span>
+              <span>{{ $t("ocr-editor.selection-mode") }}</span>
             </v-tooltip>
             <v-tooltip v-if="!isImageSmallerThanCanvas" bottom>
               <template #activator="{ on, attrs }">
@@ -40,10 +40,10 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>Pan and zoom picture</span>
+              <span>{{ $t("ocr-editor.pan-and-zoom-picture") }}</span>
             </v-tooltip>
             <v-divider vertical class="mx-2" />
-            <v-toolbar-title>Split text </v-toolbar-title>
+            <v-toolbar-title>{{ $t("ocr-editor.split-text") }}</v-toolbar-title>
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
                 <v-btn icon>
@@ -57,7 +57,7 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>Preserve original line breaks</span>
+              <span>{{ $t("ocr-editor.preserve-line-breaks") }}</span>
             </v-tooltip>
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
@@ -72,7 +72,7 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>Split by text block</span>
+              <span>{{ $t("ocr-editor.split-by-block") }}</span>
             </v-tooltip>
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
@@ -87,7 +87,7 @@
                   </v-icon>
                 </v-btn>
               </template>
-              <span>Flatten regardless of original formating</span>
+              <span>{{ $t("ocr-editor.flatten") }}</span>
             </v-tooltip>
 
             <v-spacer></v-spacer>
@@ -103,7 +103,7 @@
                   <v-icon v-bind="attrs" v-on="on" @click="showHelp = !showHelp"> {{ $globals.icons.help }} </v-icon>
                 </v-btn>
               </template>
-              <span>Click here for help on how to use this feature!</span>
+              <span>{{ $t("ocr-editor.help") }}</span>
             </v-tooltip>
           </v-toolbar>
           <canvas
@@ -241,39 +241,36 @@
           <h1>Mouse modes</h1>
           <v-divider class="mb-2 mt-1" />
           <h2 class="my-2">
-            <v-icon> {{ $globals.icons.selectMode }} </v-icon>Selection Mode (default)
+            <v-icon> {{ $globals.icons.selectMode }} </v-icon>{{ $t("ocr-editor.help-dialog.selection-mode") }}
           </h2>
-          <p class="my-1">The selection mode is the main mode that can be used to enter data:</p>
+          <p class="my-1">{{ $t("ocr-editor.help-dialog.selection-mode") }}</p>
           <ol>
-            <li>Draw a rectangle on the text you want to select.</li>
-            <li>Click on any field on the right and then click back on the rectangle above the image.</li>
-            <li>The selected text will appear inside the previously selected field.</li>
+            <li>{{  $t("ocr-editor.help-dialog.selection-mode-steps.draw") }}</li>
+            <li>{{  $t("ocr-editor.help-dialog.selection-mode-steps.click") }}</li>
+            <li>{{  $t("ocr-editor.help-dialog.selection-mode-steps.result") }}</li>
           </ol>
           <h2 class="my-2">
-            <v-icon> {{ $globals.icons.panAndZoom }} </v-icon>Pan and Zoom Mode
+            <v-icon> {{ $globals.icons.panAndZoom }} </v-icon>{{ $t("ocr-editor.help-dialog.pan-and-zoom-mode") }}
           </h2>
-          Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make
-          using big images easier.
-          <h1 class="mt-5">Split Text modes</h1>
+{{ $t("ocr-editor.help-dialog.pan-and-zoom-desc") }}
+          <h1 class="mt-5">{{ $t("ocr-editor.help-dialog.split-text-mode") }}</h1>
           <v-divider class="mb-2 mt-1" />
           <h2 class="my-2">
-            <v-icon> {{ $globals.icons.preserveLines }} </v-icon> Line mode (default)
+            <v-icon> {{ $globals.icons.preserveLines }} </v-icon>{{ $t("ocr-editor.help-dialog.split-modes.line-mode") }}
           </h2>
           <p>
-            In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when
-            using bulk add on a list of ingredients where one ingredient is one line.
+{{ $t("ocr-editor.help-dialog.split-modes.line-mode-desc") }}
           </p>
           <h2 class="my-2">
-            <v-icon> {{ $globals.icons.preserveBlocks }} </v-icon> Block mode
+            <v-icon> {{ $globals.icons.preserveBlocks }} </v-icon> {{ $t("ocr-editor.help-dialog.split-modes.block-mode") }}
           </h2>
           <p>
-            In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are
-            usually written in paragraphs.
+{{ $t("ocr-editor.help-dialog.split-modes.block-mode-desc") }}
           </p>
           <h2 class="my-2">
-            <v-icon> {{ $globals.icons.flatten }} </v-icon> Flat mode
+            <v-icon> {{ $globals.icons.flatten }} </v-icon> {{ $t("ocr-editor.help-dialog.split-modes.flat-mode") }}
           </h2>
-          <p>In flat mode, the text will be added to the selected recipe field with no line breaks.</p>
+          <p>{{ $t("ocr-editor.help-dialog.split-modes.flat-mode-desc") }}</p>
         </v-card-text>
       </v-card>
     </v-dialog>
