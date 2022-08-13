@@ -319,7 +319,7 @@
     "locked-by-owner": "Заблоковано власником",
     "join-the-conversation": "Приєднатися до розмови",
     "add-recipe-to-mealplan": "Додати рецепт до плану харчування",
-    "entry-type": "Entry Type",
+    "entry-type": "Тип",
     "date-format-hint": "Формат ММ/ДД/РРРР",
     "add-to-list": "Додати до списку",
     "add-to-plan": "Додати до плану",
@@ -335,16 +335,16 @@
     "toggle-section": "Перемкнути секцію",
     "see-original-text": "Переглянути оригінальний текст",
     "original-text-with-value": "Оригінальний текст: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
+    "ingredient-linker": "Зв'язування інгредієнтів",
     "linked-to-other-step": "Зв'язано з іншим кроком",
     "auto": "Авто",
     "cook-mode": "Режим кухаря",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "link-ingredients": "Зв'язати інгредієнти",
+    "merge-above": "Об'єднати з тим що вище",
+    "reset-scale": "Скинути масштабування",
+    "decrease-scale-label": "Зменшити масштабування на 1",
+    "increase-scale-label": "Збільшити масштабування на 1",
+    "locked": "Заблоковано"
   },
   "search": {
     "advanced-search": "Розширений пошук",
@@ -452,7 +452,7 @@
       "webhook-url": "URL-адреса вебхука",
       "webhooks-caps": "ВЕБХУКИ",
       "webhooks": "Вебхуки",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Назва вебхука"
     }
   },
   "shopping-list": {
@@ -464,11 +464,11 @@
     "quantity": "Кількість: {0}",
     "shopping-list": "Список покупок",
     "shopping-lists": "Списки покупок",
-    "food": "Food",
-    "note": "Note",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "food": "Їжа",
+    "note": "Нотатка",
+    "label": "Ярлик",
+    "linked-item-warning": "Цей предмет зв'язано з одним або більше рецептами. Зміна одиниць виміру або продуктів дасть неочікувані результати при додаванні або видаленні рецепту з цього списку.",
+    "toggle-food": "Переключити Їжу"
   },
   "sidebar": {
     "all-recipes": "Всі рецепти",
@@ -505,15 +505,15 @@
     "tag-updated": "Мітку оновлено",
     "tags": "Мітки",
     "untagged-count": "Без мітки {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Створити тег",
+    "tag-name": "Назва тегу"
   },
   "tool": {
     "tools": "Інструменти",
     "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
+    "create-a-tool": "Створити новий інструмент",
+    "tool-name": "Назва інструмента",
+    "create-new-tool": "Створити новий інструмент",
     "on-hand-checkbox-label": "Show as On Hand (Checked)"
   },
   "user": {
@@ -613,13 +613,13 @@
     "email-is-taken": "Електронна пошта зайнята"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Експортувати",
+    "file-name": "Ім'я файлу",
+    "size": "Розмір",
+    "link-expires": "Посилання діє до"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
+    "expiration-date": "Дійсний до",
     "share-recipe": "Поділитися рецептом",
     "default-30-days": "30 днів за замовчуванням",
     "expires-at": "Дійсний до",
