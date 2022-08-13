@@ -453,12 +453,22 @@ class RecipeController(BaseRecipeController):
                 recipe_instructions=[RecipeStep(text="")],
                 is_ocr_recipe=True,
                 settings=RecipeSettings(show_assets=True),
+                id=None,
+                image=None,
+                recipe_yield=None,
+                rating=None,
+                orgURL=None,
+                date_added=None,
+                date_updated=None,
+                created_at=None,
+                update_at=None,
+                nutrition=None,
             )
         ).slug
         RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)
         if makefilerecipeimage:
             # Get the pointer to the beginning of the file to read it once more
             file.file.seek(0)
-            self.update_recipe_image(slug, file.file, extension)
+            self.update_recipe_image(slug, file.file.read(), extension)
 
         return slug
