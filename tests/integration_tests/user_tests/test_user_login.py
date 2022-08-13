@@ -35,3 +35,22 @@ def test_user_token_refresh(api_client: TestClient, api_routes: AppRoutes, admin
     response = api_client.post(api_routes.auth_refresh, headers=admin_user.token)
     response = api_client.get(api_routes.users_self, headers=admin_user.token)
     assert response.status_code == 200
+
+
+def test_user_lockout_after_bad_attemps(api_client: TestClient, unique_user: TestUser):
+    """
+    if the user has more than 5 bad login attemps the user will be locked out for 4 hours
+    This only applies if there is a user in the database with the same username
+    """
+    routes = AppRoutes()
+    settings = get_app_settings()
+
+    for _ in range(settings.SECURITY_MAX_LOGIN_ATTEMPS):
+        form_data = {"username": unique_user.email, "password": "bad_password"}
+        response = api_client.post(routes.auth_token, form_data)
+
+        assert response.status_code == 401
+
+    valid_data = {"username": unique_user.email, "password": unique_user.password}
+    response = api_client.post(routes.auth_token, valid_data)
+    assert response.status_code == 423
