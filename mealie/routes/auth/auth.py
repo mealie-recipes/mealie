@@ -10,6 +10,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core import security
 from mealie.core.dependencies import get_current_user
 from mealie.core.security import authenticate_user
+from mealie.core.security.security import UserLockedOut
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
@@ -53,7 +54,10 @@ def get_token(data: CustomOAuth2Form = Depends(), session: Session = Depends(gen
     email = data.username
     password = data.password
 
-    user = authenticate_user(session, email, password)  # type: ignore
+    try:
+        user = authenticate_user(session, email, password)  # type: ignore
+    except UserLockedOut as e:
+        raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
 
     if not user:
         raise HTTPException(

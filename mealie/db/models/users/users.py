@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, String, orm
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, orm
 
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_utils.guid import GUID
@@ -36,6 +36,8 @@ class User(SqlAlchemyBase, BaseMixins):
     group = orm.relationship("Group", back_populates="users")
 
     cache_key = Column(String, default="1234")
+    login_attemps = Column(Integer, default=0)
+    locked_at = Column(DateTime, default=None)
 
     # Group Permissions
     can_manage = Column(Boolean, default=False)

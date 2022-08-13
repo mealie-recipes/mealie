@@ -1,8 +1,9 @@
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Optional
 from uuid import UUID
 
-from pydantic import UUID4
+from pydantic import UUID4, validator
 from pydantic.types import constr
 from pydantic.utils import GetterDict
 
@@ -137,15 +138,29 @@ class UserFavorites(UserBase):
 class PrivateUser(UserOut):
     password: str
     group_id: UUID4
+    login_attemps: int = 0
+    locked_at: datetime | None = None
 
     class Config:
         orm_mode = True
+
+    @validator("login_attemps", pre=True)
+    def none_to_zero(cls, v):
+        return 0 if v is None else v
 
     @staticmethod
     def get_directory(user_id: UUID4 | str) -> Path:
         user_dir = get_app_dirs().USER_DIR / str(user_id)
         user_dir.mkdir(parents=True, exist_ok=True)
         return user_dir
+
+    @property
+    def is_locked(self) -> bool:
+        if self.locked_at is None:
+            return False
+
+        lockout_expires_at = self.locked_at + timedelta(hours=get_app_settings().SECURITY_USER_LOCKOUT_TIME)
+        return lockout_expires_at > datetime.now()
 
     def directory(self) -> Path:
         return PrivateUser.get_directory(self.id)
@@ -168,15 +183,15 @@ class GroupInDB(UpdateGroup):
 
     @staticmethod
     def get_directory(id: UUID4) -> Path:
-        dir = get_app_dirs().GROUPS_DIR / str(id)
-        dir.mkdir(parents=True, exist_ok=True)
-        return dir
+        group_dir = get_app_dirs().GROUPS_DIR / str(id)
+        group_dir.mkdir(parents=True, exist_ok=True)
+        return group_dir
 
     @staticmethod
     def get_export_directory(id: UUID) -> Path:
-        dir = GroupInDB.get_directory(id) / "export"
-        dir.mkdir(parents=True, exist_ok=True)
-        return dir
+        export_dir = GroupInDB.get_directory(id) / "export"
+        export_dir.mkdir(parents=True, exist_ok=True)
+        return export_dir
 
     @property
     def directory(self) -> Path:
