@@ -8,7 +8,9 @@ from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
+from mealie.schema.user.auth import UnlockResults
 from mealie.schema.user.user import UserIn, UserOut, UserPagination
+from mealie.services.user_services.user_service import UserService
 
 router = APIRouter(prefix="/users", tags=["Admin: Users"])
 
@@ -17,9 +19,6 @@ router = APIRouter(prefix="/users", tags=["Admin: Users"])
 class AdminUserManagementRoutes(BaseAdminController):
     @cached_property
     def repo(self):
-        if not self.user:
-            raise Exception("No user is logged in.")
-
         return self.repos.users
 
     # =======================================================================
@@ -43,6 +42,13 @@ class AdminUserManagementRoutes(BaseAdminController):
     def create_one(self, data: UserIn):
         data.password = security.hash_password(data.password)
         return self.mixins.create_one(data)
+
+    @router.post("/unlock", response_model=UnlockResults)
+    def unlock_users(self, force: bool = False) -> UnlockResults:
+        user_service = UserService(self.repos)
+        unlocked = user_service.reset_locked_users(force=force)
+
+        return UnlockResults(unlocked=unlocked)
 
     @router.get("/{item_id}", response_model=UserOut)
     def get_one(self, item_id: UUID4):

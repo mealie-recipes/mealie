@@ -13,7 +13,7 @@ class UserService(BaseService):
     def get_locked_users(self) -> list[PrivateUser]:
         return self.repos.users.get_locked_users()
 
-    def reset_locked_users(self) -> int:
+    def reset_locked_users(self, force: bool = False) -> int:
         """
         Queriers that database for all locked users and resets their locked_at field to None
         if more than the set time has passed since the user was locked
@@ -23,7 +23,7 @@ class UserService(BaseService):
         unlocked = 0
 
         for user in locked_users:
-            if not user.is_locked and user.locked_at is not None:
+            if force or user.is_locked and user.locked_at is not None:
                 self.unlock_user(user)
                 unlocked += 1
 
