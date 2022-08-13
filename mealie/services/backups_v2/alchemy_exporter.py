@@ -16,7 +16,7 @@ class AlchemyExporter(BaseService):
     engine: base.Engine
     meta: MetaData
 
-    look_for_datetime = {"created_at", "update_at", "date_updated", "timestamp", "expires_at"}
+    look_for_datetime = {"created_at", "update_at", "date_updated", "timestamp", "expires_at", "locked_at"}
     look_for_date = {"date_added", "date"}
     look_for_time = {"scheduled_time"}
 
