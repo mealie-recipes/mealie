@@ -39,7 +39,7 @@ class AppSettings(BaseSettings):
     # ===============================================
     # Security Configuration
 
-    SECURITY_MAX_LOGIN_ATTEMPS: int = 5
+    SECURITY_MAX_LOGIN_ATTEMPTS: int = 5
     SECURITY_USER_LOCKOUT_TIME: int = 24  # Time in Hours
 
     @property

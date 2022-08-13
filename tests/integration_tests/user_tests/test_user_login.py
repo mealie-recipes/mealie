@@ -47,7 +47,7 @@ def test_user_lockout_after_bad_attemps(api_client: TestClient, unique_user: Tes
     routes = AppRoutes()
     settings = get_app_settings()
 
-    for _ in range(settings.SECURITY_MAX_LOGIN_ATTEMPS):
+    for _ in range(settings.SECURITY_MAX_LOGIN_ATTEMPTS):
         form_data = {"username": unique_user.email, "password": "bad_password"}
         response = api_client.post(routes.auth_token, form_data)
 
