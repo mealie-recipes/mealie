@@ -8,6 +8,7 @@ class TestUser:
     email: str
     user_id: UUID
     username: str
+    password: str
     _group_id: UUID
     token: Any
 
