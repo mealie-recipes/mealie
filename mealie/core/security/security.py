@@ -103,6 +103,7 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
 
     elif not verify_password(password, user.password):
         user.login_attemps += 1
+        db.users.update(user.id, user)
 
         if user.login_attemps >= settings.SECURITY_MAX_LOGIN_ATTEMPS:
             user_service = UserService(db)
