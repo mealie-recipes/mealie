@@ -157,10 +157,10 @@ export default defineComponent({
         // See https://github.com/nuxt-community/axios-module/issues/550
         // Import $axios from useContext()
         // if ($axios.isAxiosError(error) && error.response?.status === 401) {
-        // @ts-expect-error - see above
+        // @ts-ignore- see above
         if (error.response?.status === 401) {
           alert.error("Invalid Credentials");
-          // @ts-expect-error - see above
+          // @ts-ignore - see above
         } else if (error.response?.status === 423) {
           alert.error("Account Locked. Please try again later");
         } else {
