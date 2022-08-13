@@ -107,6 +107,8 @@ export interface PrivateUser {
   tokens?: LongLiveTokenOut[];
   cacheKey: string;
   password: string;
+  loginAttemps?: number;
+  lockedAt?: string;
 }
 export interface PrivatePasswordResetToken {
   userId: string;
@@ -134,6 +136,8 @@ export interface RecipeSummary {
   recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface RecipeCategory {
   id?: string;
@@ -168,6 +172,8 @@ export interface IngredientUnit {
   abbreviation?: string;
   useAbbreviation?: boolean;
   id: string;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface CreateIngredientUnit {
   name: string;
@@ -182,6 +188,8 @@ export interface IngredientFood {
   labelId?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -211,6 +219,9 @@ export interface Token {
 export interface TokenData {
   user_id?: string;
   username?: string;
+}
+export interface UnlockResults {
+  unlocked?: number;
 }
 export interface UpdateGroup {
   name: string;

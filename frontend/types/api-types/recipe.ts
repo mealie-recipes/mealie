@@ -7,6 +7,7 @@
 
 export type ExportTypes = "json";
 export type RegisteredParser = "nlp" | "brute";
+export type OrderDirection = "asc" | "desc";
 
 export interface AssignCategories {
   recipes: string[];
@@ -96,6 +97,8 @@ export interface IngredientFood {
   labelId?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -120,6 +123,8 @@ export interface IngredientUnit {
   abbreviation?: string;
   useAbbreviation?: boolean;
   id: string;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface IngredientsRequest {
   parser?: RegisteredParser & string;
@@ -141,6 +146,13 @@ export interface Nutrition {
   fiberContent?: string;
   sodiumContent?: string;
   sugarContent?: string;
+}
+export interface PaginationQuery {
+  page?: number;
+  perPage?: number;
+  orderBy?: string;
+  orderDirection?: OrderDirection & string;
+  queryFilter?: string;
 }
 export interface ParsedIngredient {
   input?: string;
@@ -178,6 +190,8 @@ export interface Recipe {
   recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
+  createdAt?: string;
+  updateAt?: string;
   recipeInstructions?: RecipeStep[];
   nutrition?: Nutrition;
   settings?: RecipeSettings;
@@ -259,6 +273,8 @@ export interface RecipeSummary {
   recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface RecipeCommentCreate {
   recipeId: string;
@@ -272,6 +288,14 @@ export interface RecipeCommentSave {
 export interface RecipeCommentUpdate {
   id: string;
   text: string;
+}
+export interface RecipePaginationQuery {
+  page?: number;
+  perPage?: number;
+  orderBy?: string;
+  orderDirection?: OrderDirection & string;
+  queryFilter?: string;
+  loadFood?: boolean;
 }
 export interface RecipeShareToken {
   recipeId: string;

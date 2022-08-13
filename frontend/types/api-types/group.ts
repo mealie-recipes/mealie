@@ -197,6 +197,8 @@ export interface IngredientFood {
   labelId?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -211,6 +213,8 @@ export interface IngredientUnit {
   abbreviation?: string;
   useAbbreviation?: boolean;
   id: string;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
@@ -259,6 +263,8 @@ export interface RecipeSummary {
   recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface RecipeCategory {
   id?: string;
@@ -322,6 +328,8 @@ export interface SetPermissions {
 }
 export interface ShoppingListCreate {
   name?: string;
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface ShoppingListItemCreate {
   shoppingListId: string;
@@ -336,6 +344,8 @@ export interface ShoppingListItemCreate {
   food?: IngredientFood;
   labelId?: string;
   recipeReferences?: ShoppingListItemRecipeRef[];
+  createdAt?: string;
+  updateAt?: string;
 }
 export interface ShoppingListItemRecipeRef {
   recipeId: string;
@@ -353,7 +363,9 @@ export interface ShoppingListItemOut {
   foodId?: string;
   food?: IngredientFood;
   labelId?: string;
-  recipeReferences?: ShoppingListItemRecipeRefOut[];
+  recipeReferences?: (ShoppingListItemRecipeRef | ShoppingListItemRecipeRefOut)[];
+  createdAt?: string;
+  updateAt?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
 }
@@ -376,10 +388,14 @@ export interface ShoppingListItemUpdate {
   food?: IngredientFood;
   labelId?: string;
   recipeReferences?: ShoppingListItemRecipeRef[];
+  createdAt?: string;
+  updateAt?: string;
   id: string;
 }
 export interface ShoppingListOut {
   name?: string;
+  createdAt?: string;
+  updateAt?: string;
   groupId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
@@ -394,15 +410,21 @@ export interface ShoppingListRecipeRefOut {
 }
 export interface ShoppingListSave {
   name?: string;
+  createdAt?: string;
+  updateAt?: string;
   groupId: string;
 }
 export interface ShoppingListSummary {
   name?: string;
+  createdAt?: string;
+  updateAt?: string;
   groupId: string;
   id: string;
 }
 export interface ShoppingListUpdate {
   name?: string;
+  createdAt?: string;
+  updateAt?: string;
   groupId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
