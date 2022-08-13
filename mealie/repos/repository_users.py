@@ -1,6 +1,5 @@
 import random
 import shutil
-from typing import Optional
 
 from pydantic import UUID4
 
@@ -38,8 +37,10 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         shutil.rmtree(PrivateUser.get_directory(value))
         return entry  # type: ignore
 
-    def get_by_username(self, username: str, limit=1) -> Optional[User]:
+    def get_by_username(self, username: str) -> PrivateUser | None:
         dbuser = self.session.query(User).filter(User.username == username).one_or_none()
-        if dbuser is None:
-            return None
-        return self.schema.from_orm(dbuser)  # type: ignore
+        return None if dbuser is None else self.schema.from_orm(dbuser)
+
+    def get_locked_users(self) -> list[PrivateUser]:
+        results = self.session.query(User).filter(User.locked_at != None).all()  # noqa E711
+        return [self.schema.from_orm(x) for x in results]

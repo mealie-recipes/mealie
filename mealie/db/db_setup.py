@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from contextlib import contextmanager
 
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
@@ -27,6 +28,17 @@ def sql_global_init(db_url: str):
 
 
 SessionLocal, engine = sql_global_init(settings.DB_URL)  # type: ignore
+
+
+@contextmanager
+def with_session() -> Session:
+    global SessionLocal
+    sess = SessionLocal()
+
+    try:
+        yield sess
+    finally:
+        sess.close()
 
 
 def create_session() -> Session:

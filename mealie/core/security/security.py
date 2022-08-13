@@ -9,8 +9,13 @@ from mealie.core.security.hasher import get_hasher
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.user import PrivateUser
+from mealie.services.user_services.user_service import UserService
 
 ALGORITHM = "HS256"
+
+
+class UserLockedOut(Exception):
+    ...
 
 
 def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
@@ -35,7 +40,7 @@ def create_recipe_slug_token(file_path: str | Path) -> str:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def user_from_ldap(db: AllRepositories, session, username: str, password: str) -> PrivateUser | bool:
+def user_from_ldap(db: AllRepositories, username: str, password: str) -> PrivateUser | bool:
     """Given a username and password, tries to authenticate by BINDing to an
     LDAP server
 
@@ -85,7 +90,7 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
         user = db.users.get_one(email, "username", any_case=True)
 
     if settings.LDAP_AUTH_ENABLED and (not user or user.password == "LDAP"):
-        return user_from_ldap(db, session, email, password)
+        return user_from_ldap(db, email, password)
 
     if not user:
         # To prevent user enumeration we perform the verify_password computation to ensure
@@ -93,7 +98,17 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
         verify_password("abc123cba321", "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i")
         return False
 
+    if user.login_attemps >= settings.SECURITY_MAX_LOGIN_ATTEMPTS or user.is_locked:
+        raise UserLockedOut()
+
     elif not verify_password(password, user.password):
+        user.login_attemps += 1
+        db.users.update(user.id, user)
+
+        if user.login_attemps >= settings.SECURITY_MAX_LOGIN_ATTEMPTS:
+            user_service = UserService(db)
+            user_service.lock_user(user)
+
         return False
 
     return user

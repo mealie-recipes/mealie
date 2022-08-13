@@ -36,6 +36,12 @@ class AppSettings(BaseSettings):
 
     ALLOW_SIGNUP: bool = True
 
+    # ===============================================
+    # Security Configuration
+
+    SECURITY_MAX_LOGIN_ATTEMPTS: int = 5
+    SECURITY_USER_LOCKOUT_TIME: int = 24  # Time in Hours
+
     @property
     def DOCS_URL(self) -> str | None:
         return "/docs" if self.API_DOCS else None

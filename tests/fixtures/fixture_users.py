@@ -26,6 +26,7 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
         _group_id=user_data.get("groupId"),
         user_id=user_data.get("id"),
         email=user_data.get("email"),
+        password=registration.password,
         username=user_data.get("username"),
         token=token,
     )
@@ -67,6 +68,7 @@ def g2_user(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
             user_id=user_id,
             _group_id=group_id,
             token=token,
+            password="useruser",
             email=create_data["email"],
             username=create_data.get("username"),
         )
@@ -92,6 +94,7 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
         yield utils.TestUser(
             _group_id=user_data.get("groupId"),
             user_id=user_data.get("id"),
+            password=registration.password,
             email=user_data.get("email"),
             username=user_data.get("username"),
             token=token,
@@ -144,6 +147,7 @@ def user_tuple(admin_token, api_client: TestClient, api_routes: utils.AppRoutes)
                 _group_id=user_data.get("groupId"),
                 user_id=user_data.get("id"),
                 username=user_data.get("username"),
+                password="useruser",
                 email=user_data.get("email"),
                 token=token,
             )

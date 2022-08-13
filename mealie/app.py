@@ -10,7 +10,6 @@ from mealie.routes.handlers import register_debug_handler
 from mealie.routes.media import media_router
 from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
 
-logger = get_logger()
 settings = get_app_settings()
 
 description = f"""
@@ -61,6 +60,10 @@ async def start_scheduler():
         tasks.post_group_webhooks,
     )
 
+    SchedulerRegistry.register_hourly(
+        tasks.locked_user_reset,
+    )
+
     SchedulerRegistry.print_jobs()
 
     await SchedulerService.start()
@@ -77,6 +80,8 @@ api_routers()
 
 @app.on_event("startup")
 async def system_startup():
+    logger = get_logger()
+
     await start_scheduler()
 
     logger.info("-----SYSTEM STARTUP----- \n")

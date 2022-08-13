@@ -1,14 +1,11 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm.session import Session
 
-from mealie.core.root_logger import get_logger
 from mealie.core.security import hash_password, url_safe_token
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user_passwords import SavePasswordResetToken
 from mealie.services._base_service import BaseService
 from mealie.services.email import EmailService
-
-logger = get_logger(__name__)
 
 
 class PasswordResetService(BaseService):
@@ -20,7 +17,7 @@ class PasswordResetService(BaseService):
         user = self.db.users.get_one(email, "email", any_case=True)
 
         if user is None:
-            logger.error(f"failed to create password reset for {email=}: user doesn't exists")
+            self.logger.error(f"failed to create password reset for {email=}: user doesn't exists")
             # Do not raise exception here as we don't want to confirm to the client that the Email doens't exists
             return None
 
@@ -41,7 +38,7 @@ class PasswordResetService(BaseService):
         try:
             email_servive.send_forgot_password(email, reset_url)
         except Exception as e:
-            logger.error(f"failed to send reset email: {e}")
+            self.logger.error(f"failed to send reset email: {e}")
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Failed to send reset email")
 
     def reset_password(self, token: str, new_password: str):
@@ -49,7 +46,7 @@ class PasswordResetService(BaseService):
         token_entry = self.db.tokens_pw_reset.get_one(token, "token")
 
         if token_entry is None:
-            logger.error("failed to reset password: invalid token")
+            self.logger.error("failed to reset password: invalid token")
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid token")
 
         user = self.db.users.get_one(token_entry.user_id)
@@ -59,7 +56,7 @@ class PasswordResetService(BaseService):
         new_user = self.db.users.update_password(user.id, password_hash)
         # Confirm Password
         if new_user.password != password_hash:
-            logger.error("failed to reset password: invalid password")
+            self.logger.error("failed to reset password: invalid password")
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid password")
 
         # Delete Token from DB

@@ -32,6 +32,7 @@ def admin_user(api_client: TestClient, api_routes: utils.AppRoutes):
         yield utils.TestUser(
             _group_id=user_data.get("groupId"),
             user_id=user_data.get("id"),
+            password=settings.DEFAULT_PASSWORD,
             username=user_data.get("username"),
             email=user_data.get("email"),
             token=token,

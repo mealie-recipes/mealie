@@ -99,24 +99,24 @@ def generate_typescript_types() -> None:
             generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
         except Exception as e:
             failed_modules.append(module)
-            log.error(f"Module Error: {e}")  # noqa
+            log.error(f"Module Error: {e}")
 
-    log.info("\n📁 Skipped Directories:")  # noqa
+    log.info("\n📁 Skipped Directories:")
     for skipped_dir in skipped_dirs:
-        log.info("   📁", skipped_dir.name)  # noqa
+        log.info(f"   📁 {skipped_dir.name}")
 
-    log.info("📄 Skipped Files:")  # noqa
+    log.info("📄 Skipped Files:")
     for f in skipped_files:
-        log.info("   📄", f.name)  # noqa
+        log.info(f"   📄 {f.name}")
 
-    log.error("❌ Failed Modules:")  # noqa
+    log.error("❌ Failed Modules:")
     for f in failed_modules:
-        log.error("   ❌", f.name)  # noqa
+        log.error(f"   ❌ {f.name}")
 
 
 if __name__ == "__main__":
-    log.info("\n-- Starting Global Components Generator --")  # noqa
+    log.info("\n-- Starting Global Components Generator --")
     generate_global_components_types()
 
-    log.info("\n-- Starting Pydantic To Typescript Generator --")  # noqa
+    log.info("\n-- Starting Pydantic To Typescript Generator --")
     generate_typescript_types()

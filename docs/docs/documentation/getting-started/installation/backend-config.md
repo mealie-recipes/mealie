@@ -18,7 +18,12 @@
 | ALLOW_SIGNUP  |         true          | Allow user sign-up without token (should match frontend env)                        |
 
 
+### Security
 
+| Variables                   | Default | Description                                                                         |
+| --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
+| SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
+| SECURITY_USER_LOCKOUT_TIME  |   24    | Time in hours for how long a users account is locked                                |
 
 ### Database
 
@@ -39,7 +44,7 @@
 | SMTP_HOST          |  None   | Required For email                                |
 | SMTP_PORT          |   587   | Required For email                                |
 | SMTP_FROM_NAME     | Mealie  | Required For email                                |
-| SMTP_AUTH_STRATEGY |  TLS    | Required For email, Options: 'TLS', 'SSL', 'NONE' |
+| SMTP_AUTH_STRATEGY |   TLS   | Required For email, Options: 'TLS', 'SSL', 'NONE' |
 | SMTP_FROM_EMAIL    |  None   | Required For email                                |
 | SMTP_USER          |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
 | SMTP_PASSWORD      |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |

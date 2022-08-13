@@ -10,9 +10,22 @@
     <BaseCardSectionTitle title="User Management"> </BaseCardSectionTitle>
     <section>
       <v-toolbar color="background" flat class="justify-between">
-        <BaseButton to="/admin/manage/users/create">
+        <BaseButton to="/admin/manage/users/create" class="mr-2">
           {{ $t("general.create") }}
         </BaseButton>
+
+        <BaseOverflowButton
+          mode="event"
+          :items="[
+            {
+              text: 'Reset Locked Users',
+              icon: $globals.icons.lock,
+              event: 'unlock-all-users',
+            },
+          ]"
+          @unlock-all-users="unlockAllUsers"
+        >
+        </BaseOverflowButton>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -53,14 +66,15 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
-import { useUserApi } from "~/composables/api";
+import { useAdminApi } from "~/composables/api";
+import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
 import { UserOut } from "~/types/api-types/user";
 
 export default defineComponent({
   layout: "admin",
   setup() {
-    const api = useUserApi();
+    const api = useAdminApi();
     const refUserDialog = ref();
 
     const { i18n } = useContext();
@@ -97,9 +111,20 @@ export default defineComponent({
       { text: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },
     ];
 
+    async function unlockAllUsers(): Promise<void> {
+      const { data } = await api.users.unlockAllUsers(true);
+
+      if (data) {
+        const unlocked = data.unlocked ?? 0;
+
+        alert.success(`${unlocked} user(s) unlocked`);
+        refreshAllUsers();
+      }
+    }
+
     return {
+      unlockAllUsers,
       ...toRefs(state),
-      api,
       headers,
       deleteUser,
       loading,
