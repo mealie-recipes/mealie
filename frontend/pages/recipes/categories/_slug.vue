@@ -6,7 +6,6 @@
       :title="category.name"
       :recipes="recipes"
       :tag-slug="tag.slug"
-      :use-pagination="true"
       @sortRecipes="assignSorted"
       @replaceRecipes="replaceRecipes"
       @appendRecipes="appendRecipes"
@@ -62,12 +61,11 @@ import { defineComponent, useAsync, useRoute, reactive, toRefs, useRouter } from
 import { useLazyRecipes } from "~/composables/recipes";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useUserApi } from "~/composables/api";
-import { Recipe } from "~/types/api-types/recipe";
 
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
-    const { recipes } = useLazyRecipes();
+    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes();
 
     const api = useUserApi();
     const route = useRoute();
@@ -106,29 +104,6 @@ export default defineComponent({
       if (data) {
         router.push("/recipes/categories/" + data.slug);
       }
-    }
-
-    function appendRecipes(val: Array<Recipe>) {
-      val.forEach((recipe) => {
-        recipes.value.push(recipe);
-      });
-    }
-
-    function assignSorted(val: Array<Recipe>) {
-      recipes.value = val;
-    }
-
-    function removeRecipe(slug: string) {
-      for (let i = 0; i < recipes?.value?.length; i++) {
-        if (recipes?.value[i].slug === slug) {
-          recipes?.value.splice(i, 1);
-          break;
-        }
-      }
-    }
-
-    function replaceRecipes(val: Array<Recipe>) {
-      recipes.value = val;
     }
 
     return {
