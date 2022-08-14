@@ -22,7 +22,7 @@ import { Recipe } from "~/types/api-types/recipe";
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
-    const { recipes, fetchMore } = useLazyRecipes();
+    const { recipes } = useLazyRecipes();
 
     function appendRecipes(val: Array<Recipe>) {
       val.forEach((recipe) => {
