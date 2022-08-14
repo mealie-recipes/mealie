@@ -4,8 +4,13 @@
       v-if="category"
       :icon="$globals.icons.tags"
       :title="category.name"
-      :recipes="category.recipes"
-      @sort="assignSorted"
+      :recipes="recipes"
+      :tag-slug="tag.slug"
+      :use-pagination="true"
+      @sortRecipes="assignSorted"
+      @replaceRecipes="replaceRecipes"
+      @appendRecipes="appendRecipes"
+      @delete="removeRecipe"
     >
       <template #title>
         <v-btn icon class="mr-1">
@@ -54,6 +59,7 @@
 
 <script lang="ts">
 import { defineComponent, useAsync, useRoute, reactive, toRefs, useRouter } from "@nuxtjs/composition-api";
+import { useLazyRecipes } from "~/composables/recipes";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
@@ -61,6 +67,8 @@ import { Recipe } from "~/types/api-types/recipe";
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
+    const { recipes } = useLazyRecipes();
+
     const api = useUserApi();
     const route = useRoute();
     const router = useRouter();
@@ -100,24 +108,45 @@ export default defineComponent({
       }
     }
 
+    function appendRecipes(val: Array<Recipe>) {
+      val.forEach((recipe) => {
+        recipes.value.push(recipe);
+      });
+    }
+
+    function assignSorted(val: Array<Recipe>) {
+      recipes.value = val;
+    }
+
+    function removeRecipe(slug: string) {
+      for (let i = 0; i < recipes?.value?.length; i++) {
+        if (recipes?.value[i].slug === slug) {
+          recipes?.value.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    function replaceRecipes(val: Array<Recipe>) {
+      recipes.value = val;
+    }
+
     return {
       category,
       reset,
       ...toRefs(state),
       updateCategory,
+      appendRecipes,
+      assignSorted,
+      recipes,
+      removeRecipe,
+      replaceRecipes,
     };
   },
   head() {
     return {
       title: this.$t("category.categories") as string,
     };
-  },
-  methods: {
-    assignSorted(val: Array<Recipe>) {
-      if (this.category) {
-        this.category.recipes = val;
-      }
-    },
   },
 });
 </script>

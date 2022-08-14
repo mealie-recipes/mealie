@@ -206,6 +206,14 @@ export default defineComponent({
       type: Array as () => Recipe[],
       default: () => [],
     },
+    categorySlug: {
+      type: String,
+      default: null,
+    },
+    tagSlug: {
+      type: String,
+      default: null,
+    },
     usePagination: {
       type: Boolean,
       default: false,
@@ -252,6 +260,11 @@ export default defineComponent({
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
+    const category = ref<string>(props.categorySlug);
+    const tag = ref<string>(props.tagSlug);
+
+    console.log(props);
+    console.log(category);
 
     const { fetchMore } = useLazyRecipes();
 
@@ -263,7 +276,9 @@ export default defineComponent({
           // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
           perPage.value*2,
           preferences.value.orderBy,
-          preferences.value.orderDirection
+          preferences.value.orderDirection,
+          category.value,
+          tag.value
         );
 
         // since we doubled the first call, we also need to advance the page
@@ -287,7 +302,9 @@ export default defineComponent({
           page.value,
           perPage.value,
           preferences.value.orderBy,
-          preferences.value.orderDirection
+          preferences.value.orderDirection,
+          category.value,
+          tag.value
         );
         if (!newRecipes.length) {
           hasMore.value = false;

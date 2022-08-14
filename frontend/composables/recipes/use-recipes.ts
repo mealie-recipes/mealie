@@ -61,8 +61,8 @@ export const useLazyRecipes = function () {
 
   const recipes = ref<Recipe[]>([]);
 
-  async function fetchMore(page: number, perPage: number, orderBy: string | null = null, orderDirection = "desc") {
-    const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection });
+  async function fetchMore(page: number, perPage: number, orderBy: string | null = null, orderDirection = "desc", category: string | null = null, tag: string | null = null) {
+    const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection, "categories": category, "tags": tag });
     return data ? data.items : [];
   }
 

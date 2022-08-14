@@ -1,11 +1,16 @@
 <template>
   <v-container>
     <RecipeCardSection
-      v-if="tags"
+      v-if="tag"
       :icon="$globals.icons.tags"
-      :title="tags.name"
-      :recipes="tags.recipes"
-      @sort="assignSorted"
+      :title="tag.name"
+      :recipes="recipes"
+      :tag-slug="tag.slug"
+      :use-pagination="true"
+      @sortRecipes="assignSorted"
+      @replaceRecipes="replaceRecipes"
+      @appendRecipes="appendRecipes"
+      @delete="removeRecipe"
     >
       <template #title>
         <v-btn icon class="mr-1">
@@ -16,7 +21,7 @@
 
         <template v-if="edit">
           <v-text-field
-            v-model="tags.name"
+            v-model="tag.name"
             autofocus
             single-line
             dense
@@ -41,7 +46,7 @@
           <v-tooltip top>
             <template #activator="{ on, attrs }">
               <v-toolbar-title v-bind="attrs" style="cursor: pointer" class="headline" v-on="on" @click="edit = true">
-                {{ tags.name }}
+                {{ tag.name }}
               </v-toolbar-title>
             </template>
             <span> Click to Edit </span>
@@ -54,6 +59,7 @@
 
 <script lang="ts">
 import { defineComponent, useAsync, useRoute, reactive, toRefs, useRouter } from "@nuxtjs/composition-api";
+import { useLazyRecipes } from "~/composables/recipes";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
@@ -61,6 +67,8 @@ import { Recipe } from "~/types/api-types/recipe";
 export default defineComponent({
   components: { RecipeCardSection },
   setup() {
+    const { recipes } = useLazyRecipes();
+
     const api = useUserApi();
     const route = useRoute();
     const router = useRouter();
@@ -71,7 +79,7 @@ export default defineComponent({
       edit: false,
     });
 
-    const tags = useAsync(async () => {
+    const tag = useAsync(async () => {
       const { data } = await api.tags.bySlug(slug);
       if (data) {
         state.initialValue = data.name;
@@ -82,42 +90,63 @@ export default defineComponent({
     function reset() {
       state.edit = false;
 
-      if (tags.value) {
-        tags.value.name = state.initialValue;
+      if (tag.value) {
+        tag.value.name = state.initialValue;
       }
     }
 
     async function updateTags() {
       state.edit = false;
 
-      if (!tags.value) {
+      if (!tag.value) {
         return;
       }
-      const { data } = await api.tags.updateOne(tags.value.id, tags.value);
+      const { data } = await api.tags.updateOne(tag.value.id, tag.value);
 
       if (data) {
         router.push("/recipes/tags/" + data.slug);
       }
     }
 
+    function appendRecipes(val: Array<Recipe>) {
+      val.forEach((recipe) => {
+        recipes.value.push(recipe);
+      });
+    }
+
+    function assignSorted(val: Array<Recipe>) {
+      recipes.value = val;
+    }
+
+    function removeRecipe(slug: string) {
+      for (let i = 0; i < recipes?.value?.length; i++) {
+        if (recipes?.value[i].slug === slug) {
+          recipes?.value.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    function replaceRecipes(val: Array<Recipe>) {
+      recipes.value = val;
+    }
+
     return {
-      tags,
+      tag,
       reset,
       ...toRefs(state),
       updateTags,
+      appendRecipes,
+      assignSorted,
+      recipes,
+      removeRecipe,
+      replaceRecipes,
     };
   },
   head() {
     return {
       title: this.$t("tag.tags") as string,
     };
-  },
-  methods: {
-    assignSorted(val: Array<Recipe>) {
-      if (this.tags) {
-        this.tags.recipes = val;
-      }
-    },
   },
 });
 </script>
