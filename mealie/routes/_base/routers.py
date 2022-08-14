@@ -1,3 +1,4 @@
+import contextlib
 import json
 from collections.abc import Callable
 from enum import Enum
@@ -31,16 +32,15 @@ class MealieCrudRoute(APIRoute):
         original_route_handler = super().get_route_handler()
 
         async def custom_route_handler(request: Request) -> Response:
-            try:
+            with contextlib.suppress(JSONDecodeError):
                 response = await original_route_handler(request)
                 response_body = json.loads(response.body)
                 if type(response_body) == dict:
                     if last_modified := response_body.get("updateAt"):
                         response.headers["last-modified"] = last_modified
 
-            except JSONDecodeError:
-                pass
-
+                        # Force no-cache for all responses to prevent browser from caching API calls
+                        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
             return response
 
         return custom_route_handler
