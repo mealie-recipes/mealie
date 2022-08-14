@@ -5,7 +5,7 @@
       <!-- Delete Dialog -->
       <BaseDialog
         v-model="deleteDialog"
-        :title="$t('settings.backup.delete-backup')"
+        :title="$tc('settings.backup.delete-backup')"
         color="error"
         :icon="$globals.icons.alertCircle"
         @confirm="deleteBackup()"
@@ -38,7 +38,7 @@
           </BaseButton>
         </v-card-actions>
         <p class="caption pb-0 mb-1 text-center">
-          {{ selected.name }}
+          {{ selected }}
         </p>
       </BaseDialog>
 
@@ -47,9 +47,12 @@
           <v-card-text class="py-0 px-1">
             Backups a total snapshots of the database and data directory of the site. This includes all data and cannot
             be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time.
-            Currently, this backup mechanism is not cross-version and therefore cannot be used to migrate data between
-            versions (data migrations are not done automatically). These serve as a database agnostic way to export and
-            import data or backup the site to an external location.
+            Currently,
+            <b>
+              this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions
+            </b>
+            (data migrations are not done automatically). These serve as a database agnostic way to export and import
+            data or backup the site to an external location.
           </v-card-text>
         </BaseCardSectionTitle>
         <BaseButton @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
@@ -78,7 +81,7 @@
             >
               <v-icon> {{ $globals.icons.delete }} </v-icon>
             </v-btn>
-            <BaseButton small download :download-url="backupsFileNameDownload(item.name)" @click.stop />
+            <BaseButton small download :download-url="backupsFileNameDownload(item.name)" @click.stop="() => {}" />
           </template>
         </v-data-table>
         <v-divider></v-divider>
@@ -137,11 +140,15 @@ export default defineComponent({
     }
 
     async function restoreBackup(fileName: string) {
-      const { data } = await adminApi.backups.restore(fileName);
+      const { error } = await adminApi.backups.restore(fileName);
 
-      if (!data?.error) {
-        $auth.logout();
+      if (error) {
+        console.log(error);
+        state.importDialog = false;
+        return;
       }
+
+      $auth.logout();
     }
 
     const deleteTarget = ref("");

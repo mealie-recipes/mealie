@@ -9,6 +9,10 @@ from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
 
 
+class BackupSchemaMismatch(Exception):
+    ...
+
+
 class BackupV2(BaseService):
     def __init__(self, db_url: str = None) -> None:
         super().__init__()
@@ -73,18 +77,28 @@ class BackupV2(BaseService):
             self._postgres()
 
         with backup as contents:
+            # ================================
+            # Validation
             if not contents.validate():
                 self.logger.error(
                     "Invalid backup file. file does not contain required elements (data directory and database.json"
                 )
                 raise ValueError("Invalid backup file")
 
-            # Purge the Database
+            database_json = contents.read_tables()
+
+            if not AlchemyExporter.validate_schemas(database_json, self.db_exporter.dump()):
+                self.logger.error("Invalid backup file. Database schemas do not match")
+                raise BackupSchemaMismatch("Invalid backup file. Database schemas do not match")
+
+            # ================================
+            # Purge Database
 
             self.logger.info("dropping all database tables")
             self.db_exporter.drop_all()
 
-            database_json = contents.read_tables()
+            # ================================
+            # Restore Database
 
             self.logger.info("importing database tables")
             self.db_exporter.restore(database_json)
