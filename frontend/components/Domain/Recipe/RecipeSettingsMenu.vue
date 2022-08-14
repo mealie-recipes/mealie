@@ -17,17 +17,7 @@
         </v-card-title>
         <v-divider class="mx-2"></v-divider>
         <v-card-text class="mt-n5 pt-6 pb-2">
-          <v-switch
-            v-for="(itemValue, key) in value"
-            :key="key"
-            v-model="value[key]"
-            xs
-            dense
-            :disabled="key == 'locked' && !isOwner"
-            class="my-1"
-            :label="labels[key]"
-            hide-details
-          ></v-switch>
+          <RecipeSettingsSwitches v-model="value" :is-owner="isOwner" />
         </v-card-text>
       </v-card>
     </v-menu>
@@ -35,9 +25,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from "@nuxtjs/composition-api";
+import { defineComponent } from "@nuxtjs/composition-api";
+import RecipeSettingsSwitches from "./RecipeSettingsSwitches.vue";
 
 export default defineComponent({
+  components: { RecipeSettingsSwitches },
   props: {
     value: {
       type: Object,
@@ -47,22 +39,6 @@ export default defineComponent({
       type: Boolean,
       required: false,
     },
-  },
-  setup() {
-    const { i18n } = useContext();
-    const labels = {
-      public: i18n.t("recipe.public-recipe"),
-      showNutrition: i18n.t("recipe.show-nutrition-values"),
-      showAssets: i18n.t("asset.show-assets"),
-      landscapeView: i18n.t("recipe.landscape-view-coming-soon"),
-      disableComments: i18n.t("recipe.disable-comments"),
-      disableAmount: i18n.t("recipe.disable-amount"),
-      locked: i18n.t("recipe.locked"),
-    };
-
-    return {
-      labels,
-    };
   },
 });
 </script>
