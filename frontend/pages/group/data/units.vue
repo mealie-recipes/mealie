@@ -55,7 +55,7 @@
       @submit="editSaveUnit"
     >
       <v-card-text v-if="editTarget">
-        <v-form ref="domCreateUnitForm">
+        <v-form ref="domEditUnitForm">
           <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
           <v-text-field v-model="editTarget.abbreviation" label="Abbreviation"></v-text-field>
           <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
@@ -329,6 +329,7 @@ export default defineComponent({
       validators,
       // Create
       createDialog,
+      domNewUnitForm,
       createEventHandler,
       createUnit,
       createTarget,

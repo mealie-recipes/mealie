@@ -248,7 +248,7 @@ export default defineComponent({
     }
 
     const page = ref(1);
-    const perPage = ref(30);
+    const perPage = ref(32);
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
@@ -259,10 +259,16 @@ export default defineComponent({
       if (props.usePagination) {
         const newRecipes = await fetchMore(
           page.value,
-          perPage.value,
+
+          // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
+          perPage.value*2,
           preferences.value.orderBy,
           preferences.value.orderDirection
         );
+
+        // since we doubled the first call, we also need to advance the page
+        page.value = page.value + 1;
+
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
         ready.value = true;
       }
@@ -325,7 +331,7 @@ export default defineComponent({
           setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending);
           break;
         case EVENTS.updated:
-          setter("updated_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
+          setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
           break;
         default:
           console.log("Unknown Event", sortType);
