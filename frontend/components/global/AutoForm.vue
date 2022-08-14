@@ -187,9 +187,16 @@ export default defineComponent({
 
       const list = [] as ((v: string) => boolean | string)[];
       keys.forEach((key) => {
-        if (key in validators) {
-          // @ts-ignore TODO: fix this
-          list.push(validators[key]);
+        const split = key.split(":");
+        const validatorKey = split[0] as ValidatorKey;
+        if (validatorKey in validators) {
+          if (split.length === 1) {
+            // @ts-ignore- validators[validatorKey] is a function
+            list.push(validators[validatorKey]);
+          } else {
+            // @ts-ignore - validators[validatorKey] is a function
+            list.push(validators[validatorKey](split[1]));
+          }
         }
       });
       return list;

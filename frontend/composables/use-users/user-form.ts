@@ -27,7 +27,7 @@ export const useUserForm = () => {
       varName: "password",
       disableUpdate: true,
       type: fieldTypes.PASSWORD,
-      rules: ["required"],
+      rules: ["required", "minLength:8"],
     },
     {
       section: "Permissions",
