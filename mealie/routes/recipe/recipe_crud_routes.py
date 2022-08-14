@@ -213,12 +213,14 @@ class RecipeController(BaseRecipeController):
         q: RecipePaginationQuery = Depends(RecipePaginationQuery),
         categories: Optional[list[UUID4 | str]] = Query(None),
         tags: Optional[list[UUID4 | str]] = Query(None),
+        tools: Optional[list[UUID4 | str]] = Query(None),
     ):
         response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
             categories=categories,
             tags=tags,
+            tools=tools,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
