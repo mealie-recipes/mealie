@@ -4,6 +4,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipePaginationQuery, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
+from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -276,3 +277,84 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
         tag_ids = [tag.id for tag in recipe_summary.tags]
         for tag in created_tags:
             assert tag.id in tag_ids
+
+
+def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user: TestUser):
+    slug1, slug2 = [random_string(10) for _ in range(2)]
+
+    tools = [
+        RecipeToolSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        RecipeToolSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+    ]
+
+    created_tools = [database.tools.create(tool) for tool in tools]
+
+    # Bootstrap the database with recipes
+    recipes = []
+
+    for i in range(10):
+        # None of the tools
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+            )
+        )
+
+        # Only one of the tools
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                tools=[created_tools[i % 2]],
+            ),
+        )
+
+        # Both of the tools
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                tools=created_tools,
+            )
+        )
+
+    for recipe in recipes:
+        database.recipes.create(recipe)
+
+    pagination_query = RecipePaginationQuery(
+        page=1,
+        per_page=-1,
+    )
+
+    # Get all recipes with only one tool by UUID
+    tool_id = created_tools[0].id
+    recipes_with_one_tool = database.recipes.page_all(pagination_query, tools=[tool_id]).items
+    assert len(recipes_with_one_tool) == 15
+
+    for recipe_summary in recipes_with_one_tool:
+        tool_ids = [tool.id for tool in recipe_summary.tools]
+        assert tool_id in tool_ids
+
+    # Get all recipes with only one tool by slug
+    tool_slug = created_tools[1].slug
+    recipes_with_one_tool = database.recipes.page_all(pagination_query, tools=[tool_slug]).items
+    assert len(recipes_with_one_tool) == 15
+
+    for recipe_summary in recipes_with_one_tool:
+        tool_slugs = [tool.slug for tool in recipe_summary.tools]
+        assert tool_slug in tool_slugs
+
+    # Get all recipes with both tools
+    recipes_with_both_tools = database.recipes.page_all(
+        pagination_query, tools=[tool.id for tool in created_tools]
+    ).items
+    assert len(recipes_with_both_tools) == 10
+
+    for recipe_summary in recipes_with_both_tools:
+        tool_ids = [tool.id for tool in recipe_summary.tools]
+        for tool in created_tools:
+            assert tool.id in tool_ids
