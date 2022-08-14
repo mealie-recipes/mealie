@@ -5,6 +5,8 @@ from pathlib import Path
 
 
 class BackupContents:
+    _tables: dict = None
+
     def __init__(self, file: Path) -> None:
         self.base = file
         self.data_directory = self.base / "data"
@@ -22,9 +24,22 @@ class BackupContents:
 
         return True
 
+    def schema_version(self) -> str:
+        tables = self.read_tables()
+
+        alembic_version = tables.get("alembic_version", [])
+
+        if not alembic_version:
+            return ""
+
+        return alembic_version[0].get("version_num", "")
+
     def read_tables(self) -> dict:
-        with open(self.tables) as f:
-            return json.loads(f.read())
+        if self._tables is None:
+            with open(self.tables, "r") as f:
+                self._tables = json.load(f)
+
+        return self._tables
 
 
 class BackupFile:
