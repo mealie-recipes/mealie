@@ -58,9 +58,9 @@
       </v-card>
     </v-dialog>
 
-    <div v-if="showCookMode" class="d-flex justify-space-between justify-start">
+    <div class="d-flex justify-space-between justify-start">
       <h2 class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
-      <BaseButton v-if="!public && !edit" minor cancel color="primary" @click="toggleCookMode()">
+      <BaseButton v-if="!public && !edit && showCookMode" minor cancel color="primary" @click="toggleCookMode()">
         <template #icon>
           {{ $globals.icons.primary }}
         </template>
