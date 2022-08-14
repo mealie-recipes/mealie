@@ -58,6 +58,23 @@ class UserController(BaseUserController):
     def get_logged_in_user(self):
         return self.user
 
+    @user_router.put("/password")
+    def update_password(self, password_change: ChangePassword):
+        """Resets the User Password"""
+        if not verify_password(password_change.current_password, self.user.password):
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, ErrorResponse.respond("Invalid current password"))
+
+        self.user.password = hash_password(password_change.new_password)
+        try:
+            self.repos.users.update_password(self.user.id, self.user.password)
+        except Exception as e:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                ErrorResponse.respond("Failed to update password"),
+            ) from e
+
+        return SuccessResponse.respond("Password updated")
+
     @user_router.put("/{item_id}")
     def update_user(self, item_id: UUID4, new_data: UserBase):
         assert_user_change_allowed(item_id, self.user)
@@ -83,20 +100,3 @@ class UserController(BaseUserController):
             ) from e
 
         return SuccessResponse.respond("User updated")
-
-    @user_router.put("/password")
-    def update_password(self, password_change: ChangePassword):
-        """Resets the User Password"""
-        if not verify_password(password_change.current_password, self.user.password):
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, ErrorResponse.respond("Invalid current password"))
-
-        self.user.password = hash_password(password_change.new_password)
-        try:
-            self.repos.users.update_password(self.user.id, self.user.password)
-        except Exception as e:
-            raise HTTPException(
-                status.HTTP_400_BAD_REQUEST,
-                ErrorResponse.respond("Failed to update password"),
-            ) from e
-
-        return SuccessResponse.respond("Password updated")
