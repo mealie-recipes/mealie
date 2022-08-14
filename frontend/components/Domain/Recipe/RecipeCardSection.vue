@@ -212,9 +212,6 @@ export default defineComponent({
     const category = ref<string>(props.categorySlug);
     const tag = ref<string>(props.tagSlug);
 
-    console.log(props);
-    console.log(category);
-
     const { fetchMore } = useLazyRecipes();
 
     onMounted(async () => {
