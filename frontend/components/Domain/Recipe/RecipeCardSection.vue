@@ -226,7 +226,7 @@ export default defineComponent({
         preferences.value.orderBy,
         preferences.value.orderDirection,
         category.value,
-        tag.value
+        tag.value,
       );
 
       // since we doubled the first call, we also need to advance the page
@@ -251,7 +251,7 @@ export default defineComponent({
           preferences.value.orderBy,
           preferences.value.orderDirection,
           category.value,
-          tag.value
+          tag.value,
         );
         if (!newRecipes.length) {
           hasMore.value = false;
@@ -309,7 +309,9 @@ export default defineComponent({
           page.value,
           perPage.value,
           preferences.value.orderBy,
-          preferences.value.orderDirection
+          preferences.value.orderDirection,
+          category.value,
+          tag.value,
         );
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 

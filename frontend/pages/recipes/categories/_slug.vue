@@ -5,7 +5,7 @@
       :icon="$globals.icons.tags"
       :title="category.name"
       :recipes="recipes"
-      :tag-slug="tag.slug"
+      :category-slug="category.slug"
       @sortRecipes="assignSorted"
       @replaceRecipes="replaceRecipes"
       @appendRecipes="appendRecipes"
