@@ -44,9 +44,6 @@ class Tag(SqlAlchemyBase, BaseMixins):
     slug = sa.Column(sa.String, index=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes_to_tags, back_populates="tags")
 
-    class Config:
-        get_attr = "slug"
-
     @validates("name")
     def validate_name(self, key, name):
         assert name != ""
