@@ -55,6 +55,15 @@
           </v-virtual-scroll>
         </v-card>
       </v-card-text>
+      <v-card-text v-else-if="dialog.mode == MODES.updateSettings" class="px-12">
+        <p>Settings chosen here, excluding the locked option, will be applied to all selected recipes.</p>
+        <div class="mx-auto">
+          <RecipeSettingsSwitches v-model="recipeSettings" />
+        </div>
+        <p class="text-center mb-0">
+          <i>{{ selected.length }} recipe(s) settings will be updated.</i>
+        </p>
+      </v-card-text>
     </BaseDialog>
     <section>
       <!-- Recipe Data Table -->
@@ -100,6 +109,7 @@
           @tag-selected="openDialog(MODES.tag)"
           @categorize-selected="openDialog(MODES.category)"
           @delete-selected="openDialog(MODES.delete)"
+          @update-settings="openDialog(MODES.updateSettings)"
         >
         </BaseOverflowButton>
 
@@ -152,20 +162,22 @@ import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe, RecipeSettings } from "~/types/api-types/recipe";
 import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
 import { GroupDataExport } from "~/types/api-types/group";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
+import RecipeSettingsSwitches from "~/components/Domain/Recipe/RecipeSettingsSwitches.vue";
 
-const MODES = {
-  tag: "tag",
-  category: "category",
-  export: "export",
-  delete: "delete",
-};
+enum MODES {
+  tag = "tag",
+  category = "category",
+  export = "export",
+  delete = "delete",
+  updateSettings = "updateSettings",
+}
 
 export default defineComponent({
-  components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData },
+  components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches },
   scrollToTop: true,
   setup() {
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true);
@@ -216,6 +228,11 @@ export default defineComponent({
         icon: $globals.icons.tags,
         text: "Categorize",
         event: "categorize-selected",
+      },
+      {
+        icon: $globals.icons.cog,
+        text: "Update Settings",
+        event: "update-settings",
       },
       {
         icon: $globals.icons.delete,
@@ -307,6 +324,29 @@ export default defineComponent({
       resetAll();
     }
 
+    const recipeSettings = reactive<RecipeSettings>({
+      public: false,
+      showNutrition: false,
+      showAssets: false,
+      landscapeView: false,
+      disableComments: false,
+      disableAmount: false,
+      locked: false,
+    });
+
+    async function updateSettings() {
+      loading.value = true;
+
+      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+
+      const { response, data } = await api.bulk.bulkSetSettings({ recipes, settings: recipeSettings });
+
+      console.log(response, data);
+
+      await refreshRecipes();
+      resetAll();
+    }
+
     // ============================================================
     // Dialog Management
 
@@ -322,26 +362,29 @@ export default defineComponent({
       icon: $globals.icons.tags,
     });
 
-    function openDialog(mode: string) {
-      const titles = {
+    function openDialog(mode: MODES) {
+      const titles: Record<MODES, string> = {
         [MODES.tag]: "Tag Recipes",
         [MODES.category]: "Categorize Recipes",
         [MODES.export]: "Export Recipes",
         [MODES.delete]: "Delete Recipes",
+        [MODES.updateSettings]: "Update Settings",
       };
 
-      const callbacks = {
+      const callbacks: Record<MODES, () => Promise<void>> = {
         [MODES.tag]: tagSelected,
         [MODES.category]: categorizeSelected,
         [MODES.export]: exportSelected,
         [MODES.delete]: deleteSelected,
+        [MODES.updateSettings]: updateSettings,
       };
 
-      const icons = {
+      const icons: Record<MODES, string> = {
         [MODES.tag]: $globals.icons.tags,
         [MODES.category]: $globals.icons.tags,
         [MODES.export]: $globals.icons.database,
         [MODES.delete]: $globals.icons.delete,
+        [MODES.updateSettings]: $globals.icons.cog,
       };
 
       dialog.mode = mode;
@@ -352,6 +395,7 @@ export default defineComponent({
     }
 
     return {
+      recipeSettings,
       selectAll,
       loading,
       actions,

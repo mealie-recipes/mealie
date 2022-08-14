@@ -18,6 +18,19 @@ export interface CategoryBase {
   id: string;
   slug: string;
 }
+export interface AssignSettings {
+  recipes: string[];
+  settings: RecipeSettings;
+}
+export interface RecipeSettings {
+  public?: boolean;
+  showNutrition?: boolean;
+  showAssets?: boolean;
+  landscapeView?: boolean;
+  disableComments?: boolean;
+  disableAmount?: boolean;
+  locked?: boolean;
+}
 export interface AssignTags {
   recipes: string[];
   tags: TagBase[];
@@ -213,15 +226,6 @@ export interface RecipeStep {
   title?: string;
   text: string;
   ingredientReferences?: IngredientReferences[];
-}
-export interface RecipeSettings {
-  public?: boolean;
-  showNutrition?: boolean;
-  showAssets?: boolean;
-  landscapeView?: boolean;
-  disableComments?: boolean;
-  disableAmount?: boolean;
-  locked?: boolean;
 }
 export interface RecipeAsset {
   name: string;
