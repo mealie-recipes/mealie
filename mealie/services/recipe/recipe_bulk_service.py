@@ -4,6 +4,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe import CategoryBase
 from mealie.schema.recipe.recipe_category import TagBase
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services._base_service import BaseService
 from mealie.services.exporter import Exporter, RecipeExporter
@@ -46,6 +47,22 @@ class RecipeBulkActionsService(BaseService):
                 exports_deleted += 1
 
         return exports_deleted
+
+    def set_settings(self, recipes: list[str], settings: RecipeSettings) -> None:
+        for slug in recipes:
+            recipe = self.repos.recipes.get_one(slug)
+
+            if recipe is None:
+                self.logger.error(f"Failed to set settings for recipe {slug}, no recipe found")
+
+            settings.locked = recipe.settings.locked
+            recipe.settings = settings
+
+            try:
+                self.repos.recipes.update(slug, recipe)
+            except Exception as e:
+                self.logger.error(f"Failed to set settings for recipe {slug}")
+                self.logger.error(e)
 
     def assign_tags(self, recipes: list[str], tags: list[TagBase]) -> None:
         for slug in recipes:

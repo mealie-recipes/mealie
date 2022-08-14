@@ -1,11 +1,10 @@
 import { BaseAPI } from "../_base";
-import { AssignCategories, AssignTags, DeleteRecipes, ExportRecipes } from "~/types/api-types/recipe";
+import { AssignCategories, AssignSettings, AssignTags, DeleteRecipes, ExportRecipes } from "~/types/api-types/recipe";
 import { GroupDataExport } from "~/types/api-types/group";
 
 // Many bulk actions return nothing
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface BulkActionResponse {
-}
+interface BulkActionResponse {}
 
 const prefix = "/api";
 
@@ -15,6 +14,7 @@ const routes = {
   bulkCategorize: prefix + "/recipes/bulk-actions/categorize",
   bulkTag: prefix + "/recipes/bulk-actions/tag",
   bulkDelete: prefix + "/recipes/bulk-actions/delete",
+  bulkSettings: prefix + "/recipes/bulk-actions/settings",
 };
 
 export class BulkActionsAPI extends BaseAPI {
@@ -24,6 +24,10 @@ export class BulkActionsAPI extends BaseAPI {
 
   async bulkCategorize(payload: AssignCategories) {
     return await this.requests.post<BulkActionResponse>(routes.bulkCategorize, payload);
+  }
+
+  async bulkSetSettings(payload: AssignSettings) {
+    return await this.requests.post<BulkActionResponse>(routes.bulkSettings, payload);
   }
 
   async bulkTag(payload: AssignTags) {

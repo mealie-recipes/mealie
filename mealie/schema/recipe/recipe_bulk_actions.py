@@ -2,6 +2,7 @@ import enum
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 
 
 class ExportTypes(str, enum.Enum):
@@ -22,6 +23,10 @@ class AssignCategories(ExportBase):
 
 class AssignTags(ExportBase):
     tags: list[TagBase]
+
+
+class AssignSettings(ExportBase):
+    settings: RecipeSettings
 
 
 class DeleteRecipes(ExportBase):
