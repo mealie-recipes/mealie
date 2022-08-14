@@ -4,7 +4,6 @@
       :icon="$globals.icons.primary"
       :title="$t('page.all-recipes')"
       :recipes="recipes"
-      :use-pagination="true"
       @sortRecipes="assignSorted"
       @replaceRecipes="replaceRecipes"
       @appendRecipes="appendRecipes"

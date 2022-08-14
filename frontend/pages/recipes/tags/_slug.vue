@@ -6,7 +6,6 @@
       :title="tag.name"
       :recipes="recipes"
       :tag-slug="tag.slug"
-      :use-pagination="true"
       @sortRecipes="assignSorted"
       @replaceRecipes="replaceRecipes"
       @appendRecipes="appendRecipes"
