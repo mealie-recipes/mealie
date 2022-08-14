@@ -49,7 +49,7 @@
                 </v-card-actions>
               </v-card>
             </div>
-            <div v-if="state" key="change-password">
+            <div v-else key="change-password">
               <BaseCardSectionTitle class="mt-10" :title="$tc('settings.change-password')"> </BaseCardSectionTitle>
               <v-card outlined>
                 <v-card-text class="pb-0">
@@ -61,16 +61,18 @@
                       validate-on-blur
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+                      :rules="[validators.minLength(1)]"
                       @click:append="showPassword = !showPassword"
-                    ></v-text-field>
+                    />
                     <v-text-field
                       v-model="password.newOne"
                       :prepend-icon="$globals.icons.lock"
                       :label="$t('user.new-password')"
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+                      :rules="[validators.minLength(8)]"
                       @click:append="showPassword = !showPassword"
-                    ></v-text-field>
+                    />
                     <v-text-field
                       v-model="password.newTwo"
                       :prepend-icon="$globals.icons.lock"
@@ -80,7 +82,8 @@
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
                       @click:append="showPassword = !showPassword"
-                    ></v-text-field>
+                    />
+                    <UserPasswordStrength :value="password.newOne" />
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -124,14 +127,17 @@ import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { VForm } from "~/types/vuetify";
 import { UserOut } from "~/types/api-types/user";
+import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
+import { validators } from "~/composables/use-validators";
 
 export default defineComponent({
   components: {
     UserAvatar,
+    UserPasswordStrength,
   },
   setup() {
-    const nuxtContext = useContext();
-    const user = computed(() => nuxtContext.$auth.user as unknown as UserOut);
+    const { $auth } = useContext();
+    const user = computed(() => $auth.user as unknown as UserOut);
 
     watch(user, () => {
       userCopy.value = { ...user.value };
@@ -153,7 +159,7 @@ export default defineComponent({
     async function updateUser() {
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
-        nuxtContext.$auth.fetchUser();
+        $auth.fetchUser();
       }
     }
 
@@ -178,7 +184,16 @@ export default defineComponent({
       loading: false,
     });
 
-    return { ...toRefs(state), updateUser, updatePassword, userCopy, password, domUpdatePassword, passwordsMatch };
+    return {
+      ...toRefs(state),
+      updateUser,
+      updatePassword,
+      userCopy,
+      password,
+      domUpdatePassword,
+      passwordsMatch,
+      validators,
+    };
   },
   head() {
     return {

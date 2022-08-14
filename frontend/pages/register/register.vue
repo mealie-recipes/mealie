@@ -172,17 +172,9 @@
                   :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
                   @click:append="pwFields.togglePasswordShow"
                 />
-                <div class="d-flex justify-center pb-6 mt-n1">
-                  <div style="flex-basis: 500px">
-                    <strong> {{ $t("user.password-strength", { strength: pwStrength.strength.value }) }}</strong>
-                    <v-progress-linear
-                      :value="pwStrength.score.value"
-                      class="rounded-lg"
-                      :color="pwStrength.color.value"
-                      height="15"
-                    />
-                  </div>
-                </div>
+
+                <UserPasswordStrength :value="credentials.password1.value" />
+
                 <v-text-field
                   v-model="credentials.password2.value"
                   v-bind="inputAttrs"
@@ -272,9 +264,10 @@ import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { CreateUserRegistration } from "~/types/api-types/user";
 import { VForm } from "~/types/vuetify";
-import { usePasswordField, usePasswordStrength } from "~/composables/use-passwords";
+import { usePasswordField } from "~/composables/use-passwords";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
+import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 
 const inputAttrs = {
   filled: true,
@@ -284,59 +277,49 @@ const inputAttrs = {
 };
 
 export default defineComponent({
+  components: { UserPasswordStrength },
   layout: "blank",
   setup() {
     const { i18n } = useContext();
-
     const isDark = useDark();
-
     function safeValidate(form: Ref<VForm | null>) {
       if (form.value && form.value.validate) {
         return form.value.validate();
       }
       return false;
     }
-
     // ================================================================
     // Registration Context
     //
     // State is used to manage the registration process states and provide
     // a state machine esq interface to interact with the registration workflow.
     const state = useRegistration();
-
     // ================================================================
     // Handle Token URL / Initialization
     //
-
     const token = useRouteQuery("token");
-
     // TODO: We need to have some way to check to see if the site is in a state
     // Where it needs to be initialized with a user, in that case we'll handle that
     // somewhere...
     function initialUser() {
       return false;
     }
-
     onMounted(() => {
       if (token.value) {
         state.setState(States.ProvideAccountDetails);
         state.setType(RegistrationType.JoinGroup);
       }
-
       if (initialUser()) {
         state.setState(States.ProvideGroupDetails);
         state.setType(RegistrationType.InitialGroup);
       }
     });
-
     // ================================================================
     // Initial
-
     const initial = {
       createGroup: () => {
         state.setState(States.ProvideGroupDetails);
         state.setType(RegistrationType.CreateGroup);
-
         if (token.value != null) {
           token.value = null;
         }
@@ -346,47 +329,36 @@ export default defineComponent({
         state.setType(RegistrationType.JoinGroup);
       },
     };
-
     // ================================================================
     // Provide Token
-
     const domTokenForm = ref<VForm | null>(null);
-
     function validateToken() {
       return true;
     }
-
     const provideToken = {
       next: () => {
         if (!safeValidate(domTokenForm as Ref<VForm>)) {
           return;
         }
-
         if (validateToken()) {
           state.setState(States.ProvideAccountDetails);
         }
       },
     };
-
     // ================================================================
     // Provide Group Details
-
     const publicApi = usePublicApi();
-
     const domGroupForm = ref<VForm | null>(null);
-
     const groupName = ref("");
     const groupSeed = ref(false);
     const groupPrivate = ref(false);
     const groupErrorMessages = ref<string[]>([]);
-
     const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
       groupName,
       (v: string) => publicApi.validators.group(v),
       i18n.tc("validation.group-name-is-taken"),
       groupErrorMessages
     );
-
     const groupDetails = {
       groupName,
       groupSeed,
@@ -395,28 +367,22 @@ export default defineComponent({
         if (!safeValidate(domGroupForm as Ref<VForm>) || !groupNameValid.value) {
           return;
         }
-
         state.setState(States.ProvideAccountDetails);
       },
     };
-
     // ================================================================
     // Provide Account Details
-
     const domAccountForm = ref<VForm | null>(null);
-
     const username = ref("");
     const email = ref("");
     const advancedOptions = ref(false);
     const usernameErrorMessages = ref<string[]>([]);
-
     const { validate: validateUsername, valid: validUsername } = useAsyncValidator(
       username,
       (v: string) => publicApi.validators.username(v),
       i18n.tc("validation.username-is-taken"),
       usernameErrorMessages
     );
-
     const emailErrorMessages = ref<string[]>([]);
     const { validate: validateEmail, valid: validEmail } = useAsyncValidator(
       email,
@@ -424,7 +390,6 @@ export default defineComponent({
       i18n.tc("validation.email-is-taken"),
       emailErrorMessages
     );
-
     const accountDetails = {
       username,
       email,
@@ -433,37 +398,26 @@ export default defineComponent({
         if (!safeValidate(domAccountForm as Ref<VForm>) || !validUsername.value || !validEmail.value) {
           return;
         }
-
         state.setState(States.Confirmation);
       },
     };
-
     // ================================================================
     // Provide Credentials
-
     const password1 = ref("");
     const password2 = ref("");
-
-    const pwStrength = usePasswordStrength(password1);
     const pwFields = usePasswordField();
-
     const passwordMatch = () => password1.value === password2.value || i18n.tc("user.password-must-match");
-
     const credentials = {
       password1,
       password2,
       passwordMatch,
     };
-
     // ================================================================
     // Locale
-
     const { locale } = useLocales();
     const langDialog = ref(false);
-
     // ================================================================
     // Confirmation
-
     const confirmationData = computed(() => {
       return [
         {
@@ -498,10 +452,8 @@ export default defineComponent({
         },
       ];
     });
-
     const api = useUserApi();
     const router = useRouter();
-
     async function submitRegistration() {
       const payload: CreateUserRegistration = {
         email: email.value,
@@ -511,7 +463,6 @@ export default defineComponent({
         locale: locale.value,
         seedData: groupSeed.value,
       };
-
       if (state.ctx.type === RegistrationType.CreateGroup) {
         payload.group = groupName.value;
         payload.advanced = advancedOptions.value;
@@ -519,15 +470,12 @@ export default defineComponent({
       } else {
         payload.groupToken = token.value;
       }
-
       const { response } = await api.register.register(payload);
-
       if (response?.status === 201) {
         alert.success("Registration Success");
         router.push("/login");
       }
     }
-
     return {
       accountDetails,
       confirmationData,
@@ -541,7 +489,6 @@ export default defineComponent({
       langDialog,
       provideToken,
       pwFields,
-      pwStrength,
       RegistrationType,
       state,
       States,
@@ -549,12 +496,10 @@ export default defineComponent({
       usernameErrorMessages,
       validators,
       submitRegistration,
-
       // Validators
       validGroupName,
       validateUsername,
       validateEmail,
-
       // Dom Refs
       domAccountForm,
       domGroupForm,

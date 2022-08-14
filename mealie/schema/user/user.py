@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Optional
 from uuid import UUID
 
-from pydantic import UUID4, validator
+from pydantic import UUID4, Field, validator
 from pydantic.types import constr
 from pydantic.utils import GetterDict
 
@@ -49,7 +49,7 @@ class DeleteTokenResponse(MealieModel):
 
 class ChangePassword(MealieModel):
     current_password: str
-    new_password: str
+    new_password: str = Field(..., min_length=8)
 
 
 class GroupBase(MealieModel):
