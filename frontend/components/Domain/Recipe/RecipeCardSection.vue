@@ -169,6 +169,10 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    toolSlug: {
+      type: String,
+      default: null,
+    },
   },
   setup(props, context) {
     const preferences = useUserSortPreferences();
@@ -211,6 +215,7 @@ export default defineComponent({
     const loading = ref(false);
     const category = ref<string>(props.categorySlug);
     const tag = ref<string>(props.tagSlug);
+    const tool = ref<string>(props.toolSlug);
 
     const { fetchMore } = useLazyRecipes();
 
@@ -224,6 +229,7 @@ export default defineComponent({
         preferences.value.orderDirection,
         category.value,
         tag.value,
+        tool.value,
       );
 
       // since we doubled the first call, we also need to advance the page
@@ -249,6 +255,7 @@ export default defineComponent({
           preferences.value.orderDirection,
           category.value,
           tag.value,
+          tool.value,
         );
         if (!newRecipes.length) {
           hasMore.value = false;
@@ -309,6 +316,7 @@ export default defineComponent({
           preferences.value.orderDirection,
           category.value,
           tag.value,
+          tool.value,
         );
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
