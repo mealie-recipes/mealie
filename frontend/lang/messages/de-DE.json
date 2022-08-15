@@ -367,7 +367,7 @@
     "search-mealie": "Mealie durchsuchen (/ drücken)",
     "search-placeholder": "Suchen...",
     "tag-filter": "Schlagwortfilter",
-    "search-hint": "Press '/'"
+    "search-hint": "'/' drücken"
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
@@ -501,8 +501,8 @@
     "background-tasks": "Background Tasks",
     "parser": "Parser",
     "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "cookbook": "Kochbuch",
+    "create-cookbook": "Ein neues Kochbuch erstellen"
   },
   "signup": {
     "error-signing-up": "Fehler beim Registrieren",
@@ -591,7 +591,7 @@
     "you-are-not-allowed-to-delete-this-user": "Sie sind nicht berechtigt, diesen Benutzer zu entfernen",
     "enable-advanced-content": "Erweiterten Inhalt aktivieren",
     "enable-advanced-content-description": "Aktiviert zusätzliche Funktionen wie Rezept-Skalierung, API-Schlüssel, Webhooks und Datenverwaltung. Keine Sorge, das kann später noch geändert werden.",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Lieblingsrezepte"
   },
   "language-dialog": {
     "translated": "übersetzt",
