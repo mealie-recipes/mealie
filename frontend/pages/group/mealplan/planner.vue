@@ -1,5 +1,14 @@
 <template>
   <v-container>
+    <BaseDialog
+      v-model="createShoppingListDialog"
+      :title="$tc('shopping-list.create-shopping-list')"
+      @submit="createShoppingList"
+    >
+      <v-card-text>
+        <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
+      </v-card-text>
+    </BaseDialog>
     <!-- Create Meal Dialog -->
     <BaseDialog
       v-model="createMealDialog"
@@ -73,6 +82,7 @@
     <div class="d-flex align-center justify-space-between">
       <v-switch v-model="edit" label="Editor"></v-switch>
       <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" text="Settings" />
+      <BaseButton create @click="createShoppingListDialog = true" />
     </div>
     <v-row class="">
       <v-col
@@ -261,7 +271,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
+import { alert } from "~/composables/use-toast";
+import { computed, defineComponent, reactive, toRefs, watch, useContext } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
 import { SortableEvent } from "sortablejs"; // eslint-disable-line
 import draggable from "vuedraggable";
@@ -281,12 +292,17 @@ export default defineComponent({
     RecipeContextMenu,
   },
   setup() {
+    const { i18n } = useContext();
+
     const state = reactive({
       createMealDialog: false,
       edit: false,
       hover: {},
       pickerMenu: null,
       today: new Date(),
+      createName: "",
+      createDialog: false,
+      createShoppingListDialog: false,
     });
 
     const weekRange = computed(() => {
@@ -406,6 +422,25 @@ export default defineComponent({
       }
     }
 
+    async function addRecipeToList(listId: string, recipeId: string) {
+      const { data } = await api.shopping.lists.addRecipe(listId, recipeId);
+      if (data) {
+        alert.success(i18n.t("recipe.recipe-added-to-list") as string);
+      }
+    }
+
+    async function createShoppingList() {
+      const { data } = await api.shopping.lists.createOne({ name: state.createName });
+
+      if (data) {
+        mealplans.value.forEach((meal, index) => {
+          // Add the meal as recipe to the shopping list
+          addRecipeToList(data.id, meal.recipeId);
+        });
+        state.createName = "";
+      }
+    }
+
     return {
       ...toRefs(state),
       actions,
@@ -424,6 +459,7 @@ export default defineComponent({
       randomMeal,
       resetDialog,
       weekRange,
+      createShoppingList,
     };
   },
   head() {
