@@ -317,7 +317,7 @@
     "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden",
     "no-recipe": "Kein Rezept",
     "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
+    "join-the-conversation": "Beteilige dich an der Unterhaltung",
     "add-recipe-to-mealplan": "Rezept zum Essensplan hinzufügen",
     "entry-type": "Entry Type",
     "date-format-hint": "Schreibweise MM/DD/YYYY",
@@ -338,7 +338,7 @@
     "ingredient-linker": "Zutaten-Verlinkung",
     "linked-to-other-step": "In anderem Schritt verlinkt",
     "auto": "Auto",
-    "cook-mode": "Cook Mode",
+    "cook-mode": "Koch-Modus",
     "link-ingredients": "Zutaten verlinken",
     "merge-above": "Mit Eintrag darüber zusammenführen",
     "reset-scale": "Maßstab zurücksetzen",
@@ -509,11 +509,11 @@
     "tag-name": "Name des Schlagworts"
   },
   "tool": {
-    "tools": "Utensilien",
+    "tools": "Hilfsmittel",
     "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
+    "create-a-tool": "Ein Hilfsmittel erstellen",
+    "tool-name": "Hilfsmittel Bezeichnung",
+    "create-new-tool": "Neues Hilfsmittel erstellen",
     "on-hand-checkbox-label": "Show as On Hand (Checked)"
   },
   "user": {
