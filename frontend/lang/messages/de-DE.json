@@ -316,7 +316,7 @@
     "total-time": "Gesamtzeit",
     "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden",
     "no-recipe": "Kein Rezept",
-    "locked-by-owner": "Locked by Owner",
+    "locked-by-owner": "Vom Besitzer gesperrt",
     "join-the-conversation": "Beteilige dich an der Unterhaltung",
     "add-recipe-to-mealplan": "Rezept zum Essensplan hinzufügen",
     "entry-type": "Entry Type",
@@ -326,11 +326,11 @@
     "recipe-added-to-list": "Rezept wurde zur Einkaufsliste hinzugefügt",
     "recipe-added-to-mealplan": "Rezept zum Essensplan hinzugefügt",
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
-    "yield": "Yield",
+    "yield": "Ergibt",
     "quantity": "Menge",
-    "choose-unit": "Einheit auswählen",
+    "choose-unit": "Einheit wählen",
     "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Zutat auswählen",
+    "choose-food": "Zutat wählen",
     "notes": "Notizen",
     "toggle-section": "Überschrift ein-/ausblenden",
     "see-original-text": "Originaltext anzeigen",
@@ -344,7 +344,7 @@
     "reset-scale": "Maßstab zurücksetzen",
     "decrease-scale-label": "Maßstab um 1 verringern",
     "increase-scale-label": "Maßstab um 1 erhöhen",
-    "locked": "Locked"
+    "locked": "Gesperrt"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -537,7 +537,7 @@
     "link-id": "Linkkennung",
     "link-name": "Linkname",
     "login": "Anmeldung",
-    "logout": "Ausloggen",
+    "logout": "Abmelden",
     "manage-users": "Benutzer verwalten",
     "new-password": "Neues Passwort",
     "new-user": "Neuer Benutzer",
@@ -614,15 +614,15 @@
   },
   "export": {
     "export": "Export",
-    "file-name": "File Name",
+    "file-name": "Dateiname",
     "size": "Größe",
-    "link-expires": "Link Expires"
+    "link-expires": "Link verfällt"
   },
   "recipe-share": {
-    "expiration-date": "Gültig bis",
+    "expiration-date": "Ablaufdatum",
     "share-recipe": "Rezept teilen",
     "default-30-days": "Standard 30 Tage",
-    "expires-at": "Expires At",
+    "expires-at": "Gültig bis",
     "recipe-link-copied-message": "Rezept-Link in Zwischenablage kopiert"
   }
 }
