@@ -20,7 +20,8 @@
     "portfolio": "Портфоліо",
     "production": "Користувацький",
     "support": "Підтримка",
-    "version": "Версія"
+    "version": "Версія",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Медіа-ресурси",
@@ -44,7 +45,8 @@
     "category-updated": "Категорію оновлено",
     "uncategorized-count": "Без категорії {count}",
     "create-a-category": "Створити Категорію",
-    "category-name": "Назва категорії"
+    "category-name": "Назва категорії",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "URL-адреса Apprise",
@@ -65,7 +67,7 @@
     "close": "Закрити",
     "confirm": "Підтвердити",
     "confirm-delete-generic": "Ви дійсно бажаєте видалити це?",
-    "copied": "Скопійовано",
+    "copied_message": "Copied!",
     "create": "Створити",
     "created": "Створено",
     "custom": "Власний",
@@ -150,7 +152,10 @@
     "delete-with-name": "Видалити {name}",
     "confirm-delete-generic-with-name": "Ви дійсно хочете видалити {name}?",
     "organizer": "Організатор",
-    "transfer": "Передача"
+    "transfer": "Передача",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Переглянути зібрані дані",
     "trim-whitespace-description": "Обрізати початкові та кінцеву пробілів і порожні лінії",
     "trim-prefix-description": "Обрізати перший символ з кожного рядка",
-    "split-by-numbered-line-description": "Пробує розділити абзац по '1)' або '1.' шаблону"
+    "split-by-numbered-line-description": "Пробує розділити абзац по '1)' або '1.' шаблону",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404 - Сторінка не знайдена",
@@ -254,7 +261,9 @@
     "page-update-failed": "Не вдалося оновити сторінку",
     "page-updated": "Сторінку оновлено",
     "pages-update-failed": "Не вдалося оновити сторінки",
-    "pages-updated": "Сторінки оновлено"
+    "pages-updated": "Сторінки оновлено",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Додати ключ",
@@ -357,7 +366,8 @@
     "search": "Пошук",
     "search-mealie": "Пошук по Mealie (натисніть /)",
     "search-placeholder": "Пошук...",
-    "tag-filter": "Фільтр міток"
+    "tag-filter": "Фільтр міток",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Додати нову тему",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Назва обов'язкова.",
       "theme-saved": "Тему збережено",
       "theme-updated": "Тему оновлено",
-      "warning": "Попередження"
+      "warning": "Попередження",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "АКТИВНІ КЛЮЧІ",
@@ -484,7 +496,13 @@
     "site-settings": "Налаштування",
     "tags": "Мітки",
     "toolbox": "Інструменти",
-    "language": "Мова"
+    "language": "Мова",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Помилка реєстрації",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Вам не дозволено створювати користувача",
     "you-are-not-allowed-to-delete-this-user": "Вам не дозволено видаляти користувача",
     "enable-advanced-content": "Увімкнути розширений контент",
-    "enable-advanced-content-description": "Вмикає розширені функції, такі як масштабування рецептів, ключі API, вебхуки та керування даними. Не хвилюйтесь, завжди можна змінити це пізніше"
+    "enable-advanced-content-description": "Вмикає розширені функції, такі як масштабування рецептів, ключі API, вебхуки та керування даними. Не хвилюйтесь, завжди можна змінити це пізніше",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "перекладено",
@@ -624,5 +643,21 @@
     "default-30-days": "30 днів за замовчуванням",
     "expires-at": "Дійсний до",
     "recipe-link-copied-message": "Посилання на рецепт скопійовано в буфер обміну"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }
