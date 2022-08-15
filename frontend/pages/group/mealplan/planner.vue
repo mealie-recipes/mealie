@@ -271,11 +271,11 @@
 </template>
 
 <script lang="ts">
-import { alert } from "~/composables/use-toast";
 import { computed, defineComponent, reactive, toRefs, watch, useContext } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
 import { SortableEvent } from "sortablejs"; // eslint-disable-line
 import draggable from "vuedraggable";
+import { alert } from "~/composables/use-toast";
 import { useMealplans, planTypeOptions } from "~/composables/use-group-mealplan";
 import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
@@ -430,14 +430,18 @@ export default defineComponent({
     }
 
     async function createShoppingList() {
-      const { data } = await api.shopping.lists.createOne({ name: state.createName });
+      if (mealplans.value == null) {
+        alert.error("Mealplan is empty");
+      } else {
+        const { data } = await api.shopping.lists.createOne({ name: state.createName });
 
-      if (data) {
-        mealplans.value.forEach((meal, index) => {
-          // Add the meal as recipe to the shopping list
-          addRecipeToList(data.id, meal.recipeId);
-        });
-        state.createName = "";
+        if (data) {
+          mealplans.value.forEach((meal) => {
+            // Add the meal as recipe to the shopping list
+            addRecipeToList(data.id, meal.recipeId as string);
+          });
+          state.createName = "";
+        }
       }
     }
 
