@@ -20,7 +20,7 @@ export default defineComponent({
     },
     text: {
       type: String,
-      default: "Link",
+      required: true,
     },
     icon: {
       type: String,

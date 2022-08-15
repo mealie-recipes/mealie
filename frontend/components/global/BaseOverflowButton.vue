@@ -1,4 +1,4 @@
-  <template>
+<template>
   <v-menu offset-y>
     <template #activator="{ on, attrs }">
       <v-btn color="primary" v-bind="{ ...attrs, ...$attrs }" :class="btnClass" :disabled="disabled" v-on="on">
@@ -94,6 +94,7 @@ export default defineComponent({
     btnText: {
       type: String,
       required: false,
+      // TODO Figure out how to localize this default value
       default: "Actions",
     },
   },
@@ -115,7 +116,7 @@ export default defineComponent({
 
     function setValue(v: MenuItem) {
       context.emit(INPUT_EVENT, v.value);
-      activeObj.value = v; 
+      activeObj.value = v;
     }
 
     return {
@@ -127,6 +128,3 @@ export default defineComponent({
   },
 });
 </script>
-
-
-    

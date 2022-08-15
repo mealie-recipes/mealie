@@ -102,6 +102,7 @@ export default defineComponent({
     },
     submitText: {
       type: String,
+      // TODO Figure out how to localize this default value
       default: () => "Create",
     },
     keepOpen: {

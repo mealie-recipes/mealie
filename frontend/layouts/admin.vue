@@ -6,7 +6,7 @@
       :top-link="topLinks"
       :bottom-links="bottomLinks"
       :user="{ data: true }"
-      secondary-header="Developer"
+      :secondary-header="$t('sidebar.developer')"
       :secondary-links="developerLinks"
     />
 
@@ -77,17 +77,17 @@ export default defineComponent({
       {
         icon: $globals.icons.wrench,
         to: "/admin/maintenance",
-        title: "Maintenance",
+        title: i18n.t("sidebar.maintenance"),
       },
       {
         icon: $globals.icons.check,
         to: "/admin/background-tasks",
-        title: "Background Tasks",
+        title: i18n.t("sidebar.background-tasks"),
       },
       {
         icon: $globals.icons.slotMachine,
         to: "/admin/parser",
-        title: "Parser",
+        title: i18n.t("sidebar.parser"),
       },
     ];
 

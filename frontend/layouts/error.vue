@@ -39,9 +39,15 @@ export default defineComponent({
     },
   },
   setup(props) {
-    useMeta({ title: props.error.statusCode === 404 ? "404 Not Found" : "An error occurred" });
-
     const { $globals, i18n } = useContext();
+
+    useMeta({
+      title:
+        props.error.statusCode === 404
+          ? (i18n.t("page.404-not-found") as string)
+          : (i18n.t("page.an-error-occurred") as string),
+    });
+
     const buttons = [
       { icon: $globals.icons.home, to: "/", text: i18n.t("general.home") },
       { icon: $globals.icons.primary, to: "/recipes/all", text: i18n.t("page.all-recipes") },
@@ -50,7 +56,7 @@ export default defineComponent({
 
     return {
       buttons,
-    }
+    };
   },
   // Needed for useMeta
   head: {},
@@ -67,4 +73,3 @@ p {
   font-size: 200px;
 }
 </style>
-

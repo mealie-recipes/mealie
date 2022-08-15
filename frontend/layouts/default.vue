@@ -6,7 +6,7 @@
       v-model="sidebar"
       absolute
       :top-link="topLinks"
-      secondary-header="Cookbooks"
+      :secondary-header="$t('sidebar.cookbooks')"
       secondary-header-link="/group/cookbooks"
       :secondary-links="cookbookLinks || []"
       :bottom-links="isAdmin ? bottomLink : []"
@@ -57,7 +57,9 @@
               {{ $vuetify.theme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
             </v-icon>
           </v-list-item-icon>
-          <v-list-item-title> {{ $vuetify.theme.dark ? "Light Mode" : "Dark Mode" }} </v-list-item-title>
+          <v-list-item-title>
+            {{ $vuetify.theme.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
+          </v-list-item-title>
         </v-list-item>
       </template>
     </AppSidebar>
@@ -89,7 +91,7 @@ export default defineComponent({
   middleware: "auth",
   setup() {
     const { cookbooks } = useCookbooks();
-    const { $globals, $auth, $vuetify } = useContext();
+    const { $globals, $auth, $vuetify, i18n } = useContext();
 
     const isAdmin = computed(() => $auth.user?.admin);
 
@@ -113,83 +115,83 @@ export default defineComponent({
         };
       });
     });
-    return { cookbookLinks, isAdmin, languageDialog, toggleDark, sidebar };
-  },
-  data() {
-    return {
-      createLinks: [
-        {
-          icon: this.$globals.icons.link,
-          title: "Import",
-          subtitle: "Import a recipe by URL",
-          to: "/recipe/create/url",
-          restricted: true,
-        },
-        { divider: true },
-        {
-          icon: this.$globals.icons.edit,
-          title: "Create",
-          subtitle: "Create a recipe manually",
-          to: "/recipe/create/new",
-          restricted: true,
-        },
-        { divider: true },
-        {
-          icon: this.$globals.icons.pages,
-          title: "Cookbook",
-          subtitle: "Create a new cookbook",
-          to: "/group/cookbooks",
-          restricted: true,
-        },
-      ],
-      bottomLink: [
-        {
-          icon: this.$globals.icons.cog,
-          title: this.$t("general.settings"),
-          to: "/admin/site-settings",
-          restricted: true,
-        },
-      ],
-      topLinks: [
-        {
-          icon: this.$globals.icons.calendarMultiselect,
-          title: this.$t("meal-plan.meal-planner"),
-          to: "/group/mealplan/planner",
-          restricted: true,
-        },
-        {
-          icon: this.$globals.icons.formatListCheck,
-          title: this.$t("shopping-list.shopping-lists"),
-          to: "/shopping-lists",
-          restricted: true,
-        },
-        {
-          icon: this.$globals.icons.viewModule,
-          to: "/recipes/all",
-          title: this.$t("sidebar.all-recipes"),
-        },
-        {
-          icon: this.$globals.icons.search,
-          to: "/search",
-          title: this.$t("sidebar.search"),
-        },
-        {
-          icon: this.$globals.icons.tags,
-          to: "/recipes/categories",
-          title: this.$t("sidebar.categories"),
-        },
-        {
-          icon: this.$globals.icons.tags,
-          to: "/recipes/tags",
-          title: this.$t("sidebar.tags"),
-        },
-        {
-          icon: this.$globals.icons.potSteam,
-          to: "/recipes/tools",
-          title: "Tools",
-        },
-      ],
-    };
+
+    const createLinks = [
+      {
+        icon: $globals.icons.link,
+        title: i18n.t("general.import"),
+        subtitle: i18n.t("new-recipe.import-by-url"),
+        to: "/recipe/create/url",
+        restricted: true,
+      },
+      { divider: true },
+      {
+        icon: $globals.icons.edit,
+        title: i18n.t("general.create"),
+        subtitle: i18n.t("new-recipe.create-manually"),
+        to: "/recipe/create/new",
+        restricted: true,
+      },
+      { divider: true },
+      {
+        icon: $globals.icons.pages,
+        title: i18n.t("sidebar.cookbook"),
+        subtitle: i18n.t("sidebar.create-cookbook"),
+        to: "/group/cookbooks",
+        restricted: true,
+      },
+    ];
+
+    const bottomLink = [
+      {
+        icon: $globals.icons.cog,
+        title: i18n.t("general.settings"),
+        to: "/admin/site-settings",
+        restricted: true,
+      },
+    ];
+
+    const topLinks = [
+      {
+        icon: $globals.icons.calendarMultiselect,
+        title: i18n.t("meal-plan.meal-planner"),
+        to: "/group/mealplan/planner",
+        restricted: true,
+      },
+      {
+        icon: $globals.icons.formatListCheck,
+        title: i18n.t("shopping-list.shopping-lists"),
+        to: "/shopping-lists",
+        restricted: true,
+      },
+      {
+        icon: $globals.icons.viewModule,
+        to: "/recipes/all",
+        title: i18n.t("sidebar.all-recipes"),
+      },
+      {
+        icon: $globals.icons.search,
+        to: "/search",
+        title: i18n.t("sidebar.search"),
+      },
+      {
+        icon: $globals.icons.tags,
+        to: "/recipes/categories",
+        title: i18n.t("sidebar.categories"),
+      },
+      {
+        icon: $globals.icons.tags,
+        to: "/recipes/tags",
+        title: i18n.t("sidebar.tags"),
+      },
+      {
+        icon: $globals.icons.potSteam,
+        to: "/recipes/tools",
+        title: i18n.t("tool.tools"),
+      },
+    ];
+
+    return { cookbookLinks, createLinks, bottomLink, topLinks, isAdmin, languageDialog, toggleDark, sidebar };
   },
 });
 </script>

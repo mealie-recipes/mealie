@@ -28,7 +28,7 @@
           :prepend-inner-icon="$globals.icons.search"
           background-color="primary lighten-1"
           color="white"
-          placeholder="Press '/'"
+          :placeholder="$t('search.search-hint')"
         >
         </v-text-field>
       </div>

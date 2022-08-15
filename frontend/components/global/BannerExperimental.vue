@@ -1,13 +1,12 @@
 <template>
   <v-alert border="left" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
-    <b>Experimental Feature</b>
-    <div>This page contains experimental or still-baking features. Please excuse the mess.</div>
+    <b>{{ $t("banner-experimental.title") }}</b>
+    <div>{{ $t("banner-experimental.description") }}</div>
     <div v-if="issue != ''" class="py-2">
-      <a :href="issue" target="_blank"> Track our progress here</a>
+      <a :href="issue" target="_blank">{{ $t("banner-experimental.issue-link-text") }}</a>
     </div>
   </v-alert>
 </template>
-
 
 <script lang="ts">
 export default {

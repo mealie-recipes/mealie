@@ -129,7 +129,9 @@
           </div>
           <v-card-actions>
             <v-spacer />
-            <BaseButton small @click="value[inputField.varName].push(getTemplate(inputField.items))"> New </BaseButton>
+            <BaseButton small @click="value[inputField.varName].push(getTemplate(inputField.items))">
+              {{ $t("general.new") }}
+            </BaseButton>
           </v-card-actions>
         </div>
       </v-col>
