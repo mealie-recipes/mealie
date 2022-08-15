@@ -20,7 +20,8 @@
     "portfolio": "Portfölj",
     "production": "Produktion",
     "support": "Hjälp",
-    "version": "Version"
+    "version": "Version",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Tillgångar",
@@ -44,7 +45,8 @@
     "category-updated": "Kategori uppdaterad",
     "uncategorized-count": "Ingen Kategori {count}",
     "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "category-name": "Category Name",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -65,7 +67,7 @@
     "close": "Stäng",
     "confirm": "Bekräfta",
     "confirm-delete-generic": "Är du säker på att du vill radera detta?",
-    "copied": "Kopierad",
+    "copied_message": "Copied!",
     "create": "Skapa",
     "created": "Skapad",
     "custom": "Anpassad",
@@ -150,7 +152,10 @@
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Visa skrotade data",
     "trim-whitespace-description": "Ta bort inledande och avslutande blanksteg samt tomma rader",
     "trim-prefix-description": "Ta bort första tecknet från varje rad",
-    "split-by-numbered-line-description": "Försök att dela ett stycke genom att matcha mönstret '1)' eller '1.'"
+    "split-by-numbered-line-description": "Försök att dela ett stycke genom att matcha mönstret '1)' eller '1.'",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404 sidan hittades inte",
@@ -254,7 +261,9 @@
     "page-update-failed": "Sidan gick inte att uppdatera",
     "page-updated": "Sida uppdaterad",
     "pages-update-failed": "Gick inte att uppdatera sidan",
-    "pages-updated": "Sidor uppdaterad"
+    "pages-updated": "Sidor uppdaterad",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Lägg till nyckel",
@@ -357,7 +366,8 @@
     "search": "Sök",
     "search-mealie": "Sök Mealie (tryck /)",
     "search-placeholder": "Sök...",
-    "tag-filter": "Taggfilter"
+    "tag-filter": "Taggfilter",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Lägg till ett nytt tema",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Tema namn krävs.",
       "theme-saved": "Tema sparat",
       "theme-updated": "Tema uppdaterat",
-      "warning": "Varning"
+      "warning": "Varning",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "Aktiv token",
@@ -484,7 +496,13 @@
     "site-settings": "Inställningar",
     "tags": "Taggar",
     "toolbox": "Verktygslåda",
-    "language": "Språk"
+    "language": "Språk",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Fel vid registreringen",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Du har inte behörighet att skapa en användare",
     "you-are-not-allowed-to-delete-this-user": "Du har inte behörighet att radera denna användare",
     "enable-advanced-content": "Aktivera avancerade funktioner",
-    "enable-advanced-content-description": "Aktiverar avancerade funktioner som receptskalning, API-nycklar, Webhooks och datahantering. Oroa dig inte, du kan alltid ändra detta senare"
+    "enable-advanced-content-description": "Aktiverar avancerade funktioner som receptskalning, API-nycklar, Webhooks och datahantering. Oroa dig inte, du kan alltid ändra detta senare",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "översatt",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }
