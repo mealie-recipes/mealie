@@ -3,7 +3,7 @@
     <v-text-field
       v-model.number="quantity"
       hide-details
-      label="Qty"
+      :label="$t('form.quantity-label-abbreviated')"
       :min="min"
       :max="max"
       type="number"
@@ -21,10 +21,6 @@ import { computed, defineComponent } from "@nuxtjs/composition-api";
 export default defineComponent({
   name: "VInputNumber",
   props: {
-    label: {
-      type: String,
-      default: "Qty",
-    },
     min: {
       type: Number,
       default: 0,

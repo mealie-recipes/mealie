@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
 import { ReportSummary } from "~/types/api-types/reports";
 
 export default defineComponent({
@@ -38,13 +38,14 @@ export default defineComponent({
 
   setup(_, context) {
     const router = useRouter();
+    const { i18n } = useContext();
 
     const headers = [
-      { text: "Category", value: "category" },
-      { text: "Name", value: "name" },
-      { text: "Timestamp", value: "timestamp" },
-      { text: "Status", value: "status" },
-      { text: "Delete", value: "actions" },
+      { text: i18n.t("category.category"), value: "category" },
+      { text: i18n.t("general.name"), value: "name" },
+      { text: i18n.t("general.timestamp"), value: "timestamp" },
+      { text: i18n.t("general.status"), value: "status" },
+      { text: i18n.t("general.delete"), value: "actions" },
     ];
 
     function handleRowClick(item: ReportSummary) {

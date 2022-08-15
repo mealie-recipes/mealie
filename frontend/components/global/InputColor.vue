@@ -1,5 +1,5 @@
 <template>
-  <v-text-field v-model="inputVal" label="Color">
+  <v-text-field v-model="inputVal" :label="$t('general.color')">
     <template #prepend>
       <v-btn class="elevation-0" small height="30px" width="30px" :color="inputVal || 'grey'" @click="setRandomHex">
         <v-icon color="white">

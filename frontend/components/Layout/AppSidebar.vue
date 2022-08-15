@@ -8,7 +8,9 @@
         <v-list-item-content>
           <v-list-item-title> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <NuxtLink class="favorites-link" :to="`/user/${$auth.user.id}/favorites`"> Favorite Recipes </NuxtLink>
+            <NuxtLink class="favorites-link" :to="`/user/${$auth.user.id}/favorites`">
+              {{ $t("user.favorite-recipes") }}
+            </NuxtLink>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
