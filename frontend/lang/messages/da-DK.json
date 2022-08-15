@@ -20,7 +20,8 @@
     "portfolio": "Portefølje",
     "production": "Produktion",
     "support": "Hjælp",
-    "version": "Version"
+    "version": "Version",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Ekstramateriale",
@@ -44,7 +45,8 @@
     "category-updated": "Kategori opdateret",
     "uncategorized-count": "Ukategoriseret {count}",
     "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "category-name": "Category Name",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -65,7 +67,7 @@
     "close": "Luk",
     "confirm": "Bekræft",
     "confirm-delete-generic": "Er du sikker på, du vil slette dette?",
-    "copied": "Kopieret",
+    "copied_message": "Copied!",
     "create": "Opret",
     "created": "Oprettet",
     "custom": "Brugerdefineret",
@@ -150,7 +152,10 @@
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Vis skrabet data",
     "trim-whitespace-description": "Fjern indledende og efterfølgende mellemrum samt blanke linjer",
     "trim-prefix-description": "Beskær første tegn fra hver linje",
-    "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre"
+    "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -254,7 +261,9 @@
     "page-update-failed": "Opdatering af side fejlede",
     "page-updated": "Side opdateret",
     "pages-update-failed": "Opdatering af sider fejlede",
-    "pages-updated": "Sider opdateret"
+    "pages-updated": "Sider opdateret",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Tilføj nøgle",
@@ -357,7 +366,8 @@
     "search": "Søg",
     "search-mealie": "Søg Mealie (tryk /)",
     "search-placeholder": "Søg...",
-    "tag-filter": "Tagfiler"
+    "tag-filter": "Tagfiler",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Temanavnet er påkrævet.",
       "theme-saved": "Tema gemt",
       "theme-updated": "Tema opdateret",
-      "warning": "Advarsel"
+      "warning": "Advarsel",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "Aktive tokens",
@@ -484,7 +496,13 @@
     "site-settings": "Sideindstil.",
     "tags": "Tags",
     "toolbox": "Værktøjskasse",
-    "language": "Sprog"
+    "language": "Sprog",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Fejl i forbindelse med oprettelse af bruger",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheder til at oprette en ny bruger",
     "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheder til at slette denne bruger",
     "enable-advanced-content": "Tillad avanceret indhold",
-    "enable-advanced-content-description": "Aktiverer avancerede funktioner som skalering af opskrifter, API-nøgler, Webhooks og data håndtering. Du kan altid ændre dit valgt senere"
+    "enable-advanced-content-description": "Aktiverer avancerede funktioner som skalering af opskrifter, API-nøgler, Webhooks og data håndtering. Du kan altid ændre dit valgt senere",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "oversat",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }
