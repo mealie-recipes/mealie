@@ -82,7 +82,10 @@
     <div class="d-flex align-center justify-space-between">
       <v-switch v-model="edit" label="Editor"></v-switch>
       <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" text="Settings" />
-      <BaseButton create @click="createShoppingListDialog = true" />
+      <BaseButton @click="createShoppingListDialog = true">
+        <template #icon> {{ $globals.icons.cartCheck }} </template>
+        Add to Shopping List
+      </BaseButton>
     </div>
     <v-row class="">
       <v-col
