@@ -20,7 +20,8 @@
     "portfolio": "Portfolio",
     "production": "Produkcyjna",
     "support": "Wsparcie",
-    "version": "Wersja"
+    "version": "Wersja",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Zasoby",
@@ -44,7 +45,8 @@
     "category-updated": "Zaktualizowano kategorię",
     "uncategorized-count": "Nieskategoryzowane {count}",
     "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "category-name": "Category Name",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "URL Apprise",
@@ -65,7 +67,7 @@
     "close": "Zamknij",
     "confirm": "Potwierdź",
     "confirm-delete-generic": "Czy jesteś pewien, że chcesz usunąć ten element?",
-    "copied": "Skopiowane",
+    "copied_message": "Copied!",
     "create": "Utwórz",
     "created": "Utworzono",
     "custom": "Niestandardowy",
@@ -150,7 +152,10 @@
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Wyświetl zebrane dane",
     "trim-whitespace-description": "Przytnij pustą przestrzeń przed i po zawartości oraz puste linie",
     "trim-prefix-description": "Przytnij pierwszy znak z każdej linii",
-    "split-by-numbered-line-description": "Próbuj podzielić paragrafy poprzez dopasowanie po wzorcach '1)' i '1.'"
+    "split-by-numbered-line-description": "Próbuj podzielić paragrafy poprzez dopasowanie po wzorcach '1)' i '1.'",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404. Nie znaleziono strony",
@@ -254,7 +261,9 @@
     "page-update-failed": "Aktualizacja strony nie powiodła się",
     "page-updated": "Strona została zaktualizowana",
     "pages-update-failed": "Aktualizacja strony nie powiodła się",
-    "pages-updated": "Strony zostały zaktualizowane"
+    "pages-updated": "Strony zostały zaktualizowane",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Dodaj klucz",
@@ -357,7 +366,8 @@
     "search": "Szukaj",
     "search-mealie": "Przeszukaj Mealie (naciśnij /)",
     "search-placeholder": "Szukaj...",
-    "tag-filter": "Filtr tagów"
+    "tag-filter": "Filtr tagów",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Nazwa motywu jest wymagana.",
       "theme-saved": "Motyw został zapisany",
       "theme-updated": "Motyw został zaktualizowany",
-      "warning": "Ostrzeżenie"
+      "warning": "Ostrzeżenie",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "AKTYWNE TOKENY",
@@ -484,7 +496,13 @@
     "site-settings": "Ustawienia",
     "tags": "Tagi",
     "toolbox": "Przybornik",
-    "language": "Język"
+    "language": "Język",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "W trakcie rejestracji wystąpił błąd",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Nie masz uprawnień do tworzenia użytkowników",
     "you-are-not-allowed-to-delete-this-user": "Nie masz uprawnień do usuwania użytkowników",
     "enable-advanced-content": "Włącz zaawansowane ustawienia",
-    "enable-advanced-content-description": "Włącza funkcje zaawansowane takie jak skalowanie przepisów, klucze API, webhooki i zarządzanie danymi. Nie mart się, opcję tą można później zmienić"
+    "enable-advanced-content-description": "Włącza funkcje zaawansowane takie jak skalowanie przepisów, klucze API, webhooki i zarządzanie danymi. Nie mart się, opcję tą można później zmienić",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "przetłumaczone",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }
