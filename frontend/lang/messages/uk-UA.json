@@ -21,7 +21,7 @@
     "production": "Користувацький",
     "support": "Підтримка",
     "version": "Версія",
-    "unknown-version": "unknown"
+    "unknown-version": "невідомо"
   },
   "asset": {
     "assets": "Медіа-ресурси",
@@ -46,7 +46,7 @@
     "uncategorized-count": "Без категорії {count}",
     "create-a-category": "Створити Категорію",
     "category-name": "Назва категорії",
-    "category": "Category"
+    "category": "Категорія"
   },
   "events": {
     "apprise-url": "URL-адреса Apprise",
@@ -67,7 +67,7 @@
     "close": "Закрити",
     "confirm": "Підтвердити",
     "confirm-delete-generic": "Ви дійсно бажаєте видалити це?",
-    "copied_message": "Copied!",
+    "copied_message": "Скопійовано!",
     "create": "Створити",
     "created": "Створено",
     "custom": "Власний",
@@ -153,9 +153,9 @@
     "confirm-delete-generic-with-name": "Ви дійсно хочете видалити {name}?",
     "organizer": "Організатор",
     "transfer": "Передача",
-    "copy": "Copy",
-    "color": "Color",
-    "timestamp": "Timestamp"
+    "copy": "Скопіювати",
+    "color": "Колір",
+    "timestamp": "Час"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -247,8 +247,8 @@
     "trim-whitespace-description": "Обрізати початкові та кінцеву пробілів і порожні лінії",
     "trim-prefix-description": "Обрізати перший символ з кожного рядка",
     "split-by-numbered-line-description": "Пробує розділити абзац по '1)' або '1.' шаблону",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "import-by-url": "Імпортувати рецепт з URL",
+    "create-manually": "Створити рецепт вручну"
   },
   "page": {
     "404-page-not-found": "404 - Сторінка не знайдена",
@@ -262,8 +262,8 @@
     "page-updated": "Сторінку оновлено",
     "pages-update-failed": "Не вдалося оновити сторінки",
     "pages-updated": "Сторінки оновлено",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Не знайдено",
+    "an-error-occurred": "Сталася помилка"
   },
   "recipe": {
     "add-key": "Додати ключ",
@@ -367,7 +367,7 @@
     "search-mealie": "Пошук по Mealie (натисніть /)",
     "search-placeholder": "Пошук...",
     "tag-filter": "Фільтр міток",
-    "search-hint": "Press '/'"
+    "search-hint": "Натисніть '/'"
   },
   "settings": {
     "add-a-new-theme": "Додати нову тему",
