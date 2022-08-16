@@ -532,7 +532,7 @@
     "create-a-tool": "Ein Hilfsmittel erstellen",
     "tool-name": "Name des Hilfsmittels",
     "create-new-tool": "Neues Hilfsmittel erstellen",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)"
   },
   "user": {
     "admin": "Admin",
