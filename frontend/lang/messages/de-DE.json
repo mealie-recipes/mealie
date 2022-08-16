@@ -339,7 +339,7 @@
     "quantity": "Menge",
     "choose-unit": "Einheit wählen",
     "press-enter-to-create": "Zum Erstellen Eingabetaste drücken",
-    "choose-food": "Zutat wählen",
+    "choose-food": "Lebensmittel wählen",
     "notes": "Notizen",
     "toggle-section": "Überschrift ein-/ausblenden",
     "see-original-text": "Originaltext anzeigen",
@@ -476,11 +476,11 @@
     "quantity": "Menge: {0}",
     "shopping-list": "Einkaufsliste",
     "shopping-lists": "Einkaufslisten",
-    "food": "Zutat",
+    "food": "Lebensmittel",
     "note": "Notiz",
     "label": "Label",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Zutaten-Eingabe ein/aus"
+    "toggle-food": "Lebensmittel-Eingabe ein/aus"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",
