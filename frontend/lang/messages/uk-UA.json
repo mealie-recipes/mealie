@@ -208,7 +208,7 @@
     "side": "Закуска",
     "sides": "Закуска",
     "start-date": "Дата початку",
-    "rule-day": "Rule Day",
+    "rule-day": "Правило Днів",
     "meal-type": "Тип їжи",
     "breakfast": "Сніданок",
     "lunch": "Обід",
@@ -436,8 +436,8 @@
       "theme-saved": "Тему збережено",
       "theme-updated": "Тему оновлено",
       "warning": "Попередження",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Світлий режим",
+      "dark-mode": "Темний режим"
     },
     "token": {
       "active-tokens": "АКТИВНІ КЛЮЧІ",
@@ -497,12 +497,12 @@
     "tags": "Мітки",
     "toolbox": "Інструменти",
     "language": "Мова",
-    "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
-    "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "maintenance": "Обслуговування",
+    "background-tasks": "Фонові завдання",
+    "parser": "Парсер",
+    "developer": "Розробник",
+    "cookbook": "Кулінарна книга",
+    "create-cookbook": "Створити нову кулінарну книгу"
   },
   "signup": {
     "error-signing-up": "Помилка реєстрації",
@@ -591,7 +591,7 @@
     "you-are-not-allowed-to-delete-this-user": "Вам не дозволено видаляти користувача",
     "enable-advanced-content": "Увімкнути розширений контент",
     "enable-advanced-content-description": "Вмикає розширені функції, такі як масштабування рецептів, ключі API, вебхуки та керування даними. Не хвилюйтесь, завжди можна змінити це пізніше",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Улюблені рецепти"
   },
   "language-dialog": {
     "translated": "перекладено",
@@ -645,19 +645,19 @@
     "recipe-link-copied-message": "Посилання на рецепт скопійовано в буфер обміну"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "Експериментальні функції",
+    "description": "Ця сторінка містить експериментальні або недоготовані функції. Вибачте за безлад.",
+    "issue-link-text": "Відстежуйте прогрес тут"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "К-сть"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Попередній перегляд Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Це демо для версії: {version}",
+    "demo_username": "Ім'я користувача: {username}",
+    "demo_password": "Пароль: {password}"
   }
 }
