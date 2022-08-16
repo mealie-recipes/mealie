@@ -341,19 +341,19 @@
     "press-enter-to-create": "Tryk enter for at oprette",
     "choose-food": "Vælg fødevarer",
     "notes": "Kommentarer",
-    "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
-    "auto": "Auto",
-    "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "toggle-section": "Sektion",
+    "see-original-text": "Vis den oprindelige tekst",
+    "original-text-with-value": "Oprindelig tekst: {originalText}",
+    "ingredient-linker": "Ingrediens-Linker",
+    "linked-to-other-step": "Linket til andet trin",
+    "auto": "Automatisk",
+    "cook-mode": "Tilberedningsvisning",
+    "link-ingredients": "Link ingredienser",
+    "merge-above": "Sammenflet ovenstående",
+    "reset-scale": "Nulstil skalering",
+    "decrease-scale-label": "Formindsk skala med 1",
+    "increase-scale-label": "Forøg skala med 1",
+    "locked": "Låst"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -464,7 +464,7 @@
       "webhook-url": "Webhook adresse",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Webhook navn"
     }
   },
   "shopping-list": {
@@ -476,11 +476,11 @@
     "quantity": "Antal: {0}",
     "shopping-list": "Indkøbsliste",
     "shopping-lists": "Indkøbslister",
-    "food": "Food",
+    "food": "Fødevarer",
     "note": "Note",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "label": "Etiket",
+    "linked-item-warning": "Dette element er tilknyttet en eller flere opskrifter. Justering af enheder eller fødevarer vil give uventede resultater, når du tilføjer eller fjerner opskriften fra denne liste.",
+    "toggle-food": "Slå fødevarer til/fra"
   },
   "sidebar": {
     "all-recipes": "Alle opskr.",
@@ -523,16 +523,16 @@
     "tag-updated": "Tag blev opdateret",
     "tags": "Tags",
     "untagged-count": "Ikke-tagget: {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Opret tag",
+    "tag-name": "Tag navn"
   },
   "tool": {
     "tools": "Værktøjer",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand": "Har Allerede",
+    "create-a-tool": "Opret et værktøj",
+    "tool-name": "Værktøjsnavn",
+    "create-new-tool": "Opret et nyt værktøj",
+    "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)"
   },
   "user": {
     "admin": "Administrator",
@@ -632,17 +632,17 @@
     "email-is-taken": "E-mail er allerede anvendt"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Eksportér",
+    "file-name": "Filnavn",
+    "size": "Størrelse",
+    "link-expires": "Linket udløber"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Udløbsdato",
+    "share-recipe": "Del opskrift",
+    "default-30-days": "Standard 30 Dage",
+    "expires-at": "Udløber den",
+    "recipe-link-copied-message": "Link til opskrift er kopieret til udklipsholder"
   },
   "banner-experimental": {
     "title": "Eksperimentelle funktioner",
