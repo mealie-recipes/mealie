@@ -478,8 +478,8 @@
     "shopping-lists": "Einkaufslisten",
     "food": "Lebensmittel",
     "note": "Notiz",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
+    "label": "Etikett",
+    "linked-item-warning": "Dieser Eintrag ist mit einem oder mehreren Rezepten verknüpft. Das Ändern der Einheiten oder Lebensmittel führt zu unerwarteten Ergebnissen, wenn das Rezept von dieser Einkaufsliste entfernt oder hinzugefügt wird.",
     "toggle-food": "Lebensmittel-Eingabe ein/aus"
   },
   "sidebar": {
@@ -528,7 +528,7 @@
   },
   "tool": {
     "tools": "Hilfsmittel",
-    "on-hand": "On Hand",
+    "on-hand": "Vorhanden",
     "create-a-tool": "Ein Hilfsmittel erstellen",
     "tool-name": "Name des Hilfsmittels",
     "create-new-tool": "Neues Hilfsmittel erstellen",
@@ -647,7 +647,7 @@
   "banner-experimental": {
     "title": "Experimentelle Funktionen",
     "description": "Diese Seite enthält experimentelle oder noch nicht fertig entwickelte Funktionen. Bitte entschuldige das Durcheinander.",
-    "issue-link-text": "Track our progress here"
+    "issue-link-text": "Verfolge hier unsere Fortschritte"
   },
   "form": {
     "quantity-label-abbreviated": "Anz."
