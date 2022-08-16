@@ -134,13 +134,13 @@ export default defineComponent({
       }
 
       if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
       }
     });
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
+    async function createByUrl(url: string, importKeywordsAsTags: boolean, stayInEditMode: boolean ) {
       if (url === null) {
         return;
       }
@@ -151,12 +151,13 @@ export default defineComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode);
+      handleResponse(response, stayInEditMode.toString());
     }
 
     return {
       recipeUrl,
-      importKeywordsAsTags,
+      importKeywordsAsTags: false,
+      stayInEditMode: true,
       domUrlForm,
       createByUrl,
       ...toRefs(state),
