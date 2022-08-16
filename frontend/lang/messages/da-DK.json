@@ -21,7 +21,7 @@
     "production": "Produktion",
     "support": "Hjælp",
     "version": "Version",
-    "unknown-version": "unknown"
+    "unknown-version": "ukendt"
   },
   "asset": {
     "assets": "Ekstramateriale",
@@ -46,7 +46,7 @@
     "uncategorized-count": "Ukategoriseret {count}",
     "create-a-category": "Create a Category",
     "category-name": "Category Name",
-    "category": "Category"
+    "category": "Kategori"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -67,7 +67,7 @@
     "close": "Luk",
     "confirm": "Bekræft",
     "confirm-delete-generic": "Er du sikker på, du vil slette dette?",
-    "copied_message": "Copied!",
+    "copied_message": "Kopieret!",
     "create": "Opret",
     "created": "Oprettet",
     "custom": "Brugerdefineret",
@@ -153,9 +153,9 @@
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
     "transfer": "Transfer",
-    "copy": "Copy",
-    "color": "Color",
-    "timestamp": "Timestamp"
+    "copy": "Kopier",
+    "color": "Farve",
+    "timestamp": "Tidsstempel"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -247,8 +247,8 @@
     "trim-whitespace-description": "Fjern indledende og efterfølgende mellemrum samt blanke linjer",
     "trim-prefix-description": "Beskær første tegn fra hver linje",
     "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "import-by-url": "Importér opskrift fra en webside",
+    "create-manually": "Opret opskrift manuelt"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -262,8 +262,8 @@
     "page-updated": "Side opdateret",
     "pages-update-failed": "Opdatering af sider fejlede",
     "pages-updated": "Sider opdateret",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Ikke Fundet",
+    "an-error-occurred": "Der opstod en fejl"
   },
   "recipe": {
     "add-key": "Tilføj nøgle",
@@ -367,7 +367,7 @@
     "search-mealie": "Søg Mealie (tryk /)",
     "search-placeholder": "Søg...",
     "tag-filter": "Tagfiler",
-    "search-hint": "Press '/'"
+    "search-hint": "Tryk '/'"
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",
@@ -436,8 +436,8 @@
       "theme-saved": "Tema gemt",
       "theme-updated": "Tema opdateret",
       "warning": "Advarsel",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Lys tilstand",
+      "dark-mode": "Mørk tilstand"
     },
     "token": {
       "active-tokens": "Aktive tokens",
@@ -497,7 +497,7 @@
     "tags": "Tags",
     "toolbox": "Værktøjskasse",
     "language": "Sprog",
-    "maintenance": "Maintenance",
+    "maintenance": "Vedligeholdelse",
     "background-tasks": "Background Tasks",
     "parser": "Parser",
     "developer": "Developer",
