@@ -247,7 +247,7 @@
     "trim-whitespace-description": "Leerzeichen am Anfang und Ende sowie leere Zeilen entfernen",
     "trim-prefix-description": "Erste Zeichen aus jeder Zeile entfernen",
     "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
-    "import-by-url": "Import a recipe by URL",
+    "import-by-url": "Ein Rezept von einer Webseite importieren",
     "create-manually": "Create a recipe manually"
   },
   "page": {
@@ -645,15 +645,15 @@
     "recipe-link-copied-message": "Rezept-Link in Zwischenablage kopiert"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "title": "Experimentelle Funktionen",
+    "description": "Diese Seite enthält experimentelle oder noch nicht fertig entwickelte Funktionen. Bitte entschuldige das Durcheinander.",
     "issue-link-text": "Track our progress here"
   },
   "form": {
     "quantity-label-abbreviated": "Anz."
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Markdown Vorschau"
   },
   "demo": {
     "info_message_with_version": "This is a Demo for version: {version}",
