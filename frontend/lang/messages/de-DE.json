@@ -149,8 +149,8 @@
     "run": "Starten",
     "menu": "Menü",
     "a-name-is-required": "Ein Name wird benötigt",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
+    "delete-with-name": "{name} löschen",
+    "confirm-delete-generic-with-name": "Bist du dir sicher, dass du {name} löschen möchtest?",
     "organizer": "Organizer",
     "transfer": "Transfer",
     "copy": "Copy",
@@ -182,7 +182,7 @@
     }
   },
   "meal-plan": {
-    "create-a-new-meal-plan": "Neuen Essensplan erstellen",
+    "create-a-new-meal-plan": "Neue Mahlzeit planen",
     "dinner-this-week": "Essen diese Woche",
     "dinner-today": "Heutiges Essen",
     "dinner-tonight": "HEUTE GIBT ES",
@@ -262,8 +262,8 @@
     "page-updated": "Seite aktualisiert",
     "pages-update-failed": "Aktualisieren der Seiten fehlgeschlagen",
     "pages-updated": "Seiten aktualisiert",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Nicht gefunden",
+    "an-error-occurred": "Es ist ein Fehler aufgetreten"
   },
   "recipe": {
     "add-key": "Schlüssel hinzufügen",
@@ -657,7 +657,7 @@
   },
   "demo": {
     "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "demo_username": "Benutzername: {username}",
+    "demo_password": "Passwort: {password}"
   }
 }
