@@ -134,13 +134,13 @@ export default defineComponent({
       }
 
       if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value);
       }
     });
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string, importKeywordsAsTags: boolean, stayInEditMode: boolean ) {
+    async function createByUrl(url: string, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
       if (url === null) {
         return;
       }
