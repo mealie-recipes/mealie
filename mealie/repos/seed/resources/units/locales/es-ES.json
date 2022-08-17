@@ -10,9 +10,9 @@
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
+        "name": "taza",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "taza"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -30,17 +30,17 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galón",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitro",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litro",
         "description": "",
         "abbreviation": "l"
     },
@@ -55,17 +55,17 @@
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "gramo",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilogramo",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligramo",
         "description": "",
         "abbreviation": "mg"
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "lata",
         "description": "",
         "abbreviation": ""
     }
