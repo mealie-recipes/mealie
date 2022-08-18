@@ -12,7 +12,7 @@ from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook,
 from mealie.schema.cookbook.cookbook import CookBookPagination
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_service import EventBusService
-from mealie.services.event_bus_service.message_types import (
+from mealie.services.event_bus_service.event_types import (
     EventCookbookBulkData,
     EventCookbookData,
     EventOperation,

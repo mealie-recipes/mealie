@@ -21,7 +21,7 @@ from mealie.schema.mapper import cast
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.event_bus_service.event_bus_service import EventBusService
-from mealie.services.event_bus_service.message_types import (
+from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventShoppingListData,
     EventShoppingListItemBulkData,

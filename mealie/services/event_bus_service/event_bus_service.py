@@ -10,7 +10,7 @@ from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_events import GroupEventNotifierPrivate
 
-from .message_types import Event, EventBusMessage, EventDocumentDataBase, EventTypes
+from .event_types import Event, EventBusMessage, EventDocumentDataBase, EventTypes
 from .publisher import ApprisePublisher, PublisherLike
 
 settings = get_app_settings()

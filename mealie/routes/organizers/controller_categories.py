@@ -12,7 +12,7 @@ from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService
-from mealie.services.event_bus_service.message_types import EventCategoryData, EventOperation, EventTypes
+from mealie.services.event_bus_service.event_types import EventCategoryData, EventOperation, EventTypes
 
 router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
 

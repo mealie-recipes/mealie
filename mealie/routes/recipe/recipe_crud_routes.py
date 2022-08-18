@@ -35,7 +35,7 @@ from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateI
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_bus_service import EventBusService
-from mealie.services.event_bus_service.message_types import (
+from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventRecipeBulkReportData,
     EventRecipeData,
