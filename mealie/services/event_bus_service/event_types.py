@@ -1,6 +1,6 @@
+import uuid
 from datetime import datetime
 from enum import Enum, auto
-from typing import Optional
 
 from pydantic import UUID4
 
@@ -136,5 +136,13 @@ class Event(MealieModel):
     message: EventBusMessage
     event_type: EventTypes
     integration_id: str
-    document_data: Optional[EventDocumentDataBase]
-    timestamp = datetime.now()
+    document_data: EventDocumentDataBase
+
+    # set at instantiation
+    event_id: UUID4 | None
+    timestamp: datetime | None
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.event_id = uuid.uuid4()
+        self.timestamp = datetime.now()
