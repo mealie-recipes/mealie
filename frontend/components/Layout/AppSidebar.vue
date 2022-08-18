@@ -6,9 +6,14 @@
         <UserAvatar list :user-id="$auth.user.id" />
 
         <v-list-item-content>
-          <v-list-item-title> {{ $auth.user.fullName }}</v-list-item-title>
+          <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <NuxtLink class="favorites-link" :to="`/user/${$auth.user.id}/favorites`"> Favorite Recipes </NuxtLink>
+            <v-btn class="px-2 pa-0" text :to="`/user/${$auth.user.id}/favorites`" small>
+              <v-icon left small>
+                {{ $globals.icons.heart }}
+              </v-icon>
+              {{ $t("user.favorite-recipes") }}
+            </v-btn>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>

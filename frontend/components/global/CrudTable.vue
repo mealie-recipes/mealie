@@ -37,7 +37,7 @@
       <slot name="button-row"> </slot>
     </v-card-actions>
     <div class="mx-2 clip-width">
-      <v-text-field v-model="search" :label="$tc('search.search')"></v-text-field>
+      <v-text-field v-model="search" :label="$t('search.search')"></v-text-field>
     </div>
     <v-data-table
       v-model="selected"
@@ -57,12 +57,12 @@
           :buttons="[
             {
               icon: $globals.icons.edit,
-              text: 'Edit',
+              text: $t('general.edit'),
               event: 'edit',
             },
             {
               icon: $globals.icons.delete,
-              text: 'Delete',
+              text: $t('general.delete'),
               event: 'delete',
             },
           ]"
@@ -77,7 +77,7 @@
         <template #icon>
           {{ $globals.icons.download }}
         </template>
-        {{ $tc("general.download") }}
+        {{ $t("general.download") }}
       </BaseButton>
     </v-card-actions>
   </div>

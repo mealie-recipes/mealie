@@ -4,7 +4,9 @@
 
     <v-banner v-if="isDemo" sticky>
       <div class="text-center">
-        <b> This is a Demo for version: {{ version }} </b> | Username: changeme@email.com | Password: demo
+        <b> {{ $t("demo.info_message_with_version", { version: version }) }} </b> |
+        {{ $t("demo.demo_username", { username: "changeme@email.com" }) }} |
+        {{ $t("demo.demo_password", { password: "demo" }) }}
       </div>
     </v-banner>
 
@@ -17,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import TheSnackbar from "~/components/Layout/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 export default defineComponent({
@@ -27,7 +29,8 @@ export default defineComponent({
 
     const isDemo = computed(() => appInfo?.value?.demoStatus || false);
 
-    const version = computed(() => appInfo?.value?.version || "unknown");
+    const { i18n } = useContext();
+    const version = computed(() => appInfo?.value?.version || i18n.t("about.unknown-version"));
 
     return {
       appInfo,

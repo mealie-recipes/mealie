@@ -1,4 +1,3 @@
-
 <template>
   <v-card
     color="background"
@@ -30,7 +29,7 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      default: "Place Holder",
+      required: true,
     },
     icon: {
       type: String,

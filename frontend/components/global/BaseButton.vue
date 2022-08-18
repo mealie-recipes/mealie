@@ -109,40 +109,40 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $globals } = useContext();
+    const { $globals, i18n } = useContext();
     const buttonOptions = {
       create: {
-        text: "Create",
+        text: i18n.t("general.create"),
         icon: $globals.icons.createAlt,
         color: "success",
       },
       update: {
-        text: "Update",
+        text: i18n.t("general.update"),
         icon: $globals.icons.edit,
         color: "success",
       },
       save: {
-        text: "Save",
+        text: i18n.t("general.save"),
         icon: $globals.icons.save,
         color: "success",
       },
       edit: {
-        text: "Edit",
+        text: i18n.t("general.edit"),
         icon: $globals.icons.edit,
         color: "info",
       },
       delete: {
-        text: "Delete",
+        text: i18n.t("general.delete"),
         icon: $globals.icons.delete,
         color: "error",
       },
       cancel: {
-        text: "Cancel",
+        text: i18n.t("general.cancel"),
         icon: $globals.icons.close,
         color: "grey",
       },
       download: {
-        text: "Download",
+        text: i18n.t("general.download"),
         icon: $globals.icons.download,
         color: "info",
       },
@@ -189,12 +189,10 @@ export default defineComponent({
       return buttonStyles.defaults;
     });
 
-
     const api = useUserApi();
     function downloadFile() {
       api.utils.download(props.downloadUrl);
     }
-
 
     return {
       btnAttrs,

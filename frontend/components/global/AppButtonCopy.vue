@@ -22,14 +22,14 @@
         @blur="on.blur"
       >
         <v-icon>{{ $globals.icons.contentCopy }}</v-icon>
-        {{ icon ? "" : "Copy" }}
+        {{ icon ? "" : $t("general.copy") }}
       </v-btn>
     </template>
     <span>
       <v-icon left dark>
         {{ $globals.icons.clipboardCheck }}
       </v-icon>
-      <slot> {{ $t("general.copied") }}! </slot>
+      <slot> {{ $t("general.copied_message") }} </slot>
     </span>
   </v-tooltip>
 </template>
@@ -42,7 +42,7 @@ export default defineComponent({
   props: {
     copyText: {
       type: String,
-      default: "Default Copy Text",
+      required: true,
     },
     color: {
       type: String,
@@ -81,10 +81,9 @@ export default defineComponent({
       show,
       copyToolTip,
       textToClipboard,
-    }
+    };
   },
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
