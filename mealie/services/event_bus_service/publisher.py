@@ -2,11 +2,11 @@ from typing import Protocol
 
 import apprise
 
-from mealie.services.event_bus_service.event_bus_service import EventBusMessage
+from mealie.services.event_bus_service.event_types import Event
 
 
 class PublisherLike(Protocol):
-    def publish(self, event: EventBusMessage, notification_urls: list[str]):
+    def publish(self, event: Event, notification_urls: list[str]):
         ...
 
 
@@ -19,11 +19,18 @@ class ApprisePublisher:
         self.apprise = apprise.Apprise(asset=asset)
         self.hard_fail = hard_fail
 
-    def publish(self, event: EventBusMessage, notification_urls: list[str]):
+    def publish(self, event: Event, notification_urls: list[str]):
+        """Publishses a list of notification URLs"""
+
+        tags = []
         for dest in notification_urls:
-            status = self.apprise.add(dest)
+            # we tag the url so it only sends each notification once
+            tag = str(event.event_id)
+            tags.append(tag)
+
+            status = self.apprise.add(dest, tag=tag)
 
             if not status and self.hard_fail:
                 raise Exception("Apprise URL Add Failed")
 
-        self.apprise.notify(title=event.title, body=event.body)
+        self.apprise.notify(title=event.message.title, body=event.message.body, tag=tags)
