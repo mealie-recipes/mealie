@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from pydantic import UUID4, BaseModel
 
 from mealie.routes._base import BaseUserController, controller
@@ -11,8 +11,8 @@ from mealie.schema.recipe.recipe import RecipeCategory, RecipeCategoryPagination
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
-from mealie.services.event_bus_service.message_types import EventTypes
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.message_types import EventCategoryData, EventOperation, EventTypes
 
 router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
 
@@ -53,22 +53,24 @@ class RecipeCategoryController(BaseUserController):
         return response
 
     @router.post("", status_code=201)
-    def create_one(self, category: CategoryIn):
+    def create_one(self, request: Request, category: CategoryIn):
         """Creates a Category in the database"""
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
-        data = self.mixins.create_one(save_data)
-        if data:
+        new_category = self.mixins.create_one(save_data)
+        if new_category:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.category_created,
-                msg=self.t(
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.category_created,
+                document_data=EventCategoryData(operation=EventOperation.create, category_id=new_category.id),
+                message=self.t(
                     "notifications.generic-created-with-url",
-                    name=data.name,
-                    url=urls.category_url(data.slug, self.settings.BASE_URL),
+                    name=new_category.name,
+                    url=urls.category_url(new_category.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="create", item_type="category", item_id=data.id, slug=data.slug),
             )
-        return data
+
+        return new_category
 
     @router.get("/{item_id}", response_model=CategorySummary)
     def get_one(self, item_id: UUID4):
@@ -78,37 +80,40 @@ class RecipeCategoryController(BaseUserController):
         return category_obj
 
     @router.put("/{item_id}", response_model=CategorySummary)
-    def update_one(self, item_id: UUID4, update_data: CategoryIn):
+    def update_one(self, request: Request, item_id: UUID4, update_data: CategoryIn):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
-        data = self.mixins.update_one(save_data, item_id)
+        category = self.mixins.update_one(save_data, item_id)
 
-        if data:
+        if category:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.category_updated,
-                msg=self.t(
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.category_updated,
+                document_data=EventCategoryData(operation=EventOperation.update, category_id=category.id),
+                message=self.t(
                     "notifications.generic-updated-with-url",
-                    name=data.name,
-                    url=urls.category_url(data.slug, self.settings.BASE_URL),
+                    name=category.name,
+                    url=urls.category_url(category.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="category", item_id=data.id, slug=data.slug),
             )
-        return data
+
+        return category
 
     @router.delete("/{item_id}")
-    def delete_one(self, item_id: UUID4):
+    def delete_one(self, request: Request, item_id: UUID4):
         """
         Removes a recipe category from the database. Deleting a
         category does not impact a recipe. The category will be removed
         from any recipes that contain it
         """
-        if data := self.mixins.delete_one(item_id):
+        if category := self.mixins.delete_one(item_id):
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.category_deleted,
-                msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source=EventSource(event_type="delete", item_type="category", item_id=data.id, slug=data.slug),
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.category_deleted,
+                document_data=EventCategoryData(operation=EventOperation.delete, category_id=category.id),
+                message=self.t("notifications.generic-deleted", name=category.name),
             )
 
     # =========================================================================

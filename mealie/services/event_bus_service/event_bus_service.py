@@ -1,14 +1,20 @@
+from typing import Optional
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
-from fastapi import BackgroundTasks, Depends
+from fastapi import BackgroundTasks, Depends, Request
+from jose import jwt
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_events import GroupEventNotifierPrivate
 
-from .message_types import EventBusMessage, EventTypes
+from .message_types import Event, EventBusMessage, EventDocumentDataBase, EventTypes
 from .publisher import ApprisePublisher, PublisherLike
+
+settings = get_app_settings()
+ALGORITHM = "HS256"
 
 
 class EventSource:
@@ -52,7 +58,8 @@ class EventBusService:
 
         return [notifier.apprise_url for notifier in notifiers if getattr(notifier.options, event_type.name)]
 
-    def dispatch(
+    # TODO: remove this once it's fully replaced
+    def dispatch_v1(
         self, group_id: UUID4, event_type: EventTypes, msg: str = "", event_source: EventSource = None
     ) -> None:
         self.group_id = group_id
@@ -66,6 +73,33 @@ class EventBusService:
 
         if dispatch_task := _dispatch(event_source=event_source):
             self.bg.add_task(dispatch_task)
+
+    def dispatch(
+        self,
+        request: Request,
+        group_id: UUID4,
+        event_type: EventTypes,
+        document_data: Optional[EventDocumentDataBase],
+        message: str = "",
+    ) -> None:
+        self.group_id = group_id
+
+        auth_token = request.headers["authorization"].split()[-1]
+        auth = jwt.decode(auth_token, settings.SECRET, algorithms=[ALGORITHM])
+        integration_id = auth.get("integration_id", "generic")
+
+        event = Event(
+            message=EventBusMessage.from_type(event_type, body=message),
+            event_type=event_type,
+            integration_id=integration_id,
+            document_data=document_data,
+        )
+
+        # TODO: implement refactored event bus, this gets around linter error for WIP
+        def _dispatch(event: Event):
+            pass
+
+        _dispatch(event)
 
     def test_publisher(self, url: str) -> None:
         self.bg.add_task(

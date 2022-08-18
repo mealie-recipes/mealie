@@ -4,7 +4,7 @@ from typing import Optional
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, status
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, Request, status
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -34,8 +34,13 @@ from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
-from mealie.services.event_bus_service.message_types import EventTypes
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.message_types import (
+    EventOperation,
+    EventRecipeBulkReportData,
+    EventRecipeData,
+    EventTypes,
+)
 from mealie.services.recipe.recipe_data_service import InvalidDomainError, NotAnImageError, RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
@@ -144,7 +149,7 @@ class RecipeController(BaseRecipeController):
     # URL Scraping Operations
 
     @router.post("/create-url", status_code=201, response_model=str)
-    def parse_recipe_url(self, req: ScrapeRecipe):
+    def parse_recipe_url(self, request: Request, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         try:
             recipe, extras = create_from_url(req.url)
@@ -162,26 +167,32 @@ class RecipeController(BaseRecipeController):
 
         if new_recipe:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_created,
-                msg=self.t(
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
                     url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
-                ),
-                event_source=EventSource(
-                    event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
                 ),
             )
 
         return new_recipe.slug
 
     @router.post("/create-url/bulk", status_code=202)
-    def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
+    def parse_recipe_url_bulk(self, request: Request, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group)
         report_id = bulk_scraper.get_report_id()
         bg_tasks.add_task(bulk_scraper.scrape, bulk)
+
+        self.event_bus.dispatch(
+            request=request,
+            group_id=self.user.group_id,
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeBulkReportData(operation=EventOperation.create, report_id=report_id),
+        )
 
         return {"reportId": report_id}
 
@@ -199,9 +210,18 @@ class RecipeController(BaseRecipeController):
         return "recipe_scrapers was unable to scrape this URL"
 
     @router.post("/create-from-zip", status_code=201)
-    def create_recipe_from_zip(self, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)):
+    def create_recipe_from_zip(
+        self, request: Request, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)
+    ):
         """Create recipe from archive"""
         recipe = self.service.create_from_zip(archive, temp_path)
+        self.event_bus.dispatch(
+            request=request,
+            group_id=self.user.group_id,
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+        )
+
         return recipe.slug
 
     # ==================================================================================================================
@@ -214,17 +234,17 @@ class RecipeController(BaseRecipeController):
         categories: Optional[list[UUID4 | str]] = Query(None),
         tags: Optional[list[UUID4 | str]] = Query(None),
     ):
-        response = self.repo.page_all(
+        pagination_response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
             categories=categories,
             tags=tags,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        pagination_response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
 
         new_items = []
-        for item in response.items:
+        for item in pagination_response.items:
             # Pydantic/FastAPI can't seem to serialize the ingredient field on thier own.
             new_item = item.__dict__
 
@@ -233,8 +253,8 @@ class RecipeController(BaseRecipeController):
 
             new_items.append(new_item)
 
-        response.items = [RecipeSummary.construct(**x) for x in new_items]
-        json_compatible_response = jsonable_encoder(response)
+        pagination_response.items = [RecipeSummary.construct(**x) for x in new_items]
+        json_compatible_response = jsonable_encoder(pagination_response)
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONResponse(content=json_compatible_response)
@@ -245,7 +265,7 @@ class RecipeController(BaseRecipeController):
         return self.mixins.get_one(slug)
 
     @router.post("", status_code=201, response_model=str)
-    def create_one(self, data: CreateRecipe) -> str | None:
+    def create_one(self, request: Request, data: CreateRecipe) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
         try:
             new_recipe = self.service.create_one(data)
@@ -255,81 +275,83 @@ class RecipeController(BaseRecipeController):
 
         if new_recipe:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_created,
-                msg=self.t(
+                request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
                     url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
-                ),
-                event_source=EventSource(
-                    event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
                 ),
             )
 
         return new_recipe.slug
 
     @router.put("/{slug}")
-    def update_one(self, slug: str, data: Recipe):
+    def update_one(self, request: Request, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
         try:
-            data = self.service.update_one(slug, data)
+            recipe = self.service.update_one(slug, data)
         except Exception as e:
             self.handle_exceptions(e)
 
-        if data:
+        if recipe:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_updated,
-                msg=self.t(
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                message=self.t(
                     "notifications.generic-updated-with-url",
-                    name=data.name,
-                    url=urls.recipe_url(data.slug, self.settings.BASE_URL),
+                    name=recipe.name,
+                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
             )
 
-        return data
+        return recipe
 
     @router.patch("/{slug}")
-    def patch_one(self, slug: str, data: Recipe):
+    def patch_one(self, request: Request, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
         try:
-            data = self.service.patch_one(slug, data)
+            recipe = self.service.patch_one(slug, data)
         except Exception as e:
             self.handle_exceptions(e)
 
-        if data:
+        if recipe:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_updated,
-                msg=self.t(
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                message=self.t(
                     "notifications.generic-updated-with-url",
-                    name=data.name,
-                    url=urls.recipe_url(data.slug, self.settings.BASE_URL),
+                    name=recipe.name,
+                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
             )
 
-        return data
+        return recipe
 
     @router.delete("/{slug}")
-    def delete_one(self, slug: str):
+    def delete_one(self, request: Request, slug: str):
         """Deletes a recipe by slug"""
         try:
-            data = self.service.delete_one(slug)
+            recipe = self.service.delete_one(slug)
         except Exception as e:
             self.handle_exceptions(e)
 
-        if data:
+        if recipe:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_deleted,
-                msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source=EventSource(event_type="delete", item_type="recipe", item_id=data.id, slug=data.slug),
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.recipe_deleted,
+                document_data=EventRecipeData(operation=EventOperation.delete, recipe_slug=recipe.slug),
+                message=self.t("notifications.generic-deleted", name=recipe.name),
             )
 
-        return data
+        return recipe
 
     # ==================================================================================================================
     # Image and Assets

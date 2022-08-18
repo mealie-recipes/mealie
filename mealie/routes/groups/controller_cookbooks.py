@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
@@ -11,8 +11,13 @@ from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
 from mealie.schema.cookbook.cookbook import CookBookPagination
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
-from mealie.services.event_bus_service.message_types import EventTypes
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.message_types import (
+    EventCookbookBulkData,
+    EventCookbookData,
+    EventOperation,
+    EventTypes,
+)
 
 router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"], route_class=MealieCrudRoute)
 
@@ -51,26 +56,38 @@ class GroupCookbookController(BaseUserController):
         return response
 
     @router.post("", response_model=ReadCookBook, status_code=201)
-    def create_one(self, data: CreateCookBook):
+    def create_one(self, request: Request, data: CreateCookBook):
         data = mapper.cast(data, SaveCookBook, group_id=self.group_id)
-        val = self.mixins.create_one(data)
+        cookbook = self.mixins.create_one(data)
 
-        if val:
+        if cookbook:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.cookbook_created,
-                msg=self.t("notifications.generic-created", name=val.name),
-                event_source=EventSource(event_type="create", item_type="cookbook", item_id=val.id, slug=val.slug),
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.cookbook_created,
+                document_data=EventCookbookData(operation=EventOperation.create, cookbook_id=cookbook.id),
+                message=self.t("notifications.generic-created", name=cookbook.name),
             )
-        return val
+
+        return cookbook
 
     @router.put("", response_model=list[ReadCookBook])
-    def update_many(self, data: list[UpdateCookBook]):
+    def update_many(self, request: Request, data: list[UpdateCookBook]):
         updated = []
 
         for cookbook in data:
             cb = self.mixins.update_one(cookbook, cookbook.id)
             updated.append(cb)
+
+        if updated:
+            self.event_bus.dispatch(
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.cookbook_updated,
+                document_data=EventCookbookBulkData(
+                    operation=EventOperation.update, cookbook_ids=[cb.id for cb in updated]
+                ),
+            )
 
         return updated
 
@@ -95,26 +112,29 @@ class GroupCookbookController(BaseUserController):
         )
 
     @router.put("/{item_id}", response_model=ReadCookBook)
-    def update_one(self, item_id: str, data: CreateCookBook):
-        val = self.mixins.update_one(data, item_id)  # type: ignore
-        if val:
+    def update_one(self, request: Request, item_id: str, data: CreateCookBook):
+        cookbook = self.mixins.update_one(data, item_id)  # type: ignore
+        if cookbook:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.cookbook_updated,
-                msg=self.t("notifications.generic-updated", name=val.name),
-                event_source=EventSource(event_type="update", item_type="cookbook", item_id=val.id, slug=val.slug),
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.cookbook_updated,
+                document_data=EventCookbookData(operation=EventOperation.update, cookbook_id=cookbook.id),
+                message=self.t("notifications.generic-updated", name=cookbook.name),
             )
 
-        return val
+        return cookbook
 
     @router.delete("/{item_id}", response_model=ReadCookBook)
-    def delete_one(self, item_id: str):
-        val = self.mixins.delete_one(item_id)
-        if val:
+    def delete_one(self, request: Request, item_id: str):
+        cookbook = self.mixins.delete_one(item_id)
+        if cookbook:
             self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.cookbook_deleted,
-                msg=self.t("notifications.generic-deleted", name=val.name),
-                event_source=EventSource(event_type="delete", item_type="cookbook", item_id=val.id, slug=val.slug),
+                request=request,
+                group_id=self.user.group_id,
+                event_type=EventTypes.cookbook_deleted,
+                document_data=EventCookbookData(operation=EventOperation.delete, cookbook_id=cookbook.id),
+                message=self.t("notifications.generic-deleted", name=cookbook.name),
             )
-        return val
+
+        return cookbook
