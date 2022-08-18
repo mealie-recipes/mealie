@@ -78,7 +78,11 @@ class GroupEventsNotifierController(BaseUserController):
     # =======================================================================
     # Test Event Notifications
 
+    """
+    TODO: re-implement this with new event listeners
+
     @router.post("/{item_id}/test", status_code=204)
     def test_notification(self, item_id: UUID4):
         item: GroupEventNotifierPrivate = self.repo.get_one(item_id, override_schema=GroupEventNotifierPrivate)
         self.event_bus.test_publisher(item.apprise_url)
+    """
