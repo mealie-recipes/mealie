@@ -6,6 +6,7 @@ from pydantic import UUID4
 
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import generate_session
+from mealie.schema.user.user import DEFAULT_INTEGRATION_ID
 from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener, EventListenerBase
 
 from .event_types import Event, EventBusMessage, EventDocumentDataBase, EventTypes
@@ -55,7 +56,7 @@ class EventBusService:
 
         auth_token = request.headers["authorization"].split()[-1]
         auth = jwt.decode(auth_token, settings.SECRET, algorithms=[ALGORITHM])
-        integration_id = auth.get("integration_id", "generic")
+        integration_id = auth.get("integration_id", DEFAULT_INTEGRATION_ID)
 
         event = Event(
             message=EventBusMessage.from_type(event_type, body=message),

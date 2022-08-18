@@ -15,17 +15,22 @@ class UserApiTokensController(BaseUserController):
     @router.post("/api-tokens", status_code=status.HTTP_201_CREATED, response_model=LongLiveTokenOut)
     def create_api_token(
         self,
-        token_name: LongLiveTokenIn,
+        token_params: LongLiveTokenIn,
     ):
         """Create api_token in the Database"""
 
-        token_data = {"long_token": True, "id": str(self.user.id)}
+        token_data = {
+            "long_token": True,
+            "id": str(self.user.id),
+            "name": token_params.name,
+            "integration_id": token_params.integration_id,
+        }
 
         five_years = timedelta(1825)
         token = create_access_token(token_data, five_years)
 
         token_model = CreateToken(
-            name=token_name.name,
+            name=token_params.name,
             token=token,
             user_id=self.user.id,
         )
