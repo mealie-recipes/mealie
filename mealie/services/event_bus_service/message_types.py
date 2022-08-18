@@ -8,6 +8,16 @@ from ...schema._mealie.mealie_model import MealieModel
 
 
 class EventTypes(Enum):
+    """
+    The event type defines whether or not a subscriber should receive an event.
+
+    Each event type is represented by a field on the subscriber repository, therefore any changes
+    made here must also be reflected in the database (and likely requires a database migration).
+
+    If you'd like more granular control over the metadata of the event, e.g. events for sub-records
+    (like shopping list items), modify the event document type instead (which is not tied to a database entry).
+    """
+
     test_message = auto()
 
     recipe_created = auto()
@@ -52,6 +62,8 @@ class EventDocumentType(Enum):
 
 
 class EventOperation(Enum):
+    info = "info"
+
     create = "create"
     update = "update"
     delete = "delete"
