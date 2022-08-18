@@ -1,7 +1,15 @@
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_events import GroupEventNotifierCreate, GroupEventNotifierOptions
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
+from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener
+from mealie.services.event_bus_service.event_bus_service import Event
+from mealie.services.event_bus_service.event_types import (
+    EventBusMessage,
+    EventDocumentDataBase,
+    EventDocumentType,
+    EventOperation,
+    EventTypes,
+)
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool, random_email, random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -47,8 +55,13 @@ def notifier_generator():
     ).dict(by_alias=True)
 
 
-def event_source_generator():
-    return EventSource(event_type=random_string, item_type=random_string(), item_id=random_int())
+def event_generator():
+    return Event(
+        message=EventBusMessage(title=random_string(), body=random_string()),
+        event_type=EventTypes.test_message,
+        integration_id=random_string(),
+        document_data=EventDocumentDataBase(document_type=EventDocumentType.generic, operation=EventOperation.info),
+    )
 
 
 def test_create_notification(api_client: TestClient, unique_user: TestUser):
@@ -61,7 +74,7 @@ def test_create_notification(api_client: TestClient, unique_user: TestUser):
     assert payload_as_dict["name"] == payload["name"]
     assert payload_as_dict["enabled"] is True
 
-    # Ensure Apprise URL Staysa Private
+    # Ensure Apprise URL Stays Private
     assert "apprise_url" not in payload_as_dict
 
     # Cleanup
@@ -79,7 +92,7 @@ def test_ensure_apprise_url_is_secret(api_client: TestClient, unique_user: TestU
     assert "apprise_url" not in payload_as_dict
 
 
-def test_update_notification(api_client: TestClient, unique_user: TestUser):
+def test_update_apprise_notification(api_client: TestClient, unique_user: TestUser):
     payload = notifier_generator()
     response = api_client.post(Routes.base, json=payload, headers=unique_user.token)
     assert response.status_code == 201
@@ -110,7 +123,7 @@ def test_update_notification(api_client: TestClient, unique_user: TestUser):
     response = api_client.delete(Routes.item(update_payload["id"]), headers=unique_user.token)
 
 
-def test_delete_notification(api_client: TestClient, unique_user: TestUser):
+def test_delete_apprise_notification(api_client: TestClient, unique_user: TestUser):
     payload = notifier_generator()
     response = api_client.post(Routes.base, json=payload, headers=unique_user.token)
     assert response.status_code == 201
@@ -124,8 +137,8 @@ def test_delete_notification(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 404
 
 
-def test_event_bus_functions():
-    test_event_source = event_source_generator()
+def test_apprise_event_bus_listener_functions():
+    test_event = event_generator()
 
     test_standard_urls = [
         "a" + random_string(),
@@ -143,15 +156,15 @@ def test_event_bus_functions():
     ]
 
     # Validate all standard urls are not considered custom
-    responses = [EventBusService.is_custom_url(url) for url in test_standard_urls]
+    responses = [AppriseEventListener.is_custom_url(url) for url in test_standard_urls]
     assert not any(responses)
 
     # Validate all custom urls are actually considered custom
-    responses = [EventBusService.is_custom_url(url) for url in test_custom_urls]
+    responses = [AppriseEventListener.is_custom_url(url) for url in test_custom_urls]
     assert all(responses)
 
-    updated_standard_urls = EventBusService.update_urls_with_event_source(test_standard_urls, test_event_source)
-    updated_custom_urls = EventBusService.update_urls_with_event_source(test_custom_urls, test_event_source)
+    updated_standard_urls = AppriseEventListener.update_urls_with_event_data(test_standard_urls, test_event)
+    updated_custom_urls = AppriseEventListener.update_urls_with_event_data(test_custom_urls, test_event)
 
     # Validate that no URLs are lost when updating them
     assert len(updated_standard_urls) == len(test_standard_urls)
