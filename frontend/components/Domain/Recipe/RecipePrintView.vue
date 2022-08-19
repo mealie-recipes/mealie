@@ -22,7 +22,7 @@
         :key="`ingredient-section-${sectionIndex}`"
         class="print-section"
       >
-        <h4 v-if="ingredientSection.ingredients[0].title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
+        <h4 v-if="ingredientSection.ingredients[0].title" class="ingredient-title mt-2">
             {{ ingredientSection.ingredients[0].title }}
         </h4>
         <div class="ingredient-grid" :style="{gridTemplateRows:`repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)`}">
