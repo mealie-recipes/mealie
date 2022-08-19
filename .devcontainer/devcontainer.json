@@ -35,8 +35,13 @@
   },
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
+    "dbaeumer.vscode-eslint",
+    "matangover.mypy",
+    "ms-python.black-formatter",
+    "ms-python.isort",
     "ms-python.python",
-    "ms-python.vscode-pylance"
+    "ms-python.vscode-pylance",
+    "Vue.volar"
   ],
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [
