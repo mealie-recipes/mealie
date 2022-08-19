@@ -3,63 +3,63 @@
         "name": "Produce"
     },
     {
-        "name": "Grains"
+        "name": "Cereales"
     },
     {
-        "name": "Fruits"
+        "name": "Frutas"
     },
     {
-        "name": "Vegetables"
+        "name": "Verduras"
     },
     {
-        "name": "Meat"
+        "name": "Carne"
     },
     {
-        "name": "Seafood"
+        "name": "Pescado y marisco"
     },
     {
-        "name": "Beverages"
+        "name": "Bebidas"
     },
     {
-        "name": "Baked Goods"
+        "name": "Productos horneados"
     },
     {
-        "name": "Canned Goods"
+        "name": "Productos enlatados"
     },
     {
-        "name": "Condiments"
+        "name": "Condimentos"
     },
     {
-        "name": "Confectionary"
+        "name": "Repostería"
     },
     {
-        "name": "Dairy Products"
+        "name": "Productos lácteos"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Alimentos congelados"
     },
     {
-        "name": "Health Foods"
+        "name": "Alimentos saludables"
     },
     {
         "name": "Household"
     },
     {
-        "name": "Meat Products"
+        "name": "Productos cárnicos"
     },
     {
-        "name": "Snacks"
+        "name": "Aperitivos"
     },
     {
-        "name": "Spices"
+        "name": "Especias"
     },
     {
-        "name": "Sweets"
+        "name": "Dulces"
     },
     {
         "name": "Alcohol"
     },
     {
-        "name": "Other"
+        "name": "Otros"
     }
 ]

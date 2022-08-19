@@ -20,7 +20,8 @@
     "portfolio": "Портфоліо",
     "production": "Користувацький",
     "support": "Підтримка",
-    "version": "Версія"
+    "version": "Версія",
+    "unknown-version": "невідомо"
   },
   "asset": {
     "assets": "Медіа-ресурси",
@@ -44,7 +45,8 @@
     "category-updated": "Категорію оновлено",
     "uncategorized-count": "Без категорії {count}",
     "create-a-category": "Створити Категорію",
-    "category-name": "Назва категорії"
+    "category-name": "Назва категорії",
+    "category": "Категорія"
   },
   "events": {
     "apprise-url": "URL-адреса Apprise",
@@ -65,7 +67,7 @@
     "close": "Закрити",
     "confirm": "Підтвердити",
     "confirm-delete-generic": "Ви дійсно бажаєте видалити це?",
-    "copied": "Скопійовано",
+    "copied_message": "Скопійовано!",
     "create": "Створити",
     "created": "Створено",
     "custom": "Власний",
@@ -150,7 +152,10 @@
     "delete-with-name": "Видалити {name}",
     "confirm-delete-generic-with-name": "Ви дійсно хочете видалити {name}?",
     "organizer": "Організатор",
-    "transfer": "Передача"
+    "transfer": "Передача",
+    "copy": "Скопіювати",
+    "color": "Колір",
+    "timestamp": "Час"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -203,7 +208,7 @@
     "side": "Закуска",
     "sides": "Закуска",
     "start-date": "Дата початку",
-    "rule-day": "Rule Day",
+    "rule-day": "Правило Днів",
     "meal-type": "Тип їжи",
     "breakfast": "Сніданок",
     "lunch": "Обід",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Переглянути зібрані дані",
     "trim-whitespace-description": "Обрізати початкові та кінцеву пробілів і порожні лінії",
     "trim-prefix-description": "Обрізати перший символ з кожного рядка",
-    "split-by-numbered-line-description": "Пробує розділити абзац по '1)' або '1.' шаблону"
+    "split-by-numbered-line-description": "Пробує розділити абзац по '1)' або '1.' шаблону",
+    "import-by-url": "Імпортувати рецепт з URL",
+    "create-manually": "Створити рецепт вручну"
   },
   "page": {
     "404-page-not-found": "404 - Сторінка не знайдена",
@@ -254,7 +261,9 @@
     "page-update-failed": "Не вдалося оновити сторінку",
     "page-updated": "Сторінку оновлено",
     "pages-update-failed": "Не вдалося оновити сторінки",
-    "pages-updated": "Сторінки оновлено"
+    "pages-updated": "Сторінки оновлено",
+    "404-not-found": "404 Не знайдено",
+    "an-error-occurred": "Сталася помилка"
   },
   "recipe": {
     "add-key": "Додати ключ",
@@ -357,7 +366,8 @@
     "search": "Пошук",
     "search-mealie": "Пошук по Mealie (натисніть /)",
     "search-placeholder": "Пошук...",
-    "tag-filter": "Фільтр міток"
+    "tag-filter": "Фільтр міток",
+    "search-hint": "Натисніть '/'"
   },
   "settings": {
     "add-a-new-theme": "Додати нову тему",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Назва обов'язкова.",
       "theme-saved": "Тему збережено",
       "theme-updated": "Тему оновлено",
-      "warning": "Попередження"
+      "warning": "Попередження",
+      "light-mode": "Світлий режим",
+      "dark-mode": "Темний режим"
     },
     "token": {
       "active-tokens": "АКТИВНІ КЛЮЧІ",
@@ -484,7 +496,13 @@
     "site-settings": "Налаштування",
     "tags": "Мітки",
     "toolbox": "Інструменти",
-    "language": "Мова"
+    "language": "Мова",
+    "maintenance": "Обслуговування",
+    "background-tasks": "Фонові завдання",
+    "parser": "Парсер",
+    "developer": "Розробник",
+    "cookbook": "Кулінарна книга",
+    "create-cookbook": "Створити нову кулінарну книгу"
   },
   "signup": {
     "error-signing-up": "Помилка реєстрації",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Вам не дозволено створювати користувача",
     "you-are-not-allowed-to-delete-this-user": "Вам не дозволено видаляти користувача",
     "enable-advanced-content": "Увімкнути розширений контент",
-    "enable-advanced-content-description": "Вмикає розширені функції, такі як масштабування рецептів, ключі API, вебхуки та керування даними. Не хвилюйтесь, завжди можна змінити це пізніше"
+    "enable-advanced-content-description": "Вмикає розширені функції, такі як масштабування рецептів, ключі API, вебхуки та керування даними. Не хвилюйтесь, завжди можна змінити це пізніше",
+    "favorite-recipes": "Улюблені рецепти"
   },
   "language-dialog": {
     "translated": "перекладено",
@@ -624,5 +643,21 @@
     "default-30-days": "30 днів за замовчуванням",
     "expires-at": "Дійсний до",
     "recipe-link-copied-message": "Посилання на рецепт скопійовано в буфер обміну"
+  },
+  "banner-experimental": {
+    "title": "Експериментальні функції",
+    "description": "Ця сторінка містить експериментальні або недоготовані функції. Вибачте за безлад.",
+    "issue-link-text": "Відстежуйте прогрес тут"
+  },
+  "form": {
+    "quantity-label-abbreviated": "К-сть"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Попередній перегляд Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "Це демо для версії: {version}",
+    "demo_username": "Ім'я користувача: {username}",
+    "demo_password": "Пароль: {password}"
   }
 }

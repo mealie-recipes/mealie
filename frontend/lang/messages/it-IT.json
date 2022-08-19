@@ -20,7 +20,8 @@
     "portfolio": "Portfolio",
     "production": "Produzione",
     "support": "Supporto",
-    "version": "Versione"
+    "version": "Versione",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Risorse",
@@ -44,7 +45,8 @@
     "category-updated": "Categoria aggiornata",
     "uncategorized-count": "Senza categoria {count}",
     "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "category-name": "Category Name",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "URL Apprise",
@@ -65,7 +67,7 @@
     "close": "Chiudi",
     "confirm": "Conferma",
     "confirm-delete-generic": "Sei sicuro di volere eliminare?",
-    "copied": "Copiato",
+    "copied_message": "Copied!",
     "create": "Crea",
     "created": "Creato",
     "custom": "Personalizzato",
@@ -150,7 +152,10 @@
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Visualizza Dati Ottenuti dallo Scraping",
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
     "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -254,7 +261,9 @@
     "page-update-failed": "Aggiornamento pagina fallito",
     "page-updated": "Pagina aggiornata",
     "pages-update-failed": "Aggiornamento pagine fallito",
-    "pages-updated": "Pagine aggiornate"
+    "pages-updated": "Pagine aggiornate",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Aggiungi Chiave",
@@ -357,7 +366,8 @@
     "search": "Cerca",
     "search-mealie": "Cerca Mealie (premi /)",
     "search-placeholder": "Cerca...",
-    "tag-filter": "Filtro Tag"
+    "tag-filter": "Filtro Tag",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Nome Tema obbligatorio.",
       "theme-saved": "Tema Salvato",
       "theme-updated": "Tema aggiornato",
-      "warning": "Avviso"
+      "warning": "Avviso",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "TOKEN ATTIVI",
@@ -484,7 +496,13 @@
     "site-settings": "Impostazioni",
     "tags": "Tag",
     "toolbox": "Strumenti",
-    "language": "Lingua"
+    "language": "Lingua",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Errore Registrazione",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Non sei autorizzato per la creazione di utenti",
     "you-are-not-allowed-to-delete-this-user": "Non sei autorizzato per la eliminazione di utenti",
     "enable-advanced-content": "Abilita Contenuto Avanzato",
-    "enable-advanced-content-description": "Abilita funzionalità avanzate come Scraping Ricette, Chiavi API, Webhooks e Gestione dei Dati. Non ti preoccupare, puoi sempre cambiare questa configurazione in seguito"
+    "enable-advanced-content-description": "Abilita funzionalità avanzate come Scraping Ricette, Chiavi API, Webhooks e Gestione dei Dati. Non ti preoccupare, puoi sempre cambiare questa configurazione in seguito",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "tradotto",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }

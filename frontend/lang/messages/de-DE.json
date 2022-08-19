@@ -20,7 +20,8 @@
     "portfolio": "Portfolio",
     "production": "Produktivumgebung",
     "support": "Unterstützen",
-    "version": "Version"
+    "version": "Version",
+    "unknown-version": "unbekannt"
   },
   "asset": {
     "assets": "Anhänge",
@@ -31,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Rezept",
     "show-assets": "Anhänge anzeigen",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Fehler beim Senden des Formulars"
   },
   "category": {
     "categories": "Kategorien",
@@ -44,7 +45,8 @@
     "category-updated": "Kategorie aktualisiert",
     "uncategorized-count": "{count} nicht kategorisierte",
     "create-a-category": "Eine Kategorie erstellen",
-    "category-name": "Name der Kategorie"
+    "category-name": "Name der Kategorie",
+    "category": "Kategorie"
   },
   "events": {
     "apprise-url": "Apprise-URL",
@@ -65,7 +67,7 @@
     "close": "Schließen",
     "confirm": "Bestätigen",
     "confirm-delete-generic": "Bist du dir sicher, dass du dies löschen möchtest?",
-    "copied": "Kopiert",
+    "copied_message": "Kopiert!",
     "create": "Erstellen",
     "created": "Erstellt",
     "custom": "Benutzerdefiniert",
@@ -140,17 +142,20 @@
     "next": "Weiter",
     "toggle-view": "Ansicht wechseln",
     "date": "Datum",
-    "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
+    "id": "ID",
+    "owner": "Besitzer",
+    "date-added": "Datum hinzugefügt",
+    "none": "Nichts",
     "run": "Starten",
     "menu": "Menü",
     "a-name-is-required": "Ein Name wird benötigt",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "organizer": "Organizer",
-    "transfer": "Transfer"
+    "delete-with-name": "{name} löschen",
+    "confirm-delete-generic-with-name": "Bist du dir sicher, dass du {name} löschen möchtest?",
+    "organizer": "Organisator",
+    "transfer": "Übertragen",
+    "copy": "Kopieren",
+    "color": "Farbe",
+    "timestamp": "Zeitstempel"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -177,7 +182,7 @@
     }
   },
   "meal-plan": {
-    "create-a-new-meal-plan": "Neuen Essensplan erstellen",
+    "create-a-new-meal-plan": "Neue Mahlzeit planen",
     "dinner-this-week": "Essen diese Woche",
     "dinner-today": "Heutiges Essen",
     "dinner-tonight": "HEUTE GIBT ES",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Gesammelte Daten anzeigen",
     "trim-whitespace-description": "Leerzeichen am Anfang und Ende sowie leere Zeilen entfernen",
     "trim-prefix-description": "Erste Zeichen aus jeder Zeile entfernen",
-    "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen"
+    "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
+    "import-by-url": "Ein Rezept von einer Webseite importieren",
+    "create-manually": "Rezept manuell erstellen"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
@@ -254,7 +261,9 @@
     "page-update-failed": "Aktualisieren der Seite fehlgeschlagen",
     "page-updated": "Seite aktualisiert",
     "pages-update-failed": "Aktualisieren der Seiten fehlgeschlagen",
-    "pages-updated": "Seiten aktualisiert"
+    "pages-updated": "Seiten aktualisiert",
+    "404-not-found": "404 Nicht gefunden",
+    "an-error-occurred": "Es ist ein Fehler aufgetreten"
   },
   "recipe": {
     "add-key": "Schlüssel hinzufügen",
@@ -319,9 +328,9 @@
     "locked-by-owner": "Vom Besitzer gesperrt",
     "join-the-conversation": "Beteilige dich an der Unterhaltung",
     "add-recipe-to-mealplan": "Rezept zum Essensplan hinzufügen",
-    "entry-type": "Entry Type",
+    "entry-type": "Eintragstyp",
     "date-format-hint": "Schreibweise MM/DD/YYYY",
-    "add-to-list": "Zur Liste hinzufügen",
+    "add-to-list": "Zur Einkaufsliste hinzufügen",
     "add-to-plan": "Zum Essensplan hinzufügen",
     "recipe-added-to-list": "Rezept wurde zur Einkaufsliste hinzugefügt",
     "recipe-added-to-mealplan": "Rezept zum Essensplan hinzugefügt",
@@ -329,15 +338,15 @@
     "yield": "Ergibt",
     "quantity": "Menge",
     "choose-unit": "Einheit wählen",
-    "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Zutat wählen",
+    "press-enter-to-create": "Zum Erstellen Eingabetaste drücken",
+    "choose-food": "Lebensmittel wählen",
     "notes": "Notizen",
     "toggle-section": "Überschrift ein-/ausblenden",
     "see-original-text": "Originaltext anzeigen",
     "original-text-with-value": "Originaltext: {originalText}",
     "ingredient-linker": "Zutaten-Verlinkung",
     "linked-to-other-step": "In anderem Schritt verlinkt",
-    "auto": "Auto",
+    "auto": "Automatisch",
     "cook-mode": "Koch-Modus",
     "link-ingredients": "Zutaten verlinken",
     "merge-above": "Mit Eintrag darüber zusammenführen",
@@ -357,7 +366,8 @@
     "search": "Suchen",
     "search-mealie": "Mealie durchsuchen (/ drücken)",
     "search-placeholder": "Suchen...",
-    "tag-filter": "Schlagwortfilter"
+    "tag-filter": "Schlagwortfilter",
+    "search-hint": "'/' drücken"
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Themenname wird benötigt.",
       "theme-saved": "Thema gespeichert",
       "theme-updated": "Thema aktualisiert",
-      "warning": "Warnung"
+      "warning": "Warnung",
+      "light-mode": "Heller Modus",
+      "dark-mode": "Dunkler Modus"
     },
     "token": {
       "active-tokens": "AKTIVE TOKEN",
@@ -452,7 +464,7 @@
       "webhook-url": "Webhook-URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Webhook-Name"
     }
   },
   "shopping-list": {
@@ -464,11 +476,11 @@
     "quantity": "Menge: {0}",
     "shopping-list": "Einkaufsliste",
     "shopping-lists": "Einkaufslisten",
-    "food": "Zutat",
+    "food": "Lebensmittel",
     "note": "Notiz",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Zutaten-Eingabe ein/aus"
+    "label": "Etikett",
+    "linked-item-warning": "Dieser Eintrag ist mit einem oder mehreren Rezepten verknüpft. Das Ändern der Einheiten oder Lebensmittel führt zu unerwarteten Ergebnissen, wenn das Rezept von dieser Einkaufsliste entfernt oder hinzugefügt wird.",
+    "toggle-food": "Lebensmittel-Eingabe ein/aus"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",
@@ -484,7 +496,13 @@
     "site-settings": "Einstellungen",
     "tags": "Schlagworte",
     "toolbox": "Werkzeuge",
-    "language": "Sprache"
+    "language": "Sprache",
+    "maintenance": "Wartung",
+    "background-tasks": "Hintergrundaufgaben",
+    "parser": "Parser",
+    "developer": "Entwickler",
+    "cookbook": "Kochbuch",
+    "create-cookbook": "Ein neues Kochbuch erstellen"
   },
   "signup": {
     "error-signing-up": "Fehler beim Registrieren",
@@ -510,11 +528,11 @@
   },
   "tool": {
     "tools": "Hilfsmittel",
-    "on-hand": "On Hand",
+    "on-hand": "Vorhanden",
     "create-a-tool": "Ein Hilfsmittel erstellen",
-    "tool-name": "Hilfsmittel Bezeichnung",
+    "tool-name": "Name des Hilfsmittels",
     "create-new-tool": "Neues Hilfsmittel erstellen",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)"
   },
   "user": {
     "admin": "Admin",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Sie sind nicht berechtigt, einen Benutzer anzulegen",
     "you-are-not-allowed-to-delete-this-user": "Sie sind nicht berechtigt, diesen Benutzer zu entfernen",
     "enable-advanced-content": "Erweiterten Inhalt aktivieren",
-    "enable-advanced-content-description": "Aktiviert zusätzliche Funktionen wie Rezept-Skalierung, API-Schlüssel, Webhooks und Datenverwaltung. Keine Sorge, das kann später noch geändert werden."
+    "enable-advanced-content-description": "Aktiviert zusätzliche Funktionen wie Rezept-Skalierung, API-Schlüssel, Webhooks und Datenverwaltung. Keine Sorge, das kann später noch geändert werden.",
+    "favorite-recipes": "Lieblingsrezepte"
   },
   "language-dialog": {
     "translated": "übersetzt",
@@ -613,7 +632,7 @@
     "email-is-taken": "E-Mail-Adresse ist schon vergeben"
   },
   "export": {
-    "export": "Export",
+    "export": "Exportieren",
     "file-name": "Dateiname",
     "size": "Größe",
     "link-expires": "Link verfällt"
@@ -624,5 +643,21 @@
     "default-30-days": "Standard 30 Tage",
     "expires-at": "Gültig bis",
     "recipe-link-copied-message": "Rezept-Link in Zwischenablage kopiert"
+  },
+  "banner-experimental": {
+    "title": "Experimentelle Funktionen",
+    "description": "Diese Seite enthält experimentelle oder noch nicht fertig entwickelte Funktionen. Bitte entschuldige das Durcheinander.",
+    "issue-link-text": "Verfolge hier unsere Fortschritte"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Anz."
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Markdown Vorschau"
+  },
+  "demo": {
+    "info_message_with_version": "Dies ist eine Demo für Version: {version}",
+    "demo_username": "Benutzername: {username}",
+    "demo_password": "Passwort: {password}"
   }
 }

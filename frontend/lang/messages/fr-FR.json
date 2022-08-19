@@ -20,7 +20,8 @@
     "portfolio": "Portfolio",
     "production": "Réalisation",
     "support": "Soutenir",
-    "version": "Version"
+    "version": "Version",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Ressources",
@@ -43,8 +44,9 @@
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
     "uncategorized-count": "{count} non catégorisée|{count} non catégorisées",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "create-a-category": "Créer une catégorie",
+    "category-name": "Nom de la catégorie",
+    "category": "Catégorie"
   },
   "events": {
     "apprise-url": "URL Apprise",
@@ -65,7 +67,7 @@
     "close": "Fermer",
     "confirm": "Confirmer",
     "confirm-delete-generic": "Voulez-vous vraiment supprimer ceci ?",
-    "copied": "Copié",
+    "copied_message": "Copié !",
     "create": "Créer",
     "created": "Créé",
     "custom": "Personnalisé",
@@ -140,17 +142,20 @@
     "next": "Suivant",
     "toggle-view": "Toggle View",
     "date": "Date",
-    "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
-    "run": "Run",
+    "id": "Identifiant",
+    "owner": "Propriétaire",
+    "date-added": "Date d’ajout",
+    "none": "Aucun",
+    "run": "Exécuter",
     "menu": "Menu",
-    "a-name-is-required": "A Name is Required",
-    "delete-with-name": "Delete {name}",
+    "a-name-is-required": "Un nom est requis",
+    "delete-with-name": "Supprimer {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transférer",
+    "copy": "Copier",
+    "color": "Couleur ",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/> ?",
@@ -204,10 +209,10 @@
     "sides": "Accompagnements",
     "start-date": "Date de début",
     "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
+    "meal-type": "Type de repas",
+    "breakfast": "Petit déjeuner",
+    "lunch": "Déjeuner",
+    "dinner": "Dîner",
     "type-any": "Any",
     "day-any": "Any"
   },
@@ -241,7 +246,9 @@
     "view-scraped-data": "Voir les données récupérées",
     "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
     "trim-prefix-description": "Couper le premier caractère de chaque ligne",
-    "split-by-numbered-line-description": "Tente de découper un paragraphe par correspondance de motifs : '1) ou '1.'"
+    "split-by-numbered-line-description": "Tente de découper un paragraphe par correspondance de motifs : '1) ou '1.'",
+    "import-by-url": "Importer une recette par son URL",
+    "create-manually": "Créer une recette manuellement"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
@@ -254,7 +261,9 @@
     "page-update-failed": "La mise à jour de la page a échoué",
     "page-updated": "Page mise à jour",
     "pages-update-failed": "La mise à jour des pages a échoué",
-    "pages-updated": "Pages mises à jour"
+    "pages-updated": "Pages mises à jour",
+    "404-not-found": "404 Page introuvable",
+    "an-error-occurred": "Une erreur est survenue"
   },
   "recipe": {
     "add-key": "Ajouter une clé",
@@ -316,20 +325,20 @@
     "total-time": "Temps total",
     "unable-to-delete-recipe": "Impossible de supprimer la recette",
     "no-recipe": "Pas de recette",
-    "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
-    "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
-    "add-to-list": "Add to List",
-    "add-to-plan": "Add to Plan",
-    "recipe-added-to-list": "Recipe added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "locked-by-owner": "Verrouillé par le propriétaire",
+    "join-the-conversation": "Rejoindre la conversation",
+    "add-recipe-to-mealplan": "Ajouter la recette à la planification du menu",
+    "entry-type": "Type d'entrée",
+    "date-format-hint": "Format MM/JJ/AAAA",
+    "add-to-list": "Ajouter à la liste",
+    "add-to-plan": "Ajouter à la planification des repas",
+    "recipe-added-to-list": "Recette ajoutée à la liste",
+    "recipe-added-to-mealplan": "Recette ajoutée à la planification des repas",
+    "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
     "yield": "Yield",
-    "quantity": "Quantity",
+    "quantity": "Quantité",
     "choose-unit": "Choose Unit",
-    "press-enter-to-create": "Press Enter to Create",
+    "press-enter-to-create": "Clique sur Entrer pour créer",
     "choose-food": "Choose Food",
     "notes": "Notes",
     "toggle-section": "Toggle Section",
@@ -357,7 +366,8 @@
     "search": "Rechercher",
     "search-mealie": "Rechercher dans Mealie (appuyez sur /)",
     "search-placeholder": "Rechercher...",
-    "tag-filter": "Filtre par mots-clés"
+    "tag-filter": "Filtre par mots-clés",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Un nom de thème est requis.",
       "theme-saved": "Thème enregistré",
       "theme-updated": "Thème mis à jour",
-      "warning": "Avertissement"
+      "warning": "Avertissement",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "JETONS ACTIFS",
@@ -484,7 +496,13 @@
     "site-settings": "Paramètres",
     "tags": "Mots-clés",
     "toolbox": "Boîte à outils",
-    "language": "Langue"
+    "language": "Langue",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Vous n'avez pas le droit de créer un utilisateur",
     "you-are-not-allowed-to-delete-this-user": "Vous n'avez pas le droit de supprimer cet utilisateur",
     "enable-advanced-content": "Activer le contenu avancé",
-    "enable-advanced-content-description": "Active les fonctionnalités avancées comme la mise à l'échelle des recettes, les clés API, les Webhooks, et la gestion des données. Ne vous inquiétez pas, vous pouvez toujours modifier cela plus tard"
+    "enable-advanced-content-description": "Active les fonctionnalités avancées comme la mise à l'échelle des recettes, les clés API, les Webhooks, et la gestion des données. Ne vous inquiétez pas, vous pouvez toujours modifier cela plus tard",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "traduit",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }

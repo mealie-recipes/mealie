@@ -20,7 +20,8 @@
     "portfolio": "Portefølje",
     "production": "Produktion",
     "support": "Hjælp",
-    "version": "Version"
+    "version": "Version",
+    "unknown-version": "ukendt"
   },
   "asset": {
     "assets": "Ekstramateriale",
@@ -31,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Opskrift",
     "show-assets": "Vis ekstramateriale",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Fejl ved indsendelse af data"
   },
   "category": {
     "categories": "Kategorier",
@@ -43,8 +44,9 @@
     "category-update-failed": "Kategoriopdatering fejlede",
     "category-updated": "Kategori opdateret",
     "uncategorized-count": "Ukategoriseret {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "create-a-category": "Opret en kategori",
+    "category-name": "Kategorinavn",
+    "category": "Kategori"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -65,7 +67,7 @@
     "close": "Luk",
     "confirm": "Bekræft",
     "confirm-delete-generic": "Er du sikker på, du vil slette dette?",
-    "copied": "Kopieret",
+    "copied_message": "Kopieret!",
     "create": "Opret",
     "created": "Oprettet",
     "custom": "Brugerdefineret",
@@ -138,19 +140,22 @@
     "units": "Enheder",
     "back": "Tilbage",
     "next": "Næste",
-    "toggle-view": "Toggle View",
-    "date": "Date",
+    "toggle-view": "Skift visning",
+    "date": "Dato",
     "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
-    "run": "Run",
+    "owner": "Ejer",
+    "date-added": "Oprettelsesdato",
+    "none": "Ingen",
+    "run": "Start",
     "menu": "Menu",
-    "a-name-is-required": "A Name is Required",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "organizer": "Organizer",
-    "transfer": "Transfer"
+    "a-name-is-required": "Navn skal udfyldes",
+    "delete-with-name": "Slet {name}",
+    "confirm-delete-generic-with-name": "Er du sikker på, at du vil slette dette {name}?",
+    "organizer": "Organisator",
+    "transfer": "Overfør",
+    "copy": "Kopier",
+    "color": "Farve",
+    "timestamp": "Tidsstempel"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -203,13 +208,13 @@
     "side": "Tilbehør",
     "sides": "Tilbehør",
     "start-date": "Start dato",
-    "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "type-any": "Any",
-    "day-any": "Any"
+    "rule-day": "Regler for dage",
+    "meal-type": "Måltidstype",
+    "breakfast": "Morgenmad",
+    "lunch": "Frokost",
+    "dinner": "Aftensmad",
+    "type-any": "Alle",
+    "day-any": "Alle"
   },
   "migration": {
     "chowdown": {
@@ -241,7 +246,9 @@
     "view-scraped-data": "Vis skrabet data",
     "trim-whitespace-description": "Fjern indledende og efterfølgende mellemrum samt blanke linjer",
     "trim-prefix-description": "Beskær første tegn fra hver linje",
-    "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre"
+    "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre",
+    "import-by-url": "Importér opskrift fra en webside",
+    "create-manually": "Opret opskrift manuelt"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -254,7 +261,9 @@
     "page-update-failed": "Opdatering af side fejlede",
     "page-updated": "Side opdateret",
     "pages-update-failed": "Opdatering af sider fejlede",
-    "pages-updated": "Sider opdateret"
+    "pages-updated": "Sider opdateret",
+    "404-not-found": "404 Ikke Fundet",
+    "an-error-occurred": "Der opstod en fejl"
   },
   "recipe": {
     "add-key": "Tilføj nøgle",
@@ -316,35 +325,35 @@
     "total-time": "Total tid",
     "unable-to-delete-recipe": "Kunne ikke slette opskrift",
     "no-recipe": "Ingen opskrift",
-    "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
-    "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
-    "add-to-list": "Add to List",
-    "add-to-plan": "Add to Plan",
-    "recipe-added-to-list": "Recipe added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
-    "yield": "Yield",
-    "quantity": "Quantity",
-    "choose-unit": "Choose Unit",
-    "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Choose Food",
-    "notes": "Notes",
-    "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
-    "auto": "Auto",
-    "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "locked-by-owner": "Låst af ejer",
+    "join-the-conversation": "Deltag i samtalen",
+    "add-recipe-to-mealplan": "Tilføj opskrift til madplanen",
+    "entry-type": "Posttype",
+    "date-format-hint": "MM/DD/ÅÅÅÅ format",
+    "add-to-list": "Tilføj til liste",
+    "add-to-plan": "Tilføj til madplan",
+    "recipe-added-to-list": "Opskrift tilføjet til listen",
+    "recipe-added-to-mealplan": "Opskrift tilføjet til madplanen",
+    "failed-to-add-recipe-to-mealplan": "Kunne ikke tilføje opskrift til madplanen",
+    "yield": "Portioner",
+    "quantity": "Antal",
+    "choose-unit": "Vælg enhed",
+    "press-enter-to-create": "Tryk enter for at oprette",
+    "choose-food": "Vælg fødevarer",
+    "notes": "Kommentarer",
+    "toggle-section": "Sektion",
+    "see-original-text": "Vis den oprindelige tekst",
+    "original-text-with-value": "Oprindelig tekst: {originalText}",
+    "ingredient-linker": "Ingrediens-Linker",
+    "linked-to-other-step": "Linket til andet trin",
+    "auto": "Automatisk",
+    "cook-mode": "Tilberedningsvisning",
+    "link-ingredients": "Link ingredienser",
+    "merge-above": "Sammenflet ovenstående",
+    "reset-scale": "Nulstil skalering",
+    "decrease-scale-label": "Formindsk skala med 1",
+    "increase-scale-label": "Forøg skala med 1",
+    "locked": "Låst"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -357,7 +366,8 @@
     "search": "Søg",
     "search-mealie": "Søg Mealie (tryk /)",
     "search-placeholder": "Søg...",
-    "tag-filter": "Tagfiler"
+    "tag-filter": "Tagfiler",
+    "search-hint": "Tryk '/'"
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Temanavnet er påkrævet.",
       "theme-saved": "Tema gemt",
       "theme-updated": "Tema opdateret",
-      "warning": "Advarsel"
+      "warning": "Advarsel",
+      "light-mode": "Lys tilstand",
+      "dark-mode": "Mørk tilstand"
     },
     "token": {
       "active-tokens": "Aktive tokens",
@@ -452,7 +464,7 @@
       "webhook-url": "Webhook adresse",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Webhook navn"
     }
   },
   "shopping-list": {
@@ -464,11 +476,11 @@
     "quantity": "Antal: {0}",
     "shopping-list": "Indkøbsliste",
     "shopping-lists": "Indkøbslister",
-    "food": "Food",
+    "food": "Fødevarer",
     "note": "Note",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "label": "Etiket",
+    "linked-item-warning": "Dette element er tilknyttet en eller flere opskrifter. Justering af enheder eller fødevarer vil give uventede resultater, når du tilføjer eller fjerner opskriften fra denne liste.",
+    "toggle-food": "Slå fødevarer til/fra"
   },
   "sidebar": {
     "all-recipes": "Alle opskr.",
@@ -484,7 +496,13 @@
     "site-settings": "Sideindstil.",
     "tags": "Tags",
     "toolbox": "Værktøjskasse",
-    "language": "Sprog"
+    "language": "Sprog",
+    "maintenance": "Vedligeholdelse",
+    "background-tasks": "Baggrundsopgaver",
+    "parser": "Parser",
+    "developer": "Udvikler",
+    "cookbook": "Kogebog",
+    "create-cookbook": "Opret en ny kogebog"
   },
   "signup": {
     "error-signing-up": "Fejl i forbindelse med oprettelse af bruger",
@@ -505,16 +523,16 @@
     "tag-updated": "Tag blev opdateret",
     "tags": "Tags",
     "untagged-count": "Ikke-tagget: {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Opret tag",
+    "tag-name": "Tag navn"
   },
   "tool": {
     "tools": "Værktøjer",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand": "Har Allerede",
+    "create-a-tool": "Opret et værktøj",
+    "tool-name": "Værktøjsnavn",
+    "create-new-tool": "Opret et nyt værktøj",
+    "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)"
   },
   "user": {
     "admin": "Administrator",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheder til at oprette en ny bruger",
     "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheder til at slette denne bruger",
     "enable-advanced-content": "Tillad avanceret indhold",
-    "enable-advanced-content-description": "Aktiverer avancerede funktioner som skalering af opskrifter, API-nøgler, Webhooks og data håndtering. Du kan altid ændre dit valgt senere"
+    "enable-advanced-content-description": "Aktiverer avancerede funktioner som skalering af opskrifter, API-nøgler, Webhooks og data håndtering. Du kan altid ændre dit valgt senere",
+    "favorite-recipes": "Favorit Opskrifter"
   },
   "language-dialog": {
     "translated": "oversat",
@@ -613,16 +632,32 @@
     "email-is-taken": "E-mail er allerede anvendt"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Eksportér",
+    "file-name": "Filnavn",
+    "size": "Størrelse",
+    "link-expires": "Linket udløber"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Udløbsdato",
+    "share-recipe": "Del opskrift",
+    "default-30-days": "Standard 30 Dage",
+    "expires-at": "Udløber den",
+    "recipe-link-copied-message": "Link til opskrift er kopieret til udklipsholder"
+  },
+  "banner-experimental": {
+    "title": "Eksperimentelle funktioner",
+    "description": "Denne side indeholder eksperimentelle eller funktioner under udvikling. Undskyld rodet.",
+    "issue-link-text": "Følg dine fremskridt"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Antal"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Forhåndsvisning"
+  },
+  "demo": {
+    "info_message_with_version": "Dette er en demo for version: {version}",
+    "demo_username": "Brugernavn: {username}",
+    "demo_password": "Adgangskode: {password}"
   }
 }

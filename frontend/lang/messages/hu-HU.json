@@ -20,7 +20,8 @@
     "portfolio": "Portfólió",
     "production": "Stabil",
     "support": "Támogatás",
-    "version": "Verzió"
+    "version": "Verzió",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Eszközök",
@@ -44,7 +45,8 @@
     "category-updated": "Kategória frissítve",
     "uncategorized-count": "Kategórizálatlan {count}",
     "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "category-name": "Category Name",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -65,7 +67,7 @@
     "close": "Bezár",
     "confirm": "Megerősítés",
     "confirm-delete-generic": "Biztosan törölni szeretnéd ezt?",
-    "copied": "Másolva",
+    "copied_message": "Copied!",
     "create": "Létrehozás",
     "created": "Létrehozva",
     "custom": "Egyéni",
@@ -150,7 +152,10 @@
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Letöltött adat megtekintése",
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
     "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404. Az oldal nem található",
@@ -254,7 +261,9 @@
     "page-update-failed": "Oldal módosítása sikertelen",
     "page-updated": "Az oldal módosítva",
     "pages-update-failed": "Oldal módosítása sikertelen",
-    "pages-updated": "Az oldalak módosítva"
+    "pages-updated": "Az oldalak módosítva",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Kulcs hozzáadása",
@@ -357,7 +366,8 @@
     "search": "Keresés",
     "search-mealie": "Keresés a Mealie-ben (/ gombbal)",
     "search-placeholder": "Keresés...",
-    "tag-filter": "Címke szűrő"
+    "tag-filter": "Címke szűrő",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Új téma hozzáadása",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Téma neve kötelező.",
       "theme-saved": "Téma elmentve",
       "theme-updated": "Téma frissítve",
-      "warning": "Figyelem"
+      "warning": "Figyelem",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "AKTÍV TOKENEK",
@@ -484,7 +496,13 @@
     "site-settings": "Beállítások",
     "tags": "Címkék",
     "toolbox": "Eszközök",
-    "language": "Nyelv"
+    "language": "Nyelv",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Regisztráció hiba",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Nem hozhatsz létre új felhasználót",
     "you-are-not-allowed-to-delete-this-user": "Nem törölheted ezt a felhasználót",
     "enable-advanced-content": "Haladó beállítások engedélyezése",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "translated",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }

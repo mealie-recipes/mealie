@@ -20,7 +20,8 @@
     "portfolio": "Portfelj",
     "production": "Produkcija",
     "support": "Podpora",
-    "version": "Verzija"
+    "version": "Verzija",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Viri",
@@ -44,7 +45,8 @@
     "category-updated": "Kategorija posodobljena",
     "uncategorized-count": "Nekategorizirano {count}",
     "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "category-name": "Category Name",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -65,7 +67,7 @@
     "close": "Zapri",
     "confirm": "Potrdi",
     "confirm-delete-generic": "Ali ste prepričani, da želite to izbrisati?",
-    "copied": "Kopirano",
+    "copied_message": "Copied!",
     "create": "Ustvari",
     "created": "Ustvarjeno",
     "custom": "Po meri",
@@ -150,7 +152,10 @@
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Poglej postrgane podatke",
     "trim-whitespace-description": "Poreži začetne in končne presledke, kot tudi prazne vrstice",
     "trim-prefix-description": "Poreži prvi znak v vsaki vrstici",
-    "split-by-numbered-line-description": "Poskušaj razdeliti odstavek z ujemanjem '1)' ali '1.' vzorcev"
+    "split-by-numbered-line-description": "Poskušaj razdeliti odstavek z ujemanjem '1)' ali '1.' vzorcev",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404 strani ni mogoče najti",
@@ -254,7 +261,9 @@
     "page-update-failed": "Napaka pri posodobitvi strani",
     "page-updated": "Stran je posodobljena",
     "pages-update-failed": "Napaka pri posodobitvi strani",
-    "pages-updated": "Strani posodobljene"
+    "pages-updated": "Strani posodobljene",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Dodajte ključ",
@@ -357,7 +366,8 @@
     "search": "Iskanje",
     "search-mealie": "Išči po Mealie (pritisni /)",
     "search-placeholder": "Išči...",
-    "tag-filter": "Filter oznak"
+    "tag-filter": "Filter oznak",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Ime teme je obvezen podatek.",
       "theme-saved": "Tema je shranjena",
       "theme-updated": "Tema posodobljena",
-      "warning": "Opozorilo"
+      "warning": "Opozorilo",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "AKTIVNI ŽETONI",
@@ -484,7 +496,13 @@
     "site-settings": "Nastavitve strani",
     "tags": "Značke",
     "toolbox": "Orodjarna",
-    "language": "Jezik"
+    "language": "Jezik",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Napaka pri vpisu",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Nimate pravic za ustvarjanje uporabnika",
     "you-are-not-allowed-to-delete-this-user": "Nimate pravic za izbris tega uporabnika",
     "enable-advanced-content": "Omogoči napredne nastavitve",
-    "enable-advanced-content-description": "Omogoči napredne nastavitve kot so spreminjanje merila receptov, API ključi, Webhook in upravljanje s podatki. Ne skrbite, vse to lahko spremenite kasneje"
+    "enable-advanced-content-description": "Omogoči napredne nastavitve kot so spreminjanje merila receptov, API ključi, Webhook in upravljanje s podatki. Ne skrbite, vse to lahko spremenite kasneje",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }

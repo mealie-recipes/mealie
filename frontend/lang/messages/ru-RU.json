@@ -20,7 +20,8 @@
     "portfolio": "Портфолио",
     "production": "Пользовательский",
     "support": "Поддержка",
-    "version": "Версия"
+    "version": "Версия",
+    "unknown-version": "unknown"
   },
   "asset": {
     "assets": "Ресурсы",
@@ -44,7 +45,8 @@
     "category-updated": "Категория обновлена",
     "uncategorized-count": "Без категории {count}",
     "create-a-category": "Create a Category",
-    "category-name": "Category Name"
+    "category-name": "Category Name",
+    "category": "Category"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -65,7 +67,7 @@
     "close": "Закрыть",
     "confirm": "Подтвердить",
     "confirm-delete-generic": "Вы уверены, что хотите это удалить?",
-    "copied": "Скопировано",
+    "copied_message": "Copied!",
     "create": "Создать",
     "created": "По дате создания",
     "custom": "Свой",
@@ -150,7 +152,10 @@
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "copy": "Copy",
+    "color": "Color",
+    "timestamp": "Timestamp"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -241,7 +246,9 @@
     "view-scraped-data": "Просмотр собранных данных",
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
     "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns"
+    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
+    "import-by-url": "Import a recipe by URL",
+    "create-manually": "Create a recipe manually"
   },
   "page": {
     "404-page-not-found": "404 - страница не найдена",
@@ -254,7 +261,9 @@
     "page-update-failed": "Ошибка обновления страницы",
     "page-updated": "Страница обновлена",
     "pages-update-failed": "Ошибка обновления страниц",
-    "pages-updated": "Страницы обновлены"
+    "pages-updated": "Страницы обновлены",
+    "404-not-found": "404 Not Found",
+    "an-error-occurred": "An error occurred"
   },
   "recipe": {
     "add-key": "Добавить ключ",
@@ -357,7 +366,8 @@
     "search": "Поиск",
     "search-mealie": "Поиск Mealie (нажмите /)",
     "search-placeholder": "Поиск...",
-    "tag-filter": "Фильтр тегов"
+    "tag-filter": "Фильтр тегов",
+    "search-hint": "Press '/'"
   },
   "settings": {
     "add-a-new-theme": "Добавить новую тему",
@@ -425,7 +435,9 @@
       "theme-name-is-required": "Название темы обязательно.",
       "theme-saved": "Тема сохранена",
       "theme-updated": "Тема обновлена",
-      "warning": "Предупреждение"
+      "warning": "Предупреждение",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode"
     },
     "token": {
       "active-tokens": "АКТИВНЫЕ ТОКЕНЫ",
@@ -484,7 +496,13 @@
     "site-settings": "Настройки",
     "tags": "Теги",
     "toolbox": "Инструменты",
-    "language": "Language"
+    "language": "Language",
+    "maintenance": "Maintenance",
+    "background-tasks": "Background Tasks",
+    "parser": "Parser",
+    "developer": "Developer",
+    "cookbook": "Cookbook",
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Ошибка регистрации",
@@ -572,7 +590,8 @@
     "you-are-not-allowed-to-create-a-user": "Вы не можете создавать пользователей",
     "you-are-not-allowed-to-delete-this-user": "Вы не можете удалить этого пользователя",
     "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later"
+    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
+    "favorite-recipes": "Favorite Recipes"
   },
   "language-dialog": {
     "translated": "translated",
@@ -624,5 +643,21 @@
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
+  },
+  "banner-experimental": {
+    "title": "Experimental Feature",
+    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "issue-link-text": "Track our progress here"
+  },
+  "form": {
+    "quantity-label-abbreviated": "Qty"
+  },
+  "markdown-editor": {
+    "preview-markdown-button-label": "Preview Markdown"
+  },
+  "demo": {
+    "info_message_with_version": "This is a Demo for version: {version}",
+    "demo_username": "Username: {username}",
+    "demo_password": "Password: {password}"
   }
 }
