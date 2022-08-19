@@ -22,7 +22,7 @@
         :key="`ingredient-section-${sectionIndex}`"
         class="print-section"
       >
-        <div class="ingredient-grid">
+        <div class="ingredient-grid" :style="{gridTemplateRows:`repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, 1fr)`}">
           <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
             <h4 v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
               {{ ingredient.title }}
@@ -245,6 +245,7 @@ p {
 
 .ingredient-grid {
   display: grid;
+  grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0.5rem;
 }
