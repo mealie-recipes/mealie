@@ -245,27 +245,29 @@
           </h2>
           <p class="my-1">{{ $t("ocr-editor.help-dialog.selection-mode") }}</p>
           <ol>
-            <li>{{  $t("ocr-editor.help-dialog.selection-mode-steps.draw") }}</li>
-            <li>{{  $t("ocr-editor.help-dialog.selection-mode-steps.click") }}</li>
-            <li>{{  $t("ocr-editor.help-dialog.selection-mode-steps.result") }}</li>
+            <li>{{ $t("ocr-editor.help-dialog.selection-mode-steps.draw") }}</li>
+            <li>{{ $t("ocr-editor.help-dialog.selection-mode-steps.click") }}</li>
+            <li>{{ $t("ocr-editor.help-dialog.selection-mode-steps.result") }}</li>
           </ol>
           <h2 class="my-2">
             <v-icon> {{ $globals.icons.panAndZoom }} </v-icon>{{ $t("ocr-editor.help-dialog.pan-and-zoom-mode") }}
           </h2>
-{{ $t("ocr-editor.help-dialog.pan-and-zoom-desc") }}
+          {{ $t("ocr-editor.help-dialog.pan-and-zoom-desc") }}
           <h1 class="mt-5">{{ $t("ocr-editor.help-dialog.split-text-mode") }}</h1>
           <v-divider class="mb-2 mt-1" />
           <h2 class="my-2">
-            <v-icon> {{ $globals.icons.preserveLines }} </v-icon>{{ $t("ocr-editor.help-dialog.split-modes.line-mode") }}
+            <v-icon> {{ $globals.icons.preserveLines }} </v-icon
+            >{{ $t("ocr-editor.help-dialog.split-modes.line-mode") }}
           </h2>
           <p>
-{{ $t("ocr-editor.help-dialog.split-modes.line-mode-desc") }}
+            {{ $t("ocr-editor.help-dialog.split-modes.line-mode-desc") }}
           </p>
           <h2 class="my-2">
-            <v-icon> {{ $globals.icons.preserveBlocks }} </v-icon> {{ $t("ocr-editor.help-dialog.split-modes.block-mode") }}
+            <v-icon> {{ $globals.icons.preserveBlocks }} </v-icon>
+            {{ $t("ocr-editor.help-dialog.split-modes.block-mode") }}
           </h2>
           <p>
-{{ $t("ocr-editor.help-dialog.split-modes.block-mode-desc") }}
+            {{ $t("ocr-editor.help-dialog.split-modes.block-mode-desc") }}
           </p>
           <h2 class="my-2">
             <v-icon> {{ $globals.icons.flatten }} </v-icon> {{ $t("ocr-editor.help-dialog.split-modes.flat-mode") }}
@@ -531,6 +533,7 @@ export default defineComponent({
           state.imagePosition.dWidth = state.canvas.width;
           state.imagePosition.dHeight = image.height * state.imagePosition.scale;
           drawImage(state.ctx);
+          drawWordBoxesOnCanvas(tsv.value);
         });
       });
     });
@@ -716,6 +719,19 @@ export default defineComponent({
       if (state.isImageSmallerThanCanvas) return;
       if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
 
+      if (state.canvasMode === "selection") {
+        event.preventDefault();
+        updateMousePos(event);
+        const m = Math.sign(event.deltaY);
+        state.imagePosition.dy = state.imagePosition.dy + m * state.imagePosition.dHeight * scrollSensitivity;
+        keepImageInCanvas();
+        updateImageScale();
+
+        state.ctx.fillStyle = "rgb(255, 255, 255)";
+        state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
+        drawImage(state.ctx);
+      }
+
       if (state.canvasMode === "panAndZoom") {
         event.preventDefault();
 
@@ -755,6 +771,23 @@ export default defineComponent({
         rect.h = -rect.h;
       }
       return rect;
+    }
+
+    function drawWordBoxesOnCanvas(tsv: OcrTsvResponse[]) {
+      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
+
+      state.ctx.fillStyle = "rgb(255, 255, 255, 0.3)";
+      tsv
+        .filter((element) => element.level === 5)
+        .forEach((element) => {
+          if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
+          state.ctx.fillRect(
+            element.left * state.imagePosition.scale,
+            element.top * state.imagePosition.scale,
+            element.width * state.imagePosition.scale,
+            element.height * state.imagePosition.scale
+          );
+        });
     }
 
     function getWordsInSelection(tsv: OcrTsvResponse[], rect: CanvasRect) {
