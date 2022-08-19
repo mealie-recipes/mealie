@@ -248,7 +248,7 @@
     "trim-prefix-description": "Erste Zeichen aus jeder Zeile entfernen",
     "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
     "import-by-url": "Ein Rezept von einer Webseite importieren",
-    "create-manually": "Rezept manuell erstellen"
+    "create-manually": "Ein Rezept manuell erstellen"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
@@ -591,12 +591,12 @@
     "you-are-not-allowed-to-delete-this-user": "Sie sind nicht berechtigt, diesen Benutzer zu entfernen",
     "enable-advanced-content": "Erweiterten Inhalt aktivieren",
     "enable-advanced-content-description": "Aktiviert zusätzliche Funktionen wie Rezept-Skalierung, API-Schlüssel, Webhooks und Datenverwaltung. Keine Sorge, das kann später noch geändert werden.",
-    "favorite-recipes": "Lieblingsrezepte"
+    "favorite-recipes": "Favoriten"
   },
   "language-dialog": {
     "translated": "übersetzt",
     "choose-language": "Sprache wählen",
-    "select-description": "Wählen Sie die Sprache für die Mealie-Benutzeroberfläche. Die Einstellung gilt nur für Sie, nicht für andere Benutzer.",
+    "select-description": "Wähle die Sprache für die Mealie-Benutzeroberfläche. Die Einstellung gilt nur für dich, nicht für andere Benutzer.",
     "how-to-contribute-description": "Ist etwas noch nicht übersetzt, falsch oder deine Sprache fehlt in der Liste? {read-the-docs-link} wie man beiträgt!",
     "read-the-docs": "Dokumentation lesen"
   },
