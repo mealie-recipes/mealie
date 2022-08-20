@@ -151,7 +151,7 @@ export default defineComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode.toString());
+      handleResponse(response, stayInEditMode.value);
     }
 
     return {
