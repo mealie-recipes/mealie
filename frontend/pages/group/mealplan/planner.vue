@@ -218,7 +218,7 @@
           <RecipeCard
             v-for="mealplan in plan.meals"
             :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id : null"
+            :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
             :image-height="125"
             class="mb-2"
             :route="mealplan.recipe ? true : false"
@@ -236,8 +236,8 @@
                   {{ mealplan.entryType }}
                 </v-chip>
                 <RecipeContextMenu
-                  :name="mealplan.recipe.name"
-                  :recipe-id="mealplan.recipe.id"
+                  :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
+                  :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
                   :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
                   :use-items="{
                     delete: false,
