@@ -23,6 +23,14 @@
           replace them with the contents of this backup. <b> This action cannot be undone - use with caution. </b> If
           the restoration is successful, you will be logged out.
 
+          <p class="mt-3">
+            If you are using PostGreSQL, please review the
+            <a href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/"
+              >backup/restore process in the documentation</a
+            >
+            prior to restoring.
+          </p>
+
           <v-checkbox
             v-model="confirmImport"
             class="checkbox-top"

@@ -69,6 +69,8 @@ nav:
           - PostgreSQL: "documentation/getting-started/installation/postgres.md"
           - Frontend Configuration: "documentation/getting-started/installation/frontend-config.md"
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
+      - Usage:
+          - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
 
       - Community Guides:
           - iOS Shortcuts: "documentation/community-guide/ios.md"
