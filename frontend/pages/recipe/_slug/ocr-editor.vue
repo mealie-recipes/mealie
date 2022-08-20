@@ -451,6 +451,9 @@ export default defineComponent({
     function updateImageScale() {
       state.imagePosition.scale = state.imagePosition.dWidth / image.width;
 
+      // force the original ratio to be respected
+      state.imagePosition.dHeight = image.height * state.imagePosition.scale;
+
       // Don't let images bigger than the canvas be zoomed in more than 1:1 scale
       // Meaning only let images smaller than the canvas to have a scale > 1
       if (!state.isImageSmallerThanCanvas && state.imagePosition.scale > 1) {
@@ -531,7 +534,6 @@ export default defineComponent({
           state.imagePosition.sWidth = image.width;
           state.imagePosition.sHeight = image.height;
           state.imagePosition.dWidth = state.canvas.width;
-          state.imagePosition.dHeight = image.height * state.imagePosition.scale;
           drawImage(state.ctx);
           drawWordBoxesOnCanvas(tsv.value);
         });
