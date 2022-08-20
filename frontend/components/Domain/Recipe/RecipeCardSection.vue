@@ -15,49 +15,7 @@
         {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
 
-      <v-menu v-if="$listeners.sort" offset-y left>
-        <template #activator="{ on, attrs }">
-          <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
-            <v-icon :left="!$vuetify.breakpoint.xsOnly">
-              {{ $globals.icons.sort }}
-            </v-icon>
-            {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item @click="sortRecipesFrontend(EVENTS.az)">
-            <v-icon left>
-              {{ $globals.icons.orderAlphabeticalAscending }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="sortRecipesFrontend(EVENTS.rating)">
-            <v-icon left>
-              {{ $globals.icons.star }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="sortRecipesFrontend(EVENTS.created)">
-            <v-icon left>
-              {{ $globals.icons.newBox }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="sortRecipesFrontend(EVENTS.updated)">
-            <v-icon left>
-              {{ $globals.icons.update }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="sortRecipesFrontend(EVENTS.shuffle)">
-            <v-icon left>
-              {{ $globals.icons.shuffleVariant }}
-            </v-icon>
-            <v-list-item-title>{{ $t("general.shuffle") }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-menu v-if="$listeners.sortRecipes" offset-y left>
+      <v-menu offset-y left>
         <template #activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
             <v-icon :left="!$vuetify.breakpoint.xsOnly">
@@ -147,12 +105,10 @@
         </v-col>
       </v-row>
     </div>
-    <div v-if="usePagination">
-      <v-card v-intersect="infiniteScroll"></v-card>
-      <v-fade-transition>
-        <AppLoader v-if="loading" :loading="loading" />
-      </v-fade-transition>
-    </div>
+    <v-card v-intersect="infiniteScroll"></v-card>
+    <v-fade-transition>
+      <AppLoader v-if="loading" :loading="loading" />
+    </v-fade-transition>
   </div>
 </template>
 
@@ -172,11 +128,10 @@ import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useAsyncKey } from "~/composables/use-utils";
-import { useLazyRecipes, useSorter } from "~/composables/recipes";
+import { useLazyRecipes } from "~/composables/recipes";
 import { Recipe } from "~/types/api-types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
 
-const SORT_EVENT = "sort";
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
 const APPEND_RECIPES_EVENT = "appendRecipes";
 
@@ -206,15 +161,21 @@ export default defineComponent({
       type: Array as () => Recipe[],
       default: () => [],
     },
-    usePagination: {
-      type: Boolean,
-      default: false,
+    categorySlug: {
+      type: String,
+      default: null,
+    },
+    tagSlug: {
+      type: String,
+      default: null,
+    },
+    toolSlug: {
+      type: String,
+      default: null,
     },
   },
   setup(props, context) {
     const preferences = useUserSortPreferences();
-
-    const utils = useSorter();
 
     const EVENTS = {
       az: "az",
@@ -252,26 +213,30 @@ export default defineComponent({
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
+    const category = ref<string>(props.categorySlug);
+    const tag = ref<string>(props.tagSlug);
+    const tool = ref<string>(props.toolSlug);
 
     const { fetchMore } = useLazyRecipes();
 
     onMounted(async () => {
-      if (props.usePagination) {
-        const newRecipes = await fetchMore(
-          page.value,
+      const newRecipes = await fetchMore(
+        page.value,
 
-          // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
-          perPage.value*2,
-          preferences.value.orderBy,
-          preferences.value.orderDirection
-        );
+        // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
+        perPage.value*2,
+        preferences.value.orderBy,
+        preferences.value.orderDirection,
+        category.value,
+        tag.value,
+        tool.value,
+      );
 
-        // since we doubled the first call, we also need to advance the page
-        page.value = page.value + 1;
+      // since we doubled the first call, we also need to advance the page
+      page.value = page.value + 1;
 
-        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
-        ready.value = true;
-      }
+      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+      ready.value = true;
     });
 
     const infiniteScroll = useThrottleFn(() => {
@@ -287,7 +252,10 @@ export default defineComponent({
           page.value,
           perPage.value,
           preferences.value.orderBy,
-          preferences.value.orderDirection
+          preferences.value.orderDirection,
+          category.value,
+          tag.value,
+          tool.value,
         );
         if (!newRecipes.length) {
           hasMore.value = false;
@@ -299,12 +267,6 @@ export default defineComponent({
       }, useAsyncKey());
     }, 500);
 
-    /**
-     * sortRecipes helps filter using the API. This will eventually replace the sortRecipesFrontend function which pulls all recipes
-     * (without pagination) and does the sorting in the frontend.
-     * TODO: remove sortRecipesFrontend and remove duplicate "sortRecipes" section in the template (above)
-     * @param sortType
-     */
     function sortRecipes(sortType: string) {
       if (state.sortLoading || loading.value) {
         return;
@@ -351,40 +313,16 @@ export default defineComponent({
           page.value,
           perPage.value,
           preferences.value.orderBy,
-          preferences.value.orderDirection
+          preferences.value.orderDirection,
+          category.value,
+          tag.value,
+          tool.value,
         );
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
         state.sortLoading = false;
         loading.value = false;
       }, useAsyncKey());
-    }
-
-    function sortRecipesFrontend(sortType: string) {
-      state.sortLoading = true;
-      const sortTarget = [...props.recipes];
-      switch (sortType) {
-        case EVENTS.az:
-          utils.sortAToZ(sortTarget);
-          break;
-        case EVENTS.rating:
-          utils.sortByRating(sortTarget);
-          break;
-        case EVENTS.created:
-          utils.sortByCreated(sortTarget);
-          break;
-        case EVENTS.updated:
-          utils.sortByUpdated(sortTarget);
-          break;
-        case EVENTS.shuffle:
-          utils.shuffle(sortTarget);
-          break;
-        default:
-          console.log("Unknown Event", sortType);
-          return;
-      }
-      context.emit(SORT_EVENT, sortTarget);
-      state.sortLoading = false;
     }
 
     function toggleMobileCards() {
@@ -400,7 +338,6 @@ export default defineComponent({
       navigateRandom,
       preferences,
       sortRecipes,
-      sortRecipesFrontend,
       toggleMobileCards,
       useMobileCards,
     };
