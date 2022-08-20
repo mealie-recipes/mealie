@@ -22,11 +22,11 @@
         :key="`ingredient-section-${sectionIndex}`"
         class="print-section"
       >
-        <div class="ingredient-grid" :style="{gridTemplateRows:`repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, 1fr)`}">
+        <h4 v-if="ingredientSection.ingredients[0].title" class="ingredient-title mt-2">
+            {{ ingredientSection.ingredients[0].title }}
+        </h4>
+        <div class="ingredient-grid" :style="{gridTemplateRows:`repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)`}">
           <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
-            <h4 v-if="ingredient.title" :key="`ingredient-title-${ingredientIndex}`" class="ingredient-title mt-2">
-              {{ ingredient.title }}
-            </h4>
             <p :key="`ingredient-${ingredientIndex}`" class="ingredient-body" v-html="parseText(ingredient)" />
           </template>
         </div>
