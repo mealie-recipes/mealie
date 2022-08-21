@@ -53,8 +53,17 @@
             <RecipeNotes v-model="recipe.notes" :edit="isEditForm" />
           </v-col>
         </v-row>
+        <RecipePageFooter :recipe="recipe" />
       </v-card-text>
     </v-card>
+
+    <div
+      v-if="recipe && wakeIsSupported"
+      class="d-print-none d-flex px-2"
+      :class="$vuetify.breakpoint.smAndDown ? 'justify-center' : 'justify-end'"
+    >
+      <v-switch v-model="wakeLock" small label="Keep Screen Awake" />
+    </div>
 
     <RecipeComments
       v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
@@ -68,13 +77,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter, computed, ref } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, useRouter, computed, ref, useMeta } from "@nuxtjs/composition-api";
+import { invoke, until, useWakeLock } from "@vueuse/core";
+import { onMounted, onUnmounted } from "vue-demi";
 import { Parts } from "./RecipePageParts/parts";
 import { EditorMode, PageMode, usePageState } from "~/composables/recipe-page/shared-state";
 import { Recipe } from "~/types/api-types/recipe";
 import { NoUndefinedField } from "~/types/api";
 import { useUserApi } from "~/composables/api";
-import { uuid4 } from "~/composables/use-utils";
+import { uuid4, deepCopy } from "~/composables/use-utils";
+import { useRouteQuery } from "~/composables/use-router";
+import { useRecipeMeta } from "~/composables/recipes";
 
 const EDITOR_OPTIONS = {
   mode: "code",
@@ -93,9 +106,85 @@ export default defineComponent({
   setup(props) {
     const router = useRouter();
     const api = useUserApi();
-    const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, toggleCookMode } = usePageState(
-      props.recipe.slug
-    );
+    const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode } =
+      usePageState(props.recipe.slug);
+
+    /** =============================================================
+     * Recipe Snapshot on Mount
+     * this is used to determine if the recipe has been changed since the last save
+     * and prompts the user to save if they have unsaved changes.
+     */
+    const originalRecipe = ref<Recipe | null>(null);
+
+    invoke(async () => {
+      await until(props.recipe).not.toBeNull();
+      originalRecipe.value = deepCopy(props.recipe);
+    });
+
+    onUnmounted(async () => {
+      const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
+      if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
+        if (
+          window.confirm(
+            "You have unsaved changes. Do you want to save before leaving?\n\nOkay to save, Cancel to discard changes."
+          )
+        ) {
+          await api.recipes.updateOne(props.recipe.slug, props.recipe);
+        }
+      }
+    });
+
+    /** =============================================================
+     * Set State onMounted
+     */
+
+    type BooleanString = "true" | "false" | "";
+
+    const edit = useRouteQuery<BooleanString>("edit", "");
+
+    onMounted(() => {
+      if (edit.value && edit.value === "true") {
+        setMode(PageMode.EDIT);
+      }
+    });
+
+    /** =============================================================
+     * Wake Lock
+     */
+
+    const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
+
+    const wakeLock = computed({
+      get: () => isActive,
+      set: () => {
+        if (isActive.value) {
+          unlockScreen();
+        } else {
+          lockScreen();
+        }
+      },
+    });
+
+    async function lockScreen() {
+      if (wakeIsSupported) {
+        console.log("Wake Lock Requested");
+        await request("screen");
+      }
+    }
+
+    async function unlockScreen() {
+      if (wakeIsSupported || isActive) {
+        console.log("Wake Lock Released");
+        await release();
+      }
+    }
+
+    onMounted(() => lockScreen());
+    onUnmounted(() => unlockScreen());
+
+    /** =============================================================
+     * Recipe Save Delete
+     */
 
     async function saveRecipe() {
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
@@ -112,6 +201,9 @@ export default defineComponent({
       }
     }
 
+    /** =============================================================
+     * View Preferences
+     */
     const { $vuetify } = useContext();
 
     const landscape = computed(() => {
@@ -127,7 +219,10 @@ export default defineComponent({
       return false;
     });
 
-    const scale = ref(1);
+    /** =============================================================
+     * Bulk Step Editor
+     * TODO: Move to RecipePageInstructions component
+     */
 
     function addStep(steps: Array<string> | null = null) {
       if (!props.recipe.recipeInstructions) {
@@ -145,27 +240,36 @@ export default defineComponent({
       }
     }
 
+    /** =============================================================
+     * Meta Tags
+     */
+    const metaData = useRecipeMeta(ref(props.recipe));
+    useMeta(metaData);
+
     return {
+      api,
+      scale: ref(1),
       EDITOR_OPTIONS,
       landscape,
-      scale,
 
-      // Page Mode Settings
       pageMode,
       editMode,
       PageMode,
       EditorMode,
+      isEditMode,
       isEditForm,
       isEditJSON,
       isCookMode,
       toggleCookMode,
 
-      // CRUD Methods
+      wakeLock,
+      wakeIsSupported,
       saveRecipe,
       deleteRecipe,
       addStep,
     };
   },
+  head: {},
 });
 </script>
 
