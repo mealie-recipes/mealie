@@ -1246,7 +1246,7 @@ rdflib = ">=5.0.0"
 
 [[package]]
 name = "recipe-scrapers"
-version = "14.11.0"
+version = "14.13.0"
 description = "Python package, scraping recipes from all over the internet"
 category = "main"
 optional = false
@@ -1619,7 +1619,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ac22f90df7cc8fc0e1787a0379d1c4e2f4cd1ab7520956fbd5bbf359c3a81480"
+content-hash = "80bd1bd922ed481e594d5950fb254cedfeeac467d5f3fcb4d241d6d9c689419b"
 
 [metadata.files]
 aiofiles = [
@@ -2381,8 +2381,8 @@ rdflib-jsonld = [
     {file = "rdflib_jsonld-0.6.2-py2.py3-none-any.whl", hash = "sha256:011afe67672353ca9978ab9a4bee964dff91f14042f2d8a28c22a573779d2f8b"},
 ]
 recipe-scrapers = [
-    {file = "recipe_scrapers-14.11.0-py3-none-any.whl", hash = "sha256:992b37ef2c29d66caaec82b2c5a1f9d901a74d2e267e60e505370c59ceadaeef"},
-    {file = "recipe_scrapers-14.11.0.tar.gz", hash = "sha256:85192e976388eeba9bb314c5cf75ac087ec1cfaf4b4aa1ffe580dae4099e2be9"},
+    {file = "recipe_scrapers-14.13.0-py3-none-any.whl", hash = "sha256:4d9eb6d22dbe38976e1853c7d6e8f2060412cefb741ff03818c34b3faf8ea8e9"},
+    {file = "recipe_scrapers-14.13.0.tar.gz", hash = "sha256:b4e08e9e34ff4490025a844c6823d5f269f54e1e866ee86162760a3f5ce0dd22"},
 ]
 requests = []
 requests-oauthlib = [
