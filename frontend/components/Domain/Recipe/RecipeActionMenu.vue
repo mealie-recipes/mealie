@@ -20,7 +20,7 @@
     </BaseDialog>
 
     <v-spacer></v-spacer>
-    <div v-if="!value" class="custom-btn-group ma-1">
+    <div v-if="!open" class="custom-btn-group ma-1">
       <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="slug" show-always />
       <v-tooltip v-if="!locked" bottom color="info">
         <template #activator="{ on, attrs }">
@@ -63,7 +63,7 @@
         />
       </ClientOnly>
     </div>
-    <div v-if="value" class="custom-btn-group mb-">
+    <div v-if="open" class="custom-btn-group mb-">
       <v-btn
         v-for="(btn, index) in editorButtons"
         :key="index"
@@ -97,13 +97,13 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    open: {
+      required: true,
+      type: Boolean,
+    },
     name: {
       required: true,
       type: String,
-    },
-    value: {
-      type: Boolean,
-      default: false,
     },
     loggedIn: {
       type: Boolean,
