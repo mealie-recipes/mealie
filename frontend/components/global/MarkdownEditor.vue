@@ -5,7 +5,7 @@
         :buttons="[
           {
             icon: previewState ? $globals.icons.edit : $globals.icons.eye,
-            text: previewState ? $t('general.edit') : $t('markdown-editor.preview-markdown-button-label'),
+            text: previewState ? $tc('general.edit') : $tc('markdown-editor.preview-markdown-button-label'),
             event: 'toggle',
           },
         ]"
@@ -49,7 +49,7 @@ export default defineComponent({
       default: true,
     },
     textarea: {
-      type: Object,
+      type: Object as () => unknown,
       default: () => ({}),
     },
   },
