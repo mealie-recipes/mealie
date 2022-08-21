@@ -55,7 +55,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const { isEditMode } = usePageState(props.recipe.slug);
 
-    const scaleValue = computed({
+    const scaleValue = computed<number>({
       get() {
         return props.scale;
       },

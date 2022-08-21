@@ -37,7 +37,8 @@ export default defineComponent({
   props: {
     value: {
       type: Array as () => RecipeNote[],
-      required: true,
+      required: false,
+      default: () => [],
     },
 
     edit: {

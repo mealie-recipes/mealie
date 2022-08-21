@@ -156,7 +156,7 @@
                       ]"
                       @merge-above="mergeAbove(index - 1, index)"
                       @toggle-section="toggleShowTitle(step.id)"
-                      @link-ingredients="openDialog(index, step.ingredientReferences, step.text)"
+                      @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)"
                       @delete="value.splice(index, 1)"
                     />
@@ -249,7 +249,8 @@ export default defineComponent({
   props: {
     value: {
       type: Array as () => RecipeStep[],
-      required: true,
+      required: false,
+      default: () => [],
     },
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,
@@ -371,7 +372,7 @@ export default defineComponent({
     const activeIndex = ref(0);
     const activeText = ref("");
 
-    function openDialog(idx: number, refs?: IngredientReferences[], text: string) {
+    function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
       if (!refs) {
         props.value[idx].ingredientReferences = [];
         refs = props.value[idx].ingredientReferences as IngredientReferences[];
