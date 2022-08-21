@@ -37,17 +37,11 @@
             rendered.
            -->
           <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4" :lg="8 + (isCookMode ? 1 : 0) * 4">
-            <RecipeInstructions
+            <RecipePageInstructions
               v-model="recipe.recipeInstructions"
               :assets.sync="recipe.assets"
-              :ingredients="recipe.recipeIngredient"
-              :disable-amount="recipe.settings.disableAmount"
-              :edit="isEditForm"
-              :recipe-id="recipe.id"
-              :recipe-slug="recipe.slug"
-              :cook-mode="isCookMode"
+              :recipe="recipe"
               :scale="scale"
-              @cookModeToggle="toggleCookMode"
             />
             <div v-if="isEditForm" class="d-flex">
               <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />

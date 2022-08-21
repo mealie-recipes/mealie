@@ -6,9 +6,9 @@ import RecipePageIngredientEditor from "./RecipePageIngredientEditor.vue";
 import RecipePageScale from "./RecipePageScale.vue";
 import RecipePageOrganizers from "./RecipePageOrganizers.vue";
 import RecipePageIngredientToolsView from "./RecipePageIngredientToolsView.vue";
+import RecipePageInstructions from "./RecipePageInstructions.vue";
 import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
-import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 
@@ -23,9 +23,9 @@ export const Parts = {
   RecipeIngredients,
   RecipePageScale,
   RecipePageIngredientToolsView,
-  RecipeInstructions,
   RecipeDialogBulkAdd,
   RecipeNotes,
+  RecipePageInstructions,
 };
 
 export default Parts;
