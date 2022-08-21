@@ -15,6 +15,7 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
 
+_FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
 SCRAPER_TIMEOUT = 15
 
 
@@ -28,7 +29,7 @@ def safe_scrape_html(url: str) -> str:
     if the request takes longer than 15 seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
     """
-    resp = requests.get(url, timeout=SCRAPER_TIMEOUT, stream=True)
+    resp = requests.get(url, timeout=SCRAPER_TIMEOUT, stream=True, headers={"User-Agent": _FIREFOX_UA})
 
     html_bytes = b""
 
