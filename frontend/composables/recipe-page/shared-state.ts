@@ -48,6 +48,7 @@ interface PageState {
   setMode: (v: PageMode) => void;
   setEditMode: (v: EditorMode) => void;
   toggleEditMode: () => void;
+  toggleCookMode: () => void;
 }
 
 const memo: Record<string, PageState> = {};
@@ -63,6 +64,14 @@ function pageStateConstructor(slug: string): PageState {
       return;
     }
     editModeRef.value = EditorMode.FORM;
+  };
+
+  const toggleCookMode = () => {
+    if (pageModeRef.value === PageMode.COOK) {
+      pageModeRef.value = PageMode.VIEW;
+      return;
+    }
+    pageModeRef.value = PageMode.COOK;
   };
 
   const setEditMode = (v: EditorMode) => {
@@ -88,6 +97,7 @@ function pageStateConstructor(slug: string): PageState {
     toggleEditMode,
     setMode,
     setEditMode,
+    toggleCookMode,
 
     isEditForm: computed(() => {
       return pageModeRef.value === PageMode.EDIT && editModeRef.value === EditorMode.FORM;
