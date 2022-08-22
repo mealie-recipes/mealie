@@ -21,7 +21,7 @@
             persistent-hint
           ></v-text-field>
           <v-checkbox v-model="importKeywordsAsTags" label="Import original keywords as tags"> </v-checkbox>
-          <v-checkbox v-model="stayInEditMode" label="Stay in Edit mode" input-value="true"> </v-checkbox>
+          <v-checkbox v-model="stayInEditMode" label="Stay in Edit mode"> </v-checkbox>
         </v-card-text>
         <v-card-actions class="justify-center">
           <div style="width: 250px">
@@ -151,12 +151,12 @@ export default defineComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode.value);
+      handleResponse(response, stayInEditMode);
     }
 
     return {
       recipeUrl,
-      importKeywordsAsTags: false,
+      importKeywordsAsTags,
       stayInEditMode: true,
       domUrlForm,
       createByUrl,
