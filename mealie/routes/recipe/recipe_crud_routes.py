@@ -4,7 +4,7 @@ from typing import Optional
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, Request, status
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, status
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -18,7 +18,7 @@ from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe
 from mealie.core.security import create_recipe_slug_token
 from mealie.pkgs import cache
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
@@ -34,7 +34,6 @@ from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventRecipeBulkReportData,
@@ -50,7 +49,7 @@ from mealie.services.scraper.scraper import create_from_url
 from mealie.services.scraper.scraper_strategies import ForceTimeoutException, RecipeScraperPackage
 
 
-class BaseRecipeController(BaseUserController):
+class BaseRecipeController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryRecipes:
         return self.repos.recipes.by_group(self.group_id)
@@ -124,8 +123,6 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=Mea
 
 @controller(router)
 class RecipeController(BaseRecipeController):
-    event_bus: EventBusService = Depends(EventBusService)
-
     def handle_exceptions(self, ex: Exception) -> None:
         match type(ex):
             case exceptions.PermissionDenied:
@@ -149,7 +146,7 @@ class RecipeController(BaseRecipeController):
     # URL Scraping Operations
 
     @router.post("/create-url", status_code=201, response_model=str)
-    def parse_recipe_url(self, request: Request, req: ScrapeRecipe):
+    def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         try:
             recipe, extras = create_from_url(req.url)
@@ -166,9 +163,7 @@ class RecipeController(BaseRecipeController):
         new_recipe = self.service.create_one(recipe)
 
         if new_recipe:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
                 message=self.t(
@@ -181,15 +176,13 @@ class RecipeController(BaseRecipeController):
         return new_recipe.slug
 
     @router.post("/create-url/bulk", status_code=202)
-    def parse_recipe_url_bulk(self, request: Request, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
+    def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group)
         report_id = bulk_scraper.get_report_id()
         bg_tasks.add_task(bulk_scraper.scrape, bulk)
 
-        self.event_bus.dispatch(
-            request=request,
-            group_id=self.user.group_id,
+        self.publish_event(
             event_type=EventTypes.recipe_created,
             document_data=EventRecipeBulkReportData(operation=EventOperation.create, report_id=report_id),
         )
@@ -210,14 +203,10 @@ class RecipeController(BaseRecipeController):
         return "recipe_scrapers was unable to scrape this URL"
 
     @router.post("/create-from-zip", status_code=201)
-    def create_recipe_from_zip(
-        self, request: Request, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)
-    ):
+    def create_recipe_from_zip(self, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)):
         """Create recipe from archive"""
         recipe = self.service.create_from_zip(archive, temp_path)
-        self.event_bus.dispatch(
-            request=request,
-            group_id=self.user.group_id,
+        self.publish_event(
             event_type=EventTypes.recipe_created,
             document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
         )
@@ -265,7 +254,7 @@ class RecipeController(BaseRecipeController):
         return self.mixins.get_one(slug)
 
     @router.post("", status_code=201, response_model=str)
-    def create_one(self, request: Request, data: CreateRecipe) -> str | None:
+    def create_one(self, data: CreateRecipe) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
         try:
             new_recipe = self.service.create_one(data)
@@ -274,9 +263,7 @@ class RecipeController(BaseRecipeController):
             return None
 
         if new_recipe:
-            self.event_bus.dispatch(
-                request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
                 message=self.t(
@@ -289,7 +276,7 @@ class RecipeController(BaseRecipeController):
         return new_recipe.slug
 
     @router.put("/{slug}")
-    def update_one(self, request: Request, slug: str, data: Recipe):
+    def update_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.update_one(slug, data)
@@ -297,9 +284,7 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
 
         if recipe:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
                 message=self.t(
@@ -312,7 +297,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.patch("/{slug}")
-    def patch_one(self, request: Request, slug: str, data: Recipe):
+    def patch_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.patch_one(slug, data)
@@ -320,9 +305,7 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
 
         if recipe:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
                 message=self.t(
@@ -335,7 +318,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.delete("/{slug}")
-    def delete_one(self, request: Request, slug: str):
+    def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
         try:
             recipe = self.service.delete_one(slug)
@@ -343,9 +326,7 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
 
         if recipe:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.recipe_deleted,
                 document_data=EventRecipeData(operation=EventOperation.delete, recipe_slug=recipe.slug),
                 message=self.t("notifications.generic-deleted", name=recipe.name),

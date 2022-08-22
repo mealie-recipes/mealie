@@ -1,17 +1,16 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
-from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
 from mealie.schema.cookbook.cookbook import CookBookPagination
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import (
     EventCookbookBulkData,
     EventCookbookData,
@@ -23,10 +22,7 @@ router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"], route
 
 
 @controller(router)
-class GroupCookbookController(BaseUserController):
-
-    event_bus: EventBusService = Depends(EventBusService)
-
+class GroupCookbookController(BaseCrudController):
     @cached_property
     def repo(self):
         return self.repos.cookbooks.by_group(self.group_id)
@@ -56,14 +52,12 @@ class GroupCookbookController(BaseUserController):
         return response
 
     @router.post("", response_model=ReadCookBook, status_code=201)
-    def create_one(self, request: Request, data: CreateCookBook):
+    def create_one(self, data: CreateCookBook):
         data = mapper.cast(data, SaveCookBook, group_id=self.group_id)
         cookbook = self.mixins.create_one(data)
 
         if cookbook:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.cookbook_created,
                 document_data=EventCookbookData(operation=EventOperation.create, cookbook_id=cookbook.id),
                 message=self.t("notifications.generic-created", name=cookbook.name),
@@ -72,7 +66,7 @@ class GroupCookbookController(BaseUserController):
         return cookbook
 
     @router.put("", response_model=list[ReadCookBook])
-    def update_many(self, request: Request, data: list[UpdateCookBook]):
+    def update_many(self, data: list[UpdateCookBook]):
         updated = []
 
         for cookbook in data:
@@ -80,9 +74,7 @@ class GroupCookbookController(BaseUserController):
             updated.append(cb)
 
         if updated:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.cookbook_updated,
                 document_data=EventCookbookBulkData(
                     operation=EventOperation.update, cookbook_ids=[cb.id for cb in updated]
@@ -112,12 +104,10 @@ class GroupCookbookController(BaseUserController):
         )
 
     @router.put("/{item_id}", response_model=ReadCookBook)
-    def update_one(self, request: Request, item_id: str, data: CreateCookBook):
+    def update_one(self, item_id: str, data: CreateCookBook):
         cookbook = self.mixins.update_one(data, item_id)  # type: ignore
         if cookbook:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.cookbook_updated,
                 document_data=EventCookbookData(operation=EventOperation.update, cookbook_id=cookbook.id),
                 message=self.t("notifications.generic-updated", name=cookbook.name),
@@ -126,12 +116,10 @@ class GroupCookbookController(BaseUserController):
         return cookbook
 
     @router.delete("/{item_id}", response_model=ReadCookBook)
-    def delete_one(self, request: Request, item_id: str):
+    def delete_one(self, item_id: str):
         cookbook = self.mixins.delete_one(item_id)
         if cookbook:
-            self.event_bus.dispatch(
-                request=request,
-                group_id=self.user.group_id,
+            self.publish_event(
                 event_type=EventTypes.cookbook_deleted,
                 document_data=EventCookbookData(operation=EventOperation.delete, cookbook_id=cookbook.id),
                 message=self.t("notifications.generic-deleted", name=cookbook.name),
