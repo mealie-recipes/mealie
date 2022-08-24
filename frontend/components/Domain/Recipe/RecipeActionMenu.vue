@@ -50,6 +50,8 @@
           color="info"
           :card-menu="false"
           :recipe-id="recipeId"
+          :recipe="recipe"
+          :recipe-image-key="recipeImageKey"
           :use-items="{
             delete: false,
             edit: false,
@@ -84,6 +86,7 @@
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import { Recipe } from "~/types/api-types/recipe";
 
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
@@ -112,6 +115,14 @@ export default defineComponent({
     recipeId: {
       required: true,
       type: String,
+    },
+    recipe: {
+      type: Object as () => Recipe,
+      default: undefined,
+    },
+    recipeImageKey: {
+      type: Number,
+      default: 1,
     },
     locked: {
       type: Boolean,

@@ -50,6 +50,8 @@
         :logged-in="$auth.loggedIn"
         :open="form"
         :recipe-id="recipe.id"
+        :recipe="recipe"
+        :recipe-image-key="imageKey"
         class="ml-auto mt-n8 pb-4"
         @close="closeEditor"
         @json="toggleJson"
@@ -448,7 +450,6 @@
       :recipe-id="recipe.id"
       class="px-1 my-4 d-print-none"
     />
-    <RecipePrintView v-if="recipe" :recipe="recipe" />
   </v-container>
 </template>
 

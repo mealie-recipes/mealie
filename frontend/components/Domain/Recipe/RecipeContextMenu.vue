@@ -66,6 +66,40 @@
         </v-card>
       </v-card-text>
     </BaseDialog>
+    <BaseDialog
+      v-if="recipe"
+      v-model="printDialog"
+
+      :title="$t('general.print')"
+      :icon="$globals.icons.printer"
+
+      width="75%"
+    >
+      <div class="print-dialog">
+        <div class="print-preview-container">
+          <RecipePrintView
+            :recipe="recipe"
+            :recipe-image-key="recipeImageKey"
+            :recipe-print-options="recipePrintOptions"
+          />
+        </div>
+        <div class="print-dialog-settings">
+          <v-radio-group v-model="recipePrintOptions.recipeImagePosition" label="Recipe Image">
+            <v-radio
+              v-for="option in RecipeImagePosition"
+              :key="option.value"
+              :label="option.label"
+              :value="option"
+              :off-icon="option.icon"
+              :on-icon="option.icon"
+            ></v-radio>
+          </v-radio-group>
+
+          <v-checkbox v-model="recipePrintOptions.displayDescription" label="Show Description"></v-checkbox>
+          <v-checkbox v-model="recipePrintOptions.displayNotes" label="Show Notes"></v-checkbox>
+        </div>
+      </div>
+    </BaseDialog>
     <v-menu
       offset-y
       left
@@ -98,11 +132,13 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
+import RecipePrintView, { RecipeImagePosition, RecipePrintOptions } from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { planTypeOptions } from "~/composables/use-group-mealplan";
 import { ShoppingListSummary } from "~/types/api-types/group";
 import { PlanEntryType } from "~/types/api-types/meal-plan";
+import { Recipe } from "~/types/api-types/recipe";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 
 export interface ContextMenuIncludes {
@@ -125,6 +161,7 @@ export interface ContextMenuItem {
 export default defineComponent({
   components: {
     RecipeDialogShare,
+    RecipePrintView,
   },
   props: {
     useItems: {
@@ -177,6 +214,14 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    recipe: {
+      type: Object as () => Recipe,
+      default: undefined,
+    },
+    recipeImageKey: {
+      type: Number,
+      default: 1,
+    },
   },
   setup(props, context) {
     const api = useUserApi();
@@ -186,11 +231,15 @@ export default defineComponent({
       recipeDeleteDialog: false,
       mealplannerDialog: false,
       shoppingListDialog: false,
+      printDialog: false,
       loading: false,
       menuItems: [] as ContextMenuItem[],
       newMealdate: "",
       newMealType: "dinner" as PlanEntryType,
       pickerMenu: false,
+
+      // print settings
+      recipePrintOptions: RecipePrintOptions,
     });
 
     const { i18n, $globals } = useContext();
@@ -311,8 +360,10 @@ export default defineComponent({
       }
     }
 
-    // Note: Print is handled as an event in the parent component
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
+      print: () => {
+        state.printDialog = true;
+      },
       delete: () => {
         state.recipeDeleteDialog = true;
       },
@@ -343,6 +394,18 @@ export default defineComponent({
       state.loading = false;
     }
 
+    // close dialogs before printing
+    window.addEventListener(
+      "beforeprint",
+      () => {
+        state.shareDialog = false;
+        state.recipeDeleteDialog = false;
+        state.mealplannerDialog = false;
+        state.shoppingListDialog = false;
+        state.printDialog = false;
+      }
+    );
+
     return {
       shoppingLists,
       addRecipeToList,
@@ -352,7 +415,59 @@ export default defineComponent({
       addRecipeToPlan,
       icon,
       planTypeOptions,
+      RecipeImagePosition,
     };
   },
 });
 </script>
+
+<style>
+@media print {
+  body,
+  html {
+    margin-top: 0 !important;
+  }
+
+  .print-view {
+    display: block !important;
+  }
+
+  .v-main {
+    display: block;
+  }
+
+  .v-main__wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.print-view {
+  display: none;
+}
+
+.print-dialog {
+  height: 70vh;
+  margin: 20px;
+
+  display: grid;
+  grid-template-columns: 67fr 33fr;
+  grid-gap: 0.5rem;
+}
+
+.print-preview-container {
+  box-sizing: border-box;
+  height: 70vh;
+  width: auto;
+  overflow-y: auto;
+}
+
+.print-dialog-settings {
+  box-sizing: border-box;
+  height: 70vh;
+  width: auto;
+
+  max-width: 400px;
+}
+</style>
