@@ -136,6 +136,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         load_food=False,
         categories: Optional[list[UUID4 | str]] = None,
         tags: Optional[list[UUID4 | str]] = None,
+        tools: Optional[list[UUID4 | str]] = None,
     ) -> RecipePagination:
         q = self.session.query(self.model)
 
@@ -168,6 +169,14 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
                 else:
                     q = q.filter(RecipeModel.tags.any(Tag.slug == tag))
+
+        if tools:
+            for tool in tools:
+                if isinstance(tool, UUID):
+                    q = q.filter(RecipeModel.tools.any(Tool.id == tool))
+
+                else:
+                    q = q.filter(RecipeModel.tools.any(Tool.slug == tool))
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 

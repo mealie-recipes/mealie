@@ -150,7 +150,7 @@
     "menu": "Menü",
     "a-name-is-required": "Ein Name wird benötigt",
     "delete-with-name": "{name} löschen",
-    "confirm-delete-generic-with-name": "Bist du dir sicher, dass du {name} löschen möchtest?",
+    "confirm-delete-generic-with-name": "Bist du dir sicher, dass du \"{name}\" löschen möchtest?",
     "organizer": "Organisator",
     "transfer": "Übertragen",
     "copy": "Kopieren",

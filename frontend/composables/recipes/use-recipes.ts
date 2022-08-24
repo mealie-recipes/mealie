@@ -6,69 +6,46 @@ import { Recipe } from "~/types/api-types/recipe";
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
 
-const rand = (n: number) => Math.floor(Math.random() * n);
-
-function swap(t: Array<unknown>, i: number, j: number) {
-  const q = t[i];
-  t[i] = t[j];
-  t[j] = q;
-  return t;
-}
-
-export const useSorter = () => {
-  function sortAToZ(list: Array<Recipe>) {
-    list.sort((a, b) => {
-      const textA: string = a.name?.toUpperCase() ?? "";
-      const textB: string = b.name?.toUpperCase() ?? "";
-      return textA < textB ? -1 : textA > textB ? 1 : 0;
-    });
-  }
-  function sortByCreated(list: Array<Recipe>) {
-    list.sort((a, b) => ((a.dateAdded ?? "") > (b.dateAdded ?? "") ? -1 : 1));
-  }
-  function sortByUpdated(list: Array<Recipe>) {
-    list.sort((a, b) => ((a.dateUpdated ?? "") > (b.dateUpdated ?? "") ? -1 : 1));
-  }
-  function sortByRating(list: Array<Recipe>) {
-    list.sort((a, b) => ((a.rating ?? 0) > (b.rating ?? 0) ? -1 : 1));
-  }
-
-  function randomRecipe(list: Array<Recipe>): Recipe {
-    return list[Math.floor(Math.random() * list.length)];
-  }
-
-  function shuffle(list: Array<Recipe>) {
-    let last = list.length;
-    let n;
-    while (last > 0) {
-      n = rand(last);
-      swap(list, n, --last);
-    }
-  }
-
-  return {
-    sortAToZ,
-    sortByCreated,
-    sortByUpdated,
-    sortByRating,
-    randomRecipe,
-    shuffle,
-  };
-};
-
 export const useLazyRecipes = function () {
   const api = useUserApi();
 
   const recipes = ref<Recipe[]>([]);
 
-  async function fetchMore(page: number, perPage: number, orderBy: string | null = null, orderDirection = "desc") {
-    const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection });
+  async function fetchMore(page: number, perPage: number, orderBy: string | null = null, orderDirection = "desc", category: string | null = null, tag: string | null = null, tool: string | null = null) {
+    const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection, "categories": category, "tags": tag, "tools": tool });
     return data ? data.items : [];
+  }
+
+  function appendRecipes(val: Array<Recipe>) {
+    val.forEach((recipe) => {
+      recipes.value.push(recipe);
+    });
+  }
+
+  function assignSorted(val: Array<Recipe>) {
+    recipes.value = val;
+  }
+
+  function removeRecipe(slug: string) {
+    for (let i = 0; i < recipes?.value?.length; i++) {
+      if (recipes?.value[i].slug === slug) {
+        recipes?.value.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  function replaceRecipes(val: Array<Recipe>) {
+    recipes.value = val;
   }
 
   return {
     recipes,
     fetchMore,
+    appendRecipes,
+    assignSorted,
+    removeRecipe,
+    replaceRecipes
   };
 };
 
