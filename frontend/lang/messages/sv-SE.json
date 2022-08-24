@@ -3,13 +3,13 @@
     "about": "Om",
     "about-mealie": "Om Mealie",
     "api-docs": "API Dokumentation",
-    "api-port": "API port",
+    "api-port": "API Port",
     "application-mode": "Applikationsläge",
     "database-type": "Databastyp",
     "database-url": "Databas URL",
     "default-group": "Standardgrupp",
     "demo": "Demo",
-    "demo-status": "Status för demo",
+    "demo-status": "Demoläge",
     "development": "Utveckling",
     "docs": "Dokumentation",
     "download-log": "Ladda ner logg",
@@ -21,7 +21,7 @@
     "production": "Produktion",
     "support": "Hjälp",
     "version": "Version",
-    "unknown-version": "unknown"
+    "unknown-version": "okänd"
   },
   "asset": {
     "assets": "Tillgångar",
@@ -32,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Recept",
     "show-assets": "Visa tillgångar",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Fel vid inskickande av formulär"
   },
   "category": {
     "categories": "Kategorier",
@@ -44,9 +44,9 @@
     "category-update-failed": "Kategori gick inte att uppdatera",
     "category-updated": "Kategori uppdaterad",
     "uncategorized-count": "Ingen Kategori {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
-    "category": "Category"
+    "create-a-category": "Skapa kategori",
+    "category-name": "Kategorinamn",
+    "category": "Kategori"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -67,7 +67,7 @@
     "close": "Stäng",
     "confirm": "Bekräfta",
     "confirm-delete-generic": "Är du säker på att du vill radera detta?",
-    "copied_message": "Copied!",
+    "copied_message": "Kopierad!",
     "create": "Skapa",
     "created": "Skapad",
     "custom": "Anpassad",
@@ -140,22 +140,22 @@
     "units": "Enheter",
     "back": "Tillbaka",
     "next": "Nästa",
-    "toggle-view": "Toggle View",
-    "date": "Date",
-    "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
-    "run": "Run",
-    "menu": "Menu",
-    "a-name-is-required": "A Name is Required",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
+    "toggle-view": "Växla visning",
+    "date": "Datum",
+    "id": "ID",
+    "owner": "Ägare",
+    "date-added": "Skapad",
+    "none": "Inga",
+    "run": "Kör",
+    "menu": "Meny",
+    "a-name-is-required": "Namn är obligatoriskt",
+    "delete-with-name": "Ta bort {name}",
+    "confirm-delete-generic-with-name": "Är du säker på att du vill ta bort detta {name}?",
     "organizer": "Organizer",
-    "transfer": "Transfer",
-    "copy": "Copy",
-    "color": "Color",
-    "timestamp": "Timestamp"
+    "transfer": "Överföring",
+    "copy": "Kopiera",
+    "color": "Färg",
+    "timestamp": "Tidsstämpel"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -208,13 +208,13 @@
     "side": "Sidorätt",
     "sides": "Sidorätter",
     "start-date": "Startdatum",
-    "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
+    "rule-day": "Dagsregel",
+    "meal-type": "Måltidstyp",
+    "breakfast": "Frukost",
     "lunch": "Lunch",
-    "dinner": "Dinner",
-    "type-any": "Any",
-    "day-any": "Any"
+    "dinner": "Middag",
+    "type-any": "Alla",
+    "day-any": "Alla"
   },
   "migration": {
     "chowdown": {
@@ -247,8 +247,8 @@
     "trim-whitespace-description": "Ta bort inledande och avslutande blanksteg samt tomma rader",
     "trim-prefix-description": "Ta bort första tecknet från varje rad",
     "split-by-numbered-line-description": "Försök att dela ett stycke genom att matcha mönstret '1)' eller '1.'",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "import-by-url": "Importera recept via URL",
+    "create-manually": "Skapa recept manuellt"
   },
   "page": {
     "404-page-not-found": "404 sidan hittades inte",
@@ -262,8 +262,8 @@
     "page-updated": "Sida uppdaterad",
     "pages-update-failed": "Gick inte att uppdatera sidan",
     "pages-updated": "Sidor uppdaterad",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Hittades inte",
+    "an-error-occurred": "Ett fel inträffade"
   },
   "recipe": {
     "add-key": "Lägg till nyckel",
@@ -325,35 +325,35 @@
     "total-time": "Total tid",
     "unable-to-delete-recipe": "Gick inte att radera receptet",
     "no-recipe": "Inget recept",
-    "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
-    "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
-    "add-to-list": "Add to List",
-    "add-to-plan": "Add to Plan",
-    "recipe-added-to-list": "Recipe added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
-    "yield": "Yield",
-    "quantity": "Quantity",
-    "choose-unit": "Choose Unit",
-    "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Choose Food",
-    "notes": "Notes",
+    "locked-by-owner": "Låst av ägaren",
+    "join-the-conversation": "Delta i diskussionen",
+    "add-recipe-to-mealplan": "Lägg till recept i måltidsplan",
+    "entry-type": "Typ av post",
+    "date-format-hint": "MM/DD/ÅÅÅÅ-format",
+    "add-to-list": "Lägg till i lista",
+    "add-to-plan": "Lägg till i plan",
+    "recipe-added-to-list": "Recept tillagt i listan",
+    "recipe-added-to-mealplan": "Recept tillagt i måltidsplanen",
+    "failed-to-add-recipe-to-mealplan": "Det gick inte att lägga till recept i måltidsplanen",
+    "yield": "Ger",
+    "quantity": "Antal",
+    "choose-unit": "Välj enhet",
+    "press-enter-to-create": "Tryck Enter för att skapa",
+    "choose-food": "Välj mat",
+    "notes": "Anteckningar",
     "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
+    "see-original-text": "Visa originaltext",
+    "original-text-with-value": "Originaltext: {originalText}",
     "ingredient-linker": "Ingredient Linker",
     "linked-to-other-step": "Linked to other step",
     "auto": "Auto",
-    "cook-mode": "Cook Mode",
+    "cook-mode": "Matlagningsläge",
     "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "merge-above": "Sammanfoga ovanför",
+    "reset-scale": "Nollställ skalning",
+    "decrease-scale-label": "Skala ner med 1",
+    "increase-scale-label": "Skala upp med 1",
+    "locked": "Låst"
   },
   "search": {
     "advanced-search": "Avancerad sökning",
@@ -367,7 +367,7 @@
     "search-mealie": "Sök Mealie (tryck /)",
     "search-placeholder": "Sök...",
     "tag-filter": "Taggfilter",
-    "search-hint": "Press '/'"
+    "search-hint": "Tryck '/'"
   },
   "settings": {
     "add-a-new-theme": "Lägg till ett nytt tema",
@@ -436,8 +436,8 @@
       "theme-saved": "Tema sparat",
       "theme-updated": "Tema uppdaterat",
       "warning": "Varning",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Ljust läge",
+      "dark-mode": "Mörkt läge"
     },
     "token": {
       "active-tokens": "Aktiv token",
@@ -464,7 +464,7 @@
       "webhook-url": "Webhook-URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Namn på webhook"
     }
   },
   "shopping-list": {
@@ -476,11 +476,11 @@
     "quantity": "Antal {0}",
     "shopping-list": "Inköpslista",
     "shopping-lists": "Inköpslistor",
-    "food": "Food",
-    "note": "Note",
+    "food": "Mat",
+    "note": "Anteckning",
     "label": "Label",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "toggle-food": "Växla mat"
   },
   "sidebar": {
     "all-recipes": "Alla recept",
@@ -497,12 +497,12 @@
     "tags": "Taggar",
     "toolbox": "Verktygslåda",
     "language": "Språk",
-    "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
-    "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "maintenance": "Underhåll",
+    "background-tasks": "Bakgrundsjobb",
+    "parser": "Tolk",
+    "developer": "Utvecklare",
+    "cookbook": "Kokbok",
+    "create-cookbook": "Skapa ny kokbok"
   },
   "signup": {
     "error-signing-up": "Fel vid registreringen",
@@ -523,16 +523,16 @@
     "tag-updated": "Tag uppdaterad",
     "tags": "Taggar",
     "untagged-count": "Otaggad {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Skapa tagg",
+    "tag-name": "Taggnamn"
   },
   "tool": {
-    "tools": "Verktyg",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "tools": "Köksredskap",
+    "on-hand": "Tillgängligt",
+    "create-a-tool": "Skapa verktyg",
+    "tool-name": "Verktygsnamn",
+    "create-new-tool": "Skapa nytt verktyg",
+    "on-hand-checkbox-label": "Visa som tillgänglig (markerad)"
   },
   "user": {
     "admin": "Administratör",
@@ -591,7 +591,7 @@
     "you-are-not-allowed-to-delete-this-user": "Du har inte behörighet att radera denna användare",
     "enable-advanced-content": "Aktivera avancerade funktioner",
     "enable-advanced-content-description": "Aktiverar avancerade funktioner som receptskalning, API-nycklar, Webhooks och datahantering. Oroa dig inte, du kan alltid ändra detta senare",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Favoritrecept"
   },
   "language-dialog": {
     "translated": "översatt",
@@ -632,32 +632,32 @@
     "email-is-taken": "E-postadressen är upptagen"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Exportera",
+    "file-name": "Filnamn",
+    "size": "Storlek",
+    "link-expires": "Länken förfaller"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Utgångsdatum",
+    "share-recipe": "Dela recept",
+    "default-30-days": "Standard 30 dagar",
+    "expires-at": "Går ut den",
+    "recipe-link-copied-message": "Länk kopierad till urklipp"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "Experimentella funktioner",
+    "description": "Denna sida innehåller experimentella eller ofärdiga funktioner. Ursäkta röran.",
+    "issue-link-text": "Följ utvecklingen här"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Antal"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Förhandsgranska markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Detta är en demo för version: {version}",
+    "demo_username": "Användarnamn: {username}",
+    "demo_password": "Lösenord: {password}"
   }
 }
