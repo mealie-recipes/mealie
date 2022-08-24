@@ -118,6 +118,10 @@ import {
   mdiHelpCircleOutline,
   mdiDocker,
   mdiUndo,
+  mdiDockLeft,
+  mdiDockRight,
+  mdiDockTop,
+  mdiDockBottom,
 } from "@mdi/js";
 
 export const icons = {
@@ -164,6 +168,10 @@ export const icons = {
   desktopTowerMonitor: mdiDesktopTowerMonitor,
   devTo: mdiDevTo,
   diceMultiple: mdiDiceMultiple,
+  dockLeft: mdiDockLeft,
+  dockRight: mdiDockRight,
+  dockTop: mdiDockTop,
+  dockBottom: mdiDockBottom,
   dotsHorizontal: mdiDotsHorizontal,
   dotsVertical: mdiDotsVertical,
   download: mdiDownload,

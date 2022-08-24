@@ -39,6 +39,10 @@ export interface Icon {
   desktopTowerMonitor: string;
   devTo: string;
   diceMultiple: string;
+  dockLeft: string;
+  dockRight: string;
+  dockTop: string;
+  dockBottom: string;
   dotsHorizontal: string;
   dotsVertical: string;
   download: string;
