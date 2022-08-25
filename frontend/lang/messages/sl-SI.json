@@ -346,14 +346,14 @@
     "original-text-with-value": "Originalno besedilo: {originalText}",
     "ingredient-linker": "Povezovanje sestavin",
     "linked-to-other-step": "Povezano s naslednjim korakom",
-    "auto": "Auto",
-    "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "auto": "Samodejno",
+    "cook-mode": "Način kuhanja",
+    "link-ingredients": "Poveži sestavine",
+    "merge-above": "Združi skupaj",
+    "reset-scale": "Ponastavi merilo",
+    "decrease-scale-label": "Znižaj merilo za 1",
+    "increase-scale-label": "Zvišaj merilo za 1",
+    "locked": "Zaklenjeno"
   },
   "search": {
     "advanced-search": "Napredno iskanje",
@@ -367,7 +367,7 @@
     "search-mealie": "Išči po Mealie (pritisni /)",
     "search-placeholder": "Išči...",
     "tag-filter": "Filter oznak",
-    "search-hint": "Press '/'"
+    "search-hint": "Pritisni '/'"
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
@@ -436,8 +436,8 @@
       "theme-saved": "Tema je shranjena",
       "theme-updated": "Tema posodobljena",
       "warning": "Opozorilo",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Svetli način",
+      "dark-mode": "Temen način"
     },
     "token": {
       "active-tokens": "AKTIVNI ŽETONI",
@@ -464,7 +464,7 @@
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webbhook-i",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Ime Webhooka"
     }
   },
   "shopping-list": {
@@ -476,11 +476,11 @@
     "quantity": "Količina: {0}",
     "shopping-list": "Nakupovalni seznam",
     "shopping-lists": "Nakupovalni seznami",
-    "food": "Food",
-    "note": "Note",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "food": "Hrana",
+    "note": "Opomba",
+    "label": "Oznaka",
+    "linked-item-warning": "Ta sestavina je povezana na en ali več receptov. Če spremenite enote količin, se lahko kaj podre, ko dodajate ali odstranjujete iz seznama.",
+    "toggle-food": "Preklopi med hrano"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",
@@ -497,12 +497,12 @@
     "tags": "Značke",
     "toolbox": "Orodjarna",
     "language": "Jezik",
-    "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
+    "maintenance": "Vzdrževanje",
+    "background-tasks": "Naloge v ozadju",
     "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "developer": "Razvijalec",
+    "cookbook": "Kuharska knjiga",
+    "create-cookbook": "Izdelaj novo kuharsko knjigo"
   },
   "signup": {
     "error-signing-up": "Napaka pri vpisu",
@@ -523,16 +523,16 @@
     "tag-updated": "Značka posodobljena",
     "tags": "Značke",
     "untagged-count": "Brez značke {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Ustvari značko",
+    "tag-name": "Ime značke"
   },
   "tool": {
     "tools": "Orodja",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand": "Na zalogi",
+    "create-a-tool": "Ustvari orodje",
+    "tool-name": "Ime orodja",
+    "create-new-tool": "Ustvari orodje",
+    "on-hand-checkbox-label": "Prikaži kot Na voljo (obkljukano)"
   },
   "user": {
     "admin": "Administrator",
@@ -591,7 +591,7 @@
     "you-are-not-allowed-to-delete-this-user": "Nimate pravic za izbris tega uporabnika",
     "enable-advanced-content": "Omogoči napredne nastavitve",
     "enable-advanced-content-description": "Omogoči napredne nastavitve kot so spreminjanje merila receptov, API ključi, Webhook in upravljanje s podatki. Ne skrbite, vse to lahko spremenite kasneje",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Priljubljen recept"
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -632,31 +632,31 @@
     "email-is-taken": "E-mail je zaseden"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Izvozi",
+    "file-name": "Ime datoteke",
+    "size": "Velikost",
+    "link-expires": "Povezava bo potekla"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Poteče",
+    "share-recipe": "Deli recept",
+    "default-30-days": "Privzeto 30 dni",
+    "expires-at": "Poteče ob",
+    "recipe-link-copied-message": "Povezava recepta je kopirana v odložišče"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "Poskusne lastnosti",
+    "description": "Ta stran vsebuje preiskusne ali v delu lastnosti. Se opravičujem za nastalo zmešnjavo.",
+    "issue-link-text": "Spremljaj svoj napredek"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Kol"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Predogled Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
+    "info_message_with_version": "To je demo za verzijo: {version}",
     "demo_username": "Uporabniško ime: {username}",
     "demo_password": "Geslo: {password}"
   }
