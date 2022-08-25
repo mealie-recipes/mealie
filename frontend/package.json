@@ -23,7 +23,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "@vue/composition-api": "^1.7.0",
     "@vueuse/core": "^9.1.1",
-    "core-js": "^3.24.1",
+    "core-js": "^3.25.0",
     "date-fns": "^2.29.2",
     "fuse.js": "^6.6.2",
     "isomorphic-dompurify": "^0.20.0",
