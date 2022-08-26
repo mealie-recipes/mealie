@@ -15,7 +15,7 @@
         {{ $vuetify.breakpoint.xsOnly ? null : $t("general.random") }}
       </v-btn>
 
-      <v-menu offset-y left>
+      <v-menu v-if="$listeners.sortRecipes" offset-y left>
         <template #activator="{ on, attrs }">
           <v-btn text :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" :loading="sortLoading" v-on="on">
             <v-icon :left="!$vuetify.breakpoint.xsOnly">
