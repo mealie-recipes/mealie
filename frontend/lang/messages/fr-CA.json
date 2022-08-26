@@ -67,7 +67,7 @@
     "close": "Fermer",
     "confirm": "Confirmer",
     "confirm-delete-generic": "Voulez-vous vraiment supprimer ceci?",
-    "copied_message": "Copié !",
+    "copied_message": "Copié!",
     "create": "Créer",
     "created": "Créé",
     "custom": "Personnalisé",
@@ -140,7 +140,7 @@
     "units": "Unités",
     "back": "Précédent",
     "next": "Suivant",
-    "toggle-view": "Toggle View",
+    "toggle-view": "Activer/désactiver la vue",
     "date": "Date",
     "id": "Identifiant",
     "owner": "Propriétaire",
@@ -150,7 +150,7 @@
     "menu": "Menu",
     "a-name-is-required": "Un nom est requis",
     "delete-with-name": "Supprimer {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
+    "confirm-delete-generic-with-name": "Êtes-vous sûr de vouloir supprimer ce {name}?",
     "organizer": "Organiser",
     "transfer": "Transférer",
     "copy": "Copier",
@@ -350,8 +350,8 @@
     "cook-mode": "Cook Mode",
     "link-ingredients": "Ingrédients du lien",
     "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
+    "reset-scale": "Réinitialiser échelle",
+    "decrease-scale-label": "Diminuer l'échelle de 1",
     "increase-scale-label": "Augmenter l'échelle de 1",
     "locked": "Locked"
   },
@@ -634,13 +634,13 @@
   "export": {
     "export": "Export",
     "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "size": "Taille",
+    "link-expires": "Le lien expire"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
+    "expiration-date": "Date d'expiration",
+    "share-recipe": "Partager la recette",
+    "default-30-days": "30 jours par défaut",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
   },
