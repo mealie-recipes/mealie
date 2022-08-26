@@ -8,7 +8,7 @@
     "database-type": "Type de base de données",
     "database-url": "URL de la base de données",
     "default-group": "Groupe par défaut",
-    "demo": "Oui",
+    "demo": "Démo",
     "demo-status": "Mode démo",
     "development": "Développement",
     "docs": "Documentation",
@@ -16,7 +16,7 @@
     "download-recipe-json": "Dernier JSON récupéré",
     "github": "GitHub",
     "log-lines": "Lignes de log",
-    "not-demo": "Non",
+    "not-demo": "Non démo",
     "portfolio": "Portfolio",
     "production": "Production",
     "support": "Soutenir",
@@ -44,9 +44,9 @@
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
     "uncategorized-count": "{count} non catégorisée|{count} non catégorisées",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
-    "category": "Category"
+    "create-a-category": "Créer une catégorie",
+    "category-name": "Nom de la catégorie",
+    "category": "Catégorie"
   },
   "events": {
     "apprise-url": "URL apprise",
@@ -67,7 +67,7 @@
     "close": "Fermer",
     "confirm": "Confirmer",
     "confirm-delete-generic": "Voulez-vous vraiment supprimer ceci?",
-    "copied_message": "Copied!",
+    "copied_message": "Copié!",
     "create": "Créer",
     "created": "Créé",
     "custom": "Personnalisé",
@@ -140,22 +140,22 @@
     "units": "Unités",
     "back": "Précédent",
     "next": "Suivant",
-    "toggle-view": "Toggle View",
+    "toggle-view": "Activer/désactiver la vue",
     "date": "Date",
-    "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
-    "run": "Run",
+    "id": "Identifiant",
+    "owner": "Propriétaire",
+    "date-added": "Date d’ajout",
+    "none": "Aucun",
+    "run": "Exécuter",
     "menu": "Menu",
-    "a-name-is-required": "A Name is Required",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "organizer": "Organizer",
-    "transfer": "Transfer",
-    "copy": "Copy",
-    "color": "Color",
-    "timestamp": "Timestamp"
+    "a-name-is-required": "Un nom est requis",
+    "delete-with-name": "Supprimer {name}",
+    "confirm-delete-generic-with-name": "Êtes-vous sûr de vouloir supprimer ce {name}?",
+    "organizer": "Organiser",
+    "transfer": "Transférer",
+    "copy": "Copier",
+    "color": "Couleur",
+    "timestamp": "Horodatage"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/>?",
@@ -209,10 +209,10 @@
     "sides": "Accompagnements",
     "start-date": "Date de début",
     "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
+    "meal-type": "Type de repas",
+    "breakfast": "Petit déjeuner",
+    "lunch": "Dîner",
+    "dinner": "Souper",
     "type-any": "Any",
     "day-any": "Any"
   },
@@ -247,8 +247,8 @@
     "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
     "trim-prefix-description": "Couper le premier caractère de chaque ligne",
     "split-by-numbered-line-description": "Tenter de découper un paragraphe par correspondance de motifs : '1) ou '1.'",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "import-by-url": "Importer une recette par son URL",
+    "create-manually": "Créer une recette manuellement"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
@@ -262,8 +262,8 @@
     "page-updated": "Page mise à jour",
     "pages-update-failed": "La mise à jour des pages a échoué",
     "pages-updated": "Pages mises à jour",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Page introuvable",
+    "an-error-occurred": "Une erreur est survenue"
   },
   "recipe": {
     "add-key": "Ajouter une clé",
@@ -325,34 +325,34 @@
     "total-time": "Temps total",
     "unable-to-delete-recipe": "Impossible de supprimer la recette",
     "no-recipe": "Pas de recette",
-    "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
-    "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
-    "add-to-list": "Add to List",
-    "add-to-plan": "Add to Plan",
-    "recipe-added-to-list": "Recipe added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "locked-by-owner": "Verrouillé par le propriétaire",
+    "join-the-conversation": "Rejoindre la conversation",
+    "add-recipe-to-mealplan": "Ajouter la recette à la planification du menu",
+    "entry-type": "Type d'entrée",
+    "date-format-hint": "Format MM/JJ/AAAA",
+    "add-to-list": "Ajouter à la liste",
+    "add-to-plan": "Ajouter à la planification des repas",
+    "recipe-added-to-list": "Recette ajoutée à la liste",
+    "recipe-added-to-mealplan": "Recette ajoutée à la planification des repas",
+    "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
     "yield": "Yield",
-    "quantity": "Quantity",
-    "choose-unit": "Choose Unit",
-    "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Choose Food",
+    "quantity": "Quantité",
+    "choose-unit": "Choisir une unité",
+    "press-enter-to-create": "Clique sur Entrer pour créer",
+    "choose-food": "Choisir un aliment",
     "notes": "Notes",
-    "toggle-section": "Toggle Section",
+    "toggle-section": "Activer/désactiver la section",
     "see-original-text": "See Original Text",
     "original-text-with-value": "Original Text: {originalText}",
     "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
+    "linked-to-other-step": "Lié à une autre étape",
     "auto": "Auto",
     "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
+    "link-ingredients": "Ingrédients du lien",
     "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
+    "reset-scale": "Réinitialiser échelle",
+    "decrease-scale-label": "Diminuer l'échelle de 1",
+    "increase-scale-label": "Augmenter l'échelle de 1",
     "locked": "Locked"
   },
   "search": {
@@ -436,8 +436,8 @@
       "theme-saved": "Thème enregistré",
       "theme-updated": "Thème mis à jour",
       "warning": "Avertissement",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Mode Clair",
+      "dark-mode": "Mode sombre"
     },
     "token": {
       "active-tokens": "JETONS ACTIFS",
@@ -476,7 +476,7 @@
     "quantity": "Quantité : {0}",
     "shopping-list": "Liste d'épicerie",
     "shopping-lists": "Listes d'épicerie",
-    "food": "Food",
+    "food": "Aliments",
     "note": "Note",
     "label": "Label",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
@@ -498,11 +498,11 @@
     "toolbox": "Boîte à outils",
     "language": "Langue",
     "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
+    "background-tasks": "Tâches en arrière-plan",
     "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "developer": "Développeur",
+    "cookbook": "Livre de recettes",
+    "create-cookbook": "Créer un nouveau livre de recettes"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",
@@ -523,8 +523,8 @@
     "tag-updated": "Mot-clé mis à jour",
     "tags": "Mots-clés",
     "untagged-count": "{count} sans mot-clés",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Créer une étiquette",
+    "tag-name": "Nom d'étiquette"
   },
   "tool": {
     "tools": "Outils",
@@ -634,13 +634,13 @@
   "export": {
     "export": "Export",
     "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "size": "Taille",
+    "link-expires": "Le lien expire"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
+    "expiration-date": "Date d'expiration",
+    "share-recipe": "Partager la recette",
+    "default-30-days": "30 jours par défaut",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
   },
@@ -656,8 +656,8 @@
     "preview-markdown-button-label": "Preview Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Ceci est une démo pour la version: {version}",
+    "demo_username": "Identifiant : {username}",
+    "demo_password": "Mot de passe: {password}"
   }
 }
