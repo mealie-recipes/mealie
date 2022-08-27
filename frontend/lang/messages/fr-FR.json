@@ -21,7 +21,7 @@
     "production": "Réalisation",
     "support": "Soutenir",
     "version": "Version",
-    "unknown-version": "unknown"
+    "unknown-version": "inconnu"
   },
   "asset": {
     "assets": "Ressources",
@@ -32,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Recette",
     "show-assets": "Afficher les ressources",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Erreur lors de l'envoi du formulaire"
   },
   "category": {
     "categories": "Catégories",
@@ -150,7 +150,7 @@
     "menu": "Menu",
     "a-name-is-required": "Un nom est requis",
     "delete-with-name": "Supprimer {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
+    "confirm-delete-generic-with-name": "Êtes-vous sûr de vouloir supprimer {name}?",
     "organizer": "Organizer",
     "transfer": "Transférer",
     "copy": "Copier",
@@ -337,23 +337,23 @@
     "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
     "yield": "Yield",
     "quantity": "Quantité",
-    "choose-unit": "Choose Unit",
+    "choose-unit": "Choisissez une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
-    "choose-food": "Choose Food",
+    "choose-food": "Choisissez un aliment",
     "notes": "Notes",
     "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
+    "see-original-text": "Afficher le texte original",
+    "original-text-with-value": "Texte original: {originalText}",
     "ingredient-linker": "Ingredient Linker",
     "linked-to-other-step": "Linked to other step",
     "auto": "Auto",
-    "cook-mode": "Cook Mode",
+    "cook-mode": "Mode Cuisine",
     "link-ingredients": "Link Ingredients",
     "merge-above": "Merge Above",
     "reset-scale": "Reset Scale",
     "decrease-scale-label": "Decrease Scale by 1",
     "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "locked": "Verrouillé"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -367,7 +367,7 @@
     "search-mealie": "Rechercher dans Mealie (appuyez sur /)",
     "search-placeholder": "Rechercher...",
     "tag-filter": "Filtre par mots-clés",
-    "search-hint": "Press '/'"
+    "search-hint": "Appuyez sur « /»"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -436,8 +436,8 @@
       "theme-saved": "Thème enregistré",
       "theme-updated": "Thème mis à jour",
       "warning": "Avertissement",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Mode clair",
+      "dark-mode": "Mode sombre"
     },
     "token": {
       "active-tokens": "JETONS ACTIFS",
@@ -464,7 +464,7 @@
       "webhook-url": "Lien du webhook",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Nom du Webhook"
     }
   },
   "shopping-list": {
@@ -476,10 +476,10 @@
     "quantity": "Quantité : {0}",
     "shopping-list": "Liste de courses",
     "shopping-lists": "Listes de courses",
-    "food": "Food",
+    "food": "Aliment",
     "note": "Note",
     "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
+    "linked-item-warning": "Cet article est lié à une ou plusieurs recettes. Ajuster les unités ou les aliments donnera des résultats inattendus lors de l'ajout ou de la suppression de la recette de cette liste.",
     "toggle-food": "Toggle Food"
   },
   "sidebar": {
@@ -498,11 +498,11 @@
     "toolbox": "Boîte à outils",
     "language": "Langue",
     "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
-    "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "background-tasks": "Tâches en arrière plan",
+    "parser": "Analyseur syntaxique",
+    "developer": "Développeur",
+    "cookbook": "Livre de recettes",
+    "create-cookbook": "Créer un nouveau livre de recettes"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",
@@ -529,9 +529,9 @@
   "tool": {
     "tools": "Outils",
     "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
+    "create-a-tool": "Créer un ustensile",
+    "tool-name": "Nom de l'ustensile",
+    "create-new-tool": "Créer un ustensile",
     "on-hand-checkbox-label": "Show as On Hand (Checked)"
   },
   "user": {
