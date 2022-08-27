@@ -161,6 +161,10 @@ export default defineComponent({
       type: Array as () => Recipe[],
       default: () => [],
     },
+    cookbookSlug: {
+      type: String,
+      default: null,
+    },
     categorySlug: {
       type: String,
       default: null,
@@ -213,6 +217,8 @@ export default defineComponent({
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
+
+    const cookbook = ref<string>(props.cookbookSlug);
     const category = ref<string>(props.categorySlug);
     const tag = ref<string>(props.tagSlug);
     const tool = ref<string>(props.toolSlug);
@@ -227,6 +233,7 @@ export default defineComponent({
         perPage.value*2,
         preferences.value.orderBy,
         preferences.value.orderDirection,
+        cookbook.value,
         category.value,
         tag.value,
         tool.value,
@@ -253,6 +260,7 @@ export default defineComponent({
           perPage.value,
           preferences.value.orderBy,
           preferences.value.orderDirection,
+          cookbook.value,
           category.value,
           tag.value,
           tool.value,
@@ -314,6 +322,7 @@ export default defineComponent({
           perPage.value,
           preferences.value.orderBy,
           preferences.value.orderDirection,
+          cookbook.value,
           category.value,
           tag.value,
           tool.value,
