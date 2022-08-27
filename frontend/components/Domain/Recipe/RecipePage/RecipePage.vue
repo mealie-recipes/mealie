@@ -65,11 +65,9 @@
       <v-switch v-model="wakeLock" small label="Keep Screen Awake" />
     </div>
 
-    <RecipeComments
+    <RecipePageComments
       v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
-      v-model="recipe.comments"
-      :slug="recipe.slug"
-      :recipe-id="recipe.id"
+      :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />
     <RecipePrintView :recipe="recipe" />
@@ -89,6 +87,7 @@ import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
+import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { EditorMode, PageMode, usePageState } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/types/api";
@@ -97,7 +96,6 @@ import { useRecipeMeta } from "~/composables/recipes";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
-import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 
@@ -111,7 +109,7 @@ export default defineComponent({
   components: {
     RecipePageHeader,
     RecipePrintView,
-    RecipeComments,
+    RecipePageComments,
     RecipePageTitleContent,
     RecipePageEditorToolbar,
     RecipePageIngredientEditor,
