@@ -148,11 +148,11 @@ export default defineComponent({
     onUnmounted(async () => {
       const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
       if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
-        if (
-          window.confirm(
-            "You have unsaved changes. Do you want to save before leaving?\n\nOkay to save, Cancel to discard changes."
-          )
-        ) {
+        const save = window.confirm(
+          "You have unsaved changes. Do you want to save before leaving?\n\nOkay to save, Cancel to discard changes."
+        );
+
+        if (save) {
           await api.recipes.updateOne(props.recipe.slug, props.recipe);
         }
       }
@@ -167,7 +167,7 @@ export default defineComponent({
     const edit = useRouteQuery<BooleanString>("edit", "");
 
     onMounted(() => {
-      if (edit.value && edit.value === "true") {
+      if (edit.value === "true") {
         setMode(PageMode.EDIT);
       }
     });
