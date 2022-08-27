@@ -241,7 +241,7 @@ class RecipeController(BaseRecipeController):
             if cookbook is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
-        response = self.repo.page_all(
+        pagination_response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
             cookbook=cookbook_data,
@@ -252,13 +252,13 @@ class RecipeController(BaseRecipeController):
 
         # merge default pagination with the request's query params
         query_params = q.dict() | {**request.query_params}
-        response.set_pagination_guides(
+        pagination_response.set_pagination_guides(
             router.url_path_for("get_all"),
             {k: v for k, v in query_params.items() if v is not None},
         )
 
         new_items = []
-        for item in response.items:
+        for item in pagination_response.items:
             # Pydantic/FastAPI can't seem to serialize the ingredient field on their own.
             new_item = item.__dict__
 
@@ -267,8 +267,8 @@ class RecipeController(BaseRecipeController):
 
             new_items.append(new_item)
 
-        response.items = [RecipeSummary.construct(**x) for x in new_items]
-        json_compatible_response = jsonable_encoder(response)
+        pagination_response.items = [RecipeSummary.construct(**x) for x in new_items]
+        json_compatible_response = jsonable_encoder(pagination_response)
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONResponse(content=json_compatible_response)
