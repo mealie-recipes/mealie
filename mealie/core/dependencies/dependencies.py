@@ -14,6 +14,7 @@ from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
+from mealie.schema.user.user import DEFAULT_INTEGRATION_ID
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
@@ -81,6 +82,21 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
     if user is None:
         raise credentials_exception
     return user
+
+
+async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+    try:
+        decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
+        return decoded_token.get("integration_id", DEFAULT_INTEGRATION_ID)
+
+    except JWTError as e:
+        raise credentials_exception from e
 
 
 async def get_admin_user(current_user: PrivateUser = Depends(get_current_user)) -> PrivateUser:

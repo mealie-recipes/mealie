@@ -18,7 +18,7 @@ from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe
 from mealie.core.security import create_recipe_slug_token
 from mealie.pkgs import cache
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
@@ -34,8 +34,12 @@ from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
-from mealie.services.event_bus_service.message_types import EventTypes
+from mealie.services.event_bus_service.event_types import (
+    EventOperation,
+    EventRecipeBulkReportData,
+    EventRecipeData,
+    EventTypes,
+)
 from mealie.services.recipe.recipe_data_service import InvalidDomainError, NotAnImageError, RecipeDataService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
@@ -45,7 +49,7 @@ from mealie.services.scraper.scraper import create_from_url
 from mealie.services.scraper.scraper_strategies import ForceTimeoutException, RecipeScraperPackage
 
 
-class BaseRecipeController(BaseUserController):
+class BaseRecipeController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryRecipes:
         return self.repos.recipes.by_group(self.group_id)
@@ -119,8 +123,6 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=Mea
 
 @controller(router)
 class RecipeController(BaseRecipeController):
-    event_bus: EventBusService = Depends(EventBusService)
-
     def handle_exceptions(self, ex: Exception) -> None:
         match type(ex):
             case exceptions.PermissionDenied:
@@ -161,16 +163,13 @@ class RecipeController(BaseRecipeController):
         new_recipe = self.service.create_one(recipe)
 
         if new_recipe:
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_created,
-                msg=self.t(
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
                     url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
-                ),
-                event_source=EventSource(
-                    event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
                 ),
             )
 
@@ -182,6 +181,11 @@ class RecipeController(BaseRecipeController):
         bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group)
         report_id = bulk_scraper.get_report_id()
         bg_tasks.add_task(bulk_scraper.scrape, bulk)
+
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeBulkReportData(operation=EventOperation.create, report_id=report_id),
+        )
 
         return {"reportId": report_id}
 
@@ -202,6 +206,11 @@ class RecipeController(BaseRecipeController):
     def create_recipe_from_zip(self, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)):
         """Create recipe from archive"""
         recipe = self.service.create_from_zip(archive, temp_path)
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+        )
+
         return recipe.slug
 
     # ==================================================================================================================
@@ -215,7 +224,7 @@ class RecipeController(BaseRecipeController):
         tags: Optional[list[UUID4 | str]] = Query(None),
         tools: Optional[list[UUID4 | str]] = Query(None),
     ):
-        response = self.repo.page_all(
+        pagination_response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
             categories=categories,
@@ -223,10 +232,10 @@ class RecipeController(BaseRecipeController):
             tools=tools,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        pagination_response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
 
         new_items = []
-        for item in response.items:
+        for item in pagination_response.items:
             # Pydantic/FastAPI can't seem to serialize the ingredient field on thier own.
             new_item = item.__dict__
 
@@ -235,8 +244,8 @@ class RecipeController(BaseRecipeController):
 
             new_items.append(new_item)
 
-        response.items = [RecipeSummary.construct(**x) for x in new_items]
-        json_compatible_response = jsonable_encoder(response)
+        pagination_response.items = [RecipeSummary.construct(**x) for x in new_items]
+        json_compatible_response = jsonable_encoder(pagination_response)
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONResponse(content=json_compatible_response)
@@ -256,16 +265,13 @@ class RecipeController(BaseRecipeController):
             return None
 
         if new_recipe:
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_created,
-                msg=self.t(
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
                     url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
-                ),
-                event_source=EventSource(
-                    event_type="create", item_type="recipe", item_id=new_recipe.id, slug=new_recipe.slug
                 ),
             )
 
@@ -275,63 +281,60 @@ class RecipeController(BaseRecipeController):
     def update_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
         try:
-            data = self.service.update_one(slug, data)
+            recipe = self.service.update_one(slug, data)
         except Exception as e:
             self.handle_exceptions(e)
 
-        if data:
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_updated,
-                msg=self.t(
+        if recipe:
+            self.publish_event(
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                message=self.t(
                     "notifications.generic-updated-with-url",
-                    name=data.name,
-                    url=urls.recipe_url(data.slug, self.settings.BASE_URL),
+                    name=recipe.name,
+                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
             )
 
-        return data
+        return recipe
 
     @router.patch("/{slug}")
     def patch_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
         try:
-            data = self.service.patch_one(slug, data)
+            recipe = self.service.patch_one(slug, data)
         except Exception as e:
             self.handle_exceptions(e)
 
-        if data:
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_updated,
-                msg=self.t(
+        if recipe:
+            self.publish_event(
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                message=self.t(
                     "notifications.generic-updated-with-url",
-                    name=data.name,
-                    url=urls.recipe_url(data.slug, self.settings.BASE_URL),
+                    name=recipe.name,
+                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="recipe", item_id=data.id, slug=data.slug),
             )
 
-        return data
+        return recipe
 
     @router.delete("/{slug}")
     def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
         try:
-            data = self.service.delete_one(slug)
+            recipe = self.service.delete_one(slug)
         except Exception as e:
             self.handle_exceptions(e)
 
-        if data:
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.recipe_deleted,
-                msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source=EventSource(event_type="delete", item_type="recipe", item_id=data.id, slug=data.slug),
+        if recipe:
+            self.publish_event(
+                event_type=EventTypes.recipe_deleted,
+                document_data=EventRecipeData(operation=EventOperation.delete, recipe_slug=recipe.slug),
+                message=self.t("notifications.generic-deleted", name=recipe.name),
             )
 
-        return data
+        return recipe
 
     # ==================================================================================================================
     # Image and Assets

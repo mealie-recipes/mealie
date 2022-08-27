@@ -70,7 +70,7 @@ class ShoppingListService:
                     # Set References
                     new_refs = []
                     for ref in inner_item.recipe_references:
-                        ref.shopping_list_item_id = base_item.id
+                        ref.shopping_list_item_id = base_item.id  # type: ignore
                         new_refs.append(ref)
 
                     base_item.recipe_references.extend(new_refs)
@@ -80,46 +80,64 @@ class ShoppingListService:
 
         return consolidated_list
 
-    def consolidate_and_save(self, data: list[ShoppingListItemUpdate]):
+    def consolidate_and_save(
+        self, data: list[ShoppingListItemUpdate]
+    ) -> tuple[list[ShoppingListItemOut], list[ShoppingListItemOut]]:
+        """
+        returns:
+        - updated_shopping_list_items
+        - deleted_shopping_list_items
+        """
         # TODO: Convert to update many with single call
 
         all_updates = []
+        all_deletes = []
         keep_ids = []
 
-        for item in self.consolidate_list_items(data):
+        for item in self.consolidate_list_items(data):  # type: ignore
             updated_data = self.list_items.update(item.id, item)
             all_updates.append(updated_data)
             keep_ids.append(updated_data.id)
 
-        for item in data:
+        for item in data:  # type: ignore
             if item.id not in keep_ids:
                 self.list_items.delete(item.id)
+                all_deletes.append(item)
 
-        return all_updates
+        return all_updates, all_deletes
 
     # =======================================================================
     # Methods
 
-    def add_recipe_ingredients_to_list(self, list_id: UUID4, recipe_id: UUID4) -> ShoppingListOut:
+    def add_recipe_ingredients_to_list(
+        self, list_id: UUID4, recipe_id: UUID4
+    ) -> tuple[ShoppingListOut, list[ShoppingListItemOut], list[ShoppingListItemOut], list[ShoppingListItemOut]]:
+        """
+        returns:
+            - updated_shopping_list
+            - new_shopping_list_items
+            - updated_shopping_list_items
+            - deleted_shopping_list_items
+        """
         recipe = self.repos.recipes.get_one(recipe_id, "id")
         to_create = []
 
         for ingredient in recipe.recipe_ingredient:
             food_id = None
             try:
-                food_id = ingredient.food.id
+                food_id = ingredient.food.id  # type: ignore
             except AttributeError:
                 pass
 
             label_id = None
             try:
-                label_id = ingredient.food.label.id
+                label_id = ingredient.food.label.id  # type: ignore
             except AttributeError:
                 pass
 
             unit_id = None
             try:
-                unit_id = ingredient.unit.id
+                unit_id = ingredient.unit.id  # type: ignore
             except AttributeError:
                 pass
 
@@ -142,28 +160,67 @@ class ShoppingListService:
                 )
             )
 
-        for item in to_create:
-            self.repos.group_shopping_list_item.create(item)
+        new_shopping_list_items = [self.repos.group_shopping_list_item.create(item) for item in to_create]
 
-        updated_list = self.shopping_lists.get_one(list_id)
-        updated_list.list_items = self.consolidate_and_save(updated_list.list_items)
+        updated_shopping_list = self.shopping_lists.get_one(list_id)
+        updated_shopping_list_items, deleted_shopping_list_items = self.consolidate_and_save(updated_shopping_list.list_items)  # type: ignore
+        updated_shopping_list.list_items = updated_shopping_list_items
 
         not_found = True
-        for refs in updated_list.recipe_references:
+        for refs in updated_shopping_list.recipe_references:
             if refs.recipe_id == recipe_id:
                 refs.recipe_quantity += 1
                 not_found = False
 
         if not_found:
-            updated_list.recipe_references.append(ShoppingListItemRecipeRef(recipe_id=recipe_id, recipe_quantity=1))
+            updated_shopping_list.recipe_references.append(
+                ShoppingListItemRecipeRef(recipe_id=recipe_id, recipe_quantity=1)  # type: ignore
+            )
 
-        updated_list = self.shopping_lists.update(updated_list.id, updated_list)
+        updated_shopping_list = self.shopping_lists.update(updated_shopping_list.id, updated_shopping_list)
 
-        return updated_list
+        """
+        There can be overlap between the list item collections, so we de-duplicate the lists.
 
-    def remove_recipe_ingredients_from_list(self, list_id: UUID4, recipe_id: UUID4) -> ShoppingListOut:
+        First new items are created, then existing items are updated, and finally some items are deleted,
+        so we can de-duplicate using this logic
+        """
+        new_items_map = {list_item.id: list_item for list_item in new_shopping_list_items}
+        updated_items_map = {list_item.id: list_item for list_item in updated_shopping_list_items}
+        deleted_items_map = {list_item.id: list_item for list_item in deleted_shopping_list_items}
+
+        # if the item was created and then updated, replace the create with the update and remove the update
+        for id in list(updated_items_map.keys()):
+            if id in new_items_map:
+                new_items_map[id] = updated_items_map[id]
+                del updated_items_map[id]
+
+        # if the item was updated and then deleted, remove the update
+        updated_shopping_list_items = [
+            list_item for id, list_item in updated_items_map.items() if id not in deleted_items_map
+        ]
+
+        # if the item was created and then deleted, remove it from both lists
+        new_shopping_list_items = [list_item for id, list_item in new_items_map.items() if id not in deleted_items_map]
+        deleted_shopping_list_items = [
+            list_item for id, list_item in deleted_items_map.items() if id not in new_items_map
+        ]
+
+        return updated_shopping_list, new_shopping_list_items, updated_shopping_list_items, deleted_shopping_list_items
+
+    def remove_recipe_ingredients_from_list(
+        self, list_id: UUID4, recipe_id: UUID4
+    ) -> tuple[ShoppingListOut, list[ShoppingListItemOut], list[ShoppingListItemOut]]:
+        """
+        returns:
+            - updated_shopping_list
+            - updated_shopping_list_items
+            - deleted_shopping_list_items
+        """
         shopping_list = self.shopping_lists.get_one(list_id)
 
+        updated_shopping_list_items = []
+        deleted_shopping_list_items = []
         for item in shopping_list.list_items:
             found = False
 
@@ -171,7 +228,7 @@ class ShoppingListService:
                 remove_qty = 0.0
 
                 if ref.recipe_id == recipe_id:
-                    self.list_item_refs.delete(ref.id)
+                    self.list_item_refs.delete(ref.id)  # type: ignore
                     item.recipe_references.remove(ref)
                     found = True
                     remove_qty = ref.recipe_quantity
@@ -183,20 +240,22 @@ class ShoppingListService:
 
                 if item.quantity <= 0:
                     self.list_items.delete(item.id)
+                    deleted_shopping_list_items.append(item)
                 else:
                     self.list_items.update(item.id, item)
+                    updated_shopping_list_items.append(item)
 
-        # Decrament the list recipe reference count
-        for ref in shopping_list.recipe_references:
+        # Decrement the list recipe reference count
+        for ref in shopping_list.recipe_references:  # type: ignore
             if ref.recipe_id == recipe_id:
                 ref.recipe_quantity -= 1
 
                 if ref.recipe_quantity <= 0:
-                    self.list_refs.delete(ref.id)
+                    self.list_refs.delete(ref.id)  # type: ignore
 
                 else:
-                    self.list_refs.update(ref.id, ref)
+                    self.list_refs.update(ref.id, ref)  # type: ignore
                 break
 
         # Save Changes
-        return self.shopping_lists.get_one(shopping_list.id)
+        return self.shopping_lists.get_one(shopping_list.id), updated_shopping_list_items, deleted_shopping_list_items

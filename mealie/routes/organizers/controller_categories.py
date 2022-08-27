@@ -3,7 +3,7 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4, BaseModel
 
-from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
@@ -11,8 +11,7 @@ from mealie.schema.recipe.recipe import RecipeCategory, RecipeCategoryPagination
 from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
-from mealie.services.event_bus_service.event_bus_service import EventBusService, EventSource
-from mealie.services.event_bus_service.message_types import EventTypes
+from mealie.services.event_bus_service.event_types import EventCategoryData, EventOperation, EventTypes
 
 router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
 
@@ -27,10 +26,7 @@ class CategorySummary(BaseModel):
 
 
 @controller(router)
-class RecipeCategoryController(BaseUserController):
-
-    event_bus: EventBusService = Depends(EventBusService)
-
+class RecipeCategoryController(BaseCrudController):
     # =========================================================================
     # CRUD Operations
     @cached_property
@@ -56,19 +52,19 @@ class RecipeCategoryController(BaseUserController):
     def create_one(self, category: CategoryIn):
         """Creates a Category in the database"""
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
-        data = self.mixins.create_one(save_data)
-        if data:
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.category_created,
-                msg=self.t(
+        new_category = self.mixins.create_one(save_data)
+        if new_category:
+            self.publish_event(
+                event_type=EventTypes.category_created,
+                document_data=EventCategoryData(operation=EventOperation.create, category_id=new_category.id),
+                message=self.t(
                     "notifications.generic-created-with-url",
-                    name=data.name,
-                    url=urls.category_url(data.slug, self.settings.BASE_URL),
+                    name=new_category.name,
+                    url=urls.category_url(new_category.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="create", item_type="category", item_id=data.id, slug=data.slug),
             )
-        return data
+
+        return new_category
 
     @router.get("/{item_id}", response_model=CategorySummary)
     def get_one(self, item_id: UUID4):
@@ -81,20 +77,20 @@ class RecipeCategoryController(BaseUserController):
     def update_one(self, item_id: UUID4, update_data: CategoryIn):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
-        data = self.mixins.update_one(save_data, item_id)
+        category = self.mixins.update_one(save_data, item_id)
 
-        if data:
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.category_updated,
-                msg=self.t(
+        if category:
+            self.publish_event(
+                event_type=EventTypes.category_updated,
+                document_data=EventCategoryData(operation=EventOperation.update, category_id=category.id),
+                message=self.t(
                     "notifications.generic-updated-with-url",
-                    name=data.name,
-                    url=urls.category_url(data.slug, self.settings.BASE_URL),
+                    name=category.name,
+                    url=urls.category_url(category.slug, self.settings.BASE_URL),
                 ),
-                event_source=EventSource(event_type="update", item_type="category", item_id=data.id, slug=data.slug),
             )
-        return data
+
+        return category
 
     @router.delete("/{item_id}")
     def delete_one(self, item_id: UUID4):
@@ -103,12 +99,11 @@ class RecipeCategoryController(BaseUserController):
         category does not impact a recipe. The category will be removed
         from any recipes that contain it
         """
-        if data := self.mixins.delete_one(item_id):
-            self.event_bus.dispatch(
-                self.user.group_id,
-                EventTypes.category_deleted,
-                msg=self.t("notifications.generic-deleted", name=data.name),
-                event_source=EventSource(event_type="delete", item_type="category", item_id=data.id, slug=data.slug),
+        if category := self.mixins.delete_one(item_id):
+            self.publish_event(
+                event_type=EventTypes.category_deleted,
+                document_data=EventCategoryData(operation=EventOperation.delete, category_id=category.id),
+                message=self.t("notifications.generic-deleted", name=category.name),
             )
 
     # =========================================================================

@@ -6,7 +6,7 @@ from pydantic import UUID4
 from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.core.dependencies.dependencies import get_admin_user, get_current_user
+from mealie.core.dependencies.dependencies import get_admin_user, get_current_user, get_integration_id
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
@@ -17,6 +17,8 @@ from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import AllRepositories
 from mealie.routes._base.checks import OperationChecks
 from mealie.schema.user.user import GroupInDB, PrivateUser
+from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
 
 
 class _BaseController(ABC):
@@ -78,6 +80,7 @@ class BaseUserController(_BaseController):
     """
 
     user: PrivateUser = Depends(get_current_user)
+    integration_id: str = Depends(get_integration_id)
     translator: Translator = Depends(local_provider)
 
     # Manual Cache
@@ -112,3 +115,20 @@ class BaseAdminController(BaseUserController):
     """
 
     user: PrivateUser = Depends(get_admin_user)
+
+
+class BaseCrudController(BaseUserController):
+    """
+    Base class for all CRUD controllers to facilitate common CRUD functions.
+    """
+
+    event_bus: EventBusService = Depends(EventBusService)
+
+    def publish_event(self, event_type: EventTypes, document_data: EventDocumentDataBase, message: str = "") -> None:
+        self.event_bus.dispatch(
+            integration_id=self.integration_id,
+            group_id=self.group_id,
+            event_type=event_type,
+            document_data=document_data,
+            message=message,
+        )
