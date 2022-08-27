@@ -16,11 +16,13 @@ from mealie.schema.response.pagination import PaginationBase
 
 from ..recipe import CategoryBase
 
+DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
 
 
 class LongLiveTokenIn(MealieModel):
     name: str
+    integration_id: str = DEFAULT_INTEGRATION_ID
 
 
 class LongLiveTokenOut(MealieModel):

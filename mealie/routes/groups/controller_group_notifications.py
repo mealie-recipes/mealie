@@ -17,7 +17,16 @@ from mealie.schema.group.group_events import (
 )
 from mealie.schema.mapper import cast
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener
 from mealie.services.event_bus_service.event_bus_service import EventBusService
+from mealie.services.event_bus_service.event_types import (
+    Event,
+    EventBusMessage,
+    EventDocumentDataBase,
+    EventDocumentType,
+    EventOperation,
+    EventTypes,
+)
 
 router = APIRouter(
     prefix="/groups/events/notifications", tags=["Group: Event Notifications"], route_class=MealieCrudRoute
@@ -78,7 +87,18 @@ class GroupEventsNotifierController(BaseUserController):
     # =======================================================================
     # Test Event Notifications
 
+    #  TODO: properly re-implement this with new event listeners
     @router.post("/{item_id}/test", status_code=204)
     def test_notification(self, item_id: UUID4):
         item: GroupEventNotifierPrivate = self.repo.get_one(item_id, override_schema=GroupEventNotifierPrivate)
-        self.event_bus.test_publisher(item.apprise_url)
+
+        event_type = EventTypes.test_message
+        test_event = Event(
+            message=EventBusMessage.from_type(event_type, "test message"),
+            event_type=event_type,
+            integration_id="test_event",
+            document_data=EventDocumentDataBase(document_type=EventDocumentType.generic, operation=EventOperation.info),
+        )
+
+        test_listener = AppriseEventListener(self.event_bus.session, self.group_id)
+        test_listener.publish_to_subscribers(test_event, [item.apprise_url])
