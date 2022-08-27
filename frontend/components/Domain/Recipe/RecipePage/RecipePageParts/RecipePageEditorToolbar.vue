@@ -14,11 +14,11 @@
 import { defineComponent, onUnmounted } from "@nuxtjs/composition-api";
 import { clearPageState, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/types/api";
-
-import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
 import { Recipe } from "~/types/api-types/recipe";
-import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import { useUserApi } from "~/composables/api";
+import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
+import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
+
 export default defineComponent({
   components: {
     RecipeImageUploadBtn,

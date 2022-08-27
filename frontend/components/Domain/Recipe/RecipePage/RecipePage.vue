@@ -80,14 +80,26 @@
 import { defineComponent, useContext, useRouter, computed, ref, useMeta } from "@nuxtjs/composition-api";
 import { invoke, until, useWakeLock } from "@vueuse/core";
 import { onMounted, onUnmounted } from "vue-demi";
-import { Parts } from "./RecipePageParts/parts";
+import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
+import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
+import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
+import RecipePageIngredientEditor from "./RecipePageParts/RecipePageIngredientEditor.vue";
+import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredientToolsView.vue";
+import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
+import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
+import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
+import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
+import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { EditorMode, PageMode, usePageState } from "~/composables/recipe-page/shared-state";
-import { Recipe } from "~/types/api-types/recipe";
 import { NoUndefinedField } from "~/types/api";
+import { Recipe } from "~/types/api-types/recipe";
+import { useRecipeMeta } from "~/composables/recipes";
+import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
-import { useRouteQuery } from "~/composables/use-router";
-import { useRecipeMeta } from "~/composables/recipes";
+import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
+import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
+import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 
 const EDITOR_OPTIONS = {
   mode: "code",
@@ -96,7 +108,21 @@ const EDITOR_OPTIONS = {
 };
 
 export default defineComponent({
-  components: Parts,
+  components: {
+    RecipePageHeader,
+    RecipePrintView,
+    RecipeComments,
+    RecipePageTitleContent,
+    RecipePageEditorToolbar,
+    RecipePageIngredientEditor,
+    RecipePageOrganizers,
+    RecipePageScale,
+    RecipePageIngredientToolsView,
+    RecipeDialogBulkAdd,
+    RecipeNotes,
+    RecipePageInstructions,
+    RecipePageFooter,
+  },
   props: {
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,
