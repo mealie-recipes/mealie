@@ -1,5 +1,7 @@
 import { AxiosResponse } from "axios";
 
+export type NoUndefinedField<T> = { [P in keyof T]-?: NoUndefinedField<NonNullable<T[P]>> };
+
 export interface RequestResponse<T> {
   response: AxiosResponse<T> | null;
   data: T | null;
