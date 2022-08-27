@@ -20,10 +20,10 @@ Setting the following environmental variables will change the theme of the front
 | THEME_LIGHT_INFO      | #1976D2 | Light Theme Config Variable |
 | THEME_LIGHT_WARNING   | #FF6D00 | Light Theme Config Variable |
 | THEME_LIGHT_ERROR     | #EF5350 | Light Theme Config Variable |
-| DARK_LIGHT_PRIMARY    | #E58325 | Dark Theme Config Variable  |
-| DARK_LIGHT_ACCENT     | #007A99 | Dark Theme Config Variable  |
-| DARK_LIGHT_SECONDARY  | #973542 | Dark Theme Config Variable  |
-| DARK_LIGHT_SUCCESS    | #43A047 | Dark Theme Config Variable  |
-| DARK_LIGHT_INFO       | #1976D2 | Dark Theme Config Variable  |
-| DARK_LIGHT_WARNING    | #FF6D00 | Dark Theme Config Variable  |
-| DARK_LIGHT_ERROR      | #EF5350 | Dark Theme Config Variable  |
+| THEME_DARK_PRIMARY    | #E58325 | Dark Theme Config Variable  |
+| THEME_DARK_ACCENT     | #007A99 | Dark Theme Config Variable  |
+| THEME_DARK_SECONDARY  | #973542 | Dark Theme Config Variable  |
+| THEME_DARK_SUCCESS    | #43A047 | Dark Theme Config Variable  |
+| THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
+| THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
+| THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
