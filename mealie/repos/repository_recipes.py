@@ -255,7 +255,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             tool_ids = [x.id for x in tools]
 
             if require_all_tools:
-                fltr.extend(RecipeModel.tags.any(Tag.id == tag_id) for tag_id in tag_ids)
+                fltr.extend(RecipeModel.tools.any(Tool.id == tool_id) for tool_id in tool_ids)
             else:
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tool_ids)))
 
