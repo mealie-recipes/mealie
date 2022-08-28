@@ -77,8 +77,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     user_dn, user_attr = conn.search_s(
         settings.LDAP_BASE_DN,
         ldap.SCOPE_SUBTREE,
-        "(&(objectClass=user)(|(cn=%s)(sAMAccountName=%s)(mail=%s)))"
-        % (username, username, username),
+        f"(&(objectClass=user)(|(cn={username})(sAMAccountName={username})(mail={username})))",
         ["name", "mail"],
     )[0]
 
