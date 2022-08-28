@@ -529,9 +529,9 @@
   "tool": {
     "tools": "Outils",
     "on-hand": "Disponible",
-    "create-a-tool": "Créer un ustensile",
-    "tool-name": "Nom de l'ustensile",
-    "create-new-tool": "Créer un ustensile",
+    "create-a-tool": "Créer un outil",
+    "tool-name": "Nom de l'outil",
+    "create-new-tool": "Créer un nouvel outil",
     "on-hand-checkbox-label": "Afficher comme disponible (coché)"
   },
   "user": {
