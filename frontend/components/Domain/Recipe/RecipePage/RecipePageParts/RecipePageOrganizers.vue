@@ -46,15 +46,13 @@
     </v-card>
 
     <RecipeNutrition v-if="recipe.settings.showNutrition" v-model="recipe.nutrition" class="mt-10" :edit="isEditForm" />
-    <client-only>
-      <RecipeAssets
-        v-if="recipe.settings.showAssets"
-        v-model="recipe.assets"
-        :edit="isEditForm"
-        :slug="recipe.slug"
-        :recipe-id="recipe.id"
-      />
-    </client-only>
+    <RecipeAssets
+      v-if="recipe.settings.showAssets"
+      v-model="recipe.assets"
+      :edit="isEditForm"
+      :slug="recipe.slug"
+      :recipe-id="recipe.id"
+    />
   </div>
 </template>
 
