@@ -75,6 +75,9 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
         return False
 
+    # Search "username" against "cn" attribute for Linux, "sAMAccountName" attribute
+    # for Windows and "mail" attribute for email addresses. The "mail" attribute is
+    # required to obtain the user's DN for the LDAP_ADMIN_FILTER.
     user_dn, user_attr = conn.search_s(settings.LDAP_BASE_DN, ldap.SCOPE_SUBTREE, '(&(objectClass=user)(|(cn=%s)(sAMAccountName=%s)(mail=%s)))' % (username, username, username), ['name', 'mail'])[0]
 
     if not user:
