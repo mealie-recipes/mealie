@@ -21,7 +21,7 @@
     "production": "Réalisation",
     "support": "Soutenir",
     "version": "Version",
-    "unknown-version": "unknown"
+    "unknown-version": "inconnu"
   },
   "asset": {
     "assets": "Ressources",
@@ -32,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Recette",
     "show-assets": "Afficher les ressources",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Erreur lors de l'envoi du formulaire"
   },
   "category": {
     "categories": "Catégories",
@@ -140,7 +140,7 @@
     "units": "Unités",
     "back": "Précédent",
     "next": "Suivant",
-    "toggle-view": "Toggle View",
+    "toggle-view": "Basculer l'affichage",
     "date": "Date",
     "id": "Identifiant",
     "owner": "Propriétaire",
@@ -150,12 +150,12 @@
     "menu": "Menu",
     "a-name-is-required": "Un nom est requis",
     "delete-with-name": "Supprimer {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "organizer": "Organizer",
+    "confirm-delete-generic-with-name": "Êtes-vous sûr de vouloir supprimer {name}?",
+    "organizer": "Organiser",
     "transfer": "Transférer",
     "copy": "Copier",
     "color": "Couleur ",
-    "timestamp": "Timestamp"
+    "timestamp": "Date et Heure"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/> ?",
@@ -208,13 +208,13 @@
     "side": "Accompagnement",
     "sides": "Accompagnements",
     "start-date": "Date de début",
-    "rule-day": "Rule Day",
+    "rule-day": "Jour de la Règle",
     "meal-type": "Type de repas",
     "breakfast": "Petit déjeuner",
     "lunch": "Déjeuner",
     "dinner": "Dîner",
-    "type-any": "Any",
-    "day-any": "Any"
+    "type-any": "Tous",
+    "day-any": "Tous"
   },
   "migration": {
     "chowdown": {
@@ -335,25 +335,25 @@
     "recipe-added-to-list": "Recette ajoutée à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée à la planification des repas",
     "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
-    "yield": "Yield",
+    "yield": "Nombre de portions",
     "quantity": "Quantité",
-    "choose-unit": "Choose Unit",
+    "choose-unit": "Choisissez une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
-    "choose-food": "Choose Food",
+    "choose-food": "Choisissez un aliment",
     "notes": "Notes",
-    "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
+    "toggle-section": "Activer/Désactiver la section",
+    "see-original-text": "Afficher le texte original",
+    "original-text-with-value": "Texte original: {originalText}",
+    "ingredient-linker": "Liaison d'ingrédients",
+    "linked-to-other-step": "Déjà associé à une autre étape",
     "auto": "Auto",
-    "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "cook-mode": "Mode Cuisine",
+    "link-ingredients": "Lier des ingrédients",
+    "merge-above": "Fusionner avec au-dessus",
+    "reset-scale": "Rétablir l'échelle par défaut",
+    "decrease-scale-label": "Diminuer l'échelle de 1",
+    "increase-scale-label": "Augmenter l'échelle de 1",
+    "locked": "Verrouillé"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -367,7 +367,7 @@
     "search-mealie": "Rechercher dans Mealie (appuyez sur /)",
     "search-placeholder": "Rechercher...",
     "tag-filter": "Filtre par mots-clés",
-    "search-hint": "Press '/'"
+    "search-hint": "Appuyez sur « /»"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -436,8 +436,8 @@
       "theme-saved": "Thème enregistré",
       "theme-updated": "Thème mis à jour",
       "warning": "Avertissement",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Mode clair",
+      "dark-mode": "Mode sombre"
     },
     "token": {
       "active-tokens": "JETONS ACTIFS",
@@ -464,7 +464,7 @@
       "webhook-url": "Lien du webhook",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Nom du Webhook"
     }
   },
   "shopping-list": {
@@ -476,14 +476,14 @@
     "quantity": "Quantité : {0}",
     "shopping-list": "Liste de courses",
     "shopping-lists": "Listes de courses",
-    "food": "Food",
+    "food": "Aliment",
     "note": "Note",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "label": "Étiquette",
+    "linked-item-warning": "Cet article est lié à une ou plusieurs recettes. Ajuster les unités ou les aliments donnera des résultats inattendus lors de l'ajout ou de la suppression de la recette de cette liste.",
+    "toggle-food": "Activer/Désactiver aliment"
   },
   "sidebar": {
-    "all-recipes": "Les recettes",
+    "all-recipes": "Recettes",
     "backups": "Sauvegardes",
     "categories": "Catégories",
     "cookbooks": "Livre de recettes",
@@ -498,11 +498,11 @@
     "toolbox": "Boîte à outils",
     "language": "Langue",
     "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
-    "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "background-tasks": "Tâches en arrière plan",
+    "parser": "Analyseur syntaxique",
+    "developer": "Développeur",
+    "cookbook": "Livre de recettes",
+    "create-cookbook": "Créer un nouveau livre de recettes"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",
@@ -523,16 +523,16 @@
     "tag-updated": "Mot-clé mis à jour",
     "tags": "Mots-clés",
     "untagged-count": "{count} sans mot-clés",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Créer un mot-clé",
+    "tag-name": "Mot-clé"
   },
   "tool": {
     "tools": "Outils",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand": "Disponible",
+    "create-a-tool": "Créer un outil",
+    "tool-name": "Nom de l'outil",
+    "create-new-tool": "Créer un nouvel outil",
+    "on-hand-checkbox-label": "Afficher comme disponible (coché)"
   },
   "user": {
     "admin": "Administrateur",
@@ -591,7 +591,7 @@
     "you-are-not-allowed-to-delete-this-user": "Vous n'avez pas le droit de supprimer cet utilisateur",
     "enable-advanced-content": "Activer le contenu avancé",
     "enable-advanced-content-description": "Active les fonctionnalités avancées comme la mise à l'échelle des recettes, les clés API, les Webhooks, et la gestion des données. Ne vous inquiétez pas, vous pouvez toujours modifier cela plus tard",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Recettes préférées"
   },
   "language-dialog": {
     "translated": "traduit",
@@ -632,32 +632,32 @@
     "email-is-taken": "Cet e-mail est déjà pris"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Exporter",
+    "file-name": "Nom du fichier",
+    "size": "Taille",
+    "link-expires": "Le lien expire le"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Date d'expiration",
+    "share-recipe": "Partager la recette",
+    "default-30-days": "30 jours par défaut",
+    "expires-at": "Expire le",
+    "recipe-link-copied-message": "Lien de la recette copié dans le presse-papiers"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "Fonctionnalités expérimentales",
+    "description": "Cette page contient des fonctionnalités expérimentales ou des fonctionnalités en construction. Veuillez excuser le désordre.",
+    "issue-link-text": "Suivez notre progression ici"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Qté"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Aperçu du Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Ceci est une démo de la version: {version}",
+    "demo_username": "Nom d'utilisateur: {username}",
+    "demo_password": "Mot de passe: {password}"
   }
 }
