@@ -1,4 +1,6 @@
+import asyncio
 import shutil
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import requests
@@ -9,6 +11,30 @@ from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
 
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+
+async def largest_content_len(urls: list[str]) -> tuple[str, int]:
+    largest_url = ""
+    largest_len = 0
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        with requests.Session() as session:
+            loop = asyncio.get_event_loop()
+
+            tasks = [
+                loop.run_in_executor(executor, lambda: session.head(url, headers={"User-Agent": _FIREFOX_UA}))
+                for url in urls
+            ]
+
+            response: requests.Response  # required for type hinting within the loop
+            for response in await asyncio.gather(*tasks):
+
+                len_int = int(response.headers.get("Content-Length", 0))
+                if len_int > largest_len:
+                    largest_url = response.url
+                    largest_len = len_int
+
+    return largest_url, largest_len
 
 
 class NotAnImageError(Exception):
@@ -93,19 +119,14 @@ class RecipeDataService(BaseService):
             # Typically would be in smallest->biggest order, but can't be certain so test each.
             # 'Google will pick the best image to display in Search results based on the aspect ratio and resolution.'
 
-            all_image_requests = []
-            for url in image_url:
-                if isinstance(url, dict):
-                    url = url.get("url", "")
-                try:
-                    r = requests.get(url, stream=True, headers={"User-Agent": _FIREFOX_UA})
-                except Exception:
-                    self.logger.exception(f"Image {url} could not be requested")
-                    continue
-                if r.status_code == 200:
-                    all_image_requests.append((url, r))
-
-            image_url, _ = max(all_image_requests, key=lambda url_r: len(url_r[1].content), default=("", 0))
+            # TODO: We should refactor the scraper to use a async session provided by FastAPI using a sync
+            # route instead of bootstrapping async behavior this far down the chain. Will require some work
+            # so leaving this improvement here for now.
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            future = asyncio.ensure_future(largest_content_len(image_url))
+            loop.run_until_complete(future)
+            image_url, _ = future.result()
 
         elif isinstance(image_url, dict):  # Handles Dictionary Types
             for key in image_url:
