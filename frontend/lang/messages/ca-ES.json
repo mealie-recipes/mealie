@@ -591,74 +591,74 @@
     "you-are-not-allowed-to-create-a-user": "Vostè no està autoritzat per a crear un usuari",
     "you-are-not-allowed-to-delete-this-user": "Vostè no està autoritzat per a suprimir l'usuari",
     "enable-advanced-content": "Habilita el contingut avançat",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
-    "favorite-recipes": "Favorite Recipes"
+    "enable-advanced-content-description": "Habilita les funcions avançades com ara multiplicar els ingredients, claus API, Webhooks i la gestió de les dades. Pots tornar a canviar aquesta configuració més tard",
+    "favorite-recipes": "Receptes preferides"
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "translated": "traduït",
+    "choose-language": "Trieu l'idioma",
+    "select-description": "Tria l'idioma de la interfície de Mealie. Només canvia per al teu usuari, no per als altres.",
+    "how-to-contribute-description": "N'hi ha textos sense traduir, la traducció no és correcta o no està disponible el teu idioma? {read-the-docs-link} per a més informació de com podeu contribuir.",
+    "read-the-docs": "Llegiu la documentació"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Dades d'exemple",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
-      "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "merge-dialog-text": "Combinant els aliments seleccionats, es fusionaran els dos aliments en un. El primer aliment serà eliminat i totes les referències s'actualitzaran a l'aliment resultant.",
+      "merge-food-example": "Combinant {food1} i {food2}",
+      "seed-dialog-text": "Afegeix a la base de dades els noms dels aliments en el vostre idioma. Açò crearà més de 200 aliments comuns per a què pugueu organitzar la vostra base de dades. Els noms dels aliments han estat traduïts gràcies a l'esforç de la comunitat.",
+      "seed-dialog-warning": "Ja teniu algunes dades a la vostra base. Aquesta acció no tindrà en compte duplicats i haureu d'eliminar-los manualment."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Afegeix a la base de dades les unitats més comunes en el vostre idioma."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
-    "group-details": "Group Details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "user-registration": "Registre d'usuari",
+    "join-a-group": "Uneix-te a un grup",
+    "create-a-new-group": "Crea un grup nou",
+    "provide-registration-token-description": "Per favor, proporciona el token associat al grup al qual voleu afegir-vos. Podeu obtindre'l d'un altre membre del grup.",
+    "group-details": "Detalls del grup",
+    "group-details-description": "Abans de crear un compte heu de crear un grup. Al grup només hi serà vostè, però després podeu convidar d'altres. Els membres d'un grup poden compartir menús, llistes de la compra, receptes i molt més!",
+    "use-seed-data": "Afegiu dades predeterminades",
+    "use-seed-data-description": "Mealie ve configurat amb una col·lecció d'aliments, unitats i etiquetes que poden ser emprades pel vostre grup per a ajudar-vos a organitzar les vostres receptes.",
+    "account-details": "Detalls del compte"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Aquest nom ja existeix per a un altre grup",
+    "username-is-taken": "Aquest nom ja existeix per a un altre usuari",
+    "email-is-taken": "Aquest email ja existeix per a un altre usuari"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Exporta",
+    "file-name": "Nom del fitxer",
+    "size": "Mida",
+    "link-expires": "L’enllaç caduca"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Data de venciment",
+    "share-recipe": "Comparteix la recepta",
+    "default-30-days": "Per defecte, 30 dies",
+    "expires-at": "Expira el",
+    "recipe-link-copied-message": "S'ha copiat l'enllaç al porta-retalls"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "Funció experimental",
+    "description": "Aquesta pàgina conté funcions experimentals o a mig coure. Per favor, perdoneu el desordre.",
+    "issue-link-text": "Segueix el nostre progrés ací"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Quant."
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Vista prèvia en Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Versió de demostració: {version}",
+    "demo_username": "Nom d'usuari: {username}",
+    "demo_password": "Contrasenya: {password}"
   }
 }
