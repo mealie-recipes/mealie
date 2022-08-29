@@ -134,7 +134,8 @@ export default defineComponent({
       const { data } = await userApi.recipes.share.getAll(1, -1, { recipe_id: props.recipeId });
 
       if (data) {
-        state.tokens = data.items ?? [];
+        // @ts-expect-error - TODO: This routes doesn't have pagination, but the type are mismatched.
+        state.tokens = data ?? [];
       }
     }
 

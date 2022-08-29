@@ -66,7 +66,7 @@
     </div>
 
     <RecipePageComments
-      v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
+      v-if="user.id && !recipe.settings.disableComments && !isEditForm && !isCookMode"
       :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />
@@ -89,7 +89,7 @@ import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
-import { EditorMode, PageMode, usePageState } from "~/composables/recipe-page/shared-state";
+import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/types/api";
 import { Recipe } from "~/types/api-types/recipe";
 import { useRecipeMeta } from "~/composables/recipes";
@@ -270,7 +270,10 @@ export default defineComponent({
     const metaData = useRecipeMeta(ref(props.recipe));
     useMeta(metaData);
 
+    const { user } = usePageUser();
+
     return {
+      user,
       api,
       scale: ref(1),
       EDITOR_OPTIONS,
