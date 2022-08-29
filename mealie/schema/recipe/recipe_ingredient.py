@@ -6,7 +6,9 @@ from typing import Optional, Union
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, Field, validator
+from pydantic.utils import GetterDict
 
+from mealie.db.models.recipe.ingredient import IngredientFoodModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.response.pagination import PaginationBase
@@ -15,6 +17,7 @@ from mealie.schema.response.pagination import PaginationBase
 class UnitFoodBase(MealieModel):
     name: str
     description: str = ""
+    extras: Optional[dict] = {}
 
 
 class CreateIngredientFood(UnitFoodBase):
@@ -33,6 +36,13 @@ class IngredientFood(CreateIngredientFood):
 
     class Config:
         orm_mode = True
+
+        @classmethod
+        def getter_dict(cls, name_orm: IngredientFoodModel):
+            return {
+                **GetterDict(name_orm),
+                "extras": {x.key_name: x.value for x in name_orm.extras},
+            }
 
 
 class IngredientFoodPagination(PaginationBase):
