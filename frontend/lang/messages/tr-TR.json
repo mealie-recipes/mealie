@@ -353,7 +353,8 @@
     "reset-scale": "Reset Scale",
     "decrease-scale-label": "Decrease Scale by 1",
     "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "locked": "Locked",
+    "public-link": "Public Link"
   },
   "search": {
     "advanced-search": "Advanced Search",
