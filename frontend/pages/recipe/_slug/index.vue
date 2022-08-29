@@ -7,7 +7,6 @@
 <script lang="ts">
 import { defineComponent, useRoute } from "@nuxtjs/composition-api";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
-import { useUserApi } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
 
 export default defineComponent({
@@ -15,18 +14,13 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const slug = route.value.params.slug;
-    const api = useUserApi();
 
-    const { recipe, loading, fetchRecipe } = useRecipe(slug);
+    const { recipe, loading } = useRecipe(slug);
 
     return {
       recipe,
       loading,
-      fetchRecipe,
-      api,
     };
   },
 });
 </script>
-
-<style scoped></style>

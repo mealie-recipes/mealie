@@ -2,7 +2,15 @@ import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import { BaseCRUDAPI } from "~/api/_base";
 
-import { Recipe, CreateRecipe, RecipeAsset, CreateRecipeByUrlBulk, ParsedIngredient, UpdateImageResponse, RecipeZipTokenResponse } from "~/types/api-types/recipe";
+import {
+  Recipe,
+  CreateRecipe,
+  RecipeAsset,
+  CreateRecipeByUrlBulk,
+  ParsedIngredient,
+  UpdateImageResponse,
+  RecipeZipTokenResponse,
+} from "~/types/api-types/recipe";
 import { ApiRequestInstance } from "~/types/api";
 
 export type Parser = "nlp" | "brute";
@@ -35,8 +43,6 @@ const routes = {
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
-
-  recipeShareToken: (token: string) => `${prefix}/recipes/shared/${token}`,
 };
 
 export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
@@ -109,9 +115,5 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   getZipRedirectUrl(recipeSlug: string, token: string) {
     return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
-  }
-
-  async getShared(item_id: string) {
-    return await this.requests.get<Recipe>(routes.recipeShareToken(item_id));
   }
 }
