@@ -14,7 +14,7 @@
     "*.{ts,js,vue}": "eslint"
   },
   "dependencies": {
-    "@adapttive/vue-markdown": "^4.0.1",
+    "@adapttive/vue-markdown": "^4.0.2",
     "@mdi/js": "^7.0.96",
     "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
     "@nuxtjs/axios": "^5.13.6",

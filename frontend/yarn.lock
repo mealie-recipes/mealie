@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adapttive/vue-markdown@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@adapttive/vue-markdown/-/vue-markdown-4.0.1.tgz#4912aa13482cb764bd7ef894f5e1f42e18a911c2"
-  integrity sha512-Qqs9zZ2PGaZQBycQnc1hfz4FyJxsmQNLXAYsGPkPipg+wnRIv7+m9cR6Maa4zJbHmGzZrwAMYFE5BMXEUDfh/g==
+"@adapttive/vue-markdown@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@adapttive/vue-markdown/-/vue-markdown-4.0.2.tgz#80f954ee2b1b6173f2552cc3ecaf432305704208"
+  integrity sha512-2g7Hdn6c6Zgep6+R/Y73WJL6XRnvD7wHw1Eb031hdYndPLlwhsZMpPZjDKGF9jCq0MJu8YnacqUTamm2vmBmxA==
   dependencies:
     markdown-it "^12.0.3"
     markdown-it-abbr "^1.0.4"
