@@ -1,13 +1,16 @@
 <template>
   <div>
-    <RecipePage v-if="recipe" :recipe="recipe" />
+    <client-only>
+      <RecipePage v-if="recipe" :recipe="recipe" />
+    </client-only>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicApi } from "~/composables/api/api-client";
+import { useRecipeMeta } from "~/composables/recipes";
 
 export default defineComponent({
   components: { RecipePage },
@@ -19,11 +22,20 @@ export default defineComponent({
     const slug = route.value.params.slug;
     const api = usePublicApi();
 
+    const { meta, title } = useMeta();
+
     const recipe = useAsync(async () => {
       const { data, error } = await api.explore.recipe(groupId, slug);
 
       if (error) {
+        console.error("error loading recipe -> ", error);
         router.push("/");
+      }
+
+      if (data) {
+        title.value = data?.name || "";
+        const metaObj = useRecipeMeta(ref(data));
+        meta.value = metaObj().meta;
       }
 
       return data;
@@ -31,9 +43,8 @@ export default defineComponent({
 
     return {
       recipe,
-      groupId,
-      api,
     };
   },
+  head: {},
 });
 </script>

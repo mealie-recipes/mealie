@@ -1,7 +1,15 @@
 import { Ref } from "@nuxtjs/composition-api";
 import { Recipe } from "~/types/api-types/recipe";
 
-export const useRecipeMeta = (recipe: Ref<Recipe | null>) => {
+export interface RecipeMeta {
+  title?: string;
+  metaImage?: string;
+  meta: Array<any>;
+  __dangerouslyDisableSanitizers: Array<string>;
+  script: Array<any>;
+}
+
+export const useRecipeMeta = (recipe: Ref<Recipe | null>): (() => RecipeMeta) => {
   return () => {
     const imageURL = "";
     return {

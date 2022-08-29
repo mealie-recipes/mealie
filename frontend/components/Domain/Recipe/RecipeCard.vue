@@ -50,6 +50,7 @@
                 shoppingList: true,
                 print: false,
                 share: true,
+                publicUrl: false,
               }"
               @delete="$emit('delete', slug)"
             />

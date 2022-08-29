@@ -247,6 +247,7 @@
                     print: true,
                     share: false,
                     shoppingList: true,
+                    publicUrl: false,
                   }"
                 />
               </v-card-actions>

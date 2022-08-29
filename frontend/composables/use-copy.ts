@@ -1,6 +1,21 @@
 import { useClipboard } from "@vueuse/core";
 import { alert } from "./use-toast";
 
+export function useCopy() {
+  const { copy, copied, isSupported } = useClipboard();
+
+  function copyText(text: string) {
+    if (!isSupported) {
+      alert.error("Clipboard not supported");
+      return;
+    }
+    copy(text);
+    alert.success("Copied to clipboard");
+  }
+
+  return { copyText, copied };
+}
+
 export function useCopyList() {
   const { copy, isSupported } = useClipboard();
 
@@ -46,4 +61,3 @@ export function useCopyList() {
     copyMarkdownCheckList,
   };
 }
-

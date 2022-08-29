@@ -21,7 +21,7 @@
 
     <v-spacer></v-spacer>
     <div v-if="!open" class="custom-btn-group ma-1">
-      <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="slug" show-always />
+      <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="recipe.slug" show-always />
       <v-tooltip v-if="!locked" bottom color="info">
         <template #activator="{ on, attrs }">
           <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
@@ -39,29 +39,29 @@
         <span> {{ $t("recipe.locked-by-owner") }} </span>
       </v-tooltip>
 
-      <ClientOnly>
-        <RecipeContextMenu
-          show-print
-          :menu-top="false"
-          :name="name"
-          :slug="slug"
-          :menu-icon="$globals.icons.mdiDotsHorizontal"
-          fab
-          color="info"
-          :card-menu="false"
-          :recipe-id="recipeId"
-          :use-items="{
-            delete: false,
-            edit: false,
-            download: true,
-            mealplanner: true,
-            shoppingList: true,
-            print: true,
-            share: true,
-          }"
-          @print="$emit('print')"
-        />
-      </ClientOnly>
+      <RecipeContextMenu
+        show-print
+        :menu-top="false"
+        :name="recipe.name"
+        :group-id="recipe.groupId"
+        :slug="recipe.slug"
+        :menu-icon="$globals.icons.dotsVertical"
+        fab
+        color="info"
+        :card-menu="false"
+        :recipe-id="recipe.id"
+        :use-items="{
+          delete: false,
+          edit: false,
+          download: true,
+          mealplanner: true,
+          shoppingList: true,
+          print: true,
+          share: true,
+          publicUrl: recipe.settings ? recipe.settings.public : false,
+        }"
+        @print="$emit('print')"
+      />
     </div>
     <div v-if="open" class="custom-btn-group mb-">
       <v-btn
@@ -84,6 +84,7 @@
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import { Recipe } from "~/types/api-types/recipe";
 
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
@@ -93,6 +94,10 @@ const JSON_EVENT = "json";
 export default defineComponent({
   components: { RecipeContextMenu, RecipeFavoriteBadge },
   props: {
+    recipe: {
+      required: true,
+      type: Object as () => Recipe,
+    },
     slug: {
       required: true,
       type: String,

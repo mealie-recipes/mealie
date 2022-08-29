@@ -13,7 +13,7 @@
           hide-details
           class="pt-0 my-auto py-auto"
           color="secondary"
-          @change="toolStore.actions.updateOne(recipe.tools[index])"
+          @change="updateTool(index)"
         >
         </v-checkbox>
         <v-list-item-content>
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
-import { usePageState } from "~/composables/recipe-page/shared-state";
+import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
 import { NoUndefinedField } from "~/types/api";
 import { Recipe } from "~/types/api-types/recipe";
@@ -48,12 +48,21 @@ export default defineComponent({
   },
   setup(props) {
     const toolStore = useToolStore();
-
+    const { user } = usePageUser();
     const { isEditMode } = usePageState(props.recipe.slug);
+
+    function updateTool(index: number) {
+      if (user.id) {
+        toolStore.actions.updateOne(props.recipe.tools[index]);
+      } else {
+        console.log("no user, skipping server update");
+      }
+    }
 
     return {
       toolStore,
       isEditMode,
+      updateTool,
     };
   },
 });

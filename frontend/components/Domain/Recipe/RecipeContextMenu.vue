@@ -104,6 +104,7 @@ import { planTypeOptions } from "~/composables/use-group-mealplan";
 import { ShoppingListSummary } from "~/types/api-types/group";
 import { PlanEntryType } from "~/types/api-types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
+import { useCopy } from "~/composables/use-copy";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -113,6 +114,7 @@ export interface ContextMenuIncludes {
   shoppingList: boolean;
   print: boolean;
   share: boolean;
+  publicUrl: boolean;
 }
 
 export interface ContextMenuItem {
@@ -137,6 +139,7 @@ export default defineComponent({
         shoppingList: true,
         print: true,
         share: true,
+        publicUrl: false,
       }),
     },
     // Append items are added at the end of the useItems list
@@ -177,6 +180,15 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    /**
+     * Optional group ID prop that is only _required_ when the
+     * public URL is requested. If the public URL button is pressed
+     * and the groupId is not set, an error will be thrown.
+     */
+    groupId: {
+      type: String,
+      default: "",
+    },
   },
   setup(props, context) {
     const api = useUserApi();
@@ -200,46 +212,52 @@ export default defineComponent({
 
     const defaultItems: { [key: string]: ContextMenuItem } = {
       edit: {
-        title: i18n.t("general.edit") as string,
+        title: i18n.tc("general.edit"),
         icon: $globals.icons.edit,
         color: undefined,
         event: "edit",
       },
       delete: {
-        title: i18n.t("general.delete") as string,
+        title: i18n.tc("general.delete"),
         icon: $globals.icons.delete,
         color: "error",
         event: "delete",
       },
       download: {
-        title: i18n.t("general.download") as string,
+        title: i18n.tc("general.download"),
         icon: $globals.icons.download,
         color: undefined,
         event: "download",
       },
       mealplanner: {
-        title: i18n.t("recipe.add-to-plan") as string,
+        title: i18n.tc("recipe.add-to-plan"),
         icon: $globals.icons.calendar,
         color: undefined,
         event: "mealplanner",
       },
       shoppingList: {
-        title: i18n.t("recipe.add-to-list") as string,
+        title: i18n.tc("recipe.add-to-list"),
         icon: $globals.icons.cartCheck,
         color: undefined,
         event: "shoppingList",
       },
       print: {
-        title: i18n.t("general.print") as string,
+        title: i18n.tc("general.print"),
         icon: $globals.icons.printer,
         color: undefined,
         event: "print",
       },
       share: {
-        title: i18n.t("general.share") as string,
+        title: i18n.tc("general.share"),
         icon: $globals.icons.shareVariant,
         color: undefined,
         event: "share",
+      },
+      publicUrl: {
+        title: i18n.tc("recipe.public-link"),
+        icon: $globals.icons.contentCopy,
+        color: undefined,
+        event: "publicUrl",
       },
     };
 
@@ -311,6 +329,8 @@ export default defineComponent({
       }
     }
 
+    const { copyText } = useCopy();
+
     // Note: Print is handled as an event in the parent component
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
       delete: () => {
@@ -328,6 +348,14 @@ export default defineComponent({
       share: () => {
         state.shareDialog = true;
       },
+      publicUrl: () => {
+        if (!props.groupId) {
+          alert.error("Unknown group ID");
+          console.error("prop `groupId` is required when requesting a public URL");
+          return;
+        }
+        copyText(`${window.location.origin}/explore/recipes/${props.groupId}/${props.slug}`);
+      },
     };
 
     function contextMenuEventHandler(eventKey: string) {
@@ -344,9 +372,9 @@ export default defineComponent({
     }
 
     return {
+      ...toRefs(state),
       shoppingLists,
       addRecipeToList,
-      ...toRefs(state),
       contextMenuEventHandler,
       deleteRecipe,
       addRecipeToPlan,

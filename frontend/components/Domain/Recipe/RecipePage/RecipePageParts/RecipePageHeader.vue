@@ -26,7 +26,7 @@
         :max-width="landscape ? null : '50%'"
         min-height="50"
         :height="hideImage ? undefined : imageHeight"
-        :src="recipeImage(recipe.id, recipe.image, imageKey)"
+        :src="recipeImageUrl"
         class="d-print-none"
         @error="hideImage = true"
       >
@@ -34,6 +34,8 @@
     </div>
     <v-divider></v-divider>
     <RecipeActionMenu
+      v-if="user.id"
+      :recipe="recipe"
       :slug="recipe.slug"
       :locked="user.id !== recipe.userId && recipe.settings.locked"
       :name="recipe.name"
@@ -52,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, computed, ref } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
@@ -82,7 +84,7 @@ export default defineComponent({
     const { user } = usePageUser();
 
     function printRecipe() {
-      print();
+      window.print();
     }
 
     const { $vuetify } = useContext();
@@ -91,6 +93,17 @@ export default defineComponent({
     const imageHeight = computed(() => {
       return $vuetify.breakpoint.xs ? "200" : "400";
     });
+
+    const recipeImageUrl = computed(() => {
+      return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+    });
+
+    watch(
+      () => recipeImageUrl.value,
+      () => {
+        hideImage.value = false;
+      }
+    );
 
     return {
       setMode,
@@ -106,6 +119,7 @@ export default defineComponent({
       imageHeight,
       hideImage,
       isEditMode,
+      recipeImageUrl,
     };
   },
 });
