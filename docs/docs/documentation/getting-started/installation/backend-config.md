@@ -67,3 +67,9 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_SERVER_URL    |  None   | LDAP server URL (e.g. ldap://ldap.example.com)                                                                     |
 | LDAP_BIND_TEMPLATE |  None   | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`)                   |
 | LDAP_ADMIN_FILTER  |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`) |
+
+### SSO
+
+| Variables               | Default | Description                                                                                                                                                   |
+| ----------------------- | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SSO_TRUSTED_HEADER_USER |  None   | Authenticate via an external SSO server with this HTTP header being trusted from a reverse proxy. Must be identical to the frontend setting of the same name. |

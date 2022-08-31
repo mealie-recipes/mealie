@@ -130,6 +130,11 @@ class AppSettings(BaseSettings):
         return self.LDAP_AUTH_ENABLED and not_none
 
     # ===============================================
+    # SSO Configuration
+
+    SSO_TRUSTED_HEADER_USER: NoneStr = None
+
+    # ===============================================
     # Testing Config
 
     TESTING: bool = False

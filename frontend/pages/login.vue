@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
 import { useDark } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
@@ -151,7 +151,7 @@ export default defineComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.loginWith("local", { data: formData });
+        await $auth.loginWith("maybeSSO", { data: formData });
       } catch (error) {
         // TODO Check if error is an AxiosError, but isAxiosError is not working right now
         // See https://github.com/nuxt-community/axios-module/issues/550
@@ -170,6 +170,12 @@ export default defineComponent({
       loggingIn.value = false;
     }
 
+    onMounted(() => {
+      if ($auth.loggedIn) {
+        $auth.redirect("home");
+      }
+    });
+
     return {
       isDark,
       form,
@@ -181,6 +187,15 @@ export default defineComponent({
       inputType,
       togglePasswordShow,
     };
+  },
+
+  asyncData(ctx) {
+    // Redirect to external login if SSO is enabled, but user is not logged in
+    // with the SSO provider
+    if (ctx.$config.SSO_TRUSTED_HEADER_USER !== null && ctx.$auth.ctx.store.state.ssoUser === null && ctx.$config.SSO_LOGIN_URL !== null) {
+      const loginUrl: string = ctx.$config.SSO_LOGIN_URL;
+      ctx.redirect(loginUrl);
+    }
   },
 
   head() {

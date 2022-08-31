@@ -110,7 +110,8 @@ export default {
     },
     // Options
     strategies: {
-      local: {
+      maybeSSO: {
+        scheme: './schemes/maybeSSO',
         resetOnError: true,
         token: {
           property: "access_token",
@@ -235,6 +236,9 @@ export default {
   publicRuntimeConfig: {
     GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
     SUB_PATH: process.env.SUB_PATH || "",
+    SSO_TRUSTED_HEADER_USER: process.env.SSO_TRUSTED_HEADER_USER || null,
+    SSO_LOGIN_URL: process.env.SSO_LOGIN_URL || null,
+    SSO_LOGOUT_URL: process.env.SSO_LOGOUT_URL || null,
     axios: {
       browserBaseURL: process.env.SUB_PATH || "",
     },

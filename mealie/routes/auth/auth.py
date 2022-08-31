@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Form, status
+from fastapi import APIRouter, Depends, Form, Request, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
@@ -49,13 +49,12 @@ class MealieAuthToken(BaseModel):
 
 
 @public_router.post("/token")
-def get_token(data: CustomOAuth2Form = Depends(), session: Session = Depends(generate_session)):
-
+def get_token(request: Request, data: CustomOAuth2Form = Depends(), session: Session = Depends(generate_session)):
     email = data.username
     password = data.password
 
     try:
-        user = authenticate_user(session, email, password)  # type: ignore
+        user = authenticate_user(session, email, password, request)  # type: ignore
     except UserLockedOut as e:
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
 

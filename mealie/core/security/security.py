@@ -80,10 +80,35 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     return user
 
 
-def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
-    settings = get_app_settings()
+def user_from_sso(db: AllRepositories, username: str):
+    """Given a username, returns a user
 
+    It will either create a new user of that username or return an existing one. No checks are done, the SSO provider is responsible for authentication.
+    """
+    user = db.users.get_one(username, "username", any_case=True)
+    if not user:
+        user = db.users.create(
+            {
+                "username": username,
+                "password": "SSO",
+                # Fill the next two values with something unique and vaguely
+                # relevant
+                "full_name": username,
+                "email": username,
+                "admin": False,
+            },
+        )
+
+    return user
+
+
+def authenticate_user(session, email: str, password: str, request=None) -> PrivateUser | bool:
+    settings = get_app_settings()
     db = get_repositories(session)
+
+    if settings.SSO_TRUSTED_HEADER_USER and settings.SSO_TRUSTED_HEADER_USER in request.headers:
+        return user_from_sso(db, request.headers[settings.SSO_TRUSTED_HEADER_USER])
+
     user = db.users.get_one(email, "email", any_case=True)
 
     if not user:

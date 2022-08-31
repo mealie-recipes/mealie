@@ -27,3 +27,11 @@ Setting the following environmental variables will change the theme of the front
 | THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
 | THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
 | THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
+
+### SSO
+
+| Variables               | Default | Description                                                                                                                                                  |
+| ----------------------- | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| SSO_TRUSTED_HEADER_USER |  None   | Authenticate via an external SSO server with this HTTP header being trusted from a reverse proxy. Must be identical to the backend setting of the same name. |
+| SSO_LOGIN_URL           |  None   | URL to redirect to when a login is required. Must be an absolute URL.                                                                                        |
+| SSO_LOGOUT_URL          |  None   | URL to redirect to after the frontend logs the user out (logout page of the IdP)                                                                             |
