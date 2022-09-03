@@ -721,19 +721,6 @@ export default defineComponent({
       if (state.isImageSmallerThanCanvas) return;
       if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
 
-      if (state.canvasMode === "selection") {
-        event.preventDefault();
-        updateMousePos(event);
-        const m = Math.sign(event.deltaY);
-        state.imagePosition.dy = state.imagePosition.dy + m * state.imagePosition.dHeight * scrollSensitivity;
-        keepImageInCanvas();
-        updateImageScale();
-
-        state.ctx.fillStyle = "rgb(255, 255, 255)";
-        state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
-        drawImage(state.ctx);
-      }
-
       if (state.canvasMode === "panAndZoom") {
         event.preventDefault();
 
