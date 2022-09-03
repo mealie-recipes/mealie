@@ -118,10 +118,6 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
   }
 
-  async getShared(item_id: string) {
-    return await this.requests.get<Recipe>(routes.recipeShareToken(item_id));
-  }
-
   async createFromOcr(file: File, makeFileRecipeImage: boolean) {
     const formData = new FormData();
     formData.append("file", file);
