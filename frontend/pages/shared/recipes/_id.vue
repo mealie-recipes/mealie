@@ -22,6 +22,7 @@ export default defineComponent({
     const api = usePublicApi();
 
     const { meta, title } = useMeta();
+    const { recipeMeta } = useRecipeMeta();
 
     const recipe = useAsync(async () => {
       const { data, error } = await api.shared.getShared(recipeId);
@@ -33,8 +34,8 @@ export default defineComponent({
 
       if (data) {
         title.value = data?.name || "";
-        const metaObj = useRecipeMeta(ref(data));
-        meta.value = metaObj().meta;
+        const metaObj = recipeMeta(ref(data));
+        meta.value = metaObj.meta;
       }
 
       return data;
