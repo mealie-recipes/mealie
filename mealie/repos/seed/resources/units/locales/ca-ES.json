@@ -1,28 +1,28 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "culleradeta/es de cafè",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "cc"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "cullera/es sopera/es",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "cs"
     },
     "cup": {
-        "name": "cup",
+        "name": "tassa",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "tassa"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "centilitre/s",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "cl"
     },
     "pint": {
-        "name": "pint",
+        "name": "got/s",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "got/s"
     },
     "quart": {
         "name": "quart",
@@ -30,72 +30,72 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galó/ns",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mil·lilitre/s",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litre/s",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "lliura/es",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "gotet/s",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "gotet/s"
     },
     "gram": {
-        "name": "gram",
+        "name": "gram/s",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "quilogram/s",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "mil·ligram/s",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "pot/s",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "pessic",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porció/ns",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "cap/s",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "dent/s",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "llauna/es",
         "description": "",
         "abbreviation": ""
     }

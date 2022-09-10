@@ -353,7 +353,8 @@
     "reset-scale": "Nulstil skalering",
     "decrease-scale-label": "Formindsk skala med 1",
     "increase-scale-label": "Forøg skala med 1",
-    "locked": "Låst"
+    "locked": "Låst",
+    "public-link": "Offentligt link"
   },
   "search": {
     "advanced-search": "Avanceret søgning",

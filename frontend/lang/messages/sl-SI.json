@@ -353,7 +353,8 @@
     "reset-scale": "Ponastavi merilo",
     "decrease-scale-label": "Znižaj merilo za 1",
     "increase-scale-label": "Zvišaj merilo za 1",
-    "locked": "Zaklenjeno"
+    "locked": "Zaklenjeno",
+    "public-link": "Public Link"
   },
   "search": {
     "advanced-search": "Napredno iskanje",
