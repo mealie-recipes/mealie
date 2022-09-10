@@ -1,3 +1,5 @@
+from collections.abc import Generator
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -9,12 +11,13 @@ from tests.utils.fixture_schemas import TestUser
 class Routes:
     base = "/api/foods"
 
+    @staticmethod
     def item(item_id: int) -> str:
         return f"{Routes.base}/{item_id}"
 
 
 @pytest.fixture(scope="function")
-def food(api_client: TestClient, unique_user: TestUser) -> dict:
+def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict, None, None]:
     data = CreateIngredientFood(
         name=random_string(10),
         description=random_string(10),

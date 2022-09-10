@@ -1,6 +1,7 @@
 import random
 
 from fastapi.testclient import TestClient
+from pydantic import UUID4
 
 from mealie.schema.group.group_shopping_list import ShoppingListOut
 from mealie.schema.recipe.recipe import Recipe
@@ -12,17 +13,19 @@ from tests.utils.fixture_schemas import TestUser
 class Routes:
     base = "/api/groups/shopping/lists"
 
-    def item(item_id: str) -> str:
+    @staticmethod
+    def item(item_id: str | UUID4) -> str:
         return f"{Routes.base}/{item_id}"
 
-    def add_recipe(item_id: str, recipe_id: str) -> str:
+    @staticmethod
+    def add_recipe(item_id: str | UUID4, recipe_id: str | UUID4) -> str:
         return f"{Routes.item(item_id)}/recipe/{recipe_id}"
 
 
 def test_shopping_lists_get_all(api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]):
-    all_lists = api_client.get(Routes.base, headers=unique_user.token)
-    assert all_lists.status_code == 200
-    all_lists = all_lists.json()["items"]
+    response = api_client.get(Routes.base, headers=unique_user.token)
+    assert response.status_code == 200
+    all_lists = response.json()["items"]
 
     assert len(all_lists) == len(shopping_lists)
 

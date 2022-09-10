@@ -14,10 +14,12 @@ class Routes:
     shopping = "/api/groups/shopping"
     items = shopping + "/items"
 
-    def item(item_id: str) -> str:
+    @staticmethod
+    def item(item_id: str | UUID4) -> str:
         return f"{Routes.items}/{item_id}"
 
-    def shopping_list(list_id: str) -> str:
+    @staticmethod
+    def shopping_list(list_id: str | UUID4) -> str:
         return f"{Routes.shopping}/lists/{list_id}"
 
 
@@ -162,9 +164,9 @@ def test_shopping_list_items_update_many_reorder(
     response = api_client.get(Routes.shopping_list(list_with_items.id), headers=unique_user.token)
     response_list = utils.assert_derserialize(response, 200)
 
-    for i, item in enumerate(response_list["listItems"]):
-        assert item["position"] == i
-        assert item["id"] == str(list_items[i].id)
+    for i, item_data in enumerate(response_list["listItems"]):
+        assert item_data["position"] == i
+        assert item_data["id"] == str(list_items[i].id)
 
 
 def test_shopping_list_items_update_many_consolidates_common_items(
