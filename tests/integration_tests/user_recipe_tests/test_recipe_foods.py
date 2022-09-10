@@ -4,6 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood
+from tests import utils
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -77,3 +78,39 @@ def test_delete_food(api_client: TestClient, food: dict, unique_user: TestUser):
 
     response = api_client.get(Routes.item(id), headers=unique_user.token)
     assert response.status_code == 404
+
+
+def test_food_extras(
+    api_client: TestClient,
+    unique_user: TestUser,
+):
+    key_str_1 = random_string()
+    val_str_1 = random_string()
+
+    key_str_2 = random_string()
+    val_str_2 = random_string()
+
+    # create a food with extras
+    new_food_data: dict = {"name": random_string()}
+    new_food_data["extras"] = {key_str_1: val_str_1}
+
+    response = api_client.post(Routes.base, json=new_food_data, headers=unique_user.token)
+    food_as_json = utils.assert_derserialize(response, 201)
+
+    # make sure the extra persists
+    extras = food_as_json["extras"]
+    assert key_str_1 in extras
+    assert extras[key_str_1] == val_str_1
+
+    # add more extras to the food
+    food_as_json["extras"][key_str_2] = val_str_2
+
+    response = api_client.put(Routes.item(food_as_json["id"]), json=food_as_json, headers=unique_user.token)
+    food_as_json = utils.assert_derserialize(response, 200)
+
+    # make sure both the new extra and original extra persist
+    extras = food_as_json["extras"]
+    assert key_str_1 in extras
+    assert key_str_2 in extras
+    assert extras[key_str_1] == val_str_1
+    assert extras[key_str_2] == val_str_2

@@ -202,3 +202,39 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
     refs = as_json["recipeReferences"]
     assert len(refs) == 1
     assert refs[0]["recipeId"] == str(recipe.id)
+
+
+def test_shopping_list_extras(
+    api_client: TestClient,
+    unique_user: TestUser,
+):
+    key_str_1 = random_string()
+    val_str_1 = random_string()
+
+    key_str_2 = random_string()
+    val_str_2 = random_string()
+
+    # create a list with extras
+    new_list_data: dict = {"name": random_string()}
+    new_list_data["extras"] = {key_str_1: val_str_1}
+
+    response = api_client.post(Routes.base, json=new_list_data, headers=unique_user.token)
+    list_as_json = utils.assert_derserialize(response, 201)
+
+    # make sure the extra persists
+    extras = list_as_json["extras"]
+    assert key_str_1 in extras
+    assert extras[key_str_1] == val_str_1
+
+    # add more extras to the list
+    list_as_json["extras"][key_str_2] = val_str_2
+
+    response = api_client.put(Routes.item(list_as_json["id"]), json=list_as_json, headers=unique_user.token)
+    list_as_json = utils.assert_derserialize(response, 200)
+
+    # make sure both the new extra and original extra persist
+    extras = list_as_json["extras"]
+    assert key_str_1 in extras
+    assert key_str_2 in extras
+    assert extras[key_str_1] == val_str_1
+    assert extras[key_str_2] == val_str_2
