@@ -28,7 +28,7 @@ jobs:
           releases-only: true # We know that all relevant tags have a GitHub release for them.
   build-release:
     name: Build Tagged Release
-    uses: ./.github/workflows/partial-builder.yml@mealie-next
+    uses: ./.github/workflows/partial-builder.yml
     needs:
       - get-release
     with:
