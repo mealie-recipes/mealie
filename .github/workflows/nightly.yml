@@ -1,0 +1,37 @@
+name: Docker Nightly Production
+
+on:
+  push:
+    branches:
+      - mealie-next
+
+jobs:
+  backend-tests:
+    name: "Backend Server Tests"
+    uses: hay-kot/mealie/.github/workflows/partial-backend.yml@mealie-next
+
+  frontend-tests:
+    name: "Frontend and End-to-End Tests"
+    uses: hay-kot/mealie/.github/workflows/partial-frontend.yml@mealie-next
+
+  build-release:
+    name: Build Tagged Release
+    uses: hay-kot/mealie/.github/workflows/partial-builder.yml@mealie-next
+    needs:
+      - frontend-tests
+      - backend-tests
+    with:
+      tag: nightly
+
+  notify-discord:
+    name: Notify Discord
+    needs:
+      - build-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_NIGHTLY_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: "🚀  A New build of mealie:api-nightly and mealie:frontend-nightly is available"
