@@ -1,12 +1,8 @@
-name: Backend Tests
+name: Backend Test/Lint
+
 on:
-  push:
-    branches:
-      - mealie-next
-  pull_request:
-    branches:
-      - mealie-next
-    types: [synchronize, opened, reopened, ready_for_review]
+  workflow_call:
+
 
 jobs:
   tests:

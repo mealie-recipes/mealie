@@ -1,0 +1,48 @@
+name: Docker Build Production
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  backend-tests:
+    name: "Backend Server Tests"
+    uses: hay-kot/mealie/.github/workflows/partial-backend.yml@mealie-next
+
+  frontend-tests:
+    name: "Frontend and End-to-End Tests"
+    uses: hay-kot/mealie/.github/workflows/partial-frontend.yml@mealie-next
+
+  get-release:
+    name: "Get Releave Tag"
+    runs-on: ubuntu-latest
+    needs:
+      - backend-tests
+      - frontend-tests
+    outputs:
+      tag: ${{ steps.get-tag.outputs.tag }}
+    steps:
+      - uses: oprypin/find-latest-tag@v1
+        with:
+          repository: hay-kot/mealie # The repository to scan.
+          releases-only: true # We know that all relevant tags have a GitHub release for them.
+  build-release:
+    name: Build Tagged Release
+    uses: hay-kot/mealie/.github/workflows/partial-builder.yml@mealie-next
+    needs:
+      - get-release
+    with:
+      tag: ${{ jobs.get-release.outputs.tag }}
+
+  notify-discord:
+    name: Notify Discord
+    needs:
+      - build-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: "🚀  Version {{ EVENT_PAYLOAD.release.tag_name }} of Mealie has been released. See the release notes https://github.com/hay-kot/mealie/releases/tag/{{ EVENT_PAYLOAD.release.tag_name }}"
