@@ -1,6 +1,7 @@
 import random
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
@@ -196,6 +197,7 @@ def test_shopping_list_items_update_many_consolidates_common_items(
     assert response_list["listItems"][0]["note"] == master_note
 
 
+@pytest.mark.skip("TODO: Implement")
 def test_shopping_list_items_update_many_remove_recipe_with_other_items(
     api_client: TestClient,
     unique_user: TestUser,
