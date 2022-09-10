@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)">
+    <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, stayInEditMode)">
       <div>
         <v-card-title class="headline"> Scrape Recipe </v-card-title>
         <v-card-text>
@@ -20,7 +20,8 @@
             :hint="$t('new-recipe.url-form-hint')"
             persistent-hint
           ></v-text-field>
-          <v-checkbox v-model="importKeywordsAsTags" label="Import original keywords as tags"> </v-checkbox>
+          <v-checkbox v-model="importKeywordsAsTags" hide-details label="Import original keywords as tags" />
+          <v-checkbox v-model="stayInEditMode" hide-details label="Stay in Edit mode" />
         </v-card-text>
         <v-card-actions class="justify-center">
           <div style="width: 250px">
@@ -103,14 +104,19 @@ export default defineComponent({
 
     const importKeywordsAsTags = computed({
       get() {
-        return route.value.query.import_keywords_as_tags === "1";
+        return route.value.query.use_keywords === "1";
       },
-      set(keywordsAsTags: boolean) {
-        let import_keywords_as_tags = "0";
-        if (keywordsAsTags) {
-          import_keywords_as_tags = "1";
-        }
-        router.replace({ query: { ...route.value.query, import_keywords_as_tags } });
+      set(v: boolean) {
+        router.replace({ query: { ...route.value.query, use_keywords: v ? "1" : "0" } });
+      },
+    });
+
+    const stayInEditMode = computed({
+      get() {
+        return route.value.query.edit === "1";
+      },
+      set(v: boolean) {
+        router.replace({ query: { ...route.value.query, edit: v ? "1" : "0" } });
       },
     });
 
@@ -120,13 +126,13 @@ export default defineComponent({
       }
 
       if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value);
       }
     });
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string, importKeywordsAsTags: boolean) {
+    async function createByUrl(url: string | null, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
       if (url === null) {
         return;
       }
@@ -137,12 +143,13 @@ export default defineComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response);
+      handleResponse(response, stayInEditMode);
     }
 
     return {
       recipeUrl,
       importKeywordsAsTags,
+      stayInEditMode,
       domUrlForm,
       createByUrl,
       ...toRefs(state),
