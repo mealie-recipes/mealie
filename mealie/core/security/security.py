@@ -92,10 +92,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
             },
         )
     if settings.LDAP_ADMIN_FILTER:
-        user.admin = (
-            len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, []))
-            > 0
-        )
+        user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
         db.users.update(user.id, user)
     return user
 
@@ -113,10 +110,7 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
     if not user:
         # To prevent user enumeration we perform the verify_password computation to ensure
         # server side time is relatively constant and not vulnerable to timing attacks.
-        verify_password(
-            "abc123cba321",
-            "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i"
-        )
+        verify_password("abc123cba321", "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i")
         return False
 
     if user.login_attemps >= settings.SECURITY_MAX_LOGIN_ATTEMPTS or user.is_locked:
