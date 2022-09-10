@@ -26,6 +26,7 @@ jobs:
         with:
           repository: hay-kot/mealie # The repository to scan.
           releases-only: true # We know that all relevant tags have a GitHub release for them.
+
   build-release:
     name: Build Tagged Release
     uses: ./.github/workflows/partial-builder.yml
