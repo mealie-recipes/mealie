@@ -7,11 +7,11 @@ on:
 jobs:
   backend-tests:
     name: "Backend Server Tests"
-    uses: hay-kot/mealie/.github/workflows/partial-backend.yml@mealie-next
+    uses: ./.github/workflows/partial-backend.yml
 
   frontend-tests:
     name: "Frontend and End-to-End Tests"
-    uses: hay-kot/mealie/.github/workflows/partial-frontend.yml@mealie-next
+    uses: ./.github/workflows/partial-frontend.yml
 
   get-release:
     name: "Get Releave Tag"
@@ -28,7 +28,7 @@ jobs:
           releases-only: true # We know that all relevant tags have a GitHub release for them.
   build-release:
     name: Build Tagged Release
-    uses: hay-kot/mealie/.github/workflows/partial-builder.yml@mealie-next
+    uses: ./.github/workflows/partial-builder.yml@mealie-next
     needs:
       - get-release
     with:
