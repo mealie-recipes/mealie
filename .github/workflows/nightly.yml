@@ -38,3 +38,23 @@ jobs:
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "🚀  A New build of mealie:api-nightly and mealie:frontend-nightly is available"
+
+  deploy-demo:
+    runs-on: ubuntu-latest
+    name: Deploy Demo
+    needs:
+      - build-release
+    steps:
+      - name: Clean and Deploy Demo
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEMO_SERVER_IP }}
+          username: ${{ secrets.DEMO_SERVER_USER }}
+          key: ${{ secrets.DEMO_SERVER_SSH_KEY }}
+          port: ${{ secrets.DEMO_SERVER_PORT }}
+          script_stop: true
+          script: |
+            cd ~/docker/mealie-next
+            docker-compose pull
+            docker-compose down -v
+            docker-compose up -d
