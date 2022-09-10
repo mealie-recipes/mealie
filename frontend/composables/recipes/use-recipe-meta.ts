@@ -1,29 +1,31 @@
 import { Ref } from "@nuxtjs/composition-api";
+import { useStaticRoutes } from "~/composables/api";
 import { Recipe } from "~/types/api-types/recipe";
 
 export interface RecipeMeta {
   title?: string;
-  metaImage?: string;
+  mainImage?: string;
   meta: Array<any>;
   __dangerouslyDisableSanitizers: Array<string>;
   script: Array<any>;
 }
 
-export const useRecipeMeta = (recipe: Ref<Recipe | null>): (() => RecipeMeta) => {
-  return () => {
-    const imageURL = "";
+export const useRecipeMeta = () => {
+  const { recipeImage } = useStaticRoutes();
+  function recipeMeta(recipe: Ref<Recipe | null>): RecipeMeta {
+    const imageURL = recipeImage(recipe?.value?.id ?? "");
     return {
       title: recipe?.value?.name,
       mainImage: imageURL,
       meta: [
         { hid: "og:title", property: "og:title", content: recipe?.value?.name || "Recipe" },
         {
-          hid: "og:desc",
+          hid: "og:description",
           property: "og:description",
           content: recipe?.value?.description ?? "",
         },
         {
-          hid: "og-image",
+          hid: "og:image",
           property: "og:image",
           content: imageURL,
         },
@@ -52,4 +54,5 @@ export const useRecipeMeta = (recipe: Ref<Recipe | null>): (() => RecipeMeta) =>
       ],
     };
   };
+  return { recipeMeta };
 };
