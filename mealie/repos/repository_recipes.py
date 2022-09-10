@@ -14,6 +14,7 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
+from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, RecipeTag, RecipeTool
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
@@ -134,6 +135,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         pagination: PaginationQuery,
         override=None,
         load_food=False,
+        cookbook: Optional[ReadCookBook] = None,
         categories: Optional[list[UUID4 | str]] = None,
         tags: Optional[list[UUID4 | str]] = None,
         tools: Optional[list[UUID4 | str]] = None,
@@ -153,6 +155,18 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+
+        if cookbook:
+            cb_filters = self._category_tag_filters(
+                cookbook.categories,
+                cookbook.tags,
+                cookbook.tools,
+                cookbook.require_all_categories,
+                cookbook.require_all_tags,
+                cookbook.require_all_tools,
+            )
+
+            q = q.filter(*cb_filters)
 
         if categories:
             for category in categories:
@@ -241,7 +255,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             tool_ids = [x.id for x in tools]
 
             if require_all_tools:
-                fltr.extend(RecipeModel.tags.any(Tag.id == tag_id) for tag_id in tag_ids)
+                fltr.extend(RecipeModel.tools.any(Tool.id == tool_id) for tool_id in tool_ids)
             else:
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tool_ids)))
 

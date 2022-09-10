@@ -11,8 +11,17 @@ export const useLazyRecipes = function () {
 
   const recipes = ref<Recipe[]>([]);
 
-  async function fetchMore(page: number, perPage: number, orderBy: string | null = null, orderDirection = "desc", category: string | null = null, tag: string | null = null, tool: string | null = null) {
-    const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection, "categories": category, "tags": tag, "tools": tool });
+  async function fetchMore(
+    page: number,
+    perPage: number,
+    orderBy: string | null = null,
+    orderDirection = "desc",
+    cookbook: string | null = null,
+    category: string | null = null,
+    tag: string | null = null,
+    tool: string | null = null
+  ) {
+    const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection, cookbook, "categories": category, "tags": tag, "tools": tool });
     return data ? data.items : [];
   }
 

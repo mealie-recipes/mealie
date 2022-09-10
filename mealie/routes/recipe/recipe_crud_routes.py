@@ -4,7 +4,7 @@ from typing import Optional
 from zipfile import ZipFile
 
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, status
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, Request, status
 from fastapi.datastructures import UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -16,11 +16,14 @@ from mealie.core import exceptions
 from mealie.core.dependencies import temporary_zip_path
 from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
 from mealie.core.security import create_recipe_slug_token
+from mealie.db.models.group.cookbook import CookBook
 from mealie.pkgs import cache
+from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
+from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
@@ -53,6 +56,10 @@ class BaseRecipeController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryRecipes:
         return self.repos.recipes.by_group(self.group_id)
+
+    @cached_property
+    def cookbooks_repo(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
+        return self.repos.cookbooks.by_group(self.group_id)
 
     @cached_property
     def service(self) -> RecipeService:
@@ -219,24 +226,40 @@ class RecipeController(BaseRecipeController):
     @router.get("", response_model=RecipePagination)
     def get_all(
         self,
-        q: RecipePaginationQuery = Depends(RecipePaginationQuery),
+        request: Request,
+        q: RecipePaginationQuery = Depends(),
+        cookbook: Optional[UUID4 | str] = Query(None),
         categories: Optional[list[UUID4 | str]] = Query(None),
         tags: Optional[list[UUID4 | str]] = Query(None),
         tools: Optional[list[UUID4 | str]] = Query(None),
     ):
+        cookbook_data: Optional[ReadCookBook] = None
+        if cookbook:
+            cb_match_attr = "slug" if isinstance(cookbook, str) else "id"
+            cookbook_data = self.cookbooks_repo.get_one(cookbook, cb_match_attr)
+
+            if cookbook is None:
+                raise HTTPException(status_code=404, detail="cookbook not found")
+
         pagination_response = self.repo.page_all(
             pagination=q,
             load_food=q.load_food,
+            cookbook=cookbook_data,
             categories=categories,
             tags=tags,
             tools=tools,
         )
 
-        pagination_response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        # merge default pagination with the request's query params
+        query_params = q.dict() | {**request.query_params}
+        pagination_response.set_pagination_guides(
+            router.url_path_for("get_all"),
+            {k: v for k, v in query_params.items() if v is not None},
+        )
 
         new_items = []
         for item in pagination_response.items:
-            # Pydantic/FastAPI can't seem to serialize the ingredient field on thier own.
+            # Pydantic/FastAPI can't seem to serialize the ingredient field on their own.
             new_item = item.__dict__
 
             if q.load_food:
