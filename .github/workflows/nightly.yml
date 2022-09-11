@@ -3,7 +3,7 @@ name: Docker Nightly Production
 on:
   push:
     branches:
-      - never
+      - mealie-next
 
 jobs:
   backend-tests:
