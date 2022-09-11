@@ -43,11 +43,6 @@ export default defineComponent({
         value: "url",
       },
       {
-        icon: $globals.icons.fileImage,
-        text: "Create recipe from an image",
-        value: "ocr",
-      },
-      {
         icon: $globals.icons.edit,
         text: "Create Recipe",
         value: "new",
@@ -56,6 +51,11 @@ export default defineComponent({
         icon: $globals.icons.zip,
         text: "Import with .zip",
         value: "zip",
+      },
+      {
+        icon: $globals.icons.fileImage,
+        text: "Create recipe from an image",
+        value: "ocr",
       },
       {
         icon: $globals.icons.link,
