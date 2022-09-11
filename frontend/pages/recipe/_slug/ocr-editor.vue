@@ -461,9 +461,12 @@ export default defineComponent({
       }
     }
 
+    /**
+    * This function will find the title of a recipe with the assumption that the title
+    * has the biggest ratio of surface area / number of words on the image.
+    * @return Returns the text parts of the block with the highest score.
+    */
     function findRecipeTitle() {
-      // This function will find the title of a recipe with the assumption that the title has the biggest ratio of surface area on number of words on the image
-
       const filtered = tsv.value.filter((element) => element.level === 2 || element.level === 5);
       const blocks = [[]] as OcrTsvResponse[][];
       let blockNum = 1;
@@ -749,6 +752,11 @@ export default defineComponent({
       }
     }
 
+    /**
+    * Returns rectangle coordinates with positive dimensions
+    * @param  rect  A rectangle
+    * @returns  An equivalent rectangle with width and height > 0
+    */
     function correctRectCoordinates(rect: CanvasRect) {
       if (rect.w < 0) {
         rect.startX = rect.startX + rect.w;
@@ -779,6 +787,14 @@ export default defineComponent({
         });
     }
 
+    /**
+    * Using rectangle coordinates, filters the tsv to get text elements contained
+    * inside the rectangle
+    * Additionaly adds newlines depending on the current "text split" mode
+    * @param  tsv   An Object containing tesseracts tsv fields
+    * @param  rect  Coordinates of a rectangle
+    * @returns Text from tsv contained in the rectangle
+    */
     function getWordsInSelection(tsv: OcrTsvResponse[], rect: CanvasRect) {
       const correctedRect = correctRectCoordinates(rect);
 
