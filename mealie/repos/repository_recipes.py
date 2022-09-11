@@ -135,10 +135,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         pagination: PaginationQuery,
         override=None,
         load_food=False,
-        cookbook: Optional[ReadCookBook] = None,
-        categories: Optional[list[UUID4 | str]] = None,
-        tags: Optional[list[UUID4 | str]] = None,
-        tools: Optional[list[UUID4 | str]] = None,
+        cookbook: ReadCookBook | None = None,
+        categories: list[UUID4 | str] | None = None,
+        tags: list[UUID4 | str] | None = None,
+        tools: list[UUID4 | str] | None = None,
+        public_only: bool = False,
     ) -> RecipePagination:
         q = self.session.query(self.model)
 
@@ -155,6 +156,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+
+        if public_only:
+            q = q.join(RecipeSettings).filter(RecipeSettings.public == True)  # noqa: 711
 
         if cookbook:
             cb_filters = self._category_tag_filters(
