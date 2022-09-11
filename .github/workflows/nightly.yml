@@ -1,0 +1,60 @@
+name: Docker Nightly Production
+
+on:
+  push:
+    branches:
+      - mealie-next
+
+jobs:
+  backend-tests:
+    name: "Backend Server Tests"
+    uses: ./.github/workflows/partial-backend.yml
+
+  frontend-tests:
+    name: "Frontend and End-to-End Tests"
+    uses: ./.github/workflows/partial-frontend.yml
+
+  build-release:
+    name: Build Tagged Release
+    uses: ./.github/workflows/partial-builder.yml
+    needs:
+      - frontend-tests
+      - backend-tests
+    with:
+      tag: nightly
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  notify-discord:
+    name: Notify Discord
+    needs:
+      - build-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_NIGHTLY_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: "🚀  A New build of mealie:api-nightly and mealie:frontend-nightly is available"
+
+  deploy-demo:
+    runs-on: ubuntu-latest
+    name: Deploy Demo
+    needs:
+      - build-release
+    steps:
+      - name: Clean and Deploy Demo
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEMO_SERVER_IP }}
+          username: ${{ secrets.DEMO_SERVER_USER }}
+          key: ${{ secrets.DEMO_SERVER_SSH_KEY }}
+          port: ${{ secrets.DEMO_SERVER_PORT }}
+          script_stop: true
+          script: |
+            cd ~/docker/mealie-next
+            docker-compose pull
+            docker-compose down -v
+            docker-compose up -d

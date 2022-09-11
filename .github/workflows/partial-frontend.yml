@@ -1,12 +1,7 @@
-name: Frontend Lint
+name: Frontend Build/Lin
 
 on:
-  push:
-    branches:
-      - mealie-next
-  pull_request:
-    branches:
-      - mealie-next
+  workflow_call:
 
 jobs:
   lint:

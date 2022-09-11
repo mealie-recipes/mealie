@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Pasta i caldos"
     },
     {
-        "name": "Grains"
+        "name": "Cereals"
     },
     {
-        "name": "Fruits"
+        "name": "Fruita"
     },
     {
-        "name": "Vegetables"
+        "name": "Verdures"
     },
     {
-        "name": "Meat"
+        "name": "Carn"
     },
     {
-        "name": "Seafood"
+        "name": "Pescateria"
     },
     {
-        "name": "Beverages"
+        "name": "Begudes"
     },
     {
-        "name": "Baked Goods"
+        "name": "Forn"
     },
     {
-        "name": "Canned Goods"
+        "name": "Conserves"
     },
     {
         "name": "Condiments"
     },
     {
-        "name": "Confectionary"
+        "name": "Llepolies"
     },
     {
-        "name": "Dairy Products"
+        "name": "Lactis i llets vegetals"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Congelats"
     },
     {
-        "name": "Health Foods"
+        "name": "Bio"
     },
     {
-        "name": "Household"
+        "name": "Neteja"
     },
     {
-        "name": "Meat Products"
+        "name": "Carns"
     },
     {
         "name": "Snacks"
     },
     {
-        "name": "Spices"
+        "name": "Espècies"
     },
     {
-        "name": "Sweets"
+        "name": "Sucre i dolços"
     },
     {
-        "name": "Alcohol"
+        "name": "Celler"
     },
     {
-        "name": "Other"
+        "name": "Altres"
     }
 ]

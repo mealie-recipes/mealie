@@ -1,16 +1,16 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Beklenmedik bir hata oluştu"
     },
     "recipe": {
         "unique-name-error": "Recipe names must be unique"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Bu eylemi gerçekleştirme izniniz yok",
+        "no-entry-found": "İstenen kaynak bulunamadı",
+        "integrity-error": "Veritabanı bütünlüğü hatası",
+        "username-conflict-error": "Bu kullanıcı adı zaten alınmış",
+        "email-conflict-error": "Bu e-posta adresi zaten kullanılmakta"
     },
     "notifications": {
         "generic-created": "{name} was created",

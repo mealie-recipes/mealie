@@ -1,6 +1,6 @@
 [
     {
-        "name": "Produce"
+        "name": "Frutas y verduras"
     },
     {
         "name": "Cereales"
@@ -21,7 +21,7 @@
         "name": "Bebidas"
     },
     {
-        "name": "Productos horneados"
+        "name": "Panadería y bollería"
     },
     {
         "name": "Productos enlatados"
@@ -42,7 +42,7 @@
         "name": "Alimentos saludables"
     },
     {
-        "name": "Household"
+        "name": "Limpieza"
     },
     {
         "name": "Productos cárnicos"
@@ -57,7 +57,7 @@
         "name": "Dulces"
     },
     {
-        "name": "Alcohol"
+        "name": "Bodega"
     },
     {
         "name": "Otros"
