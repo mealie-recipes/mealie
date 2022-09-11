@@ -9,8 +9,6 @@ jobs:
   deploy-demo:
     runs-on: ubuntu-latest
     name: Deploy Demo
-    needs:
-      - build-release
     steps:
       - name: Clean and Deploy Demo
         uses: appleboy/ssh-action@master
