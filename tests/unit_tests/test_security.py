@@ -22,6 +22,7 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
     user = random_string(10)
     password = random_string(10)
     bind_template = "cn={},dc=example,dc=com"
+    base_dn = "(dc=example,dc=com)"
     monkeypatch.setenv("LDAP_AUTH_ENABLED", "true")
     monkeypatch.setenv("LDAP_SERVER_URL", "")  # Not needed due to mocking
     monkeypatch.setenv("LDAP_BIND_TEMPLATE", bind_template)
