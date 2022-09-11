@@ -2,7 +2,7 @@
   <v-container>
     <RecipeCardSection
       :icon="$globals.icons.primary"
-      :title="$t('page.all-recipes')"
+      :title="$tc('page.all-recipes')"
       :recipes="recipes"
       @sortRecipes="assignSorted"
       @replaceRecipes="replaceRecipes"
