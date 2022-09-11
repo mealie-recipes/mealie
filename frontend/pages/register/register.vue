@@ -461,12 +461,12 @@ export default defineComponent({
         password: password1.value,
         passwordConfirm: password2.value,
         locale: locale.value,
-        seedData: groupSeed.value,
+        advanced: advancedOptions.value,
       };
       if (state.ctx.type === RegistrationType.CreateGroup) {
         payload.group = groupName.value;
-        payload.advanced = advancedOptions.value;
         payload.private = groupPrivate.value;
+        payload.seedData = groupSeed.value;
       } else {
         payload.groupToken = token.value;
       }
