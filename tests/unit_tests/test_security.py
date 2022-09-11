@@ -48,5 +48,4 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
 
     get_app_settings.cache_clear()
     result = security.authenticate_user(create_session(), user, password)
-    assert result is not False
-    assert result.username == user
+    assert result is False
