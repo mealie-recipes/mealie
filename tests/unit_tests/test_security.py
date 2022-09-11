@@ -34,7 +34,7 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
             return bind_pw == password
 
         def search_s(self, dn, scope, filter, attrlist):
-            assert attrlist == []
+            assert attrlist == ["name", "mail"]
             assert filter == admin_filter
             assert dn == bind_template.format(user)
             assert scope == ldap.SCOPE_BASE
