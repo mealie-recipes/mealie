@@ -22,11 +22,11 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
     user = random_string(10)
     password = random_string(10)
     bind_template = "cn={},dc=example,dc=com"
-    admin_filter = "(memberOf=cn=admins,dc=example,dc=com)"
+    base_dn = f"(&(objectClass=user)(|(cn={user})(sAMAccountName={user})(mail={user})))"
     monkeypatch.setenv("LDAP_AUTH_ENABLED", "true")
     monkeypatch.setenv("LDAP_SERVER_URL", "")  # Not needed due to mocking
     monkeypatch.setenv("LDAP_BIND_TEMPLATE", bind_template)
-    monkeypatch.setenv("LDAP_ADMIN_FILTER", admin_filter)
+    monkeypatch.setenv("LDAP_BASE_DN", base_dn)
 
     class LdapConnMock:
         def simple_bind_s(self, dn, bind_pw):
@@ -35,9 +35,9 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
 
         def search_s(self, dn, scope, filter, attrlist):
             assert attrlist == ["name", "mail"]
-            assert filter == admin_filter
+            assert filter == base_dn
             assert dn == bind_template.format(user)
-            assert scope == ldap.SCOPE_BASE
+            assert scope == ldap.SCOPE_SUBTREE
             return [()]
 
     def ldap_initialize_mock(url):
