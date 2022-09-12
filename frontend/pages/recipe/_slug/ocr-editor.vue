@@ -10,87 +10,23 @@
     <v-row v-if="!loading">
       <v-col cols="12" sm="7" md="7" lg="7">
         <v-card flat tile>
-          <v-toolbar dense>
-            <v-toolbar-title>Toolbar</v-toolbar-title>
-            <v-tooltip bottom>
+          <v-toolbar v-for="(section, idx) in toolbarIcons" :key="section.sectionTitle" dense style="float: left">
+            <v-toolbar-title bottom>
+              {{ section.sectionTitle }}
+            </v-toolbar-title>
+            <v-tooltip v-for="icon in section.icons" :key="icon.name" bottom>
               <template #activator="{ on, attrs }">
-                <v-btn icon>
-                  <v-icon
-                    :color="canvasMode === 'selection' ? 'primary' : 'default'"
-                    v-bind="attrs"
-                    @click="switchCanvasMode('selection')"
-                    v-on="on"
-                  >
-                    {{ $globals.icons.selectMode }}
+                <v-btn icon @click="section.eventHandler(icon.name)">
+                  <v-icon :color="section.highlight === icon.name ? 'primary' : 'default'" v-bind="attrs" v-on="on">
+                    {{ icon.icon }}
                   </v-icon>
                 </v-btn>
               </template>
-              <span>{{ $t("ocr-editor.selection-mode") }}</span>
+              <span>{{ icon.tooltip }}</span>
             </v-tooltip>
-            <v-tooltip v-if="!isImageSmallerThanCanvas" bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn icon>
-                  <v-icon
-                    :color="canvasMode === 'panAndZoom' ? 'primary' : 'default'"
-                    v-bind="attrs"
-                    @click="switchCanvasMode('panAndZoom')"
-                    v-on="on"
-                  >
-                    {{ $globals.icons.panAndZoom }}
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t("ocr-editor.pan-and-zoom-picture") }}</span>
-            </v-tooltip>
-            <v-divider vertical class="mx-2" />
-            <v-toolbar-title>{{ $t("ocr-editor.split-text") }}</v-toolbar-title>
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn icon>
-                  <v-icon
-                    :color="selectedTextSplitMode === 'lineNum' ? 'primary' : 'default'"
-                    v-bind="attrs"
-                    @click="switchSplitTextMode('lineNum')"
-                    v-on="on"
-                  >
-                    {{ $globals.icons.preserveLines }}
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t("ocr-editor.preserve-line-breaks") }}</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn icon>
-                  <v-icon
-                    :color="selectedTextSplitMode === 'blockNum' ? 'primary' : 'default'"
-                    v-bind="attrs"
-                    @click="switchSplitTextMode('blockNum')"
-                    v-on="on"
-                  >
-                    {{ $globals.icons.preserveBlocks }}
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t("ocr-editor.split-by-block") }}</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn icon>
-                  <v-icon
-                    :color="selectedTextSplitMode === 'flatten' ? 'primary' : 'default'"
-                    v-bind="attrs"
-                    @click="switchSplitTextMode('flatten')"
-                    v-on="on"
-                  >
-                    {{ $globals.icons.flatten }}
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t("ocr-editor.flatten") }}</span>
-            </v-tooltip>
-
-            <v-spacer></v-spacer>
+            <v-divider v-if="idx != toolbarIcons.length - 1" vertical class="mx-2" />
+          </v-toolbar>
+          <v-toolbar dense style="float: right">
             <BaseButton class="ml-1 mr-1" save @click="updateRecipe(recipe.slug, recipe)">
               {{ $t("general.save") }}
             </BaseButton>
@@ -289,6 +225,7 @@ import {
   toRefs,
   useRouter,
   nextTick,
+  useContext,
 } from "@nuxtjs/composition-api";
 import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
@@ -364,6 +301,17 @@ type CanvasModes = "selection" | "panAndZoom";
 
 type SelectedTextSplitModes = keyof OcrTsvResponse | "flatten";
 
+type ToolbarIcons<T extends string> = {
+  sectionTitle: string;
+  eventHandler(mode: T): void;
+  highlight: T;
+  icons: {
+    name: T;
+    icon: string;
+    tooltip: string;
+  }[];
+}[];
+
 export default defineComponent({
   components: {
     RecipeIngredientEditor,
@@ -377,6 +325,8 @@ export default defineComponent({
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useUserApi();
+
+    const { $globals, i18n } = useContext();
 
     const tsv = ref<OcrTsvResponse[]>([]);
 
@@ -432,6 +382,48 @@ export default defineComponent({
       showHelp: false,
     });
 
+    const toolbarIcons = ref<ToolbarIcons<CanvasModes | SelectedTextSplitModes>>([
+      {
+        sectionTitle: "Toolbar",
+        eventHandler: switchCanvasMode,
+        highlight: state.canvasMode,
+        icons: [
+          {
+            name: "selection",
+            icon: $globals.icons.selectMode,
+            tooltip: i18n.t("ocr-editor.selection-mode") as string,
+          },
+          {
+            name: "panAndZoom",
+            icon: $globals.icons.panAndZoom,
+            tooltip: i18n.t("ocr-editor.pan-and-zoom-picture") as string,
+          },
+        ],
+      },
+      {
+        sectionTitle: i18n.t("ocr-editor.split-text") as string,
+        eventHandler: switchSplitTextMode,
+        highlight: state.selectedTextSplitMode,
+        icons: [
+          {
+            name: "lineNum",
+            icon: $globals.icons.preserveLines,
+            tooltip: i18n.t("ocr-editor.preserve-line-breaks") as string,
+          },
+          {
+            name: "blockNum",
+            icon: $globals.icons.preserveBlocks,
+            tooltip: i18n.t("ocr-editor.split-by-block") as string,
+          },
+          {
+            name: "flatten",
+            icon: $globals.icons.flatten,
+            tooltip: i18n.t("ocr-editor.flatten") as string,
+          },
+        ],
+      },
+    ]);
+
     const setPropertyValueByPath = function <T extends Recipe>(object: T, path: Paths<T>, value: any) {
       const a = path.split(".");
       let nextProperty: any = object;
@@ -462,10 +454,10 @@ export default defineComponent({
     }
 
     /**
-    * This function will find the title of a recipe with the assumption that the title
-    * has the biggest ratio of surface area / number of words on the image.
-    * @return Returns the text parts of the block with the highest score.
-    */
+     * This function will find the title of a recipe with the assumption that the title
+     * has the biggest ratio of surface area / number of words on the image.
+     * @return Returns the text parts of the block with the highest score.
+     */
     function findRecipeTitle() {
       const filtered = tsv.value.filter((element) => element.level === 2 || element.level === 5);
       const blocks = [[]] as OcrTsvResponse[][];
@@ -560,6 +552,7 @@ export default defineComponent({
     function switchCanvasMode(mode: CanvasModes) {
       if (state.canvasRect === null || state.canvas === null) return;
       state.canvasMode = mode;
+      toolbarIcons.value[0].highlight = mode;
       if (mode === "panAndZoom") {
         state.canvas.style.cursor = "pointer";
       } else {
@@ -570,6 +563,7 @@ export default defineComponent({
     function switchSplitTextMode(mode: SelectedTextSplitModes) {
       if (state.canvasRect === null) return;
       state.selectedTextSplitMode = mode;
+      toolbarIcons.value[1].highlight = mode;
       state.selectedText = getWordsInSelection(tsv.value, state.rect);
     }
 
@@ -753,10 +747,10 @@ export default defineComponent({
     }
 
     /**
-    * Returns rectangle coordinates with positive dimensions
-    * @param  rect  A rectangle
-    * @returns  An equivalent rectangle with width and height > 0
-    */
+     * Returns rectangle coordinates with positive dimensions
+     * @param  rect  A rectangle
+     * @returns  An equivalent rectangle with width and height > 0
+     */
     function correctRectCoordinates(rect: CanvasRect) {
       if (rect.w < 0) {
         rect.startX = rect.startX + rect.w;
@@ -788,13 +782,13 @@ export default defineComponent({
     }
 
     /**
-    * Using rectangle coordinates, filters the tsv to get text elements contained
-    * inside the rectangle
-    * Additionaly adds newlines depending on the current "text split" mode
-    * @param  tsv   An Object containing tesseracts tsv fields
-    * @param  rect  Coordinates of a rectangle
-    * @returns Text from tsv contained in the rectangle
-    */
+     * Using rectangle coordinates, filters the tsv to get text elements contained
+     * inside the rectangle
+     * Additionaly adds newlines depending on the current "text split" mode
+     * @param  tsv   An Object containing tesseracts tsv fields
+     * @param  rect  Coordinates of a rectangle
+     * @returns Text from tsv contained in the rectangle
+     */
     function getWordsInSelection(tsv: OcrTsvResponse[], rect: CanvasRect) {
       const correctedRect = correctRectCoordinates(rect);
 
@@ -908,6 +902,7 @@ export default defineComponent({
       setSingleIngredient,
       setSingleStep,
       switchSplitTextMode,
+      toolbarIcons,
     };
   },
 });
