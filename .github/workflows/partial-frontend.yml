@@ -5,12 +5,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [16]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🛎
@@ -19,7 +14,7 @@ jobs:
       - name: Setup node env 🏗
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 16
           check-latest: true
 
       - name: Get yarn cache directory path 🛠
@@ -44,12 +39,7 @@ jobs:
         working-directory: "frontend"
 
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [16]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🛎
@@ -58,7 +48,7 @@ jobs:
       - name: Setup node env 🏗
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 16
           check-latest: true
 
       - name: Get yarn cache directory path 🛠

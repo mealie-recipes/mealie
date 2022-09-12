@@ -31,7 +31,7 @@ If you'd like to file an issue, please use the [GitHub Issue Tracker | Mealie](h
 - [Documentation](https://hay-kot.github.io/mealie/)
 - [Discord](https://discord.gg/QuStdQGSGK)
 - [Demo](https://demo.mealie.io)
-- [Beta](https://beta.mealie.io)
+- [Beta](https://demo.mealie.io)
 
 
 """
