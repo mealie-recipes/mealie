@@ -3,7 +3,7 @@
         "server-error": "Beklenmedik bir hata oluştu"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Tarif adları benzersiz olmalıdır"
     },
     "exceptions": {
         "permission_denied": "Bu eylemi gerçekleştirme izniniz yok",
@@ -13,10 +13,10 @@
         "email-conflict-error": "Bu e-posta adresi zaten kullanılmakta"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} oluşturuldu",
+        "generic-updated": ":{name} güncellendi",
+        "generic-created-with-url": "{name} oluşturuldu, {url}",
+        "generic-updated-with-url": "{name} güncellendi, {url}",
+        "generic-deleted": "{name} silindi"
     }
 }
