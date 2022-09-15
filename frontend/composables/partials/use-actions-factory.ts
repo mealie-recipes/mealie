@@ -7,7 +7,7 @@ type BoundT = {
 };
 
 interface StoreActions<T extends BoundT> {
-  getAll(): Ref<T[] | null>;
+  getAll(page?: number, perPage?: number, params?: any): Ref<T[] | null>;
   refresh(): Promise<void>;
   createOne(createData: T): Promise<void>;
   updateOne(updateData: T): Promise<void>;
@@ -25,10 +25,13 @@ export function useStoreActions<T extends BoundT>(
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>
 ): StoreActions<T> {
-  function getAll() {
+  function getAll(page = 1, perPage = -1, params = {} as any) {
+    params.orderBy ??= "name";
+    params.orderDirection ??= "asc";
+
     loading.value = true;
     const allItems = useAsync(async () => {
-      const { data } = await api.getAll();
+      const { data } = await api.getAll(page, perPage, params);
 
       if (data && allRef) {
         allRef.value = data.items;
