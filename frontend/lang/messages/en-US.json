@@ -670,8 +670,7 @@
     "preserve-line-breaks": "Preserve original line breaks",
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
-    "help": "Click here for help on how to use this feature!",
-    "help-dialog": {
+    "help": {
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
