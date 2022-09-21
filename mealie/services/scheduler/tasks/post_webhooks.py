@@ -5,6 +5,7 @@ from pydantic import UUID4
 
 from mealie.db.db_setup import create_session
 from mealie.repos.all_repositories import get_repositories
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import (
     INTERNAL_INTEGRATION_ID,
@@ -34,8 +35,8 @@ def post_group_webhooks(start_dt: Optional[datetime] = None, group_id: Optional[
         # publish the webhook event to each group's event bus
         session = create_session()
         repos = get_repositories(session)
-        groups = repos.groups.get_all()
-        group_ids = [group.id for group in groups]
+        groups_data = repos.groups.page_all(PaginationQuery(page=1, per_page=-1))
+        group_ids = [group.id for group in groups_data.items]
 
     else:
         group_ids = [group_id]
