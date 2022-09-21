@@ -13,6 +13,9 @@ class GroupEventNotifierOptions(MealieModel):
     If you modify this, make sure to update the EventBusService as well.
     """
 
+    test_message: bool = False
+    webhook_task: bool = False
+
     recipe_created: bool = False
     recipe_updated: bool = False
     recipe_deleted: bool = False
