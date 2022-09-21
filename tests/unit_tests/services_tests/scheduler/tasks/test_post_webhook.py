@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.webhook import SaveWebhook, WebhookType
-from mealie.services.scheduler.tasks.post_webhooks import get_scheduled_webhooks
+from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from tests.utils import random_string
 from tests.utils.factories import random_bool
 from tests.utils.fixture_schemas import TestUser
@@ -30,7 +30,7 @@ def webhook_factory(
 
 def test_get_scheduled_webhooks_filter_query(database: AllRepositories, unique_user: TestUser):
     """
-    get_scheduled_webhooks_test tests the get_scheduled_webhooks function.
+    get_scheduled_webhooks_test tests the get_scheduled_webhooks function on the webhook event bus listener.
     """
 
     expected: list[SaveWebhook] = []
@@ -51,7 +51,8 @@ def test_get_scheduled_webhooks_filter_query(database: AllRepositories, unique_u
         if new_item.enabled:
             expected.append(new_item)
 
-    results = get_scheduled_webhooks(database.session, start, datetime.now() + timedelta(minutes=5))
+    event_bus_listener = WebhookEventListener(database.session, unique_user.group_id)  # type: ignore
+    results = event_bus_listener.get_scheduled_webhooks(start, datetime.now() + timedelta(minutes=5))
 
     assert len(results) == len(expected)
 
