@@ -6,7 +6,11 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import generate_session
-from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener, EventListenerBase
+from mealie.services.event_bus_service.event_bus_listeners import (
+    AppriseEventListener,
+    EventListenerBase,
+    WebhookEventListener,
+)
 
 from .event_types import Event, EventBusMessage, EventDocumentDataBase, EventTypes
 
@@ -46,7 +50,10 @@ class EventBusService:
         self.session = session
         self.group_id = group_id
 
-        self.listeners: list[EventListenerBase] = [AppriseEventListener(self.session, self.group_id)]
+        self.listeners: list[EventListenerBase] = [
+            AppriseEventListener(self.session, self.group_id),
+            WebhookEventListener(self.session, self.group_id),
+        ]
 
     def dispatch(
         self,

@@ -1,15 +1,21 @@
 import json
+from datetime import datetime, timezone
+from typing import cast
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
+from mealie.db.models.group.webhooks import GroupWebhooksModel
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_events import GroupEventNotifierPrivate
+from mealie.schema.group.webhook import ReadWebhook
+from mealie.schema.response.pagination import PaginationQuery
 
-from .event_types import Event
-from .publisher import ApprisePublisher, PublisherLike
+from .event_types import Event, EventDocumentType, EventTypes, EventWebhookData
+from .publisher import ApprisePublisher, PublisherLike, WebhookPublisher
 
 
 class EventListenerBase:
@@ -78,3 +84,48 @@ class AppriseEventListener(EventListenerBase):
     @staticmethod
     def is_custom_url(url: str):
         return url.split(":", 1)[0].lower() in ["form", "forms", "json", "jsons", "xml", "xmls"]
+
+
+class WebhookEventListener(EventListenerBase):
+    def __init__(self, session: Session, group_id: UUID4) -> None:
+        super().__init__(session, group_id, WebhookPublisher())
+        self.repos = get_repositories(session)
+
+    def get_subscribers(self, event: Event) -> list[ReadWebhook]:
+        # we only care about events that contain webhook information
+        if not (event.event_type == EventTypes.webhook_task and isinstance(event.document_data, EventWebhookData)):
+            return []
+
+        scheduled_webhooks = self.get_scheduled_webhooks(
+            event.document_data.webhook_start_dt, event.document_data.webhook_end_dt
+        )
+
+        return scheduled_webhooks
+
+    def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
+        match event.document_data.document_type:
+            case EventDocumentType.mealplan:
+                # TODO: limit mealplan data to a date range instead of returning all mealplans
+                meal_repo = self.repos.meals.by_group(self.group_id)
+                meal_pagination_data = meal_repo.page_all(pagination=PaginationQuery(page=1, per_page=-1))
+                meal_data = meal_pagination_data.items
+                if meal_data:
+                    webhook_data = cast(EventWebhookData, event.document_data)
+                    webhook_data.webhook_body = meal_data
+                    self.publisher.publish(event, [webhook.url for webhook in subscribers])
+
+            case _:
+                # if the document type is not supported, do nothing
+                pass
+
+    def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
+        """Fetches all scheduled webhooks from the database"""
+        return (
+            self.session.query(GroupWebhooksModel)
+            .where(
+                GroupWebhooksModel.enabled == True,  # noqa: E712 - required for SQLAlchemy comparison
+                GroupWebhooksModel.scheduled_time > start_dt.astimezone(timezone.utc).time(),
+                GroupWebhooksModel.scheduled_time <= end_dt.astimezone(timezone.utc).time(),
+            )
+            .all()
+        )
