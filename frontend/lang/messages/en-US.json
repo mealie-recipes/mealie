@@ -663,7 +663,7 @@
     "demo_password": "Password: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
+    "ocr-editor": "OCR Editor",
     "selection-mode": "Selection mode",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",

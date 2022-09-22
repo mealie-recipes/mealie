@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card-title class="headline"> Create Recipe from an Image </v-card-title>
+    <v-card-title class="headline"> Create Recipe From Image </v-card-title>
     <v-card-text>
       Create a recipe by uploading a scan.
       <v-form ref="domCreateByOcr"> </v-form>
