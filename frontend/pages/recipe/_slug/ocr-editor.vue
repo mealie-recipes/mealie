@@ -322,34 +322,34 @@ export default defineComponent({
           {
             name: "selection",
             icon: $globals.icons.selectMode,
-            tooltip: i18n.t("ocr-editor.selection-mode") as string,
+            tooltip: i18n.tc("ocr-editor.selection-mode"),
           },
           {
             name: "panAndZoom",
             icon: $globals.icons.panAndZoom,
-            tooltip: i18n.t("ocr-editor.pan-and-zoom-picture") as string,
+            tooltip: i18n.tc("ocr-editor.pan-and-zoom-picture"),
           },
         ],
       },
       {
-        sectionTitle: i18n.t("ocr-editor.split-text") as string,
+        sectionTitle: i18n.tc("ocr-editor.split-text"),
         eventHandler: switchSplitTextMode,
         highlight: state.selectedTextSplitMode,
         icons: [
           {
             name: "lineNum",
             icon: $globals.icons.preserveLines,
-            tooltip: i18n.t("ocr-editor.preserve-line-breaks") as string,
+            tooltip: i18n.tc("ocr-editor.preserve-line-breaks"),
           },
           {
             name: "blockNum",
             icon: $globals.icons.preserveBlocks,
-            tooltip: i18n.t("ocr-editor.split-by-block") as string,
+            tooltip: i18n.tc("ocr-editor.split-by-block"),
           },
           {
             name: "flatten",
             icon: $globals.icons.flatten,
-            tooltip: i18n.t("ocr-editor.flatten") as string,
+            tooltip: i18n.tc("ocr-editor.flatten"),
           },
         ],
       },
