@@ -35,7 +35,7 @@
             </BaseButton>
           </v-toolbar>
           <canvas
-            id="canvas"
+            ref="canvas"
             @mousedown="handleMouseDown"
             @mouseup="handleMouseUp"
             @mousemove="handleMouseMove"
@@ -443,7 +443,7 @@ export default defineComponent({
         }
 
         nextTick(() => {
-          state.canvas = document.getElementById("canvas") as HTMLCanvasElement;
+          if (state.canvas === null) return; // never happens because the ref "canvas" is in the template
           state.ctx = state.canvas.getContext("2d") as CanvasRenderingContext2D;
           state.ctx.imageSmoothingEnabled = false;
           state.canvasRect = state.canvas.getBoundingClientRect();
