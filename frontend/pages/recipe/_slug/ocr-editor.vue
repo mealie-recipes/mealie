@@ -27,7 +27,7 @@
             <v-divider v-if="idx != toolbarIcons.length - 1" vertical class="mx-2" />
           </v-toolbar>
           <v-toolbar dense style="float: right">
-            <BaseButton class="ml-1 mr-1" save @click="updateRecipe(recipe.slug, recipe)">
+            <BaseButton class="ml-1 mr-1" save @click="updateRecipe(recipe)">
               {{ $t("general.save") }}
             </BaseButton>
             <BaseButton cancel @click="$router.push('/recipe/' + recipe.slug)">
@@ -73,8 +73,8 @@
             <h1 class="mt-5">{{ $t("ocr-editor.help.split-text-mode") }}</h1>
             <v-divider class="mb-2 mt-1" />
             <h2 class="my-2">
-              <v-icon> {{ $globals.icons.preserveLines }} </v-icon
-              >{{ $t("ocr-editor.help.split-modes.line-mode") }}
+              <v-icon> {{ $globals.icons.preserveLines }} </v-icon>
+              {{ $t("ocr-editor.help.split-modes.line-mode") }}
             </h2>
             <p>
               {{ $t("ocr-editor.help.split-modes.line-mode-desc") }}
@@ -92,7 +92,6 @@
             <p>{{ $t("ocr-editor.help.split-modes.flat-mode-desc") }}</p>
           </v-card-text>
         </v-card>
-
       </v-col>
       <v-col cols="12" sm="5" md="5" lg="5">
         <v-tabs v-model="tab" fixed-tabs>
@@ -227,82 +226,23 @@ import { useRecipe } from "~/composables/recipes";
 import { OcrTsvResponse } from "~/types/api-types/ocr";
 import { validators } from "~/composables/use-validators";
 import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
+import {
+  CanvasRect,
+  ImagePosition,
+  Mouse,
+  Paths,
+  Leaves,
+  SelectedRecipeLeaves,
+  CanvasModes,
+  SelectedTextSplitModes,
+  ToolbarIcons,
+} from "~/types/ocr-types";
 import BannerExperimental from "~/components/global/BannerExperimental.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { uuid4 } from "~/composables/use-utils";
-
-type CanvasRect = {
-  startX: number;
-  startY: number;
-  w: number;
-  h: number;
-};
-
-type ImagePosition = {
-  sx: number;
-  sy: number;
-  sWidth: number;
-  sHeight: number;
-  dx: number;
-  dy: number;
-  dWidth: number;
-  dHeight: number;
-  scale: number;
-  panStartPoint: {
-    x: number;
-    y: number;
-  };
-};
-
-type Mouse = {
-  current: {
-    x: number;
-    y: number;
-  };
-  down: boolean;
-};
-
-// https://stackoverflow.com/questions/58434389/typescript-deep-keyof-of-a-nested-object/58436959#58436959
-type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...0[]];
-
-type Join<K, P> = K extends string | number
-  ? P extends string | number
-    ? `${K}${"" extends P ? "" : "."}${P}`
-    : never
-  : never;
-
-type Paths<T, D extends number = 10> = [D] extends [never]
-  ? never
-  : T extends object
-  ? {
-      [K in keyof T]-?: K extends string | number ? `${K}` | Join<K, Paths<T[K], Prev[D]>> : never;
-    }[keyof T]
-  : "";
-
-type Leaves<T, D extends number = 10> = [D] extends [never]
-  ? never
-  : T extends object
-  ? { [K in keyof T]-?: Join<K, Leaves<T[K], Prev[D]>> }[keyof T]
-  : "";
-
-type SelectedRecipeLeaves = Leaves<Recipe>;
-
-type CanvasModes = "selection" | "panAndZoom";
-
-type SelectedTextSplitModes = keyof OcrTsvResponse | "flatten";
-
-type ToolbarIcons<T extends string> = {
-  sectionTitle: string;
-  eventHandler(mode: T): void;
-  highlight: T;
-  icons: {
-    name: T;
-    icon: string;
-    tooltip: string;
-  }[];
-}[];
+import { NoUndefinedField } from "~/types/api";
 
 export default defineComponent({
   components: {
@@ -503,8 +443,8 @@ export default defineComponent({
         }
 
         nextTick(() => {
-          state.canvas = <HTMLCanvasElement>document.getElementById("canvas");
-          state.ctx = <CanvasRenderingContext2D>state.canvas.getContext("2d");
+          state.canvas = document.getElementById("canvas") as HTMLCanvasElement;
+          state.ctx = state.canvas.getContext("2d") as CanvasRenderingContext2D;
           state.ctx.imageSmoothingEnabled = false;
           state.canvasRect = state.canvas.getBoundingClientRect();
 
@@ -854,8 +794,8 @@ export default defineComponent({
       }
     }
 
-    async function updateRecipe(slug: string, recipe: Recipe) {
-      const { data } = await api.recipes.updateOne(slug, recipe);
+    async function updateRecipe(recipe: NoUndefinedField<Recipe>) {
+      const { data } = await api.recipes.updateOne(recipe.slug, recipe);
       if (data?.slug) {
         router.push("/recipe/" + data.slug);
       }
@@ -914,6 +854,7 @@ canvas {
   width: 100%;
   image-rendering: optimizeQuality;
 }
+
 .box {
   position: absolute;
   border: 2px #90ee90 solid;
