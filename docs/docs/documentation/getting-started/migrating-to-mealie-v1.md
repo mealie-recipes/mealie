@@ -33,7 +33,7 @@ This can be a plus or a minus depending on your use case. If you relied on the o
 
 ## Step 1: Setting Up The New Application
 
-Given the nature of the upgrade, it is highly recommended that you standup a new instance of mealie along side your current instance. This will allow you to migrate your data safely and quickly without any issues. Follow the instructions in the [Installation Checklist](../getting-started/installation/installation-checklist.md) to get started. Once that's complete and you can login, continue here with step 2.
+Given the nature of the upgrade, it is highly recommended that you stand up a new instance of mealie along side your current instance. This will allow you to migrate your data safely and quickly without any issues. Follow the instructions in the [Installation Checklist](../getting-started/installation/installation-checklist.md) to get started. Once that's complete and you can login, continue here with step 2.
 
 ## Step 2: Exporting Your Data from Pre-v1
 
@@ -42,7 +42,7 @@ In your instance of Mealie prior to v1, perform an export of your data in the Ad
 
 ## Step 3: Using the Migration Tool
 
-In your new v1 instance, navigate to `/group/migrations` and select "Mealie" from the dropdown selector. Upload the exported data from your pre-v1 instance. Optionally, you can tag all the recipes you've imported with the `mealie_alpha` tag to help you identify them. Once the upload has finished, submit the form and your migration will begin. This may take some time, but when it's complete you'll be provided a new entry in hte "Previous Migrations" table below. Be sure to review the migration report to make sure everything was successful. There may be instances where some of the recipes were not imported, but the migration will still import all the successful recipes.
+In your new v1 instance, navigate to `/group/migrations` and select "Mealie" from the dropdown selector. Upload the exported data from your pre-v1 instance. Optionally, you can tag all the recipes you've imported with the `mealie_alpha` tag to help you identify them. Once the upload has finished, submit the form and your migration will begin. This may take some time, but when it's complete you'll be provided a new entry in the "Previous Migrations" table below. Be sure to review the migration report to make sure everything was successful. There may be instances where some of the recipes were not imported, but the migration will still import all the successful recipes.
 
 In most cases, it's faster to manually migrate the recipes that didn't take instead of trying to identify why the recipes failed to import. If you're experiencing issues with the migration tool, please open an issue on GitHub.
 
