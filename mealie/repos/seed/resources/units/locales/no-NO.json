@@ -1,26 +1,26 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "teskje",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "ts"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "spiseskje",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "ss"
     },
     "cup": {
-        "name": "cup",
+        "name": "kopp",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "kopp"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "us væske unse",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "halvliter",
         "description": "",
         "abbreviation": "pt"
     },
@@ -45,12 +45,12 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "pund",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unse",
         "description": "",
         "abbreviation": "oz"
     },
@@ -60,12 +60,12 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilo",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "mg",
         "description": "",
         "abbreviation": "mg"
     },
@@ -80,22 +80,22 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "servering",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "hode",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "fedd",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "boks",
         "description": "",
         "abbreviation": ""
     }
