@@ -78,7 +78,7 @@ class NLPParser(ABCIngredientParser):
             )
         except Exception as e:
             logger.error(f"Failed to parse ingredient: {crf_model}: {e}")
-            # TODO: Capture some sort of state for the user to see that an exception occured
+            # TODO: Capture some sort of state for the user to see that an exception occurred
             ingredient = RecipeIngredient(
                 title="",
                 note=crf_model.input,

@@ -16,7 +16,7 @@ U = TypeVar("U", bound=BaseModel)
 class HttpRepo(Generic[C, R, U]):
     """
     The HttpRepo[C, R, U] class is a mixin class that provides a common set of methods for CRUD operations.
-    This class is inteded to be used in a composition pattern where a class has a mixin property. For example:
+    This class is intended to be used in a composition pattern where a class has a mixin property. For example:
 
     ```
     class MyClass:

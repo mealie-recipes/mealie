@@ -39,7 +39,7 @@ class AppDirectories:
         for dir in required_dirs:
             dir.mkdir(parents=True, exist_ok=True)
 
-        # Boostrap Templates
+        # Bootstrap Templates
         markdown_template = self.TEMPLATE_DIR.joinpath("recipes.md")
 
         if not markdown_template.exists():

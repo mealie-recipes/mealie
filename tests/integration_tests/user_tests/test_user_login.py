@@ -41,7 +41,7 @@ def test_user_token_refresh(api_client: TestClient, api_routes: AppRoutes, admin
 
 def test_user_lockout_after_bad_attemps(api_client: TestClient, unique_user: TestUser, database: AllRepositories):
     """
-    if the user has more than 5 bad login attemps the user will be locked out for 4 hours
+    if the user has more than 5 bad login attempts the user will be locked out for 4 hours
     This only applies if there is a user in the database with the same username
     """
     routes = AppRoutes()

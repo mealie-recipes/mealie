@@ -3,7 +3,7 @@
     <div>
       <v-card-title class="headline"> Recipe Bulk Importer </v-card-title>
       <v-card-text>
-        The Bulk recipe importer allows you to import multiple recipes at once by queing the sites on the backend and
+        The Bulk recipe importer allows you to import multiple recipes at once by queueing the sites on the backend and
         running the task in the background. This can be useful when initially migrating to Mealie, or when you want to
         import a large number of recipes.
       </v-card-text>

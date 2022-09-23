@@ -11,7 +11,7 @@ replace_abbreviations = {
     "pint": " pint ",
     "qt": " quart ",
     "tbsp": " tablespoon ",
-    "tbs": " tablespoon ",  # Order Matters!, 'tsb' must come after 'tbsp' incase of duplicate matches
+    "tbs": " tablespoon ",  # Order Matters!, 'tsb' must come after 'tbsp' in case of duplicate matches
     "tsp": " teaspoon ",
 }
 
@@ -55,7 +55,7 @@ def wrap_or_clause(string: str):
     '1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt, plus more' -> '1 teaspoon diamond crystal (or 1/2 teaspoon morton kosher salt), plus more'
 
     """
-    # TODO: Needs more adequite testing to be sure this doens't have side effects.
+    # TODO: Needs more adequite testing to be sure this doesn't have side effects.
     split_by_or = string.split(" or ")
 
     split_by_comma = split_by_or[1].split(",")

@@ -11,7 +11,7 @@ from mealie.app import app
 """
 This code is used for generating route objects for each route in the OpenAPI Specification.
 Currently, they are NOT automatically injected into the test suite. As such, you'll need to copy
-the relavent contents of the generated file into the test suite where applicable. I am slowly
+the relevant contents of the generated file into the test suite where applicable. I am slowly
 migrating the test suite to use this new generated file and this process will be "automated" in the
 future.
 """

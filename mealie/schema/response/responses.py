@@ -13,7 +13,7 @@ class ErrorResponse(BaseModel):
     @classmethod
     def respond(cls, message: str, exception: Optional[str] = None) -> dict:
         """
-        This method is an helper to create an obect and convert to a dictionary
+        This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException
         """
         return cls(message=message, exception=exception).dict()
@@ -26,7 +26,7 @@ class SuccessResponse(BaseModel):
     @classmethod
     def respond(cls, message: str) -> dict:
         """
-        This method is an helper to create an obect and convert to a dictionary
+        This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException
         """
         return cls(message=message).dict()
@@ -38,7 +38,7 @@ class FileTokenResponse(MealieModel):
     @classmethod
     def respond(cls, token: str) -> dict:
         """
-        This method is an helper to create an obect and convert to a dictionary
+        This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException
         """
         return cls(file_token=token).dict()

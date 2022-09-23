@@ -29,7 +29,7 @@
 
     <section v-if="group">
       <BaseCardSectionTitle class="mt-10" title="Default Recipe Preferences">
-        These are the default settings when a new recipe is created in your group. These can be changed for indivdual
+        These are the default settings when a new recipe is created in your group. These can be changed for individual
         recipes in the recipe settings menu.
       </BaseCardSectionTitle>
 

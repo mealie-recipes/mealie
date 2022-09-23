@@ -46,14 +46,14 @@ class GroupMealplanController(BaseUserController):
     @router.post("/random", response_model=ReadPlanEntry)
     def create_random_meal(self, data: CreateRandomEntry):
         """
-        create_random_meal is a route that provides the randomized funcitonality for mealplaners.
+        create_random_meal is a route that provides the randomized functionality for mealplaners.
         It operates by following the rules setout in the Groups mealplan settings. If not settings
         are set, it will default return any random meal.
 
         Refer to the mealplan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
-        # Get relavent group rules
+        # Get relevant group rules
         rules = self.repos.group_meal_plan_rules.by_group(self.group_id).get_rules(
             PlanRulesDay.from_date(data.date), data.entry_type.value
         )

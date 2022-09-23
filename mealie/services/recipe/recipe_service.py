@@ -83,8 +83,8 @@ class RecipeService(BaseService):
     def _recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict = None) -> Recipe:
         """
         The main creation point for recipes. The factor method returns an instance of the
-        Recipe Schema class with the appropriate defaults set. Recipes shoudld not be created
-        else-where to avoid conflicts.
+        Recipe Schema class with the appropriate defaults set. Recipes should not be created
+        elsewhere to avoid conflicts.
         """
         additional_attrs = additional_attrs or {}
         additional_attrs["name"] = name

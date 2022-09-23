@@ -42,7 +42,7 @@ def safe_scrape_html(url: str) -> str:
             raise ForceTimeoutException()
 
     # =====================================
-    # Coppied from requests text property
+    # Copied from requests text property
 
     # Try charset from content-type
     content = None
