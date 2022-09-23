@@ -63,7 +63,7 @@ After you've configured your database, and updated the `docker-compose.yaml` fil
 $ docker-compose up -d
 ```
 
-You should see the containers start up without error. You should now be able to access the Mealie frontend at [http://localhost:9925](http://locahost:9925).
+You should see the containers start up without error. You should now be able to access the Mealie frontend at [http://localhost:9925](http://localhost:9925).
 
 !!! tip "Default Credentials"
 
