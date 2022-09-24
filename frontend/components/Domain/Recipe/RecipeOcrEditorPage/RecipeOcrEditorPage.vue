@@ -7,6 +7,12 @@
   >
     <BannerExperimental />
 
+    <div v-if="loading">
+      <v-spacer />
+      <v-progress-circular indeterminate class="" color="primary"> </v-progress-circular>
+      {{ loadingText }}
+      <v-spacer />
+    </div>
     <v-row v-if="!loading">
       <v-col cols="12" sm="7" md="7" lg="7">
         <RecipeOcrEditorPageCanvas
@@ -135,7 +141,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive, toRefs, useRouter, nextTick } from "@nuxtjs/composition-api";
+import { defineComponent, ref, onMounted, reactive, toRefs, useRouter } from "@nuxtjs/composition-api";
 import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
@@ -185,6 +191,7 @@ export default defineComponent({
 
     const state = reactive({
       loading: true,
+      loadingText: "Loading recipe...",
       tab: null,
       selectedRecipeField: "" as SelectedRecipeLeaves | "",
       canvasSelectedText: "",
@@ -246,6 +253,7 @@ export default defineComponent({
     onMounted(() => {
       invoke(async () => {
         await until(props.recipe).not.toBeNull();
+        state.loadingText = "Loading OCR data...";
 
         const assetName = props.recipe.assets[0].fileName;
         const imagesrc = assetURL(assetName);
