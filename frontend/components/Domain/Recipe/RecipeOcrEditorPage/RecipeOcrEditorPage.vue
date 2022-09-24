@@ -326,7 +326,9 @@ export default defineComponent({
     }
 
     const canvasSetText = function () {
-      setPropertyValueByPath<Recipe>(props.recipe, state.selectedRecipeField, state.canvasSelectedText);
+      if (state.selectedRecipeField !== "") {
+        setPropertyValueByPath<Recipe>(props.recipe, state.selectedRecipeField, state.canvasSelectedText);
+      }
     };
 
     function updateSelectedText(value: string) {
