@@ -9,89 +9,17 @@
 
     <v-row v-if="!loading">
       <v-col cols="12" sm="7" md="7" lg="7">
-        <v-card flat tile>
-          <v-toolbar v-for="(section, idx) in toolbarIcons" :key="section.sectionTitle" dense style="float: left">
-            <v-toolbar-title bottom>
-              {{ section.sectionTitle }}
-            </v-toolbar-title>
-            <v-tooltip v-for="icon in section.icons" :key="icon.name" bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn icon @click="section.eventHandler(icon.name)">
-                  <v-icon :color="section.highlight === icon.name ? 'primary' : 'default'" v-bind="attrs" v-on="on">
-                    {{ icon.icon }}
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>{{ icon.tooltip }}</span>
-            </v-tooltip>
-            <v-divider v-if="idx != toolbarIcons.length - 1" vertical class="mx-2" />
-          </v-toolbar>
-          <v-toolbar dense style="float: right">
-            <BaseButton class="ml-1 mr-1" save @click="updateRecipe(recipe)">
-              {{ $t("general.save") }}
-            </BaseButton>
-            <BaseButton cancel @click="$router.push('/recipe/' + recipe.slug)">
-              {{ $t("general.close") }}
-            </BaseButton>
-          </v-toolbar>
-          <canvas
-            ref="canvas"
-            @mousedown="handleMouseDown"
-            @mouseup="handleMouseUp"
-            @mousemove="handleMouseMove"
-            @wheel="handleMouseScroll"
-          ></canvas>
-          <span style="white-space: pre-wrap">
-            {{ selectedText }}
-          </span>
-        </v-card>
+        <RecipeOcrEditorPageCanvas
+          :image="canvasImage"
+          :tsv="tsv"
+          @setText="canvasSetText"
+          @update-recipe="updateRecipe"
+          @close-editor="closeEditor"
+          @text-selected="updateSelectedText"
+        >
+        </RecipeOcrEditorPageCanvas>
 
-        <v-card>
-          <v-app-bar dense dark color="primary" class="mb-2">
-            <v-icon large left>
-              {{ $globals.icons.help }}
-            </v-icon>
-            <v-toolbar-title class="headline"> Help </v-toolbar-title>
-            <v-spacer></v-spacer>
-          </v-app-bar>
-          <v-card-text>
-            <h1>Mouse modes</h1>
-            <v-divider class="mb-2 mt-1" />
-            <h2 class="my-2">
-              <v-icon> {{ $globals.icons.selectMode }} </v-icon>{{ $t("ocr-editor.help.selection-mode") }}
-            </h2>
-            <p class="my-1">{{ $t("ocr-editor.help.selection-mode") }}</p>
-            <ol>
-              <li>{{ $t("ocr-editor.help.selection-mode-steps.draw") }}</li>
-              <li>{{ $t("ocr-editor.help.selection-mode-steps.click") }}</li>
-              <li>{{ $t("ocr-editor.help.selection-mode-steps.result") }}</li>
-            </ol>
-            <h2 class="my-2">
-              <v-icon> {{ $globals.icons.panAndZoom }} </v-icon>{{ $t("ocr-editor.help.pan-and-zoom-mode") }}
-            </h2>
-            {{ $t("ocr-editor.help.pan-and-zoom-desc") }}
-            <h1 class="mt-5">{{ $t("ocr-editor.help.split-text-mode") }}</h1>
-            <v-divider class="mb-2 mt-1" />
-            <h2 class="my-2">
-              <v-icon> {{ $globals.icons.preserveLines }} </v-icon>
-              {{ $t("ocr-editor.help.split-modes.line-mode") }}
-            </h2>
-            <p>
-              {{ $t("ocr-editor.help.split-modes.line-mode-desc") }}
-            </p>
-            <h2 class="my-2">
-              <v-icon> {{ $globals.icons.preserveBlocks }} </v-icon>
-              {{ $t("ocr-editor.help.split-modes.block-mode") }}
-            </h2>
-            <p>
-              {{ $t("ocr-editor.help.split-modes.block-mode-desc") }}
-            </p>
-            <h2 class="my-2">
-              <v-icon> {{ $globals.icons.flatten }} </v-icon> {{ $t("ocr-editor.help.split-modes.flat-mode") }}
-            </h2>
-            <p>{{ $t("ocr-editor.help.split-modes.flat-mode-desc") }}</p>
-          </v-card-text>
-        </v-card>
+        <RecipeOcrEditorPageHelp />
       </v-col>
       <v-col cols="12" sm="5" md="5" lg="5">
         <v-tabs v-model="tab" fixed-tabs>
@@ -155,7 +83,7 @@
           </v-tab-item>
           <v-tab-item key="ingredients">
             <div class="d-flex justify-end mt-2">
-              <RecipeDialogBulkAdd class="ml-1 mr-1" :input-text-prop="selectedText" @bulk-data="addIngredient" />
+              <RecipeDialogBulkAdd class="ml-1 mr-1" :input-text-prop="canvasSelectedText" @bulk-data="addIngredient" />
               <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
             </div>
             <draggable
@@ -186,7 +114,7 @@
           </v-tab-item>
           <v-tab-item key="instructions">
             <div class="d-flex justify-end mt-2">
-              <RecipeDialogBulkAdd class="ml-1 mr-1" :input-text-prop="selectedText" @bulk-data="addStep" />
+              <RecipeDialogBulkAdd class="ml-1 mr-1" :input-text-prop="canvasSelectedText" @bulk-data="addStep" />
               <BaseButton @click="addStep()"> {{ $t("general.new") }}</BaseButton>
             </div>
             <RecipeInstructions
@@ -207,16 +135,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-  onMounted,
-  reactive,
-  toRefs,
-  useRouter,
-  nextTick,
-  useContext,
-} from "@nuxtjs/composition-api";
+import { defineComponent, ref, onMounted, reactive, toRefs, useRouter, nextTick } from "@nuxtjs/composition-api";
 import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
@@ -224,21 +143,13 @@ import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { OcrTsvResponse } from "~/types/api-types/ocr";
 import { validators } from "~/composables/use-validators";
 import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
-import {
-  CanvasRect,
-  ImagePosition,
-  Mouse,
-  Paths,
-  Leaves,
-  SelectedRecipeLeaves,
-  CanvasModes,
-  SelectedTextSplitModes,
-  ToolbarIcons,
-} from "~/types/ocr-types";
+import { Paths, Leaves, SelectedRecipeLeaves } from "~/types/ocr-types";
 import BannerExperimental from "~/components/global/BannerExperimental.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
+import RecipeOcrEditorPageCanvas from "~/components/Domain/Recipe/RecipeOcrEditorPage/RecipeOcrEditorPageParts/RecipeOcrEditorPageCanvas.vue";
+import RecipeOcrEditorPageHelp from "~/components/Domain/Recipe/RecipeOcrEditorPage/RecipeOcrEditorPageParts/RecipeOcrEditorPageHelp.vue";
 import { uuid4 } from "~/composables/use-utils";
 import { NoUndefinedField } from "~/types/api";
 
@@ -249,6 +160,8 @@ export default defineComponent({
     BannerExperimental,
     RecipeDialogBulkAdd,
     RecipeInstructions,
+    RecipeOcrEditorPageCanvas,
+    RecipeOcrEditorPageHelp,
   },
   props: {
     recipe: {
@@ -259,8 +172,6 @@ export default defineComponent({
   setup(props) {
     const router = useRouter();
     const api = useUserApi();
-
-    const { $globals, i18n } = useContext();
 
     const tsv = ref<OcrTsvResponse[]>([]);
 
@@ -274,86 +185,11 @@ export default defineComponent({
 
     const state = reactive({
       loading: true,
-      canvas: null as HTMLCanvasElement | null,
-      ctx: null as CanvasRenderingContext2D | null,
-      canvasRect: null as DOMRect | null,
       tab: null,
-      rect: {
-        startX: 0,
-        startY: 0,
-        w: 0,
-        h: 0,
-      },
-      mouse: {
-        current: {
-          x: 0,
-          y: 0,
-        },
-        down: false,
-      },
-      selectedText: "",
       selectedRecipeField: "" as SelectedRecipeLeaves | "",
-      canvasMode: "selection" as CanvasModes,
-      imagePosition: {
-        sx: 0,
-        sy: 0,
-        sWidth: 0,
-        sHeight: 0,
-        dx: 0,
-        dy: 0,
-        dWidth: 0,
-        dHeight: 0,
-        scale: 1,
-        panStartPoint: {
-          x: 0,
-          y: 0,
-        },
-      } as ImagePosition,
-      isImageSmallerThanCanvas: false,
-      selectedTextSplitMode: "lineNum" as SelectedTextSplitModes,
+      canvasSelectedText: "",
+      canvasImage: new Image(),
     });
-
-    const toolbarIcons = ref<ToolbarIcons<CanvasModes | SelectedTextSplitModes>>([
-      {
-        sectionTitle: "Toolbar",
-        eventHandler: switchCanvasMode,
-        highlight: state.canvasMode,
-        icons: [
-          {
-            name: "selection",
-            icon: $globals.icons.selectMode,
-            tooltip: i18n.tc("ocr-editor.selection-mode"),
-          },
-          {
-            name: "panAndZoom",
-            icon: $globals.icons.panAndZoom,
-            tooltip: i18n.tc("ocr-editor.pan-and-zoom-picture"),
-          },
-        ],
-      },
-      {
-        sectionTitle: i18n.tc("ocr-editor.split-text"),
-        eventHandler: switchSplitTextMode,
-        highlight: state.selectedTextSplitMode,
-        icons: [
-          {
-            name: "lineNum",
-            icon: $globals.icons.preserveLines,
-            tooltip: i18n.tc("ocr-editor.preserve-line-breaks"),
-          },
-          {
-            name: "blockNum",
-            icon: $globals.icons.preserveBlocks,
-            tooltip: i18n.tc("ocr-editor.split-by-block"),
-          },
-          {
-            name: "flatten",
-            icon: $globals.icons.flatten,
-            tooltip: i18n.tc("ocr-editor.flatten"),
-          },
-        ],
-      },
-    ]);
 
     const setPropertyValueByPath = function <T extends Recipe>(object: T, path: Paths<T>, value: any) {
       const a = path.split(".");
@@ -368,21 +204,6 @@ export default defineComponent({
       }
       nextProperty[a[a.length - 1]] = value;
     };
-
-    const image = new Image();
-
-    function updateImageScale() {
-      state.imagePosition.scale = state.imagePosition.dWidth / image.width;
-
-      // force the original ratio to be respected
-      state.imagePosition.dHeight = image.height * state.imagePosition.scale;
-
-      // Don't let images bigger than the canvas be zoomed in more than 1:1 scale
-      // Meaning only let images smaller than the canvas to have a scale > 1
-      if (!state.isImageSmallerThanCanvas && state.imagePosition.scale > 1) {
-        state.imagePosition.scale = 1;
-      }
-    }
 
     /**
      * This function will find the title of a recipe with the assumption that the title
@@ -428,7 +249,7 @@ export default defineComponent({
 
         const assetName = props.recipe.assets[0].fileName;
         const imagesrc = assetURL(assetName);
-        image.src = imagesrc;
+        state.canvasImage.src = imagesrc;
 
         const res = await api.ocr.assetToTsv(props.recipe.slug, assetName);
         tsv.value = res.data as OcrTsvResponse[];
@@ -437,311 +258,8 @@ export default defineComponent({
         if (props.recipe.name.match(/New\sOCR\sRecipe(\s\([0-9]+\))?/g)) {
           props.recipe.name = findRecipeTitle();
         }
-
-        nextTick(() => {
-          if (state.canvas === null) return; // never happens because the ref "canvas" is in the template
-          state.ctx = state.canvas.getContext("2d") as CanvasRenderingContext2D;
-          state.ctx.imageSmoothingEnabled = false;
-          state.canvasRect = state.canvas.getBoundingClientRect();
-
-          state.canvas.width = state.canvasRect.width;
-          if (image.width < state.canvas.width) {
-            state.isImageSmallerThanCanvas = true;
-          }
-          state.imagePosition.dWidth = state.canvas.width;
-
-          updateImageScale();
-          state.canvas.height = Math.min(image.height * state.imagePosition.scale, 700); // Max height of 700px
-
-          state.imagePosition.sWidth = image.width;
-          state.imagePosition.sHeight = image.height;
-          state.imagePosition.dWidth = state.canvas.width;
-          drawImage(state.ctx);
-          drawWordBoxesOnCanvas(tsv.value);
-        });
       });
     });
-
-    function drawImage(ctx: CanvasRenderingContext2D) {
-      ctx.drawImage(
-        image,
-        state.imagePosition.sx,
-        state.imagePosition.sy,
-        state.imagePosition.sWidth,
-        state.imagePosition.sHeight,
-        state.imagePosition.dx,
-        state.imagePosition.dy,
-        state.imagePosition.dWidth,
-        state.imagePosition.dHeight
-      );
-    }
-
-    function switchCanvasMode(mode: CanvasModes) {
-      if (state.canvasRect === null || state.canvas === null) return;
-      state.canvasMode = mode;
-      toolbarIcons.value[0].highlight = mode;
-      if (mode === "panAndZoom") {
-        state.canvas.style.cursor = "pointer";
-      } else {
-        state.canvas.style.cursor = "default";
-      }
-    }
-
-    function switchSplitTextMode(mode: SelectedTextSplitModes) {
-      if (state.canvasRect === null) return;
-      state.selectedTextSplitMode = mode;
-      toolbarIcons.value[1].highlight = mode;
-      state.selectedText = getWordsInSelection(tsv.value, state.rect);
-    }
-
-    function draw() {
-      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-      if (state.mouse.down) {
-        state.ctx.imageSmoothingEnabled = false;
-        state.ctx.fillStyle = "rgb(255, 255, 255)";
-        state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
-        drawImage(state.ctx);
-        state.ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
-        state.ctx.setLineDash([6]);
-        state.ctx.fillRect(state.rect.startX, state.rect.startY, state.rect.w, state.rect.h);
-        state.ctx.strokeRect(state.rect.startX, state.rect.startY, state.rect.w, state.rect.h);
-      }
-    }
-
-    function isMouseInRect(mouse: Mouse, rect: CanvasRect) {
-      if (state.canvasRect === null) return;
-      const correctRect = correctRectCoordinates(rect);
-
-      return (
-        mouse.current.x > correctRect.startX &&
-        mouse.current.x < correctRect.startX + correctRect.w &&
-        mouse.current.y > correctRect.startY &&
-        mouse.current.y < correctRect.startY + correctRect.h
-      );
-    }
-
-    function resetSelection() {
-      if (state.canvasRect === null) return;
-      state.rect.w = 0;
-      state.rect.h = 0;
-      state.selectedText = "";
-    }
-
-    function updateMousePos<T extends MouseEvent>(event: T) {
-      if (state.canvas === null) return;
-      state.canvasRect = state.canvas.getBoundingClientRect();
-      state.mouse.current = {
-        x: event.clientX - state.canvasRect.left,
-        y: event.clientY - state.canvasRect.top,
-      };
-    }
-
-    function handleMouseDown(event: MouseEvent) {
-      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-      state.mouse.down = true;
-
-      updateMousePos(event);
-
-      if (state.canvasMode === "selection") {
-        if (isMouseInRect(state.mouse, state.rect)) {
-          // Update the right field in the recipe
-
-          if (state.selectedRecipeField !== "") {
-            setPropertyValueByPath<Recipe>(props.recipe, state.selectedRecipeField, state.selectedText);
-          }
-        } else {
-          state.ctx.fillStyle = "rgb(255, 255, 255)";
-          state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
-          drawImage(state.ctx);
-          state.rect.startX = state.mouse.current.x;
-          state.rect.startY = state.mouse.current.y;
-          resetSelection();
-        }
-        return;
-      }
-      if (state.canvasMode === "panAndZoom") {
-        state.imagePosition.panStartPoint.x = state.mouse.current.x - state.imagePosition.dx;
-        state.imagePosition.panStartPoint.y = state.mouse.current.y - state.imagePosition.dy;
-        resetSelection();
-      }
-    }
-
-    function handleMouseUp(_event: MouseEvent) {
-      if (state.canvasRect === null) return;
-      state.mouse.down = false;
-      state.selectedText = getWordsInSelection(tsv.value, state.rect);
-    }
-
-    function keepImageInCanvas() {
-      if (state.canvasRect === null || state.canvas === null) return;
-
-      // Prevent image from being smaller than the canvas width
-      if (state.imagePosition.dWidth - state.canvas.width < 0) {
-        state.imagePosition.dWidth = state.canvas.width;
-      }
-
-      // Prevent image from being smaller than the canvas height
-      if (state.imagePosition.dHeight - state.canvas.height < 0) {
-        state.imagePosition.dHeight = image.height * state.imagePosition.scale;
-      }
-
-      // Prevent to move the image too much to the left
-      if (state.canvas.width - state.imagePosition.dx - state.imagePosition.dWidth > 0) {
-        state.imagePosition.dx = state.canvas.width - state.imagePosition.dWidth;
-      }
-
-      // Prevent to move the image too much to the top
-      if (state.canvas.height - state.imagePosition.dy - state.imagePosition.dHeight > 0) {
-        state.imagePosition.dy = state.canvas.height - state.imagePosition.dHeight;
-      }
-
-      // Prevent to move the image too much to the right
-      if (state.imagePosition.dx > 0) {
-        state.imagePosition.dx = 0;
-      }
-
-      // Prevent to move the image too much to the bottom
-      if (state.imagePosition.dy > 0) {
-        state.imagePosition.dy = 0;
-      }
-    }
-
-    function handleMouseMove(event: MouseEvent) {
-      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-
-      updateMousePos(event);
-
-      if (state.mouse.down) {
-        if (state.canvasMode === "selection") {
-          state.rect.w = state.mouse.current.x - state.rect.startX;
-          state.rect.h = state.mouse.current.y - state.rect.startY;
-          draw();
-          return;
-        }
-
-        if (state.canvasMode === "panAndZoom") {
-          state.canvas.style.cursor = "move";
-          state.imagePosition.dx = state.mouse.current.x - state.imagePosition.panStartPoint.x;
-          state.imagePosition.dy = state.mouse.current.y - state.imagePosition.panStartPoint.y;
-          keepImageInCanvas();
-          state.ctx.fillStyle = "rgb(255, 255, 255)";
-          state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
-          drawImage(state.ctx);
-          return;
-        }
-      }
-
-      if (isMouseInRect(state.mouse, state.rect) && state.canvasMode === "selection") {
-        state.canvas.style.cursor = "pointer";
-      } else {
-        state.canvas.style.cursor = "default";
-      }
-    }
-
-    const scrollSensitivity = 0.05;
-
-    function handleMouseScroll(event: WheelEvent) {
-      if (state.isImageSmallerThanCanvas) return;
-      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-
-      if (state.canvasMode === "panAndZoom") {
-        event.preventDefault();
-
-        updateMousePos(event);
-
-        const m = Math.sign(event.deltaY);
-
-        const ndx = state.imagePosition.dx + m * state.imagePosition.dWidth * scrollSensitivity;
-        const ndy = state.imagePosition.dy + m * state.imagePosition.dHeight * scrollSensitivity;
-        const ndw = state.imagePosition.dWidth + -m * state.imagePosition.dWidth * scrollSensitivity * 2;
-        const ndh = state.imagePosition.dHeight + -m * state.imagePosition.dHeight * scrollSensitivity * 2;
-
-        if (ndw < image.width) {
-          state.imagePosition.dx = ndx;
-          state.imagePosition.dy = ndy;
-          state.imagePosition.dWidth = ndw;
-          state.imagePosition.dHeight = ndh;
-        }
-
-        keepImageInCanvas();
-        updateImageScale();
-
-        state.ctx.fillStyle = "rgb(255, 255, 255)";
-        state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
-        drawImage(state.ctx);
-      }
-    }
-
-    /**
-     * Returns rectangle coordinates with positive dimensions
-     * @param  rect  A rectangle
-     * @returns  An equivalent rectangle with width and height > 0
-     */
-    function correctRectCoordinates(rect: CanvasRect) {
-      if (rect.w < 0) {
-        rect.startX = rect.startX + rect.w;
-        rect.w = -rect.w;
-      }
-
-      if (rect.h < 0) {
-        rect.startY = rect.startY + rect.h;
-        rect.h = -rect.h;
-      }
-      return rect;
-    }
-
-    function drawWordBoxesOnCanvas(tsv: OcrTsvResponse[]) {
-      if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-
-      state.ctx.fillStyle = "rgb(255, 255, 255, 0.3)";
-      tsv
-        .filter((element) => element.level === 5)
-        .forEach((element) => {
-          if (state.canvasRect === null || state.canvas === null || state.ctx === null) return;
-          state.ctx.fillRect(
-            element.left * state.imagePosition.scale,
-            element.top * state.imagePosition.scale,
-            element.width * state.imagePosition.scale,
-            element.height * state.imagePosition.scale
-          );
-        });
-    }
-
-    /**
-     * Using rectangle coordinates, filters the tsv to get text elements contained
-     * inside the rectangle
-     * Additionaly adds newlines depending on the current "text split" mode
-     * @param  tsv   An Object containing tesseracts tsv fields
-     * @param  rect  Coordinates of a rectangle
-     * @returns Text from tsv contained in the rectangle
-     */
-    function getWordsInSelection(tsv: OcrTsvResponse[], rect: CanvasRect) {
-      const correctedRect = correctRectCoordinates(rect);
-
-      return tsv
-        .filter(
-          (element) =>
-            element.level === 5 &&
-            correctedRect.startY - state.imagePosition.dy < element.top * state.imagePosition.scale &&
-            correctedRect.startX - state.imagePosition.dx < element.left * state.imagePosition.scale &&
-            correctedRect.startX + correctedRect.w >
-              (element.left + element.width) * state.imagePosition.scale + state.imagePosition.dx &&
-            correctedRect.startY + correctedRect.h >
-              (element.top + element.height) * state.imagePosition.scale + state.imagePosition.dy
-        )
-        .map((element, index, array) => {
-          let separator = " ";
-          if (
-            state.selectedTextSplitMode !== "flatten" &&
-            index !== array.length - 1 &&
-            element[state.selectedTextSplitMode] !== array[index + 1][state.selectedTextSplitMode]
-          ) {
-            separator = "\n";
-          }
-          return element.text + separator;
-        })
-        .join("");
-    }
 
     function addIngredient(ingredients: Array<string> | null = null) {
       if (ingredients?.length) {
@@ -754,18 +272,22 @@ export default defineComponent({
             food: undefined,
             disableAmount: true,
             quantity: 1,
+            originalText: "",
           };
         });
 
         if (newIngredients) {
-          props.recipe.recipeIngredient?.push(...newIngredients);
+          // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+          props.recipe.recipeIngredient.push(...newIngredients);
         }
       } else {
-        props.recipe.recipeIngredient?.push({
+        props.recipe.recipeIngredient.push({
           referenceId: uuid4(),
           title: "",
           note: "",
+          // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
           unit: undefined,
+          // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
           food: undefined,
           disableAmount: true,
           quantity: 1,
@@ -789,13 +311,29 @@ export default defineComponent({
       }
     }
 
-    async function updateRecipe(recipe: NoUndefinedField<Recipe>) {
-      const { data } = await api.recipes.updateOne(recipe.slug, recipe);
+    //  EVENT HANDLERS
+
+    // Canvas component event handlers
+    async function updateRecipe() {
+      const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       if (data?.slug) {
         router.push("/recipe/" + data.slug);
       }
     }
 
+    function closeEditor() {
+      router.push("/recipe/" + props.recipe.slug);
+    }
+
+    const canvasSetText = function () {
+      setPropertyValueByPath<Recipe>(props.recipe, state.selectedRecipeField, state.canvasSelectedText);
+    };
+
+    function updateSelectedText(value: string) {
+      state.canvasSelectedText = value;
+    }
+
+    // Recipe field selection event handlers
     function setSingleIngredient(f: keyof RecipeIngredient, index: number) {
       state.selectedRecipeField = `recipeIngredient.${index}.${f}` as SelectedRecipeLeaves;
     }
@@ -811,21 +349,16 @@ export default defineComponent({
       ...toRefs(state),
       addIngredient,
       addStep,
-      api,
       drag,
       assetURL,
-      handleMouseDown,
-      handleMouseUp,
-      handleMouseMove,
-      handleMouseScroll,
       updateRecipe,
+      closeEditor,
+      updateSelectedText,
       tsv,
       validators,
-      switchCanvasMode,
       setSingleIngredient,
       setSingleStep,
-      switchSplitTextMode,
-      toolbarIcons,
+      canvasSetText,
     };
   },
 });
@@ -834,24 +367,5 @@ export default defineComponent({
 <style lang="css">
 .ghost {
   opacity: 0.5;
-}
-
-body {
-  background: #eee;
-}
-
-canvas {
-  background: white;
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  image-rendering: optimizeQuality;
-}
-
-.box {
-  position: absolute;
-  border: 2px #90ee90 solid;
-  background-color: #90ee90;
-
-  z-index: 3;
 }
 </style>
