@@ -14,7 +14,7 @@ const routes = {
 };
 
 export class BackupAPI extends BaseAPI {
-  /** Returns a list of avaiable .zip files for import into Mealie.
+  /** Returns a list of available .zip files for import into Mealie.
    */
   async getAll() {
     return await this.requests.get<AllBackups>(routes.backupsAvailable);

@@ -9,7 +9,7 @@ from tests.utils.fixture_schemas import TestUser
 
 class Routes:
     self = "/api/groups/self"
-    memebers = "/api/groups/members"
+    members = "/api/groups/members"
     permissions = "/api/groups/permissions"
 
 
@@ -25,7 +25,7 @@ def get_permissions_payload(user_id: str, can_manage=None) -> dict:
 def test_get_group_members(api_client: TestClient, user_tuple: list[TestUser]):
     usr_1, usr_2 = user_tuple
 
-    response = api_client.get(Routes.memebers, headers=usr_1.token)
+    response = api_client.get(Routes.members, headers=usr_1.token)
     assert response.status_code == 200
 
     members = response.json()

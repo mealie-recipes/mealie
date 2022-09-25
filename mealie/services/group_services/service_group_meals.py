@@ -15,7 +15,7 @@ class MealPlanService(BaseService):
     def get_random_recipe(self, categories: list[RecipeCategory] = None) -> Recipe:
         """get_random_recipe returns a single recipe matching a specific criteria of
         categories. if no categories are provided, a single recipe is returned from the
-        entire recipe databas.
+        entire recipe database.
 
         Note that the recipe must contain ALL categories in the list provided.
 

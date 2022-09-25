@@ -8,7 +8,7 @@ Recipes can be imported in bulk from a file containing a list of URLs. This can 
 ```bash
 #!/bin/bash
 
-function authentification () {
+function authentication () {
   auth=$(curl -X 'POST' \
     "$3/api/auth/token" \
     -H 'accept: application/json' \
@@ -38,7 +38,7 @@ password="MyPassword"
 mealie_url=http://localhost:9000
 
 
-token=$(authentification $mail $password $mealie_url)
+token=$(authentication $mail $password $mealie_url)
 import_from_file $input $token $mealie_url
 
 ```
@@ -51,7 +51,7 @@ See <a href="https://github.com/Jleagle/mealie-importer" target="_blank">Jleagle
 import requests
 import re
 
-def authentification(mail, password, mealie_url):
+def authentication(mail, password, mealie_url):
   headers = {
     'accept': 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -90,7 +90,7 @@ password="MyPassword"
 mealie_url="http://localhost:9000"
 
 
-token = authentification(mail, password, mealie_url)
+token = authentication(mail, password, mealie_url)
 import_from_file(input_file, token, mealie_url)
 ```
 

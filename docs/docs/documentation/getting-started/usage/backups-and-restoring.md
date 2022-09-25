@@ -1,6 +1,6 @@
 # Backups and Restoring
 
-Mealie provides an integrated mechanics for doing full installation backups of the database. Naviate to `/admin/backups` to
+Mealie provides an integrated mechanics for doing full installation backups of the database. Navigate to `/admin/backups` to
 
 - See a list of available backups
 - Perform a backups

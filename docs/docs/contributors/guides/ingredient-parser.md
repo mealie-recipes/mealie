@@ -4,7 +4,7 @@ Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredie
 
 ## Improving The CRF Parser
 
-To improve results with the model, you'll likely need to focus on improving the tokenization and parsing of the original string to aid the model in determine what the ingredient is. Datascience is not my forte, but I have done some tokenization to improve the model. You can find that code under `/mealie/services/parser_services/crfpp` along with some other utility functions to aid in the tokenization and processing of ingredient strings. 
+To improve results with the model, you'll likely need to focus on improving the tokenization and parsing of the original string to aid the model in determine what the ingredient is. Data science is not my forte, but I have done some tokenization to improve the model. You can find that code under `/mealie/services/parser_services/crfpp` along with some other utility functions to aid in the tokenization and processing of ingredient strings. 
 
 The best way to test on improving the parser is to register additional test cases in  `/mealie/tests/unit_tests/test_crfpp_parser.py` and run the test after making changes to the tokenizer. Note that the test cases DO NOT run in the CI environment, therefore you will need to have CRF++ installed on your machine. If you're using a Mac the easiest way to do this is through brew.
 

@@ -43,7 +43,7 @@ def clean_recipe_folders(root_dir: Path, dry_run: bool) -> int:
 
     for recipe_dir in root_dir.iterdir():
         if recipe_dir.is_dir():
-            # Attemp to convert the folder name to a UUID
+            # Attempt to convert the folder name to a UUID
             try:
                 uuid.UUID(recipe_dir.name)
                 continue

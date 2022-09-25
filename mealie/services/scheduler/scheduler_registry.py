@@ -7,7 +7,7 @@ logger = root_logger.get_logger()
 
 class SchedulerRegistry:
     """
-    A container class for registring and removing callbacks for the scheduler.
+    A container class for registering and removing callbacks for the scheduler.
     """
 
     _daily: list[Callable] = []

@@ -44,7 +44,7 @@ export default defineComponent({
     },
     image: {
       type: String,
-      requried: false,
+      required: false,
       default: "",
     },
   },

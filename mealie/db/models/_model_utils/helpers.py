@@ -5,13 +5,13 @@ from typing import Any
 
 def get_valid_call(func: Callable, args_dict) -> dict:
     """
-    Returns a dictionary of valid arguemnts for the supplied function. if kwargs are accepted,
+    Returns a dictionary of valid arguments for the supplied function. if kwargs are accepted,
     the original dictionary will be returned.
     """
 
     def get_valid_args(func: Callable) -> list[str]:
         """
-        Returns a tuple of valid arguemnts for the supplied function.
+        Returns a tuple of valid arguments for the supplied function.
         """
         return inspect.getfullargspec(func).args
 

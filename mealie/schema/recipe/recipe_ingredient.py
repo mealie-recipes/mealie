@@ -83,7 +83,7 @@ class RecipeIngredient(MealieModel):
     @classmethod
     def validate_quantity(cls, value, values) -> NoneFloat:
         """
-        Sometimes the frontend UI will provide an emptry string as a "null" value because of the default
+        Sometimes the frontend UI will provide an empty string as a "null" value because of the default
         bindings in Vue. This validator will ensure that the quantity is set to None if the value is an
         empty string.
         """

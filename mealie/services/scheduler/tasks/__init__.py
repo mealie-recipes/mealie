@@ -17,6 +17,6 @@ Tasks Package
 
 Common recurring tasks for the server to perform. Tasks here are registered to the SchedulerRegistry class
 in the app.py file as a post-startup task. This is done to ensure that the tasks are run after the server has
-started up and the Scheduler object is only avaiable to a single worker.
+started up and the Scheduler object is only available to a single worker.
 
 """

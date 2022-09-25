@@ -39,7 +39,7 @@ NAMES = {
     "nl-NL": "Nederlands (Dutch)",
     "pl-PL": "Polski (Polish)",
     "pt-BR": "Português do Brasil (Brazilian Portuguese)",
-    "pt-PT": "Português (Portugese)",
+    "pt-PT": "Português (Portuguese)",
     "ro-RO": "Română (Romanian)",
     "ru-RU": "Pусский (Russian)",
     "sr-SP": "српски (Serbian)",

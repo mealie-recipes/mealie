@@ -3,7 +3,7 @@ import { useUserApi } from "~/composables/api";
 import { UserIn, UserOut } from "~/types/api-types/user";
 
 /*
-TODO: Potentiall combine useAllUsers and useUser by delaying the get all users functinality
+TODO: Potentially combine useAllUsers and useUser by delaying the get all users functionality
 Unsure how this could work but still be clear and functional. Perhaps by passing arguments to the useUsers function
 to control whether the object is substantiated... but some of the others rely on it being substantiated...Will come back to this.
 */

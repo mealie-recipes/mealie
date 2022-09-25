@@ -36,7 +36,7 @@ Checkout the makefile for all of the available commands.
 
 Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies.
 
-=== "Linux / MacOs"
+=== "Linux / macOS"
 
     ```bash
     # Naviate To The Root Directory
@@ -66,7 +66,7 @@ Before you start the server you MUST copy the `template.env` and `frontend/templ
 
 Once that is complete you're ready to start the servers. You'll need two shells open, One for the server and one for the frontend.
 
-=== "Linux / MacOs"
+=== "Linux / macOS"
 
     ```bash
     # Terminal #1
