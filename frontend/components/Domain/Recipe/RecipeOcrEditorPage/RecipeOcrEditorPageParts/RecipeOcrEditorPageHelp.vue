@@ -46,6 +46,7 @@
     </v-card-text>
   </v-card>
 </template>
+
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 

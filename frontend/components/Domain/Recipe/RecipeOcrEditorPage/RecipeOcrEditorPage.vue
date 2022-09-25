@@ -233,7 +233,7 @@ export default defineComponent({
       let bestBlock = blocks[0];
       blocks.forEach((element) => {
         // element[0] is the block declaration line containing the blocks total dimensions
-        // element.lenght is the number of words (+ 2) contained in that block
+        // element.length is the number of words (+ 2) contained in that block
         const elementScore = (element[0].height * element[0].width) / element.length; // Prettier is adding useless parenthesis for a mysterious reason
         const elementText = element.map((element) => element.text).join(""); // Identify empty blocks and don't count them
         if (elementScore > bestScore && elementText !== "") {

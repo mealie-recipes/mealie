@@ -88,7 +88,7 @@
             dense
             solo
             class="mx-1"
-            placeholder="$t('recipe.notes')"
+            :placeholder="$t('recipe.notes')"
             @click="$emit('clickIngredientField', 'note')"
           >
             <v-icon v-if="disableAmount && $listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
@@ -102,12 +102,12 @@
             :buttons="[
               {
                 icon: $globals.icons.delete,
-                text: $t('general.delete'),
+                text: $tc('general.delete'),
                 event: 'delete',
               },
               {
                 icon: $globals.icons.dotsVertical,
-                text: $t('general.menu'),
+                text: $tc('general.menu'),
                 event: 'open',
                 children: contextMenuOptions,
               },
