@@ -125,4 +125,11 @@ export interface Icon {
   back: string;
   slotMachine: string;
   chevronDown: string;
+
+  // Ocr toolbar
+  selectMode: string;
+  panAndZoom: string;
+  preserveLines: string;
+  preserveBlocks: string;
+  flatten: string;
 }

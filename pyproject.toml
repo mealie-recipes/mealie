@@ -38,6 +38,7 @@ python-ldap = "^3.3.1"
 pydantic = "^1.9.1"
 tzdata = "^2021.5"
 pyhumps = "^3.5.3"
+pytesseract = "^0.3.9"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"

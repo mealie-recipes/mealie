@@ -60,7 +60,7 @@
                 {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
               </v-icon>
               <div class="my-auto" :color="isError(ing) ? 'error-text' : 'success-text'">
-                {{ asPercentage(ing.confidence.average) }}
+                {{ ing.confidence ? asPercentage(ing.confidence.average) : "" }}
               </div>
             </template>
           </v-expansion-panel-header>
@@ -197,7 +197,11 @@ export default defineComponent({
       return !(ing.confidence.average >= 0.75);
     }
 
-    function asPercentage(num: number) {
+    function asPercentage(num: number | undefined): string {
+      if (!num) {
+        return "0%";
+      }
+
       return Math.round(num * 100).toFixed(2) + "%";
     }
 
@@ -230,7 +234,11 @@ export default defineComponent({
       return false;
     }
 
-    async function createFood(food: CreateIngredientFood, index: number) {
+    async function createFood(food: CreateIngredientFood | undefined, index: number) {
+      if (!food) {
+        return;
+      }
+
       foodData.data.name = food.name;
       await foodStore.actions.createOne(foodData.data);
       errors.value[index].foodError = false;

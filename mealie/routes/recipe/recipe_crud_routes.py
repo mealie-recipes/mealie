@@ -33,7 +33,10 @@ from mealie.schema.recipe.recipe import (
     RecipeSummary,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
+from mealie.schema.recipe.recipe_settings import RecipeSettings
+from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
@@ -435,3 +438,37 @@ class RecipeController(BaseRecipeController):
         self.mixins.update_one(recipe, slug)
 
         return asset_in
+
+    # ==================================================================================================================
+    # OCR
+    @router.post("/create-ocr", status_code=201, response_model=str)
+    def create_recipe_ocr(
+        self, extension: str = Form(...), file: UploadFile = File(...), makefilerecipeimage: bool = Form(...)
+    ):
+        """Takes an image and creates a recipe based on the image"""
+        slug = self.service.create_one(
+            Recipe(
+                name="New OCR Recipe",
+                recipe_ingredient=[RecipeIngredient(note="", title=None, unit=None, food=None, original_text=None)],
+                recipe_instructions=[RecipeStep(text="")],
+                is_ocr_recipe=True,
+                settings=RecipeSettings(show_assets=True),
+                id=None,
+                image=None,
+                recipe_yield=None,
+                rating=None,
+                orgURL=None,
+                date_added=None,
+                date_updated=None,
+                created_at=None,
+                update_at=None,
+                nutrition=None,
+            )
+        ).slug
+        RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)
+        if makefilerecipeimage:
+            # Get the pointer to the beginning of the file to read it once more
+            file.file.seek(0)
+            self.update_recipe_image(slug, file.file.read(), extension)
+
+        return slug

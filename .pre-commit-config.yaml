@@ -9,6 +9,7 @@ repos:
       - id: check-toml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+        exclude: ^tests/data/
   - repo: https://github.com/sondrelg/pep585-upgrade
     rev: "v1.0.1" # Use the sha / tag you want to point at
     hooks:

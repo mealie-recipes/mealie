@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="800">
       <template #activator="{ on, attrs }">
-        <BaseButton v-bind="attrs" v-on="on" @click="inputText = ''">
+        <BaseButton v-bind="attrs" v-on="on" @click="inputText = inputTextProp">
           {{ $t("new-recipe.bulk-add") }}
         </BaseButton>
       </template>
@@ -58,10 +58,17 @@
 <script lang="ts">
 import { reactive, toRefs, defineComponent, useContext } from "@nuxtjs/composition-api";
 export default defineComponent({
-  setup(_, context) {
+  props: {
+    inputTextProp: {
+      type: String,
+      required: false,
+      default: "",
+    },
+  },
+  setup(props, context) {
     const state = reactive({
       dialog: false,
-      inputText: "",
+      inputText: props.inputTextProp,
     });
 
     function splitText() {

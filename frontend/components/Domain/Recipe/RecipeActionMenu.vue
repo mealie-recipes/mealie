@@ -90,6 +90,7 @@ const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
+const OCR_EVENT = "ocr";
 
 export default defineComponent({
   components: { RecipeContextMenu, RecipeFavoriteBadge },
@@ -122,8 +123,12 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    showOcrButton: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(_, context) {
+  setup(props, context) {
     const deleteDialog = ref(false);
 
     const { i18n, $globals } = useContext();
@@ -154,22 +159,26 @@ export default defineComponent({
       },
     ];
 
+    if (props.showOcrButton) {
+      editorButtons.splice(2, 0, {
+        text: i18n.t("ocr-editor.ocr-editor"),
+        icon: $globals.icons.eye,
+        event: OCR_EVENT,
+        color: "accent",
+      });
+    }
+
     function emitHandler(event: string) {
       switch (event) {
         case CLOSE_EVENT:
           context.emit(CLOSE_EVENT);
           context.emit("input", false);
           break;
-        case SAVE_EVENT:
-          context.emit(SAVE_EVENT);
-          break;
-        case JSON_EVENT:
-          context.emit(JSON_EVENT);
-          break;
         case DELETE_EVENT:
           deleteDialog.value = true;
           break;
         default:
+          context.emit(event);
           break;
       }
     }

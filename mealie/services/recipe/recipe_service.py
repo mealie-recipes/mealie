@@ -111,14 +111,18 @@ class RecipeService(BaseService):
             additional_attrs=create_data.dict(),
         )
 
-        data.settings = RecipeSettings(
-            public=self.group.preferences.recipe_public,
-            show_nutrition=self.group.preferences.recipe_show_nutrition,
-            show_assets=self.group.preferences.recipe_show_assets,
-            landscape_view=self.group.preferences.recipe_landscape_view,
-            disable_comments=self.group.preferences.recipe_disable_comments,
-            disable_amount=self.group.preferences.recipe_disable_amount,
-        )
+        if isinstance(create_data, CreateRecipe) or create_data.settings is None:
+            if self.group.preferences is not None:
+                data.settings = RecipeSettings(
+                    public=self.group.preferences.recipe_public,
+                    show_nutrition=self.group.preferences.recipe_show_nutrition,
+                    show_assets=self.group.preferences.recipe_show_assets,
+                    landscape_view=self.group.preferences.recipe_landscape_view,
+                    disable_comments=self.group.preferences.recipe_disable_comments,
+                    disable_amount=self.group.preferences.recipe_disable_amount,
+                )
+            else:
+                data.settings = RecipeSettings()
 
         return self.repos.recipes.create(data)
 
