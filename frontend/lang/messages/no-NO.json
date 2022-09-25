@@ -21,7 +21,7 @@
     "production": "Produksjon",
     "support": "Brukerstøtte",
     "version": "Versjon",
-    "unknown-version": "unknown"
+    "unknown-version": "ukjent"
   },
   "asset": {
     "assets": "Ressurser",
@@ -32,10 +32,10 @@
     "pdf": "PDF",
     "recipe": "Oppskrift",
     "show-assets": "Vis ressurser",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Feil ved innsending"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "Kategorier",
     "category-created": "Kategori opprettet",
     "category-creation-failed": "Kategori-opprettelse mislyktes",
     "category-deleted": "Kategori slettet",
@@ -44,12 +44,12 @@
     "category-update-failed": "Oppdatering av kategori mislyktes",
     "category-updated": "Kategori oppdatert",
     "uncategorized-count": "Ukategorisert {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
-    "category": "Category"
+    "create-a-category": "Opprett en kategori",
+    "category-name": "Navn på kategori",
+    "category": "Kategori"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Bruk URL",
     "database": "Database",
     "delete-event": "Slett hendelse",
     "new-notification-form-description": "Mealie bruker Apprise biblioteket til å generere varsler. De tilbyr mange alternativer for varsler. Se wikien for en omfattende guide om hvordan du oppretter URL-adressen for tjenesten din. Hvis tilgjengelig, kan valg av type varsel inkludere ekstra funksjoner.",
@@ -67,7 +67,7 @@
     "close": "Lukk",
     "confirm": "Bekreft",
     "confirm-delete-generic": "Er du sikker på at du vil slette dette?",
-    "copied_message": "Copied!",
+    "copied_message": "Kopiert!",
     "create": "Opprett",
     "created": "Opprettet",
     "custom": "Egendefinert",
@@ -126,7 +126,7 @@
     "test": "Test",
     "themes": "Temaer",
     "thursday": "Torsdag",
-    "token": "Token",
+    "token": "Symbol",
     "tuesday": "Tirsdag",
     "type": "Type",
     "update": "Oppdater",
@@ -136,26 +136,26 @@
     "view": "Vis",
     "wednesday": "Onsdag",
     "yes": "Ja",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next",
-    "toggle-view": "Toggle View",
-    "date": "Date",
+    "foods": "Mat",
+    "units": "Enheter",
+    "back": "Tilbake",
+    "next": "Neste",
+    "toggle-view": "Bytt visning",
+    "date": "Dato",
     "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
-    "run": "Run",
-    "menu": "Menu",
-    "a-name-is-required": "A Name is Required",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "organizer": "Organizer",
-    "transfer": "Transfer",
-    "copy": "Copy",
-    "color": "Color",
-    "timestamp": "Timestamp"
+    "owner": "Eier",
+    "date-added": "Dato lagt til",
+    "none": "Ingen",
+    "run": "Kjør",
+    "menu": "Meny",
+    "a-name-is-required": "Navn er påkrevd",
+    "delete-with-name": "Slett {name}",
+    "confirm-delete-generic-with-name": "Er du sikker på at du vil slette {name}?",
+    "organizer": "Planlegger",
+    "transfer": "Overfør",
+    "copy": "Kopier",
+    "color": "Farge",
+    "timestamp": "Tidsstempel"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -177,8 +177,8 @@
     "user-group-created": "Brukergruppe opprettet",
     "user-group-creation-failed": "Opprett brukergruppe feilet",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Hold mine oppskrifter privat",
+      "keep-my-recipes-private-description": "Setter gruppen din og alle oppskrifter som standard til private. Du kan alltid endre dette senere."
     }
   },
   "meal-plan": {
@@ -208,23 +208,23 @@
     "side": "Siderett",
     "sides": "Sideretter",
     "start-date": "Start Dato",
-    "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "type-any": "Any",
-    "day-any": "Any"
+    "rule-day": "Regeldag",
+    "meal-type": "Type måltid",
+    "breakfast": "Frokost",
+    "lunch": "Lunsj",
+    "dinner": "Middag",
+    "type-any": "Hva som helst",
+    "day-any": "Hvilken som helst"
   },
   "migration": {
     "chowdown": {
       "description": "Overfør data fra Chowdown",
-      "title": "Chowdown"
+      "title": "Hive i seg"
     },
     "migration-data-removed": "Migrasjonsdata er fjernet",
     "nextcloud": {
       "description": "Migrer data fra en Nextcloud Cookbook instans",
-      "title": "Nextcloud Cookbook"
+      "title": "Nextcloud kokebok"
     },
     "no-migration-data-available": "Ingen migrasjonsdata tilgjengelig",
     "recipe-migration": "Oppskriftsmigrering"
@@ -234,7 +234,7 @@
     "error-details": "Bare nettsteder som inneholder ld+json eller mikrodata kan importeres av Mealie. De største oppskriftsnettsteder støtter denne datastrukturen. Dersom nettstedet ditt ikke kan importeres, men det er json-data i loggen, må du sende inn et github-problem med nettadressen og data.",
     "error-title": "Ser ut som vi ikke kunne finne noe",
     "from-url": "Importer en oppskrift",
-    "github-issues": "GitHub Issues",
+    "github-issues": "GitHub problemer",
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Må være en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Lim inn oppskriftsdataene. Hver linje blir behandlet som et element i en liste",
@@ -245,10 +245,10 @@
     "url-form-hint": "Kopier og lim inn en lenke fra ditt favoritt-oppskriftsnettsted",
     "view-scraped-data": "Vis skrapte data",
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
+    "trim-prefix-description": "Fjern første tegn fra hver linje",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "import-by-url": "Importer en oppskrift via URL",
+    "create-manually": "Lag en oppskrift manuelt"
   },
   "page": {
     "404-page-not-found": "404 Siden ble ikke funnet",
@@ -262,8 +262,8 @@
     "page-updated": "Side oppdatert",
     "pages-update-failed": "Oppdatering av siden mislyktes",
     "pages-updated": "Sider oppdatert",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Finner ikke siden",
+    "an-error-occurred": "En feil oppstod"
   },
   "recipe": {
     "add-key": "Legg til nøkkel",
@@ -280,7 +280,7 @@
     "description": "Beskrivelse",
     "disable-amount": "Deaktiver Ingrediens-mengde",
     "disable-comments": "Deaktiver kommentarer",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Rediger Skala",
     "fat-content": "Fett",
     "fiber-content": "Kostfiber",
     "grams": "gram",
@@ -324,37 +324,37 @@
     "title": "Tittel",
     "total-time": "Total Tid",
     "unable-to-delete-recipe": "Kan ikke slette oppskrift",
-    "no-recipe": "No Recipe",
-    "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
-    "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
-    "add-to-list": "Add to List",
-    "add-to-plan": "Add to Plan",
-    "recipe-added-to-list": "Recipe added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
-    "yield": "Yield",
-    "quantity": "Quantity",
-    "choose-unit": "Choose Unit",
-    "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Choose Food",
-    "notes": "Notes",
-    "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
-    "auto": "Auto",
-    "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked",
-    "public-link": "Public Link"
+    "no-recipe": "Ingen oppskrifter",
+    "locked-by-owner": "Låst av Eier",
+    "join-the-conversation": "Delta i samtalen",
+    "add-recipe-to-mealplan": "Legg til oppskrift til måltidsplan",
+    "entry-type": "Enhetstype",
+    "date-format-hint": "DD/MM/ÅÅÅÅ format",
+    "add-to-list": "Legg til i liste",
+    "add-to-plan": "Legg til i Plan",
+    "recipe-added-to-list": "Oppskriften er lagt til i listen",
+    "recipe-added-to-mealplan": "Oppskriften er lagt til i listen",
+    "failed-to-add-recipe-to-mealplan": "Klarte ikke å legge til oppskrift på måltidsplan",
+    "yield": "Utbytte",
+    "quantity": "Antall",
+    "choose-unit": "Velg en enhet",
+    "press-enter-to-create": "Trykk Enter for å legge til",
+    "choose-food": "Velg matvarer",
+    "notes": "Notater",
+    "toggle-section": "Velg seksjon",
+    "see-original-text": "Se opprinnelig tekst",
+    "original-text-with-value": "Opprinnelig tekst: {originalText}",
+    "ingredient-linker": "Ingredienskobling",
+    "linked-to-other-step": "Koblet til et annet trinn",
+    "auto": "Automatisk",
+    "cook-mode": "Tilbered modus",
+    "link-ingredients": "Lenke til ingredienser",
+    "merge-above": "Slå sammen over",
+    "reset-scale": "Nullstill skalaen",
+    "decrease-scale-label": "Reduser skalaen med 1",
+    "increase-scale-label": "Reduser skalaen med 1",
+    "locked": "Låst",
+    "public-link": "Offentlig lenke"
   },
   "search": {
     "advanced-search": "Avansert søk",
@@ -368,7 +368,7 @@
     "search-mealie": "Søke i Mealie (trykk /)",
     "search-placeholder": "Søk...",
     "tag-filter": "Etikett filter",
-    "search-hint": "Press '/'"
+    "search-hint": "Trykk på '/'"
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",
@@ -424,7 +424,7 @@
       "error-creating-theme-see-log-file": "Feil under oppretting av tema. Se loggfilen.",
       "error-deleting-theme": "Feil ved sletting av tema",
       "error-updating-theme": "Feil ved oppdatering av tema",
-      "info": "Info",
+      "info": "Informasjon",
       "light": "Lys",
       "primary": "Primær",
       "secondary": "Sekundær",
@@ -437,8 +437,8 @@
       "theme-saved": "Tema lagret",
       "theme-updated": "Tema oppdatert",
       "warning": "Advarsel",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Lys modus",
+      "dark-mode": "Mørkemodus"
     },
     "token": {
       "active-tokens": "AKTIVE TOKENS",
@@ -498,12 +498,12 @@
     "tags": "Etiketter",
     "toolbox": "Verktøy",
     "language": "Language",
-    "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
+    "maintenance": "Vedlikehold",
+    "background-tasks": "Bakgrunnsoppgaver",
     "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "developer": "Utvikler",
+    "cookbook": "Kokebok",
+    "create-cookbook": "Lag en ny kokebok"
   },
   "signup": {
     "error-signing-up": "Feil under pålogging",
@@ -524,16 +524,16 @@
     "tag-updated": "Etikett oppdatert",
     "tags": "Etiketter",
     "untagged-count": "Umerkede {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Lag en etikett",
+    "tag-name": "Etikettnavn"
   },
   "tool": {
-    "tools": "Tools",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "tools": "Verktøy",
+    "on-hand": "Tillgjengelig",
+    "create-a-tool": "Lag et verktøy",
+    "tool-name": "Verktøy Navn",
+    "create-new-tool": "Opprett nytt verktøy",
+    "on-hand-checkbox-label": "Vis som tilgjengelig (avmerket)"
   },
   "user": {
     "admin": "Administrator",
@@ -552,7 +552,7 @@
     "error-cannot-delete-super-user": "Feil! Kan ikke slette superbruker",
     "existing-password-does-not-match": "Eksisterende passord samsvarer ikke",
     "full-name": "Fullt navn",
-    "invite-only": "Invite Only",
+    "invite-only": "Kun inviterte",
     "link-id": "Link-ID",
     "link-name": "Lenkenavn",
     "login": "Logg på",
@@ -565,8 +565,8 @@
     "password-reset-failed": "Nullstilling av passord mislyktes",
     "password-updated": "Passord oppdatert",
     "password": "Passord",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Passordet er {strength}",
+    "register": "Registrér",
     "reset-password": "Tilbakestill passord",
     "sign-in": "Logg inn",
     "total-mealplans": "Antall Oppskrifter",
@@ -590,57 +590,57 @@
     "webhooks-enabled": "Webhooks aktivert",
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheter til å opprette en bruker",
     "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheter til å slette denne brukeren",
-    "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
-    "favorite-recipes": "Favorite Recipes"
+    "enable-advanced-content": "Aktiver avanserte funksjoner",
+    "enable-advanced-content-description": "Aktiver avanserte funksjoner som skalering av oppskriffter, API-nøkler, Webhooks og Data styring. Du kan alltid endre dette senere",
+    "favorite-recipes": "Favoritt oppskrifter"
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "translated": "oversatt",
+    "choose-language": "Velg språk",
+    "select-description": "Velg språk for Mealie brukergrensesnittet. Innstillingen gjelder bare for deg, ikke andre brukere.",
+    "how-to-contribute-description": "Er noe ikke oversatt ennå, feil oversatt, eller ditt språk mangler i listen? {read-the-docs-link} hvordan bidra!",
+    "read-the-docs": "Les dokumentasjonen"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Frødata",
     "foods": {
       "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
-      "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "merge-food-example": "Slår sammen {food1} til {food2}",
+      "seed-dialog-text": "Legg til databasen med mat basert på ditt lokale språk. Dette vil opprette 200+ felles matvarer som kan brukes til å organisere databasen. Næringsmidler oversettes via en samfunnsinnsats.",
+      "seed-dialog-warning": "Du har allerede elementer i databasen. Denne handlingen vil ikke rekonfigurere duplikater, du må administrere dem manuelt."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Lag en database med vanlige enheter basert på ditt lokale språk."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Lag en database med vanlige enheter basert på ditt lokale språk."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
-    "group-details": "Group Details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "user-registration": "Brukerregistrering",
+    "join-a-group": "Bli med i en gruppe",
+    "create-a-new-group": "Opprett en ny gruppe",
+    "provide-registration-token-description": "Vennligst oppgi registreringstoken knyttet til gruppen du ønsker å bli med. Du må skaffe dette fra et eksisterende gruppemedlem.",
+    "group-details": "Gruppeinfo",
+    "group-details-description": "Før du oppretter en konto må du lage en gruppe. Gruppen din vil bare inneholde deg, men du vil kunne invitere andre senere. Medlemmer i gruppen din kan dele måltider, handlelister, oppskrifter med mer!",
+    "use-seed-data": "Bruk hoveddata",
+    "use-seed-data-description": "Møt kommer med en samling av mat, enheter og etiketter som kan brukes til å fylle gruppen din med nyttige data for å organisere oppskriftene dine.",
+    "account-details": "Kontodetaljer"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Gruppenavn er opptatt",
+    "username-is-taken": "Brukernavnet er opptatt",
+    "email-is-taken": "E-postadressen er opptatt"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Eksporter",
+    "file-name": "Filnavn",
+    "size": "Størrelse",
+    "link-expires": "Lenken utløper"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
+    "expiration-date": "Utløpsdato",
+    "share-recipe": "Del oppskrift",
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
