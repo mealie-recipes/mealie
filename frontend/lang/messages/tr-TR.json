@@ -249,7 +249,7 @@
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "Import a recipe by URL",
     "create-manually": "Create a recipe manually",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Bunu tarif resmi yap"
   },
   "page": {
     "404-page-not-found": "404 Page not found",
@@ -663,31 +663,31 @@
     "demo_password": "Şifre: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
-    "flatten": "Flatten regardless of original formating",
+    "ocr-editor": "Ocr editör",
+    "selection-mode": "Seçim modu",
+    "pan-and-zoom-picture": "Resmi kaydır ve yakınlaştır",
+    "split-text": "Bölünmüş metin",
+    "preserve-line-breaks": "Orijinal satır sonlarını koru",
+    "split-by-block": "Metin bloğuna göre böl",
+    "flatten": "Orijinal biçimlendirmeden bağımsız olarak düzleştir",
     "help": {
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode": "Seçim Modu (varsayılan)",
+      "selection-mode-desc": "Seçim modu, veri girmek için kullanılabilecek ana moddur:",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
-        "click": "Click on any field on the right and then click back on the rectangle above the image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "draw": "Seçmek istediğiniz metnin üzerine bir dikdörtgen çizin.",
+        "click": "Sağdaki herhangi bir alana tıklayın ve ardından resmin üzerindeki dikdörtgene geri tıklayın.",
+        "result": "Seçilen metin, önceden seçilen alanın içinde görünecektir."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-mode": "Kaydırma ve Yakınlaştırma Modu",
+      "pan-and-zoom-desc": "Simgeye tıklayarak kaydırma ve yakınlaştırmayı seçin. Bu mod, büyük görüntülerin kullanımını kolaylaştırmak için görüntünün içinde yakınlaştırmaya ve hareket etmeye izin verir.",
+      "split-text-mode": "Bölünmüş Metin modları",
       "split-modes": {
-        "line-mode": "Line mode (default)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "line-mode": "Satır modu (varsayılan)",
+        "line-mode-desc": "Satır modunda, metin orijinal satır sonları korunarak yayılacaktır. Bu mod, bir bileşenin bir satır olduğu bir içerik listesine toplu ekleme kullanıldığında kullanışlıdır.",
+        "block-mode": "Blok modu",
+        "block-mode-desc": "Blok modunda metin bloklara bölünecektir. Bu mod, genellikle paragraflar halinde yazılan talimatları toplu olarak eklerken kullanışlıdır.",
+        "flat-mode": "Düz mod",
+        "flat-mode-desc": "Düz modda, metin, satır sonu olmadan seçilen tarif alanına eklenecektir."
       }
     }
   }
