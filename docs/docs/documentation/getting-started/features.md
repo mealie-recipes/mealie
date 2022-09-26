@@ -52,7 +52,7 @@ Each of the above organizers can be filtered in searches, and have their own pag
 
 #### Cookbooks
 
-Mealie also has the concept of cookbooks. These can be created inside of a group and can use a cross section of Categories, Tags, and Tools to filter recipes and view them in one specific page. Cookbooks are a great way to keep a supset of recipes easily accessible to you. You can think of them as a saved search results page. While most examples are simple, you can use as many organizers to filter a cookbook as you'd like.
+Mealie also has the concept of cookbooks. These can be created inside of a group and can use a cross section of Categories, Tags, and Tools to filter recipes and view them in one specific page. Cookbooks are a great way to keep a subset of recipes easily accessible to you. You can think of them as a saved search results page. While most examples are simple, you can use as many organizers to filter a cookbook as you'd like.
 
 #### Examples:
 
@@ -113,7 +113,7 @@ Managing a robust collection of recipes inevitable requires a lot of data. Meali
 
 ### Site Settings
 
-The site settings page contains general information about your installtion like the application version, some configuration details, and some utilities to help you confirm your installation is working as expected. For example, you can use the Email Configuration section to validate that your email credentials are setup correctly and that the email service is working as expected. Additionally, there is a docker-volume utility that will confirm your volumes are configured and shared correctly between the front and backend of the application.
+The site settings page contains general information about your installation like the application version, some configuration details, and some utilities to help you confirm your installation is working as expected. For example, you can use the Email Configuration section to validate that your email credentials are setup correctly and that the email service is working as expected. Additionally, there is a docker-volume utility that will confirm your volumes are configured and shared correctly between the front and backend of the application.
 
 [Demo](https://demo.mealie.io/admin/site-settings){ .md-button .md-button--primary }
 

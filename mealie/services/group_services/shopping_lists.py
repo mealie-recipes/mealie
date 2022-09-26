@@ -49,7 +49,7 @@ class ShoppingListService:
         """
         itterates through the shopping list provided and returns
         a consolidated list where all items that are matched against multiple values are
-        de-duplicated and only the first item is kept where the quantity is updated accoridngly.
+        de-duplicated and only the first item is kept where the quantity is updated accordingly.
         """
 
         consolidated_list: list[ShoppingListItemOut] = []

@@ -30,7 +30,7 @@ def sizeof_fmt(file_path: Path, decimal_places=2):
 @dataclass
 class MinifierOptions:
     original: bool = True
-    minature: bool = True
+    miniature: bool = True
     tiny: bool = True
 
 
@@ -108,7 +108,7 @@ class PillowMinifier(ABCMinifier):
                 PillowMinifier.to_webp(image_file, org_dest, quality=70)
                 success = True
 
-        if self._opts.minature:
+        if self._opts.miniature:
             if not force and min_dest.exists():
                 self._logger.info(f"{image_file.name} already minified")
             else:

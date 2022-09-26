@@ -19,5 +19,5 @@ def move_parens_to_end(ing_str) -> str:
 
 
 def check_char(char, *eql) -> bool:
-    """Helper method to check if a charaters matches any of the additional provided arguments"""
+    """Helper method to check if a characters matches any of the additional provided arguments"""
     return any(char == eql_char for eql_char in eql)

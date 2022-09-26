@@ -24,7 +24,7 @@ class BackgroundExecutor:
         pass
 
     def dispatch(self, task_name: ServerTaskNames, func: Callable, *args: Any, **kwargs: Any) -> ServerTask:
-        """The dispatch function is a wrapper around the BackgroundTasks class in Starlett. It dirctly calls
+        """The dispatch function is a wrapper around the BackgroundTasks class in Starlett. It directly calls
         the add_task function and your task will be run in the background. This function all passes the id required
         to check on the server tasks in the database and provide updates.
 

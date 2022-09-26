@@ -64,7 +64,7 @@ logging.basicConfig(
 
 
 def logger_init() -> logging.Logger:
-    """Returns the Root Loggin Object for Mealie"""
+    """Returns the Root Logging Object for Mealie"""
     return logging.getLogger("mealie")
 
 

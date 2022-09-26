@@ -15,7 +15,7 @@ class Base:
 
 class BaseMixins:
     """
-    `self.update` method which directly passing arugments to the `__init__`
+    `self.update` method which directly passing arguments to the `__init__`
     `cls.get_ref` method which will return the object from the database or none. Useful for many-to-many relationships.
     """
 

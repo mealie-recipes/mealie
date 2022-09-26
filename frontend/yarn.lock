@@ -2333,10 +2333,10 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
-"@types/sortablejs@^1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@types/sortablejs/-/sortablejs-1.13.0.tgz#870223438f8f2cd81157b128a4c0261adbcaa946"
-  integrity sha512-C3064MH72iEfeGCYEGCt7FCxXoAXaMPG0QPnstcxvPmbl54erpISu06d++FY37Smja64iWy5L8wOyHHBghWbJQ==
+"@types/sortablejs@^1.15.0":
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@types/sortablejs/-/sortablejs-1.15.0.tgz#695e481752e2a0a311c5e73b51d5f666fc202f93"
+  integrity sha512-qrhtM7M41EhH4tZQTNw2/RJkxllBx3reiJpTbgWCM2Dx0U1sZ6LwKp9lfNln9uqE26ZMKUaPEYaD4rzvOWYtZw==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -4138,10 +4138,10 @@ core-js@^2.6.5:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.22.3, core-js@^3.25.1:
-  version "3.25.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.25.1.tgz#5818e09de0db8956e16bf10e2a7141e931b7c69c"
-  integrity sha512-sr0FY4lnO1hkQ4gLDr24K0DGnweGO1QwSj5BpfQjpSJPdqWalja4cTps29Y/PJVG/P7FYlPDkH3hO+Tr0CvDgQ==
+core-js@^3.22.3, core-js@^3.25.2:
+  version "3.25.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.25.2.tgz#2d3670c1455432b53fa780300a6fc1bd8304932c"
+  integrity sha512-YB4IAT1bjEfxTJ1XYy11hJAKskO+qmhuDBM8/guIfMz4JvdsAQAqvyb97zXX7JgSrfPLG5mRGFWJwJD39ruq2A==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -5284,10 +5284,10 @@ eslint-plugin-unicorn@^43.0.2:
     semver "^7.3.7"
     strip-indent "^3.0.0"
 
-eslint-plugin-vue@9.4.0, eslint-plugin-vue@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.4.0.tgz#31c2d9002b5bb437b351a5feffdf37c4397e5cb9"
-  integrity sha512-Nzz2QIJ8FG+rtJaqT/7/ru5ie2XgT9KCudkbN0y3uFYhQ41nuHEaboLAiqwMcK006hZPQv/rVMRhUIwEGhIvfQ==
+eslint-plugin-vue@9.5.1, eslint-plugin-vue@^9.4.0:
+  version "9.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.5.1.tgz#87ce075882cf7d824b95f46c224f91495fafcc54"
+  integrity sha512-Y0sL2RY7Xc9S8kNih9lbwHIDmewUg9bfas6WSzsOWRgDXhIHKxRBZYNAnVcXBFfE+bMWHUA5GLChl7TcTYUI8w==
   dependencies:
     eslint-utils "^3.0.0"
     natural-compare "^1.4.0"

@@ -56,7 +56,7 @@ export const LOCALES = [
     progress: 4,
   },
   {
-    name: "Português (Portugese)",
+    name: "Português (Portuguese)",
     value: "pt-PT",
     progress: 10,
   },

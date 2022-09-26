@@ -18,7 +18,7 @@ class PasswordResetService(BaseService):
 
         if user is None:
             self.logger.error(f"failed to create password reset for {email=}: user doesn't exists")
-            # Do not raise exception here as we don't want to confirm to the client that the Email doens't exists
+            # Do not raise exception here as we don't want to confirm to the client that the Email doesn't exists
             return None
 
         # Create Reset Token

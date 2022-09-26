@@ -141,10 +141,11 @@ class Recipe(RecipeSummary):
     nutrition: Optional[Nutrition]
 
     # Mealie Specific
-    settings: Optional[RecipeSettings] = RecipeSettings()
+    settings: Optional[RecipeSettings] = None
     assets: Optional[list[RecipeAsset]] = []
     notes: Optional[list[RecipeNote]] = []
     extras: Optional[dict] = {}
+    is_ocr_recipe: Optional[bool] = False
 
     comments: Optional[list[RecipeCommentOut]] = []
 

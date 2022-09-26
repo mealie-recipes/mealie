@@ -8,7 +8,7 @@ const routes = {
 };
 
 export class RegisterAPI extends BaseAPI {
-  /** Returns a list of avaiable .zip files for import into Mealie.
+  /** Returns a list of available .zip files for import into Mealie.
    */
   async register(payload: CreateUserRegistration) {
     return await this.requests.post<any>(routes.register, payload);

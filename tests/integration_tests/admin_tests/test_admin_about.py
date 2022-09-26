@@ -32,7 +32,7 @@ def test_admin_about_get_app_statistics(api_client: TestClient, admin_user: Test
 
     as_dict = response.json()
 
-    # Smoke Test - Test the endpoint returns something thats a number
+    # Smoke Test - Test the endpoint returns something that's a number
     assert as_dict["totalRecipes"] >= 0
     assert as_dict["uncategorizedRecipes"] >= 0
     assert as_dict["untaggedRecipes"] >= 0
@@ -45,7 +45,7 @@ def test_admin_about_check_app_config(api_client: TestClient, admin_user: TestUs
 
     as_dict = response.json()
 
-    # Smoke Test - Test the endpoint returns something thats a the expected shape
+    # Smoke Test - Test the endpoint returns something that's a the expected shape
     assert as_dict["emailReady"] in [True, False]
     assert as_dict["ldapReady"] in [True, False]
     assert as_dict["baseUrlSet"] in [True, False]

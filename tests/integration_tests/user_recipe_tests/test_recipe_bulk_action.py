@@ -140,7 +140,7 @@ def test_bulk_export_recipes(api_client: TestClient, unique_user: TestUser, ten_
 
     assert validate_file_token(response_data["fileToken"]) == Path(export_path)
 
-    # Use Export Token to donwload export
+    # Use Export Token to download export
     response = api_client.get(f'/api/utils/download?token={response_data["fileToken"]}')
 
     assert response.status_code == 200

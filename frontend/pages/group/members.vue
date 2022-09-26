@@ -9,6 +9,9 @@
       data-management page <b> Invite </b> allows the user to generate invitation links for other users. Group owners
       cannot change their own permissions.
     </BasePageTitle>
+    <v-container class="mt-4 d-flex justify-start">
+      <v-btn outlined rounded to="/user/profile/edit"> Looking to Update Your Profile? </v-btn>
+    </v-container>
     <v-data-table
       :headers="headers"
       :items="members || []"

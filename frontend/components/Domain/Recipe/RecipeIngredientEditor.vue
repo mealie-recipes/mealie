@@ -8,6 +8,7 @@
       class="mx-1 mt-3 mb-4"
       :placeholder="$t('recipe.section-title')"
       style="max-width: 500px"
+      @click="$emit('clickIngredientField', 'title')"
     >
     </v-text-field>
     <v-row :no-gutters="$vuetify.breakpoint.mdAndUp" dense class="d-flex flex-wrap my-1">
@@ -81,7 +82,15 @@
       </v-col>
       <v-col sm="12" md="" cols="12">
         <div class="d-flex">
-          <v-text-field v-model="value.note" hide-details dense solo class="mx-1" :placeholder="$t('recipe.notes')">
+          <v-text-field
+            v-model="value.note"
+            hide-details
+            dense
+            solo
+            class="mx-1"
+            :placeholder="$t('recipe.notes')"
+            @click="$emit('clickIngredientField', 'note')"
+          >
             <v-icon v-if="disableAmount && $listeners && $listeners.delete" slot="prepend" class="mr-n1 handle">
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
@@ -93,12 +102,12 @@
             :buttons="[
               {
                 icon: $globals.icons.delete,
-                text: $t('general.delete'),
+                text: $tc('general.delete'),
                 event: 'delete',
               },
               {
                 icon: $globals.icons.dotsVertical,
-                text: $t('general.menu'),
+                text: $tc('general.menu'),
                 event: 'open',
                 children: contextMenuOptions,
               },

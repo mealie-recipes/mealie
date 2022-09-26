@@ -176,6 +176,7 @@
                   blur: imageUploadMode,
                 }"
                 @drop.stop.prevent="handleImageDrop(index, $event)"
+                @click="$emit('clickInstructionField', `${index}.text`)"
               >
                 <MarkdownEditor
                   v-model="value[index]['text']"

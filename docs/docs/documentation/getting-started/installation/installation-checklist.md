@@ -63,7 +63,7 @@ After you've configured your database, and updated the `docker-compose.yaml` fil
 $ docker-compose up -d
 ```
 
-You should see the containers start up without error. You should now be able to access the Mealie frontend at [http://localhost:9925](http://locahost:9925).
+You should see the containers start up without error. You should now be able to access the Mealie frontend at [http://localhost:9925](http://localhost:9925).
 
 !!! tip "Default Credentials"
 
@@ -102,8 +102,8 @@ While the docker-compose file should work without modification, some users want 
 
 ![Docker Diagram](../../../assets/img/docker-diagram.drawio.svg)
 
-In the diagram above there's a few crutial things to note.
+In the diagram above there's a few crucial things to note.
 
 1. Port 9925 is the host port, this can be anything you want. The important part is that it's mapped to the mealie-frontend container at port 3000.
 2. The mealie-frontend container communicated with the mealie-api container through the INTERNAL docker network. This requires that the two containers are on the same network and that the network supports name resolution (anything but the default bridge network). The resolution URL can be specified in the docker-compose as the `API_URL` environment variable.
-3. The mealie-data volume is mounted to BOTH the mealie-frontend and mealie-api containers. This is REQUIRED to ensure that images and assets are severed up correctly. While the default configuration is a docker-volume, that same can be accomplished by using a local directory mounted to the containers.
+3. The mealie-data volume is mounted to BOTH the mealie-frontend and mealie-api containers. This is REQUIRED to ensure that images and assets are served up correctly. While the default configuration is a docker-volume, that same can be accomplished by using a local directory mounted to the containers.
