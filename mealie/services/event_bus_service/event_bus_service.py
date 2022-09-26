@@ -84,6 +84,6 @@ class EventBusService:
             if subscribers := listener.get_subscribers(event):
                 listener.publish_to_subscribers(event, subscribers)
 
-    @staticmethod
-    def create(bg: BackgroundTasks, session=Depends(generate_session), group_id: UUID4 | None = None):
-        return EventBusService(bg, session, group_id)
+    @classmethod
+    def create(cls, bg: BackgroundTasks, session=Depends(generate_session), group_id: UUID4 | None = None):
+        return cls(bg, session, group_id)
