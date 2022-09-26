@@ -3,16 +3,22 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional, Union
 
-from pydantic import UUID4
+from pydantic import UUID4, validator
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.response.pagination import PaginationBase
 
 
 class ShoppingListItemRecipeRef(MealieModel):
     recipe_id: UUID4
-    recipe_quantity: float
+    recipe_quantity: NoneFloat
+
+    # some recipes have a null quantity, so we default to 0
+    @validator("recipe_quantity")
+    def default_null_quantity(cls, v):
+        return v or 0
 
 
 class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRef):
