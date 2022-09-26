@@ -2,7 +2,7 @@
   <v-container v-if="shoppingLists" class="narrow-container">
     <BaseDialog v-model="createDialog" :title="$tc('shopping-list.create-shopping-list')" @submit="createOne">
       <v-card-text>
-        <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')" @keyup.enter="createOne(); createDialog = false;" > </v-text-field>
+        <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
       </v-card-text>
     </BaseDialog>
 
