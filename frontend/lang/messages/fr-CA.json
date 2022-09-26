@@ -336,7 +336,7 @@
     "recipe-added-to-list": "Recette ajoutée à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée à la planification des repas",
     "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
-    "yield": "Nombre de portions",
+    "yield": "Rendement",
     "quantity": "Quantité",
     "choose-unit": "Choisir une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
@@ -680,7 +680,7 @@
       },
       "pan-and-zoom-mode": "Pan and Zoom Mode",
       "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "split-text-mode": "Modes de texte partagé",
       "split-modes": {
         "line-mode": "Line mode (default)",
         "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
