@@ -23,13 +23,11 @@ def post_group_webhooks(start_dt: Optional[datetime] = None, group_id: Optional[
 
     global last_ran
 
-    end_dt = datetime.now(timezone.utc)
-    if start_dt is None:
-        # set the webhook query bounds to start at the last time the service ran
-        start_dt = last_ran
+    # if not specified, start the query at the last time the service ran
+    start_dt = start_dt or last_ran
 
-    # update the last ran time so we continue here next time the service runs
-    last_ran = end_dt
+    # end the query at the current time
+    last_ran = end_dt = datetime.now(timezone.utc)
 
     if group_id is None:
         # publish the webhook event to each group's event bus
