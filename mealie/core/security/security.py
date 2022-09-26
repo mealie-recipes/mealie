@@ -52,31 +52,53 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     settings = get_app_settings()
 
+    if settings.LDAP_TLS_INSECURE:
+        ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
+    ldap.set_option(ldap.OPT_REFERRALS, 0)
+    ldap.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
     conn = ldap.initialize(settings.LDAP_SERVER_URL)
-    user_dn = settings.LDAP_BIND_TEMPLATE.format(username)
+
+    if settings.LDAP_TLS_CACERTFILE:
+        conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
+        conn.set_option(ldap.OPT_X_TLS_NEWCTX, 0)
+    user = db.users.get_one(username, "email", any_case=True)
+    if not user:
+        user_bind = settings.LDAP_BIND_TEMPLATE.format(username)
+        user = db.users.get_one(username, "username", any_case=True)
+    else:
+        user_bind = settings.LDAP_BIND_TEMPLATE.format(user.username)
     try:
-        conn.simple_bind_s(user_dn, password)
+        conn.simple_bind_s(user_bind, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
         return False
 
-    user = db.users.get_one(username, "username", any_case=True)
+    # Search "username" against "cn" attribute for Linux, "sAMAccountName" attribute
+    # for Windows and "mail" attribute for email addresses. The "mail" attribute is
+    # required to obtain the user's DN for the LDAP_ADMIN_FILTER.
+    user_entry = conn.search_s(
+        settings.LDAP_BASE_DN,
+        ldap.SCOPE_SUBTREE,
+        f"(&(objectClass=user)(|(cn={username})(sAMAccountName={username})(mail={username})))",
+        ["name", "mail"],
+    )
+    if not user_entry:
+        user_dn, user_attr = user_entry[0]
+    else:
+        return False
+
     if not user:
         user = db.users.create(
             {
                 "username": username,
                 "password": "LDAP",
-                # Fill the next two values with something unique and vaguely
-                # relevant
-                "full_name": username,
-                "email": username,
+                "full_name": user_attr["name"][0],
+                "email": user_attr["mail"][0],
                 "admin": False,
             },
         )
-
     if settings.LDAP_ADMIN_FILTER:
         user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
         db.users.update(user.id, user)
-
     return user
 
 
@@ -88,10 +110,8 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
 
     if not user:
         user = db.users.get_one(email, "username", any_case=True)
-
     if settings.LDAP_AUTH_ENABLED and (not user or user.password == "LDAP"):
         return user_from_ldap(db, email, password)
-
     if not user:
         # To prevent user enumeration we perform the verify_password computation to ensure
         # server side time is relatively constant and not vulnerable to timing attacks.
@@ -110,7 +130,6 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
             user_service.lock_user(user)
 
         return False
-
     return user
 
 

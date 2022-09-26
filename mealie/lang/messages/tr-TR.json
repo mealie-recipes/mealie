@@ -1,22 +1,22 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Beklenmedik bir hata oluştu"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Tarif adları benzersiz olmalıdır"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Bu eylemi gerçekleştirme izniniz yok",
+        "no-entry-found": "İstenen kaynak bulunamadı",
+        "integrity-error": "Veritabanı bütünlüğü hatası",
+        "username-conflict-error": "Bu kullanıcı adı zaten alınmış",
+        "email-conflict-error": "Bu e-posta adresi zaten kullanılmakta"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} oluşturuldu",
+        "generic-updated": ":{name} güncellendi",
+        "generic-created-with-url": "{name} oluşturuldu, {url}",
+        "generic-updated-with-url": "{name} güncellendi, {url}",
+        "generic-deleted": "{name} silindi"
     }
 }

@@ -23,7 +23,7 @@ step_text = """Recipe steps as well as other fields in the recipe page support m
 
 **Add a link**
 
-[My Link](https://beta.mealie.io)
+[My Link](https://demo.mealie.io)
 
 **Embed an image**
 

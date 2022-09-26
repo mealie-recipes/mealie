@@ -21,7 +21,7 @@
     "production": "Producció",
     "support": "Suport",
     "version": "Versió",
-    "unknown-version": "unknown"
+    "unknown-version": "desconegut"
   },
   "asset": {
     "assets": "Adjunts",
@@ -32,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Recepta",
     "show-assets": "Mostra els adjunts",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "S'ha produït un error enviant el formulari"
   },
   "category": {
     "categories": "Categories",
@@ -44,12 +44,12 @@
     "category-update-failed": "S'ha produït un error a l'actualitzar la categoria",
     "category-updated": "S'ha actualitzat la categoria",
     "uncategorized-count": "{count} sense categoritzar",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
-    "category": "Category"
+    "create-a-category": "Crea una categoria",
+    "category-name": "Nom de la categoria",
+    "category": "Categoria"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "URL de Apprise",
     "database": "Base de Dades",
     "delete-event": "Suprimiu l'esdeveniment",
     "new-notification-form-description": "Mealie utilitza la llibreria Apprise per a generar notificacions. Ofereix moltes opcions de serveis de notificació. A la seua wiki, disposeu de guies d'ús i informació per a crear l'URL al vostre servei. Si està disponible, al seleccionar el tipus de notificació, pot incloure funcions adicionals.",
@@ -67,7 +67,7 @@
     "close": "Tanca",
     "confirm": "Confirma",
     "confirm-delete-generic": "Esteu segur de voler suprimir-lo?",
-    "copied_message": "Copied!",
+    "copied_message": "S'ha copiat!",
     "create": "Crea",
     "created": "S'ha creat",
     "custom": "Personalitzat",
@@ -106,7 +106,7 @@
     "print": "Imprimiu",
     "random": "Aleatori",
     "rating": "Valoració",
-    "recent": "Recent",
+    "recent": "Recents",
     "recipe": "Recepta",
     "recipes": "Receptes",
     "rename-object": "Canvia de nom {0}",
@@ -136,26 +136,26 @@
     "view": "Mostra",
     "wednesday": "Dimecres",
     "yes": "Sí",
-    "foods": "Foods",
-    "units": "Units",
-    "back": "Back",
-    "next": "Next",
-    "toggle-view": "Toggle View",
-    "date": "Date",
+    "foods": "Aliments",
+    "units": "Unitats",
+    "back": "Torna",
+    "next": "Següent",
+    "toggle-view": "Commuta la visualització",
+    "date": "Data",
     "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
-    "run": "Run",
-    "menu": "Menu",
-    "a-name-is-required": "A Name is Required",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "organizer": "Organizer",
-    "transfer": "Transfer",
-    "copy": "Copy",
+    "owner": "Propietari",
+    "date-added": "Data d'alta",
+    "none": "Cap",
+    "run": "Executa",
+    "menu": "Menú",
+    "a-name-is-required": "És necessari escriure un nom",
+    "delete-with-name": "Elimina \"{name}\"",
+    "confirm-delete-generic-with-name": "Esteu segur de voler suprimir l'enllaç {name}?",
+    "organizer": "Organitzador",
+    "transfer": "Transfereix",
+    "copy": "Còpia",
     "color": "Color",
-    "timestamp": "Timestamp"
+    "timestamp": "Data i hora"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -177,8 +177,8 @@
     "user-group-created": "S'ha creat el grup de l'usuari",
     "user-group-creation-failed": "Ha fallat la creación del grup de l'usuari",
     "settings": {
-      "keep-my-recipes-private": "Keep My Recipes Private",
-      "keep-my-recipes-private-description": "Sets your group and all recipes defaults to private. You can always change this later."
+      "keep-my-recipes-private": "Manté les meues receptes privades",
+      "keep-my-recipes-private-description": "Posa el teu grup i totes les receptes com privades. Podeu canviar-lo després."
     }
   },
   "meal-plan": {
@@ -208,13 +208,13 @@
     "side": "Guarnició",
     "sides": "Guarnicions",
     "start-date": "Data d'inici",
-    "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "type-any": "Any",
-    "day-any": "Any"
+    "rule-day": "Regla per a Dia",
+    "meal-type": "Tipus de menjar",
+    "breakfast": "Desdejuni",
+    "lunch": "Menjar principal",
+    "dinner": "Sopar",
+    "type-any": "Qualsevol",
+    "day-any": "Qualsevol"
   },
   "migration": {
     "chowdown": {
@@ -234,7 +234,7 @@
     "error-details": "Mealie només pot importar els llocs web amb Id+json o microdata. Els principals llocs de receptes suporten aquesta estructura de les dades. Si no pot importar-les però hi ha dades json al registre, per favor, obriu un problema (issue) a GitHub amb l'URL i les dades. A GitHub només obriu problemes en anglés.",
     "error-title": "No hem pout trobar res",
     "from-url": "Importa una recepta",
-    "github-issues": "GitHub Issues",
+    "github-issues": "Incidència a Github",
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Ha de ser una URL vàlida",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copieu en la recepta. Cada línia serà tractada com un element de la llista",
@@ -244,14 +244,14 @@
     "upload-individual-zip-file": "Puja només un arxiu zip, exportat d'altre Mealie.",
     "url-form-hint": "Copia i enganxa l'enllaç del teu lloc web de receptes preferit",
     "view-scraped-data": "Visualitza les dades recuperades",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
-    "trim-prefix-description": "Trim first character from each line",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "trim-whitespace-description": "Elimina els espais a principi i final; i elimina les línies buides",
+    "trim-prefix-description": "Elimina el primer caràcter de cada línia",
+    "split-by-numbered-line-description": "Intenta separar per paràgrafs, utilitzant com a patró '1)' o '1.'",
+    "import-by-url": "Importa per URL",
+    "create-manually": "Crea una recepta manualment"
   },
   "page": {
-    "404-page-not-found": "Error 404 - No s'ha trobat la pàgina",
+    "404-page-not-found": "404 - Pàgina no trobada",
     "all-recipes": "Totes les receptes",
     "new-page-created": "S'ha creat una nova pàgina",
     "page": "Pàgina",
@@ -262,8 +262,8 @@
     "page-updated": "S'ha actualitzat la pàgina",
     "pages-update-failed": "S'ha produït un error a l'actualitzar les pàgines",
     "pages-updated": "S'han actualitzat les pàgines",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Pàgina no trobada",
+    "an-error-occurred": "S'ha produït un error"
   },
   "recipe": {
     "add-key": "Afegeix clau",
@@ -280,7 +280,7 @@
     "description": "Descripció",
     "disable-amount": "Oculta les quantitats",
     "disable-comments": "Oculta els comentaris",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Multiplica les racions",
     "fat-content": "Greixos",
     "fiber-content": "Fibra",
     "grams": "grams",
@@ -324,36 +324,37 @@
     "title": "Títol",
     "total-time": "Temps total",
     "unable-to-delete-recipe": "No s'ha pogut suprimir la recepta",
-    "no-recipe": "No Recipe",
-    "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
-    "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
-    "add-to-list": "Add to List",
-    "add-to-plan": "Add to Plan",
-    "recipe-added-to-list": "Recipe added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
-    "yield": "Yield",
-    "quantity": "Quantity",
-    "choose-unit": "Choose Unit",
-    "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Choose Food",
+    "no-recipe": "Cap recepta",
+    "locked-by-owner": "Bloquejat pel propietari",
+    "join-the-conversation": "Uneix-te a la conversa",
+    "add-recipe-to-mealplan": "Afegiu la recepta al menú",
+    "entry-type": "Tipus d'entrada",
+    "date-format-hint": "Format MM/DD/YYYY",
+    "add-to-list": "Afegiu a la llista",
+    "add-to-plan": "Afegiu al menú",
+    "recipe-added-to-list": "Recepta afegida a la llista",
+    "recipe-added-to-mealplan": "Recepta afegida al menú",
+    "failed-to-add-recipe-to-mealplan": "S'ha produït un error afegint la recepta al menú",
+    "yield": "Racions",
+    "quantity": "Quantitat",
+    "choose-unit": "Tria el tipus d'unitat",
+    "press-enter-to-create": "Premeu enter per a crear-lo",
+    "choose-food": "Tria un aliment",
     "notes": "Notes",
-    "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
-    "auto": "Auto",
-    "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked"
+    "toggle-section": "Nova secció",
+    "see-original-text": "Mostra el text original",
+    "original-text-with-value": "Text original: {originalText}",
+    "ingredient-linker": "Enllaça ingredients",
+    "linked-to-other-step": "Enllaça a un altre pas",
+    "auto": "Automàtic",
+    "cook-mode": "Mode \"cuinant\"",
+    "link-ingredients": "Enllaça amb els ingredients",
+    "merge-above": "Fusiona amb el de dalt",
+    "reset-scale": "Reinicialitza",
+    "decrease-scale-label": "Divideix",
+    "increase-scale-label": "Multiplica",
+    "locked": "Bloquejat",
+    "public-link": "Enllaç públic"
   },
   "search": {
     "advanced-search": "Cerca avançada",
@@ -367,7 +368,7 @@
     "search-mealie": "Cerca a Melie (prem /)",
     "search-placeholder": "Cerca...",
     "tag-filter": "Filtra per etiqueta",
-    "search-hint": "Press '/'"
+    "search-hint": "Prem '/'"
   },
   "settings": {
     "add-a-new-theme": "Afegiu un nou tema",
@@ -436,8 +437,8 @@
       "theme-saved": "S'ha desat el tema",
       "theme-updated": "S'ha actualitzat el tema",
       "warning": "Advertència",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Mode clar",
+      "dark-mode": "Mode fosc"
     },
     "token": {
       "active-tokens": "TOKENS ACTIUS",
@@ -464,7 +465,7 @@
       "webhook-url": "URL del webhook",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Nom del Webhook"
     }
   },
   "shopping-list": {
@@ -476,17 +477,17 @@
     "quantity": "Quantitat: {0}",
     "shopping-list": "Llista de la compra",
     "shopping-lists": "Llistes de la compra",
-    "food": "Food",
-    "note": "Note",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "food": "Aliments",
+    "note": "Nota",
+    "label": "Etiqueta",
+    "linked-item-warning": "Aquest element està enllaçat amb una o més receptes. Modificar les unitats o els aliments pot provocar resultats inesperats en afegir o elimina la recepta del llistat.",
+    "toggle-food": "Mostra el nom de l'aliment"
   },
   "sidebar": {
     "all-recipes": "Receptes",
-    "backups": "Backups",
+    "backups": "Còpies de seguretat",
     "categories": "Categories",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Llibres de cuina",
     "dashboard": "Consola",
     "home-page": "Inici",
     "manage-users": "Usuaris",
@@ -496,13 +497,13 @@
     "site-settings": "Configuració",
     "tags": "Etiquetes",
     "toolbox": "Eines",
-    "language": "Language",
-    "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
-    "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "language": "Idioma",
+    "maintenance": "Manteniment",
+    "background-tasks": "Tasques en segon pla",
+    "parser": "Intèrpret (parser)",
+    "developer": "Desenvolupador",
+    "cookbook": "Llibres de cuina",
+    "create-cookbook": "Crea un nou receptari de cuina"
   },
   "signup": {
     "error-signing-up": "S'ha produït un error al registrar-se",
@@ -523,16 +524,16 @@
     "tag-updated": "S'ha actualitzat l'etiqueta",
     "tags": "Etiquetes",
     "untagged-count": "{count} sense etiquetar",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Crea una etiqueta",
+    "tag-name": "Nom de l'etiqueta"
   },
   "tool": {
-    "tools": "Tools",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "tools": "Estris",
+    "on-hand": "Disponible",
+    "create-a-tool": "Crea l'estri",
+    "tool-name": "Nom de l'estri",
+    "create-new-tool": "Crea un nou estri",
+    "on-hand-checkbox-label": "Mostra com a disponible (marcat)"
   },
   "user": {
     "admin": "Administrador/a",
@@ -551,7 +552,7 @@
     "error-cannot-delete-super-user": "S'ha produït un error. El Super usuari no es pot suprimir!",
     "existing-password-does-not-match": "La contrasenya actual no coincideix",
     "full-name": "Nom sencer",
-    "invite-only": "Invite Only",
+    "invite-only": "Només per invitació",
     "link-id": "Id de l'enllaç",
     "link-name": "Nom de l'enllaç",
     "login": "Inicieu sessió",
@@ -564,8 +565,8 @@
     "password-reset-failed": "S'ha produït un error al restablir la contrasenya",
     "password-updated": "S'ha actualitzat la contrasenya",
     "password": "Contrasenya",
-    "password-strength": "Password is {strength}",
-    "register": "Register",
+    "password-strength": "Fortalesa de la contrasenya: {strength}",
+    "register": "Registreu-vos",
     "reset-password": "Restableix la contrasenya",
     "sign-in": "Inicia sessió",
     "total-mealplans": "Menús totals",
@@ -589,75 +590,75 @@
     "webhooks-enabled": "Webhooks habilitats",
     "you-are-not-allowed-to-create-a-user": "Vostè no està autoritzat per a crear un usuari",
     "you-are-not-allowed-to-delete-this-user": "Vostè no està autoritzat per a suprimir l'usuari",
-    "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
-    "favorite-recipes": "Favorite Recipes"
+    "enable-advanced-content": "Habilita el contingut avançat",
+    "enable-advanced-content-description": "Habilita les funcions avançades com ara multiplicar els ingredients, claus API, Webhooks i la gestió de les dades. Pots tornar a canviar aquesta configuració més tard",
+    "favorite-recipes": "Receptes preferides"
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "translated": "traduït",
+    "choose-language": "Trieu l'idioma",
+    "select-description": "Tria l'idioma de la interfície de Mealie. Només canvia per al teu usuari, no per als altres.",
+    "how-to-contribute-description": "N'hi ha textos sense traduir, la traducció no és correcta o no està disponible el teu idioma? {read-the-docs-link} per a més informació de com podeu contribuir.",
+    "read-the-docs": "Llegiu la documentació"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
+    "seed-data": "Dades d'exemple",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
-      "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "merge-dialog-text": "Combinant els aliments seleccionats, es fusionaran els dos aliments en un. El primer aliment serà eliminat i totes les referències s'actualitzaran a l'aliment resultant.",
+      "merge-food-example": "Combinant {food1} i {food2}",
+      "seed-dialog-text": "Afegeix a la base de dades els noms dels aliments en el vostre idioma. Açò crearà més de 200 aliments comuns per a què pugueu organitzar la vostra base de dades. Els noms dels aliments han estat traduïts gràcies a l'esforç de la comunitat.",
+      "seed-dialog-warning": "Ja teniu algunes dades a la vostra base. Aquesta acció no tindrà en compte duplicats i haureu d'eliminar-los manualment."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Afegeix a la base de dades les unitats més comunes en el vostre idioma."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma."
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
-    "group-details": "Group Details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "user-registration": "Registre d'usuari",
+    "join-a-group": "Uneix-te a un grup",
+    "create-a-new-group": "Crea un grup nou",
+    "provide-registration-token-description": "Per favor, proporciona el token associat al grup al qual voleu afegir-vos. Podeu obtindre'l d'un altre membre del grup.",
+    "group-details": "Detalls del grup",
+    "group-details-description": "Abans de crear un compte heu de crear un grup. Al grup només hi serà vostè, però després podeu convidar d'altres. Els membres d'un grup poden compartir menús, llistes de la compra, receptes i molt més!",
+    "use-seed-data": "Afegiu dades predeterminades",
+    "use-seed-data-description": "Mealie ve configurat amb una col·lecció d'aliments, unitats i etiquetes que poden ser emprades pel vostre grup per a ajudar-vos a organitzar les vostres receptes.",
+    "account-details": "Detalls del compte"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "group-name-is-taken": "Aquest nom ja existeix per a un altre grup",
+    "username-is-taken": "Aquest nom ja existeix per a un altre usuari",
+    "email-is-taken": "Aquest email ja existeix per a un altre usuari"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Exporta",
+    "file-name": "Nom del fitxer",
+    "size": "Mida",
+    "link-expires": "L’enllaç caduca"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Data de venciment",
+    "share-recipe": "Comparteix la recepta",
+    "default-30-days": "Per defecte, 30 dies",
+    "expires-at": "Expira el",
+    "recipe-link-copied-message": "S'ha copiat l'enllaç al porta-retalls"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "Funció experimental",
+    "description": "Aquesta pàgina conté funcions experimentals o a mig coure. Per favor, perdoneu el desordre.",
+    "issue-link-text": "Segueix el nostre progrés ací"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Quant."
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Vista prèvia en Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Versió de demostració: {version}",
+    "demo_username": "Nom d'usuari: {username}",
+    "demo_password": "Contrasenya: {password}"
   }
 }

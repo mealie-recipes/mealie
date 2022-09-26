@@ -353,7 +353,8 @@
     "reset-scale": "Maßstab zurücksetzen",
     "decrease-scale-label": "Maßstab um 1 verringern",
     "increase-scale-label": "Maßstab um 1 erhöhen",
-    "locked": "Gesperrt"
+    "locked": "Gesperrt",
+    "public-link": "Öffentlicher Link"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",

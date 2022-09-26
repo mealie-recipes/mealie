@@ -267,8 +267,8 @@ export default defineComponent({
     /** =============================================================
      * Meta Tags
      */
-    const metaData = useRecipeMeta(ref(props.recipe));
-    useMeta(metaData);
+    const { recipeMeta } = useRecipeMeta();
+    useMeta(recipeMeta(ref(props.recipe)));
 
     const { user } = usePageUser();
 

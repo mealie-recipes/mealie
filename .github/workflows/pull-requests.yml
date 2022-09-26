@@ -1,0 +1,15 @@
+name: PR CI
+
+on:
+  pull_request:
+    branches:
+      - mealie-next
+
+jobs:
+  backend-tests:
+    name: "Backend Server Tests"
+    uses: ./.github/workflows/partial-backend.yml
+
+  frontend-tests:
+    name: "Frontend and End-to-End Tests"
+    uses: ./.github/workflows/partial-frontend.yml

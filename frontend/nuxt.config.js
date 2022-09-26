@@ -6,9 +6,9 @@ export default {
       { hid: "og:type", property: "og:type", content: "website" },
       { hid: "og:title", property: "og:title", content: "Mealie" },
       { hid: "og:site_name", property: "og:site_name", content: "Mealie" },
-      { hid: "og:desc", property: "og:description", content: "Mealie is a recipe management app for your kitchen." },
+      { hid: "og:description", property: "og:description", content: "Mealie is a recipe management app for your kitchen." },
       {
-        hid: "og-image",
+        hid: "og:image",
         property: "og:image",
         content:
           "https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-512x512.png",

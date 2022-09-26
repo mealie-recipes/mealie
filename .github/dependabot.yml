@@ -30,3 +30,17 @@ updates:
       prefix: fix
       prefix-development: chore
       include: scope
+  - package-ecosystem: pip
+    directory: "/mealie"
+    schedule:
+      interval: daily
+      time: "00:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - hay-kot
+    assignees:
+      - hay-kot
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope

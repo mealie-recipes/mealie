@@ -803,10 +803,8 @@ export default defineComponent({
 
     // ===============================================================
     // Metadata
-
-    const metaData = useRecipeMeta(recipe);
-
-    useMeta(metaData);
+    const { recipeMeta } = useRecipeMeta();
+    useMeta(recipeMeta(recipe));
 
     const hasFoodOrUnit = computed(() => {
       if (!recipe.value) {
