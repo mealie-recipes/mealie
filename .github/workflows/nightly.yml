@@ -5,6 +5,10 @@ on:
     branches:
       - mealie-next
 
+concurrency:
+  group: nightly-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   backend-tests:
     name: "Backend Server Tests"
