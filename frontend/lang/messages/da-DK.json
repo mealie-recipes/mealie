@@ -249,7 +249,7 @@
     "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre",
     "import-by-url": "Importér opskrift fra en webside",
     "create-manually": "Opret opskrift manuelt",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Gør dette til opskriftsbillede"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -663,15 +663,15 @@
     "demo_password": "Adgangskode: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
-    "flatten": "Flatten regardless of original formating",
+    "ocr-editor": "Ocr redigering",
+    "selection-mode": "Markeringstilstand",
+    "pan-and-zoom-picture": "Panorer og zoom på billede",
+    "split-text": "Opdel tekst",
+    "preserve-line-breaks": "Bevar original linjeskift",
+    "split-by-block": "Opdelt efter tekstblok",
+    "flatten": "Udjævn på trods af original formatering",
     "help": {
-      "selection-mode": "Selection Mode (default)",
+      "selection-mode": "Markeringstilstand (standard)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
         "draw": "Draw a rectangle on the text you want to select.",
