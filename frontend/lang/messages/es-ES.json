@@ -663,7 +663,7 @@
     "demo_password": "Contraseña: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Editor de ROC",
+    "ocr-editor": "Editor de OCR",
     "selection-mode": "Selection mode",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",
