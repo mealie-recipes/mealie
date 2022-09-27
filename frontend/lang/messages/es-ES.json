@@ -249,7 +249,7 @@
     "split-by-numbered-line-description": "Intenta dividir un párrafo utilizando los patrones '1)' o '1.'",
     "import-by-url": "Importar una receta por URL",
     "create-manually": "Crear receta manualmente",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Haz de esta la imagen de la receta"
   },
   "page": {
     "404-page-not-found": "404 Página no encontrada",
@@ -663,7 +663,7 @@
     "demo_password": "Contraseña: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
+    "ocr-editor": "Editor de ROC",
     "selection-mode": "Selection mode",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",
